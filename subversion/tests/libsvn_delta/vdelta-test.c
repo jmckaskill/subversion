@@ -44,7 +44,7 @@ print_delta_window (svn_txdelta_window_t *window, FILE *stream)
           len += (length > 255 ? 2 : 1);
         }
     }
-
+  
   fprintf (stream, "(WINDOW %ld", (long) len);
   for (i = 0; i < window->num_ops; ++i)
     {
@@ -147,7 +147,7 @@ main (int argc, char **argv)
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../svn-dev.el")
  * end:
