@@ -6,9 +6,9 @@
 #
 # setup.py:  Distutils-based config/build/install for the Python bindings
 #
-#  Subversion is a tool for revision control.
+#  Subversion is a tool for revision control. 
 #  See http://subversion.tigris.org for more information.
-#
+#    
 # ====================================================================
 # Copyright (c) 2000-2003 CollabNet.  All rights reserved.
 #
@@ -113,7 +113,7 @@ class build_swig(build_ext.build_ext):
   def initialize_options(self):
     build_ext.build_ext.initialize_options(self)
     self.build_base = None
-
+    
   def finalize_options(self):
     build_ext.build_ext.finalize_options(self)
     self.set_undefined_options('build',
