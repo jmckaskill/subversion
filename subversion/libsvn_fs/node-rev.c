@@ -143,7 +143,7 @@ deltify (svn_fs_id_t *target_id,
     }
     else
       target_dkey = NULL;
-
+    
     /* Source property key. */
     source_pkey_skel = SVN_FS__NR_PROP_KEY (source_nr);
     if (source_pkey_skel->len != 0) {
@@ -200,7 +200,7 @@ deltify (svn_fs_id_t *target_id,
           svn_txdelta_free_window (window);
         }
     } while (window);
-
+  
 
   return SVN_NO_ERROR;
 }
@@ -236,7 +236,7 @@ svn_fs__delete_node_revision (svn_fs_t *fs,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
