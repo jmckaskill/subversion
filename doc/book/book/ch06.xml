@@ -10,7 +10,7 @@
   <!-- ================================================================= -->
   <sect1 id="svn-ch-6-sect-1">
     <title>Run-time Configuration Area</title>
-
+    
     <para>When you first run the <command>svn</command> command-line
       client, it creates a per-user <firstterm>configuration
       area</firstterm>.  On Unix-like systems, a
@@ -23,14 +23,14 @@
 
     <sect2 id="svn-ch-6-sect-1.1">
       <title>Proxies</title>
-
+      
       <para>At the time of writing, the configuration area only
         contains one item: a <filename>proxies</filename> file.  By
         setting values in this file, your Subversion client can
         operate through an http proxy.  (Read the file itself for
         details; it should be self-documenting.)</para><!-- ###TODO
       This is already inaccurate. -Fitz :) -->
-
+      
     </sect2>
 
     <sect2 id="svn-ch-6-sect-1.2">
@@ -48,7 +48,7 @@
 
     <sect2 id="svn-ch-6-sect-1.3">
       <title>Multiple config areas</title>
-
+      
       <para>On Unix, an administrator can create <quote>global</quote>
         Subversion preferences by creating and populating an
         <filename>/etc/subversion/</filename> area.  The per-user
@@ -108,7 +108,7 @@ etc.
     <!-- ###TODO This is the way this chapter was laid out in the
     outline. This pull from the handbook doesn't really follow that,
     so we need to decide what to do here.
-
+    
          1. General use (pset, pget, plist, pdel, pedit)
          2. EOL translation
          3. Keyword substitution
@@ -119,7 +119,7 @@ etc.
       this data as <firstterm>properties</firstterm>, and they can be
       thought of as collections of name/value pairs (hash-tables)
       attached to each item in your working copy.</para>
-
+  
     <para>To set or get a property on a file or directory, use the
       <command>svn propset</command> and <command>svn
       propget</command> commands.  To list all properties attached to
@@ -211,7 +211,7 @@ _M   foo.c
       to mention "we may do this" kind of stuff? -Fitz -->
 
     <sect2 id="svn-ch-6-sect-2.1">
-
+      
      <title>Special properties</title>
 
       <para>Subversion has no particular policy regarding properties;
@@ -220,10 +220,10 @@ _M   foo.c
         prefix for itself.  A number of special <quote>magic</quote>
         properties begin with this prefix.  We'll cover these features
         here.</para>
-
+      
       <sect3 id="svn-ch-6-sect-2.1.1">
         <title><literal>svn:executable</literal></title>
-
+        
         <para>This is a file-only property, and can be set to any
           value.  Its mere existence causes a file's permissions to be
           executable.</para>
@@ -232,7 +232,7 @@ _M   foo.c
 
       <sect3 id="svn-ch-6-sect-2.1.2">
         <title><literal>svn:mime-type</literal></title>
-
+        
         <para>At the present time, Subversion examines the
           <literal>svn:mime-type</literal> property to decide if a
           file is text or binary.  If the file has no
@@ -308,7 +308,7 @@ Here is the latest report from the front lines.
 $LastChangedDate$
 Cumulus clouds are appearing more frequently as summer approaches.
         </screen>
-
+        
         <para>Subversion is able substitute the
           <literal>$LastChangedDate$</literal> string with the actual
           date in which this file last changed.  The keyword string is
@@ -385,7 +385,7 @@ Cumulus clouds are appearing more frequently as summer approaches.
           </varlistentry>
 
         </variablelist>
-
+        
         <para>To activate a keyword, or set of keywords, you merely
           need to set the <literal>svn:keywords</literal> property to
           a list of keywords you want replaced.  Keywords not listed
@@ -396,7 +396,7 @@ Cumulus clouds are appearing more frequently as summer approaches.
 $ svn propset svn:keywords "Date Author" foo.c
 property `svn:keywords' set on 'foo.c'
         </screen>
-
+        
         <para>And when you commit this property change, you'll
           discover that all occurrences of <literal>$Date$</literal>,
           <literal>$LastChangedDate$</literal>,
@@ -413,7 +413,7 @@ property `svn:keywords' set on 'foo.c'
           endings.  If a text file has either LF, CR, or CRLF endings,
           then those are the line endings that will exist on the file
           in both the repository and working copy.</para>
-
+        
         <para>But if developers are working on different platforms,
           line endings can sometimes become troublesome.  For example,
           if a Win32 developer and Unix developer took turns modifying
@@ -457,7 +457,7 @@ property `svn:keywords' set on 'foo.c'
   <!-- ================================================================= -->
   <sect1 id="svn-ch-6-sect-3">
     <title>Modules</title>
-
+    
     <para>Sometimes it's useful to construct a working copy that is
       made out of a number of different checkouts.  For example, you
       may want different sub-directories to come from different
@@ -513,7 +513,7 @@ Checked out revision 128.
     feature doesn't work as I expect just yet; when I run 'svn up' at the
     top of the wc, nothing happens in the external directory at all,
     because (I guess) it's not linked to the parent. -Ben -->
-
+    
   </sect1>
 
   <!-- ================================================================= -->
@@ -528,7 +528,7 @@ Checked out revision 128.
       <quote>vendor branch</quote>.  Subversion doesn't have a formal
       <quote>vendor branch</quote>, but it is sufficiently flexible
       that you can still do much the same thing.</para>
-
+    
     <para>The general procedure goes like this.  You create a top
       level directory (we'll use <filename>/vendor</filename>) to hold
       the vendor branches.  Then you import the third party code into
@@ -543,17 +543,17 @@ Checked out revision 128.
       example.</para>
 
     <para>First, the initial import.</para>
-
+    
     <screen>
       $ svn mkdir http://svnhost/repos/vendor/foobar
       $ svn import http://svnhost/repos/vendor/foobar ~/foobar-1.0 current
     </screen>
-
+    
     <para>Now we've got the current version of the foobar project in
       <filename>/vendor/foobar/current</filename>.  We make another
       copy of it so we can always refer to that version, and then copy
       it into the trunk so you can work on it.</para>
-
+    
     <screen>
       $ svn copy http://svnhost/repos/vendor/foobar/current    \
                  http://svnhost/repos/vendor/foobar/foobar-1.0 \
@@ -592,14 +592,14 @@ Checked out revision 128.
     <para>What happened? foobar 1.0 had a file called
       <filename>main.c</filename>.  This file was renamed to
       <filename>foobar.c</filename> in 1.1.  So your working-copy had
-      the old <filename>main.c</filename> which Subversion knew about,
-      and the new <filename>foobar.c</filename> which Subversion did
-      not know about.  You rename <filename>foobar.c</filename> to
-      <filename>main.c</filename> and <command>svn mv</command> it
-      back to the new name.  This way, Subversion will know that
-      <filename>foobar.c</filename> is a descendant of
-      <filename>main.c</filename>.  <filename>dead.c</filename> has
-      been removed in 1.1, and they have finally written some
+      the old <filename>main.c</filename> which Subversion knew about, 
+      and the new <filename>foobar.c</filename> which Subversion did 
+      not know about.  You rename <filename>foobar.c</filename> to 
+      <filename>main.c</filename> and <command>svn mv</command> it 
+      back to the new name.  This way, Subversion will know that 
+      <filename>foobar.c</filename> is a descendant of 
+      <filename>main.c</filename>.  <filename>dead.c</filename> has 
+      been removed in 1.1, and they have finally written some 
       documentation, so you add that.</para>
 
     <para>Next you copy <filename>/vendor/foobar/current</filename> to
@@ -626,7 +626,7 @@ Checked out revision 128.
       &hellip; # resolve all the conflicts between their changes and your changes
       $ svn commit -m `merging foobar 1.1 into trunk'
     </screen>
-
+    
     <para>There, you're done.  You now have a copy of foobar 1.1 with
       all your local changes merged into it in your tree.</para>
 
@@ -821,7 +821,7 @@ Checked out revision 128.
 </chapter>
 
 <!--
-local variables:
+local variables: 
 sgml-parent-document: ("book.xml" "chapter")
 end:
 -->
