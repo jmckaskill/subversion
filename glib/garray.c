@@ -21,10 +21,10 @@
  * Modified by the GLib Team and others 1997-1999.  See the AUTHORS
  * file for a list of people on the GLib Team.  See the ChangeLog
  * files for a list of changes.  These files are distributed with
- * GLib at ftp://ftp.gtk.org/pub/gtk/.
+ * GLib at ftp://ftp.gtk.org/pub/gtk/. 
  */
 
-/*
+/* 
  * MT safe
  */
 
@@ -137,8 +137,8 @@ g_array_insert_vals (GArray        *farray,
 
   g_array_maybe_expand (array, len);
 
-  g_memmove (array->data + array->elt_size * (len + index),
-	     array->data + array->elt_size * index,
+  g_memmove (array->data + array->elt_size * (len + index), 
+	     array->data + array->elt_size * index, 
 	     array->elt_size * (array->len - index));
 
   memcpy (array->data + array->elt_size * index, data, len * array->elt_size);
@@ -173,12 +173,12 @@ g_array_remove_index (GArray* farray,
   g_return_val_if_fail (index < array->len, NULL);
 
   if (index != array->len - 1)
-      g_memmove (array->data + array->elt_size * index,
-		 array->data + array->elt_size * (index + 1),
+      g_memmove (array->data + array->elt_size * index, 
+		 array->data + array->elt_size * (index + 1), 
 		 array->elt_size * (array->len - index - 1));
-
+  
   if (array->zero_terminated)
-    memset (array->data + array->elt_size * (array->len - 1), 0,
+    memset (array->data + array->elt_size * (array->len - 1), 0, 
 	    array->elt_size);
 
   array->len -= 1;
@@ -197,12 +197,12 @@ g_array_remove_index_fast (GArray* farray,
   g_return_val_if_fail (index < array->len, NULL);
 
   if (index != array->len - 1)
-    g_memmove (array->data + array->elt_size * index,
-	       array->data + array->elt_size * (array->len - 1),
+    g_memmove (array->data + array->elt_size * index, 
+	       array->data + array->elt_size * (array->len - 1), 
 	       array->elt_size);
-
+  
   if (array->zero_terminated)
-    memset (array->data + array->elt_size * (array->len - 1), 0,
+    memset (array->data + array->elt_size * (array->len - 1), 0, 
 	    array->elt_size);
 
   array->len -= 1;
@@ -312,7 +312,7 @@ g_ptr_array_maybe_expand (GRealPtrArray *array,
       else
 	array->pdata = g_new0 (gpointer, array->alloc);
 
-      memset (array->pdata + old_alloc, 0,
+      memset (array->pdata + old_alloc, 0, 
 	      sizeof (gpointer) * (array->alloc - old_alloc));
     }
 }
@@ -343,11 +343,11 @@ g_ptr_array_remove_index (GPtrArray* farray,
   g_return_val_if_fail (index < array->len, NULL);
 
   result = array->pdata[index];
-
+  
   if (index != array->len - 1)
-    g_memmove (array->pdata + index, array->pdata + index + 1,
+    g_memmove (array->pdata + index, array->pdata + index + 1, 
 	       sizeof (gpointer) * (array->len - index - 1));
-
+  
   array->pdata[array->len - 1] = NULL;
 
   array->len -= 1;
@@ -367,7 +367,7 @@ g_ptr_array_remove_index_fast (GPtrArray* farray,
   g_return_val_if_fail (index < array->len, NULL);
 
   result = array->pdata[index];
-
+  
   if (index != array->len - 1)
     array->pdata[index] = array->pdata[array->len - 1];
 
