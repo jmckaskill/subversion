@@ -34,11 +34,11 @@
 /* Store as keys in CHANGED the paths of all nodes at or below NODE
  * that show a significant change.  "Significant" means that the text
  * or properties of the node were changed, or that the node was added
- * or deleted.
+ * or deleted.  
  *
  * The key is allocated in POOL; the value is (void *) 'A', 'D', or
  * 'R', for added, deleted, or opened, respectively.
- *
+ * 
  * Standard practice is to call this on the root node of delta tree
  * generated from svn_repos_dir_delta() and its node accessor,
  * svn_repos_node_from_baton(), with PATH representing "/".
@@ -54,19 +54,19 @@ detect_changed (apr_hash_t *changed,
   /* Recurse sideways first. */
   if (node->sibling)
     detect_changed (changed, node->sibling, path, pool);
-
+    
   /* Then "enter" this node; but if its name is the empty string, then
      there's no need to extend path (and indeed, the behavior
      svn_path_add_component_nts is to strip the trailing slash even
      when the new path is "/", so we'd end up with "", which would
-     screw everything up anyway). */
+     screw everything up anyway). */ 
   if (node->name && *(node->name))
     down_path = svn_path_join (path, node->name, pool);
 
   /* Recurse downward before processing this node. */
   if (node->child)
     detect_changed (changed, node->child, down_path, pool);
-
+    
   /* Process this node.
      We register all differences except for directory opens that don't
      involve any prop mods, because those are the result from
@@ -171,8 +171,8 @@ svn_repos_get_logs (svn_repos_t *repos,
 
 #ifndef SVN_REPOS_ALLOW_LOG_WITH_PATHS
       discover_changed_paths = FALSE;
-#else
-      if ((this_rev > 0) &&
+#else      
+      if ((this_rev > 0) && 
           (discover_changed_paths || (paths && paths->nelts > 0)))
         {
           const svn_delta_edit_fns_t *editor;
@@ -180,7 +180,7 @@ svn_repos_get_logs (svn_repos_t *repos,
           void *edit_baton;
 
           changed_paths = apr_hash_make (subpool);
-
+          
           /* Use a dir_deltas run with the node editor between the
              current revision and its immediate predecessor to see
              what changed in this revision.
@@ -213,7 +213,7 @@ svn_repos_get_logs (svn_repos_t *repos,
                             date ? date->data : "",
                             message ? message->data : "",
                             subpool));
-
+      
       svn_pool_clear (subpool);
     }
 
@@ -224,7 +224,7 @@ svn_repos_get_logs (svn_repos_t *repos,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end:
