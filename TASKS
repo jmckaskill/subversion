@@ -40,7 +40,7 @@ to take something on.
 
 
 3. Make the working copy library actually use the vdelta code that has
-   been so patiently waiting.
+   been so patiently waiting. 
 
 
 4. Make the working copy library property handling code work.
