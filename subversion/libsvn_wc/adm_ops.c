@@ -91,7 +91,7 @@ svn_wc__ensure_uniform_revision (svn_string_t *dir_path,
       apr_size_t klen;
       void *val;
       svn_string_t *current_entry_name;
-      svn_wc_entry_t *current_entry;
+      svn_wc_entry_t *current_entry; 
       svn_string_t *full_entry_path;
 
       /* Get the next entry */
@@ -116,7 +116,7 @@ svn_wc__ensure_uniform_revision (svn_string_t *dir_path,
       if (((current_entry->kind == svn_node_file) || (! current_entry_name))
           && (current_entry->revision != revision))
         SVN_ERR (svn_wc_set_revision (cbaton, full_entry_path, revision));
-
+      
       /* If entry is a dir (and not `.'), recurse. */
       if ((current_entry->kind == svn_node_dir) && current_entry_name)
         SVN_ERR (svn_wc__ensure_uniform_revision (full_entry_path,
@@ -160,7 +160,7 @@ svn_wc_set_revision (void *baton,
   if (err)
     {
       /* (Ah, PATH must be a file.  So create a logfile in its
-         parent instead.) */
+         parent instead.) */      
       svn_path_split (path, &log_parent, &basename,
                       svn_path_local_style, pool);
       if (svn_path_is_empty (log_parent, svn_path_local_style))
@@ -193,7 +193,7 @@ svn_wc_set_revision (void *baton,
       bname = svn_string_create (SVN_WC_ENTRY_THIS_DIR, pool);
 
       SVN_ERR (svn_wc__entry_fold_sync (pdir, bname, new_revnum,
-                                        svn_node_none,
+                                        svn_node_none, 
                                         (SVN_WC_ENTRY_CLEAR_NAMED |
                                          SVN_WC_ENTRY_ADD),
                                         0, 0, pool, NULL, NULL));
@@ -206,20 +206,20 @@ svn_wc_set_revision (void *baton,
   svn_xml_make_open_tag (&logtag, pool, svn_xml_self_closing,
                          SVN_WC__LOG_COMMITTED,
                          SVN_WC__LOG_ATTR_NAME, basename,
-                         SVN_WC__LOG_ATTR_REVISION,
+                         SVN_WC__LOG_ATTR_REVISION, 
                          svn_string_create (revstr, pool),
                          NULL);
-
+      
   apr_err = apr_file_write_full (log_fp, logtag->data, logtag->len, NULL);
   if (apr_err)
     {
       apr_file_close (log_fp);
       return svn_error_createf (apr_err, 0, NULL, pool,
                                 "svn_wc_set_revision: "
-                                "error writing %s's log file",
+                                "error writing %s's log file", 
                                 path->data);
     }
-
+      
   SVN_ERR (svn_wc__close_adm_file (log_fp, log_parent, SVN_WC__ADM_LOG,
                                    TRUE, /* sync */
                                    pool));
@@ -227,7 +227,7 @@ svn_wc_set_revision (void *baton,
 
   /* Run the log file we just created. */
   SVN_ERR (svn_wc__run_log (log_parent, pool));
-
+            
   /* The client's commit routine will take care of removing all
      locks en masse. */
 
@@ -325,7 +325,7 @@ mark_tree (svn_string_t *dir, enum mark_tree_state state, apr_pool_t *pool)
       apr_size_t klen;
       void *val;
       svn_string_t *basename;
-      svn_wc_entry_t *entry;
+      svn_wc_entry_t *entry; 
 
       /* Get the next entry */
       apr_hash_this (hi, &key, &klen, &val);
@@ -336,7 +336,7 @@ mark_tree (svn_string_t *dir, enum mark_tree_state state, apr_pool_t *pool)
         {
           if (strcmp (basename->data, SVN_WC_ENTRY_THIS_DIR) != 0)
             {
-              svn_path_add_component (fullpath, basename,
+              svn_path_add_component (fullpath, basename, 
                                       svn_path_local_style);
               SVN_ERR (mark_tree (fullpath, state, subpool));
             }
@@ -346,7 +346,7 @@ mark_tree (svn_string_t *dir, enum mark_tree_state state, apr_pool_t *pool)
       switch (state)
         {
         case mark_tree_state_delete:
-          SVN_ERR (svn_wc__entry_fold_sync_intelligently
+          SVN_ERR (svn_wc__entry_fold_sync_intelligently 
                    (dir, basename, SVN_INVALID_REVNUM, svn_node_none,
                     SVN_WC_ENTRY_DELETE, 0, 0, pool, NULL, NULL));
           break;
@@ -395,8 +395,8 @@ svn_wc_delete (svn_string_t *path, apr_pool_t *pool)
   svn_path_split (path, &dir, &basename, svn_path_local_style, pool);
   if (svn_path_is_empty (dir, svn_path_local_style))
     svn_string_set (dir, ".");
-
-  SVN_ERR (svn_wc__entry_fold_sync_intelligently
+  
+  SVN_ERR (svn_wc__entry_fold_sync_intelligently 
            (dir, basename, SVN_INVALID_REVNUM, svn_node_none,
             SVN_WC_ENTRY_DELETE, 0, 0, pool, NULL, NULL));
 
@@ -418,18 +418,18 @@ svn_wc_add_directory (svn_string_t *dir, apr_pool_t *pool)
   if (svn_path_is_empty (parent_dir, svn_path_local_style))
     parent_dir = svn_string_create (".", pool);
   SVN_ERR (svn_wc_entry (&entry, parent_dir, pool));
-
+  
   /* Derive the ancestor path for our new addition here. */
   ancestor_path = svn_string_dup (entry->ancestor, pool);
   svn_path_add_component (ancestor_path, basename, svn_path_repos_style);
-
+  
   /* Make sure this new directory has an admistrative subdirectory
      created inside of it */
   SVN_ERR (svn_wc__ensure_adm (dir, ancestor_path, 0, pool));
 
   /* Now, add the entry for this directory to the parent_dir's entries
      file, marking it for addition. */
-  SVN_ERR (svn_wc__entry_fold_sync_intelligently
+  SVN_ERR (svn_wc__entry_fold_sync_intelligently 
            (parent_dir, basename, 0, svn_node_dir, SVN_WC_ENTRY_ADD,
             0, 0, pool, NULL, NULL));
 
@@ -450,7 +450,7 @@ svn_wc_add_file (svn_string_t *file, apr_pool_t *pool)
 
   svn_path_split (file, &dir, &basename, svn_path_local_style, pool);
 
-  SVN_ERR (svn_wc__entry_fold_sync_intelligently
+  SVN_ERR (svn_wc__entry_fold_sync_intelligently 
            (dir, basename, 0, svn_node_file, SVN_WC_ENTRY_ADD,
             0, 0, pool, NULL, NULL));
 
@@ -459,7 +459,7 @@ svn_wc_add_file (svn_string_t *file, apr_pool_t *pool)
 
 
 svn_error_t *
-svn_wc_unadd (svn_string_t *path,
+svn_wc_unadd (svn_string_t *path, 
               apr_pool_t *pool)
 {
   svn_wc_entry_t *entry;
@@ -479,7 +479,7 @@ svn_wc_unadd (svn_string_t *path,
   svn_path_split (path, &dir, &basename, svn_path_local_style, pool);
   if (svn_path_is_empty (dir, svn_path_local_style))
     svn_string_set (dir, ".");
-
+  
   SVN_ERR (svn_wc__entry_fold_sync
            (dir, basename, SVN_INVALID_REVNUM, svn_node_none,
             SVN_WC_ENTRY_CLEAR_NAMED | SVN_WC_ENTRY_ADD,
@@ -493,7 +493,7 @@ svn_wc_unadd (svn_string_t *path,
    represents a directory, un-mark the entire tree under PATH for
    deletion.  */
 svn_error_t *
-svn_wc_undelete (svn_string_t *path,
+svn_wc_undelete (svn_string_t *path, 
                  svn_boolean_t recursive,
                  apr_pool_t *pool)
 {
@@ -515,7 +515,7 @@ svn_wc_get_pristine_copy_path (svn_string_t *path,
 
 
 svn_error_t *
-svn_wc_remove_from_revision_control (svn_string_t *path,
+svn_wc_remove_from_revision_control (svn_string_t *path, 
                                      svn_string_t *name,
                                      svn_boolean_t destroy_wf,
                                      apr_pool_t *pool)
@@ -530,7 +530,7 @@ svn_wc_remove_from_revision_control (svn_string_t *path,
 
   /* NAME is either a file's basename or SVN_WC_ENTRY_THIS_DIR. */
   is_file = (strcmp (name->data, SVN_WC_ENTRY_THIS_DIR)) ? TRUE : FALSE;
-
+      
   if (is_file)
     {
       if (destroy_wf)
@@ -578,11 +578,11 @@ svn_wc_remove_from_revision_control (svn_string_t *path,
                       svn_path_local_style, pool);
       SVN_ERR (svn_wc_entries_read (&entries, parent_dir, pool));
       svn_wc__entry_remove (entries, basename);
-      SVN_ERR (svn_wc__entries_write (entries, parent_dir, pool));
-
+      SVN_ERR (svn_wc__entries_write (entries, parent_dir, pool));      
+      
       /* Recurse on each file and dir entry. */
       SVN_ERR (svn_wc_entries_read (&entries, path, subpool));
-
+      
       for (hi = apr_hash_first (entries); hi;
            hi = apr_hash_next (hi))
         {
@@ -590,8 +590,8 @@ svn_wc_remove_from_revision_control (svn_string_t *path,
           apr_size_t klen;
           void *val;
           svn_string_t *current_entry_name;
-          svn_wc_entry_t *current_entry;
-
+          svn_wc_entry_t *current_entry; 
+          
           apr_hash_this (hi, &key, &klen, &val);
           current_entry = (svn_wc_entry_t *) val;
           if (! strcmp ((const char *)key, SVN_WC_ENTRY_THIS_DIR))
@@ -631,7 +631,7 @@ svn_wc_remove_from_revision_control (svn_string_t *path,
       /* Remove the entire administrative SVN area, thereby removing
          _this_ dir from revision control too. */
       SVN_ERR (svn_wc__adm_destroy (path, subpool));
-
+      
       /* If caller wants us to recursively nuke everything on disk, go
          ahead, provided that there are no dangling local-mod files
          below */
@@ -659,7 +659,7 @@ svn_wc_remove_from_revision_control (svn_string_t *path,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
