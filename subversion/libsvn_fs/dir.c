@@ -24,5 +24,5 @@ svn_fs_open_node (svn_fs_node_t **child_p,
 		  const char *path,
 		  apr_pool_t *pool)
 {
-
+  
 }
