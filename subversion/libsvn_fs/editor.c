@@ -59,7 +59,7 @@ begin_edit (void *edit_baton, void **root_baton)
   db->parent = NULL;
   db->name = svn_string_create ("", eb->pool);
 
-
+  
 
   *root_baton = db;
   return SVN_NO_ERROR;
@@ -82,7 +82,7 @@ add_directory (svn_string_t *name,
 {
   struct dir_baton *pb = parent_baton;
   struct dir_baton *db = apr_pcalloc (pb->edit_baton->pool, sizeof (*db));
-
+  
   db->parent = pb;
   db->edit_baton = pb->edit_baton;
   db->name = svn_string_dup (name, pb->edit_baton->pool);
@@ -101,7 +101,7 @@ replace_directory (svn_string_t *name,
 {
   struct dir_baton *pb = parent_baton;
   struct dir_baton *db = apr_pcalloc (pb->edit_baton->pool, sizeof (*db));
-
+  
   db->parent = pb;
   db->edit_baton = pb->edit_baton;
   db->name = svn_string_dup (name, pb->edit_baton->pool);
@@ -249,13 +249,13 @@ svn_fs_get_editor (svn_delta_edit_fns_t **editor,
 
   *edit_baton = eb;
   *editor = e;
-
+  
   return SVN_NO_ERROR;
 }
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
