@@ -54,12 +54,12 @@
 /* Return an SVN error for status ERR, using VERB and PATH to describe
    the error, and allocating the svn_error_t in POOL.  */
 static svn_error_t *
-translate_err (apr_status_t err,
-               const char *verb,
+translate_err (apr_status_t err, 
+               const char *verb, 
                const char *path,
                apr_pool_t *pool)
 {
-  return svn_error_createf
+  return svn_error_createf 
     (err, 0, NULL, pool,
      "svn_wc_copy_and_translate: error %s `%s'", verb, path);
 }
@@ -185,9 +185,9 @@ translate_keyword_subst (char *buf,
         }
       return TRUE;
     }
-
+  
   return FALSE;
-}
+}                         
 
 /* Parse BUF (whose length is *LEN) for Subversion keywords.  If a
    keyword is found, optionally perform the substitution on it in
@@ -228,13 +228,13 @@ translate_keyword (char *buf,
     {
       keyword = SVN_KEYWORD_REVISION_LONG;
       keyword_len = strlen (SVN_KEYWORD_REVISION_LONG);
-      if (translate_keyword_subst (buf, len, keyword, keyword_len,
+      if (translate_keyword_subst (buf, len, keyword, keyword_len, 
                                    expand ? value : NULL))
         return TRUE;
 
       keyword = SVN_KEYWORD_REVISION_SHORT;
       keyword_len = strlen (SVN_KEYWORD_REVISION_SHORT);
-      if (translate_keyword_subst (buf, len, keyword, keyword_len,
+      if (translate_keyword_subst (buf, len, keyword, keyword_len, 
                                    expand ? value : NULL))
         return TRUE;
     }
@@ -244,13 +244,13 @@ translate_keyword (char *buf,
     {
       keyword = SVN_KEYWORD_DATE_LONG;
       keyword_len = strlen (SVN_KEYWORD_DATE_LONG);
-      if (translate_keyword_subst (buf, len, keyword, keyword_len,
+      if (translate_keyword_subst (buf, len, keyword, keyword_len, 
                                    expand ? value : NULL))
         return TRUE;
 
       keyword = SVN_KEYWORD_DATE_SHORT;
       keyword_len = strlen (SVN_KEYWORD_DATE_SHORT);
-      if (translate_keyword_subst (buf, len, keyword, keyword_len,
+      if (translate_keyword_subst (buf, len, keyword, keyword_len, 
                                    expand ? value : NULL))
         return TRUE;
     }
@@ -260,13 +260,13 @@ translate_keyword (char *buf,
     {
       keyword = SVN_KEYWORD_AUTHOR_LONG;
       keyword_len = strlen (SVN_KEYWORD_AUTHOR_LONG);
-      if (translate_keyword_subst (buf, len, keyword, keyword_len,
+      if (translate_keyword_subst (buf, len, keyword, keyword_len, 
                                    expand ? value : NULL))
         return TRUE;
 
       keyword = SVN_KEYWORD_AUTHOR_SHORT;
       keyword_len = strlen (SVN_KEYWORD_AUTHOR_SHORT);
-      if (translate_keyword_subst (buf, len, keyword, keyword_len,
+      if (translate_keyword_subst (buf, len, keyword, keyword_len, 
                                    expand ? value : NULL))
         return TRUE;
     }
@@ -276,13 +276,13 @@ translate_keyword (char *buf,
     {
       keyword = SVN_KEYWORD_URL_LONG;
       keyword_len = strlen (SVN_KEYWORD_URL_LONG);
-      if (translate_keyword_subst (buf, len, keyword, keyword_len,
+      if (translate_keyword_subst (buf, len, keyword, keyword_len, 
                                    expand ? value : NULL))
         return TRUE;
 
       keyword = SVN_KEYWORD_URL_SHORT;
       keyword_len = strlen (SVN_KEYWORD_URL_SHORT);
-      if (translate_keyword_subst (buf, len, keyword, keyword_len,
+      if (translate_keyword_subst (buf, len, keyword, keyword_len, 
                                    expand ? value : NULL))
         return TRUE;
     }
@@ -294,7 +294,7 @@ translate_keyword (char *buf,
 
 /* Translate NEWLINE_BUF (length of NEWLINE_LEN) to the newline format
    specified in EOL_STR (length of EOL_STR_LEN), and write the
-   translated thing to FILE (whose path is DST_PATH).
+   translated thing to FILE (whose path is DST_PATH).  
 
    SRC_FORMAT (length *SRC_FORMAT_LEN) is a cache of the first newline
    found while processing SRC_PATH.  If the current newline is not the
@@ -302,7 +302,7 @@ translate_keyword (char *buf,
    REPAIR is TRUE, ignore the inconsistency, else return an
    SVN_ERR_IO_INCONSISTENT_EOL error.  If we are examining the first
    newline in the file, copy it to {SRC_FORMAT, *SRC_FORMAT_LEN} to
-   use for later consistency checks.
+   use for later consistency checks.  
 
    Use POOL to allocate errors that may occur. */
 static svn_error_t *
@@ -327,7 +327,7 @@ translate_newline (const char *eol_str,
          we are NOT repairing the file, generate an error! */
       if ((! repair) &&
           ((*src_format_len != newline_len) ||
-           (strncmp (src_format, newline_buf, newline_len))))
+           (strncmp (src_format, newline_buf, newline_len)))) 
         return svn_error_create
           (SVN_ERR_IO_INCONSISTENT_EOL, 0, NULL, pool, src_path);
     }
@@ -354,19 +354,19 @@ svn_wc_keywords_differ (svn_wc_keywords_t *a,
 {
   if (((a == NULL) && (b == NULL)) /* no A or B */
       /* no A, and B has no contents */
-      || ((a == NULL)
+      || ((a == NULL) 
           && (b->revision == NULL)
           && (b->date == NULL)
           && (b->author == NULL)
           && (b->url == NULL))
       /* no B, and A has no contents */
-      || ((b == NULL)
+      || ((b == NULL) 
           && (a->revision == NULL)
           && (a->date == NULL)
           && (a->author == NULL)
           && (a->url == NULL))
       /* neither A nor B has any contents */
-      || ((a != NULL) && (b != NULL)
+      || ((a != NULL) && (b != NULL) 
           && (b->revision == NULL)
           && (b->date == NULL)
           && (b->author == NULL)
@@ -380,35 +380,35 @@ svn_wc_keywords_differ (svn_wc_keywords_t *a,
     }
   else if ((a == NULL) || (b == NULL))
     return TRUE;
-
+  
   /* Else both A and B have some keywords. */
-
+  
   if ((! a->revision) != (! b->revision))
     return TRUE;
   else if ((compare_values && (a->revision != NULL))
            && (strcmp (a->revision->data, b->revision->data) != 0))
     return TRUE;
-
+    
   if ((! a->date) != (! b->date))
     return TRUE;
   else if ((compare_values && (a->date != NULL))
            && (strcmp (a->date->data, b->date->data) != 0))
     return TRUE;
-
+    
   if ((! a->author) != (! b->author))
     return TRUE;
   else if ((compare_values && (a->author != NULL))
            && (strcmp (a->author->data, b->author->data) != 0))
     return TRUE;
-
+  
   if ((! a->url) != (! b->url))
     return TRUE;
   else if ((compare_values && (a->url != NULL))
            && (strcmp (a->url->data, b->url->data) != 0))
     return TRUE;
-
-  /* Else we never found a difference, so they must be the same. */
-
+  
+  /* Else we never found a difference, so they must be the same. */  
+  
   return FALSE;
 }
 
@@ -447,7 +447,7 @@ svn_wc_copy_and_translate (const char *src,
                            APR_OS_DEFAULT, pool);
   if (apr_err)
     return translate_err (apr_err, "opening", src, pool);
-
+  
   /* Open dest file. */
   apr_err
     = apr_file_open (&d, dst,
@@ -461,7 +461,7 @@ svn_wc_copy_and_translate (const char *src,
 
   /*** Any errors after this point require us to close the two files and
        remove DST. */
-
+  
   /* Copy bytes till the cows come home (or until one of them breaks a
      leg, at which point you should trot out to the range with your
      trusty sidearm, put her down, and consider steak dinners for the
@@ -493,13 +493,13 @@ svn_wc_copy_and_translate (const char *src,
                  buffer will need to be translated.  */
               if (newline_off)
                 {
-                  if ((err = translate_newline (eol_str, eol_str_len,
+                  if ((err = translate_newline (eol_str, eol_str_len, 
                                                 src_format, &src_format_len,
                                                 newline_buf, newline_off,
                                                 src, dst, d, repair, pool)))
                     goto cleanup;
                 }
-              if (((len = keyword_off)) &&
+              if (((len = keyword_off)) && 
                   ((err = translate_write (d, dst, keyword_buf, len, pool))))
                 goto cleanup;
 
@@ -536,7 +536,7 @@ svn_wc_copy_and_translate (const char *src,
              along. */
           if (newline_off)
             {
-              if ((err = translate_newline (eol_str, eol_str_len,
+              if ((err = translate_newline (eol_str, eol_str_len, 
                                             src_format, &src_format_len,
                                             newline_buf, newline_off,
                                             src, dst, d, repair, pool)))
@@ -579,7 +579,7 @@ svn_wc_copy_and_translate (const char *src,
                  "terminating `$'" become a "beginning `$'" now.  That
                  means, write out all the keyword buffer (except for
                  this `$') and reset it to hold only this `$'.  */
-              if ((err = translate_write (d, dst, keyword_buf,
+              if ((err = translate_write (d, dst, keyword_buf, 
                                           keyword_off - 1, pool)))
                 goto cleanup;
               keyword_buf[0] = c;
@@ -624,7 +624,7 @@ svn_wc_copy_and_translate (const char *src,
               if ((c0 == c) || ((c0 == '\n') && (c == '\r')))
                 {
                   /* The first '\n' (or '\r') is the newline... */
-                  if ((err = translate_newline (eol_str, eol_str_len,
+                  if ((err = translate_newline (eol_str, eol_str_len, 
                                                 src_format, &src_format_len,
                                                 newline_buf, 1,
                                                 src, dst, d, repair, pool)))
@@ -635,11 +635,11 @@ svn_wc_copy_and_translate (const char *src,
                   newline_buf[0] = c;
                   newline_off = 1;
                 }
-              else
+              else 
                 {
                   /* '\r\n' is our newline */
                   newline_buf[newline_off++] = c;
-                  if ((err = translate_newline (eol_str, eol_str_len,
+                  if ((err = translate_newline (eol_str, eol_str_len, 
                                                 src_format, &src_format_len,
                                                 newline_buf, 2,
                                                 src, dst, d, repair, pool)))
@@ -655,7 +655,7 @@ svn_wc_copy_and_translate (const char *src,
           if (keyword_off)
             {
               keyword_buf[keyword_off++] = c;
-
+              
               /* If we've reached the end of this buffer without
                  finding a terminating '$', we just flush the buffer
                  and continue on. */
@@ -674,7 +674,7 @@ svn_wc_copy_and_translate (const char *src,
              character.  */
           if (newline_off)
             {
-              if ((err = translate_newline (eol_str, eol_str_len,
+              if ((err = translate_newline (eol_str, eol_str_len, 
                                             src_format, &src_format_len,
                                             newline_buf, newline_off,
                                             src, dst, d, repair, pool)))
@@ -685,7 +685,7 @@ svn_wc_copy_and_translate (const char *src,
           /* Write out this character. */
           if ((err = translate_write (d, dst, (const void *)&c, 1, pool)))
             goto cleanup;
-          break;
+          break; 
 
         } /* switch (c) */
     }
@@ -710,7 +710,7 @@ svn_wc_translated_file (svn_stringbuf_t **xlated_p,
   enum svn_wc__eol_style style;
   const char *eol;
   svn_wc_keywords_t *keywords;
-
+  
   SVN_ERR (svn_wc__get_eol_style (&style, &eol, vfile->data, pool));
   SVN_ERR (svn_wc__get_keywords (&keywords,
                                  vfile->data, NULL, pool));
@@ -729,17 +729,17 @@ svn_wc_translated_file (svn_stringbuf_t **xlated_p,
       /* First, reserve a tmp file name. */
 
       svn_path_split (vfile, &tmp_dir, &tmp_vfile, pool);
-
+      
       tmp_vfile = svn_wc__adm_path (tmp_dir, 1, pool,
                                     tmp_vfile->data, NULL);
-
+      
       SVN_ERR (svn_io_open_unique_file (&ignored,
                                         &tmp_vfile,
                                         tmp_vfile->data,
                                         SVN_WC__TMP_EXT,
                                         FALSE,
                                         pool));
-
+      
       /* We were just reserving the name and don't actually need the
          filehandle, so close immediately. */
       apr_err = apr_file_close (ignored);
@@ -747,7 +747,7 @@ svn_wc_translated_file (svn_stringbuf_t **xlated_p,
         return svn_error_createf
           (0, 0, NULL, pool,
            "svn_wc_translated_file: unable to close %s", tmp_vfile->data);
-
+      
       if (style == svn_wc__eol_style_fixed)
         {
           SVN_ERR (svn_wc_copy_and_translate (vfile->data,
@@ -823,7 +823,7 @@ svn_wc__get_eol_style (enum svn_wc__eol_style *style,
 }
 
 
-void
+void 
 svn_wc__eol_style_from_value (enum svn_wc__eol_style *style,
                               const char **eol,
                               const char *value)
@@ -879,7 +879,7 @@ svn_wc__eol_value_from_string (const char **value, const char *eol)
 
 
 /* Helper for svn_wc__get_keywords().
-
+   
    If KEYWORD is a valid keyword, look up its value in ENTRY, fill in
    the appropriate field in KEYWORDS with that value (allocated in
    POOL), and set *IS_VALID_P to TRUE.  If the value is not available,
@@ -922,7 +922,7 @@ expand_keyword (svn_wc_keywords_t *keywords,
            || (! strcasecmp (keyword, SVN_KEYWORD_DATE_SHORT)))
     {
       if (entry && (entry->cmt_date))
-        keywords->date = svn_wc__friendly_date
+        keywords->date = svn_wc__friendly_date 
           (svn_time_to_nts (entry->cmt_date, pool), pool);
       else
         keywords->date = svn_string_create ("", pool);
@@ -945,7 +945,7 @@ expand_keyword (svn_wc_keywords_t *keywords,
     }
   else
     *is_valid_p = FALSE;
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -974,7 +974,7 @@ svn_wc__get_keywords (svn_wc_keywords_t **keywords,
       const svn_string_t *propval;
 
       SVN_ERR (svn_wc_prop_get (&propval, SVN_PROP_KEYWORDS, path, pool));
-
+      
       list = propval ? propval->data : NULL;
     }
   else
@@ -988,37 +988,37 @@ svn_wc__get_keywords (svn_wc_keywords_t **keywords,
   if (list == NULL)
     return SVN_NO_ERROR;
 
-  do
+  do 
     {
       /* Find the start of a word by skipping past whitespace. */
       while ((list[offset] != '\0') && (apr_isspace (list[offset])))
         offset++;
-
+    
       /* Hit either a non-whitespace or NULL char. */
 
       if (list[offset] != '\0') /* found non-whitespace char */
         {
           svn_boolean_t is_valid;
           int word_start, word_end;
-
+          
           word_start = offset;
-
+          
           /* Find the end of the word by skipping non-whitespace chars */
           while ((list[offset] != '\0') && (! apr_isspace (list[offset])))
             offset++;
-
+          
           /* Hit either a whitespace or NULL char.  Either way, it's the
              end of the word. */
           word_end = offset;
-
+          
           /* Make a temporary copy of the word */
           found_word = svn_stringbuf_ncreate (list + word_start,
                                               (word_end - word_start),
                                               pool);
-
+          
           /* If we haven't already read the entry in, do so now. */
           if (! entry)
-            SVN_ERR (svn_wc_entry (&entry,
+            SVN_ERR (svn_wc_entry (&entry, 
                                    svn_stringbuf_create (path, pool), pool));
 
           /* Now, try to expand the keyword. */
@@ -1027,7 +1027,7 @@ svn_wc__get_keywords (svn_wc_keywords_t **keywords,
           if (is_valid)
             got_one = TRUE;
         }
-
+      
     } while (list[offset] != '\0');
 
   if (got_one)
@@ -1035,7 +1035,7 @@ svn_wc__get_keywords (svn_wc_keywords_t **keywords,
       *keywords = apr_pcalloc (pool, sizeof (**keywords));
       memcpy (*keywords, &tmp_keywords, sizeof (**keywords));
     }
-
+      
   return SVN_NO_ERROR;
 }
 
