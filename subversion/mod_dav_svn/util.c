@@ -31,7 +31,7 @@ dav_error * dav_svn_convert_err(const svn_error_t *serr, int status,
 }
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
