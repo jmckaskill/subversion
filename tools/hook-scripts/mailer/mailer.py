@@ -490,7 +490,7 @@ class ChangeCollector(svn.delta.Editor):
   FILE = 'FILE'
 
   # BATON FORMAT: [path, base_path, base_rev]
-
+  
   def __init__(self, repos, rev_prev):
     self.repos = repos
     self.rev_prev = rev_prev
