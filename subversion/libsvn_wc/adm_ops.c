@@ -118,17 +118,17 @@ svn_wc_set_revision (void *baton,
                         svn_path_local_style, pool);
         break;
       }
-
+      
     case svn_node_dir:
       {
         log_parent = path;
         basename = svn_string_create (SVN_WC_ENTRY_THIS_DIR, pool);
         break;
       }
-
+      
     default:  /* probably svn_node_none */
       {
-        return
+        return 
           svn_error_createf (SVN_ERR_WC_ENTRY_NOT_FOUND, 0, NULL, pool,
                              "can't construct logfile for %s", path->data);
       }
@@ -137,14 +137,14 @@ svn_wc_set_revision (void *baton,
   SVN_ERR (svn_wc__open_adm_file (&log_fp, log_parent, SVN_WC__ADM_LOG,
                                   (APR_WRITE | APR_APPEND | APR_CREATE),
                                   pool));
-
+      
   svn_xml_make_open_tag (&logtag, pool, svn_xml_self_closing,
                          SVN_WC__LOG_COMMITTED,
                          SVN_WC__LOG_ATTR_NAME, basename,
-                         SVN_WC__LOG_ATTR_REVISION,
+                         SVN_WC__LOG_ATTR_REVISION, 
                          svn_string_create (revstr, pool),
                          NULL);
-
+      
 
   apr_err = apr_file_write_full (log_fp, logtag->data, logtag->len, NULL);
   if (apr_err)
@@ -152,10 +152,10 @@ svn_wc_set_revision (void *baton,
       apr_file_close (log_fp);
       return svn_error_createf (apr_err, 0, NULL, pool,
                                 "svn_wc_set_revision: "
-                                "error writing %s's log file",
+                                "error writing %s's log file", 
                                 path->data);
     }
-
+      
   SVN_ERR (svn_wc__close_adm_file (log_fp, log_parent, SVN_WC__ADM_LOG,
                                    TRUE, /* sync */
                                    pool));
@@ -163,7 +163,7 @@ svn_wc_set_revision (void *baton,
 
   /* Run the log file we just created. */
   SVN_ERR (svn_wc__run_log (log_parent, pool));
-
+            
   /* The client's commit routine will take care of removing all
      locks en masse. */
 
@@ -255,7 +255,7 @@ svn_wc_get_pristine_copy_path (svn_string_t *path,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
