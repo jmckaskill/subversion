@@ -2,32 +2,32 @@
  *
  * ================================================================
  * Copyright (c) 2000 Collab.Net.  All rights reserved.
- *
+ * 
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
  * met:
- *
+ * 
  * 1. Redistributions of source code must retain the above copyright
  * notice, this list of conditions and the following disclaimer.
- *
+ * 
  * 2. Redistributions in binary form must reproduce the above copyright
  * notice, this list of conditions and the following disclaimer in the
  * documentation and/or other materials provided with the distribution.
- *
+ * 
  * 3. The end-user documentation included with the redistribution, if
  * any, must include the following acknowlegement: "This product includes
  * software developed by Collab.Net (http://www.Collab.Net/)."
  * Alternately, this acknowlegement may appear in the software itself, if
  * and wherever such third-party acknowlegements normally appear.
- *
+ * 
  * 4. The hosted project names must not be used to endorse or promote
  * products derived from this software without prior written
  * permission. For written permission, please contact info@collab.net.
- *
+ * 
  * 5. Products derived from this software may not use the "Tigris" name
  * nor may "Tigris" appear in their names without prior written
  * permission of Collab.Net.
- *
+ * 
  * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
  * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -41,7 +41,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ====================================================================
- *
+ * 
  * This software consists of voluntary contributions made by many
  * individuals on behalf of Collab.Net.
  */
@@ -257,7 +257,7 @@ struct dirent_plist_baton {
 
   /* The editor for these changes.  */
   svn_delta_edit_fns_t *editor;
-
+  
   /* The baton for the directory whose entry's properties are being
      changed.  */
   void *dir_baton;
@@ -292,7 +292,7 @@ static svn_error_t *replace_from_scratch (struct context *c, void *dir_baton,
 
    Emit a replace_dir or replace_file as needed.  Choose an
    appropriate ancestor, or describe the tree from scratch.  */
-
+   
 static svn_error_t *
 replace (struct context *c, void *dir_baton,
 	 svn_fs_dir_t *source, svn_string_t *source_path,
@@ -306,7 +306,7 @@ replace (struct context *c, void *dir_baton,
   SVN_ERR (svn_fs_dir_entries (&source_entries, source));
 
   /* Find the closest relative to TARGET_ENTRY in SOURCE.
-
+     
      In principle, a replace operation can choose the ancestor from
      anywhere in the delta's whole source tree.  In this
      implementation, we only search SOURCE for possible ancestors.
@@ -341,7 +341,7 @@ replace (struct context *c, void *dir_baton,
   else
     /* We've found an ancestor; do a replace relative to that.  */
     SVN_ERR (replace_related (c, dir_baton,
-			      target, target_entry->name,
+			      target, target_entry->name, 
 			      source, source_path,
 			      source_entries[best]->name));
 
@@ -378,7 +378,7 @@ replace_from_scratch (struct context *c, void *dir_baton,
 
       SVN_ERR (c->editor->replace_directory (name, dir_baton,
 					     0, 0, &subdir_baton));
-      SVN_ERR (dir_from_scratch (c, subdir_baton,
+      SVN_ERR (dir_from_scratch (c, subdir_baton, 
 				 svn_fs_node_to_dir (new)));
       SVN_ERR (c->editor->close_directory (subdir_baton));
     }
@@ -568,7 +568,7 @@ file_from_scratch (struct context *c,
 
 
 /* Generate the appropriate change_file_prop calls to turn the properties
-   of ANCESTOR_FILE into those of TARGET_FILE.  If ANCESTOR_FILE is zero,
+   of ANCESTOR_FILE into those of TARGET_FILE.  If ANCESTOR_FILE is zero, 
    treat it as if it were a file with no properties.  */
 static svn_error_t *
 delta_file_props (struct context *c,
