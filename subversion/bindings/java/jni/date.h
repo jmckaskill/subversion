@@ -24,14 +24,14 @@
 #include <jni.h>
 
 /* functions */
-jobject
+jobject 
 date__create(JNIEnv *env, jboolean *hasException, long time);
 
 #endif
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../svn-dev.el")
- * end:
+ * end: 
  */
 
 
