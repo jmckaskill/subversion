@@ -185,7 +185,7 @@ AC_DEFUN(SVN_LIB_BERKELEY_DB_TRY,
     svn_apu_bdb_lib="`$apu_config --libs | sed -e 's/.*\(-ldb[^ ]*\).*/\1/'`"
     changequote([, ])dnl
 
-    CPPFLAGS="$SVN_APRUTIL_INCLUDES $CPPFLAGS"
+    CPPFLAGS="$SVN_APRUTIL_INCLUDES $CPPFLAGS" 
     LIBS="`$apu_config --ldflags` $svn_apu_bdb_lib $LIBS"
 
     AC_TRY_RUN(
