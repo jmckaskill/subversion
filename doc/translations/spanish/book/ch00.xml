@@ -2,9 +2,9 @@
 <!-- originated from English revision 10817 -->
 <preface id="svn-ch-0">
   <title>Prefacio</title>
-
+  
   <simplesect>
-
+    
     <blockquote>
       <para><quote>Si C le da suficiente cuerda para ahorcarse, piense
         en Subversion como una especie de almacen de cuerdas.</quote>
@@ -62,7 +62,7 @@
   <sect1 id="svn-ch-0-sect-1">
 
     <title>Audiencia</title><!-- TODO ¿quizás mejor "Lectores"? -->
-
+    
     <para>Este libro está orientado a los usuarios que saben de
       ordenadores <!-- TODO vaya traducción más horrible de
       computer-literate --> y quieren usar Subversion para gestionar
@@ -93,7 +93,7 @@
       cambios en cualquier tipo de información: imágenes, música, bases
       de datos, documentación, etc. Para Subversion, todos los datos no
       son más que datos.</para>
-
+    
     <para>A pesar de que este libro asume que el lector nunca ha usado un
       sistema de control de versiones, también hemos intentado facilitar
       a los usuarios de CVS realizar un cambio indoloro a Subversion.
@@ -186,15 +186,15 @@
   <!-- ================================================================= -->
   <sect1 id="svn-ch-0-sect-3">
     <title>Convenciones empleadas en este libro</title>
-
+    
     <para>Esta sección cubre las convenciones empleadas en este libro.</para>
-
+    
     <!-- ***************************************************************** -->
     <sect2 id="svn-ch-0-sect3.1">
       <title>Convenciones tipográficas</title>
-
+      
       <variablelist>
-
+        
         <varlistentry>
           <term><command>Anchura constante</command></term>
           <listitem>
@@ -216,7 +216,7 @@
             <para>Usada para nombres de ficheros y directorios</para>
           </listitem>
         </varlistentry>
-
+        
       </variablelist>
 
     </sect2>
@@ -260,7 +260,7 @@
       contenidos:</para>
 
       <variablelist>
-
+        
         <varlistentry>
           <term>Capítulo 1, <emphasis>Introducción</emphasis></term>
           <listitem>
@@ -433,7 +433,7 @@
           en la comunidad.</para>
       </listitem>
     </itemizedlist>
-
+    
     <para>Puede enviar comentarios y preguntas sobre la publicación a
       O'Reilly aquí: ###insert boilerplate.</para>
 
@@ -499,7 +499,7 @@
         <!-- TODO eso de perfect counterbalance suena poco "romántico",
         jeje. Quizás se pueda hacer un apaño. Preguntar a alguna mujer de
         verdad, a ver qué opinan ellas de la cita.-->
-
+      
       <para>Gracias a mi familia adquirida por su sincero apoyo, a pesar
         de no tener interés real en el tema. (Ya sabe, aquellos que cuando
         dicen, <quote>Ooh, ¿estás escribiendo un libro?</quote>, y les
@@ -577,7 +577,7 @@
 </preface>
 
 <!--
-local variables:
+local variables: 
 sgml-parent-document: ("book.xml" "chapter")
 end:
 -->
