@@ -80,7 +80,7 @@ test_replace_root (void *edit_baton,
   d->path = (svn_stringbuf_t *) svn_stringbuf_dup (eb->root_path, eb->pool);
   d->edit_baton = eb;
   *root_baton = d;
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -109,13 +109,13 @@ add_or_replace_dir (svn_stringbuf_t *name,
                                              != base_revision we
                                              already have? */
     {
-      SVN_ERR (svn_fs_revision_root (&rev_root, pd->edit_baton->fs,
+      SVN_ERR (svn_fs_revision_root (&rev_root, pd->edit_baton->fs, 
                                      base_revision,
-                                     pd->edit_baton->pool));
+                                     pd->edit_baton->pool));   
     }
 
   /* If this is a replace or an add with history, do a copy. */
-  if (rev_root)
+  if (rev_root) 
     {
       return svn_fs_copy (rev_root,
                           (base_path ? base_path->data : d->path->data),
@@ -189,9 +189,9 @@ add_or_replace_file (svn_stringbuf_t *name,
                                              != base_revision we
                                              already have? */
     {
-      SVN_ERR (svn_fs_revision_root (&rev_root, pd->edit_baton->fs,
-                                     base_revision,
-                                     pd->edit_baton->pool));
+      SVN_ERR (svn_fs_revision_root (&rev_root, pd->edit_baton->fs, 
+                                     base_revision, 
+                                     pd->edit_baton->pool)); 
     }
 
   /* If this is a replace or an add with history, do a copy. */
@@ -254,7 +254,7 @@ test_apply_textdelta (void *file_baton,
   struct file_baton *fb = (struct file_baton *) file_baton;
 
   return svn_fs_apply_textdelta (handler, handler_baton,
-                                 fb->dir_baton->edit_baton->txn_root,
+                                 fb->dir_baton->edit_baton->txn_root, 
                                  fb->path->data,
                                  fb->dir_baton->edit_baton->pool);
 }
@@ -330,7 +330,7 @@ dir_delta_get_editor (const svn_delta_edit_fns_t **editor,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../svn-dev.el")
  * end:
