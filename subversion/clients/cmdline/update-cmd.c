@@ -58,7 +58,7 @@ svn_cl__update (apr_getopt_t *os,
 
   for (i = 0; i < condensed_targets->nelts; i++)
     {
-      svn_stringbuf_t *target =
+      svn_stringbuf_t *target = 
         ((svn_stringbuf_t **) (condensed_targets->elts))[i];
       const svn_delta_edit_fns_t *trace_editor;
       void *trace_edit_baton;
@@ -90,8 +90,8 @@ svn_cl__update (apr_getopt_t *os,
 }
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../svn-dev.el")
- * end:
+ * end: 
  */
