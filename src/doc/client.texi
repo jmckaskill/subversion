@@ -37,8 +37,8 @@ TODO: this should go somewhere else in the document
 
    "vdelta", "vdiff"   ===> you know what this is
 
-   "pdelta", "pdiff"   ===> deltas for property lists.
-                            May include vdeltas.
+   "pdelta", "pdiff"   ===> deltas for property lists.  
+                            May include vdeltas. 
 
    "delta"             ===> the lispy encapsulating data structure.
                             May include vdeltas and pdeltas.
@@ -90,7 +90,7 @@ and pdiffs, and placing them into the skelta.
 
 @item delta wc_make_delta (path1, ...)
 
-Equivalent to
+Equivalent to 
 
 @example
    wc_fill_skelta (make_skelta (path1, ...))
@@ -190,7 +190,7 @@ Return the delta between the two trees.
 is included for completeness' sake, but I think we can implement
 everything without it.)
 
-@item diff ra_get_diff (repos, ver1, path1, ver2, path2,
+@item diff ra_get_diff (repos, ver1, path1, ver2, path2, 
                      [ver3, path3, ver4, path4, ...])
 
 Return a text diff between versions in the repository.
