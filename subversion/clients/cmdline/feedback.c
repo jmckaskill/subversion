@@ -39,7 +39,7 @@ struct notify_baton
 };
 
 
-static void
+static void 
 notify_added (void *baton, const char *path)
 {
   struct notify_baton *nb = (struct notify_baton *) baton;
@@ -63,7 +63,7 @@ notify_added (void *baton, const char *path)
       printf ("WARNING: apparently failed to add %s\n", path);
       goto done;
     }
-
+           
   if (entry->kind == svn_node_file)
     {
       const svn_string_t *value;
@@ -95,22 +95,22 @@ notify_commit_postfix_txdelta (void *baton,
                                const char *path)
 {
   struct notify_baton *nb = (struct notify_baton *) baton;
-
+  
   if (! nb->sent_first_txdelta)
     {
       printf ("Transmitting file data ");
       nb->sent_first_txdelta = TRUE;
     }
-
+  
   printf (".");
   fflush (stdout);
 }
 
 
-void
-svn_cl__notify_func (void *baton,
+void 
+svn_cl__notify_func (void *baton, 
                      const char *path,
-                     svn_wc_notify_action_t action,
+                     svn_wc_notify_action_t action, 
                      svn_node_kind_t kind,
                      svn_wc_notify_state_t text_state,
                      svn_wc_notify_state_t prop_state,
@@ -234,7 +234,7 @@ update_notify (void *baton,
       /* note: maybe fell thru from above case */
 
       ub->received_some_change = TRUE;
-
+      
       if ((kind == svn_node_file) && (action == svn_wc_notify_update))
         {
           if (text_state == svn_wc_notify_state_conflicted)
@@ -246,19 +246,19 @@ update_notify (void *baton,
               statchar_buf[0] = 'U';
             }
         }
-
+      
       if (prop_state == svn_wc_notify_state_conflicted)
         statchar_buf[1] = 'C';
       else if (prop_state == svn_wc_notify_state_merged)
         statchar_buf[1] = 'G';
       else if (prop_state == svn_wc_notify_state_modified)
         statchar_buf[1] = 'U';
-
+      
       if (! ((kind == svn_node_dir)
              && (prop_state == svn_wc_notify_state_unknown)
              && (prop_state == svn_wc_notify_state_unchanged)))
         printf ("%s %s\n", statchar_buf, path);
-
+      
       break;
 
     case svn_wc_notify_update_completed:
@@ -318,8 +318,8 @@ svn_cl__get_checkout_notifier (svn_wc_notify_func_t *notify_func_p,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../tools/dev/svn-dev.el")
- * end:
+ * end: 
  */
