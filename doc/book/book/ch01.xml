@@ -25,7 +25,7 @@
   <sect1 id="svn-ch-1-sect-1">
 
     <title>What is Subversion?</title>
-
+      
     <para>Subversion is a free/open-source version control system.
       That is, Subversion manages files and directories over time.  A
       tree of files is placed into a central
@@ -36,7 +36,7 @@
       how your data changed.  In this regard, many people think of a
       version control system as a sort of <quote>time
       machine</quote>.</para>
-
+    
     <para>Subversion can access its repository across networks, which
       allows it to be used by people on different computers.  At some
       level, the ability for various people to modify and manage the
@@ -244,7 +244,7 @@
           </para>
         </listitem>
       </varlistentry>
-
+      
       <varlistentry>
         <term>Hackability</term>
         <listitem>
@@ -270,7 +270,7 @@
     <para><xref linkend="svn-ch-1-dia-1"/> illustrates what one might
       call a <quote>mile-high</quote> view of Subversion's
       design.</para>
-
+    
     <figure id="svn-ch-1-dia-1">
       <title>Subversion's Architecture</title>
       <graphic fileref="images/ch01dia1.png"/>
@@ -336,7 +336,7 @@
   <sect1 id="svn-ch-1-sect-6">
 
     <title>Subversion's Components</title>
-
+    
     <para>Subversion, once installed, has a number of different
       pieces.  The following is a quick overview of what you get.
       Don't be alarmed if the brief descriptions leave you scratching
@@ -403,7 +403,7 @@
 
     <para>Assuming you have Subversion installed correctly, you should
       be ready to start.  The next two chapters will walk you through
-      the use of <command>svn</command>, Subversion's command-line client
+      the use of <command>svn</command>, Subversion's command-line client 
       program.</para>
 
   </sect1>
@@ -415,7 +415,7 @@
   <sect1 id="svn-ch-1-sect-7">
 
     <title>A Quick Start</title>
-
+    
     <para>Some people have trouble absorbing a new technology by
       reading the sort of "top down" approach provided by this book.
       This section is a very short introduction to Subversion, and is
@@ -491,7 +491,7 @@ Adding         /tmp/project/trunk/bar.c
 Adding         /tmp/project/trunk/Makefile
 &hellip;
 Committed revision 1.
-$
+$ 
 </screen>
 
     <para>Now the repository contains this tree of data.  Note that
@@ -544,7 +544,7 @@ Checked out revision 1.
 </chapter>
 
 <!--
-local variables:
+local variables: 
 sgml-parent-document: ("book.xml" "chapter")
 end:
 -->
