@@ -25,6 +25,7 @@ import re
 import os
 import time
 import os.path
+import locale
 
 # This script needs to run in tools/cvs2svn/.  Make sure we're there.
 if not (os.path.exists('cvs2svn.py') and os.path.exists('test-data')):
@@ -62,6 +63,9 @@ tmp_dir = 'tmp'
 class RunProgramException:
   pass
 
+class MissingErrorException:
+  pass
+
 def run_program(program, error_re, *varargs):
   """Run PROGRAM with VARARGS, return stdout as a list of lines.
   If there is any stderr and ERROR_RE is None, raise
@@ -69,15 +73,15 @@ def run_program(program, error_re, *varargs):
   svntest.main.verbose_mode is true.
 
   If ERROR_RE is not None, it is a string regular expression that must
-  match some line of the error output; if it matches, return None,
-  else return 1."""
+  match some line of stderr.  If it fails to match, raise
+  MissingErrorExpection."""
   out, err = svntest.main.run_command(program, 1, 0, *varargs)
   if err:
     if error_re:
       for line in err:
         if re.match(error_re, line):
-          return None
-      return 1  # We never matched, so return 1 for failure to match
+          return out
+      raise MissingErrorException
     else:
       if svntest.main.verbose_mode:
         print '\n%s said:\n' % program
@@ -85,8 +89,6 @@ def run_program(program, error_re, *varargs):
           print '   ' + line,
         print
       raise RunProgramException
-  elif error_re:
-    return 1
   return out
 
 
@@ -97,8 +99,8 @@ def run_cvs2svn(error_re, *varargs):
   svntest.main.verbose_mode is true.
 
   If ERROR_RE is not None, it is a string regular expression that must
-  match some line of the error output; if it matches, return None,
-  else return 1."""
+  match some line of stderr.  If it fails to match, raise
+  MissingErrorException."""
   if sys.platform == "win32":
     # For an unknown reason, without this special case, the cmd.exe process
     # invoked by os.system('sort ...') in cvs2svn.py receives invalid stdio
@@ -175,7 +177,16 @@ def parse_log(svn_repos):
       line = out.readline()
       if len(line) == 1: return
       line = line[:-1]
-      log.changed_paths[line[5:]] = line[3:4]
+      op_portion = line[3:4]
+      path_portion = line[5:]
+      # # We could parse out history information, but currently we
+      # # just leave it in the path portion because that's how some
+      # # tests expect it.
+      #
+      # m = re.match("(.*) \(from /.*:[0-9]+\)", path_portion)
+      # if m:
+      #   path_portion = m.group(1)
+      log.changed_paths[path_portion] = op_portion
 
   def absorb_message_body(out, num_lines, log):
     'Read NUM_LINES of log message body from OUT into Log item LOG.'
@@ -246,7 +257,8 @@ def erase(path):
 # The log_dictionary comes from parse_log(svn_repos).
 already_converted = { }
 
-def ensure_conversion(name, error_re=None, trunk_only=None, no_prune=None):
+def ensure_conversion(name, error_re=None, trunk_only=None,
+                      no_prune=None, encoding=None):
   """Convert CVS repository NAME to Subversion, but only if it has not
   been converted before by this invocation of this script.  If it has
   been converted before, do nothing.
@@ -258,18 +270,14 @@ def ensure_conversion(name, error_re=None, trunk_only=None, no_prune=None):
   ...log_dict being the type of dictionary returned by parse_log().
 
   If ERROR_RE is a string, it is a regular expression expected to
-  match some error line from a failed conversion, in which case return
-  the tuple (None, None, None) if it fails as expected, or (1, 1, 1)
-  if it fails to fail in the expected way.
+  match some line of stderr printed by the conversion.  If there is an
+  error and ERROR_RE is not set, then raise svntest.Failure.
 
   If TRUNK_ONLY is set, then pass the --trunk-only option to cvs2svn.py
   if converting NAME for the first time.
 
   If NO_PRUNE is set, then pass the --no-prune option to cvs2svn.py
   if converting NAME for the first time.
-
-  If there is an error, but ERROR_RE is not set, then just raise
-  svntest.Failure.
 
   NAME is just one word.  For example, 'main' would mean to convert
   './test-data/main-cvsrepos', and after the conversion, the resulting
@@ -294,34 +302,31 @@ def ensure_conversion(name, error_re=None, trunk_only=None, no_prune=None):
       erase(svnrepos)
       erase(wc)
 
-      ### I'd have preferred to assemble an arg list conditionally and
-      ### then apply() it, or use extended call syntax.  But that
-      ### didn't work as expected; I don't know why, it's never been a
-      ### problem before.  But since the trunk_only arg will soon go
-      ### away anyway, no point spending much effort on supporting it
-      ### elegantly.  Hence the four way conditional below.
       try:
+        arg_list = [ '--create', '-s', svnrepos, cvsrepos ]
+
         if no_prune:
-          if trunk_only:
-            ret = run_cvs2svn(error_re, '--trunk-only', '--no-prune',
-                              '--create', '-s',
-                              svnrepos, cvsrepos)
-          else:
-            ret = run_cvs2svn(error_re, '--no-prune', '--create', '-s',
-                              svnrepos, cvsrepos)
-        else:
-          if trunk_only:
-            ret = run_cvs2svn(error_re, '--trunk-only', '--create', '-s',
-                              svnrepos, cvsrepos)
-          else:
-            ret = run_cvs2svn(error_re, '--create', '-s', svnrepos, cvsrepos)
+          arg_list[:0] = [ '--no-prune' ]
+
+        if trunk_only:
+          arg_list[:0] = [ '--trunk-only' ]
+
+        if encoding:
+          arg_list[:0] = [ '--encoding=' + encoding ]
+
+        arg_list[:0] = [ error_re ]
+
+        ret = apply(run_cvs2svn, arg_list)
       except RunProgramException:
         raise svntest.Failure
+      except MissingErrorException:
+        print "Test failed because no error matched '%s'" % error_re
+        raise svntest.Failure
 
-      # If we were expecting an error with error_re, then return Nones
-      # if we matched it, or 1s if not.
-      if error_re:
-        return ret, ret, ret
+      if not os.path.isdir(svnrepos):
+        print "Repository not created: '%s'" \
+              % os.path.join(os.getcwd(), svnrepos)
+        raise svntest.Failure
 
       run_svn('co', repos_to_url(svnrepos), wc)
       log_dict = parse_log(svnrepos)
@@ -350,18 +355,29 @@ def show_usage():
 
 
 def bogus_tag():
-  "fail on encountering an invalid symbolic name"
-  ret, ign, ign = ensure_conversion('bogus-tag',
-                                    '.*is not a valid tag or branch name')
-  if ret:
-    raise svntest.Failure
+  "conversion of invalid symbolic names"
+  ret, ign, ign = ensure_conversion('bogus-tag')
 
 
 def overlapping_branch():
-  "fail early on encountering a branch with two names"
-  ret, ign, ign = ensure_conversion('overlapping-branch',
-                                    '.*already has name')
-  if ret:
+  "ignore a file with a branch with two names"
+  repos, wc, logs = ensure_conversion('overlapping-branch',
+                                      '.*cannot also have name \'vendorB\'')
+  nonlap_path = '/trunk/nonoverlapping-branch'
+  lap_path = '/trunk/overlapping-branch'
+  if not (logs[3].changed_paths.get('/branches/vendorA (from /trunk:2)')
+          == 'A'):
+    raise svntest.Failure
+  # We don't know what order the first two commits would be in, since
+  # they have different log messages but the same timestamps.  As only
+  # one of the files would be on the vendorB branch in the regression
+  # case being tested here, we allow for either order.
+  if ((logs[3].changed_paths.get('/branches/vendorB (from /trunk:1)')
+       == 'A')
+      or (logs[3].changed_paths.get('/branches/vendorB (from /trunk:2)')
+          == 'A')):
+    raise svntest.Failure
+  if len(logs) > 3:
     raise svntest.Failure
 
 
@@ -585,7 +601,7 @@ def simple_tags():
     }:
     raise svntest.Failure
 
-  rev = 39
+  rev = 40
   if not logs.has_key(rev):
     raise svntest.Failure
   if not logs[rev].changed_paths == {
@@ -674,10 +690,10 @@ def tolerate_corruption():
 def phoenix_branch():
   "convert a branch file rooted in a 'dead' revision"
   repos, wc, logs = ensure_conversion('phoenix')
-  if not ((logs[4].changed_paths.get('/branches/volsung_20010721') == 'A')
-          and (logs[4].changed_paths.get('/branches/volsung_20010721/'
-                                         'phoenix') == 'A')
-          and (len(logs[4].changed_paths) == 2)):
+  chpaths = logs[4].changed_paths
+  if not ((chpaths.get('/branches/volsung_20010721 (from /trunk:3)') == 'A')
+          and (chpaths.get('/branches/volsung_20010721/phoenix') == 'A')
+          and (len(chpaths) == 2)):
     print "Revision 4 not as expected."
     raise svntest.Failure
 
@@ -699,6 +715,17 @@ def ctrl_char_in_log():
 def overdead():
   "handle tags rooted in a redeleted revision"
   repos, wc, logs = ensure_conversion('overdead')
+
+
+def no_trunk_prune():
+  "ensure that trunk doesn't get pruned"
+  repos, wc, logs = ensure_conversion('overdead')
+  for rev in logs.keys():
+    rev_logs = logs[rev]
+    for changed_path in rev_logs.changed_paths.keys():
+      if changed_path == '/trunk' \
+         and rev_logs.changed_paths[changed_path] == 'D':
+        raise svntest.Failure
 
 
 def double_delete():
@@ -746,6 +773,363 @@ def resync_misgroups():
   repos, wc, logs = ensure_conversion('resync-misgroups')
 
 
+def tagged_branch_and_trunk():
+  "allow tags with mixed trunk and branch sources"
+  repos, wc, logs = ensure_conversion('tagged-branch-n-trunk')
+  a_path = os.path.join(wc, 'tags', 'some-tag', 'a.txt')
+  b_path = os.path.join(wc, 'tags', 'some-tag', 'b.txt')
+  if not (os.path.exists(a_path) and os.path.exists(b_path)):
+    raise svntest.Failure
+  if (open(a_path, 'r').read().find('1.24') == -1) \
+     or (open(b_path, 'r').read().find('1.5') == -1):
+    raise svntest.Failure
+
+
+def enroot_race():
+  "never use the rev-in-progress as a copy source"
+  # See issue #1427 and r8544.
+  repos, wc, logs = ensure_conversion('enroot-race')
+  if not ((logs[6].changed_paths.get('/branches/mybranch (from /trunk:5)')
+           == 'A')
+          and (logs[6].changed_paths.get('/branches/mybranch/proj/c.txt')
+               == 'M')
+          and (logs[6].changed_paths.get('/trunk/proj/a.txt') == 'M')
+          and (logs[6].changed_paths.get('/trunk/proj/b.txt') == 'M')):
+    raise svntest.Failure
+
+
+def branch_delete_first():
+  "correctly handle deletion as initial branch action"
+  # See test-data/branch-delete-first-cvsrepos/README.
+  #
+  # The conversion will fail if the bug is present, and
+  # ensure_conversion would raise svntest.Failure.
+  repos, wc, logs = ensure_conversion('branch-delete-first')
+
+  # 'file' was deleted from branch-1 and branch-2, but not branch-3
+  if os.path.exists(os.path.join(wc, 'branches', 'branch-1', 'file')):
+    raise svntest.Failure
+  if os.path.exists(os.path.join(wc, 'branches', 'branch-2', 'file')):
+    raise svntest.Failure
+  if not os.path.exists(os.path.join(wc, 'branches', 'branch-3', 'file')):
+    raise svntest.Failure
+
+
+def nonascii_filenames():
+  "non ascii files converted incorrectly"
+  # see issue #1255
+
+  # on a en_US.iso-8859-1 machine this test fails with
+  # svn: Can't recode ...
+  #
+  # as described in the issue
+
+  # on a en_US.UTF-8 machine this test fails with
+  # svn: Malformed XML ...
+  #
+  # which means at least it fails. Unfortunately it won't fail
+  # with the same error...
+
+  # mangle current locale settings so we know we're not running
+  # a UTF-8 locale (which does not exhibit this problem)
+  current_locale = locale.getlocale()
+  new_locale = 'en_US.ISO8859-1'
+  locale_changed = None
+
+  try:
+    # change locale to non-UTF-8 locale to generate latin1 names
+    locale.setlocale(locale.LC_ALL, # this might be too broad?
+                     new_locale)
+    locale_changed = 1
+  except locale.Error:
+    # The trunk version of cvs2svn raises svntest.Skip here.  But the
+    # 'Skip' result was added to the regression framework in r8649,
+    # and has not ported to the 1.0.x branch.  Therefore, if we can't
+    # run this test here, just claim it passed, instead of Skipping.
+    return
+
+  try:
+    testdata_path = os.path.abspath('test-data')
+    srcrepos_path = os.path.join(testdata_path,'main-cvsrepos')
+    dstrepos_path = os.path.join(testdata_path,'non-ascii-cvsrepos')
+    if not os.path.exists(dstrepos_path):
+      # create repos from existing main repos
+      shutil.copytree(srcrepos_path, dstrepos_path)
+      base_path = os.path.join(dstrepos_path, 'single-files')
+      shutil.copyfile(os.path.join(base_path, 'twoquick,v'),
+                      os.path.join(base_path, 'two\366uick,v'))
+      new_path = os.path.join(dstrepos_path, 'single\366files')
+      os.rename(base_path, new_path)
+
+    # if ensure_conversion can generate a
+    repos, wc, logs = ensure_conversion('non-ascii', encoding='latin1')
+  finally:
+    if locale_changed:
+      locale.setlocale(locale.LC_ALL, current_locale)
+    shutil.rmtree(dstrepos_path)
+
+
+def vendor_branch_sameness():
+  "avoid spurious changes for initial revs "
+  repos, wc, logs = ensure_conversion('vendor-branch-sameness')
+
+  # There are four files in the repository:
+  #
+  #    a.txt: Imported in the traditional way; 1.1 and 1.1.1.1 have
+  #           the same contents, the file's default branch is 1.1.1,
+  #           and both revisions are in state 'Exp'.
+  #
+  #    b.txt: Like a.txt, except that 1.1.1.1 has a real change from
+  #           1.1 (the addition of a line of text).
+  #
+  #    c.txt: Like a.txt, except that 1.1.1.1 is in state 'dead'.
+  #
+  #    d.txt: This file was created by 'cvs add' instead of import, so
+  #           it has only 1.1 -- no 1.1.1.1, and no default branch.
+  #           The timestamp on the add is exactly the same as for the
+  #           imports of the other files.
+  #
+  # (Log messages for the same revisions are the same in all files.)
+  #
+  # What we expect to see is everyone added in r1, then trunk/proj
+  # copied in r2.  In the copy, only a.txt should be left untouched;
+  # b.txt should be 'M'odified, and (for different reasons) c.txt and
+  # d.txt should be 'D'eleted.
+
+  if logs[1].msg.find('Initial revision') != 0:
+    raise svntest.Failure
+
+  if not logs[1].changed_paths == {
+    '/trunk' : 'A',
+    '/trunk/proj' : 'A',
+    '/trunk/proj/a.txt' : 'A',
+    '/trunk/proj/b.txt' : 'A',
+    '/trunk/proj/c.txt' : 'A',
+    '/trunk/proj/d.txt' : 'A',
+    }:
+    raise svntest.Failure
+
+  if logs[2].msg.find('First vendor branch revision.') != 0:
+    raise svntest.Failure
+
+  if not logs[2].changed_paths == {
+    '/branches' : 'A',
+    '/branches/vbranchA (from /trunk:1)' : 'A',
+    '/branches/vbranchA/proj/b.txt' : 'M',
+    '/branches/vbranchA/proj/c.txt' : 'D',
+    '/branches/vbranchA/proj/d.txt' : 'D',
+    }:
+    raise svntest.Failure
+
+
+def default_branches():
+  "handle default branches correctly "
+  repos, wc, logs = ensure_conversion('default-branches')
+
+  # There are seven files in the repository:
+  #
+  #    a.txt:
+  #       Imported in the traditional way, so 1.1 and 1.1.1.1 are the
+  #       same.  Then 1.1.1.2 and 1.1.1.3 were imported, then 1.2
+  #       committed (thus losing the default branch "1.1.1"), then
+  #       1.1.1.4 was imported.  All vendor import release tags are
+  #       still present.
+  #
+  #    b.txt:
+  #       Like a.txt, but without rev 1.2.
+  #
+  #    c.txt:
+  #       Exactly like b.txt, just s/b.txt/c.txt/ in content.
+  #
+  #    d.txt:
+  #       Same as the previous two, but 1.1.1 branch is unlabeled.
+  #
+  #    e.txt:
+  #       Same, but missing 1.1.1 label and all tags but 1.1.1.3.
+  #
+  #    deleted-on-vendor-branch.txt,v:
+  #       Like b.txt and c.txt, except that 1.1.1.3 is state 'dead'.
+  #
+  #    added-then-imported.txt,v:
+  #       Added with 'cvs add' to create 1.1, then imported with
+  #       completely different contents to create 1.1.1.1, therefore
+  #       never had a default branch.
+  #
+
+  if logs[14].msg.find("This commit was manufactured by cvs2svn "
+                       "to create tag 'vtag-4'.") != 0:
+    raise svntest.Failure
+
+  if not logs[14].changed_paths == {
+    '/tags/vtag-4 (from /branches/vbranchA:9)' : 'A',
+    '/tags/vtag-4/proj/d.txt '
+    '(from /branches/unlabeled-1.1.1/proj/d.txt:9)' : 'A',
+    }:
+    raise svntest.Failure
+
+  if logs[13].msg.find("This commit was manufactured by cvs2svn "
+                       "to create tag 'vtag-1'.") != 0:
+    raise svntest.Failure
+
+  if not logs[13].changed_paths == {
+    '/tags/vtag-1 (from /branches/vbranchA:2)' : 'A',
+    '/tags/vtag-1/proj/d.txt '
+    '(from /branches/unlabeled-1.1.1/proj/d.txt:2)' : 'A',
+    }:
+    raise svntest.Failure
+
+  if logs[12].msg.find("This commit was manufactured by cvs2svn "
+                       "to create tag 'vtag-2'.") != 0:
+    raise svntest.Failure
+  if not logs[12].changed_paths == {
+    '/tags/vtag-2 (from /branches/vbranchA:3)' : 'A',
+    '/tags/vtag-2/proj/d.txt '
+    '(from /branches/unlabeled-1.1.1/proj/d.txt:3)' : 'A',
+    }:
+    raise svntest.Failure
+
+  if logs[11].msg.find("This commit was manufactured by cvs2svn "
+                       "to create tag 'vtag-3'.") != 0:
+    raise svntest.Failure
+  if not logs[11].changed_paths == {
+    '/tags' : 'A',
+    '/tags/vtag-3 (from /branches/vbranchA:5)' : 'A',
+    '/tags/vtag-3/proj/d.txt '
+    '(from /branches/unlabeled-1.1.1/proj/d.txt:5)' : 'A',
+    '/tags/vtag-3/proj/e.txt '
+    '(from /branches/unlabeled-1.1.1/proj/e.txt:5)' : 'A',
+    }:
+    raise svntest.Failure
+
+  if logs[10].msg.find("This commit was generated by cvs2svn "
+                       "to compensate for changes in r9,") != 0:
+    raise svntest.Failure
+  if not logs[10].changed_paths == {
+    '/trunk/proj/b.txt (from /branches/vbranchA/proj/b.txt:9)' : 'R',
+    '/trunk/proj/c.txt (from /branches/vbranchA/proj/c.txt:9)' : 'R',
+    '/trunk/proj/d.txt (from /branches/unlabeled-1.1.1/proj/d.txt:9)' : 'R',
+    '/trunk/proj/deleted-on-vendor-branch.txt '
+    '(from /branches/vbranchA/proj/deleted-on-vendor-branch.txt:9)' : 'A',
+    '/trunk/proj/e.txt (from /branches/unlabeled-1.1.1/proj/e.txt:9)' : 'R',
+    }:
+    raise svntest.Failure
+
+  if logs[9].msg.find("Import (vbranchA, vtag-4).") != 0:
+    raise svntest.Failure
+
+  if not logs[9].changed_paths == {
+    '/branches/unlabeled-1.1.1/proj/d.txt' : 'M',
+    '/branches/unlabeled-1.1.1/proj/e.txt' : 'M',
+    '/branches/vbranchA/proj/a.txt' : 'M',
+    '/branches/vbranchA/proj/added-then-imported.txt '
+    '(from /trunk/proj/added-then-imported.txt:7)' : 'A',
+    '/branches/vbranchA/proj/b.txt' : 'M',
+    '/branches/vbranchA/proj/c.txt' : 'M',
+    '/branches/vbranchA/proj/deleted-on-vendor-branch.txt' : 'A',
+    }:
+    raise svntest.Failure
+
+  if logs[8].msg.find("First regular commit, to a.txt, on vtag-3.") != 0:
+    raise svntest.Failure
+
+  if not logs[8].changed_paths == {
+    '/trunk/proj/a.txt' : 'M',
+    }:
+    raise svntest.Failure
+
+  if logs[7].msg.find("Add a file to the working copy.") != 0:
+    raise svntest.Failure
+
+  if not logs[7].changed_paths == {
+    '/trunk/proj/added-then-imported.txt' : 'A',
+    }:
+    raise svntest.Failure
+
+  if logs[6].msg.find("This commit was generated by cvs2svn "
+                      "to compensate for changes in r5,") != 0:
+    raise svntest.Failure
+  if not logs[6].changed_paths == {
+    '/trunk/proj/a.txt (from /branches/vbranchA/proj/a.txt:5)' : 'R',
+    '/trunk/proj/b.txt (from /branches/vbranchA/proj/b.txt:5)' : 'R',
+    '/trunk/proj/c.txt (from /branches/vbranchA/proj/c.txt:5)' : 'R',
+    '/trunk/proj/d.txt (from /branches/unlabeled-1.1.1/proj/d.txt:5)' : 'R',
+    '/trunk/proj/deleted-on-vendor-branch.txt' : 'D',
+    '/trunk/proj/e.txt (from /branches/unlabeled-1.1.1/proj/e.txt:5)' : 'R',
+    }:
+    raise svntest.Failure
+
+  if logs[5].msg.find("Import (vbranchA, vtag-3).") != 0:
+    raise svntest.Failure
+
+  if not logs[5].changed_paths == {
+    '/branches/unlabeled-1.1.1/proj/d.txt' : 'M',
+    '/branches/unlabeled-1.1.1/proj/e.txt' : 'M',
+    '/branches/vbranchA/proj/a.txt' : 'M',
+    '/branches/vbranchA/proj/b.txt' : 'M',
+    '/branches/vbranchA/proj/c.txt' : 'M',
+    '/branches/vbranchA/proj/deleted-on-vendor-branch.txt' : 'D',
+    }:
+    raise svntest.Failure
+
+  if logs[4].msg.find("This commit was generated by cvs2svn "
+                      "to compensate for changes in r3,") != 0:
+    raise svntest.Failure
+  if not logs[4].changed_paths == {
+    '/trunk/proj/a.txt (from /branches/vbranchA/proj/a.txt:3)' : 'R',
+    '/trunk/proj/b.txt (from /branches/vbranchA/proj/b.txt:3)' : 'R',
+    '/trunk/proj/c.txt (from /branches/vbranchA/proj/c.txt:3)' : 'R',
+    '/trunk/proj/d.txt (from /branches/unlabeled-1.1.1/proj/d.txt:3)' : 'R',
+    '/trunk/proj/deleted-on-vendor-branch.txt '
+    '(from /branches/vbranchA/proj/deleted-on-vendor-branch.txt:3)' : 'R',
+    '/trunk/proj/e.txt (from /branches/unlabeled-1.1.1/proj/e.txt:3)' : 'R',
+    }:
+    raise svntest.Failure
+
+  if logs[3].msg.find("Import (vbranchA, vtag-2).") != 0:
+    raise svntest.Failure
+
+  if not logs[3].changed_paths == {
+    '/branches/unlabeled-1.1.1/proj/d.txt' : 'M',
+    '/branches/unlabeled-1.1.1/proj/e.txt' : 'M',
+    '/branches/vbranchA/proj/a.txt' : 'M',
+    '/branches/vbranchA/proj/b.txt' : 'M',
+    '/branches/vbranchA/proj/c.txt' : 'M',
+    '/branches/vbranchA/proj/deleted-on-vendor-branch.txt' : 'M',
+    }:
+    raise svntest.Failure
+
+  if logs[2].msg.find("Import (vbranchA, vtag-1).") != 0:
+    raise svntest.Failure
+
+  if not logs[2].changed_paths == {
+    '/branches' : 'A',
+    '/branches/unlabeled-1.1.1 (from /trunk:1)' : 'A',
+    '/branches/unlabeled-1.1.1/proj/a.txt' : 'D',
+    '/branches/unlabeled-1.1.1/proj/b.txt' : 'D',
+    '/branches/unlabeled-1.1.1/proj/c.txt' : 'D',
+    '/branches/unlabeled-1.1.1/proj/deleted-on-vendor-branch.txt' : 'D',
+    '/branches/vbranchA (from /trunk:1)' : 'A',
+    '/branches/vbranchA/proj/d.txt' : 'D',
+    '/branches/vbranchA/proj/e.txt' : 'D',
+    }:
+    raise svntest.Failure
+
+  if logs[1].msg.find("Initial revision") != 0:
+    raise svntest.Failure
+
+  if not logs[1].changed_paths == {
+    '/trunk' : 'A',
+    '/trunk/proj' : 'A',
+    '/trunk/proj/a.txt' : 'A',
+    '/trunk/proj/b.txt' : 'A',
+    '/trunk/proj/c.txt' : 'A',
+    '/trunk/proj/d.txt' : 'A',
+    '/trunk/proj/deleted-on-vendor-branch.txt' : 'A',
+    '/trunk/proj/e.txt' : 'A',
+    }:
+    raise svntest.Failure
+
+
 #----------------------------------------------------------------------
 
 ########################################################################
@@ -769,9 +1153,16 @@ test_list = [ None,
               phoenix_branch,
               ctrl_char_in_log,
               overdead,
+              no_trunk_prune,
               double_delete,
               split_branch,
               resync_misgroups,
+              tagged_branch_and_trunk,
+              enroot_race,
+              branch_delete_first,
+              nonascii_filenames,
+              vendor_branch_sameness,
+              default_branches,
              ]
 
 if __name__ == '__main__':

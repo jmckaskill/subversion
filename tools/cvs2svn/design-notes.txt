@@ -1,10 +1,9 @@
                        How cvs2svn.py Works
                       =====================
 
-A cvs2svn run consists of 5 passes.  Every pass but the last saves its
-data to a file on disk, so that a) we don't hold huge amounts of state
-in memory, and b) the conversion process is resumable.  The final pass
-makes the actual Subversion commits.
+A cvs2svn run consists of five passes.  The first three passes save
+their data to files on disk, so that a) we don't hold huge amounts of
+state in memory, and b) the conversion process is resumable.
 
 Pass 1:
 =======
@@ -13,7 +12,7 @@ The goal of this pass is to get a summary of all the revisions for
 each file written out to 'cvs2svn-data.revs'; at the end of this
 stage, revisions will be grouped by RCS file, not by logical commits.
 
-We walk over the repository, processing each RCS file with with
+We walk over the repository, processing each RCS file with
 rcsparse.parse(), using cvs2svn's CollectData class, which is a
 subclass of rcsparse.Sink(), the parser's callback class.  For each
 RCS file, the first thing the parser encounters is the administrative
@@ -59,7 +58,7 @@ log messages and file contents.  For each revision, it invokes
 CollectData.set_revision_info(), which writes a new line to
 cvs2svn-data.revs, like this:
 
-   3dc32955 5afe9b4ba41843d8eb52ae7db47a43eaa9573254 C 1.2 * 0 0 foo/bar,v
+   3dc32955 5afe9b4ba41843d8eb52ae7db47a43eaa9573254 C 1.2 N * 0 0 foo/bar,v
 
 The fields are:
 
@@ -67,12 +66,13 @@ The fields are:
    2. a digest of the log message + author
    3. the type of change ("C"hange, or "D"elete)
    4. the revision number
-   5. the branch on which this commit happened, or "*" if not on a branch
-   6. the number of tags rooted at this revision (followed by their
+   5. "N" if this revision has non-empty deltatext, else "E" for empty
+   6. the branch on which this commit happened, or "*" if not on a branch
+   7. the number of tags rooted at this revision (followed by their
         names, space-delimited)
-   7. the number of branches rooted at this revision (followed by
+   8. the number of branches rooted at this revision (followed by
         their names, space-delimited)
-   8. the path of the RCS file in the repository
+   9. the path of the RCS file in the repository
 
 (Of course, in the above example, fields 6 and 7 are "0", so they have
 no additional data.)
@@ -138,7 +138,7 @@ does, we tweak the line before writing it out, and then conditionally
 adjust the sublist's range to account for the timestamp we just
 adjusted (since it could be an outlier).  Note that this could, in
 theory, result in separate commits being accidentally unified, since
-we might gradually the two sides of the range such that they are
+we might gradually adjust the two sides of the range such that they are
 eventually more than COMMIT_THRESHOLD seconds apart.  However, this is
 really a case of CVS not recording enough information to disambiguate
 the commits; we'd know we have a time range that exceeds the
@@ -169,10 +169,19 @@ seeing that the log digest is different, and reseparates the commits.
 Pass 4:
 =======
 
-Walk through cvs2svn-data.s-revs and print the commits to a Subversion
-dumpfile (a file intended for 'svnadmin load').  The dumpfile is the
-data's last static stage: last chance to check over the data, run it
-through svndumpfilter, move the dumpfile to another machine, etc.
+In --dump-only mode, the result of this pass is a Subversion
+repository dumpfile (suitable for input to 'svnadmin load').  The
+dumpfile is the data's last static stage: last chance to check over
+the data, run it through svndumpfilter, move the dumpfile to another
+machine, etc.
+
+However, when not in --dump-only mode, no full dumpfile is created for
+subsequent load into a Subversion repository.  Instead, miniature
+dumpfiles represent a single revision are created, loaded into the
+repository, and then removed.
+
+In both modes, the dumpfile revisions are created by walking through
+cvs2svn-data.s-revs.
 
                   ===============================
                       Branches and Tags Plan.
@@ -315,7 +324,7 @@ marked as copied.
 Pass 5:
 =======
 
-Load the dumpfile into Subversion.  Voilà.
+Unless we're skipping cleanup, remove all our intermediate files.
 
 
 
