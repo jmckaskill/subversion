@@ -1,13 +1,13 @@
 VERSION 5.00
 Object = "{396F7AC0-A0DD-11D3-93EC-00C0DFE7442A}#1.0#0"; "vbalIml6.ocx"
 Object = "*\ASGrid.vbp"
-Begin VB.Form frmMatrixDemo
+Begin VB.Form frmMatrixDemo 
    Caption         =   "Matrix Sample"
    ClientHeight    =   3480
    ClientLeft      =   3648
    ClientTop       =   1920
    ClientWidth     =   6384
-   BeginProperty Font
+   BeginProperty Font 
       Name            =   "Tahoma"
       Size            =   8.4
       Charset         =   0
@@ -20,7 +20,7 @@ Begin VB.Form frmMatrixDemo
    LinkTopic       =   "Form1"
    ScaleHeight     =   3480
    ScaleWidth      =   6384
-   Begin vbalIml6.vbalImageList ilsIcons
+   Begin vbalIml6.vbalImageList ilsIcons 
       Left            =   5640
       Top             =   2880
       _ExtentX        =   762
@@ -30,7 +30,7 @@ Begin VB.Form frmMatrixDemo
       KeyCount        =   4
       Keys            =   "ÿÿÿ"
    End
-   Begin VB.ComboBox cboArticle
+   Begin VB.ComboBox cboArticle 
       Height          =   300
       Left            =   5040
       TabIndex        =   0
@@ -39,7 +39,7 @@ Begin VB.Form frmMatrixDemo
       Visible         =   0   'False
       Width           =   1275
    End
-   Begin SVNControls.SGrid grdMatrix
+   Begin SVNControls.SGrid grdMatrix 
       Height          =   3012
       Left            =   120
       TabIndex        =   1
@@ -49,7 +49,7 @@ Begin VB.Form frmMatrixDemo
       _ExtentY        =   5313
       BackgroundPictureHeight=   0
       BackgroundPictureWidth=   0
-      BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851}
+      BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
          Name            =   "Tahoma"
          Size            =   8.4
          Charset         =   0
@@ -78,12 +78,12 @@ Private m_iLinkCount As Long
 Private Sub pLoadInfo()
 Dim iType As Long
 Dim iLink As Long
-
+   
    ' In a real application you would use a database to store this information.
    pLoadDelimitedFile App.Path & "\article.dat", m_sArticles(), m_iArticleCount
    pLoadDelimitedFile App.Path & "\type.dat", m_sTypes(), m_iTypeCOunt
    pLoadDelimitedFile App.Path & "\link.dat", m_sLinks(), m_iLinkCount
-
+   
    iLink = 1
    With grdMatrix
       For iType = 1 To m_iTypeCOunt
@@ -109,7 +109,7 @@ Dim iLink As Long
          .CellDetails .Rows, 3, -2
       Next iType
    End With
-
+      
 End Sub
 
 Private Sub pLoadDelimitedFile(ByVal sFile As String, ByRef sData() As String, ByRef iCount As Long)
@@ -127,13 +127,13 @@ Dim bDoIt As Boolean
 
    Erase sData
    iCount = 0
-
+   
    iFIle = FreeFile
    Open sFile For Binary Access Read As #iFIle
    sDat = Space$(LOF(iFIle))
    Get #iFIle, , sDat
    Close #iFIle
-
+   
    SplitDelimitedString sDat, vbCrLf, sLines(), iLineCount
    If (iLineCount > 1) Then
       For iLine = 2 To iLineCount
@@ -160,7 +160,7 @@ Dim bDoIt As Boolean
          End If
       Next iLine
    End If
-
+   
 End Sub
 Private Sub SplitDelimitedString( _
         ByVal sToSplit As String, _
@@ -175,12 +175,12 @@ Private Sub SplitDelimitedString( _
 Dim iLastPos As Long
 Dim iNextPos As Long
 Dim iDelimLen As Long
-
+    
     ' Setup:
     Erase sItems
     iItemCount = 0
     iDelimLen = Len(sDelim)
-
+    
     ' Run the split:
     iLastPos = 1
     iNextPos = InStr(sToSplit, sDelim)
@@ -194,7 +194,7 @@ Dim iDelimLen As Long
     iItemCount = iItemCount + 1
     ReDim Preserve sItems(1 To iItemCount) As String
     sItems(iItemCount) = Mid$(sToSplit, iLastPos)
-
+    
 End Sub
 
 Private Sub cboArticle_Click()
@@ -241,12 +241,12 @@ Private Sub Form_Load()
       .AddColumn "typeid", , , , , False
       .AddColumn "articleid", , , , , False
       .DefaultRowHeight = cboArticle.Height \ Screen.TwipsPerPixelY
-
+      
       pLoadInfo
-
+                  
       .Redraw = True
    End With
-
+   
 End Sub
 
 Private Sub Form_Resize()
@@ -310,7 +310,7 @@ Dim i As Long
 
    ' Set .Redraw = False to loose the animation effect
    ' when doing this (it might be too slow otherwise)
-
+   
    lIconIndex = grdMatrix.CellExtraIcon(lRow, 1)
    If (lIconIndex = 3) Then
       ' Expand
@@ -376,7 +376,7 @@ Dim bDontAdd As Boolean
                .ItemData(.NewIndex) = CLng(m_sArticles(1, iArt))
             End If
          Next iArt
-
+         
          If (grdMatrix.CellText(lRow, 3) <> -2) Then
             .Text = grdMatrix.CellText(lRow, 1)
          Else
