@@ -75,7 +75,7 @@ diff_cmd (svn_stringbuf_t *path1,
   nargs = diff_cmd_baton->options->nelts;
   if (nargs)
     args = apr_palloc(subpool, nargs*sizeof(char*));
-  else
+  else 
     args = NULL;
 
   i = 0;
@@ -90,19 +90,19 @@ diff_cmd (svn_stringbuf_t *path1,
   assert (i==nargs);
 
   /* ### TODO: This printf is NOT "my final answer" -- placeholder for
-     real work to be done. */
+     real work to be done. */ 
   if (label)
     apr_file_printf (outhandle, "Index: %s\n", label->data);
   else
     apr_file_printf (outhandle, "Index: %s\n", path1->data);
   apr_file_printf (outhandle, "===================================================================\n");
 
-  SVN_ERR(svn_io_run_diff
-    (".", args, nargs, label ? label->data : NULL, path1->data, path2->data,
+  SVN_ERR(svn_io_run_diff 
+    (".", args, nargs, label ? label->data : NULL, path1->data, path2->data, 
      &exitcode, outhandle, errhandle, subpool));
 
   /* TODO: Handle exit code == 2 (i.e. errors with diff) here */
-
+  
   /* TODO: someday we'll need to worry about whether we're going to need to
      write a diff plug-in mechanism that makes use of the two paths,
      instead of just blindly running SVN_CLIENT_DIFF.
