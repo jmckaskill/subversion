@@ -62,7 +62,7 @@ static svn_error_t *maybe_send_header(struct file_rev_baton *frb)
   return SVN_NO_ERROR;
 }
 
-/* Send a property named NAME with value VAL in an element named ELEM_NAME.
+/* Send a property named NAME with value VAL in an element named ELEM_NAME. 
    Quote NAME and base64-encode VAL if necessary. */
 static svn_error_t *
 send_prop(struct file_rev_baton *frb, const char *elem_name,
@@ -203,7 +203,7 @@ dav_svn__file_revs_report(const dav_resource *resource,
   int ns;
   struct file_rev_baton frb;
   const char *path = NULL;
-
+  
   /* These get determined from the request document. */
   svn_revnum_t start = SVN_INVALID_REVNUM;
   svn_revnum_t end = SVN_INVALID_REVNUM;
@@ -262,7 +262,7 @@ dav_svn__file_revs_report(const dav_resource *resource,
                                  resource->pool);
       goto cleanup;
     }
-
+  
   if ((serr = maybe_send_header(&frb)))
     {
       derr = dav_svn_convert_err(serr, HTTP_INTERNAL_SERVER_ERROR,
@@ -270,7 +270,7 @@ dav_svn__file_revs_report(const dav_resource *resource,
                                  resource->pool);
       goto cleanup;
     }
-
+    
   if ((serr = dav_svn__send_xml(frb.bb, frb.output,
                                 "</S:file-revs-report>" DEBUG_CR)))
     {
