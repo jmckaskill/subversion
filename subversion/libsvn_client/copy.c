@@ -64,12 +64,12 @@ svn_client_copy (svn_stringbuf_t *src_path,
 
   SVN_ERR (svn_io_check_path (src_path, &src_kind, pool));
   SVN_ERR (svn_io_check_path (dst_path, &dst_kind, pool));
-
+  
   if (src_kind == svn_node_none)  /* (sanity check) */
     return svn_error_createf (SVN_ERR_UNKNOWN_NODE_KIND, 0, NULL, pool,
                               "path `%s' does not exist.", src_path->data);
 
-
+  
   if (dst_kind == svn_node_none)
     {
       /* If dst does not exist, then dst's basename will become a new file
@@ -78,7 +78,7 @@ svn_client_copy (svn_stringbuf_t *src_path,
       svn_stringbuf_t *dst_parent, *dst_basename;
       svn_path_split (dst_path, &dst_parent, &dst_basename,
                       svn_path_local_style, pool);
-
+      
       final_parent = dst_parent;
       final_basename = dst_basename;
     }
@@ -91,7 +91,7 @@ svn_client_copy (svn_stringbuf_t *src_path,
     {
       /* If dst is a dir, then src's basename will become a new file
          or dir with dst itself. */
-
+      
       svn_stringbuf_t *src_parent, *src_basename;
       svn_path_split (src_path, &src_parent, &src_basename,
                       svn_path_local_style, pool);
@@ -120,9 +120,9 @@ svn_client_move (svn_stringbuf_t *src_path,
 {
   /* A move is just a copy (add with history).... */
   SVN_ERR (svn_client_copy (src_path, dst_path, pool));
-
+  
   /* ... and a delete. */
-  SVN_ERR (svn_client_delete (src_path,
+  SVN_ERR (svn_client_delete (src_path, 
                               TRUE, /* force flag */
                               NULL,
                               NULL,
@@ -139,7 +139,7 @@ svn_client_move (svn_stringbuf_t *src_path,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end: */

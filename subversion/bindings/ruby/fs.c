@@ -64,7 +64,7 @@ open_or_create (VALUE class, VALUE aPath, int create)
   rb_fs->pool = pool;
   rb_fs->closed = FALSE;
   rb_obj_call_init (obj, 0, 0);
-
+  
   if (create)
     err = svn_fs_create_berkeley (fs, path);
   else
@@ -252,8 +252,8 @@ fs_revision_proplist (VALUE self, VALUE aRev)
     return obj;
   }
 }
-
-
+  
+  
 
 static VALUE
 fs_change_rev_prop (VALUE self, VALUE aRev, VALUE aName, VALUE aValue)
