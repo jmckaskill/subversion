@@ -27,14 +27,14 @@
 
 /*** Defines ***/
 
-// DO YOU WANT TO DEBUG THIS CODE?
+// DO YOU WANT TO DEBUG THIS CODE? 
 // SO JUST UNCOMMENT THE FOLLOWING LINE
 //#define SVN_JNI_STRING__DEBUG
 
 /*** Code ***/
 svn_string_t *
-string__j_to_svn_string(JNIEnv *env,
-                        jstring jstr,
+string__j_to_svn_string(JNIEnv *env, 
+                        jstring jstr, 
                         jboolean *hasException,
                         apr_pool_t *pool)
 {
@@ -44,11 +44,11 @@ string__j_to_svn_string(JNIEnv *env,
 #ifdef SVN_JNI_STRING__DEBUG
   fprintf(stderr, ">>>string__j_to_svn_string\n");
 #endif
-
-  /* make sure there is enough memory left for
+ 
+  /* make sure there is enough memory left for 
    * the operation, also push the stack frame
    * we will need 2 local references:
-   * -
+   * - 
    */
   if( (*env)->PushLocalFrame(env, 2) >= 0)
     {
@@ -63,12 +63,12 @@ string__j_to_svn_string(JNIEnv *env,
 	  jsize len = (*env)->GetStringUTFLength(env, jstr);
 	  buffer = (char *)malloc(len + 1);
 
-	  /* did the memory allocation succeed?
+	  /* did the memory allocation succeed? 
 	   * otherwise throw an exception */
 	  if( buffer == NULL )
 	    {
-	      misc__throw_exception_by_name(env,
-                                      "java/lang/OutOfMemoryError",
+	      misc__throw_exception_by_name(env, 
+                                      "java/lang/OutOfMemoryError", 
                                       NULL);
 	      _hasException = JNI_TRUE;
 	    }
@@ -111,7 +111,7 @@ string__j_to_svn_string(JNIEnv *env,
       SVN_JNI__DEBUG_STR(result->data);
     }
   fprintf(stderr, "\n<<<string__j_to_svn_string\n");
-#endif
+#endif 
 
   return result;
 }
@@ -139,7 +139,7 @@ string__c_to_stringbuf(JNIEnv *env,
       // did the call succed? otherwise exception
       if( result == NULL )
         {
-          misc__throw_exception_by_name(env,
+          misc__throw_exception_by_name(env, 
                                         SVN_JNI__SUBVERSION_EXCEPTION,
                                         SVN_JNI__ERROR_CREATE_STRINGBUF);
           _hasException = JNI_TRUE;
@@ -159,8 +159,8 @@ string__c_to_stringbuf(JNIEnv *env,
 }
 
 jstring
-string__c_to_j(JNIEnv *env,
-               const char *string,
+string__c_to_j(JNIEnv *env, 
+               const char *string, 
                jboolean *hasException)
 {
   jboolean _hasException = JNI_FALSE;
@@ -192,8 +192,8 @@ string__c_to_j(JNIEnv *env,
 }
 
 jstring
-string__svn_string_to_j(JNIEnv *env,
-                        svn_string_t *string,
+string__svn_string_to_j(JNIEnv *env, 
+                        svn_string_t *string, 
                         jboolean *hasException)
 {
   jstring result = NULL;
@@ -202,7 +202,7 @@ string__svn_string_to_j(JNIEnv *env,
   fprintf(stderr, ">>>string__svn_string_to_j(...)\n");
 #endif
 
-  result= string__c_to_j(env, (char*)string->data,
+  result= string__c_to_j(env, (char*)string->data, 
                          hasException);
 
 #ifdef SVN_JNI_STRING__DEBUG
