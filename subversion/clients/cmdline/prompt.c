@@ -81,13 +81,13 @@ svn_cl__create_auth_baton (svn_cl__opt_state_t *opt_state,
 
   /* A cmdline-app provider which prompts the user. */
   svn_auth_get_simple_prompt_provider (&prompt_provider, &prompt_prov_baton,
-                                       &svn_cl__prompt_user, NULL,
+                                       &svn_cl__prompt_user, NULL, 
                                        2 , /* number of retries */
                                        /* default --username or --password */
                                        opt_state->auth_username,
                                        opt_state->auth_password,
                                        pool);
-
+  
   svn_auth_register_provider (ab, FALSE /* append */,
                               prompt_provider, prompt_prov_baton, pool);
 
@@ -137,7 +137,7 @@ svn_cl__prompt_user (const char **result,
             return svn_error_create (status, NULL, "error reading stdin.");
           if ((c == '\n') || (c == '\r'))
             break;
-
+          
           svn_stringbuf_appendbytes (strbuf, &c, 1);
         }
     }
@@ -149,7 +149,7 @@ svn_cl__prompt_user (const char **result,
       status = apr_password_get (prompt_native, strbuf->data, &bufsize);
       if (status)
         return svn_error_create (status, NULL,
-                                 "error from apr_password_get().");
+                                 "error from apr_password_get().");      
     }
 
   SVN_ERR (svn_utf_cstring_to_utf8 ((const char **)result, strbuf->data,
