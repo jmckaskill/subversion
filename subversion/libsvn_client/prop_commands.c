@@ -65,7 +65,7 @@ svn_client_propset (svn_stringbuf_t *propname,
           apr_hash_this (hi, &key, &klen, &val);
           keystring = key;
           current_entry = val;
-
+        
           if (! strcmp (keystring, SVN_WC_ENTRY_THIS_DIR))
               current_entry_name = NULL;
           else
@@ -92,7 +92,7 @@ svn_client_propset (svn_stringbuf_t *propname,
                 }
             }
         }
-
+      
     }
   else
     {
@@ -125,7 +125,7 @@ recursive_propget (apr_table_t *prop_table,
       apr_hash_this (hi, &key, &klen, &val);
       keystring = key;
       current_entry = val;
-
+    
       if (! strcmp (keystring, SVN_WC_ENTRY_THIS_DIR))
           current_entry_name = NULL;
       else
@@ -237,7 +237,7 @@ recursive_proplist (apr_array_header_t *props,
       apr_hash_this (hi, &key, &klen, &val);
       keystring = key;
       current_entry = val;
-
+    
       if (! strcmp (keystring, SVN_WC_ENTRY_THIS_DIR))
           current_entry_name = NULL;
       else
@@ -262,7 +262,7 @@ recursive_proplist (apr_array_header_t *props,
 
 svn_error_t *
 svn_client_proplist (apr_array_header_t **props,
-                     svn_stringbuf_t *target,
+                     svn_stringbuf_t *target, 
                      svn_boolean_t recurse,
                      apr_pool_t *pool)
 {
@@ -278,7 +278,7 @@ svn_client_proplist (apr_array_header_t **props,
 
   if (recurse && node->kind == svn_node_dir)
       SVN_ERR (recursive_proplist (prop_list, target, pool));
-  else
+  else 
       SVN_ERR (add_to_proplist (prop_list, target, pool));
 
   *props = prop_list;
@@ -286,7 +286,7 @@ svn_client_proplist (apr_array_header_t **props,
 }
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end: */

@@ -10,9 +10,9 @@
 #  ###                                                                ###
 #  ######################################################################
 #
-#  Subversion is a tool for revision control.
+#  Subversion is a tool for revision control. 
 #  See http://subversion.tigris.org for more information.
-#
+#    
 # ====================================================================
 # Copyright (c) 2000-2001 CollabNet.  All rights reserved.
 #
@@ -39,7 +39,7 @@ except SyntaxError:
 
 # (abbreviation)
 path_index = svntest.actions.path_index
-
+  
 
 ######################################################################
 #
@@ -117,7 +117,7 @@ def guarantee_repos_and_wc():
   svntest.main.run_svn (None, 'rm', rho_path)
 
   # Revision 6: prop change on A/B, edit A/D/H/psi
-  svntest.main.run_svn (None, 'ps', 'blue', 'azul', B_path)
+  svntest.main.run_svn (None, 'ps', 'blue', 'azul', B_path)  
   svntest.main.file_append (psi_path, "6")
 
   # Revision 7: edit A/mu, prop change on A/mu
@@ -189,7 +189,7 @@ test_list = [ None,
              ]
 
 if __name__ == '__main__':
-
+  
   ## run the main test routine on them:
   err = svntest.main.run_tests(test_list)
 
