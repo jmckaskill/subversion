@@ -134,7 +134,7 @@ deltify (svn_fs_id_t *target_id,
     }
     else
       target_dkey = NULL;
-
+    
     /* Source property key. */
     source_pkey_skel = SVN_FS__NR_PROP_KEY (source_nr);
     if (source_pkey_skel->len != 0) {
@@ -161,7 +161,7 @@ deltify (svn_fs_id_t *target_id,
     SVN_ERR (svn_fs__rep_deltify (fs, target_pkey, source_pkey, trail));
 
   if ((target_dkey && source_dkey)
-      && (strcmp (target_dkey, source_dkey)))
+      && (strcmp (target_dkey, source_dkey)))     
    SVN_ERR (svn_fs__rep_deltify (fs, target_dkey, source_dkey, trail));
 
   return SVN_NO_ERROR;
@@ -245,7 +245,7 @@ struct deltify_args {
    depending on the number of times it has been modified throughout
    revision history.  We might see that successor as 3.100, 3.99.1.1,
    3.98.1.2, 3.98.2.1, 3.98.1.1.1.1, and so on (for a very
-   unpredictably long time).
+   unpredictably long time).  
 
    Perhaps the best solution is one that combines path searches under
    revisions with careful (crafty) node ID examination.  */
@@ -408,7 +408,7 @@ svn_fs__delete_node_revision (svn_fs_t *fs,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
