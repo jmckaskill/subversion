@@ -31,7 +31,7 @@ extern "C" {
 
 /*** The filesystem structure.  ***/
 
-struct svn_fs_t
+struct svn_fs_t 
 {
   /* A pool managing this filesystem.  Freeing this pool must
      completely clean up the filesystem, including any database
@@ -85,7 +85,7 @@ typedef struct
   svn_fs_id_t *id;
 
   /* property list (const char * name, svn_string_t * value) */
-  apr_hash_t *proplist;
+  apr_hash_t *proplist; 
 
 } svn_fs__revision_t;
 
@@ -142,13 +142,13 @@ typedef enum
 
 
 /*** "Delta" Offset/Window Chunk ***/
-typedef struct
+typedef struct 
 {
   /* starting offset of the data represented by this chunk */
   apr_size_t offset;
 
   /* string-key to which this representation points. */
-  const char *string_key;
+  const char *string_key; 
 
   /* size of the fulltext data represented by this delta window. */
   apr_size_t size;
@@ -175,7 +175,7 @@ typedef struct
   int is_mutable;
 
   /* kind-specific stuff */
-  union
+  union 
   {
     /* fulltext stuff */
     struct
@@ -204,7 +204,7 @@ typedef struct
 #endif /* SVN_LIBSVN_FS_FS_H */
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end:
