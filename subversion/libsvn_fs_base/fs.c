@@ -912,7 +912,7 @@ copy_db_file_safely (const char *src_dir,
 {
   apr_file_t *s = NULL, *d = NULL;  /* init to null important for APR */
   const char *file_src_path = svn_path_join (src_dir, filename, pool);
-  const char *file_dst_path = svn_path_join (dst_dir, filename, pool);
+  const char *file_dst_path = svn_path_join (dst_dir, filename, pool);  
   apr_status_t status;
   char *buf;
 
@@ -925,7 +925,7 @@ copy_db_file_safely (const char *src_dir,
                               file_src_path);
 
   /* Open destination file. */
-  status = apr_file_open (&d, file_dst_path,
+  status = apr_file_open (&d, file_dst_path, 
                           (APR_WRITE | APR_CREATE | APR_LARGEFILE),
                           APR_OS_DEFAULT, pool);
   if (status)
@@ -937,12 +937,12 @@ copy_db_file_safely (const char *src_dir,
   buf = apr_palloc (pool, chunksize);
 
   /* Copy bytes till the cows come home. */
-  while (1)
+  while (1) 
     {
       apr_size_t bytes_this_time = chunksize;
       apr_status_t read_err;
       apr_status_t write_err;
-
+      
       /* Read 'em. */
       read_err = apr_file_read(s, buf, &bytes_this_time);
       if (read_err && !APR_STATUS_IS_EOF(read_err))
@@ -953,7 +953,7 @@ copy_db_file_safely (const char *src_dir,
                                     "Error reading file '%s'.",
                                     file_src_path);
         }
-
+    
       /* Write 'em. */
       write_err = apr_file_write_full(d, buf, bytes_this_time, NULL);
       if (write_err)
@@ -964,8 +964,8 @@ copy_db_file_safely (const char *src_dir,
                                     "Error writing file '%s'.",
                                     file_dst_path);
         }
-
-      if (read_err && APR_STATUS_IS_EOF(read_err))
+    
+      if (read_err && APR_STATUS_IS_EOF(read_err)) 
         {
           status = apr_file_close(s);
           if (status)
@@ -998,7 +998,7 @@ base_hotcopy (const char *src_path,
 
   /* Check BDB version, just in case */
   SVN_ERR (check_bdb_version (pool));
-
+  
   /* If using DB 4.2 or later, note whether the DB_LOG_AUTOREMOVE
      feature is on.  If it is, we have a potential race condition:
      another process might delete a logfile while we're in the middle
@@ -1058,7 +1058,7 @@ base_hotcopy (const char *src_path,
           {
             if (log_autoremove)
               return
-                svn_error_quick_wrap
+                svn_error_quick_wrap 
                 (err,
                  _("Error copying logfile;  the DB_LOG_AUTOREMOVE feature \n"
                    "may be interfering with the hotcopy algorithm.  If \n"
@@ -1077,7 +1077,7 @@ base_hotcopy (const char *src_path,
     {
       if (log_autoremove)
         return
-          svn_error_quick_wrap
+          svn_error_quick_wrap 
           (err,
            _("Error running catastrophic recovery on hotcopy;  the \n"
              "DB_LOG_AUTOREMOVE feature may be interfering with the \n"
@@ -1132,7 +1132,7 @@ svn_fs_base__canonicalize_abspath (const char *path, apr_pool_t *pool)
   /* No PATH?  No problem. */
   if (! path)
     return NULL;
-
+  
   /* Empty PATH?  That's just "/". */
   if (! *path)
     return apr_pstrdup (pool, "/");
@@ -1147,7 +1147,7 @@ svn_fs_base__canonicalize_abspath (const char *path, apr_pool_t *pool)
     {
       newpath[newpath_i++] = '/';
     }
-
+  
   for (path_i = 0; path_i < path_len; path_i++)
     {
       if (path[path_i] == '/')
@@ -1170,7 +1170,7 @@ svn_fs_base__canonicalize_abspath (const char *path, apr_pool_t *pool)
       /* Copy the current character into our new buffer. */
       newpath[newpath_i++] = path[path_i];
     }
-
+  
   /* Did we leave a '/' attached to the end of NEWPATH (other than in
      the root directory case)? */
   if ((newpath[newpath_i - 1] == '/') && (newpath_i > 1))
