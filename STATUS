@@ -20,7 +20,7 @@ If you cast a veto (i.e. -1), then please include a link to a mailing
 list thread explaining your veto.  You can go back and add the link
 later if the thread isn't available at the time you commit the veto.
 
-Voting +1 on a change doesn't just mean you approve of it in principle.
+Voting +1 on a change doesn't just mean you approve of it in principle.  
 It means you have thoroughly reviewed the change, and find it correct
 and as nondisruptive as possible.  When it is committed to the release
 branch, the log message will include the names of all who voted for
