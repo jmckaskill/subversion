@@ -373,7 +373,7 @@ Apache and custom HTTP "methods", @xref{Protocol}.)
 
 @table @code
 @item available_methods ()
-  return a list of methods that the server supports
+  return a list of methods that the server supports 
 @end table
 
 @subsection Basic Methods
