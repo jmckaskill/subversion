@@ -27,7 +27,7 @@
 #endif // _MSC_VER > 1000
 
 struct apr_pool_t;
-class Pool
+class Pool  
 {
 public:
 	Pool(bool exclusive = false);

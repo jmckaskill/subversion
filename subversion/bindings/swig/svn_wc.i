@@ -36,7 +36,7 @@
 #ifdef SWIGJAVA
 /* Ignore these function pointer members because swig's string
    representations of their types approach the maximum path
-   length on windows, causing swig to crash when it outputs
+   length on windows, causing swig to crash when it outputs 
    java wrapper classes for them. */
 %ignore svn_wc_diff_callbacks_t::file_added;
 %ignore svn_wc_diff_callbacks_t::file_changed;
