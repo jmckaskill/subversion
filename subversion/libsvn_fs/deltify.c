@@ -57,14 +57,14 @@ deltify (svn_fs_id_t *target_id,
   /* If there are props to deltify, deltify them. */
   if ((target_nr->prop_key && source_nr->prop_key)
       && (strcmp (target_nr->prop_key, source_nr->prop_key)))
-    SVN_ERR (svn_fs__rep_deltify (fs, target_nr->prop_key,
+    SVN_ERR (svn_fs__rep_deltify (fs, target_nr->prop_key, 
                                   source_nr->prop_key, trail));
 
   /* If there are contents to deltify (and we're not only looking at
      props), deltify them. */
   if ((target_nr->data_key && source_nr->data_key) && (! props_only)
-      && (strcmp (target_nr->data_key, source_nr->data_key)))
-   SVN_ERR (svn_fs__rep_deltify (fs, target_nr->data_key,
+      && (strcmp (target_nr->data_key, source_nr->data_key)))     
+   SVN_ERR (svn_fs__rep_deltify (fs, target_nr->data_key, 
                                  source_nr->data_key, trail));
 
   return SVN_NO_ERROR;
@@ -134,14 +134,14 @@ deltify_by_id (svn_fs_t *fs,
       /* If that doesn't exist, we'll branch TARGET_ID, and see if
          that exists.  */
       tmp_id = apr_palloc (trail->pool, sizeof (*tmp_id));
-      tmp_id->digits = apr_palloc (trail->pool,
+      tmp_id->digits = apr_palloc (trail->pool, 
                                    (len + 3) * sizeof (target_id->digits[0]));
       memcpy (tmp_id->digits, target_id->digits,
               len * sizeof (target_id->digits[0]));
       tmp_id->digits[len] = 1;
       tmp_id->digits[len + 1] = 1;
       tmp_id->digits[len + 2] = -1;
-
+      
       if (SVN_NO_ERROR == svn_fs__dag_get_node (&node, fs, tmp_id, trail))
         {
           /* If TMP_ID is *immutable*, we'll use that our deltification
@@ -192,19 +192,19 @@ deltify_undeltify (svn_fs_t *fs,
       SVN_ERR (svn_fs__dag_dir_entries (&entries, node, trail));
       if (entries)
         {
-          for (hi = apr_hash_first (subpool, entries);
-               hi;
+          for (hi = apr_hash_first (subpool, entries); 
+               hi; 
                hi = apr_hash_next (hi))
             {
               const void *key;
               void *val;
               apr_ssize_t klen;
               svn_fs_dirent_t *entry;
-
+              
               /* KEY will be the entry name in source, VAL the dirent */
               apr_hash_this (hi, &key, &klen, &val);
               entry = val;
-
+              
               /* Construct the full path of this entry, and recurse. */
               svn_stringbuf_set (full_path, path);
               svn_path_add_component_nts (full_path, entry->name);
@@ -356,7 +356,7 @@ svn_fs__stable_node (svn_fs_t *fs,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end:
