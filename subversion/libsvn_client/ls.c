@@ -73,10 +73,10 @@ svn_client_ls (apr_hash_t **dirents,
                const char *url,
                svn_opt_revision_t *revision,
                svn_client_auth_baton_t *auth_baton,
-               svn_boolean_t recurse,
+               svn_boolean_t recurse,               
                apr_pool_t *pool)
 {
-  svn_ra_plugin_t *ra_lib;
+  svn_ra_plugin_t *ra_lib;  
   void *ra_baton, *session;
   svn_revnum_t rev;
   enum svn_node_kind url_kind;
@@ -87,7 +87,7 @@ svn_client_ls (apr_hash_t **dirents,
 
   /* Open a repository session to the URL. */
   SVN_ERR (svn_client__open_ra_session (&session, ra_lib, url, NULL, NULL,
-                                        NULL, FALSE, FALSE,
+                                        NULL, FALSE, FALSE, 
                                         auth_baton, pool));
 
   /* Resolve REVISION into a real revnum. */
@@ -118,7 +118,7 @@ svn_client_ls (apr_hash_t **dirents,
       svn_path_split_nts (url, &parent_url, &base_name, pool);
       SVN_ERR (ra_lib->close (session));
       SVN_ERR (svn_client__open_ra_session (&session, ra_lib, parent_url, NULL,
-                                            NULL, NULL, FALSE, FALSE,
+                                            NULL, NULL, FALSE, FALSE, 
                                             auth_baton, pool));
 
       /* Get all parent's entries, no props. */
@@ -136,7 +136,7 @@ svn_client_ls (apr_hash_t **dirents,
       if (the_ent == NULL)
         return svn_error_create (SVN_ERR_FS_NOT_FOUND, 0, NULL, pool,
                                  "URL non-existent in that revision.");
-
+        
       apr_hash_set (*dirents, base_name, APR_HASH_KEY_STRING, the_ent);
     }
   else
