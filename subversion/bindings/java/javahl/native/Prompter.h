@@ -29,7 +29,7 @@
 #include <jni.h>
 #include <svn_auth.h>
 #include <string>
-class Prompter
+class Prompter  
 {
 private:
 	bool m_version2;
@@ -43,10 +43,10 @@ private:
 	int askTrust(const char *question, bool maySave);
 	jstring password();
 	jstring username();
-	static
+	static 
           svn_error_t *simple_prompt(svn_auth_cred_simple_t **cred_p,
                                      void *baton, const char *realm,
-                                     const char *username,
+                                     const char *username, 
                                      svn_boolean_t may_save,
                                      apr_pool_t *pool);
 	static svn_error_t *username_prompt
@@ -71,7 +71,7 @@ private:
            apr_pool_t *pool);
 	static svn_error_t *ssl_client_cert_pw_prompt
           (svn_auth_cred_ssl_client_cert_pw_t **cred_p,
-           void *baton,
+           void *baton, 
            const char *realm,
            svn_boolean_t may_save,
            apr_pool_t *pool);
