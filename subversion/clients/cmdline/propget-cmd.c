@@ -70,15 +70,15 @@ svn_cl__propget (apr_getopt_t *os,
       SVN_ERR (svn_client_propget (&props, propname, target,
                                    opt_state->recursive, pool));
 
-      apr_table_do(&print_prop,propname->data, props, NULL);
+      apr_table_do(&print_prop,propname->data, props, NULL); 
     }
 
   return SVN_NO_ERROR;
 }
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../svn-dev.el")
- * end:
+ * end: 
  */
