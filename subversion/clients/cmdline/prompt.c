@@ -55,7 +55,7 @@ static apr_status_t wait_for_input_or_timeout(apr_file_t *f,
     pollset.desc.f = f;
     pollset.p = pool;
     pollset.reqevents = APR_POLLIN;
-
+    
     do
       {
         srv = apr_poll(&pollset, 1, &n, 10);
@@ -133,7 +133,7 @@ prompt (const char **result,
                    ever heard of such a thing? */
                 abort ();
             }
-
+          
           svn_stringbuf_appendbytes (strbuf, &c, 1);
         }
     }
@@ -254,7 +254,7 @@ svn_cl__auth_ssl_server_trust_prompt (
     {
       svn_stringbuf_appendcstr
         (buf, _(" - The certificate hostname does not match.\n"));
-    }
+    } 
 
   if (failures & SVN_AUTH_SSL_NOTYETVALID)
     {
@@ -333,7 +333,7 @@ svn_cl__auth_ssl_client_cert_prompt (svn_auth_cred_ssl_client_cert_t **cred_p,
   svn_client_ctx_t *ctx = (svn_client_ctx_t *) baton;
 
   SVN_ERR (maybe_print_realm (realm, pool));
-  SVN_ERR (prompt (&cert_file, _("Client certificate filename: "),
+  SVN_ERR (prompt (&cert_file, _("Client certificate filename: "), 
                    FALSE, ctx, pool));
 
   cred = apr_palloc (pool, sizeof(*cred));
