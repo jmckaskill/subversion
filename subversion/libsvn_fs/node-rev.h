@@ -50,7 +50,7 @@ svn_error_t *svn_fs__create_node (const svn_fs_id_t **id_p,
 /* Create a node revision in FS which is an immediate successor of
    OLD_ID, whose contents are NEW_NR, as part of TRAIL.  Set *NEW_ID_P
    to the new node revision's ID.  Use TRAIL->pool for any temporary
-   allocation.
+   allocation.  
 
    COPY_ID, if non-NULL, is a key into the `copies' table, and
    indicates that this new node is being created as the result of a
