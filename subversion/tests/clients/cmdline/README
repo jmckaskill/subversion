@@ -48,7 +48,7 @@ paths adjusted appropriately:
      DAV svn
      SVNParentPath /home/jrandom/projects/svn/subversion/tests/clients/cmdline/repositories
    </Location>
-
+     
    <Location /local_tmp/repos>
      DAV svn
      SVNPath /home/jrandom/projects/svn/subversion/tests/clients/cmdline/local_tmp/repos
@@ -67,7 +67,7 @@ Now you can run a test script over ra_dav:
    $ ./basic_tests.py --url http://localhost
    $ ./basic_tests.py 3 --url http://localhost
 
-or
+or 
 
    $ ./basic_tests.py --url=http://localhost
    $ ./basic_tests.py 3 --url=http://localhost
@@ -95,7 +95,7 @@ to include
    AuthUserFile /usr/local/apache2/conf/users
    Require valid-user
 
-Next create the auth file using the command
+Next create the auth file using the command 
 
    $ htpasswd -c /usr/local/apache2/conf/users jrandom
 
@@ -126,7 +126,7 @@ Directory Contents
                             copy, and converting to/from trees.
 
           /actions.py:      Main API for driving subversion client and
-                            using trees to verify results.
+                            using trees to verify results. 
 
           /entry.py:        Parse an `entries' file (### not used yet)
 
