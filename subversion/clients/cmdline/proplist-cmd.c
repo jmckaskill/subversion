@@ -45,7 +45,7 @@ svn_cl__proplist (apr_getopt_t *os,
   int i;
 
   /* Suck up all remaining args in the target array. */
-  SVN_ERR (svn_opt_args_to_target_array (&targets, os,
+  SVN_ERR (svn_opt_args_to_target_array (&targets, os, 
                                          opt_state->targets,
                                          &(opt_state->start_revision),
                                          &(opt_state->end_revision),
@@ -81,12 +81,12 @@ svn_cl__proplist (apr_getopt_t *os,
       if (URL == NULL)
         return svn_error_create(SVN_ERR_UNVERSIONED_RESOURCE, 0, NULL,
                                 "Either a URL or versioned item is required.");
-
+  
       /* Let libsvn_client do the real work. */
-      SVN_ERR (svn_client_revprop_list (&proplist,
+      SVN_ERR (svn_client_revprop_list (&proplist, 
                                         URL, &(opt_state->start_revision),
                                         auth_baton, &rev, pool));
-
+      
       printf("Unversioned properties on revision %"SVN_REVNUM_T_FMT":\n",
              rev);
       if (opt_state->verbose)
@@ -97,7 +97,7 @@ svn_cl__proplist (apr_getopt_t *os,
   else  /* operate on normal, versioned properties (not revprops) */
     {
       /* ### This check will go away when svn_client_proplist takes
-         a revision arg and can access the repository, see issue #943. */
+         a revision arg and can access the repository, see issue #943. */ 
       if (opt_state->start_revision.kind != svn_opt_revision_unspecified)
         return svn_error_create
           (SVN_ERR_UNSUPPORTED_FEATURE, 0, NULL,
@@ -108,13 +108,13 @@ svn_cl__proplist (apr_getopt_t *os,
           const char *target = ((const char **) (targets->elts))[i];
           apr_array_header_t *props;
           int j;
-
-          SVN_ERR (svn_client_proplist (&props, target,
+          
+          SVN_ERR (svn_client_proplist (&props, target, 
                                         opt_state->recursive, pool));
-
+          
           for (j = 0; j < props->nelts; ++j)
             {
-              svn_client_proplist_item_t *item
+              svn_client_proplist_item_t *item 
                 = ((svn_client_proplist_item_t **)props->elts)[j];
               const char *node_name_native;
               SVN_ERR (svn_utf_cstring_from_utf8_stringbuf (&node_name_native,
@@ -133,8 +133,8 @@ svn_cl__proplist (apr_getopt_t *os,
 }
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../tools/dev/svn-dev.el")
- * end:
+ * end: 
  */
