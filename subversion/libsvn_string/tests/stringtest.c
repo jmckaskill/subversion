@@ -47,7 +47,7 @@ main ()
   svn_string_print (a, stdout, TRUE, TRUE);
 
   /* Make sure our appended string is equal to this static one: */
-  if (! svn_string_compare
+  if (! svn_string_compare 
       (a, svn_string_create ("helloa longish phrase xtrasome by", pglobal)))
     {
       printf ("error in string-appending comparison.");
@@ -63,7 +63,7 @@ main ()
   printf ("comparison of c and b is: %d\n", svn_string_compare (c, b));
   printf ("comparison of a and b is: %d\n", svn_string_compare (a, b));
 
-  if (! svn_string_compare (c,b))
+  if (! svn_string_compare (c,b)) 
     {
       printf ("error in string-dup comparison.");
       apr_destroy_pool (pglobal);
@@ -74,11 +74,11 @@ main ()
   /* Set a bytestring to NULL, and query this fact. */
   svn_string_setempty (c);
   svn_string_print (c, stdout, TRUE, TRUE);
-
+  
   printf ("is C empty? : %d\n", svn_string_isempty (c));
   printf ("is A empty? : %d\n", svn_string_isempty (a));
 
-  if (! svn_string_isempty (c))
+  if (! svn_string_isempty (c)) 
     {
       printf ("error in string-empty test.");
       apr_destroy_pool (pglobal);
@@ -86,13 +86,13 @@ main ()
       exit (1);
     }
 
-
+  
   /* Fill a bytestring with hash marks */
   svn_string_fillchar (a, '#');
   svn_string_print (a, stdout, TRUE, TRUE);
 
-  if (! svn_string_compare
-      (a, svn_string_create ("#################################", pglobal)))
+  if (! svn_string_compare 
+      (a, svn_string_create ("#################################", pglobal))) 
     {
       printf ("error in string-fill comparison.");
       apr_destroy_pool (pglobal);
@@ -116,7 +116,7 @@ main ()
       apr_terminate();
       exit (1);
     }
-
+  
 
   /* Free our entire memory pool when done. */
   apr_destroy_pool (pglobal);
