@@ -21,7 +21,7 @@
 #include "svn_pipe.h"
 
 /*
- * Each endpoint of the pipe has an svn_pipe_t instance.
+ * Each endpoint of the pipe has an svn_pipe_t instance. 
  */
 struct svn_pipe_t {
   apr_proc_t *proc;     /* the piped process */
