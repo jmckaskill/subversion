@@ -42,7 +42,7 @@ typedef struct svn_fs_t svn_fs_t;
 
 /* Create a new filesystem object in POOL.  It doesn't refer to any
    actual repository yet; you need to invoke svn_fs_open_* or
-   svn_fs_create_* on it for that to happen.
+   svn_fs_create_* on it for that to happen.  
 
    NOTE: you probably don't want to use this directly, especially not
    if it's followed immediately by a call to svn_fs_open_berkeley().
@@ -118,7 +118,7 @@ svn_error_t *svn_fs_create_berkeley (svn_fs_t *fs, const char *path);
 
    Only one thread may operate on any given filesystem object at once.
    Two threads may access the same filesystem simultaneously only if
-   they open separate filesystem objects.
+   they open separate filesystem objects.  
 
    NOTE: you probably don't want to use this directly, especially not
    if it's immediately preceded by a call to svn_fs_new().  Take a
@@ -146,7 +146,7 @@ const char *svn_fs_berkeley_path (svn_fs_t *fs, apr_pool_t *pool);
 
    This function calls `DBENV->set_errcall', with HANDLER as the
    `db_errcall_fcn' argument.  */
-svn_error_t *svn_fs_set_berkeley_errcall (svn_fs_t *fs,
+svn_error_t *svn_fs_set_berkeley_errcall (svn_fs_t *fs, 
                                           void (*handler) (const char *errpfx,
                                                            char *msg));
 
@@ -221,7 +221,7 @@ int svn_fs_compare_ids (const svn_fs_id_t *a, const svn_fs_id_t *b);
 
 
 /* Return non-zero IFF the nodes associated with ID1 and ID2 are
-   related, else return zero.
+   related, else return zero.  
 
    NOTE: While this might seem redundent in the presence of
    svn_fs_compare_ids (looking for a return value != -1), it is
@@ -236,7 +236,7 @@ int svn_fs_check_related (const svn_fs_id_t *id1,
    POOL.  If POOL is zero, malloc the ID; we need this in certain
    cases where we can't pass in a pool, but it's generally best to use
    a pool whenever possible.  */
-svn_fs_id_t *svn_fs_parse_id (const char *data,
+svn_fs_id_t *svn_fs_parse_id (const char *data, 
                               apr_size_t len,
                               apr_pool_t *pool);
 
@@ -244,7 +244,7 @@ svn_fs_id_t *svn_fs_parse_id (const char *data,
 /* Return a Subversion string containing the unparsed form of the
    node or node revision id ID.  Allocate the string containing the
    unparsed form in POOL.  */
-svn_string_t *svn_fs_unparse_id (const svn_fs_id_t *id,
+svn_string_t *svn_fs_unparse_id (const svn_fs_id_t *id, 
                                  apr_pool_t *pool);
 
 
@@ -336,7 +336,7 @@ typedef struct svn_fs_txn_t svn_fs_txn_t;
    Allocate the new transaction in POOL; when POOL is freed, the new
    transaction will be closed (neither committed nor aborted).  You
    can also close the transaction explicitly, using
-   `svn_fs_close_txn'.
+   `svn_fs_close_txn'.  
 
      >> Note: if you're building a txn for committing, you probably <<
      >> don't want to call this directly.  Instead, call            <<
@@ -561,7 +561,7 @@ typedef enum
   svn_fs_path_change_add,         /* path added in txn */
   svn_fs_path_change_delete,      /* path removed in txn */
   svn_fs_path_change_replace,     /* path removed and re-added in txn */
-  svn_fs_path_change_reset        /* ignore all previous change items for
+  svn_fs_path_change_reset        /* ignore all previous change items for 
                                      path (internal-use only) */
 
 } svn_fs_path_change_kind_t;
@@ -578,7 +578,7 @@ typedef struct svn_fs_path_change_t
 
 
 /* Allocate and return a hash *CHANGED_PATHS_P containing descriptions
-   of the paths changed under ROOT.  The hash is keyed with const char *
+   of the paths changed under ROOT.  The hash is keyed with const char * 
    paths, and has svn_fs_path_change_t * values.  Use POOL for all
    allocations, including the hash and its values. */
 svn_error_t *svn_fs_paths_changed (apr_hash_t **changed_paths_p,
@@ -600,7 +600,7 @@ svn_node_kind_t svn_fs_check_path (svn_fs_root_t *root,
    which PATHS under ROOT were modified.  Use POOL for all allocations.
    The array of *REVS are sorted in descending order. All duplicates
    will also be removed.  PATHS is an array of `const char *' entries.
-
+   
    If CROSS_COPY_HISTORY is not set, this function will halt the
    search for revisions in which a given path was changed when it
    detects that the path was copied.
@@ -608,7 +608,7 @@ svn_node_kind_t svn_fs_check_path (svn_fs_root_t *root,
    NOTE: This function uses node-id ancestry alone to determine
    modifiedness, and therefore does NOT claim that in any of the
    returned revisions file contents changed, properties changed,
-   directory entries lists changed, etc.
+   directory entries lists changed, etc.  
 
    ALSO NOTE: The revisions returned for a given path will be older
    than or the same age as the revision of that path in ROOT.  That
@@ -665,7 +665,7 @@ svn_error_t *svn_fs_node_prop (svn_string_t **value_p,
                                const char *path,
                                const char *propname,
                                apr_pool_t *pool);
-
+   
 
 /* Set *TABLE_P to the entire property list of PATH in ROOT, as an APR
    hash table allocated in POOL.  The resulting table maps property
@@ -794,8 +794,8 @@ svn_error_t *svn_fs_merge (const char **conflict_p,
 
        - they are different node types, or
 
-       - if both files, they have different node-revision-ids, or
-
+       - if both files, they have different node-revision-ids, or 
+ 
        - if both dirs, they have different entry lists.
 
    (Note that there is a small chance of getting a false positive: two
@@ -885,7 +885,7 @@ svn_error_t *svn_fs_dir_entries (apr_hash_t **entries_p,
 svn_error_t *svn_fs_make_dir (svn_fs_root_t *root,
                               const char *path,
                               apr_pool_t *pool);
-
+                              
 
 /* Delete the node named PATH in ROOT.  ROOT must be the root of a
    transaction, not a revision.  Do any necessary temporary allocation
@@ -987,7 +987,7 @@ svn_error_t *svn_fs_file_length (apr_off_t *length_p,
    If ROOT is the root of a transaction, it is possible that the
    contents of the file PATH will change between calls to
    svn_fs_file_contents().  In that case, the result of reading from
-   *CONTENTS is undefined.
+   *CONTENTS is undefined.  
 
    ### kff todo: I am worried about lifetime issues with this pool vs
    the trail created farther down the call stack.  Trace this function
