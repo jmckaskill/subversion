@@ -2,9 +2,9 @@
 #
 #  tree.py: tools for comparing directory trees
 #
-#  Subversion is a tool for revision control.
+#  Subversion is a tool for revision control. 
 #  See http://subversion.tigris.org for more information.
-#
+#    
 # ====================================================================
 # Copyright (c) 2001 Sam Tobin-Hochstadt.  All rights reserved.
 #
@@ -165,10 +165,10 @@ class SVNTreeNode:
         break
     if child_already_exists == 0:
       self.children.append(newchild)
-      newchild.path = os.path.join (self.path, newchild.name)
+      newchild.path = os.path.join (self.path, newchild.name)      
 
     # If you already have the node,
-    else:
+    else:      
       if newchild.children is None:
         # this is the 'end' of the chain, so copy any content here.
         a.contents = newchild.contents
@@ -179,7 +179,7 @@ class SVNTreeNode:
         # try to add dangling children to your matching node
         for i in newchild.children:
           a.add_child(i)
-
+      
 
   def pprint(self):
     print " * Node name:  ", self.name
@@ -197,7 +197,7 @@ class SVNTreeNode:
       print "    Children: is a file."
 
 # reserved name of the root of the tree
-root_node_name = "__SVN_ROOT_NODE"
+root_node_name = "__SVN_ROOT_NODE" 
 
 
 # helper func
@@ -236,7 +236,7 @@ def node_is_greater(a, b):
 # Helper for compare_trees
 def compare_file_nodes(a, b):
   """Compare two nodes' names, contents, and properties, ignoring
-  children.  Return 0 if the same, 1 otherwise."""
+  children.  Return 0 if the same, 1 otherwise.""" 
   if a.name != b.name:
     return 1
   if a.contents != b.contents:
@@ -326,7 +326,7 @@ def handle_dir(path, current_parent, load_props, ignore_svn):
   all_files = os.listdir(path)
   files = []
   dirs = []
-
+  
   # put dirs and files in their own lists, and remove SVN dirs
   for f in all_files:
     f = os.path.join(path, f)
@@ -334,7 +334,7 @@ def handle_dir(path, current_parent, load_props, ignore_svn):
       dirs.append(f)
     elif os.path.isfile(f):
       files.append(f)
-
+      
   # add each file as a child of CURRENT_PARENT
   for f in files:
     fcontents = get_text(f)
@@ -344,7 +344,7 @@ def handle_dir(path, current_parent, load_props, ignore_svn):
       fprops = {}
     current_parent.add_child(SVNTreeNode(os.path.basename(f), None,
                                          fcontents, fprops))
-
+    
   # for each subdir, create a node, walk its tree, add it as a child
   for d in dirs:
     if load_props:
@@ -386,7 +386,7 @@ def default_singleton_handler_b(b, baton):
 # EXPORTED ROUTINES ARE BELOW
 
 
-# Main tree comparison routine!
+# Main tree comparison routine!  
 
 def compare_trees(a, b,
                   singleton_handler_a = None,
@@ -528,9 +528,9 @@ def dump_tree(n,indent=""):
 
 def build_generic_tree(nodelist):
   "Given a list of lists of a specific format, return a tree."
-
+  
   root = SVNTreeNode(root_node_name)
-
+  
   for list in nodelist:
     new_branch = create_from_path(list[0], list[1], list[2], list[3])
     root.add_child(new_branch)
@@ -548,10 +548,10 @@ def build_generic_tree(nodelist):
 
 def build_tree_from_checkout(lines):
   "Return a tree derived by parsing the output LINES from 'co' or 'up'."
-
+  
   root = SVNTreeNode(root_node_name)
   rm = re.compile ('^([MAGCUD_ ][MAGCUD_ ])\s+(.+)')
-
+  
   for line in lines:
     match = rm.search(line)
     if match and match.groups():
@@ -573,7 +573,7 @@ def build_tree_from_commit(lines):
   root = SVNTreeNode(root_node_name)
   rm1 = re.compile ('^(\w+(  \(bin\))?)\s+(.+)')
   rm2 = re.compile ('^Transmitting')
-
+  
   for line in lines:
     match = rm2.search(line)
     if not match:
@@ -592,7 +592,7 @@ def build_tree_from_commit(lines):
 #
 #          'status', 'wc_rev', 'repos_rev'
 #             ... and possibly 'locked', 'copied', IFF columns non-empty.
-#
+# 
 
 def build_tree_from_status(lines):
   "Return a tree derived by parsing the output LINES from 'st'."
@@ -605,7 +605,7 @@ def build_tree_from_status(lines):
     repos_rev = match.group(1)
   else:
     repos_rev = '?'
-
+    
   # Try http://www.wordsmith.org/anagram/anagram.cgi?anagram=ACDRMGU
   rm = re.compile ('^([MACDRUG_ ][MACDRUG_ ])(.)(.)(.)  .   [^0-9-]+(\d+|-)( +\S+ +\S+ +)(.+)')
   for line in lines:
@@ -615,7 +615,7 @@ def build_tree_from_status(lines):
     # data).
     if re.match(r'^Performing', line):
       break
-
+    
     match = rm.search(line)
     if match and match.groups():
       if match.group(6) != '-': # ignore items that only exist on repos
@@ -672,9 +672,9 @@ def build_tree_from_wc(wc_path, load_props=0, ignore_svn=1):
     # if necessary, store the root dir's props in the root node.
     if load_props:
       root.props = get_props(wc_path)
-
+      
     # Walk the tree recursively
-    handle_dir(os.path.normpath(wc_path), root, load_props, ignore_svn)
+    handle_dir(os.path.normpath(wc_path), root, load_props, ignore_svn) 
 
     return root
 
