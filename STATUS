@@ -67,7 +67,7 @@ make the threshold vote on one of these items, please move it to the
 section for approved changes.)
 
     * r8139
-      Fix authentication bugs.
+      Fix authentication bugs. 
       Justification: Bugs that happen when prompt providers aren't
         turned on.  Which includes the command line client when
         --non-interactive is used.
@@ -107,7 +107,7 @@ Bindings changes that affect the build system:
      Votes:
       +1: breser
       +1 (concept and build system changes): ghudson
-
+     
 Bindings changes that don't affect the build system:
 
 [none pending]
