@@ -1,5 +1,5 @@
-/*
-   A simple demo of how to use Subversion's XML parser interface.
+/* 
+   A simple demo of how to use Subversion's XML parser interface. 
 */
 
 
@@ -25,7 +25,7 @@ svn_error_t *
 my_vcdiff_windoweater (svn_delta_window_t *window, void *baton)
 {
   printf ("Windoweater: yum, got me a window of vcdiff data!\n");
-
+  
   /* TODO:  delve into the vcdiff window and print the data. */
 
   /* This deallocates the whole subpool created to hold the window. */
@@ -41,10 +41,10 @@ my_vcdiff_windoweater (svn_delta_window_t *window, void *baton)
 svn_error_t *
 test_delete (svn_string_t *filename, void *walk_baton, void *parent_baton)
 {
-  printf ("DELETE event:  delete filename '%s'\n",
+  printf ("DELETE event:  delete filename '%s'\n", 
           svn_string_2cstring (filename, globalpool));
 
-  return SVN_NO_ERROR;
+  return SVN_NO_ERROR;         
 }
 
 svn_error_t *
@@ -58,7 +58,7 @@ test_add_directory (svn_string_t *name,
   printf ("ADD_DIR event:  name '%s', ancestor '%s' version %d\n",
           svn_string_2cstring (name, globalpool),
           svn_string_2cstring (base_path, globalpool), base_version);
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -74,7 +74,7 @@ test_replace_directory (svn_string_t *name,
   printf ("REPLACE_DIR event:  name '%s', ancestor '%s' version %d\n",
           svn_string_2cstring (name, globalpool),
           svn_string_2cstring (base_path, globalpool), base_version);
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -84,7 +84,7 @@ test_finish_directory (void *baton)
 {
   printf ("FINISH_DIR event.\n");
 
-  return SVN_NO_ERROR;
+  return SVN_NO_ERROR;    
 }
 
 
@@ -93,7 +93,7 @@ test_finish_file (void *baton)
 {
   printf ("FINISH_FILE event.\n");
 
-  return SVN_NO_ERROR;
+  return SVN_NO_ERROR;    
 }
 
 
@@ -109,7 +109,7 @@ test_add_file (svn_string_t *name,
   printf ("ADD_FILE event:  name '%s', ancestor '%s' version %d\n",
           svn_string_2cstring (name, globalpool),
           svn_string_2cstring (base_path, globalpool), base_version);
-
+  
   /* Set the value of HANDLER and HANDLER_BATON here */
   *handler        = my_vcdiff_windoweater;
   *handler_baton  = NULL;
@@ -131,7 +131,7 @@ test_replace_file (svn_string_t *name,
   printf ("REPLACE_FILE event:  name '%s', ancestor '%s' version %d\n",
           svn_string_2cstring (name, globalpool),
           svn_string_2cstring (base_path, globalpool), base_version);
-
+  
   /* Set the value of HANDLER and HANDLER_BATON here */
   *handler        = my_vcdiff_windoweater;
   *handler_baton  = NULL;
@@ -142,7 +142,7 @@ test_replace_file (svn_string_t *name,
 
 
 
-/* An official subversion "read" routine, comforming to POSIX standards.
+/* An official subversion "read" routine, comforming to POSIX standards. 
    This one reads our XML filehandle, passed in as our baton.  */
 svn_error_t *
 my_read_func (void *baton, char *buffer, apr_off_t *len)
@@ -153,7 +153,7 @@ my_read_func (void *baton, char *buffer, apr_off_t *len)
   /* TODO: read *len bytes from the file into buffer, and set *len to
      the number actually read.  Return 0 if we got an EOF.  */
 
-
+  
 
 }
 
@@ -187,7 +187,7 @@ int main()
   my_walker.finish_file        = test_finish_file;
   my_walker.add_file           = test_add_file;
   my_walker.replace_file       = test_replace_file;
-
+    
 
   /* Fire up the XML parser */
   err = svn_delta_parse (my_read_func, source_baton, /* read from here */
