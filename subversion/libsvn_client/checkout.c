@@ -95,7 +95,7 @@ svn_client__checkout_internal (const char *URL,
                                        &checkout_edit_baton,
                                        traversal_info,
                                        pool));
-
+  
     {
       void *ra_baton, *session;
       svn_ra_plugin_t *ra_lib;
@@ -122,7 +122,7 @@ svn_client__checkout_internal (const char *URL,
 
       /* Have update flesh everything out. */
       err = svn_client_update (path, revision, recurse, ctx, pool);
-
+    
       if (err)
         {
           /* Don't rely on the error handling to handle the sleep later, do
@@ -131,8 +131,8 @@ svn_client__checkout_internal (const char *URL,
           return err;
         }
       *use_sleep = TRUE;
-    }
-
+    }      
+  
   /* We handle externals after the initial checkout is complete, so
      that fetching external items (and any errors therefrom) doesn't
      delay the primary checkout.
