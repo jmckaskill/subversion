@@ -26,7 +26,7 @@ svn_fs_t *svn_fs__txn_fs (svn_fs_txn_t *txn);
 
 
 /* Return a pointer to the POOL of TXN.  Freeing this pool frees TXN
-   (but see svn_fs_close_txn).  */
+   (but see svn_fs_close_txn).  */ 
 apr_pool_t *svn_fs__txn_pool (svn_fs_txn_t *txn);
 
 
@@ -34,7 +34,7 @@ apr_pool_t *svn_fs__txn_pool (svn_fs_txn_t *txn);
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
