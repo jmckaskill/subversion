@@ -29,7 +29,7 @@ DESIGN_DIR = doc/programmer/design
 BOOK_TOP = doc/book
 BOOK_DIR = ${BOOK_TOP}/book
 MDOCS_DIR = ${BOOK_TOP}/misc-docs
-DOC_DIRS = $(DESIGN_DIR) $(BOOK_DIR) $(MDOCS_DIR)
+DOC_DIRS = $(DESIGN_DIR) $(BOOK_DIR) $(MDOCS_DIR) 
 
 SWIG_SRC_DIR = $(abs_srcdir)/subversion/bindings/swig
 
@@ -163,7 +163,7 @@ INSTALL_SWIG_JAVA_LIB = $(INSTALL_LIB)
 INSTALL_EXTRA_SWIG_PY=$(top_srcdir)/build/copy-swig-py.sh "$(PYTHON)" "$(INSTALL_DATA)" "${SWIG_SRC_DIR}/python/svn" "$(DESTDIR)$(swig_pydir)"
 INSTALL_EXTRA_SWIG_JAVA=:
 
-APXS = @APXS@
+APXS = @APXS@ 
 
 PYTHON = @PYTHON@
 
@@ -232,12 +232,12 @@ check: $(TEST_DEPS) @FS_TEST_DEPS@
 
 # First, set up Apache as documented in
 # subversion/tests/clients/cmdline/README.
-davcheck:
+davcheck: 
 	@make check BASE_URL=http://localhost
 
 # First, run:
 #   subversion/svnserve/svnserve -d -r `pwd`/subversion/tests/clients/cmdline
-svncheck:
+svncheck: 
 	@make check BASE_URL=svn://localhost
 
 check-clean:
@@ -359,7 +359,7 @@ java-api:
 
 
 ### Build a tarball.
-dist:
+dist: 
 	./dist.sh
 
 
@@ -380,7 +380,7 @@ dist:
 
 
 .texi.info:
-	$(MAKEINFO) -I `dirname $<` -o $@ $<
+	$(MAKEINFO) -I `dirname $<` -o $@ $< 
 
 .texi.dvi:
 	wd=`pwd` ; cd `dirname $@` ; $(TEXI2DVI) $$wd/$<
