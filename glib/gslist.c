@@ -21,10 +21,10 @@
  * Modified by the GLib Team and others 1997-1999.  See the AUTHORS
  * file for a list of people on the GLib Team.  See the ChangeLog
  * files for a list of changes.  These files are distributed with
- * GLib at ftp://ftp.gtk.org/pub/gtk/.
+ * GLib at ftp://ftp.gtk.org/pub/gtk/. 
  */
 
-/*
+/* 
  * MT safe
  */
 
@@ -112,7 +112,7 @@ g_slist_alloc (void)
 					       128);
       g_slist_validate_allocator (allocator);
       allocator->last = NULL;
-      current_allocator = allocator;
+      current_allocator = allocator; 
     }
   if (!current_allocator->free_lists)
     {
@@ -134,7 +134,7 @@ g_slist_alloc (void)
 	}
     }
   G_UNLOCK (current_allocator);
-
+  
   list->next = NULL;
 
   return list;
@@ -498,7 +498,7 @@ g_slist_insert_sorted (GSList       *list,
   GSList *prev_list = NULL;
   GSList *new_list;
   gint cmp;
-
+ 
   g_return_val_if_fail (func != NULL, list);
 
   if (!list)
@@ -507,9 +507,9 @@ g_slist_insert_sorted (GSList       *list,
       new_list->data = data;
       return new_list;
     }
-
+ 
   cmp = (*func) (data, tmp_list->data);
-
+ 
   while ((tmp_list->next) && (cmp > 0))
     {
       prev_list = tmp_list;
@@ -525,7 +525,7 @@ g_slist_insert_sorted (GSList       *list,
       tmp_list->next = new_list;
       return list;
     }
-
+  
   if (prev_list)
     {
       prev_list->next = new_list;
@@ -539,8 +539,8 @@ g_slist_insert_sorted (GSList       *list,
     }
 }
 
-static GSList*
-g_slist_sort_merge  (GSList      *l1,
+static GSList* 
+g_slist_sort_merge  (GSList      *l1, 
 		     GSList      *l2,
 		     GCompareFunc compare_func)
 {
@@ -554,39 +554,39 @@ g_slist_sort_merge  (GSList      *l1,
         {
 	  l=l->next=l1;
 	  l1=l1->next;
-        }
-      else
+        } 
+      else 
 	{
 	  l=l->next=l2;
 	  l2=l2->next;
         }
     }
   l->next= l1 ? l1 : l2;
-
+  
   return list.next;
 }
 
-GSList*
+GSList* 
 g_slist_sort (GSList       *list,
 	      GCompareFunc compare_func)
 {
   GSList *l1, *l2;
 
-  if (!list)
+  if (!list) 
     return NULL;
-  if (!list->next)
+  if (!list->next) 
     return list;
 
-  l1 = list;
+  l1 = list; 
   l2 = list->next;
 
   while ((l2 = l2->next) != NULL)
     {
-      if ((l2 = l2->next) == NULL)
+      if ((l2 = l2->next) == NULL) 
 	break;
       l1=l1->next;
     }
-  l2 = l1->next;
+  l2 = l1->next; 
   l1->next = NULL;
 
   return g_slist_sort_merge (g_slist_sort (list, compare_func),
