@@ -1009,7 +1009,7 @@ JNIEXPORT void JNICALL Java_org_tigris_subversion_javahl_SVNClient_diff
 	if(JNIUtil::isExceptionThrown())
 	{
 		return;
-	}
+	}	
 	Revision revision2(jrevision2);
 	if(JNIUtil::isExceptionThrown())
 	{
@@ -1019,7 +1019,7 @@ JNIEXPORT void JNICALL Java_org_tigris_subversion_javahl_SVNClient_diff
 	if(JNIUtil::isExceptionThrown())
 	{
 		return;
-	}
+	}	
 	cl->diff(target1, revision1, target2, revision2, outfileName,jrecurse ? true:false);
 }
 
@@ -1103,7 +1103,7 @@ JNIEXPORT jint JNICALL Java_org_tigris_subversion_javahl_SVNClient_versionMajor
 	JNIEntryStatic(SVNClient, versionMajor);
 	return JNI_VER_MAJOR;
 }
-
+	
 /*
  * Class:     org_tigris_subversion_javahl_SVNClient
  * Method:    versionMinor
@@ -1146,17 +1146,17 @@ JNIEXPORT void JNICALL Java_org_tigris_subversion_javahl_SVNClient_relocate
 	if(JNIUtil::isExceptionThrown())
 	{
 		return;
-	}
+	}	
 	JNIStringHolder to(jto);
 	if(JNIUtil::isExceptionThrown())
 	{
 		return;
-	}
+	}	
 	JNIStringHolder path(jpath);
 	if(JNIUtil::isExceptionThrown())
 	{
 		return;
-	}
+	}	
 	cl->relocate(from, to, path, jrecurse ? true: false);
 	return;
 }
@@ -1180,16 +1180,16 @@ JNIEXPORT jbyteArray JNICALL Java_org_tigris_subversion_javahl_SVNClient_blame
 	if(JNIUtil::isExceptionThrown())
 	{
 		return NULL;
-	}
+	}	
 	Revision revisionStart(jrevisionStart);
 	if(JNIUtil::isExceptionThrown())
 	{
 		return NULL;
-	}
+	}	
 	Revision revisionEnd(jrevisionEnd);
 	if(JNIUtil::isExceptionThrown())
 	{
 		return NULL;
-	}
+	}	
 	return cl->blame(path, revisionStart, revisionEnd, jstrict? true:false);
 }
