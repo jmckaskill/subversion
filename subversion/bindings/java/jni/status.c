@@ -46,7 +46,7 @@
 
 /*** Code ***/
 jobject
-status__create(JNIEnv *env, svn_wc_status_t *status,
+status__create(JNIEnv *env, svn_wc_status_t *status, 
                jboolean *hasException)
 {
   jobject jstatus = NULL;
@@ -63,7 +63,7 @@ status__create(JNIEnv *env, svn_wc_status_t *status,
   fprintf(stderr, ")\n");
 #endif
 
-  /*
+  /* 
    * needed references:
    * - statusClass
    * - statusConstructor
@@ -79,7 +79,7 @@ status__create(JNIEnv *env, svn_wc_status_t *status,
       /* create java Entry from status->entry */
       jentry = entry__create(env, &_hasException,
                                  status->entry);
-
+      
       if( !_hasException )
         {
           statusClass = j__get_class(env, &_hasException,
@@ -90,7 +90,7 @@ status__create(JNIEnv *env, svn_wc_status_t *status,
 	{
 	  statusConstructor = j__get_method(env, &_hasException,
                                             statusClass,
-                                            "<init>",
+                                            "<init>", 
                                             SVN_JNI_STATUS__SIG);
 
 	  if( statusConstructor == NULL )
@@ -103,13 +103,13 @@ status__create(JNIEnv *env, svn_wc_status_t *status,
         {
           jstatus = (*env)->NewObject(env, statusClass,
                                       statusConstructor);
-
+          
           _hasException = (*env)->ExceptionCheck(env);
         }
 
       if( !_hasException )
         {
-          status__set_entry(env, &_hasException,
+          status__set_entry(env, &_hasException, 
                             jstatus, jentry);
         }
 
@@ -140,7 +140,7 @@ status__create(JNIEnv *env, svn_wc_status_t *status,
       if( !_hasException )
         {
           status__set_repos_text_status(env, &_hasException,
-                                        jstatus,
+                                        jstatus, 
                                         status->repos_text_status);
         }
 
@@ -182,7 +182,7 @@ status__set_entry(JNIEnv *env, jboolean *hasException,
   SVN_JNI__DEBUG_PTR(jentry);
   fprintf(stderr, ")\n");
 #endif
-  j__set_object(env, hasException,
+  j__set_object(env, hasException, 
                 SVN_JNI_STATUS__CLASS,
                 SVN_JNI_STATUS__SET_ENTRY,
                 SVN_JNI_STATUS__SET_ENTRY_SIG,
@@ -203,7 +203,7 @@ status__set_repos_rev(JNIEnv *env, jboolean *hasException,
   fprintf(stderr, ")\n");
 #endif
   j__set_long(env, hasException,
-              SVN_JNI_STATUS__CLASS,
+              SVN_JNI_STATUS__CLASS, 
               SVN_JNI_STATUS__SET_REPOS_REV,
               jstatus, jrepos_rev);
 #ifdef SVN_JNI__VERBOSE
@@ -230,7 +230,7 @@ status__set_text_status(JNIEnv *env, jboolean *hasException,
 #endif
 }
 
-void
+void 
 status__set_prop_status(JNIEnv *env, jboolean *hasException,
                         jobject jstatus, jint jprop_status)
 {
@@ -268,9 +268,9 @@ status__set_locked(JNIEnv *env, jboolean *hasException,
 #endif
 }
 
-void
+void 
 status__set_repos_text_status(JNIEnv *env, jboolean *hasException,
-                              jobject jstatus,
+                              jobject jstatus, 
                               jint jrepos_text_status)
 {
 #ifdef SVN_JNI__VERBOSE
@@ -308,8 +308,8 @@ status__set_repos_prop_status(JNIEnv *env, jboolean *hasException,
 #endif
 }
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../svn-dev.el")
- * end:
+ * end: 
  */

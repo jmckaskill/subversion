@@ -31,10 +31,10 @@
 //JUST UNCOMMENT THE FOLLOWING LINE
 //#define SVN_JNI_DATE__DEBUG
 
-/* we can be lucky apr_time_t matches the constructor
+/* we can be lucky apr_time_t matches the constructor 
  * java.util.Date(long) so conversion is an easy job
  */
-jobject
+jobject 
 date__apr_to_j(JNIEnv *env, jboolean *hasException,
 		       apr_time_t time)
 {
@@ -96,7 +96,7 @@ date__apr_to_j(JNIEnv *env, jboolean *hasException,
 #ifdef SVN_JNI_DATE__DEBUG
   fprintf(stderr, "<<<date_apr_to_j\n");
 #endif
-
+				    
   if( hasException != NULL )
     {
       *hasException = _hasException;
@@ -105,8 +105,8 @@ date__apr_to_j(JNIEnv *env, jboolean *hasException,
   return result;
 }
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../svn-dev.el")
- * end:
+ * end: 
  */
