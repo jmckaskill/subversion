@@ -8,13 +8,13 @@ For a first conversational overview of the the client's CVS-like
 ``copy-modify-merge'' model of development, @xref{Basics}.
 
 @menu
-* Checkout::
-* Basic Work Cycle::
-* History::
-* Branches and Tags::
-* Properties::
-* Modules::
-* Other Commands::
+* Checkout::                    
+* Basic Work Cycle::            
+* History::                     
+* Branches and Tags::           
+* Properties::                  
+* Modules::                     
+* Other Commands::              
 @end menu
 
 @c ------------------------------------------------------------------
@@ -314,7 +314,7 @@ Index: ./bar.c
 +#include <unistd.h>
 +
 +#include <stdio.h>
-
+  
  int main(void) @{
 -  printf("Sixty-four slices of American Cheese...\n");
 +  printf("Sixty-five slices of American Cheese...\n");
@@ -325,7 +325,7 @@ Index: ./README
 ===================================================================
 --- ./README
 +++ ./README	Mon Jul 15 17:58:18 2002
-@@ -193,3 +193,4 @@
+@@ -193,3 +193,4 @@ 
 +Note to self:  pick up laundry.
 
 Index: ./stuff/fish.c
@@ -613,7 +613,7 @@ $ svn diff -r 23:24 http://foo.com/some/project
 @node Branches and Tags
 @section Branches and Tags
 
-@subsection Branching with @command{svn cp}
+@subsection Branching with @command{svn cp} 
 
 At this point, you should understand how each commit creates an entire
 new filesystem tree in the repository.  (If not, read about
@@ -746,7 +746,7 @@ have fixed a critical bug, and the team working on the original
 The @command{svn merge} command is the answer.  You can think of
 @command{svn merge} as a special kind of @command{svn diff};  only
 instead of displaying unified diffs to the screen, it @emph{applies}
-the differences to your working copy as if they were local changes.
+the differences to your working copy as if they were local changes.  
 
 For example, suppose the bug fix happened in a commit to the
 @file{mooIRC-beta} branch in revision 102.
@@ -771,9 +771,9 @@ commit them.
 
 @subsection Rolling back a change with @command{svn merge}
 
-Another common use for @command{svn merge} is for rolling back a change
-that has been committed.  Say you commit some changes in revision 10, and
-later decide that they were a mistake.  You can easily revert the tree to
+Another common use for @command{svn merge} is for rolling back a change 
+that has been committed.  Say you commit some changes in revision 10, and 
+later decide that they were a mistake.  You can easily revert the tree to 
 the state it was in at revision 9 with an @command{svn merge} command.
 
 @example
@@ -796,8 +796,8 @@ Transmitting file data ..
 Committed revision 11.
 @end example
 
-If you aren't rolling back the changes to your current directory (say you
-want to roll back one specific file, or all the files in one specific
+If you aren't rolling back the changes to your current directory (say you 
+want to roll back one specific file, or all the files in one specific 
 subdirectory), then the syntax is slightly different, as you have to tell
 @command{svn merge} where it should merge the changes into.
 
@@ -822,10 +822,10 @@ Transmitting file data .
 Committed revision 15.
 @end example
 
-Keep in mind that rolling back a change like this is just like any other
-@command{svn merge} operation, so you should use @command{svn status} and
-@command{svn diff} to confirm that your work is in the state you want it
-to be in, and then use @command{svn commit} to send the final version to
+Keep in mind that rolling back a change like this is just like any other 
+@command{svn merge} operation, so you should use @command{svn status} and 
+@command{svn diff} to confirm that your work is in the state you want it 
+to be in, and then use @command{svn commit} to send the final version to 
 the repository.
 
 @subsection Removing a branch or tag with @command{svn rm}
@@ -853,7 +853,7 @@ Subversion allows you to attach arbitrary ``metadata'' to files and
 directories.  We refer to this data as @dfn{properties}, and they can
 be thought of as collections of name/value pairs (hash-tables) attached
 to each item in your working copy.
-
+  
 To set or get a property on a file or directory, use the @command{svn
 propset} and @command{svn propget} commands.  To list all properties
 attached to an item, use @command{svn proplist}.  To delete a
@@ -1127,7 +1127,7 @@ definition of the module can change over time, and subsequent calls to
 @c ### Karl, anything else to add here?  I'm suspicious that this
 @c feature doesn't work as I expect just yet;  when I run 'svn up' at
 @c the top of the wc, nothing happens in the external directory at
-@c all, because (I guess) it's not linked to the parent.
+@c all, because (I guess) it's not linked to the parent. 
 
 
 @c ------------------------------------------------------------------
@@ -1155,7 +1155,7 @@ display an 'L' next to locked items:
 @example
 $ svn st
   L    ./somedir
-M      ./somedir/foo.c
+M      ./somedir/foo.c 
 
 $ svn cleanup
 $ svn st
