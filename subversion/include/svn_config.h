@@ -1,4 +1,4 @@
-/**
+/** 
  * @copyright
  * ====================================================================
  * Copyright (c) 2000-2003 CollabNet.  All rights reserved.
@@ -48,18 +48,18 @@ extern "C" {
 typedef struct svn_config_t svn_config_t;
 
 
-/** Read configuration information from all available sources and merge it
+/** Read configuration information from all available sources and merge it 
  * into one @c svn_config_t object.
  *
  * Merge configuration information from all available sources and
- * store it in @a *cfgp, which is allocated in @a pool.  That is, first
+ * store it in @a *cfgp, which is allocated in @a pool.  That is, first 
  * read any system-wide configurations (from a file or from the
  * registry), then merge in personal configurations (again from
  * file or registry).
  *
  * ###
  * ### Currently only reads from ~/.subversion/config.
- * ### See http://subversion.tigris.org/issues/show_bug.cgi?id=579.
+ * ### See http://subversion.tigris.org/issues/show_bug.cgi?id=579.  
  * ###
  *
  * If no config information is available, return an empty @a *cfgp.
@@ -71,9 +71,9 @@ svn_error_t *svn_config_read_config (svn_config_t **cfgp, apr_pool_t *pool);
  * @c svn_config_t object.
  *
  * Merge server configuration information from all available sources
- * and store it in @a *cfgp, which is allocated in @a pool.  That is,
- * first read any system-wide server configurations (from a file or from
- * the registry), then merge in personal server configurations (again
+ * and store it in @a *cfgp, which is allocated in @a pool.  That is, 
+ * first read any system-wide server configurations (from a file or from 
+ * the registry), then merge in personal server configurations (again 
  * from file or registry).
  *
  * Under Unix, or a Unix emulator such as Cygwin, personal config is
@@ -83,7 +83,7 @@ svn_error_t *svn_config_read_config (svn_config_t **cfgp, apr_pool_t *pool);
  * is merged in.  System config information under Windows is found
  * only in the registry.
  *
- * If no server config information is available, return an empty @a *cfgp.
+ * If no server config information is available, return an empty @a *cfgp.  
  *
  * ### Notes: This function, and future ones like it, rather obviates
  * the need for @c svn_config_read and @c svn_config_merge as public
@@ -109,7 +109,7 @@ svn_error_t *svn_config_read (svn_config_t **cfgp,
 
 /** Merge config data from a @a file into an @c svn_config_t.
  *
- * Like @c svn_config_read, but merge the configuration data from @a file
+ * Like @c svn_config_read, but merge the configuration data from @a file 
  * (a file or registry path) into @a *cfg, which was previously returned
  * from @c svn_config_read.  This function invalidates all value
  * expansions in @a cfg, so that the next @c svn_option_get takes the
@@ -122,7 +122,7 @@ svn_error_t *svn_config_merge (svn_config_t *cfg,
 
 /** Find a config option's setting.
  *
- * Find the value of a (@a section, @a option) pair in @a cfg, set @a
+ * Find the value of a (@a section, @a option) pair in @a cfg, set @a 
  * *valuep to the value.
  *
  * If @a cfg is @c NULL, just sets @a *valuep to @a default_value.
@@ -140,7 +140,7 @@ void svn_config_get (svn_config_t *cfg, const char **valuep,
 
 /** Set a config option.
  *
- * Add or replace the value of a (@a section, @a option) pair in @a cfg with
+ * Add or replace the value of a (@a section, @a option) pair in @a cfg with 
  * @a value.
  *
  * This function invalidates all value expansions in @a cfg.
@@ -157,12 +157,12 @@ void svn_config_set (svn_config_t *cfg,
 typedef svn_boolean_t (*svn_config_enumerator_t)
        (const char *name, const char *value, void *baton);
 
-/** Enumerate the options in @a section by calling @a callback and passing
+/** Enumerate the options in @a section by calling @a callback and passing 
  * it @a baton for each of them.
  *
  * Enumerate the options in @a section, passing @a baton and the current
  * option's name and value to @a callback.  Continue the enumeration if
- * @a callback returns @c TRUE.  Return the number of times @a callback
+ * @a callback returns @c TRUE.  Return the number of times @a callback 
  * was called.
  *
  * ### kff asks: A more usual interface is to continue enumerating
@@ -190,12 +190,12 @@ const char *svn_config_find_group (svn_config_t *cfg, const char *key,
                                    apr_pool_t *pool);
 
 
-/** Ensure that the user's ~/.subversion/ area exists, and create no-op
+/** Ensure that the user's ~/.subversion/ area exists, and create no-op 
  * template files for any absent config files.
  *
  * Try to ensure that the user's ~/.subversion/ area exists, and create no-op
  * template files for any absent config files.  Use @a pool for any
- * temporary allocation.
+ * temporary allocation.  
  *
  * Don't error if something exists but is the wrong kind (for example,
  * ~/.subversion exists but is a file, or ~/.subversion/servers exists
