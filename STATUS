@@ -67,7 +67,7 @@ Candidate changes:
       APR_STATUS_IS_SUCCESS is no longer defined in APR HEAD.
     Votes:
       +1: mbk, lundblad
-
+      
   * r10722
     Display the targets printed for propedit in local style.
     Justificatoin:
@@ -82,4 +82,4 @@ Candidate changes:
       API contract violation.
     Votes:
       +1: breser
-
+     
