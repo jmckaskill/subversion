@@ -166,7 +166,7 @@ lock manager's concurrency pool, and the server closes its connection.
 When the lock manager has no more open server connections, it dies.
 
 @c ------------------------------------
-@subsection Repository Structure
+@subsection Repository Structure 
 
 @subsubsection Schema
 
@@ -176,7 +176,7 @@ not, @xref{Model}.  For completeness, we can now offer a precise,
 technical description of these terms.
 
 @c This is taken from jimb's very first Subversion spec!
-
+ 
 @quotation
 
 A @dfn{text string} is a string of Unicode characters which is
@@ -218,13 +218,13 @@ A @dfn{repository} consists of node table and a history.
 
 @end quotation
 
-@c Some definitions: we say that a node @var{n} is a @dfn{direct child}
-@c of a directory @var{d} iff @var{d} contains a directory entry whose
-@c node number is @var{n}. A node @var{n} is a @dfn{child} of a
-@c directory @var{d} iff @var{n} is a direct child of @var{d}, or if
-@c there exists some directory @var{e} which is a direct child of
-@c @var{d}, and @var{n} is a child of @var{e}. Given this definition of
-@c ``direct child'' and ``child,'' the obvious definitions of ``direct
+@c Some definitions: we say that a node @var{n} is a @dfn{direct child} 
+@c of a directory @var{d} iff @var{d} contains a directory entry whose 
+@c node number is @var{n}. A node @var{n} is a @dfn{child} of a 
+@c directory @var{d} iff @var{n} is a direct child of @var{d}, or if 
+@c there exists some directory @var{e} which is a direct child of 
+@c @var{d}, and @var{n} is a child of @var{e}. Given this definition of 
+@c ``direct child'' and ``child,'' the obvious definitions of ``direct 
 @c parent'' and ``parent'' hold.
 
 @c In these restrictions, let @var{r} be any repository.  When we refer,
@@ -298,11 +298,11 @@ CVS syntax):
 For the initial release of Subversion,
 
 @itemize @bullet
-@item
+@item 
   The filesystem will be implemented as a library on UNIX.
 @item
-  The lock manager will communicate with other processes via UNIX domain
-  sockets.
+  The lock manager will communicate with other processes via UNIX domain 
+  sockets.  
 @item
   The filesystem's data will probably be stored in a collection of .db
   files, using the Berkeley Database library.@footnote{In the future, of
@@ -382,7 +382,7 @@ When starting up, svn_main will read a configuration file @file{svn.conf}
 specify a list of server policies to implement.
 
 Because filesystem calls are ``wrappered'' by svn_main, it has the
-opportunity to intercept and interpret them according to policy.
+opportunity to intercept and interpret them according to policy.  
 
 For example, an administrator may wish to take a repository ``off-line''
 for backup purposes.  She can specify this in the @file{svn.conf} file,
