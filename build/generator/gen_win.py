@@ -205,7 +205,7 @@ class WinGeneratorBase(gen_base.GeneratorBase):
     ret = []
 
     sub = self.get_win_depends(target, 2)
-
+    
     for obj in self.graph.get_sources(gen_base.DT_LINK, target.name):
       if not isinstance(obj, gen_base.Target):
         continue
@@ -281,7 +281,7 @@ class WinGeneratorBase(gen_base.GeneratorBase):
 
   def get_win_libs(self, target):
     "Return the list of external libraries needed for target"
-
+    
     if target.name == 'mod_dav_svn':
       return [ self.dblibname+'.lib',
                'xml.lib',
