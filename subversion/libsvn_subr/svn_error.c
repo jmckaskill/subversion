@@ -65,7 +65,7 @@ make_error_internal (apr_status_t apr_err,
   new_error->apr_err = apr_err;
   new_error->src_err = src_err;
   new_error->child   = child;
-  new_error->pool    = newpool;
+  new_error->pool    = newpool;  
 
   return new_error;
 }
@@ -90,7 +90,7 @@ svn_error__make_error_pool (apr_pool_t *parent, apr_pool_t **error_pool)
   /* Create a subpool to hold all error allocations. We use a subpool rather
      than the parent itself, so that we can clear the error pool. */
   *error_pool = apr_pool_sub_make (parent, abort_on_pool_failure);
-
+  
   /* Set the error pool on itself. */
   apr_err = apr_pool_userdata_set (*error_pool, SVN_ERROR_POOL, apr_pool_cleanup_null,
                               *error_pool);
@@ -100,7 +100,7 @@ svn_error__make_error_pool (apr_pool_t *parent, apr_pool_t **error_pool)
 
 
 /* Get POOL's error pool into *ERROR_POOL.
- *
+ * 
  * If ROOTED_HERE is not null, then
  *   - If the error pool is a direct subpool of POOL, set *ROOTED_HERE to 1
  *   - Else set *ROOTED_HERE to 0
@@ -200,18 +200,18 @@ svn_pool_create (apr_pool_t *parent_pool)
     }
   else
     svn_pool__inherit_error_pool (ret_pool);
-
+  
   return ret_pool;
 }
 
 
 
-void
+void 
 svn_pool_clear (apr_pool_t *p)
 {
   apr_pool_t *error_pool;
   svn_boolean_t subpool_of_p_p;  /* That's "predicate" to you, bud. */
-
+    
   if (p->parent)
     svn_error__get_error_pool (p->parent, &error_pool, &subpool_of_p_p);
   else
@@ -249,7 +249,7 @@ svn_error_create (apr_status_t apr_err,
   svn_error_t *err;
 
   err = make_error_internal (apr_err, src_err, child, pool);
-
+  
   err->message = (const char *) apr_pstrdup (err->pool, message);
 
   return err;
@@ -305,7 +305,7 @@ svn_handle_error (svn_error_t *err, FILE *stream, svn_boolean_t fatal)
   /* Note: we can also log errors here someday. */
 
   /* Is this a Subversion-specific error code? */
-  if ((err->apr_err > APR_OS_START_USEERR)
+  if ((err->apr_err > APR_OS_START_USEERR) 
       && (err->apr_err <= APR_OS_START_CANONERR))
     fprintf (stream, "\nsvn_error: #%d ", err->apr_err);
 
@@ -331,7 +331,7 @@ svn_handle_error (svn_error_t *err, FILE *stream, svn_boolean_t fatal)
 
 
 
-void
+void 
 svn_handle_warning (void *data, const char *fmt, ...)
 {
   va_list ap;
@@ -348,8 +348,8 @@ svn_handle_warning (void *data, const char *fmt, ...)
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
- * end:
+ * end: 
  */
