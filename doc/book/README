@@ -42,7 +42,7 @@ II. COMPILING THE DOCS
    The "Docbook Open Repository" on Sourceforge has a large collection
    of XSL stylesheets that specifically operate on Docbook.  Download
    and install the latest 'docbook-xsl' package from this page:
-
+  
       http://sourceforge.net/project/showfiles.php?group_id=21935
 
    Download the latest version of docbook-xsl, unpack it, then
@@ -77,16 +77,16 @@ II. COMPILING THE DOCS
      Find it at ftp://archive.progeny.com/GNOME/sources/libxml2/)
 
      If you don't want to compile libxslt, you can just fetch the
-     appropriate OS binary package.
+     appropriate OS binary package.  
 
-   * From the book directory, do
+   * From the book directory, do 
 
         make all-html
 
      This produces an HTML version of the book in book/book.html, and
      HTML for the miscellaneous docs in misc-docs/misc-docs.html.
 
-
+         
 3. Make a PDF file.
 
    Formatting Objects (FO) is a layout language, kind of like
@@ -101,7 +101,7 @@ II. COMPILING THE DOCS
      installed FOP some other way, that's fine, then you can ignore
      the following recipe:
 
-        1. Download the latest from
+        1. Download the latest from 
            http://www.apache.org/dyn/closer.cgi/xml/fop, for example,
            fop-0.20.4-bin.tar.gz.  Just get a binary distribution,
            there's no need for the Java source.
