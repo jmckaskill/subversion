@@ -107,8 +107,8 @@ typedef struct svn_diff_fns_t
    * 'strcmp'.
    *
    * A function for ordering the tokens with the same interface as
-   * 'strcmp': If @a ltoken and @a rtoken are "equal", return 0.  If
-   * @a ltoken is "less than" @a rtoken, return a number < 0.  If @a ltoken
+   * 'strcmp': If @a ltoken and @a rtoken are "equal", return 0.  If 
+   * @a ltoken is "less than" @a rtoken, return a number < 0.  If @a ltoken 
    * is "greater than" @a rtoken, return a number > 0.  [The diff algorithm
    * uses this routine to assemble the tokens into a binary tree.]
    */
@@ -127,7 +127,7 @@ typedef struct svn_diff_fns_t
 
 /* The Main Events */
 
-/** Return a diff that represents the differences between an original and
+/** Return a diff that represents the differences between an original and 
  * modified datasource.
  *
  * Given a vtable of @a diff_fns/@a diff_baton for reading datasources,
@@ -182,7 +182,7 @@ svn_diff_contains_diffs (svn_diff_t *diff);
  * A vtable for displaying (or consuming) differences between datasources.
  * Differences, similarities, and conflicts are described by lining up
  * "ranges" of data.
- *
+ *  
  * Note: these callbacks describe data ranges in units of "tokens".
  * A "token" is whatever you've defined it to be in your datasource
  * @c svn_diff_fns_t vtable.
@@ -195,7 +195,7 @@ typedef struct svn_diff_output_fns_t
    * If doing a two-way diff, then an *identical* data range was found
    * between the "original" and "modified" datasources.  Specifically,
    * the match starts at @a original_start and goes for @a original_length
-   * tokens in the original data, and at @a modified_start for
+   * tokens in the original data, and at @a modified_start for 
    * @a modified_length tokens in the modified data.
    *
    * If doing a three-way diff, then all three datasources have
@@ -216,7 +216,7 @@ typedef struct svn_diff_output_fns_t
    * If doing a two-way diff, then an *conflicting* data range was found
    * between the "original" and "modified" datasources.  Specifically,
    * the conflict starts at @a original_start and foes for @a original_length
-   * tokens in the original data, and at @a modified_start for
+   * tokens in the original data, and at @a modified_start for 
    * @a modified_lenght tokens in the modified data.
    *
    * If doing a three-way diff, then an identical data range was discovered
@@ -260,9 +260,9 @@ typedef struct svn_diff_output_fns_t
   /** All three datasources have conflicting data ranges.
    *
    * All three datasources have conflicting data ranges.  The range
-   * @a latest_start, @a latest_length in the "latest" datasource conflicts
-   * with the range @a original_start, @a original_length in the "original"
-   * datasource, and also conflicts with the range @a modified_start,
+   * @a latest_start, @a latest_length in the "latest" datasource conflicts 
+   * with the range @a original_start, @a original_length in the "original" 
+   * datasource, and also conflicts with the range @a modified_start, 
    * @a modified_length in the "modified" datasource.
    * If there are common ranges in the "modified" and "latest" datasources
    * in this conflicting range, @a resolved_diff will contain a diff
@@ -294,7 +294,7 @@ svn_diff_output (svn_diff_t *diff,
 /** A convenience function to produce a diff between two files.
  *
  * Return a diff object in @a *diff (allocated from @a pool) that represents
- * the difference between an @a original file and @a modified file.
+ * the difference between an @a original file and @a modified file.  
  * (The file arguments must be full paths to the files.)
  */
 svn_error_t *
@@ -307,7 +307,7 @@ svn_diff_file(svn_diff_t **diff,
 /** A convenience function to produce a diff between three files.
  *
  * Return a diff object in @a *diff (allocated from @a pool) that represents
- * the difference between an @a original file, @a modified file, and @a latest
+ * the difference between an @a original file, @a modified file, and @a latest 
  * file. (The file arguments must be full paths to the files.)
  */
 svn_error_t *
@@ -323,7 +323,7 @@ svn_diff3_file(svn_diff_t **diff,
  * Output a @a diff between @a original_path and @a modified_path in unified
  * context diff format to @a output_file.  Optionally supply @a original_header
  * and/or @a modified_header to be displayed in the header of the output.
- * If @a original_header or @a modified_header is @c NULL, a default header
+ * If @a original_header or @a modified_header is @c NULL, a default header 
  * will be displayed, consisting of path and last modified time.
  */
 svn_error_t *
