@@ -190,12 +190,12 @@ fi
 
 dnl Find a default diff program
 AC_PATH_PROG(SVN_CLIENT_DIFF, diff, diff)
-AC_DEFINE_UNQUOTED(SVN_CLIENT_DIFF, "$SVN_CLIENT_DIFF",
+AC_DEFINE_UNQUOTED(SVN_CLIENT_DIFF, "$SVN_CLIENT_DIFF", 
 	[Define to be the full path to your diff program])
 
 dnl Find a default patch program
 AC_PATH_PROG(SVN_CLIENT_PATCH, patch, patch)
-AC_DEFINE_UNQUOTED(SVN_CLIENT_PATCH, "$SVN_CLIENT_PATCH",
+AC_DEFINE_UNQUOTED(SVN_CLIENT_PATCH, "$SVN_CLIENT_PATCH", 
 	[Define to be the full path to your patch program])
 
 dnl Since this is used only on Unix-y systems, define the path separator as '/'
@@ -234,7 +234,7 @@ dnl
 case "$host_alias" in
 *bsdi*)
     # Check whether they've installed GNU make
-    if make --version > /dev/null 2>&1; then
+    if make --version > /dev/null 2>&1; then 
 	INCLUDE_OUTPUTS="include \$(top_srcdir)/build-outputs.mk"
     else
 	# BSDi make
@@ -259,7 +259,7 @@ if test "$abs_srcdir" != "$abs_builddir"; then
 fi
 
 
-dnl  Print warning messages about what we did and didn't configure at the
+dnl  Print warning messages about what we did and didn't configure at the 
 dnl  end, where people will actually see them.
 case "$svn_lib_berkeley_db" in
   "no" )

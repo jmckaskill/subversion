@@ -92,7 +92,7 @@ svn_io_open_unique_file (apr_file_t **f,
      that the iterating portion changes instead.  Taking the pointer
      as an unsigned short int has more or less this effect. */
   int random_portion_width;
-  char *random_portion = apr_psprintf
+  char *random_portion = apr_psprintf 
     (pool, "%hu%n",
      (unsigned int)unique_name,
      &random_portion_width);
@@ -199,7 +199,7 @@ apr_transfer_file_contents (const char *src,
   apr_err = apr_file_open (&s, src, APR_READ, APR_OS_DEFAULT, pool);
   if (apr_err)
     return apr_err;
-
+  
   /* Get its size. */
   apr_err = apr_file_info_get (&finfo, APR_FINFO_MIN, s);
   if (apr_err)
@@ -217,7 +217,7 @@ apr_transfer_file_contents (const char *src,
       apr_file_close (s);  /* toss */
       return apr_err;
     }
-
+  
   /* Copy bytes till the cows come home. */
   read_err = 0;
   while (!APR_STATUS_IS_EOF(read_err))
@@ -250,7 +250,7 @@ apr_transfer_file_contents (const char *src,
               apr_file_close (d);
               return apr_err;
             }
-
+          
           apr_err = apr_file_close (d);
           if (apr_err)
             return apr_err;
@@ -323,7 +323,7 @@ svn_io_copy_file (svn_stringbuf_t *src, svn_stringbuf_t *dst, apr_pool_t *pool)
                         src->data, dst->data);
       return svn_error_create (apr_err, 0, NULL, pool, msg);
     }
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -341,7 +341,7 @@ svn_io_append_file (svn_stringbuf_t *src, svn_stringbuf_t *dst, apr_pool_t *pool
                         src->data, dst->data);
       return svn_error_create (apr_err, 0, NULL, pool, msg);
     }
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -610,14 +610,14 @@ svn_string_from_file (svn_stringbuf_t **result, const char *filename, apr_pool_t
     return svn_error_createf (apr_err, 0, NULL, pool,
                               "read_from_file: failed to open '%s'",
                               filename);
-
+      
   do {
     apr_err = apr_file_read_full (f, buf, sizeof(buf), &len);
     if (apr_err && !APR_STATUS_IS_EOF (apr_err))
       return svn_error_createf (apr_err, 0, NULL, pool,
                                 "read_from_file: failed to read '%s'",
                                 filename);
-
+    
     svn_string_appendbytes (res, buf, len);
   } while (len != 0);
 
@@ -626,7 +626,7 @@ svn_string_from_file (svn_stringbuf_t **result, const char *filename, apr_pool_t
     return svn_error_createf (apr_err, 0, NULL, pool,
                               "read_from_file: failed to close '%s'",
                               filename);
-
+  
   *result = res;
   return SVN_NO_ERROR;
 }
@@ -638,7 +638,7 @@ svn_string_from_file (svn_stringbuf_t **result, const char *filename, apr_pool_t
 /* Recursive directory deletion. */
 
 /* Neither windows nor unix allows us to delete a non-empty
-   directory.
+   directory.  
 
    This is a function to perform the equivalent of 'rm -rf'. */
 
@@ -701,7 +701,7 @@ apr_dir_remove_recursively (const char *path, apr_pool_t *pool)
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end: */
