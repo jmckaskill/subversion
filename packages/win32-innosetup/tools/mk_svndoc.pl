@@ -45,7 +45,7 @@ my %g_FilesToCpAndConv=
     (
         'COPYING', 'subversion\SubversionLicense.txt',
         'doc\user\lj_article.txt', 'doc\lj_article.txt',
-        'doc\programmer\WritingChangeLogs.txt', 'doc\WritingChangeLogs.txt',
+        'doc\programmer\WritingChangeLogs.txt', 'doc\WritingChangeLogs.txt', 
     );
 
 my %g_XmlFiles2Copy =
@@ -90,7 +90,7 @@ sub Main
     chdir "..";
 
     &MkDirP ($g_PathDocDest);
-
+    
     &CheckForProgs;
     &CopyFiles;
 
@@ -98,9 +98,9 @@ sub Main
     system ("copy ..\\mk_htmlhelp.bat mk_htmlhelp.bat");
     system ("copy ..\\..\\templates\\svn-doc.css svn-doc.css");
     system ("copy ..\\..\\images\\svn_bck.png svn_bck.png");
-
+    
     system ("mk_htmlhelp.bat");
-
+    
     $CntSvnDocHhp=&CntHhpHead;
     $CntSvnDocHhp= $CntSvnDocHhp . &CntHhp('book/book.hhp', 'book');
     $CntSvnDocHhp= $CntSvnDocHhp . &CntHhp('misc-docs/misc-docs.hhp', 'misc-docs');
@@ -117,7 +117,7 @@ sub Main
     open (FH_HHC, ">" . "toc.hhc");
         print FH_HHC $CntHhc;
     close (FH_HHC);
-
+    
     system ("$g_Prog_hhc svn-doc.hhp");
 
     chdir '../..';
@@ -138,7 +138,7 @@ sub CheckForProgs
     my $bMissingProgs=0;
     my $Prog2CheckDesc='';
     my $Prog2Check='';
-
+    
     # Fill the %PATH% in @SysPath
     @SysPath = split (/;/, $ENV{PATH});
 
@@ -162,13 +162,13 @@ sub CheckForProgs
             push @MissingProgs, $Prog2CheckDesc;
           }
       }
-
+    
     # Check for MS HTML help compiler
     $Key = 'HKLM/Software/Microsoft/Windows/CurrentVersion/App Paths/hhw.exe';
     $Value = 'Path';
     $g_Prog_hhc = &cmn_RegGetValue ($Key, $Value);
     $g_Prog_hhc = "$g_Prog_hhc\\hhc.exe";
-
+    
     if (! -e $g_Prog_hhc)
       {
         $bMissingProgs = 1;
@@ -179,12 +179,12 @@ sub CheckForProgs
     if ($bMissingProgs)
       {
         my $Msg="One or more required programs needed for making the docs are missing:\n\n";
-
+   
         for (@MissingProgs)
           {
             $Msg=$Msg . "  - $_\n";
           }
-
+          
           $Msg=$Msg . "\nPlease, check that everything are installed properly as described in\n";
           $Msg=$Msg . "the documentation in packages\\win32-innosetup\\tools\\readme.txt\n";
           Win32::MsgBox($Msg, 0+MB_ICONSTOP, 'ERROR: Missing required programs.');
@@ -195,7 +195,7 @@ sub CheckForProgs
 #-------------------------------------------------------------------------
 # FUNCTION   CntHhc
 # DOES       Getting and returning the menu entries from a HTML-help
-#            toc file
+#            toc file 
 sub CntHhc
 {
     my ($HhcFile, $book) = @_;
@@ -231,9 +231,9 @@ sub CntHhc
               {
                 $CntHhcFile = "$_\n";
               }
-          }
+          }          
       }
-
+        
     close (FH_HHCFILE);
 
     return $CntHhcFile;
@@ -273,7 +273,7 @@ sub CntHhp
               {
                 $CntHhpFile = "$book/$_\n";
               }
-          }
+          }       
       }
     close (FH_HHPFILE);
 
@@ -317,7 +317,7 @@ sub CntHhpHead
     $CntHead="$CntHead\n\n[FILES]";
     $CntHead="$CntHead\nsvn-doc.css";
     $CntHead="$CntHead\nsvn_bck.png\n";
-
+    
     return $CntHead;
 }
 
@@ -342,7 +342,7 @@ sub CopyAndEolU2W
               {
                 chomp($_);
                 $_ = "$_\r\n";
-
+                
                 if ($FileCnt)
                   {
                     $FileCnt = $FileCnt . $_;
@@ -353,7 +353,7 @@ sub CopyAndEolU2W
                   }
               }
          close (FH_SRC);
-
+               
         open (FH_DEST, ">" . $FileDest);
             print FH_DEST $FileCnt;
         close (FH_DEST);
@@ -368,13 +368,13 @@ sub CopyAndEolU2W
 #            to the doc folder
 sub CopyFiles
 {
-
+    
     my $PathSrc='';
     my $PathDest='';
     my @PathsDest;
     my @SubPaths;
 
-    # Copy the files who should
+    # Copy the files who should 
     &CopyAndEolU2W;
 
     # Make sure that the destination folders exists and copy files
@@ -383,7 +383,7 @@ sub CopyFiles
         &MkDirP("$PathDest");
         print "Copying from: $PathSrc To: $PathDest\n";
         system ("xcopy /Y /S $g_PathDocRoot\\$PathSrc $PathDest > NUL");
-      }
+      }    
 }
 
 #-------------------------------------------------------------------------
@@ -394,8 +394,8 @@ sub MkDirP
     my $Dir=$_[0];
     my @SubPaths;
 
-
-
+    
+    
     if (! -e $Dir)
       {
         @SubPaths = split (/\\/, $Dir);
