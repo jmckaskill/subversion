@@ -216,7 +216,7 @@ to be fast and convenient for any process using svn_fs.
 A @dfn{delta} object is a specific data structure in Subversion which
 efficiently describes the difference between two file trees.  Deltas are
 absolutely critical in the communication between Subversion clients and
-servers.  For a full explanation, @xref{Protocol}.
+servers.  For a full explanation, @xref{Protocol}. 
 
 A single basic routine is provided which asks the server to build and
 return a delta from the Subversion filesystem:
@@ -370,7 +370,7 @@ Apache and custom HTTP "methods", @xref{Protocol}.)
 
 @table @code
 @item available_methods ()
-  return a list of methods that the server supports
+  return a list of methods that the server supports 
 @end table
 
 @subsection Basic Methods
