@@ -119,7 +119,7 @@ include_HEADERS =  	glib.h
 configinclude_DATA =  	glibconfig.h
 
 
-CONFIGURE_DEPENDENCIES = acglib.m4
+CONFIGURE_DEPENDENCIES = acglib.m4		
 
 libglib_la_LDFLAGS =  	-version-info $(LT_CURRENT):$(LT_REVISION):$(LT_AGE) 	-release $(LT_RELEASE) 	-export-dynamic
 
@@ -142,7 +142,7 @@ DEFS = @DEFS@ -I. -I$(srcdir) -I.
 CPPFLAGS = @CPPFLAGS@
 LDFLAGS = @LDFLAGS@
 LIBS = @LIBS@
-libglib_la_LIBADD =
+libglib_la_LIBADD = 
 libglib_la_OBJECTS =  garray.lo gcache.lo gcompletion.lo gdataset.lo \
 gdate.lo gerror.lo ghash.lo ghook.lo giochannel.lo giounix.lo glist.lo \
 gmain.lo gmem.lo gmessages.lo gmutex.lo gnode.lo gprimes.lo grel.lo \
@@ -153,15 +153,15 @@ PROGRAMS =  $(noinst_PROGRAMS)
 testglib_SOURCES = testglib.c
 testglib_OBJECTS =  testglib.o
 testglib_DEPENDENCIES =  libglib.la
-testglib_LDFLAGS =
+testglib_LDFLAGS = 
 testgdate_SOURCES = testgdate.c
 testgdate_OBJECTS =  testgdate.o
 testgdate_DEPENDENCIES =  libglib.la
-testgdate_LDFLAGS =
+testgdate_LDFLAGS = 
 testgdateparser_SOURCES = testgdateparser.c
 testgdateparser_OBJECTS =  testgdateparser.o
 testgdateparser_DEPENDENCIES =  libglib.la
-testgdateparser_LDFLAGS =
+testgdateparser_LDFLAGS = 
 SCRIPTS =  $(bin_SCRIPTS)
 
 CFLAGS = @CFLAGS@
@@ -190,7 +190,7 @@ OBJECTS = $(libglib_la_OBJECTS) testglib.o testgdate.o testgdateparser.o
 all: all-redirect
 .SUFFIXES:
 .SUFFIXES: .S .c .lo .o .s
-$(srcdir)/Makefile.in: @MAINTAINER_MODE_TRUE@ Makefile.am $(top_srcdir)/configure.in $(ACLOCAL_M4)
+$(srcdir)/Makefile.in: @MAINTAINER_MODE_TRUE@ Makefile.am $(top_srcdir)/configure.in $(ACLOCAL_M4) 
 	cd $(top_srcdir) && $(AUTOMAKE) --gnu --include-deps Makefile
 
 Makefile: $(srcdir)/Makefile.in  $(top_builddir)/config.status
