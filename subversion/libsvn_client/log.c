@@ -55,7 +55,7 @@ svn_client_log (svn_client_auth_baton_t *auth_baton,
                 void *receiver_baton,
                 apr_pool_t *pool)
 {
-  svn_ra_plugin_t *ra_lib;
+  svn_ra_plugin_t *ra_lib;  
   void *ra_baton, *session;
   svn_stringbuf_t *URL;
   svn_stringbuf_t *base_name = NULL;
@@ -104,7 +104,7 @@ svn_client_log (svn_client_auth_baton_t *auth_baton,
           /* If we have a single URL, then the session will be rooted at
              it, so just send an empty stringbuf for the paths we are
              interested in. */
-          (*((svn_stringbuf_t **)apr_array_push (condensed_targets))) =
+          (*((svn_stringbuf_t **)apr_array_push (condensed_targets))) = 
               svn_stringbuf_create ("", pool);
         }
     }
@@ -142,19 +142,19 @@ svn_client_log (svn_client_auth_baton_t *auth_baton,
      do_auth/use_admin to open the ra_session.  */
   if (NULL != base_name)
     SVN_ERR (svn_client__open_ra_session (&session, ra_lib, URL, base_name,
-                                          NULL, TRUE, TRUE, TRUE,
+                                          NULL, TRUE, TRUE, TRUE, 
                                           auth_baton, pool));
   else
-    SVN_ERR (svn_client__open_ra_session (&session, ra_lib, URL, NULL,
-                                          NULL, FALSE, FALSE, TRUE,
+    SVN_ERR (svn_client__open_ra_session (&session, ra_lib, URL, NULL, 
+                                          NULL, FALSE, FALSE, TRUE, 
                                           auth_baton, pool));
 
   /* Get the revisions based on the users "hints".  */
   SVN_ERR (svn_client__get_revision_number
-           (&start_revnum, ra_lib, session, start,
+           (&start_revnum, ra_lib, session, start, 
             base_name ? base_name->data : NULL, pool));
   SVN_ERR (svn_client__get_revision_number
-           (&end_revnum, ra_lib, session, end,
+           (&end_revnum, ra_lib, session, end, 
             base_name ? base_name->data : NULL, pool));
 
   err = ra_lib->get_log (session,
@@ -164,7 +164,7 @@ svn_client_log (svn_client_auth_baton_t *auth_baton,
                          discover_changed_paths,
                          receiver,
                          receiver_baton);
-
+  
   /* Special case: If there have been no commits, we'll get an error
    * for requesting log of a revision higher than 0.  But the
    * default behavior of "svn log" is to give revisions HEAD through
@@ -184,7 +184,7 @@ svn_client_log (svn_client_auth_baton_t *auth_baton,
           && (end->value.number == 1)))
     {
       svn_revnum_t youngest_rev;
-
+      
       SVN_ERR (ra_lib->get_latest_revnum (session, &youngest_rev));
       if (youngest_rev == 0)
         {
