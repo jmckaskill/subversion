@@ -2,9 +2,9 @@
 #
 #  xml_tests.py:  testing working-copy interactions with XML files.
 #
-#  Subversion is a tool for revision control.
+#  Subversion is a tool for revision control. 
 #  See http://subversion.tigris.org for more information.
-#
+#    
 # ====================================================================
 # Copyright (c) 2000-2001 CollabNet.  All rights reserved.
 #
@@ -52,7 +52,7 @@ def xml_checkout(wc_dir, xml_path, expected_lines):
   return svn_output.compare_sets(expected_lines, output,
                                  svn_output.line_matches_regexp)
 
-  # TODO:  someday inspect the entries file too??
+  # TODO:  someday inspect the entries file too?? 
 
 
 
@@ -64,7 +64,7 @@ def xml_commit(wc_dir, xml_path, revision, expected_lines):
   """Commit changes in WC_DIR to an xml file XML_PATH, and verify
   against the EXPECTED_LINES given.  WC_DIR will be bumped to
   REVISION.  Return 0 on success."""
-
+  
   output = svn_test_main.run_svn("ci", "--xml-file", xml_path,
                                  "-r", revision, wc_dir)
 
@@ -77,7 +77,7 @@ def xml_commit(wc_dir, xml_path, revision, expected_lines):
   return svn_output.compare_sets(expected_lines, output,
                                  svn_output.line_matches_regexp)
 
-  # TODO:  someday inspect the entries file too??
+  # TODO:  someday inspect the entries file too?? 
 
 
 ######################################################################
