@@ -209,7 +209,7 @@ svn_fs_revision_root_revision (svn_fs_root_t *root)
    also needs to change the parent directory.  */
 typedef struct parent_path_t
 {
-
+  
   /* A node along the path.  This could be the final node, one of its
      parents, or the root.  Every parent path ends with an element for
      the root directory.  */
@@ -221,7 +221,7 @@ typedef struct parent_path_t
 
   /* The parent of NODE, or zero if NODE is the root directory.  */
   struct parent_path_t *parent;
-
+  
 } parent_path_t;
 
 
@@ -324,7 +324,7 @@ open_path (parent_path_t **parent_path_p,
 
   /* The path from HERE up to the root.  */
   parent_path_t *parent_path;
-
+  
   /* The portion of PATH we haven't traversed yet.  */
   const char *rest = path;
 
@@ -346,10 +346,10 @@ open_path (parent_path_t **parent_path_p,
           free_parent_path (parent_path);
           return svn_fs__err_path_syntax (fs, path);
         }
-
+      
       SVN_ERR (svn_fs__dag_open (&child, here, entry, trail));
       parent_path = make_parent_path (child, entry, parent_path, pool);
-
+      
       /* Are we finished traversing the path?  */
       if (! next)
         {
@@ -401,7 +401,7 @@ txn_body_node_prop (void *baton,
 
   SVN_ERR (open_path (&node, root, path, trail));
   SVN_ERR (svn_fs__dag_get_proplist (&proplist, node, trail));
-
+  
   /* Search the proplist for a property with the right name.  */
   for (prop = proplist->children; prop; prop = prop->next->next)
     {
@@ -470,14 +470,14 @@ txn_body_change_node_prop (void *baton,
 
   SVN_ERR (make_clone (args->node, trail));
   SVN_ERR (svn_fs__dag_get_proplist (&proplist, args->node->dag_node, trail));
-
+  
   /* Delete the skel, either replacing or adding the given property.  */
   for (prop = proplist->children; prop; prop = prop->next->next)
     {
       skel_t *name = prop;
       skel_t *value = prop->next;
 
-      /* We've found an existing entry for this property.
+      /* We've found an existing entry for this property. 
          Replace the value.  */
       if (name->len == args->name->len
           && ! memcmp (name->data, args->name->data, name->len))
@@ -564,7 +564,7 @@ svn_fs_make_dir (svn_fs_root_t *root,
 {
   abort ();
 }
-
+                              
 
 struct delete_args
 {
@@ -737,7 +737,7 @@ svn_fs_revision_root (svn_fs_root_t **root_p,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
