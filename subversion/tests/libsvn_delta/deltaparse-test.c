@@ -1,4 +1,4 @@
-/* deltaparse-test.c -- simple demo of using SVN's XML parser interface.
+/* deltaparse-test.c -- simple demo of using SVN's XML parser interface. 
  *
  * ====================================================================
  * Copyright (c) 2000 CollabNet.  All rights reserved.
@@ -44,7 +44,7 @@ main (int argc, char *argv[])
   /* Process args */
   if (argc != 2)
     {
-      printf
+      printf 
         ("\nUsage: %s [filename], where [filename] contains an XML tree-delta",
          argv[0]);
       exit (1);
@@ -62,16 +62,16 @@ main (int argc, char *argv[])
       printf ("Error opening %s\n.", argv[1]);
       exit (1);
     }
-
+    
 
   /* Set context variables for evaluating a tree-delta */
   base_revision = 37;
   base_path = svn_string_create ("/root", globalpool);
-
+  
   /* Grab the "test" editor and baton */
   err = svn_test_get_editor (&editor, &edit_baton,
                              base_path, base_revision, globalpool);
-
+  
   /* Fire up the XML parser */
   err = svn_delta_xml_auto_parse (svn_stream_from_aprfile (file, globalpool),
                                   editor,
@@ -81,7 +81,7 @@ main (int argc, char *argv[])
                                   globalpool);
 
   apr_file_close (file);
-
+  
   if (err)
     {
       svn_handle_error (err, stderr, 0);
