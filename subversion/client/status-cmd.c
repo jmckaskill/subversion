@@ -2,7 +2,7 @@
  *  st-cmd.c - Display status information in current directory
  *
  *  svn is free software copyrighted by CollabNet.
- *
+ *  
  *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions
  *  are met:
@@ -14,7 +14,7 @@
  *  3. Neither the name ``CollabNet'' nor the name of any other
  *     contributor may be used to endorse or promote products derived
  *     from this software without specific prior written permission.
- *
+ *  
  *  svn IS PROVIDED BY CollabNet ``AS IS'' AND ANY EXPRESS
  *  OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  *  WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -28,7 +28,7 @@
  *  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ====================================================================
- *
+ * 
  * This software consists of voluntary contributions made by many
  * individuals on behalf of CollabNet.
  */
@@ -66,7 +66,7 @@ svn_cl__status( int argc, char** argv, apr_pool_t* pool )
                  pool);
 
   err = svn_client_status (&statushash, target, pool);
-  if (! err)
+  if (! err) 
     svn_cl__print_status_list (statushash, pool);
 
   return err;
