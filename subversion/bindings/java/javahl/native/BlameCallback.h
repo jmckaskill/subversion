@@ -15,32 +15,27 @@
  * ====================================================================
  * @endcopyright
  *
- * @file Revision.h
- * @brief Interface of the class Revision
+ * @file BlameCall.h
+ * @brief Interface of the class BlameCallback
  */
 
-#if !defined(AFX_REVISION_H__BEAA0788_C9D9_4A67_B94E_761ABC68ACFE__INCLUDED_)
-#define AFX_REVISION_H__BEAA0788_C9D9_4A67_B94E_761ABC68ACFE__INCLUDED_
+#if !defined(AFX_BLAMECALLBACK_H__3BBF3F0F_C80C_45C9_8AC3_E1AF07E5B810__INCLUDED_)
+#define AFX_BLAMECALLBACK_H__3BBF3F0F_C80C_45C9_8AC3_E1AF07E5B810__INCLUDED_
 
 #if _MSC_VER > 1000
 #pragma once
 #endif // _MSC_VER > 1000
 #include <jni.h>
-#include <svn_opt.h>
+#include <svn_client.h>
 
-class Revision
+class BlameCallback
 {
-private:
-    svn_opt_revision_t m_revision;
-
 public:
-    static const svn_opt_revision_kind START;
-    static const svn_opt_revision_kind HEAD;
-	Revision(jobject jthis, bool headIfUnspecified = false, bool oneIfUnspecified = false);
-    Revision (const svn_opt_revision_kind kind = svn_opt_revision_unspecified);
-	~Revision();
-    const svn_opt_revision_t *revision () const;
-
+	BlameCallback(jobject jcallback);
+	virtual ~BlameCallback();
+	void callback(svn_revnum_t revision, const char *author, const char *date, const char *line, apr_pool_t *pool);
+private:
+	jobject m_callback;
 };
 
-#endif // !defined(AFX_REVISION_H__BEAA0788_C9D9_4A67_B94E_761ABC68ACFE__INCLUDED_)
+#endif // !defined(AFX_BLAMECALLBACK_H__3BBF3F0F_C80C_45C9_8AC3_E1AF07E5B810__INCLUDED_)
