@@ -50,7 +50,7 @@ svn_cl__copy (apr_getopt_t *os,
   void *notify_baton = NULL;
   void *log_msg_baton;
 
-  SVN_ERR (svn_opt_args_to_target_array (&targets, os,
+  SVN_ERR (svn_opt_args_to_target_array (&targets, os, 
                                          opt_state->targets,
                                          &(opt_state->start_revision),
                                          &(opt_state->end_revision),
@@ -76,11 +76,11 @@ svn_cl__copy (apr_getopt_t *os,
     {
       /* WC->URL : Use notification. */
       /* ### todo:
-
+         
          We'd like to use the notifier, but we MAY have a couple of
          problems with that, the same problems that used to apply to
          the old trace_editor:
-
+         
          1) We don't know where the commit editor for this case will
             be anchored with respect to the repository, so we can't
             use the DST_URL.
@@ -90,7 +90,7 @@ svn_cl__copy (apr_getopt_t *os,
             basenames will be chosen for our committed things.  So a
             copy of dir1/foo.c to http://.../dir2/foo-copy-c would
             display like: "Adding   dir1/foo-copy.c", which could be a
-            bogus path.
+            bogus path. 
       */
     }
   else if ((src_is_url) && (! dst_is_url))
@@ -107,9 +107,9 @@ svn_cl__copy (apr_getopt_t *os,
   log_msg_baton = svn_cl__make_log_msg_baton (opt_state, NULL, pool);
   SVN_ERR (svn_cl__cleanup_log_msg
            (log_msg_baton, svn_client_copy (&commit_info,
-                                            src_path,
-                                            &(opt_state->start_revision),
-                                            dst_path, NULL,
+                                            src_path, 
+                                            &(opt_state->start_revision), 
+                                            dst_path, NULL, 
                                             &svn_cl__get_log_message,
                                             log_msg_baton,
                                             notify_func, notify_baton,
