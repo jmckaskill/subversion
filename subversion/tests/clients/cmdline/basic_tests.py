@@ -2,9 +2,9 @@
 #
 #  basic_tests.py:  testing working-copy interactions with ra_local
 #
-#  Subversion is a tool for revision control.
+#  Subversion is a tool for revision control. 
 #  See http://subversion.tigris.org for more information.
-#
+#    
 # ====================================================================
 # Copyright (c) 2000-2003 CollabNet.  All rights reserved.
 #
@@ -126,7 +126,7 @@ def basic_status(sbox):
   output = svntest.actions.get_virginal_state(wc_dir, 1)
 
   return svntest.actions.run_and_verify_status(wc_dir, output)
-
+  
 #----------------------------------------------------------------------
 
 def basic_commit(sbox):
@@ -162,8 +162,8 @@ def basic_commit(sbox):
                                                 None, None,
                                                 None, None,
                                                 wc_dir)
-
-
+  
+  
 #----------------------------------------------------------------------
 
 def basic_update(sbox):
@@ -316,7 +316,7 @@ def basic_corruption(sbox):
 
   # Create expected status tree for the update.
   expected_status = svntest.actions.get_virginal_state(other_wc, 2)
-
+  
   # Modify mu's text-base, so we get a checksum failure the first time
   # we try to update.
   tb_dir_path = os.path.join (other_wc, 'A', '.svn', 'text-base')
@@ -363,7 +363,7 @@ def basic_merging_update(sbox):
     return 1
 
   wc_dir = sbox.wc_dir
-
+  
   # First change the greek tree to make two files 10 lines long
   mu_path = os.path.join(wc_dir, 'A', 'mu')
   rho_path = os.path.join(wc_dir, 'A', 'D', 'G', 'rho')
@@ -373,7 +373,7 @@ def basic_merging_update(sbox):
     mu_text = mu_text + '\nThis is line ' + `x` + ' in mu'
     rho_text = rho_text + '\nThis is line ' + `x` + ' in rho'
   svntest.main.file_append (mu_path, mu_text)
-  svntest.main.file_append (rho_path, rho_text)
+  svntest.main.file_append (rho_path, rho_text)  
 
   # Create expected output tree for initial commit
   expected_output = wc.State(wc_dir, {
@@ -386,7 +386,7 @@ def basic_merging_update(sbox):
   expected_status = svntest.actions.get_virginal_state(wc_dir, 2)
   expected_status.tweak(wc_rev=1)
   expected_status.tweak('A/mu', 'A/D/G/rho', wc_rev=2)
-
+  
   # Initial commit.
   if svntest.actions.run_and_verify_commit (wc_dir,
                                             expected_output,
@@ -395,7 +395,7 @@ def basic_merging_update(sbox):
                                             None, None, None, None,
                                             wc_dir):
     return 1
-
+  
   # Make a backup copy of the working copy
   wc_backup = wc_dir + 'backup'
   svntest.actions.duplicate_dir(wc_dir, wc_backup)
@@ -436,20 +436,20 @@ def basic_merging_update(sbox):
     backup_mu_text = backup_mu_text + '\nThis is line ' + `x` + ' in mu'
   fp_mu.write(backup_mu_text)
   fp_mu.close()
-
+  
   fp_rho = open(rho_path_backup, 'w+') # now open rho in write mode
   backup_rho_text='This is the new line 1 in the backup copy of rho'
   for x in range(2,11):
     backup_rho_text = backup_rho_text + '\nThis is line ' + `x` + ' in rho'
   fp_rho.write(backup_rho_text)
   fp_rho.close()
-
+  
   # Create expected output tree for an update of the wc_backup.
   expected_output = wc.State(wc_backup, {
     'A/mu' : Item(status='G '),
     'A/D/G/rho' : Item(status='G '),
     })
-
+  
   # Create expected disk tree for the update.
   expected_disk = svntest.main.greek_state.copy()
   expected_disk.tweak('A/mu',
@@ -520,7 +520,7 @@ def basic_conflict(sbox):
     'A/mu' : Item(status='C '),
     'A/D/G/rho' : Item(status='C '),
     })
-
+  
   # Create expected disk tree for the update.
   expected_disk = svntest.main.greek_state.copy()
   expected_disk.tweak('A/mu', contents="""<<<<<<< .mine
@@ -544,7 +544,7 @@ Original appended text for rho>>>>>>> .r2
   # These are expressed as list of regexps.  What a cool system!  :-)
   extra_files = ['mu.*\.r1', 'mu.*\.r2', 'mu.*\.mine',
                  'rho.*\.r1', 'rho.*\.r2', 'rho.*\.mine',]
-
+  
   # Do the update and check the results in three ways.
   # All "extra" files are passed to expect_extra_files().
   if svntest.actions.run_and_verify_update(wc_backup,
@@ -555,7 +555,7 @@ Original appended text for rho>>>>>>> .r2
                                            expect_extra_files,
                                            extra_files):
     return 1
-
+  
   # verify that the extra_files list is now empty.
   if len(extra_files) != 0:
     # Because we want to be a well-behaved test, we silently return
@@ -584,7 +584,7 @@ Original appended text for rho>>>>>>> .r2
   # copy after resolving the conflict; thus we're not passing a custom
   # singleton handler.
   return svntest.actions.run_and_verify_status(wc_backup, expected_status)
-
+                                                
 
 #----------------------------------------------------------------------
 
@@ -603,26 +603,26 @@ def basic_cleanup(sbox):
   svntest.actions.lock_admin_dir(B_path)
   svntest.actions.lock_admin_dir(G_path)
   svntest.actions.lock_admin_dir(C_path)
-
+  
   # Verify locked status.
   expected_output = svntest.actions.get_virginal_state(wc_dir, 1)
   expected_output.tweak('A/B', 'A/D/G', 'A/C', locked='L')
 
   if svntest.actions.run_and_verify_status (wc_dir, expected_output):
     return 1
-
+  
   # Run cleanup (### todo: cleanup doesn't currently print anything)
   stdout_lines, stderr_lines = svntest.main.run_svn(None, 'cleanup', wc_dir)
   if len (stderr_lines) > 0:
     print "Cleanup command printed the following to stderr:"
     print stderr_lines
     return 1
-
+  
   # Verify unlocked status.
   expected_output = svntest.actions.get_virginal_state(wc_dir, 1)
 
   return svntest.actions.run_and_verify_status(wc_dir, expected_output)
-
+  
 
 #----------------------------------------------------------------------
 
@@ -680,7 +680,7 @@ def basic_revert(sbox):
     print "Revert command printed the following to stderr:"
     print stderr_lines
     return 1
-
+  
   # Verify unmodified status.
   expected_output = svntest.actions.get_virginal_state(wc_dir, 1)
 
@@ -762,7 +762,7 @@ def basic_revert(sbox):
                                              expect_extra_files, extra_files)
       or len(extra_files) != 0):
     return 1
-
+    
 
 #----------------------------------------------------------------------
 
@@ -793,14 +793,14 @@ def basic_switch(sbox):
   # Create expected status tree
   expected_status = svntest.actions.get_virginal_state(wc_dir, 1)
   expected_status.tweak('iota', switched='S')
-
+  
   # Do the switch and check the results in three ways.
   if svntest.actions.run_and_verify_switch(wc_dir, iota_path, gamma_url,
                                            expected_output,
                                            expected_disk,
                                            expected_status):
     return 1
-
+  
   ### Switch the directory `A/D/H' to `A/D/G'.
 
   # Construct some paths for convenience
@@ -867,7 +867,7 @@ def can_cd_to_dir(path):
   except OSError: return 0
   os.chdir(current_dir)
   return 1
-
+  
 def basic_delete(sbox):
   "basic delete command"
 
@@ -895,7 +895,7 @@ def basic_delete(sbox):
   sigma_parent_path = os.path.join(wc_dir, 'A', 'C')
   sigma_path = os.path.join(sigma_parent_path, 'sigma')
   svntest.main.file_append(sigma_path, 'unversioned sigma')
-
+  
   # unversioned directory
   Q_parent_path = sigma_parent_path
   Q_path = os.path.join(Q_parent_path, 'Q')
@@ -950,7 +950,7 @@ def basic_delete(sbox):
   stdout_lines, stderr_lines = svntest.main.run_svn(1, 'rm', F_parent_path)
   if len (stderr_lines) == 0:
     return 1
-
+  
   stdout_lines, stderr_lines = svntest.main.run_svn(1, 'rm', sigma_path)
   if len (stderr_lines) == 0:
     return 1
@@ -973,7 +973,7 @@ def basic_delete(sbox):
   stdout_lines, stderr_lines = svntest.main.run_svn(None, 'rm', E_path)
   if len (stderr_lines) != 0:
     return 1
-
+  
   # 'svn rm --force' that should work
   stdout_lines, stderr_lines = svntest.main.run_svn(None, 'rm', '--force',
                                                     chi_parent_path)
@@ -1077,7 +1077,7 @@ def basic_delete(sbox):
   if not can_cd_to_dir(F_path):
     print "Removed versioned dir"
     return 1
-
+  
   # check unversioned and added dirs has been removed
   if can_cd_to_dir(Q_path):
     print "Failed to remove unversioned dir"
@@ -1121,7 +1121,7 @@ def basic_checkout_deleted(sbox):
     print "error scheduling A/D for deletion"
     print stderr_lines
     return 1
-
+  
   expected_output = wc.State(wc_dir, {
     'A/D' : Item(verb='Deleting'),
     })
@@ -1154,7 +1154,7 @@ def basic_checkout_deleted(sbox):
     return 1
 
   return 0
-
+  
 #----------------------------------------------------------------------
 
 # Issue 846, changing a deleted file to an added directory is not
@@ -1166,7 +1166,7 @@ def basic_node_kind_change(sbox):
   if sbox.build():
     return 1
   wc_dir = sbox.wc_dir;
-
+  
   # Schedule a file for deletion
   gamma_path = os.path.join(wc_dir, 'A', 'D', 'gamma')
   svntest.main.run_svn(None, 'rm', gamma_path)
@@ -1428,7 +1428,7 @@ def nonexistent_repository(sbox):
   #
   # Anyway: this test _always_ operates on a file:/// path.  Note that
   # if someone runs this test on a system with "/nonexistent_path" in
-  # the root directory, the test could fail, and that's just too bad :-).
+  # the root directory, the test could fail, and that's just too bad :-). 
 
   output, errput = svntest.main.run_svn (1, 'log', 'file:///nonexistent_path')
 
@@ -1438,7 +1438,7 @@ def nonexistent_repository(sbox):
   for line in errput:
     if re.match(".*Unable to open an ra_local session to URL.*", line):
       return 0
-
+    
   # Else never matched the expected error output, so the test failed.
   return 1
 
