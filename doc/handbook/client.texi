@@ -394,7 +394,7 @@ Index: ./bar.c
 +#include <unistd.h>
 +
 +#include <stdio.h>
-
+  
  int main(void) @{
 -  printf("Sixty-four slices of American Cheese...\n");
 +  printf("Sixty-five slices of American Cheese...\n");
@@ -405,7 +405,7 @@ Index: ./README
 ===================================================================
 --- ./README
 +++ ./README	Mon Jul 15 17:58:18 2002
-@@ -193,3 +193,4 @@
+@@ -193,3 +193,4 @@ 
 +Note to self:  pick up laundry.
 
 Index: ./stuff/fish.c
@@ -717,7 +717,7 @@ that point to existing nodes.  And this is the basis of tags and
 branches.
 
 
-@subsection Branching with @samp{svn cp}
+@subsection Branching with @samp{svn cp} 
 
 Suppose we have a repository whose head tree is revision 82.  In this
 repository is a subdirectory @file{mooIRC} that contains a software
@@ -841,7 +841,7 @@ have fixed a critical bug, and the team working on the original
 The @samp{svn merge} command is the answer.  You can think of
 @samp{svn merge} as a special kind of @samp{svn diff}; only
 instead of displaying unified diffs to the screen, it @emph{applies}
-the differences to your working copy as if they were local changes.
+the differences to your working copy as if they were local changes.  
 
 For example, suppose the bug fix happened in a commit to the
 @file{mooIRC-beta} branch in revision 102.
@@ -866,9 +866,9 @@ commit them.
 
 @subsection Rolling back a change with @samp{svn merge}
 
-Another common use for @samp{svn merge} is for rolling back a change
-that has been committed.  Say you commit some changes in revision 10, and
-later decide that they were a mistake.  You can easily revert the tree to
+Another common use for @samp{svn merge} is for rolling back a change 
+that has been committed.  Say you commit some changes in revision 10, and 
+later decide that they were a mistake.  You can easily revert the tree to 
 the state it was in at revision 9 with an @samp{svn merge} command.
 
 @example
@@ -891,8 +891,8 @@ Transmitting file data ..
 Committed revision 11.
 @end example
 
-If you aren't rolling back the changes to your current directory (say you
-want to roll back one specific file, or all the files in one specific
+If you aren't rolling back the changes to your current directory (say you 
+want to roll back one specific file, or all the files in one specific 
 subdirectory), then the syntax is slightly different, as you have to tell
 @samp{svn merge} where it should merge the changes into.
 
@@ -917,23 +917,23 @@ Transmitting file data .
 Committed revision 15.
 @end example
 
-Keep in mind that rolling back a change like this is just like any other
-@samp{svn merge} operation, so you should use @samp{svn status} and
-@samp{svn diff} to confirm that your work is in the state you want it
-to be in, and then use @samp{svn commit} to send the final version to
+Keep in mind that rolling back a change like this is just like any other 
+@samp{svn merge} operation, so you should use @samp{svn status} and 
+@samp{svn diff} to confirm that your work is in the state you want it 
+to be in, and then use @samp{svn commit} to send the final version to 
 the repository.
 
 @subsection Vendor branches
 
-Sometimes you want to manage modified third-party source code inside your
-Subversion repository, while still tracking upstream releases.  In CVS
-this would have been called a ``vendor branch''.  Subversion doesn't have
-a formal ``vendor branch'', but it is sufficiently flexible that you can
+Sometimes you want to manage modified third-party source code inside your 
+Subversion repository, while still tracking upstream releases.  In CVS 
+this would have been called a ``vendor branch''.  Subversion doesn't have 
+a formal ``vendor branch'', but it is sufficiently flexible that you can 
 still do much the same thing.
 
-The general procedure goes like like this.  You create a top level
-directory (we'll use @file{/vendor}) to hold the vendor branches.  Then you
-import the third party code into a subdirectory of @file{/vendor}, and copy it
+The general procedure goes like like this.  You create a top level 
+directory (we'll use @file{/vendor}) to hold the vendor branches.  Then you 
+import the third party code into a subdirectory of @file{/vendor}, and copy it 
 into @file{/trunk} where you make your local changes.  With each new
 release of the code you are tracking you bring it into the vendor branch
 and merge the changes into @file{/trunk}, resolving whatever conflicts occur
@@ -948,7 +948,7 @@ $ svn mkdir http://svnhost/repos/vendor/foobar
 $ svn import http://svnhost/repos/vendor/foobar ~/foobar-1.0 current
 @end example
 
-Now we've got the current version of the foobar project in
+Now we've got the current version of the foobar project in 
 @file{/vendor/foobar/current}.  We make another copy of it so we can
 always refer to that version, and then copy it into the trunk so you can
 work on it.
@@ -964,8 +964,8 @@ $ svn copy http://svnhost/repos/vendor/foobar/foobar-1.0 \
 
 Now you just check out a copy of @file{/trunk/foobar} and get to work!
 
-Later on, the developers at FooBar Widgets, Inc release a new version of
-their code, so you want to update the version of the code you're using.
+Later on, the developers at FooBar Widgets, Inc release a new version of 
+their code, so you want to update the version of the code you're using.  
 First, you check out the @file{/vendor/foobar/current} directory, then
 copy the new release over that working copy, handle any renames,
 additions or removals manually, and then commit.
@@ -983,7 +983,7 @@ $ svn add doc/*
 $ svn commit -m `importing foobar 1.1 on vendor branch'
 @end example
 
-Whoa, that was complicated. Don't worry, most cases are far simpler.
+Whoa, that was complicated. Don't worry, most cases are far simpler. 
 
 What happened? foobar 1.0 had a file called @file{main.c}.  This file
 was renamed to @file{foobar.c} in 1.1.  So your working-copy had the old
@@ -1018,7 +1018,7 @@ $
 $ svn commit -m `merging foobar 1.1 into trunk'
 @end example
 
-There, you're done.  You now have a copy of foobar 1.1 with all your local
+There, you're done.  You now have a copy of foobar 1.1 with all your local 
 changes merged into it in your tree.
 
 Vendor branches that have more than several deletes, additions and moves
@@ -1112,7 +1112,7 @@ Subversion allows you to attach arbitrary ``metadata'' to files and
 directories.  We refer to this data as @dfn{properties}, and they can
 be thought of as collections of name/value pairs (hash-tables) attached
 to each item in your working copy.
-
+  
 To set or get a property on a file or directory, use the @samp{svn
 propset} and @samp{svn propget} commands.  To list all properties
 attached to an item, use @samp{svn proplist}.  To delete a
@@ -1407,7 +1407,7 @@ definition of the module can change over time, and subsequent calls to
 @c ### Karl, anything else to add here?  I'm suspicious that this
 @c feature doesn't work as I expect just yet; when I run @samp{svn up} at
 @c the top of the wc, nothing happens in the external directory at
-@c all, because (I guess) it's not linked to the parent.
+@c all, because (I guess) it's not linked to the parent. 
 
 
 @c ------------------------------------------------------------------
@@ -1488,7 +1488,7 @@ display an @samp{L} next to locked items:
 @example
 $ svn st
   L    ./somedir
-M      ./somedir/foo.c
+M      ./somedir/foo.c 
 
 $ svn cleanup
 $ svn st
@@ -1606,10 +1606,10 @@ P    2734   kfogel     2331 Jul 26 10:07 COMMITTERS
 _    2698   rooneg        0 Jul 24 18:07 tags/
 @end example
 
-The columns tell you if there file has any properties (``P'' if it does,
-``_'' if it doesn't), the revision it was last updated at, the user who
+The columns tell you if there file has any properties (``P'' if it does, 
+``_'' if it doesn't), the revision it was last updated at, the user who 
 last updated it, it's size, the date it was last updated, and the filename.
-
+ 
 @subheading @samp{svn mkdir}
 
 This is another convenience command, and it has two uses.
