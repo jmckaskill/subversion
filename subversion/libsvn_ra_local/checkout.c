@@ -37,12 +37,12 @@ send_file_contents (svn_fs_root_t *root,
   svn_stream_t *contents;
   svn_txdelta_window_handler_t handler;
   void *handler_baton;
-
+  
   /* Get a subpool for local allocations.  */
   apr_pool_t *subpool = svn_pool_create (pool);
 
   /* Get a readable stream of the file's contents. */
-  SVN_ERR (svn_fs_file_contents (&contents, root, path->data, subpool));
+  SVN_ERR (svn_fs_file_contents (&contents, root, path->data, subpool));  
 
   /* Get an editor func that wants to consume the delta stream. */
   SVN_ERR (editor->apply_textdelta (file_baton, &handler, &handler_baton));
@@ -88,24 +88,24 @@ set_any_props (svn_fs_root_t *root,
      recognize them. */
   if ((props == NULL) || (apr_hash_count (props) == 0))
     props = apr_hash_make (pool);
-
+  
   SVN_ERR (svn_repos_get_committed_info (&committed_rev,
                                          &committed_date,
                                          &last_author,
                                          root, path, pool));
-
+    
   revision_str = apr_psprintf (pool, "%ld", committed_rev);
-  apr_hash_set (props, SVN_PROP_ENTRY_COMMITTED_REV,
+  apr_hash_set (props, SVN_PROP_ENTRY_COMMITTED_REV, 
                 strlen(SVN_PROP_ENTRY_COMMITTED_REV),
                 svn_stringbuf_create (revision_str, pool));
-
-  apr_hash_set (props, SVN_PROP_ENTRY_COMMITTED_DATE,
+    
+  apr_hash_set (props, SVN_PROP_ENTRY_COMMITTED_DATE, 
                 strlen(SVN_PROP_ENTRY_COMMITTED_DATE), committed_date);
-
-  apr_hash_set (props, SVN_PROP_ENTRY_LAST_AUTHOR,
+    
+  apr_hash_set (props, SVN_PROP_ENTRY_LAST_AUTHOR, 
                 strlen(SVN_PROP_ENTRY_LAST_AUTHOR), last_author);
-
-
+  
+  
   /* Loop over properties, send them through the editor. */
   for (hi = apr_hash_first (pool, props); hi; hi = apr_hash_next (hi))
     {
@@ -117,11 +117,11 @@ set_any_props (svn_fs_root_t *root,
       apr_hash_this (hi, &key, &klen, &val);
       name = svn_stringbuf_ncreate (key, klen, pool);
       value = svn_stringbuf_create_from_string ((svn_string_t *) val, pool);
-
+      
       if (is_dir)
         SVN_ERR (editor->change_dir_prop (object_baton, name, value));
       else
-        SVN_ERR (editor->change_file_prop (object_baton, name, value));
+        SVN_ERR (editor->change_file_prop (object_baton, name, value));  
     }
 
   return SVN_NO_ERROR;
@@ -147,7 +147,7 @@ static svn_error_t *
 walk_tree (svn_fs_root_t *root,
            const svn_string_t *dir_path,
            void *dir_baton,
-           const svn_delta_edit_fns_t *editor,
+           const svn_delta_edit_fns_t *editor, 
            void *edit_baton,
            svn_stringbuf_t *URL,
            svn_boolean_t recurse,
@@ -198,7 +198,7 @@ walk_tree (svn_fs_root_t *root,
              copy paths.  We don't want the editor to "copy" anything. */
           SVN_ERR (editor->add_directory (dirent_name, dir_baton,
                                           NULL,
-                                          SVN_INVALID_REVNUM,
+                                          SVN_INVALID_REVNUM, 
                                           &new_dir_baton));
           SVN_ERR (set_any_props (root, &dirent_str, new_dir_baton,
                                   editor, 1, iter_pool));
@@ -206,14 +206,14 @@ walk_tree (svn_fs_root_t *root,
           SVN_ERR (walk_tree (root, &dirent_str, new_dir_baton, editor,
                               edit_baton, URL_path, recurse, iter_pool));
         }
-
+        
       else if (is_file)
         {
           void *file_baton;
 
           SVN_ERR (editor->add_file (dirent_name, dir_baton,
-                                     URL_path, SVN_INVALID_REVNUM,
-                                     &file_baton));
+                                     URL_path, SVN_INVALID_REVNUM, 
+                                     &file_baton));          
           SVN_ERR (set_any_props (root, &dirent_str, file_baton,
                                   editor, 0, iter_pool));
           SVN_ERR (send_file_contents (root, dirent_path, file_baton,
@@ -224,7 +224,7 @@ walk_tree (svn_fs_root_t *root,
       else
         {
           /* It's not a file or dir.  What the heck?  Instead of
-             returning an error, let's just ignore the thing. */
+             returning an error, let's just ignore the thing. */ 
         }
 
       /* Clear out our per-iteration pool. */
@@ -245,12 +245,12 @@ walk_tree (svn_fs_root_t *root,
 
 /* The main editor driver.  Short and elegant! */
 svn_error_t *
-svn_ra_local__checkout (svn_fs_t *fs,
-                        svn_revnum_t revnum,
+svn_ra_local__checkout (svn_fs_t *fs, 
+                        svn_revnum_t revnum, 
                         svn_boolean_t recurse,
                         svn_stringbuf_t *URL,
                         const svn_string_t *fs_path,
-                        const svn_delta_edit_fns_t *editor,
+                        const svn_delta_edit_fns_t *editor, 
                         void *edit_baton,
                         apr_pool_t *pool)
 {

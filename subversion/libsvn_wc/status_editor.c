@@ -90,17 +90,17 @@ tweak_statushash (void *edit_baton,
   /* {
      apr_hash_index_t *hi;
      char buf[200];
-
+     
      printf("---Tweaking statushash:  editing path `%s'\n", path);
-
-     for (hi = apr_hash_first (pool, statushash);
-     hi;
+     
+     for (hi = apr_hash_first (pool, statushash); 
+     hi; 
      hi = apr_hash_next (hi))
      {
      const void *key;
      void *val;
      apr_ssize_t klen;
-
+         
      apr_hash_this (hi, &key, &klen, &val);
      snprintf(buf, klen+1, (const char *)key);
      printf("    %s\n", buf);
@@ -108,7 +108,7 @@ tweak_statushash (void *edit_baton,
      fflush(stdout);
      }
   */
-
+  
   /* Is PATH already a hash-key? */
   statstruct = (svn_wc_status_t *) apr_hash_get (statushash, path,
                                                  APR_HASH_KEY_STRING);
@@ -116,7 +116,7 @@ tweak_statushash (void *edit_baton,
   if (! statstruct)
     {
       svn_stringbuf_t *pathkey = svn_stringbuf_create (path, pool);
-
+        
       /* Use the public API to get a statstruct: */
       SVN_ERR (svn_wc_status (&statstruct, pathkey, pool));
 
@@ -129,7 +129,7 @@ tweak_statushash (void *edit_baton,
     statstruct->repos_text_status = repos_text_status;
   if (repos_prop_status)
     statstruct->repos_prop_status = repos_prop_status;
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -245,7 +245,7 @@ free_dir_baton (struct dir_baton *dir_baton)
   svn_pool_destroy (dir_baton->pool);
 
   /* We've declared this directory done, so decrement its parent's ref
-     count too. */
+     count too. */ 
   if (parent)
     {
       err = decrement_ref_count (parent);
@@ -470,7 +470,7 @@ change_dir_prop (void *dir_baton,
 {
   struct dir_baton *db = dir_baton;
 
-  if (svn_wc_is_normal_prop (name->data))
+  if (svn_wc_is_normal_prop (name->data))    
     db->prop_changed = 1;
 
   return SVN_NO_ERROR;
@@ -484,7 +484,7 @@ close_directory (void *dir_baton)
   struct dir_baton *db = dir_baton;
   svn_error_t *err = NULL;
 
-  if (db->added
+  if (db->added 
       || db->prop_changed
       || db->text_changed)
     {
@@ -495,7 +495,7 @@ close_directory (void *dir_baton)
                                    svn_wc_status_added,
                                    db->prop_changed ? svn_wc_status_added : 0));
       else
-        /* mark the existing directory in the statushash */
+        /* mark the existing directory in the statushash */    
         SVN_ERR (tweak_statushash (db->edit_baton,
                                    db->path->data,
                                    db->text_changed ? svn_wc_status_modified : 0,
@@ -529,7 +529,7 @@ add_or_open_file (svn_stringbuf_t *name,
 
   if (adding)
     this_file_baton->added = 1;
-
+    
   *file_baton = this_file_baton;
 
   return SVN_NO_ERROR;
@@ -545,7 +545,7 @@ add_file (svn_stringbuf_t *name,
 {
   struct dir_baton *parent_dir_baton = parent_baton;
 
-  /* Mark parent dir as changed */
+  /* Mark parent dir as changed */  
   parent_dir_baton->text_changed = 1;
 
   return add_or_open_file
@@ -565,12 +565,12 @@ open_file (svn_stringbuf_t *name,
 
 
 static svn_error_t *
-apply_textdelta (void *file_baton,
+apply_textdelta (void *file_baton, 
                  svn_txdelta_window_handler_t *handler,
                  void **handler_baton)
 {
   struct file_baton *fb = file_baton;
-
+  
   fb->text_changed = 1;
 
   /* Send back a no-op window handler. */
@@ -588,7 +588,7 @@ change_file_prop (void *file_baton,
 {
   struct file_baton *fb = file_baton;
 
-  if (svn_wc_is_normal_prop (name->data))
+  if (svn_wc_is_normal_prop (name->data))    
     fb->prop_changed = 1;
 
   return SVN_NO_ERROR;
@@ -600,7 +600,7 @@ close_file (void *file_baton)
 {
   struct file_baton *fb = file_baton;
 
-  if (fb->added
+  if (fb->added 
       || fb->prop_changed
       || fb->text_changed)
     {
@@ -608,7 +608,7 @@ close_file (void *file_baton)
         /* add file to the hash */
         SVN_ERR (tweak_statushash (fb->dir_baton->edit_baton,
                                    fb->path->data,
-                                   svn_wc_status_added,
+                                   svn_wc_status_added, 
                                    fb->prop_changed ? svn_wc_status_added : 0));
       else
         /* mark the file in the statushash */
@@ -630,7 +630,7 @@ close_edit (void *edit_baton)
 {
   /* The edit is over, free its pool. */
   svn_pool_destroy (((struct edit_baton *) edit_baton)->pool);
-
+    
   return SVN_NO_ERROR;
 }
 
@@ -700,9 +700,9 @@ svn_wc_get_status_editor (svn_delta_edit_fns_t **editor,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
- * end:
+ * end: 
  */
 

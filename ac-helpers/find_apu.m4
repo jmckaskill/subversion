@@ -91,7 +91,7 @@ AC_DEFUN(APR_FIND_APU, [
     dnl if --with-apr is used, then the target prefix/directory must be valid
     if test "$apu_found" != "yes"; then
       AC_MSG_ERROR([
-The directory given to --with-apr-util does not specify a prefix for an
+The directory given to --with-apr-util does not specify a prefix for an 
 installed APU, nor an APR-util build directory.])
     fi
   ],[
@@ -113,7 +113,7 @@ installed APU, nor an APR-util build directory.])
           LDFLAGS="$preserve_LDFLAGS -L$lookdir/lib"
           AC_TRY_LINK_FUNC(apr_uri_parse, [
             apu_found="yes"
-            apu_libdir="$lookdir/lib"
+            apu_libdir="$lookdir/lib" 
             apu_includes="-I$lookdir/include"
             if test -x "$withval/bin/apu-config"; then
               apu_config="$withval/bin/apu-config"

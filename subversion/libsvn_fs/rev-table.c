@@ -202,7 +202,7 @@ svn_fs__youngest_rev (svn_revnum_t *youngest_p,
           (SVN_ERR_FS_CORRUPT, 0, 0, fs->pool,
            "revision 0 missing from `revisions' table, in filesystem `%s'",
            fs->path);
-
+      
       SVN_ERR (DB_WRAP (fs, "getting youngest revision (finding last entry)",
                         db_err));
     }
@@ -210,7 +210,7 @@ svn_fs__youngest_rev (svn_revnum_t *youngest_p,
   /* You can't commit a transaction with open cursors, because:
      1) key/value pairs don't get deleted until the cursors referring
      to them are closed, so closing a cursor can fail for various
-     reasons, and txn_commit shouldn't fail that way, and
+     reasons, and txn_commit shouldn't fail that way, and 
      2) using a cursor after committing its transaction can cause
      undetectable database corruption.  */
   SVN_ERR (DB_WRAP (fs, "getting youngest revision (closing cursor)",
@@ -385,7 +385,7 @@ svn_fs__set_rev_prop (svn_fs_t *fs,
 
     /* Update the filesystem revision with the new skel that reflects
        our property edits. */
-    db_err = fs->revisions->put
+    db_err = fs->revisions->put 
       (fs->revisions, trail->db_txn,
        svn_fs__set_dbt (&query, &recno, sizeof (recno)),
        svn_fs__skel_to_dbt (&result, skel, trail->pool), 0);
@@ -438,7 +438,7 @@ svn_fs_change_rev_prop (svn_fs_t *fs,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end:
