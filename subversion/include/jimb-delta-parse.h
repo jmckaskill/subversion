@@ -23,7 +23,7 @@ typedef struct svn_delta_walk_t
        the empty property list (for the `add_FOO' functions).
 
      So there.  */
-
+       
   /* Remove the directory entry named NAME.  */
   svn_error_t *(*delete) (svn_string_t *name,
 			  void *walk_baton, void *parent_baton);
