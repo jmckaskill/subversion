@@ -24,7 +24,7 @@
 
 
 /* Open a `nodes' table in ENV.  If CREATE is non-zero, create
-   one if it doesn't exist.  Set *NODES_P to the new table.
+   one if it doesn't exist.  Set *NODES_P to the new table.  
    Return a Berkeley DB error code.  */
 int svn_fs__open_nodes_table (DB **nodes_p,
                               DB_ENV *env,
@@ -35,7 +35,7 @@ int svn_fs__open_nodes_table (DB **nodes_p,
    FS, as part of TRAIL.  Allocate the skel and the data it points
    into in TRAIL->pool.
 
-   This verifies that *SKEL_P is a well-formed REPRESENTATION skel.
+   This verifies that *SKEL_P is a well-formed REPRESENTATION skel.  
 
    If ID does not exist in FS, the error SVN_ERR_FS_ID_NOT_FOUND is
    returned.  */
@@ -96,7 +96,7 @@ svn_error_t *svn_fs__new_successor_id (svn_fs_id_t **successor_p,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
