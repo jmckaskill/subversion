@@ -77,7 +77,7 @@ I.    BUILD REQUIREMENTS
       the "--with-apr=" option of "./configure". It should be able to find
       the apr-config script in the standard location under that directory
       (e.g. ${prefix}/bin).
-
+      
       Similar, you can specify the location of APRUTIL using the
       "--with-apr-util=" option to "./configure". It will look for the
       apu-config script relative to that directory.
