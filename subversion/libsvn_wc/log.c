@@ -151,7 +151,7 @@ log_do_run_cmd (struct log_runner *loggy,
     *outfile = NULL,
     *errfile = NULL;
   const char *args[10];
-
+  
   args[0] = name;
   /* Grab the arguments.
      You want ugly?  I'll give you ugly... */
@@ -164,60 +164,60 @@ log_do_run_cmd (struct log_runner *loggy,
   args[7] = svn_xml_get_attr_value (SVN_WC__LOG_ATTR_ARG_7, atts);
   args[8] = svn_xml_get_attr_value (SVN_WC__LOG_ATTR_ARG_8, atts);
   args[9] = svn_xml_get_attr_value (SVN_WC__LOG_ATTR_ARG_9, atts);
-
+  
   /* Grab the input and output, if any. */
   infile_name = svn_xml_get_attr_value (SVN_WC__LOG_ATTR_INFILE, atts);;
   outfile_name = svn_xml_get_attr_value (SVN_WC__LOG_ATTR_OUTFILE, atts);;
   errfile_name = svn_xml_get_attr_value (SVN_WC__LOG_ATTR_ERRFILE, atts);;
-
+  
   if (infile_name)
     {
       svn_stringbuf_t *infile_path
         = svn_stringbuf_dup (loggy->path, loggy->pool);
       svn_path_add_component_nts (infile_path, infile_name,
                                   svn_path_local_style);
-
+      
       apr_err = apr_file_open (&infile, infile_path->data, APR_READ,
                           APR_OS_DEFAULT, loggy->pool);
       if (apr_err)
         return svn_error_createf (apr_err, 0, NULL, loggy->pool,
                                   "error opening %s", infile_path->data);
     }
-
+  
   if (outfile_name)
     {
       svn_stringbuf_t *outfile_path
         = svn_stringbuf_dup (loggy->path, loggy->pool);
       svn_path_add_component_nts (outfile_path, outfile_name,
                                   svn_path_local_style);
-
+      
       /* kff todo: always creates and overwrites, currently.
          Could append if file exists... ?  Consider. */
-      apr_err = apr_file_open (&outfile, outfile_path->data,
+      apr_err = apr_file_open (&outfile, outfile_path->data, 
                           (APR_WRITE | APR_CREATE),
                           APR_OS_DEFAULT, loggy->pool);
       if (apr_err)
         return svn_error_createf (apr_err, 0, NULL, loggy->pool,
                                   "error opening %s", outfile_path->data);
     }
-
+  
   if (errfile_name)
     {
       svn_stringbuf_t *errfile_path
         = svn_stringbuf_dup (loggy->path, loggy->pool);
       svn_path_add_component_nts (errfile_path, errfile_name,
                                   svn_path_local_style);
-
+      
       /* kff todo: always creates and overwrites, currently.
          Could append if file exists... ?  Consider. */
-      apr_err = apr_file_open (&errfile, errfile_path->data,
+      apr_err = apr_file_open (&errfile, errfile_path->data, 
                           (APR_WRITE | APR_CREATE),
                           APR_OS_DEFAULT, loggy->pool);
       if (apr_err)
         return svn_error_createf (apr_err, 0, NULL, loggy->pool,
                                   "error opening %s", errfile_path->data);
     }
-
+  
   err = svn_io_run_cmd (loggy->path->data, name, args, NULL, NULL,
                         infile, outfile, errfile, loggy->pool);
   if (err)
@@ -277,7 +277,7 @@ log_do_rm (struct log_runner *loggy, const char *name)
 static svn_error_t *
 log_do_detect_conflict (struct log_runner *loggy,
                         const char *name,
-                        const XML_Char **atts)
+                        const XML_Char **atts)                        
 {
   svn_error_t *err;
   apr_status_t apr_err;
@@ -288,7 +288,7 @@ log_do_detect_conflict (struct log_runner *loggy,
     svn_xml_get_attr_value (SVN_WC_ENTRY_ATTR_REJFILE, atts);
 
   if (! rejfile)
-    return
+    return 
       svn_error_createf (SVN_ERR_WC_BAD_ADM_LOG, 0, NULL, loggy->pool,
                          "log_do_detect_conflict: no text-rejfile attr in %s",
                          loggy->path->data);
@@ -310,11 +310,11 @@ log_do_detect_conflict (struct log_runner *loggy,
       apr_err = apr_file_remove (full_path->data, loggy->pool);
       if (apr_err)
         return svn_error_createf (apr_err, 0, NULL, loggy->pool,
-                                  "log_do_detect_conflict: couldn't rm %s",
+                                  "log_do_detect_conflict: couldn't rm %s", 
                                   name);
     }
 
-  else
+  else 
     {
       /* size > 0, there must be an actual text conflict.   Mark the
          entry as conflicted! */
@@ -364,7 +364,7 @@ log_do_modify_entry (struct log_runner *loggy,
      and prop_time for each of the three scenarios.  */
 
   /* TEXT_TIME: */
-  valuestr = apr_hash_get (ah, SVN_WC_ENTRY_ATTR_TEXT_TIME,
+  valuestr = apr_hash_get (ah, SVN_WC_ENTRY_ATTR_TEXT_TIME, 
                            APR_HASH_KEY_STRING);
 
   if ((modify_flags & SVN_WC__ENTRY_MODIFY_TEXT_TIME)
@@ -375,13 +375,13 @@ log_do_modify_entry (struct log_runner *loggy,
 
       if (strcmp (sname->data, SVN_WC_ENTRY_THIS_DIR))
         svn_path_add_component (tfile, sname, svn_path_local_style);
-
+      
       err = svn_io_check_path (tfile, &tfile_kind, loggy->pool);
       if (err)
         return svn_error_createf
           (SVN_ERR_WC_BAD_ADM_LOG, 0, NULL, loggy->pool,
            "error checking path %s", tfile->data);
-
+          
       err = svn_io_file_affected_time (&text_time, tfile, loggy->pool);
       if (err)
         return svn_error_createf
@@ -392,7 +392,7 @@ log_do_modify_entry (struct log_runner *loggy,
     }
 
   /* PROP_TIME: */
-  valuestr = apr_hash_get (ah, SVN_WC_ENTRY_ATTR_PROP_TIME,
+  valuestr = apr_hash_get (ah, SVN_WC_ENTRY_ATTR_PROP_TIME, 
                            APR_HASH_KEY_STRING);
 
   if ((modify_flags & SVN_WC__ENTRY_MODIFY_PROP_TIME)
@@ -405,13 +405,13 @@ log_do_modify_entry (struct log_runner *loggy,
       err = svn_wc__prop_path (&pfile, tfile, 0, loggy->pool);
       if (err)
         signal_error (loggy, err);
-
+      
       err = svn_io_check_path (pfile, &pfile_kind, loggy->pool);
       if (err)
         return svn_error_createf
           (SVN_ERR_WC_BAD_ADM_LOG, 0, NULL, loggy->pool,
            "error checking path %s", pfile->data);
-
+      
       err = svn_io_file_affected_time (&prop_time, tfile, loggy->pool);
       if (err)
         return svn_error_createf
@@ -476,14 +476,14 @@ log_do_delete_entry (struct log_runner *loggy, const char *name)
   else if (entry->kind == svn_node_file)
     err = svn_wc_remove_from_revision_control (loggy->path, sname,
                                                TRUE, loggy->pool);
-
+    
   /* It's possible that locally modified files were left behind during
      the removal.  That's okay;  just check for this special case. */
   if (err && (err->apr_err != SVN_ERR_WC_LEFT_LOCAL_MOD))
     return err;
 
   /* (## Perhaps someday have the client print a warning that "locally
-     modified files were not deleted" ??) */
+     modified files were not deleted" ??) */    
 
   return SVN_NO_ERROR;
 }
@@ -513,7 +513,7 @@ conflict_if_rejfile (svn_stringbuf_t *parent_dir,
   rejfile_full_path = svn_stringbuf_dup (parent_dir, pool);
   svn_path_add_component_nts (rejfile_full_path, rejfile,
                               svn_path_local_style);
-
+  
   /* Check most basic case: no rejfile, not even an empty one. */
   err = svn_io_check_path (rejfile_full_path, &kind, pool);
   if (err)
@@ -532,13 +532,13 @@ conflict_if_rejfile (svn_stringbuf_t *parent_dir,
       apr_finfo_t finfo;
       apr_err = apr_stat (&finfo, rejfile_full_path->data,
                           APR_FINFO_MIN, pool);
-
+      
       if (! APR_STATUS_IS_SUCCESS (apr_err))
         return svn_error_createf
           (apr_err, 0, NULL, pool,
            "conflict_if_rejfile: trouble stat()'ing %s",
            rejfile_full_path->data);
-
+      
       if (finfo.size == 0)
         {
           apr_err = apr_file_remove (rejfile_full_path->data, pool);
@@ -587,7 +587,7 @@ conflict_if_rejfile (svn_stringbuf_t *parent_dir,
                     att_overlay,
                     pool,
                     NULL));
-        }
+        } 
     }
 
   return SVN_NO_ERROR;
@@ -654,7 +654,7 @@ log_do_committed (struct log_runner *loggy,
 
       /* `name' is either a file's basename, or SVN_WC_ENTRY_THIS_DIR. */
       is_this_dir = (strcmp (name, SVN_WC_ENTRY_THIS_DIR)) ? FALSE : TRUE;
-
+      
       /* Determine the actual full path of the affected item so we can
          easily read its entry and check its state. */
       {
@@ -664,9 +664,9 @@ log_do_committed (struct log_runner *loggy,
         if (! is_this_dir)
           svn_path_add_component (full_path, sname, svn_path_local_style);
         SVN_ERR (svn_wc_entry (&entry, full_path, loggy->pool));
-        if ((! is_this_dir)
+        if ((! is_this_dir) 
             && (entry->kind != svn_node_file))
-          return svn_error_createf
+          return svn_error_createf 
             (SVN_ERR_WC_BAD_ADM_LOG, 0, NULL, loggy->pool,
              "log command for directory '%s' mislocated", name);
       }
@@ -684,7 +684,7 @@ log_do_committed (struct log_runner *loggy,
               parent = svn_stringbuf_dup (loggy->path, loggy->pool);
               svn_path_remove_component (parent, svn_path_local_style);
             }
-          else
+          else 
             parent = loggy->path;
 
           SVN_ERR (svn_wc_entry (&parent_entry, parent, loggy->pool));
@@ -695,33 +695,33 @@ log_do_committed (struct log_runner *loggy,
 
               if (is_this_dir) /* mark in two places */
                 {
-                  svn_stringbuf_t *child =
-                    svn_path_last_component (loggy->path,
+                  svn_stringbuf_t *child = 
+                    svn_path_last_component (loggy->path, 
                                              svn_path_local_style,
                                              loggy->pool);
 
-                  SVN_ERR (svn_wc__entry_modify
+                  SVN_ERR (svn_wc__entry_modify 
                            (parent, child,  /* mark in parent dir */
                             (SVN_WC__ENTRY_MODIFY_SCHEDULE
                              | SVN_WC__ENTRY_MODIFY_EXISTENCE
                              | SVN_WC__ENTRY_MODIFY_FORCE
                              | SVN_WC__ENTRY_MODIFY_REVISION),
-                            atoi(revstr),
+                            atoi(revstr), 
                             svn_node_none, /* ignored */
                             svn_wc_schedule_normal,
                             svn_wc_existence_deleted,
                             0, 0, 0, NULL, NULL, /* ignored */
                             loggy->pool, NULL));
 
-                  SVN_ERR (svn_wc__entry_modify
+                  SVN_ERR (svn_wc__entry_modify 
                            (loggy->path,    /* mark THIS_DIR */
-                            svn_stringbuf_create (SVN_WC_ENTRY_THIS_DIR,
+                            svn_stringbuf_create (SVN_WC_ENTRY_THIS_DIR, 
                                                   loggy->pool),
                             (SVN_WC__ENTRY_MODIFY_SCHEDULE
                              | SVN_WC__ENTRY_MODIFY_EXISTENCE
                              | SVN_WC__ENTRY_MODIFY_FORCE
                              | SVN_WC__ENTRY_MODIFY_REVISION),
-                            atoi(revstr),
+                            atoi(revstr), 
                             svn_node_none, /* ignored */
                             svn_wc_schedule_normal,
                             svn_wc_existence_deleted,
@@ -729,24 +729,24 @@ log_do_committed (struct log_runner *loggy,
                             loggy->pool, NULL));
                 }
               else
-                SVN_ERR (svn_wc__entry_modify
+                SVN_ERR (svn_wc__entry_modify 
                          (loggy->path, sname,  /* mark file */
                           (SVN_WC__ENTRY_MODIFY_SCHEDULE
                            | SVN_WC__ENTRY_MODIFY_EXISTENCE
                            | SVN_WC__ENTRY_MODIFY_FORCE
                            | SVN_WC__ENTRY_MODIFY_REVISION),
-                          atoi(revstr),
+                          atoi(revstr), 
                           svn_node_none, /* ignored */
                           svn_wc_schedule_normal,
                           svn_wc_existence_deleted,
                           0, 0, 0, NULL, NULL, /* ignored */
                           loggy->pool, NULL));
             }
-          else
+          else  
             {
               /* Revisions match, so it's safe to remove the committed
                  entry from revision control altogether. */
-
+ 
               /* Interesting note: this `else' clause will *only*
                  happen when commit involves a propchange on a parent
                  dir and a deletion of child.  There's no other case
@@ -759,7 +759,7 @@ log_do_committed (struct log_runner *loggy,
                    after its done with this logfile.  */
                 SVN_ERR (svn_wc__make_adm_thing (loggy->path,
                                                  SVN_WC__ADM_KILLME,
-                                                 svn_node_file,
+                                                 svn_node_file, 
                                                  APR_OS_DEFAULT,
                                                  0,
                                                  loggy->pool));
@@ -770,7 +770,7 @@ log_do_committed (struct log_runner *loggy,
                          (loggy->path, sname, FALSE, loggy->pool));
             }
         }
-
+               
       else   /* entry not deleted, so mark commited-to-date */
         {
           svn_stringbuf_t *pdir, *basename;
@@ -780,7 +780,7 @@ log_do_committed (struct log_runner *loggy,
               && is_this_dir)
             {
               apr_hash_index_t *hi;
-
+              
               /* If THIS_DIR has been replaced, all its immmediate
                  children *must* be either marked as {D, A, or R}.
                  Children which are A or R will be reported as individual
@@ -788,13 +788,13 @@ log_do_committed (struct log_runner *loggy,
                  log_do_committed().  Children which are marked as D,
                  however, need to be outright removed from revision
                  control.  */
-
+              
               /* Loop over all children entries, look for D markers. */
               SVN_ERR (svn_wc_entries_read (&entries, loggy->path,
                                             loggy->pool));
-
-              for (hi = apr_hash_first (loggy->pool, entries);
-                   hi;
+              
+              for (hi = apr_hash_first (loggy->pool, entries); 
+                   hi; 
                    hi = apr_hash_next (hi))
                 {
                   const void *key;
@@ -802,33 +802,33 @@ log_do_committed (struct log_runner *loggy,
                   apr_size_t klen;
                   void *val;
                   svn_stringbuf_t *current_entry_name;
-                  svn_wc_entry_t *current_entry;
-
+                  svn_wc_entry_t *current_entry; 
+                  
                   /* Get the next entry */
                   apr_hash_this (hi, &key, &klen, &val);
                   keystring = (const char *) key;
                   current_entry = (svn_wc_entry_t *) val;
-
+                  
                   /* Skip each entry that isn't scheduled for deletion. */
                   if (current_entry->schedule != svn_wc_schedule_delete)
                     continue;
-
+                  
                   /* Get the name of entry, remove from revision control. */
                   current_entry_name = svn_stringbuf_create (keystring,
                                                              loggy->pool);
-
+                  
                   if (current_entry->kind == svn_node_file)
-                    SVN_ERR (svn_wc_remove_from_revision_control
+                    SVN_ERR (svn_wc_remove_from_revision_control 
                              (loggy->path,
                               current_entry_name,
                               FALSE, loggy->pool));
-
+                  
                   else if (current_entry->kind == svn_node_dir)
                     {
                       svn_stringbuf_t *parent = svn_stringbuf_dup
                         (loggy->path, loggy->pool);
                       svn_stringbuf_t *thisdir =
-                        svn_stringbuf_create (SVN_WC_ENTRY_THIS_DIR,
+                        svn_stringbuf_create (SVN_WC_ENTRY_THIS_DIR, 
                                               loggy->pool);
                       svn_path_add_component (parent, current_entry_name,
                                               svn_path_local_style);
@@ -848,13 +848,13 @@ log_do_committed (struct log_runner *loggy,
                                       sname,
                                       svn_path_local_style);
               tmp_base = svn_wc__text_base_path (working_file, 1, loggy->pool);
-
+              
               err = svn_io_check_path (tmp_base, &kind, loggy->pool);
               if (err)
                 return svn_error_createf
                   (SVN_ERR_WC_BAD_ADM_LOG, 0, NULL, loggy->pool,
                    "error checking existence of %s", name);
-
+              
               if (kind == svn_node_file)
                 {
                   svn_boolean_t same;
@@ -863,11 +863,11 @@ log_do_committed (struct log_runner *loggy,
                                                        tmp_base,
                                                        loggy->pool);
                   if (err)
-                    return svn_error_createf
+                    return svn_error_createf 
                       (SVN_ERR_WC_BAD_ADM_LOG, 0, NULL, loggy->pool,
                        "error comparing %s and %s",
                        working_file->data, tmp_base->data);
-
+                  
                   /* What's going on here: the working copy has been
                      copied to tmp/text-base/ during the commit.  That's
                      what `tmp_base' points to.  If we get here, we know
@@ -878,39 +878,39 @@ log_do_committed (struct log_runner *loggy,
                      that's the case, use tmp_base's timestamp.  If
                      there's been no local mod, it's okay to use the
                      working file's timestamp. */
-                  err = svn_io_file_affected_time
+                  err = svn_io_file_affected_time 
                     (&text_time, same ? working_file : tmp_base, loggy->pool);
                   if (err)
-                    return svn_error_createf
+                    return svn_error_createf 
                       (SVN_ERR_WC_BAD_ADM_LOG, 0, NULL, loggy->pool,
                        "error getting file_affected_time on %s",
                        same ? working_file->data : tmp_base->data);
-
+                  
                   err = replace_text_base (loggy->path, name, loggy->pool);
                   if (err)
-                    return svn_error_createf
+                    return svn_error_createf 
                       (SVN_ERR_WC_BAD_ADM_LOG, 0, NULL, loggy->pool,
                        "error replacing text base for %s", name);
                 }
             }
-
+              
           /* Now check for property commits. */
 
           /* Get property file pathnames, depending on whether we're
              examining a file or THIS_DIR */
-          SVN_ERR (svn_wc__prop_path
+          SVN_ERR (svn_wc__prop_path 
                    (&prop_path,
                     is_this_dir ? loggy->path : working_file,
                     0 /* not tmp */, loggy->pool));
-
-          SVN_ERR (svn_wc__prop_path
-                   (&tmp_prop_path,
+          
+          SVN_ERR (svn_wc__prop_path 
+                   (&tmp_prop_path, 
                     is_this_dir ? loggy->path : working_file,
                     1 /* tmp */, loggy->pool));
-
-          SVN_ERR (svn_wc__prop_base_path
+          
+          SVN_ERR (svn_wc__prop_base_path 
                    (&prop_base_path,
-                    is_this_dir ?
+                    is_this_dir ? 
                     loggy->path : working_file,
                     0 /* not tmp */, loggy->pool));
 
@@ -920,15 +920,15 @@ log_do_committed (struct log_runner *loggy,
             return svn_error_createf
               (SVN_ERR_WC_BAD_ADM_LOG, 0, NULL, loggy->pool,
                "error checking existence of %s", name);
-
+          
           if (kind == svn_node_file)
             {
               /* Magic inference: if there's a working property file
                  sitting in the tmp area, then we must have committed
                  properties on this file or dir.  Time to sync. */
-
+              
               /* We need to decide which prop-timestamp to use, just
-                 like we did with text-time. */
+                 like we did with text-time. */             
               svn_boolean_t same;
               apr_status_t status;
               err = svn_wc__files_contents_same_p (&same,
@@ -936,15 +936,15 @@ log_do_committed (struct log_runner *loggy,
                                                    tmp_prop_path,
                                                    loggy->pool);
               if (err)
-                return svn_error_createf
+                return svn_error_createf 
                   (SVN_ERR_WC_BAD_ADM_LOG, 0, NULL, loggy->pool,
                    "error comparing %s and %s",
                    prop_path->data, tmp_prop_path->data);
 
-              err = svn_io_file_affected_time
+              err = svn_io_file_affected_time 
                 (&prop_time, same ? prop_path : tmp_prop_path, loggy->pool);
               if (err)
-                return svn_error_createf
+                return svn_error_createf 
                   (SVN_ERR_WC_BAD_ADM_LOG, 0, NULL, loggy->pool,
                    "error getting file_affected_time on %s",
                    same ? prop_path->data : tmp_prop_path->data);
@@ -959,15 +959,15 @@ log_do_committed (struct log_runner *loggy,
                                           tmp_prop_path->data,
                                           prop_base_path->data);
             }
-
+          
 
           /* Files have been moved, and timestamps are found.  Time
              for The Big Merge Sync. */
           err = svn_wc__entry_modify
             (loggy->path,
              sname,
-             (SVN_WC__ENTRY_MODIFY_REVISION
-              | SVN_WC__ENTRY_MODIFY_SCHEDULE
+             (SVN_WC__ENTRY_MODIFY_REVISION 
+              | SVN_WC__ENTRY_MODIFY_SCHEDULE 
               | SVN_WC__ENTRY_MODIFY_EXISTENCE
               | SVN_WC__ENTRY_MODIFY_CONFLICTED
               | SVN_WC__ENTRY_MODIFY_TEXT_TIME
@@ -1004,7 +1004,7 @@ log_do_committed (struct log_runner *loggy,
             return SVN_NO_ERROR;
 
           /* Make sure our entry exists in the parent (if the parent
-             is even a SVN working copy directory).
+             is even a SVN working copy directory). 
 
              ### todo:  perhaps some year when our API calls return
              predictable error messages, we can pay attention to the
@@ -1019,7 +1019,7 @@ log_do_committed (struct log_runner *loggy,
                   err = svn_wc__entry_modify
                     (pdir,
                      basename,
-                     (SVN_WC__ENTRY_MODIFY_SCHEDULE
+                     (SVN_WC__ENTRY_MODIFY_SCHEDULE 
                       | SVN_WC__ENTRY_MODIFY_EXISTENCE
                       | SVN_WC__ENTRY_MODIFY_FORCE),
                      SVN_INVALID_REVNUM,
@@ -1061,13 +1061,13 @@ start_handler (void *userData, const XML_Char *eltname, const XML_Char **atts)
   else if (! name)
     {
       signal_error
-        (loggy, svn_error_createf
+        (loggy, svn_error_createf 
          (SVN_ERR_WC_BAD_ADM_LOG, 0, NULL, loggy->pool,
           "log entry missing name attribute (entry %s for dir %s)",
           eltname, loggy->path->data));
       return;
     }
-
+  
   /* Dispatch. */
   if (strcmp (eltname, SVN_WC__LOG_RUN_CMD) == 0) {
     err = log_do_run_cmd (loggy, name, atts);
@@ -1117,7 +1117,7 @@ start_handler (void *userData, const XML_Char *eltname, const XML_Char **atts)
        (SVN_ERR_WC_BAD_ADM_LOG, 0, err, loggy->pool,
         "start_handler: error processing element %s in %s",
         eltname, loggy->path->data));
-
+  
   return;
 }
 
@@ -1146,7 +1146,7 @@ svn_wc__run_log (svn_stringbuf_t *path, apr_pool_t *pool)
   loggy->path   = path;
   loggy->pool   = pool;
   loggy->parser = parser;
-
+  
   /* Expat wants everything wrapped in a top-level form, so start with
      a ghost open tag. */
   SVN_ERR (svn_xml_parse (parser, log_start, strlen (log_start), 0));
@@ -1155,7 +1155,7 @@ svn_wc__run_log (svn_stringbuf_t *path, apr_pool_t *pool)
   err = svn_wc__open_adm_file (&f, path, SVN_WC__ADM_LOG, APR_READ, pool);
   if (err)
     return svn_error_quick_wrap (err, "svn_wc__run_log: couldn't open log.");
-
+  
   do {
     buf_len = sizeof (buf);
 
@@ -1196,12 +1196,12 @@ svn_wc__run_log (svn_stringbuf_t *path, apr_pool_t *pool)
     {
       /* Blow away the entire administrative dir, and all those below
          it too.  Don't remove any working files, though. */
-      svn_stringbuf_t *this_dir =
+      svn_stringbuf_t *this_dir = 
         svn_stringbuf_create (SVN_WC_ENTRY_THIS_DIR, pool);
       SVN_ERR (svn_wc_remove_from_revision_control (path, this_dir,
                                                     FALSE, pool));
     }
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -1274,11 +1274,11 @@ svn_wc_cleanup (svn_stringbuf_t *path,
      control.  If so, blow away the entire administrative dir, and all
      those below it too.  Don't remove any working files, though. */
   if (svn_wc__adm_path_exists (path, 0, pool, SVN_WC__ADM_KILLME, NULL))
-    SVN_ERR (svn_wc_remove_from_revision_control
-             (path,
-              svn_stringbuf_create (SVN_WC_ENTRY_THIS_DIR, pool),
+    SVN_ERR (svn_wc_remove_from_revision_control 
+             (path, 
+              svn_stringbuf_create (SVN_WC_ENTRY_THIS_DIR, pool), 
               FALSE, pool));
-
+  
   /* Remove the lock here, making sure that the administrative
      directory still exists after running the log! */
   if (svn_wc__adm_path_exists (path, 0, pool, NULL))
@@ -1293,7 +1293,7 @@ svn_wc_cleanup (svn_stringbuf_t *path,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
