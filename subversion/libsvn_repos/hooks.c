@@ -59,7 +59,7 @@ read_hook_line (char **cmd_p,
   int i;
   apr_status_t apr_err;
   apr_array_header_t *args = apr_array_make (pool, 4, sizeof (*cmd_p));
-
+  
   int
     done = 0,
     escaped = 0,
@@ -67,7 +67,7 @@ read_hook_line (char **cmd_p,
     suppress_expansion = 0,
     suppress_comment_effect = 0,
     suppress_escape_effect = 0;
-
+              
  restart:
 
   idx = 0;
@@ -83,7 +83,7 @@ read_hook_line (char **cmd_p,
         {
           const char *filename;
           apr_file_name_get (&filename, hook_file);
-          return svn_error_createf
+          return svn_error_createf 
             (apr_err, 0, NULL, pool,
              "read_hook_line: error reading line from `%s'", filename);
         }
@@ -95,11 +95,11 @@ read_hook_line (char **cmd_p,
         {
           const char *filename;
           apr_file_name_get (&filename, hook_file);
-          return svn_error_createf
+          return svn_error_createf 
             (apr_err, 0, NULL, pool,
              "read_hook_line: line too long in `%s'", filename);
         }
-
+        
       if (escaped)
         {
           /* The char before this one was backslash, the escape
@@ -135,7 +135,7 @@ read_hook_line (char **cmd_p,
               goto add_it;
             }
           break;
-
+          
         case '#':
           if (! suppress_comment_effect)
               commented = 1;
@@ -145,7 +145,7 @@ read_hook_line (char **cmd_p,
               goto add_it;
             }
           break;
-
+          
         case '\n':
           done = 1;
         /* fallthru */
@@ -250,7 +250,7 @@ run_hook_file (svn_fs_t *fs,
 
   const char *rev_str = apr_psprintf (pool, "%ld", rev);
   const char *repos;
-
+  
   err = read_hook_line (&cmd,
                         hook_file,
                         repos,
@@ -389,11 +389,11 @@ svn_repos_fs_begin_txn_for_commit (svn_fs_txn_t **txn_p,
       svn_string_t val;
       val.data = author;
       val.len = strlen (author);
-
+      
       SVN_ERR (svn_fs_change_txn_prop (*txn_p, &author_prop_name,
                                        &val, pool));
     }
-
+    
     /* Log message. */
     SVN_ERR (svn_fs_change_txn_prop (*txn_p, &log_prop_name,
                                      log_msg, pool));
@@ -404,7 +404,7 @@ svn_repos_fs_begin_txn_for_commit (svn_fs_txn_t **txn_p,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
