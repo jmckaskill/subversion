@@ -139,7 +139,7 @@ static dav_prop_insert dav_svn_insert_prop(const dav_resource *resource,
            as 'last modified date'?  */
         svn_revnum_t committed_rev = SVN_INVALID_REVNUM;
         svn_string_t *committed_date = NULL;
-
+        
         /* Get the CR field out of the node's skel.  Notice that the
            root object might be an ID root -or- a revision root. */
         serr = svn_fs_node_created_rev(&committed_rev,
@@ -151,7 +151,7 @@ static dav_prop_insert dav_svn_insert_prop(const dav_resource *resource,
             value = "###error###";
             break;
           }
-
+        
         /* Get the date property of the created revision. */
         serr = svn_fs_revision_prop(&committed_date,
                                     resource->info->repos->fs,
@@ -163,7 +163,7 @@ static dav_prop_insert dav_svn_insert_prop(const dav_resource *resource,
             value = "###error###";
             break;
           }
-
+        
         if (committed_date == NULL)
           return DAV_PROP_INSERT_NOTDEF;
 
@@ -192,7 +192,7 @@ static dav_prop_insert dav_svn_insert_prop(const dav_resource *resource,
                 value = "###error###";
                 break;
               }
-
+            
             /* convert the apr_time_t into a apr_time_exp_t */
             status = apr_time_exp_gmt(&tms, timeval);
             if (status != APR_SUCCESS)
@@ -200,7 +200,7 @@ static dav_prop_insert dav_svn_insert_prop(const dav_resource *resource,
                 value = "###error###";
                 break;
               }
-
+              
             /* stolen from dav/fs/repos.c   :-)  */
             nicedate = apr_psprintf(p, "%s, %.2d %s %d %.2d:%.2d:%.2d GMT",
                                     apr_day_snames[tms.tm_wday],
@@ -215,10 +215,10 @@ static dav_prop_insert dav_svn_insert_prop(const dav_resource *resource,
       }
 
     case DAV_PROPID_creator_displayname:
-      {
+      {        
         svn_revnum_t committed_rev = SVN_INVALID_REVNUM;
         svn_string_t *last_author = NULL;
-
+        
         /* Get the CR field out of the node's skel.  Notice that the
            root object might be an ID root -or- a revision root. */
         serr = svn_fs_node_created_rev(&committed_rev,
@@ -230,7 +230,7 @@ static dav_prop_insert dav_svn_insert_prop(const dav_resource *resource,
             value = "###error###";
             break;
           }
-
+        
         /* Get the date property of the created revision. */
         serr = svn_fs_revision_prop(&last_author,
                                     resource->info->repos->fs,
@@ -258,11 +258,11 @@ static dav_prop_insert dav_svn_insert_prop(const dav_resource *resource,
     case DAV_PROPID_getcontentlength:
       {
         apr_off_t len = 0;
-
+        
         /* our property, but not defined on collection resources */
         if (resource->collection)
           return DAV_PROP_INSERT_NOTSUPP;
-
+        
         serr = svn_fs_file_length(&len, resource->info->root.root,
                                   resource->info->repos_path, p);
         if (serr != NULL)
@@ -286,7 +286,7 @@ static dav_prop_insert dav_svn_insert_prop(const dav_resource *resource,
                                  SVN_PROP_MIME_TYPE, p);
 
         if ((serr != NULL) || (pval == NULL))
-          value = "text/plain"; /* assume default */
+          value = "text/plain"; /* assume default */        
         else
           value = pval->data;
 
@@ -323,9 +323,9 @@ static dav_prop_insert dav_svn_insert_prop(const dav_resource *resource,
               break;
             }
           s = dav_svn_build_uri(resource->info->repos,
-                                DAV_SVN_BUILD_URI_BASELINE,
+                                DAV_SVN_BUILD_URI_BASELINE, 
                                 revnum, NULL, 0 /* add_href */, p);
-          value = apr_psprintf(p, "<D:href>%s</D:href>",
+          value = apr_psprintf(p, "<D:href>%s</D:href>", 
                                apr_xml_quote_string(p, s, 1));
         }
       else if (resource->type != DAV_RESOURCE_TYPE_REGULAR)
@@ -343,7 +343,7 @@ static dav_prop_insert dav_svn_insert_prop(const dav_resource *resource,
                                 DAV_SVN_BUILD_URI_VERSION,
                                 rev_to_use, resource->info->repos_path,
                                 0 /* add_href */, p);
-          value = apr_psprintf(p, "<D:href>%s</D:href>",
+          value = apr_psprintf(p, "<D:href>%s</D:href>", 
                                apr_xml_quote_string(p, s, 1));
         }
       break;
@@ -355,7 +355,7 @@ static dav_prop_insert dav_svn_insert_prop(const dav_resource *resource,
       if (resource->type != DAV_RESOURCE_TYPE_REGULAR)
         return DAV_PROP_INSERT_NOTSUPP;
       value = dav_svn_build_uri(resource->info->repos, DAV_SVN_BUILD_URI_VCC,
-                                SVN_IGNORED_REVNUM, NULL,
+                                SVN_IGNORED_REVNUM, NULL, 
                                 1 /* add_href */, p);
       break;
 
@@ -375,7 +375,7 @@ static dav_prop_insert dav_svn_insert_prop(const dav_resource *resource,
       else
         {
           svn_revnum_t committed_rev = SVN_INVALID_REVNUM;
-
+          
           /* Get the CR field out of the node's skel.  Notice that the
              root object might be an ID root -or- a revision root. */
           serr = svn_fs_node_created_rev(&committed_rev,
@@ -387,7 +387,7 @@ static dav_prop_insert dav_svn_insert_prop(const dav_resource *resource,
               value = "###error###";
               break;
             }
-
+          
           /* Convert the revision into a quoted string */
           s = apr_psprintf(p, "%" SVN_REVNUM_T_FMT, committed_rev);
           value = apr_xml_quote_string(p, s, 1);
@@ -560,7 +560,7 @@ void dav_svn_register_uris(apr_pool_t *p)
 }
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end:

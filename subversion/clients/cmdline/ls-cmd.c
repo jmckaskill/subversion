@@ -50,7 +50,7 @@ print_dirents (const char *url,
   int i;
 
   array = apr_hash_sorted_keys (dirents, compare_cstring_as_paths, pool);
-
+  
   printf ("%s:\n", url);
 
   for (i = 0; i < array->nelts; ++i)
@@ -60,7 +60,7 @@ print_dirents (const char *url,
       svn_dirent_t *dirent;
       svn_item_t *item;
       char timestr[20];
-
+     
       item = &APR_ARRAY_IDX (array, i, svn_item_t);
 
       utf8_entryname = item->key;
@@ -68,12 +68,12 @@ print_dirents (const char *url,
       dirent = apr_hash_get (dirents, utf8_entryname, item->klen);
 
       SVN_ERR (svn_utf_cstring_from_utf8 (&native_entryname,
-                                          utf8_entryname, pool));
+                                          utf8_entryname, pool));      
       SVN_ERR (svn_utf_cstring_from_utf8 (&native_author,
                                           dirent->last_author, pool));
 
       {
-        /* svn_time_to_human_nts gives us something *way* to long to use for
+        /* svn_time_to_human_nts gives us something *way* to long to use for 
            this, so we have to roll our own. */
         apr_time_exp_t exp_time;
         apr_status_t apr_err;
@@ -89,7 +89,7 @@ print_dirents (const char *url,
           timestr[0] = '\0';
       }
 
-      printf ("%c %7"SVN_REVNUM_T_FMT" %8.8s %8ld %12s %s%s\n",
+      printf ("%c %7"SVN_REVNUM_T_FMT" %8.8s %8ld %12s %s%s\n", 
               dirent->has_props ? 'P' : '_',
               dirent->created_rev,
               native_author ? native_author : "      ? ",
@@ -115,7 +115,7 @@ svn_cl__ls (apr_getopt_t *os,
 
   auth_baton = svn_cl__make_auth_baton (opt_state, pool);
 
-  SVN_ERR (svn_cl__args_to_target_array (&targets, os, opt_state,
+  SVN_ERR (svn_cl__args_to_target_array (&targets, os, opt_state, 
                                          FALSE, pool));
 
   /* Give me arguments or give me death! */
@@ -130,13 +130,13 @@ svn_cl__ls (apr_getopt_t *os,
       const char *target_native;
       const char *target = ((const char **) (targets->elts))[i];
       SVN_ERR (svn_utf_cstring_from_utf8 (&target_native, target, subpool));
-
+     
       if (! svn_path_is_url (target))
         {
           printf ("Invalid URL: %s\n", target_native);
           continue;
         }
-
+      
       SVN_ERR (svn_client_ls (&dirents, target, &(opt_state->start_revision),
                               auth_baton, subpool));
 
@@ -150,8 +150,8 @@ svn_cl__ls (apr_getopt_t *os,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../tools/dev/svn-dev.el")
- * end:
+ * end: 
  */
