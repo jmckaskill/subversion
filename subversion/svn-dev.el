@@ -2,7 +2,7 @@
 
 ;;; In C files, put something like this to load this file automatically:
 ;;;
-;;;
+;;; 
 ;;;
 ;;;
 
