@@ -34,13 +34,13 @@
       is the basis of tags and branches.</para>
 
   </simplesect>
-
+  
   <!-- ================================================================= -->
   <!-- ======================== SECTION 1 ============================== -->
   <!-- ================================================================= -->
   <sect1 id="svn-ch-4-sect-1">
-    <title>Branching with svn cp</title>
-
+    <title>Branching with svn cp</title> 
+    
     <para>Suppose we have a repository whose head tree is revision 82.
       In this repository is a subdirectory <filename>mooIRC</filename>
       that contains a software project that is ready to be tagged.
@@ -51,7 +51,7 @@
       <filename>mooIRC</filename> in revision 82.  Of course, you can
       name the new directory entry whatever you want -- probably a
       tag-name like <filename>mooIRC-beta</filename>.</para>
-
+    
     <para>The easiest way to make this copy is with <command>svn
       cp</command>, which, incidentally, can operate entirely on URLs,
       so that the copy happens only on the server-side:</para>
@@ -150,7 +150,7 @@
     <screen>
       $ svn switch http://foo.com/repos/mooIRC-beta/subsystems/renderer \
                    mooIRC/subsystems/renderer
-
+      
       U  mooIRC/subsystems/renderer/foo.c
       U  mooIRC/subsystems/renderer/bar.h
       U  mooIRC/subsystems/renderer/baz.c
@@ -199,12 +199,12 @@
 
     <para>For example, suppose the bug fix happened in a commit to the
       <filename>mooIRC-beta</filename> branch in revision 102.</para>
-
+    
     <screen>
       $ svn diff -r 101:102 http://foo.com/repos/mooIRC-beta
-
+      
      &hellip;   # diffs sent to screen
-
+      
       $ svn merge -r 101:102 http://foo.com/repos/mooIRC-beta mooIRC
       U   mooIRC/glorb.c
       U   mooIRC/src/floo.h
@@ -241,9 +241,9 @@
       Transmitting file data ..
       Committed revision 10.
       $
-
+      
       &hellip; # developer continues on and realizes he made a mistake
-
+      
       $ svn merge -r 10:9 .
       U ./bar.c
       U ./foo.c
@@ -253,7 +253,7 @@
       Transmitting file data ..
       Committed revision 11.
     </screen>
-
+    
     <para>If you aren't rolling back the changes to your current
       directory (say you want to roll back one specific file, or all
       the files in one specific subdirectory), then the syntax is
@@ -270,9 +270,9 @@
       Transmitting file data ..
       Committed revision 12.
       $
-
+      
       &hellip; # developer continues on and later makes another mistake
-
+      
       $ svn merge -r 13:12 baz/foo.c baz/foo.c
       U ./baz/foo.c
       $ svn commit -m "reverting revision 12's change to foo.c"
@@ -280,7 +280,7 @@
       Transmitting file data .
       Committed revision 15.
     </screen>
-
+    
     <para>Keep in mind that rolling back a change like this is just
       like any other <command>svn merge</command> operation, so you
       should use <command>svn status</command> and <command>svn
@@ -316,7 +316,7 @@
 </chapter>
 
 <!--
-local variables:
+local variables: 
 eval: (load-file "../tools/svnbook.el")
 sgml-parent-document: ("book.xml" "chapter")
 end:
