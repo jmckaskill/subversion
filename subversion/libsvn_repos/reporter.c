@@ -50,10 +50,10 @@ typedef struct svn_repos_report_baton_t
         svn_repos_dir_delta(): --  */
 
   /* whether or not to generate text-deltas */
-  svn_boolean_t text_deltas;
+  svn_boolean_t text_deltas; 
 
   /* which revision to compare against */
-  svn_revnum_t revnum_to_update_to;
+  svn_revnum_t revnum_to_update_to; 
 
   /* The fs path that will be the 'target' of dir_delta.
      In the case of 'svn switch', this is probably distinct from BASE_PATH.
@@ -65,7 +65,7 @@ typedef struct svn_repos_report_baton_t
 
   /* the editor to drive */
   const svn_delta_edit_fns_t *update_editor;
-  void *update_edit_baton;
+  void *update_edit_baton; 
 
   /* This hash contains any `linked paths', and what they were linked
      from. */
@@ -103,11 +103,11 @@ static const char *get_from_path_map(apr_hash_t *hash,
 {
   const char *repos_path;
   svn_stringbuf_t *my_path;
-
+  
   /* no hash means no map.  that's easy enough. */
   if (! hash)
     return apr_pstrdup (pool, path);
-
+  
   if ((repos_path = apr_hash_get (hash, path, APR_HASH_KEY_STRING)))
     {
       /* what luck!  this path is a hash key!  if there is a linkpath,
@@ -119,7 +119,7 @@ static const char *get_from_path_map(apr_hash_t *hash,
      hacking off components and looking for a parent from which to
      derive a repos_path.  use a stringbuf for convenience. */
   my_path = svn_stringbuf_create (path, pool);
-  do
+  do 
     {
       svn_path_remove_component (my_path);
       if ((repos_path = apr_hash_get (hash, my_path->data, my_path->len)))
@@ -127,12 +127,12 @@ static const char *get_from_path_map(apr_hash_t *hash,
           /* we found a mapping ... but of one of PATH's parents.
              soooo, we get to re-append the chunks of PATH that we
              broke off to the REPOS_PATH we found. */
-          return apr_pstrcat (pool, repos_path, "/",
+          return apr_pstrcat (pool, repos_path, "/", 
                               path + my_path->len + 1, NULL);
         }
     }
   while (! svn_path_is_empty (my_path));
-
+  
   /* well, we simply never found anything worth mentioning the map.
      PATH is its own default finding, then. */
   return apr_pstrdup (pool, path);
@@ -147,7 +147,7 @@ svn_repos_set_path (void *report_baton,
 {
   svn_repos_report_baton_t *rbaton = report_baton;
   svn_revnum_t *rev_ptr = apr_palloc (rbaton->pool, sizeof (*rev_ptr));
-
+  
   /* If this is the very first call, no txn exists yet. */
   if (! rbaton->txn)
     {
@@ -157,7 +157,7 @@ svn_repos_set_path (void *report_baton,
       /* Sanity check: make that we didn't call this with real data
          before simply informing the reporter of our base revision. */
       if (! svn_path_is_empty (pathbuf))
-        return
+        return 
           svn_error_create
           (SVN_ERR_RA_BAD_REVISION_REPORT, 0, NULL, rbaton->pool,
            "svn_repos_set_path: initial revision report was bogus.");
@@ -172,7 +172,7 @@ svn_repos_set_path (void *report_baton,
                                 rbaton->pool));
     }
 
-  else  /* this is not the first call to set_path. */
+  else  /* this is not the first call to set_path. */ 
     {
       svn_fs_root_t *from_root;
       const char *from_path;
@@ -183,7 +183,7 @@ svn_repos_set_path (void *report_baton,
          reported) + path (stuff relative to the target...this is the
          empty string in the file case since the target is the file
          itself, not a directory containing the file). */
-      from_path = svn_path_join_many (rbaton->pool,
+      from_path = svn_path_join_many (rbaton->pool, 
                                       rbaton->base_path,
                                       rbaton->target ? rbaton->target : path,
                                       rbaton->target ? path : NULL,
@@ -192,7 +192,7 @@ svn_repos_set_path (void *report_baton,
       /* However, the path may be the child of a linked thing, in
          which case we'll be linking from somewhere entirely
          different. */
-      link_path = get_from_path_map (rbaton->linked_paths, from_path,
+      link_path = get_from_path_map (rbaton->linked_paths, from_path, 
                                      rbaton->pool);
 
       /* Create the "from" root. */
@@ -204,7 +204,7 @@ svn_repos_set_path (void *report_baton,
         SVN_ERR (svn_fs_copy (from_root, link_path,
                               rbaton->txn_root, from_path, rbaton->pool));
       else
-        SVN_ERR (svn_fs_revision_link (from_root, rbaton->txn_root,
+        SVN_ERR (svn_fs_revision_link (from_root, rbaton->txn_root, 
                                        from_path, rbaton->pool));
     }
 
@@ -236,7 +236,7 @@ svn_repos_link_path (void *report_baton,
                                                   rbaton->pool));
       SVN_ERR (svn_fs_txn_root (&(rbaton->txn2_root), rbaton->txn2,
                                 rbaton->pool));
-
+      
     }
 
   /* The path we are dealing with is the anchor (where the
@@ -244,12 +244,12 @@ svn_repos_link_path (void *report_baton,
      reported) + path (stuff relative to the target...this is the
      empty string in the file case since the target is the file
      itself, not a directory containing the file). */
-  from_path = svn_path_join_many (rbaton->pool,
+  from_path = svn_path_join_many (rbaton->pool, 
                                   rbaton->base_path,
                                   rbaton->target ? rbaton->target : path,
                                   rbaton->target ? path : NULL,
                                   NULL);
-
+  
   /* Copy into our txn. */
   SVN_ERR (svn_fs_revision_root (&from_root, rbaton->repos->fs,
                                  revision, rbaton->pool));
@@ -261,7 +261,7 @@ svn_repos_link_path (void *report_baton,
   if (rbaton->txn2)
     {
       SVN_ERR (svn_fs_revision_root (&from_root, rbaton->repos->fs,
-                                     rbaton->revnum_to_update_to,
+                                     rbaton->revnum_to_update_to, 
                                      rbaton->pool));
       SVN_ERR (svn_fs_copy (from_root, link_path,
                             rbaton->txn2_root, from_path, rbaton->pool));
@@ -283,13 +283,13 @@ svn_repos_delete_path (void *report_baton,
   svn_error_t *err;
   const char *delete_path;
   svn_repos_report_baton_t *rbaton = report_baton;
-
+  
   /* The path we are dealing with is the anchor (where the
      reporter is rooted) + target (the top-level thing being
      reported) + path (stuff relative to the target...this is the
      empty string in the file case since the target is the file
      itself, not a directory containing the file). */
-  delete_path = svn_path_join_many (rbaton->pool,
+  delete_path = svn_path_join_many (rbaton->pool, 
                                     rbaton->base_path,
                                     rbaton->target ? rbaton->target : path,
                                     rbaton->target ? path : NULL,
@@ -335,16 +335,16 @@ svn_repos_finish_report (void *report_baton)
   if (rbaton->tgt_path)
     tgt_path = rbaton->tgt_path;
   else
-    tgt_path = svn_path_join_many (rbaton->pool,
+    tgt_path = svn_path_join_many (rbaton->pool, 
                                    rbaton->base_path,
-                                   rbaton->target ? rbaton->target : NULL,
+                                   rbaton->target ? rbaton->target : NULL, 
                                    NULL);
 
   /* Drive the update-editor. */
-  SVN_ERR (svn_repos_dir_delta (rbaton->txn_root,
-                                rbaton->base_path,
+  SVN_ERR (svn_repos_dir_delta (rbaton->txn_root, 
+                                rbaton->base_path, 
                                 rbaton->target,
-                                target_root,
+                                target_root, 
                                 tgt_path,
                                 rbaton->update_editor,
                                 rbaton->update_edit_baton,
@@ -353,12 +353,12 @@ svn_repos_finish_report (void *report_baton)
                                 TRUE,
                                 FALSE,
                                 rbaton->pool));
-
+  
   /* Still here?  Great!  Throw out the transactions. */
   SVN_ERR (svn_fs_abort_txn (rbaton->txn));
   if (rbaton->txn2)
     SVN_ERR (svn_fs_abort_txn (rbaton->txn2));
-
+    
   return SVN_NO_ERROR;
 }
 
