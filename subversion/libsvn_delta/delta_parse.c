@@ -3,32 +3,32 @@
  *
  * ================================================================
  * Copyright (c) 2000 Collab.Net.  All rights reserved.
- *
+ * 
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
  * met:
- *
+ * 
  * 1. Redistributions of source code must retain the above copyright
  * notice, this list of conditions and the following disclaimer.
- *
+ * 
  * 2. Redistributions in binary form must reproduce the above copyright
  * notice, this list of conditions and the following disclaimer in the
  * documentation and/or other materials provided with the distribution.
- *
+ * 
  * 3. The end-user documentation included with the redistribution, if
  * any, must include the following acknowlegement: "This product includes
  * software developed by Collab.Net (http://www.Collab.Net/)."
  * Alternately, this acknowlegement may appear in the software itself, if
  * and wherever such third-party acknowlegements normally appear.
- *
+ * 
  * 4. The hosted project names must not be used to endorse or promote
  * products derived from this software without prior written
  * permission. For written permission, please contact info@collab.net.
- *
+ * 
  * 5. Products derived from this software may not use the "Tigris" name
  * nor may "Tigris" appear in their names without prior written
  * permission of Collab.Net.
- *
+ * 
  * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
  * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -42,7 +42,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ====================================================================
- *
+ * 
  * This software consists of voluntary contributions made by many
  * individuals on behalf of Collab.Net.
  */
@@ -58,7 +58,7 @@
   expat, validating the XML as it goes.  Whenever an interesting event
   happens, it calls a caller-specified callback routine from an
   svn_walk_t structure.
-
+  
 */
 
 #include <stdio.h>
@@ -91,8 +91,8 @@ find_stack_newest (svn_delta_stackframe_t *frame)
 
 
 
-/* The way to officially bail out of expat.
-
+/* The way to officially bail out of expat. 
+   
    Store ERROR in DIGGER and set all expat callbacks to NULL. (To
    understand why this works, see svn_delta_parse(). ) */
 static void
@@ -115,11 +115,11 @@ static svn_error_t *
 XML_type_error (apr_pool_t *pool, const char *name, svn_boolean_t destroy_p)
 {
   if (destroy_p)
-    char *msg =
+    char *msg = 
       apr_psprintf (pool, "XML validation error: got unexpected </%s>", name);
 
   else
-    char *msg =
+    char *msg = 
       apr_psprintf (pool, "XML validation error: got unexpected <%s>", name);
 
   return svn_create_error (SVN_ERR_MALFORMED_XML, 0, msg, NULL, pool);
@@ -133,7 +133,7 @@ XML_type_error (apr_pool_t *pool, const char *name, svn_boolean_t destroy_p)
    so, append the frame and inherit the parent's baton.  If not,
    return a validity error. (TAGNAME is used for error message.) */
 static svn_error_t *
-do_stack_append (svn_delta_digger_t *digger,
+do_stack_append (svn_delta_digger_t *digger, 
                  svn_delta_stackframe_t *new_frame,
                  const char *tagname)
 {
@@ -148,7 +148,7 @@ do_stack_append (svn_delta_digger_t *digger,
       digger->stack = new_frame;
       return SVN_NO_ERROR;
     }
-
+  
   /* Validity checks */
 
   /* <tree-delta> must follow <dir> */
@@ -189,7 +189,7 @@ do_stack_append (svn_delta_digger_t *digger,
 
 
   /* Validity passed, do the actual append. */
-
+  
   youngest_frame->next = new_frame;
   new_frame->previous = youngest_frame;
 
@@ -219,7 +219,7 @@ do_stack_remove (svn_delta_digger_t *digger, const char *tagname)
   /* Validity check: Make sure the kind of object we're removing (due
      to an XML TAGNAME closure) actually agrees with the type of frame
      at the bottom of the stack! */
-
+  
   if ((strcmp (tagname, "tree-delta") == 0)
       && (youngest_frame->tag != svn_XML_treedelta))
     return XML_type_error (pool, tagname, TRUE);
@@ -261,7 +261,7 @@ do_stack_remove (svn_delta_digger_t *digger, const char *tagname)
 
   else  /* we must be removing the only frame in the stack */
     digger->stack = NULL;
-
+      
   return SVN_NO_ERROR;
 }
 
@@ -287,7 +287,7 @@ set_tag_type (svn_delta_stackframe_t *frame, char *name);
     new_frame->tag = svn_XML_textdelta;
   else if (strcmp (name, "prop-delta") == 0)
     new_frame->tag = svn_XML_propdelta;
-  else
+  else 
     return XML_type_error (my_digger->pool, name, TRUE);
 
   return SVN_NO_ERROR;
@@ -332,7 +332,7 @@ do_finish_directory (svn_delta_digger_t *digger)
    NAME contains the name of the tag.
    ATTS is a dumb list of tag attributes;  a list of name/value pairs, all
    null-terminated Cstrings, and ending with an extra final NULL.
-*/
+*/  
 static void
 xml_handle_start (void *userData, const char *name, const char **atts)
 {
@@ -342,7 +342,7 @@ xml_handle_start (void *userData, const char *name, const char **atts)
   svn_delta_digger_t *my_digger = (svn_delta_digger_t *) userData;
 
   /* Create new stackframe */
-  svn_delta_stackframe_t *new_frame
+  svn_delta_stackframe_t *new_frame 
     = apr_pcalloc (my_digger->pool, sizeof (svn_delta_stackframe_t));
 
   /* Set the tag field */
@@ -357,7 +357,7 @@ xml_handle_start (void *userData, const char *name, const char **atts)
   /* TODO:  set "name" attribute in frame, if there's any in **atts */
 
 
-  /*  Append new frame to stack, validating in the process.
+  /*  Append new frame to stack, validating in the process. 
       If successful, new frame will automatically inherit parent's baton. */
   err = do_stack_append (my_digger, new_frame, name);
   if (err) {
@@ -374,28 +374,28 @@ xml_handle_start (void *userData, const char *name, const char **atts)
 
   /* EVENT:  Are we adding a new directory?  */
   if (new_frame->previous)
-    if ((new_frame->previous->tag == svn_XML_new)
+    if ((new_frame->previous->tag == svn_XML_new) 
         & (new_frame->tag == svn_XML_dir))
       do_add_directory (my_digger, new_frame);
 
   /* EVENT:  Are we replacing a directory?  */
   if (new_frame->previous)
-    if ((new_frame->previous->tag == svn_XML_replace)
+    if ((new_frame->previous->tag == svn_XML_replace) 
         & (new_frame->tag == svn_XML_dir))
       do_replace_directory (my_digger, new_frame);
 
   /* EVENT:  Are we adding a new file?  */
   if (new_frame->previous)
-    if ((new_frame->previous->tag == svn_XML_new)
+    if ((new_frame->previous->tag == svn_XML_new) 
         & (new_frame->tag == svn_XML_file))
       do_add_file (my_digger, new_frame);
 
   /* EVENT:  Are we replacing a file?  */
   if (new_frame->previous)
-    if ((new_frame->previous->tag == svn_XML_replace)
+    if ((new_frame->previous->tag == svn_XML_replace) 
         & (new_frame->tag == svn_XML_file))
       do_replace_file (my_digger, new_frame);
-
+  
   /* EVENT:  Are we deleting a directory entry?  */
   if (new_frame->tag == svn_XML_delete)
     do_delete_dirent (my_digger, new_frame);
@@ -411,7 +411,7 @@ xml_handle_start (void *userData, const char *name, const char **atts)
 
 /*  Callback:  called whenever we find a close tag (close paren) */
 
-static void
+static void 
 xml_handle_end (void *userData, const char *name)
 {
   svn_error_t *err;
@@ -426,7 +426,7 @@ xml_handle_end (void *userData, const char *name)
     signal_expat_bailout (err, my_digger);
     return;
   }
-
+  
   /* TODO:  remove this line! */
   printf ("Got tag: </%s>\n", name);
 
@@ -444,10 +444,10 @@ xml_handle_end (void *userData, const char *name)
 
 
 
-/* Callback: called whenever we find data within a tag.
+/* Callback: called whenever we find data within a tag.  
    (Of course, we only care about data within the "text-delta" tag.)  */
 
-static void
+static void 
 svn_xml_handle_data (void *userData, const char *data, int len)
 {
   /* Resurrect digger structure */
@@ -476,7 +476,7 @@ svn_delta_make_xml_parser (svn_delta_digger_t *diggy)
   /* Register subversion-specific callbacks with the parser */
   XML_SetElementHandler (parser,
                          xml_handle_start,
-                         xml_handle_end);
+                         xml_handle_end); 
   XML_SetCharacterDataHandler (parser, svn_xml_handle_data);
 
   return parser;
@@ -534,14 +534,14 @@ svn_delta_parse (svn_delta_read_fn_t *source_fn,
     len = BUFSIZ;
     err = (*(source_fn)) (source_baton, buf, &len);
     if (err)
-      return
+      return 
         svn_quick_wrap_error (err, "svn_delta_parse: can't read data source");
 
     /* How many bytes were actually read into buf?  According to the
        definition of an svn_delta_read_fn_t, we should keep reading
        until the reader function says that 0 bytes were read. */
     done = (len == 0);
-
+    
     /* Parse the chunk of stream. */
     if (! XML_Parse (expat_parser, buf, len, done))
     {
@@ -576,7 +576,7 @@ svn_delta_parse (svn_delta_read_fn_t *source_fn,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
