@@ -100,7 +100,7 @@
    handle svn_client_get_commit_log_t/baton pairs
 */
 
-%typemap(python,in) (svn_client_get_commit_log_t log_msg_func,
+%typemap(python,in) (svn_client_get_commit_log_t log_msg_func, 
                      void *log_msg_baton) {
 
   $1 = svn_swig_py_get_commit_log_func;
