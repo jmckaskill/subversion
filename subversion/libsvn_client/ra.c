@@ -35,7 +35,7 @@ open_admin_tmp_file (apr_file_t **fp,
                      void *callback_baton)
 {
   svn_client__callback_baton_t *cb = callback_baton;
-
+  
   SVN_ERR (svn_wc_create_tmp_file (fp, cb->base_dir, TRUE, cb->pool));
 
   return SVN_NO_ERROR;
@@ -59,7 +59,7 @@ open_tmp_file (apr_file_t **fp,
   /* Tack on a made-up filename. */
   truepath = svn_path_join (truepath, "tempfile", cb->pool);
 
-  /* Open a unique file;  use APR_DELONCLOSE. */
+  /* Open a unique file;  use APR_DELONCLOSE. */  
   SVN_ERR (svn_io_open_unique_file (fp, &ignored_filename,
                                     truepath, ".tmp", TRUE, cb->pool));
 
@@ -90,7 +90,7 @@ get_committed_rev (void *baton,
         {
           svn_client_commit_item_t *item
             = ((svn_client_commit_item_t **) cb->commit_items->elts)[i];
-          if (! strcmp (relpath,
+          if (! strcmp (relpath, 
                         svn_path_uri_decode (item->url, pool)))
             {
               svn_wc_adm_access_t *item_access;
@@ -145,7 +145,7 @@ get_wc_prop (void *baton,
         {
           svn_client_commit_item_t *item
             = ((svn_client_commit_item_t **) cb->commit_items->elts)[i];
-          if (! strcmp (relpath,
+          if (! strcmp (relpath, 
                         svn_path_uri_decode (item->url, pool)))
             return svn_wc_prop_get (value, name, item->path, pool);
         }
@@ -181,7 +181,7 @@ set_wc_prop (void *baton,
         {
           svn_client_commit_item_t *item
             = ((svn_client_commit_item_t **) cb->commit_items->elts)[i];
-          if (! strcmp (relpath,
+          if (! strcmp (relpath, 
                         svn_path_uri_decode (item->url, pool)))
             return svn_wc_set_wc_prop (item->path, name, value, pool);
 
@@ -201,11 +201,11 @@ set_wc_prop (void *baton,
                              name, value, pool);
   /* ### svn_wc_set_wc_prop() is deprecated, and the above call will
      soon change to a call into libsvn_wc that schedules the property
-     in the accumulating log.  See issue #806 for more. */
+     in the accumulating log.  See issue #806 for more. */ 
 }
 
 
-svn_error_t *
+svn_error_t * 
 svn_client__open_ra_session (void **session_baton,
                              const svn_ra_plugin_t *ra_lib,
                              const char *base_url,
@@ -237,10 +237,10 @@ svn_client__open_ra_session (void **session_baton,
 
   return SVN_NO_ERROR;
 }
-
+                                        
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end: */
