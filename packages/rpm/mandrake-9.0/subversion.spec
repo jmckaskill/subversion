@@ -103,7 +103,7 @@ This package contains the common files required by subversion clients and
 servers.
 
 #####################################
-###### Sub-Package Definitions ######
+###### Sub-Package Definitions ###### 
 #####################################
 %package base
 Provides: %{name} = %{version}-%{release}
@@ -189,11 +189,11 @@ Requires: %{swig_rpm} >= %{swig_ver}
 %description tools
 This package contains a myriad tools for subversion. This package also contains
 'cvs2svn' - a program for migrating CVS repositories into Subversion repositories.
-The package also contains all of the python bindings for the subersion API,
+The package also contains all of the python bindings for the subersion API, 
 required by several of the tools.
 
 ###########################
-########## Files ##########
+########## Files ########## 
 ###########################
 %files base
 %defattr(-,root,root)
@@ -253,7 +253,7 @@ required by several of the tools.
 %endif
 
 ################################
-######### Build Stages #########
+######### Build Stages ######### 
 ################################
 %prep
 %setup -q -n %{name}-%{namever}
@@ -290,7 +290,7 @@ LDFLAGS="-L%{lib_dir}/libsvn_client/.libs \
 DESTDIR="$RPM_BUILD_ROOT" %make %{?silent_flag}
 
 ################################
-######### Installation #########
+######### Installation ######### 
 ################################
 %install
 rm -rf "$RPM_BUILD_ROOT"
@@ -305,8 +305,8 @@ DESTDIR="$RPM_BUILD_ROOT" \
 	fs_libdir=%{usr}/lib \
 	fs_bindir=%{usr}/bin \
 	swig_py_libdir=%{usr}/lib \
-	make %{?silent_flag} install
-
+	make %{?silent_flag} install 
+	
 %if %{use_apache2}
 mkdir -p $RPM_BUILD_ROOT/%{apache_conf}
 cp %{SOURCE1} $RPM_BUILD_ROOT/%{apache_conf}
@@ -317,10 +317,10 @@ mkdir -p $RPM_BUILD_ROOT/%{_datadir}/%{name}-%{version}
 cp -r tools $RPM_BUILD_ROOT/%{_datadir}/%{name}-%{version}
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+rm -rf $RPM_BUILD_ROOT 
 
 ##################################
-###### Post and Pre Scripts ######
+###### Post and Pre Scripts ###### 
 ##################################
 %post base -p /sbin/ldconfig
 %postun base -p /sbin/ldconfig
@@ -350,7 +350,7 @@ if [ -x "$APACHECTL" ] && [ "$USER" == "root" ] ; then
 else
   echo Unable to stop apache - need to be root
 fi
-%post server
+%post server 
 APACHECTL=/usr/sbin/apachectl
 if [ -x "$APACHECTL" ] && [ "$USER" == "root" ] ; then
   if $APACHECTL configtest ; then
@@ -379,7 +379,7 @@ else
 fi
 
 ############################
-######## Change Log ########
+######## Change Log ######## 
 ############################
 %changelog
 * Mon Jun 30 2003 Michael Ballbach <ballbach@rten.net> 0.24.2-6372.2mdk
