@@ -1,5 +1,5 @@
-/*
-   A simple test of the working copy "crawler".
+/* 
+   A simple test of the working copy "crawler". 
 
    Crawler walks a working copy and prints a virtual `commit' to stdout.
 */
@@ -100,11 +100,11 @@ my_vcdiff_windoweater (svn_txdelta_window_t *window, void *baton)
           {
             char *startaddr = (window->new->data +
                                 (window->ops[i].offset));
-            svn_string_t *str =
+            svn_string_t *str = 
               svn_string_ncreate (startaddr,
                                   (window->ops[i].length),
                                   globalpool);
-
+            
             print_spaces (fb->dir_baton->edit_baton->indentation);
             printf ("-- got txdelta window -- : new text: [%s]\n", str->data);
           }
@@ -118,7 +118,7 @@ my_vcdiff_windoweater (svn_txdelta_window_t *window, void *baton)
           {
           }
         }
-
+              
     }
 
 
@@ -136,7 +136,7 @@ test_delete (svn_string_t *filename, void *parent_baton)
   print_spaces (d->edit_baton->indentation);
 
   printf ("DELETE file '%s'\n", Aname);
-  return SVN_NO_ERROR;
+  return SVN_NO_ERROR;         
 }
 
 
@@ -183,7 +183,7 @@ add_or_replace_dir (svn_string_t *name,
                           pd->edit_baton->pool);
   d->edit_baton = pd->edit_baton;
   *child_baton = d;
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -229,10 +229,10 @@ test_close_directory (void *dir_baton)
 
   if (d->path)
     printf ("CLOSE_DIR '%s'\n", d->path->data);
-  else
+  else 
     printf ("CLOSE_DIR:  no name!!\n");
 
-  return SVN_NO_ERROR;
+  return SVN_NO_ERROR;    
 }
 
 
@@ -249,7 +249,7 @@ test_close_file (void *file_baton)
   else
     printf ("CLOSE_FILE:  no name!!\n");
 
-  return SVN_NO_ERROR;
+  return SVN_NO_ERROR;    
 }
 
 
@@ -394,7 +394,7 @@ main (int argc, char *argv[])
   /* Process command-line args */
   if (argc != 2)
     {
-      printf
+      printf 
         ("\nUsage: %s [dir]:  crawls [dir], printing `commit' to stdout.\n\n",
          argv[0]);
       exit (1);
@@ -405,7 +405,7 @@ main (int argc, char *argv[])
   globalpool = svn_pool_create (NULL, NULL);
 
   rootdir = svn_string_create (argv[1], globalpool);
-
+      
   /* Create an editor */
   my_editor.delete             = test_delete;
 
