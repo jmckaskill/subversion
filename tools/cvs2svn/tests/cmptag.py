@@ -37,9 +37,9 @@ def get_exec_flag(arg, dirname, fnames):
         f = os.path.join(dirname, fn)
         mode = os.stat(f)[0]
         arg.append((fn, mode & stat.S_IXUSR))
-        i += 1
-
-
+        i += 1 
+        
+    
 
 def cmp_attr(dir1, dir2):
     attr1 = []
