@@ -3,32 +3,32 @@
  *
  * ================================================================
  * Copyright (c) 2000 Collab.Net.  All rights reserved.
- *
+ * 
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
  * met:
- *
+ * 
  * 1. Redistributions of source code must retain the above copyright
  * notice, this list of conditions and the following disclaimer.
- *
+ * 
  * 2. Redistributions in binary form must reproduce the above copyright
  * notice, this list of conditions and the following disclaimer in the
  * documentation and/or other materials provided with the distribution.
- *
+ * 
  * 3. The end-user documentation included with the redistribution, if
  * any, must include the following acknowlegement: "This product includes
  * software developed by Collab.Net (http://www.Collab.Net/)."
  * Alternately, this acknowlegement may appear in the software itself, if
  * and wherever such third-party acknowlegements normally appear.
- *
+ * 
  * 4. The hosted project names must not be used to endorse or promote
  * products derived from this software without prior written
  * permission. For written permission, please contact info@collab.net.
- *
+ * 
  * 5. Products derived from this software may not use the "Tigris" name
  * nor may "Tigris" appear in their names without prior written
  * permission of Collab.Net.
- *
+ * 
  * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
  * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -42,14 +42,14 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ====================================================================
- *
+ * 
  * This software consists of voluntary contributions made by many
  * individuals on behalf of Collab.Net.
  */
 
 
 /* **************************************************************
-
+   
    The main idea here is that filesystem calls are "wrappered", giving
    the server library the chance to check for authorization and
    execute any policies that may supercede the request.
@@ -96,7 +96,7 @@ svn__svr_expand_repos_name (svn_svr_policy_t *policy,
 
 
 
-/*
+/* 
    svr_plugin_authorize()
 
    Loops through all authorization plugins, checking for success.
@@ -105,7 +105,7 @@ svn__svr_expand_repos_name (svn_svr_policy_t *policy,
 
    Returns:  ptr to error structure (if not authorized)
              or 0 if authorized!
-
+            
 */
 
 svn_error_t *
@@ -123,7 +123,7 @@ svn_svr_plugin_authorize (svn_fsrequest_t *request)
 
   /* Next:  loop through our policy's array of plugins... */
 
-  for (hash_index =
+  for (hash_index = 
          ap_hash_first (request->policy->plugins); /* get first hash entry */
        hash_index;                                 /* NULL if out of entries */
        hash_index = ap_hash_next (hash_index))     /* get next hash entry */
@@ -135,7 +135,7 @@ svn_svr_plugin_authorize (svn_fsrequest_t *request)
 
       /* grab the authorization routine from this plugin */
       current_auth_hook = current_plugin->authorization_hook;
-
+      
       if (current_auth_hook != NULL)
         {
           /* Call the authorization routine, giving it a chance to
@@ -148,7 +148,7 @@ svn_svr_plugin_authorize (svn_fsrequest_t *request)
 
 
   /* If all auth_hooks are successful, double-check that
-     user->svn_username is actually filled in!
+     user->svn_username is actually filled in! 
      (A good auth_hook should fill it in automatically, though.)
   */
 
@@ -156,10 +156,10 @@ svn_svr_plugin_authorize (svn_fsrequest_t *request)
     {
       /* Using the policy's memory pool, duplicate the auth_username
          string and assign it to svn_username */
-      request->user->svn_username =
+      request->user->svn_username = 
         svn_string_dup (request->user->auth_username, request->policy->pool);
     }
-
+  
   return SVN_SUCCESS;  /* successfully authorized to perform the action! */
 }
 
@@ -188,7 +188,7 @@ svn_svr_policy_authorize (svn_fs_request_t *request)
 
 
 
-/*
+/* 
    Convenience routine -- calls the other two authorization routines.
 
    This routine is called by each "wrappered" filesystem call in this
@@ -206,7 +206,7 @@ svn_error_t *
 svn_svr_authorize (svn_fsrequest_t *request);
 {
   svn_error_t *err;
-
+  
   err = svn_svr_policy_authorize (request);
   if (err)
     return (svn_quick_wrap_error
@@ -223,7 +223,7 @@ svn_svr_authorize (svn_fsrequest_t *request);
 
 
 
-/*
+/* 
    svn_svr_do_fs_call()  :  The UBER-filesystem wrapper routine!
 
    Input:  void **, and an fsrequest structure
@@ -239,45 +239,45 @@ svn_svr_do_fs_call (void **returndata, svn_fsrequest_t *request)
   svn_error_t *error;
 
   /* Look up the repos alias, find the true repository name */
-  svn_string_t *repository = svn__svr_expand_repos_name (*request->policy,
+  svn_string_t *repository = svn__svr_expand_repos_name (*request->policy, 
                                                          *request->repos);
-
+  
   /* Check authorization in both server policy & plugins */
   error = svn_svr_authorize (request);
   if (error)
     return svn_quick_wrap_error (error, "svn_svr_authorize() failed.");
 
   /* Now parse the fsrequest_t, and pass the call through to the filesystem */
-
+  
   switch (request->action)
     {
 
     case svn_action_latest:
       {
         /* sets returndata = (svn_ver_t *) */
-        return
-          svn_fs_latest (returndata,
-                         repository,
-                         request->user->svn_username);
+        return 
+          svn_fs_latest (returndata,         
+                         repository,                   
+                         request->user->svn_username); 
       }
 
     case svn_action_get_ver_prop:
       {
         /* sets returndata = (svn_string_t *) */
-        return
-          svn_fs_get_ver_prop (returndata,
-                               repository,
+        return 
+          svn_fs_get_ver_prop (returndata,         
+                               repository,                   
                                request->user->svn_username,
                                request->ver1,
-                               request->propname);
+                               request->propname); 
       }
 
     case svn_action_get_ver_proplist:
       {
         /* sets returndata = (ap_hash_t *) */
-        return
-          svn_fs_get_ver_proplist (returndata,
-                                   repository,
+        return 
+          svn_fs_get_ver_proplist (returndata,         
+                                   repository,                   
                                    request->user->svn_username,
                                    request->ver1);
       }
@@ -285,9 +285,9 @@ svn_svr_do_fs_call (void **returndata, svn_fsrequest_t *request)
     case svn_action_get_ver_propnames:
       {
         /* sets returndata = (ap_hash_t *) */
-        return
-          svn_fs_get_ver_propnames (returndata,
-                                    repository,
+        return 
+          svn_fs_get_ver_propnames (returndata,         
+                                    repository,                   
                                     request->user->svn_username,
                                     request->ver1);
       }
@@ -295,20 +295,20 @@ svn_svr_do_fs_call (void **returndata, svn_fsrequest_t *request)
     case svn_action_read:
       {
         /* sets returndata = (ap_node_t *) */
-        return
-          svn_fs_read (returndata,
-                       repository,
+        return 
+          svn_fs_read (returndata,         
+                       repository,                   
                        request->user->svn_username,
                        request->ver1,
                        request->path1);
       }
-
+      
     case svn_action_get_node_prop:
       {
         /* sets returndata = (svn_string_t *) */
-        return
-          svn_fs_get_node_prop (returndata,
-                                repository,
+        return 
+          svn_fs_get_node_prop (returndata,         
+                                repository,                   
                                 request->user->svn_username,
                                 request->ver1,
                                 request->path1,
@@ -318,9 +318,9 @@ svn_svr_do_fs_call (void **returndata, svn_fsrequest_t *request)
     case svn_action_get_dirent_prop:
       {
         /* sets returndata = (svn_string_t *) */
-        return
-          svn_fs_get_dirent_prop (returndata,
-                                  repository,
+        return 
+          svn_fs_get_dirent_prop (returndata,         
+                                  repository,                   
                                   request->user->svn_username,
                                   request->ver1,
                                   request->path1,
@@ -330,9 +330,9 @@ svn_svr_do_fs_call (void **returndata, svn_fsrequest_t *request)
     case svn_action_get_node_proplist:
       {
         /* sets returndata = (ap_hash_t *) */
-        return
-          svn_fs_get_node_proplist (returndata,
-                                    repository,
+        return 
+          svn_fs_get_node_proplist (returndata,         
+                                    repository,                   
                                     request->user->svn_username,
                                     request->ver1,
                                     request->path1);
@@ -341,9 +341,9 @@ svn_svr_do_fs_call (void **returndata, svn_fsrequest_t *request)
     case svn_action_get_dirent_proplist:
       {
         /* sets returndata = (ap_hash_t *) */
-        return
-          svn_fs_get_dirent_proplist (returndata,
-                                      repository,
+        return 
+          svn_fs_get_dirent_proplist (returndata,         
+                                      repository,                   
                                       request->user->svn_username,
                                       request->ver1,
                                       request->path1);
@@ -352,9 +352,9 @@ svn_svr_do_fs_call (void **returndata, svn_fsrequest_t *request)
     case svn_action_get_node_propnames:
       {
         /* sets returndata = (ap_hash_t *) */
-        return
-          svn_fs_get_node_propnames (returndata,
-                                     repository,
+        return 
+          svn_fs_get_node_propnames (returndata,         
+                                     repository,                   
                                      request->user->svn_username,
                                      request->ver1,
                                      request->path1);
@@ -363,20 +363,20 @@ svn_svr_do_fs_call (void **returndata, svn_fsrequest_t *request)
     case svn_action_get_dirent_propnames:
       {
         /* sets returndata = (ap_hash_t *) */
-        return
-          svn_fs_get_dirent_propnames (returndata,
-                                       repository,
+        return 
+          svn_fs_get_dirent_propnames (returndata,         
+                                       repository,                   
                                        request->user->svn_username,
                                        request->ver1,
                                        request->path1);
       }
 
     case svn_action_submit:
-      {
+      {        
         /* sets returndata = (svn_token_t *) */
-        return
-          svn_fs_submit (returndata,
-                         repository,
+        return 
+          svn_fs_submit (returndata,         
+                         repository,                   
                          request->user->svn_username,
                          request->skelta);
       }
@@ -384,9 +384,9 @@ svn_svr_do_fs_call (void **returndata, svn_fsrequest_t *request)
     case svn_action_write:
       {
         /* sets returndata = (ap_ver_t *) */
-        return
-          svn_fs_write (returndata,
-                        repository,
+        return 
+          svn_fs_write (returndata,         
+                        repository,                   
                         request->user->svn_username,
                         request->delta,
                         request->token);
@@ -395,9 +395,9 @@ svn_svr_do_fs_call (void **returndata, svn_fsrequest_t *request)
     case svn_action_abandon:
       {
         /* sets returndata = NULL (?) */
-        return
-          svn_fs_abandon (returndata,
-                          repository,
+        return 
+          svn_fs_abandon (returndata,         
+                          repository,                   
                           request->user->svn_username,
                           request->token);
       }
@@ -405,9 +405,9 @@ svn_svr_do_fs_call (void **returndata, svn_fsrequest_t *request)
     case svn_action_get_delta:
       {
         /* sets returndata = (svn_delta_t *) */
-        return
-          svn_fs_get_delta (returndata,
-                            repository,
+        return 
+          svn_fs_get_delta (returndata,         
+                            repository,                   
                             request->user->svn_username,
                             request->ver1,
                             request->path1,
@@ -418,9 +418,9 @@ svn_svr_do_fs_call (void **returndata, svn_fsrequest_t *request)
     case svn_action_get_diff:
       {
         /* sets returndata = (svn_diff_t *) */
-        return
-          svn_fs_get_diff (returndata,
-                           repository,
+        return 
+          svn_fs_get_diff (returndata,         
+                           repository,                   
                            request->user->svn_username,
                            request->ver1,
                            request->path1,
@@ -432,9 +432,9 @@ svn_svr_do_fs_call (void **returndata, svn_fsrequest_t *request)
       {
         /* SPECIAL CASE : see dedicated server routine below */
         /* sets returndata = (svn_skelta_t *) */
-        return
-          svn_svr_get_status (returndata,
-                              repository,
+        return 
+          svn_svr_get_status (returndata,         
+                              repository,                   
                               request->user->svn_username,
                               request->skelta)
       }
@@ -443,9 +443,9 @@ svn_svr_do_fs_call (void **returndata, svn_fsrequest_t *request)
       {
         /* SPECIAL CASE : see dedicated server routine below */
         /* sets returndata = (svn_delta_t *) */
-        return
-          svn_svr_get_update (returndata,
-                              repository,
+        return 
+          svn_svr_get_update (returndata,         
+                              repository,                   
                               request->user->svn_username,
                               request->skelta)
 
@@ -453,7 +453,7 @@ svn_svr_do_fs_call (void **returndata, svn_fsrequest_t *request)
 
     default:
       {
-        char *msg =
+        char *msg = 
           ap_psprintf (request->policy->pool,
                        "svn_svr_do_fs_call(): unknown fs action: %d",
                        request->action);
@@ -481,19 +481,19 @@ svn_svr_do_fs_call (void **returndata, svn_fsrequest_t *request)
 
 /* Input:  a skelta describing working copy's current tree
 
-   Returns: an svn error or SVN_SUCCESS, and
+   Returns: an svn error or SVN_SUCCESS, and 
 
-            returndata = a skelta describing how the tree is out of date
+            returndata = a skelta describing how the tree is out of date 
 
 */
 
-svn_error_t *
+svn_error_t * 
 svn_svr_get_status (void **returndata,
-                    svn_string_t *repos,
-                    svn_user_t *user,
+                    svn_string_t *repos, 
+                    svn_user_t *user, 
                     svn_skelta_t *skelta)
 {
-  /* Can't do anything here till we have a working delta/skelta library.
+  /* Can't do anything here till we have a working delta/skelta library.  
 
      We would iterate over the skelta and call svn_fs_cmp() on each
      file to check for up-to-date-ness.  Then we'd built a new skelta
@@ -501,7 +501,7 @@ svn_svr_get_status (void **returndata,
 
   return SVN_SUCCESS;
 }
-
+ 
 
 
 /* Input: a skelta describing working copy's current tree.
@@ -509,19 +509,19 @@ svn_svr_get_status (void **returndata,
    Returns:  svn_error_t * or SVN_SUCCESS, and
 
             returndata = a delta which, when applied, will actually
-            update working copy's tree to latest version.
+            update working copy's tree to latest version.  
 */
 
-svn_error_t *
+svn_error_t * 
 svn_svr_get_update (void **returndata,
-                    svn_string_t *repos,
-                    svn_user_t *user,
+                    svn_string_t *repos, 
+                    svn_user_t *user, 
                     svn_skelta_t *skelta)
 {
-  /* Can't do anything here till we have a working delta/skelta library.
+  /* Can't do anything here till we have a working delta/skelta library.  
 
      We would iterate over the skelta and call svn_fs_get_delta() on
-     each file.  Then we'd built a new composite delta to send back.
+     each file.  Then we'd built a new composite delta to send back. 
   */
 
   return SVN_SUCCESS;
