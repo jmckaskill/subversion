@@ -2,14 +2,14 @@ dnl check to see if SWIG is current enough.
 dnl
 dnl if it is, then check to see if we have the correct version of python.
 dnl
-dnl if we do, then set up the appropriate SWIG_ variables to build the
+dnl if we do, then set up the appropriate SWIG_ variables to build the 
 dnl python bindings.
 
 AC_DEFUN(SVN_CHECK_SWIG,
 [
   AC_ARG_ENABLE(swig-bindings,
                 AC_HELP_STRING([--enable-swig-bindings=LIST],
-                               [Build swig bindings for LIST targets only.
+                               [Build swig bindings for LIST targets only. 
                                 LIST is a comma separated list of targets
                                 or 'all' for all available targets; currently
                                 (java,) perl and python are supported
