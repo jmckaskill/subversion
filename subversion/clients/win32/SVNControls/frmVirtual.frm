@@ -1,6 +1,6 @@
 VERSION 5.00
 Object = "{4D4325C0-BD54-473C-8CE8-3C856739E161}#1.0#0"; "SVNControls.ocx"
-Begin VB.Form frmVirtual
+Begin VB.Form frmVirtual 
    Caption         =   "Virtual Grid Mode Demonstration - adds rows as required"
    ClientHeight    =   4008
    ClientLeft      =   3120
@@ -10,7 +10,7 @@ Begin VB.Form frmVirtual
    LinkTopic       =   "Form1"
    ScaleHeight     =   4008
    ScaleWidth      =   8520
-   Begin SVNControls.SGrid grdVirtual
+   Begin SVNControls.SGrid grdVirtual 
       Height          =   3732
       Left            =   0
       TabIndex        =   3
@@ -20,7 +20,7 @@ Begin VB.Form frmVirtual
       _ExtentY        =   6583
       BackgroundPictureHeight=   0
       BackgroundPictureWidth=   0
-      BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851}
+      BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
          Name            =   "MS Sans Serif"
          Size            =   7.8
          Charset         =   0
@@ -31,9 +31,9 @@ Begin VB.Form frmVirtual
       EndProperty
       DisableIcons    =   -1  'True
    End
-   Begin VB.CommandButton cmdClear
+   Begin VB.CommandButton cmdClear 
       Caption         =   "&Reset"
-      BeginProperty Font
+      BeginProperty Font 
          Name            =   "Tahoma"
          Size            =   8.4
          Charset         =   0
@@ -48,9 +48,9 @@ Begin VB.Form frmVirtual
       Top             =   60
       Width           =   1155
    End
-   Begin VB.Label lblTarget
+   Begin VB.Label lblTarget 
       Caption         =   "x"
-      BeginProperty Font
+      BeginProperty Font 
          Name            =   "Tahoma"
          Size            =   8.4
          Charset         =   0
@@ -65,9 +65,9 @@ Begin VB.Form frmVirtual
       Top             =   780
       Width           =   1155
    End
-   Begin VB.Label lblInfo
+   Begin VB.Label lblInfo 
       Caption         =   "x"
-      BeginProperty Font
+      BeginProperty Font 
          Name            =   "Tahoma"
          Size            =   8.4
          Charset         =   0
