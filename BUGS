@@ -48,7 +48,7 @@ you can do is come up with a simple description and reproduction
 recipe.  For example, if the bug you initially encounter involves five
 files over ten commits, try to make it happen with just one file and
 one commit.  The simpler the reproduction recipe, the more likely a
-developer is to successfully reproduce the bug and fix it.
+developer is to successfully reproduce the bug and fix it.  
 
 A reproduction recipe is not a prose description of what you did to
 make the bug happen.  It is a literal transcript of the exact series
