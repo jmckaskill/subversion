@@ -58,7 +58,7 @@ svn_cl__proplist (apr_getopt_t *os,
 
       for (j = 0; j < props->nelts; ++j)
         {
-          svn_client_proplist_item_t *item
+          svn_client_proplist_item_t *item 
               = ((svn_client_proplist_item_t **)props->elts)[j];
           const char *node_name_native;
           SVN_ERR (svn_utf_cstring_from_utf8_stringbuf (item->node_name,
@@ -76,8 +76,8 @@ svn_cl__proplist (apr_getopt_t *os,
 }
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../tools/dev/svn-dev.el")
- * end:
+ * end: 
  */
