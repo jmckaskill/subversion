@@ -43,18 +43,18 @@
  * PATH, so RA_LIB and SESSION are ignored.  If PATH is not under
  * revision control, return SVN_ERR_UNVERSIONED_RESOURCE, or if PATH
  * is null, return SVN_ERR_CLIENT_VERSIONED_PATH_REQUIRED.
- *
+ * 
  * Else if REVISION->kind is svn_client_revision_date or
  * svn_client_revision_head, then RA_LIB and SESSION are used to
  * retrieve the revision from the repository (using
  * REVISION->value.date in the former case), and PATH is ignored.  If
- * RA_LIB or SESSION is null, return SVN_ERR_CLIENT_RA_ACCESS_REQUIRED.
+ * RA_LIB or SESSION is null, return SVN_ERR_CLIENT_RA_ACCESS_REQUIRED. 
  *
  * Else if REVISION->kind is svn_client_revision_unspecified, set
- * *REVNUM to SVN_INVALID_REVNUM.
+ * *REVNUM to SVN_INVALID_REVNUM.  
  *
  * Else return SVN_ERR_CLIENT_BAD_REVISION.
- *
+ * 
  * Use POOL for any temporary allocation.
  */
 svn_error_t *
@@ -188,7 +188,7 @@ svn_client__update_internal (const svn_delta_editor_t *before_editor,
 /*** Editor for repository diff ***/
 
 /* Create an editor for a pure repository comparison, i.e. comparing one
- * repository version against the other.
+ * repository version against the other. 
  *
  * TARGET is a working-copy path, the base of the hierarchy to be
  * compared.  It corresponds to the URL opened in RA_SESSION below.
@@ -211,7 +211,7 @@ svn_client__get_diff_editor (svn_stringbuf_t *target,
                              void *diff_cmd_baton,
                              svn_boolean_t recurse,
                              svn_ra_plugin_t *ra_lib,
-                             void *ra_session,
+                             void *ra_session, 
                              svn_revnum_t revision,
                              const svn_delta_editor_t **editor,
                              void **edit_baton,
@@ -290,7 +290,7 @@ svn_client__get_diff_editor (svn_stringbuf_t *target,
      - add (or update) a reference to this array to the COMMITTABLES
        hash, keyed on the canonical repository name.  ### todo, until
        multi-repository support actually exists, the single key here
-       will actually be some arbitrary thing to be ignored.
+       will actually be some arbitrary thing to be ignored.  
 
    At the successful return of this function, COMMITTABLES will be an
    apr_hash_t * hash of apr_array_header_t * arrays (of
@@ -301,7 +301,7 @@ svn_client__get_diff_editor (svn_stringbuf_t *target,
    These will need to be unlocked again post-commit.
 
    ### this will one day replace svn_wc_crawl_local_mods,
-   crawl_local_mods, crawl_dir, and report_single_entry.
+   crawl_local_mods, crawl_dir, and report_single_entry.  
 
    ### needed: a committables generator to replace
    svn_wc_crawl_as_copy and crawl_as_copy.  */
@@ -335,7 +335,7 @@ svn_client__condense_commit_items (svn_stringbuf_t **base_url,
    REVNUM_FN/REV_BATON allows this routine to query the repository for
    the latest revision.  It is used (temporarily) for checking that
    directories are "up-to-date" when a dir-propchange is discovered.
-   We don't expect it to be here forever.  :-)
+   We don't expect it to be here forever.  :-) 
 
    NOTIFY_FUNC/BATON will be called as the commit progresses, as a way
    of describing actions to the application layer (if non NULL).
@@ -357,13 +357,13 @@ svn_client__do_commit (svn_stringbuf_t *base_url,
                        apr_hash_t **tempfiles,
                        apr_pool_t *pool);
 
-
+               
 
 
 #endif /* CLIENT_H */
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end:
