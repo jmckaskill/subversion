@@ -77,7 +77,7 @@ svn_cl__import (apr_getopt_t *os,
    * ### kff todo: review above behaviors.
    */
 
-  SVN_ERR (svn_opt_args_to_target_array (&targets, os,
+  SVN_ERR (svn_opt_args_to_target_array (&targets, os, 
                                          opt_state->targets,
                                          &(opt_state->start_revision),
                                          &(opt_state->end_revision),
@@ -107,12 +107,12 @@ svn_cl__import (apr_getopt_t *os,
     return svn_error_create
       (SVN_ERR_CL_ARG_PARSING_ERROR, NULL,
        "too many arguments to import command");
-
+  
   if (! opt_state->quiet)
     svn_cl__get_notifier (&ctx->notify_func, &ctx->notify_baton,
                           FALSE, FALSE, FALSE, pool);
 
-  SVN_ERR (svn_cl__cleanup_log_msg
+  SVN_ERR (svn_cl__cleanup_log_msg 
            (ctx->log_msg_baton, svn_client_import (&commit_info,
                                                    path,
                                                    url,

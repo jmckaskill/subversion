@@ -72,7 +72,7 @@ SVN_ERROR_START
               "Failed opening temporary file.")
 
   /* END Client errors */
-
+  
 
 SVN_ERROR_END
 

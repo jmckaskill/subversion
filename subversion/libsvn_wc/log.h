@@ -88,7 +88,7 @@ extern "C" {
 /* Make file SVN_WC__LOG_ATTR_NAME readonly */
 #define SVN_WC__LOG_READONLY            "readonly"
 
-/* Handle closure after a commit completes successfully:
+/* Handle closure after a commit completes successfully:  
  *
  *   If SVN/tmp/text-base/SVN_WC__LOG_ATTR_NAME exists, then
  *      compare SVN/tmp/text-base/SVN_WC__LOG_ATTR_NAME with working file

@@ -45,7 +45,7 @@
 */
 %typemap(python, in, parse="z") const char *MAY_BE_NULL "";
 
-%typemap(java, in) const char *MAY_BE_NULL {
+%typemap(java, in) const char *MAY_BE_NULL { 
   /* ### WHEN IS THIS USED? */
   $1 = 0;
   if ($input) {
@@ -135,7 +135,7 @@
 }
 
 %typemap(java, argfree) (const char *PTR, apr_size_t LEN) {
-	if ($input != NULL)	JCALL3(jenv, ReleaseByteArrayElements, @input, $1, JNI_ABORT);
+	if ($input != NULL)	JCALL3(jenv, ReleaseByteArrayElements, @input, $1, JNI_ABORT); 	
 	/* Since this buffer is used as input JNI_ABORT is safe as "mode" above*/
 }
 
