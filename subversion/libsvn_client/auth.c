@@ -47,9 +47,9 @@ svn_client__dir_if_wc (const char **dir_p,
                        apr_pool_t *pool)
 {
   int wc_format;
-
+  
   SVN_ERR (svn_wc_check_wc (dir, &wc_format, pool));
-
+  
   if (wc_format == 0)
     *dir_p = NULL;
   else
@@ -87,7 +87,7 @@ svn_client__default_auth_dir (const char **auth_dir_p,
         (SVN_ERR_NODE_UNKNOWN_KIND, NULL,
          "unknown node kind for `%s'", path);
     }
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -130,7 +130,7 @@ get_creds (const char **username,
 {
   const char *prompt_username = NULL, *prompt_password = NULL;
   const char *def_username = NULL, *def_password = NULL;
-
+  
   /* Setup default return values. */
   *got_creds = FALSE;
   if (username)
@@ -142,7 +142,7 @@ get_creds (const char **username,
      so. */
   if (first_time)
     {
-      def_username = apr_hash_get (parameters,
+      def_username = apr_hash_get (parameters, 
                                    SVN_AUTH_PARAM_DEFAULT_USERNAME,
                                    APR_HASH_KEY_STRING);
 
@@ -153,7 +153,7 @@ get_creds (const char **username,
           apr_uid_t uid;
           apr_gid_t gid;
           apr_status_t status;
-
+          
           if ((status = apr_uid_current (&uid, &gid, pool)))
             return svn_error_create (status, NULL, "Error getting UID");
           if ((status = apr_uid_name_get (&un, uid, pool)))
@@ -162,10 +162,10 @@ get_creds (const char **username,
                                             un, NULL, pool));
         }
 
-      def_password = apr_hash_get (parameters,
+      def_password = apr_hash_get (parameters, 
                                    SVN_AUTH_PARAM_DEFAULT_PASSWORD,
                                    APR_HASH_KEY_STRING);
-    }
+    }    
 
   /* Get the username. */
   if (def_username)
@@ -190,7 +190,7 @@ get_creds (const char **username,
     }
   else if (password)
     {
-      const char *prompt = apr_psprintf (pool, "%s's password: ",
+      const char *prompt = apr_psprintf (pool, "%s's password: ", 
                                          prompt_username);
       SVN_ERR (pb->prompt_func (&prompt_password, prompt,
                                 TRUE, /* don't echo to screen */
