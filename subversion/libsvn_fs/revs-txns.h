@@ -60,7 +60,7 @@ svn_error_t *svn_fs__set_rev_prop (svn_fs_t *fs,
 /*** Transactions ***/
 
 /* Convert the unfinished transaction in FS named TXN_NAME to a
-   committed transaction that refers to REVISION as part of TRAIL.
+   committed transaction that refers to REVISION as part of TRAIL.  
 
    Returns SVN_ERR_FS_TRANSACTION_NOT_MUTABLE if TXN_NAME refers to a
    transaction that has already been committed.  */
@@ -92,7 +92,7 @@ svn_error_t *svn_fs__get_txn_ids (const svn_fs_id_t **root_id_p,
 
 /* Set the root directory of the Subversion transaction TXN_NAME in FS
    to ROOT_ID, as part of TRAIL.  Do any necessary temporary
-   allocation in TRAIL->pool.
+   allocation in TRAIL->pool. 
 
    Returns SVN_ERR_FS_TRANSACTION_NOT_MUTABLE if TXN_NAME refers to a
    transaction that has already been committed.  */
@@ -114,7 +114,7 @@ svn_error_t *svn_fs__add_txn_copy (svn_fs_t *fs,
 
 
 /* Set the base root directory of TXN_NAME in FS to NEW_ID, as part of
-   TRAIL.  Do any necessary temporary allocation in TRAIL->pool.
+   TRAIL.  Do any necessary temporary allocation in TRAIL->pool. 
 
    Returns SVN_ERR_FS_TRANSACTION_NOT_MUTABLE if TXN_NAME refers to a
    transaction that has already been committed.  */
@@ -126,7 +126,7 @@ svn_fs__set_txn_base (svn_fs_t *fs,
 
 
 /* Set a property NAME to VALUE on transaction TXN_NAME in FS as part
-   of TRAIL.  Use TRAIL->pool for any necessary allocations.
+   of TRAIL.  Use TRAIL->pool for any necessary allocations.  
 
    Returns SVN_ERR_FS_TRANSACTION_NOT_MUTABLE if TXN_NAME refers to a
    transaction that has already been committed.  */
