@@ -25,7 +25,7 @@ chomp $apr_ldflags;
 
 my %config = (
     ABSTRACT => 'Perl bindings for Subversion',
-    CCFLAGS  => join(' ', $apr_cflags, $apu_cflags,
+    CCFLAGS  => join(' ', $apr_cflags, $apu_cflags, 
                      `perl -MExtUtils::Embed -e ccopts`,
                      ' -I.. -I../../../include -g'),
     OBJECT => q/$(O_FILES)/,
@@ -73,7 +73,7 @@ sub MY::postamble {
 	       "\t\$(NOECHO) \$(TOUCH) \$\@",
 	       # swig
 	       "\ncore.c :: ../core.i\n",
-	       "\tswig -c -nopm -perl -I.. -I../../../include $apr_cflags -module SVN::_Core -o core.c ../core.i\n",
+	       "\tswig -c -nopm -perl -I.. -I../../../include $apr_cflags -module SVN::_Core -o core.c ../core.i\n", 
 	       (map {"\nsvn_$_.c : ../svn_$_.i ra_plugin.hi ra_reporter.hi delta_editor.hi\n".
 			"\tswig -c -nopm -perl -I.. -I../../../include $apr_cflags -module SVN::_".main::perlish($_)." -o svn_$_.c ../svn_$_.i\n"}
 	       @modules),
