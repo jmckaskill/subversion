@@ -42,9 +42,9 @@ svn_cl__checkout (apr_getopt_t *os,
   void *trace_edit_baton;
   int i;
   svn_client_auth_baton_t *auth_baton;
-
+  
   SVN_ERR (svn_cl__parse_all_args (os, opt_state, "checkout", pool));
-
+  
   /* Put commandline auth info into a baton for libsvn_client.  */
   auth_baton = svn_cl__make_auth_baton (opt_state, pool);
 
@@ -58,7 +58,7 @@ svn_cl__checkout (apr_getopt_t *os,
          A/one_mississippi.txt
          A/two_mississippi.txt
          A/three_mississippi.txt
-
+     
      And project B:
 
          B/cat
@@ -80,7 +80,7 @@ svn_cl__checkout (apr_getopt_t *os,
          foo/B/cat
          foo/B/dog
          foo/B/pig
-
+      
     Makes sense, right? Right. Note that we have no provision for this
     right now and we need to support it. My vote is that we stop
     iterating over opt_state->args here and just pass the args into
@@ -111,14 +111,14 @@ svn_cl__checkout (apr_getopt_t *os,
         }
       else
         local_dir = opt_state->target;
-
+      
       SVN_ERR (svn_cl__get_trace_update_editor (&trace_editor,
                                                 &trace_edit_baton,
                                                 local_dir,
                                                 TRUE, /* is checkout */
                                                 FALSE,
                                                 pool));
-
+  
       SVN_ERR (svn_client_checkout (NULL, NULL,
                                     opt_state->quiet ? NULL : trace_editor,
                                     opt_state->quiet ? NULL : trace_edit_baton,
@@ -136,8 +136,8 @@ svn_cl__checkout (apr_getopt_t *os,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../tools/dev/svn-dev.el")
- * end:
+ * end: 
  */
