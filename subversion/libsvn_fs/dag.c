@@ -62,7 +62,7 @@ dag_init_fs (void *fs_baton, trail_t *trail)
                                                   sizeof (rep_skel) - 1,
                                                   trail->pool),
                               trail));
-  }
+  } 
 
   /* Link it into filesystem revision 0:
      "revisions" : 0 -> "(revision  3 0.0  ())" */
@@ -205,7 +205,7 @@ svn_fs__dag_clone_root (dag_node_t **root_p,
   root_node->id = root_id;
   root_node->contents = root_skel;
   root_node->pool = trail->pool;
-
+  
   *root_p = root_node;
   return SVN_NO_ERROR;
 }
@@ -232,7 +232,7 @@ svn_error_t *svn_fs__dag_delete (dag_node_t *parent,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
