@@ -271,7 +271,7 @@ svn_error_t *dav_svn_simple_parse_uri(dav_svn_uri_info *info,
 #endif /* DAV_SVN_H */
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
