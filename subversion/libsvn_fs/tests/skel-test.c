@@ -2,32 +2,32 @@
  *
  * ================================================================
  * Copyright (c) 2000 CollabNet.  All rights reserved.
- *
+ * 
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
  * met:
- *
+ * 
  * 1. Redistributions of source code must retain the above copyright
  * notice, this list of conditions and the following disclaimer.
- *
+ * 
  * 2. Redistributions in binary form must reproduce the above copyright
  * notice, this list of conditions and the following disclaimer in the
  * documentation and/or other materials provided with the distribution.
- *
+ * 
  * 3. The end-user documentation included with the redistribution, if
  * any, must include the following acknowlegement: "This product includes
  * software developed by CollabNet (http://www.Collab.Net/)."
  * Alternately, this acknowlegement may appear in the software itself, if
  * and wherever such third-party acknowlegements normally appear.
- *
+ * 
  * 4. The hosted project names must not be used to endorse or promote
  * products derived from this software without prior written
  * permission. For written permission, please contact info@collab.net.
- *
+ * 
  * 5. Products derived from this software may not use the "Tigris" name
  * nor may "Tigris" appear in their names without prior written
  * permission of CollabNet.
- *
+ * 
  * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
  * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -41,7 +41,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ====================================================================
- *
+ * 
  * This software consists of voluntary contributions made by many
  * individuals on behalf of CollabNet.
  */
@@ -131,7 +131,7 @@ init_char_types (void)
     skel_char_map[i] = type_name;
   for (i = 'a'; i <= 'z'; i++)
     skel_char_map[i] = type_name;
-
+  
   skel_char_map_initialized = 1;
 }
 
@@ -310,7 +310,7 @@ put_explicit_length (svn_string_t *str, char *data, int len, char sep)
   /* Generate the length and separator character.  */
   sprintf (buf, "%d%c", len, sep);
   length_len = strlen(buf);
-
+  
   /* Copy in the real data (which may contain nulls).  */
   memcpy (buf + length_len, data, len);
 
@@ -348,7 +348,7 @@ try_explicit_length (char *data, int len)
 	put_explicit_length (str, data, len, i);
 	skel = parse_str (str);
 	if (! check_explicit_length (skel, data, len))
-	  return fail ();
+	  return fail (); 
       }
 
   return 0;
@@ -370,7 +370,7 @@ parse_explicit_length (const char **msg)
     for (i = 0; i < 256; i++)
       {
 	char buf[1];
-
+	
 	buf[0] = i;
 	if (try_explicit_length (buf, 1))
 	  return fail ();
@@ -593,7 +593,7 @@ parse_list (const char **msg)
   {
     int sep;
 
-    /* Try different separators.  */
+    /* Try different separators.  */ 
     for (sep = 0; sep < 256; sep++)
       if (skel_is_space (sep))
 	{
@@ -629,7 +629,7 @@ parse_list (const char **msg)
 	    }
 	}
   }
-
+	      
   return 0;
 }
 
@@ -721,7 +721,7 @@ unparse_implicit_length (const char **msg)
 	  skel_t *skel = build_atom (1, &buf);
 
 	  str = svn_fs__unparse_skel (skel, pool);
-
+	  
 	  if (! (str
 		 && str->len == 2
 		 && str->data[0] == byte
