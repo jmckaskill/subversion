@@ -38,7 +38,7 @@
 svn_error_t *
 svn_client_delete (svn_client_commit_info_t **commit_info,
                    svn_stringbuf_t *path,
-                   svn_boolean_t force,
+                   svn_boolean_t force, 
                    svn_client_auth_baton_t *auth_baton,
                    svn_stringbuf_t *log_msg,
                    apr_pool_t *pool)
@@ -60,7 +60,7 @@ svn_client_delete (svn_client_commit_info_t **commit_info,
       svn_revnum_t committed_rev = SVN_INVALID_REVNUM;
       const char *committed_date = NULL;
       const char *committed_author = NULL;
-
+      
       svn_path_split (path, &anchor, &target, svn_path_url_style, pool);
 
       /* Get the RA vtable that matches URL. */
@@ -88,12 +88,12 @@ svn_client_delete (svn_client_commit_info_t **commit_info,
       SVN_ERR (editor->close_edit (edit_baton));
 
       /* Allocate (and populate) the commit_info */
-      if ((committed_date != NULL)
-          || (committed_author != NULL)
+      if ((committed_date != NULL) 
+          || (committed_author != NULL) 
           || (SVN_IS_VALID_REVNUM (committed_rev)))
         {
           svn_client_commit_info_t *info;
-
+          
           info = apr_pcalloc (pool, sizeof (**commit_info));
           if (committed_date)
             info->date = apr_pstrdup (pool, committed_date);
@@ -102,13 +102,13 @@ svn_client_delete (svn_client_commit_info_t **commit_info,
           info->revision = committed_rev;
           *commit_info = info;
         }
-
+      
       /* Free the RA session */
       SVN_ERR (ra_lib->close (session));
 
       return SVN_NO_ERROR;
     }
-
+  
   /* Mark the entry for deletion. */
   SVN_ERR (svn_wc_delete (path, pool));
 
@@ -126,7 +126,7 @@ svn_client_delete (svn_client_commit_info_t **commit_info,
 }
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end: */
