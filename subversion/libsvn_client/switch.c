@@ -116,7 +116,7 @@ svn_client_switch (const svn_delta_edit_fns_t *before_editor,
 
       /* 'entry' still refers to PATH */
     }
-
+  
   /* Get the URL that we will open an RA session to. */
   if (! entry->url)
     return svn_error_createf
@@ -145,16 +145,16 @@ svn_client_switch (const svn_delta_edit_fns_t *before_editor,
   /* Get the RA vtable that matches working copy's current URL. */
   SVN_ERR (svn_ra_init_ra_libs (&ra_baton, pool));
   SVN_ERR (svn_ra_get_ra_library (&ra_lib, ra_baton, URL->data, pool));
-
+  
   /* Open an RA session to this URL */
   SVN_ERR (svn_client__open_ra_session (&session, ra_lib, URL, path,
                                         TRUE, TRUE, auth_baton, pool));
-
+  
   /* If TM is given, convert the time into a revision number. */
   if (tm)
     SVN_ERR (ra_lib->get_dated_revision (session, &revision, tm));
 
-  /* ### Note: the whole RA interface below will probably change soon. */
+  /* ### Note: the whole RA interface below will probably change soon. */ 
 
   /* Tell RA to do a update of URL+TARGET to REVISION; if we pass an
      invalid revnum, that means RA will use the latest revision. */
@@ -168,12 +168,12 @@ svn_client_switch (const svn_delta_edit_fns_t *before_editor,
 
   /* Drive the reporter structure, describing the revisions within
      PATH.  When we call reporter->finish_report, the
-     update_editor will be driven by svn_repos_dir_delta. */
+     update_editor will be driven by svn_repos_dir_delta. */ 
   err = svn_wc_crawl_revisions (path, reporter, report_baton,
                                 TRUE, recurse,
                                 notify_func, notify_baton,
                                 pool);
-
+  
   /* Sleep for one second to ensure timestamp integrity. */
   apr_sleep (APR_USEC_PER_SEC * 1);
 
@@ -189,7 +189,7 @@ svn_client_switch (const svn_delta_edit_fns_t *before_editor,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end: */
