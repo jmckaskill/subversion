@@ -251,7 +251,7 @@ the project:
       |         |
       |   A     |                 /* Two dir_entries, `A' and `B'. */
       |    \    |
-      |   B \   |
+      |   B \   | 
       |__/___\__|
         /     \
        |       \
@@ -328,7 +328,7 @@ node:
       |         |
       |   A     |
       |    \    |
-      |   B \   |
+      |   B \   | 
       |__/___\__|
         /     \
        |       \
@@ -377,7 +377,7 @@ visible.  That's done by making entry 2 in the version array point to
 something:
 
 
-      Figure 3: The `myproj' repository, after commit of version 2.
+      Figure 3: The `myproj' repository, after commit of version 2. 
 
        ______________________________________________________
       |__ 1 _____ 2 ______ 3 ______ 4 ______ 5 _______ 6 ____---->
@@ -388,7 +388,7 @@ something:
       |         |
       |   A     |
       |    \    |
-      |   B \   |
+      |   B \   | 
       |__/___\__|
         /     \
        |       \
@@ -459,7 +459,7 @@ intermediate steps not being shown:
       |         |
       |   A     |
       |    \    |
-      |   B \   |
+      |   B \   | 
       |__/___\__|
         /     \
        |       \
@@ -595,7 +595,7 @@ README to the project's top level directory):
   [Still writing this up, although we know how it works.  The basic
   thing to note is how tags are totally constant space, but once you
   start committing on a tag it becomes a branch and line-of-ancestry
-  copying is forced.]
+  copying is forced.] 
 
 ** Other miscellaneous design goals
 
@@ -665,7 +665,7 @@ longer than retrieving a recent one, because old versions will take
 longer to construct.  This is a tradeoff of using diff-based storage,
 and has worked out pretty well in practice.
 
-** Scenarios
+** Scenarios 
 
 Each scenario should be mentally played out for a given design,
 analyzing for performance and scalability issues (particularly in
@@ -729,7 +729,7 @@ what desired behavior is!)
 
 *** Retrieve version X of a file
 
-*** Retrieve version X of a directory tree
+*** Retrieve version X of a directory tree 
 
 *** Show annotations of both modified and old versions of files.
 
@@ -985,7 +985,7 @@ Yup, thanks.  Still a draft, we'll normalize.
 >subdirectory of some dir named named api.  You have some of this in
 >your ACCESSES table.  For the sourcexchange.com web site we developed
 >a much more general permission scheme that you can read about at
->http://joist.tigris.org.
+>http://joist.tigris.org. 
 
 I'll look into this.
 
@@ -1041,7 +1041,7 @@ out).
 >selling inversion as "version control that you actually want to use"
 >trumps speed claims anyway, we should make it easy in use and easy to
 >enhance.  Java would also give us no-brainer internationalization
->support.
+>support.  
 
 In my experience (not nearly as great as yours) Java is the least
 portable language: it is unusual in requiring *both* a compiler and a
