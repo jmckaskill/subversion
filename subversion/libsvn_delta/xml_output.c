@@ -127,7 +127,7 @@ make_file_baton (struct edit_baton *eb, enum elemtype addreplace)
    never have to unwind past a dir element, so the unwinding steps are
    bounded in number and easy to visualize.  The nesting of the
    elements we care about looks like:
-
+  
         dir -> prop_delta
             -> tree_delta -> add/replace -> file -> prop_delta
 
@@ -181,7 +181,7 @@ get_to_elem (struct edit_baton *eb, enum elemtype elem, apr_pool_t *pool)
                                  SVN_DELTA__XML_ATTR_ID, idstr, NULL);
         }
       svn_xml_make_close_tag (&str, pool, SVN_DELTA__XML_TAG_FILE);
-      outertag = (fb->addreplace == elem_add) ?
+      outertag = (fb->addreplace == elem_add) ? 
         SVN_DELTA__XML_TAG_ADD : SVN_DELTA__XML_TAG_REPLACE;
       svn_xml_make_close_tag (&str, pool, outertag);
       fb->closed = 1;
@@ -203,14 +203,14 @@ get_to_elem (struct edit_baton *eb, enum elemtype elem, apr_pool_t *pool)
   /* Now wind.  */
   if (eb->elem == elem_dir && elem == elem_tree_delta)
     {
-      svn_xml_make_open_tag (&str, pool, svn_xml_normal,
+      svn_xml_make_open_tag (&str, pool, svn_xml_normal, 
                              SVN_DELTA__XML_TAG_TREE_DELTA, NULL);
       eb->elem = elem_tree_delta;
     }
   if ((eb->elem == elem_dir && elem == elem_dir_prop_delta)
       || (eb->elem == elem_file && elem == elem_file_prop_delta))
     {
-      svn_xml_make_open_tag (&str, pool, svn_xml_normal,
+      svn_xml_make_open_tag (&str, pool, svn_xml_normal, 
                              SVN_DELTA__XML_TAG_PROP_DELTA, NULL);
       eb->elem = elem;
     }
@@ -236,9 +236,9 @@ output_addreplace (struct edit_baton *eb, enum elemtype addreplace,
   svn_error_t *err;
   apr_size_t len;
   apr_hash_t *att;
-  const char *outertag = (addreplace == elem_add) ?
+  const char *outertag = (addreplace == elem_add) ? 
     SVN_DELTA__XML_TAG_ADD : SVN_DELTA__XML_TAG_REPLACE;
-  const char *innertag = (dirfile == elem_dir) ?
+  const char *innertag = (dirfile == elem_dir) ? 
     SVN_DELTA__XML_TAG_DIR : SVN_DELTA__XML_TAG_FILE;
 
   str = get_to_elem (eb, elem_tree_delta, pool);
@@ -249,11 +249,11 @@ output_addreplace (struct edit_baton *eb, enum elemtype addreplace,
   if (ancestor_path != NULL)
     {
       char buf[128];
-      apr_hash_set (att, SVN_DELTA__XML_ATTR_ANCESTOR,
+      apr_hash_set (att, SVN_DELTA__XML_ATTR_ANCESTOR, 
                     strlen(SVN_DELTA__XML_ATTR_ANCESTOR), ancestor_path);
       sprintf (buf, "%lu", (unsigned long) ancestor_revision);
-      apr_hash_set (att, SVN_DELTA__XML_ATTR_VER,
-                    strlen(SVN_DELTA__XML_ATTR_VER),
+      apr_hash_set (att, SVN_DELTA__XML_ATTR_VER, 
+                    strlen(SVN_DELTA__XML_ATTR_VER), 
                     svn_string_create (buf, pool));
     }
   svn_xml_make_open_tag_hash (&str, pool, svn_xml_normal, innertag, att);
@@ -282,14 +282,14 @@ output_propset (struct edit_baton *eb, enum elemtype elem,
   str = get_to_elem (eb, elem, pool);
   if (value != NULL)
     {
-      svn_xml_make_open_tag (&str, pool, svn_xml_protect_pcdata,
+      svn_xml_make_open_tag (&str, pool, svn_xml_protect_pcdata, 
                              SVN_DELTA__XML_TAG_SET,
                              SVN_DELTA__XML_ATTR_NAME, name, NULL);
       svn_xml_escape_string (&str, value, pool);
       svn_xml_make_close_tag (&str, pool, SVN_DELTA__XML_TAG_SET);
     }
   else
-    svn_xml_make_open_tag (&str, pool, svn_xml_self_closing,
+    svn_xml_make_open_tag (&str, pool, svn_xml_self_closing, 
                            SVN_DELTA__XML_TAG_DELETE,
                            SVN_DELTA__XML_ATTR_NAME, name, NULL);
 
@@ -311,7 +311,7 @@ begin_edit (void *edit_baton,
   svn_error_t *err;
 
   svn_xml_make_header (&str, pool);
-  svn_xml_make_open_tag (&str, pool, svn_xml_normal,
+  svn_xml_make_open_tag (&str, pool, svn_xml_normal, 
                          SVN_DELTA__XML_TAG_DELTA_PKG, NULL);
 
   *dir_baton = make_dir_baton (eb, elem_delta_pkg);
@@ -335,7 +335,7 @@ delete_entry (svn_string_t *name, void *parent_baton)
   apr_size_t len;
 
   str = get_to_elem (eb, elem_tree_delta, pool);
-  svn_xml_make_open_tag (&str, pool, svn_xml_self_closing,
+  svn_xml_make_open_tag (&str, pool, svn_xml_self_closing, 
                          SVN_DELTA__XML_TAG_DELETE,
                          SVN_DELTA__XML_ATTR_NAME, name, NULL);
 
@@ -403,7 +403,7 @@ close_directory (void *dir_baton)
   if (db->addreplace != elem_delta_pkg)
     {
       /* Not the root directory.  */
-      const char *outertag = (db->addreplace == elem_add) ?
+      const char *outertag = (db->addreplace == elem_add) ? 
         SVN_DELTA__XML_TAG_ADD : SVN_DELTA__XML_TAG_REPLACE;
       svn_xml_make_close_tag (&str, db->pool, SVN_DELTA__XML_TAG_DIR);
       svn_xml_make_close_tag (&str, db->pool, outertag);
@@ -485,7 +485,7 @@ finish_svndiff_data (void *baton)
 
 
 static svn_error_t *
-apply_textdelta (void *file_baton,
+apply_textdelta (void *file_baton, 
                  svn_txdelta_window_handler_t **handler,
                  void **handler_baton)
 {
@@ -512,12 +512,12 @@ apply_textdelta (void *file_baton,
          text-delta.  */
       char buf[128];
       sprintf(buf, "%d", fb->txdelta_id);
-      apr_hash_set (att, SVN_DELTA__XML_ATTR_ID,
-                    strlen(SVN_DELTA__XML_ATTR_ID),
+      apr_hash_set (att, SVN_DELTA__XML_ATTR_ID, 
+                    strlen(SVN_DELTA__XML_ATTR_ID), 
                     svn_string_create (buf, pool));
     }
 #ifdef QUOPRINT_SVNDIFFS
-  apr_hash_set (att, SVN_DELTA__XML_ATTR_ENCODING,
+  apr_hash_set (att, SVN_DELTA__XML_ATTR_ENCODING, 
                 strlen(SVN_DELTA__XML_ATTR_ENCODING),
                 svn_string_create ("quoted-printable", pool));
 #endif
@@ -569,7 +569,7 @@ close_file (void *file_baton)
   /* Close the file element if we are still working on it.  */
   if (!fb->closed)
     {
-      const char *outertag = (fb->addreplace == elem_add) ?
+      const char *outertag = (fb->addreplace == elem_add) ? 
         SVN_DELTA__XML_TAG_ADD : SVN_DELTA__XML_TAG_REPLACE;
       str = get_to_elem (eb, elem_file, fb->pool);
       svn_xml_make_close_tag (&str, fb->pool, SVN_DELTA__XML_TAG_FILE);
@@ -643,7 +643,7 @@ svn_delta_get_xml_editor (svn_stream_t *output,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
