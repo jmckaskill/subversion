@@ -127,7 +127,7 @@ ary_prefix_match (apr_array_header_t *pfxlist, const char *path)
 
 /* Filtering batons */
 
-struct parse_baton_t
+struct parse_baton_t 
 {
   /* Command-line options values. */
   svn_boolean_t do_exclude;
@@ -147,7 +147,7 @@ struct parse_baton_t
   apr_hash_t *renumber_history;
 };
 
-struct revision_baton_t
+struct revision_baton_t 
 {
   /* Reference to the global parse baton. */
   struct parse_baton_t *pb;
@@ -170,7 +170,7 @@ struct revision_baton_t
   svn_stream_t *body_stream;
 };
 
-struct node_baton_t
+struct node_baton_t 
 {
   /* Reference to the current revision baton. */
   struct revision_baton_t *rb;
@@ -294,15 +294,15 @@ close_revision (void *revision_baton)
        - the date
        - a log message that reports that this revision is just stuffing. */
   if ((! rb->pb->preserve_revprops)
-      && (! rb->has_nodes)
-      && rb->had_dropped_nodes
+      && (! rb->has_nodes) 
+      && rb->had_dropped_nodes 
       && (! rb->pb->drop_empty_revs))
     {
       apr_hash_t *old_props = rb->props;
       rb->has_props = TRUE;
       rb->props = apr_hash_make (hash_pool);
       apr_hash_set (rb->props, SVN_PROP_REVISION_DATE, APR_HASH_KEY_STRING,
-                    apr_hash_get (old_props, SVN_PROP_REVISION_DATE,
+                    apr_hash_get (old_props, SVN_PROP_REVISION_DATE, 
                                   APR_HASH_KEY_STRING));
       apr_hash_set (rb->props, SVN_PROP_REVISION_LOG, APR_HASH_KEY_STRING,
                     svn_string_create (_("This is an empty revision for "
@@ -313,8 +313,8 @@ close_revision (void *revision_baton)
      information to the header string.  */
   if (rb->has_props)
     {
-      for (hi = apr_hash_first (subpool, rb->props);
-           hi;
+      for (hi = apr_hash_first (subpool, rb->props); 
+           hi; 
            hi = apr_hash_next (hi))
         {
           const void *key;
@@ -427,8 +427,8 @@ new_node_record (void **node_baton,
      rest.  */
   if (nb->do_skip)
     {
-      apr_hash_set (pb->dropped_nodes,
-                    apr_pstrdup (apr_hash_pool_get (pb->dropped_nodes),
+      apr_hash_set (pb->dropped_nodes, 
+                    apr_pstrdup (apr_hash_pool_get (pb->dropped_nodes), 
                                  node_path),
                     APR_HASH_KEY_STRING, (void *)1);
       nb->rb->had_dropped_nodes = TRUE;
@@ -437,7 +437,7 @@ new_node_record (void **node_baton,
     {
       /* Test if this node was copied from dropped source. */
       if (copyfrom_path &&
-          (ary_prefix_match (pb->prefixes, copyfrom_path)
+          (ary_prefix_match (pb->prefixes, copyfrom_path) 
            ? pb->do_exclude : (! pb->do_exclude)))
         {
           /* This node was copied from dropped source.
@@ -468,7 +468,7 @@ new_node_record (void **node_baton,
              don't have readily available.  */
           else
             {
-              return svn_error_createf
+              return svn_error_createf 
                 (SVN_ERR_INCOMPLETE_DATA, 0,
                  _("Invalid copy source path '%s'"), copyfrom_path);
             }
@@ -843,8 +843,8 @@ check_lib_versions (void)
 
 /* Do the real work of filtering. */
 static svn_error_t *
-do_filter (apr_getopt_t *os,
-           void *baton,
+do_filter (apr_getopt_t *os, 
+           void *baton, 
            svn_boolean_t do_exclude,
            apr_pool_t *pool)
 {
@@ -908,14 +908,14 @@ do_filter (apr_getopt_t *os,
          and values, sorted by keys. */
       num_keys = apr_hash_count (pb->renumber_history);
       keys = apr_array_make (pool, num_keys + 1, sizeof (svn_revnum_t));
-      for (hi = apr_hash_first (pool, pb->renumber_history);
-           hi;
+      for (hi = apr_hash_first (pool, pb->renumber_history); 
+           hi; 
            hi = apr_hash_next (hi))
         {
           apr_hash_this (hi, &key, NULL, NULL);
           APR_ARRAY_PUSH (keys, svn_revnum_t) = *((svn_revnum_t *) key);
         }
-      qsort (keys->elts, keys->nelts,
+      qsort (keys->elts, keys->nelts, 
              keys->elt_size, svn_sort_compare_revisions);
       for (i = 0; i < keys->nelts; i++)
         {
@@ -923,7 +923,7 @@ do_filter (apr_getopt_t *os,
 
           svn_pool_clear (subpool);
           this_key = APR_ARRAY_IDX (keys, i, svn_revnum_t);
-          this_val =
+          this_val = 
             *((svn_revnum_t *)apr_hash_get (pb->renumber_history,
                                             &this_key,
                                             sizeof (this_key)));
@@ -944,7 +944,7 @@ do_filter (apr_getopt_t *os,
     {
       apr_pool_t *subpool = svn_pool_create (pool);
       SVN_ERR (svn_cmdline_fprintf (stderr, subpool,
-                                    _("Dropped %d node(s):\n"),
+                                    _("Dropped %d node(s):\n"), 
                                     apr_hash_count (pb->dropped_nodes)));
 
       /* Get the keys of the hash, sort them, then print the hash keys
@@ -952,7 +952,7 @@ do_filter (apr_getopt_t *os,
       num_keys = apr_hash_count (pb->dropped_nodes);
       keys = apr_array_make (pool, num_keys + 1, sizeof (const char *));
       for (hi = apr_hash_first (pool, pb->dropped_nodes);
-           hi;
+           hi; 
            hi = apr_hash_next (hi))
         {
           apr_hash_this (hi, &key, NULL, NULL);
@@ -963,7 +963,7 @@ do_filter (apr_getopt_t *os,
         {
           svn_pool_clear (subpool);
           SVN_ERR (svn_cmdline_fprintf
-                   (stderr, subpool, "   '%s'\n",
+                   (stderr, subpool, "   '%s'\n", 
                     (const char *)APR_ARRAY_IDX (keys, i, const char *)));
         }
       SVN_ERR (svn_cmdline_fputs ("\n", stderr, subpool));
@@ -1022,7 +1022,7 @@ main (int argc, const char * const *argv)
 
   pool = svn_pool_create_ex (NULL, allocator);
   apr_allocator_owner_set (allocator, pool);
-
+		  
   /* Check library versions */
   err = check_lib_versions ();
   if (err)
@@ -1131,7 +1131,7 @@ main (int argc, const char * const *argv)
                   svn_error_clear (err);
                   return EXIT_FAILURE;
                 }
-
+                
               svn_error_clear (svn_cmdline_fprintf (stderr, pool,
                                                     _("unknown command: '%s'\n"),
                                                     first_arg_utf8));
