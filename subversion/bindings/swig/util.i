@@ -24,7 +24,7 @@
 %import svn_types.i
 %import svn_string.i
 
-/* -----------------------------------------------------------------------
+/* ----------------------------------------------------------------------- 
    completely ignore a number of functions. the presumption is that the
    scripting language already has facilities for these things (or they
    are relatively trivial).
