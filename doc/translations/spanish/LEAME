@@ -33,7 +33,7 @@ Pasos para poder compilar el libro:
    larga colección de hojas de estilo XSL que funcionan con
    Docbook. Descarge e instale el paquete 'docbook-xsl-1.65.1'
    de la siguiente página:
-
+  
       http://sourceforge.net/project/showfiles.php?group_id=21935
 
    Tras descargar la última versión de docbook-xsl, descomprima el
@@ -279,7 +279,7 @@ tienen y envían parches a la lista de correo:
   anunciarlo en la lista de correo para que éste se le asigne de
   forma oficial y así asegurar que otra persona no está traduciendo
   por su cuenta lo mismo.
-
+  
 - Se pierde el "acceso" a un fichero listado en TRABAJO si no se
   ha colaborado ningún cambio en 14 días. Se recomienda traducir
   un párrafo al día. En el caso de colaborar mediante parches
@@ -328,7 +328,7 @@ fichero en particular:
   meta ficheros como TRABAJO o LEAME). No hay límite de tamaño
   (ya sea por pequeño o por grande) a la hora de enviar un cambio
   al repositorio.
-
+  
 - Estar apuntado a la lista de correo de cambios realizados en el
   repositorio principal de Subversion: svn@subversion.tigris.org.
   Las instrucciones para apuntarse están en
@@ -468,7 +468,7 @@ A diferencia de las listas de usuarios y desarrollo de Subversion,
 esta lista de correo incluye la cabecera:
 
   Reply-To: l10n-es@subversion.tigris.org
-
+  
 Así que cualquier cliente de correo decente debería responder a la
 lista y evitar mandar mensajes duplicados al autor y a la lista
 (práctica habitual en las listas de subversion). También incluye
