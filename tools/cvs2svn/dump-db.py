@@ -11,7 +11,7 @@ def usage():
   sys.stderr.write("debugging purposes, generally).\n")
   sys.exit(1)
 
-
+  
 def main():
   argc = len(sys.argv)
   if argc < 2:
