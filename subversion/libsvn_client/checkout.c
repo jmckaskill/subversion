@@ -143,8 +143,8 @@ svn_client_checkout (const svn_delta_edit_fns_t *before_editor,
       /* Possibly store any authentication info from the RA session. */
       if (auth_obj->storage_callback)
         SVN_ERR (auth_obj->storage_callback (auth_obj->storage_baton));
-    }
-
+    }      
+  
   /* else we're checking out from xml */
   else
     {
@@ -177,7 +177,7 @@ svn_client_checkout (const svn_delta_edit_fns_t *before_editor,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end: */
