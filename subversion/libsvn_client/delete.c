@@ -38,7 +38,7 @@
 svn_error_t *
 svn_client_delete (svn_client_commit_info_t **commit_info,
                    svn_stringbuf_t *path,
-                   svn_boolean_t force,
+                   svn_boolean_t force, 
                    svn_client_auth_baton_t *auth_baton,
                    svn_stringbuf_t *log_msg,
                    svn_wc_notify_func_t notify_func,
@@ -62,7 +62,7 @@ svn_client_delete (svn_client_commit_info_t **commit_info,
       svn_revnum_t committed_rev = SVN_INVALID_REVNUM;
       const char *committed_date = NULL;
       const char *committed_author = NULL;
-
+      
       svn_path_split (path, &anchor, &target, pool);
 
       /* Get the RA vtable that matches URL. */
@@ -89,7 +89,7 @@ svn_client_delete (svn_client_commit_info_t **commit_info,
       /* Drive the editor to delete the TARGET. */
       SVN_ERR (editor->open_root (edit_baton, SVN_INVALID_REVNUM, pool,
                                   &root_baton));
-      SVN_ERR (editor->delete_entry (target->data, SVN_INVALID_REVNUM,
+      SVN_ERR (editor->delete_entry (target->data, SVN_INVALID_REVNUM, 
                                      root_baton, pool));
       SVN_ERR (editor->close_directory (root_baton));
       SVN_ERR (editor->close_edit (edit_baton));
@@ -99,13 +99,13 @@ svn_client_delete (svn_client_commit_info_t **commit_info,
                                                    committed_author,
                                                    committed_date,
                                                    pool);
-
+      
       /* Free the RA session */
       SVN_ERR (ra_lib->close (session));
 
       return SVN_NO_ERROR;
     }
-
+  
   /* Mark the entry for deletion. */
   SVN_ERR (svn_wc_delete (path, notify_func, notify_baton, pool));
 
@@ -123,7 +123,7 @@ svn_client_delete (svn_client_commit_info_t **commit_info,
 }
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end: */
