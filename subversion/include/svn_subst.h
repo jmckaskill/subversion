@@ -52,7 +52,7 @@ typedef enum svn_subst_eol_style
 
 } svn_subst_eol_style_t;
 
-/** Set @a *style to the appropriate @c svn_subst_eol_style_t and @a *eol to
+/** Set @a *style to the appropriate @c svn_subst_eol_style_t and @a *eol to 
  * the appropriate cstring for a given svn:eol-style property value.
  *
  * Set @a *eol to
@@ -61,7 +61,7 @@ typedef enum svn_subst_eol_style
  *
  *    - a null-terminated C string containing the native eol marker
  *      for this platform, for @c svn_subst_eol_style_native, or
- *
+ *            
  *    - a null-terminated C string containing the eol marker indicated
  *      by the property value, for @c svn_subst_eol_style_fixed.
  *
@@ -86,7 +86,7 @@ typedef struct svn_subst_keywords_t
 
 /** Return @c TRUE if @a a and @a b do not hold the same keywords.
  *
- * If @a compare_values is @c TRUE, "same" means that the @a a and @a b
+ * If @a compare_values is @c TRUE, "same" means that the @a a and @a b 
  * contain exactly the same set of keywords, and the values of corresponding
  * keywords match as well.  Else if @a compare_values is @c FALSE, then
  * "same" merely means that @a a and @a b hold the same set of keywords,
@@ -95,7 +95,7 @@ typedef struct svn_subst_keywords_t
  * @a a and/or @a b may be @c NULL; for purposes of comparison, @c NULL is
  * equivalent to holding no keywords.
  */
-svn_boolean_t
+svn_boolean_t 
 svn_subst_keywords_differ (const svn_subst_keywords_t *a,
                            const svn_subst_keywords_t *b,
                            svn_boolean_t compare_values);
@@ -128,7 +128,7 @@ svn_subst_keywords_differ (const svn_subst_keywords_t *a,
  * Recommendation: if @a expand is false, then you don't care about the
  * keyword values, so pass empty strings as non-null signifiers.
  *
- * Notes:
+ * Notes: 
  *
  * See @c svn_wc__get_keywords() and @c svn_wc__get_eol_style() for a
  * convenient way to get @a eol_str and @a keywords if in libsvn_wc.
@@ -187,9 +187,9 @@ svn_subst_translate_cstring (const char *src,
 /* Eol conversion and character encodings */
 
 /** Translate the data in @a value (assumed to be in encoded in charset
- * @a encoding) to UTF8 and LF line-endings.  If @a encoding is @c NULL,
+ * @a encoding) to UTF8 and LF line-endings.  If @a encoding is @c NULL, 
  * then assume that @a value is in the system-default language encoding.
- * Return the translated data in @a *new_value, allocated in @a pool.
+ * Return the translated data in @a *new_value, allocated in @a pool.  
  */
 svn_error_t *svn_subst_translate_string (svn_string_t **new_value,
                                          const svn_string_t *value,
@@ -198,7 +198,7 @@ svn_error_t *svn_subst_translate_string (svn_string_t **new_value,
 
 /** Translate the data in @a value from UTF8 and LF line-endings into
  * native locale and native line-endings.  Return the translated data
- * in @a *new_value, allocated in @a pool.
+ * in @a *new_value, allocated in @a pool.  
  */
 svn_error_t *svn_subst_detranslate_string (svn_string_t **new_value,
                                            const svn_string_t *value,
