@@ -117,7 +117,7 @@ class GeneratorBase:
         self.graph.add(DT_LINK, name, lib)
       for nonlib in self._find_libs(target.nonlibs):
         self.graph.add(DT_NONLIB, name, nonlib)
-
+         
 
     # collect various files
     self.includes = _collect_paths(parser.get('options', 'includes'))
@@ -370,7 +370,7 @@ class TargetLinked(Target):
     self.compile_cmd = options.get('compile-cmd')
 
     # default output name; subclasses can/should change this
-    self.output = os.path.join(self.path, name)
+    self.output = os.path.join(self.path, name)    
 
   ### hmm. this is Makefile-specific
   link_cmd = '$(LINK)'
@@ -511,7 +511,7 @@ class TargetSWIGRuntime(TargetSWIG):
     self._libraries = {}
     for lang in self.cfg.swig_lang:
       if lang == 'java':
-        # java doesn't seem to have a separate runtime
+        # java doesn't seem to have a separate runtime  
         continue
 
       abbrev = lang_abbrev[lang]
@@ -559,7 +559,7 @@ class TargetUtility(TargetSpecial):
 
 class TargetSWIGUtility(TargetUtility):
   def __init__(self, name, options, cfg, extmap):
-    TargetSpecial.__init__(self, name, options, cfg, extmap)
+    TargetSpecial.__init__(self, name, options, cfg, extmap)  
     self.language = options.get('language')
 
 _build_types = {

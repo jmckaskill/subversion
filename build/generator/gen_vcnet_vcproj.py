@@ -126,7 +126,7 @@ class Generator(gen_win.WinGeneratorBase):
       # These aren't working yet
       if isinstance(target, gen_base.TargetScript)      \
          or isinstance(target, gen_base.TargetExternal):
-        continue
+        continue    
       guids[target.name] = self.makeguid(target.name)
 
     self.gen_proj_names(install_targets)
