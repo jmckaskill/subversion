@@ -22,7 +22,7 @@ svn_ra_local__split_URL (svn_string_t **repos_path,
                          apr_pool_t *pool)
 {
   svn_error_t *err;
-
+  
   svn_string_t *URL_copy = svn_string_dup (URL, pool);
 
   /* Yank path components off the end of URL_copy, storing them in an
