@@ -71,7 +71,7 @@ svn_fs__is_valid_proplist (skel_t *skel)
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
