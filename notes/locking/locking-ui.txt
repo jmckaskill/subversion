@@ -70,7 +70,7 @@ I. Introduction
              hijack scenario can't happen at all.
 
          - Clearcase copy-based views
-
+ 
              In the hijack scenario, the user attempts to commit and
              the client repsonds by attempting an interactive
              contextual merge.  If not possible, the whole commit
@@ -169,7 +169,7 @@ II. New Client Behaviors
          next run 'svn update'.
 
       2. New client subcommands
-
+          
          Summary:
 
               svn lock   [--force]:   lock (or steal)
@@ -185,12 +185,12 @@ II. New Client Behaviors
               password: XXXXX
               [...]
               'foo.c' has been locked by user 'harry'.
-
+        
             In order for this command to work,
 
                - you *must* provide a username to the server.
                  'anonymous' locks are not allowed.
-               - The path must not already be locked.
+               - The path must not already be locked.  
                - a comment must be provided, so that others can
                  see why the object was locked.
 
@@ -224,7 +224,7 @@ II. New Client Behaviors
             1. Using a lock to Commit
 
                $ svn commit foo.c
-
+               
                Upon successful commit, a locked path is released by
                default.  The Subversion client provides an option to
                retain the lock after commit:
@@ -232,7 +232,7 @@ II. New Client Behaviors
                $ svn commit foo.c --keep-lock
 
             2. Releasing a lock
-
+ 
                $ svn unlock foo.c
                Lock on 'foo.c' has been released by user 'harry'.
 
@@ -301,7 +301,7 @@ II. New Client Behaviors
                    $ svn status
                    M        foo.c
                    M      # bar.c
-                   A        baz.c
+                   A        baz.c 
 
                The new symbol is up for discussion, '#' is used as an
                example here.
@@ -315,7 +315,7 @@ II. New Client Behaviors
                   $ svn status
                   M        foo.c
                   M      # bar.c
-                  A     *  baz.c
+                  A     *  baz.c 
                         *  file1
                          # file2
 
@@ -352,7 +352,7 @@ III. New Server Behaviors
 
       The Subversion server holds the master list of all locks for a
       repository.  It responds to client requests to create, release,
-      break and steal locks.
+      break and steal locks.  
 
    C. Enforcement
 
@@ -378,7 +378,7 @@ III. New Server Behaviors
 
              - input: REPOS, PATH, USER
              - successful exit means lock is allowed, else deny lock creation.
-             - if path is already locked, hook script can deduce
+             - if path is already locked, hook script can deduce 
                that USER is "stealing" the lock and decide what to do.
 
         b. pre-unlock
@@ -389,7 +389,7 @@ III. New Server Behaviors
 
              - input: REPOS, PATH, USER
              - successful exit means release is allowed, else deny.
-             - if path is already locked, hook script can deduce
+             - if path is already locked, hook script can deduce 
                that USER is "breaking" the lock and decide what to do.
 
       2. New "post-" hook scripts
@@ -398,7 +398,7 @@ III. New Server Behaviors
 
            Used to report lock creation.  Invoked whenever a user
            creates a lock ('svn lock') or steals a lock ('svn lock
-           --force').
+           --force'). 
 
              - input: REPOS, PATH, USER
              - exit code ignored

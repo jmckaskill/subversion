@@ -34,7 +34,7 @@ To be added by someone:
 
  - ch06 talks about Basic authentication and recommends https.
    Add a mention of Digest authentication now that Apache's bug
-   has been fixed that broke it and potentially update the
+   has been fixed that broke it and potentially update the 
    example to use it instead.
 
 --------------------------------------------------------------
@@ -66,7 +66,7 @@ ch04:
      revision, then only back/fore-date *files*, not dirs.
 
 
-ch06:
+ch06:  
 
 
 
