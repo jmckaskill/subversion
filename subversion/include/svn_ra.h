@@ -50,7 +50,7 @@ typedef svn_error_t *svn_ra_set_wc_prop_func_t (void *close_baton,
 
 /* A vtable structure which allows a working copy to describe a
    subset (or possibly all) of its working-copy to an RA layer. */
-
+  
 typedef struct svn_ra_reporter_t
 {
   /* Describe an entire subtree DIR_PATH as being at a particular
@@ -60,7 +60,7 @@ typedef struct svn_ra_reporter_t
   svn_error_t *(*set_directory) (void *report_baton,
                                  svn_string_t *dir_path,
                                  svn_revnum_t revision);
-
+  
   /* Describe a file FILE_PATH as being at a particular REVISION; this
      will *override* any previous set_file() calls made on FILE_PATH's
      parents.  FILE_PATH is relative to the URL specified in open(),
@@ -68,7 +68,7 @@ typedef struct svn_ra_reporter_t
   svn_error_t *(*set_file) (void *report_baton,
                             svn_string_t *file_path,
                             svn_revnum_t revision);
-
+  
   /* WC calls this when the state report is finished; any directories
      or files not explicitly `set' above are assumed to be at the
      baseline revision.  */
@@ -96,7 +96,7 @@ typedef struct svn_ra_plugin_t
   const char *description;  /* Short documentation string */
 
   /* The vtable hooks */
-
+  
   /* Open a "session" with a repository at URL.  *SESSION_BATON is
      returned and then used (opaquely) for all further interactions
      with the repository. */
@@ -119,11 +119,11 @@ typedef struct svn_ra_plugin_t
      *the repository, which is then driven by the client.
 
      RA must guarantee:
-
+     
           1. That it will track each item that is committed
           2. That close_edit() will "finish" the commit by calling
              CLOSE_FUNC (with CLOSE_BATON) on each item that was
-             committed.
+             committed.  
 
      Optionally, the RA layer may also call SET_FUNC to store WC
      properties on committed items.  */
@@ -169,7 +169,7 @@ typedef struct svn_ra_plugin_t
 
 
 /* svn_ra_init_func_t :
-
+   
    libsvn_client will be reponsible for loading each RA DSO it needs.
    However, all "ra_FOO" implementations *must* export a function named
    `svn_ra_FOO_init()' of type `svn_ra_init_func_t'.

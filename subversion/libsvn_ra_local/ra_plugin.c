@@ -52,7 +52,7 @@ set_directory (void *report_baton,
 
   return SVN_NO_ERROR;
 }
-
+  
 
 static svn_error_t *
 set_file (void *report_baton,
@@ -63,7 +63,7 @@ set_file (void *report_baton,
 
   return SVN_NO_ERROR;
 }
-
+  
 
 
 static svn_error_t *
@@ -96,7 +96,7 @@ open (void **session_baton,
      there. */
   apr_pool_t *subpool = svn_pool_create (pool);
 
-  /* Allocate the session_baton itself in this subpool */
+  /* Allocate the session_baton itself in this subpool */ 
   baton = apr_pcalloc (subpool, sizeof(*baton));
 
   /* And let all other session_baton data use the same subpool */
@@ -184,7 +184,7 @@ get_commit_editor (void *session_baton,
   hook_baton->target_array = apr_pcalloc (hook_baton->pool,
                                           sizeof(*(hook_baton->target_array)));
 
-  /* Get the filesystem commit-editor */
+  /* Get the filesystem commit-editor */     
   err = svn_fs_get_editor (&commit_editor,
                            &commit_editor_baton,
                            session_baton->fs,
@@ -253,7 +253,7 @@ do_update (void *session_baton,
 
 /** The static reporter and ra_plugin objects **/
 
-static const svn_ra_reporter_t ra_local_reporter =
+static const svn_ra_reporter_t ra_local_reporter = 
 {
   set_directory,
   set_file,
@@ -261,7 +261,7 @@ static const svn_ra_reporter_t ra_local_reporter =
 };
 
 
-static const svn_ra_plugin_t ra_local_plugin =
+static const svn_ra_plugin_t ra_local_plugin = 
 {
   "ra_local",
   "RA module for accessing file:// URLs",
