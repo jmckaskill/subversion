@@ -143,7 +143,7 @@ deltify (svn_fs_id_t *target_id,
     else {
       target_dkey = NULL;
     }
-
+    
 
     if (source_pkey_skel->len != 0) {
       source_pkey = apr_pstrndup (trail->pool,
@@ -200,7 +200,7 @@ deltify (svn_fs_id_t *target_id,
           svn_txdelta_free_window (window);
         }
     } while (window);
-
+  
 
   return SVN_NO_ERROR;
 }
@@ -236,7 +236,7 @@ svn_fs__delete_node_revision (svn_fs_t *fs,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:

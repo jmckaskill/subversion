@@ -68,11 +68,11 @@ svn_fs__rep_is_mutable (skel_t *rep)
 {
   /* The node "header" is the first element of a rep skel. */
   skel_t *header = rep->children;
-
+  
   /* The 2nd element of the header, IF it exists, is the header's
      first `flag'.  It could be NULL.  */
   skel_t *flag = header->children->next;
-
+  
   while (flag)
     {
       if (svn_fs__matches_atom (flag, "mutable"))
@@ -80,7 +80,7 @@ svn_fs__rep_is_mutable (skel_t *rep)
 
       flag = flag->next;
     }
-
+  
   /* Reached the end of the header skel, no mutable flag was found. */
   return FALSE;
 }
@@ -95,7 +95,7 @@ rep_set_mutable_flag (skel_t *rep, apr_pool_t *pool)
 {
   if (! svn_fs__rep_is_mutable (rep))
     svn_fs__append (svn_fs__str_atom ("mutable", pool), rep->children);
-
+    
   return;
 }
 
@@ -103,7 +103,7 @@ rep_set_mutable_flag (skel_t *rep, apr_pool_t *pool)
 svn_error_t *
 svn_fs__get_mutable_rep (const char **new_key,
                          const char *key,
-                         svn_fs_t *fs,
+                         svn_fs_t *fs, 
                          trail_t *trail)
 {
   skel_t *rep;
@@ -111,7 +111,7 @@ svn_fs__get_mutable_rep (const char **new_key,
   if (key && (key[0] != '\0'))
     {
       SVN_ERR (svn_fs__read_rep (&rep, fs, key, trail));
-
+  
       /* If REP is not mutable, we have to make a mutable copy.  It is
          a deep copy -- the underlying string is copied too, and the
          new rep refers to the new string.  */
@@ -120,19 +120,19 @@ svn_fs__get_mutable_rep (const char **new_key,
           if (rep_is_fulltext (rep))
             {
               const char *string_key, *new_string_key;
-
+              
               /* Step 1:  Copy the string to which the rep refers. */
               string_key = svn_fs__string_key_from_rep (rep, trail->pool);
               SVN_ERR (svn_fs__string_copy (fs, &new_string_key,
                                             string_key, trail));
-
+              
               /* Step 2:  Make this rep mutable. */
               rep_set_mutable_flag (rep, trail->pool);
-
+              
               /* Step 3:  Change the string key to which this rep points. */
               rep->children->next->data = new_string_key;
               rep->children->next->len = strlen (new_string_key);
-
+              
               /* Step 4: Write the mutable version of this rep to the
                  database, returning the newly created key to the
                  caller. */
@@ -155,13 +155,13 @@ svn_fs__get_mutable_rep (const char **new_key,
 
       /* Create a new, empty string. */
       SVN_ERR (svn_fs__string_append (fs, &new_string_key, 0, NULL, trail));
-
+      
       svn_fs__prepend (svn_fs__str_atom (new_string_key, trail->pool), rep);
       svn_fs__prepend (header, rep);
-
+      
       SVN_ERR (svn_fs__write_new_rep (new_key, fs, rep, trail));
     }
-
+      
   return SVN_NO_ERROR;
 }
 
@@ -189,12 +189,12 @@ svn_fs__make_rep_immutable (svn_fs_t *fs,
             prev->next = flag->next;
           else
             header->children->next = NULL;
-
+          
           SVN_ERR (svn_fs__write_rep (fs, key, rep, trail));
           break;
         }
     }
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -241,7 +241,7 @@ struct svn_fs__rep_read_baton_t
      refetch the representation skel every time we want to read
      another chunk.  */
   const char *rep_key;
-
+  
   /* How many bytes have been read already. */
   apr_size_t offset;
 
@@ -286,7 +286,7 @@ rep_read_range (svn_fs_t *fs,
                 trail_t *trail)
 {
   skel_t *rep;
-
+        
   SVN_ERR (svn_fs__read_rep (&rep, fs, rep_key, trail));
 
   if (rep_is_fulltext (rep))
@@ -322,7 +322,7 @@ struct read_rep_args
 
    Afterwards, *(BATON->len) is the number of bytes actually read, and
    BATON->rb->offset is incremented by that amount.
-
+   
    If BATON->rb->rep_key is null, this is assumed to mean the file's
    contents have no representation, i.e., the file has no contents.
    In that case, if BATON->rb->offset > 0, return the error
@@ -376,13 +376,13 @@ svn_fs__rep_read_contents (void *baton, char *buf, apr_size_t *len)
                                 txn_body_read_rep,
                                 &args,
                                 rb->pool));
-
+  
   return SVN_NO_ERROR;
 }
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
