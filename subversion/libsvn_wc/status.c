@@ -28,7 +28,7 @@
 #include "svn_error.h"
 #include "svn_path.h"
 #include "svn_wc.h"
-#include "wc.h"
+#include "wc.h"   
 
 
 
@@ -59,11 +59,11 @@ assemble_status (svn_wc_status_t *status,
       svn_stringbuf_t *prop_path;
       enum svn_node_kind prop_kind;
       svn_boolean_t prop_exists = FALSE;
-
+      
       /* Before examining the entry's state, determine if a property
          component exists. */
       err = svn_wc__prop_path (&prop_path, path, 0, pool);
-      if (err) return err;
+      if (err) return err;      
       err = svn_io_check_path (prop_path, &prop_kind, pool);
       if (err) return err;
 
@@ -71,7 +71,7 @@ assemble_status (svn_wc_status_t *status,
         prop_exists = TRUE;
 
       /* Look for local mods, independent of other tests. */
-
+      
       /* If the entry has a property file, see if it has local
          changes. */
       if (prop_exists)
@@ -79,14 +79,14 @@ assemble_status (svn_wc_status_t *status,
           err = svn_wc_props_modified_p (&prop_modified_p, path, pool);
           if (err) return err;
         }
-
+      
       /* If the entry is a file, check for textual modifications */
       if (entry->kind == svn_node_file)
         {
           err = svn_wc_text_modified_p (&text_modified_p, path, pool);
           if (err) return err;
         }
-
+      
       /* TODO (philosophical).  Does it make sense to talk about a
          directory having "textual" modifications?  I mean, if you
          `svn add' a file to a directory, does the parent dir now
@@ -95,13 +95,13 @@ assemble_status (svn_wc_status_t *status,
          a list of entries, which has now been changed?  And would
          we then show that `M' in the first column?  Ponder,
          ponder.  */
-
+      
       /* Mark `M' in status structure based on tests above. */
       if (text_modified_p)
         status->text_status = svn_wc_status_modified;
       if (prop_modified_p)
-        status->prop_status = svn_wc_status_modified;
-
+        status->prop_status = svn_wc_status_modified;      
+      
       if (entry->schedule == svn_wc_schedule_add)
         {
           /* If an entry has been marked for future addition to the
@@ -117,7 +117,7 @@ assemble_status (svn_wc_status_t *status,
       else if (entry->schedule == svn_wc_schedule_replace)
         {
           status->text_status = svn_wc_status_replaced;
-
+          
           if (prop_exists)
             status->prop_status = svn_wc_status_replaced;
         }
@@ -126,7 +126,7 @@ assemble_status (svn_wc_status_t *status,
                || (entry->existence == svn_wc_existence_deleted))
         {
           status->text_status = svn_wc_status_deleted;
-
+          
           if (prop_exists)
             status->prop_status = svn_wc_status_deleted;
         }
@@ -138,7 +138,7 @@ assemble_status (svn_wc_status_t *status,
              exist.  Luckily, we have a function to do this.  :) */
           svn_boolean_t text_conflict_p, prop_conflict_p;
           svn_stringbuf_t *parent_dir;
-
+          
           if (entry->kind == svn_node_file)
             {
               parent_dir = svn_stringbuf_dup (path, pool);
@@ -153,7 +153,7 @@ assemble_status (svn_wc_status_t *status,
                                      entry,
                                      pool);
           if (err) return err;
-
+          
           if (text_conflict_p)
             status->text_status = svn_wc_status_conflicted;
           if (prop_conflict_p)
@@ -186,7 +186,7 @@ add_status_structure (apr_hash_t *statushash,
     return err;
 
   apr_hash_set (statushash, path->data, path->len, statstruct);
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -212,7 +212,7 @@ svn_wc_status (svn_wc_status_t **status,
   err = assemble_status (s, path, entry, pool);
   if (err)
     return err;
-
+  
   *status = s;
   return SVN_NO_ERROR;
 }
@@ -229,11 +229,11 @@ svn_wc_statuses (apr_hash_t *statushash,
   apr_hash_t *entries;
   svn_wc_entry_t *entry;
   void *value;
-
+  
   /* Is PATH a directory or file? */
   err = svn_io_check_path (path, &kind, pool);
   if (err) return err;
-
+  
   /* kff todo: this has to deal with the case of a type-changing edit,
      i.e., someone removed a file under vc and replaced it with a dir,
      or vice versa.  In such a case, when you ask for the status, you
@@ -242,7 +242,7 @@ svn_wc_statuses (apr_hash_t *statushash,
      is handled in entries.c:svn_wc_entry. */
 
   /* Read the appropriate entries file */
-
+  
   /* If path points to only one file, return just one status structure
      in the STATUSHASH */
   if (kind == svn_node_file)
@@ -251,7 +251,7 @@ svn_wc_statuses (apr_hash_t *statushash,
 
       /* Figure out file's parent dir */
       svn_path_split (path, &dirpath, &basename,
-                      svn_path_local_style, pool);
+                      svn_path_local_style, pool);      
 
       /* Load entries file for file's parent */
       err = svn_wc_entries_read (&entries, dirpath, pool);
@@ -318,7 +318,7 @@ svn_wc_statuses (apr_hash_t *statushash,
              kff todo: However, must handle mixed working copies.
              What if the subdir is not under revision control, or is
              from another repository? */
-
+          
           /* Do *not* store THIS_DIR in the statushash, unless this
              path has never been seen before.  We don't want to add
              the path key twice. */
@@ -329,7 +329,7 @@ svn_wc_statuses (apr_hash_t *statushash,
                                                  fullpath->len);
               if (! s)
                 SVN_ERR (add_status_structure (statushash, fullpath,
-                                               entry, pool));
+                                               entry, pool));              
             }
           else
             {
@@ -347,7 +347,7 @@ svn_wc_statuses (apr_hash_t *statushash,
                     {
                       /* If ask to descent, we do not contend. */
                       SVN_ERR (svn_wc_statuses (statushash, fullpath,
-                                                descend, pool));
+                                                descend, pool)); 
                     }
                 }
               else if (kind == svn_node_file)
@@ -359,13 +359,13 @@ svn_wc_statuses (apr_hash_t *statushash,
             }
         }
     }
-
+  
   return SVN_NO_ERROR;
 }
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
