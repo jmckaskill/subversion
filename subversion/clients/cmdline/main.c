@@ -301,6 +301,11 @@ const svn_cl__cmd_desc_t svn_cl__cmd_table[] =
     "    to be committed again.\n",
     {svn_cl__targets_opt} },
 
+  { "rollback", svn_cl__rollback, {0},
+    "Revert a specific revision in the working copy.\n"
+    "usage: rollback -r REVNUM TARGET1 [TARGET2 [TARGET3 ... ]]\n\n",
+    {'r', svn_cl__targets_opt} },
+
   { "status", svn_cl__status, {"stat", "st"},
     "Print the status of working copy files and directories.\n"
     "usage: svn status [TARGETS]\n\n"
