@@ -48,7 +48,7 @@
 
 /* Hmm. This should probably find its way into libsvn_subr -Fitz */
 /* Create a SVN string from the char* and add it to the array */
-static void
+static void 
 array_push_svn_stringbuf (apr_array_header_t *array,
                           const char *str,
                           apr_pool_t *pool)
@@ -62,7 +62,7 @@ array_push_svn_stringbuf (apr_array_header_t *array,
  * with no arguments. Those commands make use of this function to
  * add "." to the target array if the user passes no args */
 void
-svn_cl__push_implicit_dot_target (apr_array_header_t *targets,
+svn_cl__push_implicit_dot_target (apr_array_header_t *targets, 
                                   apr_pool_t *pool)
 {
   if (targets->nelts == 0)
@@ -81,8 +81,8 @@ svn_cl__parse_num_args (apr_getopt_t *os,
                         apr_pool_t *pool)
 {
   int i;
-
-  opt_state->args = apr_array_make (pool, DEFAULT_ARRAY_SIZE,
+  
+  opt_state->args = apr_array_make (pool, DEFAULT_ARRAY_SIZE, 
                                     sizeof (svn_stringbuf_t *));
 
   /* loop for num_args and add each arg to the args array */
@@ -91,7 +91,7 @@ svn_cl__parse_num_args (apr_getopt_t *os,
       if (os->ind >= os->argc)
         {
           svn_cl__subcommand_help (subcommand, pool);
-          return svn_error_create (SVN_ERR_CL_ARG_PARSING_ERROR,
+          return svn_error_create (SVN_ERR_CL_ARG_PARSING_ERROR, 
                                    0, 0, pool, "");
         }
       array_push_svn_stringbuf (opt_state->args, os->argv[os->ind++], pool);
@@ -109,7 +109,7 @@ svn_cl__parse_all_args (apr_getopt_t *os,
                         const char *subcommand,
                         apr_pool_t *pool)
 {
-  opt_state->args = apr_array_make (pool, DEFAULT_ARRAY_SIZE,
+  opt_state->args = apr_array_make (pool, DEFAULT_ARRAY_SIZE, 
                                     sizeof (svn_stringbuf_t *));
 
   if (os->ind >= os->argc)
@@ -190,7 +190,7 @@ svn_cl__args_to_target_array (apr_getopt_t *os,
   svn_client_revision_t *firstrev = NULL, *secondrev = NULL;
   apr_array_header_t *targets =
     apr_array_make (pool, DEFAULT_ARRAY_SIZE, sizeof (svn_stringbuf_t *));
-
+ 
   /* Command line args take precedence.  */
   for (; os->ind < os->argc; os->ind++)
     {
@@ -234,8 +234,8 @@ svn_cl__args_to_target_array (apr_getopt_t *os,
       for (i = 0; i < targets->nelts; i++)
         {
           svn_stringbuf_t *truepath;
-          svn_client_revision_t temprev;
-          svn_stringbuf_t *path =
+          svn_client_revision_t temprev; 
+          svn_stringbuf_t *path = 
             ((svn_stringbuf_t **) (targets->elts))[i];
 
           parse_path (&temprev, &truepath, path, pool);
@@ -266,14 +266,14 @@ svn_cl__args_to_target_array (apr_getopt_t *os,
           opt_state->start_revision.kind = firstrev->kind;
           opt_state->start_revision.value = firstrev->value;
         }
-
+      
       if (secondrev)
         {
           opt_state->end_revision.kind = secondrev->kind;
           opt_state->end_revision.value = secondrev->value;
         }
     }
-
+  
   return targets;
 }
 
@@ -290,7 +290,7 @@ svn_cl__stringlist_to_array(svn_stringbuf_t *buffer, apr_pool_t *pool)
       while (end < buffer->len)
         {
           while (apr_isspace(buffer->data[start]))
-            start++;
+            start++; 
 
           end = start;
 
@@ -351,7 +351,7 @@ svn_cl__newlinelist_to_array(svn_stringbuf_t *buffer, apr_pool_t *pool)
 void
 svn_cl__print_commit_info (svn_client_commit_info_t *commit_info)
 {
-  if ((commit_info)
+  if ((commit_info) 
       && (SVN_IS_VALID_REVNUM (commit_info->revision)))
     printf ("\nCommitted revision %" SVN_REVNUM_T_FMT ".\n",
             commit_info->revision);
@@ -385,7 +385,7 @@ svn_cl__edit_externally (svn_stringbuf_t **edited_contents,
 
   /* Abort if there is no editor specified */
   if (! editor)
-    return svn_error_create
+    return svn_error_create 
       (SVN_ERR_CL_NO_EXTERNAL_EDITOR, 0, NULL, pool,
        "None of the environment variables "
        "SVN_EDITOR, VISUAL or EDITOR is set.");
@@ -394,7 +394,7 @@ svn_cl__edit_externally (svn_stringbuf_t **edited_contents,
   assert (editor);
 
   /* Ask the working copy for a temporary file based on BASE_DIR */
-  SVN_ERR (svn_io_open_unique_file
+  SVN_ERR (svn_io_open_unique_file 
            (&tmp_file, &tmpfile_name,
             svn_path_join (base_dir->data, "msg", pool), ".tmp", FALSE, pool));
 
@@ -402,13 +402,13 @@ svn_cl__edit_externally (svn_stringbuf_t **edited_contents,
        the file we just created!! ***/
 
   /* Dump initial CONTENTS to TMP_FILE. */
-  apr_err = apr_file_write_full (tmp_file, contents->data,
+  apr_err = apr_file_write_full (tmp_file, contents->data, 
                                  contents->len, &written);
 
   apr_err2 = apr_file_close (tmp_file);
   if (! apr_err)
     apr_err = apr_err2;
-
+  
   /* Make sure the whole CONTENTS were written, else return an error. */
   if (apr_err || (written != contents->len))
     {
@@ -420,7 +420,7 @@ svn_cl__edit_externally (svn_stringbuf_t **edited_contents,
 
   /* Get information about the temporary file before the user has
      been allowed to edit its contents. */
-  apr_err = apr_stat (&finfo_before, tmpfile_name->data,
+  apr_err = apr_stat (&finfo_before, tmpfile_name->data, 
                       APR_FINFO_MTIME | APR_FINFO_SIZE, pool);
   if (apr_err)
     {
@@ -440,9 +440,9 @@ svn_cl__edit_externally (svn_stringbuf_t **edited_contents,
                                 "system('%s') returned %d", cmd, sys_err);
       goto cleanup;
     }
-
+  
   /* Get information about the temporary file after the assumed editing. */
-  apr_err = apr_stat (&finfo_after, tmpfile_name->data,
+  apr_err = apr_stat (&finfo_after, tmpfile_name->data, 
                       APR_FINFO_MTIME | APR_FINFO_SIZE, pool);
   if (apr_err)
     {
@@ -450,7 +450,7 @@ svn_cl__edit_externally (svn_stringbuf_t **edited_contents,
                                "failed to stat '%s'", tmpfile_name->data);
       goto cleanup;
     }
-
+  
   /* If the file looks changed... */
   if ((finfo_before.mtime != finfo_after.mtime) ||
       (finfo_before.size != finfo_after.size))
@@ -492,7 +492,7 @@ svn_cl__make_log_msg_baton (svn_cl__opt_state_t *opt_state,
 {
   struct log_msg_baton *baton = apr_palloc (pool, sizeof (*baton));
 
-  if (opt_state->filedata)
+  if (opt_state->filedata) 
     baton->message = opt_state->filedata;
   else
     baton->message = opt_state->message;
@@ -567,9 +567,9 @@ svn_cl__get_log_message (svn_stringbuf_t **log_msg,
                          apr_pool_t *pool)
 {
   const char *default_msg = "\n"
-    EDITOR_PREFIX_TXT
-    " ---------------------------------------------------------------------\n"
-    EDITOR_PREFIX_TXT " Enter Log.  Lines beginning with '"
+    EDITOR_PREFIX_TXT 
+    " ---------------------------------------------------------------------\n" 
+    EDITOR_PREFIX_TXT " Enter Log.  Lines beginning with '" 
                              EDITOR_PREFIX_TXT "' are removed automatically\n"
     EDITOR_PREFIX_TXT "\n"
     EDITOR_PREFIX_TXT " Current status of the target files and directories:\n"
@@ -623,8 +623,8 @@ svn_cl__get_log_message (svn_stringbuf_t **log_msg,
 
           svn_stringbuf_appendcstr (tmp_message, EDITOR_PREFIX_TXT);
           svn_stringbuf_appendcstr (tmp_message, "   ");
-          svn_stringbuf_appendbytes (tmp_message, &text_mod, 1);
-          svn_stringbuf_appendbytes (tmp_message, &prop_mod, 1);
+          svn_stringbuf_appendbytes (tmp_message, &text_mod, 1); 
+          svn_stringbuf_appendbytes (tmp_message, &prop_mod, 1); 
           svn_stringbuf_appendcstr (tmp_message, "   ");
           svn_stringbuf_appendcstr (tmp_message, path->data);
           svn_stringbuf_appendcstr (tmp_message, "\n");
@@ -636,7 +636,7 @@ svn_cl__get_log_message (svn_stringbuf_t **log_msg,
       if (err)
         {
           if (err->apr_err == SVN_ERR_CL_NO_EXTERNAL_EDITOR)
-            err = svn_error_quick_wrap
+            err = svn_error_quick_wrap 
               (err, "Could not use external editor to fetch log message; "
                "consider setting the $SVN_EDITOR environment variable "
                "or using the --message (-m) or --file (-F) options.");
@@ -681,7 +681,7 @@ svn_cl__get_log_message (svn_stringbuf_t **log_msg,
 
               /* If the user chooses to continue, we make an empty
                  message, which will cause us to exit the loop. */
-              if ('c' == letter)
+              if ('c' == letter) 
                 message = svn_stringbuf_create ("", pool);
 
               /* If the user chooses anything else, the loop will
@@ -689,7 +689,7 @@ svn_cl__get_log_message (svn_stringbuf_t **log_msg,
             }
         }
     }
-
+  
   *log_msg = message ? svn_stringbuf_dup (message, pool) : NULL;
   return SVN_NO_ERROR;
 }
@@ -698,8 +698,8 @@ svn_cl__get_log_message (svn_stringbuf_t **log_msg,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../tools/dev/svn-dev.el")
- * end:
+ * end: 
  */
