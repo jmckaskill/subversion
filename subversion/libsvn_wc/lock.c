@@ -106,8 +106,8 @@ create_lock (svn_wc_adm_access_t *adm_access, int wait_for, apr_pool_t *pool)
         return SVN_NO_ERROR;
     }
 
-  return svn_error_createf (SVN_ERR_WC_LOCKED, 0, NULL,
-                            "working copy locked: %s", adm_access->path);
+  return svn_error_createf (SVN_ERR_WC_LOCKED, 0, NULL, 
+                            "working copy locked: %s", adm_access->path); 
 }
 
 
@@ -528,15 +528,15 @@ svn_wc_adm_write_check (svn_wc_adm_access_t *adm_access)
           /* Check physical lock still exists and hasn't been stolen */
           SVN_ERR (svn_wc_locked (&locked, adm_access->path, adm_access->pool));
           if (! locked)
-            return svn_error_createf (SVN_ERR_WC_NOT_LOCKED, 0, NULL,
+            return svn_error_createf (SVN_ERR_WC_NOT_LOCKED, 0, NULL, 
                                       "write-lock stolen in: %s",
-                                      adm_access->path);
+                                      adm_access->path); 
         }
     }
   else
     {
-      return svn_error_createf (SVN_ERR_WC_NOT_LOCKED, 0, NULL,
-                                "no write-lock in: %s", adm_access->path);
+      return svn_error_createf (SVN_ERR_WC_NOT_LOCKED, 0, NULL, 
+                                "no write-lock in: %s", adm_access->path); 
     }
 
   return SVN_NO_ERROR;
@@ -548,7 +548,7 @@ svn_wc_locked (svn_boolean_t *locked, const char *path, apr_pool_t *pool)
   svn_node_kind_t kind;
   const char *lockfile
     = svn_wc__adm_path (path, 0, pool, SVN_WC__ADM_LOCK, NULL);
-
+                                             
   SVN_ERR (svn_io_check_path (lockfile, &kind, pool));
   if (kind == svn_node_file)
     *locked = TRUE;
@@ -559,7 +559,7 @@ svn_wc_locked (svn_boolean_t *locked, const char *path, apr_pool_t *pool)
                               "svn_wc_locked: "
                               "lock file is not a regular file (%s)",
                               lockfile);
-
+    
   return SVN_NO_ERROR;
 }
 
@@ -674,7 +674,7 @@ svn_wc__adm_access_entries (svn_wc_adm_access_t *adm_access,
 }
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end:

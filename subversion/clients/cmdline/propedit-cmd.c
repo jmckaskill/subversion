@@ -52,7 +52,7 @@ svn_cl__propedit (apr_getopt_t *os,
   SVN_ERR (svn_utf_cstring_to_utf8 (&pname_utf8, pname, NULL, pool));
 
   /* Suck up all the remaining arguments into a targets array */
-  SVN_ERR (svn_opt_args_to_target_array (&targets, os,
+  SVN_ERR (svn_opt_args_to_target_array (&targets, os, 
                                          opt_state->targets,
                                          &(opt_state->start_revision),
                                          &(opt_state->end_revision),
@@ -60,7 +60,7 @@ svn_cl__propedit (apr_getopt_t *os,
 
   /* The customary implicit dot rule has been prone to user error in
    * propedit.  For example, Jon Trowbridge <trow@gnu.og> did
-   *
+   * 
    *    $ svn propedit HACKING
    *
    * and then when he closed his editor, he was surprised to see
@@ -98,7 +98,7 @@ svn_cl__propedit (apr_getopt_t *os,
         return svn_error_create(SVN_ERR_CL_INSUFFICIENT_ARGS, 0, NULL,
                                 "No URL target available.");
       target = ((const char **) (targets->elts))[0];
-      SVN_ERR (svn_cl__get_url_from_target (&URL, target, pool));
+      SVN_ERR (svn_cl__get_url_from_target (&URL, target, pool));  
       if (URL == NULL)
         return svn_error_create(SVN_ERR_UNVERSIONED_RESOURCE, 0, NULL,
                                 "Either a URL or versioned item is required.");
@@ -109,13 +109,13 @@ svn_cl__propedit (apr_getopt_t *os,
                                        auth_baton, &rev, pool));
       if (! propval)
         propval = svn_string_create ("", pool);
-
+      
       /* Run the editor on a temporary file in '.' which contains the
          original property value... */
       SVN_ERR (svn_cl__edit_externally (&new_propval, NULL, ".",
                                         propval->data, "svn-prop",
                                         pool));
-
+      
       /* ...and re-set the property's value accordingly. */
       if (new_propval)
         {
@@ -148,16 +148,16 @@ svn_cl__propedit (apr_getopt_t *os,
           const char *target_native;
           svn_wc_adm_access_t *adm_access;
           const svn_wc_entry_t *entry;
-
+          
           /* Fetch the current property. */
           SVN_ERR (svn_client_propget (&props, pname_utf8, target,
                                        FALSE, pool));
-
+          
           /* Get the property value. */
           propval = apr_hash_get (props, target, APR_HASH_KEY_STRING);
           if (! propval)
             propval = svn_string_create ("", pool);
-
+          
           /* Split the path if it is a file path. */
           SVN_ERR (svn_wc_adm_probe_open (&adm_access, NULL, target,
                                           FALSE, FALSE, pool));
@@ -166,7 +166,7 @@ svn_cl__propedit (apr_getopt_t *os,
             return svn_error_create (SVN_ERR_ENTRY_NOT_FOUND, 0, NULL, target);
           if (entry->kind == svn_node_file)
             svn_path_split_nts (target, &base_dir, NULL, pool);
-
+          
           /* Run the editor on a temporary file which contains the
              original property value... */
           SVN_ERR (svn_cl__edit_externally (&new_propval, NULL,
@@ -174,15 +174,15 @@ svn_cl__propedit (apr_getopt_t *os,
                                             propval->data,
                                             "svn-prop",
                                             pool));
-
+          
           SVN_ERR (svn_utf_cstring_from_utf8 (&target_native, target, pool));
-
+          
           /* ...and re-set the property's value accordingly. */
           if (new_propval)
             {
               propval->data = new_propval;
               propval->len = strlen (new_propval);
-              SVN_ERR (svn_client_propset (pname_utf8, propval, target,
+              SVN_ERR (svn_client_propset (pname_utf8, propval, target, 
                                            FALSE, pool));
               printf ("Set new value for property `%s' on `%s'\n",
                       pname, target_native);
@@ -200,8 +200,8 @@ svn_cl__propedit (apr_getopt_t *os,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../tools/dev/svn-dev.el")
- * end:
+ * end: 
  */
