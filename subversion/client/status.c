@@ -1,5 +1,5 @@
 /*
- * checkout.c:  wrappers around wc checkout functionality
+ * status.c:  the command-line's portion of the "svn status" command
  *
  * ================================================================
  * Copyright (c) 2000 CollabNet.  All rights reserved.
@@ -52,36 +52,44 @@
 
 
 /*** Includes. ***/
-
-#include <assert.h>
 #include "svn_wc.h"
-#include "svn_delta.h"
-#include "svn_client.h"
 #include "svn_string.h"
-#include "svn_error.h"
-#include "svn_path.h"
-#include "client.h"
+#include "cl.h"
 
 
-
-/*** Public Interfaces. ***/
-
-svn_error_t *
-svn_client_checkout (const svn_delta_edit_fns_t *passenger_editor,
-                     void *passenger_edit_baton,
-                     svn_string_t *path,
-                     svn_string_t *xml_src,
-                     svn_string_t *ancestor_path,
-                     svn_vernum_t ancestor_version,
-                     apr_pool_t *pool)
+void
+svn_cl__print_status (svn_wc__status_t *status, svn_string_t *name)
 {
-  return svn_client__checkout_internal (passenger_editor,
-                                        passenger_edit_baton,
-                                        path,
-                                        xml_src,
-                                        ancestor_path,
-                                        ancestor_version,
-                                        pool);
+  char statuschar;
+
+  switch (status->flag)
+    {
+    case svn_wc_status_none:
+      statuschar = '-';
+      break;
+    case svn_wc_status_added:
+      statuschar = 'A';
+      break;
+    case svn_wc_status_deleted:
+      statuschar = 'D';
+      break;
+    case svn_wc_status_modified:
+      statuschar = 'M';
+      break;
+    default:
+      statuschar = '?';
+      break;
+    }
+
+  if (status->local_ver == SVN_INVALID_VERNUM)
+    printf ("none    (r%6.0ld)  %c  %s\n",
+            status->repos_ver, statuschar, name->data);
+  else if (status->repos_ver == SVN_INVALID_VERNUM)
+    printf ("%-6.0ld  (r  none)  %c  %s\n",
+            status->local_ver,  statuschar, name->data);
+  else
+    printf ("%-6.0ld  (r%6.0ld)  %c  %s\n",
+            status->local_ver, status->repos_ver, statuschar, name->data);
 }
 
 
@@ -89,4 +97,5 @@ svn_client_checkout (const svn_delta_edit_fns_t *passenger_editor,
 /*
  * local variables:
  * eval: (load-file "../svn-dev.el")
- * end: */
+ * end:
+ */

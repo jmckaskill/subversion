@@ -58,17 +58,23 @@
 
 
 
-svn_error_t *svn_client__checkout_internal (svn_string_t *path,
-                                            svn_string_t *xml_src,
-                                            svn_string_t *ancestor_path,
-                                            svn_vernum_t ancestor_version,
-                                            apr_pool_t *pool);
+svn_error_t *
+svn_client__checkout_internal (const svn_delta_edit_fns_t *passenger_editor,
+                               void *passenger_edit_baton,
+                               svn_string_t *path,
+                               svn_string_t *xml_src,
+                               svn_string_t *ancestor_path,
+                               svn_vernum_t ancestor_version,
+                               apr_pool_t *pool);
 
 
-svn_error_t *svn_client__update_internal (svn_string_t *path,
-                                          svn_string_t *xml_src,
-                                          svn_vernum_t ancestor_version,
-                                          apr_pool_t *pool);
+svn_error_t *
+svn_client__update_internal (const svn_delta_edit_fns_t *passenger_editor,
+                             void *passenger_edit_baton,
+                             svn_string_t *path,
+                             svn_string_t *xml_src,
+                             svn_vernum_t ancestor_version,
+                             apr_pool_t *pool);
 
 
 
