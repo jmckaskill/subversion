@@ -1,5 +1,5 @@
 
-Status file for the Norwegian translation of the Subversion
+Status file for the Norwegian translation of the Subversion 
 documentation.
 
 1. Synchronisation history against the English version
@@ -12,7 +12,7 @@ documentation.
     r11642: Updated against r11641.
     r11605: Updated against r11602.
     r11529: Updated against r11528.
-    r11419: Copied all the files from the svnbook_nb repository into the
+    r11419: Copied all the files from the svnbook_nb repository into the 
             Subversion tree.
 
 2. File status
