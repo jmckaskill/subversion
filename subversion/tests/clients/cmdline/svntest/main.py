@@ -2,9 +2,9 @@
 #
 #  main.py: a shared, automated test suite for Subversion
 #
-#  Subversion is a tool for revision control.
+#  Subversion is a tool for revision control. 
 #  See http://subversion.tigris.org for more information.
-#
+#    
 # ====================================================================
 # Copyright (c) 2000-2003 CollabNet.  All rights reserved.
 #
@@ -454,7 +454,7 @@ def run_tests(test_list):
       match = url_re.search(arg)
       if match:
         test_area_url = match.group(1)
-
+    
       else:
         try:
           testnum = int(arg)
