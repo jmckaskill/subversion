@@ -22,7 +22,7 @@ dnl ALL_LINGUAS="de fr es ko nl no pl pt sl sv"
 
 dnl Please run ./configure in the apr subdirectory.
 dnl (Add any other sub-projects, like expat-lite, to this list.)
-dnl   TEMPORARILY COMMENTED OUT:
+dnl   TEMPORARILY COMMENTED OUT:  
 dnl   AC_CONFIG_SUBDIRS(apr)
 
 dnl SET_MAKE -> `MAKE=make', unless MAKE is already defined.
@@ -97,7 +97,7 @@ AC_FUNC_MEMCMP
 dnl svn_error's default warning handler uses vfprintf()
 AC_FUNC_VPRINTF
 
-dnl vdelta.c is using strerror() right now
+dnl vdelta.c is using strerror() right now 
 AC_CHECK_FUNCS(strerror)
 
 

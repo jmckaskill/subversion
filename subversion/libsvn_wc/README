@@ -75,7 +75,7 @@ Structure of the Working Copy
 =============================
 
      [Note: this obsoletes parts of client.texi.  We'll sync them up
-     after implementation.]
+     after implementation.] 
 
 Working copy meta-information is stored in SVN/ subdirectories,
 analogous to CVS/ sudirs:
@@ -119,7 +119,7 @@ analogous to CVS/ sudirs:
 
    This file holds the version number of this directory and its
    children -- that is to say, the version number for the root of the
-   repository tree from which this directory/file is derived.
+   repository tree from which this directory/file is derived.  
 
    The first line represents the current directory:
 
@@ -139,7 +139,7 @@ analogous to CVS/ sudirs:
       12 baz.c        /* ... bar.c, whose 12 might be result of "update -r" */
 
    The versions of child directories are not recorded, because they
-   would have their own `SVN/versions'.
+   would have their own `SVN/versions'.  
 
    The `versions' file discusses only things that exist in the
    repository.  For example, if the user does "svn rename foo.c
@@ -151,7 +151,7 @@ analogous to CVS/ sudirs:
       21 qux.c
 
    (the version number might be something other than 21, of course).
-
+   
 `properties'
 
    Properties for this directory, in standard hashdump format.
@@ -225,7 +225,7 @@ analogous to CVS/ sudirs:
 todo: some loose ends
 
    1. filename escaping in SVN/versions
-   2.
+   2. 
 
 
 ------------------------
