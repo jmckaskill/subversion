@@ -60,7 +60,7 @@ class Generator(gen_win.WinGeneratorBase):
 
 
     sources = [ ]
-
+    
     if not isinstance(target, gen_base.TargetUtility):
       for src, reldir in self.get_win_sources(target):
         rsrc = string.replace(os.path.join(rootpath, src), os.sep, '\\')
@@ -78,12 +78,12 @@ class Generator(gen_win.WinGeneratorBase):
 
               for ifile in self.graph.get_sources(gen_base.DT_SWIG_C, cobj):
                 isrc = rootpath + '\\' + string.replace(ifile, '/', '\\')
-                sources.append(_item(path=isrc, reldir=None,
+                sources.append(_item(path=isrc, reldir=None, 
                                      swig_language=target.lang,
                                      swig_output=csrc))
 
     sources.sort(lambda x, y: cmp(x.path, y.path))
-
+    
     data = {
       'target' : target,
       'target_type' : config_type,

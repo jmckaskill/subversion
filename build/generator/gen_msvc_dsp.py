@@ -80,10 +80,10 @@ class Generator(gen_win.WinGeneratorBase):
 
               for ifile in self.graph.get_sources(gen_base.DT_SWIG_C, cobj):
                 isrc = rootpath + '\\' + string.replace(ifile, '/', '\\')
-                sources.append(_item(path=isrc, reldir=None,
+                sources.append(_item(path=isrc, reldir=None, 
                                      swig_language=target.lang,
                                      swig_output=csrc))
-
+        
     sources.sort(lambda x, y: cmp(x.path, y.path))
 
     data = {
@@ -157,7 +157,7 @@ class Generator(gen_win.WinGeneratorBase):
 
       if '-' in fname:
         fname = '"%s"' % fname
-
+        
       depends = self.adjust_win_depends(target, name)
 
       dep_names = [ ]
