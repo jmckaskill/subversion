@@ -107,14 +107,14 @@ void svn_fs__record_undo (trail_t *trail,
 void svn_fs__record_completion (trail_t *trail,
                                 void (*func) (void *baton),
                                 void *baton);
-
+                                     
 
 
 #endif /* SVN_LIBSVN_FS_TRAIL_H */
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
