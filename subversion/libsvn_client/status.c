@@ -57,10 +57,10 @@ svn_client_status (apr_hash_t **statushash,
   /* Ask the wc to give us a list of svn_wc_status_t structures. */
   err = svn_wc_statuses (hash, path, descend, pool);
   if (err) return err;
-
+  
   /* Each status structure in the hash now has all fields filled in
    *except* the repos_rev field, which is SVN_INVALID_REVNUM.
-
+   
    Attempt to contact the repos and get the latest revnum. */
 
   /* Get a URL out of the working copy. */
@@ -89,16 +89,16 @@ svn_client_status (apr_hash_t **statushash,
           svn_boolean_t rev_unknown = FALSE;
 
           /* Open an RA session to URL, get latest revnum, close
-             session.
+             session. 
 
              Don't throw network errors;  just treat them as
              non-fatal. */
-          ra_err = svn_client_authenticate (&session,
+          ra_err = svn_client_authenticate (&session, 
                                             ra_lib,
                                             svn_stringbuf_create (URL, pool),
                                             path, auth_obj, pool);
           if (ra_err) rev_unknown = TRUE;
-
+            
           ra_err = ra_lib->get_latest_revnum (session, &latest_revnum);
           if (ra_err) rev_unknown = TRUE;
 
@@ -115,14 +115,14 @@ svn_client_status (apr_hash_t **statushash,
               void *val;
               apr_size_t klen;
               svn_wc_status_t *status;
-
+              
               apr_hash_this (hi, &key, &klen, &val);
               status = (svn_wc_status_t *) val;
               if (rev_unknown)
                 status->repos_rev = (svn_revnum_t) SVN_INVALID_REVNUM;
               else
                 status->repos_rev = latest_revnum;
-            }
+            } 
         }
     }
 
