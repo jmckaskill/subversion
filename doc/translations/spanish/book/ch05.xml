@@ -19,9 +19,9 @@
       por red. También hablaremos acerca del mantenimiento del
       repositorio, incluyendo el uso de las herramientas
       <command>svnlook</command> y <command>svnadmin</command>
-      ( que están disponibles junto con Subversion ).
+      ( que están disponibles junto con Subversion ). 
       Trataremos también algunas preguntas y errores comunes,
-      y haremos sugerencias sobre la forma de
+      y haremos sugerencias sobre la forma de 
       <!--TODO: arrange how to arrange the data in ... -->
       arreglar los datos en el repositorio.</para>
 
@@ -34,7 +34,7 @@
       <footnote>
         <para>Puede sonar realmente prestigioso y <!--TODO: lofty: alto?
         This may sound really prestigious and lofty -->, pero sólo
-        estamos hablando de cualquier personal que esté interesada en
+        estamos hablando de cualquier personal que esté interesada en 
         el misterioso reino más allá de la copia de trabajo, donde
         los datos de todos <!--TODO: hang out?
         where everyone's data hangs out. --></para>
@@ -64,10 +64,10 @@
     <!-- ***************************************************************** -->
     <sect2 id="svn-ch-5-sect-1.1">
       <title>Entendiendo las Transacciones y Revisiones</title>
-
+        
       <para>Hablando conceptualmente, un repositorio Subversion es
         una secuencia de árboles de directorios. Cada árbol es una
-	<!--TODO:snapshot=¿fotografía?-->fotografía de cómo eran
+	<!--TODO:snapshot=¿fotografía?-->fotografía de cómo eran 
 	los ficheros y directorios versionados en tu repositorio en
 	un momento determinado. Estas fotografías son generadas como
 	resultado de operaciones de programas cliente, y son llamadas
@@ -84,7 +84,7 @@
         en una nueva revisión del árbol, y se le asigna un nuevo número de
         revisión. Si el envío de datos fallara por alguna razón,
 	la transacción se destruye, y se le informa al cliente del error.</para>
-
+        
       <para>Las actualizaciones funcionan de una manera parecida. El Cliente
         prepara un árbol de transacción temporal que <!--mirrors=copia?-->copia el estado
         de la copia de trabajo. El repositorio compara entonces ese
@@ -92,9 +92,9 @@
         (normalmente la más reciente, o el árbol <quote>youngest</quote>), e
         informa al cliente acerca de qué cambios son necesario para
         convertir su copia local de trabajo en una réplica de ese árbol
-        de revisión. Tras completarse la actualización, se borra la transacción
+        de revisión. Tras completarse la actualización, se borra la transacción 
         temporal.</para>
-
+          
       <para>El uso de árboles de transacción es la única manera
         de hacer cambio permanentes en un repositorio de sistema
         de ficheros versionados. De todas maneras, es importante
@@ -102,11 +102,11 @@
         flexible. En el caso de actualizaciones, las transacciones con árboles
         temporales que se destruyen inmediatamente. En el caso de <!--TODO commits-->
         commits, las transacciones son transformadas en revisiones
-        permanentes ( o borradas si el <!--TODO--> falla ). En el
-        caso de un error, es posible que una transacción permanezca
+        permanentes ( o borradas si el <!--TODO--> falla ). En el 
+        caso de un error, es posible que una transacción permanezca 
         accidentalmente suelta en el repositorio ( sin que afecte
         en realidad a nada, pero ocupando espacio).</para>
-
+     
      <para>En teoría, un día los programas de flujo de trabajo completo
         deberán girar hacia un control más fino del tiempo de vida de
         la transacción. Es factible imaginar un sistema por el que
@@ -114,10 +114,10 @@
         revisión permanezca en <!--TODO: stasis?? --> bastante después
         de que el cliente termine de describir sus cambios al repositorio.
         Esto permitiría que cada nuevo <!--commit --> sea revisado
-        por alguna otra persona, quizás un <!--manager-->director o
+        por alguna otra persona, quizás un <!--manager-->director o 
         <!--TODO:engineering QA team-->, que pueda elegir entre promoverla
         a una revisión, o cancelarla.</para>
-
+            
     </sect2>
 
     <!-- ***************************************************************** -->
@@ -158,7 +158,7 @@
         en tu mensaje de log, puedes simplemente sustituir el valor de
         la propiedad <literal>svn:log</literal> con un nuevo y corregido
         mensaje de log.</para>
-
+	
     </sect2>
 
     <!-- ***************************************************************** -->
@@ -172,8 +172,8 @@
           una base de datos Berkeley por una serie de razones, como
           su licencia open-source, soporte de transacciones, ser de confianza,
           funcionamiento, simplicidad de su API, soporte de hilos, cursores,
-          y más.</para>
-
+          y más.</para> 
+	
         <para>La base de datos Berkely tiene un soporte real de transacciones
           &mdash;probablemente es su característica más poderosa.
           Muchos procesos que accede a tus repositorios Subversion
@@ -241,14 +241,14 @@
     <title>Creación y Configuración de Repositorios</title>
 
     <para>Crear un repositorio Subversion es una tarea increíblemente
-      simple. La utilidad <command>svnadmin</command>, provista con
+      simple. La utilidad <command>svnadmin</command>, provista con 
       Subversion, tiene un subcomando justo para esto. Para crear un
       nuevo repositorio, ejecuta:</para>
-
+          
     <screen>
 $ svnadmin create /path/to/repos
 </screen>
-
+          
     <para>Crea un nuevo repositorio en el directorio
       <filename>/path/to/repos</filename>. Dicho nuevo repositorio comienza
       su vida en la revisión 0, que se define como nada excepto el directorio raíz
@@ -263,7 +263,7 @@ $ svnadmin create /path/to/repos
         de ficheros remoto como NFS, AFS, o Windows SMB. La DB Berkeley
         necesita que el sistema de ficheros subyacente implemente
         estrictamente la semántica de bloqueo POSIX, y más importante,
-	la habilidad para mapear ficheros directamente <!--TODO into
+	la habilidad para mapear ficheros directamente <!--TODO into 
         process memory.--> Casi ningún sistema de ficheros de red
         tiene estas características. Si intentas usar una BD Berkeley
         en una unidad compartida de red, los resultados son impredecibles
@@ -278,7 +278,7 @@ $ svnadmin create /path/to/repos
         disponible por la red. <xref linkend="svn-ch-6"/> se ocupa
         de este proceso en detalle.</para>
     </warning>
-
+          
     <para>Te habrás dado cuenta de que el argumento de ruta de
       <command>svnadmin</command> fue sólo una ruta normal del sistema
       de ficheros y no una URL como la que el programa cliente
@@ -295,12 +295,12 @@ $ svnadmin create /path/to/repos
       tienes un nuevo y brillante repositorio Subversion en su propio
       directorio. Echemos una ojeada a qué es lo que realmente se crea
       dentro de ese subdirectorio.</para>
-
+            
     <screen>
 $ ls repos
 conf/  dav/  db/  format  hooks/  locks/  README.txt
 </screen>
-
+      
     <para>Con la excepción de los ficheros <filename>README.txt</filename> y
       <filename>format</filename>, el directorio del repositorio es un grupo
       de subdirectorios. Al igual que en otras áreas del diseño de Subversion,
@@ -320,7 +320,7 @@ conf/  dav/  db/  format  hooks/  locks/  README.txt
         <term>dav</term>
         <listitem>
           <para>Un directorio para Apache y mod_dav_svn y su
-            economía privada de datos.<!--TODO:comprobar "housekeeping"--></para>
+            economía privada de datos.<!--TODO:comprobar "housekeeping"--></para>	  
         </listitem>
       </varlistentry>
      <varlistentry>
@@ -336,7 +336,7 @@ conf/  dav/  db/  format  hooks/  locks/  README.txt
         <term>format</term>
         <listitem>
           <para>Un fichero cuyo contenido es un simple valor entero que
-            nos dice el número de versión del repositorio <!--TODO:layout--></para>
+            nos dice el número de versión del repositorio <!--TODO:layout--></para>	  
         </listitem>
       </varlistentry>
      <varlistentry>
@@ -363,7 +363,7 @@ conf/  dav/  db/  format  hooks/  locks/  README.txt
         </listitem>
       </varlistentry>
     </variablelist>
-
+      
     <para>En general, no deberías <!--TODO: tamper --> con tu repositorio
       <quote>a mano</quote>. La herramienta <command>svnadmin</command>
       debería ser suficiente para cualquier cambio necesarios en tu
@@ -385,17 +385,17 @@ conf/  dav/  db/  format  hooks/  locks/  README.txt
         de usuario de la persona que disparó el evento. Dependiendo de
         la salida del hook o de estado de su salida, el programa hook
         puede continuar la acción, pararla, o suspenderla de alguna manera.</para>
-
+            
       <para>El subdirectorio  <filename>hooks</filename> se rellena,
         por defecto, con plantillas para varios hooks de repositorio.</para>
-
+            
       <screen>
 $ ls repos/hooks/
 post-commit.tmpl          pre-revprop-change.tmpl
 post-revprop-change.tmpl  start-commit.tmpl
-pre-commit.tmpl
+pre-commit.tmpl           
 </screen>
-
+            
       <para>There is one template for each hook that the Subversion
         repository implements, and by examining the contents of those
         template scripts, you can see what triggers each such script
@@ -443,7 +443,7 @@ pre-commit.tmpl
               stopped before the transaction is even created.</para>
           </listitem>
         </varlistentry>
-
+            
         <varlistentry>
           <term><filename>pre-commit</filename></term>
           <listitem>
@@ -483,7 +483,7 @@ pre-commit.tmpl
               arguments to this program: the path to the repository,
               and the new revision number that was created.  The exit
               code of the program is ignored.</para>
-
+                
             <para>The Subversion distribution includes a
               <command>commit-email.pl</command> script (located in
               the <filename>tools/hook-scripts/</filename> directory
@@ -652,7 +652,7 @@ pre-commit.tmpl
 
       <sect3 id="svn-ch-5-sect-3.1.1">
         <title>svnlook</title>
-
+            
         <para><command>svnlook</command> is a tool provided by
           Subversion for examining the various revisions and
           transactions in a repository.  No part of this program
@@ -664,10 +664,10 @@ pre-commit.tmpl
           committed (in the case of the <command>post-commit</command>
           hook) to the repository.  A repository administrator may use
           this tool for diagnostic purposes.</para>
-
+            
         <para><command>svnlook</command> has a straightforward
           syntax:</para>
-
+            
         <screen>
 $ svnlook help
 general usage: svnlook SUBCOMMAND REPOS_PATH [ARGS &amp; OPTIONS ...]
@@ -716,7 +716,7 @@ $ svnlook info /path/to/repos --revision 19
 $ svnlook youngest /path/to/repos
 19
 </screen>
-
+            
         <para>Output from <command>svnlook</command> is designed to be
           both human- and machine-parsable.  Take as an example the output
           of the <literal>info</literal> subcommand:</para>
@@ -830,7 +830,7 @@ $ svnlook tree /path/to/repos --show-ids
           <varlistentry>
             <term><literal>changed</literal></term>
             <listitem>
-              <para>List all files and directories that changed in the
+              <para>List all files and directories that changed in the 
                 tree.</para>
             </listitem>
           </varlistentry>
@@ -1303,7 +1303,7 @@ $
             </listitem>
           </varlistentry>
         </variablelist>
-
+        
         <para>While <command>svndumpfilter</command> can be very
           useful, and a huge timesaver, there are unfortunately a
           couple of gotchas.  First, this utility is overly sensitive
@@ -1422,7 +1422,7 @@ Available commands:
      1    sally &lt;     a.0.1&gt;          Nov 15 11:50 C/
      1    sally &lt;     b.0.1&gt;          Nov 15 11:50 D/
      1    sally &lt;     3.0.1&gt;       23 Nov 15 11:50 mu
-&lt;rev: 2 /A&gt;$ cd D/G
+&lt;rev: 2 /A&gt;$ cd D/G 
 &lt;rev: 2 /A/D/G&gt;$ ls
    REV   AUTHOR  NODE-REV-ID     SIZE         DATE NAME
 ----------------------------------------------------------------------------
@@ -1494,7 +1494,7 @@ $
           <command>db_archive</command> command, and <command>svnadmin
           recover</command> reflects the common use-cases of the
           <command>db_recover</command> utility.</para>
-
+            
         <para>There are still a few Berkeley DB utilities that you
           might find useful.  The <command>db_dump</command> and
           <command>db_load</command> programs write and read,
@@ -1514,7 +1514,7 @@ $
     <!-- ***************************************************************** -->
     <sect2 id="svn-ch-5-sect-3.2">
       <title>Repository Cleanup</title>
-
+            
       <para>Your Subversion repository will generally require very
         little attention once it is configured to your liking.
         However, there are times when some manual assistance from an
@@ -1567,12 +1567,12 @@ $
         This command changes the log message (the
         <literal>svn:log</literal> property) on a given revision of a
         repository, reading the new value from a provided file.</para>
-
+          
       <screen>
 $ echo "Here is the new, correct log message" &gt; newlog.txt
 $ svnadmin setlog myrepos newlog.txt -r 388
 </screen>
-
+      
       <para>The <command>svnadmin setlog</command> command alone is
         still bound by the same protections against modifying
         unversioned properties as a remote client is&mdash;the
@@ -1582,7 +1582,7 @@ $ svnadmin setlog myrepos newlog.txt -r 388
         this nature.  But an administrator can get around these
         protections by passing the <option>--bypass-hooks</option>
         option to the <command>svnadmin setlog</command> command.</para>
-
+ 
       <warning>
         <para>Remember, though, that by bypassing the hooks, you are
           likely avoiding such things as email notifications of
@@ -1660,7 +1660,7 @@ if [ "x$REPOS" = x ] ; then
   exit
 fi
 
-for TXN in `${SVNADMIN} lstxns ${REPOS}`; do
+for TXN in `${SVNADMIN} lstxns ${REPOS}`; do 
   echo "---[ Transaction ${TXN} ]-------------------------------------------"
   ${SVNLOOK} info "${REPOS}" --transaction "${TXN}"
 done
@@ -1815,7 +1815,7 @@ $ svnadmin list-unused-dblogs /path/to/repos | xargs rm
         </note>
 
     </sect2>
-
+        
     <!-- ***************************************************************** -->
     <sect2 id="svn-ch-5-sect-3.4">
       <title>Repository Recovery</title>
@@ -1857,7 +1857,7 @@ $ svnadmin list-unused-dblogs /path/to/repos | xargs rm
 
       <para>Secondly, use the following recipe to attempt to
         <quote>unwedge</quote> your repository:</para>
-
+   
       <orderedlist>
         <listitem>
           <para>Make sure that there are no processes accessing (or
@@ -1865,19 +1865,19 @@ $ svnadmin list-unused-dblogs /path/to/repos | xargs rm
             repositories, this means shutting down the Apache HTTP
             Server, too.</para>
         </listitem>
-        <listitem>
+        <listitem> 
           <para>Become the user who owns and manages the repository.
             This is important, as recovering a repository while
             running as the wrong user can tweak the permissions of the
             repository's files in such a way that your repository will
-            still be inaccessible even after it is
+            still be inaccessible even after it is 
             <quote>unwedged</quote>.</para>
         </listitem>
         <listitem>
           <para>Run the command <command>svnadmin recover
             /path/to/repos</command>.  You should see output like
             this:</para>
-
+              
           <screen>
 Please wait; recovering the repository may take some time...
 
@@ -1890,7 +1890,7 @@ The latest repos revision is 19.
           <para>Restart the Subversion server.</para>
         </listitem>
       </orderedlist>
-
+            
       <para>This procedure fixes almost every case of repository
         lock-up.  Make sure that you run this command as the user that
         owns and manages the database, not just as
@@ -1916,7 +1916,7 @@ The latest repos revision is 19.
     <!-- ***************************************************************** -->
     <sect2 id="svn-ch-5-sect-3.5">
       <title>Migrating a Repository</title>
-
+    
       <para>A Subversion filesystem has its data spread throughout
         various database tables in a fashion generally understood by
         (and of interest to) only the Subversion developers
@@ -1935,7 +1935,7 @@ The latest repos revision is 19.
         recommended course of action when you are upgrading across one
         of those compatibility boundaries is a relatively simple
         process:</para>
-
+  
       <orderedlist>
         <listitem>
           <para>Using your <emphasis>current</emphasis> version of
@@ -2036,7 +2036,7 @@ $ svnadmin load newrepos &lt; dumpfile
         load process, people who are feeling especially saucy can try
         things like this (perhaps even using different versions of
         <command>svnadmin</command> on each side of the pipe):</para>
-
+  
       <screen>
 $ svnadmin create newrepos
 $ svnadmin dump myrepos | svnadmin load newrepos
@@ -2140,7 +2140,7 @@ $ svn mkdir -m "Initial project roots" \
       file:///path/to/projects/calendar \
       file:///path/to/projects/spreadsheet
 Committed revision 1.
-$
+$ 
 </screen>
 
       <para>Lastly, load the individual dumpfiles into their
@@ -2274,12 +2274,12 @@ $
         <footnote>
           <para><command>svnadmin setlog</command> can be called in a
             way that bypasses the hook interface altogether.</para>
-        </footnote>
+        </footnote>  
         And since you can change revision properties without respect
         to chronological order&mdash;you can change any revision's
         properties at any time&mdash;an incremental backup of the
         latest few revisions might not catch a property modification
-        to a revision that was included as part of a previous
+        to a revision that was included as part of a previous 
         backup.</para>
 
       <para>Generally speaking, only the truly paranoid would need to
@@ -2293,7 +2293,7 @@ $
         sufficient redundancy as restoration sources, at least for the
         most recent few commits.  But it's your data&mdash;protect it
         as much as you'd like.</para>
-
+            
       <para>Often, the best approach to repository backups is a
         diversified one.  You can leverage combinations of full and
         incremental backups, plus archives of commit emails.  The
@@ -2308,7 +2308,7 @@ $
           <para>You know&mdash;the collective term for all of her
             <quote>fickle fingers</quote>.</para>
         </footnote>
-        it should certainly help you recover from those trying
+        it should certainly help you recover from those trying 
         times.</para>
 
     </sect2>
@@ -2458,7 +2458,7 @@ $
     <!-- ***************************************************************** -->
     <sect2 id="svn-ch-5-sect-6.2">
       <title>Creating the Layout, and Importing Initial Data</title>
-
+          
       <para>After deciding how to arrange the projects in your
         repository, you'll probably want to actually populate the
         repository with that layout and with initial project data.
@@ -2472,7 +2472,7 @@ $
         in a temporary location on your drive, you can import the
         whole layout tree into the repository in a single
         commit:</para>
-
+            
       <screen>
 $ mkdir tmpdir
 $ cd tmpdir
@@ -2549,7 +2549,7 @@ $
 </chapter>
 
 <!--
-local variables:
+local variables: 
 sgml-parent-document: ("book.xml" "chapter")
 end:
 -->
