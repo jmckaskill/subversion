@@ -98,7 +98,7 @@ svn_fs_dir_delta (svn_fs_dir_t *source,
 
   source_path.len = 0;
 
-  /* ben sez:  this routine is using an out-of-date editor interface.
+  /* ben sez:  this routine is using an out-of-date editor interface.  
 
       1.  It must call set_target_revision(), passing the revision
       that is built into the TARGET_ROOT argument it received.
@@ -235,7 +235,7 @@ struct dirent_plist_baton {
 
   /* The editor for these changes.  */
   svn_delta_edit_fns_t *editor;
-
+  
   /* The baton for the directory whose entry's properties are being
      changed.  */
   void *dir_baton;
@@ -270,7 +270,7 @@ static svn_error_t *replace_from_scratch (struct context *c, void *dir_baton,
 
    Emit a replace_dir or replace_file as needed.  Choose an
    appropriate ancestor, or describe the tree from scratch.  */
-
+   
 static svn_error_t *
 replace (struct context *c, void *dir_baton,
          svn_fs_dir_t *source, svn_string_t *source_path,
@@ -284,7 +284,7 @@ replace (struct context *c, void *dir_baton,
   SVN_ERR (svn_fs_dir_entries (&source_entries, source));
 
   /* Find the closest relative to TARGET_ENTRY in SOURCE.
-
+     
      In principle, a replace operation can choose the ancestor from
      anywhere in the delta's whole source tree.  In this
      implementation, we only search SOURCE for possible ancestors.
@@ -319,7 +319,7 @@ replace (struct context *c, void *dir_baton,
   else
     /* We've found an ancestor; do a replace relative to that.  */
     SVN_ERR (replace_related (c, dir_baton,
-                              target, target_entry->name,
+                              target, target_entry->name, 
                               source, source_path,
                               source_entries[best]->name));
 
@@ -356,7 +356,7 @@ replace_from_scratch (struct context *c, void *dir_baton,
 
       SVN_ERR (c->editor->replace_directory (name, dir_baton,
                                              0, 0, &subdir_baton));
-      SVN_ERR (dir_from_scratch (c, subdir_baton,
+      SVN_ERR (dir_from_scratch (c, subdir_baton, 
                                  svn_fs_node_to_dir (new)));
       SVN_ERR (c->editor->close_directory (subdir_baton));
     }
@@ -536,7 +536,7 @@ file_from_scratch (struct context *c,
 
 
 /* Generate the appropriate change_file_prop calls to turn the properties
-   of ANCESTOR_FILE into those of TARGET_FILE.  If ANCESTOR_FILE is zero,
+   of ANCESTOR_FILE into those of TARGET_FILE.  If ANCESTOR_FILE is zero, 
    treat it as if it were a file with no properties.  */
 static svn_error_t *
 delta_file_props (struct context *c,
@@ -716,7 +716,7 @@ svn_fs_file_delta (svn_txdelta_stream_t **stream,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
