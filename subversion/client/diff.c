@@ -61,12 +61,12 @@ svn_cl__print_file_diff (svn_string_t *path,
   args[3] = pristine_copy_path->data;
   args[4] = NULL;
 
-  err = svn_wc_run_cmd_in_directory (svn_string_create (".", pool),
+  err = svn_wc_run_cmd_in_directory (svn_string_create (".", pool), 
                                      SVN_CLIENT_DIFF,
                                      args,
                                      NULL, outhandle, NULL, pool);
   if (err) return err;
-
+  
   /* TODO:  someday we'll need to worry about two things here:
 
      1.  svn_client_file_diff may be returning a file from RA instead
@@ -75,7 +75,7 @@ svn_cl__print_file_diff (svn_string_t *path,
 
      2.  we're going to need to write a diff plug-in mechanism that
      makes use of the two paths, instead of just blindly running
-     SVN_CLIENT_DIFF.
+     SVN_CLIENT_DIFF. 
   */
 
   return SVN_NO_ERROR;
@@ -84,10 +84,10 @@ svn_cl__print_file_diff (svn_string_t *path,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
- * end:
+ * end: 
  */
 
 
