@@ -467,6 +467,9 @@ svn_cl__log (apr_getopt_t *os,
   /* Add "." if user passed 0 arguments */
   svn_opt_push_implicit_dot_target(targets, pool);
 
+  /* Retrieve the first target in the list. */
+  target = APR_ARRAY_IDX (targets, 0, const char *);
+
   if ((opt_state->start_revision.kind != svn_opt_revision_unspecified)
       && (opt_state->end_revision.kind == svn_opt_revision_unspecified))
     {
@@ -483,8 +486,6 @@ svn_cl__log (apr_getopt_t *os,
     }
   else if (opt_state->start_revision.kind == svn_opt_revision_unspecified)
     {
-      target = APR_ARRAY_IDX (targets, 0, const char *);
-
       /* If the first target is a URL, then we default to HEAD:1.
          Otherwise, the default is BASE:1 since WC@HEAD may not exist. */
       if (svn_path_is_url (target))
@@ -500,24 +501,25 @@ svn_cl__log (apr_getopt_t *os,
     }
 
   /* Verify that we pass at most one working copy path. */
-  target = APR_ARRAY_IDX (targets, 0, const char *);
-
   if (! svn_path_is_url (target) )
     {
       if (targets->nelts > 1)
         return svn_error_create (SVN_ERR_UNSUPPORTED_FEATURE, NULL,
                                  _("When specifying working copy paths, only "
                                    "one target may be given"));
-    } else {
+    }
+  else
+    {
       /* Check to make sure there are no other URLs. */
-      for (i = 1; i < targets->nelts; i++) {
-        target = APR_ARRAY_IDX (targets, 1, const char *);
+      for (i = 1; i < targets->nelts; i++)
+        {
+          target = APR_ARRAY_IDX (targets, i, const char *);
 
-        if (svn_path_is_url (target))
-          return svn_error_create (SVN_ERR_UNSUPPORTED_FEATURE, NULL,
-                                   _("Only relative paths can be specified "
-                                     "after a URL"));
-      }
+          if (svn_path_is_url (target))
+            return svn_error_create (SVN_ERR_UNSUPPORTED_FEATURE, NULL,
+                                     _("Only relative paths can be specified "
+                                       "after a URL"));
+        }
     }
 
   lb.cancel_func = ctx->cancel_func;
