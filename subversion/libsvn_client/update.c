@@ -120,7 +120,7 @@ svn_client_update (const svn_delta_edit_fns_t *before_editor,
       SVN_ERR (svn_ra_get_ra_library (&ra_lib, ra_baton, URL->data, pool));
 
       /* Open an RA session to URL */
-      SVN_ERR (svn_client_authenticate (&session,
+      SVN_ERR (svn_client_authenticate (&session, 
                                         &storage_callback, &storage_baton,
                                         ra_lib, URL, path,
                                         callback, callback_baton, pool));
@@ -137,7 +137,7 @@ svn_client_update (const svn_delta_edit_fns_t *before_editor,
       /* If only TM is given, convert the time into a revision number. */
       else if (tm)
         SVN_ERR (ra_lib->get_dated_revision (session, &revision, tm));
-
+      
       /* Tell RA to do a update of PATH to REVISION; if we pass an
          invalid revnum, that means RA will use the latest revision.  */
       SVN_ERR (ra_lib->do_update (session,
@@ -156,8 +156,8 @@ svn_client_update (const svn_delta_edit_fns_t *before_editor,
       /* Possibly store any authentication info from the RA session. */
       if (storage_callback)
         SVN_ERR (storage_callback (storage_baton));
-    }
-
+    }      
+  
   /* else we're checking out from xml */
   else
     {
@@ -190,7 +190,7 @@ svn_client_update (const svn_delta_edit_fns_t *before_editor,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end: */
