@@ -25,119 +25,119 @@
 #include "../status.h"
 #include "../string.h"
 
-JNIEXPORT jobject JNICALL
+JNIEXPORT jobject JNICALL 
 Java_NativeWrapper_vectorCreate
 (JNIEnv *env, jclass vectorClass)
 {
   return vector__create(env, NULL);
 }
 
-JNIEXPORT void JNICALL
+JNIEXPORT void JNICALL 
 Java_NativeWrapper_vectorAdd
 (JNIEnv *env, jclass clazz, jobject vector, jobject value)
 {
   vector__add(env, vector, value, NULL);
 }
 
-JNIEXPORT jobject JNICALL
+JNIEXPORT jobject JNICALL 
 Java_NativeWrapper_dateCreate
 (JNIEnv *env, jclass clazz, jlong time)
 {
   return date__create(env, NULL, time);
 }
 
-JNIEXPORT jobject JNICALL
+JNIEXPORT jobject JNICALL 
 Java_NativeWrapper_dateCreateFromAprTimeT
 (JNIEnv *env, jclass clazz, jlong time)
 {
   return date__create_from_apr_time_t(env, NULL, time);
 }
 
-JNIEXPORT jobject JNICALL
+JNIEXPORT jobject JNICALL 
 Java_NativeWrapper_entryCreate
 (JNIEnv *env, jclass clazz)
 {
   return entry__create(env, NULL);
 }
 
-JNIEXPORT void JNICALL
+JNIEXPORT void JNICALL 
 Java_NativeWrapper_entrySetUrl
 (JNIEnv *env, jclass clazz, jobject entry, jstring url)
 {
   entry__set_url(env, NULL, entry, url);
 }
 
-JNIEXPORT void JNICALL
+JNIEXPORT void JNICALL 
 Java_NativeWrapper_entrySetRevision
 (JNIEnv *env, jclass clazz, jobject entry, jlong revision)
 {
   entry__set_revision(env, NULL, entry, revision);
 }
 
-JNIEXPORT void JNICALL
+JNIEXPORT void JNICALL 
 Java_NativeWrapper_entrySetNodekind
 (JNIEnv *env, jclass clazz, jobject entry, jint nodekind)
 {
   entry__set_nodekind(env, NULL, entry, nodekind);
 }
-
-JNIEXPORT void JNICALL
+  
+JNIEXPORT void JNICALL 
 Java_NativeWrapper_entrySetSchedule
 (JNIEnv *env, jclass clazz, jobject entry, jint schedule)
 {
   entry__set_schedule(env, NULL, entry, schedule);
 }
 
-JNIEXPORT void JNICALL
+JNIEXPORT void JNICALL 
 Java_NativeWrapper_entrySetConflicted
 (JNIEnv *env, jclass clazz, jobject entry, jboolean conflicted)
 {
   entry__set_conflicted(env, NULL, entry, conflicted);
 }
 
-JNIEXPORT void JNICALL
+JNIEXPORT void JNICALL 
 Java_NativeWrapper_entrySetCopied
 (JNIEnv *env, jclass clazz, jobject entry, jboolean copied)
 {
   entry__set_copied(env, NULL, entry, copied);
 }
 
-JNIEXPORT void JNICALL
+JNIEXPORT void JNICALL 
 Java_NativeWrapper_entrySetTexttime
 (JNIEnv *env, jclass clazz, jobject entry, jobject texttime)
 {
   entry__set_texttime(env, NULL, entry, texttime);
 }
 
-JNIEXPORT void JNICALL
+JNIEXPORT void JNICALL 
 Java_NativeWrapper_entrySetProptime
 (JNIEnv *env, jclass clazz, jobject entry, jobject proptime)
 {
   entry__set_proptime(env, NULL, entry, proptime);
 }
 
-JNIEXPORT void JNICALL
+JNIEXPORT void JNICALL 
 Java_NativeWrapper_entrySetAttributes
 (JNIEnv *env, jclass clazz, jobject entry, jobject attributes)
 {
   entry__set_attributes(env, NULL, entry, attributes);
 }
 
-JNIEXPORT jobject JNICALL
+JNIEXPORT jobject JNICALL 
 Java_NativeWrapper_hashtableCreate
 (JNIEnv *env, jclass clazz)
 {
   return hashtable__create(env, NULL);
 }
 
-JNIEXPORT void JNICALL
+JNIEXPORT void JNICALL 
 Java_NativeWrapper_hashtablePut
 (JNIEnv *env, jclass clazz, jobject hashtable, jobject key, jobject value)
 {
   hashtable__put(env, hashtable, key, value, NULL);
 }
 
-JNIEXPORT void JNICALL
+JNIEXPORT void JNICALL 
 Java_NativeWrapper_miscThrowExceptionByName
 (JNIEnv *env, jclass clazz, jstring jname, jstring jmessage)
 {
@@ -145,7 +145,7 @@ Java_NativeWrapper_miscThrowExceptionByName
   svn_string_t *name = NULL;
   svn_string_t *message = NULL;
   jboolean _hasException = JNI_FALSE;
-
+  
   // prepare and convert...
   apr_pool_create(&pool, NULL);
   name = string__j_to_svn_string(env, jname, &_hasException, pool);
@@ -157,73 +157,73 @@ Java_NativeWrapper_miscThrowExceptionByName
   if( !_hasException )
     {
       // now comes the main action: throwing the exception
-      misc__throw_exception_by_name(env,
-                                    name->data,
+      misc__throw_exception_by_name(env, 
+                                    name->data, 
                                     message->data);
     }
-
+    
   // cleanup
   apr_pool_destroy(pool);
 }
 
-JNIEXPORT jobject JNICALL
+JNIEXPORT jobject JNICALL 
 Java_NativeWrapper_statusCreate
 (JNIEnv *env, jclass clazz)
 {
   return status__create(env, NULL);
 }
 
-JNIEXPORT void JNICALL
+JNIEXPORT void JNICALL 
 Java_NativeWrapper_statusSetEntry
 (JNIEnv *env, jclass clazz, jobject status, jobject entry)
 {
   status__set_entry(env, NULL, status, entry);
 }
 
-JNIEXPORT void JNICALL
+JNIEXPORT void JNICALL 
 Java_NativeWrapper_statusSetTextStatus
 (JNIEnv *env, jclass clazz, jobject status, jint text_status)
 {
   status__set_text_status(env, NULL, status, text_status);
 }
 
-JNIEXPORT void JNICALL
+JNIEXPORT void JNICALL 
 Java_NativeWrapper_statusSetPropStatus
 (JNIEnv *env, jclass clazz, jobject status, jint prop_status)
 {
   status__set_prop_status(env, NULL, status, prop_status);
 }
 
-JNIEXPORT void JNICALL
+JNIEXPORT void JNICALL 
 Java_NativeWrapper_statusSetCopied
 (JNIEnv *env, jclass clazz, jobject status, jboolean copied)
 {
   status__set_copied(env, NULL, status, copied);
 }
 
-JNIEXPORT void JNICALL
+JNIEXPORT void JNICALL 
 Java_NativeWrapper_statusSetLocked
 (JNIEnv *env, jclass clazz, jobject status, jboolean locked)
 {
   status__set_locked(env, NULL, status, locked);
 }
 
-JNIEXPORT void JNICALL
+JNIEXPORT void JNICALL 
 Java_NativeWrapper_statusSetReposTextStatus
 (JNIEnv *env, jclass clazz, jobject status, jint repos_text_status)
 {
   status__set_repos_text_status(env, NULL, status, repos_text_status);
 }
 
-JNIEXPORT void JNICALL
+JNIEXPORT void JNICALL 
 Java_NativeWrapper_statusSetReposPropStatus
 (JNIEnv *env, jclass clazz, jobject status, jint repos_prop_status)
 {
   status__set_repos_prop_status(env, NULL, status, repos_prop_status);
 }
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../../svn-dev.el")
- * end:
+ * end: 
  */
