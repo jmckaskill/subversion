@@ -58,7 +58,7 @@ svn_fs__bdb_open_uuids_table (DB **uuids_p,
       return svn_fs__bdb_open_uuids_table (uuids_p, env, 1);
     }
 
-  BDB_ERR (error);
+  BDB_ERR (error);    
 
   if (create)
     {
@@ -82,7 +82,7 @@ svn_fs__bdb_open_uuids_table (DB **uuids_p,
                &key, &value,
                DB_APPEND | SVN_BDB_AUTO_COMMIT));
     }
-
+  
   *uuids_p = uuids;
   return 0;
 }
@@ -130,7 +130,7 @@ svn_error_t *svn_fs__bdb_set_uuid (svn_fs_t *fs,
     svn_fs__clear_dbt (&value);
     value.size = strlen(uuid) + 1;
     value.data = apr_pstrmemdup(trail->pool, uuid, value.size);
-
+     
     SVN_ERR (BDB_WRAP (fs,
                        "set repository uuid",
                        uuids->put (uuids, trail->db_txn, &key, &value, 0)));
