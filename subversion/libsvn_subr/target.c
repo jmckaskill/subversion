@@ -1,5 +1,5 @@
 /*
- * target.c:  functions which operate on a list of targets supplied to
+ * target.c:  functions which operate on a list of targets supplied to 
  *              a subversion subcommand.
  *
  * ====================================================================
@@ -56,7 +56,7 @@ redundancy_check (const char *ancestor,
      ancestor of PATH2. */
   if (depth == svn_depth_infinity)
     return TRUE;
-
+  
   /* For Depth 1, we only care if PATH2 is a file immediately inside
      PATH1.  So if the difference of PATH2 and PATH1 contains a
      directory separator, we know PATH2 is not an immediate child of
@@ -111,7 +111,7 @@ svn_path_condense_targets (const char **pbasedir,
 
   /* Let's start off with an absolute path of our first (perhaps only)
      target. */
-  SVN_ERR (svn_path_get_absolute (pbasedir,
+  SVN_ERR (svn_path_get_absolute (pbasedir, 
                                   APR_ARRAY_IDX (targets, 0, const char *),
                                   pool));
 
@@ -123,10 +123,10 @@ svn_path_condense_targets (const char **pbasedir,
      svn_path_get_longest_ancestor.  I decided to do it this way
      because I thought it would simpler, since this way, we don't even
      do the loop if we don't need to condense the targets. */
-
+      
   abs_targets = apr_array_make (pool, targets->nelts, sizeof (const char *));
   APR_ARRAY_PUSH (abs_targets, const char *) = *pbasedir;
-
+      
   for (i = 1; i < targets->nelts; ++i)
     {
       const char *rel = APR_ARRAY_IDX (targets, i, const char *);
@@ -140,7 +140,7 @@ svn_path_condense_targets (const char **pbasedir,
     {
       int basedir_len;
       apr_array_header_t *cond;
-      svn_boolean_t *removed =
+      svn_boolean_t *removed = 
         apr_pcalloc (pool, (targets->nelts * sizeof (svn_boolean_t)));
 
       /*** Step 1:  Condense the targets based on the DEPTH parameter. ***/
@@ -152,7 +152,7 @@ svn_path_condense_targets (const char **pbasedir,
 
           for (j = i + 1; j < abs_targets->nelts; ++j)
             {
-              const char *abs_i =
+              const char *abs_i = 
                 APR_ARRAY_IDX (abs_targets, i, const char *);
               const char *abs_j =
                 APR_ARRAY_IDX (abs_targets, j, const char *);
@@ -170,14 +170,14 @@ svn_path_condense_targets (const char **pbasedir,
 
                   if (*ancestor == '\0')
                     continue;
-
-                  if (redundancy_check (ancestor, abs_i, abs_j,
+                  
+                  if (redundancy_check (ancestor, abs_i, abs_j, 
                                         depth, pool))
                     {
                       removed[j] = TRUE;
                       count--;
                     }
-                  else if (redundancy_check (ancestor, abs_j, abs_i,
+                  else if (redundancy_check (ancestor, abs_j, abs_i, 
                                              depth, pool))
                     {
                       removed[i] = TRUE;
@@ -206,7 +206,7 @@ svn_path_condense_targets (const char **pbasedir,
 
           if (removed[i])
             continue;
-
+          
           APR_ARRAY_PUSH (cond, const char *) = apr_pstrdup (pool, item);
         }
       *pcondensed_targets = cond;
@@ -221,7 +221,7 @@ svn_path_condense_targets (const char **pbasedir,
          (after duplicates removal) only a single file path passed to
          this function. */
       SVN_ERR (svn_path_split_if_file (*pbasedir, pbasedir, &file, pool));
-
+      
       /* If there was just one target, and it was a file, then
          return it as the sole condensed target. */
       if ((pcondensed_targets != NULL) && (! svn_path_is_empty (file)))
@@ -230,7 +230,7 @@ svn_path_condense_targets (const char **pbasedir,
           APR_ARRAY_PUSH (*pcondensed_targets, const char *) = file;
         }
     }
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -258,7 +258,7 @@ svn_path_remove_redundancies (apr_array_header_t **pcondensed_targets,
   temp_pool = svn_pool_create (pool);
 
   /* Create our list of absolute paths for our "keepers" */
-  abs_targets = apr_array_make (temp_pool, targets->nelts,
+  abs_targets = apr_array_make (temp_pool, targets->nelts, 
                                 sizeof (const char *));
 
   /* Create our list of untainted paths for our "keepers" */
@@ -289,17 +289,17 @@ svn_path_remove_redundancies (apr_array_header_t **pcondensed_targets,
       for (j = 0; j < abs_targets->nelts; j++)
         {
           const char *keeper = ((const char **)abs_targets->elts)[j];
-
+          
           /* Quit here if we find this path already in the keepers. */
           if (strcmp (keeper, abs_path) == 0)
             {
               keep_me = FALSE;
               break;
             }
-
+          
           /* Quit here if this path is a child of one of the keepers. */
           if (svn_path_is_child (keeper, abs_path, temp_pool))
-            {
+            { 
               keep_me = FALSE;
               break;
             }
@@ -313,12 +313,12 @@ svn_path_remove_redundancies (apr_array_header_t **pcondensed_targets,
           (* ((const char **) apr_array_push (rel_targets))) = rel_path;
         }
     }
-
+  
   /* Destroy our temporary pool. */
   svn_pool_destroy (temp_pool);
 
   /* Make sure we return the list of untainted keeper paths. */
   *pcondensed_targets = rel_targets;
-
+  
   return SVN_NO_ERROR;
 }
