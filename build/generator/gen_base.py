@@ -141,7 +141,7 @@ class GeneratorBase:
                self.graph.add(DT_LINK, name, nonlib)
         except:
           pass
-
+         
 
     # collect various files
     self.includes = _collect_paths(parser.get('options', 'includes'))
