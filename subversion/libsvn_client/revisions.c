@@ -87,7 +87,7 @@ svn_client__get_revision_number (svn_revnum_t *revnum,
         return svn_error_createf
         (SVN_ERR_UNVERSIONED_RESOURCE, NULL,
 	 _("'%s' is not under version control"), path);
-
+      
       if ((revision->kind == svn_opt_revision_base)
           || (revision->kind == svn_opt_revision_working))
         *revnum = ent->revision;
@@ -102,7 +102,7 @@ svn_client__get_revision_number (svn_revnum_t *revnum,
     return svn_error_createf
       (SVN_ERR_CLIENT_BAD_REVISION, NULL,
        _("Unrecognized revision type requested for '%s'"), path);
-
+  
   return SVN_NO_ERROR;
 }
 
