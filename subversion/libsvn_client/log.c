@@ -56,7 +56,7 @@ svn_client_log (svn_client_auth_baton_t *auth_baton,
 {
   /* ### todo: ignore PATHS for now, since the server does too. */
 
-  svn_ra_plugin_t *ra_lib;
+  svn_ra_plugin_t *ra_lib;  
   svn_ra_callbacks_t *ra_callbacks;
   void *ra_baton, *cb_baton, *session;
   svn_stringbuf_t *anchor, *target, *URL;
