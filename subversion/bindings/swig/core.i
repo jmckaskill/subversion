@@ -24,7 +24,7 @@
 #include "svn_opt.h"
 %}
 
-/* -----------------------------------------------------------------------
+/* ----------------------------------------------------------------------- 
    include svn_types.h early. other .i files will import svn_types.i which
    then includes svn_types.h, making further includes get skipped. we want
    to actually generate wrappers, so manage svn_types.h right here.
@@ -44,21 +44,21 @@
 /* -----------------------------------------------------------------------
    The "copyfrom_path" member of a "svn_log_changed_path_t" struct has to
    be read only because there's no reliable way to free the old value
-   when assigning the new one.
+   when assigning the new one. 
 */
 %immutable svn_log_changed_path_t::copyfrom_path;
 
 %include svn_types.h
 
 
-/* -----------------------------------------------------------------------
+/* ----------------------------------------------------------------------- 
    moving along...
 */
 %import apr.i
 %import svn_types.i
 %import svn_string.i
 
-/* -----------------------------------------------------------------------
+/* ----------------------------------------------------------------------- 
    completely ignore a number of functions. the presumption is that the
    scripting language already has facilities for these things (or they
    are relatively trivial).
@@ -121,7 +121,7 @@
     ($1)->nelts = targlen;
     while (targlen--) {
         SWIG_ConvertPtr(PySequence_GetItem($input, targlen),
-                        (void **)&provider,
+                        (void **)&provider, 
                         $descriptor(svn_auth_provider_object_t *),
                         SWIG_POINTER_EXCEPTION | 0);
         APR_ARRAY_IDX($1, targlen, svn_auth_provider_object_t *) = provider;
