@@ -154,7 +154,7 @@ svn_client_update (const svn_delta_edit_fns_t *before_editor,
       err = svn_wc_crawl_revisions (path, reporter, report_baton,
                                     TRUE, recurse,
                                     notify_func, notify_baton, pool);
-
+      
       /* Sleep for one second to ensure timestamp integrity. */
       apr_sleep (APR_USEC_PER_SEC * 1);
 
@@ -163,8 +163,8 @@ svn_client_update (const svn_delta_edit_fns_t *before_editor,
 
       /* Close the RA session. */
       SVN_ERR (ra_lib->close (session));
-    }
-
+    }      
+  
   /* Else we're checking out from xml */
   else
     {
@@ -204,7 +204,7 @@ svn_client_update (const svn_delta_edit_fns_t *before_editor,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end: */
