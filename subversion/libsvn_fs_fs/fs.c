@@ -125,9 +125,9 @@ fs_open (svn_fs_t *fs, const char *path, apr_pool_t *pool)
    Subversion 1.0.x compatibility.  Perform all temporary allocations
    in POOL. */
 static svn_error_t *
-fs_hotcopy (const char *src_path,
-            const char *dest_path,
-            svn_boolean_t clean_logs,
+fs_hotcopy (const char *src_path, 
+            const char *dest_path, 
+            svn_boolean_t clean_logs, 
             apr_pool_t *pool)
 {
   SVN_ERR (svn_fs_fs__hotcopy (src_path, dest_path, pool));
