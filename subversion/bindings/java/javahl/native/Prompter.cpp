@@ -407,7 +407,7 @@ svn_error_t *Prompter::nextCreds (void **credentials, void *iter_baton,
     *credentials = creds;
 	return SVN_NO_ERROR;
 }
-svn_error_t *Prompter::firstCreds_server_ssl (void **credentials, void **iter_baton,
+svn_error_t *Prompter::firstCreds_server_ssl (void **credentials, void **iter_baton, 
 							void *provider_baton, apr_hash_t *parameters, const char *realmstring, apr_pool_t *pool)
 {
 	Prompter *that = (Prompter*)provider_baton;
@@ -438,7 +438,7 @@ svn_error_t *Prompter::firstCreds_server_ssl (void **credentials, void **iter_ba
         }
         svn_stringbuf_appendcstr (buf, "Hostname mismatch");
         previous_output = TRUE;
-    }
+    } 
     failure = failures_in & (SVN_AUTH_SSL_EXPIRED | SVN_AUTH_SSL_NOTYETVALID);
     if (failure)
 	{
@@ -464,7 +464,7 @@ svn_error_t *Prompter::firstCreds_server_ssl (void **credentials, void **iter_ba
     *iter_baton = NULL;
     return SVN_NO_ERROR;
 }
-svn_error_t *Prompter::firstCreds_client_ssl (void **credentials, void **iter_baton,
+svn_error_t *Prompter::firstCreds_client_ssl (void **credentials, void **iter_baton, 
 							void *provider_baton, apr_hash_t *parameters, const char *realmstring, apr_pool_t *pool)
 {
 	Prompter *that = (Prompter*)provider_baton;
@@ -475,7 +475,7 @@ svn_error_t *Prompter::firstCreds_client_ssl (void **credentials, void **iter_ba
 
   svn_auth_ssl_cert_type_t cert_type;
   cert_file = that->askQuestion(realmstring, "client certificate filename: ", true);
-
+  
   if ((cert_file == NULL) || (cert_file[0] == 0))
     {
       return NULL;
@@ -483,12 +483,12 @@ svn_error_t *Prompter::firstCreds_client_ssl (void **credentials, void **iter_ba
 
   cert_file_len = strlen(cert_file);
   extension = cert_file + cert_file_len - 4;
-  if ((strcmp (extension, ".p12") == 0) ||
+  if ((strcmp (extension, ".p12") == 0) || 
       (strcmp (extension, ".P12") == 0))
     {
       cert_type = svn_auth_ssl_pkcs12_cert_type;
     }
-  else if ((strcmp (extension, ".pem") == 0) ||
+  else if ((strcmp (extension, ".pem") == 0) || 
            (strcmp (extension, ".PEM") == 0))
     {
       cert_type = svn_auth_ssl_pem_cert_type;
@@ -502,7 +502,7 @@ svn_error_t *Prompter::firstCreds_client_ssl (void **credentials, void **iter_ba
         {
           cert_type = svn_auth_ssl_pkcs12_cert_type;
         }
-      else if (type != NULL && (strcmp (type, "pem") == 0) ||
+      else if (type != NULL && (strcmp (type, "pem") == 0) || 
                (strcmp (type, "PEM") == 0))
         {
           cert_type = svn_auth_ssl_pem_cert_type;
@@ -513,7 +513,7 @@ svn_error_t *Prompter::firstCreds_client_ssl (void **credentials, void **iter_ba
                                     "unknown ssl certificate type '%s'", type);
         }
     }
-
+  
   if (cert_type == svn_auth_ssl_pem_cert_type)
     {
 	  key_file = that->askQuestion(realmstring, "optional key file: ", true);
@@ -530,7 +530,7 @@ svn_error_t *Prompter::firstCreds_client_ssl (void **credentials, void **iter_ba
   *iter_baton = NULL;
   return SVN_NO_ERROR;
 }
-svn_error_t *Prompter::firstCreds_client_ssl_pass (void **credentials, void **iter_baton,
+svn_error_t *Prompter::firstCreds_client_ssl_pass (void **credentials, void **iter_baton, 
 							void *provider_baton, apr_hash_t *parameters, const char *realmstring, apr_pool_t *pool)
 {
 	Prompter *that = (Prompter*)provider_baton;
