@@ -739,7 +739,7 @@ class Config:
       value = getattr(sub, option, None)
     if value is None:
       value = getattr(self.defaults, option, '')
-
+    
     # parameterize it
     if params is not None:
       value = value % params
