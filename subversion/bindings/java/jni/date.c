@@ -25,10 +25,10 @@
 #define SVN_JNI_DATE__CLASS "java/util/Date"
 #define SVN_JNI_DATE__SIG "(J)V"
 
-/* we can be lucky apr_time_t matches the constructor
+/* we can be lucky apr_time_t matches the constructor 
  * java.util.Date(long) so conversion is an easy job
  */
-jobject
+jobject 
 svn_jni_date__apr_to_j(JNIEnv *env, jboolean *hasException,
 		       apr_time_t time)
 {
@@ -82,7 +82,7 @@ svn_jni_date__apr_to_j(JNIEnv *env, jboolean *hasException,
 
       (*env)->PopLocalFrame(env, jdate);
     }
-
+				    
   if( hasException != NULL )
     {
       *hasException = _hasException;
@@ -91,10 +91,10 @@ svn_jni_date__apr_to_j(JNIEnv *env, jboolean *hasException,
   return jdate;
 }
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../svn-dev.el")
- * end:
+ * end: 
  */
 
 
