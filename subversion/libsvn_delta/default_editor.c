@@ -1,6 +1,6 @@
-/*
+/* 
  * default_editor.c -- provide a basic svn_delta_edit_fns_t
- *
+ * 
  * ====================================================================
  * Copyright (c) 2000-2002 CollabNet.  All rights reserved.
  *
@@ -539,7 +539,7 @@ void svn_delta_compat_wrap (const svn_delta_edit_fns_t **wrap_editor,
 }
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end:
