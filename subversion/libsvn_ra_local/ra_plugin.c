@@ -54,7 +54,7 @@ struct commit_cleanup_baton
 
 
 /* An instance of svn_ra_local__commit_hook_t.
- *
+ * 
  * BATON is `struct commit_cleanup_baton *'.  Loop over all committed
  * target paths in BATON->committed_targets, invoking
  * BATON->close_func() on each one with NEW_REV.
@@ -81,13 +81,13 @@ cleanup_commit (svn_revnum_t new_rev,
     *(cb->new_rev) = new_rev;
 
   if (cb->committed_date)
-    *(cb->committed_date) = committed_date
-                            ? apr_pstrdup (cb->pool, committed_date)
+    *(cb->committed_date) = committed_date 
+                            ? apr_pstrdup (cb->pool, committed_date) 
                             : NULL;
 
   if (cb->committed_author)
     *(cb->committed_author) = committed_author
-                              ? apr_pstrdup (cb->pool, committed_author)
+                              ? apr_pstrdup (cb->pool, committed_author) 
                               : NULL;
 
   return SVN_NO_ERROR;
@@ -97,7 +97,7 @@ cleanup_commit (svn_revnum_t new_rev,
 
 /* The reporter vtable needed by do_update() */
 
-static const svn_ra_reporter_t ra_local_reporter =
+static const svn_ra_reporter_t ra_local_reporter = 
 {
   svn_repos_set_path,
   svn_repos_delete_path,
@@ -127,11 +127,11 @@ svn_ra_local__open (void **session_baton,
   session = apr_pcalloc (pool, sizeof(*session));
   session->pool = pool;
   session->repository_URL = repos_URL;
-
+  
   /* Get the username by "pulling" it from the callbacks. */
   SVN_ERR (callbacks->get_authenticator (&a,
-                                         &auth_baton,
-                                         svn_ra_auth_username,
+                                         &auth_baton, 
+                                         svn_ra_auth_username, 
                                          callback_baton, pool));
 
   authenticator = (svn_ra_username_authenticator_t *) a;
@@ -180,12 +180,12 @@ svn_ra_local__open (void **session_baton,
 static svn_error_t *
 svn_ra_local__close (void *session_baton)
 {
-  svn_ra_local__session_baton_t *baton =
+  svn_ra_local__session_baton_t *baton = 
     (svn_ra_local__session_baton_t *) session_baton;
 
   /* Close the repository, which will free any memory used by it. */
   SVN_ERR (svn_repos_close (baton->repos));
-
+  
   /* NULL out the FS cache so no one is tempted to use it again. */
   baton->fs = NULL;
 
@@ -199,7 +199,7 @@ static svn_error_t *
 svn_ra_local__get_latest_revnum (void *session_baton,
                                  svn_revnum_t *latest_revnum)
 {
-  svn_ra_local__session_baton_t *baton =
+  svn_ra_local__session_baton_t *baton = 
     (svn_ra_local__session_baton_t *) session_baton;
 
   SVN_ERR (svn_fs_youngest_rev (latest_revnum, baton->fs, baton->pool));
@@ -214,7 +214,7 @@ svn_ra_local__get_dated_revision (void *session_baton,
                                   svn_revnum_t *revision,
                                   apr_time_t tm)
 {
-  svn_ra_local__session_baton_t *baton =
+  svn_ra_local__session_baton_t *baton = 
     (svn_ra_local__session_baton_t *) session_baton;
 
   SVN_ERR (svn_repos_dated_revision (revision, baton->repos, tm, baton->pool));
@@ -243,8 +243,8 @@ svn_ra_local__get_commit_editor (void *session_baton,
   cb->new_rev = new_rev;
   cb->committed_date = committed_date;
   cb->committed_author = committed_author;
-
-  /* Get the repos commit-editor */
+                                         
+  /* Get the repos commit-editor */     
   SVN_ERR (svn_ra_local__get_editor (editor, edit_baton, sess_baton,
                                      log_msg, cleanup_commit, cb,
                                      sess_baton->pool));
@@ -262,9 +262,9 @@ svn_ra_local__do_checkout (void *session_baton,
                            void *edit_baton)
 {
   svn_revnum_t revnum_to_fetch;
-  svn_ra_local__session_baton_t *sbaton =
+  svn_ra_local__session_baton_t *sbaton = 
     (svn_ra_local__session_baton_t *) session_baton;
-
+  
   if (! SVN_IS_VALID_REVNUM(revision))
     SVN_ERR (svn_ra_local__get_latest_revnum (sbaton, &revnum_to_fetch));
   else
@@ -301,11 +301,11 @@ svn_ra_local__do_update (void *session_baton,
   target = update_target ? update_target->data : NULL;
 
   /* We want dir_delta to run on -identical- fs paths. */
-  switch_path =
+  switch_path = 
     svn_stringbuf_create_from_string (sbaton->fs_path, sbaton->pool);
   if (target)
     svn_path_add_component_nts (switch_path, target);
-
+  
   if (! SVN_IS_VALID_REVNUM(update_revision))
     SVN_ERR (svn_ra_local__get_latest_revnum (sbaton, &revnum_to_update_to));
   else
@@ -318,9 +318,9 @@ svn_ra_local__do_update (void *session_baton,
   return svn_repos_begin_report (report_baton,
                                  revnum_to_update_to,
                                  sbaton->username,
-                                 sbaton->repos,
+                                 sbaton->repos, 
                                  sbaton->fs_path->data,
-                                 target,
+                                 target, 
                                  switch_path->data,
                                  TRUE, /* send text-deltas */
                                  recurse,
@@ -347,7 +347,7 @@ svn_ra_local__do_switch (void *session_baton,
   /* ### fix the update_target param at some point */
   const char *target;
   target = update_target ? update_target->data : NULL;
-
+  
   /* Pull the relevant fs-path portion out of switch_url. */
   SVN_ERR_W (svn_ra_local__split_URL (&switch_repos_path, &switch_fs_path,
                                       switch_url, sbaton->pool),
@@ -374,7 +374,7 @@ svn_ra_local__do_switch (void *session_baton,
   return svn_repos_begin_report (report_baton,
                                  revnum_to_update_to,
                                  sbaton->username,
-                                 sbaton->repos,
+                                 sbaton->repos, 
                                  sbaton->fs_path->data,
                                  target,
                                  switch_fs_path->data,
@@ -418,7 +418,7 @@ svn_ra_local__do_status (void *session_baton,
   return svn_repos_begin_report (report_baton,
                                  revnum_to_update_to,
                                  sbaton->username,
-                                 sbaton->repos,
+                                 sbaton->repos, 
                                  sbaton->fs_path->data,
                                  target,
                                  switch_path->data,
@@ -483,7 +483,7 @@ svn_ra_local__do_check_path (svn_node_kind_t *kind,
 {
   svn_ra_local__session_baton_t *sbaton = session_baton;
   svn_fs_root_t *root;
-  svn_stringbuf_t *abs_path
+  svn_stringbuf_t *abs_path 
     = svn_stringbuf_create_from_string (sbaton->fs_path, sbaton->pool);
 
   /* ### Not sure if this counts as a workaround or not.  The
@@ -524,7 +524,7 @@ svn_ra_local__get_file (void *session_baton,
   apr_size_t rlen, wlen;
   svn_ra_local__session_baton_t *sbaton = session_baton;
 
-  svn_stringbuf_t *abs_path
+  svn_stringbuf_t *abs_path 
     = svn_stringbuf_create_from_string (sbaton->fs_path, sbaton->pool);
 
   /* ### Not sure if this counts as a workaround or not.  The
@@ -561,7 +561,7 @@ svn_ra_local__get_file (void *session_baton,
   while (1)
     {
       /* read a maximum number of bytes from the file, please. */
-      rlen = SVN_STREAM_CHUNK_SIZE;
+      rlen = SVN_STREAM_CHUNK_SIZE; 
       SVN_ERR (svn_stream_read (contents, buf, &rlen));
 
       /* write however many bytes you read, please. */
@@ -572,11 +572,11 @@ svn_ra_local__get_file (void *session_baton,
           /* Uh oh, didn't write as many bytes as we read, and no
              error was returned.  According to the docstring, this
              should never happen. */
-          return
+          return 
             svn_error_create (SVN_ERR_UNEXPECTED_EOF, 0, NULL,
                               sbaton->pool, "Error writing to svn_stream.");
         }
-
+      
       if (rlen != SVN_STREAM_CHUNK_SIZE)
         {
           /* svn_stream_read didn't throw an error, yet it didn't read
@@ -597,9 +597,9 @@ svn_ra_local__get_file (void *session_baton,
       /* Create a hash with props attached to the fs node. */
       SVN_ERR (svn_fs_node_proplist (props, root, abs_path->data,
                                      sbaton->pool));
-
+      
       /* Now add some non-tweakable metadata to the hash as well... */
-
+    
       /* The so-called 'entryprops' with info about CR & friends. */
       abs_path_s = svn_string_create_from_buf (abs_path, sbaton->pool);
       SVN_ERR (svn_repos_get_committed_info (&committed_rev,
@@ -611,24 +611,24 @@ svn_ra_local__get_file (void *session_baton,
 
       revision_str = apr_psprintf (sbaton->pool, "%ld", committed_rev);
       value = svn_stringbuf_create (revision_str, sbaton->pool);
-      apr_hash_set (*props, SVN_PROP_ENTRY_COMMITTED_REV,
+      apr_hash_set (*props, SVN_PROP_ENTRY_COMMITTED_REV, 
                     APR_HASH_KEY_STRING, value);
-
+                    
       if (committed_date)
         value = svn_stringbuf_create_from_string (committed_date,
                                                   sbaton->pool);
       else
         value = NULL;
-      apr_hash_set (*props, SVN_PROP_ENTRY_COMMITTED_DATE,
+      apr_hash_set (*props, SVN_PROP_ENTRY_COMMITTED_DATE, 
                     APR_HASH_KEY_STRING, value);
-
+      
       if (last_author)
         value = svn_stringbuf_create_from_string (last_author, sbaton->pool);
       else
         value = NULL;
-      apr_hash_set (*props, SVN_PROP_ENTRY_LAST_AUTHOR,
+      apr_hash_set (*props, SVN_PROP_ENTRY_LAST_AUTHOR, 
                     APR_HASH_KEY_STRING, value);
-
+            
       /* We have no 'wcprops' in ra_local, but might someday. */
     }
   return SVN_NO_ERROR;
@@ -639,7 +639,7 @@ svn_ra_local__get_file (void *session_baton,
 
 /** The ra_plugin **/
 
-static const svn_ra_plugin_t ra_local_plugin =
+static const svn_ra_plugin_t ra_local_plugin = 
 {
   "ra_local",
   "Module for accessing a repository on local disk.",
