@@ -179,7 +179,7 @@ skel_t *svn_fs__copy_skel (skel_t *skel, apr_pool_t *pool);
 #endif /* SVN_LIBSVN_FS_SKEL_H */
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../tools/dev/svn-dev.el")
  * end:
