@@ -2,9 +2,9 @@
 #
 #  svn_tree.py: tools for comparing directory trees
 #
-#  Subversion is a tool for revision control.
+#  Subversion is a tool for revision control. 
 #  See http://subversion.tigris.org for more information.
-#
+#    
 # ====================================================================
 # Copyright (c) 2001 Sam Tobin-Hochstadt.  All rights reserved.
 #
@@ -62,7 +62,7 @@ class SVNTreeNode:
         # try to add dangling children to your matching node
         for i in newchild.children:
           a.add_child(i)
-
+      
 
   def pprint(self):
     print " * Node name: ", self.name
@@ -75,7 +75,7 @@ class SVNTreeNode:
 
 # reserved name of the root of the tree
 
-root_node_name = "__SVN_ROOT_NODE"
+root_node_name = "__SVN_ROOT_NODE" 
 
 # Exception raised if you screw up in this module.
 
@@ -129,7 +129,7 @@ def compare_nodes(a, b):
     return 1
   if a.props != b.props:  ## is it legal to compare hashes like this?!?
     return 1
-
+  
   # We don't need to compare lists of children, since that's being
   # done recursively by compare_trees() -- to which this function is a
   # helper.
@@ -243,11 +243,11 @@ def visitfunc(baton, dirpath, entrynames):
 # EXPORTED ROUTINES ARE BELOW
 
 
-# Main tree comparison routine!
+# Main tree comparison routine!  
 
 def compare_trees(a, b):
   "Return 0 iff two trees are identical."
-
+  
   try:
     if compare_nodes(a, b):
       print "Error: '%s' differs from '%s'." % (a.name, b.name)
@@ -319,9 +319,9 @@ def dump_tree(n,indent=""):
 
 def build_generic_tree(nodelist):
   "Given a list of lists of a specific format, return a tree."
-
+  
   root = SVNTreeNode(root_node_name)
-
+  
   for list in nodelist:
     new_branch = create_from_path(list[0], list[1], list[2])
     root.add_child(new_branch)
@@ -342,7 +342,7 @@ def build_tree_from_checkout(lines):
 
   root = SVNTreeNode(root_node_name)
   rm = re.compile ('^(..)\s+(.+)')
-
+  
   for line in lines:
     match = rm.search(line)
     if match and match.groups():
@@ -362,7 +362,7 @@ def build_tree_from_commit(lines):
 
   root = SVNTreeNode(root_node_name)
   rm = re.compile ('^(\w+)\s+(.+)')
-
+  
   for line in lines:
     match = rm.search(line)
     if match and match.groups():
@@ -384,7 +384,7 @@ def build_tree_from_status(lines):
 
   root = SVNTreeNode(root_node_name)
   rm = re.compile ('^(..)\s+(\d+)\s+\(.+\)\s+(.+)')
-
+  
   for line in lines:
     match = rm.search(line)
     if match and match.groups():
