@@ -58,7 +58,7 @@ Justin: Isn't the concept of a user foreign to Subversion?  Indeed, Greg says
         authenticated username.
 
 * Given Subversion does not know about users, what sorts of ACLs could be
-  placed on other non-DAV access to the repository (say ra_local)?
+  placed on other non-DAV access to the repository (say ra_local)? 
 Justin: Greg hints that ra_local doesn't use ACLs as it would be possible
         to just bypass SVN and edit the BDB backend directly.  ACLs are
         therefore only desired for ra_dav access.
@@ -172,13 +172,13 @@ ACE properties:
     - Any attempt to remove this MUST fail
   - DAV:inherited
     - This ACE comes from resource in href
-
+ 
 ACE combinations:
 - Describes how ACEs are evaluated
 - DAV:first-match
 - DAV:all-grant-before-any-deny
 - DAV:specific-deny-overrides-grant
-
+  
 ACE ordering:
 - DAV:deny-before-grant
 
@@ -212,7 +212,7 @@ Access control methods:
 Reporting:
 - REPORT
   - Must support DAV:expand-property
-- DAV:acl-principal-prop-set
+- DAV:acl-principal-prop-set 
   - Required
   - Returns property requested for all principals
     - Client access?
