@@ -67,10 +67,10 @@ get_creds (const char **username,
            apr_pool_t *pool)
 {
   svn_stringbuf_t *susername = NULL, *spassword = NULL;
-  const char *def_username = apr_hash_get (parameters,
+  const char *def_username = apr_hash_get (parameters, 
                                            SVN_AUTH_PARAM_DEFAULT_USERNAME,
                                            APR_HASH_KEY_STRING);
-  const char *def_password = apr_hash_get (parameters,
+  const char *def_password = apr_hash_get (parameters, 
                                            SVN_AUTH_PARAM_DEFAULT_PASSWORD,
                                            APR_HASH_KEY_STRING);
 
@@ -92,13 +92,13 @@ get_creds (const char **username,
 
       /* Try to read the cache file data. */
       if (! def_username)
-        err1 = svn_wc_get_auth_file (pb->base_dir,
+        err1 = svn_wc_get_auth_file (pb->base_dir, 
                                      SVN_WC__AUTHFILE_USERNAME,
                                      &susername, pool);
       if (! def_password)
-        err2 = svn_wc_get_auth_file (pb->base_dir,
+        err2 = svn_wc_get_auth_file (pb->base_dir, 
                                      SVN_WC__AUTHFILE_PASSWORD,
-                                     &spassword, pool);
+                                     &spassword, pool);      
       if (err1 || err2)
         {
           /* for now, let's not try to distinguish "real" errors from
@@ -108,7 +108,7 @@ get_creds (const char **username,
           return SVN_NO_ERROR;
         }
     }
-
+  
   /* If we read values from the cache, we want to remember those, so
      we can avoid writing unchanged values back out again (not a
      correctness point, just about efficiency). */
@@ -116,7 +116,7 @@ get_creds (const char **username,
     pb->username = susername->data;
   if (spassword && spassword->data)
     pb->password = spassword->data;
-
+      
   *username = def_username ? def_username : susername ? susername->data : NULL;
   if (password)
     *password
@@ -167,7 +167,7 @@ save_creds (svn_boolean_t *saved,
      need a write-lock because storing auth data doesn't use log files. */
 
   if (! pb->base_access)
-    SVN_ERR (svn_wc_adm_open (&adm_access, NULL, pb->base_dir,
+    SVN_ERR (svn_wc_adm_open (&adm_access, NULL, pb->base_dir, 
                               FALSE, TRUE, pool));
   else
     adm_access = pb->base_access;
@@ -175,14 +175,14 @@ save_creds (svn_boolean_t *saved,
   /* Do a recursive store of username and password if the new values
      are different than what we read from the cache, or if we read
      nothing from the cache at all. */
-  if (username &&
+  if (username && 
       ((pb->username && (strcmp (username, pb->username) != 0))
        || (! pb->username)))
     SVN_ERR (svn_wc_set_auth_file (adm_access, TRUE,
-                                   SVN_WC__AUTHFILE_USERNAME,
+                                   SVN_WC__AUTHFILE_USERNAME, 
                                    svn_stringbuf_create (username, pool),
                                    pool));
-  if (password &&
+  if (password && 
       ((pb->password && (strcmp (password, pb->password) != 0))
        || (! pb->password)))
     SVN_ERR (svn_wc_set_auth_file (adm_access, TRUE,
@@ -194,7 +194,7 @@ save_creds (svn_boolean_t *saved,
 
   if (! pb->base_access)
     SVN_ERR (svn_wc_adm_close (adm_access));
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -245,7 +245,7 @@ simple_save_creds (svn_boolean_t *saved,
 
   *saved = FALSE;
 
-  no_auth_cache = apr_hash_get (parameters,
+  no_auth_cache = apr_hash_get (parameters, 
                                 SVN_AUTH_PARAM_NO_AUTH_CACHE,
                                 APR_HASH_KEY_STRING);
 
@@ -318,7 +318,7 @@ username_save_creds (svn_boolean_t *saved,
 
   *saved = FALSE;
 
-  no_auth_cache = apr_hash_get (parameters,
+  no_auth_cache = apr_hash_get (parameters, 
                                 SVN_AUTH_PARAM_NO_AUTH_CACHE,
                                 APR_HASH_KEY_STRING);
 
