@@ -3,32 +3,32 @@
  *
  * ================================================================
  * Copyright (c) 2000 CollabNet.  All rights reserved.
- *
+ * 
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
  * met:
- *
+ * 
  * 1. Redistributions of source code must retain the above copyright
  * notice, this list of conditions and the following disclaimer.
- *
+ * 
  * 2. Redistributions in binary form must reproduce the above copyright
  * notice, this list of conditions and the following disclaimer in the
  * documentation and/or other materials provided with the distribution.
- *
+ * 
  * 3. The end-user documentation included with the redistribution, if
  * any, must include the following acknowlegement: "This product includes
  * software developed by CollabNet (http://www.Collab.Net)."
  * Alternately, this acknowlegement may appear in the software itself, if
  * and wherever such third-party acknowlegements normally appear.
- *
+ * 
  * 4. The hosted project names must not be used to endorse or promote
  * products derived from this software without prior written
  * permission. For written permission, please contact info@collab.net.
- *
+ * 
  * 5. Products derived from this software may not use the "Tigris" name
  * nor may "Tigris" appear in their names without prior written
  * permission of CollabNet.
- *
+ * 
  * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
  * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -42,7 +42,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ====================================================================
- *
+ * 
  * This software consists of voluntary contributions made by many
  * individuals on behalf of CollabNet.
  */
@@ -127,7 +127,7 @@ typedef struct svn_txdelta_op_t {
        LEN <= length of NEW.  */
     svn_txdelta_new
   } action_code;
-
+  
   apr_off_t offset;
   apr_off_t length;
 } svn_txdelta_op_t;
@@ -138,7 +138,7 @@ typedef struct svn_txdelta_window_t {
 
   /* The number of instructions in this window.  */
   int num_ops;
-
+  
   /* The instructions for this window.  */
   svn_txdelta_op_t *ops;
 
@@ -168,7 +168,7 @@ extern svn_error_t *svn_txdelta_next_window (svn_txdelta_window_t **window,
 
 /* Free the delta window WINDOW.  */
 extern void svn_txdelta_free_window (svn_txdelta_window_t *window);
-
+     
 
 /* Set *STREAM to a pointer to a delta stream that will turn the byte
    string from SOURCE into the byte stream from TARGET.
@@ -204,7 +204,7 @@ extern svn_error_t *svn_txdelta_to_vcdiff (svn_read_fn_t **read_fn,
                                            void **read_baton,
                                            svn_txdelta_stream_t *stream,
                                            apr_pool_t *pool);
-
+     
 
 /* Definitions for converting VCDIFF -> text delta window streams.  */
 
@@ -346,7 +346,7 @@ typedef struct svn_delta_edit_fns_t
      Most of the callbacks work in the obvious way:
 
          delete
-         add_file        add_directory
+         add_file        add_directory    
          replace_file    replace_directory
 
      These all take a PARENT_BATON argument, indicating the directory
@@ -369,7 +369,7 @@ typedef struct svn_delta_edit_fns_t
         replace_directory (ROOT, "foo") --- yielding a baton F for `foo'
         replace_directory (F, "bar") --- yielding a baton B for `foo/bar'
         add_file (B, "baz.c")
-
+     
      The producer needn't use the batons in any particular order.  It
      would be fine for the producer to then call:
         add_file (ROOT, "qux.c") --- to create `qux.c' in the root
@@ -398,7 +398,7 @@ typedef struct svn_delta_edit_fns_t
 
 
   /* Deleting things.  */
-
+       
   /* Remove the directory entry named NAME.  */
   svn_error_t *(*delete) (svn_string_t *name,
 			  void *edit_baton,
@@ -406,7 +406,7 @@ typedef struct svn_delta_edit_fns_t
 
 
   /* Creating and modifying directories.  */
-
+  
   /* This is like replace_directory(), except that because it's the
      root dir, it takes neither parent baton nor name (note that by
      "root dir", we mean the root dir of this change, which may or may
@@ -468,7 +468,7 @@ typedef struct svn_delta_edit_fns_t
 
   /* Change the value of a directory entry's property.
      - DIR_BATON specifies the directory.
-     - ENTRY is the name of the entry in that directory whose property
+     - ENTRY is the name of the entry in that directory whose property 
        should be changed.
      - NAME is the name of the property to change.
      - VALUE is the new value of the property, or zero if the property
@@ -524,7 +524,7 @@ typedef struct svn_delta_edit_fns_t
      argument to *HANDLER.  */
   svn_error_t *(*apply_textdelta) (void *edit_baton,
                                    void *parent_baton,
-                                   void *file_baton,
+                                   void *file_baton, 
                                    svn_txdelta_window_handler_t **handler,
                                    void **handler_baton);
 
@@ -565,7 +565,7 @@ typedef struct svn_xml_parser_t svn_xml_parser_t;
    within a tree-delta. */
 svn_error_t  *svn_make_xml_parser (svn_xml_parser_t **parser,
                                    const svn_delta_edit_fns_t *editor,
-                                   svn_string_t *base_path,
+                                   svn_string_t *base_path, 
                                    svn_vernum_t base_version,
                                    void *edit_baton,
                                    apr_pool_t *pool);
@@ -580,7 +580,7 @@ void svn_free_xml_parser (svn_xml_parser_t *parser);
    and batons that were used to create the parser.)  If this is the
    final parser "push", ISFINAL must be set to true.  */
 svn_error_t *
-svn_xml_parsebytes (const char *buffer, apr_size_t len, int isFinal,
+svn_xml_parsebytes (const char *buffer, apr_size_t len, int isFinal, 
                     svn_xml_parser_t *svn_xml_parser);
 
 
@@ -603,7 +603,7 @@ extern svn_error_t *svn_xml_auto_parse (svn_read_fn_t *source_fn,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
