@@ -98,7 +98,7 @@ svn_cl__merge (apr_getopt_t *os,
   auth_baton = svn_cl__make_auth_baton (opt_state, pool);
 
   targets = svn_cl__args_to_target_array (os, opt_state, pool);
-
+  
   if (targets->nelts < 2)
     {
       svn_cl__subcommand_help ("merge", pool);
@@ -132,8 +132,8 @@ svn_cl__merge (apr_getopt_t *os,
                            source1, pool));
       SVN_ERR (parse_path (&(opt_state->end_revision), &sourcepath2,
                            source2, pool));
-    }
-
+    }   
+  
   printf ("I would now call svn_client_merge with these arguments\n");
   printf ("sourcepath1 = %s\nrevision1 = %ld\n"
           "sourcepath2 = %s\nrevision2 = %ld\ntargetpath = %s\n",
@@ -156,7 +156,7 @@ svn_cl__merge (apr_getopt_t *os,
                              &(opt_state->end_revision),
                              targetpath,
                              opt_state->nonrecursive ? FALSE : TRUE,
-                             pool));
+                             pool)); 
 
   */
 
@@ -164,8 +164,8 @@ svn_cl__merge (apr_getopt_t *os,
 }
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../tools/dev/svn-dev.el")
- * end:
+ * end: 
  */
