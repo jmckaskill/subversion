@@ -1368,7 +1368,7 @@ random_three_way_merge (const char **msg,
       struct random_mod *mrg_lines = apr_palloc (subpool,
                                                  (sizeof (*mrg_lines)
                                                   * (num_src + num_dst)));
-
+      
       select_lines (src_lines, num_src, lines, num_lines);
       select_lines (dst_lines, num_dst, lines, num_lines);
       memcpy (mrg_lines, src_lines, sizeof (*mrg_lines) * num_src);
