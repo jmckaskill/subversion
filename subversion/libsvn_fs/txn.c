@@ -2,32 +2,32 @@
  *
  * ================================================================
  * Copyright (c) 2000 Collab.Net.  All rights reserved.
- *
+ * 
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
  * met:
- *
+ * 
  * 1. Redistributions of source code must retain the above copyright
  * notice, this list of conditions and the following disclaimer.
- *
+ * 
  * 2. Redistributions in binary form must reproduce the above copyright
  * notice, this list of conditions and the following disclaimer in the
  * documentation and/or other materials provided with the distribution.
- *
+ * 
  * 3. The end-user documentation included with the redistribution, if
  * any, must include the following acknowlegement: "This product includes
  * software developed by Collab.Net (http://www.Collab.Net/)."
  * Alternately, this acknowlegement may appear in the software itself, if
  * and wherever such third-party acknowlegements normally appear.
- *
+ * 
  * 4. The hosted project names must not be used to endorse or promote
  * products derived from this software without prior written
  * permission. For written permission, please contact info@collab.net.
- *
+ * 
  * 5. Products derived from this software may not use the "Tigris" name
  * nor may "Tigris" appear in their names without prior written
  * permission of Collab.Net.
- *
+ * 
  * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
  * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -41,7 +41,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ====================================================================
- *
+ * 
  * This software consists of voluntary contributions made by many
  * individuals on behalf of Collab.Net.
  */
@@ -119,7 +119,7 @@ make_transactions (svn_fs_t *fs, int create)
   SVN_ERR (DB_WRAP (fs, "setting `transactions' comparison function",
 		    transactions->set_bt_compare (transactions,
 						  compare_transactions_keys)));
-  SVN_ERR (DB_WRAP (fs,
+  SVN_ERR (DB_WRAP (fs, 
 		    (create
 		     ? "creating `transactions' table"
 		     : "opening `transactions' table"),
@@ -177,7 +177,7 @@ put_transaction_skel (svn_fs_t *fs, DB_TXN *db_txn,
   svn_fs__set_dbt (&key, id, strlen (id));
   svn_fs__set_dbt (&value, unparsed_txn->data, unparsed_txn->len);
   SVN_ERR (DB_WRAP (fs, "storing transaction skel",
-		    transactions->put (transactions, db_txn, &key, &value,
+		    transactions->put (transactions, db_txn, &key, &value, 
 				       create ? DB_NOOVERWRITE : 0)));
 
   return 0;
@@ -294,10 +294,10 @@ svn_fs_begin_txn (svn_fs_txn_t **txn_p,
       DB_TXN *db_txn;
       DBC *cursor = 0;
       svn_error_t *svn_err;
-
+      
       SVN_ERR (DB_WRAP (fs, "creating transaction (beginning DB transaction)",
 			txn_begin (fs->env, 0, &db_txn, 0)));
-
+    
       svn_err = create_txn_body (txn, db_txn, &cursor);
       if (! svn_err)
 	{
