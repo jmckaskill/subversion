@@ -135,7 +135,7 @@ close_directory (void *dir_baton)
   struct dir_baton *db = dir_baton;
 
   if (db->prop_changed)
-    printf ("Changing %s\n", db->path->data);
+    printf ("Changing %s\n", db->path->data); 
 
   return SVN_NO_ERROR;
 }
@@ -148,7 +148,7 @@ close_file (void *file_baton)
 
 
   if (fb->added)
-    printf ("Adding   %s\n", fb->path->data);
+    printf ("Adding   %s\n", fb->path->data); 
   else
     printf ("Changing %s\n", fb->path->data);
 
@@ -286,14 +286,14 @@ svn_cl__get_trace_commit_editor (const svn_delta_edit_fns_t **editor,
 
   *edit_baton = eb;
   *editor = trace_editor;
-
+  
   return SVN_NO_ERROR;
 }
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
- * end:
+ * end: 
  */
