@@ -38,11 +38,11 @@ would be stored in our dump format.
   - A revision has a tree of "nodes" hanging off of it.
     Actually, the nodes in the filesystem form a DAG.  A revision
     always points to an initial node that represents the 'root' of some tree.
-
+ 
   - The majority of a tree's nodes are hard-links (references) to
     nodes that were created in earlier trees.
 
-  - A node contains
+  - A node contains 
 
         - versioned text
         - versioned properties
