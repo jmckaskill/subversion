@@ -57,11 +57,11 @@ svn_cl__copy (apr_getopt_t *os,
     }
 
   /* Take our message from ARGV or a FILE */
-  if (opt_state->filedata)
+  if (opt_state->filedata) 
     message = opt_state->filedata;
   else
     message = opt_state->message;
-
+  
   /* Build an authentication object to give to libsvn_client. */
   auth_baton = svn_cl__make_auth_baton (opt_state, pool);
 
@@ -95,8 +95,8 @@ svn_cl__copy (apr_getopt_t *os,
     /* URL->URL : No trace editor needed. */
     ;
 
-  SVN_ERR (svn_client_copy
-           (src_path, opt_state->start_revision, dst_path, auth_baton,
+  SVN_ERR (svn_client_copy 
+           (src_path, opt_state->start_revision, dst_path, auth_baton, 
             message ? message : svn_stringbuf_create ("", pool),
             NULL, NULL,                     /* no before_editor */
             trace_editor, trace_edit_baton, /* one after_editor */
@@ -107,8 +107,8 @@ svn_cl__copy (apr_getopt_t *os,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../svn-dev.el")
- * end:
+ * end: 
  */
