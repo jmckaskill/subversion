@@ -3,36 +3,36 @@
  *              working copy administrative area (creating,
  *              deleting, opening, and closing).  This is the only
  *              code that actually knows where administrative
- *              information is kept.
+ *              information is kept.  
  *
  * ================================================================
  * Copyright (c) 2000 CollabNet.  All rights reserved.
- *
+ * 
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
  * met:
- *
+ * 
  * 1. Redistributions of source code must retain the above copyright
  * notice, this list of conditions and the following disclaimer.
- *
+ * 
  * 2. Redistributions in binary form must reproduce the above copyright
  * notice, this list of conditions and the following disclaimer in the
  * documentation and/or other materials provided with the distribution.
- *
+ * 
  * 3. The end-user documentation included with the redistribution, if
  * any, must include the following acknowlegement: "This product includes
  * software developed by CollabNet (http://www.Collab.Net)."
  * Alternately, this acknowlegement may appear in the software itself, if
  * and wherever such third-party acknowlegements normally appear.
- *
+ * 
  * 4. The hosted project names must not be used to endorse or promote
  * products derived from this software without prior written
  * permission. For written permission, please contact info@collab.net.
- *
+ * 
  * 5. Products derived from this software may not use the "Tigris" name
  * nor may "Tigris" appear in their names without prior written
  * permission of CollabNet.
- *
+ * 
  * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
  * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -46,7 +46,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ====================================================================
- *
+ * 
  * This software consists of voluntary contributions made by many
  * individuals on behalf of CollabNet.
  */
@@ -85,9 +85,9 @@ adm_subdir (apr_pool_t *pool)
 }
 
 
-/* Make name of wc admin file ADM_FILE by appending to directory PATH.
+/* Make name of wc admin file ADM_FILE by appending to directory PATH. 
  * Returns the number of path components added to PATH.
- *
+ * 
  * IMPORTANT: chances are you will want to call chop_admin_thing() to
  * restore PATH to its original value before exiting anything that
  * calls this.  If you exit, say by returning an error, before calling
@@ -170,7 +170,7 @@ svn_wc__make_adm_thing (svn_string_t *path,
     }
   else   /* unknown type argument, wrongness */
     {
-      err = svn_create_error
+      err = svn_create_error 
         (0, 0, "svn_wc__make_admin_thing: bad type indicator", NULL, pool);
     }
 
@@ -196,7 +196,7 @@ svn_wc__make_adm_thing (svn_string_t *path,
  * @param from_path The full path to the source file (using / on all systems)
  * @param to_path The full path to the dest file (using / on all systems)
  * @param pool The pool to use.
- * @tip If a file exists at the new location, then it will be overwritten.
+ * @tip If a file exists at the new location, then it will be overwritten.  
  * @tip The source file will be copied until EOF is reached, not until
  *      its size at the time of opening is reached.
  * @tip The dest file's permissions will be the same as the source file's.
@@ -215,7 +215,7 @@ apr_copy_file (const char *src, const char *dst, apr_pool_t *pool)
   apr_err = apr_open (&s, src, APR_READ, APR_OS_DEFAULT, pool);
   if (apr_err)
     return apr_err;
-
+  
   /* Get its size. */
   apr_err = apr_getfileinfo (&finfo, s);
   if (apr_err)
@@ -233,7 +233,7 @@ apr_copy_file (const char *src, const char *dst, apr_pool_t *pool)
       apr_close (s);  /* toss */
       return apr_err;
     }
-
+  
   /* Copy bytes till the cows come home. */
   while (read_err != APR_EOF)
     {
@@ -269,7 +269,7 @@ apr_copy_file (const char *src, const char *dst, apr_pool_t *pool)
               apr_close (d);
               return apr_err;
             }
-
+          
           apr_err = apr_close (d);
           if (apr_err)
             return apr_err;
@@ -500,7 +500,7 @@ make_empty_adm (svn_string_t *path, apr_pool_t *pool)
   apr_err = apr_make_dir (path->data, APR_OS_DEFAULT, pool);
   if (apr_err)
     err = svn_create_error (apr_err, 0, path->data, NULL, pool);
-
+    
   chop_admin_thing (path, components_added);
 
   return err;
@@ -530,7 +530,7 @@ init_adm_file (svn_string_t *path,
   err = svn_wc__close_adm_file (f, path, thing, 1, pool);
   if (err)
     return err;
-
+  
   if (apr_err)
     err = svn_create_error (apr_err, 0, path->data, NULL, pool);
 
@@ -542,7 +542,7 @@ init_adm_file (svn_string_t *path,
     locations, and could be moved to adm_ops.c or some other place.
     But wait on that for a bit. **/
 
-/* Set up a new adm area, with appropriate ancestry.
+/* Set up a new adm area, with appropriate ancestry. 
    The adm area starts out locked; remember to unlock it when done. */
 static svn_error_t *
 init_adm (svn_string_t *path,
@@ -599,7 +599,7 @@ init_adm (svn_string_t *path,
                                 svn_file_kind, pool);
   if (err)
     return err;
-
+  
 
   /* SVN_WC__ADM_PROPERTIES */
   err = svn_wc__make_adm_thing (path, SVN_WC__ADM_PROPERTIES,
@@ -634,7 +634,7 @@ init_adm (svn_string_t *path,
                                 svn_dir_kind, pool);
   if (err)
     return err;
-
+  
 
   /* SVN_WC__ADM_DOING */
   err = svn_wc__make_adm_thing (path, SVN_WC__ADM_DOING,
@@ -643,7 +643,7 @@ init_adm (svn_string_t *path,
     return err;
 
 
-  /* THIS FILE MUST BE CREATED LAST:
+  /* THIS FILE MUST BE CREATED LAST: 
      After this exists, the dir is considered complete. */
   err = init_adm_file (path, SVN_WC__ADM_README,
                        svn_string_create (readme_contents, pool),
@@ -682,13 +682,13 @@ svn_wc__ensure_adm (svn_string_t *path,
       if (err)
         return err;
     }
-
+        
   return SVN_NO_ERROR;
 }
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
