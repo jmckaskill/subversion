@@ -48,14 +48,14 @@ svn_cl__status (apr_getopt_t *os,
   svn_wc_notify_func_t notify_func = NULL;
   void *notify_baton = NULL;
 
-  SVN_ERR (svn_opt_args_to_target_array (&targets, os,
+  SVN_ERR (svn_opt_args_to_target_array (&targets, os, 
                                          opt_state->targets,
                                          &(opt_state->start_revision),
                                          &(opt_state->end_revision),
                                          FALSE, pool));
 
   /* The notification callback. */
-  svn_cl__get_notifier (&notify_func, &notify_baton, FALSE, FALSE,
+  svn_cl__get_notifier (&notify_func, &notify_baton, FALSE, FALSE, 
                         FALSE, pool);
 
   /* Add "." if user passed 0 arguments */
