@@ -78,7 +78,7 @@ struct svn_fs_t {
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end:
