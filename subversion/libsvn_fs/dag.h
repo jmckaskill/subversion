@@ -165,7 +165,7 @@ svn_error_t *svn_fs__dag_get_proplist (apr_hash_t **proplist_p,
    transaction under which this occurs.  */
 svn_error_t *svn_fs__dag_set_proplist (dag_node_t *node,
                                        apr_hash_t *proplist,
-                                       const char *txn_id,
+                                       const char *txn_id, 
                                        trail_t *trail);
 
 
@@ -267,7 +267,7 @@ svn_error_t *svn_fs__dag_dir_entries (apr_hash_t **entries_p,
 svn_error_t *svn_fs__dag_set_entry (dag_node_t *node,
                                     const char *entry_name,
                                     const svn_fs_id_t *id,
-                                    const char *txn_id,
+                                    const char *txn_id, 
                                     trail_t *trail);
 
 
@@ -276,18 +276,18 @@ svn_error_t *svn_fs__dag_set_entry (dag_node_t *node,
    unless NAME in PARENT already refers to a mutable node.  In either
    case, set *CHILD_P to a reference to the new node, allocated in
    TRAIL->pool.  PARENT must be mutable.  NAME must be a single path
-   component; it cannot be a slash-separated directory path.
+   component; it cannot be a slash-separated directory path.  
 
    COPY_ID, if non-NULL, is a key into the `copies' table, and
    indicates that this new node is being created as the result of a
-   copy operation, and specifically which operation that was.
+   copy operation, and specifically which operation that was.  
 
    TXN_ID is the Subversion transaction under which this occurs.  */
 svn_error_t *svn_fs__dag_clone_child (dag_node_t **child_p,
                                       dag_node_t *parent,
                                       const char *name,
                                       const char *copy_id,
-                                      const char *txn_id,
+                                      const char *txn_id, 
                                       trail_t *trail);
 
 
@@ -304,7 +304,7 @@ svn_error_t *svn_fs__dag_clone_child (dag_node_t **child_p,
 svn_error_t *svn_fs__dag_link (dag_node_t *parent,
                                dag_node_t *child,
                                const char *name,
-                               const char *txn_id,
+                               const char *txn_id, 
                                trail_t *trail);
 
 
@@ -318,7 +318,7 @@ svn_error_t *svn_fs__dag_link (dag_node_t *parent,
    PARENT.  */
 svn_error_t *svn_fs__dag_delete (dag_node_t *parent,
                                  const char *name,
-                                 const char *txn_id,
+                                 const char *txn_id, 
                                  trail_t *trail);
 
 
@@ -387,7 +387,7 @@ svn_error_t *svn_fs__dag_get_contents (svn_stream_t **contents,
 svn_error_t *svn_fs__dag_get_edit_stream (svn_stream_t **contents,
                                           dag_node_t *file,
                                           apr_pool_t *pool,
-                                          const char *txn_id,
+                                          const char *txn_id, 
                                           trail_t *trail);
 
 
@@ -402,7 +402,7 @@ svn_error_t *svn_fs__dag_get_edit_stream (svn_stream_t **contents,
    This operation is a no-op if no edits are present.  */
 svn_error_t *svn_fs__dag_finalize_edits (dag_node_t *file,
                                          const char *checksum,
-                                         const char *txn_id,
+                                         const char *txn_id, 
                                          trail_t *trail);
 
 
@@ -445,7 +445,7 @@ svn_error_t *svn_fs__dag_make_file (dag_node_t **child_p,
    If PRESERVE_HISTORY is true, the new node will record that it was
    copied from FROM_PATH in FROM_REV; therefore, FROM_NODE should be
    the node found at FROM_PATH in FROM_REV, although this is not
-   checked.
+   checked.  
 
    If PRESERVE_HISTORY is false, FROM_PATH and FROM_REV are ignored.  */
 svn_error_t *svn_fs__dag_copy (dag_node_t *to_node,
@@ -454,7 +454,7 @@ svn_error_t *svn_fs__dag_copy (dag_node_t *to_node,
                                svn_boolean_t preserve_history,
                                svn_revnum_t from_rev,
                                const char *from_path,
-                               const char *txn_id,
+                               const char *txn_id, 
                                trail_t *trail);
 
 
@@ -476,7 +476,7 @@ svn_error_t *svn_fs__dag_copied_from (svn_revnum_t *rev_p,
 /* Change TARGET's representation to be a delta against SOURCE, as
    part of TRAIL.  If TARGET or SOURCE does not exist, do nothing and
    return success.  If PROPS_ONLY is non-zero, only the node property
-   portion of TARGET will be deltified.
+   portion of TARGET will be deltified.  
 
    WARNING WARNING WARNING: Do *NOT* call this with a mutable SOURCE
    node.  Things will go *very* sour if you deltify TARGET against a
@@ -491,7 +491,7 @@ svn_error_t *svn_fs__dag_deltify (dag_node_t *target,
 /* Comparison */
 
 /* Find out what is the same between two nodes.
-
+ 
    If PROPS_CHANGED is non-null, set *PROPS_CHANGED to 1 if the two
    nodes have different property lists, or to 0 if same.
 
