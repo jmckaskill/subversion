@@ -68,7 +68,7 @@ write_new_rep (const char **msg, apr_pool_t *pool)
                              "error writing new representation");
 
   printf ("GOT KEY: %s\n", args.key);
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -89,7 +89,7 @@ svn_error_t * (*test_funcs[]) (const char **msg,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../svn-dev.el")
  * end:
