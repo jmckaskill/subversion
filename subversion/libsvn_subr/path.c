@@ -291,7 +291,7 @@ add_component_internal (svn_stringbuf_t *path,
 
 
 void
-svn_path_add_component_nts (svn_stringbuf_t *path,
+svn_path_add_component_nts (svn_stringbuf_t *path, 
                             const char *component)
 {
   add_component_internal (path, component, strlen (component));
@@ -299,7 +299,7 @@ svn_path_add_component_nts (svn_stringbuf_t *path,
 
 
 void
-svn_path_add_component (svn_stringbuf_t *path,
+svn_path_add_component (svn_stringbuf_t *path, 
                         const svn_stringbuf_t *component)
 {
   add_component_internal (path, component->data, component->len);
@@ -361,7 +361,7 @@ svn_path_basename (const char *path, apr_pool_t *pool)
 
 
 void
-svn_path_split (const svn_stringbuf_t *path,
+svn_path_split (const svn_stringbuf_t *path, 
                 svn_stringbuf_t **dirpath,
                 svn_stringbuf_t **basename,
                 apr_pool_t *pool)
@@ -411,14 +411,14 @@ svn_path_compare_paths (const svn_stringbuf_t *path1,
 {
   apr_size_t min_len = ((path1->len < path2->len) ? path1->len : path2->len);
   apr_size_t i = 0;
-
+  
   /* Skip past common prefix. */
   while (i < min_len && path1->data[i] == path2->data[i])
     ++i;
 
   /* Are the paths exactly the same? */
   if ((path1->len == path2->len) && (i >= min_len))
-    return 0;
+    return 0;    
 
   /* Children of paths are greater than their parents, but less than
      greater siblings of their parents. */
@@ -448,11 +448,11 @@ svn_path_get_longest_ancestor (const svn_stringbuf_t *path1,
   apr_size_t last_dirsep = 0;
 
   /* If either string is NULL or empty, we must go no further. */
-
+  
   if ((! path1) || (! path2)
       || (svn_stringbuf_isempty (path1)) || (svn_stringbuf_isempty (path2)))
     return NULL;
-
+  
   while (path1->data[i] == path2->data[i])
     {
       /* Keep track of the last directory separator we hit. */
@@ -475,7 +475,7 @@ svn_path_get_longest_ancestor (const svn_stringbuf_t *path1,
     common_path = svn_stringbuf_ncreate (path1->data, i, pool);
   else
     common_path = svn_stringbuf_ncreate (path1->data, last_dirsep, pool);
-
+    
   svn_path_canonicalize (common_path);
 
   return common_path;
@@ -493,12 +493,12 @@ svn_path_is_child (const svn_stringbuf_t *path1,
                    apr_pool_t *pool)
 {
   apr_size_t i = 0;
-
+      
   /* If either path is empty, return NULL. */
   if ((! path1) || (! path2)
       || (svn_stringbuf_isempty (path1)) || (svn_stringbuf_isempty (path2)))
     return NULL;
-
+  
   /* If path2 isn't longer than path1, return NULL.  */
   if (path2->len <= path1->len)
     return NULL;
@@ -541,7 +541,7 @@ store_component (apr_array_header_t *array,
                  apr_pool_t *pool)
 {
   svn_stringbuf_t **receiver;
-
+  
   svn_stringbuf_t *component = svn_stringbuf_ncreate (bytes, len, pool);
 
   receiver = (svn_stringbuf_t **) apr_array_push (array);
@@ -555,7 +555,7 @@ svn_path_decompose (const svn_stringbuf_t *path,
 {
   apr_size_t i, oldi;
 
-  apr_array_header_t *components =
+  apr_array_header_t *components = 
     apr_array_make (pool, 1, sizeof(svn_stringbuf_t *));
 
   i = oldi = 0;
@@ -592,14 +592,14 @@ svn_path_decompose (const svn_stringbuf_t *path,
 /*** URI Stuff ***/
 
 
-svn_boolean_t
+svn_boolean_t 
 svn_path_is_url (const svn_string_t *path)
 {
   apr_size_t j;
 
   /* ### This function is reaaaaaaaaaaaaaally stupid right now.
      We're just going to look for:
-
+ 
         (scheme)://(optional_servername)/(optional_stuff)
 
      Where (scheme) has no ':' or '/' characters.
@@ -633,10 +633,10 @@ svn_path_is_url (const svn_string_t *path)
           && (path->data[j + 2] == '/')
           && (strchr (path->data + j + 3, '/') != NULL))
         return TRUE;
-
+      
       return FALSE;
     }
-
+     
   return FALSE;
 }
 
@@ -645,7 +645,7 @@ svn_path_is_url (const svn_string_t *path)
 /* Here is the BNF for path components in a URI. "pchar" is a
    character in a path component.
 
-      pchar       = unreserved | escaped |
+      pchar       = unreserved | escaped | 
                     ":" | "@" | "&" | "=" | "+" | "$" | ","
       unreserved  = alphanum | mark
       mark        = "-" | "_" | "." | "!" | "~" | "*" | "'" | "(" | ")"
@@ -653,7 +653,7 @@ svn_path_is_url (const svn_string_t *path)
    Note that "escaped" doesn't really apply to what users can put in
    their paths, so that really means the set of characters is:
 
-      alphanum | mark | ":" | "@" | "&" | "=" | "+" | "$" | ","
+      alphanum | mark | ":" | "@" | "&" | "=" | "+" | "$" | "," 
 */
 static svn_boolean_t
 char_is_uri_safe (char c)
@@ -673,7 +673,7 @@ char_is_uri_safe (char c)
 }
 
 
-svn_boolean_t
+svn_boolean_t 
 svn_path_is_uri_safe (const svn_string_t *path)
 {
   apr_size_t i;
@@ -684,7 +684,7 @@ svn_path_is_uri_safe (const svn_string_t *path)
 
   return TRUE;
 }
-
+  
 
 svn_stringbuf_t *
 svn_path_uri_encode (const svn_string_t *path, apr_pool_t *pool)
@@ -711,9 +711,9 @@ svn_path_uri_encode (const svn_string_t *path, apr_pool_t *pool)
       /* First things first, copy all the good stuff that we haven't
          yet copied into our output buffer. */
       if (i - copied)
-        svn_stringbuf_appendbytes (retstr, path->data + copied,
+        svn_stringbuf_appendbytes (retstr, path->data + copied, 
                                    i - copied);
-
+      
       /* Now, sprintf() in our escaped character, making sure our
          buffer is big enough to hold the '%' and two digits. */
       svn_stringbuf_ensure (retstr, retstr->len + 3);
@@ -784,7 +784,7 @@ svn_path_uri_decode (const svn_string_t *path, apr_pool_t *pool)
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end:
