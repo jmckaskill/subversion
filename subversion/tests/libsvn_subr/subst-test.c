@@ -102,15 +102,15 @@ create_file (const char *fname, const char *eol_str, apr_pool_t *pool)
                            APR_OS_DEFAULT, pool);
   if (! APR_STATUS_IS_SUCCESS (apr_err))
     return svn_error_create (apr_err, 0, NULL, pool, fname);
-
+  
   for (i = 0; i < (sizeof (lines) / sizeof (*lines)); i++)
     {
       const char *this_eol_str = eol_str ? eol_str : random_eol_marker ();
-
+          
       apr_err = apr_file_printf (f, lines[i]);
 
       /* Is it overly paranoid to use putc(), because of worry about
-         fprintf() doing a newline conversion? */
+         fprintf() doing a newline conversion? */ 
       for (j = 0; this_eol_str[j]; j++)
         {
           apr_err = apr_file_putc (this_eol_str[j], f);
@@ -122,7 +122,7 @@ create_file (const char *fname, const char *eol_str, apr_pool_t *pool)
   apr_err = apr_file_close (f);
   if (! APR_STATUS_IS_SUCCESS (apr_err))
     return svn_error_create (apr_err, 0, NULL, pool, fname);
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -146,12 +146,12 @@ verify_file (const char *fname, const char *eol_str, apr_pool_t *pool)
     {
       if (contents->len < idx)
         return svn_error_createf
-          (SVN_ERR_MALFORMED_FILE, 0, NULL, pool,
+          (SVN_ERR_MALFORMED_FILE, 0, NULL, pool, 
            "%s has short contents: \"%s\"", fname, contents->data);
 
       if (strncmp (contents->data + idx, lines[i], strlen (lines[i])) != 0)
         return svn_error_createf
-          (SVN_ERR_MALFORMED_FILE, 0, NULL, pool,
+          (SVN_ERR_MALFORMED_FILE, 0, NULL, pool, 
            "%s has wrong contents: \"%s\"", fname, contents->data + idx);
 
       /* else */
@@ -160,7 +160,7 @@ verify_file (const char *fname, const char *eol_str, apr_pool_t *pool)
 
       if (strncmp (contents->data + idx, eol_str, strlen (eol_str)) != 0)
         return svn_error_createf
-          (SVN_ERR_IO_CORRUPT_EOL, 0, NULL, pool,
+          (SVN_ERR_IO_CORRUPT_EOL, 0, NULL, pool, 
            "%s has wrong eol: \"%s\"", fname, contents->data + idx);
 
       idx += strlen (eol_str);
@@ -409,7 +409,7 @@ svn_error_t * (*test_funcs[]) (const char **msg,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../svn-dev.el")
  * end:
