@@ -137,7 +137,7 @@ cleanup_fs (svn_fs_t *fs)
         SVN_ERR (DB_WRAP (fs, "checkpointing environment", db_err));
       }
   }
-
+      
   /* Finally, close the environment.  */
   fs->env = 0;
   SVN_ERR (DB_WRAP (fs, "closing environment",
@@ -177,7 +177,7 @@ cleanup_fs_apr (void *data)
          prepared to receive it.  Don't overwrite a previously stored
          error --- in a cascade, the first message is usually the most
          helpful.  */
-      if (fs->cleanup_error
+      if (fs->cleanup_error 
           && ! *fs->cleanup_error)
         *fs->cleanup_error = svn_err;
       else
@@ -186,7 +186,7 @@ cleanup_fs_apr (void *data)
            behavior.  I just don't want to throw any information into
            the bit bucket.)  */
         (*fs->warning) (fs->warning_baton, "%s", svn_err->message);
-
+      
       return SVN_ERR_FS_CLEANUP;
     }
 }
@@ -229,7 +229,7 @@ svn_fs_set_warning_func (svn_fs_t *fs,
 
 
 svn_error_t *
-svn_fs_set_berkeley_errcall (svn_fs_t *fs,
+svn_fs_set_berkeley_errcall (svn_fs_t *fs, 
                              void (*db_errcall_fcn) (const char *errpfx,
                                                      char *msg))
 {
@@ -249,7 +249,7 @@ svn_fs_close_fs (svn_fs_t *fs)
      pool, so just freeing the pool should shut everything down
      nicely.  But do catch an error, if one occurs.  */
   fs->cleanup_error = &svn_err;
-  svn_pool_destroy (fs->pool);
+  svn_pool_destroy (fs->pool); 
 
   return svn_err;
 }
@@ -288,11 +288,11 @@ dir_empty (const char *path, apr_pool_t *pool)
   apr_status_t apr_err, retval;
   apr_dir_t *dir;
   apr_finfo_t finfo;
-
+  
   apr_err = apr_dir_open (&dir, path, pool);
   if (! APR_STATUS_IS_SUCCESS (apr_err))
     return apr_err;
-
+      
   /* All systems return "." and ".." as the first two files, so read
      past them unconditionally. */
   apr_err = apr_dir_read (&finfo, APR_FINFO_NAME, dir);
@@ -429,10 +429,10 @@ create_locks (svn_fs_t *fs, const char *path)
                              APR_OS_DEFAULT,
                              fs->pool);
     if (apr_err)
-      return svn_error_createf (apr_err, 0, NULL, fs->pool,
+      return svn_error_createf (apr_err, 0, NULL, fs->pool, 
                                 "creating lock file `%s'", lockfile_path);
-
-    contents =
+    
+    contents = 
       "DB lock file, representing locks on the versioned filesystem.\n"
       "\n"
       "All accessors -- both readers and writers -- of the repository's\n"
@@ -443,15 +443,15 @@ create_locks (svn_fs_t *fs, const char *path)
       "during the recovery.\n"
       "\n"
       "You should never have to edit or remove this file.\n";
-
+    
     apr_err = apr_file_write_full (f, contents, strlen (contents), &written);
     if (apr_err)
-      return svn_error_createf (apr_err, 0, NULL, fs->pool,
+      return svn_error_createf (apr_err, 0, NULL, fs->pool, 
                                 "writing lock file `%s'", lockfile_path);
-
+    
     apr_err = apr_file_close (f);
     if (apr_err)
-      return svn_error_createf (apr_err, 0, NULL, fs->pool,
+      return svn_error_createf (apr_err, 0, NULL, fs->pool, 
                                 "closing lock file `%s'", lockfile_path);
   }
 
@@ -482,16 +482,16 @@ create_hooks (svn_fs_t *fs, const char *path)
     this_path = apr_psprintf (fs->pool, "%s%s",
                               svn_fs_start_commit_hook (fs, fs->pool),
                               SVN_FS__REPOS_HOOK_DESC_EXT);
-
+    
     apr_err = apr_file_open (&f, this_path,
                              (APR_WRITE | APR_CREATE | APR_EXCL),
                              APR_OS_DEFAULT,
                              fs->pool);
     if (apr_err)
-      return svn_error_createf (apr_err, 0, NULL, fs->pool,
+      return svn_error_createf (apr_err, 0, NULL, fs->pool, 
                                 "creating hook file `%s'", this_path);
-
-    contents =
+    
+    contents = 
       "START-COMMIT HOOK\n"
       "\n"
       "A start-commit hook is one that is invoked prior to\n"
@@ -512,12 +512,12 @@ create_hooks (svn_fs_t *fs, const char *path)
 
     apr_err = apr_file_write_full (f, contents, strlen (contents), &written);
     if (apr_err)
-      return svn_error_createf (apr_err, 0, NULL, fs->pool,
+      return svn_error_createf (apr_err, 0, NULL, fs->pool, 
                                 "writing hook file `%s'", this_path);
 
     apr_err = apr_file_close (f);
     if (apr_err)
-      return svn_error_createf (apr_err, 0, NULL, fs->pool,
+      return svn_error_createf (apr_err, 0, NULL, fs->pool, 
                                 "closing hook file `%s'", this_path);
   }  /* end start-commit hooks */
 
@@ -532,7 +532,7 @@ create_hooks (svn_fs_t *fs, const char *path)
                              APR_OS_DEFAULT,
                              fs->pool);
     if (apr_err)
-      return svn_error_createf (apr_err, 0, NULL, fs->pool,
+      return svn_error_createf (apr_err, 0, NULL, fs->pool, 
                                 "creating hook file `%s'", this_path);
 
     contents =
@@ -553,15 +553,15 @@ create_hooks (svn_fs_t *fs, const char *path)
       "`" SVN_FS__REPOS_HOOK_PRE_COMMIT ".bat' or perhaps even\n"
       "`" SVN_FS__REPOS_HOOK_PRE_COMMIT ".exe' for doing the same thing.\n"
       "\n";
-
+    
     apr_err = apr_file_write_full (f, contents, strlen (contents), &written);
     if (apr_err)
-      return svn_error_createf (apr_err, 0, NULL, fs->pool,
+      return svn_error_createf (apr_err, 0, NULL, fs->pool, 
                                 "writing hook file `%s'", this_path);
 
     apr_err = apr_file_close (f);
     if (apr_err)
-      return svn_error_createf (apr_err, 0, NULL, fs->pool,
+      return svn_error_createf (apr_err, 0, NULL, fs->pool, 
                                 "closing hook file `%s'", this_path);
   }  /* end pre-commit hooks */
 
@@ -576,9 +576,9 @@ create_hooks (svn_fs_t *fs, const char *path)
                              APR_OS_DEFAULT,
                              fs->pool);
     if (apr_err)
-      return svn_error_createf (apr_err, 0, NULL, fs->pool,
+      return svn_error_createf (apr_err, 0, NULL, fs->pool, 
                                 "creating hook file `%s'", this_path);
-
+    
     contents =
       "POST-COMMIT HOOK\n"
       "\n"
@@ -600,12 +600,12 @@ create_hooks (svn_fs_t *fs, const char *path)
 
     apr_err = apr_file_write_full (f, contents, strlen (contents), &written);
     if (apr_err)
-      return svn_error_createf (apr_err, 0, NULL, fs->pool,
+      return svn_error_createf (apr_err, 0, NULL, fs->pool, 
                                 "writing hook file `%s'", this_path);
 
     apr_err = apr_file_close (f);
     if (apr_err)
-      return svn_error_createf (apr_err, 0, NULL, fs->pool,
+      return svn_error_createf (apr_err, 0, NULL, fs->pool, 
                                 "closing hook file `%s'", this_path);
   } /* end post-commit hooks */
 
@@ -620,9 +620,9 @@ create_hooks (svn_fs_t *fs, const char *path)
                              APR_OS_DEFAULT,
                              fs->pool);
     if (apr_err)
-      return svn_error_createf (apr_err, 0, NULL, fs->pool,
+      return svn_error_createf (apr_err, 0, NULL, fs->pool, 
                                 "creating hook file `%s'", this_path);
-
+    
     contents =
       "READ-SENTINEL\n"
       "\n"
@@ -632,12 +632,12 @@ create_hooks (svn_fs_t *fs, const char *path)
 
     apr_err = apr_file_write_full (f, contents, strlen (contents), &written);
     if (apr_err)
-      return svn_error_createf (apr_err, 0, NULL, fs->pool,
+      return svn_error_createf (apr_err, 0, NULL, fs->pool, 
                                 "writing hook file `%s'", this_path);
 
     apr_err = apr_file_close (f);
     if (apr_err)
-      return svn_error_createf (apr_err, 0, NULL, fs->pool,
+      return svn_error_createf (apr_err, 0, NULL, fs->pool, 
                                 "closing hook file `%s'", this_path);
   }  /* end read sentinels */
 
@@ -652,9 +652,9 @@ create_hooks (svn_fs_t *fs, const char *path)
                              APR_OS_DEFAULT,
                              fs->pool);
     if (apr_err)
-      return svn_error_createf (apr_err, 0, NULL, fs->pool,
+      return svn_error_createf (apr_err, 0, NULL, fs->pool, 
                                 "creating hook file `%s'", this_path);
-
+    
     contents =
       "WRITE-SENTINEL\n"
       "\n"
@@ -664,12 +664,12 @@ create_hooks (svn_fs_t *fs, const char *path)
 
     apr_err = apr_file_write_full (f, contents, strlen (contents), &written);
     if (apr_err)
-      return svn_error_createf (apr_err, 0, NULL, fs->pool,
+      return svn_error_createf (apr_err, 0, NULL, fs->pool, 
                                 "writing hook file `%s'", this_path);
 
     apr_err = apr_file_close (f);
     if (apr_err)
-      return svn_error_createf (apr_err, 0, NULL, fs->pool,
+      return svn_error_createf (apr_err, 0, NULL, fs->pool, 
                                 "closing hook file `%s'", this_path);
   }  /* end write sentinels */
 
@@ -746,7 +746,7 @@ svn_fs_create_berkeley (svn_fs_t *fs, const char *path)
   svn_err = DB_WRAP (fs, "creating environment",
                      fs->env->open (fs->env, fs->env_path,
                                     (DB_CREATE
-                                     | DB_INIT_LOCK
+                                     | DB_INIT_LOCK 
                                      | DB_INIT_LOG
                                      | DB_INIT_MPOOL
                                      | DB_INIT_TXN),
@@ -807,7 +807,7 @@ svn_fs_create_berkeley (svn_fs_t *fs, const char *path)
     if (! APR_STATUS_IS_SUCCESS (apr_err))
       return svn_error_createf (apr_err, 0, 0, fs->pool,
                                 "writing to `%s'", readme_file_name);
-
+    
     apr_err = apr_file_close (readme_file);
     if (! APR_STATUS_IS_SUCCESS (apr_err))
       return svn_error_createf (apr_err, 0, 0, fs->pool,
@@ -876,7 +876,7 @@ svn_fs_open_berkeley (svn_fs_t *fs, const char *path)
   if (svn_err) goto error;
 
   return SVN_NO_ERROR;
-
+  
  error:
   cleanup_fs (fs);
   return svn_err;
@@ -901,10 +901,10 @@ svn_fs_berkeley_recover (const char *path,
     return svn_fs__dberr (pool, db_err);
 
   /* Here's the comment copied from db_recover.c:
-
+   
      Initialize the environment -- we don't actually do anything
      else, that all that's needed to run recovery.
-
+   
      Note that we specify a private environment, as we're about to
      create a region, and we don't want to to leave it around.  If
      we leave the region around, the application that should create
@@ -948,7 +948,7 @@ svn_fs_delete_berkeley (const char *path,
   db_err = env->remove (env, db_path, DB_FORCE);
   if (db_err)
     return svn_fs__dberr (pool, db_err);
-
+  
   /* Remove the repository. */
   apr_err = apr_dir_remove_recursively (path, pool);
   if (! APR_STATUS_IS_SUCCESS (apr_err))
@@ -960,7 +960,7 @@ svn_fs_delete_berkeley (const char *path,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
