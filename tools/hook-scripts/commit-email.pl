@@ -13,12 +13,12 @@ my $rev = shift @ARGV;
 my @users = @ARGV;
 
 # open a pipe to 'mail'
-my $userlist = join (' ', @users);
-open (MAILER, "| mail -s 'Commit' $userlist")
+my $userlist = join (' ', @users); 
+open (MAILER, "| mail -s 'Commit' $userlist") 
     or die ("Error opening a pipe to your stupid mailer");
 
 # open a pipe from svnlook
-open (INPUT, "svnlook $repos rev $rev |")
+open (INPUT, "svnlook $repos rev $rev |") 
     or die ("Error running svnlook");
 my @svnlooklines = <INPUT>;
 close (INPUT);
@@ -29,7 +29,7 @@ $author = shift @svnlooklines;
 $date = shift @svnlooklines;
 
 # open a pipe from svnlook
-open (INPUT, "svnlook $repos rev $rev log |")
+open (INPUT, "svnlook $repos rev $rev log |") 
     or die ("Error running svnlook");
 @svnlooklines = <INPUT>;
 close (INPUT);
@@ -37,7 +37,7 @@ close (INPUT);
 @log = @svnlooklines; # something else, obviously.
 
 # open a pipe from svnlook
-open (INPUT, "svnlook $repos rev $rev changed |")
+open (INPUT, "svnlook $repos rev $rev changed |") 
     or die ("Error running svnlook");
 @svnlooklines = <INPUT>;
 close (INPUT);
@@ -59,7 +59,7 @@ foreach $line (@svnlooklines)
 }
 
 # open a pipe from svnlook
-open (INPUT, "svnlook $repos rev $rev diff |")
+open (INPUT, "svnlook $repos rev $rev diff |") 
     or die ("Error running svnlook");
 @svnlooklines = <INPUT>;
 close (INPUT);
