@@ -99,7 +99,7 @@ Step 3:  Install Specific Language Bindings
    1.  Run `make swig-pl' from the top of the Subversion source tree.
 
    2.  Run `make check-swig-pl' from the top of the Subversion source
-       tree, to test the bindings
+       tree, to test the bindings 
 
    3.  to install run `make install-swig-pl' from the top of the
        Subversion source tree.
@@ -131,7 +131,7 @@ BUILDING SWIG BINDINGS FOR SVN ON WINDOWS
 
    3.  Configure Visual C++ with paths to swig.exe and language specific
        libraries. In Visual C++ 6, go to Tools -> Options -> Directories.
-       In Visual C++ .NET, go to Tools -> Options -> Projects
+       In Visual C++ .NET, go to Tools -> Options -> Projects 
        -> VC++ Directories.
 
        Add the following paths:
@@ -242,7 +242,7 @@ BUILDING SWIG BINDINGS FOR SVN ON WINDOWS
 
       For Java, there really is no installation procedure because Java doesn't
       have a central location where libraries can go.
-
+      
       To use the Subversion bindings in a Java application you just need the
       following files:
 
