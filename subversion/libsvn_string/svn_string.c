@@ -3,32 +3,32 @@
  *
  * ================================================================
  * Copyright (c) 2000 Collab.Net.  All rights reserved.
- *
+ * 
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
  * met:
- *
+ * 
  * 1. Redistributions of source code must retain the above copyright
  * notice, this list of conditions and the following disclaimer.
- *
+ * 
  * 2. Redistributions in binary form must reproduce the above copyright
  * notice, this list of conditions and the following disclaimer in the
  * documentation and/or other materials provided with the distribution.
- *
+ * 
  * 3. The end-user documentation included with the redistribution, if
  * any, must include the following acknowlegement: "This product includes
  * software developed by Collab.Net (http://www.Collab.Net/)."
  * Alternately, this acknowlegement may appear in the software itself, if
  * and wherever such third-party acknowlegements normally appear.
- *
+ * 
  * 4. The hosted project names must not be used to endorse or promote
  * products derived from this software without prior written
  * permission. For written permission, please contact info@collab.net.
- *
+ * 
  * 5. Products derived from this software may not use the "Tigris" name
  * nor may "Tigris" appear in their names without prior written
  * permission of Collab.Net.
- *
+ * 
  * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
  * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -42,7 +42,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ====================================================================
- *
+ * 
  * This software consists of voluntary contributions made by many
  * individuals on behalf of Collab.Net.
  */
@@ -59,7 +59,7 @@
    calls this on the svn_string_t's *data field.  */
 
 static void *
-my__realloc (char *data, const size_t oldsize, const size_t request,
+my__realloc (char *data, const size_t oldsize, const size_t request, 
              apr_pool_t *pool)
 {
   void *new_area;
@@ -71,7 +71,7 @@ my__realloc (char *data, const size_t oldsize, const size_t request,
   memcpy (new_area, data, oldsize);
 
   /* I'm NOT freeing old area here -- cuz we're using pools, ugh. */
-
+  
   /* return new area */
   return new_area;
 }
@@ -88,7 +88,7 @@ svn_string_create (const char *cstring, apr_pool_t *pool)
   size_t l = strlen (cstring);
 
   /* this alloc gives us memory filled with zeros, yum. */
-  new_string = (svn_string_t *) apr_palloc (pool, sizeof(svn_string_t));
+  new_string = (svn_string_t *) apr_palloc (pool, sizeof(svn_string_t)); 
 
   /* +1 to account for null byte. */
   new_string->data = (char *) apr_palloc (pool, l + 1);
@@ -96,7 +96,7 @@ svn_string_create (const char *cstring, apr_pool_t *pool)
   new_string->blocksize = l + 1;
 
   strcpy (new_string->data, cstring);
-
+  
   return new_string;
 }
 
@@ -105,13 +105,13 @@ svn_string_create (const char *cstring, apr_pool_t *pool)
    (NOT null-terminated!);  requires a memory pool to allocate from */
 
 svn_string_t *
-svn_string_ncreate (const char *bytes, const size_t size,
+svn_string_ncreate (const char *bytes, const size_t size, 
                     apr_pool_t *pool)
 {
   svn_string_t *new_string;
 
   /* this alloc gives us memory filled with zeros, yum. */
-  new_string = (svn_string_t *) apr_palloc (pool, sizeof(svn_string_t));
+  new_string = (svn_string_t *) apr_palloc (pool, sizeof(svn_string_t)); 
 
   new_string->data = (char *) apr_palloc (pool, size + 1);
   new_string->len = size;
@@ -134,7 +134,7 @@ svn_string_ncreate (const char *bytes, const size_t size,
 
 /* overwrite bytestring with a character */
 
-void
+void 
 svn_string_fillchar (svn_string_t *str, const unsigned char c)
 {
   memset (str->data, c, str->len);
@@ -181,7 +181,7 @@ svn_string_isempty (const svn_string_t *str)
 /* append a number of bytes onto a bytestring */
 
 void
-svn_string_appendbytes (svn_string_t *str, const char *bytes,
+svn_string_appendbytes (svn_string_t *str, const char *bytes, 
                         const size_t count, apr_pool_t *pool)
 {
   size_t total_len;
@@ -195,10 +195,10 @@ svn_string_appendbytes (svn_string_t *str, const char *bytes,
   if (total_len >= str->blocksize)
     {
       str->blocksize = total_len * 2;
-      str->data = (char *) my__realloc (str->data,
+      str->data = (char *) my__realloc (str->data, 
                                         str->len,
                                         str->blocksize,
-                                        pool);
+                                        pool); 
     }
 
   /* get address 1 byte beyond end of original bytestring */
@@ -219,7 +219,7 @@ void
 svn_string_appendstr (svn_string_t *targetstr, const svn_string_t *appendstr,
                       apr_pool_t *pool)
 {
-  svn_string_appendbytes (targetstr, appendstr->data,
+  svn_string_appendbytes (targetstr, appendstr->data, 
                           appendstr->len, pool);
 }
 
@@ -247,7 +247,7 @@ svn_string_compare (const svn_string_t *str1, const svn_string_t *str2)
     return FALSE;
 
   /* now that we know they have identical lengths... */
-
+  
   if (memcmp (str1->data, str2->data, str1->len))
     return FALSE;
   else
@@ -267,7 +267,7 @@ svn_string_compare_2cstring (const svn_string_t *str, const char *cstr)
     return FALSE;
 
   /* now that we know they have identical lengths... */
-
+  
   if (memcmp (str->data, cstr, l))
     return FALSE;
   else
@@ -293,12 +293,12 @@ svn_string_2cstring (const svn_string_t *str, apr_pool_t *pool)
 }
 
 
-/*
+/* 
    Handy routine.
 
    Input:  a bytestring
 
-   Returns: offset of first non-whitespace character
+   Returns: offset of first non-whitespace character 
 
       (if bytestring is ALL whitespace, then it returns the size of
       the bytestring.  Be careful not to use this value as an array
@@ -320,12 +320,12 @@ svn_string_first_non_whitespace (const svn_string_t *str)
     }
 
   /* if we get here, then the string must be entirely whitespace */
-  return (str->len);
+  return (str->len);  
 }
 
 
 
-/*
+/* 
    Another handy utility.
 
    Input:  a bytestring
@@ -356,7 +356,7 @@ svn_string_strip_whitespace (svn_string_t *str)
           break;
         }
     }
-
+  
   /* Mmm, waste some more RAM */
   str->len = i + 1;
 }
@@ -368,19 +368,19 @@ svn_string_strip_whitespace (svn_string_t *str)
    contains ASCII.  */
 
 void
-svn_string_print (const svn_string_t *str,
-                  FILE *stream,
+svn_string_print (const svn_string_t *str, 
+                  FILE *stream, 
                   svn_boolean_t show_all_fields,
                   svn_boolean_t add_newline)
 {
-  if (str->len >= 0)
+  if (str->len >= 0) 
     {
 
       fwrite (str->data, 1, str->len, stream);
 
       if (show_all_fields)
         {
-          fprintf (stream, " (blocksize: %d, length: %d)",
+          fprintf (stream, " (blocksize: %d, length: %d)", 
                    str->blocksize, str->len);
         }
 
