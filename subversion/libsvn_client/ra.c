@@ -35,7 +35,7 @@ open_admin_tmp_file (apr_file_t **fp,
                      void *callback_baton)
 {
   svn_client__callback_baton_t *cb = callback_baton;
-
+  
   SVN_ERR (svn_wc_create_tmp_file (fp, cb->base_dir, TRUE, cb->pool));
 
   return SVN_NO_ERROR;
@@ -59,7 +59,7 @@ open_tmp_file (apr_file_t **fp,
   /* Tack on a made-up filename. */
   truepath = svn_path_join (truepath, "tempfile", cb->pool);
 
-  /* Open a unique file;  use APR_DELONCLOSE. */
+  /* Open a unique file;  use APR_DELONCLOSE. */  
   SVN_ERR (svn_io_open_unique_file (fp, &ignored_filename,
                                     truepath, ".tmp", TRUE, cb->pool));
 
@@ -134,7 +134,7 @@ set_wc_prop (void *baton,
 }
 
 
-svn_error_t *
+svn_error_t * 
 svn_client__open_ra_session (void **session_baton,
                              const svn_ra_plugin_t *ra_lib,
                              const char *base_url,
@@ -164,10 +164,10 @@ svn_client__open_ra_session (void **session_baton,
 
   return SVN_NO_ERROR;
 }
-
+                                        
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end: */

@@ -40,17 +40,17 @@ svn_cl__export (apr_getopt_t *os,
   svn_wc_notify_func_t notify_func = NULL;
   void *notify_baton = NULL;
   const char *from, *to;
-
+ 
   SVN_ERR (svn_cl__parse_all_args (os, opt_state, "export", pool));
 
   /* Put commandline auth info into a baton for libsvn_client.  */
   auth_baton = svn_cl__make_auth_baton (opt_state, pool);
 
-  if (opt_state->args->nelts == 1)
+  if (opt_state->args->nelts == 1) 
     {
       svn_path_split_nts(((const char **) (opt_state->args->elts))[0], NULL, &to, pool);
     }
-  else if (opt_state->args->nelts == 2)
+  else if (opt_state->args->nelts == 2) 
     {
       to = ((const char **) (opt_state->args->elts))[1];
     }
@@ -76,8 +76,8 @@ svn_cl__export (apr_getopt_t *os,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../tools/dev/svn-dev.el")
- * end:
+ * end: 
  */
