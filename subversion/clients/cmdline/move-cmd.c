@@ -57,10 +57,10 @@ svn_cl__move (apr_getopt_t *os,
 
   src_path = ((svn_stringbuf_t **) (targets->elts))[0];
   dst_path = ((svn_stringbuf_t **) (targets->elts))[1];
-
-  SVN_ERR (svn_client_move
-           (&commit_info,
-            src_path, &(opt_state->start_revision), dst_path, auth_baton,
+  
+  SVN_ERR (svn_client_move 
+           (&commit_info, 
+            src_path, &(opt_state->start_revision), dst_path, auth_baton, 
             &svn_cl__get_log_message,
             svn_cl__make_log_msg_baton (opt_state, NULL, pool),
             SVN_CL_NOTIFY(opt_state),
@@ -75,8 +75,8 @@ svn_cl__move (apr_getopt_t *os,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../tools/dev/svn-dev.el")
- * end:
+ * end: 
  */
