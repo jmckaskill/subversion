@@ -28,20 +28,20 @@ Public Enum cShellSortTypeConstants
     CCLSortNumeric = 100
     CCLSortString = 102
     CCLSortStringNoCase = 103
-
+    
     ' Date sorting
     CCLSortDate = 200
-
+    
     CCLSortDateYearAccuracy = 250
     CCLSortDateMonthAccuracy = 251
     CCLSortDateDayAccuracy = 252
     CCLSortDateHourAccuracy = 253
     CCLSortDateMinuteAccuracy = 254
-
+    
     ' Icon sorting:
     CCLSortIcon = 300
     CCLSortExtraIcon = 301
-
+    
     ' Colour sorting:
     CCLSortForeColor = 400
     CCLSortBackColor = 401
@@ -148,7 +148,7 @@ Dim tSortRow As tRowPosition
 Dim iItemCount As Long
 Dim iCol As Long
 Dim iColumns As Long
-
+           
     iColumns = UBound(vItems, 1)
     iItemCount = UBound(vItems, 2)
 
@@ -169,7 +169,7 @@ Dim iColumns As Long
                     LSet vSortItems(iCol) = vItems(iCol, iMainLoop)
                 Next iCol
                 LSet tSortRow = tRows(iMainLoop)
-
+                
                 ' Loop form MainLoop-Increment to 0
                 For iSubLoop = (iMainLoop - iIncrement) To 1 Step -iIncrement
                     If (pbGreater(vItems(), vSortItems(), iSubLoop)) Then
@@ -210,7 +210,7 @@ Dim iColumns As Long
             End If
          End If
     End If
-
+    
 End Sub
 
 Private Function pbGreater( _
@@ -255,7 +255,7 @@ Dim lDiff As Long
         Else
             pbIsGreater = (lR <= 0)
         End If
-
+    
     Case CCLSortFontIndex
         lR = vSortItem.iFntIndex - vItem.iFntIndex
         bIsEqual = (lR = 0)
@@ -264,7 +264,7 @@ Dim lDiff As Long
         Else
             pbIsGreater = (lR <= 0)
         End If
-
+    
     Case CCLSortIndentation
         lR = vSortItem.lIndent - vItem.lIndent
         bIsEqual = (lR = 0)
@@ -273,7 +273,7 @@ Dim lDiff As Long
         Else
             pbIsGreater = (lR <= 0)
         End If
-
+    
     Case CCLSortIcon
         lR = vSortItem.iIconIndex - vItem.iIconIndex
         bIsEqual = (lR = 0)
@@ -282,7 +282,7 @@ Dim lDiff As Long
         Else
             pbIsGreater = (lR <= 0)
         End If
-
+    
     Case CCLSortExtraIcon
         lR = vSortItem.lExtraIconIndex - vItem.lExtraIconIndex
         bIsEqual = (lR = 0)
@@ -291,7 +291,7 @@ Dim lDiff As Long
         Else
             pbIsGreater = (lR <= 0)
         End If
-
+    
     Case CCLSortForeColor
         lR = vSortItem.oForeColor - vItem.oForeColor
         bIsEqual = (vR = 0)
@@ -300,7 +300,7 @@ Dim lDiff As Long
         Else
             pbIsGreater = (lR <= 0)
         End If
-
+    
     Case CCLSortBackColor
         lR = vSortItem.oBackColor - vItem.oBackColor
         bIsEqual = (lR = 0)
@@ -309,7 +309,7 @@ Dim lDiff As Long
         Else
             pbIsGreater = (lR <= 0)
         End If
-
+    
     Case CCLSortNumeric
         vR = Val(vSortItem.sText - vItem.sText)
         bIsEqual = (vR = 0)
@@ -318,7 +318,7 @@ Dim lDiff As Long
         Else
             pbIsGreater = (vR <= 0)
         End If
-
+        
     Case CCLSortString
       If Not (IsMissing(vSortItem.sText)) Then
          sSortItemText = vSortItem.sText
@@ -333,7 +333,7 @@ Dim lDiff As Long
       Else
           pbIsGreater = (lR < 1)
       End If
-
+      
     Case CCLSortStringNoCase
       If Not (IsMissing(vSortItem.sText)) Then
          sSortItemText = vSortItem.sText
@@ -348,7 +348,7 @@ Dim lDiff As Long
       Else
           pbIsGreater = (lR < 1)
       End If
-
+    
     Case CCLSortDate
          If Not (IsMissing(vSortItem.sText)) Then
             sSortItemText = vSortItem.sText
@@ -366,7 +366,7 @@ Dim lDiff As Long
         Else
             pbIsGreater = True
         End If
-
+        
     Case CCLSortDateYearAccuracy
       If IsDate(vSortItem.sText) Then
          vSortDate = DateSerial(Year(vSortItem.sText), 1, 1)
@@ -392,7 +392,7 @@ Dim lDiff As Long
       Else
          bIsEqual = True
       End If
-
+        
     Case CCLSortDateMonthAccuracy
       If IsDate(vSortItem.sText) Then
          vSortDate = DateSerial(Year(vSortItem.sText), Month(vSortItem.sText), 1)
@@ -418,7 +418,7 @@ Dim lDiff As Long
       Else
          bIsEqual = True
       End If
-
+        
     Case CCLSortDateDayAccuracy
       If IsDate(vSortItem.sText) Then
          vSortDate = DateSerial(Year(vSortItem.sText), Month(vSortItem.sText), Day(vSortItem.sText))
@@ -444,7 +444,7 @@ Dim lDiff As Long
       Else
          bIsEqual = True
       End If
-
+    
     Case CCLSortDateHourAccuracy
       If IsDate(vSortItem.sText) Then
          vSortDate = DateSerial(Year(vSortItem.sText), Month(vSortItem.sText), Day(vSortItem.sText)) + TimeSerial(Hour(vSortItem.sText), 0, 0)
@@ -470,7 +470,7 @@ Dim lDiff As Long
       Else
          bIsEqual = True
       End If
-
+    
     Case CCLSortDateMinuteAccuracy
       If IsDate(vSortItem.sText) Then
          vSortDate = DateSerial(Year(vSortItem.sText), Month(vSortItem.sText), Day(vSortItem.sText)) + TimeSerial(Hour(vSortItem.sText), Minute(vSortItem.sText), 0)
@@ -496,9 +496,9 @@ Dim lDiff As Long
       Else
          bIsEqual = True
       End If
-
+       
     End Select
-
+    
 End Function
 Private Function piGetSuitableShellSortInitialIncrement( _
         iSortSize As Long _
