@@ -3,32 +3,32 @@
  *
  * ================================================================
  * Copyright (c) 2000 CollabNet.  All rights reserved.
- *
+ * 
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
  * met:
- *
+ * 
  * 1. Redistributions of source code must retain the above copyright
  * notice, this list of conditions and the following disclaimer.
- *
+ * 
  * 2. Redistributions in binary form must reproduce the above copyright
  * notice, this list of conditions and the following disclaimer in the
  * documentation and/or other materials provided with the distribution.
- *
+ * 
  * 3. The end-user documentation included with the redistribution, if
  * any, must include the following acknowlegement: "This product includes
  * software developed by CollabNet (http://www.Collab.Net/)."
  * Alternately, this acknowlegement may appear in the software itself, if
  * and wherever such third-party acknowlegements normally appear.
- *
+ * 
  * 4. The hosted project names must not be used to endorse or promote
  * products derived from this software without prior written
  * permission. For written permission, please contact info@collab.net.
- *
+ * 
  * 5. Products derived from this software may not use the "Tigris" name
  * nor may "Tigris" appear in their names without prior written
  * permission of CollabNet.
- *
+ * 
  * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
  * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -42,7 +42,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ====================================================================
- *
+ * 
  * This software consists of voluntary contributions made by many
  * individuals on behalf of CollabNet.
  */
@@ -99,7 +99,7 @@ run_cmd_in_directory (svn_string_t *path,
   apr_procattr_t *cmdproc_attr;
 
   /* Create the process attributes. */
-  apr_err = apr_createprocattr_init (&cmdproc_attr, pool);
+  apr_err = apr_createprocattr_init (&cmdproc_attr, pool); 
   if (! APR_STATUS_IS_SUCCESS (apr_err))
     return svn_error_createf
       (apr_err, 0, NULL, pool,
@@ -109,7 +109,7 @@ run_cmd_in_directory (svn_string_t *path,
   /* Make sure we invoke cmd directly, not through a shell. */
   apr_err = apr_setprocattr_cmdtype (cmdproc_attr, APR_PROGRAM);
   if (! APR_STATUS_IS_SUCCESS (apr_err))
-    return svn_error_createf
+    return svn_error_createf 
       (apr_err, 0, NULL, pool,
        "run_cmd_under_directory: error setting %s process cmdtype",
        cmd);
@@ -119,14 +119,14 @@ run_cmd_in_directory (svn_string_t *path,
     {
       apr_err = apr_setprocattr_dir (cmdproc_attr, path->data);
       if (! APR_STATUS_IS_SUCCESS (apr_err))
-        return svn_error_createf
+        return svn_error_createf 
           (apr_err, 0, NULL, pool,
            "run_cmd_under_directory: error setting %s process directory",
            cmd);
     }
 
   /* Set io style. */
-  apr_err = apr_setprocattr_io (cmdproc_attr, APR_FULL_BLOCK,
+  apr_err = apr_setprocattr_io (cmdproc_attr, APR_FULL_BLOCK, 
                                 APR_CHILD_BLOCK, APR_CHILD_BLOCK);
   if (! APR_STATUS_IS_SUCCESS (apr_err))
     return svn_error_createf
@@ -139,7 +139,7 @@ run_cmd_in_directory (svn_string_t *path,
     {
       apr_err = apr_setprocattr_childin (cmdproc_attr, infile, NULL);
       if (! APR_STATUS_IS_SUCCESS (apr_err))
-        return svn_error_createf
+        return svn_error_createf 
           (apr_err, 0, NULL, pool,
            "run_cmd_under_directory: error setting %s process child input",
            cmd);
@@ -148,7 +148,7 @@ run_cmd_in_directory (svn_string_t *path,
     {
       apr_err = apr_setprocattr_childout (cmdproc_attr, outfile, NULL);
       if (! APR_STATUS_IS_SUCCESS (apr_err))
-        return svn_error_createf
+        return svn_error_createf 
           (apr_err, 0, NULL, pool,
            "run_cmd_under_directory: error setting %s process child outfile",
            cmd);
@@ -157,17 +157,17 @@ run_cmd_in_directory (svn_string_t *path,
     {
       apr_err = apr_setprocattr_childerr (cmdproc_attr, errfile, NULL);
       if (! APR_STATUS_IS_SUCCESS (apr_err))
-        return svn_error_createf
+        return svn_error_createf 
           (apr_err, 0, NULL, pool,
            "run_cmd_under_directory: error setting %s process child errfile",
            cmd);
     }
 
-  /* Start the cmd command. */
+  /* Start the cmd command. */ 
   apr_err = apr_create_process (&cmd_proc, cmd, args, NULL,
                                 cmdproc_attr, pool);
   if (! APR_STATUS_IS_SUCCESS (apr_err))
-    return svn_error_createf
+    return svn_error_createf 
       (apr_err, 0, NULL, pool,
        "run_cmd_under_directory: error starting %s process",
        cmd);
@@ -266,7 +266,7 @@ remove_from_revision_control (struct log_runner *loggy, svn_string_t *name)
 {
   svn_error_t *err;
   apr_hash_t *entries = NULL;
-
+  
   /* Remove this entry from the entries file. */
   err = svn_wc__entries_read (&entries, loggy->path, loggy->pool);
   if (err)
@@ -275,14 +275,14 @@ remove_from_revision_control (struct log_runner *loggy, svn_string_t *name)
   err = svn_wc__entries_write (entries, loggy->path, loggy->pool);
   if (err)
     return err;
-
+  
   /* Remove its text-base copy, if any, and conditionally remove
      working file too. */
   {
     svn_string_t *file_full_path;
     svn_string_t *text_base_path;
     enum svn_node_kind kind;
-
+    
     file_full_path = svn_string_dup (loggy->path, loggy->pool);
     svn_path_add_component (file_full_path, name, svn_path_local_style);
     text_base_path
@@ -292,14 +292,14 @@ remove_from_revision_control (struct log_runner *loggy, svn_string_t *name)
       return SVN_NO_ERROR;
     else if (err)
       return err;
-
+    
     /* Else we have a text-base copy, so use it. */
 
     if (kind == svn_node_file)
       {
         apr_status_t apr_err;
         svn_boolean_t same;
-
+        
         {
           /* Aha!  There is a text-base file still around.  Use it
              to check if the working file is modified; if wf is not
@@ -323,7 +323,7 @@ remove_from_revision_control (struct log_runner *loggy, svn_string_t *name)
                    file_full_path->data);
             }
         }
-
+        
         apr_err = apr_remove_file (text_base_path->data, loggy->pool);
         if (apr_err)
           return svn_error_createf
@@ -358,7 +358,7 @@ log_do_run_cmd (struct log_runner *loggy,
     *outfile = NULL,
     *errfile = NULL;
   const char *args[9];
-
+  
   args[0] = name;
   /* Grab the arguments.
      You want ugly?  I'll give you ugly... */
@@ -371,60 +371,60 @@ log_do_run_cmd (struct log_runner *loggy,
   args[7] = svn_xml_get_attr_value (SVN_WC__LOG_ATTR_ARG_7, atts);
   args[8] = svn_xml_get_attr_value (SVN_WC__LOG_ATTR_ARG_8, atts);
   args[9] = svn_xml_get_attr_value (SVN_WC__LOG_ATTR_ARG_9, atts);
-
+  
   /* Grab the input and output, if any. */
   infile_name = svn_xml_get_attr_value (SVN_WC__LOG_ATTR_INFILE, atts);;
   outfile_name = svn_xml_get_attr_value (SVN_WC__LOG_ATTR_OUTFILE, atts);;
   errfile_name = svn_xml_get_attr_value (SVN_WC__LOG_ATTR_ERRFILE, atts);;
-
+  
   if (infile_name)
     {
       svn_string_t *infile_path
         = svn_string_dup (loggy->path, loggy->pool);
       svn_path_add_component_nts (infile_path, infile_name,
                                   svn_path_local_style);
-
+      
       apr_err = apr_open (&infile, infile_path->data, APR_READ,
                           APR_OS_DEFAULT, loggy->pool);
       if (apr_err)
         return svn_error_createf (apr_err, 0, NULL, loggy->pool,
                                   "error opening %s", infile_path->data);
     }
-
+  
   if (outfile_name)
     {
       svn_string_t *outfile_path
         = svn_string_dup (loggy->path, loggy->pool);
       svn_path_add_component_nts (outfile_path, outfile_name,
                                   svn_path_local_style);
-
+      
       /* kff todo: always creates and overwrites, currently.
          Could append if file exists... ?  Consider. */
-      apr_err = apr_open (&outfile, outfile_path->data,
+      apr_err = apr_open (&outfile, outfile_path->data, 
                           (APR_WRITE | APR_CREATE),
                           APR_OS_DEFAULT, loggy->pool);
       if (apr_err)
         return svn_error_createf (apr_err, 0, NULL, loggy->pool,
                                   "error opening %s", outfile_path->data);
     }
-
+  
   if (errfile_name)
     {
       svn_string_t *errfile_path
         = svn_string_dup (loggy->path, loggy->pool);
       svn_path_add_component_nts (errfile_path, errfile_name,
                                   svn_path_local_style);
-
+      
       /* kff todo: always creates and overwrites, currently.
          Could append if file exists... ?  Consider. */
-      apr_err = apr_open (&errfile, errfile_path->data,
+      apr_err = apr_open (&errfile, errfile_path->data, 
                           (APR_WRITE | APR_CREATE),
                           APR_OS_DEFAULT, loggy->pool);
       if (apr_err)
         return svn_error_createf (apr_err, 0, NULL, loggy->pool,
                                   "error opening %s", errfile_path->data);
     }
-
+  
   err = run_cmd_in_directory (loggy->path,
                               name,
                               (char *const *) args,
@@ -489,7 +489,7 @@ log_do_modify_entry (struct log_runner *loggy,
 {
   svn_error_t *err;
   apr_hash_t *ah = svn_xml_make_att_hash (atts, loggy->pool);
-
+      
   apr_time_t text_time, prop_time;
   svn_string_t *tfile, *pfile;
   svn_string_t *sname = svn_string_create (name, loggy->pool);
@@ -499,12 +499,12 @@ log_do_modify_entry (struct log_runner *loggy,
   svn_revnum_t new_revision = (revstr ? atoi (revstr->data)
                                : SVN_INVALID_REVNUM);
   int flags = 0;
-
+          
   enum svn_node_kind kind = svn_node_unknown;
   svn_string_t *kindstr = apr_hash_get (ah,
                                         SVN_WC_ENTRY_ATTR_KIND,
                                         APR_HASH_KEY_STRING);
-
+          
   /* Create a full path to the file's textual component */
   tfile = svn_string_dup (loggy->path, loggy->pool);
   svn_path_add_component (tfile, sname, svn_path_local_style);
@@ -527,7 +527,7 @@ log_do_modify_entry (struct log_runner *loggy,
     kind = svn_node_dir;
   else
     kind = svn_node_none;
-
+          
           /* Stuff state into flags. */
   if (apr_hash_get (ah, SVN_WC_ENTRY_ATTR_ADD,
                     APR_HASH_KEY_STRING))
@@ -544,7 +544,7 @@ log_do_modify_entry (struct log_runner *loggy,
 
           /* Did the log command give us any timestamps?  There are three
              possible scenarios here.  We must check both text_time
-             and prop_time for each of the three scenarios.
+             and prop_time for each of the three scenarios.  
 
              TODO: The next two code blocks might benefit from
              factorization.  Then again, factorization might make them
@@ -552,15 +552,15 @@ log_do_modify_entry (struct log_runner *loggy,
 
   {
     /* GET VALUE OF TEXT_TIME: */
-    svn_string_t *text_timestr =
+    svn_string_t *text_timestr = 
       apr_hash_get (ah, SVN_WC_ENTRY_ATTR_TEXT_TIME,
                     APR_HASH_KEY_STRING);
-
+            
     /* Scenario 1:  no timestamp mentioned at all */
     if (! text_timestr)
       text_time = 0;  /* this tells merge_sync to ignore the
                          field */
-
+            
     /* Scenario 2:  use the working copy's timestamp */
     else if (! strcmp (text_timestr->data, SVN_WC_TIMESTAMP_WC))
       {
@@ -579,7 +579,7 @@ log_do_modify_entry (struct log_runner *loggy,
             (SVN_ERR_WC_BAD_ADM_LOG, 0, NULL, loggy->pool,
              "error getting file affected time on %s", tfile->data);
       }
-
+            
     /* Scenario 3:  use the integer provided, as-is. */
     else
       /* Is atol appropriate here for converting an apr_time_t
@@ -587,18 +587,18 @@ log_do_modify_entry (struct log_runner *loggy,
          our svn_wc__time_to_string and string_to_time? */
       text_time = (apr_time_t) atol (text_timestr->data);
   }
-
+          
   {
     /* GET VALUE OF PROP_TIME: */
-    svn_string_t *prop_timestr =
+    svn_string_t *prop_timestr = 
       apr_hash_get (ah, SVN_WC_ENTRY_ATTR_PROP_TIME,
                     APR_HASH_KEY_STRING);
-
+            
     /* Scenario 1:  no timestamp mentioned at all */
     if (! prop_timestr)
       prop_time = 0;  /* this tells merge_sync to ignore the
                                  field */
-
+            
             /* Scenario 2:  use the working copy's timestamp */
     else if (! strcmp (prop_timestr->data, SVN_WC_TIMESTAMP_WC))
       {
@@ -617,8 +617,8 @@ log_do_modify_entry (struct log_runner *loggy,
             (SVN_ERR_WC_BAD_ADM_LOG, 0, NULL, loggy->pool,
              "error getting file affected time on %s", pfile->data);
       }
-
-
+            
+            
     /* Scenario 3:  use the integer provided, as-is. */
     else
       /* Is atol appropriate here for converting an apr_time_t
@@ -626,7 +626,7 @@ log_do_modify_entry (struct log_runner *loggy,
                  our svn_wc__time_to_string and string_to_time? */
       prop_time = (apr_time_t) atol (prop_timestr->data);
   }
-
+          
   /** End of Timestamp deductions **/
 
           /* Now write the new entry out */
@@ -652,7 +652,7 @@ log_do_delete_entry (struct log_runner *loggy, const char *name)
 {
   svn_error_t *err;
   svn_string_t *sname = svn_string_create (name, loggy->pool);
-
+  
   err = remove_from_revision_control (loggy, sname);
   if (err)
     return err;
@@ -737,7 +737,7 @@ log_do_committed (struct log_runner *loggy,
       err = svn_wc__entries_read (&entries, loggy->path, loggy->pool);
       if (err)
         return err;
-
+          
       entry = apr_hash_get (entries, sname->data, sname->len);
       if (entry && (entry->flags & SVN_WC_ENTRY_DELETE))
         {
@@ -752,13 +752,13 @@ log_do_committed (struct log_runner *loggy,
                                   sname,
                                   svn_path_local_style);
           tmp_base = svn_wc__text_base_path (working_file, 1, loggy->pool);
-
+              
           err = svn_io_check_path (tmp_base, &kind, loggy->pool);
           if (err)
             return svn_error_createf
               (SVN_ERR_WC_BAD_ADM_LOG, 0, NULL, loggy->pool,
                "error checking existence of %s", name);
-
+              
           if (kind == svn_node_file)
             {
               svn_boolean_t same;
@@ -767,26 +767,26 @@ log_do_committed (struct log_runner *loggy,
                                                    tmp_base,
                                                    loggy->pool);
               if (err)
-                return svn_error_createf
+                return svn_error_createf 
                   (SVN_ERR_WC_BAD_ADM_LOG, 0, NULL, loggy->pool,
                    "error comparing %s and %s",
                    working_file->data, tmp_base->data);
-
-              err = svn_io_file_affected_time
+                  
+              err = svn_io_file_affected_time 
                 (&timestamp, same ? working_file : tmp_base, loggy->pool);
               if (err)
-                return svn_error_createf
+                return svn_error_createf 
                   (SVN_ERR_WC_BAD_ADM_LOG, 0, NULL, loggy->pool,
                    "error getting file_affected_time on %s",
                    same ? working_file->data : tmp_base->data);
-
+                  
               err = replace_text_base (loggy->path, name, loggy->pool);
               if (err)
-                return svn_error_createf
+                return svn_error_createf 
                   (SVN_ERR_WC_BAD_ADM_LOG, 0, NULL, loggy->pool,
                    "error replacing text base for %s", name);
             }
-
+              
           /* Else the SVN/tmp/text-base/ file didn't exist.  Whatever; we
              can ignore and move on. */
           err = svn_wc__entry_merge_sync (loggy->path,
@@ -826,13 +826,13 @@ start_handler (void *userData, const XML_Char *eltname, const XML_Char **atts)
   else if (! name)
     {
       signal_error
-        (loggy, svn_error_createf
+        (loggy, svn_error_createf 
          (SVN_ERR_WC_BAD_ADM_LOG, 0, NULL, loggy->pool,
           "log entry missing name attribute (entry %s for dir %s)",
           eltname, loggy->path->data));
       return;
     }
-
+  
   /* Dispatch. */
   if (strcmp (eltname, SVN_WC__LOG_RUN_CMD) == 0) {
     err = log_do_run_cmd (loggy, name, atts);
@@ -879,7 +879,7 @@ start_handler (void *userData, const XML_Char *eltname, const XML_Char **atts)
        (SVN_ERR_WC_BAD_ADM_LOG, 0, err, loggy->pool,
         "start_handler: error processing element %s in %s",
         eltname, loggy->path->data));
-
+  
   return;
 }
 
@@ -908,7 +908,7 @@ svn_wc__run_log (svn_string_t *path, apr_pool_t *pool)
   loggy->path   = path;
   loggy->pool   = pool;
   loggy->parser = parser;
-
+  
   /* Expat wants everything wrapped in a top-level form, so start with
      a ghost open tag. */
   err = svn_xml_parse (parser, log_start, strlen (log_start), 0);
@@ -919,7 +919,7 @@ svn_wc__run_log (svn_string_t *path, apr_pool_t *pool)
   err = svn_wc__open_adm_file (&f, path, SVN_WC__ADM_LOG, APR_READ, pool);
   if (err)
     return err;
-
+  
   do {
     buf_len = sizeof (buf);
 
@@ -1000,11 +1000,11 @@ svn_wc__cleanup (svn_string_t *path,
           if (! care_about_this_dir)
             {
               svn_string_t *target = svn_string_dup (path, pool);
-              svn_path_add_component
+              svn_path_add_component 
                 (target,
                  svn_string_ncreate ((char *) key, keylen, pool),
                  svn_path_local_style);
-
+              
               if (apr_hash_get (targets, target->data, target->len))
                 care_about_this_dir = 1;
             }
@@ -1034,7 +1034,7 @@ svn_wc__cleanup (svn_string_t *path,
           err = svn_wc__locked (&locked, path, pool);
           if (err)
             return err;
-
+          
           if (locked)
             return svn_error_createf (SVN_ERR_WC_LOCKED,
                                       0,
@@ -1043,12 +1043,12 @@ svn_wc__cleanup (svn_string_t *path,
                                       "svn_wc__cleanup: %s locked",
                                       path->data);
         }
-
+      
       /* Eat what's put in front of us. */
       err = svn_wc__run_log (path, pool);
       if (err)
         return err;
-
+      
       /* Remove any lock here.  But we couldn't even be here if there were
          a lock file and bail_on_lock were set, so do the obvious check
          first. */
@@ -1109,10 +1109,10 @@ svn_wc__log_commit (svn_string_t *path,
           svn_string_t *logtag = svn_string_create ("", pool);
           char *revstr = apr_psprintf (pool, "%ld", revision);
           apr_file_t *log_fp = NULL;
-
+          
           /* entry->kind == svn_node_file, but was the file actually
              involved in the commit? */
-
+          
           if (targets)
             {
               svn_string_t *target = svn_string_dup (path, pool);
@@ -1120,11 +1120,11 @@ svn_wc__log_commit (svn_string_t *path,
                 (target,
                  svn_string_ncreate ((char *) key, keylen, pool),
                  svn_path_local_style);
-
+              
               if (! apr_hash_get (targets, target->data, target->len))
                 continue;
             }
-
+          
           /* Yes, the file was involved in the commit. */
 
           err = svn_wc__open_adm_file (&log_fp, path, SVN_WC__ADM_LOG,
@@ -1132,7 +1132,7 @@ svn_wc__log_commit (svn_string_t *path,
                                        pool);
           if (err)
             return err;
-
+          
           svn_xml_make_open_tag (&logtag,
                                  pool,
                                  svn_xml_self_closing,
@@ -1142,17 +1142,17 @@ svn_wc__log_commit (svn_string_t *path,
                                  SVN_WC__LOG_ATTR_REVISION,
                                  svn_string_create (revstr, pool),
                                  NULL);
-
+          
           apr_err = apr_full_write (log_fp, logtag->data, logtag->len, NULL);
           if (apr_err)
             {
               apr_close (log_fp);
               return svn_error_createf (apr_err, 0, NULL, pool,
                                         "svn_wc__log_commit: "
-                                        "error writing %s's log file",
+                                        "error writing %s's log file", 
                                         path->data);
             }
-
+          
           err = svn_wc__close_adm_file (log_fp,
                                         path,
                                         SVN_WC__ADM_LOG,
@@ -1168,7 +1168,7 @@ svn_wc__log_commit (svn_string_t *path,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
