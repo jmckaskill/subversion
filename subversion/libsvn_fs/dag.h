@@ -233,7 +233,7 @@ svn_error_t *svn_fs__dag_clone_child (dag_node_t **child_p,
 /* Create a link to CHILD in PARENT named NAME, as part of TRAIL.
    PARENT must be mutable.  CHILD must be immutable.  NAME must be a
    single path component; it cannot be a slash-separated directory
-   path.
+   path.  
 
    Note that it is impossible to use this function to create cyclic
    directory structures.  Since PARENT is mutable, and every parent of
@@ -340,7 +340,7 @@ svn_error_t *svn_fs__dag_get_copy (svn_revnum_t *rev_p,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
