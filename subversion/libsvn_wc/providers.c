@@ -33,7 +33,7 @@ typedef struct
   /* the wc directory and access baton we're attempting to read/write from */
   const char *base_dir;
   svn_wc_adm_access_t *base_access;
-
+  
 } provider_baton_t;
 
 
@@ -49,10 +49,10 @@ get_creds (const char **username,
 {
   svn_error_t *err1 = NULL, *err2 = NULL;
   svn_stringbuf_t *susername, *spassword;
-  const char *def_username = apr_hash_get (parameters,
+  const char *def_username = apr_hash_get (parameters, 
                                            SVN_AUTH_PARAM_DEFAULT_USERNAME,
                                            APR_HASH_KEY_STRING);
-  const char *def_password = apr_hash_get (parameters,
+  const char *def_password = apr_hash_get (parameters, 
                                            SVN_AUTH_PARAM_DEFAULT_PASSWORD,
                                            APR_HASH_KEY_STRING);
   pb->base_dir = apr_hash_get (parameters, SVN_AUTH_PARAM_SIMPLE_WC_WCDIR,
@@ -72,13 +72,13 @@ get_creds (const char **username,
 
   /* Try to read the cache file data. */
   if (! def_username)
-    err1 = svn_wc_get_auth_file (pb->base_dir,
+    err1 = svn_wc_get_auth_file (pb->base_dir, 
                                  SVN_WC__AUTHFILE_USERNAME,
                                  &susername, pool);
   if (! def_password)
-    err2 = svn_wc_get_auth_file (pb->base_dir,
+    err2 = svn_wc_get_auth_file (pb->base_dir, 
                                  SVN_WC__AUTHFILE_PASSWORD,
-                                 &spassword, pool);
+                                 &spassword, pool);  
   if (err1 || err2)
     {
       /* for now, let's not try to distinguish "real" errors from
@@ -138,7 +138,7 @@ save_creds (svn_boolean_t *saved,
   /* Do a recursive store of username and password. */
   if (username)
     SVN_ERR (svn_wc_set_auth_file (adm_access, TRUE,
-                                   SVN_WC__AUTHFILE_USERNAME,
+                                   SVN_WC__AUTHFILE_USERNAME, 
                                    svn_stringbuf_create (username, pool),
                                    pool));
   if (password)
@@ -151,7 +151,7 @@ save_creds (svn_boolean_t *saved,
 
   if (! base_access)
     SVN_ERR (svn_wc_adm_close (adm_access));
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -201,7 +201,7 @@ simple_save_creds (svn_boolean_t *saved,
 
   *saved = FALSE;
   if (pb->base_dir)
-    SVN_ERR (save_creds (saved, pb->base_dir, pb->base_access,
+    SVN_ERR (save_creds (saved, pb->base_dir, pb->base_access, 
                          creds->username, creds->password, pool));
   return SVN_NO_ERROR;
 }
@@ -268,7 +268,7 @@ username_save_creds (svn_boolean_t *saved,
 
   *saved = FALSE;
   if (pb->base_dir)
-    SVN_ERR (save_creds (saved, pb->base_dir, pb->base_access,
+    SVN_ERR (save_creds (saved, pb->base_dir, pb->base_access, 
                          creds->username, NULL, pool));
   return SVN_NO_ERROR;
 }
