@@ -47,6 +47,15 @@ Candidate changes:
     Votes:
       +1: ghudson
 
+  * r10773
+    Fix typo in test case of javahl binding.
+    Justification:
+      Tiny javahl binding only fix.
+    Notes:
+      Not worth a resoak on its own.
+    Votes:
+      +1: pmayweg
+
 Status of 1.1.1:
 ================
 
