@@ -34,7 +34,7 @@ LockCallback::LockCallback(jobject jcallback)
  */
 LockCallback::~LockCallback()
 {
-    // the m_callback does not need to be destroyed, because it is the passed
+    // the m_callback does not need to be destroyed, because it is the passed 
     // in parameter to the java SVNClient.lock or SVNClient.unlock method.
 }
 /**
@@ -46,14 +46,14 @@ LockCallback::~LockCallback()
  */
 void LockCallback::callback(const char *path, bool doLock, jobject jLock)
 {
-    // if no java callback object is used -> do nothing
+    // if no java callback object is used -> do nothing 
     if(m_callback == NULL)
         return;
     JNIEnv *env = JNIUtil::getEnv();
 
     static jmethodID mid = 0; // the method id will not change during
                               // the time this library is loaded, so
-                              // it can be cached.
+                              // it can be cached. 
     if(mid == 0)
     {
         jclass clazz = env->FindClass(JAVA_PACKAGE"/LockCallback");
@@ -61,7 +61,7 @@ void LockCallback::callback(const char *path, bool doLock, jobject jLock)
         {
             return;
         }
-        mid = env->GetMethodID(clazz, "lockNotify",
+        mid = env->GetMethodID(clazz, "lockNotify", 
             "(Ljava/lang/String;Z"JAVA_PACKAGE"/Lock;)V");
         if(JNIUtil::isJavaExceptionThrown() || mid == 0)
         {
@@ -82,7 +82,7 @@ void LockCallback::callback(const char *path, bool doLock, jobject jLock)
     }
 
     // call the java method
-    env->CallVoidMethod(m_callback, mid, jpath, doLock ? JNI_TRUE:JNI_FALSE,
+    env->CallVoidMethod(m_callback, mid, jpath, doLock ? JNI_TRUE:JNI_FALSE, 
         jLock);
     if(JNIUtil::isJavaExceptionThrown())
     {
