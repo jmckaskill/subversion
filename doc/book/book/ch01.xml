@@ -19,7 +19,7 @@
   <sect1 id="svn-ch-1-sect-1">
 
     <title>What is Subversion?</title>
-
+      
     <para>Subversion is a free/open-source version control system.
       That is, Subversion manages files and directories over time.
       The tree of files are placed into a central
@@ -29,7 +29,7 @@
       recover older versions of your data, or examine the history of
       how your data changed.  In this regard, many people think of a
       version control system as a sort of ``time machine.''</para>
-
+    
     <!-- ### something about subversion facilitating communication
     between developers?? -->
 
@@ -179,7 +179,7 @@
           </para>
         </listitem>
       </varlistentry>
-
+      
       <varlistentry>
         <term>Hackability</term>
         <listitem>
@@ -239,7 +239,7 @@
   <sect1 id="svn-ch-1-sect-5">
 
     <title>Subversion's components</title>
-
+    
     <para>
       Subversion, once installed, has a number of different pieces.
       Here's a quick overview of what you get.
@@ -311,7 +311,7 @@
 </chapter>
 
 <!--
-local variables:
+local variables: 
 sgml-parent-document: ("book.xml" "chapter")
 end:
 -->
