@@ -2,9 +2,9 @@
 #
 #  module_tests.py:  testing modules / external sources.
 #
-#  Subversion is a tool for revision control.
+#  Subversion is a tool for revision control. 
 #  See http://subversion.tigris.org for more information.
-#
+#    
 # ====================================================================
 # Copyright (c) 2000-2001 CollabNet.  All rights reserved.
 #
@@ -21,8 +21,8 @@ import shutil, string, sys, re, os
 
 # Our testing module
 import svntest
-
-
+  
+ 
 ######################################################################
 # Tests
 #
@@ -51,7 +51,7 @@ def externals_test_setup(sbox):
   NOTE: Before calling this, use externals_test_cleanup(SBOX) to
   remove a previous incarnation of the other repository.
   """
-
+  
   if sbox.build():
     return 1
 
@@ -60,7 +60,7 @@ def externals_test_setup(sbox):
   repo_url       = svntest.main.current_repo_url
   other_repo_dir = repo_dir + ".other"
   other_repo_url = repo_url + ".other"
-
+  
   B_path = os.path.join (wc_dir, "A/B")
   D_path = os.path.join (wc_dir, "A/D")
 
@@ -86,7 +86,7 @@ def externals_test_setup(sbox):
 
   if len (stderr_lines) != 0:
     return 1
-
+   
   os.remove (tmp_f)
 
   externals_desc = \
