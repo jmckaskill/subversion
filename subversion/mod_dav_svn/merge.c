@@ -75,7 +75,7 @@ typedef struct mr_baton {
    PRIVATE HELPER FUNCTIONS
 */
 
-static mr_baton *make_child_baton(mr_baton *parent,
+static mr_baton *make_child_baton(mr_baton *parent, 
                                   const char *path,
                                   apr_pool_t *pool)
 {
@@ -91,7 +91,7 @@ static mr_baton *make_child_baton(mr_baton *parent,
 }
 
 /* send a response to the client for this baton */
-static svn_error_t *send_response(mr_baton *baton,
+static svn_error_t *send_response(mr_baton *baton, 
                                   svn_boolean_t is_dir,
                                   apr_pool_t *pool)
 {
@@ -118,7 +118,7 @@ static svn_error_t *send_response(mr_baton *baton,
 
   status = ap_fputstrs(mrc->output, mrc->bb,
                        "<D:response>" DEBUG_CR
-                       "<D:href>",
+                       "<D:href>", 
                        apr_xml_quote_string (pool, href, 1),
                        "</D:href>" DEBUG_CR
                        "<D:propstat><D:prop>" DEBUG_CR,
@@ -328,7 +328,7 @@ dav_error * dav_svn__merge_response(ap_filter_t *output,
   bb = apr_brigade_create(pool, output->c->bucket_alloc);
 
   /* prep some strings */
-
+  
   /* the HREF for the baseline is actually the VCC */
   vcc = dav_svn_build_uri(repos, DAV_SVN_BUILD_URI_VCC, SVN_IGNORED_REVNUM,
                           NULL, 0 /* add_href */, pool);
@@ -342,14 +342,14 @@ dav_error * dav_svn__merge_response(ap_filter_t *output,
   if (serr != NULL)
     {
       return dav_svn_convert_err(serr, HTTP_INTERNAL_SERVER_ERROR,
-                                 "Could not get date of newest revision");
+                                 "Could not get date of newest revision"); 
     }
   serr = svn_fs_revision_prop(&creator_displayname, repos->fs, new_rev,
                               SVN_PROP_REVISION_AUTHOR, pool);
   if (serr != NULL)
     {
       return dav_svn_convert_err(serr, HTTP_INTERNAL_SERVER_ERROR,
-                                 "Could not get author of newest revision");
+                                 "Could not get author of newest revision"); 
     }
 
 
@@ -360,7 +360,7 @@ dav_error * dav_svn__merge_response(ap_filter_t *output,
 
                      /* generate a response for the new baseline */
                      "<D:response>" DEBUG_CR
-                     "<D:href>",
+                     "<D:href>", 
                      apr_xml_quote_string (pool, vcc, 1),
                      "</D:href>" DEBUG_CR
                      "<D:propstat><D:prop>" DEBUG_CR
@@ -373,14 +373,14 @@ dav_error * dav_svn__merge_response(ap_filter_t *output,
   if (creationdate)
     {
       (void) ap_fputstrs(output, bb,
-                         "<D:creationdate>", creationdate->data,
+                         "<D:creationdate>", creationdate->data, 
                          "</D:creationdate>" DEBUG_CR,
                          NULL);
     }
   if (creator_displayname)
     {
       (void) ap_fputstrs(output, bb,
-                         "<D:creator-displayname>",
+                         "<D:creator-displayname>", 
                          creator_displayname->data,
                          "</D:creator-displayname>" DEBUG_CR,
                          NULL);
@@ -400,15 +400,15 @@ dav_error * dav_svn__merge_response(ap_filter_t *output,
     {
       /* Now we need to generate responses for all the resources which
          changed.  This is done through a delta of the two roots.
-
+         
          Note that a directory is not marked when open_dir is seen
          (since it typically is used just for changing members in that
          directory); instead, we want for a property change (the only
          reason the client would need to fetch a new directory).
-
+         
          ### we probably should say something about the dirs, so that
          ### we can pass back the new version URL */
-
+      
       /* set up the editor for the delta process */
       editor = svn_delta_default_editor(pool);
       editor->open_root = mr_open_root;
@@ -420,18 +420,18 @@ dav_error * dav_svn__merge_response(ap_filter_t *output,
       editor->add_file = mr_add_file;
       editor->open_file = mr_open_file;
       editor->close_file = mr_close_file;
-
+      
       /* set up the merge response context */
       mrc.pool = pool;
       mrc.output = output;
       mrc.bb = bb;
       mrc.root = committed_root;
       mrc.repos = repos;
-
+      
       serr = svn_repos_dir_delta(previous_root, "/",
                                  NULL,      /* ### should fix */
                                  committed_root, "/",
-                                 editor, &mrc,
+                                 editor, &mrc, 
                                  FALSE, /* don't bother with text-deltas */
                                  TRUE, /* Do recurse into subdirectories */
                                  FALSE, /* Do not allow entry props */
