@@ -88,7 +88,7 @@ copy_versioned_files (const char *from,
             SVN_ERR (ctx->cancel_func (ctx->cancel_baton));
 
           /* ### We could also invoke ctx->notify_func somewhere in
-             ### here... Is it called for, though?  Not sure. */
+             ### here... Is it called for, though?  Not sure. */ 
 
           if (*type == svn_node_dir)
             {
@@ -154,10 +154,10 @@ svn_client_export (const char *from,
       const svn_delta_editor_t *export_editor;
 
       URL = svn_path_canonicalize (from, pool);
-
+      
       SVN_ERR (svn_client__get_export_editor (&export_editor, &edit_baton,
                                               to, URL, ctx, pool));
-
+      
       if (revision->kind == svn_opt_revision_number)
         revnum = revision->value.number;
       else
@@ -208,7 +208,7 @@ struct file_baton
   const char *path;
   const char *tmppath;
 
-  /* We need to keep this around so we can explicitly close it in close_file,
+  /* We need to keep this around so we can explicitly close it in close_file, 
      thus flushing it's output to disk so we can copy and translate it. */
   apr_file_t *tmp_file;
 
@@ -248,9 +248,9 @@ open_root (void *edit_baton,
            apr_pool_t *pool,
            void **root_baton)
 {
-  struct edit_baton *eb = edit_baton;
+  struct edit_baton *eb = edit_baton;  
   svn_node_kind_t kind;
-
+  
   SVN_ERR (svn_io_check_path (eb->root_path, &kind, pool));
   if (kind != svn_node_none)
     return svn_error_create (SVN_ERR_WC_OBSTRUCTED_UPDATE,
@@ -458,8 +458,8 @@ close_file (void *file_baton,
         svn_subst_eol_style_from_value (&style, &eol, fb->eol_style_val->data);
 
       if (fb->keywords_val)
-        SVN_ERR (svn_subst_build_keywords (&final_kw, fb->keywords_val->data,
-                                           fb->revision, fb->url, fb->date,
+        SVN_ERR (svn_subst_build_keywords (&final_kw, fb->keywords_val->data, 
+                                           fb->revision, fb->url, fb->date, 
                                            fb->author, pool));
 
       SVN_ERR (svn_subst_copy_and_translate
@@ -472,7 +472,7 @@ close_file (void *file_baton,
 
       SVN_ERR (svn_io_remove_file (fb->tmppath, pool));
     }
-
+      
   if (fb->executable_val)
     SVN_ERR (svn_io_set_file_executable (fb->path, TRUE, FALSE, pool));
 
@@ -521,6 +521,6 @@ svn_client__get_export_editor (const svn_delta_editor_t **editor,
                                               editor,
                                               edit_baton,
                                               pool));
-
+  
   return SVN_NO_ERROR;
 }
