@@ -32,7 +32,7 @@
 #include "txn-table.h"
 
 
-static int
+static int 
 is_committed (svn_fs__transaction_t *txn)
 {
   return SVN_IS_VALID_REVNUM (txn->revision);
@@ -60,7 +60,7 @@ svn_fs__bdb_open_transactions_table (DB **transactions_p,
     DBT key, value;
 
     BDB_ERR (txns->put (txns, 0,
-                       svn_fs__str_to_dbt (&key,
+                       svn_fs__str_to_dbt (&key, 
                                            (char *) svn_fs__next_key_key),
                        svn_fs__str_to_dbt (&value, (char *) "0"),
                        SVN_BDB_AUTO_COMMIT));
@@ -114,8 +114,8 @@ allocate_txn_id (const char **id_p,
   svn_fs__trail_debug (trail, "transactions", "get");
   SVN_ERR (BDB_WRAP (fs, "allocating new txn ID (getting `next-key')",
                     fs->transactions->get (fs->transactions, trail->db_txn,
-                                           &query,
-                                           svn_fs__result_dbt (&result),
+                                           &query, 
+                                           svn_fs__result_dbt (&result), 
                                            0)));
   svn_fs__track_dbt (&result, trail->pool);
 
@@ -153,7 +153,7 @@ svn_fs__bdb_create_txn (const char **txn_name_p,
   txn.revision = SVN_INVALID_REVNUM;
   SVN_ERR (svn_fs__bdb_put_txn (fs, &txn, txn_name, trail));
 
-  *txn_name_p = txn_name;
+  *txn_name_p = txn_name; 
   return SVN_NO_ERROR;
 }
 
@@ -165,12 +165,12 @@ svn_fs__bdb_delete_txn (svn_fs_t *fs,
 {
   DBT key;
   svn_fs__transaction_t *txn;
-
+  
   /* Make sure TXN is not a committed transaction. */
   SVN_ERR (svn_fs__bdb_get_txn (&txn, fs, txn_name, trail));
   if (is_committed (txn))
     return svn_fs__err_txn_not_mutable (fs, txn_name);
-
+  
   /* Delete the transaction from the `transactions' table. */
   svn_fs__str_to_dbt (&key, (char *) txn_name);
   svn_fs__trail_debug (trail, "transactions", "del");
@@ -275,7 +275,7 @@ svn_fs__bdb_get_txn_list (apr_array_header_t **names_p,
       if (! txn_skel)
         {
           cursor->c_close (cursor);
-          return svn_fs__err_corrupt_txn
+          return svn_fs__err_corrupt_txn 
             (fs, apr_pstrmemdup (trail->pool, key.data, key.size));
         }
 
