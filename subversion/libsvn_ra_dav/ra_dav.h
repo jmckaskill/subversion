@@ -89,7 +89,7 @@ svn_error_t * svn_ra_dav__do_update(
 #endif  /* RA_DAV_H */
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
