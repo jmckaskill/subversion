@@ -26,7 +26,7 @@ main ()
 
   /* Parse the file "./configfile" */
 
-  error =
+  error = 
     svn_parse (&configdata, svn_string_create ("configfile", pool), pool);
 
   if (error) {
