@@ -56,7 +56,7 @@ svn_cl__diff (apr_getopt_t *os,
       err = svn_io_check_path (target, &kind, pool);
       if (err) return err;
 
-      switch (kind)
+      switch (kind) 
         {
         case svn_node_file:
           err = svn_cl__print_file_diff (target, pool);
@@ -70,13 +70,13 @@ svn_cl__diff (apr_getopt_t *os,
 
       if (err) return err;
     }
-
+  
   return SVN_NO_ERROR;
 }
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../svn-dev.el")
- * end:
+ * end: 
  */

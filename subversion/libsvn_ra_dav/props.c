@@ -148,7 +148,7 @@ static int add_to_hash(void *userdata, const ne_propname *pname,
 {
   svn_ra_dav_resource_t *r = userdata;
   const char *name;
-
+  
   name = apr_pstrcat(r->pool, pname->nspace, pname->name, NULL);
   value = apr_pstrdup(r->pool, value);
 
@@ -188,7 +188,7 @@ static int validate_element(ne_xml_elmid parent, ne_xml_elmid child)
             /* some other, unrecognized property */
             return NE_XML_DECLINE;
           }
-
+        
     case ELEM_baseline_coll:
     case ELEM_checked_in:
     case ELEM_vcc:
@@ -196,7 +196,7 @@ static int validate_element(ne_xml_elmid parent, ne_xml_elmid child)
         return NE_XML_VALID;
       else
         return NE_XML_DECLINE; /* not concerned with other types */
-
+      
     case ELEM_resourcetype:
       if (child == ELEM_collection)
         return NE_XML_VALID;
@@ -299,13 +299,13 @@ svn_error_t * svn_ra_dav__get_props(apr_hash_t **results,
       ne_request *req = ne_propfind_get_request(pc.dph);
       ne_add_request_header(req, "Label", label);
     }
-
-  if (which_props)
+  
+  if (which_props) 
     {
       rv = ne_propfind_named(pc.dph, which_props, process_results, &pc);
-    }
+    } 
   else
-    {
+    { 
       rv = ne_propfind_allprop(pc.dph, process_results, &pc);
     }
 
@@ -322,7 +322,7 @@ svn_error_t * svn_ra_dav__get_props(apr_hash_t **results,
                                    "(%s, port %d).",
                                    ras->root.host, ras->root.port);
         case NE_AUTH:
-          return svn_error_create(SVN_ERR_RA_NOT_AUTHORIZED, 0, NULL,
+          return svn_error_create(SVN_ERR_RA_NOT_AUTHORIZED, 0, NULL, 
                                   pool,
                                   "Authentication failed on server.");
         default:
@@ -396,7 +396,7 @@ svn_error_t * svn_ra_dav__get_one_prop(const svn_string_t **propval,
 }
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
