@@ -35,9 +35,9 @@
    while constructing the new node.  (Any memory actually used by NODE
    itself goes in NODE's pool, of course.)  */
 svn_error_t *svn_fs__file_from_skel (svn_fs_node_t **node,
-				     svn_fs_t *fs,
+				     svn_fs_t *fs, 
 				     svn_fs_id_t *id,
-				     skel_t *nv,
+				     skel_t *nv, 
 				     apr_pool_t *skel_pool);
 
 
