@@ -132,7 +132,7 @@ convert_to_stringbuf (apr_xlate_t *convset,
   if (src_length == 0)
     return SVN_NO_ERROR;
 
-  do
+  do 
     {
       /* A 1:2 ratio of input characters to output characters should
          be enough for most translations, and conveniently enough, if
@@ -152,10 +152,10 @@ convert_to_stringbuf (apr_xlate_t *convset,
       destlen = buflen - (*dest)->len;
 
       /* Attempt the conversion. */
-      apr_err = apr_xlate_conv_buffer (convset,
-                                       src_data + (src_length - srclen),
+      apr_err = apr_xlate_conv_buffer (convset, 
+                                       src_data + (src_length - srclen), 
                                        &srclen,
-                                       destbuf,
+                                       destbuf, 
                                        &destlen);
 
       /* Now, updated the *DEST->len to track the amount of output data
@@ -168,7 +168,7 @@ convert_to_stringbuf (apr_xlate_t *convset,
   if (apr_err)
     return svn_error_create (apr_err, NULL,
                              "failure during string recoding");
-
+  
   /* Else, exited do to success.  Trim the result buffer down to the
      right length. */
   (*dest)->data[(*dest)->len] = '\0';
@@ -198,7 +198,7 @@ check_non_ascii (const char *data, apr_size_t len, apr_pool_t *pool)
              time tracking down the non-ascii data, so we want to help
              as much as possible.  And yes, we just call the unsafe
              data "non-ascii", even though the actual constraint is
-             somewhat more complex than that. */
+             somewhat more complex than that. */ 
 
           if (data - data_start)
             {
@@ -262,7 +262,7 @@ svn_utf_string_to_utf8 (const svn_string_t **dest,
 
   if (convset)
     {
-      SVN_ERR (convert_to_stringbuf (convset, src->data, src->len,
+      SVN_ERR (convert_to_stringbuf (convset, src->data, src->len, 
                                      &destbuf, pool));
       *dest = svn_string_create_from_buf (destbuf, pool);
     }
@@ -431,7 +431,7 @@ svn_utf_cstring_from_utf8_fuzzy (const char *src,
   new = apr_palloc (pool, new_len + 1);
 
   /* All right, Brane.  We allocated it, we're building it, we're
-     returning it.  We can cast it, right? :-) */
+     returning it.  We can cast it, right? :-) */ 
   new_orig = (const char *) new;
 
   /* And fill it up. */
