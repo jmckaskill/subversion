@@ -56,6 +56,6 @@ but it should give you a quick conceptual 'diff' when switching over.
 
 * Branches and Tags
 
-    - they don't exist, only 'cheap' subdir copies.
+    - they don't exist, only 'cheap' subdir copies. 
 
 * any other things that may shock or confuse a CVS user?
