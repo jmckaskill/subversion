@@ -317,7 +317,7 @@ I.    BUILD REQUIREMENTS
 
 
       12. Building The Documentation
-
+  
       The master source format for Subversion's documentation is
       Texinfo.  The online documentation for texinfo is at
 
@@ -706,7 +706,7 @@ III.  BUILDING A SUBVERSION SERVER
       to locate the apxs script:
 
           $ ./configure --with-apxs=/home/fred/apache2/bin/apxs
-
+ 
 
       Note: it *is* possible to build mod_dav_svn as a static library
       and link it directly into Apache. Possible, but painful. Stick
