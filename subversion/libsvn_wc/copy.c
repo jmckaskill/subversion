@@ -48,7 +48,7 @@
      - dst_basename will be the 'new' name of the copied file in dst_parent
  */
 static svn_error_t *
-copy_file_administratively (svn_stringbuf_t *src_path,
+copy_file_administratively (svn_stringbuf_t *src_path, 
                             svn_stringbuf_t *dst_parent,
                             svn_stringbuf_t *dst_basename,
                             apr_pool_t *pool)
@@ -73,7 +73,7 @@ copy_file_administratively (svn_stringbuf_t *src_path,
   SVN_ERR (svn_wc_entry (&src_entry, src_path, pool));
   if ((src_entry->schedule == svn_wc_schedule_add)
       || (! src_entry->ancestor))
-    return svn_error_createf
+    return svn_error_createf 
       (SVN_ERR_UNSUPPORTED_FEATURE, 0, NULL, pool,
        "Not allowed to copy or move '%s' -- it's not in the repository yet.\n"
        "Try committing first.",
@@ -88,11 +88,11 @@ copy_file_administratively (svn_stringbuf_t *src_path,
      In other words, we're talking about the scenario where somebody
      makes local mods to 'foo.c', then does an 'svn cp foo.c bar.c'.
      In this case, bar.c should still be locally modified too.
-
+     
      Why do we want the copy to have local mods?  Even though the user
      will only see an 'A' instead of an 'M', local mods means that the
      client doesn't have to send anything but a small delta during
-     commit; the server can make efficient use of the copyfrom args.
+     commit; the server can make efficient use of the copyfrom args. 
 
      As long as we're copying the text-base over, we should copy the
      working and pristine propfiles over too. */
@@ -117,7 +117,7 @@ copy_file_administratively (svn_stringbuf_t *src_path,
     SVN_ERR (svn_io_check_path (src_wprop, &kind, pool));
     if (kind == svn_node_file)
       SVN_ERR (svn_io_copy_file (src_wprop, dst_wprop, pool));
-
+      
     /* Copy the base-props over if they exist */
     SVN_ERR (svn_io_check_path (src_bprop, &kind, pool));
     if (kind == svn_node_file)
@@ -147,7 +147,7 @@ copy_file_administratively (svn_stringbuf_t *src_path,
      - dst_basename will be the 'new' name of the copied dir in dst_parent
  */
 static svn_error_t *
-copy_dir_administratively (svn_stringbuf_t *src_path,
+copy_dir_administratively (svn_stringbuf_t *src_path, 
                            svn_stringbuf_t *dst_parent,
                            svn_stringbuf_t *dst_basename,
                            apr_pool_t *pool)
@@ -156,8 +156,8 @@ copy_dir_administratively (svn_stringbuf_t *src_path,
   svn_stringbuf_t *dst_path = svn_stringbuf_dup (dst_parent, pool);
   svn_path_add_component (dst_path, dst_basename, svn_path_local_style);
 
-  /* Recursively copy the whole directory over.
-
+  /* Recursively copy the whole directory over. 
+     
       (This gets us all text-base, props, base-props, as well as entries,
       local mods, schedulings, existences, etc.) */
   SVN_ERR (svn_io_copy_dir_recursively (src_path, dst_parent, dst_basename,
@@ -167,7 +167,7 @@ copy_dir_administratively (svn_stringbuf_t *src_path,
      (this_dir) -- WITH HISTORY.  This function should leave the
      existing administrative dir untouched.  */
   SVN_ERR (svn_wc_add_directory (dst_path, src_path, pool));
-
+ 
   return SVN_NO_ERROR;
 }
 
@@ -187,7 +187,7 @@ svn_wc_copy (svn_stringbuf_t *src_path,
   enum svn_node_kind src_kind;
 
   SVN_ERR (svn_io_check_path (src_path, &src_kind, pool));
-
+  
   if (src_kind == svn_node_file)
     SVN_ERR (copy_file_administratively (src_path, dst_parent,
                                          dst_basename, pool));
@@ -216,7 +216,7 @@ svn_wc_copy (svn_stringbuf_t *src_path,
       because it hasn't been committed yet.  But suppose foo3 simply
       inherited foo's URL (i.e. foo3 'pointed' to foo as a copy
       ancestor by virtue of transitivity.)
-
+ 
       For one, this is not what the user would expect.  That's
       certainly not what the user typed!  Second, suppose that the
       user did a commit between the two 'svn cp' commands.  Now foo3
@@ -233,7 +233,7 @@ svn_wc_copy (svn_stringbuf_t *src_path,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end: */

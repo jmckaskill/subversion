@@ -32,15 +32,15 @@
 /* Store as keys in CHANGED the paths of all nodes at or below NODE
  * that show a significant change.  "Significant" means that the text
  * or properties of the node were changed, or that the node was added
- * or deleted.
+ * or deleted.  
  *
  * The key is allocated in POOL; the value is currently (void *) 1,
  * but in the future may be a more informative value indicating the
  * nature of the change.  ### todo: implement that sentence.
- *
+ * 
  * The paths are constructed by adding components to PATH in
  * repository style.
- *
+ * 
  * Standard practice is to call this on the root node of delta tree
  * generated from svn_repos_dir_delta() and its node accessor,
  * svn_repos_node_from_baton(), with PATH representing "/".
@@ -54,7 +54,7 @@ detect_changed (apr_hash_t *changed,
   /* Recurse sideways first. */
   if (node->sibling)
     detect_changed (changed, node->sibling, path, pool);
-
+    
   /* Then "enter" this node. */
   svn_path_add_component_nts (path,
                               node->name,
@@ -63,7 +63,7 @@ detect_changed (apr_hash_t *changed,
   /* Recurse downward before processing this node. */
   if (node->child)
     detect_changed (changed, node->child, path, pool);
-
+    
   /* Process this node.
      We register all differences except for directory opens that don't
      involve any prop mods, because those are the result from
@@ -132,7 +132,7 @@ svn_repos_get_logs (svn_fs_t *fs,
          `end'.  Premature optimization right now, however.
       */
 
-      if ((this_rev > 0) &&
+      if ((this_rev > 0) && 
           (discover_changed_paths || (paths && paths->nelts > 0)))
         {
           const svn_delta_edit_fns_t *editor;
@@ -146,7 +146,7 @@ svn_repos_get_logs (svn_fs_t *fs,
           svn_stringbuf_t *this_top = svn_stringbuf_create ("", subpool);
 
           changed_paths = apr_hash_make (subpool);
-
+          
           SVN_ERR (svn_fs_revision_root (&base_root, fs, this_rev - 1, pool));
           SVN_ERR (svn_fs_revision_root (&this_root, fs, this_rev, pool));
 
@@ -190,7 +190,7 @@ svn_repos_get_logs (svn_fs_t *fs,
             {
               svn_stringbuf_t *this_path;
               this_path = (((svn_stringbuf_t **)(paths)->elts)[i]);
-
+              
               /* ### Okay, this is where the problem is.  This path is
                  no good for filtering unless it's absolute, like the
                  ones in changed_paths.  But it's just whatever the
@@ -208,7 +208,7 @@ svn_repos_get_logs (svn_fs_t *fs,
                             date ? date->data : "",
                             message ? message->data : "",
                             (this_rev == end)));
-
+      
       svn_pool_clear (subpool);
     }
 
@@ -219,7 +219,7 @@ svn_repos_get_logs (svn_fs_t *fs,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
