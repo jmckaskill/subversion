@@ -101,7 +101,7 @@ svn_io_open_unique_file (apr_file_t **f,
      that the iterating portion changes instead.  Taking the pointer
      as an unsigned short int has more or less this effect. */
   int random_portion_width;
-  char *random_portion = apr_psprintf
+  char *random_portion = apr_psprintf 
     (pool, "%hu%n",
      (unsigned int)unique_name,
      &random_portion_width);
@@ -211,7 +211,7 @@ apr_transfer_file_contents (const char *src,
   apr_err = apr_file_open (&s, src, APR_READ, APR_OS_DEFAULT, pool);
   if (apr_err)
     return apr_err;
-
+  
   /* Get its size. */
   apr_err = apr_file_info_get (&finfo, APR_FINFO_MIN, s);
   if (apr_err)
@@ -229,7 +229,7 @@ apr_transfer_file_contents (const char *src,
       apr_file_close (s);  /* toss */
       return apr_err;
     }
-
+  
   /* Copy bytes till the cows come home. */
   read_err = 0;
   while (!APR_STATUS_IS_EOF(read_err))
@@ -262,7 +262,7 @@ apr_transfer_file_contents (const char *src,
               apr_file_close (d);
               return apr_err;
             }
-
+          
           apr_err = apr_file_close (d);
           if (apr_err)
             return apr_err;
@@ -335,7 +335,7 @@ svn_io_copy_file (svn_stringbuf_t *src, svn_stringbuf_t *dst, apr_pool_t *pool)
                         src->data, dst->data);
       return svn_error_create (apr_err, 0, NULL, pool, msg);
     }
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -353,7 +353,7 @@ svn_io_append_file (svn_stringbuf_t *src, svn_stringbuf_t *dst, apr_pool_t *pool
                         src->data, dst->data);
       return svn_error_create (apr_err, 0, NULL, pool, msg);
     }
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -622,14 +622,14 @@ svn_string_from_file (svn_stringbuf_t **result, const char *filename, apr_pool_t
     return svn_error_createf (apr_err, 0, NULL, pool,
                               "read_from_file: failed to open '%s'",
                               filename);
-
+      
   do {
     apr_err = apr_file_read_full (f, buf, sizeof(buf), &len);
     if (apr_err && !APR_STATUS_IS_EOF (apr_err))
       return svn_error_createf (apr_err, 0, NULL, pool,
                                 "read_from_file: failed to read '%s'",
                                 filename);
-
+    
     svn_stringbuf_appendbytes (res, buf, len);
   } while (len != 0);
 
@@ -638,7 +638,7 @@ svn_string_from_file (svn_stringbuf_t **result, const char *filename, apr_pool_t
     return svn_error_createf (apr_err, 0, NULL, pool,
                               "read_from_file: failed to close '%s'",
                               filename);
-
+  
   *result = res;
   return SVN_NO_ERROR;
 }
@@ -650,7 +650,7 @@ svn_string_from_file (svn_stringbuf_t **result, const char *filename, apr_pool_t
 /* Recursive directory deletion. */
 
 /* Neither windows nor unix allows us to delete a non-empty
-   directory.
+   directory.  
 
    This is a function to perform the equivalent of 'rm -rf'. */
 
@@ -715,7 +715,7 @@ svn_io_get_dirents (apr_hash_t **dirents,
                     svn_stringbuf_t *path,
                     apr_pool_t *pool)
 {
-  apr_status_t status;
+  apr_status_t status; 
   apr_dir_t *this_dir;
   apr_finfo_t this_entry;
   apr_int32_t flags = APR_FINFO_TYPE | APR_FINFO_NAME;
@@ -726,9 +726,9 @@ svn_io_get_dirents (apr_hash_t **dirents,
   static const enum svn_node_kind static_svn_node_unknown = svn_node_unknown;
 
   *dirents = apr_hash_make (pool);
-
+  
   status = apr_dir_open (&this_dir, path->data, pool);
-  if (status)
+  if (status) 
     return
       svn_error_createf (status, 0, NULL, pool,
                          "svn_io_get_dirents:  failed to open dir '%s'",
@@ -744,7 +744,7 @@ svn_io_get_dirents (apr_hash_t **dirents,
       else
         {
           const char *name = apr_pstrdup (pool, this_entry.name);
-
+          
           if (this_entry.filetype == APR_REG)
             apr_hash_set (*dirents, name, APR_HASH_KEY_STRING,
                           &static_svn_node_file);
@@ -760,18 +760,18 @@ svn_io_get_dirents (apr_hash_t **dirents,
     }
 
   if (! (APR_STATUS_IS_ENOENT (status)))
-    return
+    return 
       svn_error_createf (status, 0, NULL, pool,
                          "svn_io_get_dirents:  error while reading dir '%s'",
                          path->data);
 
   status = apr_dir_close (this_dir);
-  if (status)
+  if (status) 
     return
       svn_error_createf (status, 0, NULL, pool,
                          "svn_io_get_dirents:  failed to close dir '%s'",
                          path->data);
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -799,7 +799,7 @@ svn_io_run_cmd (const char *path,
   apr_procattr_t *cmdproc_attr;
 
   /* Create the process attributes. */
-  apr_err = apr_procattr_create (&cmdproc_attr, pool);
+  apr_err = apr_procattr_create (&cmdproc_attr, pool); 
   if (! APR_STATUS_IS_SUCCESS (apr_err))
     return svn_error_createf
       (apr_err, 0, NULL, pool,
@@ -809,7 +809,7 @@ svn_io_run_cmd (const char *path,
   /* Make sure we invoke cmd directly, not through a shell. */
   apr_err = apr_procattr_cmdtype_set (cmdproc_attr, APR_PROGRAM);
   if (! APR_STATUS_IS_SUCCESS (apr_err))
-    return svn_error_createf
+    return svn_error_createf 
       (apr_err, 0, NULL, pool,
        "run_cmd_in_directory: error setting %s process cmdtype",
        cmd);
@@ -819,14 +819,14 @@ svn_io_run_cmd (const char *path,
     {
       apr_err = apr_procattr_dir_set (cmdproc_attr, path);
       if (! APR_STATUS_IS_SUCCESS (apr_err))
-        return svn_error_createf
+        return svn_error_createf 
           (apr_err, 0, NULL, pool,
            "run_cmd_in_directory: error setting %s process directory",
            cmd);
     }
 
   /* Set io style. */
-  apr_err = apr_procattr_io_set (cmdproc_attr, APR_FULL_BLOCK,
+  apr_err = apr_procattr_io_set (cmdproc_attr, APR_FULL_BLOCK, 
                                 APR_CHILD_BLOCK, APR_CHILD_BLOCK);
   if (! APR_STATUS_IS_SUCCESS (apr_err))
     return svn_error_createf
@@ -839,7 +839,7 @@ svn_io_run_cmd (const char *path,
     {
       apr_err = apr_procattr_child_in_set (cmdproc_attr, infile, NULL);
       if (! APR_STATUS_IS_SUCCESS (apr_err))
-        return svn_error_createf
+        return svn_error_createf 
           (apr_err, 0, NULL, pool,
            "run_cmd_in_directory: error setting %s process child input",
            cmd);
@@ -848,7 +848,7 @@ svn_io_run_cmd (const char *path,
     {
       apr_err = apr_procattr_child_out_set (cmdproc_attr, outfile, NULL);
       if (! APR_STATUS_IS_SUCCESS (apr_err))
-        return svn_error_createf
+        return svn_error_createf 
           (apr_err, 0, NULL, pool,
            "run_cmd_in_directory: error setting %s process child outfile",
            cmd);
@@ -857,16 +857,16 @@ svn_io_run_cmd (const char *path,
     {
       apr_err = apr_procattr_child_err_set (cmdproc_attr, errfile, NULL);
       if (! APR_STATUS_IS_SUCCESS (apr_err))
-        return svn_error_createf
+        return svn_error_createf 
           (apr_err, 0, NULL, pool,
            "run_cmd_in_directory: error setting %s process child errfile",
            cmd);
     }
 
-  /* Start the cmd command. */
+  /* Start the cmd command. */ 
   apr_err = apr_proc_create (&cmd_proc, cmd, args, NULL, cmdproc_attr, pool);
   if (! APR_STATUS_IS_SUCCESS (apr_err))
-    return svn_error_createf
+    return svn_error_createf 
       (apr_err, 0, NULL, pool,
        "run_cmd_in_directory: error starting %s process",
        cmd);
@@ -933,7 +933,7 @@ svn_io_detect_mimetype (const char **mimetype,
     {
       int i;
       int binary_count = 0;
-
+      
       /* Run through the data we've read, counting the 'binary-ish'
          bytes.  HINT: If we see a 0x00 byte, we'll set our count to its
          max and stop reading the file. */
@@ -951,14 +951,14 @@ svn_io_detect_mimetype (const char **mimetype,
               binary_count++;
             }
         }
-
+      
       if (((binary_count * 1000) / amt_read) > 850)
         {
           *mimetype = generic_binary;
           return SVN_NO_ERROR;
         }
     }
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -1015,7 +1015,7 @@ svn_io_fd_from_file (int *fd_p, apr_file_t *file)
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end: */
