@@ -1766,6 +1766,11 @@ Transmitting file data .........
 Committed revision 19.
 </screen>
 
+          <para>After importing data, note that the original tree is
+            <emphasis>not</emphasis> under version control.  To start
+            working, you still need to <command>svn checkout</command>
+            a fresh working copy of the tree.</para>
+
         </refsect1>
       </refentry>
 
