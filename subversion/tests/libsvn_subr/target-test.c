@@ -64,7 +64,7 @@ int main(int argc, char **argv)
     usage(argv[0]);
     return EXIT_FAILURE;
   }
-
+    
   /* Create the target array */
   targets = apr_array_make(pool, argc - 2, sizeof(const char *));
   for (i = 2; i < argc; i++)
@@ -73,7 +73,7 @@ int main(int argc, char **argv)
       err = svn_utf_cstring_to_utf8(&path_utf8, argv[i], NULL, pool);
       if (err != SVN_NO_ERROR)
         svn_handle_error(err, stderr, 1);
-      *((const char **)apr_array_push(targets)) =
+      *((const char **)apr_array_push(targets)) = 
         svn_path_internal_style(path_utf8, pool);
     }
 
@@ -104,12 +104,12 @@ int main(int argc, char **argv)
           printf("%s, ", target_native);
         }
       else
-        printf("NULL, ");
+        printf("NULL, "); 
     }
   printf ("\n");
 
   /* Now ensure it works without the pbasename */
-  err = svn_path_condense_targets (&common_path2, NULL, targets,
+  err = svn_path_condense_targets (&common_path2, NULL, targets, 
                                    depth, pool);
   if (err != SVN_NO_ERROR)
     svn_handle_error (err, stderr, 1);
