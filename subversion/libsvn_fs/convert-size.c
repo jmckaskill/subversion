@@ -80,7 +80,7 @@ svn_fs__putsize (char *data, apr_size_t len, apr_size_t value)
   int i = 0;
 
   /* Generate the digits, least-significant first.  */
-  do
+  do 
     {
       if (i >= len)
         return 0;
@@ -108,7 +108,7 @@ svn_fs__putsize (char *data, apr_size_t len, apr_size_t value)
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
