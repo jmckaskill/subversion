@@ -596,7 +596,7 @@ static svn_error_t * thunk_apply_textdelta(
   return SVN_NO_ERROR;
 }
 
-static svn_error_t * thunk_apply_text(void *file_baton,
+static svn_error_t * thunk_apply_text(void *file_baton, 
                                       const char *base_checksum,
                                       const char *result_checksum,
                                       svn_stream_t *base,
