@@ -5,7 +5,7 @@
 #
 TEST_ROOT="/home/brane/svn"
 
-# Installation path, everything under that is considered
+# Installation path, everything under that is considered 
 # to be temporary
 INST_DIR="$TEST_ROOT/inst"
 
