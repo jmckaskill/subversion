@@ -105,7 +105,7 @@ svn_diff__snake(apr_off_t k,
       position[0] = position[0]->next;
       position[1] = position[1]->next;
     }
-
+  
   if (position[1] != start_position[1])
     {
       lcs = *freelist;
@@ -133,7 +133,7 @@ svn_diff__snake(apr_off_t k,
   if (previous_lcs)
     {
       previous_lcs->refcount++;
-    }
+    }  
 
   fp[k].position[0] = position[0];
   fp[k].position[1] = position[1];
