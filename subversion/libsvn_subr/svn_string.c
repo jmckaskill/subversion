@@ -23,7 +23,7 @@
 /* Our own realloc, since APR doesn't have one.  Note: this is a
    generic realloc for memory pools, *not* for strings. */
 static void *
-my__realloc (char *data, const apr_size_t oldsize, const apr_size_t request,
+my__realloc (char *data, const apr_size_t oldsize, const apr_size_t request, 
              apr_pool_t *pool)
 {
   void *new_area;
@@ -41,7 +41,7 @@ my__realloc (char *data, const apr_size_t oldsize, const apr_size_t request,
   memcpy (new_area, data, oldsize);
 
   /* I'm NOT freeing old area here -- cuz we're using pools, ugh. */
-
+  
   /* return new area */
   return new_area;
 }
@@ -51,7 +51,7 @@ static svn_string_t *create_string (char *data, apr_size_t size,
 {
   svn_string_t *new_string;
 
-  new_string = (svn_string_t *) apr_palloc (pool, sizeof (*new_string));
+  new_string = (svn_string_t *) apr_palloc (pool, sizeof (*new_string)); 
 
   new_string->data = data;
   new_string->len = size;
@@ -62,7 +62,7 @@ static svn_string_t *create_string (char *data, apr_size_t size,
 }
 
 svn_string_t *
-svn_string_ncreate (const char *bytes, const apr_size_t size,
+svn_string_ncreate (const char *bytes, const apr_size_t size, 
                     apr_pool_t *pool)
 {
   char *data;
@@ -111,7 +111,7 @@ svn_string_createf (apr_pool_t *pool, const char *fmt, ...)
 }
 
 
-void
+void 
 svn_string_fillchar (svn_string_t *str, const unsigned char c)
 {
   memset (str->data, c, str->len);
@@ -158,7 +158,7 @@ svn_string_isempty (const svn_string_t *str)
 
 
 void
-svn_string_ensure (svn_string_t *str,
+svn_string_ensure (svn_string_t *str, 
                    apr_size_t minimum_size)
 {
   /* Keep doubling capacity until have enough. */
@@ -170,16 +170,16 @@ svn_string_ensure (svn_string_t *str,
         while (str->blocksize < minimum_size)
           str->blocksize *= 2;
 
-      str->data = (char *) my__realloc (str->data,
+      str->data = (char *) my__realloc (str->data, 
                                         str->len,
                                         str->blocksize,
-                                        str->pool);
+                                        str->pool); 
     }
 }
 
 
 void
-svn_string_appendbytes (svn_string_t *str, const char *bytes,
+svn_string_appendbytes (svn_string_t *str, const char *bytes, 
                         const apr_size_t count)
 {
   apr_size_t total_len;
@@ -235,7 +235,7 @@ svn_string_compare (const svn_string_t *str1, const svn_string_t *str2)
     return FALSE;
 
   /* now that we know they have identical lengths... */
-
+  
   if (memcmp (str1->data, str2->data, str1->len))
     return FALSE;
   else
@@ -258,7 +258,7 @@ svn_string_first_non_whitespace (const svn_string_t *str)
     }
 
   /* if we get here, then the string must be entirely whitespace */
-  return (-1);
+  return (-1);  
 }
 
 
@@ -284,7 +284,7 @@ svn_string_strip_whitespace (svn_string_t *str)
           break;
         }
     }
-
+  
   /* Mmm, waste some more RAM */
   str->len = i + 1;
 }
