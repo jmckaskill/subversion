@@ -85,7 +85,7 @@ svn_fs__bdb_get_rev (svn_fs__revision_t **revision_p,
   skel = svn_fs__parse_skel (value.data, value.size, trail->pool);
   if (! skel)
     return svn_fs__err_corrupt_fs_revision (fs, rev);
-
+    
   /* Convert skel to native type. */
   SVN_ERR (svn_fs__parse_revision_skel (&revision, skel, trail->pool));
 
@@ -115,16 +115,16 @@ svn_fs__bdb_put_rev (svn_revnum_t *rev,
   if (SVN_IS_VALID_REVNUM (*rev))
     {
       DBT query, result;
-
+      
       /* Update the filesystem revision with the new skel. */
       recno = *rev + 1;
-      db_err = fs->revisions->put
+      db_err = fs->revisions->put 
         (fs->revisions, trail->db_txn,
          svn_fs__set_dbt (&query, &recno, sizeof (recno)),
          svn_fs__skel_to_dbt (&result, skel, trail->pool), 0);
       return BDB_WRAP (fs, "updating filesystem revision", db_err);
     }
-
+      
   db_err = fs->revisions->put (fs->revisions, trail->db_txn,
                                svn_fs__recno_dbt(&key, &recno),
                                svn_fs__skel_to_dbt (&value, skel, trail->pool),
@@ -179,7 +179,7 @@ svn_fs__bdb_youngest_rev (svn_revnum_t *youngest_p,
           (SVN_ERR_FS_CORRUPT, 0,
            "revision 0 missing from `revisions' table, in filesystem `%s'",
            fs->path);
-
+      
       SVN_ERR (BDB_WRAP (fs, "getting youngest revision (finding last entry)",
                         db_err));
     }
@@ -187,7 +187,7 @@ svn_fs__bdb_youngest_rev (svn_revnum_t *youngest_p,
   /* You can't commit a transaction with open cursors, because:
      1) key/value pairs don't get deleted until the cursors referring
      to them are closed, so closing a cursor can fail for various
-     reasons, and txn_commit shouldn't fail that way, and
+     reasons, and txn_commit shouldn't fail that way, and 
      2) using a cursor after committing its transaction can cause
      undetectable database corruption.  */
   SVN_ERR (BDB_WRAP (fs, "getting youngest revision (closing cursor)",
