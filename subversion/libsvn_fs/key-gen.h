@@ -78,7 +78,7 @@ void svn_fs__next_key (const char *this, apr_size_t *len, char *next);
 #endif /* SVN_LIBSVN_FS_KEY_GEN_H */
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end:
