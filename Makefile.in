@@ -10,7 +10,7 @@ SVN_RA_LIB_LINK = @SVN_RA_LIB_LINK@
 DESIGN_DIR = doc/programmer/design
 BOOK_DIR = doc/book/book
 MDOCS_DIR = doc/book/misc-docs
-DOC_DIRS = $(DESIGN_DIR) $(BOOK_DIR) $(MDOCS_DIR)
+DOC_DIRS = $(DESIGN_DIR) $(BOOK_DIR) $(MDOCS_DIR) 
 
 SWIG_SRC_DIR = $(abs_srcdir)/subversion/bindings/swig
 SWIG_BUILD_DIR = $(abs_builddir)/subversion/bindings/swig
@@ -98,7 +98,7 @@ INSTALL_DATA = $(INSTALL) -m 644
 
 INSTALL_SWIG_PY_LIB = $(INSTALL_LIB)
 
-APXS = @APXS@
+APXS = @APXS@ 
 
 PYTHON = @PYTHON@
 
@@ -269,7 +269,7 @@ install-swig-py-ext:
             install --prefix $(prefix))
 
 ### Build a tarball.
-dist:
+dist: 
 	./dist.sh
 
 
@@ -290,7 +290,7 @@ dist:
 
 
 .texi.info:
-	$(MAKEINFO) -I `dirname $<` -o $@ $<
+	$(MAKEINFO) -I `dirname $<` -o $@ $< 
 
 .texi.dvi:
 	wd=`pwd` ; cd `dirname $@` ; $(TEXI2DVI) $$wd/$<

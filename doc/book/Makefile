@@ -60,7 +60,7 @@ $(BOOK_PS_TARGET): $(BOOK_ALL_SOURCE)
 
 book-clean:
 	rm -f $(BOOK_HTML_TARGET) $(BOOK_FO_TARGET)
-	rm -f $(BOOK_PDF_TARGET) $(BOOK_PS_TARGET)
+	rm -f $(BOOK_PDF_TARGET) $(BOOK_PS_TARGET) 
 
 misc-docs-html: $(MDOCS_HTML_TARGET)
 
