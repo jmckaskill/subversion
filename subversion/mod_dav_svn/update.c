@@ -298,7 +298,7 @@ static svn_error_t * noop_handler(svn_txdelta_window_t *window, void *baton)
   return NULL;
 }
 
-static svn_error_t * upd_apply_textdelta(void *file_baton,
+static svn_error_t * upd_apply_textdelta(void *file_baton, 
                                        svn_txdelta_window_handler_t *handler,
                                        void **handler_baton)
 {
@@ -357,7 +357,7 @@ dav_error * dav_svn__update_report(const dav_resource *resource,
                            "SVN:target-revision element. That element "
                            "is required.");
     }
-
+  
   for (child = doc->root->first_child; child != NULL; child = child->next)
     if (child->ns == ns && strcmp(child->name, "target-revision") == 0)
       {
@@ -457,7 +457,7 @@ dav_error * dav_svn__update_report(const dav_resource *resource,
 }
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
