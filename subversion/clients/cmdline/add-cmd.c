@@ -52,7 +52,7 @@ svn_cl__add (apr_getopt_t *os,
   svn_wc_notify_func_t notify_func = NULL;
   void *notify_baton = NULL;
 
-  SVN_ERR (svn_opt_args_to_target_array (&targets, os,
+  SVN_ERR (svn_opt_args_to_target_array (&targets, os, 
                                          opt_state->targets,
                                          &(opt_state->start_revision),
                                          &(opt_state->end_revision),
@@ -60,7 +60,7 @@ svn_cl__add (apr_getopt_t *os,
 
   if (! targets->nelts)
     return svn_error_create (SVN_ERR_CL_ARG_PARSING_ERROR, 0, 0, "");
-
+      
   if (! opt_state->quiet)
     svn_cl__get_notifier (&notify_func, &notify_baton, FALSE, FALSE, pool);
 
@@ -69,7 +69,7 @@ svn_cl__add (apr_getopt_t *os,
     {
       const char *target = ((const char **) (targets->elts))[i];
 
-      err = svn_client_add (target, recursive, notify_func,
+      err = svn_client_add (target, recursive, notify_func, 
                             notify_baton, subpool);
       if (err)
         {
@@ -81,7 +81,7 @@ svn_cl__add (apr_getopt_t *os,
           else
             return err;
         }
-
+      
       svn_pool_clear (subpool);
     }
 
