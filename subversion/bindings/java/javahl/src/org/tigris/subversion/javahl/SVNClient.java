@@ -217,13 +217,13 @@ public class SVNClient
      * @exception ClientException
      */
     public native void merge(String path1, Revision revision1, String path2, Revision revision2, String localPath, boolean force, boolean recurse) throws ClientException;
-
+    
     /**
      * diff display the differences between two paths
      * @exception ClientException
      */
     public native void diff(String target1, Revision revision1, String target2, Revision revision2, String outFileName, boolean recurse) throws ClientException;
-
+    
     /**
      * Returns the number of properties found.
      */
@@ -236,7 +236,7 @@ public class SVNClient
     public native PropertyData revProperty(String path, String name, Revision rev) throws ClientException;
 
     /**
-     * get the given property
+     * get the given property 
      */
     public native PropertyData propertyGet(String path, String name) throws ClientException;
 
