@@ -14,7 +14,7 @@
 #
 #         PATCHPATH is a path to GNU `patch', which is required
 #         to accurately test the behavior of `diff'.
-#
+# 
 # Output: either prints the full path of valid `diff' program,
 #         or "" if none is found.
 #

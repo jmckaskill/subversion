@@ -2,7 +2,7 @@ Version 0.10
 
  User-visible changes:
  * fewer out-of-memory errors:  (see "memory consumption" below)
- * clearer user errors:
+ * clearer user errors:  
        - detailed marshalling of server errors to client
        - better errors from ra_dav
        - better commandline-client-specific error messages
@@ -29,7 +29,7 @@ Version 0.10
  * build system evolution
      - upgrade to neon 0.19.[2-3]
      - lots of work on FreeBSD port
- * many small bugfixes:
+ * many small bugfixes: 
       - propedit, file merges, revert, dir_delta, keywords
       - memory leaks in 'svn add', 'svn import/commit', and svnlook
       - date-parsing and readonly bugs
@@ -90,7 +90,7 @@ Version 0.8  (released 15 Jan 2002. revision 909)
 
 Version 0.7  (released 03 Dec 2001, revision 587)
 
-  * 'svn cp/mv' completed:
+  * 'svn cp/mv' completed:  
        - can copy from wc/repos to wc/repos.
        - This how we create branches/tags.
   * 'svn mkdir' [WC_PATH|REPOS_URL]

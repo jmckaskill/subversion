@@ -36,7 +36,7 @@ post-extract:
 	# work around libdb4's name.
 	@${PERL} -pi -e 's/ldb/ldb4/g' ${WRKSRC}/configure
 
-	# axe the neon, apr, and apr-util subdirs to keep svn's build process
+	# axe the neon, apr, and apr-util subdirs to keep svn's build process 
 	# from using them, since we're providing our own.
 	@${RM} -r ${WRKSRC}/neon
 	@${RM} -r ${WRKSRC}/apr

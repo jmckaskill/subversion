@@ -58,7 +58,7 @@ Specify log message
 Read the log message from \fBFILE\fP.
 .TP
 \fB-p\fP or \fB--stdout\fP
-Check out/update/whatever files to standard output
+Check out/update/whatever files to standard output 
 .TP
 \fB-n\fP or \fB--dry-run\fP
 Don't actually do it, only show what would be done if the given command did
@@ -153,7 +153,7 @@ Then foo.c and bar.c will share a common ancestor in the repository.
 
 \fBexample:\fP But, if you do this (NO ANCESTRY)
 
-  $ cp foo.c bar.c
+  $ cp foo.c bar.c 
   $ svn add bar.c
   $ svn ci -m "Initial Import"
 
@@ -294,6 +294,6 @@ wish to update your copies of source files from changes that other developers
 have made to the source in the repository. Without a given argument, this
 command will update everything, recursively.
 
-\fBexample:\fP svn update foo.c bar.h baz/ bat/*.m
+\fBexample:\fP svn update foo.c bar.h baz/ bat/*.m 
 .SH WWW
 http://subversion.tigris.org
