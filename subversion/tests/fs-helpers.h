@@ -37,7 +37,7 @@ svn_test__fs_new (svn_fs_t **fs_p, apr_pool_t *pool);
    FS object which points to it.  */
 svn_error_t *
 svn_test__create_fs_and_repos (svn_fs_t **fs_p,
-                               const char *name,
+                               const char *name, 
                                apr_pool_t *pool);
 
 
@@ -46,7 +46,7 @@ svn_test__create_fs_and_repos (svn_fs_t **fs_p,
    dup'ed from STREAM using APRPOOL too.) */
 svn_error_t *
 svn_test__stream_to_string (svn_stringbuf_t **string,
-                            svn_stream_t *stream,
+                            svn_stream_t *stream, 
                             apr_pool_t *pool);
 
 
@@ -54,7 +54,7 @@ svn_test__stream_to_string (svn_stringbuf_t **string,
 svn_error_t *
 svn_test__set_file_contents (svn_fs_root_t *root,
                              const char *path,
-                             const char *contents,
+                             const char *contents, 
                              apr_pool_t *pool);
 
 
@@ -63,7 +63,7 @@ svn_test__set_file_contents (svn_fs_root_t *root,
 svn_error_t *
 svn_test__get_file_contents (svn_fs_root_t *root,
                              const char *path,
-                             svn_stringbuf_t **str,
+                             svn_stringbuf_t **str, 
                              apr_pool_t *pool);
 
 
@@ -78,7 +78,7 @@ typedef struct svn_test__tree_entry_t
   const char *contents; /* text contents (NULL for directories) */
 }
 svn_test__tree_entry_t;
-
+  
 
 /* Wrapper for an array of the above svn_test__tree_entry_t's.  */
 typedef struct svn_test__tree_t
@@ -96,7 +96,7 @@ svn_test__tree_t;
 svn_error_t *
 svn_test__validate_tree (svn_fs_root_t *root,
                          svn_test__tree_entry_t *entries,
-                         int num_entries,
+                         int num_entries, 
                          apr_pool_t *pool);
 
 
@@ -104,7 +104,7 @@ svn_test__validate_tree (svn_fs_root_t *root,
    transaction using svn_test__txn_script_exec().  */
 typedef struct svn_test__txn_script_command_t
 {
-  /* command:
+  /* command: 
 
      'a' -- add (PARAM1 is file contents, or NULL for directories)
      'c' -- copy (PARAM1 is target path, copy source is txn base-rev)
@@ -114,7 +114,7 @@ typedef struct svn_test__txn_script_command_t
   int cmd;
   const char *path; /* path to resource in the filesystem */
   const char *param1; /* command parameter (see above) */
-}
+} 
 svn_test__txn_script_command_t;
 
 
@@ -122,7 +122,7 @@ svn_test__txn_script_command_t;
 svn_error_t *
 svn_test__txn_script_exec (svn_fs_root_t *txn_root,
                            svn_test__txn_script_command_t *script,
-                           int num_edits,
+                           int num_edits, 
                            apr_pool_t *pool);
 
 /* Verify that the tree that exists under ROOT is exactly the Greek
