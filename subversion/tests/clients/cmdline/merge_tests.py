@@ -2,9 +2,9 @@
 #
 #  merge_tests.py:  testing merge
 #
-#  Subversion is a tool for revision control.
+#  Subversion is a tool for revision control. 
 #  See http://subversion.tigris.org for more information.
-#
+#    
 # ====================================================================
 # Copyright (c) 2000-2003 CollabNet.  All rights reserved.
 #
@@ -40,28 +40,28 @@ def textual_merges_galore(sbox):
   "performing a merge, with mixed results"
 
   ## The Plan:
-  ##
+  ## 
   ## The goal is to test that "svn merge" does the right thing in the
   ## following cases:
-  ##
+  ## 
   ##   1 : _ :  Received changes already present in unmodified local file
   ##   2 : U :  No local mods, received changes folded in without trouble
   ##   3 : G :  Received changes already exist as local mods
   ##   4 : G :  Received changes do not conflict with local mods
   ##   5 : C :  Received changes conflict with local mods
-  ##
+  ## 
   ## So first modify these files and commit:
-  ##
+  ## 
   ##    Revision 2:
   ##    -----------
   ##    A/mu ............... add ten or so lines
   ##    A/D/G/rho .......... add ten or so lines
-  ##
+  ## 
   ## Now check out an "other" working copy, from revision 2.
-  ##
+  ## 
   ## Next further modify and commit some files from the original
   ## working copy:
-  ##
+  ## 
   ##    Revision 3:
   ##    -----------
   ##    A/B/lambda ......... add ten or so lines
@@ -73,7 +73,7 @@ def textual_merges_galore(sbox):
   ## to revision 1, while giving other files local mods.  This sets
   ## things up so that "svn merge -r 1:3" will test all of the above
   ## cases except case 4:
-  ##
+  ## 
   ##    case 1: A/mu .......... do nothing, the only change was in rev 2
   ##    case 2: A/B/lambda .... do nothing, so we accept the merge easily
   ##    case 3: A/D/G/pi ...... add same ten lines as committed in rev 3
@@ -81,7 +81,7 @@ def textual_merges_galore(sbox):
   ##    [none]: A/D/G/rho ..... ignore what happens to this file for now
   ##
   ## Now run
-  ##
+  ## 
   ##    $ cd wc.other
   ##    $ svn merge -r 1:3 url-to-repo
   ##
@@ -102,7 +102,7 @@ def textual_merges_galore(sbox):
 
   wc_dir = sbox.wc_dir
   #  url = os.path.join(svntest.main.test_area_url, sbox.repo_dir)
-
+  
   # Change mu and rho for revision 2
   mu_path = os.path.join(wc_dir, 'A', 'mu')
   rho_path = os.path.join(wc_dir, 'A', 'D', 'G', 'rho')
@@ -114,7 +114,7 @@ def textual_merges_galore(sbox):
   mu_text += "\n"
   rho_text += "\n"
   svntest.main.file_append(mu_path, mu_text)
-  svntest.main.file_append(rho_path, rho_text)
+  svntest.main.file_append(rho_path, rho_text)  
 
   # Create expected output tree for initial commit
   expected_output = wc.State(wc_dir, {
@@ -127,7 +127,7 @@ def textual_merges_galore(sbox):
   expected_status = svntest.actions.get_virginal_state(wc_dir, 2)
   expected_status.tweak(wc_rev=1)
   expected_status.tweak('A/mu', 'A/D/G/rho', wc_rev=2)
-
+  
   # Initial commit.
   if svntest.actions.run_and_verify_commit (wc_dir,
                                             expected_output,
@@ -313,7 +313,7 @@ def textual_merges_galore(sbox):
                                'pi'   : Item(status='G '),
                                'tau'  : Item(status='C '),
                                })
-
+  
   expected_disk = wc.State("", {
     'pi'    : wc.StateItem("This is the file 'pi'."),
     'rho'   : wc.StateItem("This is the file 'rho'."),
@@ -362,7 +362,7 @@ def textual_merges_galore(sbox):
     expected_status,
     None,
     merge_singleton_handler)
-
+    
 
 
 #----------------------------------------------------------------------
@@ -582,7 +582,7 @@ def delete_file_and_dir(sbox):
   if errlines:
     print "merge failed"
     return 1
-
+  
   expected_status.tweak(
     'A/B2/E', 'A/B2/E/alpha', 'A/B2/E/beta', 'A/B2/lambda',  status='D '
     )
@@ -689,7 +689,7 @@ def simple_property_merges(sbox):
   ### test of merge.  It should be using run_and_verify_merge but I
   ### cannot get that to work.  Half the tests in this file have the
   ### same problem, that's probably because I wrote them :-/
-
+  
   # Merge B 3:4 into B2
   B2_path = os.path.join(wc_dir, 'A', 'B2')
   expected_output = wc.State(wc_dir, {'A/B2/E'        : Item(status=' U'),
@@ -753,12 +753,12 @@ def merge_one_file(sbox):
   # Subject: Buglet in svn merge?
   # To: <dev@subversion.tigris.org>
   # Date: Mon, 27 Jan 2003 12:00:57 +0100
-  #
+  # 
   # Hi,
-  #
+  # 
   # To do what I did in rev 4605 I first tried (from the top
   # of my working copy):
-  #
+  # 
   # $ svn merge -r 4603:4602 subversion/libsvn_delta/diff_file.c
   # subversion/libsvn_ra_dav/util.c:350: (apr_err=175002)
   # svn: RA layer request failed
@@ -768,11 +768,11 @@ def merge_one_file(sbox):
   # svn: The REPORT request returned invalid XML in the response: \
   #      XML parse error at line 1: xmlParseStartTag: invalid element name
   # .. (/repos/svn/trunk/subversion/libsvn_delta/diff_file.c)
-  #
+  # 
   # That clearly didn't work...
-  #
+  # 
   # $ svn diff -r 4603:4602 subversion/libsvn_delta/diff_file.c | patch -p0
-  #
+  # 
   # did the trick however.
   # -----------------------------------------------------------------
 
@@ -781,7 +781,7 @@ def merge_one_file(sbox):
 
   wc_dir = sbox.wc_dir
   rho_relative_path = os.path.join('A', 'D', 'G', 'rho')
-
+  
   # Change rho for revision 2
   rho_path = os.path.join(wc_dir, rho_relative_path)
   rho_url = os.path.join(svntest.main.current_repo_url, rho_relative_path)
@@ -798,7 +798,7 @@ def merge_one_file(sbox):
                                             None, None, None, None,
                                             wc_dir):
     return 1
-
+  
   # Run merge directly, as it's expected to fail right now anyway --
   # this test is just to make sure that it fails for the right
   # reasons.
@@ -809,7 +809,7 @@ def merge_one_file(sbox):
       if re.match(".*invalid XML", line):
         ### print "Unexpected XML error:\n   " + line
         return 1
-
+      
   # Note that fixing the invalid XML error reported by Sander revealed
   # a *new* invalid XML error, one which is much harder to debug.  So
   # this test will have to be XFail for now.
@@ -832,11 +832,11 @@ def merge_one_file(sbox):
   # breakpoint in ap_process_request().  Here's the code from
   # httpd-2.0.44/modules/http/http_request.c, minus a few comments
   # that would only be distracting here:
-  #
+  # 
   #    void ap_process_request(request_rec *r)
   #    {
   #        int access_status;
-  #
+  #    
   #        /* (Long-ish comment ommitted) */
   #        access_status = ap_run_quick_handler(r, 0);
   #        if (access_status == DECLINED) {
@@ -845,12 +845,12 @@ def merge_one_file(sbox):
   #                access_status = ap_invoke_handler(r);
   #            }
   #        }
-  #
+  #    
   #        if (access_status == DONE) {
   #            /* e.g., something not in storage like TRACE */
   #            access_status = OK;
   #        }
-  #
+  #    
   #        if (access_status == OK) {
   #            ap_finalize_request_protocol(r);
   #        }
