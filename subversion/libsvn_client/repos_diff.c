@@ -218,7 +218,7 @@ temp_file_plain_cleanup_handler (void *arg)
   struct temp_file_cleanup_s *s = arg;
 
   /* Note to UTF-8 watchers: this is ok because the path is already in
-     APR internal encoding. */
+     APR internal encoding. */ 
   return apr_file_remove (s->path, s->pool);
 }
 
@@ -365,7 +365,7 @@ get_path_access (svn_wc_adm_access_t **path_access,
 
   return SVN_NO_ERROR;
 }
-
+                  
 /* Like get_path_access except the returned access baton, in
    *PARENT_ACCESS, is for the parent of PATH rather than for PATH
    itself. */
@@ -410,12 +410,12 @@ get_empty_file (struct edit_baton *b,
 
 /* An editor function. The root of the comparison hierarchy */
 static svn_error_t *
-set_target_revision (void *edit_baton,
+set_target_revision (void *edit_baton, 
                      svn_revnum_t target_revision,
                      apr_pool_t *pool)
 {
   struct edit_baton *eb = edit_baton;
-
+  
   eb->target_revision = target_revision;
   return SVN_NO_ERROR;
 }
@@ -476,8 +476,8 @@ delete_entry (const char *path,
                                                 pool);
         SVN_ERR (get_file_from_ra (b));
         SVN_ERR (get_empty_file(b->edit_baton, &(b->path_end_revision)));
-
-        SVN_ERR (pb->edit_baton->diff_callbacks->file_deleted
+        
+        SVN_ERR (pb->edit_baton->diff_callbacks->file_deleted 
                  (adm_access, b->wcpath,
                   b->path_start_revision,
                   b->path_end_revision,
@@ -487,7 +487,7 @@ delete_entry (const char *path,
       }
     case svn_node_dir:
       {
-        SVN_ERR (pb->edit_baton->diff_callbacks->dir_deleted
+        SVN_ERR (pb->edit_baton->diff_callbacks->dir_deleted 
                  (adm_access, svn_path_join (eb->target, path, pool),
                   pb->edit_baton->diff_cmd_baton));
         break;
@@ -529,7 +529,7 @@ add_directory (const char *path,
 
   SVN_ERR (get_path_access (&adm_access, pb->edit_baton->adm_access, pb->wcpath,
                             pb->edit_baton->dry_run, pool));
-  SVN_ERR (pb->edit_baton->diff_callbacks->dir_added
+  SVN_ERR (pb->edit_baton->diff_callbacks->dir_added 
            (adm_access, b->wcpath,
             pb->edit_baton->diff_cmd_baton));
 
@@ -686,7 +686,7 @@ close_file (void *file_baton,
     content_state = svn_wc_notify_state_unknown,
     prop_state = svn_wc_notify_state_unknown;
 
-  SVN_ERR (get_parent_access (&adm_access, eb->adm_access,
+  SVN_ERR (get_parent_access (&adm_access, eb->adm_access, 
                               b->wcpath, eb->dry_run, b->pool));
   if (b->path_end_revision)
     {
@@ -791,7 +791,7 @@ change_file_prop (void *file_baton,
   propchange = apr_array_push (b->propchanges);
   propchange->name = apr_pstrdup (b->pool, name);
   propchange->value = value ? svn_string_dup (value, b->pool) : NULL;
-
+  
   return SVN_NO_ERROR;
 }
 
