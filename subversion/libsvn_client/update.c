@@ -60,7 +60,7 @@ svn_client__update_internal (const char *path,
   svn_boolean_t sleep_here = FALSE;
   svn_boolean_t *use_sleep = timestamp_sleep ? timestamp_sleep : &sleep_here;
   const char *diff3_cmd;
-
+  
   /* Sanity check.  Without this, the update is meaningless. */
   assert (path);
 
@@ -92,11 +92,11 @@ svn_client__update_internal (const char *path,
     const char *commit_time_str;
 
     svn_config_t *cfg = ctx->config
-      ? apr_hash_get (ctx->config, SVN_CONFIG_CATEGORY_CONFIG,
+      ? apr_hash_get (ctx->config, SVN_CONFIG_CATEGORY_CONFIG,  
                       APR_HASH_KEY_STRING)
       : NULL;
 
-    /* Get the external diff3, if any. */
+    /* Get the external diff3, if any. */    
     svn_config_get (cfg, &diff3_cmd, SVN_CONFIG_SECTION_HELPERS,
                     SVN_CONFIG_OPTION_DIFF3_CMD, NULL);
 
@@ -139,7 +139,7 @@ svn_client__update_internal (const char *path,
       /* Open an RA session for the URL */
       SVN_ERR (svn_client__open_ra_session (&session, ra_lib, URL, anchor,
                                             adm_access, NULL,
-                                            TRUE, TRUE,
+                                            TRUE, TRUE, 
                                             ctx, pool));
 
       /* ### todo: shouldn't svn_client__get_revision_number be able
@@ -170,7 +170,7 @@ svn_client__update_internal (const char *path,
                                     TRUE, recurse, use_commit_times,
                                     ctx->notify_func, ctx->notify_baton,
                                     traversal_info, pool);
-
+      
       if (err)
         {
           /* Don't rely on the error handling to handle the sleep later, do
@@ -179,8 +179,8 @@ svn_client__update_internal (const char *path,
           return err;
         }
       *use_sleep = TRUE;
-    }
-
+    }      
+  
   /* We handle externals after the update is complete, so that
      handling external items (and any errors therefrom) doesn't delay
      the primary operation.  */
