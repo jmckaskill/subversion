@@ -77,14 +77,14 @@ int main(int argc, char **argv)
             break;
         }
         printf("Version was 1.%d\n", parser.version);
-
+        
         node = avl_get_first(parser.vars);
         while (node) {
             var = (http_var_t *)node->key;
-
+            
             if (var)
                 printf("Iterating variable(s): %s = %s\n", var->name, var->value);
-
+            
             node = avl_get_next(node);
         }
     } else {
@@ -140,14 +140,14 @@ a51 35
 			break;
 		}
 		printf("Version was 1.%d\n", parser.version);
-
+		
 		node = avl_get_first(parser.vars);
 		while (node) {
 			var = (http_var_t *)node->key;
-
+			
 			if (var)
 				printf("Iterating variable(s): %s = %s\n", var->name, var->value);
-
+			
 			node = avl_get_next(node);
 		}
 	} else {
