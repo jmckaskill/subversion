@@ -375,7 +375,7 @@ new_node_record (void **node_baton,
     {
       *((const char **) apr_array_push (pb->dropped_nodes))
         = apr_pstrdup (pb->dropped_nodes->pool, node_path);
-
+      
       nb->rb->had_dropped_nodes = TRUE;
       pb->node_drop_count ++;
     }
@@ -573,15 +573,15 @@ close_revision (void *revision_baton)
        - the date
        - a log message that reports that this revision is just stuffing. */
   if ((! rb->pb->preserve_revprops)
-      && (! rb->has_nodes)
-      && rb->had_dropped_nodes
+      && (! rb->has_nodes) 
+      && rb->had_dropped_nodes 
       && (! rb->pb->drop_empty_revs))
     {
       apr_hash_t *old_props = rb->props;
       rb->has_props = TRUE;
       rb->props = apr_hash_make (hash_pool);
       apr_hash_set (rb->props, SVN_PROP_REVISION_DATE, APR_HASH_KEY_STRING,
-                    apr_hash_get (old_props, SVN_PROP_REVISION_DATE,
+                    apr_hash_get (old_props, SVN_PROP_REVISION_DATE, 
                                   APR_HASH_KEY_STRING));
       apr_hash_set (rb->props, SVN_PROP_REVISION_LOG, APR_HASH_KEY_STRING,
                     svn_string_create ("This is an empty revision for "
@@ -592,8 +592,8 @@ close_revision (void *revision_baton)
      information to the header string.  */
   if (rb->has_props)
     {
-      for (hi = apr_hash_first (hash_pool, rb->props);
-           hi;
+      for (hi = apr_hash_first (hash_pool, rb->props); 
+           hi; 
            hi = apr_hash_next (hi))
         {
           const void *key;
@@ -919,7 +919,7 @@ main (int argc, const char * const *argv)
 
   pool = svn_pool_create_ex (NULL, allocator);
   apr_allocator_set_owner (allocator, pool);
-
+		  
   if (argc <= 1)
     {
       subcommand_help (NULL, NULL, pool);
