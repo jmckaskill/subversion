@@ -2,9 +2,9 @@
 #
 #  main.py: a shared, automated test suite for Subversion
 #
-#  Subversion is a tool for revision control.
+#  Subversion is a tool for revision control. 
 #  See http://subversion.tigris.org for more information.
-#
+#    
 # ====================================================================
 # Copyright (c) 2000-2001 CollabNet.  All rights reserved.
 #
@@ -70,7 +70,7 @@ greek_dump_dir = os.path.join(temp_dir, "greekfiles")
 
 # Global variable:  are we running in "ra_dav" mode?
 #
-#    If this variable is set, these things are assumed:
+#    If this variable is set, these things are assumed:   
 #
 #       - an svn-aware httpd is running locally on port 80.
 #
@@ -78,7 +78,7 @@ greek_dump_dir = os.path.join(temp_dir, "greekfiles")
 #         general_repo_dir above, which right below these tests.
 #           (e.g. /path/to/tests/repositories)
 #
-#       - httpd.conf maps /svn/tmp/repo to the abs. path value of
+#       - httpd.conf maps /svn/tmp/repo to the abs. path value of 
 #         pristine_dir above.
 #           (e.g. /path/to/tests/local_tmp/repos)
 #
@@ -230,7 +230,7 @@ def write_tree(path, lists):
       fp = open(fullpath, 'w')
       fp.write(item[1])
       fp.close()
-
+      
 
 # For returning a *mutable* copy of greek_tree (a tuple of tuples).
 def copy_greek_tree():
@@ -291,11 +291,11 @@ def run_tests(test_list):
       if (len(sys.argv) > 2) and (sys.argv[2] == 'dav'):
         DAV_mode = 1
       try:
-        testnum = int(sys.argv[1])
+        testnum = int(sys.argv[1])        
         return run_one_test(testnum, test_list)
       except ValueError:
         print "warning: ignoring bogus argument"
-
+        
   # run all the tests.
   got_error = 0
   for n in range(len(test_list)):
