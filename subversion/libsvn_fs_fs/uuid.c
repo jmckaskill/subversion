@@ -39,7 +39,7 @@ svn_fs_set_uuid (svn_fs_t *fs,
                  apr_pool_t *pool)
 {
   abort ();
-
+  
   return SVN_NO_ERROR;
 }
 
