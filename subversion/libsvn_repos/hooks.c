@@ -120,7 +120,7 @@ svn_repos_fs_begin_txn_for_commit (svn_fs_txn_t **txn_p,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:

@@ -28,7 +28,7 @@
 
 
 repos_node_t *
-svnlook_create_node (const char *name,
+svnlook_create_node (const char *name, 
                      apr_pool_t *pool)
 {
   repos_node_t *node = apr_palloc (pool, sizeof (repos_node_t));
@@ -44,12 +44,12 @@ svnlook_create_node (const char *name,
 
 
 repos_node_t *
-svnlook_create_sibling_node (repos_node_t *elder,
-                             const char *name,
+svnlook_create_sibling_node (repos_node_t *elder, 
+                             const char *name, 
                              apr_pool_t *pool)
 {
   repos_node_t *tmp_node;
-
+  
   /* No ELDER sibling?  That's just not gonna work out. */
   if (! elder)
     return NULL;
@@ -65,8 +65,8 @@ svnlook_create_sibling_node (repos_node_t *elder,
 
 
 repos_node_t *
-svnlook_create_child_node (repos_node_t *parent,
-                           const char *name,
+svnlook_create_child_node (repos_node_t *parent, 
+                           const char *name, 
                            apr_pool_t *pool)
 {
   /* No PARENT node?  That's just not gonna work out. */
@@ -84,7 +84,7 @@ svnlook_create_child_node (repos_node_t *parent,
 
 
 repos_node_t *
-svnlook_find_child_by_name (repos_node_t *parent,
+svnlook_find_child_by_name (repos_node_t *parent, 
                             const char *name)
 {
   repos_node_t *tmp_node;
@@ -115,7 +115,7 @@ svnlook_find_child_by_name (repos_node_t *parent,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../svn-dev.el")
  * end:
