@@ -33,7 +33,7 @@ public interface PromptUserPassword2 extends PromptUserPassword
     public static final int AcceptTemporary = 1;
     /**
      * accept the connection to the server one time.
-     * @deprecated
+     * @deprecated 
      */
     public static final int AccecptTemporary = 1;
     /**
