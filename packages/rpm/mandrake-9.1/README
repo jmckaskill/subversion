@@ -19,14 +19,14 @@ However, you are no longer required to create these files as safe defaults
 will be used if you supply nothing.
 
 Also, it is possible to build multiple revisions of subversion simultaneously
-without collision as long as the revision number (including release) is
+without collision as long as the revision number (including release) is 
 different or if it's a blessed build.
 
 Blessed builds do not indicate their release number as the release is
 defined. Unblessed development builds always append the tree revision number
 and as such, collisions will be rare.
 
-Compiling from the trunk also creates the next minor revision greater, and
+Compiling from the trunk also creates the next minor revision greater, and 
 will prepend a "pre" in front of the revision number, a la Linux Kernels.
 
 Development builds on --version parameters report complete machine details.
@@ -59,7 +59,7 @@ Mandrake SVN RPM:
 These are the files required to build a mandrake 9.1 RPM for subversion.
 Mandrake 9.1 (thankfully) has most of the software required to build
 and install subversion. The only thing it does NOT have is a recent enough
-version of NEON. You will need to build and install your own recent
+version of NEON. You will need to build and install your own recent 
 version, or get the source RPM from cooker or what not and update it
 yourself.
 
@@ -101,7 +101,7 @@ package requires the common client package, subversion-repos, and DB4.0.
 
 subversion-client-svn:
 ----------------------
-This RPM includes the RA module for SVN network protocol hosted
+This RPM includes the RA module for SVN network protocol hosted 
 repositories. This is a reasonably new way of accessing networked
 repositories without apache.
 
@@ -133,7 +133,7 @@ So, many combinations of packages are available depending on the type of
 installation you want to do. The apr, apr-util, and subversion-base
 packages are always required, but then you could just simply install
 neon, client-common, and client-dav to get a subversion setup for network
-repositories. Add client-local, and repos, for local repositories, or
+repositories. Add client-local, and repos, for local repositories, or 
 add repos and server to setup a subversion server.
 
 --------
