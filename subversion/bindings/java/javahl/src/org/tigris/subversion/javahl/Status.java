@@ -22,36 +22,36 @@ import java.util.Date;
 /**
  * Subversion status API.
  * @author Patrick Mayweg
- * @author Cédric Chabanois
- *         <a href="mailto:cchabanois@ifrance.com">cchabanois@ifrance.com</a>
+ * @author Cédric Chabanois 
+ *         <a href="mailto:cchabanois@ifrance.com">cchabanois@ifrance.com</a> 
  */
 public class Status
 {
-    private String url;              // url in repository
+    private String url;              // url in repository    
     private String path;
     private int nodeKind;                // node kind (file, dir, ...)
     private long revision;           // base revision
     private long lastChangedRevision;// last revision this was changed
-    private long lastChangedDate;    // last date this was changed
+    private long lastChangedDate;    // last date this was changed 
     private String lastCommitAuthor; // last commit author of this item
     private int textStatus;
     private int propStatus;
     private boolean locked;
-    private boolean copied;          // in a copied state
+    private boolean copied;          // in a copied state 
     private int repositoryTextStatus;
     private int repositoryPropStatus;
-    private String conflictNew;      // new version of conflicted file
+    private String conflictNew;      // new version of conflicted file 
     private String conflictOld;      // old version of conflicted file
     private String conflictWorking;  // working version of conflicted file
     private String urlCopiedFrom;
     private long revisionCopiedFrom;
 
-
-    public Status(String path, String url, int nodeKind, long revision,
-        long lastChangedRevision, long lastChangedDate, String lastCommitAuthor,
-        int textStatus, int propStatus,
+    
+    public Status(String path, String url, int nodeKind, long revision, 
+        long lastChangedRevision, long lastChangedDate, String lastCommitAuthor, 
+        int textStatus, int propStatus, 
         int repositoryTextStatus, int repositoryPropStatus,
-        boolean locked, boolean copied,
+        boolean locked, boolean copied, 
         String conflictOld, String conflictNew, String conflictWorking,
         String urlCopiedFrom, long revisionCopiedFrom)
     {
@@ -194,7 +194,7 @@ public class Status
     public String getUrlCopiedFrom() {
         return urlCopiedFrom;
     }
-
+    
     public Revision.Number getRevisionCopiedFrom() {
         return new Revision.Number(revisionCopiedFrom);
     }
@@ -205,11 +205,11 @@ public class Status
      */
     public boolean isManaged()  {
         int textStatus = getTextStatus();
-        return ((textStatus != Status.Kind.unversioned) &&
+        return ((textStatus != Status.Kind.unversioned) && 
                 (textStatus != Status.Kind.none) &&
                 (textStatus != Status.Kind.ignored));
     }
-
+    
     /**
      * tells if the resource has a remote counter-part
      * @return
@@ -218,7 +218,7 @@ public class Status
         int textStatus = getTextStatus();
         return ((isManaged()) && (textStatus != Status.Kind.added));
     }
-
+    
     public boolean isAdded() {
         int textStatus = getTextStatus();
         return textStatus == Status.Kind.added;
@@ -226,19 +226,19 @@ public class Status
 
     public boolean isDeleted() {
         int textStatus = getTextStatus();
-        return textStatus == Status.Kind.deleted;
+        return textStatus == Status.Kind.deleted;        
     }
 
     public boolean isMerged() {
         int textStatus = getTextStatus();
-        return textStatus == Status.Kind.merged;
+        return textStatus == Status.Kind.merged;        
     }
 
     public boolean isIgnored() {
         int textStatus = getTextStatus();
-        return textStatus == Status.Kind.ignored;
+        return textStatus == Status.Kind.ignored;        
     }
-
+    
 
 
     /**
@@ -289,7 +289,7 @@ public class Status
 
         /** a resource marked as ignored */
         public static final int ignored = 11;
-
+        
         /** a directory doesn't contain a complete entries list  */
         public static final int incomplete = 12;
 
