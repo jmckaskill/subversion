@@ -3,12 +3,12 @@
 @@ -21,8 +21,8 @@
  from distutils.command import build_ext
  from distutils import dir_util
-
+ 
 -INC_DIRS=['..', '../../../include', '../../../../apr/include']
 -LIB_DIRS=['/usr/local/svn/lib']
 +INC_DIRS=['..', '../../../include', '/usr/local/apache2/include']
 +LIB_DIRS=['/usr/local/apache2/lib']
-
+ 
  class build_swig(build_ext.build_ext):
    def initialize_options(self):
 @@ -67,47 +67,44 @@
@@ -58,7 +58,7 @@
 +                            libraries=['svn_subr-1', 'apr-0'],
                              library_dirs=LIB_DIRS,
                              ),
-
+ 
               ### will 'auth' be its own, or bundled elsewhere?
               #core.Extension("_auth",
               #               ["../svn_auth.i"],
