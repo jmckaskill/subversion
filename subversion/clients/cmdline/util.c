@@ -55,7 +55,7 @@ svn_error_t *
 svn_cl__print_commit_info (svn_client_commit_info_t *commit_info,
                            apr_pool_t *pool)
 {
-  if ((commit_info)
+  if ((commit_info) 
       && (SVN_IS_VALID_REVNUM (commit_info->revision)))
     SVN_ERR (svn_cmdline_printf (pool, _("\nCommitted revision %ld.\n"),
                                  commit_info->revision));
@@ -95,9 +95,9 @@ svn_cl__edit_externally (const char **edited_contents /* UTF-8! */,
   /* If not found then fall back on the config file. */
   if (! editor)
     {
-      cfg = config ? apr_hash_get (config, SVN_CONFIG_CATEGORY_CONFIG,
+      cfg = config ? apr_hash_get (config, SVN_CONFIG_CATEGORY_CONFIG, 
                                    APR_HASH_KEY_STRING) : NULL;
-      svn_config_get (cfg, &editor, SVN_CONFIG_SECTION_HELPERS,
+      svn_config_get (cfg, &editor, SVN_CONFIG_SECTION_HELPERS, 
                       SVN_CONFIG_OPTION_EDITOR_CMD, NULL);
     }
 
@@ -120,7 +120,7 @@ svn_cl__edit_externally (const char **edited_contents /* UTF-8! */,
 
   /* Abort if there is no editor specified */
   if (! editor)
-    return svn_error_create
+    return svn_error_create 
       (SVN_ERR_CL_NO_EXTERNAL_EDITOR, NULL,
        _("None of the environment variables SVN_EDITOR, VISUAL or EDITOR is "
          "set, and no 'editor-cmd' run-time configuration option was found"));
@@ -159,17 +159,17 @@ svn_cl__edit_externally (const char **edited_contents /* UTF-8! */,
        the file we just created!! ***/
 
   /* Dump initial CONTENTS to TMP_FILE. */
-  apr_err = apr_file_write_full (tmp_file, contents_native,
+  apr_err = apr_file_write_full (tmp_file, contents_native, 
                                  strlen (contents_native), &written);
 
   apr_err2 = apr_file_close (tmp_file);
   if (! apr_err)
     apr_err = apr_err2;
-
+  
   /* Make sure the whole CONTENTS were written, else return an error. */
   if (apr_err)
     {
-      err = svn_error_wrap_apr (apr_err, _("Can't write to '%s'"),
+      err = svn_error_wrap_apr (apr_err, _("Can't write to '%s'"), 
                                 tmpfile_name);
       goto cleanup;
     }
@@ -202,7 +202,7 @@ svn_cl__edit_externally (const char **edited_contents /* UTF-8! */,
                                 _("system('%s') returned %d"), cmd, sys_err);
       goto cleanup;
     }
-
+  
   /* Get information about the temporary file after the assumed editing. */
   apr_err = apr_stat (&finfo_after, tmpfile_apr,
                       APR_FINFO_MTIME | APR_FINFO_SIZE, pool);
@@ -211,7 +211,7 @@ svn_cl__edit_externally (const char **edited_contents /* UTF-8! */,
       err = svn_error_wrap_apr (apr_err, _("Can't stat '%s'"), tmpfile_name);
       goto cleanup;
     }
-
+  
   /* If the file looks changed... */
   if ((finfo_before.mtime != finfo_after.mtime) ||
       (finfo_before.size != finfo_after.size))
@@ -236,7 +236,7 @@ svn_cl__edit_externally (const char **edited_contents /* UTF-8! */,
       *tmpfile_left = svn_path_join (base_dir, tmpfile_name, pool);
       remove_file = FALSE;
     }
-
+  
  cleanup:
   if (remove_file)
     {
@@ -284,7 +284,7 @@ svn_cl__make_log_msg_baton (void **baton,
 {
   struct log_msg_baton *lmb = apr_palloc (pool, sizeof (*lmb));
 
-  if (opt_state->filedata)
+  if (opt_state->filedata) 
     {
       if (strlen (opt_state->filedata->data) < opt_state->filedata->len)
         {
@@ -296,7 +296,7 @@ svn_cl__make_log_msg_baton (void **baton,
                                    _("Log message contains a zero byte"));
         }
       lmb->message = opt_state->filedata->data;
-    }
+    }      
   else
     {
       lmb->message = opt_state->message;
@@ -309,7 +309,7 @@ svn_cl__make_log_msg_baton (void **baton,
     }
   else if (config)
     {
-      svn_config_t *cfg = apr_hash_get (config, SVN_CONFIG_CATEGORY_CONFIG,
+      svn_config_t *cfg = apr_hash_get (config, SVN_CONFIG_CATEGORY_CONFIG, 
                                         APR_HASH_KEY_STRING);
       svn_config_get (cfg, &(lmb->message_encoding),
                       SVN_CONFIG_SECTION_MISCELLANY,
@@ -490,8 +490,8 @@ svn_cl__get_log_message (const char **log_msg,
           if (item->state_flags & SVN_CLIENT_COMMIT_ITEM_PROP_MODS)
             prop_mod = 'M';
 
-          svn_stringbuf_appendbytes (tmp_message, &text_mod, 1);
-          svn_stringbuf_appendbytes (tmp_message, &prop_mod, 1);
+          svn_stringbuf_appendbytes (tmp_message, &text_mod, 1); 
+          svn_stringbuf_appendbytes (tmp_message, &prop_mod, 1); 
           svn_stringbuf_appendcstr (tmp_message, "   ");
           svn_stringbuf_appendcstr (tmp_message, path);
           svn_stringbuf_appendcstr (tmp_message, APR_EOL_STR);
@@ -513,17 +513,17 @@ svn_cl__get_log_message (const char **log_msg,
           SVN_ERR (svn_subst_translate_string (&new_logval, new_logval,
                                                NULL, pool));
           msg2 = new_logval->data;
-        }
+        }        
 
       /* Dup the tmpfile path into its baton's pool. */
-      *tmp_file = lmb->tmpfile_left = apr_pstrdup (lmb->pool,
+      *tmp_file = lmb->tmpfile_left = apr_pstrdup (lmb->pool, 
                                                    lmb->tmpfile_left);
 
       /* If the edit returned an error, handle it. */
       if (err)
         {
           if (err->apr_err == SVN_ERR_CL_NO_EXTERNAL_EDITOR)
-            err = svn_error_quick_wrap
+            err = svn_error_quick_wrap 
               (err, _("Could not use external editor to fetch log message; "
                       "consider setting the $SVN_EDITOR environment variable "
                       "or using the --message (-m) or --file (-F) options"));
@@ -535,7 +535,7 @@ svn_cl__get_log_message (const char **log_msg,
 
       /* Strip the prefix from the buffer. */
       if (message)
-        truncate_buffer_at_prefix (&message->len, message->data,
+        truncate_buffer_at_prefix (&message->len, message->data, 
                                    EDITOR_EOF_PREFIX);
 
       if (message)
@@ -578,7 +578,7 @@ svn_cl__get_log_message (const char **log_msg,
               /* If the user chooses to continue, we make an empty
                  message, which will cause us to exit the loop.  We
                  also cleanup the temporary file. */
-              if ('c' == letter)
+              if ('c' == letter) 
                 {
                   SVN_ERR (svn_io_remove_file (lmb->tmpfile_left, pool));
                   *tmp_file = lmb->tmpfile_left = NULL;
@@ -590,7 +590,7 @@ svn_cl__get_log_message (const char **log_msg,
             }
         }
     }
-
+  
   *log_msg = message ? message->data : NULL;
   return SVN_NO_ERROR;
 }
