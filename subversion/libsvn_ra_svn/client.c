@@ -112,7 +112,7 @@ static svn_error_t *make_connection(const char *hostname, unsigned short port,
   /* ### old APR interface */
   status = apr_socket_create(sock, sa->family, SOCK_STREAM, pool);
 #else
-  status = apr_socket_create(sock, sa->family, SOCK_STREAM, APR_PROTO_TCP,
+  status = apr_socket_create(sock, sa->family, SOCK_STREAM, APR_PROTO_TCP, 
                              pool);
 #endif
   if (status)
@@ -561,17 +561,17 @@ static svn_error_t *ra_svn_open(svn_ra_session_t *session, const char *url,
   apr_array_header_t *mechlist, *caplist;
   apr_uri_t uri;
   apr_status_t err;
-
+  
   err = apr_uri_parse (pool, url, &uri);
-
+  
   if (err != 0)
     return svn_error_createf(SVN_ERR_RA_ILLEGAL_URL, NULL,
                              _("Illegal svn repository URL '%s'"), url);
-
+  
   port = uri.port ? uri.port : SVN_RA_SVN_PORT;
   hostname = uri.hostname;
   user = uri.user;
-
+  
   parse_tunnel (url, &tunnel, pool);
 
   if (tunnel)
@@ -1274,7 +1274,7 @@ static svn_error_t *ra_svn_get_file_revs(svn_ra_session_t *session,
             SVN_ERR(svn_stream_close(stream));
         }
     }
-
+ 
   SVN_ERR(svn_ra_svn_read_cmd_response(sess_baton->conn, pool, ""));
 
   /* Return error if we didn't get any revisions. */
@@ -1325,7 +1325,7 @@ svn_ra_svn__init (const svn_version_t *loader_version,
       { "svn_delta", svn_delta_version },
       { NULL, NULL }
     };
-
+  
   SVN_ERR(svn_ver_check_list(svn_ra_svn_version(), checklist));
 
   /* Simplified version check to make sure we can safely use the
