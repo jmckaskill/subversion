@@ -6,7 +6,7 @@ User-visible changes:
    . new --force-log for commit, copy, delete, import, mkdir, move (r6294)
    . --force no longer needed for commit
 
-
+   
  * commands
    . new -  svnadmin archive (r6310)
    . changed - svn import syntax now 'svn import [PATH] URL' (r6288,#933,#735)
@@ -16,11 +16,11 @@ User-visible changes:
 
  * python bindings now in -tools rpm for  Mandrake 9.1 (r6374)
  * allow parent-into-child copies, provided they are not WC->WC. (r6348,#1367)
- * fixed - Apache module installation order (r6382-6,#1381)
+ * fixed - Apache module installation order (r6382-6,#1381)	
  * now requre apache 2.0.47 (and apr 0.9.4)
  * fix 2 commit leaks
  * fix mod_dav_svn path-escaping bug
- *
+ * 
 Developer-visible changes:
 
  * Win32 build system
@@ -326,7 +326,7 @@ Version 0.17.1 (released 22 Jan 2003, revision 4503, branches/0.17.1)
  * dumper/loader now use checksums (#1102)
  * miscellaneous small code cleanups
  * bug fixes:  eol-style timestamp changes (#1086), valgrind mem bug,
-   better checksum error reporting,
+   better checksum error reporting, 
 
 
 Version 0.17.0 (released 20 Jan 2003, revision 4468, branches/0.17)
@@ -354,7 +354,7 @@ Version 0.17.0 (released 20 Jan 2003, revision 4468, branches/0.17)
    of wc 'missing dir' edge-case bugs (#962), prevent wc from
    receiving '.svn' (#1068), don't commit symlinks (#1081), better
    diff labels (#1080), better fulltext tmpfile names in conflicts (#1079),
-   prevent ra_dav from deleting out-of-date items (#1017), segfault (#1092),
+   prevent ra_dav from deleting out-of-date items (#1017), segfault (#1092), 
    don't attempt checksum on missing tmp textbase (#1091), allow diffs
    during update again (yikes!)
 
@@ -424,7 +424,7 @@ Version 0.16 (released 4 Dec 2002, revision 3987)
  * svn_client_status sends feedback, distinguishes unversioned vs. ignored
  * improvements to swig typemappings and build processes
  * fixes to pool cleanup handlers
- * begin abstraction of gen_make.py
+ * begin abstraction of gen_make.py 
  * entry-caching improvements
  * stop using global apr_xlate objects
  * win32-innosetup code added to packages/
@@ -443,7 +443,7 @@ Version 0.16 (released 4 Dec 2002, revision 3987)
 Version 0.15 (released 7 Nov 2002, revision 3687)
 
  User-visible changes:
- * New 'S' indicator in 'svn status' shows switched subdirs
+ * New 'S' indicator in 'svn status' shows switched subdirs 
  * New --dry-run option added for 'svn merge' (issue #953)
  * Fix 'svn update .' to handle svn:externals correctly
  * Memory usage of 'svn import' reduced (issue #860)
@@ -453,7 +453,7 @@ Version 0.15 (released 7 Nov 2002, revision 3687)
 
  Developer-visible changes:
  * #911 (apr and apr-util version at build time)
- * Fixed issues #851, #894,
+ * Fixed issues #851, #894, 
  * Testing scripts accept --url=URL and BASE_URL=URL
  * Issue #881 (--enable-all-static)
  * Delta editors all converted to new-style, and editor composition is gone
@@ -603,10 +603,10 @@ Version 0.14.1 [Alpha Interim 1] (released 9 August 2002, revision 2927)
  * numerous bugfixes: #709 (better error handling), #813/814
    (apr_filepath_merge), #685 (showing dir propdiffs), OS X dumper
    bugfix, #561 (property conflict detection), mod_dav_svn path bugs,
-   svn_wc_status() bugs, path canonicalization bugs, #816 (svn log  -r),
+   svn_wc_status() bugs, path canonicalization bugs, #816 (svn log  -r), 
    #843 (URL keyword), #846 (kind-change replacement), #809 ($EDITOR dir),
    #855 (module updates not cooperating with new wc access batons),
-   improvements to test suite sensitivity,
+   improvements to test suite sensitivity, 
 
 
 Version 0.14.0 [Alpha] (released 23 July 2002, revision 2667)
@@ -667,7 +667,7 @@ Version 0.13.2 [Pre-Alpha] (released 28 June 2002, revision 2376)
  * fix 'svn diff -rX:Y' server bug
  * fix bugs in python test system
  * bring win32 build up-to-date, get most python tests working on win32
-
+ 
 
 Version 0.13.1 [Pre-Alpha] (released 20 June 2002, revision 2291)
 
@@ -785,7 +785,7 @@ Version 0.10.2 (released 25 Mar 2002, revision 1587)
  User-visible changes:
  * new ~/.subversion configuration directory
  * proxy support via ~/.subversion/proxies file
-
+          
  Developer-visible changes:
  * rewrite of client-side commit process partially done
  * beginnings of 'svn merge'
@@ -802,7 +802,7 @@ Version 0.10.1 (released 17 Mar 2002, revision 1537)
  * New --targets command-line option for some commands.
  * conflicts now create conflict-markers in files, and 3 fulltext backups.
  * new 'svn resolve' command removes conflicted state (by removing backups)
-
+  
  Developer-visible changes:
  * no more dependency on 'patch'; only on GNU diff3 and some version of 'diff'
  * complete rewrite of svn_wc_entry_t interface
@@ -812,8 +812,8 @@ Version 0.10.1 (released 17 Mar 2002, revision 1537)
  * start work on ~/.subversion/ configuration directory, and proxy support
  * move a lot of svn_wc.h into private wc.h
  * bugfixes relating to commits, network prop xfers, 'svn log', 'svn co -q'
- * major deletion bug fixed
-   (see email WARNING:
+ * major deletion bug fixed 
+   (see email WARNING: 
     http://subversion.tigris.org/servlets/ReadMsg?msgId=64442&listName=dev)
 
 
@@ -821,7 +821,7 @@ Version 0.10.0 (released 08 Mar 2002, revision 1467)
 
  User-visible changes:
  * fewer out-of-memory errors:  (see "memory consumption" below)
- * clearer user errors:
+ * clearer user errors:  
        - detailed marshalling of server errors to client
        - better errors from ra_dav
        - better commandline-client-specific error messages
@@ -850,7 +850,7 @@ Version 0.10.0 (released 08 Mar 2002, revision 1467)
  * build system evolution
      - upgrade to neon 0.19.[2-3]
      - lots of work on FreeBSD port
- * many small bugfixes:
+ * many small bugfixes: 
       - propedit, file merges, revert, dir_delta, keywords
       - memory leaks in 'svn add', 'svn import/commit', and svnlook
       - date-parsing and readonly bugs
@@ -911,7 +911,7 @@ Version 0.8  (released 15 Jan 2002, revision 909)
 
 Version 0.7  (released 03 Dec 2001, revision 587)
 
-  * 'svn cp/mv' completed:
+  * 'svn cp/mv' completed:  
        - can copy from wc/repos to wc/repos
        - This how we create branches/tags
   * 'svn mkdir' [WC_PATH|REPOS_URL]
