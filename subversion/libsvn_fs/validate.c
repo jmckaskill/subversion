@@ -73,7 +73,7 @@ svn_fs__is_valid_proplist (skel_t *skel)
 
 /* Validating paths. */
 
-int
+int 
 svn_fs__is_single_path_component (const char *name)
 {
   const char *c = name;
@@ -102,7 +102,7 @@ svn_fs__is_single_path_component (const char *name)
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
