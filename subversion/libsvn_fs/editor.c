@@ -113,14 +113,14 @@ replace_root (void *edit_baton, svn_revnum_t base_revision, void **root_baton)
   err = svn_fs_txn_name (&(eb->txn_name), eb->txn, eb->pool);
   if (err)
     return err;
-
+  
   /* What don't we do?
-   *
+   * 
    * What we don't do is start a single Berkeley DB transaction here,
    * keep it open throughout the entire edit, and then call
    * txn_commit() inside close_edit().  That would result in writers
    * interfering with writers unnecessarily.
-   *
+   * 
    * Instead, we take small steps.  When we clone the root node, it
    * actually gets a new node -- a mutable one -- in the nodes table.
    * If we clone the next dir down, it gets a new node then too.  When
@@ -185,10 +185,10 @@ delete_entry (svn_string_t *name, void *parent_baton)
   struct edit_baton *eb = dirb->edit_baton;
   svn_error_t *err;
   struct delete_args del_args;
-
+  
   del_args.parent = dirb;
   del_args.name   = name;
-
+  
   err = svn_fs__retry_txn (eb->fs, txn_body_delete, &del_args, eb->pool);
   if (err)
     return err;
@@ -212,7 +212,7 @@ txn_body_add_directory (void *add_baton, trail_t *trail)
 {
   struct add_args *ad_args = add_baton;
   svn_error_t *err;
-
+  
   err = svn_fs__dag_make_dir (&(ad_args->new_node),
                               ad_args->parent->node,
                               ad_args->name->data,
@@ -236,10 +236,10 @@ add_directory (svn_string_t *name,
   struct dir_baton *new_dirb
     = apr_pcalloc (pb->edit_baton->pool, sizeof (*new_dirb));
   struct add_args ad_args;
-
+  
   ad_args.parent = pb;
   ad_args.name = name;
-
+  
   err = svn_fs__retry_txn (pb->edit_baton->fs,
                            txn_body_add_directory,
                            &ad_args,
@@ -267,7 +267,7 @@ txn_body_replace (void *rargs, trail_t *trail)
 {
   struct replace_args *repl_args = rargs;
 
-
+  
 
   return SVN_NO_ERROR;
 }
@@ -280,12 +280,12 @@ replace_directory (svn_string_t *name,
 {
   struct dir_baton *pb = parent_baton;
   struct dir_baton *dirb = apr_pcalloc (pb->edit_baton->pool, sizeof (*dirb));
-
+  
   dirb->parent = pb;
   dirb->edit_baton = pb->edit_baton;
   dirb->name = svn_string_dup (name, pb->edit_baton->pool);
 
-
+  
   fooo;
 
   *child_baton = dirb;
@@ -463,13 +463,13 @@ svn_fs_get_editor (svn_delta_edit_fns_t **editor,
 
   *edit_baton = eb;
   *editor = e;
-
+  
   return SVN_NO_ERROR;
 }
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
