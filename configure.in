@@ -9,7 +9,7 @@ dnl Set of available languages.
 dnl ALL_LINGUAS="de fr es ko nl no pl pt sl sv"
 
 dnl kff todo: change this to (apr expat-lite), if expat-lite is ever
-dnl autoconfiscated.
+dnl autoconfiscated. 
 AC_CONFIG_SUBDIRS(apr)
 
 dnl Checks for programs.
