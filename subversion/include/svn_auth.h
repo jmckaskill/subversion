@@ -31,7 +31,7 @@ extern "C" {
 #endif /* __cplusplus */
 
 /** Overview of the svn authentication system.
- *
+ *    
  * We define an authentication "provider" as a module that is able to
  * return a specific set of credentials. (e.g. username/password,
  * certificate, etc.)  Each provider implements a vtable that
@@ -85,7 +85,7 @@ typedef struct
 {
   /** The kind of credentials this provider knows how to retrieve. */
   const char *cred_kind;
-
+  
   /** Get an initial set of credentials.
    *
    * Set @a *credentials to a set of valid credentials, or NULL if no
@@ -114,7 +114,7 @@ typedef struct
                                      void *iter_baton,
                                      apr_hash_t *parameters,
                                      apr_pool_t *pool);
-
+  
   /** Save credentials.
    *
    * Store @a credentials for future use.  @a provider_baton is
@@ -130,7 +130,7 @@ typedef struct
                                      void *provider_baton,
                                      apr_hash_t *parameters,
                                      apr_pool_t *pool);
-
+  
 } svn_auth_provider_t;
 
 
@@ -153,7 +153,7 @@ typedef struct
 {
   const char *username;
   const char *password;
-
+  
 } svn_auth_cred_simple_t;
 
 /** Just a username. */
@@ -174,7 +174,7 @@ typedef enum
     svn_auth_ssl_unknown_cert_type,
     svn_auth_ssl_pem_cert_type,
     svn_auth_ssl_pkcs12_cert_type
-
+    
   } svn_auth_ssl_cert_type_t;
 typedef struct
 {
@@ -284,7 +284,7 @@ const void * svn_auth_get_parameter(svn_auth_baton_t *auth_baton,
 
 /** Available for ssl client cert providers, provides a @c ne_ssl_dname*  */
 #define SVN_AUTH_PARAM_SSL_SERVER_DNAME SVN_AUTH_PARAM_PREFIX "ssl:dname"
-/** Available for ssl server cert providers, provides a full
+/** Available for ssl server cert providers, provides a full 
     @c ne_ssl_certificate* */
 #define SVN_AUTH_PARAM_SSL_SERVER_CERTIFICATE SVN_AUTH_PARAM_PREFIX \
   "ssl:server-cert"
