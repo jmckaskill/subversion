@@ -50,9 +50,9 @@ svn_cl__propget (apr_getopt_t *os,
   pname = ((const char **) (args->elts))[0];
   SVN_ERR (svn_utf_cstring_to_utf8 (pname, &pname_utf8, pool));
   is_svn_prop = svn_prop_is_svn_prop (pname_utf8);
-
+  
   /* suck up all the remaining arguments into a targets array */
-  SVN_ERR (svn_cl__args_to_target_array (&targets, os, opt_state,
+  SVN_ERR (svn_cl__args_to_target_array (&targets, os, opt_state, 
                                          FALSE, pool));
 
   /* Add "." if user passed 0 file arguments */
@@ -74,7 +74,7 @@ svn_cl__propget (apr_getopt_t *os,
         {
           const void *key;
           void *val;
-          const char *filename;
+          const char *filename; 
           const svn_string_t *propval;
           const char *filename_native;
 
@@ -88,14 +88,14 @@ svn_cl__propget (apr_getopt_t *os,
             SVN_ERR (svn_utf_string_from_utf8 (propval, &propval, pool));
 
           /* ### this won't handle binary property values */
-          if (print_filenames)
+          if (print_filenames) 
             {
               SVN_ERR (svn_utf_cstring_from_utf8 (filename,
                                                   &filename_native,
                                                   pool));
               printf ("%s - %s\n", filename_native, propval->data);
-            }
-          else
+            } 
+          else 
             {
               printf ("%s\n", propval->data);
             }
@@ -106,8 +106,8 @@ svn_cl__propget (apr_getopt_t *os,
 }
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../tools/dev/svn-dev.el")
- * end:
+ * end: 
  */
