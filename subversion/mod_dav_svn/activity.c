@@ -20,7 +20,7 @@
 #include "dav_svn.h"
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
