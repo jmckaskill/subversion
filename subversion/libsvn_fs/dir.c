@@ -150,10 +150,10 @@ is_valid_dirent_name (char *data, apr_size_t len)
 	unsigned char head = data[i++];
 
 	/* The way UTF-8 works is this:
-	   - If the first byte has the binary form `0xxxxxxx',
+	   - If the first byte has the binary form `0xxxxxxx', 
 	   that's the whole encoding --- there are no other bytes,
 	   and the character's value is `xxxxxxx'.
-	   - If the first byte has the binary form `110xxxxx',
+	   - If the first byte has the binary form `110xxxxx', 
 	   then it's followed by another byte of the form `10yyyyyy',
 	   and the character's value is `xxxxxyyyyyy'.
 	   - If the first byte has the binary form `1110xxxx', then
@@ -221,7 +221,7 @@ search (svn_fs_id_t **id_p,
 	  svn_fs_id_t *id = svn_fs_parse_id (entry_id->data,
 					     entry_id->len,
 					     pool);
-	  if (! id)
+	  if (! id) 
 	    return corrupt_node_revision (dir_node);
 
 	  *id_p = id;
@@ -252,7 +252,7 @@ svn_fs_open_node (svn_fs_node_t **child_p,
       || name->data[0] == '/')
     return path_syntax (fs, name);
 
-  /* Get our own `open' of PARENT_NODE, so we can close it without
+  /* Get our own `open' of PARENT_NODE, so we can close it without 
      affecting the caller.  */
   dir = (svn_fs_node_to_dir
 	 (svn_fs__reopen_node
@@ -260,7 +260,7 @@ svn_fs_open_node (svn_fs_node_t **child_p,
 
   scan = name->data;
   name_end = name->data + name->len;
-
+  
   /* Walk down PARENT_DIR to the desired node, traversing NAME one
      path component at a time.  */
   for (;;)
@@ -285,7 +285,7 @@ svn_fs_open_node (svn_fs_node_t **child_p,
       /* Try to find a entry by that name in DIR.  */
       svn_err = search (&entry_id, dir, start, scan - start, 0, pool);
 
-      /* Close the parent directory.  */
+      /* Close the parent directory.  */ 
       svn_fs_close_dir (dir);
 
       /* Handle any error returned by `search'.  */
@@ -342,7 +342,7 @@ svn_fs_dir_entries (apr_hash_t **table_p,
 
   SVN_ERR (svn_fs__get_node_revision (&dir_skel, dir_node, 0, pool));
   table = apr_make_hash (pool);
-
+  
   /* Walk DIR's list of entries, adding an entry to TABLE for each one.  */
   if (svn_fs__list_length (dir_skel) != 2
       || dir_skel->children->next->is_atom)
@@ -402,7 +402,7 @@ struct delete_args {
   svn_string_t *name;
   apr_pool_t *pool;
 };
-
+    
 
 static svn_error_t *
 delete_body (void *baton,
@@ -423,7 +423,7 @@ delete_body (void *baton,
   /* Make sure this is a mutable node.  */
   if (! svn_fs_node_is_mutable (dir_node))
     return node_not_mutable (dir_node);
-
+  
   /* Read the node's contents.  */
   SVN_ERR (svn_fs__get_node_revision (&skel, dir_node, db_txn, pool));
 

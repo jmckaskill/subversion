@@ -1,4 +1,4 @@
-/* deltaparse-test.c -- simple demo of using SVN's XML parser interface.
+/* deltaparse-test.c -- simple demo of using SVN's XML parser interface. 
  *
  * ====================================================================
  * Copyright (c) 2000 CollabNet.  All rights reserved.
@@ -24,7 +24,7 @@
 
 
 
-/* An official subversion "read" routine, comforming to POSIX standards.
+/* An official subversion "read" routine, comforming to POSIX standards. 
    This one reads our XML filehandle, passed in as our baton.  */
 static svn_error_t *
 my_read_func (void *baton, char *buffer, apr_size_t *len, apr_pool_t *pool)
@@ -37,7 +37,7 @@ my_read_func (void *baton, char *buffer, apr_size_t *len, apr_pool_t *pool)
   stat = apr_full_read (xmlfile, buffer,
                         (apr_size_t) *len,
                         (apr_size_t *) len);
-
+  
   /* We want to return general I/O errors, but we explicitly ignore
      the APR_EOF error.  Why?  Because the caller of this routine
      doesn't want to know about that error.  It uses (*len == 0) as a
@@ -47,12 +47,12 @@ my_read_func (void *baton, char *buffer, apr_size_t *len, apr_pool_t *pool)
      Therfore, if apr_full_read() does this, the caller will call this
      routine one more time, and *len should then be set to 0 for sure. */
 
-  if (stat && !APR_STATUS_IS_EOF(stat))
+  if (stat && !APR_STATUS_IS_EOF(stat)) 
     return
       svn_error_create (stat, 0, NULL, pool,
                         "my_read_func: error reading xmlfile");
-
-  return SVN_NO_ERROR;
+  
+  return SVN_NO_ERROR;  
 }
 
 
@@ -73,7 +73,7 @@ main (int argc, char *argv[])
   /* Process args */
   if (argc != 2)
     {
-      printf
+      printf 
         ("\nUsage: %s [filename], where [filename] contains an XML tree-delta",
          argv[0]);
       exit (1);
@@ -92,18 +92,18 @@ main (int argc, char *argv[])
       printf ("Error opening %s\n.", argv[1]);
       exit (1);
     }
-
+    
 
   /* Set context variables for evaluating a tree-delta */
   base_revision = 37;
   base_path = svn_string_create ("/root", globalpool);
-
+  
   /* Grab the "test" editor and baton */
   err = svn_test_get_editor (&editor, &edit_baton,
                              base_path, base_revision, globalpool);
-
+  
   /* Fire up the XML parser */
-  err = svn_delta_xml_auto_parse (my_read_func, source_baton,
+  err = svn_delta_xml_auto_parse (my_read_func, source_baton, 
                                   editor,
                                   edit_baton,
                                   base_path,
@@ -111,7 +111,7 @@ main (int argc, char *argv[])
                                   globalpool);
 
   apr_close (source_baton);
-
+  
   if (err)
     {
       svn_handle_error (err, stderr, 0);
