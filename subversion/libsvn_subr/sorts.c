@@ -118,7 +118,7 @@ apr_hash_sorted_keys (apr_hash_t *ht,
 
       apr_hash_this (hi, &item->key, &item->klen, &item->value);
     }
-
+  
   /* now quicksort the array.  */
   qsort (ary->elts, ary->nelts, ary->elt_size,
          (int (*)(const void *, const void *))comparison_func);
@@ -134,8 +134,8 @@ apr_hash_sorted_keys (apr_hash_t *ht,
 svn_boolean_t
 svn_prop_is_svn_prop (const char *prop_name)
 {
-  return strncmp (prop_name, SVN_PROP_PREFIX, (sizeof (SVN_PROP_PREFIX) - 1))
-         ? FALSE
+  return strncmp (prop_name, SVN_PROP_PREFIX, (sizeof (SVN_PROP_PREFIX) - 1)) 
+         ? FALSE 
          : TRUE;
 }
 
@@ -151,14 +151,14 @@ svn_property_kind (int *prefix_len,
     {
       if (prefix_len)
         *prefix_len = wc_prefix_len;
-      return svn_prop_wc_kind;
+      return svn_prop_wc_kind;     
     }
 
   if (strncmp (prop_name, SVN_PROP_ENTRY_PREFIX, entry_prefix_len) == 0)
     {
       if (prefix_len)
         *prefix_len = entry_prefix_len;
-      return svn_prop_entry_kind;
+      return svn_prop_entry_kind;     
     }
 
   /* else... */
@@ -184,8 +184,8 @@ svn_categorize_props (const apr_array_header_t *proplist,
     {
       svn_prop_t *prop, *newprop;
       enum svn_prop_kind kind;
-
-      prop = &APR_ARRAY_IDX (proplist, i, svn_prop_t);
+      
+      prop = &APR_ARRAY_IDX (proplist, i, svn_prop_t);      
       kind = svn_property_kind (NULL, prop->name);
 
       if (kind == svn_prop_regular_kind)
@@ -209,7 +209,7 @@ svn_categorize_props (const apr_array_header_t *proplist,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end:
