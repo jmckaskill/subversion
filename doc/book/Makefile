@@ -25,7 +25,7 @@ MDOCS_ALL_SOURCE = $(MDOCS_DIR)/*.xml
 MDOCS_INSTALL_DIR = $(INSTALL_DIR)/misc-docs
 
 XSL_DIR = ${BOOK_TOP}/tools/xsl
-XSL_FO = $(XSL_DIR)/fo/docbook.xsl
+XSL_FO = ${BOOK_TOP}/tools/fo-stylesheet.xsl
 XSL_HTML = $(XSL_DIR)/html/docbook.xsl
 
 RUN_FOP = ${BOOK_TOP}/tools/bin/run-fop.sh
