@@ -86,7 +86,7 @@ section for approved changes.)
       Votes:
        +1: cmpilato, kfogel
 
-
+       
     * r8299
       Fix a small bug in ra_dav's get_repos_root() implementation that caused
       it to return an incomplete root URL, if the session URL was already the
@@ -131,7 +131,7 @@ Bindings changes that affect the build system:
                     to support.
      Votes:
       +1: breser
-
+     
 Bindings changes that don't affect the build system:
 
    [none pending right now]
