@@ -305,7 +305,7 @@ class Generator(gen_win.WinGeneratorBase):
       fname=os.path.join(self.projfilesdir,"%s_vcnet.vcproj" % (target.replace('-','_')))
       depth=target_ob.path.count(os.sep)+1
       self.writeProject(target_ob, fname, '\\'.join(['..']*depth))
-
+      
       if isinstance(target_ob, gen_base.TargetExternal):
         fname = target_ob._sources[0]
 
