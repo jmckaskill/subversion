@@ -56,7 +56,7 @@ svn_client_log2 (const apr_array_header_t *targets,
                  svn_client_ctx_t *ctx,
                  apr_pool_t *pool)
 {
-  svn_ra_plugin_t *ra_lib;
+  svn_ra_plugin_t *ra_lib;  
   void *ra_baton, *session;
   const char *path;
   const char *base_url;
@@ -112,11 +112,11 @@ svn_client_log2 (const apr_array_header_t *targets,
       apr_array_header_t *target_urls;
       apr_array_header_t *real_targets;
       int i;
-
+      
       /* Get URLs for each target */
       target_urls = apr_array_make (pool, 1, sizeof (const char *));
       real_targets = apr_array_make (pool, 1, sizeof (const char *));
-      for (i = 0; i < targets->nelts; i++)
+      for (i = 0; i < targets->nelts; i++) 
         {
           const svn_wc_entry_t *entry;
           const char *URL;
@@ -128,7 +128,7 @@ svn_client_log2 (const apr_array_header_t *targets,
             return svn_error_createf (SVN_ERR_UNVERSIONED_RESOURCE, NULL,
                                       _("'%s' is not under version control"),
                                       svn_path_local_style (target, pool));
-
+          
           if (! entry->url)
             return svn_error_createf
               (SVN_ERR_ENTRY_MISSING_URL, NULL,
@@ -162,10 +162,10 @@ svn_client_log2 (const apr_array_header_t *targets,
   SVN_ERR (svn_ra_get_ra_library (&ra_lib, ra_baton, base_url, pool));
 
   /* Open a repository session to the BASE_URL. */
-  SVN_ERR (svn_path_condense_targets (&base_name, NULL, targets, TRUE, pool));
-  SVN_ERR (svn_client__open_ra_session (&session, ra_lib, base_url,
+  SVN_ERR (svn_path_condense_targets (&base_name, NULL, targets, TRUE, pool)); 
+  SVN_ERR (svn_client__open_ra_session (&session, ra_lib, base_url, 
                                         base_name, NULL, NULL,
-                                        (NULL != base_name), TRUE,
+                                        (NULL != base_name), TRUE, 
                                         ctx, pool));
 
   /* It's a bit complex to correctly handle the special revision words
@@ -236,7 +236,7 @@ svn_client_log2 (const apr_array_header_t *targets,
             if (start_is_local)
               SVN_ERR (svn_client__get_revision_number
                        (&start_revnum, ra_lib, session, start, target, pool));
-
+            
             if (end_is_local)
               SVN_ERR (svn_client__get_revision_number
                        (&end_revnum, ra_lib, session, end, target, pool));
@@ -269,7 +269,7 @@ svn_client_log2 (const apr_array_header_t *targets,
                                 pool);
       }
   }
-
+  
   return err;
 }
 
@@ -289,7 +289,7 @@ svn_client_log (const apr_array_header_t *targets,
   err = svn_client_log2 (targets, start, end, 0, discover_changed_paths,
                          strict_node_history, receiver, receiver_baton, ctx,
                          pool);
-
+    
   /* Special case: If there have been no commits, we'll get an error
    * for requesting log of a revision higher than 0.  But the
    * default behavior of "svn log" is to give revisions HEAD through
@@ -318,7 +318,7 @@ svn_client_log (const apr_array_header_t *targets,
 
       svn_error_clear (err);
       err = SVN_NO_ERROR;
-
+          
       /* Log receivers are free to handle revision 0 specially... But
          just in case some don't, we make up a message here. */
       SVN_ERR (receiver (receiver_baton,
