@@ -59,7 +59,7 @@ svn_client_delete (svn_string_t *file, svn_boolean_t force, apr_pool_t *pool)
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end: */
