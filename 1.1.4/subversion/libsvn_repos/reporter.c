@@ -27,7 +27,7 @@
 
 #define NUM_CACHED_SOURCE_ROOTS 4
 
-#define DOT_TMP_STR \
+#define DOT_TMP_STR \ 
         "\x2e\x74\x6d\x70"
         /* ".tmp" */
 
@@ -85,7 +85,7 @@ typedef struct report_baton_t
   svn_boolean_t ignore_ancestry;
   svn_boolean_t is_switch;
   const svn_delta_editor_t *editor;
-  void *edit_baton;
+  void *edit_baton; 
   svn_repos_authz_func_t authz_read_func;
   void *authz_read_baton;
 
@@ -192,7 +192,7 @@ read_path_info (path_info_t **pi, apr_file_t *temp, apr_pool_t *pool)
 }
 
 /* Return true if PI's path is a child of PREFIX (which has length PLEN). */
-static svn_boolean_t
+static svn_boolean_t 
 relevant (path_info_t *pi, const char *prefix, apr_size_t plen)
 {
   return (pi && strncmp (pi->path, prefix, plen) == 0 &&
@@ -323,7 +323,7 @@ get_source_root (report_baton_t *b, svn_fs_root_t **s_root, svn_revnum_t rev)
 /* Call the directory property-setting function of B->editor to set
    the property NAME to VALUE on DIR_BATON. */
 static svn_error_t *
-change_dir_prop (report_baton_t *b, void *dir_baton, const char *name,
+change_dir_prop (report_baton_t *b, void *dir_baton, const char *name, 
                  const svn_string_t *value, apr_pool_t *pool)
 {
   return b->editor->change_dir_prop (dir_baton, name, value, pool);
@@ -332,7 +332,7 @@ change_dir_prop (report_baton_t *b, void *dir_baton, const char *name,
 /* Call the file property-setting function of B->editor to set the
    property NAME to VALUE on FILE_BATON. */
 static svn_error_t *
-change_file_prop (report_baton_t *b, void *file_baton, const char *name,
+change_file_prop (report_baton_t *b, void *file_baton, const char *name, 
                   const svn_string_t *value, apr_pool_t *pool)
 {
   return b->editor->change_file_prop (file_baton, name, value, pool);
@@ -366,7 +366,7 @@ delta_proplists (report_baton_t *b, svn_revnum_t s_rev, const char *s_path,
       cr_str = svn_string_createf (pool, "%ld", crev);
 #if APR_CHARSET_EBCDIC
       SVN_ERR (svn_utf_string_to_utf8(&cr_str, cr_str, pool));
-#endif
+#endif        
       SVN_ERR (change_fn (b, object,
                           SVN_PROP_ENTRY_COMMITTED_REV, cr_str, pool));
 
@@ -374,7 +374,7 @@ delta_proplists (report_baton_t *b, svn_revnum_t s_rev, const char *s_path,
       SVN_ERR (svn_fs_revision_prop (&cdate, b->repos->fs, crev,
                                      SVN_PROP_REVISION_DATE, pool));
       if (cdate || s_path)
-        SVN_ERR (change_fn (b, object, SVN_PROP_ENTRY_COMMITTED_DATE,
+        SVN_ERR (change_fn (b, object, SVN_PROP_ENTRY_COMMITTED_DATE, 
                             cdate, pool));
 
       /* Transmit the last-author. */
@@ -475,7 +475,7 @@ compare_files (svn_boolean_t *changed_p, svn_fs_root_t *root1,
       len1 = len2 = SVN_STREAM_CHUNK_SIZE;
       SVN_ERR (svn_stream_read (stream1, buf1, &len1));
       SVN_ERR (svn_stream_read (stream2, buf2, &len2));
-
+      
       if (len1 != len2 || memcmp (buf1, buf2, len1))
         {
           *changed_p = TRUE;
@@ -677,7 +677,7 @@ update_entry (report_baton_t *b, svn_revnum_t s_rev, const char *s_path,
   if (t_entry->kind == svn_node_dir)
     {
       if (related)
-        SVN_ERR (b->editor->open_directory (e_path, dir_baton, s_rev, pool,
+        SVN_ERR (b->editor->open_directory (e_path, dir_baton, s_rev, pool, 
                                             &new_baton));
       else
         SVN_ERR (b->editor->add_directory (e_path, dir_baton, NULL,
@@ -1028,7 +1028,7 @@ svn_repos_begin_report (void **report_baton,
   b->authz_read_baton = authz_read_baton;
 
   SVN_ERR (svn_io_temp_dir (&tempdir, pool));
-  SVN_ERR (svn_io_open_unique_file (&b->tempfile, &dummy,
+  SVN_ERR (svn_io_open_unique_file (&b->tempfile, &dummy, 
                                     APR_PSPRINTF2 (pool, "%s/report",
                                                    tempdir),
                   DOT_TMP_STR, TRUE, pool));
