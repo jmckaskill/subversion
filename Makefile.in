@@ -11,7 +11,7 @@ DESIGN_DIR = doc/programmer/design
 BOOK_TOP = doc/book
 BOOK_DIR = ${BOOK_TOP}/book
 MDOCS_DIR = ${BOOK_TOP}/misc-docs
-DOC_DIRS = $(DESIGN_DIR) $(BOOK_DIR) $(MDOCS_DIR)
+DOC_DIRS = $(DESIGN_DIR) $(BOOK_DIR) $(MDOCS_DIR) 
 
 SWIG_SRC_DIR = $(abs_srcdir)/subversion/bindings/swig
 SWIG_BUILD_DIR = $(abs_builddir)/subversion/bindings/swig
@@ -136,7 +136,7 @@ INSTALL_SWIG_PY_LIB = $(INSTALL_LIB)
 INSTALL_SWIG_JAVA = $(INSTALL_LIB)
 INSTALL_SWIG_JAVA_LIB = $(INSTALL_LIB)
 
-APXS = @APXS@
+APXS = @APXS@ 
 
 PYTHON = @PYTHON@
 
@@ -215,9 +215,9 @@ check: $(TEST_DEPS) @FS_TEST_DEPS@
                   '$(abs_srcdir)' '$(abs_builddir)' '$(PYTHON)' '$(SHELL)' \
                   $(TEST_PROGRAMS) @FS_TEST_PROGRAMS@
 
-davcheck:
+davcheck: 
 	@make check BASE_URL=http://localhost
-svncheck:
+svncheck: 
 	@make check BASE_URL=svn://localhost
 
 check-clean:
@@ -369,7 +369,7 @@ swig-java-ext-clean:
 	rm -rf $(SWIG_SRC_DIR)/java
 
 ### Build a tarball.
-dist:
+dist: 
 	./dist.sh
 
 
@@ -390,7 +390,7 @@ dist:
 
 
 .texi.info:
-	$(MAKEINFO) -I `dirname $<` -o $@ $<
+	$(MAKEINFO) -I `dirname $<` -o $@ $< 
 
 .texi.dvi:
 	wd=`pwd` ; cd `dirname $@` ; $(TEXI2DVI) $$wd/$<
