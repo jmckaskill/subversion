@@ -66,7 +66,7 @@ make_txn (svn_fs_t *fs,
 
   return txn;
 }
-
+	  
 
 struct begin_txn_args
 {
@@ -105,7 +105,7 @@ svn_fs_begin_txn (svn_fs_txn_t **txn_p,
   args.fs    = fs;
   args.rev   = rev;
   SVN_ERR (svn_fs__retry_txn (fs, txn_body_begin_txn, &args, pool));
-
+  
   *txn_p = txn;
   return 0;
 }
@@ -173,7 +173,7 @@ svn_fs_open_txn_root (svn_fs_node_t **dir_p,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:

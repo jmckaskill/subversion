@@ -126,7 +126,7 @@ allocate_txn_id (char **id_p,
     SVN_ERR (DB_WRAP (fs, "allocating new transaction ID (setting `next-id')",
 		      fs->transactions->put (fs->transactions, trail->db_txn,
 					     &key,
-					     svn_fs__set_dbt (&value,
+					     svn_fs__set_dbt (&value, 
 							      buf, buf_len),
 					     0)));
   }
@@ -150,7 +150,7 @@ svn_fs__create_txn (char **txn_id_p,
   /* I believe it's proper to share the string here instead of
      allocating new storage.  If this is wrong, please throw something
      heavy in my direction, such as a clue.  -kff */
-  *txn_id_p = svn_txn;
+  *txn_id_p = svn_txn; 
 
   return 0;
 }
