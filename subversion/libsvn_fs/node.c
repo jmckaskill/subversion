@@ -181,7 +181,7 @@ get_representation_skel (skel_t **skel_p,
    necessary temporary allocation in POOL.  */
 static svn_error_t *
 put_representation_skel (svn_fs_t *fs,
-			 const svn_fs_id_t *id,
+			 const svn_fs_id_t *id, 
 			 skel_t *skel,
 			 DB_TXN *txn,
 			 apr_pool_t *pool)
@@ -196,7 +196,7 @@ put_representation_skel (svn_fs_t *fs,
 
   return 0;
 }
-
+			 
 
 
 /* Storing and retrieving NODE-REVISION skels.  */
@@ -462,7 +462,7 @@ make_nodes (svn_fs_t *fs, int create)
 					     sizeof (node_1_1) - 1,
 					     fs->pool);
       static const svn_fs_id_t id_1_1[] = { 1, 1, -1 };
-
+      
       SVN_ERR (put_representation_skel (fs, id_1_1, rep_skel, 0, fs->pool));
     }
 
@@ -703,7 +703,7 @@ new_node_id (svn_fs_id_t **id_p,
 	  (SVN_ERR_FS_CORRUPT, 0, 0, fs->pool,
 	   "root directory missing from `nodes' table, in filesystem `%s'",
 	   fs->env_path);
-
+      
       SVN_ERR (DB_WRAP (fs, "choosing new node ID (finding last entry)",
 			db_err));
     }
@@ -836,7 +836,7 @@ static svn_error_t *
 new_successor_id (svn_fs_id_t **successor_p,
 		  svn_fs_t *fs,
 		  svn_fs_id_t *id,
-		  DB_TXN *db_txn,
+		  DB_TXN *db_txn, 
 		  apr_pool_t *pool)
 {
   int id_len = svn_fs_id_length (id);
@@ -971,7 +971,7 @@ svn_fs__create_successor (svn_fs_node_t **new_p,
 
     svn_fs__prepend (svn_fs__make_atom (svn_txn_id, new->pool), mutable_flag);
     svn_fs__prepend (svn_fs__make_atom ("mutable", new->pool), mutable_flag);
-
+    
     /* Insert this at the beginning of the new skel's flag list.  We
        know there is no "mutable" flag there already, since we've
        checked that OLD is immutable.  */
@@ -1079,7 +1079,7 @@ svn_fs_get_node_prop (svn_string_t **value_p,
     /* Walk the property list two elements at a time.  */
     for (prop = values.proplist->children; prop; prop = prop->next->next)
       {
-	/* The proplist must be composed of pairs of atoms.  */
+	/* The proplist must be composed of pairs of atoms.  */ 
 	if (! prop->is_atom
 	    || ! prop->next
 	    || ! prop->next->is_atom)
@@ -1138,7 +1138,7 @@ svn_fs_get_node_proplist (apr_hash_t **table_p,
     /* Walk the property list two elements at a time.  */
     for (prop = values.proplist->children; prop; prop = prop->next->next)
       {
-	/* The proplist must be composed of pairs of atoms.  */
+	/* The proplist must be composed of pairs of atoms.  */ 
 	if (! prop->is_atom
 	    || ! prop->next
 	    || ! prop->next->is_atom)
@@ -1255,7 +1255,7 @@ svn_fs_run_cleanup_node (apr_pool_t *pool, svn_fs_node_t *node)
 }
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
