@@ -36,7 +36,7 @@ svn_fs__create_node (const svn_fs_id_t **id_p,
                      apr_pool_t *pool)
 {
   abort ();
-
+  
   return SVN_NO_ERROR;
 }
 
