@@ -19,14 +19,14 @@ package org.tigris.subversion;
 /**
  * Corresponds to svn_error_t from the C API.
  */
-public class SubversionException extends Exception
+public class SubversionException extends Exception 
 {
     public SubversionException(String message)
 	{
 	    super(message);
 	}
 
-    public SubversionException()
+    public SubversionException() 
 	{
 	    this(null);
 	}
