@@ -146,7 +146,7 @@ svn_cl__diff (apr_getopt_t *os,
       old_target = APR_ARRAY_IDX (targets, 0, const char *);
       new_target = APR_ARRAY_IDX (targets, 1, const char *);
       targets->nelts = 0;
-
+      
       if (opt_state->start_revision.kind == svn_opt_revision_unspecified)
         opt_state->start_revision.kind = svn_opt_revision_head;
       if (opt_state->end_revision.kind == svn_opt_revision_unspecified)
@@ -155,7 +155,7 @@ svn_cl__diff (apr_getopt_t *os,
   else if (opt_state->old_target)
     {
       apr_array_header_t *tmp, *tmp2;
-
+      
       /* The 'svn diff --old=OLD[@OLDREV] [--new=NEW[@NEWREV]]
          [PATH...]' case matches. */
 
@@ -183,7 +183,7 @@ svn_cl__diff (apr_getopt_t *os,
       if (opt_state->start_revision.kind == svn_opt_revision_unspecified)
         opt_state->start_revision.kind = svn_path_is_url (old_target)
           ? svn_opt_revision_head : svn_opt_revision_base;
-
+      
       if (opt_state->end_revision.kind == svn_opt_revision_unspecified)
         opt_state->end_revision.kind = svn_path_is_url (new_target)
           ? svn_opt_revision_head : svn_opt_revision_working;
@@ -192,7 +192,7 @@ svn_cl__diff (apr_getopt_t *os,
     {
       apr_array_header_t *tmp, *tmp2;
       svn_boolean_t working_copy_present = FALSE;
-
+      
       /* The 'svn diff [-r M[:N]] [TARGET[@REV]...]' case matches. */
 
       /* Here each target is a pegged object. Find out the starting
@@ -208,7 +208,7 @@ svn_cl__diff (apr_getopt_t *os,
       tmp = apr_array_make (pool, 2, sizeof (const char *));
       APR_ARRAY_PUSH (tmp, const char *) = ".";
       APR_ARRAY_PUSH (tmp, const char *) = ".";
-
+      
       SVN_ERR (svn_opt_args_to_target_array (&tmp2, os, tmp,
                                              &(opt_state->start_revision),
                                              &(opt_state->end_revision),
@@ -225,7 +225,7 @@ svn_cl__diff (apr_getopt_t *os,
           if (! svn_path_is_url (path))
             working_copy_present = TRUE;
         }
-
+      
       if (opt_state->start_revision.kind == svn_opt_revision_unspecified
           && working_copy_present)
           opt_state->start_revision.kind = svn_opt_revision_base;
@@ -253,7 +253,7 @@ svn_cl__diff (apr_getopt_t *os,
           svn_pool_clear (subpool);
           target1 = svn_path_join (old_target, path, subpool);
           target2 = svn_path_join (new_target, path, subpool);
-
+          
           SVN_ERR (svn_client_diff (options,
                                     target1,
                                     &(opt_state->start_revision),
@@ -271,10 +271,10 @@ svn_cl__diff (apr_getopt_t *os,
         {
           const char *truepath;
           svn_opt_revision_t peg_revision;
-
+          
           /* First check for a peg revision. */
           SVN_ERR (parse_path (&peg_revision, &truepath, path, pool));
-
+          
           /* Set the default peg revision if one was not specified. */
           if (peg_revision.kind == svn_opt_revision_unspecified)
             peg_revision.kind = svn_path_is_url (path)
