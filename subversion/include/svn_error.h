@@ -32,7 +32,7 @@ extern "C" {
 
 #define SVN_NO_ERROR   0   /* the best kind of (svn_error_t *) ! */
 
-/*
+/* 
    Define custom Subversion error numbers, in the range reserved for
    that in APR: from APR_OS_START_USEERR to APR_OS_START_SYSERR (see
    apr_errno.h).
@@ -103,7 +103,7 @@ typedef enum svn_errno_t {
 
   /* Unable to get ancestry for an entry. */
   SVN_ERR_WC_ENTRY_MISSING_ANCESTRY,
-
+  
   /* Bogus attributes are trying to be merged into an entry */
   SVN_ERR_WC_ENTRY_BOGUS_MERGE,
 
@@ -228,7 +228,7 @@ typedef enum svn_errno_t {
     SVN_ERR_RA_DELETE_FAILED,
 
   /* These RA errors are specific to ra_local */
-
+  
     /* the given URL does not seem to point to a versioned resource */
     SVN_ERR_RA_NOT_VERSIONED_RESOURCE,
 
@@ -257,7 +257,7 @@ typedef enum svn_errno_t {
   SVN_ERR_CL_ADM_DIR_RESERVED,
 
   /* END Client errors */
-
+  
 
   /* simple placeholder to mark the highest SVN error. subtle benny: we don't
      have to worry about trailing commas (on errors above) as we add them */
@@ -395,7 +395,7 @@ svn_error_t *svn_error_createf (apr_status_t apr_err,
                                 int src_err,
                                 svn_error_t *child,
                                 apr_pool_t *pool,
-                                const char *fmt,
+                                const char *fmt, 
                                 ...)
        __attribute__ ((format (printf, 5, 6)));
 
