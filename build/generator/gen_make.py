@@ -45,7 +45,7 @@ class Generator(gen_base.GeneratorBase):
 
     ########################################
     self.begin_section('Global make variables')
-
+    
     for target in install_sources:
       if isinstance(target, gen_base.TargetRaModule) or \
          isinstance(target, gen_base.TargetFsModule):
@@ -184,7 +184,7 @@ class Generator(gen_base.GeneratorBase):
 
              targ_varname, string.join(objects),
 
-             targ_varname, targ_varname, targ_varname, target_ob.add_deps,
+             targ_varname, targ_varname, targ_varname, target_ob.add_deps, 
              string.join(deps),
 
              target_ob.name, targ_varname))
@@ -202,7 +202,7 @@ class Generator(gen_base.GeneratorBase):
 
                targ_varname, targ_varname,
 
-               target_ob.link_cmd, target_ob.output_dir, target_ob.classes,
+               target_ob.link_cmd, target_ob.output_dir, target_ob.classes, 
                targ_varname, targ_varname))
 
         # Build the objects from the object_srcs with one 'javac' call
@@ -215,7 +215,7 @@ class Generator(gen_base.GeneratorBase):
 
                targ_varname, targ_varname,
 
-               target_ob.link_cmd, target_ob.output_dir, target_ob.classes,
+               target_ob.link_cmd, target_ob.output_dir, target_ob.classes, 
                targ_varname, targ_varname))
 
         # Once the bytecodes have been compiled up, we produce the
@@ -254,7 +254,7 @@ class Generator(gen_base.GeneratorBase):
 
     ########################################
     self.begin_section('Install-Group build targets')
-
+    
     for itype, i_targets in install_deps:
 
       # perl bindings do their own thing, "swig-pl" target is
