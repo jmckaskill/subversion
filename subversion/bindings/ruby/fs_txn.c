@@ -76,7 +76,7 @@ txn_name (VALUE self)
       apr_pool_destroy (pool);
       svn_ruby_raise (err);
     }
-
+  
   obj = rb_str_new2 (name);
   apr_pool_destroy (pool);
 
