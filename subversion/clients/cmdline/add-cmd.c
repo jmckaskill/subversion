@@ -52,7 +52,7 @@ svn_cl__add (apr_getopt_t *os,
 
   if (! targets->nelts)
     return svn_error_create (SVN_ERR_CL_ARG_PARSING_ERROR, 0, 0, pool, "");
-
+      
   if (! opt_state->quiet)
     svn_cl__get_notifier (&notify_func, &notify_baton, FALSE, FALSE, pool);
 
@@ -61,7 +61,7 @@ svn_cl__add (apr_getopt_t *os,
     {
       const char *target = ((const char **) (targets->elts))[i];
 
-      err = svn_client_add (target, recursive, notify_func,
+      err = svn_client_add (target, recursive, notify_func, 
                             notify_baton, subpool);
       if (err)
         {
@@ -73,7 +73,7 @@ svn_cl__add (apr_getopt_t *os,
           else
             return err;
         }
-
+      
       svn_pool_clear (subpool);
     }
 
@@ -83,8 +83,8 @@ svn_cl__add (apr_getopt_t *os,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../tools/dev/svn-dev.el")
- * end:
+ * end: 
  */
