@@ -5,7 +5,7 @@
 #
 TEST_ROOT="/home/brane/svn"
 
-# Installation path, everything under that is considered
+# Installation path, everything under that is considered 
 # to be temporary
 INST_DIR="$TEST_ROOT/inst"
 
@@ -157,15 +157,15 @@ mount_ramdisk() {
     if test "xyes" == "x$RAMDISK";
     then
         test -z "$mount_dir" && return 1
-
+        
         test -f "$mount_dir/.ramdisk" && {
             echo "Warning: ramdisk exists"
             return 0
         }
-
+    
         $MOUNT "$mount_dir" || return 1
         $TOUCH "$mount_dir/.ramdisk" || return 1
-    fi
+    fi 
     return 0
 }
 
@@ -173,7 +173,7 @@ umount_ramdisk() {
     local mount_dir="$1"
     if test "xyes" == "x$RAMDISK";
     then
-        test -z "$mount_dir" && return
+        test -z "$mount_dir" && return 
 
         test -f "$mount_dir/.ramdisk" && {
             $UMOUNT "$mount_dir" >> /dev/null 2>&1
