@@ -3,32 +3,32 @@
  *
  * ================================================================
  * Copyright (c) 2000 CollabNet.  All rights reserved.
- *
+ * 
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
  * met:
- *
+ * 
  * 1. Redistributions of source code must retain the above copyright
  * notice, this list of conditions and the following disclaimer.
- *
+ * 
  * 2. Redistributions in binary form must reproduce the above copyright
  * notice, this list of conditions and the following disclaimer in the
  * documentation and/or other materials provided with the distribution.
- *
+ * 
  * 3. The end-user documentation included with the redistribution, if
  * any, must include the following acknowlegement: "This product includes
  * software developed by CollabNet (http://www.Collab.Net)."
  * Alternately, this acknowlegement may appear in the software itself, if
  * and wherever such third-party acknowlegements normally appear.
- *
+ * 
  * 4. The hosted project names must not be used to endorse or promote
  * products derived from this software without prior written
  * permission. For written permission, please contact info@collab.net.
- *
+ * 
  * 5. Products derived from this software may not use the "Tigris" name
  * nor may "Tigris" appear in their names without prior written
  * permission of CollabNet.
- *
+ * 
  * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
  * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -42,7 +42,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ====================================================================
- *
+ * 
  * This software consists of voluntary contributions made by many
  * individuals on behalf of CollabNet.
  */
@@ -85,7 +85,7 @@ svn_xml_make_parser (void *userData,
   XML_Parser parser = XML_ParserCreate (NULL);
 
   XML_SetUserData (parser, userData);
-  XML_SetElementHandler (parser, start_handler, end_handler);
+  XML_SetElementHandler (parser, start_handler, end_handler); 
   XML_SetCharacterDataHandler (parser, data_handler);
 
   subpool = svn_pool_create (pool, NULL);
@@ -104,7 +104,7 @@ void
 svn_xml_free_parser (svn_xml_parser_t *svn_parser)
 {
   /* Free the expat parser */
-  XML_ParserFree (svn_parser->parser);
+  XML_ParserFree (svn_parser->parser);        
 
   /* Free the subversion parser */
   apr_destroy_pool (svn_parser->pool);
@@ -131,11 +131,11 @@ svn_xml_parse (svn_xml_parser_t *svn_parser,
   if (! success)
     {
       err = svn_error_createf
-        (SVN_ERR_MALFORMED_XML, 0, NULL, svn_parser->pool,
+        (SVN_ERR_MALFORMED_XML, 0, NULL, svn_parser->pool, 
          "%s at line %d",
          XML_ErrorString (XML_GetErrorCode (svn_parser->parser)),
          XML_GetCurrentLineNumber (svn_parser->parser));
-
+      
       /* Kill all parsers and return the expat error */
       svn_xml_free_parser (svn_parser);
       return err;
@@ -148,7 +148,7 @@ svn_xml_parse (svn_xml_parser_t *svn_parser,
       svn_xml_free_parser (svn_parser);
       return err;
     }
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -162,7 +162,7 @@ void svn_xml_signal_bailout (svn_error_t *error,
   /* This will cause the current XML_Parse() call to finish quickly! */
   XML_SetElementHandler (svn_parser->parser, NULL, NULL);
   XML_SetCharacterDataHandler (svn_parser->parser, NULL);
-
+  
   /* Once outside of XML_Parse(), the existence of this field will
      cause svn_delta_parse()'s main read-loop to return error. */
   svn_parser->error = error;
@@ -207,7 +207,7 @@ svn_xml_write_header (apr_file_t *file, apr_pool_t *pool)
   if (apr_err)
     return svn_error_create (apr_err, 0, NULL, pool,
                              "svn_xml_write_header: file write error.");
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -233,14 +233,14 @@ amalgamate (const char **atts,
         const char *val = *(++atts);
         size_t keylen;
         assert (key != NULL);
-        /* kff todo: should we also insist that val be non-null here?
+        /* kff todo: should we also insist that val be non-null here? 
            Probably. */
 
         keylen = strlen (key);
         if (preserve && ((apr_hash_get (ht, key, keylen)) != NULL))
           continue;
         else
-          apr_hash_set (ht, key, keylen,
+          apr_hash_set (ht, key, keylen, 
                         val ? svn_string_create (val, pool) : NULL);
       }
 }
@@ -251,7 +251,7 @@ svn_xml_ap_to_hash (va_list ap, apr_pool_t *pool)
 {
   apr_hash_t *ht = apr_make_hash (pool);
   const char *key;
-
+  
   while ((key = va_arg (ap, char *)) != NULL)
     {
       svn_string_t *val = va_arg (ap, svn_string_t *);
@@ -319,10 +319,10 @@ svn_xml_write_tag_hash (apr_file_t *file,
       const char *key;
       size_t keylen;
       svn_string_t *val;
-
+      
       apr_hash_this (hi, (const void **) &key, &keylen, (void **) &val);
       assert (val != NULL);
-
+      
       svn_string_appendcstr (xmlstring, "\n   ", subpool);
       svn_string_appendcstr (xmlstring, key, subpool);
       svn_string_appendcstr (xmlstring, "=\"", subpool);
@@ -557,12 +557,12 @@ replace_file (svn_string_t *name,
 
 
 static svn_error_t *
-apply_textdelta (void *file_baton,
+apply_textdelta (void *file_baton, 
                  svn_txdelta_window_handler_t **handler,
                  void **handler_baton)
 {
   /* FIXME */
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -650,7 +650,7 @@ svn_xml_get_editor (apr_file_t *outfile,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
