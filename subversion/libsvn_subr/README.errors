@@ -10,12 +10,12 @@ typedef struct svn_error_t
   char *message;               /* details from producer of error */
   struct svn_error_t *child;   /* ptr to next error below this one */
 
-  int canonical_errno;         /* "canonicalized" errno from APR */
+  int canonical_errno;         /* "canonicalized" errno from APR */ 
   char *description;           /* generic description from ap_strerror() */
 
   ap_pool_t *pool;             /* place to generate message strings from */
 
-} svn_error_t;
+} svn_error_t;    
 
 
 
@@ -50,7 +50,7 @@ typedef struct svn_error_t
 
          #define SVN_RETURN_IF_ERROR(err) if (err) return (err)
 
-
+        
     c) Throw the error upwards, wrapping it in a new error structure:
 
         error = some_routine (foo);
@@ -74,7 +74,7 @@ typedef struct svn_error_t
           {
            return (svn_quick_wrap_error (error, "Authorization failed.");
           }
-
+ 
         And of course, the whole last chunk is macroed too:
 
         error = some_routine (foo);
