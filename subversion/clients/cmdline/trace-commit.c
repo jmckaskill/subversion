@@ -84,7 +84,7 @@ decrement_dir_ref_count (struct dir_baton *db)
       /* Destroy all memory used by this baton, including the baton
          itself! */
       svn_pool_destroy (db->subpool);
-
+      
       /* Tell your parent that you're gone. */
       SVN_ERR (decrement_dir_ref_count (dbparent));
     }
@@ -117,7 +117,7 @@ static svn_error_t *
 delete_entry (svn_stringbuf_t *name, svn_revnum_t revision, void *parent_baton)
 {
   struct dir_baton *d = parent_baton;
-  svn_stringbuf_t *printable_name =
+  svn_stringbuf_t *printable_name = 
     svn_stringbuf_dup (d->path, d->edit_baton->pool);
 
   svn_path_add_component (printable_name, name);
@@ -142,7 +142,7 @@ add_directory (svn_stringbuf_t *name,
   child_d = apr_pcalloc (subpool, sizeof (*child_d));
   child_d->edit_baton = parent_d->edit_baton;
   child_d->parent_dir_baton = parent_d;
-  child_d->path = svn_stringbuf_dup (parent_d->path,
+  child_d->path = svn_stringbuf_dup (parent_d->path, 
                                      child_d->edit_baton->pool);
   svn_path_add_component (child_d->path, name);
   child_d->added = TRUE;
@@ -171,7 +171,7 @@ open_directory (svn_stringbuf_t *name,
   child_d = apr_pcalloc (subpool, sizeof (*child_d));
   child_d->edit_baton = parent_d->edit_baton;
   child_d->parent_dir_baton = parent_d;
-  child_d->path = svn_stringbuf_dup (parent_d->path,
+  child_d->path = svn_stringbuf_dup (parent_d->path, 
                                      child_d->edit_baton->pool);
   svn_path_add_component (child_d->path, name);
   child_d->subpool = subpool;
@@ -193,7 +193,7 @@ close_directory (void *dir_baton)
   struct dir_baton *db = dir_baton;
 
   if (db->prop_changed)
-    printf ("Sending         %s\n", db->path->data);
+    printf ("Sending         %s\n", db->path->data); 
 
   decrement_dir_ref_count (db);
   return SVN_NO_ERROR;
@@ -206,8 +206,8 @@ close_file (void *file_baton)
   struct file_baton *fb = file_baton;
 
   if (fb->added)
-    printf ("Adding   %s  %s\n",
-            fb->binary ? "(bin)" : "     ",
+    printf ("Adding   %s  %s\n", 
+            fb->binary ? "(bin)" : "     ", 
             fb->path->data);
   else
     printf ("Sending         %s\n", fb->path->data);
@@ -255,7 +255,7 @@ add_file (svn_stringbuf_t *name,
     = apr_pcalloc (parent_d->subpool, sizeof (*child_fb));
 
   child_fb->parent_dir_baton = parent_d;
-  child_fb->path = svn_stringbuf_dup (parent_d->path,
+  child_fb->path = svn_stringbuf_dup (parent_d->path, 
                                       parent_d->edit_baton->pool);
   svn_path_add_component (child_fb->path, name);
   child_fb->added = TRUE;
@@ -279,7 +279,7 @@ open_file (svn_stringbuf_t *name,
     = apr_pcalloc (parent_d->subpool, sizeof (*child_fb));
 
   child_fb->parent_dir_baton = parent_d;
-  child_fb->path = svn_stringbuf_dup (parent_d->path,
+  child_fb->path = svn_stringbuf_dup (parent_d->path, 
                                       parent_d->edit_baton->pool);
   svn_path_add_component (child_fb->path, name);
 
@@ -357,14 +357,14 @@ svn_cl__get_trace_commit_editor (const svn_delta_edit_fns_t **editor,
 
   *edit_baton = eb;
   *editor = trace_editor;
-
+  
   return SVN_NO_ERROR;
 }
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../svn-dev.el")
- * end:
+ * end: 
  */
