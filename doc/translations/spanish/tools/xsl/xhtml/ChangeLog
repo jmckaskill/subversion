@@ -59,7 +59,7 @@
 
 2001-12-30  Norman Walsh <nwalsh@users.sourceforge.net>
 
-	* .cvsignore, Makefile, chunk.xsl, docbook.xsl, html2xhtml.xsl, xslfiles.gen:
+	* .cvsignore, Makefile, chunk.xsl, docbook.xsl, html2xhtml.xsl, xslfiles.gen: 
 	Completely reworked strategy for XHTML
 
 2001-12-04  Norman Walsh <nwalsh@users.sourceforge.net>
