@@ -1,15 +1,15 @@
 @node Repository Administration
 @chapter Repository Administration
 
-How to administer a Subversion repository.
+How to administer a Subversion repository.  
 
 In this section, we'll mainly focus on how to use the
 @command{svnadmin} and @command{svnlook} programs to work with repositories.
 
 @menu
-* Creating a repository::
-* Examining a repository::
-* Repository hooks::
+* Creating a repository::       
+* Examining a repository::      
+* Repository hooks::            
 @end menu
 @c * Repository maintenance::
 @c * Tweaking a repository::
@@ -110,7 +110,7 @@ going to have to examine revisions and transactions.  It's part of
 monitoring the health of the repository.
 
 @menu
-* svnlook::
+* svnlook::                     
 @end menu
 
 @node svnlook
@@ -149,9 +149,9 @@ Or, if you only want to see certain types of information,
 $ svnlook repos rev 522 log
 $ svnlook repos rev 559 diff
 @end example
-
+   
 Available subcommands are:
-
+   
 @table @samp
 @item log
 Print the tree's log message.
@@ -177,7 +177,7 @@ an imaginary mounted filesystem.  The basic commands @command{cd},
 as the very special command @command{cr} -- "change revision".  The last
 command allows you to move @emph{between} revision trees.
 
-@example
+@example 
 $ svnadmin shell repos
 <609: />$
 <609: />$ ls
