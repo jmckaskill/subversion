@@ -48,7 +48,7 @@ June, 1999:
 
   - modified xmldef.h to define XML_BYTE_ORDER in terms of the
     AP_BYTE_ORDER symbol.
-  - removed compilation warnings from: xmlparse.c, xmltok.c, xmltok.h,
+  - removed compilation warnings from: xmlparse.c, xmltok.c, xmltok.h, 
     xmltok_impl.c, xmltok_ns.c
 
 November, 1999:
