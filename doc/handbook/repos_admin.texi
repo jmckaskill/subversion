@@ -1,7 +1,7 @@
 @node Repository Administration
 @chapter Repository Administration
 
-How to administer a Subversion repository.
+How to administer a Subversion repository.  
 
 In this section, we'll mainly focus on how to use the
 @command{svnadmin} and @command{svnlook} programs to work with repositories.
