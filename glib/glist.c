@@ -21,10 +21,10 @@
  * Modified by the GLib Team and others 1997-1999.  See the AUTHORS
  * file for a list of people on the GLib Team.  See the ChangeLog
  * files for a list of changes.  These files are distributed with
- * GLib at ftp://ftp.gtk.org/pub/gtk/.
+ * GLib at ftp://ftp.gtk.org/pub/gtk/. 
  */
 
-/*
+/* 
  * MT safe
  */
 
@@ -136,7 +136,7 @@ g_list_alloc (void)
   G_UNLOCK (current_allocator);
   list->next = NULL;
   list->prev = NULL;
-
+  
   return list;
 }
 
@@ -145,7 +145,7 @@ g_list_free (GList *list)
 {
   if (list)
     {
-      list->data = list->next;
+      list->data = list->next;  
       G_LOCK (current_allocator);
       list->next = current_allocator->free_lists;
       current_allocator->free_lists = list;
@@ -158,7 +158,7 @@ g_list_free_1 (GList *list)
 {
   if (list)
     {
-      list->data = NULL;
+      list->data = NULL;  
       G_LOCK (current_allocator);
       list->next = current_allocator->free_lists;
       current_allocator->free_lists = list;
@@ -172,10 +172,10 @@ g_list_append (GList	*list,
 {
   GList *new_list;
   GList *last;
-
+  
   new_list = g_list_alloc ();
   new_list->data = data;
-
+  
   if (list)
     {
       last = g_list_last (list);
@@ -194,10 +194,10 @@ g_list_prepend (GList	 *list,
 		gpointer  data)
 {
   GList *new_list;
-
+  
   new_list = g_list_alloc ();
   new_list->data = data;
-
+  
   if (list)
     {
       if (list->prev)
@@ -208,7 +208,7 @@ g_list_prepend (GList	 *list,
       list->prev = new_list;
       new_list->next = list;
     }
-
+  
   return new_list;
 }
 
@@ -219,19 +219,19 @@ g_list_insert (GList	*list,
 {
   GList *new_list;
   GList *tmp_list;
-
+  
   if (position < 0)
     return g_list_append (list, data);
   else if (position == 0)
     return g_list_prepend (list, data);
-
+  
   tmp_list = g_list_nth (list, position);
   if (!tmp_list)
     return g_list_append (list, data);
-
+  
   new_list = g_list_alloc ();
   new_list->data = data;
-
+  
   if (tmp_list->prev)
     {
       tmp_list->prev->next = new_list;
@@ -239,7 +239,7 @@ g_list_insert (GList	*list,
     }
   new_list->next = tmp_list;
   tmp_list->prev = new_list;
-
+  
   if (tmp_list == list)
     return new_list;
   else
@@ -250,7 +250,7 @@ GList *
 g_list_concat (GList *list1, GList *list2)
 {
   GList *tmp_list;
-
+  
   if (list2)
     {
       tmp_list = g_list_last (list1);
@@ -260,7 +260,7 @@ g_list_concat (GList *list1, GList *list2)
 	list1 = list2;
       list2->prev = tmp_list;
     }
-
+  
   return list1;
 }
 
@@ -269,7 +269,7 @@ g_list_remove (GList	*list,
 	       gpointer	 data)
 {
   GList *tmp;
-
+  
   tmp = list;
   while (tmp)
     {
@@ -281,12 +281,12 @@ g_list_remove (GList	*list,
 	    tmp->prev->next = tmp->next;
 	  if (tmp->next)
 	    tmp->next->prev = tmp->prev;
-
+	  
 	  if (list == tmp)
 	    list = list->next;
-
+	  
 	  g_list_free_1 (tmp);
-
+	  
 	  break;
 	}
     }
@@ -303,14 +303,14 @@ g_list_remove_link (GList *list,
 	link->prev->next = link->next;
       if (link->next)
 	link->next->prev = link->prev;
-
+      
       if (link == list)
 	list = list->next;
-
+      
       link->next = NULL;
       link->prev = NULL;
     }
-
+  
   return list;
 }
 
@@ -344,7 +344,7 @@ GList*
 g_list_reverse (GList *list)
 {
   GList *last;
-
+  
   last = NULL;
   while (list)
     {
@@ -353,7 +353,7 @@ g_list_reverse (GList *list)
       last->next = last->prev;
       last->prev = list;
     }
-
+  
   return last;
 }
 
@@ -363,7 +363,7 @@ g_list_nth (GList *list,
 {
   while ((n-- > 0) && list)
     list = list->next;
-
+  
   return list;
 }
 
@@ -373,7 +373,7 @@ g_list_nth_data (GList     *list,
 {
   while ((n-- > 0) && list)
     list = list->next;
-
+  
   return list ? list->data : NULL;
 }
 
@@ -387,7 +387,7 @@ g_list_find (GList    *list,
 	break;
       list = list->next;
     }
-
+  
   return list;
 }
 
@@ -453,7 +453,7 @@ g_list_last (GList *list)
       while (list->next)
 	list = list->next;
     }
-
+  
   return list;
 }
 
@@ -465,7 +465,7 @@ g_list_first (GList *list)
       while (list->prev)
 	list = list->prev;
     }
-
+  
   return list;
 }
 
@@ -473,14 +473,14 @@ guint
 g_list_length (GList *list)
 {
   guint length;
-
+  
   length = 0;
   while (list)
     {
       length++;
       list = list->next;
     }
-
+  
   return length;
 }
 
@@ -507,16 +507,16 @@ g_list_insert_sorted (GList        *list,
   gint cmp;
 
   g_return_val_if_fail (func != NULL, list);
-
-  if (!list)
+  
+  if (!list) 
     {
       new_list = g_list_alloc();
       new_list->data = data;
       return new_list;
     }
-
+  
   cmp = (*func) (data, tmp_list->data);
-
+  
   while ((tmp_list->next) && (cmp > 0))
     {
       tmp_list = tmp_list->next;
@@ -532,7 +532,7 @@ g_list_insert_sorted (GList        *list,
       new_list->prev = tmp_list;
       return list;
     }
-
+   
   if (tmp_list->prev)
     {
       tmp_list->prev->next = new_list;
@@ -540,7 +540,7 @@ g_list_insert_sorted (GList        *list,
     }
   new_list->next = tmp_list;
   tmp_list->prev = new_list;
-
+ 
   if (tmp_list == list)
     return new_list;
   else
@@ -548,13 +548,13 @@ g_list_insert_sorted (GList        *list,
 }
 
 static GList *
-g_list_sort_merge (GList       *l1,
+g_list_sort_merge (GList       *l1, 
 		   GList       *l2,
 		   GCompareFunc compare_func)
 {
   GList list, *l, *lprev;
 
-  l = &list;
+  l = &list; 
   lprev = NULL;
 
   while (l1 && l2)
@@ -563,15 +563,15 @@ g_list_sort_merge (GList       *l1,
         {
 	  l->next = l1;
 	  l = l->next;
-	  l->prev = lprev;
+	  l->prev = lprev; 
 	  lprev = l;
 	  l1 = l1->next;
-        }
-      else
+        } 
+      else 
 	{
 	  l->next = l2;
 	  l = l->next;
-	  l->prev = lprev;
+	  l->prev = lprev; 
 	  lprev = l;
 	  l2 = l2->next;
         }
@@ -582,35 +582,35 @@ g_list_sort_merge (GList       *l1,
   return list.next;
 }
 
-GList*
+GList* 
 g_list_sort (GList       *list,
 	     GCompareFunc compare_func)
 {
   GList *l1, *l2;
-
-  if (!list)
+  
+  if (!list) 
     return NULL;
-  if (!list->next)
+  if (!list->next) 
     return list;
-
-  l1 = list;
+  
+  l1 = list; 
   l2 = list->next;
 
   while ((l2 = l2->next) != NULL)
     {
-      if ((l2 = l2->next) == NULL)
+      if ((l2 = l2->next) == NULL) 
 	break;
       l1 = l1->next;
     }
-  l2 = l1->next;
-  l1->next = NULL;
+  l2 = l1->next; 
+  l1->next = NULL; 
 
   return g_list_sort_merge (g_list_sort (list, compare_func),
 			    g_list_sort (l2,   compare_func),
 			    compare_func);
 }
 
-GList*
+GList* 
 g_list_sort2 (GList       *list,
 	      GCompareFunc compare_func)
 {
@@ -633,7 +633,7 @@ g_list_sort2 (GList       *list,
       tmp2->next = NULL;
     }
   /* Now: runs = [[12],[2,4,11],[2,4,6],[1,1,12]].  */
-
+  
   while (runs->next)
     {
       /* We have more than one run.  Merge pairwise.  */
