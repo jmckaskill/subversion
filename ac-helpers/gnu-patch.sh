@@ -8,7 +8,7 @@ gnu_patch_path=""
 pathlist=$PATH
 final="no"
 
-# Could this loop *be* any uglier?
+# Could this loop *be* any uglier?  
 # I can't believe it's the 21st century, and I'm using bourne.
 
 while test "$final" != "";  do
