@@ -36,12 +36,12 @@
 /* Opening/creating the `nodes' table.  */
 
 
-/* Compare two node ID's, according to the rules in `structure'.
+/* Compare two node ID's, according to the rules in `structure'.  
    We have heirarchical sorting here:
 
       1.  by node id
       2.  by copy id
-      3.  by txn id
+      3.  by txn id  
 
    Sorting happens in ascending order. */
 static int
@@ -50,17 +50,17 @@ compare_ids (svn_fs_id_t *a, svn_fs_id_t *b)
   int cmp;
 
   /* Compare node ids. */
-  if ((cmp = svn_fs__key_compare (svn_fs__id_node_id (a),
+  if ((cmp = svn_fs__key_compare (svn_fs__id_node_id (a), 
                                   svn_fs__id_node_id (b))))
     return cmp;
 
   /* Compare copy ids. */
-  if ((cmp = svn_fs__key_compare (svn_fs__id_copy_id (a),
+  if ((cmp = svn_fs__key_compare (svn_fs__id_copy_id (a), 
                                   svn_fs__id_copy_id (b))))
     return cmp;
 
   /* Compare txn ids. */
-  if ((cmp = svn_fs__key_compare (svn_fs__id_txn_id (a),
+  if ((cmp = svn_fs__key_compare (svn_fs__id_txn_id (a), 
                                   svn_fs__id_txn_id (b))))
     return cmp;
 
@@ -205,7 +205,7 @@ svn_fs__new_node_id (svn_fs_id_t **id_p,
           (SVN_ERR_FS_CORRUPT, 0, 0, fs->pool,
            "root directory missing from `nodes' table, in filesystem `%s'",
            fs->path);
-
+      
       return DB_WRAP (fs, "choosing new node ID (finding last entry)", db_err);
     }
 
@@ -250,7 +250,7 @@ svn_fs__new_successor_id (svn_fs_id_t **successor_p,
   /* Create and return the new successor ID.  */
   new_id = svn_fs__create_id (svn_fs__id_node_id (id),
                               copy_id ? copy_id : svn_fs__id_copy_id (id),
-                              txn_id,
+                              txn_id, 
                               trail->pool);
 
   /* Now, make sure this NEW_ID doesn't already exist in FS. */
@@ -259,9 +259,9 @@ svn_fs__new_successor_id (svn_fs_id_t **successor_p,
     {
       svn_string_t *id_str = svn_fs_unparse_id (id, trail->pool);
       svn_string_t *new_id_str = svn_fs_unparse_id (new_id, trail->pool);
-      return svn_error_createf
+      return svn_error_createf 
         (SVN_ERR_FS_ALREADY_EXISTS, 0, err, trail->pool,
-         "successor id `%s' (for `%s') already exists in filesystem %s",
+         "successor id `%s' (for `%s') already exists in filesystem %s",  
          new_id_str->data, id_str->data, fs->path);
     }
 
@@ -279,13 +279,13 @@ svn_fs__delete_nodes_entry (svn_fs_t *fs,
                             trail_t *trail)
 {
   DBT key;
-
+  
   SVN_ERR (DB_WRAP (fs, "deleting entry from `nodes' table",
                     fs->nodes->del (fs->nodes,
                                     trail->db_txn,
                                     svn_fs__id_to_dbt (&key, id, trail->pool),
                                     0)));
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -356,7 +356,7 @@ svn_fs__put_node_revision (svn_fs_t *fs,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../tools/dev/svn-dev.el")
  * end:
