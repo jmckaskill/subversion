@@ -5,7 +5,7 @@
 ###    search-svnlog.pl REGEXP
 ###
 ### It will print only log messages matching REGEXP.
-###
+### 
 ### Note:
 ### In the future, this may take pathnames and/or revision numbers as
 ### arguments.  Then it will need to do real argument parsing, if
