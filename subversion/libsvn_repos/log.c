@@ -67,7 +67,7 @@ svn_repos_get_logs (svn_fs_t *fs,
       if (discover_changed_paths)
         {
           changed_paths = apr_hash_make (subpool);
-
+          
 #if 0
           svn_delta_edit_fns_t *editor;
           void *edit_baton;
@@ -82,8 +82,8 @@ svn_repos_get_logs (svn_fs_t *fs,
                                           svn_fs_root_t *root,
                                           apr_pool_t *node_pool,
                                           apr_pool_t *pool));
-
-
+          
+          
           /* ### todo: everything we need for showing changed paths
              with "svn log -v" is done... except for the actual
              detection of the changed paths. :-)  Here, run
@@ -116,7 +116,7 @@ svn_repos_get_logs (svn_fs_t *fs,
                             date ? date->data : "",
                             message ? message->data : "",
                             (this_rev == end)));
-
+      
       svn_pool_clear (subpool);
     }
 
@@ -127,7 +127,7 @@ svn_repos_get_logs (svn_fs_t *fs,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
