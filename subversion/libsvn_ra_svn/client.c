@@ -1274,7 +1274,7 @@ static svn_error_t *ra_svn_get_file_revs(void *session_baton, const char *path,
             SVN_ERR(svn_stream_close(stream));
         }
     }
-
+ 
   SVN_ERR(svn_ra_svn_read_cmd_response(sess->conn, pool, ""));
 
   /* Return error if we didn't get any revisions. */
