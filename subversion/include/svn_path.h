@@ -32,7 +32,7 @@ extern "C" {
 
 
 /*** Notes:
- *
+ * 
  * No result path ever ends with a separator, no matter whether the
  * path is a file or directory, because we always canonicalize() it.
  *
@@ -57,16 +57,16 @@ void svn_path_local_style (svn_stringbuf_t *path);
 void svn_path_add_component (svn_stringbuf_t *path,
                              const svn_stringbuf_t *component);
 
-/* Same as `svn_path_add_component', except that the COMPONENT argument is
+/* Same as `svn_path_add_component', except that the COMPONENT argument is 
    a C-style '\0'-terminated string, not an svn_stringbuf_t.  */
-void svn_path_add_component_nts (svn_stringbuf_t *path,
+void svn_path_add_component_nts (svn_stringbuf_t *path, 
                                  const char *component);
 
 /* Remove one component off the end of PATH. */
 void svn_path_remove_component (svn_stringbuf_t *path);
 
 
-/* Duplicate and return PATH's last component, w/o separator.
+/* Duplicate and return PATH's last component, w/o separator. 
  *
  * If PATH is the root directory, then its last component is still the
  * root directory.  Else if PATH ends with a separator, then PATH's
@@ -138,7 +138,7 @@ svn_path_get_absolute(svn_stringbuf_t **pabsolute,
    will be the empty string (not NULL). */
 svn_error_t *
 svn_path_split_if_file(svn_stringbuf_t *path,
-                       svn_stringbuf_t **pdirectory,
+                       svn_stringbuf_t **pdirectory, 
                        svn_stringbuf_t **pfile,
                        apr_pool_t *pool);
 
@@ -147,7 +147,7 @@ svn_path_split_if_file(svn_stringbuf_t *path,
  * The elements in TARGETS must be existing files or directories.
  *
  * If there are multiple targets, or exactly one target and it's not a
- * directory, then
+ * directory, then 
  *
  *   - *PBASENAME is set to the absolute path of the common parent
  *     directory of all of those targets, and
@@ -185,12 +185,12 @@ svn_path_condense_targets (svn_stringbuf_t **pbasename,
    omitting any targets that are found earlier in the list, or whose
    ancestor is found earlier in the list.  Ordering of targets in the
    original list is preserved in the condensed list of targets.  Use
-   POOL for any allocations.
+   POOL for any allocations.  
 
    How does this differ in functionality from svn_path_condense_targets?
 
    Here's the short version:
-
+   
    1.  Disclaimer: if you wish to debate the following, talk to Karl. :-)
        Order matters for updates because a multi-arg update is not
        atomic, and CVS users are used to, when doing 'cvs up targetA
@@ -201,7 +201,7 @@ svn_path_condense_targets (svn_stringbuf_t **pbasename,
        I can."  So that user will do 'svn up wc/A/D/G/tau wc', and if
        something dies in the middles of the 'wc' update, at least the
        user has 'tau' up-to-date.
-
+   
    2.  Also, we have this notion of an anchor and a target for updates
        (the anchor is where the update editor is rooted, the target is
        the actual thing we want to update).  I needed a function that

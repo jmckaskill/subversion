@@ -32,7 +32,7 @@
 #include "cl.h"
 
 
-static void
+static void 
 notify_added (void *baton, const char *path)
 {
   apr_pool_t *pool = baton;
@@ -52,7 +52,7 @@ notify_added (void *baton, const char *path)
       printf ("WARNING: apparently failed to add %s\n", path);
       return;
     }
-
+           
   if (entry->kind == svn_node_file)
     {
       const svn_string_t *value;
@@ -75,29 +75,29 @@ notify_added (void *baton, const char *path)
 }
 
 
-static void
+static void 
 notify_deleted (void *baton, const char *path)
 {
   printf ("D  %s\n", path);
 }
 
 
-static void
+static void 
 notify_restored (void *baton, const char *path)
 {
   printf ("Restored %s\n", path);
 }
 
 
-static void
+static void 
 notify_reverted (void *baton, const char *path)
 {
   printf ("Reverted %s\n", path);
 }
+ 
 
-
-void svn_cl__notify_func (void *baton,
-                          svn_wc_notify_action_t action,
+void svn_cl__notify_func (void *baton, 
+                          svn_wc_notify_action_t action, 
                           const char *path)
 {
   switch (action)
@@ -127,8 +127,8 @@ void *svn_cl__make_notify_baton (apr_pool_t *pool)
 }
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../tools/dev/svn-dev.el")
- * end:
+ * end: 
  */
