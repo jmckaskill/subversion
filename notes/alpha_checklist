@@ -57,7 +57,7 @@ E. Locking issues with the filesystem: mod_dav_svn (as well as
    ACTION: discuss now, Greg & Ben implement.
 
 H. Change #6:  inverting the text-delta interface.  Should we do it?
-
+ 
    Answer: driver will provide editor with a struct that contains a
    "menu" of ways to produce a textdelta... i.e. a pair of filenames,
    and/or a pair of svn_stream_t's, and/or an svn_txdelta_stream.  Let
@@ -81,7 +81,7 @@ A. All client commands need to accept multiple targets.
 B. Authentication & authorization system.
 
    We need a security architecture that:
-
+  
       * will take advantage of Apache
       * fits well with the Sourcecast 2.0 framework
       * will still be present even with nothing but ra_local
@@ -148,7 +148,7 @@ III. Better than CVS, and part of 1.0  ("low hanging fruit")
 
 A. Commands that make us *better* than CVS, need to be written:
 
-     svn mv, svn cp
+     svn mv, svn cp 
      svn revert, svn rollback
      svn unadd, svn undel
      svn obliterate
@@ -164,7 +164,7 @@ IV.  Post 1.0 stuff
 -------------------
 
 ACTION:  general theoretical discussion on all these topics.
-
+  
 A. Genetic merging: solution to the "repeated merge" problem?.
    Start tracking changeset metadata.
 
@@ -177,9 +177,9 @@ D. Read-only mirrored repositories.
 
 
 
+ 
 
 
 
-
-
+ 
 
