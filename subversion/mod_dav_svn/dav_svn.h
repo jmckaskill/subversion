@@ -285,7 +285,7 @@ dav_error * dav_svn__merge_response(ap_filter_t *output,
 #endif /* DAV_SVN_H */
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
