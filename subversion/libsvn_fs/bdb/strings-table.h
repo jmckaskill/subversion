@@ -39,7 +39,7 @@ extern "C" {
 
 /* Read *LEN bytes into BUF from OFFSET in string KEY in FS, as part
  * of TRAIL.
- *
+ * 
  * On return, *LEN is set to the number of bytes read.  If this value
  * is less than the number requested, the end of the string has been
  * reached (no error is returned on end-of-string).
@@ -48,7 +48,7 @@ extern "C" {
  * zero. Callers which are advancing OFFSET as they read portions of
  * the string can terminate their loop when *LEN is returned as zero
  * (which will occur when OFFSET == length(the string)).
- *
+ * 
  * If string KEY does not exist, the error SVN_ERR_FS_NO_SUCH_STRING
  * is returned.
  */
@@ -103,7 +103,7 @@ svn_error_t *svn_fs__bdb_string_clear (svn_fs_t *fs,
  *
  * WARNING: Deleting a string renders unusable any representations
  * that refer to it.  Be careful.
- */
+ */ 
 svn_error_t *svn_fs__bdb_string_delete (svn_fs_t *fs,
                                         const char *key,
                                         trail_t *trail);
