@@ -37,14 +37,14 @@ extern "C" {
 
 
 /* If PATH exists, set *KIND to the appropriate kind, else set it to
- * svn_node_unknown.
+ * svn_node_unknown. 
  *
  * If PATH is a file, *KIND is set to svn_node_file.
  *
  * If PATH is a directory, *KIND is set to svn_node_dir.
  *
  * If PATH does not exist in its final component, *KIND is set to
- * svn_node_none.
+ * svn_node_none.  
  *
  * If intermediate directories on the way to PATH don't exist, an
  * error is returned, and *KIND's value is undefined.
@@ -82,14 +82,14 @@ svn_error_t *svn_io_check_path (const char *path,
  *
  * *UNIQUE_NAME will never be exactly the same as PATH, even if PATH does
  * not exist.
- *
+ * 
  * *F and *UNIQUE_NAME are allocated in POOL.
  *
  * If no unique name can be found, SVN_ERR_IO_UNIQUE_NAMES_EXHAUSTED is
  * the error returned.
  *
  * Claim of Historical Inevitability: this function was written
- * because
+ * because 
  *
  *    tmpnam() is not thread-safe.
  *    tempname() tries standard system tmp areas first.
@@ -158,7 +158,7 @@ svn_error_t *svn_io_set_file_read_write (const char *path,
  * Does not include newline, instead '\0' is put there.
  * Length (as in strlen) is returned in *LIMIT.
  * BUF should be pre-allocated.
- * FILE should be already opened.
+ * FILE should be already opened. 
  *
  * When the file is out of lines, APR_EOF will be returned.
  */
@@ -304,8 +304,8 @@ svn_error_t *svn_stream_write (svn_stream_t *stream, const char *data,
 svn_error_t *svn_stream_close (svn_stream_t *stream);
 
 /* Sets *RESULT to a string containing the contents of FILENAME. */
-svn_error_t *svn_string_from_file (svn_stringbuf_t **result,
-                                   const char *filename,
+svn_error_t *svn_string_from_file (svn_stringbuf_t **result, 
+                                   const char *filename, 
                                    apr_pool_t *pool);
 
 /* Sets *RESULT to a string containing the contents of the already opened
@@ -357,16 +357,16 @@ svn_error_t *svn_io_run_cmd (const char *path,
                              apr_file_t *errfile,
                              apr_pool_t *pool);
 
-/* Invoke SVN_CLIENT_DIFF, with USER_ARGS (which is an array of NUM_USER_ARGS
-   arguments), if they are specified, or "-u" if they are not.
+/* Invoke SVN_CLIENT_DIFF, with USER_ARGS (which is an array of NUM_USER_ARGS 
+   arguments), if they are specified, or "-u" if they are not.  
 
-   Diff runs in DIR, and its exit status is stored in EXITCODE, if it is not
-   NULL.
+   Diff runs in DIR, and its exit status is stored in EXITCODE, if it is not 
+   NULL.  
 
    If LABEL is given, it will be passed in as the argument to the "-L" option.
 
-   FROM is the first file passed to diff, and TO is the second.  The stdout of
-   diff will be sent to OUTFILE, and the stderr to ERRFILE.  All memory will be
+   FROM is the first file passed to diff, and TO is the second.  The stdout of 
+   diff will be sent to OUTFILE, and the stderr to ERRFILE.  All memory will be 
    allocated using POOL.  */
 svn_error_t *svn_io_run_diff (const char *dir,
                               const char *const *user_args,
@@ -421,7 +421,7 @@ svn_error_t *svn_io_run_diff3 (const char *dir,
 svn_error_t *svn_io_detect_mimetype (const char **mimetype,
                                      const char *file,
                                      apr_pool_t *pool);
-
+                                      
 
 
 #ifdef __cplusplus

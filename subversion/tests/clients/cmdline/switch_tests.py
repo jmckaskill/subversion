@@ -2,9 +2,9 @@
 #
 #  switch_tests.py:  testing `svn switch'.
 #
-#  Subversion is a tool for revision control.
+#  Subversion is a tool for revision control. 
 #  See http://subversion.tigris.org for more information.
-#
+#    
 # ====================================================================
 # Copyright (c) 2000-2001 CollabNet.  All rights reserved.
 #
@@ -32,7 +32,7 @@ path_index = svntest.actions.path_index
 ### a subcommand for dumping multi-line detailed information about
 ### versioned things.  Until then, we'll stick with the traditional
 ### verification methods.
-
+ 
 def do_routine_switching(wc_dir, verify):
   """perform some routine switching of the working copy WC_DIR for
   other tests to use.  If VERIFY, then do a full verification of the
@@ -57,7 +57,7 @@ def do_routine_switching(wc_dir, verify):
     # Create expected status tree
     status_list = svntest.actions.get_virginal_status_list(wc_dir, '1')
     expected_status_tree = svntest.tree.build_generic_tree(status_list)
-
+  
     # Do the switch and check the results in three ways.
     if svntest.actions.run_and_verify_switch(wc_dir, iota_path, gamma_url,
                                              expected_output_tree,
@@ -66,7 +66,7 @@ def do_routine_switching(wc_dir, verify):
       return 1
   else:
     svntest.main.run_svn(None, 'switch', iota_path, gamma_url)
-
+  
   ### Switch the directory `A/D/H' to `A/D/G'.
 
   # Construct some paths for convenience
@@ -81,7 +81,7 @@ def do_routine_switching(wc_dir, verify):
     pi_path = os.path.join(ADH_path, 'pi')
     tau_path = os.path.join(ADH_path, 'tau')
     rho_path = os.path.join(ADH_path, 'rho')
-
+    
     # Create expected output tree
     output_list = [[chi_path, None, {}, {'status' : 'D '}],
                    [omega_path, None, {}, {'status' : 'D '}],
@@ -90,7 +90,7 @@ def do_routine_switching(wc_dir, verify):
                    [rho_path, None, {}, {'status' : 'A '}],
                    [tau_path, None, {}, {'status' : 'A '}]]
     expected_output_tree = svntest.tree.build_generic_tree(output_list)
-
+    
     # Create expected disk tree (iota will have gamma's contents,
     # A/D/H/* will look like A/D/G/*)
     my_greek_tree = svntest.main.copy_greek_tree()
@@ -108,7 +108,7 @@ def do_routine_switching(wc_dir, verify):
     my_greek_tree.append([os.path.join('A', 'D', 'H', 'tau'),
                           "This is the file 'tau'.", {}, {}])
     expected_disk_tree = svntest.tree.build_generic_tree(my_greek_tree)
-
+    
     # Create expected status
     status_list = svntest.actions.get_virginal_status_list(wc_dir, '1')
     status_list.pop(path_index(status_list, chi_path))
@@ -127,7 +127,7 @@ def do_routine_switching(wc_dir, verify):
                          'wc_rev' : '1',
                          'repos_rev' : '1'}])
     expected_status_tree = svntest.tree.build_generic_tree(status_list)
-
+  
     # Do the switch and check the results in three ways.
     if svntest.actions.run_and_verify_switch(wc_dir, ADH_path, ADG_url,
                                              expected_output_tree,
@@ -149,7 +149,7 @@ def do_routine_switching(wc_dir, verify):
 
 def routine_switching(sbox):
   "test some basic switching operations"
-
+    
   if sbox.build():
     return 1
 
@@ -165,7 +165,7 @@ def commit_switched_things(sbox):
     return 1
 
   wc_dir = sbox.wc_dir
-
+  
   # Setup some switched things (don't bother verifying)
   if do_routine_switching(wc_dir, 0):
     return 1
@@ -238,9 +238,9 @@ def commit_switched_things(sbox):
     svntest.main.run_svn(None, 'ci', '-m', 'foo', wc_dir)
 
   return 0
-
-
-
+  
+  
+  
 #----------------------------------------------------------------------
 
 ### cmpilato todo:
