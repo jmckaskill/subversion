@@ -55,7 +55,7 @@ svn_cl__diff (apr_getopt_t *os,
 
       SVN_ERR (svn_io_check_path (target, &kind, pool));
 
-      switch (kind)
+      switch (kind) 
         {
         case svn_node_file:
           err = svn_cl__print_file_diff (target, pool);
@@ -67,22 +67,22 @@ svn_cl__diff (apr_getopt_t *os,
           err = svn_error_createf (0, 0, NULL, pool,
                                   "File type unrecognized for target `%s'.",
                                   target->data);
-          break;
+          break;                                  
         case svn_node_none:
-          err = svn_error_createf (APR_ENOENT, 0, NULL, pool,
+          err = svn_error_createf (APR_ENOENT, 0, NULL, pool, 
                                    "Target `%s' not found.", target->data);
           break;
         }
 
       if (err) return err;
     }
-
+  
   return SVN_NO_ERROR;
 }
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../svn-dev.el")
- * end:
+ * end: 
  */
