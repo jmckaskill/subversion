@@ -94,7 +94,7 @@ Candidate changes:
 
   * Issue #1733, attachment 305
     Backport r8551 to 1.0.X to cause blame to bail on binary files.
-    Justification:  Nicer behavior to the end user.
+    Justification:  Nicer behavior to the end user. 
     Votes:
       +1: sussman, cmpilato, dionisos
 
@@ -130,7 +130,7 @@ Candidate changes:
     Justification: potentially smaller distributions, better user experience
     Votes:
        +0: dionisos
-
+  
   * r8856
     Fix compressed streams on LP64 arch.
     Justification: potential seg fault
