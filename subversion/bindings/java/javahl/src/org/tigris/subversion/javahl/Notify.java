@@ -48,22 +48,22 @@ public interface Notify
     {
         /** Adding a path to revision control. */
         public static final int add = 0;
-
+        
         /** Copying a versioned path. */
         public static final int copy = 1;
-
+        
         /** Deleting a versioned path. */
         public static final int delete =2;
-
+        
         /** Restoring a missing path from the pristine text-base. */
         public static final int restore = 3;
-
+        
         /** Reverting a modified path. */
         public static final int revert = 4;
-
+        
         /** A revert operation has failed. */
         public static final int failed_revert = 5;
-
+        
         /** Resolving a conflict. */
         public static final int resolved = 6;
 
@@ -91,27 +91,27 @@ public interface Notify
 
         /** The last notification in a status (including status on externals). */
         public static final int status_completed = 13;
-
+        
         /** Running status on an external module. */
-        public static final int status_external = 14;
+        public static final int status_external = 14;        
 
 
         /** Committing a modification. */
         public static final int commit_modified = 15;
-
+        
         /** Committing an addition. */
         public static final int commit_added = 16;
-
+        
         /** Committing a deletion. */
         public static final int commit_deleted = 17;
-
+        
         /** Committing a replacement. */
         public static final int commit_replaced = 18;
-
+        
         /** Transmitting post-fix text-delta data for a file. */
         public static final int commit_postfix_txdelta = 19;
-
-
+        
+ 
 
 		private static final String[] actionNames =
 		{
