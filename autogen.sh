@@ -23,7 +23,7 @@ automake --add-missing --verbose
 echo "Creating aclocal.m4..."
 aclocal -I ac-helpers
 
-# If there's a config.cache file, we may need to delete it.
+# If there's a config.cache file, we may need to delete it.  
 # If we have an existing configure script, save a copy for comparison.
 if [ -f config.cache ] && [ -f configure ]; then
   cp configure configure.$$.tmp
