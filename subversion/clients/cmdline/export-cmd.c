@@ -43,7 +43,7 @@ svn_cl__export (apr_getopt_t *os,
   const char *from, *to;
   apr_array_header_t *targets;
 
-  SVN_ERR (svn_opt_args_to_target_array (&targets, os,
+  SVN_ERR (svn_opt_args_to_target_array (&targets, os, 
                                          opt_state->targets,
                                          &(opt_state->start_revision),
                                          &(opt_state->end_revision),
@@ -52,13 +52,13 @@ svn_cl__export (apr_getopt_t *os,
   /* We want exactly 1 or 2 targets for this subcommand. */
   if ((targets->nelts < 1) || (targets->nelts > 2))
     return svn_error_create (SVN_ERR_CL_ARG_PARSING_ERROR, 0, "");
-
+  
   /* The first target is the `from' path. */
   from = ((const char **) (targets->elts))[0];
 
   /* If only one target was given, split off the basename to use as
      the `to' path.  Else, a `to' path was supplied. */
-  if (targets->nelts == 1)
+  if (targets->nelts == 1) 
     to = svn_path_basename (from, pool);
   else
     to = ((const char **) (targets->elts))[1];
