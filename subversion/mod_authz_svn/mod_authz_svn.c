@@ -226,7 +226,7 @@ static svn_boolean_t parse_authz_section(const char *section_name,
   b->access = !(b->deny & b->required_access)
               || (b->allow & b->required_access)
               || !conclusive;
-
+  
   /* If access isn't denied, move on to check the next section. */
   return b->access;
 }
@@ -246,7 +246,7 @@ static int parse_authz_sections(svn_config_t *cfg,
     baton.repos_path = repos_path;
     baton.qualified_repos_path = apr_pstrcat(pool, repos_name, ":",
                                              repos_path, NULL);
-
+    
     baton.access = 1; /* Allow by default */
     svn_config_enumerate_sections(cfg, parse_authz_section, &baton);
 
