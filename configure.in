@@ -118,7 +118,7 @@ AC_FUNC_MEMCMP
 dnl svn_error's default warning handler uses vfprintf()
 AC_FUNC_VPRINTF
 
-dnl vdelta.c is using strerror() right now
+dnl vdelta.c is using strerror() right now 
 AC_CHECK_FUNCS(strerror)
 
 
@@ -163,7 +163,7 @@ fi
 
 dnl Find a diff
 AC_PATH_PROG(SVN_CLIENT_DIFF, diff, diff)
-AC_DEFINE_UNQUOTED(SVN_CLIENT_DIFF, "$SVN_CLIENT_DIFF",
+AC_DEFINE_UNQUOTED(SVN_CLIENT_DIFF, "$SVN_CLIENT_DIFF", 
 	[Define to be the full path to your diff program])
 
 
@@ -197,7 +197,7 @@ AC_OUTPUT([Makefile                                           \
           ])
 
 
-dnl  Print warning messages about what we did and didn't configure at the
+dnl  Print warning messages about what we did and didn't configure at the 
 dnl  end, where people will actually see them.
 case "$svn_cv_lib_berkeley_db" in
   "no" )
