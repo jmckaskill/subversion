@@ -46,7 +46,7 @@
         información debajo) para comentarnos su opinión.</para>
 
   </sect1>
-
+  
   <!-- ******************************************************************* -->
   <!-- *** SECTION 2:  QUIENES SOMOS                                   *** -->
   <!-- ******************************************************************* -->
@@ -62,26 +62,26 @@
         <listitem>
           <para>Ariel Arjona (traducción)</para>
         </listitem>
-
+        
         <listitem>
           <para>Diego Brouard (traducción)</para>
         </listitem>
-
+        
         <listitem>
           <para>Federico Edelman (traducción)</para>
         </listitem>
-
+        
         <listitem>
           <para>Grzegorz Adam Hankiewicz (coordinación,
             traducción)</para>
         </listitem>
-
+        
         <listitem>
           <para>Rubén Gómez (traducción)</para>
         </listitem>
-
+        
       </itemizedlist>
-
+        
   </sect1>
 
   <!-- ******************************************************************* -->
@@ -111,13 +111,13 @@
         principal de Subversion. Puede encontrar información
         sobre éstas e instrucciones en la dirección <systemitem
         class="url">http://subversion.tigris.org/servlets/ProjectMailingListList</systemitem>.</para>
-
+        
   </sect1>
-
+  
 </appendix>
 
 <!--
-local variables:
+local variables: 
 sgml-parent-document: ("book.xml" "appendix")
 end:
 -->
