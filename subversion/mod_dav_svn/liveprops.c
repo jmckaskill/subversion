@@ -165,7 +165,7 @@ static dav_prop_insert dav_svn_insert_prop(const dav_resource *resource,
           {
             return DAV_PROP_INSERT_NOTSUPP;
           }
-
+       
         if (propid == DAV_PROPID_creationdate)
           {
             /* Return an ISO8601 date; this is what the svn client
@@ -188,7 +188,7 @@ static dav_prop_insert dav_svn_insert_prop(const dav_resource *resource,
       }
 
     case DAV_PROPID_creator_displayname:
-      {
+      {        
         svn_revnum_t committed_rev = SVN_INVALID_REVNUM;
         svn_string_t *last_author = NULL;
 
@@ -219,12 +219,12 @@ static dav_prop_insert dav_svn_insert_prop(const dav_resource *resource,
                 value = "###error###";
                 break;
               }
-          }
+          }        
         else
           {
             return DAV_PROP_INSERT_NOTSUPP;
           }
-
+        
         /* Get the date property of the created revision. */
         serr = svn_repos__fs_revision_prop(&last_author,
                                            resource->info->repos->repos,
@@ -253,7 +253,7 @@ static dav_prop_insert dav_svn_insert_prop(const dav_resource *resource,
     case DAV_PROPID_getcontentlength:
       {
         svn_filesize_t len = 0;
-
+        
         /* our property, but not defined on collection resources */
         if (resource->collection || resource->baselined)
           return DAV_PROP_INSERT_NOTSUPP;
@@ -303,7 +303,7 @@ static dav_prop_insert dav_svn_insert_prop(const dav_resource *resource,
               {
                 value = "text/plain"; /* default for file */
               }
-          }
+          }            
         else
           {
             serr = svn_mime_type_validate (pval->data, p);
@@ -368,9 +368,9 @@ static dav_prop_insert dav_svn_insert_prop(const dav_resource *resource,
               break;
             }
           s = dav_svn_build_uri(resource->info->repos,
-                                DAV_SVN_BUILD_URI_BASELINE,
+                                DAV_SVN_BUILD_URI_BASELINE, 
                                 revnum, NULL, 0 /* add_href */, p);
-          value = apr_psprintf(p, "<D:href>%s</D:href>",
+          value = apr_psprintf(p, "<D:href>%s</D:href>", 
                                apr_xml_quote_string(p, s, 1));
         }
       else if (resource->type != DAV_RESOURCE_TYPE_REGULAR)
@@ -388,7 +388,7 @@ static dav_prop_insert dav_svn_insert_prop(const dav_resource *resource,
                                 DAV_SVN_BUILD_URI_VERSION,
                                 rev_to_use, resource->info->repos_path,
                                 0 /* add_href */, p);
-          value = apr_psprintf(p, "<D:href>%s</D:href>",
+          value = apr_psprintf(p, "<D:href>%s</D:href>", 
                                apr_xml_quote_string(p, s, 1));
         }
       break;
@@ -400,7 +400,7 @@ static dav_prop_insert dav_svn_insert_prop(const dav_resource *resource,
       if (resource->type != DAV_RESOURCE_TYPE_REGULAR)
         return DAV_PROP_INSERT_NOTSUPP;
       value = dav_svn_build_uri(resource->info->repos, DAV_SVN_BUILD_URI_VCC,
-                                SVN_IGNORED_REVNUM, NULL,
+                                SVN_IGNORED_REVNUM, NULL, 
                                 1 /* add_href */, p);
       break;
 
@@ -426,7 +426,7 @@ static dav_prop_insert dav_svn_insert_prop(const dav_resource *resource,
       else
         {
           svn_revnum_t committed_rev = SVN_INVALID_REVNUM;
-
+          
           /* Get the CR field out of the node's skel.  Notice that the
              root object might be an ID root -or- a revision root. */
           serr = svn_fs_node_created_rev(&committed_rev,
@@ -438,7 +438,7 @@ static dav_prop_insert dav_svn_insert_prop(const dav_resource *resource,
               value = "###error###";
               break;
             }
-
+          
           /* Convert the revision into a quoted string */
           s = apr_psprintf(p, "%" SVN_REVNUM_T_FMT, committed_rev);
           value = apr_xml_quote_string(p, s, 1);
@@ -661,7 +661,7 @@ int dav_svn_get_last_modified_time (const char **datestring,
   svn_error_t *serr;
   apr_time_t timeval_tmp;
   dav_svn_authz_read_baton arb;
-
+  
   arb.r = resource->info->r;
   arb.repos = resource->info->repos;
 
@@ -698,7 +698,7 @@ int dav_svn_get_last_modified_time (const char **datestring,
                                      pool);
   if (serr != NULL)
     return 1;
-
+  
   if (committed_date == NULL)
     return 1;
 
@@ -721,18 +721,18 @@ int dav_svn_get_last_modified_time (const char **datestring,
     {
       apr_time_exp_t tms;
       apr_status_t status;
-
+      
       /* convert the apr_time_t into an apr_time_exp_t */
       status = apr_time_exp_gmt(&tms, timeval_tmp);
       if (status != APR_SUCCESS)
         return 1;
-
+              
       /* stolen from dav/fs/repos.c   :-)  */
       *datestring = apr_psprintf(pool, "%s, %.2d %s %d %.2d:%.2d:%.2d GMT",
                                  apr_day_snames[tms.tm_wday],
                                  tms.tm_mday, apr_month_snames[tms.tm_mon],
                                  tms.tm_year + 1900,
-                                 tms.tm_hour, tms.tm_min, tms.tm_sec);
+                                 tms.tm_hour, tms.tm_min, tms.tm_sec);      
     }
   else /* unknown time format */
     {
@@ -740,4 +740,4 @@ int dav_svn_get_last_modified_time (const char **datestring,
     }
 
   return 0;
-}
+}                                              
