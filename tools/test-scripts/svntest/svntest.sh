@@ -28,12 +28,12 @@ RB_HTTPD="`$CAT $TEST_ROOT/$HTTPD_NAME.rb`"
 RB_SVN="`$CAT $TEST_ROOT/$SVN_NAME.rb`"
 
 if [ $RB_APR -ne 0 -a $RB_APU -ne 0 -a $RB_HTTPD -ne 0 -a $RB_SVN -ne 0 \
-    -a $RB_APR -lt $RB_APU -a $RB_APU -lt $RB_HTTPD -a $RB_HTTPD -lt $RB_SVN ];
+    -a $RB_APR -lt $RB_APU -a $RB_APU -lt $RB_HTTPD -a $RB_HTTPD -lt $RB_SVN ]; 
 then
     $EXEC_PATH/svntest-sendmail.sh "update" "" "" "NOOP"
     exit
 fi
-
+    
 # conditionally rebuild apr, apr-util and httpd
 $EXEC_PATH/svntest-rebuild-generic.sh "$APR_NAME" "" "$MAKE_OPTS" || {
     $EXEC_PATH/svntest-sendmail.sh "update" "" "" "FAIL"
