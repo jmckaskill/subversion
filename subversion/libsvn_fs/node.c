@@ -2,32 +2,32 @@
  *
  * ================================================================
  * Copyright (c) 2000 Collab.Net.  All rights reserved.
- *
+ * 
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
  * met:
- *
+ * 
  * 1. Redistributions of source code must retain the above copyright
  * notice, this list of conditions and the following disclaimer.
- *
+ * 
  * 2. Redistributions in binary form must reproduce the above copyright
  * notice, this list of conditions and the following disclaimer in the
  * documentation and/or other materials provided with the distribution.
- *
+ * 
  * 3. The end-user documentation included with the redistribution, if
  * any, must include the following acknowlegement: "This product includes
  * software developed by Collab.Net (http://www.Collab.Net/)."
  * Alternately, this acknowlegement may appear in the software itself, if
  * and wherever such third-party acknowlegements normally appear.
- *
+ * 
  * 4. The hosted project names must not be used to endorse or promote
  * products derived from this software without prior written
  * permission. For written permission, please contact info@collab.net.
- *
+ * 
  * 5. Products derived from this software may not use the "Tigris" name
  * nor may "Tigris" appear in their names without prior written
  * permission of Collab.Net.
- *
+ * 
  * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
  * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -41,7 +41,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ====================================================================
- *
+ * 
  * This software consists of voluntary contributions made by many
  * individuals on behalf of Collab.Net.
  */
@@ -216,7 +216,7 @@ get_representation_skel (skel_t **skel_p,
    necessary temporary allocation in POOL.  */
 static svn_error_t *
 put_representation_skel (svn_fs_t *fs,
-			 svn_fs_id_t *id,
+			 svn_fs_id_t *id, 
 			 skel_t *skel,
 			 DB_TXN *txn,
 			 apr_pool_t *pool)
@@ -231,7 +231,7 @@ put_representation_skel (svn_fs_t *fs,
 
   return 0;
 }
-
+			 
 
 
 /* Storing and retrieving NODE-REVISION skels.  */
@@ -497,7 +497,7 @@ make_nodes (svn_fs_t *fs, int create)
 					     sizeof (node_1_1) - 1,
 					     fs->pool);
       static svn_fs_id_t id_1_1[] = { 1, 1, -1 };
-
+      
       SVN_ERR (put_representation_skel (fs, id_1_1, rep_skel, 0, fs->pool));
     }
 
@@ -738,7 +738,7 @@ new_node_id (svn_fs_id_t **id_p,
 	  (SVN_ERR_FS_CORRUPT, 0, 0, fs->pool,
 	   "root directory missing from `nodes' table, in filesystem `%s'",
 	   fs->env_path);
-
+      
       SVN_ERR (DB_WRAP (fs, "choosing new node ID (finding last entry)",
 			db_err));
     }
@@ -871,7 +871,7 @@ static svn_error_t *
 new_successor_id (svn_fs_id_t **successor_p,
 		  svn_fs_t *fs,
 		  svn_fs_id_t *id,
-		  DB_TXN *db_txn,
+		  DB_TXN *db_txn, 
 		  apr_pool_t *pool)
 {
   int id_len = svn_fs_id_length (id);
@@ -1006,7 +1006,7 @@ svn_fs__create_successor (svn_fs_node_t **new_p,
 
     svn_fs__prepend (svn_fs__make_atom (svn_txn_id, new->pool), mutable_flag);
     svn_fs__prepend (svn_fs__make_atom ("mutable", new->pool), mutable_flag);
-
+    
     /* Insert this at the beginning of the new skel's flag list.  We
        know there is no "mutable" flag there already, since we've
        checked that OLD is immutable.  */
@@ -1114,7 +1114,7 @@ svn_fs_get_node_prop (svn_string_t **value_p,
     /* Walk the property list two elements at a time.  */
     for (prop = values.proplist->children; prop; prop = prop->next->next)
       {
-	/* The proplist must be composed of pairs of atoms.  */
+	/* The proplist must be composed of pairs of atoms.  */ 
 	if (! prop->is_atom
 	    || ! prop->next
 	    || ! prop->next->is_atom)
@@ -1173,7 +1173,7 @@ svn_fs_get_node_proplist (apr_hash_t **table_p,
     /* Walk the property list two elements at a time.  */
     for (prop = values.proplist->children; prop; prop = prop->next->next)
       {
-	/* The proplist must be composed of pairs of atoms.  */
+	/* The proplist must be composed of pairs of atoms.  */ 
 	if (! prop->is_atom
 	    || ! prop->next
 	    || ! prop->next->is_atom)
