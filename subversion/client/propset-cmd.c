@@ -43,10 +43,10 @@ svn_cl__propset (svn_cl__opt_state_t *opt_state,
      support. */
   if (opt_state->valfile)
     {
-      /* Load the whole file into `value'.
-
-         What?  Don't look at me like that.
-
+      /* Load the whole file into `value'.  
+         
+         What?  Don't look at me like that.  
+         
          Don't forget that our entire property implementation happens
          "in-memory" right now.  And we're not just talking about
          single property name/value pairs; whole *lists* of pairs move
@@ -55,7 +55,7 @@ svn_cl__propset (svn_cl__opt_state_t *opt_state,
       apr_status_t status;
       apr_size_t len = BUFSIZ;
       apr_file_t *the_file = NULL;
-
+      
       /* kff todo: possibly blowing away a previous setting of
          opt_state->value here.  But that redundancy should be checked
          earlier (see other comment above) anyway. */
@@ -67,7 +67,7 @@ svn_cl__propset (svn_cl__opt_state_t *opt_state,
         return svn_error_createf (status, 0, NULL, pool,
                                   "svn_cl__propset:  failed to open '%s'",
                                   opt_state->valfile->data);
-
+      
       do {
         err2 = svn_io_file_reader (the_file, buf, &len, pool);
         if (err2) return err2;
@@ -112,8 +112,8 @@ svn_cl__propset (svn_cl__opt_state_t *opt_state,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
- * end:
+ * end: 
  */
