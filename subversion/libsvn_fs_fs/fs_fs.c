@@ -45,7 +45,7 @@
 
    I didn't keep track of pool lifetimes at all in this code.  There
    are likely some errors because of that.
-
+   
 */
 
 
@@ -75,7 +75,7 @@ svn_fs__fs_open (svn_fs_t *fs, const char *path, apr_pool_t *pool)
   fs->uuid = apr_pstrdup (pool, buffer);
 
   SVN_ERR (svn_io_file_close (uuid_file, pool));
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -123,7 +123,7 @@ static svn_error_t * read_header_block (apr_hash_t **headers,
                                         apr_pool_t *pool)
 {
   *headers = apr_hash_make (pool);
-
+  
   while (1)
     {
       char header_str[1024];
@@ -138,7 +138,7 @@ static svn_error_t * read_header_block (apr_hash_t **headers,
 
       if (strlen (header_str) == 0)
         break; /* end of header block */
-
+      
       header_len = strlen (header_str);
 
       while (header_str[i] != ':')
@@ -149,7 +149,7 @@ static svn_error_t * read_header_block (apr_hash_t **headers,
                                      "revision file");
           i++;
         }
-
+      
       /* Create a 'name' string and point to it. */
       header_str[i] = '\0';
       name=header_str;
@@ -209,7 +209,7 @@ svn_fs__fs_get_node_revision (svn_fs__node_revision_t **noderev_p,
   apr_hash_t *headers;
   svn_fs__node_revision_t *noderev;
   char *value;
-
+  
   SVN_ERR (open_and_seek_revision (&revision_file,
                                    fs,
                                    svn_fs__id_rev (id),
@@ -378,7 +378,7 @@ svn_fs__fs_get_node_revision (svn_fs__node_revision_t **noderev_p,
     }
 
   *noderev_p = noderev;
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -431,11 +431,11 @@ svn_fs__fs_get_proplist (apr_hash_t **proplist_p,
 typedef struct
 {
   svn_boolean_t delta_base;
-
+  
   svn_revnum_t delta_revision;
   apr_off_t delta_offset;
   apr_size_t delta_length;
-
+  
 } rep_args_t;
 
 /* Read the next line from file FILE and parse it as a text
@@ -451,7 +451,7 @@ read_rep_line (rep_args_t **rep_args_p,
   apr_size_t limit;
   svn_boolean_t delta_base = FALSE;
   rep_args_t *rep_args;
-
+  
   limit = sizeof (buffer);
   SVN_ERR (svn_io_read_length_line (file, buffer, &limit, pool));
 
@@ -467,7 +467,7 @@ read_rep_line (rep_args_t **rep_args_p,
   abort ();
 
   *rep_args_p = rep_args;
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -529,7 +529,7 @@ svn_fs__fs_rep_contents_dir (apr_hash_t **entries_p,
       if (str == NULL)
           return svn_error_create (SVN_ERR_FS_CORRUPT, NULL,
                                    "Directory entry corrupt");
-
+      
       if (strcmp (str, SVN_FS_FS__FILE) == 0)
         {
           dirent->kind = svn_node_file;
@@ -548,13 +548,13 @@ svn_fs__fs_rep_contents_dir (apr_hash_t **entries_p,
       if (str == NULL)
         return svn_error_create (SVN_ERR_FS_CORRUPT, NULL,
                                  "Directory entry corrupt");
-
+      
       dirent->id = svn_fs_parse_id (str, strlen (str), pool);
 
       apr_hash_set (*entries_p, key, klen, dirent);
     }
-
-
+  
+  
   return SVN_NO_ERROR;
 }
 
@@ -572,7 +572,7 @@ get_fs_id_at_offset (svn_fs_id_t **id_p,
   svn_fs_id_t *id;
   apr_hash_t *headers;
   const char *node_id_str;
-
+  
   SVN_ERR (svn_io_file_seek (rev_file, APR_SET, &offset, pool));
 
   SVN_ERR (read_header_block (&headers, rev_file, pool));
@@ -608,7 +608,7 @@ get_root_offset (apr_off_t *root_offset,
   apr_size_t num_bytes;
   char buf[65];
   int i;
-
+  
   /* We will assume that the last line containing the two offsets
      will never be longer than 64 characters. */
   offset = -64;
@@ -643,7 +643,7 @@ get_root_offset (apr_off_t *root_offset,
   return SVN_NO_ERROR;
 }
 
-
+  
 
 svn_error_t *
 svn_fs__fs_rev_get_root (svn_fs_id_t **root_id_p,
@@ -670,7 +670,7 @@ svn_fs__fs_rev_get_root (svn_fs_id_t **root_id_p,
   SVN_ERR (svn_io_file_close (revision_file, pool));
 
   *root_id_p = root_id;
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -710,7 +710,7 @@ svn_fs__fs_get_contents (svn_stream_t **contents_p,
                          apr_pool_t *pool)
 {
   abort ();
-
+  
   return SVN_NO_ERROR;
 }
 
