@@ -27,7 +27,7 @@ extern "C" {
 
 
 /*** Notes:
- *
+ * 
  * No result path ever ends with a separator, no matter whether the
  * path is a file or directory, because we always canonicalize() it.
  *
@@ -57,9 +57,9 @@ void svn_path_add_component (svn_string_t *path,
                              const svn_string_t *component,
                              enum svn_path_style style);
 
-/* Same as `svn_path_add_component', except that the COMPONENT argument is
+/* Same as `svn_path_add_component', except that the COMPONENT argument is 
    a C-style '\0'-terminated string, not an svn_string_t.  */
-void svn_path_add_component_nts (svn_string_t *path,
+void svn_path_add_component_nts (svn_string_t *path, 
                                  const char *component,
                                  enum svn_path_style style);
 
@@ -68,7 +68,7 @@ void svn_path_remove_component (svn_string_t *path,
                                 enum svn_path_style style);
 
 
-/* Duplicate and return PATH's last component, w/o separator.
+/* Duplicate and return PATH's last component, w/o separator. 
  *
  * If PATH is the root directory, then its last component is still the
  * root directory.  Else if PATH ends with a separator, then PATH's
