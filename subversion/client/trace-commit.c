@@ -141,35 +141,35 @@ close_directory (void *dir_baton)
      {
       svn_wc_entry_t *entry;
       svn_boolean_t merged, text_conflict, prop_conflict;
-
+      
       err = svn_wc_entry (&entry,
       d->path,
       d->edit_baton->pool);
       if (err) return err;
-
+      
       err = svn_wc_conflicted_p (&text_conflict, &prop_conflict,
       d->path,
       entry,
       d->edit_baton->pool);
                                  if (err) return err;
-
+                                 
                                  if (! prop_conflict)
                                  {
-                                 err = svn_wc_props_modified_p
+                                 err = svn_wc_props_modified_p 
                                  (&merged, d->path, d->edit_baton->pool);
             if (err) return err;
             }
-
+            
             if (prop_conflict)
             statchar_buf[1] = 'C';
       else if (merged)
       statchar_buf[1] = 'G';
       else
       statchar_buf[1] = 'U';
-
+      
       printf ("%s %s\n", statchar_buf, d->path->data);
       }
-  */
+  */    
   return SVN_NO_ERROR;
 }
 
@@ -181,7 +181,7 @@ close_file (void *file_baton)
 
   /*  svn_error_t *err;
       char statchar_buf[3] = "- ";
-
+      
       if (fb->added)
       {
       statchar_buf[0] = 'A';
@@ -190,7 +190,7 @@ close_file (void *file_baton)
       {
       svn_wc_entry_t *entry;
       svn_boolean_t merged, text_conflict, prop_conflict;
-
+      
       err = svn_wc_entry (&entry,
       fb->path,
       fb->parent_dir_baton->edit_baton->pool);
@@ -201,16 +201,16 @@ close_file (void *file_baton)
       entry,
       fb->parent_dir_baton->edit_baton->pool);
       if (err) return err;
-
+      
       if (fb->text_changed)
       {
       if (! text_conflict)
       {
-      err = svn_wc_text_modified_p
+      err = svn_wc_text_modified_p 
       (&merged, fb->path, fb->parent_dir_baton->edit_baton->pool);
       if (err) return err;
       }
-
+      
       if (text_conflict)
       statchar_buf[0] = 'C';
       else if (merged)
@@ -222,11 +222,11 @@ close_file (void *file_baton)
       {
       if (! prop_conflict)
       {
-      err = svn_wc_props_modified_p
+      err = svn_wc_props_modified_p 
       (&merged, fb->path, fb->parent_dir_baton->edit_baton->pool);
       if (err) return err;
       }
-
+      
       if (prop_conflict)
       statchar_buf[1] = 'C';
       else if (merged)
@@ -234,11 +234,11 @@ close_file (void *file_baton)
       else
       statchar_buf[1] = 'U';
       }
-      }
+      } 
   */
 
   if (fb->added)
-    printf ("Adding:    %s\n", fb->path->data);
+    printf ("Adding:    %s\n", fb->path->data); 
   else
     printf ("Changing:  %s\n", fb->path->data);
 
@@ -371,14 +371,14 @@ svn_cl__get_trace_commit_editor (const svn_delta_edit_fns_t **editor,
 
   *edit_baton = eb;
   *editor = &trace_editor;
-
+  
   return SVN_NO_ERROR;
 }
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
- * end:
+ * end: 
  */
