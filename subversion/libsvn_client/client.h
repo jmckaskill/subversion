@@ -46,18 +46,18 @@ extern "C" {
  * PATH, so RA_LIB and SESSION are ignored.  If PATH is not under
  * revision control, return SVN_ERR_UNVERSIONED_RESOURCE, or if PATH
  * is null, return SVN_ERR_CLIENT_VERSIONED_PATH_REQUIRED.
- *
+ * 
  * Else if REVISION->kind is svn_opt_revision_date or
  * svn_opt_revision_head, then RA_LIB and SESSION are used to
  * retrieve the revision from the repository (using
  * REVISION->value.date in the former case), and PATH is ignored.  If
- * RA_LIB or SESSION is null, return SVN_ERR_CLIENT_RA_ACCESS_REQUIRED.
+ * RA_LIB or SESSION is null, return SVN_ERR_CLIENT_RA_ACCESS_REQUIRED. 
  *
  * Else if REVISION->kind is svn_opt_revision_unspecified, set
- * *REVNUM to SVN_INVALID_REVNUM.
+ * *REVNUM to SVN_INVALID_REVNUM.  
  *
  * Else return SVN_ERR_CLIENT_BAD_REVISION.
- *
+ * 
  * Use POOL for any temporary allocation.
  */
 svn_error_t *
@@ -83,7 +83,7 @@ svn_client__compare_revisions (svn_opt_revision_t *revision1,
  *
  * Note: No other kinds of revisions should be possible; but if one
  * day there are, this will return true for those kinds.
- */
+ */ 
 svn_boolean_t
 svn_client__revision_is_local (const svn_opt_revision_t *revision);
 
@@ -123,7 +123,7 @@ typedef struct
      during working copy commits. */
   apr_array_header_t *commit_items;
 
-  /* A hash of svn_config_t's, keyed off file name (i.e. the contents of
+  /* A hash of svn_config_t's, keyed off file name (i.e. the contents of 
      ~/.subversion/config end up keyed off of 'config'). */
   apr_hash_t *config;
 
@@ -229,8 +229,8 @@ svn_client_commit_info_t *svn_client__make_commit_info (svn_revnum_t revision,
 
 /* Verify that the path can be deleted without losing stuff, i.e. ensure
    that there are no modified or unversioned resources under PATH.  This is
-   similar to checking the output of the status command.  ADM_ACCESS should
-   be for the directory PATH is in, or for PATH if it is a directory.  POOL
+   similar to checking the output of the status command.  ADM_ACCESS should 
+   be for the directory PATH is in, or for PATH if it is a directory.  POOL 
    is used for all temporary allocations. */
 svn_error_t * svn_client__can_delete (const char *path,
                                       svn_wc_adm_access_t *adm_access,
@@ -270,7 +270,7 @@ svn_client__update_internal (const svn_delta_editor_t *before_editor,
 /*** Editor for repository diff ***/
 
 /* Create an editor for a pure repository comparison, i.e. comparing one
- * repository version against the other.
+ * repository version against the other. 
  *
  * TARGET is a working-copy path, the base of the hierarchy to be
  * compared.  It corresponds to the URL opened in RA_SESSION below.
@@ -305,7 +305,7 @@ svn_client__get_diff_editor (const char *target,
                              svn_boolean_t recurse,
                              svn_boolean_t dry_run,
                              svn_ra_plugin_t *ra_lib,
-                             void *ra_session,
+                             void *ra_session, 
                              svn_revnum_t revision,
                              svn_wc_notify_func_t notify_func,
                              void *notify_baton,
@@ -386,7 +386,7 @@ svn_client__get_diff_editor (const char *target,
      - add (or update) a reference to this array to the COMMITTABLES
        hash, keyed on the canonical repository name.  ### todo, until
        multi-repository support actually exists, the single key here
-       will actually be some arbitrary thing to be ignored.
+       will actually be some arbitrary thing to be ignored.  
 
    At the successful return of this function, COMMITTABLES will be an
    apr_hash_t * hash of apr_array_header_t * arrays (of
@@ -418,7 +418,7 @@ svn_client__get_copy_committables (apr_hash_t **committables,
                                    const char *target,
                                    svn_wc_adm_access_t *adm_access,
                                    apr_pool_t *pool);
-
+               
 
 /* A qsort()-compatible sort routine for sorting an array of
    svn_client_commit_item_t's by their URL member. */
@@ -427,7 +427,7 @@ int svn_client__sort_commit_item_urls (const void *a, const void *b);
 
 /* Rewrite the COMMIT_ITEMS array to be sorted by URL.  Also, discover
    a common *BASE_URL for the items in the array, and rewrite those
-   items' URLs to be relative to that *BASE_URL.
+   items' URLs to be relative to that *BASE_URL.  
 
    Afterwards, some of the items in COMMIT_ITEMS may contain data
    allocated in POOL. */
@@ -445,9 +445,9 @@ svn_client__condense_commit_items (const char **base_url,
    REVNUM_FN/REV_BATON allows this routine to query the repository for
    the latest revision.  It is used (temporarily) for checking that
    directories are "up-to-date" when a dir-propchange is discovered.
-   We don't expect it to be here forever.  :-)
+   We don't expect it to be here forever.  :-) 
 
-   CTX->NOTIFY_FUNC/CTX->BATON will be called as the commit progresses, as
+   CTX->NOTIFY_FUNC/CTX->BATON will be called as the commit progresses, as 
    a way of describing actions to the application layer (if non NULL).
 
    NOTIFY_PATH_PREFIX is used to send shorter, relative paths to the

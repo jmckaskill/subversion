@@ -79,7 +79,7 @@ svn_client_switch (const char *path,
   SVN_ERR (svn_wc_adm_probe_open (&adm_access, NULL, path, TRUE, TRUE,
                                   pool));
   SVN_ERR (svn_wc_entry (&entry, path, adm_access, FALSE, pool));
-
+  
   if (! entry)
     return svn_error_createf
       (SVN_ERR_WC_PATH_NOT_FOUND, NULL,
@@ -93,7 +93,7 @@ svn_client_switch (const char *path,
   if (entry->kind == svn_node_file)
     {
       SVN_ERR (svn_wc_get_actual_target (path, &anchor, &target, pool));
-
+      
       /* get the parent entry */
       SVN_ERR (svn_wc_entry (&session_entry, anchor, adm_access, FALSE, pool));
       if (! session_entry)
@@ -142,7 +142,7 @@ svn_client_switch (const char *path,
       /* Open an RA session to 'source' URL */
       SVN_ERR (svn_client__open_ra_session (&session, ra_lib, URL,
                                             path, adm_access,
-                                            NULL, TRUE, TRUE, FALSE,
+                                            NULL, TRUE, TRUE, FALSE, 
                                             ctx, pool));
       SVN_ERR (svn_client__get_revision_number
                (&revnum, ra_lib, session, revision, path, pool));
@@ -165,14 +165,14 @@ svn_client_switch (const char *path,
                                   recurse,
                                   switch_url,
                                   switch_editor, switch_edit_baton));
-
+      
       /* Drive the reporter structure, describing the revisions within
          PATH.  When we call reporter->finish_report, the
-         update_editor will be driven by svn_repos_dir_delta.
+         update_editor will be driven by svn_repos_dir_delta. 
 
          We pass NULL for traversal_info because this is a switch, not
          an update, and therefore we don't want to handle any
-         externals except the ones directly affected by the switch. */
+         externals except the ones directly affected by the switch. */ 
       err = svn_wc_crawl_revisions (path, adm_access, reporter, report_baton,
                                     TRUE, recurse,
                                     ctx->notify_func, ctx->notify_baton,
@@ -191,7 +191,7 @@ svn_client_switch (const char *path,
                                              ctx,
                                              pool));
     }
-
+  
   else if (entry->kind == svn_node_file)
     {
       /* If switching a single file, just fetch the file directly and
@@ -237,7 +237,7 @@ svn_client_switch (const char *path,
       SVN_ERR (ra_lib->get_file (session, "", revnum, file_stream,
                                  &fetched_rev, &prophash));
       SVN_ERR (svn_stream_close (file_stream));
-      apr_err = apr_file_close (fp);
+      apr_err = apr_file_close (fp); 
       if (apr_err)
         return svn_error_createf (apr_err, NULL,
                                   "closing temporary file '%s'", new_text_path);
@@ -250,7 +250,7 @@ svn_client_switch (const char *path,
           const void *key;
           void *val;
           svn_prop_t *prop;
-
+          
           apr_hash_this (hi, &key, NULL, &val);
 
           prop = apr_array_push (proparray);
@@ -269,7 +269,7 @@ svn_client_switch (const char *path,
                                       new_text_path,
                                       proparray, TRUE, /* is full proplist */
                                       switch_url, /* new url */
-                                      pool));
+                                      pool));     
 
         if (ctx->notify_func != NULL)
           (*ctx->notify_func) (ctx->notify_baton, path,
@@ -281,7 +281,7 @@ svn_client_switch (const char *path,
                                SVN_INVALID_REVNUM);
       }
     }
-
+  
   /* Sleep to ensure timestamp integrity. */
   svn_sleep_for_timestamps ();
 
