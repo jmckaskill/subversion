@@ -63,23 +63,23 @@ print_entry (const char *target,
       SVN_ERR (svn_utf_cstring_from_utf8 (&native, entry->name, pool));
       printf ("Name: %s\n", native);
     }
-
-  if (entry->url)
+ 
+  if (entry->url) 
     {
       SVN_ERR (svn_utf_cstring_from_utf8 (&native, entry->url, pool));
       printf ("Url: %s\n", native);
     }
-
-  if (entry->repos)
+           
+  if (entry->repos) 
     {
       SVN_ERR (svn_utf_cstring_from_utf8 (&native, entry->repos, pool));
       printf ("Repository: %s\n", native);
     }
-
+ 
   if (SVN_IS_VALID_REVNUM (entry->revision))
     printf ("Revision: %" SVN_REVNUM_T_FMT "\n", entry->revision);
 
-  switch (entry->kind)
+  switch (entry->kind) 
     {
     case svn_node_file:
       printf ("Node Kind: file\n");
@@ -90,65 +90,65 @@ print_entry (const char *target,
                                       dir_name, entry, pool));
       }
       break;
-
+          
     case svn_node_dir:
       printf ("Node Kind: directory\n");
       SVN_ERR (svn_wc_conflicted_p (&text_conflict, &props_conflict,
                                     target, entry, pool));
       break;
-
+          
     case svn_node_none:
       printf ("Node Kind: none\n");
       break;
-
+          
     case svn_node_unknown:
     default:
       printf ("Node Kind: unknown\n");
       break;
     }
 
-  switch (entry->schedule)
+  switch (entry->schedule) 
     {
     case svn_wc_schedule_normal:
       printf ("Schedule: normal\n");
       break;
-
+          
     case svn_wc_schedule_add:
       printf ("Schedule: add\n");
       break;
-
+          
     case svn_wc_schedule_delete:
       printf ("Schedule: delete\n");
       break;
-
+          
     case svn_wc_schedule_replace:
       printf ("Schedule: replace\n");
       break;
-
+          
     default:
       break;
     }
 
   if (entry->copied)
     {
-      if (entry->copyfrom_url)
+      if (entry->copyfrom_url) 
         {
           SVN_ERR (svn_utf_cstring_from_utf8 (&native, entry->copyfrom_url,
                                               pool));
           printf ("Copied From Url: %s\n", native);
         }
-
+ 
       if (SVN_IS_VALID_REVNUM (entry->copyfrom_rev))
-        printf ("Copied From Rev: %" SVN_REVNUM_T_FMT "\n",
+        printf ("Copied From Rev: %" SVN_REVNUM_T_FMT "\n", 
                 entry->copyfrom_rev);
     }
-
-  if (entry->cmt_author)
+ 
+  if (entry->cmt_author) 
     {
       SVN_ERR (svn_utf_cstring_from_utf8 (&native, entry->cmt_author, pool));
       printf ("Last Changed Author: %s\n", native);
     }
-
+ 
   if (SVN_IS_VALID_REVNUM (entry->cmt_rev))
     printf ("Last Changed Rev: %" SVN_REVNUM_T_FMT "\n", entry->cmt_rev);
 
@@ -161,37 +161,37 @@ print_entry (const char *target,
   if (entry->prop_time)
     svn_cl__info_print_time (entry->prop_time, "Properties Last Updated",
                              pool);
-
-  if (entry->checksum)
+ 
+  if (entry->checksum) 
     {
       SVN_ERR (svn_utf_cstring_from_utf8 (&native, entry->checksum, pool));
       printf ("Checksum: %s\n", native);
     }
-
-  if (text_conflict && entry->conflict_old)
+ 
+  if (text_conflict && entry->conflict_old) 
     {
       SVN_ERR (svn_utf_cstring_from_utf8 (&native, entry->conflict_old, pool));
       printf ("Conflict Previous Base File: %s\n", native);
     }
-
-  if (text_conflict && entry->conflict_wrk)
+ 
+  if (text_conflict && entry->conflict_wrk) 
     {
       SVN_ERR (svn_utf_cstring_from_utf8 (&native, entry->conflict_wrk, pool));
       printf ("Conflict Previous Working File: %s\n", native);
     }
-
-  if (text_conflict && entry->conflict_new)
+ 
+  if (text_conflict && entry->conflict_new) 
     {
       SVN_ERR (svn_utf_cstring_from_utf8 (&native, entry->conflict_new, pool));
       printf ("Conflict Current Base File: %s\n", native);
     }
-
-  if (props_conflict && entry->prejfile)
+ 
+  if (props_conflict && entry->prejfile) 
     {
       SVN_ERR (svn_utf_cstring_from_utf8 (&native, entry->prejfile, pool));
       printf ("Conflict Properties File: %s\n", native);
     }
-
+ 
   /* Print extra newline separator. */
   printf ("\n");
 
@@ -209,7 +209,7 @@ info_found_entry_callback (const char *path,
   /* We're going to receive dirents twice;  we want to ignore the
      first one (where it's a child of a parent dir), and only print
      the second one (where we're looking at THIS_DIR.)  */
-  if ((entry->kind == svn_node_dir)
+  if ((entry->kind == svn_node_dir) 
       && (strcmp (entry->name, SVN_WC_ENTRY_THIS_DIR)))
     return SVN_NO_ERROR;
 
@@ -217,7 +217,7 @@ info_found_entry_callback (const char *path,
 }
 
 
-static const svn_wc_entry_callbacks_t
+static const svn_wc_entry_callbacks_t 
 entry_walk_callbacks =
   {
     info_found_entry_callback
@@ -235,7 +235,7 @@ svn_cl__info (apr_getopt_t *os,
   apr_array_header_t *targets;
   int i;
 
-  SVN_ERR (svn_opt_args_to_target_array (&targets, os,
+  SVN_ERR (svn_opt_args_to_target_array (&targets, os, 
                                          opt_state->targets,
                                          &(opt_state->start_revision),
                                          &(opt_state->end_revision),
