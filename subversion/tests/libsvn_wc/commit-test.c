@@ -4,32 +4,32 @@
  *
  * ================================================================
  * Copyright (c) 2000 CollabNet.  All rights reserved.
- *
+ * 
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
  * met:
- *
+ * 
  * 1. Redistributions of source code must retain the above copyright
  * notice, this list of conditions and the following disclaimer.
- *
+ * 
  * 2. Redistributions in binary form must reproduce the above copyright
  * notice, this list of conditions and the following disclaimer in the
  * documentation and/or other materials provided with the distribution.
- *
+ * 
  * 3. The end-user documentation included with the redistribution, if
  * any, must include the following acknowlegement: "This product includes
  * software developed by CollabNet (http://www.Collab.Net/)."
  * Alternately, this acknowlegement may appear in the software itself, if
  * and wherever such third-party acknowlegements normally appear.
- *
+ * 
  * 4. The hosted project names must not be used to endorse or promote
  * products derived from this software without prior written
  * permission. For written permission, please contact info@collab.net.
- *
+ * 
  * 5. Products derived from this software may not use the "Tigris" name
  * nor may "Tigris" appear in their names without prior written
  * permission of CollabNet.
- *
+ * 
  * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
  * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -43,7 +43,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ====================================================================
- *
+ * 
  * This software consists of voluntary contributions made by many
  * individuals on behalf of CollabNet.
  */
@@ -82,7 +82,7 @@ main (int argc, char *argv[])
   /* Process command-line args */
   if (argc < 2)
     {
-      printf
+      printf 
         ("\nUsage: %s [dir] [-x]:  crawls working copy [dir]\n",
          argv[0]);
       printf ("Prints human-readable `commit', or XML if -x is used.\n");
@@ -98,7 +98,7 @@ main (int argc, char *argv[])
   if (argc > 2)
     if (! strcmp (argv[2], "-x"))
       use_xml = TRUE;
-
+      
   /* Get an editor */
 
   if (use_xml)  /* xml output */
@@ -106,7 +106,7 @@ main (int argc, char *argv[])
       /* Open a stdout filehandle */
       status = apr_open (&stdout_handle, "-", APR_WRITE,
                          APR_OS_DEFAULT, globalpool);
-
+      
       err = svn_delta_get_xml_editor (svn_io_file_writer,
                                       (void *) stdout_handle,
                                       &my_editor, &my_edit_baton,
