@@ -38,7 +38,7 @@ print_tree (svn_fs_root_t *root,
 {
   apr_hash_t *entries;
   apr_hash_index_t *hi;
-
+  
   SVN_ERR (svn_fs_dir_entries (&entries, root, path, pool));
 
   for (hi = apr_hash_first (entries); hi; hi = apr_hash_next (hi))
@@ -50,7 +50,7 @@ print_tree (svn_fs_root_t *root,
       const char *this_full_path;
       int is_dir;
       int i;
-
+ 
       apr_hash_this (hi, &key, &keylen, &val);
       this_entry = val;
 
@@ -61,7 +61,7 @@ print_tree (svn_fs_root_t *root,
         printf (" ");
 
       printf ("%s", this_entry->name);
-
+      
       SVN_ERR (svn_fs_is_dir (&is_dir, root, this_full_path, pool));
       if (is_dir)
         {
@@ -237,7 +237,7 @@ main (int argc, const char * const *argv)
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
