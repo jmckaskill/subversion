@@ -110,8 +110,8 @@ make_file_baton (const char *path,
 }
 
 static svn_error_t *
-open_root (void *edit_baton,
-           svn_revnum_t base_revision,
+open_root (void *edit_baton, 
+           svn_revnum_t base_revision, 
            apr_pool_t *pool,
            void **root_baton)
 {
@@ -122,7 +122,7 @@ open_root (void *edit_baton,
 
 static svn_error_t *
 delete_entry (const char *path,
-              svn_revnum_t revision,
+              svn_revnum_t revision, 
               void *parent_baton,
               apr_pool_t *pool)
 {
@@ -188,7 +188,7 @@ close_directory (void *dir_baton)
       SVN_ERR (svn_wc_conflicted_p (&tc, &pc, db->path, entry, subpool));
       if (! pc)
         SVN_ERR (svn_wc_props_modified_p (&merged, db->path, subpool));
-
+      
       if (pc)
         statchar_buf[1] = 'C';
       else if (merged)
@@ -201,7 +201,7 @@ close_directory (void *dir_baton)
       /* Destroy the subpool. */
       svn_pool_destroy (subpool);
     }
-
+    
   return SVN_NO_ERROR;
 }
 
@@ -244,7 +244,7 @@ close_file (void *file_baton)
         {
           if (! pc)
             SVN_ERR (svn_wc_props_modified_p (&merged, fb->path, subpool));
-
+          
           if (pc)
             statchar_buf[1] = 'C';
           else if (merged)
@@ -252,7 +252,7 @@ close_file (void *file_baton)
           else
             statchar_buf[1] = 'U';
         }
-
+      
       /* Destroy the subpool. */
       svn_pool_destroy (subpool);
     }
@@ -374,14 +374,14 @@ svn_cl__get_trace_update_editor (const svn_delta_editor_t **editor,
 
   *edit_baton = eb;
   *editor = trace_editor;
-
+  
   return SVN_NO_ERROR;
 }
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../tools/dev/svn-dev.el")
- * end:
+ * end: 
  */
