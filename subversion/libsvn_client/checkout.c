@@ -90,7 +90,7 @@ svn_client__checkout_internal (const char *URL,
       SVN_ERR (svn_client__get_revision_number
                (&revnum, ra_lib, session, revision, path, pool));
 
-
+      
       SVN_ERR (svn_io_check_path (path, &kind, pool));
 
       if (kind == svn_node_none)
@@ -98,9 +98,9 @@ svn_client__checkout_internal (const char *URL,
           /* Bootstrap: create an incomplete working-copy root dir.  Its
              entries file should only have an entry for THIS_DIR with a
              URL, revnum, and an 'incomplete' flag.  */
-          SVN_ERR (svn_io_make_dir_recursively (path, pool));
+          SVN_ERR (svn_io_make_dir_recursively (path, pool));          
           SVN_ERR (svn_wc_ensure_adm (path, URL, revnum, pool));
-
+          
           /* Have update fix the incompleteness. */
           err = svn_client_update (path, revision, recurse, ctx, pool);
         }
@@ -135,7 +135,7 @@ svn_client__checkout_internal (const char *URL,
           else
             {
               const char *errmsg;
-              errmsg = apr_psprintf
+              errmsg = apr_psprintf 
                 (pool,
                  "'%s' is already a working copy for a different url", path);
               if (entry->incomplete)
@@ -162,8 +162,8 @@ svn_client__checkout_internal (const char *URL,
           return err;
         }
       *use_sleep = TRUE;
-    }
-
+    }      
+  
   /* We handle externals after the initial checkout is complete, so
      that fetching external items (and any errors therefrom) doesn't
      delay the primary checkout.
