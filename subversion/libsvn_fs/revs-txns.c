@@ -41,7 +41,7 @@ get_rev_txn (svn_fs__transaction_t **txn_p,
 {
   svn_fs__revision_t *revision;
   svn_fs__transaction_t *txn;
-
+  
   SVN_ERR (svn_fs__bdb_get_rev (&revision, fs, rev, trail));
   if (revision->txn_id == NULL)
     return svn_fs__err_corrupt_fs_revision (fs, rev);
@@ -65,7 +65,7 @@ svn_fs__rev_get_root (const svn_fs_id_t **root_id_p,
                       trail_t *trail)
 {
   svn_fs__transaction_t *txn;
-
+  
   SVN_ERR (get_rev_txn (&txn, NULL, fs, rev, trail));
   if (txn->root_id == NULL)
     return svn_fs__err_corrupt_fs_revision (fs, rev);
@@ -289,7 +289,7 @@ svn_fs_change_rev_prop (svn_fs_t *fs,
 
 /*** Transactions ***/
 
-static int
+static int 
 is_committed (svn_fs__transaction_t *txn)
 {
   return SVN_IS_VALID_REVNUM (txn->revision);
@@ -326,7 +326,7 @@ svn_fs__get_txn_ids (const svn_fs_id_t **root_id_p,
                      trail_t *trail)
 {
   svn_fs__transaction_t *txn;
-
+  
   SVN_ERR (svn_fs__bdb_get_txn (&txn, fs, txn_name, trail));
   if (is_committed (txn))
     return svn_fs__err_txn_not_mutable (fs, txn_name);
@@ -422,14 +422,14 @@ txn_body_txn_prop (void *baton,
 {
   struct txn_prop_args *args = baton;
   svn_fs__transaction_t *txn;
-
-  SVN_ERR (svn_fs__bdb_get_txn (&txn, args->fs, args->id, trail));
+  
+  SVN_ERR (svn_fs__bdb_get_txn (&txn, args->fs, args->id, trail)); 
   if (is_committed (txn))
     return svn_fs__err_txn_not_mutable (args->fs, args->id);
 
   *(args->value_p) = NULL;
   if (txn->proplist)
-    *(args->value_p) = apr_hash_get (txn->proplist,
+    *(args->value_p) = apr_hash_get (txn->proplist, 
                                      args->propname, APR_HASH_KEY_STRING);
   return SVN_NO_ERROR;
 }
@@ -476,7 +476,7 @@ txn_body_txn_proplist (void *baton, trail_t *trail)
   if (is_committed (txn))
     return svn_fs__err_txn_not_mutable (args->fs, args->id);
 
-  *(args->table_p) = txn->proplist
+  *(args->table_p) = txn->proplist 
                      ? txn->proplist : apr_hash_make (trail->pool);
   return SVN_NO_ERROR;
 }
@@ -544,7 +544,7 @@ static svn_error_t *
 txn_body_change_txn_prop (void *baton, trail_t *trail)
 {
   struct change_txn_prop_args *args = baton;
-  return svn_fs__set_txn_prop (args->fs, args->id, args->name,
+  return svn_fs__set_txn_prop (args->fs, args->id, args->name, 
                                args->value, trail);
 }
 
