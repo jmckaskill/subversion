@@ -93,7 +93,7 @@ svn_wc_relocate (const char *path,
                                          SVN_WC_ENTRY_THIS_DIR,
                                          APR_HASH_KEY_STRING);
     if (entry->url &&
-        (strncmp(entry->url, from, from_len) == 0))
+        (strncmp(entry->url, from, from_len) == 0)) 
       {
         char *url = apr_psprintf(svn_wc_adm_access_pool(adm_access),
                                  "%s%s", to, entry->url + from_len);
@@ -127,7 +127,7 @@ svn_wc_relocate (const char *path,
         }
 
       if (entry->url &&
-          (strncmp(entry->url, from, from_len) == 0))
+          (strncmp(entry->url, from, from_len) == 0)) 
         {
           char *url = apr_psprintf(svn_wc_adm_access_pool(adm_access),
                                    "%s%s", to, entry->url + from_len);

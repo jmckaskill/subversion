@@ -33,10 +33,10 @@ CVS. Ceci signifie que vous êtes encouragé à perdre certaines habitudes.
 * Distinction entre état et mise à jour::
 * Méta-données propriétés::
 * Version de répertoire::
-* Conflits::
+* Conflits::                
 * Fichiers binaires::
 * Authorisation::
-* Modules versionnés::
+* Modules versionnés::            
 * Branches et étiquetage::
 @end menu
 
@@ -188,7 +188,7 @@ méta-données arbitraires à un fichier ou un répertoire. Nous appèlerons
 ces données des @dfn{propriétés}, et qui peuvent être vues comme une
 collection de paire nom/valeur attaché à chaque élément de votre copie de
 travail.
-
+  
 Pour renseigner ou obtenir une propriété, utilisez les sous-commandes
 @samp{svn propset} et @samp{svn propget}. Pour lister toutes les
 propriétés d'un objet, utilisez @samp{svn proplist}.
@@ -341,7 +341,7 @@ laziness, impatience, and hubris.'' -- Larry Wall}
 @end quotation
 
 Cette appendice décrit quelques pièges théoriques autour de la notion
-(peut-être arrogante) qu'un répertoire peut-être aussi simplement
+(peut-être arrogante) qu'un répertoire peut-être aussi simplement 
 versionné qu'un fichier.
 
 @subsection Révision de répertoire
@@ -450,7 +450,7 @@ supprimer à nouveau lorsqu'il patch le client vers la révision 2.
 @c           the entire entry.  (no more `deleted' flag)
 @c
 @c       (2) the repository will say nothing about the item, which means
-@c           that it's fully aware that your item is gone, and this is
+@c           that it's fully aware that your item is gone, and this is 
 @c           the correct state to be in.  In this case, the entire entry
 @c           is removed.  (no more `deleted' flag)
 @c
@@ -507,7 +507,7 @@ cible directe d'une commande de mise à jour, soit le fils d'un répertoire
 mise à jour, il est alors augmenté (avec d'autres frère et fils) à un
 numéros de révision uniforme.
 @item
-@b{quand un répertoire est remonté}: un répertoire peut-être considéré
+@b{quand un répertoire est remonté}: un répertoire peut-être considéré 
 comme un ``objet remonté'' uniquement s'il a une nouvelle modification de
 propriété. (autrement, ``remonter un répertoire'' implique que ces fils
 modifiés ait été remontés, et uniquement de tel fils auront leur révision
