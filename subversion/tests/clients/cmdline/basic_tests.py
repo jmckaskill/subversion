@@ -2,9 +2,9 @@
 #
 #  basic_tests.py:  testing working-copy interactions with ra_local
 #
-#  Subversion is a tool for revision control.
+#  Subversion is a tool for revision control. 
 #  See http://subversion.tigris.org for more information.
-#
+#    
 # ====================================================================
 # Copyright (c) 2000-2001 CollabNet.  All rights reserved.
 #
@@ -60,7 +60,7 @@ def basic_status():
   expected_output_tree = svntest.tree.build_generic_tree(status_list)
 
   return svntest.actions.run_and_verify_status (wc_dir, expected_output_tree)
-
+  
 #----------------------------------------------------------------------
 
 def basic_commit():
@@ -68,7 +68,7 @@ def basic_commit():
 
   sbox = sandbox(basic_commit)
   wc_dir = os.path.join (svntest.main.general_wc_dir, sbox)
-
+  
   if svntest.actions.make_repo_and_wc(sbox):
     return 1
 
@@ -98,7 +98,7 @@ def basic_commit():
                                                 None, None,
                                                 None, None,
                                                 wc_dir)
-
+  
 #----------------------------------------------------------------------
 
 def commit_one_file():
@@ -106,7 +106,7 @@ def commit_one_file():
 
   sbox = sandbox(commit_one_file)
   wc_dir = os.path.join (svntest.main.general_wc_dir, sbox)
-
+  
   if svntest.actions.make_repo_and_wc(sbox):
     return 1
 
@@ -138,7 +138,7 @@ def commit_one_file():
                                                 None, None,
                                                 None, None,
                                                 rho_path)
-
+  
 #----------------------------------------------------------------------
 
 def commit_multiple_targets():
@@ -146,7 +146,7 @@ def commit_multiple_targets():
 
   sbox = sandbox(commit_multiple_targets)
   wc_dir = os.path.join (svntest.main.general_wc_dir, sbox)
-
+  
   if svntest.actions.make_repo_and_wc(sbox):
     return 1
 
@@ -171,7 +171,7 @@ def commit_multiple_targets():
   svntest.main.run_svn(None, 'propset', 'foo', 'bar', ADG_path)
 
   # Created expected output tree for 'svn ci'.  We should see changes
-  # only on these three targets, no others.
+  # only on these three targets, no others.  
   output_list = [ [psi_path, None, {}, {'verb' : 'Sending' }],
                   [lambda_path, None, {}, {'verb' : 'Sending' }],
                   [pi_path, None, {}, {'verb' : 'Sending' }] ]
@@ -208,7 +208,7 @@ def commit_multiple_targets_2():
 
   sbox = sandbox(commit_multiple_targets_2)
   wc_dir = os.path.join (svntest.main.general_wc_dir, sbox);
-
+  
   if svntest.actions.make_repo_and_wc(sbox):
     return 1
 
@@ -233,7 +233,7 @@ def commit_multiple_targets_2():
   svntest.main.run_svn(None, 'propset', 'foo', 'bar', ADG_path)
 
   # Created expected output tree for 'svn ci'.  We should see changes
-  # only on these three targets, no others.
+  # only on these three targets, no others.  
   output_list = [ [psi_path, None, {}, {'verb' : 'Sending' }],
                   [lambda_path, None, {}, {'verb' : 'Sending' }],
                   [omega_path, None, {}, {'verb' : 'Sending' }],
@@ -263,7 +263,7 @@ def commit_multiple_targets_2():
                                                 None, None,
                                                 psi_path, AB_path,
                                                 omega_path, pi_path)
-
+  
 #----------------------------------------------------------------------
 
 def basic_update():
@@ -271,7 +271,7 @@ def basic_update():
 
   sbox = sandbox(basic_update)
   wc_dir = os.path.join (svntest.main.general_wc_dir, sbox)
-
+  
   if svntest.actions.make_repo_and_wc(sbox):
     return 1
 
@@ -320,7 +320,7 @@ def basic_update():
   # Create expected status tree for the update.
   status_list = svntest.actions.get_virginal_status_list(wc_backup, '2')
   expected_status_tree = svntest.tree.build_generic_tree(status_list)
-
+  
   # Do the update and check the results in three ways.
   return svntest.actions.run_and_verify_update(wc_backup,
                                                expected_output_tree,
@@ -333,10 +333,10 @@ def basic_merge():
 
   sbox = sandbox(basic_merge)
   wc_dir = os.path.join (svntest.main.general_wc_dir, sbox)
-
+  
   if svntest.actions.make_repo_and_wc(sbox):
     return 1
-
+  
   # First change the greek tree to make two files 10 lines long
   mu_path = os.path.join(wc_dir, 'A', 'mu')
   rho_path = os.path.join(wc_dir, 'A', 'D', 'G', 'rho')
@@ -346,7 +346,7 @@ def basic_merge():
     mu_text = mu_text + '\nThis is line ' + `x` + ' in mu'
     rho_text = rho_text + '\nThis is line ' + `x` + ' in rho'
   svntest.main.file_append (mu_path, mu_text)
-  svntest.main.file_append (rho_path, rho_text)
+  svntest.main.file_append (rho_path, rho_text)  
 
   # Create expected output tree for initial commit
   output_list = [ [mu_path, None, {}, {'verb' : 'Sending' }],
@@ -361,7 +361,7 @@ def basic_merge():
       item[3]['wc_rev'] = '2'
       item[3]['status'] = '_ '
   expected_status_tree = svntest.tree.build_generic_tree(status_list)
-
+  
   # Initial commit.
   if svntest.actions.run_and_verify_commit (wc_dir,
                                             expected_output_tree,
@@ -370,7 +370,7 @@ def basic_merge():
                                             None, None, None, None,
                                             wc_dir):
     return 1
-
+  
   # Make a backup copy of the working copy
   wc_backup = wc_dir + 'backup'
   svntest.actions.duplicate_dir(wc_dir, wc_backup)
@@ -414,27 +414,27 @@ def basic_merge():
     backup_mu_text = backup_mu_text + '\nThis is line ' + `x` + ' in mu'
   fp_mu.write(backup_mu_text)
   fp_mu.close()
-
+  
   fp_rho = open(rho_path_backup, 'w+') # now open rho in write mode
   backup_rho_text='This is the new line 1 in the backup copy of rho'
   for x in range(2,11):
     backup_rho_text = backup_rho_text + '\nThis is line ' + `x` + ' in rho'
   fp_rho.write(backup_rho_text)
   fp_rho.close()
-
+  
   # Create expected output tree for an update of the wc_backup.
   output_list = [[os.path.join(wc_backup, 'A', 'mu'),
                   None, {}, {'status' : 'G '}],
                  [os.path.join(wc_backup, 'A', 'D', 'G', 'rho'),
                   None, {}, {'status' : 'G '}]]
   expected_output_tree = svntest.tree.build_generic_tree(output_list)
-
+  
   # Create expected disk tree for the update.
   my_greek_tree = svntest.main.copy_greek_tree()
   my_greek_tree[2][1] = 'This is the new line 1 in the backup copy of mu'
   for x in range(2,11):
     my_greek_tree[2][1] = my_greek_tree[2][1] + '\nThis is line ' + `x` + ' in mu'
-  my_greek_tree[2][1] = my_greek_tree[2][1] + ' Appended to line 10 of mu'
+  my_greek_tree[2][1] = my_greek_tree[2][1] + ' Appended to line 10 of mu'  
   my_greek_tree[14][1] = 'This is the new line 1 in the backup copy of rho'
   for x in range(2,11):
     my_greek_tree[14][1] = my_greek_tree[14][1] + '\nThis is line ' + `x` + ' in rho'
@@ -447,7 +447,7 @@ def basic_merge():
     if (item[0] == mu_path_backup) or (item[0] == rho_path_backup):
       item[3]['status'] = 'M '
   expected_status_tree = svntest.tree.build_generic_tree(status_list)
-
+  
   # Do the update and check the results in three ways.
   return svntest.actions.run_and_verify_update(wc_backup,
                                                expected_output_tree,
@@ -480,7 +480,7 @@ def basic_conflict():
 
   sbox = sandbox(basic_conflict)
   wc_dir = os.path.join (svntest.main.general_wc_dir, sbox)
-
+  
   if svntest.actions.make_repo_and_wc(sbox):
     return 1
 
@@ -525,7 +525,7 @@ def basic_conflict():
   output_list = [ [mu_path_backup, None, {}, {'status' : 'C '}],
                   [rho_path_backup, None, {}, {'status' : 'C '}]]
   expected_output_tree = svntest.tree.build_generic_tree(output_list)
-
+  
   # Create expected disk tree for the update.
   my_greek_tree = svntest.main.copy_greek_tree()
   my_greek_tree[2][1] = my_greek_tree[2][1] + '\nConflicting appended text for mu'
@@ -542,7 +542,7 @@ def basic_conflict():
   # "Extra" files that we expect to result from the conflicts.
   # These are expressed as regexps.
   extra_files = ['mu.*\.rej', 'rho.*\.rej', '\.#mu.*', '\.#rho.*']
-
+  
   # Do the update and check the results in three ways.
   # All "extra" files are passed to detect_conflict_files().
   if svntest.actions.run_and_verify_update(wc_backup,
@@ -552,7 +552,7 @@ def basic_conflict():
                            detect_conflict_files, # our singleton handler func
                            extra_files):    # our handler will look for these
     return 1
-
+  
   # verify that the extra_files list is now empty.
   if len(extra_files) != 0:
     # Because we want to be a well-behaved test, we silently return
@@ -584,7 +584,7 @@ def basic_cleanup():
   svntest.actions.lock_admin_dir(B_path)
   svntest.actions.lock_admin_dir(G_path)
   svntest.actions.lock_admin_dir(C_path)
-
+  
   # Verify locked status.
   status_list = svntest.actions.get_virginal_status_list(wc_dir, '1')
   for item in status_list:
@@ -594,20 +594,20 @@ def basic_cleanup():
   expected_output_tree = svntest.tree.build_generic_tree(status_list)
   if svntest.actions.run_and_verify_status (wc_dir, expected_output_tree):
     return 1
-
+  
   # Run cleanup (### todo: cleanup doesn't currently print anything)
   stdout_lines, stderr_lines = svntest.main.run_svn(None, 'cleanup', wc_dir)
   if len (stderr_lines) > 0:
     print "Cleanup command printed the following to stderr:"
     print stderr_lines
     return 1
-
+  
   # Verify unlocked status.
   status_list = svntest.actions.get_virginal_status_list(wc_dir, '1')
   expected_output_tree = svntest.tree.build_generic_tree(status_list)
 
   return svntest.actions.run_and_verify_status (wc_dir, expected_output_tree)
-
+  
 #----------------------------------------------------------------------
 
 def basic_revert():
@@ -626,7 +626,7 @@ def basic_revert():
   svntest.main.file_append(beta_path, "Added some text to 'beta'.")
   svntest.main.file_append(iota_path, "Added some text to 'iota'.")
   svntest.main.file_append(rho_path, "Added some text to 'rho'.")
-
+  
   # Verify modified status.
   status_list = svntest.actions.get_virginal_status_list(wc_dir, '1')
   for item in status_list:
@@ -636,7 +636,7 @@ def basic_revert():
   expected_output_tree = svntest.tree.build_generic_tree(status_list)
   if svntest.actions.run_and_verify_status (wc_dir, expected_output_tree):
     return 1
-
+  
   # Run revert (### todo: revert doesn't currently print anything)
   stdout_lines, stderr_lines = svntest.main.run_svn(None, 'revert', beta_path)
   if len (stderr_lines) > 0:
@@ -653,7 +653,7 @@ def basic_revert():
     print "Revert command printed the following to stderr:"
     print stderr_lines
     return 1
-
+  
   # Verify unmodified status.
   status_list = svntest.actions.get_virginal_status_list(wc_dir, '1')
   expected_output_tree = svntest.tree.build_generic_tree(status_list)
@@ -676,7 +676,7 @@ def basic_revert():
   if not ((len (lines) == 1) and (lines[0] == "This is the file 'rho'.")):
     print "Revert failed to restore original text."
     return 1
-
+    
 #----------------------------------------------------------------------
 
 # Helper for update_binary_file() test -- a custom singleton handler.
@@ -717,7 +717,7 @@ def update_binary_file():
 
   sbox = sandbox(update_binary_file)
   wc_dir = os.path.join (svntest.main.general_wc_dir, sbox)
-
+  
   if svntest.actions.make_repo_and_wc(sbox):
     return 1
 
@@ -730,8 +730,8 @@ def update_binary_file():
   fp = open(theta_path, 'w')
   fp.write(theta_contents)    # write png filedata into 'A/theta'
   fp.close()
-
-  svntest.main.run_svn(None, 'add', theta_path)
+  
+  svntest.main.run_svn(None, 'add', theta_path)  
 
   # Created expected output tree for 'svn ci'
   output_list = [ [theta_path, None, {}, {'verb' : 'Adding' }] ]
@@ -794,7 +794,7 @@ def update_binary_file():
   output_list = [ [theta_backup_path, None, {}, {'status' : 'U '}] ]
   expected_output_tree = svntest.tree.build_generic_tree(output_list)
 
-  # Create expected disk tree for the update --
+  # Create expected disk tree for the update -- 
   #    look!  binary contents, and a binary property!
   my_greek_tree = svntest.main.copy_greek_tree()
   my_greek_tree.append(['A/theta',
@@ -808,7 +808,7 @@ def update_binary_file():
                       {'status' : '__',
                        'locked' : ' ',
                        'wc_rev' : '3',
-                       'repos_rev' : '3'}])
+                       'repos_rev' : '3'}])  
   expected_status_tree = svntest.tree.build_generic_tree(status_list)
 
   # Extra 'singleton' files we expect to exist after the update.
@@ -817,7 +817,7 @@ def update_binary_file():
   #  This is a list of lists, of the form [ WC_DIR,
   #                                         [pattern, contents], ...]
   extra_files = [wc_backup, ['theta.*\.orig', theta_contents_local]]
-
+  
   # Do the update and check the results in three ways.  Pass our
   # custom singleton handler to verify the .orig file; this handler
   # will verify the existence (and contents) of both binary files
@@ -845,13 +845,13 @@ def update_binary_file_2():
 
   sbox = sandbox(update_binary_file_2)
   wc_dir = os.path.join (svntest.main.general_wc_dir, sbox)
-
+  
   if svntest.actions.make_repo_and_wc(sbox):
     return 1
 
   # Suck up contents of a test .png file.
   fp = open("theta.png")
-  theta_contents = fp.read()
+  theta_contents = fp.read()  
   fp.close()
 
   # 102400 is svn_txdelta_window_size.  We're going to make sure we
@@ -867,7 +867,7 @@ def update_binary_file_2():
   # Write our two files' contents out to disk, in A/theta and A/zeta.
   theta_path = os.path.join(wc_dir, 'A', 'theta')
   fp = open(theta_path, 'w')
-  fp.write(theta_contents)
+  fp.write(theta_contents)    
   fp.close()
   zeta_path = os.path.join(wc_dir, 'A', 'zeta')
   fp = open(zeta_path, 'w')
@@ -875,7 +875,7 @@ def update_binary_file_2():
   fp.close()
 
   # Now, `svn add' those two files.
-  svntest.main.run_svn(None, 'add', theta_path, zeta_path)
+  svntest.main.run_svn(None, 'add', theta_path, zeta_path)  
 
   # Created expected output tree for 'svn ci'
   output_list = [ [theta_path, None, {}, {'verb' : 'Adding' }],
@@ -909,7 +909,7 @@ def update_binary_file_2():
   new_theta_contents = theta_contents + "foobar"
   svntest.main.file_append (zeta_path, "foobar")
   new_zeta_contents = zeta_contents + "foobar"
-
+  
   # Created expected output tree for 'svn ci'
   output_list = [ [theta_path, None, {}, {'verb' : 'Sending' }],
                   [zeta_path, None, {}, {'verb' : 'Sending' }] ]
@@ -942,7 +942,7 @@ def update_binary_file_2():
                   [zeta_path, None, {}, {'status' : 'U '}] ]
   expected_output_tree = svntest.tree.build_generic_tree(output_list)
 
-  # Create expected disk tree for the update --
+  # Create expected disk tree for the update -- 
   #    look!  binary contents, and a binary property!
   my_greek_tree = svntest.main.copy_greek_tree()
   my_greek_tree.append(['A/theta',
@@ -961,12 +961,12 @@ def update_binary_file_2():
                       {'status' : '__',
                        'locked' : ' ',
                        'wc_rev' : '2',
-                       'repos_rev' : '3'}])
+                       'repos_rev' : '3'}])  
   status_list.append([zeta_path, None, {},
                       {'status' : '__',
                        'locked' : ' ',
                        'wc_rev' : '2',
-                       'repos_rev' : '3'}])
+                       'repos_rev' : '3'}])  
   expected_status_tree = svntest.tree.build_generic_tree(status_list)
 
   # Do an update from revision 2 and make sure that our binary file
@@ -1001,7 +1001,7 @@ test_list = [ None,
              ]
 
 if __name__ == '__main__':
-
+  
   ## run the main test routine on them:
   err = svntest.main.run_tests(test_list)
 
