@@ -1,6 +1,6 @@
 dnl  SVN_LIB_APRUTIL(wanted_regex, alt_wanted_regex)
 dnl
-dnl  'wanted_regex' and 'alt_wanted_regex are regular expressions
+dnl  'wanted_regex' and 'alt_wanted_regex are regular expressions 
 dnl  that the aprutil version string must match.
 dnl
 dnl  Check configure options and assign variables related to
@@ -32,9 +32,9 @@ AC_DEFUN(SVN_LIB_APRUTIL,
     SVN_SUBDIRS="$SVN_SUBDIRS apr-util"
   fi
 
-  dnl check APRUTIL version number against regex
+  dnl check APRUTIL version number against regex  
 
-  AC_MSG_CHECKING([APR-UTIL version])
+  AC_MSG_CHECKING([APR-UTIL version])    
   apu_version="`$apu_config --version`"
   if test $? -ne 0; then
     # This is a hack as suggested by Ben Collins-Sussman.  It can be
