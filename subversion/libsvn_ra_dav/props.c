@@ -107,7 +107,7 @@ struct dav_propfind_handler_s {
     int has_props; /* whether we've already written some
 		    * props to the body. */
     sbuffer body;
-
+    
     dav_207_parser *parser207;
     hip_xml_parser *parser;
     struct hip_xml_elm *elms;
@@ -115,7 +115,7 @@ struct dav_propfind_handler_s {
     /* Callback to create the private structure. */
     dav_props_create_complex private_creator;
     void *private_userdata;
-
+    
     /* Current propset. */
     dav_prop_result_set *current;
 
@@ -136,7 +136,7 @@ static int propfind(dav_propfind_handler *handler,
     /* Register the catch-all handler to ignore any cruft the
      * server returns. */
     dav_207_ignore_unknown(handler->parser207);
-
+    
     req = http_request_create(handler->sess, "PROPFIND", handler->uri);
 
     handler->callback = results;
@@ -151,8 +151,8 @@ static int propfind(dav_propfind_handler *handler,
     if (label != NULL)
       http_add_request_header(req, "Label", label);
     /* ### SVN END ### */
-
-    http_add_response_body_reader(req, dav_accept_207, hip_xml_parse_v,
+    
+    http_add_response_body_reader(req, dav_accept_207, hip_xml_parse_v, 
 				  handler->parser);
 
     ret = http_request_dispatch(req);
@@ -261,7 +261,7 @@ static int validate_element(hip_xml_elmid parent, hip_xml_elmid child)
             /* some other, unrecognized property */
             return HIP_XML_DECLINE;
           }
-
+        
     case ELEM_baseline_coll:
     case ELEM_checked_in:
     case ELEM_vcc:
@@ -269,7 +269,7 @@ static int validate_element(hip_xml_elmid parent, hip_xml_elmid child)
         return HIP_XML_VALID;
       else
         return HIP_XML_DECLINE; /* not concerned with other types */
-
+      
     case ELEM_resourcetype:
       if (child == ELEM_collection)
         return HIP_XML_VALID;
@@ -379,7 +379,7 @@ svn_error_t * svn_ra_dav__get_props(apr_hash_t **results,
                                    "(%s, port %d).",
                                    ras->root.host, ras->root.port);
         case HTTP_AUTH:
-          return svn_error_create(SVN_ERR_NOT_AUTHORIZED, 0, NULL,
+          return svn_error_create(SVN_ERR_NOT_AUTHORIZED, 0, NULL, 
                                   pool,
                                   "Authentication failed on server.");
         default:
@@ -415,7 +415,7 @@ svn_error_t * svn_ra_dav__get_props_resource(svn_ra_dav_resource_t **rsrc,
 }
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
