@@ -103,7 +103,7 @@ the section for unapproved changes.)
       Justification: Tiny change, avoid unnecessary interface guarantees.
       Votes:
        +1: kfogel, ghudson, epg
-
+      
 
 -*- -*- -*- -*- -*- -*- -*- -*- -*- -*- -*- -*- -*- -*- -*- -*- -*- -*-
 
@@ -135,7 +135,7 @@ Bindings changes that affect the build system:
                     to support.
      Votes:
       +1: breser
-
+     
 Bindings changes that don't affect the build system:
 
    [none pending right now]
