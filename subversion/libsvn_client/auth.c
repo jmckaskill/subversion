@@ -47,9 +47,9 @@ svn_client__dir_if_wc (const char **dir_p,
                        apr_pool_t *pool)
 {
   int wc_format;
-
+  
   SVN_ERR (svn_wc_check_wc (dir, &wc_format, pool));
-
+  
   if (wc_format == 0)
     *dir_p = NULL;
   else
@@ -87,7 +87,7 @@ svn_client__default_auth_dir (const char **auth_dir_p,
         (SVN_ERR_NODE_UNKNOWN_KIND, NULL,
          "unknown node kind for '%s'", path);
     }
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -169,7 +169,7 @@ prompt_for_simple_creds (svn_auth_cred_simple_t **cred_p,
      so. */
   if (first_time)
     {
-      def_username = apr_hash_get (parameters,
+      def_username = apr_hash_get (parameters, 
                                    SVN_AUTH_PARAM_DEFAULT_USERNAME,
                                    APR_HASH_KEY_STRING);
 
@@ -179,16 +179,16 @@ prompt_for_simple_creds (svn_auth_cred_simple_t **cred_p,
           char *un;
           apr_uid_t uid;
           apr_gid_t gid;
-
+         
           if (! apr_uid_current (&uid, &gid, pool)
               && ! apr_uid_name_get (&un, uid, pool))
             SVN_ERR (svn_utf_cstring_to_utf8 (&def_username, un, pool));
         }
 
-      def_password = apr_hash_get (parameters,
+      def_password = apr_hash_get (parameters, 
                                    SVN_AUTH_PARAM_DEFAULT_PASSWORD,
                                    APR_HASH_KEY_STRING);
-    }
+    }    
 
   /* If we have defaults, just build the cred here and return it.
    *
@@ -227,7 +227,7 @@ prompt_for_username_creds (svn_auth_cred_username_t **cred_p,
   /* If we're allowed to check for default usernames, do so. */
   if (first_time)
     {
-      def_username = apr_hash_get (parameters,
+      def_username = apr_hash_get (parameters, 
                                    SVN_AUTH_PARAM_DEFAULT_USERNAME,
                                    APR_HASH_KEY_STRING);
 
@@ -237,12 +237,12 @@ prompt_for_username_creds (svn_auth_cred_username_t **cred_p,
           char *un;
           apr_uid_t uid;
           apr_gid_t gid;
-
+         
           if (! apr_uid_current (&uid, &gid, pool)
               && ! apr_uid_name_get (&un, uid, pool))
             SVN_ERR (svn_utf_cstring_to_utf8 (&def_username, un, pool));
         }
-    }
+    }    
 
   /* If we have defaults, just build the cred here and return it.
    *
@@ -501,7 +501,7 @@ server_ssl_file_first_credentials (void **credentials,
           failures &= ~SVN_AUTH_SSL_CNMISMATCH;
         }
     }
-
+  
 
   /* Check if this is a permanently accepted cert */
   if (failures & SVN_AUTH_SSL_UNKNOWNCA)
@@ -572,7 +572,7 @@ client_ssl_cert_file_first_credentials (void **credentials_p,
                                         const char *realmstring,
                                         apr_pool_t *pool)
 {
-  svn_config_t *cfg = apr_hash_get (parameters,
+  svn_config_t *cfg = apr_hash_get (parameters, 
                                     SVN_AUTH_PARAM_CONFIG,
                                     APR_HASH_KEY_STRING);
   const char *server_group = apr_hash_get (parameters,
@@ -587,7 +587,7 @@ client_ssl_cert_file_first_credentials (void **credentials_p,
   if (cert_file != NULL)
     {
       svn_auth_cred_client_ssl_t *cred = apr_palloc (pool, sizeof (*cred));
-
+      
       cred->cert_file = cert_file;
       *credentials_p = cred;
     }
@@ -633,7 +633,7 @@ client_ssl_pw_file_first_credentials (void **credentials_p,
   return SVN_NO_ERROR;
 }
 
-static const svn_auth_provider_t server_ssl_file_provider =
+static const svn_auth_provider_t server_ssl_file_provider = 
   {
     SVN_AUTH_CRED_SERVER_SSL,
     &server_ssl_file_first_credentials,
@@ -661,7 +661,7 @@ static const svn_auth_provider_t client_ssl_pw_file_provider =
 
 /*** Public API to SSL file providers. ***/
 
-void
+void 
 svn_client_get_ssl_server_file_provider (svn_auth_provider_object_t **provider,
                                          apr_pool_t *pool)
 {
@@ -675,7 +675,7 @@ svn_client_get_ssl_server_file_provider (svn_auth_provider_object_t **provider,
   *provider = po;
 }
 
-void
+void 
 svn_client_get_ssl_client_file_provider (svn_auth_provider_object_t **provider,
                                          apr_pool_t *pool)
 {
@@ -697,7 +697,7 @@ svn_client_get_ssl_pw_file_provider (svn_auth_provider_object_t **provider,
 
 /*** SSL prompting providers. ***/
 
-/* Baton type for prompting to verify server ssl creds.
+/* Baton type for prompting to verify server ssl creds. 
    There is no iteration baton type. */
 typedef struct
 {
@@ -789,15 +789,15 @@ server_ssl_prompt_first_cred (void **credentials_p,
   return SVN_NO_ERROR;
 }
 
-static const svn_auth_provider_t server_ssl_prompt_provider =
+static const svn_auth_provider_t server_ssl_prompt_provider = 
   {
     SVN_AUTH_CRED_SERVER_SSL,
     server_ssl_prompt_first_cred,
     NULL,
-    NULL
+    NULL  
   };
 
-static const svn_auth_provider_t client_ssl_prompt_provider =
+static const svn_auth_provider_t client_ssl_prompt_provider = 
   {
     SVN_AUTH_CRED_CLIENT_SSL,
     client_ssl_prompt_first_cred,
