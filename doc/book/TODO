@@ -34,7 +34,7 @@ ch00:
   - typo:  "we have made attempt to be thorough in our coverage" (!)
 
 
-ch05:
+ch05: 
 
   - in 'importing initial data' section, reiterate exactly what it
     means to run 'cd /some/path; svn import . URL' versus 'svn import
@@ -92,14 +92,14 @@ ch03:
   - import section at the end:
 
    - you use the word 'above' which is verboten, right?
-
+  
    - explain that while 'svn import' creates intermediate directories
-     for you, 'svn mkdir', 'svn move', and 'svn copy' will not.
+     for you, 'svn mkdir', 'svn move', and 'svn copy' will not. 
 
    - generally, need more examples so users understand when new
      directories will be created, and when they won't.  users are
      constantly confused by this.
-
+  
    - create a 'tip' sidebar (?) in the 'svn import' section which
      explains how to do an "in place" import; we have a FAQ on this
      already.  people keep asking about it.
