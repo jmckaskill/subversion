@@ -47,7 +47,7 @@
     <!-- ***************************************************************** -->
     <sect2 id="svn-ch-5-sect-1.1">
       <title>Understanding Transactions and Revisions</title>
-
+        
       <para>Conceptually speaking, a Subversion repository is a
         sequence of directory trees.  Each tree is a snapshot of how
         the files and directories versioned in your repository looked
@@ -65,7 +65,7 @@
         a new revision number.  If the commit fails for some reason,
         the transaction is destroyed and the client is informed of the
         failure.</para>
-
+            
       <para>Updates work in a similar way.  The client builds a
         temporary transaction tree that mirrors the state of the
         working copy.  The repository then compares that transaction
@@ -75,7 +75,7 @@
         are needed to transform their working copy into a replica of
         that revision tree.  After the update completes, the temporary
         transaction is deleted.</para>
-
+          
       <para>The use of transaction trees is the only way to make
         permanent changes to a repository's versioned filesystem.
         However, it's important to understand that the lifetime of a
@@ -97,13 +97,13 @@
         by someone else, perhaps a manager or engineering QA team, who
         can choose to promote the transaction into a revision, or
         abort it.</para>
-
+            
       <para>What does all of this have to do with repository
         administration?  The answer is simple: if you're administering
         a Subversion repository, you're going to have to examine
         revisions and transactions as part of monitoring the health of
         your repository.</para>
-
+            
     </sect2>
 
     <!-- ***************************************************************** -->
@@ -158,11 +158,11 @@
       task.  The <command>svnadmin</command> utility, provided with
       Subversion, has a subcommand for doing just that.  To create a
       new repository, just run:</para>
-
+          
     <screen>
 $ svnadmin create path/to/repos
 </screen>
-
+          
     <para>This creates a new repository in the directory
       <filename>path/to/repos</filename>.  This new repository begins
       life at revision 0, which is defined to consist of nothing but
@@ -170,7 +170,7 @@ $ svnadmin create path/to/repos
       directory.  Initially, revision 0 also has a single revision
       property, <literal>svn:date</literal>, set to the time at which
       the repository was created.</para>
-
+          
     <para>You may have noticed that the path argument to
       <command>svnadmin</command> was just a regular filesystem path
       and not a URL like the <command>svn</command> client program
@@ -187,12 +187,12 @@ $ svnadmin create path/to/repos
       command, you have a shiny new Subversion repository in its own
       directory.  Let's take a peek at what is actually created inside
       that subdirectory.</para>
-
+            
     <screen>
 $ ls repos
 dav/  db/  format  hooks/  locks/  README.txt
 </screen>
-
+      
     <para>With the exception of the <filename>README.txt</filename> file,
       the repository directory is a collection of subdirectories.  As
       in other areas of the Subversion design, modularity is given
@@ -245,7 +245,7 @@ dav/  db/  format  hooks/  locks/  README.txt
         </listitem>
       </varlistentry>
     </variablelist>
-
+      
     <para>In general, you shouldn't tamper with your repository
       <quote>by hand</quote>.  The <command>svnadmin</command> tool
       should be sufficient for any changes necessary to your
@@ -266,18 +266,18 @@ dav/  db/  format  hooks/  locks/  README.txt
         who triggered the event.  Depending on the hook's output or
         return status, the hook program may continue the action, stop
         it, or suspend it in some way.</para>
-
+            
       <para>The <filename>hooks</filename> subdirectory is, by
         default, filled with templates for various repository
         hooks.</para>
-
+            
       <screen>
 $ ls repos/hooks/
 post-commit.tmpl          pre-revprop-change.tmpl
 post-revprop-change.tmpl  start-commit.tmpl
-pre-commit.tmpl
+pre-commit.tmpl           
 </screen>
-
+            
       <para>There is one template for each hook that the Subversion
         repository implements, and by examining the contents of those
         template scripts, you can see what triggers each such script
@@ -308,7 +308,7 @@ pre-commit.tmpl
         <filename>.exe</filename> or <filename>.com</filename> for
         programs, and <filename>.bat</filename> for batch
         files.</para>
-
+          
       <para>Currently there are five true hooks implemented by the
         Subversion repository.</para>
 
@@ -325,7 +325,7 @@ pre-commit.tmpl
               stopped before the transaction is even created.</para>
           </listitem>
         </varlistentry>
-
+            
         <varlistentry>
           <term><filename>pre-commit</filename></term>
           <listitem>
@@ -364,7 +364,7 @@ pre-commit.tmpl
               arguments to this program: the path to the repository,
               and the new revision number that was created.  The exit
               code of the program is ignored.</para>
-
+                
             <para>The Subversion distribution includes a
               <command>commit-email.pl</command> script (located in
               the <filename>tools/hook-scripts/</filename> directory
@@ -511,7 +511,7 @@ pre-commit.tmpl
 
       <sect3 id="svn-ch-5-sect-3.1.1">
         <title>svnlook</title>
-
+            
         <para><command>svnlook</command> is a tool provided by
           Subversion for examining the various revisions and
           transactions in a repository.  No part of this program
@@ -523,10 +523,10 @@ pre-commit.tmpl
           committed (in the case of the <command>post-commit</command>
           hook) to the repository.  A repository administrator may use
           this tool for diagnostic purposes.</para>
-
+            
         <para><command>svnlook</command> has a straightforward
           syntax:</para>
-
+            
         <screen>
 $ svnlook help
 general usage: svnlook SUBCOMMAND REPOS_PATH [ARGS &amp; OPTIONS ...]
@@ -575,7 +575,7 @@ $ svnlook info /path/to/repos --revision 19
 $ svnlook youngest /path/to/repos
 19
 </screen>
-
+            
         <para>Output from <command>svnlook</command> is designed to be
           both human- and machine-parsable.  Take as an example the output
           of the <literal>info</literal> subcommand:</para>
@@ -686,18 +686,18 @@ $ svnlook tree path/to/repos --show-ids
           <varlistentry>
             <term><literal>changed</literal></term>
             <listitem>
-              <para>List all files and directories that changed in the
+              <para>List all files and directories that changed in the 
                 tree.</para>
             </listitem>
           </varlistentry>
-
+          
           <varlistentry>
             <term><literal>diff</literal></term>
             <listitem>
               <para>Print unified diffs of changed files.</para>
             </listitem>
           </varlistentry>
-
+          
           <varlistentry>
             <term><literal>dirs-changed</literal></term>
             <listitem>
@@ -919,7 +919,7 @@ Available commands:
      1    sally &lt;     a.0.1&gt;          Nov 15 11:50 C/
      1    sally &lt;     b.0.1&gt;          Nov 15 11:50 D/
      1    sally &lt;     3.0.1&gt;       23 Nov 15 11:50 mu
-&lt;rev: 2 /A&gt;$ cd D/G
+&lt;rev: 2 /A&gt;$ cd D/G 
 &lt;rev: 2 /A/D/G&gt;$ ls
    REV   AUTHOR  NODE-REV-ID     SIZE         DATE NAME
 ----------------------------------------------------------------------------
@@ -984,7 +984,7 @@ $
           day-to-day Subversion use, these tools are unnecessary,
           however, they do provide some important functionality that
           is currently not provided by Subversion itself.</para>
-
+  
         <para>For example, because Subversion uses Berkeley DB's
           logging facilities, the database first writes out a
           description of any modifications it is about to make, and
@@ -1032,7 +1032,7 @@ $ svnadmin archive /path/to/repos | xargs rm
           environment while it's being actively accessed:  recursively
           copy the entire repository directory, then re-copy the
           logfiles listed by <command>db_archive -l</command>.</para>
-
+            
         <para>Generally speaking, only the truly paranoid would need
           to backup their entire repository every time a commit
           occurred.  However, assuming that a given repository has
@@ -1044,7 +1044,7 @@ $ svnadmin archive /path/to/repos | xargs rm
           emails alone are sufficient restoration sources, at least
           for the last few commits.  But it's your data; protect it as
           much as you'd like.</para>
-
+            
         <para>Berkeley DB also comes with a pair of utilities for
           converting the database tables to and from flat ASCII text
           files.  The <command>db_dump</command> and
@@ -1055,14 +1055,14 @@ $ svnadmin archive /path/to/repos | xargs rm
           this format is a useful way to transfer those databases from
           machine to machine, irrespective of architecture or
           operating system.</para>
-
+        
       </sect3>
     </sect2>
 
     <!-- ***************************************************************** -->
     <sect2 id="svn-ch-5-sect-3.2">
       <title>Repository Cleanup</title>
-
+            
       <para>Your Subversion repository will generally require very
         little attention once it is configured to your liking.
         However, there are times when some manual assistance from an
@@ -1116,15 +1116,15 @@ $ svnadmin archive /path/to/repos | xargs rm
         This command changes the log message (the
         <literal>svn:log</literal> property) on a given revision of a
         repository, reading the new value from a provided file.</para>
-
+          
       <screen>
 $ echo "Here is the new, correct log message" > newlog.txt
 $ svnadmin setlog myrepos newlog.txt -r 388
 </screen>
-
+      
       <sidebar>
         <title>Don't Lose That Log Message!</title>
-
+        
         <para>Administrators should be aware that using
           <command>svnadmin setlog</command> bypasses any revision
           property hook scripts that might be active for the
@@ -1201,7 +1201,7 @@ if [ x$REPOS = x ] ; then
   exit
 fi
 
-for TXN in `${SVNADMIN} lstxns ${REPOS}`; do
+for TXN in `${SVNADMIN} lstxns ${REPOS}`; do 
   echo "---[ Transaction ${TXN} ]-------------------------------------------"
   ${SVNLOOK} info ${REPOS} --transaction ${TXN}
 done
@@ -1297,7 +1297,7 @@ $
 
       <para>Secondly, use the following recipe to attempt to
         <quote>unwedge</quote> your repository:</para>
-
+   
       <orderedlist>
         <listitem>
           <para>Make sure that there are no processes accessing (or
@@ -1305,14 +1305,14 @@ $
             repositories, this means shutting down the Apache HTTP
             Server, too.</para>
         </listitem>
-        <listitem>
+        <listitem> 
           <para>Become the user who owns and manages the repository.</para>
         </listitem>
         <listitem>
           <para>Run the command <command>svnadmin recover
             /path/to/repos</command>.  You should see output like
             this:</para>
-
+              
           <screen>
 Acquiring exclusive lock on repository db, and running recovery procedures.
 Please stand by...
@@ -1324,7 +1324,7 @@ The latest repos revision is 19.
           <para>Restart the Subversion server.</para>
         </listitem>
       </orderedlist>
-
+            
       <para>This procedure fixes almost every case of repository
         lock-up.  Make sure that you run this command as the user that
         owns and manages the database, not just as
@@ -1350,7 +1350,7 @@ The latest repos revision is 19.
     <!-- ***************************************************************** -->
     <sect2 id="svn-ch-5-sect-3.4">
       <title>Migrating a Repository</title>
-
+    
       <para>A Subversion filesystem has its data spread throughout
         various database tables in a fashion generally understood by
         (and of interest to) only the Subversion developers
@@ -1369,7 +1369,7 @@ The latest repos revision is 19.
         recommended course of action when you are upgrading across one
         of those compatibility boundaries is a relatively simple
         process:</para>
-
+  
       <orderedlist>
         <listitem>
           <para>Using your <emphasis>current</emphasis> version of
@@ -1466,7 +1466,7 @@ $ svnadmin load newrepos &lt; dumpfile
         load process, people who are feeling especially saucy can try
         things like this (perhaps even using different versions of
         <command>svnadmin</command> on each side of the pipe):</para>
-
+  
       <screen>
 $ svnadmin create newrepos
 $ svnadmin dump myrepos | svnadmin load newrepos
@@ -1550,7 +1550,7 @@ $ svnadmin load newrepos &lt; dumpfile3
 $repos_path  = '/path/to/repos';
 $dumpfile    = '/usr/backup/svn-dumpfile';
 $last_dumped = '/var/log/svn-last-dumped';
-
+ 
 # Figure out the starting revision (0 if we cannot read the last-dumped file,
 # else use the revision in that file incremented by 1).
 if (open LASTDUMPED, "$last_dumped")
@@ -1698,12 +1698,12 @@ close LASTDUMPED;
         <footnote>
           <para><command>svnadmin setlog</command>, for example,
             bypasses the hook interface altogether.</para>
-        </footnote>
+        </footnote>  
         And since you can change revision properties without respect
         to chronological order&mdash;you can change any revision's
         properties at any time&mdash;an incremental backup of the
         latest few revisions might not catch a property modification
-        to a revision that was included as part of a previous
+        to a revision that was included as part of a previous 
         backup.</para>
 
       <para>Often, the best approach to repository backups is a
@@ -1720,7 +1720,7 @@ close LASTDUMPED;
           <para>You know&mdash;the collective term for all of her
             <quote>fickle fingers</quote>.</para>
         </footnote>
-        it should certainly help you recover from those trying
+        it should certainly help you recover from those trying 
         times.</para>
 
     </sect2>
@@ -1731,13 +1731,13 @@ close LASTDUMPED;
   <!-- ******************************************************************* -->
   <sect1 id="svn-ch-5-sect-4">
     <title>Networking a Repository</title>
-
+          
     <para>A Subversion repository can be accessed simultaneously by
       clients running on the same machine on which the repository
       resides.  But the typical Subversion setup involves a single
       server machine being accessed from clients on computers all over
       the office&mdash;or, perhaps, all over the world.</para>
-
+ 
     <para>This section describes how to get your Subversion repository
       exposed outside its host machine for use by remote clients.  We
       will cover each of Subversion's currently available server
@@ -1747,7 +1747,7 @@ close LASTDUMPED;
       enable such a setup on your host computer.</para>
 
     <!-- ***************************************************************** -->
-    <sect2 id="svn-ch-5-sect-4.1">
+    <sect2 id="svn-ch-5-sect-4.1">            
       <title><command>httpd</command>, the Apache HTTP Server</title>
 
       <para>Subversion's primary network server is the Apache HTTP
@@ -1777,7 +1777,7 @@ close LASTDUMPED;
         example, a general reference for the configuration directives
         is located at <systemitem
         class="url">http://httpd.apache.org/docs-2.0/mod/directives.html</systemitem>.)</para>
-
+              
       <para>Also, as you make changes to your Apache setup, it is
         likely that somewhere along the way a mistake will be made.
         If you are not already familiar with Apache's logging
@@ -1791,9 +1791,9 @@ close LASTDUMPED;
         for information that might reveal the source of a problem
         which is not clearly noticeable otherwise.</para>
 
-      <sect3 id="svn-ch-5-sect-4.1.1">
+      <sect3 id="svn-ch-5-sect-4.1.1">            
         <title>What You Need for HTTP-based Repository Access</title>
-
+  
         <para>To network your repository over HTTP, you basically need
           four components, available in two packages.  You'll need
           Apache <command>httpd</command> 2.0, the
@@ -1802,7 +1802,7 @@ close LASTDUMPED;
           filesystem provider module distributed with Subversion.
           Once you have all of those components, the process of
           networking your repository is as simple as:</para>
-
+  
         <itemizedlist>
           <listitem>
             <para>getting httpd 2.0 up and running with the mod_dav
@@ -1818,7 +1818,7 @@ close LASTDUMPED;
               file to export (or expose) the repository.</para>
           </listitem>
         </itemizedlist>
-
+    
         <para>You can accomplish the first two items either by
           compiling <command>httpd</command> and Subversion from
           source code, or by installing pre-built binary packages of
@@ -1827,12 +1827,12 @@ close LASTDUMPED;
           as well as how to compile and configure Apache itself for
           this purpose, see the <filename>INSTALL</filename> file in
           the top level of the Subversion source code tree.</para>
-
-      </sect3>
-
-      <sect3 id="svn-ch-5-sect-4.1.2">
+  
+      </sect3>  
+  
+      <sect3 id="svn-ch-5-sect-4.1.2"> 
         <title>Basic Apache Configuration</title>
-
+  
         <para>Once you have all the necessary components installed on
           your system, all that remains is the configuration of Apache
           via its <filename>httpd.conf</filename> file.  Instruct
@@ -1847,7 +1847,7 @@ close LASTDUMPED;
           <literal>LoadModule</literal> directive has a simple syntax,
           mapping a named module to the location of a shared library
           on disk:</para>
-
+    
         <screen>
 LoadModule dav_svn_module     modules/mod_dav_svn.so
 </screen>
@@ -1856,7 +1856,7 @@ LoadModule dav_svn_module     modules/mod_dav_svn.so
           a shared object (instead of statically linked, directly to
           the <command>httpd</command> binary), you'll need a similar
           <literal>LoadModule</literal> statement for it, too.</para>
-
+    
         <para>At a later location in your configuration file, you now
           need to tell Apache where you keep your Subversion
           repository (or repositories).  The
@@ -1876,14 +1876,14 @@ LoadModule dav_svn_module     modules/mod_dav_svn.so
           repository is located at
           <filename>/absolute/path/to/repository</filename> using the
           following <filename>httpd.conf</filename> syntax:</para>
-
+                
         <screen>
 &lt;Location /repos&gt;
   DAV svn
   SVNPath /absolute/path/to/repository
 &lt;/Location&gt;
 </screen>
-
+            
         <para>If you plan to support multiple Subversion repositories
           that will reside in the same parent directory on your local
           disk, you can use an alternative directive, the
@@ -1897,14 +1897,14 @@ LoadModule dav_svn_module     modules/mod_dav_svn.so
           class="url">http://my.server.com/svn/repos2</systemitem>,
           and so on, you could use the <filename>httpd.conf</filename>
           configuration syntax in the following example:</para>
-
+              
         <screen>
 &lt;Location /svn&gt;
   DAV svn
   SVNParentPath /usr/local/svn
 &lt;/Location&gt;
 </screen>
-
+            
         <para>Using the previous syntax, Apache will delegate the
           handling of all URLs whose path portions begin with
           <filename>/svn/</filename> to the Subversion DAV provider,
@@ -1915,12 +1915,12 @@ LoadModule dav_svn_module     modules/mod_dav_svn.so
           the <filename>SVNPath</filename> directive, you don't have
           to restart Apache in order to create and network new
           repositories.</para>
-
+  
       </sect3>
-
-      <sect3 id="svn-ch-5-sect-4.1.3">
+  
+      <sect3 id="svn-ch-5-sect-4.1.3"> 
         <title>Permissions, Authentication, and Authorization</title>
-
+    
         <para>At this stage, you should strongly consider the question
           of permissions.  If you've been running Apache for some time
           now as your regular web server, you probably already have a
@@ -1931,7 +1931,7 @@ LoadModule dav_svn_module     modules/mod_dav_svn.so
           Apache, when used as a Subversion server, will also need the
           correct permissions to read and write to your Subversion
           repository.</para>
-
+    
         <para>You will need to determine a permission system setup
           that satisfies Subversion's requirements without messing up
           any previously existing web page or script installations.
@@ -1947,7 +1947,7 @@ LoadModule dav_svn_module     modules/mod_dav_svn.so
           aware that permission-related problems are perhaps the most
           common oversight when configuring a Subversion repository
           for use with Apache.</para>
-
+    
         <para>And while we are speaking about permissions, we should
           address how the authorization and authentication mechanisms
           provided by Apache fit into the scheme of things.  Unless
@@ -1955,7 +1955,7 @@ LoadModule dav_svn_module     modules/mod_dav_svn.so
           Subversion repositories you make available via the
           <filename>Location</filename> directives will be generally
           accessible to everyone.  In other words,</para>
-
+                
         <itemizedlist>
           <listitem>
             <para>anyone can use their Subversion client to checkout a
@@ -1971,7 +1971,7 @@ LoadModule dav_svn_module     modules/mod_dav_svn.so
             <para>anyone can commit to the repository.</para>
           </listitem>
         </itemizedlist>
-
+  
         <para>If you want to restrict either read or write access to a
           repository as a whole, you can use Apache's built-in access
           control features.  The easiest such feature is the Basic
@@ -1983,11 +1983,11 @@ LoadModule dav_svn_module     modules/mod_dav_svn.so
           Subversion repository.  Let's grant commit access to Sally
           and Harry.  First, we need to add them to the password
           file.</para>
-
+    
         <screen>
 $ ### First time: use -c to create the file
 $ htpasswd -c /etc/svn-auth-file harry
-New password: *****
+New password: ***** 
 Re-type new password: *****
 Adding password for user harry
 $ htpasswd /etc/svn-auth-file sally
@@ -2011,11 +2011,11 @@ $
           use the <literal>AuthUserFile</literal> directive to specify
           the location of the password file you created using
           <command>htpasswd</command>.</para>
-
+    
         <para>After adding these three directives, your
           <literal>&lt;Location&gt;</literal> block should look
           something like this:</para>
-
+    
         <screen>
 &lt;Location /svn&gt;
   DAV svn
@@ -2033,7 +2033,7 @@ $
           these things, or prompt the user for the information.  All
           that remains is to tell Apache which operations actually
           require that authentication.</para>
-
+  
         <para>You can restrict access on all repository operations by
           adding the <literal>Require valid-user</literal> directive
           to your <literal>&lt;Location&gt;</literal> block.  Using
@@ -2042,7 +2042,7 @@ $
           <literal>sally</literal>, and which provided the correct
           password for their respective username, would be allowed to
           do anything with the Subversion repository.</para>
-
+    
         <para>Sometimes you don't need to run such a tight ship.  The
           repository at <systemitem
           class="url">http://svn.collab.net/repos/svn</systemitem>
@@ -2057,7 +2057,7 @@ $
           <literal>Location</literal> directive, these blocks have
           starting and ending tags, and you would nest them inside
           your <filename>&lt;Location&gt;</filename> block.</para>
-
+  
         <para>The parameters present on the <literal>Limit</literal>
           and <literal>LimitExcept</literal> directives are HTTP
           request types that are affected by that block.  For example,
@@ -2071,7 +2071,7 @@ $
           directive would be placed inside the
           <literal>&lt;LimitExcept&gt;</literal> block instead of just
           inside the <literal>&lt;Location&gt;</literal> block.</para>
-
+    
         <screen>
 &lt;Location /svn&gt;
   DAV svn
@@ -2090,12 +2090,12 @@ $
           <literal>Security</literal> section of the Apache
           documentation's tutorials collection at <systemitem
           class="url">http://httpd.apache.org/docs-2.0/misc/tutorials.html</systemitem>.</para>
-
+              
       </sect3>
-
+  
       <sect3 id="svn-ch-5-sect-4.1.4">
         <title>Server Names and the COPY Request</title>
-
+  
         <para>Subversion makes use of the <literal>COPY</literal>
           request type to perform server-side copies of files and
           directories.  As part of the sanity checking done by the
@@ -2105,19 +2105,19 @@ $
           the name you use as the hostname of your server.  Generally,
           you can use the <literal>ServerName</literal> directive in
           <filename>httpd.conf</filename> to accomplish this.</para>
-
+  
         <screen>
 ServerName svn.red-bean.com
 </screen>
-
+            
         <para>If you are using Apache's virtual hosting support via
           the <literal>NameVirtualHost</literal> directive, you may
           need to use the <literal>ServerAlias</literal> directive to
           specify additional names that your server is known by.
           Again, refer to the Apache documentation for full
           details.</para>
-
-      </sect3>
+  
+      </sect3> 
 
       <sect3 id="svn-ch-5-sect-4.1.5">
         <title>Browsing the HEAD of the Repository</title>
@@ -2156,7 +2156,7 @@ ServerName svn.red-bean.com
           <filename>httpd.conf</filename> will instruct mod_dav_svn to
           generate XML output when displaying a directory listing, and
           to reference the XSLT stylesheet of your choice:</para>
-
+ 
         <screen>
 &lt;Location /svn&gt;
   DAV svn
@@ -2181,7 +2181,7 @@ ServerName svn.red-bean.com
 
       <sect3 id="svn-ch-5-sect-4.1.6">
         <title>Miscellaneous Apache Features</title>
-
+  
         <para>Several of the features already provided by Apache in
           its role as a robust Web server can be leveraged for
           increased functionality or security in Subversion as well.
@@ -2194,7 +2194,7 @@ ServerName svn.red-bean.com
           compile support for the features you desire into Subversion
           and Apache, and properly configure the programs to use those
           features.</para>
-
+  
         <para>This means that SSL-enabled Subversion clients can
           access SSL-enabled Apache servers and perform all
           communication using an encrypted protocol, all by using
@@ -2207,7 +2207,7 @@ ServerName svn.red-bean.com
           less likely to result in sensitive data leaks.  Apache can
           be configured such that only SSL-enabled Subversion clients
           can communicate with the repository.</para>
-
+  
         <para>Deflate compression places a small burden on the client
           and server to compress and decompress network transmissions
           as a way to minimize the size of the actual transmission.
@@ -2217,7 +2217,7 @@ ServerName svn.red-bean.com
           extreme cases, this minimized network transmission could be
           the difference between an operation timing out or completing
           successfully.</para>
-
+  
         <para>Less interesting, but equally useful, are other features
           of the Apache and Subversion relationship, such as the
           ability to specify a custom port (instead of the default
@@ -2226,7 +2226,7 @@ ServerName svn.red-bean.com
           access the repository through a proxy.  These things are all
           supported by Neon, so Subversion gets that support for
           free.</para>
-
+  
       </sect3>
     </sect2>
 
@@ -2241,11 +2241,11 @@ ServerName svn.red-bean.com
         Subversion clients over an ordinary TCP/IP connection.</para>
 
       <para>There are two basic ways that <command>svnserve</command>
-        can be used:</para>
+        can be used:</para> 
 
       <variablelist>
         <varlistentry>
-          <term>unauthenticated (anonymous) access</term>
+          <term>unauthenticated (anonymous) access</term> 
 
           <listitem><para>In this scenario, a daemon
           <command>svnserve</command> process runs on the server,
@@ -2287,7 +2287,7 @@ ServerName svn.red-bean.com
 
         <screen>
 $ svnserve
-( success ( 1 1 ( ANONYMOUS ) ( ) ) )
+( success ( 1 1 ( ANONYMOUS ) ( ) ) ) 
 </screen>
 
         <para>This isn't immediately useful to anyone;
@@ -2333,7 +2333,7 @@ $ svnserve
 
         <screen>
 $ svnserve -d
-$ # svnserve is still running, but the user is returned to the prompt
+$ # svnserve is still running, but the user is returned to the prompt 
 </screen>
 
         <para>When a client makes a network connection to the
@@ -2371,7 +2371,7 @@ $ svnserve -d -r /usr/local
 $ svn checkout svn://example.com/repos/project
 &hellip;
 </screen>
-
+ 
         <para>Finally, to disable write access to your repositories,
           start <command>svnserve</command> with the
           <option>-R</option> option.  This will permit only read
@@ -2468,7 +2468,7 @@ ssh = ssh -l username
         list of the highlights of the two available Subversion
         servers&mdash;choose whatever works best for you and your
         users.</para>
-
+      
       <variablelist>
         <varlistentry>
           <term>Apache/mod_dav_svn</term>
@@ -2736,7 +2736,7 @@ ssh = ssh -l username
     <!-- ***************************************************************** -->
     <sect2 id="svn-ch-5-sect-6.2">
       <title>Creating the Layout, and Importing Initial Data</title>
-
+          
       <para>After deciding how to arrange the projects in your
         repository, you'll probably want to actually populate the
         repository with that layout and with initial project data.
@@ -2750,7 +2750,7 @@ ssh = ssh -l username
         in a temporary location on your drive, you can import the
         whole layout tree into the repository in a single
         commit:</para>
-
+            
       <screen>
 $ mkdir tmpdir
 $ cd tmpdir
@@ -2813,7 +2813,7 @@ $
 </chapter>
 
 <!--
-local variables:
+local variables: 
 sgml-parent-document: ("book.xml" "chapter")
 end:
 -->
