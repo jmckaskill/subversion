@@ -36,14 +36,14 @@ extern "C" {
 
 
 /* All subcommand procedures in Subversion conform to this prototype.
- * (### todo: svnlook and svnadmin not yet converted, as of 2002-09-26.)
+ * (### todo: svnlook and svnadmin not yet converted, as of 2002-09-26.) 
  *
  * OS is the apr option state after getopt processing has been run; in
  * other words, it still contains the non-option arguments following
  * the subcommand.  See OS->argv and OS->ind.
  *
  * BATON is anything you need it to be.
- *
+ * 
  * POOL is used for allocating errors, and for any other allocation
  * unless the instance is explicitly documented to allocate from a
  * pool in BATON.
@@ -86,7 +86,7 @@ typedef struct svn_opt_subcommand_desc_t
 
 
 /* Return the entry in TABLE whose name matches CMD_NAME, or NULL if none.
-   CMD_NAME may be an alias. */
+   CMD_NAME may be an alias. */  
 const svn_opt_subcommand_desc_t *
 svn_opt_get_canonical_subcommand (const svn_opt_subcommand_desc_t *table,
                                   const char *cmd_name);
@@ -142,7 +142,7 @@ svn_opt_format_option (const char **string,
    alias.  (### todo: why does this only print to stdout, whereas
    svn_opt_print_generic_help gives us a choice?) */
 void
-svn_opt_subcommand_help (const char *subcommand,
+svn_opt_subcommand_help (const char *subcommand, 
                          const svn_opt_subcommand_desc_t *table,
                          const apr_getopt_option_t *options_table,
                          apr_pool_t *pool);
@@ -151,8 +151,8 @@ svn_opt_subcommand_help (const char *subcommand,
 
 /*** Parsing revision and date options. ***/
 
-/* Various ways of specifying revisions.
- *
+/* Various ways of specifying revisions. 
+ *   
  * Note:
  * In contexts where local mods are relevant, the `working' kind
  * refers to the uncommitted "working" revision, which may be modified
@@ -183,15 +183,15 @@ typedef struct svn_opt_revision_t {
 
 /* Set *START_REVISION and/or *END_REVISION according to ARG, where
  * ARG is "N" or "N:M", like so:
- *
+ * 
  *    - If ARG is "N", set *START_REVISION's kind to
  *      svn_opt_revision_number and its value to the number N; and
  *      leave *END_REVISION untouched.
  *
  *    - If ARG is "N:M", set *START_REVISION's and *END_REVISION's
  *      kinds to svn_opt_revision_number and values to N and M
- *      respectively.
- *
+ *      respectively. 
+ * 
  * N and/or M may be one of the special revision descriptors
  * recognized by revision_from_word().
  *
@@ -211,15 +211,15 @@ svn_boolean_t svn_opt_parse_revision (svn_opt_revision_t *start_revision,
 
 /* Set *START_REVISION and/or *END_REVISION according to ARG, where
  * ARG is "X" or "X:Y", like so:
- *
+ * 
  *    - If ARG is "X", set *START_REVISION's kind to
- *      svn_opt_revision_date and value to the apr_time_t for X,
+ *      svn_opt_revision_date and value to the apr_time_t for X,  
  *      and leave *END_REVISION untouched.
  *
  *    - If ARG is "X:Y", set *START_REVISION's and *END_REVISION's
  *      kinds to svn_opt_revision_date and values to (apr_time_t) X
- *      and Y respectively.
- *
+ *      and Y respectively. 
+ * 
  * X and/or Y may be one of the special revision descriptors
  * recognized by revision_from_word().
  *
