@@ -40,7 +40,7 @@ send_to_repos (svn_boolean_t is_import,
                const svn_delta_edit_fns_t *before_editor,
                void *before_edit_baton,
                const svn_delta_edit_fns_t *after_editor,
-               void *after_edit_baton,
+               void *after_edit_baton,                   
                svn_string_t *path,     /* If IS_IMPORT, this is full url */
                svn_string_t *log_msg,
                svn_string_t *xml_dst,
@@ -60,7 +60,7 @@ send_to_repos (svn_boolean_t is_import,
   struct svn_wc_close_commit_baton ccb = {path, pool};
   apr_array_header_t *tgt_array = apr_array_make (pool, 1,
                                                   sizeof(svn_string_t *));
-
+  
   /* If we're committing to XML... */
   if (xml_dst && xml_dst->data)
     {
@@ -72,7 +72,7 @@ send_to_repos (svn_boolean_t is_import,
       if (apr_err)
         return svn_error_createf (apr_err, 0, NULL, pool,
                                   "error opening %s", xml_dst->data);
-
+      
 
       /* Fetch the xml commit editor. */
       SVN_ERR (svn_delta_get_xml_editor (svn_stream_from_aprfile (dst, pool),
@@ -92,11 +92,11 @@ send_to_repos (svn_boolean_t is_import,
                                                       revision,
                                                       svn_wc_set_revision,
                                                       &ccb));
-
+                                                      
           svn_delta_compose_editors (&editor, &edit_baton,
                                      commit_editor, commit_edit_baton,
                                      track_editor, track_edit_baton, pool);
-        }
+        }        
     }
   else   /* Else we're committing to an RA layer. */
     {
@@ -109,26 +109,26 @@ send_to_repos (svn_boolean_t is_import,
         {
           svn_wc_entry_t *entry;
           const char *URL;
-
+          
           /* Construct full URL from PATH. */
           SVN_ERR (svn_wc_entry (&entry, path, pool));
           URL = entry->ancestor->data;
-
+          
           /* Make sure our log message at least exists, even if empty. */
           if (! log_msg)
             log_msg = svn_string_create ("", pool);
-
+          
           /* Get the RA vtable that matches URL. */
           SVN_ERR (svn_ra_init_ra_libs (&ra_baton, pool));
           SVN_ERR (svn_ra_get_ra_library (&ra_lib, ra_baton, URL, pool));
-
+          
           /* Open an RA session to URL */
           SVN_ERR (ra_lib->open (&session,
                                  svn_string_create (URL, pool),
                                  pool));
-
+          
           /* Fetch RA commit editor, giving it svn_wc_set_revision(). */
-          SVN_ERR (ra_lib->get_commit_editor
+          SVN_ERR (ra_lib->get_commit_editor 
                    (session,
                     &editor, &edit_baton,
                     log_msg,
@@ -136,16 +136,16 @@ send_to_repos (svn_boolean_t is_import,
                     NULL,                /* todo: func that sets WC props */
                     &ccb));              /* baton for both funcs */
         }
-
+      
     }
 
 
   /* Wrap the resulting editor with BEFORE and AFTER editors. */
   svn_delta_wrap_editor (&editor, &edit_baton,
                          before_editor, before_edit_baton,
-                         editor, edit_baton,
+                         editor, edit_baton, 
                          after_editor, after_edit_baton, pool);
-
+  
   /* Crawl local mods and report changes to EDITOR.  When close_edit()
      is called, revisions will be bumped. */
   SVN_ERR (svn_wc_crawl_local_mods (&targets, path, editor,
@@ -154,15 +154,15 @@ send_to_repos (svn_boolean_t is_import,
 
   if (xml_dst && xml_dst->data)
     {
-      /* If we were committing into XML, close the xml file. */
+      /* If we were committing into XML, close the xml file. */      
       apr_err = apr_file_close (dst);
       if (apr_err)
         return svn_error_createf (apr_err, 0, NULL, pool,
-                                  "error closing %s", xml_dst->data);
+                                  "error closing %s", xml_dst->data);      
     }
   else  /* We were committing to RA, so close the session. */
     SVN_ERR (ra_lib->close (session));
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -175,7 +175,7 @@ svn_error_t *
 svn_client_import (const svn_delta_edit_fns_t *before_editor,
                    void *before_edit_baton,
                    const svn_delta_edit_fns_t *after_editor,
-                   void *after_edit_baton,
+                   void *after_edit_baton,                   
                    svn_string_t *url,
                    svn_string_t *log_msg,
                    svn_string_t *xml_dst,
@@ -184,7 +184,7 @@ svn_client_import (const svn_delta_edit_fns_t *before_editor,
 {
   SVN_ERR (send_to_repos (TRUE,  /* is import, not commit */
                           before_editor, before_edit_baton,
-                          after_editor, after_edit_baton,
+                          after_editor, after_edit_baton,                   
                           url, log_msg, xml_dst,
                           revision,
                           pool));
@@ -197,7 +197,7 @@ svn_error_t *
 svn_client_commit (const svn_delta_edit_fns_t *before_editor,
                    void *before_edit_baton,
                    const svn_delta_edit_fns_t *after_editor,
-                   void *after_edit_baton,
+                   void *after_edit_baton,                   
                    svn_string_t *path,
                    svn_string_t *log_msg,
                    svn_string_t *xml_dst,
@@ -206,7 +206,7 @@ svn_client_commit (const svn_delta_edit_fns_t *before_editor,
 {
   SVN_ERR (send_to_repos (FALSE,  /* is not import, is commit */
                           before_editor, before_edit_baton,
-                          after_editor, after_edit_baton,
+                          after_editor, after_edit_baton,                   
                           path, log_msg, xml_dst,
                           revision,
                           pool));
@@ -216,7 +216,7 @@ svn_client_commit (const svn_delta_edit_fns_t *before_editor,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end: */
