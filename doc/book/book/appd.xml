@@ -1,6 +1,6 @@
   <appendix id="svn-ap-d">
     <title>Other Subversion Clients</title>
-
+    
   <!-- ================================================================= -->
   <!-- ======================== SECTION 1 ============================== -->
   <!-- ================================================================= -->
@@ -34,7 +34,7 @@
 </appendix>
 
 <!--
-local variables:
+local variables: 
 sgml-parent-document: ("book.xml" "appendix")
 end:
 -->
