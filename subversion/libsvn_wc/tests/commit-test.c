@@ -1,5 +1,5 @@
-/*
-   A simple test of the working copy "crawler".
+/* 
+   A simple test of the working copy "crawler". 
 
    Crawler walks a working copy and prints a virtual `commit' to stdout.
 */
@@ -32,7 +32,7 @@ main (int argc, char *argv[])
   /* Process command-line args */
   if (argc != 2)
     {
-      printf
+      printf 
         ("\nUsage: %s [dir]:  crawls [dir], printing `commit' to stdout.\n\n",
          argv[0]);
       exit (1);
@@ -43,7 +43,7 @@ main (int argc, char *argv[])
   globalpool = svn_pool_create (NULL);
 
   rootdir = svn_string_create (argv[1], globalpool);
-
+      
   /* Get the generic dumb editor */
   err = svn_test_get_editor (&my_editor, &my_edit_baton,
                              rootdir, 59, globalpool);
