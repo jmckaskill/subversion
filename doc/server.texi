@@ -119,13 +119,13 @@ A @dfn{repository} consists of node table and a history.
 
 @end quotation
 
-@c Some definitions: we say that a node @var{n} is a @dfn{direct child}
-@c of a directory @var{d} iff @var{d} contains a directory entry whose
-@c node number is @var{n}. A node @var{n} is a @dfn{child} of a
-@c directory @var{d} iff @var{n} is a direct child of @var{d}, or if
-@c there exists some directory @var{e} which is a direct child of
-@c @var{d}, and @var{n} is a child of @var{e}. Given this definition of
-@c ``direct child'' and ``child,'' the obvious definitions of ``direct
+@c Some definitions: we say that a node @var{n} is a @dfn{direct child} 
+@c of a directory @var{d} iff @var{d} contains a directory entry whose 
+@c node number is @var{n}. A node @var{n} is a @dfn{child} of a 
+@c directory @var{d} iff @var{n} is a direct child of @var{d}, or if 
+@c there exists some directory @var{e} which is a direct child of 
+@c @var{d}, and @var{n} is a child of @var{e}. Given this definition of 
+@c ``direct child'' and ``child,'' the obvious definitions of ``direct 
 @c parent'' and ``parent'' hold.
 
 @c In these restrictions, let @var{r} be any repository.  When we refer,
@@ -200,7 +200,7 @@ A @dfn{directory entry} (@dfn{dirent}) points to a file or directory.
 A @dfn{directory} (@dfn{dir}) is a list of directory entries.
 
 A @dfn{filesystem object} (@dfn{fs_obj}) contains either a file or
-a directory.
+a directory. 
 
 A @dfn{version} (abbreviated @dfn{ver}) refers to a global version
 number in a repository's history.
@@ -396,11 +396,11 @@ When the lock manager has no more open server connections, it dies.
 For the initial release of Subversion,
 
 @itemize @bullet
-@item
+@item 
   The filesystem will be implemented as a library on UNIX.
 @item
-  The lock manager will communicate with other processes via UNIX domain
-  sockets.
+  The lock manager will communicate with other processes via UNIX domain 
+  sockets.  
 @item
   The filesystem's data will probably be stored in a collection of .db
   files, using the Berkeley Database library.@footnote{In the future, of
@@ -442,7 +442,7 @@ The Main Subversion Library (@dfn{svn_main}), in its simplest sense,
 acts a basic multiplexer for the repository API calls coming from the
 Subversion client.  (@xref{The repository access library}.)
 
-Specifically, note that all of the client's
+Specifically, note that all of the client's 
 
 
 
@@ -450,7 +450,7 @@ In general, it provides an API that maps to CVS concepts whereever
 possible.
 
 A @dfn{repository} (@dfn{repos}) represents the name of a particular
-repository.
+repository. 
 
 
 
@@ -463,7 +463,7 @@ Apache and custom HTTP "methods", @xref{Protocol}.)
 
 @table @code
 @item available_methods ()
-  return a list of methods that the server supports
+  return a list of methods that the server supports 
 @end table
 
 @subsection Basic Methods
