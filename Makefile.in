@@ -180,13 +180,13 @@ doc-pdf: doc/programmer/design/svn-design.pdf doc/user/manual/svn-manual.pdf
 ### Build a tarball.
 #
 # Notes:
-#
+# 
 # Creating a distribution is only half-automated at the moment -- it
 # requires a lot of hand-holding from a knowledgable developer.  Once
 # we go self-hosting and get the first distribution tarball released,
 # this will be totally rewritten to take advantage of the eminently
 # parseable `svn status' command output.
-#
+# 
 # Although `make distclean' should clean up apr and neon, in reality
 # neon/src/ still has .o files afterwards.  So we clean them up by
 # hand below.  Better to patch Neon, of course; but the fix wasn't
@@ -232,7 +232,7 @@ dist: ChangeLog
 
 .texi.info:
 	rm -f $@ $@-[0-9] $@-[0-9][0-9]
-	$(MAKEINFO) -I `dirname $(top_srcdir)/$<` -o $@ $<
+	$(MAKEINFO) -I `dirname $(top_srcdir)/$<` -o $@ $< 
 
 .texi.dvi:
 	$(TEXI2DVI) -I `dirname $(top_srcdir)/$<` $<
