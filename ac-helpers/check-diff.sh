@@ -3,7 +3,7 @@
 # This test searches $PATH for a version of `diff' that supports -u.
 #
 # Usage:  gnu-diff.sh AC-HELPERS-DIR
-#
+# 
 #    The argument AC-HELPERS-DIR is required.  It tells check-diff.sh
 #    where to find its test input files.
 #
@@ -70,7 +70,7 @@ for searchdir in $PATH; do
             # ever happens, remember to read this note. :-)                  #
             #                                                                #
             ##################################################################
-
+            
             # Clean up
             rm -f ${output}*
 
