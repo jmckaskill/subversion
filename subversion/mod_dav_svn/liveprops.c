@@ -369,7 +369,7 @@ void dav_svn_register_uris(apr_pool_t *p)
 }
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
