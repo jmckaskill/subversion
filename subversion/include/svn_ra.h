@@ -51,7 +51,7 @@ typedef svn_error_t *(*svn_ra_set_wc_prop_func_t) (void *close_baton,
 
 /* A vtable structure which allows a working copy to describe a
    subset (or possibly all) of its working-copy to an RA layer. */
-
+  
 typedef struct svn_ra_reporter_t
 {
   /* Describe a working copy PATH as being at a particular REVISION;
@@ -61,7 +61,7 @@ typedef struct svn_ra_reporter_t
   svn_error_t *(*set_path) (void *report_baton,
                             svn_string_t *path,
                             svn_revnum_t revision);
-
+    
   /* WC calls this when the state report is finished; any directories
      or files not explicitly `set' above are assumed to be at the
      baseline revision originally passed into do_update(). */
@@ -89,7 +89,7 @@ typedef struct svn_ra_plugin_t
   const char *description;  /* Short documentation string */
 
   /* The vtable hooks */
-
+  
   /* Open a "session" with a repository at URL.  *SESSION_BATON is
      returned and then used (opaquely) for all further interactions
      with the repository. */
@@ -112,16 +112,16 @@ typedef struct svn_ra_plugin_t
   /* Begin a commit against `rev:path' using LOG_MSG.  `rev' is the
      argument passed to replace_root(), and `path' is built into the
      SESSION_BATON's URL.
-
+     
      RA returns an *EDITOR and *EDIT_BATON capable of transmitting a
      commit to the repository, which is then driven by the client.
 
      RA must guarantee:
-
+     
           1. That it will track each item that is committed
           2. That close_edit() will "finish" the commit by calling
              CLOSE_FUNC (with CLOSE_BATON) on each item that was
-             committed.
+             committed.  
 
      Optionally, the RA layer may also call SET_FUNC to store WC
      properties on committed items.  */
@@ -172,7 +172,7 @@ typedef struct svn_ra_plugin_t
 
 
 /* svn_ra_init_func_t :
-
+   
    libsvn_client will be reponsible for loading each RA DSO it needs.
    However, all "ra_FOO" implementations *must* export a function named
    `svn_ra_FOO_init()' of type `svn_ra_init_func_t'.
@@ -237,12 +237,12 @@ svn_error_t * svn_ra_init_ra_libs (void **ra_baton, apr_pool_t *pool);
 
 /* Return an ra vtable-LIBRARY (already within RA_BATON) which can
    handle URL.  A number of svn_client_* routines will call this
-   internally, but client apps might use it too.
+   internally, but client apps might use it too.  
 
    For reference, note that according to W3 RFC 1738, a valid URL is
    of the following form:
 
-     scheme://<user>:<password>@<host>:<port>/<url-path>
+     scheme://<user>:<password>@<host>:<port>/<url-path> 
 
    Common URLs are as follows:
 
