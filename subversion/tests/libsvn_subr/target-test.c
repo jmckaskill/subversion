@@ -60,7 +60,7 @@ int main(int argc, char **argv)
       if (target)
         printf("%s, ", target);
       else
-        printf("NULL, ");
+        printf("NULL, "); 
     }
   printf ("\n");
 

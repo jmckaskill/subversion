@@ -31,7 +31,7 @@ extern "C" {
 
 
 /* Open a `nodes' table in ENV.  If CREATE is non-zero, create
-   one if it doesn't exist.  Set *NODES_P to the new table.
+   one if it doesn't exist.  Set *NODES_P to the new table.  
    Return a Berkeley DB error code.  */
 int svn_fs__bdb_open_nodes_table (DB **nodes_p,
                                   DB_ENV *env,

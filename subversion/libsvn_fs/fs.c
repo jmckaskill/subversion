@@ -187,7 +187,7 @@ cleanup_fs (svn_fs_t *fs)
         SVN_ERR (BDB_WRAP (fs, "checkpointing environment", db_err));
       }
   }
-
+      
   /* Finally, close the environment.  */
   fs->env = 0;
   SVN_ERR (BDB_WRAP (fs, "closing environment",
@@ -341,7 +341,7 @@ svn_fs_set_warning_func (svn_fs_t *fs,
 
 
 svn_error_t *
-svn_fs_set_berkeley_errcall (svn_fs_t *fs,
+svn_fs_set_berkeley_errcall (svn_fs_t *fs, 
                              void (*db_errcall_fcn) (const char *errpfx,
                                                      char *msg))
 {
@@ -472,7 +472,7 @@ svn_fs_create_berkeley (svn_fs_t *fs, const char *path)
   svn_err = BDB_WRAP (fs, "creating environment",
                      fs->env->open (fs->env, path_native,
                                     (DB_CREATE
-                                     | DB_INIT_LOCK
+                                     | DB_INIT_LOCK 
                                      | DB_INIT_LOG
                                      | DB_INIT_MPOOL
                                      | DB_INIT_TXN),
@@ -580,7 +580,7 @@ svn_fs_open_berkeley (svn_fs_t *fs, const char *path)
   if (svn_err) goto error;
 
   return SVN_NO_ERROR;
-
+  
  error:
   cleanup_fs (fs);
   return svn_err;
@@ -606,10 +606,10 @@ svn_fs_berkeley_recover (const char *path,
     return svn_fs__bdb_dberr (db_err);
 
   /* Here's the comment copied from db_recover.c:
-
+   
      Initialize the environment -- we don't actually do anything
      else, that all that's needed to run recovery.
-
+   
      Note that we specify a private environment, as we're about to
      create a region, and we don't want to leave it around.  If we
      leave the region around, the application that should create it
@@ -675,7 +675,7 @@ svn_fs__canonicalize_abspath (const char *path, apr_pool_t *pool)
   /* No PATH?  No problem. */
   if (! path)
     return NULL;
-
+  
   /* Empty PATH?  That's just "/". */
   if (! *path)
     return apr_pstrdup (pool, "/");
@@ -690,7 +690,7 @@ svn_fs__canonicalize_abspath (const char *path, apr_pool_t *pool)
     {
       newpath[newpath_i++] = '/';
     }
-
+  
   for (path_i = 0; path_i < path_len; path_i++)
     {
       if (path[path_i] == '/')
@@ -713,7 +713,7 @@ svn_fs__canonicalize_abspath (const char *path, apr_pool_t *pool)
       /* Copy the current character into our new buffer. */
       newpath[newpath_i++] = path[path_i];
     }
-
+  
   /* Did we leave a '/' attached to the end of NEWPATH (other than in
      the root directory case)? */
   if ((newpath[newpath_i - 1] == '/') && (newpath_i > 1))

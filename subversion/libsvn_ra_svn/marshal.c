@@ -235,7 +235,7 @@ static svn_error_t *readbuf_read(svn_ra_svn_conn_t *conn,
 }
 
 /* --- WRITING DATA ITEMS --- */
-
+ 
 svn_error_t *svn_ra_svn_write_number(svn_ra_svn_conn_t *conn, apr_pool_t *pool,
                                      apr_uint64_t number)
 {
