@@ -6,26 +6,26 @@
 <ol>
 <li><a href="#why">Why does this project exist?</a></li>
 <li><a href="#collab">Is Subversion proprietary?  I heard that it
-    belongs to CollabNet.</a></li>
+    belongs to CollabNet.</a></li> 
 <li><a href="#stable">Is Subversion stable enough for me to use for my
-    own projects?</a></li>
+    own projects?</a></li> 
 <li><a href="#portability">What operating systems does Subversion run
-    on?</a></li>
+    on?</a></li> 
 <li><a href="#filesystem">What's all this about a new filesystem?  Is
-    it like ext2?</a></li>
+    it like ext2?</a></li> 
 <li><a href="#apache-extension">I heard that Subversion is an Apache
-    extension?</a></li>
+    extension?</a></li> 
 <li><a href="#need-apache">Does this mean I have to set up Apache to
-    use Subversion?</a></li>
+    use Subversion?</a></li> 
 <li><a href="#feature-x">Why don't you do X, just like SCM system Y?</a></li>
 <li><a href="#release">When's the next release?</a></li>
 <li><a href="#unrecognized-url-error">I just built the distribution
     binary, and when I try to check out Subversion, I get an error
     about an "Unrecognized URL scheme."  What's up with that?</a></li>
 <li><a href="#repository">How do I create a repository?  How do I
-    import data into it?</a></li>
+    import data into it?</a></li> 
 <li><a href="#db-recover">I'm getting errors finding or opening a repository,
-    but I know my repository URL is correct.  What's wrong?</a></li>
+    but I know my repository URL is correct.  What's wrong?</a></li> 
 <li><a href="#configure-sed-error">When I run `<tt>configure</tt>', I
     get errors <tt>subs-1.sed&nbsp;line&nbsp;38:&nbsp;Unterminated&nbsp;`s'&nbsp;command</tt>.  What's wrong?</a></li>
 <li><a href="#windows-msvc-build">I'm having trouble building
@@ -34,10 +34,10 @@
     and I can create a repository fine, but I get errors trying to
     import or check out from it.  What's wrong?</a></li>
 <li><a href="#proxy">What if I'm behind a proxy?</a></li>
-<li><a href="#globalrev">Why does the entire repository share the
+<li><a href="#globalrev">Why does the entire repository share the 
     same revision number? I want each of my projects to have their
     own revision numbers.  </a></li>
-<li><a href="#bikeshed">What's a 'bikeshed'?</a></li>
+<li><a href="#bikeshed">What's a 'bikeshed'?</a></li> 
 <li><a href="#more-information">I have other problems or questions
     about Subversion.  Where can I get more information?</a></li>
 </ol>
@@ -214,7 +214,7 @@ at section IV, the "Quickstart Guide".</p>
 <!-- ----------------------------------------------------------- -->
 
 <h2><a name="db-recover">I'm getting errors finding or opening a repository,
-    but I know my repository URL is correct.  What's wrong?</a></h2>
+    but I know my repository URL is correct.  What's wrong?</a></h2> 
 
 <p>Sometimes you'll see errors that look like this:</p>
 
@@ -234,7 +234,7 @@ svn_error: #21089 : &lt;Berkeley DB error&gt;
   REPORT request failed on /my-repos
 
 svn_error: #21089 : &lt;Berkeley DB error&gt;
-
+  
 Berkeley DB error while opening environment for filesystem /path/to/repos:
 No such file or directory
 </pre>
@@ -268,7 +268,7 @@ down apache, cd into the relevant repository's `<tt>db</tt>'
 subdirectory, and run
 "<tt>/usr/local/BerkeleyDB.<i>X</i>.<i>Y</i>/bin/db_recover&nbsp;-ve</tt>".
 <br>
-(Substitute the appropriate major and minor revision numbers of
+(Substitute the appropriate major and minor revision numbers of 
 Berkeley DB for "<i>X</i>" and "<i>Y</i>", of course.)
 </p>
 <p>
@@ -292,7 +292,7 @@ building with are completely up-to-date, and try again.
 </p>
 
 <!-- ----------------------------------------------------------- -->
-
+ 
 <h2>I'm having trouble building Subversion under Windows with MSVC++ 6.0.
 <a name="windows-msvc-build"> What should I do?</a></h2>
 
@@ -364,7 +364,7 @@ as on port 80.  Try:</p>
 
 <!-- ----------------------------------------------------------- -->
 
-<h2><a name="globalrev">Why does the entire repository share the
+<h2><a name="globalrev">Why does the entire repository share the 
     same revision number? I want each of my projects to have their
     own revision numbers.</a></h2>
 <p>

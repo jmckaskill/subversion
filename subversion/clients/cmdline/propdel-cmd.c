@@ -49,7 +49,7 @@ svn_cl__propdel (apr_getopt_t *os,
   SVN_ERR (svn_utf_cstring_to_utf8 (pname, &pname_utf8, NULL, pool));
 
   /* Suck up all the remaining arguments into a targets array */
-  SVN_ERR (svn_cl__args_to_target_array (&targets, os, opt_state,
+  SVN_ERR (svn_cl__args_to_target_array (&targets, os, opt_state, 
                                          FALSE, pool));
 
   /* Add "." if user passed 0 file arguments */
@@ -61,7 +61,7 @@ svn_cl__propdel (apr_getopt_t *os,
       const char *target = ((const char **) (targets->elts))[i];
       SVN_ERR (svn_client_propset (pname_utf8, NULL, target,
                                    opt_state->recursive, pool));
-      if (! opt_state->quiet)
+      if (! opt_state->quiet) 
         {
           const char *target_native;
           SVN_ERR (svn_utf_cstring_from_utf8 (target, &target_native, pool));
@@ -76,8 +76,8 @@ svn_cl__propdel (apr_getopt_t *os,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../tools/dev/svn-dev.el")
- * end:
+ * end: 
  */

@@ -37,7 +37,7 @@
  *
  * The key is allocated in POOL; the value is (void *) 'U', 'A', 'D',
  * or 'R', for modified, added, deleted, or replaced, respectively.
- *
+ * 
  */
 static svn_error_t *
 detect_changed (apr_hash_t *changed,
@@ -143,7 +143,7 @@ svn_repos_get_logs (svn_repos_t *repos,
                (&rev_root, fs, (start > end) ? start : end, pool));
 
       /* And the search is on... */
-      SVN_ERR (svn_fs_revisions_changed (&revs, rev_root, paths,
+      SVN_ERR (svn_fs_revisions_changed (&revs, rev_root, paths, 
                                          strict_node_history ? 0 : 1, pool));
 
       /* If no revisions were found for these entries, we have nothing
@@ -199,7 +199,7 @@ svn_repos_get_logs (svn_repos_t *repos,
                             date ? date->data : "",
                             message ? message->data : "",
                             subpool));
-
+      
       svn_pool_clear (subpool);
     }
 
@@ -210,7 +210,7 @@ svn_repos_get_logs (svn_repos_t *repos,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end:
