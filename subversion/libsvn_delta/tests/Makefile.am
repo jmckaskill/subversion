@@ -17,6 +17,6 @@ deltaparse_test_LDADD = ../libsvn_delta.la \
 
 ## Automatic test scripts to run for `make check`
 
-## TESTS =
+## TESTS = 
 
 

@@ -1,5 +1,5 @@
-/*
-   A simple demo of how to use Subversion's XML parser interface.
+/* 
+   A simple demo of how to use Subversion's XML parser interface. 
 */
 
 
@@ -35,7 +35,7 @@ my_vcdiff_windoweater (svn_txdelta_window_t *window, void *baton)
           {
             char *startaddr = (window->new->data +
                                 (window->ops[i].offset));
-            svn_string_t *str =
+            svn_string_t *str = 
               svn_string_ncreate (startaddr,
                                   (window->ops[i].length),
                                   globalpool);
@@ -52,7 +52,7 @@ my_vcdiff_windoweater (svn_txdelta_window_t *window, void *baton)
           {
           }
         }
-
+              
     }
 
 
@@ -68,7 +68,7 @@ svn_error_t *
 test_delete (svn_string_t *filename, void *walk_baton, void *parent_baton)
 {
   printf ("DELETE event:  delete filename '%s'\n", filename->data);
-  return SVN_NO_ERROR;
+  return SVN_NO_ERROR;         
 }
 
 
@@ -83,7 +83,7 @@ test_add_directory (svn_string_t *name,
           name->data, ancestor_path->data, ancestor_version);
 
   /* A real callback would fill in **child_baton here */
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -97,7 +97,7 @@ test_replace_directory (svn_string_t *name,
 {
   printf ("REPLACE_DIR event:  name '%s', ancestor '%s' version %d\n",
           name->data, ancestor_path->data, ancestor_version);
-
+  
   /* A real callback would fill in **child_baton here */
 
   return SVN_NO_ERROR;
@@ -109,7 +109,7 @@ test_finish_directory (void *dir_baton)
 {
   printf ("FINISH_DIR event.\n");
 
-  return SVN_NO_ERROR;
+  return SVN_NO_ERROR;    
 }
 
 
@@ -118,7 +118,7 @@ test_finish_file (void *file_baton)
 {
   printf ("FINISH_FILE event.\n");
 
-  return SVN_NO_ERROR;
+  return SVN_NO_ERROR;    
 }
 
 
@@ -128,7 +128,7 @@ test_apply_textdelta (void *walk_baton, void *parent_baton, void *file_baton,
                       svn_txdelta_window_handler_t **handler,
                       void **handler_baton)
 {
-  printf ("TEXT-DELTA event:  within file `%s'.\n",
+  printf ("TEXT-DELTA event:  within file `%s'.\n", 
           (char *) ((svn_string_t *) file_baton)->data);
 
   /* Set the value of HANDLER and HANDLER_BATON here */
@@ -151,7 +151,7 @@ test_add_file (svn_string_t *name,
 {
   printf ("ADD_FILE event:  name '%s', ancestor '%s' version %d\n",
           name->data, ancestor_path->data, ancestor_version);
-
+  
   /* Put the filename in file_baton */
   *file_baton = (svn_string_t *) svn_string_dup (name, globalpool);
 
@@ -172,14 +172,14 @@ test_replace_file (svn_string_t *name,
 
   /* Put the filename in file_baton */
   *file_baton = (svn_string_t *) svn_string_dup (name, globalpool);
-
+  
   return SVN_NO_ERROR;
 }
 
 
 
 
-/* An official subversion "read" routine, comforming to POSIX standards.
+/* An official subversion "read" routine, comforming to POSIX standards. 
    This one reads our XML filehandle, passed in as our baton.  */
 svn_error_t *
 my_read_func (void *baton, char *buffer, apr_off_t *len, apr_pool_t *pool)
@@ -193,7 +193,7 @@ my_read_func (void *baton, char *buffer, apr_off_t *len, apr_pool_t *pool)
   stat = apr_full_read (xmlfile, buffer,
                         (apr_size_t) *len,
                         (apr_size_t *) len);
-
+  
   /* We want to return general I/O errors, but we explicitly ignore
      the APR_EOF error.  Why?  Because the caller of this routine
      doesn't want to know about that error.  It uses (*len == 0) as a
@@ -203,12 +203,12 @@ my_read_func (void *baton, char *buffer, apr_off_t *len, apr_pool_t *pool)
      Therfore, if apr_full_read() does this, the caller will call this
      routine one more time, and *len should then be set to 0 for sure. */
 
-  if (stat && (stat != APR_EOF))
+  if (stat && (stat != APR_EOF)) 
     return
       svn_create_error (stat, 0, "my_read_func: error reading xmlfile",
                         NULL, pool);
-
-  return SVN_NO_ERROR;
+  
+  return SVN_NO_ERROR;  
 }
 
 
@@ -224,7 +224,7 @@ int main(int argc, char *argv[])
   /* Process args */
   if (argc != 2)
     {
-      printf
+      printf 
         ("\nUsage: %s [filename], where [filename] contains an XML tree-delta",
          argv[0]);
       exit (1);
@@ -243,8 +243,8 @@ int main(int argc, char *argv[])
       printf ("Error opening %s\n.", argv[1]);
       exit (1);
     }
-
-
+    
+  
   /* Fill out a walker structure, with our own routines inside it. */
   my_walker.delete             = test_delete;
 
