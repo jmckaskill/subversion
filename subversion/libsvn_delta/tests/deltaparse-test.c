@@ -1,5 +1,5 @@
-/*
-   A simple demo of how to use Subversion's XML parser interface.
+/* 
+   A simple demo of how to use Subversion's XML parser interface. 
 */
 
 
@@ -90,11 +90,11 @@ my_vcdiff_windoweater (svn_txdelta_window_t *window, void *baton)
           {
             char *startaddr = (window->new->data +
                                 (window->ops[i].offset));
-            svn_string_t *str =
+            svn_string_t *str = 
               svn_string_ncreate (startaddr,
                                   (window->ops[i].length),
                                   globalpool);
-
+            
             print_spaces (fb->dir_baton->edit_baton->indentation);
             printf ("-- got txdelta window -- : new text: [%s]\n", str->data);
           }
@@ -108,7 +108,7 @@ my_vcdiff_windoweater (svn_txdelta_window_t *window, void *baton)
           {
           }
         }
-
+              
     }
 
 
@@ -128,7 +128,7 @@ test_delete (svn_string_t *filename, void *parent_baton)
   print_spaces (d->edit_baton->indentation);
 
   printf ("DELETE file '%s'\n", Aname);
-  return SVN_NO_ERROR;
+  return SVN_NO_ERROR;         
 }
 
 
@@ -175,7 +175,7 @@ add_or_replace_dir (svn_string_t *name,
                           pd->edit_baton->pool);
   d->edit_baton = pd->edit_baton;
   *child_baton = d;
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -221,10 +221,10 @@ test_close_directory (void *dir_baton)
 
   if (d->path)
     printf ("CLOSE_DIR '%s'\n", d->path->data);
-  else
+  else 
     printf ("CLOSE_DIR:  no name!!\n");
 
-  return SVN_NO_ERROR;
+  return SVN_NO_ERROR;    
 }
 
 
@@ -241,7 +241,7 @@ test_close_file (void *file_baton)
   else
     printf ("CLOSE_FILE:  no name!!\n");
 
-  return SVN_NO_ERROR;
+  return SVN_NO_ERROR;    
 }
 
 
@@ -367,7 +367,7 @@ test_change_dir_prop (void *parent_baton,
 }
 
 
-/* An official subversion "read" routine, comforming to POSIX standards.
+/* An official subversion "read" routine, comforming to POSIX standards. 
    This one reads our XML filehandle, passed in as our baton.  */
 static svn_error_t *
 my_read_func (void *baton, char *buffer, apr_size_t *len, apr_pool_t *pool)
@@ -380,7 +380,7 @@ my_read_func (void *baton, char *buffer, apr_size_t *len, apr_pool_t *pool)
   stat = apr_full_read (xmlfile, buffer,
                         (apr_size_t) *len,
                         (apr_size_t *) len);
-
+  
   /* We want to return general I/O errors, but we explicitly ignore
      the APR_EOF error.  Why?  Because the caller of this routine
      doesn't want to know about that error.  It uses (*len == 0) as a
@@ -390,12 +390,12 @@ my_read_func (void *baton, char *buffer, apr_size_t *len, apr_pool_t *pool)
      Therfore, if apr_full_read() does this, the caller will call this
      routine one more time, and *len should then be set to 0 for sure. */
 
-  if (stat && (stat != APR_EOF))
+  if (stat && (stat != APR_EOF)) 
     return
       svn_error_create (stat, 0, NULL, pool,
                         "my_read_func: error reading xmlfile");
-
-  return SVN_NO_ERROR;
+  
+  return SVN_NO_ERROR;  
 }
 
 
@@ -415,7 +415,7 @@ main (int argc, char *argv[])
   /* Process args */
   if (argc != 2)
     {
-      printf
+      printf 
         ("\nUsage: %s [filename], where [filename] contains an XML tree-delta",
          argv[0]);
       exit (1);
@@ -434,8 +434,8 @@ main (int argc, char *argv[])
       printf ("Error opening %s\n.", argv[1]);
       exit (1);
     }
-
-
+    
+  
   /* Fill out a editor structure, with our own routines inside it. */
   my_editor.delete             = test_delete;
 
@@ -465,7 +465,7 @@ main (int argc, char *argv[])
   my_edit_baton->root_path = base_path;
 
   /* Fire up the XML parser */
-  err = svn_delta_xml_auto_parse (my_read_func, source_baton,
+  err = svn_delta_xml_auto_parse (my_read_func, source_baton, 
                                   &my_editor,
                                   base_path,
                                   base_version,
@@ -473,7 +473,7 @@ main (int argc, char *argv[])
                                   globalpool);
 
   apr_close (source_baton);
-
+  
   if (err)
     {
       svn_handle_error (err, stderr, 0);
