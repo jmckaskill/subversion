@@ -214,21 +214,14 @@ def textual_merges_galore(sbox):
   other_tau_text += "\n"
   svntest.main.file_append(other_tau_path, other_tau_text)
 
-  ### See http://subversion.tigris.org/issues/show_bug.cgi?id=748
-  ### Because "svn merge" only works in "." right now,
-  ### run_and_verify_merge() is changing into the wc_dir directory to
-  ### run the command.  This means that all the expected_foo trees
-  ### should be built on "" instead  of on wc_dir, so that's what we
-  ### do below...
-
   # Do the first merge, revs 1:3.  This tests all the cases except
   # case 4, which we'll handle in a second pass.
-  expected_output = wc.State("", { 'A/mu'       : Item(status='_ '),
-                                   'A/B/lambda' : Item(status='U '),
-                                   'A/D/G/rho'  : Item(status='U '),
-                                   'A/D/G/pi'   : Item(status='G '),
-                                   'A/D/G/tau'  : Item(status='C '),
-                                   })
+  expected_output = wc.State(other_wc, {'A/mu'       : Item(status='_ '),
+                                        'A/B/lambda' : Item(status='U '),
+                                        'A/D/G/rho'  : Item(status='U '),
+                                        'A/D/G/pi'   : Item(status='G '),
+                                        'A/D/G/tau'  : Item(status='C '),
+                                        })
 
   expected_disk = svntest.main.greek_state.copy()
   expected_disk.tweak('A/mu',
@@ -314,10 +307,11 @@ def textual_merges_galore(sbox):
   # We expect pi and tau to merge and conflict respectively, but
   # those are just side effects of the method we're using to test the
   # merge on rho, which is all we really care about.
-  expected_output = wc.State("", { 'rho'  : Item(status='G '),
-                                   'pi'   : Item(status='G '),
-                                   'tau'  : Item(status='C '),
-                                   })
+  expected_output = wc.State(os.path.join(other_wc, 'A', 'D', 'G'),
+                             { 'rho'  : Item(status='G '),
+                               'pi'   : Item(status='G '),
+                               'tau'  : Item(status='C '),
+                               })
 
   expected_disk = wc.State("", {
     'pi'    : wc.StateItem("This is the file 'pi'."),
