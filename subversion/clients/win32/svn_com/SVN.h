@@ -9,7 +9,7 @@
  * newer version instead, at your option.
  * ====================================================================
  */
-
+	
 // SVN.h : Declaration of the CSVNWorkingCopy
 
 #ifndef WINSVN_H_
@@ -21,7 +21,7 @@
 
 /////////////////////////////////////////////////////////////////////////////
 // CSVN
-class ATL_NO_VTABLE CSVNWorkingCopy :
+class ATL_NO_VTABLE CSVNWorkingCopy : 
 	public CComObjectRootEx<CComMultiThreadModel>,
 	public CComCoClass<CSVNWorkingCopy, &CLSID_SVNWorkingCopy>,
 	public ISupportErrorInfo,
@@ -94,7 +94,7 @@ END_CONNECTION_POINT_MAP()
 public:
 	STDMETHOD(wc_statuses)(/*[in]*/ BSTR bstrPath, /*[out]*/ SAFEARRAY **ppsa);
 	STDMETHOD(watch_dir)(/*[in]*/ BSTR bstrDir);
-	STDMETHOD(check_wc)(/*[in]*/ BSTR bstrDir, /*[out, retval]*/ VARIANT_BOOL *pfIsValid);
+	STDMETHOD(check_wc)(/*[in]*/ BSTR bstrDir, /*[out, retval]*/ VARIANT_BOOL *pfIsValid); 
 private:
 	static void FileNotificationThreadProc(void *);
 };
