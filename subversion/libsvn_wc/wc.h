@@ -40,7 +40,7 @@
 
 /* A special timestamp value which means "use the timestamp from the
    working copy".  This is sometimes used in a log entry like:
-
+   
    <modify-entry name="foo.c" revision="5" timestamp="working"/>
  */
 #define SVN_WC_TIMESTAMP_WC   "working"
@@ -52,7 +52,7 @@
 /* Create DIR as a working copy directory. */
 /* ### This function hasn't been defined nor completely documented
    yet, so I'm not sure whether the "ancestor" arguments are really
-   meant to be urls and should be changed to "url_*".  -kff */
+   meant to be urls and should be changed to "url_*".  -kff */ 
 svn_error_t *svn_wc__set_up_new_dir (svn_stringbuf_t *path,
                                      svn_stringbuf_t *ancestor_path,
                                      svn_revnum_t ancestor_revnum,
@@ -95,7 +95,7 @@ svn_error_t *svn_wc__set_up_new_dir (svn_stringbuf_t *path,
 svn_error_t *svn_wc__ensure_directory (svn_stringbuf_t *path, apr_pool_t *pool);
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end:
