@@ -124,7 +124,7 @@ ary_prefix_match (apr_array_header_t *pfxlist, const char *path)
 
 /* Filtering batons */
 
-struct parse_baton_t
+struct parse_baton_t 
 {
   svn_boolean_t       do_exclude;
   svn_boolean_t       quiet;
@@ -139,7 +139,7 @@ struct parse_baton_t
   apr_hash_t         *renumber_history;
 };
 
-struct revision_baton_t
+struct revision_baton_t 
 {
   struct parse_baton_t *pb;
 
@@ -154,7 +154,7 @@ struct revision_baton_t
   svn_stream_t    *body_stream;
 };
 
-struct node_baton_t
+struct node_baton_t 
 {
   struct revision_baton_t *rb;
 
@@ -297,7 +297,7 @@ new_node_record (void **node_baton,
                                 APR_HASH_KEY_STRING);
 
   /* See if this node was copied from dropped source.  If it was,
-     we have to drop this node, too.
+     we have to drop this node, too.  
 
      However, there is one special case we'll handle.  If the node is
      a file, and this was a copy-and-modify operation, then the
@@ -328,9 +328,9 @@ new_node_record (void **node_baton,
         {
           /* If the copy source is excluded, we can't do the right
              thing with this copy. */
-          if (ary_prefix_match (pb->prefixes, copyfrom_path)
+          if (ary_prefix_match (pb->prefixes, copyfrom_path) 
               ? pb->do_exclude : (! pb->do_exclude))
-            return svn_error_createf
+            return svn_error_createf 
               (SVN_ERR_INCOMPLETE_DATA, 0,
                "Invalid copy source path '%s'", copyfrom_path);
         }
@@ -340,8 +340,8 @@ new_node_record (void **node_baton,
      rest.  */
   if (nb->do_skip)
     {
-      apr_hash_set (pb->dropped_nodes,
-                    apr_pstrdup (apr_hash_pool_get (pb->dropped_nodes),
+      apr_hash_set (pb->dropped_nodes, 
+                    apr_pstrdup (apr_hash_pool_get (pb->dropped_nodes), 
                                  node_path),
                     APR_HASH_KEY_STRING, (void *)1);
       nb->rb->had_dropped_nodes = TRUE;
@@ -543,15 +543,15 @@ close_revision (void *revision_baton)
        - the date
        - a log message that reports that this revision is just stuffing. */
   if ((! rb->pb->preserve_revprops)
-      && (! rb->has_nodes)
-      && rb->had_dropped_nodes
+      && (! rb->has_nodes) 
+      && rb->had_dropped_nodes 
       && (! rb->pb->drop_empty_revs))
     {
       apr_hash_t *old_props = rb->props;
       rb->has_props = TRUE;
       rb->props = apr_hash_make (hash_pool);
       apr_hash_set (rb->props, SVN_PROP_REVISION_DATE, APR_HASH_KEY_STRING,
-                    apr_hash_get (old_props, SVN_PROP_REVISION_DATE,
+                    apr_hash_get (old_props, SVN_PROP_REVISION_DATE, 
                                   APR_HASH_KEY_STRING));
       apr_hash_set (rb->props, SVN_PROP_REVISION_LOG, APR_HASH_KEY_STRING,
                     svn_string_create ("This is an empty revision for "
@@ -562,8 +562,8 @@ close_revision (void *revision_baton)
      information to the header string.  */
   if (rb->has_props)
     {
-      for (hi = apr_hash_first (hash_pool, rb->props);
-           hi;
+      for (hi = apr_hash_first (hash_pool, rb->props); 
+           hi; 
            hi = apr_hash_next (hi))
         {
           const void *key;
@@ -775,8 +775,8 @@ subcommand_help (apr_getopt_t *os, void *baton, apr_pool_t *pool)
 
 /* Do the real work of filtering. */
 static svn_error_t *
-do_filter (apr_getopt_t *os,
-           void *baton,
+do_filter (apr_getopt_t *os, 
+           void *baton, 
            svn_boolean_t do_exclude,
            apr_pool_t *pool)
 {
@@ -792,7 +792,7 @@ do_filter (apr_getopt_t *os,
 
       fprintf (stderr, "%s %sprefixes:\n",
                do_exclude ? "Excluding" : "Including",
-               opt_state->drop_empty_revs
+               opt_state->drop_empty_revs 
                ? "(and dropping empty revisions for) " : "");
 
       for (i = 0; i < opt_state->prefixes->nelts; i++)
@@ -819,14 +819,14 @@ do_filter (apr_getopt_t *os,
   if (pb->do_renumber_revs)
     {
       fprintf (stderr, "\n\nRenumber history:\n");
-      for (hi = apr_hash_first (pool, pb->renumber_history);
-           hi;
+      for (hi = apr_hash_first (pool, pb->renumber_history); 
+           hi; 
            hi = apr_hash_next (hi))
         {
           apr_hash_this (hi, &key, NULL, &val);
-          fprintf (stderr,
-                   "   '%" SVN_REVNUM_T_FMT "' => '%" SVN_REVNUM_T_FMT "'\n",
-                   *((svn_revnum_t *)key),
+          fprintf (stderr, 
+                   "   '%" SVN_REVNUM_T_FMT "' => '%" SVN_REVNUM_T_FMT "'\n", 
+                   *((svn_revnum_t *)key), 
                    *((svn_revnum_t *)val));
         }
     }
@@ -835,7 +835,7 @@ do_filter (apr_getopt_t *os,
     {
       fprintf (stderr, "\n\nDropped nodes list:\n");
       for (hi = apr_hash_first (pool, pb->dropped_nodes);
-           hi;
+           hi; 
            hi = apr_hash_next (hi))
         {
           apr_hash_this (hi, &key, NULL, NULL);
@@ -895,7 +895,7 @@ main (int argc, const char * const *argv)
 
   pool = svn_pool_create_ex (NULL, allocator);
   apr_allocator_owner_set (allocator, pool);
-
+		  
   if (argc <= 1)
     {
       subcommand_help (NULL, NULL, pool);
