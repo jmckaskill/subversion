@@ -204,7 +204,7 @@ txn_body_youngest_rev (void *baton,
           (SVN_ERR_FS_CORRUPT, 0, 0, fs->pool,
            "revision 0 missing from `revisions' table, in filesystem `%s'",
            fs->env_path);
-
+      
       SVN_ERR (DB_WRAP (fs, "getting youngest revision (finding last entry)",
                         db_err));
     }
@@ -466,7 +466,7 @@ txn_body_change_rev_prop (void *baton, trail_t *trail)
 
     /* Update the filesystem revision with the new skel that reflects
        our property edits. */
-    db_err = fs->revisions->put
+    db_err = fs->revisions->put 
       (fs->revisions, trail->db_txn,
        svn_fs__set_dbt (&key, &recno, sizeof (recno)),
        svn_fs__skel_to_dbt (&value, skel, trail->pool), 0);
@@ -497,7 +497,7 @@ svn_fs_change_rev_prop (svn_fs_t *fs,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
