@@ -93,7 +93,7 @@ Candidate changes:
   * r8539, r8540
     Fix shebang line in three Perl scripts in tools.
     Justification:  They won't run at all!
-    Notes:
+    Notes: 
     Votes:
       +1: sussman, blair, dlr
 
