@@ -23,7 +23,7 @@ MUST HAVE
 
 * fsfs backend schema (not logic, mind you) must support the notion of
   a directory lock, in prep for future support (cmpilato)
-
+  
 
 NICE TO HAVE
 ------------
@@ -47,11 +47,11 @@ NICE TO HAVE
 
    * Decide what should happen when unlocking in commit if an error happens.
 
-   * how do locks relate to dump/load?  file as an enhancement?
+   * how do locks relate to dump/load?  file as an enhancement? 
 
 
 * Stuff to document in book:
-
+     
        - 4 new hooks
        - 'lock' and 'unlock' commands, svn:needs-lock property.
        - svnadmin lslocks, rmlocks, lock
@@ -62,7 +62,7 @@ NICE TO HAVE
        - two new bdb tables in BDB section.
        - update the description of autoversioning in appendix C!
 
-         ### remember to update authz policy doc.
+         ### remember to update authz policy doc. 
 
 * Autoversioning TODO:
 
