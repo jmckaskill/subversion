@@ -20,7 +20,7 @@
 
 
 /* Open a `clones' table in ENV.  If CREATE is non-zero, create
-   one if it doesn't exist.  Set *CLONES_P to the new table.
+   one if it doesn't exist.  Set *CLONES_P to the new table.  
    Return a Berkeley DB error code.  */
 int svn_fs__open_clones_table (DB **clones_p,
                                DB_ENV *env,
@@ -80,7 +80,7 @@ svn_error_t *svn_fs__record_rename (svn_fs_t *fs,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
