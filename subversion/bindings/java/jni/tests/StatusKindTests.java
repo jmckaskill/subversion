@@ -33,7 +33,7 @@ public class StatusKindTests extends TestCase
     public void testStatuskindCreate()
 	{
 	    int kind = StatusKind.NONE;
-	    StatusKind statusKind =
+	    StatusKind statusKind = 
 		NativeWrapper.statuskindCreate(kind);
 
 	    assertNotNull( statusKind );
@@ -42,7 +42,7 @@ public class StatusKindTests extends TestCase
     public void testStatuskindCreateIntegrity()
 	{
 	    int kind = StatusKind.MERGED;
-	    StatusKind statusKind =
+	    StatusKind statusKind = 
 		NativeWrapper.statuskindCreate(kind);
 
 	    assertEquals( kind, statusKind.getKind() );
