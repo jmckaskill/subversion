@@ -78,7 +78,7 @@ svn_error_t *svn_wc__wcprop_path (svn_stringbuf_t **wcprop_path,
 
 
 /* Set *PROP_PATH to PATH's working properties file.
-   If TMP is set, return a path to the tmp working property file.
+   If TMP is set, return a path to the tmp working property file. 
    PATH can be a directory or file, and even have changed w.r.t. the
    working copy's adm knowledge. */
 svn_error_t *svn_wc__prop_path (svn_stringbuf_t **prop_path,
@@ -88,7 +88,7 @@ svn_error_t *svn_wc__prop_path (svn_stringbuf_t **prop_path,
 
 
 /* Set *PROP_PATH to PATH's `pristine' properties file.
-   If TMP is set, return a path to the tmp working property file.
+   If TMP is set, return a path to the tmp working property file. 
    PATH can be a directory or file, and even have changed w.r.t. the
    working copy's adm knowledge. */
 svn_error_t *svn_wc__prop_base_path (svn_stringbuf_t **prop_path,
@@ -105,7 +105,7 @@ svn_error_t *svn_wc__prop_base_path (svn_stringbuf_t **prop_path,
  * When you open a file for writing with svn_wc__open_foo(), the file
  * is actually opened in the corresponding location in the tmp/
  * directory (and if you're appending as well, then the tmp file
- * starts out as a copy of the original file).
+ * starts out as a copy of the original file). 
  *
  * Somehow, this tmp file must eventually get renamed to its real
  * destination in the adm area.  You can do it either by passing the
@@ -225,11 +225,11 @@ svn_error_t *svn_wc__close_props (apr_file_t *fp,
                                   apr_pool_t *pool);
 
 /* Atomically rename a temporary property file to its canonical
-   location.  The tmp file should be closed already.
+   location.  The tmp file should be closed already. 
 
    Again, BASE and WCPROPS flags should be identical to those used to
    open the file. */
-svn_error_t *svn_wc__sync_props (svn_stringbuf_t *path,
+svn_error_t *svn_wc__sync_props (svn_stringbuf_t *path, 
                                  svn_boolean_t base,
                                  svn_boolean_t wcprops,
                                  apr_pool_t *pool);
@@ -244,7 +244,7 @@ svn_error_t *svn_wc__sync_props (svn_stringbuf_t *path,
  * to look at callers...
  *
  * Do not ensure existence of PATH itself; if PATH does not exist,
- * return error.
+ * return error. 
  */
 svn_error_t *svn_wc__ensure_adm (svn_stringbuf_t *path,
                                  svn_stringbuf_t *url,
@@ -260,12 +260,12 @@ svn_error_t *svn_wc__adm_destroy (svn_stringbuf_t *path,
 
 /* Cleanup the temporary storage area of the administrative
    directory. */
-svn_error_t *svn_wc__adm_cleanup_tmp_area (svn_stringbuf_t *path,
+svn_error_t *svn_wc__adm_cleanup_tmp_area (svn_stringbuf_t *path, 
                                            apr_pool_t *pool);
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end:
