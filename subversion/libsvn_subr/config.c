@@ -190,7 +190,7 @@ get_category_config (svn_config_t **cfg,
 {
   const char *usr_reg_path = NULL, *sys_reg_path = NULL;
   const char *usr_cfg_path, *sys_cfg_path;
-
+  
   *cfg = NULL;
 
 #ifdef SVN_WIN32
@@ -217,7 +217,7 @@ svn_config_get_config (apr_hash_t **cfg_hash,
 {
   svn_config_t *cfg;
   *cfg_hash = apr_hash_make (pool);
-
+  
 #define CATLEN (sizeof (SVN_CONFIG_CATEGORY_SERVERS) - 1)
   SVN_ERR (get_category_config (&cfg, SVN_CONFIG_CATEGORY_SERVERS, pool));
   if (cfg)
@@ -384,7 +384,7 @@ make_string_from_option (const char **valuep,
 
   /* For legacy reasons, the cfg is still using counted-length strings
      internally.  But the public interfaces just use null-terminated
-     C strings now, so below we ignore length and use only data. */
+     C strings now, so below we ignore length and use only data. */ 
 
   if (opt->x_value)
     *valuep = opt->x_value;
@@ -564,14 +564,14 @@ svn_config_get_server_setting_int (svn_config_t *cfg,
   char *end_pos;
   char *default_value_str = apr_psprintf (pool,
                                           "%" APR_INT64_T_FMT,
-                                          default_value);
+                                          default_value); 
   tmp_value = svn_config_get_server_setting (cfg, server_group,
                                              option_name, default_value_str);
 
   /* read tmp_value as an int now */
   *result_value = apr_strtoi64 (tmp_value, &end_pos, 0);
-
-  if (*end_pos != 0)
+  
+  if (*end_pos != 0) 
     {
       return svn_error_create (SVN_ERR_RA_DAV_INVALID_CONFIG_VALUE, NULL,
                                "non-integer in integer option");
