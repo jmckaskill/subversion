@@ -187,7 +187,7 @@ svn_error_t * svn_ra_dav__get_activity_url(svn_string_t **activity_url,
 }
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
