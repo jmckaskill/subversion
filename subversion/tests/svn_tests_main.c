@@ -105,7 +105,7 @@ main (int argc, char *argv[])
 
   /* How many tests are there? */
   int array_size = get_array_size();
-
+  
   /* Initialize APR (Apache pools) */
   if (apr_initialize () != APR_SUCCESS)
     {
@@ -124,7 +124,7 @@ main (int argc, char *argv[])
     prog_name = argv[0];
 
   /* Notice if there's a command-line argument */
-  if (argc >= 2)
+  if (argc >= 2) 
     {
       test_num = atoi (argv[1]);
       got_error = do_test_num (prog_name, test_num);

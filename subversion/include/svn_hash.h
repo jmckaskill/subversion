@@ -34,7 +34,7 @@
  *
  *     The hash should be ready to receive key/val pairs.
  */
-apr_status_t svn_hash_read (apr_hash_t *hash,
+apr_status_t svn_hash_read (apr_hash_t *hash, 
                             void *(*pack_func) (size_t len, const char *val,
                                                 apr_pool_t *pool),
                             apr_file_t *srcfile,
@@ -47,7 +47,7 @@ apr_status_t svn_hash_read (apr_hash_t *hash,
  *     The "unpack" routine knows how to convert a hash value into a
  *     printable bytestring of a certain length.
  */
-apr_status_t svn_hash_write (apr_hash_t *hash,
+apr_status_t svn_hash_write (apr_hash_t *hash, 
                              apr_size_t (*unpack_func) (char **unpacked_data,
                                                         void *val),
                              apr_file_t *destfile);
@@ -56,10 +56,10 @@ apr_status_t svn_hash_write (apr_hash_t *hash,
 
 /*** Helper routines specific to Subversion proplists. ***/
 
-/* A helper for hash_write():
+/* A helper for hash_write(): 
  * Input:   a hash value which points to an svn_string_t
  * Returns: the size of the svn_string_t, and (by indirection) the
- *          string data itself
+ *          string data itself 
  */
 apr_size_t svn_unpack_bytestring (char **returndata, void *value);
 
@@ -94,7 +94,7 @@ apr_hash_sorted_keys (apr_hash_t *ht,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:

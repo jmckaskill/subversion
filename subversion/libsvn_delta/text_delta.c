@@ -1,6 +1,6 @@
-/*
+/* 
  * text-delta.c -- Internal text delta representation
- *
+ * 
  * ====================================================================
  * Copyright (c) 2000 CollabNet.  All rights reserved.
  *
@@ -153,7 +153,7 @@ svn_txdelta (svn_txdelta_stream_t **stream,
   assert (subpool != NULL);
 
   *stream = apr_palloc (subpool, sizeof (**stream));
-  (*stream)->source_fn = source_fn;
+  (*stream)->source_fn = source_fn; 
   (*stream)->source_baton = source_baton;
   (*stream)->target_fn = target_fn;
   (*stream)->target_baton = target_baton;
@@ -442,7 +442,7 @@ svn_txdelta_apply (svn_read_fn_t *source_fn,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
