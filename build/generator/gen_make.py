@@ -114,7 +114,7 @@ class Generator(gen_base.GeneratorBase):
 
              targ_varname, string.join(objects),
 
-             targ_varname, targ_varname, targ_varname, target_ob.add_deps,
+             targ_varname, targ_varname, targ_varname, target_ob.add_deps, 
              string.join(deps),
 
              target_ob.name, targ_varname))
@@ -132,7 +132,7 @@ class Generator(gen_base.GeneratorBase):
 
                targ_varname, targ_varname,
 
-               target_ob.link_cmd, target_ob.output_dir, target_ob.classes,
+               target_ob.link_cmd, target_ob.output_dir, target_ob.classes, 
                targ_varname, targ_varname))
 
         # Build the objects from the object_srcs with one 'javac' call
@@ -145,7 +145,7 @@ class Generator(gen_base.GeneratorBase):
 
                targ_varname, targ_varname,
 
-               target_ob.link_cmd, target_ob.output_dir, target_ob.classes,
+               target_ob.link_cmd, target_ob.output_dir, target_ob.classes, 
                targ_varname, targ_varname))
 
         # Once the bytecodes have been compiled up, we produce the
@@ -331,7 +331,7 @@ class Generator(gen_base.GeneratorBase):
 
     # write a list of directories in which things are built
     #   get target directories
-    target_dirs = self.graph.get_sources(gen_base.DT_LIST,
+    target_dirs = self.graph.get_sources(gen_base.DT_LIST, 
                                          gen_base.LT_TARGET_DIRS)
 
     #   get all the test scripts' directories
