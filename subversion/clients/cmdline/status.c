@@ -52,7 +52,7 @@ generate_status_code (enum svn_wc_status_kind status)
 
 /* Print STATUS and PATH in a format determined by DETAILED and
    SHOW_LAST_COMMITTED */
-static void
+static void 
 print_status (const char *path,
               svn_boolean_t detailed,
               svn_boolean_t show_last_committed,
@@ -183,8 +183,8 @@ svn_cl__print_status_list (apr_hash_t *statushash,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../tools/dev/svn-dev.el")
- * end:
+ * end: 
  */
