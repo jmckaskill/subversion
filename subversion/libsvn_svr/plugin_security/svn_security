@@ -9,11 +9,11 @@
 jimb : Jim Blandy :   jimb/unix/localhost,  \
                       jimb/smtp/jimb@red-bean.com, \
                       jimb/kerberos/redhat.com, \
-                      jimb/DAV/red-bean.com
-
+                      jimb/DAV/red-bean.com 
+       
 jim : Jim Beelzebub : jimb/kerberos/microsoft.com, \
                       jimb/ssh/inferno.net
-
+       
 kfogel : Karl Fogel : kfogel/joist
 
 
