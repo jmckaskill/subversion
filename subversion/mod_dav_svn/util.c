@@ -215,7 +215,7 @@ svn_error_t *dav_svn_simple_parse_uri(dav_svn_uri_info *info,
       info->activity_id = path + 5;
     }
   else if (len2 == 4 && memcmp(path, "/ver/", 5) == 0)
-    {
+    {      
       /* a version resource */
       path += 5;
       len1 -= 5;
@@ -263,7 +263,7 @@ int dav_svn_find_ns(apr_array_header_t *namespaces, const char *uri)
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end:
