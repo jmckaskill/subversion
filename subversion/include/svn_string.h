@@ -4,32 +4,32 @@
  *
  * ================================================================
  * Copyright (c) 2000 Collab.Net.  All rights reserved.
- *
+ * 
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
  * met:
- *
+ * 
  * 1. Redistributions of source code must retain the above copyright
  * notice, this list of conditions and the following disclaimer.
- *
+ * 
  * 2. Redistributions in binary form must reproduce the above copyright
  * notice, this list of conditions and the following disclaimer in the
  * documentation and/or other materials provided with the distribution.
- *
+ * 
  * 3. The end-user documentation included with the redistribution, if
  * any, must include the following acknowlegement: "This product includes
  * software developed by Collab.Net (http://www.Collab.Net/)."
  * Alternately, this acknowlegement may appear in the software itself, if
  * and wherever such third-party acknowlegements normally appear.
- *
+ * 
  * 4. The hosted project names must not be used to endorse or promote
  * products derived from this software without prior written
  * permission. For written permission, please contact info@collab.net.
- *
+ * 
  * 5. Products derived from this software may not use the "Tigris" name
  * nor may "Tigris" appear in their names without prior written
  * permission of Collab.Net.
- *
+ * 
  * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
  * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -43,7 +43,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ====================================================================
- *
+ * 
  * This software consists of voluntary contributions made by many
  * individuals on behalf of Collab.Net.
  */
@@ -60,9 +60,9 @@
 /* Create a new bytestring containing a C string (null-terminated), or
    containing a generic string of bytes (NON-null-terminated) */
 
-svn_string_t * svn_string_create (const char *cstring,
+svn_string_t * svn_string_create (const char *cstring, 
                                   ap_pool_t *pool);
-svn_string_t * svn_string_ncreate (const char *bytes, const size_t size,
+svn_string_t * svn_string_ncreate (const char *bytes, const size_t size, 
                                    ap_pool_t *pool);
 
 /* Set/get  a bytestring empty */
@@ -77,9 +77,9 @@ void svn_string_fillchar (svn_string_t *str, const unsigned char c);
 /* Append either a string of bytes or an svn_string_t onto a
    svn_string_t.  reallocs() if necessary. */
 
-void svn_string_appendbytes (svn_string_t *str, const char *bytes,
+void svn_string_appendbytes (svn_string_t *str, const char *bytes, 
                              const size_t count, ap_pool_t *pool);
-void svn_string_appendstr (svn_string_t *targetstr,
+void svn_string_appendstr (svn_string_t *targetstr, 
                            const svn_string_t *appendstr,
                            ap_pool_t *pool);
 
@@ -92,12 +92,12 @@ svn_string_t * svn_string_dup (const svn_string_t *original_string,
 /* compare if two bytestrings' data fields are identical,
    byte-for-byte */
 
-svn_boolean_t svn_string_compare (const svn_string_t *str1,
+svn_boolean_t svn_string_compare (const svn_string_t *str1, 
                                   const svn_string_t *str2);
 
 /* comprare a bytestring to a traditional C string */
 
-svn_boolean_t svn_string_compare_2cstring (const svn_string_t *str,
+svn_boolean_t svn_string_compare_2cstring (const svn_string_t *str, 
                                            const char *cstr);
 
 /* return a traditional C string from a bytestring */
