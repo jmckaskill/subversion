@@ -71,7 +71,7 @@ Candidate changes:
     Justification: potential seg fault
     Votes:
        +1: kfogel, cmpilato, jszakmeister
-
+  
   * r8883
     Check apr_sockaddr_info_get() return value in svnserve.
     Justification: Fixes a segmentation fault if an invalid hostname
