@@ -66,7 +66,7 @@ diff_cmd (svn_stringbuf_t *path1,
       args = apr_palloc (subpool, nargs * sizeof (char *));
       for (i = 0; i < diff_cmd_baton->options->nelts; i++)
         {
-          args[i] =
+          args[i] = 
             ((svn_stringbuf_t **)(diff_cmd_baton->options->elts))[i]->data;
         }
       assert (i == nargs);
@@ -74,16 +74,16 @@ diff_cmd (svn_stringbuf_t *path1,
 
   /* Print out the diff header. */
   apr_file_printf (outfile, "Index: %s\n", label ? label->data : path1->data);
-  apr_file_printf (outfile,
+  apr_file_printf (outfile, 
      "===================================================================\n");
 
-  SVN_ERR (svn_io_run_diff (".", args, nargs,
-                            label ? label->data : NULL,
-                            path1->data, path2->data,
+  SVN_ERR (svn_io_run_diff (".", args, nargs, 
+                            label ? label->data : NULL, 
+                            path1->data, path2->data, 
                             &exitcode, outfile, errfile, subpool));
 
   /* ### todo: Handle exit code == 2 (i.e. errors with diff) here */
-
+  
   /* ### todo: someday we'll need to worry about whether we're going
      to need to write a diff plug-in mechanism that makes use of the
      two paths, instead of just blindly running SVN_CLIENT_DIFF.  */
@@ -97,9 +97,9 @@ diff_cmd (svn_stringbuf_t *path1,
 
 #if 0  /* avoid "unused function" warning */
 /* This is not an svn_wc_diff_cmd_t callback, but may be soon.
- *
+ * 
  * ### Explanation:
- *
+ * 
  * The issue is that `svn_wc_diff_cmd_t' does not currently have any
  * need to take three paths, as for diff3, but this merge callback
  * does; since we'd like it to be driven by the same editors as
@@ -108,7 +108,7 @@ diff_cmd (svn_stringbuf_t *path1,
  * The solution I have in mind is to move svn_wc_diff_cmd_t out of
  * libsvn_wc (not sure it really belongs there anyway) and into
  * svn_types.h and libsvn_subr; then generalize it to handle 3-way
- * diffs, by taking three paths instead of two.  Whether the regular
+ * diffs, by taking three paths instead of two.  Whether the regular 
  * "svn diff" should just pass NULL for one of the paths is an open
  * question; probably it should, I don't see any point showing
  * conflicts in "svn diff".
@@ -347,7 +347,7 @@ diff_or_merge (const apr_array_header_t *options,
    NOTE:  In the near future, svn_client_diff() will likely only
    continue to report textual differences in files.  Property diffs
    are important, too, and will need to be supported in some fashion
-   so that this code can be re-used for svn_client_merge().
+   so that this code can be re-used for svn_client_merge(). 
 */
 svn_error_t *
 svn_client_diff (const apr_array_header_t *options,
