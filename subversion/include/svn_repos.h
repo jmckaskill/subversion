@@ -60,7 +60,7 @@ typedef svn_error_t *svn_repos_commit_hook_t (svn_revnum_t new_revision,
  * invoke HOOK with the new revision number and HOOK_BATON as
  * arguments.  If HOOK returns an error, that error will be returned
  * from close_edit, otherwise close_edit will return successfully
- * (unless it encountered an error before invoking HOOK).
+ * (unless it encountered an error before invoking HOOK).  
  *
  * NOTE: this HOOK is not related to the standard repository hooks
  * run before and after commits, which are configured in the
@@ -113,10 +113,10 @@ svn_repos_set_path (void *report_baton,
 
 
 /* Given a REPORT_BATON constructed by svn_repos_begin_report(), this
-   routine will remove PATH from the current fs transaction.
+   routine will remove PATH from the current fs transaction. 
 
    (This allows the reporter's driver to describe missing pieces of a
-   working copy, so that 'svn up' can recreate them.) */
+   working copy, so that 'svn up' can recreate them.) */   
 svn_error_t *svn_repos_delete_path (void *report_baton,
                                     svn_stringbuf_t *path);
 
@@ -193,7 +193,7 @@ svn_repos_dir_delta (svn_fs_root_t *source_root,
    Do any allocation necessary for the delta computation in POOL.
    This function's maximum memory consumption is at most roughly
    proportional to the greatest depth of SOURCE_PATH under
-   TARGET_ROOT, not the total size of the delta.
+   TARGET_ROOT, not the total size of the delta. 
 
    What's the difference between svn_repos_update and
    svn_repos_dir_delta?
@@ -213,13 +213,13 @@ svn_repos_dir_delta (svn_fs_root_t *source_root,
 
    "Fine," I reply, "but that means that everthing in A/D gets
    updated...this is NOT what I requested."
-
+   
    So, what I really need is a way to say, "Mr. Update Editor Driver,
    I want you to have full knowledge of the directory A/D, but I need
    you promise to only pay attention to the entry G in that
    directory."
-
-   And svn_repos_update complies.
+   
+   And svn_repos_update complies. 
 
    TODO:  It is entirely likely that these two functions will become
    one in the near future, at least that is cmpilato's hope.  */
@@ -245,7 +245,7 @@ svn_repos_dated_revision (svn_revnum_t *revision,
                           svn_fs_t *fs,
                           apr_time_t tm,
                           apr_pool_t *pool);
-
+                          
 
 
 /* ### other queries we can do someday --
@@ -253,7 +253,7 @@ svn_repos_dated_revision (svn_revnum_t *revision,
      * fetch the last revision created by <user>
          (once usernames become revision properties!)
      * fetch the last revision where <path> was modified
-
+     
 */
 
 
