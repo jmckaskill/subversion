@@ -14,47 +14,47 @@ each particular interface lies.
 
 @example
 
-             +--------------------+
+             +--------------------+  
              | commandline or GUI |
-             |    client app      |
+             |    client app      |           
  +---------------------+-------------------+ <====== Client interface
- |    Working Copy     |  Network Access   |
- |   Management Lib    |       Lib         |
+ |    Working Copy     |  Network Access   |                         
+ |   Management Lib    |       Lib         |                         
  +---------------------+---------+---------+ <====== Network interface
-                       |      libneon      |
-                       +---------+---------+
-                      ^              ^
-                     /              /
+                       |      libneon      |                          
+                       +---------+---------+   
+                      ^              ^        
+                     /              / 
                DAV  /              /  HTTP
-                   /              /
-                  v              v
-          +---------+    +---------+
-          |         |    |         |
-          | Apache  |    | Apache  |
-          |         |    |         |
-          +---------+    +---------+
-          | mod_DAV |    |         |
+                   /              /       
+                  v              v        
+          +---------+    +---------+      
+          |         |    |         |        
+          | Apache  |    | Apache  |        
+          |         |    |         |      
+          +---------+    +---------+      
+          | mod_DAV |    |         |      
         +-------------+  | mod_SVN |
         | mod_DAV_SVN |  |         |
  +------+-------------+--+---------+-------+ <===== Server interface
- |                                         |
- |            Main SVN Library             |
- |                                         |
+ |                                         |                        
+ |            Main SVN Library             |                        
+ |                                         |                        
  +-----------------------------------------+ <===== Filesystem interface
- |                                         |
- |          Subversion Filesystem          |
- |                                         |
- +-+--------------+--------+---------+-----+ <===== Database interface
-   | Berkeley DBM |        |   SQL   |
-   +--------------+        +---------+
-
+ |                                         |                            
+ |          Subversion Filesystem          |                            
+ |                                         |                            
+ +-+--------------+--------+---------+-----+ <===== Database interface  
+   | Berkeley DBM |        |   SQL   |                                  
+   +--------------+        +---------+      
+               
 @end example
 @c Let's just say that emacs' "picture" mode is an excellent thing!
 
 
 @menu
 * Semantics::                 Common ideas passed through the layers.
-* Client Layer::              Client-side overview.
+* Client Layer::              Client-side overview. 
 * Network Layer::             Network overview.
 * Server Layer::              Server-side overview.
 @end menu
@@ -100,7 +100,7 @@ connection to a server via a protocol of choice.  However, most of the
 API represents operations defined by the "main" Subversion library.
 
 For interface details, @xref{Client}.
-
+        
 @c ------------------------------------------------------------------
 @node Network Layer
 @section Network Layer

@@ -145,7 +145,7 @@ not, @xref{Model}.
 @subsection Definitions
 
 For completeness, we can now offer a precise, technical description of
-these terms.
+these terms.  
 
 @subsubsection Schema  @c -----------------
 
@@ -202,7 +202,7 @@ We say that a node @var{n} is a @dfn{direct child} of a directory
 
 A node @var{n} is a @dfn{child} of a directory @var{d} iff @var{n} is
 a direct child of @var{d}, or if there exists some sequence of
-directories (@var{e1}, ... @var{eM}) such that
+directories (@var{e1}, ... @var{eM}) such that 
 
 @itemize @bullet
 @item
@@ -441,7 +441,7 @@ Apache and custom HTTP "methods", @xref{Protocol}.)
 
 @table @code
 @item available_methods ()
-  return a list of methods that the server supports
+  return a list of methods that the server supports 
 @end table
 
 @subsection Basic Methods
