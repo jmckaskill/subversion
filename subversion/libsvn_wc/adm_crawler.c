@@ -3,32 +3,32 @@
  *
  * ================================================================
  * Copyright (c) 2000 CollabNet.  All rights reserved.
- *
+ * 
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
  * met:
- *
+ * 
  * 1. Redistributions of source code must retain the above copyright
  * notice, this list of conditions and the following disclaimer.
- *
+ * 
  * 2. Redistributions in binary form must reproduce the above copyright
  * notice, this list of conditions and the following disclaimer in the
  * documentation and/or other materials provided with the distribution.
- *
+ * 
  * 3. The end-user documentation included with the redistribution, if
  * any, must include the following acknowlegement: "This product includes
  * software developed by CollabNet (http://www.Collab.Net)."
  * Alternately, this acknowlegement may appear in the software itself, if
  * and wherever such third-party acknowlegements normally appear.
- *
+ * 
  * 4. The hosted project names must not be used to endorse or promote
  * products derived from this software without prior written
  * permission. For written permission, please contact info@collab.net.
- *
+ * 
  * 5. Products derived from this software may not use the "Tigris" name
  * nor may "Tigris" appear in their names without prior written
  * permission of CollabNet.
- *
+ * 
  * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
  * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -42,7 +42,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ====================================================================
- *
+ * 
  * This software consists of voluntary contributions made by many
  * individuals on behalf of CollabNet.
  */
@@ -119,12 +119,12 @@ append_stack (svn_wc__crawler_baton_t *crawlbaton,
       /* Create a hash that will hold pathnames that map to unclosed file
          batons.  This hash will be available within every `stackframe' of
          the crawl and will be used *after* the crawl to send postfix
-         text-deltas. */
+         text-deltas. */      
 
       crawlbaton->stack = new_top;
     }
 
-  else
+  else 
     {
       /* The stack already exists, so create links both ways, new_top
          becomes the top of the stack.  */
@@ -171,13 +171,13 @@ posix_file_reader (void *filehandle,
   stat = apr_full_read (the_file, buffer,
                         (apr_size_t) *len,
                         (apr_size_t *) len);
-
-  if (stat && (stat != APR_EOF))
+  
+  if (stat && (stat != APR_EOF)) 
     return
       svn_error_create (stat, 0, NULL, pool,
                         "adm_crawler.c (posix_file_reader): file read error");
-
-  return SVN_NO_ERROR;
+  
+  return SVN_NO_ERROR;  
 }
 
 
@@ -192,7 +192,7 @@ set_entry_flags (svn_string_t *filename,
                  apr_hash_t *current_entry_hash,
                  apr_pool_t *pool,
                  svn_boolean_t *new_p,
-                 svn_boolean_t *modified_p,
+                 svn_boolean_t *modified_p, 
                  svn_boolean_t *delete_p)
 {
   void *value;
@@ -239,24 +239,24 @@ do_dir_replaces (svn_wc__crawler_baton_t *crawlbaton,
   svn_delta_edit_fns_t *editor = crawlbaton->editor;
 
   stackptr = stack;   /* Start at the top of the stack */
-
+  
   while (1)  /* Walk down the stack until we find a non-NULL dir baton. */
     {
-      if (stackptr->baton != NULL)
+      if (stackptr->baton != NULL) 
         /* Found an existing directory baton! */
         break;
-
-      if (stackptr->previous)
+      
+      if (stackptr->previous)  
         stackptr = stackptr->previous;  /* descend. */
       else
         {
           /* Can't descend?  We must be at stack bottom.  Fetch the
              root baton here. */
           void *root_baton;
-
-          err = editor->replace_root (crawlbaton->edit_baton, &root_baton);
+          
+          err = editor->replace_root (crawlbaton->edit_baton, &root_baton);  
           if (err) return err;
-
+          
           /* Store it */
           stackptr->baton = root_baton;
           break;
@@ -290,7 +290,7 @@ do_dir_replaces (svn_wc__crawler_baton_t *crawlbaton,
                                              svn_path_local_style, pool);
 
           /* Get a baton for this directory */
-          err =
+          err = 
             editor->replace_directory (dirname, /* current dir */
                                        stackptr->previous->baton, /* parent */
                                        ancestor_path,
@@ -301,8 +301,8 @@ do_dir_replaces (svn_wc__crawler_baton_t *crawlbaton,
           /* Store it */
           stackptr->baton = dir_baton;
         }
-
-      else
+      
+      else 
         /* Can't move up the stack anymore?  We must be at the top
            of the stack.  We're all done. */
         break;
@@ -355,15 +355,15 @@ do_apply_textdelta (svn_string_t *filename,
 
   err = svn_wc__open_text_base (&textbasefile, filename, APR_READ, pool);
   if (err) return err;
-
+                                
   /* Create a text-delta stream object that pulls data out of the two
      files. */
-  err= svn_txdelta (&txdelta_stream,
+  err= svn_txdelta (&txdelta_stream, 
                     posix_file_reader, localfile,
                     posix_file_reader, textbasefile,
                     pool);
   if (err) return err;
-
+  
   /* Grab a window from the stream, "push" it at the consumer routine,
      then free it.  (When we run out of windows, TXDELTA_WINDOW will
      be set to NULL, and then still passed to window_handler(),
@@ -372,10 +372,10 @@ do_apply_textdelta (svn_string_t *filename,
     {
       err = svn_txdelta_next_window (&txdelta_window, txdelta_stream);
       if (err) return err;
-
+      
       err = (* (window_handler)) (txdelta_window, window_handler_baton);
       if (err) return err;
-
+      
       svn_txdelta_free_window (txdelta_window);
 
     } while (txdelta_window);
@@ -441,7 +441,7 @@ static svn_error_t *entry_callback (void *loop_baton,
 
 
 /* Start-point of the recursive working-copy crawler.
-
+   
    The CRAWLBATON contains all state and stack info about the
    crawler's current position in the working copy.  For each working
    copy subdir, call an xml parser on the entries file.  For each
@@ -455,7 +455,7 @@ process_subdirectory (svn_wc__crawler_baton_t *crawlbaton)
   apr_file_t *infile;
   apr_hash_t *att_hash;
 
-
+  
   /* We've just arrived in a new subdirectory.  First thing to do is
      push the "current" path and baton to the top of the crawlbaton's
      stack. */
@@ -475,7 +475,7 @@ process_subdirectory (svn_wc__crawler_baton_t *crawlbaton)
                                SVN_WC__ADM_ENTRIES,
                                APR_READ, crawlbaton->pool);
   if (err) return err;
-
+  
   att_hash = apr_make_hash (crawlbaton->pool);
 
   /* Fill in the fields we care about. */
@@ -528,11 +528,11 @@ process_subdirectory (svn_wc__crawler_baton_t *crawlbaton)
 
 
 
-/* Main logic for parsing each entry.
+/* Main logic for parsing each entry.  
 
    Called by expat, whenever it finds a new entry in the `entries'
    file.  This routine then makes calls to the editor and recurses by
-   calling process_subdirectory.
+   calling process_subdirectory. 
 
    The CRAWLBATON structure contains all the state and stack relevant
    to the crawler's current location in the working copy.  The
@@ -581,14 +581,14 @@ entry_callback (void *loop_baton,
   if (err) return err;
 
   /* Main Logic */
-
+  
   if (new_p)
     {
       /* Adding a new directory: */
       if (current_entry_type == svn_dir_kind)
         {
           void *new_dir_baton;
-
+          
           /* Do what's necesary to get a baton for current directory */
           if (! crawlbaton->dir_baton)
             {
@@ -596,13 +596,13 @@ entry_callback (void *loop_baton,
                                      &(crawlbaton->dir_baton));
               if (err) return err;
             }
-
+          
           /* Get the ancestry for this new directory */
           err = svn_wc__entry_get_ancestry (path, NULL,
                                             &ancestor_path, &ancestor_ver,
                                             pool);
           if (err) return err;
-
+          
           /* Add the new directory, getting a new dir baton.  */
           err = editor->add_directory (current_entry_name,
                                        crawlbaton->dir_baton, /* give parent */
@@ -610,7 +610,7 @@ entry_callback (void *loop_baton,
                                        ancestor_ver,
                                        &new_dir_baton);  /* get new child */
           if (err) return err;
-
+          
           /* Recurse, using the new, extended path and new dir_baton. */
           if (current_entry_name != NULL)
             svn_path_add_component (crawlbaton->path,
@@ -624,13 +624,13 @@ entry_callback (void *loop_baton,
           /* Remove the extra path component when done recursing */
           svn_path_remove_component (crawlbaton->path, svn_path_local_style);
         }
-
+      
       /* Adding a new file: */
       else if (current_entry_type == svn_file_kind)
         {
           void *file_baton;
           svn_string_t *longpath;
-
+          
               /* Do what's necesary to get a baton for current directory */
           if (! crawlbaton->dir_baton)
             {
@@ -638,14 +638,14 @@ entry_callback (void *loop_baton,
                                      &(crawlbaton->dir_baton));
               if (err) return err;
             }
-
+          
           /* Get the ancestry for this new file */
           err = svn_wc__entry_get_ancestry (crawlbaton->path,
                                             current_entry_name,
                                             &ancestor_path, &ancestor_ver,
                                             pool);
           if (err) return err;
-
+          
           /* Add a new file, getting a file baton */
           err = editor->add_file (current_entry_name,
                                   crawlbaton->dir_baton, /* parent */
@@ -653,7 +653,7 @@ entry_callback (void *loop_baton,
                                   ancestor_ver,
                                   &file_baton);          /* get file */
           if (err) return err;
-
+          
           /* Store the file's full pathname and baton for safe keeping
              (to be used later for postfix text-deltas) */
           longpath = svn_string_dup (path, pool);
@@ -664,7 +664,7 @@ entry_callback (void *loop_baton,
                         file_baton);
         }
     }
-
+      
   /* Delete a file or dir: */
   else if (delete_p)
     {
@@ -681,13 +681,13 @@ entry_callback (void *loop_baton,
                             crawlbaton->dir_baton);  /* parent */
       if (err) return err;
     }
-
+  
   /* Replace a modified file: */
   else if (modified_p)
     {
       void *file_baton;
       svn_string_t *longpath;
-
+      
       /* Do what's necesary to get a baton for current directory */
       if (! crawlbaton->dir_baton)
         {
@@ -695,13 +695,13 @@ entry_callback (void *loop_baton,
                                  &(crawlbaton->dir_baton));
           if (err) return err;
         }
-
+      
       /* Get the ancestry for this new file */
       err = svn_wc__entry_get_ancestry (path, current_entry_name,
                                         &ancestor_path, &ancestor_ver,
                                         pool);
       if (err) return err;
-
+      
       /* Replace the file, getting a file baton */
       err = editor->replace_file (current_entry_name,
                                   crawlbaton->dir_baton, /* parent */
@@ -709,7 +709,7 @@ entry_callback (void *loop_baton,
                                   ancestor_ver,
                                   &file_baton);          /* get child */
       if (err) return err;
-
+      
       /* Store the file's full pathname and baton for safe keeping (to
          be used later for postfix text-deltas) */
       longpath = svn_string_dup (path, pool);
@@ -723,7 +723,7 @@ entry_callback (void *loop_baton,
   /* Okay, we're not adding or deleting anything, nor is this a
      modified file.  However, if the this entry is a directory, we
      must recurse! */
-  else if ((current_entry_type == svn_dir_kind)
+  else if ((current_entry_type == svn_dir_kind) 
            && (current_entry_name != NULL))
     {
       /* Recurse, using a NULL dir_baton.  Why NULL?  Because that
@@ -741,7 +741,7 @@ entry_callback (void *loop_baton,
       /* Remove the extra path component when done recursing */
       svn_path_remove_component (crawlbaton->path, svn_path_local_style);
     }
-
+  
 
   /* Done examining the current entry. */
 
@@ -766,7 +766,7 @@ svn_wc_crawl_local_mods (svn_string_t *root_directory,
   svn_wc__crawler_baton_t *crawlbaton;
 
   /* todo: Ben, use `tok'. */
-
+  
   /* Create a crawlbaton for this commit, which will store all state
      and stack as the crawler moves through the working copy. */
   crawlbaton = apr_pcalloc (pool, sizeof(struct svn_wc__crawler_baton_t));
@@ -779,7 +779,7 @@ svn_wc_crawl_local_mods (svn_string_t *root_directory,
   crawlbaton->pool       = pool;
   crawlbaton->filehash   = apr_make_hash (pool);
 
-  /* Start the crawler!
+  /* Start the crawler! 
 
      Note that the first thing the crawler will do is push a new stack
      object onto the stack with PATH="root_directory" and BATON=NULL.  */
@@ -803,7 +803,7 @@ svn_wc_crawl_local_mods (svn_string_t *root_directory,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end: */
