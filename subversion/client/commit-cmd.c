@@ -45,15 +45,15 @@ svn_cl__commit (svn_cl__opt_state_t *opt_state,
       svn_string_t *target = ((svn_string_t **) (targets->elts))[i];
       const svn_delta_edit_fns_t *trace_editor;
       void *trace_edit_baton;
-
+      
       err = svn_cl__get_trace_commit_editor (&trace_editor,
                                              &trace_edit_baton,
                                              target, pool);
       if (err) return err;
-
+      
       /* kff todo: someday, in the very extremely near future, we'll
          pass TARGETS on down into svn_client_commit(). */
-
+      
       err = svn_client_commit (NULL, NULL,
                                trace_editor, trace_edit_baton,
                                target,
@@ -69,8 +69,8 @@ svn_cl__commit (svn_cl__opt_state_t *opt_state,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
- * end:
+ * end: 
  */

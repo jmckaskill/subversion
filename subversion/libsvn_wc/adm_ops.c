@@ -172,7 +172,7 @@ svn_wc_get_pristine_copy_path (svn_string_t *path,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
