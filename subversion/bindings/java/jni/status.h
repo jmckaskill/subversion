@@ -26,7 +26,7 @@
 
 /*** Code ***/
 jobject
-status__create(JNIEnv *env, svn_wc_status_t *status,
+status__create(JNIEnv *env, svn_wc_status_t *status, 
                jboolean *hasException);
 
 void
@@ -41,7 +41,7 @@ void
 status__set_text_status(JNIEnv *env, jboolean *hasException,
                         jobject jstatus, jint jtext_status);
 
-void
+void 
 status__set_prop_status(JNIEnv *env, jboolean *hasException,
                         jobject jstatus, jint jprop_status);
 
@@ -49,9 +49,9 @@ void
 status__set_locked(JNIEnv *env, jboolean *hasException,
                    jobject jstatus, jboolean jlocked);
 
-void
+void 
 status__set_repos_text_status(JNIEnv *env, jboolean *hasException,
-                              jobject jstatus,
+                              jobject jstatus, 
                               jint jrepos_text_status);
 
 void
@@ -61,10 +61,10 @@ status__set_repos_prop_status(JNIEnv *env, jboolean *hasException,
 
 #endif
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../svn-dev.el")
- * end:
+ * end: 
  */
 
 
