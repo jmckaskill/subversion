@@ -50,11 +50,11 @@ svn_cl__import (apr_getopt_t *os,
   svn_revnum_t revnum;
 
   /* Take our message from ARGV or a FILE */
-  if (opt_state->filedata)
+  if (opt_state->filedata) 
     message = opt_state->filedata;
   else
     message = opt_state->message;
-
+  
   /* Build an authentication object to give to libsvn_client. */
   auth_baton = svn_cl__make_auth_baton (opt_state, pool);
 
@@ -114,7 +114,7 @@ svn_cl__import (apr_getopt_t *os,
     return svn_error_create
       (SVN_ERR_CL_ARG_PARSING_ERROR, 0, NULL, pool,
        "too many arguments to import command");
-
+  
   /* Because we're working outside the context of a working copy, we
      don't want the trace_editor to print out the 'local' paths like
      it normally does.  This leads to very confusing output.  Instead,
@@ -133,7 +133,7 @@ svn_cl__import (apr_getopt_t *os,
 
   SVN_ERR (svn_client_import (&commit_info,
                               NULL, NULL,
-                              opt_state->quiet ? NULL : trace_editor,
+                              opt_state->quiet ? NULL : trace_editor, 
                               opt_state->quiet ? NULL : trace_edit_baton,
                               auth_baton,
                               path,
@@ -152,8 +152,8 @@ svn_cl__import (apr_getopt_t *os,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../tools/dev/svn-dev.el")
- * end:
+ * end: 
  */
