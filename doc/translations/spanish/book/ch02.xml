@@ -13,37 +13,37 @@ vim: set expandtab tabstop=2 shiftwidth=2 textwidth=78:
       generales en el control de versiones, avanzamos a las ideas específicas
       detras de Subversion, y mostramos algunos ejemplos simples de Subversion
       en acción.</para>
-
+    
     <para>Aún cuando los ejemplos en este capítulo muestran a gente
       compartiendo colecciones de código fuente de programas, tenga en mente
       que Subversion puede manejar cualquier tipo de colección de
       archivos&mdash;no esta limitado a asistir a programadores de
       computadores.</para>
   </simplesect>
-
-
-  <sect1 id="svn-ch-2-sect-1" >
-    <title>El Repositorio</title>
-
+  
+  
+  <sect1 id="svn-ch-2-sect-1" > 
+    <title>El Repositorio</title>  
+    
     <para>Subversion es un sistema centralizado para compartir información.
       En su núcleo esta un repositorio, el cual es un almacén central de datos.
-      El repositorio guarda información en forma de un
+      El repositorio guarda información en forma de un 
       <firstterm>árbol de archivos</firstterm>&mdash;una jerarquía típica
       de archivos y directorios. Cualquier número de <firstterm>clientes</firstterm>
       se conectan al repositorio para luego leer o escribir a estos archivos.
       Al escribir los datos, un cliente pone a disposición de otros la información;
-      Al leer datos, el cliente recibe información de otros.
+      Al leer datos, el cliente recibe información de otros.  
       La figura <xref linkend="svn-ch-2-dia-1"/> ilustra esto.</para>
 
     <figure id="svn-ch-2-dia-1">
       <title>Un sistema cliente/servidor típico</title>
       <graphic fileref="images/ch02dia1.png"/>
     </figure>
-
+    
     <para>Entonces, por qué es esto interesante?. Hasta ahora, esto
       suena como la definición de un típico servidor de archivos.
       En efecto, el repositorio <emphasis>es</emphasis> una clase de
-      servidor de archivos, pero no es del tipo usual. Lo que hace
+      servidor de archivos, pero no es del tipo usual. Lo que hace 
       especial al repositorio de Subversion es que <emphasis>recuerda
       cada cambio</emphasis> jamás escrito en el: cada cambio a cada
       archivo, e inclusive cambios al árbol de directorios mismo, tales
@@ -53,7 +53,7 @@ vim: set expandtab tabstop=2 shiftwidth=2 textwidth=78:
       sólo la ultima versión del árbol de archivos. Pero el cliente
       también tiene la habilidad de ver estados <emphasis>previos</emphasis>
       del sistema de archivos. Por ejemplo, un cliente puede hacer
-      consultas históricas como, <quote>¿Qué contenía este directorio
+      consultas históricas como, <quote>¿Qué contenía este directorio 
       el miércoles pasado?</quote> Este es el tipo de pregunta esencial
       en cualquier <firstterm>sistema de control de versiones</firstterm>:
       sistemas que estan diseñados para registrar y seguir cambios en
@@ -69,13 +69,13 @@ vim: set expandtab tabstop=2 shiftwidth=2 textwidth=78:
       es permitir la edición colaborativa de datos y el compartir los mismos.
       Sin embargo, diversos sistemas utilizan estrategias distintas para
       lograr esto.</para>
-
+    
     <sect2 id="svn-ch-2-sect-2.1">
       <title>El Problema de Compartir Archivos</title>
-
+      
       <para>Todos los sistemas de control de versiones tienen que resolver
         un problema fundamental: ¿Cómo permitira el sistema a los usuarios
-        el compartir información, pero prevendrá el que accidentalmente se
+        el compartir información, pero prevendrá el que accidentalmente se 
         pisen mutuamente los callos? Es muy sencillo para los usuarios el
         accidentalmente sobreescribir los cambios de los demás en el
         repositorio.</para>
@@ -100,10 +100,10 @@ vim: set expandtab tabstop=2 shiftwidth=2 textwidth=78:
       </figure>
 
       </sect2>
-
+    
     <sect2 id="svn-ch-2-sect-2.2">
       <title>La solución Bloqueo-Modificación-Desbloqueo</title>
-
+      
       <para>Muchos sistemas de control de versiones utilizan un modelo de
         <firstterm>bloqueo-modificación-desbloqueo</firstterm> para atacar
         este problema. En un sistema como este, el repositorio permite que
@@ -117,12 +117,12 @@ vim: set expandtab tabstop=2 shiftwidth=2 textwidth=78:
         bloqueo. Luego que Harry desbloquea el archivo, su turno termina y
         ahora Sally puede aprovechar su turno bloqueando y editando. La figura
         <xref linkend="svn-ch-2-dia-3"/> demuestra esta simple solución.</para>
-
+      
       <figure id="svn-ch-2-dia-3">
         <title>La solucion bloqueo-modificación-desbloqueo</title>
         <graphic fileref="images/ch02dia3.png"/>
       </figure>
-
+      
       <para>El problema con el modelo bloqueo-modificación-desbloqueo es que
         es un tanto restrictivo y a menudo se convierte en un obstáculo para
         los usuarios:</para>
@@ -139,7 +139,7 @@ vim: set expandtab tabstop=2 shiftwidth=2 textwidth=78:
             La situación termina causando muchas demoras innecesarias y
             perdida de tiempo.
             </para></listitem>
-
+        
         <listitem><para>
             <emphasis>Bloquear puede causar serialización innecesaria.</emphasis>
 
@@ -150,7 +150,7 @@ vim: set expandtab tabstop=2 shiftwidth=2 textwidth=78:
             que los cambios fueran correctamente mezclados. No hay necesidad
             de que tomen turnos en esta situación.
             </para></listitem>
-
+    
         <listitem><para>
             <emphasis>Bloquear puede causar una falsa sensación de seguridad.</emphasis>
 
@@ -171,7 +171,7 @@ vim: set expandtab tabstop=2 shiftwidth=2 textwidth=78:
 
     <sect2 id="svn-ch-2-sect-2.3">
       <title>La solución Copiar-Modificar-Mezclar</title>
-
+      
       <para>Subversion, CVS y otros sistemas de control de versiones
         utilizan un modelo tipo
         <firstterm>copiar-modificar-mezclar</firstterm> como una alternativa
@@ -184,7 +184,7 @@ vim: set expandtab tabstop=2 shiftwidth=2 textwidth=78:
         de control de versiones a menudo ayuda con la mezcla, pero al final un
         ser humano es responsable de hacer que suceda correctamente.
       </para>
-
+      
       <para>He aquí un ejemplo. Digamos que Harry y Sally crean sendas copias
         de trabajo del mismo proyecto, copiadas del repositorio. Ellos
         trabajan concurrentemente y hacen cambios un mismo archivo A en sus
@@ -205,7 +205,7 @@ vim: set expandtab tabstop=2 shiftwidth=2 textwidth=78:
         <title>La solución copiar-modificar-mezclar</title>
         <graphic fileref="images/ch02dia4.png"/>
       </figure>
-
+      
       <figure id="svn-ch-2-dia-5">
         <title>La solución copiar-modificar-mezclar (continuación)</title>
         <graphic fileref="images/ch02dia5.png"/>
@@ -242,24 +242,24 @@ vim: set expandtab tabstop=2 shiftwidth=2 textwidth=78:
         sistema de bloqueos va de alguna manera a prevenir los conflictos; en
         la práctica, el bloqueo parece inhibir la productividad mas que
         nada.</para>
-
+      
     </sect2>
-
+    
   </sect1>
-
+  
   <!-- Cómo svn implementa esta filosofía -->
   <sect1 id="svn-ch-2-sect-3">
     <title>Subversion en Acción</title>
-
+    
     <para>Es tiempo de movernos de lo abstracto a lo concreto. En esta sección
       mostraremos ejemplos reales de Subversion siendo utilizado.</para>
 
     <sect2 id="svn-ch-2-sect-3.1">
       <title>Copias de Trabajo</title>
-
+      
       <para>Ya ha leído acerca de copias de trabajo; ahora demostraremos como
         el cliente de Subversion las crea y utiliza.</para>
-
+      
       <para>Una copia de trabajo de Subversion es un árbol de directorios
         ordinario en su sistema de archivos local, conteniendo una colección
         de archivos. Usted puede editar estos archivos del modo que prefiera y
@@ -286,13 +286,13 @@ vim: set expandtab tabstop=2 shiftwidth=2 textwidth=78:
         ayudan a Subversion a reconocer qué archivos contienen cambios no
         publicados y qué archivos estan desactualizados con respecto al
         trabajo de otros.</para>
-
+      
       <para>Un repositorio típico de Subversion a menudo contiene los archivos
         (o el código fuente) de varios proyectos; usualmente cada proyecto es
         un subdirectorio en el árbol del sistema de archivos del repositorio.
         En este arreglo, la copia de trabajo de un usuario usualmente
         corresponderá a un sub-árbol particular del repositorio.</para>
-
+      
       <para>Por ejemplo, supónga que usted tiene un repositorio que contiene
         dos proyectos de software, <literal>paint</literal> y
         <literal>calc</literal>. Cada proyecto vive en su propio subdirectorio
@@ -303,7 +303,7 @@ vim: set expandtab tabstop=2 shiftwidth=2 textwidth=78:
         <title>El sistema de archivos del repositorio</title>
         <graphic fileref="images/ch02dia6.png"/>
       </figure>
-
+      
       <!--TODO: buscar un mejor termino en castellano para explicar 'check
       out'-->
       <para>Para conseguir una copia de trabajo, usted debe primero ejecutar
@@ -373,19 +373,19 @@ Makefile  integer.c  button.c  .svn/
               </row>
               <row>
                 <entry><literal>svn+ssh://</literal></entry>
-                <entry>igual que <literal>svn://</literal>, pero a través de
+                <entry>igual que <literal>svn://</literal>, pero a través de 
                   un túnel de SSH.</entry>
               </row>
             </tbody>
           </tgroup>
         </table>
-
+ 
         <para>En general, los URLs de Subversion utilizan la sintaxis
-          estándar, permitiendo la especificación de nombres de servidores
+          estándar, permitiendo la especificación de nombres de servidores 
           y números de puerto como parte del URL. Recuerde que el método
           de acceso <literal>file:</literal> es válido sólo para ubicaciones
           en el mismo servidor donde corre el cliente&mdash;de hecho, se
-          requiere por convención que la porción del URL con el nombre del
+          requiere por convención que la porción del URL con el nombre del 
           servidor este ausente o sea <literal>localhost</literal>:</para>
 
         <screen>
@@ -409,7 +409,7 @@ C:\> svn checkout file:///X:/ruta/a/repositorio
 C:\> svn checkout "file:///X|/ruta/a/repositorio"
 &hellip;
 </screen>
-
+ 
         <para>En la segunda sintaxis, es necesario encerrar el URL en comillas
           para que la barra vertical no sea interpretada como un pipe.</para>
 
@@ -426,7 +426,7 @@ C:\> svn checkout "file:///X|/ruta/a/repositorio"
         modificación y contenido original del archivo, Subversion puede darse
         cuenta que ha cambiado el mismo. Sin embargo, Subversion no hace
         públicos sus cambios hasta que se lo mande explícitamente. El acto de
-        publicar sus cambios es comúnmente conocido como
+        publicar sus cambios es comúnmente conocido como 
         <firstterm>consignar</firstterm> (o <firstterm>registrar</firstterm>)
         los cambios al repositorio.</para>
 
@@ -465,7 +465,7 @@ Committed revision 57.
 $ pwd
 /home/sally/calc
 
-$ ls -A
+$ ls -A 
 .svn/ Makefile integer.c button.c
 
 $ svn update
@@ -479,10 +479,10 @@ U button.c
         in the <filename>.svn</filename> directory, and further
         information in the repository, to decide which files need to
         be brought up to date.</para>
-
+      
     </sect2>
-
-
+    
+    
     <sect2 id="svn-ch-2-sect-3.2">
       <title>Revisions</title>
 
@@ -506,14 +506,14 @@ U button.c
         previous revision.  The initial revision of a freshly created
         repository is numbered zero, and consists of nothing but an
         empty root directory.</para>
-
+      
       <para><xref linkend="svn-ch-2-dia-7"/> illustrates a nice way to
         visualize the repository.  Imagine an array of revision
         numbers, starting at 0, stretching from left to right.  Each
         revision number has a filesystem tree hanging below it, and
         each tree is a <quote>snapshot</quote> of the way the
         repository looked after each commit. </para>
-
+      
       <figure id="svn-ch-2-dia-7">
         <title>The repository</title>
         <graphic fileref="images/ch02dia7.png"/>
@@ -521,7 +521,7 @@ U button.c
 
       <sidebar>
         <title>Global Revision Numbers</title>
-
+         
         <para>Unlike those of many other version control systems,
           Subversion's revision numbers apply to <emphasis>entire
           trees</emphasis>, not individual files.  Each revision
@@ -585,21 +585,21 @@ calc/Makefile:6
         correspond to exactly one revision in the repository.</para>
 
     </sect2>
-
-
+    
+    
     <sect2 id="svn-ch-2-sect-3.3">
       <title>How Working Copies Track the Repository</title>
-
+      
       <para>For each file in a working directory, Subversion records
         two essential pieces of information in the
         <filename>.svn/</filename> administrative area:</para>
-
-
+      
+      
       <itemizedlist>
         <listitem><para>what revision your working file is based on
             (this is called the file's <firstterm>working
              revision</firstterm>), and</para></listitem>
-
+        
         <listitem><para>a timestamp recording when the local copy was
             last updated by the repository.</para></listitem>
       </itemizedlist>
@@ -610,7 +610,7 @@ calc/Makefile:6
 
       <variablelist>
         <varlistentry>
-          <term>Unchanged, and current</term>
+          <term>Unchanged, and current</term> 
 
           <listitem><para>The file is unchanged in the working
           directory, and no changes to that file have been committed
@@ -619,7 +619,7 @@ calc/Makefile:6
           and an <command>svn update</command> of the file will do
           nothing. </para></listitem>
         </varlistentry>
-
+        
         <varlistentry>
           <term>Locally changed, and current</term>
 
@@ -631,9 +631,9 @@ calc/Makefile:6
           publishing your changes, and an <command>svn update</command>
           of the file will do nothing.</para></listitem>
         </varlistentry>
-
+        
         <varlistentry>
-          <term>Unchanged, and out-of-date</term>
+          <term>Unchanged, and out-of-date</term> 
 
           <listitem><para>The file has not been changed in the working
           directory, but it has been changed in the repository.  The
@@ -643,7 +643,7 @@ calc/Makefile:6
           the file will fold the latest changes into your working
           copy.</para></listitem>
         </varlistentry>
-
+        
         <varlistentry>
           <term>Locally changed, and out-of-date</term>
 
@@ -658,15 +658,15 @@ calc/Makefile:6
           conflict.</para></listitem>
         </varlistentry>
       </variablelist>
-
-
+      
+      
       <para>This may sound like a lot to keep track of, but the
         <command>svn status</command> command will show you the state
         of any item in your working copy.  For more information on
         that command, see <xref linkend="svn-ch-3-sect-4.3.1" />.</para>
-
+     
     </sect2>
-
+    
     <sect2 id="svn-ch-2-sect-3.4">
       <title>The Limitations of Mixed Revisions</title>
 
@@ -694,7 +694,7 @@ calc/Makefile:6
         contained in a subdirectory, or perhaps you'd like to examine
         a number of previous versions of a file in the context of the
         latest tree.</para>
-
+        
       <para>However you make use of mixed-revisions in your working
         copy, there are limitations to this flexibility.</para>
 
@@ -718,7 +718,7 @@ calc/Makefile:6
 
   <sect1 id="svn-ch-2-sect-4">
     <title>Summary</title>
-
+    
     <para>We've covered a number of fundamental Subversion concepts in
     this chapter:</para>
 
@@ -741,18 +741,18 @@ calc/Makefile:6
       </listitem>
 
     </itemizedlist>
-
+    
     <para>At this point, you should have a good idea of how Subversion
     works in the most general sense.  Armed with this knowledge, you
     should now be ready to jump into the next chapter, which is a
     detailed tour of Subversion's commands and features. </para>
-
+      
   </sect1>
 
 </chapter>
 
 <!--
-local variables:
+local variables: 
 sgml-parent-document: ("book.xml" "chapter")
 end:
 -->
