@@ -74,14 +74,14 @@ svn_cl__propget (apr_getopt_t *os,
       apr_hash_index_t *hi;
       pname.data = propname->data;
       pname.len = propname->len;
-
+ 
 
       SVN_ERR (svn_client_propget (&props, propname, target,
                                    opt_state->recursive, pool));
 
       for (hi = apr_hash_first(pool, props); hi; hi = apr_hash_next(hi))
         {
-          const char * filename;
+          const char * filename; 
           const svn_string_t *propval;
           apr_hash_this(hi, (const void **)&filename, NULL, (void **)&propval);
           print_prop(&pname, filename, propval);
@@ -92,8 +92,8 @@ svn_cl__propget (apr_getopt_t *os,
 }
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../svn-dev.el")
- * end:
+ * end: 
  */
