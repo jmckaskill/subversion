@@ -95,7 +95,7 @@ INSTALL_DATA = $(INSTALL) -m 644
 
 INSTALL_SWIG_PY_LIB = $(INSTALL_LIB)
 
-APXS = @APXS@
+APXS = @APXS@ 
 
 PYTHON = @PYTHON@
 
@@ -230,7 +230,7 @@ install-swig-py-ext:
             install --prefix $(prefix))
 
 ### Build a tarball.
-dist:
+dist: 
 	./dist.sh
 
 
@@ -251,7 +251,7 @@ dist:
 
 
 .texi.info:
-	$(MAKEINFO) -I `dirname $<` -o $@ $<
+	$(MAKEINFO) -I `dirname $<` -o $@ $< 
 
 .texi.dvi:
 	wd=`pwd` ; cd `dirname $@` ; $(TEXI2DVI) $$wd/$<
