@@ -10,7 +10,7 @@
 #endif // _MSC_VER > 1000
 #include <jni.h>
 
-class MessageReceiver
+class MessageReceiver  
 {
 	jobject m_jthis;
 public:

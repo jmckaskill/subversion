@@ -106,7 +106,7 @@ svn_fs__representation_t *svn_fs__fs_rep_copy (svn_fs__representation_t *rep,
 svn_error_t *svn_fs__fs_file_checksum (unsigned char digest[],
                                        svn_fs__node_revision_t *noderev,
                                        apr_pool_t *pool);
-
+                                       
 
 /* Following are defines that specify the textual elements of the
    native filesystem directories and revision files. */
@@ -117,11 +117,11 @@ svn_error_t *svn_fs__fs_file_checksum (unsigned char digest[],
 #define SVN_FS_FS__REV_PROPS_EXT     ".props"   /* extension for rev-props */
 
 /* Headers used to describe node-revision in the revision file. */
-#define SVN_FS_FS__NODE_ID           "id"
-#define SVN_FS_FS__KIND              "type"
-#define SVN_FS_FS__COUNT             "count"
-#define SVN_FS_FS__PROPS             "props"
-#define SVN_FS_FS__TEXT              "text"
+#define SVN_FS_FS__NODE_ID           "id"       
+#define SVN_FS_FS__KIND              "type"     
+#define SVN_FS_FS__COUNT             "count"    
+#define SVN_FS_FS__PROPS             "props"    
+#define SVN_FS_FS__TEXT              "text"      
 #define SVN_FS_FS__CPATH             "cpath"
 #define SVN_FS_FS__COPYFROM          "copyfrom"
 #define SVN_FS_FS__COPYROOT          "copyroot"
