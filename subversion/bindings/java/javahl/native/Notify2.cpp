@@ -1,7 +1,7 @@
 /**
  * @copyright
  * ====================================================================
- * Copyright (c) 2003 CollabNet.  All rights reserved.
+ * Copyright (c) 2003-2005 CollabNet.  All rights reserved.
  *
  * This software is licensed as described in the file COPYING, which
  * you should have received as part of this distribution.  The terms
@@ -15,12 +15,13 @@
  * ====================================================================
  * @endcopyright
  *
- * @file Notify.cpp
- * @brief Implementation of the class Notify
+ * @file Notify2.cpp
+ * @brief Implementation of the class Notify2
  */
 
-#include "Notify.h"
+#include "Notify2.h"
 #include "JNIUtil.h"
+#include "SVNClient.h"
 #include "EnumMapper.h"
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
@@ -29,7 +30,7 @@
  * Create a new object and store the java object
  * @param notify    global reference to the java object
  */
-Notify::Notify(jobject p_notify)
+Notify2::Notify2(jobject p_notify)
 {
     m_notify = p_notify;
 }
@@ -37,7 +38,7 @@ Notify::Notify(jobject p_notify)
 /**
  * Destroy the object and delete the global reference to the java object
  */
-Notify::~Notify()
+Notify2::~Notify2()
 {
     if(m_notify != NULL)
     {
@@ -50,7 +51,7 @@ Notify::~Notify()
  * Create a C++ peer object for the java object
  * @param notify    a local reference to the java object
  */
-Notify * Notify::makeCNotify(jobject notify)
+Notify2 * Notify2::makeCNotify(jobject notify)
 {
     // if the java object is null -> no C++ peer needed
     if(notify == NULL)
@@ -58,7 +59,7 @@ Notify * Notify::makeCNotify(jobject notify)
     JNIEnv *env = JNIUtil::getEnv();
 
     // sanity check, that the object implements Notify
-    jclass clazz = env->FindClass(JAVA_PACKAGE"/Notify");
+    jclass clazz = env->FindClass(JAVA_PACKAGE"/Notify2");
     if(JNIUtil::isJavaExceptionThrown())
     {
         return NULL;
@@ -83,60 +84,39 @@ Notify * Notify::makeCNotify(jobject notify)
     }
 
     // create the peer
-    return new Notify(myNotify);
+    return new Notify2(myNotify);
 }
   /**
-   * notification function passed as svn_wc_notify_func_t
+   * notification function passed as svn_wc_notify_func2_t
    * @param baton notification instance is passed using this parameter
-   * @param path on which action happen
-   * @param action subversion action, see svn_wc_notify_action_t
-   * @param kind node kind of path after action occurred
-   * @param mime_type mime type of path after action occurred
-   * @param content_state state of content after action occurred
-   * @param prop_state state of properties after action occurred
-   * @param revision revision number after action occurred
+   * @param notify all the information about the event
+   * @param pool an apr pool to allocated memory
    */
 
 void
-Notify::notify (
+Notify2::notify (
     void *baton,
-    const char *path,
-    svn_wc_notify_action_t action,
-    svn_node_kind_t kind,
-    const char *mime_type,
-    svn_wc_notify_state_t content_state,
-    svn_wc_notify_state_t prop_state,
-    svn_revnum_t revision)
+    const svn_wc_notify_t *notify,
+    apr_pool_t *pool)
 {
     // an Notify object is used as the baton
-    Notify * notify = (Notify *) baton;
-    if(notify) // sanity check
+    Notify2 * that = (Notify2 *) baton;
+    if(that) // sanity check
     {
         // call our method
-        notify->onNotify(path, action, kind, mime_type,
-            content_state, prop_state, revision);
+        that->onNotify(notify, pool);
     }
 }
   /**
    * Handler for Subversion notifications.
    *
-   * @param path on which action happen
-   * @param action subversion action, see svn_wc_notify_action_t
-   * @param kind node kind of path after action occurred
-   * @param mime_type mime type of path after action occurred
-   * @param content_state state of content after action occurred
-   * @param prop_state state of properties after action occurred
-   * @param revision revision number  after action occurred
+   * @param notify all the information about the event
+   * @param pool an apr pool to allocated memory
    */
 void
-Notify::onNotify (
-    const char *path,
-    svn_wc_notify_action_t action,
-    svn_node_kind_t kind,
-    const char *mime_type,
-    svn_wc_notify_state_t content_state,
-    svn_wc_notify_state_t prop_state,
-    svn_revnum_t revision)
+Notify2::onNotify (
+    const svn_wc_notify_t *notify,
+    apr_pool_t *pool)
 {
     JNIEnv *env = JNIUtil::getEnv();
     // java method id will not change during the time this library is loaded,
@@ -144,13 +124,13 @@ Notify::onNotify (
     static jmethodID mid = 0;
     if(mid == 0)
     {
-        jclass clazz = env->FindClass(JAVA_PACKAGE"/Notify");
-        //jclass clazz = env->GetObjectClass(m_notify);
+        jclass clazz = env->FindClass(JAVA_PACKAGE"/Notify2");
         if(JNIUtil::isJavaExceptionThrown())
         {
             return;
         }
-        mid = env->GetMethodID(clazz, "onNotify", "(Ljava/lang/String;IILjava/lang/String;IIJ)V");
+        mid = env->GetMethodID(clazz, "onNotify",
+            "(Lorg/tigris/subversion/javahl/NotifyInformation;)V");
         if(JNIUtil::isJavaExceptionThrown() || mid == 0)
         {
             return;
@@ -161,27 +141,54 @@ Notify::onNotify (
             return;
         }
     }
+    static jmethodID midCT = 0;
+    jclass clazz = env->FindClass(JAVA_PACKAGE"/NotifyInformation");
+    if(JNIUtil::isJavaExceptionThrown())
+    {
+        return;
+    }
+    if(midCT == 0)
+    {
+        midCT = env->GetMethodID(clazz, "<init>",
+            "(Ljava/lang/String;IILjava/lang/String;"
+            "Lorg/tigris/subversion/javahl/Lock;Ljava/lang/String;IIIJ)V");
+        if(JNIUtil::isJavaExceptionThrown() || mid == 0)
+        {
+            return;
+        }
+    }
 
     // convert the parameter to their java relatives
-    jstring jPath = JNIUtil::makeJString(path);
+    jstring jPath = JNIUtil::makeJString(notify->path);
     if(JNIUtil::isJavaExceptionThrown())
     {
         return;
     }
 
-    jint jAction = EnumMapper::mapNotifyAction(action);
-    jint jKind = EnumMapper::mapNodeKind(kind);
-    jstring jMimeType = JNIUtil::makeJString(mime_type);
+    jint jAction = EnumMapper::mapNotifyAction(notify->action);
+    jint jKind = EnumMapper::mapNodeKind(notify->kind);
+    jstring jMimeType = JNIUtil::makeJString(notify->mime_type);
     if(JNIUtil::isJavaExceptionThrown())
     {
         return;
     }
-    jint jContentState = EnumMapper::mapNotifyState(content_state);
-    jint jPropState = EnumMapper::mapNotifyState(prop_state);
-
+    jobject jLock = SVNClient::createJavaLock(notify->lock);
+    if(JNIUtil::isJavaExceptionThrown())
+    {
+        return;
+    }
+    jstring jErr = JNIUtil::makeSVNErrorMessage(notify->err);
+    if(JNIUtil::isJavaExceptionThrown())
+    {
+        return;
+    }
+    jint jContentState = EnumMapper::mapNotifyState(notify->content_state);
+    jint jPropState = EnumMapper::mapNotifyState(notify->prop_state);
+    jint jLockState = EnumMapper::mapNotifyLockState(notify->lock_state);
     // call the java method
-    env->CallVoidMethod(m_notify, mid, jPath, jAction, jKind, jMimeType, jContentState, jPropState,
-        (jlong)revision);
+    jobject jInfo = env->NewObject(clazz, midCT, jPath, jAction, jKind,
+        jMimeType, jLock, jErr, jContentState, jPropState, jLockState,
+        (jlong)notify->revision);
     if(JNIUtil::isJavaExceptionThrown())
     {
         return;
@@ -198,4 +205,32 @@ Notify::onNotify (
     {
         return;
     }
+    env->DeleteLocalRef(jErr);
+    if(JNIUtil::isJavaExceptionThrown())
+    {
+        return;
+    }
+    env->DeleteLocalRef(jLock);
+    if(JNIUtil::isJavaExceptionThrown())
+    {
+        return;
+    }
+    env->DeleteLocalRef(clazz);
+    if(JNIUtil::isJavaExceptionThrown())
+    {
+        return;
+    }
+
+    env->CallVoidMethod(m_notify, mid, jInfo);
+    if(JNIUtil::isJavaExceptionThrown())
+    {
+        return;
+    }
+
+    env->DeleteLocalRef(jInfo);
+    if(JNIUtil::isJavaExceptionThrown())
+    {
+        return;
+    }
+
 }
