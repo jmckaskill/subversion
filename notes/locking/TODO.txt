@@ -32,7 +32,7 @@ LIST DISCUSSIONS TO HAVE:
   ### should we bump the format file, so a libsvn_fs 1.0 or 1.1
       library isn't allowed to circumvent locks?
 
-  ### how do locks relate to
+  ### how do locks relate to 
 
               - dumping/loading?
               - backups?
@@ -51,7 +51,7 @@ DAV bugs:
               - pass locktoken hash in MERGE request body as new XML element.
               - rev the provider API:  ap_lookup_provider()
                  - fix get_locktoken_list()
-                 -  pass <D:merge> element to provider merge()
+                 -  pass <D:merge> element to provider merge()                 
                  -  new lock vtable with *one* function to add lock
               - svn 1.2 will require httpd-2.0.53
 
@@ -62,7 +62,7 @@ DAV bugs:
 
 
 Stuff to document in book:
-
+     
        - 4 new hooks
        - 'lock' and 'unlock' commands, svn:needs-lock property.
        - svnadmin lslocks, rmlocks, lock
@@ -70,7 +70,7 @@ Stuff to document in book:
        - two new bdb tables in BDB section.
        - update the description of autoversioning in appendix C!
 
-         ### remember to update authz policy doc.
+         ### remember to update authz policy doc. 
 
 
 

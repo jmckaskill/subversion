@@ -67,7 +67,7 @@
   <!-- ================================================================= -->
   <sect1 id="svn-ap-a-sect-2">
     <title>Versiones de directorios</title>
-
+    
     <para>Subversion sigue estructura de árbol<!--TODO:Subversion tracks
       tree structures-->, no solo el contenido de ficheros. Es una de las
       razones más grandes por las que Subversion fue escrito para
@@ -115,7 +115,7 @@
       tambien sería esto una mentira; puede haber otros cambios en
       <filename>foo</filename> que todavía no hayamos recibido, porque
       no hemos actualizado todavia.</para>
-
+    
     <para>Subversion trata este problema siguiendo silenciosamente
       <!--TODO:by quietly tracking committed adds and deletes-->
       las agregaciones y las eliminaciones enviadas en el área
@@ -128,7 +128,7 @@
       de un directorio.</emphasis> La mayoría del tiempo, su copia
       de trabajo contendrá revisiones <quote>imperfectas</quote> del
       directorio.</para>
-
+    
     <para>Similarmente, un problema surge si usted intenta enviar
       <!--TODO:property changes on a directory--> cambios de las
       caracteristicas de un directorio. Normalmente, el envío
@@ -165,9 +165,9 @@
       que este también almacena copias <quote>pristinas</quote> de
       solo-lectura de sus ficheros. Esto le permite hacer muchas cosas
       desconectado:</para>
-
+    
     <variablelist>
-
+      
       <varlistentry>
         <term><command>svn status</command></term>
         <listitem>
@@ -259,7 +259,7 @@
             out-of-dateness information-->.</para>
         </listitem>
       </varlistentry>
-
+      
       <varlistentry>
         <term><option>-v</option></term>
         <listitem>
@@ -395,7 +395,7 @@ X    Resource is external to this working copy (comes from another
       ficheros y directorios. Las propiedades son pares arbitrarios
       nombre/valor asociados con ficheros y directorios en su copia
       de trabajo.</para>
-
+    
     <para>Para fijar u obtener un nombre de propiedad, use los
       subcomandos <command>svn propset</command> y
       <command>svn propget</command>. Para enumerar todas las
@@ -448,7 +448,7 @@ X    Resource is external to this working copy (comes from another
       repositorio, y las pequeñas diferencias son siempre enviadas
       a traves <!--TODO:over the network...a traves o sobre la red?-->
       de la red.</para>
-
+    
     <para>Los usuarios de CVS tienen que marcar los ficheros binarios con
       los parámetros <option>-kb</option>, para evitar que los datos sean
       mutilados (debido a la traducción de la expansión de la palabra
@@ -578,7 +578,7 @@ X    Resource is external to this working copy (comes from another
 </appendix>
 
 <!--
-local variables:
+local variables: 
 sgml-parent-document: ("book.xml" "appendix")
 end:
 -->
