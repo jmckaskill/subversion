@@ -355,7 +355,7 @@ static svn_error_t * do_proppatch(svn_ra_session_t *ras,
 }
 
 static svn_error_t * commit_replace_root(void *edit_baton,
-                                         svn_revnum_t base_revision,
+                                         svn_revnum_t base_revision, 
                                          void **root_baton)
 {
   commit_ctx_t *cc = edit_baton;
@@ -677,7 +677,7 @@ static svn_error_t * commit_stream_close(void *baton)
   return NULL;
 }
 
-static svn_error_t * commit_apply_txdelta(void *file_baton,
+static svn_error_t * commit_apply_txdelta(void *file_baton, 
                                           svn_txdelta_window_handler_t *handler,
                                           void **handler_baton)
 {
@@ -770,7 +770,7 @@ static svn_error_t * commit_close_edit(void *edit_baton)
 
   return NULL;
 }
-
+ 
 
 svn_error_t * svn_ra_dav__get_commit_editor(
   void *session_baton,
@@ -831,7 +831,7 @@ svn_error_t * svn_ra_dav__get_commit_editor(
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
