@@ -30,7 +30,7 @@
       sections that describe Subversion's concurrent versioning model.
       Also, there is a quick guide for CVS users attached as an appendix
       <xref linkend="svn-ap-a"/></para>
-
+    
   </sect1>
 
   <!-- ================================================================= -->
@@ -43,7 +43,7 @@
     <sect2 id="svn-ch-1-sect-3.1">
 
       <title>History of Revision Control</title>
-
+      
       <para>Subversion is a free/open-source <firstterm>revision
           control system</firstterm>.  That is, Subversion manages
         files over time.  The files are placed into a central
@@ -53,7 +53,7 @@
         older versions of your files, or browse the history of how
         your files changed.  Many people think of a revision control
         system as a sort of ``time machine.''</para>
-
+      
       <para>Some revision control systems are also <firstterm>software
           configuration management</firstterm> (SCM) systems.  These
         systems are specifically tailored to manage trees of source
@@ -63,25 +63,25 @@
         systems; it is a general system that can be used to manage
         <emphasis>any</emphasis> sort of collection of files,
         including source code.</para>
-
+      
     </sect2>
-
+    
     <sect2 id="svn-ch-1-sect-3.2">
-
+      
       <title>History of Subversion</title>
-
+      
       <para>Subversion aims to be the successor to the
         <firstterm>Concurrent Versions System</firstterm> (CVS). You
         can find more information about CVS at <systemitem
           class="url">http://www.cvshome.org/</systemitem>.</para>
-
+      
       <para>At the time of writing, CVS is the standard Free revision
         control system used by the open-source community.  It has a
         hard-earned, well-deserved reputation as stable and useful
         software, and has a design that makes it perfect for
         open-source development.  However, it also has a number of
         problems that are difficult to fix.</para>
-
+      
       <para>Subversion's original designers settled on a few simple
         goals.  First, it was decided that Subversion should be a
         functional replacement for CVS.  That is, it should do
@@ -90,7 +90,7 @@
         existing CVS users as the first target audience, Subversion
         should be written such that any CVS user should be able to
         start using it with little effort.</para>
-
+      
       <para>Collabnet <systemitem
           class="url">http://www.collab.net/</systemitem> provided the
         initial funding in 2000 to begin development work, and the
@@ -142,7 +142,7 @@
             versioned over time, just like file contents.</para>
         </listitem>
       </varlistentry>
-
+      
       <varlistentry>
         <term>Hackability</term>
         <listitem>
@@ -203,7 +203,7 @@
 </chapter>
 
 <!--
-local variables:
+local variables: 
 eval: (load-file "../tools/svnbook.el")
 sgml-parent-document: ("book.xml" "chapter")
 end:
