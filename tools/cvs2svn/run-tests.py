@@ -2,9 +2,9 @@
 #
 #  run_tests.py:  test suite for cvs2svn
 #
-#  Subversion is a tool for revision control.
+#  Subversion is a tool for revision control. 
 #  See http://subversion.tigris.org for more information.
-#
+#    
 # ====================================================================
 # Copyright (c) 2000-2004 CollabNet.  All rights reserved.
 #
@@ -139,7 +139,7 @@ class Log:
   def __init__(self, revision, author, date):
     self.revision = revision
     self.author = author
-
+    
     # Internally, we represent the date as seconds since epoch (UTC).
     # Since standard subversion log output shows dates in localtime
     #
@@ -238,7 +238,7 @@ def parse_log(svn_repos):
       print 'unexpected log output (missing log separator)'
       print "Line: '%s'" % line
       sys.exit(1)
-
+        
   return logs
 
 
@@ -294,14 +294,14 @@ def ensure_conversion(name, error_re=None, trunk_only=None,
     saved_wd = os.getcwd()
     try:
       os.chdir(tmp_dir)
-
+      
       svnrepos = '%s-svnrepos' % name
       wc       = '%s-wc' % name
 
       # Clean up from any previous invocations of this script.
       erase(svnrepos)
       erase(wc)
-
+      
       try:
         arg_list = [ '--create', '-s', svnrepos, cvsrepos ]
 
@@ -416,7 +416,7 @@ def prune_with_care():
   #   revision 3:  deletes trunk/blah/cookie
   #   revision 4:  deletes blah   [re-deleting trunk/blah/cookie pruned blah!]
   #   revision 5:  does nothing
-  #
+  #   
   # After fixing cvs2svn, the sequence (correctly) looks like this:
   #
   #   revision 1:  adds trunk/blah/, adds trunk/blah/cookie
@@ -424,7 +424,7 @@ def prune_with_care():
   #   revision 3:  deletes trunk/blah/cookie
   #   revision 4:  does nothing    [because trunk/blah/cookie already deleted]
   #   revision 5:  deletes blah
-  #
+  # 
   # The difference is in 4 and 5.  In revision 4, it's not correct to
   # prune blah/, because NEWS is still in there, so revision 4 does
   # nothing now.  But when we delete NEWS in 5, that should bubble up
@@ -498,7 +498,7 @@ def simple_commits():
 
   if logs[rev].msg.find('Initial revision') != 0:
     raise svntest.Failure
-
+    
   # The first commit.
   rev = 18
   for path in ('/trunk/proj/sub1/subsubA/default', '/trunk/proj/sub3/default'):
@@ -546,7 +546,7 @@ def interleaved_commits():
 
   if logs[rev].msg.find('Initial revision') != 0:
     raise svntest.Failure
-
+    
   # This PEP explains why we pass the 'logs' parameter to these two
   # nested functions, instead of just inheriting it from the enclosing
   # scope:   http://www.python.org/peps/pep-0227.html
@@ -590,7 +590,7 @@ def simple_tags():
   "simple tags"
   # See test-data/main-cvsrepos/proj/README.
   repos, wc, logs = ensure_conversion('main')
-
+ 
   rev = 37
   if not logs.has_key(rev):
     raise svntest.Failure
@@ -667,7 +667,7 @@ def mixed_commit():
   repos, wc, logs = ensure_conversion('main')
 
   rev = 23
-  for path in ('/trunk/proj/sub2/default',
+  for path in ('/trunk/proj/sub2/default', 
                '/branches/B_MIXED/proj/sub2/branch_B_MIXED_only'):
     if not (logs[rev].changed_paths.get(path) == 'M'):
       raise svntest.Failure
@@ -736,7 +736,7 @@ def double_delete():
   # bugs in cvs2svn's svn path construction for top-level files); and
   # the --no-prune option.
   repos, wc, logs = ensure_conversion('double-delete', None, 1, 1)
-
+  
   path = '/trunk/twice-removed'
 
   if not (logs[1].changed_paths.get(path) == 'A'):
@@ -762,7 +762,7 @@ def split_branch():
   # The conversion will fail if the bug is present, and
   # ensure_conversion would raise svntest.Failure.
   repos, wc, logs = ensure_conversion('split-branch')
-
+  
 
 def resync_misgroups():
   "resyncing should not misorder commit groups"
@@ -771,7 +771,7 @@ def resync_misgroups():
   # The conversion will fail if the bug is present, and
   # ensure_conversion would raise svntest.Failure.
   repos, wc, logs = ensure_conversion('resync-misgroups')
-
+  
 
 def tagged_branch_and_trunk():
   "allow tags with mixed trunk and branch sources"
@@ -783,7 +783,7 @@ def tagged_branch_and_trunk():
   if (open(a_path, 'r').read().find('1.24') == -1) \
      or (open(b_path, 'r').read().find('1.5') == -1):
     raise svntest.Failure
-
+  
 
 def enroot_race():
   "never use the rev-in-progress as a copy source"
@@ -814,7 +814,7 @@ def branch_delete_first():
   if not os.path.exists(os.path.join(wc, 'branches', 'branch-3', 'file')):
     raise svntest.Failure
 
-
+  
 def nonascii_filenames():
   "non ascii files converted incorrectly"
   # see issue #1255
@@ -861,13 +861,13 @@ def nonascii_filenames():
       new_path = os.path.join(dstrepos_path, 'single\366files')
       os.rename(base_path, new_path)
 
-    # if ensure_conversion can generate a
+    # if ensure_conversion can generate a 
     repos, wc, logs = ensure_conversion('non-ascii', encoding='latin1')
   finally:
     if locale_changed:
       locale.setlocale(locale.LC_ALL, current_locale)
     shutil.rmtree(dstrepos_path)
-
+    
 
 def vendor_branch_sameness():
   "avoid spurious changes for initial revs "
@@ -948,8 +948,8 @@ def default_branches():
   #       Same, but missing 1.1.1 label and all tags but 1.1.1.3.
   #
   #    deleted-on-vendor-branch.txt,v:
-  #       Like b.txt and c.txt, except that 1.1.1.3 is state 'dead'.
-  #
+  #       Like b.txt and c.txt, except that 1.1.1.3 is state 'dead'. 
+  # 
   #    added-then-imported.txt,v:
   #       Added with 'cvs add' to create 1.1, then imported with
   #       completely different contents to create 1.1.1.1, therefore
@@ -1013,10 +1013,10 @@ def default_branches():
     '/trunk/proj/e.txt (from /branches/unlabeled-1.1.1/proj/e.txt:9)' : 'R',
     }:
     raise svntest.Failure
-
+  
   if logs[9].msg.find("Import (vbranchA, vtag-4).") != 0:
     raise svntest.Failure
-
+                     
   if not logs[9].changed_paths == {
     '/branches/unlabeled-1.1.1/proj/d.txt' : 'M',
     '/branches/unlabeled-1.1.1/proj/e.txt' : 'M',
@@ -1031,7 +1031,7 @@ def default_branches():
 
   if logs[8].msg.find("First regular commit, to a.txt, on vtag-3.") != 0:
     raise svntest.Failure
-
+                     
   if not logs[8].changed_paths == {
     '/trunk/proj/a.txt' : 'M',
     }:
@@ -1039,7 +1039,7 @@ def default_branches():
 
   if logs[7].msg.find("Add a file to the working copy.") != 0:
     raise svntest.Failure
-
+                     
   if not logs[7].changed_paths == {
     '/trunk/proj/added-then-imported.txt' : 'A',
     }:
@@ -1060,7 +1060,7 @@ def default_branches():
 
   if logs[5].msg.find("Import (vbranchA, vtag-3).") != 0:
     raise svntest.Failure
-
+                     
   if not logs[5].changed_paths == {
     '/branches/unlabeled-1.1.1/proj/d.txt' : 'M',
     '/branches/unlabeled-1.1.1/proj/e.txt' : 'M',
@@ -1087,7 +1087,7 @@ def default_branches():
 
   if logs[3].msg.find("Import (vbranchA, vtag-2).") != 0:
     raise svntest.Failure
-
+                     
   if not logs[3].changed_paths == {
     '/branches/unlabeled-1.1.1/proj/d.txt' : 'M',
     '/branches/unlabeled-1.1.1/proj/e.txt' : 'M',
@@ -1100,7 +1100,7 @@ def default_branches():
 
   if logs[2].msg.find("Import (vbranchA, vtag-1).") != 0:
     raise svntest.Failure
-
+                     
   if not logs[2].changed_paths == {
     '/branches' : 'A',
     '/branches/unlabeled-1.1.1 (from /trunk:1)' : 'A',
@@ -1116,7 +1116,7 @@ def default_branches():
 
   if logs[1].msg.find("Initial revision") != 0:
     raise svntest.Failure
-
+                     
   if not logs[1].changed_paths == {
     '/trunk' : 'A',
     '/trunk/proj' : 'A',
