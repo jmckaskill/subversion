@@ -18,7 +18,7 @@ Automated Test Verification
 
 The point of this test system is that it's *automated*:  that is, each
 test can algoritmically verify the results and indicate "PASS" or
-"FAIL".
+"FAIL". 
 
 We've identified two broad classes of verification:
 
@@ -99,7 +99,7 @@ The contents of this directory:
 
 * commit_tests.py:       tests: fancy commit cases and scenarios, as
                                 well as regression tests. (uses ra_local)
-
+ 
 * svntest/               subversion test framework, as a python package.
 
     * main.py:               global vars, utility routines.

@@ -61,7 +61,7 @@ read_hook_line (char **cmd_p,
   apr_status_t apr_err;
   apr_array_header_t *args = apr_array_make (pool, 4, sizeof (*cmd_p));
   const char *hook_file_path;  /* for error msgs */
-
+  
   int
     done = 0,
     escaped = 0,
@@ -69,14 +69,14 @@ read_hook_line (char **cmd_p,
     suppress_expansion = 0,
     suppress_comment_effect = 0,
     suppress_escape_effect = 0;
-
+              
   /* Get the hook's file name, for use in error messages. */
   apr_err = apr_file_name_get (&hook_file_path, hook_file);
   if (! APR_STATUS_IS_SUCCESS (apr_err))
     return svn_error_create
       (apr_err, 0, NULL, pool,
        "read_hook_line: error getting hook file name");
-
+    
  restart:
 
   idx = 0;
@@ -101,7 +101,7 @@ read_hook_line (char **cmd_p,
         }
       else if (! APR_STATUS_IS_SUCCESS (apr_err))   /* error other than eof */
         {
-          return svn_error_createf
+          return svn_error_createf 
             (apr_err, 0, NULL, pool,
              "read_hook_line: error reading line from `%s'", hook_file_path);
         }
@@ -110,10 +110,10 @@ read_hook_line (char **cmd_p,
 
       /* Sanity check: is this line overly long? */
       if (idx >= APR_PATH_MAX)
-        return svn_error_createf
+        return svn_error_createf 
           (apr_err, 0, NULL, pool,
            "read_hook_line: line too long in `%s'", hook_file_path);
-
+        
       if (escaped)
         {
           /* The char before this one was backslash, the escape
@@ -149,7 +149,7 @@ read_hook_line (char **cmd_p,
               goto add_it;
             }
           break;
-
+          
         case '#':
           if (! suppress_comment_effect)
               commented = 1;
@@ -159,7 +159,7 @@ read_hook_line (char **cmd_p,
               goto add_it;
             }
           break;
-
+          
         case '\n':
           done = 1;
         /* fallthru */
@@ -294,12 +294,12 @@ run_hook_file (svn_fs_t *fs,
     rev_str = apr_psprintf (pool, "%ld", rev);
   else
     rev_str = NULL;
-
+  
   apr_err = apr_file_open (&f, hook_file, APR_READ, APR_OS_DEFAULT, pool);
   if (apr_err)
     return svn_error_createf (apr_err, 0, NULL, pool,
                               "run_hook_file: opening `%s'", hook_file);
-
+  
   while (1)
     {
       err = read_hook_line (&cmd,
@@ -309,7 +309,7 @@ run_hook_file (svn_fs_t *fs,
                             rev_str,
                             txn_name,
                             pool);
-
+      
       if (! cmd)
         break;
       else if (err)
@@ -476,11 +476,11 @@ svn_repos_fs_begin_txn_for_commit (svn_fs_txn_t **txn_p,
       svn_string_t val;
       val.data = author;
       val.len = strlen (author);
-
+      
       SVN_ERR (svn_fs_change_txn_prop (*txn_p, &author_prop_name,
                                        &val, pool));
     }
-
+    
     /* Log message. */
     SVN_ERR (svn_fs_change_txn_prop (*txn_p, &log_prop_name,
                                      log_msg, pool));
@@ -491,7 +491,7 @@ svn_repos_fs_begin_txn_for_commit (svn_fs_txn_t **txn_p,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
