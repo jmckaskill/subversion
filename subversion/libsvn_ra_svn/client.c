@@ -204,7 +204,7 @@ static svn_error_t *ra_svn_delete_path(void *baton, const char *path,
   SVN_ERR(svn_ra_svn_write_cmd(b->conn, pool, "delete-path", "c", path));
   return SVN_NO_ERROR;
 }
-
+    
 static svn_error_t *ra_svn_link_path(void *baton, const char *path,
                                      const char *url,
                                      svn_revnum_t rev,
@@ -770,7 +770,7 @@ static svn_error_t *ra_svn_status(void *sess,
     target = "";
 
   /* Tell the server we want to start a status operation. */
-  SVN_ERR(svn_ra_svn_write_cmd(conn, pool, "status", "cb(?r)",
+  SVN_ERR(svn_ra_svn_write_cmd(conn, pool, "status", "cb(?r)", 
                                target, recurse, rev));
 
   /* Fetch a reporter for the caller to drive.  The reporter will drive
