@@ -3,32 +3,32 @@
  *
  * ================================================================
  * Copyright (c) 2000 Collab.Net.  All rights reserved.
- *
+ * 
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
  * met:
- *
+ * 
  * 1. Redistributions of source code must retain the above copyright
  * notice, this list of conditions and the following disclaimer.
- *
+ * 
  * 2. Redistributions in binary form must reproduce the above copyright
  * notice, this list of conditions and the following disclaimer in the
  * documentation and/or other materials provided with the distribution.
- *
+ * 
  * 3. The end-user documentation included with the redistribution, if
  * any, must include the following acknowlegement: "This product includes
  * software developed by Collab.Net (http://www.Collab.Net/)."
  * Alternately, this acknowlegement may appear in the software itself, if
  * and wherever such third-party acknowlegements normally appear.
- *
+ * 
  * 4. The hosted project names must not be used to endorse or promote
  * products derived from this software without prior written
  * permission. For written permission, please contact info@collab.net.
- *
+ * 
  * 5. Products derived from this software may not use the "Tigris" name
  * nor may "Tigris" appear in their names without prior written
  * permission of Collab.Net.
- *
+ * 
  * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
  * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -42,14 +42,14 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ====================================================================
- *
+ * 
  * This software consists of voluntary contributions made by many
  * individuals on behalf of Collab.Net.
  */
 
 
 /* **************************************************************
-
+   
    The main idea here is that filesystem calls are "wrappered", giving
    the server library the chance to check for authorization and
    execute any policies that may supercede the request.
@@ -69,7 +69,7 @@
 
 
 
-/* svn__svr_expand_repos_name():
+/* svn__svr_expand_repos_name(): 
    Looks up repos alias, returns "true" name.
 */
 
@@ -110,7 +110,7 @@ svn_svr_plugin_authorize (svn_fsrequest_t *request)
 
   /* Next:  loop through our policy's array of plugins... */
 
-  for (hash_index =
+  for (hash_index = 
          ap_hash_first (request->policy->plugins); /* get first hash entry */
        hash_index;                                 /* NULL if out of entries */
        hash_index = ap_hash_next (hash_index))     /* get next hash entry */
@@ -122,7 +122,7 @@ svn_svr_plugin_authorize (svn_fsrequest_t *request)
 
       /* grab the authorization routine from this plugin */
       current_auth_hook = current_plugin->authorization_hook;
-
+      
       if (current_auth_hook != NULL)
         {
           /* Call the authorization routine, giving it a chance to
@@ -135,7 +135,7 @@ svn_svr_plugin_authorize (svn_fsrequest_t *request)
 
 
   /* If all auth_hooks are successful, double-check that
-     user->svn_username is actually filled in!
+     user->svn_username is actually filled in! 
      (A good auth_hook should fill it in automatically, though.)
   */
 
@@ -143,10 +143,10 @@ svn_svr_plugin_authorize (svn_fsrequest_t *request)
     {
       /* Using the policy's memory pool, duplicate the auth_username
          string and assign it to svn_username */
-      request->user->svn_username =
+      request->user->svn_username = 
         svn_string_dup (request->user->auth_username, request->policy->pool);
     }
-
+  
   return SVN_NO_ERROR;  /* successfully authorized to perform the action! */
 }
 
@@ -176,7 +176,7 @@ svn_error_t *
 svn_svr_authorize (svn_fsrequest_t *request);
 {
   svn_error_t *err;
-
+  
   err = svn_svr_policy_authorize (request);
   if (err)
     return (svn_quick_wrap_error
@@ -211,7 +211,7 @@ svn__svr_wrap_logic (svn_fsrequest_t *request)
      on the action field) are guaranteed to be NULL.  */
 
   /* Look up the repos alias, replace with true repository name */
-  request->repos = svn__svr_expand_repos_name (request->policy,
+  request->repos = svn__svr_expand_repos_name (request->policy, 
                                                request->repos);
 
   /* Validate username in request->user->svn_username */
@@ -224,7 +224,7 @@ svn__svr_wrap_logic (svn_fsrequest_t *request)
         }
       request->user->svn_username = request->user->auth_username;
     }
-
+  
   /* Check authorization in both server policy & plugins */
   error = svn_svr_authorize (request);
   if (error)
@@ -234,7 +234,7 @@ svn__svr_wrap_logic (svn_fsrequest_t *request)
 
 
 
-/*
+/* 
  *
  *
  * FILESYSTEM WRAPPERS ==================================================
@@ -252,19 +252,19 @@ svn_svr_latest (svn_ver_t **latest_ver,
                 svn_user_t *user)
 {
   svn_error_t *error;
-  svn_fsrequest_t my_request = {policy, repos, user,
+  svn_fsrequest_t my_request = {policy, repos, user, 
                                 svn_action_latest,
                                 NULL, NULL, NULL, NULL,
                                 NULL, NULL, NULL, NULL};
-
+                                
   error = svn__svr_wrap_logic (&my_request);
 
   if (error)
     return error;
   else
     return svn_fs_latest (latest_ver,
-                          my_request.repos,
-                          user->svn_username);
+                          my_request.repos,                    
+                          user->svn_username); 
 }
 
 
@@ -285,17 +285,17 @@ svn_svr_read (svn_node_t **node,
                                 svn_action_read,
                                 ver, path, NULL, NULL,
                                 NULL, NULL, NULL, NULL};
-
+                                
   error = svn__svr_wrap_logic (&my_request);
 
   if (error)
     return error;
   else
     return svn_fs_read (node,
-                        my_request.repos,
+                        my_request.repos,                    
                         user->svn_username,
                         ver,
-                        path);
+                        path); 
 }
 
 
@@ -315,14 +315,14 @@ svn_svr_submit (svn_token_t **token,
                                 svn_action_submit,
                                 NULL, NULL,   NULL, NULL,
                                 NULL, skelta, NULL, NULL};
-
+                                
   error = svn__svr_wrap_logic (&my_request);
 
   if (error)
     return error;
   else
     return svn_fs_submit (token,
-                          my_request.repos,
+                          my_request.repos,                    
                           user->svn_username,
                           skelta);
 }
@@ -345,14 +345,14 @@ svn_svr_submit (unsigned long *new_version,
                                 svn_action_write,
                                 NULL, NULL, NULL, NULL,
                                 NULL, NULL, delta, token};
-
+                                
   error = svn__svr_wrap_logic (&my_request);
 
   if (error)
     return error;
   else
     return svn_fs_write (new_version,
-                         my_request.repos,
+                         my_request.repos,                    
                          user->svn_username,
                          delta,
                          token);
@@ -360,7 +360,7 @@ svn_svr_submit (unsigned long *new_version,
 
 
 
-/* Abandon an already approved skelta, using token.
+/* Abandon an already approved skelta, using token. 
    NOTICE that it has no argument-return value, just plain old svn_error_t *.
  */
 
@@ -375,13 +375,13 @@ svn_svr_abandon (svn_svr_policies_t *policy,
                                 svn_action_abandon,
                                 NULL, NULL, NULL, NULL,
                                 NULL, NULL, NULL, token};
-
+                                
   error = svn__svr_wrap_logic (&my_request);
 
   if (error)
     return error;
   else
-    return svn_fs_abandon (my_request.repos,
+    return svn_fs_abandon (my_request.repos,                    
                            user->svn_username,
                            token);
 }
@@ -408,7 +408,7 @@ svn_svr_get_delta (svn_delta_t **delta,
                                 svn_action_get_delta,
                                 ver1, path1, ver2, path2,
                                 NULL, NULL, NULL, NULL};
-
+                                
   error = svn__svr_wrap_logic (&my_request);
 
   if (error)
@@ -441,7 +441,7 @@ svn_svr_get_diff (svn_diff_t **diff,
                                 svn_action_get_diff,
                                 ver1, path1, ver2, path2,
                                 NULL, NULL, NULL, NULL};
-
+                                
   error = svn__svr_wrap_logic (&my_request);
 
   if (error)
@@ -461,8 +461,8 @@ svn_svr_get_diff (svn_diff_t **diff,
 /* PROPERTIES:   Getting individual values ------------------------- */
 
 
-/* Retrieve the value of a property attached to a version
-   (such as a log message)
+/* Retrieve the value of a property attached to a version 
+   (such as a log message) 
 */
 
 svn_error_t *
@@ -474,21 +474,21 @@ svn_svr_get_ver_prop (svn_string_t **propvalue,
                       svn_string_t *propname)
 {
   svn_error_t *error;
-  svn_fsrequest_t my_request = {policy, repos, user,
+  svn_fsrequest_t my_request = {policy, repos, user, 
                                 svn_action_get_ver_prop,
                                 ver, NULL, NULL, NULL,
                                 propname, NULL, NULL, NULL};
-
+                                
   error = svn__svr_wrap_logic (&my_request);
 
   if (error)
     return error;
   else
     return svn_get_ver_prop (latest_ver,
-                             my_request.repos,
+                             my_request.repos,                    
                              user->svn_username,
                              ver,
-                             propname);
+                             propname); 
 }
 
 
@@ -504,22 +504,22 @@ svn_svr_get_node_prop (svn_string_t **propvalue,
                        svn_string_t *propname)
 {
   svn_error_t *error;
-  svn_fsrequest_t my_request = {policy, repos, user,
+  svn_fsrequest_t my_request = {policy, repos, user, 
                                 svn_action_get_node_prop,
                                 ver, path, NULL, NULL,
                                 propname, NULL, NULL, NULL};
-
+                                
   error = svn__svr_wrap_logic (&my_request);
 
   if (error)
     return error;
   else
     return svn_get_node_prop (latest_ver,
-                              my_request.repos,
+                              my_request.repos,                    
                               user->svn_username,
                               ver,
                               path,
-                              propname);
+                              propname); 
 }
 
 
@@ -535,22 +535,22 @@ svn_svr_get_dirent_prop (svn_string_t **propvalue,
                          svn_string_t *propname)
 {
   svn_error_t *error;
-  svn_fsrequest_t my_request = {policy, repos, user,
+  svn_fsrequest_t my_request = {policy, repos, user, 
                                 svn_action_get_dirent_prop,
                                 ver, path, NULL, NULL,
                                 propname, NULL, NULL, NULL};
-
+                                
   error = svn__svr_wrap_logic (&my_request);
 
   if (error)
     return error;
   else
     return svn_get_dirent_prop (latest_ver,
-                                my_request.repos,
+                                my_request.repos,                    
                                 user->svn_username,
                                 ver,
                                 path,
-                                propname);
+                                propname); 
 }
 
 
@@ -572,16 +572,16 @@ svn_svr_get_ver_proplist (ap_hash_t **proplist,
                                 svn_action_get_ver_proplist,
                                 ver, NULL, NULL, NULL,
                                 NULL, NULL, NULL, NULL};
-
+                                
   error = svn__svr_wrap_logic (&my_request);
 
   if (error)
     return error;
   else
     return svn_get_ver_proplist (proplist,
-                                 my_request.repos,
+                                 my_request.repos,                    
                                  user->svn_username,
-                                 ver);
+                                 ver); 
 }
 
 
@@ -597,21 +597,21 @@ svn_svr_get_node_proplist (ap_hash_t **proplist,
                            svn_string_t *path)
 {
   svn_error_t *error;
-  svn_fsrequest_t my_request = {policy, repos, user,
+  svn_fsrequest_t my_request = {policy, repos, user, 
                                 svn_action_get_node_proplist,
                                 ver, path, NULL, NULL,
                                 NULL, NULL, NULL, NULL};
-
+                                
   error = svn__svr_wrap_logic (&my_request);
 
   if (error)
     return error;
   else
     return svn_get_node_proplist (proplist,
-                                  my_request.repos,
+                                  my_request.repos,                    
                                   user->svn_username,
                                   ver,
-                                  path);
+                                  path); 
 }
 
 
@@ -628,21 +628,21 @@ svn_svr_get_dirent_proplist (ap_hash_t **proplist,
                              svn_string_t *path)
 {
   svn_error_t *error;
-  svn_fsrequest_t my_request = {policy, repos, user,
+  svn_fsrequest_t my_request = {policy, repos, user, 
                                 svn_action_get_dirent_proplist,
                                 ver, path, NULL, NULL,
                                 NULL, NULL, NULL, NULL};
-
+                                
   error = svn__svr_wrap_logic (&my_request);
 
   if (error)
     return error;
   else
     return svn_get_dirent_proplist (proplist,
-                                    my_request.repos,
+                                    my_request.repos,                    
                                     user->svn_username,
                                     ver,
-                                    path);
+                                    path); 
 }
 
 
@@ -661,18 +661,18 @@ svn_svr_get_ver_propnames (ap_hash_t **propnames,
                            unsigned long ver)
 {
   svn_error_t *error;
-  svn_fsrequest_t my_request = {policy, repos, user,
+  svn_fsrequest_t my_request = {policy, repos, user, 
                                 svn_action_get_ver_propnames,
                                 ver, NULL, NULL, NULL,
                                 NULL, NULL, NULL, NULL};
-
+                                
   error = svn__svr_wrap_logic (&my_request);
 
   if (error)
     return error;
   else
     return svn_get_ver_propnames (propnames,
-                                  my_request.repos,
+                                  my_request.repos,                    
                                   user->svn_username,
                                   ver);
 }
@@ -690,18 +690,18 @@ svn_svr_get_node_propnames (ap_hash_t **propnames,
                             svn_string_t *path)
 {
   svn_error_t *error;
-  svn_fsrequest_t my_request = {policy, repos, user,
+  svn_fsrequest_t my_request = {policy, repos, user, 
                                 svn_action_get_node_propnames,
                                 ver, path, NULL, NULL,
                                 NULL, NULL, NULL, NULL};
-
+                                
   error = svn__svr_wrap_logic (&my_request);
 
   if (error)
     return error;
   else
     return svn_get_node_propnames (propnames,
-                                   my_request.repos,
+                                   my_request.repos,                    
                                    user->svn_username,
                                    ver,
                                    path);
@@ -720,18 +720,18 @@ svn_svr_get_dirent_propnames (ap_hash_t **propnames,
                               svn_string_t *path)
 {
   svn_error_t *error;
-  svn_fsrequest_t my_request = {policy, repos, user,
+  svn_fsrequest_t my_request = {policy, repos, user, 
                                 svn_action_get_dirent_propnames,
                                 ver, path, NULL, NULL,
                                 NULL, NULL, NULL, NULL};
-
+                                
   error = svn__svr_wrap_logic (&my_request);
 
   if (error)
     return error;
   else
     return svn_get_dirent_propnames (propnames,
-                                   my_request.repos,
+                                   my_request.repos,                    
                                    user->svn_username,
                                    ver,
                                    path);
@@ -759,19 +759,19 @@ svn_svr_get_dirent_propnames (ap_hash_t **propnames,
 
    Input:  a skelta describing working copy's current tree
 
-   Returns: an svn error or SVN_NO_ERROR, and
+   Returns: an svn error or SVN_NO_ERROR, and 
 
-            returndata = a skelta describing how the tree is out of date
+            returndata = a skelta describing how the tree is out of date 
 */
 
-svn_error_t *
+svn_error_t * 
 svn_svr_get_status (svn_skelta_t **returnskelta,
                     svn_svr_policies_t *policy,
-                    svn_string_t *repos,
-                    svn_user_t *user,
+                    svn_string_t *repos, 
+                    svn_user_t *user, 
                     svn_skelta_t *skelta)
 {
-  /* Can't do anything here till we have a working delta/skelta library.
+  /* Can't do anything here till we have a working delta/skelta library.  
 
      We would iterate over the skelta and call svn_fs_cmp() on each
      file to check for up-to-date-ness.  Then we'd built a new skelta
@@ -779,7 +779,7 @@ svn_svr_get_status (svn_skelta_t **returnskelta,
 
   return SVN_NO_ERROR;
 }
-
+ 
 
 
 /* svn_svn_get_update():
@@ -789,20 +789,20 @@ svn_svr_get_status (svn_skelta_t **returnskelta,
    Returns:  svn_error_t * or SVN_NO_ERROR, and
 
             returndata = a delta which, when applied, will actually
-            update working copy's tree to latest version.
+            update working copy's tree to latest version.  
 */
 
-svn_error_t *
+svn_error_t * 
 svn_svr_get_update (svn_delta_t **returndelta,
                     svn_svr_policies_t *policy,
-                    svn_string_t *repos,
-                    svn_user_t *user,
+                    svn_string_t *repos, 
+                    svn_user_t *user, 
                     svn_skelta_t *skelta)
 {
-  /* Can't do anything here till we have a working delta/skelta library.
+  /* Can't do anything here till we have a working delta/skelta library.  
 
      We would iterate over the skelta and call svn_fs_get_delta() on
-     each file.  Then we'd built a new composite delta to send back.
+     each file.  Then we'd built a new composite delta to send back. 
   */
 
   return SVN_NO_ERROR;
