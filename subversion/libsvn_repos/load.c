@@ -42,17 +42,17 @@ read_header_block (svn_stream_t *stream,
                    apr_pool_t *pool)
 {
   apr_pool_t *subpool = svn_pool_create (pool);
-  *headers = apr_hash_make (pool);
+  *headers = apr_hash_make (pool);  
 
   while (1)
     {
       svn_stringbuf_t *header_str;
-      const char *name, *value;
+      const char *name, *value; 
       apr_size_t old_i = 0, i = 0;
 
       /* Read the next line into a stringbuf in subpool. */
       SVN_ERR (svn_stream_readline (stream, &header_str, subpool));
-
+      
       if (svn_stringbuf_isempty (header_str))
         break;    /* end of header block */
 
@@ -78,7 +78,7 @@ read_header_block (svn_stream_t *stream,
         i++;
       /* Allocate the header value in the original pool. */
       value = apr_pstrmemdup (pool, header_str->data + old_i, (i - old_i));
-
+      
       apr_hash_set (*headers, name, APR_HASH_KEY_STRING, value);
 
       svn_pool_clear (subpool); /* free the stringbuf */
@@ -114,10 +114,10 @@ parse_content_block (svn_stream_t *stream,
 {
   svn_stringbuf_t *strbuf;
   apr_pool_t *subpool = svn_pool_create (pool);
-
+  
   /* A running tally of how many bytes we've sucked from the stream. */
   apr_size_t remaining_bytes, bytes_sucked = 0;
-
+  
   /* Step 1:  parse properties out of the stream.  This code is a
      variant of the hash-reading routine in libsvn_subr. */
   while (1)
@@ -139,7 +139,7 @@ parse_content_block (svn_stream_t *stream,
           apr_size_t numread;
           char *keybuf;
           char c;
-
+          
           /* Get the length of the key */
           size_t keylen = (size_t) atoi (buf + 2);
 
@@ -158,7 +158,7 @@ parse_content_block (svn_stream_t *stream,
           bytes_sucked += numread;
           if (numread != 1)
             goto stream_ran_dry;
-          if (c != '\n')
+          if (c != '\n') 
             goto stream_malformed;
 
           /* Read a val length line */
@@ -186,7 +186,7 @@ parse_content_block (svn_stream_t *stream,
               bytes_sucked += numread;
               if (numread != 1)
                 goto stream_ran_dry;
-              if (c != '\n')
+              if (c != '\n') 
                 goto stream_malformed;
 
               /* Send the val data for packaging... */
@@ -208,7 +208,7 @@ parse_content_block (svn_stream_t *stream,
         }
       else
         goto stream_malformed; /* didn't find expected 'K' line */
-
+      
       svn_pool_clear (subpool);
     } /* while (1) */
 
@@ -216,13 +216,13 @@ parse_content_block (svn_stream_t *stream,
   /* Step 2:  if we've not yet read CONTENT_LENGTH bytes of data, push
      the remaining bytes as fulltext. */
   remaining_bytes = content_length - bytes_sucked;
-  if (remaining_bytes > 0)
+  if (remaining_bytes > 0) 
     {
       svn_stream_t *text_stream;
 
       if (! is_node)
         goto stream_malformed;
-
+      
       SVN_ERR (parse_fns->set_fulltext (&text_stream, record_baton));
       if (text_stream != NULL)
         {
@@ -236,7 +236,7 @@ parse_content_block (svn_stream_t *stream,
           for (i = 0; i < iterations; i++)
             {
               /* read a maximum number of bytes from the stream. */
-              rlen = buflen;
+              rlen = buflen; 
               SVN_ERR (svn_stream_read (stream, buffer, &rlen));
 
               if (rlen != buflen)
@@ -260,7 +260,7 @@ parse_content_block (svn_stream_t *stream,
           if (rlen != buflen)
             /* Uh oh, didn't read all remainder bytes. */
             goto stream_ran_dry;
-
+          
           /* write however many bytes you read. */
           wlen = rlen;
           SVN_ERR (svn_stream_write (text_stream, buffer, &wlen));
@@ -269,19 +269,19 @@ parse_content_block (svn_stream_t *stream,
             return
               svn_error_create (SVN_ERR_UNEXPECTED_EOF, 0, NULL, pool,
                                 "Error pushing textual contents.");
-
+          
           /* done pushing text, close the stream. */
           SVN_ERR (svn_stream_close (text_stream));
         }
     }
-
-
+  
+  
   /* Everything good, mission complete. */
   svn_pool_destroy (subpool);
   return SVN_NO_ERROR;
-
+ 
  stream_ran_dry:
-  return
+  return 
     svn_error_create (SVN_ERR_INCOMPLETE_DATA, 0, NULL, pool,
                       "Premature end of content data in dumpstream.");
 
@@ -315,7 +315,7 @@ svn_repos_parse_dumpstream (svn_stream_t *stream,
        new_revision_record()
     else if hash contains node-path,
        new_node_record()
-
+     
     if hash contains content-length,
        read & parse a content block.
 
@@ -330,7 +330,7 @@ svn_repos_parse_dumpstream (svn_stream_t *stream,
   SVN_ERR (read_header_block (stream, &headers, pool));
   SVN_ERR (parse_content_block (stream, 42,
                                 parse_fns, NULL,
-                                svn_pack_bytestring,
+                                svn_pack_bytestring, 
                                 TRUE, pool));
 
   return SVN_NO_ERROR;
@@ -346,7 +346,7 @@ svn_repos_parse_dumpstream (svn_stream_t *stream,
 struct parse_baton
 {
   svn_fs_t *fs;
-
+  
 };
 
 struct revision_baton
@@ -391,7 +391,7 @@ make_revision_baton (apr_hash_t *headers,
                      apr_pool_t *pool)
 {
   struct revision_baton *rb = apr_pcalloc (pool, sizeof(*rb));
-
+  
   rb->pb = pb;
   rb->pool = pool;
 
@@ -519,8 +519,8 @@ svn_repos_load_fs (svn_repos_t *repos,
 {
   const svn_repos_parser_fns_t *parser;
   void *parse_baton;
-
-  /* This is really simple. */
+  
+  /* This is really simple. */  
 
   SVN_ERR (get_parser (&parser, &parse_baton, repos, pool));
 
@@ -531,7 +531,7 @@ svn_repos_load_fs (svn_repos_t *repos,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end:
