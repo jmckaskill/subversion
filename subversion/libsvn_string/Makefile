@@ -16,7 +16,7 @@ svn_string.o:  svn_string.c $(SVN_INCLUDE)/svn_string.h
 	cc -c svn_string.c -g -Wall \
                            -shared -fPIC \
 	                   -D_THREAD_SAFE -D_REENTRANT -pthread \
-                           -I$(SVN_INCLUDE) -I$(APR_INCLUDE)
+                           -I$(SVN_INCLUDE) -I$(APR_INCLUDE) 
 
 
 # Link libapr in statically
