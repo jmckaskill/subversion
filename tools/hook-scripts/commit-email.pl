@@ -10,7 +10,7 @@
 #    -h hostname       :  Hostname to append to author for 'From:'
 #    -l logfile        :  File to which mail contents should be appended
 #    -s subject_prefix :  Subject line prefix
-#
+#    
 # ====================================================================
 # Copyright (c) 2000-2001 CollabNet.  All rights reserved.
 #
@@ -87,7 +87,7 @@ my @output = ();
 my $line;
 
 # get the auther, date, and log from svnlook
-open (INPUT, "$svnlook $repos rev $rev info |")
+open (INPUT, "$svnlook $repos rev $rev info |") 
     or die ("Error running svnlook (info)");
 @svnlooklines = <INPUT>;
 close (INPUT);
@@ -105,16 +105,16 @@ my @dirschanged = <INPUT>;
 my $rootchanged = 0;
 close (INPUT);
 chomp @dirschanged;
-grep
+grep 
 {
     # lose the trailing slash if one exists (except in the case of '/')
     $rootchanged = 1 if ($_ eq '/');
     $_ =~ s/(.+)[\/\\]$/$1/;
-}
-@dirschanged;
+} 
+@dirschanged; 
 
 # figure out what's changed (using svnlook)
-open (INPUT, "$svnlook $repos rev $rev changed |")
+open (INPUT, "$svnlook $repos rev $rev changed |") 
     or die ("Error running svnlook (changed)");
 @svnlooklines = <INPUT>;
 close (INPUT);
@@ -147,7 +147,7 @@ foreach $line (@svnlooklines)
 }
 
 # get the diff from svnlook
-open (INPUT, "$svnlook $repos rev $rev diff |")
+open (INPUT, "$svnlook $repos rev $rev diff |") 
     or die ("Error running svnlook (diff)");
 my @difflines = <INPUT>;
 close (INPUT);
@@ -191,7 +191,7 @@ if (($rootchanged == 0) and (scalar @commonpieces > 1))
 my $dirlist = join (' ', @dirschanged);
 
 
-my $userlist = join (' ', @email_addrs);
+my $userlist = join (' ', @email_addrs); 
 my $subject = '';
 if ($commondir ne '')
 {
@@ -248,7 +248,7 @@ push (@output, (@difflines));
 # dump output to logfile (if its name is not empty)
 if ($logfile =~ /\w/)
 {
-    open (LOGFILE, ">> $logfile")
+    open (LOGFILE, ">> $logfile") 
         or die ("Error opening '$logfile' for append");
     print LOGFILE @output;
     close LOGFILE;
@@ -257,7 +257,7 @@ if ($logfile =~ /\w/)
 # open a pipe to 'sendmail'
 if (($sendmail =~ /\w/) and ($userlist =~ /\w/))
 {
-    open (SENDMAIL, "| $sendmail $userlist")
+    open (SENDMAIL, "| $sendmail $userlist") 
         or die ("Error opening a pipe to sendmail");
     print SENDMAIL @output;
     close SENDMAIL;
