@@ -2,9 +2,9 @@
 #
 #  basic_tests.py:  testing working-copy interactions with ra_local
 #
-#  Subversion is a tool for revision control.
+#  Subversion is a tool for revision control. 
 #  See http://subversion.tigris.org for more information.
-#
+#    
 # ====================================================================
 # Copyright (c) 2000-2001 CollabNet.  All rights reserved.
 #
@@ -54,7 +54,7 @@ def basic_status():
   expected_output_tree = svntest.tree.build_generic_tree(status_list)
 
   return svntest.actions.run_and_verify_status (wc_dir, expected_output_tree)
-
+  
 #----------------------------------------------------------------------
 
 def basic_commit():
@@ -62,7 +62,7 @@ def basic_commit():
 
   sbox = sandbox(basic_commit)
   wc_dir = os.path.join (svntest.main.general_wc_dir, sbox)
-
+  
   if svntest.actions.make_repo_and_wc(sbox):
     return 1
 
@@ -91,7 +91,7 @@ def basic_commit():
                                 None, None,
                                 None, None,
                                 wc_dir)
-
+  
 #----------------------------------------------------------------------
 
 def commit_one_file():
@@ -99,7 +99,7 @@ def commit_one_file():
 
   sbox = sandbox(commit_one_file)
   wc_dir = os.path.join (svntest.main.general_wc_dir, sbox)
-
+  
   if svntest.actions.make_repo_and_wc(sbox):
     return 1
 
@@ -130,7 +130,7 @@ def commit_one_file():
                                 None, None,
                                 None, None,
                                 rho_path)
-
+  
 #----------------------------------------------------------------------
 
 def commit_multiple_targets():
@@ -138,7 +138,7 @@ def commit_multiple_targets():
 
   sbox = sandbox(commit_multiple_targets)
   wc_dir = os.path.join (svntest.main.general_wc_dir, sbox)
-
+  
   if svntest.actions.make_repo_and_wc(sbox):
     return 1
 
@@ -163,7 +163,7 @@ def commit_multiple_targets():
   svntest.main.run_svn('propset', 'foo', 'bar', ADG_path)
 
   # Created expected output tree for 'svn ci'.  We should see changes
-  # only on these three targets, no others.
+  # only on these three targets, no others.  
   output_list = [ [psi_path, None, {}, {'verb' : 'Changing' }],
                   [lambda_path, None, {}, {'verb' : 'Changing' }],
                   [pi_path, None, {}, {'verb' : 'Changing' }] ]
@@ -190,7 +190,7 @@ def commit_multiple_targets():
                                 None, None,
                                 None, None,
                                 psi_path, AB_path, pi_path)
-
+  
 #----------------------------------------------------------------------
 
 
@@ -199,7 +199,7 @@ def commit_multiple_targets_2():
 
   sbox = sandbox(commit_multiple_targets_2)
   wc_dir = os.path.join (svntest.main.general_wc_dir, sbox);
-
+  
   if svntest.actions.make_repo_and_wc(sbox):
     return 1
 
@@ -224,7 +224,7 @@ def commit_multiple_targets_2():
   svntest.main.run_svn('propset', 'foo', 'bar', ADG_path)
 
   # Created expected output tree for 'svn ci'.  We should see changes
-  # only on these three targets, no others.
+  # only on these three targets, no others.  
   output_list = [ [psi_path, None, {}, {'verb' : 'Changing' }],
                   [lambda_path, None, {}, {'verb' : 'Changing' }],
                   [omega_path, None, {}, {'verb' : 'Changing' }],
@@ -252,7 +252,7 @@ def commit_multiple_targets_2():
                                 None, None,
                                 None, None,
                                 psi_path, AB_path, omega_path, pi_path)
-
+  
 #----------------------------------------------------------------------
 
 def basic_update():
@@ -260,7 +260,7 @@ def basic_update():
 
   sbox = sandbox(basic_update)
   wc_dir = os.path.join (svntest.main.general_wc_dir, sbox)
-
+  
   if svntest.actions.make_repo_and_wc(sbox):
     return 1
 
@@ -309,7 +309,7 @@ def basic_update():
   # Create expected status tree for the update.
   status_list = svntest.actions.get_virginal_status_list(wc_backup, '2')
   expected_status_tree = svntest.tree.build_generic_tree(status_list)
-
+  
   # Do the update and check the results in three ways.
   return svntest.actions.run_and_verify_update(wc_backup,
                                expected_output_tree,
@@ -322,10 +322,10 @@ def basic_merge():
 
   sbox = sandbox(basic_merge)
   wc_dir = os.path.join (svntest.main.general_wc_dir, sbox)
-
+  
   if svntest.actions.make_repo_and_wc(sbox):
     return 1
-
+  
   # First change the greek tree to make two files 10 lines long
   mu_path = os.path.join(wc_dir, 'A', 'mu')
   rho_path = os.path.join(wc_dir, 'A', 'D', 'G', 'rho')
@@ -335,7 +335,7 @@ def basic_merge():
     mu_text = mu_text + '\nThis is line ' + `x` + ' in mu'
     rho_text = rho_text + '\nThis is line ' + `x` + ' in rho'
   svntest.main.file_append (mu_path, mu_text)
-  svntest.main.file_append (rho_path, rho_text)
+  svntest.main.file_append (rho_path, rho_text)  
 
   # Create expected output tree for initial commit
   output_list = [ [mu_path, None, {}, {'verb' : 'Changing' }],
@@ -350,13 +350,13 @@ def basic_merge():
       item[3]['wc_rev'] = '2'
       item[3]['status'] = '_ '
   expected_status_tree = svntest.tree.build_generic_tree(status_list)
-
+  
   # Initial commit.
   if svntest.actions.run_and_verify_commit (wc_dir, expected_output_tree,
                             expected_status_tree,
                             None, None, None, None, wc_dir):
     return 1
-
+  
   # Make a backup copy of the working copy
   wc_backup = wc_dir + 'backup'
   svntest.actions.duplicate_dir(wc_dir, wc_backup)
@@ -398,27 +398,27 @@ def basic_merge():
     backup_mu_text = backup_mu_text + '\nThis is line ' + `x` + ' in mu'
   fp_mu.write(backup_mu_text)
   fp_mu.close()
-
+  
   fp_rho = open(rho_path_backup, 'w+') # now open rho in write mode
   backup_rho_text='This is the new line 1 in the backup copy of rho'
   for x in range(2,11):
     backup_rho_text = backup_rho_text + '\nThis is line ' + `x` + ' in rho'
   fp_rho.write(backup_rho_text)
   fp_rho.close()
-
+  
   # Create expected output tree for an update of the wc_backup.
   output_list = [[os.path.join(wc_backup, 'A', 'mu'),
                   None, {}, {'status' : 'G '}],
                  [os.path.join(wc_backup, 'A', 'D', 'G', 'rho'),
                   None, {}, {'status' : 'G '}]]
   expected_output_tree = svntest.tree.build_generic_tree(output_list)
-
+  
   # Create expected disk tree for the update.
   my_greek_tree = svntest.main.copy_greek_tree()
   my_greek_tree[2][1] = 'This is the new line 1 in the backup copy of mu'
   for x in range(2,11):
     my_greek_tree[2][1] = my_greek_tree[2][1] + '\nThis is line ' + `x` + ' in mu'
-  my_greek_tree[2][1] = my_greek_tree[2][1] + ' Appended to line 10 of mu'
+  my_greek_tree[2][1] = my_greek_tree[2][1] + ' Appended to line 10 of mu'  
   my_greek_tree[14][1] = 'This is the new line 1 in the backup copy of rho'
   for x in range(2,11):
     my_greek_tree[14][1] = my_greek_tree[14][1] + '\nThis is line ' + `x` + ' in rho'
@@ -431,7 +431,7 @@ def basic_merge():
     if (item[0] == mu_path_backup) or (item[0] == rho_path_backup):
       item[3]['status'] = 'M '
   expected_status_tree = svntest.tree.build_generic_tree(status_list)
-
+  
   # Do the update and check the results in three ways.
   return svntest.actions.run_and_verify_update(wc_backup,
                                                expected_output_tree,
@@ -464,7 +464,7 @@ def basic_conflict():
 
   sbox = sandbox(basic_conflict)
   wc_dir = os.path.join (svntest.main.general_wc_dir, sbox)
-
+  
   if svntest.actions.make_repo_and_wc(sbox):
     return 1
 
@@ -509,7 +509,7 @@ def basic_conflict():
   output_list = [ [mu_path_backup, None, {}, {'status' : 'C '}],
                   [rho_path_backup, None, {}, {'status' : 'C '}]]
   expected_output_tree = svntest.tree.build_generic_tree(output_list)
-
+  
   # Create expected disk tree for the update.
   my_greek_tree = svntest.main.copy_greek_tree()
   my_greek_tree[2][1] = my_greek_tree[2][1] + '\nConflicting appended text for mu'
@@ -526,7 +526,7 @@ def basic_conflict():
   # "Extra" files that we expect to result from the conflicts.
   # These are expressed as regexps.
   extra_files = ['mu.*\.rej', 'rho.*\.rej', '\.#mu.*', '\.#rho.*']
-
+  
   # Do the update and check the results in three ways.
   # All "extra" files are passed to detect_conflict_files().
   if svntest.actions.run_and_verify_update(wc_backup,
@@ -536,7 +536,7 @@ def basic_conflict():
                            detect_conflict_files, # our singleton handler func
                            extra_files):    # our handler will look for these
     return 1
-
+  
   # verify that the extra_files list is now empty.
   if len(extra_files) != 0:
     # Because we want to be a well-behaved test, we silently return
@@ -569,7 +569,7 @@ test_list = [ None,
              ]
 
 if __name__ == '__main__':
-
+  
   ## run the main test routine on them:
   err = svntest.main.run_tests(test_list)
 
