@@ -40,7 +40,7 @@ chomp $apr_ldflags;
 
 my %config = (
     ABSTRACT => 'Perl bindings for Subversion',
-    CCFLAGS  => join(' ', $apr_cflags, $apu_cflags,
+    CCFLAGS  => join(' ', $apr_cflags, $apu_cflags, 
                      `$perl_path -MExtUtils::Embed -e ccopts`,
                      ' -I.. -I../../../include -g'),
     OBJECT => q/$(O_FILES)/,
@@ -75,7 +75,7 @@ for (@modules) {
 
 sub MY::postamble {
    package MY ;
-
+   
    my $module_c_files = join (' ',map { "svn_$_.c"} @modules);
    my $module_make_commands = join ('',map {"\tmake -f Makefile.$_\n"} @modules);
 
@@ -85,7 +85,7 @@ sub MY::postamble {
    } else {
      $flags = '-c';
    }
-
+   
    my $swig_command = "swig $flags -nopm -perl " .
                       "-I.. -I../../../include $apr_cflags";
 
@@ -100,7 +100,7 @@ sub MY::postamble {
                                    );
 
   my $fullperlrun = "$apr_shlib_path_var=" . join(':',@ldpaths);
-
+  
    return <<"EOPOST";
 all :: modules
 test :: modules
