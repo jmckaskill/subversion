@@ -38,7 +38,7 @@ svn_error_t *svn_fs__get_prop (svn_stringbuf_t **value_p,
 
 /* Set *PROP_HASH to a hash table mapping char * names to
    svn_stringbuf_t * values, based on PROPLIST.  The hash table and
-   its name/value pairs are all allocated in POOL.
+   its name/value pairs are all allocated in POOL.  
 
    ### todo (issue #406): first of all, the hash should be mapping
    names to svn_string_t's, not svn_stringbuf_t.  Second, the fact
@@ -56,7 +56,7 @@ svn_error_t *svn_fs__make_prop_hash (apr_hash_t **prop_hash,
    is not found in PROPLIST, add it to the list (with value VALUE).
    If VALUE is NULL, remove the property from the list altogether.  Do
    all necessary allocations in POOL.
-
+   
    ### todo (issue #406): could be const char *name.  */
 svn_error_t *svn_fs__set_prop (skel_t *proplist,
                                const svn_string_t *name,
