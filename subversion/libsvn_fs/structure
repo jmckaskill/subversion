@@ -436,7 +436,7 @@ Transactions
 
 Every transaction ends when it is either successfully committed, or
 aborted.  We call a transaction which has been either committed or
-aborted "finished", and one which hasn't "unfinished".
+aborted "finished", and one which hasn't "unfinished".  
 
 Transactions are identified by unique numbers, called transaction
 ID's.  Currently, transaction ID's are never reused, though this is
@@ -499,7 +499,7 @@ Changes
 As modifications are made (files and dirs added or removed, text and
 properties changed, etc.) on Subversion transaction trees, the
 filesystem tracks the basic change made in the Berkeley DB `changes'
-table.
+table.  
 
 The `changes' table is a btree with Berkeley's "duplicate keys"
 functionality (and with no particular sort order), and maps the
@@ -532,14 +532,14 @@ where:
 In order to fully describe the changes made to any given path as part
 of a single transaction, one must read all the change items associated
 with the transaction's ID, and "collapse" multiple entries that refer
-to that path.
+to that path. 
 
 
 
 Copies
 
 Each time a filesystem copy operation is performed, Subversion records
-meta-data about that copy.
+meta-data about that copy.  
 
 Copies are identified by unique numbers called copy ID's.  Currently,
 copy ID's are never reused, though this is not mandated by the schema.
@@ -813,7 +813,7 @@ Representations:
 
                  HEADER ::= (KIND TXN [CHECKSUM]) ;
                    KIND ::= "fulltext" | "delta" ;
-
+             
                    SIZE ::= number ;
                CHECKSUM ::= ("md5" BYTES) ;
                   BYTES ::= atom ;
@@ -834,7 +834,7 @@ Node revision IDs:
 
 UUIDs:
                    UUID ::= uuid ;
-
+                   
 Lexical elements
 ----------------
 
@@ -842,7 +842,7 @@ UUIDs:
 
                    uuid ::= hexits-32 '-' hexits-16 '-' hexits-16 '-'
                             hexits-16 '-' hexits-48 ;
-
+ 
 Numbers:
 
                  number ::= /{digit.class}+/ ;

@@ -135,19 +135,19 @@ svn_xml_parser_t *svn_xml_make_parser (void *baton,
 void svn_xml_free_parser (svn_xml_parser_t *svn_parser);
 
 
-/** Push @a len bytes of xml data in @a buf at @a svn_parser.
+/** Push @a len bytes of xml data in @a buf at @a svn_parser.  
  *
- * Push @a len bytes of xml data in @a buf at @a svn_parser.
+ * Push @a len bytes of xml data in @a buf at @a svn_parser.  
  *
- * If this is the final push, @a is_final must be set.
+ * If this is the final push, @a is_final must be set.  
  *
  * An error will be returned if there was a syntax problem in the XML,
  * or if any of the callbacks set an error using
- * @c svn_xml_signal_bailout().
+ * @c svn_xml_signal_bailout().  
  *
  * If an error is returned, the @c svn_xml_parser_t will have been freed
  * automatically, so the caller should not call @c svn_xml_free_parser().
- */
+ */ 
 svn_error_t *svn_xml_parse (svn_xml_parser_t *parser,
                             const char *buf,
                             apr_size_t len,
@@ -175,7 +175,7 @@ void svn_xml_signal_bailout (svn_error_t *error,
  * Return the value associated with @a name in expat attribute array @a atts,
  * else return @c NULL.  (There could never be a @c NULL attribute value in
  * the XML, although the empty string is possible.)
- *
+ * 
  * @a atts is an array of c-strings: even-numbered indexes are names,
  * odd-numbers hold values.  If all is right, it should end on an
  * even-numbered index pointing to @c NULL.
@@ -187,11 +187,11 @@ const char *svn_xml_get_attr_value (const char *name, const char **atts);
 /* Converting between Expat attribute lists and APR hash tables. */
 
 
-/** Create an attribute hash from @c va_list @a ap.
+/** Create an attribute hash from @c va_list @a ap. 
  *
- * Create an attribute hash from @c va_list @a ap.
- * The contents of @a ap are alternating <tt>char *</tt> keys and
- * <tt>char *</tt> vals, terminated by a final @c NULL falling on an
+ * Create an attribute hash from @c va_list @a ap. 
+ * The contents of @a ap are alternating <tt>char *</tt> keys and 
+ * <tt>char *</tt> vals, terminated by a final @c NULL falling on an 
  * odd index (zero-based).
  */
 apr_hash_t *svn_xml_ap_to_hash (va_list ap, apr_pool_t *pool);
@@ -228,9 +228,9 @@ void svn_xml_hash_atts_overlaying (const char **atts,
 /** Create an XML header and return it in @a *str.
  *
  * Fully-formed XML documents should start out with a header,
- * something like
+ * something like 
  *         \<?xml version="1.0" encoding="utf-8"?\>
- *
+ * 
  * This function returns such a header.  @a *str must either be @c NULL, in
  * which case a new string is created, or it must point to an existing
  * string to be appended to.
@@ -242,11 +242,11 @@ void svn_xml_make_header (svn_stringbuf_t **str, apr_pool_t *pool);
  *
  * Store a new xml tag @a tagname in @a *str.
  *
- * If @a str is @c NULL, allocate @a *str in @a pool; else append the new
+ * If @a str is @c NULL, allocate @a *str in @a pool; else append the new 
  * tag to @a *str, allocating in @a str's pool
  *
  * Take the tag's attributes from varargs, a null-terminated list of
- * alternating <tt>char *</tt> key and <tt>char *</tt> val.  Do xml-escaping
+ * alternating <tt>char *</tt> key and <tt>char *</tt> val.  Do xml-escaping 
  * on each val.
  *
  * @a style is one of the enumerated styles in @c svn_xml_open_tag_style.
@@ -268,10 +268,10 @@ void svn_xml_make_open_tag_v (svn_stringbuf_t **str,
 			      va_list ap);
 
 
-/** Like @c svn_xml_make_tag, but takes a hash table of attributes
+/** Like @c svn_xml_make_tag, but takes a hash table of attributes 
  * (<tt>char *</tt> keys mapping to <tt>char *</tt> values).
  *
- * Like @c svn_xml_make_tag, but takes a hash table of attributes
+ * Like @c svn_xml_make_tag, but takes a hash table of attributes 
  * (<tt>char *</tt> keys mapping to <tt>char *</tt> values).
  *
  * You might ask, why not just provide @c svn_xml_make_tag_atts()?

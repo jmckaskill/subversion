@@ -9,7 +9,7 @@ $LastChangedDate$
 
 "Is Subversion stable enough for me to use for my own projects?"
 
-We think so!  Read the full FAQ answer on the website:
+We think so!  Read the full FAQ answer on the website:  
   http://subversion.tigris.org/project_faq.html#stable
 
 
@@ -332,7 +332,7 @@ I.    BUILD REQUIREMENTS
 
 
       12. Building The Documentation
-
+  
       The master source format for Subversion's documentation is
       Docbook Lite.  See doc/book/README for instructions how to
       compile the book into a useful format.
@@ -756,7 +756,7 @@ III.  BUILDING A SUBVERSION SERVER
       to locate the apxs script:
 
           $ ./configure --with-apxs=/home/fred/apache2/bin/apxs
-
+ 
 
       Note: it *is* possible to build mod_dav_svn as a static library
       and link it directly into Apache. Possible, but painful. Stick
@@ -819,7 +819,7 @@ III.  BUILDING A SUBVERSION SERVER
       line for you.  But if apache gives you an error like "Unknown
       DAV provider: svn", then you may want to verify that this line
       exists in your httpd.conf:
-
+  
          LoadModule dav_svn_module     modules/mod_dav_svn.so
 
       Next, add this to the *bottom* of your httpd.conf:

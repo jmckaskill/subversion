@@ -47,7 +47,7 @@ svn_cl__copy (apr_getopt_t *os,
   svn_boolean_t src_is_url, dst_is_url;
   svn_client_commit_info_t *commit_info = NULL;
 
-  SVN_ERR (svn_opt_args_to_target_array (&targets, os,
+  SVN_ERR (svn_opt_args_to_target_array (&targets, os, 
                                          opt_state->targets,
                                          &(opt_state->start_revision),
                                          &(opt_state->end_revision),
@@ -69,11 +69,11 @@ svn_cl__copy (apr_getopt_t *os,
     {
       /* WC->URL : Use notification. */
       /* ### todo:
-
+         
          We'd like to use the notifier, but we MAY have a couple of
          problems with that, the same problems that used to apply to
          the old trace_editor:
-
+         
          1) We don't know where the commit editor for this case will
             be anchored with respect to the repository, so we can't
             use the DST_URL.
@@ -83,7 +83,7 @@ svn_cl__copy (apr_getopt_t *os,
             basenames will be chosen for our committed things.  So a
             copy of dir1/foo.c to http://.../dir2/foo-copy-c would
             display like: "Adding   dir1/foo-copy.c", which could be a
-            bogus path.
+            bogus path. 
       */
     }
   else if ((src_is_url) && (! dst_is_url))
@@ -99,9 +99,9 @@ svn_cl__copy (apr_getopt_t *os,
 
   SVN_ERR (svn_cl__cleanup_log_msg
            (ctx->log_msg_baton, svn_client_copy (&commit_info,
-                                                 src_path,
-                                                 &(opt_state->start_revision),
-                                                 dst_path, NULL,
+                                                 src_path, 
+                                                 &(opt_state->start_revision), 
+                                                 dst_path, NULL, 
                                                  ctx, pool)));
 
   if (commit_info && ! opt_state->quiet)

@@ -7,7 +7,7 @@
 # configuration file CONF_FILE.
 #
 # Usage: commit-access-control.pl REPOS TXN-NAME CONF_FILE
-#
+#    
 # ====================================================================
 # Copyright (c) 2000-2003 CollabNet.  All rights reserved.
 #
@@ -310,7 +310,7 @@ if (@failed_paths)
   {
     warn "$0: user `$author' does not have permission to commit to ",
          @failed_paths > 1 ? "these paths:\n  " : "this path:\n  ",
-         join("\n  ", @failed_paths), "\n";
+         join("\n  ", @failed_paths), "\n"; 
     exit 1;
   }
 else
