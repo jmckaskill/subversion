@@ -1,14 +1,14 @@
 <chapter id="svn-ch-6">
   <title>Server Configuration</title>
-
+  
   <simplesect>
-
+    
     <para>A Subversion repository can be accessed simultaneously by
       clients running on the same machine on which the repository
       resides.  But the typical Subversion setup involves a single
       server machine being accessed from clients on computers all over
       the office&mdash;or, perhaps, all over the world.</para>
-
+    
     <para>This section describes how to get your Subversion repository
       exposed outside its host machine for use by remote clients.  We
       will cover Subversion's currently available server mechanisms,
@@ -16,16 +16,16 @@
       this section, you should be able to decide which networking
       setup is right for your needs, and understand how to enable such
       a setup on your host computer.</para>
-
+    
   </simplesect>
-
+  
   <!-- ================================================================= -->
   <!-- ======================== SECTION 1 ============================== -->
   <!-- ================================================================= -->
   <sect1 id="svn-ch-6-sect-1">
-
+    
     <title>Overview</title>
-
+    
     <para>Subversion was designed with an abstract network layer.
       This means that a repository can be programmatically accessed by
       any sort of server process, and the client "repository access"
@@ -33,7 +33,7 @@
       network protocols.  In theory, Subversion can sport an infinite
       number of network implementations.  In practice, there are only
       two servers at the time of writing.</para>
-
+    
     <para>Apache is an extremely popular webserver; using the
       <command>mod_dav_svn</command> module, Apache can access a
       repository and make it available to clients via WebDAV/DeltaV
@@ -52,7 +52,7 @@
       comparsion of of the two available Subversion servers&mdash; as
       an administrator, it's up to you to choose whatever works best
       for you and your users.</para>
-
+      
 
     <table id="svn-ch-06-table-1">
       <title>Network Server Comparison</title>
@@ -67,34 +67,34 @@
         <tbody>
           <row>
             <entry>Authentication options</entry>
-
+            
             <entry>HTTP(S) basic auth, X.509 certificates, LDAP, NTLM, or
               any other mechanism available to Apache httpd</entry>
-
+            
             <entry>CRAM-MD5 or SSH</entry>
           </row>
-
+          
           <row>
             <entry>User account options</entry>
-
+            
             <entry>private 'users' file</entry>
-
+            
             <entry>private 'users' file, or existing system (SSH)
               accounts</entry>
           </row>
-
+          
           <row>
             <entry>Authorization options</entry>
-
+            
             <entry>blanket read/write access, or per-directory access
               control</entry>
-
+            
             <entry>blanket read/write access</entry>
           </row>
-
+          
           <row>
             <entry>Encryption</entry>
-
+            
             <entry>via optional SSL</entry>
 
             <entry>via optional SSH tunnel</entry>
@@ -102,7 +102,7 @@
 
           <row>
             <entry>Interoperability</entry>
-
+            
             <entry>partially usable by other WebDAV clients</entry>
 
             <entry>not interoperable</entry>
@@ -110,7 +110,7 @@
 
           <row>
             <entry>Web Viewing</entry>
-
+            
             <entry>limited built-in support, or via 3rd-party tools
               such as ViewCVS</entry>
 
@@ -119,7 +119,7 @@
 
           <row>
             <entry>Speed</entry>
-
+            
             <entry>somewhat slower</entry>
 
             <entry>somewhat faster</entry>
@@ -127,16 +127,16 @@
 
           <row>
             <entry>Initial setup</entry>
-
+            
             <entry>somewhat complex</entry>
 
             <entry>fairly simple</entry>
           </row>
 
         </tbody>
-      </tgroup>
+      </tgroup>      
     </table>
-
+    
   </sect1>
 
   <!-- ================================================================= -->
@@ -216,7 +216,7 @@
         (The runtime area is covered in more detail in <xref
         linkend="svn-ch-7-sect-1"/>.)  Successful credentials are
         cached on disk, keyed on a combination of hostname, port, and
-        authentication realm.</para>
+        authentication realm.</para>  
 
       <para>When the client receives an authentication challenge, it
         first looks for the appropriae credentials in the disk cache;
@@ -276,7 +276,7 @@ store-auth-creds = no
 
 <screen>
 $ ls ~/.subversion/auth/svn.simple/
-5671adf2865e267db74f09ba6f872c28
+5671adf2865e267db74f09ba6f872c28        
 3893ed123b39500bca8a0b382839198e
 5c3c22968347b390f349ff340196ed39
 
@@ -310,7 +310,7 @@ END
         it deems necessary; the client cannot "push" them at will.  If
         a username and/or password are passed as options, they will
         <emphasis>only</emphasis> be presented to the server if the
-        server requests them.
+        server requests them.  
 
           <footnote><para>Again, a common mistake is to misconfigure a
            server so that it never issues an authentication challenge.
@@ -319,7 +319,7 @@ END
            they're surprised to see that they're never used, i.e. new
            revisions still appear to have been committed
            anonymously!</para></footnote>
-
+        
         Typically, these options are used when:
       </para>
 
@@ -331,7 +331,7 @@ END
             using cached credentials.</para>
         </listitem>
       </itemizedlist>
-
+          
 
       <para>Here is a final summary that describes how a Subversion
         client behaves when it receives an authenication
@@ -371,7 +371,7 @@ END
   <!-- ======================== SECTION 3 ============================== -->
   <!-- ================================================================= -->
   <sect1 id="svn-ch-6-sect-3">
-
+    
     <title>svnserve, a custom server</title>
 
     <para>The <command>svnserve</command> program is a lightweight
@@ -397,7 +397,7 @@ END
 $ svnserve
 ( success ( 1 2 ( ANONYMOUS ) ( edit-pipeline ) ) )
 </screen>
-
+      
       <para>This sort of invocation isn't particularly useful unless
         you happen to be trying to debug the program.  This is,
         however, the standard behavior for a program run via
@@ -429,7 +429,7 @@ $               # svnserve is now running, listening on port 3690
         port and hostname to "bind" to.</para>
 
       <sidebar id="svn-ch-6-sidebar-1">
-        <title>Servers and Permissions:  A Word of Warning</title>
+        <title>Servers and Permissions:  A Word of Warning</title>        
 
         <para>First, remember that a Subversion repository is a
           collection of BerkeleyDB database files; any process which
@@ -481,7 +481,7 @@ $               # svnserve is now running, listening on port 3690
         <option>-r</option> option to <command>svnserve</command>,
         which restricts it to exporting only repositories below that
         path:</para>
-
+      
 <screen>
 $ svnserve -d -r /usr/local/repositories
 &hellip;
@@ -492,12 +492,12 @@ $ svnserve -d -r /usr/local/repositories
         the remote filesystem space.  Clients then use URLs that
         have that path portion removed from them, leaving much
         shorter (and much less revealing) URLs:</para>
-
+      
 <screen>
 $ svn checkout svn://host.example.com/project1
 &hellip;
 </screen>
-
+ 
     </sect2>
 
     <sect2 id="svn-ch-6-sect-3.2">
@@ -666,7 +666,7 @@ auth-access = write
       </sect3>
 
     </sect2>
-
+    
     <sect2 id="svn-ch-6-sect-3.3">
       <title>SSH authentication and authorization</title>
 
@@ -722,7 +722,7 @@ baz
         still be used to block access, by simply setting
         <literal>auth-access = read</literal> or <literal>auth-access
         = none</literal>.</para>
-
+      
       <para>You'd think that the story of SSH tunneling would end
         here, but it doesn't.  Subversion allows you to create custom
         tunnel behaviors in your run-time <filename>config</filename>
@@ -777,7 +777,7 @@ joessh = $JOESSH /opt/alternate/ssh -p 29934
   <!-- ======================== SECTION 4 ============================== -->
   <!-- ================================================================= -->
   <sect1 id="svn-ch-6-sect-4">
-
+    
     <title>httpd, the Apache HTTP server</title>
 
     <para>The Apache HTTP Server is a "heavy duty" network server that
@@ -809,7 +809,7 @@ joessh = $JOESSH /opt/alternate/ssh -p 29934
       For example, a general reference for the configuration
       directives is located at <systemitem class="url">
       http://httpd.apache.org/docs-2.0/mod/directives.html</systemitem>.</para>
-
+    
     <para>Also, as you make changes to your Apache setup, it is likely
       that somewhere along the way a mistake will be made.  If you are
       not already familiar with Apache's logging subsystem, you should
@@ -822,14 +822,14 @@ joessh = $JOESSH /opt/alternate/ssh -p 29934
       the contents of those files for information that might reveal
       the source of a problem that is not clearly noticeable
       otherwise.</para>
-
+    
     <para><emphasis>TODO: in this intro, explain why apache2, not
       apache1.  also explain why it's not a big deal to require
       apache2, run side-by-side, etc.</emphasis></para>
 
     <sect2 id="svn-ch-6-sect-4.1">
       <title>Prerequisites</title>
-
+      
       <para>To network your repository over HTTP, you basically need
         four components, available in two packages.  You'll need
         Apache <command>httpd</command> 2.0, the
@@ -838,7 +838,7 @@ joessh = $JOESSH /opt/alternate/ssh -p 29934
         filesystem provider module distributed with Subversion.
         Once you have all of those components, the process of
         networking your repository is as simple as:</para>
-
+      
       <itemizedlist>
         <listitem>
           <para>getting httpd 2.0 up and running with the mod_dav
@@ -854,7 +854,7 @@ joessh = $JOESSH /opt/alternate/ssh -p 29934
             file to export (or expose) the repository.</para>
         </listitem>
       </itemizedlist>
-
+      
       <para>You can accomplish the first two items either by
         compiling <command>httpd</command> and Subversion from
         source code, or by installing pre-built binary packages of
@@ -863,12 +863,12 @@ joessh = $JOESSH /opt/alternate/ssh -p 29934
         as well as how to compile and configure Apache itself for
         this purpose, see the <filename>INSTALL</filename> file in
         the top level of the Subversion source code tree.</para>
-
+      
     </sect2>
 
     <sect2 id="svn-ch-6-sect-4.2">
       <title>Basic Apache Configuration</title>
-
+      
       <para>Once you have all the necessary components installed on
         your system, all that remains is the configuration of Apache
         via its <filename>httpd.conf</filename> file.  Instruct Apache
@@ -883,7 +883,7 @@ joessh = $JOESSH /opt/alternate/ssh -p 29934
         <literal>LoadModule</literal> directive has a simple syntax,
         mapping a named module to the location of a shared library on
         disk:</para>
-
+    
         <screen>
 LoadModule dav_svn_module     modules/mod_dav_svn.so
 </screen>
@@ -892,7 +892,7 @@ LoadModule dav_svn_module     modules/mod_dav_svn.so
         shared object (instead of statically linked, directly to the
         <command>httpd</command> binary), you'll need a similar
         <literal>LoadModule</literal> statement for it, too.</para>
-
+    
       <para>At a later location in your configuration file, you now
         need to tell Apache where you keep your Subversion repository
         (or repositories).  The <literal>Location</literal> directive
@@ -911,14 +911,14 @@ LoadModule dav_svn_module     modules/mod_dav_svn.so
         repository is located at
         <filename>/absolute/path/to/repository</filename> using the
         following <filename>httpd.conf</filename> syntax:</para>
-
+                
         <screen>
 &lt;Location /repos&gt;
   DAV svn
   SVNPath /absolute/path/to/repository
 &lt;/Location&gt;
 </screen>
-
+            
       <para>If you plan to support multiple Subversion repositories
         that will reside in the same parent directory on your local
         disk, you can use an alternative directive, the
@@ -932,7 +932,7 @@ LoadModule dav_svn_module     modules/mod_dav_svn.so
         class="url">http://my.server.com/svn/repos2</systemitem>, and
         so on, you could use the <filename>httpd.conf</filename>
         configuration syntax in the following example:</para>
-
+              
         <screen>
 &lt;Location /svn&gt;
   DAV svn
@@ -941,7 +941,7 @@ LoadModule dav_svn_module     modules/mod_dav_svn.so
   SVNParentPath /usr/local/svn
 &lt;/Location&gt;
 </screen>
-
+            
       <para>Using the previous syntax, Apache will delegate the
         handling of all URLs whose path portions begin with
         <filename>/svn/</filename> to the Subversion DAV provider,
@@ -951,11 +951,11 @@ LoadModule dav_svn_module     modules/mod_dav_svn.so
         convenient syntax in that, unlike the use of the
         <filename>SVNPath</filename> directive, you don't have to
         restart Apache in order to create and network new
-        repositories.</para>
+        repositories.</para>      
 
       <sidebar>
         <title>Server Names and the COPY Request</title>
-
+        
         <para>Subversion makes use of the <literal>COPY</literal>
           request type to perform server-side copies of files and
           directories.  As part of the sanity checking done by the
@@ -965,11 +965,11 @@ LoadModule dav_svn_module     modules/mod_dav_svn.so
           the name you use as the hostname of your server.  Generally,
           you can use the <literal>ServerName</literal> directive in
           <filename>httpd.conf</filename> to accomplish this.</para>
-
+        
         <screen>
 ServerName svn.red-bean.com
 </screen>
-
+            
         <para>If you are using Apache's virtual hosting support via
           the <literal>NameVirtualHost</literal> directive, you may
           need to use the <literal>ServerAlias</literal> directive to
@@ -988,7 +988,7 @@ ServerName svn.red-bean.com
         Apache, when used as a Subversion server, will also need the
         correct permissions to read and write to your Subversion
         repository.</para>
-
+    
       <para>You will need to determine a permission system setup that
         satisfies Subversion's requirements without messing up any
         previously existing web page or script installations.  This
@@ -1009,17 +1009,17 @@ ServerName svn.red-bean.com
 
     <sect2 id="svn-ch-6-sect-4.3">
       <title>Authentication Options</title>
-
+      
       <para><emphasis>explain that all apache authn options are open,
           but that we only cover the two most common ones
           here.  </emphasis></para>
-
+      
       <para>At this point, unless you have some system-wide
         configuration of authentication and authorization, the
         Subversion repositories you make available via the
         <filename>Location</filename> directives will be generally
         accessible to everyone.  In other words,</para>
-
+      
       <itemizedlist>
         <listitem>
           <para>anyone can use their Subversion client to checkout a
@@ -1035,10 +1035,10 @@ ServerName svn.red-bean.com
           <para>anyone can commit to the repository.</para>
         </listitem>
       </itemizedlist>
-
+      
       <sect3 id="svn-ch-6-sect-4.3.1">
         <title>Basic HTTP Authentication</title>
-
+        
         <para>The easiest way to authenticate an client is via the
           HTTP Basic authentication mechanism, which simply uses a
           username and password to verify that a user is who she says
@@ -1048,11 +1048,11 @@ ServerName svn.red-bean.com
           your Subversion repository.  Let's grant commit access to
           Sally and Harry.  First, we need to add them to the password
           file.</para>
-
+    
         <screen>
 $ ### First time: use -c to create the file
 $ htpasswd -c /etc/svn-auth-file harry
-New password: *****
+New password: ***** 
 Re-type new password: *****
 Adding password for user harry
 $ htpasswd /etc/svn-auth-file sally
@@ -1076,11 +1076,11 @@ $
           use the <literal>AuthUserFile</literal> directive to specify
           the location of the password file you created using
           <command>htpasswd</command>.</para>
-
+    
         <para>After adding these three directives, your
           <literal>&lt;Location&gt;</literal> block should look
           something like this:</para>
-
+    
         <screen>
 &lt;Location /svn&gt;
   DAV svn
@@ -1113,7 +1113,7 @@ $
 
       <sect3 id="svn-ch-6-sect-4.3.2">
         <title>SSL and Certificates</title>
-
+        
         <para><emphasis>ptrs to apache docs, brief overview of
             process.  how to manange certs in client!</emphasis></para>
 
@@ -1133,7 +1133,7 @@ $
       </sect3>
 
     </sect2>
-
+    
     <sect2 id="svn-ch-6-sect-4.4">
       <title>Authorization Options</title>
 
@@ -1151,7 +1151,7 @@ $
           <literal>sally</literal>, and which provided the correct
           password for their respective username, would be allowed to
           do anything with the Subversion repository.</para>
-
+    
         <para>Sometimes you don't need to run such a tight ship.  For
           example, Subversion's own source code repository at
           <systemitem
@@ -1166,7 +1166,7 @@ $
           <literal>Location</literal> directive, these blocks have
           starting and ending tags, and you would nest them inside
           your <filename>&lt;Location&gt;</filename> block.</para>
-
+  
         <para>The parameters present on the <literal>Limit</literal>
           and <literal>LimitExcept</literal> directives are HTTP
           request types that are affected by that block.  For example,
@@ -1180,7 +1180,7 @@ $
           directive would be placed inside the
           <literal>&lt;LimitExcept&gt;</literal> block instead of just
           inside the <literal>&lt;Location&gt;</literal> block.</para>
-
+    
         <screen>
 &lt;Location /svn&gt;
   DAV svn
@@ -1199,7 +1199,7 @@ $
           <literal>Security</literal> section of the Apache
           documentation's tutorials collection at <systemitem
           class="url">http://httpd.apache.org/docs-2.0/misc/tutorials.html</systemitem>.</para>
-
+              
 
       </sect3>
 
@@ -1218,7 +1218,7 @@ $
 
       <sect3 id="svn-ch-6-sect-4.5.1">
         <title>Repository Browsing</title>
-
+        
         <para>One of the most useful benefits of an Apache/WebDAV
           configuration for your Subversion repository is that the
           youngest revisions of your versioned files and directories
@@ -1253,7 +1253,7 @@ $
           <filename>httpd.conf</filename> will instruct mod_dav_svn to
           generate XML output when displaying a directory listing, and
           to reference the XSLT stylesheet of your choice:</para>
-
+ 
         <screen>
 &lt;Location /svn&gt;
   DAV svn
@@ -1278,12 +1278,12 @@ $
             older revisions (use 'ls' or ViewCVS (xref) instead).
             Also, pointer to DTD for xslt
             directive??</emphasis></para>
-
+        
       </sect3>
 
       <sect3 id="svn-ch-6-sect-4.5.2">
         <title>Other Features</title>
-
+        
         <para>Several of the features already provided by Apache in
           its role as a robust Web server can be leveraged for
           increased functionality or security in Subversion as well.
@@ -1296,7 +1296,7 @@ $
           of data).  You need only to compile support for the features
           you desire into Subversion and Apache, and properly
           configure the programs to use those features.</para>
-
+    
         <para>Deflate compression places a small burden on the client
           and server to compress and decompress network transmissions
           as a way to minimize the size of the actual transmission.
@@ -1306,7 +1306,7 @@ $
           extreme cases, this minimized network transmission could be
           the difference between an operation timing out or completing
           successfully.</para>
-
+  
         <para>Less interesting, but equally useful, are other features
           of the Apache and Subversion relationship, such as the
           ability to specify a custom port (instead of the default
@@ -1315,7 +1315,7 @@ $
           access the repository through a proxy.  These things are all
           supported by Neon, so Subversion gets that support for
           free.</para>
-
+        
       </sect3>
 
     </sect2>
@@ -1327,7 +1327,7 @@ $
   <!-- ======================== SECTION 5 ============================== -->
   <!-- ================================================================= -->
   <sect1 id="svn-ch-6-sect-5">
-
+    
     <title>Using Multiple Servers</title>
 
     <para>You've seen how a repository can be accessed in many
@@ -1335,10 +1335,10 @@ $
       your repository to be accessed by multiple repository access
       methods simultaneously?  The answer is yes, provided you use a
       bit of foresight.</para>
-
+    
     <para>At any given time, these processes may require read and/or
       write access to your repository:</para>
-
+    
     <itemizedlist>
       <listitem>
         <para>regular system users using a Subversion client (as
@@ -1361,7 +1361,7 @@ $
           particular fixed user.</para>
       </listitem>
     </itemizedlist>
-
+    
     <para>The most common problem administrators run into is repository
       ownership and permissions.  Does every process (or user) in the
       previous list have the rights to read and write the Berkeley DB
@@ -1372,7 +1372,7 @@ $
       not enough, because a process may write to the database files
       using an unfriendly umask&mdash;one that prevents access by
       other users.</para>
-
+    
     <para>So the next step beyond setting up a common group for
       repository users is to force every repository-accessing process
       to use a sane umask.  For users accessing the repository
@@ -1385,13 +1385,13 @@ $
       <filename>apachectl</filename>.</para>
 
     <!-- TODO: example of such a wrapper script? -->
-
+    
     <para>Once you've jumped through these hoops, your repository
       should be accessible by all the necessary processes.  It may
       seem a bit messy and complicated, but the problems of having
       multiple users sharing write-access to common files are classic
       ones that are not often elegantly solved.</para>
-
+    
     <para>Fortunately, most repository administrators will never
       <emphasis>need</emphasis> to have such a complex configuration.
       Users who wish to access repositories that live on the same
@@ -1413,7 +1413,7 @@ $
 </chapter>
 
 <!--
-local variables:
+local variables: 
 sgml-parent-document: ("book.xml" "chapter")
 end:
 -->
