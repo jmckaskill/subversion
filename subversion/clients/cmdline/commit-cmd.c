@@ -53,7 +53,7 @@ svn_cl__commit (apr_getopt_t *os,
   svn_client_commit_info_t *commit_info = NULL;
   void *log_msg_baton;
 
-  SVN_ERR (svn_opt_args_to_target_array (&targets, os,
+  SVN_ERR (svn_opt_args_to_target_array (&targets, os, 
                                          opt_state->targets,
                                          &(opt_state->start_revision),
                                          &(opt_state->end_revision),
@@ -72,7 +72,7 @@ svn_cl__commit (apr_getopt_t *os,
     {
       const char *parent_dir, *base_name;
 
-      SVN_ERR (svn_wc_get_actual_target (base_dir, &parent_dir,
+      SVN_ERR (svn_wc_get_actual_target (base_dir, &parent_dir, 
                                          &base_name, pool));
       if (base_name)
         base_dir = apr_pstrdup (pool, parent_dir);
@@ -82,9 +82,9 @@ svn_cl__commit (apr_getopt_t *os,
     svn_cl__get_notifier (&ctx->notify_func, &ctx->notify_baton, FALSE, FALSE,
                           FALSE, pool);
 
-  /* We're creating a new log message baton because we can use our base_dir
-     to store the temp file, instead of the current working directory.  The
-     client might not have write access to their working directory, but they
+  /* We're creating a new log message baton because we can use our base_dir 
+     to store the temp file, instead of the current working directory.  The 
+     client might not have write access to their working directory, but they 
      better have write access to the directory they're committing.  */
   ctx->log_msg_baton = svn_cl__make_log_msg_baton (opt_state, base_dir, pool);
 
