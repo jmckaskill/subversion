@@ -22,15 +22,15 @@
 
 /* ==================================================================== */
 
-/*
- * Requires:
+/* 
+ * Requires:  
  *            A working copy
- *
- * Provides:
+ * 
+ * Provides: 
  *            - Ability to manipulate working copy's versioned data.
  *            - Ability to manipulate working copy's administrative files.
  *
- * Used By:
+ * Used By:   
  *            Clients.
  */
 
@@ -173,8 +173,8 @@ svn_error_t *svn_wc_entry (svn_wc_entry_t **entry,
 
 
 /* Parse the `entries' file for PATH and return a hash ENTRIES, whose
-   keys are (const char *) entry names and values are (svn_wc_entry_t *).
-
+   keys are (const char *) entry names and values are (svn_wc_entry_t *). 
+   
    Important note: only the entry structures representing files and
    SVN_WC_ENTRY_THIS_DIR contain complete information.  The entry
    structures representing subdirs have only the `kind' and `state'
@@ -187,7 +187,7 @@ svn_error_t *svn_wc_entries_read (apr_hash_t **entries,
 
 /* Given a DIR_PATH under version control, decide if one of its
    entries (ENTRY) is in state of conflict; return the answers in
-   TEXT_CONFLICTED_P and PROP_CONFLICTED_P.
+   TEXT_CONFLICTED_P and PROP_CONFLICTED_P.  
 
    (If the entry mentions that a .rej or .prej exist, but they are
    both removed, assume the conflict has been resolved by the user.)  */
@@ -210,22 +210,22 @@ svn_error_t *svn_wc_get_ancestry (svn_stringbuf_t **url,
 /* We have two functions for getting working copy status: one function
  * for getting the status of exactly one thing, and another for
  * getting the statuses of (potentially) multiple things.
- *
+ * 
  * The WebDAV concept of "depth" may be useful in understanding the
  * motivation behind this.  Suppose we're getting the status of
  * directory D.  The three depth levels would mean
- *
+ * 
  *    depth 0:         D itself (just the named directory)
  *    depth 1:         D and its immediate children (D + its entries)
  *    depth Infinity:  D and all its descendants (full recursion)
- *
+ * 
  * To offer all three levels, we could have one unified function,
  * taking a `depth' parameter.  Unfortunately, because this function
  * would have to handle multiple return values as well as the single
  * return value case, getting the status of just one entity would
  * become cumbersome: you'd have to roll through a hash to find one
  * lone status.
- *
+ * 
  * So we have svn_wc_status() for depth 0, and svn_wc_statuses() for
  * depths 1 and 2, since the latter two involve multiple return
  * values.
@@ -250,14 +250,14 @@ enum svn_wc_status_kind
     svn_wc_status_conflicted   /* local mods received conflicting repos mods */
 };
 
-/* Structure for holding the "status" of a working copy item.
+/* Structure for holding the "status" of a working copy item. 
    The item's entry data is in ENTRY, augmented and possibly shadowed
    by the other fields.  ENTRY is null if this item is not under
    version control. */
 typedef struct svn_wc_status_t
 {
   svn_wc_entry_t *entry;     /* Can be NULL if not under vc. */
-
+  
   /* Mutually exclusive states. One of these will always be set for
      the "textual" component and one will be set for the "property"
      component.  */
@@ -281,7 +281,7 @@ typedef struct svn_wc_status_t
 
 
 /* Fill *STATUS for PATH, allocating in POOL, with the exception of
-   the repos_rev field, which is normally filled in by the caller.
+   the repos_rev field, which is normally filled in by the caller. 
 
    Here are some things to note about the returned structure.  A quick
    examination of the STATUS->text_status after a successful return of
@@ -297,13 +297,13 @@ typedef struct svn_wc_status_t
 
       svn_wc_status_unversioned : PATH is not versioned, but is
                                   present on disk and not being
-                                  ignored (see above).
+                                  ignored (see above).  
 
    The other available results for the text_status field more
    straightforward in their meanings.  See the comments on the
    svn_wc_status_kind structure above for some hints.  */
-svn_error_t *svn_wc_status (svn_wc_status_t **status,
-                            svn_stringbuf_t *path,
+svn_error_t *svn_wc_status (svn_wc_status_t **status, 
+                            svn_stringbuf_t *path, 
                             apr_pool_t *pool);
 
 
@@ -317,13 +317,13 @@ svn_error_t *svn_wc_status (svn_wc_status_t **status,
  * any other.
  *
  * Assuming PATH is a directory, then:
- *
+ * 
  * If GET_ALL is zero, then only locally-modified entries will be
  * returned.  If non-zero, then all entries will be returned.
  *
  * If DESCEND is zero, statushash will contain paths for PATH and
  * its non-directory entries (subdirectories should be subjects of
- * separate status calls).
+ * separate status calls).  
  *
  * If DESCEND is non-zero, statushash will contain statuses for PATH
  * and everything below it, including subdirectories.  In other
@@ -358,7 +358,7 @@ svn_error_t *svn_wc_get_status_editor (svn_delta_edit_fns_t **editor,
 
 
 /* Where you see an argument like
- *
+ * 
  *   apr_array_header_t *paths
  *
  * it means an array of (svn_stringbuf_t *) types, each one of which is
@@ -399,7 +399,7 @@ svn_error_t *svn_wc_delete (svn_stringbuf_t *path, apr_pool_t *pool);
 
    If COPYFROM_URL is non-null, it and COPYFROM_REV are used as
    `copyfrom' args.  This is for copy operations, where one wants
-   to schedule PATH for addition with a particular history.
+   to schedule PATH for addition with a particular history. 
 
    ### This function currently does double duty -- it is also
    ### responsible for "switching" a working copy directory over to a
@@ -410,7 +410,7 @@ svn_error_t *svn_wc_delete (svn_stringbuf_t *path, apr_pool_t *pool);
    Given a PATH within a working copy of type KIND, follow this algorithm:
 
       - if PATH is not under version control:
-         - Place it under version control and schedule for addition;
+         - Place it under version control and schedule for addition; 
            if COPYFROM_URL is non-null, use it and COPYFROM_REV as
            'copyfrom' history
 
@@ -450,7 +450,7 @@ svn_error_t *svn_wc_add (svn_stringbuf_t *path,
    WARNING:  This routine is exported for careful, measured use by
    libsvn_client.  Do *not* call this routine unless you really
    understand what the heck you're doing.  */
-svn_error_t *svn_wc_remove_from_revision_control (svn_stringbuf_t *path,
+svn_error_t *svn_wc_remove_from_revision_control (svn_stringbuf_t *path, 
                                                   svn_stringbuf_t *name,
                                                   svn_boolean_t destroy_wf,
                                                   apr_pool_t *pool);
@@ -525,7 +525,7 @@ svn_error_t *svn_wc_set_wc_prop (void *baton,
 
 
 /* Crawl a working copy tree depth-first, describing all local mods to
-   EDIT_FNS/EDIT_BATON.
+   EDIT_FNS/EDIT_BATON.  
 
    Start the crawl at PARENT_DIR, and only report changes found within
    CONDENSED_TARGETS.  As the name implies, the targets must be
@@ -611,7 +611,7 @@ svn_error_t *svn_wc_is_wc_root (svn_boolean_t *wc_root,
  * TARGET is the actual subject (relative to the ANCHOR) of the
  * update/commit, or NULL if the ANCHOR itself is the subject.
  *
- * Do all necessary allocations in POOL.
+ * Do all necessary allocations in POOL.  
  */
 svn_error_t *svn_wc_get_actual_target (svn_stringbuf_t *path,
                                        svn_stringbuf_t **anchor,
@@ -621,7 +621,7 @@ svn_error_t *svn_wc_get_actual_target (svn_stringbuf_t *path,
 
 /* Set *EDITOR and *EDIT_BATON to an editor and baton for updating a
  * working copy.
- *
+ * 
  * ANCHOR is the local path to the working copy which will be used as
  * the root of our editor.  TARGET is the entry in ANCHOR that will
  * actually be updated, or NULL if all of ANCHOR should be updated.
@@ -813,8 +813,8 @@ svn_wc_cleanup (svn_stringbuf_t *path, apr_pool_t *pool);
 /* Revert changes to PATH (perhaps in a RECURSIVE fashion).  Perform
    necessary allocations in POOL.  */
 svn_error_t *
-svn_wc_revert (svn_stringbuf_t *path,
-               svn_boolean_t recursive,
+svn_wc_revert (svn_stringbuf_t *path, 
+               svn_boolean_t recursive, 
                apr_pool_t *pool);
 
 
@@ -851,7 +851,7 @@ svn_wc_set_auth_file (svn_stringbuf_t *path,
 
 /* Create a unique temporary file in administrative tmp/ area of
    directory PATH.  Return a handle in *FP.
-
+   
    The flags will be APR_WRITE | APR_CREATE | APR_EXCL | APR_DELONCLOSE.
 
    This means that as soon as FP is closed, the tmp file will vanish.  */
@@ -871,5 +871,5 @@ svn_wc_create_tmp_file (apr_file_t **fp,
 /* ----------------------------------------------------------------
  * local variables:
  * eval: (load-file "../svn-dev.el")
- * end:
+ * end: 
  */
