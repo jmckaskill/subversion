@@ -51,7 +51,7 @@ Pool *JNIUtil::g_requestPool;
 bool JNIUtil::JNIInit(JNIEnv *env)
 {
 	static bool run = false;
-	if(run)
+	if(run) 
 	{
 		env->ExceptionClear();
 		setEnv(env);
