@@ -57,7 +57,7 @@ recursive_propset (const char *propname,
       apr_hash_this (hi, &key, NULL, &val);
       keystring = key;
       current_entry = val;
-
+        
       if (! strcmp (keystring, SVN_WC_ENTRY_THIS_DIR))
         current_entry_name = NULL;
       else
@@ -108,7 +108,7 @@ svn_client_propset (const char *propname,
   SVN_ERR (svn_wc_entry (&node, target, adm_access, FALSE, pool));
   if (!node)
     return svn_error_createf (SVN_ERR_ENTRY_NOT_FOUND, 0, NULL,
-                              "'%s' -- not a versioned resource",
+                              "'%s' -- not a versioned resource", 
                               target);
 
   if (recurse && node->kind == svn_node_dir)
@@ -184,7 +184,7 @@ recursive_propget (apr_hash_t *props,
       apr_hash_this (hi, &key, NULL, &val);
       keystring = key;
       current_entry = val;
-
+    
       if (! strcmp (keystring, SVN_WC_ENTRY_THIS_DIR))
           current_entry_name = NULL;
       else
@@ -247,18 +247,18 @@ maybe_convert_to_url (const char **new_target,
       svn_node_kind_t kind;
       const char *pdir;
       const svn_wc_entry_t *entry;
-
+      
       SVN_ERR (svn_io_check_path (target, &kind, pool));
       if (kind == svn_node_file)
         svn_path_split (target, &pdir, NULL, pool);
       else
         pdir = target;
-
+      
       SVN_ERR (svn_wc_adm_open (&adm_access, NULL, pdir, FALSE, FALSE, pool));
       SVN_ERR (svn_wc_entry (&entry, target, adm_access, FALSE, pool));
       if (! entry)
         return svn_error_createf (SVN_ERR_ENTRY_NOT_FOUND, 0, NULL,
-                                  "'%s' is not a versioned resource",
+                                  "'%s' is not a versioned resource", 
                                   target);
       *new_target = entry->url;
     }
@@ -402,7 +402,7 @@ svn_client_propget (apr_hash_t **props,
       if (!node)
         return svn_error_createf (SVN_ERR_ENTRY_NOT_FOUND, 0, NULL,
                                   "'%s' -- not a versioned resource", target);
-
+      
       if (recurse && node->kind == svn_node_dir)
         {
           SVN_ERR (recursive_propget (prop_hash, propname, adm_access, pool));
@@ -415,7 +415,7 @@ svn_client_propget (apr_hash_t **props,
             apr_hash_set (prop_hash, target, APR_HASH_KEY_STRING, propval);
         }
       SVN_ERR (svn_wc_adm_close (adm_access));
-
+      
       *props = prop_hash;
     }
 
@@ -505,7 +505,7 @@ recursive_proplist (apr_array_header_t *props,
       apr_hash_this (hi, &key, NULL, &val);
       keystring = key;
       current_entry = val;
-
+    
       if (! strcmp (keystring, SVN_WC_ENTRY_THIS_DIR))
           current_entry_name = NULL;
       else
@@ -537,7 +537,7 @@ recursive_proplist (apr_array_header_t *props,
 
 svn_error_t *
 svn_client_proplist (apr_array_header_t **props,
-                     const char *target,
+                     const char *target, 
                      const svn_opt_revision_t *revision,
                      svn_client_auth_baton_t *auth_baton,
                      svn_boolean_t recurse,
@@ -584,7 +584,7 @@ svn_client_proplist (apr_array_header_t **props,
           if (kind == svn_node_file)
             {
               apr_hash_t *prop_hash;
-
+              
               SVN_ERR (ra_lib->get_file (session, "", revnum,
                                          NULL, NULL, &prop_hash));
 
@@ -596,7 +596,7 @@ svn_client_proplist (apr_array_header_t **props,
                     = apr_palloc (pool, sizeof (svn_client_proplist_item_t));
                   item->node_name = svn_stringbuf_create (target, pool);
                   item->prop_hash = prop_hash;
-
+                  
                   *((svn_client_proplist_item_t **) apr_array_push (prop_list))
                     = item;
                 }
@@ -677,14 +677,14 @@ svn_client_proplist (apr_array_header_t **props,
       SVN_ERR (svn_wc_entry (&entry, target, adm_access, FALSE, pool));
       if (! entry)
         return svn_error_createf (SVN_ERR_ENTRY_NOT_FOUND, 0, NULL,
-                                  "'%s' -- not a versioned resource",
+                                  "'%s' -- not a versioned resource", 
                                   target);
-
+      
       if (recurse && entry->kind == svn_node_dir)
         SVN_ERR (recursive_proplist (prop_list, adm_access, pool));
-      else
+      else 
         SVN_ERR (add_to_proplist (prop_list, target, pool));
-
+      
       SVN_ERR (svn_wc_adm_close (adm_access));
     }
 
@@ -728,14 +728,14 @@ svn_client_revprop_list (apr_hash_t **props,
       const void *key;
       void *val;
       apr_ssize_t klen;
-
+      
       apr_hash_this (hi, &key, &klen, &val);
       apr_hash_set (proplist, key, klen, val);
-    }
+    } 
 
   /* All done. */
   SVN_ERR (ra_lib->close(session));
-
+  
   *props = proplist;
   return SVN_NO_ERROR;
 }
