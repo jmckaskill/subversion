@@ -551,6 +551,10 @@ SVN_ERROR_START
               SVN_ERR_RA_CATEGORY_START + 5,
               "Repository has no UUID")
 
+  SVN_ERRDEF (SVN_ERR_RA_UNSUPPORTED_ABI_VERSION,
+              SVN_ERR_RA_CATEGORY_START + 6,
+              "Unsupported RA plugin ABI version")
+
   /* ra_dav errors */
 
   SVN_ERRDEF (SVN_ERR_RA_DAV_SOCK_INIT,
