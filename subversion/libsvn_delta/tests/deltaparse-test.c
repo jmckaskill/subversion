@@ -1,5 +1,5 @@
-/*
-   A simple demo of how to use Subversion's XML parser interface.
+/* 
+   A simple demo of how to use Subversion's XML parser interface. 
 */
 
 
@@ -27,7 +27,7 @@ my_vcdiff_windoweater (svn_delta_window_t *window, void *baton)
   int i;
 
   printf ("Windoweater: yum, got me a window of vcdiff data!\n");
-
+  
   /* Delve into the vcdiff window and print the data. */
   for (i = 0; i < window->num_ops; i++)
     {
@@ -37,7 +37,7 @@ my_vcdiff_windoweater (svn_delta_window_t *window, void *baton)
           {
             size_t startaddr = (window->new->data +
                                 (window->ops[i].offset));
-            svn_string_t *str =
+            svn_string_t *str = 
               svn_string_ncreate (startaddr,
                                   (window->ops[i].length),
                                   globalpool);
@@ -52,7 +52,7 @@ my_vcdiff_windoweater (svn_delta_window_t *window, void *baton)
           {
           }
         }
-
+              
     }
 
   /* This deallocates the whole subpool created to hold the window.
@@ -70,7 +70,7 @@ svn_error_t *
 test_delete (svn_string_t *filename, void *walk_baton, void *parent_baton)
 {
   printf ("DELETE event:  delete filename '%s'\n", filename->data);
-  return SVN_NO_ERROR;
+  return SVN_NO_ERROR;         
 }
 
 svn_error_t *
@@ -83,7 +83,7 @@ test_add_directory (svn_string_t *name,
 {
   printf ("ADD_DIR event:  name '%s', ancestor '%s' version %d\n",
           name->data, base_path->data, base_version);
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -98,7 +98,7 @@ test_replace_directory (svn_string_t *name,
 {
   printf ("REPLACE_DIR event:  name '%s', ancestor '%s' version %d\n",
           name->data, base_path->data, base_version);
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -108,7 +108,7 @@ test_finish_directory (void *baton)
 {
   printf ("FINISH_DIR event.\n");
 
-  return SVN_NO_ERROR;
+  return SVN_NO_ERROR;    
 }
 
 
@@ -117,7 +117,7 @@ test_finish_file (void *baton)
 {
   printf ("FINISH_FILE event.\n");
 
-  return SVN_NO_ERROR;
+  return SVN_NO_ERROR;    
 }
 
 
@@ -132,7 +132,7 @@ test_add_file (svn_string_t *name,
 {
   printf ("ADD_FILE event:  name '%s', ancestor '%s' version %d\n",
           name->data, base_path->data, base_version);
-
+  
   /* Set the value of HANDLER and HANDLER_BATON here */
   *handler        = my_vcdiff_windoweater;
   *handler_baton  = NULL;
@@ -153,7 +153,7 @@ test_replace_file (svn_string_t *name,
 {
   printf ("REPLACE_FILE event:  name '%s', ancestor '%s' version %d\n",
           name->data, base_path->data, base_version);
-
+  
   /* Set the value of HANDLER and HANDLER_BATON here */
   *handler        = my_vcdiff_windoweater;
   *handler_baton  = NULL;
@@ -164,7 +164,7 @@ test_replace_file (svn_string_t *name,
 
 
 
-/* An official subversion "read" routine, comforming to POSIX standards.
+/* An official subversion "read" routine, comforming to POSIX standards. 
    This one reads our XML filehandle, passed in as our baton.  */
 svn_error_t *
 my_read_func (void *baton, char *buffer, apr_off_t *len, apr_pool_t *pool)
@@ -178,7 +178,7 @@ my_read_func (void *baton, char *buffer, apr_off_t *len, apr_pool_t *pool)
   stat = apr_full_read (xmlfile, buffer,
                         (apr_size_t) *len,
                         (apr_size_t *) len);
-
+  
   /* We want to return general I/O errors, but we explicitly ignore
      the APR_EOF error.  Why?  Because the caller of this routine
      doesn't want to know about that error.  It uses (*len == 0) as a
@@ -188,12 +188,12 @@ my_read_func (void *baton, char *buffer, apr_off_t *len, apr_pool_t *pool)
      Therfore, if apr_full_read() does this, the caller will call this
      routine one more time, and *len should then be set to 0 for sure. */
 
-  if (stat && (stat != APR_EOF))
+  if (stat && (stat != APR_EOF)) 
     return
       svn_create_error (stat, 0, "my_read_func: error reading xmlfile",
                         NULL, pool);
-
-  return SVN_NO_ERROR;
+  
+  return SVN_NO_ERROR;  
 }
 
 
@@ -226,7 +226,7 @@ int main()
   my_walker.finish_file        = test_finish_file;
   my_walker.add_file           = test_add_file;
   my_walker.replace_file       = test_replace_file;
-
+    
 
   /* Fire up the XML parser */
   err = svn_delta_parse (my_read_func, source_baton, /* read from here */

@@ -113,7 +113,7 @@ main ()
     svn_string_appendbytes (a, ", new bytes to append", 11, pglobal);
 
     /* Test that length, data, and null-termination are correct. */
-    if (svn_string_compare
+    if (svn_string_compare 
         (a, svn_string_create ("hello, a longish phrase, new bytes", pglobal)))
       {
         for (i = 0; i < (max_pad - written); i++)
@@ -126,7 +126,7 @@ main ()
           printf (".");
         printf (" FAILED\n");
       }
-
+    
     test_number++;
   }
 
@@ -148,7 +148,7 @@ main ()
           printf (".");
         printf (" FAILED\n");
       }
-
+    
     test_number++;
   }
 
@@ -179,7 +179,7 @@ main ()
           printf (".");
         printf (" FAILED\n");
       }
-
+    
     test_number++;
   }
 
@@ -203,7 +203,7 @@ main ()
           printf (".");
         printf (" FAILED\n");
       }
-
+    
     test_number++;
   }
 
@@ -228,7 +228,7 @@ main ()
           printf (".");
         printf (" FAILED\n");
       }
-
+    
     test_number++;
   }
 
