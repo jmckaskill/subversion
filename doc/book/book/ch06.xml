@@ -1,14 +1,14 @@
 <chapter id="svn-ch-6">
   <title>Server Configuration</title>
-
+  
   <simplesect>
-
+    
     <para>A Subversion repository can be accessed simultaneously by
       clients running on the same machine on which the repository
       resides.  But the typical Subversion setup involves a single
       server machine being accessed from clients on computers all over
       the office&mdash;or, perhaps, all over the world.</para>
-
+    
     <para>This section describes how to get your Subversion repository
       exposed outside its host machine for use by remote clients.  We
       will cover Subversion's currently available server mechanisms,
@@ -16,16 +16,16 @@
       this section, you should be able to decide which networking
       setup is right for your needs, and understand how to enable such
       a setup on your host computer.</para>
-
+    
   </simplesect>
-
+  
   <!-- ================================================================= -->
   <!-- ======================== SECTION 1 ============================== -->
   <!-- ================================================================= -->
   <sect1 id="svn-ch-6-sect-1">
-
+    
     <title>Which Server Process to Use?</title>
-
+    
     <para>Subversion was designed with an abstract network layer.
       This means that a repository can be programmatically accessed by
       any sort of server process, and the client "repository access"
@@ -33,7 +33,7 @@
       network protocols.  In theory, Subversion can sport an infinite
       number of network implementations.  In practice, there are only
       two servers at the time of writing.</para>
-
+    
     <para>Apache is an extremely popular webserver; using the
       <command>mod_dav_svn</command> module, Apache can access a
       repository and make it available to clients via WebDAV/DeltaV
@@ -51,7 +51,7 @@
       available Subversion servers&mdash; as an administrator, it's up
       to you to choose whatever works best for you and your
       users.</para>
-
+      
 
     <table id="svn-ch-06-table-1">
       <title>Network Server Comparison</title>
@@ -66,34 +66,34 @@
         <tbody>
           <row>
             <entry>Authentication options</entry>
-
+            
             <entry>HTTP basic auth, X.509 certificates, LDAP, NTLM, or
               any other mechanism available to Apache httpd</entry>
-
+            
             <entry>CRAM5 or SSH</entry>
           </row>
-
+          
           <row>
             <entry>User account options</entry>
-
+            
             <entry>private 'users' file</entry>
-
+            
             <entry>private 'users' file, or existing system (SSH)
               accounts</entry>
           </row>
-
+          
           <row>
             <entry>Authorization options</entry>
-
+            
             <entry>blanket read/write access, or per-directory access
               control</entry>
-
+            
             <entry>blanket read/write access</entry>
           </row>
-
+          
           <row>
             <entry>Encryption</entry>
-
+            
             <entry>via optional SSL</entry>
 
             <entry>via SSH only</entry>
@@ -101,7 +101,7 @@
 
           <row>
             <entry>Interoperability</entry>
-
+            
             <entry>partially usable by other WebDAV clients</entry>
 
             <entry>not interoperable</entry>
@@ -109,7 +109,7 @@
 
           <row>
             <entry>Web Viewing</entry>
-
+            
             <entry>limited built-in support, or via 3rd-party tools
               such as ViewCVS</entry>
 
@@ -118,7 +118,7 @@
 
           <row>
             <entry>Speed</entry>
-
+            
             <entry>somewhat slower</entry>
 
             <entry>somewhat faster</entry>
@@ -126,23 +126,23 @@
 
           <row>
             <entry>Initial setup</entry>
-
+            
             <entry>somewhat complex</entry>
 
             <entry>fairly simple</entry>
           </row>
 
         </tbody>
-      </tgroup>
+      </tgroup>      
     </table>
-
+    
 
   </sect1>
 
 </chapter>
 
 <!--
-local variables:
+local variables: 
 sgml-parent-document: ("book.xml" "chapter")
 end:
 -->
