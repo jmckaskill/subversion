@@ -3,32 +3,32 @@
  *
  * ================================================================
  * Copyright (c) 2000 CollabNet.  All rights reserved.
- *
+ * 
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
  * met:
- *
+ * 
  * 1. Redistributions of source code must retain the above copyright
  * notice, this list of conditions and the following disclaimer.
- *
+ * 
  * 2. Redistributions in binary form must reproduce the above copyright
  * notice, this list of conditions and the following disclaimer in the
  * documentation and/or other materials provided with the distribution.
- *
+ * 
  * 3. The end-user documentation included with the redistribution, if
  * any, must include the following acknowlegement: "This product includes
  * software developed by CollabNet (http://www.Collab.Net)."
  * Alternately, this acknowlegement may appear in the software itself, if
  * and wherever such third-party acknowlegements normally appear.
- *
+ * 
  * 4. The hosted project names must not be used to endorse or promote
  * products derived from this software without prior written
  * permission. For written permission, please contact info@collab.net.
- *
+ * 
  * 5. Products derived from this software may not use the "Tigris" name
  * nor may "Tigris" appear in their names without prior written
  * permission of CollabNet.
- *
+ * 
  * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
  * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -42,7 +42,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ====================================================================
- *
+ * 
  * This software consists of voluntary contributions made by many
  * individuals on behalf of CollabNet.
  */
@@ -62,16 +62,16 @@
 /* The administrative `versions' file tracks the version numbers of
    files within a particular subdirectory.  Subdirectories are *not*
    tracked, because subdirs record their own version information.
-
+   
    See the section on the `versions' file in libsvn_wc/README, for
    concrete information about the XML format.
-
+   
    Note that if there exists a file in text-base that is not mentioned
    in the `versions' file, it is assumed to have the same version as
    the parent directory.  The `versions' file always mentions files
    whose version is different from the dir's, and may (but is not
    required to) mention files that are at the same version as the dir.
-
+   
    In practice, this parser tries to filter out non-exceptions as it
    goes, so the `versions' file is always left without redundancies.
 */
@@ -149,7 +149,7 @@ svn_wc__versions_init (svn_string_t *path, apr_pool_t *pool)
  * version to VERSION.  Also set other XML attributes via varargs:
  * key, value, key, value, etc, terminated by a single NULL.  (The
  * keys are char *'s and values are svn_string_t *'s.)
- *
+ * 
  * If no such ENTRYNAME exists, create it.
  */
 
@@ -173,7 +173,7 @@ typedef struct svn_wc__version_baton_t
 
   va_list valist;          /* The attribute list we want to set or get */
 
-
+  
 
 
 } svn_wc__version_baton_t;
@@ -191,7 +191,7 @@ set_entry_attributes (svn_wc__version_baton_t *baton,
   /* After constructing a **newatts list which is the union of the two
      lists, pass it off to svn_xml_write_tag_list(), which,
      incidentally, Karl, you also need to write.  :-) */
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -228,7 +228,7 @@ get_entry_attributes (svn_wc__version_baton_t *baton,
       /* The caller wants us to fetch the value of
          variable_attribute_name.  Let's do so.  */
       val = svn_xml_get_attr_value (variable_attribute_name, atts);
-
+      
       /* Grab the next varargs variable and SET it to the answer. */
       variable_attribute_value = va_arg (baton->valist, svn_string_t **);
 
@@ -275,11 +275,11 @@ xml_handle_start (void *userData, const char *name, const char **atts)
     {
       /* Get the `name' attribute */
       const char *nameval = svn_xml_get_attr_value ("name", atts);
-
+      
       /* Is this the droid we're looking for? */
       if (! strcmp (nameval, baton->entryname))
         {
-          if (baton->outfile)
+          if (baton->outfile) 
             {
               err = set_entry_attributes (baton, atts);
               if (err)
@@ -288,7 +288,7 @@ xml_handle_start (void *userData, const char *name, const char **atts)
                   return;
                 }
             }
-          else
+          else 
             {
               err = get_entry_attributes (baton, atts);
               if (err)
@@ -296,9 +296,9 @@ xml_handle_start (void *userData, const char *name, const char **atts)
                   svn_xml_signal_bailout (err, baton->parser);
                   return;
                 }
-            }
+            }          
         }
-
+        
       else  /* This isn't the droid we're looking for. */
         {
           /* However, if we're writing to an outfile, we need to write
@@ -317,7 +317,7 @@ xml_handle_start (void *userData, const char *name, const char **atts)
                 }
             }
         }
-
+ 
     }
 
   else
@@ -365,11 +365,11 @@ xml_handle_end (void *userData, const char *name)
 
   /* This is an expat callback;  return nothing. */
 }
-
+  
 
 
 /* Code chunk shared by svn_wc__[gs]et_versions_entry()
-
+   
    Parses xml in BATON->infile using BATON as userdata. */
 static svn_error_t *
 do_parse (svn_wc__version_baton_t *baton)
@@ -397,13 +397,13 @@ do_parse (svn_wc__version_baton_t *baton)
     {
       status = apr_full_read (baton->infile, buf, BUFSIZ, &bytes_read);
       if (status && (status != APR_EOF))
-        return svn_error_create
+        return svn_error_create 
           (status, 0, NULL, baton->pool,
            "svn_wc__set_versions_entry: apr_full_read choked");
 
       err = svn_xml_parse (svn_parser, buf, bytes_read, (status == APR_EOF));
       if (err)
-        return svn_error_quick_wrap
+        return svn_error_quick_wrap 
           (err,
            "svn_wc__set_versions_entry:  xml parser failed.");
     }
@@ -427,7 +427,7 @@ do_parse (svn_wc__version_baton_t *baton)
 /* For a given ENTRYNAME in PATH, set its version to VERSION in the
    `versions' file.  Also set other XML attributes via varargs: name,
    value, name, value, etc. -- where names are char *'s and values are
-   svn_string_t *'s.   Terminate list with NULL.
+   svn_string_t *'s.   Terminate list with NULL. 
 
    If no such ENTRYNAME exists, create it.
  */
@@ -442,7 +442,7 @@ svn_error_t *svn_wc__set_versions_entry (svn_string_t *path,
   apr_file_t *infile = NULL;
   apr_file_t *outfile = NULL;
 
-  svn_wc__version_baton_t *version_baton
+  svn_wc__version_baton_t *version_baton 
     = apr_pcalloc (pool, sizeof (svn_wc__version_baton_t));
 
   /* Open current versions file for reading */
@@ -482,7 +482,7 @@ svn_error_t *svn_wc__set_versions_entry (svn_string_t *path,
                                 SVN_WC__ADM_VERSIONS, 0, pool);
   if (err)
     return err;
-
+  
   /* Close the outfile and *sync* it, so it replaces the original
      infile. */
   err = svn_wc__close_adm_file (outfile, path,
@@ -510,7 +510,7 @@ svn_error_t *svn_wc__get_versions_entry (svn_string_t *path,
   svn_error_t *err;
   apr_file_t *infile = NULL;
 
-  svn_wc__version_baton_t *version_baton
+  svn_wc__version_baton_t *version_baton 
     = apr_pcalloc (pool, sizeof (svn_wc__version_baton_t));
 
   /* Open current versions file for reading */
@@ -539,7 +539,7 @@ svn_error_t *svn_wc__get_versions_entry (svn_string_t *path,
                                 SVN_WC__ADM_VERSIONS, 0, pool);
   if (err)
     return err;
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -556,7 +556,7 @@ svn_error_t *svn_wc__remove_versions_entry (svn_string_t *path,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
