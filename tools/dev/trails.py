@@ -24,7 +24,7 @@ def parse_trails_log(infile):
                 int(m.group('lineno')))
     trail = _re_table_op.findall(m.group('ops'))
     trail.reverse()
-
+    
     trails.append((txn_body, trail))
 
   return trails
@@ -65,7 +65,7 @@ def list_frequencies(list):
   Given a list, return a list composed of (item, frequency)
   in sorted order
   """
-
+  
   counter = {}
   for item in list:
     counter[item] = counter.get(item, 0) + 1
@@ -83,7 +83,7 @@ def output_trail_length_frequencies(trails, outfile):
 
   total_trails = len(ops)
   frequencies = list_frequencies(ops)
-
+ 
   outfile.write(_seperator)
   outfile.write('Trail length frequencies\n')
   outfile.write(_seperator)
@@ -106,7 +106,7 @@ def output_trail(outfile, trail, column = 0):
     else:
       line = line + ', ' + op_str
   outfile.write('%s\n' % line)
-
+    
   outfile.write('\n')
 
 
@@ -138,7 +138,7 @@ def output_txn_body_frequencies(trails, outfile):
 
   total_trails = len(trails)
   frequencies = list_frequencies(bodies)
-
+  
   outfile.write(_seperator)
   outfile.write('txn_body frequencies\n')
   outfile.write(_seperator)
