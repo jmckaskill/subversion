@@ -36,10 +36,10 @@ svn_client_url_from_path (const char **url,
                           const char *path_or_url,
                           apr_pool_t *pool)
 {
-  svn_wc_adm_access_t *adm_access;
-  const svn_wc_entry_t *entry;
+  svn_wc_adm_access_t *adm_access;          
+  const svn_wc_entry_t *entry;  
   svn_boolean_t is_url = svn_path_is_url (path_or_url);
-
+  
   if (is_url)
     {
       *url = path_or_url;
@@ -50,7 +50,7 @@ svn_client_url_from_path (const char **url,
                                       FALSE, FALSE, pool));
       SVN_ERR (svn_wc_entry (&entry, path_or_url, adm_access, FALSE, pool));
       SVN_ERR (svn_wc_adm_close (adm_access));
-
+      
       *url = entry ? entry->url : NULL;
     }
 
