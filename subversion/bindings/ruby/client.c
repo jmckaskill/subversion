@@ -142,19 +142,19 @@ cl_checkout (int argc, VALUE *argv, VALUE self)
   Check_Type (aURL, T_STRING);
   Check_Type (aPath, T_STRING);
   revision = parse_revision (aRevOrTime);
-
+  
   pool = svn_pool_create (NULL);
   Data_Get_Struct (self, svn_client_auth_baton_t, auth_baton);
 
-  /* XXX svn_path_canonicalize_nts doesn't do a very good job of making a
-   * canonical path,  it would be nice if we could find a better way to do
+  /* XXX svn_path_canonicalize_nts doesn't do a very good job of making a 
+   * canonical path,  it would be nice if we could find a better way to do 
    * that, so we could pass relative paths to this function. */
 
   SVN_RB_ERR (svn_client_checkout (NULL, NULL, auth_baton,
                                    StringValuePtr(aURL),
                                    svn_path_canonicalize_nts (StringValuePtr
                                                                (aPath),
-                                                              pool),
+                                                              pool), 
                                    &revision, TRUE, pool),
               pool);
 
@@ -196,7 +196,7 @@ cl_add (VALUE class, VALUE aPath, VALUE recursive)
   pool = svn_pool_create (NULL);
 
   SVN_RB_ERR (svn_client_add (svn_path_canonicalize_nts (StringValuePtr (aPath),
-                                                         pool),
+                                                         pool), 
                               RTEST (recursive), NULL, NULL, pool),
               pool);
 
@@ -274,8 +274,8 @@ cl_delete (int argc, VALUE *argv, VALUE self)
                                  NULL, pool),
               pool);
 
-  /* if we were called on a url, there will be commit info, otherwise, we
-   * were called on a working copy, so we should just return true, since
+  /* if we were called on a url, there will be commit info, otherwise, we 
+   * were called on a working copy, so we should just return true, since 
    * we succeeded. */
   if (commit_info)
     {
@@ -283,7 +283,7 @@ cl_delete (int argc, VALUE *argv, VALUE self)
       svn_pool_destroy (pool);
       return obj;
     }
-  else
+  else 
     {
       return Qtrue;
     }
@@ -303,13 +303,13 @@ cl_import (int argc, VALUE *argv, VALUE self)
   Check_Type (aPath, T_STRING);
   if (aEntry != Qnil)
     Check_Type (aEntry, T_STRING);
-
+  
   pool = svn_pool_create (NULL);
 
   Data_Get_Struct (self, svn_client_auth_baton_t, auth_baton);
 
   /* XXX it'd be nice if we could specify a log message */
-  SVN_RB_ERR (svn_client_import (&commit_info, NULL, NULL, auth_baton,
+  SVN_RB_ERR (svn_client_import (&commit_info, NULL, NULL, auth_baton, 
                                  svn_path_canonicalize_nts (StringValuePtr
                                                              (aPath),
                                                             pool),
@@ -339,7 +339,7 @@ cl_commit (int argc, VALUE *argv, VALUE self)
   Check_Type (aTargets, T_ARRAY);
   for (i = 0; i < RARRAY (aTargets)->len; i++)
     Check_Type (RARRAY (aTargets)->ptr[i], T_STRING);
-
+  
   pool = svn_pool_create (NULL);
   Data_Get_Struct (self, svn_client_auth_baton_t, auth_baton);
   targets = apr_array_make (pool, RARRAY (aTargets)->len,
@@ -350,7 +350,7 @@ cl_commit (int argc, VALUE *argv, VALUE self)
 
   /* XXX need to get a log from somewhere */
 
-  SVN_RB_ERR (svn_client_commit (&commit_info, NULL, NULL, auth_baton, targets,
+  SVN_RB_ERR (svn_client_commit (&commit_info, NULL, NULL, auth_baton, targets, 
                                  cl_log_message_func, log, FALSE, pool),
               pool);
 
@@ -362,8 +362,8 @@ cl_commit (int argc, VALUE *argv, VALUE self)
 }
 
 #if 0
-/* this compiles, but it's #if 0'd out because it uses stuff from wc.c, which
- * does not build, and thus causes the module to have unresolved symbols,
+/* this compiles, but it's #if 0'd out because it uses stuff from wc.c, which 
+ * does not build, and thus causes the module to have unresolved symbols, 
  * making it rather difficult to test things. */
 static VALUE
 cl_status (VALUE self, VALUE aPath,
@@ -414,7 +414,7 @@ cl_log (int argc, VALUE *argv, VALUE self)
   Data_Get_Struct (self, svn_client_auth_baton_t, auth_baton);
 
   svn_ruby_get_log_args (argc, argv, self, &paths, &aStart, &aEnd,
-                         &discover_changed_paths, &strict_node_history,
+                         &discover_changed_paths, &strict_node_history, 
                          &baton, pool);
 
   start = parse_revision (aStart);
@@ -500,7 +500,7 @@ cl_copy (int argc, VALUE *argv, VALUE self)
 
   SVN_RB_ERR (svn_client_copy (&commit_info, StringValuePtr (srcPath),
                                &src_revision, StringValuePtr (dstPath), NULL,
-                               auth_baton, cl_log_message_func,
+                               auth_baton, cl_log_message_func, 
                                (char *) message, NULL, NULL, pool),
               pool);
 
