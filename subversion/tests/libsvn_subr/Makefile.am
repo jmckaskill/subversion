@@ -33,7 +33,7 @@ SVN_TESTS = stringtest hashdump-test $(srcdir)/target-test.sh
 EXTRA_DIST = target-test.sh
 
 ## We're overriding automake's own `check' rule, because it's extremely
-## inflexible;  we want better control over automated-test output.
+## inflexible;  we want better control over automated-test output. 
 check:
 	@echo > tests.log
 	@for prog in $(SVN_TESTS); do \
