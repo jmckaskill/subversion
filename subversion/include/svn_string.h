@@ -38,16 +38,16 @@ typedef struct svn_string_t
   /* pool from which this string was originally allocated, and is not
      necessarily specific to this string.  This is used only for
      allocating more memory from when the string needs to grow.  */
-  apr_pool_t *pool;
+  apr_pool_t *pool;          
 } svn_string_t;
 
 
 
 /* Create a new bytestring containing a C string (null-terminated), or
    containing a generic string of bytes (NON-null-terminated) */
-svn_string_t * svn_string_create (const char *cstring,
+svn_string_t * svn_string_create (const char *cstring, 
                                   apr_pool_t *pool);
-svn_string_t * svn_string_ncreate (const char *bytes, const apr_size_t size,
+svn_string_t * svn_string_ncreate (const char *bytes, const apr_size_t size, 
                                    apr_pool_t *pool);
 
 /* Create a new bytestring by formatting CSTRING (null-terminated)
@@ -89,9 +89,9 @@ void svn_string_fillchar (svn_string_t *str, const unsigned char c);
    onto TARGETSTR.  reallocs() if necessary.  TARGETSTR is affected,
    nothing else is. */
 void svn_string_appendbytes (svn_string_t *targetstr,
-                             const char *bytes,
+                             const char *bytes, 
                              const apr_size_t count);
-void svn_string_appendstr (svn_string_t *targetstr,
+void svn_string_appendstr (svn_string_t *targetstr, 
                            const svn_string_t *appendstr);
 void svn_string_appendcstr (svn_string_t *targetstr,
                             const char *cstr);
@@ -102,7 +102,7 @@ svn_string_t *svn_string_dup (const svn_string_t *original_string,
 
 
 /* Return TRUE iff STR1 and STR2 have identical length and data. */
-svn_boolean_t svn_string_compare (const svn_string_t *str1,
+svn_boolean_t svn_string_compare (const svn_string_t *str1, 
                                   const svn_string_t *str2);
 
 /** convenience routines **/
@@ -114,7 +114,7 @@ apr_size_t svn_string_first_non_whitespace (const svn_string_t *str);
 void svn_string_strip_whitespace (svn_string_t *str);
 
 /* Return position of last occurrence of CHAR in STR, or return
-   STR->len if no occurrence. */
+   STR->len if no occurrence. */ 
 apr_size_t svn_string_find_char_backward (const svn_string_t *str, char ch);
 
 /* Chop STR back to CHAR, inclusive.  Returns number of chars
