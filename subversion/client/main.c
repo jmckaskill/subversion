@@ -37,7 +37,7 @@
 
 /*** Command dispatch. ***/
 
-/* Map names to command routine, etc.
+/* Map names to command routine, etc. 
  *
  * Canonical name entries must come immediately before their aliases.
  * For example, "add" must be the first of the add commands listed,
@@ -49,7 +49,7 @@
  *
  * The entire list must be terminated with a entry of nulls.
  */
-const svn_cl__cmd_desc_t svn_cl__cmd_table[] =
+const svn_cl__cmd_desc_t svn_cl__cmd_table[] = 
 {
   { "add",        FALSE, svn_cl__add, 0,
     "Add new files and directories to version control.\n"
@@ -96,7 +96,7 @@ const svn_cl__cmd_desc_t svn_cl__cmd_table[] =
   { "pget",       TRUE, NULL, 1, NULL },
   { "pg",         TRUE, NULL, 1, NULL },
 
-  { "propset",    FALSE, svn_cl__propset, 2,
+  { "propset",    FALSE, svn_cl__propset, 2, 
     "Set property PROPNAME to PROPVAL on the named files and directories.\n"
     "usage: propset PROPNAME [PROPVAL | --valfile VALFILE] "
     "[TARGET1 [TARGET2] ...]\n"},
@@ -208,14 +208,14 @@ read_from_file (svn_string_t **result, const char *filename, apr_pool_t *pool)
     return svn_error_createf (apr_err, 0, NULL, pool,
                               "read_from_file: failed to open '%s'",
                               filename);
-
+      
   do {
     apr_err = apr_file_read_full (f, buf, sizeof(buf), &len);
     if (apr_err && !APR_STATUS_IS_EOF (apr_err))
       return svn_error_createf (apr_err, 0, NULL, pool,
                                 "read_from_file: failed to read '%s'",
                                 filename);
-
+    
     svn_string_appendbytes (res, buf, len);
   } while (len != 0);
 
@@ -224,7 +224,7 @@ read_from_file (svn_string_t **result, const char *filename, apr_pool_t *pool)
     return svn_error_createf (apr_err, 0, NULL, pool,
                               "read_from_file: failed to close '%s'",
                               filename);
-
+  
   *result = res;
   return SVN_NO_ERROR;
 }
@@ -363,7 +363,7 @@ main (int argc, const char * const *argv)
             }
         }
     }
-
+  
   /* If we made it this far, then we definitely have the subcommand. */
 
   /* Below, we greedily parse out some of the regular arguments,
@@ -378,9 +378,9 @@ main (int argc, const char * const *argv)
     /* loop for num_args and add each arg to the args array */
     for (i = 0; i < subcommand->num_args; i++) {
       if (os->ind >= os->argc) {
-        const char *plural = "s";
+        const char *plural = "s"; 
         fprintf (stderr, "ERROR: The %s command requires %i argument%s\n",
-                 subcommand->name, subcommand->num_args,
+                 subcommand->name, subcommand->num_args, 
                  (subcommand->num_args == 1) ? "" : plural);
         fprintf (stderr, "Help for %s:\n%s", subcommand->name, subcommand->help);
         /* svn_cl__help (NULL, targets, pool); */
@@ -411,7 +411,7 @@ main (int argc, const char * const *argv)
       (*((svn_string_t **) apr_array_push (targets)))
         = svn_string_create (this_arg, pool);
     }
-
+    
   /* kff todo: need to remove redundancies from targets before
      passing it to the cmd_func. */
 
@@ -419,15 +419,15 @@ main (int argc, const char * const *argv)
   err = (*subcommand->cmd_func) (&opt_state, targets, pool);
   if (err)
     svn_handle_error (err, stdout, 0);
-
+  
   apr_pool_destroy (pool);
   return EXIT_SUCCESS;
 }
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
- * end:
+ * end: 
  */

@@ -72,7 +72,7 @@ make_txn (svn_fs_t *fs,
 
   return txn;
 }
-
+          
 
 struct begin_txn_args
 {
@@ -115,7 +115,7 @@ svn_fs_begin_txn (svn_fs_txn_t **txn_p,
   args.fs    = fs;
   args.rev   = rev;
   SVN_ERR (svn_fs__retry_txn (fs, txn_body_begin_txn, &args, pool));
-
+  
   *txn_p = txn;
   return SVN_NO_ERROR;
 }
@@ -186,7 +186,7 @@ delete_from_id (svn_fs_t *fs, svn_fs_id_t *id, trail_t *trail)
     {
       skel_t *entries, *entry;
       SVN_ERR (svn_fs__dag_dir_entries_skel (&entries, node, trail));
-
+          
       for (entry = entries->children; entry; entry = entry->next)
         {
           skel_t *id_skel = entry->children->next;
@@ -199,7 +199,7 @@ delete_from_id (svn_fs_t *fs, svn_fs_id_t *id, trail_t *trail)
 
   /* ... then delete the node itself. */
   SVN_ERR (svn_fs__delete_node_revision (fs, id, trail));
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -259,7 +259,7 @@ txn_body_commit_txn (void *baton, trail_t *trail)
    * Completely punting on the question of committing an
    * unmodified txn.  I'm not really sure what should happen in
    * that case.  Consider this sequence of events:
-   *
+   * 
    *    1.  Bill begins txn T, based on revision 3.
    *    2.  Jane commits revisions 4, 5, and 6.
    *    3.  Bill commits T, never having modified it.
@@ -272,18 +272,18 @@ txn_body_commit_txn (void *baton, trail_t *trail)
    * So should we...
    *
    *    a) Robotically do the merge, pointlessly committing
-   *       revision 7 with the same root as revision 6?
+   *       revision 7 with the same root as revision 6? 
    *
    *    b) Commit revision 7 with the same root as revision 3,
    *       even though it's hard to believe the committer intended
-   *       to revert the intervening changes?
+   *       to revert the intervening changes? 
    *
    *    c) Not commit 7 at all?
    *
    * Danged if I know.  Thoughts, anyone?  For now, I'm going with
    * option (c), as it seems the least surprising result.
    */
-
+  
   SVN_ERR (svn_fs__get_txn (&txn_root_id, &base_root_id,
                             txn->fs, txn->id, trail));
   SVN_ERR (svn_fs__dag_get_node (&txn_root_node, txn->fs,
@@ -307,7 +307,7 @@ txn_body_commit_txn (void *baton, trail_t *trail)
   SVN_ERR (svn_fs__youngest_rev (&youngest_rev, txn->fs, trail));
   SVN_ERR (svn_fs__rev_get_root (&youngest_root_id, txn->fs,
                                  youngest_rev, trail));
-
+  
   if (! svn_fs_id_eq (base_root_id, youngest_root_id))
     {
       /* ### kff todo:
@@ -316,11 +316,11 @@ txn_body_commit_txn (void *baton, trail_t *trail)
        * root/path public interface, and we've got dag nodes and
        * trails here.
        */
-
+      
       svn_error_t *err;
       const char *conflict;
       dag_node_t *base_root_node, *youngest_root_node;
-
+  
       SVN_ERR (svn_fs__dag_get_node (&base_root_node, txn->fs,
                                      base_root_id, trail));
       SVN_ERR (svn_fs__dag_get_node (&youngest_root_node, txn->fs,
@@ -351,7 +351,7 @@ txn_body_commit_txn (void *baton, trail_t *trail)
 
 svn_error_t *
 svn_fs_commit_txn (const char **conflict_p,
-                   svn_revnum_t *new_rev,
+                   svn_revnum_t *new_rev, 
                    svn_fs_txn_t *txn)
 {
   /* How do commits work in Subversion?
@@ -385,7 +385,7 @@ svn_fs_commit_txn (const char **conflict_p,
    *    4. Meanwhile, someone commits revision 8.
    *    5. Jane finishes the 6-->7 merge.  T could now be committed
    *       against a latest revision of 7, if only that were still the
-   *       latest.  Unfortunately, 8 is now the latest, so...
+   *       latest.  Unfortunately, 8 is now the latest, so... 
    *    6. Jane starts merging the changes between 7 and 8 into T.
    *    7. Meanwhile, no one commits any new revisions.  Whew.
    *    8. Jane commits T, creating revision 9, whose tree is exactly
@@ -403,12 +403,12 @@ svn_fs_commit_txn (const char **conflict_p,
 
   do {
     last_youngest_rev = youngest_rev;
-
+    
     /* Try to commit. */
     args.txn = txn;
     err = svn_fs__retry_txn (txn->fs, txn_body_commit_txn,
                              &args, txn->pool);
-
+    
     if (! err)
       {
         *new_rev = args.new_rev;
@@ -423,7 +423,7 @@ svn_fs_commit_txn (const char **conflict_p,
       {
         /* Another possibility is that someone finished committing a
            new revision while we were in mid-commit.  If so, updating
-           youngest_rev here will cause the loop to run again. */
+           youngest_rev here will cause the loop to run again. */  
         SVN_ERR (svn_fs_youngest_rev (&youngest_rev, txn->fs, txn->pool));
       }
   } while (youngest_rev != last_youngest_rev);
@@ -454,7 +454,7 @@ txn_body_open_txn (void *baton,
   SVN_ERR (svn_fs__get_txn (&root_id, &base_root_id,
                             args->fs, args->name, trail));
 
-  *args->txn_p = make_txn (args->fs, args->name, trail->pool);
+  *args->txn_p = make_txn (args->fs, args->name, trail->pool); 
   return SVN_NO_ERROR;
 }
 
@@ -474,7 +474,7 @@ svn_fs_open_txn (svn_fs_txn_t **txn_p,
   args.fs = fs;
   args.name = name;
   SVN_ERR (svn_fs__retry_txn (fs, txn_body_open_txn, &args, pool));
-
+  
   *txn_p = txn;
   return SVN_NO_ERROR;
 }
@@ -523,7 +523,7 @@ svn_fs__txn_id (svn_fs_txn_t *txn)
 }
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
