@@ -67,7 +67,7 @@ Approved changes (further review is welcome, but not required):
       +1: maxb
       +0: cmpilato (only tested that it didn't regress on Unix)
 
-
+  
   * r13553
     Fix issue #2173 (Symbolic links from Linux are not ignored in Windows)
     Justification:
