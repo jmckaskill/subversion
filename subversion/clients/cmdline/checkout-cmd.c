@@ -34,21 +34,21 @@
 
 /*** Code. ***/
 
-/*
+/* 
   This is what it does
 
   - case 1: one URL
     $ svn co http://host/repos/module
     checkout into ./module/
-
+  
   - case 2: one URL and explicit path
     $ svn co http://host/repos/module path
     checkout into ./path/
-
+  
   - case 3: multiple URLs
     $ svn co http://host1/repos1/module1 http://host2/repos2/module2
     checkout into ./module1/ and ./module2/
-
+  
   - case 4: multiple URLs and explicit path
     $ svn co http://host1/repos1/module1 http://host2/repos2/module2 path
     checkout into ./path/module1/ and ./path/module2/
@@ -73,7 +73,7 @@ svn_cl__checkout (apr_getopt_t *os,
   void *notify_baton = NULL;
   int i;
 
-  SVN_ERR (svn_cl__args_to_target_array (&targets, os, opt_state,
+  SVN_ERR (svn_cl__args_to_target_array (&targets, os, opt_state, 
                                          FALSE, pool));
 
   /* If there are no targets at all, then let's just give the user a
@@ -95,7 +95,7 @@ svn_cl__checkout (apr_getopt_t *os,
     }
 
   if (! opt_state->quiet)
-    svn_cl__get_notifier (&notify_func, &notify_baton, TRUE, FALSE, pool);
+    svn_cl__get_notifier (&notify_func, &notify_baton, TRUE, FALSE, pool); 
 
   subpool = svn_pool_create (pool);
   for (i = 0; i < targets->nelts - 1; ++i)
@@ -105,8 +105,8 @@ svn_cl__checkout (apr_getopt_t *os,
       /* Validate the REPOS_URL */
       repos_url = ((const char **) (targets->elts))[i];
       if (! svn_path_is_url (repos_url))
-        return svn_error_createf
-          (SVN_ERR_BAD_URL, 0, NULL, subpool,
+        return svn_error_createf 
+          (SVN_ERR_BAD_URL, 0, NULL, subpool, 
            "`%s' does not appear to be a URL", repos_url);
 
       repos_url = svn_path_canonicalize_nts (repos_url, subpool);
@@ -138,14 +138,14 @@ svn_cl__checkout (apr_getopt_t *os,
       svn_pool_clear (subpool);
     }
   svn_pool_destroy (subpool);
-
+  
   return SVN_NO_ERROR;
 }
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../tools/dev/svn-dev.el")
- * end:
+ * end: 
  */
