@@ -26,10 +26,10 @@
 /////////////////////////////////////////////////////////////////////////////
 // CSVNWorkingCopy
 
-STDMETHODIMP
+STDMETHODIMP 
 CSVNWorkingCopy::InterfaceSupportsErrorInfo(REFIID riid)
 {
-	static const IID* arr[] =
+	static const IID* arr[] = 
 	{
 		&IID_ISVNWorkingCopy
 	};
@@ -45,7 +45,7 @@ CSVNWorkingCopy::InterfaceSupportsErrorInfo(REFIID riid)
 // Sets pfIsValid to VARIANT_TRUE if the directory contains
 // valid SVN meta-data.
 //
-STDMETHODIMP
+STDMETHODIMP 
 CSVNWorkingCopy::check_wc(BSTR bstrDir, VARIANT_BOOL *pfIsValid)
 {
 	USES_CONVERSION;
@@ -66,7 +66,7 @@ CSVNWorkingCopy::check_wc(BSTR bstrDir, VARIANT_BOOL *pfIsValid)
 		goto Cleanup;
 	}
 
-	if (is_wc)
+	if (is_wc) 
 		*pfIsValid = VARIANT_TRUE;
 	else
 		*pfIsValid = VARIANT_FALSE;
@@ -79,13 +79,13 @@ Cleanup:
 }
 
 
-//
+// 
 // Create a secondary thread to watch for file changes
 // in the specified directory (bstrDir).
-// This secondary thread fires "RefreshFiles" when
+// This secondary thread fires "RefreshFiles" when 
 // a change is detected.
 //
-STDMETHODIMP
+STDMETHODIMP 
 CSVNWorkingCopy::watch_dir(BSTR bstrDir)
 {
 	USES_CONVERSION;
@@ -103,7 +103,7 @@ CSVNWorkingCopy::watch_dir(BSTR bstrDir)
 			hr = E_FAIL;
 			goto Error;
 		}
-
+	
 		_hFindNotification_Stop = CreateEvent(
 			NULL, FALSE, FALSE, NULL);
 		if (_hFindNotification_Stop == NULL)
@@ -111,7 +111,7 @@ CSVNWorkingCopy::watch_dir(BSTR bstrDir)
 			hr = E_FAIL;
 			goto Error;
 		}
-
+	
 		_hFindNotification_Thread = (HANDLE)_beginthread(
 			FileNotificationThreadProc,
 			0,
@@ -150,13 +150,13 @@ Error:
 }
 
 // Pump any waiting messages in the message queue.
-static void
+static void 
 PumpWaitingMessages(void)
 {
 	MSG msg;
 
 	//
-	// Read all of the messages in this next loop,
+	// Read all of the messages in this next loop, 
 	// removing each message as we read it.
 	//
 	while (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
@@ -172,16 +172,16 @@ PumpWaitingMessages(void)
 		//
 		// Otherwise, dispatch the message.
 		//
-		DispatchMessage(&msg);
-	}
+		DispatchMessage(&msg); 
+	} 
 }
 
 //
 // Thread procedure for the file/directory notification
 // thread. This thread is created for the first time when
 // some calls watch_dir.
-//
-void
+// 
+void 
 CSVNWorkingCopy::FileNotificationThreadProc(void *pv)
 {
 	USES_CONVERSION;
@@ -274,7 +274,7 @@ NewDirectory:
 	}
 }
 
-STDMETHODIMP
+STDMETHODIMP 
 CSVNWorkingCopy::wc_statuses(BSTR bstrPath, VARIANT_BOOL getAll, SAFEARRAY **ppsa)
 {
 	USES_CONVERSION;
@@ -337,10 +337,10 @@ CSVNWorkingCopy::wc_statuses(BSTR bstrPath, VARIANT_BOOL getAll, SAFEARRAY **pps
 		hr = com_status->init(status, pszKey);
 		if (FAILED(hr))
 			goto Cleanup;
-		hr = com_status->QueryInterface(&paDisp[i]);
+		hr = com_status->QueryInterface(&paDisp[i]);		
 		if (FAILED(hr))
 			goto Cleanup;
-
+		
 		// NULL out the local variable,
 		// the COM reference count is now owned by paDisp[i]
 		com_status = NULL;
