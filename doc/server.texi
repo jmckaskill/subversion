@@ -51,7 +51,7 @@ Here is a rough draft of the Subversion Filesystem API.
 failure)
 
 @item write (delta, token)
- actually write the delta into the filesystem
+ actually write the delta into the filesystem 
 
 @item abandon (token)
  tell lock manager that the delta will @emph{not} be written (despite
