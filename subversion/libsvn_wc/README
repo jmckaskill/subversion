@@ -75,7 +75,7 @@ Structure of the Working Copy
 =============================
 
      [Note: this obsoletes parts of client.texi.  We'll sync them up
-     after implementation.]
+     after implementation.] 
 
 Working copy meta-information is stored in SVN/ subdirectories,
 analogous to CVS/ sudirs:
@@ -164,7 +164,7 @@ analogous to CVS/ sudirs:
 
 `properties'
 
-   Properties for this directory.
+   Properties for this directory.  
 
    For now, this file is in svn hashdump format, because it's
    convenient and its performance is good enough for now.  May move to
@@ -185,7 +185,7 @@ analogous to CVS/ sudirs:
       <delete name="foo.c"/>
 
    (The "<tree-delta>" and "</tree-delta>" tags themselves are
-   omitted, for reasons that will become clear later.)
+   omitted, for reasons that will become clear later.) 
 
    When new changes are recorded, they have to be checked against
    existing ones for consistency.  For example, imagine the following
@@ -202,7 +202,7 @@ analogous to CVS/ sudirs:
       <delete name="foo.c"/>
 
    But after the second command, it should *not* look like this:
-
+   
       <new name="qux.c">
         <file ancestor="/full/path/to/foo.c" version="17"/>
       </new>
@@ -294,7 +294,7 @@ analogous to CVS/ sudirs:
 todo: some loose ends
 
    1. filename escaping in SVN/versions
-   2.
+   2. 
 
 
 
