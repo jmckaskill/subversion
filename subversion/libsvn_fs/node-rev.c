@@ -118,14 +118,14 @@ deltify (svn_fs_id_t *target,
       if (window)
         svn_txdelta_free_window (window);
     } while (window);
-
+  
 
   {
     svn_stringbuf_t *targetstr, *sourcestr;
-
+    
     targetstr = svn_fs_unparse_id (target, trail->pool);
     sourcestr = svn_fs_unparse_id (source, trail->pool);
-
+    
     printf ("*** Deltifying %s against %s\n",
             targetstr->data, sourcestr->data);
   }
@@ -166,7 +166,7 @@ svn_fs__delete_node_revision (svn_fs_t *fs,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
