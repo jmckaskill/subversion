@@ -1,5 +1,5 @@
 
-/* Stupid program to test bytestring library for Subversion.
+/* Stupid program to test bytestring library for Subversion. 
    Ben Collins-Sussman, (C) 2000 Collab.Net */
 
 
