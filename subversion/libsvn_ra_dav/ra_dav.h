@@ -49,7 +49,7 @@ typedef struct {
 
   ne_session *sess;           /* HTTP session to server */
   ne_session *sess2;
-
+  
   const svn_ra_callbacks_t *callbacks;  /* callbacks to get auth data */
   void *callback_baton;
 
@@ -330,9 +330,9 @@ svn_error_t *svn_ra_dav__parsed_request(svn_ra_session_t *ras,
                                         const char *url,
                                         const char *body,
                                         int fd,
-                                        const struct ne_xml_elm *elements,
+                                        const struct ne_xml_elm *elements, 
                                         ne_xml_validate_cb validate_cb,
-                                        ne_xml_startelm_cb startelm_cb,
+                                        ne_xml_startelm_cb startelm_cb, 
                                         ne_xml_endelm_cb endelm_cb,
                                         void *baton,
                                         apr_pool_t *pool);
@@ -364,7 +364,7 @@ enum {
   /* SVN elements */
   ELEM_add_directory,
   ELEM_add_file,
-  ELEM_baseline_relpath,
+  ELEM_baseline_relpath, 
 #ifdef SVN_DAV_FEATURE_USE_OLD_NAMESPACES
   ELEM_baseline_relpath_old,
 #endif /* SVN_DAV_FEATURE_USE_OLD_NAMESPACES */
@@ -467,7 +467,7 @@ svn_ra_dav__request_dispatch(int *code,
 #endif  /* SVN_LIBSVN_RA_DAV_H */
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end:
