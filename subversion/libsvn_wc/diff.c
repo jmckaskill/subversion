@@ -671,7 +671,7 @@ apply_textdelta (void *file_baton,
 
   /* This is the file that will contain the pristine repository version. It
      is created in the admin temporary area. This file continues to exists
-     until after the diff callback is run, at which point it is deleted. */
+     until after the diff callback is run, at which point it is deleted. */ 
   SVN_ERR (svn_wc__open_text_base (&b->temp_file, b->wc_path,
                                    (APR_WRITE | APR_TRUNCATE | APR_CREATE),
                                    b->pool));
