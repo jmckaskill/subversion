@@ -64,7 +64,7 @@ add_component_internal (svn_string_t *path,
 
 
 void
-svn_path_add_component_nts (svn_string_t *path,
+svn_path_add_component_nts (svn_string_t *path, 
                             const char *component,
                             enum svn_path_style style)
 {
@@ -73,7 +73,7 @@ svn_path_add_component_nts (svn_string_t *path,
 
 
 void
-svn_path_add_component (svn_string_t *path,
+svn_path_add_component (svn_string_t *path, 
                         const svn_string_t *component,
                         enum svn_path_style style)
 {
@@ -123,7 +123,7 @@ svn_path_last_component (svn_string_t *path,
 
 
 void
-svn_path_split (const svn_string_t *path,
+svn_path_split (const svn_string_t *path, 
                 svn_string_t **dirpath,
                 svn_string_t **basename,
                 enum svn_path_style style,
@@ -157,7 +157,7 @@ int svn_path_compare_paths (const svn_string_t *path1,
 {
   size_t min_len = ((path1->len) < (path2->len)) ? path1->len : path2->len;
   size_t i;
-
+  
   /* Skip past common prefix. */
   for (i = 0; (i < min_len) && (path1->data[i] == path2->data[i]); i++)
     ;
@@ -175,7 +175,7 @@ int svn_path_compare_paths (const svn_string_t *path1,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
