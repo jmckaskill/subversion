@@ -248,6 +248,11 @@ public class SVNClient implements SVNClientInterface
 
 
     public native byte[] fileContent(String path, Revision revision) throws ClientException;
+
+    public native void relocate(String from, String to, String path, boolean recurse) throws ClientException;
+
+    public native byte[] blame(String path, Revision revisionStart, Revision revisionEnd, boolean strict) throws ClientException;
+
     public static native void enableLogging(int logLevel, String logFilePath);
     public static native String version();
     public static native int versionMajor();
