@@ -67,7 +67,7 @@ remove_admin_dirs (const char *dir, apr_pool_t *pool)
           else
             {
               SVN_ERR (remove_admin_dirs (dir_path, subpool));
-            }
+            } 
         }
     }
 
@@ -196,7 +196,7 @@ svn_client_export (const char *from,
 }
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end: */
