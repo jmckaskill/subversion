@@ -29,7 +29,7 @@
 "Lorg/tigris/subversion/lib/StatusKind;)V"
 
 jobject
-svn_jni_status__create(JNIEnv *env, svn_wc_status_t *status,
+svn_jni_status__create(JNIEnv *env, svn_wc_status_t *status, 
 		       jboolean *hasException)
 {
   jobject jstatus = NULL;
@@ -44,7 +44,7 @@ svn_jni_status__create(JNIEnv *env, svn_wc_status_t *status,
       jclass statusClass = NULL;
       jmethodID statusConstructor = NULL;
 
-      statusClass = (*env)->FindClass(env,
+      statusClass = (*env)->FindClass(env, 
 				      "org/tigris/subversion/lib/Status");
       if( statusClass == NULL )
 	{
@@ -52,7 +52,7 @@ svn_jni_status__create(JNIEnv *env, svn_wc_status_t *status,
 	}
       else
 	{
-	  statusConstructor =
+	  statusConstructor = 
 	      (*env)->GetMethodID(env, statusClass,
 				  "<init>", SVN_JNI__STATUS_CONSTRUCTOR);
 

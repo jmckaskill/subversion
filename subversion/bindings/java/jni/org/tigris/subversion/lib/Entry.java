@@ -39,7 +39,7 @@ public class Entry {
     public final int schedule;
     public final int existence;
 
-    public Entry(String url, int revision,
+    public Entry(String url, int revision, 
 		 int nodeKind, int schedule, int existence)
 	{
 	    this.url = url;
@@ -50,10 +50,10 @@ public class Entry {
 	}
 }
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../../../../../svn-dev.el")
- * end:
+ * end: 
  */
 
 
