@@ -354,7 +354,7 @@ static svn_error_t *readbuf_skip_leading_garbage(svn_ra_svn_conn_t *conn)
 }
 
 /* --- WRITING DATA ITEMS --- */
-
+ 
 svn_error_t *svn_ra_svn_write_number(svn_ra_svn_conn_t *conn, apr_pool_t *pool,
                                      apr_uint64_t number)
 {
@@ -492,7 +492,7 @@ static svn_error_t *read_string(svn_ra_svn_conn_t *conn, apr_pool_t *pool,
 
   /* We can't store strings longer than the maximum size of apr_size_t,
    * so check for wrapping */
-  if (((apr_size_t) len) < len)
+  if (((apr_size_t) len) < len) 
     return svn_error_create(SVN_ERR_RA_SVN_MALFORMED_DATA, NULL,
                             _("String length larger than maximum"));
 
@@ -507,13 +507,13 @@ static svn_error_t *read_string(svn_ra_svn_conn_t *conn, apr_pool_t *pool,
       svn_stringbuf_appendbytes(stringbuf, readbuf, readbuf_len);
       len -= readbuf_len;
     }
-
+  
   item->kind = SVN_RA_SVN_STRING;
   item->u.string = apr_palloc(pool, sizeof(*item->u.string));
   item->u.string->data = stringbuf->data;
   item->u.string->len = stringbuf->len;
 
-  return SVN_NO_ERROR;
+  return SVN_NO_ERROR; 
 }
 
 /* Given the first non-whitespace character FIRST_CHAR, read an item
