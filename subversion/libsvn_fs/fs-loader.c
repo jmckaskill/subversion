@@ -806,7 +806,7 @@ svn_fs_parse_id (const char *data, apr_size_t data_len, apr_pool_t *pool)
   if ((! dot) || (dot <= id->copy_id))
     return NULL;
   *dot = 0;
-
+  
   /* Txn Id */
   id->txn_id = dot + 1;
   dot = strchr (id->copy_id, '.');
@@ -820,7 +820,7 @@ svn_fs_parse_id (const char *data, apr_size_t data_len, apr_pool_t *pool)
 svn_string_t *
 svn_fs_unparse_id (const svn_fs_id_t *id, apr_pool_t *pool)
 {
-  return svn_string_createf (pool, "%s.%s.%s",
+  return svn_string_createf (pool, "%s.%s.%s", 
                              id->node_id, id->copy_id, id->txn_id);
 }
 
@@ -834,7 +834,7 @@ svn_fs_check_related (const svn_fs_id_t *id1, const svn_fs_id_t *id2)
   return (strcmp (id1->node_id, id2->node_id) == 0) ? TRUE : FALSE;
 }
 
-int
+int 
 svn_fs_compare_ids (const svn_fs_id_t *a, const svn_fs_id_t *b)
 {
   if (svn_fs__id_eq (a, b))
@@ -889,7 +889,7 @@ svn_boolean_t
 svn_fs__id_eq (const svn_fs_id_t *a, const svn_fs_id_t *b)
 {
   if (a != b)
-    {
+    {  
       if (a->node_id != b->node_id && strcmp (a->node_id, b->node_id) != 0)
         return FALSE;
       if (a->copy_id != b->copy_id && strcmp (a->copy_id, b->copy_id) != 0)
@@ -914,7 +914,7 @@ svn_fs__canonicalize_abspath (const char *path, apr_pool_t *pool)
   /* No PATH?  No problem. */
   if (! path)
     return NULL;
-
+  
   /* Empty PATH?  That's just "/". */
   if (! *path)
     return apr_pstrdup (pool, "/");
@@ -929,7 +929,7 @@ svn_fs__canonicalize_abspath (const char *path, apr_pool_t *pool)
     {
       newpath[newpath_i++] = '/';
     }
-
+  
   for (path_i = 0; path_i < path_len; path_i++)
     {
       if (path[path_i] == '/')
@@ -952,7 +952,7 @@ svn_fs__canonicalize_abspath (const char *path, apr_pool_t *pool)
       /* Copy the current character into our new buffer. */
       newpath[newpath_i++] = path[path_i];
     }
-
+  
   /* Did we leave a '/' attached to the end of NEWPATH (other than in
      the root directory case)? */
   if ((newpath[newpath_i - 1] == '/') && (newpath_i > 1))
