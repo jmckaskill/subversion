@@ -28,7 +28,7 @@
 #include <jni.h>
 #include <svn_client.h>
 
-class BlameCallback
+class BlameCallback  
 {
 public:
 	BlameCallback(jobject jcallback);
