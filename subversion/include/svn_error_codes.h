@@ -402,6 +402,11 @@ SVN_ERROR_START
 
   /* END Client errors */
 
+  /* BEGIN Generic UI related errors */
+  SVN_ERRDEF (SVN_ERR_CANCELED,
+              "Something, probably the user, canceled the operation")
+  /* END Generic UI related errors */
+
 
 SVN_ERROR_END
 
