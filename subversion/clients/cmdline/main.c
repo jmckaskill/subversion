@@ -53,7 +53,7 @@
 /* Option codes and descriptions for the command line client.
  *
  * This must not have more than SVN_OPT_MAX_OPTIONS entries; if you
- * need more, increase that limit first.
+ * need more, increase that limit first. 
  *
  * The entire list must be terminated with an entry of nulls.
  */
@@ -148,7 +148,7 @@ const apr_getopt_option_t svn_cl__options[] =
                              svn_cl__auth_password_opt, \
                              svn_cl__no_auth_cache_opt, \
                              svn_cl__non_interactive_opt
-
+ 
 const svn_opt_subcommand_desc_t svn_cl__cmd_table[] =
 {
   { "add", svn_cl__add, {0},
@@ -185,7 +185,7 @@ const svn_opt_subcommand_desc_t svn_cl__cmd_table[] =
     "unfinished operations, etc.\n"
     "usage: cleanup [PATH...]\n",
     {svn_cl__merge_cmd_opt, svn_cl__config_dir_opt} },
-
+  
   { "commit", svn_cl__commit, {"ci"},
     "Send changes from your working copy to the repository.\n"
     "usage: commit [PATH...]\n\n"
@@ -193,7 +193,7 @@ const svn_opt_subcommand_desc_t svn_cl__cmd_table[] =
     {'m', 'F', 'q', 'N', svn_cl__targets_opt,
      svn_cl__force_log_opt, SVN_CL__AUTH_OPTIONS,
      svn_cl__editor_cmd_opt, svn_cl__encoding_opt, svn_cl__config_dir_opt} },
-
+  
   { "copy", svn_cl__copy, {"cp"},
     "Duplicate something in working copy or repos, remembering history.\n"
     "usage: copy SRC DST\n\n"
@@ -204,7 +204,7 @@ const svn_opt_subcommand_desc_t svn_cl__cmd_table[] =
     "    URL -> URL:  complete server-side copy;  used to branch & tag\n",
     {'m', 'F', 'r', 'q', SVN_CL__AUTH_OPTIONS, svn_cl__force_log_opt,
      svn_cl__editor_cmd_opt, svn_cl__encoding_opt, svn_cl__config_dir_opt} },
-
+  
   { "delete", svn_cl__delete, {"del", "remove", "rm"},
     "Remove files and directories from version control.\n"
     "usage: 1. delete PATH...\n"
@@ -217,10 +217,10 @@ const svn_opt_subcommand_desc_t svn_cl__cmd_table[] =
     "  behaviour.\n\n"
     "  If run on URLs, the items are deleted from the repository via an\n"
     "  immediate commit.\n",
-    {svn_cl__force_opt, svn_cl__force_log_opt, 'm', 'F', 'q',
+    {svn_cl__force_opt, svn_cl__force_log_opt, 'm', 'F', 'q', 
      svn_cl__targets_opt, SVN_CL__AUTH_OPTIONS,
      svn_cl__editor_cmd_opt, svn_cl__encoding_opt, svn_cl__config_dir_opt} },
-
+  
   { "diff", svn_cl__diff, {"di"},
     "Display the differences between two paths.\n"
     "usage: 1. diff [-r N[:M]] [--old OLD-TGT] [--new NEW-TGT] [PATH...]\n"
@@ -266,7 +266,7 @@ const svn_opt_subcommand_desc_t svn_cl__cmd_table[] =
      course.  But those options, since unknown, will result in the
      help message being printed out anyway, so there's no need to
      support them explicitly. */
-
+  
   { "import", svn_cl__import, {0},
     "Commit an unversioned file or tree into the repository.\n"
     "usage: import [PATH] URL\n\n"
@@ -276,13 +276,13 @@ const svn_opt_subcommand_desc_t svn_cl__cmd_table[] =
     {'m', 'F', 'q', 'N', SVN_CL__AUTH_OPTIONS, svn_cl__force_log_opt,
      svn_cl__editor_cmd_opt, svn_cl__encoding_opt, svn_cl__config_dir_opt,
      svn_cl__autoprops_opt, svn_cl__no_autoprops_opt} },
-
+ 
   { "info", svn_cl__info, {0},
     "Display info about a resource.\n"
     "usage: info [PATH...]\n\n"
     "  Print information about PATHs.\n",
     {svn_cl__targets_opt, 'R', svn_cl__config_dir_opt} },
-
+ 
   { "list", svn_cl__ls, {"ls"},
     "List directory entries in the repository.\n"
     "usage: list [TARGET...]\n\n"
@@ -297,7 +297,7 @@ const svn_opt_subcommand_desc_t svn_cl__cmd_table[] =
     "  Size (in bytes)\n"
     "  Date and time of the last commit\n",
     {'r', 'v', 'R', SVN_CL__AUTH_OPTIONS, svn_cl__config_dir_opt} },
-
+  
   { "log", svn_cl__log, {0},
     "Show the log messages for a set of revision(s) and/or file(s).\n"
     "usage: log [URL] [PATH...]\n\n"
@@ -317,7 +317,7 @@ const svn_opt_subcommand_desc_t svn_cl__cmd_table[] =
     "    svn log http://www.example.com/repo/project/foo.c\n"
     "    svn log http://www.example.com/repo/project foo.c bar.c\n",
     {'r', 'q', 'v', svn_cl__targets_opt, svn_cl__strict_opt,
-     svn_cl__incremental_opt, svn_cl__xml_opt, SVN_CL__AUTH_OPTIONS,
+     svn_cl__incremental_opt, svn_cl__xml_opt, SVN_CL__AUTH_OPTIONS, 
      svn_cl__config_dir_opt} },
 
   { "merge", svn_cl__merge, {0},
@@ -339,9 +339,9 @@ const svn_opt_subcommand_desc_t svn_cl__cmd_table[] =
     "  the sources have identical basenames that match a file within '.':\n"
     "  in which case, the differences will be applied to that file.\n",
     {'r', 'N', 'q', svn_cl__force_opt, svn_cl__dry_run_opt,
-     svn_cl__merge_cmd_opt, svn_cl__notice_ancestry_opt,
+     svn_cl__merge_cmd_opt, svn_cl__notice_ancestry_opt, 
      SVN_CL__AUTH_OPTIONS, svn_cl__config_dir_opt} },
-
+  
   { "mkdir", svn_cl__mkdir, {0},
     "Create a new directory under revision control.\n"
     "usage: 1. mkdir PATH...\n"
@@ -361,11 +361,11 @@ const svn_opt_subcommand_desc_t svn_cl__cmd_table[] =
     "  NOTE:  this command is equivalent to a 'copy' and 'delete'.\n\n"
     "  SRC and DST can both be working copy (WC) paths or URLs:\n"
     "    WC  -> WC:   move and schedule for addition (with history)\n"
-    "    URL -> URL:  complete server-side rename.\n",
+    "    URL -> URL:  complete server-side rename.\n",    
     {'m', 'F', 'r', 'q', svn_cl__force_opt, SVN_CL__AUTH_OPTIONS,
      svn_cl__editor_cmd_opt, svn_cl__encoding_opt, svn_cl__force_log_opt,
      svn_cl__config_dir_opt} },
-
+  
   { "propdel", svn_cl__propdel, {"pdel"},
     "Remove PROPNAME from files, dirs, or revisions.\n"
     "usage: 1. propdel PROPNAME [PATH...]\n"
@@ -374,7 +374,7 @@ const svn_opt_subcommand_desc_t svn_cl__cmd_table[] =
     "  2. Removes unversioned remote prop on repos revision.\n",
     {'q', 'R', 'r', svn_cl__revprop_opt, SVN_CL__AUTH_OPTIONS,
      svn_cl__config_dir_opt} },
-
+  
   { "propedit", svn_cl__propedit, {"pedit", "pe"},
     "Edit property PROPNAME with $EDITOR on targets.\n"
     "usage: 1. propedit PROPNAME PATH...\n"
@@ -384,7 +384,7 @@ const svn_opt_subcommand_desc_t svn_cl__cmd_table[] =
     {'r', svn_cl__revprop_opt, SVN_CL__AUTH_OPTIONS,
      svn_cl__encoding_opt, svn_cl__editor_cmd_opt, svn_cl__force_opt,
      svn_cl__config_dir_opt} },
-
+  
   { "propget", svn_cl__propget, {"pget", "pg"},
     "Print value of PROPNAME on files, dirs, or revisions.\n"
     "usage: 1. propget PROPNAME [PATH...]\n"
@@ -397,7 +397,7 @@ const svn_opt_subcommand_desc_t svn_cl__cmd_table[] =
     "  is prefixed with the path with which it is associated.  Use\n"
     "  the --strict option to disable these beautifications (useful,\n"
     "  for example, when redirecting binary property values to a file).\n",
-    {'R', 'r', svn_cl__revprop_opt, svn_cl__strict_opt,
+    {'R', 'r', svn_cl__revprop_opt, svn_cl__strict_opt, 
      SVN_CL__AUTH_OPTIONS, svn_cl__config_dir_opt} },
 
   { "proplist", svn_cl__proplist, {"plist", "pl"},
@@ -445,7 +445,7 @@ const svn_opt_subcommand_desc_t svn_cl__cmd_table[] =
     {'F', 'q', 'r', svn_cl__targets_opt, 'R', svn_cl__revprop_opt,
      SVN_CL__AUTH_OPTIONS, svn_cl__encoding_opt, svn_cl__force_opt,
      svn_cl__config_dir_opt} },
-
+  
   { "resolved", svn_cl__resolved, {0},
     "Remove 'conflicted' state on working copy files or directories.\n"
     "usage: resolved PATH...\n\n"
@@ -453,7 +453,7 @@ const svn_opt_subcommand_desc_t svn_cl__cmd_table[] =
     "  it merely removes conflict-related artifact files and allows PATH\n"
     "  to be committed again.\n",
     {svn_cl__targets_opt, 'R', 'q', svn_cl__config_dir_opt} },
-
+ 
   { "revert", svn_cl__revert, {0},
     "Restore pristine working copy file (undo all local edits).\n"
     "usage: revert PATH...\n\n"
@@ -521,9 +521,9 @@ const svn_opt_subcommand_desc_t svn_cl__cmd_table[] =
     "    A  +         965       687        joe   wc/qax.c\n"
     "                 965       687        joe   wc/zig.c\n"
     "    Head revision:   981\n",
-    { 'u', 'v', 'N', 'q', svn_cl__no_ignore_opt, SVN_CL__AUTH_OPTIONS,
+    { 'u', 'v', 'N', 'q', svn_cl__no_ignore_opt, SVN_CL__AUTH_OPTIONS, 
       svn_cl__config_dir_opt} },
-
+  
   { "switch", svn_cl__switch, {"sw"},
     "Update the working copy to a different URL.\n"
     "usage: 1. switch URL [PATH]\n"
@@ -535,8 +535,8 @@ const svn_opt_subcommand_desc_t svn_cl__cmd_table[] =
     ,
     { 'r', 'N', 'q', svn_cl__merge_cmd_opt, svn_cl__relocate_opt,
       SVN_CL__AUTH_OPTIONS, svn_cl__config_dir_opt} },
-
-  { "update", svn_cl__update, {"up"},
+ 
+  { "update", svn_cl__update, {"up"}, 
     "Bring changes from the repository into the working copy.\n"
     "usage: update [PATH...]\n\n"
     "  If no revision given, bring working copy up-to-date with HEAD rev.\n"
@@ -553,7 +553,7 @@ const svn_opt_subcommand_desc_t svn_cl__cmd_table[] =
     "\n"
     "  A character in the first column signifies an update to the actual file,\n"
     "  while updates to the file's props are shown in the second column.\n",
-    {'r', 'N', 'q', svn_cl__merge_cmd_opt, SVN_CL__AUTH_OPTIONS,
+    {'r', 'N', 'q', svn_cl__merge_cmd_opt, SVN_CL__AUTH_OPTIONS, 
      svn_cl__config_dir_opt} },
 
   { NULL, NULL, {0}, NULL, {0} }
@@ -591,7 +591,7 @@ main (int argc, const char * const *argv)
   apr_allocator_t *allocator;
   apr_pool_t *pool;
   int opt_id;
-  apr_getopt_t *os;
+  apr_getopt_t *os;  
   svn_cl__opt_state_t opt_state = { { 0 } };
   svn_client_ctx_t ctx = { 0 };
   int received_opts[SVN_OPT_MAX_OPTIONS];
@@ -622,7 +622,7 @@ main (int argc, const char * const *argv)
   /* Begin processing arguments. */
   opt_state.start_revision.kind = svn_opt_revision_unspecified;
   opt_state.end_revision.kind = svn_opt_revision_unspecified;
-
+ 
   /* No args?  Show usage. */
   if (argc <= 1)
     {
@@ -726,7 +726,7 @@ main (int argc, const char * const *argv)
             svn_pool_destroy (pool);
             return EXIT_FAILURE;
           }
-
+        
         /* Find out if log message file is under revision control. */
         {
           svn_wc_adm_access_t *adm_access;
@@ -893,7 +893,7 @@ main (int argc, const char * const *argv)
       default:
         /* Hmmm. Perhaps this would be a good place to squirrel away
            opts that commands like svn diff might need. Hmmm indeed. */
-        break;
+        break;  
       }
     }
 
@@ -966,7 +966,7 @@ main (int argc, const char * const *argv)
       if (! svn_opt_subcommand_takes_option (subcommand, opt_id))
         {
           const char *optstr;
-          const apr_getopt_option_t *badopt =
+          const apr_getopt_option_t *badopt = 
             svn_opt_get_option_from_code (opt_id, svn_cl__options);
           svn_opt_format_option (&optstr, badopt, FALSE, pool);
           fprintf (stderr,
@@ -981,7 +981,7 @@ main (int argc, const char * const *argv)
         }
     }
 
-  /* if we're running a command that could result in a commit, verify that
+  /* if we're running a command that could result in a commit, verify that 
      any log message we were given on the command line makes sense. */
   if (subcommand->cmd_func == svn_cl__commit
       || subcommand->cmd_func == svn_cl__copy
@@ -1031,7 +1031,7 @@ main (int argc, const char * const *argv)
 
   cfg = apr_hash_get (ctx.config, SVN_CONFIG_CATEGORY_CONFIG,
                       APR_HASH_KEY_STRING);
-
+  
   /* Update the options in the config */
   /* XXX: Only diff_cmd for now, overlay rest later and stop passing
      opt_state altogether? */
@@ -1098,7 +1098,7 @@ main (int argc, const char * const *argv)
 
         svn_client_get_username_prompt_provider (&provider,
                                                  svn_cl__auth_username_prompt,
-                                                 NULL,
+                                                 NULL, 
                                                  2, /* retry limit */
                                                  pool);
         APR_ARRAY_PUSH (providers, svn_auth_provider_object_t *) = provider;
@@ -1163,8 +1163,8 @@ main (int argc, const char * const *argv)
       svn_error_t *tmp_err;
 
       /* If we got an SVN_ERR_CL_ARG_PARSING_ERROR with no useful content
-         (i.e. a NULL or empty message), display help, otherwise just display
-         the errors as usual, since the error output will probably be just as
+         (i.e. a NULL or empty message), display help, otherwise just display 
+         the errors as usual, since the error output will probably be just as 
          much help to them as our help output, if not more. */
       if (err->apr_err == SVN_ERR_CL_ARG_PARSING_ERROR
           && (err->message == NULL || err->message[0] == '\0'))

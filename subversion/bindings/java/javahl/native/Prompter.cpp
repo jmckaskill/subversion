@@ -407,7 +407,7 @@ svn_error_t *Prompter::nextCreds (void **credentials, void *iter_baton,
     *credentials = creds;
 	return SVN_NO_ERROR;
 }
-svn_error_t *Prompter::firstCreds_server_ssl (void **credentials, void **iter_baton,
+svn_error_t *Prompter::firstCreds_server_ssl (void **credentials, void **iter_baton, 
 							void *provider_baton, apr_hash_t *parameters, const char *realmstring, apr_pool_t *pool)
 {
 	Prompter *that = (Prompter*)provider_baton;
@@ -438,7 +438,7 @@ svn_error_t *Prompter::firstCreds_server_ssl (void **credentials, void **iter_ba
         }
         svn_stringbuf_appendcstr (buf, "Hostname mismatch");
         previous_output = TRUE;
-    }
+    } 
     failure = failures_in & (SVN_AUTH_SSL_EXPIRED | SVN_AUTH_SSL_NOTYETVALID);
     if (failure)
 	{
@@ -465,7 +465,7 @@ svn_error_t *Prompter::firstCreds_server_ssl (void **credentials, void **iter_ba
     return SVN_NO_ERROR;
 }
 
-svn_error_t *Prompter::firstCreds_client_ssl (void **credentials, void **iter_baton,
+svn_error_t *Prompter::firstCreds_client_ssl (void **credentials, void **iter_baton, 
 							void *provider_baton, apr_hash_t *parameters, const char *realmstring, apr_pool_t *pool)
 {
 	Prompter *that = (Prompter*)provider_baton;
@@ -474,7 +474,7 @@ svn_error_t *Prompter::firstCreds_client_ssl (void **credentials, void **iter_ba
 
 
   cert_file = that->askQuestion(realmstring, "client certificate filename: ", true);
-
+  
   if ((cert_file == NULL) || (cert_file[0] == 0))
     {
       return NULL;
@@ -487,7 +487,7 @@ svn_error_t *Prompter::firstCreds_client_ssl (void **credentials, void **iter_ba
   return SVN_NO_ERROR;
 }
 
-svn_error_t *Prompter::firstCreds_client_ssl_pass (void **credentials, void **iter_baton,
+svn_error_t *Prompter::firstCreds_client_ssl_pass (void **credentials, void **iter_baton, 
 							void *provider_baton, apr_hash_t *parameters, const char *realmstring, apr_pool_t *pool)
 {
 	Prompter *that = (Prompter*)provider_baton;
