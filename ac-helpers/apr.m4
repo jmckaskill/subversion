@@ -3,8 +3,8 @@ dnl
 dnl  Check configure options and assign variables related to
 dnl  the Apache Portable Runtime (APR) library.
 dnl
-dnl  If there is a apr/ subdir we assme we want to use it. In that
-dnl  case an option telling us to use a locally installed apr
+dnl  If there is a apr/ subdir we assme we want to use it. In that 
+dnl  case an option telling us to use a locally installed apr 
 dnl  triggers an error.
 dnl
 dnl  TODO : check apr version, link a test program
@@ -16,11 +16,11 @@ AC_DEFUN(SVN_LIB_APR,
   AC_MSG_NOTICE([Apache Portable Runtime (APR) library configuration])
 
   AC_ARG_WITH(apr-libs,
-              [AC_HELP_STRING([--with-apr-libs=PREFIX],
+              [AC_HELP_STRING([--with-apr-libs=PREFIX], 
 	      [Use Apache Portable Runtime (APR) library at PREFIX])],
   [
     if test -d $abs_srcdir/apr ; then
-      AC_MSG_ERROR([--with-apr-libs option but apr/ subdir exists.
+      AC_MSG_ERROR([--with-apr-libs option but apr/ subdir exists. 
 Please either remove that subdir or don't use the --with-apr-libs option.])
     fi
 
@@ -31,9 +31,9 @@ Please either remove that subdir or don't use the --with-apr-libs option.])
       APR_LIBS=$withval
     fi
   ])
-
+  
   AC_ARG_WITH(apr-includes,
-              [AC_HELP_STRING([--with-apr-includes=PREFIX],
+              [AC_HELP_STRING([--with-apr-includes=PREFIX], 
 	      [Use Apache Portable Runtime (APR) includes at PREFIX])],
   [
     if test -d $abs_srcdir/apr ; then
@@ -47,9 +47,9 @@ Please either remove that subdir or don't use the --with-apr-includes option.])
       APR_INCLUDES=$withval
     fi
   ])
-
+  
   AC_ARG_WITH(apr,
-              [AC_HELP_STRING([--with-apr=PREFIX],
+              [AC_HELP_STRING([--with-apr=PREFIX], 
 	      [Use Apache Portable Runtime (APR) at PREFIX])],
   [
     if test -d $abs_srcdir/apr ; then

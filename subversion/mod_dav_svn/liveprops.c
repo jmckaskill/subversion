@@ -187,7 +187,7 @@ static dav_prop_insert dav_svn_insert_prop(const dav_resource *resource,
                                 DAV_SVN_BUILD_URI_BASELINE,
                                 revnum, NULL,
                                 0 /* add_href */, p);
-          value = apr_psprintf(p, "<D:href>%s</D:href>",
+          value = apr_psprintf(p, "<D:href>%s</D:href>", 
                                apr_xml_quote_string(p, s, 1));
         }
       else if (resource->type != DAV_RESOURCE_TYPE_REGULAR)
@@ -216,7 +216,7 @@ static dav_prop_insert dav_svn_insert_prop(const dav_resource *resource,
                                 DAV_SVN_BUILD_URI_VERSION,
                                 SVN_INVALID_REVNUM, stable_id->data,
                                 0 /* add_href */, p);
-          value = apr_psprintf(p, "<D:href>%s</D:href>",
+          value = apr_psprintf(p, "<D:href>%s</D:href>", 
                                apr_xml_quote_string(p, s, 1));
         }
       break;
@@ -415,7 +415,7 @@ void dav_svn_register_uris(apr_pool_t *p)
 }
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:

@@ -55,7 +55,7 @@ fs_node_new (VALUE class, VALUE fsRoot, VALUE path)
 {
   VALUE obj;
   svn_ruby_fs_node *node;
-
+  
   obj = Data_Make_Struct (class, svn_ruby_fs_node,
                           mark_node, free_node, node);
   node->fs_root = fsRoot;
@@ -168,7 +168,7 @@ dir_entries (VALUE self)
       apr_pool_destroy (pool);
       svn_ruby_raise (err);
     }
-
+  
   {
     VALUE obj;
     apr_hash_index_t *hi;

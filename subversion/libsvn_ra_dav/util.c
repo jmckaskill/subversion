@@ -49,9 +49,9 @@ svn_error_t *svn_ra_dav__parsed_request(svn_ra_session_t *ras,
                                         const char *url,
                                         const char *body,
                                         int fd,
-                                        const struct ne_xml_elm *elements,
+                                        const struct ne_xml_elm *elements, 
                                         ne_xml_validate_cb validate_cb,
-                                        ne_xml_startelm_cb startelm_cb,
+                                        ne_xml_startelm_cb startelm_cb, 
                                         ne_xml_endelm_cb endelm_cb,
                                         void *baton,
                                         apr_pool_t *pool)
@@ -92,7 +92,7 @@ svn_error_t *svn_ra_dav__parsed_request(svn_ra_session_t *ras,
       /* ### need to be more sophisticated with reporting the failure */
       err2 = svn_error_createf (SVN_ERR_RA_REQUEST_FAILED, 0, NULL, pool,
                                 "neon: %s", ne_get_error (ras->sess));
-
+                               
       switch (rv)
         {
         case NE_CONNECT:
@@ -153,24 +153,24 @@ svn_ra_dav__maybe_store_auth_info (svn_ra_session_t *ras)
 {
   void *a, *auth_baton;
   svn_ra_simple_password_authenticator_t *authenticator;
-
-  SVN_ERR (ras->callbacks->get_authenticator (&a, &auth_baton,
-                                              SVN_RA_AUTH_SIMPLE_PASSWORD,
+  
+  SVN_ERR (ras->callbacks->get_authenticator (&a, &auth_baton, 
+                                              SVN_RA_AUTH_SIMPLE_PASSWORD, 
                                               ras->callback_baton,
                                               ras->pool));
-  authenticator = (svn_ra_simple_password_authenticator_t *) a;
-
+  authenticator = (svn_ra_simple_password_authenticator_t *) a;      
+  
   /* If we have a auth-info storage callback, use it. */
   if (authenticator->store_user_and_pass)
     /* Storage will only happen if AUTH_BATON is already caching auth info. */
     SVN_ERR (authenticator->store_user_and_pass (auth_baton));
-
+  
   return SVN_NO_ERROR;
 }
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:

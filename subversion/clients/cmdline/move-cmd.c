@@ -52,7 +52,7 @@ svn_cl__move (apr_getopt_t *os,
 
   src_path = ((svn_stringbuf_t **) (targets->elts))[0];
   dst_path = ((svn_stringbuf_t **) (targets->elts))[1];
-
+  
   SVN_ERR (svn_client_move (src_path, dst_path, pool));
 
   return SVN_NO_ERROR;
@@ -60,8 +60,8 @@ svn_cl__move (apr_getopt_t *os,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../svn-dev.el")
- * end:
+ * end: 
  */

@@ -56,7 +56,7 @@ svn_cl__proplist (apr_getopt_t *os,
 
       for (j = 0; j < props->nelts; ++j)
         {
-          svn_client_proplist_item_t *item
+          svn_client_proplist_item_t *item 
               = ((svn_client_proplist_item_t **)props->elts)[j];
           printf("Properties on '%s':\n", item->node_name->data);
           svn_cl__print_prop_hash (item->prop_hash, pool);
@@ -67,8 +67,8 @@ svn_cl__proplist (apr_getopt_t *os,
 }
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../svn-dev.el")
- * end:
+ * end: 
  */

@@ -5,8 +5,8 @@ Here are some thoughts on features to include in later releases of
 Subversion.
 
 @menu
-* High Priority Items::
-* Blue Sky Items::
+* High Priority Items::         
+* Blue Sky Items::              
 @end menu
 
 @c -----------------------------------------------------------------------
@@ -21,9 +21,9 @@ The lists below are a bit dated;  a more recent wishlist can be found in
 @file{IDEAS} in the source-tree.
 
 @menu
-* Annotation::
-* Repository Conversion::
-* User Interface for Branches and Tags::
+* Annotation::                  
+* Repository Conversion::       
+* User Interface for Branches and Tags::  
 @end menu
 
 @node Annotation
@@ -33,7 +33,7 @@ We need to provide annotation of individual files (i.e. who wrote which
 line in which revision), because CVS does this reasonably well.
 
 The information needed to annotate files should be stored by the
-filesystem as properties.
+filesystem as properties.  
 
 The ``annotate'' method itself should be implemented as a server-side
 plug-in.  This makes the output much more hackable.
@@ -91,15 +91,15 @@ critical for a 1.0 release.
 
 
 @menu
-* Server Grep::
-* Scripting Language::
-* Smart conflict resolution::
-* Mirroring Servers::
-* Inter-Repository Communication::
-* SQL Back-End::
-* Digital Signatures::
-* Import/Export format::
-* SMTP access::
+* Server Grep::                 
+* Scripting Language::          
+* Smart conflict resolution::   
+* Mirroring Servers::           
+* Inter-Repository Communication::  
+* SQL Back-End::                
+* Digital Signatures::          
+* Import/Export format::        
+* SMTP access::                 
 @end menu
 
 @node Server Grep
@@ -165,7 +165,7 @@ This is one that people request a lot: the ability to commit changes
 first to a local "working repository" (not visible to the rest of the
 world), and then commit what's in the working repository to the real
 repository (with the several commits maybe being folded into one
-commit).
+commit).  
 
 Why do people want this?  It may be the psychological comfort of making
 a snapshot whenever one reaches a good stopping point, but not
@@ -209,7 +209,7 @@ someday.  It makes repositories easy to transport.
 
 Subversion already has an XML DTD that it uses for testing updates and
 commits;  this DTD may be 80% of the "exchange" format we're looking
-for.
+for. 
 
 @node SMTP access
 @subsection SMTP access

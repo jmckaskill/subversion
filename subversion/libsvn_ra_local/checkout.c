@@ -39,12 +39,12 @@ send_file_contents (svn_fs_root_t *root,
   void *handler_baton;
   svn_txdelta_stream_t *delta_stream;
   svn_txdelta_window_t *window;
-
+  
   /* Get a subpool for local allocations.  */
   apr_pool_t *subpool = svn_pool_create (pool);
 
   /* Get a readable stream of the file's contents. */
-  SVN_ERR (svn_fs_file_contents (&contents, root, path->data, subpool));
+  SVN_ERR (svn_fs_file_contents (&contents, root, path->data, subpool));  
 
   /* Create a delta stream which converts an *empty* bytestream into the
      file's contents bytestream. */
@@ -54,7 +54,7 @@ send_file_contents (svn_fs_root_t *root,
   SVN_ERR (editor->apply_textdelta (file_baton, &handler, &handler_baton));
 
   /* Pull windows from the delta stream and feed to the consumer. */
-  do
+  do 
     {
       SVN_ERR (svn_txdelta_next_window (&window, delta_stream));
       SVN_ERR ((*handler) (window, handler_baton));
@@ -95,11 +95,11 @@ set_any_props (svn_fs_root_t *root,
       apr_hash_this (hi, &key, &klen, &val);
       name = svn_stringbuf_ncreate (key, klen, pool);
       value = svn_stringbuf_create_from_string ((svn_string_t *) val, pool);
-
+      
       if (is_dir)
         SVN_ERR (editor->change_dir_prop (object_baton, name, value));
       else
-        SVN_ERR (editor->change_file_prop (object_baton, name, value));
+        SVN_ERR (editor->change_file_prop (object_baton, name, value));  
     }
 
   return SVN_NO_ERROR;
@@ -125,7 +125,7 @@ static svn_error_t *
 walk_tree (svn_fs_root_t *root,
            svn_stringbuf_t *dir_path,
            void *dir_baton,
-           const svn_delta_edit_fns_t *editor,
+           const svn_delta_edit_fns_t *editor, 
            void *edit_baton,
            svn_stringbuf_t *URL,
            svn_boolean_t recurse,
@@ -170,7 +170,7 @@ walk_tree (svn_fs_root_t *root,
              copy paths.  We don't want the editor to "copy" anything. */
           SVN_ERR (editor->add_directory (dirent_name, dir_baton,
                                           NULL,
-                                          SVN_INVALID_REVNUM,
+                                          SVN_INVALID_REVNUM, 
                                           &new_dir_baton));
           SVN_ERR (set_any_props (root, dirent_path, new_dir_baton,
                                   editor, 1, iter_pool));
@@ -178,14 +178,14 @@ walk_tree (svn_fs_root_t *root,
           SVN_ERR (walk_tree (root, dirent_path, new_dir_baton, editor,
                               edit_baton, URL_path, recurse, iter_pool));
         }
-
+        
       else if (is_file)
         {
           void *file_baton;
 
           SVN_ERR (editor->add_file (dirent_name, dir_baton,
-                                     URL_path, SVN_INVALID_REVNUM,
-                                     &file_baton));
+                                     URL_path, SVN_INVALID_REVNUM, 
+                                     &file_baton));          
           SVN_ERR (set_any_props (root, dirent_path, file_baton,
                                   editor, 0, iter_pool));
           SVN_ERR (send_file_contents (root, dirent_path, file_baton,
@@ -196,7 +196,7 @@ walk_tree (svn_fs_root_t *root,
       else
         {
           /* It's not a file or dir.  What the heck?  Instead of
-             returning an error, let's just ignore the thing. */
+             returning an error, let's just ignore the thing. */ 
         }
 
       /* Clear out our per-iteration pool. */
@@ -217,12 +217,12 @@ walk_tree (svn_fs_root_t *root,
 
 /* The main editor driver.  Short and elegant! */
 svn_error_t *
-svn_ra_local__checkout (svn_fs_t *fs,
-                        svn_revnum_t revnum,
+svn_ra_local__checkout (svn_fs_t *fs, 
+                        svn_revnum_t revnum, 
                         svn_boolean_t recurse,
                         svn_stringbuf_t *URL,
                         svn_stringbuf_t *fs_path,
-                        const svn_delta_edit_fns_t *editor,
+                        const svn_delta_edit_fns_t *editor, 
                         void *edit_baton,
                         apr_pool_t *pool)
 {

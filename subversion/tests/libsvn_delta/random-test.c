@@ -64,7 +64,7 @@ generate_random_file (int maxlen, unsigned long subseed_base,
       len -= seqlen;
       r = subseed_base + myrand (seed) % SEEDS;
       while (seqlen-- > 0)
-        {
+        { 
           putc (r % 256, fp);
           r = r * 1103515245 + 12345;
         }
@@ -223,7 +223,7 @@ main (int argc, const char * const *argv)
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../svn-dev.el")
  * end:

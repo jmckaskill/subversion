@@ -1,7 +1,7 @@
                Subversion, a version control system.
                =====================================
 
-This code is still under development.  For an overview, visit
+This code is still under development.  For an overview, visit 
 
    http://subversion.tigris.org/
 
@@ -14,7 +14,7 @@ See INSTALL for installation information.
 
 A rough guide to the source tree:
 
-   doc/
+   doc/         
       User and Developer documentation.
    www/
       Subversion web pages (live content at http://subversion.tigris.org/).
@@ -22,7 +22,7 @@ A rough guide to the source tree:
       Stuff that works with Subversion, but that Subversion doesn't depend on.
    packages/
       Stuff to help packaging systems, like rpm and dpkg.
-   subversion/
+   subversion/  
       Source code to subversion itself (as opposed to external libraries).
    subversion/include/
       Public header files for users of subversion libraries.

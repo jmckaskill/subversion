@@ -42,7 +42,7 @@ svn_wc_check_wc (const svn_stringbuf_t *path,
                  apr_pool_t *pool)
 {
   /* Nothing fancy, just check for an administrative subdir and a
-     `README' file. */
+     `README' file. */ 
 
   apr_file_t *f = NULL;
   svn_error_t *err = NULL;
@@ -51,14 +51,14 @@ svn_wc_check_wc (const svn_stringbuf_t *path,
   err = svn_io_check_path (path, &kind, pool);
   if (err)
     return err;
-
+  
   if (kind != svn_node_dir)
     *is_wc = FALSE;
   else
     {
       err = svn_wc__open_adm_file (&f, path, SVN_WC__ADM_README,
                                    APR_READ, pool);
-
+      
       /* It really doesn't matter what kind of error it is; if there
          was an error at all, then for our purposes this is not a
          working copy. */
@@ -96,7 +96,7 @@ svn_wc_check_wc (const svn_stringbuf_t *path,
    notice that we are *NOT* answering the question, "are the contents
    of F different than revision V of F?"  While F may be at a different
    revision number than its parent directory, but we're only looking
-   for local edits on F, not for consistent directory revisions.
+   for local edits on F, not for consistent directory revisions.  
 
    TODO:  the logic of the routines on this page might change in the
    future, as they bear some relation to the user interface.  For
@@ -153,7 +153,7 @@ timestamps_equal_p (svn_boolean_t *equal_p,
       SVN_ERR (svn_io_file_affected_time (&wfile_time, path, pool));
       entrytime = entry->text_time;
     }
-
+  
   else if (timestamp_kind == svn_wc__prop_time)
     {
       svn_stringbuf_t *prop_path;
@@ -178,7 +178,7 @@ timestamps_equal_p (svn_boolean_t *equal_p,
     const char *tstr = svn_time_to_nts (wfile_time, pool);
     wfile_time = svn_time_from_nts (tstr);
   }
-
+  
   if (wfile_time == entrytime)
     *equal_p = TRUE;
   else
@@ -248,14 +248,14 @@ contents_identical_p (svn_boolean_t *identical_p,
   apr_file_t *file1_h = NULL;
   apr_file_t *file2_h = NULL;
 
-  status = apr_file_open (&file1_h, file1->data,
+  status = apr_file_open (&file1_h, file1->data, 
                           APR_READ, APR_OS_DEFAULT, pool);
   if (status)
     return svn_error_createf
       (status, 0, NULL, pool,
        "contents_identical_p: apr_file_open failed on `%s'", file1->data);
 
-  status = apr_file_open (&file2_h, file2->data, APR_READ,
+  status = apr_file_open (&file2_h, file2->data, APR_READ, 
                           APR_OS_DEFAULT, pool);
   if (status)
     return svn_error_createf
@@ -269,16 +269,16 @@ contents_identical_p (svn_boolean_t *identical_p,
       if (status && !APR_STATUS_IS_EOF(status))
         return svn_error_createf
           (status, 0, NULL, pool,
-           "contents_identical_p: apr_file_read_full() failed on %s.",
+           "contents_identical_p: apr_file_read_full() failed on %s.", 
            file1->data);
 
       status = apr_file_read_full (file2_h, buf2, sizeof(buf2), &bytes_read2);
       if (status && !APR_STATUS_IS_EOF(status))
         return svn_error_createf
           (status, 0, NULL, pool,
-           "contents_identical_p: apr_file_read_full() failed on %s.",
+           "contents_identical_p: apr_file_read_full() failed on %s.", 
            file2->data);
-
+      
       if ((bytes_read1 != bytes_read2)
           || (memcmp (buf1, buf2, bytes_read1)))
         {
@@ -289,13 +289,13 @@ contents_identical_p (svn_boolean_t *identical_p,
 
   status = apr_file_close (file1_h);
   if (status)
-    return svn_error_createf
+    return svn_error_createf 
       (status, 0, NULL, pool,
        "contents_identical_p: apr_file_close failed on %s.", file1->data);
 
   status = apr_file_close (file2_h);
   if (status)
-    return svn_error_createf
+    return svn_error_createf 
       (status, 0, NULL, pool,
        "contents_identical_p: apr_file_close failed on %s.", file2->data);
 
@@ -322,7 +322,7 @@ svn_wc__files_contents_same_p (svn_boolean_t *same,
       *same = 0;
       return SVN_NO_ERROR;
     }
-
+  
   err = contents_identical_p (&q, file1, file2, pool);
   if (err)
     return err;
@@ -351,7 +351,7 @@ svn_wc_text_modified_p (svn_boolean_t *modified_p,
     {
       *modified_p = FALSE;
       goto cleanup;
-    }
+    }              
 
   /* Get the full path of the textbase revision of filename */
   textbase_filename = svn_wc__text_base_path (filename, 0, subpool);
@@ -369,25 +369,25 @@ svn_wc_text_modified_p (svn_boolean_t *modified_p,
         *modified_p = TRUE;
       goto cleanup;
     }
-
+  
   /* Better case:  we have a text-base revision of the file, so there
      are at least three tests we can try in succession. */
 
   /* Easy-answer attempt #1:  */
-
+      
   /* Check if the the local and textbase file have *definitely*
      different filesizes. */
   SVN_ERR (filesizes_definitely_different_p (&different_filesizes,
                                              filename, textbase_filename,
                                              subpool));
-  if (different_filesizes)
+  if (different_filesizes) 
     {
       *modified_p = TRUE;
       goto cleanup;
     }
-
+      
   /* Easy-answer attempt #2:  */
-
+      
   /* See if the local file's timestamp is the same as the one recorded
      in the administrative directory.  */
   SVN_ERR (timestamps_equal_p (&equal_timestamps, filename,
@@ -397,7 +397,7 @@ svn_wc_text_modified_p (svn_boolean_t *modified_p,
       *modified_p = FALSE;
       goto cleanup;
     }
-
+      
   /* Last ditch attempt:  */
 
   /* If we get here, then we know that the filesizes are the same, but
@@ -439,7 +439,7 @@ empty_props_p (svn_boolean_t *empty_p,
   if (kind == svn_node_none)
     *empty_p = TRUE;
 
-  else
+  else 
     {
       apr_finfo_t finfo;
       apr_status_t status;
@@ -452,7 +452,7 @@ empty_props_p (svn_boolean_t *empty_p,
 
       /* If we remove props from a propfile, eventually the file will
          contain nothing but "END\n" */
-      if (finfo.size == 4)
+      if (finfo.size == 4)  
         *empty_p = TRUE;
 
       else
@@ -539,24 +539,24 @@ svn_wc_props_modified_p (svn_boolean_t *modified_p,
 
   /* At this point, we know both files exists.  Therefore we have no
      choice but to start checking their contents. */
-
+  
   /* There are at least three tests we can try in succession. */
-
+  
   /* Easy-answer attempt #1:  */
-
+  
   /* Check if the the local and prop-base file have *definitely*
      different filesizes. */
   SVN_ERR (filesizes_definitely_different_p (&different_filesizes,
                                              prop_path, prop_base_path,
                                              subpool));
-  if (different_filesizes)
+  if (different_filesizes) 
     {
       *modified_p = TRUE;
       goto cleanup;
     }
-
+  
   /* Easy-answer attempt #2:  */
-
+      
   /* See if the local file's prop timestamp is the same as the one
      recorded in the administrative directory.  */
   SVN_ERR (timestamps_equal_p (&equal_timestamps, path,
@@ -566,9 +566,9 @@ svn_wc_props_modified_p (svn_boolean_t *modified_p,
       *modified_p = FALSE;
       goto cleanup;
     }
-
+  
   /* Last ditch attempt:  */
-
+  
   /* If we get here, then we know that the filesizes are the same,
      but the timestamps are different.  That's still not enough
      evidence to make a correct decision;  we need to look at the
@@ -592,16 +592,16 @@ svn_wc_props_modified_p (svn_boolean_t *modified_p,
                                             localprops,
                                             baseprops,
                                             subpool));
-
+                                         
     if (local_propchanges->nelts > 0)
       *modified_p = TRUE;
     else
       *modified_p = FALSE;
   }
-
+ 
  cleanup:
   svn_pool_destroy (subpool);
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -623,7 +623,7 @@ svn_wc_conflicted_p (svn_boolean_t *text_conflicted_p,
 
   /* Note:  it's assumed that ENTRY is a particular entry inside
      DIR_PATH's entries file. */
-
+  
   if (entry->conflicted)
     {
       /* Get up to two reject files */
@@ -634,7 +634,7 @@ svn_wc_conflicted_p (svn_boolean_t *text_conflicted_p,
       prej_file = apr_hash_get (entry->attributes,
                                 SVN_WC_ENTRY_ATTR_PREJFILE,
                                 APR_HASH_KEY_STRING);
-
+      
       if ((! rej_file) && (! prej_file))
         {
           /* freaky, why is the entry marked as conflicted, but there
@@ -660,7 +660,7 @@ svn_wc_conflicted_p (svn_boolean_t *text_conflicted_p,
                 *text_conflicted_p = TRUE;
               else
                 /* The textual conflict file has been removed. */
-                *text_conflicted_p = FALSE;
+                *text_conflicted_p = FALSE;  
             }
           else
             /* There's no mention of a .rej file at all */
@@ -717,14 +717,14 @@ svn_wc_has_binary_prop (svn_boolean_t *has_binary_prop,
   vpath = svn_stringbuf_dup (path, subpool);
   name = svn_stringbuf_create (SVN_PROP_MIME_TYPE, subpool);
   SVN_ERR (svn_wc_prop_get (&value, name, vpath, subpool));
-
+ 
   if (value
-      && (value->len > 5)
+      && (value->len > 5) 
       && (strncmp (value->data, "text/", 5)))
     *has_binary_prop = TRUE;
   else
     *has_binary_prop = FALSE;
-
+  
   svn_pool_destroy (subpool);
   return SVN_NO_ERROR;
 }
@@ -734,7 +734,7 @@ svn_wc_has_binary_prop (svn_boolean_t *has_binary_prop,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end: */

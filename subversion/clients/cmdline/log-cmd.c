@@ -36,7 +36,7 @@
 
 /*** Code. ***/
 
-/* Helper for log_message_receiver().
+/* Helper for log_message_receiver(). 
  *
  * Return the number of lines in MSG, allowing any kind of newline
  * termination (CR, CRLF, or LFCR), even inconsistent.  The minimum
@@ -200,8 +200,8 @@ svn_cl__log (apr_getopt_t *os,
 }
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../svn-dev.el")
- * end:
+ * end: 
  */

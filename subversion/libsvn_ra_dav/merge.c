@@ -136,7 +136,7 @@ static svn_boolean_t okay_to_bump_path (const char *path,
   /* Otherwise, this path is bumpable IFF one of its parents in in the
      hash and marked with a 'recursion' flag. */
   parent_path = svn_stringbuf_create (path, pool);
-
+  
   do {
     svn_path_remove_component (parent_path, svn_path_local_style);
     r = (enum svn_recurse_kind) apr_hash_get (valid_targets,
@@ -173,11 +173,11 @@ static svn_error_t *bump_resource(merge_ctx_t *mc,
   /* set up two svn_stringbuf_t values around the path and vsn_url. */
   path_str = svn_stringbuf_create (path, mc->pool);
   vsn_url_str = svn_stringbuf_create (vsn_url, mc->pool);
-
+ 
       /* store the version URL */
   SVN_ERR( (*mc->set_prop)(mc->close_baton, path_str,
                            mc->vsn_url_name, vsn_url_str) );
-
+      
   /* bump the revision and commit the file */
   return (*mc->close_commit)(mc->close_baton, path_str, FALSE, mc->rev);
 }
@@ -609,7 +609,7 @@ svn_error_t * svn_ra_dav__merge_activity(
 }
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:

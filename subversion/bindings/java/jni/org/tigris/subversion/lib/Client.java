@@ -188,7 +188,7 @@ public interface Client {
    public String getUsername();
 
    /**
-    * Set Password
+    * Set Password 
     */
    public void setPassword(String password);
 
