@@ -124,7 +124,7 @@ decrement_dir_ref_count (struct dir_baton *db)
       /* Destroy all memory used by this baton, including the baton
          itself! */
       svn_pool_destroy (db->subpool);
-
+      
       /* Tell your parent that you're gone. */
       SVN_ERR (decrement_dir_ref_count (dbparent));
     }
@@ -137,7 +137,7 @@ decrement_dir_ref_count (struct dir_baton *db)
 static svn_error_t *
 out_of_date (const char *path, const char *txn_name, apr_pool_t *pool)
 {
-  return svn_error_createf (SVN_ERR_TXN_OUT_OF_DATE, 0, NULL, pool,
+  return svn_error_createf (SVN_ERR_TXN_OUT_OF_DATE, 0, NULL, pool, 
                             "out of date: `%s' in txn `%s'", path, txn_name);
 }
 
@@ -160,15 +160,15 @@ open_root (void *edit_baton,
 
   /* Begin a subversion transaction, cache its name, and get its
      root object. */
-  SVN_ERR (svn_repos_fs_begin_txn_for_commit (&(eb->txn),
-                                              eb->repos,
-                                              base_revision,
-                                              eb->user,
+  SVN_ERR (svn_repos_fs_begin_txn_for_commit (&(eb->txn), 
+                                              eb->repos, 
+                                              base_revision, 
+                                              eb->user, 
                                               &(eb->log_msg),
                                               eb->pool));
   SVN_ERR (svn_fs_txn_root (&(eb->txn_root), eb->txn, eb->pool));
   SVN_ERR (svn_fs_txn_name (&(eb->txn_name), eb->txn, eb->pool));
-
+  
   /* Finish filling out the root dir baton.  The `base_path' field is
      an -absolute- path in the filesystem, upon which all dir batons
      will telescope.  */
@@ -212,7 +212,7 @@ delete_entry (svn_stringbuf_t *name,
                                     parent->subpool));
   if (revision < cr_rev)
     return out_of_date (path->data, eb->txn_name, parent->subpool);
-
+  
   /* This routine is a mindless wrapper.  We call svn_fs_delete_tree
      because that will delete files and recursively delete
      directories.  */
@@ -236,10 +236,10 @@ add_directory (svn_stringbuf_t *name,
   svn_stringbuf_t *path = svn_stringbuf_dup (pb->path, subpool);
   svn_path_add_component (path, name, svn_path_repos_style);
 
-  /* Sanity check. */
+  /* Sanity check. */  
   if (copyfrom_path && (copyfrom_revision <= 0))
-    return
-      svn_error_createf
+    return 
+      svn_error_createf 
       (SVN_ERR_FS_GENERAL, 0, NULL, eb->pool,
        "fs editor: add_dir `%s': got copyfrom_path, but no copyfrom_rev",
        name->data);
@@ -252,13 +252,13 @@ add_directory (svn_stringbuf_t *name,
   new_dirb->ref_count = 1;
   new_dirb->subpool = subpool;
   new_dirb->path = path;
-
+  
   /* Increment parent's refcount. */
   pb->ref_count++;
 
   if (copyfrom_path)
     {
-      svn_stringbuf_t *repos_path;
+      svn_stringbuf_t *repos_path; 
       svn_stringbuf_t *fs_path;
       svn_fs_root_t *copyfrom_root;
       svn_node_kind_t kind;
@@ -276,14 +276,14 @@ add_directory (svn_stringbuf_t *name,
       /* For now, require that the url come from the same repository
          that this commit is operating on. */
       if (! svn_stringbuf_compare (eb->session->repos_path, repos_path))
-            return
-              svn_error_createf
+            return 
+              svn_error_createf 
               (SVN_ERR_FS_GENERAL, 0, NULL, eb->pool,
                "fs editor: add_dir`%s': copyfrom_url is from different repo",
                name->data);
-
+      
       /* Now use the "fs_path" as an absolute path within the
-         repository to make the copy from. */
+         repository to make the copy from. */      
       SVN_ERR (svn_fs_revision_root (&copyfrom_root, eb->fs,
                                      copyfrom_revision, new_dirb->subpool));
 
@@ -295,7 +295,7 @@ add_directory (svn_stringbuf_t *name,
     {
       /* No ancestry given, just make a new directory.  We don't
          bother with an out-of-dateness check here because
-         svn_fs_make_dir will error out if PATH already exists.  */
+         svn_fs_make_dir will error out if PATH already exists.  */      
       SVN_ERR (svn_fs_make_dir (eb->txn_root, new_dirb->path->data,
                                 new_dirb->subpool));
     }
@@ -378,12 +378,12 @@ apply_textdelta (void *file_baton,
 {
   struct file_baton *fb = file_baton;
   struct edit_baton *eb = fb->parent->edit_baton;
-
+  
   /* This routine is a mindless wrapper. */
   SVN_ERR (svn_fs_apply_textdelta (handler, handler_baton,
                                    eb->txn_root, fb->path->data,
                                    fb->subpool));
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -404,10 +404,10 @@ add_file (svn_stringbuf_t *name,
   svn_stringbuf_t *path = svn_stringbuf_dup (pb->path, subpool);
   svn_path_add_component (path, name, svn_path_repos_style);
 
-  /* Sanity check. */
+  /* Sanity check. */  
   if (copy_path && (copy_revision <= 0))
-    return
-      svn_error_createf
+    return 
+      svn_error_createf 
       (SVN_ERR_FS_GENERAL, 0, NULL, eb->pool,
        "fs editor: add_file `%s': got copy_path, but no copy_rev",
        name->data);
@@ -422,8 +422,8 @@ add_file (svn_stringbuf_t *name,
   pb->ref_count++;
 
   if (copy_path)
-    {
-      svn_stringbuf_t *repos_path;
+    {      
+      svn_stringbuf_t *repos_path; 
       svn_stringbuf_t *fs_path;
       svn_fs_root_t *copy_root;
       svn_node_kind_t kind;
@@ -441,14 +441,14 @@ add_file (svn_stringbuf_t *name,
       /* For now, require that the url come from the same repository
          that this commit is operating on. */
       if (! svn_stringbuf_compare (eb->session->repos_path, repos_path))
-            return
-              svn_error_createf
+            return 
+              svn_error_createf 
               (SVN_ERR_FS_GENERAL, 0, NULL, eb->pool,
                "fs editor: add_file`%s': copyfrom_url is from different repo",
                name->data);
-
+      
       /* Now use the "fs_path" as an absolute path within the
-         repository to make the copy from. */
+         repository to make the copy from. */      
       SVN_ERR (svn_fs_revision_root (&copy_root, eb->fs,
                                      copy_revision, new_fb->subpool));
 
@@ -492,16 +492,16 @@ open_file (svn_stringbuf_t *name,
   new_fb->parent = pb;
   new_fb->subpool = subpool;
   new_fb->path = path;
-
+  
   /* Get this node's creation revision (doubles as an existence check). */
   SVN_ERR (svn_fs_node_created_rev (&cr_rev, eb->txn_root,
                                     path->data, new_fb->subpool));
-
+  
   /* If the node our caller has has an older revision number than the
      one in our transaction, return an out-of-dateness error. */
   if (base_revision < cr_rev)
     return out_of_date (path->data, eb->txn_name, subpool);
-
+  
   /* Increment parent's refcount. */
   pb->ref_count++;
 
@@ -663,14 +663,14 @@ svn_ra_local__get_editor (svn_delta_edit_fns_t **editor,
 
   *edit_baton = eb;
   *editor = e;
-
+  
   return SVN_NO_ERROR;
 }
 
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
