@@ -40,7 +40,7 @@
    addition, but does extra administrative things to allow it to
    function as a 'copy'. */
 static svn_error_t *
-copy_file_administratively (svn_stringbuf_t *src_path,
+copy_file_administratively (svn_stringbuf_t *src_path, 
                             svn_stringbuf_t *dst_parent,
                             svn_stringbuf_t *dst_basename,
                             apr_pool_t *pool)
@@ -49,7 +49,7 @@ copy_file_administratively (svn_stringbuf_t *src_path,
 
   svn_stringbuf_t *dst_path = svn_stringbuf_dup (dst_parent, pool);
   svn_path_add_component (dst_path, dst_basename, svn_path_local_style);
-
+  
   /* Make an actual copy of the file. */
   SVN_ERR (svn_io_copy_file (src_path, dst_path, pool));
 
@@ -58,7 +58,7 @@ copy_file_administratively (svn_stringbuf_t *src_path,
   SVN_ERR (svn_wc_add_file (dst_path, pool));
 
   /* Copy the pristine file over.  Why?  Because it's the only way we
-     can detect any upcoming local mods on the copy.
+     can detect any upcoming local mods on the copy. 
 
      Do the copy in a crash-proof way; open one text-base for reading,
      and the "new" text-base for writing.  Suck data from one to
@@ -89,7 +89,7 @@ copy_file_administratively (svn_stringbuf_t *src_path,
 
 
 static svn_error_t *
-copy_dir_administratively (svn_stringbuf_t *src_path,
+copy_dir_administratively (svn_stringbuf_t *src_path, 
                            svn_stringbuf_t *dst_parent,
                            svn_stringbuf_t *dst_basename,
                            apr_pool_t *pool)
@@ -116,11 +116,11 @@ svn_wc_copy (svn_stringbuf_t *src_path,
   enum svn_node_kind src_kind;
 
   /* ### stat the src_path, then: */
-
+  
   if (src_kind == svn_node_file)
     SVN_ERR (copy_file_administratively (src_path, dst_parent,
                                          dst_basename, pool));
-
+  
   else if (src_kind == svn_node_dir)
     SVN_ERR (copy_dir_administratively (src_path, dst_parent,
                                         dst_basename, pool));
@@ -131,7 +131,7 @@ svn_wc_copy (svn_stringbuf_t *src_path,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end: */
