@@ -80,7 +80,7 @@ main (int argc, const char * const *argv)
       printf ("md5 checksum has unexpected length.\n");
       exit (-2);
     }
-
+  
   /* Build the string of space-separated arguments. */
   string = svn_stringbuf_create ("", pool);
   for (i = 2; i < (argc - 1); i++)
@@ -97,7 +97,7 @@ main (int argc, const char * const *argv)
   digest_str = svn_stringbuf_create ("", pool);
   for (i = 0; i < MD5_DIGESTSIZE; i++)
     {
-      svn_stringbuf_t *tmp_str =
+      svn_stringbuf_t *tmp_str = 
         svn_stringbuf_createf (pool, "%02X", digest[i]);
       svn_stringbuf_appendstr (digest_str, tmp_str);
     }
@@ -118,7 +118,7 @@ main (int argc, const char * const *argv)
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../svn-dev.el")
  * end:
