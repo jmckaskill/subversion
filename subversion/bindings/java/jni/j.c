@@ -28,7 +28,7 @@
 /*** Code ***/
 
 jclass
-j__get_class(JNIEnv *env, jboolean *hasException,
+j__get_class(JNIEnv *env, jboolean *hasException, 
              char *className)
 {
   jclass result = NULL;
@@ -72,14 +72,14 @@ j__get_method(JNIEnv *env, jboolean *hasException,
   fprintf(stderr, ")\n");
 #endif
 
-  result = (*env)->GetMethodID(env, class, methodName,
+  result = (*env)->GetMethodID(env, class, methodName, 
                                methodSignature);
 
   if( result == NULL )
     {
       _hasException = JNI_TRUE;
     }
-
+  
 #ifdef SVN_JNI_J__DEBUG
   SVN_JNI__DEBUG_PTR(result);
   SVN_JNI__DEBUG_BOOL(_hasException);
@@ -114,7 +114,7 @@ void j__set_int(JNIEnv *env, jboolean *hasException,
    * needed references:
    * - class
    * - method
-   * = 2
+   * = 2 
    */
   if( (*env)->PushLocalFrame(env, 2) < 0 )
     {
@@ -171,7 +171,7 @@ void j__set_long(JNIEnv *env, jboolean *hasException,
    * needed references:
    * - class
    * - method
-   * = 2
+   * = 2 
    */
   if( (*env)->PushLocalFrame(env, 2) < 0 )
     {
@@ -228,7 +228,7 @@ void j__set_boolean(JNIEnv *env, jboolean *hasException,
    * needed references:
    * - class
    * - method
-   * = 2
+   * = 2 
    */
   if( (*env)->PushLocalFrame(env, 2) < 0 )
     {
@@ -286,7 +286,7 @@ void j__set_object(JNIEnv *env, jboolean *hasException,
    * needed references:
    * - class
    * - method
-   * = 2
+   * = 2 
    */
   if( (*env)->PushLocalFrame(env, 2) < 0 )
     {
@@ -323,10 +323,10 @@ void j__set_object(JNIEnv *env, jboolean *hasException,
     }
 }
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../svn-dev.el")
- * end:
+ * end: 
  */
 
 
