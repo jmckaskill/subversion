@@ -212,7 +212,7 @@ parse_option (int *pch, parse_context_t *ctx)
  * the line.  Set *PCH to the character that ended the line (either
  * newline or EOF), and set CTX->section to the string of characters
  * seen before ']'.
- *
+ * 
  * This is meant to be called immediately after reading the '[' that
  * starts a section name.
  */
@@ -299,7 +299,7 @@ svn_config__user_config_path (const char *config_dir,
       *path_p = svn_path_join_many(pool, config_dir, fname, NULL);
       return SVN_NO_ERROR;
     }
-
+  
 #ifdef WIN32
   {
     const char *folder;
@@ -339,7 +339,7 @@ svn_config__user_config_path (const char *config_dir,
     *path_p = svn_path_join_many (pool,
                                   svn_path_canonicalize (homedir_utf8, pool),
                                   SVN_CONFIG__USR_DIRECTORY, fname, NULL);
-
+    
   }
 #endif /* WIN32 */
 
@@ -519,7 +519,7 @@ ensure_auth_dirs (const char *path,
       svn_error_clear (err);
       svn_error_clear (svn_io_dir_make (auth_subdir, APR_OS_DEFAULT, pool));
     }
-
+      
   auth_subdir = svn_path_join_many (pool, auth_dir,
                                     SVN_AUTH_CRED_USERNAME, NULL);
   err = svn_io_check_path (auth_subdir, &kind, pool);
@@ -822,7 +822,7 @@ svn_config_ensure (const char *config_dir, apr_pool_t *pool)
 
       if (! err)
         {
-          SVN_ERR (svn_io_file_write_full (f, contents,
+          SVN_ERR (svn_io_file_write_full (f, contents, 
                                            strlen (contents), NULL, pool));
           SVN_ERR (svn_io_file_close (f, pool));
         }
@@ -840,7 +840,7 @@ svn_config_ensure (const char *config_dir, apr_pool_t *pool)
   err = svn_io_check_path (path, &kind, pool);
   if (err)
     return SVN_NO_ERROR;
-
+  
   if (kind == svn_node_none)
     {
       apr_file_t *f;
@@ -871,7 +871,7 @@ svn_config_ensure (const char *config_dir, apr_pool_t *pool)
         APR_EOL_STR
         "###   ssl-authority-files        List of files, each of a trusted CAs"
         APR_EOL_STR
-        "###   ssl-trust-default-ca       Trust the system 'default' CAs"
+        "###   ssl-trust-default-ca       Trust the system 'default' CAs" 
         APR_EOL_STR
         "###   ssl-client-cert-file       PKCS#12 format client "
         "certificate file"
@@ -1001,7 +1001,7 @@ svn_config_ensure (const char *config_dir, apr_pool_t *pool)
 
       if (! err)
         {
-          SVN_ERR (svn_io_file_write_full (f, contents,
+          SVN_ERR (svn_io_file_write_full (f, contents, 
                                            strlen (contents), NULL, pool));
           SVN_ERR (svn_io_file_close (f, pool));
         }
@@ -1019,7 +1019,7 @@ svn_config_ensure (const char *config_dir, apr_pool_t *pool)
   err = svn_io_check_path (path, &kind, pool);
   if (err)
     return SVN_NO_ERROR;
-
+  
   if (kind == svn_node_none)
     {
       apr_file_t *f;
@@ -1147,7 +1147,7 @@ svn_config_ensure (const char *config_dir, apr_pool_t *pool)
         APR_EOL_STR
         "### path separator.  A single backslash will be treated as an"
         APR_EOL_STR
-        "### escape for the following character."
+        "### escape for the following character." 
         APR_EOL_STR
         APR_EOL_STR
         "### Section for configuring miscelleneous Subversion options."
@@ -1216,7 +1216,7 @@ svn_config_ensure (const char *config_dir, apr_pool_t *pool)
         "# Makefile = svn:eol-style=native"
         APR_EOL_STR
         APR_EOL_STR;
-
+        
       err = svn_io_file_open (&f, path,
                               (APR_WRITE | APR_CREATE | APR_EXCL),
                               APR_OS_DEFAULT,
@@ -1224,7 +1224,7 @@ svn_config_ensure (const char *config_dir, apr_pool_t *pool)
 
       if (! err)
         {
-          SVN_ERR (svn_io_file_write_full (f, contents,
+          SVN_ERR (svn_io_file_write_full (f, contents, 
                                            strlen (contents), NULL, pool));
           SVN_ERR (svn_io_file_close (f, pool));
         }
