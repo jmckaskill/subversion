@@ -53,7 +53,7 @@ get_time (apr_time_t *tm,
 
   SVN_ERR (svn_fs_revision_prop (&date_str, fs, rev, SVN_PROP_REVISION_DATE,
                                  pool));
-  if (! date_str)
+  if (! date_str)    
     return svn_error_createf
       (SVN_ERR_FS_GENERAL, 0, NULL, pool,
        "failed to find tm on revision %" SVN_REVNUM_T_FMT, rev);
@@ -83,7 +83,7 @@ svn_repos_dated_revision (svn_revnum_t *revision,
     {
       rev_mid = (rev_top + rev_bot) / 2;
       SVN_ERR (get_time (&this_time, fs, rev_mid, pool));
-
+      
       if (this_time > tm)/* we've overshot */
         {
           apr_time_t previous_time;
@@ -114,7 +114,7 @@ svn_repos_dated_revision (svn_revnum_t *revision,
               *revision = rev_latest;
               break;
             }
-
+          
           /* see if time falls between rev_mid and rev_mid+1: */
           SVN_ERR (get_time (&next_time, fs, rev_mid + 1, pool));
           if (next_time > tm)
@@ -145,10 +145,10 @@ svn_repos_dated_revision (svn_revnum_t *revision,
       - set *COMMITTED_REV to the revision in which the object was
         last modified.  (In fs parlance, this is the revision in which
         the particular node-rev-id was 'created'.)
-
+    
       - set *COMMITTED_DATE to the date of said revision.
 
-      - set *LAST_AUTHOR to the author of said revision.
+      - set *LAST_AUTHOR to the author of said revision.    
  */
 svn_error_t *
 svn_repos_get_committed_info (svn_revnum_t *committed_rev,
@@ -159,7 +159,7 @@ svn_repos_get_committed_info (svn_revnum_t *committed_rev,
                               apr_pool_t *pool)
 {
   svn_fs_t *fs = svn_fs_root_fs (root);
-
+  
   /* Get the CR field out of the node's skel. */
   SVN_ERR (svn_fs_node_created_rev (committed_rev, root, path->data, pool));
 
@@ -170,7 +170,7 @@ svn_repos_get_committed_info (svn_revnum_t *committed_rev,
   /* Get the author property of this revision. */
   SVN_ERR (svn_fs_revision_prop (last_author, fs, *committed_rev,
                                  SVN_PROP_REVISION_AUTHOR, pool));
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -178,7 +178,7 @@ svn_repos_get_committed_info (svn_revnum_t *committed_rev,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end:
