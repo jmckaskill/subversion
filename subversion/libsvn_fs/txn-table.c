@@ -129,7 +129,7 @@ allocate_txn_id (char **id_p,
     SVN_ERR (DB_WRAP (fs, "allocating new transaction ID (setting `next-id')",
                       fs->transactions->put (fs->transactions, trail->db_txn,
                                              &key,
-                                             svn_fs__set_dbt (&value,
+                                             svn_fs__set_dbt (&value, 
                                                               buf, buf_len),
                                              0)));
   }
@@ -155,7 +155,7 @@ svn_fs__create_txn (char **txn_name_p,
   txn.proplist = NULL;
   SVN_ERR (put_txn (fs, &txn, txn_name, trail));
 
-  *txn_name_p = txn_name;
+  *txn_name_p = txn_name; 
   return SVN_NO_ERROR;
 }
 
@@ -219,7 +219,7 @@ svn_fs__get_txn_ids (svn_fs_id_t **root_id_p,
                      trail_t *trail)
 {
   svn_fs__transaction_t *txn;
-
+  
   SVN_ERR (svn_fs__get_txn (&txn, fs, txn_name, trail));
   *root_id_p = txn->root_id;
   *base_root_id_p = txn->base_root_id;
@@ -353,9 +353,9 @@ txn_body_txn_prop (void *baton,
 {
   struct txn_prop_args *args = baton;
   svn_fs__transaction_t *txn;
-
+  
   SVN_ERR (svn_fs__get_txn (&txn, args->fs, args->id, trail));
-  *(args->value_p) = apr_hash_get (txn->proplist,
+  *(args->value_p) = apr_hash_get (txn->proplist, 
                                    args->propname, APR_HASH_KEY_STRING);
   return SVN_NO_ERROR;
 }
@@ -465,7 +465,7 @@ static svn_error_t *
 txn_body_change_txn_prop (void *baton, trail_t *trail)
 {
   struct change_txn_prop_args *args = baton;
-  return svn_fs__set_txn_prop (args->fs, args->id, args->name,
+  return svn_fs__set_txn_prop (args->fs, args->id, args->name, 
                                args->value, trail);
 }
 
@@ -491,7 +491,7 @@ svn_fs_change_txn_prop (svn_fs_txn_t *txn,
 }
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end:
