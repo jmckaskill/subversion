@@ -67,7 +67,7 @@ II. New Client Behaviors
          is necessary;  ideally, it would prevent a user from
          beginning work in the first place.  If a lock already exists,
          a user should be able to see who created it, when, and why.
-
+ 
    C. Lock manipulation via client
 
       1. Lock Representations in the Working Copy
@@ -93,7 +93,7 @@ II. New Client Behaviors
             To lock a path:
 
                - A user must be authenticated to the server
-               - The path must not already be locked.
+               - The path must not already be locked.  
 
             Upon successfully locking a path, the working copy retains
             a representation of the lock.
@@ -151,7 +151,7 @@ II. New Client Behaviors
             username or lock representation.)
 
          e. Discovering/examining locks
-
+         
             The Subversion client provides interfaces to answer the
             following questions:
 
@@ -174,7 +174,7 @@ III. New Server Behaviors
 
          As noted in section II.A.1, a lock grants one user the
          exclusive right to change a certain path from a specific
-         working copy.
+         working copy.  
 
       2. Attributes of a lock
 
@@ -192,18 +192,18 @@ III. New Server Behaviors
 
       The Subversion server holds the master list of all locks for a
       repository.  It responds to client requests to create, release,
-      break and steal locks.
+      break and steal locks.  
 
       When a client asks about a lock, the server reports whether the
       lock is valid or is defunct (i.e. the server no longer has a
       lock corresponding to the lock representation in question).
       When a client creates or steals a lock, the server returns a
-      lock representation.
+      lock representation. 
 
    C. Enforcement
 
       During a commit, the server checks for locks the same way that
-      it checks for out-of-dateness.
+      it checks for out-of-dateness.  
 
       As each changed path arrives, the server checks to see if the
       path is locked.  If the path is locked, the server makes certain
@@ -215,7 +215,7 @@ III. New Server Behaviors
       commit finalization.
 
    D. Configurable Mechanisms
-
+   
       The server provides mechanisms to enable diverse administrative
       locking policies, including:
 
