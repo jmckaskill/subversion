@@ -54,7 +54,7 @@ int main(int argc, char **argv)
       if (target)
         printf("%s, ", ((svn_string_t **)condensed_targets->elts)[i]->data);
       else
-        printf("NULL, ");
+        printf("NULL, "); 
     }
   printf("\n");
 
