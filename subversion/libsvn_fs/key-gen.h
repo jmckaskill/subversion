@@ -70,7 +70,7 @@ void svn_fs__next_key (const char *this, apr_size_t *len, char *next);
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:

@@ -57,11 +57,11 @@ svn_cl__copy (apr_getopt_t *os,
     }
 
   /* Take our message from ARGV or a FILE */
-  if (opt_state->filedata)
+  if (opt_state->filedata) 
     message = opt_state->filedata;
   else
     message = opt_state->message;
-
+  
   /* Build an authentication object to give to libsvn_client. */
   auth_baton = svn_cl__make_auth_baton (opt_state, pool);
 
@@ -83,10 +83,10 @@ svn_cl__copy (apr_getopt_t *os,
     {
       /* WC->URL : Use commit trace editor. */
       /* ### todo:
-
+         
          We'd like to use the trace commit editor, but we have a
          couple of problems with that:
-
+         
          1) We don't know where the commit editor for this case will
             be anchored with respect to the repository, so we can't
             use the DST_URL.
@@ -96,7 +96,7 @@ svn_cl__copy (apr_getopt_t *os,
             basenames will be chosen for our committed things.  So a
             copy of dir1/foo.c to http://.../dir2/foo-copy-c would
             display like: "Adding   dir1/foo-copy.c", which could be a
-            bogus path.
+            bogus path. 
       */
       /*
       svn_stringbuf_t *src_parent = svn_stringbuf_dup (src_path, pool);
@@ -116,8 +116,8 @@ svn_cl__copy (apr_getopt_t *os,
     /* URL->URL : No trace editor needed. */
     ;
 
-  SVN_ERR (svn_client_copy
-           (src_path, opt_state->start_revision, dst_path, auth_baton,
+  SVN_ERR (svn_client_copy 
+           (src_path, opt_state->start_revision, dst_path, auth_baton, 
             message ? message : svn_stringbuf_create ("", pool),
             NULL, NULL,                     /* no before_editor */
             trace_editor, trace_edit_baton, /* one after_editor */
@@ -128,8 +128,8 @@ svn_cl__copy (apr_getopt_t *os,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../svn-dev.el")
- * end:
+ * end: 
  */

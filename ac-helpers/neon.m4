@@ -1,6 +1,6 @@
 dnl   SVN_LIB_NEON(version)
 dnl
-dnl   Search for a suitable version of neon, it must be
+dnl   Search for a suitable version of neon, it must be 
 dnl   the exact version 'version'.
 dnl
 dnl   If there is a neon/ subdir we assume we want to use it.
@@ -8,8 +8,8 @@ dnl   If the subdir is the wrong version we exit with a failure
 dnl   regardless if neon is installed somewhere else on the system.
 dnl
 dnl   If there isn't a neon/ subdir then we look for 'neon-config'
-dnl   in PATH (or the location specified by a --with-neon=PATH
-dnl   switch).
+dnl   in PATH (or the location specified by a --with-neon=PATH 
+dnl   switch).  
 
 AC_DEFUN(SVN_LIB_NEON,
 [
@@ -20,9 +20,9 @@ AC_DEFUN(SVN_LIB_NEON,
   AC_MSG_NOTICE([checking neon library])
 
   AC_ARG_WITH(neon,
-              [AC_HELP_STRING([--with-neon=PREFIX],
-	      [Determine neon library configuration based on
-	      'PREFIX/bin/neon-config'. Default is to search for neon
+              [AC_HELP_STRING([--with-neon=PREFIX], 
+	      [Determine neon library configuration based on 
+	      'PREFIX/bin/neon-config'. Default is to search for neon 
 	      in a subdirectory of the top source directory and then to
 	      look for neon-config in $PATH.])],
   [
@@ -54,7 +54,7 @@ Please either remove that subdir or don't use the --with-neon option.])
 dnl Configure neon --------------------------
         # The arguments passed to this configure script are passed down to
         # neon's configure script, but, since neon defaults to *not* building
-        # shared libs, and we default to building shared libs, we have to
+        # shared libs, and we default to building shared libs, we have to 
         # explicitly pass down an --{enable,disable}-shared argument, to make
         # sure neon does the same as we do.
         if test "$enable_shared" = "yes"; then
@@ -62,7 +62,7 @@ dnl Configure neon --------------------------
         else
           args="--disable-shared"
         fi
-
+  
         SVN_SUBDIR_CONFIG(neon, $args --with-expat="$abs_srcdir/expat-lite/libexpat.la")
 
         if test -f "$abs_builddir/neon/neon-config" ; then
@@ -114,7 +114,7 @@ dnl Configure neon --------------------------
                          -e "s|-I/usr/include$||g"`
 
   ])
-
+  
   AC_SUBST(SVN_NEON_INCLUDES)
   AC_SUBST(NEON_LIBS)
 ])

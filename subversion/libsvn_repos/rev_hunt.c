@@ -52,7 +52,7 @@ get_time (apr_time_t *tm,
 
   SVN_ERR (svn_fs_revision_prop (&date_str, fs, rev, SVN_PROP_REVISION_DATE,
                                  pool));
-  if (! date_str)
+  if (! date_str)    
     return svn_error_createf
       (SVN_ERR_FS_GENERAL, 0, NULL, pool,
        "failed to find tm on revision %ld", rev);
@@ -81,7 +81,7 @@ svn_repos_dated_revision (svn_revnum_t *revision,
     {
       rev_mid = (rev_top + rev_bot) / 2;
       SVN_ERR (get_time (&this_time, fs, rev_mid, pool));
-
+      
       if (this_time > tm)/* we've overshot */
         {
           apr_time_t previous_time;
@@ -112,7 +112,7 @@ svn_repos_dated_revision (svn_revnum_t *revision,
               *revision = rev_latest;
               break;
             }
-
+          
           /* see if time falls between rev_mid and rev_mid+1: */
           SVN_ERR (get_time (&next_time, fs, rev_mid + 1, pool));
           if (next_time > tm)
@@ -138,7 +138,7 @@ svn_repos_dated_revision (svn_revnum_t *revision,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:

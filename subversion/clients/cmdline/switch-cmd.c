@@ -64,15 +64,15 @@ svn_cl__switch (apr_getopt_t *os,
   str.data = repos_url->data;
   str.len = repos_url->len;
   if (! svn_path_is_url (&str))
-    return svn_error_createf
-      (SVN_ERR_BAD_URL, 0, NULL, pool,
+    return svn_error_createf 
+      (SVN_ERR_BAD_URL, 0, NULL, pool, 
        "`%s' does not appear to be a URL", repos_url->data);
 
   /* Validate the TARGET */
   SVN_ERR (svn_wc_entry (&entry, target, pool));
   if (! entry)
-    return svn_error_createf
-      (SVN_ERR_WC_ENTRY_NOT_FOUND, 0, NULL, pool,
+    return svn_error_createf 
+      (SVN_ERR_WC_ENTRY_NOT_FOUND, 0, NULL, pool, 
        "`%s' does not appear to be a working copy path", target->data);
 
   return svn_error_create (SVN_ERR_UNSUPPORTED_FEATURE, 0, NULL, pool,
@@ -80,8 +80,8 @@ svn_cl__switch (apr_getopt_t *os,
 }
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../svn-dev.el")
- * end:
+ * end: 
  */

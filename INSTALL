@@ -4,7 +4,7 @@
                       A Guide for Newcomers
                ======================================
 
-
+               
    ********************************************************************
    ***                                                              ***
    ***  Note: this is PRE-ALPHA code.  Don't use it on real data,   ***
@@ -73,7 +73,7 @@ I.  INSTALLATION
 
          $ ./configure --enable-maintainer-mode --disable-shared
          $ make
-         $ make check    (optional)
+         $ make check    (optional)           
          # make install
 
       The flags to `configure' are highly recommended for developers,
@@ -114,7 +114,7 @@ I.  INSTALLATION
       Berkeley DB is needed to build a Subversion server, or to access
       a repository on local disk.  If you are only interested in
       building a Subversion client that speaks to a remote (networked)
-      repository, you don't need it.
+      repository, you don't need it.  
 
       You'll need Berkeley DB 3.3.11 or higher installed on your
       system.  You can get it from http://www.sleepycat.com/.
@@ -170,7 +170,7 @@ II.  QUICKSTART GUIDE
            - handles 'http' schema
          * ra_local : Module for accessing a repository on local disk.
            - handles 'file' schema
-
+           
 
       If you don't see ra_local, it probably means that Berkeley DB
       wasn't found when compiling your client binary.  If you don't
@@ -204,9 +204,9 @@ II.  QUICKSTART GUIDE
       Also, watch out for 'ownership' pitfalls.  Notice who has the
       rights to modify the .db files in the repository.  Repository
       commit access is ultimately determined by whomever has the
-      rights to modify the .db files.
+      rights to modify the .db files.  
 
-
+      
       3. CREATING A SUBVERSION SERVER
 
       Subversion uses Apache 2.0 as its network server.  Apache's
@@ -219,7 +219,7 @@ II.  QUICKSTART GUIDE
       all sorts of Apache errors.  Often people create a special 'svn'
       user who owns the repository, and folks put a line into
       httpd.conf that tells Apache to run as that special user.
-
+      
       Compiling Apache and mod_dav_svn is a separate project; please
       read the document 'www/server_setup.html' for detailed
       instructions.

@@ -67,7 +67,7 @@ and moved into the master documentation, of course.</i>
 
 5.  Go back into your subversion working copy and run ./autogen.sh if
     you need to.  Then run
-
+ 
       ./configure --with-apxs=/usr/local/apache2/bin/apxs
 
     This argument tells subversion to build mod_dav_svn, and where to
@@ -131,7 +131,7 @@ ADDENDUM:     Debugging Apache
 'mod_dav_svn.so' contains the main Subversion server logic;  it runs
 as a module within mod_dav, which runs as a module within httpd.
 
-If you need to debug the server, follow this recipe:
+If you need to debug the server, follow this recipe:  
 
   % gdb httpd
   (gdb) run -X

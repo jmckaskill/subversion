@@ -44,7 +44,7 @@
 
 /*** Command dispatch. ***/
 
-/* Map names to command routine, etc.
+/* Map names to command routine, etc. 
  *
  * Canonical name entries must come immediately before their aliases.
  * For example, "add" must be the first of the add commands listed,
@@ -56,7 +56,7 @@
  *
  * The entire list must be terminated with a entry of nulls.
  */
-const svn_cl__cmd_desc_t svn_cl__cmd_table[] =
+const svn_cl__cmd_desc_t svn_cl__cmd_table[] = 
 {
   { "add",        FALSE, svn_cl__add,
     "Add new files and directories to version control.\n"
@@ -125,7 +125,7 @@ const svn_cl__cmd_desc_t svn_cl__cmd_table[] =
   { "mv",         TRUE, NULL, NULL },
   { "ren",        TRUE, NULL, NULL },
 
-  { "propdel",    FALSE, svn_cl__propdel,
+  { "propdel",    FALSE, svn_cl__propdel, 
     "Remove property PROPNAME on files and directories.\n"
     "usage: propdel PROPNAME [TARGETS]\n"},
   { "pdel",       TRUE, NULL, NULL },
@@ -142,7 +142,7 @@ const svn_cl__cmd_desc_t svn_cl__cmd_table[] =
   { "plist",      TRUE, NULL, NULL },
   { "pl",         TRUE, NULL, NULL },
 
-  { "propset",    FALSE, svn_cl__propset,
+  { "propset",    FALSE, svn_cl__propset, 
     "Set property PROPNAME to PROPVAL on files and directories.\n"
     "usage: propset PROPNAME [PROPVAL | -F/--filedata VALFILE] "
     "[TARGETS]\n"},
@@ -158,13 +158,13 @@ const svn_cl__cmd_desc_t svn_cl__cmd_table[] =
     "usage: status [TARGETS]\n" },
   { "stat",       TRUE, NULL, NULL },
   { "st",         TRUE, NULL, NULL },
-
+ 
   { "switch",     FALSE, svn_cl__switch,
     "Update existing working copy files and directories to become\n"
     "a working copy of a different repository URL.\n"
     "usage: switch [TARGET] REPOS_URL\n" },
   { "sw",         TRUE, NULL, NULL },
-
+ 
   { "update",     FALSE, svn_cl__update,
     "Bring changes from the repository into the working copy.\n"
     "usage: update [TARGETS]\n" },
@@ -183,7 +183,7 @@ static int
 validate_revision (const char *rev)
 {
   const char *p;
-
+  
   for (p = rev; *p; p++)
     {
       if ((*p < '0') || (*p > '9'))
@@ -210,28 +210,28 @@ validate_revision (const char *rev)
             }
         }
     }
-
+  
   return 0;
 }
 
 
 /* Set OPT_STATE->start_revision and/or OPT_STATE->end_revision
  * according to ARG, where ARG is "N", "N:", ":N", or "N:M", like so:
- *
+ * 
  *    - If ARG is "N", set both OPT_STATE->start_revision and
  *      OPT_STATE->end_revision to N.
  *
  *    - If ARG is "N:head", set OPT_STATE->start_revision to N and
  *      OPT_STATE->end_revision to SVN_INVALID_REVNUM.
- *
+ * 
  *    - If ARG is "head:N", set OPT_STATE->start_revision to
  *      SVN_INVALID_REVNUM and OPT_STATE->end_revision to N.
- *
+ * 
  *    - If ARG is "N:M", set OPT_STATE->start_revision to N and
  *      OPT_STATE->end_revision to M.
- *
+ * 
  * The special case "head" is case-insensitive and may also be written
- * "h" or "H"; it is implied when a revision number is simply omitted.
+ * "h" or "H"; it is implied when a revision number is simply omitted. 
  * It means the youngest revision, which is expressed by setting the
  * appropriate field to SVN_INVALID_REVNUM.
  *
@@ -261,9 +261,9 @@ parse_revision (svn_cl__opt_state_t *os, const char *arg, apr_pool_t *pool)
   if ((validate_revision (left_rev) != 0)
       || (validate_revision (right_rev) != 0))
     return 1;
-
+    
   /* Okay, no syntax problems, parse 'em. */
-
+  
   if ((left_rev[0] == 'h') || (left_rev[0] == 'H') || (left_rev[0] == '\0'))
     os->start_revision = SVN_INVALID_REVNUM;
   else
@@ -280,19 +280,19 @@ parse_revision (svn_cl__opt_state_t *os, const char *arg, apr_pool_t *pool)
 
 /* Set OPT_STATE->start_date and/or OPT_STATE->end_date according to
  * ARG, where ARG is "X", ":X", or "X:Y", like so:
- *
+ * 
  *    - If ARG is "X" set both OPT_STATE->start_date and
         OPT_STATE->end_date to X.
- *
+ * 
  *    - If ARG is "X:", set OPT_STATE->start_date to X and don't
  *      touch OPT_STATE->end_date.
- *
+ * 
  *    - If ARG is ":X", don't touch OPT_STATE->end_date, and set
  *      OPT_STATE->end_date to X.
- *
+ * 
  *    - If ARG is "X:Y", set OPT_STATE->start_date to X and
  *      OPT_STATE->end_date to Y.
- *
+ * 
  * If ARG is invalid, return non-zero; else return zero.
  *
  * ### todo: think more carefully about date range syntax, change this
@@ -365,7 +365,7 @@ main (int argc, const char * const *argv)
 
   static const apr_getopt_option_t options[] =
   {
-    {"destination",   'd', 1},
+    {"destination",   'd', 1}, 
     {"force",         svn_cl__force_opt, 0},
     {"help",          'h', 0},
     {"message",       'm', 1},
@@ -382,7 +382,7 @@ main (int argc, const char * const *argv)
     {"show-updates",  'u', 0},
     /* Here begin authentication args, add more as needed: */
     {"username",      svn_cl__auth_username_opt, 1},
-    {"password",      svn_cl__auth_password_opt, 1},
+    {"password",      svn_cl__auth_password_opt, 1},    
     {"extensions",    'x', 1},
     {0,               0, 0}
   };
@@ -540,7 +540,7 @@ main (int argc, const char * const *argv)
       default:
         /* Hmmm. Perhaps this would be a good place to squirrel away
            opts that commands like svn diff might need. Hmmm indeed. */
-        break;
+        break;  
       }
     }
 
@@ -596,8 +596,8 @@ main (int argc, const char * const *argv)
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../svn-dev.el")
- * end:
+ * end: 
  */

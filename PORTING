@@ -1,17 +1,17 @@
 # The purpose of this document is to provide information for people who:
-#
+# 
 # - want to know if subversions builds on a particular platform
 # - are interested in porting Subversion to a particular platform
-#
+# 
 # Entries should look something like this:
 ####
 # arch-company-os:
 #    Client:     Build OK, Check OK.
-#    Filesystem: Failed due to something something
+#    Filesystem: Failed due to something something    
 #    Last Check: 17 Feb 2001
 #    Porter:     J. Random Hacker <jrandom@example.com>
 #
-#    Notes:
+#    Notes: 
 #    -- Still cannot build with --wapcapplet-enabled
 #    -- The dependency on the wanglethorpe is really making things
 #       unreasonably hard here. I'm going to try to link against the
@@ -96,7 +96,7 @@ powerpc-apple-darwin1.4/5.1 (Mac OS X 10.1.[01]):
      Last Check: 21 Nov 2001
      Porter:     Brian Fitzpatrick <fitz@apple.com>
 
-     Notes:
+     Notes: 
      --haven't tried to build apr with dso enabled.
      --haven't gotten around to building the svn server either.
      --needs autoconf 2.52 (get from GNU)

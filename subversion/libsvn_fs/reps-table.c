@@ -134,7 +134,7 @@ svn_fs__write_new_rep (const char **key,
                             310762507339484047393505519345657439796788
                             24151197232629947748581376.  Somebody warn
                             my grandchildren. */
-
+  
   /* ### todo: see issue #409 for why bumping the key as part of this
      trail is problematic. */
 
@@ -192,7 +192,7 @@ svn_fs__delete_rep (svn_fs_t *fs, const char *key, trail_t *trail)
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:

@@ -45,7 +45,7 @@ svn_cl__print_prop_hash (apr_hash_t *prop_hash,
       const void *key;
       apr_ssize_t klen;
       void *val;
-
+      
       svn_stringbuf_t *propkey, *propval;
 
       /* Get next property */
@@ -54,13 +54,13 @@ svn_cl__print_prop_hash (apr_hash_t *prop_hash,
       propval = (svn_stringbuf_t *) val;
 
       printf ("  %s : %s\n", propkey->data, propval->data);
-    }
+    } 
 }
 
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../svn-dev.el")
  * end: */

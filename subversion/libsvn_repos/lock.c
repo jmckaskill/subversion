@@ -92,14 +92,14 @@ svn_repos_open (svn_fs_t **fs_p,
       return svn_error_createf
         (apr_err, 0, NULL, pool,
          "svn_repos_open: error opening db lockfile `%s'", lockfile_path);
-
+    
     /* Get shared lock on the filehandle. */
     apr_err = apr_file_lock (lockfile_handle, APR_FLOCK_SHARED);
     if (! APR_STATUS_IS_SUCCESS (apr_err))
       return svn_error_createf
         (apr_err, 0, NULL, pool,
          "svn_repos_open: shared db lock on repository `%s' failed", path);
-
+    
     /* Register an unlock function for the shared lock. */
     apr_pool_cleanup_register (pool, lockfile_handle, clear_and_close,
                                apr_pool_cleanup_null);
@@ -111,7 +111,7 @@ svn_repos_open (svn_fs_t **fs_p,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:

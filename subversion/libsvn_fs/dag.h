@@ -246,7 +246,7 @@ svn_error_t *svn_fs__dag_dir_entries_hash (apr_hash_t **entries_p,
 
 /* Set ENTRY_NAME in NODE to point to ID, as part of TRAIL.
    NODE must be a mutable directory.  ID can refer to a mutable or
-   immutable node.  If ENTRY_NAME does not exist, it will be
+   immutable node.  If ENTRY_NAME does not exist, it will be 
    created.  */
 svn_error_t *svn_fs__dag_set_entry (dag_node_t *node,
                                     const char *entry_name,
@@ -289,7 +289,7 @@ svn_error_t *svn_fs__dag_clone_child (dag_node_t **child_p,
 /* Create a link to CHILD in PARENT named NAME, as part of TRAIL.
    PARENT must be mutable.  CHILD must be immutable.  NAME must be a
    single path component; it cannot be a slash-separated directory
-   path.
+   path.  
 
    Note that it is impossible to use this function to create cyclic
    directory structures.  Since PARENT is mutable, and every parent of
@@ -318,7 +318,7 @@ svn_error_t *svn_fs__dag_rename (dag_node_t *from_dir, const char *from_name,
 /* Delete the directory entry named NAME from PARENT, as part of
    TRAIL.  PARENT must be mutable.  NAME must be a single path
    component; it cannot be a slash-separated directory path.  If the
-   node being deleted is a directory, it must be empty.
+   node being deleted is a directory, it must be empty.  
 
    If return SVN_ERR_FS_NO_SUCH_ENTRY, then there is no entry NAME in
    PARENT.  */
@@ -331,7 +331,7 @@ svn_error_t *svn_fs__dag_delete (dag_node_t *parent,
    TRAIL.  PARENT must be mutable.  NAME must be a single path
    component; it cannot be a slash-separated directory path.  If the
    node being deleted is a mutable directory, remove all mutable nodes
-   reachable from it.
+   reachable from it.  
 
    If return SVN_ERR_FS_NO_SUCH_ENTRY, then there is no entry NAME in
    PARENT.  */
@@ -410,7 +410,7 @@ svn_error_t *svn_fs__dag_make_file (dag_node_t **child_p,
    If PRESERVE_HISTORY is true, the new node will record that it was
    copied from FROM_PATH in FROM_REV; therefore, FROM_NODE should be
    the node found at FROM_PATH in FROM_REV, although this is not
-   checked.
+   checked.  
 
    If PRESERVE_HISTORY is false, FROM_PATH and FROM_REV are ignored.  */
 svn_error_t *svn_fs__dag_copy (dag_node_t *to_node,
@@ -463,7 +463,7 @@ svn_error_t *svn_fs__things_different (int *props_changed,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:

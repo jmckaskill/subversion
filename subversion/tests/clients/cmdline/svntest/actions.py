@@ -2,9 +2,9 @@
 #
 #  actions.py:  routines that actually run the svn client.
 #
-#  Subversion is a tool for revision control.
+#  Subversion is a tool for revision control. 
 #  See http://subversion.tigris.org for more information.
-#
+#    
 # ====================================================================
 # Copyright (c) 2001 Collabnet.  All rights reserved.
 #
@@ -39,7 +39,7 @@ def guarantee_greek_repository(path):
   # If there's no pristine repos, create one.
   if not os.path.exists(main.pristine_dir):
     main.create_repos(main.pristine_dir)
-
+    
     # dump the greek tree to disk.
     main.write_tree(main.greek_dump_dir,
                     [[x[0], x[1]] for x in main.greek_tree])
@@ -77,7 +77,7 @@ def guarantee_greek_repository(path):
       item = [ os.path.join(".", apath), None, {}, {'verb' : 'Adding'}]
       output_list.append(item)
     expected_output_tree = tree.build_generic_tree(output_list)
-
+      
     if tree.compare_trees(output_tree, expected_output_tree):
       print "ERROR:  output of import command is unexpected."
       sys.exit(1)
@@ -89,9 +89,9 @@ def guarantee_greek_repository(path):
     os.makedirs(os.path.dirname(path))
   shutil.copytree(main.pristine_dir, path)
   if os.path.exists(main.current_repo_dir):
-    os.unlink(main.current_repo_dir)
+    os.unlink(main.current_repo_dir)                              
   os.symlink(os.path.basename(path), main.current_repo_dir)
-
+  
 
 ######################################################################
 # Subversion Actions
@@ -188,7 +188,7 @@ def run_and_verify_update(wc_dir_name,
   if status_tree:
     if run_and_verify_status(wc_dir_name, status_tree):
       return 1
-
+  
   return 0
 
 
@@ -232,25 +232,25 @@ def run_and_verify_commit(wc_dir_name, output_tree, status_output_tree,
   lastline = ""
   if len(output):
     lastline = string.strip(output.pop())
-
+    
     if lastline != 'Commit succeeded.':
       print "ERROR:  commit did not 'succeed'."
       print "The final line from 'svn ci' was:"
       print lastline
       return 1
-
+    
   # Convert the output into a tree.
   expected_tree = tree.build_tree_from_commit (output)
-
+    
   # Verify actual output against expected output.
   if tree.compare_trees (expected_tree, output_tree):
     return 1
-
+    
   # Verify via 'status' command too, if possible.
   if status_output_tree:
     if run_and_verify_status(wc_dir_name, status_output_tree):
       return 1
-
+      
   return 0
 
 
@@ -278,7 +278,7 @@ def run_and_verify_status(wc_dir_name, output_tree,
   else:
     if tree.compare_trees (mytree, output_tree):
       return 1
-
+    
   return 0
 
 
@@ -330,7 +330,7 @@ def duplicate_dir(wc_name, wc_copy_name):
   if os.path.exists(wc_copy_name):
     shutil.rmtree(wc_copy_name)
   shutil.copytree(wc_name, wc_copy_name)
-
+  
 
 
 # A generic starting state for the output of 'svn status'.
@@ -378,7 +378,7 @@ def get_virginal_status_list(wc_dir, rev):
 # Convenience routine for treating our list format like a pseudo-hash
 def path_index(list, path):
   "Return the index of PATH in our standard list-format"
-
+  
   for item in list:
     if item[0] == path:
       return list.index(item)

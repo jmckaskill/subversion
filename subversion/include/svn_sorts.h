@@ -39,7 +39,7 @@ extern "C" {
  *
  * You can use this to do an in-place sort of an apr_array_header_t
  * HDR of svn_stringbuf_t's like so:
- *
+ * 
  *   qsort (HDR->elts, HDR->nelts, HDR->elt_size,
  *          svn_path_compare_strings_as_paths);
  */
@@ -49,11 +49,11 @@ int svn_sort_compare_strings_as_paths (const void *a, const void *b);
 /* Compare two svn_item_t's, returning an integer greater than,
  * equal to, or less than 0, according as A is greater than, equal to,
  * or less than B.
- *
+ * 
  * This is useful for converting a hash into a sorted
  * apr_array_header_t.  For example, to convert hash HSH to a sorted
  * array, do this:
- *
+ * 
  *   apr_array_header_t *HDR;
  *   HDR = apr_hash_sorted_keys (HSH, svn_sort_compare_items_as_paths, pool);
  */
@@ -65,7 +65,7 @@ int svn_sort_compare_items_as_paths (const void *a, const void *b);
  * containing svn_item_t's representing those keys and values (i.e.,
  * for each svn_item_t ITEM in the returned array, ITEM->key is the
  * hash key, and ITEM->size and ITEM->data contain the hash value).
- *
+ * 
  * Storage is shared with the original hash, not copied.
  *
  * COMPARISON_FUNC should take two svn_item_t's and return an integer

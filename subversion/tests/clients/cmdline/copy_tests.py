@@ -2,9 +2,9 @@
 #
 #  copy_tests.py:  testing the many uses of 'svn cp'
 #
-#  Subversion is a tool for revision control.
+#  Subversion is a tool for revision control. 
 #  See http://subversion.tigris.org for more information.
-#
+#    
 # ====================================================================
 # Copyright (c) 2000-2001 CollabNet.  All rights reserved.
 #
@@ -34,7 +34,7 @@ def sandbox(x):
 
 # (abbreviation)
 path_index = svntest.actions.path_index
-
+  
 
 ######################################################################
 # Utilities
@@ -53,7 +53,7 @@ path_index = svntest.actions.path_index
 #
 #        This duplicates a path in the working copy, and schedules it
 #        for addition with history.  (This is partially implemented in
-#        0.6 already.)
+#        0.6 already.)  
 #
 #     B. svn cp URL [-r rev]  wc_path
 #
@@ -120,7 +120,7 @@ def basic_copy_and_move_files():
 
   sbox = sandbox(basic_copy_and_move_files)
   wc_dir = os.path.join (svntest.main.general_wc_dir, sbox)
-
+  
   if svntest.actions.make_repo_and_wc(sbox):
     return 1
 
@@ -167,7 +167,7 @@ def basic_copy_and_move_files():
 
   # Create expected status tree; all local revisions should be at 1,
   # but several files should be at revision 2.  Also, two files should
-  # be missing.
+  # be missing.  
   status_list = svntest.actions.get_virginal_status_list(wc_dir, '2')
   for item in status_list:
     item[3]['wc_rev'] = '1'
@@ -193,7 +193,7 @@ def basic_copy_and_move_files():
   # Items that are gone:
   status_list.pop(path_index(status_list, mu_path))
   status_list.pop(path_index(status_list, iota_path))
-
+      
   expected_status_tree = svntest.tree.build_generic_tree(status_list)
 
   return svntest.actions.run_and_verify_commit (wc_dir,
@@ -217,7 +217,7 @@ test_list = [ None,
              ]
 
 if __name__ == '__main__':
-
+  
   ## run the main test routine on them:
   err = svntest.main.run_tests(test_list)
 
