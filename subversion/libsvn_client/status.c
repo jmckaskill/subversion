@@ -52,7 +52,7 @@ get_youngest_from_ra (svn_revnum_t *youngest,
                       const char *URL,
                       svn_client_auth_baton_t *auth_baton,
                       apr_pool_t *pool)
-{
+{ 
   svn_error_t *err;
   void *ra_baton, *session, *cb_baton;
   svn_ra_plugin_t *ra_lib;
@@ -74,7 +74,7 @@ get_youngest_from_ra (svn_revnum_t *youngest,
       else
         return SVN_NO_ERROR;
     }
-
+ 
   /* Open a repository session to the URL */
   SVN_ERR (svn_client__get_ra_callbacks (&ra_callbacks, &cb_baton,
                                          auth_baton, path, TRUE, pool));
@@ -91,7 +91,7 @@ get_youngest_from_ra (svn_revnum_t *youngest,
 
   if (close_session)
       ra_lib->close (session);
-
+  
   if (rev_known)
     *youngest = latest_revnum;
 
@@ -121,7 +121,7 @@ svn_client_status (apr_hash_t **statushash,
 
   /* Ask the wc to give us a list of svn_wc_status_t structures. */
   SVN_ERR (svn_wc_statuses (hash, path, descend, pool));
-
+  
   /* Each status structure in the hash now has all fields filled in
      *except* the repos_rev field, which is SVN_INVALID_REVNUM.
      Attempt to contact the repos and get the latest revnum. */
@@ -129,9 +129,9 @@ svn_client_status (apr_hash_t **statushash,
   /* Get PATH's entry from the working copy. */
   SVN_ERR (svn_wc_entry (&entry, path, pool));
   if (! entry)
-    return svn_error_createf
+    return svn_error_createf 
       (SVN_ERR_WC_ENTRY_NOT_FOUND, 0, NULL, pool,
-       "svn_client_status: '%s' is not a versioned resource",
+       "svn_client_status: '%s' is not a versioned resource", 
        path->data);
 
   /* If the entry is not a directory, we'll be looking at its parent
@@ -147,9 +147,9 @@ svn_client_status (apr_hash_t **statushash,
     {
       SVN_ERR (svn_wc_entry (&entry, parent, pool));
       if (! entry)
-        return svn_error_createf
+        return svn_error_createf 
           (SVN_ERR_WC_ENTRY_NOT_FOUND, 0, NULL, pool,
-           "svn_client_status: parent '%s' is not a versioned resource",
+           "svn_client_status: parent '%s' is not a versioned resource", 
            parent->data);
     }
 
@@ -170,7 +170,7 @@ svn_client_status (apr_hash_t **statushash,
       void *val;
       apr_size_t klen;
       svn_wc_status_t *status;
-
+      
       apr_hash_this (hi, &key, &klen, &val);
       status = (svn_wc_status_t *) val;
       status->repos_rev = latest_revnum;
