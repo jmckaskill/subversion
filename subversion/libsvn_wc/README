@@ -249,11 +249,11 @@ In each cell
    M   means    "Mergable"
    F   means    "Conflict for server, possibly a conflict for client
                  but might be foldable (either via straight merge, or
-                 folding conflict)"
+                 folding conflict)" 
 
 Fortunately the principles involved are symmetrical, so it doesn't
 matter which side is the working copy and which is the
-repository.
+repository.  
 
 For example, Table 1 says that an entity-rename (a direct change) and
 a child-rename (an indirect change) conflict in a commit, and a
@@ -281,8 +281,8 @@ scenarios play out in real-life.
    then in 6 someone added baz/bar.c.  Will this be detected?
 
    Yes, not because of the add, but because of the direct change
-   against indirect
-
+   against indirect 
+    
 
 
           Table 1: Direct changes against indirect changes
