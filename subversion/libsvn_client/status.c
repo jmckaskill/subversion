@@ -232,7 +232,7 @@ svn_client_status2 (svn_revnum_t *result_rev,
 
   /* If we want to know about out-of-dateness, we crawl the working copy and
      let the RA layer drive the editor for real.  Otherwise, we just close the
-     edit.  :-) */
+     edit.  :-) */ 
   if (update)
     {
       svn_ra_session_t *ra_session;
@@ -255,7 +255,7 @@ svn_client_status2 (svn_revnum_t *result_rev,
 
       /* Open a repository session to the URL. */
       SVN_ERR (svn_client__open_ra_session (&ra_session, URL, anchor,
-                                            anchor_access, NULL, TRUE, TRUE,
+                                            anchor_access, NULL, TRUE, TRUE, 
                                             ctx, pool));
 
       /* Verify that URL exists in HEAD.  If it doesn't, this can save
@@ -280,7 +280,7 @@ svn_client_status2 (svn_revnum_t *result_rev,
         {
           svn_revnum_t revnum;
           report_baton_t rb;
-
+            
           if (revision->kind == svn_opt_revision_head)
             {
               /* Cause the revision number to be omitted from the request,
@@ -297,7 +297,7 @@ svn_client_status2 (svn_revnum_t *result_rev,
           /* Do the deed.  Let the RA layer drive the status editor. */
           SVN_ERR (svn_ra_do_status (ra_session, &rb.wrapped_reporter,
                                      &rb.wrapped_report_baton,
-                                     target, revnum, recurse, editor,
+                                     target, revnum, recurse, editor, 
                                      edit_baton, pool));
 
           /* Init the report baton. */
@@ -305,7 +305,7 @@ svn_client_status2 (svn_revnum_t *result_rev,
           rb.set_locks_baton = set_locks_baton;
           rb.ctx = ctx;
           rb.pool = pool;
-
+          
           /* Drive the reporter structure, describing the revisions
              within PATH.  When we call reporter->finish_report,
              EDITOR will be driven to describe differences between our
@@ -365,7 +365,7 @@ svn_client_status (svn_revnum_t *result_rev,
                    svn_client_ctx_t *ctx,
                    apr_pool_t *pool)
 {
-  return svn_client_status2 (result_rev, path, revision,
+  return svn_client_status2 (result_rev, path, revision, 
                              status_func, status_baton,
                              recurse, get_all, update, no_ignore, FALSE,
                              ctx, pool);
