@@ -309,7 +309,7 @@ def main(fname, oname=None, skip_depends=0):
 					string.join(script_dirs)))
 
   ofile.write('FS_TEST_DEPS = %s\n\n' % string.join(fs_test_deps + fs_scripts))
-  ofile.write('FS_TEST_PROGRAMS = %s\n\n' %
+  ofile.write('FS_TEST_PROGRAMS = %s\n\n' % 
                               string.join(fs_test_progs + fs_scripts))
   ofile.write('TEST_DEPS = %s\n\n' % string.join(test_deps + scripts))
   ofile.write('TEST_PROGRAMS = %s\n\n' % string.join(test_progs + scripts))
