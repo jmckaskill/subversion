@@ -20,7 +20,7 @@
 
  * Compiling with MinGW (use version 2.x with gcc 3.2 or better):
  *   Make sure that MinGW/bin is in your path and type:
- *     windres.exe -i svnpath.rc -I rc -o svnpath.res -O coff
+ *     windres.exe -i svnpath.rc -I rc -o svnpath.res -O coff 
  *     gcc -s -Os -Wall -mwindows -march=i386 -o svnpath.exe svnpath.res main.c
  * Compiling with MS Visual C:
  *   Make a new Win32 Console Application project with the name svnpath
@@ -117,7 +117,7 @@ main (int argc, char *argv[])
 
         lstrcpy ( cMsg, "Argument Error: Wrong arguments\n\n");
         lstrcat ( cMsg, "This program received the following arguments:");
-
+        
         for (counter=1; counter<argc; counter++)
           {
             lstrcat ( cMsg, "\n    '");
@@ -128,10 +128,10 @@ main (int argc, char *argv[])
         if (! strcmp(argv[1], "add") || ! strcmp(argv[1], "remove"))
           {
             iRetVal=svn_run_cmd(argv[1], argv[2]);
-            iCmdArgError=0;
+            iCmdArgError=0;              
           }
         else
-          {
+          {  
             svn_error_msg(cMsg);
             iRetVal = 1;
           }
@@ -283,9 +283,9 @@ svn_error_msg(char cMsg[150])
     long lMsgBoxFlag=MB_YESNO+MB_ICONWARNING+MB_SETFOREGROUND+MB_TOPMOST;
 
     lstrcat(cMsg, "\n\nDo you want to read the help for svnpath?");
-
+    
     lRet=MessageBox(0, cMsg, "svnpath - Error" , lMsgBoxFlag);
-
+    
     if (lRet==IDYES)
     {
       svn_print_help();
@@ -497,9 +497,9 @@ svn_removent (char cPathSvn[255])
     char cKey[BUFSIZE], cPathNew[BUFSIZE], cPathCur[BUFSIZE];
     DWORD dwBufLen, lpType;
     char *pcPathCur[BUFSIZE];
-
+    
     char * pcSubPath;
-
+    
     *pcPathCur=cPathCur;
     dwBufLen=BUFSIZE;
 
@@ -526,7 +526,7 @@ svn_removent (char cPathSvn[255])
 
     /* Remove the Subversion path from the system path and put the new path
      * on cPathNew*/
-
+     
     pcSubPath = strtok (cPathCur,";");
     strcpy(cPathNew, "");
 
@@ -559,7 +559,7 @@ svn_removent (char cPathSvn[255])
                                &*pcPathCur, &lpType);
 
         pcSubPath = strtok (cPathCur,";");
-
+        
         strcpy(cPathNew, "");
         while (pcSubPath != NULL)
           {
@@ -639,7 +639,7 @@ svn_run_cmd (char cAction[10], char cPath[255])
         else if (! strcmp(cAction, "remove"))
           {
             iRetVal=svn_remove9x(cPath);
-          }
+          }      
       }
 
     return (iRetVal);
