@@ -150,7 +150,7 @@ allocate_txn_id (char **id_p,
     SVN_ERR (DB_WRAP (fs, "allocating new transaction ID (setting `next-id')",
                       fs->transactions->put (fs->transactions, trail->db_txn,
                                              &key,
-                                             svn_fs__set_dbt (&value,
+                                             svn_fs__set_dbt (&value, 
                                                               buf, buf_len),
                                              0)));
   }
@@ -171,7 +171,7 @@ svn_fs__create_txn (char **txn_id_p,
   SVN_ERR (allocate_txn_id (&svn_txn, fs, trail));
   SVN_ERR (put_txn (fs, svn_txn, root_id, root_id, trail));
 
-  *txn_id_p = svn_txn;
+  *txn_id_p = svn_txn; 
   return SVN_NO_ERROR;
 }
 
@@ -344,7 +344,7 @@ svn_error_t *svn_fs__get_txn_list (char ***names_p,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
