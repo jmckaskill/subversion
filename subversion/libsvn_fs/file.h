@@ -54,7 +54,7 @@ svn_error_t *svn_fs__write_file (svn_stream_t **writer,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
