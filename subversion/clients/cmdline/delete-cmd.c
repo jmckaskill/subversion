@@ -83,8 +83,8 @@ svn_cl__delete (apr_getopt_t *os,
 
       commit_info = NULL;
       err = svn_client_delete
-        (&commit_info, target, opt_state->force,
-         auth_baton,
+        (&commit_info, target, opt_state->force, 
+         auth_baton, 
          &svn_cl__get_log_message,
          svn_cl__make_log_msg_baton (opt_state, NULL, subpool),
          notify_func, notify_baton, subpool);
@@ -92,18 +92,18 @@ svn_cl__delete (apr_getopt_t *os,
         return svn_cl__may_need_force (err);
       if (commit_info)
         svn_cl__print_commit_info (commit_info);
-
+      
       svn_pool_clear (subpool);
     }
-
+  
   svn_pool_destroy (subpool);
   return SVN_NO_ERROR;
 }
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../tools/dev/svn-dev.el")
- * end:
+ * end: 
  */
