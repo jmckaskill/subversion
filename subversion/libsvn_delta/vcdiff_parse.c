@@ -3,32 +3,32 @@
  *
  * ================================================================
  * Copyright (c) 2000 CollabNet.  All rights reserved.
- *
+ * 
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
  * met:
- *
+ * 
  * 1. Redistributions of source code must retain the above copyright
  * notice, this list of conditions and the following disclaimer.
- *
+ * 
  * 2. Redistributions in binary form must reproduce the above copyright
  * notice, this list of conditions and the following disclaimer in the
  * documentation and/or other materials provided with the distribution.
- *
+ * 
  * 3. The end-user documentation included with the redistribution, if
  * any, must include the following acknowlegement: "This product includes
  * software developed by CollabNet (http://www.Collab.Net)."
  * Alternately, this acknowlegement may appear in the software itself, if
  * and wherever such third-party acknowlegements normally appear.
- *
+ * 
  * 4. The hosted project names must not be used to endorse or promote
  * products derived from this software without prior written
  * permission. For written permission, please contact info@collab.net.
- *
+ * 
  * 5. Products derived from this software may not use the "Tigris" name
  * nor may "Tigris" appear in their names without prior written
  * permission of CollabNet.
- *
+ * 
  * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
  * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -42,7 +42,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ====================================================================
- *
+ * 
  * This software consists of voluntary contributions made by many
  * individuals on behalf of CollabNet.
  */
@@ -94,7 +94,7 @@ svn_make_vcdiff_parser (svn_txdelta_window_handler_t *handler,
                         apr_pool_t *pool)
 {
   /* Allocate a vcdiff_parser and fill out its fields */
-  svn_vcdiff_parser_t *new_vcdiff_parser =
+  svn_vcdiff_parser_t *new_vcdiff_parser = 
     (svn_vcdiff_parser_t *)
     apr_palloc (pool, sizeof(svn_vcdiff_parser_t));
 
@@ -102,13 +102,13 @@ svn_make_vcdiff_parser (svn_txdelta_window_handler_t *handler,
   new_vcdiff_parser->consumer_baton = handler_baton;
 
   new_vcdiff_parser->pool = pool;
-  new_vcdiff_parser->subpool =
+  new_vcdiff_parser->subpool = 
     apr_make_sub_pool (new_vcdiff_parser->pool, NULL);
 
   /* Important:  notice that the parser's buffer lives in a subpool */
-  new_vcdiff_parser->buffer =
+  new_vcdiff_parser->buffer = 
     svn_string_create ("", new_vcdiff_parser->subpool);
-
+  
   return new_vcdiff_parser;
 }
 
@@ -130,19 +130,19 @@ svn_vcdiff_send_window (svn_vcdiff_parser_t *parser, apr_size_t len)
   svn_error_t *err;
 
   svn_txdelta_window_t *window =
-    (svn_txdelta_window_t *) apr_palloc (parser->subpool,
+    (svn_txdelta_window_t *) apr_palloc (parser->subpool, 
                                        sizeof(svn_txdelta_window_t));
-
-  svn_txdelta_op_t *new_op =
-    (svn_txdelta_op_t *)
+  
+  svn_txdelta_op_t *new_op = 
+    (svn_txdelta_op_t *) 
     apr_palloc (parser->subpool, sizeof(svn_txdelta_op_t));
-
+  
   /* Right now, we have only one kind of vcdiff operation:
      "create new text" :) */
   new_op->action_code = svn_txdelta_new;  /* append new text */
   new_op->offset = 0;
   new_op->length = len;
-
+  
   window->pool = parser->subpool;
   window->num_ops = 1;
   window->ops = new_op;
@@ -150,16 +150,16 @@ svn_vcdiff_send_window (svn_vcdiff_parser_t *parser, apr_size_t len)
                                     parser-buffer to the
                                     consumer... it will free the whole
                                     subpool later on. */
-
+  
   /* Pass this new window to the caller's consumer routine, if any */
   if (parser->consumer_func)
     {
       err = (* (parser->consumer_func)) (window, parser->consumer_baton);
       if (err)
-        return svn_quick_wrap_error
+        return svn_quick_wrap_error 
           (err, "svn_vcdiff_send_window: consumer_func choked.");
     }
-
+  
   /* Now that the window consumer is done, free the window/sub-pool */
 
   apr_destroy_pool (window->pool);
@@ -169,7 +169,7 @@ svn_vcdiff_send_window (svn_vcdiff_parser_t *parser, apr_size_t len)
   parser->subpool = apr_make_sub_pool (parser->pool, NULL);
 
   parser->buffer = svn_string_create ("", parser->subpool);
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -193,7 +193,7 @@ svn_vcdiff_parse (svn_vcdiff_parser_t *parser,
   svn_error_t *err;
   apr_size_t i = 0;  /* This is our offset into BUFFER */
 
-  if (len == 0)
+  if (len == 0)  
     {
       /* This means the caller has finished sending the vcdiff
          bytestream, so flush any remaining bytes in our buffer.  */
@@ -223,12 +223,12 @@ svn_vcdiff_parse (svn_vcdiff_parser_t *parser,
         {
           /* kff todo: in real life, eat more than a byte at a time */
           /* So just copy the next byte in BUFFER to PARSER->BUFFER */
-          svn_string_appendbytes (parser->buffer,
+          svn_string_appendbytes (parser->buffer, 
                                   (buffer + i), 1,
                                   parser->subpool);
           i++;
         }
-
+      
     } while (i < len);
 
 
