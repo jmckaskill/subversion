@@ -6,7 +6,7 @@
   means this chapter is all about defining terms for the first time,
   right?  :-)-->
 
-
+    
   <simplesect>
     <para>This chapter is a short, casual introduction to Subversion.
       If you're new to version control, this chapter is definitely for
@@ -14,17 +14,17 @@
       concepts, work our way into the specific ideas behind
       Subversion, and show some simple examples of Subversion in
       use.</para>
-
+    
     <para>Even though the examples in this chapter show people sharing
       collections of program source code, keep in mind that Subversion
       can manage any sort of file collection&mdash;it's not limited to
       helping computer programmers.</para>
   </simplesect>
-
-
-  <sect1 id="svn-ch2-sect-1" >
-    <title>The Repository</title>
-
+  
+  
+  <sect1 id="svn-ch2-sect-1" > 
+    <title>The Repository</title>  
+    
     <para>Subversion is a centralized system for sharing information.
       At its core is a <firstterm>repository</firstterm>, which is a
       central store of data.  The repository stores information in the
@@ -39,7 +39,7 @@
       <title>A typical client/server system</title>
       <graphic fileref="images/ch02dia1.png"/>
     </figure>
-
+    
     <para>So why is this interesting?  So far, this sounds like the
       definition of a typical file server.  And indeed, the repository
       <emphasis>is</emphasis> a kind of file server, but it's not your
@@ -64,13 +64,13 @@
   </sect1>
 
 
-  <!-- the philosophical section -->
+  <!-- the philosophical section --> 
   <sect1 id="svn-ch-2-sect-2">
     <title>Versioning Models</title>
-
+    
     <sect2 id="svn-ch-2-sect-2.1">
       <title>The Problem of File-Sharing</title>
-
+      
       <para>All version control systems have to solve the same
         fundamental problem: how will the system allow users to share
         information, but prevent them from accidentally stepping on
@@ -98,10 +98,10 @@
       </figure>
 
       </sect2>
-
+    
     <sect2 id="svn-ch-2-sect-2.2">
       <title>The Lock-Modify-Unlock Solution</title>
-
+      
       <para>Many version control systems use a
         <firstterm>lock-modify-unlock</firstterm> model to address
         this problem, which is a very simple solution.  In such a
@@ -114,12 +114,12 @@
         the file, and wait for Harry to finish his changes and release
         his lock.  After Harry unlocks the file, his turn is over, and
         now Sally can take her turn by locking and editing.</para>
-
+      
       <figure id="svn-ch2-dia3">
         <title>The lock-modify-unlock solution</title>
         <graphic fileref="images/ch02dia3.png"/>
       </figure>
-
+      
       <para>The problem with the lock-modify-unlock model is that it's
         a bit restrictive, and often becomes a roadblock for
         users:</para>
@@ -134,7 +134,7 @@
             Sally has to get an administrator to release Harry's lock.
             The situation ends up causing a lot of unnecessary delay
             and wasted time.</para></listitem>
-
+        
         <listitem><para>
             <emphasis>Locking may cause unnecessary serialization.</emphasis>
 
@@ -145,7 +145,7 @@
             come, assuming the changes were properly merged together.
             There's no need for them to take turns in this
             situation.</para></listitem>
-
+    
         <listitem><para>
             <emphasis>Locking may create a false sense of security.</emphasis>
 
@@ -166,7 +166,7 @@
 
     <sect2 id="svn-ch-2-sect-2.3">
       <title>The Copy-Modify-Merge Solution</title>
-
+      
       <para>Subversion, CVS, and other version control systems use a
         <firstterm>copy-modify-merge</firstterm> model as an
         alternative to locking.  In this model, each user's client
@@ -177,7 +177,7 @@
         The version control system often assists with the merging, but
         ultimately a human being is responsible for making it happen
         correctly.</para>
-
+      
       <para>Here's an example.  Say that Harry and Sally each create
         working copies of the same project, copied from the
         repository.  They work concurrently, and make changes to the
@@ -196,7 +196,7 @@
         <title>The copy-modify-merge solution</title>
         <graphic fileref="images/ch02dia4.png"/>
       </figure>
-
+      
       <figure id="svn-ch2-dia5">
         <title>&hellip;copy-modify-merge continued</title>
         <graphic fileref="images/ch02dia5.png"/>
@@ -232,22 +232,22 @@
         promise that a locking system will somehow prevent conflicts;
         in practice, locking seems to inhibit productivity more than
         anything else.</para>
-
+      
     </sect2>
-
+    
   </sect1>
-
+  
   <!-- How svn implements the philosophy -->
   <sect1 id="svn-ch-2-sect-3">
     <title>Subversion in action</title>
-
+    
     <sect2 id="svn-ch-2-sect-3.1">
       <title>Working copies</title>
-
+      
       <para>You've already read about working copies; now we'll
         demonstrate how the Subversion client creates and uses
         them.</para>
-
+      
       <para>A Subversion working copy is an ordinary directory tree on
         your local system, containing a collection of files.  You can
         edit these files however you wish, and if they're source code
@@ -275,13 +275,13 @@
         directory help Subversion recognize which files contain
         unpublished changes, and which files are out-of-date with
         respect to others' work.</para>
-
+      
       <para>A typical Subversion repository often holds the files (or
         source code) for several projects; usually, each project is a
         subdirectory in the repository's filesystem tree.  In this
         arrangement, a user's working copy will usually correspond to
         a particular subtree of the repository.</para>
-
+      
       <para>For example, suppose you have a repository that contains
         two software projects.</para>
 
@@ -289,7 +289,7 @@
         <title>The repository's filesystem</title>
         <graphic fileref="images/ch02dia6.png"/>
       </figure>
-
+      
       <para>In other words, the repository's root directory has two
         subdirectories: <filename>paint</filename> and
         <filename>calc</filename>.</para>
@@ -368,7 +368,7 @@ Makefile  integer.c  button.c  .svn/
             </tbody>
           </tgroup>
         </table>
-
+ 
         <para>For the most part, Subversion's URLs use the standard
           syntax, allowing for server names and port numbers to be
           specified as part of the URL.  Remember that the
@@ -377,7 +377,7 @@ Makefile  integer.c  button.c  .svn/
           accordance with convention, the server name portion of the
           URL is required to be either absent or
           <literal>localhost</literal>:</para>
-
+ 
         <screen>
 $ svn checkout file:///path/to/repos
 &hellip;
@@ -400,7 +400,7 @@ $ svn checkout file:///X:/path/to/repos
 $ svn checkout file:///X|/path/to/repos
 &hellip;
 </screen>
-
+ 
       </sidebar>
 
       <para>Suppose you make changes to <filename>button.c</filename>.
@@ -445,7 +445,7 @@ Committed revision 57.
 $ pwd
 /home/sally/calc
 
-$ ls -a
+$ ls -a 
 .svn/ Makefile integer.c button.c
 
 $ svn update
@@ -459,10 +459,10 @@ U button.c
         in the <filename>.svn</filename> directory, and further
         information in the repository, to decide which files need to
         be brought up to date.</para>
-
+      
     </sect2>
-
-
+    
+    
     <sect2 id="svn-ch-2-sect-3.2">
       <title>Revisions</title>
 
@@ -486,14 +486,14 @@ U button.c
         previous revision.  The initial revision of a freshly created
         repository is numbered zero, and consists of nothing but an
         empty root directory.</para>
-
+      
       <para>A nice way to visualize the repository is as a series of
         trees.  Imagine an array of revision numbers, starting at 0,
         stretching from left to right.  Each revision number has a
         filesystem tree hanging below it, and each tree is a
         <quote>snapshot</quote> of the way the repository looked after
         each commit. </para>
-
+      
       <figure id="svn-ch2-dia7">
         <title>The repository</title>
         <graphic fileref="images/ch02dia7.png"/>
@@ -502,7 +502,7 @@ U button.c
 
         <sidebar>
         <title>Global revision numbers</title>
-
+         
         <para>Unlike those of many other version control systems,
           Subversion's revision numbers apply to <emphasis>entire
           trees</emphasis>, not individual files.  Each revision
@@ -567,21 +567,21 @@ calc/Makefile:6
         correspond to exactly one revision in the repository.</para>
 
     </sect2>
-
-
+    
+    
     <sect2 id="svn-ch-2-sect-3.3">
       <title>How working copies track the repository</title>
-
+      
       <para>For each file in a working directory, Subversion records
         two essential pieces of information in the
         <filename>.svn/</filename> administrative area:</para>
-
-
+      
+      
       <itemizedlist>
         <listitem><para>what revision your working file is based on
             (this is called the file's <firstterm>working
              revision</firstterm>), and</para></listitem>
-
+        
         <listitem><para>a timestamp recording when the local copy was
             last updated by the repository.</para></listitem>
       </itemizedlist>
@@ -592,7 +592,7 @@ calc/Makefile:6
 
       <variablelist>
         <varlistentry>
-          <term>Unchanged, and current</term>
+          <term>Unchanged, and current</term> 
 
           <listitem><para>The file is unchanged in the working
           directory, and no changes to that file have been committed
@@ -601,7 +601,7 @@ calc/Makefile:6
           and a <command>svn update</command> of the file will do
           nothing. </para></listitem>
         </varlistentry>
-
+        
         <varlistentry>
           <term>Locally changed, and current</term>
 
@@ -613,9 +613,9 @@ calc/Makefile:6
           publishing your changes, and a <command>svn update</command>
           of the file will do nothing.</para></listitem>
         </varlistentry>
-
+        
         <varlistentry>
-          <term>Unchanged, and out-of-date</term>
+          <term>Unchanged, and out-of-date</term> 
 
           <listitem><para>The file has not been changed in the working
           directory, but it has been changed in the repository.  The
@@ -625,7 +625,7 @@ calc/Makefile:6
           the file will fold the latest changes into your working
           copy.</para></listitem>
         </varlistentry>
-
+        
         <varlistentry>
           <term>Locally changed, and out-of-date</term>
 
@@ -640,15 +640,15 @@ calc/Makefile:6
           conflict.</para></listitem>
         </varlistentry>
       </variablelist>
-
-
+      
+      
       <para>This may sound like a lot to keep track of, but the
         <command>svn status</command> command will show you the state
         of any item in your working copy.  For more information on
         that command, see <xref linkend="svn-ch-3-sect-4.3.1" />.</para>
-
+     
     </sect2>
-
+    
     <sect2 id="svn-ch-2-sect-3.4">
       <title>The limitations of mixed revisions</title>
 
@@ -676,7 +676,7 @@ calc/Makefile:6
         contained in a subdirectory, or perhaps you'd like to examine
         a number of previous versions of a file in the context of the
         latest tree.</para>
-
+        
       <para>However you make use of mixed-revisions in your working
         copy, there are limitations to this flexibility.</para>
 
@@ -700,7 +700,7 @@ calc/Makefile:6
 
   <sect1 id="svn-ch-2-sect-4">
     <title>Summary</title>
-
+    
     <para>We've covered a number of fundamental Subversion concepts in
     this chapter:</para>
 
@@ -723,18 +723,18 @@ calc/Makefile:6
       </listitem>
 
     </itemizedlist>
-
+    
     <para>At this point, you should have a good idea of how Subversion
     works in the most general sense.  Armed with this knowledge, you
     should now be ready to jump into the next chapter, which is a
     detailed tour of Subversion's commands and features. </para>
-
+      
   </sect1>
 
 </chapter>
 
 <!--
-local variables:
+local variables: 
 sgml-parent-document: ("book.xml" "chapter")
 end:
 -->
