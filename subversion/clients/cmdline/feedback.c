@@ -95,11 +95,11 @@ void svn_cl__notify_reverted_item (void *baton, const char *path)
 {
   printf ("Reverted %s\n", path);
 }
-
+ 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../svn-dev.el")
- * end:
+ * end: 
  */
