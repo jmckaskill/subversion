@@ -1,8 +1,8 @@
 <preface id="svn-ch-0">
   <title>Preface</title>
-
+  
   <simplesect>
-
+    
     <blockquote>
       <para><quote>If C gives you enough rope to hang yourself, think
         of Subversion as a sort of rope storage facility.</quote></para>
@@ -42,7 +42,7 @@
   <sect1 id="svn-ch-0-sect-1">
 
     <title>Audience</title>
-
+    
     <para>This book is written for computer literate folk who want to
       use Subversion to manage their data.  While Subversion runs on a
       number of different operating systems, its primary user
@@ -58,7 +58,7 @@
       used to manage changes to any sort of information: images,
       music, databases, documentation, and so on.  To Subversion, all
       data is just data.</para>
-
+    
     <para>While this book is written with the assumption that the
       reader has never used version control, we've also tried to make
       it easy for former CVS users to get up to speed quickly.
@@ -144,7 +144,7 @@
           community.</para>
       </listitem>
     </itemizedlist>
-
+    
     <para>You can send publishing comments and questions to O'Reilly
       here: ###insert boilerplate.</para>
 
