@@ -47,9 +47,9 @@ svn_client__dir_if_wc (const char **dir_p,
                        apr_pool_t *pool)
 {
   int wc_format;
-
+  
   SVN_ERR (svn_wc_check_wc (dir, &wc_format, pool));
-
+  
   if (wc_format == 0)
     *dir_p = NULL;
   else
@@ -87,7 +87,7 @@ svn_client__default_auth_dir (const char **auth_dir_p,
         (SVN_ERR_NODE_UNKNOWN_KIND, NULL,
          "unknown node kind for `%s'", path);
     }
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -130,7 +130,7 @@ get_creds (const char **username,
 {
   const char *prompt_username = NULL, *prompt_password = NULL;
   const char *def_username = NULL, *def_password = NULL;
-
+  
   /* Setup default return values. */
   *got_creds = FALSE;
   if (username)
@@ -142,7 +142,7 @@ get_creds (const char **username,
      so. */
   if (first_time)
     {
-      def_username = apr_hash_get (parameters,
+      def_username = apr_hash_get (parameters, 
                                    SVN_AUTH_PARAM_DEFAULT_USERNAME,
                                    APR_HASH_KEY_STRING);
 
@@ -153,7 +153,7 @@ get_creds (const char **username,
           apr_uid_t uid;
           apr_gid_t gid;
           apr_status_t status;
-
+          
           if ((status = apr_uid_current (&uid, &gid, pool)))
             return svn_error_create (status, NULL, "Error getting UID");
           if ((status = apr_uid_name_get (&un, uid, pool)))
@@ -161,10 +161,10 @@ get_creds (const char **username,
           SVN_ERR (svn_utf_cstring_to_utf8 (&def_username, un, NULL, pool));
         }
 
-      def_password = apr_hash_get (parameters,
+      def_password = apr_hash_get (parameters, 
                                    SVN_AUTH_PARAM_DEFAULT_PASSWORD,
                                    APR_HASH_KEY_STRING);
-    }
+    }    
 
   /* Get the username. */
   if (def_username)
@@ -189,7 +189,7 @@ get_creds (const char **username,
     }
   else if (password)
     {
-      const char *prompt = apr_psprintf (pool, "%s's password: ",
+      const char *prompt = apr_psprintf (pool, "%s's password: ", 
                                          prompt_username);
       SVN_ERR (pb->prompt_func (&prompt_password, prompt,
                                 TRUE, /* don't echo to screen */
@@ -437,7 +437,7 @@ server_ssl_file_first_credentials (void **credentials,
   svn_auth_cred_server_ssl_t *cred;
   int failures_allow = 0;
 
-  temp_setting = svn_config_get_server_setting (cfg, server_group,
+  temp_setting = svn_config_get_server_setting (cfg, server_group, 
                                                 "ssl-ignore-unknown-ca",
                                                 "false");
   if (strcasecmp (temp_setting, "true") == 0)
@@ -445,7 +445,7 @@ server_ssl_file_first_credentials (void **credentials,
       failures_allow |= SVN_AUTH_SSL_UNKNOWNCA;
     }
 
-  temp_setting = svn_config_get_server_setting (cfg, server_group,
+  temp_setting = svn_config_get_server_setting (cfg, server_group, 
                                                 "ssl-ignore-host-mismatch",
                                                 "false");
   if (strcasecmp (temp_setting, "true") == 0)
@@ -453,7 +453,7 @@ server_ssl_file_first_credentials (void **credentials,
       failures_allow |= SVN_AUTH_SSL_CNMISMATCH;
     }
 
-  temp_setting = svn_config_get_server_setting (cfg, server_group,
+  temp_setting = svn_config_get_server_setting (cfg, server_group, 
                                                 "ssl-ignore-invalid-date",
                                                 "false");
   if (strcasecmp (temp_setting, "true") == 0)
@@ -486,7 +486,7 @@ client_ssl_cert_file_first_credentials (void **credentials,
                                        apr_hash_t *parameters,
                                        apr_pool_t *pool)
 {
-  svn_config_t *cfg = apr_hash_get (parameters,
+  svn_config_t *cfg = apr_hash_get (parameters, 
                                     SVN_AUTH_PARAM_CONFIG,
                                     APR_HASH_KEY_STRING);
   const char *server_group = apr_hash_get (parameters,
@@ -502,7 +502,7 @@ client_ssl_cert_file_first_credentials (void **credentials,
     {
       svn_auth_cred_client_ssl_t *cred =
         apr_palloc (pool, sizeof(svn_auth_cred_client_ssl_t));
-
+      
       key_file = svn_config_get_server_setting (cfg, server_group,
                                                 "ssl-client-key-file", NULL);
       cert_type = svn_config_get_server_setting (cfg, server_group,
@@ -566,7 +566,7 @@ client_ssl_pw_file_first_credentials (void **credentials,
   return SVN_NO_ERROR;
 }
 
-static const svn_auth_provider_t server_ssl_file_provider =
+static const svn_auth_provider_t server_ssl_file_provider = 
   {
     SVN_AUTH_CRED_SERVER_SSL,
     &server_ssl_file_first_credentials,
@@ -591,7 +591,7 @@ static const svn_auth_provider_t client_ssl_pw_file_provider =
   };
 
 
-void
+void 
 svn_client_get_ssl_server_file_provider (const svn_auth_provider_t **provider,
                                          void **provider_baton,
                                          apr_pool_t *pool)
@@ -599,7 +599,7 @@ svn_client_get_ssl_server_file_provider (const svn_auth_provider_t **provider,
   *provider = &server_ssl_file_provider;
 }
 
-void
+void 
 svn_client_get_ssl_client_file_provider (const svn_auth_provider_t **provider,
                                          void **provider_baton,
                                          apr_pool_t *pool)
@@ -666,7 +666,7 @@ client_ssl_prompt_first_cred (void **credentials,
   svn_auth_ssl_cert_type_t cert_type;
   SVN_ERR (pb->prompt_func (&cert_file, "client certificate filename: ", FALSE,
                             pb->prompt_baton, pool));
-
+  
   if ((cert_file == NULL) || (cert_file[0] == 0))
     {
       return NULL;
@@ -674,12 +674,12 @@ client_ssl_prompt_first_cred (void **credentials,
 
   cert_file_len = strlen(cert_file);
   extension = cert_file + cert_file_len - 4;
-  if ((strcmp (extension, ".p12") == 0) ||
+  if ((strcmp (extension, ".p12") == 0) || 
       (strcmp (extension, ".P12") == 0))
     {
       cert_type = svn_auth_ssl_pkcs12_cert_type;
     }
-  else if ((strcmp (extension, ".pem") == 0) ||
+  else if ((strcmp (extension, ".pem") == 0) || 
            (strcmp (extension, ".PEM") == 0))
     {
       cert_type = svn_auth_ssl_pem_cert_type;
@@ -694,7 +694,7 @@ client_ssl_prompt_first_cred (void **credentials,
         {
           cert_type = svn_auth_ssl_pkcs12_cert_type;
         }
-      else if ((strcmp (type, "pem") == 0) ||
+      else if ((strcmp (type, "pem") == 0) || 
                (strcmp (type, "PEM") == 0))
         {
           cert_type = svn_auth_ssl_pem_cert_type;
@@ -705,7 +705,7 @@ client_ssl_prompt_first_cred (void **credentials,
                                     "unknown ssl certificate type '%s'", type);
         }
     }
-
+  
   if (cert_type == svn_auth_ssl_pem_cert_type)
     {
       SVN_ERR(pb->prompt_func (&key_file, "optional key file: ",
@@ -760,7 +760,7 @@ server_ssl_prompt_first_cred (void **credentials,
         }
       svn_stringbuf_appendcstr (buf, "Hostname mismatch");
       previous_output = TRUE;
-    }
+    } 
   failure = failures_in & (SVN_AUTH_SSL_EXPIRED | SVN_AUTH_SSL_NOTYETVALID);
   if (failure)
     {
@@ -775,7 +775,7 @@ server_ssl_prompt_first_cred (void **credentials,
   svn_stringbuf_appendcstr (buf, ". Accept? (y/N): ");
   SVN_ERR(pb->prompt_func (&choice, buf->data, FALSE,
                            pb->prompt_baton, pool));
-
+  
   if (choice && (choice[0] == 'y' || choice[0] == 'Y'))
     {
       cred = apr_palloc (pool, sizeof(*cred));
@@ -790,21 +790,21 @@ server_ssl_prompt_first_cred (void **credentials,
   return SVN_NO_ERROR;
 }
 
-static const svn_auth_provider_t server_ssl_prompt_provider =
+static const svn_auth_provider_t server_ssl_prompt_provider = 
   {
     SVN_AUTH_CRED_SERVER_SSL,
     server_ssl_prompt_first_cred,
     NULL,
-    NULL
+    NULL  
   };
 
-static const svn_auth_provider_t client_ssl_prompt_provider =
+static const svn_auth_provider_t client_ssl_prompt_provider = 
   {
     SVN_AUTH_CRED_CLIENT_SSL,
     client_ssl_prompt_first_cred,
     NULL,
     NULL
-
+    
   };
 
 static const svn_auth_provider_t client_ssl_pass_prompt_provider =
@@ -813,7 +813,7 @@ static const svn_auth_provider_t client_ssl_pass_prompt_provider =
     client_ssl_pw_prompt_first_cred,
     NULL,
     NULL
-
+    
   };
 
 void

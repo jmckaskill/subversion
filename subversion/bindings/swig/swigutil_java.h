@@ -122,8 +122,8 @@ svn_error_t *svn_swig_java_client_prompt_func(const char **info,
                                               apr_pool_t *pool);
 
 /* Create write-only svn_stream_t from java.io.OutputStream */
-svn_stream_t *svn_swig_java_outputstream_to_stream(JNIEnv *jenv,
-                                                   jobject outputstream,
+svn_stream_t *svn_swig_java_outputstream_to_stream(JNIEnv *jenv, 
+                                                   jobject outputstream, 
                                                    apr_pool_t *pool);
 
 /* Create read-only svn_stream_t from java.io.InputStream */
