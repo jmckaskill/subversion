@@ -38,7 +38,7 @@ $LDFLAGS << `svn-config --ldflags`.chop
 $CFLAGS << `svn-config --cflags`.chop
 $CFLAGS << `svn-config --includes`.chop
 
-# ick...  svn-config doesn't seem to be adding in the directory the subversion
+# ick...  svn-config doesn't seem to be adding in the directory the subversion 
 # includes are in, so lets work around that for now.
 $CFLAGS << ' -I' + `svn-config --prefix`.chop + '/include/subversion-1'
 
@@ -58,10 +58,10 @@ libraries = [
               ['svn_ra-1',     'svn_ra_get_ra_library'],
 ]
 
-libraries.each do |lib,func|
+libraries.each do |lib,func| 
   unless have_library(lib, func)
     puts "You seem to be missing the #{lib} library.\nI can't compile the "+
-      "svn library without this."
+      "svn library without this." 
     exit(1)
   end
 end
