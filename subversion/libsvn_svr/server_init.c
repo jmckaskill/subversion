@@ -3,32 +3,32 @@
  *
  * ================================================================
  * Copyright (c) 2000 Collab.Net.  All rights reserved.
- *
+ * 
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
  * met:
- *
+ * 
  * 1. Redistributions of source code must retain the above copyright
  * notice, this list of conditions and the following disclaimer.
- *
+ * 
  * 2. Redistributions in binary form must reproduce the above copyright
  * notice, this list of conditions and the following disclaimer in the
  * documentation and/or other materials provided with the distribution.
- *
+ * 
  * 3. The end-user documentation included with the redistribution, if
  * any, must include the following acknowlegement: "This product includes
  * software developed by Collab.Net (http://www.Collab.Net/)."
  * Alternately, this acknowlegement may appear in the software itself, if
  * and wherever such third-party acknowlegements normally appear.
- *
+ * 
  * 4. The hosted project names must not be used to endorse or promote
  * products derived from this software without prior written
  * permission. For written permission, please contact info@collab.net.
- *
+ * 
  * 5. Products derived from this software may not use the "Tigris" name
  * nor may "Tigris" appear in their names without prior written
  * permission of Collab.Net.
- *
+ * 
  * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
  * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -42,7 +42,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ====================================================================
- *
+ * 
  * This software consists of voluntary contributions made by many
  * individuals on behalf of Collab.Net.
  */
@@ -54,14 +54,14 @@
 #include "svn_parse.h"
 
 
-/*
-   svn_svr_load_plugin() :
+/* 
+   svn_svr_load_plugin() : 
          Utility to load & register a server plugin into a policy
 
    Input:    * a policy in which to register the plugin
              * pathname of the shared library to load
              * name of the initialization routine in the plugin
-
+            
    Returns:  error structure or SVN_NO_ERROR
 
    ASSUMES that apr_dso_init() has already been called!
@@ -85,13 +85,13 @@ svn_svr_load_plugin (svn_svr_policies_t *policy,
     {
       char *msg =
         apr_psprintf (policy->pool,
-                     "svn_svr_load_plugin(): can't load DSO %s", path->data);
+                     "svn_svr_load_plugin(): can't load DSO %s", path->data); 
       return svn_create_error (result, NULL, msg, NULL, policy->pool);
     }
-
+  
 
   /* Find the plugin's initialization routine. */
-
+  
   result = apr_dso_sym (&initfunc, library, init_routine->data);
 
   if (result != APR_SUCCESS)
@@ -99,11 +99,11 @@ svn_svr_load_plugin (svn_svr_policies_t *policy,
       char *msg =
         apr_psprintf (policy->pool,
                      "svn_svr_load_plugin(): can't find symbol %s",
-                      init_routine->data);
+                      init_routine->data); 
       return svn_create_error (result, NULL, msg, NULL, policy->pool);
     }
 
-  /* Call the plugin's initialization routine.
+  /* Call the plugin's initialization routine.  
 
      This causes the plugin to call svn_svr_register_plugin(), the end
      result of which is a new plugin structure safely nestled within
@@ -116,7 +116,7 @@ svn_svr_load_plugin (svn_svr_policies_t *policy,
       return svn_quick_wrap_error
         (error, "svn_svr_load_plugin(): plugin initialization failed.");
     }
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -137,7 +137,7 @@ svn__svr_load_all_plugins (apr_hash_t *plugins, svn_svr_policies_t *policy)
   void *key, *val;
   size_t keylen;
   svn_error_t *err;
-
+  
   /* Initialize the APR DSO mechanism*/
   apr_status_t result = apr_dso_init();
 
@@ -164,11 +164,11 @@ svn__svr_load_all_plugins (apr_hash_t *plugins, svn_svr_policies_t *policy)
 
       err = svn_svr_load_plugin (policy, &keystring, val);
       if (err)
-        return
-          svn_quick_wrap_error
+        return 
+          svn_quick_wrap_error 
           (err, "svn__svr_load_all_plugins(): a plugin failed to load.");
     }
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -176,18 +176,18 @@ svn__svr_load_all_plugins (apr_hash_t *plugins, svn_svr_policies_t *policy)
 
 
 
-/*
+/* 
    svn_svr_init()   -- create a new, empty "policy" structure
 
    Input:  ptr to policy ptr, pool
-
-   Returns: alloc's empty policy structure,
+    
+   Returns: alloc's empty policy structure, 
             returns svn_error_t * or SVN_NO_ERROR
 
 */
 
 svn_error_t *
-svn_svr_init (svn_svr_policies_t **policy,
+svn_svr_init (svn_svr_policies_t **policy, 
               apr_pool_t *pool)
 {
   apr_status_t result;
@@ -195,7 +195,7 @@ svn_svr_init (svn_svr_policies_t **policy,
   /* First, allocate a `policy' structure and all of its internal
      lists */
 
-  *policy =
+  *policy = 
     (svn_svr_policies_t *) apr_palloc (pool, sizeof(svn_svr_policies_t));
 
   *policy->repos_aliases = apr_make_hash (pool);
@@ -224,7 +224,7 @@ svn_svr_init (svn_svr_policies_t **policy,
 
 
 svn_error_t *
-svn_svr_load_policy (svn_svr_policies_t *policy,
+svn_svr_load_policy (svn_svr_policies_t *policy, 
                      const char *filename)
 {
   apr_hash_t *configdata;
@@ -238,7 +238,7 @@ svn_svr_load_policy (svn_svr_policies_t *policy,
 
 
   /* Ben sez:  we need a debugging system here.  Let's get one quick. (TODO)
-     i.e.
+     i.e.  
             if (DEBUGLVL >= 2) {  printf...;  svn_uberhash_print(); }
   */
   svn_uberhash_print (configdata, stdout);
@@ -282,21 +282,21 @@ svn_svr_load_policy (svn_svr_policies_t *policy,
             /* The "val" is a pointer to a hash containing plugin
                libraries to load up.  We'll definitely do that here
                and now! */
-
+            
             svn__svr_load_all_plugins ((apr_hash_t *) val, policy);
           }
 
         else
           {
-            policy->warning
-              (policy->data,
+            policy->warning 
+              (policy->data, 
                "svn_parse():  ignoring unknown section: `%s'",
                ((svn_string_t *) key)->data);
           }
       }    /* for (hash_index...)  */
-
+       
   } /* closing of Uberhash walk-through */
-
+  
   return SVN_NO_ERROR;
 }
 
