@@ -18,10 +18,10 @@ Public Sub InitTreeView()
     Dim item As Variant
     Dim sType As String
     Dim oNode2 As Node
-
+    
     Set oNode = fMainForm.tvTreeView.Nodes.Add(, tvwFirst, "Computer", g_sComputerName, "COMPUTER")
     Set col = GetDriveList()
-
+    
     For Each item In col
         sType = GetDriveTypeImageListKey(item)
         ' Worrying about working copy data on a CD
@@ -35,20 +35,20 @@ End Sub
 
 Public Sub AddLazyNode(oNode As Node)
     Dim oNode2 As Node
-
+    
     Set oNode2 = fMainForm.tvTreeView.Nodes.Add(oNode, tvwChild)
     oNode2.Tag = "LAZY"
 End Sub
 
 Public Function StripRootNode(s As String) As String
     Dim sPath As String
-
+    
     ' Strip off the computer name
     sPath = PathSkipRoot(s)
     ' Ensure \ is at the end.
     If Right(sPath, 1) <> "\" Then
         sPath = sPath & "\"
     End If
-
+    
     StripRootNode = sPath
 End Function
