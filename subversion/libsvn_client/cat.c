@@ -82,7 +82,7 @@ svn_client_cat (svn_stream_t *out,
     return svn_error_createf(SVN_ERR_CLIENT_IS_DIRECTORY, NULL,
                              "URL \"%s\" refers to directory", url);
 
-  /* Grab some properties we need to know in order to figure out if anything
+  /* Grab some properties we need to know in order to figure out if anything 
      special needs to be done with this file. */
   SVN_ERR (ra_lib->get_file (session, "", rev, NULL, NULL, &props, pool));
 
@@ -90,13 +90,13 @@ svn_client_cat (svn_stream_t *out,
   eol_style = apr_hash_get (props, SVN_PROP_EOL_STYLE, APR_HASH_KEY_STRING);
   keywords = apr_hash_get (props, SVN_PROP_KEYWORDS, APR_HASH_KEY_STRING);
 
-  /* FIXME: Someday we should also check the keywords property and if it's
+  /* FIXME: Someday we should also check the keywords property and if it's 
    * set do keyword expansion, but that's a fair amount of work. */
 
   if ((mime_type && svn_mime_type_is_binary (mime_type->data))
       || (! eol_style && ! keywords))
     {
-      /* Either it's a binary file, or it's a text file with no special eol
+      /* Either it's a binary file, or it's a text file with no special eol 
          style. */
       SVN_ERR (ra_lib->get_file (session, "", rev, out, NULL, NULL, pool));
     }
@@ -112,12 +112,12 @@ svn_client_cat (svn_stream_t *out,
       const char *eol = NULL;
 
       /* grab a temporary file to write the target to. */
-      SVN_ERR (svn_io_open_unique_file (&tmp_file, &tmp_filename, "", ".tmp",
+      SVN_ERR (svn_io_open_unique_file (&tmp_file, &tmp_filename, "", ".tmp", 
                                         TRUE, pool));
 
       tmp_stream = svn_stream_from_aprfile (tmp_file, pool);
 
-      SVN_ERR (ra_lib->get_file (session, "", rev, tmp_stream,
+      SVN_ERR (ra_lib->get_file (session, "", rev, tmp_stream, 
                                  NULL, NULL, pool));
 
       /* rewind our stream. */
@@ -145,7 +145,7 @@ svn_client_cat (svn_stream_t *out,
             SVN_ERR (svn_time_from_cstring (&when, date->data, pool));
 
           SVN_ERR (svn_subst_build_keywords
-                   (&kw, keywords->data,
+                   (&kw, keywords->data, 
                     apr_psprintf (pool, "%" SVN_REVNUM_T_FMT, rev),
                     url,
                     when,
