@@ -101,7 +101,7 @@ notify (void *baton,
       break;
 
     case svn_wc_notify_failed_revert:
-      printf (_("Failed to revert '%s' -- try updating instead.\n"),
+      printf (_("Failed to revert '%s' -- try updating instead.\n"), 
               path_stdout);
       break;
 
@@ -135,7 +135,7 @@ notify (void *baton,
                    || (prop_state == svn_wc_notify_state_unchanged))))
           {
             nb->received_some_change = TRUE;
-
+            
             if (kind == svn_node_file)
               {
                 if (content_state == svn_wc_notify_state_conflicted)
@@ -145,7 +145,7 @@ notify (void *baton,
                 else if (content_state == svn_wc_notify_state_changed)
                   statchar_buf[0] = 'U';
               }
-
+            
             if (prop_state == svn_wc_notify_state_conflicted)
               statchar_buf[1] = 'C';
             else if (prop_state == svn_wc_notify_state_merged)
@@ -220,7 +220,7 @@ notify (void *baton,
             else  /* no revision */
               {
                 if (nb->is_export)
-                  printf (nb->in_external ? _("External export complete.\n") :
+                  printf (nb->in_external ? _("External export complete.\n") : 
                                             _("Export complete.\n"));
                 else if (nb->is_checkout)
                   {
@@ -245,7 +245,7 @@ notify (void *baton,
       break;
 
     case svn_wc_notify_status_external:
-      printf (_("\nPerforming status on external item at '%s'\n"),
+      printf (_("\nPerforming status on external item at '%s'\n"), 
               path_stdout);
       break;
 
