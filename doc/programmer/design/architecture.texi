@@ -75,7 +75,7 @@ Subversion repository.  This includes the ability to read files, write
 new revisions of files, and ask the repository to compare a working copy
 against its latest revision.  Note that there are two implementations of
 this interface:  one designed to talk to a repository over a network,
-and one designed to work with a repository on local disk.
+and one designed to work with a repository on local disk.  
 
 The third library provides general client functions such as
 @code{update()} and @code{commit()}, which may involve one or both of
