@@ -116,7 +116,8 @@ assemble_status (svn_wc_status_t *status,
             status->prop_status = svn_wc_status_replaced;
         }
 
-      else if (entry->schedule == svn_wc_schedule_delete)
+      else if ((entry->schedule == svn_wc_schedule_delete)
+               || (entry->existence == svn_wc_existence_deleted))
         {
           status->text_status = svn_wc_status_deleted;
 
@@ -192,6 +193,11 @@ svn_wc_status (svn_wc_status_t **status,
   err = svn_wc_entry (&entry, path, pool);
   if (err)
     return err;
+
+  if (entry->existence == svn_wc_existence_deleted)
+    return svn_error_createf
+      (SVN_ERR_WC_ENTRY_NOT_FOUND, 0, NULL, pool,
+       "entry '%s' has already been deleted", path->data);
 
   err = assemble_status (s, path, entry, pool);
   if (err)
@@ -285,6 +291,11 @@ svn_wc_statuses (apr_hash_t *statushash,
             }
 
           entry = (svn_wc_entry_t *) val;
+
+          /* If the entry's existence is `deleted', skip it. */
+          if ((entry->existence == svn_wc_existence_deleted)
+              && (entry->schedule != svn_wc_schedule_add))
+            continue;
 
           err = svn_io_check_path (fullpath, &kind, pool);
           if (err) return err;
