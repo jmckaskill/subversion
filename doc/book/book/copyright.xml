@@ -4,8 +4,8 @@
   <simplesect>
     <programlisting>
 ====================================================================
-Copyright (c) 2002-2004
-Ben Collins-Sussman, Brian W. Fitzpatrick, C. Michael Pilato.
+Copyright (c) 2002-2004 
+Ben Collins-Sussman, Brian W. Fitzpatrick, C. Michael Pilato.  
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -53,7 +53,7 @@ individuals on behalf of CollabNet.
 </copyrightpg>
 
 <!--
-local variables:
+local variables: 
 sgml-parent-document: ("book.xml" "")
 end:
 -->
