@@ -64,7 +64,7 @@ add_update_info_to_status_hash (apr_hash_t *statushash,
                                 svn_boolean_t descend,
                                 apr_pool_t *pool)
 {
-  svn_ra_plugin_t *ra_lib;
+  svn_ra_plugin_t *ra_lib;  
   void *ra_baton, *session, *report_baton;
   const svn_delta_editor_t *status_editor;
   void *status_edit_baton;
@@ -96,7 +96,7 @@ add_update_info_to_status_hash (apr_hash_t *statushash,
 
   /* Open a repository session to the URL. */
   SVN_ERR (svn_client__open_ra_session (&session, ra_lib, URL, anchor,
-                                        NULL, TRUE, TRUE, TRUE,
+                                        NULL, TRUE, TRUE, TRUE, 
                                         auth_baton, pool));
 
   /* Tell RA to drive a status-editor; this will fill in the
@@ -107,7 +107,7 @@ add_update_info_to_status_hash (apr_hash_t *statushash,
 
   /* ### todo:  This is a TEMPORARY wrapper around our editor so we
      can use it with an old driver. */
-  svn_delta_compat_wrap (&wrap_editor, &wrap_edit_baton,
+  svn_delta_compat_wrap (&wrap_editor, &wrap_edit_baton, 
                          status_editor, status_edit_baton, pool);
 
   SVN_ERR (ra_lib->do_status (session,
@@ -118,7 +118,7 @@ add_update_info_to_status_hash (apr_hash_t *statushash,
   /* Drive the reporter structure, describing the revisions within
      PATH.  When we call reporter->finish_report, the
      status_editor will be driven by svn_repos_dir_delta. */
-  SVN_ERR (svn_wc_crawl_revisions (path, reporter, report_baton,
+  SVN_ERR (svn_wc_crawl_revisions (path, reporter, report_baton, 
                                    FALSE, /* don't restore missing files */
                                    descend,
                                    NULL, NULL, /* notification is N/A */
@@ -171,7 +171,7 @@ svn_client_status (apr_hash_t **statushash,
 
 
   /* If the caller wants us to contact the repository also... */
-  if (update)
+  if (update)    
     /* Add "dry-run" update information to our existing structures.
        (Pass the DESCEND flag here, since we may want to ignore update
        info that is below PATH.)  */
