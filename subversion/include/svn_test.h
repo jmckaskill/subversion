@@ -32,7 +32,7 @@ extern "C" {
 /* Set *EDITOR and *EDIT_BATON to an editor that prints its arguments
  * to OUT_STREAM.  The edit starts at PATH, that is, PATH will be
  * prepended to the appropriate paths in the output.  Allocate the
- * editor in POOL.
+ * editor in POOL. 
  *
  * INDENTATION is the number of spaces to indent by at each level; use
  * 0 for no indentation.  The indent level is always the same for a
@@ -109,7 +109,7 @@ svn_error_t *svn_test_get_editor (const svn_delta_edit_fns_t **editor,
                                   int indentation,
                                   svn_string_t *path,
                                   apr_pool_t *pool);
-
+     
 #endif /* SVN_TEST_H */
 
 #ifdef __cplusplus
