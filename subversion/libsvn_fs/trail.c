@@ -124,7 +124,7 @@ abort_trail (trail_t *trail,
   if (trail->db_txn)
     SVN_ERR (BDB_WRAP (fs, "aborting Berkeley DB transaction",
                        trail->db_txn->abort (trail->db_txn)));
-
+ 
   svn_pool_destroy (trail->pool);
 
   return SVN_NO_ERROR;
@@ -180,7 +180,7 @@ do_retry (svn_fs_t *fs,
       trail_t *trail;
       svn_error_t *svn_err, *err;
       int deadlocked = 0;
-
+      
       SVN_ERR (begin_trail (&trail, fs, use_txn, pool));
 
       /* Do the body of the transaction.  */
@@ -190,7 +190,7 @@ do_retry (svn_fs_t *fs,
         {
           /* The transaction succeeded!  Commit it.  */
           SVN_ERR (commit_trail (trail, fs));
-
+          
           if (use_txn)
             print_trail_debug (trail, txn_body_fn_name, filename, line);
 
@@ -227,9 +227,9 @@ svn_fs__retry_debug (svn_fs_t *fs,
                      const char *filename,
                      int line)
 {
-  return do_retry (fs, txn_body, baton, TRUE, pool,
+  return do_retry (fs, txn_body, baton, TRUE, pool, 
                    txn_body_fn_name, filename, line);
-}
+}					 
 
 
 #if defined(SVN_FS__TRAIL_DEBUG)
@@ -242,9 +242,9 @@ svn_fs__retry_txn (svn_fs_t *fs,
                    void *baton,
                    apr_pool_t *pool)
 {
-  return do_retry (fs, txn_body, baton, TRUE, pool,
+  return do_retry (fs, txn_body, baton, TRUE, pool, 
                    "unknown", "", 0);
-}
+}					 
 
 
 svn_error_t *
@@ -253,9 +253,9 @@ svn_fs__retry (svn_fs_t *fs,
                void *baton,
                apr_pool_t *pool)
 {
-  return do_retry (fs, txn_body, baton, FALSE, pool,
+  return do_retry (fs, txn_body, baton, FALSE, pool, 
                    NULL, NULL, 0);
-}
+}					 
 
 
 
@@ -273,7 +273,7 @@ record_undo (trail_t *trail,
   undo->prev = trail->undo;
   trail->undo = undo;
 }
-
+             
 
 void
 svn_fs__record_undo (trail_t *trail,
