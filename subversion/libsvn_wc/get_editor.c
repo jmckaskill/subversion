@@ -228,7 +228,7 @@ free_dir_baton (struct dir_baton *dir_baton)
   svn_pool_destroy (dir_baton->pool);
 
   /* We've declared this directory done, so decrement its parent's ref
-     count too. */
+     count too. */ 
   if (parent)
     {
       err = decrement_ref_count (parent);
@@ -408,7 +408,7 @@ window_handler (svn_txdelta_window_t *window, void *baton)
  * after this call, else the directory must exist already.
  *
  * If the path already exists, but is not a working copy for
- * ANCESTOR_URL, then an error will be returned.
+ * ANCESTOR_URL, then an error will be returned. 
  */
 static svn_error_t *
 prep_directory (svn_stringbuf_t *path,
@@ -420,7 +420,7 @@ prep_directory (svn_stringbuf_t *path,
   svn_error_t *err;
 
   /* kff todo: how about a sanity check that it's not a dir of the
-     same name from a different repository or something?
+     same name from a different repository or something? 
      Well, that will be later on down the line... */
 
   if (force)   /* Make sure the directory exists. */
@@ -474,7 +474,7 @@ open_root (void *edit_baton,
     {
       ancestor_url = eb->ancestor_url;
       ancestor_revision = eb->target_revision;
-
+      
       err = prep_directory (d->path,
                             ancestor_url,
                             ancestor_revision,
@@ -525,7 +525,7 @@ delete_entry (svn_stringbuf_t *name, svn_revnum_t revision, void *parent_baton)
                                    SVN_WC__ADM_LOG,
                                    1, /* sync */
                                    parent_dir_baton->pool));
-
+    
   SVN_ERR (svn_wc__run_log (parent_dir_baton->path, parent_dir_baton->pool));
   SVN_ERR (svn_wc__unlock (parent_dir_baton->path, parent_dir_baton->pool));
   return SVN_NO_ERROR;
@@ -556,13 +556,13 @@ add_directory (svn_stringbuf_t *name,
   if ((copyfrom_path && (! SVN_IS_VALID_REVNUM(copyfrom_revision)))
       || ((! copyfrom_path) && (SVN_IS_VALID_REVNUM(copyfrom_revision))))
     abort();
-
+      
   /* Check that an object by this name doesn't already exist. */
   SVN_ERR (svn_io_check_path (this_dir_baton->path, &kind,
                               this_dir_baton->pool));
   if (kind != svn_node_none)
-    return
-      svn_error_createf
+    return 
+      svn_error_createf 
       (SVN_ERR_WC_OBSTRUCTED_UPDATE, 0, NULL, this_dir_baton->pool,
        "wc editor: add_dir `%s': object already exists and is in the way.",
        this_dir_baton->path->data);
@@ -574,9 +574,9 @@ add_directory (svn_stringbuf_t *name,
          copyfrom args.  Someday it will interpet them as an update
          optimization, and actually copy one part of the wc to another.
          Then it will recursively "normalize" all the ancestry in the
-         copied tree.  Someday! */
-      return
-        svn_error_createf
+         copied tree.  Someday! */      
+      return 
+        svn_error_createf 
         (SVN_ERR_UNSUPPORTED_FEATURE, 0, NULL,
          parent_dir_baton->edit_baton->pool,
          "wc editor: add_dir `%s': sorry, I don't support copyfrom args yet.",
@@ -597,7 +597,7 @@ add_directory (svn_stringbuf_t *name,
       svn_path_add_component (new_URL, name, svn_path_url_style);
 
       copyfrom_path = new_URL;
-      copyfrom_revision = parent_dir_baton->edit_baton->target_revision;
+      copyfrom_revision = parent_dir_baton->edit_baton->target_revision;      
     }
 
   /* Create dir (if it doesn't yet exist), make sure it's formatted
@@ -668,7 +668,7 @@ change_dir_prop (void *dir_baton,
       SVN_ERR (svn_wc__wcprop_set (name, value, db->path, db->pool));
       return SVN_NO_ERROR;
     }
-
+  
   /* If this is an 'entry' prop, store it in the entries file and get
      on with life.  It's not a regular user property. */
   else if (svn_wc_is_entry_prop (name))
@@ -748,7 +748,7 @@ close_directory (void *dir_baton)
       err = svn_wc__lock (db->path, 0, db->pool);
       if (err)
         return err;
-
+      
       /* Open log file */
       err = svn_wc__open_adm_file (&log_fp,
                                    db->path,
@@ -762,15 +762,15 @@ close_directory (void *dir_baton)
       err = svn_wc__do_property_merge (db->path, NULL,
                                        db->propchanges, db->pool,
                                        &entry_accum);
-      if (err)
-        return
+      if (err) 
+        return 
           svn_error_quick_wrap (err, "close_dir: couldn't do prop merge.");
 
       /* Set revision. */
       revision_str = apr_psprintf (db->pool,
                                    "%ld",
                                    db->edit_baton->target_revision);
-
+      
       /* Write a log entry to bump the directory's revision. */
       svn_xml_make_open_tag (&entry_accum,
                              db->pool,
@@ -806,7 +806,7 @@ close_directory (void *dir_baton)
                                                   db->pool),
                                NULL);
 
-
+      
       /* Write our accumulation of log entries into a log file */
       apr_err = apr_file_write_full (log_fp, entry_accum->data,
                                 entry_accum->len, NULL);
@@ -817,7 +817,7 @@ close_directory (void *dir_baton)
                                     "close_dir: error writing %s's log file",
                                     db->path->data);
         }
-
+      
       /* The log is ready to run, close it. */
       err = svn_wc__close_adm_file (log_fp,
                                     db->path,
@@ -832,7 +832,7 @@ close_directory (void *dir_baton)
 
       /* Unlock, we're done modifying directory props. */
       err = svn_wc__unlock (db->path, db->pool);
-      if (err) return err;
+      if (err) return err;            
     }
 
 
@@ -868,7 +868,7 @@ add_or_open_file (svn_stringbuf_t *name,
   /* ### kff todo: if file is marked as removed by user, then flag a
      conflict in the entry and proceed.  Similarly if it has changed
      kind.  see issuezilla task #398. */
-
+  
   SVN_ERR (svn_io_get_dirents (&dirents, parent_dir_baton->path,
                                parent_dir_baton->pool));
   SVN_ERR (svn_wc_entries_read (&entries,
@@ -876,7 +876,7 @@ add_or_open_file (svn_stringbuf_t *name,
                                 parent_dir_baton->pool));
 
   entry = apr_hash_get (entries, name->data, name->len);
-
+  
   /* Sanity checks. */
 
   /* If adding, make sure there isn't already a disk entry here with the
@@ -892,7 +892,7 @@ add_or_open_file (svn_stringbuf_t *name,
   /* ben sez: If we're trying to add a file that's already in
      `entries' (but not on disk), that's okay.  It's probably because
      the user deleted the working version and ran 'svn up' as a means
-     of getting the file back.
+     of getting the file back.  
 
      Or... perhaps the entry was removed and committed, leaving its
      existence == `deleted'.  The user may be updating to a revision
@@ -911,7 +911,7 @@ add_or_open_file (svn_stringbuf_t *name,
                               "%s in directory %s",
                               name->data, parent_dir_baton->path->data);
 
-
+        
   /* Make sure we've got a working copy to put the file in. */
   /* kff todo: need stricter logic here */
   err = svn_wc_check_wc (parent_dir_baton->path, &is_wc,
@@ -963,7 +963,7 @@ open_file (svn_stringbuf_t *name,
 
 
 static svn_error_t *
-apply_textdelta (void *file_baton,
+apply_textdelta (void *file_baton, 
                  svn_txdelta_window_handler_t *handler,
                  void **handler_baton)
 {
@@ -976,9 +976,9 @@ apply_textdelta (void *file_baton,
   hb->source = NULL;
   if (! fb->dir_baton->edit_baton->is_checkout)
     {
-      /*
+      /* 
          kff todo: what we really need to do here is:
-
+         
          1. See if there's a file or dir by this name already here.
          2. See if it's under revision control.
          3. If both are true, open text-base.
@@ -1013,15 +1013,15 @@ apply_textdelta (void *file_baton,
       svn_pool_destroy (subpool);
       return err;
     }
-
+  
   /* Prepare to apply the delta.  */
   svn_txdelta_apply (svn_stream_from_aprfile (hb->source, subpool),
                      svn_stream_from_aprfile (hb->dest, subpool),
                      subpool, &hb->apply_handler, &hb->apply_baton);
-
+  
   hb->pool = subpool;
   hb->fb = fb;
-
+  
   /* We're all set.  */
   *handler_baton = hb;
   *handler = window_handler;
@@ -1062,17 +1062,17 @@ change_file_prop (void *file_baton,
     {
       receiver = (svn_prop_t **) apr_array_push (fb->wcpropchanges);
       *receiver = propchange;
-
+      
       fb->wcprop_changed = 1;
       return SVN_NO_ERROR;
     }
-
+  
   /* If this is an 'entry' prop, store it a different array. */
   else if (svn_wc_is_entry_prop (name))
     {
       receiver = (svn_prop_t **) apr_array_push (fb->entrypropchanges);
       *receiver = propchange;
-
+      
       fb->entryprop_changed = 1;
       return SVN_NO_ERROR;
     }
@@ -1194,7 +1194,7 @@ close_file (void *file_baton)
 
                   Text file                Binary File
                --------------------------------------------
-    Local Mods |  run diff/patch   |  rename working file; |
+    Local Mods |  run diff/patch   |  rename working file; | 
                |                   |  copy new file out.   |
                --------------------------------------------
     No Mods    |        Just overwrite working file.       |
@@ -1211,7 +1211,7 @@ close_file (void *file_baton)
          whether the file is actually text or binary, just whether it has
          a mime-type that "marks" the file as binary. */
       SVN_ERR (svn_wc_has_binary_prop (&has_binary_prop, fb->path, fb->pool));
-
+      
       /* Local textual mods?  (We can ignore local prop-mods;  those will
          be automagically merged later on in this routine.) */
       SVN_ERR (svn_wc_text_modified_p (&is_locally_modified,
@@ -1223,7 +1223,7 @@ close_file (void *file_baton)
                                       fb->path->data, fb->pool));
       if (eol_style == svn_wc__eol_style_native)
         s_eol_str = svn_stringbuf_create (eol_str, fb->pool);
-
+        
       /* ### check keyword property here. */
 
       /* Before doing any logic, we *know* that the first thing the
@@ -1274,7 +1274,7 @@ close_file (void *file_baton)
                                    fb->name,
                                    NULL);
         }
-
+  
       else   /* file is locally modified, and this is an update. */
         {
           if (! has_binary_prop)  /* type text */
@@ -1285,7 +1285,7 @@ close_file (void *file_baton)
                 = svn_stringbuf_create (SVN_CLIENT_PATCH, fb->pool);
               apr_file_t *reject_file = NULL;
               svn_stringbuf_t *reject_filename = NULL;
-
+              
               SVN_ERR (svn_io_check_path (fb->path, &wfile_kind, fb->pool));
               if (wfile_kind == svn_node_none)
                 {
@@ -1319,12 +1319,12 @@ close_file (void *file_baton)
                                            NULL);
                 }
               else  /* working file exists */
-                {
+                {                  
                   /* Run the external `diff' command immediately and
                      create a temporary .diff file. */
                   apr_proc_t diff_proc;
                   apr_procattr_t *diffproc_attr;
-                  const char *diff_args[6];
+                  const char *diff_args[6];                  
                   apr_file_t *received_diff_file;
 
                   if (eol_style == svn_wc__eol_style_native)
@@ -1333,7 +1333,7 @@ close_file (void *file_baton)
                          text-bases, and get the full paths to results. */
                       apr_file_t *tr_txtb_fp, *tr_tmp_txtb_fp;
                       svn_stringbuf_t *tr_txtb, *tr_tmp_txtb, *tmp1, *tmp2;
-
+                      
                       /* full paths of the real text-bases */
                       tmp_txtb_full_path
                         = svn_wc__text_base_path (fb->path, 1, fb->pool);
@@ -1358,18 +1358,18 @@ close_file (void *file_baton)
 
                       /* now copy *translated* text-base files to
                          these reserved locations. */
-                      SVN_ERR (svn_io_copy_and_translate
+                      SVN_ERR (svn_io_copy_and_translate 
                                (txtb_full_path->data,
                                 tr_txtb->data,
                                 eol_str,
                                 0, NULL, NULL, NULL, NULL, fb->pool));
 
-                      SVN_ERR (svn_io_copy_and_translate
+                      SVN_ERR (svn_io_copy_and_translate 
                                (tmp_txtb_full_path->data,
                                 tr_tmp_txtb->data,
                                 eol_str,
                                 0, NULL, NULL, NULL, NULL, fb->pool));
-
+                      
                       /* now set our vars to point to the translated
                          files. */
                       txtb_full_path = svn_stringbuf_dup (tr_txtb, fb->pool);
@@ -1387,7 +1387,7 @@ close_file (void *file_baton)
 
                   /* Reserve a filename for the patchfile we'll create. */
                   tmp_loc
-                    = svn_wc__adm_path (fb->dir_baton->path, 1, fb->pool,
+                    = svn_wc__adm_path (fb->dir_baton->path, 1, fb->pool, 
                                         fb->name->data, NULL);
                   SVN_ERR (svn_io_open_unique_file (&received_diff_file,
                                                     &received_diff_filename,
@@ -1395,40 +1395,40 @@ close_file (void *file_baton)
                                                     SVN_WC__DIFF_EXT,
                                                     FALSE,
                                                     fb->pool));
-
+                  
                   /* Create the process attributes. */
-                  apr_err = apr_procattr_create (&diffproc_attr, fb->pool);
+                  apr_err = apr_procattr_create (&diffproc_attr, fb->pool); 
                   if (! APR_STATUS_IS_SUCCESS (apr_err))
-                    return svn_error_create
+                    return svn_error_create 
                       (apr_err, 0, NULL, fb->pool,
                        "close_file: error creating diff process attributes");
-
+                  
                   /* Make sure we invoke diff directly, not thru a shell. */
-                  apr_err =
+                  apr_err = 
                     apr_procattr_cmdtype_set (diffproc_attr, APR_PROGRAM);
                   if (! APR_STATUS_IS_SUCCESS (apr_err))
-                    return svn_error_create
+                    return svn_error_create 
                       (apr_err, 0, NULL, fb->pool,
                        "close_file: error setting diff process cmdtype");
-
+                  
                   /* Set io style. */
-                  apr_err =
-                    apr_procattr_io_set (diffproc_attr, 0,
+                  apr_err = 
+                    apr_procattr_io_set (diffproc_attr, 0, 
                                          APR_CHILD_BLOCK, APR_CHILD_BLOCK);
                   if (! APR_STATUS_IS_SUCCESS (apr_err))
                     return svn_error_create
                       (apr_err, 0, NULL, fb->pool,
                        "close_file: error setting diff process io attributes");
-
+                  
                   /* Tell it to send output to the diff file. */
                   apr_err = apr_procattr_child_out_set (diffproc_attr,
                                                         received_diff_file,
                                                         NULL);
                   if (! APR_STATUS_IS_SUCCESS (apr_err))
-                    return svn_error_create
+                    return svn_error_create 
                       (apr_err, 0, NULL, fb->pool,
                        "close_file: error setting diff process child output");
-
+                  
                   /* Build the diff command. */
                   diff_args[0] = "diff";
                   diff_args[1] = "-c";
@@ -1436,10 +1436,10 @@ close_file (void *file_baton)
                   diff_args[3] = txtb_full_path->data;
                   diff_args[4] = tmp_txtb_full_path->data;
                   diff_args[5] = NULL;
-
+                  
                   /* Start the diff command.  kff todo: path to diff program
                      should be determined through various levels of fallback,
-                     of course, not hardcoded. */
+                     of course, not hardcoded. */ 
                   apr_err = apr_proc_create (&diff_proc,
                                              SVN_CLIENT_DIFF,
                                              diff_args,
@@ -1447,10 +1447,10 @@ close_file (void *file_baton)
                                              diffproc_attr,
                                              fb->pool);
                   if (! APR_STATUS_IS_SUCCESS (apr_err))
-                    return svn_error_createf
+                    return svn_error_createf 
                       (apr_err, 0, NULL, fb->pool,
                        "close_file: error starting diff process");
-
+                  
                   /* Wait for the diff command to finish. */
                   apr_err = apr_proc_wait (&diff_proc, NULL, NULL, APR_WAIT);
                   if (APR_STATUS_IS_CHILD_NOTDONE (apr_err))
@@ -1467,17 +1467,17 @@ close_file (void *file_baton)
                       /* gack, we need the paths to be relative to the
                          log's working directory.  this is copied from
                          below.*/
-                      svn_stringbuf_t *relative_txtb_path =
+                      svn_stringbuf_t *relative_txtb_path = 
                         svn_stringbuf_ncreate
-                        (relative_txtb_path->data
+                        (relative_txtb_path->data 
                          + fb->dir_baton->path->len + 1,
                          relative_txtb_path->len
                          - fb->dir_baton->path->len - 1,
                          fb->pool);
 
-                      svn_stringbuf_t *relative_tmp_txtb_path =
+                      svn_stringbuf_t *relative_tmp_txtb_path = 
                         svn_stringbuf_ncreate
-                        (relative_tmp_txtb_path->data
+                        (relative_tmp_txtb_path->data 
                          + fb->dir_baton->path->len + 1,
                          relative_tmp_txtb_path->len
                          - fb->dir_baton->path->len - 1,
@@ -1499,7 +1499,7 @@ close_file (void *file_baton)
                                              relative_tmp_txtb_path,
                                              NULL);
                     }
-
+   
                   /* Write a log message to `patch' the working file and
                      cleanup... */
 
@@ -1519,7 +1519,7 @@ close_file (void *file_baton)
 
                   /* Paths need to be relative to the working dir that uses
                      this log file, so we chop the prefix.
-
+                     
                      kff todo: maybe this should be abstracted into
                      svn_path_whatever, but it's so simple I'm inclined not
                      to.  On the other hand, the +1/-1's are for slashes, and
@@ -1527,20 +1527,20 @@ close_file (void *file_baton)
                      On the third hand, whatever the separator char is, it's
                      still likely to be one char, so the code would work even
                      if it weren't slash.
-
-                     Sometimes I think I think too much.  I think. */
+                     
+                     Sometimes I think I think too much.  I think. */ 
                   reject_filename = svn_stringbuf_ncreate
                     (reject_filename->data + fb->dir_baton->path->len + 1,
                      reject_filename->len - fb->dir_baton->path->len - 1,
                      fb->pool);
-
+                  
                   received_diff_filename = svn_stringbuf_ncreate
-                    (received_diff_filename->data
+                    (received_diff_filename->data 
                      + fb->dir_baton->path->len + 1,
                      received_diff_filename->len
                      - fb->dir_baton->path->len - 1,
                      fb->pool);
-
+                  
                   /* Log the patch command. */
                   /* kff todo: these options will have to be
                      portablized too.  Even if we know we're doing a
@@ -1590,15 +1590,15 @@ close_file (void *file_baton)
                                          SVN_WC_ENTRY_ATTR_REJFILE,
                                          reject_filename,
                                          NULL);
-
+                  
                 }
             }
-
+          
           else  /* file is marked as binary */
             {
               apr_file_t *renamed_fp;
               svn_stringbuf_t *renamed_path, *renamed_basename;
-
+              
               /* Rename the working file. */
               SVN_ERR (svn_io_open_unique_file (&renamed_fp,
                                                 &renamed_path,
@@ -1611,7 +1611,7 @@ close_file (void *file_baton)
                 return svn_error_createf (apr_err, 0, NULL, fb->pool,
                                           "close_file: error closing %s",
                                           renamed_path->data);
-
+              
               renamed_basename
                 = svn_path_last_component (renamed_path,
                                            svn_path_local_style, fb->pool);
@@ -1625,7 +1625,7 @@ close_file (void *file_baton)
                                      SVN_WC__LOG_ATTR_DEST,
                                      renamed_basename,
                                      NULL);
-
+              
               /* Copy the new file out into working area. */
               svn_xml_make_open_tag (&entry_accum,
                                      fb->pool,
@@ -1638,17 +1638,17 @@ close_file (void *file_baton)
                                      NULL);
             }
         }
-
+      
     }  /* End  of textual merging process! */
-
-
+  
+  
   /* MERGE ANY PROPERTY CHANGES, if they exist... */
   if (fb->prop_changed)
     {
       err = svn_wc__do_property_merge (fb->dir_baton->path, fb->name,
                                        fb->propchanges, fb->pool,
                                        &entry_accum);
-      if (err)
+      if (err) 
         return
           svn_error_quick_wrap (err, "close_file: couldn't do prop merge.");
     }
@@ -1678,10 +1678,10 @@ close_file (void *file_baton)
                                  SVN_WC__LOG_ATTR_NAME,
                                  fb->name,
                                  prop->name->data,
-                                 prop->value ?
-                                      prop->value :
+                                 prop->value ? 
+                                      prop->value : 
                                       svn_stringbuf_create ("", fb->pool),
-                                 NULL);
+                                 NULL);         
         }
     }
 
@@ -1698,7 +1698,7 @@ close_file (void *file_baton)
                          SVN_WC__LOG_ATTR_NAME,
                          fb->name,
                          SVN_WC_ENTRY_ATTR_KIND,
-                         svn_stringbuf_create (SVN_WC__ENTRIES_ATTR_FILE_STR,
+                         svn_stringbuf_create (SVN_WC__ENTRIES_ATTR_FILE_STR, 
                                             fb->pool),
                          SVN_WC_ENTRY_ATTR_REVISION,
                          svn_stringbuf_create (revision_str, fb->pool),
@@ -1714,10 +1714,10 @@ close_file (void *file_baton)
       svn_stringbuf_t *tmp_path;
       svn_stringbuf_t *seed = svn_wc__adm_path (fb->dir_baton->path, 1,
                                                 fb->pool,
-                                                fb->name->data, NULL);
+                                                fb->name->data, NULL);     
       SVN_ERR (svn_io_open_unique_file (&fp, &tmp_path, seed,
                                         SVN_WC__TMP_EXT, FALSE, fb->pool));
-
+      
       /* Write a log command to copy a 'translated' version of the
          working file to a reserved tmp file.*/
       svn_xml_make_open_tag (&entry_accum,
@@ -1800,7 +1800,7 @@ close_file (void *file_baton)
     }
 
   /* Write our accumulation of log entries into a log file */
-  apr_err = apr_file_write_full (log_fp, entry_accum->data,
+  apr_err = apr_file_write_full (log_fp, entry_accum->data, 
                                  entry_accum->len, NULL);
   if (apr_err)
     {
@@ -1832,7 +1832,7 @@ close_file (void *file_baton)
         {
           svn_prop_t *prop;
           prop = (((svn_prop_t **)(fb->wcpropchanges)->elts)[i]);
-          SVN_ERR (svn_wc__wcprop_set (prop->name, prop->value,
+          SVN_ERR (svn_wc__wcprop_set (prop->name, prop->value, 
                                        fb->path, fb->pool));
         }
     }
@@ -1855,7 +1855,7 @@ static svn_error_t *
 close_edit (void *edit_baton)
 {
   struct edit_baton *eb = edit_baton;
-
+  
   /* By definition, anybody "driving" this editor for update purposes
      at a *minimum* must have called set_target_revision() at the
      outset, and close_edit() at the end -- even if it turned out that
@@ -1864,7 +1864,7 @@ close_edit (void *edit_baton)
      this editor needs to make sure that *all* paths have had their
      revisions bumped to the new target revision. */
 
-  if (! eb->is_checkout)
+  if (! eb->is_checkout)  
     {
       /* checkouts already have a uniform wc revision; only updates
          need this bumping, and only directory updates at that.
@@ -1884,7 +1884,7 @@ close_edit (void *edit_baton)
 
   /* The edit is over, free its pool. */
   svn_pool_destroy (eb->pool);
-
+    
   return SVN_NO_ERROR;
 }
 
@@ -2088,7 +2088,7 @@ svn_wc_is_wc_root (svn_boolean_t *wc_root,
   /* Get our ancestry (this doubles as a sanity check).  */
   SVN_ERR (svn_wc_entry (&entry, path, pool));
   if (! entry)
-    return svn_error_createf
+    return svn_error_createf 
       (SVN_ERR_WC_ENTRY_NOT_FOUND, 0, NULL, pool,
        "svn_wc_is_wc_root: %s is not a versioned resource", path->data);
 
@@ -2104,13 +2104,13 @@ svn_wc_is_wc_root (svn_boolean_t *wc_root,
   err = svn_wc_entry (&p_entry, parent, pool);
   if (err || ! p_entry)
     return SVN_NO_ERROR;
-
+  
   /* If the parent directory has no url information, something is
      messed up.  Bail with an error. */
   if (! p_entry->url)
-    return svn_error_createf
+    return svn_error_createf 
       (SVN_ERR_WC_ENTRY_MISSING_URL, 0, NULL, pool,
-       "svn_wc_is_wc_root: %s has no ancestry information.",
+       "svn_wc_is_wc_root: %s has no ancestry information.", 
        parent->data);
 
   /* If PATH's parent in the WC is not its parent in the repository,
@@ -2153,9 +2153,9 @@ svn_wc_get_actual_target (svn_stringbuf_t *path,
 }
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
- * end:
+ * end: 
  */
 
