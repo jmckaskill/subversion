@@ -37,15 +37,15 @@ if ($opt_e) {
 } else {
     # Prepare the file for commit or building.
 
-    # Insert a character from the private use area between double dashes
-    # in the English text. In the memory of the CBM-64 we’ll use "ﳢ" —
-    # U+FCE2, also known as &#64738;. Necessary to stuff something
-    # between the dashes because it’s forbidden to use double dashes
+    # Insert a character from the private use area between double dashes 
+    # in the English text. In the memory of the CBM-64 we’ll use "ﳢ" — 
+    # U+FCE2, also known as &#64738;. Necessary to stuff something 
+    # between the dashes because it’s forbidden to use double dashes 
     # inside comments. ☠.
     $Data =~ s/(<!-- \@ENGLISH {{{)(.*?)(\@ENGLISH }}} -->)/
                sprintf("%s%s%s", $1, cleanup_english($2), $3)/ges;
 
-    # Convert all UTF-8 sequences into numerical entities. To make
+    # Convert all UTF-8 sequences into numerical entities. To make 
     # RFC3629 happy, only use four bytes.
     $Data =~ s/([\xF0-\xF7][\x80-\xBF][\x80-\xBF][\x80-\xBF])/
                decode_char($1)/ge;
@@ -162,7 +162,7 @@ sub widechar {
 
     my $Val = shift;
 
-    # Allow Invalid character range U+D800 through U+DFFF, U+FFFE and
+    # Allow Invalid character range U+D800 through U+DFFF, U+FFFE and 
     # U+FFFF.
     my $allow_invalid = 0;
 
@@ -212,15 +212,15 @@ sub usage {
 
 Usage: $0 [options] [file [...]]
 
-Default action is to prepare the file for commit. Characters above
-U+007F are converted to numerical 7-bit entities and $SEP is inserted
+Default action is to prepare the file for commit. Characters above 
+U+007F are converted to numerical 7-bit entities and $SEP is inserted 
 between double dashes in the English text.
 
 Everything is written to stdout.
 
 Options:
 
--e  Prepare file for editing or merging. The file or stdin is converted
+-e  Prepare file for editing or merging. The file or stdin is converted 
     to UTF-8 and all occurences of $SEP are removed.
 -h  Print this help.
 
