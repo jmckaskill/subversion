@@ -77,7 +77,7 @@ abort_on_pool_failure (int retcode)
 
 #define SVN_POOL_FUNC_DEFINE(rettype, name) \
   rettype name##_debug(apr_pool_t *pool, const char *file_line)
-
+   
 #endif /* APR_POOL_DEBUG */
 
 
@@ -200,5 +200,5 @@ svn_pool_clear (apr_pool_t *pool)
 /*
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
- * end:
+ * end: 
  */
