@@ -3,32 +3,32 @@
  *
  * ================================================================
  * Copyright (c) 2000 Collab.Net.  All rights reserved.
- *
+ * 
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
  * met:
- *
+ * 
  * 1. Redistributions of source code must retain the above copyright
  * notice, this list of conditions and the following disclaimer.
- *
+ * 
  * 2. Redistributions in binary form must reproduce the above copyright
  * notice, this list of conditions and the following disclaimer in the
  * documentation and/or other materials provided with the distribution.
- *
+ * 
  * 3. The end-user documentation included with the redistribution, if
  * any, must include the following acknowlegement: "This product includes
  * software developed by Collab.Net (http://www.Collab.Net/)."
  * Alternately, this acknowlegement may appear in the software itself, if
  * and wherever such third-party acknowlegements normally appear.
- *
+ * 
  * 4. The hosted project names must not be used to endorse or promote
  * products derived from this software without prior written
  * permission. For written permission, please contact info@collab.net.
- *
+ * 
  * 5. Products derived from this software may not use the "Tigris" name
  * nor may "Tigris" appear in their names without prior written
  * permission of Collab.Net.
- *
+ * 
  * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
  * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -42,7 +42,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ====================================================================
- *
+ * 
  * This software consists of voluntary contributions made by many
  * individuals on behalf of Collab.Net.
  */
@@ -88,13 +88,13 @@ check_existence (svn_string_t *path,
 
   if (apr_err == APR_EEXIST)
     {
-      svn_error_t *err
+      svn_error_t *err 
         = svn_create_error (err_to_report, 0, path->data, NULL, pool);
       return err;
     }
   else if (apr_err)  /* some error other than APR_EEXIST */
     {
-      svn_error_t *err
+      svn_error_t *err 
         = svn_create_error (apr_err, 0, path->data, NULL, pool);
       return err;
     }
@@ -115,7 +115,7 @@ check_existence (svn_string_t *path,
 #define SVN_DIR_SEPARATOR '/'
 
 static void
-path_add_component (svn_string_t *path,
+path_add_component (svn_string_t *path, 
                     svn_string_t *component,
                     apr_pool_t *pool)
 {
@@ -166,7 +166,7 @@ add_directory (svn_string_t *name,
      repository has no name, so if no subdir of the repository is
      specified in the checkout, the client must make up a local name
      for the root (i.e., the -d option should probably be mandatory if
-     no other name was given).
+     no other name was given). 
   */
 
   /* todo: it's convenient under Unix, and possibly some other OS's,
@@ -335,7 +335,7 @@ finish_textdelta (void *walk_baton, void *parent_baton, void *handler_baton)
   struct w_baton *wb = (struct w_baton *) walk_baton;
   apr_file_t *f = (apr_file_t *) handler_baton;
   apr_status_t apr_err = apr_close (f);
-
+  
   if (apr_err)
     return svn_create_error (apr_err, 0, NULL, NULL, wb->pool);
   else
@@ -345,7 +345,7 @@ finish_textdelta (void *walk_baton, void *parent_baton, void *handler_baton)
 
 
 /* Apply a delta to a working copy, or to create a working copy.
- *
+ * 
  * If TARGET exists and is a working copy, or a subtree of a working
  * copy, then it is massaged into the updated state.
  *
@@ -411,7 +411,7 @@ svn_wc_apply_delta (void *delta_src,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
