@@ -47,7 +47,7 @@ numbers.
   node_id ::= number | node_revision_id "." number
   node_revision_id ::= node_id "." numberh
 
-So:
+So: 
 - "100" is a node id.
 - "100.10" is a node revision id, referring to revision 10 of node 100.
 - "100.10.3" is a node id, referring to the third branch based on
@@ -287,7 +287,7 @@ arrange the nodes for quick traversal, given our access patterns.
 Here's the sort order we use:
 
 - Nodes are sorted by their node number.
-- All the revisions of a given node come together, in order of
+- All the revisions of a given node come together, in order of 
   increasing revision number.
 - All branches off any revision of a node come immediately after that
   node, ordered by increasing revision number.
@@ -579,7 +579,7 @@ base revision* of a node that has been cloned.  Each value in the
        clone node revision ID.
 
 A reference to a transaction's node must have one of two forms:
-- the ID of a clone in the transaction, or
+- the ID of a clone in the transaction, or 
 - the full path, in the transaction's base revision, of the node.
 
 If a reference has the first form, you know the node has already been
@@ -749,7 +749,7 @@ yielding node CHILD-ID."  In other words, it's a record of all the
 cloning that went on.  CHILD-ID can also be "deleted", indicating that
 the directory entry was deleted.
 
-These entries
+These entries 
 
 
 If a node object refers to a mutable node, it can simply keep track of
@@ -759,7 +759,7 @@ it must record the path from the root of the transaction to the node.
 
 
 
- directory entry name and node revision ID of
+ directory entry name and node revision ID of 
 
 
 recording the clone made for each immutable node modified in
@@ -773,7 +773,7 @@ clone's node revision ID.
 
 Using the "clones" table, we can always find the new mutable node
 corresponding to an old immutable node in a transaction by starting
-from the transaction's root and
+from the transaction's root and 
 
 
 
