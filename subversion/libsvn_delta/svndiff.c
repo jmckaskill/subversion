@@ -1,6 +1,6 @@
-/*
+/* 
  * svndiff.c -- Encoding and decoding svndiff-format deltas.
- *
+ * 
  * ====================================================================
  * Copyright (c) 2000-2003 CollabNet.  All rights reserved.
  *
@@ -466,7 +466,7 @@ write_handler (void *baton,
          unsigned. Should they be apr_ptrdiff_t instead? --xbc */
       if (sview_offset < 0 || sview_len < 0 || tview_len < 0 || inslen < 0
 	  || newlen < 0 || inslen + newlen < 0 || sview_offset + sview_len < 0)
-	return svn_error_create (SVN_ERR_SVNDIFF_CORRUPT_WINDOW, NULL,
+	return svn_error_create (SVN_ERR_SVNDIFF_CORRUPT_WINDOW, NULL, 
 				 "svndiff contains corrupt window header");
 
       /* Check for source windows which slide backwards.  */
@@ -474,7 +474,7 @@ write_handler (void *baton,
           && (sview_offset < db->last_sview_offset
               || (sview_offset + sview_len
                   < db->last_sview_offset + db->last_sview_len)))
-	return svn_error_create (SVN_ERR_SVNDIFF_BACKWARD_VIEW, NULL,
+	return svn_error_create (SVN_ERR_SVNDIFF_BACKWARD_VIEW, NULL, 
 				 "svndiff has backwards-sliding source views");
 
       /* Wait for more data if we don't have enough bytes for the
@@ -484,7 +484,7 @@ write_handler (void *baton,
 
       /* Count the instructions and make sure they are all valid.  */
       end = p + inslen;
-      SVN_ERR (count_and_verify_instructions (&ninst, p, end, sview_len,
+      SVN_ERR (count_and_verify_instructions (&ninst, p, end, sview_len, 
                                               tview_len, newlen));
 
       /* Build the window structure.  */
@@ -525,7 +525,7 @@ write_handler (void *baton,
       newpool = svn_pool_create (db->pool);
       p += newlen;
       remaining = db->buffer->data + db->buffer->len - (const char *) p;
-      db->buffer =
+      db->buffer = 
 	svn_stringbuf_ncreate ((const char *) p, remaining, newpool);
 
       /* Remember the offset and length of the source view for next time.  */
