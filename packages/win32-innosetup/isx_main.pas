@@ -18,7 +18,7 @@
 var
     // Visual C++ 6.0 Runtime file related
     g_bMsVcpNotFound: Boolean;
-
+    
     // shfolder.dll related
     g_bShFolderNotFound: Boolean;
 
@@ -49,7 +49,7 @@ begin
     end else begin
         g_bShFolderNotFound := True;
     end;
-
+    
     Result:= g_bShFolderNotFound;
 end;
 
@@ -113,7 +113,7 @@ begin
     end else begin
         g_bMsVcpNotFound := True;
     end;
-
+    
     Result:= g_bMsVcpNotFound;
 end;
 
@@ -133,7 +133,7 @@ end;
 
 function NextButtonClick(CurPage: Integer): Boolean;
 begin
-    if (CurPage = wpSelectComponents) and
+    if (CurPage = wpSelectComponents) and 
        (g_bMsVcpNotFound or g_bShFolderNotFound) then
     begin
         SysFilesDownLoadInfo();
