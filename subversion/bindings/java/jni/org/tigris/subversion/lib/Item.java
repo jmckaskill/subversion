@@ -17,12 +17,12 @@ package org.tigris.subversion.lib;
  *
  */
 
-public class Item
+public class Item 
 {
   public final Object key;
   public final Object data;
 
-  public Item(Object key, Object data)
+  public Item(Object key, Object data) 
   {
     this.key = key;
     this.data = data;
