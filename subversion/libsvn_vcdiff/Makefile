@@ -11,7 +11,7 @@ vdelta: hash.c vdelta.c
 
 check: test
 
-test:
+test: 
 	@echo "First testing empty-source delta (compression):"
 	@echo "Text:"
 	@cat tests/target0.txt
