@@ -252,7 +252,7 @@ class WinGeneratorBase(gen_base.GeneratorBase):
     deps = { }
 
     sub = self.get_win_depends(target, 2)
-
+    
     for obj in self.graph.get_sources(gen_base.DT_LINK, target.name):
       if not isinstance(obj, gen_base.Target):
         continue
@@ -303,7 +303,7 @@ class WinGeneratorBase(gen_base.GeneratorBase):
     elif isinstance(target, gen_base.SWIGLibrary):
       fakeincludes = self.map_rootpath(["subversion/bindings/swig",
                                         "subversion/include",
-                                        "apr/include"], rootpath)
+                                        "apr/include"], rootpath)  
     else:
       fakeincludes = self.map_rootpath(["subversion/include",
                                         "apr/include",
