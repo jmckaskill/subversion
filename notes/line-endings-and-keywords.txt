@@ -12,7 +12,7 @@ NEW USER-VISIBLE FEATURES:
   2.  newline conversion
 
       Text files in the working copy can (optionally) automatically
-      have the client's 'native' line-endings.
+      have the client's 'native' line-endings.      
 
 
 DESIGN GOAL
@@ -65,8 +65,8 @@ I. NEWLINE CONVERSION
 
 
   B. HOW A CLIENT DOES NEWLINE CONVERSION
-
-     [ History:
+ 
+     [ History:  
 
       * Gstein and Pilchie proposed per-directory default line-ending styles.
       * Karl proposed something differerent.
@@ -116,7 +116,7 @@ II.  KEYWORD EXPANSION
      mime-type is irrelevant.
 
   B. HOW A CLIENT DOES KEYWORD EXPANSION
-
+ 
      - When updating/checking out, the client looks to see if the
        keyword-expansion property is 'on'.  If so, then the file has
        keywords substituted when copying from text-base to the
