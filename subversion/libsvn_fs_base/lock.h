@@ -38,7 +38,7 @@ svn_error_t *svn_fs_base__lock (svn_lock_t **lock,
                                 long int timeout,
                                 svn_revnum_t current_rev,
                                 apr_pool_t *pool);
-
+  
 svn_error_t *svn_fs_base__attach_lock (svn_fs_t *fs,
                                        svn_lock_t *lock,
                                        svn_boolean_t force,
@@ -82,7 +82,7 @@ svn_fs_base__get_lock_helper (svn_lock_t **lock_p,
                               const char *path,
                               trail_t *trail,
                               apr_pool_t *pool);
-
+  
 
 /* Examine PATH for existing locks, and check whether they can be
    used.  Do all work in the context of TRAIL, using POOL for
