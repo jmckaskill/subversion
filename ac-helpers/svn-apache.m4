@@ -24,7 +24,7 @@ AC_ARG_WITH(apache,
 		TARGET=$withval/src/modules/dav/svn
 		if test ! -d $TARGET; then
 			mkdir $TARGET
-		fi
+		fi	
 		BINNAME=mod_dav_svn.a
 		LIBS="$extra_l"
 		INSTALL_IT="mkdir -p $TARGET; cp $BINNAME mod_dav.c mod_dav.exp Makefile.tmpl Makefile.libdir libdav.module dav_shared_stub.c $extra_copy $TARGET"
