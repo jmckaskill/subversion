@@ -61,7 +61,7 @@ Integrating an SVN test app into Makefile.am
 In the example above, we'd like the automake TESTS variable to run
 frobtest four times -- each time with a different argument.  However,
 this won't work:
-
+     
      TESTS = frobtest 1 frobtest 2 frobtest 3 frobtest 4
 
 `make check' sees that as eight different programs to run.
