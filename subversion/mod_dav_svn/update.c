@@ -182,7 +182,7 @@ static void close_helper(svn_boolean_t is_dir, item_baton_t *baton)
 {
   int i;
   svn_stringbuf_t *name;
-
+  
   /* ### ack!  binary names won't float here! */
   if (baton->removed_props && (! baton->added))
     {
@@ -287,7 +287,7 @@ static svn_error_t * upd_change_xxx_prop(void *baton,
       if (! b->changed_props)
         b->changed_props = apr_array_make (b->pool, 1, sizeof (name));
 
-      (*((svn_stringbuf_t **)(apr_array_push (b->changed_props)))) =
+      (*((svn_stringbuf_t **)(apr_array_push (b->changed_props)))) = 
         svn_stringbuf_dup (name, b->pool);
     }
   else
@@ -295,7 +295,7 @@ static svn_error_t * upd_change_xxx_prop(void *baton,
       if (! b->removed_props)
         b->removed_props = apr_array_make (b->pool, 1, sizeof (name));
 
-      (*((svn_stringbuf_t **)(apr_array_push (b->removed_props)))) =
+      (*((svn_stringbuf_t **)(apr_array_push (b->removed_props)))) = 
         svn_stringbuf_dup (name, b->pool);
     }
   return NULL;
@@ -338,7 +338,7 @@ static svn_error_t * noop_handler(svn_txdelta_window_t *window, void *baton)
   return NULL;
 }
 
-static svn_error_t * upd_apply_textdelta(void *file_baton,
+static svn_error_t * upd_apply_textdelta(void *file_baton, 
                                        svn_txdelta_window_handler_t *handler,
                                        void **handler_baton)
 {
@@ -402,7 +402,7 @@ dav_error * dav_svn__update_report(const dav_resource *resource,
                            "svn:target-revision element. That element "
                            "is required.");
     }
-
+  
   for (child = doc->root->first_child; child != NULL; child = child->next)
     {
       if (child->ns == ns && strcmp(child->name, "target-revision") == 0)
@@ -413,7 +413,7 @@ dav_error * dav_svn__update_report(const dav_resource *resource,
       if (child->ns == ns && strcmp(child->name, "update-target") == 0)
         {
           /* ### assume no white space, no child elems, etc */
-          target = svn_stringbuf_create (child->first_cdata.first->text,
+          target = svn_stringbuf_create (child->first_cdata.first->text, 
                                          resource->pool);
         }
       if (child->ns == ns && strcmp(child->name, "recursive") == 0)
@@ -462,7 +462,7 @@ dav_error * dav_svn__update_report(const dav_resource *resource,
 
   fs_base = svn_stringbuf_create(resource->info->repos_path, resource->pool);
   uc.anchor = fs_base->data;
-  serr = svn_repos_begin_report(&rbaton, revnum, repos->username,
+  serr = svn_repos_begin_report(&rbaton, revnum, repos->username, 
                                 repos->fs, fs_base, target, FALSE, recurse,
                                 editor, &uc, resource->pool);
 
@@ -542,7 +542,7 @@ dav_error * dav_svn__update_report(const dav_resource *resource,
 }
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
