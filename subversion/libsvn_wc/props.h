@@ -124,7 +124,7 @@ svn_error_t *svn_wc__wcprop_get (const svn_string_t **value,
                                  svn_wc_adm_access_t *adm_access,
                                  apr_pool_t *pool);
 
-/* Set a single 'wcprop' NAME to VALUE for versioned object PATH.
+/* Set a single 'wcprop' NAME to VALUE for versioned object PATH. 
    If VALUE is null, remove property NAME.  ADM_ACCESS is an access
    baton set that contains PATH. */
 svn_error_t *svn_wc__wcprop_set (const char *name,
