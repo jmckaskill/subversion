@@ -75,7 +75,7 @@ compare_external_items (svn_wc_external_item_t *new_item,
       || (! svn_client__compare_revisions (&(new_item->revision),
                                            &(old_item->revision))))
     return FALSE;
-
+    
   /* Else. */
   return TRUE;
 }
@@ -248,7 +248,7 @@ handle_external_item_change (const void *key, apr_ssize_t klen,
     {
       /* See comment in above case about fancy rename handling.  Here,
          before removing an old subdir, we would see if it wants to
-         just be renamed to a new one. */
+         just be renamed to a new one. */ 
 
       svn_error_t *err;
       svn_wc_adm_access_t *adm_access;
@@ -285,7 +285,7 @@ handle_external_item_change (const void *key, apr_ssize_t klen,
                                   ib->ctx->cancel_func,
                                   ib->ctx->cancel_baton,
                                   ib->pool));
-
+      
       /* First notify that we're about to handle an external. */
       if (ib->ctx->notify_func)
         (*ib->ctx->notify_func) (ib->ctx->notify_baton,
@@ -337,7 +337,7 @@ handle_external_item_change (const void *key, apr_ssize_t klen,
           /* No problem.  Probably user added this external item, but
              hasn't updated since then, so they don't actually have a
              working copy of it yet.  Just check it out. */
-
+          
           svn_error_clear (err);
 
           /* The target dir might have multiple components.  Guarantee
@@ -347,7 +347,7 @@ handle_external_item_change (const void *key, apr_ssize_t klen,
             svn_path_split (path, &parent, NULL, ib->pool);
             SVN_ERR (svn_io_make_dir_recursively (parent, ib->pool));
           }
-
+          
           SVN_ERR (svn_client__checkout_internal
                    (new_item->url,
                     path,
@@ -382,7 +382,7 @@ struct handle_externals_desc_change_baton
 
 
 /* This implements the `svn_hash_diff_func_t' interface.
-   BATON is of type `struct handle_externals_desc_change_baton *'.
+   BATON is of type `struct handle_externals_desc_change_baton *'.  
 */
 static svn_error_t *
 handle_externals_desc_change (const void *key, apr_ssize_t klen,
@@ -467,8 +467,8 @@ svn_client__do_external_status (svn_wc_traversal_info_t *traversal_info,
   /* Loop over the hash of new values (we don't care about the old
      ones).  This is a mapping of versioned directories to property
      values. */
-  for (hi = apr_hash_first (pool, externals_new);
-       hi;
+  for (hi = apr_hash_first (pool, externals_new); 
+       hi; 
        hi = apr_hash_next (hi))
     {
       apr_hash_t *exts;
@@ -487,12 +487,12 @@ svn_client__do_external_status (svn_wc_traversal_info_t *traversal_info,
 
       /* Parse the svn:externals property value.  This results in a
          hash mapping subdirectories to externals structures. */
-      SVN_ERR (svn_wc_parse_externals_description (&exts, path,
+      SVN_ERR (svn_wc_parse_externals_description (&exts, path, 
                                                    propval, subpool));
 
       /* Loop over the subdir hash. */
-      for (hi2 = apr_hash_first (subpool, exts);
-           hi2;
+      for (hi2 = apr_hash_first (subpool, exts); 
+           hi2; 
            hi2 = apr_hash_next (hi2))
         {
           svn_revnum_t youngest;
@@ -522,14 +522,14 @@ svn_client__do_external_status (svn_wc_traversal_info_t *traversal_info,
                                 SVN_INVALID_REVNUM);
 
           /* And then do the status. */
-          SVN_ERR (svn_client_status (&youngest, fullpath,
+          SVN_ERR (svn_client_status (&youngest, fullpath, 
                                       &(external->revision),
-                                      status_func, status_baton,
-                                      TRUE, get_all, update, no_ignore,
+                                      status_func, status_baton, 
+                                      TRUE, get_all, update, no_ignore, 
                                       ctx, pool));
         }
-    }
-
+    } 
+  
   apr_pool_destroy (subpool);
   return SVN_NO_ERROR;
 }
