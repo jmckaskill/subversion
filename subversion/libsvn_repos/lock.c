@@ -67,7 +67,7 @@ svn_repos_open (svn_fs_t **fs_p,
 
   /* Get shared lock. */
 
-  if ((status = apr_file_lock(db->dirf, type)) == APR_SUCCESS)
+  if ((status = apr_file_lock(db->dirf, type)) == APR_SUCCESS) 
     ...;
 
   /* Register an unlock function for the shared lock. */
@@ -81,7 +81,7 @@ svn_repos_open (svn_fs_t **fs_p,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:

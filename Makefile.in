@@ -180,11 +180,11 @@ doc-pdf: doc/programmer/design/svn-design.pdf doc/user/manual/svn-manual.pdf
 ## Build a tarball.
 #
 # Notes:
-#
+# 
 # After Subversion is checked into itself, it will be a lot easier to
 # define this rule in terms of what should be included in the dist,
 # instead of what shouldn't.
-#
+# 
 # Although `make distclean' should clean up apr and neon, in reality
 # neon/src/ still has .o files afterwards.  So we clean them up by
 # hand below.  Better to patch Neon, of course; but the fix wasn't
@@ -229,7 +229,7 @@ dist: ChangeLog
 
 .texi.info:
 	rm -f $@ $@-[0-9] $@-[0-9][0-9]
-	$(MAKEINFO) -I `dirname $(top_srcdir)/$<` -o $@ $<
+	$(MAKEINFO) -I `dirname $(top_srcdir)/$<` -o $@ $< 
 
 .texi.dvi:
 	$(TEXI2DVI) -I `dirname $(top_srcdir)/$<` $<
