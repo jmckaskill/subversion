@@ -29,7 +29,7 @@
 #include <svn_io.h>
 #include "Pool.h"
 
-class Outputer
+class Outputer  
 {
 	jobject m_jthis;
 	static svn_error_t *write(void *baton,
