@@ -4,7 +4,7 @@ SVN_PROG=../svn
 TEST_DIR_1=t1
 TEST_DIR_2=t2
 COMMIT_RESULTFILE_NAME=commit
-ANCESTOR_PATH=anni       # See if Greg Stein notices. :-)
+ANCESTOR_PATH=anni       # See if Greg Stein notices. :-) 
 
 # Remove the testing tree
 rm -rf ${TEST_DIR_1} ${TEST_DIR_2} ${COMMIT_RESULTFILE_NAME}*
@@ -48,7 +48,7 @@ ${SVN_PROG} delete --force ${TEST_DIR_1}/A/D/H/omega
 
 # echo "Deleting added files A/B/E/newfile2, without --force."
 # ${SVN_PROG} delete ${TEST_DIR_1}/A/B/E/newfile2
-
+ 
 ### Commit.
 echo "Committing changes in ${TEST_DIR_1}."
 (cd ${TEST_DIR_1};                                                   \
