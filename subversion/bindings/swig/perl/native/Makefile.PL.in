@@ -29,14 +29,14 @@ my @ldmodules = map {"-lsvn_$_-1"} (@modules, qw/diff subr/);
 my $apr_shlib_path_var = '@SVN_APR_SHLIB_PATH_VAR@';
 my $apr_cflags = '@SVN_APR_INCLUDES@';
 my $apu_cflags = '@SVN_APRUTIL_INCLUDES@';
-my $apr_ldflags = '@SVN_APR_EXPORT_LIBS@'
+my $apr_ldflags = '@SVN_APR_EXPORT_LIBS@' 
    if $^O eq 'darwin';
 
 chomp $apr_shlib_path_var;
 
 my %config = (
     ABSTRACT => 'Perl bindings for Subversion',
-    INC  => join(' ',$apr_cflags, $apu_cflags,
+    INC  => join(' ',$apr_cflags, $apu_cflags, 
                  " -I$swig_srcdir/perl/libsvn_swig_perl",
                  " -I$svnlib_srcdir/include",
                  " -I$swig_srcdir -g"),
@@ -73,7 +73,7 @@ for (@modules) {
 
 sub MY::postamble {
    package MY ;
-
+   
    my $module_c_files = join (' ',map { "svn_$_.c"} @modules);
    my $module_make_commands = join ('',map {"\t\$(MAKE) -f Makefile.$_\n"} @modules);
 
@@ -83,7 +83,7 @@ sub MY::postamble {
    } else {
      $flags = '-c';
    }
-
+   
    my $swig_command = "$swig $flags -nopm -perl " .
                       "-I$swig_srcdir " .
                       "-I$swig_srcdir/perl/libsvn_swig_perl".
@@ -102,7 +102,7 @@ sub MY::postamble {
                                  );
 
   my $fullperlrun = "$apr_shlib_path_var=" . join(':',@ldpaths);
-
+  
    return <<"EOPOST";
 all :: modules
 test :: modules
