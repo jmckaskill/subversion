@@ -503,7 +503,7 @@ static svn_error_t * thunk_window_handler(svn_txdelta_window_t *window,
 }
 
 static svn_error_t * thunk_apply_textdelta(
-    void *file_baton,
+    void *file_baton, 
     svn_txdelta_window_handler_t *handler,
     void **h_baton)
 {
@@ -630,9 +630,9 @@ svn_error_t * svn_swig_py_thunk_log_receiver(void *baton,
     }
 
   /* ### python doesn't have 'const' on the method name and format */
-  if ((result = PyObject_CallFunction(receiver,
-                                      (char *)"OlsssO&",
-                                      chpaths, rev, author, date, msg,
+  if ((result = PyObject_CallFunction(receiver, 
+                                      (char *)"OlsssO&", 
+                                      chpaths, rev, author, date, msg, 
                                       make_ob_pool, pool)) == NULL)
     {
       Py_DECREF(chpaths);
