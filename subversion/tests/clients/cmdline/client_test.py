@@ -4,10 +4,10 @@
 #
 #  usage:   ./client-test.py [test-num]
 #         (or supply no arguments to run all tests.)
-#
-#  Subversion is a tool for revision control.
+# 
+#  Subversion is a tool for revision control. 
 #  See http://subversion.tigris.org for more information.
-#
+#    
 # ====================================================================
 # Copyright (c) 2000-2001 CollabNet.  All rights reserved.
 #
@@ -36,8 +36,8 @@ def run_svn(*varargs):
     command = command + " " + `arg`
   return os.system(command)
 
-
-
+  
+  
 
 #  -- put shared routines here --
 
@@ -89,7 +89,7 @@ def run_test(n):
 def client_test():
   "Main routine to run client tests."
 
-  testnum = 0
+  testnum = 0  
   # Parse commandline arg, run one test
   if (len(sys.argv) > 1):
     testnum = int(sys.argv[1])
