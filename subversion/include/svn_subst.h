@@ -51,7 +51,7 @@ typedef struct svn_subst_keywords_t
  * A and/or B may be NULL; for purposes of comparison, NULL is
  * equivalent to holding no keywords.
  */
-svn_boolean_t
+svn_boolean_t 
 svn_subst_keywords_differ (const svn_subst_keywords_t *a,
                            const svn_subst_keywords_t *b,
                            svn_boolean_t compare_values);
@@ -84,7 +84,7 @@ svn_subst_keywords_differ (const svn_subst_keywords_t *a,
    Recommendation: if EXPAND is false, then you don't care about the
    keyword values, so pass empty strings as non-null signifiers.
 
-   Notes:
+   Notes: 
 
    See svn_wc__get_keywords() and svn_wc__get_eol_style() for a
    convenient way to get EOL_STR and KEYWORDS if in libsvn_wc.
