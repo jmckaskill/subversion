@@ -46,7 +46,7 @@ svn_cl__proplist (apr_getopt_t *os,
   int i;
 
   /* Suck up all remaining args in the target array. */
-  SVN_ERR (svn_opt_args_to_target_array (&targets, os,
+  SVN_ERR (svn_opt_args_to_target_array (&targets, os, 
                                          opt_state->targets,
                                          &(opt_state->start_revision),
                                          &(opt_state->end_revision),
@@ -82,12 +82,12 @@ svn_cl__proplist (apr_getopt_t *os,
       if (URL == NULL)
         return svn_error_create(SVN_ERR_UNVERSIONED_RESOURCE, NULL,
                                 "Either a URL or versioned item is required.");
-
+  
       /* Let libsvn_client do the real work. */
-      SVN_ERR (svn_client_revprop_list (&proplist,
+      SVN_ERR (svn_client_revprop_list (&proplist, 
                                         URL, &(opt_state->start_revision),
                                         &rev, ctx, pool));
-
+      
       printf("Unversioned properties on revision %"SVN_REVNUM_T_FMT":\n",
              rev);
 
@@ -101,14 +101,14 @@ svn_cl__proplist (apr_getopt_t *os,
           const char *target = ((const char **) (targets->elts))[i];
           apr_array_header_t *props;
           int j;
-
-          SVN_ERR (svn_client_proplist (&props, target,
+          
+          SVN_ERR (svn_client_proplist (&props, target, 
                                         &(opt_state->start_revision),
                                         opt_state->recursive, ctx, pool));
-
+          
           for (j = 0; j < props->nelts; ++j)
             {
-              svn_client_proplist_item_t *item
+              svn_client_proplist_item_t *item 
                 = ((svn_client_proplist_item_t **)props->elts)[j];
               const char *node_name_native;
               SVN_ERR (svn_utf_cstring_from_utf8_stringbuf (&node_name_native,
