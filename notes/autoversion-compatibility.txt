@@ -24,7 +24,7 @@ The basic set of tests
 8. Delete a folder  (DELETE)
 9. Open remote file directly  (LOCK)
 10. Copy/drag remote file to local disk (GET)
-11. Copy/drag local file back on top of remote file.
+11. Copy/drag local file back on top of remote file. 
                             (PUT, or DELETE/PUT, or LOCK, PUT, UNLOCK)
 
 
@@ -81,7 +81,7 @@ Nautilus 2.X  (tested by sussman and ttimo)
 
    Check.
 
-11. Copy/drag local file back on top of remote file.
+11. Copy/drag local file back on top of remote file. 
                             (PUT, or DELETE/PUT, or LOCK, PUT, UNLOCK)
 
    DELETEs old file, PUTs twice.  Yucky.
@@ -104,7 +104,7 @@ This works pretty well:  the details needs to be filled in below.
 8. Delete a folder  (DELETE)
 9. Open remote file directly  (LOCK)
 10. Copy/drag remote file to local disk (GET)
-11. Copy/drag local file back on top of remote file.
+11. Copy/drag local file back on top of remote file. 
                             (PUT, or DELETE/PUT, or LOCK, PUT, UNLOCK)
 
 
@@ -125,7 +125,7 @@ This sets the 'redirect-carefully' env. variable to 1, whenever an OS
 X client connects.
 
 There's an Apple issue on this:
-
+  
  http://docs.info.apple.com/article.html?artnum=107047&SaveKCWindowURL=http%3A%2F%2Fkbase.info.apple.com%2Fcgi-bin%2FWebObjects%2Fkbase.woa%2Fwa%2FSaveKCToHomePage&searchMode=Assisted&kbhost=kbase.info.apple.com&showButton=false&randomValue=100&showSurvey=false&sessionID=anonymous|160773135
 
 Unfortunately, I've not yet been able to make this work.  OS X still
@@ -136,7 +136,7 @@ Linux davfs2   (hadaka)
 ============
 
 Apparently this doesn't work at all.  This client always attempts to
-LOCK before any kind of write operation (PUT, PROPPATCH, etc.).
+LOCK before any kind of write operation (PUT, PROPPATCH, etc.).  
 Talk about paranoid!
 
 

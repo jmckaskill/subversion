@@ -25,7 +25,7 @@
   <sect1 id="svn-ch-0-sect-2">
 
     <title>Target audience</title>
-
+    
     <para>The intended audience of this book is anyone who has used a
       version control system before, although perhaps not Subversion
       or CVS.  It assumes that the reader is computer-literate, and
@@ -35,7 +35,7 @@
       sections that describe Subversion's concurrent versioning model.
       Also, there is a quick guide for CVS users attached as an appendix
       <xref linkend="svn-ap-a"/></para>
-
+    
   </sect1>
 
 
@@ -75,7 +75,7 @@
 
     <para>### Explain that the book is free, and how to get it, and
       how to send patches.</para>
-
+    
     <para>### Also insert O'Reilly boilerplate here, regarding general
       comments, questions, and feedback.</para>
 
