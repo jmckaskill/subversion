@@ -15,7 +15,7 @@ Step 1:  Build & install the proper version of SWIG (which is
        to pass
 
              --with-python=/path/to/correct/python/binary
-
+ 
        to the configure script.  You certainly don't want to use any
        version of python older than 2.0.
 
@@ -78,11 +78,11 @@ SPECIFIC LANGUAGE BINDINGS
 
        Optionally, you can run the following command to compile the python
        sources into bytecode:
-
+       
          python <PYTHON>\lib\compileall.py <PYTHON>\Lib\site-packages\svn
-
+         
        This can make the modules load faster for users without write access
-       to <PYTHON>\Lib\site-packages\svn.
+       to <PYTHON>\Lib\site-packages\svn.       
 
    3.  Verify that an 'svn' package has been installed correctly.  You can
        do this by running python via 'python -c "from svn import client"'.
