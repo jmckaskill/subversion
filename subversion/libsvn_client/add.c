@@ -72,7 +72,7 @@ add_dir_recursive (const char *dirname,
 
       /* Construct the full path of the entry. */
       fullpath = svn_stringbuf_create (dirname, subpool);
-      svn_path_add_component
+      svn_path_add_component 
         (fullpath,
          svn_stringbuf_create (this_entry.name, subpool));
 
@@ -109,7 +109,7 @@ add_dir_recursive (const char *dirname,
 
 
 svn_error_t *
-svn_client_add (svn_stringbuf_t *path,
+svn_client_add (svn_stringbuf_t *path, 
                 svn_boolean_t recursive,
                 apr_pool_t *pool)
 {
@@ -123,7 +123,7 @@ svn_client_add (svn_stringbuf_t *path,
     err = svn_wc_add (path, NULL, SVN_INVALID_REVNUM, pool);
 
   if (err && (err->apr_err == SVN_ERR_WC_ENTRY_EXISTS))
-    return svn_error_quick_wrap
+    return svn_error_quick_wrap 
       (err, "svn warning: Cannot add because entry already exists.");
 
   return err;
@@ -181,7 +181,7 @@ svn_client_mkdir (svn_client_commit_info_t **commit_info,
 
       SVN_ERR (editor->open_root (edit_baton, SVN_INVALID_REVNUM,
                                   &root_baton));
-      SVN_ERR (editor->add_directory (target, root_baton, NULL,
+      SVN_ERR (editor->add_directory (target, root_baton, NULL, 
                                       SVN_INVALID_REVNUM, &dir_baton));
       SVN_ERR (editor->close_directory (dir_baton));
       SVN_ERR (editor->close_edit (edit_baton));
@@ -202,13 +202,13 @@ svn_client_mkdir (svn_client_commit_info_t **commit_info,
   apr_err = apr_dir_make (path->data, APR_OS_DEFAULT, pool);
   if (apr_err)
     return svn_error_create (apr_err, 0, NULL, pool, path->data);
-
+  
   return svn_wc_add (path, NULL, SVN_INVALID_REVNUM, pool);
 }
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end: */
