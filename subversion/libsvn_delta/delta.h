@@ -3,32 +3,32 @@
  *
  * ================================================================
  * Copyright (c) 2000 CollabNet.  All rights reserved.
- *
+ * 
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
  * met:
- *
+ * 
  * 1. Redistributions of source code must retain the above copyright
  * notice, this list of conditions and the following disclaimer.
- *
+ * 
  * 2. Redistributions in binary form must reproduce the above copyright
  * notice, this list of conditions and the following disclaimer in the
  * documentation and/or other materials provided with the distribution.
- *
+ * 
  * 3. The end-user documentation included with the redistribution, if
  * any, must include the following acknowlegement: "This product includes
  * software developed by CollabNet (http://www.Collab.Net)."
  * Alternately, this acknowlegement may appear in the software itself, if
  * and wherever such third-party acknowlegements normally appear.
- *
+ * 
  * 4. The hosted project names must not be used to endorse or promote
  * products derived from this software without prior written
  * permission. For written permission, please contact info@collab.net.
- *
+ * 
  * 5. Products derived from this software may not use the "Tigris" name
  * nor may "Tigris" appear in their names without prior written
  * permission of CollabNet.
- *
+ * 
  * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
  * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -42,7 +42,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ====================================================================
- *
+ * 
  * This software consists of voluntary contributions made by many
  * individuals on behalf of CollabNet.
  */
@@ -58,7 +58,7 @@
 #define DELTA_H
 
 
-svn_error_t * svn_vcdiff_send_window (svn_vcdiff_parser_t *parser,
+svn_error_t * svn_vcdiff_send_window (svn_vcdiff_parser_t *parser, 
                                       apr_size_t len);
 
 
@@ -92,7 +92,7 @@ extern apr_size_t svn_txdelta__window_size;
 
 /* These are the in-memory tree-delta stackframes; they are used to
  * keep track of a delta's state while the XML stream is being parsed.
- *
+ * 
  * The XML representation has certain space optimizations.  For
  * example, if an ancestor is omitted, it means the same path at the
  * same version (taken from the surrounding delta context).  We may
@@ -141,8 +141,8 @@ typedef struct svn_xml__stackframe_t
   svn_delta__XML_t tag;  /* this stackframe represents an open <tag> */
 
   svn_string_t *name;    /* if the tag had a "name" attribute attached */
-  svn_string_t *ancestor_path;     /* Explicit, else inherited from parent */
-  svn_vernum_t ancestor_version;   /* Explicit, else inherited from parent */
+  svn_string_t *ancestor_path;     /* Explicit, else inherited from parent */ 
+  svn_vernum_t ancestor_version;   /* Explicit, else inherited from parent */ 
 
   void *baton;           /* holds caller data for the _current_ subdirectory */
   void *file_baton;      /* holds caller data for the _current_ file */
@@ -157,10 +157,10 @@ typedef struct svn_xml__stackframe_t
   svn_boolean_t hashed;  /* TRUE iff this is a <file> tag whose
                             file_baton has been stored in a postfix
                             hashtable. */
-
+  
   struct svn_xml__stackframe_t *next;
   struct svn_xml__stackframe_t *previous;
-
+  
 } svn_xml__stackframe_t;
 
 
@@ -198,8 +198,8 @@ typedef struct svn_xml__digger_t
   apr_pool_t *pool;
 
   /* A mirror of the stack we're getting from the XML structure, used
-     for storing XML attributes and for XML validation.
-
+     for storing XML attributes and for XML validation. 
+     
      NOTE that this is the *YOUNGEST* frame on the stack, not the oldest! */
   svn_xml__stackframe_t *stack;
 
@@ -236,10 +236,10 @@ typedef struct svn_xml__digger_t
      added or replaced.*/
   svn_vcdiff_parser_t *vcdiff_parser;
 
-  /* A hashtable: text-delta-ref-IDs ==> file_batons.
+  /* A hashtable: text-delta-ref-IDs ==> file_batons.  
      Used for "postfix" text-deltas. */
   apr_hash_t *postfix_hash;
-
+  
   /* An in-memory prop-delta, possibly in the process of being
      buffered up */
   struct svn_propdelta_t *current_propdelta;
@@ -262,7 +262,7 @@ typedef struct svn_propdelta_t
 
   svn_string_t *entity_name; /* The name of the file, dir, or dirent
                                 which is being patched. */
-
+  
   svn_string_t *name;        /* name of property to change */
   svn_string_t *value;       /* new value of property; if NULL, then
                                 this property should be deleted. */
@@ -275,7 +275,7 @@ typedef struct svn_propdelta_t
 
 
 /* A object representing a Subversion-specific XML parser; opaque to
-   outside callers, this object is passed to svn_xml_parsebytes().
+   outside callers, this object is passed to svn_xml_parsebytes(). 
 
    This is typedef'ed in public "svn_delta.h".
 */
@@ -297,7 +297,7 @@ struct svn_xml_parser_t
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
