@@ -1,9 +1,9 @@
 #
 # svn.core: public Python interface for core compontents
 #
-#  Subversion is a tool for revision control.
+#  Subversion is a tool for revision control. 
 #  See http://subversion.tigris.org for more information.
-#
+#    
 # ====================================================================
 # Copyright (c) 2000-2004 CollabNet.  All rights reserved.
 #
@@ -50,7 +50,7 @@ def svn_path_compare_paths(path1, path2):
   # Are the paths exactly the same?
   if path1 == path2:
     return 0
-
+  
   # Skip past common prefix
   while (i < min_len) and (path1[i] == path2[i]):
     i = i + 1
@@ -63,7 +63,7 @@ def svn_path_compare_paths(path1, path2):
     char1 = path1[i]
   if (i < path2_len):
     char2 = path2[i]
-
+    
   if (char1 == '/') and (i == path2_len):
     return 1
   if (char2 == '/') and (i == path1_len):
@@ -119,7 +119,7 @@ def secs_from_timestr(svn_datetime, pool):
 # Duplicates are located at:
 # - subversion/build/generator/gen_win.py
 # - cvs2svn/cvs2svn
-#
+#  
 # Please keep all copies in sync, and the list above up-to-date.
 #
 if sys.platform == "win32":
