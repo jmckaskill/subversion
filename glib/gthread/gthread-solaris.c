@@ -24,10 +24,10 @@
  * Modified by the GLib Team and others 1997-1999.  See the AUTHORS
  * file for a list of people on the GLib Team.  See the ChangeLog
  * files for a list of changes.  These files are distributed with
- * GLib at ftp://ftp.gtk.org/pub/gtk/.
+ * GLib at ftp://ftp.gtk.org/pub/gtk/. 
  */
 
-/*
+/* 
  * MT safe
  */
 
@@ -96,7 +96,7 @@ g_cond_new_solaris_impl ()
 #define G_NANOSEC 1000000000
 
 static gboolean
-g_cond_timed_wait_solaris_impl (GCond * cond,
+g_cond_timed_wait_solaris_impl (GCond * cond, 
 				GMutex * entered_mutex,
 				GTimeVal * abs_time)
 {
@@ -159,7 +159,7 @@ g_private_get_solaris_impl (GPrivate * private_key)
 
   if (!private_key)
     return NULL;
-
+  
   thr_getspecific (*(thread_key_t *) private_key, &result);
 
   return result;
