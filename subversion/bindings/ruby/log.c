@@ -71,7 +71,7 @@ svn_ruby_log_receiver (void *baton,
     }
   else
     paths = Qnil;
-
+    
   args[2] = paths;
 
   rb_protect (svn_ruby_protect_call5, (VALUE) args, &error);
@@ -140,7 +140,7 @@ svn_ruby_ra_get_log (int argc,
 
   svn_ruby_get_log_args (argc, argv, self, &paths, &aStart, &aEnd,
                          &discover_changed_paths, &baton, pool);
-
+ 
   start = NUM2LONG (aStart);
   end = NUM2LONG (aEnd);
 
