@@ -40,7 +40,7 @@
             <tree-delta>
               <new name="gamma">
                 <file ancestor="/A/D/gamma">
-                  <prop-delta><delete name="banana"/></prop-delta>
+                  <prop-delta><delete name="banana"/></prop-delta>      
                   <text-delta>This is the file 'gamma'.</text-delta>
                 </file>
               </new>
