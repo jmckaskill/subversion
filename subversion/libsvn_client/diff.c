@@ -109,7 +109,7 @@ svn_client__diff_cmd (svn_stringbuf_t *path1,
   assert (i==nargs);
 
   /* ### TODO: This printf is NOT "my final answer" -- placeholder for
-     real work to be done. */
+     real work to be done. */ 
   if (label)
     apr_file_printf (outhandle, "Index: %s\n", label->data);
   else
@@ -120,7 +120,7 @@ svn_client__diff_cmd (svn_stringbuf_t *path1,
                           outhandle, errhandle, subpool));
 
   /* TODO: Handle exit code == 2 (i.e. errors with diff) here */
-
+  
   /* TODO: someday we'll need to worry about whether we're going to need to
      write a diff plug-in mechanism that makes use of the two paths,
      instead of just blindly running SVN_CLIENT_DIFF.
