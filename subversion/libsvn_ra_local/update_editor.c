@@ -104,7 +104,7 @@ send_entry_props (svn_fs_root_t *root,
 
   /* Give the update editor either real or NULL values for the date
      and author props. */
-  name = svn_stringbuf_create (SVN_PROP_ENTRY_COMMITTED_DATE, subpool);
+  name = svn_stringbuf_create (SVN_PROP_ENTRY_COMMITTED_DATE, subpool);  
   if (committed_date)
     value = svn_stringbuf_create_from_string (committed_date, subpool);
   else
@@ -136,12 +136,12 @@ set_target_revision (void *edit_baton, svn_revnum_t target_revision)
   /* Call the real update editor. */
   SVN_ERR ((* (eb->real_editor->set_target_revision)) (eb->real_edit_baton,
                                                        target_revision));
-
+  
   /* Make our own edit_baton's root object from the target revision. */
   SVN_ERR (svn_fs_revision_root (&(my_eb->root),
                                  my_eb->session->fs, target_revision,
                                  my_eb->pool));
-
+           
   return SVN_NO_ERROR;
 }
 
@@ -176,7 +176,7 @@ open_root (void *edit_baton,
                              my_eb->pool));
 
   *root_baton = d;
-
+  
   return SVN_NO_ERROR;
 
 }
@@ -209,7 +209,7 @@ open_directory (svn_stringbuf_t *name,
     svn_stringbuf_create_from_string (child->parent_dir_baton->my_baton,
                                       my_eb->pool);
   svn_path_add_component (pathbuf, name);
-
+  
   child->my_baton = svn_string_create_from_buf (pathbuf, my_eb->pool);
 
   /* fetch & send entry props for this path. */
@@ -254,7 +254,7 @@ add_directory (svn_stringbuf_t *name,
     svn_stringbuf_create_from_string (child->parent_dir_baton->my_baton,
                                       my_eb->pool);
   svn_path_add_component (pathbuf, name);
-
+  
   child->my_baton = svn_string_create_from_buf (pathbuf, my_eb->pool);
 
   /* fetch & send entry props for this path. */
@@ -291,7 +291,7 @@ add_file (svn_stringbuf_t *name,
 
   /* Call the "real" add_file. */
   SVN_ERR ((* (d->edit_baton->real_editor->add_file))
-           (name, d->real_dir_baton, copyfrom_path,
+           (name, d->real_dir_baton, copyfrom_path, 
             copyfrom_revision, &(fb->real_file_baton)));
 
   /* set the pipe_file_baton's void pointer to a path. */
@@ -394,14 +394,14 @@ svn_ra_local__get_update_pipe_editor (svn_delta_edit_fns_t **editor,
 
   /* Return the pipe editor. */
   *edit_baton = eb;
-  *editor = e;
+  *editor = e;  
   return SVN_NO_ERROR;
 }
 
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end:
