@@ -1,4 +1,4 @@
-/* dbt.h --- interface to DBT-frobbing functions
+/* node.h : interface to node functions, private to libsvn_fs
  *
  * ================================================================
  * Copyright (c) 2000 Collab.Net.  All rights reserved.
@@ -46,56 +46,17 @@
  * individuals on behalf of Collab.Net.
  */
 
-#ifndef SVN_LIBSVN_FS_DBT_H
-#define SVN_LIBSVN_FS_DBT_H
+#ifndef SVN_LIBSVN_FS_TXN_H
+#define SVN_LIBSVN_FS_TXN_H
 
-#include "db.h"
-#include "apr_pools.h"
-
-/* Set all fields of DBT to zero.  Return DBT.  */
-DBT *svn_fs__clear_dbt (DBT *dbt);
+/* Create a new `transactions' table for the new filesystem FS.
+   FS->env must already be open; this sets FS->nodes.  */
+svn_error_t *svn_fs__create_transactions (svn_fs_t *fs);
 
 
-/* Set DBT to refer to the SIZE bytes at DATA.  Return DBT.  */
-DBT *svn_fs__set_dbt (DBT *dbt, void *data, u_int32_t size);
+/* Open the existing `transactions' table for the filesystem FS.
+   FS->env must already be open; this sets FS->nodes.  */
+svn_error_t *svn_fs__open_transactions (svn_fs_t *fs);
 
 
-/* Prepare DBT to hold data returned from Berkeley DB.  Return DBT.
-
-   Clear all its fields to zero, but set the DB_DBT_MALLOC flag,
-   requesting that Berkeley DB place the returned data in a freshly
-   malloc'd block.  If the database operation succeeds, the caller
-   then owns the data block, and is responsible for making sure it
-   gets freed.
-
-   You can use this with svn_fs__track_dbt:
-
-       svn_fs__result_dbt (&foo);
-       ... some Berkeley DB operation that puts data in foo ...
-       svn_fs__track_dbt (&foo, pool);
-
-   This arrangement is:
-   - thread-safe --- the returned data is allocated via malloc, and
-     won't be overwritten if some other thread performs an operation
-     on the same table.  See the explanation of ``Retrieved key/data
-     permanence'' in the section of the Berkeley DB manual on the DBT
-     type.
-   - pool-friendly --- the data returned by Berkeley DB is now guaranteed
-     to be freed when POOL is cleared.  */
-DBT *svn_fs__result_dbt (DBT *dbt);
-
-
-/* Arrange for POOL to `track' DBT's data: when POOL is cleared,
-   DBT->data will be freed, using `free'.  If DBT->data is zero,
-   do nothing.
-
-   This is meant for use with svn_fs__result_dbt; see the explanation
-   there.  */
-DBT *svn_fs__track_dbt (DBT *dbt, apr_pool_t *pool);
-
-
-/* Compare two DBT values in byte-by-byte lexicographic order.  */
-int svn_fs__compare_dbt (const DBT *a, const DBT *b);
-
-
-#endif /* SVN_LIBSVN_FS_DBT_H */
+#endif /* SVN_LIBSVN_FS_TXN_H */

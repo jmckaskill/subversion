@@ -106,7 +106,7 @@ svn_fs__track_dbt (DBT *dbt, apr_pool_t *pool)
 
 
 int
-svn_fs__compare_dbt (DBT *a, DBT *b)
+svn_fs__compare_dbt (const DBT *a, const DBT *b)
 {
   int common_size = a->size > b->size ? b->size : a->size;
   int cmp = memcmp (a->data, b->data, common_size);
