@@ -186,7 +186,7 @@ doc-pdf: doc/programmer/design/svn-design.pdf
 
 .texi.info:
 	rm -f $@ $@-[0-9] $@-[0-9][0-9]
-	$(MAKEINFO) -I $(top_srcdir)/doc -o $@ $<
+	$(MAKEINFO) -I $(top_srcdir)/doc -o $@ $< 
 
 .texi.dvi:
 	$(TEXI2DVI) -I $(top_srcdir)/doc/programmer/design $<
