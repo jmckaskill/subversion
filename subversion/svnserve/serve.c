@@ -85,7 +85,7 @@ typedef struct {
 enum authn_type { UNAUTHENTICATED, AUTHENTICATED };
 enum access_type { NO_ACCESS, READ_ACCESS, WRITE_ACCESS };
 
-/* Verify that URL is inside REPOS_URL and get its fs path. Assume that
+/* Verify that URL is inside REPOS_URL and get its fs path. Assume that 
    REPOS_URL and URL are already URI-decoded. */
 static svn_error_t *get_fs_path(const char *repos_url, const char *url,
                                 const char **fs_path, apr_pool_t *pool)
@@ -896,7 +896,7 @@ static svn_error_t *log_cmd(svn_ra_svn_conn_t *conn, apr_pool_t *pool,
                                  &strict_node, &limit));
 
   /* if we got an unspecified number then the user didn't send us anything,
-     so we assume no limit.  if it's larger than UINT_MAX then someone is
+     so we assume no limit.  if it's larger than UINT_MAX then someone is 
      messing with us, since we know the svn client libraries will never send
      us anything that big, so play it safe and default to no limit. */
   if (limit == SVN_RA_SVN_UNSPECIFIED_NUMBER || limit > UINT_MAX)
@@ -1084,7 +1084,7 @@ static svn_error_t *file_rev_handler(void *baton, const char *path,
     }
   else
     SVN_ERR(svn_ra_svn_write_cstring(frb->conn, pool, ""));
-
+      
   return SVN_NO_ERROR;
 }
 
@@ -1097,7 +1097,7 @@ static svn_error_t *get_file_revs(svn_ra_svn_conn_t *conn, apr_pool_t *pool,
   svn_revnum_t start_rev, end_rev;
   const char *path;
   const char *full_path;
-
+  
   /* Parse arguments. */
   SVN_ERR(svn_ra_svn_parse_tuple(params, pool, "c(?r)(?r)",
                                  &path, &start_rev, &end_rev));
@@ -1193,7 +1193,7 @@ repos_path_valid(const char *path)
 
   return TRUE;
 }
-
+      
 /* Look for the repository given by URL, using ROOT as the virtual
  * repository root.  If we find one, fill in the repos, fs, cfg,
  * repos_url, and fs_path fields of B. */
