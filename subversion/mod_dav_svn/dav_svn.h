@@ -249,7 +249,7 @@ const char *dav_svn_build_uri(const dav_resource *resource,
 #endif /* DAV_SVN_H */
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
