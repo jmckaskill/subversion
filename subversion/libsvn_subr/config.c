@@ -355,7 +355,7 @@ parse_registry (svn_config_t *cfg, const char *file, svn_boolean_t must_exist)
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
