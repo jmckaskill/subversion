@@ -83,11 +83,11 @@ rep_is_mutable (skel_t *rep)
 {
   /* The node "header" is the first element of a rep skel. */
   skel_t *header = rep->children;
-
+  
   /* The 2nd element of the header, IF it exists, is the header's
      first `flag'.  It could be NULL.  */
   skel_t *flag = header->children->next;
-
+  
   while (flag)
     {
       if (svn_fs__matches_atom (flag, "mutable"))
@@ -95,7 +95,7 @@ rep_is_mutable (skel_t *rep)
 
       flag = flag->next;
     }
-
+  
   /* Reached the end of the header skel, no mutable flag was found. */
   return FALSE;
 }
@@ -110,7 +110,7 @@ rep_set_mutable_flag (skel_t *rep, apr_pool_t *pool)
 {
   if (! rep_is_mutable (rep))
     svn_fs__append (svn_fs__str_atom ("mutable", pool), rep->children);
-
+    
   return;
 }
 
@@ -118,7 +118,7 @@ rep_set_mutable_flag (skel_t *rep, apr_pool_t *pool)
 svn_error_t *
 svn_fs__get_mutable_rep (const char **new_rep,
                          const char *rep,
-                         svn_fs_t *fs,
+                         svn_fs_t *fs, 
                          trail_t *trail)
 {
   skel_t *rep_skel;
@@ -126,7 +126,7 @@ svn_fs__get_mutable_rep (const char **new_rep,
   if (rep && (rep[0] != '\0'))
     {
       SVN_ERR (svn_fs__read_rep (&rep_skel, fs, rep, trail));
-
+  
       /* If REP is not mutable, we have to make a mutable copy.  It is
          a deep copy -- the underlying string is copied too, and the
          new rep refers to the new string.  */
@@ -135,19 +135,19 @@ svn_fs__get_mutable_rep (const char **new_rep,
           if (rep_is_fulltext (rep_skel))
             {
               const char *str_key, *new_str_key;
-
+              
               /* Step 1:  Copy the string to which the rep refers. */
               str_key = string_key (rep_skel, trail->pool);
               SVN_ERR (svn_fs__string_copy (fs, &new_str_key,
                                             str_key, trail));
-
+              
               /* Step 2:  Make this rep mutable. */
               rep_set_mutable_flag (rep_skel, trail->pool);
-
+              
               /* Step 3:  Change the string key to which this rep points. */
               rep_skel->children->next->data = new_str_key;
               rep_skel->children->next->len = strlen (new_str_key);
-
+              
               /* Step 4: Write the mutable version of this rep to the
                  database, returning the newly created key to the
                  caller. */
@@ -170,13 +170,13 @@ svn_fs__get_mutable_rep (const char **new_rep,
 
       /* Create a new, empty string. */
       SVN_ERR (svn_fs__string_append (fs, &new_str_key, 0, NULL, trail));
-
+      
       svn_fs__prepend (svn_fs__str_atom (new_str_key, trail->pool), rep_skel);
       svn_fs__prepend (header, rep_skel);
-
+      
       SVN_ERR (svn_fs__write_new_rep (new_rep, fs, rep_skel, trail));
     }
-
+      
   return SVN_NO_ERROR;
 }
 
@@ -204,12 +204,12 @@ svn_fs__make_rep_immutable (svn_fs_t *fs,
             prev->next = flag->next;
           else
             header->children->next = NULL;
-
+          
           SVN_ERR (svn_fs__write_rep (fs, rep, rep_skel, trail));
           break;
         }
     }
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -257,7 +257,7 @@ struct rep_read_baton
      refetch the representation skel every time we want to read
      another chunk.  */
   const char *rep_key;
-
+  
   /* How many bytes have been read already. */
   apr_size_t offset;
 
@@ -304,7 +304,7 @@ rep_read_range (svn_fs_t *fs,
                 trail_t *trail)
 {
   skel_t *rep;
-
+        
   SVN_ERR (svn_fs__read_rep (&rep, fs, rep_key, trail));
 
   if (rep_is_fulltext (rep))
@@ -355,7 +355,7 @@ struct read_rep_args
 
    Afterwards, *(BATON->len) is the number of bytes actually read, and
    BATON->rb->offset is incremented by that amount.
-
+   
    If BATON->rb->rep_key is null, this is assumed to mean the file's
    contents have no representation, i.e., the file has no contents.
    In that case, if BATON->rb->offset > 0, return the error
@@ -409,7 +409,7 @@ rep_read_contents (void *baton, char *buf, apr_size_t *len)
                                 txn_body_read_rep,
                                 &args,
                                 rb->pool));
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -424,9 +424,9 @@ struct rep_write_baton
 
   /* The representation skel whose contents we want to write. */
   const char *rep_key;
-
+  
   /* If present, do the write as part of this trail, and use trail's
-     pool.  Otherwise, see `pool' below.  */
+     pool.  Otherwise, see `pool' below.  */ 
   trail_t *trail;
 
   /* Used for temporary allocations, iff `trail' (above) is null.  */
@@ -467,7 +467,7 @@ rep_write (svn_fs_t *fs,
            trail_t *trail)
 {
   skel_t *rep;
-
+        
   SVN_ERR (svn_fs__read_rep (&rep, fs, rep_key, trail));
 
   if (! rep_is_mutable (rep))
@@ -497,7 +497,7 @@ struct write_rep_args
 
 /* BATON is of type `write_rep_args':
    Append onto BATON->wb->rep_key's contents BATON->len bytes of
-   data from BATON->wb->buf, in BATON->rb->fs, as part of TRAIL.
+   data from BATON->wb->buf, in BATON->rb->fs, as part of TRAIL.  
 
    If the representation is not mutable, return the error
    SVN_FS_REP_NOT_MUTABLE.  */
@@ -538,7 +538,7 @@ rep_write_contents (void *baton, const char *buf, apr_size_t *len)
                                 txn_body_write_rep,
                                 &args,
                                 wb->pool));
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -561,7 +561,7 @@ svn_fs__rep_contents_read_stream (svn_fs_t *fs,
   return rs;
 }
 
-
+                                       
 svn_stream_t *
 svn_fs__rep_contents_write_stream (svn_fs_t *fs,
                                    const char *rep,
@@ -691,20 +691,20 @@ svn_fs__rep_deltify (svn_fs_t *fs,
     *target_stream;       /* stream to read the target */
   svn_txdelta_stream_t
     *txdelta_stream;      /* stream to read delta windows  */
-
+  
   /* stream to write new (deltified) target data */
   svn_stream_t *new_target_stream;
   struct write_string_baton new_target_baton;
-
+  
   /* window handler for writing to above stream */
   svn_txdelta_window_handler_t new_target_handler;
-
+  
   /* baton for aforementioned window handler */
   void *new_target_handler_baton;
-
+  
   /* yes, we do windows */
   svn_txdelta_window_t *window;
-
+  
   new_target_baton.fs = fs;
   new_target_baton.trail = trail;
   new_target_baton.key = NULL;
@@ -735,9 +735,9 @@ svn_fs__rep_deltify (svn_fs_t *fs,
       SVN_ERR (new_target_handler (window, new_target_handler_baton));
       if (window)
         svn_txdelta_free_window (window);
-
+      
     } while (window);
-
+  
   /* todo: Now `new_target_baton.key' has the key of the new string.
      We should hook it into the representation. */
 
@@ -747,7 +747,7 @@ svn_fs__rep_deltify (svn_fs_t *fs,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
