@@ -176,7 +176,7 @@ static svn_error_t * get_version_url(commit_ctx_t *cc, resource_t *rsrc)
 
       /* whoops. it wasn't there. go grab it from the server. */
     }
-
+  
   SVN_ERR( svn_ra_dav__get_props_resource(&propres, cc->ras, rsrc->url,
                                           NULL, fetch_props, cc->ras->pool) );
   rsrc->vsn_url = apr_hash_get(propres->propset,
@@ -421,7 +421,7 @@ static void record_prop_change(apr_pool_t *pool,
 
       if (r->prop_deletes == NULL)
         r->prop_deletes = apr_array_make(pool, 5, sizeof(char *));
-
+  
       elt = apr_array_push(r->prop_deletes);
       *elt = apr_pstrdup(pool, name->data);
     }
@@ -448,7 +448,7 @@ static svn_error_t * do_proppatch(svn_ra_session_t *ras,
       && (rb->prop_deletes == NULL || rb->prop_deletes->nelts == 0))
     return NULL;
 
-  /* easier to roll our own PROPPATCH here than use ne_proppatch(), which
+  /* easier to roll our own PROPPATCH here than use ne_proppatch(), which 
    * doesn't really do anything clever. */
   body = ne_buffer_create();
 
@@ -459,17 +459,17 @@ static svn_error_t * do_proppatch(svn_ra_session_t *ras,
   if (rb->prop_changes != NULL)
     {
       ne_buffer_zappend(body, "<D:set><D:prop>");
-      apr_table_do(do_setprop, body, rb->prop_changes, NULL);
+      apr_table_do(do_setprop, body, rb->prop_changes, NULL);      
       ne_buffer_zappend(body, "</D:prop></D:set>");
     }
-
+  
   if (rb->prop_deletes != NULL)
     {
       int n;
 
       ne_buffer_zappend(body, "<D:remove><D:prop>");
-
-      for (n = 0; n < rb->prop_deletes->nelts; n++)
+      
+      for (n = 0; n < rb->prop_deletes->nelts; n++) 
         {
           ne_buffer_concat(body, "<S:", ((const char **)rb->prop_deletes->elts)[n],
                            "/>", NULL);
@@ -503,7 +503,7 @@ static svn_error_t * do_proppatch(svn_ra_session_t *ras,
 }
 
 static svn_error_t * commit_replace_root(void *edit_baton,
-                                         svn_revnum_t base_revision,
+                                         svn_revnum_t base_revision, 
                                          void **root_baton)
 {
   commit_ctx_t *cc = edit_baton;
@@ -801,7 +801,7 @@ static svn_error_t * commit_stream_close(void *baton)
   return NULL;
 }
 
-static svn_error_t * commit_apply_txdelta(void *file_baton,
+static svn_error_t * commit_apply_txdelta(void *file_baton, 
                                           svn_txdelta_window_handler_t *handler,
                                           void **handler_baton)
 {
@@ -973,7 +973,7 @@ svn_error_t * svn_ra_dav__get_commit_editor(
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
