@@ -307,7 +307,7 @@ static svn_error_t *
 set_target_revision (void *edit_baton, svn_revnum_t target_revision)
 {
   struct edit_baton *eb = edit_baton;
-
+  
   eb->target_revision = target_revision;
   return SVN_NO_ERROR;
 }
@@ -366,8 +366,8 @@ delete_entry (const char *path,
                                                 pool);
         SVN_ERR (get_file_from_ra (b));
         SVN_ERR (get_empty_file(b->edit_baton, &b->path_end_revision));
-
-        SVN_ERR (pb->edit_baton->diff_callbacks->file_deleted
+        
+        SVN_ERR (pb->edit_baton->diff_callbacks->file_deleted 
                  (b->path,
                   b->path_start_revision->data,
                   b->path_end_revision->data,
@@ -376,7 +376,7 @@ delete_entry (const char *path,
       }
     case svn_node_dir:
       {
-        SVN_ERR (pb->edit_baton->diff_callbacks->dir_deleted
+        SVN_ERR (pb->edit_baton->diff_callbacks->dir_deleted 
                  (pb->path,
                   pb->edit_baton->diff_cmd_baton));
         break;
@@ -406,7 +406,7 @@ add_directory (const char *path,
   b = make_dir_baton (path, pb, TRUE, pool);
   *child_baton = b;
 
-  SVN_ERR (pb->edit_baton->diff_callbacks->dir_added
+  SVN_ERR (pb->edit_baton->diff_callbacks->dir_added 
            (path,
             pb->edit_baton->diff_cmd_baton));
 
@@ -596,7 +596,7 @@ change_file_prop (void *file_baton,
   SVN_ERR (eb->diff_callbacks->prop_changed
            (b->path, name, value,
             eb->diff_cmd_baton));
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -614,7 +614,7 @@ change_dir_prop (void *dir_baton,
   SVN_ERR (eb->diff_callbacks->prop_changed
            (db->path, name, value,
             eb->diff_cmd_baton));
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -680,7 +680,7 @@ svn_client__get_diff_editor (svn_stringbuf_t *target,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end: */

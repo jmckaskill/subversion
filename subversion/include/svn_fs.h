@@ -44,7 +44,7 @@ typedef struct svn_fs_t svn_fs_t;
 
 /* Create a new filesystem object in POOL.  It doesn't refer to any
    actual repository yet; you need to invoke svn_fs_open_* or
-   svn_fs_create_* on it for that to happen.
+   svn_fs_create_* on it for that to happen.  
 
    NOTE: you probably don't want to use this directly, especially not
    if it's followed immediately by a call to svn_fs_open_berkeley().
@@ -117,7 +117,7 @@ svn_error_t *svn_fs_create_berkeley (svn_fs_t *fs, const char *path);
 
    Only one thread may operate on any given filesystem object at once.
    Two threads may access the same filesystem simultaneously only if
-   they open separate filesystem objects.
+   they open separate filesystem objects.  
 
    NOTE: you probably don't want to use this directly, especially not
    if it's immediately preceded by a call to svn_fs_new().  Take a
@@ -144,7 +144,7 @@ const char *svn_fs_berkeley_path (svn_fs_t *fs, apr_pool_t *pool);
 
    This function calls `DBENV->set_errcall', with HANDLER as the
    `db_errcall_fcn' argument.  */
-svn_error_t *svn_fs_set_berkeley_errcall (svn_fs_t *fs,
+svn_error_t *svn_fs_set_berkeley_errcall (svn_fs_t *fs, 
                                           void (*handler) (const char *errpfx,
                                                            char *msg));
 
@@ -214,7 +214,7 @@ svn_error_t *svn_fs_berkeley_recover (const char *path,
      node_id ::= number | node_revision_id "." number
      node_revision_id ::= node_id "." number
 
-   So:
+   So: 
    - "100" is a node id.
    - "100.10" is a node revision id, referring to revision 10 of node 100.
    - "100.10.3" is a node id, referring to the third branch based on
@@ -288,7 +288,7 @@ int svn_fs_id_distance (const svn_fs_id_t *a, const svn_fs_id_t *b);
    history to determine if the nodes associated with ID1 and ID2, and
    found in filesystem FS, are related.  If so, set *RELATED to 1,
    else to 0.  Use POOL for allocations.  */
-svn_error_t *svn_fs_check_related (int *related,
+svn_error_t *svn_fs_check_related (int *related, 
                                    svn_fs_t *fs,
                                    const svn_fs_id_t *id1,
                                    const svn_fs_id_t *id2,
@@ -402,7 +402,7 @@ typedef struct svn_fs_txn_t svn_fs_txn_t;
    Allocate the new transaction in POOL; when POOL is freed, the new
    transaction will be closed (neither committed nor aborted).  You
    can also close the transaction explicitly, using
-   `svn_fs_close_txn'.
+   `svn_fs_close_txn'.  
 
      >> Note: if you're building a txn for committing, you probably <<
      >> don't want to call this directly.  Instead, call            <<
@@ -713,7 +713,7 @@ svn_error_t *svn_fs_node_prop (svn_string_t **value_p,
                                const char *path,
                                const char *propname,
                                apr_pool_t *pool);
-
+   
 
 /* Set *TABLE_P to the entire property list of PATH in ROOT, as an APR
    hash table allocated in POOL.  The resulting table maps property
@@ -842,8 +842,8 @@ svn_error_t *svn_fs_merge (const char **conflict_p,
 
        - they are different node types, or
 
-       - if both files, they have different node-revision-ids, or
-
+       - if both files, they have different node-revision-ids, or 
+ 
        - if both dirs, they have different entry lists.
 
    (Note that there is a small chance of getting a false positive: two
@@ -933,7 +933,7 @@ svn_error_t *svn_fs_dir_entries (apr_hash_t **entries_p,
 svn_error_t *svn_fs_make_dir (svn_fs_root_t *root,
                               const char *path,
                               apr_pool_t *pool);
-
+                              
 
 /* Delete the node named PATH in ROOT.  ROOT must be the root of a
    transaction, not a revision.  Do any necessary temporary allocation
@@ -1035,7 +1035,7 @@ svn_error_t *svn_fs_file_length (apr_off_t *length_p,
    If ROOT is the root of a transaction, it is possible that the
    contents of the file PATH will change between calls to
    svn_fs_file_contents().  In that case, the result of reading from
-   *CONTENTS is undefined.
+   *CONTENTS is undefined.  
 
    ### kff todo: I am worried about lifetime issues with this pool vs
    the trail created farther down the call stack.  Trace this function
