@@ -3,32 +3,32 @@
  *
  * ================================================================
  * Copyright (c) 2000 CollabNet.  All rights reserved.
- *
+ * 
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
  * met:
- *
+ * 
  * 1. Redistributions of source code must retain the above copyright
  * notice, this list of conditions and the following disclaimer.
- *
+ * 
  * 2. Redistributions in binary form must reproduce the above copyright
  * notice, this list of conditions and the following disclaimer in the
  * documentation and/or other materials provided with the distribution.
- *
+ * 
  * 3. The end-user documentation included with the redistribution, if
  * any, must include the following acknowlegement: "This product includes
  * software developed by CollabNet (http://www.Collab.Net)."
  * Alternately, this acknowlegement may appear in the software itself, if
  * and wherever such third-party acknowlegements normally appear.
- *
+ * 
  * 4. The hosted project names must not be used to endorse or promote
  * products derived from this software without prior written
  * permission. For written permission, please contact info@collab.net.
- *
+ * 
  * 5. Products derived from this software may not use the "Tigris" name
  * nor may "Tigris" appear in their names without prior written
  * permission of CollabNet.
- *
+ * 
  * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
  * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -42,7 +42,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ====================================================================
- *
+ * 
  * This software consists of voluntary contributions made by many
  * individuals on behalf of CollabNet.
  */
@@ -114,7 +114,7 @@ svn_error_t *svn_wc__lock (svn_string_t *path, int wait, apr_pool_t *pool);
 svn_error_t *svn_wc__unlock (svn_string_t *path, apr_pool_t *pool);
 
 /* Set *LOCKED to non-zero if PATH is locked, else set it to zero. */
-svn_error_t *svn_wc__locked (svn_boolean_t *locked,
+svn_error_t *svn_wc__locked (svn_boolean_t *locked, 
                              svn_string_t *path,
                              apr_pool_t *pool);
 
@@ -177,7 +177,7 @@ svn_error_t *svn_wc__make_adm_thing (svn_string_t *path,
  * When you open a file for writing with svn_wc__open_foo(), the file
  * is actually opened in the corresponding location in the tmp/
  * directory (and if you're appending as well, then the tmp file
- * starts out as a copy of the original file).
+ * starts out as a copy of the original file). 
  *
  * Somehow, this tmp file must eventually get renamed to its real
  * destination in the adm area.  You can do it either by passing the
@@ -246,7 +246,7 @@ svn_string_t *svn_wc__text_base_path (const svn_string_t *path,
  * (In practice, this means creating an adm area if none exists, in
  * which case it is locked from birth, or else locking an adm area
  * that's already there.)
- *
+ * 
  * REPOSITORY is a repository string for initializing the adm area.
  *
  * REVISION is the revision for this directory.  kff todo: ancestor_path?
@@ -264,7 +264,7 @@ svn_error_t *svn_wc__ensure_wc (svn_string_t *path,
  * Use REPOSITORY for the wc's repository.
  *
  * Does not ensure existence of PATH itself; if PATH does not exist,
- * an error will result.
+ * an error will result. 
  */
 svn_error_t *svn_wc__ensure_adm (svn_string_t *path,
                                  svn_string_t *repository,
@@ -314,7 +314,7 @@ svn_error_t *svn_wc__ensure_adm (svn_string_t *path,
 #define SVN_WC__LOG_CP                  "cp"
 
 
-/* A commit completed successfully, so:
+/* A commit completed successfully, so:  
  *   if SVN/tmp/text-base/SVN_WC__LOG_ATTR_NAME exists, then
  *      compare SVN/tmp/text-base/SVN_WC__LOG_ATTR_NAME with working file
  *         if they're the same, use working file's timestamp
@@ -331,8 +331,8 @@ svn_error_t *svn_wc__ensure_adm (svn_string_t *path,
 
 /* Starting at PATH, write out log entries indicating that a commit
  * succeeded, using REVISION as the new revision number.  run_log will
- * use these log items to complete the commit.
- *
+ * use these log items to complete the commit. 
+ * 
  * Targets is a hash of files/dirs that actually got committed --
  * these are the only ones who we can write log items for, and whose
  * revision numbers will get set.  todo: eventually this hash will be
@@ -345,7 +345,7 @@ svn_error_t *svn_wc__log_commit (svn_string_t *path,
                                  apr_pool_t *pool);
 
 
-/* Recurse from path, cleaning up unfinished log business.
+/* Recurse from path, cleaning up unfinished log business. 
  * In each directory, starting from PATH, do the following:
  *
  *   1. If TARGETS is non-null but nothing in it indicates that this
@@ -355,7 +355,7 @@ svn_error_t *svn_wc__log_commit (svn_string_t *path,
  *
  *   2. If the dir is locked, error out if BAIL_ON_LOCK is set.
  *      Otherwise, proceed to step 3.
- *
+ * 
  *   3. If there is a log, run each item in the log, in order.  When
  *      done, rm the log.
  *
@@ -363,7 +363,7 @@ svn_error_t *svn_wc__log_commit (svn_string_t *path,
  *      And if BAIL_ON_LOCK is not set, remove any lock file as well.
  *
  * todo: this, along with all other recursers, will want to use the
- * svn_wc__compose_paths() convention for TARGETS eventually.
+ * svn_wc__compose_paths() convention for TARGETS eventually. 
  */
 svn_error_t *svn_wc__cleanup (svn_string_t *path,
                               apr_hash_t *targets,
@@ -405,7 +405,7 @@ typedef struct svn_wc__entry_t
 
   apr_time_t timestamp;        /* When the entries file thinks the
                                   local working file last changed.
-                                  (NULL means not available) */
+                                  (NULL means not available) */ 
 
   apr_hash_t *attributes;      /* All XML attributes, both those
                                   duplicated above and any others.
@@ -444,10 +444,10 @@ svn_error_t *svn_wc__entries_write (apr_hash_t *entries,
 
 /* Create a new entry NAME in ENTRIES with appropriate fields.
    Varargs specify any other xml attributes, as alternating pairs of
-   key (char *), value (svn_string_t *).
+   key (char *), value (svn_string_t *).  
 
    An entry name of null means the dir's own entry, as usual.
-
+   
    An error SVN_ERR_WC_ENTRY_EXISTS is returned if the entry already
    exists. */
 svn_error_t *svn_wc__entry_add (apr_hash_t *entries,
@@ -461,27 +461,27 @@ svn_error_t *svn_wc__entry_add (apr_hash_t *entries,
 
 /* For PATH's entries file, create or modify an entry NAME, using
  * explicit fields and, secondarily, varargs.
- *
+ * 
  * If NAME is null, it means the dir's own entry, as usual.
- *
+ * 
  * If REVISION is SVN_INVALID_REVNUM, then the entry's revision number
  * will not be changed, else it will be set to REVISION.
- *
+ * 
  * If KIND is svn_node_none, then the entry's kind will not be
  * changed, else it will be set to KIND.
- *
+ * 
  * If flags has the SVN_WC__ENTRY_CLEAR bit set, then the entry's
  * flags will be cleared.  If it has any other bits set, those bits
  * will be OR'd onto the entry's flags.
- *
+ * 
  * If TIMESTAMP is 0, the entry's timestamp will not be changed, else
  * it will be set to TIMESTAMP.
- *
+ * 
  * Any remaining (variadic) arguments are alternating pairs of key
  * (char *) and value (svn_string_t *), and will be set into the
  * entry's attributes hash, overwriting where they collide with what
  * is already present in the attributes.
- *
+ * 
  * NOTE: the entries file will be read, tweaked, and written back out.
  * This is your one-stop shopping for changing an entry.
  */
@@ -541,7 +541,7 @@ svn_error_t *svn_wc__copy_file (svn_string_t *src,
  *
  * DIFF_FN stores its results in *RESULT, which will later be passed
  * to a matching patch function.  (Note that DIFF_FN will be invoked
- * on two filenames, a source and a target).
+ * on two filenames, a source and a target). 
  */
 svn_error_t *svn_wc__get_local_changes (svn_wc_diff_fn_t *diff_fn,
                                         void **result,
@@ -623,7 +623,7 @@ svn_wc__save_prop_file (svn_string_t *propfile_path,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
