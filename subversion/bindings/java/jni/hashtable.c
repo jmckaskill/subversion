@@ -39,9 +39,9 @@ hashtable__create(JNIEnv *env, jboolean *hasException)
 #ifdef SVN_JNI__VERBOSE
   fprintf(stderr, ">>>hashtable__create\n");
 #endif
-
+  
   /* is there enough memory to have twoadditional
-   * local references?
+   * local references? 
    * - class reference
    * - constructor method id
    */
@@ -59,8 +59,8 @@ hashtable__create(JNIEnv *env, jboolean *hasException)
 
       if( !_hasException )
 	{
-	  hashtableConstructor =
-            j__get_method(env, &_hasException,
+	  hashtableConstructor = 
+            j__get_method(env, &_hasException, 
                           hashtableClass,
                           SVN_JNI_HASHTABLE__CONSTRUCTOR,
                           SVN_JNI_HASHTABLE__CONSTRUCTOR_SIG);
@@ -92,7 +92,7 @@ hashtable__create(JNIEnv *env, jboolean *hasException)
   SVN_JNI__DEBUG_BOOL(_hasException);
   fprintf(stderr, "\n<<<hashtable__create\n");
 #endif
-
+              
   /* return wether an exception has occured */
   if( hasException != NULL )
     {
@@ -125,7 +125,7 @@ hashtable__put(JNIEnv *env, jobject hashtable, jobject key,
       jclass hashtableClass = NULL;
       jmethodID hashtablePut = NULL;
 
-      hashtableClass = j__get_class(env, &_hasException,
+      hashtableClass = j__get_class(env, &_hasException, 
                                     SVN_JNI_HASHTABLE__CLASS);
 
       if( !_hasException )
@@ -167,10 +167,10 @@ hashtable__put(JNIEnv *env, jobject hashtable, jobject key,
     }
 
   return result;
-}
+} 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../svn-dev.el")
- * end:
+ * end: 
  */
