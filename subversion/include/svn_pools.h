@@ -63,9 +63,9 @@ void svn_pool_clear_debug (apr_pool_t *p,
 #endif /* APR_POOL_DEBUG */
 #endif /* DOXYGEN_SHOULD_SKIP_THIS */
 
-/** Destroy a @a pool and all of its children.
+/** Destroy a @a pool and all of its children. 
  *
- * Destroy a @a pool and all of its children.
+ * Destroy a @a pool and all of its children. 
  *
  * This define for @c svn_pool_destroy exists for symmatry (the
  * not-so-grand reason) and for the existence of a great memory usage

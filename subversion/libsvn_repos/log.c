@@ -37,7 +37,7 @@
  *
  * The key is allocated in POOL; the value is (void *) 'U', 'A', 'D',
  * or 'R', for modified, added, deleted, or replaced, respectively.
- *
+ * 
  */
 static svn_error_t *
 detect_changed (apr_hash_t *changed,
@@ -48,7 +48,7 @@ detect_changed (apr_hash_t *changed,
   apr_hash_index_t *hi;
   svn_log_changed_path_t *item;
   apr_pool_t *subpool = svn_pool_create (pool);
-
+  
   SVN_ERR (svn_fs_paths_changed (&changes, root, subpool));
   for (hi = apr_hash_first (subpool, changes); hi; hi = apr_hash_next (hi))
     {
@@ -102,7 +102,7 @@ detect_changed (apr_hash_t *changed,
               item->copyfrom_rev = copyfrom_rev;
             }
         }
-      apr_hash_set (changed, apr_pstrdup (pool, path),
+      apr_hash_set (changed, apr_pstrdup (pool, path), 
                     APR_HASH_KEY_STRING, item);
     }
 
@@ -159,7 +159,7 @@ svn_repos_get_logs (svn_repos_t *repos,
                (&rev_root, fs, (start > end) ? start : end, pool));
 
       /* And the search is on... */
-      SVN_ERR (svn_fs_revisions_changed (&revs, rev_root, paths,
+      SVN_ERR (svn_fs_revisions_changed (&revs, rev_root, paths, 
                                          strict_node_history ? 0 : 1, pool));
 
       /* If no revisions were found for these entries, we have nothing
@@ -217,7 +217,7 @@ svn_repos_get_logs (svn_repos_t *repos,
                             date ? date->data : NULL,
                             message ? message->data : NULL,
                             subpool));
-
+      
       svn_pool_clear (subpool);
     }
 

@@ -44,7 +44,7 @@ const char *dav_svn_get_txn(const dav_svn_repos *repos,
   const char *txn_name;
 
   pathname = svn_path_join(repos->fs_path, ACTIVITY_DB, repos->pool);
-  status = apr_dbm_open(&dbm, pathname, APR_DBM_READONLY,
+  status = apr_dbm_open(&dbm, pathname, APR_DBM_READONLY, 
                         APR_OS_DEFAULT, repos->pool);
   if (status != APR_SUCCESS)
     {
@@ -82,11 +82,11 @@ dav_error *dav_svn_store_activity(const dav_svn_repos *repos,
   apr_datum_t value;
 
   pathname = svn_path_join(repos->fs_path, ACTIVITY_DB, repos->pool);
-  status = apr_dbm_open(&dbm, pathname, APR_DBM_RWCREATE,
+  status = apr_dbm_open(&dbm, pathname, APR_DBM_RWCREATE, 
                         APR_OS_DEFAULT, repos->pool);
   if (status != APR_SUCCESS)
     {
-      svn_error_t *serr =
+      svn_error_t *serr = 
         svn_error_create(status, NULL,
                          "failed to open activity db;  check repos perms.");
 
@@ -102,7 +102,7 @@ dav_error *dav_svn_store_activity(const dav_svn_repos *repos,
   apr_dbm_close(dbm);
   if (status != APR_SUCCESS)
     {
-      svn_error_t *serr =
+      svn_error_t *serr = 
         svn_error_create(status, NULL,
                          "failed to close activity db; check repos perms.");
 

@@ -43,7 +43,7 @@ extern "C" {
  * the subcommand.  See @a os->argv and @a os->ind.
  *
  * @a baton is anything you need it to be.
- *
+ * 
  * @a pool is used for allocating errors, and for any other allocation
  * unless the instance is explicitly documented to allocate from a
  * pool in @a baton.
@@ -88,9 +88,9 @@ typedef struct svn_opt_subcommand_desc_t
 
 
 /**
- * Return the entry in @a table whose name matches @a cmd_name, or @c NULL if
+ * Return the entry in @a table whose name matches @a cmd_name, or @c NULL if 
  * none.  @a cmd_name may be an alias.
- */
+ */  
 const svn_opt_subcommand_desc_t *
 svn_opt_get_canonical_subcommand (const svn_opt_subcommand_desc_t *table,
                                   const char *cmd_name);
@@ -137,7 +137,7 @@ svn_opt_print_generic_help (const char *header,
 
 
 /**
- * Print an option @a opt nicely into a @a string allocated in @a pool.
+ * Print an option @a opt nicely into a @a string allocated in @a pool.  
  * If @a doc is set, include the generic documentation string of option.
  */
 void
@@ -149,14 +149,14 @@ svn_opt_format_option (const char **string,
 
 
 /**
- * Get @a subcommand's usage from @a table, and print it to @c stdout.
+ * Get @a subcommand's usage from @a table, and print it to @c stdout.  
  * Obtain option usage from @a options_table.  Use @a pool for temporary
  * allocation.  @a subcommand may be a canonical command name or an
  * alias.  (### todo: why does this only print to @c stdout, whereas
  * @c svn_opt_print_generic_help gives us a choice?)
  */
 void
-svn_opt_subcommand_help (const char *subcommand,
+svn_opt_subcommand_help (const char *subcommand, 
                          const svn_opt_subcommand_desc_t *table,
                          const apr_getopt_option_t *options_table,
                          apr_pool_t *pool);
@@ -166,7 +166,7 @@ svn_opt_subcommand_help (const char *subcommand,
 /* Parsing revision and date options. */
 
 /**
- * Various ways of specifying revisions.
+ * Various ways of specifying revisions. 
  *
  * Note:
  * In contexts where local mods are relevant, the `working' kind
@@ -212,17 +212,17 @@ typedef struct svn_opt_revision_t {
 
 
 /**
- * Set @a *start_revision and/or @a *end_revision according to @a arg,
+ * Set @a *start_revision and/or @a *end_revision according to @a arg, 
  * where @a arg is "N" or "N:M", like so:
- *
+ * 
  *    - If @a arg is "N", set @a *start_revision's kind to
  *      @c svn_opt_revision_number and its value to the number N; and
  *      leave @a *end_revision untouched.
  *
  *    - If @a arg is "N:M", set @a *start_revision's and @a *end_revision's
  *      kinds to @c svn_opt_revision_number and values to N and M
- *      respectively.
- *
+ *      respectively. 
+ * 
  * N and/or M may be one of the special revision descriptors
  * recognized by @c revision_from_word().
  *
@@ -278,7 +278,7 @@ void svn_opt_push_implicit_dot_target (apr_array_header_t *targets,
 
 /**
  * Parse @a num_args non-target arguments from the list of arguments in
- * @a os->argv, return them as <tt>const char *</tt> in @a *args_p, without
+ * @a os->argv, return them as <tt>const char *</tt> in @a *args_p, without 
  * doing any UTF-8 conversion.  Allocate @a *args_p and its values in @a pool.
  */
 svn_error_t *
@@ -302,7 +302,7 @@ svn_opt_parse_all_args (apr_array_header_t **args_p,
 /**
  * Print either generic help, or command-specific help for @a pgm_name.
  * If there are arguments in @a os, then try printing help for them as
- * though they are subcommands, using  @a cmd_table and @a option_table
+ * though they are subcommands, using  @a cmd_table and @a option_table 
  * for option information.
  *
  * If @a os is @c NULL, or there are no targets in @a os, then:

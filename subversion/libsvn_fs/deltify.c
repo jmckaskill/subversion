@@ -69,21 +69,21 @@ txn_body_undeltify (void *baton, trail_t *trail)
 
   /* Turn ID into a skel so we can get the rep keys. */
   SVN_ERR (svn_fs__bdb_get_node_revision (&noderev, args->fs, args->id, trail));
-
+  
   /* Check that target exists.  If not, no big deal -- just do
      nothing. */
   if (noderev == NULL)
     return SVN_NO_ERROR;
-
+  
   /* Undeltify the properties. */
   if (noderev->prop_key)
     SVN_ERR (svn_fs__rep_undeltify (args->fs, noderev->prop_key, trail));
-
+  
   /* Undeltify the data (entries list for directories, file contents
      for files). */
   if (noderev->data_key)
     SVN_ERR (svn_fs__rep_undeltify (args->fs, noderev->data_key, trail));
-
+  
   return SVN_NO_ERROR;
 }
 
