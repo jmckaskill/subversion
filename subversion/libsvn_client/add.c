@@ -52,7 +52,7 @@ svn_client_add (svn_string_t *file, apr_pool_t *pool)
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end: */
