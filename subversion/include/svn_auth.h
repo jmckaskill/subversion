@@ -73,7 +73,7 @@ typedef struct
   /* A string that describes the kind of credentials this provider
      understands. */
   const char *cred_kind;
-
+  
   /* Set *CREDENTIALS to a set of valid credentials.  If no
      credentials are available, return an error describing why (in
      which case *CREDENTIALS are undefined.)  Set *ITER_BATON to
@@ -92,13 +92,13 @@ typedef struct
   svn_error_t * (*next_credentials) (void **credentials,
                                      void *iter_baton,
                                      apr_pool_t *pool);
-
+  
   /* Store CREDENTIALS for future use.  PROVIDER_BATON is general
      context for the vtable. */
   svn_error_t * (*save_credentials) (void *credentials,
                                      void *provider_baton,
                                      apr_pool_t *pool);
-
+  
 } svn_auth_provider_t;
 
 /** Specific types of credentials **/
@@ -109,7 +109,7 @@ typedef struct
 {
   const char *username;
   const char *password;
-
+  
 } svn_auth_cred_simple_t;
 
 /* A type of credentials:  just a username. */
