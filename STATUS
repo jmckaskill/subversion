@@ -139,7 +139,7 @@ the section for unapproved changes.)
       Votes:
        +1: cmpilato, kfogel, ghudson
 
-
+       
     * r8346
       Fix infinite recursion in libsvn_subr/utf.c.
       Votes:
@@ -178,11 +178,11 @@ Bindings changes that affect the build system:
       +1: clkao
       -1: breser (See thread at: http://subversion.tigris.org/servlets/ReadMsg?list=dev&msgNo=54911
                   Message ID: 20040119001028.GQ25614@occipital.brain.org)
-
+     
 Bindings changes that don't affect the build system:
 
      * r8344
-     Fix perl bindings to work with new date format.
+     Fix perl bindings to work with new date format. 
      Justification: Perl bindings won't even build now without this.
      Votes:
       +1: breser, epg, clkao
