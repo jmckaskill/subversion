@@ -129,7 +129,7 @@ svn_fs__write_new_rep (char **key,
                             310762507339484047393505519345657439796788
                             24151197232629947748581376.  Somebody warn
                             my grandchildren. */
-
+  
   /* Get the current value associated with `next-key'.  */
   svn_fs__str_to_dbt (&query, (char *) svn_fs__next_key_key);
   SVN_ERR (DB_WRAP (fs, "allocating new representation (getting next-key)",
@@ -184,7 +184,7 @@ svn_fs__delete_rep (svn_fs_t *fs, const char *key, trail_t *trail)
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
