@@ -47,7 +47,7 @@ svn_client_resolve (const char *path,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end: */
