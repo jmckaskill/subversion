@@ -2,32 +2,32 @@
  *
  * ================================================================
  * Copyright (c) 2000 Collab.Net.  All rights reserved.
- *
+ * 
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
  * met:
- *
+ * 
  * 1. Redistributions of source code must retain the above copyright
  * notice, this list of conditions and the following disclaimer.
- *
+ * 
  * 2. Redistributions in binary form must reproduce the above copyright
  * notice, this list of conditions and the following disclaimer in the
  * documentation and/or other materials provided with the distribution.
- *
+ * 
  * 3. The end-user documentation included with the redistribution, if
  * any, must include the following acknowlegement: "This product includes
  * software developed by Collab.Net (http://www.Collab.Net/)."
  * Alternately, this acknowlegement may appear in the software itself, if
  * and wherever such third-party acknowlegements normally appear.
- *
+ * 
  * 4. The hosted project names must not be used to endorse or promote
  * products derived from this software without prior written
  * permission. For written permission, please contact info@collab.net.
- *
+ * 
  * 5. Products derived from this software may not use the "Tigris" name
  * nor may "Tigris" appear in their names without prior written
  * permission of Collab.Net.
- *
+ * 
  * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
  * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -41,7 +41,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ====================================================================
- *
+ * 
  * This software consists of voluntary contributions made by many
  * individuals on behalf of Collab.Net.
  */
@@ -330,7 +330,7 @@ extern svn_error_t *svn_fs_dirent_proplist (svn_fs_proplist_t **proplist,
 
 
 /* Set *VALUE to the value of the property in PROPLIST named NAME.
-   Set *VALUE to zero if there is no such property.
+   Set *VALUE to zero if there is no such property.  
 
    If POOL is zero, allocate *VALUE in pool of the object PROPLIST
    came from; it will be freed when the filesystem is closed.  If POOL
@@ -368,7 +368,7 @@ extern svn_error_t *svn_fs_proplist_table (apr_hash_t *table,
 /* Committing changes to Subversion filesystems.  */
 
 
-/* [[Comments on the below would be so welcome.]]
+/* [[Comments on the below would be so welcome.]]  
 
    To make a change to the Subversion filesystem:
    - Create a transaction object, using `svn_fs_begin_txn'.
@@ -440,7 +440,7 @@ extern svn_error_t *svn_fs_proplist_table (apr_hash_t *table,
      svn_fs_delete
      svn_fs_add_file            svn_fs_add_directory
      svn_fs_replace_file        svn_fs_replace_directory
-     svn_fs_apply_textdelta
+     svn_fs_apply_textdelta    
      svn_fs_change_file_prop    svn_fs_change_dir_prop
                                 svn_fs_change_dirent_prop
 
@@ -556,7 +556,7 @@ extern svn_error_t *svn_fs_change_file_prop (svn_fs_file_t *file,
    of a transaction.  And you can actually go back in history and
    change them.
 
-   Files, directories, and directory entries can have
+   Files, directories, and directory entries can have 
 
 
 
