@@ -239,7 +239,7 @@ const char *Prompter::askQuestion(const char *realm, const char *question, bool 
 		{
 			return NULL;
 		}
-		jstring janswer = static_cast<jstring>(env->CallObjectMethod(m_prompter, mid, jrealm, jquestion, showAnswer ? JNI_TRUE : JNI_FALSE,
+		jstring janswer = static_cast<jstring>(env->CallObjectMethod(m_prompter, mid, jrealm, jquestion, showAnswer ? JNI_TRUE : JNI_FALSE, 
 																	 maySave ? JNI_TRUE : JNI_FALSE));
 		if(JNIUtil::isJavaExceptionThrown())
 		{
@@ -389,7 +389,7 @@ int Prompter::askTrust(const char *question, bool maySave)
 		{
 			q += _("(R)eject or accept (t)emporarily?");
 		}
-		const char *answer = askQuestion(NULL, q.c_str(), true, false);
+		const char *answer = askQuestion(NULL, q.c_str(), true, false); 
 		if(*answer == 't' || *answer == 'T')
 		{
 			return org_tigris_subversion_javahl_PromptUserPassword2_AccecptTemporary;
@@ -445,7 +445,7 @@ bool Prompter::prompt(const char *realm, const char *username, bool maySave)
 		{
 			return false;
 		}
-        jboolean ret = env->CallBooleanMethod(m_prompter, mid, jrealm,
+        jboolean ret = env->CallBooleanMethod(m_prompter, mid, jrealm, 
                                     jusername, maySave ? JNI_TRUE: JNI_FALSE);
 		if(JNIUtil::isJavaExceptionThrown())
 		{
@@ -540,7 +540,7 @@ svn_auth_provider_object_t *Prompter::getProviderUsername()
 	svn_auth_provider_object_t *provider;
     svn_client_get_username_prompt_provider (&provider,
                                              username_prompt,
-                                             this,
+                                             this, 
                                              2, /* retry limit */
                                              pool);
 
@@ -573,7 +573,7 @@ svn_auth_provider_object_t *Prompter::getProviderClientSSLPassword()
 
 	return provider;
 }
-svn_error_t *Prompter::simple_prompt(svn_auth_cred_simple_t **cred_p, void *baton,
+svn_error_t *Prompter::simple_prompt(svn_auth_cred_simple_t **cred_p, void *baton, 
 										const char *realm, const char *username, svn_boolean_t may_save,
 										apr_pool_t *pool)
 {
@@ -618,18 +618,18 @@ svn_error_t *Prompter::username_prompt(svn_auth_cred_username_t **cred_p, void *
 svn_error_t *Prompter::ssl_server_trust_prompt(svn_auth_cred_ssl_server_trust_t **cred_p,
 										void *baton,
 										const char *realm,
-										apr_uint32_t failures,
+										apr_uint32_t failures, 
 										const svn_auth_ssl_server_cert_info_t *cert_info,
 										svn_boolean_t may_save,
 										apr_pool_t *pool)
 {
 	Prompter *that = (Prompter*)baton;
 	svn_auth_cred_ssl_server_trust_t *ret = (svn_auth_cred_ssl_server_trust_t*)apr_pcalloc(pool, sizeof(*ret));
-
+	
 	std::string question = _("Error validating server certificate for");
 	question += realm;
 	question += ":\n";
-
+	
 	if(failures & SVN_AUTH_SSL_UNKNOWNCA)
 	{
 		question += _(" - Unknown certificate issuer\n");
@@ -681,7 +681,7 @@ svn_error_t *Prompter::ssl_server_trust_prompt(svn_auth_cred_ssl_server_trust_t 
 	return SVN_NO_ERROR;
 }
 svn_error_t *Prompter::ssl_client_cert_prompt(svn_auth_cred_ssl_client_cert_t **cred_p,
-										void *baton, const char *realm, svn_boolean_t may_save,
+										void *baton, const char *realm, svn_boolean_t may_save, 
 										apr_pool_t *pool)
 {
 	Prompter *that = (Prompter*)baton;
