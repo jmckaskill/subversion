@@ -119,7 +119,7 @@ This package contains the common files required by subversion clients and
 servers.
 
 #####################################
-###### Sub-Package Definitions ######
+###### Sub-Package Definitions ###### 
 #####################################
 %if %{not_just_docs}
 %package base
@@ -220,12 +220,12 @@ Requires: %{swig_rpm} >= %{swig_ver}
 %description tools
 This package contains a myriad tools for subversion. This package also contains
 'cvs2svn' - a program for migrating CVS repositories into Subversion repositories.
-The package also contains all of the python bindings for the subersion API,
+The package also contains all of the python bindings for the subersion API, 
 required by several of the tools.
 %endif
 
 ###########################
-########## Files ##########
+########## Files ########## 
 ###########################
 %if %{not_just_docs}
 %files base
@@ -299,7 +299,7 @@ required by several of the tools.
 %endif
 
 ################################
-######### Build Stages #########
+######### Build Stages ######### 
 ################################
 %prep
 %setup -q -n %{name}-%{namever}
@@ -354,7 +354,7 @@ FOP_OPTS=%{?fop_opts} JAVACMD="$JAVACMD" XSL_DIR="%{docbook}" DESTDIR="$RPM_BUIL
 %endif
 
 ################################
-######### Installation #########
+######### Installation ######### 
 ################################
 %install
 rm -rf "$RPM_BUILD_ROOT"
@@ -370,9 +370,9 @@ DESTDIR="$RPM_BUILD_ROOT" \
 	fs_libdir=%{usr}/lib \
 	fs_bindir=%{usr}/bin \
 	swig_py_libdir=%{usr}/lib \
-	make %{?silent_flag} install
+	make %{?silent_flag} install 
 %endif
-
+	
 %if %{create_doc}
 cp -ar doc %{_docdir}/%{fullname}
 %endif
@@ -389,10 +389,10 @@ cp -r tools $RPM_BUILD_ROOT/%{_datadir}/%{fullname}
 %endif
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+rm -rf $RPM_BUILD_ROOT 
 
 ##################################
-###### Post and Pre Scripts ######
+###### Post and Pre Scripts ###### 
 ##################################
 %if %{not_just_docs}
 %post base -p /sbin/ldconfig
@@ -433,7 +433,7 @@ if [ -x "$APACHECTL" ] && [ "$USER" == "root" ] ; then
 else
   echo Unable to stop apache - need to be root
 fi
-%post server
+%post server 
 APACHECTL=/usr/sbin/apachectl
 if [ -x "$APACHECTL" ] && [ "$USER" == "root" ] ; then
   if $APACHECTL configtest ; then
@@ -463,7 +463,7 @@ fi
 
 %endif
 ############################
-######## Change Log ########
+######## Change Log ######## 
 ############################
 %changelog
 * Sun Sep 21 2003 Shamim Islam <files@poetryunlimited.com>
