@@ -37,7 +37,7 @@
 
 /*** Command dispatch. ***/
 
-/* Map names to command routine, etc.
+/* Map names to command routine, etc. 
  *
  * Canonical name entries must come immediately before their aliases.
  * For example, "add" must be the first of the add commands listed,
@@ -49,7 +49,7 @@
  *
  * The entire list must be terminated with a entry of nulls.
  */
-const svn_cl__cmd_desc_t svn_cl__cmd_table[] =
+const svn_cl__cmd_desc_t svn_cl__cmd_table[] = 
 {
   { "add",        FALSE, svn_cl__add,
     "Add new files and directories to version control.\n"
@@ -102,7 +102,7 @@ const svn_cl__cmd_desc_t svn_cl__cmd_table[] =
   { "pget",       TRUE, NULL, NULL },
   { "pg",         TRUE, NULL, NULL },
 
-  { "propset",    FALSE, svn_cl__propset,
+  { "propset",    FALSE, svn_cl__propset, 
     "Set property PROPNAME to PROPVAL on files and directories.\n"
     "usage: propset PROPNAME [PROPVAL | --valfile VALFILE] "
     "[TARGETS]\n"},
@@ -146,7 +146,7 @@ main (int argc, const char * const *argv)
 
   static const apr_getopt_option_t options[] =
   {
-    {"destination",   'd', 1},
+    {"destination",   'd', 1}, 
     {"force",         svn_cl__force_opt, 0},
     {"help",          'h', 0},
     {"message",       'm', 1},
@@ -216,7 +216,7 @@ main (int argc, const char * const *argv)
       default:
         /* Hmmm. Perhaps this would be a good place to squirrel away
            opts that commands like svn diff might need. Hmmm indeed. */
-        break;
+        break;  
       }
     }
 
@@ -252,7 +252,7 @@ main (int argc, const char * const *argv)
             }
         }
     }
-
+  
   /* If we made it this far, then we definitely have the subcommand, so call it. */
 
   err = (*subcommand->cmd_func) (os, &opt_state, pool);
@@ -272,8 +272,8 @@ main (int argc, const char * const *argv)
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
- * end:
+ * end: 
  */
