@@ -143,16 +143,16 @@ static svn_error_t *bump_resource(merge_ctx_t *mc, char *path, char *vsn_url)
   path_str.len = strlen(path);
   path_str.blocksize = path_str.len + 1;
   path_str.pool = mc->pool;
-
+      
   vsn_url_str.data = vsn_url;
   vsn_url_str.len = strlen(vsn_url);
   vsn_url_str.blocksize = vsn_url_str.len + 1;
   vsn_url_str.pool = mc->pool;
-
+      
       /* store the version URL */
   SVN_ERR( (*mc->set_prop)(mc->close_baton, &path_str,
                            mc->vsn_url_name, &vsn_url_str) );
-
+      
   /* bump the revision and commit the file */
   return (*mc->close_commit)(mc->close_baton, &path_str, mc->rev);
 }
@@ -580,7 +580,7 @@ svn_error_t * svn_ra_dav__merge_activity(
 }
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
