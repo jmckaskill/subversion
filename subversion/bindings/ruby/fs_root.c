@@ -33,7 +33,7 @@ typedef struct svn_ruby_fs_root_t
   svn_fs_root_t *root;
   apr_pool_t *pool;
   svn_boolean_t closed;
-} svn_ruby_fs_root_t;
+} svn_ruby_fs_root_t; 
 
 svn_fs_root_t *
 svn_ruby_fs_root (VALUE aRoot)
