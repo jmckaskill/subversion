@@ -28,7 +28,7 @@
 "(Lorg/tigris/subversion/lib/Entry;IIIZII)V"
 
 jobject
-status__create(JNIEnv *env, svn_wc_status_t *status,
+status__create(JNIEnv *env, svn_wc_status_t *status, 
                jboolean *hasException)
 {
   jobject jstatus = NULL;
@@ -39,7 +39,7 @@ status__create(JNIEnv *env, svn_wc_status_t *status,
   fprintf(stderr, "status__create\n");
 #endif
 
-  /*
+  /* 
    * needed references:
    * - statusClass
    * - statusConstructor
@@ -58,7 +58,7 @@ status__create(JNIEnv *env, svn_wc_status_t *status,
 	{
 	  statusConstructor = j__get_method(env, &_hasException,
                                             statusClass,
-                                            "<init>",
+                                            "<init>", 
                                             SVN_JNI_STATUS__SIG);
 
 	  if( statusConstructor == NULL )
@@ -74,7 +74,7 @@ status__create(JNIEnv *env, svn_wc_status_t *status,
 
       if( !_hasException )
         {
-          jstatus = (*env)->NewObject(env, statusClass,
+          jstatus = (*env)->NewObject(env, statusClass, 
                                       statusConstructor,
                                       jentry,
                                       status->repos_rev,
@@ -97,10 +97,10 @@ status__create(JNIEnv *env, svn_wc_status_t *status,
   return jstatus;
 }
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../svn-dev.el")
- * end:
+ * end: 
  */
 
 
