@@ -100,9 +100,9 @@ Vorwort.
     Beschreibung einer Software.  Es gibt die Übersicht, die
     obligatorische geführte Rundreise, das Kapitel über
     Administration, einige fortgeschrittene Themen und natürlich eine
-    Funktionsübersicht und Problemlösungs-Anleitung.  Nur wenn
+    Funktionsübersicht und Problemlösungs-Anleitung.  Nur wenn 
     Sie später das Buch wieder zur Hand nehmen und die Lösung für
-    bestimmte Probleme suchen wird sichtbar: die beschriebenen
+    bestimmte Probleme suchen wird sichtbar: die beschriebenen 
     Details können nur aus der Erfahrung mit dem Unerwarteten, die
     Beispiele aus dem tatsächlichem Einsatz stammen und
     berücksichtigen in erster Linie die Bedürfnisse und den
@@ -110,7 +110,7 @@ Vorwort.
 
     <para>Narürlich kann niemand versprechen, dass dieses Buch alle
     Fragen beantwortet, die Sie mit Subversion haben werden.  Manchmal
-    wird die Genauigkeit, mit der es auf Ihre Fragen eingeht, unheimlich
+    wird die Genauigkeit, mit der es auf Ihre Fragen eingeht, unheimlich 
     telepathisch erscheinen; gelegentlich werden Sie in eine Lücke im
     Wissen der Gemeinschaft stolpern und mit leeren Händen dastehen.  Wenn
     das passiert schreiben Sie am Besten eine Mail an
@@ -142,7 +142,7 @@ Vorwort.
 </preface>
 
 <!--
-local variables:
+local variables: 
 sgml-parent-document: ("book.xml" "foreword")
 end:
 -->
