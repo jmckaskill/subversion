@@ -1843,6 +1843,13 @@ svn_wc_install_file (const char *file_path,
                                                         FALSE,
                                                         pool));
 
+                      /* Make the temporary working file name relative to
+                         the parent directory. */
+                      tmp_working = svn_stringbuf_ncreate
+                        (tmp_working->data + parent_dir->len + 1,
+                         tmp_working->len - parent_dir->len - 1,
+                         pool);
+
                       /* Copy the working file to tmp-working with
                          LF's, and any keywords contracted. */
 
