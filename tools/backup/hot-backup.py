@@ -2,9 +2,9 @@
 #
 #  hot-backup.py: perform a "hot" backup of a Berkeley DB repository.
 #
-#  Subversion is a tool for revision control.
+#  Subversion is a tool for revision control. 
 #  See http://subversion.tigris.org for more information.
-#
+#    
 # ====================================================================
 # Copyright (c) 2000-2001 CollabNet.  All rights reserved.
 #
@@ -76,5 +76,5 @@ for item in stdout_lines:
   dst = os.path.join(backup_subdir, "db", logfile)
   print "Re-copying logfile '" + logfile + "'..."
   shutil.copy(src, dst)
-
+  
 print "Backup completed."
