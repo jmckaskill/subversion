@@ -102,7 +102,7 @@ make_error_internal (apr_status_t apr_err,
   new_error->apr_err = apr_err;
   new_error->src_err = src_err;
   new_error->child   = child;
-  new_error->pool    = this_pool;
+  new_error->pool    = this_pool;  
 #ifdef SVN_DEBUG
   new_error->file    = error_file;
   new_error->line    = error_line;
@@ -137,7 +137,7 @@ svn_error__make_error_pool (apr_pool_t *parent, apr_pool_t **error_pool)
   apr_pool_create_ex (error_pool, parent, abort_on_pool_failure, NULL);
 
   /* Set the error pool on itself. */
-  apr_err = apr_pool_userdata_set (*error_pool, SVN_ERROR_POOL,
+  apr_err = apr_pool_userdata_set (*error_pool, SVN_ERROR_POOL, 
                                    apr_pool_cleanup_null, *error_pool);
 
   return apr_err;
@@ -145,7 +145,7 @@ svn_error__make_error_pool (apr_pool_t *parent, apr_pool_t **error_pool)
 
 
 /* Get POOL's error pool into *ERROR_POOL.
- *
+ * 
  * If ROOTED_HERE is not null, then
  *   - If the error pool is a direct subpool of POOL, set *ROOTED_HERE to 1
  *   - Else set *ROOTED_HERE to 0
@@ -255,7 +255,7 @@ svn_error_create (apr_status_t apr_err,
   svn_error_t *err;
 
   err = make_error_internal (apr_err, src_err, child, pool);
-
+  
   err->message = (const char *) apr_pstrdup (err->pool, message);
 
   return err;
@@ -458,7 +458,7 @@ allocator_reset_mutex (void *allocator)
 
 #define SVN_POOL_FUNC_DEFINE(rettype, name) \
   rettype name##_debug(apr_pool_t *pool, const char *file_line)
-
+   
 #endif /* APR_POOL_DEBUG */
 
 
@@ -508,7 +508,7 @@ SVN_POOL_FUNC_DEFINE(apr_pool_t *, svn_pool_create)
 #endif /* APR_HAS_THREADS */
 
       apr_allocator_owner_set (allocator, ret_pool);
-
+     
       apr_err = svn_error_init_pool (ret_pool);
       if (apr_err)
         abort_on_pool_failure (apr_err);
@@ -623,5 +623,5 @@ svn_pool_clear (apr_pool_t *pool)
 /*
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
- * end:
+ * end: 
  */
