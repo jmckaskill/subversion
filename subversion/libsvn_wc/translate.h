@@ -33,7 +33,7 @@ extern "C" {
 
 /* Newline and keyword translation properties */
 
-/* Valid states for 'svn:eol-style' property.
+/* Valid states for 'svn:eol-style' property.  
    Property nonexistence is equivalent to 'none'. */
 enum svn_wc__eol_style
 {
