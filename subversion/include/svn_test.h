@@ -33,7 +33,7 @@ extern "C" {
 
 
 /* Prototype for test driver functions. */
-typedef svn_error_t* (*svn_test_driver_t) (const char **msg,
+typedef svn_error_t* (*svn_test_driver_t) (const char **msg, 
                                            svn_boolean_t msg_only,
                                            apr_pool_t *pool);
 
@@ -71,17 +71,17 @@ apr_uint32_t svn_test_rand (apr_uint32_t *seed);
  *
  * VERBOSE is a flag for specifying whether or not your want all the
  * nitty gritty details displayed.  When VERBOSE is FALSE, each editor
- * function will print only a one-line summary.
+ * function will print only a one-line summary. 
  *
  * INDENTATION is the number of spaces to indent by at each level; use
  * 0 for no indentation.  The indent level is always the same for a
  * given call (i.e, stack frame).
- *
+ * 
  */
 
 /* SOME EXAMPLES */
 
-/*
+/* 
  * With an indentation of 3, editor name of "COMMIT-TEST" and with
  * verbose = TRUE
  */
@@ -89,60 +89,60 @@ apr_uint32_t svn_test_rand (apr_uint32_t *seed);
 /*
  * [COMMIT-TEST] open_root (wc)
  * base_revision: 1
- *
+ * 
  *    [COMMIT-TEST] open_directory (wc/A)
  *    parent: wc
  *    base_revision: 1
- *
+ * 
  *       [COMMIT-TEST] delete_entry (wc/A/B)
- *
+ * 
  *       [COMMIT-TEST] open_file (wc/A/mu)
  *       parent: wc/A
  *       base_revision: 1
- *
+ * 
  *          [COMMIT-TEST] change_file_prop (wc/A/mu)
  *          name: foo
  *          value: bar
- *
+ * 
  *       [COMMIT-TEST] close_file (wc/A/mu)
- *
+ * 
  *    [COMMIT-TEST] close_directory (wc/A)
- *
+ * 
  *    [COMMIT-TEST] add_file (wc/zeta)
  *    parent: wc
- *    copyfrom_path:
+ *    copyfrom_path: 
  *    copyfrom_revision: 0
- *
+ * 
  *    [COMMIT-TEST] open_file (wc/iota)
  *    parent: wc
  *    base_revision: 1
- *
+ * 
  * [COMMIT-TEST] close_directory (wc)
- *
+ * 
  *       [COMMIT-TEST] apply_textdelta (wc/iota)
- *
+ * 
  *          [COMMIT-TEST] window_handler (2 ops)
  *          (1) new text: length 11
  *          (2) source text: offset 0, length 0
- *
+ * 
  *          [COMMIT-TEST] window_handler (EOT)
- *
+ * 
  *    [COMMIT-TEST] close_file (wc/iota)
- *
+ * 
  *       [COMMIT-TEST] apply_textdelta (wc/zeta)
- *
+ * 
  *          [COMMIT-TEST] window_handler (1 ops)
  *          (1) new text: length 11
- *
+ * 
  *          [COMMIT-TEST] window_handler (EOT)
- *
+ * 
  *    [COMMIT-TEST] close_file (wc/zeta)
- *
+ * 
  * [COMMIT-TEST] close_edit
- *
+ *  
  */
 
-/*
+/* 
  * The same example as above, but with verbose = FALSE
  */
 
@@ -180,7 +180,7 @@ svn_error_t *svn_test_get_editor (const svn_delta_editor_t **editor,
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */
-
+     
 #endif /* SVN_TEST_H */
 
 
