@@ -14,9 +14,9 @@ fi
 # Copied from hashdump-test.sh:
 #
 ## # Compare the two output files
-##
+## 
 ## diff checkout.out checkout2.out
-##
+## 
 ## if [ $? -ne 0 ]; then
 ##     echo "Error: checkout output files aren't identical."
 ##     exit 1
