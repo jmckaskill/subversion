@@ -15,13 +15,13 @@
       properly configure and care for it so that potential problems
       are avoided, and actual problems are safely resolved.</para>
     @ENGLISH }}} -->
-    <para>Subversiondepotet er den sentrale lagringsplassen for
+    <para>Subversiondepotet er den sentrale lagringsplassen for 
       versjonerte data for ethvert antall prosjekter.
-      Som s&#229;dan blir det en opplagt kandidat for all kj&#230;rlighet og
+      Som s&#229;dan blir det en opplagt kandidat for all kj&#230;rlighet og 
       oppmerksomhet en administrator kan tilby.
-      Selv om depotet vanligvis er et element som krever lite
-      vedlikehold, er det viktig &#229; forst&#229; hvordan du kan konfigurere og
-      passe p&#229; det s&#229; potensielle problemer blir unng&#229;tt, og aktuelle
+      Selv om depotet vanligvis er et element som krever lite 
+      vedlikehold, er det viktig &#229; forst&#229; hvordan du kan konfigurere og 
+      passe p&#229; det s&#229; potensielle problemer blir unng&#229;tt, og aktuelle 
       problemer l&#248;st p&#229; en trygg m&#229;te.</para>
 
     <!-- @ENGLISH {{{
@@ -33,12 +33,12 @@
       and give some suggestions on how to arrange the data in the
       repository.</para>
     @ENGLISH }}} -->
-    <para>I dette kapittelet vil vi diskutere hvordan du kan opprette og
+    <para>I dette kapittelet vil vi diskutere hvordan du kan opprette og 
       konfigurere et Subversiondepot.
-      Vi vil ogs&#229; snakke om depotvedlikehold, inkludert bruken av
-      verkt&#248;yene <command>svnlook</command> og
+      Vi vil ogs&#229; snakke om depotvedlikehold, inkludert bruken av 
+      verkt&#248;yene <command>svnlook</command> og 
       <command>svnadmin</command> (som f&#248;lger med Subversion).
-      Vi vil adressere vanlige sp&#248;rsm&#229;l og feilgrep, og komme med noen
+      Vi vil adressere vanlige sp&#248;rsm&#229;l og feilgrep, og komme med noen 
       forslag til hvordan du kan legge opp dataene i depotet.</para>
 
     <!-- @ENGLISH {{{
@@ -55,14 +55,14 @@
       </footnote>
       you should definitely pay attention to this chapter.</para>
     @ENGLISH }}} -->
-    <para>Hvis du planlegger &#229; aksessere et Subversiondepot bare i
-      rollen som en bruker som har data under versjonskontroll (det vil
-      si via en Subversionklient), kan du hoppe over hele dette
+    <para>Hvis du planlegger &#229; aksessere et Subversiondepot bare i 
+      rollen som en bruker som har data under versjonskontroll (det vil 
+      si via en Subversionklient), kan du hoppe over hele dette 
       kapitlet.
-      Hvis du derimot er, eller vil bli, en administrator for et
+      Hvis du derimot er, eller vil bli, en administrator for et 
       Subversiondepot,<footnote>
-      <para>Dette kan h&#248;res <!-- &#164; -->r&#229;flott ut, men vi snakker bare om
-        enhver som er interessert i mystikken <!-- &#164; realm -->omkring
+      <para>Dette kan h&#248;res <!-- &#164; -->r&#229;flott ut, men vi snakker bare om 
+        enhver som er interessert i mystikken <!-- &#164; realm -->omkring 
         arbeidskopien hvor alles data ligger.</para></footnote>
       b&#248;r du s&#229; absolutt f&#248;lge med i dette kapittelet.</para>
 
@@ -89,16 +89,16 @@
       to non-Subversion tools.  The following section covers some of
       these basic concepts at a very high level.</para>
     @ENGLISH }}} -->
-    <para>F&#248;r vi hopper inn i det mer generelle innen emnet
+    <para>F&#248;r vi hopper inn i det mer generelle innen emnet 
       depotadministrasjon, la oss definere videre hva et depot er.
       Hvordan ser det ut?
       Hvordan f&#248;les det?
       Vil det ha teen sin varm eller med is, s&#248;t, og med sitron?
-      Som en administrator, blir det forventet at du m&#229; forst&#229;
-      sammensetningen i et depot b&#229;de fra et logisk perspektiv &#8212; det &#229;
-      styre med hvordan data er representert i depotet &#8212; og fra et
-      fysisk skrue-og-mutter-perspektiv &#8212; hvordan et depot ser ut og
-      oppf&#248;rer seg i sammenheng med verkt&#248;y <!-- &#164; -->som ikke h&#248;rer med
+      Som en administrator, blir det forventet at du m&#229; forst&#229; 
+      sammensetningen i et depot b&#229;de fra et logisk perspektiv &#8212; det &#229; 
+      styre med hvordan data er representert i depotet &#8212; og fra et 
+      fysisk skrue-og-mutter-perspektiv &#8212; hvordan et depot ser ut og 
+      oppf&#248;rer seg i sammenheng med verkt&#248;y <!-- &#164; -->som ikke h&#248;rer med 
       til Subversion-pakken.</para>
 
     <!-- ***************************************************************** -->
@@ -107,7 +107,7 @@
       <title>Understanding Transactions and Revisions</title>
       @ENGLISH }}} -->
       <title>Forst&#229;else av transaksjoner og revisjoner</title>
-
+        
       <!-- @ENGLISH {{{
       <para>Conceptually speaking, a Subversion repository is a
         sequence of directory trees.  Each tree is a snapshot of how
@@ -115,11 +115,11 @@
         at some point in time.  These snapshots are created as a
         result of client operations, and are called revisions.</para>
       @ENGLISH }}} -->
-      <para>Konseptmessig sagt, er et Subversiondepot en sekvens av
+      <para>Konseptmessig sagt, er et Subversiondepot en sekvens av 
         tr&#230;r.
-        Hvert tre er et &#248;yeblikksbilde av hvordan filene og katalogene
+        Hvert tre er et &#248;yeblikksbilde av hvordan filene og katalogene 
         s&#229; ut p&#229; et spesielt tidspunkt.
-        Disse &#248;yeblikksbildene er opprettet som et resultat av
+        Disse &#248;yeblikksbildene er opprettet som et resultat av 
         klientoperasjoner og blir kalt revisjoner.</para>
 
       <!-- @ENGLISH {{{
@@ -136,18 +136,18 @@
         failure.</para>
       @ENGLISH }}} -->
       <para>Hver revisjon begynner livet som et transaksjonstre.
-        N&#229;r du gj&#248;r en innlegging, bygger en klient en
-        Subversiontransaksjon som avspeiler deres lokale forandringer
-        (pluss eventuelle forandringer som er blitt lagt inn i tillegg
-        til depotet siden begynnelsen av innleggingsprosessen), og
-        instruerer deretter depotet om &#229; lagre dette treet som det neste
+        N&#229;r du gj&#248;r en innlegging, bygger en klient en 
+        Subversiontransaksjon som avspeiler deres lokale forandringer 
+        (pluss eventuelle forandringer som er blitt lagt inn i tillegg 
+        til depotet siden begynnelsen av innleggingsprosessen), og 
+        instruerer deretter depotet om &#229; lagre dette treet som det neste 
         &#248;yeblikksbildet i sekvensen.
-        Hvis innleggingen lykkes, blir transaksjonen <!-- &#164; effectively
-        promoted -->innlemmet i et nytt revisjonstre, og blir tildelt et
+        Hvis innleggingen lykkes, blir transaksjonen <!-- &#164; effectively 
+        promoted -->innlemmet i et nytt revisjonstre, og blir tildelt et 
         nytt revisjonsnummer.
-        Hvis innleggingen av en eller annen grunn ikke lykkes, blir
+        Hvis innleggingen av en eller annen grunn ikke lykkes, blir 
         transaksjonen &#248;delagt og klienten informeres om feilen.</para>
-
+            
       <!-- @ENGLISH {{{
       <para>Updates work in a similar way.  The client builds a
         temporary transaction tree that mirrors the state of the
@@ -160,17 +160,17 @@
         transaction is deleted.</para>
       @ENGLISH }}} -->
       <para>Oppdateringer fungerer p&#229; en lignende m&#229;te.
-        Klienten bygger et midlertidig transaksjonstre som avspeiler
+        Klienten bygger et midlertidig transaksjonstre som avspeiler 
         tilstanden til arbeidskopien.
-        Depotet sammenligner deretter dette transaksjonstreet med
-        revisjonstreet i den forespurte revisjonen (vanligvis det
-        nyeste, eller <quote>yngste</quote> treet), og sender tilbake
-        informasjon som forteller klienten om hvilke forandringer som er
-        n&#248;dvendig for &#229; forandre deres arbeidskopi til et replikat av
+        Depotet sammenligner deretter dette transaksjonstreet med 
+        revisjonstreet i den forespurte revisjonen (vanligvis det 
+        nyeste, eller <quote>yngste</quote> treet), og sender tilbake 
+        informasjon som forteller klienten om hvilke forandringer som er 
+        n&#248;dvendig for &#229; forandre deres arbeidskopi til et replikat av 
         det aktuelle revisjonstreet.
-        Etter at oppdateringen er fullf&#248;rt, blir den midlertidige
+        Etter at oppdateringen er fullf&#248;rt, blir den midlertidige 
         transaksjonen slettet.</para>
-
+          
       <!-- @ENGLISH {{{
       <para>The use of transaction trees is the only way to make
         permanent changes to a repository's versioned filesystem.
@@ -184,18 +184,18 @@
         repository (not really affecting anything, but still taking up
         space).</para>
       @ENGLISH }}} -->
-      <para>Bruken av transaksjonstr&#230;r er den eneste m&#229;ten &#229; gj&#248;re
-        permanente forandringer til et depots versjonskontrollerte
+      <para>Bruken av transaksjonstr&#230;r er den eneste m&#229;ten &#229; gj&#248;re 
+        permanente forandringer til et depots versjonskontrollerte 
         filsystem.
-        Det er imidlertid viktig &#229; forst&#229; at livl&#248;pet til en transaksjon
+        Det er imidlertid viktig &#229; forst&#229; at livl&#248;pet til en transaksjon 
         er komplett fleksible.
-        I tilfellet med oppdateringer er transaksjoner midlertidige tr&#230;r
+        I tilfellet med oppdateringer er transaksjoner midlertidige tr&#230;r 
         som blir &#248;yeblikkelig &#248;delagt.
-        I tilfellet med innlegginger, blir transaksjoner transformert
-        inn i permanente revisjoner (eller fjernet hvis innleggingen
+        I tilfellet med innlegginger, blir transaksjoner transformert 
+        inn i permanente revisjoner (eller fjernet hvis innleggingen 
         feiler).
-        I tilfelle en generell feil eller programfeil oppst&#229;r, er det
-        mulig at en transaksjon kan bli liggende igjen i depotet (uten &#229;
+        I tilfelle en generell feil eller programfeil oppst&#229;r, er det 
+        mulig at en transaksjon kan bli liggende igjen i depotet (uten &#229; 
         p&#229;virke noe som helst, men tar opp diskplass).</para>
 
      <!-- @ENGLISH {{{
@@ -209,18 +209,18 @@
         can choose to promote the transaction into a revision, or
         abort it.</para>
      @ENGLISH }}} -->
-      <para>I teorien vil kanskje <!-- &#164; -->hele
-        arbeidsflytapplikasjoner en gang gi mer n&#248;yaktig kontroll med
+      <para>I teorien vil kanskje <!-- &#164; -->hele 
+        arbeidsflytapplikasjoner en gang gi mer n&#248;yaktig kontroll med 
         levetiden til en transaksjon.
-        Det er mulig &#229; tenke seg et system som ved hver transaksjon
-        beregnet p&#229; &#229; bli en revisjon blir lagt <!-- &#164; -->p&#229; vent etter
-        at klienten er <!-- &#164; -->ferdig med &#229; beskrive sine forandringer
+        Det er mulig &#229; tenke seg et system som ved hver transaksjon 
+        beregnet p&#229; &#229; bli en revisjon blir lagt <!-- &#164; -->p&#229; vent etter 
+        at klienten er <!-- &#164; -->ferdig med &#229; beskrive sine forandringer 
         til depotet.
-        Dette ville muliggj&#248;re at hver ny innlegging kan bli sett over
-        av noen andre, kanskje en manager eller <!-- &#164; -->ledende
-        utvikler, som kan velge &#229; forfremme transaksjonen til en
+        Dette ville muliggj&#248;re at hver ny innlegging kan bli sett over 
+        av noen andre, kanskje en manager eller <!-- &#164; -->ledende 
+        utvikler, som kan velge &#229; forfremme transaksjonen til en 
         revisjon eller avbryte den.</para>
-
+            
     </sect2>
 
     <!-- ***************************************************************** -->
@@ -239,12 +239,12 @@
         repository's filesystem, along with the rest of your tree
         data.</para>
       @ENGLISH }}} -->
-      <para>Transaksjoner og revisjoner i Subversiondepotet kan ha
+      <para>Transaksjoner og revisjoner i Subversiondepotet kan ha 
         vedlagte egenskaper.
-        Disse egenskapene er generiske <!-- &#164;
-        --><quote>n&#248;kkel-til-verdi</quote>-mappinger, og blir vanligvis
+        Disse egenskapene er generiske <!-- &#164; 
+        --><quote>n&#248;kkel-til-verdi</quote>-mappinger, og blir vanligvis 
         brukt til &#229; lagre informasjon om treet som de er vedlagt.
-        Navnene og verdiene til disse egenskapene er lagret i depotets
+        Navnene og verdiene til disse egenskapene er lagret i depotets 
         filsystem, sammen med resten av dataene for treet.</para>
 
       <!-- @ENGLISH {{{
@@ -263,19 +263,19 @@
         property to store the log message attached to that revision
         (<literal>svn:log</literal>).</para>
       @ENGLISH }}} -->
-      <para>Revisjons- og transaksjonsegenskaper er nyttige for &#229;
-        assosiere informasjon sammen med et tre som ikke er spesifikt
-        relatert til filene og katalogene i dette treet &#8213; den typen
+      <para>Revisjons- og transaksjonsegenskaper er nyttige for &#229; 
+        assosiere informasjon sammen med et tre som ikke er spesifikt 
+        relatert til filene og katalogene i dette treet &#8213; den typen 
         informasjon som ikke er behandlet av arbeidskopier for klienten.
-        For eksempel, n&#229;r en ny innleggingstransaksjon er opprettet i
-        depotet, legger Subversion en egenskap til denne transaksjonen
-        kalt <literal>svn:date</literal> &#8212; et tidsmerke som
+        For eksempel, n&#229;r en ny innleggingstransaksjon er opprettet i 
+        depotet, legger Subversion en egenskap til denne transaksjonen 
+        kalt <literal>svn:date</literal> &#8212; et tidsmerke som 
         representerer tidspunktet transaksjonen ble opprettet.
-        N&#229;r innleggingsprosessen er fullf&#248;rt, og transaksjonen blir
-        forfremmet til en permanent revisjon, har treet ogs&#229; f&#229;tt en
-        egenskap for &#229; lagre brukernavnet til revisjonens forafatter
-        (<literal>svn:author</literal>) og en egenskap for &#229; lagre
-        loggmeldingen som h&#248;rer til denne revisjonen
+        N&#229;r innleggingsprosessen er fullf&#248;rt, og transaksjonen blir 
+        forfremmet til en permanent revisjon, har treet ogs&#229; f&#229;tt en 
+        egenskap for &#229; lagre brukernavnet til revisjonens forafatter 
+        (<literal>svn:author</literal>) og en egenskap for &#229; lagre 
+        loggmeldingen som h&#248;rer til denne revisjonen 
         <literal>svn:log</literal>.</para>
 
       <!-- @ENGLISH {{{
@@ -291,16 +291,16 @@
         <literal>svn:log</literal> property with a new, corrected log
         message.</para>
       @ENGLISH }}} -->
-      <para>Revisjons- og transaksjonsegenskaper er
-        <firstterm>uversjonerte egenskaper</firstterm> &#8212; n&#229;r de blir
+      <para>Revisjons- og transaksjonsegenskaper er 
+        <firstterm>uversjonerte egenskaper</firstterm> &#8212; n&#229;r de blir 
         modifisert blir den foreg&#229;ende verdien permanent forkastet.
-        Selv om revisjonstr&#230;r er uforanderlige, gjelder ikke dette
+        Selv om revisjonstr&#230;r er uforanderlige, gjelder ikke dette 
         egenskapene som er vedlagt disse tr&#230;rne.
-        Du kan legge til, fjerne, og modifisere revisjonsegenskaper til
+        Du kan legge til, fjerne, og modifisere revisjonsegenskaper til 
         enhver tid i fremtide.
-        Hvis du legger inn en ny revisjon og senere finner ut at du la
-        inn feil informasjon eller skrivefeil i loggmeldingen, kan du
-        enkelt forandre verdien i <literal>svn:log</literal>-egenskapen
+        Hvis du legger inn en ny revisjon og senere finner ut at du la 
+        inn feil informasjon eller skrivefeil i loggmeldingen, kan du 
+        enkelt forandre verdien i <literal>svn:log</literal>-egenskapen 
         med en ny, rettet loggmelding.</para>
 
     </sect2>
@@ -324,17 +324,17 @@
         filesystem implementation that uses the native OS filesystem
         to store data.</para>
       @ENGLISH }}} -->
-      <para>I Subversion 1.1 er det to valg for &#229; lagre data i et
+      <para>I Subversion 1.1 er det to valg for &#229; lagre data i et 
         Subversiondepot.
-        En depottype lagrer alt i en Berkeley DB-database; den andre
-        typen lagrer data som ordin&#230;re <quote>flate filer</quote> i et
+        En depottype lagrer alt i en Berkeley DB-database; den andre 
+        typen lagrer data som ordin&#230;re <quote>flate filer</quote> i et 
         tilpasset format.
-        Fordi Subversionutvilkere ofte referer til et depot som
-        <quote>det [versjonerte] filsystemet</quote>, har de lagt seg
-        til vanen med &#229; refere til den sistnevnte typen depot som
+        Fordi Subversionutvilkere ofte referer til et depot som 
+        <quote>det [versjonerte] filsystemet</quote>, har de lagt seg 
+        til vanen med &#229; refere til den sistnevnte typen depot som 
         <firstterm>FSFS</firstterm>:
-        Det vil si, det er en versjonert filsystemimplementasjon som
-        bruker det vanlige filsystemet til operativsystemet for &#229; lagre
+        Det vil si, det er en versjonert filsystemimplementasjon som 
+        bruker det vanlige filsystemet til operativsystemet for &#229; lagre 
         data.</para>
 
       <!-- @ENGLISH {{{
@@ -347,15 +347,15 @@
         repository is storing data; they only see revision and
         transaction trees through the repository API.</para>
       @ENGLISH }}} -->
-      <para>N&#229;r et depot er opprettet, m&#229; administratoren bestemme om
+      <para>N&#229;r et depot er opprettet, m&#229; administratoren bestemme om 
         Berkeley DB eller FSFS skal brukes.
-        Det er fordeler og ulemper med begge to, som vi vil g&#229; gjennom
+        Det er fordeler og ulemper med begge to, som vi vil g&#229; gjennom 
         ganske snart.
-        Ingen av de bakenforliggende depotene er mer
-        <quote>offisielt</quote> enn det andre, og programmer som
+        Ingen av de bakenforliggende depotene er mer 
+        <quote>offisielt</quote> enn det andre, og programmer som 
         aksesserer depotet er isolert fra denne implementasjonsdetaljen.
-        Programmer har ingen formening om hvordan depotet lagrer data;
-        de ser bare revisjons- og transaksjonstr&#230;r gjennom
+        Programmer har ingen formening om hvordan depotet lagrer data; 
+        de ser bare revisjons- og transaksjonstr&#230;r gjennom 
         depotgrensesnittet.</para>
 
       <!-- @ENGLISH {{{
@@ -363,7 +363,7 @@
         Berkeley DB and FSFS repositories.  The next sections go into
         detail.</para>
       @ENGLISH }}} -->
-      <para>Her er en tabell som gir en oversikt over forskjellene
+      <para>Her er en tabell som gir en oversikt over forskjellene 
         mellom depoter av typen Berkeley DB og FSFS.
         De neste seksjonene g&#229;r inn i detalj.</para>
 
@@ -371,8 +371,8 @@
         <!-- @ENGLISH {{{
         <title>Repository Data-Store Comparison</title>
         @ENGLISH }}} -->
-        <title>Sammenligning av datalagring i <!-- &#164; &#171;depot&#187; i flertall.
-          Vil gjerne skrive &#171;depoter&#187;, men er det noe som heter det?
+        <title>Sammenligning av datalagring i <!-- &#164; &#171;depot&#187; i flertall. 
+          Vil gjerne skrive &#171;depoter&#187;, men er det noe som heter det? 
           -->depot</title>
         <tgroup cols="3">
           <thead>
@@ -393,30 +393,30 @@
               <entry>Sensitivity to interruptions</entry>
               @ENGLISH }}} -->
               <entry>F&#248;lsom for avbrytelser</entry>
-
+              
               <!-- @ENGLISH {{{
               <entry>very;  crashes and permission problems can leave the
                 database <quote>wedged</quote>, requiring journaled
                 recovery procedures.</entry>
               @ENGLISH }}} -->
               <entry>veldig;
-              krasj og problemer med rettigheter kan etterlate databasen
-              i en <quote>fastkilt</quote> (Engelsk:
-              <foreignphrase>wedged</foreignphrase>) tilstand som krever
+              krasj og problemer med rettigheter kan etterlate databasen 
+              i en <quote>fastkilt</quote> (Engelsk: 
+              <foreignphrase>wedged</foreignphrase>) tilstand som krever 
               <!-- &#164; -->prosedyrer for journalgjenoppretting.</entry>
-
+              
               <!-- @ENGLISH {{{
               <entry>quite insensitive.</entry>
               @ENGLISH }}} -->
               <entry>ganske uf&#248;lsom.</entry>
             </row>
-
+            
             <row>
               <!-- @ENGLISH {{{
               <entry>Usable from a read-only mount</entry>
-
+              
               <entry>no</entry>
-
+              
               <entry>yes</entry>
               @ENGLISH }}} -->
               <entry>Kan brukes fra et ikke-skrivbart medium</entry>
@@ -425,13 +425,13 @@
 
               <entry>ja</entry>
             </row>
-
+            
             <row>
               <!-- @ENGLISH {{{
               <entry>Platform-independent storage</entry>
-
+              
               <entry>no</entry>
-
+              
               <entry>yes</entry>
               @ENGLISH }}} -->
               <entry>Plattformuavhengig lagring</entry>
@@ -440,13 +440,13 @@
 
               <entry>ja</entry>
             </row>
-
+            
             <row>
               <!-- @ENGLISH {{{
               <entry>Usable over network filesystems</entry>
-
+              
               <entry>no</entry>
-
+              
               <entry>yes</entry>
               @ENGLISH }}} -->
               <entry>Brukbar over nettverksfilsystem</entry>
@@ -455,13 +455,13 @@
 
               <entry>ja</entry>
             </row>
-
+            
             <row>
               <!-- @ENGLISH {{{
               <entry>Repository size</entry>
-
+              
               <entry>slightly larger</entry>
-
+              
               <entry>slightly smaller</entry>
               @ENGLISH }}} -->
               <entry>Depotst&#248;rrelse</entry>
@@ -474,9 +474,9 @@
             <row>
               <!-- @ENGLISH {{{
               <entry>Scalability: number of revision trees</entry>
-
+              
               <entry>database;  no problems</entry>
-
+              
               <entry>some older native filesystems don't scale well with
                 thousands of entries in a single directory.</entry>
               @ENGLISH }}} -->
@@ -485,16 +485,16 @@
 
               <entry>database; ingen problemer</entry>
 
-              <entry>ytelsen p&#229; noen eldre filsystemer blir d&#229;rligere
+              <entry>ytelsen p&#229; noen eldre filsystemer blir d&#229;rligere 
                 med tusenvis av elementer i en katalog.</entry>
             </row>
 
             <row>
               <!-- @ENGLISH {{{
               <entry>Scalability: directories with many files</entry>
-
+              
               <entry>slower</entry>
-
+              
               <entry>faster</entry>
               @ENGLISH }}} -->
               <entry>Skalerbarhet:
@@ -504,13 +504,13 @@
 
               <entry>raskere</entry>
             </row>
-
+                        
             <row>
               <!-- @ENGLISH {{{
               <entry>Speed:  checking out latest code</entry>
-
+              
               <entry>faster</entry>
-
+              
               <entry>slower</entry>
               @ENGLISH }}} -->
               <entry>Hastighet:
@@ -520,38 +520,38 @@
 
               <entry>langsommere</entry>
             </row>
-
+            
             <row>
               <!-- @ENGLISH {{{
               <entry>Speed:  large commits</entry>
-
+              
               <entry>slower, but work is spread throughout commit</entry>
-
+              
               <entry>faster, but finalization delay may cause client
                 timeouts</entry>
               @ENGLISH }}} -->
               <entry>Hastighet:
                 Store innlegginger</entry>
 
-              <entry>langsommere, men arbeidet blir spredt ut over
+              <entry>langsommere, men arbeidet blir spredt ut over 
                 innleggingen</entry>
 
-              <entry>raskere, men forsinkelse i avslutningen kan
+              <entry>raskere, men forsinkelse i avslutningen kan 
                 for&#229;rsake tidsavbrudd for klienten.</entry>
             </row>
-
+            
             <row>
               <!-- @ENGLISH {{{
               <entry>Group permissions handling</entry>
-
+              
               <entry>sensitive to user umask problems;  best if accessed
                 by only one user.</entry>
-
+              
               <entry>works around umask problems</entry>
               @ENGLISH }}} -->
               <entry>Behandling av grupperettigheter</entry>
 
-              <entry>f&#248;lsom for problemer med umask; det beste er om den
+              <entry>f&#248;lsom for problemer med umask; det beste er om den 
                 blir aksessert av bare en bruker.</entry>
 
               <entry>jobber seg rundt problemer med umask</entry>
@@ -560,9 +560,9 @@
             <row>
               <!-- @ENGLISH {{{
               <entry>Code maturity</entry>
-
+              
               <entry>in use since 2001</entry>
-
+              
               <entry>in use since 2004</entry>
               @ENGLISH }}} -->
               <entry><!-- &#164; -->Kodemodenhet</entry>
@@ -573,13 +573,13 @@
             </row>
 
           </tbody>
-        </tgroup>
+        </tgroup>      
       </table>
-
+      
     <!-- ***************************************************************** -->
       <sect3 id="svn-ch-5-sect-1.3.1">
         <title>Berkeley DB</title>
-
+        
         <!-- @ENGLISH {{{
         <para>When the initial design phase of Subversion was in
           progress, the developers decided to use Berkeley DB for a
@@ -588,10 +588,10 @@
           simplicity, thread-safety, support for cursors, and so
           on.</para>
         @ENGLISH }}} -->
-        <para>I den innledende designfasen av Subversion bestemte
-          utviklerne seg for &#229; bruke Berkeley DB av diverse grunner,
-          blant annet dens &#229;pne lisens, transaksjonsst&#248;tte, stabilitet,
-          effektivitet, enkelt grensesnitt, tr&#229;dsikkerhet, st&#248;tte for
+        <para>I den innledende designfasen av Subversion bestemte 
+          utviklerne seg for &#229; bruke Berkeley DB av diverse grunner, 
+          blant annet dens &#229;pne lisens, transaksjonsst&#248;tte, stabilitet, 
+          effektivitet, enkelt grensesnitt, tr&#229;dsikkerhet, st&#248;tte for 
           &#164;cursors og s&#229; videre.</para>
 
         <!-- @ENGLISH {{{
@@ -610,19 +610,19 @@
           operation against a new, updated (and yet still static) view
           of the database.</para>
         @ENGLISH }}} -->
-        <para>Berkeley DB tilbyr reell st&#248;tte for transaksjoner &#8212;
+        <para>Berkeley DB tilbyr reell st&#248;tte for transaksjoner &#8212; 
           kanskje dens kraftigste funksjonalitet.
-          Flere prosesser som aksesserer Subversiondepotene dine trenger
+          Flere prosesser som aksesserer Subversiondepotene dine trenger 
           ikke &#229; tenke p&#229; faren ved &#229; rote til hverandres data.
-          Isolasjonen som transaksjonssystemet tilbyr er slik at for
-          enhver operasjon ser Subversions depotkode et statisk bilde av
-          en database &#8212; ikke en database som konstant forandres av en
-          annen prosess &#8212; og kan foreta avgj&#248;relser basert p&#229; dette
+          Isolasjonen som transaksjonssystemet tilbyr er slik at for 
+          enhver operasjon ser Subversions depotkode et statisk bilde av 
+          en database &#8212; ikke en database som konstant forandres av en 
+          annen prosess &#8212; og kan foreta avgj&#248;relser basert p&#229; dette 
           bildet.
-          Hvis avgj&#248;relsen kommer i konflikt med det en annen prosess
-          gj&#248;r, blir hele operasjonen rullet tilbake som om den aldri
-          skjedde, og Subversion pr&#248;ver <!-- &#164; -->forsiktig operasjonen
-          mot et nytt, oppdatert (og fortsatt statisk) bilde av
+          Hvis avgj&#248;relsen kommer i konflikt med det en annen prosess 
+          gj&#248;r, blir hele operasjonen rullet tilbake som om den aldri 
+          skjedde, og Subversion pr&#248;ver <!-- &#164; -->forsiktig operasjonen  
+          mot et nytt, oppdatert (og fortsatt statisk) bilde av 
           databasen.</para>
 
         <!-- @ENGLISH {{{
@@ -634,13 +634,13 @@
           able to make fully functional copies of your repositories
           without any downtime should be obvious.</para>
         @ENGLISH }}} -->
-        <para>En annen fin funksjonalitet med Berkeley DB er
-          <firstterm>varme backuper</firstterm> (<foreignphrase>hot
-          backups</foreignphrase>) &#8212; muligeten til &#229; ta sikkerhetskopi
+        <para>En annen fin funksjonalitet med Berkeley DB er 
+          <firstterm>varme backuper</firstterm> (<foreignphrase>hot 
+          backups</foreignphrase>) &#8212; muligeten til &#229; ta sikkerhetskopi 
           av databasen uten &#229; ta den ned.
-          Vi vil diskutere hvordan du tar backup av depotet i <xref
-          linkend="svn-ch-5-sect-3.6"/>, men fordelene med &#229; kunne ta
-          fullstendige fungerende kopier av depotene dine uten nedetid
+          Vi vil diskutere hvordan du tar backup av depotet i <xref 
+          linkend="svn-ch-5-sect-3.6"/>, men fordelene med &#229; kunne ta 
+          fullstendige fungerende kopier av depotene dine uten nedetid 
           er innlysende.</para>
 
         <!-- @ENGLISH {{{
@@ -657,14 +657,14 @@
           about Berkeley DB log files.</para>
         @ENGLISH }}} -->
         <para>Berkeley DB er ogs&#229; et veldig sikkert databasesystem.
-          Subversion bruker Berkeley DBs loggefasiliteter, som betyr at
-          databasen f&#248;rst skriver en beskrivelse til loggfiler p&#229; disken
-          om hva den er i ferd med &#229; gj&#248;re, og foretar deretter selve
+          Subversion bruker Berkeley DBs loggefasiliteter, som betyr at 
+          databasen f&#248;rst skriver en beskrivelse til loggfiler p&#229; disken 
+          om hva den er i ferd med &#229; gj&#248;re, og foretar deretter selve 
           modifiseringen.
-          Dette er for &#229; forsikre om at i tilfelle noe g&#229;r galt, kan
-          databasesystemet hente tilbake et tidligere
-          <firstterm>sjekkpunkt</firstterm> &#8212; en posisjon i loggfilene
-          som den vet ikke er &#248;delagt &#8212; <xref
+          Dette er for &#229; forsikre om at i tilfelle noe g&#229;r galt, kan 
+          databasesystemet hente tilbake et tidligere 
+          <firstterm>sjekkpunkt</firstterm> &#8212; en posisjon i loggfilene 
+          som den vet ikke er &#248;delagt &#8212; <xref 
           linkend="svn-ch-5-sect-3.3"/></para>
 
         <!-- @ENGLISH {{{
@@ -684,21 +684,21 @@
           set of specifications, almost no known shares actually meet
           all those specifications.</para>
         @ENGLISH }}} -->
-        <para>Men alle roser har torner, og derfor m&#229; vi v&#230;re klar over
+        <para>Men alle roser har torner, og derfor m&#229; vi v&#230;re klar over 
           noen kjente begrensninger i Berkeley DB.
           For det f&#248;rste er ikke Berkeley DB-milj&#248;er portable.
-          Du kan ikke bare kopiere et Subversiondepot som er laget p&#229; et
-          UNIX-system til et Windows-system og forvente at det skal
+          Du kan ikke bare kopiere et Subversiondepot som er laget p&#229; et 
+          UNIX-system til et Windows-system og forvente at det skal 
           virke.
-          Selv om mye av Berkely DB-formatet er arkitekturuavhengig, er
+          Selv om mye av Berkely DB-formatet er arkitekturuavhengig, er 
           det andre aspekter med milj&#248;et som ikke er det.
-          For det andre bruker Subersion Berkeley DB p&#229; en m&#229;te som ikke
-          vil fungere i Windows 95/98 &#8212; hvis du m&#229; ha depotet p&#229; en
+          For det andre bruker Subersion Berkeley DB p&#229; en m&#229;te som ikke 
+          vil fungere i Windows 95/98 &#8212; hvis du m&#229; ha depotet p&#229; en 
           Windowsmaskin, bruk Windows 2000 eller Windows XP.
           Legg heller aldri et Berkeley DB-depot p&#229; en nettverksdisk.
-          Selv om Berkeley DB lover &#229; oppf&#248;re seg korrekt p&#229;
-          nettverksdisker som oppfyller spesielle kriterier, er det
-          nesten ingen kjente nettverksdelinger som faktisk oppfyller
+          Selv om Berkeley DB lover &#229; oppf&#248;re seg korrekt p&#229; 
+          nettverksdisker som oppfyller spesielle kriterier, er det 
+          nesten ingen kjente nettverksdelinger som faktisk oppfyller 
           alle disse spesifikasjonene.</para>
 
         <!-- @ENGLISH {{{
@@ -731,43 +731,43 @@
           repository directly as multiple users, be sure to read <xref
           linkend="svn-ch-6-sect-5"/>.</para>
         @ENGLISH }}} -->
-        <para>Til sist, fordi Berkeley DB er et bibliotek linket direkte
-          inn i Subversion, er det mer sensibelt for avbrudd enn et
+        <para>Til sist, fordi Berkeley DB er et bibliotek linket direkte 
+          inn i Subversion, er det mer sensibelt for avbrudd enn et 
           typisk relasjonsdatabesestystem.
-          De fleste SQL-systemer har for eksempel en dedikert
+          De fleste SQL-systemer har for eksempel en dedikert 
           tjenerprosess som fordeler all tilgang til tabeller.
-          Hvis et program som aksesserer databasen krasjer av en eller
-          annen grunn, oppdager daemonen som styrer databasen dette og
+          Hvis et program som aksesserer databasen krasjer av en eller 
+          annen grunn, oppdager daemonen som styrer databasen dette og 
           ordner opp i eventuelt rot som blir liggende igjen.
-          Og fordi databasedaemonen er den eneste prosessen som
-          aksesserer tabellene, trenger ikke applikasjoner &#229; tenke p&#229;
+          Og fordi databasedaemonen er den eneste prosessen som 
+          aksesserer tabellene, trenger ikke applikasjoner &#229; tenke p&#229; 
           rettighetskonflikter.
           Disse tingene er imidlertid ikke tilfelle med Berkeley DB.
-          Subversion (og programmer som bruker Subversionbiblioteker)
-          aksesserer databasetabellene direkte, noe som betyr at et
-          programkrasj kan etterlate databasen i en midlertidig,
+          Subversion (og programmer som bruker Subversionbiblioteker) 
+          aksesserer databasetabellene direkte, noe som betyr at et 
+          programkrasj kan etterlate databasen i en midlertidig, 
           utilgjengelig tilstand.
-          N&#229;r dette skjer, m&#229; en administrator be Berkeley DB om
+          N&#229;r dette skjer, m&#229; en administrator be Berkeley DB om 
           gjenoppretting til et sjekkpunnkt, noe som er litt plagsomt.
-          Andre ting kan f&#248;re til at et depot <quote>kiler seg
-          fast</quote>
-          (<quote><foreignphrase>wedge</foreignphrase></quote>) sammen
-          med krasjede prosesser, som for eksempel programmer som kommer
+          Andre ting kan f&#248;re til at et depot <quote>kiler seg 
+          fast</quote> 
+          (<quote><foreignphrase>wedge</foreignphrase></quote>) sammen 
+          med krasjede prosesser, som for eksempel programmer som kommer 
           i konflikt ang&#229;ende eierskap og tilgang til databasefilene.
-          S&#229; mens et Berkeley DB-depot er ganske raskt og skalerbart,
-          fungerer det best n&#229;r det kun blir brukt av &#233;n enkelt
-          tjenerprosess som kj&#248;rer som &#233;n bruker &#8212; som for eksempel
-          Apaches <command>httpd</command> eller
-          <command>svnserve</command> (se <xref linkend="svn-ch-6"/>) &#8212;
-          istedenfor &#229; aksessere det med mange forskjellige brukere via
-          <literal>file:///</literal> eller
+          S&#229; mens et Berkeley DB-depot er ganske raskt og skalerbart, 
+          fungerer det best n&#229;r det kun blir brukt av &#233;n enkelt 
+          tjenerprosess som kj&#248;rer som &#233;n bruker &#8212; som for eksempel 
+          Apaches <command>httpd</command> eller 
+          <command>svnserve</command> (se <xref linkend="svn-ch-6"/>) &#8212; 
+          istedenfor &#229; aksessere det med mange forskjellige brukere via 
+          <literal>file:///</literal> eller 
           <literal>svn+ssh://</literal>-URLer.
-          Hvis et Berkeley DB-depot blir brukt direkte med flere
-          forskjellige brukere, pass p&#229; at du har lest <xref
+          Hvis et Berkeley DB-depot blir brukt direkte med flere 
+          forskjellige brukere, pass p&#229; at du har lest <xref 
           linkend="svn-ch-6-sect-5"/>.</para>
 
       </sect3>
-
+      
     <!-- ***************************************************************** -->
       <sect3 id="svn-ch-5-sect-1.3.2">
         <title>FSFS</title>
@@ -785,17 +785,17 @@
           unchanging, the repository also can be backed up while
           <quote>hot</quote>, just like a Berkeley DB repository.</para>
         @ENGLISH }}} -->
-        <para>I midten av 2004 ble et nytt lagringsformat for depotet
+        <para>I midten av 2004 ble et nytt lagringsformat for depotet 
           laget, et som ikke bruker en database i det hele tatt.
-          Et FSFS-depot lagrer et revisjonstre i en enkelt fil, og alle
-          depotets revisjoner kan dermed finnes i en enkelt underkatalog
+          Et FSFS-depot lagrer et revisjonstre i en enkelt fil, og alle 
+          depotets revisjoner kan dermed finnes i en enkelt underkatalog 
           full av nummererte filer.
           Transaksjoner blir opprettet i separate underkataloger.
-          N&#229;r den er komplett, blir en enkelt transaksjonsfil opprettet
-          og flyttet til revisjonskatalogen og garanterer dermed at
+          N&#229;r den er komplett, blir en enkelt transaksjonsfil opprettet 
+          og flyttet til revisjonskatalogen og garanterer dermed at 
           innleggingen blir atomisk.
-          Og fordi en revisjonsfil er permanent og uforanderlig, kan
-          depotet ogs&#229; bli tatt backup av mens det er i bruk, akkurat
+          Og fordi en revisjonsfil er permanent og uforanderlig, kan 
+          depotet ogs&#229; bli tatt backup av mens det er i bruk, akkurat 
           som et Berkeley DB-depot.</para>
 
         <!-- @ENGLISH {{{
@@ -810,17 +810,17 @@
           database overhead also means that the overall repository
           size is a bit smaller.</para>
         @ENGLISH }}} -->
-        <para>Revisjonsfilformatet representerer en revisjons
-          katalogstruktur, filinnhold, og forskjeller i forhold til
+        <para>Revisjonsfilformatet representerer en revisjons 
+          katalogstruktur, filinnhold, og forskjeller i forhold til 
           filer i andre revisjonstr&#230;r.
-          Ulikt en Berkeley DB-database, er dette lagringsformatet
-          portabelt mellom forskjellige operativsystemer og er ikke
+          Ulikt en Berkeley DB-database, er dette lagringsformatet 
+          portabelt mellom forskjellige operativsystemer og er ikke 
           sensitiv ovenfor CPU-arkitektur.
-          Fordi det ikke blir brukt journalfiler eller filer som bruker
-          delt hukommelse, kan depotet trygt aksesseres via et
-          nettverksfilsystem og bli utforsket i et skrivebeskyttet
+          Fordi det ikke blir brukt journalfiler eller filer som bruker 
+          delt hukommelse, kan depotet trygt aksesseres via et 
+          nettverksfilsystem og bli utforsket i et skrivebeskyttet 
           milj&#248;.
-          Mangelen p&#229; databaseoverhead betyr ogs&#229; at den samlede
+          Mangelen p&#229; databaseoverhead betyr ogs&#229; at den samlede 
           depotst&#248;rrelsen blir en del mindre.</para>
 
         <!-- @ENGLISH {{{
@@ -836,18 +836,18 @@
           could in extreme cases cause clients to time-out when
           waiting for a response.</para>
         @ENGLISH }}} -->
-        <para>FSFS har ogs&#229; forskjellige karakteristikker n&#229;r det
-          gjelder <!-- &#164; -->effektivitet. N&#229;r en katalog med mange filer
-          legges inn, bruker FSFS en O(N) algoritme for &#229; legge til
-          poster, mens Berkeley DB bruker en O(N^2) algoritme for &#229;
+        <para>FSFS har ogs&#229; forskjellige karakteristikker n&#229;r det 
+          gjelder <!-- &#164; -->effektivitet. N&#229;r en katalog med mange filer 
+          legges inn, bruker FSFS en O(N) algoritme for &#229; legge til 
+          poster, mens Berkeley DB bruker en O(N^2) algoritme for &#229; 
           skrive hele katalogen en gang til.
-          P&#229; den annen side skriver FSFS den seneste versjonen av en fil
-          som en delta (forskjell) mot en tidligere versjon, noe som
-          betyr at det &#229; hente ut det seneste treet er litt langsommere
-          enn &#229; hente fullteksten lagret i en HEAD-revisjon i Berkeley
+          P&#229; den annen side skriver FSFS den seneste versjonen av en fil 
+          som en delta (forskjell) mot en tidligere versjon, noe som 
+          betyr at det &#229; hente ut det seneste treet er litt langsommere 
+          enn &#229; hente fullteksten lagret i en HEAD-revisjon i Berkeley 
           DB.
-          FSFS har ogs&#229; en lengre forsinkelse n&#229;r en innlegging skal
-          fullf&#248;res, noe som i ekstreme tilfeller kan f&#248;re til at
+          FSFS har ogs&#229; en lengre forsinkelse n&#229;r en innlegging skal 
+          fullf&#248;res, noe som i ekstreme tilfeller kan f&#248;re til at 
           klienter f&#229;r et tidsavbrudd under venting p&#229; respons.</para>
 
         <!-- @ENGLISH {{{
@@ -860,14 +860,14 @@
           the repository isn't affected at all.  At worst, some
           transaction data is left behind.</para>
         @ENGLISH }}} -->
-        <para>Men den viktigste forskjellen er FSFSs evne til &#229; ikke bli
+        <para>Men den viktigste forskjellen er FSFSs evne til &#229; ikke bli 
           <quote>fastkilt</quote> hvis noe g&#229;r galt.
-          Hvis en prosess som bruker en Berkeley DB-database f&#229;r
-          problemer med rettigheter eller plutselig krasjer, er ikke
+          Hvis en prosess som bruker en Berkeley DB-database f&#229;r 
+          problemer med rettigheter eller plutselig krasjer, er ikke 
           databasen brukbar f&#248;r en administrator gjenoppretter den.
-          Hvis det samme skjer med en prosess som bruker et FSFS-depot,
+          Hvis det samme skjer med en prosess som bruker et FSFS-depot, 
           blir ikke depotet p&#229;virket i det hele tatt.
-          I verste fall blir bare noen transaksjonsdata liggende
+          I verste fall blir bare noen transaksjonsdata liggende 
           igjen.</para>
 
         <!-- @ENGLISH {{{
@@ -880,14 +880,14 @@
           susceptible to problems.  In practice, only time will
           tell.</para>
         @ENGLISH }}} -->
-        <para>Det eneste virkelige argumentet mot FSFS er fartstiden det
+        <para>Det eneste virkelige argumentet mot FSFS er fartstiden det 
           har hatt i forhold til Berkeley DB.
-          Det er ikke like mye brukt og har ikke blitt stresstestet like
-          mye, s&#229; derfor er mange av disse antakelsene om hastighet og
+          Det er ikke like mye brukt og har ikke blitt stresstestet like 
+          mye, s&#229; derfor er mange av disse antakelsene om hastighet og 
           skalerbarhet nettopp det:
           Antakelser, basert p&#229; gode gjetninger.
-          I teorien lover den en lavere barriere &#229; forsere for nye
-          administratorer &#229; forsere og er forventet &#229; skape mindre
+          I teorien lover den en lavere barriere &#229; forsere for nye 
+          administratorer &#229; forsere og er forventet &#229; skape mindre 
           problemer.
           I praksis vil bare tiden vise om dette stemmer.</para>
 
@@ -911,10 +911,10 @@
       new repository, just run:</para>
     @ENGLISH }}} -->
     <para>Det &#229; opprette et Subversiondepot er en utrolig enkel oppgave.
-      <command>svnadmin</command>-verkt&#248;yet som f&#248;lger med Subversion
+      <command>svnadmin</command>-verkt&#248;yet som f&#248;lger med Subversion 
       har en delkommando som gj&#248;r akkurat det.
       For &#229; opprette et nytt depot, er det bare &#229; kj&#248;re:</para>
-
+          
     <!-- @ENGLISH {{{
     <screen>
 $ svnadmin create /path/to/repos
@@ -923,7 +923,7 @@ $ svnadmin create /path/to/repos
     <screen>
 $ svnadmin create /sti/til/depot
 </screen>
-
+          
     <!-- @ENGLISH {{{
     <para>This creates a new repository in the directory
       <filename>/path/to/repos</filename>.  This new repository begins
@@ -933,13 +933,13 @@ $ svnadmin create /sti/til/depot
       property, <literal>svn:date</literal>, set to the time at which
       the repository was created.</para>
     @ENGLISH }}} -->
-    <para>Dette oppretter et nytt depot i katalogen
+    <para>Dette oppretter et nytt depot i katalogen 
       <filename>/sti/til/depot</filename>.
-      Dette nye depotet starter livet ved revisjon 0, som er definert
-      til &#229; bare innholde en rot p&#229; toppniv&#229; (<filename>/</filename>) i
+      Dette nye depotet starter livet ved revisjon 0, som er definert 
+      til &#229; bare innholde en rot p&#229; toppniv&#229; (<filename>/</filename>) i 
       filsystemet.
-      Revisjon 0 har ogs&#229; en enkelt revisjonsegenskap satt
-      innledningsvis, <literal>svn:date</literal>, som er satt til
+      Revisjon 0 har ogs&#229; en enkelt revisjonsegenskap satt 
+      innledningsvis, <literal>svn:date</literal>, som er satt til 
       tidspunktet depotet ble opprettet.</para>
 
     <!-- @ENGLISH {{{
@@ -948,10 +948,10 @@ $ svnadmin create /sti/til/depot
       releases.  Regardless, the type can be explicitly chosen with
       the <option>-&#64738;-fs-type</option> argument:</para>
     @ENGLISH }}} -->
-    <para>I Subversion 1.1 blir et depot opprettet med en
+    <para>I Subversion 1.1 blir et depot opprettet med en 
       bakenforliggende Berkeley DB-database som standard.
       Denne oppf&#248;rselen kan forandre seg i fremtidige releaser.
-      Uansett, typen kan bli eksplisitt valgt med
+      Uansett, typen kan bli eksplisitt valgt med 
       <option>--fs-type</option>-valget:</para>
 
     <!-- @ENGLISH {{{
@@ -980,16 +980,16 @@ $ svnadmin create --fs-type bdb /sti/til/annet/depot
         or it may be months before you discover that your repository
         database is subtly corrupted.</para>
       @ENGLISH }}} -->
-      <para>Opprett ikke et Berkeley DB-depot p&#229; en nettverksdisk &#8212; det
-        <emphasis>kan ikke</emphasis> eksistere p&#229; et fjerntliggende
+      <para>Opprett ikke et Berkeley DB-depot p&#229; en nettverksdisk &#8212; det 
+        <emphasis>kan ikke</emphasis> eksistere p&#229; et fjerntliggende 
         filsystem som NFS, AFS eller Windows SMB.
-        Berkeley DB krever at det underliggende filsystemet har
-        implementert streng POSIX l&#229;sesemantikk, og enda viktigere,
+        Berkeley DB krever at det underliggende filsystemet har 
+        implementert streng POSIX l&#229;sesemantikk, og enda viktigere, 
         muligheten til &#229; mappe filer direkte inn i prosesshukommelsen.
         Nesten ingen nettverksfilsystemer tilbyr disse mulighetene.
-        Hvis du fors&#248;ker &#229; bruke Berkeley DB p&#229; en nettverksdisk, er
-        resultatene uforutsigelige &#8212; du kan se mystiske feilmeldinger
-        med en gang, eller det kan g&#229; m&#229;nedsvis f&#248;r du oppdager at
+        Hvis du fors&#248;ker &#229; bruke Berkeley DB p&#229; en nettverksdisk, er 
+        resultatene uforutsigelige &#8212; du kan se mystiske feilmeldinger 
+        med en gang, eller det kan g&#229; m&#229;nedsvis f&#248;r du oppdager at 
         depotet i all stillhet blir herpa.</para>
 
       <!-- @ENGLISH {{{
@@ -1002,16 +1002,16 @@ $ svnadmin create --fs-type bdb /sti/til/annet/depot
         <xref linkend="svn-ch-6"/> covers this process in
         detail.</para>
       @ENGLISH }}} -->
-      <para>Hvis du trenger flere datamaskiner for &#229; aksessere depotet,
-        lager du et FSFS-depot p&#229; nettverksdisken, ikke et Berkeley
+      <para>Hvis du trenger flere datamaskiner for &#229; aksessere depotet, 
+        lager du et FSFS-depot p&#229; nettverksdisken, ikke et Berkeley 
         DB-depot.
-        Eller enda bedre, sett opp en skikkelig tjenerprosess (som for
-        eksempel Apache eller <command>svnserve</command>), legg depotet
-        i et lokalt filsystem som tjeneren aksessere, og gj&#248;r depotet
-        tilgjengelig over et nettverk. <xref linkend="svn-ch-6"/> dekker
+        Eller enda bedre, sett opp en skikkelig tjenerprosess (som for 
+        eksempel Apache eller <command>svnserve</command>), legg depotet 
+        i et lokalt filsystem som tjeneren aksessere, og gj&#248;r depotet 
+        tilgjengelig over et nettverk. <xref linkend="svn-ch-6"/> dekker 
         denne prosessen i detalj.</para>
     </warning>
-
+          
     <!-- @ENGLISH {{{
     <para>You may have noticed that the path argument to
       <command>svnadmin</command> was just a regular filesystem path
@@ -1025,16 +1025,16 @@ $ svnadmin create --fs-type bdb /sti/til/annet/depot
       newcomers is trying to pass URLs (even <quote>local</quote>
       <literal>file:</literal> ones) to these two programs.</para>
     @ENGLISH }}} -->
-    <para>Du har kanskje lagt merke til at stiargumentet til
-      <command>svnadmin</command> bare var en vanlig filsystemsti og
-      ikke en URL lik det <command>svn</command>-klienten bruker n&#229;r den
+    <para>Du har kanskje lagt merke til at stiargumentet til 
+      <command>svnadmin</command> bare var en vanlig filsystemsti og 
+      ikke en URL lik det <command>svn</command>-klienten bruker n&#229;r den 
       refererer til depot.
-      B&#229;de <command>svnadmin</command> og <command>svnlook</command>
-      ansees som tjenerside-verkt&#248;y &#8212; de blir brukt p&#229; maskinen hvor
-      depotet ligger for &#229; unders&#248;ke og modifisere aspekter ved depotet,
+      B&#229;de <command>svnadmin</command> og <command>svnlook</command> 
+      ansees som tjenerside-verkt&#248;y &#8212; de blir brukt p&#229; maskinen hvor 
+      depotet ligger for &#229; unders&#248;ke og modifisere aspekter ved depotet, 
       og er faktisk ikke i stand til &#229; utf&#248;re oppgaver over nettverket.
-      En vanlig feil som blir gjort av nybakte Subversionbrukere er &#229; gi
-      URLer (til og med av typene <quote>local</quote> og
+      En vanlig feil som blir gjort av nybakte Subversionbrukere er &#229; gi 
+      URLer (til og med av typene <quote>local</quote> og 
       <literal>file:</literal>) til disse to programmene.</para>
 
     <!-- @ENGLISH {{{
@@ -1043,12 +1043,12 @@ $ svnadmin create --fs-type bdb /sti/til/annet/depot
       directory.  Let's take a peek at what is actually created inside
       that subdirectory.</para>
     @ENGLISH }}} -->
-    <para>S&#229;, etter at du har kj&#248;rt <command>svnadmin
-      create</command>-kommandoen, har du et skinnende nytt depot i sin
+    <para>S&#229;, etter at du har kj&#248;rt <command>svnadmin 
+      create</command>-kommandoen, har du et skinnende nytt depot i sin 
       egen katalog.
-      La oss ta en kikk p&#229; hva som egentlig er laget i denne
+      La oss ta en kikk p&#229; hva som egentlig er laget i denne 
       katalogen.</para>
-
+            
     <!-- @ENGLISH {{{
     <screen>
 $ ls repos
@@ -1059,7 +1059,7 @@ conf/  dav/  db/  format  hooks/  locks/  README.txt
 $ ls depot
 conf/  dav/  db/  format  hooks/  locks/  README.txt
 </screen>
-
+      
     <!-- @ENGLISH {{{
     <para>With the exception of the <filename>README.txt</filename> and
       <filename>format</filename> files,
@@ -1069,13 +1069,13 @@ conf/  dav/  db/  format  hooks/  locks/  README.txt
       cluttered chaos.  Here is a brief description of all of
       the items you see in your new repository directory:</para>
     @ENGLISH }}} -->
-    <para>Med unntak av filene <filename>README.txt</filename> og
-      <filename>format</filename>, er depotkatalogen en samling av
+    <para>Med unntak av filene <filename>README.txt</filename> og 
+      <filename>format</filename>, er depotkatalogen en samling av 
       underkataloger.
-      Som i andre omr&#229;der av Subversion-designet er modularitet gitt
-      stor oppmerksomhet, og hierarkisk organisering er foretrukket
+      Som i andre omr&#229;der av Subversion-designet er modularitet gitt 
+      stor oppmerksomhet, og hierarkisk organisering er foretrukket 
       framfor <!-- cluttered -->rotete kaos.
-      Her er en rask beskrivelse av alle elementene som du ser i den nye
+      Her er en rask beskrivelse av alle elementene som du ser i den nye 
       depotkatalogen:</para>
 
     <variablelist>
@@ -1085,7 +1085,7 @@ conf/  dav/  db/  format  hooks/  locks/  README.txt
           <!-- @ENGLISH {{{
           <para>A directory containing repository configuration files.</para>
           @ENGLISH }}} -->
-          <para>En katalog som inneholder konfigurasjonsfiler for
+          <para>En katalog som inneholder konfigurasjonsfiler for 
             depotet.</para>
         </listitem>
       </varlistentry>
@@ -1096,7 +1096,7 @@ conf/  dav/  db/  format  hooks/  locks/  README.txt
           <para>A directory provided to Apache and mod_dav_svn for
             their private housekeeping data.</para>
           @ENGLISH }}} -->
-          <para>En katalog der Apache og mod_dav_svn lagrer sine
+          <para>En katalog der Apache og mod_dav_svn lagrer sine 
             husholdningsdata.</para>
         </listitem>
       </varlistentry>
@@ -1110,8 +1110,8 @@ conf/  dav/  db/  format  hooks/  locks/  README.txt
             containing revision files.</para>
           @ENGLISH }}} -->
           <para>Hvor alle dine versjonerte data ligger.
-            Denne katalogen er enten et Berkeley DB-milj&#248; (full av
-            databasetabeller og andre ting), eller i et FSFS-milj&#248; som
+            Denne katalogen er enten et Berkeley DB-milj&#248; (full av 
+            databasetabeller og andre ting), eller i et FSFS-milj&#248; som 
             inneholder revisjonsfiler.</para>
         </listitem>
       </varlistentry>
@@ -1122,7 +1122,7 @@ conf/  dav/  db/  format  hooks/  locks/  README.txt
           <para>A file whose contents are a single integer value that
             dictates the version number of the repository layout.</para>
           @ENGLISH }}} -->
-          <para>En fil som inneholder en enkelt heltallsverdi som
+          <para>En fil som inneholder en enkelt heltallsverdi som 
             spesifiserer versjonsnummeret til depotlayouten.</para>
         </listitem>
       </varlistentry>
@@ -1133,9 +1133,9 @@ conf/  dav/  db/  format  hooks/  locks/  README.txt
           <para>A directory full of hook script templates (and hook
             scripts themselves, once you've installed some).</para>
           @ENGLISH }}} -->
-          <para>En katalog full av maler for p&#229;hakningsskript (Engelsk:
-            <foreignphrase>hooks</foreignphrase>) (og
-            p&#229;hakningsskriptene selv, n&#229;r du har installert
+          <para>En katalog full av maler for p&#229;hakningsskript (Engelsk: 
+            <foreignphrase>hooks</foreignphrase>) (og 
+            p&#229;hakningsskriptene selv, n&#229;r du har installert 
             noen).</para>
         </listitem>
       </varlistentry>
@@ -1146,7 +1146,7 @@ conf/  dav/  db/  format  hooks/  locks/  README.txt
           <para>A directory for Subversion's repository locking
             data, used for tracking accessors to the repository.</para>
           @ENGLISH }}} -->
-          <para>En katalog for Subversions l&#229;sedata, brukt for &#229; f&#248;lge
+          <para>En katalog for Subversions l&#229;sedata, brukt for &#229; f&#248;lge 
             <!-- &#164; -->tilganger til depotet.</para>
         </listitem>
       </varlistentry>
@@ -1157,12 +1157,12 @@ conf/  dav/  db/  format  hooks/  locks/  README.txt
           <para>A file which merely informs its readers that they
             are looking at a Subversion repository.</para>
           @ENGLISH }}} -->
-          <para>En fil som bare informerer sine lesere om at de ser p&#229;
+          <para>En fil som bare informerer sine lesere om at de ser p&#229; 
             et Subversiondepot.</para>
         </listitem>
       </varlistentry>
     </variablelist>
-
+      
     <!-- @ENGLISH {{{
     <para>In general, you shouldn't tamper with your repository
       <quote>by hand</quote>.  The <command>svnadmin</command> tool
@@ -1172,13 +1172,13 @@ conf/  dav/  db/  format  hooks/  locks/  README.txt
       the repository.  Some exceptions exist, though, and we'll cover
       those here.</para>
     @ENGLISH }}} -->
-    <para>Generelt sett skal du ikke fikle med depotet <quote>for
+    <para>Generelt sett skal du ikke fikle med depotet <quote>for 
       h&#229;nd</quote>.
-      <command>svnadmin</command>-verkt&#248;yet skal v&#230;re nok til alle
-      n&#248;dvendige forandringer i depotet, eller du kan se p&#229;
-      tredjeparti-verkt&#248;y (som Berkeley DBs verkt&#248;ysamling) for &#229;
+      <command>svnadmin</command>-verkt&#248;yet skal v&#230;re nok til alle 
+      n&#248;dvendige forandringer i depotet, eller du kan se p&#229; 
+      tredjeparti-verkt&#248;y (som Berkeley DBs verkt&#248;ysamling) for &#229; 
       finpusse relevante subseksjoner av depotet.
-      Noen unntak gjelder imidlertid, og disse skal vi g&#229; gjennom
+      Noen unntak gjelder imidlertid, og disse skal vi g&#229; gjennom 
       her.</para>
 
     <!-- ***************************************************************** -->
@@ -1198,32 +1198,32 @@ conf/  dav/  db/  format  hooks/  locks/  README.txt
         return status, the hook program may continue the action, stop
         it, or suspend it in some way.</para>
       @ENGLISH }}} -->
-      <para>Et <!-- &#164; --><firstterm>p&#229;hakningsskript</firstterm> (p&#229;
-        engelsk kalt <foreignphrase>hooks</foreignphrase>) er et program
-        som blir utl&#248;st av en hendelse i depotet, som for eksempel
-        opprettelsen av en ny revisjon eller modifiseringen av en
+      <para>Et <!-- &#164; --><firstterm>p&#229;hakningsskript</firstterm> (p&#229; 
+        engelsk kalt <foreignphrase>hooks</foreignphrase>) er et program 
+        som blir utl&#248;st av en hendelse i depotet, som for eksempel 
+        opprettelsen av en ny revisjon eller modifiseringen av en 
         uversjonert egenskap.
-        Hver p&#229;hakning blir gitt nok informasjon til &#229; fortelle hva
-        denne hendelsen er, hvilke m&#229;l den opererer p&#229;, og brukernavnet
+        Hver p&#229;hakning blir gitt nok informasjon til &#229; fortelle hva 
+        denne hendelsen er, hvilke m&#229;l den opererer p&#229;, og brukernavnet 
         til personen som satte i gang hendelsen.
-        Avhengig av p&#229;hakningens utdata eller returstatus, kan
-        p&#229;hakningsprogrammet fortsette hendelsen, stoppe den, eller
+        Avhengig av p&#229;hakningens utdata eller returstatus, kan 
+        p&#229;hakningsprogrammet fortsette hendelsen, stoppe den, eller 
         utsette den p&#229; en eller annen m&#229;te.</para>
-
+            
       <!-- @ENGLISH {{{
       <para>The <filename>hooks</filename> subdirectory is, by
         default, filled with templates for various repository
         hooks.</para>
       @ENGLISH }}} -->
-      <para><filename>hooks</filename>-katalogen er, som standard, fylt
+      <para><filename>hooks</filename>-katalogen er, som standard, fylt 
         med maler for diverse depotp&#229;hakninger.</para>
-
+            
       <!-- @ENGLISH {{{
       <screen>
 $ ls repos/hooks/
 post-commit.tmpl          pre-revprop-change.tmpl
 post-revprop-change.tmpl  start-commit.tmpl
-pre-commit.tmpl
+pre-commit.tmpl           
 </screen>
       @ENGLISH }}} -->
       <screen>
@@ -1232,7 +1232,7 @@ post-commit.tmpl          pre-revprop-change.tmpl
 post-revprop-change.tmpl  start-commit.tmpl
 pre-commit.tmpl
 </screen>
-
+            
       <!-- @ENGLISH {{{
       <para>There is one template for each hook that the Subversion
         repository implements, and by examining the contents of those
@@ -1247,20 +1247,20 @@ pre-commit.tmpl
         <command>start-commit</command> or
         <command>post-commit</command>) of the hook.</para>
       @ENGLISH }}} -->
-      <para>Det er en mal for hver p&#229;hakning som Subversiondepotet
-        implementerer, og ved &#229; unders&#248;ke innholdet til disse
-        eksempelskriptene, kan du se hva som f&#248;rer til at hvert av disse
-        skriptene begynner &#229; kj&#248;re og hvilke data som blir levert til
+      <para>Det er en mal for hver p&#229;hakning som Subversiondepotet 
+        implementerer, og ved &#229; unders&#248;ke innholdet til disse 
+        eksempelskriptene, kan du se hva som f&#248;rer til at hvert av disse 
+        skriptene begynner &#229; kj&#248;re og hvilke data som blir levert til 
         dette skriptet.
-        Det som ogs&#229; ligger i mange av disse malene er eksempler p&#229;
-        hvordan man kan bruke skriptet, i sammenheng med andre
-        Subversion-<!-- &#164; -->st&#248;ttede programmer, for &#229; utf&#248;re vanlige,
+        Det som ogs&#229; ligger i mange av disse malene er eksempler p&#229; 
+        hvordan man kan bruke skriptet, i sammenheng med andre 
+        Subversion-<!-- &#164; -->st&#248;ttede programmer, for &#229; utf&#248;re vanlige, 
         nyttige oppgaver.
-        For &#229; faktisk installere en p&#229;hakning som virker, trenger du
-        bare &#229; plassere et kj&#248;rbart program eller skript i
-        <filename>depot/hooks</filename>-katalogen som kan bli kj&#248;rt
-        basert p&#229; navnet (som for eksempel
-        <command>start-commit</command> eller
+        For &#229; faktisk installere en p&#229;hakning som virker, trenger du 
+        bare &#229; plassere et kj&#248;rbart program eller skript i 
+        <filename>depot/hooks</filename>-katalogen som kan bli kj&#248;rt 
+        basert p&#229; navnet (som for eksempel 
+        <command>start-commit</command> eller 
         <command>post-commit</command>) til p&#229;hakningen.</para>
 
       <!-- @ENGLISH {{{
@@ -1282,22 +1282,22 @@ pre-commit.tmpl
         programs, and <filename>.bat</filename> for batch
         files.</para>
       @ENGLISH }}} -->
-      <para>P&#229; Unix-plattformer betyr dette &#229; legge inn et skript eller
-        program (som kan v&#230;re et <!-- &#164; -->shellskript, et
-        Pythonprogram, et kompilert C-program, eller hva som helst
+      <para>P&#229; Unix-plattformer betyr dette &#229; legge inn et skript eller 
+        program (som kan v&#230;re et <!-- &#164; -->shellskript, et 
+        Pythonprogram, et kompilert C-program, eller hva som helst 
         annet) som heter akkurat det samme som p&#229;hakningen.
-        Selvf&#248;lgelig, malfilene er der for mer enn bare
-        informasjonsverdien &#8212; den letteste m&#229;ten &#229; installere en
-        p&#229;hakning p&#229; Unixplattformer er &#229; bare kopiere den riktige
-        malfilen til en ny fil som mangler
-        <literal>.tmpl</literal>-etternavnet, finpusse p&#229; innholdet, og
+        Selvf&#248;lgelig, malfilene er der for mer enn bare 
+        informasjonsverdien &#8212; den letteste m&#229;ten &#229; installere en 
+        p&#229;hakning p&#229; Unixplattformer er &#229; bare kopiere den riktige 
+        malfilen til en ny fil som mangler 
+        <literal>.tmpl</literal>-etternavnet, finpusse p&#229; innholdet, og 
         forsikre deg om at skriptet er kj&#248;rbart.
-        Men Windows bruker filetternavn til &#229; avgj&#248;re hvorvidt et
-        program er kj&#248;rbart eller ikke, s&#229; da m&#229; du legge inn et program
-        der hovednavnet er navnet p&#229; p&#229;hakningen, og der etternavnet er
-        en av de spesielle etternavnene som Windows kjenner igjen som
-        kj&#248;rbare, for eksempel <filename>.exe</filename> eller
-        <filename>.com</filename> for programmer, og
+        Men Windows bruker filetternavn til &#229; avgj&#248;re hvorvidt et 
+        program er kj&#248;rbart eller ikke, s&#229; da m&#229; du legge inn et program 
+        der hovednavnet er navnet p&#229; p&#229;hakningen, og der etternavnet er 
+        en av de spesielle etternavnene som Windows kjenner igjen som 
+        kj&#248;rbare, for eksempel <filename>.exe</filename> eller 
+        <filename>.com</filename> for programmer, og 
         <filename>.bat</filename> for batchfiler.</para>
 
       <tip>
@@ -1312,14 +1312,14 @@ pre-commit.tmpl
         variables in your hook and/or use absolute paths to
         programs.</para>
         @ENGLISH }}} -->
-        <para>Av sikkerhetsgrunner kj&#248;rer Subversion p&#229;hakningsskript
-          med et tomt milj&#248; (environment) &#8212; det betyr, ingen
-          milj&#248;variabler er satt i det hele tatt, ikke engang
+        <para>Av sikkerhetsgrunner kj&#248;rer Subversion p&#229;hakningsskript 
+          med et tomt milj&#248; (environment) &#8212; det betyr, ingen 
+          milj&#248;variabler er satt i det hele tatt, ikke engang 
           <literal>$PATH</literal> eller <literal>%PATH%</literal>.
-          P&#229; grunn av dette blir mange adminstratorer forvirret n&#229;r
-          p&#229;hakningsskriptet kj&#248;rer fint for h&#229;nd, men virker ikke n&#229;r
+          P&#229; grunn av dette blir mange adminstratorer forvirret n&#229;r 
+          p&#229;hakningsskriptet kj&#248;rer fint for h&#229;nd, men virker ikke n&#229;r 
           det blir kj&#248;rt av Subversion.
-          Pass p&#229; &#229; eksplisitt sette variabler i skriptet og/eller bruk
+          Pass p&#229; &#229; eksplisitt sette variabler i skriptet og/eller bruk 
           absolutte stier til programmer.</para>
       </tip>
 
@@ -1327,7 +1327,7 @@ pre-commit.tmpl
       <para>Currently there are five hooks implemented by the
         Subversion repository:</para>
       @ENGLISH }}} -->
-      <para>Forel&#248;pig er det fem p&#229;hakninger som er lagt inn i
+      <para>Forel&#248;pig er det fem p&#229;hakninger som er lagt inn i 
         Subversiondepotet:</para>
 
       <variablelist>
@@ -1345,22 +1345,22 @@ pre-commit.tmpl
               hook program writes data to stderr, it will be
               marshalled back to the client.</para>
             @ENGLISH }}} -->
-            <para>Denne blir kj&#248;rt allerede f&#248;r innleggingstransaksjonen
+            <para>Denne blir kj&#248;rt allerede f&#248;r innleggingstransaksjonen 
               er opprettet.
-              Det blir vanligvis brukt til &#229; avgj&#248;re om brukeren har
+              Det blir vanligvis brukt til &#229; avgj&#248;re om brukeren har 
               innleggingsprivilegier i det hele tatt.
               Depotet leverer to argumenter til dette programmet:
-              Stien til depotet, og brukernavnet som fors&#248;ker seg p&#229;
+              Stien til depotet, og brukernavnet som fors&#248;ker seg p&#229; 
               innleggingen.
-              Hvis programmet returnerer en verdi som ikke er null, blir
-              denne innleggingen stoppet allerede f&#248;r transaksjonen blir
+              Hvis programmet returnerer en verdi som ikke er null, blir 
+              denne innleggingen stoppet allerede f&#248;r transaksjonen blir 
               laget.
-              Hvis p&#229;hakningen skriver data til <!-- &#164; Det h&#248;res bedre
-              ut enn &#171;standard feil&#187;. -->stderr, vil det bli <!-- &#164;
+              Hvis p&#229;hakningen skriver data til <!-- &#164; Det h&#248;res bedre 
+              ut enn &#171;standard feil&#187;. -->stderr, vil det bli <!-- &#164; 
               marshalled -->sendt tilbake til klienten.</para>
           </listitem>
         </varlistentry>
-
+            
         <varlistentry>
           <term><filename>pre-commit</filename></term>
           <listitem>
@@ -1379,20 +1379,20 @@ pre-commit.tmpl
               program writes data to stderr, it will be marshalled
               back to the client.</para>
             @ENGLISH }}} -->
-            <para>Dette blir kj&#248;rt n&#229;r transaksjonen er komplett, men
+            <para>Dette blir kj&#248;rt n&#229;r transaksjonen er komplett, men 
               f&#248;r den er lagt inn.
-              Vanligvis blir denne p&#229;hakningen brukt til &#229; beskytte mot
-              innlegginger som er forbudt p&#229; grunn av innhold eller
-              beliggenhet (for eksempel kan <!-- &#164; site -->tjeneren
-              kreve at alle innlegginger til en spesiell gren inneholder
-              et billettnummer fra feildatabasen, eller at den
+              Vanligvis blir denne p&#229;hakningen brukt til &#229; beskytte mot 
+              innlegginger som er forbudt p&#229; grunn av innhold eller 
+              beliggenhet (for eksempel kan <!-- &#164; site -->tjeneren 
+              kreve at alle innlegginger til en spesiell gren inneholder 
+              et billettnummer fra feildatabasen, eller at den 
               innkommende loggmeldingen ikke er tom).
               Depotet leverer to argumenter til dette programmet:
-              Stien til depotet, og navnet p&#229; transaksjonen som legges
+              Stien til depotet, og navnet p&#229; transaksjonen som legges 
               inn.
-              Hvis programmet returnerer en verdi som ikke er null,
+              Hvis programmet returnerer en verdi som ikke er null, 
               avbrytes innleggingen og transaksjonen blir fjernet.
-              Hvis programmet skriver data til stderr, vil dette bli
+              Hvis programmet skriver data til stderr, vil dette bli 
               <!-- marshalled -->sendt tilbake til klienten.</para>
 
             <!-- @ENGLISH {{{
@@ -1409,18 +1409,18 @@ pre-commit.tmpl
               of Subversion, we plan to implement access control lists
               (ACLs) directly in the filesystem.</para>
             @ENGLISH }}} -->
-            <para>Subversiondistribusjonen inneholder noen
-              aksesskontrollskript (i
-              <filename>tools/hook-scripts</filename>-katalogen i
-              kildekodefiltreet til Subversion) som kan bli kalt fra
-              <command>pre-commit</command> for &#229; kunne legge inn
+            <para>Subversiondistribusjonen inneholder noen 
+              aksesskontrollskript (i 
+              <filename>tools/hook-scripts</filename>-katalogen i 
+              kildekodefiltreet til Subversion) som kan bli kalt fra 
+              <command>pre-commit</command> for &#229; kunne legge inn 
               finjustert kontroll for skriveaksess.
-              En annen mulighet er &#229; bruke Apache-modulen
-              <command>mod_authz_svn</command>, som gir b&#229;de lese- og
-              skrivekontroll i individuelle kataloger (se <xref
+              En annen mulighet er &#229; bruke Apache-modulen 
+              <command>mod_authz_svn</command>, som gir b&#229;de lese- og 
+              skrivekontroll i individuelle kataloger (se <xref 
               linkend="svn-ch-6-sect-4.4.2"/>).
-              I en fremtidig versjon av Subversion planlegger vi &#229; legge
-              inn lister for aksesskontroll (ACL) direkte inn i
+              I en fremtidig versjon av Subversion planlegger vi &#229; legge 
+              inn lister for aksesskontroll (ACL) direkte inn i 
               filsystemet.</para>
           </listitem>
         </varlistentry>
@@ -1437,16 +1437,16 @@ pre-commit.tmpl
               and the new revision number that was created.  The exit
               code of the program is ignored.</para>
             @ENGLISH }}} -->
-            <para>Dette blir kj&#248;rt etter at transaksjonen er lagt inn,
+            <para>Dette blir kj&#248;rt etter at transaksjonen er lagt inn, 
               og en ny revisjon er opprettet.
-              De fleste vil bruke denne p&#229;hakningen til &#229; sende ut
-              beskrivende emailer om innleggingen eller for &#229; ta backup
+              De fleste vil bruke denne p&#229;hakningen til &#229; sende ut 
+              beskrivende emailer om innleggingen eller for &#229; ta backup 
               av depotet.
               Depotet gir to argumenter til dette programmet:
-              Stien til depotet, og det nye revisjonsnummeret som ble
+              Stien til depotet, og det nye revisjonsnummeret som ble 
               opprettet.
               Returverdien fra programmet blir ignorert.</para>
-
+                
             <!-- @ENGLISH {{{
             <para>The Subversion distribution includes
               <command>mailer.py</command> and
@@ -1461,16 +1461,16 @@ pre-commit.tmpl
               various versioned files as part of the commit.</para>
             @ENGLISH }}} -->
             <para>Subversiondistribusjonen inneholder skriptene
-              <command>mailer.py</command> og
-              <command>commit-email.pl</command> (i
-              <filename>tools/hook-scripts/</filename>-katalogen i
-              Subversiontreet) som kan bli brukt til &#229; sende email med
-              (og/eller legge til en loggfil) en beskrivelse av en
+              <command>mailer.py</command> og 
+              <command>commit-email.pl</command> (i 
+              <filename>tools/hook-scripts/</filename>-katalogen i 
+              Subversiontreet) som kan bli brukt til &#229; sende email med 
+              (og/eller legge til en loggfil) en beskrivelse av en 
               mottatt innlegging.
-              Denne mailen inneholder en liste over de stiene som ble
-              forandret, loggmeldingen som er vedlagt innleggingen,
-              forfatteren og datoen til innleggingen, sammen med en GNU
-              diff-visning av forandringene som ble gjort til diverse
+              Denne mailen inneholder en liste over de stiene som ble 
+              forandret, loggmeldingen som er vedlagt innleggingen, 
+              forfatteren og datoen til innleggingen, sammen med en GNU 
+              diff-visning av forandringene som ble gjort til diverse 
               filer som del av innleggingen.</para>
 
             <!-- @ENGLISH {{{
@@ -1483,14 +1483,14 @@ pre-commit.tmpl
               be used to make a per-commit snapshot of your repository
               for archival or emergency recovery purposes.</para>
             @ENGLISH }}} -->
-            <para>Et annet nyttig verkt&#248;y som f&#248;lger med Subversion er
-              skriptet <command>hot-backup.py</command> (i
-              <filename>tools/backup/</filename>-katalogen i
+            <para>Et annet nyttig verkt&#248;y som f&#248;lger med Subversion er 
+              skriptet <command>hot-backup.py</command> (i 
+              <filename>tools/backup/</filename>-katalogen i 
               kildekodetreet til Subversion).
-              Dette skriptet utf&#248;rer varme backuper av Subversiondepotet
-              (en funksjonalitet st&#248;ttet av den bakenforliggende
-              Berkeley DB-databasen), og kan bli brukt til &#229; foreta en
-              &#248;yeblikkslagring av depotet mellom hver innlegging for
+              Dette skriptet utf&#248;rer varme backuper av Subversiondepotet 
+              (en funksjonalitet st&#248;ttet av den bakenforliggende 
+              Berkeley DB-databasen), og kan bli brukt til &#229; foreta en 
+              &#248;yeblikkslagring av depotet mellom hver innlegging for 
               arkiverings- eller sikkerhetsform&#229;l.</para>
           </listitem>
         </varlistentry>
@@ -1513,20 +1513,20 @@ pre-commit.tmpl
               be allowed to remotely modify revision properties at all
               unless this hook is implemented for your repository.</para>
             @ENGLISH }}} -->
-            <para>Fordi Subversions revisjonsegenskaper ikke er
-              versjonerte, vil det &#229; forandre slike egenskaper (for
-              eksempel <literal>svn:log</literal>-egenskapen som
-              inneholder loggmeldingen for innleggingen) overskrive den
+            <para>Fordi Subversions revisjonsegenskaper ikke er 
+              versjonerte, vil det &#229; forandre slike egenskaper (for 
+              eksempel <literal>svn:log</literal>-egenskapen som 
+              inneholder loggmeldingen for innleggingen) overskrive den 
               forrige verdien for alltid.
-              Siden data kan g&#229; tapt her, har Subversion denne
-              p&#229;hakningen (og dens <!-- &#164; -->motstykke
-              <filename>post-revprop-change</filename>) s&#229;
-              depotadministratorer kan lage logger med forandringer til
-              disse elementene ved bruk av eksterne hjelpemidler hvis de
+              Siden data kan g&#229; tapt her, har Subversion denne 
+              p&#229;hakningen (og dens <!-- &#164; -->motstykke 
+              <filename>post-revprop-change</filename>) s&#229; 
+              depotadministratorer kan lage logger med forandringer til 
+              disse elementene ved bruk av eksterne hjelpemidler hvis de 
               vil det.
-              Som en forholdsregel mot &#229; miste uversjonerte data, vil
-              ikke Subversionklienter f&#229; lov til &#229; forandre
-              revisjonsegenskaper i det hele tatt hvis ikke denne
+              Som en forholdsregel mot &#229; miste uversjonerte data, vil 
+              ikke Subversionklienter f&#229; lov til &#229; forandre 
+              revisjonsegenskaper i det hele tatt hvis ikke denne 
               p&#229;hakningen er aktivisert i depotet ditt.</para>
 
             <!-- @ENGLISH {{{
@@ -1537,12 +1537,12 @@ pre-commit.tmpl
               authenticated username of the person making the change,
               and the name of the property itself.</para>
             @ENGLISH }}} -->
-            <para>Denne p&#229;hakningen kj&#248;rer like f&#248;r en slik modifisering
+            <para>Denne p&#229;hakningen kj&#248;rer like f&#248;r en slik modifisering 
               blir lagt inn i depotet.
               Depotet leverer fire argumenter til denne p&#229;hakningen:
-              Stien til depotet, revisjonen som egenskapen som skal
-              forandres befinner seg p&#229;, det godkjente brukernavnet til
-              personen som gj&#248;r forandringen, og navnet p&#229; selve
+              Stien til depotet, revisjonen som egenskapen som skal 
+              forandres befinner seg p&#229;, det godkjente brukernavnet til 
+              personen som gj&#248;r forandringen, og navnet p&#229; selve 
               egenskapen.</para>
           </listitem>
         </varlistentry>
@@ -1565,19 +1565,19 @@ pre-commit.tmpl
               username of the person making the change, and the name of
               the property itself.</para>
             @ENGLISH }}} -->
-            <para>Som nevnt tidligere, er denne p&#229;hakningen motstykket
+            <para>Som nevnt tidligere, er denne p&#229;hakningen motstykket 
               til <filename>pre-revprop-change</filename>-p&#229;hakningen.
-              Faktisk, for paranoiaens skyld vil ikke dette skriptet
-              kj&#248;re uten at
+              Faktisk, for paranoiaens skyld vil ikke dette skriptet 
+              kj&#248;re uten at 
               <filename>pre-revprop-change</filename>-skriptet finnes.
-              N&#229;r begge disse skriptene finnes, kj&#248;rer
-              <filename>post-revprop-change</filename>-p&#229;hakningen like
-              etter en revisjonsegenskap er blitt forandret, og blir
-              vanligvis brukt til &#229; sende en mail som inneholder den nye
+              N&#229;r begge disse skriptene finnes, kj&#248;rer 
+              <filename>post-revprop-change</filename>-p&#229;hakningen like 
+              etter en revisjonsegenskap er blitt forandret, og blir 
+              vanligvis brukt til &#229; sende en mail som inneholder den nye 
               verdien til den forandrede egenskapen.
               Depotet leverer fire argumenter til denne p&#229;hakningen:
-              Stien til depotet, revisjonen som egenskapen tilh&#248;rer, det
-              godkjente brukernavnet til personen som gj&#248;r forandringen,
+              Stien til depotet, revisjonen som egenskapen tilh&#248;rer, det 
+              godkjente brukernavnet til personen som gj&#248;r forandringen, 
               og navnet p&#229; selve egenskapen.</para>
 
             <!-- @ENGLISH {{{
@@ -1591,14 +1591,14 @@ pre-commit.tmpl
               the user who made the change, and the new property
               value.</para>
             @ENGLISH }}} -->
-            <para>Subversiondistribusjonen inkluderer skriptet
-              <command>propchange-email.pl</command> (i
-              <filename>tools/hook-scripts/</filename>-katalogen i
-              Subversions kildekodetre) som kan bli brukt til &#229; sende
-              mail med (og/eller legge til en loggfil) detaljene om en
+            <para>Subversiondistribusjonen inkluderer skriptet 
+              <command>propchange-email.pl</command> (i 
+              <filename>tools/hook-scripts/</filename>-katalogen i 
+              Subversions kildekodetre) som kan bli brukt til &#229; sende 
+              mail med (og/eller legge til en loggfil) detaljene om en 
               egenskapsforandring.
-              Denne mailen inneholder revisjonen og navnet til den
-              forandrede egenskapen, brukeren som gjorde forandringen,
+              Denne mailen inneholder revisjonen og navnet til den 
+              forandrede egenskapen, brukeren som gjorde forandringen, 
               og den nye verdien til egenskapen.</para>
           </listitem>
         </varlistentry>
@@ -1617,17 +1617,17 @@ pre-commit.tmpl
           inconsistency can lead to surprising and unexpected
           behavior.</para>
         @ENGLISH }}} -->
-        <para>Ikke fors&#248;k &#229; forandre transaksjonen ved &#229; bruke
+        <para>Ikke fors&#248;k &#229; forandre transaksjonen ved &#229; bruke 
           p&#229;hakningsskript.
-          Et vanlig eksempel p&#229; dette ville v&#230;re &#229; automatisk sette
-          egenskaper som <literal>svn:eol-style</literal> eller
+          Et vanlig eksempel p&#229; dette ville v&#230;re &#229; automatisk sette 
+          egenskaper som <literal>svn:eol-style</literal> eller 
           <literal>svn:mime-type</literal> under innleggingen.
-          Selv om dette kan se ut som en god id&#233;, f&#248;rer det til
+          Selv om dette kan se ut som en god id&#233;, f&#248;rer det til 
           problemer.
-          Hovedproblemet er at klienten ved ikke om forandringen gjort
-          av p&#229;hakningsscriptet, og det er ingen m&#229;te &#229; informere
+          Hovedproblemet er at klienten ved ikke om forandringen gjort 
+          av p&#229;hakningsscriptet, og det er ingen m&#229;te &#229; informere 
           klienten om at den er utdatert.
-          Denne inkonsekventheten kan f&#248;re til overraskende og uventet
+          Denne inkonsekventheten kan f&#248;re til overraskende og uventet 
           oppf&#248;rsel.</para>
 
         <!-- @ENGLISH {{{
@@ -1636,9 +1636,9 @@ pre-commit.tmpl
           the <filename>pre-commit</filename> hook and reject the
           commit if it does not meet the desired requirements.</para>
         @ENGLISH }}} -->
-        <para>Istedenfor &#229; fors&#248;ke &#229; modifisere transaksjonen, er det
-          mye bedre &#229; <emphasis>sjekke</emphasis> transaksjonen i
-          <filename>pre-commit</filename> og nekte innlegging hvis den
+        <para>Istedenfor &#229; fors&#248;ke &#229; modifisere transaksjonen, er det 
+          mye bedre &#229; <emphasis>sjekke</emphasis> transaksjonen i 
+          <filename>pre-commit</filename> og nekte innlegging hvis den 
           ikke m&#248;ter de &#248;nskede kravene.</para>
       </warning>
 
@@ -1655,19 +1655,19 @@ pre-commit.tmpl
         permission-related problems that could prevent the hook from
         performing the tasks you've written it to perform.</para>
       @ENGLISH }}} -->
-      <para>Subversion vil fors&#248;ke &#229; kj&#248;re p&#229;hakningsskriptene som den
-        samme brukeren som eier prosessen som aksesserer
+      <para>Subversion vil fors&#248;ke &#229; kj&#248;re p&#229;hakningsskriptene som den 
+        samme brukeren som eier prosessen som aksesserer 
         Subversiondepotet.
-        I de fleste tilfeller blir depotet aksessert via Apache
-        HTTPD-tjeneren og mod_dav_svn, s&#229; denne brukeren er den samme
+        I de fleste tilfeller blir depotet aksessert via Apache 
+        HTTPD-tjeneren og mod_dav_svn, s&#229; denne brukeren er den samme 
         som Apache kj&#248;rer som.
-        Selve p&#229;hakningen m&#229; bli satt opp med rettigheter p&#229;
+        Selve p&#229;hakningen m&#229; bli satt opp med rettigheter p&#229; 
         operativsystemniv&#229; som tillater denne brukeren &#229; kj&#248;re dem.
-        Dette betyr ogs&#229; at enhver fil eller program (inkludert selve
-        Subversiondepotet) aksessert direkte eller indirekte av
+        Dette betyr ogs&#229; at enhver fil eller program (inkludert selve 
+        Subversiondepotet) aksessert direkte eller indirekte av 
         p&#229;hakningen vil bli aksessert som den samme brukeren.
-        Med andre ord, v&#230;r obs p&#229; mulig rettighetsproblematikk som kan
-        forhindre p&#229;hakningsskriptet fra &#229; utf&#248;re de oppgavene du har
+        Med andre ord, v&#230;r obs p&#229; mulig rettighetsproblematikk som kan 
+        forhindre p&#229;hakningsskriptet fra &#229; utf&#248;re de oppgavene du har 
         satt det til.</para>
 
     </sect2>
@@ -1692,12 +1692,12 @@ pre-commit.tmpl
         access patterns, might require a different set of
         configuration option values.</para>
       @ENGLISH }}} -->
-      <para>Et Berkeley DB-milj&#248; er en innkapsling av en eller flere
+      <para>Et Berkeley DB-milj&#248; er en innkapsling av en eller flere 
         databaser, loggfiler, regionfiler og konfigurasjonsfiler.
-        Berkeley DB-milj&#248;et har sitt eget sett med konfigurasjonsverdier
-        for ting som antallet l&#229;ser som er tillatt brukt p&#229; en gang,
+        Berkeley DB-milj&#248;et har sitt eget sett med konfigurasjonsverdier 
+        for ting som antallet l&#229;ser som er tillatt brukt p&#229; en gang, 
         maksimal st&#248;rrelse p&#229; journalloggfiler og s&#229; videre.
-        Subversions filsystemkode velger i tillegg standardverdier for
+        Subversions filsystemkode velger i tillegg standardverdier for 
         noen av konfigurasjonsvalgene i Berkeley DB.</para>
 
       <!-- @ENGLISH {{{
@@ -1710,12 +1710,12 @@ pre-commit.tmpl
         environment directory, and parses the options found in that
         file for use with that particular Berkeley environment.</para>
       @ENGLISH }}} -->
-      <para>Folkene i Sleepycat (produsentene av Berkeley DB) innser at
-        forskjellige databaser har forskjellige krav, og de har derfor
-        lagt inn en mekanisme for &#229; overstyre mange av
+      <para>Folkene i Sleepycat (produsentene av Berkeley DB) innser at 
+        forskjellige databaser har forskjellige krav, og de har derfor 
+        lagt inn en mekanisme for &#229; overstyre mange av 
         konfigurasjonsverdiene til Berkeley DB under kj&#248;ring.
-        Berkeley sjekker at filen <filename>DB_CONFIG</filename> finnes
-        i hver milj&#248;katalog, og leser valgene som er i denne filen for
+        Berkeley sjekker at filen <filename>DB_CONFIG</filename> finnes 
+        i hver milj&#248;katalog, og leser valgene som er i denne filen for 
         bruk med akkurat dette Berkeley-milj&#248;et.</para>
 
       <!-- @ENGLISH {{{
@@ -1737,23 +1737,23 @@ pre-commit.tmpl
         recover the database environment (using <command>svnadmin
         recover</command>).</para>
       @ENGLISH }}} -->
-      <para>Berkeley-konfigurasjonsfilen for ditt depot ligger i
-        milj&#248;katalogen <filename>db</filename> i
+      <para>Berkeley-konfigurasjonsfilen for ditt depot ligger i 
+        milj&#248;katalogen <filename>db</filename> i 
         <filename>depot/db/DB_CONFIG</filename>.
-        Subversion oppretter selv denne filen n&#229;r den lager resten av
+        Subversion oppretter selv denne filen n&#229;r den lager resten av 
         depotet.
-        Filen inneholder innledningsvis noen standardvalg sammen med
-        pekere til dokumentasjonen til Berkeley DB som ligger online s&#229;
+        Filen inneholder innledningsvis noen standardvalg sammen med 
+        pekere til dokumentasjonen til Berkeley DB som ligger online s&#229; 
         du kan lese om hva disse valgene gj&#248;r.
-        Selvf&#248;lgelig kan du legge til alle st&#248;ttede Berkeley DB-valg til
+        Selvf&#248;lgelig kan du legge til alle st&#248;ttede Berkeley DB-valg til 
         <filename>DB_CONFIG</filename>-filen.
-        Pass bare p&#229; at mens Subversion aldri pr&#248;ver &#229; lese eller forst&#229;
-        innholdet i filen og bruker ingen av valgene i den, vil du unng&#229;
-        &#229; gj&#248;re forandringer i konfigurasjonen som f&#229;r Berkeley DB seg
+        Pass bare p&#229; at mens Subversion aldri pr&#248;ver &#229; lese eller forst&#229; 
+        innholdet i filen og bruker ingen av valgene i den, vil du unng&#229; 
+        &#229; gj&#248;re forandringer i konfigurasjonen som f&#229;r Berkeley DB seg 
         til &#229; oppf&#248;re seg annerledes enn det Subversionkoden forventer.
-        I tillegg vil ikke forandringer gjort i
-        <filename>DB_CONFIG</filename> aktiviseres f&#248;r du gjenoppretter
-        databasemilj&#248;et (ved bruk av <command>svnadmin
+        I tillegg vil ikke forandringer gjort i 
+        <filename>DB_CONFIG</filename> aktiviseres f&#248;r du gjenoppretter 
+        databasemilj&#248;et (ved bruk av <command>svnadmin 
         recover</command>.</para>
     </sect2>
   </sect1>
@@ -1778,14 +1778,14 @@ pre-commit.tmpl
       them to accomplish tasks such as repository migrations,
       upgrades, backups and cleanups.</para>
     @ENGLISH }}} -->
-    <para>&#197; vedlikeholde et Subversiondepot kan v&#230;re en skremmende
-      oppgave, mest p&#229; grunn av kompleksiteten innebygget i systemer som
+    <para>&#197; vedlikeholde et Subversiondepot kan v&#230;re en skremmende 
+      oppgave, mest p&#229; grunn av kompleksiteten innebygget i systemer som 
       har en bakenforliggende database.
-      &#197; utf&#248;re oppgaven godt handler om &#229; kjenne verkt&#248;yene &#8212; hva de er,
+      &#197; utf&#248;re oppgaven godt handler om &#229; kjenne verkt&#248;yene &#8212; hva de er, 
       n&#229;r de skal brukes, og hvordan de brukes.
-      Denne seksjonen vil introdusere deg for administrasjonsverkt&#248;y som
-      f&#248;lger med Subversion, og hvordan <!-- &#164; wield -->f&#229; dem til &#229;
-      utf&#248;re oppgaver som flytting av depot, oppgraderinger,
+      Denne seksjonen vil introdusere deg for administrasjonsverkt&#248;y som 
+      f&#248;lger med Subversion, og hvordan <!-- &#164; wield -->f&#229; dem til &#229; 
+      utf&#248;re oppgaver som flytting av depot, oppgraderinger, 
       sikkerhetskopier og opprydding.</para>
 
     <!-- ***************************************************************** -->
@@ -1804,17 +1804,17 @@ pre-commit.tmpl
         to your repository's database backend not otherwise provided
         by Subversion's own tools.</para>
       @ENGLISH }}} -->
-      <para>Subversion har en h&#229;ndfull programmer nyttige for &#229;
+      <para>Subversion har en h&#229;ndfull programmer nyttige for &#229; 
         opprette, inspisere, modifisere og reparere depotet ditt.
         La oss se litt n&#230;rmere p&#229; hvert av disse verkt&#248;yene.
-        Etterp&#229; vil vi g&#229; raskt over noen av de programmene som er
-        inkludert i Berkeley DB-distribusjonen som tilbyr funksjonalitet
-        spesifikk til databasedelen i depotet som ikke Subversions egne
+        Etterp&#229; vil vi g&#229; raskt over noen av de programmene som er 
+        inkludert i Berkeley DB-distribusjonen som tilbyr funksjonalitet 
+        spesifikk til databasedelen i depotet som ikke Subversions egne 
         verkt&#248;y tar seg av.</para>
 
       <sect3 id="svn-ch-5-sect-3.1.1">
         <title>svnlook</title>
-
+            
         <!-- @ENGLISH {{{
         <para><command>svnlook</command> is a tool provided by
           Subversion for examining the various revisions and
@@ -1828,27 +1828,27 @@ pre-commit.tmpl
           hook) to the repository.  A repository administrator may use
           this tool for diagnostic purposes.</para>
         @ENGLISH }}} -->
-        <para><command>svnlook</command> er et verkt&#248;y som f&#248;lger med
-          Subversion. Det er beregnet for &#229; utforske de forskjellige
+        <para><command>svnlook</command> er et verkt&#248;y som f&#248;lger med 
+          Subversion. Det er beregnet for &#229; utforske de forskjellige 
           revisjonene og transaksjonene i et depot.
-          Ingen deler av dette programmet pr&#248;ver &#229; forandre depotet &#8212;
+          Ingen deler av dette programmet pr&#248;ver &#229; forandre depotet &#8212; 
           det er et <quote>bare for lesing</quote>-verkt&#248;y.
-          <command>svnlook</command> blir vanligvis brukt av
-          p&#229;hakningene i depotet for &#229; rapportere forandringene som er i
-          ferd med &#229; bli lagt inn (i tilfellet med
-          <command>pre-commit</command>-p&#229;hakningen) eller det som
-          nettopp ble lagt inn (i tilfellet med
+          <command>svnlook</command> blir vanligvis brukt av 
+          p&#229;hakningene i depotet for &#229; rapportere forandringene som er i 
+          ferd med &#229; bli lagt inn (i tilfellet med 
+          <command>pre-commit</command>-p&#229;hakningen) eller det som 
+          nettopp ble lagt inn (i tilfellet med 
           <command>post-commit</command>-p&#229;hakningen) i depotet.
-          En depotadministrator kan bruke dette verkt&#248;yet for
+          En depotadministrator kan bruke dette verkt&#248;yet for 
           diagnoseform&#229;l.</para>
-
+            
         <!-- @ENGLISH {{{
         <para><command>svnlook</command> has a straightforward
           syntax:</para>
         @ENGLISH }}} -->
-        <para><command>svnlook</command> har en <!-- &#164; -->likefrem
+        <para><command>svnlook</command> har en <!-- &#164; -->likefrem 
           syntaks:</para>
-
+            
         <!-- &#164; Legg inn norsk versjon --><screen>
 $ svnlook help
 general usage: svnlook SUBCOMMAND REPOS_PATH [ARGS &amp; OPTIONS ...]
@@ -1876,21 +1876,21 @@ Type "svnlook help &lt;subcommand&gt;" for help on a specific subcommand.
           committed (which disqualifies them from viewing) or aborted
           and removed.</para>
         @ENGLISH }}} -->
-        <para>Nesten hver eneste av delkommandoene til
-          <command>svnlook</command> kan operere p&#229; enten et revisjons-
-          eller transaksjonstre og skrive ut informasjon om selve treet,
-          eller hvordan det skiller seg ut fra den forrige revisjonen i
+        <para>Nesten hver eneste av delkommandoene til 
+          <command>svnlook</command> kan operere p&#229; enten et revisjons- 
+          eller transaksjonstre og skrive ut informasjon om selve treet, 
+          eller hvordan det skiller seg ut fra den forrige revisjonen i 
           depotet.
-          Du bruker valgene <option>--revision</option> og
-          <option>--transaction</option> for &#229; spesifisere henholdsvis
+          Du bruker valgene <option>--revision</option> og 
+          <option>--transaction</option> for &#229; spesifisere henholdsvis 
           hvilken revisjon eller transaksjon som skal unders&#248;kes.
-          Legg merke til at mens revisjonsnumre fremst&#229;r som naturlige
+          Legg merke til at mens revisjonsnumre fremst&#229;r som naturlige 
           tall, er transaksjonsnavn alfanumeriske strenger.
-          Husk at filsystemet bare tillater gjennomgang av transaksjoner
-          som enda ikke er lagt inn (transaksjoner som ikke har
+          Husk at filsystemet bare tillater gjennomgang av transaksjoner 
+          som enda ikke er lagt inn (transaksjoner som ikke har 
           resultert i en ny revisjon).
-          De fleste depot vil ikke ha noen slike transaksjoner, fordi
-          transaksjoner vanligvis enten er lagt inn (som diskvalifiserer
+          De fleste depot vil ikke ha noen slike transaksjoner, fordi 
+          transaksjoner vanligvis enten er lagt inn (som diskvalifiserer 
           dem fra visning) eller avbrutt og fjernet.</para>
 
         <!-- @ENGLISH {{{
@@ -1902,12 +1902,12 @@ Type "svnlook help &lt;subcommand&gt;" for help on a specific subcommand.
           the youngest revision in the repository located at
           <filename>/path/to/repos</filename>:</para>
         @ENGLISH }}} -->
-        <para>Hvis b&#229;de valgene <option>--revision</option> og
-          <option>--transaction</option> mangler, vil
-          <command>svnlook</command> unders&#248;ke den yngste (eller
+        <para>Hvis b&#229;de valgene <option>--revision</option> og 
+          <option>--transaction</option> mangler, vil 
+          <command>svnlook</command> unders&#248;ke den yngste (eller 
           <quote>HEAD</quote>) revisjonen i depotet.
-          S&#229; de f&#248;lgende to kommandoene gj&#248;r akkurat det samme n&#229;r 19 er
-          den yngste revisjonen i depotet som ligger i
+          S&#229; de f&#248;lgende to kommandoene gj&#248;r akkurat det samme n&#229;r 19 er 
+          den yngste revisjonen i depotet som ligger i 
           <filename>/sti/til/depot</filename>:</para>
 
         <!-- @ENGLISH {{{
@@ -1927,9 +1927,9 @@ $ svnlook info /sti/til/depot --revision 19
           takes no options, and simply prints out the
           <literal>HEAD</literal> revision number.</para>
         @ENGLISH }}} -->
-        <para>Det eneste unntaket fra disse reglene om delkommandoer er
-          <command>svnlook youngest</command>-delkommandoen, som ikke
-          tar noen valg, og bare skriver ut nummeret for
+        <para>Det eneste unntaket fra disse reglene om delkommandoer er 
+          <command>svnlook youngest</command>-delkommandoen, som ikke 
+          tar noen valg, og bare skriver ut nummeret for 
           <literal>HEAD</literal>-revisjonen.</para>
 
         <!-- @ENGLISH {{{
@@ -1942,15 +1942,15 @@ $ svnlook youngest /path/to/repos
 $ svnlook youngest /sti/til/depot
 19
 </screen>
-
+            
         <!-- @ENGLISH {{{
         <para>Output from <command>svnlook</command> is designed to be
           both human- and machine-parsable.  Take as an example the output
           of the <literal>info</literal> subcommand:</para>
         @ENGLISH }}} -->
-        <para>Utdata fra <command>svnlook</command> er designet for &#229;
+        <para>Utdata fra <command>svnlook</command> er designet for &#229; 
           v&#230;re b&#229;de for menneske og maskin.
-          Som et eksempel kan vi ta utdataene fra delkommandoen
+          Som et eksempel kan vi ta utdataene fra delkommandoen 
           <literal>info</literal>:</para>
 
         <!-- @ENGLISH {{{
@@ -1976,7 +1976,7 @@ Greek tree.
         <para>The output of the <literal>info</literal> subcommand is
           defined as:</para>
         @ENGLISH }}} -->
-        <para>Utdataene fra <literal>info</literal>-delkommandoen er
+        <para>Utdataene fra <literal>info</literal>-delkommandoen er 
           definert som:</para>
 
         <orderedlist>
@@ -1997,7 +1997,7 @@ Greek tree.
             <para>The number of characters in the log message,
               followed by a newline.</para>
             @ENGLISH }}} -->
-            <para>Antallet tegn i loggmeldingen, etterfulgt av
+            <para>Antallet tegn i loggmeldingen, etterfulgt av 
               linjeslutt.</para>
           </listitem>
           <listitem>
@@ -2023,19 +2023,19 @@ Greek tree.
           in the event that this output is not the last bit of data in
           the stream.</para>
         @ENGLISH }}} -->
-        <para>Disse utdataene er leselige for det menneskelige &#248;ye, det
-          vil si at elementer som datoen blir vist som tekst istedenfor
-          noe mer obskurt (som antall nanosekunder siden <!-- &#164; Henviser
-          dette til noe spesifikt, eller kan man la kreativiteten rulle?
+        <para>Disse utdataene er leselige for det menneskelige &#248;ye, det 
+          vil si at elementer som datoen blir vist som tekst istedenfor 
+          noe mer obskurt (som antall nanosekunder siden <!-- &#164; Henviser 
+          dette til noe spesifikt, eller kan man la kreativiteten rulle? 
           --> <quote>Tasy Freeze</quote>-fyren kj&#248;rte forbi).
-          Men disse utdataene er ogs&#229; lesbare for en datamaskin &#8212; fordi
-          loggmeldingen kan inneholde flere linjer og ha ubegrenset
-          lengde, skriver <command>svnlook</command> lengden p&#229; denne
+          Men disse utdataene er ogs&#229; lesbare for en datamaskin &#8212; fordi 
+          loggmeldingen kan inneholde flere linjer og ha ubegrenset 
+          lengde, skriver <command>svnlook</command> lengden p&#229; denne 
           meldingen f&#248;r selve meldingen.
-          Dette tillater skript og andre programmer som bruker denne
-          kommandoen &#229; gj&#248;re intelligente valg ang&#229;ende loggmeldingen,
-          som hvor mye hukommelse som skal reserveres for meldingen,
-          eller i det minste hvor mange byte som m&#229; hoppes over n&#229;r
+          Dette tillater skript og andre programmer som bruker denne 
+          kommandoen &#229; gj&#248;re intelligente valg ang&#229;ende loggmeldingen, 
+          som hvor mye hukommelse som skal reserveres for meldingen, 
+          eller i det minste hvor mange byte som m&#229; hoppes over n&#229;r 
           disse utdataene ikke er den siste datadelen i str&#248;mmen.</para>
 
         <!-- @ENGLISH {{{
@@ -2048,12 +2048,12 @@ Greek tree.
           paths (which is generally of more use to developers than to
           users).</para>
         @ENGLISH }}} -->
-        <para>En annen vanlig bruk av <command>svnlook</command> er &#229;
+        <para>En annen vanlig bruk av <command>svnlook</command> er &#229; 
           faktisk vise innholdet i et revisjons- eller transaksjonstre.
-          Kommandoen <command>svnlook tree</command> viser katalogene og
+          Kommandoen <command>svnlook tree</command> viser katalogene og 
           filene i det forespurte treet.
-          Hvis du angir valget <option>--show-ids</option>, vil den ogs&#229;
-          vise noderevisjons-ID for hver av disse stiene (som vanligvis
+          Hvis du angir valget <option>--show-ids</option>, vil den ogs&#229; 
+          vise noderevisjons-ID for hver av disse stiene (som vanligvis 
           er mer nyttige for utviklere enn vanlige brukere).</para>
 
         <!-- @ENGLISH {{{
@@ -2114,10 +2114,10 @@ $ svnlook tree /sti/til/depot --show-ids
           <command>svnlook proplist</command> to dig into the details
           of those files and directories.</para>
         @ENGLISH }}} -->
-        <para>N&#229;r du har sett p&#229; layouten for kataloger og filer i treet
-          ditt, kan du bruke kommandoer som <command>svnlook
-          cat</command>, <command>svnlook propget</command> og
-          <command>svnlook proplist</command> for &#229; grave dypere inn i
+        <para>N&#229;r du har sett p&#229; layouten for kataloger og filer i treet 
+          ditt, kan du bruke kommandoer som <command>svnlook 
+          cat</command>, <command>svnlook propget</command> og 
+          <command>svnlook proplist</command> for &#229; grave dypere inn i 
           detaljene om disse filene og katalogene.</para>
 
         <!-- @ENGLISH {{{
@@ -2130,14 +2130,14 @@ $ svnlook tree /sti/til/depot --show-ids
           list of subcommands accepted by <command>svnlook</command>,
           and the output of those subcommands:</para>
         @ENGLISH }}} -->
-        <para><command>svnlook</command> kan utf&#248;re en rekke andre
-          foresp&#248;rsler, vise <!-- &#164; -->delsett av biter av informasjon
-          vi tidligere har nevnt, rapportere hvilke stier som ble
-          modifisert i en gitt revisjon eller transaksjon, vise tekst-
-          og egenskapsforskjeller gjort med filer og kataloger og s&#229;
+        <para><command>svnlook</command> kan utf&#248;re en rekke andre 
+          foresp&#248;rsler, vise <!-- &#164; -->delsett av biter av informasjon 
+          vi tidligere har nevnt, rapportere hvilke stier som ble 
+          modifisert i en gitt revisjon eller transaksjon, vise tekst- 
+          og egenskapsforskjeller gjort med filer og kataloger og s&#229; 
           videre.
-          Det f&#248;lgende er en rask beskrivelse av den n&#229;v&#230;rende listen
-          med delkommandoer som <command>svnlook</command> aksepterer,
+          Det f&#248;lgende er en rask beskrivelse av den n&#229;v&#230;rende listen 
+          med delkommandoer som <command>svnlook</command> aksepterer, 
           og utdataene fra disse delkommandoene:</para>
 
         <variablelist>
@@ -2165,10 +2165,10 @@ $ svnlook tree /sti/til/depot --show-ids
             <term><literal>changed</literal></term>
             <listitem>
               <!-- @ENGLISH {{{
-              <para>List all files and directories that changed in the
+              <para>List all files and directories that changed in the 
                 tree.</para>
               @ENGLISH }}} -->
-              <para>List alle filer og kataloger som forandret seg i
+              <para>List alle filer og kataloger som forandret seg i 
                 treet.</para>
             </listitem>
           </varlistentry>
@@ -2189,7 +2189,7 @@ $ svnlook tree /sti/til/depot --show-ids
               <!-- @ENGLISH {{{
               <para>Print unified diffs of changed files.</para>
               @ENGLISH }}} -->
-              <para>Lag <foreignphrase>unified diff</foreignphrase>
+              <para>Lag <foreignphrase>unified diff</foreignphrase> 
                 (forskjellsfil) av forandrede filer.</para>
             </listitem>
           </varlistentry>
@@ -2202,8 +2202,8 @@ $ svnlook tree /sti/til/depot --show-ids
                 themselves changed, or whose file children were
                 changed.</para>
               @ENGLISH }}} -->
-              <para>List katalogene i treet som enten selv forandret
-                seg, eller der en <!-- &#164; -->fil under den forandret
+              <para>List katalogene i treet som enten selv forandret 
+                seg, eller der en <!-- &#164; -->fil under den forandret 
                 seg.</para>
             </listitem>
           </varlistentry>
@@ -2216,8 +2216,8 @@ $ svnlook tree /sti/til/depot --show-ids
                 versioned path (places where modifications or copies
                 occurred).</para>
               @ENGLISH }}} -->
-              <para>Vis interessante punkter i historien for en
-                versjonert sti (steder der modifiseringer eller
+              <para>Vis interessante punkter i historien for en 
+                versjonert sti (steder der modifiseringer eller 
                 kopieringer skjedde).</para>
             </listitem>
           </varlistentry>
@@ -2229,7 +2229,7 @@ $ svnlook tree /sti/til/depot --show-ids
               <para>Print the tree's author, datestamp, log message
                 character count, and log message.</para>
               @ENGLISH }}} -->
-              <para>Skriv treets forfatter, tidspunkt, antall tegn i
+              <para>Skriv treets forfatter, tidspunkt, antall tegn i 
                 loggmeldingen og selve loggmeldingen.</para>
             </listitem>
           </varlistentry>
@@ -2251,7 +2251,7 @@ $ svnlook tree /sti/til/depot --show-ids
               <para>Print the value of a property on a path in the
                 tree.</para>
               @ENGLISH }}} -->
-              <para>Skriv verdien for en egenskap p&#229; en sti i
+              <para>Skriv verdien for en egenskap p&#229; en sti i 
                 treet.</para>
             </listitem>
           </varlistentry>
@@ -2263,7 +2263,7 @@ $ svnlook tree /sti/til/depot --show-ids
               <para>Print the names and values of properties set on paths
                 in the tree.</para>
               @ENGLISH }}} -->
-              <para>Skriv navnene og verdiene av egenskapene satt p&#229;
+              <para>Skriv navnene og verdiene av egenskapene satt p&#229; 
                 stier i treet.</para>
             </listitem>
           </varlistentry>
@@ -2276,8 +2276,8 @@ $ svnlook tree /sti/til/depot --show-ids
                 filesystem node revision IDs associated with each
                 path.</para>
               @ENGLISH }}} -->
-              <para>Skriv en liste over treet, med valgfri visning av
-                filsystemets noderevisions-ID assosiert med hver
+              <para>Skriv en liste over treet, med valgfri visning av 
+                filsystemets noderevisions-ID assosiert med hver 
                 sti.</para>
             </listitem>
           </varlistentry>
@@ -2290,7 +2290,7 @@ $ svnlook tree /sti/til/depot --show-ids
                 <emphasis>U</emphasis>niversal <emphasis>U</emphasis>nique
                 <emphasis>ID</emphasis>entifier.</para>
               @ENGLISH }}} -->
-              <para>Skriv depotets UUID &#8212; <emphasis>U</emphasis>niversal
+              <para>Skriv depotets UUID &#8212; <emphasis>U</emphasis>niversal 
                 <emphasis>U</emphasis>nique
                 <emphasis>ID</emphasis>entifier.</para>
             </listitem>
@@ -2321,12 +2321,12 @@ $ svnlook tree /sti/til/depot --show-ids
           <command>svnadmin</command> is similar to that of
           <command>svnlook</command>:</para>
         @ENGLISH }}} -->
-        <para>Programmet <command>svnadmin</command> er
+        <para>Programmet <command>svnadmin</command> er 
           depotadministratorens beste venn.
-          Ved siden av &#229; gi muligheten til &#229; opprette Subversiondepot,
-          tillater dette programmet deg &#229; utf&#248;re flere
+          Ved siden av &#229; gi muligheten til &#229; opprette Subversiondepot, 
+          tillater dette programmet deg &#229; utf&#248;re flere 
           vedlikeholdsoperasjoner p&#229; disse depotene.
-          Syntaksen p&#229; <command>svnadmin</command> er lik den i
+          Syntaksen p&#229; <command>svnadmin</command> er lik den i 
           <command>svnlook</command>:</para>
 
         <!-- @ENGLISH {{{
@@ -2364,12 +2364,12 @@ Available subcommands:
           just take a quick glance at what each of the available
           subcommands offers.</para>
         @ENGLISH }}} -->
-        <para>Vi har allerede nevnt delkommandoen
-          <literal>create</literal> i <command>svnadmin</command> (se
+        <para>Vi har allerede nevnt delkommandoen 
+          <literal>create</literal> i <command>svnadmin</command> (se 
           <xref linkend="svn-ch-5-sect-2"/>).
-          De fleste andre vil vi g&#229; grundigere gjennom senere i dette
+          De fleste andre vil vi g&#229; grundigere gjennom senere i dette 
           kapitlet.
-          N&#229; n&#248;yer vi oss med &#229; ta en rask kikk p&#229; hva de forskjellige
+          N&#229; n&#248;yer vi oss med &#229; ta en rask kikk p&#229; hva de forskjellige 
           delkommandoene tilbyr.</para>
 
         <variablelist>
@@ -2393,11 +2393,11 @@ Available subcommands:
                 command will simply deltify the
                 <literal>HEAD</literal> revision.</para>
               @ENGLISH }}} -->
-              <para>G&#229; over et spesifisert revisjonsomr&#229;de og utf&#248;r
-                forl&#248;per-deltifisering p&#229; stiene som forandret seg i
+              <para>G&#229; over et spesifisert revisjonsomr&#229;de og utf&#248;r 
+                forl&#248;per-deltifisering p&#229; stiene som forandret seg i 
                 disse revisjonene.
-                Hvis ingen revisjoner er spesifisert, vil denne
-                kommandoen rett og slett bare deltifisere
+                Hvis ingen revisjoner er spesifisert, vil denne 
+                kommandoen rett og slett bare deltifisere 
                 <literal>HEAD</literal>-revisjonen.</para>
             </listitem>
           </varlistentry>
@@ -2409,8 +2409,8 @@ Available subcommands:
               <para>Dump the contents of the repository, bounded by a
                 given set of revisions, using a portable dump format.</para>
               @ENGLISH }}} -->
-              <para>Dump innholdet av depotet, begrenset av et
-                spesifisert sett av revisjoner, i et portabelt
+              <para>Dump innholdet av depotet, begrenset av et 
+                spesifisert sett av revisjoner, i et portabelt 
                 dumpformat.</para>
             </listitem>
           </varlistentry>
@@ -2425,8 +2425,8 @@ Available subcommands:
                 the repository.</para>
               @ENGLISH }}} -->
               <para>Lag en <quote>varm kopi</quote> av et depot.
-                Du kan kj&#248;re denne kommandoen til enhver tid og lage en
-                trygg kopi av depotet, selv om andre prosesser bruker
+                Du kan kj&#248;re denne kommandoen til enhver tid og lage en 
+                trygg kopi av depotet, selv om andre prosesser bruker 
                 depotet.</para>
             </listitem>
           </varlistentry>
@@ -2442,10 +2442,10 @@ Available subcommands:
                 as those no longer in use.</para>
               @ENGLISH }}} -->
               <para>(Bare Berkeley DB-depot.)
-                List stiene for Berkeley DB-loggfiler assosiert med
+                List stiene for Berkeley DB-loggfiler assosiert med 
                 depotet.
-                Denne listen inkluderer alle loggfiler &#8213; de som fortsatt
-                brukes av Subversion, sammen med de som ikke lenger er i
+                Denne listen inkluderer alle loggfiler &#8213; de som fortsatt 
+                brukes av Subversion, sammen med de som ikke lenger er i 
                 bruk.</para>
             </listitem>
           </varlistentry>
@@ -2463,11 +2463,11 @@ Available subcommands:
                 repository.</para>
               @ENGLISH }}} -->
               <para>(Bare Berkeley DB-depot.)
-                List stiene for Berkeley DB-loggfiler assosiert med, men
+                List stiene for Berkeley DB-loggfiler assosiert med, men 
                 ikke lenger brukt av depotet.
-                Du kan trygt fjerne disse loggfilene fra depotet og
-                muligens arkivere dem for senere bruk i tilfelle du en
-                gang f&#229;r bruk for katastrofe-gjenoppretting av
+                Du kan trygt fjerne disse loggfilene fra depotet og 
+                muligens arkivere dem for senere bruk i tilfelle du en 
+                gang f&#229;r bruk for katastrofe-gjenoppretting av 
                 depotet.</para>
             </listitem>
           </varlistentry>
@@ -2480,9 +2480,9 @@ Available subcommands:
                 stream of data that uses the same portable dump format
                 generated by the <literal>dump</literal> subcommand.</para>
               @ENGLISH }}} -->
-              <para>Last et sett revisjoner inn i et depot fra en str&#248;m
-                av data som bruker det samme portable dumpformatet
-                generert av
+              <para>Last et sett revisjoner inn i et depot fra en str&#248;m 
+                av data som bruker det samme portable dumpformatet 
+                generert av 
                 <literal>dump</literal>-delkommandoen.</para>
             </listitem>
           </varlistentry>
@@ -2494,7 +2494,7 @@ Available subcommands:
               <para>List the names of uncommitted Subversion
                 transactions that currently exist in the repository.</para>
               @ENGLISH }}} -->
-              <para>List navnene p&#229; Subversiontransaksjonene som ikke er
+              <para>List navnene p&#229; Subversiontransaksjonene som ikke er 
                 lagt inn, men som eksisterer i depotet.</para>
             </listitem>
           </varlistentry>
@@ -2508,9 +2508,9 @@ Available subcommands:
                 occurred that prevented a process from cleanly
                 shutting down its communication with the repository.</para>
               @ENGLISH }}} -->
-              <para>Utf&#248;r gjenoppretting p&#229; et depot som trenger dette,
-                vanligvis etter at en fatal feil er oppst&#229;tt som
-                forhindret en prosess fra &#229; lukke kommunikasjonen med
+              <para>Utf&#248;r gjenoppretting p&#229; et depot som trenger dette, 
+                vanligvis etter at en fatal feil er oppst&#229;tt som 
+                forhindret en prosess fra &#229; lukke kommunikasjonen med 
                 depotet p&#229; en skikkelig m&#229;te.</para>
             </listitem>
           </varlistentry>
@@ -2523,8 +2523,8 @@ Available subcommands:
                 repository (conveniently fed by output from the
                 <literal>lstxns</literal> subcommand).</para>
               @ENGLISH }}} -->
-              <para>Fjern Subversiontransaksjoner fra depotet p&#229; en
-                renslig m&#229;te <!-- &#164; -->(kan bruke utdataene fra
+              <para>Fjern Subversiontransaksjoner fra depotet p&#229; en 
+                renslig m&#229;te <!-- &#164; -->(kan bruke utdataene fra 
                 <literal>lstxns</literal>-delkommandoen).</para>
             </listitem>
           </varlistentry>
@@ -2538,8 +2538,8 @@ Available subcommands:
                 property on a given revision in the repository with a
                 new value.</para>
               @ENGLISH }}} -->
-              <para>Erstatt den n&#229;v&#230;rende verdien i
-                <literal>svn:log</literal>-egenskapen (loggmelding) for
+              <para>Erstatt den n&#229;v&#230;rende verdien i 
+                <literal>svn:log</literal>-egenskapen (loggmelding) for  
                 en angitt revisjon i depotet med en ny verdi.</para>
             </listitem>
           </varlistentry>
@@ -2553,7 +2553,7 @@ Available subcommands:
                 versioned data stored in the repository.</para>
               @ENGLISH }}} -->
               <para>Verifiser innholdet i et depot.
-                Dette inkluderer blant annet sjekk av kontrollsummer til
+                Dette inkluderer blant annet sjekk av kontrollsummer til 
                 de versjonerte dataene som er lagret i depotet.</para>
             </listitem>
           </varlistentry>
@@ -2801,7 +2801,7 @@ $
             </listitem>
           </varlistentry>
         </variablelist>
-
+        
         <para>While <command>svndumpfilter</command> can be very
           useful, and a huge timesaver, there are unfortunately a
           couple of gotchas.  First, this utility is overly sensitive
@@ -2920,7 +2920,7 @@ Available commands:
      1    sally &lt;     a.0.1&gt;          Nov 15 11:50 C/
      1    sally &lt;     b.0.1&gt;          Nov 15 11:50 D/
      1    sally &lt;     3.0.1&gt;       23 Nov 15 11:50 mu
-&lt;rev: 2 /A&gt;$ cd D/G
+&lt;rev: 2 /A&gt;$ cd D/G 
 &lt;rev: 2 /A/D/G&gt;$ ls
    REV   AUTHOR  NODE-REV-ID     SIZE         DATE NAME
 ----------------------------------------------------------------------------
@@ -2993,7 +2993,7 @@ $
           <command>db_archive</command> command, and <command>svnadmin
           recover</command> reflects the common use-cases of the
           <command>db_recover</command> utility.</para>
-
+            
         <para>There are still a few Berkeley DB utilities that you
           might find useful.  The <command>db_dump</command> and
           <command>db_load</command> programs write and read,
@@ -3013,7 +3013,7 @@ $
     <!-- ***************************************************************** -->
     <sect2 id="svn-ch-5-sect-3.2">
       <title>Repository Cleanup</title>
-
+            
       <para>Your Subversion repository will generally require very
         little attention once it is configured to your liking.
         However, there are times when some manual assistance from an
@@ -3066,12 +3066,12 @@ $
         This command changes the log message (the
         <literal>svn:log</literal> property) on a given revision of a
         repository, reading the new value from a provided file.</para>
-
+          
       <screen>
 $ echo "Here is the new, correct log message" &gt; newlog.txt
 $ svnadmin setlog myrepos newlog.txt -r 388
 </screen>
-
+      
       <para>The <command>svnadmin setlog</command> command alone is
         still bound by the same protections against modifying
         unversioned properties as a remote client is&mdash;the
@@ -3081,7 +3081,7 @@ $ svnadmin setlog myrepos newlog.txt -r 388
         this nature.  But an administrator can get around these
         protections by passing the <option>--bypass-hooks</option>
         option to the <command>svnadmin setlog</command> command.</para>
-
+ 
       <warning>
         <para>Remember, though, that by bypassing the hooks, you are
           likely avoiding such things as email notifications of
@@ -3159,7 +3159,7 @@ if [ "x$REPOS" = x ] ; then
   exit
 fi
 
-for TXN in `${SVNADMIN} lstxns ${REPOS}`; do
+for TXN in `${SVNADMIN} lstxns ${REPOS}`; do 
   echo "---[ Transaction ${TXN} ]-------------------------------------------"
   ${SVNLOOK} info "${REPOS}" --transaction "${TXN}"
 done
@@ -3316,7 +3316,7 @@ $ svnadmin list-unused-dblogs /path/to/repos | xargs rm
         </note>
 
     </sect2>
-
+        
     <!-- ***************************************************************** -->
     <sect2 id="svn-ch-5-sect-3.4">
       <title>Repository Recovery</title>
@@ -3364,7 +3364,7 @@ $ svnadmin list-unused-dblogs /path/to/repos | xargs rm
 
       <para>Secondly, use the following recipe to attempt to
         <quote>unwedge</quote> your repository:</para>
-
+   
       <orderedlist>
         <listitem>
           <para>Make sure that there are no processes accessing (or
@@ -3372,19 +3372,19 @@ $ svnadmin list-unused-dblogs /path/to/repos | xargs rm
             repositories, this means shutting down the Apache HTTP
             Server, too.</para>
         </listitem>
-        <listitem>
+        <listitem> 
           <para>Become the user who owns and manages the repository.
             This is important, as recovering a repository while
             running as the wrong user can tweak the permissions of the
             repository's files in such a way that your repository will
-            still be inaccessible even after it is
+            still be inaccessible even after it is 
             <quote>unwedged</quote>.</para>
         </listitem>
         <listitem>
           <para>Run the command <command>svnadmin recover
             /path/to/repos</command>.  You should see output like
             this:</para>
-
+              
           <screen>
 Repository lock acquired.
 Please wait; recovering the repository may take some time...
@@ -3398,7 +3398,7 @@ The latest repos revision is 19.
           <para>Restart the Subversion server.</para>
         </listitem>
       </orderedlist>
-
+            
       <para>This procedure fixes almost every case of repository
         lock-up.  Make sure that you run this command as the user that
         owns and manages the database, not just as
@@ -3424,7 +3424,7 @@ The latest repos revision is 19.
     <!-- ***************************************************************** -->
     <sect2 id="svn-ch-5-sect-3.5">
       <title>Migrating a Repository</title>
-
+    
       <para>A Subversion filesystem has its data spread throughout
         various database tables in a fashion generally understood by
         (and of interest to) only the Subversion developers
@@ -3444,7 +3444,7 @@ The latest repos revision is 19.
         DB repository to a new OS or CPU architecture, or to switch
         between Berkeley DB and FSFS back-ends.  The recommended
         course of action is relatively simple:</para>
-
+  
       <orderedlist>
         <listitem>
           <para>Using your <emphasis>current</emphasis> version of
@@ -3554,7 +3554,7 @@ $ svnadmin load newrepos &lt; dumpfile
         load process, people who are feeling especially saucy can try
         things like this (perhaps even using different versions of
         <command>svnadmin</command> on each side of the pipe):</para>
-
+  
       <screen>
 $ svnadmin create newrepos
 $ svnadmin dump myrepos | svnadmin load newrepos
@@ -3673,7 +3673,7 @@ $ svn mkdir -m "Initial project roots" \
       file:///path/to/projects/calendar \
       file:///path/to/projects/spreadsheet
 Committed revision 1.
-$
+$ 
 </screen>
 
       <para>Lastly, load the individual dump files into their
@@ -3808,12 +3808,12 @@ $
         <footnote>
           <para><command>svnadmin setlog</command> can be called in a
             way that bypasses the hook interface altogether.</para>
-        </footnote>
+        </footnote>  
         And since you can change revision properties without respect
         to chronological order&mdash;you can change any revision's
         properties at any time&mdash;an incremental backup of the
         latest few revisions might not catch a property modification
-        to a revision that was included as part of a previous
+        to a revision that was included as part of a previous 
         backup.</para>
 
       <para>Generally speaking, only the truly paranoid would need to
@@ -3827,7 +3827,7 @@ $
         sufficient redundancy as restoration sources, at least for the
         most recent few commits.  But it's your data&mdash;protect it
         as much as you'd like.</para>
-
+            
       <para>Often, the best approach to repository backups is a
         diversified one.  You can leverage combinations of full and
         incremental backups, plus archives of commit emails.  The
@@ -3842,7 +3842,7 @@ $
           <para>You know&mdash;the collective term for all of her
             <quote>fickle fingers</quote>.</para>
         </footnote>
-        it should certainly help you recover from those trying
+        it should certainly help you recover from those trying 
         times.</para>
 
     </sect2>
@@ -3992,7 +3992,7 @@ $
     <!-- ***************************************************************** -->
     <sect2 id="svn-ch-5-sect-6.2">
       <title>Creating the Layout, and Importing Initial Data</title>
-
+          
       <para>After deciding how to arrange the projects in your
         repository, you'll probably want to actually populate the
         repository with that layout and with initial project data.
@@ -4006,7 +4006,7 @@ $
         in a temporary location on your drive, you can import the
         whole layout tree into the repository in a single
         commit:</para>
-
+            
       <screen>
 $ mkdir tmpdir
 $ cd tmpdir
@@ -4083,7 +4083,7 @@ $
 </chapter>
 
 <!--
-local variables:
+local variables: 
 sgml-parent-document: ("book.xml" "chapter")
 end:
 vim: set ft=svnbook :
