@@ -38,7 +38,7 @@ const char svn_cl__help_header[] =
     "\n"
     "Most subcommands take file and/or directory arguments, recursing\n"
     "on the directories.  If no arguments are supplied to such a\n"
-    "command, it will recurse on the current directory (inclusive) by\n"
+    "command, it will recurse on the current directory (inclusive) by\n" 
     "default.\n"
     "\n"
     "Available subcommands:\n";
@@ -90,7 +90,7 @@ print_version_info (svn_boolean_t quiet, apr_pool_t *pool)
  * command in os->args.  OPT_STATE is only examined for the
  * '--version' switch.  If OS is null then generic help will always be
  * printed.
- *
+ * 
  * Unlike all the other command routines, ``help'' has its own
  * option processing.
  *
@@ -137,8 +137,8 @@ svn_cl__help (apr_getopt_t *os,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../tools/dev/svn-dev.el")
- * end:
+ * end: 
  */

@@ -21,7 +21,7 @@
 #include "svn_pipe.h"
 
 /*
- * Each endpoint of the pipe has an svn_pipe_t instance.
+ * Each endpoint of the pipe has an svn_pipe_t instance. 
  */
 struct svn_pipe_t {
   apr_proc_t *proc;     /* the piped process */
@@ -167,7 +167,7 @@ svn_pipe_write(svn_pipe_t *pipe,
                                 NULL);
   if (apr_err != APR_SUCCESS)
     return write_error(apr_err, pool);
-
+  
   apr_err = apr_file_flush(pipe->write);
   if (apr_err != APR_SUCCESS)
     return write_error(apr_err, pool);
