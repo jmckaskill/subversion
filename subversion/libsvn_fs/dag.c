@@ -35,7 +35,7 @@ struct dag_node_t
   /* The node revision ID for this dag node.  */
   svn_fs_id_t *id;
 
-  /* The node's NODE-REVISION skel.
+  /* The node's NODE-REVISION skel.  
      jimb todo: the contents of mutable nodes could be changed by
      other processes, so we should fetch them afresh within each
      trail.  */
@@ -64,7 +64,7 @@ txn_body_dag_init_fs (void *fs_baton, trail_t *trail)
 
     SVN_ERR (svn_fs__put_node_revision (fs, root_id, node_rev, trail));
     SVN_ERR (svn_fs__stable_node (fs, root_id, trail));
-  }
+  } 
 
   /* Link it into filesystem revision 0:
      "revisions" : 0 -> "(revision 3 0.0 ())" */
@@ -126,11 +126,11 @@ node_is_kind_p (dag_node_t *node, const char *kindstr)
   /* The node "header" is the first element of a node-revision skel,
      itself a list. */
   skel_t *header = node->contents->children;
-
+  
   /* The first element of the header should be an atom defining the
      node kind. */
   skel_t *kind = header->children;
-
+  
   if (! memcmp (kind->data, kindstr, kind->len))
     return TRUE;
   else
@@ -158,11 +158,11 @@ int svn_fs__dag_is_mutable (dag_node_t *node)
   /* The node "header" is the first element of a node-revision skel,
      itself a list. */
   skel_t *header = node->contents->children;
-
+  
   /* The 3nd element of the header, IF it exists, is the header's
      first `flag'.  It could be NULL.  */
   skel_t *flag = header->children->next->next;
-
+  
   while (flag)
     {
       /* If current flag is a list... */
@@ -173,7 +173,7 @@ int svn_fs__dag_is_mutable (dag_node_t *node)
       /* Move to next header flag. */
       flag = flag->next;
     }
-
+  
   /* Reached the end of the header skel, no mutable flag was found. */
   return FALSE;
 }
@@ -232,7 +232,7 @@ svn_fs__dag_clone_root (dag_node_t **root_p,
   /* Oh, give me a clone...
      (If they're the same, we haven't cloned the transaction's root
      directory yet.)  */
-  if (svn_fs_id_eq (root_id, base_root_id))
+  if (svn_fs_id_eq (root_id, base_root_id)) 
     {
       /* Of my own flesh and bone...
          (Get the NODE-REVISION skel for the base node, and then write
@@ -259,7 +259,7 @@ svn_fs__dag_clone_root (dag_node_t **root_p,
   root_node->id = root_id;
   root_node->contents = root_skel;
   root_node->pool = trail->pool;
-
+  
   /* ... And when it is grown
    *      Then my own little clone
    *        Will be of the opposite sex!
@@ -294,7 +294,7 @@ svn_error_t *svn_fs__dag_delete (dag_node_t *parent,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
