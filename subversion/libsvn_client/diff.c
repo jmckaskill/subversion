@@ -78,7 +78,7 @@ diff_file_changed (const char *path,
       args = apr_palloc (subpool, nargs * sizeof (char *));
       for (i = 0; i < diff_cmd_baton->options->nelts; i++)
         {
-          args[i] =
+          args[i] = 
             ((svn_stringbuf_t **)(diff_cmd_baton->options->elts))[i]->data;
         }
       assert (i == nargs);
@@ -86,15 +86,15 @@ diff_file_changed (const char *path,
 
   /* Print out the diff header. */
   apr_file_printf (outfile, "Index: %s\n", label ? label : tmpfile1);
-  apr_file_printf (outfile,
+  apr_file_printf (outfile, 
      "===================================================================\n");
 
-  SVN_ERR (svn_io_run_diff (".", args, nargs, path,
-                            tmpfile1, tmpfile2,
+  SVN_ERR (svn_io_run_diff (".", args, nargs, path, 
+                            tmpfile1, tmpfile2, 
                             &exitcode, outfile, errfile, subpool));
 
   /* ### todo: Handle exit code == 2 (i.e. errors with diff) here */
-
+  
   /* ### todo: someday we'll need to worry about whether we're going
      to need to write a diff plug-in mechanism that makes use of the
      two paths, instead of just blindly running SVN_CLIENT_DIFF.  */
@@ -114,7 +114,7 @@ diff_file_added (const char *path,
                  const char *tmpfile2,
                  void *diff_baton)
 {
-  return diff_file_changed (path, tmpfile1, tmpfile2,
+  return diff_file_changed (path, tmpfile1, tmpfile2, 
                             SVN_INVALID_REVNUM, SVN_INVALID_REVNUM,
                             diff_baton);
 }
@@ -125,7 +125,7 @@ diff_file_deleted (const char *path,
                    const char *tmpfile2,
                    void *diff_baton)
 {
-  return diff_file_changed (path, tmpfile1, tmpfile2,
+  return diff_file_changed (path, tmpfile1, tmpfile2, 
                             SVN_INVALID_REVNUM, SVN_INVALID_REVNUM,
                             diff_baton);
 }
@@ -148,7 +148,7 @@ diff_dir_deleted (const char *path,
   /* ### todo:  send feedback to app */
   return SVN_NO_ERROR;
 }
-
+  
 static svn_error_t *
 diff_prop_changed (const char *path,
                    const char *name,
@@ -160,7 +160,7 @@ diff_prop_changed (const char *path,
 }
 
 /* The main callback table for 'svn diff'.  */
-static const svn_diff_callbacks_t
+static const svn_diff_callbacks_t 
 diff_callbacks =
   {
     diff_file_changed,
@@ -206,7 +206,7 @@ merge_file_changed (const char *mine,
                       left_label, right_label, target_label,
                       subpool);
   if (err && (err->apr_err != SVN_ERR_WC_CONFLICT))
-    return err;
+    return err;  
 
   svn_pool_destroy (subpool);
   return SVN_NO_ERROR;
@@ -227,8 +227,8 @@ merge_file_added (const char *mine,
     {
     case svn_node_none:
       SVN_ERR (svn_io_copy_file (yours, mine, TRUE, subpool));
-      SVN_ERR (svn_client_add (svn_stringbuf_create (mine, subpool),
-                               FALSE, NULL, NULL, subpool));
+      SVN_ERR (svn_client_add (svn_stringbuf_create (mine, subpool), 
+                               FALSE, NULL, NULL, subpool));      
       break;
     case svn_node_dir:
       /* ### create a .drej conflict or something someday? */
@@ -249,15 +249,15 @@ merge_file_added (const char *mine,
                                 ".older", ".yours", ".working", /* ###? */
                                 subpool);
             if (err && (err->apr_err != SVN_ERR_WC_CONFLICT))
-              return err;
+              return err;  
           }
         else
-          return svn_error_createf (SVN_ERR_WC_OBSTRUCTED_UPDATE, 0, NULL,
+          return svn_error_createf (SVN_ERR_WC_OBSTRUCTED_UPDATE, 0, NULL, 
                                     subpool,
                                     "Cannot create file '%s' for addition, "
                                     "because an unversioned file by that name "
                                     "already exists.", mine);
-        break;
+        break;      
       }
     default:
       break;
@@ -281,7 +281,7 @@ merge_file_deleted (const char *mine,
   switch (kind)
     {
     case svn_node_file:
-      SVN_ERR (svn_client_delete (NULL,
+      SVN_ERR (svn_client_delete (NULL, 
                                   svn_stringbuf_create (mine, subpool),
                                   FALSE, /* don't force */
                                   NULL, NULL, NULL, NULL, NULL, subpool));
@@ -298,7 +298,7 @@ merge_file_deleted (const char *mine,
     default:
       break;
     }
-
+    
   svn_pool_destroy (subpool);
   return SVN_NO_ERROR;
 }
@@ -325,7 +325,7 @@ merge_dir_added (const char *path,
       /* dir already exists.  make sure it's under version control. */
       SVN_ERR (svn_wc_check_wc (path_s, &is_wc, subpool));
       if (! is_wc)
-        SVN_ERR (svn_client_add (path_s, FALSE, NULL, NULL, subpool));
+        SVN_ERR (svn_client_add (path_s, FALSE, NULL, NULL, subpool));        
       break;
     case svn_node_file:
       /* ### create a .drej conflict or something someday? */
@@ -349,12 +349,12 @@ merge_dir_deleted (const char *path,
   struct merge_cmd_baton *merge_b = baton;
   apr_pool_t *subpool = svn_pool_create (merge_b->pool);
   enum svn_node_kind kind;
-
+  
   SVN_ERR (svn_io_check_path (path, &kind, subpool));
   switch (kind)
     {
     case svn_node_dir:
-      SVN_ERR (svn_client_delete (NULL,
+      SVN_ERR (svn_client_delete (NULL, 
                                   svn_stringbuf_create (path, subpool),
                                   FALSE, /* don't force */
                                   NULL, NULL, NULL, NULL, NULL, subpool));
@@ -375,7 +375,7 @@ merge_dir_deleted (const char *path,
   svn_pool_destroy (subpool);
   return SVN_NO_ERROR;
 }
-
+  
 static svn_error_t *
 merge_prop_changed (const char *path,
                     const char *name,
@@ -386,14 +386,14 @@ merge_prop_changed (const char *path,
   apr_pool_t *subpool = svn_pool_create (merge_b->pool);
 
   SVN_ERR (svn_client_propset (name, value, path, FALSE, subpool));
-
+  
   svn_pool_destroy (subpool);
   return SVN_NO_ERROR;
   return SVN_NO_ERROR;
 }
 
 /* The main callback table for 'svn merge'.  */
-static const svn_diff_callbacks_t
+static const svn_diff_callbacks_t 
 merge_callbacks =
   {
     merge_file_changed,
@@ -508,7 +508,7 @@ diff_or_merge (const svn_delta_editor_t *after_editor,
      cooperates with the editor and returns values when the file is in the
      wc, and null otherwise. */
   SVN_ERR (svn_client__open_ra_session (&session, ra_lib, URL, NULL,
-                                        NULL, FALSE, FALSE, TRUE,
+                                        NULL, FALSE, FALSE, TRUE, 
                                         auth_baton, pool));
 
   /* ### todo: later, when we take two (or N) targets and a more
@@ -534,7 +534,7 @@ diff_or_merge (const svn_delta_editor_t *after_editor,
                                        pool));
       if (after_editor)
         {
-
+          
         }
 
       SVN_ERR (ra_lib->do_update (session,
@@ -660,7 +660,7 @@ diff_or_merge (const svn_delta_editor_t *after_editor,
    NOTE:  In the near future, svn_client_diff() will likely only
    continue to report textual differences in files.  Property diffs
    are important, too, and will need to be supported in some fashion
-   so that this code can be re-used for svn_client_merge().
+   so that this code can be re-used for svn_client_merge(). 
 */
 svn_error_t *
 svn_client_diff (const apr_array_header_t *options,
@@ -710,7 +710,7 @@ svn_client_merge (const svn_delta_editor_t *after_editor,
   struct merge_cmd_baton merge_cmd_baton;
 
   merge_cmd_baton.pool = pool;
-
+  
   return diff_or_merge (after_editor, after_edit_baton,
                         options,
                         auth_baton,
