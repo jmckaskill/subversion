@@ -42,7 +42,7 @@
         - `tracking' edit's close_edit() is now called, which,
         noticing it has a valid revision number its edit_baton, calls
         the supplied close_func() on each target it tracked.
-
+    
 
  */
 
@@ -58,7 +58,7 @@ set_directory (void *report_baton,
 {
   return SVN_NO_ERROR;
 }
-
+  
 
 static svn_error_t *
 set_file (void *report_baton,
@@ -67,7 +67,7 @@ set_file (void *report_baton,
 {
   return SVN_NO_ERROR;
 }
-
+  
 
 
 static svn_error_t *
@@ -154,7 +154,7 @@ do_update (void *session_baton,
 
 /** The reporter and ra_plugin objects **/
 
-static const svn_ra_reporter_t ra_local_reporter =
+static const svn_ra_reporter_t ra_local_reporter = 
 {
   set_directory,
   set_file,
@@ -162,7 +162,7 @@ static const svn_ra_reporter_t ra_local_reporter =
 };
 
 
-static const svn_ra_plugin_t ra_local_plugin =
+static const svn_ra_plugin_t ra_local_plugin = 
 {
   "ra_local",
   "RA module for accessing file:// URLs",
