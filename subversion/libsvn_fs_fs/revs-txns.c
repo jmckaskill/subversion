@@ -81,7 +81,7 @@ svn_fs_fs__revision_prop (svn_string_t **value_p,
   *value_p = NULL;
   if (table)
     *value_p = apr_hash_get (table, propname, APR_HASH_KEY_STRING);
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -129,7 +129,7 @@ svn_fs_fs__get_txn_ids (const svn_fs_id_t **root_id_p,
                         apr_pool_t *pool)
 {
   transaction_t *txn;
-
+  
   SVN_ERR (get_txn (&txn, fs, txn_name, FALSE, pool));
   if (txn->kind != transaction_kind_normal)
     return svn_fs_fs__err_txn_not_mutable (fs, txn_name);
@@ -183,9 +183,9 @@ svn_fs_fs__begin_txn (svn_fs_txn_t **txn_p,
      automatically overwritten with a revision datestamp. */
   date.data = svn_time_to_cstring (apr_time_now(), pool);
   date.len = strlen (date.data);
-  SVN_ERR (svn_fs_fs__change_txn_prop (*txn_p, SVN_PROP_REVISION_DATE,
+  SVN_ERR (svn_fs_fs__change_txn_prop (*txn_p, SVN_PROP_REVISION_DATE, 
                                        &date, pool));
-
+  
 
   return SVN_NO_ERROR;
 }
