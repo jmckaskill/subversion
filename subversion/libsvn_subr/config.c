@@ -111,36 +111,36 @@ static svn_error_t *
 user_config_path (const char **path_p, const char *fname, apr_pool_t *pool)
 {
   apr_status_t apr_err;
-
+  
   /* ### Are there any platforms where APR_HAS_USER is not defined?
      This code won't compile without it.  */
-
+  
   apr_uid_t uid;
   apr_gid_t gid;
   char *username;
   char *homedir;
-
+  
   /* ### Will these calls fail under Windows sometimes?  If so, maybe
      we shouldn't error, since the caller just falls back to registry. */
-
+  
   apr_err = apr_current_userid (&uid, &gid, pool);
   if (apr_err)
     return svn_error_create
       (apr_err, 0, NULL, pool,
        "svn_config_read_all: unable to get current userid.");
-
+  
   apr_err = apr_get_username (&username, uid, pool);
   if (apr_err)
     return svn_error_create
       (apr_err, 0, NULL, pool,
        "svn_config_read_all: unable to get username.");
-
+  
   apr_err = apr_get_home_directory (&homedir, username, pool);
   if (apr_err)
     return svn_error_createf
       (apr_err, 0, NULL, pool,
        "svn_config_read_all: unable to get home dir for user %s.", username);
-
+  
   /* ### No compelling reason to use svn's path lib here. */
   *path_p = apr_psprintf
     (pool, "%s/%s/%s", homedir, SVN_CONFIG__USR_DIRECTORY, fname);
