@@ -93,11 +93,11 @@ svn_fs__id_copy (const svn_fs_id_t *id, apr_pool_t *pool)
 /* Comparing node ID's.  */
 
 svn_boolean_t
-svn_fs__id_eq (const svn_fs_id_t *a,
+svn_fs__id_eq (const svn_fs_id_t *a, 
                const svn_fs_id_t *b)
 {
   if (a != b)
-    {
+    {  
       if ((a->node_id != b->node_id) && (strcmp (a->node_id, b->node_id)))
         return FALSE;
       if ((a->copy_id != b->copy_id) && (strcmp (a->copy_id, b->copy_id)))
@@ -165,7 +165,7 @@ svn_fs_parse_id (const char *data,
       if (local_str == NULL)
         return NULL;
       id->offset = apr_atoi64 (local_str);
-
+      
       id->txn_id = NULL;
     }
   else if (str[0] == 't')
@@ -178,7 +178,7 @@ svn_fs_parse_id (const char *data,
     {
       return NULL;
     }
-
+  
   /* Return our ID */
   return id;
 }
@@ -222,8 +222,8 @@ svn_fs_check_related (const svn_fs_id_t *id1,
 }
 
 
-int
-svn_fs_compare_ids (const svn_fs_id_t *a,
+int 
+svn_fs_compare_ids (const svn_fs_id_t *a, 
                     const svn_fs_id_t *b)
 {
   if (svn_fs__id_eq (a, b))
