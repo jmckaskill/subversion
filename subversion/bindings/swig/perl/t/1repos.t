@@ -37,7 +37,7 @@ my $fbaton = $editor->add_file ('trunk/filea', $dirbaton,
 
 my $ret = $editor->apply_textdelta ($fbaton, undef, $pool);
 
-SVN::_Delta::svn_txdelta_send_string("FILEA CONTENT",
+SVN::_Delta::svn_txdelta_send_string("FILEA CONTENT", 
 
 				     @$ret, $pool);
 
@@ -52,7 +52,7 @@ $editor = new SVN::Delta::Editor
 my $rootbaton = $editor->open_root(1, $pool);
 
 my $dirbaton = $editor->add_directory ('tags', $rootbaton, undef, 1, $pool);
-my $subdirbaton = $editor->add_directory ('tags/foo', $dirbaton,
+my $subdirbaton = $editor->add_directory ('tags/foo', $dirbaton, 
 					  "file://$repospath/trunk", 1, $pool);
 
 $editor->close_edit($pool);
