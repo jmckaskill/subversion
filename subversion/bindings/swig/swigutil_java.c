@@ -122,9 +122,9 @@ void svn_swig_java_add_to_map(JNIEnv* jenv, apr_hash_t *hash, jobject map)
       apr_hash_this(hi, &key, NULL, &val);
       keyname = JCALL1(NewStringUTF, jenv, key);
       value = make_pointer(jenv, val);
-
+	  
       oldvalue = JCALL4(CallObjectMethod, jenv, map, put, keyname, value);
-
+  
       JCALL1(DeleteLocalRef, jenv, value);
       JCALL1(DeleteLocalRef, jenv, oldvalue);
       JCALL1(DeleteLocalRef, jenv, keyname);
