@@ -22,7 +22,7 @@ svn_fs__dag_init_fs (svn_fs_t *fs)
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
