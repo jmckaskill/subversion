@@ -1,5 +1,5 @@
-/*
-   A simple demo of how to use Subversion's XML parser interface.
+/* 
+   A simple demo of how to use Subversion's XML parser interface. 
 */
 
 
@@ -63,11 +63,11 @@ my_vcdiff_windoweater (svn_txdelta_window_t *window, void *baton)
           {
             char *startaddr = (window->new->data +
                                 (window->ops[i].offset));
-            svn_string_t *str =
+            svn_string_t *str = 
               svn_string_ncreate (startaddr,
                                   (window->ops[i].length),
                                   globalpool);
-
+            
             print_spaces (baton);
             printf ("-- got txdelta window -- : new text: [%s]\n", str->data);
           }
@@ -81,7 +81,7 @@ my_vcdiff_windoweater (svn_txdelta_window_t *window, void *baton)
           {
           }
         }
-
+              
     }
 
 
@@ -100,7 +100,7 @@ test_delete (svn_string_t *filename, void *edit_baton, void *parent_baton)
   print_spaces (edit_baton);
 
   printf ("DELETE event:  delete filename '%s'\n", Aname);
-  return SVN_NO_ERROR;
+  return SVN_NO_ERROR;         
 }
 
 
@@ -121,8 +121,8 @@ test_add_directory (svn_string_t *name,
           Aname, ancestor, ancestor_version);
 
   /* Set child_baton to the name of the new directory. */
-  *child_baton = (svn_string_t *) svn_string_dup (name, globalpool);
-
+  *child_baton = (svn_string_t *) svn_string_dup (name, globalpool);  
+  
   return SVN_NO_ERROR;
 }
 
@@ -142,9 +142,9 @@ test_replace_directory (svn_string_t *name,
 
   printf ("REPLACE_DIR event:  name '%s', ancestor '%s' version %d\n",
           Aname, ancestor, ancestor_version);
-
+  
   /* Set child_baton to the name of the new directory. */
-  *child_baton = (svn_string_t *) svn_string_dup (name, globalpool);
+  *child_baton = (svn_string_t *) svn_string_dup (name, globalpool);  
 
   return SVN_NO_ERROR;
 }
@@ -158,10 +158,10 @@ test_finish_directory (void *edit_baton, void *dir_baton)
 
   if (dir_baton)
     printf ("FINISH_DIR '%s'\n", (char *)((svn_string_t *) dir_baton)->data);
-  else
+  else 
     printf ("FINISH_DIR:  no name!!\n");
 
-  return SVN_NO_ERROR;
+  return SVN_NO_ERROR;    
 }
 
 
@@ -172,12 +172,12 @@ test_finish_file (void *edit_baton, void *file_baton)
   dec_spaces (edit_baton);
 
   if (file_baton)
-    printf ("FINISH_FILE '%s'\n",
+    printf ("FINISH_FILE '%s'\n", 
             (char *)((svn_string_t *) file_baton)->data);
   else
     printf ("FINISH_DIR:  no name!!\n");
 
-  return SVN_NO_ERROR;
+  return SVN_NO_ERROR;    
 }
 
 
@@ -187,7 +187,7 @@ test_apply_textdelta (void *edit_baton, void *parent_baton, void *file_baton,
                       svn_txdelta_window_handler_t **handler,
                       void **handler_baton)
 {
-  char *Aname = ((svn_string_t *) file_baton)->data ?
+  char *Aname = ((svn_string_t *) file_baton)->data ? 
     ((char *) ((svn_string_t *) file_baton)->data) : "(unknown)";
 
   print_spaces (edit_baton);
@@ -220,7 +220,7 @@ test_add_file (svn_string_t *name,
 
   printf ("ADD_FILE event:  name '%s', ancestor '%s' version %d\n",
           Aname, ancestor, ancestor_version);
-
+  
   /* Put the filename in file_baton */
   *file_baton = (svn_string_t *) svn_string_dup (name, globalpool);
 
@@ -247,7 +247,7 @@ test_replace_file (svn_string_t *name,
 
   /* Put the filename in file_baton */
   *file_baton = (svn_string_t *) svn_string_dup (name, globalpool);
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -319,7 +319,7 @@ test_change_dirent_prop (void *edit_baton, void *parent_baton,
 
 
 
-/* An official subversion "read" routine, comforming to POSIX standards.
+/* An official subversion "read" routine, comforming to POSIX standards. 
    This one reads our XML filehandle, passed in as our baton.  */
 svn_error_t *
 my_read_func (void *baton, char *buffer, apr_off_t *len, apr_pool_t *pool)
@@ -333,7 +333,7 @@ my_read_func (void *baton, char *buffer, apr_off_t *len, apr_pool_t *pool)
   stat = apr_full_read (xmlfile, buffer,
                         (apr_size_t) *len,
                         (apr_size_t *) len);
-
+  
   /* We want to return general I/O errors, but we explicitly ignore
      the APR_EOF error.  Why?  Because the caller of this routine
      doesn't want to know about that error.  It uses (*len == 0) as a
@@ -343,12 +343,12 @@ my_read_func (void *baton, char *buffer, apr_off_t *len, apr_pool_t *pool)
      Therfore, if apr_full_read() does this, the caller will call this
      routine one more time, and *len should then be set to 0 for sure. */
 
-  if (stat && (stat != APR_EOF))
+  if (stat && (stat != APR_EOF)) 
     return
       svn_create_error (stat, 0, "my_read_func: error reading xmlfile",
                         NULL, pool);
-
-  return SVN_NO_ERROR;
+  
+  return SVN_NO_ERROR;  
 }
 
 
@@ -371,7 +371,7 @@ int main(int argc, char *argv[])
   /* Process args */
   if (argc != 2)
     {
-      printf
+      printf 
         ("\nUsage: %s [filename], where [filename] contains an XML tree-delta",
          argv[0]);
       exit (1);
@@ -390,8 +390,8 @@ int main(int argc, char *argv[])
       printf ("Error opening %s\n.", argv[1]);
       exit (1);
     }
-
-
+    
+  
   /* Fill out a editor structure, with our own routines inside it. */
   my_editor.delete             = test_delete;
 
@@ -411,14 +411,14 @@ int main(int argc, char *argv[])
 
 
   /* Fire up the XML parser */
-  err = svn_xml_auto_parse (my_read_func, source_baton,
-                            &my_editor,
+  err = svn_xml_auto_parse (my_read_func, source_baton, 
+                            &my_editor,                 
                             &my_edit_baton,
-                            my_parent_baton,
+                            my_parent_baton,            
                             globalpool);
 
   apr_close (source_baton);
-
+  
   if (err)
     {
       svn_handle_error (err, stderr);
