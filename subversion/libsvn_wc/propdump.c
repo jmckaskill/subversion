@@ -3,32 +3,32 @@
  *
  * ================================================================
  * Copyright (c) 2000 Collab.Net.  All rights reserved.
- *
+ * 
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
  * met:
- *
+ * 
  * 1. Redistributions of source code must retain the above copyright
  * notice, this list of conditions and the following disclaimer.
- *
+ * 
  * 2. Redistributions in binary form must reproduce the above copyright
  * notice, this list of conditions and the following disclaimer in the
  * documentation and/or other materials provided with the distribution.
- *
+ * 
  * 3. The end-user documentation included with the redistribution, if
  * any, must include the following acknowlegement: "This product includes
  * software developed by Collab.Net (http://www.Collab.Net/)."
  * Alternately, this acknowlegement may appear in the software itself, if
  * and wherever such third-party acknowlegements normally appear.
- *
+ * 
  * 4. The hosted project names must not be used to endorse or promote
  * products derived from this software without prior written
  * permission. For written permission, please contact info@collab.net.
- *
+ * 
  * 5. Products derived from this software may not use the "Tigris" name
  * nor may "Tigris" appear in their names without prior written
  * permission of Collab.Net.
- *
+ * 
  * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
  * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -42,7 +42,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ====================================================================
- *
+ * 
  * This software consists of voluntary contributions made by many
  * individuals on behalf of Collab.Net.
  */
@@ -70,7 +70,7 @@
  *    be pleased to note the familiar, subtle hints of mulberries and
  *    carburator fluid.  Its confident finish is marred only by a barely
  *    detectable suggestion of rancid squid ink.
- *    N 5
+ *    N 5 
  *    price
  *    V 8
  *    US $6.50
@@ -82,7 +82,7 @@
 
 
 
-/*
+/* 
  * This code is about storing property lists (hashes whose keys
  * and values are UTF-8 strings) to files, and reading them back
  * again.
@@ -111,7 +111,7 @@
 /* In BUF, convert signed integer NUM to a string, in base BASE.
  * Caller must already have allocated BUF.
  *
- * Return the number of bytes used, not including terminating NULL.
+ * Return the number of bytes used, not including terminating NULL. 
  *
  * If bad base, or anything else is wrong, returns -1.
  */
@@ -122,11 +122,11 @@ num_into_string (char *buf, int num, int base)
   size_t len;
   int negative = 0;
 
-  /*
+  /* 
    * p:     A moving index into buf, as we build the reversed string.
    * flip:  Used when we unreversing the string.
    */
-
+  
   if ((base < 2) || (base > MAX_BASE))
     return -1;
 
@@ -174,7 +174,7 @@ num_into_string (char *buf, int num, int base)
 
   flip = buf;
   p--;
-  while (p > flip)
+  while (p > flip) 
   {
     char c;
     c = *flip;
@@ -214,22 +214,22 @@ guaranteed_ap_write (ap_file_t *dest, const void *buf, ap_ssize_t n)
 
 /* kff todo: should it return ap_status_t? */
 void
-svn_wc_proplist_write (svn_proplist_t *proplist,
+svn_wc_proplist_write (svn_proplist_t *proplist, 
                        svn_string_t *destfile_name)
 {
   ap_file_t *destfile = NULL;   /* this init to NULL is actually important */
   ap_status_t res;
   ap_pool_t *pool = NULL;
   ap_hash_index_t *this;      /* current hash entry */
-
+  
   res = ap_create_pool (&pool, NULL);
   if (res != APR_SUCCESS)
     {
       /* kff todo: need to copy CVS's error-handling better, or something.
-       *
+       * 
        * Example: here we have a mem allocation error, probably, so
        * our exit plan must include more allocation! :-)
-       *
+       * 
        * Go through code of svn_handle_error, look for stuff like
        * this.
        */
@@ -274,8 +274,8 @@ svn_wc_proplist_write (svn_proplist_t *proplist,
       num_len = size_t_into_string (buf, ((svn_string_t *) key)->len);
       guaranteed_ap_write (destfile, buf, num_len);
       guaranteed_ap_write (destfile, "\n", 1);
-      guaranteed_ap_write (destfile,
-                           ((svn_string_t *) key)->data,
+      guaranteed_ap_write (destfile, 
+                           ((svn_string_t *) key)->data, 
                            ((svn_string_t *) key)->len);
       guaranteed_ap_write (destfile, "\n", 1);
 
@@ -293,14 +293,14 @@ svn_wc_proplist_write (svn_proplist_t *proplist,
   res = ap_close (destfile);
   if (res != APR_SUCCESS)
     {
-      svn_string_t *msg = svn_string_create
+      svn_string_t *msg = svn_string_create 
         ("svn_parse(): warning: can't close file ", pool);
       svn_string_appendstr (msg, destfile_name, pool);
-
+      
       /* Not fatal, just annoying */
       svn_handle_error (svn_create_error (res, SVN_NON_FATAL, msg, pool));
     }
-
+  
   ap_destroy_pool (pool);
 }
 
@@ -336,25 +336,25 @@ main ()
   ap_create_pool (&pool, NULL);
 
   proplist = ap_make_hash (pool);
-
+  
   /* Fill it in with test data. */
 
   ap_hash_set (proplist,
                svn_string_create ("color", pool),
                sizeof (svn_string_t *),
                svn_string_create ("red", pool));
-
+  
   ap_hash_set (proplist,
                svn_string_create ("wine review", pool),
                sizeof (svn_string_t *),
                svn_string_create (review, pool));
-
+  
   ap_hash_set (proplist,
                svn_string_create ("price", pool),
                sizeof (svn_string_t *),
                svn_string_create ("US $6.50", pool));
 
-  svn_wc_proplist_write (proplist,
+  svn_wc_proplist_write (proplist, 
                          svn_string_create ("propdump.out", pool));
 
   ap_destroy_pool (pool);
