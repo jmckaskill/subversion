@@ -80,7 +80,7 @@ prompt_user (const char **result,
             return svn_error_create (status, NULL, "error reading stdin.");
           if ((c == '\n') || (c == '\r'))
             break;
-
+          
           svn_stringbuf_appendbytes (strbuf, &c, 1);
         }
     }
@@ -92,7 +92,7 @@ prompt_user (const char **result,
       status = apr_password_get (prompt_native, strbuf->data, &bufsize);
       if (status)
         return svn_error_create (status, NULL,
-                                 "error from apr_password_get().");
+                                 "error from apr_password_get().");      
     }
 
   SVN_ERR (svn_utf_cstring_to_utf8 ((const char **)result, strbuf->data,
@@ -127,7 +127,7 @@ main (int argc, const char * const *argv)
     svn_handle_error (err, stderr, TRUE);
 
   /* Get the two providers from libsvn_auth */
-  wc_dir = "/home/sussman/projects/svn"; /* ### CHANGE ME TO EXPERIMENT */
+  wc_dir = "/home/sussman/projects/svn"; /* ### CHANGE ME TO EXPERIMENT */  
   svn_wc_get_simple_wc_provider (&wc_provider, &wc_prov_baton,
                                  wc_dir, NULL,
                                  NULL, NULL, /* default creds */
@@ -137,7 +137,7 @@ main (int argc, const char * const *argv)
                                        &prompt_user, NULL, 2,
                                        "schmooey", "zoink", /* defaults */
                                        pool);
-
+  
   /* Register the providers */
   svn_auth_register_provider (auth_baton, 0 /* ignored */,
                               wc_provider, wc_prov_baton, pool);
@@ -145,16 +145,16 @@ main (int argc, const char * const *argv)
   svn_auth_register_provider (auth_baton, 0 /* ignored */,
                               prompt_provider, prompt_prov_baton, pool);
 
-
+  
   /* Query the auth baton for "simple" creds. */
   err = svn_auth_first_credentials ((void **) &creds,
                                     &state, SVN_AUTH_CRED_SIMPLE,
                                     auth_baton, pool);
   if (err)
     svn_handle_error (err, stderr, TRUE);
-
+  
   printf ("### First creds back are %s, %s.\n",
-          creds->username, creds->password);
+          creds->username, creds->password); 
 
   /* Keep querying until there are no more creds left. */
   while (creds != NULL)
@@ -162,10 +162,10 @@ main (int argc, const char * const *argv)
       err = svn_auth_next_credentials ((void **) &creds, state, pool);
       if (err)
         svn_handle_error (err, stderr, TRUE);
-
+      
       if (creds)
         printf ("### Next creds back are %s, %s.\n",
-                creds->username, creds->password);
+                creds->username, creds->password); 
     }
 
   return 0;
