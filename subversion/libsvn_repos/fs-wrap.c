@@ -87,7 +87,7 @@ svn_repos_fs_begin_txn_for_commit (svn_fs_txn_t **txn_p,
       SVN_ERR (svn_fs_change_txn_prop (*txn_p, SVN_PROP_REVISION_AUTHOR,
                                        &val, pool));
     }
-
+    
   /* Log message. */
   if (log_msg)
     {
@@ -148,10 +148,10 @@ validate_prop (const char *name,
 {
   svn_prop_kind_t kind = svn_property_kind (NULL, name);
   if (kind != svn_prop_regular_kind)
-    return svn_error_createf
+    return svn_error_createf 
       (SVN_ERR_REPOS_BAD_ARGS, NULL,
        "Storage of non-regular property '%s' is disallowed through the "
-       "repository interface, and could indicate a bug in your client",
+       "repository interface, and could indicate a bug in your client", 
        name);
   return SVN_NO_ERROR;
 }
@@ -194,10 +194,10 @@ svn_repos_fs_change_rev_prop (svn_repos_t *repos,
 
   SVN_ERR (validate_prop (name, pool));
   SVN_ERR (svn_fs_revision_prop (&old_value, repos->fs, rev, name, pool));
-  SVN_ERR (svn_repos__hooks_pre_revprop_change (repos, rev, author, name,
+  SVN_ERR (svn_repos__hooks_pre_revprop_change (repos, rev, author, name, 
                                                 new_value, pool));
   SVN_ERR (svn_fs_change_rev_prop (repos->fs, rev, name, new_value, pool));
-  SVN_ERR (svn_repos__hooks_post_revprop_change (repos, rev, author,
+  SVN_ERR (svn_repos__hooks_post_revprop_change (repos, rev, author, 
                                                  name, old_value, pool));
 
   return SVN_NO_ERROR;
@@ -208,8 +208,8 @@ svn_repos_fs_change_rev_prop (svn_repos_t *repos,
 
 
 
-/*
- * vim:ts=4:sw=4:expandtab:tw=80:fo=tcroq
- * vim:isk=a-z,A-Z,48-57,_,.,-,>
+/* 
+ * vim:ts=4:sw=4:expandtab:tw=80:fo=tcroq 
+ * vim:isk=a-z,A-Z,48-57,_,.,-,> 
  * vim:cino=>1s,e0,n0,f0,{.5s,}0,^-.5s,=.5s,t0,+1s,c3,(0,u0,\:0
  */
