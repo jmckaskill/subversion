@@ -58,7 +58,7 @@ svn_wc_merge (const char *parent,
   /* Sanity check:  the merge target must be under revision control. */
   {
     svn_wc_entry_t *ignored_ent;
-
+    
     SVN_ERR (svn_wc_entry (&ignored_ent, full_tgt_path, pool));
     if (ignored_ent == NULL)
       return svn_error_createf
@@ -69,7 +69,7 @@ svn_wc_merge (const char *parent,
   /* Decide if the merge target is a text or binary file. */
   SVN_ERR (svn_wc_has_binary_prop (&is_binary, full_tgt_path, pool));
 
-
+  
   if (! is_binary)              /* this is a text file */
     {
       /* Make sure a temporary copy of 'target' is available with keywords
@@ -90,7 +90,7 @@ svn_wc_merge (const char *parent,
               (apr_err, 0, NULL, pool,
                "svn_wc_merge: unable to close tmp file `%s'",
                tmp_target->data);
-
+      
           SVN_ERR (svn_io_copy_file (full_tgt_path->data,
                                      tmp_target->data, TRUE, pool));
         }
@@ -109,7 +109,7 @@ svn_wc_merge (const char *parent,
                                  result_f,
                                  &exit_code,
                                  pool));
-
+  
       apr_err = apr_file_close (result_f);
       if (! APR_STATUS_IS_SUCCESS (apr_err))
         return svn_error_createf
@@ -119,12 +119,12 @@ svn_wc_merge (const char *parent,
       if (exit_code == 1)  /* got a conflict */
         {
           /* Preserve the three pre-merge files, and modify the
-             entry (mark as conflicted, track the preserved files). */
+             entry (mark as conflicted, track the preserved files). */ 
           apr_file_t *lcopy_f, *rcopy_f, *tcopy_f;
           svn_stringbuf_t *left_copy, *right_copy, *target_copy;
           svn_stringbuf_t *parentt, *left_base, *right_base, *target_base;
           apr_hash_t *atthash = apr_hash_make (pool);
-
+      
           /* I miss Lisp. */
 
           SVN_ERR (svn_io_open_unique_file (&lcopy_f,
@@ -197,7 +197,7 @@ svn_wc_merge (const char *parent,
           SVN_ERR (svn_wc__get_eol_style (&eol_style, &eol,
                                           full_tgt_path->data,
                                           pool));
-          SVN_ERR (svn_wc_copy_and_translate (full_left_path->data,
+          SVN_ERR (svn_wc_copy_and_translate (full_left_path->data, 
                                               left_copy->data,
                                               eol, FALSE, keywords,
                                               TRUE, pool));
@@ -223,7 +223,7 @@ svn_wc_merge (const char *parent,
 
           /* Mark merge_target's entry as "Conflicted", and start tracking
              the 3 backup files in the entry as well. */
-          SVN_ERR (svn_wc__entry_modify (parentt,
+          SVN_ERR (svn_wc__entry_modify (parentt, 
                                          svn_stringbuf_create (merge_target,
                                                                pool),
                                          (SVN_WC__ENTRY_MODIFY_CONFLICTED
@@ -271,7 +271,7 @@ svn_wc_merge (const char *parent,
       svn_stringbuf_t *left_copy, *right_copy;
       svn_stringbuf_t *parentt, *left_base, *right_base;
       apr_hash_t *atthash = apr_hash_make (pool);
-
+      
       /* reserve names for backups of left and right fulltexts */
       SVN_ERR (svn_io_open_unique_file (&lcopy_f,
                                         &left_copy,
@@ -303,7 +303,7 @@ svn_wc_merge (const char *parent,
                                  left_copy->data, TRUE, pool));
       SVN_ERR (svn_io_copy_file (full_right_path->data,
                                  right_copy->data, TRUE, pool));
-
+      
       /* Derive the basenames of the the backup files. */
       svn_path_split (left_copy, &parentt, &left_base, pool);
       svn_path_split (right_copy, &parentt, &right_base, pool);
@@ -314,7 +314,7 @@ svn_wc_merge (const char *parent,
 
       /* Mark merge_target's entry as "Conflicted", and start tracking
          the 2 backup files in the entry as well. */
-      SVN_ERR (svn_wc__entry_modify (parentt,
+      SVN_ERR (svn_wc__entry_modify (parentt, 
                                      svn_stringbuf_create (merge_target,
                                                            pool),
                                      (SVN_WC__ENTRY_MODIFY_CONFLICTED
