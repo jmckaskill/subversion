@@ -427,11 +427,11 @@ class TreeMirror:
       parent_dir_key = highest_empty[2]
     else:
       basename = components[-1]
-
+      
     self._delete_tree(parent_dir[basename])
     del parent_dir[basename]
     self.db[parent_dir_key] = marshal.dumps(parent_dir)
-
+    
     return path
 
 
@@ -447,7 +447,7 @@ class Dump:
     #
     # The CVS repository doesn't have a UUID, and the Subversion
     # repository will be created with one anyway.  So when we load
-    # the dumpfile, we'll tell svnadmin to ignore the UUID below.
+    # the dumpfile, we'll tell svnadmin to ignore the UUID below. 
     self.dumpfile.write('SVN-fs-dump-format-version: 2\n'
                         '\n'
                         'UUID: ????????-????-????-????-????????????\n'
@@ -460,11 +460,11 @@ class Dump:
     self.revision = self.revision + 1
 
     # A revision typically looks like this:
-    #
+    # 
     #   Revision-number: 1
     #   Prop-content-length: 129
     #   Content-length: 129
-    #
+    #   
     #   K 7
     #   svn:log
     #   V 27
@@ -488,7 +488,7 @@ class Dump:
     # everything.  That's the generic header form for any entity in a
     # dumpfile.  But since revisions only have props, the two lengths
     # are always the same for revisions.
-
+    
     # Calculate the total length of the props section.
     total_len = 10  # len('PROPS-END\n')
     for propname in props.keys():
@@ -498,7 +498,7 @@ class Dump:
       vlen_len = len('V %d' % vlen)
       # + 4 for the four newlines within a given property's section
       total_len = total_len + klen + klen_len + vlen + vlen_len + 4
-
+        
     # Print the revision header and props
     self.dumpfile.write('Revision-number: %d\n'
                         'Prop-content-length: %d\n'
@@ -507,9 +507,9 @@ class Dump:
                         % (self.revision, total_len, total_len))
 
     for propname in props.keys():
-      self.dumpfile.write('K %d\n'
-                          '%s\n'
-                          'V %d\n'
+      self.dumpfile.write('K %d\n' 
+                          '%s\n' 
+                          'V %d\n' 
                           '%s\n' % (len(propname),
                                     propname,
                                     len(props[propname]),
@@ -521,7 +521,7 @@ class Dump:
     return self.revision
 
   def add_dir(self, path):
-    self.dumpfile.write("Node-path: %s\n"
+    self.dumpfile.write("Node-path: %s\n" 
                         "Node-kind: dir\n"
                         "Node-action: add\n"
                         "Prop-content-length: 10\n"
@@ -780,7 +780,7 @@ class Commit:
 
     # get the metadata for this commit
     author, log, date = self.get_metadata()
-    try:
+    try: 
       ### FIXME: The 'replace' behavior should be an option, like
       ### --encoding is.
       unicode_author = unicode(author, ctx.encoding, 'replace')
@@ -1140,7 +1140,7 @@ def pass4(ctx):
     if not trunk_rev.match(rev):
       ### note this could/should have caused a flush, but the next item
       ### will take care of that for us
-      ###
+      ### 
       ### TODO: working here.  Because of this condition, we're not
       ### seeing tags and branches rooted in initial revisions (CVS's
       ### infamous "1.1.1.1").
@@ -1153,7 +1153,7 @@ def pass4(ctx):
 
       # ### ISSUE: the has_file() check below is not optimal.
       # It does fix the dataloss bug where revisions would get lost
-      # if checked in too quickly, but it can also break apart the
+      # if checked in too quickly, but it can also break apart the 
       # commits. The correct fix would require tracking the dependencies
       # between change sets and committing them in proper order.
       if scan_c.t_max + COMMIT_THRESHOLD < timestamp or \
