@@ -3,32 +3,32 @@
  *
  * ================================================================
  * Copyright (c) 2000 CollabNet.  All rights reserved.
- *
+ * 
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
  * met:
- *
+ * 
  * 1. Redistributions of source code must retain the above copyright
  * notice, this list of conditions and the following disclaimer.
- *
+ * 
  * 2. Redistributions in binary form must reproduce the above copyright
  * notice, this list of conditions and the following disclaimer in the
  * documentation and/or other materials provided with the distribution.
- *
+ * 
  * 3. The end-user documentation included with the redistribution, if
  * any, must include the following acknowlegement: "This product includes
  * software developed by CollabNet (http://www.Collab.Net)."
  * Alternately, this acknowlegement may appear in the software itself, if
  * and wherever such third-party acknowlegements normally appear.
- *
+ * 
  * 4. The hosted project names must not be used to endorse or promote
  * products derived from this software without prior written
  * permission. For written permission, please contact info@collab.net.
- *
+ * 
  * 5. Products derived from this software may not use the "Tigris" name
  * nor may "Tigris" appear in their names without prior written
  * permission of CollabNet.
- *
+ * 
  * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
  * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -42,7 +42,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ====================================================================
- *
+ * 
  * This software consists of voluntary contributions made by many
  * individuals on behalf of CollabNet.
  */
@@ -242,7 +242,7 @@ window_handler (svn_txdelta_window_t *window, void *baton)
                                 window->pool);
   if (err)
     return err;
-
+  
   /* else */
 
   for (i = 0; i < window->num_ops; i++)
@@ -285,7 +285,7 @@ window_handler (svn_txdelta_window_t *window, void *baton)
   /* Leave a note in the baton indicating that there's new text to
      sync up. */
   fb->text_changed = 1;
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -296,7 +296,7 @@ window_handler (svn_txdelta_window_t *window, void *baton)
  * after this call, else the directory must exist already.
  *
  * If the path already exists, but is not a working copy for
- * DIRECTORY, then an error will be returned.
+ * DIRECTORY, then an error will be returned. 
  */
 static svn_error_t *
 prep_directory (svn_string_t *path,
@@ -309,7 +309,7 @@ prep_directory (svn_string_t *path,
   svn_error_t *err;
 
   /* kff todo: how about a sanity check that it's not a dir of the
-     same name from a different repository or something?
+     same name from a different repository or something? 
      Well, that will be later on down the line... */
 
   if (force)   /* Make sure the directory exists. */
@@ -536,7 +536,7 @@ replace_file (svn_string_t *name,
                   eb,
                   parent_dir_baton,
                   ancestor_path,
-                  ancestor_version,
+                  ancestor_version, 
                   file_baton);
 
   /* ... except that you must check that the file existed already, and
@@ -554,13 +554,13 @@ replace_file (svn_string_t *name,
 static svn_error_t *
 apply_textdelta (void *edit_baton,
                  void *parent_baton,
-                 void *file_baton,
+                 void *file_baton, 
                  svn_txdelta_window_handler_t **handler,
                  void **handler_baton)
 {
   *handler_baton = file_baton;
   *handler = window_handler;
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -599,7 +599,7 @@ close_file (void *edit_baton, void *file_baton)
      that is probably badness... */
 
   /* kff todo:
-
+     
      Okay, let's plan this whole diff/log/update/merge thing a bit
      better, in the cold light of morning, as it were (actually, it's
      early afternoon, but I'm told that's hacker virtual morning).
@@ -666,13 +666,13 @@ close_file (void *edit_baton, void *file_baton)
                   <!-- Once everything else is done, we can set blah's
                        version to N, changing the ./SVN/versions
                        file. -->
-
+         
          3. Now run over the log file, doing each operation.  Note
             that if an operation appears to have already been done,
             that means it _was_ done, so just count it and move on.
             When all entries have been done, the operation is
             complete, so remove SVN/log.
-
+            
   */
 
   /* Save local mods. */
@@ -683,9 +683,9 @@ close_file (void *edit_baton, void *file_baton)
   if (err)
     return err;
 
-  /** Write out the appropriate log entries.
-      This is safe because the adm area is locked right now. **/
-
+  /** Write out the appropriate log entries. 
+      This is safe because the adm area is locked right now. **/ 
+      
   err = svn_wc__open_adm_file (&log_fp,
                                fb->dir_baton->path,
                                SVN_WC__ADM_LOG,
@@ -697,10 +697,10 @@ close_file (void *edit_baton, void *file_baton)
   /* kff todo: there's going to be an issue with the lack of
      outermost wrapping XML element in the log file.  Several ways
      to deal with that, sleep on it... */
-
+  
   /* kff todo: save *local_changes somewhere, maybe to a tmp file
      in SVN/. */
-
+  
   if (fb->text_changed)
     {
       /* Merge text. */
@@ -714,7 +714,7 @@ close_file (void *edit_baton, void *file_baton)
                                      NULL);
       if (err)
         return err;
-
+      
       /* Replace text base. */
       err = svn_wc__write_adm_entry (log_fp,
                                      fb->pool,
@@ -725,7 +725,7 @@ close_file (void *edit_baton, void *file_baton)
       if (err)
         return err;
     }
-
+  
   if (fb->prop_changed)
     {
       /* Merge props. */
@@ -737,7 +737,7 @@ close_file (void *edit_baton, void *file_baton)
                                      NULL);
       if (err)
         return err;
-
+      
       /* Replace prop base. */
       err = svn_wc__write_adm_entry (log_fp,
                                      fb->pool,
@@ -774,7 +774,7 @@ close_file (void *edit_baton, void *file_baton)
   if (err)
     return err;
 
-  /* kff todo: here, we do by hand the work that run_log will do. */
+  /* kff todo: here, we do by hand the work that run_log will do. */ 
 
   /* Update the text-base copy. */
   if (fb->text_changed)
@@ -877,7 +877,7 @@ svn_wc_get_update_editor (svn_string_t *dest,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
