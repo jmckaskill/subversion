@@ -29,7 +29,7 @@ main (int argc, char **argv)
   apr_pool_t *pool;
   svn_error_t *err;
   void *session_baton;
-  svn_string_t *url;
+  svn_string_t *url; 
   const svn_ra_plugin_t *plugin;
 
   apr_initialize ();
