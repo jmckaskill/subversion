@@ -80,7 +80,7 @@ svn_revnum_t dav_svn_get_safe_cr(svn_fs_root_t *root,
 
   if (svn_fs_node_created_rev(&created_rev, root, path, pool))
     return revision;   /* couldn't find created_rev */
-
+  
   if (svn_fs_revision_root(&other_root, svn_fs_root_fs(root),
                            created_rev, pool))
     return revision;   /* couldn't open the created rev */
@@ -90,12 +90,12 @@ svn_revnum_t dav_svn_get_safe_cr(svn_fs_root_t *root,
 
   if (svn_fs_compare_ids(id, other_id) == 0)
     return created_rev;  /* the created_rev is safe!  the same node
-                            exists at the same path in both revisions. */
+                            exists at the same path in both revisions. */    
 
   /* default */
   return revision;
 }
-
+                                   
 
 
 const char *dav_svn_build_uri(const dav_svn_repos *repos,
@@ -248,7 +248,7 @@ svn_error_t *dav_svn_simple_parse_uri(dav_svn_uri_info *info,
       info->activity_id = path + 5;
     }
   else if (len2 == 4 && memcmp(path, "/ver/", 5) == 0)
-    {
+    {      
       /* a version resource */
       path += 5;
       len1 -= 5;
