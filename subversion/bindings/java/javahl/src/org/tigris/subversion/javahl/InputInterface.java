@@ -1,7 +1,11 @@
+package org.tigris.subversion.javahl;
+
+import java.io.IOException;
+
 /**
  * @copyright
  * ====================================================================
- * Copyright (c) 2003-2004 CollabNet.  All rights reserved.
+ * Copyright (c) 2004 CollabNet.  All rights reserved.
  *
  * This software is licensed as described in the file COPYING, which
  * you should have received as part of this distribution.  The terms
@@ -15,33 +19,21 @@
  * ====================================================================
  * @endcopyright
  */
-package org.tigris.subversion.javahl;
-
 /**
- * Poor mans enum for svn_node_kind_t
+ * Interface for data to be inputed into subversion
  */
-public final class NodeKind
+public interface InputInterface
 {
-    /* absent */
-    public static final int none = 0;
+    /**
+     * read the number of data.length bytes from input.
+     * @param data          array to store the read bytes.
+     * @throws IOException  throw in case of problems.
+     */
+    public int read(byte [] data) throws IOException;
 
-    /* regular file */
-    public static final int file = 1;
-
-    /* directory */
-    public static final int dir = 2;
-
-    /* something's here, but we don't know what */
-    public static final int unknown = 3;
-	private static final String[] statusNames =
-	{
-		"none",
-		"file",
-		"dir ",
-		"unknown",
-	};
-	public static final String getNodeKindName(int kind)
-	{
-		return statusNames[kind];
-	}
+    /**
+     * close the input
+     * @throws IOException throw in case of problems.
+     */
+    public void close() throws IOException;
 }
