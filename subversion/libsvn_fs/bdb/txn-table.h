@@ -38,7 +38,7 @@ svn_error_t *svn_fs__bdb_create_txn (const char **txn_name_p,
 
 
 /* Remove the transaction whose name is TXN_NAME from the `transactions'
-   table of FS, as part of TRAIL.
+   table of FS, as part of TRAIL.  
 
    Returns SVN_ERR_FS_TRANSACTION_NOT_MUTABLE if TXN_NAME refers to a
    transaction that has already been committed.  */
@@ -46,11 +46,11 @@ svn_error_t *svn_fs__bdb_delete_txn (svn_fs_t *fs,
                                      const char *txn_name,
                                      trail_t *trail);
 
-
+ 
 /* Retrieve the transaction *TXN_P for the Subversion transaction
    named TXN_NAME from the `transactions' table of FS, as part of
    TRAIL.  Perform all allocations in TRAIL->pool.
-
+   
    If there is no such transaction, SVN_ERR_FS_NO_SUCH_TRANSACTION is
    the error returned.  */
 svn_error_t *svn_fs__bdb_get_txn (svn_fs__transaction_t **txn_p,
@@ -63,7 +63,7 @@ svn_error_t *svn_fs__bdb_get_txn (svn_fs__transaction_t **txn_p,
    part of TRAIL. */
 svn_error_t *svn_fs__bdb_put_txn (svn_fs_t *fs,
                                   const svn_fs__transaction_t *txn,
-                                  const char *txn_name,
+                                  const char *txn_name, 
                                   trail_t *trail);
 
 

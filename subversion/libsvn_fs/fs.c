@@ -110,7 +110,7 @@ svn_fs_set_warning_func (svn_fs_t *fs,
 
 
 svn_error_t *
-svn_fs_set_berkeley_errcall (svn_fs_t *fs,
+svn_fs_set_berkeley_errcall (svn_fs_t *fs, 
                              void (*db_errcall_fcn) (const char *errpfx,
                                                      char *msg))
 {
@@ -176,7 +176,7 @@ svn_fs__canonicalize_abspath (const char *path, apr_pool_t *pool)
   /* No PATH?  No problem. */
   if (! path)
     return NULL;
-
+  
   /* Empty PATH?  That's just "/". */
   if (! *path)
     return apr_pstrdup (pool, "/");
@@ -191,7 +191,7 @@ svn_fs__canonicalize_abspath (const char *path, apr_pool_t *pool)
     {
       newpath[newpath_i++] = '/';
     }
-
+  
   for (path_i = 0; path_i < path_len; path_i++)
     {
       if (path[path_i] == '/')
@@ -214,7 +214,7 @@ svn_fs__canonicalize_abspath (const char *path, apr_pool_t *pool)
       /* Copy the current character into our new buffer. */
       newpath[newpath_i++] = path[path_i];
     }
-
+  
   /* Did we leave a '/' attached to the end of NEWPATH (other than in
      the root directory case)? */
   if ((newpath[newpath_i - 1] == '/') && (newpath_i > 1))
