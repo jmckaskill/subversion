@@ -49,7 +49,7 @@ svn_cl__move (apr_getopt_t *os,
   svn_wc_notify_func_t notify_func = NULL;
   void *notify_baton = NULL;
 
-  SVN_ERR (svn_opt_args_to_target_array (&targets, os,
+  SVN_ERR (svn_opt_args_to_target_array (&targets, os, 
                                          opt_state->targets,
                                          &(opt_state->start_revision),
                                          &(opt_state->end_revision),
@@ -63,14 +63,14 @@ svn_cl__move (apr_getopt_t *os,
 
   src_path = ((const char **) (targets->elts))[0];
   dst_path = ((const char **) (targets->elts))[1];
-
+  
   if (! opt_state->quiet)
-    svn_cl__get_notifier (&notify_func, &notify_baton, FALSE, FALSE, pool);
+    svn_cl__get_notifier (&notify_func, &notify_baton, FALSE, FALSE, pool); 
 
-  err = svn_client_move
-           (&commit_info,
+  err = svn_client_move 
+           (&commit_info, 
             src_path, &(opt_state->start_revision), dst_path,
-            opt_state->force, auth_baton,
+            opt_state->force, auth_baton, 
             &svn_cl__get_log_message,
             svn_cl__make_log_msg_baton (opt_state, NULL, pool),
             notify_func, notify_baton,
@@ -86,8 +86,8 @@ svn_cl__move (apr_getopt_t *os,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../tools/dev/svn-dev.el")
- * end:
+ * end: 
  */
