@@ -30,7 +30,7 @@
 //JUST UNCOMMENT THE FOLLOWING LINE
 #define SVN_JNI_DATE__DEBUG
 
-jobject
+jobject 
 date__create(JNIEnv *env, jboolean *hasException, long time)
 {
   jobject result = NULL;
@@ -65,7 +65,7 @@ date__create(JNIEnv *env, jboolean *hasException, long time)
       /* get method reference */
       if( !_hasException )
 	{
-	  constructor =
+	  constructor = 
             j__get_method(env, &_hasException,
                           class,
                           "<init>",
@@ -92,7 +92,7 @@ date__create(JNIEnv *env, jboolean *hasException, long time)
 #ifdef SVN_JNI_DATE__DEBUG
   fprintf(stderr, "<<<date__create\n");
 #endif
-
+				    
   if( (hasException != NULL) && _hasException )
     {
       *hasException = JNI_TRUE;
@@ -101,8 +101,8 @@ date__create(JNIEnv *env, jboolean *hasException, long time)
   return result;
 }
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../svn-dev.el")
- * end:
+ * end: 
  */
