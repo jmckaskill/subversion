@@ -27,7 +27,7 @@ see an error like:
 
 Or if you use an 'old' libsvn_fs library to access a 'new' repository,
 you might see an error like:
-
+  
    Expected version '1' of repository; found version '2'
 
    or
