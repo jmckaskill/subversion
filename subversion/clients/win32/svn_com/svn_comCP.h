@@ -28,7 +28,7 @@ public:
 		int nConnectionIndex;
 		CComVariant* pvars = new CComVariant[1];
 		int nConnections = m_vec.GetSize();
-
+		
 		for (nConnectionIndex = 0; nConnectionIndex < nConnections; nConnectionIndex++)
 		{
 			pT->Lock();
@@ -45,7 +45,7 @@ public:
 		}
 		delete[] pvars;
 		return varResult.scode;
-
+	
 	}
 };
 #endif
