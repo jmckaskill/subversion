@@ -95,11 +95,11 @@ const svn_revnum_t svn_fs__id_rev(const svn_fs_id_t *id);
 const apr_off_t svn_fs__id_offset(const svn_fs_id_t *id);
 
 /* Return non-zero iff the node or node revision ID's A and B are equal.  */
-int svn_fs__id_eq (const svn_fs_id_t *a,
+int svn_fs__id_eq (const svn_fs_id_t *a, 
                    const svn_fs_id_t *b);
 
 /* Return a copy of ID, allocated from POOL.  */
-svn_fs_id_t *svn_fs__id_copy (const svn_fs_id_t *id,
+svn_fs_id_t *svn_fs__id_copy (const svn_fs_id_t *id, 
                               apr_pool_t *pool);
 
 
