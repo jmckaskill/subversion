@@ -68,7 +68,7 @@ print_version_info (apr_pool_t *pool)
  * command in os->args.  OPT_STATE is only examined for the
  * '--version' switch.  If OS is null then generic help will always be
  * printed.
- *
+ * 
  * Unlike all the other command routines, ``help'' has its own
  * option processing.
  */
@@ -94,9 +94,9 @@ svn_cl__help (apr_getopt_t *os,
         svn_cl__subcommand_help (this_native, pool);
       }
   else if (opt_state && opt_state->version)  /* just -v or --version */
-    SVN_ERR (print_version_info (pool));
+    SVN_ERR (print_version_info (pool));        
   else if (os && !targets->nelts)            /* `-h', `--help', or `help' */
-    svn_cl__print_generic_help (pool, stdout);
+    svn_cl__print_generic_help (pool, stdout);  
   else                                       /* unknown option or cmd */
     svn_cl__print_generic_help (pool, stderr);
 
@@ -105,8 +105,8 @@ svn_cl__help (apr_getopt_t *os,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../tools/dev/svn-dev.el")
- * end:
+ * end: 
  */
