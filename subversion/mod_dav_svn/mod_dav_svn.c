@@ -230,7 +230,7 @@ module MODULE_VAR_EXPORT dav_svn_module =
 };
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
