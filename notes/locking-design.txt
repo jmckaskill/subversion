@@ -1,7 +1,7 @@
 
                           A design for locking.
                           ---------------------
-        (...in progress, based on ongoing discussions on dev@ list.
+        (...in progress, based on ongoing discussions on dev@ list.  
                            Please hack on this.)
 
 
