@@ -37,7 +37,7 @@
 
 svn_error_t *
 svn_client_delete (svn_stringbuf_t *path,
-                   svn_boolean_t force,
+                   svn_boolean_t force, 
                    svn_client_auth_baton_t *auth_baton,
                    svn_stringbuf_t *log_msg,
                    apr_pool_t *pool)
@@ -78,14 +78,14 @@ svn_client_delete (svn_stringbuf_t *path,
                 log_msg ? log_msg : svn_stringbuf_create ("", pool),
                 NULL, NULL, NULL, NULL));
 
-      SVN_ERR (editor->replace_root (edit_baton, SVN_INVALID_REVNUM,
+      SVN_ERR (editor->replace_root (edit_baton, SVN_INVALID_REVNUM, 
                                      &root_baton));
       SVN_ERR (editor->delete_entry (target, root_baton));
       SVN_ERR (editor->close_edit (edit_baton));
 
       return SVN_NO_ERROR;
     }
-
+  
   /* Mark the entry for deletion. */
   err = svn_wc_delete (path, pool);
   if (err)
@@ -105,7 +105,7 @@ svn_client_delete (svn_stringbuf_t *path,
 }
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end: */
