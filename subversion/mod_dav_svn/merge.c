@@ -339,7 +339,7 @@ dav_error * dav_svn__merge_response(ap_filter_t *output,
   bb = apr_brigade_create(pool);
 
   /* prep some strings */
-
+  
   /* the HREF for the baseline is actually the VCC */
   vcc = dav_svn_build_uri(repos, DAV_SVN_BUILD_URI_VCC, SVN_IGNORED_REVNUM,
                           NULL, 0 /* add_href */, pool);
@@ -411,7 +411,7 @@ dav_error * dav_svn__merge_response(ap_filter_t *output,
                              NULL,      /* ### should fix */
                              revs,
                              committed_root, rootpath,
-                             editor, &mrc,
+                             editor, &mrc, 
                              FALSE, /* don't bother with text-deltas */
                              pool);
   if (serr != NULL)
