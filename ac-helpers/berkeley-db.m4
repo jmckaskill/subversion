@@ -2,7 +2,7 @@ dnl   SVN_LIB_BERKELEY_DB(major, minor, patch, libname)
 dnl
 dnl   Search for a useable version of Berkeley DB in a number of
 dnl   common places.  The installed DB must be no older than the
-dnl   version given by MAJOR, MINOR, and PATCH.  LIBNAME is the name of
+dnl   version given by MAJOR, MINOR, and PATCH.  LIBNAME is the name of 
 dnl   the library to attempt to link against, typically 'db' or 'db4'.
 dnl
 dnl   If we find a useable version, set CPPFLAGS and LIBS as
@@ -46,7 +46,7 @@ AC_DEFUN(SVN_LIB_BERKELEY_DB,
   dnl      P/include and libraries in P/lib, or
   dnl    - a string of the form `HEADER:LIB', indicating that we should look
   dnl      for headers in HEADER and libraries in LIB.
-  dnl
+  dnl 
   dnl  You'll notice that the value of the `--with-berkeley-db' switch is a
   dnl  place spec.
 
