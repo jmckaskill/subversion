@@ -67,25 +67,25 @@ schedule__create(JNIEnv *env, jboolean *hasException, jint schedule)
 
       /* get method reference */
       if( !_hasException )
-	{
-	  constructor =
+        {
+          constructor =
             j__get_method(env, &_hasException,
                           class,
                           "<init>",
                           SVN_JNI_SCHEDULE__SIG);
-	}
+        }
 
       /* create new instance */
       if( !_hasException )
-	{
-	  result = (*env)->NewObject(env, class, constructor,
+        {
+          result = (*env)->NewObject(env, class, constructor,
                                      schedule);
 
-	  if( result == NULL )
-	    {
-	      _hasException = JNI_TRUE;
-	    }
-	}
+          if( result == NULL )
+            {
+              _hasException = JNI_TRUE;
+            }
+        }
 
       (*env)->PopLocalFrame(env, result);
     }

@@ -1982,8 +1982,8 @@ static dav_error * dav_svn_deliver(const dav_resource *resource,
         (void) svn_fs_is_dir(&is_dir, resource->info->root.root,
                              entry_path, entry_pool);
 
-	name = item->key;
-	href = name;
+        name = item->key;
+        href = name;
 
         /* append a trailing slash onto the name for directories. we NEED
            this for the href portion so that the relative reference will
@@ -2591,7 +2591,7 @@ static dav_error * dav_svn_do_walk(dav_svn_walker_context *ctx, int depth)
 }
 
 static dav_error * dav_svn_walk(const dav_walk_params *params, int depth,
-				dav_response **response)
+                                dav_response **response)
 {
   dav_svn_walker_context ctx = { 0 };
   dav_error *err;

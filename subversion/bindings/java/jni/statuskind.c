@@ -67,25 +67,25 @@ statuskind__create(JNIEnv *env, jboolean *hasException, jint statuskind)
 
       /* get method reference */
       if( !_hasException )
-	{
-	  constructor =
+        {
+          constructor =
             j__get_method(env, &_hasException,
                           class,
                           "<init>",
                           SVN_JNI_STATUSKIND__SIG);
-	}
+        }
 
       /* create new instance */
       if( !_hasException )
-	{
-	  result = (*env)->NewObject(env, class, constructor,
+        {
+          result = (*env)->NewObject(env, class, constructor,
                                      statuskind);
 
-	  if( result == NULL )
-	    {
-	      _hasException = JNI_TRUE;
-	    }
-	}
+          if( result == NULL )
+            {
+              _hasException = JNI_TRUE;
+            }
+        }
 
       (*env)->PopLocalFrame(env, result);
     }
