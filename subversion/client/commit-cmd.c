@@ -48,12 +48,12 @@ svn_cl__commit (apr_getopt_t *os,
       svn_string_t *target = ((svn_string_t **) (targets->elts))[i];
       const svn_delta_edit_fns_t *trace_editor;
       void *trace_edit_baton;
-
+      
       err = svn_cl__get_trace_commit_editor (&trace_editor,
                                              &trace_edit_baton,
                                              target, pool);
       if (err) return err;
-
+      
       err = svn_client_commit (NULL, NULL,
                                trace_editor, trace_edit_baton,
                                target,
@@ -70,8 +70,8 @@ svn_cl__commit (apr_getopt_t *os,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
- * end:
+ * end: 
  */
