@@ -3,32 +3,32 @@
  *
  * ================================================================
  * Copyright (c) 2000 CollabNet.  All rights reserved.
- *
+ * 
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
  * met:
- *
+ * 
  * 1. Redistributions of source code must retain the above copyright
  * notice, this list of conditions and the following disclaimer.
- *
+ * 
  * 2. Redistributions in binary form must reproduce the above copyright
  * notice, this list of conditions and the following disclaimer in the
  * documentation and/or other materials provided with the distribution.
- *
+ * 
  * 3. The end-user documentation included with the redistribution, if
  * any, must include the following acknowlegement: "This product includes
  * software developed by CollabNet (http://www.Collab.Net)."
  * Alternately, this acknowlegement may appear in the software itself, if
  * and wherever such third-party acknowlegements normally appear.
- *
+ * 
  * 4. The hosted project names must not be used to endorse or promote
  * products derived from this software without prior written
  * permission. For written permission, please contact info@collab.net.
- *
+ * 
  * 5. Products derived from this software may not use the "Tigris" name
  * nor may "Tigris" appear in their names without prior written
  * permission of CollabNet.
- *
+ * 
  * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
  * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -42,7 +42,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ====================================================================
- *
+ * 
  * This software consists of voluntary contributions made by many
  * individuals on behalf of CollabNet.
  */
@@ -199,7 +199,7 @@ free_dir_baton (struct dir_baton *dir_baton)
   apr_destroy_pool (dir_baton->pool);
 
   /* We've declared this directory done, so decrement its parent's ref
-     count too. */
+     count too. */ 
   if (parent)
     {
       err = decrement_ref_count (parent);
@@ -390,7 +390,7 @@ window_handler (svn_txdelta_window_t *window, void *baton)
  * after this call, else the directory must exist already.
  *
  * If the path already exists, but is not a working copy for
- * DIRECTORY, then an error will be returned.
+ * DIRECTORY, then an error will be returned. 
  */
 static svn_error_t *
 prep_directory (svn_string_t *path,
@@ -403,7 +403,7 @@ prep_directory (svn_string_t *path,
   svn_error_t *err;
 
   /* kff todo: how about a sanity check that it's not a dir of the
-     same name from a different repository or something?
+     same name from a different repository or something? 
      Well, that will be later on down the line... */
 
   if (force)   /* Make sure the directory exists. */
@@ -446,7 +446,7 @@ replace_root (void *edit_baton,
     {
       ancestor_path = eb->ancestor_path;
       ancestor_revision = eb->target_revision;
-
+      
       err = prep_directory (d->path,
                             eb->repository,
                             ancestor_path,
@@ -506,7 +506,7 @@ delete (svn_string_t *name, void *parent_baton)
                                   parent_dir_baton->pool);
     if (err)
       return err;
-
+    
     err = svn_wc__run_log (parent_dir_baton->path, parent_dir_baton->pool);
     if (err)
       return err;
@@ -608,7 +608,7 @@ change_dir_prop (void *dir_baton,
     local_value = svn_string_dup (value, db->pool);
   else
     local_value = NULL;
-
+  
   /* Build propchange object */
   propchange = apr_pcalloc (db->pool, sizeof(*propchange));
   propchange->kind = svn_propdelta_dir;
@@ -659,7 +659,7 @@ close_directory (void *dir_baton)
       err = svn_wc__lock (db->path, 0, db->pool);
       if (err)
         return err;
-
+      
       /* Open log file */
       err = svn_wc__open_adm_file (&log_fp,
                                    db->path,
@@ -674,15 +674,15 @@ close_directory (void *dir_baton)
                                        db->propchanges, db->pool,
                                        svn_node_dir,
                                        &entry_accum);
-      if (err)
-        return
+      if (err) 
+        return 
           svn_error_quick_wrap (err, "close_dir: couldn't do prop merge.");
 
       /* Set revision. */
       revision_str = apr_psprintf (db->pool,
                                    "%d",
                                    db->edit_baton->target_revision);
-
+      
       svn_xml_make_open_tag (&entry_accum,
                              db->pool,
                              svn_xml_self_closing,
@@ -692,7 +692,7 @@ close_directory (void *dir_baton)
                              SVN_WC__ENTRIES_ATTR_REVISION,
                              svn_string_create (revision_str, db->pool),
                              NULL);
-
+      
       /* Write our accumulation of log entries into a log file */
       apr_err = apr_full_write (log_fp, entry_accum->data,
                                 entry_accum->len, NULL);
@@ -703,7 +703,7 @@ close_directory (void *dir_baton)
                                     "close_dir: error writing %s's log file",
                                     db->path->data);
         }
-
+      
       /* The log is ready to run, close it. */
       err = svn_wc__close_adm_file (log_fp,
                                     db->path,
@@ -718,7 +718,7 @@ close_directory (void *dir_baton)
 
       /* Unlock, we're done modifying directory props. */
       err = svn_wc__unlock (db->path, db->pool);
-      if (err) return err;
+      if (err) return err;            
     }
 
 
@@ -775,7 +775,7 @@ add_or_replace_file (svn_string_t *name,
                               "%s in directory %s",
                               name->data, parent_dir_baton->path->data);
 
-
+        
   /* Make sure we've got a working copy to put the file in. */
   /* kff todo: need stricter logic here */
   err = svn_wc__check_wc (parent_dir_baton->path, parent_dir_baton->pool);
@@ -815,7 +815,7 @@ replace_file (svn_string_t *name,
 
 
 static svn_error_t *
-apply_textdelta (void *file_baton,
+apply_textdelta (void *file_baton, 
                  svn_txdelta_window_handler_t **handler,
                  void **handler_baton)
 {
@@ -828,9 +828,9 @@ apply_textdelta (void *file_baton,
   hb->source = NULL;
   if (! fb->dir_baton->edit_baton->is_checkout)
     {
-      /*
+      /* 
          kff todo: what we really need to do here is:
-
+         
          1. See if there's a file or dir by this name already here.
          2. See if it's under revision control.
          3. If both are true, open text-base.
@@ -865,14 +865,14 @@ apply_textdelta (void *file_baton,
       apr_destroy_pool (subpool);
       return err;
     }
-
+  
   /* Prepare to apply the delta.  */
   svn_txdelta_apply (read_from_file, hb->source, write_to_file, hb->dest,
                      subpool, &hb->apply_handler, &hb->apply_baton);
-
+  
   hb->pool = subpool;
   hb->fb = fb;
-
+  
   /* We're all set.  */
   *handler_baton = hb;
   *handler = window_handler;
@@ -1016,7 +1016,7 @@ close_file (void *file_baton)
                   <!-- Once everything else is done, we can set F's
                        entry to revision N, changing the ./SVN/entries
                        file. -->
-
+         
          3. Now run over the log file, doing each operation.  Note
             that if an operation appears to have already been done,
             that means it _was_ done, so just count it and move on.
@@ -1032,9 +1032,9 @@ close_file (void *file_baton)
   if (err)
     return err;
 
-  /** Write out the appropriate log entries.
-      This is safe because the adm area is locked right now. **/
-
+  /** Write out the appropriate log entries. 
+      This is safe because the adm area is locked right now. **/ 
+      
   err = svn_wc__open_adm_file (&log_fp,
                                fb->dir_baton->path,
                                SVN_WC__ADM_LOG,
@@ -1045,7 +1045,7 @@ close_file (void *file_baton)
 
   /* kff todo: save *local_changes somewhere, maybe to a tmp file
      in SVN/. */
-
+  
   entry_accum = svn_string_create ("", fb->pool);
 
   if (fb->text_changed)
@@ -1053,7 +1053,7 @@ close_file (void *file_baton)
       enum svn_node_kind wfile_status = svn_node_unknown;
       svn_string_t *tmp_txtb  = svn_wc__text_base_path (fb->name, 1, fb->pool);
       svn_string_t *txtb      = svn_wc__text_base_path (fb->name, 0, fb->pool);
-
+      
       err = svn_io_check_path (fb->path, &wfile_status, fb->pool);
       if (err)
         return err;
@@ -1073,7 +1073,7 @@ close_file (void *file_baton)
           svn_string_t *txtb_full_path
             = svn_wc__text_base_path (fb->path, 0, fb->pool);
           svn_string_t *tmp_loc
-            = svn_wc__adm_path (fb->dir_baton->path, 1, fb->pool,
+            = svn_wc__adm_path (fb->dir_baton->path, 1, fb->pool, 
                                 fb->name->data, NULL);
 
           err = svn_io_open_unique_file (&received_diff_file,
@@ -1092,11 +1092,11 @@ close_file (void *file_baton)
                                           "close_file: error closing %s",
                                           received_diff_file_name->data);
             }
-
+          
           /* kff todo: need to handle non-text formats here, and support
              other merge programs.  And quote the arguments like civilized
              programmers. */
-
+          
           /* Preserve any local modifications:
              diff -u SVN/text-base/F SVN/tmp/text-base/F > SVN/tmp/F.blah.diff
              kff todo: wish diff took a --output option.  Redirection
@@ -1117,7 +1117,7 @@ close_file (void *file_baton)
                tmp_txtb_full_path->data, txtb_full_path->data,
                received_diff_file_name->data);
         }
-
+          
       /* Move new text base over old text base. */
       svn_xml_make_open_tag (&entry_accum,
                              fb->pool,
@@ -1162,7 +1162,7 @@ close_file (void *file_baton)
                                        fb->propchanges, fb->pool,
                                        svn_node_file,
                                        &entry_accum);
-      if (err)
+      if (err) 
         return
           svn_error_quick_wrap (err, "close_file: couldn't do prop merge.");
     }
@@ -1322,7 +1322,7 @@ svn_wc_get_checkout_editor (svn_string_t *dest,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
