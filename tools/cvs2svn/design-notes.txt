@@ -31,7 +31,7 @@ of the RCS file that looks like this:
    branches
    	1.6.2.1;
    next	1.5;
-
+   
    1.5
    date	2002.05.28.18.02.11;	author captnmark;	state Exp;
    branches;
@@ -69,9 +69,9 @@ The fields are:
    4. the revision number
    5. the branch on which this commit happened, or "*" if not on a branch
    6. the number of tags rooted at this revision (followed by their
-        names, space-delimited)
+        names, space-delimited)  
    7. the number of branches rooted at this revision (followed by
-        their names, space-delimited)
+        their names, space-delimited) 
    8. the path of the RCS file in the repository
 
 (Of course, in the above example, fields 6 and 7 are "0", so they have
@@ -275,14 +275,14 @@ An email from John Gardiner Myers <jgmyers@speakeasy.net> about some
 considerations for the tool.
 
 ------
-From: John Gardiner Myers <jgmyers@speakeasy.net>
+From: John Gardiner Myers <jgmyers@speakeasy.net>                     
 Subject: Thoughts on CVS to SVN conversion
-To: gstein@lyra.org
+To: gstein@lyra.org                                  
 Date: Sun, 15 Apr 2001 17:47:10 -0700
 
 Some things you may want to consider for a CVS to SVN conversion utility:
 
-If converting a CVS repository to SVN takes days, it would be good for
+If converting a CVS repository to SVN takes days, it would be good for     
 the conversion utility to keep its progress state on disk.  If the
 conversion fails halfway through due to a network outage or power
 failure, that would allow the conversion to be resumed where it left off
