@@ -2,9 +2,9 @@
 #
 #  local_tests.py:  testing working-copy interactions with ra_local
 #
-#  Subversion is a tool for revision control.
+#  Subversion is a tool for revision control. 
 #  See http://subversion.tigris.org for more information.
-#
+#    
 # ====================================================================
 # Copyright (c) 2000-2001 CollabNet.  All rights reserved.
 #
@@ -19,10 +19,10 @@
 import svn_test_main
 import svn_tree
 
-import shutil
-import string
+import shutil         
+import string        
 import sys
-import os.path
+import os.path       
 
 ######################################################################
 # Globals
@@ -63,7 +63,7 @@ def guarantee_greek_repository(path):
   # If there's no pristine repos, create one.
   if not os.path.exists(pristine_dir):
     svn_test_main.create_repos(pristine_dir)
-
+    
     # dump the greek tree to disk.
     svn_test_main.write_tree(greek_dump_dir,
                              [[x[0], x[1]] for x in svn_test_main.greek_tree])
@@ -88,7 +88,7 @@ def guarantee_greek_repository(path):
       item = [ os.path.join(".", apath), None, {'verb' : 'Adding'}]
       output_list.append(item)
     expected_output_tree = svn_tree.build_generic_tree(output_list)
-
+      
     if svn_tree.compare_trees(output_tree, expected_output_tree):
       print "ERROR:  output of import command is unexpected."
       exit(1)
@@ -174,7 +174,7 @@ def run_and_verify_update(wc_dir_name,
   if status_tree:
     if run_and_verify_status(wc_dir_name, status_tree):
       return 1
-
+  
   return 0
 
 
@@ -184,7 +184,7 @@ def run_and_verify_commit(wc_dir_name, output_tree, status_output_tree,
                           *args):
   """Commit and verify results within working copy WC_DIR_NAME,
   sending ARGS to the commit subcommand.
-
+  
   The subcommand output will be verified against OUTPUT_TREE.  If
   optional STATUS_OUTPUT_TREE is given, then 'svn status' output will
   be compared.  (This is a good way to check that revision numbers
@@ -289,7 +289,7 @@ def duplicate_dir(wc_name, wc_copy_name):
   if os.path.exists(wc_copy_name):
     shutil.rmtree(wc_copy_name)
   shutil.copytree(wc_name, wc_copy_name)
-
+  
 
 
 # A generic starting state for the output of 'svn status'.
@@ -351,14 +351,14 @@ def basic_status():
   expected_output_tree = svn_tree.build_generic_tree(status_list)
 
   return run_and_verify_status (wc_dir, expected_output_tree)
-
+  
 #----------------------------------------------------------------------
 
 def basic_commit():
   "commit '.' in working copy"
 
   wc_dir = os.path.join (general_wc_dir, 'basic_commit')
-
+  
   if make_repo_and_wc('basic_commit'):
     return 1
 
@@ -387,14 +387,14 @@ def basic_commit():
                                 None,
                                 None,
                                 wc_dir)
-
+  
 #----------------------------------------------------------------------
 
 def commit_one_file():
   "commit one file only"
 
   wc_dir = os.path.join (general_wc_dir, 'commit_one_file')
-
+  
   if make_repo_and_wc('commit_one_file'):
     return 1
 
@@ -425,14 +425,14 @@ def commit_one_file():
                                 None,
                                 None,
                                 rho_path)
-
+  
 #----------------------------------------------------------------------
 
 def commit_multiple_targets():
   "commit multiple targets"
 
   wc_dir = os.path.join (general_wc_dir, 'commit_multiple_targets')
-
+  
   if make_repo_and_wc('commit_multiple_targets'):
     return 1
 
@@ -457,7 +457,7 @@ def commit_multiple_targets():
   svn_test_main.run_svn('propset', 'foo', 'bar', ADG_path)
 
   # Created expected output tree for 'svn ci'.  We should see changes
-  # only on these three targets, no others.
+  # only on these three targets, no others.  
   output_list = [ [psi_path, None, {'verb' : 'Changing' }],
                   [lambda_path, None, {'verb' : 'Changing' }],
                   [pi_path, None, {'verb' : 'Changing' }] ]
@@ -484,7 +484,7 @@ def commit_multiple_targets():
                                 None,
                                 None,
                                 psi_path, AB_path, pi_path)
-
+  
 #----------------------------------------------------------------------
 
 
@@ -492,7 +492,7 @@ def commit_multiple_targets_2():
   "commit multiple targets, 2nd variation"
 
   wc_dir = os.path.join (general_wc_dir, 'commit_multiple_targets_2')
-
+  
   if make_repo_and_wc('commit_multiple_targets_2'):
     return 1
 
@@ -517,7 +517,7 @@ def commit_multiple_targets_2():
   svn_test_main.run_svn('propset', 'foo', 'bar', ADG_path)
 
   # Created expected output tree for 'svn ci'.  We should see changes
-  # only on these three targets, no others.
+  # only on these three targets, no others.  
   output_list = [ [psi_path, None, {'verb' : 'Changing' }],
                   [lambda_path, None, {'verb' : 'Changing' }],
                   [omega_path, None, {'verb' : 'Changing' }],
@@ -545,14 +545,14 @@ def commit_multiple_targets_2():
                                 None,
                                 None,
                                 psi_path, AB_path, omega_path, pi_path)
-
+  
 #----------------------------------------------------------------------
 
 def basic_update():
   "update '.' in working copy"
 
   wc_dir = os.path.join (general_wc_dir, 'basic_update')
-
+  
   if make_repo_and_wc('basic_update'):
     return 1
 
@@ -600,7 +600,7 @@ def basic_update():
   # Create expected status tree for the update.
   status_list = get_virginal_status_list(wc_backup, '2')
   expected_status_tree = svn_tree.build_generic_tree(status_list)
-
+  
   # Do the update and check the results in three ways.
   return run_and_verify_update(wc_backup,
                                expected_output_tree,
@@ -612,7 +612,7 @@ def basic_merge():
   "merge into working copy"
 
   wc_dir = os.path.join (general_wc_dir, 'basic_merge')
-
+  
   if make_repo_and_wc('basic_merge'):
     return 1
   # First change the greek tree to make two files 10 lines long
@@ -624,7 +624,7 @@ def basic_merge():
     mu_text = mu_text + '\nThis is line ' + `x` + ' in mu'
     rho_text = rho_text + '\nThis is line ' + `x` + ' in rho'
   svn_test_main.file_append (mu_path, mu_text)
-  svn_test_main.file_append (rho_path, rho_text)
+  svn_test_main.file_append (rho_path, rho_text)  
 
   # Create expected output tree for initial commit
   output_list = [ [mu_path, None, {'verb' : 'Changing' }],
@@ -639,7 +639,7 @@ def basic_merge():
       item[2]['wc_rev'] = '2'
       item[2]['status'] = '_ '
   expected_status_tree = svn_tree.build_generic_tree(status_list)
-
+  
   # Initial commit.
   if run_and_verify_commit (wc_dir, expected_output_tree,
                             expected_status_tree, None, None, wc_dir):
@@ -682,27 +682,27 @@ def basic_merge():
     backup_mu_text = backup_mu_text + '\nThis is line ' + `x` + ' in mu'
   fp_mu.write(backup_mu_text)
   fp_mu.close()
-
+  
   fp_rho = open(rho_path_backup, 'w+') # now open rho in write mode
   backup_rho_text='This is the new line 1 in the backup copy of rho'
   for x in range(2,11):
     backup_rho_text = backup_rho_text + '\nThis is line ' + `x` + ' in rho'
   fp_rho.write(backup_rho_text)
   fp_rho.close()
-
+  
   # Create expected output tree for an update of the wc_backup.
   output_list = [[os.path.join(wc_backup, 'A', 'mu'),
                   None, {'status' : 'G '}],
                  [os.path.join(wc_backup, 'A', 'D', 'G', 'rho'),
                   None, {'status' : 'G '}]]
   expected_output_tree = svn_tree.build_generic_tree(output_list)
-
+  
   # Create expected disk tree for the update.
   my_greek_tree = svn_test_main.copy_greek_tree()
   my_greek_tree[2][1] = 'This is the new line 1 in the backup copy of mu'
   for x in range(2,11):
     my_greek_tree[2][1] = my_greek_tree[2][1] + '\nThis is line ' + `x` + ' in mu'
-  my_greek_tree[2][1] = my_greek_tree[2][1] + ' Appended to line 10 of mu'
+  my_greek_tree[2][1] = my_greek_tree[2][1] + ' Appended to line 10 of mu'  
   my_greek_tree[14][1] = 'This is the new line 1 in the backup copy of rho'
   for x in range(2,11):
     my_greek_tree[14][1] = my_greek_tree[14][1] + '\nThis is line ' + `x` + ' in rho'
@@ -714,9 +714,9 @@ def basic_merge():
   for item in status_list:
     if (item[0] == mu_path_backup) or (item[0] == rho_path_backup):
       item[2]['status'] = 'M '
-  # Some discrepancy here about whether this should be M or G...M for now.
+  # Some discrepancy here about whether this should be M or G...M for now.    
   expected_status_tree = svn_tree.build_generic_tree(status_list)
-
+  
   # Do the update and check the results in three ways.
   return run_and_verify_update(wc_backup,
                                expected_output_tree,
@@ -759,7 +759,7 @@ def basic_conflict():
   "make a conflict in working copy"
 
   wc_dir = os.path.join (general_wc_dir, 'basic_conflict')
-
+  
   if make_repo_and_wc('basic_conflict'):
     return 1
 
@@ -805,7 +805,7 @@ def basic_conflict():
                  [os.path.join(wc_backup, 'A', 'D', 'G', 'rho'),
                    None, {'status' : 'C '}]]
   expected_output_tree = svn_tree.build_generic_tree(output_list)
-
+  
   # Create expected disk tree for the update.
   my_greek_tree = svn_test_main.copy_greek_tree()
   my_greek_tree[2][1] = my_greek_tree[2][1] + '\nConflicting appended text for mu'
@@ -818,7 +818,7 @@ def basic_conflict():
     if (item[0] == mu_path_backup) or (item[0] == rho_path_backup):
       item[2]['status'] = 'C '
   expected_status_tree = svn_tree.build_generic_tree(status_list)
-
+  
   # Do the update and check the results in three ways.
   if run_and_verify_update(wc_backup,
                            expected_output_tree,
@@ -854,7 +854,7 @@ test_list = [ None,
               basic_conflict
              ]
 
-if __name__ == '__main__':
+if __name__ == '__main__':  
   ## And run the main test routine on them:
   err = svn_test_main.client_test(test_list)
   ## Remove all scratchwork: the 'pristine' repository, greek tree, etc.

@@ -215,11 +215,11 @@ svn_fs__append_string_stream (svn_stream_t **stream,
     else
       return err;
   }
-
+  
   baton->fs     = fs;
   baton->key    = key;
   baton->trail  = trail;
-
+  
   svn_stream_set_write (s, string_write);
 
   *stream = s;
@@ -253,7 +253,7 @@ svn_fs__delete_string (svn_fs_t *fs,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
