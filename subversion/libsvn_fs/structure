@@ -47,7 +47,7 @@ numbers.
   node_id ::= number | node_revision_id "." number
   node_revision_id ::= node_id "." number
 
-So:
+So: 
 - "100" is a node id.
 - "100.10" is a node revision id, referring to revision 10 of node 100.
 - "100.10.3" is a node id, referring to the third branch based on
@@ -399,7 +399,7 @@ arrange the nodes for quick traversal, given our access patterns.
 Here's the sort order we use:
 
 - Nodes are sorted by their node number.
-- All the revisions of a given node come together, in order of
+- All the revisions of a given node come together, in order of 
   increasing revision number.
 - All branches off any revision of a node come immediately after that
   node, ordered by increasing revision number.
@@ -470,7 +470,7 @@ Transactions
 
 Every transaction ends when it is either successfully committed, or
 aborted.  We call a transaction which has been either committed or
-aborted "finished", and one which hasn't "unfinished".
+aborted "finished", and one which hasn't "unfinished".  
 
 Transactions are identified by positive decimal numbers, called
 transaction ID's.  To help clients detect when a transaction has been
@@ -506,33 +506,33 @@ Copying
       losing information about where it came from.  Our "lazy cloning"
       model goes a long way, but in the end we get just a bunch of
       duplicated pointers to the same node revision numbers.
-
+   
       E.g.: if a node A points to the same node revision that two others
       (B and C) point to, there's no way to know whether A was copied
       from B or C.
-
+   
    Proposed Changes:
       1.  In the filesystem model, create a 3rd node type called a "copy"
           node.  (This is in addition to our "file" and "dir" nodes.)
-
+   
           A copy node contains a pointer to a revision and a path.
-
+   
           When we create node B as a "copy" of node A, we create a new
           copy node.  This copy node allows us to discover the proper
           node-revision, but it also tracks the history of the copy.
-
+   
       2.  Remember that a copy command is really just an "add with
           history", and a move command is really just a "delete, followed
           by an add with history".  Thus it's the *add* command, which,
           when given an ancestor path and revision, creates a copy node.
           (If there's no history given, then the add command creates a
           regular node.)
-
+   
           For clarity sake, the history arguments to the editor's add()
           function should reflect this copying.  Instead of
           "ancestor_path" and "ancestor_revision", we'd like to call the
           arguments "copyfrom_url" and "copyfrom_revision".
-
+      
    Rationale:
       I think it's all been explained above.  Other folks, feel free to
       add to this explanation.
@@ -659,7 +659,7 @@ nodes-table.c, txn-table.c, rev-table.c
 
 node-rev.c      Creating, reading, and writing node revisions.
                 This will handle delta-based node revision storage,
-                Responsible for consistency of
+                Responsible for consistency of 
 
 dag.c           Operations on the DAG filesystem.  "DAG" because the
                 interface exposes the filesystem's sharing structure.
