@@ -90,17 +90,17 @@ tweak_statushash (void *edit_baton,
   /* {
      apr_hash_index_t *hi;
      char buf[200];
-
+     
      printf("---Tweaking statushash:  editing path `%s'\n", path);
-
-     for (hi = apr_hash_first (pool, statushash);
-     hi;
+     
+     for (hi = apr_hash_first (pool, statushash); 
+     hi; 
      hi = apr_hash_next (hi))
      {
      const void *key;
      void *val;
      apr_ssize_t klen;
-
+         
      apr_hash_this (hi, &key, &klen, &val);
      snprintf(buf, klen+1, (const char *)key);
      printf("    %s\n", buf);
@@ -108,7 +108,7 @@ tweak_statushash (void *edit_baton,
      fflush(stdout);
      }
   */
-
+  
   /* Is PATH already a hash-key? */
   statstruct = (svn_wc_status_t *) apr_hash_get (statushash, path,
                                                  APR_HASH_KEY_STRING);
@@ -116,7 +116,7 @@ tweak_statushash (void *edit_baton,
   if (! statstruct)
     {
       svn_stringbuf_t *pathkey = svn_stringbuf_create (path, pool);
-
+        
       /* Use the public API to get a statstruct: */
       SVN_ERR (svn_wc_status (&statstruct, pathkey, pool));
 
@@ -129,7 +129,7 @@ tweak_statushash (void *edit_baton,
     statstruct->repos_text_status = repos_text_status;
   if (repos_prop_status)
     statstruct->repos_prop_status = repos_prop_status;
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -243,7 +243,7 @@ struct file_baton
 /* Make a file baton, using a new subpool of PARENT_DIR_BATON's pool.
    NAME is just one component, not a path. */
 static struct file_baton *
-make_file_baton (struct dir_baton *parent_dir_baton,
+make_file_baton (struct dir_baton *parent_dir_baton, 
                  const char *path,
                  apr_pool_t *pool)
 {
@@ -251,7 +251,7 @@ make_file_baton (struct dir_baton *parent_dir_baton,
   struct edit_baton *eb = pb->edit_baton;
   struct file_baton *f = apr_pcalloc (pool, sizeof (*f));
   svn_stringbuf_t *full_path = svn_stringbuf_dup (eb->path, pool);
-
+ 
   /* Construct the full path of this directory. */
   if (pb)
     svn_path_add_component_nts (full_path, path);
@@ -273,7 +273,7 @@ make_file_baton (struct dir_baton *parent_dir_baton,
 /*** The callbacks we'll plug into an svn_delta_edit_fns_t structure. ***/
 
 static svn_error_t *
-set_target_revision (void *edit_baton,
+set_target_revision (void *edit_baton, 
                      svn_revnum_t target_revision)
 {
   struct edit_baton *eb = edit_baton;
@@ -376,7 +376,7 @@ change_dir_prop (void *dir_baton,
                  apr_pool_t *pool)
 {
   struct dir_baton *db = dir_baton;
-  if (svn_wc_is_normal_prop (name))
+  if (svn_wc_is_normal_prop (name))    
     db->prop_changed = TRUE;
   return SVN_NO_ERROR;
 }
@@ -405,7 +405,7 @@ close_directory (void *dir_baton)
                                db->path->data,
                                db->text_changed ? svn_wc_status_modified : 0,
                                db->prop_changed ? svn_wc_status_modified : 0));
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -422,7 +422,7 @@ add_file (const char *path,
   struct dir_baton *pb = parent_baton;
   struct file_baton *new_fb = make_file_baton (pb, path, pool);
 
-  /* Mark parent dir as changed */
+  /* Mark parent dir as changed */  
   pb->text_changed = TRUE;
 
   /* Make this file as added. */
@@ -443,7 +443,7 @@ open_file (const char *path,
   struct dir_baton *pb = parent_baton;
   struct file_baton *new_fb = make_file_baton (pb, path, pool);
 
-  /* Mark parent dir as changed */
+  /* Mark parent dir as changed */  
   pb->text_changed = TRUE;
 
   *file_baton = new_fb;
@@ -452,12 +452,12 @@ open_file (const char *path,
 
 
 static svn_error_t *
-apply_textdelta (void *file_baton,
+apply_textdelta (void *file_baton, 
                  svn_txdelta_window_handler_t *handler,
                  void **handler_baton)
 {
   struct file_baton *fb = file_baton;
-
+  
   /* Mark file as having textual mods. */
   fb->text_changed = TRUE;
 
@@ -495,7 +495,7 @@ close_file (void *file_baton)
   if (fb->added)
     SVN_ERR (tweak_statushash (fb->edit_baton,
                                fb->path->data,
-                               svn_wc_status_added,
+                               svn_wc_status_added, 
                                fb->prop_changed ? svn_wc_status_added : 0));
   /* Else, mark the existing file in the statushash. */
   else
@@ -582,9 +582,9 @@ svn_wc_get_status_editor (const svn_delta_editor_t **editor,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
- * end:
+ * end: 
  */
 
