@@ -44,7 +44,7 @@
    *OUTSTR.  Use POOL for all allocations. */
 static void
 append_statuses (svn_stringbuf_t **outstr,
-                 apr_hash_t *statushash,
+                 apr_hash_t *statushash, 
                  apr_pool_t *pool)
 {
   int i;
@@ -85,7 +85,7 @@ append_statuses (svn_stringbuf_t **outstr,
                                      status->prop_status,
                                      status->locked,
                                      status->copied);
-
+  
       /* Write status codes out to FILE. */
       apr_snprintf (array, 128, "SVN:   %s   %s\n", str_status, path);
       svn_stringbuf_appendcstr (*outstr, array);
@@ -121,7 +121,7 @@ init_log_contents (svn_stringbuf_t **outstr,
 
   if (! *outstr)
     *outstr = svn_stringbuf_create ("", pool);
-
+ 
   /* Add the default message to the output. */
   svn_stringbuf_appendcstr (*outstr, default_msg);
 
@@ -183,7 +183,7 @@ strip_ignored_lines (svn_stringbuf_t *log_msg)
                 }
 
               /* Increment EOL past the ... EOL. */
-              eol++;
+              eol++; 
 
               /* The line about to get removed measures from 'prefix'
                  to 'eol'. */
@@ -238,7 +238,7 @@ store_message (svn_stringbuf_t *message,
       printf ("The commit message has been stored in this location:\n%s\n",
               fullfile);
     }
-  else
+  else 
     {
       /* ### todo: Return a proper error message here. */
     }
@@ -261,9 +261,9 @@ query_for_log_message (svn_stringbuf_t **message,
 
   *message = NULL;
   *abort_commit = FALSE;
-
+  
   /* Get the default message. */
-  SVN_ERR (init_log_contents (&default_message, auth_baton, opt_state,
+  SVN_ERR (init_log_contents (&default_message, auth_baton, opt_state, 
                               targets, pool));
 
   /* If we couldn't generate a default message, but no errors occured,
@@ -278,7 +278,7 @@ query_for_log_message (svn_stringbuf_t **message,
   while (! *message)
     {
       svn_stringbuf_t *editor_message = NULL;
-
+      
       /* There was no commit message given anywhere in the command line,
          fire up our favourite editor to get one instead! */
 
@@ -327,7 +327,7 @@ query_for_log_message (svn_stringbuf_t **message,
                   *abort_commit = TRUE;
                   return SVN_NO_ERROR;
                 }
-              else if ('c' == letter)
+              else if ('c' == letter) 
                 break;
 
               /* Anything else will cause a loop and have the editor
@@ -361,7 +361,7 @@ svn_cl__commit (apr_getopt_t *os,
   svn_boolean_t used_editor_for_message = FALSE;
 
   /* Take our message from ARGV or a FILE */
-  if (opt_state->filedata)
+  if (opt_state->filedata) 
     message = opt_state->filedata;
   else
     message = opt_state->message;
@@ -389,7 +389,7 @@ svn_cl__commit (apr_getopt_t *os,
     {
       svn_stringbuf_t *parent_dir, *basename;
 
-      SVN_ERR (svn_wc_get_actual_target (base_dir, &parent_dir,
+      SVN_ERR (svn_wc_get_actual_target (base_dir, &parent_dir, 
                                          &basename, pool));
       if (basename)
         svn_stringbuf_set (base_dir, parent_dir->data);
@@ -409,7 +409,7 @@ svn_cl__commit (apr_getopt_t *os,
   if (! message)
     {
       svn_boolean_t abort_commit = FALSE;
-
+      
       used_editor_for_message = TRUE;
       SVN_ERR (query_for_log_message (&message, &abort_commit,
                                       base_dir, auth_baton, opt_state,
@@ -421,7 +421,7 @@ svn_cl__commit (apr_getopt_t *os,
         }
     }
 
-  SVN_ERR (svn_cl__get_trace_commit_editor
+  SVN_ERR (svn_cl__get_trace_commit_editor 
            (&trace_editor,
             &trace_edit_baton,
             trace_dir,
@@ -436,7 +436,7 @@ svn_cl__commit (apr_getopt_t *os,
   /* Commit. */
   err = svn_client_commit (&commit_info,
                            NULL, NULL,
-                           opt_state->quiet ? NULL : trace_editor,
+                           opt_state->quiet ? NULL : trace_editor, 
                            opt_state->quiet ? NULL : trace_edit_baton,
                            auth_baton,
                            targets,
@@ -463,8 +463,8 @@ svn_cl__commit (apr_getopt_t *os,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../tools/dev/svn-dev.el")
- * end:
+ * end: 
  */
