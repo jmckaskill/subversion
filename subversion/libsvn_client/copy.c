@@ -192,7 +192,29 @@ repos_to_wc_copy (svn_stringbuf_t *src_url,
                   svn_stringbuf_t *message,
                   apr_pool_t *pool)
 {
-  abort();
+  void *ra_baton, *sess, *cb_baton;
+  svn_ra_plugin_t *ra_lib;
+  svn_ra_callbacks_t *ra_callbacks;
+  svn_node_kind_t src_kind;
+
+  /* Get the RA vtable that matches URL. */
+  SVN_ERR (svn_ra_init_ra_libs (&ra_baton, pool));
+  SVN_ERR (svn_ra_get_ra_library (&ra_lib, ra_baton, src_url->data, pool));
+
+  /* Get the client callbacks for auth stuffs. */
+  SVN_ERR (svn_client__get_ra_callbacks (&ra_callbacks, &cb_baton, auth_baton,
+                                         src_url, TRUE, TRUE, pool));
+  SVN_ERR (ra_lib->open (&sess, src_url, ra_callbacks, cb_baton, pool));
+
+  /* Verify that SRC_URL exists in the repository. */
+  SVN_ERR (ra_lib->check_path (&src_kind, sess, "", src_rev));
+  if (src_kind == svn_node_none)
+    return svn_error_createf
+      (SVN_ERR_FS_NOT_FOUND, 0, NULL, pool,
+       "path `%s' does not exist in revision `%ld'", src_url->data, src_rev);
+
+  /* ### todo:  now do a checkout, essentially? */
+
   return SVN_NO_ERROR;
 }
 
