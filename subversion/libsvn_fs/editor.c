@@ -113,14 +113,14 @@ replace_root (void *edit_baton, svn_revnum_t base_revision, void **root_baton)
   err = svn_fs_txn_name (&(eb->txn_name), eb->txn, eb->pool);
   if (err)
     return err;
-
+  
   /* What don't we do?
-   *
+   * 
    * What we don't do is start a single Berkeley DB transaction here,
    * keep it open throughout the entire edit, and then call
    * txn_commit() inside close_edit().  That would result in writers
    * interfering with writers unnecessarily.
-   *
+   * 
    * Instead, we take small steps.  When we clone the root node, it
    * actually gets a new node -- a mutable one -- in the nodes table.
    * If we clone the next dir down, it gets a new node then too.  When
@@ -183,10 +183,10 @@ delete_entry (svn_string_t *name, void *parent_baton)
   struct edit_baton *eb = dirb->edit_baton;
   svn_error_t *err;
   struct deletion_baton delb;
-
+  
   delb.parent = dirb;
   delb.name   = name;
-
+  
   err = svn_fs__retry_txn (eb->fs, delete_name_in_node, &delb, eb->pool);
   if (err)
     return err;
@@ -210,7 +210,7 @@ add_dir_in_node (void *add_baton, trail_t *trail)
 {
   struct addition_baton *add_b = add_baton;
   svn_error_t *err;
-
+  
   err = svn_fs__dag_make_dir (&(add_b->new_node),
                               add_b->parent->node,
                               add_b->name->data,
@@ -234,10 +234,10 @@ add_directory (svn_string_t *name,
   struct dir_baton *new_dirb
     = apr_pcalloc (pb->edit_baton->pool, sizeof (*new_dirb));
   struct addition_baton add_b;
-
+  
   add_b.parent = pb;
   add_b.name = name;
-
+  
   err = svn_fs__retry_txn (pb->edit_baton->fs,
                            add_dir_in_node, &add_b, pb->edit_baton->pool);
   if (err)
@@ -261,7 +261,7 @@ replace_directory (svn_string_t *name,
 {
   struct dir_baton *pb = parent_baton;
   struct dir_baton *dirb = apr_pcalloc (pb->edit_baton->pool, sizeof (*dirb));
-
+  
   dirb->parent = pb;
   dirb->edit_baton = pb->edit_baton;
   dirb->name = svn_string_dup (name, pb->edit_baton->pool);
@@ -441,13 +441,13 @@ svn_fs_get_editor (svn_delta_edit_fns_t **editor,
 
   *edit_baton = eb;
   *editor = e;
-
+  
   return SVN_NO_ERROR;
 }
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
