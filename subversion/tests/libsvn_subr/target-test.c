@@ -56,7 +56,7 @@ int main(int argc, char **argv)
       err = svn_utf_cstring_to_utf8(&path_utf8, argv[i], NULL, pool);
       if (err != SVN_NO_ERROR)
         svn_handle_error(err, stderr, 1);
-      *((const char **)apr_array_push(targets)) =
+      *((const char **)apr_array_push(targets)) = 
         svn_path_internal_style(path_utf8, pool);
     }
 
@@ -87,7 +87,7 @@ int main(int argc, char **argv)
           printf("%s, ", target_native);
         }
       else
-        printf("NULL, ");
+        printf("NULL, "); 
     }
   printf ("\n");
 
