@@ -25,10 +25,10 @@ LIBTOOL = @LIBTOOL@ --silent
 ## Automatic tests run by `make check` -----------------------------
 
 ## A list of test-programs to run.  (Each program contains sub-tests.)
-SVN_TESTS = stringtest hashdump-test
+SVN_TESTS = stringtest hashdump-test 
 
 ## We're overriding automake's own `check' rule, because it's extremely
-## inflexible;  we want better control over automated-test output.
+## inflexible;  we want better control over automated-test output. 
 check:
 	@echo > tests.log
 	@for prog in $(SVN_TESTS); do \

@@ -54,7 +54,7 @@ svn_client_status (apr_hash_t **statushash,
      field is just SVN_INVALID_REVNUM.  */
 
   *statushash = hash;
-
+  
   return SVN_NO_ERROR;
 }
 
