@@ -248,7 +248,7 @@ svn_error_t *svn_ra_open (svn_ra_session_t **session_p,
                                       ra_version->patch, ra_version->tag);
         }
     }
-
+    
   if (vtable == NULL)
     return svn_error_createf (SVN_ERR_RA_ILLEGAL_URL, NULL,
                               _("Unrecognized URL scheme for '%s'"),
@@ -594,7 +594,7 @@ svn_ra_get_ra_library (svn_ra_plugin_t **library,
           return SVN_NO_ERROR;
         }
     }
-
+    
   /* Couldn't find a match... */
   *library = NULL;
   return svn_error_createf (SVN_ERR_RA_ILLEGAL_URL, NULL,
