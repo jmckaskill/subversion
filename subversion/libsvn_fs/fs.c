@@ -2,32 +2,32 @@
  *
  * ================================================================
  * Copyright (c) 2000 Collab.Net.  All rights reserved.
- *
+ * 
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
  * met:
- *
+ * 
  * 1. Redistributions of source code must retain the above copyright
  * notice, this list of conditions and the following disclaimer.
- *
+ * 
  * 2. Redistributions in binary form must reproduce the above copyright
  * notice, this list of conditions and the following disclaimer in the
  * documentation and/or other materials provided with the distribution.
- *
+ * 
  * 3. The end-user documentation included with the redistribution, if
  * any, must include the following acknowlegement: "This product includes
  * software developed by Collab.Net (http://www.Collab.Net/)."
  * Alternately, this acknowlegement may appear in the software itself, if
  * and wherever such third-party acknowlegements normally appear.
- *
+ * 
  * 4. The hosted project names must not be used to endorse or promote
  * products derived from this software without prior written
  * permission. For written permission, please contact info@collab.net.
- *
+ * 
  * 5. Products derived from this software may not use the "Tigris" name
  * nor may "Tigris" appear in their names without prior written
  * permission of Collab.Net.
- *
+ * 
  * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
  * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -41,7 +41,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ====================================================================
- *
+ * 
  * This software consists of voluntary contributions made by many
  * individuals on behalf of Collab.Net.
  */
@@ -133,7 +133,7 @@ cleanup_fs (svn_fs_t *fs)
       db_err = txn_checkpoint (fs->env, 0, 0, 0);
     }
   SVN_ERR (DB_WRAP (fs, "checkpointing environment", db_err));
-
+      
   /* Finally, close the environment.  */
   if (fs->env)
     SVN_ERR (DB_WRAP (fs, "closing environment",
@@ -173,7 +173,7 @@ cleanup_fs_apr (void *data)
 	 prepared to receive it.  Don't overwrite a previously stored
 	 error --- in a cascade, the first message is usually the most
 	 helpful.  */
-      if (fs->cleanup_error
+      if (fs->cleanup_error 
 	  && ! *fs->cleanup_error)
 	*fs->cleanup_error = svn_err;
       else
@@ -182,7 +182,7 @@ cleanup_fs_apr (void *data)
 	   behavior.  I just don't want to throw any information into
 	   the bit bucket.)  */
 	fs->warning (fs->warning_baton, "%s", svn_err->message);
-
+      
       return SVN_ERR_FS_CLEANUP;
     }
 }
@@ -200,7 +200,7 @@ svn_fs_new (apr_pool_t *parent_pool)
   {
     apr_pool_t *pool = svn_pool_create (parent_pool);
 
-    new = NEW (pool, svn_fs_t);
+    new = NEW (pool, svn_fs_t);    
     memset (new, 0, sizeof (*new));
     new->pool = pool;
   }
@@ -237,7 +237,7 @@ svn_fs_close_fs (svn_fs_t *fs)
      pool, so just freeing the pool should shut everything down
      nicely.  But do catch an error, if one occurs.  */
   fs->cleanup_error = &svn_err;
-  apr_destroy_pool (fs->pool);
+  apr_destroy_pool (fs->pool); 
 
   return svn_err;
 }
@@ -282,7 +282,7 @@ svn_fs_create_berkeley (svn_fs_t *fs, const char *path)
   svn_err = DB_WRAP (fs, "creating environment",
 		     fs->env->open (fs->env, path,
 				    (DB_CREATE
-				     | DB_INIT_LOCK
+				     | DB_INIT_LOCK 
 				     | DB_INIT_LOG
 				     | DB_INIT_MPOOL
 				     | DB_INIT_TXN),
@@ -337,7 +337,7 @@ svn_fs_open_berkeley (svn_fs_t *fs, const char *path)
   if (svn_err) goto error;
 
   return 0;
-
+  
  error:
   cleanup_fs (fs);
   return svn_err;
@@ -356,10 +356,10 @@ svn_fs_berkeley_recover (const char *path,
     return svn_fs__dberr (pool, db_err);
 
   /* Here's the comment copied from db_recover.c:
-
+   
      Initialize the environment -- we don't actually do anything
      else, that all that's needed to run recovery.
-
+   
      Note that we specify a private environment, as we're about to
      create a region, and we don't want to to leave it around.  If
      we leave the region around, the application that should create
