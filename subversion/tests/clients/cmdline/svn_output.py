@@ -3,9 +3,9 @@
 #  svn_output.py:  module to parse various kinds of line-oriented output
 #                  from the svn command-line client
 #
-#  Subversion is a tool for revision control.
+#  Subversion is a tool for revision control. 
 #  See http://subversion.tigris.org for more information.
-#
+#    
 # ====================================================================
 # Copyright (c) 2000-2001 CollabNet.  All rights reserved.
 #
