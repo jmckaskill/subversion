@@ -68,6 +68,14 @@ svn_cl__merge (apr_getopt_t *os,
                                          TRUE, /* extract @rev revisions */
                                          pool));
 
+  /* If there are no targets at all, then let's just give the user a
+     friendly help message, rather than spewing an error.  */
+  if (targets->nelts == 0)
+    {
+      return svn_error_create (SVN_ERR_CL_ARG_PARSING_ERROR, 0, 0, pool,
+			       "" /* message is unused */);
+    }
+
   if (using_alternate_syntax)
     {
       if ((targets->nelts < 1) || (targets->nelts > 2))
