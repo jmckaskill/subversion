@@ -209,7 +209,7 @@ txn_body_youngest_rev (void *baton,
           (SVN_ERR_FS_CORRUPT, 0, 0, fs->pool,
            "revision 0 missing from `revisions' table, in filesystem `%s'",
            fs->env_path);
-
+      
       SVN_ERR (DB_WRAP (fs, "getting youngest revision (finding last entry)",
                         db_err));
     }
@@ -240,7 +240,7 @@ svn_fs_youngest_rev (svn_revnum_t *youngest_p,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
