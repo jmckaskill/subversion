@@ -64,11 +64,25 @@ Java_NativeWrapper_entryCreate
   return entry__create(env, NULL);
 }
 
+JNIEXPORT jobject JNICALL
+Java_NativeWrapper_entryCreateFromSvnWcEntryT
+(JNIEnv *env, jclass clazz, jobject entry)
+{
+  misc__throw_exception_by_name(env, "org/tigris/subversion/ToBeDoneException", NULL);
+}
+
 JNIEXPORT void JNICALL
 Java_NativeWrapper_entrySetUrl
 (JNIEnv *env, jclass clazz, jobject entry, jstring url)
 {
   entry__set_url(env, NULL, entry, url);
+}
+
+JNIEXPORT jstring JNICALL
+Java_NativeWrapper_entryGetUrl
+(JNIEnv *env, jclass clazz, jobject entry)
+{
+  return entry__get_url(env, NULL, entry);
 }
 
 JNIEXPORT void JNICALL
@@ -78,11 +92,25 @@ Java_NativeWrapper_entrySetRevision
   entry__set_revision(env, NULL, entry, revision);
 }
 
+JNIEXPORT jobject JNICALL
+Java_NativeWrapper_entryGetRevision
+(JNIEnv *env, jclass clazz, jobject entry)
+{
+  return entry__get_revision(env, NULL, entry);
+}
+
 JNIEXPORT void JNICALL
 Java_NativeWrapper_entrySetKind
 (JNIEnv *env, jclass clazz, jobject entry, jobject kind)
 {
   entry__set_kind(env, NULL, entry, kind);
+}
+
+JNIEXPORT jobject JNICALL
+Java_NativeWrapper_entryGetKind
+(JNIEnv *env, jclass clazz, jobject entry)
+{
+  return entry__get_kind(env, NULL, entry);
 }
 
 JNIEXPORT void JNICALL
@@ -92,11 +120,25 @@ Java_NativeWrapper_entrySetSchedule
   entry__set_schedule(env, NULL, entry, schedule);
 }
 
+JNIEXPORT jobject JNICALL
+Java_NativeWrapper_entryGetSchedule
+(JNIEnv *env, jclass clazz, jobject entry)
+{
+  return entry__get_schedule(env, NULL, entry);
+}
+
 JNIEXPORT void JNICALL
 Java_NativeWrapper_entrySetConflicted
 (JNIEnv *env, jclass clazz, jobject entry, jboolean conflicted)
 {
   entry__set_conflicted(env, NULL, entry, conflicted);
+}
+
+JNIEXPORT jboolean JNICALL
+Java_NativeWrapper_entryGetConflicted
+(JNIEnv *env, jclass clazz, jobject entry)
+{
+  return entry__get_conflicted(env, NULL, entry);
 }
 
 JNIEXPORT void JNICALL
@@ -106,11 +148,25 @@ Java_NativeWrapper_entrySetCopied
   entry__set_copied(env, NULL, entry, copied);
 }
 
+JNIEXPORT jboolean JNICALL
+Java_NativeWrapper_entryGetCopied
+(JNIEnv *env, jclass clazz, jobject entry)
+{
+  return entry__get_copied(env, NULL, entry);
+}
+
 JNIEXPORT void JNICALL
 Java_NativeWrapper_entrySetTexttime
 (JNIEnv *env, jclass clazz, jobject entry, jobject texttime)
 {
   entry__set_texttime(env, NULL, entry, texttime);
+}
+
+JNIEXPORT jobject JNICALL
+Java_NativeWrapper_entryGetTexttime
+(JNIEnv *env, jclass clazz, jobject entry)
+{
+  return entry__get_texttime(env, NULL, entry);
 }
 
 JNIEXPORT void JNICALL
@@ -120,11 +176,25 @@ Java_NativeWrapper_entrySetProptime
   entry__set_proptime(env, NULL, entry, proptime);
 }
 
+JNIEXPORT jobject JNICALL
+Java_NativeWrapper_entryGetProptime
+(JNIEnv *env, jclass clazz, jobject entry)
+{
+  return entry__get_proptime(env, NULL, entry);
+}
+
 JNIEXPORT void JNICALL
 Java_NativeWrapper_entrySetAttributes
 (JNIEnv *env, jclass clazz, jobject entry, jobject attributes)
 {
   entry__set_attributes(env, NULL, entry, attributes);
+}
+
+JNIEXPORT jobject JNICALL
+Java_NativeWrapper_entryGetAttributes
+(JNIEnv *env, jclass clazz, jobject entry)
+{
+  return entry__get_attributes(env, NULL, entry);
 }
 
 JNIEXPORT jobject JNICALL
