@@ -40,7 +40,7 @@ print_dirents (const char *url,
                apr_pool_t *pool)
 {
   apr_hash_index_t *hi;
-
+  
   printf ("%s:\n", url);
 
   for (hi = apr_hash_first (pool, dirents); hi; hi = apr_hash_next (hi))
@@ -50,18 +50,18 @@ print_dirents (const char *url,
       const char *utf8_entryname, *native_entryname;
       const char *native_author, *timestr;
       svn_dirent_t *dirent;
-
+      
       apr_hash_this (hi, &key, NULL, &val);
       utf8_entryname = (const char *) key;
       dirent = (svn_dirent_t *) val;
 
       SVN_ERR (svn_utf_cstring_from_utf8 (&native_entryname,
-                                          utf8_entryname, pool));
+                                          utf8_entryname, pool));      
       SVN_ERR (svn_utf_cstring_from_utf8 (&native_author,
-                                          dirent->last_author, pool));
+                                          dirent->last_author, pool));      
       timestr =  svn_time_to_human_nts (dirent->time, pool);
 
-      printf ("%"SVN_REVNUM_T_FMT" %s %d %ld %s %s%s\n",
+      printf ("%"SVN_REVNUM_T_FMT" %s %d %ld %s %s%s\n", 
               dirent->created_rev,
               dirent->last_author,
               dirent->has_props,
@@ -87,7 +87,7 @@ svn_cl__ls (apr_getopt_t *os,
 
   auth_baton = svn_cl__make_auth_baton (opt_state, pool);
 
-  SVN_ERR (svn_cl__args_to_target_array (&targets, os, opt_state,
+  SVN_ERR (svn_cl__args_to_target_array (&targets, os, opt_state, 
                                          FALSE, pool));
 
   /* For each target, try to list it. */
@@ -97,13 +97,13 @@ svn_cl__ls (apr_getopt_t *os,
       const char *target_native;
       const char *target = ((const char **) (targets->elts))[i];
       SVN_ERR (svn_utf_cstring_from_utf8 (&target_native, target, subpool));
-
+     
       if (! svn_path_is_url (target))
         {
           printf ("Invalid URL: %s\n", target_native);
           continue;
         }
-
+      
       SVN_ERR (svn_client_ls (&dirents, target, &(opt_state->start_revision),
                               auth_baton, subpool));
 
@@ -117,8 +117,8 @@ svn_cl__ls (apr_getopt_t *os,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../tools/dev/svn-dev.el")
- * end:
+ * end: 
  */
