@@ -88,7 +88,7 @@ Run it like so:  ./undeltify.pl REPOS-PATH [START-REV:END_REV] [INCREMENT]
 use strict;
 
 #############################################################################
-#  SETUP
+#  SETUP 
 
 my $svnadmin_cmd = '/home/cmpilato/bin/svnadmin-2092b';
 
@@ -184,7 +184,7 @@ if ($next_arg ne '')
 }
 
 # Validate the input.
-if (($start_rev > $youngest)
+if (($start_rev > $youngest) 
     or ($end_rev > $youngest)
     or ($start_rev < 1)
     or ($end_rev < 1))
