@@ -56,12 +56,12 @@ recursively_tweak_entries (svn_stringbuf_t *dirpath,
   apr_hash_t *entries;
   apr_hash_index_t *hi;
   apr_pool_t *subpool = svn_pool_create (pool);
-
+  
   /* Read DIRPATH's entries. */
   SVN_ERR (svn_wc_entries_read (&entries, dirpath, subpool));
 
   /* Tweak "this_dir" */
-  SVN_ERR (svn_wc__tweak_entry (entries,
+  SVN_ERR (svn_wc__tweak_entry (entries, 
                                 svn_stringbuf_create (SVN_WC_ENTRY_THIS_DIR,
                                                       subpool),
                                 base_url, new_rev, subpool));
@@ -90,19 +90,19 @@ recursively_tweak_entries (svn_stringbuf_t *dirpath,
           child_url = svn_stringbuf_dup (base_url, subpool);
           svn_path_add_component_nts (child_url, name);
         }
-
+      
       /* If a file, tweak the entry. */
       if (current_entry->kind == svn_node_file)
-        SVN_ERR (svn_wc__tweak_entry (entries,
+        SVN_ERR (svn_wc__tweak_entry (entries, 
                                       svn_stringbuf_create (name, subpool),
                                       child_url, new_rev, subpool));
-
+      
       /* If a dir, recurse. */
       else if (current_entry->kind == svn_node_dir)
         {
           svn_stringbuf_t *child_path = svn_stringbuf_dup (dirpath, subpool);
           svn_path_add_component_nts (child_path, name);
-          SVN_ERR (recursively_tweak_entries
+          SVN_ERR (recursively_tweak_entries 
                    (child_path, child_url, new_rev, subpool));
         }
     }
@@ -144,11 +144,11 @@ svn_wc__do_update_cleanup (svn_stringbuf_t *path,
 
   else if (entry->kind == svn_node_dir)
     {
-      if (! recursive)
+      if (! recursive) 
         {
           SVN_ERR (svn_wc_entries_read (&entries, path, pool));
           SVN_ERR (svn_wc__tweak_entry (entries,
-                                        svn_stringbuf_create
+                                        svn_stringbuf_create 
                                           (SVN_WC_ENTRY_THIS_DIR,
                                            pool),
                                         base_url, new_revision, pool));
@@ -192,14 +192,14 @@ svn_wc_set_wc_prop (const char *path,
 
 
 /* Process an absolute PATH that has just been successfully committed.
-
+   
    Specifically, its working revision will be set to NEW_REVNUM;  if
    REV_DATE and REV_AUTHOR are both non-NULL, then three entry values
    will be set (overwritten):  'committed-rev', 'committed-date',
-   'last-author'.
+   'last-author'. 
 
    If RECURSE is true (assuming PATH is a directory), this post-commit
-   processing will happen recursively down from PATH.
+   processing will happen recursively down from PATH. 
 */
 svn_error_t *
 svn_wc_process_committed (svn_stringbuf_t *path,
@@ -226,7 +226,7 @@ svn_wc_process_committed (svn_stringbuf_t *path,
   if (err)
     {
       /* (Ah, PATH must be a file.  So create a logfile in its
-         parent instead.) */
+         parent instead.) */      
 
       svn_error_clear_all (err);
       svn_path_split (path, &log_parent, &basename, pool);
@@ -263,7 +263,7 @@ svn_wc_process_committed (svn_stringbuf_t *path,
 
       tmp_entry.kind = svn_node_dir;
       tmp_entry.revision = new_revnum;
-      SVN_ERR (svn_wc__entry_modify (pdir, basename, &tmp_entry,
+      SVN_ERR (svn_wc__entry_modify (pdir, basename, &tmp_entry, 
                                      SVN_WC__ENTRY_MODIFY_REVISION, pool));
     }
 
@@ -294,7 +294,7 @@ svn_wc_process_committed (svn_stringbuf_t *path,
   svn_xml_make_open_tag (&logtag, pool, svn_xml_self_closing,
                          SVN_WC__LOG_COMMITTED,
                          SVN_WC__LOG_ATTR_NAME, basename,
-                         SVN_WC__LOG_ATTR_REVISION,
+                         SVN_WC__LOG_ATTR_REVISION, 
                          svn_stringbuf_create (revstr, pool),
                          NULL);
 
@@ -305,10 +305,10 @@ svn_wc_process_committed (svn_stringbuf_t *path,
       apr_file_close (log_fp);
       return svn_error_createf (apr_err, 0, NULL, pool,
                                 "process_committed: "
-                                "error writing %s's log file",
+                                "error writing %s's log file", 
                                 path->data);
     }
-
+      
   SVN_ERR (svn_wc__close_adm_file (log_fp, log_parent, SVN_WC__ADM_LOG,
                                    TRUE, /* sync */
                                    pool));
@@ -316,7 +316,7 @@ svn_wc_process_committed (svn_stringbuf_t *path,
 
   /* Run the log file we just created. */
   SVN_ERR (svn_wc__run_log (log_parent, pool));
-
+            
   /* The client's commit routine will take care of removing all
      locks en masse. */
 
@@ -336,32 +336,32 @@ svn_wc_process_committed (svn_stringbuf_t *path,
           void *val;
           const char *name;
           svn_wc_entry_t *current_entry;
-
+          
           apr_hash_this (hi, &key, NULL, &val);
           name = (const char *) key;
           current_entry = (svn_wc_entry_t *) val;
-
+          
           /* Ignore the "this dir" entry. */
           if (! strcmp (name, SVN_WC_ENTRY_THIS_DIR))
             continue;
-
+          
           /* Create child path by telescoping the main path. */
           svn_path_add_component_nts (path, name);
-
+          
           /* Recurse, but only allow further recursion if the child is
              a directory.  */
-          SVN_ERR (svn_wc_process_committed
-                   (path,
+          SVN_ERR (svn_wc_process_committed 
+                   (path, 
                     (current_entry->kind == svn_node_dir) ? TRUE : FALSE,
                     new_revnum, rev_date, rev_author, subpool));
 
           /* De-telescope the path. */
           svn_path_remove_component (path);
-
+          
           svn_pool_clear (subpool);
         }
 
-      svn_pool_destroy (subpool);
+      svn_pool_destroy (subpool); 
    }
 
   return SVN_NO_ERROR;
@@ -392,7 +392,7 @@ remove_file_if_present (svn_stringbuf_t *file, apr_pool_t *pool)
 /* Recursively mark a tree DIR for with a SCHEDULE and/or EXISTENCE
    flag and/or COPIED flag, depending on the state of MODIFY_FLAGS. */
 static svn_error_t *
-mark_tree (svn_stringbuf_t *dir,
+mark_tree (svn_stringbuf_t *dir, 
            apr_uint32_t modify_flags,
            svn_wc_schedule_t schedule,
            svn_boolean_t copied,
@@ -404,7 +404,7 @@ mark_tree (svn_stringbuf_t *dir,
   apr_hash_t *entries;
   apr_hash_index_t *hi;
   svn_stringbuf_t *fullpath = svn_stringbuf_dup (dir, pool);
-  svn_wc_entry_t *entry;
+  svn_wc_entry_t *entry; 
 
   /* Read the entries file for this directory. */
   SVN_ERR (svn_wc_entries_read (&entries, dir, pool));
@@ -424,7 +424,7 @@ mark_tree (svn_stringbuf_t *dir,
       /* Skip "this dir".  */
       if (! strcmp ((const char *)key, SVN_WC_ENTRY_THIS_DIR))
         continue;
-
+          
       basename = svn_stringbuf_create ((const char *) key, subpool);
       svn_path_add_component (fullpath, basename);
 
@@ -437,8 +437,8 @@ mark_tree (svn_stringbuf_t *dir,
 
       /* Mark this entry. */
       entry->schedule = schedule;
-      entry->copied = copied;
-      SVN_ERR (svn_wc__entry_modify (dir, basename, entry,
+      entry->copied = copied; 
+      SVN_ERR (svn_wc__entry_modify (dir, basename, entry, 
                                      modify_flags, pool));
 
       /* Tell someone what we've done. */
@@ -451,13 +451,13 @@ mark_tree (svn_stringbuf_t *dir,
       /* Clear our per-iteration pool. */
       svn_pool_clear (subpool);
     }
-
+  
   /* Handle "this dir" for states that need it done post-recursion. */
   entry = apr_hash_get (entries, SVN_WC_ENTRY_THIS_DIR, APR_HASH_KEY_STRING);
   entry->schedule = schedule;
   entry->copied = copied;
   SVN_ERR (svn_wc__entry_modify (dir, NULL, entry, modify_flags, pool));
-
+  
   /* Destroy our per-iteration pool. */
   svn_pool_destroy (subpool);
   return SVN_NO_ERROR;
@@ -480,7 +480,7 @@ svn_wc_delete (svn_stringbuf_t *path,
     return svn_error_createf
       (SVN_ERR_ENTRY_NOT_FOUND, 0, NULL, pool,
        "'%s' does not appear to be under revision control", path->data);
-
+    
   if (entry->kind == svn_node_dir)
     {
       /* Special case, delete of a newly added dir. */
@@ -512,7 +512,7 @@ svn_wc_delete (svn_stringbuf_t *path,
       svn_path_split (path, &dir, &basename, pool);
       if (svn_path_is_empty (dir))
         svn_stringbuf_set (dir, ".");
-
+      
       entry->schedule = svn_wc_schedule_delete;
       SVN_ERR (svn_wc__entry_modify (dir, basename, entry,
                                      SVN_WC__ENTRY_MODIFY_SCHEDULE, pool));
@@ -555,7 +555,7 @@ svn_wc_add (svn_stringbuf_t *path,
   svn_boolean_t is_replace = FALSE;
   enum svn_node_kind kind;
   apr_uint32_t modify_flags = 0;
-
+  
   /* Make sure something's there. */
   SVN_ERR (svn_io_check_path (path->data, &kind, pool));
   if (kind == svn_node_none)
@@ -576,7 +576,7 @@ svn_wc_add (svn_stringbuf_t *path,
     {
       if ((! copyfrom_url) && (orig_entry->schedule != svn_wc_schedule_delete))
         {
-          return svn_error_createf
+          return svn_error_createf 
             (SVN_ERR_ENTRY_EXISTS, 0, NULL, pool,
              "'%s' is already under revision control", path->data);
         }
@@ -586,7 +586,7 @@ svn_wc_add (svn_stringbuf_t *path,
              replacements where the node kind changes.  When this
              happens, svn_wc_revert() needs to learn how to revert
              this situation.  */
-          return svn_error_createf
+          return svn_error_createf 
             (SVN_ERR_UNSUPPORTED_FEATURE, 0, NULL, pool,
              "Could not replace '%s' with a node of a differing type"
              " -- try committing your deletion first and then re-adding '%s'",
@@ -595,7 +595,7 @@ svn_wc_add (svn_stringbuf_t *path,
       if (orig_entry->schedule == svn_wc_schedule_delete)
         is_replace = TRUE;
     }
-
+    
   /* Split off the basename from the parent directory. */
   svn_path_split (path, &parent_dir, &basename, pool);
   if (svn_path_is_empty (parent_dir))
@@ -623,7 +623,7 @@ svn_wc_add (svn_stringbuf_t *path,
 
   /* Now, add the entry for this item to the parent_dir's
      entries file, marking it for addition. */
-  SVN_ERR (svn_wc__entry_modify (parent_dir, basename, &tmp_entry,
+  SVN_ERR (svn_wc__entry_modify (parent_dir, basename, &tmp_entry, 
                                  modify_flags, pool));
 
 
@@ -650,7 +650,7 @@ svn_wc_add (svn_stringbuf_t *path,
           SVN_ERR (svn_wc_prop_set (SVN_PROP_MIME_TYPE, &mt_str, path->data,
                                     pool));
         }
-    }
+    }  
   else /* scheduling a directory for addition */
     {
       svn_wc_entry_t *p_entry;
@@ -659,22 +659,22 @@ svn_wc_add (svn_stringbuf_t *path,
       /* Get the entry for this directory's parent.  We need to snatch
          the ancestor path out of there. */
       SVN_ERR (svn_wc_entry (&p_entry, parent_dir, pool));
-
+  
       /* Derive the parent path for our new addition here. */
       p_path = svn_stringbuf_dup (p_entry->url, pool);
       svn_path_add_component (p_path, basename);
-
+  
       /* Make sure this new directory has an admistrative subdirectory
          created inside of it */
       SVN_ERR (svn_wc__ensure_adm (path, p_path, 0, pool));
-
+      
       /* We're making the same mods we made above, but this time we'll
          force the scheduling. */
       modify_flags |= SVN_WC__ENTRY_MODIFY_FORCE;
-      tmp_entry.schedule = is_replace
-                           ? svn_wc_schedule_replace
+      tmp_entry.schedule = is_replace 
+                           ? svn_wc_schedule_replace 
                            : svn_wc_schedule_add;
-      SVN_ERR (svn_wc__entry_modify (path, NULL, &tmp_entry,
+      SVN_ERR (svn_wc__entry_modify (path, NULL, &tmp_entry, 
                                      modify_flags, pool));
 
       if (copyfrom_url)
@@ -719,7 +719,7 @@ svn_wc_add (svn_stringbuf_t *path,
 }
 
 
-/* Thoughts on Reversion.
+/* Thoughts on Reversion. 
 
     What does is mean to revert a given PATH in a tree?  We'll
     consider things by their modifications.
@@ -777,7 +777,7 @@ revert_error (svn_error_t *err,
               const char *verb,
               apr_pool_t *pool)
 {
-  return svn_error_quick_wrap
+  return svn_error_quick_wrap 
     (err, apr_psprintf (pool, "revert: error %s for `%s'", verb, path->data));
 }
 
@@ -807,10 +807,10 @@ revert_admin_things (svn_stringbuf_t *parent_dir,
     svn_path_add_component (fullpath, name);
 
   /* Check for prop changes. */
-  SVN_ERR (svn_wc_props_modified_p (&modified_p, fullpath, pool));
+  SVN_ERR (svn_wc_props_modified_p (&modified_p, fullpath, pool));  
   if (modified_p)
     {
-      SVN_ERR (svn_wc__prop_path (&thing, fullpath, 0, pool));
+      SVN_ERR (svn_wc__prop_path (&thing, fullpath, 0, pool)); 
       SVN_ERR (svn_wc__prop_base_path (&pthing, fullpath, 0, pool));
 
       /* If there is a pristing property file, copy it out as the
@@ -854,9 +854,9 @@ revert_admin_things (svn_stringbuf_t *parent_dir,
           const char *eol;
           pthing = svn_wc__text_base_path (fullpath, 0, pool);
 
-          SVN_ERR (svn_wc__get_eol_style
+          SVN_ERR (svn_wc__get_eol_style 
                    (&eol_style, &eol, fullpath->data, pool));
-          SVN_ERR (svn_wc__get_keywords
+          SVN_ERR (svn_wc__get_keywords 
                    (&keywords, fullpath->data, NULL, pool));
 
           /* When copying the text-base out to the working copy, make
@@ -879,11 +879,11 @@ revert_admin_things (svn_stringbuf_t *parent_dir,
     }
 
   /* Remove conflict state (and conflict files), if any. */
-  if (entry->prejfile || entry->conflict_old
+  if (entry->prejfile || entry->conflict_old 
       || entry->conflict_new || entry->conflict_wrk)
     {
       svn_stringbuf_t *rmfile;
-
+    
       /* Handle the three possible text conflict files. */
       if (entry->conflict_old)
         {
@@ -892,7 +892,7 @@ revert_admin_things (svn_stringbuf_t *parent_dir,
           SVN_ERR (remove_file_if_present (rmfile, pool));
           *modify_flags |= SVN_WC__ENTRY_MODIFY_CONFLICT_OLD;
         }
-
+    
       if (entry->conflict_new)
         {
           rmfile = svn_stringbuf_dup (parent_dir, pool);
@@ -900,7 +900,7 @@ revert_admin_things (svn_stringbuf_t *parent_dir,
           SVN_ERR (remove_file_if_present (rmfile, pool));
           *modify_flags |= SVN_WC__ENTRY_MODIFY_CONFLICT_NEW;
         }
-
+    
       if (entry->conflict_wrk)
         {
           rmfile = svn_stringbuf_dup (parent_dir, pool);
@@ -908,7 +908,7 @@ revert_admin_things (svn_stringbuf_t *parent_dir,
           SVN_ERR (remove_file_if_present (rmfile, pool));
           *modify_flags |= SVN_WC__ENTRY_MODIFY_CONFLICT_WRK;
         }
-
+    
       /* Remove the prej-file if the entry lists one (and it exists) */
       if (entry->prejfile)
         {
@@ -939,13 +939,13 @@ svn_wc_revert (svn_stringbuf_t *path,
   /* Safeguard 1:  is this a versioned resource? */
   SVN_ERR (svn_wc_entry (&entry, path, pool));
   if (! entry)
-    return svn_error_createf
+    return svn_error_createf 
       (SVN_ERR_ENTRY_NOT_FOUND, 0, NULL, pool,
        "Cannot revert '%s' -- not a versioned resource", path->data);
 
   /* Safeguard 2:  can we handle this node kind? */
   if ((entry->kind != svn_node_file) && (entry->kind != svn_node_dir))
-    return svn_error_createf
+    return svn_error_createf 
       (SVN_ERR_UNSUPPORTED_FEATURE, 0, NULL, pool,
        "Cannot revert '%s' -- unsupported entry node kind", path->data);
 
@@ -955,9 +955,9 @@ svn_wc_revert (svn_stringbuf_t *path,
   if ((kind != svn_node_none)
       && (kind != svn_node_file)
       && (kind != svn_node_dir))
-    return svn_error_createf
+    return svn_error_createf 
       (SVN_ERR_UNSUPPORTED_FEATURE, 0, NULL, pool,
-       "Cannot revert '%s' -- unsupported node kind in working copy",
+       "Cannot revert '%s' -- unsupported node kind in working copy", 
        path->data);
 
   /* Determine if PATH is a WC root.  If PATH is a file, it should
@@ -976,15 +976,15 @@ svn_wc_revert (svn_stringbuf_t *path,
     {
       /* Remove the item from revision control. */
       if (entry->kind == svn_node_dir)
-        SVN_ERR (svn_wc_remove_from_revision_control
-                 (path,
+        SVN_ERR (svn_wc_remove_from_revision_control 
+                 (path, 
                   svn_stringbuf_create (SVN_WC_ENTRY_THIS_DIR, pool),
                   FALSE, pool));
       else
-        SVN_ERR (svn_wc_remove_from_revision_control (p_dir, bname,
+        SVN_ERR (svn_wc_remove_from_revision_control (p_dir, bname, 
                                                       FALSE, pool));
 
-      /* Recursivity is taken care of by svn_wc_remove_from_revision_control,
+      /* Recursivity is taken care of by svn_wc_remove_from_revision_control, 
          and we've definitely reverted PATH at this point. */
       recursive = FALSE;
       reverted = TRUE;
@@ -995,15 +995,15 @@ svn_wc_revert (svn_stringbuf_t *path,
     {
       /* Revert the prop and text mods (if any). */
       if (entry->kind == svn_node_file)
-        SVN_ERR (revert_admin_things (p_dir, bname, entry, &modify_flags,
+        SVN_ERR (revert_admin_things (p_dir, bname, entry, &modify_flags, 
                                       pool));
       if (entry->kind == svn_node_dir)
-        SVN_ERR (revert_admin_things (path, NULL, entry, &modify_flags,
+        SVN_ERR (revert_admin_things (path, NULL, entry, &modify_flags, 
                                       pool));
     }
 
   /* Deletions and replacements. */
-  else if ((entry->schedule == svn_wc_schedule_delete)
+  else if ((entry->schedule == svn_wc_schedule_delete) 
            || (entry->schedule == svn_wc_schedule_replace))
     {
       /* Revert the prop and text mods (if any). */
@@ -1034,15 +1034,15 @@ svn_wc_revert (svn_stringbuf_t *path,
       entry->prejfile = NULL;
       if (! wc_root)
         SVN_ERR (svn_wc__entry_modify (p_dir, bname, entry,
-                                       modify_flags
+                                       modify_flags 
                                        | SVN_WC__ENTRY_MODIFY_FORCE,
                                        pool));
 
       /* For directories, reset the schedule to normal in the
          directory itself. */
-      if (entry->kind == svn_node_dir)
+      if (entry->kind == svn_node_dir) 
         SVN_ERR (svn_wc__entry_modify (path, NULL, entry,
-                                       SVN_WC__ENTRY_MODIFY_SCHEDULE
+                                       SVN_WC__ENTRY_MODIFY_SCHEDULE 
                                        | SVN_WC__ENTRY_MODIFY_PREJFILE
                                        | SVN_WC__ENTRY_MODIFY_FORCE,
                                        pool));
@@ -1069,7 +1069,7 @@ svn_wc_revert (svn_stringbuf_t *path,
           const char *keystring;
           apr_ssize_t klen;
           void *val;
-
+          
           /* Get the next entry */
           apr_hash_this (hi, &key, &klen, &val);
           keystring = (const char *) key;
@@ -1089,7 +1089,7 @@ svn_wc_revert (svn_stringbuf_t *path,
           svn_stringbuf_set (full_entry_path, path->data);
         }
     }
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -1105,7 +1105,7 @@ svn_wc_get_pristine_copy_path (svn_stringbuf_t *path,
 
 
 svn_error_t *
-svn_wc_remove_from_revision_control (svn_stringbuf_t *path,
+svn_wc_remove_from_revision_control (svn_stringbuf_t *path, 
                                      svn_stringbuf_t *name,
                                      svn_boolean_t destroy_wf,
                                      apr_pool_t *pool)
@@ -1120,7 +1120,7 @@ svn_wc_remove_from_revision_control (svn_stringbuf_t *path,
 
   /* NAME is either a file's basename or SVN_WC_ENTRY_THIS_DIR. */
   is_file = (strcmp (name->data, SVN_WC_ENTRY_THIS_DIR)) ? TRUE : FALSE;
-
+      
   if (is_file)
     {
       svn_path_add_component (full_path, name);
@@ -1188,12 +1188,12 @@ svn_wc_remove_from_revision_control (svn_stringbuf_t *path,
          the top of the wc. */
       SVN_ERR (svn_wc_entries_read (&entries, parent_dir, pool));
       svn_wc__entry_remove (entries, basename);
-      SVN_ERR (svn_wc__entries_write (entries, parent_dir, pool));
-
+      SVN_ERR (svn_wc__entries_write (entries, parent_dir, pool));      
+      
       /* Recurse on each file and dir entry. */
       SVN_ERR (svn_wc_entries_read (&entries, path, subpool));
-
-      for (hi = apr_hash_first (subpool, entries);
+      
+      for (hi = apr_hash_first (subpool, entries); 
            hi;
            hi = apr_hash_next (hi))
         {
@@ -1201,14 +1201,14 @@ svn_wc_remove_from_revision_control (svn_stringbuf_t *path,
           apr_ssize_t klen;
           void *val;
           svn_stringbuf_t *current_entry_name;
-          svn_wc_entry_t *current_entry;
-
+          svn_wc_entry_t *current_entry; 
+          
           apr_hash_this (hi, &key, &klen, &val);
           current_entry = (svn_wc_entry_t *) val;
           if (! strcmp ((const char *)key, SVN_WC_ENTRY_THIS_DIR))
             current_entry_name = NULL;
           else
-            current_entry_name = svn_stringbuf_create((const char *)key,
+            current_entry_name = svn_stringbuf_create((const char *)key, 
                                                       subpool);
 
           if (current_entry->kind == svn_node_file)
@@ -1248,7 +1248,7 @@ svn_wc_remove_from_revision_control (svn_stringbuf_t *path,
       /* Remove the entire administrative .svn area, thereby removing
          _this_ dir from revision control too. */
       SVN_ERR (svn_wc__adm_destroy (path, subpool));
-
+      
       /* If caller wants us to recursively nuke everything on disk, go
          ahead, provided that there are no dangling local-mod files
          below */
@@ -1285,7 +1285,7 @@ attempt_deletion (svn_stringbuf_t *parent_dir,
 {
   svn_stringbuf_t *full_path = svn_stringbuf_dup (parent_dir, pool);
   svn_path_add_component (full_path, basename);
-
+ 
   return remove_file_if_present (full_path, pool);
 }
 
@@ -1329,13 +1329,13 @@ svn_wc_resolve_conflict (svn_stringbuf_t *path,
   if (notify_func)
     {
       /* Sanity check:  see if libsvn_wc *still* thinks this item is in a
-         state of conflict.  If not, report the successful resolution.  */
+         state of conflict.  If not, report the successful resolution.  */     
       SVN_ERR (svn_wc_conflicted_p (&text_conflict, &prop_conflict,
                                     parent, entry, pool));
       if ((! text_conflict) && (! prop_conflict))
         (*notify_func) (notify_baton, svn_wc_notify_resolve, path->data);
     }
-
+          
   return SVN_NO_ERROR;
 }
 
@@ -1382,13 +1382,13 @@ svn_wc_set_auth_file (svn_stringbuf_t *path,
                                    pool));
 
   status = apr_file_write_full (fp, contents->data, contents->len, &sz);
-  if (status)
+  if (status) 
     return svn_error_createf (status, 0, NULL, pool,
                               "error writing to auth file '%s' in '%s'",
                               filename, path->data);
 
   SVN_ERR (svn_wc__close_auth_file (fp, path, file, TRUE /* sync */, pool));
-
+  
   if (recurse)
     {
       /* Loop over PATH's entries, and recurse into directories. */
@@ -1406,16 +1406,16 @@ svn_wc_set_auth_file (svn_stringbuf_t *path,
           void *val;
 
           apr_hash_this (hi, &key, &keylen, &val);
-          basename = (const char *) key;
+          basename = (const char *) key;          
           entry = (svn_wc_entry_t *) val;
 
           if ((entry->kind == svn_node_dir)
               && (strcmp (basename, SVN_WC_ENTRY_THIS_DIR)))
-            {
-              svn_stringbuf_t *childpath;
-
+            {              
+              svn_stringbuf_t *childpath; 
+              
               childpath = svn_stringbuf_dup (path, pool);
-              svn_path_add_component (childpath,
+              svn_path_add_component (childpath, 
                                       svn_stringbuf_create (basename, pool));
 
               SVN_ERR (svn_wc_set_auth_file (childpath, TRUE,
@@ -1432,7 +1432,7 @@ svn_wc_set_auth_file (svn_stringbuf_t *path,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end:

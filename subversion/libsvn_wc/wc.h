@@ -39,7 +39,7 @@
 /** File comparisons **/
 
 /* Set *SAME to non-zero if file1 and file2 have the same contents,
-   else set it to zero.
+   else set it to zero. 
 
    Note: This probably belongs in the svn_io library, however, it
    shares some private helper functions with other wc-specific
@@ -57,9 +57,9 @@ svn_error_t *svn_wc__files_contents_same_p (svn_boolean_t *same,
  * BASE_FILE alone (as though BASE_FILE were a text-base file, which
  * it usually is, only sometimes we're calling this on incoming
  * temporary text-bases).
- *
+ * 
  * If an error is returned, the effect on *MODIFIED_P is undefined.
- *
+ * 
  * Use POOL for temporary allocation.
  */
 svn_error_t *svn_wc__versioned_file_modcheck (svn_boolean_t *modified_p,
@@ -70,7 +70,7 @@ svn_error_t *svn_wc__versioned_file_modcheck (svn_boolean_t *modified_p,
 
 /* A special timestamp value which means "use the timestamp from the
    working copy".  This is sometimes used in a log entry like:
-
+   
    <modify-entry name="foo.c" revision="5" timestamp="working"/>
 
  */
@@ -83,7 +83,7 @@ svn_error_t *svn_wc__versioned_file_modcheck (svn_boolean_t *modified_p,
 /* Create DIR as a working copy directory. */
 /* ### This function hasn't been defined nor completely documented
    yet, so I'm not sure whether the "ancestor" arguments are really
-   meant to be urls and should be changed to "url_*".  -kff */
+   meant to be urls and should be changed to "url_*".  -kff */ 
 svn_error_t *svn_wc__set_up_new_dir (svn_stringbuf_t *path,
                                      svn_stringbuf_t *ancestor_path,
                                      svn_revnum_t ancestor_revnum,
@@ -253,7 +253,7 @@ void svn_wc__strip_entry_prefix (svn_stringbuf_t *name);
 
 /* Newline and keyword translation properties */
 
-/* Valid states for 'svn:eol-style' property.
+/* Valid states for 'svn:eol-style' property.  
    Property nonexistence is equivalent to 'none'. */
 enum svn_wc__eol_style
 {
@@ -329,7 +329,7 @@ svn_error_t *svn_wc__get_keywords (svn_wc_keywords_t **keywords,
  * contain more information than humans want, for example
  *
  *   "Mon 28 Jan 2002 16:17:09.777994 (day 028, dst 0, gmt_off -21600)"
- *
+ *   
  * would be converted to
  *
  *   "Mon 28 Jan 2002 16:17:09"
@@ -338,7 +338,7 @@ svn_string_t *svn_wc__friendly_date (const char *date, apr_pool_t *pool);
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end:
