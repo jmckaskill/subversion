@@ -2,9 +2,9 @@
 #
 #  local_tests.py:  testing working-copy interactions with ra_local
 #
-#  Subversion is a tool for revision control.
+#  Subversion is a tool for revision control. 
 #  See http://subversion.tigris.org for more information.
-#
+#    
 # ====================================================================
 # Copyright (c) 2000-2001 CollabNet.  All rights reserved.
 #
@@ -19,9 +19,9 @@
 import svn_test_main
 import svn_tree
 
-import shutil
-import string
-import os.path
+import shutil         
+import string        
+import os.path       
 
 ######################################################################
 # Globals
@@ -62,7 +62,7 @@ def guarantee_greek_repository(path):
   # If there's no pristine repos, create one.
   if not os.path.exists(pristine_dir):
     svn_test_main.create_repos(pristine_dir)
-
+    
     # dump the greek tree to disk.
     svn_test_main.write_tree(greek_dump_dir,
                              [[x[0], x[1]] for x in svn_test_main.greek_tree])
@@ -88,7 +88,7 @@ def guarantee_greek_repository(path):
       item = [ os.path.join(".", apath), None, {'verb' : 'Adding'}]
       output_list.append(item)
     expected_output_tree = svn_tree.build_generic_tree(output_list)
-
+      
     if svn_tree.compare_trees(output_tree, expected_output_tree):
       print "ERROR:  output of import command is unexpected."
       exit(1)
@@ -135,7 +135,7 @@ def run_and_verify_checkout(URL, wc_dir_name, output_tree, disk_tree):
 
 def run_and_verify_commit(wc_dir_name, output_tree, status_output_tree=None):
   """Commit any pending changes in WC_DIR_NAME.
-
+  
   The subcommand output will be verified against OUTPUT_TREE.  If
   optional STATUS_OUTPUT_TREE is given, then 'svn status' output will
   be compared.  (This is a good way to check that revision numbers
@@ -274,14 +274,14 @@ def basic_status():
   expected_output_tree = svn_tree.build_generic_tree(status_list)
 
   return run_and_verify_status (wc_dir, expected_output_tree)
-
+  
 #----------------------------------------------------------------------
 
 def basic_commit():
   "basic commit"
 
   wc_dir = os.path.join (general_wc_dir, 'basic-commit')
-
+  
   if make_repo_and_wc('basic-commit'):
     return 1
 
@@ -307,12 +307,12 @@ def basic_commit():
   return run_and_verify_commit (wc_dir,
                                 expected_output_tree,
                                 expected_status_tree)
-
+  
 #----------------------------------------------------------------------
 
 
 
-
+  
 ########################################################################
 ## List all tests here, starting with None:
 test_list = [ None,
@@ -321,7 +321,7 @@ test_list = [ None,
               basic_commit
              ]
 
-if __name__ == '__main__':
+if __name__ == '__main__':  
   ## And run the main test routine on them:
   svn_test_main.client_test(test_list)
   ## Remove all scratchwork: the 'pristine' repository, greek tree, etc.
