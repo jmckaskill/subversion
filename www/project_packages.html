@@ -7,6 +7,25 @@
     questions can be answered by reading the <a
     href="http://svnbook.red-bean.com">Subversion Book</a>.</p>
 
+<center>
+<TABLE BORDER="0" CELLPADDING="2" WIDTH="98%" BGCOLOR="white">
+<TR>
+<TD WIDTH="100%" BGCOLOR="yellow">
+<font color="red">
+<b>
+Note: binary packages are usually available about a week after
+Subversion source releases.  If you're looking for Subversion 1.0
+binaries, you might not yet find them below.  Instead, you might find
+Subversion 0.37, which was the last release before 1.0.  In this case,
+we recommend either grabbing <a href="getting_subversion.html">the 1.0
+source release</a>, or checking back for binary packages a bit later.
+</b>
+</font>
+</TD>
+</TR>
+</table>
+</center>
+
 <hr/>
 
 <h2><img src="images/src-pkg.png"/>Source Code</h2>
@@ -15,8 +34,8 @@
 href="http://subversion.tigris.org/servlets/ProjectDocumentList?folderID=260">
 in this directory</a>, in the file-sharing area of the Subversion
 website.  Be sure to read the <a
-href="http://subversion.tigris.org/getting_subversion.html">general
-instructions</a> for building from the source tarball, and the <a
+href="getting_subversion.html">general instructions</a> for building
+from the source tarball, and the <a
 href="http://svn.collab.net/repos/svn/trunk/INSTALL">specific
 instructions</a> within the source code itself.</p>
 
@@ -31,13 +50,16 @@ instructions</a> within the source code itself.</p>
 <p><em>Maintainer: <a href="mailto:david@summersoft.fay.ar.us">David Summers</a></em></p>
 
 <p>RPMs for Redhat 7.X (i386): <a href=
-"http://summersoft.fay.ar.us/pub/subversion/i386/subversion-latest/redhat-7.x/">http://summersoft.fay.ar.us/pub/subversion/i386/subversion-latest/redhat-7.x/</a></p>
+"http://summersoft.fay.ar.us/pub/subversion/latest/redhat-7.x/bin">http://summersoft.fay.ar.us/pub/subversion/latest/redhat-7.x/bin</a></p>
 
 <p>RPMs for Redhat 8.0 (i386): <a href=
-"http://summersoft.fay.ar.us/pub/subversion/i386/subversion-latest/redhat-8.0/">http://summersoft.fay.ar.us/pub/subversion/i386/subversion-latest/redhat-8.0/</a></p>
+"http://summersoft.fay.ar.us/pub/subversion/latest/redhat-8.0/bin">http://summersoft.fay.ar.us/pub/subversion/latest/redhat-8.0/bin</a></p>
 
 <p>RPMs for Redhat 9.0 (i386): <a href=
-"http://summersoft.fay.ar.us/pub/subversion/i386/subversion-latest/redhat-9.0/">http://summersoft.fay.ar.us/pub/subversion/i386/subversion-latest/redhat-9.0/</a></p>
+"http://summersoft.fay.ar.us/pub/subversion/latest/redhat-9.0/bin">http://summersoft.fay.ar.us/pub/subversion/latest/redhat-9.0/bin</a></p>
+
+<p>RPMs for Fedora Core 1 (i386): <a href=
+"http://summersoft.fay.ar.us/pub/subversion/latest/fedora/bin">http://summersoft.fay.ar.us/pub/subversion/latest/fedora/bin</a></p>
 
 <hr/>
 
@@ -74,7 +96,7 @@ href="http://www.suse.de/en/private/download/ftp/int_mirrors.html">http://www.su
 <h2><img src="images/bsddaemon.png"/>FreeBSD</h2>
 
 <p><em>Maintainer:
-<a href="mailta:rodrigc@attbi.com">Craig Rodrigues</a></em></p>
+<a href="mailto:lev@freebsd.org">Lev Serebryakov</a></em></p>
 
 <p>Information about the latest port can be found here:<a
 href="http://www.freebsd.org/cgi/cvsweb.cgi/ports/devel/subversion/">http://www.freebsd.org/cgi/cvsweb.cgi/ports/devel/subversion/</a>.
@@ -82,6 +104,25 @@ href="http://www.freebsd.org/cgi/cvsweb.cgi/ports/devel/subversion/">http://www.
 
 <p>Assuming your ports tree is up-to-date, just 'cd
 /usr/ports/devel/subversion; make install'.</p>
+
+<hr/>
+
+<h2><img src="images/bsddaemon.png"/>pkgsrc ({Net,Open,Free}BSD, Linux, Solaris, etc.)</h2>
+
+<p><em>Maintainer:
+<a href="mailto:epg@NetBSD.org">Eric Gillespie</a></em></p>
+
+<p><a
+href="http://www.NetBSD.org/Documentation/software/packages.html">pkgsrc</a>
+is the cross-platform package system used by the NetBSD project,
+originally derived from FreeBSD ports.</a>
+
+<p>Information about the latest package can be found here:<a
+href="http://cvsweb.netbsd.org/bsdweb.cgi/pkgsrc/devel/subversion/">http://cvsweb.netbsd.org/bsdweb.cgi/pkgsrc/devel/subversion/</a>.
+</p>
+
+<p>Assuming your pkgsrc tree is up-to-date, just 'cd
+/usr/pkgsrc/devel/subversion; make install clean'.</p>
 
 <hr/>
 

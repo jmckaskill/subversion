@@ -12,14 +12,14 @@
     belongs to CollabNet.</a></li>
 <li><a href="#stable">Is Subversion stable enough for me to use for my
     own projects?</a></li>
-<li><a href="#interop">What is Subversion's pre-1.0 interoperability
+<li><a href="#interop">What is Subversion's client/server interoperability
     policy?</a></li>
 <li><a href="#portability">What operating systems does Subversion run
     on?</a></li>
 <li><a href="#filesystem">What's all this about a new filesystem?  Is
     it like ext2?</a></li>
 <li><a href="#apache-extension">I heard that Subversion is an Apache
-    extension?</a></li>
+    extension?  What does it use for servers?</a></li>
 <li><a href="#need-apache">Does this mean I have to set up Apache to
     use Subversion?</a></li>
 <li><a href="#multiple-apachim">I run Apache 1.x right now, and can't
@@ -59,8 +59,10 @@
     sometimes talk about when upgrading a Subversion server?</a></li>
 <li><a href="#sspi">How do I allow clients to authenticate against a
     Windows domain controller using SSPI Authentication?</a></li>
-<li><a href="#deltification">How do I enable repository deltification,
-    and why?</a></li>
+<li><a href="#adm-dir">I don't like the ".svn" directory name, and
+    prefer "SVN" or something else.  How do I change it?</a></li>
+<li><a href="#case-change">I checked in a file but had the wrong case
+    in the filename.  How do I change it?</a></li>
 <p>
 <strong>Troubleshooting:</strong>
 </p>
@@ -105,7 +107,12 @@ a <tt>file:</tt> URL?</a></li>
 <li><a href="#301-error">I can see my repository in a web browser, but
     'svn checkout' gives me an error about "301 Moved Permanently".
     What's wrong?</a></li>
-<li><a href="#no-copy-history">I'm trying to look at an old version of my file, but svn says something about "path not found".  What's going on?</a></li>
+<li><a href="#no-copy-history">I'm trying to look at an old version of my
+    file, but svn says something about "path not found".  What's going
+    on?</a></li>
+<li><a href="#digest-auth">Why doesn't HTTP Digest auth work?</a></li>
+<li><a href="#xlc-compile">Compiling with xlc on AIX, I get compilation
+    errors.  What's wrong?</a></li>
 
 
 
@@ -161,68 +168,35 @@ CollabNet or anyone else is required.</p>
 <h3><a name="stable">Is Subversion stable enough for me to use for my
 own projects?</a></h3>
 
-<p><b>We think so!</b> Subversion has small bugs here and there, but
-is more than reliable enough for real use.  If it were any other
-project, it probably would have been declared "1.0" long ago; but
-because it's version-control software, we're being extra paranoid
-about labeling.</b></p>
+<p>Yes, absolutely.  It's ready for prime-time production.</p>
 
-<ul>
-
-<li>We believe that Subversion is stable and have confidence in our
-code, in fact, we've been self-hosting since September of 2001--eating
-our own caviar so to speak. We declared "beta" because we're ready for
-the world to try Subversion.</li>
-
-<li>After over two years of self-hosting, we haven't lost any data
-at all.</li>
-
-<li>Lots of people are already using Subversion in production,
-and are having great results.  See the <a href="svn-repositories.html">svn
-repositories</a> list for just a few examples.</li>
-
-<li>The repository db schema is stable now and it is extremely
-unlikely that it will undergo any more schema changes before 1.0.
-(See the question '<a href="#dumpload">What is this "dump/load cycle"
-people sometimes talk about when upgrading a Subversion server?</a>'
-for more about schema changes.)</li>
-
-<li>In order to make Subversion as stable as possible, we need more
-people to use Subversion. If you use Subversion on a day-to-day basis,
-you can help us find and fix any bugs that might turn up.</li>
-
-<li>For many more reasons, read the feature list on the <a
-href="http://subversion.tigris.org/">Subversion home page</a>.
- </li>
-
-</ul>
-
-<p><font color="red"><b>WARNING</b></font>: while Subversion is
-definitely <i>reliable</i>, the API and protocols still change from
-release to release, so it would be wrong to say it is <i>stable</i>.
-That's why it's still Beta sofware.  This means that if you depend on
-Subversion, you should <b>not</b> be using whatever binary packages
-ship in your distribution, they are most likely months old, and will
-no longer interoperate with modern clients or servers.  The developers
-release every month or so, and won't accept bug reports on old releases!</p>
-
-<p>What does this mean to you?  It means that if you depend on
-Subversion before it hits 1.0, you should <b>always</b> use the latest
-release, even if it means building from source.  This requires
-diligence: subscribe to the dev list, notice when new releases come
-out, and upgrade.  If you don't do this, you may (one day)
-accidentally discover that your clients and servers no longer
-<a href="#interop">interoperate.</a></p>
+<p>Subversion has been in development since 2000, and became
+self-hosting after one year.  A year later when we declared "alpha",
+Subversion was already being used by dozens of private developers and
+shops for real work.  After that, it was two more years of bugfixing
+and stabilization until we reached 1.0.  Most other projects probably
+would have called the product "1.0" much earlier, but we deliberately
+decided to delay that label as long as possible.  We were aware that
+many people were waiting for a 1.0 before using Subversion, and had
+very specific expectations about the meaning of that label. So we
+stuck to that same standard.</p>
 
 
 <![CDATA[-----------------------------------------------------------]]>
 
-<h3><a name="interop">What is Subversion's pre-1.0 interoperability
-    policy?</h3>
+<h3><a name="interop">What is Subversion's client/server
+    interoperability policy?</h3>
 
-<p>The client and server are designed to work as long as they aren't
- more than one major release version apart.  (For example, a 0.25.X
- client will talk to a 0.24.X or 0.26.X server.)</p>
+<p>For pre-1.0 releases of Subversion (which you shouldn't be using
+ anymore!), the client and server are designed to work as long as they
+ aren't more than one major release version apart.  (For example, a
+ 0.25.X client will talk to a 0.24.X or 0.26.X server.)</p>
+
+<p>Now that Subversion is beyond the 1.0 milestone, client/server
+ interoperability policy is documented in the "Compatibility" section
+ of the <a
+ href="http://svn.collab.net/repos/svn/trunk/HACKING">HACKING
+ file</a>.</p>
 
 <![CDATA[-----------------------------------------------------------]]>
 
@@ -233,12 +207,12 @@ accidentally discover that your clients and servers no longer
 
 <p>Subversion is written in ANSI C and uses APR, the <a
 href="http://apr.apache.org">Apache Portable Runtime</a> library, as a
-portability layer.  Although the Subversion client will compile
-anywhere APR does, the Subversion server depends on <a
-href="http://www.sleepycat.com">Berkeley DB</a> (as well as Apache
-2.X, but Apache is as portable as APR).  In theory Berkeley DB is
-portable to most of those platforms as well (except Win95/Win98, where
-it's known not to work due to shared-memory segment problems).</p>
+portability layer.  The Subversion client will run anywhere APR runs,
+which is most places.  The Subversion server (i.e., the repository
+side) is the same, except that it will not work on Win9x platforms
+(Win95/Win98/WinME), because it depends on <a
+href="http://www.sleepycat.com">Berkeley DB</a>, which has
+shared-memory segment problems on Win9x.</p>
 
 <![CDATA[-----------------------------------------------------------]]>
 
@@ -258,18 +232,18 @@ versions of files and directories are saved.</p>
 <![CDATA[-----------------------------------------------------------]]>
 
 <h3><a name="apache-extension">I heard that Subversion is an Apache
-extension?</a></h3>
+extension?  What does it use for servers?</a></h3>
 
-<p>No.  Subversion is a set of libraries.  It comes with a command-line
-client that uses them.  The Subversion <i>server</i> is Apache + <a
-href="http://www.webdav.org/mod_dav">mod_dav</a> + mod_dav_svn, and
-the last module uses the Subversion libraries to speak to a
-repository.  For more information about how Subversion uses WebDAV as
-its network protocol, see our <a
-href="http://subversion.tigris.org/servlets/ProjectDocumentList">docs.</a>
-Also, as an alternative to Apache, you can use a small standalone
-Subversion server process.  This will allow you to tunnel a custom
-protocol over ssh.</p>
+<p>No.  Subversion is a set of libraries.  It comes with a
+command-line client that uses them.  There are two different
+Subversion server processes: either <b>svnserve</b>, which is small
+standalone program similar to cvs pserver, or Apache <b>httpd-2.0</b>
+using a special <b>mod_dav_svn</b> module.  <b>svnserve</b> speaks a
+custom protocol, while <b>mod_dav_svn</b> uses WebDAV as its network
+protocol.  See <a
+href="http://svnbook.red-bean.com/html-chunk/ch06.html">chapter 6</a>
+in the Subversion book to learn more.</p>
+
 
 <![CDATA[-----------------------------------------------------------]]>
 
@@ -280,12 +254,14 @@ use Subversion?</a></h3>
 
 <p>The long answer:  if you just want to access a repository, then you
  only need to build a Subversion client.  If you want to <b>host</b> a
- networked repository, then you either need to set up Apache2 or use
- our standalone server process over ssh.</p>
+ networked repository, then you need to set up either Apache2 or an
+ "svnserve" server.</p>
 
 <p>For more details about setting up a network accessible Subversion
-server, please read our <a
-href="http://svn.collab.net/repos/svn/trunk/INSTALL">INSTALL</a> document.</p>
+server, see <a
+href="http://svnbook.red-bean.com/html-chunk/ch06.html">chapter 6</a>
+in the Subversion book.</p>
+
 
 <![CDATA[-----------------------------------------------------------]]>
 
@@ -293,13 +269,18 @@ href="http://svn.collab.net/repos/svn/trunk/INSTALL">INSTALL</a> document.</p>
 switch to Apache 2.0 just to serve Subversion repositories.
 Does that mean I can't run a Subversion server?</a></h3>
 
-<p> Don't worry, you can run Apache 2.0 on a different port, while
-continuing to run Apache 1.x on port 80.  Different versions of Apache
-can happily coexist on the same machine.  Just change the
-<tt>Listen</tt> directive in httpd.conf from "<tt>Listen&nbsp;80</tt>"
-to "<tt>Listen&nbsp;8080</tt>" or whatever port number you want, and
-make sure to specify that port when you publish your repository URL
-(e.g., <tt>http://svn.mydomain.com:8080/repos/blah/trunk/</tt>).</p>
+<p>No, you can run <b>svnserve</b> as a Subversion server.  It works
+extremely well.</p>
+
+<p>If you want WebDAV and all the other "goodies" that come with the
+Apache server, then yes, you'll need Apache 2.0.  It's always an
+option to run Apache 2.0 on a different port while continuing to run
+Apache 1.x on port 80.  Different versions of Apache can happily
+coexist on the same machine.  Just change the <tt>Listen</tt>
+directive in httpd.conf from "<tt>Listen&nbsp;80</tt>" to
+"<tt>Listen&nbsp;8080</tt>" or whatever port number you want, and make
+sure to specify that port when you publish your repository URL (e.g.,
+<tt>http://svn.mydomain.com:8080/repos/blah/trunk/</tt>).</p>
 
 <![CDATA[-----------------------------------------------------------]]>
 
@@ -348,8 +329,7 @@ name="more-information"> information?</a></h3>
 <p>Please send your questions or concerns to the Subversion Users <a
 href="mailto:users@subversion.tigris.org">mailing list</a>.  Alternatively,
 several Subversion users and developers can usually be contacted via IRC on
-channel #svn on <a
-href="http://www.openprojects.net">irc.openprojects.net</a>.</p>
+channel #svn on <a href="http://www.freenode.net">irc.freenode.net</a>.</p>
 
 <![CDATA[=========================================================]]>
 
@@ -380,22 +360,50 @@ href="http://svn.collab.net/repos/svn/trunk/README">
 http://svn.collab.net/repos/svn/trunk/README</a>;  specifically, look
 at section IV, the "Quickstart Guide".</p>
 
+<p>For even more detail, read chapter 5 in <a
+ href="http://svnbook.red-bean.com">The Subversion Book</a>.</p>
+
+
 <![CDATA[-----------------------------------------------------------]]>
 
 <h3><a name="cvs2svn">How do I convert an existing CVS repository
     into a Subversion repository?</a></h3>
 
-We are currently working on a script to convert CVS repositories to
-Subversion--It's called <a
-href="http://svn.collab.net/repos/svn/trunk/tools/cvs2svn/cvs2svn.py">cvs2svn.py</a>.
+<p>We are currently working on a script to convert CVS repositories to
+Subversion -- it's in the Subversion tree in <a
+href="http://svn.collab.net/repos/svn/trunk/tools/cvs2svn/">tools/cvs2svn/</a>.
 Note that it is <b>still under development</b>, so only use it on a
 copy of your CVS repository and <b>double check your results</b>. Be
 sure to read the <a
-href="http://svn.collab.net/repos/svn/trunk/tools/cvs2svn/README">README</a>
-for cvs2svn. <p>
+href="http://svn.collab.net/repos/svn/trunk/tools/cvs2svn/README">README</a>.
+</p>
 
-cvs2svn.py will be completed and well tested for Subversion's 1.0
-release, but for now, use it with caution.
+<p>If cvs2svn.py does not work for you, (e.g. your repository
+causes it to crash, or it doesn't deal with branches and tags
+quite how you would like), there are at least two other
+conversion utilities you can try.  These have different features
+(and possibly different bugs):</p>
+
+<ul>
+
+<li>One based on <a
+href="http://public.perforce.com/public/revml/index.html">VCP</a>
+written by Chia-liang Kao can be found <a
+href="http://svn.clkao.org/revml/branches/svn-perl/"
+      >http://svn.clkao.org/revml/branches/svn-perl/</a>.
+<br/>
+(Documentation at <a
+href="http://svn.clkao.org/revml/branches/svn-perl/lib/VCP/Dest/svn.pm"
+>http://svn.clkao.org/revml/branches/svn-perl/lib/VCP/Dest/svn.pm</a>.)</li>
+
+<li>refinecvs written by Lev Serebryakov is at <a
+href="http://lev.serebryakov.spb.ru/refinecvs/"
+>http://lev.serebryakov.spb.ru/refinecvs/</a>.</li>
+
+</ul>
+
+<p>See also the <a href="project_links.html">Subversion links</a>
+page.</p>
 
 
 <![CDATA[-----------------------------------------------------------]]>
@@ -469,20 +477,27 @@ schema is supported by running <tt>svn --version</tt>.</p>
 <h3><a name="paranoid"/>My admins don't want me to have a HTTP server for
     Subversion.  What can I do if I still want remote usage?</h3>
 
+<p>A simple opton is to use the <b>svnserve</b> server instead of
+Apache.  See <a
+href="http://svnbook.red-bean.com/html-chunk/ch06.html">chapter 6</a>
+in the Subversion book for details.</p>
+
+<p>However, if your admins don't want you to run Apache, it's very
+likely they don't want you to run a custom server process on port 3690
+either!  So the rest of this answer assumes that your admins
+<i>are</i> okay you using an existing SSH infrastructure.</p>
+
 <p>If you previously used CVS, you may have used SSH to login to the
-CVS server.  The ra_svn Subversion access method is the equivalent way of doing
-this with Subversion.  Just use the "svn+ssh" prefix to your Subversion
-repository URL.
+CVS server.  The ra_svn Subversion access method is the equivalent way
+of doing this with Subversion.  Just use the "svn+ssh" prefix to your
+Subversion repository URL.</p>
 <pre>
 $ svn checkout svn+ssh://your.domain.com/full/path/to/repository
 </pre>
-</p>
 
-<p>The preferred solution would be to use ra_dav combined
-with an Apache HTTP server configured with mod_ssl and appropriate
-authentication support.  This should provide enough security for most
-users.  However, we realize that there are places that do not allow
-adding servers of any kind with external connectivity.</p>
+<p>This makes your SSH program launch a private 'svnserve' process on
+the remote box, which accesses the repository as your UID and tunnels
+the information back over the encrypted link.</p>
 
 <p>However, another solution that can be used instead is to leverage
 SSH port forwarding to connect to the protected server via ra_dav.
@@ -631,10 +646,12 @@ equivalent to CVS modules:
 
 <h3><a name="nfs">Should I store my repository on a NFS server?</a></h3>
 
-<p>In general, no.  Berkeley DB does not <a
-href="http://www.sleepycat.com/docs/ref/env/remote.html">support storage of
-databases on remote file systems</a>.  Some NFS servers claim that they
-explicitly support use of BDB on NFS-mounted partitions.  Caveat emptor.</p>
+<p>No, don't ever do that.  Berkeley DB does not <a
+href="http://www.sleepycat.com/docs/ref/env/remote.html">support
+storage of databases on remote file systems</a>.  Some NFS servers
+claim that they explicitly support use of BDB on NFS-mounted
+partitions, but we've only ever seen BDB databases get corrupted when
+living on an NFS or SMB network drive.</p>
 
 <p>A working copy, however, <b>can</b> be stored on a NFS server (i.e.
 your home directory is on a NFS server).  On Linux NFS servers, due to the
@@ -745,7 +762,9 @@ href="http://subversion.tigris.org/issues/show_bug.cgi?id=516">issue
 
 <p>In the meantime, your only recourse is to <b>svnadmin dump</b> your
 repository, then pipe the dumpfile through <b>svndumpfilter</b>
-(excluding the bad path) into an <b>svnadmin load</b> command.</p>
+(excluding the bad path) into an <b>svnadmin load</b> command.  See <a
+href="http://svnbook.red-bean.com/html-chunk/ch05.html">chapter 5</a>
+of the Subversion book for details about this.</p>
 
 
 <![CDATA[=========================================================]]>
@@ -903,47 +922,69 @@ the credentials.</p>
 
 <![CDATA[=========================================================]]>
 
-<h3><a name="deltification">How do I enable repository deltification,
-    and why?</h3>
+<h3><a name="adm-dir">I don't like the ".svn" directory name, and
+    prefer "SVN" or something else.  How do I change it?</h3>
 
-<p>The simple answer is, deltification can make your repository take
-up less space, and you should set it up by putting a line like this in
-your <tt>REPOSITORY/hooks/post-commit</tt> file:</p>
+<p>We recommend that you live with ".svn" if you possibly can.  If you
+use some other name, your working copy may not work with Subversion
+clients other than the one you regularly use.  However, if you
+absolutely must, you can simply change this line in
+<tt>subversion/include/svn_wc.h</tt> from </p>
+
+<p><pre>
+#define SVN_WC_ADM_DIR_NAME   ".svn"
+</pre></p>
 
 <p>
+to
+</p>
+
+<p><pre>
+#define SVN_WC_ADM_DIR_NAME   "SVN"
+</pre></p>
+
+<p>
+then recompile your client.
+</p>
+
+<![CDATA[=========================================================]]>
+
+<h3><a name="case-change">I checked in a file but had the wrong case
+    in the filename.  How do I change it?</h3>
+
+<p>If you're adding files on an operating system with a case-insensitive
+filesystem, such as Windows, you might find you accidentally add a file
+with the wrong case in the filename.  You can correct this by copying
+the file somewhere temporary, deleting the file from Subversion, then
+adding the copy with the correct case, or by performing a move
+operation with Subversion URLs.  Using URLs is recommended, because it
+will preserve history for the file, and will take effect immediately.</p>
+
+<p>Both fixes will leave Windows working copies with problems,
+because Windows can still get confused when trying to add the file with
+the new case.  One way of fixing the problem is to delete your working
+copy and check out again.  If this is not possible, you must perform a
+two step update.</p>
+
+<p>
+For each file with the wrong the case, do:
+<pre>svn mv svn://svnserver/path/to/file.java svn://svnserver/path/to/File.java</pre>
+</p>
+
+<p>
+Then for each working copy, change to the relevant directory and do:
 <pre>
-   nice -2 /path/to/installed/svnadmin deltify "$REPOS" -r "$REV" &
+svn update *
+svn update
 </pre>
+The first update will remove <tt>file.java</tt> from your working copy,
+the second update will add <tt>File.java</tt>, leaving you with a
+correct working copy.
 </p>
 
-<p>(The above example is for Unix, Windows would be different.)</p>
-
-<p>The long answer is a bit more complex.  If you do deltification,
-you'll also want to clean up repository db logfiles on a regular
-basis, otherwise deltification won't result in any actual space
-savings.  See "<a href="#bdblogs">Why is my repository taking up so
-much disk space?</a>" to learn how to clean up Berkeley DB logfiles.
-</p>
-
-<p>For general information about deltification, see:</p>
-
-<p>
-<blockquote>
-<a href="http://subversion.tigris.org/servlets/ReadMsg?list=users&msgNo=2946"
-  >http://subversion.tigris.org/servlets/ReadMsg?list=users&msgNo=2946</a>
-</blockquote>
-</p>
-
-<p>For more on the current deltification situation, and our long term
-plan to improve it, see:</p>
-
-<p>
-<blockquote>
-<a href="http://subversion.tigris.org/servlets/ReadMsg?list=dev&msgNo=49401"
-  >http://subversion.tigris.org/servlets/ReadMsg?list=dev&msgNo=49401</a>
-</blockquote>
-</p>
-
+<p>As you can see, adding a file with the wrong case is tricky to fix on
+an operating system that has a case insensitive filesystem.  Do try to
+get it right when you add the file the first time!</p>
 
 <![CDATA[=========================================================]]>
 
@@ -1321,9 +1362,9 @@ areas already exported as normal web shares.</p>
 
 <![CDATA[-----------------------------------------------------------]]>
 
-<h3><a name="no-copy-history">I'm trying to look at an old version of
-my file, but svn says something about "path not found".  What's going
-on?</a></h3>
+<h3><a name="no-copy-history">I'm trying to look at an old version of my
+    file, but svn says something about "path not found".  What's going
+    on?</a></h3>
 
 <p>A nice feature of Subversion is that the repository understands
 copies and renames, and preserves the historical connections.  For
@@ -1369,6 +1410,34 @@ svn: '/branches/mybranch/fooc..c' not found in the repository at revision 1000
 $ svn diff -r1000:2000 http://host/repos/trunk/foo.c
 ...
 </pre>
+
+<![CDATA[-----------------------------------------------------------]]>
+
+<h3><a name="digest-auth">Why doesn't HTTP Digest auth work?</a></h3>
+
+<p>This is probably due to a known bug in Apache HTTP Server, for
+which a patch is available, see
+<a href="http://nagoya.apache.org/bugzilla/show_bug.cgi?id=25040"
+   >http://nagoya.apache.org/bugzilla/show_bug.cgi?id=25040</a>.  You
+may also want to read over
+<a href="http://subversion.tigris.org/issues/show_bug.cgi?id=1608"
+   >http://subversion.tigris.org/issues/show_bug.cgi?id=1608</a>
+to see if the description there matches your symptoms.
+</p>
+
+<![CDATA[-----------------------------------------------------------]]>
+
+<h3><a name="xlc-compile">Compiling with xlc on AIX, I get compilation
+    errors.  What's wrong?</a></h3>
+
+<p>Adding <tt>-qlanglvl=extended</tt> to the
+environment variable CFLAGS for configuration and build
+will make xlc a bit more flexible and the code should
+compile without error.  See
+<a href="http://www.contactor.se/~dast/svn/archive-2004-01/0922.shtml"
+>http://www.contactor.se/~dast/svn/archive-2004-01/0922.shtml</a> and
+its associated thread for more details.
+</p>
 
 
 <![CDATA[=========================================================]]>
@@ -1469,7 +1538,7 @@ he can check the RFC's for further information.
 <p>Throughout subversion's source code there are many references to
 'baton' objects.  These are just <pre>void *</pre> datastructures that
 provide context to a function.  In other APIs, they're often called
-<pre>void *ctx</pre> or <pre>void *userdata</pre>.  Subversion
+<pre>void *ctx</pre> or <pre>void *userdata</pre>  Subversion
 developers call the structures "batons" because they're passed around
 quite a bit.</p>
 
