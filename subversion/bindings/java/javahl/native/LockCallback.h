@@ -27,7 +27,7 @@
 #endif // _MSC_VER > 1000
 #include <jni.h>
 
-class LockCallback
+class LockCallback  
 {
 public:
     LockCallback(jobject jcallback);
