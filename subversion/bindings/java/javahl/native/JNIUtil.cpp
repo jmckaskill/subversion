@@ -65,7 +65,7 @@ std::ofstream JNIUtil::g_logStream;
  */
 bool JNIUtil::JNIInit(JNIEnv *env)
 {
-    // the main part of this method has to be run only once during the run a
+    // the main part of this method has to be run only once during the run a 
     // programm
     static bool run = false;
     if(run) // already run
@@ -84,7 +84,7 @@ bool JNIUtil::JNIInit(JNIEnv *env)
         }
 
         // delete all finalized, but not yet deleted objects
-        for(std::list<SVNBase*>::iterator it = g_finalizedObjects.begin();
+        for(std::list<SVNBase*>::iterator it = g_finalizedObjects.begin(); 
             it != g_finalizedObjects.end(); it++)
         {
             delete *it;
@@ -94,9 +94,9 @@ bool JNIUtil::JNIInit(JNIEnv *env)
         return true;
     }
     run = true;
-    // do not run this part more than one time.
+    // do not run this part more than one time. 
     // this leaves a small time window when two threads create their first
-    // SVNClient & SVNAdmin at the same time, but I do not see a better
+    // SVNClient & SVNAdmin at the same time, but I do not see a better 
     // option without APR already initialized
     if(g_inInit)
     {
@@ -213,7 +213,7 @@ bool JNIUtil::JNIInit(JNIEnv *env)
 
     // we use the default directory for config files
     // this can be changed later
-    svn_error_t *err = svn_config_ensure (NULL, g_pool);
+    svn_error_t *err = svn_config_ensure (NULL, g_pool); 
     if (err)
     {
         svn_pool_destroy (g_pool);
@@ -334,14 +334,14 @@ void JNIUtil::handleSVNError(svn_error_t *err)
         svn_error_clear(err);
         return;
     }
-    jmethodID mid = env->GetMethodID(clazz, "<init>",
+    jmethodID mid = env->GetMethodID(clazz, "<init>", 
         "(Ljava/lang/String;Ljava/lang/String;I)V");
     if(isJavaExceptionThrown())
     {
         svn_error_clear(err);
         return;
     }
-    jobject error = env->NewObject(clazz, mid, jmessage, jfile,
+    jobject error = env->NewObject(clazz, mid, jmessage, jfile, 
         static_cast<jint>(err->apr_err));
     svn_error_clear(err);
     if(isJavaExceptionThrown())
@@ -399,7 +399,7 @@ void JNIUtil::handleAPRError(int error, const char *op)
     {
         return;
     }
-    apr_snprintf(buffer, formatBufferSize,
+    apr_snprintf(buffer, formatBufferSize, 
         _("an error occurred in function %s with return value %d"),
         op, error);
 
@@ -471,7 +471,7 @@ bool JNIUtil::isJavaExceptionThrown()
  * @param txt   native UTF-8 string
  * @return the java string. It is a local reference, which should be deleted
  *         as soon a possible
- */
+ */ 
 jstring JNIUtil::makeJString(const char *txt)
 {
     if(txt == NULL) // NULL string can be converted to a null java string
@@ -496,7 +496,7 @@ void JNIUtil::setExceptionThrown()
     JNIThreadData *data = JNIThreadData::getThreadData();
     data->m_exceptionThrown = true;
 }
-/**
+/** 
  * initialite the log file
  * @param level the log level
  * @param the name of the log file
@@ -557,7 +557,7 @@ void JNIUtil::logMessage(const char *message)
 /**
  * create a java.util.Date object from an apr time
  * @param time  the apr time
- * @return the java.util.Date. This is a local reference. Delete as soon as
+ * @return the java.util.Date. This is a local reference. Delete as soon as 
  *          possible
  */
 jobject JNIUtil::createDate(apr_time_t time)
@@ -590,9 +590,9 @@ jobject JNIUtil::createDate(apr_time_t time)
     }
     return ret;
 }
-/**
- * Return the request pool. The request pool will be destroyed after each
- * request (call)
+/** 
+ * Return the request pool. The request pool will be destroyed after each 
+ * request (call) 
  * @return the pool to be used for this request
  */
 Pool * JNIUtil::getRequestPool()
@@ -636,7 +636,7 @@ jbyteArray JNIUtil::makeJByteArray(const signed char *data, int length)
         return NULL;
     }
 
-    // copy the bytes
+    // copy the bytes 
     memcpy(retdata, data, length);
 
     // release the bytes
@@ -648,7 +648,7 @@ jbyteArray JNIUtil::makeJByteArray(const signed char *data, int length)
     return ret;
 }
 /**
- * build the error message from the svn error into buffer. This method calls
+ * build the error message from the svn error into buffer. This method calls 
  * itselft recursivly for all the chained errors
  *
  * @param err               the subversion error
@@ -657,8 +657,8 @@ jbyteArray JNIUtil::makeJByteArray(const signed char *data, int length)
  * @param buffer            the buffer where the formated error message will
  *                          be stored
  */
-void JNIUtil::assembleErrorMessage(svn_error_t *err, int depth,
-                                   apr_status_t parent_apr_err,
+void JNIUtil::assembleErrorMessage(svn_error_t *err, int depth, 
+                                   apr_status_t parent_apr_err, 
                                    std::string &buffer)
 {
     // buffer for a single error message
