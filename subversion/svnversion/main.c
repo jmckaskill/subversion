@@ -26,7 +26,7 @@
  * is the trailing portion of the trunk URL.  The version number is written
  * to standard output.  Here is an example
  *
- *   $ svnversion . /repos/svn/trunk
+ *   $ svnversion . /repos/svn/trunk 
  *   4168
  *
  * The version number will be a single number if the working copy is single
