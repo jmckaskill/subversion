@@ -2,32 +2,32 @@
  *
  * ================================================================
  * Copyright (c) 2000 Collab.Net.  All rights reserved.
- *
+ * 
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
  * met:
- *
+ * 
  * 1. Redistributions of source code must retain the above copyright
  * notice, this list of conditions and the following disclaimer.
- *
+ * 
  * 2. Redistributions in binary form must reproduce the above copyright
  * notice, this list of conditions and the following disclaimer in the
  * documentation and/or other materials provided with the distribution.
- *
+ * 
  * 3. The end-user documentation included with the redistribution, if
  * any, must include the following acknowlegement: "This product includes
  * software developed by Collab.Net (http://www.Collab.Net/)."
  * Alternately, this acknowlegement may appear in the software itself, if
  * and wherever such third-party acknowlegements normally appear.
- *
+ * 
  * 4. The hosted project names must not be used to endorse or promote
  * products derived from this software without prior written
  * permission. For written permission, please contact info@collab.net.
- *
+ * 
  * 5. Products derived from this software may not use the "Tigris" name
  * nor may "Tigris" appear in their names without prior written
  * permission of Collab.Net.
- *
+ * 
  * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
  * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -41,7 +41,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ====================================================================
- *
+ * 
  * This software consists of voluntary contributions made by many
  * individuals on behalf of Collab.Net.
  */
@@ -199,7 +199,7 @@ svn_error_t *svn_fs_berkeley_recover (const char *path,
      node_id ::= number | node_revision_id "." number
      node_revision_id ::= node_id "." number
 
-   So:
+   So: 
    - "100" is a node id.
    - "100.10" is a node revision id, referring to revision 10 of node 100.
    - "100.10.3" is a node id, referring to the third branch based on
@@ -270,7 +270,7 @@ int svn_fs_id_length (svn_fs_id_t *id);
 int svn_fs_id_eq (svn_fs_id_t *a, svn_fs_id_t *b);
 
 
-/* Return non-zero iff node revision A is an ancestor of node revision B.
+/* Return non-zero iff node revision A is an ancestor of node revision B.  
    If A == B, then we consider A to be an ancestor of B.  */
 int svn_fs_id_is_ancestor (svn_fs_id_t *a, svn_fs_id_t *b);
 
@@ -344,7 +344,7 @@ svn_error_t *svn_fs_get_node_prop (svn_string_t **value_p,
 				   svn_fs_node_t *node,
 				   svn_string_t *propname,
 				   apr_pool_t *pool);
-
+   
 
 /* Set *TABLE_P to the entire property list of NODE, as an APR hash
    table allocated in POOL.  The resulting table maps property names
@@ -352,7 +352,7 @@ svn_error_t *svn_fs_get_node_prop (svn_string_t **value_p,
 svn_error_t *svn_fs_get_node_proplist (apr_hash_t **table_p,
 				       svn_fs_node_t *node,
 				       apr_pool_t *pool);
-
+				       
 
 
 /* Reading and traversing directories.  */
@@ -387,7 +387,7 @@ svn_error_t *svn_fs_open_root (svn_fs_dir_t **dir,
 
 
 /* Set *CHILD_P to a node object representing the node named NAME in
-   PARENT_DIR.  NAME is a directory path.
+   PARENT_DIR.  NAME is a directory path. 
 
    Do any necessary temporary allocation in POOL.  (The returned node
    is *not* allocated in POOL; call svn_fs_cleanup_node if you want that
@@ -515,7 +515,7 @@ svn_error_t *svn_fs_dir_delta (svn_fs_dir_t *source_dir,
    SOURCE_FILE is zero, treat it as a file with zero length.
 
    This function does not compare the two files' properties.
-
+   
    If POOL is non-zero, do any allocation needed for the delta
    computation there.  If POOL is zero, allocate in a pool that will
    be freed when STREAM is freed.  */
@@ -609,7 +609,7 @@ svn_error_t *svn_fs_file_delta (svn_txdelta_stream_t **stream,
      svn_fs_delete
      svn_fs_add_file            svn_fs_add_dir
      svn_fs_replace_file        svn_fs_replace_dir
-     svn_fs_apply_textdelta
+     svn_fs_apply_textdelta    
      svn_fs_change_prop
 
    Any of these functions may return an SVN_ERR_FS_CONFLICT error.
