@@ -18,7 +18,7 @@
     E.G. if you're making the 1.1.x branch then the svn_version.h in trunk
     should reflect 1.2.0.
 
-    You'll commit this change along with the change in step 3.
+    You'll commit this change along with the change in step 3. 
 
 3. Tweak trunk to have a new CHANGES section.
 
@@ -33,11 +33,11 @@
 
    $ svn co https://svn.collab.net/repos/svn/branches/X.Y.Z
 
-5. Merge fixes and changes from trunk.
+5. Merge fixes and changes from trunk. 
 
    Only very important bugfixes are allowed to merge from the trunk to
-   the release branch. A decision of a merge happends in the STATUS
-   file as documented in HACKING.
+   the release branch. A decision of a merge happends in the STATUS 
+   file as documented in HACKING. 
 
    In the following example, we pretends to merge revision 7868 into
    the release branch:
@@ -51,7 +51,7 @@
       $ svn ci -m "Merge r7868 into the 0.34.0 branch"
 
    c) cd to your wc for https://svn.collab.net/repos/svn/trunk and add
-      a note under User-visible changes or Developer-visible changes.
+      a note under User-visible changes or Developer-visible changes. 
 
          * fixed: Java bindings compilation.
 
@@ -99,7 +99,7 @@
 8. Run './dist.sh -v X.Y.Z -r 1234 -pr branches/X.Y.Z'
 
    Watch dist.sh's output to make sure everything goes smoothly; when
-   it's done, you'll have 'subversion-X.Y.Z.tar.gz' and
+   it's done, you'll have 'subversion-X.Y.Z.tar.gz' and 
    'subversion-X.Y.Z.tar.bz2' in the cwd.
 
 9. Test one or both of the tarballs:
@@ -174,12 +174,12 @@
 
         Ensure that ./configure detected a suitable jdk, and then
         possibly re-run with '--enable-javahl' and '--with-jdk=':
-
+              
             make javahl
             sudo make install-javahl
             make check-javahl
 
-10. Use GPG to sign release.
+10. Use GPG to sign release. 
 
    [Details to be filled in later].
 
@@ -213,10 +213,10 @@
     working copy or modified working copy, i.e. svnversion outputs only the
     release revision (not 1234:1235 or 1234M).  Then place the svn_version.h.dist
     file in place in the working copy and copy from the working copy to the tag
-    URL.
+    URL.  
 
     For example:
-
+      
       svn up -r 1234
       svnversion .
       cp svn_version.h.dist subversion/include/svn_version.h
@@ -229,13 +229,13 @@
 
     Modify subversion/include/svn_version.h
     If you just did 1.0.2 then svn_version.h should have the proper
-    values for 1.0.3 and so on.
+    values for 1.0.3 and so on. 
 
 14. Update the website.
 
    a) Edit the www/project_status.html file appropriately in /trunk *NOT*
       in the release branch and commit. Remember edit a search term at the
-      end of release's issue link.
+      end of release's issue link. 
 
       If you used 'svn switch' in 3b above, you can simply 'switch' back
       to /trunk using:
