@@ -1,6 +1,6 @@
 SUBVERSION'S COPY AND MOVE FUNCTIONALITY
 
-Please direct all comments and suggestions to
+Please direct all comments and suggestions to 
 C. Michael Pilato <cmpilato@collab.net>.
 
 --
