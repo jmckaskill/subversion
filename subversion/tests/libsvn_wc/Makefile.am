@@ -1,6 +1,6 @@
 ## Makefile.in is generated from this by automake.
 
-noinst_PROGRAMS = checkout-test
+noinst_PROGRAMS = checkout-test 
 ## FIXME: above used to include "commit-test" as well.  But
 ## commit_test is commented out, due to this utterly bizarre link error:
 ##
