@@ -122,7 +122,7 @@ write_rep (const char **msg, apr_pool_t *pool)
   new_args.key = NULL;
 
   /* Write new rep to reps table. */
-  SVN_ERR (svn_fs__retry_txn (new_args.fs,
+  SVN_ERR (svn_fs__retry_txn (new_args.fs, 
                               txn_body_write_new_rep, &new_args, pool));
 
   /* Make sure we got a valid key. */
@@ -136,7 +136,7 @@ write_rep (const char **msg, apr_pool_t *pool)
   args.key = new_args.key;
 
   /* Overwrite first rep in reps table. */
-  SVN_ERR (svn_fs__retry_txn (new_args.fs,
+  SVN_ERR (svn_fs__retry_txn (new_args.fs, 
                               txn_body_write_rep, &args, pool));
 
   /* Close the filesystem. */
@@ -169,7 +169,7 @@ read_rep (const char **msg, apr_pool_t *pool)
   new_args.key = NULL;
 
   /* Write new rep to reps table. */
-  SVN_ERR (svn_fs__retry_txn (new_args.fs,
+  SVN_ERR (svn_fs__retry_txn (new_args.fs, 
                               txn_body_write_new_rep, &new_args, pool));
 
   /* Make sure we got a valid key. */
@@ -181,45 +181,45 @@ read_rep (const char **msg, apr_pool_t *pool)
   read_args.fs = new_args.fs;
   read_args.skel = NULL;
   read_args.key = new_args.key;
-  SVN_ERR (svn_fs__retry_txn (new_args.fs,
+  SVN_ERR (svn_fs__retry_txn (new_args.fs, 
                               txn_body_read_rep, &read_args, pool));
 
   /* Make sure the skel matches. */
   if (! read_args.skel)
     return svn_error_create (SVN_ERR_FS_GENERAL, 0, NULL, pool,
                              "error reading new representation");
-
+  
   skel_data = svn_fs__unparse_skel (read_args.skel, pool);
   if (strcmp (skel_data->data, new_rep))
     return svn_error_create (SVN_ERR_FS_GENERAL, 0, NULL, pool,
                              "representation corrupted");
-
+  
   /* Set up transaction baton for re-writing reps. */
   args.fs = new_args.fs;
   args.skel = svn_fs__parse_skel ((char *)rep, strlen (rep), pool);
   args.key = new_args.key;
 
   /* Overwrite first rep in reps table. */
-  SVN_ERR (svn_fs__retry_txn (new_args.fs,
+  SVN_ERR (svn_fs__retry_txn (new_args.fs, 
                               txn_body_write_rep, &args, pool));
 
   /* Read the new rep back from the reps table (using the same FS and
      key as the first read...let's make sure this thing didn't get
      written to the wrong place). */
   read_args.skel = NULL;
-  SVN_ERR (svn_fs__retry_txn (new_args.fs,
+  SVN_ERR (svn_fs__retry_txn (new_args.fs, 
                               txn_body_read_rep, &read_args, pool));
 
   /* Make sure the skel matches. */
   if (! read_args.skel)
     return svn_error_create (SVN_ERR_FS_GENERAL, 0, NULL, pool,
                              "error reading new representation");
-
+  
   skel_data = svn_fs__unparse_skel (read_args.skel, pool);
   if (strcmp (skel_data->data, rep))
     return svn_error_create (SVN_ERR_FS_GENERAL, 0, NULL, pool,
                              "representation corrupted");
-
+  
   /* Close the filesystem. */
   SVN_ERR (svn_fs_close_fs (fs));
 
@@ -249,7 +249,7 @@ delete_rep (const char **msg, apr_pool_t *pool)
   new_args.key = NULL;
 
   /* Write new rep to reps table. */
-  SVN_ERR (svn_fs__retry_txn (new_args.fs,
+  SVN_ERR (svn_fs__retry_txn (new_args.fs, 
                               txn_body_write_new_rep, &new_args, pool));
 
   /* Make sure we got a valid key. */
@@ -260,21 +260,21 @@ delete_rep (const char **msg, apr_pool_t *pool)
   /* Delete the rep we just wrote. */
   delete_args.fs = new_args.fs;
   delete_args.key = new_args.key;
-  SVN_ERR (svn_fs__retry_txn (new_args.fs,
+  SVN_ERR (svn_fs__retry_txn (new_args.fs, 
                               txn_body_delete_rep, &delete_args, pool));
 
   /* Try to read the new rep back from the reps table. */
   read_args.fs = new_args.fs;
   read_args.skel = NULL;
   read_args.key = new_args.key;
-  err = svn_fs__retry_txn (new_args.fs,
+  err = svn_fs__retry_txn (new_args.fs, 
                            txn_body_read_rep, &read_args, pool);
 
   /* We better have an error... */
   if ((! err) && (read_args.skel))
     return svn_error_create (SVN_ERR_FS_GENERAL, 0, NULL, pool,
                              "error deleting representation");
-
+  
   /* Close the filesystem. */
   SVN_ERR (svn_fs_close_fs (fs));
 
@@ -298,7 +298,7 @@ svn_error_t * (*test_funcs[]) (const char **msg,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../svn-dev.el")
  * end:
