@@ -41,7 +41,7 @@
    (rev, datestring, author).
 */
 %typemap(python,argout,fragment="t_output_helper") svn_client_commit_info_t **
-{
+{       
     PyObject *list;
     PyObject *rev, *date, *author;
     if (!(*$1)) {
@@ -57,7 +57,7 @@
         Py_XDECREF(author);
         Py_DECREF(list);
         return NULL;
-    }
+    }       
     PyList_SET_ITEM(list, 0, rev);
     PyList_SET_ITEM(list, 1, date);
     PyList_SET_ITEM(list, 2, author);
@@ -128,7 +128,7 @@
    handle svn_client_get_commit_log_t/baton pairs
 */
 
-%typemap(python,in) (svn_client_get_commit_log_t log_msg_func,
+%typemap(python,in) (svn_client_get_commit_log_t log_msg_func, 
                      void *log_msg_baton) {
 
   $1 = svn_swig_py_get_commit_log_func;
