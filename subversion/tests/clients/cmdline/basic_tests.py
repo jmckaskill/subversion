@@ -507,6 +507,12 @@ def basic_revert(sbox):
     print "Revert failed to restore original text."
     return 1
 
+  # Finally, check that reverted file is not readonly
+  os.remove(beta_path)
+  svntest.main.run_svn(None, 'revert', beta_path)
+  if not (open(beta_path, 'rw+')):
+    return 1
+
 
 #----------------------------------------------------------------------
 

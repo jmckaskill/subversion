@@ -1911,6 +1911,15 @@ close_file (void *file_baton)
             }
         }
 
+      /* Make text-base readonly */
+      svn_xml_make_open_tag (&entry_accum,
+                             fb->pool,
+                             svn_xml_self_closing,
+                             SVN_WC__LOG_READONLY,
+                             SVN_WC__LOG_ATTR_NAME,
+                             txtb,
+                             NULL);
+
     }  /* End  of "textual" merging process */
 
 
