@@ -20,7 +20,7 @@
  */
 
 /* What's going on here?
-
+ 
    In order to define error codes and their associated description
    strings in the same place, we overload the SVN_ERRDEF() macro with
    two definitions below.  Both take two arguments, an error code name
@@ -31,9 +31,9 @@
    definition creates a static table mapping the enum codes to their
    corresponding strings -- that definition is used by the C file that
    implements svn_strerror().
-
+ 
    The header and C files both include this file, using #defines to
-   control which version of the macro they get.
+   control which version of the macro they get.  
 */
 
 
@@ -347,7 +347,7 @@ SVN_ERROR_START
 
   SVN_ERRDEF (SVN_ERR_WC_INVALID_OP_ON_CWD,
               SVN_ERR_WC_CATEGORY_START + 19,
-              "Invalid operation on the current working directory")
+              "Invalid operation on the current working directory")  
 
   SVN_ERRDEF (SVN_ERR_WC_BAD_ADM_LOG_START,
               SVN_ERR_WC_CATEGORY_START + 20,
@@ -355,11 +355,11 @@ SVN_ERROR_START
 
   SVN_ERRDEF (SVN_ERR_WC_UNSUPPORTED_FORMAT,
               SVN_ERR_WC_CATEGORY_START + 21,
-              "Unsupported working copy format")
+              "Unsupported working copy format")  
 
   SVN_ERRDEF (SVN_ERR_WC_BAD_PATH,
               SVN_ERR_WC_CATEGORY_START + 22,
-              "Path syntax not supported in this context")
+              "Path syntax not supported in this context")  
 
   /* fs errors */
 
@@ -521,7 +521,7 @@ SVN_ERROR_START
   SVN_ERRDEF (SVN_ERR_REPOS_BAD_REVISION_REPORT,
               SVN_ERR_REPOS_CATEGORY_START + 4,
               "Bogus revision report")
-
+ 
   SVN_ERRDEF (SVN_ERR_REPOS_UNSUPPORTED_VERSION,
               SVN_ERR_REPOS_CATEGORY_START + 5,
               "Unsupported repository version")
@@ -581,7 +581,7 @@ SVN_ERROR_START
   SVN_ERRDEF (SVN_ERR_RA_DAV_OPTIONS_REQ_FAILED,
               SVN_ERR_RA_DAV_CATEGORY_START + 3,
               "RA layer didn't receive requested OPTIONS info")
-
+    
   SVN_ERRDEF (SVN_ERR_RA_DAV_PROPS_NOT_FOUND,
               SVN_ERR_RA_DAV_CATEGORY_START + 4,
               "RA layer failed to fetch properties")
@@ -604,11 +604,11 @@ SVN_ERROR_START
 
 
   /* ra_local errors */
-
+  
   SVN_ERRDEF (SVN_ERR_RA_LOCAL_REPOS_NOT_FOUND,
               SVN_ERR_RA_LOCAL_CATEGORY_START + 0,
               "Couldn't find a repository")
-
+       
   SVN_ERRDEF (SVN_ERR_RA_LOCAL_REPOS_OPEN_FAILED,
               SVN_ERR_RA_LOCAL_CATEGORY_START + 1,
               "Couldn't open a repository")
@@ -799,7 +799,7 @@ SVN_ERROR_START
   SVN_ERRDEF (SVN_ERR_TEST_FAILED,
               SVN_ERR_MISC_CATEGORY_START + 6,
               "Test failed")
-
+       
   SVN_ERRDEF (SVN_ERR_UNSUPPORTED_FEATURE,
               SVN_ERR_MISC_CATEGORY_START + 7,
               "Trying to use an unsupported feature")
