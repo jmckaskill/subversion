@@ -52,7 +52,7 @@ extern "C" {
    returned.  */
 svn_error_t *svn_fs__get_mutable_rep (const char **new_rep_key,
                                       const char *rep_key,
-                                      svn_fs_t *fs,
+                                      svn_fs_t *fs, 
                                       const char *txn_id,
                                       trail_t *trail);
 
@@ -62,7 +62,7 @@ svn_error_t *svn_fs__get_mutable_rep (const char **new_rep_key,
    the string it refers to is deleted as well.  TXN_ID is the id of
    the Subversion transaction under which this occurs.
 
-   If no such rep, return SVN_ERR_FS_NO_SUCH_REPRESENTATION.  */
+   If no such rep, return SVN_ERR_FS_NO_SUCH_REPRESENTATION.  */ 
 svn_error_t *svn_fs__delete_rep_if_mutable (svn_fs_t *fs,
                                             const char *rep_key,
                                             const char *txn_id,
@@ -99,7 +99,7 @@ svn_error_t *svn_fs__rep_contents (svn_string_t *str,
    in POOL, and start reading at OFFSET in the rep's contents.
 
    If TRAIL is non-null, the stream's reads are part of TRAIL;
-   otherwise, each read happens in an internal, one-off trail.
+   otherwise, each read happens in an internal, one-off trail. 
    POOL may be TRAIL->pool.  */
 svn_stream_t *svn_fs__rep_contents_read_stream (svn_fs_t *fs,
                                                 const char *rep_key,
@@ -107,7 +107,7 @@ svn_stream_t *svn_fs__rep_contents_read_stream (svn_fs_t *fs,
                                                 trail_t *trail,
                                                 apr_pool_t *pool);
 
-
+                                       
 /* Return a stream to write the contents of REP_KEY.  Allocate the
    stream in POOL.  TXN_ID is the id of the Subversion transaction
    under which this occurs.
@@ -169,7 +169,7 @@ svn_error_t *svn_fs__rep_undeltify (svn_fs_t *fs,
 #endif /* SVN_LIBSVN_FS_REPS_STRINGS_H */
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end:
