@@ -66,7 +66,7 @@ make_txn (svn_fs_t *fs,
 
   return txn;
 }
-
+	  
 
 struct begin_txn_args
 {
@@ -107,7 +107,7 @@ svn_fs_begin_txn (svn_fs_txn_t **txn_p,
   args.fs    = fs;
   args.rev   = rev;
   SVN_ERR (svn_fs__retry_txn (fs, txn_body_begin_txn, &args, pool));
-
+  
   *txn_p = txn;
   return SVN_NO_ERROR;
 }
@@ -137,7 +137,7 @@ svn_fs_close_txn (svn_fs_txn_t *txn)
 
 
 svn_error_t *
-svn_fs_commit_txn (svn_revnum_t *new_rev,
+svn_fs_commit_txn (svn_revnum_t *new_rev, 
                    svn_fs_txn_t *txn)
 {
   *new_rev = SVN_INVALID_REVNUM;
@@ -165,7 +165,7 @@ txn_body_open_txn (void *baton,
   SVN_ERR (svn_fs__get_txn (&root_id, &base_root_id,
                             args->fs, args->name, trail));
 
-  *args->txn_p = make_txn (args->fs, args->name, trail->pool);
+  *args->txn_p = make_txn (args->fs, args->name, trail->pool); 
   return SVN_NO_ERROR;
 }
 
@@ -182,7 +182,7 @@ svn_fs_open_txn (svn_fs_txn_t **txn_p,
   args.fs = fs;
   args.name = name;
   SVN_ERR (svn_fs__retry_txn (fs, txn_body_open_txn, &args, pool));
-
+  
   *txn_p = txn;
   return SVN_NO_ERROR;
 }
@@ -263,7 +263,7 @@ svn_fs_list_transactions (char ***names_p,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
