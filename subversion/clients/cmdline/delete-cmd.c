@@ -63,7 +63,7 @@ svn_cl__delete (apr_getopt_t *os,
   int i;
   apr_pool_t *subpool;
 
-  SVN_ERR (svn_opt_args_to_target_array (&targets, os,
+  SVN_ERR (svn_opt_args_to_target_array (&targets, os, 
                                          opt_state->targets,
                                          &(opt_state->start_revision),
                                          &(opt_state->end_revision),
@@ -83,10 +83,10 @@ svn_cl__delete (apr_getopt_t *os,
       const char *target = ((const char **) (targets->elts))[i];
       svn_client_commit_info_t *commit_info = NULL;
 
-      SVN_ERR (svn_cl__make_log_msg_baton (&(ctx->log_msg_baton), opt_state,
+      SVN_ERR (svn_cl__make_log_msg_baton (&(ctx->log_msg_baton), opt_state, 
                                            NULL, ctx->config, pool));
 
-      err = svn_client_delete (&commit_info, target, opt_state->force, ctx,
+      err = svn_client_delete (&commit_info, target, opt_state->force, ctx, 
                                subpool);
       if (err)
         err = svn_cl__may_need_force (err);
@@ -94,11 +94,11 @@ svn_cl__delete (apr_getopt_t *os,
 
       if (commit_info && ! opt_state->quiet)
         svn_cl__print_commit_info (commit_info);
-
+      
       SVN_ERR (svn_cl__check_cancel (ctx->cancel_baton));
       svn_pool_clear (subpool);
     }
-
+  
   svn_pool_destroy (subpool);
   return SVN_NO_ERROR;
 }
