@@ -2,32 +2,32 @@
  *
  * ================================================================
  * Copyright (c) 2000 Collab.Net.  All rights reserved.
- *
+ * 
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
  * met:
- *
+ * 
  * 1. Redistributions of source code must retain the above copyright
  * notice, this list of conditions and the following disclaimer.
- *
+ * 
  * 2. Redistributions in binary form must reproduce the above copyright
  * notice, this list of conditions and the following disclaimer in the
  * documentation and/or other materials provided with the distribution.
- *
+ * 
  * 3. The end-user documentation included with the redistribution, if
  * any, must include the following acknowlegement: "This product includes
  * software developed by Collab.Net (http://www.Collab.Net/)."
  * Alternately, this acknowlegement may appear in the software itself, if
  * and wherever such third-party acknowlegements normally appear.
- *
+ * 
  * 4. The hosted project names must not be used to endorse or promote
  * products derived from this software without prior written
  * permission. For written permission, please contact info@collab.net.
- *
+ * 
  * 5. Products derived from this software may not use the "Tigris" name
  * nor may "Tigris" appear in their names without prior written
  * permission of Collab.Net.
- *
+ * 
  * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
  * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -41,7 +41,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ====================================================================
- *
+ * 
  * This software consists of voluntary contributions made by many
  * individuals on behalf of Collab.Net.
  */
@@ -94,7 +94,7 @@ no_such_version (svn_fs_t *fs, svn_vernum_t v)
 static svn_error_t *
 get_version_skel (skel_t **skel,
 		  svn_fs_t *fs,
-		  svn_vernum_t v,
+		  svn_vernum_t v, 
 		  apr_pool_t *pool)
 {
   db_recno_t recno;
@@ -111,7 +111,7 @@ get_version_skel (skel_t **skel,
   svn_fs__set_dbt (&key, &recno, sizeof (recno));
 
   svn_fs__result_dbt (&value);
-  db_err = fs->versions->get (fs->versions, 0, /* no transaction */
+  db_err = fs->versions->get (fs->versions, 0, /* no transaction */ 
 			      &key, &value, DB_SET_RECNO);
   if (db_err == DB_NOTFOUND)
     return no_such_version (fs, v);
@@ -194,7 +194,7 @@ put_version_skel (svn_fs_t *fs,
 
   svn_fs__set_dbt (&value, version->data, version->len);
   SVN_ERR (DB_ERR (fs, "adding new version",
-		   fs->versions->put (fs->versions, txn, &key, &value,
+		   fs->versions->put (fs->versions, txn, &key, &value, 
 				      DB_APPEND)));
 
   /* Turn the record number into a Subversion version number.
