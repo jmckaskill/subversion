@@ -103,7 +103,7 @@ If it's a write operation, and dbt->size != dbt->dlen, then that range
 of the record will grow or shrink accordingly.  See
 http://www.sleepycat.com/docs/ref/am/partial.html for details.
 
-To take advantage of
+To take advantage of 
 
    - Replace dag_node_t->node_revision with two fields:
      dag_node_t->node_rev_header and dag_node_t->node_rev_data.
