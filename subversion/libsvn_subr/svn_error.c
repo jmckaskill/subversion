@@ -73,7 +73,7 @@ make_error_internal (apr_status_t apr_err,
   new_error->apr_err = apr_err;
   new_error->src_err = src_err;
   new_error->child   = child;
-  new_error->pool    = newpool;
+  new_error->pool    = newpool;  
 
   return new_error;
 }
@@ -98,9 +98,9 @@ svn_error__make_error_pool (apr_pool_t *parent, apr_pool_t **error_pool)
   /* Create a subpool to hold all error allocations. We use a subpool rather
      than the parent itself, so that we can clear the error pool. */
   apr_pool_sub_make (error_pool, parent, abort_on_pool_failure);
-
+  
   /* Set the error pool on itself. */
-  apr_err = apr_pool_userdata_set (*error_pool, SVN_ERROR_POOL,
+  apr_err = apr_pool_userdata_set (*error_pool, SVN_ERROR_POOL, 
                                    apr_pool_cleanup_null, *error_pool);
 
   return apr_err;
@@ -108,7 +108,7 @@ svn_error__make_error_pool (apr_pool_t *parent, apr_pool_t **error_pool)
 
 
 /* Get POOL's error pool into *ERROR_POOL.
- *
+ * 
  * If ROOTED_HERE is not null, then
  *   - If the error pool is a direct subpool of POOL, set *ROOTED_HERE to 1
  *   - Else set *ROOTED_HERE to 0
@@ -183,43 +183,43 @@ svn_pool__inherit_error_pool (apr_pool_t *p)
 
 /* These are dummy functions that are the defaults for a newly created
    svn_pool_feedback_t structure. */
-static apr_status_t
+static apr_status_t 
 report_unversioned_item (const char *path)
 {
   return APR_SUCCESS;
 }
 
-static apr_status_t
+static apr_status_t 
 report_added_item (const char *path, apr_pool_t *pool)
 {
   return APR_SUCCESS;
 }
 
-static apr_status_t
+static apr_status_t 
 report_unadded_item (const char *path, apr_pool_t *pool)
 {
   return APR_SUCCESS;
 }
 
-static apr_status_t
+static apr_status_t 
 report_deleted_item (const char *path, apr_pool_t *pool)
 {
   return APR_SUCCESS;
 }
 
-static apr_status_t
+static apr_status_t 
 report_undeleted_item (const char *path, apr_pool_t *pool)
 {
   return APR_SUCCESS;
 }
 
-static apr_status_t
+static apr_status_t 
 report_warning (apr_status_t status, const char *warning)
 {
   return APR_SUCCESS;
 }
 
-static apr_status_t
+static apr_status_t 
 report_progress (const char *action, int percentage)
 {
   return APR_SUCCESS;
@@ -254,7 +254,7 @@ svn_error_init_pool (apr_pool_t *top_pool)
 
       svn_error__set_error_pool (top_pool, error_pool, 1);
     }
-
+  
   apr_pool_userdata_get (&check, SVN_ERROR_FEEDBACK_VTABLE, top_pool);
   if (check == NULL)
     {
@@ -326,7 +326,7 @@ svn_pool_create_debug (apr_pool_t *parent_pool,
       /* Inherit the error pool and feedback vtable from the parent. */
       svn_pool_feedback_t *vtable;
       svn_pool__inherit_error_pool (ret_pool);
-      apr_pool_userdata_get ((void **)&vtable,
+      apr_pool_userdata_get ((void **)&vtable, 
                              SVN_ERROR_FEEDBACK_VTABLE, parent_pool);
       apr_pool_userdata_set (vtable, SVN_ERROR_FEEDBACK_VTABLE,
                              apr_pool_cleanup_null, ret_pool);
@@ -334,9 +334,9 @@ svn_pool_create_debug (apr_pool_t *parent_pool,
 
 #ifdef SVN_POOL_DEBUG
   {
-    fprintf (stderr,
+    fprintf (stderr, 
              "                     " /* 10/10 here */
-             " : pool 0x%08X created   at %s:%d (parent=0x%08X)\n",
+             " : pool 0x%08X created   at %s:%d (parent=0x%08X)\n", 
              (unsigned int)ret_pool, file, line, (unsigned int)parent_pool);
   }
 #endif /* SVN_POOL_DEBUG */
@@ -346,10 +346,10 @@ svn_pool_create_debug (apr_pool_t *parent_pool,
 
 
 #ifndef SVN_POOL_DEBUG
-void
+void 
 svn_pool_clear (apr_pool_t *p)
 #else /* SVN_POOL_DEBUG */
-void
+void 
 svn_pool_clear_debug (apr_pool_t *p,
                       const char *file,
                       int line)
@@ -359,14 +359,14 @@ svn_pool_clear_debug (apr_pool_t *p,
   apr_pool_t *error_pool;
   svn_pool_feedback_t *vtable, vtable_tmp;
   svn_boolean_t subpool_of_p_p;  /* That's "predicate" to you, bud. */
-
+    
 #ifdef SVN_POOL_DEBUG
   {
     apr_size_t num_bytes = apr_pool_num_bytes (p, 1);
-    apr_size_t global_num_bytes =
+    apr_size_t global_num_bytes = 
       apr_pool_num_bytes (find_oldest_pool_ancestor (p), 1);
-
-    fprintf (stderr, "%10lu/%10lu : pool 0x%08X cleared   at %s:%d\n",
+    
+    fprintf (stderr, "%10lu/%10lu : pool 0x%08X cleared   at %s:%d\n", 
              (unsigned long)num_bytes, (unsigned long)global_num_bytes,
              (unsigned int)p, file, line);
   }
@@ -407,7 +407,7 @@ svn_pool_clear_debug (apr_pool_t *p,
          So, we have to copy out those function pointers temporarily. */
       vtable_tmp = *vtable;
     }
-
+ 
   /* Clear the pool.  All userdata of this pool is now invalid. */
   apr_pool_clear (p);
 
@@ -425,7 +425,7 @@ svn_pool_clear_debug (apr_pool_t *p,
   svn_error__set_error_pool (p, error_pool, subpool_of_p_p);
   apr_pool_userdata_set (vtable, SVN_ERROR_FEEDBACK_VTABLE,
                          apr_pool_cleanup_null, p);
-
+  
 }
 
 
@@ -442,10 +442,10 @@ svn_pool_destroy_debug (apr_pool_t *p,
 #ifdef SVN_POOL_DEBUG
   {
     apr_size_t num_bytes = apr_pool_num_bytes (p, 1);
-    apr_size_t global_num_bytes =
+    apr_size_t global_num_bytes = 
       apr_pool_num_bytes (find_oldest_pool_ancestor (p), 1);
-
-    fprintf (stderr, "%10lu/%10lu : pool 0x%08X destroyed at %s:%d\n",
+    
+    fprintf (stderr, "%10lu/%10lu : pool 0x%08X destroyed at %s:%d\n", 
              (unsigned long)num_bytes, (unsigned long)global_num_bytes,
              (unsigned int)p, file, line);
   }
@@ -468,7 +468,7 @@ svn_error_create (apr_status_t apr_err,
   svn_error_t *err;
 
   err = make_error_internal (apr_err, src_err, child, pool);
-
+  
   err->message = (const char *) apr_pstrdup (err->pool, message);
 
   return err;
@@ -534,7 +534,7 @@ svn_handle_error (svn_error_t *err, FILE *stream, svn_boolean_t fatal)
   /* Note: we can also log errors here someday. */
 
   /* Is this a Subversion-specific error code? */
-  if ((err->apr_err > APR_OS_START_USEERR)
+  if ((err->apr_err > APR_OS_START_USEERR) 
       && (err->apr_err <= APR_OS_START_CANONERR))
     fprintf (stream, "\nsvn_error: #%d : <%s>\n", err->apr_err,
              svn_strerror (err->apr_err, buf, sizeof (buf)));
@@ -561,7 +561,7 @@ svn_handle_error (svn_error_t *err, FILE *stream, svn_boolean_t fatal)
 
 
 
-void
+void 
 svn_handle_warning (void *data, const char *fmt, ...)
 {
   va_list ap;
@@ -605,8 +605,8 @@ svn_strerror (apr_status_t statcode, char *buf, apr_size_t bufsize)
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
- * end:
+ * end: 
  */
