@@ -37,7 +37,7 @@ typedef struct svn_ra_local__session_baton_t
   /* Each ra_local session does ALL allocation from this pool!  Kind
      of like an Apache transaction, I guess. :) */
   apr_pool_t *pool;
-
+  
   /* A `file://' URL containing a local repository and path. */
   svn_stringbuf_t *repository_URL;
 
@@ -83,7 +83,7 @@ typedef svn_error_t *svn_ra_local__commit_hook_t (svn_revnum_t new_revision,
 
 /** Private routines **/
 
-
+    
 
 
 /* Given a `file://' URL, figure out which portion specifies a
@@ -106,12 +106,12 @@ svn_ra_local__split_URL (const svn_string_t **repos_path,
    FS, and drive a checkout EDITOR.  URL is the base ancestry that
    will be stored in the working copy.  Allocate all data in POOL. */
 svn_error_t *
-svn_ra_local__checkout (svn_fs_t *fs,
-                        svn_revnum_t revnum,
+svn_ra_local__checkout (svn_fs_t *fs, 
+                        svn_revnum_t revnum, 
                         svn_boolean_t recurse,
                         svn_stringbuf_t *URL,
                         const svn_string_t *fs_path,
-                        const svn_delta_edit_fns_t *editor,
+                        const svn_delta_edit_fns_t *editor, 
                         void *edit_baton,
                         apr_pool_t *pool);
 
