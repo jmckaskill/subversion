@@ -1409,6 +1409,7 @@ svn_wc_crawl_local_mods (svn_stringbuf_t *parent_dir,
 
           /* Examine top of stack and target, and get a nearer common
              'subparent'. */
+
           subparent = svn_path_get_longest_ancestor
             (target, stack->path, svn_path_local_style, pool);
 
@@ -1444,6 +1445,10 @@ svn_wc_crawl_local_mods (svn_stringbuf_t *parent_dir,
             {
               apr_array_header_t *components;
               int j;
+
+              /* Invalidate the dir_baton, because it no longer
+                 represents target's immediate parent directory. */
+              dir_baton = NULL;
 
               /* split the remainder into path components. */
               components = svn_path_decompose (remainder,
