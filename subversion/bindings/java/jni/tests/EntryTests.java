@@ -21,7 +21,7 @@ import org.tigris.subversion.lib.*;
 import java.util.Hashtable;
 
 /**
- * Testcases for the native functions with prefix "entry"
+ * Testcases for the native functions with prefix "entry" 
  * in the class NativeWrapper
  *
  * @see NativeWrapper
