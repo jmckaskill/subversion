@@ -26,7 +26,7 @@ Candidate changes:
     Justification: Perl correctness issue.
     Votes:
        +1: sussman
-       -1: breser (Doesn't error out properly on older versions and
+       -1: breser (Doesn't error out properly on older versions and 
                    needs more discussion).
 
   * r8846
@@ -67,9 +67,9 @@ Candidate changes:
       +0: breser
 
   * r9089
-    Fix broken build of python swig bindings on win32.
+    Fix broken build of python swig bindings on win32. 
     Justification: single line fix in bindings file which replaces the
-    non standard type "long long" with the matching apr type
+    non standard type "long long" with the matching apr type 
     "apr_int64_t". The python bindings will not build without it.
     Votes:
       +0: breser (I haven't tested python bindings but it looks and builds ok)
