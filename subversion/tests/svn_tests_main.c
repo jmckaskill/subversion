@@ -78,10 +78,10 @@ do_test_num (const char *progname, int test_num)
   if (err)
     svn_handle_error (err, stdout, 0);
 
-  printf ("%s: %s %2d: %s\n",
+  printf ("%s: %s %2d: %s\n", 
           err ? "FAIL" : "PASS",
           progname,
-          test_num,
+          test_num, 
           msg ? msg : "(test did not provide name)");
 
   return err != SVN_NO_ERROR;
@@ -100,7 +100,7 @@ main (int argc, char *argv[])
 
   /* How many tests are there? */
   int array_size = get_array_size();
-
+  
   /* Initialize APR (Apache pools) */
   if (apr_initialize () != APR_SUCCESS)
     {
