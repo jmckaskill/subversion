@@ -60,7 +60,7 @@ typedef struct
 typedef struct
 {
   apr_array_header_t *providers; /* (ordered) array of provider_t */
-
+  
 } provider_set_t;
 
 
@@ -82,7 +82,7 @@ struct svn_auth_iterstate_t
 };
 
 
-svn_error_t *
+svn_error_t * 
 svn_auth_open (svn_auth_baton_t **auth_baton,
                apr_pool_t *pool)
 {
@@ -107,15 +107,15 @@ svn_auth_register_provider (svn_auth_baton_t *auth_baton,
   /* ### ignoring the order argument for now, because it would be
      complex to implement, and I can't see why it's worth it yet.
      can't the caller just register providers in order?  */
-
+  
   provider_t *provider;
   provider_set_t *table;
-
+  
   /* Create the provider */
   provider = apr_pcalloc (auth_baton->pool, sizeof(*provider));
   provider->vtable = vtable;
   provider->provider_baton = provider_baton;
-
+  
   /* Add it to the appropriate table in the auth_baton */
   table = apr_hash_get (auth_baton->tables,
                         vtable->cred_kind, APR_HASH_KEY_STRING);
@@ -124,9 +124,9 @@ svn_auth_register_provider (svn_auth_baton_t *auth_baton,
       table = apr_pcalloc (auth_baton->pool, sizeof(*table));
       apr_hash_set (auth_baton->tables, vtable->cred_kind, APR_HASH_KEY_STRING,
                     table);
-    }
+    }  
   *(provider_t **)apr_array_push (table->providers) = provider;
-
+  
   /* ### hmmm, we never used the passed in pool.  maybe we don't need it? */
 
   return SVN_NO_ERROR;
@@ -161,7 +161,7 @@ svn_auth_first_credentials (void **credentials,
       svn_error_t *provider_err;
 
       provider = APR_ARRAY_IDX(table->providers, i, provider_t *);
-      provider_err = provider->vtable->first_credentials
+      provider_err = provider->vtable->first_credentials 
         (&creds, &iter_baton, provider->provider_baton, pool);
 
       /* A provider is supposed to either return creds or error. */
@@ -169,7 +169,7 @@ svn_auth_first_credentials (void **credentials,
         {
           if (! err_chain)
             err_chain = provider_err;
-          else
+          else            
             svn_error_compose (err_chain, provider_err);
 
           continue;             /* try the next provider */
@@ -179,9 +179,9 @@ svn_auth_first_credentials (void **credentials,
         break;
     }
 
-  if (! creds)
+  if (! creds)                  
     /* all providers failed, but at least we have a stack of errors
-       describing why each one did. */
+       describing why each one did. */    
     return svn_error_createf (SVN_ERR_AUTH_PROVIDERS_EXHAUSTED, err_chain,
                               "%d provider(s) failed to provide initial "
                               "'%s' credentials.", i, cred_kind);
