@@ -91,7 +91,7 @@ c) Reverse-delta storage.
 =========================
 
 Here's how nodes are represented now:
-
+   
     REPRESENTATION ::= ("fulltext" NODE-REVISION)
                      | ("younger" DELTA CHECKSUM) ;
              DELTA ::= ("svndiff" DATA) ;
@@ -113,10 +113,10 @@ seem to be using them now:
    !       "transactions" : btree(TXN -> TRANSACTION,
    !                              "next-id" -> TXN)
    !            "strings" : recno(PROPLIST | ENTRIES_LIST | string)
-   !
+   ! 
    ! Syntactic elements
    ! ------------------
-   !
+   ! 
    ! Table keys:
    !                   ID ::= node.revision-id ;
    !                  TXN ::= number ;
@@ -151,7 +151,7 @@ seem to be using them now:
    !
    !             CHECKSUM ::= ("md5" BYTES) ;
    !                BYTES ::= atom ;
-   !
+   ! 
    ! Lexical elements
    ! ----------------
    !
