@@ -52,9 +52,9 @@ Candidate changes:
       +1: cmpilato
 
   * r8027
-    Passing a Revision.DateSpec in javahl failed with
-    java.lang.NoSuchFieldError because java.util.Date.getTime() was
-    searched as a field when it is a method.
+    Passing a Revision.DateSpec in javahl failed with 
+    java.lang.NoSuchFieldError because java.util.Date.getTime() was 
+    searched as a field when it is a method. 
     Justification: small change in javahl binding only
     Votes:
       +1: pmayweg
@@ -70,7 +70,7 @@ Candidate changes:
   * r10159, r10176
     Require neon-0.24.7.  Fixes some nasty zlib bugs.
     Justification:  fixes malformed XML errors from large
-                    ra_dav checkouts/updates/etc.
+                    ra_dav checkouts/updates/etc.  
     Votes:
       +1: sussman, david, lundblad
 
@@ -82,7 +82,7 @@ Candidate changes:
 
   * r10132, r10136, 10138, 10139
     Allow user to interrupt between auth prompts.
-    Justification:  not a critical bugfix, but something users have
+    Justification:  not a critical bugfix, but something users have 
                     repeatedly complained about.
     Votes:
       +0: sussman (not yet reviewed)

@@ -78,7 +78,7 @@ svn_client_cat (svn_stream_t *out,
     return svn_error_createf(SVN_ERR_CLIENT_IS_DIRECTORY, NULL,
                              "URL '%s' refers to a directory", url);
 
-  /* Grab some properties we need to know in order to figure out if anything
+  /* Grab some properties we need to know in order to figure out if anything 
      special needs to be done with this file. */
   SVN_ERR (ra_lib->get_file (session, "", rev, NULL, NULL, &props, pool));
 
@@ -110,7 +110,7 @@ svn_client_cat (svn_stream_t *out,
 
       tmp_stream = svn_stream_from_aprfile (tmp_file, pool);
 
-      SVN_ERR (ra_lib->get_file (session, "", rev, tmp_stream,
+      SVN_ERR (ra_lib->get_file (session, "", rev, tmp_stream, 
                                  NULL, NULL, pool));
 
       /* rewind our stream. */
@@ -137,7 +137,7 @@ svn_client_cat (svn_stream_t *out,
             SVN_ERR (svn_time_from_cstring (&when, cmt_date->data, pool));
 
           SVN_ERR (svn_subst_build_keywords
-                   (&kw, keywords->data,
+                   (&kw, keywords->data, 
                     cmt_rev->data,
                     url,
                     when,
