@@ -65,7 +65,7 @@ add_dir_recursive (const char *dirname,
 
       /* Construct the full path of the entry. */
       fullpath = svn_string_create (dirname, subpool);
-      svn_path_add_component
+      svn_path_add_component 
         (fullpath,
          svn_string_create (this_entry.name, subpool),
          svn_path_local_style);
@@ -103,7 +103,7 @@ add_dir_recursive (const char *dirname,
 
 
 svn_error_t *
-svn_client_add (svn_string_t *path,
+svn_client_add (svn_string_t *path, 
                 svn_boolean_t recursive,
                 apr_pool_t *pool)
 {
@@ -111,7 +111,7 @@ svn_client_add (svn_string_t *path,
   svn_error_t *err = NULL;
 
   SVN_ERR (svn_io_check_path (path, &kind, pool));
-
+  
   if (kind == svn_node_file)
     {
       err = svn_wc_add_file (path, pool);
@@ -131,7 +131,7 @@ svn_client_add (svn_string_t *path,
   if (err)
     {
       if (err->apr_err == SVN_ERR_WC_ENTRY_EXISTS)
-        return svn_error_quick_wrap
+        return svn_error_quick_wrap 
           (err,
            "svn warning: Cannot add because entry already exists.");
       else
@@ -142,7 +142,7 @@ svn_client_add (svn_string_t *path,
 
 
 svn_error_t *
-svn_client_unadd (svn_string_t *path,
+svn_client_unadd (svn_string_t *path, 
                   apr_pool_t *pool)
 {
   svn_error_t *err;
@@ -156,7 +156,7 @@ svn_client_unadd (svn_string_t *path,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end: */
