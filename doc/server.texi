@@ -27,4 +27,4 @@ Here are some examples of the API offered by Subversion's Filesystem:
         write (delta, token)
 @item
         abandon (token)
-@end itemize
+@end itemize        
