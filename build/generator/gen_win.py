@@ -268,7 +268,7 @@ class WinGeneratorBase(gen_base.GeneratorBase):
                     libs=self.get_win_libs(target, cfg),
                     ))
     return configs
-
+  
   def get_proj_sources(self, quote_path, target, rootpath):
     "Get the list of source files for each project"
     sources = [ ]
@@ -289,11 +289,11 @@ class WinGeneratorBase(gen_base.GeneratorBase):
 
               if isinstance(target, gen_base.TargetSWIGRuntime):
                 bsrc = rootpath + "\\build\\win32\\gen_swig_runtime.py"
-                sources.append(ProjectItem(path=bsrc, reldir=None,
-                                           custom_build="swigrun",
+                sources.append(ProjectItem(path=bsrc, reldir=None, 
+                                           custom_build="swigrun", 
                                            custom_target=csrc,
                                            user_deps=[],
-                                           swig_language=target.lang,
+                                           swig_language=target.lang, 
                                            swig_output=None))
                 continue
 
@@ -302,7 +302,7 @@ class WinGeneratorBase(gen_base.GeneratorBase):
               # classes) will be saved to the wrong directory
               cout = string.replace(os.path.join(rootpath, cobj.filename),
                                     os.sep, '/')
-
+                                    
               # included header files that the generated c file depends on
               user_deps = []
 
@@ -322,7 +322,7 @@ class WinGeneratorBase(gen_base.GeneratorBase):
 
     sources.sort(lambda x, y: cmp(x.path, y.path))
     return sources
-
+  
   def gen_proj_names(self, install_targets):
     "Generate project file names for the targets"
     # Generate project file names for the targets: replace dashes with
@@ -342,10 +342,10 @@ class WinGeneratorBase(gen_base.GeneratorBase):
       else:
         proj_name = string.replace(name, '-', '_')
       target.proj_name = proj_name
-
+  
   def adjust_win_depends(self, target, name):
     "Handle special dependencies if needed"
-
+    
     if name == '__CONFIG__':
       depends = []
     else:
@@ -356,8 +356,8 @@ class WinGeneratorBase(gen_base.GeneratorBase):
     depends = filter(lambda x: hasattr(x, 'proj_name'), depends)
     depends.sort() ### temporary
     return depends
-
-
+    
+  
   def get_win_depends(self, target):
     """Return the list of dependencies for target"""
 
@@ -370,11 +370,11 @@ class WinGeneratorBase(gen_base.GeneratorBase):
     deps.sort()
     return deps
 
-  def get_win_depends_impl(self, target, deps, top_static):
+  def get_win_depends_impl(self, target, deps, top_static):  
     # true if we're iterating over top level dependencies
     # (inverse of recursion logic below)
     top_call = top_static or not isinstance(target, gen_base.TargetLib) \
-               or not target.msvc_static
+               or not target.msvc_static 
 
     for dep in (self.graph.get_sources(gen_base.DT_LINK, target.name) +
                 self.graph.get_sources(gen_base.DT_NONLIB, target.name)):
@@ -389,7 +389,7 @@ class WinGeneratorBase(gen_base.GeneratorBase):
       if (top_static and not dep_lib) or \
          (not top_static and (top_call or dep_lib)):
         deps[dep] = None
-
+      
       # a static library can depend on another library through a fake project
       if top_static and dep_lib and dep.msvc_fake:
         deps[dep.msvc_fake] = None
@@ -397,7 +397,7 @@ class WinGeneratorBase(gen_base.GeneratorBase):
       # if dependency is a projectless external library, recurse to treat
       # its dependencies as if they were target's
       inherit_deps = dep_lib and not dep.path and not dep.external_project
-
+      
       # also recurse into static dependencies of nonstatic targets
       if (not top_static and dep_lib and dep.msvc_static) or inherit_deps:
         self.get_win_depends_impl(dep, deps, top_static)
