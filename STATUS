@@ -65,7 +65,7 @@ already know about.)
      Notes: There is a patch from Julian Foad in the issue, but I
             think there may be more recent patches on dev@.  Voting
             is on a specific patch, so we need the latest patch...
-     Votes:
+     Votes: 
 
 
    * r8023, r8030, r8040
@@ -91,7 +91,7 @@ already know about.)
    * r8021
      'svn revert' performance improvement (timestamp sleep once, not N times)
      Justification: it's small & safe, and it's an API change.
-     Votes:
+     Votes: 
 
 
    * r8006
