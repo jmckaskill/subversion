@@ -73,12 +73,12 @@ sub Main
 sub PathSetupOut
 {
     my $SetupOut = &cmn_ValuePathfile('path_setup_out');
-
+  
     if ( ! -e "../$SetupOut")
       {
         die "ERROR: Could not find $SetupOut in ..\\paths_inno_src.iss\n";
       }
-
+    
     return $SetupOut;
 }
 
@@ -93,7 +93,7 @@ sub PathSvn
     $ErrMsg=$ErrMsg . "Please, check that the path_svnclient variable in the ";
     $ErrMsg=$ErrMsg . "..\\paths_inno_src.iss\n";
     $ErrMsg=$ErrMsg . "file are correct and try again\n";
-
+    
     if (-e "$RetVal\\svn.exe")
       {
         $RetVal="$RetVal\\svn.exe";
@@ -126,9 +126,9 @@ sub SetVersion
           " button.\n\n",
           "Please, make sure that svn.iss is not opened by another ",
           "applications before you continue:\n\n";
-
+          
           print "  Version [$SvnVersion]: ";
-
+          
         chomp ($Input = <STDIN>);
 
         if ($Input)
@@ -161,7 +161,7 @@ sub SetVerSvnIss
       }
 
     print "  svn_version.iss in the Inno Setup directory.\n" if (! $g_AutoRun);
-
+    
     open (FH_ISSFILE, '../svn_version.iss') || die "ERROR: Could not open ..\\svn_version.iss";
     while (<FH_ISSFILE>)
       {
@@ -185,7 +185,7 @@ sub SetVerSvnIss
               $IssFileCnt= $IssFileCnt . $_;
           }
       }
-    close (FH_ISSFILE);
+    close (FH_ISSFILE);  
 
     $IssFileCnt="$IssFileCnt\n";
 
@@ -204,7 +204,7 @@ sub SvnVersion
     my $Svn = &PathSvn;
     my $SvnRetVal='';
     my ($SvnVersion, $SvnRelease) ='';
-
+ 
     $Svn = "\"$Svn\"";
     $SvnRetVal = `$Svn --version`;
     $SvnRetVal =~ s/svn, version//;
