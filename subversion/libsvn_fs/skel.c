@@ -269,7 +269,7 @@ svn_string_t *
 svn_fs__unparse_skel (const skel_t *skel, apr_pool_t *pool)
 {
   svn_string_t *str;
-
+  
   /* Allocate a string to hold the data.  */
   str = NEW (pool, svn_string_t);
   str->blocksize = estimate_unparsed_size (skel, 0) + 200;
@@ -291,7 +291,7 @@ estimate_unparsed_size (const skel_t *skel, int depth)
     {
       if (skel->len < 100)
 	/* If we have to use the explicit-length form, that'll be
-	   two bytes for the length, one byte for the space, and
+	   two bytes for the length, one byte for the space, and 
 	   the contents.  */
 	return skel->len + 3;
       else
@@ -318,7 +318,7 @@ estimate_unparsed_size (const skel_t *skel, int depth)
 }
 
 
-/* Return non-zero iff we should use the implicit-length form for SKEL.
+/* Return non-zero iff we should use the implicit-length form for SKEL.  
    Assume that SKEL is an atom.  */
 static int
 use_implicit (const skel_t *skel)
@@ -391,7 +391,7 @@ unparse (const skel_t *skel, svn_string_t *str, int depth, apr_pool_t *pool)
       /* The opening paren has been indented by the parent, if necessary.  */
       svn_string_ensure (str, str->len + 1);
       str->data[str->len++] = '(';
-
+      
       depth++;
 
       /* Append each element.  */
@@ -406,7 +406,7 @@ unparse (const skel_t *skel, svn_string_t *str, int depth, apr_pool_t *pool)
 	}
 
       depth--;
-
+      
       /* Add a newline, indentation, and a closing paren.
 
 	 There should be no newline after a closing paren; a skel must
