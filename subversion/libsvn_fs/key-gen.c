@@ -84,7 +84,7 @@ svn_fs__putsize (char *data, apr_size_t len, apr_size_t value)
   apr_size_t i = 0;
 
   /* Generate the digits, least-significant first.  */
-  do
+  do 
     {
       if (i >= len)
         return 0;
@@ -126,14 +126,14 @@ svn_fs__next_key (const char *this, apr_size_t *len, char *next)
   int carry = 1;              /* boolean: do we have a carry or not?
                                  We start with a carry, because we're
                                  incrementing the number, after all. */
-
+  
   /* Leading zeros are not allowed, except for the string "0". */
   if ((*len > 1) && (this[0] == '0'))
     {
       *len = 0;
       return;
     }
-
+  
   for (i = (olen - 1); i >= 0; i--)
     {
       c = this[i];
@@ -152,7 +152,7 @@ svn_fs__next_key (const char *this, apr_size_t *len, char *next)
           else
             {
               carry = 0;
-
+              
               if (c == '9')
                 next[i] = 'a';
               else
@@ -178,7 +178,7 @@ svn_fs__next_key (const char *this, apr_size_t *len, char *next)
 }
 
 
-int
+int 
 svn_fs__key_compare (const char *a, const char *b)
 {
   int a_len = strlen (a);
@@ -194,7 +194,7 @@ svn_fs__key_compare (const char *a, const char *b)
 }
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end:

@@ -119,14 +119,14 @@ svn_client_checkout (const svn_delta_editor_t *before_editor,
                                  checkout_edit_baton);
       /* Sleep for one second to ensure timestamp integrity. */
       apr_sleep (APR_USEC_PER_SEC * 1);
-
+      
       if (err)
         return err;
 
       /* Close the RA session. */
       SVN_ERR (ra_lib->close (session));
-    }
-
+    }      
+  
   /* else we're checking out from xml */
   else
     {
@@ -160,7 +160,7 @@ svn_client_checkout (const svn_delta_editor_t *before_editor,
 
       /* Sleep for one second to ensure timestamp integrity. */
       apr_sleep (APR_USEC_PER_SEC * 1);
-
+      
       if (err)
         return err;
 
@@ -168,7 +168,7 @@ svn_client_checkout (const svn_delta_editor_t *before_editor,
       apr_file_close (in);
 
     }
-
+   
   /* We handle externals after the initial checkout is complete, so
      that fetching external items (and any errors therefrom) doesn't
      delay the primary checkout.  */
@@ -184,7 +184,7 @@ svn_client_checkout (const svn_delta_editor_t *before_editor,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end: */
