@@ -52,7 +52,7 @@ svn_cl__propget (apr_getopt_t *os,
   pname = ((const char **) (args->elts))[0];
   SVN_ERR (svn_utf_cstring_to_utf8 (&pname_utf8, pname, NULL, pool));
   is_svn_prop = svn_prop_is_svn_prop (pname_utf8);
-
+  
   /* suck up all the remaining arguments into a targets array */
   SVN_ERR (svn_opt_args_to_target_array (&targets, os,
                                          opt_state->targets,
@@ -85,11 +85,11 @@ svn_cl__propget (apr_getopt_t *os,
         return svn_error_create(SVN_ERR_CL_INSUFFICIENT_ARGS, 0, NULL,
                                 "No URL target available.");
       target = ((const char **) (targets->elts))[0];
-      SVN_ERR (svn_cl__get_url_from_target (&URL, target, pool));
+      SVN_ERR (svn_cl__get_url_from_target (&URL, target, pool));  
       if (URL == NULL)
         return svn_error_create(SVN_ERR_UNVERSIONED_RESOURCE, 0, NULL,
                                 "Either a URL or versioned item is required.");
-
+  
       /* Let libsvn_client do the real work. */
       SVN_ERR (svn_client_revprop_get (pname_utf8, &propval,
                                        URL, &(opt_state->start_revision),
@@ -104,14 +104,14 @@ svn_cl__propget (apr_getopt_t *os,
           if (is_svn_prop)
             SVN_ERR (svn_utf_string_from_utf8 (&printable_val,
                                                propval, pool));
-
+          
           printf ("%s\n", printable_val->data);
         }
     }
   else  /* operate on a normal, versioned property (not a revprop) */
     {
       /* ### This check will go away when svn_client_propget takes
-         a revision arg and can access the repository, see issue #943. */
+         a revision arg and can access the repository, see issue #943. */ 
       if (opt_state->start_revision.kind != svn_opt_revision_unspecified)
         return svn_error_create
           (SVN_ERR_UNSUPPORTED_FEATURE, 0, NULL,
@@ -123,38 +123,38 @@ svn_cl__propget (apr_getopt_t *os,
           apr_hash_t *props;
           apr_hash_index_t *hi;
           svn_boolean_t print_filenames = FALSE;
-
+          
           SVN_ERR (svn_client_propget (&props, pname_utf8, target,
                                        opt_state->recursive, pool));
-
+          
           print_filenames = (opt_state->recursive || targets->nelts > 1
                              || apr_hash_count (props) > 1);
-
+          
           for (hi = apr_hash_first (pool, props); hi; hi = apr_hash_next (hi))
             {
               const void *key;
               void *val;
-              const char *filename;
+              const char *filename; 
               const svn_string_t *propval;
               const char *filename_native;
-
+              
               apr_hash_this (hi, &key, NULL, &val);
               filename = key;
               propval = val;
-
+              
               /* If this is a special Subversion property, it is stored as
                  UTF8, so convert to the native format. */
               if (is_svn_prop)
                 SVN_ERR (svn_utf_string_from_utf8 (&propval, propval, pool));
-
+              
               /* ### this won't handle binary property values */
-              if (print_filenames)
+              if (print_filenames) 
                 {
                   SVN_ERR (svn_utf_cstring_from_utf8 (&filename_native,
                                                       filename, pool));
                   printf ("%s - %s\n", filename_native, propval->data);
-                }
-              else
+                } 
+              else 
                 {
                   printf ("%s\n", propval->data);
                 }
