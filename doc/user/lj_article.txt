@@ -3,7 +3,7 @@
           ==============================================
 
               Ben Collins-Sussman <sussman@collab.net>
-
+              
                       Written in August 2001
               Published in Linux Journal, January 2002
 
@@ -15,7 +15,7 @@ Subversion (http://subversion.tigris.org), an open-source project that
 aims to produce a compelling replacement for CVS.
 
 
-Introduction
+Introduction 
 ------------
 
 If you work on any kind of open-source project, you've probably worked
@@ -76,7 +76,7 @@ layers upon layers of historical "hacks".  (Remember that CVS began
 life as a collection of shell-scripts to drive RCS.)  This makes the
 code difficult to understand, maintain, or extend.  For example: CVS's
 networking ability was essentially "stapled on".  It was never
-designed to be a native client-server system.
+designed to be a native client-server system.  
 
 Rectifying CVS's problems is a huge task -- and we've only listed just
 a few of the many common complaints here.
@@ -124,7 +124,7 @@ about Subversion:
     you think.
 
   * Atomic commits.  A commit either goes into the repository
-    completely, or not all.
+    completely, or not all.  
 
   * Advanced network layer.  The Subversion network server is Apache,
     and client and server speak WebDAV(2) to one another.  (See the
@@ -170,7 +170,7 @@ general, code flow begins at the top of the diagram and flows
 Let's take a short tour of these layers, starting at the bottom.
 
 
---> The Subversion filesystem.
+--> The Subversion filesystem.  
 
 The Subversion Filesystem is *not* a kernel-level filesystem that one
 would install in an operating system (like the Linux ext2 fs.)
@@ -286,7 +286,7 @@ client.)
 In addition, proper SWIG bindings (www.swig.org) should make
 the Subversion API available to any number of languages:  java, perl,
 python, guile, and so on.  In order to Subvert CVS, it helps to be
-ubiquitous!
+ubiquitous! 
 
 
 Subversion's Future
