@@ -52,7 +52,7 @@ svn_cl__propedit (apr_getopt_t *os,
   SVN_ERR (svn_utf_cstring_to_utf8 (&pname_utf8, pname, NULL, pool));
 
   /* Suck up all the remaining arguments into a targets array */
-  SVN_ERR (svn_opt_args_to_target_array (&targets, os,
+  SVN_ERR (svn_opt_args_to_target_array (&targets, os, 
                                          opt_state->targets,
                                          &(opt_state->start_revision),
                                          &(opt_state->end_revision),
@@ -90,7 +90,7 @@ svn_cl__propedit (apr_getopt_t *os,
                                  pool, target);
       if (entry->kind == svn_node_file)
         svn_path_split_nts (target, &base_dir, NULL, pool);
-
+      
       /* Run the editor on a temporary file which contains the
          original property value... */
       SVN_ERR (svn_cl__edit_externally (&new_propval,
@@ -105,7 +105,7 @@ svn_cl__propedit (apr_getopt_t *os,
         {
           propval->data = new_propval;
           propval->len = strlen (new_propval);
-          SVN_ERR (svn_client_propset (pname_utf8, propval, target,
+          SVN_ERR (svn_client_propset (pname_utf8, propval, target, 
                                        FALSE, pool));
           printf ("Set new value for property `%s' on `%s'\n",
                   pname, target_native);
@@ -122,8 +122,8 @@ svn_cl__propedit (apr_getopt_t *os,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../tools/dev/svn-dev.el")
- * end:
+ * end: 
  */
