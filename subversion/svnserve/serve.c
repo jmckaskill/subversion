@@ -128,7 +128,7 @@ static svn_error_t *delete_path(svn_ra_svn_conn_t *conn, apr_pool_t *pool,
     b->err = svn_repos_delete_path(b->report_baton, path, pool);
   return SVN_NO_ERROR;
 }
-
+    
 static svn_error_t *link_path(svn_ra_svn_conn_t *conn, apr_pool_t *pool,
                               apr_array_header_t *params, void *baton)
 {
@@ -296,7 +296,7 @@ static svn_error_t *get_props(apr_hash_t **props, svn_fs_root_t *root,
   SVN_ERR(svn_fs_get_uuid(svn_fs_root_fs(root), &uuid, pool));
   str = (uuid) ? svn_string_create(uuid, pool) : NULL;
   apr_hash_set(*props, SVN_PROP_ENTRY_UUID, APR_HASH_KEY_STRING, str);
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -656,7 +656,7 @@ static svn_error_t *status(svn_ra_svn_conn_t *conn, apr_pool_t *pool,
   svn_boolean_t recurse;
 
   /* Parse the arguments. */
-  SVN_ERR(svn_ra_svn_parse_tuple(params, pool, "cb?(?r)",
+  SVN_ERR(svn_ra_svn_parse_tuple(params, pool, "cb?(?r)", 
                                  &target, &recurse, &rev));
   SVN_ERR(trivial_auth_request(conn, pool, b));
   if (svn_path_is_empty(target))
