@@ -88,7 +88,7 @@ svn_diff__file_datasource_open(void *baton,
                      APR_READ, APR_OS_DEFAULT, file_baton->pool);
   if (rv != APR_SUCCESS)
     {
-      return svn_error_createf(rv, 0, NULL, file_baton->pool,
+      return svn_error_createf(rv, 0, NULL, file_baton->pool, 
                                "failed to open file '%s'.",
                                file_baton->path[idx]);
     }
@@ -110,7 +110,7 @@ svn_diff__file_datasource_close(void *baton,
   rv = apr_file_close(file_baton->file[idx]);
   if (rv != APR_SUCCESS)
     {
-      return svn_error_createf(rv, 0, NULL, file_baton->pool,
+      return svn_error_createf(rv, 0, NULL, file_baton->pool, 
                                "failed to close file '%s'.",
                                file_baton->path[idx]);
     }
@@ -177,7 +177,7 @@ svn_diff__file_datasource_get_token(void **token, void *baton,
           if (eol != NULL)
             {
               apr_size_t len = (apr_size_t)(eol - curp);
-
+              
               file_token->length += len;
               length -= len;
               apr_md5_update(&md5_ctx, curp, len);
@@ -202,7 +202,7 @@ svn_diff__file_datasource_get_token(void **token, void *baton,
 
   if (rv != APR_SUCCESS && rv != APR_EOF)
     {
-      return svn_error_createf(rv, 0, NULL, file_baton->pool,
+      return svn_error_createf(rv, 0, NULL, file_baton->pool, 
                                "error reading from '%s'.",
                                file_baton->path[idx]);
     }
