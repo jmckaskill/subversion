@@ -18,7 +18,7 @@ Automated Test Verification
 
 The point of this test system is that it's *automated*:  that is, each
 test can algoritmically verify the results and indicate "PASS" or
-"FAIL".
+"FAIL". 
 
 We've identified two broad classes of verification:
 
@@ -107,7 +107,7 @@ Each node in our generic trees have these fields:
               ./basic_tests.py 7
 
 
->>> To make a script run over ra_DAV instead of ra_local:
+>>> To make a script run over ra_DAV instead of ra_local: 
 
    * because repositories are still created on-the-fly (which httpd
      must read), the client and server must still running on the
@@ -143,7 +143,7 @@ Each node in our generic trees have these fields:
 * prop_tests.py:         tests: operations on properties.
 
 * svnadmin_tests.py:     tests:  svnadmin tool.
-
+ 
 * svntest/               subversion test framework, as a python package.
 
     * main.py:               global vars, utility routines.
