@@ -133,7 +133,7 @@ dav_error *dav_svn_create_activity(const dav_svn_repos *repos,
 }
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
