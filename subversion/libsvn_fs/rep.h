@@ -70,7 +70,7 @@ svn_error_t *svn_fs__stable_node (svn_fs_t *fs,
 
 
 /* Creating nodes, and new revisions of existing nodes.  */
-
+				  
 
 /* Create an entirely new, mutable node in the filesystem FS, whose
    NODE-REVISION skel is SKEL, as part of the Berkeley DB transaction
