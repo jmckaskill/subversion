@@ -14,15 +14,28 @@
  * history and logs, available at http://subversion.tigris.org/.
  * ====================================================================
  * @endcopyright
+ *
+ * @file BlameCall.h
+ * @brief Interface of the class BlameCallback
  */
-#define JNI_VER_MAJOR	0
-#define JNI_VER_MINOR	7
-#define JNI_VER_MICRO	0
 
-#define JNI_VER_NUM        APR_STRINGIFY(JNI_VER_MAJOR) "." APR_STRINGIFY(JNI_VER_MINOR) "." APR_STRINGIFY(JNI_VER_MICRO)
+#if !defined(AFX_BLAMECALLBACK_H__3BBF3F0F_C80C_45C9_8AC3_E1AF07E5B810__INCLUDED_)
+#define AFX_BLAMECALLBACK_H__3BBF3F0F_C80C_45C9_8AC3_E1AF07E5B810__INCLUDED_
 
-/** Version number with tag (contains no whitespace) */
-#define JNI_VER_NUMBER     JNI_VER_NUM
+#if _MSC_VER > 1000
+#pragma once
+#endif // _MSC_VER > 1000
+#include <jni.h>
+#include <svn_client.h>
 
-/** Complete version string */
-#define JNI_VERSION        JNI_VER_NUM
+class BlameCallback
+{
+public:
+	BlameCallback(jobject jcallback);
+	virtual ~BlameCallback();
+	void callback(svn_revnum_t revision, const char *author, const char *date, const char *line, apr_pool_t *pool);
+private:
+	jobject m_callback;
+};
+
+#endif // !defined(AFX_BLAMECALLBACK_H__3BBF3F0F_C80C_45C9_8AC3_E1AF07E5B810__INCLUDED_)

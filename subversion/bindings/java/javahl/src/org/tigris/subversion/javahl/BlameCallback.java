@@ -1,7 +1,7 @@
 /**
  * @copyright
  * ====================================================================
- * Copyright (c) 2003-2004 CollabNet.  All rights reserved.
+ * Copyright (c) 2003 CollabNet.  All rights reserved.
  *
  * This software is licensed as described in the file COPYING, which
  * you should have received as part of this distribution.  The terms
@@ -15,14 +15,11 @@
  * ====================================================================
  * @endcopyright
  */
-#define JNI_VER_MAJOR	0
-#define JNI_VER_MINOR	7
-#define JNI_VER_MICRO	0
+package org.tigris.subversion.javahl;
 
-#define JNI_VER_NUM        APR_STRINGIFY(JNI_VER_MAJOR) "." APR_STRINGIFY(JNI_VER_MINOR) "." APR_STRINGIFY(JNI_VER_MICRO)
+import java.util.Date;
 
-/** Version number with tag (contains no whitespace) */
-#define JNI_VER_NUMBER     JNI_VER_NUM
-
-/** Complete version string */
-#define JNI_VERSION        JNI_VER_NUM
+public interface BlameCallback
+{
+    public void singleLine(Date changed, long revision, String author, String line);
+}
