@@ -39,7 +39,7 @@
 
 /*** Code. ***/
 
-/* Helper for log_message_receiver().
+/* Helper for log_message_receiver(). 
  *
  * Return the number of lines in MSG, allowing any kind of newline
  * termination (CR, CRLF, or LFCR), even inconsistent.  The minimum
@@ -106,7 +106,7 @@ static void
 humanize_date (char *result, const char *date)
 {
   const char *p = strchr (date, '.');
-
+  
   if (p && ((p - date) < SVN_LOG__DATE_MAX))
     {
       strncpy (result, date, (p - date));
@@ -129,20 +129,20 @@ humanize_date (char *result, const char *date)
  * $ svn log -r1847:1846
  * ------------------------------------------------------------------------
  * rev 1847:  cmpilato | Wed 1 May 2002 15:44:26 | 7 lines
- *
+ * 
  * Fix for Issue #694.
- *
+ * 
  * * subversion/libsvn_repos/delta.c
  *   (delta_files): Rework the logic in this function to only call
  * send_text_deltas if there are deltas to send, and within that case,
  * only use a real delta stream if the caller wants real text deltas.
- *
+ * 
  * ------------------------------------------------------------------------
  * rev 1846:  whoever | Wed 1 May 2002 15:23:41 | 1 line
- *
+ *   
  * imagine an example log message here
  * ------------------------------------------------------------------------
- *
+ * 
  * And so on.
  */
 static svn_error_t *
@@ -190,7 +190,7 @@ log_message_receiver (void *baton,
 
       /* Get an array of sorted hash keys. */
       sorted_paths = apr_hash_sorted_keys (changed_paths,
-                                           svn_sort_compare_items_as_paths,
+                                           svn_sort_compare_items_as_paths, 
                                            pool);
 
       /* Note: This is the only place we need a pool, and therefore
@@ -209,7 +209,7 @@ log_message_receiver (void *baton,
         {
           svn_item_t *item = &(APR_ARRAY_IDX (sorted_paths, i, svn_item_t));
           const char *path = item->key;
-          char action = (char) ((int) apr_hash_get (changed_paths,
+          char action = (char) ((int) apr_hash_get (changed_paths, 
                                                     item->key, item->klen));
           printf ("   %c %s\n", (action == 'R' ? 'U' : action), path);
         }
@@ -227,7 +227,7 @@ log_message_receiver (void *baton,
  *
  * Here is an example of the output; note that the "<log>" and
  * "</log>" tags are not emitted by this function:
- *
+ * 
  * $ svn log --xml -r1648:1649
  * <log>
  * <logentry
@@ -243,13 +243,13 @@ log_message_receiver (void *baton,
  * <date>Sat 6 Apr 2002 17:01:28.185136 (day 096, dst 0, gmt_off -21600)</date>
  * <msg>Fix error handling when the $EDITOR is needed but unavailable.  Ah
  * ... now that&apos;s *much* nicer.
- *
+ * 
  * * subversion/clients/cmdline/util.c
  *   (svn_cl__edit_externally): Clean up the &quot;no external editor&quot;
  *   error message.
- *   (svn_cl__get_log_message): Wrap &quot;no external editor&quot;
+ *   (svn_cl__get_log_message): Wrap &quot;no external editor&quot; 
  *   errors with helpful hints about the -m and -F options.
- *
+ * 
  * * subversion/libsvn_client/commit.c
  *   (svn_client_commit): Actually capture and propogate &quot;no external
  *   editor&quot; errors.</msg>
@@ -299,7 +299,7 @@ log_message_receiver_xml (void *baton,
       /* <paths> */
       svn_xml_make_open_tag (&sb, pool, svn_xml_normal, "paths",
                              NULL);
-
+      
       for (hi = apr_hash_first (pool, changed_paths);
            hi != NULL;
            hi = apr_hash_next (hi))
@@ -328,7 +328,7 @@ log_message_receiver_xml (void *baton,
   svn_xml_make_open_tag (&sb, pool, svn_xml_protect_pcdata, "msg", NULL);
   svn_xml_escape_nts (&sb, msg, pool);
   svn_xml_make_close_tag (&sb, pool, "msg");
-
+  
   /* </logentry> */
   svn_xml_make_close_tag (&sb, pool, "logentry");
 
@@ -392,7 +392,7 @@ svn_cl__log (apr_getopt_t *os,
   if (opt_state->xml)
     {
       svn_stringbuf_t *sb;
-
+      
       /* The header generation is commented out because it might not
          be certain that the log messages are indeed the advertised
          encoding, UTF-8. The absence of the header should not matter
@@ -401,11 +401,11 @@ svn_cl__log (apr_getopt_t *os,
          document. */
       /* <?xml version="1.0" encoding="utf-8"?> */
       /* svn_xml_make_header (&sb, pool); */
-
+      
       sb = NULL;
       svn_xml_make_open_tag (&sb, pool, svn_xml_normal, "log", NULL);
       printf ("%s", sb->data);  /* "<log>" */
-
+      
       SVN_ERR (svn_client_log (auth_baton,
                                targets,
                                &(opt_state->start_revision),
@@ -415,7 +415,7 @@ svn_cl__log (apr_getopt_t *os,
                                log_message_receiver_xml,
                                &lb,
                                pool));
-
+      
       sb = NULL;
       svn_xml_make_close_tag (&sb, pool, "log");
       printf ("%s", sb->data);  /* "</log>" */
@@ -437,8 +437,8 @@ svn_cl__log (apr_getopt_t *os,
 }
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../tools/dev/svn-dev.el")
- * end:
+ * end: 
  */
