@@ -18,7 +18,7 @@ Automated Test Verification
 
 The point of this test system is that it's *automated*:  that is, each
 test can algoritmically verify the results and indicate "PASS" or
-"FAIL".
+"FAIL". 
 
 We've identified two broad classes of verification:
 
