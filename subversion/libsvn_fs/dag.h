@@ -29,9 +29,9 @@
 
    In other words, both svn_fs_node_t's and dag_node_t's represent
    nodes in the filesystem, but:
-   - the dag_node_t interface exposes the internal DAG structure
+   - the dag_node_t interface exposes the internal DAG structure 
      of the filesystem, while svn_fs_node_t's are looking at a tree,
-   - dag_node_t's must be explicitly cloned, whereas svn_fs_node_t's
+   - dag_node_t's must be explicitly cloned, whereas svn_fs_node_t's 
      get implicitly cloned as necessry
    - callers of the dag_node_t interface use Berkeley DB transactions
      to ensure consistency between operations, while callers of the
@@ -72,7 +72,7 @@ int svn_fs__dag_is_mutable (dag_node_t *node);
 
 
 /* Close NODE.  */
-void svn_fs__dag_close (dag_node_t *node);
+void svn_fs__dag_close (dag_node_t *node); 
 
 
 /* Return true iff NODE is a file/directory.  */
