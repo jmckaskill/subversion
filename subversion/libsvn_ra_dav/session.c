@@ -45,7 +45,7 @@ static svn_error_t * svn_ra_open (void **session_baton,
   struct uri uri = { 0 };
   svn_ra_session_t *ras;
 
-  if (uri_parse(repository, &uri, NULL)
+  if (uri_parse(repository, &uri, NULL) 
       || uri.host == NULL || uri.path == NULL)
     {
       return svn_error_create(SVN_ERR_RA_ILLEGAL_URL, 0, NULL, pool,
@@ -73,7 +73,7 @@ static svn_error_t * svn_ra_open (void **session_baton,
         {
           uri.port = 443;
         }
-      if (http_set_secure(sess, 1) ||
+      if (http_set_secure(sess, 1) || 
           http_set_accept_secure_upgrade(sess, 1))
         {
           return svn_error_create(SVN_ERR_RA_SOCK_INIT, 0, NULL, pool,
@@ -137,7 +137,7 @@ svn_error_t *svn_ra_dav_init(int abi_version,
 }
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
