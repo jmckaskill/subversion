@@ -9,24 +9,24 @@
 </p>
 <li><a href="#why">Why does this project exist?</a></li>
 <li><a href="#collab">Is Subversion proprietary?  I heard that it
-    belongs to CollabNet.</a></li>
+    belongs to CollabNet.</a></li> 
 <li><a href="#stable">Is Subversion stable enough for me to use for my
     own projects?</a></li>
 <li><a href="#interop">What is Subversion's client/server interoperability
     policy?</a></li>
 <li><a href="#portability">What operating systems does Subversion run
-    on?</a></li>
+    on?</a></li> 
 <li><a href="#filesystem">What's all this about a new filesystem?  Is
-    it like ext2?</a></li>
+    it like ext2?</a></li> 
 <li><a href="#apache-extension">I heard that Subversion is an Apache
-    extension?  What does it use for servers?</a></li>
+    extension?  What does it use for servers?</a></li> 
 <li><a href="#need-apache">Does this mean I have to set up Apache to
-    use Subversion?</a></li>
+    use Subversion?</a></li> 
 <li><a href="#multiple-apachim">I run Apache 1.x right now, and can't
     switch to Apache 2.0 just to serve Subversion repositories.
-    Does that mean I can't run a Subversion server?</a></li>
+    Does that mean I can't run a Subversion server?</a></li>  
 <li><a href="#feature-x">Why don't you do X, just like SCM system Y?</a></li>
-<li><a href="#globalrev">Why does the entire repository share the
+<li><a href="#globalrev">Why does the entire repository share the 
     same revision number? I want each of my projects to have their
     own revision numbers.  </a></li>
 <li><a href="#changesets">Does Subversion have changesets?</li>
@@ -35,22 +35,22 @@
 <li><a href="#logo">I need a high resolution version of the Subversion logo,
     where can I get it?</a></li>
 <li><a href="#more-information">I have other questions.  Where can I
-    get more information?</a></li>
+    get more information?</a></li>  
 <p>
 <strong>How-to:</strong>
 </p>
 <li><a href="#co-svn">How do I check out the Subversion code?</a></li>
 <li><a href="#repository">How do I create a repository?  How do I
-    import data into it?</a></li>
+    import data into it?</a></li> 
 <li><a href="#cvs2svn">How do I convert an existing CVS repository
     into a Subversion repository?</a></li>
     <li><a href="#proxy">What if I'm behind a proxy?</a></li>
 <li><a href="#paranoid">My admins don't want me to have a HTTP server for
-    Subversion.  What can I do if I still want remote usage?</a></li>
+    Subversion.  What can I do if I still want remote usage?</a></li> 
 <li><a href="#multi-proj">How do I manage several different projects
     under Subversion?</a></li>
 <li><a href="#multi-merge">How do I merge two completely separate repositories?</a></li>
-<li><a href="#nfs">Should I store my repository on a NFS server?</a></li>
+<li><a href="#nfs">Should I store my repository on a NFS server?</a></li> 
 <li><a href="#bdblogs">Why is my repository taking up so much disk space?</a></li>
 <li><a href="#reposperms">How do I set repository permissions correctly?</a></li>
 <li><a href="#readonly">Why do read-only operations still need repository write access?</a></li>
@@ -60,16 +60,16 @@
 <li><a href="#patch">How do I submit a patch for Subversion?</a></li>
 <li><a href="#in-place-import">How can I do an in-place 'import'
     (i.e. add a tree to subversion without moving or deleting the
-    original working copy)?</a></li>
+    original working copy)?</a></li> 
 <li><a href="#dumpload">What is this "dump/load cycle" people
-    sometimes talk about when upgrading a Subversion server?</a></li>
+    sometimes talk about when upgrading a Subversion server?</a></li> 
 <li><a href="#sspi">How do I allow clients to authenticate against a
     Windows domain controller using SSPI Authentication?</a></li>
 <li><a href="#adm-dir">I don't like the ".svn" directory name, and
     prefer "SVN" or something else.  How do I change it?</a></li>
-<li><a href="#case-change">I checked in a file but had the wrong case
+<li><a href="#case-change">I checked in a file but had the wrong case 
     in the filename.  How do I change it?</a></li>
-<li><a href="#merge-using-tags">I can't use tags to merge changes from a
+<li><a href="#merge-using-tags">I can't use tags to merge changes from a 
     branch into the trunk like I used to with CVS, can I?</a></li>
 <li><a href="#version-value-in-source">Why doesn't the $Revision$
   keyword do what I want?  It expands to the file's last-changed
@@ -101,7 +101,7 @@ I avoid having to type it so often?</a></li>
     binary, and when I try to check out Subversion, I get an error
     about an "Unrecognized URL scheme."  What's up with that?</a></li>
 <li><a href="#db-recover">I'm getting errors finding or opening a repository,
-    but I know my repository URL is correct.  What's wrong?</a></li>
+    but I know my repository URL is correct.  What's wrong?</a></li> 
 <li><a href="#configure-sed-error">When I run `<tt>configure</tt>', I
     get errors <tt>subs-1.sed&nbsp;line&nbsp;38:&nbsp;Unterminated&nbsp;`s'&nbsp;command</tt>.  What's wrong?</a></li>
 <li><a href="#linux-bdb42-build">I'm having trouble building
@@ -114,7 +114,7 @@ a <tt>file:</tt> URL?</a></li>
     operations to a Subversion repository over a network.</a></li>
 <li><a href="#windows-xp-server">Under Windows XP, the Subversion
     server sometimes seems to send out corrupted data.  Can this really be
-    happening?</a></li>
+    happening?</a></li>  
 <li><a href="#ethereal">What is the best method of doing a network
     trace of the conversation between a Subversion client and server?</a></li>
 <li><a href="#revert">Why does the <tt>svn revert</tt> require an
@@ -136,7 +136,7 @@ a <tt>file:</tt> URL?</a></li>
     What's wrong?</a></li>
 <li><a href="#no-copy-history">I'm trying to look at an old version of my
     file, but svn says something about "path not found".  What's going
-    on?</a></li>
+    on?</a></li> 
 <li><a href="#digest-auth">Why doesn't HTTP Digest auth work?</a></li>
 <li><a href="#xlc-compile">Compiling with xlc on AIX, I get compilation
     errors.  What's wrong?</a></li>
@@ -145,8 +145,8 @@ a <tt>file:</tt> URL?</a></li>
     subdirectories "appear".  But <tt>svn up subdir</tt> doesn't
     work.</a></li>
 <li><a href="#mod_dav_svn-win32">I am trying to use mod_dav_svn
-    with Apache on Win32 and I'm getting an error saying that the
-    module cannot be found, yet the mod_dav_svn.so file is right
+    with Apache on Win32 and I'm getting an error saying that the 
+    module cannot be found, yet the mod_dav_svn.so file is right 
     there in <tt>\Apache\modules.</tt></a></li>
 
 
@@ -160,10 +160,10 @@ a <tt>file:</tt> URL?</a></li>
 <p>
 <strong>References:</strong>
 </p>
-<li><a href="#http-methods">What are all the HTTP methods Subversion
+<li><a href="#http-methods">What are all the HTTP methods Subversion 
     uses?</a></li>
-<li><a href="#bikeshed">What's a 'bikeshed'?</a></li>
-<li><a href="#baton">What's a 'baton'?</a></li>
+<li><a href="#bikeshed">What's a 'bikeshed'?</a></li> 
+<li><a href="#baton">What's a 'baton'?</a></li> 
 </ol>
 
 <![CDATA[=========================================================]]>
@@ -331,7 +331,7 @@ there.  We're trying to replace CVS.  See the first question.</p>
 
 <![CDATA[-----------------------------------------------------------]]>
 
-<h3><a name="globalrev">Why does the entire repository share the
+<h3><a name="globalrev">Why does the entire repository share the 
     same revision number? I want each of my projects to have their
     own revision numbers.</a></h3>
 <p>
@@ -722,7 +722,7 @@ Ben Collins-Sussman &lt;sussman@collab.net&gt;):
 </ul>
 
 <![CDATA[=========================================================]]>
-
+  
 <h3><a name="multi-merge">How do I merge two completely separate repositories?</a></h3>
 
 <p>If you don't care about retaining all the history of one of the
@@ -757,7 +757,7 @@ equivalent to CVS modules:
 
 
 <![CDATA[=========================================================]]>
-
+  
 <h3><a name="nfs">Should I store my repository on a NFS server?</a></h3>
 
 <p>No, don't ever do that.  Berkeley DB does not <a
@@ -777,7 +777,7 @@ href="http://nfs.sourceforge.net/nfs-howto/server.html"
 how to disable subtree checking.</p>
 
 <![CDATA[=========================================================]]>
-
+  
 <h3><a name="bdblogs">Why is my repository taking up so much disk space?</h3>
 
 <p>The repository stores all your data in a Berkeley DB "environment"
@@ -959,7 +959,7 @@ formatting or content changes necessary), and check it in.
 	$ cd subversion/www
 
 		[ make changes to project_faq.html ]
-
+	
 	$ svn diff project_faq.html > /tmp/foo
 
 	$ Mail -s "[PATCH] FAQ updates" < /tmp/foo
@@ -976,7 +976,7 @@ understood it <em>before</em> actually hacking the code, right? :)
 
 <h3><a name="in-place-import">How can I do an in-place 'import'
     (i.e. add a tree to subversion without moving or deleting the
-    original working copy)?</a></h3>
+    original working copy)?</a></h3> 
 
 <p>Suppose, for example, that you wanted to put some of /etc under
 version control inside a brand-new repository you created using:
@@ -993,7 +993,7 @@ version control inside a brand-new repository you created using:
      # cd /
      # svn co file:///root/svn etc
      # cd etc
-     # svn add apache samba alsa X11
+     # svn add apache samba alsa X11 
      # svn commit -m "configury"
 </pre>
 
@@ -1072,7 +1072,7 @@ it.  If you don't see such a notice, then there has been no schema
 change, and no dump/load is necessary. </p>
 
 <![CDATA[=========================================================]]>
-
+ 
 <h3><a name="sspi">How do I allow clients to authenticate against a
     Windows domain controller using SSPI authentication?</a></h3>
 
@@ -1097,7 +1097,7 @@ the client, but to use the Windows domain controller to authenticate
 the credentials.</p>
 
 <![CDATA[=========================================================]]>
-
+  
 <h3><a name="adm-dir">I don't like the ".svn" directory name, and
     prefer "SVN" or something else.  How do I change it?</a></h3>
 
@@ -1153,7 +1153,7 @@ Then for each working copy, change to the relevant directory and do:
 svn update *
 svn update
 </pre>
-The first update will remove <tt>file.java</tt> from your working copy,
+The first update will remove <tt>file.java</tt> from your working copy, 
 the second update will add <tt>File.java</tt>, leaving you with a
 correct working copy.
 </p>
@@ -1164,14 +1164,14 @@ get it right when you add the file the first time!</p>
 
 <![CDATA[=========================================================]]>
 
-<h3><a name="merge-using-tags">I can't use tags to merge changes from a
+<h3><a name="merge-using-tags">I can't use tags to merge changes from a 
     branch into the trunk like I used to with CVS, can I?</a></h3>
 
 <p>As shown below it is possible to merge from a branch to the trunk
 without remembering one revision number. Or vice versa (not shown in the
 example).</p>
 
-<p>The example below presumes an existing repository in <tt>/home/repos</tt>
+<p>The example below presumes an existing repository in <tt>/home/repos</tt> 
 in which you want to start a branch named <tt>bar</tt> containing a file
 named <tt>foo</tt> you are going to edit.</p>
 
@@ -1229,7 +1229,7 @@ every update and commit.
 The information you want (the revision of your working copy) is
 available from the command <tt>svnversion</tt>; it gives you
 information on the revision level of a working copy given a path (see
-<tt>svnversion --help</tt> for details).
+<tt>svnversion --help</tt> for details). 
 </p>
 
 <p>
@@ -1481,7 +1481,7 @@ variable.</p>
 <![CDATA[-----------------------------------------------------------]]>
 
 <h3><a name="db-recover">I'm getting errors finding or opening a repository,
-    but I know my repository URL is correct.  What's wrong?</a></h3>
+    but I know my repository URL is correct.  What's wrong?</a></h3> 
 
 <p>See <a href="#wedged-repos">this faq.</a></p>
 
@@ -1579,7 +1579,7 @@ need to adjust the paths at each step accordingly.</p>
 
 
 <![CDATA[-----------------------------------------------------------]]>
-
+ 
 <h3><a name="windows-msvc-build">I'm having trouble building Subversion
 under Windows with MSVC++ 6.0.  What should I do?</a></h3>
 
@@ -1896,11 +1896,11 @@ $ svn diff -r1000:2000 http://host/repos/trunk/foo.c
 
 <h3><a name="digest-auth">Why doesn't HTTP Digest auth work?</a></h3>
 
-<p>This is probably due to a known bug in Apache HTTP Server (versions
-   2.0.48 and earlier), for which a patch is available, see
+<p>This is probably due to a known bug in Apache HTTP Server (versions 
+   2.0.48 and earlier), for which a patch is available, see 
 <a href="http://nagoya.apache.org/bugzilla/show_bug.cgi?id=25040"
    >http://nagoya.apache.org/bugzilla/show_bug.cgi?id=25040</a>.  You
-may also want to read over
+may also want to read over 
 <a href="http://subversion.tigris.org/issues/show_bug.cgi?id=1608"
    >http://subversion.tigris.org/issues/show_bug.cgi?id=1608</a>
 to see if the description there matches your symptoms.
@@ -1919,7 +1919,7 @@ compile without error.  See
 >http://www.contactor.se/~dast/svn/archive-2004-01/0922.shtml</a> and
 its associated thread for more details.
 </p>
-
+ 
 <![CDATA[-----------------------------------------------------------]]>
 
 <h3><a name="nonrecursive-checkout">I checked out a directory non-recursively
@@ -1940,11 +1940,11 @@ copies.</p>
 <![CDATA[-----------------------------------------------------------]]>
 
 <h3><a name="mod_dav_svn-win32">I am trying to use mod_dav_svn
-    with Apache on Win32 and I'm getting an error saying that the
-    module cannot be found, yet the mod_dav_svn.so file is right
+    with Apache on Win32 and I'm getting an error saying that the 
+    module cannot be found, yet the mod_dav_svn.so file is right 
     there in <tt>\Apache\modules.</tt></a></h3>
 
-<p>The error message in this case is a little misleading. Most likely
+<p>The error message in this case is a little misleading. Most likely 
 Apache is unable to load one or more DLLs that <tt>mod_dav_svn.so</tt>
 relies on.  If Apache is running as a service it will not have the
 same <tt>PATH</tt> as a regular user.  Make sure that
@@ -1953,8 +1953,8 @@ are present in either <tt>\Apache\bin</tt> or
 <tt>\Apache\modules</tt>.  You can copy them from your Subversion
 installation directory if they are not there.</p>
 
-<p>If this still does not resolve the problem, you should use a tool
-like <a href="http://www.dependencywalker.com">Dependency Walker</a>
+<p>If this still does not resolve the problem, you should use a tool 
+like <a href="http://www.dependencywalker.com">Dependency Walker</a> 
 on <tt>mod_dav_svn.so</tt> to see if there are any other unresolved
 dependencies.</p>
 
