@@ -99,11 +99,11 @@ apr_hash_sorted_keys (apr_hash_t *ht,
       item->key = (char *) key;
       item->size = klen;
       item->data = value;
-
+      
       receiver = (svn_item_t **)apr_array_push (ary);
       *receiver = item;
     }
-
+  
   /* now quicksort the array.  */
   qsort (ary->elts, ary->nelts, ary->elt_size, comparison_func);
 
@@ -113,7 +113,7 @@ apr_hash_sorted_keys (apr_hash_t *ht,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
