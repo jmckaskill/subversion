@@ -220,7 +220,7 @@ const dav_hooks_propdb dav_svn_hooks_propdb = {
 };
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:

@@ -1,7 +1,7 @@
 
                                 DAV SETUP
                                 =========
-                                   or,
+                                   or, 
    how Subversion developers can create a Subversion server on UNIX,
                by setting up Apache/mod_dav/mod_dav_svn.
 
@@ -51,7 +51,7 @@
 
 5.  Go back into your subversion working copy and run ./autogen.sh if
     you need to.  Then run
-
+ 
       ./configure --with-apxs=/usr/local/apache2/bin/apxs
 
     This argument tells subversion to build mod_dav_svn, and where to
