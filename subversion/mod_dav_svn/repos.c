@@ -917,7 +917,7 @@ const dav_hooks_repository dav_svn_hooks_repos =
 };
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
