@@ -69,20 +69,20 @@ svn_cl__propset (apr_getopt_t *os,
       propval = svn_string_create (((const char **) (args->elts))[1], pool);
       propval_came_from_cmdline = TRUE;
     }
-
+  
   /* We only want special Subversion property values to be in UTF-8
      and LF line endings.  All other propvals are taken literally. */
   if (svn_prop_needs_translation (pname_utf8))
     SVN_ERR (svn_subst_translate_string (&propval, propval,
                                          opt_state->encoding, pool));
-  else
+  else 
     if (opt_state->encoding)
-      return svn_error_create
+      return svn_error_create 
         (SVN_ERR_UNSUPPORTED_FEATURE, NULL,
          "Bad encoding option: prop's value isn't stored as UTF8.");
-
+  
   /* Suck up all the remaining arguments into a targets array */
-  SVN_ERR (svn_opt_args_to_target_array (&targets, os,
+  SVN_ERR (svn_opt_args_to_target_array (&targets, os, 
                                          opt_state->targets,
                                          &(opt_state->start_revision),
                                          &(opt_state->end_revision),
@@ -110,7 +110,7 @@ svn_cl__propset (apr_getopt_t *os,
         return svn_error_create(SVN_ERR_CL_INSUFFICIENT_ARGS, NULL,
                                 "No URL target available.");
       target = ((const char **) (targets->elts))[0];
-      SVN_ERR (svn_cl__get_url_from_target (&URL, target, pool));
+      SVN_ERR (svn_cl__get_url_from_target (&URL, target, pool));  
       if (URL == NULL)
         return svn_error_create(SVN_ERR_UNVERSIONED_RESOURCE, NULL,
                                 "Either a URL or versioned item is required.");
@@ -119,7 +119,7 @@ svn_cl__propset (apr_getopt_t *os,
       SVN_ERR (svn_client_revprop_set (pname_utf8, propval,
                                        URL, &(opt_state->start_revision),
                                        &rev, ctx, pool));
-      if (! opt_state->quiet)
+      if (! opt_state->quiet) 
         {
           const char *target_native;
           SVN_ERR (svn_utf_cstring_from_utf8 (&target_native,
@@ -127,7 +127,7 @@ svn_cl__propset (apr_getopt_t *os,
           printf ("property `%s' set on repository revision '%"
                   SVN_REVNUM_T_FMT"'\n",
                   pname, rev);
-        }
+        }      
     }
   else if (opt_state->start_revision.kind != svn_opt_revision_unspecified)
     {
@@ -140,7 +140,7 @@ svn_cl__propset (apr_getopt_t *os,
     {
       /* The customary implicit dot rule has been prone to user error
        * here.  People would do intuitive things like
-       *
+       * 
        *    $ svn propset svn:executable script
        *
        * and then be surprised to get an error like:
@@ -150,7 +150,7 @@ svn_cl__propset (apr_getopt_t *os,
        *
        * So we don't do the implicit dot thing anymore.  A * target
        * must always be explicitly provided when setting a versioned
-       * property.  See
+       * property.  See 
        *
        *    http://subversion.tigris.org/issues/show_bug.cgi?id=924
        *
@@ -179,14 +179,14 @@ svn_cl__propset (apr_getopt_t *os,
           const char *target = ((const char **) (targets->elts))[i];
           SVN_ERR (svn_client_propset (pname_utf8, propval, target,
                                        opt_state->recursive, pool));
-
-          if (! opt_state->quiet)
+          
+          if (! opt_state->quiet) 
             {
               const char *target_native;
               SVN_ERR (svn_utf_cstring_from_utf8 (&target_native,
                                                   target, pool));
               printf ("property `%s' set%s on '%s'\n",
-                      pname,
+                      pname, 
                       opt_state->recursive ? " (recursively)" : "",
                       target_native);
             }
