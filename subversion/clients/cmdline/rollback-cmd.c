@@ -52,11 +52,11 @@ svn_cl__rollback (apr_getopt_t *os,
   if (opt_state->end_revision.kind != svn_client_revision_unspecified
       || opt_state->start_revision.kind == svn_client_revision_unspecified)
     {
-      return svn_error_create (SVN_ERR_CL_INSUFFICIENT_ARGS, 0, 0, pool,
+      return svn_error_create (SVN_ERR_CL_INSUFFICIENT_ARGS, 0, 0, pool, 
                                "One and only one revision required.");
     }
 
-  opt_state->end_revision.value.number
+  opt_state->end_revision.value.number 
     = opt_state->start_revision.value.number - 1;
 
   if (! SVN_IS_VALID_REVNUM (opt_state->end_revision.value.number))
@@ -70,7 +70,7 @@ svn_cl__rollback (apr_getopt_t *os,
   opt_state->end_revision.kind = svn_client_revision_number;
 
   targets = svn_cl__args_to_target_array (os, opt_state, FALSE, pool);
-
+  
   if (targets->nelts < 1)
     {
       return svn_error_create (SVN_ERR_CL_INSUFFICIENT_ARGS, 0, 0, pool,
@@ -79,13 +79,13 @@ svn_cl__rollback (apr_getopt_t *os,
 
   for (i = 0; i < targets->nelts; ++i)
     {
-      targetpath = sourcepath1 = sourcepath2
+      targetpath = sourcepath1 = sourcepath2 
         = ((const char **) (targets->elts))[i];
 
-      SVN_ERR (svn_wc_get_actual_target (targetpath, &parent_dir, &entry,
+      SVN_ERR (svn_wc_get_actual_target (targetpath, &parent_dir, &entry, 
                                          pool));
 
-      SVN_ERR (svn_cl__get_trace_update_editor (&trace_editor,
+      SVN_ERR (svn_cl__get_trace_update_editor (&trace_editor, 
                                                 &trace_edit_baton,
                                                 parent_dir, FALSE, TRUE, pool));
 
@@ -98,7 +98,7 @@ svn_cl__rollback (apr_getopt_t *os,
                               targetpath,
                               opt_state->nonrecursive ? FALSE : TRUE,
                               opt_state->force,
-                              pool);
+                              pool); 
       if (err)
          return svn_cl__may_need_force (err);
 
@@ -108,8 +108,8 @@ svn_cl__rollback (apr_getopt_t *os,
 }
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../tools/dev/svn-dev.el")
- * end:
+ * end: 
  */
