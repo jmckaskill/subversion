@@ -55,7 +55,7 @@ build_info_from_entry (svn_info_t **info,
   i->last_changed_rev     = entry->cmt_rev;
   i->last_changed_date    = entry->cmt_date;
   i->last_changed_author  = entry->cmt_author;
-
+  
   /* entry-specific stuff */
   i->schedule             = entry->schedule;
   i->copyfrom_url         = entry->copyfrom_url;
@@ -77,7 +77,7 @@ build_info_from_entry (svn_info_t **info,
 struct found_entry_baton
 {
   svn_info_receiver_t receiver;
-  void *receiver_baton;
+  void *receiver_baton;         
 };
 
 static svn_error_t *
@@ -92,18 +92,18 @@ info_found_entry_callback (const char *path,
   /* We're going to receive dirents twice;  we want to ignore the
      first one (where it's a child of a parent dir), and only print
      the second one (where we're looking at THIS_DIR.)  */
-  if ((entry->kind == svn_node_dir)
+  if ((entry->kind == svn_node_dir) 
       && (strcmp (entry->name, SVN_WC_ENTRY_THIS_DIR)))
     return SVN_NO_ERROR;
 
   SVN_ERR (build_info_from_entry (&info, entry, pool));
-
+ 
   return fe_baton->receiver (fe_baton->receiver_baton, path, info, pool);
 }
 
 
 
-static const svn_wc_entry_callbacks_t
+static const svn_wc_entry_callbacks_t 
 entry_walk_callbacks =
   {
     info_found_entry_callback
@@ -115,7 +115,7 @@ entry_walk_callbacks =
 static svn_error_t *
 crawl_entries (const char *wcpath,
                svn_info_receiver_t receiver,
-               void *receiver_baton,
+               void *receiver_baton,               
                svn_boolean_t recurse,
                svn_client_ctx_t *ctx,
                apr_pool_t *pool)
@@ -124,7 +124,7 @@ crawl_entries (const char *wcpath,
   const svn_wc_entry_t *entry;
   svn_info_t *info;
   struct found_entry_baton fe_baton;
-
+  
   SVN_ERR (svn_wc_adm_probe_open3 (&adm_access, NULL, wcpath, FALSE,
                                    recurse ? -1 : 0,
                                    ctx->cancel_func, ctx->cancel_baton,
@@ -153,7 +153,7 @@ crawl_entries (const char *wcpath,
       else
         return receiver (receiver_baton, wcpath, info, pool);
     }
-
+      
   return SVN_NO_ERROR;
 }
 
@@ -172,15 +172,15 @@ svn_client_info (const char *path_or_url,
      svn_revnum_t rev;
      svn_node_kind_t url_kind;
      const char *url; */
-
-  if ((revision == NULL
+     
+  if ((revision == NULL 
        || revision->kind == svn_opt_revision_unspecified)
       && (peg_revision == NULL
           || peg_revision->kind == svn_opt_revision_unspecified))
     {
       /* Do all digging in the working copy. */
       return crawl_entries (path_or_url,
-                            receiver, receiver_baton,
+                            receiver, receiver_baton,               
                             recurse, ctx, pool);
     }
 
