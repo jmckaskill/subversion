@@ -49,9 +49,9 @@ svn_error_t *svn_ra_dav__parsed_request(svn_ra_session_t *ras,
                                         const char *url,
                                         const char *body,
                                         int fd,
-                                        const struct ne_xml_elm *elements,
+                                        const struct ne_xml_elm *elements, 
                                         ne_xml_validate_cb validate_cb,
-                                        ne_xml_startelm_cb startelm_cb,
+                                        ne_xml_startelm_cb startelm_cb, 
                                         ne_xml_endelm_cb endelm_cb,
                                         void *baton,
                                         apr_pool_t *pool)
@@ -92,7 +92,7 @@ svn_error_t *svn_ra_dav__parsed_request(svn_ra_session_t *ras,
       /* ### need to be more sophisticated with reporting the failure */
       err2 = svn_error_createf (SVN_ERR_RA_REQUEST_FAILED, 0, NULL, pool,
                                 "neon: %s", ne_get_error (ras->sess));
-
+                               
       switch (rv)
         {
         case NE_CONNECT:
@@ -147,7 +147,7 @@ svn_error_t *svn_ra_dav__parsed_request(svn_ra_session_t *ras,
 }
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
