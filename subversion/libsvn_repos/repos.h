@@ -100,7 +100,7 @@ struct svn_repos_t
 #endif /* SVN_LIBSVN_REPOS_H */
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end:

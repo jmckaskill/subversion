@@ -34,13 +34,13 @@
       is the basis of tags and branches.</para>
 
   </simplesect>
-
+  
   <!-- ================================================================= -->
   <!-- ======================== SECTION 1 ============================== -->
   <!-- ================================================================= -->
   <sect1 id="svn-ch-4-sect-1">
-    <title>Branching with svn cp</title>
-
+    <title>Branching with svn cp</title> 
+    
     <para>Suppose we have a repository whose head tree is revision 82.
       In this repository is a subdirectory <filename>mooIRC</filename>
       that contains a software project that is ready to be tagged.
@@ -51,7 +51,7 @@
       <filename>mooIRC</filename> in revision 82.  Of course, you can
       name the new directory entry whatever you want -- probably a
       tag-name like <filename>mooIRC-beta</filename>.</para>
-
+    
     <para>The easiest way to make this copy is with <command>svn
       cp</command>, which, incidentally, can operate entirely on URLs,
       so that the copy happens only on the server-side:</para>
@@ -150,7 +150,7 @@
     <screen>
       $ svn switch http://foo.com/repos/mooIRC-beta/subsystems/renderer \
                    mooIRC/subsystems/renderer
-
+      
       U  mooIRC/subsystems/renderer/foo.c
       U  mooIRC/subsystems/renderer/bar.h
       U  mooIRC/subsystems/renderer/baz.c
@@ -199,12 +199,12 @@
 
     <para>For example, suppose the bug fix happened in a commit to the
       <filename>mooIRC-beta</filename> branch in revision 102.</para>
-
+    
     <screen>
       $ svn diff -r 101:102 http://foo.com/repos/mooIRC-beta
-
+      
      &hellip;   # diffs sent to screen
-
+      
       $ svn merge -r 101:102 http://foo.com/repos/mooIRC-beta mooIRC
       U   mooIRC/glorb.c
       U   mooIRC/src/floo.h
@@ -241,9 +241,9 @@
       Transmitting file data ..
       Committed revision 10.
       $
-
+      
       &hellip; # developer continues on and realizes he made a mistake
-
+      
       $ svn merge -r 10:9 .
       U ./bar.c
       U ./foo.c
@@ -253,7 +253,7 @@
       Transmitting file data ..
       Committed revision 11.
     </screen>
-
+    
     <para>If you aren't rolling back the changes to your current
       directory (say you want to roll back one specific file, or all
       the files in one specific subdirectory), then the syntax is
@@ -270,9 +270,9 @@
       Transmitting file data ..
       Committed revision 12.
       $
-
+      
       &hellip; # developer continues on and later makes another mistake
-
+      
       $ svn merge -r 13:12 baz/foo.c baz/foo.c
       U ./baz/foo.c
       $ svn commit -m "reverting revision 12's change to foo.c"
@@ -280,7 +280,7 @@
       Transmitting file data .
       Committed revision 15.
     </screen>
-
+    
     <para>Keep in mind that rolling back a change like this is just
       like any other <command>svn merge</command> operation, so you
       should use <command>svn status</command> and <command>svn
@@ -302,7 +302,7 @@
       <quote>vendor branch</quote>.  Subversion doesn't have a formal
       <quote>vendor branch</quote>, but it is sufficiently flexible
       that you can still do much the same thing.</para>
-
+    
     <para>The general procedure goes like this.  You create a top
       level directory (we'll use <filename>/vendor</filename>) to hold
       the vendor branches.  Then you import the third party code into
@@ -317,17 +317,17 @@
       example.</para>
 
     <para>First, the initial import.</para>
-
+    
     <screen>
       $ svn mkdir http://svnhost/repos/vendor/foobar
       $ svn import http://svnhost/repos/vendor/foobar ~/foobar-1.0 current
     </screen>
-
+    
     <para>Now we've got the current version of the foobar project in
       <filename>/vendor/foobar/current</filename>.  We make another
       copy of it so we can always refer to that version, and then copy
       it into the trunk so you can work on it.</para>
-
+    
     <screen>
       $ svn copy http://svnhost/repos/vendor/foobar/current    \
                  http://svnhost/repos/vendor/foobar/foobar-1.0 \
@@ -366,14 +366,14 @@
     <para>What happened? foobar 1.0 had a file called
       <filename>main.c</filename>.  This file was renamed to
       <filename>foobar.c</filename> in 1.1.  So your working-copy had
-      the old <filename>main.c</filename> which Subversion knew about,
-      and the new <filename>foobar.c</filename> which Subversion did
-      not know about.  You rename <filename>foobar.c</filename> to
-      <filename>main.c</filename> and <command>svn mv</command> it
-      back to the new name.  This way, Subversion will know that
-      <filename>foobar.c</filename> is a descendant of
-      <filename>main.c</filename>.  <filename>dead.c</filename> has
-      been removed in 1.1, and they have finally written some
+      the old <filename>main.c</filename> which Subversion knew about, 
+      and the new <filename>foobar.c</filename> which Subversion did 
+      not know about.  You rename <filename>foobar.c</filename> to 
+      <filename>main.c</filename> and <command>svn mv</command> it 
+      back to the new name.  This way, Subversion will know that 
+      <filename>foobar.c</filename> is a descendant of 
+      <filename>main.c</filename>.  <filename>dead.c</filename> has 
+      been removed in 1.1, and they have finally written some 
       documentation, so you add that.</para>
 
     <para>Next you copy <filename>/vendor/foobar/current</filename> to
@@ -400,7 +400,7 @@
       &hellip; # resolve all the conflicts between their changes and your changes
       $ svn commit -m `merging foobar 1.1 into trunk'
     </screen>
-
+    
     <para>There, you're done.  You now have a copy of foobar 1.1 with
       all your local changes merged into it in your tree.</para>
 
@@ -617,7 +617,7 @@
 </chapter>
 
 <!--
-local variables:
+local variables: 
 eval: (load-file "../tools/svnbook.el")
 sgml-parent-document: ("book.xml" "chapter")
 end:

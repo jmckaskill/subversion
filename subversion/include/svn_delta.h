@@ -336,7 +336,7 @@ typedef struct
      Most of the callbacks work in the obvious way:
 
          delete_entry
-         add_file           add_directory
+         add_file           add_directory    
          open_file          open_directory
 
      Each of these takes a directory baton, indicating the directory
@@ -368,7 +368,7 @@ typedef struct
         open_directory (ROOT, "foo") --- yielding a baton F for `foo'
         open_directory (F, "foo/bar") --- yielding a baton B for `foo/bar'
         add_file (B, "foo/bar/baz.c")
-
+     
      When the producer is finished making changes to a directory, it
      should call `close_directory'.  This lets the consumer do any
      necessary cleanup, and free the baton's storage.
@@ -437,7 +437,7 @@ typedef struct
      determined by the editor "driver". The driver is responsible for
      creating a pool for use on each iteration of the editor function,
      and clearing that pool between each iteration. The driver passes
-     the appropriate pool on each function invocation.
+     the appropriate pool on each function invocation. 
 
      Based on the requirement of calling the editor functions in a
      depth-first style, it is usually customary for the driver to similar
@@ -483,7 +483,7 @@ typedef struct
 
 
   /* Deleting things.  */
-
+       
   /* Remove the directory entry named PATH, a child of the directory
      represented by PARENT_BATON.  REVISION is used as a sanity check
      to ensure that you are removing the revision of PATH that you
@@ -497,10 +497,10 @@ typedef struct
 
 
   /* Creating and modifying directories.  */
-
+  
   /* We are going to add a new subdirectory named PATH.  We will use
      the value this callback stores in *CHILD_BATON as the
-     PARENT_BATON for further changes in the new subdirectory.
+     PARENT_BATON for further changes in the new subdirectory.  
 
      If COPYFROM_PATH is non-NULL, this add has history (i.e., is a
      copy), and the origin of the copy may be recorded as
@@ -536,7 +536,7 @@ typedef struct
      - DIR_BATON specifies the directory whose property should change.
      - NAME is the name of the property to change.
      - VALUE is the new value of the property, or NULL if the property
-       should be removed altogether.
+       should be removed altogether.  
 
      All allocations should be performed in POOL. */
   svn_error_t *(*change_dir_prop) (void *dir_baton,
@@ -608,7 +608,7 @@ typedef struct
      avoid computing changes. Note that the editor knows the change
      has occurred (by virtue of this function being invoked), but is
      simply indicating that it doesn't want the details.  */
-  svn_error_t *(*apply_textdelta) (void *file_baton,
+  svn_error_t *(*apply_textdelta) (void *file_baton, 
                                    apr_pool_t *pool,
                                    svn_txdelta_window_handler_t *handler,
                                    void **handler_baton);
@@ -633,7 +633,7 @@ typedef struct
 
   /* All delta processing is done.  Call this, with the EDIT_BATON for
      the entire edit. */
-  svn_error_t *(*close_edit) (void *edit_baton,
+  svn_error_t *(*close_edit) (void *edit_baton, 
                               apr_pool_t *pool);
 
   /* The editor-driver has decided to bail out.  Allow the editor to
@@ -641,7 +641,7 @@ typedef struct
   svn_error_t *(*abort_edit) (void *edit_baton,
                               apr_pool_t *pool);
 
-} svn_delta_editor_t;
+} svn_delta_editor_t;  
 
 
 /* Return a default delta editor template, allocated in POOL.

@@ -59,7 +59,7 @@ svn_fs__open_strings_table (DB **strings_p,
              svn_fs__str_to_dbt (&value, (char *) "0"),
              SVN_BDB_AUTO_COMMIT));
   }
-
+  
   *strings_p = strings;
   return 0;
 }
@@ -439,7 +439,7 @@ svn_fs__string_copy (svn_fs_t *fs,
   /* Copy off the old key in case the caller is sharing storage
      between the old and new keys. */
   const char *old_key = apr_pstrdup (trail->pool, key);
-
+  
   SVN_ERR (get_key_and_bump (fs, new_key, trail));
 
   SVN_ERR (DB_WRAP (fs, "creating cursor for reading a string",
@@ -489,13 +489,13 @@ svn_fs__string_copy (svn_fs_t *fs,
         }
     }
 
-  return DB_WRAP (fs, "closing string-reading cursor",
+  return DB_WRAP (fs, "closing string-reading cursor", 
                   cursor->c_close (cursor));
 }
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../tools/dev/svn-dev.el")
  * end:

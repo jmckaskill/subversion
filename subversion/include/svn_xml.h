@@ -130,16 +130,16 @@ svn_xml_parser_t *svn_xml_make_parser (void *userData,
 void svn_xml_free_parser (svn_xml_parser_t *svn_parser);
 
 
-/* Push LEN bytes of xml data in BUF at SVN_PARSER.
+/* Push LEN bytes of xml data in BUF at SVN_PARSER.  
 
-   If this is the final push, IS_FINAL must be set.
+   If this is the final push, IS_FINAL must be set.  
 
    An error will be returned if there was a syntax problem in the XML,
    or if any of the callbacks set an error using
-   svn_xml_signal_bailout().
+   svn_xml_signal_bailout().  
 
    If an error is returned, the svn_xml_parser_t will have been freed
-   automatically, so the caller should not call svn_xml_free_parser(). */
+   automatically, so the caller should not call svn_xml_free_parser(). */ 
 svn_error_t *svn_xml_parse (svn_xml_parser_t *parser,
                             const char *buf,
                             apr_size_t len,
@@ -161,7 +161,7 @@ void svn_xml_signal_bailout (svn_error_t *error,
 /* Return the value associated with NAME in expat attribute array ATTS,
  * else return NULL.  (There could never be a NULL attribute value in
  * the XML, although the empty string is possible.)
- *
+ * 
  * ATTS is an array of c-strings: even-numbered indexes are names,
  * odd-numbers hold values.  If all is right, it should end on an
  * even-numbered index pointing to NULL.
@@ -173,7 +173,7 @@ const char *svn_xml_get_attr_value (const char *name, const char **atts);
 /*** Converting between Expat attribute lists and APR hash tables. ***/
 
 
-/* Create an attribute hash from va_list AP.
+/* Create an attribute hash from va_list AP. 
  * The contents of AP are alternating char * keys and char *vals,
  * terminated by a final null falling on an odd index (zero-based).
  */
@@ -205,9 +205,9 @@ void svn_xml_hash_atts_overlaying (const char **atts,
 /*** Printing XML ***/
 
 /* Fully-formed XML documents should start out with a header,
-   something like
+   something like 
            <?xml version="1.0" encoding="utf-8"?>
-
+   
    This function returns such a header.  *STR must either be NULL, in
    which case a new string is created, or it must point to an existing
    string to be appended to.  */
@@ -280,5 +280,5 @@ void svn_xml_make_close_tag (svn_stringbuf_t **str,
 /* ----------------------------------------------------------------
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
- * end:
+ * end: 
  */

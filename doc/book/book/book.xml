@@ -81,7 +81,7 @@
   </book>
 
 <!--
-local variables:
+local variables: 
 eval: (load-file "../tools/svnbook.el")
 end:
 -->

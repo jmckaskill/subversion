@@ -137,7 +137,7 @@ svn_error_t * svn_ra_dav__get_activity_collection(
 }
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end:
