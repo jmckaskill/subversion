@@ -54,7 +54,7 @@ Candidate changes:
       +1: pmayweg
 
   * r11490, r11501 (Issue #2011)
-    Fix UNC paths on Windows
+    Fix UNC paths on Windows 
     Justification:
       It used to work.  It should work now.
     Notes:
