@@ -134,7 +134,7 @@ static svn_error_t *send_response(mr_baton *baton, svn_boolean_t is_dir)
 
   status = ap_fputstrs(mrc->output, mrc->bb,
                        "<D:response>" DEBUG_CR
-                       "<D:href>",
+                       "<D:href>", 
                        apr_xml_quote_string (baton->pool, href, 1),
                        "</D:href>" DEBUG_CR
                        "<D:propstat><D:prop>" DEBUG_CR,
@@ -341,7 +341,7 @@ dav_error * dav_svn__merge_response(ap_filter_t *output,
   bb = apr_brigade_create(pool);
 
   /* prep some strings */
-
+  
   /* the HREF for the baseline is actually the VCC */
   vcc = dav_svn_build_uri(repos, DAV_SVN_BUILD_URI_VCC, SVN_IGNORED_REVNUM,
                           NULL, 0 /* add_href */, pool);
@@ -356,7 +356,7 @@ dav_error * dav_svn__merge_response(ap_filter_t *output,
 
                      /* generate a response for the new baseline */
                      "<D:response>" DEBUG_CR
-                     "<D:href>",
+                     "<D:href>", 
                      apr_xml_quote_string (pool, vcc, 1),
                      "</D:href>" DEBUG_CR
                      "<D:propstat><D:prop>" DEBUG_CR
@@ -415,7 +415,7 @@ dav_error * dav_svn__merge_response(ap_filter_t *output,
                              NULL,      /* ### should fix */
                              revs,
                              committed_root, rootpath,
-                             editor, &mrc,
+                             editor, &mrc, 
                              FALSE, /* don't bother with text-deltas */
                              TRUE, /* Do recurse into subdirectories */
                              pool);
