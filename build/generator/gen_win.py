@@ -187,7 +187,7 @@ class WinGeneratorBase(GeneratorBase):
   def path(self, *paths):
     """Convert build path to msvc path and prepend root"""
     return msvc_path_join(self.rootpath, *map(msvc_path, paths))
-
+  
   def apath(self, path, *paths):
     """Convert build path to msvc path and prepend root if not absolute"""
     ### On Unix, os.path.isabs won't do the right thing if "item"
@@ -240,7 +240,7 @@ class WinGeneratorBase(GeneratorBase):
                     libs=self.get_win_libs(target, cfg),
                     ))
     return configs
-
+  
   def get_proj_sources(self, quote_path, target):
     "Get the list of source files for each project"
     sources = [ ]
@@ -384,7 +384,7 @@ class WinGeneratorBase(GeneratorBase):
       sources.append(ProjectItem(path=gsrc, reldir=None, custom_build=cbuild,
                                  user_deps=deps, custom_target=def_file))
 
-      sources.append(ProjectItem(path=def_file, reldir=None,
+      sources.append(ProjectItem(path=def_file, reldir=None, 
                                  custom_build=None, user_deps=[]))
 
     sources.sort(lambda x, y: cmp(x.path, y.path))
@@ -477,7 +477,7 @@ class WinGeneratorBase(GeneratorBase):
     depends.extend(self.get_win_depends(target, FILTER_PROJECTS))
 
     return depends
-
+    
   def get_win_depends(self, target, mode):
     """Return the list of dependencies for target"""
 
@@ -652,7 +652,7 @@ class WinGeneratorBase(GeneratorBase):
     if isinstance(target, gen_base.TargetApacheMod):
       fakelibdirs.append(self.apath(self.httpd_path, cfg))
       if target.name == 'mod_dav_svn':
-        fakelibdirs.append(self.apath(self.httpd_path, "modules/dav/main",
+        fakelibdirs.append(self.apath(self.httpd_path, "modules/dav/main", 
                                       cfg))
 
     return fakelibdirs
@@ -678,7 +678,7 @@ class WinGeneratorBase(GeneratorBase):
     if isinstance(target, gen_base.TargetExe):
       nondeplibs.append('setargv.obj')
 
-    if ((isinstance(target, gen_base.TargetSWIG)
+    if ((isinstance(target, gen_base.TargetSWIG) 
          or isinstance(target, gen_base.TargetSWIGLib))
         and target.lang == 'perl'):
       nondeplibs.append(self.perl_lib)
