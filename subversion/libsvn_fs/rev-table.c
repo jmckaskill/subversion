@@ -162,7 +162,7 @@ svn_fs__rev_get_root (svn_fs_id_t **root_id_p,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
