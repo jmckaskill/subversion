@@ -1,3 +1,15 @@
+Version 0.35.1 (branching 19 December 2003, from /tags/0.35.0)
+http://svn.collab.net/repos/svn/tags/0.35.1
+
+                              NOTICES:
+
+       This release is to correct for the problems in the 0.35.0
+       release and affects Windows users only:
+
+       * fix: file handle leak (r8048)
+       * fix: UTF-8 path problem (issue #1660)
+
+
 Version 0.35.0 (branching 12 December 2003, from revision 7994)
 http://svn.collab.net/repos/svn/branches/0.35.0
 
