@@ -157,7 +157,7 @@ close_file (void *file_baton)
         {
           svn_error_t *err;
           svn_boolean_t modified;
-          err = svn_wc_text_modified_p
+          err = svn_wc_text_modified_p 
             (&modified, fb->path, fb->parent_dir_baton->edit_baton->pool);
           if (err)
             return err;
@@ -302,14 +302,14 @@ svn_cl__get_trace_editor (const svn_delta_edit_fns_t **editor,
 
   *edit_baton = eb;
   *editor = &trace_editor;
-
+  
   return SVN_NO_ERROR;
 }
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
- * end:
+ * end: 
  */
