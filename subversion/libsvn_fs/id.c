@@ -190,7 +190,7 @@ svn_fs_parse_id (const char *data,
 {
   svn_fs_id_t *id;
   int id_len;
-
+  
   /* Count the number of components in the ID, and check its syntax.  */
   id_len = svn_fs__count_id_components (data, data_len);
   if (id_len == 0)
@@ -268,7 +268,7 @@ svn_fs_copy_id (const svn_fs_id_t *id, apr_pool_t *pool)
   apr_size_t id_size = (svn_fs_id_length (id) + 1) * sizeof (id[0]);
   svn_fs_id_t *copy = apr_palloc (pool, id_size);
   memcpy (copy, id, id_size);
-
+  
   return copy;
 }
 
@@ -307,13 +307,13 @@ svn_fs_predecessor_id (const svn_fs_id_t *id, apr_pool_t *pool)
     predecessor_id[len - 2] = -1;
   else
     predecessor_id = NULL;
-
+  
   return predecessor_id;
 }
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
