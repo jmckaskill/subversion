@@ -154,7 +154,7 @@ svn_repos__hooks_start_commit (svn_repos_t *repos,
 
       args[0] = hook;
       args[1] = svn_repos_path (repos, pool);
-      args[2] = user;
+      args[2] = user ? user : "";
       args[3] = NULL;
 
       SVN_ERR (run_hook_cmd ("start-commit", hook, args, TRUE, pool));
@@ -229,7 +229,7 @@ svn_repos__hooks_pre_revprop_change (svn_repos_t *repos,
       args[0] = hook;
       args[1] = svn_repos_path (repos, pool);
       args[2] = apr_psprintf (pool, "%" SVN_REVNUM_T_FMT, rev);
-      args[3] = author;
+      args[3] = author ? author : "";
       args[4] = name;
       args[5] = NULL;
 
@@ -271,7 +271,7 @@ svn_repos__hooks_post_revprop_change (svn_repos_t *repos,
       args[0] = hook;
       args[1] = svn_repos_path (repos, pool);
       args[2] = apr_psprintf (pool, "%" SVN_REVNUM_T_FMT, rev);
-      args[3] = author;
+      args[3] = author ? author : "";
       args[4] = name;
       args[5] = NULL;
 
