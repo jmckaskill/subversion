@@ -1,4 +1,4 @@
-This code is for creating and interpreting `vcdiff'.
+This code is for creating and interpreting `vcdiff'.  
 
 The full specification of the vcdiff format is in the draft RFC
 (draft-korn-vcdiff-01.txt), and some discussion of how to *generate*
@@ -28,7 +28,7 @@ in three sections:
 
 
 A vdiff consists of a 4 byte header, followed by a series of
-"sections".  Each section is
+"sections".  Each section is 
 
    A 4 byte header -- the letters "VCD" with their eighth bits set,
    then a format version number:
@@ -38,7 +38,7 @@ A vdiff consists of a 4 byte header, followed by a series of
       0xd6           0xc3             0xc4          0x0
       `V' + 1<<7     `C' + 1<<7       `D' + 1<<7    Version (currently 0)
 
-
+   
 
 
 
