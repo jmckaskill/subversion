@@ -47,7 +47,7 @@ the repository:
    README   custom/   dav/   db/   conf/
    $ ls some-repo/conf/
    pre-commit    post-commit    read-sentinels    write-sentinels
-   $
+   $ 
 
 Each conf file specifies hook scripts to run, in a syntax (described
 below) similar to CVS's configuration files.  The `pre-commit' and
@@ -65,9 +65,9 @@ Pre-Commit and Post-Commit Hooks.
 ---------------------------------
 
    Here are examples of each:
-
+   
       # Pre-commit hooks: invoke a program with some arguments.  One of
-      # the arguments may be "$txn", which will be substituted with a
+      # the arguments may be "$txn", which will be substituted with a 
       # Subversion txn id at the time the hook is run.  Another may be
       # $repos, which will be substituted with the absolute path to the
       # repository in which the txn can be found.
@@ -80,9 +80,9 @@ Pre-Commit and Post-Commit Hooks.
       # left.
       #
       my-pre-commit-hook.py some_arg --repository $repos --txn-id $txn
-
-   and
-
+   
+   and 
+   
       # Post-commit hooks: invoke a program with some arguments.  One of
       # the arguments may be "$rev", which will be substituted with the
       # revision number of the newly-committed tree.  Another may be
@@ -93,39 +93,39 @@ Pre-Commit and Post-Commit Hooks.
       # of any one hook.
       #
       my-post-commit-hook.pl some_arg --repository $repos --revision $rev
-
+   
    Everything a program needs to know about the data being committed can
    be gleaned from the program's arguments, and from the txn or revision
    tree.
-
+   
    The question is, how can the hook program examine the tree?  We don't
    have SWIG bindings for all languages yet, and anyway hooks shouldn't
    be limited only to languages in which the Subversion C APIs have
    equivalents.
-
+   
    The solution is a small standalone program, `svnlook'.  It is used to
    examine a txn or revision tree in the various ways a hook program
    might want.  The `svnlook' program produces output that is both human-
    and machine-readable, so hook scripts can easily parse it.
-
+   
       svnlook repos [txn|rev] ID  [subcommand ...]
-
+   
    With no subcommand, the default output contains:
-
+   
        - log message
        - author
        - date (in revision case)
        - The tree, in summary form similar to `svnadmin's output.
-
+   
    Subcommands are:
-
+   
        - log:           log message to stdout.
        - author:        author to stdout
        - date:          date to stdout (only for revs, not txns)
        - dirs-changed:  directories in which things were changed
        - changed:       full change summary: all dirs & files changed
        - diff:          GNU diffs of changed files, prop diffs too
-
+           
    The exact format of the output is still TBD; obviously, a precise
    specification is very important for hook implementors.
 
@@ -139,14 +139,14 @@ Read and Write Sentinels.
    (see svn_fs.h).  All operations on paths beneath that root are first
    "checked" with the sentinel; the sentinel's response determines
    whether the operation is permitted.
-
+   
    Our hope is that sentinels can be kept very simple: they will simply
    take paths on stdin, and respond with "Okay" or "Not Okay" (or
    slightly more formal XML equivalents).  All kinds of read operations
    on a path will be treated as equivalent, as will all write operations.
    The relevant question will be simply: was the user allowed to read or
    write this path?
-
+   
    The point of sentinels is to provide real-time feedback as a commit
    is being built (or even before the txn is started), or as a
    checkout or update is being produced -- but without the overhead of
@@ -154,7 +154,7 @@ Read and Write Sentinels.
 
    Almost all reading and writing functions in svn_fs.h will need to be
    wrapped by libsvn_repos, which will drive the sentinels:
-
+   
       Read actions to be wrapped:
       ---------------------------
          svn_fs_revision_root
@@ -172,7 +172,7 @@ Read and Write Sentinels.
          svn_fs_youngest_rev
          svn_fs_revision_prop
          svn_fs_revision_proplist
-
+   
       Write actions to be wrapped:
       ----------------------------
          svn_fs_begin_txn
@@ -189,7 +189,7 @@ Read and Write Sentinels.
          svn_fs_make_file
          svn_fs_apply_textdelta
          svn_fs_change_rev_prop
-
+   
    The exact sentinel protocol is still TBD; obviously, a precise
    specification is very important for sentinel implementors.
 
@@ -197,7 +197,7 @@ Read and Write Sentinels.
 FAQ (Frequently Anticipated Questions).
 =======================================
 
-   -*- -*- -*- -*- -*- -*- -*- -*- -*- -*- -*- -*- -*- -*- -*- -*- -*- -*-
+   -*- -*- -*- -*- -*- -*- -*- -*- -*- -*- -*- -*- -*- -*- -*- -*- -*- -*- 
 
    Q: Why is Subversion using its own conf files, instead of adding
       directives to apache conf files?  Wouldn't it be better to do
@@ -210,7 +210,7 @@ FAQ (Frequently Anticipated Questions).
       SVNPostCommitHook /absolute/path/to/some-post-commit-script.pl
       SVNPostCommitHook /absolute/path/to/another-post-commit-script.pl
       </Location>
-
+   
       ...  or something like that?
 
    A: The problem is that the hooks won't be run when (for example)
@@ -218,7 +218,7 @@ FAQ (Frequently Anticipated Questions).
       of Subversion's path-of-least-resistance, low-level repository
       access methods, rather than specific to Apache.
 
-   -*- -*- -*- -*- -*- -*- -*- -*- -*- -*- -*- -*- -*- -*- -*- -*- -*- -*-
+   -*- -*- -*- -*- -*- -*- -*- -*- -*- -*- -*- -*- -*- -*- -*- -*- -*- -*- 
 
    Q: Why is `svnlook' a read-only interface to the repository?
 

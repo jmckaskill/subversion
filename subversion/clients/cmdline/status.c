@@ -97,16 +97,16 @@ generate_status_codes (char *str_status,
     default:
       break;
     }
-
-  sprintf (str_status, "%c%c%c",
-           text_statuschar,
+  
+  sprintf (str_status, "%c%c%c", 
+           text_statuschar, 
            prop_statuschar,
            locked ? 'L' : ' ');
 }
 
 
 /* Print a single status structure in the short format */
-static void
+static void 
 print_short_format (const char *path,
                     svn_wc_status_t *status)
 {
@@ -127,7 +127,7 @@ print_short_format (const char *path,
 
 
 /* Print a single status structure in the short format */
-static void
+static void 
 print_long_format (const char *path,
                    svn_wc_status_t *status)
 {
@@ -165,7 +165,7 @@ print_long_format (const char *path,
      do complex things: */
   if (status->repos_text_status == svn_wc_status_added)
     {
-      if (status->repos_prop_status == svn_wc_status_added)
+      if (status->repos_prop_status == svn_wc_status_added) 
         printf ("__     %c         -    %s\n", update_char, path);
       else
         printf ("_      %c         -    %s\n", update_char, path);
@@ -182,7 +182,7 @@ print_long_format (const char *path,
 
 /* Called by status-cmd.c */
 void
-svn_cl__print_status_list (apr_hash_t *statushash,
+svn_cl__print_status_list (apr_hash_t *statushash, 
                            svn_boolean_t detailed,
                            apr_pool_t *pool)
 {
@@ -200,7 +200,7 @@ svn_cl__print_status_list (apr_hash_t *statushash,
     {
       svn_item_t *item;
       const char *path;
-
+      
       item = (((svn_item_t **)(statusarray)->elts)[i]);
       path = item->key;
       status = item->data;
@@ -224,8 +224,8 @@ svn_cl__print_status_list (apr_hash_t *statushash,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../svn-dev.el")
- * end:
+ * end: 
  */
