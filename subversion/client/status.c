@@ -85,7 +85,7 @@ generate_status_codes (char *str_status,
     default:
       break;
     }
-
+  
   sprintf (str_status, "%c%c", text_statuschar, prop_statuschar);
 }
 
@@ -100,7 +100,7 @@ svn_cl__print_status (svn_string_t *path, svn_wc_status_t *status)
                          status->text_status,
                          status->prop_status,
                          status->entry->prop_time);
-
+  
   /* Grab the entry revision once, safely. */
   if (status->entry)
     entry_rev = status->entry->revision;
@@ -141,7 +141,7 @@ svn_cl__print_status_list (apr_hash_t *statushash, apr_pool_t *pool)
       svn_item_t *item;
       const char *path;
       svn_wc_status_t *status;
-
+      
       item = (((svn_item_t **)(statusarray)->elts)[i]);
       path = (const char *) item->key;
       status = (svn_wc_status_t *) item->data;
@@ -152,8 +152,8 @@ svn_cl__print_status_list (apr_hash_t *statushash, apr_pool_t *pool)
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
- * end:
+ * end: 
  */

@@ -33,7 +33,7 @@ extern "C" {
 
 #define SVN_NO_ERROR   0   /* the best kind of (svn_error_t *) ! */
 
-/*
+/* 
    Define custom Subversion error numbers, in the range reserved for
    that in APR: from APR_OS_START_USEERR to APR_OS_START_SYSERR (see
    apr_errno.h).
@@ -104,7 +104,7 @@ typedef enum svn_errno_t {
 
   /* Unable to get ancestry for an entry. */
   SVN_ERR_WC_ENTRY_MISSING_ANCESTRY,
-
+  
   /* Bogus attributes are trying to be merged into an entry */
   SVN_ERR_WC_ENTRY_BOGUS_MERGE,
 
@@ -231,13 +231,13 @@ typedef enum svn_errno_t {
   /* End of ra_dav errors */
 
   /* These RA errors are specific to ra_local */
-
+  
     /* the given URL does not seem to point to a versioned resource */
     SVN_ERR_RA_NOT_VERSIONED_RESOURCE,
 
     /* the update reporter was given a bogus first path. */
-    SVN_ERR_RA_BAD_REVISION_REPORT,
-
+    SVN_ERR_RA_BAD_REVISION_REPORT, 
+ 
   /* End of ra_local errors */
 
   /* an unsuitable container-pool was passed to svn_make_pool() */
@@ -263,7 +263,7 @@ typedef enum svn_errno_t {
   SVN_ERR_CL_ADM_DIR_RESERVED,
 
   /* END Client errors */
-
+  
 
   /* simple placeholder to mark the highest SVN error. subtle benny: we don't
      have to worry about trailing commas (on errors above) as we add them */
@@ -278,7 +278,7 @@ typedef enum svn_errno_t {
  * that support that kind of thing), #define SVN_POOL_DEBUG here.
  */
 /*
-#define SVN_POOL_DEBUG
+#define SVN_POOL_DEBUG 
 */
 
 
@@ -382,7 +382,7 @@ void svn_pool_clear_debug (apr_pool_t *p,
 
 #ifndef SVN_POOL_DEBUG
 
-/* Destroy a POOL and all of its children.
+/* Destroy a POOL and all of its children. 
  *
  * This wrapper to apr_pool_destroy exists for symmatry (the
  * not-so-grand reason) and for the existence of a great memory usage
@@ -446,7 +446,7 @@ svn_error_t *svn_error_createf (apr_status_t apr_err,
                                 int src_err,
                                 svn_error_t *child,
                                 apr_pool_t *pool,
-                                const char *fmt,
+                                const char *fmt, 
                                 ...)
        __attribute__ ((format (printf, 5, 6)));
 
