@@ -58,7 +58,7 @@ apply_delta (const svn_delta_edit_fns_t *before_editor,
      simply create an empty one. */
   if (! ancestor_path)
     ancestor_path = svn_stringbuf_create ("", pool);
-
+      
   if (is_update)
     {
       svn_stringbuf_t *anchor, *target;
@@ -87,7 +87,7 @@ apply_delta (const svn_delta_edit_fns_t *before_editor,
 
   /* ### todo:  This is a TEMPORARY wrapper around our editor so we
      can use it with an old driver. */
-  svn_delta_compat_wrap (&wrap_editor, &wrap_edit_baton,
+  svn_delta_compat_wrap (&wrap_editor, &wrap_edit_baton, 
                          editor, edit_baton, pool);
 
   svn_delta_wrap_old_editor (&wrap_editor,
@@ -204,7 +204,7 @@ svn_client__update_internal (const svn_delta_edit_fns_t *before_editor,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end: */
