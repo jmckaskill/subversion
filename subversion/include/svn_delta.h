@@ -3,32 +3,32 @@
  *
  * ================================================================
  * Copyright (c) 2000 Collab.Net.  All rights reserved.
- *
+ * 
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
  * met:
- *
+ * 
  * 1. Redistributions of source code must retain the above copyright
  * notice, this list of conditions and the following disclaimer.
- *
+ * 
  * 2. Redistributions in binary form must reproduce the above copyright
  * notice, this list of conditions and the following disclaimer in the
  * documentation and/or other materials provided with the distribution.
- *
+ * 
  * 3. The end-user documentation included with the redistribution, if
  * any, must include the following acknowlegement: "This product includes
  * software developed by Collab.Net (http://www.Collab.Net/)."
  * Alternately, this acknowlegement may appear in the software itself, if
  * and wherever such third-party acknowlegements normally appear.
- *
+ * 
  * 4. The hosted project names must not be used to endorse or promote
  * products derived from this software without prior written
  * permission. For written permission, please contact info@collab.net.
- *
+ * 
  * 5. Products derived from this software may not use the "Tigris" name
  * nor may "Tigris" appear in their names without prior written
  * permission of Collab.Net.
- *
+ * 
  * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
  * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -42,7 +42,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ====================================================================
- *
+ * 
  * This software consists of voluntary contributions made by many
  * individuals on behalf of Collab.Net.
  */
@@ -118,7 +118,7 @@ typedef struct svn_delta_op_t {
        + LEN <= length of NEW.  */
     svn_delta_new
   } action_code;
-
+  
   apr_off_t offset;
   apr_off_t length;
 } svn_delta_op_t;
@@ -129,7 +129,7 @@ typedef struct svn_delta_window_t {
 
   /* The number of instructions in this window.  */
   int num_ops;
-
+  
   /* The instructions for this window.  */
   svn_delta_op_t *ops;
 
@@ -174,7 +174,7 @@ typedef svn_error_t *(svn_text_delta_window_handler_t)
 
 /* Property deltas.  */
 
-/*
+/*  
     Because pdelta "operations" are well-defined by XML tags, things
 have the potential to be a little simpler than in in the
 text-delta-parsing universe.  The pdelta parser can send commands to
@@ -188,7 +188,7 @@ exclusive ways.
   (2) If the svn_walk_t callbacks "begin_*delta" are non-NULL: buffer
   the propname and propvalue gradually, and send off `chunks' to these
   handlers.  This is similar to the text-delta strategy.
-
+      
 Again, note that these methods are non-mututally-exclusive.  It is
 unlikely that a caller would use both strategies, but libsvn_delta
 does not prohibit it.
@@ -214,7 +214,7 @@ typedef struct svn_propchange_t
 
 /* The type of propchange chunk we're sending to a handler (see (2)
    above). */
-typedef enum
+typedef enum 
 {
   svn_prop_name_chunk = 1,
   svn_prop_value_chunk
@@ -281,7 +281,7 @@ typedef struct svn_delta_walk_t
        the empty property list (for the `add_FOO' functions).
 
      So there.  */
-
+       
   /* Remove the directory entry named NAME.  */
   svn_error_t *(*delete) (svn_string_t *name,
 			  void *walk_baton, void *parent_baton);
@@ -296,14 +296,14 @@ typedef struct svn_delta_walk_t
      at parse time anyway). */
   svn_error_t *(*apply_dir_propchange) (svn_propchange_t *propchange,
                                         void *walk_baton, void *parent_baton);
-
+  
   svn_error_t *(*apply_file_propchange) (svn_propchange_t *propchange,
                                          void *walk_baton, void *parent_baton);
-
+  
   svn_error_t *(*apply_dirent_propchange) (svn_propchange_t *propchange,
                                            void *walk_baton,
                                            void *parent_baton);
-
+  
   /* We are going to add a new subdirectory named NAME.  We will use
      the value this callback stores in *CHILD_BATON as the
      PARENT_BATON for further changes in the new subdirectory.  The
@@ -336,7 +336,7 @@ typedef struct svn_delta_walk_t
   /* We are done processing a file */
   svn_error_t *(*finish_file) (void *child_baton);
 
-
+  
   /* We're about to start receiving text-delta windows. HANDLER and
      HANDLER_BATON specify a function to consume a series of these
      windows.  If ANCESTOR_PATH is zero, the changes are relative to
@@ -349,18 +349,18 @@ typedef struct svn_delta_walk_t
   /* We're about to start receiving a prop-delta. HANDLER and
      HANDLER_BATON specify a function to consume a series of
      propchange chunks.  If ANCESTOR_PATH is zero, the changes are
-     relative to the empty file.
-
+     relative to the empty file. 
+  
      Note: this is the "fully streamy" interface referred to earlier.
      You probably don't want to use it right now, unless we've had a
      problem with property sizes, in which case please remove this
-     comment.
+     comment. 
   */
   svn_error_t *(*begin_propdelta) (void *walk_baton, void *parent_baton,
                                    svn_prop_change_chunk_handler_t **handler,
                                    void **handler_baton);
 
-
+  
   /* Define these if you wish to clean up after receiving a text-delta
      or prop-delta in a streamy way. */
   svn_error_t *(*finish_textdelta) (void *walk_baton, void *parent_baton);
@@ -403,7 +403,7 @@ extern svn_error_t *svn_delta_parse (svn_delta_read_fn_t *source_fn,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
