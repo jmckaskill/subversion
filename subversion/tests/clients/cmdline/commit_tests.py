@@ -1135,15 +1135,15 @@ def commit_uri_unsafe():
 
   output_list = []
   add_list = [hash_dir,
-              # nasty_dir, # not xml-safe
+              nasty_dir, # not xml-safe
               space_path,
               bang_path,
               bracket_path,
               brace_path,
-              # angle_path, # not xml-safe
+              angle_path, # not xml-safe
               paren_path,
               percent_path,
-              # nasty_path, # not xml-safe
+              nasty_path, # not xml-safe
               ]
   for item in add_list:
     svntest.main.run_svn(None, 'add', item)
