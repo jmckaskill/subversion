@@ -32,7 +32,7 @@
 
 
 /* Helper routine/baton to store auth info in working copy. */
-typedef struct svn_auth_info_baton_t
+typedef struct svn_auth_info_baton_t 
 {
   svn_stringbuf_t *username;
   svn_stringbuf_t *password;
@@ -48,13 +48,13 @@ store_auth_info (void *baton)
   /* If present, recursively store the username. */
   if (aibt->username)
     SVN_ERR (svn_wc_set_auth_file (aibt->path, TRUE,
-                                   SVN_CLIENT_AUTH_USERNAME,
+                                   SVN_CLIENT_AUTH_USERNAME, 
                                    aibt->username, aibt->pool));
 
   /* If present, recursively store the password. */
   if (aibt->password)
     SVN_ERR (svn_wc_set_auth_file (aibt->path, TRUE,
-                                   SVN_CLIENT_AUTH_PASSWORD,
+                                   SVN_CLIENT_AUTH_PASSWORD, 
                                    aibt->password, aibt->pool));
 
   return SVN_NO_ERROR;
@@ -89,7 +89,7 @@ authorize_username (void **session_baton,
   if (status)
     return svn_error_createf(status, 0, NULL, pool,
                              "Error getting UID of client process.");
-
+  
   status = apr_get_username (&username, uid, pool);
   if (status)
     return svn_error_createf(status, 0, NULL, pool,
@@ -158,11 +158,11 @@ authorize_simple_password (void **session_baton,
     }
   else if (err)
     return err;
-
+    
   /* Send username/password to the RA layer. */
   SVN_ERR (auth_obj->set_username (username->data, auth_obj->pbaton));
   SVN_ERR (auth_obj->set_password (password->data, auth_obj->pbaton));
-
+  
   /* Get (and implicitly return) the session baton. */
   SVN_ERR (auth_obj->authenticate (session_baton, auth_obj->pbaton));
 
@@ -208,13 +208,13 @@ svn_client_authenticate (void **session_baton,
   /* Search for available authentication methods, moving from simplest
      to most complex. */
 
-
+  
   /* Simple username-only authentication. */
   if (ra_lib->auth_methods & SVN_RA_AUTH_USERNAME)
     {
       SVN_ERR (ra_lib->get_authenticator (&obj, repos_URL,
                                           SVN_RA_AUTH_USERNAME, pool));
-
+      
       SVN_ERR (authorize_username (session_baton,
                                    storage_callback, storage_baton,
                                    ra_lib, path, callback, callback_baton,
@@ -227,19 +227,19 @@ svn_client_authenticate (void **session_baton,
       SVN_ERR (ra_lib->get_authenticator (&obj, repos_URL,
                                           SVN_RA_AUTH_SIMPLE_PASSWORD,
                                           pool));
-
+      
       SVN_ERR (authorize_simple_password (session_baton,
                                           storage_callback, storage_baton,
-                                          ra_lib, path,
+                                          ra_lib, path, 
                                           callback, callback_baton,
                                           obj, pool));
     }
 
   else
     {
-      return
+      return 
         svn_error_create (SVN_ERR_RA_UNKNOWN_AUTH, 0, NULL, pool,
-                          "all server authentication methods unrecognized.");
+                          "all server authentication methods unrecognized."); 
     }
 
   return SVN_NO_ERROR;

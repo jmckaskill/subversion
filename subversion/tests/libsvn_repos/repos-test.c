@@ -32,7 +32,7 @@
 static svn_error_t *
 dir_deltas (const char **msg,
             apr_pool_t *pool)
-{
+{ 
   svn_fs_t *fs;
   svn_fs_txn_t *txn;
   svn_fs_root_t *txn_root, *revision_root;
@@ -47,7 +47,7 @@ dir_deltas (const char **msg,
   *msg = "test svn_repos_dir_delta";
 
   /* The Test Plan
-
+     
      The filesystem function svn_repos_dir_delta exists to drive an
      editor in such a way that given a source tree S and a target tree
      T, that editor manipulation will transform S into T, insomuch as
@@ -58,7 +58,7 @@ dir_deltas (const char **msg,
      S is identical to T when it is all said and done.  */
 
   /* Create a filesystem and repository. */
-  SVN_ERR (svn_test__create_fs_and_repos
+  SVN_ERR (svn_test__create_fs_and_repos 
            (&fs, "test-repo-dir-deltas", pool));
   expected_trees[revision_count].num_entries = 0;
   expected_trees[revision_count++].entries = 0;
@@ -101,9 +101,9 @@ dir_deltas (const char **msg,
     };
     expected_trees[revision_count].entries = expected_entries;
     expected_trees[revision_count].num_entries = 20;
-    SVN_ERR (svn_fs_revision_root (&revision_root, fs,
-                                   youngest_rev, pool));
-    SVN_ERR (svn_test__validate_tree
+    SVN_ERR (svn_fs_revision_root (&revision_root, fs, 
+                                   youngest_rev, pool)); 
+    SVN_ERR (svn_test__validate_tree 
              (revision_root, expected_trees[revision_count].entries,
               expected_trees[revision_count].num_entries, pool));
     revision_count++;
@@ -161,13 +161,13 @@ dir_deltas (const char **msg,
     };
     expected_trees[revision_count].entries = expected_entries;
     expected_trees[revision_count].num_entries = 20;
-    SVN_ERR (svn_fs_revision_root (&revision_root, fs,
-                                   youngest_rev, pool));
-    SVN_ERR (svn_test__validate_tree
+    SVN_ERR (svn_fs_revision_root (&revision_root, fs, 
+                                   youngest_rev, pool)); 
+    SVN_ERR (svn_test__validate_tree 
              (revision_root, expected_trees[revision_count].entries,
               expected_trees[revision_count].num_entries, pool));
     revision_count++;
-  }
+  } 
 
   /* Make a new txn based on the youngest revision, make some changes,
      and commit those changes (which makes a new youngest
@@ -216,9 +216,9 @@ dir_deltas (const char **msg,
     };
     expected_trees[revision_count].entries = expected_entries;
     expected_trees[revision_count].num_entries = 21;
-    SVN_ERR (svn_fs_revision_root (&revision_root, fs,
-                                   youngest_rev, pool));
-    SVN_ERR (svn_test__validate_tree
+    SVN_ERR (svn_fs_revision_root (&revision_root, fs, 
+                                   youngest_rev, pool)); 
+    SVN_ERR (svn_test__validate_tree 
              (revision_root, expected_trees[revision_count].entries,
               expected_trees[revision_count].num_entries, pool));
     revision_count++;
@@ -272,9 +272,9 @@ dir_deltas (const char **msg,
     };
     expected_trees[revision_count].entries = expected_entries;
     expected_trees[revision_count].num_entries = 25;
-    SVN_ERR (svn_fs_revision_root (&revision_root, fs,
-                                   youngest_rev, pool));
-    SVN_ERR (svn_test__validate_tree
+    SVN_ERR (svn_fs_revision_root (&revision_root, fs, 
+                                   youngest_rev, pool)); 
+    SVN_ERR (svn_test__validate_tree 
              (revision_root, expected_trees[revision_count].entries,
               expected_trees[revision_count].num_entries, pool));
     revision_count++;
@@ -315,7 +315,7 @@ dir_deltas (const char **msg,
                                          subpool));
 
           /* Here's the kicker...do the directory delta. */
-          SVN_ERR (svn_fs_revision_root (&revision_root, fs, j, subpool));
+          SVN_ERR (svn_fs_revision_root (&revision_root, fs, j, subpool)); 
           SVN_ERR (svn_repos_dir_delta (txn_root,
                                         svn_stringbuf_create ("", subpool),
                                         NULL,
@@ -329,7 +329,7 @@ dir_deltas (const char **msg,
           /* Hopefully at this point our transaction has been modified
              to look exactly like our latest revision.  We'll check
              that. */
-          SVN_ERR (svn_test__validate_tree
+          SVN_ERR (svn_test__validate_tree 
                    (txn_root, expected_trees[j].entries,
                     expected_trees[j].num_entries, pool));
 
@@ -349,7 +349,7 @@ dir_deltas (const char **msg,
 static svn_error_t *
 verify_hooks (const char **msg,
               apr_pool_t *pool)
-{
+{ 
   svn_fs_t *fs;
   svn_fs_txn_t *txn;
   svn_fs_root_t *txn_root;
@@ -366,21 +366,21 @@ verify_hooks (const char **msg,
   /* Get the current user and group ids. */
   apr_err = apr_current_userid (&userid, &groupid, pool);
   if (apr_err)
-    return svn_error_create
+    return svn_error_create 
       (apr_err, 0, NULL, pool,
        "Unable to get current user- and group-ids");
-
+  
   /* Use the userid to look up the username. */
   apr_err = apr_get_username (&username, userid, pool);
   if (apr_err)
-    return svn_error_create
+    return svn_error_create 
       (apr_err, 0, NULL, pool,
        "Unable to lookup username");
 
   /* Create a filesystem and repository. */
-  SVN_ERR (svn_test__create_fs_and_repos
+  SVN_ERR (svn_test__create_fs_and_repos 
            (&fs, "test-repo-verify-hooks", pool));
-
+  
   /* Get the path to the repository. */
   repos_path = svn_fs_repository (fs);
 
@@ -400,7 +400,7 @@ verify_hooks (const char **msg,
     apr_size_t len;
     int i;
 
-    /* Build new contents for the conf file. */
+    /* Build new contents for the conf file. */ 
     conf_check = svn_stringbuf_create ("foo --repository ", pool);
     svn_stringbuf_appendcstr (conf_check, repos_path);
     svn_stringbuf_appendcstr (conf_check, " --user ");
@@ -410,7 +410,7 @@ verify_hooks (const char **msg,
     digest_str = svn_stringbuf_create ("", pool);
     for (i = 0; i < MD5_DIGESTSIZE; i++)
       {
-        svn_stringbuf_t *tmp_str =
+        svn_stringbuf_t *tmp_str = 
           svn_stringbuf_createf (pool, "%02X", digest[i]);
         svn_stringbuf_appendstr (digest_str, tmp_str);
       }
@@ -425,23 +425,23 @@ verify_hooks (const char **msg,
     apr_err = apr_file_open (&conf_file, conf_path, APR_WRITE,
                              APR_OS_DEFAULT, pool);
     if (apr_err)
-      return svn_error_create
+      return svn_error_create 
         (apr_err, 0, NULL, pool,
          "Unable to open start-commit-hook conf file for writing");
     len = conf_data_str->len;
     apr_err = apr_file_write_full (conf_file, conf_data_str->data, len, &len);
     if (apr_err)
-      return svn_error_create
+      return svn_error_create 
         (apr_err, 0, NULL, pool,
          "Unable to write new contents to start-commit-hook conf file");
     apr_err = apr_file_trunc (conf_file, len);
     if (apr_err)
-      return svn_error_create
+      return svn_error_create 
         (apr_err, 0, NULL, pool,
          "Unable to truncate start-commit-hook conf file");
     apr_err = apr_file_close (conf_file);
     if (apr_err)
-      return svn_error_create
+      return svn_error_create 
         (apr_err, 0, NULL, pool,
          "Unable to close start-commit-hook conf file");
   }
@@ -462,7 +462,7 @@ verify_hooks (const char **msg,
     apr_size_t len;
     int i;
 
-    /* Build new contents for the conf file. */
+    /* Build new contents for the conf file. */ 
     conf_check = svn_stringbuf_create ("bar \\$REPO\\$ ", pool);
     svn_stringbuf_appendcstr (conf_check, repos_path);
     svn_stringbuf_appendcstr (conf_check, " \\$TXN\\$ 0");
@@ -471,7 +471,7 @@ verify_hooks (const char **msg,
     digest_str = svn_stringbuf_create ("", pool);
     for (i = 0; i < MD5_DIGESTSIZE; i++)
       {
-        svn_stringbuf_t *tmp_str =
+        svn_stringbuf_t *tmp_str = 
           svn_stringbuf_createf (pool, "%02X", digest[i]);
         svn_stringbuf_appendstr (digest_str, tmp_str);
       }
@@ -486,23 +486,23 @@ verify_hooks (const char **msg,
     apr_err = apr_file_open (&conf_file, conf_path, APR_WRITE,
                              APR_OS_DEFAULT, pool);
     if (apr_err)
-      return svn_error_create
+      return svn_error_create 
         (apr_err, 0, NULL, pool,
          "Unable to open pre-commit-hook conf file for writing");
     len = conf_data_str->len;
     apr_err = apr_file_write_full (conf_file, conf_data_str->data, len, &len);
     if (apr_err)
-      return svn_error_create
+      return svn_error_create 
         (apr_err, 0, NULL, pool,
          "Unable to write new contents to pre-commit-hook conf file");
     apr_err = apr_file_trunc (conf_file, len);
     if (apr_err)
-      return svn_error_create
+      return svn_error_create 
         (apr_err, 0, NULL, pool,
          "Unable to truncate pre-commit-hook conf file");
     apr_err = apr_file_close (conf_file);
     if (apr_err)
-      return svn_error_create
+      return svn_error_create 
         (apr_err, 0, NULL, pool,
          "Unable to close pre-commit-hook conf file");
   }
@@ -522,7 +522,7 @@ verify_hooks (const char **msg,
     apr_size_t len;
     int i;
 
-    /* Build new contents for the conf file. */
+    /* Build new contents for the conf file. */ 
     conf_check = svn_stringbuf_create ("bar \\$repo \\$\\$", pool);
     svn_stringbuf_appendcstr (conf_check, repos_path);
     svn_stringbuf_appendcstr (conf_check, " \\$ruv1");
@@ -531,7 +531,7 @@ verify_hooks (const char **msg,
     digest_str = svn_stringbuf_create ("", pool);
     for (i = 0; i < MD5_DIGESTSIZE; i++)
       {
-        svn_stringbuf_t *tmp_str =
+        svn_stringbuf_t *tmp_str = 
           svn_stringbuf_createf (pool, "%02X", digest[i]);
         svn_stringbuf_appendstr (digest_str, tmp_str);
       }
@@ -546,29 +546,29 @@ verify_hooks (const char **msg,
     apr_err = apr_file_open (&conf_file, conf_path, APR_WRITE,
                              APR_OS_DEFAULT, pool);
     if (apr_err)
-      return svn_error_create
+      return svn_error_create 
         (apr_err, 0, NULL, pool,
          "Unable to open post-commit-hook conf file for writing");
     len = conf_data_str->len;
     apr_err = apr_file_write_full (conf_file, conf_data_str->data, len, &len);
     if (apr_err)
-      return svn_error_create
+      return svn_error_create 
         (apr_err, 0, NULL, pool,
          "Unable to write new contents to post-commit-hook conf file");
     apr_err = apr_file_trunc (conf_file, len);
     if (apr_err)
-      return svn_error_create
+      return svn_error_create 
         (apr_err, 0, NULL, pool,
          "Unable to truncate post-commit-hook conf file");
     apr_err = apr_file_close (conf_file);
     if (apr_err)
-      return svn_error_create
+      return svn_error_create 
         (apr_err, 0, NULL, pool,
          "Unable to close post-commit-hook conf file");
   }
-
+  
   /* Prepare a txn to receive the greek tree. */
-  SVN_ERR (svn_repos_fs_begin_txn_for_commit
+  SVN_ERR (svn_repos_fs_begin_txn_for_commit 
            (&txn, fs, 0, username, NULL, pool));
   SVN_ERR (svn_fs_txn_root (&txn_root, txn, pool));
 
@@ -598,7 +598,7 @@ svn_error_t * (*test_funcs[]) (const char **msg,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../svn-dev.el")
  * end:
