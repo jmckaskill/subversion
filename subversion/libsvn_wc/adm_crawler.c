@@ -41,7 +41,7 @@
 
 
 /* Helper for report_revisions().
-
+   
    Perform an atomic restoration of the file FILE_PATH; that is, copy
    the file's text-base to the administrative tmp area, and then move
    that file to FILE_PATH with possible translations/expansions.  */
@@ -65,7 +65,7 @@ restore_file (svn_stringbuf_t *file_path,
                                   file_path->data, pool));
   SVN_ERR (svn_wc__get_keywords (&keywords,
                                  file_path->data, NULL, pool));
-
+  
   /* When copying the tmp-text-base out to the working copy, make
      sure to do any eol translations or keyword substitutions,
      as dictated by the property values.  If these properties
@@ -76,11 +76,11 @@ restore_file (svn_stringbuf_t *file_path,
                                       keywords,
                                       TRUE, /* expand keywords */
                                       pool));
-
+  
   SVN_ERR (svn_io_remove_file (tmp_text_base_path->data, pool));
 
   /* If necessary, tweak the new working file's executable bit. */
-  SVN_ERR (svn_wc__maybe_toggle_working_executable_bit
+  SVN_ERR (svn_wc__maybe_toggle_working_executable_bit 
            (&toggled, file_path->data, pool));
 
   /* Remove any text conflict */
@@ -101,7 +101,7 @@ restore_file (svn_stringbuf_t *file_path,
    This is a depth-first recursive walk of DIR_PATH under WC_PATH.
    Look at each entry and check if its revision is different than
    DIR_REV.  If so, report this fact to REPORTER.  If an entry is
-   missing from disk, report its absence to REPORTER.
+   missing from disk, report its absence to REPORTER.  
 
    If RESTORE_FILES is set, then unexpectedly missing working files
    will be restored from text-base and NOTIFY_FUNC/NOTIFY_BATON
@@ -132,11 +132,11 @@ report_revisions (svn_stringbuf_t *wc_path,
      notice that we're picking up 'deleted' entries too. */
   SVN_ERR (svn_wc_entries_read (&entries, full_path, TRUE, subpool));
   SVN_ERR (svn_io_get_dirents (&dirents, full_path, subpool));
-
+  
   /* Do the real reporting and recursing. */
-
+  
   /* First, look at "this dir" to see what its URL is. */
-  dot_entry = apr_hash_get (entries, SVN_WC_ENTRY_THIS_DIR,
+  dot_entry = apr_hash_get (entries, SVN_WC_ENTRY_THIS_DIR, 
                                  APR_HASH_KEY_STRING);
   this_url = svn_stringbuf_dup (dot_entry->url, pool);
   this_path = svn_stringbuf_dup (dir_path, subpool);
@@ -148,7 +148,7 @@ report_revisions (svn_stringbuf_t *wc_path,
       const void *key;
       apr_ssize_t klen;
       void *val;
-      svn_wc_entry_t *current_entry;
+      svn_wc_entry_t *current_entry; 
       enum svn_node_kind *dirent_kind;
       svn_boolean_t missing = FALSE;
 
@@ -165,14 +165,14 @@ report_revisions (svn_stringbuf_t *wc_path,
       if (this_path->len > dir_path->len)
         svn_stringbuf_chop (this_path, this_path->len - dir_path->len);
       if (this_full_path->len > full_path->len)
-        svn_stringbuf_chop (this_full_path,
+        svn_stringbuf_chop (this_full_path, 
                             this_full_path->len - full_path->len);
       if (this_url->len > dot_entry->url->len)
         svn_stringbuf_chop (this_url, this_url->len - dot_entry->url->len);
       svn_path_add_component_nts (this_path, key);
       svn_path_add_component_nts (this_full_path, key);
       svn_path_add_component_nts (this_url, key);
-
+      
       /* The Big Tests: */
 
       /* If the entry is 'deleted', make sure the server knows its missing. */
@@ -181,18 +181,18 @@ report_revisions (svn_stringbuf_t *wc_path,
           SVN_ERR (reporter->delete_path (report_baton, this_path->data));
           continue;
         }
-
+      
       /* Is the entry on disk?  Set a flag if not. */
       dirent_kind = (enum svn_node_kind *) apr_hash_get (dirents, key, klen);
       if (! dirent_kind)
         missing = TRUE;
-
+      
       /* From here on out, ignore any entry scheduled for addition
          or deletion. */
       if (current_entry->schedule != svn_wc_schedule_normal)
         continue;
-
-      if (current_entry->kind == svn_node_file)
+      
+      if (current_entry->kind == svn_node_file) 
         {
           if (dirent_kind && (*dirent_kind != svn_node_file))
             {
@@ -208,10 +208,10 @@ report_revisions (svn_stringbuf_t *wc_path,
             {
               /* Recreate file from text-base. */
               SVN_ERR (restore_file (this_full_path, pool));
-
+              
               /* Report the restoration to the caller. */
               if (notify_func != NULL)
-                (*notify_func) (notify_baton,
+                (*notify_func) (notify_baton, 
                                 svn_wc_notify_restore,
                                 this_full_path->data);
             }
@@ -228,7 +228,7 @@ report_revisions (svn_stringbuf_t *wc_path,
                                          this_path->data,
                                          current_entry->revision));
         }
-
+      
       else if (current_entry->kind == svn_node_dir && recurse)
         {
           svn_wc_entry_t *subdir_entry;
@@ -240,7 +240,7 @@ report_revisions (svn_stringbuf_t *wc_path,
               SVN_ERR (reporter->delete_path (report_baton, this_path->data));
               continue;
             }
-
+          
           if (dirent_kind && (*dirent_kind != svn_node_dir))
             /* No excuses here.  If the user changed a versioned
                directory into something else, the working copy is
@@ -252,7 +252,7 @@ report_revisions (svn_stringbuf_t *wc_path,
                "which prevents proper updates.\n"
                "Please remove this entry and try updating again.",
                this_path->data);
-
+          
           /* We need to read the full entry of the directory from its
              own "this dir", if available. */
           SVN_ERR (svn_wc_entry (&subdir_entry, this_full_path,
@@ -356,7 +356,7 @@ svn_wc_crawl_revisions (svn_stringbuf_t *path,
             }
         }
 
-      else
+      else 
         {
           /* Recursively crawl ROOT_DIRECTORY and report differing
              revisions. */
@@ -444,7 +444,7 @@ svn_wc_transmit_text_deltas (svn_stringbuf_t *path,
   svn_txdelta_stream_t *txdelta_stream;
   apr_file_t *localfile = NULL;
   apr_file_t *basefile = NULL;
-
+  
   /* Tell the editor that we're about to apply a textdelta to the
      file baton; the editor returns to us a window consumer routine
      and baton.  If there is no handler provided, just close the file
@@ -476,22 +476,22 @@ svn_wc_transmit_text_deltas (svn_stringbuf_t *path,
      the old one. */
   if (tmpf != path)
     SVN_ERR (svn_io_remove_file (tmpf->data, pool));
-
+      
   /* If we're not sending fulltext, we'll be sending diffs against the
      text-base. */
   if (! fulltext)
     {
       /* Before we set up an svndiff stream against the old text base,
          make sure the old text base still matches its checksum.
-         Otherwise we could send corrupt data and never know it. */
+         Otherwise we could send corrupt data and never know it. */ 
 
       svn_stringbuf_t *checksum;
       svn_stringbuf_t *tb = svn_wc__text_base_path (path, FALSE, pool);
       svn_wc_entry_t *ent;
-
+      
       SVN_ERR (svn_wc_entry (&ent, path, FALSE, pool));
       SVN_ERR (svn_io_file_checksum (&checksum, tb->data, pool));
-
+      
       /* For backwards compatibility, no checksum means assume a match. */
       if (ent->checksum && (! svn_stringbuf_compare (checksum, ent->checksum)))
         {
@@ -505,14 +505,14 @@ svn_wc_transmit_text_deltas (svn_stringbuf_t *path,
              their text bases are getting corrupted, so they can
              investigate.  Other commands could be affected, too, such
              as `svn diff'.  */
-
+          
           /* Deliberately ignore error here; the error about the
              checksum mismatch is more important to return. */
           svn_io_remove_file (tmp_base->data, pool);
-
+          
           if (tempfile)
             *tempfile = NULL;
-
+          
           return svn_error_createf
             (SVN_ERR_WC_CORRUPT_TEXT_BASE, 0, NULL, pool,
              "svn_wc_transmit_text_deltas: checksum mismatch for '%s':\n"
@@ -525,7 +525,7 @@ svn_wc_transmit_text_deltas (svn_stringbuf_t *path,
     }
 
   /* Open a filehandle for tmp text-base. */
-  if ((status = apr_file_open (&localfile, tmp_base->data,
+  if ((status = apr_file_open (&localfile, tmp_base->data, 
                                APR_READ, APR_OS_DEFAULT, pool)))
     {
       return svn_error_createf (status, 0, NULL, pool,
@@ -539,16 +539,16 @@ svn_wc_transmit_text_deltas (svn_stringbuf_t *path,
                svn_stream_from_aprfile (basefile, pool),
                svn_stream_from_aprfile (localfile, pool),
                pool);
-
+  
   /* Pull windows from the delta stream and feed to the consumer. */
-  SVN_ERR (svn_txdelta_send_txstream (txdelta_stream, handler,
+  SVN_ERR (svn_txdelta_send_txstream (txdelta_stream, handler, 
                                       wh_baton, pool));
-
+    
   /* Close the two files */
   if ((status = apr_file_close (localfile)))
     return svn_error_create (status, 0, NULL, pool,
                              "error closing local file");
-
+  
   if (basefile)
     SVN_ERR (svn_wc__close_text_base (basefile, path, 0, pool));
 
@@ -570,10 +570,10 @@ svn_wc_transmit_prop_deltas (svn_stringbuf_t *path,
   apr_array_header_t *propmods;
   apr_hash_t *localprops = apr_hash_make (pool);
   apr_hash_t *baseprops = apr_hash_make (pool);
-
+  
   /* First, get the prop_path from the original path */
   SVN_ERR (svn_wc__prop_path (&props, path, 0, pool));
-
+  
   /* Get the full path of the prop-base `pristine' file */
   SVN_ERR (svn_wc__prop_base_path (&props_base, path, 0, pool));
 
@@ -589,9 +589,9 @@ svn_wc_transmit_prop_deltas (svn_stringbuf_t *path,
   /* Load all properties into hashes */
   SVN_ERR (svn_wc__load_prop_file (props_tmp->data, localprops, pool));
   SVN_ERR (svn_wc__load_prop_file (props_base->data, baseprops, pool));
-
+  
   /* Get an array of local changes by comparing the hashes. */
-  SVN_ERR (svn_wc_get_local_propchanges (&propmods, localprops,
+  SVN_ERR (svn_wc_get_local_propchanges (&propmods, localprops, 
                                          baseprops, pool));
 
   /* Apply each local change to the baton */
@@ -610,7 +610,7 @@ svn_wc_transmit_prop_deltas (svn_stringbuf_t *path,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end: */
