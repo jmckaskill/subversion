@@ -1,4 +1,4 @@
-/* convert-size.c --- implementation of size/string conversion functions
+/* dbt.h --- interface to DBT-frobbing functions
  *
  * ================================================================
  * Copyright (c) 2000 Collab.Net.  All rights reserved.
@@ -46,97 +46,51 @@
  * individuals on behalf of Collab.Net.
  */
 
-#include "apr.h"
-#include "convert-size.h"
+#ifndef SVN_LIBSVN_FS_DBT_H
+#define SVN_LIBSVN_FS_DBT_H
 
-
-/* Converting text to numbers.  */
+#include "db.h"
+#include "apr_pools.h"
 
-apr_size_t
-svn_fs__getsize (char *data, apr_size_t len,
-		 char **endptr,
-		 apr_size_t max)
-{
-  /* We can't detect overflow by simply comparing value against max,
-     since multiplying value by ten can overflow in strange ways if
-     max is close to the limits of apr_size_t.  For example, suppose
-     that max is 54, and apr_size_t is six bits long; its range is
-     0..63.  If we're parsing the number "502", then value will be 50
-     after parsing the first two digits.  50 * 10 = 500.  But 500
-     doesn't fit in an apr_size_t, so it'll be truncated to 500 mod 64
-     = 52, which is less than max, so we'd fail to recognize the
-     overflow.  Furthermore, it *is* greater than 50, so you can't
-     detect overflow by checking whether value actually increased
-     after each multiplication --- sometimes it does increase, but
-     it's still wrong.
-
-     So we do the check for overflow before we multiply value and add
-     in the new digit.  */
-  int max_prefix = max / 10;
-  int max_digit = max % 10;
-  int i;
-  apr_size_t value = 0;
-
-  for (i = 0; i < len && '0' <= data[i] && data[i] <= '9'; i++)
-    {
-      int digit = data[i] - '0';
-
-      /* Check for overflow.  */
-      if (value > max_prefix
-	  || (value == max_prefix && digit > max_digit))
-	{
-	  *endptr = 0;
-	  return 0;
-	}
-
-      value = (value * 10) + digit;
-    }
-
-  /* There must be at least one digit there.  */
-  if (i == 0)
-    {
-      *endptr = 0;
-      return 0;
-    }
-  else
-    {
-      *endptr = data + i;
-      return value;
-    }
-}
+/* Set all fields of DBT to zero.  Return DBT.  */
+DBT *svn_fs__clear_dbt (DBT *dbt);
 
 
-
-/* Converting numbers to text.  */
+/* Set DBT to refer to the SIZE bytes at DATA.  Return DBT.  */
+DBT *svn_fs__set_dbt (DBT *dbt, char *data, u_int32_t size);
 
-int
-svn_fs__putsize (char *data, apr_size_t len, apr_size_t value)
-{
-  int i = 0;
 
-  /* Generate the digits, least-significant first.  */
-  do
-    {
-      if (i >= len)
-	return 0;
+/* Prepare DBT to hold data returned from Berkeley DB.  Return DBT.
 
-      data[i] = (value % 10) + '0';
-      value /= 10;
-      i++;
-    }
-  while (value > 0);
+   Clear all its fields to zero, but set the DB_DBT_MALLOC flag,
+   requesting that Berkeley DB place the returned data in a freshly
+   malloc'd block.  If the database operation succeeds, the caller
+   then owns the data block, and is responsible for making sure it
+   gets freed.
 
-  /* Put the digits in most-significant-first order.  */
-  {
-    int left, right;
+   Use this with svn_fs__track_dbt:
 
-    for (left = 0, right = i-1; left < right; left++, right--)
-      {
-	char t = data[left];
-	data[left] = data[right];
-	data[right] = t;
-      }
-  }
+       svn_fs__result_dbt (&foo);
+       ... some Berkeley DB operation that puts data in foo ...
+       svn_fs__track_dbt (&foo, pool);
 
-  return i;
-}
+   This arrangement is:
+   - thread-safe --- the returned data is allocated via malloc, and
+     won't be overwritten if some other thread performs an operation
+     on the same table.  See the explanation of ``Retrieved key/data
+     permanence'' in the section of the Berkeley DB manual on the DBT
+     type.
+   - pool-friendly --- the data returned by Berkeley DB is now guaranteed
+     to be freed when POOL is cleared.  */
+DBT *svn_fs__result_dbt (DBT *dbt);
+
+
+/* Arrange for POOL to `track' DBT's data: when POOL is cleared,
+   DBT->data will be freed, using `free'.  If DBT->data is zero,
+   do nothing.
+
+   This is meant for use with svn_fs__result_dbt; see the explanation
+   there.  */
+DBT *svn_fs__track_dbt (DBT *dbt, apr_pool_t *pool);
+
+#endif /* SVN_LIBSVN_FS_DBT_H */

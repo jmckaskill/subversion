@@ -53,7 +53,7 @@
 
 /* Return the value of the string of digits at DATA as an ASCII
    decimal number.  The string is at most LEN bytes long.  The value
-   of the numer is at most MAX.  Set *END to the address of the first
+   of the number is at most MAX.  Set *END to the address of the first
    byte after the number, or zero if an error occurred while
    converting the number (overflow, for example).
 
@@ -61,8 +61,7 @@
    locale-dependent, whereas we're trying to parse data in a
    local-independent format.  */
 
-apr_size_t svn_fs__getsize (const char *data, apr_size_t len,
-			    char **endptr,
+apr_size_t svn_fs__getsize (char *data, apr_size_t len, char **endptr,
 			    apr_size_t max);
 
 

@@ -1,4 +1,4 @@
-/* convert-size.c --- implementation of size/string conversion functions
+/* dbt.c --- DBT-frobbing functions
  *
  * ================================================================
  * Copyright (c) 2000 Collab.Net.  All rights reserved.
@@ -46,97 +46,60 @@
  * individuals on behalf of Collab.Net.
  */
 
-#include "apr.h"
-#include "convert-size.h"
+#include <stdlib.h>
 
-
-/* Converting text to numbers.  */
+#include "apr_pools.h"
+#include "db.h"
+#include "dbt.h"
 
-apr_size_t
-svn_fs__getsize (char *data, apr_size_t len,
-		 char **endptr,
-		 apr_size_t max)
+
+DBT *
+svn_fs__clear_dbt (DBT *dbt)
 {
-  /* We can't detect overflow by simply comparing value against max,
-     since multiplying value by ten can overflow in strange ways if
-     max is close to the limits of apr_size_t.  For example, suppose
-     that max is 54, and apr_size_t is six bits long; its range is
-     0..63.  If we're parsing the number "502", then value will be 50
-     after parsing the first two digits.  50 * 10 = 500.  But 500
-     doesn't fit in an apr_size_t, so it'll be truncated to 500 mod 64
-     = 52, which is less than max, so we'd fail to recognize the
-     overflow.  Furthermore, it *is* greater than 50, so you can't
-     detect overflow by checking whether value actually increased
-     after each multiplication --- sometimes it does increase, but
-     it's still wrong.
+  memset (dbt, 0, sizeof (*dbt));
 
-     So we do the check for overflow before we multiply value and add
-     in the new digit.  */
-  int max_prefix = max / 10;
-  int max_digit = max % 10;
-  int i;
-  apr_size_t value = 0;
-
-  for (i = 0; i < len && '0' <= data[i] && data[i] <= '9'; i++)
-    {
-      int digit = data[i] - '0';
-
-      /* Check for overflow.  */
-      if (value > max_prefix
-	  || (value == max_prefix && digit > max_digit))
-	{
-	  *endptr = 0;
-	  return 0;
-	}
-
-      value = (value * 10) + digit;
-    }
-
-  /* There must be at least one digit there.  */
-  if (i == 0)
-    {
-      *endptr = 0;
-      return 0;
-    }
-  else
-    {
-      *endptr = data + i;
-      return value;
-    }
+  return dbt;
 }
 
 
-
-/* Converting numbers to text.  */
-
-int
-svn_fs__putsize (char *data, apr_size_t len, apr_size_t value)
+DBT *
+svn_fs__set_dbt (DBT *dbt, char *data, u_int32_t size)
 {
-  int i = 0;
+  svn_fs__clear_dbt (dbt);
 
-  /* Generate the digits, least-significant first.  */
-  do
-    {
-      if (i >= len)
-	return 0;
+  dbt->data = data;
+  dbt->size = size;
 
-      data[i] = (value % 10) + '0';
-      value /= 10;
-      i++;
-    }
-  while (value > 0);
+  return dbt;
+}
 
-  /* Put the digits in most-significant-first order.  */
-  {
-    int left, right;
 
-    for (left = 0, right = i-1; left < right; left++, right--)
-      {
-	char t = data[left];
-	data[left] = data[right];
-	data[right] = t;
-      }
-  }
+DBT *
+svn_fs__result_dbt (DBT *dbt)
+{
+  svn_fs__clear_dbt (dbt);
+  dbt->flags |= DB_DBT_MALLOC;
 
-  return i;
+  return dbt;
+}
+
+
+/* An APR pool cleanup function that simply applies `free' to its
+   argument.  */
+static apr_status_t
+apr_free_cleanup (void *arg)
+{
+  free (arg);
+
+  return 0;
+}
+
+
+DBT *
+svn_fs__track_dbt (DBT *dbt, apr_pool_t *pool)
+{
+  if (dbt->data)
+    apr_register_cleanup (pool, dbt->data, apr_free_cleanup, 0);
+
+  return dbt;
 }
