@@ -29,7 +29,7 @@
 #include <jni.h>
 #include <svn_auth.h>
 #include <string>
-class Prompter
+class Prompter  
 {
 private:
 	bool m_version2;
@@ -41,12 +41,12 @@ private:
 	int askTrust(const char *question, bool allow_permanent);
 	jstring password();
 	jstring username();
-	static svn_error_t *simple_prompt(svn_auth_cred_simple_t **cred_p, void *baton,
+	static svn_error_t *simple_prompt(svn_auth_cred_simple_t **cred_p, void *baton, 
 										const char *realm, const char *username, apr_pool_t *pool);
 	static svn_error_t *username_prompt(svn_auth_cred_username_t **cred_p, void *baton,
 										const char *realm, apr_pool_t *pool);
 	static svn_error_t *ssl_server_trust_prompt(svn_auth_cred_ssl_server_trust_t **cred_p,
-										void *baton,int failures,
+										void *baton,int failures, 
 										const svn_auth_ssl_server_cert_info_t *cert_info,
 										apr_pool_t *pool);
 	static svn_error_t *ssl_client_cert_prompt(svn_auth_cred_ssl_client_cert_t **cred_p,
@@ -55,15 +55,15 @@ private:
 										void *baton, apr_pool_t *pool);
 	std::string m_answer;
 	/*
-	static svn_error_t *firstCreds (void **credentials, void **iter_baton,
+	static svn_error_t *firstCreds (void **credentials, void **iter_baton, 
 							void *provider_baton, apr_hash_t *parameters, const char *realmstring, apr_pool_t *pool);
 	static svn_error_t *nextCreds (void **credentials, void *iter_baton,
                           apr_hash_t *parameters, apr_pool_t *pool);
-	static svn_error_t *firstCreds_server_ssl (void **credentials, void **iter_baton,
+	static svn_error_t *firstCreds_server_ssl (void **credentials, void **iter_baton, 
 							void *provider_baton, apr_hash_t *parameters, const char *realmstring, apr_pool_t *pool);
-	static svn_error_t *firstCreds_client_ssl (void **credentials, void **iter_baton,
+	static svn_error_t *firstCreds_client_ssl (void **credentials, void **iter_baton, 
 							void *provider_baton, apr_hash_t *parameters, const char *realmstring, apr_pool_t *pool);
-	static svn_error_t *firstCreds_client_ssl_pass (void **credentials, void **iter_baton,
+	static svn_error_t *firstCreds_client_ssl_pass (void **credentials, void **iter_baton, 
 							void *provider_baton, apr_hash_t *parameters, const char *realmstring, apr_pool_t *pool);
 	int m_retry;
     std::string m_userName;

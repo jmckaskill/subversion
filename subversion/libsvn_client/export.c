@@ -55,7 +55,7 @@ copy_versioned_files (const char *from,
   const svn_wc_entry_t *entry;
   svn_error_t *err;
 
-  SVN_ERR (svn_wc_adm_probe_open (&adm_access, NULL, from, FALSE,
+  SVN_ERR (svn_wc_adm_probe_open (&adm_access, NULL, from, FALSE, 
                                   FALSE, pool));
   err = svn_wc_entry (&entry, from, adm_access, FALSE, subpool);
   SVN_ERR (svn_wc_adm_close (adm_access));
@@ -109,7 +109,7 @@ copy_versioned_files (const char *from,
             SVN_ERR (ctx->cancel_func (ctx->cancel_baton));
 
           /* ### We could also invoke ctx->notify_func somewhere in
-             ### here... Is it called for, though?  Not sure. */
+             ### here... Is it called for, though?  Not sure. */ 
 
           if (*type == svn_node_dir)
             {
@@ -154,10 +154,10 @@ copy_versioned_files (const char *from,
                   const char *eol = NULL;
                   svn_boolean_t local_mod = FALSE;
                   apr_time_t time;
-
+    
                   if (revision->kind != svn_opt_revision_working)
                     {
-                      SVN_ERR (svn_wc_get_pristine_copy_path
+                      SVN_ERR (svn_wc_get_pristine_copy_path 
                                (copy_from, &base, subpool));
                       SVN_ERR (svn_wc_get_prop_diffs
                                (NULL, &props, copy_from, adm_access, subpool));
@@ -213,9 +213,9 @@ copy_versioned_files (const char *from,
                           author = entry->cmt_author;
                         }
 
-                      SVN_ERR (svn_subst_build_keywords
+                      SVN_ERR (svn_subst_build_keywords 
                                (&kw, keywords->data,
-                                apr_psprintf (pool,
+                                apr_psprintf (pool, 
                                               fmt,
                                               entry->cmt_rev),
                                 entry->url,
@@ -230,7 +230,7 @@ copy_versioned_files (const char *from,
                                                          subpool));
                   if (executable)
                     SVN_ERR (svn_io_set_file_executable (copy_to, TRUE, FALSE, subpool));
-
+                
                   SVN_ERR (svn_io_set_file_affected_time (time, copy_to, subpool));
                 }
             }
@@ -264,7 +264,7 @@ open_root_internal (const char *path,
                     apr_pool_t *pool)
 {
   svn_node_kind_t kind;
-
+  
   SVN_ERR (svn_io_check_path (path, &kind, pool));
   if (kind == svn_node_none)
     SVN_ERR (svn_io_dir_make (path, APR_OS_DEFAULT, pool));
@@ -311,7 +311,7 @@ struct file_baton
   const char *path;
   const char *tmppath;
 
-  /* We need to keep this around so we can explicitly close it in close_file,
+  /* We need to keep this around so we can explicitly close it in close_file, 
      thus flushing it's output to disk so we can copy and translate it. */
   apr_file_t *tmp_file;
 
@@ -345,7 +345,7 @@ struct handler_baton
 
 
 static svn_error_t *
-set_target_revision (void *edit_baton,
+set_target_revision (void *edit_baton, 
                      svn_revnum_t target_revision,
                      apr_pool_t *pool)
 {
@@ -365,7 +365,7 @@ open_root (void *edit_baton,
            apr_pool_t *pool,
            void **root_baton)
 {
-  struct edit_baton *eb = edit_baton;
+  struct edit_baton *eb = edit_baton;  
 
   SVN_ERR (open_root_internal (eb->root_path, eb->force,
                                eb->notify_func, eb->notify_baton, pool));
@@ -562,8 +562,8 @@ close_file (void *file_baton,
         svn_subst_eol_style_from_value (&style, &eol, fb->eol_style_val->data);
 
       if (fb->keywords_val)
-        SVN_ERR (svn_subst_build_keywords (&final_kw, fb->keywords_val->data,
-                                           fb->revision, fb->url, fb->date,
+        SVN_ERR (svn_subst_build_keywords (&final_kw, fb->keywords_val->data, 
+                                           fb->revision, fb->url, fb->date, 
                                            fb->author, pool));
 
       SVN_ERR (svn_subst_copy_and_translate
@@ -576,7 +576,7 @@ close_file (void *file_baton,
 
       SVN_ERR (svn_io_remove_file (fb->tmppath, pool));
     }
-
+      
   if (fb->executable_val)
     SVN_ERR (svn_io_set_file_executable (fb->path, TRUE, FALSE, pool));
 
@@ -605,7 +605,7 @@ svn_client_export (svn_revnum_t *result_rev,
                    const char *from,
                    const char *to,
                    svn_opt_revision_t *revision,
-                   svn_boolean_t force,
+                   svn_boolean_t force, 
                    svn_client_ctx_t *ctx,
                    apr_pool_t *pool)
 {
@@ -640,7 +640,7 @@ svn_client_export (svn_revnum_t *result_rev,
       svn_delta_editor_t *editor = svn_delta_default_editor (pool);
 
       URL = svn_path_canonicalize (from, pool);
-
+      
       eb->root_path = to;
       eb->root_url = URL;
       eb->force = force;
@@ -655,7 +655,7 @@ svn_client_export (svn_revnum_t *result_rev,
       editor->apply_textdelta = apply_textdelta;
       editor->close_file = close_file;
       editor->change_file_prop = change_file_prop;
-
+      
       SVN_ERR (svn_delta_get_cancellation_editor (ctx->cancel_func,
                                                   ctx->cancel_baton,
                                                   editor,
@@ -663,7 +663,7 @@ svn_client_export (svn_revnum_t *result_rev,
                                                   &export_editor,
                                                   &edit_baton,
                                                   pool));
-
+  
       SVN_ERR (svn_ra_init_ra_libs (&ra_baton, pool));
       SVN_ERR (svn_ra_get_ra_library (&ra_lib, ra_baton, URL, pool));
 
@@ -690,7 +690,7 @@ svn_client_export (svn_revnum_t *result_rev,
                                    TRUE, /* "help, my dir is empty!" */
                                    pool));
 
-      SVN_ERR (reporter->finish_report (report_baton));
+      SVN_ERR (reporter->finish_report (report_baton));               
 
       /* Special case: Due to our sly export/checkout method of
        * updating an empty directory, no target will have been created
