@@ -2,9 +2,9 @@
 #
 #  main.py: a shared, automated test suite for Subversion
 #
-#  Subversion is a tool for revision control.
+#  Subversion is a tool for revision control. 
 #  See http://subversion.tigris.org for more information.
-#
+#    
 # ====================================================================
 # Copyright (c) 2000-2001 CollabNet.  All rights reserved.
 #
@@ -218,7 +218,7 @@ def write_tree(path, lists):
       fp = open(fullpath, 'w')
       fp.write(item[1])
       fp.close()
-
+      
 
 # For returning a *mutable* copy of greek_tree (a tuple of tuples).
 def copy_greek_tree():
@@ -284,10 +284,10 @@ def run_tests(test_list):
         testnum = int(arg)
       except ValueError:
         pass
-
+      
   if testnum:
     return run_one_test(testnum, test_list)
-
+  
   # otherwise, run all tests.
   got_error = 0
   for n in range(len(test_list)):
