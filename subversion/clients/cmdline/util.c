@@ -45,7 +45,7 @@
 
 /* Hmm. This should probably find its way into libsvn_subr -Fitz */
 /* Create a SVN string from the char* and add it to the array */
-static void
+static void 
 array_push_svn_string (apr_array_header_t *array,
                        const char *str,
                        apr_pool_t *pool)
@@ -79,7 +79,7 @@ get_cmd_table_entry (const char *cmd_name)
  * with no arguments. Those commands make use of this function to
  * add "." to the target array if the user passes no args */
 void
-svn_cl__push_implicit_dot_target (apr_array_header_t *targets,
+svn_cl__push_implicit_dot_target (apr_array_header_t *targets, 
                                   apr_pool_t *pool)
 {
   if (targets->nelts == 0)
@@ -98,8 +98,8 @@ svn_cl__parse_num_args (apr_getopt_t *os,
                         apr_pool_t *pool)
 {
   int i;
-
-  opt_state->args = apr_array_make (pool, DEFAULT_ARRAY_SIZE,
+  
+  opt_state->args = apr_array_make (pool, DEFAULT_ARRAY_SIZE, 
                                     sizeof (svn_stringbuf_t *));
 
   /* loop for num_args and add each arg to the args array */
@@ -108,7 +108,7 @@ svn_cl__parse_num_args (apr_getopt_t *os,
       if (os->ind >= os->argc)
         {
           svn_cl__subcommand_help (subcommand, pool);
-          return svn_error_create (SVN_ERR_CL_ARG_PARSING_ERROR,
+          return svn_error_create (SVN_ERR_CL_ARG_PARSING_ERROR, 
                                    0, 0, pool, "");
         }
       array_push_svn_string (opt_state->args, os->argv[os->ind++], pool);
@@ -126,7 +126,7 @@ svn_cl__parse_all_args (apr_getopt_t *os,
                         const char *subcommand,
                         apr_pool_t *pool)
 {
-  opt_state->args = apr_array_make (pool, DEFAULT_ARRAY_SIZE,
+  opt_state->args = apr_array_make (pool, DEFAULT_ARRAY_SIZE, 
                                     sizeof (svn_stringbuf_t *));
 
   if (os->ind >= os->argc)
@@ -170,7 +170,7 @@ svn_cl__args_to_target_array (apr_getopt_t *os,
 
   /* kff todo: need to remove redundancies from targets before
      passing it to the cmd_func. */
-
+     
   return targets;
 }
 
@@ -195,8 +195,8 @@ svn_cl__get_canonical_command (const char *cmd)
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../svn-dev.el")
- * end:
+ * end: 
  */
