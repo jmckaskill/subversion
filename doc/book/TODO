@@ -29,7 +29,7 @@ To be fixed by someone:
 
 To be fixed by cmpilato:
 
-ch05:
+ch05: 
 
   - from Tatiana: "we need some text between the two headings on page
     79: Repository Maintenance and an Administrator's Toolkit"
@@ -51,14 +51,14 @@ ch03:
   - import section at the end:
 
    - you use the word 'above' which is verboten, right?
-
+  
    - explain that while 'svn import' creates intermediate directories
-     for you, 'svn mkdir', 'svn move', and 'svn copy' will not.
+     for you, 'svn mkdir', 'svn move', and 'svn copy' will not. 
 
    - generally, need more examples so users understand when new
      directories will be created, and when they won't.  users are
      constantly confused by this.
-
+  
    - create a 'tip' sidebar (?) in the 'svn import' section which
      explains how to do an "in place" import; we have a FAQ on this
      already.  people keep asking about it.
