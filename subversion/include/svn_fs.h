@@ -2,32 +2,32 @@
  *
  * ================================================================
  * Copyright (c) 2000 Collab.Net.  All rights reserved.
- *
+ * 
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
  * met:
- *
+ * 
  * 1. Redistributions of source code must retain the above copyright
  * notice, this list of conditions and the following disclaimer.
- *
+ * 
  * 2. Redistributions in binary form must reproduce the above copyright
  * notice, this list of conditions and the following disclaimer in the
  * documentation and/or other materials provided with the distribution.
- *
+ * 
  * 3. The end-user documentation included with the redistribution, if
  * any, must include the following acknowlegement: "This product includes
  * software developed by Collab.Net (http://www.Collab.Net/)."
  * Alternately, this acknowlegement may appear in the software itself, if
  * and wherever such third-party acknowlegements normally appear.
- *
+ * 
  * 4. The hosted project names must not be used to endorse or promote
  * products derived from this software without prior written
  * permission. For written permission, please contact info@collab.net.
- *
+ * 
  * 5. Products derived from this software may not use the "Tigris" name
  * nor may "Tigris" appear in their names without prior written
  * permission of Collab.Net.
- *
+ * 
  * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
  * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -41,7 +41,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ====================================================================
- *
+ * 
  * This software consists of voluntary contributions made by many
  * individuals on behalf of Collab.Net.
  */
@@ -202,7 +202,7 @@ svn_error_t *svn_fs_berkeleydb_recover (const char *path,
      node_id ::= number | node_version_id "." number
      node_version_id ::= node_id "." number
 
-   So:
+   So: 
    - "100" is a node id.
    - "100.10" is a node version id, referring to version 10 of node 100.
    - "100.10.3" is a node id, referring to the third branch based on
@@ -266,7 +266,7 @@ typedef svn_vernum_t svn_fs_id_t;
 int svn_fs_id_eq (svn_fs_id_t *a, svn_fs_id_t *b);
 
 
-/* Return non-zero iff node version A is an ancestor of node version B.
+/* Return non-zero iff node version A is an ancestor of node version B.  
    If A == B, then we consider A to be an ancestor of B.  */
 int svn_fs_id_is_ancestor (svn_fs_id_t *a, svn_fs_id_t *b);
 
@@ -352,7 +352,7 @@ typedef struct svn_fs_dirent_t {
    All calls to `svn_fs_dir_entries' on a given directory object will
    return a pointer to the same array; the directory object caches the
    list of entries, so calls after the first one should be very quick.
-   The array will live as long as the directory object.
+   The array will live as long as the directory object.  
 
    The caller must not free or modify the elements of the array, or
    the strings or ID's it refers to.  */
@@ -493,7 +493,7 @@ svn_error_t *svn_fs_dirent_proplist (svn_fs_proplist_t **proplist,
 
 
 /* Set *VALUE to the value of the property in PROPLIST named NAME.
-   Set *VALUE to zero if there is no such property.
+   Set *VALUE to zero if there is no such property.  
 
    If POOL is zero, allocate *VALUE in pool of the object PROPLIST
    came from; it will be freed when the filesystem is closed.  If POOL
@@ -568,7 +568,7 @@ svn_error_t *svn_fs_dir_delta (svn_fs_dir_t *source_dir,
 /* Set *STREAM to a pointer to a delta stream that will turn the
    contents of SOURCE_FILE into the contents of TARGET_FILE.
    [[What about the changes to the file's properties?]]
-
+   
    If POOL is zero, allocate *TABLE in the pool of the filesystem
    SOURCE_FILE and TARGET_FILE came from; it will be freed when the
    filesystem is closed.  If POOL is non-zero, do allocation there.  */
@@ -652,7 +652,7 @@ svn_error_t *svn_fs_file_delta (svn_txdelta_stream_t **stream,
      svn_fs_delete
      svn_fs_add_file            svn_fs_add_dir
      svn_fs_replace_file        svn_fs_replace_dir
-     svn_fs_apply_textdelta
+     svn_fs_apply_textdelta    
      svn_fs_change_file_prop    svn_fs_change_dir_prop
 
    Any of these functions may return an SVN_ERR_FS_CONFLICT error.
