@@ -55,12 +55,12 @@ Also, it would be nice for options and arguments to be mixable, but
 it's not necessary (CVS doesn't permit this, for example).  We
 shouldn't block on that functionality right now, as it can always be
 added later without breaking backwards-compatibility.
-
+  
 
 
 Behaviors
 =========
-
+  
 All files are assumed binary by default.  If the user explicitly
 asks for it, she can get keyword substitution.  And, if she asks for
 it, she can get line-end conversion.  These two filters are
@@ -85,7 +85,7 @@ Common options
 
   -? -h -H --help  Help.
   -q               Quiet.  (CVS has two levels of this, but that's overkill?)
-                   (Yes, overkill. -Fitz)
+                   (Yes, overkill. -Fitz)  
   -v VERSION       Like "cvs cmd -r REV"
   --version        Print program name, version, and url.
                      /* Problem: "--version" and "-v" are both
@@ -93,14 +93,14 @@ Common options
                         things. */
   -V --verbose     Run with a wordily prolix verbositude.
   -D DATE          Like "cvs cmd -D DATE"
-  -l               Local dir only, do not recurse.
+  -l               Local dir only, do not recurse. 
                    (-R doesn't apply as it is the default behavior)
   -d               Target directory (like "cvs checkout -d DIR")
   -f               Force (probably useful for a few commands)
   -m               Use "message" for the creation log.
   -F file          Read the log message from file.
 
-  -p               Check out/update/whatever files to standard output
+  -p               Check out/update/whatever files to standard output 
                    (avoids stickiness).
 
   --dry-run        Like "cvs -n"
@@ -122,12 +122,12 @@ Subcommands and their Options
 =============================
 
 This is just a beginning.  We need to expand each command to describe
-exactly what it does and what options it honors.
+exactly what it does and what options it honors.  
 
 The commands will look a lot like CVS's, though there are some
 newcomers:
 
-Summary:
+Summary: 
 
    checkout | co
    update   | up
@@ -165,16 +165,16 @@ NOTE: For now, I am not including Common Options in the usage
     /* This feels *weird* to me. Why use -d if you don't want things short? */
 
 
-    Module specific commands
+    Module specific commands 
     /* I entertained the thought of making
        `modules' a subcommand and merge the following--thoughts? -Fitz */
 
     -c    "cat" the module database.
     -s    Like -c, but include module status.
-
-/* Do these apply to svn?
- *  -A    Reset any sticky tags/date/kopts.
- *  -f    Force a head revision match if tag/date not found.
+ 
+/* Do these apply to svn? 
+ *  -A    Reset any sticky tags/date/kopts. 
+ *  -f    Force a head revision match if tag/date not found. 
  *  -P    Prune empty directories.
  *  -n    Do not run module program (if any).
  */
@@ -191,13 +191,13 @@ NOTE: For now, I am not including Common Options in the usage
 
     -I ign    More files to ignore (! to reset).
 
-/* Do these apply to svn?
+/* Do these apply to svn? 
  *  -A    Reset any sticky tags/date/kopts.
  *  -P    Prune empty directories.
  *  -f    Force a head revision match if tag/date not found.
  *  -W spec    Wrappers specification line.
  */
-
+ 
 
   commit
   ======
@@ -205,17 +205,17 @@ NOTE: For now, I am not including Common Options in the usage
   Usage: svn commit files...
 
 - Looks like all these guys have moved to Common Options.
-
-/* Do these apply to svn?
+ 
+/* Do these apply to svn? 
  *  -n    Do not run the module program (if any).
  *  -f    Force the file to be committed; disables recursion.
- *        (We're not dealing with revisions anymore, so this should
- *         be deprecated)
+ *        (We're not dealing with revisions anymore, so this should 
+ *         be deprecated)  
  */
 
 
   add
-  ===
+  === 
 
   Usage: svn add files...
 
@@ -229,11 +229,11 @@ NOTE: For now, I am not including Common Options in the usage
 
   This command is syntactic sugar for 'svn repo mv FILE1 FILE2', no?
 
-
+ 
 
   delete
   ======
-
+ 
   Usage: cvs remove [-f] files...
 
     -f    Delete the file before removing it.
@@ -241,36 +241,36 @@ NOTE: For now, I am not including Common Options in the usage
 
   copy
   ====
-
+ 
   /* I fell asleep here */
 
   branch  /*  implemented via copy, though may want to be its own command */
   ======
-
+ 
   tag     /* implemented via copy, though may want to be its own command */
   ===
-
+ 
   status
   ======
-
+ 
   diff
   ====
-
+ 
   rdiff
   =====
-
+ 
   annotate
   ========
-
+ 
   import
   ======
-
+ 
   log
   ===
-
+ 
   propset
   =======
-
+ 
   propget
   =======
 
@@ -280,7 +280,7 @@ NOTE: For now, I am not including Common Options in the usage
   merge
   =====
 
-    -j rev    Merge in changes made between current revision and rev.
+    -j rev    Merge in changes made between current revision and rev. 
     /* Taken from update */
 
   convert
@@ -378,7 +378,7 @@ svn import NAME1 HOST:REPO:NAME2
 
 svn apply NAME1[:N1[:N2]] NAME2
   Apply changes specified by NAME1[:N1[:N2]] to NAME2.
-  If NAME1 form, then
+  If NAME1 form, then 
   If NAME1:N1 form, then the change applied is the difference between
         versions N1-1 and N1.
   If NAME1:N1:N2 form, then the change applied is the difference between
@@ -495,7 +495,7 @@ Usage: cvs commit [-nRlf] [-m msg | -F logfile] [-r rev] files...
     -r rev    Commit to this branch or trunk revision.
 ====================== diff
 Usage: cvs diff [-lNR] [rcsdiff-options]
-    [[-r rev1 | -D date1] [-r rev2 | -D date2]] [files...]
+    [[-r rev1 | -D date1] [-r rev2 | -D date2]] [files...] 
     -l    Local directory only, not recursive
     -R    Process directories recursively.
     -D d1    Diff revision for date against working file.
