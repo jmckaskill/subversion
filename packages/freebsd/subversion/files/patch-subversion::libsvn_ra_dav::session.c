@@ -8,9 +8,9 @@
    struct uri uri = { 0 };
    svn_ra_session_t *ras;
 +  char *proxy;
-
+ 
    /* Sanity check the URI */
-   if (uri_parse(repository, &uri, NULL)
+   if (uri_parse(repository, &uri, NULL) 
 @@ -121,6 +122,26 @@
    /* Create two neon session objects, and set their properties... */
    sess = ne_session_create();
@@ -35,7 +35,7 @@
 +                                  "Hostname not found: %s", proxy_uri.host);
 +        }
 +    }
-
+ 
  #if 0
    /* #### enable this block for debugging output on stderr. */
 
