@@ -85,7 +85,7 @@ typedef struct
   svn_fs_id_t *id;
 
   /* property list (const char * name, svn_string_t * value) */
-  apr_hash_t *proplist;
+  apr_hash_t *proplist; 
 
 } svn_fs__revision_t;
 
@@ -138,10 +138,10 @@ typedef struct
   svn_fs__node_revision_header_t *header;
 
   /* node-specific stuff */
-  union
+  union 
   {
     /* file stuff */
-    struct
+    struct 
     {
       /* representation key for this node's properties. */
       const char *prop_key;
@@ -155,7 +155,7 @@ typedef struct
     } file;
 
     /* dir stuff */
-    struct
+    struct 
     {
       /* representation key for this node's properties. */
       const char *prop_key;
@@ -181,7 +181,7 @@ typedef enum
 typedef struct
 {
   /* string-key to which this representation points. */
-  const char *string_key;
+  const char *string_key; 
 
   /* size of the fulltext data represented by this delta window. */
   apr_size_t size;
@@ -199,7 +199,7 @@ typedef struct
 
 
 /*** "Delta" Offset/Window Chunk ***/
-typedef struct
+typedef struct 
 {
   /* starting offset of the data represented by this chunk */
   apr_size_t offset;
@@ -220,7 +220,7 @@ typedef struct
   int is_mutable;
 
   /* kind-specific stuff */
-  union
+  union 
   {
     /* fulltext stuff */
     struct
@@ -249,7 +249,7 @@ typedef struct
 #endif /* SVN_LIBSVN_FS_FS_H */
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end:
