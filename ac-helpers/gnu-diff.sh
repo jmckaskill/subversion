@@ -13,7 +13,7 @@
 #
 #         PATCHPATH is a path to GNU `patch', which is required
 #         to accurately test the behavior of `diff'.
-#
+# 
 # Output: either prints the full path of valid `diff' program,
 #         or "" if none is found.
 #
@@ -31,7 +31,7 @@ final="no"
 # Loop over $PATH, looking for `diff' binaries
 
 while test "$final" != "";  do
-    searchdir=`echo $pathlist | sed -e 's/:.*$//'`
+    searchdir=`echo $pathlist | sed -e 's/:.*$//'` 
     final=`echo $pathlist | grep :`
     pathlist=`echo $pathlist | sed -e 's/^[^:]*://'`
 
