@@ -28,7 +28,7 @@ extern "C" {
 
 
 /*** Notes:
- *
+ * 
  * No result path ever ends with a separator, no matter whether the
  * path is a file or directory, because we always canonicalize() it.
  *
@@ -56,9 +56,9 @@ void svn_path_add_component (svn_string_t *path,
                              const svn_string_t *component,
                              enum svn_path_style style);
 
-/* Same as `svn_path_add_component', except that the COMPONENT argument is
+/* Same as `svn_path_add_component', except that the COMPONENT argument is 
    a C-style '\0'-terminated string, not an svn_string_t.  */
-void svn_path_add_component_nts (svn_string_t *path,
+void svn_path_add_component_nts (svn_string_t *path, 
                                  const char *component,
                                  enum svn_path_style style);
 
@@ -67,7 +67,7 @@ void svn_path_remove_component (svn_string_t *path,
                                 enum svn_path_style style);
 
 
-/* Duplicate and return PATH's last component, w/o separator.
+/* Duplicate and return PATH's last component, w/o separator. 
  *
  * If PATH is the root directory, then its last component is still the
  * root directory.  Else if PATH ends with a separator, then PATH's
@@ -138,7 +138,7 @@ svn_path_get_absolute(svn_string_t **pabsolute,
    will be the empty string (not NULL). */
 svn_error_t *
 svn_path_split_if_file(svn_string_t *path,
-                       svn_string_t **pdirectory,
+                       svn_string_t **pdirectory, 
                        svn_string_t **pfile,
                        apr_pool_t *pool);
 
@@ -148,7 +148,7 @@ svn_path_split_if_file(svn_string_t *path,
  * local path style.
  *
  * If there are multiple targets, or exactly one target and it's not a
- * directory, then
+ * directory, then 
  *
  *   - *PBASENAME is set to the absolute path of the common parent
  *     directory of all of those targets, and
