@@ -142,7 +142,7 @@ static svn_stringbuf_t *escape_url(const char *url, apr_pool_t *pool)
   url_str.len = strlen(url);
   return svn_path_uri_encode(&url_str, pool);
 }
-
+  
 
 static svn_error_t * simple_request(svn_ra_session_t *ras, const char *method,
                                     const char *url, int *code)
@@ -197,7 +197,7 @@ static svn_error_t * get_version_url(commit_ctx_t *cc, resource_t *rsrc)
 
       /* whoops. it wasn't there. go grab it from the server. */
     }
-
+  
   SVN_ERR( svn_ra_dav__get_props_resource(&propres, cc->ras->sess, rsrc->url,
                                           NULL, fetch_props, cc->ras->pool) );
   rsrc->vsn_url = apr_hash_get(propres->propset,
@@ -377,7 +377,7 @@ static svn_error_t * checkout_resource(commit_ctx_t *cc, resource_t *res)
                       "</D:activity-set></D:checkout>", cc->activity_url);
   ne_set_request_body_buffer(req, body, strlen(body));
 
-  /*
+  /* 
    * We have different const qualifiers here. locn is const char *,
    * but the prototype is void * (as opposed to const void *).
    */
@@ -448,7 +448,7 @@ static void record_prop_change(apr_pool_t *pool,
 
       if (r->prop_deletes == NULL)
         r->prop_deletes = apr_array_make(pool, 5, sizeof(char *));
-
+  
       elt = apr_array_push(r->prop_deletes);
       *elt = apr_pstrdup(pool, name->data);
     }
@@ -484,7 +484,7 @@ static svn_error_t * do_proppatch(svn_ra_session_t *ras,
       && (rb->prop_deletes == NULL || rb->prop_deletes->nelts == 0))
     return NULL;
 
-  /* easier to roll our own PROPPATCH here than use ne_proppatch(), which
+  /* easier to roll our own PROPPATCH here than use ne_proppatch(), which 
    * doesn't really do anything clever. */
   body = ne_buffer_create();
 
@@ -496,17 +496,17 @@ static svn_error_t * do_proppatch(svn_ra_session_t *ras,
   if (rb->prop_changes != NULL)
     {
       ne_buffer_zappend(body, "<D:set><D:prop>");
-      apr_table_do(do_setprop, body, rb->prop_changes, NULL);
+      apr_table_do(do_setprop, body, rb->prop_changes, NULL);      
       ne_buffer_zappend(body, "</D:prop></D:set>");
     }
-
+  
   if (rb->prop_deletes != NULL)
     {
       int n;
 
       ne_buffer_zappend(body, "<D:remove><D:prop>");
-
-      for (n = 0; n < rb->prop_deletes->nelts; n++)
+      
+      for (n = 0; n < rb->prop_deletes->nelts; n++) 
         {
           const char *name = APR_ARRAY_IDX(rb->prop_deletes, n, const char *);
 
@@ -546,7 +546,7 @@ static svn_error_t * do_proppatch(svn_ra_session_t *ras,
 }
 
 static svn_error_t * commit_replace_root(void *edit_baton,
-                                         svn_revnum_t base_revision,
+                                         svn_revnum_t base_revision, 
                                          void **root_baton)
 {
   commit_ctx_t *cc = edit_baton;
@@ -652,7 +652,7 @@ static svn_error_t * commit_add_dir(svn_stringbuf_t *name,
       int status;
 
       /* This add has history, so we need to do a COPY. */
-
+      
       /* Convert the copyfrom_* url/rev "public" pair into a Baseline
          Collection (BC) URL that represents the revision -- and a
          relative path under that BC.  */
@@ -784,7 +784,7 @@ static svn_error_t * commit_add_file(svn_stringbuf_t *name,
       int status;
 
       /* This add has history, so we need to do a COPY. */
-
+      
       /* Convert the copyfrom_* url/rev "public" pair into a Baseline
          Collection (BC) URL that represents the revision -- and a
          relative path under that BC.  */
@@ -943,8 +943,8 @@ static svn_error_t * commit_stream_close(void *baton)
   return NULL;
 }
 
-static svn_error_t *
-commit_apply_txdelta(void *file_baton,
+static svn_error_t * 
+commit_apply_txdelta(void *file_baton, 
                      svn_txdelta_window_handler_t *handler,
                      void **handler_baton)
 {
@@ -965,8 +965,8 @@ commit_apply_txdelta(void *file_baton,
      ### for now. isn't that special? */
 
   /* Use the client callback to create a tmpfile. */
-  SVN_ERR(file->cc->ras->callbacks->open_tmp_file
-          (&baton->tmpfile,
+  SVN_ERR(file->cc->ras->callbacks->open_tmp_file 
+          (&baton->tmpfile, 
            file->cc->ras->callback_baton));
 
   /* ### register a cleanup on our subpool which closes the file. this
@@ -1045,14 +1045,14 @@ static svn_error_t * apply_log_message(commit_ctx_t *cc,
      ### REPORT when that is available on the server. */
 
   /* fetch the DAV:version-controlled-configuration from the session's URL */
-  SVN_ERR( svn_ra_dav__get_one_prop(&vcc, cc->ras->sess, cc->ras->root.path,
+  SVN_ERR( svn_ra_dav__get_one_prop(&vcc, cc->ras->sess, cc->ras->root.path, 
                                     NULL, &svn_ra_dav__vcc_prop, pool) );
 
   /* ### we should use DAV:apply-to-version on the CHECKOUT so we can skip
      ### retrieval of the baseline */
 
   /* Get the Baseline from the DAV:checked-in value */
-  SVN_ERR( svn_ra_dav__get_one_prop(&baseline_url, cc->ras->sess, vcc->data,
+  SVN_ERR( svn_ra_dav__get_one_prop(&baseline_url, cc->ras->sess, vcc->data, 
                                     NULL, &svn_ra_dav__checked_in_prop, pool));
 
   baseline_rsrc.vsn_url = baseline_url->data;
@@ -1178,7 +1178,7 @@ svn_error_t * svn_ra_dav__get_commit_editor(
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
