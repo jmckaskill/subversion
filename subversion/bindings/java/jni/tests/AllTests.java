@@ -37,10 +37,10 @@ public class AllTests {
 	}
 }
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../../../../../svn-dev.el")
- * end:
+ * end: 
  */
 
 
