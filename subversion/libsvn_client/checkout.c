@@ -92,7 +92,7 @@ svn_client_checkout (const svn_delta_editor_t *before_editor,
 
   /* ### todo:  This is a TEMPORARY wrapper around our editor so we
      can use it with an old driver. */
-  svn_delta_compat_wrap (&wrapped_old_editor, &wrapped_old_edit_baton,
+  svn_delta_compat_wrap (&wrapped_old_editor, &wrapped_old_edit_baton, 
                          wrap_editor, wrap_edit_baton, pool);
 
   /* if using an RA layer */
@@ -123,14 +123,14 @@ svn_client_checkout (const svn_delta_editor_t *before_editor,
                                  wrapped_old_edit_baton);
       /* Sleep for one second to ensure timestamp integrity. */
       apr_sleep (APR_USEC_PER_SEC * 1);
-
+      
       if (err)
         return err;
 
       /* Close the RA session. */
       SVN_ERR (ra_lib->close (session));
-    }
-
+    }      
+  
   /* else we're checking out from xml */
   else
     {
@@ -157,7 +157,7 @@ svn_client_checkout (const svn_delta_editor_t *before_editor,
 
       /* Sleep for one second to ensure timestamp integrity. */
       apr_sleep (APR_USEC_PER_SEC * 1);
-
+      
       if (err)
         return err;
 
@@ -170,7 +170,7 @@ svn_client_checkout (const svn_delta_editor_t *before_editor,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end: */
