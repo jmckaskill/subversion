@@ -12,7 +12,7 @@
 #include <svn_io.h>
 #include "Pool.h"
 
-class Inputer
+class Inputer  
 {
 	jobject m_jthis;
 	static svn_error_t *read(void *baton, char *buffer, apr_size_t *len);
@@ -23,5 +23,5 @@ public:
 	svn_stream_t *getStream(const Pool & pool);
 };
 
-#endif
+#endif 
 // !defined(AFX_INPUTER_H__6896EB42_07D2_406B_A4A5_F2908AFF4815__INCLUDED_)
