@@ -30,7 +30,7 @@
   /**
    * Encapsulation for Subversion Path handling
    */
-class Path
+class Path  
 {
   private:
     std::string m_path;
@@ -50,7 +50,7 @@ public:
      * @param path Path string
      */
     Path (const std::string & path = "");
-
+    
     /**
      * Constructor
      *
@@ -80,7 +80,7 @@ public:
     /**
      * @return Path string as c string
      */
-    const char *
+    const char * 
     c_str() const;
 };
 

@@ -49,7 +49,7 @@ analyze_status (void *baton,
   /* Added files have a revision of no interest */
   if (status->text_status != svn_wc_status_added)
     {
-      if (sb->min_rev == SVN_INVALID_REVNUM
+      if (sb->min_rev == SVN_INVALID_REVNUM 
           || status->entry->revision < sb->min_rev)
         sb->min_rev = status->entry->revision;
 
@@ -62,9 +62,9 @@ analyze_status (void *baton,
   sb->modified |= (status->text_status != svn_wc_status_normal);
   sb->modified |= (status->prop_status != svn_wc_status_normal
                    && status->prop_status != svn_wc_status_none);
-
-  if (sb->wc_path
-      && (! sb->wc_url)
+  
+  if (sb->wc_path 
+      && (! sb->wc_url) 
       && (strcmp (path, sb->wc_path) == 0)
       && (status->entry))
     sb->wc_url = apr_pstrdup (sb->pool, status->entry->url);
@@ -73,7 +73,7 @@ analyze_status (void *baton,
 static void
 usage(void)
 {
-  fprintf(stderr,
+  fprintf(stderr, 
           "usage: svnversion wc_path [trail_url]\n\n"
           "  Produce a compact \"version number\" for the working copy\n"
           "  path WC_PATH.  TRAIL_URL is the trailing portion of the trunk\n"
@@ -117,7 +117,7 @@ main(int argc, char *argv[])
   svn_client_ctx_t ctx = { 0 };
   struct status_baton sb;
   svn_opt_revision_t rev;
-
+  
   if (argc != 2 && argc != 3)
     {
       usage();
@@ -170,7 +170,7 @@ main(int argc, char *argv[])
   sb.wc_url = NULL;
   sb.pool = pool;
   rev.kind = svn_opt_revision_unspecified;
-  SVN_INT_ERR (svn_client_status (&youngest, wc_path, &rev, analyze_status,
+  SVN_INT_ERR (svn_client_status (&youngest, wc_path, &rev, analyze_status, 
                                   &sb, TRUE, TRUE, FALSE, FALSE, &ctx, pool));
 
   if ((! sb.switched ) && (argc == 3))
