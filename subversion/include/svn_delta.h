@@ -336,7 +336,7 @@ typedef struct
      Most of the callbacks work in the obvious way:
 
          delete_entry
-         add_file           add_directory
+         add_file           add_directory    
          open_file          open_directory
 
      Each of these takes a directory baton, indicating the directory
@@ -368,7 +368,7 @@ typedef struct
         open_directory (ROOT, "foo") --- yielding a baton F for `foo'
         open_directory (F, "foo/bar") --- yielding a baton B for `foo/bar'
         add_file (B, "foo/bar/baz.c")
-
+     
      When the producer is finished making changes to a directory, it
      should call `close_directory'.  This lets the consumer do any
      necessary cleanup, and free the baton's storage.
@@ -510,7 +510,7 @@ typedef struct
 
 
   /* Deleting things.  */
-
+       
   /* Remove the directory entry named PATH, a child of the directory
      represented by PARENT_BATON.  REVISION is used as a sanity check
      to ensure that you are removing the revision of PATH that you
@@ -524,10 +524,10 @@ typedef struct
 
 
   /* Creating and modifying directories.  */
-
+  
   /* We are going to add a new subdirectory named PATH.  We will use
      the value this callback stores in *CHILD_BATON as the
-     PARENT_BATON for further changes in the new subdirectory.
+     PARENT_BATON for further changes in the new subdirectory.  
 
      If COPYFROM_PATH is non-NULL, this add has history (i.e., is a
      copy), and the origin of the copy may be recorded as
@@ -563,7 +563,7 @@ typedef struct
      - DIR_BATON specifies the directory whose property should change.
      - NAME is the name of the property to change.
      - VALUE is the new value of the property, or NULL if the property
-       should be removed altogether.
+       should be removed altogether.  
 
      All allocations should be performed in POOL. */
   svn_error_t *(*change_dir_prop) (void *dir_baton,
@@ -634,7 +634,7 @@ typedef struct
      avoid computing changes. Note that the editor knows the change
      has occurred (by virtue of this function being invoked), but is
      simply indicating that it doesn't want the details.  */
-  svn_error_t *(*apply_textdelta) (void *file_baton,
+  svn_error_t *(*apply_textdelta) (void *file_baton, 
                                    svn_txdelta_window_handler_t *handler,
                                    void **handler_baton);
 
@@ -663,7 +663,7 @@ typedef struct
      gracefully clean up things if it needs to. */
   svn_error_t *(*abort_edit) (void *edit_baton);
 
-} svn_delta_editor_t;
+} svn_delta_editor_t;  
 
 
 
@@ -701,7 +701,7 @@ typedef struct svn_delta_edit_fns_t
                              void *parent_baton,
                              svn_revnum_t base_revision,
                              void **file_baton);
-  svn_error_t *(*apply_textdelta) (void *file_baton,
+  svn_error_t *(*apply_textdelta) (void *file_baton, 
                                    svn_txdelta_window_handler_t *handler,
                                    void **handler_baton);
   svn_error_t *(*change_file_prop) (void *file_baton,
@@ -748,7 +748,7 @@ svn_delta_edit_fns_t *svn_delta_old_default_editor (apr_pool_t *pool);
  *
  * Returns a new editor in E which each function FUN calls
  * EDITOR_1->FUN and then EDITOR_2->FUN, with the corresponding batons.
- *
+ * 
  * If EDITOR_1->FUN returns error, that error is returned from E->FUN
  * and EDITOR_2->FUN is never called; otherwise E->FUN's return value
  * is the same as EDITOR_2->FUN's.
