@@ -3,9 +3,9 @@
 #  schedule_tests.py:  testing working copy scheduling
 #                      (adds, deletes, reversion)
 #
-#  Subversion is a tool for revision control.
+#  Subversion is a tool for revision control. 
 #  See http://subversion.tigris.org for more information.
-#
+#    
 # ====================================================================
 # Copyright (c) 2000-2003 CollabNet.  All rights reserved.
 #
@@ -73,13 +73,13 @@ def add_files(sbox):
   delta_path = os.path.join(wc_dir, 'delta')
   zeta_path = os.path.join(wc_dir, 'A', 'B', 'zeta')
   epsilon_path = os.path.join(wc_dir, 'A', 'D', 'G', 'epsilon')
-
+  
   svntest.main.file_append(delta_path, "This is the file 'delta'.")
   svntest.main.file_append(zeta_path, "This is the file 'zeta'.")
   svntest.main.file_append(epsilon_path, "This is the file 'epsilon'.")
-
+  
   svntest.main.run_svn(None, 'add', delta_path, zeta_path, epsilon_path)
-
+  
   # Make sure the adds show up as such in status
   expected_status = svntest.actions.get_virginal_state(wc_dir, 1)
   expected_status.add({
@@ -104,13 +104,13 @@ def add_directories(sbox):
   X_path = os.path.join(wc_dir, 'X')
   Y_path = os.path.join(wc_dir, 'A', 'C', 'Y')
   Z_path = os.path.join(wc_dir, 'A', 'D', 'H', 'Z')
-
+  
   os.mkdir(X_path)
   os.mkdir(Y_path)
   os.mkdir(Z_path)
-
+  
   svntest.main.run_svn(None, 'add', X_path, Y_path, Z_path)
-
+  
   # Make sure the adds show up as such in status
   expected_status = svntest.actions.get_virginal_state(wc_dir, 1)
   expected_status.add({
@@ -149,7 +149,7 @@ def nested_adds(sbox):
   os.mkdir(P_path)
   os.mkdir(Q_path)
   os.mkdir(R_path)
-
+  
   delta_path = os.path.join(X_path, 'delta')
   epsilon_path = os.path.join(Y_path, 'epsilon')
   upsilon_path = os.path.join(Y_path, 'upsilon')
@@ -162,7 +162,7 @@ def nested_adds(sbox):
 
   # Finally, let's try adding our new files and directories
   svntest.main.run_svn(None, 'add', X_path, Y_path, Z_path)
-
+    
   # Make sure the adds show up as such in status
   expected_status = svntest.actions.get_virginal_state(wc_dir, 1)
   expected_status.add({
@@ -225,9 +225,9 @@ def delete_files(sbox):
   mu_path = os.path.join(wc_dir, 'A', 'mu')
   rho_path = os.path.join(wc_dir, 'A', 'D', 'G', 'rho')
   omega_path = os.path.join(wc_dir, 'A', 'D', 'H', 'omega')
-
+  
   svntest.main.run_svn(None, 'del', iota_path, mu_path, rho_path, omega_path)
-
+    
   # Make sure the deletes show up as such in status
   expected_status = svntest.actions.get_virginal_state(wc_dir, 1)
   expected_status.tweak('iota', 'A/mu', 'A/D/G/rho', 'A/D/H/omega',
@@ -254,10 +254,10 @@ def delete_dirs(sbox):
   chi_path   = os.path.join(H_path, 'chi')
   omega_path = os.path.join(H_path, 'omega')
   psi_path   = os.path.join(H_path, 'psi')
-
+  
   # Now, delete (recursively) the directories.
   svntest.main.run_svn(None, 'del', E_path, F_path, H_path)
-
+    
   # Make sure the deletes show up as such in status
   expected_status = svntest.actions.get_virginal_state(wc_dir, 1)
   expected_status.tweak('A/B/E', 'A/B/E/alpha', 'A/B/E/beta',
@@ -390,7 +390,7 @@ def revert_add_executable(sbox):
                      "Reverted " + group_path + "\n",
                      "Reverted " + other_path + "\n"]
 
-  output, errput = svntest.main.run_svn (None, 'revert',
+  output, errput = svntest.main.run_svn (None, 'revert', 
                                          '--recursive', wc_dir)
 
   # Make sure we got the right output.
@@ -576,12 +576,12 @@ def unschedule_missing_added(sbox):
   file2_path = os.path.join(wc_dir, 'file2')
   dir1_path = os.path.join(wc_dir, 'dir1')
   dir2_path = os.path.join(wc_dir, 'dir2')
-
+  
   svntest.main.file_append(file1_path, "This is the file 'file1'.")
   svntest.main.file_append(file2_path, "This is the file 'file2'.")
   svntest.main.run_svn(None, 'add', file1_path, file2_path)
   svntest.main.run_svn(None, 'mkdir', dir1_path, dir2_path)
-
+  
   # Make sure the 4 adds show up as such in status
   expected_status = svntest.actions.get_virginal_state(wc_dir, 1)
   expected_status.add({

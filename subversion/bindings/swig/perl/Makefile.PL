@@ -59,7 +59,7 @@ sub MY::postamble {
 	       (map {"\tmake -f Makefile.$_\n"} @modules),
 	       # swig
 	       "\ncore.c :: ../core.i\n",
-	       "\tswig -c -nopm -perl -I.. -I../../../include $apr_cflags -module SVN::_Core -o core.c ../core.i\n",
+	       "\tswig -c -nopm -perl -I.. -I../../../include $apr_cflags -module SVN::_Core -o core.c ../core.i\n", 
 	       (map {"\nsvn_$_.c : ../svn_$_.i ra_plugin.hi ra_reporter.hi delta_editor.hi\n".
 			"\tswig -c -nopm -perl -I.. -I../../../include $apr_cflags -module SVN::_".main::perlish($_)." -o svn_$_.c ../svn_$_.i\n"}
 	       @modules),

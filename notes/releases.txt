@@ -89,7 +89,7 @@
         Make sure, that if you maintain a development installation of
         apache, that you check the config file and update it for the
         new release area where you're testing the tar-ball.
-
+     
      g) make svncheck
 
         For this step, start up svnserve with these args:
@@ -140,7 +140,7 @@
 
    There will be a single line of 2 fields returned looking something like:
 
-         $ md5sum subversion-0.25.tar.gz
+         $ md5sum subversion-0.25.tar.gz 
          a018220d5c790161bc712ccb7d0f1b38  subversion-0.25.tar.gz
 
    The 32 character alpha-numeric string on the left is the checksum.

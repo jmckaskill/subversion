@@ -199,7 +199,7 @@ static svn_error_t *ra_svn_delete_path(void *baton, const char *path,
   SVN_ERR(svn_ra_svn_write_cmd(b->conn, pool, "delete-path", "c", path));
   return SVN_NO_ERROR;
 }
-
+    
 static svn_error_t *ra_svn_link_path(void *baton, const char *path,
                                      const char *url,
                                      svn_revnum_t rev,
