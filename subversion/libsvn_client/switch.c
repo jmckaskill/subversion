@@ -123,22 +123,22 @@ svn_client_switch (const svn_delta_edit_fns_t *before_editor,
   /* Get the RA vtable that matches working copy's current URL. */
   SVN_ERR (svn_ra_init_ra_libs (&ra_baton, pool));
   SVN_ERR (svn_ra_get_ra_library (&ra_lib, ra_baton, URL->data, pool));
-
+  
   /* Open an RA session to this URL */
   SVN_ERR (svn_client__open_ra_session (&session, ra_lib, URL, anchor,
                                         TRUE, TRUE, auth_baton, pool));
-
+  
   /* If TM is given, convert the time into a revision number. */
   if (tm)
     SVN_ERR (ra_lib->get_dated_revision (session, &revision, tm));
 
-  /* ##################################################################
+  /* ################################################################## 
        Rewrite all of the interaction with the RA layer below, since
-       the whole RA interface is probably about to change.
+       the whole RA interface is probably about to change. 
      ################################################################## */
 
   /* Tell RA to do a update of URL+TARGET to REVISION; if we pass an
-     invalid revnum, that means RA will use the latest revision.
+     invalid revnum, that means RA will use the latest revision. 
   SVN_ERR (ra_lib->do_update (session,
                               &reporter, &report_baton,
                               revision,
@@ -148,10 +148,10 @@ svn_client_switch (const svn_delta_edit_fns_t *before_editor,
 
   /* Drive the reporter structure, describing the revisions within
      PATH.  When we call reporter->finish_report, the
-     update_editor will be driven by svn_repos_dir_delta.
+     update_editor will be driven by svn_repos_dir_delta. 
   err = svn_wc_crawl_revisions (path, reporter, report_baton,
   TRUE, recurse, pool); */
-
+  
   /* Sleep for one second to ensure timestamp integrity. */
   apr_sleep (APR_USEC_PER_SEC * 1);
 
@@ -167,7 +167,7 @@ svn_client_switch (const svn_delta_edit_fns_t *before_editor,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end: */

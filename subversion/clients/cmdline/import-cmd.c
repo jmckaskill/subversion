@@ -50,11 +50,11 @@ svn_cl__import (apr_getopt_t *os,
   svn_client_commit_info_t *commit_info = NULL;
 
   /* Take our message from ARGV or a FILE */
-  if (opt_state->filedata)
+  if (opt_state->filedata) 
     message = opt_state->filedata;
   else
     message = opt_state->message;
-
+  
   /* Build an authentication object to give to libsvn_client. */
   auth_baton = svn_cl__make_auth_baton (opt_state, pool);
 
@@ -121,7 +121,7 @@ svn_cl__import (apr_getopt_t *os,
     return svn_error_create
       (SVN_ERR_CL_ARG_PARSING_ERROR, 0, NULL, pool,
        "too many arguments to import command");
-
+  
   SVN_ERR (svn_cl__get_trace_commit_editor (&trace_editor,
                                             &trace_edit_baton,
                                             printpath,
@@ -129,7 +129,7 @@ svn_cl__import (apr_getopt_t *os,
 
   SVN_ERR (svn_client_import (&commit_info,
                               NULL, NULL,
-                              opt_state->quiet ? NULL : trace_editor,
+                              opt_state->quiet ? NULL : trace_editor, 
                               opt_state->quiet ? NULL : trace_edit_baton,
                               auth_baton,
                               path,
@@ -148,8 +148,8 @@ svn_cl__import (apr_getopt_t *os,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../svn-dev.el")
- * end:
+ * end: 
  */
