@@ -27,7 +27,7 @@ extern apr_pool_t *g_global_pool;
 
 // Converts an svn_error_t to an HRESULT, and
 // an IErrorInfo record.
-HRESULT
+HRESULT 
 convert_err_to_hresult(svn_error_t *error);
 
 #endif
