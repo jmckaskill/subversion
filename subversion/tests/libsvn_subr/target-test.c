@@ -63,7 +63,7 @@ int main(int argc, char **argv)
         printf("%s, ",
                ((svn_stringbuf_t **)condensed_targets->elts)[i]->data);
       else
-        printf("NULL, ");
+        printf("NULL, "); 
     }
   printf ("\n");
 
