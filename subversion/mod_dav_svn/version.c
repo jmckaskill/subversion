@@ -56,8 +56,8 @@ static dav_error *set_auto_log_message(dav_resource *resource)
          && resource->info->auto_checked_out))
     return dav_new_error(resource->pool, HTTP_INTERNAL_SERVER_ERROR, 0,
                          "set_auto_log_message called on invalid resource.");
-
-  logmsg = apr_psprintf(resource->pool,
+  
+  logmsg = apr_psprintf(resource->pool, 
                         "Autoversioning commit:  a non-deltaV client made "
                         "a change to\n%s", resource->info->repos_path);
 
@@ -262,10 +262,10 @@ dav_error *dav_svn_checkout(dav_resource *resource,
       derr = dav_svn_make_activity(resource);
       if (derr)
         return derr;
-
+      
       /* Tweak the VCR in-place, making it into a WR.  (Ignore the
          NULL return value.) */
-      res = dav_svn_create_working_resource(resource, uuid_buf,
+      res = dav_svn_create_working_resource(resource, uuid_buf, 
                                             resource->info->root.txn_name,
                                             TRUE /* tweak in place */);
 
@@ -284,7 +284,7 @@ dav_error *dav_svn_checkout(dav_resource *resource,
         return dav_svn_convert_err(serr, HTTP_INTERNAL_SERVER_ERROR,
                                    "Could not open the (transaction) root "
                                    "of the repository");
-
+        
       return NULL;
     }
   /* end of Auto-Versioning Stuff */
@@ -449,7 +449,7 @@ dav_error *dav_svn_checkout(dav_resource *resource,
          mutable in the txn... which means it has already passed this
          out-of-dateness check.  (Usually, this happens when looking
          at a parent directory of an already checked-out
-         resource.)
+         resource.)  
 
          Now, we come down to it.  If the created revision of the node
          in the transaction is different from the revision parsed from
@@ -473,7 +473,7 @@ dav_error *dav_svn_checkout(dav_resource *resource,
            use that new revision as the transaction root, thus
            incorporating the new resource, which they will then
            modify).
-
+             
          - The path/revision that client is wishing to edit and the
            path/revision in the current transaction are actually the
            same node, and thus this created-rev comparison didn't
@@ -498,7 +498,7 @@ dav_error *dav_svn_checkout(dav_resource *resource,
                  not, return an error. */
               const svn_fs_id_t *url_noderev_id, *txn_noderev_id;
 
-              if ((serr = svn_fs_node_id(&txn_noderev_id, txn_root,
+              if ((serr = svn_fs_node_id(&txn_noderev_id, txn_root, 
                                          resource->info->repos_path,
                                          resource->pool)))
                 {
@@ -542,13 +542,13 @@ dav_error *dav_svn_checkout(dav_resource *resource,
 #else
               /* ### some debugging code */
               const char *msg;
-
-              msg = apr_psprintf(resource->pool,
-                                 "created-rev mismatch: r=%" SVN_REVNUM_T_FMT
+              
+              msg = apr_psprintf(resource->pool, 
+                                 "created-rev mismatch: r=%" SVN_REVNUM_T_FMT 
                                  ", t=%" SVN_REVNUM_T_FMT,
                                  resource->info->root.rev, txn_created_rev);
-
-              return dav_new_error_tag(resource->pool, HTTP_CONFLICT,
+              
+              return dav_new_error_tag(resource->pool, HTTP_CONFLICT, 
                                        SVN_ERR_FS_CONFLICT, msg,
                                        SVN_DAV_ERROR_NAMESPACE,
                                        SVN_DAV_ERROR_TAG);
@@ -618,7 +618,7 @@ dav_error *dav_svn_checkin(dav_resource *resource,
 
       err = open_txn(&txn, resource->info->repos->fs,
                      resource->info->root.txn_name, resource->pool);
-
+      
       /* If we failed to open the txn, don't worry about it.  It may
          have already been committed when a child resource was
          checked in.  */
@@ -635,7 +635,7 @@ dav_error *dav_svn_checkin(dav_resource *resource,
             {
               const char *msg;
               svn_fs_abort_txn(resource->info->root.txn);
-
+              
               if (serr->apr_err == SVN_ERR_FS_CONFLICT)
                 {
                   msg = apr_psprintf(resource->pool,
@@ -646,7 +646,7 @@ dav_error *dav_svn_checkin(dav_resource *resource,
                 }
               else
                 msg = "An error occurred while committing the transaction.";
-
+              
               return dav_svn_convert_err(serr, HTTP_CONFLICT, msg);
             }
 
@@ -680,7 +680,7 @@ dav_error *dav_svn_checkin(dav_resource *resource,
     {
       resource->info->auto_checked_out = FALSE;
       return dav_svn_working_to_regular_resource(resource);
-    }
+    } 
 
   return NULL;
 }
@@ -817,7 +817,7 @@ static dav_error *dav_svn_make_activity(dav_resource *resource)
                              "query the DAV:activity-collection-set property.",
                              SVN_DAV_ERROR_NAMESPACE,
                              SVN_DAV_ERROR_TAG);
-
+   
   err = dav_svn_create_activity(resource->info->repos, &txn_name,
                                 resource->pool);
   if (err != NULL)
