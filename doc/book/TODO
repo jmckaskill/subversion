@@ -143,7 +143,7 @@ To be fixed by sussman:
         - AuthZ options
              - blanket access control via 'Require' directive
              - per-path access control via mod_authz_svn
-
+       
   - new 'svn diff' UI (when it's done) -- affects ch03, ch08, and
     maybe other chapters.
 
