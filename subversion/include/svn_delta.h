@@ -3,32 +3,32 @@
  *
  * ================================================================
  * Copyright (c) 2000 CollabNet.  All rights reserved.
- *
+ * 
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
  * met:
- *
+ * 
  * 1. Redistributions of source code must retain the above copyright
  * notice, this list of conditions and the following disclaimer.
- *
+ * 
  * 2. Redistributions in binary form must reproduce the above copyright
  * notice, this list of conditions and the following disclaimer in the
  * documentation and/or other materials provided with the distribution.
- *
+ * 
  * 3. The end-user documentation included with the redistribution, if
  * any, must include the following acknowlegement: "This product includes
  * software developed by CollabNet (http://www.Collab.Net)."
  * Alternately, this acknowlegement may appear in the software itself, if
  * and wherever such third-party acknowlegements normally appear.
- *
+ * 
  * 4. The hosted project names must not be used to endorse or promote
  * products derived from this software without prior written
  * permission. For written permission, please contact info@collab.net.
- *
+ * 
  * 5. Products derived from this software may not use the "Tigris" name
  * nor may "Tigris" appear in their names without prior written
  * permission of CollabNet.
- *
+ * 
  * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
  * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -42,7 +42,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ====================================================================
- *
+ * 
  * This software consists of voluntary contributions made by many
  * individuals on behalf of CollabNet.
  */
@@ -117,7 +117,7 @@ typedef struct svn_delta_op_t {
        + LEN <= length of NEW.  */
     svn_delta_new
   } action_code;
-
+  
   apr_off_t offset;
   apr_off_t length;
 } svn_delta_op_t;
@@ -128,7 +128,7 @@ typedef struct svn_delta_window_t {
 
   /* The number of instructions in this window.  */
   int num_ops;
-
+  
   /* The instructions for this window.  */
   svn_delta_op_t *ops;
 
@@ -198,7 +198,7 @@ typedef struct svn_delta_walk_t
 
 
   /* Deleting things.  */
-
+       
   /* Remove the directory entry named NAME.  */
   svn_error_t *(*delete) (svn_string_t *name,
 			  void *walk_baton,
@@ -206,7 +206,7 @@ typedef struct svn_delta_walk_t
 
 
   /* Creating and modifying directories.  */
-
+  
   /* We are going to add a new subdirectory named NAME.  We will use
      the value this callback stores in *CHILD_BATON as the
      PARENT_BATON for further changes in the new subdirectory.  The
@@ -245,7 +245,7 @@ typedef struct svn_delta_walk_t
 
   /* Change the value of a directory entry's property.
      - DIR_BATON specifies the directory.
-     - ENTRY is the name of the entry in that directory whose property
+     - ENTRY is the name of the entry in that directory whose property 
        should be changed.
      - NAME is the name of the property to change.
      - VALUE is the new value of the property, or zero if the property
@@ -300,7 +300,7 @@ typedef struct svn_delta_walk_t
      argument to *HANDLER.  */
   svn_error_t *(*apply_textdelta) (void *walk_baton,
                                    void *parent_baton,
-                                   void *file_baton,
+                                   void *file_baton, 
                                    svn_text_delta_window_handler_t **handler,
                                    void **handler_baton);
 
@@ -340,7 +340,7 @@ extern svn_error_t *svn_delta_parse (svn_delta_read_fn_t *source_fn,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
