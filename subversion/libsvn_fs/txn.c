@@ -57,7 +57,7 @@ make_txn (svn_fs_t *fs,
 
   return txn;
 }
-
+          
 
 struct begin_txn_args
 {
@@ -103,7 +103,7 @@ svn_fs_begin_txn (svn_fs_txn_t **txn_p,
   args.fs    = fs;
   args.rev   = rev;
   SVN_ERR (svn_fs__retry_txn (fs, txn_body_begin_txn, &args, pool));
-
+  
   *txn_p = txn;
 
   /* Put a datestamp on the newly created txn, so we always know
@@ -113,7 +113,7 @@ svn_fs_begin_txn (svn_fs_txn_t **txn_p,
      automatically overwritten with a revision datestamp. */
   date.data = svn_time_to_cstring (apr_time_now(), pool);
   date.len = strlen (date.data);
-  SVN_ERR (svn_fs_change_txn_prop (txn, SVN_PROP_REVISION_DATE,
+  SVN_ERR (svn_fs_change_txn_prop (txn, SVN_PROP_REVISION_DATE, 
                                    &date, pool));
 
   return SVN_NO_ERROR;
@@ -168,7 +168,7 @@ txn_body_abort_txn (void *baton, trail_t *trail)
       int i;
       for (i = 0; i < fstxn->copies->nelts; i++)
         {
-          const char *copy_id =
+          const char *copy_id = 
             APR_ARRAY_IDX (fstxn->copies, i, const char *);
           SVN_ERR (svn_fs__bdb_delete_copy (txn->fs, copy_id, trail));
         }
@@ -216,10 +216,10 @@ txn_body_open_txn (void *baton,
 
   SVN_ERR (svn_fs__get_txn_ids (&root_id, &base_root_id,
                                 args->fs, args->name, trail));
-  SVN_ERR (svn_fs__dag_get_node (&base_root_node, args->fs,
+  SVN_ERR (svn_fs__dag_get_node (&base_root_node, args->fs, 
                                  base_root_id, trail));
   SVN_ERR (svn_fs__dag_get_revision (&base_rev, base_root_node, trail));
-  *args->txn_p = make_txn (args->fs, args->name, base_rev, trail->pool);
+  *args->txn_p = make_txn (args->fs, args->name, base_rev, trail->pool); 
   return SVN_NO_ERROR;
 }
 
@@ -239,7 +239,7 @@ svn_fs_open_txn (svn_fs_txn_t **txn_p,
   args.fs = fs;
   args.name = name;
   SVN_ERR (svn_fs__retry_txn (fs, txn_body_open_txn, &args, pool));
-
+  
   *txn_p = txn;
   return SVN_NO_ERROR;
 }
@@ -257,7 +257,7 @@ txn_body_list_transactions (void* baton,
                             trail_t *trail)
 {
   struct list_transactions_args *args = baton;
-  SVN_ERR (svn_fs__bdb_get_txn_list (args->names_p, args->fs,
+  SVN_ERR (svn_fs__bdb_get_txn_list (args->names_p, args->fs, 
                                      args->pool, trail));
 
   return SVN_NO_ERROR;
@@ -276,7 +276,7 @@ svn_fs_list_transactions (apr_array_header_t **names_p,
   args.names_p = &names;
   args.fs = fs;
   args.pool = pool;
-  SVN_ERR (svn_fs__retry_txn (fs, txn_body_list_transactions,
+  SVN_ERR (svn_fs__retry_txn (fs, txn_body_list_transactions, 
                               &args, pool));
 
   *names_p = names;
