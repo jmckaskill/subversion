@@ -2760,7 +2760,7 @@ The conflicts must be marked with rcsmerge conflict markers."
   (let ((file-info (svn-status-get-line-information)))
     (or (and file-info
              (= ?C (svn-status-line-info->filemark file-info))
-             (svn-resolve-conflicts
+             (svn-resolve-conflicts 
               (svn-status-line-info->full-path file-info)))
         (error "can not resolve conflicts at this point"))))
 
