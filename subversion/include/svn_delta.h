@@ -3,32 +3,32 @@
  *
  * ================================================================
  * Copyright (c) 2000 Collab.Net.  All rights reserved.
- *
+ * 
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
  * met:
- *
+ * 
  * 1. Redistributions of source code must retain the above copyright
  * notice, this list of conditions and the following disclaimer.
- *
+ * 
  * 2. Redistributions in binary form must reproduce the above copyright
  * notice, this list of conditions and the following disclaimer in the
  * documentation and/or other materials provided with the distribution.
- *
+ * 
  * 3. The end-user documentation included with the redistribution, if
  * any, must include the following acknowlegement: "This product includes
  * software developed by Collab.Net (http://www.Collab.Net/)."
  * Alternately, this acknowlegement may appear in the software itself, if
  * and wherever such third-party acknowlegements normally appear.
- *
+ * 
  * 4. The hosted project names must not be used to endorse or promote
  * products derived from this software without prior written
  * permission. For written permission, please contact info@collab.net.
- *
+ * 
  * 5. Products derived from this software may not use the "Tigris" name
  * nor may "Tigris" appear in their names without prior written
  * permission of Collab.Net.
- *
+ * 
  * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
  * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -42,7 +42,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ====================================================================
- *
+ * 
  * This software consists of voluntary contributions made by many
  * individuals on behalf of Collab.Net.
  */
@@ -61,7 +61,7 @@
 
 /* These are the in-memory tree-delta stackframes; they are used to
  * keep track of a delta's state while the XML stream is being parsed.
- *
+ * 
  * The XML representation has certain space optimizations.  For
  * example, if an ancestor is omitted, it means the same path at the
  * same version (taken from the surrounding delta context).  We may
@@ -105,7 +105,7 @@ typedef struct svn_delta_stackframe_t
   } content_kind;
 
   svn_string_t *name;        /* Used by svn_XML_edit and svn_XML_content */
-
+  
   /* Used by svn_XML_content only */
 
   svn_string_t *ancestor_path;
@@ -147,7 +147,7 @@ typedef struct svn_vdelta_t {
 /* An edit is an action and some content.  This is the content. */
 typedef struct svn_edit_content_t
 {
-  enum {
+  enum { 
     svn_file_type = 1,
     svn_directory_type
   } kind;                           /* what kind of object is this? */
@@ -165,7 +165,7 @@ typedef struct svn_edit_content_t
 /* A tree delta is a list of edits.  This is an edit. */
 typedef struct svn_edit_t
 {
-  enum {
+  enum { 
     svn_action_delete = 1,            /* Delete a file or directory. */
     svn_action_new,                   /* Create a new file or directory. */
     svn_action_replace,               /* Replace an existing file or dir */
@@ -196,7 +196,7 @@ typedef enum
   svn_XML_editcontent,
   svn_XML_propdelta,
   svn_XML_textdelta
-
+  
 } svn_XML_elt_t
 
 
@@ -233,26 +233,26 @@ typedef enum
 typedef struct svn_delta_digger_t
 {
   apr_pool_t *pool;
-
+  
   svn_delta_stackframe_t *stack;
 
-  /* TODO: might want to declare a
-   *
+  /* TODO: might want to declare a 
+   * 
    *    svn_edit_content_t *context;
    *
    * or something for the data handler to use as instantly available
    * context; otherwise it's cdr'ing down the delta each time.  Not
    * horrible, since depth is never very great, but not the most
-   * efficient thing either.
+   * efficient thing either. 
    */
 
   /* Caller uses delta context to determine if prop data or text data. */
   svn_error_t (*data_handler) (svn_delta_digger_t *digger,
                                svn_edit_content *eddy);
 
-  /* Call handles dirs specially, because might want to create them.
+  /* Call handles dirs specially, because might want to create them. 
    * It gets the digger for context, but also the current edit_content
-   * because that's a faster way to get this edit.
+   * because that's a faster way to get this edit. 
    */
   svn_error_t (*dir_handler) (svn_delta_digger_t *digger,
                               svn_edit_content_t *this_edit_content);
@@ -282,7 +282,7 @@ XML_Parser svn_delta_make_xml_parser (svn_delta_digger_t *diggy);
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
