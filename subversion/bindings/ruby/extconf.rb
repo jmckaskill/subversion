@@ -18,10 +18,10 @@ $CFLAGS << ' -I. '
 
 # Extra libraries needed to compile
 libraries = %w{svn_subr svn_delta svn_client svn_wc svn_ra}
-libraries.each do |lib|
+libraries.each do |lib| 
   unless have_library(lib, nil)
     puts "You seem to be missing the #{lib} library.\nI can't compile the "+
-      "svn library without this."
+      "svn library without this." 
     exit(1)
   end
 end
