@@ -82,7 +82,7 @@ svn_wc_merge (const char *left,
                              tmp_f,
                              &exit_code,
                              pool));
-
+  
   apr_err = apr_file_close (tmp_f);
   if (! APR_STATUS_IS_SUCCESS (apr_err))
     return svn_error_createf
