@@ -366,7 +366,7 @@ dav_error * dav_svn__update_report(const dav_resource *resource,
                                    ap_filter_t *output);
 
 /* ### todo: document this, as soon as understand what the heck it
-   does :-).  -kff */
+   does :-).  -kff */   
 dav_error * dav_svn__log_report(const dav_resource *resource,
                                 const apr_xml_doc *doc,
                                 ap_filter_t *output);
@@ -376,7 +376,7 @@ int dav_svn_find_ns(apr_array_header_t *namespaces, const char *uri);
 #endif /* DAV_SVN_H */
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end:
