@@ -52,7 +52,7 @@
   <!-- ******************************************************************* -->
   <sect1 id="svn-ch-6-sect-1">
     <title>Run-time Configuration Area</title>
-
+    
     <para>Subversion provides many optional behaviors that can be
       controlled by the user.  Many of these options are of the kind
       that a user would wish to apply to all Subversion operations.
@@ -155,7 +155,7 @@
         so are overridden by values found in the configuration
         files.  In other words, configuration priority is granted in
         the following order on a Windows system:</para>
-
+      
       <orderedlist>
         <listitem>
           <para>Command-line options</para>
@@ -232,7 +232,7 @@ REGEDIT4
     <!-- ***************************************************************** -->
     <sect2 id="svn-ch-6-sect-1.3">
       <title>Configuration Options</title>
-
+      
       <para>In this section, we will discuss the specific
         run-time configuration options which are currently supported
         by Subversion.</para>
@@ -458,7 +458,7 @@ collabnet = svn.collab.net
         <para>The <literal>miscellany</literal> section is where
           everything that doesn't belong elsewhere winds up.
           <footnote>
-            <para>Anyone for potluck dinner?</para>
+            <para>Anyone for potluck dinner?</para> 
           </footnote>
           In this section, you can find:</para>
 
@@ -614,7 +614,7 @@ $ svn propset copyright '(c) 2003 Red-Bean Software' calc/button.c
 property `copyright' set on 'calc/button.c'
 $
 </screen>
-
+       
       <para>But we've been touting the flexibility that Subversion
         offers for your property values.  And if you are planning to
         have a multi-line textual, or even binary, property value, you
@@ -701,7 +701,7 @@ Properties on 'calc/button.c':
 Copyright (c) 2003 Red-Bean Software.  All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions
+modification, are permitted provided that the following conditions 
 are met:
 
 1. Redistributions of source code must retain the above copyright
@@ -723,7 +723,7 @@ property `license' set on 'calc/button.c'
 $ svn proplist --verbose calc/button.c
 Properties on 'calc/button.c':
   copyright : (c) 2003 Red-Bean Software
-  license :
+  license : 
 $
 </screen>
 
@@ -825,15 +825,15 @@ $
           changes on a versioned resource that clash with your own,
           Subversion will report that the resource is in a conflicted
           state.</para>
-
+ 
         <screen>
 % svn update calc
 M  calc/Makefile.in
  C calc/button.c
 Updated to revision 143.
-$
+$ 
 </screen>
-
+         
         <para>Subversion will also create, in the same directory as
           the conflicted resource, a file with a
           <filename>.prej</filename> extension which contains the
@@ -848,11 +848,11 @@ $
 $ svn status calc
  C     calc/button.c
 ?      calc/button.c.prej
-$ cat calc/button.c.prej
+$ cat calc/button.c.prej 
 prop `linecount': user set to '1256', but update set to '1301'.
 $
 </screen>
-
+ 
         <para>To resolve property conflicts, simply ensure that the
           conflicting properties contain the values that they should,
           and then use the <command>svn resolve</command> command to
@@ -885,7 +885,7 @@ $
 
     <!-- ***************************************************************** -->
     <sect2 id="svn-ch-6-sect-2.3">
-
+      
      <title>Special properties</title>
 
       <para>Subversion has no particular policy regarding
@@ -897,10 +897,10 @@ $
         directories to which they are attached.  In this section,
         we'll untangle the mystery, and describe how these special
         properties make your life just a little easier.</para>
-
+      
       <sect3 id="svn-ch-6-sect-2.3.1">
         <title><literal>svn:executable</literal></title>
-
+ 
         <para>The <literal>svn:executable</literal> property is used
           to control a versioned file's filesystem-level execute
           permission bit in a semi-automated way.  This property has
@@ -946,7 +946,7 @@ $
 
       <sect3 id="svn-ch-6-sect-2.3.2">
         <title><literal>svn:mime-type</literal></title>
-
+        
         <para>The <literal>svn:mime-type</literal> property serves
           many purposes in Subversion.  Besides being a
           general-purpose storage location for a file's Multipurpose
@@ -1051,7 +1051,7 @@ $
 
         <sidebar>
           <title>Ignore Patterns for CVS Users</title>
-
+        
           <para>The Subversion <literal>svn:ignore</literal> property
             is very similar in syntax and function to the CVS
             <filename>.cvsignore</filename> file.  In fact, if you are
@@ -1059,12 +1059,12 @@ $
             directly migrate the ignore patterns by the
             <filename>.cvsignore</filename> file as input file to the
             <command>svn propset</command> command:</para>
-
+       
           <screen>
 $ svn propset svn:ignore -F .cvsignore .
 property `svn:ignore' set on '.'
 $
-</screen>
+</screen>        
 
           <para>There are, however, some differences in the ways that
             CVS and Subversion handle ignore patters.  The two systems
@@ -1253,7 +1253,7 @@ $ svn status
           a document
           <footnote>
             <para>&hellip; or maybe even a section of a book &hellip;</para>
-          </footnote>
+          </footnote> 
           about how to use keywords, and you don't want Subversion to
           substitute your beautiful examples of un-substited keyword
           anchors!</para>
@@ -1276,7 +1276,7 @@ $LastChangedDate$
 $Rev$
 Cumulus clouds are appearing more frequently as summer approaches.
 </programlisting>
-
+        
         <para>With no <literal>svn:keywords</literal> property set on
           that file, Subversion will do nothing special.  Now, let's
           enable substitution of the
@@ -1286,7 +1286,7 @@ Cumulus clouds are appearing more frequently as summer approaches.
 $ svn propset svn:keywords "LastChangedDate Author" weather.txt
 property `svn:keywords' set on 'weather.txt'
 $
-</screen>
+</screen>        
 
         <para>Now you have made a local property modification on the
           <filename>weather.txt</filename> file.  You will see no
@@ -1334,7 +1334,7 @@ $LastChangedDate: 2002-07-22 21:42:37 -0700 (Mon, 22 Jul 2002) $
 $Rev$
 Cumulus clouds are appearing more frequently as summer approaches.
 </screen>
-
+        
         <para>If someone else now commits a change to
           <filename>weather.txt</filename>, your copy of that file
           will continue to display the same substituted keyword value
@@ -1354,7 +1354,7 @@ Cumulus clouds are appearing more frequently as summer approaches.
           speaking, Subversion only uses this knowledge to determine
           if contextual differences reports for that file are
           possible.  Otherwise, to Subversion, bytes are bytes.</para>
-
+        
         <para>This means that by default, Subversion doesn't pay any
           attention to the type of <firstterm>end-of-line (EOL)
           markers</firstterm> used in your files.  Unfortunately,
@@ -1471,7 +1471,7 @@ Cumulus clouds are appearing more frequently as summer approaches.
             </listitem>
           </varlistentry>
         </variablelist>
-
+        
       </sect3>
 
       <sect3 id="svn-ch-6-sect-2.3.6">
@@ -1492,7 +1492,7 @@ Cumulus clouds are appearing more frequently as summer approaches.
   <!-- ******************************************************************* -->
   <sect1 id="svn-ch-6-sect-3">
     <title>Externals Definitions</title>
-
+    
     <para>Sometimes it is useful to construct a working copy that is
       made out of a number of different checkouts.  For example, you
       may want different subdirectories to come from different
@@ -1569,7 +1569,7 @@ Fetching external item into calc/third-party/skins
          comment here that was more than a little doubtful.  We *do*
          have externals tests in place.  Perhaps Ben's update did nothing
          because his directory was already up-to-date?  -->
-
+    
   </sect1>
 
   <!-- ******************************************************************* -->
@@ -1587,7 +1587,7 @@ Fetching external item into calc/third-party/skins
       This scenario plays itself out all the time&mdash;anywhere that
       the information generated by one group of people has a direct
       effect on that which is generated by another group.</para>
-
+ 
     <para>For example, software developers might be working on an
       application which makes use of a third-party library.
       Subversion has just such a relationship with the Apache Portable
@@ -1637,7 +1637,7 @@ Fetching external item into calc/third-party/skins
       your own version control system which contains information
       provided by a third-party entity, or vendor.  Each version of
       the vendor's data that you decide to absorb into your project is
-      called a <firstterm>vendor drop</firstterm>.</para>
+      called a <firstterm>vendor drop</firstterm>.</para> 
 
     <para>Vendor branches provide two key benefits.  First, by storing
       the currently supported vendor drop in your own version control
@@ -1685,13 +1685,13 @@ $ svn import http://svn.example.com/repos/calc/vendor/libcomplex \
              -m 'importing initial 1.0 vendor drop'
 &hellip;
 </screen>
-
+    
       <para>We now have the current version of the libcomplex source
         code in <filename>/vendor/libcomplex/current</filename>.  Now,
         we tag that version (see <xref linkend="svn-ch-4-sect-6" />)
         and then copy it into the main development branch so we can
         make our customizations to it.</para>
-
+    
       <screen>
 $ svn copy http://svn.example.com/repos/calc/vendor/libcomplex/current  \
            http://svn.example.com/repos/calc/vendor/libcomplex/1.0      \
@@ -1722,7 +1722,7 @@ $ svn copy http://svn.example.com/repos/vendor/libcomplex/1.0  \
         our current baseline version of libcomplex 1.0 with a copy of
         libcomplex 1.1, and then re-apply the custom modifications we
         previously made to that library to the new version.</para>
-
+      
       <para>To perform this upgrade, we checkout a copy of our vendor
         branch, and replace the <literal>current</literal> version
         with the new libcomplex 1.1 source code.  After committing
@@ -1897,7 +1897,7 @@ $ svn_load_dirs.pl -t libcomplex-1.1                                   \
 </chapter>
 
 <!--
-local variables:
+local variables: 
 sgml-parent-document: ("book.xml" "chapter")
 end:
 -->
