@@ -49,13 +49,13 @@ svn_client_file_diff (svn_stringbuf_t *path,
   /* Ask the WC layer to make a tmp copy of the pristine text-base and
      return the path to us.  */
   err = svn_wc_get_pristine_copy_path (path, pristine_copy_path, pool);
-
+  
   /* If the WC fails, or doesn't have a text-base, then ask the RA
      layer to deposit a copy somewhere!  */
   if (err)
     /* TODO:  someday when we have RA working, use it here! */
     return err;
-
+  
   return SVN_NO_ERROR;
 }
 
