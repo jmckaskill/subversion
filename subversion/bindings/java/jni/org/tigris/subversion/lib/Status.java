@@ -17,7 +17,7 @@ package org.tigris.subversion.lib;
  *
  */
 
-public class Status
+public class Status 
 {
     public final Entry entry;
     public final Revision repos_rev;
