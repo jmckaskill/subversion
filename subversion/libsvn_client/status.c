@@ -56,7 +56,7 @@ add_update_info_to_status_hash (apr_hash_t *statushash,
                                 svn_client_auth_baton_t *auth_baton,
                                 apr_pool_t *pool)
 {
-  svn_ra_plugin_t *ra_lib;
+  svn_ra_plugin_t *ra_lib;  
   svn_ra_callbacks_t *ra_callbacks;
   void *ra_baton, *cb_baton, *session, *edit_baton, *report_baton;
   svn_delta_edit_fns_t *status_editor;
@@ -115,7 +115,7 @@ add_update_info_to_status_hash (apr_hash_t *statushash,
   /* Drive the reporter structure, describing the revisions within
      PATH.  When we call reporter->finish_report, the
      status_editor will be driven by svn_repos_dir_delta. */
-  SVN_ERR (svn_wc_crawl_revisions (path, reporter, report_baton,
+  SVN_ERR (svn_wc_crawl_revisions (path, reporter, report_baton, 
                                    FALSE, /* don't notice unversioned stuff */
                                    pool));
 
@@ -146,10 +146,10 @@ svn_client_status (apr_hash_t **statushash,
 {
   apr_hash_t *hash = apr_hash_make (pool);
 
-  /* Ask the wc to give us a list of svn_wc_status_t structures.
+  /* Ask the wc to give us a list of svn_wc_status_t structures. 
      These structures will contain -local mods- only.  */
   SVN_ERR (svn_wc_statuses (hash, path, descend, pool));
-
+  
   /* ### Right here is where we might parse an incoming switch about
      whether to contact the network or not.  :-) */
 
