@@ -6,7 +6,7 @@ sys.path.append(".")
 if len(sys.argv) > 1:
     __import__(sys.argv[1])
 else:
-    tests = [
+    tests = [ 
               'test1',
               'space-fname',
               'twoquick',

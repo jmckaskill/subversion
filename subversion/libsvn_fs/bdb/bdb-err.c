@@ -40,7 +40,7 @@ bdb_err_to_apr_err (int db_err)
   else
     return SVN_ERR_FS_BERKELEY_DB;
 }
-
+ 
 
 svn_error_t *
 svn_fs__bdb_dberr (int db_err)

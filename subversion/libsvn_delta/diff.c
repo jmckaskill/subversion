@@ -190,7 +190,7 @@ svn_diff__get_tokens(svn_diff__position_t **position_list,
       position->next = NULL;
       position->node = node;
       position->offset = offset;
-
+  
       *position_ref = position;
       position_ref = &position->next;
     }

@@ -12,7 +12,7 @@ directory tree. The revision history includes file changes and log messages as
 well as move and copy operations that were applied at some time in the past to
 the tree.  \fBsvnadmin\fP operations are typically carried out by an
 administrator. The
-.BR svn (1)
+.BR svn (1) 
 tool handles operations for normal users of the source controlled resource.
 .SH COMMANDS
 .TP
@@ -32,7 +32,7 @@ $ svnadmin create /var/svn
 .SP
 
 Importing a source tree into the repository created above is possible
-with the
+with the 
 .BR svn (1)
 command :
 
@@ -54,12 +54,12 @@ Create a new transaction based on
 Dump the contents of filesystem to stdout in a 'dumpfile'
 portable format, sending feedback to stderr.  Dump revisions
 .IR lower-rev
-through
-.IR upper-rev .
-If no revisions are given, all revision trees are dumped.
+through 
+.IR upper-rev . 
+If no revisions are given, all revision trees are dumped.  
 If just
-.IR lower-rev
-is given, that one revision tree is dumped.  A 'dumpfile' is used to
+.IR lower-rev 
+is given, that one revision tree is dumped.  A 'dumpfile' is used to 
 convert between incompatible repository formats. If
 .BI --incremental
 is passed, then the first revision dumped will be a diff against the
@@ -71,9 +71,9 @@ new revisions into the repository's filesystem.
 Send progress feedback to stdout.
 .TP
 .BI lscr " repos-path path \fR[\fI --copies \fR]\fI"
-Print, one-per-line and youngest-to-eldest, the revisions in which
-.IR path
-was modified.  Use the --copies flag to allow this operation
+Print, one-per-line and youngest-to-eldest, the revisions in which 
+.IR path 
+was modified.  Use the --copies flag to allow this operation 
 to cross copy history while searching for revisions.
 (For directories, this is, for now, almost guaranteed to be
 uninteresting.  Also, path must exist in the HEAD of the repository.)
@@ -87,16 +87,16 @@ WARNING: only run this when you are SURE you're the only process
 accessing the repository.  Requires exclusive access.
 .TP
 .BI rmtxns " repos-path txn-name \fR[\fI ... \fR]\fI"
-Delete the transaction(s) named
+Delete the transaction(s) named 
 .BI txn-name.
 .TP
 .BI setlog " repos-path \-rrev file"
-Set the log-message on revision
-.IR rev
-to the contents of
+Set the log-message on revision 
+.IR rev 
+to the contents of 
 .IR file .
-Be careful with this option.  Log messages are stored as revision properties.
-The history of revision properties is not saved.  This command will
+Be careful with this option.  Log messages are stored as revision properties.  
+The history of revision properties is not saved.  This command will 
 .B permanently
 overwrite the previous log message.
 .SH "SEE ALSO"

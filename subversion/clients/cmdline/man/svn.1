@@ -149,7 +149,7 @@ Then foo.c and bar.c will share a common ancestor in the repository.
 
 \fBexample:\fP But, if you do this (NO ANCESTRY)
 
-  $ cp foo.c bar.c
+  $ cp foo.c bar.c 
   $ svn add bar.c
   $ svn ci -m "Initial Import"
 
@@ -239,7 +239,7 @@ be specific to retrieve logs from a remote repository. If the URL is
 passed alone, then only that entry will be searched. If paths are also
 supplied with the URL, then only those paths are searched, based at the
 given URL.  With -v, also print all affected paths with each log message.
-With -q, don't print the log message body itself (note that this is
+With -q, don't print the log message body itself (note that this is 
 compatible with -v).
 
 \fBexample:\fP svn log
@@ -314,7 +314,7 @@ List all properties for given files and directories.
 (Alias: pset, ps)
 Set property \fIpropname\fP to \fIpropval\fP on files and directories.
 
-Note: svn recognizes the following special properties but will
+Note: svn recognizes the following special properties but will 
 store any arbitrary properties set:
 .RS
 .IP svn:ignore
@@ -336,12 +336,12 @@ If present, make the file executable. This property cannot be set on a
 directory.  A non-recursive attempt will fail, and a recursive attempt will set
 the property only on the file children of the directory.
 .IP svn:eol-style
-One of 'native', 'LF', 'CR', 'CRLF'.
+One of 'native', 'LF', 'CR', 'CRLF'. 
 .IP svn:mime-type
 The mimetype of the file.  Used to determine whether to merge the file, and how
 to serve it from Apache.  A mimetype beginning with 'text/' (or an absent
 mimetype) is treated as text.  Anything else is treated as binary.
-.IP svn:externals
+.IP svn:externals 
 A newline separated list of module specifiers, each of which consists of a
 relative directory path, optional revision flags, and an URL.  For example :
 .SP
@@ -394,7 +394,7 @@ Merged
 .RE
 .RS
 
-\fBexample:\fP svn update foo.c bar.h baz/ bat/*.m
+\fBexample:\fP svn update foo.c bar.h baz/ bat/*.m 
 .SH WWW
 http://subversion.tigris.org
 .SH "SEE ALSO"
