@@ -51,7 +51,7 @@ set_directory (void *report_baton,
 
   return SVN_NO_ERROR;
 }
-
+  
 
 static svn_error_t *
 set_file (void *report_baton,
@@ -62,7 +62,7 @@ set_file (void *report_baton,
 
   return SVN_NO_ERROR;
 }
-
+  
 
 
 static svn_error_t *
@@ -93,7 +93,7 @@ open (void **session_baton,
      there. */
   apr_pool_t *subpool = svn_pool_create (pool);
 
-  /* Allocate the session_baton the parent pool */
+  /* Allocate the session_baton the parent pool */ 
   baton = apr_pcalloc (pool, sizeof(*baton));
 
   /* And let all other session_baton data use session's subpool */
@@ -128,7 +128,7 @@ open (void **session_baton,
 static svn_error_t *
 close (void *session_baton)
 {
-  svn_ra_local__session_baton_t *baton =
+  svn_ra_local__session_baton_t *baton = 
     (svn_ra_local__session_baton_t *) session_baton;
 
   /* Close the repository filesystem */
@@ -147,7 +147,7 @@ static svn_error_t *
 get_latest_revnum (void *session_baton,
                    svn_revnum_t *latest_revnum)
 {
-  svn_ra_local__session_baton_t *baton =
+  svn_ra_local__session_baton_t *baton = 
     (svn_ra_local__session_baton_t *) session_baton;
 
   SVN_ERR (svn_fs_youngest_rev (latest_revnum, baton->fs, baton->pool));
@@ -173,7 +173,7 @@ get_commit_editor (void *session_baton,
   const svn_delta_edit_fns_t *composed_editor;
   void *commit_editor_baton, *tracking_editor_baton, *composed_editor_baton;
 
-  svn_ra_local__session_baton_t *sess_baton =
+  svn_ra_local__session_baton_t *sess_baton = 
     (svn_ra_local__session_baton_t *) session_baton;
 
   /* Construct a Magick commit-hook baton */
@@ -187,9 +187,9 @@ get_commit_editor (void *session_baton,
   closer->target_array = apr_pcalloc (closer->pool,
                                           sizeof(*(closer->target_array)));
 
-  /* Get the filesystem commit-editor */
+  /* Get the filesystem commit-editor */     
   SVN_ERR (svn_fs_get_editor (&commit_editor, &commit_editor_baton,
-                              sess_baton->fs,
+                              sess_baton->fs, 
                               base_revision, base_path,
                               log_msg,
                               cleanup_commit, closer,
@@ -247,7 +247,7 @@ do_update (void *session_baton,
 
 /** The static reporter and ra_plugin objects **/
 
-static const svn_ra_reporter_t ra_local_reporter =
+static const svn_ra_reporter_t ra_local_reporter = 
 {
   set_directory,
   set_file,
@@ -255,7 +255,7 @@ static const svn_ra_reporter_t ra_local_reporter =
 };
 
 
-static const svn_ra_plugin_t ra_local_plugin =
+static const svn_ra_plugin_t ra_local_plugin = 
 {
   "ra_local",
   "RA module for accessing repository on local disk. (file:// URLs)",
