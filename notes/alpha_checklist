@@ -8,7 +8,7 @@ A. How ACLs should work.  Do they live as filesystem props?  How
    should authorization and authentication work in general?
 
    We need a security architecture that:
-
+  
       * will take advantage of Apache
 
       * fits well with the Sourcecast 2.0 framework
