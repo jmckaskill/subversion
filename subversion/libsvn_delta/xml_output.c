@@ -182,7 +182,7 @@ free_dir_baton (struct dir_baton *db)
       err = svn_stream_write (db->edit_context->output, str->data, &len);
       if (err == SVN_NO_ERROR)
         err = svn_stream_close (db->edit_context->output);
-
+      
       apr_destroy_pool (db->edit_context->pool); /* destroys db->pool too */
     }
 
@@ -222,7 +222,7 @@ decrement_ref_count (struct dir_baton *db)
    never have to unwind past a dir element, so the unwinding steps are
    bounded in number and easy to visualize.  The nesting of the
    elements we care about looks like:
-
+  
         dir -> prop_delta
             -> tree_delta -> add/replace -> file -> prop_delta
 
@@ -466,7 +466,7 @@ close_directory (void *dir_baton)
       svn_xml_make_close_tag (&str, db->pool, "dir");
       svn_xml_make_close_tag (&str, db->pool, outertag);
       ec->elem = elem_tree_delta;
-
+      
       len = str->len;
       err = svn_stream_write (ec->output, str->data, &len);
       if (err)
@@ -487,7 +487,7 @@ close_directory (void *dir_baton)
       if (err)
         return err;
     }
-
+  
   err = decrement_ref_count (db);
   if (err)
     return err;
@@ -562,7 +562,7 @@ finish_svndiff_data (void *baton)
 
 
 static svn_error_t *
-apply_textdelta (void *file_baton,
+apply_textdelta (void *file_baton, 
                  svn_txdelta_window_handler_t **handler,
                  void **handler_baton)
 {
@@ -721,7 +721,7 @@ svn_delta_get_xml_editor (svn_stream_t *output,
     len = str->len;
     err = svn_stream_write (ec->output, str->data, &len);
     apr_destroy_pool (this_pool);
-
+  
     if (err)
       return err;
   }
@@ -732,7 +732,7 @@ svn_delta_get_xml_editor (svn_stream_t *output,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
