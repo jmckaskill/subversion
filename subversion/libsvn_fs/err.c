@@ -47,7 +47,7 @@ svn_fs__dberrf (apr_pool_t *pool, int db_err, const char *fmt, ...)
   msg = apr_pvsprintf (pool, fmt, ap);
   va_end (ap);
 
-  return svn_error_createf (SVN_ERR_BERKELEY_DB, db_err, 0, pool,
+  return svn_error_createf (SVN_ERR_BERKELEY_DB, db_err, 0, pool, 
                             "%s%s", msg, db_strerror (db_err));
 }
 
@@ -236,7 +236,7 @@ svn_fs__err_not_directory (svn_fs_t *fs, const char *path)
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end:
