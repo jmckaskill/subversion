@@ -87,7 +87,7 @@ get_rev_txn (svn_fs__transaction_t **txn_p,
 {
   svn_fs__revision_t *revision;
   svn_fs__transaction_t *txn;
-
+  
   SVN_ERR (svn_fs__bdb_get_rev (&revision, fs, rev, trail));
   if (revision->txn_id == NULL)
     return svn_fs__err_corrupt_fs_revision (fs, rev);
@@ -111,7 +111,7 @@ svn_fs__rev_get_root (const svn_fs_id_t **root_id_p,
                       trail_t *trail)
 {
   svn_fs__transaction_t *txn;
-
+  
   SVN_ERR (get_rev_txn (&txn, NULL, fs, rev, trail));
   if (txn->root_id == NULL)
     return svn_fs__err_corrupt_fs_revision (fs, rev);
@@ -338,7 +338,7 @@ svn_fs__get_txn_ids (const svn_fs_id_t **root_id_p,
                      trail_t *trail)
 {
   svn_fs__transaction_t *txn;
-
+  
   SVN_ERR (get_txn (&txn, fs, txn_name, FALSE, trail));
   if (txn->kind != svn_fs__transaction_kind_normal)
     return svn_fs__err_txn_not_mutable (fs, txn_name);
@@ -436,7 +436,7 @@ txn_body_txn_proplist (void *baton, trail_t *trail)
   if (txn->kind != svn_fs__transaction_kind_normal)
     return svn_fs__err_txn_not_mutable (trail->fs, args->id);
 
-  *(args->table_p) = txn->proplist;
+  *(args->table_p) = txn->proplist; 
   return SVN_NO_ERROR;
 }
 
@@ -528,7 +528,7 @@ static svn_error_t *
 txn_body_change_txn_prop (void *baton, trail_t *trail)
 {
   struct change_txn_prop_args *args = baton;
-  return svn_fs__set_txn_prop (trail->fs, args->id, args->name,
+  return svn_fs__set_txn_prop (trail->fs, args->id, args->name, 
                                args->value, trail);
 }
 
@@ -570,7 +570,7 @@ make_txn (svn_fs_t *fs,
 
   return txn;
 }
-
+          
 
 struct begin_txn_args
 {
@@ -616,7 +616,7 @@ svn_fs_begin_txn (svn_fs_txn_t **txn_p,
   args.fs    = fs;
   args.rev   = rev;
   SVN_ERR (svn_fs__retry_txn (fs, txn_body_begin_txn, &args, pool));
-
+  
   *txn_p = txn;
 
   /* Put a datestamp on the newly created txn, so we always know
@@ -626,7 +626,7 @@ svn_fs_begin_txn (svn_fs_txn_t **txn_p,
      automatically overwritten with a revision datestamp. */
   date.data = svn_time_to_cstring (apr_time_now(), pool);
   date.len = strlen (date.data);
-  SVN_ERR (svn_fs_change_txn_prop (txn, SVN_PROP_REVISION_DATE,
+  SVN_ERR (svn_fs_change_txn_prop (txn, SVN_PROP_REVISION_DATE, 
                                    &date, pool));
 
   return SVN_NO_ERROR;
@@ -678,7 +678,7 @@ txn_body_abort_txn (void *baton, trail_t *trail)
       int i;
       for (i = 0; i < fstxn->copies->nelts; i++)
         {
-          const char *copy_id =
+          const char *copy_id = 
             APR_ARRAY_IDX (fstxn->copies, i, const char *);
           SVN_ERR (svn_fs__bdb_delete_copy (txn->fs, copy_id, trail));
         }
@@ -723,10 +723,10 @@ txn_body_open_txn (void *baton,
 
   SVN_ERR (svn_fs__get_txn_ids (&root_id, &base_root_id,
                                 args->fs, args->name, trail));
-  SVN_ERR (svn_fs__dag_get_node (&base_root_node, args->fs,
+  SVN_ERR (svn_fs__dag_get_node (&base_root_node, args->fs, 
                                  base_root_id, trail));
   SVN_ERR (svn_fs__dag_get_revision (&base_rev, base_root_node, trail));
-  *args->txn_p = make_txn (args->fs, args->name, base_rev, trail->pool);
+  *args->txn_p = make_txn (args->fs, args->name, base_rev, trail->pool); 
   return SVN_NO_ERROR;
 }
 
@@ -746,7 +746,7 @@ svn_fs_open_txn (svn_fs_txn_t **txn_p,
   args.fs = fs;
   args.name = name;
   SVN_ERR (svn_fs__retry_txn (fs, txn_body_open_txn, &args, pool));
-
+  
   *txn_p = txn;
   return SVN_NO_ERROR;
 }
@@ -764,7 +764,7 @@ txn_body_list_transactions (void* baton,
                             trail_t *trail)
 {
   struct list_transactions_args *args = baton;
-  SVN_ERR (svn_fs__bdb_get_txn_list (args->names_p, args->fs,
+  SVN_ERR (svn_fs__bdb_get_txn_list (args->names_p, args->fs, 
                                      args->pool, trail));
 
   return SVN_NO_ERROR;
@@ -783,7 +783,7 @@ svn_fs_list_transactions (apr_array_header_t **names_p,
   args.names_p = &names;
   args.fs = fs;
   args.pool = pool;
-  SVN_ERR (svn_fs__retry_txn (fs, txn_body_list_transactions,
+  SVN_ERR (svn_fs__retry_txn (fs, txn_body_list_transactions, 
                               &args, pool));
 
   *names_p = names;
