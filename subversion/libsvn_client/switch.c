@@ -68,17 +68,17 @@ svn_client_switch (const char *path,
   svn_error_t *err = SVN_NO_ERROR;
   svn_wc_adm_access_t *adm_access;
   const char *diff3_cmd;
-  svn_boolean_t timestamp_sleep = FALSE;
+  svn_boolean_t timestamp_sleep = FALSE;  
   svn_boolean_t use_commit_times;
   const char *commit_time_str;
   const svn_delta_editor_t *switch_editor;
   void *switch_edit_baton;
   svn_wc_traversal_info_t *traversal_info = svn_wc_init_traversal_info (pool);
-  svn_config_t *cfg = ctx->config ? apr_hash_get (ctx->config,
-                                                  SVN_CONFIG_CATEGORY_CONFIG,
+  svn_config_t *cfg = ctx->config ? apr_hash_get (ctx->config, 
+                                                  SVN_CONFIG_CATEGORY_CONFIG,  
                                                   APR_HASH_KEY_STRING)
                                   : NULL;
-
+  
   /* Get the external diff3, if any. */
   svn_config_get (cfg, &diff3_cmd, SVN_CONFIG_SECTION_HELPERS,
                   SVN_CONFIG_OPTION_DIFF3_CMD, NULL);
@@ -104,7 +104,7 @@ svn_client_switch (const char *path,
      again.  See issue #1000 and related commits for details. */
   SVN_ERR (svn_wc_adm_probe_open (&adm_access, NULL, path, TRUE, TRUE, pool));
   SVN_ERR (svn_wc_entry (&entry, path, adm_access, FALSE, pool));
-
+  
   if (! entry)
     return svn_error_createf
       (SVN_ERR_WC_PATH_NOT_FOUND, NULL,
@@ -118,7 +118,7 @@ svn_client_switch (const char *path,
   if (entry->kind == svn_node_file)
     {
       SVN_ERR (svn_wc_get_actual_target (path, &anchor, &target, pool));
-
+      
       /* get the parent entry */
       SVN_ERR (svn_wc_entry (&session_entry, anchor, adm_access, FALSE, pool));
       if (! session_entry)
@@ -158,8 +158,8 @@ svn_client_switch (const char *path,
   SVN_ERR (svn_ra_get_ra_library (&ra_lib, ra_baton, URL, pool));
 
   /* Open an RA session to 'source' URL */
-  SVN_ERR (svn_client__open_ra_session (&session, ra_lib, URL, anchor,
-                                        adm_access, NULL, TRUE, FALSE,
+  SVN_ERR (svn_client__open_ra_session (&session, ra_lib, URL, anchor, 
+                                        adm_access, NULL, TRUE, FALSE, 
                                         ctx, pool));
   SVN_ERR (svn_client__get_revision_number
            (&revnum, ra_lib, session, revision, path, pool));
@@ -180,20 +180,20 @@ svn_client_switch (const char *path,
   SVN_ERR (ra_lib->do_switch (session, &reporter, &report_baton, revnum,
                               target, recurse, switch_url,
                               switch_editor, switch_edit_baton, pool));
-
+      
   /* Drive the reporter structure, describing the revisions within
      PATH.  When we call reporter->finish_report, the update_editor
      will be driven by svn_repos_dir_delta.
 
      We pass NULL for traversal_info because this is a switch, not an
      update, and therefore we don't want to handle any externals
-     except the ones directly affected by the switch. */
+     except the ones directly affected by the switch. */ 
   err = svn_wc_crawl_revisions (path, adm_access, reporter, report_baton,
                                 TRUE, recurse,
                                 ctx->notify_func, ctx->notify_baton,
                                 NULL, /* no traversal info */
                                 pool);
-
+    
   /* We handle externals after the switch is complete, so that
      handling external items (and any errors therefrom) doesn't delay
      the primary operation.  We ignore the timestamp_sleep value since
