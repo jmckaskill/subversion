@@ -90,7 +90,7 @@ svn_error_t *svn_error_createf (apr_status_t apr_err,
                                 int src_err,
                                 svn_error_t *child,
                                 apr_pool_t *pool,
-                                const char *fmt,
+                                const char *fmt, 
                                 ...)
        __attribute__ ((format (printf, 5, 6)));
 
