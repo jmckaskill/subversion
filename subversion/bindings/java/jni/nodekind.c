@@ -31,7 +31,7 @@
 //JUST UNCOMMENT THE FOLLOWING LINE
 //#define SVN_JNI_NODEKIND__DEBUG
 
-jobject
+jobject 
 nodekind__create(JNIEnv *env, jboolean *hasException, jint nodekind)
 {
   jobject result = NULL;
@@ -68,7 +68,7 @@ nodekind__create(JNIEnv *env, jboolean *hasException, jint nodekind)
       /* get method reference */
       if( !_hasException )
         {
-          constructor =
+          constructor = 
             j__get_method(env, &_hasException,
                           class,
                           "<init>",
@@ -78,7 +78,7 @@ nodekind__create(JNIEnv *env, jboolean *hasException, jint nodekind)
       /* create new instance */
       if( !_hasException )
         {
-          result = (*env)->NewObject(env, class, constructor,
+          result = (*env)->NewObject(env, class, constructor, 
                                      nodekind);
 
           if( result == NULL )
