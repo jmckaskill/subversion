@@ -23,12 +23,12 @@
 <!ENTITY colo     SYSTEM "colo.xml">
 ]>
 
-  <!-- Diese Version basiert auf book.xlm von der russischen Übersetzung commited-rev=7314
+  <!-- Diese Version basiert auf book.xlm von der russischen Übersetzung commited-rev=7314 
        und benötigt eine Begutachtung auf korrektes xml (syntax, struktur, ...).
        (und Grundsatzentscheidungen, z.B. ob encoding mit "ISO-8859-15" bleibt,
        oder ob wir auf "UTF-8" umstellen sollten?)
   -->
-
+       
   <book id="svn" lang="de">
   <title>Versionskontrolle mit Subversion</title>
 
