@@ -3,7 +3,7 @@
  *              (This code doesn't know where any adm information is
  *              located.  The caller always passes in a path obtained
  *              by using the adm_files.h API.)
- *
+ *        
  *
  * ====================================================================
  * Copyright (c) 2000-2002 CollabNet.  All rights reserved.
@@ -63,7 +63,7 @@ svn_error_t *svn_wc__do_update_cleanup (svn_stringbuf_t *path,
 #endif /* SVN_LIBSVN_WC_ADM_OPS_H */
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end:
