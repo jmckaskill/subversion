@@ -12,17 +12,17 @@ from svn import fs, core, repos
 CHUNK_SIZE = 100000
 
 def getfile(pool, path, filename, rev=None):
-
+  
   annotresult = {}
   if path[-1] == "/":
      path = path[:-1]
 
   repos_ptr = repos.svn_repos_open(path, pool)
   fsob = repos.svn_repos_fs(repos_ptr)
-
+ 
   if rev is None:
     rev = fs.youngest_rev(fsob, pool)
-  filedata = ''
+  filedata = '' 
   for i in xrange(0, rev+1):
     root = fs.revision_root(fsob, i, pool)
     if fs.check_path(root, filename, pool) != core.svn_node_none:
@@ -36,7 +36,7 @@ def getfile(pool, path, filename, rev=None):
     if i != first:
       if not fs.contents_changed(root, filename, previousroot, filename, pool):
         continue
-
+      
     file = fs.file_contents(root, filename, pool)
     previousdata = filedata
     filedata = ''
@@ -50,7 +50,7 @@ def getfile(pool, path, filename, rev=None):
     diffresult = difflib.ndiff(previousdata.splitlines(1),
                                filedata.splitlines(1))
     #    print ''.join(diffresult)
-    k = 0
+    k = 0    
     for j in diffresult:
       if j[0] == ' ':
         if annotresult.has_key (k):
@@ -66,7 +66,7 @@ def getfile(pool, path, filename, rev=None):
       if j[0] != '-':
         k = k + 1
 #    print ''.join(diffresult)
-#  print annotresult
+#  print annotresult 
   for x in xrange(len(annotresult.keys())):
      sys.stdout.write("Line %d (rev %d):%s" % (x,
                                                annotresult[x][0],
