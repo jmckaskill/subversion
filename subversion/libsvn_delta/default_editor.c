@@ -1,6 +1,6 @@
-/*
+/* 
  * default_editor.c -- provide a basic svn_delta_editor_t
- *
+ * 
  * ====================================================================
  * Copyright (c) 2000-2003 CollabNet.  All rights reserved.
  *
@@ -27,7 +27,7 @@
 
 
 static svn_error_t *
-set_target_revision (void *edit_baton,
+set_target_revision (void *edit_baton, 
                      svn_revnum_t target_revision,
                      apr_pool_t *pool)
 {
@@ -109,7 +109,7 @@ apply_textdelta (void *file_baton,
 }
 
 static svn_error_t *
-apply_text (void *file_baton,
+apply_text (void *file_baton, 
             const char *base_checksum,
             const char *result_checksum,
             svn_stream_t *base,
