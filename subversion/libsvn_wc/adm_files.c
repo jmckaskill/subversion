@@ -3,7 +3,7 @@
  *              working copy administrative area (creating,
  *              deleting, opening, and closing).  This is the only
  *              code that actually knows where administrative
- *              information is kept.
+ *              information is kept.  
  *
  * ====================================================================
  * Copyright (c) 2000-2001 CollabNet.  All rights reserved.
@@ -54,7 +54,7 @@ svn_wc__adm_subdir (apr_pool_t *pool)
 
 /* Extend PATH to the name of something in PATH's administrative area.
  * Returns the number of path components added to PATH.
- *
+ * 
  * First, the adm subdir is appended to PATH as a component, then each
  * of the varargs in AP (char *'s) is appended as a path component.
  * The list must be terminated with a NULL argument.
@@ -130,7 +130,7 @@ extend_with_adm_name (svn_stringbuf_t *path,
 svn_stringbuf_t *
 svn_wc__adm_path (svn_stringbuf_t *path,
                   svn_boolean_t tmp,
-                  apr_pool_t *pool,
+                  apr_pool_t *pool, 
                   ...)
 {
   svn_stringbuf_t *newpath = svn_string_dup (path, pool);
@@ -147,7 +147,7 @@ svn_wc__adm_path (svn_stringbuf_t *path,
 svn_boolean_t
 svn_wc__adm_path_exists (svn_stringbuf_t *path,
                          svn_boolean_t tmp,
-                         apr_pool_t *pool,
+                         apr_pool_t *pool, 
                          ...)
 {
   enum svn_node_kind kind;
@@ -183,7 +183,7 @@ chop_admin_name (svn_stringbuf_t *path, int num_components)
 /*** Making and using files in the adm area. ***/
 
 
-/* Create an empty THING in the adm area.
+/* Create an empty THING in the adm area. 
  * If TMP is non-zero, then create THING in the tmp dir.
  *
  * Does not check if THING already exists, so be careful -- THING will
@@ -231,7 +231,7 @@ svn_wc__make_adm_thing (svn_stringbuf_t *path,
       /* We're only capturing this here because there wouldn't be a
          segfault or other obvious indicator that something went
          wrong.  Even so, not sure if it's appropriate.  Thoughts? */
-      err = svn_error_create
+      err = svn_error_create 
         (0, 0, NULL, pool, "svn_wc__make_admin_thing: bad type indicator");
     }
 
@@ -276,7 +276,7 @@ maybe_copy_file (svn_stringbuf_t *src, svn_stringbuf_t *dst, apr_pool_t *pool)
         }
     }
   else /* SRC exists, so copy it to DST. */
-    {
+    {    
       err = svn_io_copy_file (src, dst, pool);
       if (err)
         return err;
@@ -301,23 +301,23 @@ sync_adm_file (svn_stringbuf_t *path,
   apr_status_t apr_err;
   int components_added;
   va_list ap;
-
+  
   /* Extend real name. */
   va_start (ap, pool);
   components_added = v_extend_with_adm_name (path, 0, pool, ap);
   va_end (ap);
-
+  
   /* Extend tmp name. */
   va_start (ap, pool);
   v_extend_with_adm_name (tmp_path, 1, pool, ap);
   va_end (ap);
-
+  
   /* Rename. */
   apr_err = apr_file_rename (tmp_path->data, path->data, pool);
 
   /* Unconditionally restore path. */
   chop_admin_name (path, components_added);
-
+      
   if (apr_err)
     return svn_error_createf (apr_err, 0, NULL, pool,
                               "error renaming %s to %s",
@@ -358,7 +358,7 @@ thing_path (const svn_stringbuf_t *path,
                         thing,
                         basename->data,
                         NULL);
-
+    
   return newpath;
 }
 
@@ -403,7 +403,7 @@ prop_path_internal (svn_stringbuf_t **prop_path,
   if (is_wc)  /* It's not only a dir, it's a working copy dir */
     {
       *prop_path = svn_string_dup (path, pool);
-      extend_with_adm_name
+      extend_with_adm_name 
         (*prop_path,
          0,
          pool,
@@ -472,7 +472,7 @@ svn_wc__wcprop_path (svn_stringbuf_t **wcprop_path,
   if (is_wc)  /* It's not only a dir, it's a working copy dir */
     {
       *wcprop_path = svn_string_dup (path, pool);
-      extend_with_adm_name
+      extend_with_adm_name 
         (*wcprop_path,
          0,
          pool,
@@ -484,7 +484,7 @@ svn_wc__wcprop_path (svn_stringbuf_t **wcprop_path,
     {
       svn_path_split (path, wcprop_path, &entry_name,
                       svn_path_local_style, pool);
-
+ 
       err = svn_wc_check_wc (*wcprop_path, &is_wc, pool);
       if (err)
         return err;
@@ -536,7 +536,7 @@ svn_wc__prop_base_path (svn_stringbuf_t **prop_path,
 /* Open a file somewhere in the adm area for directory PATH.
  * First, the adm subdir is appended as a path component, then each of
  * the varargs (they are char *'s) is appended as a path component,
- * and the resulting file opened.
+ * and the resulting file opened.  
  *
  * If FLAGS indicates writing, then the file is opened in the adm tmp
  * area, whence it must be renamed, either by passing the sync flag to
@@ -648,23 +648,23 @@ close_adm_file (apr_file_t *fp,
          given how C va_lists work. */
 
       svn_stringbuf_t *tmp_path = svn_string_dup (path, pool);
-
+      
       /* Extend real name. */
       va_start (ap, pool);
       components_added = v_extend_with_adm_name (path, 0, pool, ap);
       va_end (ap);
-
+      
       /* Extend tmp name. */
       va_start (ap, pool);
       v_extend_with_adm_name (tmp_path, 1, pool, ap);
       va_end (ap);
-
+      
       /* Rename. */
       apr_err = apr_file_rename (tmp_path->data, path->data, pool);
-
+      
       /* Unconditionally restore path. */
       chop_admin_name (path, components_added);
-
+      
       if (apr_err)
         return svn_error_createf (apr_err, 0, NULL, pool,
                                   "error renaming %s to %s",
@@ -746,9 +746,9 @@ svn_wc__open_props (apr_file_t **handle,
   if (kind == svn_node_file)
     svn_path_split (path, &parent_dir, &basename,
                     svn_path_local_style, pool);
-  else
+  else    
     parent_dir = path;
-
+  
   /* At this point, we know we need to open a file in the admin area
      of parent_dir.  Examine the flags to know -which- kind of prop
      file to get -- there are three types! */
@@ -806,9 +806,9 @@ svn_wc__close_props (apr_file_t *fp,
   if (kind == svn_node_file)
     svn_path_split (path, &parent_dir, &basename,
                     svn_path_local_style, pool);
-  else
+  else    
     parent_dir = path;
-
+  
   /* At this point, we know we need to open a file in the admin area
      of parent_dir.  Examine the flags to know -which- kind of prop
      file to get -- there are three types! */
@@ -865,9 +865,9 @@ svn_wc__sync_props (svn_stringbuf_t *path,
   if (kind == svn_node_file)
     svn_path_split (path, &parent_dir, &basename,
                     svn_path_local_style, pool);
-  else
+  else    
     parent_dir = path;
-
+  
   /* At this point, we know we need to open a file in the admin area
      of parent_dir.  Examine the flags to know -which- kind of prop
      file to get -- there are three types! */
@@ -1019,14 +1019,14 @@ make_empty_adm (svn_stringbuf_t *path, apr_pool_t *pool)
   apr_err = apr_dir_make (path->data, APR_OS_DEFAULT, pool);
   if (apr_err)
     err = svn_error_create (apr_err, 0, NULL, pool, path->data);
-
+    
   chop_admin_name (path, components_added);
 
   return err;
 }
 
 
-/* Init an adm file with some contents.
+/* Init an adm file with some contents. 
    Don't call this until a tmp area exists in adm. */
 static svn_error_t *
 init_adm_file (svn_stringbuf_t *path,
@@ -1048,7 +1048,7 @@ init_adm_file (svn_stringbuf_t *path,
   err = svn_wc__close_adm_file (f, path, thing, 1, pool);
   if (err)
     return err;
-
+  
   if (apr_err)
     err = svn_error_create (apr_err, 0, NULL, pool, path->data);
 
@@ -1056,7 +1056,7 @@ init_adm_file (svn_stringbuf_t *path,
 }
 
 
-/* Set up a new adm area, with appropriate ancestry.
+/* Set up a new adm area, with appropriate ancestry. 
    The adm area starts out locked; remember to unlock it when done. */
 static svn_error_t *
 init_adm (svn_stringbuf_t *path,
@@ -1089,7 +1089,7 @@ init_adm (svn_stringbuf_t *path,
                                 svn_node_dir, 0, pool);
   if (err)
     return err;
-
+  
   /* SVN_WC__ADM_TEXT_BASE */
   err = svn_wc__make_adm_thing (path, SVN_WC__ADM_TEXT_BASE,
                                 svn_node_dir, 0, pool);
@@ -1183,7 +1183,7 @@ init_adm (svn_stringbuf_t *path,
     return err;
 
 
-  /* THIS FILE MUST BE CREATED LAST:
+  /* THIS FILE MUST BE CREATED LAST: 
      After this exists, the dir is considered complete. */
   err = init_adm_file (path, SVN_WC__ADM_README,
                        svn_string_create (readme_contents, pool),
@@ -1232,7 +1232,7 @@ svn_wc__ensure_adm (svn_stringbuf_t *path,
       if (err)
         return err;
     }
-
+        
   return SVN_NO_ERROR;
 }
 
@@ -1251,12 +1251,12 @@ svn_wc__adm_destroy (svn_stringbuf_t *path, apr_pool_t *pool)
     apr_status_t apr_err;
     svn_stringbuf_t *adm_path = svn_string_dup (path, pool);
 
-    svn_path_add_component (adm_path, svn_wc__adm_subdir (pool),
+    svn_path_add_component (adm_path, svn_wc__adm_subdir (pool), 
                             svn_path_local_style);
 
     apr_err = apr_dir_remove_recursively (adm_path->data, pool);
     if (apr_err)
-      return svn_error_createf
+      return svn_error_createf 
         (apr_err, 0, NULL, pool,
          "error removing administrative directory for %s",
          path->data);
@@ -1266,7 +1266,7 @@ svn_wc__adm_destroy (svn_stringbuf_t *path, apr_pool_t *pool)
 }
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
