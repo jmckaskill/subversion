@@ -34,7 +34,7 @@ This build requires certain other packages to be installed.
     To make a particular release:
 
     $ cd ../..; svn update -r <ReleaseNumber>; cd packages/rpm/redhat-7.x; make
-      or
+      or   
     $ cd ../..; svn update -r <ReleaseNumber>; cd packages/rpm/redhat-u+; make
 
 If you have any questions or problems, please direct them to the
