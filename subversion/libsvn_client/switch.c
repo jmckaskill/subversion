@@ -88,7 +88,7 @@ svn_client_switch (const svn_delta_edit_fns_t *before_editor,
   if (entry->kind == svn_node_file)
     {
       SVN_ERR (svn_wc_get_actual_target (path, &anchor, &target, pool));
-
+      
       /* get the parent entry */
       SVN_ERR (svn_wc_entry (&session_entry, anchor, pool));
       if (! entry)
@@ -125,7 +125,7 @@ svn_client_switch (const svn_delta_edit_fns_t *before_editor,
   /* Get the RA vtable that matches working copy's current URL. */
   SVN_ERR (svn_ra_init_ra_libs (&ra_baton, pool));
   SVN_ERR (svn_ra_get_ra_library (&ra_lib, ra_baton, URL->data, pool));
-
+    
   if (entry->kind == svn_node_dir)
     {
       /* Open an RA session to 'source' URL */
@@ -141,7 +141,7 @@ svn_client_switch (const svn_delta_edit_fns_t *before_editor,
                                          revnum, switch_url, recurse,
                                          &switch_editor, &switch_edit_baton,
                                          pool));
-
+      
       /* Wrap it up with outside editors. */
       svn_delta_wrap_editor (&switch_editor, &switch_edit_baton,
                              before_editor, before_edit_baton,
@@ -157,16 +157,16 @@ svn_client_switch (const svn_delta_edit_fns_t *before_editor,
                                   recurse,
                                   switch_url,
                                   switch_editor, switch_edit_baton));
-
+      
       /* Drive the reporter structure, describing the revisions within
          PATH.  When we call reporter->finish_report, the
-         update_editor will be driven by svn_repos_dir_delta. */
+         update_editor will be driven by svn_repos_dir_delta. */ 
       err = svn_wc_crawl_revisions (path, reporter, report_baton,
                                     TRUE, recurse,
                                     notify_func, notify_baton,
                                     pool);
     }
-
+  
   else if (entry->kind == svn_node_file)
     {
       /* If switching a single file, just fetch the file directly and
@@ -190,7 +190,7 @@ svn_client_switch (const svn_delta_edit_fns_t *before_editor,
       /* Create a generic stream that operates on this file.  */
       file_stream = svn_stream_from_aprfile (fp, pool);
 
-      /* Open an RA session to 'target' file URL. */
+      /* Open an RA session to 'target' file URL. */      
       SVN_ERR (svn_client__open_ra_session (&session, ra_lib, switch_url, path,
                                             TRUE, TRUE, auth_baton, pool));
       SVN_ERR (svn_client__get_revision_number
@@ -213,7 +213,7 @@ svn_client_switch (const svn_delta_edit_fns_t *before_editor,
           apr_ssize_t klen;
           void *val;
           svn_prop_t *prop;
-
+          
           apr_hash_this (hi, &key, &klen, &val);
 
           prop = apr_array_push (proparray);
@@ -227,7 +227,7 @@ svn_client_switch (const svn_delta_edit_fns_t *before_editor,
                                     new_text_path->data,
                                     proparray, TRUE, /* is full proplist */
                                     pool));
-
+      
       /* ### shouldn't the user see a 'U' somehow?  we have no trace
          editor here!  Think about this... */
 
@@ -235,8 +235,8 @@ svn_client_switch (const svn_delta_edit_fns_t *before_editor,
          the props as well now.  ??? should it ignore entryprops and
          wcprops? */
 
-    }
-
+    }  
+  
   /* Sleep for one second to ensure timestamp integrity. */
   apr_sleep (APR_USEC_PER_SEC * 1);
 
@@ -251,7 +251,7 @@ svn_client_switch (const svn_delta_edit_fns_t *before_editor,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end: */
