@@ -118,7 +118,7 @@ svn_cl__cmd_proc_t
   svn_cl__update;
 
 
-/* make the command table information available to all commands */
+/* make the command table information available to all commands */ 
 extern const svn_cl__cmd_desc_t svn_cl__cmd_table[];
 
 const svn_cl__cmd_desc_t *
@@ -192,7 +192,7 @@ svn_cl__get_trace_commit_editor (const svn_delta_edit_fns_t **editor,
 void svn_cl__init_feedback_vtable (apr_pool_t *top_pool);
 
 
-/* Our implementation of the 'auth info callback' routine,
+/* Our implementation of the 'auth info callback' routine, 
    as defined in svn_client.h.   This callback is passed to any
    libsvn_client routine that needs to authenticate against a
    repository. */
@@ -213,9 +213,9 @@ svn_cl__prompt_user (char **result,
 
 #endif /* SVN_CL_H */
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
- * end:
+ * end: 
  */
 

@@ -108,7 +108,7 @@ svn_client_checkout (const svn_delta_edit_fns_t *before_editor,
       SVN_ERR (svn_ra_get_ra_library (&ra_lib, ra_baton, URL->data, pool));
 
       /* Open an RA session to URL */
-      SVN_ERR (svn_client_authenticate (&session, ra_lib, URL,
+      SVN_ERR (svn_client_authenticate (&session, ra_lib, URL, 
                                         callback, callback_baton, pool));
 
       /* Decide which revision to get: */
@@ -133,8 +133,8 @@ svn_client_checkout (const svn_delta_edit_fns_t *before_editor,
 
       /* Close the RA session. */
       SVN_ERR (ra_lib->close (session));
-    }
-
+    }      
+  
   /* else we're checking out from xml */
   else
     {
@@ -167,7 +167,7 @@ svn_client_checkout (const svn_delta_edit_fns_t *before_editor,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end: */

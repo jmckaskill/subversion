@@ -27,7 +27,7 @@
 #include "cl.h"
 
 
-/*** Our implementation of the 'auth info callback' routine,
+/*** Our implementation of the 'auth info callback' routine, 
      as defined in svn_client.h.   This callback is passed to any
      libsvn_client routine that needs to authenticate against a
      repository. ***/
@@ -69,7 +69,7 @@ svn_cl__prompt_user (char **result,
 
       svn_stringbuf_appendbytes (strbuf, &c, 1);
     }
-
+  
   *result = strbuf->data;
 
   return SVN_NO_ERROR;
@@ -77,8 +77,8 @@ svn_cl__prompt_user (char **result,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../svn-dev.el")
- * end:
+ * end: 
  */
