@@ -5,12 +5,12 @@ This chapter explains the user's view of Subversion --- what ``objects''
 you interact with, how they behave, and how they relate to each other.
 
 @menu
-* Working Directories and Repositories::
-* Transactions and Revision Numbers::
-* How Working Directories Track the Repository::
-* Subversion Does Not Lock Files::
-* Properties::
-* Merging and Ancestry::
+* Working Directories and Repositories::  
+* Transactions and Revision Numbers::  
+* How Working Directories Track the Repository::  
+* Subversion Does Not Lock Files::  
+* Properties::                  
+* Merging and Ancestry::        
 @end menu
 
 @c -----------------------------------------------------------------------
@@ -601,7 +601,7 @@ the other two changes, resulting in a final ancestry set of:
 @c
 @c The user first merges B:5 and B:9 into A.  If A had that line, it
 @c goes away now, nothing more.
-@c
+@c 
 @c Next, user merges B:3 and B:7 into A.  The second merge must
 @c conflict.
 @c
