@@ -3,32 +3,32 @@
  *
  * ================================================================
  * Copyright (c) 2000 CollabNet.  All rights reserved.
- *
+ * 
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
  * met:
- *
+ * 
  * 1. Redistributions of source code must retain the above copyright
  * notice, this list of conditions and the following disclaimer.
- *
+ * 
  * 2. Redistributions in binary form must reproduce the above copyright
  * notice, this list of conditions and the following disclaimer in the
  * documentation and/or other materials provided with the distribution.
- *
+ * 
  * 3. The end-user documentation included with the redistribution, if
  * any, must include the following acknowlegement: "This product includes
  * software developed by CollabNet (http://www.CollabNet/)."
  * Alternately, this acknowlegement may appear in the software itself, if
  * and wherever such third-party acknowlegements normally appear.
- *
+ * 
  * 4. The hosted project names must not be used to endorse or promote
  * products derived from this software without prior written
  * permission. For written permission, please contact info@collab.net.
- *
+ * 
  * 5. Products derived from this software may not use the "Tigris" name
  * nor may "Tigris" appear in their names without prior written
  * permission of CollabNet.
- *
+ * 
  * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
  * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -42,7 +42,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ====================================================================
- *
+ * 
  * This software consists of voluntary contributions made by many
  * individuals on behalf of CollabNet.
  */
@@ -74,7 +74,7 @@ static int
 test1()
 {
   a = svn_string_create (phrase_1, pool);
-
+  
   /* Test that length, data, and null-termination are correct. */
   if ((a->len == strlen (phrase_1)) && ((strcmp (a->data, phrase_1)) == 0))
     return 0; /* PASS */
@@ -101,7 +101,7 @@ test3()
 {
   char *tmp;
   size_t old_len;
-
+  
   a = svn_string_create (phrase_1, pool);
   b = svn_string_ncreate (phrase_2, 16, pool);
 
@@ -110,7 +110,7 @@ test3()
   strcat (tmp, b->data);
   old_len = a->len;
   svn_string_appendstr (a, b, pool);
-
+  
   /* Test that length, data, and null-termination are correct. */
   if ((a->len == (old_len + b->len)) && ((strcmp (a->data, tmp)) == 0))
     return 0;  /* PASS */
@@ -124,9 +124,9 @@ test4()
 {
   a = svn_string_create (phrase_1, pool);
   svn_string_appendbytes (a, "new bytes to append", 9, pool);
-
+  
   /* Test that length, data, and null-termination are correct. */
-  if (svn_string_compare
+  if (svn_string_compare 
       (a, svn_string_create ("hello, new bytes", pool)))
     return 0; /* PASS */
   else
@@ -162,7 +162,7 @@ test6()
   strcpy (tmp, c->data);
 
   svn_string_chop (c, 11);
-
+  
   if ((c->len == (tmp_len - 11))
       && (strncmp (tmp, c->data, c->len) == 0)
       && (c->data[c->len] == '\0'))
@@ -175,10 +175,10 @@ test6()
 static int
 test7()
 {
-  c = svn_string_create (phrase_2, pool);
-
+  c = svn_string_create (phrase_2, pool);  
+  
   svn_string_setempty (c);
-
+  
   if ((c->len == 0) && (c->data[0] == '\0'))
     return 0;  /* PASS */
   else
@@ -207,27 +207,27 @@ static int
 test9()
 {
   svn_string_t *s;
-
+  
   apr_off_t num_chopped_1 = 0;
   apr_off_t num_chopped_2 = 0;
   apr_off_t num_chopped_3 = 0;
-
+  
   int chopped_okay_1 = 0;
   int chopped_okay_2 = 0;
   int chopped_okay_3 = 0;
-
+  
   s = svn_string_create ("chop from slash/you'll never see this", pool);
 
   num_chopped_1 = svn_string_chop_back_to_char (s, '/');
   chopped_okay_1 = (! strcmp (s->data, "chop from slash"));
-
+  
   num_chopped_2 = svn_string_chop_back_to_char (s, 'X');
   chopped_okay_2 = (! strcmp (s->data, "chop from slash"));
-
+  
   num_chopped_3 = svn_string_chop_back_to_char (s, 'c');
   chopped_okay_3 = (strlen (s->data) == 0);
 
-  if (chopped_okay_1
+  if (chopped_okay_1 
       && chopped_okay_2
       && chopped_okay_3
       && (num_chopped_1 == strlen ("/you'll never see this"))
@@ -239,7 +239,7 @@ test9()
 }
 
 
-static int
+static int 
 test10()
 {
   svn_string_t *s, *t;
@@ -247,16 +247,16 @@ test10()
   size_t len_2 = 0;
   size_t block_len_1 = 0;
   size_t block_len_2 = 0;
-
+  
   s = svn_string_create ("a small string", pool);
   len_1       = (s->len);
   block_len_1 = (s->blocksize);
-
+  
   t = svn_string_create (", plus a string more than twice as long", pool);
   svn_string_appendstr (s, t, pool);
   len_2       = (s->len);
   block_len_2 = (s->blocksize);
-
+  
   /* Test that:
    *   - The initial block was just the right fit.
    *   - The block more than doubled (because second string so long).
@@ -280,7 +280,7 @@ test10()
 */
 
 /* An array of all test functions */
-int (*test_funcs[])() =
+int (*test_funcs[])() = 
 {
   NULL,
   test1,
@@ -296,7 +296,7 @@ int (*test_funcs[])() =
 };
 
 /* Descriptions of each test we can run */
-static char *descriptions[] =
+static char *descriptions[] = 
 {
   NULL,
   "test 1: make svn_string_t from cstring",
@@ -326,7 +326,7 @@ do_test_num (const char *progname, int test_num)
   int array_size = sizeof(test_funcs)/sizeof(int (*)()) - 1;
 
   /* Check our array bounds! */
-  if ((test_num > array_size)
+  if ((test_num > array_size) 
       || (test_num <= 0))
     {
       char *msg = (char *) apr_psprintf (pool, "%s test %d: NO SUCH TEST",
@@ -377,7 +377,7 @@ main (int argc, char *argv[])
 
   /* How many tests are there? */
   int array_size = sizeof(test_funcs)/sizeof(int (*)()) - 1;
-
+  
   /* Initialize APR (Apache pools) */
   if (apr_initialize () != APR_SUCCESS)
     {
@@ -391,7 +391,7 @@ main (int argc, char *argv[])
     }
 
   /* Notice if there's a command-line argument */
-  if (argc >= 2)
+  if (argc >= 2) 
     {
       test_num = atoi (argv[1]);
       got_error = do_test_num (argv[0], test_num);
