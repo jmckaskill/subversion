@@ -675,7 +675,7 @@ ra_get_log (int argc, VALUE *argv, VALUE self)
 
   svn_ruby_get_log_args (argc, argv, self, &paths, &aStart, &aEnd,
                          &discover_changed_paths, &baton, ra->pool);
-
+ 
   start = NUM2LONG (aStart);
   end = NUM2LONG (aEnd);
 
