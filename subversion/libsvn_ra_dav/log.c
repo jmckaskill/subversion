@@ -393,6 +393,7 @@ svn_error_t * svn_ra_dav__get_log(void *session_baton,
                                       log_end_element,
                                       &lb,
                                       NULL,
+                                      NULL,
                                       ras->pool) );
 
   if (lb.err)
