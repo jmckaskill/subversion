@@ -46,7 +46,7 @@ typedef struct svn_ra_plugin_t
 
 
   /* The vtable hooks */
-
+  
   /* Open a "session" with a repository.  *SESSION_BATON is returned
      and then used (opaquely) for all further interactions with the
      repository. */
@@ -116,7 +116,7 @@ typedef struct svn_ra_init_params
 
     * allocate a new ra_plugin object from params->pool
     * fill in the vtable with its own internal routines
-    * call the routine below, which adds it to libsvn_client's array.
+    * call the routine below, which adds it to libsvn_client's array.  
 
 */
 svn_error_t *svn_ra_register_plugin (svn_ra_plugin_t *new_ra_plugin,
@@ -139,7 +139,7 @@ svn_error_t * svn_ra_open (svn_ra_session_t **p_ras,
 #endif  /* SVN_RA_H */
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:

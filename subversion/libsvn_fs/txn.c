@@ -161,7 +161,7 @@ make_transactions (svn_fs_t *fs, int create)
   SVN_ERR (DB_WRAP (fs, "setting `transactions' comparison function",
 		    transactions->set_bt_compare (transactions,
 						  compare_transactions_keys)));
-  SVN_ERR (DB_WRAP (fs,
+  SVN_ERR (DB_WRAP (fs, 
 		    (create
 		     ? "creating `transactions' table"
 		     : "opening `transactions' table"),
@@ -217,7 +217,7 @@ put_transaction_skel (svn_fs_t *fs, DB_TXN *db_txn,
   SVN_ERR (DB_WRAP (fs, "storing transaction skel",
 		    transactions->put (transactions, db_txn,
 				       svn_fs__str_to_dbt (&key, id),
-				       svn_fs__skel_to_dbt (&value, txn_skel,
+				       svn_fs__skel_to_dbt (&value, txn_skel, 
 							    pool),
 				       create ? DB_NOOVERWRITE : 0)));
 
@@ -420,7 +420,7 @@ replace_root_body (void *baton,
     {
       /* Read in SVN_TXN's TRANSACTION skel, and try to find the root
 	 directory ID there.  */
-      SVN_ERR (get_transaction_skel (&txn_skel, svn_txn, db_txn,
+      SVN_ERR (get_transaction_skel (&txn_skel, svn_txn, db_txn, 
 				     svn_txn->pool));
       if (svn_fs__list_length (txn_skel) != 2
 	  || ! txn_skel->children->is_atom
@@ -439,7 +439,7 @@ replace_root_body (void *baton,
       else
 	svn_txn->root = 0;
     }
-
+      
   /* At this point, the cache svn_txn->root is up-to-date: it is zero
      iff the transaction has no root directory yet.  */
   if (svn_txn->root)
@@ -470,7 +470,7 @@ replace_root_body (void *baton,
       if (svn_err)
 	return svn_err;
 
-      /* Record this transaction's new root directory ID.  We know that
+      /* Record this transaction's new root directory ID.  We know that 
 	 txn_skel has been read in, and root_skel set, because svn_txn had
 	 no root directory when we began.  */
       {
