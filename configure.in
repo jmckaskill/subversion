@@ -104,7 +104,7 @@ AC_FUNC_MEMCMP
 dnl svn_error's default warning handler uses vfprintf()
 AC_FUNC_VPRINTF
 
-dnl vdelta.c is using strerror() right now
+dnl vdelta.c is using strerror() right now 
 AC_CHECK_FUNCS(strerror)
 
 
@@ -179,7 +179,7 @@ AC_OUTPUT([Makefile                                           \
           ])
 
 
-dnl  Print warning messages about what we did and didn't configure at the
+dnl  Print warning messages about what we did and didn't configure at the 
 dnl  end, where people will actually see them.
 case "$svn_cv_lib_berkeley_db" in
   "no" )
