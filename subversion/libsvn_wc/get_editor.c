@@ -3,32 +3,32 @@
  *
  * ================================================================
  * Copyright (c) 2000 CollabNet.  All rights reserved.
- *
+ * 
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
  * met:
- *
+ * 
  * 1. Redistributions of source code must retain the above copyright
  * notice, this list of conditions and the following disclaimer.
- *
+ * 
  * 2. Redistributions in binary form must reproduce the above copyright
  * notice, this list of conditions and the following disclaimer in the
  * documentation and/or other materials provided with the distribution.
- *
+ * 
  * 3. The end-user documentation included with the redistribution, if
  * any, must include the following acknowlegement: "This product includes
  * software developed by CollabNet (http://www.Collab.Net)."
  * Alternately, this acknowlegement may appear in the software itself, if
  * and wherever such third-party acknowlegements normally appear.
- *
+ * 
  * 4. The hosted project names must not be used to endorse or promote
  * products derived from this software without prior written
  * permission. For written permission, please contact info@collab.net.
- *
+ * 
  * 5. Products derived from this software may not use the "Tigris" name
  * nor may "Tigris" appear in their names without prior written
  * permission of CollabNet.
- *
+ * 
  * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
  * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -42,7 +42,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ====================================================================
- *
+ * 
  * This software consists of voluntary contributions made by many
  * individuals on behalf of CollabNet.
  */
@@ -183,7 +183,7 @@ free_dir_baton (struct dir_baton *dir_baton)
                              dir_baton->edit_baton->target_version,
                              svn_dir_kind,
                              dir_baton->pool,
-                             NULL);
+                             NULL);                                    
   if (err)
     return err;
 
@@ -191,7 +191,7 @@ free_dir_baton (struct dir_baton *dir_baton)
   apr_destroy_pool (dir_baton->pool);
 
   /* We've declared this directory done, so decrement its parent's ref
-     count too. */
+     count too. */ 
   if (parent)
     {
       err = decrement_ref_count (parent);
@@ -282,7 +282,7 @@ free_file_baton (struct file_baton *fb)
      If we comment out the apr_destroy_pool() below, then the Corrupt
      Parent Path bug does not manifest itself.  If we do destroy the
      file_baton's pool, then the parent dir's path gets corrupted in a
-     way that suggests pool bleed.
+     way that suggests pool bleed. 
 
      Changing svn_error.c:svn_pool_create() to use apr_make_sub_pool()
      instead of apr_create_pool() has not solved this. */
@@ -379,7 +379,7 @@ window_handler (svn_txdelta_window_t *window, void *baton)
  * after this call, else the directory must exist already.
  *
  * If the path already exists, but is not a working copy for
- * DIRECTORY, then an error will be returned.
+ * DIRECTORY, then an error will be returned. 
  */
 static svn_error_t *
 prep_directory (svn_string_t *path,
@@ -392,7 +392,7 @@ prep_directory (svn_string_t *path,
   svn_error_t *err;
 
   /* kff todo: how about a sanity check that it's not a dir of the
-     same name from a different repository or something?
+     same name from a different repository or something? 
      Well, that will be later on down the line... */
 
   if (force)   /* Make sure the directory exists. */
@@ -435,7 +435,7 @@ replace_root (void *edit_baton,
     {
       ancestor_path = eb->ancestor_path;
       ancestor_version = eb->target_version;
-
+      
       err = prep_directory (d->path,
                             eb->repository,
                             ancestor_path,
@@ -454,8 +454,8 @@ static svn_error_t *
 delete (svn_string_t *name, void *parent_baton)
 {
   struct dir_baton *parent_dir_baton = (struct dir_baton *) parent_baton;
-
-  return svn_wc__entry_merge (parent_dir_baton->path,
+  
+  return svn_wc__entry_merge (parent_dir_baton->path, 
                               name,
                               SVN_INVALID_VERNUM,
                               0, /* kff todo: kind irrelevant, fix interface */
@@ -628,7 +628,7 @@ replace_file (svn_string_t *name,
 
 
 static svn_error_t *
-apply_textdelta (void *file_baton,
+apply_textdelta (void *file_baton, 
                  svn_txdelta_window_handler_t **handler,
                  void **handler_baton)
 {
@@ -712,7 +712,7 @@ close_file (void *file_baton)
      that is probably badness... */
 
   /* kff todo:
-
+     
      Okay, let's plan this whole diff/log/update/merge thing a bit
      better, in the cold light of morning, as it were (actually, it's
      early afternoon, but I'm told that's hacker virtual morning).
@@ -779,13 +779,13 @@ close_file (void *file_baton)
                   <!-- Once everything else is done, we can set blah's
                        entry to version N, changing the ./SVN/entries
                        file. -->
-
+         
          3. Now run over the log file, doing each operation.  Note
             that if an operation appears to have already been done,
             that means it _was_ done, so just count it and move on.
             When all entries have been done, the operation is
             complete, so remove SVN/log.
-
+            
   */
 
   /* Save local mods. */
@@ -796,9 +796,9 @@ close_file (void *file_baton)
   if (err)
     return err;
 
-  /** Write out the appropriate log entries.
-      This is safe because the adm area is locked right now. **/
-
+  /** Write out the appropriate log entries. 
+      This is safe because the adm area is locked right now. **/ 
+      
   err = svn_wc__open_adm_file (&log_fp,
                                fb->dir_baton->path,
                                SVN_WC__ADM_LOG,
@@ -809,7 +809,7 @@ close_file (void *file_baton)
 
   /* kff todo: save *local_changes somewhere, maybe to a tmp file
      in SVN/. */
-
+  
   entry_accum = svn_string_create ("", fb->pool);
 
   if (fb->text_changed)
@@ -824,7 +824,7 @@ close_file (void *file_baton)
                              SVN_WC__LOG_ATTR_SAVED_MODS,
                              svn_string_create ("kff todo", fb->pool),
                              NULL);
-
+      
       /* Replace text base. */
       svn_xml_make_open_tag (&entry_accum,
                              fb->pool,
@@ -834,7 +834,7 @@ close_file (void *file_baton)
                              fb->name,
                              NULL);
     }
-
+  
   if (fb->prop_changed)
     {
       /* Merge props. */
@@ -845,7 +845,7 @@ close_file (void *file_baton)
                              SVN_WC__LOG_ATTR_NAME,
                              fb->name,
                              NULL);
-
+      
       /* Replace prop base. */
       svn_xml_make_open_tag (&entry_accum,
                              fb->pool,
@@ -1010,7 +1010,7 @@ svn_wc_get_checkout_editor (svn_string_t *dest,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
