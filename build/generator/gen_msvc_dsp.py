@@ -80,10 +80,10 @@ class Generator(gen_win.WinGeneratorBase):
 
               for ifile in self.graph.get_sources(gen_base.DT_SWIG_C, cobj):
                 isrc = rootpath + '\\' + string.replace(ifile, '/', '\\')
-                sources.append(_item(path=isrc, reldir=None,
+                sources.append(_item(path=isrc, reldir=None, 
                                      swig_language=target.lang,
                                      swig_output=csrc))
-
+        
     sources.sort(lambda x, y: cmp(x.path, y.path))
 
     data = {
@@ -210,7 +210,7 @@ class Generator(gen_win.WinGeneratorBase):
         for lib in self.graph.get_sources(gen_base.DT_LINK, target):
           if hasattr(lib, 'dsp_name'):
             depends.append(lib)
-            depends.extend(self.get_win_depends(lib, 0))
+            depends.extend(self.get_win_depends(lib, 0))          
       else:
         assert 0
 
