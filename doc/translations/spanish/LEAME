@@ -241,7 +241,7 @@ A diferencia de las listas de usuarios y desarrollo de Subversion,
 esta lista de correo incluye la cabecera:
 
   Reply-To: l10n-es@subversion.tigris.org
-
+  
 Así que cualquier cliente de correo decente debería responder a la
 lista y evitar mandar mensajes duplicados al autor y a la lista
 (práctica habitual en las listas de subversion). También incluye
