@@ -228,7 +228,7 @@ void svn_cl__print_status_list (apr_hash_t *statushash,
    (svn_stringbuf_t *). */
 void svn_cl__print_prop_hash (apr_hash_t *prop_hash, apr_pool_t *pool);
 
-/* Print out the property names in a hash that maps property names (char *)
+/* Print out the property names in a hash that maps property names (char *) 
    to property values (svn_stringbuf_t *). */
 void svn_cl__print_prop_names (apr_hash_t *prop_hash, apr_pool_t *pool);
 
@@ -259,7 +259,7 @@ svn_cl__edit_externally (svn_stringbuf_t **edited_contents,
                          apr_pool_t *pool);
 
 
-/* Our implementation of the 'auth info callback' routine,
+/* Our implementation of the 'auth info callback' routine, 
    as defined in svn_client.h.   This callback is passed to any
    libsvn_client routine that needs to authenticate against a
    repository. */
@@ -294,7 +294,7 @@ svn_cl__generate_status_codes (char *str_status,
 
 /*** Notification functions to display results on the terminal. */
 
-void svn_cl__notify_func (void *baton,
+void svn_cl__notify_func (void *baton, 
                           svn_wc_notify_action_t action,
                           const char *path);
 void *svn_cl__make_notify_baton (apr_pool_t *pool);
@@ -308,9 +308,9 @@ void *svn_cl__make_notify_baton (apr_pool_t *pool);
 
 #endif /* SVN_CL_H */
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../tools/dev/svn-dev.el")
- * end:
+ * end: 
  */
 
