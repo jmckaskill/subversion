@@ -54,7 +54,7 @@ generate_status_code (enum svn_wc_status_kind status)
 
 /* Print STATUS and PATH in a format determined by DETAILED and
    SHOW_LAST_COMMITTED */
-static void
+static void 
 print_status (const char *path,
               svn_boolean_t detailed,
               svn_boolean_t show_last_committed,
@@ -166,7 +166,7 @@ svn_cl__print_status_list (apr_hash_t *statushash,
       item = &APR_ARRAY_IDX(statusarray, i, const svn_item_t);
       status = item->value;
 
-      if (! status
+      if (! status 
           || (skip_unrecognized && ! status->entry)
           || (status->text_status == svn_wc_status_none
               && status->repos_text_status == svn_wc_status_none))
