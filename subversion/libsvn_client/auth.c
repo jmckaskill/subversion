@@ -58,7 +58,7 @@ get_username (char **username,
       SVN_ERR (ab->prompt_callback (username, prompt,
                                     FALSE, /* screen echo ok */
                                     ab->prompt_baton, pool));
-
+      
       ab->got_new_auth_info = TRUE;
 
       /* Store a copy of the username in the auth_baton too. */
@@ -74,13 +74,13 @@ get_username (char **username,
     }
 
   /* Else, try to get it from file cached in working copy. */
-  else
+  else  
     {
       /* If there is a base_dir, and we don't have any problems
          getting the cached username from it, that's the result we'll
          go with.  */
       if ((cb->base_dir)
-          && (! svn_wc_get_auth_file (cb->base_dir,
+          && (! svn_wc_get_auth_file (cb->base_dir, 
                                       SVN_CLIENT_AUTH_USERNAME,
                                       &uname, pool)))
         *username = uname->data;
@@ -92,13 +92,13 @@ get_username (char **username,
           apr_uid_t uid;
           apr_gid_t gid;
           apr_status_t status;
-
+          
           status = apr_current_userid (&uid, &gid, pool);
           if (status)
-            return
+            return 
               svn_error_create(status, 0, NULL, pool,
                                "Error getting UID of process.");
-
+          
           status = apr_get_username (&un, uid, pool);
           if (status)
             return svn_error_create(status, 0, NULL, pool,
@@ -134,13 +134,13 @@ get_password (char **password,
     prompt = apr_psprintf (pool, "%s's password: ", username);
   else
     prompt = apr_psprintf (pool, "password: ");
-
+  
   if (force_prompt)
     {
       SVN_ERR (ab->prompt_callback (password, prompt,
                                     TRUE, /* don't echo to the screen */
                                     ab->prompt_baton, pool));
-
+      
       ab->got_new_auth_info = TRUE;
 
       /* Store a copy of the password in the auth_baton too. */
@@ -156,17 +156,17 @@ get_password (char **password,
     }
 
   /* Else, try to get it from file cached in working copy. */
-  else
+  else  
     {
       /* If there is a base_dir, and we don't have any problems
          getting the cached password from it, that's the result we'll
          go with.  */
       if ((cb->base_dir)
-          && (! svn_wc_get_auth_file (cb->base_dir,
+          && (! svn_wc_get_auth_file (cb->base_dir, 
                                       SVN_CLIENT_AUTH_PASSWORD,
                                       &pword, pool)))
         *password = pword->data;
-
+      
       else
         {
           /* No file cache?  Then prompt the user. */
@@ -176,11 +176,11 @@ get_password (char **password,
 
           ab->got_new_auth_info = TRUE;
         }
-
+      
       /* Store a copy of the password in the auth_baton too. */
       ab->password = apr_pstrdup (pool, *password);
     }
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -215,7 +215,7 @@ store_auth_info (const char *filename,
     return SVN_NO_ERROR;  /* ### is this really not an error? */
 
   /* Do a recursive store. */
-  SVN_ERR (svn_wc_set_auth_file (wc_path, TRUE, filename,
+  SVN_ERR (svn_wc_set_auth_file (wc_path, TRUE, filename, 
                                  svn_stringbuf_create (data, pool), pool));
 
   return SVN_NO_ERROR;
@@ -226,7 +226,7 @@ static svn_error_t *
 maybe_store_username (const char *username, void *baton)
 {
   svn_client__callback_baton_t *cb = baton;
-
+  
   if (cb->auth_baton->store_auth_info)
     return store_auth_info (SVN_CLIENT_AUTH_USERNAME, username,
                             cb->base_dir, cb->pool);
@@ -239,7 +239,7 @@ static svn_error_t *
 maybe_store_password (const char *password, void *baton)
 {
   svn_client__callback_baton_t *cb = baton;
-
+      
   if (cb->auth_baton->store_auth_info)
     {
       /* There's a separate config option for preventing passwords
@@ -249,7 +249,7 @@ maybe_store_password (const char *password, void *baton)
 
       SVN_ERR (svn_config_read_config (&cfg, cb->pool));
       svn_config_get (cfg, &val, "auth", "store_password", "yes");
-
+      
       /* ### Oh, are we really case-sensitive? */
       if (strcmp (val, "yes") == 0)
         return store_auth_info (SVN_CLIENT_AUTH_PASSWORD, password,
@@ -264,13 +264,13 @@ static svn_error_t *
 store_user_and_pass (void *baton)
 {
   svn_client__callback_baton_t *cb = baton;
-
+  
   if (cb->auth_baton->username)
     SVN_ERR (maybe_store_username (cb->auth_baton->username, cb));
 
   if (cb->auth_baton->password)
     SVN_ERR (maybe_store_password (cb->auth_baton->password, cb));
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -306,7 +306,7 @@ svn_error_t * svn_client__get_authenticator (void **authenticator,
 
     case svn_ra_auth_simple_password:
       {
-        svn_ra_simple_password_authenticator_t *ua
+        svn_ra_simple_password_authenticator_t *ua 
           = apr_pcalloc (pool, sizeof(*ua));
 
         ua->get_user_and_pass = get_user_and_pass;
@@ -325,7 +325,7 @@ svn_error_t * svn_client__get_authenticator (void **authenticator,
                                  pool, "Unknown authenticator requested.");
       }
     }
-
+  
   return SVN_NO_ERROR;
 }
 
