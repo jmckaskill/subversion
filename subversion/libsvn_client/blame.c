@@ -66,7 +66,7 @@ blame_create (struct diff_baton *baton, struct rev *rev, apr_off_t start)
   else
     blame = apr_palloc (baton->pool, sizeof (*blame));
   blame->rev = rev;
-  blame->start = start;
+  blame->start = start;       
   blame->next = NULL;
   return blame;
 }
@@ -212,9 +212,9 @@ struct log_message_baton {
   svn_ra_plugin_t *ra_lib; /* The ra_lib handle */
   apr_pool_t *diffpool;    /* Pool used for diff operations: cleared
                               between each revision! */
-  svn_cancel_func_t cancel_func; /* cancellation callback */
+  svn_cancel_func_t cancel_func; /* cancellation callback */ 
   void *cancel_baton;            /* cancellation baton */
-  apr_pool_t *pool;
+  apr_pool_t *pool; 
 };
 
 const svn_diff_output_fns_t output_fns = {
@@ -264,7 +264,7 @@ log_message_receiver (void *baton,
 
   apr_err = apr_file_close (tmp);
   if (apr_err != APR_SUCCESS)
-    return svn_error_createf (apr_err, NULL, "error closing %s",
+    return svn_error_createf (apr_err, NULL, "error closing %s", 
                               rev->path);
   if (! last)
     {
@@ -279,7 +279,7 @@ log_message_receiver (void *baton,
 
   apr_err = apr_file_remove (last->path, pool);
   if (apr_err != APR_SUCCESS)
-    return svn_error_createf (apr_err, NULL, "error removing %s",
+    return svn_error_createf (apr_err, NULL, "error removing %s", 
                               last->path);
 
   return SVN_NO_ERROR;
@@ -297,7 +297,7 @@ svn_client_blame (const char *path_or_url,
 {
   struct log_message_baton lmb;
   apr_array_header_t *condensed_targets;
-  svn_ra_plugin_t *ra_lib;
+  svn_ra_plugin_t *ra_lib;  
   void *ra_baton, *log_session, *text_session;
   const char *url;
   const char *auth_dir;
@@ -370,11 +370,11 @@ svn_client_blame (const char *path_or_url,
 
   if (! lmb.rev_count)
     return SVN_NO_ERROR;
-
+    
   apr_err = apr_file_open (&last_file, lmb.last->path, APR_READ,
                            APR_OS_DEFAULT, subpool);
   if (apr_err != APR_SUCCESS)
-    return svn_error_createf (apr_err, NULL, "error opening %s",
+    return svn_error_createf (apr_err, NULL, "error opening %s", 
                               lmb.last->path);
 
   last_stream = svn_stream_from_aprfile (last_file, subpool);
@@ -396,11 +396,11 @@ svn_client_blame (const char *path_or_url,
   SVN_ERR (svn_stream_close (last_stream));
   apr_err = apr_file_close (last_file);
   if (apr_err != APR_SUCCESS)
-    return svn_error_createf (apr_err, NULL, "error closing %s",
+    return svn_error_createf (apr_err, NULL, "error closing %s", 
                               lmb.last->path);
   apr_err = apr_file_remove (lmb.last->path, subpool);
   if (apr_err != APR_SUCCESS)
-    return svn_error_createf (apr_err, NULL, "error removing %s",
+    return svn_error_createf (apr_err, NULL, "error removing %s", 
                               lmb.last->path);
   apr_pool_destroy (subpool);
   return SVN_NO_ERROR;
