@@ -8,7 +8,7 @@ It was imported with
 Follow this recipe to upgrade the vendor branch:
 
    1. Get the latest Apache source tree, as described by
-      http://dev.apache.org/anoncvs.txt:
+      http://dev.apache.org/anoncvs.txt: 
 
           cvs -d :pserver:anoncvs@www.apache.org:/home/cvspublic login
             (password "anoncvs")
