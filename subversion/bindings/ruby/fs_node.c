@@ -58,7 +58,7 @@ fs_node_new (VALUE class, VALUE fsRoot, VALUE path)
 {
   VALUE obj;
   svn_ruby_fs_node *node;
-
+  
   obj = Data_Make_Struct (class, svn_ruby_fs_node,
                           mark_node, free_node, node);
   node->fs_root = fsRoot;
@@ -171,7 +171,7 @@ dir_entries (VALUE self)
       apr_pool_destroy (pool);
       svn_ruby_raise (err);
     }
-
+  
   {
     VALUE obj;
     apr_hash_index_t *hi;
@@ -246,7 +246,7 @@ dir_delta (VALUE self,
     for (i = 0; i < RARRAY (srcRevsArray)->len; i++)
       {
         VALUE elt = RARRAY (srcRevsArray)->ptr[i];
-
+      
         *rev_ptr = NUM2LONG (RARRAY (elt)->ptr[1]);
         apr_hash_set (src_revs, StringValuePtr (RARRAY (elt)->ptr[0]),
                       APR_HASH_KEY_STRING, rev_ptr);
