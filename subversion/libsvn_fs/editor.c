@@ -91,7 +91,7 @@ begin_edit (void *edit_baton, void **root_baton)
   /* Begin a transaction. */
   err = svn_fs_begin_txn (&(eb->txn), eb->fs, eb->base_rev, eb->pool);
   if (err) return err;
-
+  
   /* Get the root directory of the revision, immutable for now, but
      that may change, watch this space, sign our guestbook... */
   err = svn_fs__dag_revision_root (&(dirb->node), eb->fs,
@@ -119,7 +119,7 @@ add_directory (svn_string_t *name,
 {
   struct dir_baton *pb = parent_baton;
   struct dir_baton *dirb = apr_pcalloc (pb->edit_baton->pool, sizeof (*dirb));
-
+  
   dirb->parent = pb;
   dirb->edit_baton = pb->edit_baton;
   dirb->name = svn_string_dup (name, pb->edit_baton->pool);
@@ -138,7 +138,7 @@ replace_directory (svn_string_t *name,
 {
   struct dir_baton *pb = parent_baton;
   struct dir_baton *dirb = apr_pcalloc (pb->edit_baton->pool, sizeof (*dirb));
-
+  
   dirb->parent = pb;
   dirb->edit_baton = pb->edit_baton;
   dirb->name = svn_string_dup (name, pb->edit_baton->pool);
@@ -289,13 +289,13 @@ svn_fs_get_editor (svn_delta_edit_fns_t **editor,
 
   *edit_baton = eb;
   *editor = e;
-
+  
   return SVN_NO_ERROR;
 }
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
