@@ -82,7 +82,7 @@ class Generator(gen_win.WinGeneratorBase):
     "Write a Workspace (.dsw)"
 
     install_targets = self.get_install_targets()
-
+    
     targets = [ ]
 
     self.gen_proj_names(install_targets)
@@ -110,7 +110,7 @@ class Generator(gen_win.WinGeneratorBase):
 
       if '-' in fname:
         fname = '"%s"' % fname
-
+        
       depends = self.adjust_win_depends(target, name)
 
       dep_names = [ ]
