@@ -19,7 +19,7 @@ How to get started with Subversion.
 @node A Revision Control System
 @subsection A Revision Control System
 
-Subversion is a free/open-source @dfn{revision control system}.
+Subversion is a free/open-source @dfn{revision control system}.  
 
 That is, Subversion manages files over time.  The files are placed into
 a central @dfn{repository}.  The repository is much like an ordinary
@@ -512,7 +512,7 @@ automatically, Subversion leaves it to the user to resolve the conflict.
 @end itemize
 
 The subversion "status" command will show you the state of any item in
-your working copy.
+your working copy.  
 @c ### @xref{status in chapter 2}
 
 
@@ -636,7 +636,7 @@ After the repository exists, you can initially import your data into it,
 using the ra_local access method (invoked by using a 'file' URL):
 
 @example
-    $ svn import file:///absolute/path/to/myrepos someproject myproj
+    $ svn import file:///absolute/path/to/myrepos someproject myproj    
     [...]
     Committed revision 1.
 @end example
@@ -701,7 +701,7 @@ copy:
 According to this output, three items are scheduled to be (D)eleted from
 the repository, one item is scheduled to be (A)dded to the repository,
 and two items have had their contents (M)odified in some way.  For more
-details, be sure to see the @command{svn status} section in Chapter 2.
+details, be sure to see the @command{svn status} section in Chapter 2. 
 @c ### @xref{?}
 
 Now we decide to commit our changes, creating Revision 2 in the
