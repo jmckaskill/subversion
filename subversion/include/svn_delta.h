@@ -3,32 +3,32 @@
  *
  * ================================================================
  * Copyright (c) 2000 CollabNet.  All rights reserved.
- *
+ * 
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
  * met:
- *
+ * 
  * 1. Redistributions of source code must retain the above copyright
  * notice, this list of conditions and the following disclaimer.
- *
+ * 
  * 2. Redistributions in binary form must reproduce the above copyright
  * notice, this list of conditions and the following disclaimer in the
  * documentation and/or other materials provided with the distribution.
- *
+ * 
  * 3. The end-user documentation included with the redistribution, if
  * any, must include the following acknowlegement: "This product includes
  * software developed by CollabNet (http://www.Collab.Net)."
  * Alternately, this acknowlegement may appear in the software itself, if
  * and wherever such third-party acknowlegements normally appear.
- *
+ * 
  * 4. The hosted project names must not be used to endorse or promote
  * products derived from this software without prior written
  * permission. For written permission, please contact info@collab.net.
- *
+ * 
  * 5. Products derived from this software may not use the "Tigris" name
  * nor may "Tigris" appear in their names without prior written
  * permission of CollabNet.
- *
+ * 
  * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
  * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -42,7 +42,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ====================================================================
- *
+ * 
  * This software consists of voluntary contributions made by many
  * individuals on behalf of CollabNet.
  */
@@ -118,7 +118,7 @@ typedef struct svn_delta_op_t {
        + LEN <= length of NEW.  */
     svn_delta_new
   } action_code;
-
+  
   apr_off_t offset;
   apr_off_t length;
 } svn_delta_op_t;
@@ -129,7 +129,7 @@ typedef struct svn_delta_window_t {
 
   /* The number of instructions in this window.  */
   int num_ops;
-
+  
   /* The instructions for this window.  */
   svn_delta_op_t *ops;
 
@@ -196,7 +196,7 @@ typedef struct svn_propchange_t
 
 
 /* A function to consume an entire in-memory propchange structure. */
-typedef svn_error_t *(svn_propchange_handler_t)
+typedef svn_error_t *(svn_propchange_handler_t) 
      (svn_propchange_t *propchange, void *baton);
 
 
@@ -230,11 +230,11 @@ typedef struct svn_delta_walk_t
        the empty property list (for the `add_FOO' functions).
 
      So there.  */
-
+       
   /* Remove the directory entry named NAME.  */
   svn_error_t *(*delete) (svn_string_t *name,
 			  void *walk_baton, void *parent_baton);
-
+  
   /* We are going to add a new subdirectory named NAME.  We will use
      the value this callback stores in *CHILD_BATON as the
      PARENT_BATON for further changes in the new subdirectory.  The
@@ -267,7 +267,7 @@ typedef struct svn_delta_walk_t
   /* We are done processing a file */
   svn_error_t *(*finish_file) (void *child_baton);
 
-
+  
   /* We're about to start receiving text-delta windows. HANDLER and
      HANDLER_BATON specify a function to consume a series of these
      windows.  If ANCESTOR_PATH is zero, the changes are relative to
@@ -293,11 +293,11 @@ typedef struct svn_delta_walk_t
 
   /* The first two batons are the familiar story, the last is the
      handler_baton that was passed to the begin_* function. */
-  svn_error_t *(*finish_textdelta) (void *walk_baton,
+  svn_error_t *(*finish_textdelta) (void *walk_baton, 
                                     void *parent_baton,
                                     void *handler_baton);
 
-  svn_error_t *(*finish_propdelta) (void *walk_baton,
+  svn_error_t *(*finish_propdelta) (void *walk_baton, 
                                     void *parent_baton,
                                     void *handler_baton,
                                     svn_propchange_location_t location);
@@ -339,7 +339,7 @@ extern svn_error_t *svn_delta_parse (svn_delta_read_fn_t *source_fn,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
