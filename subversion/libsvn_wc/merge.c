@@ -46,7 +46,7 @@ svn_wc_merge (const char *left,
   /* The merge target must be under revision control. */
   {
     svn_wc_entry_t *ignored_ent;
-
+    
     SVN_ERR (svn_wc_entry (&ignored_ent, target, pool));
     if (ignored_ent == NULL)
       return svn_error_createf
@@ -84,7 +84,7 @@ svn_wc_merge (const char *left,
                              tmp_f,
                              &exit_code,
                              pool));
-
+  
   apr_err = apr_file_close (tmp_f);
   if (! APR_STATUS_IS_SUCCESS (apr_err))
     return svn_error_createf
@@ -94,7 +94,7 @@ svn_wc_merge (const char *left,
   if (exit_code == 1)  /* got a conflict */
     {
       /* Preserve the three files pre-merge files, and modify the
-         entry (mark as conflicted, track the preserved files). */
+         entry (mark as conflicted, track the preserved files). */ 
 
       svn_stringbuf_t *left_copy, *right_copy, *target_copy;
       apr_file_t *lcopy_f, *rcopy_f, *tcopy_f;
