@@ -20,6 +20,6 @@ Summary:  u-g-o model (user, group, other).
 
 Note: Some OSes (Solaris) have more complicated and expressive ACL
       mechanisms.
-
+  
 Win32 permissions:
 
