@@ -43,7 +43,7 @@ svn_client_cleanup (const char *dir,
   SVN_ERR (svn_io_check_path (dir, &kind, pool));
   if (kind != svn_node_dir)
     return svn_error_createf (SVN_ERR_WC_NOT_DIRECTORY, 0, NULL,
-                              "Cannot cleanup '%s' -- not a directory",
+                              "Cannot cleanup '%s' -- not a directory", 
                               dir);
 
   return svn_wc_cleanup (dir, NULL, pool);
@@ -51,7 +51,7 @@ svn_client_cleanup (const char *dir,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end: */
