@@ -45,14 +45,14 @@
 %immutable svn_error_t::message;
 %immutable svn_error_t::file;
 
-/* -----------------------------------------------------------------------
+/* ----------------------------------------------------------------------- 
    We want the error code enums wrapped so we must include svn_error_codes.h
-   before anything else does.
+   before anything else does. 
 */
 
 %include svn_error_codes.h
 
-/* -----------------------------------------------------------------------
+/* ----------------------------------------------------------------------- 
    Include svn_types.h early. other .i files will import svn_types.i which
    then includes svn_types.h, making further includes get skipped. we want
    to actually generate wrappers, so manage svn_types.h right here.
@@ -61,14 +61,14 @@
 %include svn_types.h
 
 
-/* -----------------------------------------------------------------------
+/* ----------------------------------------------------------------------- 
    moving along...
 */
 %import apr.i
 %import svn_types.i
 %import svn_string.i
 
-/* -----------------------------------------------------------------------
+/* ----------------------------------------------------------------------- 
    completely ignore a number of functions. the presumption is that the
    scripting language already has facilities for these things (or they
    are relatively trivial).
@@ -256,7 +256,7 @@
 }
 
 /* -----------------------------------------------------------------------
-   auth provider convertors
+   auth provider convertors 
 */
 %typemap(perl5, in) apr_array_header_t *providers {
     $1 = (apr_array_header_t *) svn_swig_pl_objs_to_array($input, SWIGTYPE_p_svn_auth_provider_object_t, _global_pool);
@@ -274,7 +274,7 @@
     ($1)->nelts = targlen;
     while (targlen--) {
         SWIG_ConvertPtr(PySequence_GetItem($input, targlen),
-                        (void **)&provider,
+                        (void **)&provider, 
                         $descriptor(svn_auth_provider_object_t *),
                         SWIG_POINTER_EXCEPTION | 0);
         APR_ARRAY_IDX($1, targlen, svn_auth_provider_object_t *) = provider;
@@ -453,7 +453,7 @@ PyObject *svn_swig_py_exception_type(void);
 #ifdef SWIGPYTHON
 %init %{
 /* This is a hack.  I dunno if we can count on SWIG calling the module "m" */
-PyModule_AddObject(m, "SubversionException",
+PyModule_AddObject(m, "SubversionException", 
                    svn_swig_py_register_exception());
 %}
 
