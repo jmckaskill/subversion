@@ -55,7 +55,7 @@ svn_cl__propedit (apr_getopt_t *os,
   SVN_ERR (svn_utf_cstring_to_utf8 (&pname_utf8, pname, pool));
 
   /* Suck up all the remaining arguments into a targets array */
-  SVN_ERR (svn_opt_args_to_target_array (&targets, os,
+  SVN_ERR (svn_opt_args_to_target_array (&targets, os, 
                                          opt_state->targets,
                                          &(opt_state->start_revision),
                                          &(opt_state->end_revision),
@@ -85,7 +85,7 @@ svn_cl__propedit (apr_getopt_t *os,
         return svn_error_create(SVN_ERR_CL_INSUFFICIENT_ARGS, NULL,
                                 "No URL target available.");
       target = ((const char **) (targets->elts))[0];
-      SVN_ERR (svn_client_url_from_path (&URL, target, pool));
+      SVN_ERR (svn_client_url_from_path (&URL, target, pool));  
       if (URL == NULL)
         return svn_error_create(SVN_ERR_UNVERSIONED_RESOURCE, NULL,
                                 "Either a URL or versioned item is required.");
@@ -96,14 +96,14 @@ svn_cl__propedit (apr_getopt_t *os,
                                        &rev, ctx, pool));
       if (! propval)
         propval = svn_string_create ("", pool);
-
+      
       /* Run the editor on a temporary file in '.' which contains the
          original property value... */
       SVN_ERR (svn_cl__edit_externally (&new_propval, NULL,
                                         opt_state->editor_cmd, ".",
                                         propval->data, "svn-prop",
                                         ctx->config, pool));
-
+      
       /* ...and re-set the property's value accordingly. */
       if (new_propval)
         {
@@ -115,12 +115,12 @@ svn_cl__propedit (apr_getopt_t *os,
           if (svn_prop_needs_translation (pname_utf8))
             SVN_ERR (svn_subst_translate_string (&propval, propval,
                                                  opt_state->encoding, pool));
-          else
+          else 
             if (opt_state->encoding)
-              return svn_error_create
+              return svn_error_create 
                 (SVN_ERR_UNSUPPORTED_FEATURE, NULL,
                  "Bad encoding option: prop's value isn't stored as UTF8.");
-
+          
           SVN_ERR (svn_client_revprop_set (pname_utf8, propval,
                                            URL, &(opt_state->start_revision),
                                            &rev, ctx, opt_state->force, pool));
@@ -147,7 +147,7 @@ svn_cl__propedit (apr_getopt_t *os,
 
       /* The customary implicit dot rule has been prone to user error
        * here.  For example, Jon Trowbridge <trow@gnu.og> did
-       *
+       * 
        *    $ svn propedit HACKING
        *
        * and then when he closed his editor, he was surprised to see
@@ -178,7 +178,7 @@ svn_cl__propedit (apr_getopt_t *os,
           const char *target_native;
           svn_wc_adm_access_t *adm_access;
           const svn_wc_entry_t *entry;
-
+          
           svn_pool_clear (subpool);
           if (svn_path_is_url (target))
             {
@@ -198,12 +198,12 @@ svn_cl__propedit (apr_getopt_t *os,
                                        FALSE,
                                        NULL,  /* ### pass ctx here */
                                        subpool));
-
+          
           /* Get the property value. */
           propval = apr_hash_get (props, target, APR_HASH_KEY_STRING);
           if (! propval)
             propval = svn_string_create ("", subpool);
-
+          
           /* Split the path if it is a file path. */
           SVN_ERR (svn_wc_adm_probe_open (&adm_access, NULL, target,
                                           FALSE, FALSE, subpool));
@@ -212,7 +212,7 @@ svn_cl__propedit (apr_getopt_t *os,
             return svn_error_create (SVN_ERR_ENTRY_NOT_FOUND, NULL, target);
           if (entry->kind == svn_node_file)
             svn_path_split (target, &base_dir, NULL, subpool);
-
+          
           /* Run the editor on a temporary file which contains the
              original property value... */
           SVN_ERR (svn_cl__edit_externally (&new_propval, NULL,
@@ -222,8 +222,8 @@ svn_cl__propedit (apr_getopt_t *os,
                                             "svn-prop",
                                             ctx->config,
                                             subpool));
-
-          SVN_ERR (svn_utf_cstring_from_utf8 (&target_native, target,
+          
+          SVN_ERR (svn_utf_cstring_from_utf8 (&target_native, target, 
                                               subpool));
 
           /* ...and re-set the property's value accordingly. */
@@ -238,13 +238,13 @@ svn_cl__propedit (apr_getopt_t *os,
                 SVN_ERR (svn_subst_translate_string (&propval, propval,
                                                      opt_state->encoding,
                                                      subpool));
-              else
+              else 
                 if (opt_state->encoding)
-                  return svn_error_create
+                  return svn_error_create 
                     (SVN_ERR_UNSUPPORTED_FEATURE, NULL,
                      "Bad encoding option: prop value not stored as UTF8.");
-
-              SVN_ERR (svn_client_propset (pname_utf8, propval, target,
+              
+              SVN_ERR (svn_client_propset (pname_utf8, propval, target, 
                                            FALSE, subpool));
               printf ("Set new value for property `%s' on `%s'\n",
                       pname, target_native);
