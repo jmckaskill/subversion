@@ -25,11 +25,11 @@ and the @dfn{Subversion Server} library.
 @section Filesystem
 
 @menu
-* Filesystem Overview::
-* API::
-* Repository Structure::
-* Locking::
-* Implementation::
+* Filesystem Overview::         
+* API::                         
+* Repository Structure::        
+* Locking::                     
+* Implementation::              
 @end menu
 
 @node Filesystem Overview
@@ -106,9 +106,9 @@ repository has changed since the base version mentioned in the skelta.
 @subsection Repository Structure
 
 @menu
-* Schema::
-* Bubble-Up Method::
-* Diffy Storage::
+* Schema::                      
+* Bubble-Up Method::            
+* Diffy Storage::               
 @end menu
 
 @node Schema
@@ -686,9 +686,9 @@ writers, and writers only wait for other writers whose changes conflict
 with theirs.
 
 @menu
-* Reading::
-* The Lock Manager::
-* Write Locking::
+* Reading::                     
+* The Lock Manager::            
+* Write Locking::               
 @end menu
 
 @node Reading
@@ -795,11 +795,11 @@ For the initial release of Subversion,
 
 
 @menu
-* Server Library Overview::
-* Multiplexing::
-* Policy Enforcement::
-* Plug-Ins::
-* Security::
+* Server Library Overview::     
+* Multiplexing::                
+* Policy Enforcement::          
+* Plug-Ins::                    
+* Security::                    
 @end menu
 
 @node Server Library Overview
@@ -910,8 +910,8 @@ For ideas on future server-side plug-ins, @xref{Future}.
 Subversion has two levels of security, both abstracted.
 
 @menu
-* Username Authentication::
-* Authorization::
+* Username Authentication::     
+* Authorization::               
 @end menu
 
 @node Username Authentication
@@ -989,7 +989,7 @@ Here's an example of this mapping:
 jimb : Jim Blandy :   jim/unix/localhost,  \
                       jimb/smtp/jimb@@red-bean.com, \
                       jimb/kerberos/redhat.com, \
-                      jblandy/DAV/red-bean.com
+                      jblandy/DAV/red-bean.com 
 @end example
 
 @item
