@@ -185,7 +185,7 @@ svn_repos_load_fs (svn_repos_t *repos,
      the fs, so that each new revision baton can create a txn
      somewhere. */
 
-  /* This is really simple. */
+  /* This is really simple. */  
   SVN_ERR (svn_repos_parse_dumpstream (stream, &parser_callbacks, pool));
 
   return SVN_NO_ERROR;
@@ -193,7 +193,7 @@ svn_repos_load_fs (svn_repos_t *repos,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end:
