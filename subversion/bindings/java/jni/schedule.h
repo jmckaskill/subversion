@@ -27,13 +27,13 @@
 /* functions */
 
 /**
- * create a new org.tigris.subversion.lib.Schedule instance
+ * create a new org.tigris.subversion.lib.Schedule instance 
  *
  * @param JNIEnv JNI Environment
  * @param hasException
  * @param schedule integer representation of the appropriate constants
  */
-jobject
+jobject 
 schedule__create(JNIEnv *env, jboolean *hasException, jint schedule);
 
 /**
@@ -45,8 +45,8 @@ schedule__create_from_svn_wc_schedule_t(JNIEnv *env, jboolean *hasException,
                                         enum svn_wc_schedule_t schedule);
 
 #endif
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../../tools/dev/svn-dev.el")
- * end:
+ * end: 
  */
