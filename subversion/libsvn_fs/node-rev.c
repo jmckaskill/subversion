@@ -127,7 +127,7 @@ svn_fs__create_successor (svn_fs_id_t **new_id_p,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
