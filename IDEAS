@@ -14,71 +14,71 @@ Some ideas for the future.
   Subject: A feature request for command line client
   To: dev@subversion.tigris.org
   Date: Tue, 17 Oct 2000 09:46:58 -0700
-
+  
   I know people are beginning to work on the command line client, so I
   hope Im not too late with this request.
-
+  
   Basically I would like svn to behave like ftp (actually more like lftp
   or ncftp).
-
+  
   What this means is that if you type just "svn<return>" you get dropped
   into an interactive svn shell where you can type a litany of commands.
   Preferably this happens without relogging into the server etc.
-
+  
   Example:
-
+  
   cavanaug@lajolla ~ 1%  svn
-
+  
   svn> status foo.c
-
+  
     output of command
-
+  
   svn> commit bar.h
-
+  
     output of command
-
+  
   svn> cd subdir
   svn> status README
-
+  
     output of command
-
+  
   svn> quit
-
+  
   cavanaug@lajolla ~ 2%  svn
-
+  
   Personally I think this is a really convenient way to operate
   interactively on a directory without having to continually re-run the
   svn client.
-
+  
   Plus this is method is a godsend if you want to write scripts that
   automate svn. (ie. Perhaps like the cvs2svn or xxx2svn)
-
-
+  
+  
       John Cavanaugh                          Agilent Technologies
       R&D Program Manager                     1400 Fountaingrove Pkwy
       CAD Data Store                          Santa Rosa, CA 95403-1799
-
+  
       Email: cavanaug@soco.agilent.com    Phone:  707-577-4780
                                                   707-577-3948 (Fax)
 
 ** Possible implementation information
 
    From: Dave Glowacki <dglo@ssec.wisc.edu>
-
+   
    <snip>
-
+   
    There's 'getline', which doesn't have all of readline's features,
    but which does basic editing.  ncftp and tin can be built with
    getline instead of readline, so it does a decent enough job.
-
+   
    You can find it at ftp://ftp.sco.com/skunkware/src/lib/getline-39-src.tar.gz
-
+   
    getline.c says:
-
+   
    /*
     * Copyright (C) 1991, 1992, 1993 by Chris Thewalt (thewalt@ce.berkeley.edu)
     *
-    * Permission to use, copy, modify, and distribute this software
+    * Permission to use, copy, modify, and distribute this software 
     * for any purpose and without fee is hereby granted, provided
     * that the above copyright notices appear in all copies and that both the
     * copyright notice and this permission notice appear in supporting
@@ -91,27 +91,27 @@ Some ideas for the future.
 * possible cvs-compatibility wrapper for svn
 
   Daniel Stenberg <daniel@haxx.se> wrote:
-
+  
   ... no matter how the command line interface for SVN ends up like, it
   would still be cool to offer a 'stealth-mode' SVN client that would
   look and feel exactly (well, as similar as it can) like a cvs
   client...
-
-
-  "Jonathan S. Shapiro" <shap@eros-os.org> replied:
-
+  
+  
+  "Jonathan S. Shapiro" <shap@eros-os.org> replied: 
+  
   Wouldn't Perl be good for this?
   Why crud up the new system with compatibility code?
-
-
+  
+  
   Dave Glowacki <dglo@ssec.wisc.edu> further opined:
-
+  
   I agree, and I also support Jonathan Shapiro's idea that a
   cvs-compatibility wrapper could be written in Perl and would simply
   map the CVS options to the Subversion options (and maybe echo the
   proper 'svn' options back so that it'd serve as a learning tool as
   well.)
-
+  
   That way, Subversion can have its own options (-r instead of -R)
   and not have to worry about the CVS cruft like '-d' meaning one
   thing as a global option and another thing as a command option.
