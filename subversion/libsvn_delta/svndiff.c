@@ -1,6 +1,6 @@
-/*
+/* 
  * svndiff.c -- Encoding and decoding svndiff-format deltas.
- *
+ * 
  * ====================================================================
  * Copyright (c) 2000-2002 CollabNet.  All rights reserved.
  *
@@ -373,7 +373,7 @@ write_handler (void *baton,
       if (nheader > *len)
         nheader = *len;
       if (memcmp (buffer, "SVN\0" + db->header_bytes, nheader) != 0)
-        return svn_error_create (SVN_ERR_SVNDIFF_INVALID_HEADER,
+        return svn_error_create (SVN_ERR_SVNDIFF_INVALID_HEADER, 
                                  0, NULL, db->pool,
                                  "svndiff has invalid header");
       *len -= nheader;
@@ -438,7 +438,7 @@ write_handler (void *baton,
          unsigned. Should they be apr_ptrdiff_t instead? --xbc */
       if (sview_offset < 0 || sview_len < 0 || tview_len < 0 || inslen < 0
 	  || newlen < 0 || inslen + newlen < 0 || sview_offset + sview_len < 0)
-	return svn_error_create (SVN_ERR_SVNDIFF_CORRUPT_WINDOW, 0, NULL,
+	return svn_error_create (SVN_ERR_SVNDIFF_CORRUPT_WINDOW, 0, NULL, 
 				 db->pool,
 				 "svndiff contains corrupt window header");
 
@@ -446,7 +446,7 @@ write_handler (void *baton,
       if (sview_offset < db->last_sview_offset
 	  || (sview_offset + sview_len
 	      < db->last_sview_offset + db->last_sview_len))
-	return svn_error_create (SVN_ERR_SVNDIFF_BACKWARD_VIEW, 0, NULL,
+	return svn_error_create (SVN_ERR_SVNDIFF_BACKWARD_VIEW, 0, NULL, 
 				 db->pool,
 				 "svndiff has backwards-sliding source views");
 
@@ -457,11 +457,11 @@ write_handler (void *baton,
 
       /* Count the instructions and make sure they are all valid.  */
       end = p + inslen;
-      ninst = count_and_verify_instructions (p, end, sview_len,
+      ninst = count_and_verify_instructions (p, end, sview_len, 
 					     tview_len, newlen);
       if (ninst == -1)
-	return svn_error_create (SVN_ERR_SVNDIFF_INVALID_OPS, 0, NULL,
-				 db->pool,
+	return svn_error_create (SVN_ERR_SVNDIFF_INVALID_OPS, 0, NULL, 
+				 db->pool, 
 				 "svndiff contains invalid instructions");
 
       /* Build the window structure.  */
@@ -495,7 +495,7 @@ write_handler (void *baton,
       newpool = svn_pool_create (db->pool);
       p += newlen;
       remaining = db->buffer->data + db->buffer->len - (const char *) p;
-      db->buffer =
+      db->buffer = 
 	svn_stringbuf_ncreate ((const char *) p, remaining, newpool);
 
       /* Remember the offset and length of the source view for next time.  */
@@ -562,7 +562,7 @@ svn_txdelta_parse_svndiff (svn_txdelta_window_handler_t handler,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end: */
