@@ -7,19 +7,19 @@
 CFG=libsvn_fs - Win32 Debug
 !MESSAGE This is not a valid makefile. To build this project using NMAKE,
 !MESSAGE use the Export Makefile command and run
-!MESSAGE
+!MESSAGE 
 !MESSAGE NMAKE /f "libsvn_fs.mak".
-!MESSAGE
+!MESSAGE 
 !MESSAGE You can specify a configuration when running NMAKE
 !MESSAGE by defining the macro CFG on the command line. For example:
-!MESSAGE
+!MESSAGE 
 !MESSAGE NMAKE /f "libsvn_fs.mak" CFG="libsvn_fs - Win32 Debug"
-!MESSAGE
+!MESSAGE 
 !MESSAGE Possible choices for configuration are:
-!MESSAGE
+!MESSAGE 
 !MESSAGE "libsvn_fs - Win32 Release" (based on "Win32 (x86) Static Library")
 !MESSAGE "libsvn_fs - Win32 Debug" (based on "Win32 (x86) Static Library")
-!MESSAGE
+!MESSAGE 
 
 # Begin Project
 # PROP AllowPerConfigDependencies 0
@@ -76,7 +76,7 @@ LIB32=link.exe -lib
 # ADD BASE LIB32 /nologo
 # ADD LIB32 /nologo
 
-!ENDIF
+!ENDIF 
 
 # Begin Target
 
@@ -100,7 +100,7 @@ SOURCE=.\util\fs_skels.c
 
 # PROP Intermediate_Dir "Debug\obj\util"
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -115,7 +115,7 @@ SOURCE=.\util\skel.c
 
 # PROP Intermediate_Dir "Debug\obj\util"
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # End Group
@@ -134,7 +134,7 @@ SOURCE=".\bdb\changes-table.c"
 
 # PROP Intermediate_Dir "Debug\obj\bdb"
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -149,7 +149,7 @@ SOURCE=".\bdb\copies-table.c"
 
 # PROP Intermediate_Dir "Debug\obj\bdb"
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -164,7 +164,7 @@ SOURCE=.\bdb\dbt.c
 
 # PROP Intermediate_Dir "Debug\obj\bdb"
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -179,7 +179,7 @@ SOURCE=".\bdb\nodes-table.c"
 
 # PROP Intermediate_Dir "Debug\obj\bdb"
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -194,7 +194,7 @@ SOURCE=".\bdb\reps-table.c"
 
 # PROP Intermediate_Dir "Debug\obj\bdb"
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -209,7 +209,7 @@ SOURCE=".\bdb\rev-table.c"
 
 # PROP Intermediate_Dir "Debug\obj\bdb"
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -224,7 +224,7 @@ SOURCE=".\bdb\strings-table.c"
 
 # PROP Intermediate_Dir "Debug\obj\bdb"
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -239,7 +239,7 @@ SOURCE=".\bdb\txn-table.c"
 
 # PROP Intermediate_Dir "Debug\obj\bdb"
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # End Group
@@ -310,7 +310,7 @@ SOURCE=.\util\fs_skels.h
 
 # PROP Intermediate_Dir "Debug\obj\util"
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -325,7 +325,7 @@ SOURCE=.\util\skel.h
 
 # PROP Intermediate_Dir "Debug\obj\util"
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # End Group
@@ -342,7 +342,7 @@ SOURCE=".\bdb\changes-table.h"
 
 !ELSEIF  "$(CFG)" == "libsvn_fs - Win32 Debug"
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -355,7 +355,7 @@ SOURCE=".\bdb\copies-table.h"
 
 !ELSEIF  "$(CFG)" == "libsvn_fs - Win32 Debug"
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -368,7 +368,7 @@ SOURCE=.\bdb\dbt.h
 
 !ELSEIF  "$(CFG)" == "libsvn_fs - Win32 Debug"
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -381,7 +381,7 @@ SOURCE=".\bdb\nodes-table.h"
 
 !ELSEIF  "$(CFG)" == "libsvn_fs - Win32 Debug"
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -394,7 +394,7 @@ SOURCE=".\bdb\reps-table.h"
 
 !ELSEIF  "$(CFG)" == "libsvn_fs - Win32 Debug"
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -407,7 +407,7 @@ SOURCE=".\bdb\strings-table.h"
 
 !ELSEIF  "$(CFG)" == "libsvn_fs - Win32 Debug"
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -420,7 +420,7 @@ SOURCE=".\bdb\txn-table.h"
 
 !ELSEIF  "$(CFG)" == "libsvn_fs - Win32 Debug"
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # End Group

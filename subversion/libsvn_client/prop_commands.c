@@ -57,7 +57,7 @@ recursive_propset (const char *propname,
       apr_hash_this (hi, &key, NULL, &val);
       keystring = key;
       current_entry = val;
-
+        
       if (! strcmp (keystring, SVN_WC_ENTRY_THIS_DIR))
         current_entry_name = NULL;
       else
@@ -104,7 +104,7 @@ svn_client_propset (const char *propname,
   SVN_ERR (svn_wc_entry (&node, target, adm_access, FALSE, pool));
   if (!node)
     return svn_error_createf (SVN_ERR_ENTRY_NOT_FOUND, 0, NULL, pool,
-                              "'%s' -- not a versioned resource",
+                              "'%s' -- not a versioned resource", 
                               target);
 
   if (recurse && node->kind == svn_node_dir)
@@ -180,7 +180,7 @@ recursive_propget (apr_hash_t *props,
       apr_hash_this (hi, &key, NULL, &val);
       keystring = key;
       current_entry = val;
-
+    
       if (! strcmp (keystring, SVN_WC_ENTRY_THIS_DIR))
           current_entry_name = NULL;
       else
@@ -298,7 +298,7 @@ recursive_proplist (apr_array_header_t *props,
       apr_hash_this (hi, &key, NULL, &val);
       keystring = key;
       current_entry = val;
-
+    
       if (! strcmp (keystring, SVN_WC_ENTRY_THIS_DIR))
           current_entry_name = NULL;
       else
@@ -330,7 +330,7 @@ recursive_proplist (apr_array_header_t *props,
 
 svn_error_t *
 svn_client_proplist (apr_array_header_t **props,
-                     const char *target,
+                     const char *target, 
                      svn_boolean_t recurse,
                      apr_pool_t *pool)
 {
@@ -344,12 +344,12 @@ svn_client_proplist (apr_array_header_t **props,
   SVN_ERR (svn_wc_entry (&entry, target, adm_access, FALSE, pool));
   if (! entry)
     return svn_error_createf (SVN_ERR_ENTRY_NOT_FOUND, 0, NULL, pool,
-                              "'%s' -- not a versioned resource",
+                              "'%s' -- not a versioned resource", 
                               target);
 
   if (recurse && entry->kind == svn_node_dir)
     SVN_ERR (recursive_proplist (prop_list, adm_access, pool));
-  else
+  else 
     SVN_ERR (add_to_proplist (prop_list, target, pool));
 
   SVN_ERR (svn_wc_adm_close (adm_access));
@@ -392,7 +392,7 @@ svn_client_revprop_list (apr_hash_t **props,
      See issue #909.  When that issue is fixed, remove this block. */
   {
     apr_hash_index_t *hi;
-
+    
     for (hi = apr_hash_first (pool, proplist); hi; hi = apr_hash_next (hi))
       {
         const void *key;
@@ -405,19 +405,19 @@ svn_client_revprop_list (apr_hash_t **props,
         apr_hash_this (hi, &key, &klen, &val);
         pname = key;
         pval = val;
-
+        
         new_pval = apr_pcalloc (pool, sizeof(*new_pval));
         new_pval->data = (char *) pval->data;
         new_pval->len = pval->len;
         /* new_pval's pool and blocksize are still 0.  :-) */
 
         apr_hash_set (proplist, pname, klen, new_pval);
-      }
+      } 
   }
 
   /* All done. */
   SVN_ERR (ra_lib->close(session));
-
+  
   *props = proplist;
   return SVN_NO_ERROR;
 }
@@ -425,7 +425,7 @@ svn_client_revprop_list (apr_hash_t **props,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end: */
