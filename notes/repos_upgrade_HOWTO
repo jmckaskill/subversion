@@ -88,8 +88,8 @@ Index: ./subversion/svnadmin/main.c
 +++ ./subversion/svnadmin/main.c	Thu Jun  6 12:02:25 2002
 @@ -102,6 +102,56 @@
  }
-
-
+ 
+ 
 +static svn_error_t *
 +do_deltify_undeltify (svn_fs_root_t *root,
 +                      const char *path,
@@ -140,7 +140,7 @@ Index: ./subversion/svnadmin/main.c
 +  svn_pool_destroy (subpool);
 +  return SVN_NO_ERROR;
 +}
-
+ 
  
  /*** Argument parsing and usage. ***/
 @@ -577,7 +627,6 @@
@@ -154,13 +154,13 @@ Index: ./subversion/svnadmin/main.c
 @@ -599,22 +648,8 @@
          /* open the revision root */
          INT_ERR (svn_fs_revision_root (&rev_root, fs, the_rev, pool));
-
+ 
 -        /* see if PATH represents a directory (this doubles as an
 -           existence check!) */
 -        INT_ERR (svn_fs_is_dir (&is_dir, rev_root, node, pool));
 -
          /* do the (un-)deltification */
--        printf ("%seltifying `%s' in revision %" SVN_REVNUM_T_FMT "...",
+-        printf ("%seltifying `%s' in revision %" SVN_REVNUM_T_FMT "...", 
 -                is_deltify ? "D" : "Und", node, the_rev);
 -        if (is_deltify)
 -          {
@@ -174,7 +174,7 @@ Index: ./subversion/svnadmin/main.c
 +        INT_ERR (deltify_undeltify (rev_root, node, is_deltify, pool));
        }
        break;
-
+ 
 ----------------------------------------------------------------------
 
 Perl script to undeltify every Nth revision in your repository.
@@ -187,7 +187,7 @@ Run it like so:  ./undeltify.pl REPOS-PATH [START-REV:END_REV] [INCREMENT]
 use strict;
 
 #############################################################################
-#  SETUP
+#  SETUP 
 
 my $svnadmin_cmd = '/home/cmpilato/bin/svnadmin-2092b';
 
@@ -283,7 +283,7 @@ if ($next_arg ne '')
 }
 
 # Validate the input.
-if (($start_rev > $youngest)
+if (($start_rev > $youngest) 
     or ($end_rev > $youngest)
     or ($start_rev < 1)
     or ($end_rev < 1))
