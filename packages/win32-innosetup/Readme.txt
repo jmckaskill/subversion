@@ -15,7 +15,7 @@ CONTENTS:
     - Perl
     - Packages for converting XML documentation
     - MS HTML Help Workshop
-  * How the documentation is done
+  * How the documentation is done    
   * How the setup is done
   * File Structure for the installer project
 
@@ -25,7 +25,7 @@ Introduction
   This document describes the packages\win32-innosetup directory of the
   Subversion repository and tells you how you can roll out your own
   Windows installer for Subversion.
-
+  
   If you haven't none it already:  -Please, Check out the subversion
   sources to a place you like and download the programs and packages
   from the links below. Reading the "Directory structure" part should
@@ -49,7 +49,7 @@ Introduction
 
   GNU diffutils
   -------------
-  Get Cygwin with diffutils-2.8.1 or better from:
+  Get Cygwin with diffutils-2.8.1 or better from:  
     http://www.cygwin.com/
 
   Perl
@@ -94,7 +94,7 @@ Directory structure
   The childs of the svn:ignore'd folders are not marked as [h].
   Do you think that is looks complicated? -Dont worry! The programs in the
   tools folder takes care of copying and preparing files.
-
+  
   [ ] win32-innosetup           (svn.iss, misc. and main folder for Inno Setup)
    +->[ ] images                             (Various images used by the setup)
    |->[h] in                               (ISX expects most of the files here)
@@ -115,7 +115,7 @@ Directory structure
    |   +->[ ] svnpath                     (sources and the svnpath.exe program)
    |   +->[ ] templates                       (templates used by various tools)
 
-
+   
 Programs used for the Subversion Windows installer
 ==================================================
 
@@ -132,7 +132,7 @@ Programs used for the Subversion Windows installer
 
   Jordan Russell's (the Inno Setup creater) homepage:
     http://www.jrsoftware.org/
-
+    
   Installation notes: None
 
   ISTool
@@ -141,7 +141,7 @@ Programs used for the Subversion Windows installer
   usually very complicated and requires good script editing software.
   The program used for this is ISTool and it's syntax high-lighning
   makes it the perfect companion to IS and friends.
-
+  
   The author - Bjørnar Henden are doing a great job by updating his
   program each time Inno Setup are updated.
   It's also includes full support for "My Inno Setup Extentions" (see
@@ -169,17 +169,17 @@ Programs used for the Subversion Windows installer
   Subversion.
   You can find the sources for this program in the Subversion source
   tree under packages\win32-innosetup\tools\svnpath
-
+  
   Have a look in the file main.c for info on how to compile the
   program.
-
+ 
   libxml, libxslt and iconv
   -------------------------
   Installation notes:
     Unpack the zip-files and place the contents of the 'lib' and
     'util' folders from each unzipped packages in a folder which
     is mentioned in your PATH environment variable.
-
+    
   docbook-xsl
   -----------
   Unzip the files inside docbook-xsl-*.**.*.zip to a folder named
@@ -207,7 +207,7 @@ How the documentation is done
 =============================
 
   Under preparation
-
+  
 Some tips/info about using Inno Setup and 7-zip
 ===============================================
 
@@ -218,7 +218,7 @@ Some tips/info about using Inno Setup and 7-zip
   files at all when it's compiling the setup program and the setup
   program are compiled without the "use setup loader" directive. This
   make the compressed file made by 7-zip smaller.
-
+  
   Now it's time to right click on the files made by the Setup
   compiler and choose "7-zip -> Add to Archive...". A dialog will
   show up and now, you can name it as setup.7z.
