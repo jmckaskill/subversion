@@ -7,11 +7,14 @@ this first.
                      HACKER'S GUIDE TO SUBVERSION
                      ============================
 
+$LastChangedDate$
 
 TABLE OF CONTENTS
 
   * Participating in the community
+  * Theory and documentation
   * What to read
+  * Directory layout
   * Coding style
   * Document everything
   * Using page breaks
@@ -42,7 +45,7 @@ version control system.
 The community exists mainly through mailing lists and a Subversion
 repository:
 
- * Go to http://subversion.tigris.org and
+Go to http://subversion.tigris.org and
 
     * Join the "dev", "svn", and "announce" mailing lists.
       The dev list, dev@subversion.tigris.org, is where almost all
@@ -65,6 +68,39 @@ If you'd like to contribute code, then look at:
 To submit code, simply send your patches to dev@subversion.tigris.org.
 No, wait, first read the rest of this file, _then_ start sending
 patches to dev@subversion.tigris.org. :-)
+
+
+
+Theory and documentation
+========================
+
+  A.  DESIGN
+
+      A design spec was written in June 2000, and is a bit out of
+      date.  But it still gives a good theoretical introduction to the
+      inner workings of the repository, and to Subversion's various
+      layers.  Look in doc/programmer/design/, or look at one of the
+      versions posted on the Subversion website.
+
+
+  B.  WEBDAV
+
+      Greg Stein has written an introduction Subversion's network
+      protocol, which is an extended dialect of HTTP.  The document is
+      'www/webdav-usage.html', and is also posted on the website.
+
+
+  C.  USER MANUAL
+
+      We've started documenting some of the behavior of the client;
+      it's only a small beginning, but it may help.  Look at
+      doc/user/manual/ for this project.
+
+
+  D.  SYSTEM NOTES
+
+      A lot of the design ideas for particular aspects of the system
+      have been documented in individual files in the notes directory.
 
 
 
@@ -108,6 +144,56 @@ in APR (look in apr/include/):
 
    * hashes and arrays:  apr_hash.h, apr_tables.h
 
+
+
+Directory layout
+================
+
+A rough guide to the source tree:
+
+   doc/
+      User and Developer documentation.
+   www/
+      Subversion web pages (live content at http://subversion.tigris.org/).
+   tools/
+      Stuff that works with Subversion, but that Subversion doesn't depend on.
+   packages/
+      Stuff to help packaging systems, like rpm and dpkg.
+   subversion/
+      Source code to subversion itself (as opposed to external libraries).
+   subversion/include/
+      Public header files for users of subversion libraries.
+   subversion/libsvn_fs/
+      The versioning "filesystem" API.
+   subversion/libsvn_repos/
+      Repository functionality built around the `libsvn_fs' core.
+   subversion/libsvn_delta/
+      Common code for tree deltas, text deltas, and property deltas.
+   subversion/libsvn_wc/
+      Common code for working copies.
+   subversion/libsvn_ra/
+      Common code for repository access.
+   subversion/libsvn_client/
+      Common code for client operations.
+   subversion/clients/cmdline/
+      The command line client.
+   subversion/tests/
+      Automated test suite.
+   expat-lite/
+      Expat library from James Clark. There is a private copy in the
+      Subversion repository because we have some local changes to
+      it. See expat-lite/CHANGES.svn and expat-lite/CHANGES for
+      information on those changes.
+   apr/
+      Apache Portable Runtime library.
+      *Note*: This is not in the same repository as Subversion.  Read
+      INSTALL for instructions on how to get it if you don't
+      already have it.
+   neon/
+      Neon library from Joe Orton.
+      *Note*: This is not in the same repository as Subversion.  Read
+      INSTALL for instructions on how to get it if you don't
+      already have it.
 
 
 
