@@ -26,7 +26,7 @@
 
 
 static svn_error_t *
-next_key (const char **msg,
+next_key (const char **msg, 
           svn_boolean_t msg_only,
           apr_pool_t *pool)
 {
@@ -85,7 +85,7 @@ next_key (const char **msg,
                                 "failed to increment key \"%s\" correctly",
                                 this_1);
     }
-
+  
   len = strlen (this_2);
   olen = len;
   svn_fs__next_key (this_2, &len, next_2);
@@ -188,9 +188,9 @@ next_key (const char **msg,
 
 /* The test table.  */
 
-svn_error_t *(*test_funcs[]) (const char **msg,
+svn_error_t *(*test_funcs[]) (const char **msg, 
                               svn_boolean_t msg_only,
-                              apr_pool_t *pool) =
+                              apr_pool_t *pool) = 
 {
   0,
   next_key,
