@@ -1,5 +1,5 @@
 
-/*
+/* 
    plugin_security.c:  a simple server-side plugin for Subversion
                        which implements basic filesystem authorization.
 
@@ -27,14 +27,14 @@
 
 /*
   Input:    a previously authenticated username, auth_method, auth domain
-
+  
   Returns: either NULL if the action is denied, or returns the
            internal Subversion username.  (The server then uses this
            Subversion username to perform the requested action against
            the filesystem.)
 */
-
-svn_string_t *
+  
+svn_string_t * 
 svn_internal_authorization (svn_string_t *repos,
                             svn_string_t *authenticated_username,
                             svn_string_t *authenticated_method,
@@ -52,8 +52,8 @@ svn_internal_authorization (svn_string_t *repos,
 
 /* Now declare a new plugin object */
 
-svn_svr_plugin plugin_security =
-{
+svn_svr_plugin plugin_security = 
+{ 
   svn_internal_authorization,         /* authorization hook */
   NULL                                /* conflict resolution hook */
 };
