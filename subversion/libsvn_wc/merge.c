@@ -65,7 +65,7 @@ svn_wc_merge (const char *left,
 
   /* Decide if the merge target is a text or binary file. */
   SVN_ERR (svn_wc_has_binary_prop (&is_binary, merge_target, adm_access, pool));
-
+  
   if (! is_binary)              /* this is a text file */
     {
       /* Make sure a temporary copy of 'target' is available with keywords
@@ -106,7 +106,7 @@ svn_wc_merge (const char *left,
                                         SVN_WC__TMP_EXT,
                                         FALSE, pool));
       SVN_ERR (svn_io_file_close (tmp_f, pool));
-
+    
       SVN_ERR (svn_io_copy_file (left, tmp_left, TRUE, pool));
       SVN_ERR (svn_io_copy_file (right, tmp_right, TRUE, pool));
 
@@ -119,7 +119,7 @@ svn_wc_merge (const char *left,
                                      tmp_target, tmp_left, tmp_right,
                                      target_label, left_label, right_label,
                                      result_f, &exit_code, diff3_cmd, pool));
-
+          
           contains_conflicts = exit_code == 1;
         }
       else
@@ -172,13 +172,13 @@ svn_wc_merge (const char *left,
       if (contains_conflicts && ! dry_run)  /* got a conflict */
         {
           /* Preserve the three pre-merge files, and modify the
-             entry (mark as conflicted, track the preserved files). */
+             entry (mark as conflicted, track the preserved files). */ 
           apr_file_t *lcopy_f, *rcopy_f, *tcopy_f;
           const char *left_copy, *right_copy, *target_copy;
           const char *parentt, *left_base, *right_base, *target_base;
           svn_wc_adm_access_t *parent_access;
           svn_wc_entry_t tmp_entry;
-
+      
           /* I miss Lisp. */
 
           SVN_ERR (svn_io_open_unique_file (&lcopy_f,
@@ -233,13 +233,13 @@ svn_wc_merge (const char *left,
                                          NULL, pool));
           SVN_ERR (svn_wc__get_eol_style (NULL, &eol, merge_target, adm_access,
                                           pool));
-          SVN_ERR (svn_subst_copy_and_translate (left,
+          SVN_ERR (svn_subst_copy_and_translate (left, 
                                                  left_copy,
-                                                 eol, eol ? TRUE : FALSE,
+                                                 eol, eol ? TRUE : FALSE, 
                                                  keywords, TRUE, pool));
           SVN_ERR (svn_subst_copy_and_translate (right,
                                                  right_copy,
-                                                 eol, eol ? TRUE : FALSE,
+                                                 eol, eol ? TRUE : FALSE, 
                                                  keywords, TRUE, pool));
 
           /* Back up MERGE_TARGET verbatim (it's already in expanded form.) */
@@ -258,7 +258,7 @@ svn_wc_merge (const char *left,
              the backup files in the entry as well. */
           SVN_ERR (svn_wc_adm_retrieve (&parent_access, adm_access, parentt,
                                         pool));
-          SVN_ERR (svn_wc__entry_modify
+          SVN_ERR (svn_wc__entry_modify 
                    (parent_access, mt_bn, &tmp_entry,
                     SVN_WC__ENTRY_MODIFY_CONFLICT_OLD
                     | SVN_WC__ENTRY_MODIFY_CONFLICT_NEW
@@ -289,7 +289,7 @@ svn_wc_merge (const char *left,
           SVN_ERR (svn_wc__get_eol_style (NULL, &eol, merge_target, adm_access,
                                           pool));
           SVN_ERR (svn_subst_copy_and_translate (result_target, merge_target,
-                                                 eol, eol ? TRUE : FALSE,
+                                                 eol, eol ? TRUE : FALSE, 
                                                  keywords, TRUE, pool));
         }
 
@@ -316,7 +316,7 @@ svn_wc_merge (const char *left,
       const char *parentt, *left_base, *right_base;
       svn_wc_adm_access_t *parent_access;
       svn_wc_entry_t tmp_entry;
-
+      
       /* reserve names for backups of left and right fulltexts */
       SVN_ERR (svn_io_open_unique_file (&lcopy_f,
                                         &left_copy,
@@ -339,7 +339,7 @@ svn_wc_merge (const char *left,
                                  left_copy, TRUE, pool));
       SVN_ERR (svn_io_copy_file (right,
                                  right_copy, TRUE, pool));
-
+      
       /* Derive the basenames of the backup files. */
       svn_path_split (left_copy, &parentt, &left_base, pool);
       svn_path_split (right_copy, &parentt, &right_base, pool);
@@ -350,7 +350,7 @@ svn_wc_merge (const char *left,
       /* Mark merge_target's entry as "Conflicted", and start tracking
          the backup files in the entry as well. */
       SVN_ERR (svn_wc_adm_retrieve (&parent_access, adm_access, parentt, pool));
-      SVN_ERR (svn_wc__entry_modify
+      SVN_ERR (svn_wc__entry_modify 
                (parent_access, mt_bn, &tmp_entry,
                 SVN_WC__ENTRY_MODIFY_CONFLICT_OLD
                 | SVN_WC__ENTRY_MODIFY_CONFLICT_NEW
