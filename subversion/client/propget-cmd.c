@@ -2,7 +2,7 @@
  *  propget-cmd.c - Display status information in current directory
  *
  *  svn is free software copyrighted by CollabNet.
- *
+ *  
  *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions
  *  are met:
@@ -14,7 +14,7 @@
  *  3. Neither the name ``CollabNet'' nor the name of any other
  *     contributor may be used to endorse or promote products derived
  *     from this software without specific prior written permission.
- *
+ *  
  *  svn IS PROVIDED BY CollabNet ``AS IS'' AND ANY EXPRESS
  *  OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  *  WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -28,7 +28,7 @@
  *  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ====================================================================
- *
+ * 
  * This software consists of voluntary contributions made by many
  * individuals on behalf of CollabNet.
  */
@@ -65,18 +65,18 @@ svn_cl__propget( int argc, char** argv, apr_pool_t* pool,
                          GET_OPT_STATE(p_opt_state, target),
                          pool);
 
-  if (! err)
+  if (! err) 
     {
-      apr_hash_set (prop_hash, name->data, name->len, value);
+      apr_hash_set (prop_hash, name->data, name->len, value); 
       svn_cl__print_prop_hash (prop_hash, pool);
-    }
+    }      
 
   return err;
 }
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
- * end:
+ * end: 
  */
