@@ -55,7 +55,7 @@ display_prop_diffs (const apr_array_header_t *propchanges,
   int i;
 
   apr_file_printf (file, "\nProperty changes on: %s\n", path);
-  apr_file_printf (file,
+  apr_file_printf (file, 
      "___________________________________________________________________\n");
 
   for (i = 0; i < propchanges->nelts; i++)
@@ -65,7 +65,7 @@ display_prop_diffs (const apr_array_header_t *propchanges,
 
       const svn_stringbuf_t *original_value =
         apr_hash_get (original_props, propchange->name, APR_HASH_KEY_STRING);
-
+      
       apr_file_printf (file, "Name: %s\n", propchange->name);
 
       if (original_value != NULL)
@@ -123,7 +123,7 @@ diff_file_changed (const char *path,
       args = apr_palloc (subpool, nargs * sizeof (char *));
       for (i = 0; i < diff_cmd_baton->options->nelts; i++)
         {
-          args[i] =
+          args[i] = 
             ((svn_stringbuf_t **)(diff_cmd_baton->options->elts))[i]->data;
         }
       assert (i == nargs);
@@ -131,15 +131,15 @@ diff_file_changed (const char *path,
 
   /* Print out the diff header. */
   apr_file_printf (outfile, "Index: %s\n", label ? label : tmpfile1);
-  apr_file_printf (outfile,
+  apr_file_printf (outfile, 
      "===================================================================\n");
 
-  SVN_ERR (svn_io_run_diff (".", args, nargs, path,
-                            tmpfile1, tmpfile2,
+  SVN_ERR (svn_io_run_diff (".", args, nargs, path, 
+                            tmpfile1, tmpfile2, 
                             &exitcode, outfile, errfile, subpool));
 
   /* ### todo: Handle exit code == 2 (i.e. errors with diff) here */
-
+  
   /* ### todo: someday we'll need to worry about whether we're going
      to need to write a diff plug-in mechanism that makes use of the
      two paths, instead of just blindly running SVN_CLIENT_DIFF.  */
@@ -159,7 +159,7 @@ diff_file_added (const char *path,
                  const char *tmpfile2,
                  void *diff_baton)
 {
-  return diff_file_changed (path, tmpfile1, tmpfile2,
+  return diff_file_changed (path, tmpfile1, tmpfile2, 
                             SVN_INVALID_REVNUM, SVN_INVALID_REVNUM,
                             diff_baton);
 }
@@ -170,7 +170,7 @@ diff_file_deleted (const char *path,
                    const char *tmpfile2,
                    void *diff_baton)
 {
-  return diff_file_changed (path, tmpfile1, tmpfile2,
+  return diff_file_changed (path, tmpfile1, tmpfile2, 
                             SVN_INVALID_REVNUM, SVN_INVALID_REVNUM,
                             diff_baton);
 }
@@ -193,7 +193,7 @@ diff_dir_deleted (const char *path,
   /* ### todo:  send feedback to app */
   return SVN_NO_ERROR;
 }
-
+  
 static svn_error_t *
 diff_props_changed (const char *path,
                     const apr_array_header_t *propchanges,
@@ -219,7 +219,7 @@ diff_props_changed (const char *path,
 }
 
 /* The main callback table for 'svn diff'.  */
-static const svn_diff_callbacks_t
+static const svn_diff_callbacks_t 
 diff_callbacks =
   {
     diff_file_changed,
@@ -265,7 +265,7 @@ merge_file_changed (const char *mine,
                       left_label, right_label, target_label,
                       subpool);
   if (err && (err->apr_err != SVN_ERR_WC_CONFLICT))
-    return err;
+    return err;  
 
   svn_pool_destroy (subpool);
   return SVN_NO_ERROR;
@@ -286,8 +286,8 @@ merge_file_added (const char *mine,
     {
     case svn_node_none:
       SVN_ERR (svn_io_copy_file (yours, mine, TRUE, subpool));
-      SVN_ERR (svn_client_add (svn_stringbuf_create (mine, subpool),
-                               FALSE, NULL, NULL, subpool));
+      SVN_ERR (svn_client_add (svn_stringbuf_create (mine, subpool), 
+                               FALSE, NULL, NULL, subpool));      
       break;
     case svn_node_dir:
       /* ### create a .drej conflict or something someday? */
@@ -308,8 +308,8 @@ merge_file_added (const char *mine,
                 /* If already scheduled for deletion, then carry out
                    an add, which is really a (R)eplacement.  */
                 SVN_ERR (svn_io_copy_file (yours, mine, TRUE, subpool));
-                SVN_ERR (svn_client_add (svn_stringbuf_create (mine, subpool),
-                                         FALSE, NULL, NULL, subpool));
+                SVN_ERR (svn_client_add (svn_stringbuf_create (mine, subpool), 
+                                         FALSE, NULL, NULL, subpool));      
               }
             else
               {
@@ -322,12 +322,12 @@ merge_file_added (const char *mine,
               }
           }
         else
-          return svn_error_createf (SVN_ERR_WC_OBSTRUCTED_UPDATE, 0, NULL,
+          return svn_error_createf (SVN_ERR_WC_OBSTRUCTED_UPDATE, 0, NULL, 
                                     subpool,
                                     "Cannot create file '%s' for addition, "
                                     "because an unversioned file by that name "
                                     "already exists.", mine);
-        break;
+        break;      
       }
     default:
       break;
@@ -351,7 +351,7 @@ merge_file_deleted (const char *mine,
   switch (kind)
     {
     case svn_node_file:
-      SVN_ERR (svn_client_delete (NULL,
+      SVN_ERR (svn_client_delete (NULL, 
                                   svn_stringbuf_create (mine, subpool),
                                   FALSE, /* don't force */
                                   NULL, NULL, NULL, NULL, NULL, subpool));
@@ -368,7 +368,7 @@ merge_file_deleted (const char *mine,
     default:
       break;
     }
-
+    
   svn_pool_destroy (subpool);
   return SVN_NO_ERROR;
 }
@@ -395,7 +395,7 @@ merge_dir_added (const char *path,
       /* dir already exists.  make sure it's under version control. */
       SVN_ERR (svn_wc_check_wc (path_s, &is_wc, subpool));
       if (! is_wc)
-        SVN_ERR (svn_client_add (path_s, FALSE, NULL, NULL, subpool));
+        SVN_ERR (svn_client_add (path_s, FALSE, NULL, NULL, subpool));        
       break;
     case svn_node_file:
       /* ### create a .drej conflict or something someday? */
@@ -419,12 +419,12 @@ merge_dir_deleted (const char *path,
   struct merge_cmd_baton *merge_b = baton;
   apr_pool_t *subpool = svn_pool_create (merge_b->pool);
   enum svn_node_kind kind;
-
+  
   SVN_ERR (svn_io_check_path (path, &kind, subpool));
   switch (kind)
     {
     case svn_node_dir:
-      SVN_ERR (svn_client_delete (NULL,
+      SVN_ERR (svn_client_delete (NULL, 
                                   svn_stringbuf_create (path, subpool),
                                   FALSE, /* don't force */
                                   NULL, NULL, NULL, NULL, NULL, subpool));
@@ -445,7 +445,7 @@ merge_dir_deleted (const char *path,
   svn_pool_destroy (subpool);
   return SVN_NO_ERROR;
 }
-
+  
 static svn_error_t *
 merge_props_changed (const char *path,
                      const apr_array_header_t *propchanges,
@@ -470,7 +470,7 @@ merge_props_changed (const char *path,
 }
 
 /* The main callback table for 'svn merge'.  */
-static const svn_diff_callbacks_t
+static const svn_diff_callbacks_t 
 merge_callbacks =
   {
     merge_file_changed,
@@ -533,12 +533,12 @@ convert_to_url (svn_stringbuf_t **url,
     *url = path;
   else
     {
-      svn_wc_entry_t *entry;
+      svn_wc_entry_t *entry;      
       SVN_ERR (svn_wc_entry (&entry, path, pool));
       if (entry)
         *url = svn_stringbuf_dup (entry->url, pool);
       else
-        return svn_error_createf
+        return svn_error_createf 
           (SVN_ERR_ENTRY_NOT_FOUND, 0, NULL, pool,
            "convert_to_url: %s is not versioned", path->data);
     }
@@ -591,7 +591,7 @@ do_merge (const svn_delta_editor_t *after_editor,
   SVN_ERR (svn_ra_init_ra_libs (&ra_baton, pool));
   SVN_ERR (svn_ra_get_ra_library (&ra_lib, ra_baton, URL1->data, pool));
   SVN_ERR (svn_client__open_ra_session (&session, ra_lib, URL1, NULL,
-                                        NULL, FALSE, FALSE, TRUE,
+                                        NULL, FALSE, FALSE, TRUE, 
                                         auth_baton, pool));
   /* Resolve the revision numbers. */
   SVN_ERR (svn_client__get_revision_number
@@ -608,7 +608,7 @@ do_merge (const svn_delta_editor_t *after_editor,
   SVN_ERR (svn_client__open_ra_session (&session2, ra_lib, URL1, NULL,
                                         NULL, FALSE, FALSE, TRUE,
                                         auth_baton, pool));
-
+  
   SVN_ERR (svn_client__get_diff_editor (target_wcpath,
                                         callbacks,
                                         callback_baton,
@@ -630,11 +630,11 @@ do_merge (const svn_delta_editor_t *after_editor,
       composed_editor = new_diff_editor;
       composed_edit_baton = new_diff_edit_baton;
     }
-
+  
   /* ### Make composed editor look "old" style.  Remove someday. */
   svn_delta_compat_wrap (&diff_editor, &diff_edit_baton,
                          composed_editor, composed_edit_baton, pool);
-
+  
   SVN_ERR (ra_lib->do_switch (session,
                               &reporter, &report_baton,
                               end_revnum,
@@ -642,11 +642,11 @@ do_merge (const svn_delta_editor_t *after_editor,
                               recurse,
                               URL2,
                               diff_editor, diff_edit_baton));
-
+  
   SVN_ERR (reporter->set_path (report_baton, "", start_revnum));
-
+  
   SVN_ERR (reporter->finish_report (report_baton));
-
+  
   SVN_ERR (ra_lib->close (session2));
 
   SVN_ERR (ra_lib->close (session));
@@ -679,27 +679,27 @@ do_single_file_merge (const svn_delta_editor_t *after_editor,
   apr_array_header_t *propchanges;
   void *ra_baton, *session1, *session2;
   svn_ra_plugin_t *ra_lib;
-
+  
   props1 = apr_hash_make (pool);
   props2 = apr_hash_make (pool);
-
+  
   /* Create two temporary files that contain the fulltexts of
      PATH1@REV1 and PATH2@REV2. */
-  SVN_ERR (svn_io_open_unique_file (&fp1, &tmpfile1,
+  SVN_ERR (svn_io_open_unique_file (&fp1, &tmpfile1, 
                                     target_wcpath->data, ".tmp",
                                     FALSE, pool));
-  SVN_ERR (svn_io_open_unique_file (&fp2, &tmpfile2,
+  SVN_ERR (svn_io_open_unique_file (&fp2, &tmpfile2, 
                                     target_wcpath->data, ".tmp",
                                     FALSE, pool));
   fstream1 = svn_stream_from_aprfile (fp1, pool);
   fstream2 = svn_stream_from_aprfile (fp2, pool);
-
+  
   SVN_ERR (svn_ra_init_ra_libs (&ra_baton, pool));
 
   SVN_ERR (convert_to_url (&URL1, path1, pool));
   SVN_ERR (svn_ra_get_ra_library (&ra_lib, ra_baton, URL1->data, pool));
   SVN_ERR (svn_client__open_ra_session (&session1, ra_lib, URL1, NULL,
-                                        NULL, FALSE, FALSE, TRUE,
+                                        NULL, FALSE, FALSE, TRUE, 
                                         auth_baton, pool));
   SVN_ERR (svn_client__get_revision_number
            (&rev1, ra_lib, session1, revision1, path1->data, pool));
@@ -712,7 +712,7 @@ do_single_file_merge (const svn_delta_editor_t *after_editor,
   SVN_ERR (convert_to_url (&URL2, path2, pool));
   SVN_ERR (svn_ra_get_ra_library (&ra_lib, ra_baton, URL2->data, pool));
   SVN_ERR (svn_client__open_ra_session (&session2, ra_lib, URL2, NULL,
-                                        NULL, FALSE, FALSE, TRUE,
+                                        NULL, FALSE, FALSE, TRUE, 
                                         auth_baton, pool));
   SVN_ERR (svn_client__get_revision_number
            (&rev2, ra_lib, session2, revision2, path2->data, pool));
@@ -726,21 +726,21 @@ do_single_file_merge (const svn_delta_editor_t *after_editor,
   status = apr_file_close (fp2);
   if (status)
     return svn_error_createf (status, 0, NULL, pool, "failed to close '%s'.",
-                              tmpfile2->data);
-
+                              tmpfile2->data);   
+  
   /* Perform a 3-way merge between the temporary fulltexts and the
      current working file. */
   oldrev_str = apr_psprintf (pool, ".r%ld", rev1);
-  newrev_str = apr_psprintf (pool, ".r%ld", rev2);
+  newrev_str = apr_psprintf (pool, ".r%ld", rev2); 
   err = svn_wc_merge (tmpfile1->data, tmpfile2->data,
                       target_wcpath->data,
                       oldrev_str, newrev_str, ".working", pool);
   if (err && (err->apr_err != SVN_ERR_WC_CONFLICT))
-    return err;
-
+    return err;  
+             
   SVN_ERR (svn_io_remove_file (tmpfile1->data, pool));
   SVN_ERR (svn_io_remove_file (tmpfile2->data, pool));
-
+  
   /* Deduce property diffs, and merge those too. */
   SVN_ERR (svn_wc_get_local_propchanges (&propchanges,
                                          props1, props2, pool));
@@ -764,24 +764,24 @@ do_single_file_merge (const svn_delta_editor_t *after_editor,
       SVN_ERR (after_editor->open_file (basename->data, root_baton,
                                         SVN_INVALID_REVNUM, pool,
                                         &file_baton));
-      SVN_ERR (after_editor->apply_textdelta (file_baton,
+      SVN_ERR (after_editor->apply_textdelta (file_baton, 
                                               &handler, &handler_baton));
       if (propchanges->nelts > 0)
         {
           apr_array_header_t *entry_props, *wc_props, *regular_props;
           SVN_ERR (svn_categorize_props (propchanges,
-                                         &entry_props,
-                                         &wc_props,
+                                         &entry_props, 
+                                         &wc_props, 
                                          &regular_props,
                                          pool));
 
           /* ### this is so silly; we just want the trace-update editor
              to print a UU or _U here.... it ignores the prop. */
           if (regular_props->nelts > 0)
-            SVN_ERR (after_editor->change_file_prop
-                     (file_baton,
-                      "foo",
-                      svn_string_create ("foo", pool), pool));
+            SVN_ERR (after_editor->change_file_prop 
+                     (file_baton, 
+                      "foo", 
+                      svn_string_create ("foo", pool), pool));         
         }
       SVN_ERR (after_editor->close_file (file_baton));
       SVN_ERR (after_editor->close_edit (after_edit_baton));
@@ -789,7 +789,7 @@ do_single_file_merge (const svn_delta_editor_t *after_editor,
 
   return SVN_NO_ERROR;
 }
-
+     
 
 /* A Theoretical Note From Ben, regarding do_diff().
 
@@ -855,7 +855,7 @@ do_diff (const apr_array_header_t *options,
       && (revision2->kind == svn_client_revision_working))
     {
       /* Sanity check -- path1 and path2 are the same working-copy path. */
-      if (! svn_stringbuf_compare (path1, path2))
+      if (! svn_stringbuf_compare (path1, path2)) 
         {
           err = svn_error_create (SVN_ERR_INCORRECT_PARAMS, 0, NULL, pool,
                                   "do_diff: paths aren't equal!");
@@ -913,10 +913,10 @@ do_diff (const apr_array_header_t *options,
       SVN_ERR (svn_ra_init_ra_libs (&ra_baton, pool));
       SVN_ERR (svn_ra_get_ra_library (&ra_lib, ra_baton,
                                       url_anchor->data, pool));
-      SVN_ERR (svn_client__open_ra_session (&session, ra_lib, url_anchor,
-                                            NULL, NULL, FALSE, FALSE, TRUE,
+      SVN_ERR (svn_client__open_ra_session (&session, ra_lib, url_anchor, 
+                                            NULL, NULL, FALSE, FALSE, TRUE, 
                                             auth_baton, pool));
-
+      
       /* Set up diff editor according to path2's anchor/target. */
       SVN_ERR (svn_wc_get_diff_editor (anchor, target,
                                        callbacks, callback_baton,
@@ -931,7 +931,7 @@ do_diff (const apr_array_header_t *options,
                                   &reporter, &report_baton,
                                   start_revnum,
                                   url_target,
-                                  recurse,
+                                  recurse,                                  
                                   diff_editor, diff_edit_baton));
 
       /* Create a txn mirror of path2;  the diff editor will print
@@ -941,7 +941,7 @@ do_diff (const apr_array_header_t *options,
                                        NULL, NULL, /* notification is N/A */
                                        pool));
     }
-
+  
   /* Last use-case:  comparing path1@rev1 and path2@rev2, where both revs
      require repository contact.  */
   else if ((revision2->kind != svn_client_revision_working)
@@ -973,22 +973,22 @@ do_diff (const apr_array_header_t *options,
       SVN_ERR (svn_ra_init_ra_libs (&ra_baton, pool));
       SVN_ERR (svn_ra_get_ra_library (&ra_lib, ra_baton, URL1->data, pool));
       SVN_ERR (svn_client__open_ra_session (&session, ra_lib, URL1, NULL,
-                                            NULL, FALSE, FALSE, TRUE,
+                                            NULL, FALSE, FALSE, TRUE, 
                                             auth_baton, pool));
       SVN_ERR (svn_client__open_ra_session (&session2, ra_lib, URL2, NULL,
-                                            NULL, FALSE, FALSE, TRUE,
+                                            NULL, FALSE, FALSE, TRUE, 
                                             auth_baton, pool));
 
       /* Do the right thing in resolving revisions;  if the caller
          does something foolish like pass in URL@committed, then they
          should rightfully get an error when we pass a NULL path below. */
       SVN_ERR (svn_client__get_revision_number
-               (&start_revnum, ra_lib, session, revision1,
-                path1_is_url ? NULL : path1->data,
+               (&start_revnum, ra_lib, session, revision1, 
+                path1_is_url ? NULL : path1->data, 
                 pool));
       SVN_ERR (svn_client__get_revision_number
                (&end_revnum, ra_lib, session2, revision2,
-                path2_is_url ? NULL : path2->data,
+                path2_is_url ? NULL : path2->data, 
                 pool));
 
       /* Now down to the -real- business.  We gotta figure out anchors
@@ -1015,7 +1015,7 @@ do_diff (const apr_array_header_t *options,
                                         "'%s' at rev %d wasn't found "
                                         "in repository.", path2->data,
                                         end_revnum);
-            }
+            }                   
         }
       else
         {
@@ -1024,7 +1024,7 @@ do_diff (const apr_array_header_t *options,
 
       if (target2)
         {
-          svn_path_split (URL1, &anchor1, &target1, pool);
+          svn_path_split (URL1, &anchor1, &target1, pool);          
         }
       else
         {
@@ -1034,10 +1034,10 @@ do_diff (const apr_array_header_t *options,
 
       SVN_ERR (ra_lib->close (session));
       SVN_ERR (ra_lib->close (session2));
-
+      
       /* The main session is opened to the anchor of URL1. */
       SVN_ERR (svn_client__open_ra_session (&session, ra_lib, anchor1, NULL,
-                                            NULL, FALSE, FALSE, TRUE,
+                                            NULL, FALSE, FALSE, TRUE, 
                                             auth_baton, pool));
 
 
@@ -1045,7 +1045,7 @@ do_diff (const apr_array_header_t *options,
          contents from URL1's anchor.  */
       SVN_ERR (svn_client__open_ra_session (&session2, ra_lib, anchor1,
                                             NULL, NULL, FALSE, FALSE, TRUE,
-                                            auth_baton, pool));
+                                            auth_baton, pool));      
 
       /* Set up the repos_diff editor on path2's anchor.  */
       SVN_ERR (svn_client__get_diff_editor (anchor2,
@@ -1069,13 +1069,13 @@ do_diff (const apr_array_header_t *options,
                                   target1,
                                   recurse,
                                   URL2,
-                                  diff_editor, diff_edit_baton));
+                                  diff_editor, diff_edit_baton));      
 
       SVN_ERR (reporter->set_path (report_baton, "", start_revnum));
       SVN_ERR (reporter->finish_report (report_baton));
 
       SVN_ERR (ra_lib->close (session2));
-      SVN_ERR (ra_lib->close (session));
+      SVN_ERR (ra_lib->close (session));      
     }
 
   else
@@ -1084,9 +1084,9 @@ do_diff (const apr_array_header_t *options,
       err = NULL;
       goto polite_error;
     }
-
+    
   return SVN_NO_ERROR;
-
+    
  polite_error:
   return svn_error_create (SVN_ERR_INCORRECT_PARAMS, 0, err, pool,
                            "Sorry, svn_client_diff was called in a way "
@@ -1139,7 +1139,7 @@ do_diff (const apr_array_header_t *options,
    NOTE:  In the near future, svn_client_diff() will likely only
    continue to report textual differences in files.  Property diffs
    are important, too, and will need to be supported in some fashion
-   so that this code can be re-used for svn_client_merge().
+   so that this code can be re-used for svn_client_merge(). 
 */
 svn_error_t *
 svn_client_diff (const apr_array_header_t *options,
@@ -1183,19 +1183,19 @@ svn_client_merge (const svn_delta_editor_t *after_editor,
                   apr_pool_t *pool)
 {
   svn_wc_entry_t *entry;
-
+  
   SVN_ERR (svn_wc_entry (&entry, target_wcpath, pool));
   if (entry == NULL)
     return svn_error_createf (SVN_ERR_ENTRY_NOT_FOUND, 0, NULL, pool,
                               "Can't merge changes into '%s':"
-                              "it's not under revision control.",
+                              "it's not under revision control.", 
                               target_wcpath->data);
 
   /* If our target_wcpath is a single file, assume that PATH1 and
      PATH2 are files as well, and do a single-file merge. */
   if (entry->kind == svn_node_file)
     {
-      SVN_ERR (do_single_file_merge (after_editor, after_edit_baton,
+      SVN_ERR (do_single_file_merge (after_editor, after_edit_baton, 
                                      auth_baton,
                                      path1, revision1,
                                      path2, revision2,

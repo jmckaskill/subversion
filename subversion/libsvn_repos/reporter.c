@@ -50,10 +50,10 @@ typedef struct svn_repos_report_baton_t
         svn_repos_dir_delta(): --  */
 
   /* whether or not to generate text-deltas */
-  svn_boolean_t text_deltas;
+  svn_boolean_t text_deltas; 
 
   /* which revision to compare against */
-  svn_revnum_t revnum_to_update_to;
+  svn_revnum_t revnum_to_update_to; 
 
   /* The fs path that will be the 'target' of dir_delta.
      In the case of 'svn switch', this is probably distinct from BASE_PATH.
@@ -65,7 +65,7 @@ typedef struct svn_repos_report_baton_t
 
   /* the editor to drive */
   const svn_delta_edit_fns_t *update_editor;
-  void *update_edit_baton;
+  void *update_edit_baton; 
 
   /* This hash describes the mixed revisions in the transaction; it
      maps pathnames (char *) to revision numbers (svn_revnum_t). */
@@ -96,7 +96,7 @@ svn_repos_set_path (void *report_baton,
       /* Sanity check: make that we didn't call this with real data
          before simply informing the reporter of our base revision. */
       if (! svn_path_is_empty (pathbuf))
-        return
+        return 
           svn_error_create
           (SVN_ERR_RA_BAD_REVISION_REPORT, 0, NULL, rbaton->pool,
            "svn_repos_set_path: initial revision report was bogus.");
@@ -109,14 +109,14 @@ svn_repos_set_path (void *report_baton,
                                                   rbaton->pool));
       SVN_ERR (svn_fs_txn_root (&(rbaton->txn_root), rbaton->txn,
                                 rbaton->pool));
-
+      
       /* In our hash, map the root of the txn ("") to the initial base
          revision. */
       *rev_ptr = revision;
       apr_hash_set (rbaton->path_rev_hash, "", APR_HASH_KEY_STRING, rev_ptr);
     }
 
-  else  /* this is not the first call to set_path. */
+  else  /* this is not the first call to set_path. */ 
     {
       /* Create the "from" root and path. */
       SVN_ERR (svn_fs_revision_root (&from_root, rbaton->repos->fs,
@@ -135,11 +135,11 @@ svn_repos_set_path (void *report_baton,
       /* Copy into our txn. */
       SVN_ERR (svn_fs_link (from_root, from_path->data,
                             rbaton->txn_root, from_path->data, rbaton->pool));
-
+      
       /* Remember this path in our hashtable. */
       *rev_ptr = revision;
       apr_hash_set (rbaton->path_rev_hash, from_path->data,
-                    from_path->len, rev_ptr);
+                    from_path->len, rev_ptr);    
 
     }
 
@@ -169,7 +169,7 @@ svn_repos_link_path (void *report_baton,
                                                   rbaton->pool));
       SVN_ERR (svn_fs_txn_root (&(rbaton->txn2_root), rbaton->txn2,
                                 rbaton->pool));
-
+      
     }
 
   /* The path we are dealing with is the anchor (where the
@@ -181,7 +181,7 @@ svn_repos_link_path (void *report_baton,
   if (rbaton->target)
     svn_path_add_component (from_path, rbaton->target);
   svn_path_add_component_nts (from_path, path);
-
+  
   /* Copy into our txn. */
   SVN_ERR (svn_fs_revision_root (&from_root, rbaton->repos->fs,
                                  revision, rbaton->pool));
@@ -193,13 +193,13 @@ svn_repos_link_path (void *report_baton,
                                  rbaton->revnum_to_update_to, rbaton->pool));
   SVN_ERR (svn_fs_link (from_root, link_path,
                         rbaton->txn2_root, from_path->data, rbaton->pool));
-
+  
   /* Remember this path in our hashtable.  ### todo: Come back to
      this, as the original hash table idea mapped only paths to
      revisions, not paths to linkedpaths+revisions!  */
   *rev_ptr = revision;
   apr_hash_set (rbaton->path_rev_hash, from_path->data,
-                from_path->len, rev_ptr);
+                from_path->len, rev_ptr);    
 
   return SVN_NO_ERROR;
 }
@@ -211,7 +211,7 @@ svn_repos_delete_path (void *report_baton,
 {
   svn_stringbuf_t *delete_path;
   svn_repos_report_baton_t *rbaton = report_baton;
-
+  
   /* The path we are dealing with is the anchor (where the
      reporter is rooted) + target (the top-level thing being
      reported) + path (stuff relative to the target...this is the
@@ -223,7 +223,7 @@ svn_repos_delete_path (void *report_baton,
   svn_path_add_component_nts (delete_path, path);
 
   /* Remove the file or directory (recursively) from the txn. */
-  SVN_ERR (svn_fs_delete_tree (rbaton->txn_root, delete_path->data,
+  SVN_ERR (svn_fs_delete_tree (rbaton->txn_root, delete_path->data, 
                                rbaton->pool));
 
   return SVN_NO_ERROR;
@@ -255,12 +255,12 @@ svn_repos_finish_report (void *report_baton)
                                    rbaton->pool));
 
   /* Drive the update-editor. */
-  SVN_ERR (svn_repos_dir_delta (rbaton->txn_root,
-                                rbaton->base_path,
-                                rbaton->target ?
+  SVN_ERR (svn_repos_dir_delta (rbaton->txn_root, 
+                                rbaton->base_path, 
+                                rbaton->target ? 
                                 rbaton->target->data : NULL,
                                 rbaton->path_rev_hash,
-                                target_root,
+                                target_root, 
                                 rbaton->tgt_path,
                                 rbaton->update_editor,
                                 rbaton->update_edit_baton,
@@ -269,7 +269,7 @@ svn_repos_finish_report (void *report_baton)
                                 TRUE,
                                 FALSE,
                                 rbaton->pool));
-
+  
   /* Still here?  Great!  Throw out the transaction. */
   SVN_ERR (svn_fs_abort_txn (rbaton->txn));
 
