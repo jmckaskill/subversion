@@ -2,9 +2,9 @@
 #
 #  trans_tests.py:  testing newline conversion and keyword substitution
 #
-#  Subversion is a tool for revision control.
+#  Subversion is a tool for revision control. 
 #  See http://subversion.tigris.org for more information.
-#
+#    
 # ====================================================================
 # Copyright (c) 2000-2001 CollabNet.  All rights reserved.
 #
@@ -46,7 +46,7 @@ path_index = svntest.actions.path_index
 # status level 1:
 #    enable translation, status
 #    (now throw local text mods into the picture)
-#
+#   
 # commit level 1:
 #    enable translation, commit
 #    (now throw local text mods into the picture)
@@ -75,10 +75,10 @@ path_index = svntest.actions.path_index
 
 def setup_working_copy(sbox):
   "setup a standard test working copy + files for testing translation"
-
+  
   # NOTE: Only using author and revision keywords in tests for now,
   # since they return predictable substitutions.
-
+  
   # Get a default working copy all setup.
   if svntest.actions.make_repo_and_wc(sbox):
     return 1
@@ -96,7 +96,7 @@ def setup_working_copy(sbox):
 
   # 'key3' has bogus keywords
   svntest.main.file_append (key3_path, "$Arthur$\n$The Rev: 0$")
-
+      
   return 0
 
 
@@ -123,7 +123,7 @@ def enable_translation():
 
   sbox = sandbox(basic_commit)
   wc_dir = os.path.join (svntest.main.general_wc_dir, sbox)
-
+  
   # TODO: Turn on newline conversion and/or keyword substition for all
   # sorts of files, with and without local mods, and verify that
   # status shows the right stuff.  The, commit those mods.
@@ -147,9 +147,9 @@ def disable_translation():
 
   # TODO: Disable translation on files which have had it enabled,
   # with and without local mods, check status, and commit.
-
+  
   return 0
-
+  
 
 ########################################################################
 # Run the tests
@@ -163,7 +163,7 @@ test_list = [ None,
              ]
 
 if __name__ == '__main__':
-
+  
   ## run the main test routine on them:
   err = svntest.main.run_tests(test_list)
 
