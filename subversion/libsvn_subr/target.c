@@ -1,5 +1,5 @@
 /*
- * target.c:  functions which operate on a list of targets supplied to
+ * target.c:  functions which operate on a list of targets supplied to 
  *              a subversion subcommand.
  *
  * ====================================================================
@@ -38,7 +38,7 @@ svn_path_get_absolute(svn_string_t **pabsolute,
     {
       *pabsolute = svn_string_create(buffer, pool);
     }
-  else
+  else 
     {
       /* TODO: (kevin) Create better error messages, once I learn about
          the errors returned from _fullpath() */
@@ -51,7 +51,7 @@ svn_path_get_absolute(svn_string_t **pabsolute,
     {
       *pabsolute = svn_string_create(buffer, pool);
     }
-  else
+  else 
     {
       switch (errno)
         {
@@ -107,7 +107,7 @@ svn_path_split_if_file(svn_string_t *path,
         {
           svn_path_split(path, pdirectory, pfile, svn_path_local_style, pool);
         }
-      else
+      else 
         {
           return svn_error_createf(APR_SUCCESS, SVN_ERR_BAD_FILENAME, NULL, pool,
                                   "%s is neither a file nor a directory name.",
@@ -225,7 +225,7 @@ svn_path_condense_targets(svn_string_t **pbasedir,
 }
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end: */
