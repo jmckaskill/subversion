@@ -3,32 +3,32 @@
  *
  * ================================================================
  * Copyright (c) 2000 CollabNet.  All rights reserved.
- *
+ * 
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
  * met:
- *
+ * 
  * 1. Redistributions of source code must retain the above copyright
  * notice, this list of conditions and the following disclaimer.
- *
+ * 
  * 2. Redistributions in binary form must reproduce the above copyright
  * notice, this list of conditions and the following disclaimer in the
  * documentation and/or other materials provided with the distribution.
- *
+ * 
  * 3. The end-user documentation included with the redistribution, if
  * any, must include the following acknowlegement: "This product includes
  * software developed by CollabNet (http://www.Collab.Net)."
  * Alternately, this acknowlegement may appear in the software itself, if
  * and wherever such third-party acknowlegements normally appear.
- *
+ * 
  * 4. The hosted project names must not be used to endorse or promote
  * products derived from this software without prior written
  * permission. For written permission, please contact info@collab.net.
- *
+ * 
  * 5. Products derived from this software may not use the "Tigris" name
  * nor may "Tigris" appear in their names without prior written
  * permission of CollabNet.
- *
+ * 
  * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
  * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -42,7 +42,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ====================================================================
- *
+ * 
  * This software consists of voluntary contributions made by many
  * individuals on behalf of CollabNet.
  */
@@ -149,7 +149,7 @@ svn_error_t *svn_wc__make_adm_thing (svn_string_t *path,
  * When you open a file for writing with svn_wc__open_foo(), the file
  * is actually opened in the corresponding location in the tmp/
  * directory (and if you're appending as well, then the tmp file
- * starts out as a copy of the original file).
+ * starts out as a copy of the original file). 
  *
  * Somehow, this tmp file must eventually get renamed to its real
  * destination in the adm area.  You can do it either by passing the
@@ -227,7 +227,7 @@ svn_string_t *svn_wc__text_base_path (svn_string_t *path,
  * (In practice, this means creating an adm area if none exists, in
  * which case it is locked from birth, or else locking an adm area
  * that's already there.)
- *
+ * 
  * REPOSITORY is a repository string for initializing the adm area.
  *
  * VERSION is the version for this directory.  kff todo: ancestor_path?
@@ -245,7 +245,7 @@ svn_error_t *svn_wc__ensure_wc (svn_string_t *path,
  * Use REPOSITORY for the wc's repository.
  *
  * Does not ensure existence of PATH itself; if PATH does not exist,
- * an error will result.
+ * an error will result. 
  */
 svn_error_t *svn_wc__ensure_adm (svn_string_t *path,
                                  svn_string_t *repository,
@@ -320,7 +320,7 @@ typedef struct svn_wc__entry_t
 
   apr_time_t timestamp;        /* When the entries file thinks the
                                   local working file last changed.
-                                  (NULL means not available) */
+                                  (NULL means not available) */ 
 
   apr_hash_t *attributes;      /* All xml attributes, including ones
                                   which already parsed to fill in the
@@ -349,7 +349,7 @@ svn_error_t *svn_wc__entries_write (apr_hash_t *entries,
 
 /* Create a new entry NAME in ENTRIES with appropriate fields.
    Varargs specify any other xml attributes, in the form of
-   alternating pairs (char *), (svn_string_t *).
+   alternating pairs (char *), (svn_string_t *). 
 
    An error SVN_ERR_WC_ENTRY_EXISTS is returned if the entry already
    exists. */
@@ -416,7 +416,7 @@ svn_error_t *svn_wc__entry_merge (svn_string_t *path,
    will be returned.
 */
 svn_error_t *svn_wc__entry_get (svn_string_t *path,
-                                svn_string_t *entryname,
+                                svn_string_t *entryname, 
                                 svn_vernum_t *version,
                                 enum svn_node_kind *kind,
                                 apr_pool_t *pool,
@@ -516,7 +516,7 @@ apr_status_t apr_copy_file (const char *src,
  *
  * DIFF_FN stores its results in *RESULT, which will later be passed
  * to a matching patch function.  (Note that DIFF_FN will be invoked
- * on two filenames, a source and a target).
+ * on two filenames, a source and a target). 
  */
 svn_error_t *svn_wc__get_local_changes (svn_wc_diff_fn_t *diff_fn,
                                         void **result,
@@ -559,7 +559,7 @@ svn_error_t *svn_wc__gnudiff_patcher (void *diff,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
