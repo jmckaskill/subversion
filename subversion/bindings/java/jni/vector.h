@@ -31,7 +31,7 @@ jobject
 vector__create(JNIEnv *env, jboolean *hasException);
 
 void
-vector__add(JNIEnv *env, jobject vector, jobject value,
+vector__add(JNIEnv *env, jobject vector, jobject value, 
             jboolean *hasException);
 
 #ifdef __cplusplus
@@ -40,10 +40,10 @@ vector__add(JNIEnv *env, jobject vector, jobject value,
 
 #endif
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../../tools/dev/svn-dev.el")
- * end:
+ * end: 
  */
 
 

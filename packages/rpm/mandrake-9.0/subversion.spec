@@ -44,7 +44,7 @@ This package contains the common files required by subversion clients and
 servers.
 
 #####################################
-###### Sub-Package Definitions ######
+###### Sub-Package Definitions ###### 
 #####################################
 %package base
 Provides: %{name} = %{version}-%{release}
@@ -122,7 +122,7 @@ functions within python scripts. This will also install a number of utility
 scripts, including `cvs2svn', a CVS repository converter for subversion.
 
 ###########################
-########## Files ##########
+########## Files ########## 
 ###########################
 %files base
 %defattr(-,root,root)
@@ -176,7 +176,7 @@ scripts, including `cvs2svn', a CVS repository converter for subversion.
 /etc/httpd/2.0/modules/mod_dav_svn.so
 
 ################################
-######### Build Stages #########
+######### Build Stages ######### 
 ################################
 %prep
 %setup -q
@@ -198,7 +198,7 @@ LDFLAGS="-L$RPM_BUILD_DIR/subversion-%{version}/subversion/libsvn_client/.libs \
 	--with-berkely-db=/usr/BerkeleyDB.4.0 \
 	--with-apr=/usr/bin/apr-config \
 	--with-apr-util=/usr/bin/apu-config
-%patch0 -p1
+%patch0 -p1 
 %patch1 -p1
 %patch2 -p1
 
@@ -208,7 +208,7 @@ cd subversion/bindings/swig/python
 /usr/bin/python2 setup.py build
 
 ################################
-######### Installation #########
+######### Installation ######### 
 ################################
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -225,7 +225,7 @@ make install \
 	fs_bindir=$RPM_BUILD_ROOT/usr/bin \
 	base_libdir=$RPM_BUILD_ROOT/usr/lib \
 	swig_py_libdir=$RPM_BUILD_ROOT/usr/lib
-
+	
 mkdir -p $RPM_BUILD_ROOT/etc/httpd/conf.d
 cp %{SOURCE1} $RPM_BUILD_ROOT/etc/httpd/conf.d
 
@@ -249,7 +249,7 @@ rm -rf $RPM_BUILD_ROOT
 %postun devel -p /sbin/ldconfig
 
 ############################
-######## Change Log ########
+######## Change Log ######## 
 ############################
 %changelog
 * Fri Oct 18 2002 Michael Ballbach <ballbach@rten.net> 0.14.3-3399.1mdk
