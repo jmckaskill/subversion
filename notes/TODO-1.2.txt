@@ -23,7 +23,7 @@ CODING TASKS:
 
         - verify mod_dav_svn build on win32 with httpd-trunk patch.
 
-   - bindings:
+   - bindings:  
 
        (note that bindings changes don't restart the soak period,
         so the 1.2 branch-freeze don't need to block on these things)
