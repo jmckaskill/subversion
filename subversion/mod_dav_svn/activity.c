@@ -99,7 +99,7 @@ dav_error *dav_svn_store_activity(dav_svn_repos *repos,
 }
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:

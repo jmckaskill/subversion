@@ -103,7 +103,7 @@ Thoughts:
 	We could use XS or swig to call C from Perl.  At some point, a
 	Perl zealot may want to add that so he can write a perl
 	subversion client.  I am not that Perl zealot.
-
+	
 	Pipes are nice.  I don't know yet whether the C part needs
 	bidirectional communication with the perl driver.  If it does,
 	we could let the driver take over both stdin and stdout of the
@@ -127,7 +127,7 @@ Question:
 
 	Assuming there's a Perl component, which version of Perl is
 	required?
-
+	
 Thoughts:
 
 	I'll test it with one of the 5.003 series perls, as well as

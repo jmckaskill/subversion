@@ -100,13 +100,13 @@ replace_root (void *edit_baton,
   SVN_ERR (svn_fs_begin_txn (&(eb->txn), eb->fs, eb->base_rev, eb->pool));
   SVN_ERR (svn_fs_txn_name (&(eb->txn_name), eb->txn, eb->pool));
   SVN_ERR (svn_fs_txn_root (&(dirb->root), eb->txn, eb->pool));
-
+  
   /* Finish filling out the root dir baton. */
   dirb->edit_baton = edit_baton;
   dirb->parent = NULL;
   dirb->base_path = svn_string_dup (eb->base_path, eb->pool);
   /* ben todo:  do we really need a dirb->name field? */
-
+ 
   *root_baton = dirb;
   return SVN_NO_ERROR;
 }
@@ -142,10 +142,10 @@ add_directory (svn_string_t *name,
   struct dir_baton *new_dirb
     = apr_pcalloc (pb->edit_baton->pool, sizeof (*new_dirb));
   struct add_repl_args add_args;
-
+  
   add_args.parent = pb;
   add_args.name = name;
-
+  
   SVN_ERR (svn_fs__retry_txn (pb->edit_baton->fs,
                               txn_body_add_directory,
                               &add_args,
@@ -173,7 +173,7 @@ replace_directory (svn_string_t *name,
   struct dir_baton *pb = parent_baton;
   struct dir_baton *dirb = apr_pcalloc (pb->edit_baton->pool, sizeof (*dirb));
   struct add_repl_args repl_args;
-
+  
   repl_args.parent = pb;
   repl_args.name   = name;
 
@@ -244,7 +244,7 @@ apply_textdelta (void *file_baton,
                               &txdelta_args,
                               fb->parent->edit_baton->pool));
 
-
+  
   *handler = window_handler;
   *handler_baton = &txdelta_args;
   return SVN_NO_ERROR;
@@ -293,7 +293,7 @@ txn_body_replace_file (void *rargs, trail_t *trail)
                                     repl_args->parent->node,
                                     repl_args->name->data,
                                     trail));
-
+  
   if (! svn_fs__dag_is_file (repl_args->new_node))
     {
       return svn_error_createf (SVN_ERR_FS_NOT_DIRECTORY,
@@ -362,7 +362,7 @@ txn_body_change_prop (void *void_args, trail_t *trail)
    *
    *   PROPLIST ::= (PROP ...) ;
    *      PROP ::= atom atom ;
-   *
+   * 
    * The proplist returned by svn_fs__dag_get_proplist is guaranteed
    * to be well-formed, so we don't bother to error check as we walk
    * it.
@@ -375,7 +375,7 @@ txn_body_change_prop (void *void_args, trail_t *trail)
           && (memcmp (this->data, name->data, name->len) == 0))
         {
           found_it = 1;
-
+          
           if (value)  /* set a new value */
             {
               skel_t *value_skel = this->next;
@@ -389,7 +389,7 @@ txn_body_change_prop (void *void_args, trail_t *trail)
               else
                 last->next->next = this->next->next;
             }
-
+          
           break;
         }
     }
@@ -544,7 +544,7 @@ svn_fs_get_editor (svn_delta_edit_fns_t **editor,
 
   *edit_baton = eb;
   *editor = e;
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -552,7 +552,7 @@ svn_fs_get_editor (svn_delta_edit_fns_t **editor,
 #endif /* 0 */
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:

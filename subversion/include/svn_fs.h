@@ -122,7 +122,7 @@ svn_error_t *svn_fs_open_berkeley (svn_fs_t *fs, const char *env);
 
    This function calls `DBENV->set_errcall', with HANDLER as the
    `db_errcall_fcn' argument.  */
-svn_error_t *svn_fs_set_berkeley_errcall (svn_fs_t *fs,
+svn_error_t *svn_fs_set_berkeley_errcall (svn_fs_t *fs, 
                                           void (*handler) (const char *errpfx,
                                                            char *msg));
 
@@ -192,7 +192,7 @@ svn_error_t *svn_fs_berkeley_recover (const char *path,
      node_id ::= number | node_revision_id "." number
      node_revision_id ::= node_id "." number
 
-   So:
+   So: 
    - "100" is a node id.
    - "100.10" is a node revision id, referring to revision 10 of node 100.
    - "100.10.3" is a node id, referring to the third branch based on
@@ -263,7 +263,7 @@ int svn_fs_id_length (const svn_fs_id_t *id);
 int svn_fs_id_eq (const svn_fs_id_t *a, const svn_fs_id_t *b);
 
 
-/* Return non-zero iff node revision A is an ancestor of node revision B.
+/* Return non-zero iff node revision A is an ancestor of node revision B.  
    If A == B, then we consider A to be an ancestor of B.  */
 int svn_fs_id_is_ancestor (const svn_fs_id_t *a, const svn_fs_id_t *b);
 
@@ -558,7 +558,7 @@ svn_error_t *svn_fs_node_prop (svn_string_t **value_p,
                                const char *path,
                                svn_string_t *propname,
                                apr_pool_t *pool);
-
+   
 
 /* Set *TABLE_P to the entire property list of PATH in ROOT, as an APR
    hash table allocated in POOL.  The resulting table maps property
@@ -645,7 +645,7 @@ svn_error_t *svn_fs_dir_entries (apr_hash_t **table_p,
 svn_error_t *svn_fs_make_dir (svn_fs_root_t *root,
                               const char *path,
                               apr_pool_t *pool);
-
+                              
 
 /* Delete the node named PATH in ROOT.  ROOT must be the root of a
    transaction, not a revision.  Do any necessary temporary allocation
@@ -871,7 +871,7 @@ typedef svn_error_t *svn_fs_commit_hook_t (svn_revnum_t new_revision,
 
 /* Return an EDITOR and EDIT_BATON to commit changes to FS, beginning
  * at location BASE_REVISION:BASE_PATH.  Store LOG_MSG as the commit
- * message.
+ * message. 
  *
  * FS is assumed to be a previously opened file system.
  *
