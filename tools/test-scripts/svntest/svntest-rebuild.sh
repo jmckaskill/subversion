@@ -12,7 +12,7 @@ BUILD="`$GUESS` $BUILD_TYPE"
 REV="`$SVN st -v $SVN_REPO/README | $CUT -c 12-17 | $SED -e 's/^ *//'`"
 
 # Initialize the log file
-echo "BUILD: Revision $REV on $BUILD" >> $LOG_FILE
+echo "BUILD: $REVPREFIX$REV on $BUILD" >> $LOG_FILE
 echo >> $LOG_FILE
 
 # Check the build type
@@ -71,4 +71,3 @@ test $? = 0 || {
     FAIL
 }
 PASS
-
