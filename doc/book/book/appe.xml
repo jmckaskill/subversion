@@ -1,6 +1,6 @@
   <appendix id="svn-ap-e">
     <title>Other Subversion Clients</title>
-
+    
   <!-- ================================================================= -->
   <!-- ======================== SECTION 1 ============================== -->
   <!-- ================================================================= -->
@@ -67,7 +67,7 @@
               <entry>GPL</entry>
               <entry>http://www.qint.de/svnup.html</entry>
             </row>
-
+      
             <row>
               <entry>jsvn</entry>
               <entry>Java, wrapping the svn command-line client</entry>
@@ -84,7 +84,7 @@
 </appendix>
 
 <!--
-local variables:
+local variables: 
 sgml-parent-document: ("book.xml" "appendix")
 end:
 -->
