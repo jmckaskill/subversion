@@ -130,7 +130,7 @@ store_mapping (hash_table_t *table, const char* key, apr_size_t idx)
    but it's incomplete. Here's a detailed description (see also
    http://subversion.tigris.org/subversion-dev/current/msg00158.html
    in the mailing list archives):
-
+   
      1. Look up the four bytes starting at the current position
         pointer.  If there are no matches for those four bytes,
         output an insert, move the position pointer forward by one,
