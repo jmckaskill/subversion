@@ -1,16 +1,16 @@
 # The purpose of this document is to provide information for people who:
-#
+# 
 #   - want to know if Subversion works on a particular platform
 #   - are interested in porting Subversion to a particular platform
-#
+# 
 # Entries should look something like this:
 #
 #    arch-company-os:
 #       Client:     Build OK, Check OK.
-#       Filesystem: Failed due to something
+#       Filesystem: Failed due to something    
 #       Last Check: 17 Feb 2001, revision 1729
 #       Tester:     J. Random Hacker <jrandom@example.com>
-#       Notes:
+#       Notes: 
 #       -- Still cannot build with --wapcapplet-enabled
 #       -- The dependency on the wanglethorpe is really making things
 #          unreasonably hard here. I'm going to try to link against the
@@ -59,7 +59,7 @@ i386-unknown-freebsd4.4:
      Tester:     Ben Collins-Sussman <sussman@collab.net>
      Notes:
      -- See the freebsd4.5 entry; conjecture that the rev 1302
-        distribution works on 4.4 as well.
+        distribution works on 4.4 as well. 
 
 i386-unknown-freebsd4.3:
      Client:     Build OK, Check OK
@@ -68,7 +68,7 @@ i386-unknown-freebsd4.3:
      Tester:     Ben Collins-Sussman <sussman@collab.net>
      Notes:
      -- See the freebsd4.5 entry; conjecture that the rev 1302
-        distribution works on 4.3 as well.
+        distribution works on 4.3 as well. 
 
 i386-unknown-freebsd4.2:
      Client:     Build OK, Check OK
@@ -77,14 +77,14 @@ i386-unknown-freebsd4.2:
      Tester:     Ben Collins-Sussman <sussman@collab.net>
      Notes:
      -- See the freebsd4.5 entry; conjecture that the rev 1302
-        distribution works on 4.2 as well.
+        distribution works on 4.2 as well. 
 
 i686-pc-cygwin (cygwin 1.3.6 on Win2K):
      Client:     Build OK, Check OK
      Filesystem: Build OK, Check OK (? has been true before, still true?)
      Last Check: 15 February 2002, revision 1302
      Tester:     Ben Collins-Sussman <sussman@collab.net>
-     Notes:
+     Notes:      
      -- "Of course, I had to manually install the latest autoconf and
          libtool, but that was no big deal."
 
@@ -131,7 +131,7 @@ Mac OS X 10.1.5:
      Testers:    Garrett Rooney <rooneg@electricjellyfish.net>,
                  Max Horn <max@quendi.de>,
                  Hamilton Link <helink@sandia.gov>
-     Notes:
+     Notes:      
      -- As of lately, autoconf 2.53, libtool 1.42, automake 1.5 (for aclocal),
         and texinfo 4.0 are needed to complete the entire server build process.
         Suitable versions are not provided with OS X yet. Use fink and see
