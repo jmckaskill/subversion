@@ -31,19 +31,19 @@
   <sect1 id="svn-ch-1-sect-1">
 
     <title>¿Qué es Subversion?</title>
-
-    <para>Subversion es un sistema de control de versiones libre/código
-      fuente abierto.<!--TODO:Subversion is a free/open-source version
+      
+    <para>Subversion es un sistema de control de versiones libre/código 
+      fuente abierto.<!--TODO:Subversion is a free/open-source version 
       control system.--> Esto es, Subversion maneja ficheros y directorios
       a través del tiempo. Hay un árbol de ficheros en un <firstterm>
-      repositorio</firstterm> central. El repositorio es como un servidor
-      de ficheros ordinario, excepto porque recuerda todos los cambios
-      hechos a sus ficheros y directorios. Esto le permite recuperar
-      versiones antiguas de sus datos, o examinar la historia de cómo han
-      cambiado (sus datos). En este aspecto, mucha gente piensa en los
+      repositorio</firstterm> central. El repositorio es como un servidor 
+      de ficheros ordinario, excepto porque recuerda todos los cambios 
+      hechos a sus ficheros y directorios. Esto le permite recuperar 
+      versiones antiguas de sus datos, o examinar la historia de cómo han 
+      cambiado (sus datos). En este aspecto, mucha gente piensa en los 
       sistemas de versiones como en un tipo de <quote>máquina del tiempo
       </quote>.</para>
-
+    
     <para>Subversion puede acceder a su repositorio a través de redes,lo que
       permite ser usado por la gente desde distintos ordenadores.
       <!--TODO: At some level,--> En cierto modo, la capacidad para que
@@ -51,10 +51,10 @@
       datos desde sus respectivas localizaciones fomenta la colaboración.
       Se puede progresar mas rápidamente sin un único conducto por el cual
       deban pasar todas las modificaciones.<!--TODO:without a single
-      conduit through which all modifications must occur.--> <!--TODO:And
+      conduit through which all modifications must occur.--> <!--TODO:And 
       because the work is versioned, you need not fear that quality is the
-      trade-off for losing that conduit&mdash;-->Y como el trabajo está en
-      versiones, no debe temer que la calidad sea la compensación por la
+      trade-off for losing that conduit&mdash;-->Y como el trabajo está en 
+      versiones, no debe temer que la calidad sea la compensación por la 
       pérdida de ese conducto&mdash;si se ha hecho un cambio incorrecto a
       los datos, simplemente deshaga ese cambio.</para>
 
@@ -64,16 +64,16 @@
       específicamente <!--TODO:are specifically tailored to manage trees -->
       para la administración de árboles de código fuente, y tienen muchas
       características que son específicas del desarrollo de software&mdash;
-      tales como <!--TODO:such as natively understanding programming
-      languages,-->el entendimiento nativo de lenguajes de programación, o
+      tales como <!--TODO:such as natively understanding programming 
+      languages,-->el entendimiento nativo de lenguajes de programación, o 
       el suministro de herramientas para la construcción de software. Sin
-      embargo, Subversion no es uno de estos sistemas. Subversion es un
+      embargo, Subversion no es uno de estos sistemas. Subversion es un 
       sistema general que puede ser usado para administrar <emphasis>
-      cualquier</emphasis> <!--TODO:collection of files--> conjunto de
+      cualquier</emphasis> <!--TODO:collection of files--> conjunto de 
       ficheros. Para usted, esos ficheros pueden ser código fuente&mdash;
-      para otros, cualquier cosa desde la lista de la compra de comestibles
+      para otros, cualquier cosa desde la lista de la compra de comestibles 
       hasta las combinaciones de vídeo digital y más allá.<!--TODO:for
-      others, anything from grocery shopping lists to digital video
+      others, anything from grocery shopping lists to digital video 
       mixdowns and beyond. Esta frase me ha matado :p--></para>
 
   </sect1>
@@ -86,21 +86,21 @@
     <title>Historia de Subversion</title>
 
     <para>A principios del 2000, CollabNet, Inc. (<systemitem class="url">
-      http://www.collab.net</systemitem>) comenzó a buscar desarrolladores
+      http://www.collab.net</systemitem>) comenzó a buscar desarrolladores 
       para escribir una alternativa<!--TODO:replacement... o "reemplazo"
-      mejor?--> a CVS. CollabNet ofrece un suite <!--TODO:suite-->de
-      software de colaboración llamado SourceCast, del cuál un componente
+      mejor?--> a CVS. CollabNet ofrece un suite <!--TODO:suite-->de 
+      software de colaboración llamado SourceCast, del cuál un componente 
       es un control de versiones. Aunque SourceCast usaba CVS como su
       sistema de control de versiones inicial, las limitaciones de CVS
-      fueron obvias <!--TODO: obvious..."evidentes" mejor?--> desde el
-      principio, y CollabNet sabía que tendría que encontrar algo mejor.
+      fueron obvias <!--TODO: obvious..."evidentes" mejor?--> desde el 
+      principio, y CollabNet sabía que tendría que encontrar algo mejor. 
       Desafortunadamente, CVS se había convertido en el estándar
       <foreignphrase>de facto</foreignphrase> en el mundo del código
-      abierto <!--TODO: open source... codigo abierto--> porque <emphasis>
+      abierto <!--TODO: open source... codigo abierto--> porque <emphasis> 
       no había </emphasis> <!--TODO:there <emphasis> wasn't</emphasis>
-      anything--> nada mejor, al menos no bajo una licencia libre.
+      anything--> nada mejor, al menos no bajo una licencia libre. 
       Así CollabNet decidió escribir un nuevo sistema de control de
-      versiones <!--TODO: from scratch... "desde el principio" o "desde
+      versiones <!--TODO: from scratch... "desde el principio" o "desde 
       cero"?-->desde cero, <!--TODO: retaining...manteniendo--> manteniendo
       las ideas básicas de CVS, pero sin los <!--TODO: bugs and misfeatures
       --> fallos y faltas de características.
@@ -313,7 +313,7 @@
             time.--></para>
         </listitem>
       </varlistentry>
-
+      
       <varlistentry>
         <term>Hackability</term><!--TODO:Como se traduce esto?-->
         <listitem>
@@ -339,7 +339,7 @@
     <para><xref linkend="svn-ch-1-dia-1"/> ilustra lo que uno puede llamar
       como una vista <quote>desde una milla de alto</quote> <!--TODO:a mile-
       -high view--> del diseño de Subversion.</para>
-
+    
     <figure id="svn-ch-1-dia-1">
       <title>Arquitectura de Subversion</title>
       <graphic fileref="images/ch01dia1.png"/>
@@ -416,7 +416,7 @@
   <sect1 id="svn-ch-1-sect-6">
 
     <title>Componentes de Subversion</title>
-
+    
     <para>Subversion, una vez instalado, tiene un número diferente de piezas.
       Lo que sigue es una descripción rápida de lo que usted consigue. No
       se alarme si las breves descripciones le confunden <!--TODO:scratching
@@ -506,7 +506,7 @@
   <sect1 id="svn-ch-1-sect-7">
 
     <title>Un comienzo rápido</title>
-
+    
     <para>Algunas personas tienen problemas para absorber una nueva
       tecnología leyendo la clase de enfoque "arriba a abajo"
       proporcionado por este libro <!--TODO:reading the sort of "top
@@ -525,7 +525,7 @@
       -merge--> usado por ambos <!--TODO:used by both CVS and
       Subversion--> CVS y Subversion, entonces debería leer
       <xref linkend="svn-ch-2"/> antes de ir más lejos.</para>
-
+      
     <note>
       <para>El siguiente ejemplo asume que usted tiene listo
         <command>svn</command>,el cliente de linea de comandos de
@@ -595,7 +595,7 @@ Adding         /tmp/project/trunk/bar.c
 Adding         /tmp/project/trunk/Makefile
 &hellip;
 Committed revision 1.
-$
+$ 
 </screen>
 
     <para>Ahora el repositorio contiene este árbol de datos. Observe
@@ -655,7 +655,7 @@ Checked out revision 1.
 </chapter>
 
 <!--
-local variables:
+local variables: 
 sgml-parent-document: ("book.xml" "chapter")
 end:
 -->
