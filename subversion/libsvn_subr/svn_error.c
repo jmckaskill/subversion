@@ -74,7 +74,7 @@ make_error_internal (apr_status_t apr_err,
   new_error->apr_err = apr_err;
   new_error->src_err = src_err;
   new_error->child   = child;
-  new_error->pool    = newpool;
+  new_error->pool    = newpool;  
 
   return new_error;
 }
@@ -100,9 +100,9 @@ svn_error__make_error_pool (apr_pool_t *parent, apr_pool_t **error_pool)
      than the parent itself, so that we can clear the error pool. */
   apr_pool_create_ex (error_pool, parent, abort_on_pool_failure,
                       APR_POOL_FDEFAULT);
-
+  
   /* Set the error pool on itself. */
-  apr_err = apr_pool_userdata_set (*error_pool, SVN_ERROR_POOL,
+  apr_err = apr_pool_userdata_set (*error_pool, SVN_ERROR_POOL, 
                                    apr_pool_cleanup_null, *error_pool);
 
   return apr_err;
@@ -110,7 +110,7 @@ svn_error__make_error_pool (apr_pool_t *parent, apr_pool_t **error_pool)
 
 
 /* Get POOL's error pool into *ERROR_POOL.
- *
+ * 
  * If ROOTED_HERE is not null, then
  *   - If the error pool is a direct subpool of POOL, set *ROOTED_HERE to 1
  *   - Else set *ROOTED_HERE to 0
@@ -267,10 +267,10 @@ svn_pool_create_debug (apr_pool_t *parent_pool,
 
 #ifdef SVN_POOL_DEBUG
   {
-    fprintf (stderr,
+    fprintf (stderr, 
              "PDEBUG: + "
              "                     " /* 10/10 here */
-             " 0x%08X (%s:%d) parent=0x%08X\n",
+             " 0x%08X (%s:%d) parent=0x%08X\n", 
              (unsigned int)ret_pool, file, line, (unsigned int)parent_pool);
   }
 #endif /* SVN_POOL_DEBUG */
@@ -280,10 +280,10 @@ svn_pool_create_debug (apr_pool_t *parent_pool,
 
 
 #ifndef SVN_POOL_DEBUG
-void
+void 
 svn_pool_clear (apr_pool_t *p)
 #else /* SVN_POOL_DEBUG */
-void
+void 
 svn_pool_clear_debug (apr_pool_t *p,
                       const char *file,
                       int line)
@@ -291,14 +291,14 @@ svn_pool_clear_debug (apr_pool_t *p,
 {
   apr_pool_t *error_pool;
   svn_boolean_t subpool_of_p_p;  /* That's "predicate" to you, bud. */
-
+    
 #ifdef SVN_POOL_DEBUG
   {
     apr_size_t num_bytes = apr_pool_num_bytes (p, 1);
-    apr_size_t global_num_bytes =
+    apr_size_t global_num_bytes = 
       apr_pool_num_bytes (find_oldest_pool_ancestor (p), 1);
-
-    fprintf (stderr, "PDEBUG: 0 %10lu %10lu 0x%08X (%s:%d)\n",
+    
+    fprintf (stderr, "PDEBUG: 0 %10lu %10lu 0x%08X (%s:%d)\n", 
              (unsigned long)num_bytes, (unsigned long)global_num_bytes,
              (unsigned int)p, file, line);
   }
@@ -346,10 +346,10 @@ svn_pool_destroy_debug (apr_pool_t *p,
 #ifdef SVN_POOL_DEBUG
   {
     apr_size_t num_bytes = apr_pool_num_bytes (p, 1);
-    apr_size_t global_num_bytes =
+    apr_size_t global_num_bytes = 
       apr_pool_num_bytes (find_oldest_pool_ancestor (p), 1);
-
-    fprintf (stderr, "PDEBUG: - %10lu %10lu 0x%08X (%s:%d)\n",
+    
+    fprintf (stderr, "PDEBUG: - %10lu %10lu 0x%08X (%s:%d)\n", 
              (unsigned long)num_bytes, (unsigned long)global_num_bytes,
              (unsigned int)p, file, line);
   }
@@ -372,7 +372,7 @@ svn_error_create (apr_status_t apr_err,
   svn_error_t *err;
 
   err = make_error_internal (apr_err, src_err, child, pool);
-
+  
   err->message = (const char *) apr_pstrdup (err->pool, message);
 
   return err;
@@ -438,7 +438,7 @@ svn_handle_error (svn_error_t *err, FILE *stream, svn_boolean_t fatal)
   /* Note: we can also log errors here someday. */
 
   /* Is this a Subversion-specific error code? */
-  if ((err->apr_err > APR_OS_START_USEERR)
+  if ((err->apr_err > APR_OS_START_USEERR) 
       && (err->apr_err <= APR_OS_START_CANONERR))
     fprintf (stream, "\nsvn_error: #%d : <%s>\n", err->apr_err,
              svn_strerror (err->apr_err, buf, sizeof (buf)));
@@ -465,7 +465,7 @@ svn_handle_error (svn_error_t *err, FILE *stream, svn_boolean_t fatal)
 
 
 
-void
+void 
 svn_handle_warning (void *data, const char *fmt, ...)
 {
   va_list ap;
@@ -509,8 +509,8 @@ svn_strerror (apr_status_t statcode, char *buf, apr_size_t bufsize)
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
- * end:
+ * end: 
  */

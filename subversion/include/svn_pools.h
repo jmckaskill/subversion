@@ -45,8 +45,8 @@ extern "C" {
  * Output looks like one of these three:
  *
  *    PDEBUG: +                       0xHHHHHHHH (FILE:LINE) parent=0xPPPPPPPP
- *    PDEBUG: 0 SSSSSSSSSS TTTTTTTTTT 0xHHHHHHHH (FILE:LINE)
- *    PDEBUG: - SSSSSSSSSS TTTTTTTTTT 0xHHHHHHHH (FILE:LINE)
+ *    PDEBUG: 0 SSSSSSSSSS TTTTTTTTTT 0xHHHHHHHH (FILE:LINE) 
+ *    PDEBUG: - SSSSSSSSSS TTTTTTTTTT 0xHHHHHHHH (FILE:LINE) 
  *
  * where:
  *
@@ -60,7 +60,7 @@ extern "C" {
  *    FILE and LINE are the source code path/line number
  */
 /*
-#define SVN_POOL_DEBUG
+#define SVN_POOL_DEBUG 
 */
 
 
@@ -161,7 +161,7 @@ void svn_pool_clear_debug (apr_pool_t *p,
 
 #ifndef SVN_POOL_DEBUG
 
-/* Destroy a POOL and all of its children.
+/* Destroy a POOL and all of its children. 
  *
  * This wrapper to apr_pool_destroy exists for symmatry (the
  * not-so-grand reason) and for the existence of a great memory usage
