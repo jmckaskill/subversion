@@ -23,7 +23,7 @@ INCLUDES = -I../include -I../../apr/include
 
 
 ## Put `tests' after `.' when we have a tests directory.
-SUBDIRS = .
+SUBDIRS = . 
 
 
 ## Make libtool be quiet
