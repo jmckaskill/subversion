@@ -12,7 +12,7 @@
 #include <svn_io.h>
 #include "Pool.h"
 
-class Inputer
+class Inputer  
 {
 	jobject m_jthis;
 	static svn_error_t *read(void *baton, char *buffer, apr_size_t *len);
