@@ -1,7 +1,7 @@
 @node Repository Administration
 @chapter Repository Administration
 
-How to administer a Subversion repository.
+How to administer a Subversion repository.  
 
 In this section, we'll mainly focus on how to use the
 @command{svnadmin} and @command{svnlook} programs to work with repositories.
@@ -157,9 +157,9 @@ Or, if you only want to see certain types of information,
 $ svnlook repos rev 522 log
 $ svnlook repos rev 559 diff
 @end example
-
+   
 Available subcommands are:
-
+   
 @table @samp
 @item @samp{log}
 Print the tree's log message.
@@ -185,7 +185,7 @@ an imaginary mounted filesystem.  The basic commands @samp{cd},
 as the very special command @samp{cr} -- ``change revision.''  The last
 command allows you to move @emph{between} revision trees.
 
-@example
+@example 
 $ svnadmin shell repos
 <609: />$
 <609: />$ ls
@@ -334,7 +334,7 @@ more common procedures that repository administrators might need.
 First, remember that Berkeley DB has genuine transactions.  Every
 attempt to change the DB is first logged.  If anything ever goes
 wrong, the DB can back itself up to a previous `checkpoint' and
-replay transactions to get the data back into a sane state.
+replay transactions to get the data back into a sane state.  
 
 In our experience, we have seen situations where a bug in Subversion
 (which causes a crash) can sometimes have a side-effect of leaving the
@@ -365,7 +365,7 @@ db_recover: Maximum transaction id 80000000 Recovery checkpoint [40][4080333]
 @end example
 Make sure that the @command{db_recover} program you invoke is the one
 distributed with the same version of Berkeley DB you're using in your
-Subversion server.
+Subversion server.  
 @item
 Restart the Subversion server.
 @end enumerate
@@ -425,7 +425,7 @@ doing; be sure to read
 @uref{http://www.sleepycat.com/docs/ref/lock/max.html} first.
 
 
-@subsection Tweaking with svnadmin
+@subsection Tweaking with svnadmin 
 
 The @command{svnadmin} tool has some subcommands that are specifically
 useful to repository administrators.  Be careful with
@@ -558,8 +558,8 @@ supplied in Apache's @file{bin} directory:
 
 @example
 $ /usr/local/apache2/bin/htpasswd -n sussman
-New password:
-Re-type new password:
+New password: 
+Re-type new password: 
 sussman:kUqncD/TBbdC6
 @end example
 
@@ -620,7 +620,7 @@ hostname.  Edit your @file{httpd.conf} to include:
 
 @example
 ServerName svn.myserver.org
-@end example
+@end example 
 
 If you are using virtual hosting through Apache's @samp{NameVirtualHost}
 directive, you may need to use the @samp{ServerAlias} directive to specify
@@ -754,7 +754,7 @@ revision 2000:
 @itemize @bullet
 @item
 open the @file{dumpfile2} in an editor
-@item
+@item 
 do @emph{not} remove the @code{SVN-fs-dump-format-version} header line
 at the beginning of the file
 @item
