@@ -3,32 +3,32 @@
  *
  * ================================================================
  * Copyright (c) 2000 CollabNet.  All rights reserved.
- *
+ * 
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
  * met:
- *
+ * 
  * 1. Redistributions of source code must retain the above copyright
  * notice, this list of conditions and the following disclaimer.
- *
+ * 
  * 2. Redistributions in binary form must reproduce the above copyright
  * notice, this list of conditions and the following disclaimer in the
  * documentation and/or other materials provided with the distribution.
- *
+ * 
  * 3. The end-user documentation included with the redistribution, if
  * any, must include the following acknowlegement: "This product includes
  * software developed by CollabNet (http://www.Collab.Net)."
  * Alternately, this acknowlegement may appear in the software itself, if
  * and wherever such third-party acknowlegements normally appear.
- *
+ * 
  * 4. The hosted project names must not be used to endorse or promote
  * products derived from this software without prior written
  * permission. For written permission, please contact info@collab.net.
- *
+ * 
  * 5. Products derived from this software may not use the "Tigris" name
  * nor may "Tigris" appear in their names without prior written
  * permission of CollabNet.
- *
+ * 
  * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
  * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -42,7 +42,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ====================================================================
- *
+ * 
  * This software consists of voluntary contributions made by many
  * individuals on behalf of CollabNet.
  *
@@ -213,7 +213,7 @@ static int
 validate_element (hip_xml_elmid parent, hip_xml_elmid child)
 {
   /*  printf("validate_element: #%d as child of #%d\n", child, parent); */
-
+  
   switch (parent)
     {
     case DAV_ELM_prop:
@@ -225,19 +225,19 @@ validate_element (hip_xml_elmid parent, hip_xml_elmid child)
           default:
             return HIP_XML_DECLINE;
           }
-
+        
     case ELEM_target:
       if (child == DAV_ELM_href)
         return HIP_XML_VALID;
       else
         return HIP_XML_DECLINE; /* not concerned with other types */
-
+      
     case ELEM_resourcetype:
       if (child == ELEM_collection)
         return HIP_XML_VALID;
       else
         return HIP_XML_INVALID;
-
+      
     default:
       return HIP_XML_DECLINE;
     }
@@ -586,7 +586,7 @@ update_rep_file (svn_string_t *name,
 }
 
 static svn_error_t *
-update_apply_txdelta (void *file_baton,
+update_apply_txdelta (void *file_baton, 
                       svn_txdelta_window_handler_t **handler,
                       void **handler_baton)
 {
@@ -641,7 +641,7 @@ svn_ra_get_update_editor(const svn_delta_edit_fns_t **editor,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
