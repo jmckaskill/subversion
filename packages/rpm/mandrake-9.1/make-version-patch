@@ -1,25 +1,25 @@
 #!/bin/bash
 Header()
 {
-  echo diff -rbuN subversion-0.29.0/subversion/include/svn_version.h subversion-0.29.0-patch/subversion/include/svn_version.h
-  echo --- subversion-0.29.0/subversion/include/svn_version.h	2003-09-17 19:36:40.000000000 -0400
-  echo +++ subversion-0.29.0-patch/subversion/include/svn_version.h	2003-09-17 21:11:58.000000000 -0400
+  echo diff -rbuN subversion-0.29.0/subversion/include/svn_version.h subversion-0.29.0-patch/subversion/include/svn_version.h 
+  echo --- subversion-0.29.0/subversion/include/svn_version.h	2003-09-17 19:36:40.000000000 -0400 
+  echo +++ subversion-0.29.0-patch/subversion/include/svn_version.h	2003-09-17 21:11:58.000000000 -0400 
 }
 Patch()
 {
   LINE=`echo $1 | cut -f1 -d:`
   head -$(( $LINE + 3 )) $2 | tail -7 > raw.patch
   head -4 raw.patch | tail -1 > line.patch
-  echo "@@ -$LINE,7 +$LINE,$3 @@"
+  echo "@@ -$LINE,7 +$LINE,$3 @@" 
   head -3 raw.patch | awk '{print " "$0;}'
   echo -n -
   cat line.patch
   echo -n +
   # Only used in one instance
   if [[ "$6" == "" ]] ; then
-    sed "s/$4/$5/g" line.patch | sed 's/$/ \\/g'
+    sed "s/$4/$5/g" line.patch | sed 's/$/ \\/g' 
   else
-    sed "s/$4/$5/g" line.patch
+    sed "s/$4/$5/g" line.patch 
   fi
   tail -3 raw.patch | awk '{print " "$0;}'
   rm -f raw.patch
@@ -53,7 +53,7 @@ VerPatch()
     Patch "$RAW" "$4" 7 "$OLD" "$NEW" 1
     PRE=1
   fi
-  if [ "$TEXT_VERSION" != "" ] ; then
+  if [ "$TEXT_VERSION" != "" ] ; then 
     TEXT_VERSION="$TEXT_VERSION-$NEW"
   else
     TEXT_VERSION=$NEW
@@ -73,5 +73,5 @@ RAW=`grep -n '"dev build"' "$SVN_VERSION" | grep SVN_VER_TAG `
 Patch "$RAW" "$SVN_VERSION" $LINES "$FIND" "$PRE$REPLACE" "$5"
 if [ "$5" == "" ] ; then
     echo "+\"\\nMandrake RPM\\n\" \\"
-    sh full-machine-name
+    sh full-machine-name 
 fi
