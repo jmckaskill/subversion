@@ -41,7 +41,7 @@ class SVNShell(Cmd):
     self.path = "/"
     self._setup_prompt()
     self.cmdloop()
-
+    
   def postcmd(self, stop, line):
     self._setup_prompt()
 
@@ -53,7 +53,7 @@ class SVNShell(Cmd):
 
   def default(self, line):
     print self._errors[randint(0, len(self._errors) - 1)]
-
+    
   def do_cat(self, arg):
     """dump the contents of a file"""
     if not len(arg):
@@ -72,11 +72,11 @@ class SVNShell(Cmd):
     filelen = fs.file_length(self.root, catpath, self.taskpool)
     stream = fs.file_contents(self.root, catpath, self.taskpool)
     print core.svn_stream_read(stream, filelen)
-
+    
   def do_cd(self, arg):
     """change directory"""
     newpath = self._parse_path(arg)
-
+    
     # make sure that path actually exists in the filesystem as a directory
     kind = fs.check_path(self.root, newpath, self.taskpool)
     if kind != core.svn_node_dir:
@@ -111,7 +111,7 @@ class SVNShell(Cmd):
       else:
         print "Path '%s' not found." % newpath
         return
-
+      
     keys = entries.keys()
     keys.sort()
 
@@ -139,11 +139,11 @@ class SVNShell(Cmd):
         date = ""
       else:
         date = self._format_date(date, self.taskpool)
-
+     
       print "%6s %8s <%10s> %8s %12s %s" % (created_rev, author[:8],
                                             node_id, size, date, name)
     core.svn_pool_clear(self.taskpool)
-
+  
   def do_lstxns(self, arg):
     """list the transactions available for browsing"""
     txns = fs.list_transactions(self.fs_ptr, self.taskpool)
@@ -157,7 +157,7 @@ class SVNShell(Cmd):
         counter = 0
     print ""
     core.svn_pool_clear(self.taskpool)
-
+    
   def do_pcat(self, arg):
     """list the properties of a path"""
     catpath = self.path
@@ -176,7 +176,7 @@ class SVNShell(Cmd):
       print 'P ' + str(len(pval))
       print pval
     print 'PROPS-END'
-
+    
   def do_setrev(self, arg):
     """set the current revision to view"""
     try:
@@ -204,7 +204,7 @@ class SVNShell(Cmd):
     self.txn = arg
     self.is_rev = 0
     self._do_path_landing()
-
+  
   def do_youngest(self, arg):
     """list the youngest revision available for browsing"""
     rev = fs.youngest_rev(self.fs_ptr, self.taskpool)
@@ -213,7 +213,7 @@ class SVNShell(Cmd):
 
   def do_EOF(self, arg):
     self.do_exit(arg)
-
+    
   def do_exit(self, arg):
     # Make sure a newline is printed and the shell begins on a newline
     # afterwards
@@ -250,12 +250,12 @@ class SVNShell(Cmd):
 
     # finally, return the calculated path
     return self._parts_to_path(finalparts)
-
+    
   def _format_date(self, date, pool):
     date = core.svn_time_from_cstring(date, pool)
     date = time.asctime(time.localtime(date / 1000000))
     return date[4:-8]
-
+  
   def _do_path_landing(self):
     """try to land on self.path as a directory in root, failing up to '/'"""
     not_found = 1
@@ -278,7 +278,7 @@ class SVNShell(Cmd):
     else:
       self.prompt = "<txn: " + self.txn
     self.prompt += " " + self.path + ">$ "
-
+    
 
 def _basename(path):
   "Return the basename for a '/'-separated path."
