@@ -14,7 +14,7 @@
 rather than an unpacked distribution.)
 
 (Also, if you are trying to set up a subversion server, also look at
-notes/dav_setup.txt for instructions on compiling and installing
+notes/dav_setup.txt for instructions on compiling and installing 
 Apache 2.0 and mod_dav_svn).
 
 Subversion installs using the usual GNU procedure:
@@ -46,7 +46,7 @@ PREREQUISITES:
 
 1. Berkeley DB 3.3.11
 
-   Berkely DB is needed to build a Subversion server.  If you are only
+   Berkely DB is needed to build a Subversion server.  If you are only 
    interested in building a Subversion client, you don't need it.  If
    you wish to build a server, read the rest of this section.
 
