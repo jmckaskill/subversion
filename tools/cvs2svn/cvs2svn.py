@@ -416,7 +416,7 @@ class RepositoryMirror:
       parent = this_entry_val
       previous_component = component
       i = i + 1
-
+  
     if debugging:
       for n in range(i): print "  ",
       print "parent_key: %s, val:" % parent_key, parent
@@ -692,7 +692,7 @@ class Dumper:
     #
     # The CVS repository doesn't have a UUID, and the Subversion
     # repository will be created with one anyway.  So when we load
-    # the dumpfile, we'll tell svnadmin to ignore the UUID below.
+    # the dumpfile, we'll tell svnadmin to ignore the UUID below. 
     self.dumpfile.write('SVN-fs-dump-format-version: 2\n'
                         '\n'
                         'UUID: ????????-????-????-????-????????????\n'
@@ -705,11 +705,11 @@ class Dumper:
     self.revision = self.revision + 1
 
     # A revision typically looks like this:
-    #
+    # 
     #   Revision-number: 1
     #   Prop-content-length: 129
     #   Content-length: 129
-    #
+    #   
     #   K 7
     #   svn:log
     #   V 27
@@ -733,7 +733,7 @@ class Dumper:
     # everything.  That's the generic header form for any entity in a
     # dumpfile.  But since revisions only have props, the two lengths
     # are always the same for revisions.
-
+    
     # Calculate the total length of the props section.
     total_len = 10  # len('PROPS-END\n')
     for propname in props.keys():
@@ -743,7 +743,7 @@ class Dumper:
       vlen_len = len('V %d' % vlen)
       # + 4 for the four newlines within a given property's section
       total_len = total_len + klen + klen_len + vlen + vlen_len + 4
-
+        
     # Print the revision header and props
     self.dumpfile.write('Revision-number: %d\n'
                         'Prop-content-length: %d\n'
@@ -752,9 +752,9 @@ class Dumper:
                         % (self.revision, total_len, total_len))
 
     for propname in props.keys():
-      self.dumpfile.write('K %d\n'
-                          '%s\n'
-                          'V %d\n'
+      self.dumpfile.write('K %d\n' 
+                          '%s\n' 
+                          'V %d\n' 
                           '%s\n' % (len(propname),
                                     propname,
                                     len(props[propname]),
@@ -767,7 +767,7 @@ class Dumper:
     return self.revision
 
   def add_dir(self, path):
-    self.dumpfile.write("Node-path: %s\n"
+    self.dumpfile.write("Node-path: %s\n" 
                         "Node-kind: dir\n"
                         "Node-action: add\n"
                         "Prop-content-length: 10\n"
@@ -940,42 +940,42 @@ class SymbolicNameTracker:
   directories go one step farther: they record counts for the various
   revisions from which items under them could have been copied, and
   counts for the cutoff revisions.  For example:
-
-                               .----------.
-                               |  sub1    | [(2, 1), (3, 3)]
-                               |  /       | [(5, 1), (17, 2), (50, 1)]
-                               | /        |
-                               |/ sub2    |
-                               /    \     |
-                              /|_____\____|
-                             /        \
-                      ______/          \_________
-                     /                           \
-                    /                             \
-                   /                               \
-              .---------.                     .---------.
-              |  file1  |                     |  file3  |
-              |   /     | [(3, 2)]            |     \   | [(2, 1), (3, 1)]
+                                                                      
+                               .----------.                           
+                               |  sub1    | [(2, 1), (3, 3)]          
+                               |  /       | [(5, 1), (17, 2), (50, 1)]         
+                               | /        |                                    
+                               |/ sub2    |                           
+                               /    \     |                           
+                              /|_____\____|                           
+                             /        \                               
+                      ______/          \_________                     
+                     /                           \                    
+                    /                             \                   
+                   /                               \                  
+              .---------.                     .---------.             
+              |  file1  |                     |  file3  |             
+              |   /     | [(3, 2)]            |     \   | [(2, 1), (3, 1)] 
               |  /      | [(17, 1), (50, 1)]  |      \  | [(5, 1), (10, 1)]
-              | /       |                     |       \ |
-              |/ file2  |                     |  file4 \|
-              /    \    |                     |    /    \
-             /|_____\___|                     |___/_____|\
-            /        \                           /        \
-           /          \                         /          \
-          /            \                       /            \
-         /              +                     /              +
-    +======+            |                 +======+           |
-    |      | [(3, 1)]   |                 |      | [(2, 1)]  |
-    |      | [(17, 1)]  |                 |      | [(5, 1)]  |
-    |      |            |                 |      |           |
-    +======+            |                 +======+           |
-                    +======+                             +======+
+              | /       |                     |       \ |                  
+              |/ file2  |                     |  file4 \|                  
+              /    \    |                     |    /    \                 
+             /|_____\___|                     |___/_____|\                
+            /        \                           /        \               
+           /          \                         /          \              
+          /            \                       /            \             
+         /              +                     /              +            
+    +======+            |                 +======+           |            
+    |      | [(3, 1)]   |                 |      | [(2, 1)]  |            
+    |      | [(17, 1)]  |                 |      | [(5, 1)]  |            
+    |      |            |                 |      |           |            
+    +======+            |                 +======+           |            
+                    +======+                             +======+         
                     |      | [(3, 1)]                    |      | [(3, 1)]
                     |      | [(50, 1)]                   |      | [(17, 1)]
                     |      |                             |      |
                     +======+                             +======+
-
+  
   The two lists to the right of each node represent the 'opening' and
   'closing' revisions respectively.  Each tuple in a list is of the
   form (REV, COUNT).  For leaf nodes, COUNT is always 1, of course.
@@ -1012,7 +1012,7 @@ class SymbolicNameTracker:
       components = [symbolic_name] + string.split(path, '/')
     else:
       components = [symbolic_name]
-
+    
     if debugging: print "PROBING SYMBOLIC NAME:\n", components
 
     parent_key = self.root_key
@@ -1035,7 +1035,7 @@ class SymbolicNameTracker:
       parent = this_entry_val
       last_component = component
       i = i + 1
-
+  
     if debugging:
       for n in range(i): print "  ",
       print "parent_key: %s, val:" % parent_key, parent
@@ -1069,7 +1069,7 @@ class SymbolicNameTracker:
     The list is sorted by ascending revision both before and after."""
 
     entry_val = marshal.loads(self.db[item_key])
-
+    
     if not entry_val.has_key(revlist_key):
       entry_val[revlist_key] = [(rev, 1)]
     else:
@@ -1167,8 +1167,8 @@ class SymbolicNameTracker:
     # First look for easy outs.
     if not openings: return []
     if not closings: return openings
-
-    # No easy out, so wish for lexical closures and calculate the scores :-).
+      
+    # No easy out, so wish for lexical closures and calculate the scores :-). 
     scores = []
     opening_score_accum = 0
     for i in range(len(openings)):
@@ -1186,7 +1186,7 @@ class SymbolicNameTracker:
         else:
           min = j + 1
     return scores
-
+  
   def best_rev(self, scores):
     """Return the revision with the highest score from SCORES, a list
     returned by score_revisions()."""
@@ -1208,7 +1208,7 @@ class SymbolicNameTracker:
     if not parent.has_key(branch):
       sys.stderr.write("No origin records for branch '%s'." % branch)
       sys.exit(1)
-
+    
     def copy_descend(dumper, ctx, branch, parent, entry_name,
                      path_so_far, parent_rev):
       key = parent[entry_name]
@@ -1327,7 +1327,7 @@ class Commit:
 
     # get the metadata for this commit
     author, log, date = self.get_metadata()
-    try:
+    try: 
       ### FIXME: The 'replace' behavior should be an option, like
       ### --encoding is.
       unicode_author = unicode(author, ctx.encoding, 'replace')
@@ -1586,7 +1586,7 @@ def pass4(ctx):
     if not trunk_rev.match(rev):
       ### note this could/should have caused a flush, but the next item
       ### will take care of that for us
-      ###
+      ### 
       ### TODO: working here.  Because of this condition, we're not
       ### seeing tags and branches rooted in initial revisions (CVS's
       ### infamous "1.1.1.1").
@@ -1603,7 +1603,7 @@ def pass4(ctx):
 
       # ### ISSUE: the has_file() check below is not optimal.
       # It does fix the dataloss bug where revisions would get lost
-      # if checked in too quickly, but it can also break apart the
+      # if checked in too quickly, but it can also break apart the 
       # commits. The correct fix would require tracking the dependencies
       # between change sets and committing them in proper order.
       if scan_c.t_max + COMMIT_THRESHOLD < timestamp or \
