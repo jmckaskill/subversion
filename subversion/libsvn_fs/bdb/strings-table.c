@@ -60,7 +60,7 @@ svn_fs__bdb_open_strings_table (DB **strings_p,
                svn_fs__str_to_dbt (&value, (char *) "0"),
                SVN_BDB_AUTO_COMMIT));
     }
-
+  
   *strings_p = strings;
   return 0;
 }
@@ -362,7 +362,7 @@ svn_fs__bdb_string_clear (svn_fs_t *fs,
   result.size = 0;
   result.flags |= DB_DBT_USERMEM;
 
-  svn_fs__trail_debug (trail, "strings", "put");
+  svn_fs__trail_debug (trail, "strings", "put"); 
   return BDB_WRAP (fs, "storing empty contents",
                   fs->strings->put (fs->strings, trail->db_txn,
                                     &query, &result, 0));
@@ -446,7 +446,7 @@ svn_fs__bdb_string_copy (svn_fs_t *fs,
   /* Copy off the old key in case the caller is sharing storage
      between the old and new keys. */
   const char *old_key = apr_pstrdup (trail->pool, key);
-
+  
   SVN_ERR (get_key_and_bump (fs, new_key, trail));
 
   svn_fs__trail_debug (trail, "strings", "cursor");
@@ -498,6 +498,6 @@ svn_fs__bdb_string_copy (svn_fs_t *fs,
         }
     }
 
-  return BDB_WRAP (fs, "closing string-reading cursor",
+  return BDB_WRAP (fs, "closing string-reading cursor", 
                   cursor->c_close (cursor));
 }
