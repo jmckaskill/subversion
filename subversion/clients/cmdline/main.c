@@ -44,7 +44,7 @@
 
 /*** Command dispatch. ***/
 
-/* Map names to command routine, etc.
+/* Map names to command routine, etc. 
  *
  * Canonical name entries must come immediately before their aliases.
  * For example, "add" must be the first of the add commands listed,
@@ -56,7 +56,7 @@
  *
  * The entire list must be terminated with a entry of nulls.
  */
-const svn_cl__cmd_desc_t svn_cl__cmd_table[] =
+const svn_cl__cmd_desc_t svn_cl__cmd_table[] = 
 {
   { "add",        FALSE, svn_cl__add,
     "Add new files and directories to version control.\n"
@@ -116,14 +116,14 @@ const svn_cl__cmd_desc_t svn_cl__cmd_table[] =
   { "pget",       TRUE, NULL, NULL },
   { "pg",         TRUE, NULL, NULL },
 
-  { "propset",    FALSE, svn_cl__propset,
+  { "propset",    FALSE, svn_cl__propset, 
     "Set property PROPNAME to PROPVAL on files and directories.\n"
     "usage: propset PROPNAME [PROPVAL | -F/--filedata VALFILE] "
     "[TARGETS]\n"},
   { "pset",       TRUE, NULL, NULL },
   { "ps",         TRUE, NULL, NULL },
 
-  { "propdel",    FALSE, svn_cl__propdel,
+  { "propdel",    FALSE, svn_cl__propdel, 
     "Remove property PROPNAME on files and directories.\n"
     "usage: propdel PROPNAME [TARGETS]\n"},
   { "pdel",       TRUE, NULL, NULL },
@@ -133,7 +133,7 @@ const svn_cl__cmd_desc_t svn_cl__cmd_table[] =
     "usage: status [TARGETS]\n" },
   { "stat",       TRUE, NULL, NULL },
   { "st",         TRUE, NULL, NULL },
-
+ 
   { "diff",       FALSE, svn_cl__diff,
     "Display local file changes as contextual diffs.\n"
     "usage: diff [TARGETS]\n" },
@@ -159,16 +159,16 @@ const svn_cl__cmd_desc_t svn_cl__cmd_table[] =
 
 /* Set OPT_STATE->start_revision and/or OPT_STATE->end_revision
  * according to ARG, where ARG is "N", ":N", or "N:M", like so:
- *
+ * 
  *    - If ARG is "N" or "N:, set OPT_STATE->start_revision to N and
  *      don't touch OPT_STATE->end_revision
- *
+ * 
  *    - If ARG is ":N", set OPT_STATE->end_revision to N and don't
  *      touch OPT_STATE->start_revision
- *
+ * 
  *    - If ARG is "N:M", set OPT_STATE->start_revision to N and
  *      OPT_STATE->end_revision to M.
- *
+ * 
  * If ARG is found to be invalid, return non-zero; else return zero.
  */
 static int
@@ -206,23 +206,23 @@ parse_revision (svn_cl__opt_state_t *opt_state, const char *arg)
     }
   else
     opt_state->start_revision = (svn_revnum_t) atoi (arg);
-
+  
   return SVN_NO_ERROR;
 }
 
 
 /* Set OPT_STATE->start_date and/or OPT_STATE->end_date according to
  * ARG, where ARG is "X", ":X", or "X:Y", like so:
- *
+ * 
  *    - If ARG is "X" or "X:, set OPT_STATE->start_date to X and don't
  *      touch OPT_STATE->end_date
- *
+ * 
  *    - If ARG is ":X", set OPT_STATE->end_date to X and don't touch
  *      OPT_STATE->start_date
- *
+ * 
  *    - If ARG is "X:Y", set OPT_STATE->start_date to X and
  *      OPT_STATE->end_date to Y
- *
+ * 
  * If ARG is found to be invalid, return non-zero; else return zero.
  */
 static int
@@ -245,7 +245,7 @@ parse_date (svn_cl__opt_state_t *opt_state, const char *arg, apr_pool_t *pool)
          colons.  Eventually, maybe we should allow them and use some
          other separator character for expressing ranges.  But for
          now, I'm just going to bail if see a non-separator colon, to
-         get this up and running.  -kff */
+         get this up and running.  -kff */  
       if (strchr (sep + 1, ':'))
         return 1;
 
@@ -260,7 +260,7 @@ parse_date (svn_cl__opt_state_t *opt_state, const char *arg, apr_pool_t *pool)
       if (*right_date)
         apr_ansi_time_to_apr_time (&(opt_state->end_date),
                                    svn_parse_date (right_date, NULL));
-
+      
       if (*left_date)
         apr_ansi_time_to_apr_time (&(opt_state->start_date),
                                    svn_parse_date (left_date, NULL));
@@ -291,7 +291,7 @@ main (int argc, const char * const *argv)
 
   static const apr_getopt_option_t options[] =
   {
-    {"destination",   'd', 1},
+    {"destination",   'd', 1}, 
     {"force",         svn_cl__force_opt, 0},
     {"help",          'h', 0},
     {"message",       'm', 1},
@@ -308,7 +308,7 @@ main (int argc, const char * const *argv)
     {"show-updates",  'u', 0},
     /* Here begin authentication args, add more as needed: */
     {"username",      svn_cl__auth_username_opt, 1},
-    {"password",      svn_cl__auth_password_opt, 1},
+    {"password",      svn_cl__auth_password_opt, 1},    
     {"extensions",    'x', 1},
     {0,               0, 0}
   };
@@ -462,7 +462,7 @@ main (int argc, const char * const *argv)
       default:
         /* Hmmm. Perhaps this would be a good place to squirrel away
            opts that commands like svn diff might need. Hmmm indeed. */
-        break;
+        break;  
       }
     }
 
@@ -518,8 +518,8 @@ main (int argc, const char * const *argv)
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../svn-dev.el")
- * end:
+ * end: 
  */
