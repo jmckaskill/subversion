@@ -90,7 +90,7 @@ deltify (svn_fs_id_t *target_id,
     }
     else
       target_dkey = NULL;
-
+    
     /* Source property key. */
     source_pkey_skel = SVN_FS__NR_PROP_KEY (source_nr);
     if (source_pkey_skel->len != 0) {
@@ -117,7 +117,7 @@ deltify (svn_fs_id_t *target_id,
     SVN_ERR (svn_fs__rep_deltify (fs, target_pkey, source_pkey, trail));
 
   if ((target_dkey && source_dkey) && (! props_only)
-      && (strcmp (target_dkey, source_dkey)))
+      && (strcmp (target_dkey, source_dkey)))     
    SVN_ERR (svn_fs__rep_deltify (fs, target_dkey, source_dkey, trail));
 
   return SVN_NO_ERROR;
@@ -194,12 +194,12 @@ deltify_by_id (svn_fs_t *fs,
       /* If that doesn't exist, we'll branch TARGET_ID, and see if
          that exists. */
       tmp_id = apr_palloc (trail->pool, sizeof (*tmp_id));
-      tmp_id->digits = apr_pmemdup (trail->pool, target_id->digits,
+      tmp_id->digits = apr_pmemdup (trail->pool, target_id->digits, 
                                     (len + 3) * sizeof (target_id->digits[0]));
       tmp_id->digits[len] = 1;
       tmp_id->digits[len + 1] = 1;
       tmp_id->digits[len + 2] = -1;
-
+      
       if (SVN_NO_ERROR == svn_fs__dag_get_node (&node, fs, tmp_id, trail))
         source_id = tmp_id;
     }
@@ -248,11 +248,11 @@ deltify_undeltify (svn_fs_t *fs,
           void *val;
           apr_ssize_t klen;
           svn_fs_dirent_t *entry;
-
+          
           /* KEY will be the entry name in source, VAL the dirent */
           apr_hash_this (hi, &key, &klen, &val);
           entry = val;
-
+          
           /* Construct the full path of this entry, and recurse. */
           svn_stringbuf_set (full_path, path);
           svn_path_add_component_nts (full_path, entry->name);
@@ -403,7 +403,7 @@ svn_fs__stable_node (svn_fs_t *fs,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end:
