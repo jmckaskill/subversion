@@ -30,7 +30,7 @@ extern "C" {
 
 #define SVN_NO_ERROR   0   /* the best kind of (svn_error_t *) ! */
 
-/*
+/* 
    Define custom Subversion error numbers, in the range reserved for
    that in APR: from APR_OS_START_USEERR to APR_OS_START_SYSERR (see
    apr_errno.h).
@@ -318,7 +318,7 @@ svn_error_t *svn_error_createf (apr_status_t apr_err,
                                 int src_err,
                                 svn_error_t *child,
                                 apr_pool_t *pool,
-                                const char *fmt,
+                                const char *fmt, 
                                 ...)
 #ifdef __GNUC__
     __attribute__ ((format (printf, 5, 6)))
