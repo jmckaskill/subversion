@@ -26,15 +26,15 @@
 
 /*** Code ***/
 jobject
-status__create(JNIEnv *env, svn_wc_status_t *status,
+status__create(JNIEnv *env, svn_wc_status_t *status, 
                jboolean *hasException);
 
 #endif
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../svn-dev.el")
- * end:
+ * end: 
  */
 
 
