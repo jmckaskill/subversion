@@ -49,10 +49,10 @@ else { fprintf(stderr, "'%s';", (char*)str); } \
 
 #endif
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../svn-dev.el")
- * end:
+ * end: 
  */
 
 
