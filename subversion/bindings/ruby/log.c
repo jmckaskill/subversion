@@ -67,7 +67,7 @@ svn_ruby_log_receiver (void *baton,
     }
   else
     paths = Qnil;
-
+    
   args[2] = paths;
 
   rb_protect (svn_ruby_protect_call5, (VALUE) args, &error);
@@ -105,7 +105,7 @@ svn_ruby_get_log_args (int argc,
 
   *paths = apr_array_make (pool, RARRAY (aPaths)->len, sizeof (char *));
 
-  /* XXX not sure if we need to strdup these...  might be able to just use
+  /* XXX not sure if we need to strdup these...  might be able to just use 
    * StringValuePtr. */
   for (i = 0; i < RARRAY (aPaths)->len; i++)
     (*((char **) apr_array_push (*paths))) =
