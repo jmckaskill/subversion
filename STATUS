@@ -77,7 +77,7 @@ Status of 1.0.3:
     Justification: Perl correctness issue.
     Votes:
        +1: sussman
-       -1: breser (Doesn't error out properly on older versions and
+       -1: breser (Doesn't error out properly on older versions and 
                    needs more discussion).
 
 
