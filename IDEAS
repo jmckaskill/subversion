@@ -14,49 +14,49 @@ Some ideas for the future.
   Subject: A feature request for command line client
   To: dev@subversion.tigris.org
   Date: Tue, 17 Oct 2000 09:46:58 -0700
-
+  
   I know people are beginning to work on the command line client, so I
   hope Im not too late with this request.
-
+  
   Basically I would like svn to behave like ftp (actually more like lftp
   or ncftp).
-
+  
   What this means is that if you type just "svn<return>" you get dropped
   into an interactive svn shell where you can type a litany of commands.
   Preferably this happens without relogging into the server etc.
-
+  
   Example:
-
+  
   cavanaug@lajolla ~ 1%  svn
-
+  
   svn> status foo.c
-
+  
     output of command
-
+  
   svn> commit bar.h
-
+  
     output of command
-
+  
   svn> cd subdir
   svn> status README
-
+  
     output of command
-
+  
   svn> quit
-
+  
   cavanaug@lajolla ~ 2%  svn
-
+  
   Personally I think this is a really convenient way to operate
   interactively on a directory without having to continually re-run the
   svn client.
-
+  
   Plus this is method is a godsend if you want to write scripts that
   automate svn. (ie. Perhaps like the cvs2svn or xxx2svn)
-
-
+  
+  
       John Cavanaugh                          Agilent Technologies
       R&D Program Manager                     1400 Fountaingrove Pkwy
       CAD Data Store                          Santa Rosa, CA 95403-1799
-
+  
       Email: cavanaug@soco.agilent.com    Phone:  707-577-4780
                                                   707-577-3948 (Fax)
