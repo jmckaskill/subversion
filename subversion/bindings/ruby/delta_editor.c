@@ -82,7 +82,7 @@ set_target_revision (void *edit_baton,
   args[0] = self;
   args[1] = (VALUE) "setTargetRevision";
   args[2] = LONG2NUM (target_revision);
-
+  
   rb_protect (svn_ruby_protect_call1, (VALUE) args, &error);
 
   if (error)
@@ -109,7 +109,7 @@ open_root (void *edit_baton,
   args[0] = self;
   args[1] = (VALUE) "openRoot";
   args[2] = LONG2NUM (base_revision);
-
+  
   rb_protect (svn_ruby_protect_call1, (VALUE) args, &error);
 
   if (error)
@@ -135,7 +135,7 @@ delete_entry (svn_stringbuf_t *name,
   args[1] = (VALUE) "deleteEntry";
   args[2] = rb_str_new (name->data, name->len);
   args[3] = LONG2NUM (revision);
-
+  
   rb_protect (svn_ruby_protect_call2, (VALUE) args, &error);
 
   if (error)
@@ -174,7 +174,7 @@ add_directory (svn_stringbuf_t *name,
       args[3] = Qnil;
       args[4] = Qnil;
     }
-
+  
   rb_protect (svn_ruby_protect_call3, (VALUE) args, &error);
 
   if (error)
@@ -203,7 +203,7 @@ open_directory (svn_stringbuf_t *name,
   args[1] = (VALUE) "openDirectory";
   args[2] = rb_str_new (name->data, name->len);
   args[3] = LONG2NUM (base_revision);
-
+  
   rb_protect (svn_ruby_protect_call2, (VALUE) args, &error);
 
   if (error)
@@ -230,7 +230,7 @@ change_dir_prop (void *dir_baton,
   args[1] = (VALUE) "changeDirProp";
   args[2] = rb_str_new (name->data, name->len);
   args[3] = rb_str_new (value->data, value->len);
-
+  
   rb_protect (svn_ruby_protect_call2, (VALUE) args, &error);
 
   if (error)
@@ -292,7 +292,7 @@ add_file (svn_stringbuf_t *name,
       args[3] = Qnil;
       args[4] = Qnil;
     }
-
+  
   rb_protect (svn_ruby_protect_call3, (VALUE) args, &error);
 
   if (error)
@@ -321,7 +321,7 @@ open_file (svn_stringbuf_t *name,
   args[1] = (VALUE) "openFile";
   args[2] = rb_str_new (name->data, name->len);
   args[3] = LONG2NUM (base_revision);
-
+  
   rb_protect (svn_ruby_protect_call2, (VALUE) args, &error);
 
   if (error)
@@ -388,7 +388,7 @@ change_file_prop (void *file_baton,
   args[1] = (VALUE) "changeFileProp";
   args[2] = rb_str_new (name->data, name->len);
   args[3] = rb_str_new (value->data, value->len);
-
+  
   rb_protect (svn_ruby_protect_call2, (VALUE) args, &error);
 
   if (error)
