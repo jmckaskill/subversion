@@ -37,7 +37,7 @@ static svn_error_t *
 dir_deltas (const char **msg,
             svn_boolean_t msg_only,
             apr_pool_t *pool)
-{
+{ 
   svn_fs_t *fs;
   svn_fs_txn_t *txn;
   svn_fs_root_t *txn_root, *revision_root;
@@ -55,7 +55,7 @@ dir_deltas (const char **msg,
     return SVN_NO_ERROR;
 
   /* The Test Plan
-
+     
      The filesystem function svn_repos_dir_delta exists to drive an
      editor in such a way that given a source tree S and a target tree
      T, that editor manipulation will transform S into T, insomuch as
@@ -66,7 +66,7 @@ dir_deltas (const char **msg,
      S is identical to T when it is all said and done.  */
 
   /* Create a filesystem and repository. */
-  SVN_ERR (svn_test__create_fs_and_repos
+  SVN_ERR (svn_test__create_fs_and_repos 
            (&fs, "test-repo-dir-deltas", pool));
   expected_trees[revision_count].num_entries = 0;
   expected_trees[revision_count++].entries = 0;
@@ -109,9 +109,9 @@ dir_deltas (const char **msg,
     };
     expected_trees[revision_count].entries = expected_entries;
     expected_trees[revision_count].num_entries = 20;
-    SVN_ERR (svn_fs_revision_root (&revision_root, fs,
-                                   youngest_rev, pool));
-    SVN_ERR (svn_test__validate_tree
+    SVN_ERR (svn_fs_revision_root (&revision_root, fs, 
+                                   youngest_rev, pool)); 
+    SVN_ERR (svn_test__validate_tree 
              (revision_root, expected_trees[revision_count].entries,
               expected_trees[revision_count].num_entries, pool));
     revision_count++;
@@ -169,13 +169,13 @@ dir_deltas (const char **msg,
     };
     expected_trees[revision_count].entries = expected_entries;
     expected_trees[revision_count].num_entries = 20;
-    SVN_ERR (svn_fs_revision_root (&revision_root, fs,
-                                   youngest_rev, pool));
-    SVN_ERR (svn_test__validate_tree
+    SVN_ERR (svn_fs_revision_root (&revision_root, fs, 
+                                   youngest_rev, pool)); 
+    SVN_ERR (svn_test__validate_tree 
              (revision_root, expected_trees[revision_count].entries,
               expected_trees[revision_count].num_entries, pool));
     revision_count++;
-  }
+  } 
 
   /* Make a new txn based on the youngest revision, make some changes,
      and commit those changes (which makes a new youngest
@@ -224,9 +224,9 @@ dir_deltas (const char **msg,
     };
     expected_trees[revision_count].entries = expected_entries;
     expected_trees[revision_count].num_entries = 21;
-    SVN_ERR (svn_fs_revision_root (&revision_root, fs,
-                                   youngest_rev, pool));
-    SVN_ERR (svn_test__validate_tree
+    SVN_ERR (svn_fs_revision_root (&revision_root, fs, 
+                                   youngest_rev, pool)); 
+    SVN_ERR (svn_test__validate_tree 
              (revision_root, expected_trees[revision_count].entries,
               expected_trees[revision_count].num_entries, pool));
     revision_count++;
@@ -280,9 +280,9 @@ dir_deltas (const char **msg,
     };
     expected_trees[revision_count].entries = expected_entries;
     expected_trees[revision_count].num_entries = 25;
-    SVN_ERR (svn_fs_revision_root (&revision_root, fs,
-                                   youngest_rev, pool));
-    SVN_ERR (svn_test__validate_tree
+    SVN_ERR (svn_fs_revision_root (&revision_root, fs, 
+                                   youngest_rev, pool)); 
+    SVN_ERR (svn_test__validate_tree 
              (revision_root, expected_trees[revision_count].entries,
               expected_trees[revision_count].num_entries, pool));
     revision_count++;
@@ -323,7 +323,7 @@ dir_deltas (const char **msg,
                                          subpool));
 
           /* Here's the kicker...do the directory delta. */
-          SVN_ERR (svn_fs_revision_root (&revision_root, fs, j, subpool));
+          SVN_ERR (svn_fs_revision_root (&revision_root, fs, j, subpool)); 
           SVN_ERR (svn_repos_dir_delta (txn_root,
                                         svn_stringbuf_create ("", subpool),
                                         NULL,
@@ -339,7 +339,7 @@ dir_deltas (const char **msg,
           /* Hopefully at this point our transaction has been modified
              to look exactly like our latest revision.  We'll check
              that. */
-          SVN_ERR (svn_test__validate_tree
+          SVN_ERR (svn_test__validate_tree 
                    (txn_root, expected_trees[j].entries,
                     expected_trees[j].num_entries, pool));
 
@@ -369,7 +369,7 @@ svn_error_t * (*test_funcs[]) (const char **msg,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../svn-dev.el")
  * end:
