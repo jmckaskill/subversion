@@ -44,9 +44,9 @@ vector__create(JNIEnv *env, jboolean *hasException)
 #ifdef SVN_JNI_VECTOR__DEBUG
   fprintf(stderr, ">>>vector__create\n");
 #endif
-
+  
   /* is there enough memory to have twoadditional
-   * local references?
+   * local references? 
    * - class reference
    * - constructor method id
    */
@@ -64,8 +64,8 @@ vector__create(JNIEnv *env, jboolean *hasException)
 
       if( !_hasException )
 	{
-	  vectorConstructor =
-            j__get_method(env, &_hasException,
+	  vectorConstructor = 
+            j__get_method(env, &_hasException, 
                           vectorClass,
                           SVN_JNI_VECTOR__CONSTRUCTOR,
                           SVN_JNI_VECTOR__CONSTRUCTOR_SIG);
@@ -97,7 +97,7 @@ vector__create(JNIEnv *env, jboolean *hasException)
   SVN_JNI__DEBUG_BOOL(_hasException);
   fprintf(stderr, "\n<<<vector__create\n");
 #endif
-
+              
   /* return wether an exception has occured */
   if( (hasException != NULL) && _hasException )
     {
@@ -129,7 +129,7 @@ vector__add(JNIEnv *env, jobject vector, jobject value,
       jclass vectorClass = NULL;
       jmethodID vectorAdd = NULL;
 
-      vectorClass = j__get_class(env, &_hasException,
+      vectorClass = j__get_class(env, &_hasException, 
                                  SVN_JNI_VECTOR__CLASS);
 
       if( !_hasException )
@@ -174,4 +174,4 @@ vector__add(JNIEnv *env, jobject vector, jobject value,
     {
       (*hasException) = JNI_TRUE;
     }
-}
+} 
