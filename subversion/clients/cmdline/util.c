@@ -229,6 +229,14 @@ svn_cl__edit_externally (svn_string_t **edited_contents /* UTF-8! */,
       goto cleanup;
     }
 
+  /* If the caller wants us to leave the file around, return the path
+     of the file we used, and make a note not to destroy it.  */
+  if (tmpfile_left)
+    {
+      *tmpfile_left = svn_path_join (base_dir, tmpfile_name, pool);
+      remove_file = FALSE;
+    }
+
   /* If the file looks changed... */
   if ((finfo_before.mtime != finfo_after.mtime) ||
       (finfo_before.size != finfo_after.size))
@@ -253,14 +261,6 @@ svn_cl__edit_externally (svn_string_t **edited_contents /* UTF-8! */,
     {
       /* No edits seem to have been made */
       *edited_contents = NULL;
-    }
-
-  /* If the caller wants us to leave the file around, return the path
-     of the file we used, and make a note not to destroy it.  */
-  if (tmpfile_left)
-    {
-      *tmpfile_left = svn_path_join (base_dir, tmpfile_name, pool);
-      remove_file = FALSE;
     }
 
  cleanup:
