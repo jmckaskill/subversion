@@ -312,7 +312,7 @@ get_empty_file (struct edit_baton *b,
 }
 
 /* Runs the diff callback to display the difference for a single file. At
- * this stage both versions of the file exist as temporary files.
+ * this stage both versions of the file exist as temporary files. 
  */
 static svn_error_t *
 run_diff_cmd (struct file_baton *b)
@@ -644,7 +644,7 @@ svn_client__get_diff_editor (svn_stringbuf_t *target,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end: */
