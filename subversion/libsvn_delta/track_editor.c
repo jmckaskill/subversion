@@ -21,8 +21,8 @@
    a "committed target"?
 
    Here is the logic used by the commit-editor-driver
-   (svn_wc_crawl_local_mods):
-
+   (svn_wc_crawl_local_mods): 
+   
    Store a path if:
 
       - an entry is marked for addition
@@ -70,7 +70,7 @@ struct dir_baton
   struct edit_baton *edit_baton;
   struct dir_baton *parent_dir_baton;
   svn_stringbuf_t *path;
-
+  
   /* Has this path been stored in the array already? */
   int stored;
 };
@@ -94,7 +94,7 @@ static void
 store_path (svn_stringbuf_t *path, struct edit_baton *eb)
 {
   svn_stringbuf_t **receiver;
-
+  
   receiver = (svn_stringbuf_t **) apr_array_push (eb->array);
   *receiver = path;
 }
@@ -222,8 +222,8 @@ delete_entry (svn_stringbuf_t *name,
   svn_stringbuf_t *path = svn_string_dup (parent_d->path,
                                        parent_d->edit_baton->pool);
   svn_path_add_component (path, name, svn_path_local_style);
-
-  store_path (path, parent_d->edit_baton);
+  
+  store_path (path, parent_d->edit_baton);  
 
   return SVN_NO_ERROR;
 }
@@ -238,10 +238,10 @@ change_dir_prop (void *dir_baton,
 
   if (! db->stored)
     {
-      store_path (db->path, db->edit_baton);
+      store_path (db->path, db->edit_baton);  
       db->stored = TRUE;
     }
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -255,10 +255,10 @@ change_file_prop (void *file_baton,
 
   if (! fb->stored)
     {
-      store_path (fb->path, fb->parent_dir_baton->edit_baton);
+      store_path (fb->path, fb->parent_dir_baton->edit_baton);  
       fb->stored = TRUE;
     }
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -272,18 +272,18 @@ window_handler (svn_txdelta_window_t *window, void *handler_pair)
 
 
 static svn_error_t *
-apply_textdelta (void *file_baton,
+apply_textdelta (void *file_baton, 
                  svn_txdelta_window_handler_t *handler,
                  void **handler_baton)
 {
   struct file_baton *fb = file_baton;
-
+  
   if (! fb->stored)
     {
-      store_path (fb->path, fb->parent_dir_baton->edit_baton);
+      store_path (fb->path, fb->parent_dir_baton->edit_baton);  
       fb->stored = TRUE;
     }
-
+  
   *handler = window_handler;
   *handler_baton = NULL;
 
@@ -305,7 +305,7 @@ close_edit (void *edit_baton)
         target = (((svn_stringbuf_t **)(eb->array)->elts)[i]);
         SVN_ERR (eb->bump_func (eb->bump_baton, target, eb->new_rev));
       }
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -319,7 +319,7 @@ svn_delta_get_commit_track_editor (svn_delta_edit_fns_t **editor,
                                    apr_pool_t *pool,
                                    apr_array_header_t *array,
                                    svn_revnum_t new_rev,
-                                   svn_error_t *(*bump_func)
+                                   svn_error_t *(*bump_func) 
                                      (void *baton,
                                       svn_stringbuf_t *path,
                                       svn_revnum_t new_rev),
@@ -334,7 +334,7 @@ svn_delta_get_commit_track_editor (svn_delta_edit_fns_t **editor,
         set_target_revision
         close_directory
         window_handler
-
+     
   */
   track_editor->replace_root = replace_root;
   track_editor->add_directory = add_directory;
