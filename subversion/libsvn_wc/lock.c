@@ -44,8 +44,8 @@ svn_wc_lock (const char *path, int wait_for, apr_pool_t *pool)
       return SVN_NO_ERROR;
   } while (wait_for > 0);
 
-  return svn_error_createf (SVN_ERR_WC_LOCKED, 0, NULL, pool,
-                            "working copy locked: %s", path);
+  return svn_error_createf (SVN_ERR_WC_LOCKED, 0, NULL, pool, 
+                            "working copy locked: %s", path); 
 }
 
 
@@ -62,7 +62,7 @@ svn_wc_locked (svn_boolean_t *locked, const char *path, apr_pool_t *pool)
   svn_node_kind_t kind;
   const char *lockfile
     = svn_wc__adm_path (path, 0, pool, SVN_WC__ADM_LOCK, NULL);
-
+                                             
   SVN_ERR (svn_io_check_path (lockfile, &kind, pool));
   if (kind == svn_node_file)
     *locked = 1;
@@ -73,13 +73,13 @@ svn_wc_locked (svn_boolean_t *locked, const char *path, apr_pool_t *pool)
                               "svn_wc__locked: "
                               "lock file is not a regular file (%s)",
                               lockfile);
-
+    
   return SVN_NO_ERROR;
 }
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end:
