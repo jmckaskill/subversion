@@ -97,8 +97,8 @@ decrement_dir_ref_count (struct dir_baton *db)
       struct dir_baton *dbparent = db->parent_dir_baton;
       apr_hash_index_t *hi;
 
-      for (hi = apr_hash_first (db->subpool, db->added_or_deleted);
-           hi;
+      for (hi = apr_hash_first (db->subpool, db->added_or_deleted); 
+           hi; 
            hi = apr_hash_next (hi))
         {
           const char *pattern;
@@ -126,7 +126,7 @@ decrement_dir_ref_count (struct dir_baton *db)
       /* Destroy all memory used by this baton, including the baton
          itself! */
       svn_pool_destroy (db->subpool);
-
+      
       /* Tell your parent that you're gone. */
       SVN_ERR (decrement_dir_ref_count (dbparent));
     }
@@ -161,13 +161,13 @@ static svn_error_t *
 delete_entry (svn_stringbuf_t *name, svn_revnum_t revision, void *parent_baton)
 {
   struct dir_baton *d = parent_baton;
-  svn_stringbuf_t *printable_name =
+  svn_stringbuf_t *printable_name = 
     svn_stringbuf_dup (d->path, d->edit_baton->pool);
   void *vp;
 
   svn_path_add_component (printable_name, name);
 
-  vp = apr_hash_get (d->added_or_deleted, printable_name->data,
+  vp = apr_hash_get (d->added_or_deleted, printable_name->data, 
                      printable_name->len);
 
   if (vp == ITEM_ADDED)
@@ -177,7 +177,7 @@ delete_entry (svn_stringbuf_t *name, svn_revnum_t revision, void *parent_baton)
   else
     vp = (void *)ITEM_DELETED;
 
-  apr_hash_set (d->added_or_deleted, printable_name->data, printable_name->len,
+  apr_hash_set (d->added_or_deleted, printable_name->data, printable_name->len, 
                 vp);
 
   return SVN_NO_ERROR;
@@ -200,7 +200,7 @@ add_directory (svn_stringbuf_t *name,
   child_d = apr_pcalloc (subpool, sizeof (*child_d));
   child_d->edit_baton = parent_d->edit_baton;
   child_d->parent_dir_baton = parent_d;
-  child_d->path = svn_stringbuf_dup (parent_d->path,
+  child_d->path = svn_stringbuf_dup (parent_d->path, 
                                      child_d->edit_baton->pool);
   svn_path_add_component (child_d->path, name);
   child_d->added = TRUE;
@@ -210,13 +210,13 @@ add_directory (svn_stringbuf_t *name,
 
   child_d->added_or_deleted = apr_hash_make (subpool);
 
-  vp = apr_hash_get (parent_d->added_or_deleted, child_d->path->data,
+  vp = apr_hash_get (parent_d->added_or_deleted, child_d->path->data, 
                      child_d->path->len);
   if (vp == ITEM_DELETED)
-    apr_hash_set (parent_d->added_or_deleted, child_d->path->data,
+    apr_hash_set (parent_d->added_or_deleted, child_d->path->data, 
                   child_d->path->len, ITEM_REPLACED);
   else
-    apr_hash_set (parent_d->added_or_deleted, child_d->path->data,
+    apr_hash_set (parent_d->added_or_deleted, child_d->path->data, 
                   child_d->path->len, ITEM_ADDED);
 
   *child_baton = child_d;
@@ -239,7 +239,7 @@ open_directory (svn_stringbuf_t *name,
   child_d = apr_pcalloc (subpool, sizeof (*child_d));
   child_d->edit_baton = parent_d->edit_baton;
   child_d->parent_dir_baton = parent_d;
-  child_d->path = svn_stringbuf_dup (parent_d->path,
+  child_d->path = svn_stringbuf_dup (parent_d->path, 
                                      child_d->edit_baton->pool);
   svn_path_add_component (child_d->path, name);
   child_d->subpool = subpool;
@@ -263,7 +263,7 @@ close_directory (void *dir_baton)
   struct dir_baton *db = dir_baton;
 
   if (db->prop_changed)
-    printf ("Sending         %s\n", db->path->data);
+    printf ("Sending         %s\n", db->path->data); 
 
   decrement_dir_ref_count (db);
   return SVN_NO_ERROR;
@@ -277,7 +277,7 @@ close_file (void *file_baton)
 
   if (fb->added)
     {
-      void *vp = apr_hash_get (fb->parent_dir_baton->added_or_deleted,
+      void *vp = apr_hash_get (fb->parent_dir_baton->added_or_deleted, 
                                fb->path->data, fb->path->len);
       if (vp == NULL)
         {
@@ -294,7 +294,7 @@ close_file (void *file_baton)
             vp = (void*)ITEM_REPLACED;
         }
 
-      apr_hash_set (fb->parent_dir_baton->added_or_deleted,
+      apr_hash_set (fb->parent_dir_baton->added_or_deleted, 
                     fb->path->data, fb->path->len, vp);
 
     }
@@ -344,7 +344,7 @@ add_file (svn_stringbuf_t *name,
     = apr_pcalloc (parent_d->subpool, sizeof (*child_fb));
 
   child_fb->parent_dir_baton = parent_d;
-  child_fb->path = svn_stringbuf_dup (parent_d->path,
+  child_fb->path = svn_stringbuf_dup (parent_d->path, 
                                       parent_d->edit_baton->pool);
   svn_path_add_component (child_fb->path, name);
   child_fb->added = TRUE;
@@ -368,7 +368,7 @@ open_file (svn_stringbuf_t *name,
     = apr_pcalloc (parent_d->subpool, sizeof (*child_fb));
 
   child_fb->parent_dir_baton = parent_d;
-  child_fb->path = svn_stringbuf_dup (parent_d->path,
+  child_fb->path = svn_stringbuf_dup (parent_d->path, 
                                       parent_d->edit_baton->pool);
   svn_path_add_component (child_fb->path, name);
 
@@ -446,14 +446,14 @@ svn_cl__get_trace_commit_editor (const svn_delta_edit_fns_t **editor,
 
   *edit_baton = eb;
   *editor = trace_editor;
-
+  
   return SVN_NO_ERROR;
 }
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../tools/dev/svn-dev.el")
- * end:
+ * end: 
  */
