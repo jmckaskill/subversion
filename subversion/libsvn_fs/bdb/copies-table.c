@@ -52,7 +52,7 @@ svn_fs__bdb_open_copies_table (DB **copies_p,
   {
     DBT key, value;
     BDB_ERR (copies->put (copies, 0,
-                         svn_fs__str_to_dbt (&key,
+                         svn_fs__str_to_dbt (&key, 
                                              (char *) svn_fs__next_key_key),
                          svn_fs__str_to_dbt (&value, (char *) "0"),
                          SVN_BDB_AUTO_COMMIT));
@@ -105,7 +105,7 @@ svn_fs__bdb_reserve_copy_id (const char **id_p,
      copies table.  */
   SVN_ERR (BDB_WRAP (fs, "allocating new copy ID (getting `next-key')",
                     fs->copies->get (fs->copies, trail->db_txn,
-                                     &query, svn_fs__result_dbt (&result),
+                                     &query, svn_fs__result_dbt (&result), 
                                      0)));
   svn_fs__track_dbt (&result, trail->pool);
 
@@ -116,9 +116,9 @@ svn_fs__bdb_reserve_copy_id (const char **id_p,
   len = result.size;
   svn_fs__next_key (result.data, &len, next_key);
   db_err = fs->copies->put (fs->copies, trail->db_txn,
-                            svn_fs__str_to_dbt (&query,
+                            svn_fs__str_to_dbt (&query, 
                                                 (char *) svn_fs__next_key_key),
-                            svn_fs__str_to_dbt (&result, (char *) next_key),
+                            svn_fs__str_to_dbt (&result, (char *) next_key), 
                             0);
 
   SVN_ERR (BDB_WRAP (fs, "bumping next copy key", db_err));
