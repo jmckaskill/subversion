@@ -107,7 +107,7 @@ svn_error_t *svn_repos_get_editor (svn_delta_edit_fns_t **editor,
    collecting working copy revision state. When the collection of
    state is completed, then the EDITOR will be driven to
    describe how to change the working copy into revision REVNUM of
-   filesystem FS.
+   filesystem FS. 
 
    The description of the working copy state will be relative to
    FS_BASE in the filesystem.  USERNAME will be recorded as the
@@ -149,10 +149,10 @@ svn_repos_set_path (void *report_baton,
 
 
 /* Given a REPORT_BATON constructed by svn_repos_begin_report(), this
-   routine will remove PATH from the current fs transaction.
+   routine will remove PATH from the current fs transaction. 
 
    (This allows the reporter's driver to describe missing pieces of a
-   working copy, so that 'svn up' can recreate them.) */
+   working copy, so that 'svn up' can recreate them.) */   
 svn_error_t *svn_repos_delete_path (void *report_baton,
                                     svn_stringbuf_t *path);
 
@@ -230,7 +230,7 @@ svn_repos_dated_revision (svn_revnum_t *revision,
                           svn_fs_t *fs,
                           apr_time_t tm,
                           apr_pool_t *pool);
-
+                          
 
 
 /* ### other queries we can do someday --
@@ -238,7 +238,7 @@ svn_repos_dated_revision (svn_revnum_t *revision,
      * fetch the last revision created by <user>
          (once usernames become revision properties!)
      * fetch the last revision where <path> was modified
-
+     
 */
 
 /* ---------------------------------------------------------------*/
@@ -311,7 +311,7 @@ typedef struct svn_repos_node_t
   enum svn_node_kind kind;
 
   /* How this node entered the node tree: 'A'dd, 'D'elete, 'R'eplace */
-  char action;
+  char action; 
 
   /* Were there any textual mods? (files only) */
   svn_boolean_t text_mod;
