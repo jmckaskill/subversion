@@ -363,9 +363,9 @@ svn_diff__get_tokens(svn_diff__position_t **position_list,
   apr_off_t offset;
 
   *position_list = NULL;
-
+  
   SVN_ERR(vtable->datasource_open(diff_baton, datasource));
-
+  
   position_ref = &position;
   offset = 0;
   while (1)
@@ -384,11 +384,11 @@ svn_diff__get_tokens(svn_diff__position_t **position_list,
     }
 
   *position_ref = NULL;
-
+  
   SVN_ERR(vtable->datasource_close(diff_baton, datasource));
 
   *position_list = position;
-
+  
   return NULL;
 }
 
@@ -423,7 +423,7 @@ svn_diff__lcs(svn_diff__tree_t *tree,
 
   position_list[0] = position_list1;
   position_list[1] = position_list2;
-
+  
   idx = svn_diff__tree_largest_common_alphabet_user(tree, idx1, idx2) == idx1 ? 0 : 1;
 
   svn_diff__hat_create(&hat, tree->pool);
@@ -537,11 +537,11 @@ svn_diff__lcs(svn_diff__tree_t *tree,
     {
       link = apr_palloc(tree->pool, sizeof(*link));
     }
-
+  
   link->next = svn_diff__hat_get(hat, t - 1);
   link->position[0] = NULL;
-  link->position[1] = NULL;
-
+  link->position[1] = NULL; 
+  
   /* reverse the list */
   link = svn_diff__lcs_reverse(link);
 
@@ -573,7 +573,7 @@ svn_diff(svn_diff_t **diff,
                                tree,
                                diff_baton, vtable,
                                svn_diff_datasource_original, 0));
-
+  
   SVN_ERR(svn_diff__get_tokens(&position_list[1],
                                tree,
                                diff_baton, vtable,
@@ -596,7 +596,7 @@ svn_diff(svn_diff_t **diff,
    * ### the tree pool is also used for the positions, so we can't get
    * ### rid of them.  Split this later.
    */
-
+  
   /* Produce a diff */
   {
     apr_off_t original_start;
@@ -606,12 +606,12 @@ svn_diff(svn_diff_t **diff,
     apr_off_t common_length;
 
     svn_diff_t **diff_ref = diff;
-
+    
     svn_diff__position_t *position[2];
 
     position[0] = position_list[0];
     position[1] = position_list[1];
-
+    
     original_start = 0;
     modified_start = 0;
     do
@@ -688,10 +688,10 @@ svn_diff(svn_diff_t **diff,
           }
       }
     while (lcs->next != NULL);
-
+          
     *diff_ref = NULL;
   }
-
+  
   /* Get rid of all the data we don't have a use for anymore */
   svn_pool_destroy(subpool);
 
@@ -716,8 +716,8 @@ svn_diff3(svn_diff_t **diff,
 
   svn_diff__tree_create(&tree, subpool);
 
-  SVN_ERR(svn_diff__get_tokens(&position_list[0],
-                               tree,
+  SVN_ERR(svn_diff__get_tokens(&position_list[0], 
+                               tree, 
                                diff_baton, vtable,
                                svn_diff_datasource_original, 0));
 
@@ -725,20 +725,20 @@ svn_diff3(svn_diff_t **diff,
                                tree,
                                diff_baton, vtable,
                                svn_diff_datasource_modified, 1));
-
+  
   SVN_ERR(svn_diff__get_tokens(&position_list[2],
                                tree,
                                diff_baton, vtable,
                                svn_diff_datasource_latest, 2));
-
+  
   /* Get rid of the tokens, we don't need them to calc the diff */
   if (vtable->token_discard_all != NULL)
     vtable->token_discard_all(diff_baton);
 
   /* Get the lcs for original-modified and original-latest */
-  lcs_bw = svn_diff__lcs(tree,
-                         position_list[0], position_list[1],
-                         0, 1,
+  lcs_bw = svn_diff__lcs(tree, 
+                         position_list[0], position_list[1], 
+                         0, 1, 
                          subpool);
   lcs_br = svn_diff__lcs(tree,
                          position_list[0], position_list[2],
@@ -749,7 +749,7 @@ svn_diff3(svn_diff_t **diff,
    * ### the tree pool is also used for the positions, so we can't get
    * ### rid of them.  Split this later.
    */
-
+  
   /* Produce a merged diff */
   {
     apr_off_t original_start;
@@ -776,7 +776,7 @@ svn_diff3(svn_diff_t **diff,
     position[0] = position_list[0];
     position[1] = position_list[1];
     position[2] = position_list[2];
-
+    
     original_start = 0;
     modified_start = 0;
     latest_start = 0;
@@ -825,7 +825,7 @@ svn_diff3(svn_diff_t **diff,
         /* Here we can encounter:
          * - diff_modified
          * - diff_latest
-         * - diff_common
+         * - diff_common 
          * - conflict
          */
 
@@ -840,7 +840,7 @@ svn_diff3(svn_diff_t **diff,
 
         diff_modified = FALSE;
         diff_latest = FALSE;
-
+        
         sync_lcs_bw = lcs_bw;
         sync_lcs_br = lcs_br;
 
@@ -848,7 +848,7 @@ svn_diff3(svn_diff_t **diff,
          * one present, since EOF is a sync point.
          */
         while (sync_lcs_bw->position[0] != sync_lcs_br->position[0])
-          {
+          {   
             if (position[0] == sync_lcs_bw->position[0])
               {
                 sync_lcs_bw = sync_lcs_bw->next;
@@ -896,7 +896,7 @@ svn_diff3(svn_diff_t **diff,
             else
               {
                 modified_length++;
-
+                    
                 position[1] = position[1]->next;
                 lcs_bw = lcs_bw->next;
               }
@@ -919,7 +919,7 @@ svn_diff3(svn_diff_t **diff,
             else
               {
                 latest_length++;
-
+                    
                 position[2] = position[2]->next;
                 lcs_br = lcs_br->next;
               }
@@ -930,7 +930,7 @@ svn_diff3(svn_diff_t **diff,
             if (position[2] != lcs_br->position[1])
               {
                 diff_latest = TRUE;
-
+                
                 do
                   {
                     latest_length++;
@@ -939,7 +939,7 @@ svn_diff3(svn_diff_t **diff,
                   }
                 while (position[2] != lcs_br->position[1]);
               }
-
+            
             latest_length++;
 
             position[2] = position[2]->next;
@@ -1019,7 +1019,7 @@ svn_diff3(svn_diff_t **diff,
           }
       }
     while (lcs_bw->next != NULL && lcs_br->next != NULL);
-
+          
     *diff_ref = NULL;
   }
 
@@ -1070,7 +1070,7 @@ svn_diff_output(svn_diff_t *diff,
                             apr_off_t, apr_off_t,
                             apr_off_t, apr_off_t,
                             apr_off_t, apr_off_t);
-
+    
   while (diff != NULL)
     {
       switch (diff->type)
@@ -1096,10 +1096,10 @@ svn_diff_output(svn_diff_t *diff,
           break;
 
         default:
-          output_fn = NULL;
+          output_fn = NULL; 
           break;
         }
-
+      
       if (output_fn != NULL)
         {
           SVN_ERR(output_fn(output_baton,
