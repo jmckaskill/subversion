@@ -36,16 +36,16 @@ generic_read (void *baton, char *buffer, apr_size_t *len, apr_pool_t *pool)
 {
   apr_file_t *src = (apr_file_t *) baton;
   apr_status_t stat;
-
+  
   stat = apr_full_read (src, buffer, (apr_size_t) *len, (apr_size_t *) len);
-
+  
   if (stat && !APR_STATUS_IS_EOF(stat))
     return
       svn_error_create (stat, 0, NULL, pool,
                         "error reading incoming delta stream");
-
-  else
-    return 0;
+  
+  else 
+    return 0;  
 }
 
 
@@ -71,7 +71,7 @@ apply_delta (const svn_delta_edit_fns_t *before_editor,
     ancestor_path = svn_string_create ("", pool);
   if (ancestor_revision == SVN_INVALID_REVNUM)
     ancestor_revision = 1;
-
+      
   if (is_update)
     {
       err = svn_wc_get_update_editor (dest,
@@ -207,7 +207,7 @@ svn_client__update_internal (const svn_delta_edit_fns_t *before_editor,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end: */
