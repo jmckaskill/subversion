@@ -190,7 +190,7 @@ get_category_config (svn_config_t **cfg,
 {
   const char *usr_reg_path = NULL, *sys_reg_path = NULL;
   const char *usr_cfg_path, *sys_cfg_path;
-
+  
   *cfg = NULL;
 
 #ifdef SVN_WIN32
@@ -217,7 +217,7 @@ svn_config_get_config (apr_hash_t **cfg_hash,
 {
   svn_config_t *cfg;
   *cfg_hash = apr_hash_make (pool);
-
+  
 #define CATLEN (sizeof (SVN_CONFIG_CATEGORY_SERVERS) - 1)
   SVN_ERR (get_category_config (&cfg, SVN_CONFIG_CATEGORY_SERVERS, pool));
   if (cfg)
@@ -384,7 +384,7 @@ make_string_from_option (const char **valuep,
 
   /* For legacy reasons, the cfg is still using counted-length strings
      internally.  But the public interfaces just use null-terminated
-     C strings now, so below we ignore length and use only data. */
+     C strings now, so below we ignore length and use only data. */ 
 
   if (opt->x_value)
     *valuep = opt->x_value;
