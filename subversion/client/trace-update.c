@@ -127,25 +127,25 @@ close_directory (void *dir_baton)
       /* First, check for conflicted state. */
       svn_wc_entry_t *entry;
       svn_boolean_t merged, text_conflict, prop_conflict;
-
+      
       err = svn_wc_entry (&entry,
                           d->path,
                           d->edit_context->pool);
       if (err) return err;
-
+      
       err = svn_wc_conflicted_p (&text_conflict, &prop_conflict,
                                  d->path,
                                  entry,
                                  d->edit_context->pool);
       if (err) return err;
-
+      
       if (! prop_conflict)
         {
-          err = svn_wc_props_modified_p
+          err = svn_wc_props_modified_p 
             (&merged, d->path, d->edit_context->pool);
           if (err) return err;
         }
-
+      
       if (prop_conflict)
         statchar_buf[1] = 'C';
       else if (merged)
@@ -155,7 +155,7 @@ close_directory (void *dir_baton)
 
       printf ("%s %s\n", statchar_buf, d->path->data);
     }
-
+    
   return SVN_NO_ERROR;
 }
 
@@ -192,7 +192,7 @@ close_file (void *file_baton)
         {
           if (! text_conflict)
             {
-              err = svn_wc_text_modified_p
+              err = svn_wc_text_modified_p 
                 (&merged, fb->path, fb->parent_dir_baton->edit_context->pool);
               if (err) return err;
             }
@@ -208,11 +208,11 @@ close_file (void *file_baton)
         {
           if (! prop_conflict)
             {
-              err = svn_wc_props_modified_p
+              err = svn_wc_props_modified_p 
                 (&merged, fb->path, fb->parent_dir_baton->edit_context->pool);
               if (err) return err;
             }
-
+          
           if (prop_conflict)
             statchar_buf[1] = 'C';
           else if (merged)
@@ -352,14 +352,14 @@ svn_cl__get_trace_update_editor (const svn_delta_edit_fns_t **editor,
 
   *root_dir_baton = rb;
   *editor = trace_editor;
-
+  
   return SVN_NO_ERROR;
 }
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
- * end:
+ * end: 
  */
