@@ -3,32 +3,32 @@
  *
  * ================================================================
  * Copyright (c) 2000 CollabNet.  All rights reserved.
- *
+ * 
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
  * met:
- *
+ * 
  * 1. Redistributions of source code must retain the above copyright
  * notice, this list of conditions and the following disclaimer.
- *
+ * 
  * 2. Redistributions in binary form must reproduce the above copyright
  * notice, this list of conditions and the following disclaimer in the
  * documentation and/or other materials provided with the distribution.
- *
+ * 
  * 3. The end-user documentation included with the redistribution, if
  * any, must include the following acknowlegement: "This product includes
  * software developed by CollabNet (http://www.Collab.Net)."
  * Alternately, this acknowlegement may appear in the software itself, if
  * and wherever such third-party acknowlegements normally appear.
- *
+ * 
  * 4. The hosted project names must not be used to endorse or promote
  * products derived from this software without prior written
  * permission. For written permission, please contact info@collab.net.
- *
+ * 
  * 5. Products derived from this software may not use the "Tigris" name
  * nor may "Tigris" appear in their names without prior written
  * permission of CollabNet.
- *
+ * 
  * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
  * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -42,7 +42,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ====================================================================
- *
+ * 
  * This software consists of voluntary contributions made by many
  * individuals on behalf of CollabNet.
  */
@@ -205,7 +205,7 @@ window_handler (svn_txdelta_window_t *window, void *baton)
                       window->pool);
   if (apr_err)
     return svn_create_error (apr_err, 0, fb->path->data, NULL, window->pool);
-
+  
   /* else */
 
   for (i = 0; i < window->num_ops; i++)
@@ -289,7 +289,7 @@ add_directory (svn_string_t *name,
      know this new subdirectory exists! */
 
   /* kff todo: how about a sanity check that it's not a dir of the
-     same name from a different repository or something?
+     same name from a different repository or something? 
      Well, that will be later on down the line... */
 
   /* Make sure the directory exists. */
@@ -446,7 +446,7 @@ replace_file (svn_string_t *name,
                   eb,
                   parent_dir_baton,
                   ancestor_path,
-                  ancestor_version,
+                  ancestor_version, 
                   file_baton);
 
   /* ... except that you must check that the file existed already, and
@@ -463,7 +463,7 @@ replace_file (svn_string_t *name,
 static svn_error_t *
 apply_textdelta (void *edit_baton,
                  void *parent_baton,
-                 void *file_baton,
+                 void *file_baton, 
                  svn_txdelta_window_handler_t **handler,
                  void **handler_baton)
 {
@@ -471,10 +471,10 @@ apply_textdelta (void *edit_baton,
   struct dir_baton *parent_dir_baton = (struct dir_baton *) parent_baton;
 
   /* kff todo: dance the tmp file dance, eventually. */
-
+  
   *handler_baton = file_baton;
   *handler = window_handler;
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -588,7 +588,7 @@ svn_wc_get_update_editor (svn_string_t *dest,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
