@@ -2333,7 +2333,7 @@ When called with a prefix argument, it is possible to enter a new property."
                         (svn-status-marked-file-names))
                (let ((file-names (svn-status-marked-file-names)))
                  (when file-names
-                   (svn-run-svn nil t 'propset
+                   (svn-run-svn nil t 'propset 
                                 (append (list "propset" prop-name prop-value) file-names))
                    )
                  )
