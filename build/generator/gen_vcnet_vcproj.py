@@ -124,6 +124,8 @@ class Generator(gen_win.WinGeneratorBase):
       # These aren't working yet
       if isinstance(target, gen_base.TargetProject) and target.cmd:
         continue
+      if isinstance(target, gen_base.TargetI18N):
+        continue
       guids[target.name] = self.makeguid(target.name)
 
     self.gen_proj_names(install_targets)
@@ -133,6 +135,8 @@ class Generator(gen_win.WinGeneratorBase):
       name = target.name
       # These aren't working yet
       if isinstance(target, gen_base.TargetProject) and target.cmd:
+        continue
+      if isinstance(target, gen_base.TargetI18N):
         continue
 
       if isinstance(target, gen_base.TargetLinked) and target.external_project:
