@@ -1,4 +1,4 @@
-/* svn-push.c --- propagate changesets from one (networked) repository to
+/* svn-push.c --- propagate changesets from one (networked) repository to 
  * a different (networked) repository.
  *
  * ====================================================================
@@ -90,7 +90,7 @@ do_job (apr_pool_t * pool, const char *src_url, const char *dest_url,
 #if 0
   svn_auth_baton_t *ab;
   apr_array_header_t *providers;
-#endif
+#endif 
 
   SVN_ERR (svn_config_get_config (&config, NULL, pool));
 
