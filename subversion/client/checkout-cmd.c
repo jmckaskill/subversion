@@ -49,7 +49,7 @@ svn_cl__checkout (svn_cl__opt_state_t *opt_state,
          A/one_mississippi.txt
          A/two_mississippi.txt
          A/three_mississippi.txt
-
+     
      And project B:
 
          B/cat
@@ -71,7 +71,7 @@ svn_cl__checkout (svn_cl__opt_state_t *opt_state,
          foo/B/cat
          foo/B/dog
          foo/B/pig
-
+      
     Makes sense, right? Right. Note that we have no provision for this
     right now and we need to support it. My vote is that we stop
     iterating over opt_state->args here and just pass the args into
@@ -92,15 +92,15 @@ svn_cl__checkout (svn_cl__opt_state_t *opt_state,
                                              pool);
       else
         local_dir = opt_state->target;
-
+      
       err = svn_cl__get_trace_update_editor (&trace_editor,
                                              &trace_edit_baton,
                                              local_dir,
                                              pool);
       if (err)
         return err;
-
-
+      
+      
       err = svn_client_checkout (NULL, NULL,
                                  trace_editor, trace_edit_baton,
                                  repos_url,
@@ -110,15 +110,15 @@ svn_cl__checkout (svn_cl__opt_state_t *opt_state,
                                  pool);
       if (err)
         return err;
-
+      
     }
   return SVN_NO_ERROR;
 }
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
- * end:
+ * end: 
  */
