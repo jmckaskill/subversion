@@ -46,11 +46,11 @@ svn_cl__commit (apr_getopt_t *os,
   svn_client_auth_t *auth_obj;
 
   /* Take our message from ARGV or a FILE */
-  if (opt_state->filedata)
+  if (opt_state->filedata) 
     message = opt_state->filedata;
   else
     message = opt_state->message;
-
+  
   targets = svn_cl__args_to_target_array (os, pool);
 
   /* Build an authentication object to give to libsvn_client. */
@@ -75,7 +75,7 @@ svn_cl__commit (apr_getopt_t *os,
     {
       svn_stringbuf_t *parent_dir, *basename;
 
-      SVN_ERR (svn_wc_get_actual_target (base_dir, &parent_dir,
+      SVN_ERR (svn_wc_get_actual_target (base_dir, &parent_dir, 
                                          &basename, pool));
       if (basename)
         svn_stringbuf_set (base_dir, parent_dir->data);
@@ -93,7 +93,7 @@ svn_cl__commit (apr_getopt_t *os,
   else
     trace_dir = base_dir;
 
-  SVN_ERR (svn_cl__get_trace_commit_editor
+  SVN_ERR (svn_cl__get_trace_commit_editor 
            (&trace_editor,
             &trace_edit_baton,
             trace_dir,
@@ -101,7 +101,7 @@ svn_cl__commit (apr_getopt_t *os,
 
   /* Commit. */
   SVN_ERR (svn_client_commit (NULL, NULL,
-                              opt_state->quiet ? NULL : trace_editor,
+                              opt_state->quiet ? NULL : trace_editor, 
                               opt_state->quiet ? NULL : trace_edit_baton,
                               auth_obj,
                               targets,
@@ -115,8 +115,8 @@ svn_cl__commit (apr_getopt_t *os,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../svn-dev.el")
- * end:
+ * end: 
  */
