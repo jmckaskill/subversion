@@ -19,7 +19,7 @@
 #include <jni.h>
 
 jclass
-svn_jni_j__get_class(JNIEnv *env, jboolean *hasException,
+svn_jni_j__get_class(JNIEnv *env, jboolean *hasException, 
                      char *className)
 {
   jclass result = NULL;
@@ -71,7 +71,7 @@ svn_jni_j__get_method(JNIEnv *env, jboolean *hasException,
     }
   else
     {
-      result = (*env)->GetMethodID(env, class, methodName,
+      result = (*env)->GetMethodID(env, class, methodName, 
                                    methodSignature);
 
       if( result == NULL )
@@ -90,9 +90,9 @@ svn_jni_j__get_method(JNIEnv *env, jboolean *hasException,
   return result;
 }
 
-/*
+/* 
  *local variables:
  * eval: (load-file "../../../svn-dev.el")
- * end:
+ * end: 
  */
 
