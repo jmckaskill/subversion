@@ -35,19 +35,19 @@ introduced previously.  Here they are briefly defined, but see
 @table @b
 TODO: Jim is going to work on these definitions:
 
-@item vdelta, vdiff
+@item vdelta, vdiff 
 A generic format for expressing the differences between two files.
 Unlike traditional @code{diff} format, vdeltas can express differences
 between non-text files.  Vdeltas are not human-readable and can only be
 used as patches if the base file is absolutely unmodified -- they have
 no concept of context.
 
-@item diff
+@item diff 
 A line-based text diff, like the output of the GNU diff program.
 
 @item pdelta, pdiff
 Deltas for property lists..
-May include vdeltas.
+May include vdeltas. 
 
 @item delta
 A data structure capable of representing changes to directory trees.
@@ -57,7 +57,7 @@ and permission changes.
 A deltas uses vdeltas and pdeltas to express changes to file contents
 and metadata.
 
-@item skelta
+@item skelta 
 A "skeleton delta".  That is, a delta with empty slots where the pdeltas
 and vdeltas would be.  A skelta is used to @emph{list} the changes that
 happened to a directory tree, omitting the changes to file contents
@@ -215,7 +215,7 @@ and pdiffs, and placing them into the skelta.
 
 @item delta wc_make_delta (path1, ...)
 @c todo: no, varargs doesn't work, think about this
-Equivalent to
+Equivalent to 
 
 @example
    wc_fill_skelta (make_skelta (path1, ...))

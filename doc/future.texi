@@ -18,7 +18,7 @@ Put blue-sky requests here...
 
 Certain kinds of conflicts can be resolved without human intervention.
 For example, files like /etc/passwd just need to keep lines unique by
-username and user ID.
+username and user ID.  
 
 Right now, merging new repository data into a modified working copy of
 a passwd file can result in a textual conflict even when there's no
