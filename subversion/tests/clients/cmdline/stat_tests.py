@@ -2,9 +2,9 @@
 #
 #  stat_tests.py:  testing the svn stat command
 #
-#  Subversion is a tool for revision control.
+#  Subversion is a tool for revision control. 
 #  See http://subversion.tigris.org for more information.
-#
+#    
 # ====================================================================
 # Copyright (c) 2000-2001 CollabNet.  All rights reserved.
 #
@@ -53,7 +53,7 @@ def stat_unversioned_file_in_current_dir(sbox):
 
     stat_output, err_output = svntest.main.run_svn(None, 'stat', 'foo')
 
-    if len(stat_output) != 1:
+    if len(stat_output) != 1: 
       return 1
 
     if len(err_output) != 0:

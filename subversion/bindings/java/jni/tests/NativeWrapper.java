@@ -20,7 +20,7 @@ import java.util.Date;
 /**
  * This classed is used for the unit tests. All of the C helper
  * functions for the Java Subversion binding should be reached
- * with this class.
+ * with this class. 
  *
  * Sometimes this is not possible, because
  * the class needs non-trivial native parameters. In this case
@@ -58,9 +58,9 @@ public class NativeWrapper
     public static native Date dateCreate(long date);
 }
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../../../../../svn-dev.el")
- * end:
+ * end: 
  */
 
