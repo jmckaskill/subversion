@@ -4,14 +4,14 @@
 
 For simple text summary:
        find-fix.py query-set-1.tsv YYYY-MM-DD YYYY-MM-DD
-Statistics will be printed for bugs found or fixed within the
+Statistics will be printed for bugs found or fixed within the 
 time frame.
 
 For gnuplot presentation:
        find-fix.py query-set-1.tsv outfile
 Gnuplot provides its own way to select date ranges.
 
-Either way, get query-set-1.tsv from
+Either way, get query-set-1.tsv from 
 http://subversion.tigris.org/iz-data/query-set-1.tsv
 which is updated periodically.
 
@@ -206,7 +206,7 @@ def summary(datafile, d_start, d_end):
           'other=%3d  remain=%3d' \
           % (t, found[t], fixed[t], inval[t], dup[t], other[t],
              fromzerofound[t]
-             - (fromzerofixed[t] + fromzeroinval[t] + fromzerodup[t]
+             - (fromzerofixed[t] + fromzeroinval[t] + fromzerodup[t] 
                 + fromzeroother[t]))
     alltypes_found = alltypes_found + found[t]
     alltypes_fixed = alltypes_fixed + fixed[t]
@@ -413,7 +413,7 @@ For simple text summary:
 For gnuplot presentation:
        find-fix.py [options] query-set-1.tsv outfile
 """
-
+  
 def usage():
   shortusage()
   for x in long_opts:
