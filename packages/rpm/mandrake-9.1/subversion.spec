@@ -136,7 +136,7 @@ This package contains the common files required by subversion clients and
 servers.
 
 #####################################
-###### Sub-Package Definitions ######
+###### Sub-Package Definitions ###### 
 #####################################
 %if %{not_just_docs}
 %package base
@@ -245,7 +245,7 @@ Requires: %{swig_rpm} >= %{swig_ver}
 %description tools
 This package contains a myriad tools for subversion. This package also contains
 'cvs2svn' - a program for migrating CVS repositories into Subversion repositories.
-The package also contains all of the python bindings for the subersion API,
+The package also contains all of the python bindings for the subersion API, 
 required by several of the tools.
 
 %if %{create_javahl}
@@ -262,7 +262,7 @@ like subclipse which use java.
 %endif
 
 ###########################
-########## Files ##########
+########## Files ########## 
 ###########################
 %if %{not_just_docs}
 %files base
@@ -345,7 +345,7 @@ like subclipse which use java.
 %endif
 
 ################################
-######### Build Stages #########
+######### Build Stages ######### 
 ################################
 %prep
 %setup -q -n %{fullsrc}
@@ -397,7 +397,7 @@ WANT_AUTOCONF_2_5=1 ./autogen.sh
 ./configure --prefix=%{usr} \
             %{?silent} \
             --with-jdk=%{jdk_path} \
-            --datadir=%{_datadir}/%{fullname}
+            --datadir=%{_datadir}/%{fullname} 
 DESTDIR="$RPM_BUILD_ROOT" \
     JDK="%{jdk_path}" \
 JAVACMD="%{jdk_path}/bin/javac" \
@@ -430,7 +430,7 @@ INSTALL_DIR="%{_docdir}/%{fullname}" \
 %endif
 
 ################################
-######### Installation #########
+######### Installation ######### 
 ################################
 %install
 rm -rf "$RPM_BUILD_ROOT"
@@ -447,7 +447,7 @@ DESTDIR="$RPM_BUILD_ROOT" \
 	fs_libdir=%{usr}/lib \
 	fs_bindir=%{usr}/bin \
 	swig_py_libdir=%{usr}/lib \
-	make -e %{?silent_flag} install
+	make -e %{?silent_flag} install 
 
 %if %{create_javahl}
 cd subversion/bindings/java/javahl
@@ -461,11 +461,11 @@ DESTDIR="$RPM_BUILD_ROOT" \
 	fs_libdir=%{usr}/lib \
 	fs_bindir=%{usr}/bin \
 	swig_py_libdir=%{usr}/lib \
-	make -e %{?silent_flag} install
+	make -e %{?silent_flag} install 
 cd $RPM_BUILD_DIR/%{fullsrc}
 %endif
 %endif
-
+	
 # Copy raw documentation if we're not compiling
 %if %{copy_doc}
 mkdir -p "$RPM_BUILD_ROOT%{_docdir}/%{fullname}"
@@ -484,10 +484,10 @@ cp -r tools $RPM_BUILD_ROOT%{_datadir}/%{fullname}
 %endif
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+rm -rf $RPM_BUILD_ROOT 
 
 ##################################
-###### Post and Pre Scripts ######
+###### Post and Pre Scripts ###### 
 ##################################
 %if %{not_just_docs}
 %post base -p /sbin/ldconfig
@@ -531,7 +531,7 @@ else
   echo Unable to stop apache - need to be root
 fi
 
-%post server
+%post server 
 APACHECTL=/usr/sbin/apachectl
 if [ -x "$APACHECTL" ] && [ "$USER" == "root" ] ; then
   if $APACHECTL configtest ; then
@@ -582,7 +582,7 @@ fi
 
 %endif
 ############################
-######## Change Log ########
+######## Change Log ######## 
 ############################
 %changelog
 * Sun Sep 21 2003 Shamim Islam <files@poetryunlimited.com>
