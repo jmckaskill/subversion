@@ -2,9 +2,9 @@
 #
 #  main.py: a shared, automated test suite for Subversion
 #
-#  Subversion is a tool for revision control.
+#  Subversion is a tool for revision control. 
 #  See http://subversion.tigris.org for more information.
-#
+#    
 # ====================================================================
 # Copyright (c) 2000-2001 CollabNet.  All rights reserved.
 #
@@ -117,9 +117,9 @@ def run_svnadmin(*varargs):
   if pipe.close():
     print "ERROR running svnadmin:", output
     sys.exit(1)
-
-
-
+  
+  
+  
 
 # For clearing away working copies
 def remove_wc(dirname):
@@ -162,7 +162,7 @@ def write_tree(path, lists):
       fp = open(fullpath, 'w')
       fp.write(item[1])
       fp.close()
-
+      
 
 # For returning a *mutable* copy of greek_tree (a tuple of tuples).
 def copy_greek_tree():
@@ -218,11 +218,11 @@ def run_tests(test_list):
       return 0
     else:
       try:
-        testnum = int(sys.argv[1])
+        testnum = int(sys.argv[1])        
         return run_one_test(testnum, test_list)
       except ValueError:
         print "warning: ignoring bogus argument"
-
+        
   # run all the tests.
   got_error = 0
   for n in range(len(test_list)):

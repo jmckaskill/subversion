@@ -43,7 +43,7 @@ int svn_fs__rep_is_mutable (skel_t *rep);
 
 
 /* Get a key to a mutable version of the representation pointed to by
-   KEY in FS, and store it in *NEW_KEY.
+   KEY in FS, and store it in *NEW_KEY.  
 
    If KEY is already a mutable representation, *NEW_KEY is set to
    KEY, else *NEW_KEY is set to a new rep key allocated in
@@ -58,7 +58,7 @@ int svn_fs__rep_is_mutable (skel_t *rep);
    returned.  */
 svn_error_t *svn_fs__get_mutable_rep (const char **new_key,
                                       const char *key,
-                                      svn_fs_t *fs,
+                                      svn_fs_t *fs, 
                                       trail_t *trail);
 
 
@@ -74,7 +74,7 @@ svn_error_t *svn_fs__make_rep_immutable (svn_fs_t *fs,
    trail, or do nothing if the rep is immutable.  If a mutable rep is
    deleted, the string it refers to is deleted as well.
 
-   If no such rep, return SVN_ERR_FS_NO_SUCH_REPRESENTATION.  */
+   If no such rep, return SVN_ERR_FS_NO_SUCH_REPRESENTATION.  */ 
 svn_error_t *svn_fs__delete_rep_if_mutable (svn_fs_t *fs,
                                             const char *key,
                                             trail_t *trail);
@@ -82,7 +82,7 @@ svn_error_t *svn_fs__delete_rep_if_mutable (svn_fs_t *fs,
 
 /* Copy into BUF *LEN bytes starting at OFFSET from the string
    represented by REP in FS, as part of TRAIL.
-
+   
    The number of bytes actually copied is stored in *LEN.
 
    Justificatory note: REP is a skel instead of a key because our
@@ -104,7 +104,7 @@ svn_error_t *svn_fs__rep_read_range (svn_fs_t *fs,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
