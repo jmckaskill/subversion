@@ -99,7 +99,7 @@ typedef svn_error_t *(*svn_ra_invalidate_wc_props_func_t) (void *baton,
 
 
 /* A function type for retrieving the youngest revision from a repos.   */
-typedef svn_error_t *(*svn_ra_get_latest_revnum_func_t)
+typedef svn_error_t *(*svn_ra_get_latest_revnum_func_t) 
        (void *session_baton,
         svn_revnum_t *latest_revnum);
 
@@ -109,7 +109,7 @@ typedef svn_error_t *(*svn_ra_get_latest_revnum_func_t)
 
 /* A vtable structure which allows a working copy to describe a
    subset (or possibly all) of its working-copy to an RA layer. */
-
+  
 typedef struct svn_ra_reporter_t
 {
   /* Describe a working copy PATH as being at a particular REVISION;
@@ -122,7 +122,7 @@ typedef struct svn_ra_reporter_t
   /* Describing a working copy PATH as missing. */
   svn_error_t *(*delete_path) (void *report_baton,
                                const char *path);
-
+    
   /* Like set_path(), but differs in that PATH in the working copy
      (relative to the root of the report driver) isn't a reflection of
      PATH in the repository (relative to the URL specified when
@@ -162,10 +162,10 @@ enum svn_ra_auth_method
   svn_ra_auth_simple_password
 };
 /* ### someday add other protocols here: PRIVATE_KEY, CERT, etc. */
-
+  
 
 /* Authenticators: these are small "protocol" vtables that are
-   implemented by libsvn_client, but are driven by the RA layer.
+   implemented by libsvn_client, but are driven by the RA layer.  
 
    (Because they're related to authentication, we define them here in
    svn_ra.h)
@@ -187,7 +187,7 @@ typedef struct svn_ra_username_authenticator_t
 
      This routine always sets *USERNAME something (possibly just "")
      or returns error.
-
+     
      If this routine is NULL, that means the client is unable, or
      unwilling, to get the username. */
   svn_error_t *(*get_username) (char **username,
@@ -241,7 +241,7 @@ typedef struct svn_ra_simple_password_authenticator_t
 /* A collection of callbacks implemented by libsvn_client which allows
    an RA layer to "pull" information from the client application, or
    possibly store information.  libsvn_client passes this vtable to
-   RA->open().
+   RA->open().  
 
    Each routine takes a CALLBACK_BATON originally provided with the
    vtable. */
@@ -251,7 +251,7 @@ typedef struct svn_ra_callbacks_t
      This file will be automatically deleted when FP is closed. */
   svn_error_t *(*open_tmp_file) (apr_file_t **fp,
                                  void *callback_baton);
-
+  
   /* Retrieve an AUTHENTICATOR/AUTH_BATON pair from the client,
      which represents the protocol METHOD.  */
   svn_error_t *(*get_authenticator) (void **authenticator,
@@ -303,13 +303,13 @@ typedef struct svn_ra_callbacks_t
 typedef struct svn_ra_plugin_t
 {
   /* The proper name of the ra library, (e.g. "ra_dav" or "ra_local") */
-  const char *name;
-
+  const char *name;         
+  
   /* Short doc string printed out by `svn --version` */
   const char *description;
 
   /* The vtable hooks */
-
+  
   /* Open a repository session to REPOS_URL.  Return an opaque object
      representing this session in *SESSION_BATON, allocated in POOL.
 
@@ -339,7 +339,7 @@ typedef struct svn_ra_plugin_t
                                       svn_revnum_t *revision,
                                       apr_time_t tm);
 
-  /* Set the property NAME to VALUE on revision REV.
+  /* Set the property NAME to VALUE on revision REV.  
      Please note that properties attached to revisions are **unversioned**. */
   svn_error_t *(*change_rev_prop) (void *session_baton,
                                    svn_revnum_t rev,
@@ -360,7 +360,7 @@ typedef struct svn_ra_plugin_t
                             svn_revnum_t rev,
                             const char *name,
                             svn_string_t **value);
-
+                                   
   /* Set *EDITOR and *EDIT_BATON to an editor for committing changes
      to the repository, using LOG_MSG as the log message.  The
      revisions being committed against are passed to the editor
@@ -373,7 +373,7 @@ typedef struct svn_ra_plugin_t
          during the commit.
 
        * SET_FUNC is used by the RA layer to set any WC properties,
-         after the commit completes.
+         after the commit completes. 
 
        * CLOSE_FUNC is used by the RA layer to bump the revisions of
          each committed item, after the commit completes.  It may be
@@ -405,7 +405,7 @@ typedef struct svn_ra_plugin_t
      If REVISION is SVN_INVALID_REVNUM (meaning 'head') and
      *FETCHED_REV is not NULL, then this function will set
      *FETCHED_REV to the actual revision that was retrieved.  (Some
-     callers want to know, and some don't.)
+     callers want to know, and some don't.) 
 
      If STREAM is non-null, push the contents of the file at STREAM.
 
@@ -430,7 +430,7 @@ typedef struct svn_ra_plugin_t
      If REVISION is SVN_INVALID_REVNUM (meaning 'head') and
      *FETCHED_REV is not NULL, then this function will set
      *FETCHED_REV to the actual revision that was retrieved.  (Some
-     callers want to know, and some don't.)
+     callers want to know, and some don't.) 
 
      If PROPS is non NULL, set *PROPS to contain the properties of the
      directory.  This means *all* properties: not just ones controlled by
@@ -449,7 +449,7 @@ typedef struct svn_ra_plugin_t
   /* Check out revision REVISION of the url specified in
      SESSION_BATON, using EDITOR and EDIT_BATON to create the working
      copy.  If RECURSE is non-zero, create the full working tree, else
-     just its topmost directory.
+     just its topmost directory. 
 
      Do a complete drive of EDITOR, ending with a call to close_edit(). */
   svn_error_t *(*do_checkout) (void *session_baton,
@@ -500,7 +500,7 @@ typedef struct svn_ra_plugin_t
 
      The client initially provides an UPDATE_EDITOR/BATON to the RA
      layer; this editor contains knowledge of where the change will
-     begin in the working copy (when open_root() is called).
+     begin in the working copy (when open_root() is called). 
 
      In return, the client receives a REPORTER/REPORT_BATON. The
      client then describes its working-copy revision numbers by making
@@ -566,7 +566,7 @@ typedef struct svn_ra_plugin_t
 
      The client initially provides a DIFF_EDITOR/BATON to the RA
      layer; this editor contains knowledge of where the common diff
-     root is in the working copy (when open_root() is called).
+     root is in the working copy (when open_root() is called). 
 
      In return, the client receives a REPORTER/REPORT_BATON. The
      client then describes its working-copy revision numbers by making
@@ -599,20 +599,20 @@ typedef struct svn_ra_plugin_t
      START to END.  START may be greater or less than END; this just
      controls whether the log messages are processed in descending or
      ascending revision number order.
-
+    
      If START or END is SVN_INVALID_REVNUM, it defaults to youngest.
-
+    
      If PATHS is non-null and has one or more elements, then only show
      revisions in which at least one of PATHS was changed (i.e., if
      file, text or props changed; if dir, props changed or an entry
      was added or deleted).  Each path is an const char *, relative to
      the session's common parent.
-
+    
      If DISCOVER_CHANGED_PATHS, then each call to receiver passes a
      `const apr_hash_t *' for the receiver's CHANGED_PATHS argument;
      the hash's keys are all the paths committed in that revision.
      Otherwise, each call to receiver passes null for CHANGED_PATHS.
-
+    
      If STRICT_NODE_HISTORY is set, copy history will not be traversed
      (if any exists) when harvesting the revision logs for each path.
 
@@ -621,7 +621,7 @@ typedef struct svn_ra_plugin_t
 
      If START or END is a non-existent revision, return the error
      SVN_ERR_FS_NO_SUCH_REVISION, without ever invoking RECEIVER.
-
+    
      See also the documentation for `svn_log_message_receiver_t'.  */
   svn_error_t *(*get_log) (void *session_baton,
                            const apr_array_header_t *paths,
@@ -635,16 +635,16 @@ typedef struct svn_ra_plugin_t
   /* Yoshiki Hayashi <yoshiki@xemacs.org> points out that a more
      generic way to support 'discover_changed__paths' in logs would be
      to have these two functions:
-
+    
          svn_error_t *(*get_rev_prop) (void *session_baton,
                                        svn_string_t **value,
                                        svn_string_t *name,
                                        svn_revnum_t revision);
-
+    
          svn_error_t *(get_changed_paths) (void *session_baton,
                                            apr_array_header_t **changed_paths,
                                            svn_revnum_t revision);
-
+    
      Although log requests are common enough to deserve special
      support (to optimize network usage), these two more generic
      functions are still good ideas.  Don't want to implement them
@@ -665,7 +665,7 @@ typedef struct svn_ra_plugin_t
 
 
 /* svn_ra_init_func_t :
-
+   
    libsvn_client will be reponsible for loading each RA DSO it needs.
    However, all "ra_FOO" implementations *must* export a function named
    `svn_ra_FOO_init()' of type `svn_ra_init_func_t'.
@@ -727,12 +727,12 @@ svn_error_t * svn_ra_init_ra_libs (void **ra_baton, apr_pool_t *pool);
 
 /* Return an ra vtable-LIBRARY (already within RA_BATON) which can
    handle URL.  A number of svn_client_* routines will call this
-   internally, but client apps might use it too.
+   internally, but client apps might use it too.  
 
    For reference, note that according to W3 RFC 1738, a valid URL is
    of the following form:
 
-     scheme://<user>:<password>@<host>:<port>/<url-path>
+     scheme://<user>:<password>@<host>:<port>/<url-path> 
 
    Common URLs are as follows:
 
