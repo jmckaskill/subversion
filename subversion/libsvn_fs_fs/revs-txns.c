@@ -82,7 +82,7 @@ get_rev_txn (svn_fs__transaction_t **txn_p,
              apr_pool_t *pool)
 {
   abort ();
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -94,7 +94,7 @@ svn_fs__rev_get_root (const svn_fs_id_t **root_id_p,
                       apr_pool_t *pool)
 {
   svn_fs__transaction_t *txn;
-
+  
   SVN_ERR (get_rev_txn (&txn, NULL, fs, rev, pool));
   if (txn->root_id == NULL)
     return svn_fs__err_corrupt_fs_revision (fs, rev);
@@ -111,7 +111,7 @@ svn_fs__rev_get_txn_id (const char **txn_id_p,
                         apr_pool_t *pool)
 {
   abort ();
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -122,12 +122,12 @@ svn_fs_youngest_rev (svn_revnum_t *youngest_p,
                      apr_pool_t *pool)
 {
   svn_revnum_t youngest;
-
+  
   SVN_ERR (svn_fs__check_fs (fs));
   SVN_ERR (svn_fs__fs_youngest_revision (&youngest, fs, pool));
-
+  
   *youngest_p = youngest;
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -143,7 +143,7 @@ svn_fs_revision_proplist (apr_hash_t **table_p,
   SVN_ERR (svn_fs__fs_revision_proplist (&table, fs, rev, pool));
 
   *table_p = table;
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -163,7 +163,7 @@ svn_fs_revision_prop (svn_string_t **value_p,
   *value_p = NULL;
   if (table)
     *value_p = apr_hash_get (table, propname, APR_HASH_KEY_STRING);
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -265,7 +265,7 @@ svn_fs__get_txn_ids (const svn_fs_id_t **root_id_p,
                      apr_pool_t *pool)
 {
   svn_fs__transaction_t *txn;
-
+  
   SVN_ERR (get_txn (&txn, fs, txn_name, FALSE, pool));
   if (txn->kind != svn_fs__transaction_kind_normal)
     return svn_fs__err_txn_not_mutable (fs, txn_name);
@@ -357,7 +357,7 @@ static svn_error_t *
 txn_body_txn_proplist (void *baton, apr_pool_t *pool)
 {
   abort ();
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -481,7 +481,7 @@ svn_fs_begin_txn (svn_fs_txn_t **txn_p,
      automatically overwritten with a revision datestamp. */
   date.data = svn_time_to_cstring (apr_time_now(), pool);
   date.len = strlen (date.data);
-  SVN_ERR (svn_fs_change_txn_prop (*txn_p, SVN_PROP_REVISION_DATE,
+  SVN_ERR (svn_fs_change_txn_prop (*txn_p, SVN_PROP_REVISION_DATE, 
                                    &date, pool));
 
   return SVN_NO_ERROR;
@@ -517,7 +517,7 @@ txn_body_open_txn (void *baton,
                    apr_pool_t *pool)
 {
   abort ();
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -536,7 +536,7 @@ svn_fs_open_txn (svn_fs_txn_t **txn_p,
   args.txn_p = &txn;
   args.name = name;
   SVN_ERR (svn_fs__retry_txn (fs, txn_body_open_txn, &args, pool));
-
+  
   *txn_p = txn;
   return SVN_NO_ERROR;
 }
@@ -646,7 +646,7 @@ svn_fs_purge_txn (svn_fs_t *fs,
   SVN_ERR (svn_fs__check_fs (fs));
 
   SVN_ERR (svn_fs__fs_purge_txn (fs, txn_id, pool));
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -676,7 +676,7 @@ svn_fs_abort_txn (svn_fs_txn_t *txn,
 
   /* Set the transaction to "dead". */
   SVN_ERR (svn_fs__retry_txn (txn->fs, txn_body_abort_txn, txn, pool));
-
+  
   /* Now, purge it. */
   SVN_ERR_W (svn_fs_purge_txn (txn->fs, txn->id, pool),
              "Transaction aborted, but cleanup failed");
