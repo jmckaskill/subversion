@@ -94,7 +94,7 @@ svn_wc__remove_wcprops (svn_wc_adm_access_t *adm_access,
              file that's not there.  But this more efficient than
              doing an independant stat for each file's existence
              before trying to remove it, no? */
-        }
+        }        
 
       /* If a dir, recurse. */
       else if (recurse && current_entry->kind == svn_node_dir)
@@ -125,7 +125,7 @@ svn_wc__remove_wcprops (svn_wc_adm_access_t *adm_access,
      - dst_basename will be the 'new' name of the copied file in dst_parent
  */
 static svn_error_t *
-copy_file_administratively (const char *src_path,
+copy_file_administratively (const char *src_path, 
                             svn_wc_adm_access_t *src_access,
                             svn_wc_adm_access_t *dst_parent,
                             const char *dst_basename,
@@ -171,14 +171,14 @@ copy_file_administratively (const char *src_path,
      explanation. */
   SVN_ERR (svn_wc_entry (&src_entry, src_path, src_access, FALSE, pool));
   if (! src_entry)
-    return svn_error_createf
+    return svn_error_createf 
       (SVN_ERR_UNVERSIONED_RESOURCE, NULL,
        _("Cannot copy or move '%s': it's not under version control"),
        svn_path_local_style (src_path, pool));
   if ((src_entry->schedule == svn_wc_schedule_add)
       || (! src_entry->url)
       || (src_entry->copied))
-    return svn_error_createf
+    return svn_error_createf 
       (SVN_ERR_UNSUPPORTED_FEATURE, NULL,
        _("Cannot copy or move '%s': it's not in the repository yet; "
          "try committing first"),
@@ -197,18 +197,18 @@ copy_file_administratively (const char *src_path,
                                             TRUE, /* expand */
                                             TRUE, /* special */
                                             pool));
-
+  
   /* Copy the pristine text-base over.  Why?  Because it's the *only*
      way we can detect any upcoming local mods on the copy.
 
      In other words, we're talking about the scenario where somebody
      makes local mods to 'foo.c', then does an 'svn cp foo.c bar.c'.
      In this case, bar.c should still be locally modified too.
-
+     
      Why do we want the copy to have local mods?  Even though the user
      will only see an 'A' instead of an 'M', local mods means that the
      client doesn't have to send anything but a small delta during
-     commit; the server can make efficient use of the copyfrom args.
+     commit; the server can make efficient use of the copyfrom args. 
 
      As long as we're copying the text-base over, we should copy the
      working and pristine propfiles over too. */
@@ -221,13 +221,13 @@ copy_file_administratively (const char *src_path,
     const char *dst_txtb = svn_wc__text_base_path (dst_path, FALSE, pool);
 
     /* Discover the paths to the four prop files */
-    SVN_ERR (svn_wc__prop_path (&src_wprop, src_path,
+    SVN_ERR (svn_wc__prop_path (&src_wprop, src_path, 
                                 src_access, FALSE, pool));
-    SVN_ERR (svn_wc__prop_base_path (&src_bprop, src_path,
+    SVN_ERR (svn_wc__prop_base_path (&src_bprop, src_path, 
                                      src_access, FALSE, pool));
-    SVN_ERR (svn_wc__prop_path (&dst_wprop, dst_path,
+    SVN_ERR (svn_wc__prop_path (&dst_wprop, dst_path, 
                                 dst_parent, FALSE, pool));
-    SVN_ERR (svn_wc__prop_base_path (&dst_bprop, dst_path,
+    SVN_ERR (svn_wc__prop_base_path (&dst_bprop, dst_path, 
                                      dst_parent, FALSE, pool));
 
     /* Copy the text-base over unconditionally. */
@@ -237,7 +237,7 @@ copy_file_administratively (const char *src_path,
     SVN_ERR (svn_io_check_path (src_wprop, &kind, pool));
     if (kind == svn_node_file)
       SVN_ERR (svn_io_copy_file (src_wprop, dst_wprop, TRUE, pool));
-
+      
     /* Copy the base-props over if they exist */
     SVN_ERR (svn_io_check_path (src_bprop, &kind, pool));
     if (kind == svn_node_file)
@@ -251,7 +251,7 @@ copy_file_administratively (const char *src_path,
 
     SVN_ERR (svn_wc_get_ancestry (&copyfrom_url, &copyfrom_rev,
                                   src_path, src_access, pool));
-
+    
     /* Pass NULL, NULL for cancellation func and baton, as this is
        only one file, not N files. */
     SVN_ERR (svn_wc_add2 (dst_path, dst_parent,
@@ -279,7 +279,7 @@ post_copy_cleanup (svn_wc_adm_access_t *adm_access,
   apr_hash_index_t *hi;
   svn_wc_entry_t *entry;
   const char *path = svn_wc_adm_access_path (adm_access);
-
+  
   /* Remove wcprops. */
   SVN_ERR (svn_wc__remove_wcprops (adm_access, FALSE, pool));
 
@@ -340,7 +340,7 @@ post_copy_cleanup (svn_wc_adm_access_t *adm_access,
         {
           entry->schedule = svn_wc_schedule_delete;
           flags |= SVN_WC__ENTRY_MODIFY_SCHEDULE;
-
+          
           entry->deleted = FALSE;
           flags |= SVN_WC__ENTRY_MODIFY_DELETED;
 
@@ -380,13 +380,13 @@ post_copy_cleanup (svn_wc_adm_access_t *adm_access,
                     | SVN_WC__ENTRY_MODIFY_LOCK_COMMENT
                     | SVN_WC__ENTRY_MODIFY_LOCK_CRT_DATE);
         }
-
+      
       /* If we meaningfully modified the flags, we must be wanting to
          change the entry. */
       if (flags != SVN_WC__ENTRY_MODIFY_FORCE)
         SVN_ERR (svn_wc__entry_modify (adm_access, key, entry,
                                        flags, TRUE, subpool));
-
+      
       /* If a dir, not deleted, and not "this dir", recurse. */
       if ((! deleted)
           && (kind == svn_node_dir)
@@ -394,9 +394,9 @@ post_copy_cleanup (svn_wc_adm_access_t *adm_access,
         {
           svn_wc_adm_access_t *child_access;
           const char *child_path;
-          child_path = svn_path_join
+          child_path = svn_path_join 
             (svn_wc_adm_access_path (adm_access), key, subpool);
-          SVN_ERR (svn_wc_adm_retrieve (&child_access, adm_access,
+          SVN_ERR (svn_wc_adm_retrieve (&child_access, adm_access, 
                                         child_path, subpool));
           SVN_ERR (post_copy_cleanup (child_access, subpool));
         }
@@ -421,7 +421,7 @@ post_copy_cleanup (svn_wc_adm_access_t *adm_access,
      - dst_basename will be the 'new' name of the copied dir in dst_parent
  */
 static svn_error_t *
-copy_dir_administratively (const char *src_path,
+copy_dir_administratively (const char *src_path, 
                            svn_wc_adm_access_t *src_access,
                            svn_wc_adm_access_t *dst_parent,
                            const char *dst_basename,
@@ -444,13 +444,13 @@ copy_dir_administratively (const char *src_path,
   SVN_ERR (svn_wc_entry (&src_entry, src_path, src_access, FALSE, pool));
   if (! src_entry)
     return svn_error_createf
-      (SVN_ERR_ENTRY_NOT_FOUND, NULL,
+      (SVN_ERR_ENTRY_NOT_FOUND, NULL, 
        _("'%s' is not under version control"),
        svn_path_local_style (src_path, pool));
   if ((src_entry->schedule == svn_wc_schedule_add)
       || (! src_entry->url)
       || (src_entry->copied))
-    return svn_error_createf
+    return svn_error_createf 
       (SVN_ERR_UNSUPPORTED_FEATURE, NULL,
        _("Cannot copy or move '%s': it is not in the repository yet; "
          "try committing first"),
@@ -486,16 +486,16 @@ copy_dir_administratively (const char *src_path,
   {
     char *copyfrom_url;
     svn_revnum_t copyfrom_rev;
-
+    
     SVN_ERR (svn_wc_get_ancestry (&copyfrom_url, &copyfrom_rev,
                                   src_path, src_access, pool));
-
+    
     SVN_ERR (svn_wc_add2 (dst_path, dst_parent,
                           copyfrom_url, copyfrom_rev,
                           cancel_func, cancel_baton,
                           notify_copied, notify_baton, pool));
   }
-
+ 
   return SVN_NO_ERROR;
 }
 
@@ -529,7 +529,7 @@ svn_wc_copy2 (const char *src_path,
                                    cancel_func, cancel_baton, pool));
 
   SVN_ERR (svn_io_check_path (src_path, &src_kind, pool));
-
+  
   if (src_kind == svn_node_file)
     SVN_ERR (copy_file_administratively (src_path, adm_access,
                                          dst_parent, dst_basename,
@@ -579,7 +579,7 @@ svn_wc_copy (const char *src_path,
       because it hasn't been committed yet.  But suppose foo3 simply
       inherited foo's URL (i.e. foo3 'pointed' to foo as a copy
       ancestor by virtue of transitivity.)
-
+ 
       For one, this is not what the user would expect.  That's
       certainly not what the user typed!  Second, suppose that the
       user did a commit between the two 'svn cp' commands.  Now foo3
