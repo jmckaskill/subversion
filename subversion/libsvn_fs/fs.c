@@ -159,7 +159,7 @@ cleanup_fs (svn_fs_t *fs)
         SVN_ERR (DB_WRAP (fs, "checkpointing environment", db_err));
       }
   }
-
+      
   /* Finally, close the environment.  */
   fs->env = 0;
   SVN_ERR (DB_WRAP (fs, "closing environment",
@@ -199,7 +199,7 @@ cleanup_fs_apr (void *data)
          prepared to receive it.  Don't overwrite a previously stored
          error --- in a cascade, the first message is usually the most
          helpful.  */
-      if (fs->cleanup_error
+      if (fs->cleanup_error 
           && ! *fs->cleanup_error)
         *fs->cleanup_error = svn_err;
       else
@@ -208,7 +208,7 @@ cleanup_fs_apr (void *data)
            behavior.  I just don't want to throw any information into
            the bit bucket.)  */
         (*fs->warning) (fs->warning_baton, "%s", svn_err->message);
-
+      
       return SVN_ERR_FS_CLEANUP;
     }
 }
@@ -251,7 +251,7 @@ svn_fs_set_warning_func (svn_fs_t *fs,
 
 
 svn_error_t *
-svn_fs_set_berkeley_errcall (svn_fs_t *fs,
+svn_fs_set_berkeley_errcall (svn_fs_t *fs, 
                              void (*db_errcall_fcn) (const char *errpfx,
                                                      char *msg))
 {
@@ -372,7 +372,7 @@ allocate_env (svn_fs_t *fs)
      DB_ENV->set_lg_max(). */
   SVN_ERR (DB_WRAP (fs, "setting in-memory log buffer size",
 		    fs->env->set_lg_bsize (fs->env, 256 * 1024)));
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -451,7 +451,7 @@ svn_fs_create_berkeley (svn_fs_t *fs, const char *path)
   svn_err = DB_WRAP (fs, "creating environment",
                      fs->env->open (fs->env, path_native,
                                     (DB_CREATE
-                                     | DB_INIT_LOCK
+                                     | DB_INIT_LOCK 
                                      | DB_INIT_LOG
                                      | DB_INIT_MPOOL
                                      | DB_INIT_TXN),
@@ -549,7 +549,7 @@ svn_fs_open_berkeley (svn_fs_t *fs, const char *path)
   if (svn_err) goto error;
 
   return SVN_NO_ERROR;
-
+  
  error:
   cleanup_fs (fs);
   return svn_err;
@@ -575,10 +575,10 @@ svn_fs_berkeley_recover (const char *path,
     return svn_fs__dberr (pool, db_err);
 
   /* Here's the comment copied from db_recover.c:
-
+   
      Initialize the environment -- we don't actually do anything
      else, that all that's needed to run recovery.
-
+   
      Note that we specify a private environment, as we're about to
      create a region, and we don't want to to leave it around.  If
      we leave the region around, the application that should create
@@ -644,7 +644,7 @@ svn_fs__canonicalize_abspath (const char *path, apr_pool_t *pool)
   /* No PATH?  No problem. */
   if (! path)
     return NULL;
-
+  
   /* Empty PATH?  That's just "/". */
   if (! *path)
     return apr_pstrdup (pool, "/");
@@ -659,7 +659,7 @@ svn_fs__canonicalize_abspath (const char *path, apr_pool_t *pool)
     {
       newpath[newpath_i++] = '/';
     }
-
+  
   for (path_i = 0; path_i < path_len; path_i++)
     {
       if (path[path_i] == '/')
@@ -682,7 +682,7 @@ svn_fs__canonicalize_abspath (const char *path, apr_pool_t *pool)
       /* Copy the current character into our new buffer. */
       newpath[newpath_i++] = path[path_i];
     }
-
+  
   /* Did we leave a '/' attached to the end of NEWPATH (other than in
      the root directory case)? */
   if ((newpath[newpath_i - 1] == '/') && (newpath_i > 1))
@@ -693,7 +693,7 @@ svn_fs__canonicalize_abspath (const char *path, apr_pool_t *pool)
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end:
