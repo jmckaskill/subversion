@@ -31,7 +31,7 @@ extern "C" {
 
 
 /* Add CHANGE as a record to the `changes' table in FS as part of
-   TRAIL, keyed on KEY.
+   TRAIL, keyed on KEY.  
 
    CHANGE->path is expected to be a canonicalized filesystem path (see
    svn_fs__canonicalize_abspath).
