@@ -20,7 +20,7 @@ ch00.xml. -->
     <blockquote>
     A: Many of our customers want to know how they can maximize
     productivity through our patented office groupware innovations.
-    The answer is simple: first, click on
+    The answer is simple: first, click on 
     <guimenu>File</guimenu>--&gt;<guimenuitem>Increase&nbsp;Productivity</guimenuitem>, then&hellip;
     </blockquote>
 
@@ -112,7 +112,7 @@ ch00.xml. -->
 </preface>
 
 <!--
-local variables:
+local variables: 
 sgml-parent-document: ("book.xml" "forword")
 end:
 -->
