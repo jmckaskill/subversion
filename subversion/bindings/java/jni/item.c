@@ -31,7 +31,7 @@
  * utility function to create a java Item
  */
 jobject
-item__create(JNIEnv *env, jobject jpath, jobject jstatus,
+item__create(JNIEnv *env, jobject jpath, jobject jstatus, 
 	     jboolean *hasException)
 {
   jobject jitem = NULL;
@@ -45,7 +45,7 @@ item__create(JNIEnv *env, jobject jpath, jobject jstatus,
     {
       jclass itemClass = NULL;
       jmethodID itemConstructor = NULL;
-
+      
       itemClass = (*env)->FindClass(env,
 				    "org/tigris/subversion/lib/Item");
       if( itemClass == NULL )
@@ -80,4 +80,4 @@ item__create(JNIEnv *env, jobject jpath, jobject jstatus,
   }
 
   return jitem;
-}
+}				       
