@@ -207,28 +207,28 @@ static void add_props(const svn_ra_dav_resource_t *r,
                       apr_pool_t *pool)
 {
   apr_hash_index_t *hi;
-
+  
   for (hi = apr_hash_first(pool, r->propset); hi; hi = apr_hash_next(hi))
     {
       const char *key;
       char *val;
-
+      
       apr_hash_this(hi, (const void **)&key, NULL, (void *)&val);
-
+      
 #define NSLEN (strlen(SVN_RA_DAV__CUSTOM_NAMESPACE))
-
+      
       if (strncmp(key, SVN_RA_DAV__CUSTOM_NAMESPACE, NSLEN) == 0)
         {
           svn_stringbuf_t *skey, *sval;
           skey = svn_stringbuf_create(key + NSLEN, pool);
           sval = svn_stringbuf_create(val, pool);
-
+          
           (*setter)(baton, skey, sval);
         }
 #undef NSLEN
     }
 }
-
+                      
 
 static svn_error_t * fetch_dirents(svn_ra_session_t *ras,
                                    const char *url,
@@ -597,7 +597,7 @@ svn_error_t * svn_ra_dav__do_checkout(void *session_baton,
           if (err)
             return svn_error_quick_wrap(err, "could not add directory");
         }
-      else
+      else 
         {
           /* We are operating in the root of the repository */
           this_baton = root_baton;
@@ -1180,7 +1180,7 @@ svn_error_t * svn_ra_dav__do_update(void *session_baton,
 }
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
