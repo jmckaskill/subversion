@@ -1,8 +1,8 @@
 <chapter id="svn-ch-6">
   <title>Server Configuration</title>
-
+  
   <simplesect>
-
+    
    <para>Introduce chapter here.</para>
 
   </simplesect>
@@ -14,7 +14,7 @@
   <sect1 id="svn-ch-6-sect-1">
 
     <title>First section.</title>
-
+    
     <para>Blah blah blah.</para>
 
   </sect1>
@@ -22,7 +22,7 @@
 </chapter>
 
 <!--
-local variables:
+local variables: 
 sgml-parent-document: ("book.xml" "chapter")
 end:
 -->
