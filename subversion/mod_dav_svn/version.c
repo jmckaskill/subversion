@@ -334,7 +334,7 @@ static dav_error *dav_svn_checkout(dav_resource *resource,
           msg = apr_psprintf(resource->pool, "id mismatch: r=%s  t=%s",
                              r_id->data, t_id->data);
 
-          return dav_new_error_tag(resource->pool, HTTP_CONFLICT,
+          return dav_new_error_tag(resource->pool, HTTP_CONFLICT, 
                                    SVN_ERR_FS_CONFLICT, msg,
                                    SVN_DAV_ERROR_NAMESPACE,
                                    SVN_DAV_ERROR_TAG);
@@ -534,7 +534,7 @@ const dav_hooks_vsn dav_svn_hooks_vsn = {
 };
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end:
