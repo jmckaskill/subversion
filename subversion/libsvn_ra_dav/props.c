@@ -110,7 +110,7 @@ static const elem_defn elem_definitions[] =
 };
 
 
-static const struct ne_xml_elm propfind_elements[] =
+static const struct ne_xml_elm propfind_elements[] = 
 {
   /*** NOTE: Make sure that every item in here is also represented in
        elem_definitions[] ***/
@@ -144,7 +144,7 @@ static const struct ne_xml_elm propfind_elements[] =
   /* Unknowns */
   { "", "", NE_ELM_unknown, NE_XML_COLLECT },
 
-  { NULL }
+  { NULL } 
 };
 
 
@@ -181,7 +181,7 @@ static const elem_defn *defn_from_id(ne_xml_elmid id)
 
 
 /* Assign URL to RSRC.  Use POOL for any allocations. */
-static void assign_rsrc_url(svn_ra_dav_resource_t *rsrc,
+static void assign_rsrc_url(svn_ra_dav_resource_t *rsrc, 
                             const char *url,
                             apr_pool_t *pool)
 {
@@ -205,8 +205,8 @@ static void assign_rsrc_url(svn_ra_dav_resource_t *rsrc,
 }
 
 
-static int validate_element(void *userdata,
-                            ne_xml_elmid parent,
+static int validate_element(void *userdata, 
+                            ne_xml_elmid parent, 
                             ne_xml_elmid child)
 {
   switch (parent)
@@ -237,7 +237,7 @@ static int validate_element(void *userdata,
 
     case NE_ELM_prop:
       return NE_XML_VALID; /* handle all children of <prop> */
-
+        
     case ELEM_baseline_coll:
     case ELEM_checked_in:
     case ELEM_vcc:
@@ -245,7 +245,7 @@ static int validate_element(void *userdata,
         return NE_XML_VALID;
       else
         return NE_XML_DECLINE; /* not concerned with other types */
-
+      
     case ELEM_resourcetype:
       if ((child == ELEM_collection) || (child == ELEM_baseline))
         return NE_XML_VALID;
@@ -260,8 +260,8 @@ static int validate_element(void *userdata,
 }
 
 
-static int start_element(void *userdata,
-                         const struct ne_xml_elm *elm,
+static int start_element(void *userdata, 
+                         const struct ne_xml_elm *elm, 
                          const char **atts)
 {
   propfind_ctx_t *pc = userdata;
@@ -311,7 +311,7 @@ static int start_element(void *userdata,
 }
 
 
-static int end_element(void *userdata,
+static int end_element(void *userdata, 
                        const struct ne_xml_elm *elm,
                        const char *cdata)
 {
@@ -411,7 +411,7 @@ static int end_element(void *userdata,
           defn = defn_from_id(elm->id);
           if (! (defn && defn->is_property))
             return 0;
-          name = defn->name;
+          name = defn->name;          
         }
 
       /* Handle the property value. */
@@ -480,7 +480,7 @@ svn_error_t * svn_ra_dav__get_props(apr_hash_t **results,
   body = ne_buffer_create();
 
   /* The start of the request body is fixed: */
-  ne_buffer_zappend(body,
+  ne_buffer_zappend(body, 
                    "<?xml version=\"1.0\" encoding=\"utf-8\"?>" DEBUG_CR
                    "<propfind xmlns=\"DAV:\">" DEBUG_CR);
 
@@ -489,9 +489,9 @@ svn_error_t * svn_ra_dav__get_props(apr_hash_t **results,
     {
       int n;
       ne_buffer_zappend(body, "<prop>" DEBUG_CR);
-      for (n = 0; which_props[n].name != NULL; n++)
+      for (n = 0; which_props[n].name != NULL; n++) 
         {
-          ne_buffer_concat(body, "<", which_props[n].name, " xmlns=\"",
+          ne_buffer_concat(body, "<", which_props[n].name, " xmlns=\"", 
                            which_props[n].nspace, "\"/>" DEBUG_CR, NULL);
         }
       ne_buffer_zappend(body, "</prop></propfind>" DEBUG_CR);
@@ -510,7 +510,7 @@ svn_error_t * svn_ra_dav__get_props(apr_hash_t **results,
   /* Create and dispatch the request! */
   err = svn_ra_dav__parsed_request(sess, "PROPFIND", url, body->data, 0,
                                    propfind_elements, validate_element,
-                                   start_element, end_element,
+                                   start_element, end_element, 
                                    &pc, extra_headers, pool);
 
   ne_buffer_destroy(body);
@@ -636,14 +636,14 @@ static svn_error_t * search_for_starting_props(svn_ra_dav_resource_t **rsrc,
      resource no longer exists in HEAD, we'll get a failure.  That's
      fine: just keep removing components and trying to get the
      starting_props from parent directories. */
-
+  
   while (! svn_path_is_empty (path_s->data))
     {
       err = svn_ra_dav__get_starting_props(rsrc, sess, path_s->data,
                                            NULL, pool);
       if (! err)
         break;   /* found an existing parent! */
-
+      
       if (err->apr_err != SVN_ERR_RA_DAV_REQUEST_FAILED)
         return err;  /* found a _real_ error */
 
@@ -653,11 +653,11 @@ static svn_error_t * search_for_starting_props(svn_ra_dav_resource_t **rsrc,
                                   pool);
       len = path_s->len;
       svn_path_remove_component(path_s);
-      if (path_s->len == len)
+      if (path_s->len == len)          
         /* whoa, infinite loop, get out. */
         return svn_error_quick_wrap(err,
                                     "The path was not part of a repository");
-
+      
       svn_error_clear (err);
     }
 
@@ -672,7 +672,7 @@ static svn_error_t * search_for_starting_props(svn_ra_dav_resource_t **rsrc,
       return err;
     }
   ne_uri_free(&parsed_url);
-
+  
   *missing_path = lopped_path;
   return SVN_NO_ERROR;
 }
@@ -686,7 +686,7 @@ svn_error_t *svn_ra_dav__get_vcc(const char **vcc,
   svn_ra_dav_resource_t *rsrc;
   const char *lopped_path;
   const svn_string_t *vcc_s;
-
+  
   /* ### Someday, possibly look for memory-cached VCC in the RA session. */
 
   /* ### Someday, possibly look for disk-cached VCC via get_wcprop callback. */
@@ -746,7 +746,7 @@ svn_error_t *svn_ra_dav__get_baseline_props(svn_string_t *bc_relative,
 
   SVN_ERR( search_for_starting_props(&rsrc, &lopped_path,
                                      sess, url, pool) );
-
+  
   vcc = apr_hash_get(rsrc->propset, SVN_RA_DAV__PROP_VCC, APR_HASH_KEY_STRING);
   if (vcc == NULL)
     {
@@ -759,28 +759,28 @@ svn_error_t *svn_ra_dav__get_baseline_props(svn_string_t *bc_relative,
     }
 
   /* Allocate our own bc_relative path. */
-  relative_path = apr_hash_get(rsrc->propset,
+  relative_path = apr_hash_get(rsrc->propset, 
                                SVN_RA_DAV__PROP_BASELINE_RELPATH,
                                APR_HASH_KEY_STRING);
   if (relative_path == NULL)
     {
-      /* ### better error reporting... */
+      /* ### better error reporting... */        
       /* ### need an SVN_ERR here */
       return svn_error_create(APR_EGENERAL, NULL,
                               "The relative-path property was not "
                               "found on the resource.");
     }
-
+    
   /* don't forget to tack on the parts we lopped off in order
      to find the VCC... */
   my_bc_relative = svn_path_join(relative_path->data, lopped_path, pool);
-
+ 
   /* if they want the relative path (could be, they're just trying to find
      the baseline collection), then return it */
   if (bc_relative)
     {
       bc_relative->data = my_bc_relative;
-      bc_relative->len = strlen(my_bc_relative);
+      bc_relative->len = strlen(my_bc_relative);     
     }
 
   /* -------------------------------------------------------------------
@@ -821,7 +821,7 @@ svn_error_t *svn_ra_dav__get_baseline_props(svn_string_t *bc_relative,
 
       /* ### do we want to optimize the props we fetch, based on what the
          ### user asked for? i.e. omit version-name if latest_rev is NULL */
-      SVN_ERR( svn_ra_dav__get_props_resource(&rsrc, sess,
+      SVN_ERR( svn_ra_dav__get_props_resource(&rsrc, sess, 
                                               baseline->data, NULL,
                                               which_props, pool) );
     }
@@ -840,7 +840,7 @@ svn_error_t *svn_ra_dav__get_baseline_props(svn_string_t *bc_relative,
       SVN_ERR( svn_ra_dav__get_props_resource(&rsrc, sess, vcc->data, label,
                                               which_props, pool) );
     }
-
+  
   /* Return the baseline rsrc, which now contains whatever set of
      props the caller wanted. */
   *bln_rsrc = rsrc;
@@ -875,7 +875,7 @@ svn_error_t *svn_ra_dav__get_baseline_info(svn_boolean_t *is_dir,
   /* baseline_rsrc now points at the Baseline. We will checkout from
      the DAV:baseline-collection.  The revision we are checking out is
      in DAV:version-name */
-
+  
   /* Allocate our own copy of bc_url regardless. */
   my_bc_url = apr_hash_get(baseline_rsrc->propset,
                            SVN_RA_DAV__PROP_BASELINE_COLLECTION,
@@ -913,8 +913,8 @@ svn_error_t *svn_ra_dav__get_baseline_info(svn_boolean_t *is_dir,
   if (is_dir != NULL)
     {
       /* query the DAV:resourcetype of the full, assembled URL. */
-      const char *full_bc_url = svn_path_url_add_component(my_bc_url->data,
-                                                           my_bc_rel.data,
+      const char *full_bc_url = svn_path_url_add_component(my_bc_url->data, 
+                                                           my_bc_rel.data, 
                                                            pool);
       SVN_ERR( svn_ra_dav__get_props_resource(&rsrc, sess, full_bc_url,
                                               NULL, starting_props, pool) );
@@ -930,8 +930,8 @@ svn_error_t *svn_ra_dav__get_baseline_info(svn_boolean_t *is_dir,
 
 /* Helper function for svn_ra_dav__do_proppatch() below. */
 static void
-do_setprop(ne_buffer *body,
-           const char *name,
+do_setprop(ne_buffer *body, 
+           const char *name, 
            const svn_string_t *value,
            apr_pool_t *pool)
 {
@@ -946,7 +946,7 @@ do_setprop(ne_buffer *body,
       xml_tag_name = apr_pstrcat(pool, "S:", name + NSLEN, NULL);
     }
 #undef NSLEN
-  else
+  else 
     {
       xml_tag_name = apr_pstrcat(pool, "C:", name, NULL);
     }
@@ -978,7 +978,7 @@ do_setprop(ne_buffer *body,
 #endif /* SVN_DAV_FEATURE_BINARY_PROPS */
     }
 
-  ne_buffer_concat(body, "<", xml_tag_name, encoding, ">",
+  ne_buffer_concat(body, "<", xml_tag_name, encoding, ">", 
                    xml_safe, "</", xml_tag_name, ">", NULL);
   return;
 }
@@ -1001,7 +1001,7 @@ svn_ra_dav__do_proppatch (svn_ra_session_t *ras,
       && (prop_deletes == NULL || prop_deletes->nelts == 0))
     return SVN_NO_ERROR;
 
-  /* easier to roll our own PROPPATCH here than use ne_proppatch(), which
+  /* easier to roll our own PROPPATCH here than use ne_proppatch(), which 
    * doesn't really do anything clever. */
   body = ne_buffer_create();
 
@@ -1029,13 +1029,13 @@ svn_ra_dav__do_proppatch (svn_ra_session_t *ras,
       ne_buffer_zappend(body, "</D:prop></D:set>");
       svn_pool_destroy(subpool);
     }
-
+  
   /* Handle property deletions. */
   if (prop_deletes)
     {
       int n;
       ne_buffer_zappend(body, "<D:remove><D:prop>");
-      for (n = 0; n < prop_deletes->nelts; n++)
+      for (n = 0; n < prop_deletes->nelts; n++) 
         {
           const char *name = APR_ARRAY_IDX(prop_deletes, n, const char *);
           do_setprop(body, name, NULL, pool);
