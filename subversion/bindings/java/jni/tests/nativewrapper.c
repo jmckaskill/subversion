@@ -19,24 +19,24 @@
 #include "../svn_jni_tests.h"
 #include "../vector.h"
 
-JNIEXPORT jobject JNICALL
+JNIEXPORT jobject JNICALL 
 Java_NativeWrapper_vectorCreate
 (JNIEnv *env, jclass vectorClass)
 {
   return vector__create(env, NULL);
 }
 
-JNIEXPORT void JNICALL
+JNIEXPORT void JNICALL 
 Java_NativeWrapper_vectorAdd
 (JNIEnv *env, jclass clazz, jobject vector, jobject value)
 {
   vector__add(env, vector, value, NULL);
 }
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../../../../../svn-dev.el")
- * end:
+ * end: 
  */
 
 
