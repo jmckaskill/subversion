@@ -450,7 +450,7 @@ def basic_cleanup():
 def basic_revert():
   "basic revert command"
 
-  sbox = sandbox(basic_cleanup)
+  sbox = sandbox(basic_revert)
   wc_dir = os.path.join (svntest.main.general_wc_dir, sbox)
 
   if svntest.actions.make_repo_and_wc(sbox):
