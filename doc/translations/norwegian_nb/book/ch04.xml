@@ -13,12 +13,12 @@
       you are familiar, then hopefully you'll find it interesting to
       see how Subversion implements these ideas.</para>
     @ENGLISH }}} -->
-    <para>Forgrening (<quote>branching</quote>), merking
-      (<quote>tagging</quote>) og fletting (<quote>merging</quote>) er
+    <para>Forgrening (<quote>branching</quote>), merking 
+      (<quote>tagging</quote>) og fletting (<quote>merging</quote>) er 
       konsepter felles for nesten alle versjonskontrollsystemer.
-      Hvis du ikke er vant med disse id&#233;ene, gir vi en god introduksjon
+      Hvis du ikke er vant med disse id&#233;ene, gir vi en god introduksjon 
       i dette kapittelet.
-      Hvis du kjenner til dem, finner du det forh&#229;pentligvis interessant
+      Hvis du kjenner til dem, finner du det forh&#229;pentligvis interessant 
       &#229; se hvordan Subversion har implementert disse id&#233;ene.</para>
 
     <!-- @ENGLISH {{{
@@ -29,10 +29,10 @@
       concepts (<xref linkend="svn-ch-2"/>).</para>
     @ENGLISH }}} -->
     <para>Forgreninger er en fundamental del av versjonskontroll.
-      Hvis du skal tillate Subversion &#229; behandle dine data, er dette en
+      Hvis du skal tillate Subversion &#229; behandle dine data, er dette en 
       funksjon som du etterhvert kommer til &#229; basere deg mye p&#229;.
-      Dette kapittelet g&#229;r ut i fra at du allerede er kjent med
-      Subversions grunnleggende konsepter (<xref
+      Dette kapittelet g&#229;r ut i fra at du allerede er kjent med 
+      Subversions grunnleggende konsepter (<xref 
       linkend="svn-ch-2"/>).</para>
 
   </simplesect>
@@ -42,9 +42,9 @@
   <!-- ================================================================= -->
   <sect1 id="svn-ch-4-sect-1">
     <!-- @ENGLISH {{{
-    <title>What's a Branch?</title>
+    <title>What's a Branch?</title> 
     @ENGLISH }}} -->
-    <title>Hva er en forgrening?</title>
+    <title>Hva er en forgrening?</title> 
 
     <!-- @ENGLISH {{{
     <para>Suppose it's your job to maintain a document for a division
@@ -53,10 +53,10 @@
       'tweaked' for them, since they do things slightly
       differently.</para>
     @ENGLISH }}} -->
-    <para>Tenk deg at det er din jobb &#229; vedlikeholde et dokument for en
+    <para>Tenk deg at det er din jobb &#229; vedlikeholde et dokument for en 
       avdeling i firmaet ditt, en h&#229;ndbok av et eller annet slag.
-      En dag sp&#248;r en annen avdeling deg etter den samme h&#229;ndboken, men
-      med noen deler <quote>spesialtilpasset</quote> for dem, siden de
+      En dag sp&#248;r en annen avdeling deg etter den samme h&#229;ndboken, men 
+      med noen deler <quote>spesialtilpasset</quote> for dem, siden de 
       gj&#248;r ting litt forskjellig.</para>
 
     <!-- @ENGLISH {{{
@@ -68,9 +68,9 @@
     @ENGLISH }}} -->
     <para>Hva gj&#248;r du i denne situasjonen?
       Du gj&#248;r den opplagte tingen:
-      Du lager en annen kopi av dokumentet og begynner &#229; vedlikeholde de
+      Du lager en annen kopi av dokumentet og begynner &#229; vedlikeholde de 
       to kopiene separat.
-      Etterhvert som hver avdeling ber deg om &#229; gj&#248;re sm&#229; forandringer,
+      Etterhvert som hver avdeling ber deg om &#229; gj&#248;re sm&#229; forandringer, 
       legger du dem inn i den ene kopien eller den andre.</para>
 
     <!-- @ENGLISH {{{
@@ -80,12 +80,12 @@
       documents are almost the same, after all; they only differ in
       small, specific ways.</para>
     @ENGLISH }}} -->
-    <para>Du vil ofte &#248;nske &#229; gj&#248;re den samme forandringen i begge
+    <para>Du vil ofte &#248;nske &#229; gj&#248;re den samme forandringen i begge 
       kopiene.
-      Hvis du for eksempel finner en skrivefeil i den f&#248;rste kopien, er
-      det veldig sannsynlig at den samme trykkfeilen eksisterer i den
+      Hvis du for eksempel finner en skrivefeil i den f&#248;rste kopien, er 
+      det veldig sannsynlig at den samme trykkfeilen eksisterer i den 
       andre kopien.
-      De to dokumentene er nesten like n&#229;r alt kommer til alt;
+      De to dokumentene er nesten like n&#229;r alt kommer til alt; 
       forskjellene er sm&#229; og spesifikke.</para>
 
     <!-- @ENGLISH {{{
@@ -97,12 +97,12 @@
       from there, generating its own history (see <xref
       linkend="svn-ch-4-dia-1"/>).</para>
     @ENGLISH }}} -->
-    <para>Dette er det grunnleggende konseptet for en
-      <firstterm>forgrening</firstterm> &#8212; det vil si en utviklingslinje
-      som eksisterer uavhengig av en annen linje, men som likevel deler
+    <para>Dette er det grunnleggende konseptet for en 
+      <firstterm>forgrening</firstterm> &#8212; det vil si en utviklingslinje 
+      som eksisterer uavhengig av en annen linje, men som likevel deler 
       en felles historie hvis du ser langt nok tilbake i tid.
-      En forgrening begynner bestandig livet som en kopi av noe, og g&#229;r
-      videre derfra ved &#229; lage sin egen historie (se <xref
+      En forgrening begynner bestandig livet som en kopi av noe, og g&#229;r 
+      videre derfra ved &#229; lage sin egen historie (se <xref 
       linkend="svn-ch-4-dia-1"/>).</para>
 
       <figure id="svn-ch-4-dia-1">
@@ -123,27 +123,27 @@
       <quote>mix and match</quote> different lines of development in
       your daily work.</para>
     @ENGLISH }}} -->
-    <para>Subversion har kommandoer for &#229; hjelpe deg &#229; vedlikeholde
+    <para>Subversion har kommandoer for &#229; hjelpe deg &#229; vedlikeholde 
       parallelle forgreninger av filene og katalogene dine.
-      Den lar deg opprette forgreninger ved &#229; kopiere data, og husker at
+      Den lar deg opprette forgreninger ved &#229; kopiere data, og husker at 
       kopiene er relatert til hverandre.
-      Den hjelper deg ogs&#229; med &#229; duplisere forandringer fra en gren til
+      Den hjelper deg ogs&#229; med &#229; duplisere forandringer fra en gren til 
       en annen.
-      Til sist, den kan la porsjoner av arbeidskopien reflektere
-      forskjellige forgreninger, s&#229; du kan <quote>blande og
-      tilpasse</quote> forskjellige utviklingslinjer i ditt daglige
+      Til sist, den kan la porsjoner av arbeidskopien reflektere 
+      forskjellige forgreninger, s&#229; du kan <quote>blande og 
+      tilpasse</quote> forskjellige utviklingslinjer i ditt daglige 
       arbeid.</para>
 
   </sect1>
-
+  
   <!-- ================================================================= -->
   <!-- ======================== SECTION 2 ============================== -->
   <!-- ================================================================= -->
   <sect1 id="svn-ch-4-sect-2">
     <!-- @ENGLISH {{{
-    <title>Using Branches</title>
+    <title>Using Branches</title> 
     @ENGLISH }}} -->
-    <title>Bruke forgreninger</title>
+    <title>Bruke forgreninger</title> 
 
     <!-- @ENGLISH {{{
     <para>At this point, you should understand how each commit creates
@@ -151,10 +151,10 @@
       in the repository.  If not, go back and read about revisions in
       <xref linkend="svn-ch-2-sect-3.2"/>.</para>
     @ENGLISH }}} -->
-    <para>P&#229; dette punktet skal du ha f&#229;tt forst&#229;elsen av hvordan hver
-      innlegging oppretter et helt nytt filsystemtre (kalt en
+    <para>P&#229; dette punktet skal du ha f&#229;tt forst&#229;elsen av hvordan hver 
+      innlegging oppretter et helt nytt filsystemtre (kalt en 
       <quote>revisjon</quote>) i depotet.
-      Hvis ikke, g&#229; tilbake og les om revisjoner i <xref
+      Hvis ikke, g&#229; tilbake og les om revisjoner i <xref 
       linkend="svn-ch-2-sect-3.2"/>.</para>
 
     <!-- @ENGLISH {{{
@@ -167,16 +167,16 @@
       <filename>trunk</filename> and <filename>branches</filename>.
       The reason for this will soon become clear.</para>
     @ENGLISH }}} -->
-    <para>For dette kapittelet skal vi g&#229; tilbake til det samme
+    <para>For dette kapittelet skal vi g&#229; tilbake til det samme 
       eksempelet fra kapittel 2.
-      Du husker at du og din kollega Sally deler et depot som inneholder
-      to prosjekter &#8212; <filename>paint</filename> og
+      Du husker at du og din kollega Sally deler et depot som inneholder 
+      to prosjekter &#8212; <filename>paint</filename> og 
       <filename>calc</filename>.
-      Merk imidlertid at i <xref linkend="svn-ch-4-dia-2"/> inneholder
-      hver prosjektkatalog underkataloger kalt
+      Merk imidlertid at i <xref linkend="svn-ch-4-dia-2"/> inneholder 
+      hver prosjektkatalog underkataloger kalt 
       <filename>trunk</filename> og <filename>branches</filename>.
       Grunnen til dette vil du snart f&#229; greie p&#229;.</para>
-
+    
       <figure id="svn-ch-4-dia-2">
         <!-- @ENGLISH {{{
         <title>Starting repository layout</title>
@@ -195,13 +195,13 @@
       <quote>main line</quote> of development is going to take
       place.</para>
     @ENGLISH }}} -->
-    <para>Som tidligere, tenk deg at du og Sally begge har arbeidskopier
+    <para>Som tidligere, tenk deg at du og Sally begge har arbeidskopier 
       av <quote>calc</quote>-prosjektet.
-      Mer spesifikt, dere har begge en arbeidskopi av
+      Mer spesifikt, dere har begge en arbeidskopi av 
       <filename>/calc/trunk</filename>.
-      Alle filene for prosjektet er i denne underkatalogen istedenfor i
-      selve <filename>/calc</filename>, fordi teamet ditt har bestemt at
-      <filename>/calc/trunk</filename> er der <quote>hovedlinjen</quote>
+      Alle filene for prosjektet er i denne underkatalogen istedenfor i 
+      selve <filename>/calc</filename>, fordi teamet ditt har bestemt at 
+      <filename>/calc/trunk</filename> er der <quote>hovedlinjen</quote> 
       av utviklingen skal foreg&#229;.</para>
 
     <!-- @ENGLISH {{{
@@ -215,15 +215,15 @@
       start committing your changes bit-by-bit, you'll surely break
       things for Sally.</para>
     @ENGLISH }}} -->
-    <para>La oss si at du har f&#229;tt oppgaven &#229; utf&#248;re en radikal
+    <para>La oss si at du har f&#229;tt oppgaven &#229; utf&#248;re en radikal 
       reorganisering av prosjektet.
-      Det vil ta lang tid &#229; skrive, og vil p&#229;virke alle filene i
+      Det vil ta lang tid &#229; skrive, og vil p&#229;virke alle filene i 
       prosjektet.
-      Problemet her er at du vil ikke forstyrre Sally, som er i full
+      Problemet her er at du vil ikke forstyrre Sally, som er i full 
       gang med &#229; fikse sm&#229;feil her og der.
-      Hun er avhengig av at den seneste versjonen av prosjektet (i
+      Hun er avhengig av at den seneste versjonen av prosjektet (i 
       <filename>/calc/trunk</filename>) alltid fungerer.
-      Hvis du starter med &#229; legge inn forandringene dine bit for bit,
+      Hvis du starter med &#229; legge inn forandringene dine bit for bit, 
       vil du ganske sikkert &#248;delegge ting for Sally.</para>
 
     <!-- @ENGLISH {{{
@@ -251,32 +251,32 @@
       copy&mdash;especially if you run <command>svn update</command>
       after weeks of isolation.</para>
     @ENGLISH }}} -->
-    <para>En strategi er &#229; krabbe inn i et hull; du og Sally kan stoppe
+    <para>En strategi er &#229; krabbe inn i et hull; du og Sally kan stoppe 
       med &#229; dele informasjon for en uke eller to.
-      Det vil si, starte med &#229; <!-- &#164; gutting --> omorganisere alle
-      filene i arbeidskopien din, men ikke legge inn eller oppdatere f&#248;r
+      Det vil si, starte med &#229; <!-- &#164; gutting --> omorganisere alle 
+      filene i arbeidskopien din, men ikke legge inn eller oppdatere f&#248;r 
       du er helt ferdig med oppgaven.
       Men det er en del problemer med denne metoden.
       For det f&#248;rste er det ikke s&#230;rlig trygt.
-      Folk flest liker &#229; lagre arbeidet sitt til depotet med jevne
+      Folk flest liker &#229; lagre arbeidet sitt til depotet med jevne 
       mellomrom i tilfelle noe stygt skulle skje med arbeidskopien.
       For det andre er det ikke spesielt fleksibelt.
-      Hvis du gj&#248;r arbeidet ditt p&#229; forskjellige PC-er (kanskje du har
-      en arbeidskopi av <filename>/calc/trunk</filename> p&#229; to
-      forskjellige maskiner) m&#229; du kopiere forandringene manuelt fram og
+      Hvis du gj&#248;r arbeidet ditt p&#229; forskjellige PC-er (kanskje du har 
+      en arbeidskopi av <filename>/calc/trunk</filename> p&#229; to 
+      forskjellige maskiner) m&#229; du kopiere forandringene manuelt fram og 
       tilbake, eller gj&#248;re hele jobben p&#229; en enkelt maskin.
-      P&#229; samme m&#229;te er det vanskelig &#229; dele forandringene dine som er
+      P&#229; samme m&#229;te er det vanskelig &#229; dele forandringene dine som er 
       under utvikling med andre.
-      Vanlig god praksis innen programutvikling er &#229; la dine kolleger f&#229;
+      Vanlig god praksis innen programutvikling er &#229; la dine kolleger f&#229; 
       se over arbeidet ditt mens du holder p&#229;.
-      Hvis ingen ser innleggingene dine, g&#229;r du glipp av potensiell
+      Hvis ingen ser innleggingene dine, g&#229;r du glipp av potensiell 
       respons.
-      Til slutt, n&#229;r du er ferdig med alle forandringene dine, kan du
-      oppleve at det er veldig vanskelig &#229; flette sammen det endelige
+      Til slutt, n&#229;r du er ferdig med alle forandringene dine, kan du 
+      oppleve at det er veldig vanskelig &#229; flette sammen det endelige 
       resultatet ditt med resten av koden til firmaet.
-      Sally (eller andre) kan ha gjort mange forandringer i depotet som
-      er vanskelig &#229; legge inn i arbeidskopien din &#8212; spesielt hvis du
-      kj&#248;rer <command>svn update</command> etter flere uker med
+      Sally (eller andre) kan ha gjort mange forandringer i depotet som 
+      er vanskelig &#229; legge inn i arbeidskopien din &#8212; spesielt hvis du 
+      kj&#248;rer <command>svn update</command> etter flere uker med 
       isolasjon.</para>
 
     <!-- @ENGLISH {{{
@@ -287,19 +287,19 @@
       collaborators.  You'll see exactly how this works later
       on.</para>
     @ENGLISH }}} -->
-    <para>En bedre l&#248;sning er &#229; opprette din egen forgrening, eller
+    <para>En bedre l&#248;sning er &#229; opprette din egen forgrening, eller 
       utviklingslinje, i depotet.
-      Dette lar deg lagre det halvfungerende resultatet ditt med jevne
-      mellomrom uten &#229; blande det med arbeidet til andre, og samtidig
+      Dette lar deg lagre det halvfungerende resultatet ditt med jevne 
+      mellomrom uten &#229; blande det med arbeidet til andre, og samtidig 
       kan du velge ut informasjon som du vil dele med dine kolleger.
       Du vil etter hvert f&#229; se n&#248;yaktig hvordan dette fungerer.</para>
 
   <sect2 id="svn-ch-4-sect-2.1">
     <!-- @ENGLISH {{{
-    <title>Creating a Branch</title>
+    <title>Creating a Branch</title> 
     @ENGLISH }}} -->
     <title>Opprette en forgrening</title>
-
+      
       <!-- @ENGLISH {{{
       <para>Creating a branch is very simple&mdash;you make a copy of
         the project in the repository using the <command>svn
@@ -317,20 +317,20 @@
         begins its life as a copy of
         <filename>/calc/trunk</filename>.</para>
       @ENGLISH }}} -->
-      <para>Det &#229; opprette en ny gren er veldig enkelt &#8212; du lager en
-        kopi av prosjektet i depotet ved &#229; bruke kommandoen <command>svn
+      <para>Det &#229; opprette en ny gren er veldig enkelt &#8212; du lager en 
+        kopi av prosjektet i depotet ved &#229; bruke kommandoen <command>svn 
         copy</command>.
-        Subversion er ikke bare i stand til &#229; kopiere enkle filer, men
+        Subversion er ikke bare i stand til &#229; kopiere enkle filer, men 
         ogs&#229; hele kataloger.
-        I dette tilfellet vil du lage en kopi av
+        I dette tilfellet vil du lage en kopi av 
         <filename>/calc/trunk</filename>-katalogen.
         Hvor skal den nye kopien v&#230;re?
         Hvor du vil &#8212; det er et sp&#248;rsm&#229;l om prosjektrutiner.
-        La oss si at teamet ditt har som regel &#229; opprette forgreninger i
-        <filename>/calc/branches</filename>-omr&#229;det i depotet, og du vil
+        La oss si at teamet ditt har som regel &#229; opprette forgreninger i 
+        <filename>/calc/branches</filename>-omr&#229;det i depotet, og du vil 
         kalle grenen din <literal>my-calc-branch</literal>.
-        Det du vil er &#229; lage en ny katalog,
-        <filename>/calc/branches/my-calc-branch</filename>, som begynner
+        Det du vil er &#229; lage en ny katalog, 
+        <filename>/calc/branches/my-calc-branch</filename>, som begynner 
         livet som en kopi av <filename>/calc/trunk</filename>.</para>
 
       <!-- @ENGLISH {{{
@@ -340,9 +340,9 @@
         root directory, <filename>/calc</filename>:</para>
       @ENGLISH }}} -->
       <para>Det er to forskjellige m&#229;ter &#229; lage en kopi p&#229;.
-        Vi vil demonstrere den rotete m&#229;ten f&#248;rst, bare for &#229; klargj&#248;re
+        Vi vil demonstrere den rotete m&#229;ten f&#248;rst, bare for &#229; klargj&#248;re 
         konseptet.
-        Til &#229; begynne med, hent ut en arbeidskopi av prosjektets
+        Til &#229; begynne med, hent ut en arbeidskopi av prosjektets 
         rotkatalog, <filename>/calc</filename>:</para>
 
 <screen>
@@ -360,7 +360,7 @@ Checked out revision 340.
         working-copy paths to the <command>svn copy</command>
         command:</para>
       @ENGLISH }}} -->
-      <para>For &#229; lage en kopi er det n&#229; bare &#229; angi to arbeidskopistier
+      <para>For &#229; lage en kopi er det n&#229; bare &#229; angi to arbeidskopistier 
         til kommandoen <command>svn copy</command>:</para>
 
 <screen>
@@ -386,18 +386,18 @@ A  +   branches/my-calc-branch
         than resending all of the working copy data over the
         network:</para>
       @ENGLISH }}} -->
-      <para>I dette tilfellet kopierer <command>svn copy</command>
-        katalogen <filename>trunk</filename> rekursivt til en ny
+      <para>I dette tilfellet kopierer <command>svn copy</command> 
+        katalogen <filename>trunk</filename> rekursivt til en ny 
         arbeidskatalog, <filename>branches/my-calc-branch</filename>.
-        Som du kan se av kommandoen <command>svn status</command> er den
+        Som du kan se av kommandoen <command>svn status</command> er den 
         nye katalogen n&#229; klargjort for &#229; legges til i depotet.
-        Men legg ogs&#229; merke til <quote>+</quote>-tegnet ved siden av
+        Men legg ogs&#229; merke til <quote>+</quote>-tegnet ved siden av 
         bokstaven A.
-        Dette indikerer at den klargjorte tilleggingen er en
+        Dette indikerer at den klargjorte tilleggingen er en 
         <emphasis>kopi</emphasis> av noe, og ikke noe nytt.
-        N&#229;r du legger inn forandringene dine, vil Subversion lage
-        <filename>/calc/branches/my-calc-branch</filename> i depotet ved
-        &#229; kopiere <filename>/calc/trunk</filename> istedenfor &#229; sende
+        N&#229;r du legger inn forandringene dine, vil Subversion lage 
+        <filename>/calc/branches/my-calc-branch</filename> i depotet ved 
+        &#229; kopiere <filename>/calc/trunk</filename> istedenfor &#229; sende 
         hele arbeidskopien over nettverket en gang til:</para>
 
 <!-- &#164; -->
@@ -412,8 +412,8 @@ Committed revision 341.
         should have told you about in the first place: <command>svn
         copy</command> is able to operate directly on two URLs.</para>
       @ENGLISH }}} -->
-      <para>Og n&#229; den lettere m&#229;ten &#229; lage en gren, som vi skulle
-        fortalt deg om til &#229; begynne med: <command>svn copy</command>
+      <para>Og n&#229; den lettere m&#229;ten &#229; lage en gren, som vi skulle 
+        fortalt deg om til &#229; begynne med: <command>svn copy</command> 
         kan operere direkte mot to URLer.</para>
 
 <screen>
@@ -431,7 +431,7 @@ Committed revision 341.
         <filename>/calc/trunk</filename>.  This is shown in <xref
         linkend="svn-ch-4-dia-3"/>.  Notice that the second method,
         however, performs an <emphasis>immediate</emphasis> commit.
-        <footnote>
+        <footnote> 
           <para>Subversion does not support
             cross-repository copying.  When using URLs with <command>svn
             copy</command> or <command>svn move</command>, you can only
@@ -443,21 +443,21 @@ Committed revision 341.
         all.</para>
       @ENGLISH }}} -->
       <para>Det er faktisk ingen forskjell p&#229; disse to metodene.
-        Begge prosedyrene lager en ny katalog i revisjon 341, og den nye
+        Begge prosedyrene lager en ny katalog i revisjon 341, og den nye 
         katalogen er en kopi av <filename>/calc/trunk</filename>.
         Dette er vist i <xref linkend="svn-ch-4-dia-3"/>.
-        Legg merke til at den andre metoden utf&#248;rer en
-        <emphasis>&#248;yeblikkelig</emphasis>
-        innlegging.<footnote><para>Subversion st&#248;tter ikke kopiering
+        Legg merke til at den andre metoden utf&#248;rer en 
+        <emphasis>&#248;yeblikkelig</emphasis> 
+        innlegging.<footnote><para>Subversion st&#248;tter ikke kopiering 
         mellom forskjellige depot.
-        N&#229;r du bruker URLer med <command>svn copy</command> eller
-        <command>svn move</command> kan du bare kopiere elementer
+        N&#229;r du bruker URLer med <command>svn copy</command> eller 
+        <command>svn move</command> kan du bare kopiere elementer 
         innenfor det samme depotet.</para></footnote>
-        Det er en lettere prosedyre, fordi det ikke kreves at du m&#229;
+        Det er en lettere prosedyre, fordi det ikke kreves at du m&#229; 
         hente ut et stort speil av depotet.
-        Faktisk trenger du med denne teknikken ikke en arbeidskopi i det
+        Faktisk trenger du med denne teknikken ikke en arbeidskopi i det 
         hele tatt.</para>
-
+      
       <figure id="svn-ch-4-dia-3">
         <!-- @ENGLISH {{{
         <title>Repository with new copy</title>
@@ -465,13 +465,13 @@ Committed revision 341.
         <title>Depot med ny kopi</title>
         <graphic fileref="images/ch04dia3.png"/>
       </figure>
-
+      
       <sidebar>
         <!-- @ENGLISH {{{
         <title>Cheap Copies</title>
         @ENGLISH }}} -->
         <title>Billige kopier</title>
-
+                
         <!-- @ENGLISH {{{
         <para>Subversion's repository has a special design.  When you
           copy a directory, you don't need to worry about the
@@ -487,19 +487,19 @@ Committed revision 341.
           directory.</para>
         @ENGLISH }}} -->
         <para>Et depot i Subversion har en spesiell design.
-          N&#229;r du kopierer en katalog, trenger du ikke &#229; bekymre deg for
-          at depotet skal vokse seg stort &#8212; Subversion dupliserer
+          N&#229;r du kopierer en katalog, trenger du ikke &#229; bekymre deg for 
+          at depotet skal vokse seg stort &#8212; Subversion dupliserer 
           egentlig ingen data.
-          Istedenfor lages det en ny katalogpost som peker til et
+          Istedenfor lages det en ny katalogpost som peker til et 
           <emphasis>eksisterende</emphasis> tre.
-          Hvis du er en Unixbruker, er dette det samme konseptet som en
+          Hvis du er en Unixbruker, er dette det samme konseptet som en 
           hard lenke.
           <!-- &#164; -->Denne kopien kalles <quote>lat</quote>.
-          Det vil si at hvis du legger inn en forandring til en fil i
-          den kopierte katalogen, forandrer bare denne filen seg &#8212;
-          resten av filene fortsetter &#229; eksistere som lenker til de
+          Det vil si at hvis du legger inn en forandring til en fil i 
+          den kopierte katalogen, forandrer bare denne filen seg &#8212; 
+          resten av filene fortsetter &#229; eksistere som lenker til de 
           originale filene i den originale katalogen.</para>
-
+      
         <!-- @ENGLISH {{{
         <para>This is why you'll often hear Subversion users talk
           about <quote>cheap copies</quote>.  It doesn't matter how
@@ -512,16 +512,16 @@ Committed revision 341.
           the <quote>bubble up</quote> method in Subversion's design
           documents.)</para>
         @ENGLISH }}} -->
-        <para>Det er derfor du ofte vil h&#248;re Subversionbrukere snakke om
+        <para>Det er derfor du ofte vil h&#248;re Subversionbrukere snakke om 
           <quote>billige kopier</quote>.
-          Det har ingenting &#229; si hvor stor en katalog er &#8212; det tar en
+          Det har ingenting &#229; si hvor stor en katalog er &#8212; det tar en 
           veldig liten, konstant mengde tid &#229; lage en kopi av den.
-          Faktisk er denne egenskapen basisen for hvordan innlegginger
-          skjer i Subversion; hver revisjon er en <quote>billig
-          kopi</quote> av den forrige revisjonen, med noen f&#229; elementer
+          Faktisk er denne egenskapen basisen for hvordan innlegginger 
+          skjer i Subversion; hver revisjon er en <quote>billig 
+          kopi</quote> av den forrige revisjonen, med noen f&#229; elementer 
           som forandrer seg p&#229; <quote>en lat m&#229;te</quote> i den.
-          (For &#229; lese mer om dette, bes&#248;k Subversions hjemmeside og les
-          om <quote>bubble up</quote>-metoden i Subversions
+          (For &#229; lese mer om dette, bes&#248;k Subversions hjemmeside og les 
+          om <quote>bubble up</quote>-metoden i Subversions 
           designdokumenter.)</para>
 
         <!-- @ENGLISH {{{
@@ -531,27 +531,27 @@ Committed revision 341.
           cheap, both in time and space.  Make branches as often as
           you want.</para>
         @ENGLISH }}} -->
-        <para>Selvf&#248;lgelig, denne interne mekanikken med kopiering og
-          deling av data er skjult for brukeren, som rett og slett bare
+        <para>Selvf&#248;lgelig, denne interne mekanikken med kopiering og 
+          deling av data er skjult for brukeren, som rett og slett bare 
           ser kopier av tr&#230;r.
-          Hovedpoenget her er at kopier er billige, b&#229;de n&#229;r det gjelder
+          Hovedpoenget her er at kopier er billige, b&#229;de n&#229;r det gjelder 
           tid og plass.
           Lag forgreninger s&#229; ofte som du vil.</para>
       </sidebar>
 
     </sect2>
-
+    
     <sect2 id="svn-ch-4-sect-2.2">
       <!-- @ENGLISH {{{
-      <title>Working with Your Branch</title>
+      <title>Working with Your Branch</title> 
       @ENGLISH }}} -->
-      <title>Arbeide med grenen</title>
+      <title>Arbeide med grenen</title> 
 
       <!-- @ENGLISH {{{
       <para>Now that you've created a branch of the project, you can
         check out a new working copy to start using it:</para>
       @ENGLISH }}} -->
-      <para>N&#229; som du har laget en gren av prosjektet, kan du hente ut
+      <para>N&#229; som du har laget en gren av prosjektet, kan du hente ut 
         en ny arbeidskopi for &#229; starte bruken av den:</para>
 
 <screen>
@@ -572,21 +572,21 @@ Checked out revision 341.
         <command>svn switch</command> command is an alternate way of
         creating a working copy of a branch.)</para>
       @ENGLISH }}} -->
-      <para>Det er ingenting spesielt med denne arbeidskopien; den
+      <para>Det er ingenting spesielt med denne arbeidskopien; den 
         avspeiler simpelthen bare en annen katalog i depotet.
-        Men n&#229;r du legger inn forandringer, vil ikke Sally se noen av
+        Men n&#229;r du legger inn forandringer, vil ikke Sally se noen av 
         dem n&#229;r hun oppdaterer.
         Hennes arbeidskopi er fra <filename>/calc/trunk</filename>.
-        (Pass p&#229; &#229; lese <xref linkend="svn-ch-4-sect-5"/> senere i dette
+        (Pass p&#229; &#229; lese <xref linkend="svn-ch-4-sect-5"/> senere i dette 
         kapittelet:
-        Kommandoen <command>svn switch</command> er en alternativ m&#229;te &#229;
+        Kommandoen <command>svn switch</command> er en alternativ m&#229;te &#229; 
         lage en arbeidskopi av en forgrening.)</para>
 
       <!-- @ENGLISH {{{
       <para>Let's pretend that a week goes by, and the following
         commits happen:</para>
       @ENGLISH }}} -->
-      <para>La oss late som om en uke g&#229;r, og de f&#248;lgende innlegginger
+      <para>La oss late som om en uke g&#229;r, og de f&#248;lgende innlegginger 
         blir gjort:</para>
 
       <itemizedlist>
@@ -598,8 +598,8 @@ Checked out revision 341.
         </listitem>
         @ENGLISH }}} -->
         <listitem>
-          <para>Du gj&#248;r en forandring i
-            <filename>/calc/branches/my-calc-branch/button.c</filename>
+          <para>Du gj&#248;r en forandring i 
+            <filename>/calc/branches/my-calc-branch/button.c</filename> 
             som lager revisjon 342.</para>
         </listitem>
 
@@ -611,8 +611,8 @@ Checked out revision 341.
         </listitem>
         @ENGLISH }}} -->
         <listitem>
-          <para>Du gj&#248;r en forandring i
-            <filename>/calc/branches/my-calc-branch/integer.c</filename>
+          <para>Du gj&#248;r en forandring i 
+            <filename>/calc/branches/my-calc-branch/integer.c</filename> 
             som lager revisjon 343.</para>
         </listitem>
 
@@ -624,8 +624,8 @@ Checked out revision 341.
         </listitem>
         @ENGLISH }}} -->
         <listitem>
-          <para>Sally gj&#248;r en forandring i
-            <filename>/calc/trunk/integer.c</filename> som lager
+          <para>Sally gj&#248;r en forandring i 
+            <filename>/calc/trunk/integer.c</filename> som lager 
             revisjon 344.</para>
         </listitem>
       </itemizedlist>
@@ -635,8 +635,8 @@ Checked out revision 341.
         in <xref linkend="svn-ch-4-dia-4"/>, happening on
         <filename>integer.c</filename>.</para>
       @ENGLISH }}} -->
-      <para>Det er n&#229; to uavhengige utviklingslinjer, vist i <xref
-        linkend="svn-ch-4-dia-4"/>, som skjer med
+      <para>Det er n&#229; to uavhengige utviklingslinjer, vist i <xref 
+        linkend="svn-ch-4-dia-4"/>, som skjer med 
         <filename>integer.c</filename>.</para>
 
       <figure id="svn-ch-4-dia-4">
@@ -652,8 +652,8 @@ Checked out revision 341.
         changes made to your copy of
         <filename>integer.c</filename>:</para>
       @ENGLISH }}} -->
-      <para>Ting blir interessante n&#229;r du ser p&#229; historien til
-        forandringene gjort i din kopi av
+      <para>Ting blir interessante n&#229;r du ser p&#229; historien til 
+        forandringene gjort i din kopi av 
         <filename>integer.c</filename>:</para>
 
 <!-- &#164; Eksemplene tas seinere -->
@@ -703,14 +703,14 @@ Changed paths:
         copied.  Now look what happens when Sally runs the same
         command on her copy of the file:</para>
       @ENGLISH }}} -->
-      <para>Legg merke til at Subversion g&#229;r gjennom historien av
-        forgreningens <filename>integer.c</filename> hele veien tilbake
+      <para>Legg merke til at Subversion g&#229;r gjennom historien av 
+        forgreningens <filename>integer.c</filename> hele veien tilbake 
         gjennom tiden og krysser til og med punktet den ble kopiert.
-        Opprettelsen av forgreningen vises som en hendelse i historien,
-        fordi <filename>integer.c</filename> ble kopiert <!-- &#164; -->i all
-        stillhet n&#229;r alt under <filename>/calc/trunk/</filename> ble
+        Opprettelsen av forgreningen vises som en hendelse i historien, 
+        fordi <filename>integer.c</filename> ble kopiert <!-- &#164; -->i all 
+        stillhet n&#229;r alt under <filename>/calc/trunk/</filename> ble 
         kopiert.
-        Se n&#229; hva som skjer n&#229;r Sally kj&#248;rer den samme kommandoen p&#229;
+        Se n&#229; hva som skjer n&#229;r Sally kj&#248;rer den samme kommandoen p&#229; 
         hennes kopi av filen:</para>
 
 <!-- &#164; -->
@@ -753,22 +753,22 @@ Changed paths:
         341, they used to be the same file.  That's why you and Sally
         both see the changes made in revisions 303 and 98.</para>
       @ENGLISH }}} -->
-      <para>Sally ser at hennes egen revisjon 344 forandrer seg, men
+      <para>Sally ser at hennes egen revisjon 344 forandrer seg, men 
         ikke forandringen som du gjorde i revisjon 343.
-        Hva Subversion ang&#229;r, p&#229;virket disse to innleggingene
+        Hva Subversion ang&#229;r, p&#229;virket disse to innleggingene 
         forskjellige filer p&#229; forskjellige plasseringer i depotet.
-        Subversion viser imidlertid at de to filene deler en felles
+        Subversion viser imidlertid at de to filene deler en felles 
         historie.
-        F&#248;r grenkopieringen ble gjort i revisjon 341 var de den samme
+        F&#248;r grenkopieringen ble gjort i revisjon 341 var de den samme 
         filen.
-        Det er derfor b&#229;de du og Sally ser forandringene gjort i
+        Det er derfor b&#229;de du og Sally ser forandringene gjort i 
         revisjonene 303 og 98.</para>
 
     </sect2>
 
     <sect2 id="svn-ch-4-sect-2.3">
       <!-- @ENGLISH {{{
-      <title>The Key Concepts Behind Branches</title>
+      <title>The Key Concepts Behind Branches</title> 
       @ENGLISH }}} -->
       <title>N&#248;kkelkonseptet bak forgreninger</title>
 
@@ -776,7 +776,7 @@ Changed paths:
       <para>There are two important lessons that you should remember
         from this section.</para>
       @ENGLISH }}} -->
-      <para>Det er to viktige <!-- &#164; -->ting du b&#248;r huske fra denne
+      <para>Det er to viktige <!-- &#164; -->ting du b&#248;r huske fra denne 
         seksjonen.</para>
 
       <orderedlist>
@@ -788,11 +788,11 @@ Changed paths:
             dimension.  These directories just happen to carry some
             extra historical information.</para>
           @ENGLISH }}} -->
-          <para>Ulikt mange andre versjonskontrollsystemer eksisterer
-            Subversions forgreninger som <emphasis>vanlige
-            filsystemkataloger</emphasis> i depotet, ikke i en ekstra
+          <para>Ulikt mange andre versjonskontrollsystemer eksisterer 
+            Subversions forgreninger som <emphasis>vanlige 
+            filsystemkataloger</emphasis> i depotet, ikke i en ekstra 
             dimensjon.
-            Disse katalogene <!-- &#164; just happen -->inneholder bare noe
+            Disse katalogene <!-- &#164; just happen -->inneholder bare noe 
             ekstra historisk informasjon.</para>
         </listitem>
         <listitem>
@@ -806,14 +806,14 @@ Changed paths:
             directory that happens to have been created by
             copying.</para>
           @ENGLISH }}} -->
-          <para>Subversion har ikke noe internt begrep om en gren &#8212; bare
+          <para>Subversion har ikke noe internt begrep om en gren &#8212; bare 
             kopier.
-            N&#229;r du kopierer en katalog, er den resulterende nye
-            katalogen bare en <quote>gren</quote> fordi
+            N&#229;r du kopierer en katalog, er den resulterende nye 
+            katalogen bare en <quote>gren</quote> fordi 
             <emphasis>du</emphasis> legger denne meningen til den.
-            Du kan tenke p&#229; denne katalogen p&#229; en spesiell m&#229;te eller
-            behandle den p&#229; forskjellig m&#229;te, men for Subversion er den
-            bare en vanlig katalog som tilfeldigvis er blitt opprettet
+            Du kan tenke p&#229; denne katalogen p&#229; en spesiell m&#229;te eller 
+            behandle den p&#229; forskjellig m&#229;te, men for Subversion er den 
+            bare en vanlig katalog som tilfeldigvis er blitt opprettet 
             ved kopiering.</para>
         </listitem>
       </orderedlist>
@@ -838,8 +838,8 @@ Changed paths:
       development.</para>
     @ENGLISH }}} -->
     <para>N&#229; arbeider du og Sally p&#229; parallelle grener i prosjektet:
-      Du arbeider p&#229; en privat gren, og Sally jobber i
-      <firstterm>trunk</firstterm>, eller hovedlinjen av
+      Du arbeider p&#229; en privat gren, og Sally jobber i 
+      <firstterm>trunk</firstterm>, eller hovedlinjen av 
       utviklingen.</para>
 
     <!-- @ENGLISH {{{
@@ -850,12 +850,12 @@ Changed paths:
       private branch and commit changes there until all the work is
       complete.</para>
     @ENGLISH }}} -->
-    <para>For prosjekter som har et stort antall bidragsytere er det
-      vanlig for de fleste personer &#229; ha arbeidskopier av
+    <para>For prosjekter som har et stort antall bidragsytere er det 
+      vanlig for de fleste personer &#229; ha arbeidskopier av 
       <filename>trunk</filename>.
-      N&#229;r noen m&#229; gj&#248;re forandringer som vil ta litt tid og som
-      sannsynligvis kommer til &#229; forstyrre <filename>trunk</filename>,
-      er standard prosedyre &#229; lage en privat gren og legge inn
+      N&#229;r noen m&#229; gj&#248;re forandringer som vil ta litt tid og som 
+      sannsynligvis kommer til &#229; forstyrre <filename>trunk</filename>, 
+      er standard prosedyre &#229; lage en privat gren og legge inn 
       forandringer der til alt arbeidet er fullf&#248;rt.</para>
 
     <!-- @ENGLISH {{{
@@ -867,15 +867,15 @@ Changed paths:
       near-impossible to merge your changes back into the trunk
       without a huge number of conflicts.</para>
     @ENGLISH }}} -->
-    <para>S&#229;, de gode nyhetene er at du og Sally ikke forstyrrer
+    <para>S&#229;, de gode nyhetene er at du og Sally ikke forstyrrer 
       hverandre.
-      De d&#229;rlige nyhetene er at det er veldig lett &#229; drive
+      De d&#229;rlige nyhetene er at det er veldig lett &#229; drive 
       <emphasis>for</emphasis> langt avg&#229;rde.
-      Husk at ett av problemene med <quote>krabbe inn i et
-      hull</quote>-strategien er at n&#229;r du er ferdig med grenen din, vil
-      det bli nesten umulig &#229; flette inn dine forandringer tilbake til
+      Husk at ett av problemene med <quote>krabbe inn i et 
+      hull</quote>-strategien er at n&#229;r du er ferdig med grenen din, vil 
+      det bli nesten umulig &#229; flette inn dine forandringer tilbake til 
       <filename>trunk</filename> uten et stort antall konflikter.</para>
-
+    
     <!-- @ENGLISH {{{
     <para>Instead, you and Sally might continue to share changes as
       you work.  It's up to you to decide which changes are worth
@@ -884,22 +884,22 @@ Changed paths:
       completely finished with your branch, your entire set of branch
       changes can be copied back into the trunk.</para>
     @ENGLISH }}} -->
-    <para>Istedenfor kan du og Sally fortsette med &#229; dele forandringer
+    <para>Istedenfor kan du og Sally fortsette med &#229; dele forandringer 
       mens du arbeider.
-      Det er opp til deg &#229; bestemme hvilke forandringer som er verdt &#229;
-      dele; Subversion gir deg muligheten til &#229; selektivt
+      Det er opp til deg &#229; bestemme hvilke forandringer som er verdt &#229; 
+      dele; Subversion gir deg muligheten til &#229; selektivt 
       <quote>kopiere</quote> forandringer mellom grener.
-      Og n&#229;r du er fullstendig ferdig med din gren, kan hele settet med
-      grenforandringer bli kopiert tilbake til
+      Og n&#229;r du er fullstendig ferdig med din gren, kan hele settet med 
+      grenforandringer bli kopiert tilbake til 
       <filename>trunk</filename>.</para>
-
+    
 
     <sect2 id="svn-ch-4-sect-3.1">
       <!-- @ENGLISH {{{
       <title>Copying Specific Changes</title>
       @ENGLISH }}} -->
       <title>Kopiere spesifikke forandringer</title>
-
+      
 
       <!-- @ENGLISH {{{
       <para>In the previous section, we mentioned that both you and
@@ -914,19 +914,19 @@ Changed paths:
         now, <emphasis>before</emphasis> you start working too heavily
         in the same places.</para>
       @ENGLISH }}} -->
-      <para>I den forrige seksjonen nevnte vi at b&#229;de du og Sally gjorde
-        forandringer til <filename>integer.c</filename> p&#229; forskjellige
+      <para>I den forrige seksjonen nevnte vi at b&#229;de du og Sally gjorde 
+        forandringer til <filename>integer.c</filename> p&#229; forskjellige 
         forgreninger.
-        Hvis du ser p&#229; Sallys loggmelding for revisjon 344, kan du se at
+        Hvis du ser p&#229; Sallys loggmelding for revisjon 344, kan du se at 
         hun forandret noen stavefeil.
-        Din kopi av den samme filen har uten tvil de samme
+        Din kopi av den samme filen har uten tvil de samme 
         skrivefeilene.
-        Det er sannsynlig at dine fremtidige forandringer i denne filen
-        vil p&#229;virke de samme omr&#229;dene som skrivefeilene ligger i, s&#229; du
-        ligger an til &#229; f&#229; potensielle konflikter n&#229;r du en vakker dag
+        Det er sannsynlig at dine fremtidige forandringer i denne filen 
+        vil p&#229;virke de samme omr&#229;dene som skrivefeilene ligger i, s&#229; du 
+        ligger an til &#229; f&#229; potensielle konflikter n&#229;r du en vakker dag 
         fletter inn grenen din.
-        Da er det bedre &#229; motta Sallys forandringer n&#229;,
-        <emphasis>f&#248;r</emphasis> du starter med &#229; arbeide mye i det
+        Da er det bedre &#229; motta Sallys forandringer n&#229;, 
+        <emphasis>f&#248;r</emphasis> du starter med &#229; arbeide mye i det 
         samme omr&#229;det.</para>
 
       <!-- @ENGLISH {{{
@@ -938,15 +938,15 @@ Changed paths:
         you can ask <command>svn diff</command> to show you the exact
         change made by Sally in revision 344:</para>
       @ENGLISH }}} -->
-      <para>Det er p&#229; tide &#229; bruke kommandoen <command>svn
+      <para>Det er p&#229; tide &#229; bruke kommandoen <command>svn 
         merge</command>.
-        Det skal vise seg at denne kommandoen er en veldig n&#230;r slektning
-        av <command>svn diff</command>-kommandoen (som du leste om i
+        Det skal vise seg at denne kommandoen er en veldig n&#230;r slektning 
+        av <command>svn diff</command>-kommandoen (som du leste om i 
         kapittel 3).
-        Begge kommandoene er i stand til &#229; sammenligne to vilk&#229;rlige
+        Begge kommandoene er i stand til &#229; sammenligne to vilk&#229;rlige 
         objekter i depotet og beskrive forskjellene.
-        For eksempel kan du sp&#248;rre <command>svn diff</command> om &#229; vise
-        deg den eksakte forandringen gjort av Sally i revisjon
+        For eksempel kan du sp&#248;rre <command>svn diff</command> om &#229; vise 
+        deg den eksakte forandringen gjort av Sally i revisjon 
         344:</para>
 
 <screen>
@@ -971,41 +971,41 @@ Index: integer.c
      high = high &lt;&lt; 8;  /* interpret MSB correctly */
 -    total = low + high; /* add them togethe for correct total */
 +    total = low + high; /* add them together for correct total */
-
+ 
      info->extra_header = (unsigned char *) my_malloc(total);
      fread(info->extra_header, total, 1, gzfile);
 @@ -241,7 +241,7 @@
       Store the offset with ftell() ! */
-
+ 
    if ((info->data_offset = ftell(gzfile))== -1) {
 -    printf("error: ftell() retturned -1.\n");
 +    printf("error: ftell() returned -1.\n");
      exit(1);
    }
-
+ 
 @@ -249,7 +249,7 @@
    printf("I believe start of compressed data is %u\n", info->data_offset);
    #endif
-
+   
 -  /* Set postion eight bytes from the end of the file. */
 +  /* Set position eight bytes from the end of the file. */
-
+ 
    if (fseek(gzfile, -8, SEEK_END)) {
      printf("error: fseek() returned non-zero\n");
 </screen>
-
+      
       <!-- @ENGLISH {{{
       <para>The <command>svn merge</command> is almost exactly the
         same.  Instead of printing the differences to your terminal,
         however, it applies them directly to your working copy as
         <emphasis>local modifications</emphasis>:</para>
       @ENGLISH }}} -->
-      <para><command>svn merge</command> gj&#248;r omtrent n&#248;yaktig det
+      <para><command>svn merge</command> gj&#248;r omtrent n&#248;yaktig det 
         samme.
-        Istedenfor &#229; skrive forskjellene til terminalen din, blir de
-        lagt direkte til arbeidskopien din som <emphasis>lokale
+        Istedenfor &#229; skrive forskjellene til terminalen din, blir de 
+        lagt direkte til arbeidskopien din som <emphasis>lokale 
         modifikasjoner</emphasis>:</para>
-
+    
 <screen>
 $ svn merge -r 343:344 http://svn.example.com/repos/calc/trunk
 U  integer.c
@@ -1023,14 +1023,14 @@ M  integer.c
         At this point, it's up to you to review the local modification
         and make sure it works correctly.</para>
       @ENGLISH }}} -->
-      <para>Utdataene fra <command>svn merge</command> viser at din kopi
+      <para>Utdataene fra <command>svn merge</command> viser at din kopi 
         av <filename>integer.c</filename> ble patchet.
-        N&#229; inneholder den Sallys forandring &#8212; forandringen er blitt
-        <quote>kopiert</quote> fra <filename>trunk</filename> til din
-        arbeidskopi p&#229; din private gren, og eksisterer n&#229; som en lokal
+        N&#229; inneholder den Sallys forandring &#8212; forandringen er blitt 
+        <quote>kopiert</quote> fra <filename>trunk</filename> til din 
+        arbeidskopi p&#229; din private gren, og eksisterer n&#229; som en lokal 
         modifisering.
-        P&#229; dette punktet er det opp til deg &#229; se over den lokale
-        modifiseringen og forsikre deg om at den fungerer
+        P&#229; dette punktet er det opp til deg &#229; se over den lokale 
+        modifiseringen og forsikre deg om at den fungerer 
         korrekt.</para>
 
       <!-- @ENGLISH {{{
@@ -1041,12 +1041,12 @@ M  integer.c
         decide that the merge was a bad idea altogether, simply give up
         and <command>svn revert</command> the local change.</para>
       @ENGLISH }}} -->
-      <para>I et annet scenario er det mulig at ting ikke gikk s&#229; bra og
-        at <filename>integer.c</filename> gikk inn i en
+      <para>I et annet scenario er det mulig at ting ikke gikk s&#229; bra og 
+        at <filename>integer.c</filename> gikk inn i en 
         konflikttilstand.
-        Du m&#229; kanskje l&#248;se konflikten ved hjelp av standard prosedyrer
-        (se kapittel 3), eller hvis du finner ut at flettingen egentlig
-        var en d&#229;rlig id&#233;, kan du rett og slett gi opp og kj&#248;re
+        Du m&#229; kanskje l&#248;se konflikten ved hjelp av standard prosedyrer 
+        (se kapittel 3), eller hvis du finner ut at flettingen egentlig 
+        var en d&#229;rlig id&#233;, kan du rett og slett gi opp og kj&#248;re 
         <command>svn revert</command> p&#229; den lokale forandringen.</para>
 
       <!-- @ENGLISH {{{
@@ -1057,18 +1057,18 @@ M  integer.c
         between branches is commonly called
         <firstterm>porting</firstterm> changes.</para>
       @ENGLISH }}} -->
-      <para>Men hvis vi g&#229;r ut i fra at du har sett over forandringen,
-        kan du bruke <command>svn commit</command> til &#229; legge inn
+      <para>Men hvis vi g&#229;r ut i fra at du har sett over forandringen, 
+        kan du bruke <command>svn commit</command> til &#229; legge inn 
         forandringen p&#229; vanlig m&#229;te.
-        P&#229; dette tidpunktet er forandringen blitt flettet inn i din
+        P&#229; dette tidpunktet er forandringen blitt flettet inn i din 
         depotgren.
-        I versjonskontrollterminologi blir denne m&#229;ten &#229; kopiere
-        forandringer mellom forgreninger <!-- &#164; &#171;porting&#187; p&#229; norsk
-        blir&#160;&#8230; ??? Derfor tar jeg med den engelske betegnelsen
-        forel&#248;pig. -->p&#229; engelsk kalt
+        I versjonskontrollterminologi blir denne m&#229;ten &#229; kopiere 
+        forandringer mellom forgreninger <!-- &#164; &#171;porting&#187; p&#229; norsk 
+        blir&#160;&#8230; ??? Derfor tar jeg med den engelske betegnelsen 
+        forel&#248;pig. -->p&#229; engelsk kalt 
         <foreignphrase>porting</foreignphrase>.
-        <!-- &#164; Og derfor legger vi til litt. -->Det finnes ikke en
-        standardisert betegnelse for dette p&#229; norsk, s&#229; vi bruker i
+        <!-- &#164; Og derfor legger vi til litt. -->Det finnes ikke en 
+        standardisert betegnelse for dette p&#229; norsk, s&#229; vi bruker i 
         denne boken uttrykket <quote>flette</quote>.</para>
 
       <!-- @ENGLISH {{{
@@ -1076,8 +1076,8 @@ M  integer.c
         message mentions that you're porting a specific change from
         one branch to another.  For example:</para>
       @ENGLISH }}} -->
-      <para>N&#229;r du legger inn de lokale modifiseringene, b&#248;r du forsikre
-        deg om at loggmeldingen din nevner at du <!-- &#164; -->flyttet en
+      <para>N&#229;r du legger inn de lokale modifiseringene, b&#248;r du forsikre 
+        deg om at loggmeldingen din nevner at du <!-- &#164; -->flyttet en 
         forandring fra en gren til en annen.
         For eksempel:</para>
 
@@ -1093,7 +1093,7 @@ Committed revision 360.
       <para>As you'll see in the next sections, this is a very
         important <quote>best practice</quote> to follow.</para>
       @ENGLISH }}} -->
-      <para>Som du vil se i de neste seksjonene, er dette en veldig
+      <para>Som du vil se i de neste seksjonene, er dette en veldig 
         viktig <!-- &#164; --><quote>god praksis</quote> &#229; f&#248;lge.</para>
 
       <sidebar>
@@ -1101,7 +1101,7 @@ Committed revision 360.
         <title>Why Not Use Patches Instead?</title>
         @ENGLISH }}} -->
         <title>Hvorfor ikke bruke patcher istedenfor?</title>
-
+        
         <!-- @ENGLISH {{{
         <para>A question may be on your mind, especially if you're a
           Unix user: why bother to use <command>svn merge</command> at
@@ -1109,12 +1109,12 @@ Committed revision 360.
           <command>patch</command> command to accomplish the same job?
           For example:</para>
         @ENGLISH }}} -->
-        <para>Et sp&#248;rsm&#229;l kan lure i bakhodet ditt, spesielt hvis du er
+        <para>Et sp&#248;rsm&#229;l kan lure i bakhodet ditt, spesielt hvis du er 
           en Unixbruker:
-          Hvorfor bry seg med &#229; bruke <command>svn merge</command> i det
+          Hvorfor bry seg med &#229; bruke <command>svn merge</command> i det 
           hele tatt?
-          Hvorfor ikke rett og slett bruke operativsystemets
-          <command>patch</command>-kommando for &#229; utf&#248;re den samme
+          Hvorfor ikke rett og slett bruke operativsystemets 
+          <command>patch</command>-kommando for &#229; utf&#248;re den samme 
           jobben?
           For eksempel:</para>
 
@@ -1151,30 +1151,30 @@ done
           tree-changes by directly applying them to your working
           copy.</para>
         @ENGLISH }}} -->
-        <para>Ja, i dette spesielle tilfellet er det egentlig ingen
+        <para>Ja, i dette spesielle tilfellet er det egentlig ingen 
           forskjell.
-          Men <command>svn merge</command> har spesielle evner som
+          Men <command>svn merge</command> har spesielle evner som 
           overg&#229;r <command>patch</command>-programmet.
-          Filformatet brukt av <command>patch</command> er ganske
-          begrenset; det er bare i stand til &#229; forandre innhold av
+          Filformatet brukt av <command>patch</command> er ganske 
+          begrenset; det er bare i stand til &#229; forandre innhold av 
           filer.
-          Det er ingen m&#229;te &#229; representere forandringer til
-          <emphasis>tr&#230;r</emphasis>, som tillegginger, slettinger eller
+          Det er ingen m&#229;te &#229; representere forandringer til 
+          <emphasis>tr&#230;r</emphasis>, som tillegginger, slettinger eller 
           navneskifter p&#229; filer og kataloger.
-          Hvis Sallys forandring hadde, la oss si, lagt til en katalog,
-          ville utdataene fra <command>svn diff</command> ikke nevnt det
+          Hvis Sallys forandring hadde, la oss si, lagt til en katalog, 
+          ville utdataene fra <command>svn diff</command> ikke nevnt det 
           i det hele tatt.
-          <command>svn diff</command> skriver bare ut det begrensede
-          patch-formatet, s&#229; det er noen <!-- &#164; -->forandringer det rett
-          og slett ikke kan vise.<footnote><para>I fremtiden planlegger
-          Subversionprosjektet &#229; bruke (eller finne opp) et utvidet
+          <command>svn diff</command> skriver bare ut det begrensede 
+          patch-formatet, s&#229; det er noen <!-- &#164; -->forandringer det rett 
+          og slett ikke kan vise.<footnote><para>I fremtiden planlegger 
+          Subversionprosjektet &#229; bruke (eller finne opp) et utvidet 
           patchformat som beskriver treforandringer.</para></footnote>
-          <command>svn merge</command>-kommandoen, derimot, kan uttrykke
-          treforandringer ved &#229; legge dem direkte inn i arbeidskopien
+          <command>svn merge</command>-kommandoen, derimot, kan uttrykke 
+          treforandringer ved &#229; legge dem direkte inn i arbeidskopien 
           din.</para>
 
       </sidebar>
-
+      
       <!-- @ENGLISH {{{
       <para>A word of warning: while <command>svn diff</command> and
         <command>svn merge</command> are very similar in concept, they
@@ -1187,15 +1187,15 @@ done
         following common operations:</para>
       @ENGLISH }}} -->
       <para>En liten advarsel:
-        Selv om <command>svn diff</command> og <command>svn
-        merge</command> er veldig like i konsept, har de i mange
+        Selv om <command>svn diff</command> og <command>svn 
+        merge</command> er veldig like i konsept, har de i mange 
         tilfeller forskjellig syntaks.
-        <!-- &#164; Be sure -->Les om dem i kapittel 9 for detaljer, eller
+        <!-- &#164; Be sure -->Les om dem i kapittel 9 for detaljer, eller 
         sp&#248;r <command>svn help</command>.
-        For eksempel krever <command>svn merge</command> en arbeidskopi
-        som et m&#229;l, det vil si en plass hvor den skal legge inn
+        For eksempel krever <command>svn merge</command> en arbeidskopi 
+        som et m&#229;l, det vil si en plass hvor den skal legge inn 
         treforandringene.
-        Hvis m&#229;let ikke er spesifisert, g&#229;r den ut i fra at du pr&#248;ver &#229;
+        Hvis m&#229;let ikke er spesifisert, g&#229;r den ut i fra at du pr&#248;ver &#229; 
         utf&#248;re en av de f&#248;lgende operasjonene:</para>
 
       <orderedlist>
@@ -1204,17 +1204,17 @@ done
           <para>You want to merge directory changes into your current
             working directory.</para>
           @ENGLISH }}} -->
-          <para>Du vil flette katalogforandringer inn i den gjeldende
+          <para>Du vil flette katalogforandringer inn i den gjeldende 
             arbeidskatalogen.</para>
         </listitem>
         <listitem>
           <!-- @ENGLISH {{{
           <para>You want to merge the changes in a specific file into
-            a file by the same name which exists in your current working
+            a file by the same name which exists in your current working 
             directory.</para>
           @ENGLISH }}} -->
-          <para>Du vil flette forandringene i en spesifikk fil inn i en
-            fil med det samme navnet som eksisterer i den gjeldende
+          <para>Du vil flette forandringene i en spesifikk fil inn i en 
+            fil med det samme navnet som eksisterer i den gjeldende 
             arbeidskatalogen.</para>
         </listitem>
       </orderedlist>
@@ -1228,27 +1228,27 @@ done
         <command>svn merge</command> assumes the second case and tries
         to apply the changes to a local file with the same name.</para>
       @ENGLISH }}} -->
-      <para>Hvis du fletter en katalog og ikke har spesifisert en
-        m&#229;lsti, g&#229;r <command>svn merge</command> ut i fra det f&#248;rste
-        tilfellet og pr&#248;ver &#229; legge inn forandringene til den gjeldende
+      <para>Hvis du fletter en katalog og ikke har spesifisert en 
+        m&#229;lsti, g&#229;r <command>svn merge</command> ut i fra det f&#248;rste 
+        tilfellet og pr&#248;ver &#229; legge inn forandringene til den gjeldende 
         katalogen.
-        Hvis du fletter en fil, og den filen (eller en fil med det samme
-        navnet) eksisterer i den gjeldende katalogen, g&#229;r <command>svn
-        merge</command> ut i fra det andre tilfellet og fors&#248;ker &#229; legge
+        Hvis du fletter en fil, og den filen (eller en fil med det samme 
+        navnet) eksisterer i den gjeldende katalogen, g&#229;r <command>svn 
+        merge</command> ut i fra det andre tilfellet og fors&#248;ker &#229; legge 
         inn forandringene til en lokal fil med det samme navnet.</para>
-
+      
       <!-- @ENGLISH {{{
       <para>If you want changes applied somewhere else, you'll
         need to say so.  For example, if you're sitting in the parent
         directory of your working copy, you'll have to specify the
         target directory to receive the changes:</para>
       @ENGLISH }}} -->
-      <para>Hvis du vil legge inn forandringer en annen plass, m&#229; du
+      <para>Hvis du vil legge inn forandringer en annen plass, m&#229; du 
         fortelle dette.
-        Hvis du for eksempel sitter i foreldrekatalogen til
-        arbeidskopien din, m&#229; du spesifisere m&#229;lkatalogen som skal motta
+        Hvis du for eksempel sitter i foreldrekatalogen til 
+        arbeidskopien din, m&#229; du spesifisere m&#229;lkatalogen som skal motta 
         forandringene:</para>
-
+      
 <screen>
 $ svn merge -r 343:344 http://svn.example.com/repos/calc/trunk my-calc-branch
 U   my-calc-branch/integer.c
@@ -1279,16 +1279,16 @@ U   my-calc-branch/integer.c
           does nothing.  But if the already-existing change has been
           modified in any way, you'll get a conflict.</para>
         @ENGLISH }}} -->
-        <para>Fletting av forandringer h&#248;res enkelt ut, men i praksis
+        <para>Fletting av forandringer h&#248;res enkelt ut, men i praksis 
           kan det bli en hodepine.
-          Problemet er at hvis du gjentatte ganger fletter forandringer
-          fra en gren til en annen, kan du ved en ulykke flette den
+          Problemet er at hvis du gjentatte ganger fletter forandringer 
+          fra en gren til en annen, kan du ved en ulykke flette den 
           samme forandringen <emphasis>to ganger</emphasis>.
           N&#229;r dette skjer, vil det noen ganger g&#229; bra.
-          N&#229;r en fil blir patchet vil Subversion vanligvis oppdage at
+          N&#229;r en fil blir patchet vil Subversion vanligvis oppdage at 
           filen inneholder forandringen, og gj&#248;r ingenting.
-          Men hvis den allerede eksisterende forandringen er blitt
-          forandret p&#229; en eller annen m&#229;te, vil du f&#229; en
+          Men hvis den allerede eksisterende forandringen er blitt 
+          forandret p&#229; en eller annen m&#229;te, vil du f&#229; en 
           konflikt.</para>
 
         <!-- @ENGLISH {{{
@@ -1299,11 +1299,11 @@ U   my-calc-branch/integer.c
           this information to help automate merges as much as
           possible.</para>
         @ENGLISH }}} -->
-        <para>Ideelt sett b&#248;r versjonskontrollsystemet forhindre <!-- &#164;
+        <para>Ideelt sett b&#248;r versjonskontrollsystemet forhindre <!-- &#164; 
           -->fors&#248;ket p&#229; &#229; legge inn doble forandringer til en gren.
-          Det b&#248;r huske automatisk hvilke forandringer en gren allerede
+          Det b&#248;r huske automatisk hvilke forandringer en gren allerede 
           har mottatt, og b&#248;r v&#230;re i stand til &#229; liste dem ut for deg.
-          Det b&#248;r bruke denne informasjonen til &#229; hjelpe til med &#229;
+          Det b&#248;r bruke denne informasjonen til &#229; hjelpe til med &#229; 
           automatisere flettinger s&#229; mye som mulig.</para>
 
         <!-- @ENGLISH {{{
@@ -1315,11 +1315,11 @@ U   my-calc-branch/integer.c
           from just hand-editing the files.</para>
         @ENGLISH }}} -->
         <para>Dessverre er ikke Subversion et s&#229;nt system.
-          I likhet med CVS lagrer ikke Subversion 1.0 noen informasjon
+          I likhet med CVS lagrer ikke Subversion 1.0 noen informasjon 
           om fletteoperasjoner.
-          N&#229;r du legger inn lokale forandringer, har ikke depotet noen
-          id&#233; om hvorvidt disse forandringene kom fra en kj&#248;ring av
-          <command>svn merge</command>, eller fra en redigering av
+          N&#229;r du legger inn lokale forandringer, har ikke depotet noen 
+          id&#233; om hvorvidt disse forandringene kom fra en kj&#248;ring av 
+          <command>svn merge</command>, eller fra en redigering av 
           filene for h&#229;nd.</para>
 
         <!-- @ENGLISH {{{
@@ -1337,45 +1337,45 @@ U   my-calc-branch/integer.c
           changes.</para>
         @ENGLISH }}} -->
         <para>Hva betyr dette for deg, brukeren?
-          Det betyr at inntil den dagen Subversion f&#229;r denne funksjonen,
+          Det betyr at inntil den dagen Subversion f&#229;r denne funksjonen, 
           m&#229; du selv holde rede p&#229; fletteinformasjonen.
           Den beste plassen &#229; gj&#248;re dette er i selve loggmeldingen.
-          Som demonstrert i det tidligere eksempelet, er det anbefalt at
-          loggmeldingen din nevner et spesifikt revisjonsnummer (eller
+          Som demonstrert i det tidligere eksempelet, er det anbefalt at 
+          loggmeldingen din nevner et spesifikt revisjonsnummer (eller 
           omr&#229;de av revisjoner) som blir flettet inn i grenen.
-          Senere kan du kj&#248;re <command>svn log</command> for &#229; se over
+          Senere kan du kj&#248;re <command>svn log</command> for &#229; se over 
           hvilke forandringer forgreningen allerede inneholder.
-          Dette vil la deg varsomt konstruere en etterf&#248;lgende
-          <command>svn merge</command>-kommando som ikke vil bli <!-- &#164;
-          -->overfl&#248;dig i forhold til tidligere <!-- &#164; -->flettede
+          Dette vil la deg varsomt konstruere en etterf&#248;lgende 
+          <command>svn merge</command>-kommando som ikke vil bli <!-- &#164; 
+          -->overfl&#248;dig i forhold til tidligere <!-- &#164; -->flettede 
           forandringer.</para>
 
         <!-- @ENGLISH {{{
         <para>In the next section, we'll show some examples of this
           technique in action.</para>
         @ENGLISH }}} -->
-        <para>I den neste seksjonen vil vi vise noen eksempler p&#229; denne
+        <para>I den neste seksjonen vil vi vise noen eksempler p&#229; denne 
           teknikken i praksis.</para>
 
       </sect3>
-
+      
       <sect3 id="svn-ch-4-sect-3.2.2">
         <!-- @ENGLISH {{{
         <title>Previewing Merges</title>
         @ENGLISH }}} -->
         <title>Vise flettinger p&#229; forh&#229;nd</title>
-
+        
         <!-- @ENGLISH {{{
         <para>Because merging only results in local modifications,
           it's not usually a high-risk operation.  If you get the
           merge wrong the first time, simply <command>svn
           revert</command> the changes and try again.</para>
         @ENGLISH }}} -->
-        <para>Fordi fletting bare resulterer i lokale modifikasjoner, er
+        <para>Fordi fletting bare resulterer i lokale modifikasjoner, er 
           det vanligvis ikke noen h&#248;yrisikooperasjon.
-          Hvis flettingen g&#229;r galt f&#248;rste gangen, bare kj&#248;r <command>svn
+          Hvis flettingen g&#229;r galt f&#248;rste gangen, bare kj&#248;r <command>svn 
           revert</command> p&#229; forandringene og pr&#248;v igjen.</para>
-
+        
         <!-- @ENGLISH {{{
         <para>It's possible, however, that your working copy might
           already have local modifications.  The changes applied by a
@@ -1383,12 +1383,12 @@ U   my-calc-branch/integer.c
           <command>svn revert</command> is no longer an option.  The
           two sets of changes may be impossible to separate.</para>
         @ENGLISH }}} -->
-        <para>Men det er derimot mulig at arbeidskopien din allerede
+        <para>Men det er derimot mulig at arbeidskopien din allerede 
           inneholder lokale forandringer.
-          Forandringene lagt inn av en fletting vil bli blandet med de
-          du har fra f&#248;r, og det &#229; kj&#248;re <command>svn revert</command>
+          Forandringene lagt inn av en fletting vil bli blandet med de 
+          du har fra f&#248;r, og det &#229; kj&#248;re <command>svn revert</command> 
           er ikke lenger et alternativ.
-          De to settene med forandringer kan bli umulig &#229;
+          De to settene med forandringer kan bli umulig &#229; 
           separere.</para>
 
         <!-- @ENGLISH {{{
@@ -1401,13 +1401,13 @@ U   my-calc-branch/integer.c
           <option>-&#64738;-dry-run</option> option to the merge
           command:</para>
         @ENGLISH }}} -->
-        <para>I tilfeller som dette vil det v&#230;re greit &#229; kunne forutsi
+        <para>I tilfeller som dette vil det v&#230;re greit &#229; kunne forutsi 
           eller unders&#248;ke forandringer f&#248;r de skjer.
-          En enkel m&#229;te &#229; gj&#248;re det p&#229; er &#229; kj&#248;re <command>svn
-          diff</command> med de samme argumentene som du planlegger &#229; gi
-          til <command>svn merge</command>, som vi allerede har vist i
+          En enkel m&#229;te &#229; gj&#248;re det p&#229; er &#229; kj&#248;re <command>svn 
+          diff</command> med de samme argumentene som du planlegger &#229; gi 
+          til <command>svn merge</command>, som vi allerede har vist i 
           det f&#248;rste eksemplet v&#229;rt med fletting.
-          En annen metode for forh&#229;ndsvisning er &#229; angi
+          En annen metode for forh&#229;ndsvisning er &#229; angi 
           <option>--dry-run</option>-valget til flettekommandoen:</para>
 
         <!-- @ENGLISH {{{
@@ -1436,12 +1436,12 @@ $ svn status
           times when running <command>svn diff</command> gives too
           much detail.</para>
         @ENGLISH }}} -->
-        <para><option>--dry-run</option>-valget gj&#248;r egentlig ingen
+        <para><option>--dry-run</option>-valget gj&#248;r egentlig ingen 
           forandringer til arbeidskopien.
-          Den viser bare statuskoder som <emphasis>ville</emphasis>
+          Den viser bare statuskoder som <emphasis>ville</emphasis> 
           blitt skrevet ut under en virkelig fletting.
-          Det er nyttig for &#229; f&#229; en <quote>h&#248;yniv&#229;</quote>-oversikt over
-          den potensielle flettingen, for de gangene der kj&#248;ring av
+          Det er nyttig for &#229; f&#229; en <quote>h&#248;yniv&#229;</quote>-oversikt over 
+          den potensielle flettingen, for de gangene der kj&#248;ring av 
           <command>svn diff</command> gir alt for mange detaljer.</para>
 
       </sect3>
@@ -1450,7 +1450,7 @@ $ svn status
         <!-- @ENGLISH {{{
         <title>Subversion and Changesets</title>
         @ENGLISH }}} -->
-        <title>Subversion og forandringssett
+        <title>Subversion og forandringssett 
         (<foreignphrase>changesets</foreignphrase>)</title>
 
         <!-- @ENGLISH {{{
@@ -1464,17 +1464,17 @@ $ svn status
           to metadata.  In more common speak, a changeset is just a
           patch with a name you can refer to.</para>
         @ENGLISH }}} -->
-        <para>Alle ser ut til &#229; ha litt forskjellige definisjoner av
-          <quote>forandringssett</quote>, eller i det minste
-          forskjellige forventninger av hva det betyr for et
-          versjonskontrollsystem &#229; ha
+        <para>Alle ser ut til &#229; ha litt forskjellige definisjoner av 
+          <quote>forandringssett</quote>, eller i det minste 
+          forskjellige forventninger av hva det betyr for et 
+          versjonskontrollsystem &#229; ha 
           <quote>forandringssettfunksjonalitet</quote>.
-          For v&#229;rt bruk, la oss si at et forandringssett bare er en
+          For v&#229;rt bruk, la oss si at et forandringssett bare er en 
           samling av forandringer med et unikt navn.
-          Forandringene kan inkludere tekstmessige redigeringer til
-          filinnhold, forandringer i en trestruktur, eller forandringer
+          Forandringene kan inkludere tekstmessige redigeringer til 
+          filinnhold, forandringer i en trestruktur, eller forandringer 
           i metadata.
-          Sagt p&#229; en mer vanlig m&#229;te, et forandringssett er bare en
+          Sagt p&#229; en mer vanlig m&#229;te, et forandringssett er bare en 
           patch med et navn du kan referere til.</para>
 
         <!-- @ENGLISH {{{
@@ -1497,30 +1497,30 @@ $ svn status
           <command>svn merge -r9237:9238</command> would merge
           changeset #9238 into your working copy.</para>
         @ENGLISH }}} -->
-        <para>I Subversion gir et globalt revisjonsnummer N navn til et
+        <para>I Subversion gir et globalt revisjonsnummer N navn til et 
           tre i depotet:
           Det er m&#229;ten depotet s&#229; ut etter den Nte innleggingen.
           Det er ogs&#229; navnet for et implisitt forandringssett:
-          Hvis du sammenligner treet N med treet N-1, kan du derivere
+          Hvis du sammenligner treet N med treet N-1, kan du derivere 
           den eksakte patchen som ble lagt inn.
-          P&#229; grunn av dette er det lett &#229; tenke p&#229; <quote>revisjon
+          P&#229; grunn av dette er det lett &#229; tenke p&#229; <quote>revisjon 
           N</quote> som ikke bare et tre, men ogs&#229; et forandringssett.
-          Hvis du bruker en feildatabase &#8212; <!-- &#164;
-          --><foreignphrase>issue tracker</foreignphrase> &#8212; for &#229; holde
-          rede p&#229; programfeil, kan du bruke revisjonsnumre til &#229;
-          referere til spesielle patcher som fikser feil &#8212; for eksempel,
+          Hvis du bruker en feildatabase &#8212; <!-- &#164; 
+          --><foreignphrase>issue tracker</foreignphrase> &#8212; for &#229; holde 
+          rede p&#229; programfeil, kan du bruke revisjonsnumre til &#229; 
+          referere til spesielle patcher som fikser feil &#8212; for eksempel, 
           <quote>denne feilen ble fikset i revisjon 9238.</quote>.
-          Noen kan da kj&#248;re <command>svn log -r9238</command> for &#229; lese
-          om det eksakte forandringssettet som ordnet feilen, og kj&#248;re
-          <command>svn diff -r9237:9238</command> for &#229; se selve
+          Noen kan da kj&#248;re <command>svn log -r9238</command> for &#229; lese 
+          om det eksakte forandringssettet som ordnet feilen, og kj&#248;re 
+          <command>svn diff -r9237:9238</command> for &#229; se selve 
           patchen.
           Og Subversions flettekommando bruker ogs&#229; revisjonsnumre.
-          Du kan flette spesifikke forandringssett fra en gren til en
+          Du kan flette spesifikke forandringssett fra en gren til en 
           annen ved &#229; gi dem navn i fletteargumentene:
-          <command>svn merge -r9237:9238</command> vil flette
+          <command>svn merge -r9237:9238</command> vil flette 
           forandringssett #9238 inn i arbeidskopien din.</para>
       </sidebar>
-
+      
       <sect3 id="svn-ch-4-sect-3.2.3">
         <!-- @ENGLISH {{{
         <title>Noticing or Ignoring Ancestry</title>
@@ -1535,12 +1535,12 @@ $ svn status
           repository: if they're related to each other, than one
           object is said to be an ancestor of the other.</para>
         @ENGLISH }}} -->
-        <para>N&#229;r du snakker med en Subversionutvikler kan det hende du
-          h&#248;rer referanser til begrepet <firstterm>slektskap</firstterm>
+        <para>N&#229;r du snakker med en Subversionutvikler kan det hende du 
+          h&#248;rer referanser til begrepet <firstterm>slektskap</firstterm> 
           &#8212; <foreignphrase>ancestry</foreignphrase>.
-          Dette ordet blir brukt til &#229; beskrive forholdet mellom to
+          Dette ordet blir brukt til &#229; beskrive forholdet mellom to 
           objekter i et depot:
-          Hvis de er relaterte til hverandre, vil det ene objektet v&#230;re
+          Hvis de er relaterte til hverandre, vil det ene objektet v&#230;re 
           en stamfar til det andre.</para>
 
         <!-- @ENGLISH {{{
@@ -1557,18 +1557,18 @@ $ svn status
           different objects in the repository.  They share no history
           or <quote>ancestry</quote>.</para>
         @ENGLISH }}} -->
-        <para>For eksempel, tenk deg at du legger inn revisjon 100, som
-          inkluderer en forandring i en fil kalt
+        <para>For eksempel, tenk deg at du legger inn revisjon 100, som 
+          inkluderer en forandring i en fil kalt 
           <filename>foo.c</filename>.
-          Da er <filename>foo.c@99</filename> en <quote>stamfar</quote>
+          Da er <filename>foo.c@99</filename> en <quote>stamfar</quote> 
           til <filename>foo.c@100</filename>.
-          P&#229; den annen side, tenk at du legger inn en sletting av
-          <filename>foo.c</filename> i revisjon 101, og deretter legger
+          P&#229; den annen side, tenk at du legger inn en sletting av 
+          <filename>foo.c</filename> i revisjon 101, og deretter legger 
           til en ny fil med det samme navnet i revisjon 102.
-          I dette tilfellet kan det se ut som om
-          <filename>foo.c@99</filename> og
-          <filename>foo.c@102</filename> er relaterte (de har den samme
-          filstien), men de er faktisk totalt forskjellige objekter i
+          I dette tilfellet kan det se ut som om 
+          <filename>foo.c@99</filename> og 
+          <filename>foo.c@102</filename> er relaterte (de har den samme 
+          filstien), men de er faktisk totalt forskjellige objekter i 
           depotet.
           De deler ingen historie eller <quote>slektskap</quote>.</para>
 
@@ -1587,19 +1587,19 @@ $ svn status
           <literal>D  foo.c</literal> followed by a <literal>A
           foo.c</literal>.</para>
         @ENGLISH }}} -->
-        <para>Grunnen til at vi tar dette opp er for &#229; fremheve en
-          viktig forskjell mellom <command>svn diff</command> og
+        <para>Grunnen til at vi tar dette opp er for &#229; fremheve en 
+          viktig forskjell mellom <command>svn diff</command> og 
           <command>svn merge</command>.
-          Den f&#248;rste kommandoen ignorerer slektskap, mens den sistnevnte
+          Den f&#248;rste kommandoen ignorerer slektskap, mens den sistnevnte 
           kommandoen er ganske f&#248;lsom for det.
-          Hvis du for eksempel ber <command>svn diff</command> om &#229;
-          sammenligne revisjon 99 og 102 av <filename>foo.c</filename>,
-          vil du se linjebaserte forskjeller; diffkommandoen
+          Hvis du for eksempel ber <command>svn diff</command> om &#229; 
+          sammenligne revisjon 99 og 102 av <filename>foo.c</filename>, 
+          vil du se linjebaserte forskjeller; diffkommandoen 
           sammenligner blindt to stier.
-          Men hvis du ber <command>svn merge</command> om &#229; sammenligne
-          de samme to objektene, vil den oppdage at de er urelaterte og
-          fors&#248;ker f&#248;rst &#229; slette den gamle filen og deretter legge til
-          den nye filen; du vil se en <literal>D&#160;&#160;foo.c</literal> fulgt
+          Men hvis du ber <command>svn merge</command> om &#229; sammenligne 
+          de samme to objektene, vil den oppdage at de er urelaterte og 
+          fors&#248;ker f&#248;rst &#229; slette den gamle filen og deretter legge til 
+          den nye filen; du vil se en <literal>D&#160;&#160;foo.c</literal> fulgt 
           av en <literal>A&#160;&#160;foo.c</literal>.</para>
 
         <!-- @ENGLISH {{{
@@ -1614,16 +1614,16 @@ $ svn status
           trees, you'd see the entire first tree being deleted,
           followed by an add of the entire second tree!</para>
         @ENGLISH }}} -->
-        <para>De fleste flettinger involverer sammenligning av tr&#230;r som
-          er slektsmessig relatert til hverandre, og derfor har
+        <para>De fleste flettinger involverer sammenligning av tr&#230;r som 
+          er slektsmessig relatert til hverandre, og derfor har 
           <command>svn merge</command> denne oppf&#248;rselen som standard.
-          Men n&#229; og da vil du kanskje bruke flettekommandoen til &#229;
+          Men n&#229; og da vil du kanskje bruke flettekommandoen til &#229; 
           sammenligne to urelaterte tr&#230;r.
-          For eksempel har du kanskje to kildekodetr&#230;r som representerer
-          forskjellige <!-- &#164; vendor --> utgivelser av et
+          For eksempel har du kanskje to kildekodetr&#230;r som representerer 
+          forskjellige <!-- &#164; vendor --> utgivelser av et 
           programprosjekt (se <xref linkend="svn-ch-7-sect-4"/>).
-          Hvis du ber <command>svn merge</command> om &#229; sammenligne de
-          to tr&#230;rne, vil du se at hele det f&#248;rste treet blir slettet,
+          Hvis du ber <command>svn merge</command> om &#229; sammenligne de 
+          to tr&#230;rne, vil du se at hele det f&#248;rste treet blir slettet, 
           fulgt av en tillegging av hele det andre treet!</para>
 
         <!-- @ENGLISH {{{
@@ -1637,15 +1637,15 @@ $ svn status
           <command>svn diff</command> to behave like the merge
           command.)</para>
         @ENGLISH }}} -->
-        <para>I disse situasjonene vil du at <command>svn
-          merge</command> bare gj&#248;r en stibasert sammenligning og
+        <para>I disse situasjonene vil du at <command>svn 
+          merge</command> bare gj&#248;r en stibasert sammenligning og 
           ignorerer enhver relasjon mellom filer og kataloger.
-          Legg til valget <option>--ignore-ancestry</option> til
-          flettekommandoen, og den vil oppf&#248;re seg akkurat som
+          Legg til valget <option>--ignore-ancestry</option> til 
+          flettekommandoen, og den vil oppf&#248;re seg akkurat som 
           <command>svn diff</command>.
-          (Og p&#229; motsatt m&#229;te vil
-          <option>--notice-ancestry</option>-valget f&#229; <command>svn
-          diff</command> til &#229; oppf&#248;re seg som
+          (Og p&#229; motsatt m&#229;te vil 
+          <option>--notice-ancestry</option>-valget f&#229; <command>svn 
+          diff</command> til &#229; oppf&#248;re seg som 
           <command>merge</command>-kommandoen.</para>
 
       </sect3>
@@ -1669,8 +1669,8 @@ $ svn status
       merge</command>, and this section describes the most common ones
       you're likely to run into.</para>
     @ENGLISH }}} -->
-    <para>Det er mange forskjellige bruksomr&#229;der for <command>svn
-      merge</command>, og denne seksjonen beskriver de vanligste du
+    <para>Det er mange forskjellige bruksomr&#229;der for <command>svn 
+      merge</command>, og denne seksjonen beskriver de vanligste du 
       sannsynligvis vil komme over.</para>
 
     <sect2 id="svn-ch-4-sect-4.1">
@@ -1689,11 +1689,11 @@ $ svn status
         others to enjoy.</para>
       @ENGLISH }}} -->
       <para>For &#229; fullf&#248;re eksempelet v&#229;rt vil vi n&#229; reise fram i tiden.
-        Tenk deg at flere dager har g&#229;tt, og mange forandringer har
+        Tenk deg at flere dager har g&#229;tt, og mange forandringer har 
         skjedd b&#229;de i trunk og p&#229; den private grenen din.
-        Tenk deg s&#229; at du er ferdig med arbeidet p&#229; den private grenen;
-        funksjonaliteten eller feilrettingen er endelig fullf&#248;rt, og n&#229;
-        vil du flette alle forandringene fra grenen din til trunk s&#229;
+        Tenk deg s&#229; at du er ferdig med arbeidet p&#229; den private grenen; 
+        funksjonaliteten eller feilrettingen er endelig fullf&#248;rt, og n&#229; 
+        vil du flette alle forandringene fra grenen din til trunk s&#229; 
         andre kan f&#229; glede av dem.</para>
 
       <!-- @ENGLISH {{{
@@ -1705,14 +1705,14 @@ $ svn status
         around (fully updated), or that you recently checked out a
         fresh working copy of <filename>/calc/trunk</filename>.</para>
       @ENGLISH }}} -->
-      <para>S&#229; hvordan bruker vi <command>svn merge</command> i dette
+      <para>S&#229; hvordan bruker vi <command>svn merge</command> i dette 
         scenariet?
-        Husk at denne kommandoen sammenligner to tr&#230;r og legger
+        Husk at denne kommandoen sammenligner to tr&#230;r og legger 
         forandringene inn i en arbeidskopi.
-        For &#229; motta forandringene m&#229; du derfor ha en arbeidskopi av
+        For &#229; motta forandringene m&#229; du derfor ha en arbeidskopi av 
         trunk.
-        Vi g&#229;r ut i fra at du enten har den originale liggende (helt
-        oppdatert), eller at du nylig hentet ut en fersk arbeidskopi av
+        Vi g&#229;r ut i fra at du enten har den originale liggende (helt 
+        oppdatert), eller at du nylig hentet ut en fersk arbeidskopi av 
         <filename>/calc/trunk</filename>.</para>
 
       <!-- @ENGLISH {{{
@@ -1721,7 +1721,7 @@ $ svn status
         tree with your latest branch tree.  But beware&mdash;this
         assumption is <emphasis>wrong</emphasis>, and has burned many
         a new user!  Since <command>svn merge</command> operates like
-        <command>svn diff</command>, comparing the latest trunk and
+        <command>svn diff</command>, comparing the latest trunk and 
         branch trees will <emphasis>not</emphasis> merely describe
         the set of changes you made to your branch.  Such a comparison
         shows too many changes: it would not only show the addition of
@@ -1730,17 +1730,17 @@ $ svn status
       @ENGLISH }}} -->
       <para>Men hvilke to tr&#230;r skal sammenlignes?
         Ved f&#248;rste &#248;yekast ser det innlysende ut:
-        Bare sammenlign seneste treet fra trunk med det seneste treet
+        Bare sammenlign seneste treet fra trunk med det seneste treet 
         fra forgreningen.
-        Men pass p&#229; &#8212; denne antakelsen er <emphasis>feil</emphasis>, noe
+        Men pass p&#229; &#8212; denne antakelsen er <emphasis>feil</emphasis>, noe 
         som mange nye brukere har brent seg p&#229;.
         Siden <command>svn merge</command> opererer p&#229; samme m&#229;te som
-        <command>svn diff</command>, vil en sammenligning mellom tr&#230;rne
-        i nyeste trunk og gren <emphasis>ikke</emphasis> bare vise
+        <command>svn diff</command>, vil en sammenligning mellom tr&#230;rne 
+        i nyeste trunk og gren <emphasis>ikke</emphasis> bare vise 
         forandringene som du har gjort p&#229; grenen.
         En slik sammenligning viser alt for mange forandringer:
-        Den vil ikke bare vise tilleggingene av dine forandringer p&#229;
-        grenen, men ogs&#229; <emphasis>fjerningen</emphasis> av forandringer
+        Den vil ikke bare vise tilleggingene av dine forandringer p&#229; 
+        grenen, men ogs&#229; <emphasis>fjerningen</emphasis> av forandringer 
         i trunk som aldri skjedde p&#229; din gren.</para>
 
       <!-- @ENGLISH {{{
@@ -1754,15 +1754,15 @@ $ svn status
         branch directory, and apply those differences to a working
         copy of the trunk.</para>
       @ENGLISH }}} -->
-      <para>For &#229; bare vise forandringene som skjedde p&#229; din gren, m&#229; du
-        sammenligne tilstanden ved starten av grenen din i forhold til
+      <para>For &#229; bare vise forandringene som skjedde p&#229; din gren, m&#229; du 
+        sammenligne tilstanden ved starten av grenen din i forhold til 
         dens endelige tilstand.
-        Ved &#229; bruke <command>svn log</command> p&#229; grenen kan du se at
+        Ved &#229; bruke <command>svn log</command> p&#229; grenen kan du se at 
         den ble opprettet i revisjon 341.
-        Og den endelige tilstanden f&#229;r du ved &#229; bruke
+        Og den endelige tilstanden f&#229;r du ved &#229; bruke 
         <literal>HEAD</literal>-revisjonen.
-        Dette betyr at du vil sammenligne revisjonene 341 og
-        <literal>HEAD</literal> i forgreningskatalogen og legge disse
+        Dette betyr at du vil sammenligne revisjonene 341 og 
+        <literal>HEAD</literal> i forgreningskatalogen og legge disse 
         forskjellene inn i en arbeidskopi av trunk.</para>
 
       <tip>
@@ -1778,16 +1778,16 @@ $ svn status
           as <command>svn log</command> detects that its target was
           copied or renamed.</para>
         @ENGLISH }}} -->
-        <para>En fin m&#229;te &#229; finne revisjonen en gren ble opprettet i
-          (<quote>basen</quote> av forgreningen) er &#229; bruke valget
-          <option>--stop-on-copy</option> til <command>svn
+        <para>En fin m&#229;te &#229; finne revisjonen en gren ble opprettet i 
+          (<quote>basen</quote> av forgreningen) er &#229; bruke valget 
+          <option>--stop-on-copy</option> til <command>svn 
           log</command>.
-          Delkommandoen <command>svn log</command> vil normalt vise hver
-          eneste forandring gjort p&#229; grenen, inkludert &#229; g&#229; forbi
+          Delkommandoen <command>svn log</command> vil normalt vise hver 
+          eneste forandring gjort p&#229; grenen, inkludert &#229; g&#229; forbi 
           kopieringen som opprettet grenen.
           S&#229; vanligvis vil du ogs&#229; se historien fra trunk.
-          <option>--stop-on-copy</option>-valget vil stoppe
-          loggutlistingen med en gang <command>svn log</command> finner
+          <option>--stop-on-copy</option>-valget vil stoppe 
+          loggutlistingen med en gang <command>svn log</command> finner 
           ut at m&#229;let ble kopiert eller skiftet navn.</para>
 
         <!-- @ENGLISH {{{
@@ -1819,15 +1819,15 @@ Changed paths:
 
 $
 </screen>
-
+        
         <!-- @ENGLISH {{{
         <para>As expected, the final revision printed by this command
           is the revision in which <filename>my-calc-branch</filename>
           was created by copying.</para>
         @ENGLISH }}} -->
-        <para>Som forventet er den siste revisjonen skrevet ut av denne
-          kommandoen den revisjonen der
-          <filename>my-calc-branch</filename> ble opprettet ved
+        <para>Som forventet er den siste revisjonen skrevet ut av denne 
+          kommandoen den revisjonen der 
+          <filename>my-calc-branch</filename> ble opprettet ved 
           kopiering.</para>
       </tip>
 
@@ -1894,9 +1894,9 @@ Committed revision 406.
         into the trunk.  Always remember to do this, because it's
         critical information you'll need later on.</para>
       @ENGLISH }}} -->
-      <para>Igjen, legg merke til at loggmeldingen veldig spesifikt
+      <para>Igjen, legg merke til at loggmeldingen veldig spesifikt 
         nevner omr&#229;det av forandringer som ble flettet inn p&#229; trunk.
-        Husk alltid &#229; gj&#248;re dette, fordi det er vital informasjon som du
+        Husk alltid &#229; gj&#248;re dette, fordi det er vital informasjon som du 
         vil trenge senere.</para>
 
       <!-- @ENGLISH {{{
@@ -1911,17 +1911,17 @@ Committed revision 406.
         branch since the last time you merged.  The trick is to figure
         out what's new.</para>
       @ENGLISH }}} -->
-      <para>For eksempel, tenk at du bestemmer deg for &#229; fortsette
-        arbeidet p&#229; grenen en uke til, for &#229; fullf&#248;re feilrettingen
+      <para>For eksempel, tenk at du bestemmer deg for &#229; fortsette 
+        arbeidet p&#229; grenen en uke til, for &#229; fullf&#248;re feilrettingen 
         eller en forbedring av den originale funksjonaliteten.
-        Depotets <literal>HEAD</literal>-revisjon er n&#229; 480, og du er
-        klar til &#229; utf&#248;re en ny fletting fra den private grenen din til
+        Depotets <literal>HEAD</literal>-revisjon er n&#229; 480, og du er 
+        klar til &#229; utf&#248;re en ny fletting fra den private grenen din til 
         trunk.
-        Men som diskutert i <xref linkend="svn-ch-4-sect-3.2"/> vil du
-        ikke flette forandringene du allerede har flettet f&#248;r; du vil
-        bare flette alt <quote>nytt</quote> p&#229; grenen siden forrige gang
+        Men som diskutert i <xref linkend="svn-ch-4-sect-3.2"/> vil du 
+        ikke flette forandringene du allerede har flettet f&#248;r; du vil 
+        bare flette alt <quote>nytt</quote> p&#229; grenen siden forrige gang 
         du flettet.
-        Trikset er &#229; finne ut <emphasis>hva</emphasis> som er
+        Trikset er &#229; finne ut <emphasis>hva</emphasis> som er 
         nytt.</para>
 
       <!-- @ENGLISH {{{
@@ -1929,8 +1929,8 @@ Committed revision 406.
         trunk, and look for a log message about the last time you
         merged from the branch:</para>
       @ENGLISH }}} -->
-      <para>F&#248;rste skritt er &#229; kj&#248;re <command>svn log</command> p&#229; trunk
-        og se etter en loggmelding fra forrige gang du flettet fra
+      <para>F&#248;rste skritt er &#229; kj&#248;re <command>svn log</command> p&#229; trunk 
+        og se etter en loggmelding fra forrige gang du flettet fra 
         grenen:</para>
 
       <!-- @ENGLISH {{{
@@ -1957,7 +1957,7 @@ Merged my-calc-branch changes r341:405 into the trunk.
 ------------------------------------------------------------------------
 &#8230;
 </screen>
-
+      
       <!-- @ENGLISH {{{
       <para>Aha!  Since all branch-changes that happened between
         revisions 341 and 405 were previously merged to the trunk as
@@ -1966,9 +1966,9 @@ Merged my-calc-branch changes r341:405 into the trunk.
         <literal>HEAD</literal>.</para>
       @ENGLISH }}} -->
       <para>Aha!
-        Siden alle grenforandringene som skjedde mellom revisjonene 341
-        og 405 ble flettet til trunk som revisjon 406, vet du n&#229; at du
-        bare vil flette grenforandringene etter dette &#8212; ved &#229;
+        Siden alle grenforandringene som skjedde mellom revisjonene 341 
+        og 405 ble flettet til trunk som revisjon 406, vet du n&#229; at du 
+        bare vil flette grenforandringene etter dette &#8212; ved &#229; 
         sammenligne revisjonene 406 og <literal>HEAD</literal>.</para>
 
 <!-- @ENGLISH {{{
@@ -1997,7 +1997,7 @@ $ cd calc/trunk
 $ svn update
 At revision 480.
 
-# Vi ser at HEAD er 480 for &#248;yeblikket, s&#229; vi bruker den for &#229; utf&#248;re
+# Vi ser at HEAD er 480 for &#248;yeblikket, s&#229; vi bruker den for &#229; utf&#248;re 
 # flettingen:
 
 $ svn merge -r 406:480 http://svn.example.com/repos/calc/branches/my-calc-branch
@@ -2020,10 +2020,10 @@ Committed revision 481.
         your branch and repeat this procedure for subsequent
         merges.</para>
       @ENGLISH }}} -->
-      <para>N&#229; inneholder trunk alle forandringene som ble gjort i den
+      <para>N&#229; inneholder trunk alle forandringene som ble gjort i den 
         andre omgangen p&#229; grenen.
-        P&#229; dette punktet kan du enten slette grenen (dette vil vi komme
-        tilbake til) eller fortsette arbeidet p&#229; grenen og repetere
+        P&#229; dette punktet kan du enten slette grenen (dette vil vi komme 
+        tilbake til) eller fortsette arbeidet p&#229; grenen og repetere 
         denne prosedyren for etterf&#248;lgende flettinger.</para>
 
     </sect2>
@@ -2047,17 +2047,17 @@ Committed revision 481.
         repository.  All you need to do is to specify a
         <emphasis>reverse</emphasis> difference:</para>
       @ENGLISH }}} -->
-      <para>En annen vanlig bruksm&#229;te for <command>svn merge</command>
+      <para>En annen vanlig bruksm&#229;te for <command>svn merge</command> 
         er &#229; omgj&#248;re en forandring som allerede er blitt lagt inn.
-        Tenk deg at du jobber glad og lykkelig p&#229; en arbeidskopi av
-        <filename>/calc/trunk</filename>, og plutselig finner ut at
-        forandringen du gjorde langt tilbake i revisjon 303, som
+        Tenk deg at du jobber glad og lykkelig p&#229; en arbeidskopi av 
+        <filename>/calc/trunk</filename>, og plutselig finner ut at 
+        forandringen du gjorde langt tilbake i revisjon 303, som 
         forandret <filename>integer.c</filename>, er helt feil.
         Den skulle aldri v&#230;rt lagt inn.
-        Du kan bruke <command>svn merge</command> for &#229;
-        <quote>angre</quote> forandringen i arbeidskopien din, og
+        Du kan bruke <command>svn merge</command> for &#229; 
+        <quote>angre</quote> forandringen i arbeidskopien din, og 
         deretter legge inn de lokale forandringene til depotet.
-        Alt du trenger &#229; gj&#248;re er &#229; spesifisere en
+        Alt du trenger &#229; gj&#248;re er &#229; spesifisere en 
         <emphasis>omvendt</emphasis> forskjell:</para>
 
 
@@ -2109,16 +2109,16 @@ Committed revision 350.
         changeset #303 to our working copy
         <emphasis>backwards</emphasis>.</para>
       @ENGLISH }}} -->
-      <para>En m&#229;te &#229; tenke p&#229; en depotrevisjon er som en spesifikk
-        gruppe av forandringer (noen versjonskontrollsystemer kaller
-        disse <firstterm>forandringssett</firstterm> &#8212;
+      <para>En m&#229;te &#229; tenke p&#229; en depotrevisjon er som en spesifikk 
+        gruppe av forandringer (noen versjonskontrollsystemer kaller 
+        disse <firstterm>forandringssett</firstterm> &#8212; 
         <foreignphrase>changesets</foreignphrase>).
-        Ved &#229; bruke <option>-r</option>-valget kan du be <command>svn
-        merge</command> om &#229; legge inn et forandringssett, eller et helt
-        omr&#229;de av forandringssett, vi ber <command>svn merge</command>
-        om &#229; legge inn forandringssett nummer 303
+        Ved &#229; bruke <option>-r</option>-valget kan du be <command>svn 
+        merge</command> om &#229; legge inn et forandringssett, eller et helt 
+        omr&#229;de av forandringssett, vi ber <command>svn merge</command> 
+        om &#229; legge inn forandringssett nummer 303 
         <emphasis>baklengs</emphasis> inn i arbeidskopien v&#229;r.</para>
-
+    
       <!-- @ENGLISH {{{
       <para>Keep in mind that rolling back a change like this is just
         like any other <command>svn merge</command> operation, so you
@@ -2129,15 +2129,15 @@ Committed revision 350.
         committing, this particular changeset is no longer reflected
         in the <literal>HEAD</literal> revision.</para>
       @ENGLISH }}} -->
-      <para>Husk at det &#229; rulle tilbake en forandring som dette er
-        akkurat likt enhver annen <command>svn
-        merge</command>-operasjon, s&#229; du b&#248;r bruke <command>svn
-        status</command> og <command>svn diff</command> for &#229; forsikre
-        deg om at arbeidet ditt er i den tilstanden du vil det skal v&#230;re
-        i, og deretter bruke <command>svn commit</command> for &#229; sende
+      <para>Husk at det &#229; rulle tilbake en forandring som dette er 
+        akkurat likt enhver annen <command>svn 
+        merge</command>-operasjon, s&#229; du b&#248;r bruke <command>svn 
+        status</command> og <command>svn diff</command> for &#229; forsikre 
+        deg om at arbeidet ditt er i den tilstanden du vil det skal v&#230;re 
+        i, og deretter bruke <command>svn commit</command> for &#229; sende 
         den endelige versjonen til depotet.
-        <!-- &#164; Den engelske setninga der er kanskje litt uklar? -->Etter
-        innleggingen er dette spesielle forandringssettet ikke lenger
+        <!-- &#164; Den engelske setninga der er kanskje litt uklar? -->Etter 
+        innleggingen er dette spesielle forandringssettet ikke lenger 
         representert i <literal>HEAD</literal>-revisjonen.</para>
 
       <!-- @ENGLISH {{{
@@ -2150,8 +2150,8 @@ Committed revision 350.
       <para>Og s&#229; tenker du kanskje:
         N&#229;h, dette omgjorde vel egentlig ikke innleggingen?
         Forandringen eksisterer fortsatt i revisjon 303.
-        Hvis noen henter ut en versjon av
-        <filename>calc</filename>-prosjektet mellom revisjonene 303 og
+        Hvis noen henter ut en versjon av 
+        <filename>calc</filename>-prosjektet mellom revisjonene 303 og 
         349, vil de se den gale forandringen, ikke sant?</para>
 
       <!-- @ENGLISH {{{
@@ -2181,27 +2181,27 @@ Committed revision 350.
       </para>
       @ENGLISH }}} -->
       <para>Ja, det stemmer.
-        N&#229;r vi snakker om &#229; <quote>fjerne</quote> en forandring, snakker
+        N&#229;r vi snakker om &#229; <quote>fjerne</quote> en forandring, snakker 
         vi egentlig om &#229; fjerne den fra <literal>HEAD</literal>.
-        Den originale forandringen eksisterer fortsatt i depotets
+        Den originale forandringen eksisterer fortsatt i depotets 
         historie.
         I de fleste situasjoner er dette greit nok.
-        De fleste er bare interessert i &#229; f&#248;lge <literal>HEAD</literal>
+        De fleste er bare interessert i &#229; f&#248;lge <literal>HEAD</literal> 
         av et prosjekt uansett.
-        Det er imidlertid spesielle tilfeller du virkelig vil &#248;delegge
-        alle spor etter innleggingen, kanskje la noen inn et
+        Det er imidlertid spesielle tilfeller du virkelig vil &#248;delegge 
+        alle spor etter innleggingen, kanskje la noen inn et 
         konfidensielt dokument ved en ulykke.
-        Dette er ikke s&#229; lett, viser det seg, fordi Subversion ble
+        Dette er ikke s&#229; lett, viser det seg, fordi Subversion ble 
         spesielt designet for &#229; aldri miste informasjon.
         Revisjoner er uforanderlige tr&#230;r som bygger p&#229; hverandre.
-        Det &#229; fjerne en revisjon fra historien vil for&#229;rsake en
-        dominoeffekt som vil f&#248;re til kaos i alle etterf&#248;lgende
-        revisjoner og muligens gj&#248;re alle arbeidskopiene
-        ubrukelige.<footnote><para>Subversionprosjektet har imidlertid
-        planer om &#229; legge inn en <command>svnadmin
-        obliterate</command>-kommando som vil ta seg av oppgaven med &#229;
+        Det &#229; fjerne en revisjon fra historien vil for&#229;rsake en 
+        dominoeffekt som vil f&#248;re til kaos i alle etterf&#248;lgende 
+        revisjoner og muligens gj&#248;re alle arbeidskopiene 
+        ubrukelige.<footnote><para>Subversionprosjektet har imidlertid 
+        planer om &#229; legge inn en <command>svnadmin 
+        obliterate</command>-kommando som vil ta seg av oppgaven med &#229; 
         permanent slette informasjon.
-        I mellomtiden, se <xref linkend="svn-ch-5-sect-3.1.3"/> for en
+        I mellomtiden, se <xref linkend="svn-ch-5-sect-3.1.3"/> for en 
         mulig omvei om problemet.</para></footnote></para>
 
     </sect2>
@@ -2220,13 +2220,13 @@ Committed revision 350.
         One of the most common questions new users ask is, <quote>How
         do I get my old file or directory back?</quote></para>
       @ENGLISH }}} -->
-      <para>Det som er fint med versjonskontrollsystemer er at
+      <para>Det som er fint med versjonskontrollsystemer er at 
         informasjon aldri g&#229;r tapt.
-        Selv om du sletter en fil eller katalog, kan den v&#230;re borte fra
-        <literal>HEAD</literal>-revisjonen, men objektet eksisterer
+        Selv om du sletter en fil eller katalog, kan den v&#230;re borte fra 
+        <literal>HEAD</literal>-revisjonen, men objektet eksisterer 
         fortsatt i tidligere revisjoner.
-        Et av de vanligste sp&#248;rsm&#229;lene nye brukere sp&#248;r om, er:
-        <quote>Hvordan f&#229;r jeg den gamle filen eller katalogen min
+        Et av de vanligste sp&#248;rsm&#229;lene nye brukere sp&#248;r om, er: 
+        <quote>Hvordan f&#229;r jeg den gamle filen eller katalogen min 
         tilbake?</quote>.</para>
 
       <!-- @ENGLISH {{{
@@ -2239,15 +2239,15 @@ Committed revision 350.
         every version of your file or directory can be defined by a
         specific coordinate pair.</para>
       @ENGLISH }}} -->
-      <para>F&#248;rste skritt er &#229; definere n&#248;yaktig
-        <emphasis>hvilket</emphasis> element du skal pr&#248;ve &#229; hente
+      <para>F&#248;rste skritt er &#229; definere n&#248;yaktig 
+        <emphasis>hvilket</emphasis> element du skal pr&#248;ve &#229; hente 
         tilbake.
         Her er en nyttig metafor:
-        Du kan tenke p&#229; hvert objekt i depotet som om det eksisterer i
+        Du kan tenke p&#229; hvert objekt i depotet som om det eksisterer i 
         et slags todimensjonalt koordinatsystem.
-        Det f&#248;rste koordinatet er et spesifikt revisjonstre, og det
+        Det f&#248;rste koordinatet er et spesifikt revisjonstre, og det 
         andre koordinatet er en sti inne i dette treet.
-        S&#229; hver versjon av filen eller katalogen din kan bli definert
+        S&#229; hver versjon av filen eller katalogen din kan bli definert 
         som et spesifikt koordinatpar.</para>
 
       <!-- @ENGLISH {{{
@@ -2269,21 +2269,21 @@ Committed revision 350.
         to examine the log output (via <command>grep</command>, or
         perhaps via an incremental search in an editor.)</para>
       @ENGLISH }}} -->
-      <para>Subversion har ingen <filename>Attic</filename>-katalog som
-        CVS har,<footnote><para>Fordi CVS ikke versjonerer tr&#230;r, lager
-        den et <filename>Attic</filename>-omr&#229;de innenfor hver
-        depotkatalog som en m&#229;te &#229; huske slettede filer
+      <para>Subversion har ingen <filename>Attic</filename>-katalog som 
+        CVS har,<footnote><para>Fordi CVS ikke versjonerer tr&#230;r, lager 
+        den et <filename>Attic</filename>-omr&#229;de innenfor hver 
+        depotkatalog som en m&#229;te &#229; huske slettede filer 
         p&#229;.</para></footnote>
-        s&#229; du m&#229; bruke <command>svn log</command> for &#229; finne det
+        s&#229; du m&#229; bruke <command>svn log</command> for &#229; finne det 
         eksakte koordinatparet som du vil hente tilbake.
-        En god strategi er &#229; kj&#248;re <command>svn log --verbose</command>
+        En god strategi er &#229; kj&#248;re <command>svn log --verbose</command> 
         i en katalog som inneholdt det slettede elementet ditt.
-        Valget <command>--verbose</command> viser en liste over alle
-        forandrede elementer i hver revisjon; alt du trenger &#229; gj&#248;re er
+        Valget <command>--verbose</command> viser en liste over alle 
+        forandrede elementer i hver revisjon; alt du trenger &#229; gj&#248;re er 
         &#229; finne revisjonen der du slettet filen eller katalogen.
-        Du kan gj&#248;re dette visuelt, eller ved &#229; bruke et annet verkt&#248;y
-        for &#229; unders&#248;ke utdataene fra loggen (ved hjelp av
-        <command>grep</command>, eller kanskje ved hjelp av et
+        Du kan gj&#248;re dette visuelt, eller ved &#229; bruke et annet verkt&#248;y 
+        for &#229; unders&#248;ke utdataene fra loggen (ved hjelp av 
+        <command>grep</command>, eller kanskje ved hjelp av et 
         inkrementelt s&#248;k i en tekstbehandler).</para>
 
       <!-- @ENGLISH {{{
@@ -2302,7 +2302,7 @@ Removed real.c because code now in double.c.
 &hellip;
 </screen>
       @ENGLISH }}} -->
-      <!-- &#164; Eksempler tas seinere, men det visste du fra f&#248;r.
+      <!-- &#164; Eksempler tas seinere, men det visste du fra f&#248;r. 
       --><screen>
 &#8230;
 ------------------------------------------------------------------------
@@ -2326,14 +2326,14 @@ Removed real.c because code now in double.c.
         <filename>/calc/trunk/real.c</filename> from revision
         807.</para>
       @ENGLISH }}} -->
-      <para>I eksempelet g&#229;r vi ut i fra at du ser etter en slettet fil
+      <para>I eksempelet g&#229;r vi ut i fra at du ser etter en slettet fil 
         kalt <filename>real.c</filename>.
-        Ved &#229; se gjennom loggene for en foreldrekatalog, har du funnet
+        Ved &#229; se gjennom loggene for en foreldrekatalog, har du funnet 
         ut at denne filen ble slettet i revisjon 808.
-        Derfor er den siste versjonen av filen der den fortsatt
+        Derfor er den siste versjonen av filen der den fortsatt 
         eksisterte i revisjonen like f&#248;r dette.
         Konklusjon:
-        Du vil hente tilbake stien
+        Du vil hente tilbake stien 
         <filename>/calc/trunk/real.c</filename> fra revisjon 807.</para>
 
       <!-- @ENGLISH {{{
@@ -2342,9 +2342,9 @@ Removed real.c because code now in double.c.
         choices.</para>
       @ENGLISH }}} -->
       <para>Dette var den vanskelige delen &#8212; <!-- &#164; -->etterforskningen.
-        N&#229; som du vet hva du vil hente tilbake, har du to forskjellige
+        N&#229; som du vet hva du vil hente tilbake, har du to forskjellige 
         valg.</para>
-
+      
       <!-- @ENGLISH {{{
       <para>One option is to use <command>svn merge</command> to apply
         revision 808 <quote>in reverse</quote>.  (We've already
@@ -2354,15 +2354,15 @@ Removed real.c because code now in double.c.
         The file would be scheduled for addition, and after a commit,
         the file would again exist in <literal>HEAD</literal>.</para>
       @ENGLISH }}} -->
-      <para>En m&#229;te er &#229; bruke <command>svn merge</command> for &#229; legge
+      <para>En m&#229;te er &#229; bruke <command>svn merge</command> for &#229; legge 
         inn revisjon 808 <quote>i revers</quote>.
-        (Vi har allerede g&#229;tt gjennom hvordan vi omgj&#248;r forandringer, se
+        (Vi har allerede g&#229;tt gjennom hvordan vi omgj&#248;r forandringer, se 
         <xref linkend="svn-ch-4-sect-4.2"/>.)
-        Dette vil ha samme effekten som &#229; legge til
-        <filename>real.c</filename> en gang til som en lokal
+        Dette vil ha samme effekten som &#229; legge til 
+        <filename>real.c</filename> en gang til som en lokal 
         modifisering.
-        Filen vil bli klargjort for tillegging, og etter at du sender
-        det inn til depotet med <command>svn commit</command>, vil filen
+        Filen vil bli klargjort for tillegging, og etter at du sender 
+        det inn til depotet med <command>svn commit</command>, vil filen 
         atter en gang eksistere i <literal>HEAD</literal>.</para>
 
       <!-- @ENGLISH {{{
@@ -2377,17 +2377,17 @@ Removed real.c because code now in double.c.
         scale well.  What if there were 90 files changed in revision
         808?</para>
       @ENGLISH }}} -->
-      <para>Men i dette spesielle eksempelet er det kanskje ikke den
+      <para>Men i dette spesielle eksempelet er det kanskje ikke den 
         beste strategien.
-        &#197; legge inn revisjon 808 i revers vil ikke bare klargj&#248;re
-        <filename>real.c</filename> for tillegging, men loggmeldingen
-        indikerer at det vil ogs&#229; bli omgjort forandringer i
+        &#197; legge inn revisjon 808 i revers vil ikke bare klargj&#248;re 
+        <filename>real.c</filename> for tillegging, men loggmeldingen 
+        indikerer at det vil ogs&#229; bli omgjort forandringer i 
         <filename>integer.c</filename>, noe som du ikke &#248;nsker.
-        Du kan selvf&#248;lgelig bakoverflette revisjon 808 og deretter kj&#248;re
-        <command>svn revert</command> p&#229; de lokale forandringene i
-        <filename>integer.c</filename>, men denne teknikken <!-- &#164;
+        Du kan selvf&#248;lgelig bakoverflette revisjon 808 og deretter kj&#248;re 
+        <command>svn revert</command> p&#229; de lokale forandringene i 
+        <filename>integer.c</filename>, men denne teknikken <!-- &#164; 
         -->skalerer ikke alltid like bra.
-        Hva hvis det var 90 filer som forandret seg i revisjon
+        Hva hvis det var 90 filer som forandret seg i revisjon 
         808?</para>
 
       <!-- @ENGLISH {{{
@@ -2397,11 +2397,11 @@ Removed real.c because code now in double.c.
         revision and path <quote>coordinate pair</quote> from the
         repository to your working copy:</para>
       @ENGLISH }}} -->
-      <para>En annen og mer <!-- &#164; -->m&#229;lbevisst strategi er &#229; ikke
-        bruke <command>svn merge</command> i det hele tatt, men derimot
+      <para>En annen og mer <!-- &#164; -->m&#229;lbevisst strategi er &#229; ikke 
+        bruke <command>svn merge</command> i det hele tatt, men derimot 
         <command>svn copy</command>.
-        Kopier ganske enkelt den eksakte revisjonens og stiens
-        <quote>koordinatpar</quote> fra depotet til arbeidskopien
+        Kopier ganske enkelt den eksakte revisjonens og stiens 
+        <quote>koordinatpar</quote> fra depotet til arbeidskopien 
         din:</para>
 
       <!-- &#164; -->
@@ -2429,15 +2429,15 @@ Committed revision 1390.
         <filename>real.c</filename> isn't really new; it's a direct
         descendant of the original, deleted file.</para>
       @ENGLISH }}} -->
-      <para>Plusstegnet som vises i statusoversikten indikerer at
-        elementet ikke bare er klargjort for tillegging, men er
+      <para>Plusstegnet som vises i statusoversikten indikerer at 
+        elementet ikke bare er klargjort for tillegging, men er 
         klargjort for tillegging <quote>med historie</quote>.
         Subversion husker hvor det ble kopiert fra.
-        I framtiden vil kj&#248;ring av <command>svn log</command> p&#229; denne
-        filen g&#229; tilbake forbi gjenoppstandelsen av filen og gjennom
+        I framtiden vil kj&#248;ring av <command>svn log</command> p&#229; denne 
+        filen g&#229; tilbake forbi gjenoppstandelsen av filen og gjennom 
         hele historien den hadde f&#248;r revisjon 807.
-        Med andre ord, denne nye <filename>real.c</filename> er ikke
-        egentlig ny; den er en direkte etterkommer av den originale,
+        Med andre ord, denne nye <filename>real.c</filename> er ikke 
+        egentlig ny; den er en direkte etterkommer av den originale, 
         slettede filen.</para>
 
       <!-- @ENGLISH {{{
@@ -2445,8 +2445,8 @@ Committed revision 1390.
         that these same techniques work just as well for resurrecting
         deleted directories.</para>
       @ENGLISH }}} -->
-      <para>Selv om eksempelet v&#229;rt viser at vi henter tilbake en fil,
-        legg merke til at disse samme teknikkene virker like godt n&#229;r
+      <para>Selv om eksempelet v&#229;rt viser at vi henter tilbake en fil, 
+        legg merke til at disse samme teknikkene virker like godt n&#229;r 
         det gjelder &#229; hente tilbake slettede kataloger.</para>
 
     </sect2>
@@ -2473,15 +2473,15 @@ Committed revision 1390.
       <filename>/calc/trunk</filename> to mirror the new branch
       location:</para>
     @ENGLISH }}} -->
-    <para>Kommandoen <command>svn switch</command> forandrer en
+    <para>Kommandoen <command>svn switch</command> forandrer en 
       eksisterende arbeidskopi til en annen gren.
-      Selv om denne kommandoen strengt tatt ikke er n&#248;dvendig for &#229;
+      Selv om denne kommandoen strengt tatt ikke er n&#248;dvendig for &#229; 
       arbeide med forgreninger, gir den en fin snarvei for brukere,
-      I det tidligere eksempelet v&#229;rt, etter at du opprettet en privat
-      gren, hentet du ut en fersk arbeidskopi av den nye katalogen i
+      I det tidligere eksempelet v&#229;rt, etter at du opprettet en privat 
+      gren, hentet du ut en fersk arbeidskopi av den nye katalogen i 
       depotet.
-      Istedenfor kan du rett og slett be Subversion om &#229; forandre
-      arbeidskopien din av <filename>/calc/trunk</filename> til &#229;
+      Istedenfor kan du rett og slett be Subversion om &#229; forandre 
+      arbeidskopien din av <filename>/calc/trunk</filename> til &#229; 
       avspeile plasseringen til den nye grenen:</para>
 
 <screen>
@@ -2509,12 +2509,12 @@ URL: http://svn.example.com/repos/calc/branches/my-calc-branch
       necessary to make your working copy reflect the branch
       directory.</para>
     @ENGLISH }}} -->
-    <para>Etter &#229; ha <quote>byttet om</quote> til grenen, er ikke
-      arbeidskopien mer forskjellig enn om du hadde gjort en fersk
+    <para>Etter &#229; ha <quote>byttet om</quote> til grenen, er ikke 
+      arbeidskopien mer forskjellig enn om du hadde gjort en fersk 
       uthenting av katalogen.
-      Og det er vangligvis med praktisk &#229; bruke denne kommandoen, fordi
+      Og det er vangligvis med praktisk &#229; bruke denne kommandoen, fordi 
       grener &#164;differ kun i liten grad.
-      Tjeneren sender bare et minimalt sett med forandringer n&#248;dvendig
+      Tjeneren sender bare et minimalt sett med forandringer n&#248;dvendig 
       for &#229; avspeile grenkatalogen.</para>
 
     <!-- @ENGLISH {{{
@@ -2523,9 +2523,9 @@ URL: http://svn.example.com/repos/calc/branches/my-calc-branch
       need not always move your working copy to the <quote>tip</quote>
       of the branch.</para>
     @ENGLISH }}} -->
-    <para><command>svn switch</command>-kommandoen tar ogs&#229; et
-      <option>--revision</option> (<option>-r</option>)-valg, s&#229; du
-      trenger ikke alltid &#229; flytte arbeidskopien din til
+    <para><command>svn switch</command>-kommandoen tar ogs&#229; et 
+      <option>--revision</option> (<option>-r</option>)-valg, s&#229; du 
+      trenger ikke alltid &#229; flytte arbeidskopien din til 
       <quote>tuppen</quote> av grenen.</para>
 
     <!-- @ENGLISH {{{
@@ -2534,10 +2534,10 @@ URL: http://svn.example.com/repos/calc/branches/my-calc-branch
       subdirectories.  Subversion users often follow a specific
       algorithm when using branches:</para>
     @ENGLISH }}} -->
-    <para>Selvf&#248;lgelig, de fleste prosjekter er mer kompliserte enn
-      <filename>calc</filename>-eksempelet v&#229;rt, og inneholder flere
+    <para>Selvf&#248;lgelig, de fleste prosjekter er mer kompliserte enn 
+      <filename>calc</filename>-eksempelet v&#229;rt, og inneholder flere 
       underkataloger.
-      Subversionbrukere f&#248;lger ofte en spesiell algoritme ved bruk av
+      Subversionbrukere f&#248;lger ofte en spesiell algoritme ved bruk av 
       grener:</para>
 
       <orderedlist>
@@ -2546,7 +2546,7 @@ URL: http://svn.example.com/repos/calc/branches/my-calc-branch
           <para>Copy the project's entire 'trunk' to a new branch
             directory.</para>
           @ENGLISH }}} -->
-          <para>Kopier hele <quote>trunk</quote> fra prosjektet til en
+          <para>Kopier hele <quote>trunk</quote> fra prosjektet til en 
             ny grenkatalog.</para>
         </listitem>
         <listitem>
@@ -2554,11 +2554,11 @@ URL: http://svn.example.com/repos/calc/branches/my-calc-branch
           <para>Switch only <emphasis>part</emphasis> of the trunk
             working copy to mirror the branch.</para>
           @ENGLISH }}} -->
-          <para>Bytt bare om <emphasis>en del</emphasis> av
+          <para>Bytt bare om <emphasis>en del</emphasis> av 
             trunk-arbeidskopien for &#229; avspeile forgreningen.</para>
         </listitem>
       </orderedlist>
-
+    
     <!-- @ENGLISH {{{
     <para>In other words, if a user knows that the branch-work only
       needs to happen on a specific subdirectory, they use
@@ -2573,21 +2573,21 @@ URL: http://svn.example.com/repos/calc/branches/my-calc-branch
       of working revisions, but a mixture of repository locations as
       well.</para>
     @ENGLISH }}} -->
-    <para>Med andre ord, hvis en bruker vet at grenarbeidet kun trenger
-      &#229; skje i en spesiell underkatalog, bruker de <command>svn
-      switch</command> for &#229; flytte bare denne underkatalogen til
+    <para>Med andre ord, hvis en bruker vet at grenarbeidet kun trenger 
+      &#229; skje i en spesiell underkatalog, bruker de <command>svn 
+      switch</command> for &#229; flytte bare denne underkatalogen til 
       grenen.
-      (Og noen ganger vil brukere bare bytte om en enkelt arbeidsfil til
+      (Og noen ganger vil brukere bare bytte om en enkelt arbeidsfil til 
       grenen!)
-      P&#229; denne m&#229;ten kan de fortsette &#229; motta normale oppdateringer fra
-      <quote>trunk</quote> til mesteparten av arbeidskopien deres, men
-      de ombyttede delene vil forbli immune (unntatt hvis noen legger
+      P&#229; denne m&#229;ten kan de fortsette &#229; motta normale oppdateringer fra 
+      <quote>trunk</quote> til mesteparten av arbeidskopien deres, men 
+      de ombyttede delene vil forbli immune (unntatt hvis noen legger 
       inn en forandring til denne grenen).
-      Denne funksjonalitetel legger til en hel ny dimensjon til
-      konseptet med en <quote>blandet arbeidskopi</quote> &#8212; ikke bare
-      kan arbeidskopier inneholde en blanding av av arbeidsrevisjoner,
+      Denne funksjonalitetel legger til en hel ny dimensjon til 
+      konseptet med en <quote>blandet arbeidskopi</quote> &#8212; ikke bare 
+      kan arbeidskopier inneholde en blanding av av arbeidsrevisjoner, 
       men ogs&#229; en blanding av depotbeliggenheter.</para>
-
+    
     <!-- @ENGLISH {{{
     <para>If your working copy contains a number of switched subtrees
       from different repository locations, it continues to function as
@@ -2595,13 +2595,13 @@ URL: http://svn.example.com/repos/calc/branches/my-calc-branch
       as appropriate.  When you commit, your local changes will still
       be applied as a single, atomic change to the repository.</para>
     @ENGLISH }}} -->
-    <para>Hvis arbeidskopien din inneholder et antall ombyttede
-      katalogtr&#230;r fra forskjellige depotplasseringer, fortsetter den &#229;
+    <para>Hvis arbeidskopien din inneholder et antall ombyttede 
+      katalogtr&#230;r fra forskjellige depotplasseringer, fortsetter den &#229; 
       virke som normalt.
-      N&#229;r du oppdaterer, vil du motta patcher til hvert undertre <!-- &#164;
+      N&#229;r du oppdaterer, vil du motta patcher til hvert undertre <!-- &#164; 
       -->der det passer.
-      N&#229;r du legger inn forandringer, vil dine lokale forandringer
-      fortsatt bli lagt inn som en enkel, atomisk forandring til
+      N&#229;r du legger inn forandringer, vil dine lokale forandringer 
+      fortsatt bli lagt inn som en enkel, atomisk forandring til 
       depotet.</para>
 
     <!-- @ENGLISH {{{
@@ -2618,36 +2618,36 @@ URL: http://svn.example.com/repos/calc/branches/my-calc-branch
       linkend="svn-ch-9"/> for more information and an example.</para>
       </footnote></para>
     @ENGLISH }}} -->
-    <para>Legg merke til at mens det er greit for arbeidskopien din &#229;
-      gjenspeile en blanding av depotplasseringer, m&#229; alle disse
-      plasseringene v&#230;re innenfor det <emphasis>samme</emphasis>
+    <para>Legg merke til at mens det er greit for arbeidskopien din &#229; 
+      gjenspeile en blanding av depotplasseringer, m&#229; alle disse 
+      plasseringene v&#230;re innenfor det <emphasis>samme</emphasis> 
       depotet.
-      Subversiondepot er forel&#248;pig ikke i stand til &#229; kommunisere med
-      hverandre; det er en funksjonalitet som er planlagt etter
-      SUbversion 1.0.<footnote><para>Du <emphasis>kan</emphasis>
-      imidlertid bruke <command>svn switch</command> med
-      <option>--relocate</option>-valget hvis URL-en til tjeneren
+      Subversiondepot er forel&#248;pig ikke i stand til &#229; kommunisere med 
+      hverandre; det er en funksjonalitet som er planlagt etter 
+      SUbversion 1.0.<footnote><para>Du <emphasis>kan</emphasis> 
+      imidlertid bruke <command>svn switch</command> med 
+      <option>--relocate</option>-valget hvis URL-en til tjeneren 
       forandrer seg og du ikke vil forkaste en eksisterende arbeidskopi.
-      Se <command>svn switch</command>-seksjonen i <xref
-      linkend="svn-ch-9"/> for mer informasjon og et
+      Se <command>svn switch</command>-seksjonen i <xref 
+      linkend="svn-ch-9"/> for mer informasjon og et 
       eksempel.</para></footnote></para>
-
+    
     <sidebar>
       <!-- @ENGLISH {{{
       <title>Switches and Updates</title>
       @ENGLISH }}} -->
       <title>Ombyttinger og oppdateringer</title>
-
+      
       <!-- @ENGLISH {{{
       <para>Have you noticed that the output of <command>svn
         switch</command> and <command>svn update</command> look the
         same?  The switch command is actually a superset of the
         update command.</para>
       @ENGLISH }}} -->
-      <para>Har du lagt merke til at utdataene fra <command>svn
-        switch</command> og <command>svn update</command> ser likedan
+      <para>Har du lagt merke til at utdataene fra <command>svn 
+        switch</command> og <command>svn update</command> ser likedan 
         ut?
-        <command>switch</command>-kommandoen er faktisk et &#164;superset av
+        <command>switch</command>-kommandoen er faktisk et &#164;superset av 
         <command>update</command>-kommandoen.</para>
 
       <!-- @ENGLISH {{{
@@ -2658,15 +2658,15 @@ URL: http://svn.example.com/repos/calc/branches/my-calc-branch
         switch</command> and <command>svn update</command> is that the
         update command always compares two identical paths.</para>
       @ENGLISH }}} -->
-      <para>N&#229;r du kj&#248;rer <command>svn update</command>, ber du depotet
+      <para>N&#229;r du kj&#248;rer <command>svn update</command>, ber du depotet 
         om &#229; sammenligne to tr&#230;r.
-        Depotet gj&#248;r dette, og sender deretter en beskrivelse av
+        Depotet gj&#248;r dette, og sender deretter en beskrivelse av 
         forskjellene tilbake til klienten.
-        Den eneste forskjellen mellom <command>svn switch</command> og
-        <command>svn update</command> er at
-        <command>update</command>-kommandoen alltid sammenligner to
+        Den eneste forskjellen mellom <command>svn switch</command> og 
+        <command>svn update</command> er at 
+        <command>update</command>-kommandoen alltid sammenligner to 
         identiske stier.</para>
-
+      
       <!-- @ENGLISH {{{
       <para>That is, if your working copy is a mirror of
         <filename>/calc/trunk</filename>, then <command>svn
@@ -2680,16 +2680,16 @@ URL: http://svn.example.com/repos/calc/branches/my-calc-branch
         <emphasis>other</emphasis> branch-directory in the
         <literal>HEAD</literal> revision.</para>
       @ENGLISH }}} -->
-      <para>Det vil si, hvis arbeidskopien din er et speil av
-        <filename>/calc/trunk</filename>, vil <command>svn
-        update</command> automatisk sammenligne arbeidskopien din av
-        <filename>/calc/trunk</filename> med
-        <filename>/calc/trunk</filename> i
+      <para>Det vil si, hvis arbeidskopien din er et speil av 
+        <filename>/calc/trunk</filename>, vil <command>svn 
+        update</command> automatisk sammenligne arbeidskopien din av 
+        <filename>/calc/trunk</filename> med 
+        <filename>/calc/trunk</filename> i 
         <literal>HEAD</literal>-revisjonen.
-        Hvis du bytter om arbeidskopien din til en gren, vil
-        <command>svn switch</command> sammenligne arbeidskopien av
-        <filename>/calc/trunk</filename> med en
-        <emphasis>annen</emphasis> grenkatalog i
+        Hvis du bytter om arbeidskopien din til en gren, vil 
+        <command>svn switch</command> sammenligne arbeidskopien av 
+        <filename>/calc/trunk</filename> med en 
+        <emphasis>annen</emphasis> grenkatalog i 
         <literal>HEAD</literal>-revisjonen.</para>
 
       <!-- @ENGLISH {{{
@@ -2697,9 +2697,9 @@ URL: http://svn.example.com/repos/calc/branches/my-calc-branch
         time.  A switch moves your working copy through time
         <emphasis>and</emphasis> space.</para>
       @ENGLISH }}} -->
-      <para>Med andre ord, en <command>update</command>-kommando flytter
+      <para>Med andre ord, en <command>update</command>-kommando flytter 
         arbeidskopien din gjennom tiden.
-        En <command>switch</command>-kommando flytter arbeidskopien
+        En <command>switch</command>-kommando flytter arbeidskopien 
         gjennom tid <emphasis>og</emphasis> rom.</para>
     </sidebar>
 
@@ -2710,9 +2710,9 @@ URL: http://svn.example.com/repos/calc/branches/my-calc-branch
       preserved when new data arrives from the repository.  This
       allows you to perform all sorts of clever tricks.</para>
     @ENGLISH }}} -->
-    <para>Fordi <command>svn switch</command> egentlig er en variant av
-      <command>svn update</command> deler den samme oppf&#248;rsel; alle
-      lokale modifiseringer i arbeidskopen blir tatt vare p&#229; n&#229;r nye
+    <para>Fordi <command>svn switch</command> egentlig er en variant av 
+      <command>svn update</command> deler den samme oppf&#248;rsel; alle 
+      lokale modifiseringer i arbeidskopen blir tatt vare p&#229; n&#229;r nye 
       data ankommer fra depotet.
       Dette lar deg gj&#248;re en masse lure ting.</para>
 
@@ -2725,13 +2725,13 @@ URL: http://svn.example.com/repos/calc/branches/my-calc-branch
       changes will remain.  You can then test and commit them to the
       branch.</para>
     @ENGLISH }}} -->
-    <para>For eksempel, tenk at du har en arbeidskopi av
-      <filename>/calc/trunk</filename> og gj&#248;r et antall forandringer i
+    <para>For eksempel, tenk at du har en arbeidskopi av 
+      <filename>/calc/trunk</filename> og gj&#248;r et antall forandringer i 
       den.
-      S&#229; finner du plutselig ut at du skulle gj&#248;re disse forandringene
+      S&#229; finner du plutselig ut at du skulle gj&#248;re disse forandringene 
       til en gren istedenfor.
       Ikke noe problem!
-      N&#229;r du bruker <command>svn switch</command> for &#229; flytte
+      N&#229;r du bruker <command>svn switch</command> for &#229; flytte 
       arbeidskopien til grenen, vil de lokale forandringene bli v&#230;rende.
       Du kan deretter teste og legge dem inn p&#229; grenen.</para>
 
@@ -2755,12 +2755,12 @@ URL: http://svn.example.com/repos/calc/branches/my-calc-branch
       revision is exactly that&mdash;a snapshot of the filesystem
       after each commit.</para>
     @ENGLISH }}} -->
-    <para>Et annet vanlig versjonskontrollkonsept er et
+    <para>Et annet vanlig versjonskontrollkonsept er et 
       <firstterm>merke</firstterm> &#8212; <foreignphrase>tag</foreignphrase>.
-      Et merke er bare et <quote>&#248;yeblikksbilde</quote> av et prosjekt
+      Et merke er bare et <quote>&#248;yeblikksbilde</quote> av et prosjekt 
       p&#229; en spesiell tid.
       I Subversion ser denne id&#233;en ut til &#229; v&#230;re overalt.
-      Hver depotrevisjon er akkurat det &#8212; et &#248;yeblikksbilde av
+      Hver depotrevisjon er akkurat det &#8212; et &#248;yeblikksbilde av 
       filsystemet etter hver innlegging.</para>
 
     <!-- @ENGLISH {{{
@@ -2771,12 +2771,12 @@ URL: http://svn.example.com/repos/calc/branches/my-calc-branch
       piece of software is a particular subdirectory of revision
       4822.</para>
     @ENGLISH }}} -->
-    <para>Men folk vil ofte &#248;nske &#229; gi mer menneskevennlige navn til
+    <para>Men folk vil ofte &#248;nske &#229; gi mer menneskevennlige navn til 
       merker, som <literal>release-1.0</literal>.
-      Og de &#248;nsker &#229; ta &#248;yeblikksbilder av mindre underkataloger i
+      Og de &#248;nsker &#229; ta &#248;yeblikksbilder av mindre underkataloger i 
       filsystemet.
-      N&#229;r alt kommer til alt, er det ikke s&#229; lett &#229; huske at release-1.0
-      av et programprosjekt er en spesiell underkatalog av revisjon
+      N&#229;r alt kommer til alt, er det ikke s&#229; lett &#229; huske at release-1.0 
+      av et programprosjekt er en spesiell underkatalog av revisjon 
       4822.</para>
 
     <sect2 id="svn-ch-4-sect-6.1">
@@ -2791,11 +2791,11 @@ URL: http://svn.example.com/repos/calc/branches/my-calc-branch
         <filename>/calc/trunk</filename> exactly as it looks in the
         <literal>HEAD</literal> revision, then make a copy of it:</para>
       @ENGLISH }}} -->
-      <para>Atter en gang kommer <command>svn copy</command> og redder
+      <para>Atter en gang kommer <command>svn copy</command> og redder 
         situasjonen.
-        Hvis du vil lage et &#248;yeblikksbilde av
-        <filename>/calc/trunk</filename> n&#248;yaktig som den ser ut i
-        <literal>HEAD</literal>-revisjonen, kan du lage en kopi av
+        Hvis du vil lage et &#248;yeblikksbilde av 
+        <filename>/calc/trunk</filename> n&#248;yaktig som den ser ut i 
+        <literal>HEAD</literal>-revisjonen, kan du lage en kopi av 
         den:</para>
 
 <!-- &#164; -->
@@ -2823,20 +2823,20 @@ Committed revision 351.
         want, you can specify it by passing <option>-r 350</option> to
         the <command>svn copy</command> command.</para>
       @ENGLISH }}} -->
-      <para>Dette eksempelet forutsetter at en
+      <para>Dette eksempelet forutsetter at en 
         <filename>/calc/tags</filename>-katalog allerede eksisterer.
-        (Hvis den ikke gj&#248;r det, se <xref
+        (Hvis den ikke gj&#248;r det, se <xref 
         linkend="svn-ch-9-sect-1.2-re-mkdir"/>.)
-        Etter at kopieringen er fullf&#248;rt, vil den nye
-        <filename>release-1.0</filename>-katalogen for alltid v&#230;re et
-        &#248;yeblikksbilde av hvordan prosjektet s&#229; ut i
+        Etter at kopieringen er fullf&#248;rt, vil den nye 
+        <filename>release-1.0</filename>-katalogen for alltid v&#230;re et 
+        &#248;yeblikksbilde av hvordan prosjektet s&#229; ut i 
         <literal>HEAD</literal>-revisjonen p&#229; den tiden du lagde kopien.
-        Selvf&#248;lgelig vil du v&#230;re mer presis ang&#229;ende hvilken revisjon du
-        kopierer, i tilfelle noen andre kan ha lagt inn forandringer til
+        Selvf&#248;lgelig vil du v&#230;re mer presis ang&#229;ende hvilken revisjon du 
+        kopierer, i tilfelle noen andre kan ha lagt inn forandringer til 
         prosjektet mens du ikke s&#229; det.
-        S&#229; hvis du vet at revisjon 350 av
-        <filename>/calc/trunk</filename> er n&#248;yaktig det &#248;eblikksbildet
-        du &#248;nsker, kan du spesifisere dette ved &#229; angi <option>-r
+        S&#229; hvis du vet at revisjon 350 av 
+        <filename>/calc/trunk</filename> er n&#248;yaktig det &#248;eblikksbildet 
+        du &#248;nsker, kan du spesifisere dette ved &#229; angi <option>-r 
         350</option> til <command>svn copy</command>-kommandoen.</para>
 
       <!-- @ENGLISH {{{
@@ -2852,18 +2852,18 @@ Committed revision 351.
         becomes a branch.</para>
       @ENGLISH }}} -->
       <para>Men vent n&#229; litt:
-        Er ikke denne prosedyren med opprettelse av merker den samme
+        Er ikke denne prosedyren med opprettelse av merker den samme 
         prosedyren som vi brukte da vi lagde en gren?
         Ja, faktisk er det det.
         I Subversion er det ingen forskjell mellom et merke og en gren.
         Begge er bare vanlige kataloger som er opprettet ved kopiering.
-        Akkurat som med grener, den eneste grunnen til at en kopiert
-        katalog er et <quote>merke</quote> er fordi
-        <emphasis>mennesker</emphasis> har bestemt seg for &#229; behandle
+        Akkurat som med grener, den eneste grunnen til at en kopiert 
+        katalog er et <quote>merke</quote> er fordi 
+        <emphasis>mennesker</emphasis> har bestemt seg for &#229; behandle 
         det p&#229; denne m&#229;ten:
-        S&#229; lenge ingen noen gang legger inn forandringer til katalogen,
+        S&#229; lenge ingen noen gang legger inn forandringer til katalogen, 
         forblir den for alltid et &#248;yeblikksbilde.
-        Hvis noen begynner &#229; legge inn forandringer til den, blir den en
+        Hvis noen begynner &#229; legge inn forandringer til den, blir den en 
         gren.</para>
 
       <!-- @ENGLISH {{{
@@ -2882,42 +2882,42 @@ Committed revision 351.
         simply undo the change as discussed in the previous section.
         This is version control, after all.</para>
       @ENGLISH }}} -->
-      <para>Hvis du administrerer et depot, er det to fremgangsm&#229;ter du
+      <para>Hvis du administrerer et depot, er det to fremgangsm&#229;ter du 
         kan bruke for &#229; holde rede p&#229; merker.
         Den f&#248;rste fremgangsm&#229;ten er <quote>ikke r&#248;r</quote>:
-        Som en del av reglene innen prosjektet, bestem hvor i depotet
-        merkene skal ligge, og gj&#248;r det klart for alle brukere hvordan
+        Som en del av reglene innen prosjektet, bestem hvor i depotet 
+        merkene skal ligge, og gj&#248;r det klart for alle brukere hvordan 
         de skal behandle kataloger som de kopierer inn dit.
-        (Det vil si, v&#230;r sikker p&#229; at de vet at nye innlegginger ikke
+        (Det vil si, v&#230;r sikker p&#229; at de vet at nye innlegginger ikke 
         skal skje der.)
         Den andre fremgangsm&#229;ten er mer paranoid:
-        Du kan bruke et av aksesskontrollskriptene som f&#248;lger med
-        Subversion til &#229; forhindre noen fra &#229; gj&#248;re noe annet enn &#229;
-        opprette nye kopier i merkeomr&#229;det (se <xref
+        Du kan bruke et av aksesskontrollskriptene som f&#248;lger med 
+        Subversion til &#229; forhindre noen fra &#229; gj&#248;re noe annet enn &#229; 
+        opprette nye kopier i merkeomr&#229;det (se <xref 
         linkend="svn-ch-6"/>).
         Den paranoide ruten er imidlertid vanligvis ikke n&#248;dvendig.
-        Hvis en bruker legger inn en forandring til en merkekatalog, kan
-        du enkelt og greit omgj&#248;re forandringen som nevnt i den forrige
+        Hvis en bruker legger inn en forandring til en merkekatalog, kan 
+        du enkelt og greit omgj&#248;re forandringen som nevnt i den forrige 
         seksjonen.
         Dette er versjonskontroll, tross alt.</para>
 
     </sect2>
-
+    
     <sect2 id="svn-ch-4-sect-6.2">
       <!-- @ENGLISH {{{
       <title>Creating a Complex Tag</title>
       @ENGLISH }}} -->
       <title>Lage et komplekst merke</title>
-
+      
       <!-- @ENGLISH {{{
       <para>Sometimes you may want your <quote>snapshot</quote> to be
         more complicated than a single directory at a single
         revision.</para>
       @ENGLISH }}} -->
-      <para>Noen ganger vil du at <quote>&#248;yeblikksbildet</quote> skal
-        v&#230;re mer komplisert enn en enkel katalog med en enkelt
+      <para>Noen ganger vil du at <quote>&#248;yeblikksbildet</quote> skal 
+        v&#230;re mer komplisert enn en enkel katalog med en enkelt 
         revisjon.</para>
-
+      
       <!-- @ENGLISH {{{
       <para>For example, pretend your project is much larger than our
         <filename>calc</filename> example: suppose it contains a
@@ -2933,20 +2933,20 @@ Committed revision 351.
         But after testing, you know it's the precise combination of
         data you need.</para>
       @ENGLISH }}} -->
-      <para>For eksempel, tenk deg at prosjektet ditt er mye st&#248;rre enn
+      <para>For eksempel, tenk deg at prosjektet ditt er mye st&#248;rre enn 
         <filename>calc</filename>-eksempelet v&#229;rt:
         Det inneholder mange underkataloger og mange flere filer.
-        Mens du holder p&#229; med arbeidet, bestemmer du deg kanskje for at
-        du m&#229; lage en arbeidskopi som er beregnet p&#229; &#229; ha en spesiell
+        Mens du holder p&#229; med arbeidet, bestemmer du deg kanskje for at 
+        du m&#229; lage en arbeidskopi som er beregnet p&#229; &#229; ha en spesiell 
         funksjonalitet og feilrettinger.
-        Du kan oppn&#229; dette ved &#229; selektivt tilbakedatere filer eller
-        kataloger til spesielle revisjoner (ved &#229; bruke <command>svn
-        update -r</command> i stor skala), eller ved &#229; bytte om filer og
-        kataloger til spesielle grener (ved hjelp av <command>svn
+        Du kan oppn&#229; dette ved &#229; selektivt tilbakedatere filer eller 
+        kataloger til spesielle revisjoner (ved &#229; bruke <command>svn 
+        update -r</command> i stor skala), eller ved &#229; bytte om filer og 
+        kataloger til spesielle grener (ved hjelp av <command>svn 
         switch</command>).
-        N&#229;r du er ferdig, er arbeidskopien din et virvar av
+        N&#229;r du er ferdig, er arbeidskopien din et virvar av 
         depotplasseringer fra forskjellige revisjoner.
-        Men etter at du har kj&#248;rt noen tester, vet du at dette er
+        Men etter at du har kj&#248;rt noen tester, vet du at dette er 
         akkurat s&#229;nn som du vil ha det.</para>
 
       <!-- @ENGLISH {{{
@@ -2960,11 +2960,11 @@ Committed revision 351.
       @ENGLISH }}} -->
       <para>P&#229; tide &#229; lagre et &#248;yeblikksbilde.
         Det &#229; kopiere en URL til en annen vil ikke fungere her.
-        I dette tilfellet &#248;nsker du &#229; lage et &#248;yeblikksbilde av din
+        I dette tilfellet &#248;nsker du &#229; lage et &#248;yeblikksbilde av din 
         eksakte arbeidskopi og lagre den i depotet.
-        Heldigvis har <command>svn copy</command> faktisk fire
-        forskjellige bruksm&#229;ter (som du kan lese om i kapittel 9),
-        inkludert muligheten til &#229; kopiere et tre av en arbeidskopi til
+        Heldigvis har <command>svn copy</command> faktisk fire 
+        forskjellige bruksm&#229;ter (som du kan lese om i kapittel 9), 
+        inkludert muligheten til &#229; kopiere et tre av en arbeidskopi til 
         depotet:</para>
 
 <!-- &#164; -->
@@ -2983,9 +2983,9 @@ Committed revision 352.
         snapshot of your working copy&mdash;mixed revisions, URLs,
         and all.</para>
       @ENGLISH }}} -->
-      <para>N&#229; er det en ny katalog i depotet,
-        <filename>/calc/tags/mytag</filename>, som er et eksakt
-        &#248;yeblikksbilde av arbeidskopien din &#8212; blandede revisjoner, URLer
+      <para>N&#229; er det en ny katalog i depotet, 
+        <filename>/calc/tags/mytag</filename>, som er et eksakt 
+        &#248;yeblikksbilde av arbeidskopien din &#8212; blandede revisjoner, URLer 
         og hele pakken.</para>
 
       <!-- @ENGLISH {{{
@@ -3000,18 +3000,18 @@ Committed revision 352.
         a verbatim copy of your working copy, or use <command>svn
         merge</command> to receive your exact changes.</para>
       @ENGLISH }}} -->
-      <para>Andre brukere har funnet interessante m&#229;ter &#229; bruke denne
+      <para>Andre brukere har funnet interessante m&#229;ter &#229; bruke denne 
         funksjonaliteten p&#229;.
-        Noen ganger er det situasjoner hvor du har en dunge med lokale
-        forandringer i arbeidskopien, og du vil at en kollega skal se p&#229;
+        Noen ganger er det situasjoner hvor du har en dunge med lokale 
+        forandringer i arbeidskopien, og du vil at en kollega skal se p&#229; 
         dem.
-        Istedenfor &#229; kj&#248;re <command>svn diff</command> og sende
-        patchfilen (som ikke vil fange opp treforandringer), kan du
-        istedenfor bruke <command>svn copy</command> for &#229;
-        <quote>sende</quote> arbeidskopien til et privat omr&#229;de i
+        Istedenfor &#229; kj&#248;re <command>svn diff</command> og sende 
+        patchfilen (som ikke vil fange opp treforandringer), kan du 
+        istedenfor bruke <command>svn copy</command> for &#229; 
+        <quote>sende</quote> arbeidskopien til et privat omr&#229;de i 
         depotet.
-        Kollegaen din kan dermed enten hente ut en n&#248;yaktig kopi av
-        arbeidskopien din, eller bruke <command>svn merge</command> for
+        Kollegaen din kan dermed enten hente ut en n&#248;yaktig kopi av 
+        arbeidskopien din, eller bruke <command>svn merge</command> for 
         &#229; motta de eksakte forandringene dine.</para>
 
     </sect2>
@@ -3037,12 +3037,12 @@ Committed revision 352.
       arranging and managing your data over time.</para>
     @ENGLISH }}} -->
     <para>Du har kanskje sett n&#229; at Subversion er ekstremt fleksibel.
-      Fordi den implementerer grener og merker med den samme
-      underliggende mekanismen (kopier av kataloger), og fordi grener og
-      merker vises i filsystemet, finner mange Subversion <!-- &#164; -->litt
+      Fordi den implementerer grener og merker med den samme 
+      underliggende mekanismen (kopier av kataloger), og fordi grener og 
+      merker vises i filsystemet, finner mange Subversion <!-- &#164; -->litt 
       skremmende.
       Den er nesten <emphasis>for</emphasis> fleksibel.
-      I denne seksjonen vil vi komme med noen forslag for hvordan du kan
+      I denne seksjonen vil vi komme med noen forslag for hvordan du kan 
       arrangere og vedlikeholde dataene dine over tid.</para>
 
     <sect2 id="svn-ch-4-sect-7.1">
@@ -3050,7 +3050,7 @@ Committed revision 352.
       <title>Repository Layout</title>
       @ENGLISH }}} -->
       <title><!-- &#164; -->Layout p&#229; depotet</title>
-
+      
       <!-- @ENGLISH {{{
       <para>There are some standard, recommended ways to organize a
         repository.  Most people create a <filename>trunk</filename>
@@ -3060,13 +3060,13 @@ Committed revision 352.
         tag copies.  If a repository holds only one project, then
         often people create these top-level directories:</para>
       @ENGLISH }}} -->
-      <para>Det er noen standardiserte, anbefalte m&#229;ter &#229; organisere et
+      <para>Det er noen standardiserte, anbefalte m&#229;ter &#229; organisere et 
         depot p&#229;.
-        Mange lager en <filename>trunk</filename>-katalog for der
-        <quote>hovedlinjen</quote> av utvikling foreg&#229;r, en
-        <filename>branches</filename>-katalog som inneholder grenkopier,
+        Mange lager en <filename>trunk</filename>-katalog for der 
+        <quote>hovedlinjen</quote> av utvikling foreg&#229;r, en 
+        <filename>branches</filename>-katalog som inneholder grenkopier, 
         og en <filename>tags</filename>-katalog som inneholder merker.
-        Hvis et depot bare inneholder ett prosjekt, lager man ofte disse
+        Hvis et depot bare inneholder ett prosjekt, lager man ofte disse 
         toppkatalogene:</para>
 
 <screen>
@@ -3081,9 +3081,9 @@ Committed revision 352.
         linkend="svn-ch-5-sect-6.1"/> to read more about
         <quote>project roots</quote>):</para>
       @ENGLISH }}} -->
-      <para>Hvis et depot inneholder flere prosjekter, legger
-        administratorer vanligvis depotet opp etter prosjekt (se <xref
-        linkend="svn-ch-5-sect-6.1"/> for &#229; lese mer om
+      <para>Hvis et depot inneholder flere prosjekter, legger 
+        administratorer vanligvis depotet opp etter prosjekt (se <xref 
+        linkend="svn-ch-5-sect-6.1"/> for &#229; lese mer om 
         <quote>prosjektr&#248;tter</quote>):</para>
 
 <screen>
@@ -3107,19 +3107,19 @@ Committed revision 352.
         you don't like the way things are organized in the repository,
         just juggle the directories around.</para>
       @ENGLISH }}} -->
-      <para>Du st&#229;r selvf&#248;lgelig fritt til &#229; ignorere disse vanlige <!--
+      <para>Du st&#229;r selvf&#248;lgelig fritt til &#229; ignorere disse vanlige <!-- 
         &#164; -->layoutene.
-        Du kan lage alle mulige varianter, hva som enn fungerer best for
+        Du kan lage alle mulige varianter, hva som enn fungerer best for 
         deg og ditt team.
-        Husk at hva du enn velger, er du ikke forpliktet til &#229; ha det
+        Husk at hva du enn velger, er du ikke forpliktet til &#229; ha det 
         s&#229;nn for alltid.
         Du kan reorganisere depotet ditt n&#229;r du vil.
-        Fordi grener og merker er vanlige kataloger, kan <command>svn
-        move</command>-kommandoen flytte eller skifte navn p&#229; dem s&#229;nn
+        Fordi grener og merker er vanlige kataloger, kan <command>svn 
+        move</command>-kommandoen flytte eller skifte navn p&#229; dem s&#229;nn 
         som du &#248;nsker.
-        &#197; bytte fra en layout til en annen er bare snakk om &#229; <!--
-        utf&#248;re --> en serie flyttinger p&#229; tjeneren; hvis du ikke liker
-        m&#229;ten ting er organisert i depotet, bare <!-- &#164; -->flytt
+        &#197; bytte fra en layout til en annen er bare snakk om &#229; <!-- 
+        utf&#248;re --> en serie flyttinger p&#229; tjeneren; hvis du ikke liker 
+        m&#229;ten ting er organisert i depotet, bare <!-- &#164; -->flytt 
         katalogene rundt om kring.</para>
 
       <!-- @ENGLISH {{{
@@ -3135,21 +3135,21 @@ Committed revision 352.
         switch</command> to the new location.
         </para>
       @ENGLISH }}} -->
-      <para>Men husk at selv om det &#229; flytte kataloger er en enkel sak,
+      <para>Men husk at selv om det &#229; flytte kataloger er en enkel sak, 
         m&#229; du ogs&#229; tenke p&#229; brukerne dine.
-        Omm&#248;bleringen kan v&#230;re forvirrende for brukere med eksisterende
+        Omm&#248;bleringen kan v&#230;re forvirrende for brukere med eksisterende 
         arbeidskopier.
-        Hvis en bruker har en arbeidskopi fra en spesiell depotkatalog,
-        kan <command>svn move</command>-operasjonen fjerne stien fra den
+        Hvis en bruker har en arbeidskopi fra en spesiell depotkatalog, 
+        kan <command>svn move</command>-operasjonen fjerne stien fra den 
         seneste revisjonen.
-        N&#229;r brukeren kj&#248;rer <command>svn update</command> neste gang,
-        vil han bli fortalt at arbeidskopien hans representerer en sti
-        som ikke lenger finnes, og brukeren vil bli tvunget til &#229; bruke
-        <command>svn switch</command> for &#229; sette arbeidskopien til den
+        N&#229;r brukeren kj&#248;rer <command>svn update</command> neste gang, 
+        vil han bli fortalt at arbeidskopien hans representerer en sti 
+        som ikke lenger finnes, og brukeren vil bli tvunget til &#229; bruke 
+        <command>svn switch</command> for &#229; sette arbeidskopien til den 
         nye plasseringen.</para>
-
+      
     </sect2>
-
+    
     <sect2 id="svn-ch-4-sect-7.2">
       <!-- @ENGLISH {{{
       <title>Data Lifetimes</title>
@@ -3166,13 +3166,13 @@ Committed revision 352.
         no need for your private branch directory to stick around
         anymore:</para>
       @ENGLISH }}} -->
-      <para>En annen fin funksjonalitet med Subversions modell er at
-        grener og merker kan ha begrenset levetid, akkurat som ethvert
+      <para>En annen fin funksjonalitet med Subversions modell er at 
+        grener og merker kan ha begrenset levetid, akkurat som ethvert 
         annet versjonert element.
-        For eksempel, tenk at du etterhvert blir ferdig med alt arbeidet
+        For eksempel, tenk at du etterhvert blir ferdig med alt arbeidet 
         p&#229; din personlige gren i <filename>calc</filename>-prosjektet.
-        Etter at du har flettet alle dine forandringer tilbake til
-        <filename>/calc/trunk</filename>, trenger ikke grenkatalogen &#229;
+        Etter at du har flettet alle dine forandringer tilbake til 
+        <filename>/calc/trunk</filename>, trenger ikke grenkatalogen &#229; 
         ligge der mer:</para>
 
 <!-- &#164; -->
@@ -3193,12 +3193,12 @@ Committed revision 375.
         your old branch.</para>
       @ENGLISH }}} -->
       <para>Og n&#229; er forgreningen borte.
-        Selvf&#248;lgelig er den ikke egentlig borte, katalogen mangler bare
-        fra <literal>HEAD</literal>-revisjonen og distraherer dermed
+        Selvf&#248;lgelig er den ikke egentlig borte, katalogen mangler bare 
+        fra <literal>HEAD</literal>-revisjonen og distraherer dermed 
         ingen.
-        Hvis du bruker <command>svn checkout</command>, <command>svn
-        switch</command> eller <command>svn list</command> for &#229;
-        unders&#248;ke en tidligere revisjon, vil du fortsatt v&#230;re i stand
+        Hvis du bruker <command>svn checkout</command>, <command>svn 
+        switch</command> eller <command>svn list</command> for &#229; 
+        unders&#248;ke en tidligere revisjon, vil du fortsatt v&#230;re i stand 
         til &#229; se den gamle grenen din.</para>
 
       <!-- @ENGLISH {{{
@@ -3209,12 +3209,12 @@ Committed revision 375.
         use <command>svn copy -r</command> to copy it from the old
         revision:</para>
       @ENGLISH }}} -->
-      <para>Hvis det ikke er nok &#229; bare unders&#248;ke den slettede
+      <para>Hvis det ikke er nok &#229; bare unders&#248;ke den slettede 
         katalogen, kan du alltids hente den tilbake.
         &#197; hente tilbake data i Subversion er veldig enkelt.
-        Hvis det er en slettet katalog (eller fil) som du vil hente
-        tilbake inn i <literal>HEAD</literal>, kan du bruke <command>svn
-        copy -r</command> for &#229; kopiere den fra den gamle
+        Hvis det er en slettet katalog (eller fil) som du vil hente 
+        tilbake inn i <literal>HEAD</literal>, kan du bruke <command>svn 
+        copy -r</command> for &#229; kopiere den fra den gamle 
         revisjonen:</para>
 
 <screen>
@@ -3239,21 +3239,21 @@ Committed revision 376.
         a <quote>stable</quote> branch of the software that won't
         change much:</para>
       @ENGLISH }}} -->
-      <para>I eksempelet v&#229;rt hadde den personlige grenen din en
-        relativt kort levetid, du kan ha laget den for &#229; ordne en feil
+      <para>I eksempelet v&#229;rt hadde den personlige grenen din en 
+        relativt kort levetid, du kan ha laget den for &#229; ordne en feil 
         eller legge til en ny funksjonalitet.
         N&#229;r oppgaven din er gjort, er levetiden til grenen over.
-        Men innen programutvikling er det ogs&#229; vanlig &#229; ha to
-        <quote>hoved</quote>-grener som lever ved siden av hverandre for
+        Men innen programutvikling er det ogs&#229; vanlig &#229; ha to 
+        <quote>hoved</quote>-grener som lever ved siden av hverandre for 
         veldig lange perioder.
-        For eksempel, tenk at det er p&#229; tide &#229; utgi en stabil versjon av
-        <filename>calc</filename>-prosjektet til offentligheten, og du
-        vet at det kommer til &#229; ta noen m&#229;neder &#229; luke ut feil av
+        For eksempel, tenk at det er p&#229; tide &#229; utgi en stabil versjon av 
+        <filename>calc</filename>-prosjektet til offentligheten, og du 
+        vet at det kommer til &#229; ta noen m&#229;neder &#229; luke ut feil av 
         programmet.
-        Du vil ikke at folk skal legge inn ny funksjonalitet til
-        prosjektet, men du vil heller ikke at utviklerne skal stoppe
+        Du vil ikke at folk skal legge inn ny funksjonalitet til 
+        prosjektet, men du vil heller ikke at utviklerne skal stoppe 
         programmeringen.
-        S&#229; istedenfor lager du en <quote>stabil</quote> gren av
+        S&#229; istedenfor lager du en <quote>stabil</quote> gren av 
         programmet som ikke vil forandre seg s&#229; mye:</para>
 
 <!-- &#164; -->
@@ -3277,16 +3277,16 @@ Committed revision 377.
         maintain the branch for a long time&mdash;that is, as long
         as you continue to support that release for customers.</para>
       @ENGLISH }}} -->
-      <para>Og n&#229; kan utviklerne fortsette med &#229; legge til rykende
-        ferske (eller eksperimentelle) funksjoner til
-        <filename>/calc/trunk</filename>, og du kan lage en regel for
-        prosjektet som sier at bare feilrettinger skal legges inn i
+      <para>Og n&#229; kan utviklerne fortsette med &#229; legge til rykende 
+        ferske (eller eksperimentelle) funksjoner til 
+        <filename>/calc/trunk</filename>, og du kan lage en regel for 
+        prosjektet som sier at bare feilrettinger skal legges inn i 
         <filename>/calc/branches/stable-1.0</filename>.
-        Det vil si, mens brukerne fortsetter &#229; arbeide i trunk, kan
+        Det vil si, mens brukerne fortsetter &#229; arbeide i trunk, kan 
         feilrettinger selektivt bli flettet over til den stabile grenen.
-        Selv etter at den stabile grenen er p&#229; markedet, vil du
-        sannsynligvis fortsette &#229; vedlikeholde grenen i lang tid &#8212; det
-        vil si s&#229; lenge du fortsetter med &#229; vedlikeholde utgivelsen for
+        Selv etter at den stabile grenen er p&#229; markedet, vil du 
+        sannsynligvis fortsette &#229; vedlikeholde grenen i lang tid &#8212; det 
+        vil si s&#229; lenge du fortsetter med &#229; vedlikeholde utgivelsen for 
         kunder.</para>
 
     </sect2>
@@ -3316,15 +3316,15 @@ Committed revision 377.
       repository.</para>
     @ENGLISH }}} -->
     <para>Vi har g&#229;tt igjennom en god del i dette kapittelet.
-      Vi har diskutert konseptene med merker og grener, og demonstrert
-      hvordan Subversion implementerer disse konseptene ved &#229; kopiere
+      Vi har diskutert konseptene med merker og grener, og demonstrert 
+      hvordan Subversion implementerer disse konseptene ved &#229; kopiere 
       kataloger med <command>svn copy</command>-kommandoen.
-      Vi har vist hvordan <command>svn merge</command> brukes for &#229;
-      kopiere forandringer fra en gren til en annen, eller omgj&#248;re feile
+      Vi har vist hvordan <command>svn merge</command> brukes for &#229; 
+      kopiere forandringer fra en gren til en annen, eller omgj&#248;re feile 
       forandringer.
-      Vi har g&#229;tt over bruken av <command>svn switch</command> for &#229;
+      Vi har g&#229;tt over bruken av <command>svn switch</command> for &#229; 
       lage arbeidskopier med blandede revisjoner.
-      Og vi har snakket om hvordan man kan vedlikeholde organiseringen
+      Og vi har snakket om hvordan man kan vedlikeholde organiseringen 
       og levetiden til grener i et depot.</para>
 
     <!-- @ENGLISH {{{
@@ -3340,7 +3340,7 @@ Committed revision 377.
 </chapter>
 
 <!--
-local variables:
+local variables: 
 sgml-parent-document: ("book.xml" "chapter")
 end:
 vim: set ft=svnbook :
