@@ -114,7 +114,7 @@ svn_error_t *svn_fs__fs_paths_changed (apr_hash_t **changed_paths_p,
                                        svn_fs_t *fs,
                                        svn_revnum_t rev,
                                        apr_pool_t *pool);
-
+  
 
 /* Following are defines that specify the textual elements of the
    native filesystem directories and revision files. */
@@ -127,11 +127,11 @@ svn_error_t *svn_fs__fs_paths_changed (apr_hash_t **changed_paths_p,
 #define SVN_FS_FS__REVPROPS_DIR      "revprops" /* Directory of revprops */
 
 /* Headers used to describe node-revision in the revision file. */
-#define SVN_FS_FS__NODE_ID           "id"
-#define SVN_FS_FS__KIND              "type"
-#define SVN_FS_FS__COUNT             "count"
-#define SVN_FS_FS__PROPS             "props"
-#define SVN_FS_FS__TEXT              "text"
+#define SVN_FS_FS__NODE_ID           "id"       
+#define SVN_FS_FS__KIND              "type"     
+#define SVN_FS_FS__COUNT             "count"    
+#define SVN_FS_FS__PROPS             "props"    
+#define SVN_FS_FS__TEXT              "text"      
 #define SVN_FS_FS__CPATH             "cpath"
 #define SVN_FS_FS__COPYFROM          "copyfrom"
 #define SVN_FS_FS__COPYROOT          "copyroot"
