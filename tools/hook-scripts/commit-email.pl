@@ -6,7 +6,7 @@
 #
 # For usage, see the usage subroutine or run the script with no
 # command line arguments.
-#
+#    
 # ====================================================================
 # Copyright (c) 2000-2002 CollabNet.  All rights reserved.
 #
@@ -152,13 +152,13 @@ my @log = map { "$_\n" } @svnlooklines;
 my @dirschanged = &read_from_process($svnlook, $repos,
                                      'rev', $rev, 'dirs-changed');
 my $rootchanged = 0;
-grep
+grep 
 {
     # lose the trailing slash if one exists (except in the case of '/')
     $rootchanged = 1 if ($_ eq '/');
     $_ =~ s/(.+)[\/\\]$/$1/;
-}
-@dirschanged;
+} 
+@dirschanged; 
 
 # figure out what's changed (using svnlook)
 @svnlooklines = &read_from_process($svnlook, $repos, 'rev', $rev, 'changed');
