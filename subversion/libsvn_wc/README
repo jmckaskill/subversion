@@ -170,7 +170,7 @@ analogous to CVS/ sudirs:
 
 `properties'
 
-   Properties for this directory.
+   Properties for this directory.  
 
    For now, this file is in svn hashdump format, because it's
    convenient and its performance is good enough for now.  May move to
@@ -225,7 +225,7 @@ analogous to CVS/ sudirs:
 
    To recover from a crash:
 
-      1. Look for a log file.
+      1. Look for a log file.  
 
            A. If none, just "rm -r tmp/*".
 
@@ -270,7 +270,7 @@ analogous to CVS/ sudirs:
 todo: some loose ends
 
    1. filename escaping in SVN/entries
-   2.
+   2. 
 
 
 
