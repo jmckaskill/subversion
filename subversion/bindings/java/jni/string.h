@@ -33,8 +33,8 @@
  * different svn string types
  */
 svn_string_t *
-string__j_to_svn_string(JNIEnv *env,
-                        jstring jstr,
+string__j_to_svn_string(JNIEnv *env, 
+                        jstring jstr, 
                         jboolean *hasException,
                         apr_pool_t *pool);
 
@@ -45,8 +45,8 @@ string__c_to_stringbuf(JNIEnv *env,
                        apr_pool_t *pool);
 
 jstring
-string__svn_string_to_j(JNIEnv *env,
-                        svn_string_t *string,
+string__svn_string_to_j(JNIEnv *env, 
+                        svn_string_t *string, 
                         jboolean *hasException);
 
 jstring
@@ -58,8 +58,8 @@ string__svn_stringbuf_to_j(JNIEnv *env,
  * conversion to and from c string to java string
  */
 jstring
-string__c_to_j(JNIEnv *env,
-               char *string,
+string__c_to_j(JNIEnv *env, 
+               char *string, 
                jboolean *hasException);
 
 svn_stringbuf_t *
@@ -69,10 +69,10 @@ string__c_to_stringbuf(JNIEnv *env,
                        apr_pool_t *pool);
 #endif
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../svn-dev.el")
- * end:
+ * end: 
  */
 
 
