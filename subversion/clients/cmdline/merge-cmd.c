@@ -91,7 +91,7 @@ svn_cl__merge (apr_getopt_t *os,
 
       /* the first path becomes both of the 'sources' */
       sourcepath1 = sourcepath2 = ((const char **) (targets->elts))[0];
-
+      
       /* decide where to apply the diffs, defaulting to '.' */
       if (targets->nelts == 2)
         targetpath = ((const char **) (targets->elts))[1];
@@ -111,7 +111,7 @@ svn_cl__merge (apr_getopt_t *os,
       /* the first two paths become the 'sources' */
       sourcepath1 = ((const char **) (targets->elts))[0];
       sourcepath2 = ((const char **) (targets->elts))[1];
-
+      
       /* decide where to apply the diffs, defaulting to '.' */
       if (targets->nelts == 3)
         targetpath = ((const char **) (targets->elts))[2];
@@ -148,7 +148,7 @@ svn_cl__merge (apr_getopt_t *os,
                           targetpath,
                           opt_state->nonrecursive ? FALSE : TRUE,
                           opt_state->force,
-                          pool);
+                          pool); 
   if (err)
      return svn_cl__may_need_force (err);
 
@@ -156,8 +156,8 @@ svn_cl__merge (apr_getopt_t *os,
 }
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../tools/dev/svn-dev.el")
- * end:
+ * end: 
  */
