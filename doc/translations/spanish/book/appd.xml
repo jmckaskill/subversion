@@ -118,7 +118,7 @@
 
     </variablelist>
   </sect1>
-
+  
   <!-- ******************************************************************* -->
   <!-- *** SECTION 2:  LANGUAGE BINDINGS                               *** -->
   <!-- ******************************************************************* -->
@@ -150,7 +150,7 @@
 
     </variablelist>
   </sect1>
-
+  
   <!-- ******************************************************************* -->
   <!-- *** SECTION 3:  REPOSITORY CONVERTERS                           *** -->
   <!-- ******************************************************************* -->
@@ -179,7 +179,7 @@
 
     </variablelist>
   </sect1>
-
+  
   <!-- ******************************************************************* -->
   <!-- *** SECTION 4:  HIGHER LEVEL TOOLS                              *** -->
   <!-- ******************************************************************* -->
@@ -198,7 +198,7 @@
       <varlistentry>
         <term>Subissue (<systemitem
           class="url">http://subissue.tigris.org/</systemitem>)</term>
-        <listitem><para>Track issues directly in your
+        <listitem><para>Track issues directly in your 
           Subversion repository</para></listitem>
       </varlistentry>
 
@@ -225,7 +225,7 @@
 
     </variablelist>
   </sect1>
-
+  
   <!-- ******************************************************************* -->
   <!-- *** SECTION 5:  REPOSITORY BROWSING TOOLS                       *** -->
   <!-- ******************************************************************* -->
@@ -269,7 +269,7 @@
 </appendix>
 
 <!--
-local variables:
+local variables: 
 sgml-parent-document: ("book.xml" "appendix")
 end:
 -->
