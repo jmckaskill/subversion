@@ -71,7 +71,7 @@
 */
 %typemap(python, in, parse="z") const char *MAY_BE_NULL "";
 
-%typemap(java, in) const char *MAY_BE_NULL {
+%typemap(java, in) const char *MAY_BE_NULL { 
   /* ### WHEN IS THIS USED? */
   $1 = 0;
   if ($input) {
@@ -149,7 +149,7 @@
 
 /* -----------------------------------------------------------------------
    Define an OUTPUT typemap for 'svn_filesize_t *'.  For now, we'll
-   treat it as a 'long' even if that isn't entirely correct...
+   treat it as a 'long' even if that isn't entirely correct...  
 */
 %typemap(python,in,numinputs=0) svn_filesize_t * (svn_filesize_t temp)
     "$1 = &temp;";
@@ -256,12 +256,12 @@
    get_logs takes a callback function, so we have to thunk it
 */
 
-%typemap(python, in) (svn_log_message_receiver_t receiver,
+%typemap(python, in) (svn_log_message_receiver_t receiver, 
                       void *receiver_baton) {
     $1 = svn_swig_py_thunk_log_receiver;
     $2 = (void *)$input;
 }
-%typemap(perl5, in) (svn_log_message_receiver_t receiver,
+%typemap(perl5, in) (svn_log_message_receiver_t receiver, 
                       void *receiver_baton) {
     $1 = svn_swig_pl_thunk_log_receiver;
     $2 = (void *)$input;
