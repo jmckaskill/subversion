@@ -96,9 +96,9 @@ wc_to_wc_copy (svn_stringbuf_t *src_path,
 
 
 static svn_error_t *
-repos_to_repos_copy (svn_stringbuf_t *src_url,
-                     svn_revnum_t src_rev,
-                     svn_stringbuf_t *dst_url,
+repos_to_repos_copy (svn_stringbuf_t *src_url, 
+                     svn_revnum_t src_rev, 
+                     svn_stringbuf_t *dst_url, 
                      svn_client_auth_baton_t *auth_baton,
                      svn_stringbuf_t *message,
                      svn_boolean_t is_move,
@@ -140,7 +140,7 @@ repos_to_repos_copy (svn_stringbuf_t *src_url,
     {
       src_pieces = svn_path_decompose (src_rel, svn_path_url_style, pool);
       if ((! src_pieces) || (! src_pieces->nelts))
-        return svn_error_createf
+        return svn_error_createf 
           (SVN_ERR_WC_PATH_NOT_FOUND, 0, NULL, pool,
            "error decomposing relative path `%s'", src_rel->data);
     }
@@ -150,7 +150,7 @@ repos_to_repos_copy (svn_stringbuf_t *src_url,
     {
       dst_pieces = svn_path_decompose (dst_rel, svn_path_url_style, pool);
       if ((! dst_pieces) || (! dst_pieces->nelts))
-        return svn_error_createf
+        return svn_error_createf 
           (SVN_ERR_WC_PATH_NOT_FOUND, 0, NULL, pool,
            "error decomposing relative path `%s'", dst_rel->data);
     }
@@ -171,7 +171,7 @@ repos_to_repos_copy (svn_stringbuf_t *src_url,
   SVN_ERR (svn_ra_get_ra_library (&ra_lib, ra_baton, top_url->data, pool));
 
   /* Get the client callbacks for auth stuffs. */
-  SVN_ERR (svn_client__get_ra_callbacks (&ra_callbacks, &cb_baton, auth_baton,
+  SVN_ERR (svn_client__get_ra_callbacks (&ra_callbacks, &cb_baton, auth_baton, 
                                          top_url, TRUE, TRUE, pool));
   SVN_ERR (ra_lib->open (&sess, top_url, ra_callbacks, cb_baton, pool));
   SVN_ERR (ra_lib->get_latest_revnum (sess, &youngest));
@@ -179,17 +179,17 @@ repos_to_repos_copy (svn_stringbuf_t *src_url,
   /* Use YOUNGEST for copyfrom args if not provided. */
   if (! SVN_IS_VALID_REVNUM (src_rev))
     src_rev = youngest;
-
+  
   /* Verify that SRC_URL exists in the repository. */
   SVN_ERR (ra_lib->check_path (&src_kind, sess,
                                src_rel ? src_rel->data : NULL, src_rev));
   if (src_kind == svn_node_none)
-    return svn_error_createf
+    return svn_error_createf 
       (SVN_ERR_FS_NOT_FOUND, 0, NULL, pool,
        "path `%s' does not exist in revision `%ld'", src_url->data, src_rev);
 
   /* Figure out the basename that will result from this operation. */
-  SVN_ERR (ra_lib->check_path (&dst_kind, sess,
+  SVN_ERR (ra_lib->check_path (&dst_kind, sess, 
                                dst_rel ? dst_rel->data : NULL, youngest));
   if (dst_kind == svn_node_none)
     {
@@ -222,7 +222,7 @@ repos_to_repos_copy (svn_stringbuf_t *src_url,
       while (i < dst_pieces->nelts)
         {
           piece = (((svn_stringbuf_t **)(dst_pieces)->elts)[i]);
-          SVN_ERR (editor->open_directory (piece, batons[i],
+          SVN_ERR (editor->open_directory (piece, batons[i], 
                                            youngest, &(batons[i + 1])));
           i++;
         }
@@ -267,7 +267,7 @@ repos_to_repos_copy (svn_stringbuf_t *src_url,
                                            youngest, &(batons[i + 1])));
           i++;
         }
-
+          
       /* Delete SRC. */
       piece = (((svn_stringbuf_t **)(src_pieces)->elts)[i]);
       SVN_ERR (editor->delete_entry (piece, batons[i]));
@@ -290,8 +290,8 @@ repos_to_repos_copy (svn_stringbuf_t *src_url,
 
 
 static svn_error_t *
-wc_to_repos_copy (svn_stringbuf_t *src_path,
-                  svn_stringbuf_t *dst_url,
+wc_to_repos_copy (svn_stringbuf_t *src_path, 
+                  svn_stringbuf_t *dst_url, 
                   svn_client_auth_baton_t *auth_baton,
                   svn_stringbuf_t *message,
                   const svn_delta_edit_fns_t *before_editor,
@@ -322,7 +322,7 @@ wc_to_repos_copy (svn_stringbuf_t *src_path,
   SVN_ERR (svn_ra_get_ra_library (&ra_lib, ra_baton, anchor->data, pool));
 
   /* Get the client callbacks for auth stuffs. */
-  SVN_ERR (svn_client__get_ra_callbacks (&ra_callbacks, &cb_baton, auth_baton,
+  SVN_ERR (svn_client__get_ra_callbacks (&ra_callbacks, &cb_baton, auth_baton, 
                                          anchor, TRUE, TRUE, pool));
   SVN_ERR (ra_lib->open (&sess, anchor, ra_callbacks, cb_baton, pool));
 
@@ -362,7 +362,7 @@ wc_to_repos_copy (svn_stringbuf_t *src_path,
 static svn_error_t *
 repos_to_wc_copy (svn_stringbuf_t *src_url,
                   svn_revnum_t src_rev,
-                  svn_stringbuf_t *dst_path,
+                  svn_stringbuf_t *dst_path, 
                   svn_client_auth_baton_t *auth_baton,
                   svn_stringbuf_t *message,
                   const svn_delta_edit_fns_t *before_editor,
@@ -383,10 +383,10 @@ repos_to_wc_copy (svn_stringbuf_t *src_url,
   SVN_ERR (svn_ra_get_ra_library (&ra_lib, ra_baton, src_url->data, pool));
 
   /* Get the client callbacks for auth stuffs. */
-  SVN_ERR (svn_client__get_ra_callbacks (&ra_callbacks, &cb_baton, auth_baton,
+  SVN_ERR (svn_client__get_ra_callbacks (&ra_callbacks, &cb_baton, auth_baton, 
                                          src_url, TRUE, TRUE, pool));
   SVN_ERR (ra_lib->open (&sess, src_url, ra_callbacks, cb_baton, pool));
-
+      
   /* Verify that SRC_URL exists in the repository. */
   SVN_ERR (ra_lib->check_path (&src_kind, sess, "", src_rev));
   if (src_kind == svn_node_none)
@@ -450,7 +450,7 @@ repos_to_wc_copy (svn_stringbuf_t *src_url,
     return svn_error_createf
       (SVN_ERR_WC_ENTRY_EXISTS, 0, NULL, pool,
        "can't copy non-directory `%s' to a wc yet", src_url->data);
-
+    
   /* Get a checkout editor and wrap it. */
   SVN_ERR (svn_wc_get_checkout_editor (dst_path,
                                        src_url,
@@ -531,7 +531,7 @@ setup_copy (svn_stringbuf_t *src_path,
   if (is_move)
     {
       if (SVN_IS_VALID_REVNUM (src_rev))
-        return svn_error_create
+        return svn_error_create 
           (SVN_ERR_UNSUPPORTED_FEATURE, 0, NULL, pool,
            "move operations are only allowed on the HEAD revision");
 
@@ -550,7 +550,7 @@ setup_copy (svn_stringbuf_t *src_path,
         }
       else
         {
-          return svn_error_create
+          return svn_error_create 
             (SVN_ERR_UNSUPPORTED_FEATURE, 0, NULL, pool,
              "no support for repos <--> working copy moves");
         }
@@ -565,8 +565,8 @@ setup_copy (svn_stringbuf_t *src_path,
     SVN_ERR (wc_to_wc_copy (src_path, dst_path, is_move, pool));
 
   else if ((! src_is_url) && (dst_is_url))
-    SVN_ERR (wc_to_repos_copy (src_path, dst_path,
-                               auth_baton, message,
+    SVN_ERR (wc_to_repos_copy (src_path, dst_path, 
+                               auth_baton, message, 
                                before_editor, before_edit_baton,
                                after_editor, after_edit_baton,
                                pool));
@@ -628,7 +628,7 @@ svn_client_move (svn_stringbuf_t *src_path,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end: */
