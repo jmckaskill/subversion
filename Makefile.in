@@ -204,7 +204,7 @@ doc-clean:
         done
 
 ### Build a tarball.
-dist:
+dist: 
 	./dist.sh
 
 
@@ -225,7 +225,7 @@ dist:
 
 
 .texi.info:
-	$(MAKEINFO) -I `dirname $<` -o $@ $<
+	$(MAKEINFO) -I `dirname $<` -o $@ $< 
 
 .texi.dvi:
 	wd=`pwd` ; cd `dirname $@` ; $(TEXI2DVI) $$wd/$<
