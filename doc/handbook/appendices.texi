@@ -4,12 +4,12 @@
 A number of other useful documents relevant to Subversion.
 
 @menu
-* SVN for CVS users::
-* Compiling and installing::
-* Command reference::
+* SVN for CVS users::                    
+* Compiling and installing::            
+* Command reference::           
 * FAQ::
-* Contributing::
-* Links::
+* Contributing::                     
+* Links:: 
 * License::
 @end menu
 
@@ -28,15 +28,15 @@ encouraged to break certain habits -- ones that you forgot were odd to
 begin with.
 
 @menu
-* Revision numbers are different now::
-* More disconnected operations::
-* Distinction between status and update::
-* Meta-data properties::
-* Directory versioning::
-* Conflicts::
-* Binary files::
-* Authorization::
-* Branches and tags::
+* Revision numbers are different now::  
+* More disconnected operations:: 
+* Distinction between status and update::       
+* Meta-data properties::     
+* Directory versioning::     
+* Conflicts::                
+* Binary files::             
+* Authorization::            
+* Branches and tags::        
 @end menu
 
 
@@ -119,7 +119,7 @@ prints all files that have local modifications; the network is not
 accessed by default.
 @itemize @bullet
 @item -u switch
-add out-of-dateness information from repository
+add out-of-dateness information from repository 
 @item -v switch
 show @emph{all} entries under version control
 @item -n switch
@@ -179,7 +179,7 @@ A new feature of Subversion is that you can attach arbitrary metadata to
 files and directories.  We refer to this data as @dfn{properties}, and
 they can be thought of as collections of name/value pairs (hashtables)
 attached to each item in your working copy.
-
+  
 To set or get a property name, use the 'svn propset' and 'svn propget'
 subcommands.  To list all properties on an object, use 'svn proplist'.
 
@@ -408,7 +408,7 @@ labels.  For example, here's a good way to lay out your repository:
 Each time /projectA/trunk reaches a taggable state, make a copy of the
 directory somewhere in /projectA/tags/, and set the copy to
 read-only.  Use the same procedure to create a branch in
-/projectA/branches/.
+/projectA/branches/.  
 
 
 @c ------------------------------------------------------------------
