@@ -48,7 +48,7 @@ svn_cl__mkdir (apr_getopt_t *os,
   svn_wc_notify_func_t notify_func = NULL;
   void *notify_baton = NULL;
 
-  SVN_ERR (svn_opt_args_to_target_array (&targets, os,
+  SVN_ERR (svn_opt_args_to_target_array (&targets, os, 
                                          opt_state->targets,
                                          &(opt_state->start_revision),
                                          &(opt_state->end_revision),
@@ -64,7 +64,7 @@ svn_cl__mkdir (apr_getopt_t *os,
   /* Build an authentication object to give to libsvn_client. */
   svn_client_ctx_set_auth_baton (ctx,
                                  svn_cl__make_auth_baton (opt_state, pool));
-
+            
   for (i = 0; i < targets->nelts; i++)
     {
       const char *target = ((const char **) (targets->elts))[i];
@@ -72,7 +72,7 @@ svn_cl__mkdir (apr_getopt_t *os,
 
       commit_info = NULL;
       SVN_ERR (svn_cl__cleanup_log_msg
-               (lmb, svn_client_mkdir (&commit_info, target,
+               (lmb, svn_client_mkdir (&commit_info, target, 
                                        &svn_cl__get_log_message,
                                        lmb, notify_func, notify_baton,
                                        ctx, pool)));
