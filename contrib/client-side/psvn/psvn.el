@@ -435,7 +435,7 @@ for  example: '(\"revert\" \"file1\"\)"
            (while (accept-process-output process 0 100))
            ;; find last error message and show it.
            (goto-char (point-max))
-           (message "svn failed: %s"
+           (message "svn failed: %s" 
                     (if (re-search-backward "^svn: \\(.*\\)" nil t)
                         (match-string 1)
                       event)))
@@ -1269,7 +1269,7 @@ or (if no files were marked) the file under point."
                svn-status-ui-information)
       (setq st-info (cdr st-info)))
     svn-status-ui-information))
-
+  
 
 (defun svn-status-create-arg-file (file-name prefix file-info-list postfix)
   (with-temp-file file-name
@@ -1760,7 +1760,7 @@ When called with a prefix argument, it is possible to enter a new property."
   (setq svn-status-propedit-property-name prop-name)
   (svn-prop-edit-do-it nil)
   (svn-status-update))
-
+  
 
 (defun svn-status-get-directory (line-info)
   (let* ((file-name (svn-status-line-info->filename line-info))
