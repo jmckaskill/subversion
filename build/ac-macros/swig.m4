@@ -2,14 +2,14 @@ dnl check to see if SWIG is current enough.
 dnl
 dnl if it is, then check to see if we have the correct version of python.
 dnl
-dnl if we do, then set up the appropriate SWIG_ variables to build the
+dnl if we do, then set up the appropriate SWIG_ variables to build the 
 dnl python bindings.
 
 AC_DEFUN(SVN_CHECK_SWIG,
 [
   AC_ARG_ENABLE(swig-bindings,
                 AC_HELP_STRING([--enable-swig-bindings=LIST],
-                               [Build swig bindings for LIST targets only.
+                               [Build swig bindings for LIST targets only. 
                                 LIST is a comma separated list of targets
                                 or 'all' for all available targets; currently
                                 (java,) perl and python are supported
@@ -76,12 +76,12 @@ AC_DEFUN(SVN_FIND_SWIG,
   else
     if test -f "$where"; then
       SWIG="$where"
-    else
+    else 
       SWIG="$where/bin/swig"
     fi
     if test ! -f "$SWIG" -o ! -x "$SWIG"; then
       AC_MSG_ERROR([Could not find swig binary at $SWIG])
-    fi
+    fi  
   fi
 
   if test "$SWIG" != "none"; then
@@ -89,8 +89,8 @@ AC_DEFUN(SVN_FIND_SWIG,
     SWIG_VERSION_RAW="`$SWIG -version 2>&1 | \
                        sed -ne 's/^.*Version \(.*\)$/\1/p'`"
     # We want the version as an integer so we can test against
-    # which version we're using.  SWIG doesn't provide this
-    # to us so we have to come up with it on our own.
+    # which version we're using.  SWIG doesn't provide this 
+    # to us so we have to come up with it on our own.  
     # The major is passed straight through,
     # the minor is zero padded to two places,
     # and the patch level is zero padded to three places.
@@ -215,7 +215,7 @@ AC_DEFUN(SVN_FIND_SWIG,
       PERL_VERSION="`$PERL -e 'q([[); print $]] * 1000000,$/;'`"
       AC_MSG_RESULT([$PERL_VERSION])
       if test "$PERL_VERSION" -ge "5008000"; then
-        SWIG_CLEAN_RULES="$SWIG_CLEAN_RULES clean-swig-pl"
+        SWIG_CLEAN_RULES="$SWIG_CLEAN_RULES clean-swig-pl" 
         SWIG_PL_INCLUDES="\$(SWIG_INCLUDES) `$PERL -MExtUtils::Embed -e ccopts`"
       else
         AC_MSG_WARN([perl bindings require perl 5.8.0 or newer.])
