@@ -18,18 +18,18 @@ A rough guide:
 
   book/book                  Subversion: The Definitive Guide. This is
                              the book that will be published by
-                             O'Reilly & Associates. For both newbies
-                             and experts alike. Read book/README for
-                             instructions on how to build html, PDF,
-                             or postscript (the book is marked up in
+                             O'Reilly & Associates. For both newbies 
+                             and experts alike. Read book/README for 
+                             instructions on how to build html, PDF, 
+                             or postscript (the book is marked up in 
                              Docbook-lite).
 
   book/misc-docs             Holds material that either isn't yet
-                             ready to go into the Definitive Guide,
+                             ready to go into the Definitive Guide, 
                              or which may never go into the Guide but
-                             instead into companion documents that
+                             instead into companion documents that 
                              will also be available from the
-                             Subversion site.  Think of it as a
+                             Subversion site.  Think of it as a 
                              temporary, but published, holding area.
 
   programmer/                Documents for Subversion programmers.
@@ -48,7 +48,7 @@ A rough guide:
 
   translations/french        A translation of the Subversion handbook
                              (which has been absorbed into the book).
-
+ 
 If you'd like to document a new feature, try to find a place for it
 somewhere in book/misc-docs.
 
