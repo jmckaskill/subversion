@@ -46,9 +46,9 @@ corrupt_node_revision (svn_fs_t *fs, svn_fs_id_t *id)
 
 svn_error_t *
 svn_fs__file_from_skel (svn_fs_node_t **node,
-			svn_fs_t *fs,
+			svn_fs_t *fs, 
 			svn_fs_id_t *id,
-			skel_t *nv,
+			skel_t *nv, 
 			apr_pool_t *skel_pool)
 {
   svn_fs_file_t *file;
@@ -75,7 +75,7 @@ svn_fs__file_from_skel (svn_fs_node_t **node,
   /* Make a copy of the file's contents.  */
   {
     skel_t *content_skel = nv->children->next->next;
-
+    
     file->contents = svn_string_ncreate (content_skel->data,
 					 content_skel->len,
 					 file->node.pool);
