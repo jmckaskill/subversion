@@ -45,7 +45,7 @@ read_header_block (svn_stream_t *stream,
   apr_size_t numbytes, old_i = 0, i = 0;
   const char *name, *value;
   svn_stringbuf_t *header_str = svn_stringbuf_create ("", pool);
-  *headers = apr_hash_make (pool);
+  *headers = apr_hash_make (pool);  
 
   /* Suck the whole block of headers into a stringbuf.  We read only
      one character at a time, because we're carefully looking for a
@@ -64,7 +64,7 @@ read_header_block (svn_stream_t *stream,
          than trying to grow a regular C string one-byte-at-a-time:
          appendbytes() keeps doubling the stringbuf's storage space. */
       svn_stringbuf_appendbytes (header_str, &c, 1);
-      last_c = c;
+      last_c = c;      
     }
 
   /* Parse the stringbuf into a hash.  Walk over the stringbuf's bytes
@@ -77,11 +77,11 @@ read_header_block (svn_stream_t *stream,
         {
           if (header_str->data[i] == '\0')
             goto malformed_error;
-
+          
           i++;
         }
       name = apr_pstrmemdup (pool, header_str->data + old_i, (i - old_i));
-
+      
       /* Find the next newline.  Bam, we have the header's value. */
       i++;
       old_i = i;
@@ -89,11 +89,11 @@ read_header_block (svn_stream_t *stream,
         {
           if (header_str->data[i] == '\0')
             goto malformed_error;
-
+          
           i++;
         }
       value = apr_pstrmemdup (pool, header_str->data + old_i, (i - old_i));
-
+      
       apr_hash_set (*headers, name, APR_HASH_KEY_STRING, value);
 
       /* 'i' now points to a newline.  If the next character is a NULL,
@@ -135,7 +135,7 @@ svn_repos_parse_dumpstream (svn_stream_t *stream,
        new_revision_record()
     else if hash contains node-path,
        new_node_record()
-
+     
     if hash contains content-length,
        read n bytes of content
        parse content:
@@ -151,7 +151,7 @@ svn_repos_parse_dumpstream (svn_stream_t *stream,
 
   /* shut up compiler warnings about unused functions. */
   SVN_ERR (read_header_block (stream, &headers, pool));
-
+  
 
   return SVN_NO_ERROR;
 }
@@ -166,7 +166,7 @@ svn_repos_parse_dumpstream (svn_stream_t *stream,
 struct parse_baton
 {
   svn_fs_t *fs;
-
+  
 };
 
 struct revision_baton
@@ -211,7 +211,7 @@ make_revision_baton (apr_hash_t *headers,
                      apr_pool_t *pool)
 {
   struct revision_baton *rb = apr_pcalloc (pool, sizeof(*rb));
-
+  
   rb->pb = pb;
   rb->pool = pool;
 
@@ -339,8 +339,8 @@ svn_repos_load_fs (svn_repos_t *repos,
 {
   const svn_repos_parser_fns_t *parser;
   void *parse_baton;
-
-  /* This is really simple. */
+  
+  /* This is really simple. */  
 
   SVN_ERR (get_parser (&parser, &parse_baton, repos, pool));
 
@@ -351,7 +351,7 @@ svn_repos_load_fs (svn_repos_t *repos,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end:
