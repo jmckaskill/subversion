@@ -3,32 +3,32 @@
  *
  * ================================================================
  * Copyright (c) 2000 CollabNet.  All rights reserved.
- *
+ * 
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
  * met:
- *
+ * 
  * 1. Redistributions of source code must retain the above copyright
  * notice, this list of conditions and the following disclaimer.
- *
+ * 
  * 2. Redistributions in binary form must reproduce the above copyright
  * notice, this list of conditions and the following disclaimer in the
  * documentation and/or other materials provided with the distribution.
- *
+ * 
  * 3. The end-user documentation included with the redistribution, if
  * any, must include the following acknowlegement: "This product includes
  * software developed by CollabNet (http://www.Collab.Net)."
  * Alternately, this acknowlegement may appear in the software itself, if
  * and wherever such third-party acknowlegements normally appear.
- *
+ * 
  * 4. The hosted project names must not be used to endorse or promote
  * products derived from this software without prior written
  * permission. For written permission, please contact info@collab.net.
- *
+ * 
  * 5. Products derived from this software may not use the "Tigris" name
  * nor may "Tigris" appear in their names without prior written
  * permission of CollabNet.
- *
+ * 
  * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
  * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -42,7 +42,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ====================================================================
- *
+ * 
  * This software consists of voluntary contributions made by many
  * individuals on behalf of CollabNet.
  */
@@ -159,7 +159,7 @@ remove_from_revision_control (struct log_runner *loggy, svn_string_t *name)
 {
   svn_error_t *err;
   apr_hash_t *entries = NULL;
-
+  
   /* Remove this entry from the entries file. */
   err = svn_wc__entries_read (&entries, loggy->path, loggy->pool);
   if (err)
@@ -168,14 +168,14 @@ remove_from_revision_control (struct log_runner *loggy, svn_string_t *name)
   err = svn_wc__entries_write (entries, loggy->path, loggy->pool);
   if (err)
     return err;
-
+  
   /* Remove its text-base copy, if any, and conditionally remove
      working file too. */
   {
     svn_string_t *file_full_path;
     svn_string_t *text_base_path;
     enum svn_node_kind kind;
-
+    
     file_full_path = svn_string_dup (loggy->path, loggy->pool);
     svn_path_add_component (file_full_path, name, svn_path_local_style);
     text_base_path
@@ -185,14 +185,14 @@ remove_from_revision_control (struct log_runner *loggy, svn_string_t *name)
       return SVN_NO_ERROR;
     else if (err)
       return err;
-
+    
     /* Else we have a text-base copy, so use it. */
 
     if (kind == svn_node_file)
       {
         apr_status_t apr_err;
         svn_boolean_t same;
-
+        
         {
           /* Aha!  There is a text-base file still around.  Use it
              to check if the working file is modified; if wf is not
@@ -216,7 +216,7 @@ remove_from_revision_control (struct log_runner *loggy, svn_string_t *name)
                    file_full_path->data);
             }
         }
-
+        
         apr_err = apr_remove_file (text_base_path->data, loggy->pool);
         if (apr_err)
           return svn_error_createf
@@ -301,7 +301,7 @@ start_handler (void *userData, const XML_Char *eltname, const XML_Char **atts)
     }
   else if (strcmp (eltname, SVN_WC__LOG_DELETE_ENTRY) == 0)
     {
-      svn_string_t *sname;
+      svn_string_t *sname; 
 
       if (! name)
         {
@@ -356,7 +356,7 @@ start_handler (void *userData, const XML_Char *eltname, const XML_Char **atts)
   else if (strcmp (eltname, SVN_WC__LOG_MODIFY_ENTRY) == 0)
     {
       apr_hash_t *ah = svn_xml_make_att_hash (atts, loggy->pool);
-
+      
       if (! name)
         {
           signal_error
@@ -379,12 +379,12 @@ start_handler (void *userData, const XML_Char *eltname, const XML_Char **atts)
           svn_revnum_t new_revision = (revstr ? atoi (revstr->data)
                                       : SVN_INVALID_REVNUM);
           int flags = 0;
-
+          
           enum svn_node_kind kind = svn_node_unknown;
           svn_string_t *kindstr = apr_hash_get (ah,
                                                 SVN_WC_ENTRY_ATTR_KIND,
                                                 APR_HASH_KEY_STRING);
-
+          
           /* Create a full path to the file's textual component */
           tfile = svn_string_dup (loggy->path, loggy->pool);
           svn_path_add_component (tfile, sname, svn_path_local_style);
@@ -410,7 +410,7 @@ start_handler (void *userData, const XML_Char *eltname, const XML_Char **atts)
             kind = svn_node_dir;
           else
             kind = svn_node_none;
-
+          
           /* Stuff state into flags. */
           if (apr_hash_get (ah, SVN_WC_ENTRY_ATTR_ADD,
                             APR_HASH_KEY_STRING))
@@ -427,7 +427,7 @@ start_handler (void *userData, const XML_Char *eltname, const XML_Char **atts)
 
           /* Did the log command give us any timestamps?  There are three
              possible scenarios here.  We must check both text_time
-             and prop_time for each of the three scenarios.
+             and prop_time for each of the three scenarios.  
 
              TODO: The next two code blocks might benefit from
              factorization.  Then again, factorization might make them
@@ -435,15 +435,15 @@ start_handler (void *userData, const XML_Char *eltname, const XML_Char **atts)
 
           {
             /* GET VALUE OF TEXT_TIME: */
-            svn_string_t *text_timestr =
+            svn_string_t *text_timestr = 
               apr_hash_get (ah, SVN_WC_ENTRY_ATTR_TEXT_TIME,
                             APR_HASH_KEY_STRING);
-
+            
             /* Scenario 1:  no timestamp mentioned at all */
             if (! text_timestr)
               text_time = 0;  /* this tells merge_sync to ignore the
                                  field */
-
+            
             /* Scenario 2:  use the working copy's timestamp */
             else if (! strcmp (text_timestr->data, SVN_WC_TIMESTAMP_WC))
               {
@@ -476,7 +476,7 @@ start_handler (void *userData, const XML_Char *eltname, const XML_Char **atts)
                     return;
                   }
               }
-
+            
             /* Scenario 3:  use the integer provided, as-is. */
             else
               /* Is atol appropriate here for converting an apr_time_t
@@ -484,18 +484,18 @@ start_handler (void *userData, const XML_Char *eltname, const XML_Char **atts)
                  our svn_wc__time_to_string and string_to_time? */
               text_time = (apr_time_t) atol (text_timestr->data);
           }
-
+          
           {
             /* GET VALUE OF PROP_TIME: */
-            svn_string_t *prop_timestr =
+            svn_string_t *prop_timestr = 
               apr_hash_get (ah, SVN_WC_ENTRY_ATTR_PROP_TIME,
                             APR_HASH_KEY_STRING);
-
+            
             /* Scenario 1:  no timestamp mentioned at all */
             if (! prop_timestr)
               prop_time = 0;  /* this tells merge_sync to ignore the
                                  field */
-
+            
             /* Scenario 2:  use the working copy's timestamp */
             else if (! strcmp (prop_timestr->data, SVN_WC_TIMESTAMP_WC))
               {
@@ -528,8 +528,8 @@ start_handler (void *userData, const XML_Char *eltname, const XML_Char **atts)
                     return;
                   }
               }
-
-
+            
+            
             /* Scenario 3:  use the integer provided, as-is. */
             else
               /* Is atol appropriate here for converting an apr_time_t
@@ -537,7 +537,7 @@ start_handler (void *userData, const XML_Char *eltname, const XML_Char **atts)
                  our svn_wc__time_to_string and string_to_time? */
               prop_time = (apr_time_t) atol (prop_timestr->data);
           }
-
+          
             /** End of Timestamp deductions **/
 
           /* Now write the new entry out */
@@ -552,7 +552,7 @@ start_handler (void *userData, const XML_Char *eltname, const XML_Char **atts)
                                           ah);
           if (err)
             {
-              signal_error (loggy, svn_error_createf
+              signal_error (loggy, svn_error_createf 
                             (SVN_ERR_WC_BAD_ADM_LOG,
                              0,
                              NULL,
@@ -606,7 +606,7 @@ start_handler (void *userData, const XML_Char *eltname, const XML_Char **atts)
               signal_error (loggy, err);
               return;
             }
-
+          
           entry = apr_hash_get (entries, sname->data, sname->len);
           if (entry && (entry->flags & SVN_WC_ENTRY_DELETE))
             {
@@ -624,7 +624,7 @@ start_handler (void *userData, const XML_Char *eltname, const XML_Char **atts)
                                       sname,
                                       svn_path_local_style);
               tmp_base = svn_wc__text_base_path (working_file, 1, loggy->pool);
-
+              
               err = svn_io_check_path (tmp_base, &kind, loggy->pool);
               if (err)
                 {
@@ -637,7 +637,7 @@ start_handler (void *userData, const XML_Char *eltname, const XML_Char **atts)
                                  name));
                   return;
                 }
-
+              
               if (kind == svn_node_file)
                 {
                   svn_boolean_t same;
@@ -647,7 +647,7 @@ start_handler (void *userData, const XML_Char *eltname, const XML_Char **atts)
                                                        loggy->pool);
                   if (err)
                     {
-                      signal_error (loggy, svn_error_createf
+                      signal_error (loggy, svn_error_createf 
                                     (SVN_ERR_WC_BAD_ADM_LOG,
                                      0,
                                      NULL,
@@ -656,13 +656,13 @@ start_handler (void *userData, const XML_Char *eltname, const XML_Char **atts)
                                      working_file->data, tmp_base->data));
                       return;
                     }
-
-                  err = svn_io_file_affected_time
+                  
+                  err = svn_io_file_affected_time 
                     (&timestamp, same ? working_file : tmp_base, loggy->pool);
                   if (err)
                     {
                       signal_error
-                        (loggy, svn_error_createf
+                        (loggy, svn_error_createf 
                          (SVN_ERR_WC_BAD_ADM_LOG,
                           0,
                           NULL,
@@ -671,11 +671,11 @@ start_handler (void *userData, const XML_Char *eltname, const XML_Char **atts)
                           same ? working_file->data : tmp_base->data));
                       return;
                     }
-
+                  
                   err = replace_text_base (loggy->path, name, loggy->pool);
                   if (err)
                     {
-                      signal_error (loggy, svn_error_createf
+                      signal_error (loggy, svn_error_createf 
                                     (SVN_ERR_WC_BAD_ADM_LOG,
                                      0,
                                      NULL,
@@ -685,7 +685,7 @@ start_handler (void *userData, const XML_Char *eltname, const XML_Char **atts)
                       return;
                     }
                 }
-
+              
               /* Else the SVN/tmp/text-base/ file didn't exist.  Whatever; we
                  can ignore and move on. */
               err = svn_wc__entry_merge_sync (loggy->path,
@@ -758,7 +758,7 @@ svn_wc__run_log (svn_string_t *path, apr_pool_t *pool)
   loggy->path   = path;
   loggy->pool   = pool;
   loggy->parser = parser;
-
+  
   /* Expat wants everything wrapped in a top-level form, so start with
      a ghost open tag. */
   err = svn_xml_parse (parser, log_start, strlen (log_start), 0);
@@ -769,7 +769,7 @@ svn_wc__run_log (svn_string_t *path, apr_pool_t *pool)
   err = svn_wc__open_adm_file (&f, path, SVN_WC__ADM_LOG, APR_READ, pool);
   if (err)
     return err;
-
+  
   do {
     buf_len = sizeof (buf);
 
@@ -850,11 +850,11 @@ svn_wc__cleanup (svn_string_t *path,
           if (! care_about_this_dir)
             {
               svn_string_t *target = svn_string_dup (path, pool);
-              svn_path_add_component
+              svn_path_add_component 
                 (target,
                  svn_string_ncreate ((char *) key, keylen, pool),
                  svn_path_local_style);
-
+              
               if (apr_hash_get (targets, target->data, target->len))
                 care_about_this_dir = 1;
             }
@@ -884,7 +884,7 @@ svn_wc__cleanup (svn_string_t *path,
           err = svn_wc__locked (&locked, path, pool);
           if (err)
             return err;
-
+          
           if (locked)
             return svn_error_createf (SVN_ERR_WC_LOCKED,
                                       0,
@@ -893,12 +893,12 @@ svn_wc__cleanup (svn_string_t *path,
                                       "svn_wc__cleanup: %s locked",
                                       path->data);
         }
-
+      
       /* Eat what's put in front of us. */
       err = svn_wc__run_log (path, pool);
       if (err)
         return err;
-
+      
       /* Remove any lock here.  But we couldn't even be here if there were
          a lock file and bail_on_lock were set, so do the obvious check
          first. */
@@ -959,10 +959,10 @@ svn_wc__log_commit (svn_string_t *path,
           svn_string_t *logtag = svn_string_create ("", pool);
           char *revstr = apr_psprintf (pool, "%ld", revision);
           apr_file_t *log_fp = NULL;
-
+          
           /* entry->kind == svn_node_file, but was the file actually
              involved in the commit? */
-
+          
           if (targets)
             {
               svn_string_t *target = svn_string_dup (path, pool);
@@ -970,11 +970,11 @@ svn_wc__log_commit (svn_string_t *path,
                 (target,
                  svn_string_ncreate ((char *) key, keylen, pool),
                  svn_path_local_style);
-
+              
               if (! apr_hash_get (targets, target->data, target->len))
                 continue;
             }
-
+          
           /* Yes, the file was involved in the commit. */
 
           err = svn_wc__open_adm_file (&log_fp, path, SVN_WC__ADM_LOG,
@@ -982,7 +982,7 @@ svn_wc__log_commit (svn_string_t *path,
                                        pool);
           if (err)
             return err;
-
+          
           svn_xml_make_open_tag (&logtag,
                                  pool,
                                  svn_xml_self_closing,
@@ -992,17 +992,17 @@ svn_wc__log_commit (svn_string_t *path,
                                  SVN_WC__LOG_ATTR_REVISION,
                                  svn_string_create (revstr, pool),
                                  NULL);
-
+          
           apr_err = apr_full_write (log_fp, logtag->data, logtag->len, NULL);
           if (apr_err)
             {
               apr_close (log_fp);
               return svn_error_createf (apr_err, 0, NULL, pool,
                                         "svn_wc__log_commit: "
-                                        "error writing %s's log file",
+                                        "error writing %s's log file", 
                                         path->data);
             }
-
+          
           err = svn_wc__close_adm_file (log_fp,
                                         path,
                                         SVN_WC__ADM_LOG,
@@ -1018,7 +1018,7 @@ svn_wc__log_commit (svn_string_t *path,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
