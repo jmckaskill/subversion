@@ -37,7 +37,7 @@ void svn_ra_dav__copy_href(svn_string_t *dst, const char *src)
 }
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
