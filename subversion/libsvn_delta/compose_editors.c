@@ -1,6 +1,6 @@
-/*
+/* 
  * compose_editors.c -- composing two svn_delta_edit_fns_t's
- *
+ * 
  * ====================================================================
  * Copyright (c) 2000 CollabNet.  All rights reserved.
  *
@@ -50,14 +50,14 @@ delete_item (svn_string_t *name, void *parent_baton)
       if (err)
         return err;
     }
-
+  
   if (d->editor_2->delete_item)
     {
       err = (* (d->editor_2->delete_item)) (name, d->root_dir_baton_2);
       if (err)
         return err;
     }
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -154,7 +154,7 @@ close_directory (void *dir_baton)
       if (err)
         return err;
     }
-
+  
   if (d->editor_2->close_directory)
     {
       err = (* (d->editor_2->close_directory)) (d->root_dir_baton_2);
@@ -179,7 +179,7 @@ close_file (void *file_baton)
       if (err)
         return err;
     }
-
+  
   if (fb->dir_baton->editor_2->close_file)
     {
       err = (* (fb->dir_baton->editor_2->close_file))
@@ -207,7 +207,7 @@ window_handler (svn_txdelta_window_t *window, void *handler_pair)
 {
   struct handler_pair *hp = handler_pair;
   svn_error_t *err;
-
+  
   if (hp->handler_1)
     {
       err = (* (hp->handler_1)) (window, hp->handler_baton_1);
@@ -235,7 +235,7 @@ apply_textdelta (void *file_baton,
   svn_error_t *err;
   struct handler_pair *hp
     = apr_pcalloc (fb->dir_baton->pool, sizeof (*hp));
-
+  
   hp->file_baton = fb;
 
   if (fb->dir_baton->editor_1->apply_textdelta)
@@ -401,7 +401,7 @@ svn_delta_compose_editors (const svn_delta_edit_fns_t **new_editor,
 {
   svn_delta_edit_fns_t *editor = svn_delta_default_editor (pool);
   struct dir_baton *rb = apr_pcalloc (pool, sizeof (*rb));
-
+  
   /* Set up the editor. */
   editor->delete_item = delete_item;
   editor->add_directory = add_directory;
@@ -462,7 +462,7 @@ svn_delta_wrap_editor (const svn_delta_edit_fns_t **new_editor,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
