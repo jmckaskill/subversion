@@ -8,7 +8,7 @@
 ### passed, then instead of running "svn log", the log data will be
 ### read from LOGFILE (which should be in the same format as the
 ### output of "svn log").
-###
+### 
 ### Note:
 ### In the future, this may take pathnames and/or revision numbers as
 ### arguments.  Then it will need to do real argument parsing.
@@ -29,7 +29,7 @@ if (defined ($dash_f) && ($dash_f eq "-f")) {
 elsif (defined ($dash_f)) {
   die ("unknown option ${dash_f}");
 }
-
+    
 
 my $log_cmd = "svn log";
 
