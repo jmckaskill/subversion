@@ -128,7 +128,7 @@ typedef struct {
 
     /* the time the thread was created */
     time_t create_time;
-
+    
     /* the file and line which created this thread */
     char *file;
     int line;
@@ -151,7 +151,7 @@ typedef struct {
 
     /* the file and line where the mutex was locked */
     char *file;
-    int line;
+    int line;    
 
 #endif
 
@@ -241,7 +241,7 @@ void thread_initialize_with_log_id(int log_id);
 void thread_shutdown(void);
 
 /* creation, destruction, locking, unlocking, signalling and waiting */
-thread_type *thread_create_c(char *name, void *(*start_routine)(void *),
+thread_type *thread_create_c(char *name, void *(*start_routine)(void *), 
         void *arg, int detached, int line, char *file);
 void thread_mutex_create_c(mutex_t *mutex, int line, char *file);
 void thread_mutex_lock_c(mutex_t *mutex, int line, char *file);
@@ -296,12 +296,12 @@ a9 13
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
- *
+ * 
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
@@ -336,7 +336,7 @@ a39 10
 
 	/* the time the thread was created */
 	time_t create_time;
-
+	
 	/* the file and line which created this thread */
 	char *file;
 	int line;
@@ -359,7 +359,7 @@ a59 10
 
 	/* the file and line where the mutex was locked */
 	char *file;
-	int line;
+	int line;	
 d63 2
 a64 2
 	/* the system specific mutex */
