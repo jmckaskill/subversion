@@ -42,7 +42,7 @@
    probably be advantageous to keep each rev-file open for the
    lifetime of the transaction object.  I'll leave that as a later
    optimization for now.
-
+   
 */
 
 
@@ -116,7 +116,7 @@ svn_fs__fs_rep_contents_dir (apr_hash_t **entries_p,
                              apr_pool_t *pool)
 {
   abort ();
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -150,6 +150,6 @@ svn_fs__fs_get_contents (svn_stream_t **contents_p,
                          apr_pool_t *pool)
 {
   abort ();
-
+  
   return SVN_NO_ERROR;
 }

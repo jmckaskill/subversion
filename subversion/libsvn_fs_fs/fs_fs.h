@@ -92,11 +92,11 @@ svn_error_t *svn_fs__fs_revision_proplist (apr_hash_t **proplist,
 #define SVN_FS_FS__REV_PROPS_EXT     ".props"   /* extension for rev-props */
 
 /* Headers used to describe node-revision in the revision file. */
-#define SVN_FS_FS__NODE_ID           "id"
-#define SVN_FS_FS__KIND              "type"
-#define SVN_FS_FS__COUNT             "count"
-#define SVN_FS_FS__PROPS             "props"
-#define SVN_FS_FS__REP               "rep"
+#define SVN_FS_FS__NODE_ID           "id"       
+#define SVN_FS_FS__KIND              "type"     
+#define SVN_FS_FS__COUNT             "count"    
+#define SVN_FS_FS__PROPS             "props"    
+#define SVN_FS_FS__REP               "rep"      
 #define SVN_FS_FS__CPATH             "cpath"
 
 /* Kinds that a node-rev can be. */
