@@ -96,7 +96,7 @@
     <xsl:text>&lt;</xsl:text>
     <xsl:value-of select="name(.)"/>
     <xsl:text>&gt;</xsl:text>
-    <xsl:apply-templates/>
+    <xsl:apply-templates/> 
     <xsl:text>&lt;/</xsl:text>
     <xsl:value-of select="name(.)"/>
     <xsl:text>&gt;</xsl:text>
@@ -141,7 +141,7 @@
 	  <xsl:otherwise>[could not find document title]</xsl:otherwise>
 	</xsl:choose>
       </xsl:variable>
-
+      
       <fo:root xsl:use-attribute-sets="root.properties">
 	<xsl:attribute name="language">
 	  <xsl:call-template name="l10n.language">
