@@ -61,7 +61,7 @@ svn_test__fs_new (svn_fs_t **fs_p, apr_pool_t *pool)
 
 svn_error_t *
 svn_test__create_fs_and_repos (svn_fs_t **fs_p,
-                               const char *name,
+                               const char *name, 
                                apr_pool_t *pool)
 {
   apr_finfo_t finfo;
@@ -82,7 +82,7 @@ svn_test__create_fs_and_repos (svn_fs_t **fs_p,
 
   SVN_ERR (svn_test__fs_new (fs_p, pool));
   SVN_ERR (svn_fs_create_berkeley (*fs_p, name));
-
+  
   /* Provide a handler for Berkeley DB error messages.  */
   SVN_ERR (svn_fs_set_berkeley_errcall (*fs_p, berkeley_error_handler));
 
@@ -92,22 +92,22 @@ svn_test__create_fs_and_repos (svn_fs_t **fs_p,
 
 svn_error_t *
 svn_test__stream_to_string (svn_stringbuf_t **string,
-                            svn_stream_t *stream,
+                            svn_stream_t *stream, 
                             apr_pool_t *pool)
 {
   char buf[50];
   apr_size_t len;
   svn_stringbuf_t *str = svn_stringbuf_create ("", pool);
 
-  do
+  do 
     {
       /* "please read 40 bytes into buf" */
       len = 40;
       SVN_ERR (svn_stream_read (stream, buf, &len));
-
+      
       /* Now copy however many bytes were *actually* read into str. */
       svn_stringbuf_appendbytes (str, buf, len);
-
+      
     } while (len);  /* Continue until we're told that no bytes were
                        read. */
 
@@ -118,7 +118,7 @@ svn_test__stream_to_string (svn_stringbuf_t **string,
 svn_error_t *
 svn_test__set_file_contents (svn_fs_root_t *root,
                              const char *path,
-                             const char *contents,
+                             const char *contents, 
                              apr_pool_t *pool)
 {
   svn_txdelta_window_handler_t consumer_func;
@@ -137,12 +137,12 @@ svn_test__set_file_contents (svn_fs_root_t *root,
 svn_error_t *
 svn_test__get_file_contents (svn_fs_root_t *root,
                              const char *path,
-                             svn_stringbuf_t **str,
+                             svn_stringbuf_t **str, 
                              apr_pool_t *pool)
 {
   svn_stream_t *stream;
 
-  SVN_ERR (svn_fs_file_contents (&stream, root, path, pool));
+  SVN_ERR (svn_fs_file_contents (&stream, root, path, pool));  
   SVN_ERR (svn_test__stream_to_string (str, stream, pool));
 
   return SVN_NO_ERROR;
@@ -155,14 +155,14 @@ svn_test__get_file_contents (svn_fs_root_t *root,
 static svn_error_t *
 get_dir_entries (apr_hash_t *tree_entries,
                  svn_fs_root_t *root,
-                 svn_stringbuf_t *path,
+                 svn_stringbuf_t *path, 
                  apr_pool_t *pool)
 {
   apr_hash_t *entries;
   apr_hash_index_t *hi;
 
   SVN_ERR (svn_fs_dir_entries (&entries, root, path->data, pool));
-
+  
   /* Copy this list to the master list with the path prepended to the
      names */
   for (hi = apr_hash_first (entries); hi; hi = apr_hash_next (hi))
@@ -173,20 +173,20 @@ get_dir_entries (apr_hash_t *tree_entries,
       svn_fs_dirent_t *dirent;
       svn_stringbuf_t *full_path;
       int is_dir;
-
+ 
       apr_hash_this (hi, &key, &keylen, &val);
       dirent = val;
 
       /* Calculate the full path of this entry (by appending the name
          to the path thus far) */
       full_path = svn_stringbuf_dup (path, pool);
-      svn_path_add_component (full_path,
+      svn_path_add_component (full_path, 
                               svn_stringbuf_create (dirent->name, pool),
-                              svn_path_repos_style);
+                              svn_path_repos_style); 
 
       /* Now, copy this dirent to the master hash, but this time, use
          the full path for the key */
-      apr_hash_set (tree_entries, full_path->data,
+      apr_hash_set (tree_entries, full_path->data, 
                     APR_HASH_KEY_STRING, dirent);
 
       /* If this entry is a directory, recurse into the tree. */
@@ -214,17 +214,17 @@ validate_tree_entry (svn_fs_root_t *root,
   if ((!is_dir && !contents) || (is_dir && contents))
     return svn_error_createf
       (SVN_ERR_FS_GENERAL, 0, NULL, pool,
-       "node `%s' in tree was of unexpected node type",
+       "node `%s' in tree was of unexpected node type", 
        path);
 
   /* Verify that the contents are as expected (files only) */
   if (! is_dir)
     {
-      SVN_ERR (svn_fs_file_contents (&rstream, root, path, pool));
+      SVN_ERR (svn_fs_file_contents (&rstream, root, path, pool));  
       SVN_ERR (svn_test__stream_to_string (&rstring, rstream, pool));
-      if (! svn_stringbuf_compare (rstring,
+      if (! svn_stringbuf_compare (rstring, 
                                    svn_stringbuf_create (contents, pool)))
-        return svn_error_createf
+        return svn_error_createf 
           (SVN_ERR_FS_GENERAL, 0, NULL, pool,
            "node `%s' in tree had unexpected contents",
            path);
@@ -232,7 +232,7 @@ validate_tree_entry (svn_fs_root_t *root,
 
   return SVN_NO_ERROR;
 }
-
+                     
 
 
 /* Given a transaction or revision root (ROOT), check to see if the
@@ -242,7 +242,7 @@ validate_tree_entry (svn_fs_root_t *root,
 svn_error_t *
 svn_test__validate_tree (svn_fs_root_t *root,
                          svn_test__tree_entry_t *entries,
-                         int num_entries,
+                         int num_entries, 
                          apr_pool_t *pool)
 {
   apr_hash_t *tree_entries, *expected_entries;
@@ -256,15 +256,15 @@ svn_test__validate_tree (svn_fs_root_t *root,
 
   /* Create a hash for storing our expected entries */
   expected_entries = apr_hash_make (subpool);
-
+  
   /* Copy our array of expected entries into a hash. */
   for (i = 0; i < num_entries; i++)
-    apr_hash_set (expected_entries, entries[i].path,
+    apr_hash_set (expected_entries, entries[i].path, 
                   APR_HASH_KEY_STRING, &(entries[i]));
 
   /* Create our master hash for storing the entries */
   tree_entries = apr_hash_make (pool);
-
+  
   /* Begin the recursive directory entry dig */
   SVN_ERR (get_dir_entries (tree_entries, root, root_dir, subpool));
 
@@ -286,7 +286,7 @@ svn_test__validate_tree (svn_fs_root_t *root,
       val = apr_hash_get (tree_entries, key, keylen);
       if (val)
         {
-          if (validate_tree_entry (root, entry->path,
+          if (validate_tree_entry (root, entry->path, 
                                    entry->contents, subpool))
             {
               /* If we don't have a corrupt entries string, make one. */
@@ -294,9 +294,9 @@ svn_test__validate_tree (svn_fs_root_t *root,
                 corrupt_entries = svn_stringbuf_create ("", subpool);
 
               /* Append this entry name to the list of corrupt entries. */
-              svn_stringbuf_appendcstr (corrupt_entries, "   ");
+              svn_stringbuf_appendcstr (corrupt_entries, "   "); 
               svn_stringbuf_appendbytes (corrupt_entries, (char *)key, keylen);
-              svn_stringbuf_appendcstr (corrupt_entries, "\n");
+              svn_stringbuf_appendcstr (corrupt_entries, "\n"); 
             }
 
           apr_hash_set (tree_entries, key, keylen, NULL);
@@ -308,10 +308,10 @@ svn_test__validate_tree (svn_fs_root_t *root,
             missing_entries = svn_stringbuf_create ("", subpool);
 
           /* Append this entry name to the list of missing entries. */
-          svn_stringbuf_appendcstr (missing_entries, "   ");
+          svn_stringbuf_appendcstr (missing_entries, "   "); 
           svn_stringbuf_appendbytes (missing_entries, (char *)key, keylen);
-          svn_stringbuf_appendcstr (missing_entries, "\n");
-        }
+          svn_stringbuf_appendcstr (missing_entries, "\n"); 
+        } 
     }
 
   /* Any entries still left in TREE_ENTRIES are extra ones that are
@@ -327,11 +327,11 @@ svn_test__validate_tree (svn_fs_root_t *root,
       /* If we don't have an extra entries string, make one. */
       if (! extra_entries)
         extra_entries = svn_stringbuf_create ("", subpool);
-
+      
       /* Append this entry name to the list of missing entries. */
-      svn_stringbuf_appendcstr (extra_entries, "   ");
+      svn_stringbuf_appendcstr (extra_entries, "   "); 
       svn_stringbuf_appendbytes (extra_entries, (char *)key, keylen);
-      svn_stringbuf_appendcstr (extra_entries, "\n");
+      svn_stringbuf_appendcstr (extra_entries, "\n"); 
     }
 
   if (missing_entries || extra_entries || corrupt_entries)
@@ -355,20 +355,20 @@ svn_test__validate_tree (svn_fs_root_t *root,
 svn_error_t *
 svn_test__txn_script_exec (svn_fs_root_t *txn_root,
                            svn_test__txn_script_command_t *script,
-                           int num_edits,
+                           int num_edits, 
                            apr_pool_t *pool)
 {
   int i;
 
   /* Run through the list of edits, making the appropriate edit on
-     that entry in the TXN_ROOT. */
+     that entry in the TXN_ROOT. */ 
   for (i = 0; i < num_edits; i++)
     {
       const char *path = script[i].path;
       const char *param1 = script[i].param1;
       int cmd = script[i].cmd;
       int is_dir = (param1 == 0);
-
+ 
       switch (cmd)
         {
         case 'a':
@@ -379,7 +379,7 @@ svn_test__txn_script_exec (svn_fs_root_t *txn_root,
           else
             {
               SVN_ERR (svn_fs_make_file (txn_root, path, pool));
-              SVN_ERR (svn_test__set_file_contents (txn_root, path,
+              SVN_ERR (svn_test__set_file_contents (txn_root, path, 
                                                     param1, pool));
             }
           break;
@@ -403,7 +403,7 @@ svn_test__txn_script_exec (svn_fs_root_t *txn_root,
         case 'e':
           if (! is_dir)
             {
-              SVN_ERR (svn_test__set_file_contents (txn_root, path,
+              SVN_ERR (svn_test__set_file_contents (txn_root, path, 
                                                     param1, pool));
             }
           break;
@@ -445,7 +445,7 @@ svn_test__check_greek_tree (svn_fs_root_t *root,
   /* Loop through the list of files, checking for matching content. */
   for (i = 0; i < 12; i++)
     {
-      SVN_ERR (svn_fs_file_contents (&rstream, root,
+      SVN_ERR (svn_fs_file_contents (&rstream, root, 
                                      file_contents[i][0], pool));
       SVN_ERR (svn_test__stream_to_string (&rstring, rstream, pool));
       content = svn_stringbuf_create (file_contents[i][1], pool);
@@ -464,48 +464,48 @@ svn_test__create_greek_tree (svn_fs_root_t *txn_root,
                              apr_pool_t *pool)
 {
   SVN_ERR (svn_fs_make_file (txn_root, "iota", pool));
-  SVN_ERR (svn_test__set_file_contents
+  SVN_ERR (svn_test__set_file_contents 
            (txn_root, "iota", "This is the file 'iota'.\n", pool));
   SVN_ERR (svn_fs_make_dir  (txn_root, "A", pool));
   SVN_ERR (svn_fs_make_file (txn_root, "A/mu", pool));
-  SVN_ERR (svn_test__set_file_contents
+  SVN_ERR (svn_test__set_file_contents 
            (txn_root, "A/mu", "This is the file 'mu'.\n", pool));
   SVN_ERR (svn_fs_make_dir  (txn_root, "A/B", pool));
   SVN_ERR (svn_fs_make_file (txn_root, "A/B/lambda", pool));
-  SVN_ERR (svn_test__set_file_contents
+  SVN_ERR (svn_test__set_file_contents 
            (txn_root, "A/B/lambda", "This is the file 'lambda'.\n", pool));
   SVN_ERR (svn_fs_make_dir  (txn_root, "A/B/E", pool));
   SVN_ERR (svn_fs_make_file (txn_root, "A/B/E/alpha", pool));
-  SVN_ERR (svn_test__set_file_contents
+  SVN_ERR (svn_test__set_file_contents 
            (txn_root, "A/B/E/alpha", "This is the file 'alpha'.\n", pool));
   SVN_ERR (svn_fs_make_file (txn_root, "A/B/E/beta", pool));
-  SVN_ERR (svn_test__set_file_contents
+  SVN_ERR (svn_test__set_file_contents 
            (txn_root, "A/B/E/beta", "This is the file 'beta'.\n", pool));
   SVN_ERR (svn_fs_make_dir  (txn_root, "A/B/F", pool));
   SVN_ERR (svn_fs_make_dir  (txn_root, "A/C", pool));
   SVN_ERR (svn_fs_make_dir  (txn_root, "A/D", pool));
   SVN_ERR (svn_fs_make_file (txn_root, "A/D/gamma", pool));
-  SVN_ERR (svn_test__set_file_contents
+  SVN_ERR (svn_test__set_file_contents 
            (txn_root, "A/D/gamma", "This is the file 'gamma'.\n", pool));
   SVN_ERR (svn_fs_make_dir  (txn_root, "A/D/G", pool));
   SVN_ERR (svn_fs_make_file (txn_root, "A/D/G/pi", pool));
-  SVN_ERR (svn_test__set_file_contents
+  SVN_ERR (svn_test__set_file_contents 
            (txn_root, "A/D/G/pi", "This is the file 'pi'.\n", pool));
   SVN_ERR (svn_fs_make_file (txn_root, "A/D/G/rho", pool));
-  SVN_ERR (svn_test__set_file_contents
+  SVN_ERR (svn_test__set_file_contents 
            (txn_root, "A/D/G/rho", "This is the file 'rho'.\n", pool));
   SVN_ERR (svn_fs_make_file (txn_root, "A/D/G/tau", pool));
-  SVN_ERR (svn_test__set_file_contents
+  SVN_ERR (svn_test__set_file_contents 
            (txn_root, "A/D/G/tau", "This is the file 'tau'.\n", pool));
   SVN_ERR (svn_fs_make_dir  (txn_root, "A/D/H", pool));
   SVN_ERR (svn_fs_make_file (txn_root, "A/D/H/chi", pool));
-  SVN_ERR (svn_test__set_file_contents
+  SVN_ERR (svn_test__set_file_contents 
            (txn_root, "A/D/H/chi", "This is the file 'chi'.\n", pool));
   SVN_ERR (svn_fs_make_file (txn_root, "A/D/H/psi", pool));
-  SVN_ERR (svn_test__set_file_contents
+  SVN_ERR (svn_test__set_file_contents 
            (txn_root, "A/D/H/psi", "This is the file 'psi'.\n", pool));
   SVN_ERR (svn_fs_make_file (txn_root, "A/D/H/omega", pool));
-  SVN_ERR (svn_test__set_file_contents
+  SVN_ERR (svn_test__set_file_contents 
            (txn_root, "A/D/H/omega", "This is the file 'omega'.\n", pool));
   return SVN_NO_ERROR;
 }
