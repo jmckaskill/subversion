@@ -221,7 +221,7 @@ static void add_props(const svn_ra_dav_resource_t *r,
       char *val;
 
       apr_hash_this(hi, (const void **)&key, NULL, (void *)&val);
-
+      
 #define NSLEN (sizeof(SVN_PROP_CUSTOM_PREFIX) - 1)
       if (strncmp(key, SVN_PROP_CUSTOM_PREFIX, NSLEN) == 0)
         {
@@ -257,7 +257,7 @@ static void add_props(const svn_ra_dav_resource_t *r,
 #undef NSLEN
     }
 }
-
+                      
 
 static svn_error_t * fetch_dirents(svn_ra_session_t *ras,
                                    const char *url,
@@ -642,7 +642,7 @@ svn_error_t * svn_ra_dav__do_checkout(void *session_baton,
           if (err)
             return svn_error_quick_wrap(err, "could not add directory");
         }
-      else
+      else 
         {
           /* We are operating in the root of the repository */
           this_baton = root_baton;
@@ -967,7 +967,7 @@ static int start_element(void *userdata, const struct ne_xml_elm *elm,
 
     case ELEM_fetch_file:
       /* assert: rb->href->len > 0 */
-      CHKERR( simple_fetch_file(rb->ras, rb->href->data,
+      CHKERR( simple_fetch_file(rb->ras, rb->href->data, 
                                 rb->is_status ? FALSE : TRUE,
                                 rb->file_baton, rb->editor, rb->ras->pool) );
       break;
@@ -1013,7 +1013,7 @@ static int end_element(void *userdata, const struct ne_xml_elm *elm,
          retrieve the href before fetching. */
 
       /* fetch file */
-      CHKERR( simple_fetch_file(rb->ras, rb->href->data,
+      CHKERR( simple_fetch_file(rb->ras, rb->href->data, 
                                 rb->is_status ? FALSE : TRUE,
                                 rb->file_baton, rb->editor, rb->ras->pool) );
 
@@ -1260,7 +1260,7 @@ make_reporter (void *session_baton,
      element in that case. */
   if (SVN_IS_VALID_REVNUM(revision))
     {
-      s = apr_psprintf(ras->pool,
+      s = apr_psprintf(ras->pool, 
                        "<S:target-revision>%ld</S:target-revision>",
                        revision);
       status = apr_file_write_full(rb->tmpfile, s, strlen(s), NULL);
@@ -1274,7 +1274,7 @@ make_reporter (void *session_baton,
   /* A NULL target is no problem.  */
   if (target && target->data)
     {
-      s = apr_psprintf(ras->pool,
+      s = apr_psprintf(ras->pool, 
                        "<S:update-target>%s</S:update-target>",
                        target->data);
       status = apr_file_write_full(rb->tmpfile, s, strlen(s), NULL);
@@ -1293,7 +1293,7 @@ make_reporter (void *session_baton,
  error:
   (void) apr_file_close(rb->tmpfile);
   return svn_error_create(status, 0, NULL, ras->pool, msg);
-}
+}                      
 
 
 svn_error_t * svn_ra_dav__do_update(void *session_baton,
@@ -1333,7 +1333,7 @@ svn_error_t * svn_ra_dav__do_status(void *session_baton,
 }
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
