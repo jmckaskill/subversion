@@ -1,6 +1,6 @@
-/*
+/* 
  * svndiff.c -- Encoding and decoding svndiff-format deltas.
- *
+ * 
  * ====================================================================
  * Copyright (c) 2000-2001 CollabNet.  All rights reserved.
  *
@@ -371,7 +371,7 @@ write_handler (void *baton,
       if (nheader > *len)
         nheader = *len;
       if (memcmp (buffer, "SVN\0" + db->header_bytes, nheader) != 0)
-        return svn_error_create (SVN_ERR_SVNDIFF_INVALID_HEADER,
+        return svn_error_create (SVN_ERR_SVNDIFF_INVALID_HEADER, 
                                  0, NULL, db->pool,
                                  "svndiff has invalid header");
       *len -= nheader;
@@ -466,7 +466,7 @@ write_handler (void *baton,
   db->subpool = svn_pool_create (db->pool);
   p += newlen;
   remaining = db->buffer->data + db->buffer->len - (const char *) p;
-  db->buffer =
+  db->buffer = 
     svn_stringbuf_ncreate ((const char *) p, remaining, db->subpool);
 
   /* Remember the offset and length of the source view for next time.  */
@@ -527,7 +527,7 @@ svn_txdelta_parse_svndiff (svn_txdelta_window_handler_t handler,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end: */
