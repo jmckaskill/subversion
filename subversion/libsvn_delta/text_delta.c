@@ -1,6 +1,6 @@
-/*
+/* 
  * text-delta.c -- Internal text delta representation
- *
+ * 
  * ====================================================================
  * Copyright (c) 2000-2001 CollabNet.  All rights reserved.
  *
@@ -150,7 +150,7 @@ svn_txdelta (svn_txdelta_stream_t **stream,
   assert (subpool != NULL);
 
   *stream = apr_palloc (subpool, sizeof (**stream));
-  (*stream)->source = source;
+  (*stream)->source = source; 
   (*stream)->target = target;
   (*stream)->pool = subpool;
   (*stream)->more = TRUE;
@@ -436,7 +436,7 @@ svn_txdelta_apply (svn_stream_t *source,
 
 /* Convenience routines */
 
-svn_error_t *
+svn_error_t * 
 svn_txdelta_send_string (svn_string_t *string,
                          svn_txdelta_window_handler_t handler,
                          void *handler_baton,
@@ -454,7 +454,7 @@ svn_txdelta_send_string (svn_string_t *string,
   /* Build a single window containing a ptr to the string. */
   window.tview_len = string->len;
   window.num_ops = 1;
-  window.ops_size = 1;
+  window.ops_size = 1;          
   window.ops = &op;
   window.new_data = string;
   window.pool = pool;
@@ -462,18 +462,18 @@ svn_txdelta_send_string (svn_string_t *string,
   /* Push the one window at the handler. */
   err = (*handler) (&window, handler_baton);
   if (err) return err;
-
+  
   /* Push a NULL at the handler, because we're done. */
   err = (*handler) (NULL, handler_baton);
   if (err) return err;
-
+  
   return SVN_NO_ERROR;
 }
 
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
