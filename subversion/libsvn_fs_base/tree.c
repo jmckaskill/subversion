@@ -1539,7 +1539,7 @@ txn_body_pred_id (void *baton, trail_t *trail)
   node_revision_t *nr;
   struct txn_pred_id_args *args = baton;
 
-  SVN_ERR (svn_fs_bdb__get_node_revision (&nr, trail->fs, args->id,
+  SVN_ERR (svn_fs_bdb__get_node_revision (&nr, trail->fs, args->id, 
                                           trail, trail->pool));
   if (nr->predecessor_id)
     args->pred_id = svn_fs_base__id_copy (nr->predecessor_id, args->pool);
@@ -1773,13 +1773,13 @@ update_ancestry (svn_fs_t *fs,
     return svn_error_createf
       (SVN_ERR_FS_NOT_MUTABLE, NULL,
        _("Unexpected immutable node at '%s'"), target_path);
-  SVN_ERR (svn_fs_bdb__get_node_revision (&noderev, fs, target_id,
+  SVN_ERR (svn_fs_bdb__get_node_revision (&noderev, fs, target_id, 
                                           trail, trail->pool));
   noderev->predecessor_id = source_id;
   noderev->predecessor_count = source_pred_count;
   if (noderev->predecessor_count != -1)
     noderev->predecessor_count++;
-  return svn_fs_bdb__put_node_revision (fs, target_id, noderev,
+  return svn_fs_bdb__put_node_revision (fs, target_id, noderev, 
                                         trail, trail->pool);
 }
 
@@ -2042,9 +2042,9 @@ merge (svn_stringbuf_t *conflict_p,
     node_revision_t *tgt_nr, *anc_nr;
 
     /* Get node revisions for our id's. */
-    SVN_ERR (svn_fs_bdb__get_node_revision (&tgt_nr, fs, target_id,
+    SVN_ERR (svn_fs_bdb__get_node_revision (&tgt_nr, fs, target_id, 
                                             trail, trail->pool));
-    SVN_ERR (svn_fs_bdb__get_node_revision (&anc_nr, fs, ancestor_id,
+    SVN_ERR (svn_fs_bdb__get_node_revision (&anc_nr, fs, ancestor_id, 
                                             trail, trail->pool));
 
     /* Now compare the prop-keys of the skels.  Note that just because
@@ -3812,7 +3812,7 @@ txn_body_paths_changed (void *baton,
   else
     txn_id = args->root->txn;
 
-  return svn_fs_bdb__changes_fetch (&(args->changes), fs, txn_id,
+  return svn_fs_bdb__changes_fetch (&(args->changes), fs, txn_id, 
                                     trail, trail->pool);
 }
 
@@ -4057,7 +4057,7 @@ txn_body_history_prev (void *baton, trail_t *trail)
 
       /* Get the COPY record if we haven't already fetched it. */
       if (! copy)
-        SVN_ERR (svn_fs_bdb__get_copy (&copy, fs, end_copy_id, trail,
+        SVN_ERR (svn_fs_bdb__get_copy (&copy, fs, end_copy_id, trail, 
                                        trail->pool));
 
       /* Figure out the destination path of the copy operation. */
