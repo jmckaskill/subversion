@@ -52,7 +52,7 @@ apply_delta (const svn_delta_edit_fns_t *before_editor,
     ancestor_path = svn_string_create ("", pool);
   if (ancestor_revision == SVN_INVALID_REVNUM)
     ancestor_revision = 1;
-
+      
   if (is_update)
     {
       err = svn_wc_get_update_editor (dest,
@@ -186,7 +186,7 @@ svn_client__update_internal (const svn_delta_edit_fns_t *before_editor,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end: */
