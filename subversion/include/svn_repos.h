@@ -669,7 +669,7 @@ svn_repos_trace_node_locations (svn_fs_t *fs,
 
 
 /**
- * @since new in 1.2.
+ * @since New in 1.2.
  *
  * Invoke @a receiver with @a receiver_baton on each log message from
  * @a start to @a end in @a repos's filesystem.  @a start may be greater
