@@ -31,7 +31,7 @@ Candidate changes:
     Justification:
       We found it to be bad and cause problems on some platforms, OS X.
     Votes:
-      +1: kfogel, maxb, breser
+      +1: kfogel, maxb, breser	
 
   * r10994 (fixes issue #2054)
     Fix FSFS history code in the presence of multiple copies along a
@@ -52,9 +52,9 @@ Candidate changes:
      Not worth a resoak on its own.
     Votes:
       +1: ghudson, maxb
-
+   
   * r10773
-    Fix typo in test case of javahl binding.
+    Fix typo in test case of javahl binding.  
     Justification:
       Tiny javahl binding only fix.
     Notes:
