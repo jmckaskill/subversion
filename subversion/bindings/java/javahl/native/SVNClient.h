@@ -47,12 +47,12 @@ public:
 	void setConfigDirectory(const char *configDir);
 	jbyteArray blame(const char *path, Revision& revisionStart,
                          Revision &revisionEnd);
-	void blame(const char *path, Revision &revisionStart,
+	void blame(const char *path, Revision &revisionStart, 
                    Revision &revisionEnd, BlameCallback *callback);
 	void relocate(const char *from, const char *to, const char *path,
                       bool recurse);
 	jbyteArray fileContent(const char *path, Revision &revision);
-	void propertyCreate(const char *path, const char *name,
+	void propertyCreate(const char *path, const char *name, 
                             JNIByteArray &value, bool recurse);
 	void propertyCreate(const char *path, const char *name,
                             const char *value, bool recurse);
