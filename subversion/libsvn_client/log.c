@@ -56,7 +56,7 @@ svn_client_log (svn_client_auth_baton_t *auth_baton,
                 void *receiver_baton,
                 apr_pool_t *pool)
 {
-  svn_ra_plugin_t *ra_lib;
+  svn_ra_plugin_t *ra_lib;  
   void *ra_baton, *session;
   const char *path;
   const char *URL;
@@ -82,7 +82,7 @@ svn_client_log (svn_client_auth_baton_t *auth_baton,
   if (svn_path_is_url (path))
     {
       URL = path;
-
+      
       /* Initialize this array, since we'll be building it below */
       condensed_targets = apr_array_make (pool, 1, sizeof (const char *));
 
@@ -147,14 +147,14 @@ svn_client_log (svn_client_auth_baton_t *auth_baton,
      the working copy. */
   if (NULL != base_name)
     SVN_ERR (svn_client__open_ra_session (&session, ra_lib, URL, base_name,
-                                          NULL, NULL, TRUE, TRUE, TRUE,
+                                          NULL, NULL, TRUE, TRUE, TRUE, 
                                           auth_baton, pool));
   else
     {
       SVN_ERR (svn_client__dir_if_wc (&auth_dir, "", pool));
       SVN_ERR (svn_client__open_ra_session (&session, ra_lib, URL,
                                             auth_dir,
-                                            NULL, NULL, FALSE, FALSE, TRUE,
+                                            NULL, NULL, FALSE, FALSE, TRUE, 
                                             auth_baton, pool));
     }
 
@@ -172,7 +172,7 @@ svn_client_log (svn_client_auth_baton_t *auth_baton,
                          strict_node_history,
                          receiver,
                          receiver_baton);
-
+  
   /* Special case: If there have been no commits, we'll get an error
    * for requesting log of a revision higher than 0.  But the
    * default behavior of "svn log" is to give revisions HEAD through
@@ -192,7 +192,7 @@ svn_client_log (svn_client_auth_baton_t *auth_baton,
           && (end->value.number == 1)))
     {
       svn_revnum_t youngest_rev;
-
+      
       SVN_ERR (ra_lib->get_latest_revnum (session, &youngest_rev));
       if (youngest_rev == 0)
         {
