@@ -82,9 +82,9 @@ svn_wc_merge (const char *left,
 
          modify-entry:  conflicted
          modify-entry:  track 3 backup files.
-
+ 
      else if diff3 returned 0,
-
+      
          do nothing;
 
      else
