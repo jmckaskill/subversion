@@ -31,7 +31,7 @@
 //JUST UNCOMMENT THE FOLLOWING LINE
 //#define SVN_JNI_STATUSKIND__DEBUG
 
-jobject
+jobject 
 statuskind__create(JNIEnv *env, jboolean *hasException, jint statuskind)
 {
   jobject result = NULL;
@@ -68,7 +68,7 @@ statuskind__create(JNIEnv *env, jboolean *hasException, jint statuskind)
       /* get method reference */
       if( !_hasException )
         {
-          constructor =
+          constructor = 
             j__get_method(env, &_hasException,
                           class,
                           "<init>",
@@ -78,7 +78,7 @@ statuskind__create(JNIEnv *env, jboolean *hasException, jint statuskind)
       /* create new instance */
       if( !_hasException )
         {
-          result = (*env)->NewObject(env, class, constructor,
+          result = (*env)->NewObject(env, class, constructor, 
                                      statuskind);
 
           if( result == NULL )
