@@ -18,10 +18,10 @@
 /////////////////////////////////////////////////////////////////////////////
 // CSVNStatus
 
-STDMETHODIMP
+STDMETHODIMP 
 CSVNStatus::InterfaceSupportsErrorInfo(REFIID riid)
 {
-	static const IID* arr[] =
+	static const IID* arr[] = 
 	{
 		&IID_ISVNStatus
 	};
@@ -33,14 +33,14 @@ CSVNStatus::InterfaceSupportsErrorInfo(REFIID riid)
 	return S_FALSE;
 }
 
-STDMETHODIMP
+STDMETHODIMP 
 CSVNStatus::get_text_status(EWCStatus *pVal)
 {
 	*pVal = text_status;
 	return S_OK;
 }
 
-STDMETHODIMP
+STDMETHODIMP 
 CSVNStatus::get_prop_status(EWCStatus *pVal)
 {
 	*pVal = prop_status;
@@ -60,7 +60,7 @@ STDMETHODIMP CSVNStatus::get_is_directory(VARIANT_BOOL *pfVal)
 	return S_OK;
 }
 
-HRESULT
+HRESULT 
 CSVNStatus::init(svn_wc_status_t *status, CHAR *psz)
 {
 	text_status = (EWCStatus)status->text_status;
@@ -79,5 +79,5 @@ CSVNStatus::init(svn_wc_status_t *status, CHAR *psz)
 	pszName = (CHAR *)malloc(strlen(psz) + 1);
 	strcpy(pszName, psz);
 
-	return S_OK;
+	return S_OK;	
 }
