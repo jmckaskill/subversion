@@ -18,7 +18,7 @@
 import junit.framework.*;
 
 /**
- * Testcases for the native functions with prefix "misc"
+ * Testcases for the native functions with prefix "misc" 
  * in the class NativeWrapper
  *
  * @see NativeWrapper
@@ -38,7 +38,7 @@ public class MiscTests extends TestCase
 	    try
 	    {
 		NativeWrapper.miscThrowExceptionByName(name, message);
-
+		
 		// code isnt supposed to reach this point...
 		assertTrue(false);
 	    }
