@@ -143,7 +143,7 @@ open_file (svn_stringbuf_t *name,
               void **file_baton)
 {
   SVN_ERR (check_cancel (parent_baton));
-
+  
   *file_baton = parent_baton;
   return SVN_NO_ERROR;
 }
@@ -191,14 +191,14 @@ svn_client_get_cancellation_editor
 
   *edit_baton = eb;
   *editor = cancel_editor;
-
+  
   return SVN_NO_ERROR;
 }
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
- * end:
+ * end: 
  */
