@@ -48,7 +48,7 @@
      - dst_basename will be the 'new' name of the copied file in dst_parent
  */
 static svn_error_t *
-copy_file_administratively (svn_stringbuf_t *src_path,
+copy_file_administratively (svn_stringbuf_t *src_path, 
                             svn_stringbuf_t *dst_parent,
                             svn_stringbuf_t *dst_basename,
                             apr_pool_t *pool)
@@ -83,11 +83,11 @@ copy_file_administratively (svn_stringbuf_t *src_path,
      In other words, we're talking about the scenario where somebody
      makes local mods to 'foo.c', then does an 'svn cp foo.c bar.c'.
      In this case, bar.c should still be locally modified too.
-
+     
      Why do we want the copy to have local mods?  Even though the user
      will only see an 'A' instead of an 'M', local mods means that the
      client doesn't have to send anything but a small delta during
-     commit; the server can make efficient use of the copyfrom args.
+     commit; the server can make efficient use of the copyfrom args. 
 
      As long as we're copying the text-base over, we should copy the
      working and pristine propfiles over too. */
@@ -121,7 +121,7 @@ copy_file_administratively (svn_stringbuf_t *src_path,
                              SVN_WC__LOG_CP,
                              SVN_WC__LOG_ATTR_NAME, src_wprop,
                              SVN_WC__LOG_ATTR_DEST, dst_wprop, NULL);
-
+      
     /* Copy the base-props over if they exist */
     SVN_ERR (svn_io_check_path (src_bprop, &kind, pool));
     if (kind == svn_node_file)
@@ -139,19 +139,19 @@ copy_file_administratively (svn_stringbuf_t *src_path,
                                     (APR_WRITE | APR_CREATE), /* not excl */
                                     pool));
 
-    status = apr_file_write_full (log_fp, entry_accum->data,
+    status = apr_file_write_full (log_fp, entry_accum->data, 
                                   entry_accum->len, NULL);
     if (status)
       return svn_error_createf (status, 0, NULL, pool,
                                 "can't write logfile in directory '%s'",
                                 dst_parent->data);
-
-    SVN_ERR (svn_wc__close_adm_file (log_fp, dst_parent,
+    
+    SVN_ERR (svn_wc__close_adm_file (log_fp, dst_parent, 
                                      SVN_WC__ADM_LOG, 1, pool));
 
     /* Run the log. */
     SVN_ERR (svn_wc__run_log (dst_parent, pool));
-
+             
     /* Unlock. */
     SVN_ERR (svn_wc__unlock (dst_parent, pool));
   }
@@ -163,10 +163,10 @@ copy_file_administratively (svn_stringbuf_t *src_path,
 
   /* Make a hash that contains two new attributes. */
   atts = apr_hash_make (pool);
-  apr_hash_set (atts,
+  apr_hash_set (atts, 
                 SVN_WC_ENTRY_ATTR_COPYFROM_URL, APR_HASH_KEY_STRING,
                 copyfrom_url);
-  apr_hash_set (atts,
+  apr_hash_set (atts, 
                 SVN_WC_ENTRY_ATTR_COPYFROM_REV, APR_HASH_KEY_STRING,
                 copyfrom_rev);
 
@@ -196,7 +196,7 @@ copy_file_administratively (svn_stringbuf_t *src_path,
      - dst_basename will be the 'new' name of the copied dir in dst_parent
  */
 static svn_error_t *
-copy_dir_administratively (svn_stringbuf_t *src_path,
+copy_dir_administratively (svn_stringbuf_t *src_path, 
                            svn_stringbuf_t *dst_parent,
                            svn_stringbuf_t *dst_basename,
                            apr_pool_t *pool)
@@ -248,7 +248,7 @@ copy_dir_administratively (svn_stringbuf_t *src_path,
                              SVN_WC__LOG_CP,
                              SVN_WC__LOG_ATTR_NAME, src_wprop,
                              SVN_WC__LOG_ATTR_DEST, dst_wprop, NULL);
-
+      
     /* Copy the base-props over if they exist */
     SVN_ERR (svn_io_check_path (src_bprop, &kind, pool));
     if (kind == svn_node_file)
@@ -266,19 +266,19 @@ copy_dir_administratively (svn_stringbuf_t *src_path,
                                     (APR_WRITE | APR_CREATE), /* not excl */
                                     pool));
 
-    status = apr_file_write_full (log_fp, entry_accum->data,
+    status = apr_file_write_full (log_fp, entry_accum->data, 
                                   entry_accum->len, NULL);
     if (status)
       return svn_error_createf (status, 0, NULL, pool,
                                 "can't write logfile in directory '%s'",
                                 dst_parent->data);
-
-    SVN_ERR (svn_wc__close_adm_file (log_fp, dst_path,
+    
+    SVN_ERR (svn_wc__close_adm_file (log_fp, dst_path, 
                                      SVN_WC__ADM_LOG, 1, pool));
 
     /* Run the log. */
     SVN_ERR (svn_wc__run_log (dst_path, pool));
-
+             
     /* Unlock. */
     SVN_ERR (svn_wc__unlock (dst_path, pool));
   }
@@ -291,15 +291,15 @@ copy_dir_administratively (svn_stringbuf_t *src_path,
 
   /* Make a hash that contains two new attributes. */
   atts = apr_hash_make (pool);
-  apr_hash_set (atts,
+  apr_hash_set (atts, 
                 SVN_WC_ENTRY_ATTR_COPYFROM_URL, APR_HASH_KEY_STRING,
                 copyfrom_url);
-  apr_hash_set (atts,
+  apr_hash_set (atts, 
                 SVN_WC_ENTRY_ATTR_COPYFROM_REV, APR_HASH_KEY_STRING,
                 copyfrom_rev);
 
   /* Tweak the new entry;  merge in the 'copyfrom' args.  */
-  SVN_ERR (svn_wc__entry_modify (dst_path,
+  SVN_ERR (svn_wc__entry_modify (dst_path, 
                                  svn_stringbuf_create (SVN_WC_ENTRY_THIS_DIR,
                                                        pool),
                                  SVN_WC__ENTRY_MODIFY_ATTRIBUTES,
@@ -315,9 +315,9 @@ copy_dir_administratively (svn_stringbuf_t *src_path,
          if (entry is a file)
            copy_file_administratively()
          if (entry is a file)
-           copy_dir_administrativel()
+           copy_dir_administrativel()     
    */
-
+ 
   return SVN_NO_ERROR;
 }
 
@@ -337,7 +337,7 @@ svn_wc_copy (svn_stringbuf_t *src_path,
   enum svn_node_kind src_kind;
 
   SVN_ERR (svn_io_check_path (src_path, &src_kind, pool));
-
+  
   if (src_kind == svn_node_file)
     SVN_ERR (copy_file_administratively (src_path, dst_parent,
                                          dst_basename, pool));
@@ -352,7 +352,7 @@ svn_wc_copy (svn_stringbuf_t *src_path,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end: */
