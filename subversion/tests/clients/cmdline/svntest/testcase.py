@@ -2,9 +2,9 @@
 #
 #  testcase.py:  Control of test case execution.
 #
-#  Subversion is a tool for revision control.
+#  Subversion is a tool for revision control. 
 #  See http://subversion.tigris.org for more information.
-#
+#    
 # ====================================================================
 # Copyright (c) 2000-2003 CollabNet.  All rights reserved.
 #
@@ -68,7 +68,7 @@ class TestCase:
       print 'WARNING: Test docstring exceeds 50 characters'
     if self.pred.func.__doc__[-1] == '.':
       print 'WARNING: Test docstring ends in a period (.)'
-
+    
   def func_code(self):
     return self.pred.func.func_code
 
@@ -77,7 +77,7 @@ class TestCase:
                                  self.pred.list_mode(),
                                  self.pred.func.__doc__)
     self._check_name()
-
+      
   def _print_name(self):
     print os.path.basename(sys.argv[0]), str(self.index) + ":", \
           self.pred.func.__doc__
