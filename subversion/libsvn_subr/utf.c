@@ -142,7 +142,7 @@ convert_to_stringbuf (apr_xlate_t *convset,
   *dest = svn_stringbuf_create ("", pool);
   destbuf = (*dest)->data;
 
-  do
+  do 
     {
       /* A 1:2 ratio of input characters to output characters should
          be enough for most translations, and conveniently enough, if
@@ -162,10 +162,10 @@ convert_to_stringbuf (apr_xlate_t *convset,
       destlen = buflen - (*dest)->len;
 
       /* Attempt the conversion. */
-      apr_err = apr_xlate_conv_buffer (convset,
-                                       src_data + (src_length - srclen),
+      apr_err = apr_xlate_conv_buffer (convset, 
+                                       src_data + (src_length - srclen), 
                                        &srclen,
-                                       destbuf,
+                                       destbuf, 
                                        &destlen);
 
       /* Now, updated the *DEST->len to track the amount of output data
@@ -178,7 +178,7 @@ convert_to_stringbuf (apr_xlate_t *convset,
   if (apr_err)
     return svn_error_create (apr_err, 0, NULL, pool,
                              "failure during string recoding");
-
+  
   /* Else, exited do to success.  Trim the result buffer down to the
      right length. */
   (*dest)->data[(*dest)->len] = '\0';
@@ -247,7 +247,7 @@ svn_utf_string_to_utf8 (const svn_string_t **dest,
   apr_xlate_t *convset;
   /* Get a converter from the native character encoding to UTF-8 */
   SVN_ERR (get_ntou_xlate_handle (&convset, pool));
-  SVN_ERR (convert_to_stringbuf (convset, src->data, src->len,
+  SVN_ERR (convert_to_stringbuf (convset, src->data, src->len, 
                                  &destbuf, pool));
   *dest = svn_string_create_from_buf (destbuf, pool);
   return SVN_NO_ERROR;
@@ -486,13 +486,13 @@ svn_utf_utf8_to_native (const char *utf8_string,
       buf[i++] = '?';
 
   buf[i>=bufsize? bufsize-1 : i] = '\0';
-  return buf;
+  return buf;  
 
 #endif /* SVN_UTF8 */
 }
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end:
