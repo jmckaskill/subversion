@@ -11,7 +11,7 @@ Incomplete
 
 =head1 OBJECTS
 
-=cut
+=cut 
 
 package _p_svn_wc_t;
 
@@ -113,7 +113,7 @@ Deleted, but parent rev lags behind.
 =item $wcent-E<gt>absent()
 
 Absent -- we know an entry of this name exists, but that's all (usually this
-happens because of authz restrictions)
+happens because of authz restrictions) 
 
 =item $wcent-E<gt>incomplete()
 
@@ -271,7 +271,7 @@ Processed a single revision's blame.
 
 =cut
 
-# no reasonable prefix for these enums
+# no reasonable prefix for these enums 
 # so we have to do them one by one to import.
 package SVN::Wc::Notify::Action;
 our $add = $SVN::Wc::notify_add;
