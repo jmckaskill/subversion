@@ -142,7 +142,7 @@ void svn_wc__strip_entry_prefix (svn_stringbuf_t *name);
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end:
