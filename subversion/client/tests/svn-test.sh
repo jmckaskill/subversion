@@ -2,7 +2,7 @@
 
 SVN_PROG=../svn
 TARGET_DIR=this
-ANCESTOR_PATH=anni       # See if Greg Stein notices. :-)
+ANCESTOR_PATH=anni       # See if Greg Stein notices. :-) 
 
 # Remove the testing tree
 rm -rf ${TARGET_DIR}
