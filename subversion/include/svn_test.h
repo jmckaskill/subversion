@@ -37,7 +37,7 @@ svn_error_t *svn_test_get_editor (const svn_delta_edit_fns_t **editor,
                                   svn_string_t *path,
                                   svn_revnum_t revision,
                                   apr_pool_t *pool);
-
+     
 #endif /* SVN_TEST_H */
 
 #ifdef __cplusplus
