@@ -31,14 +31,14 @@ Karl wc todo:
 
    - From Bill Tutt:
      > > * ${SVN_PROG} delete-force ${TEST_DIR_1}\A\D\H\omega
-     > >
+     > > 
      > > Registers the delete in $(TEST_DIR_1)/SVN/entries with a filename of
      > > "A\D\H\omega" and an ancestor of: "anni/A\D\H\omega"
      > > Doesn't touch ANYTHING in $(TEST_DIR_1)/A/D/H/SVN/entries
      >
      > Okay; working on, thanks for noticing this!  (Time to get that path
      > library fleshed out. :-) ).
-
+     
      That wasn't the problem. A\D\H\omega was indeed deleted when I passed in
      the -force option.
      The problem was that the "omega" entry still existed in
@@ -104,7 +104,7 @@ Greg:
         REPORT: need the SVN:status-report
         need: CHECKOUT
 	need: MERGE (activity)
-	validate proper support for VERSION-CONTROL. this would be the
+	validate proper support for VERSION-CONTROL. this would be the 
 	  missing piece for DeltaV "Core" support.
 
    - mod_dav: no apparent changes until vsn comes in
