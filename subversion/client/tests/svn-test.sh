@@ -2,7 +2,7 @@
 
 SVN_PROG=../svn
 TARGET_DIR=this
-ANCESTOR_PATH=anni       # See if Greg Stein notices. :-)
+ANCESTOR_PATH=anni       # See if Greg Stein notices. :-) 
 
 # Remove the testing tree
 rm -rf ${TARGET_DIR}
@@ -32,7 +32,7 @@ echo "moo" >> this/A/mu
 # echo "Adding newfile1."
 # touch this/newfile1
 # ${SVN_PROG} add this/newfile1
-#
+# 
 # echo
 # echo "Adding A/B/E/newfile2."
 # touch this/A/B/E/newfile2
@@ -48,16 +48,16 @@ echo "moo" >> this/A/mu
 # echo "Updating many files."
 # (cd this; ../${SVN_PROG} update \
 #              --xml-file ../../../tests-common/xml/up1b-inline.xml)
-
+                      
 ### Deleting.
 # echo
 # echo "Deleting versioned file A/D/H/omega, with --force."
 # ${SVN_PROG} delete --force this/A/D/H/omega
-#
+# 
 # echo
 # echo "Deleting added files A/B/E/newfile2, without --force."
 # ${SVN_PROG} delete this/A/B/E/newfile2
-
+ 
 ### Committing.
 ## Disable commits until they're working.
 echo
