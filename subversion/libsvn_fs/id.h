@@ -26,7 +26,7 @@ int svn_fs__is_parent (const svn_fs_id_t *parent,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
