@@ -190,9 +190,6 @@ svn_client_delete (svn_client_commit_info_t **commit_info,
                                                    committed_date,
                                                    pool);
 
-      /* Free the RA session */
-      SVN_ERR (ra_lib->close (session));
-
       return SVN_NO_ERROR;
     }
 
