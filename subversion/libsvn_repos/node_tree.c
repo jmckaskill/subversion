@@ -36,7 +36,7 @@
 
 /*** Node creation and assembly structures and routines. ***/
 static svn_repos_node_t *
-create_node (const char *name,
+create_node (const char *name, 
              apr_pool_t *pool)
 {
   svn_repos_node_t *node = apr_pcalloc (pool, sizeof (svn_repos_node_t));
@@ -48,12 +48,12 @@ create_node (const char *name,
 
 
 static svn_repos_node_t *
-create_sibling_node (svn_repos_node_t *elder,
-                     const char *name,
+create_sibling_node (svn_repos_node_t *elder, 
+                     const char *name, 
                      apr_pool_t *pool)
 {
   svn_repos_node_t *tmp_node;
-
+  
   /* No ELDER sibling?  That's just not gonna work out. */
   if (! elder)
     return NULL;
@@ -69,8 +69,8 @@ create_sibling_node (svn_repos_node_t *elder,
 
 
 static svn_repos_node_t *
-create_child_node (svn_repos_node_t *parent,
-                   const char *name,
+create_child_node (svn_repos_node_t *parent, 
+                   const char *name, 
                    apr_pool_t *pool)
 {
   /* No PARENT node?  That's just not gonna work out. */
@@ -88,7 +88,7 @@ create_child_node (svn_repos_node_t *parent,
 
 
 static svn_repos_node_t *
-find_child_by_name (svn_repos_node_t *parent,
+find_child_by_name (svn_repos_node_t *parent, 
                     const char *name)
 {
   svn_repos_node_t *tmp_node;
@@ -154,7 +154,7 @@ struct window_handler_baton
 
 
 static svn_error_t *
-delete_entry (svn_stringbuf_t *name,
+delete_entry (svn_stringbuf_t *name, 
               svn_revnum_t revision,
               void *parent_baton)
 {
@@ -200,7 +200,7 @@ open_root (void *edit_baton,
   d->node->kind = svn_node_dir;
   d->node->action = 'R';
   *root_baton = d;
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -253,7 +253,7 @@ add_directory (svn_stringbuf_t *name,
   d->node->copyfrom_rev = copyfrom_revision;
   d->node->copyfrom_path
     = copyfrom_path ? apr_pstrdup (eb->node_pool, copyfrom_path->data) : NULL;
-
+  
   *child_baton = d;
 
   return SVN_NO_ERROR;
@@ -323,7 +323,7 @@ window_handler (svn_txdelta_window_t *window, void *baton)
 
 
 static svn_error_t *
-apply_textdelta (void *file_baton,
+apply_textdelta (void *file_baton, 
                  svn_txdelta_window_handler_t *handler,
                  void **handler_baton)
 {
@@ -343,7 +343,7 @@ apply_textdelta (void *file_baton,
 
 static svn_error_t *
 change_file_prop (void *file_baton,
-                  svn_stringbuf_t *name,
+                  svn_stringbuf_t *name, 
                   svn_stringbuf_t *value)
 {
   struct file_baton *fb = (struct file_baton *) file_baton;
@@ -355,7 +355,7 @@ change_file_prop (void *file_baton,
 
 static svn_error_t *
 change_dir_prop (void *parent_baton,
-                 svn_stringbuf_t *name,
+                 svn_stringbuf_t *name, 
                  svn_stringbuf_t *value)
 {
   struct dir_baton *d = (struct dir_baton *) parent_baton;
@@ -414,7 +414,7 @@ svn_repos_node_from_baton (void *edit_baton)
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end:
