@@ -1438,7 +1438,7 @@ static dav_error * dav_svn_remove_resource(dav_resource *resource,
     {
       /* If the filesystem tells us that the entry is already missing,
          just ignore it and move on.  Deletion is idempotent here,
-         just as it is in svn_fs_merge(). */
+         just as it is in svn_fs_merge(). */ 
       return dav_svn_convert_err(serr, HTTP_INTERNAL_SERVER_ERROR,
                                  "Could not delete the resource.");
       /* ### need a better error */
@@ -1660,7 +1660,7 @@ dav_resource *dav_svn_create_working_resource(const dav_resource *base,
     path = svn_stringbuf_createf(base->pool, "/%s/wrk/%s%s",
                               base->info->repos->special_uri,
                               activity_id, base->info->repos_path);
-
+  
 
   comb = apr_pcalloc(base->pool, sizeof(*comb));
 
@@ -1712,7 +1712,7 @@ const dav_hooks_repository dav_svn_hooks_repos =
 };
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
