@@ -357,7 +357,7 @@ const svn_opt_subcommand_desc_t svn_cl__cmd_table[] =
     "       2. proplist --revprop -r REV [URL]\n\n"
     "  1. Lists versioned props in working copy.\n"
     "  2. Lists unversioned remote props on repos revision.\n",
-    {'v', 'R', 'r', svn_cl__revprop_opt, SVN_CL__AUTH_OPTIONS} },
+    {'v', 'R', 'r', 'q', svn_cl__revprop_opt, SVN_CL__AUTH_OPTIONS} },
 
   { "propset", svn_cl__propset, {"pset", "ps"},
     "Set PROPNAME to PROPVAL on files, dirs, or revisions.\n\n"
