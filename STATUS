@@ -27,9 +27,9 @@ Candidate changes:
       +0: breser
 
   * r8027
-    Passing a Revision.DateSpec in javahl failed with
-    java.lang.NoSuchFieldError because java.util.Date.getTime() was
-    searched as a field when it is a method.
+    Passing a Revision.DateSpec in javahl failed with 
+    java.lang.NoSuchFieldError because java.util.Date.getTime() was 
+    searched as a field when it is a method. 
     Justification: small change in javahl binding only
     Votes:
       +1: pmayweg
