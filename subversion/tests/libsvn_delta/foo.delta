@@ -42,7 +42,7 @@
                       <set name="banana">yellow</set>
                       <delete name="lemon"/>
                       <set name="crabgrass">epistimological</set>
-                  </prop-delta>
+                  </prop-delta>      
                   <text-delta>W3bOAAAAGQEboXRqcZMicZMifGjnIGbrdGWiJ4fjdY3jJ06=</text-delta>
                 </file>
               </add>
