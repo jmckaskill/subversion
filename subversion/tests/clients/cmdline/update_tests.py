@@ -2,9 +2,9 @@
 #
 #  update_tests.py:  testing update cases.
 #
-#  Subversion is a tool for revision control.
+#  Subversion is a tool for revision control. 
 #  See http://subversion.tigris.org for more information.
-#
+#    
 # ====================================================================
 # Copyright (c) 2000-2001 CollabNet.  All rights reserved.
 #
@@ -21,8 +21,8 @@ import shutil, string, sys, re, os
 
 # Our testing module
 import svntest
-
-
+  
+ 
 ######################################################################
 # Tests
 #
@@ -79,8 +79,8 @@ def update_binary_file(sbox):
   fp = open(theta_path, 'w')
   fp.write(theta_contents)    # write png filedata into 'A/theta'
   fp.close()
-
-  svntest.main.run_svn(None, 'add', theta_path)
+  
+  svntest.main.run_svn(None, 'add', theta_path)  
 
   # Created expected output tree for 'svn ci'
   output_list = [ [theta_path, None, {}, {'verb' : 'Adding' }] ]
@@ -141,7 +141,7 @@ def update_binary_file(sbox):
   output_list = [ [theta_backup_path, None, {}, {'status' : 'C '}] ]
   expected_output_tree = svntest.tree.build_generic_tree(output_list)
 
-  # Create expected disk tree for the update --
+  # Create expected disk tree for the update -- 
   #    look!  binary contents, and a binary property!
   my_greek_tree = svntest.main.copy_greek_tree()
   my_greek_tree.append(['A/theta',
@@ -154,7 +154,7 @@ def update_binary_file(sbox):
   status_list.append([theta_backup_path, None, {},
                       {'status' : 'C_',
                        'wc_rev' : '3',
-                       'repos_rev' : '3'}])
+                       'repos_rev' : '3'}])  
   expected_status_tree = svntest.tree.build_generic_tree(status_list)
 
   # Extra 'singleton' files we expect to exist after the update.
@@ -164,7 +164,7 @@ def update_binary_file(sbox):
   #                                         [pattern, contents], ...]
   extra_files = [[wc_backup, 'theta.*\.r2', theta_contents],
                  [wc_backup, 'theta.*\.r3', theta_contents_r3]]
-
+  
   # Do the update and check the results in three ways.  Pass our
   # custom singleton handler to verify the .orig file; this handler
   # will verify the existence (and contents) of both binary files
@@ -197,7 +197,7 @@ def update_binary_file_2(sbox):
 
   # Suck up contents of a test .png file.
   fp = open(os.path.join(sys.path[0], "theta.png"))
-  theta_contents = fp.read()
+  theta_contents = fp.read()  
   fp.close()
 
   # 102400 is svn_txdelta_window_size.  We're going to make sure we
@@ -213,7 +213,7 @@ def update_binary_file_2(sbox):
   # Write our two files' contents out to disk, in A/theta and A/zeta.
   theta_path = os.path.join(wc_dir, 'A', 'theta')
   fp = open(theta_path, 'w')
-  fp.write(theta_contents)
+  fp.write(theta_contents)    
   fp.close()
   zeta_path = os.path.join(wc_dir, 'A', 'zeta')
   fp = open(zeta_path, 'w')
@@ -221,7 +221,7 @@ def update_binary_file_2(sbox):
   fp.close()
 
   # Now, `svn add' those two files.
-  svntest.main.run_svn(None, 'add', theta_path, zeta_path)
+  svntest.main.run_svn(None, 'add', theta_path, zeta_path)  
 
   # Created expected output tree for 'svn ci'
   output_list = [ [theta_path, None, {}, {'verb' : 'Adding' }],
@@ -253,7 +253,7 @@ def update_binary_file_2(sbox):
   new_theta_contents = theta_contents + "foobar"
   svntest.main.file_append (zeta_path, "foobar")
   new_zeta_contents = zeta_contents + "foobar"
-
+  
   # Created expected output tree for 'svn ci'
   output_list = [ [theta_path, None, {}, {'verb' : 'Sending' }],
                   [zeta_path, None, {}, {'verb' : 'Sending' }] ]
@@ -284,7 +284,7 @@ def update_binary_file_2(sbox):
                   [zeta_path, None, {}, {'status' : 'U '}] ]
   expected_output_tree = svntest.tree.build_generic_tree(output_list)
 
-  # Create expected disk tree for the update --
+  # Create expected disk tree for the update -- 
   #    look!  binary contents, and a binary property!
   my_greek_tree = svntest.main.copy_greek_tree()
   my_greek_tree.append(['A/theta',
@@ -302,11 +302,11 @@ def update_binary_file_2(sbox):
   status_list.append([theta_path, None, {},
                       {'status' : '__',
                        'wc_rev' : '2',
-                       'repos_rev' : '3'}])
+                       'repos_rev' : '3'}])  
   status_list.append([zeta_path, None, {},
                       {'status' : '__',
                        'wc_rev' : '2',
-                       'repos_rev' : '3'}])
+                       'repos_rev' : '3'}])  
   expected_status_tree = svntest.tree.build_generic_tree(status_list)
 
   # Do an update from revision 2 and make sure that our binary file
@@ -360,7 +360,7 @@ def update_missing(sbox):
   # Create expected status tree for the update.
   status_list = svntest.actions.get_virginal_status_list(wc_dir, '1')
   expected_status_tree = svntest.tree.build_generic_tree(status_list)
-
+  
   # Do the update and check the results in three ways.
   return svntest.actions.run_and_verify_update(wc_dir,
                                                expected_output_tree,
@@ -383,7 +383,7 @@ def update_ignores_added(sbox):
   # Commit something so there's actually a new revision to update to.
   rho_path = os.path.join(wc_dir, 'A', 'D', 'G', 'rho')
   svntest.main.file_append(rho_path, "\nMore stuff in rho.")
-  svntest.main.run_svn(None, 'ci', '-m', '"log msg"', rho_path)
+  svntest.main.run_svn(None, 'ci', '-m', '"log msg"', rho_path)  
 
   # Create a new file, 'zeta', and schedule it for addition.
   zeta_path = os.path.join(wc_dir, 'A', 'B', 'zeta')
@@ -395,7 +395,7 @@ def update_ignores_added(sbox):
   svntest.main.run_svn(None, 'delete', gamma_path)
   svntest.main.file_append(gamma_path, "This is a new 'gamma' now.")
   svntest.main.run_svn(None, 'add', gamma_path)
-
+  
   # Now update.  "zeta at revision 0" should *not* be reported at all,
   # so it should remain scheduled for addition at revision 0.  gamma
   # was scheduled for replacement, so it also should remain marked as
@@ -426,13 +426,13 @@ def update_ignores_added(sbox):
                        'wc_rev' : '0',
                        'repos_rev' : '2'}])
   expected_status_tree = svntest.tree.build_generic_tree(status_list)
-
+  
   # Do the update and check the results in three ways.
   return svntest.actions.run_and_verify_update(wc_dir,
                                                expected_output_tree,
                                                expected_disk_tree,
                                                expected_status_tree)
-
+  
 
 #----------------------------------------------------------------------
 
@@ -455,7 +455,7 @@ def update_to_rev_zero(sbox):
   # Create expected disk tree for the update to rev 0
   empty_tree = []
   expected_disk_tree = svntest.tree.build_generic_tree(empty_tree)
-
+  
   # Do the update and check the results.
   return svntest.actions.run_and_verify_update(wc_dir,
                                                expected_output_tree,
@@ -475,13 +475,13 @@ def receive_overlapping_same_change(sbox):
   ### Create working copy foo, modify foo/iota.  Duplicate foo,
   ### complete with locally modified iota, to bar.  Now we should
   ### have:
-  ###
+  ### 
   ###    $ svn st foo
   ###    M    foo/iota
   ###    $ svn st bar
   ###    M    bar/iota
-  ###    $
-  ###
+  ###    $ 
+  ### 
   ### Commit the change from foo, then update bar.  The repository
   ### change should get folded into bar/iota with no conflict, since
   ### the two modifications are identical.
@@ -533,7 +533,7 @@ def receive_overlapping_same_change(sbox):
   # Expected status tree for the update.
   status_list = svntest.actions.get_virginal_status_list(other_wc, '2')
   expected_status_tree = svntest.tree.build_generic_tree(status_list)
-
+  
   # Do the update and check the results in three ways.
   return svntest.actions.run_and_verify_update(other_wc,
                                                expected_output_tree,
