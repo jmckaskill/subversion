@@ -41,16 +41,16 @@ extern "C" {
 
 /* Read a hash table from SRCFILE, storing the resultants names and
  * values in HASH.  Use a POOL for all allocations.  HASH will have
- * const char * keys and svn_string_t * values.
+ * const char * keys and svn_string_t * values.  
  */
-apr_status_t svn_hash_read (apr_hash_t *hash,
+apr_status_t svn_hash_read (apr_hash_t *hash, 
                             apr_file_t *srcfile,
                             apr_pool_t *pool);
 
 /* Dump HASH to DESTFILE.  Use POOL for all allocations.  HASH has
- * const char * keys and svn_string_t values.
+ * const char * keys and svn_string_t values.  
  */
-apr_status_t svn_hash_write (apr_hash_t *hash,
+apr_status_t svn_hash_write (apr_hash_t *hash, 
                              apr_file_t *destfile,
                              apr_pool_t *pool);
 
@@ -79,7 +79,7 @@ typedef svn_error_t *(*svn_hash_diff_func_t)
  * svn_hash_diff_key_status indicating which table(s) the key appears
  * in, and DIFF_FUNC_BATON.
  *
- * Process all keys of HASH_A first, then all remaining keys of HASH_B.
+ * Process all keys of HASH_A first, then all remaining keys of HASH_B. 
  *
  * If DIFF_FUNC returns error, return that error immediately, without
  * applying DIFF_FUNC to anything else.
