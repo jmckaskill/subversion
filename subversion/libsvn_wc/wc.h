@@ -39,7 +39,7 @@
 /** File comparisons **/
 
 /* Set *SAME to non-zero if file1 and file2 have the same contents,
-   else set it to zero.
+   else set it to zero. 
 
    Note: This probably belongs in the svn_io library, however, it
    shares some private helper functions with other wc-specific
@@ -57,9 +57,9 @@ svn_error_t *svn_wc__files_contents_same_p (svn_boolean_t *same,
  * BASE_FILE alone (as though BASE_FILE were a text-base file, which
  * it usually is, only sometimes we're calling this on incoming
  * temporary text-bases).
- *
+ * 
  * If an error is returned, the effect on *MODIFIED_P is undefined.
- *
+ * 
  * Use POOL for temporary allocation.
  */
 svn_error_t *svn_wc__versioned_file_modcheck (svn_boolean_t *modified_p,
@@ -70,7 +70,7 @@ svn_error_t *svn_wc__versioned_file_modcheck (svn_boolean_t *modified_p,
 
 /* A special timestamp value which means "use the timestamp from the
    working copy".  This is sometimes used in a log entry like:
-
+   
    <modify-entry name="foo.c" revision="5" timestamp="working"/>
 
  */
@@ -90,7 +90,7 @@ svn_error_t *svn_wc__lock (svn_stringbuf_t *path, int wait_for, apr_pool_t *pool
 svn_error_t *svn_wc__unlock (svn_stringbuf_t *path, apr_pool_t *pool);
 
 /* Set *LOCKED to non-zero if PATH is locked, else set it to zero. */
-svn_error_t *svn_wc__locked (svn_boolean_t *locked,
+svn_error_t *svn_wc__locked (svn_boolean_t *locked, 
                              svn_stringbuf_t *path,
                              apr_pool_t *pool);
 
@@ -100,7 +100,7 @@ svn_error_t *svn_wc__locked (svn_boolean_t *locked,
 /* Create DIR as a working copy directory. */
 /* ### This function hasn't been defined nor completely documented
    yet, so I'm not sure whether the "ancestor" arguments are really
-   meant to be urls and should be changed to "url_*".  -kff */
+   meant to be urls and should be changed to "url_*".  -kff */ 
 svn_error_t *svn_wc__set_up_new_dir (svn_stringbuf_t *path,
                                      svn_stringbuf_t *ancestor_path,
                                      svn_revnum_t ancestor_revnum,
@@ -171,7 +171,7 @@ svn_error_t *svn_wc__make_adm_thing (svn_stringbuf_t *path,
 
 /* Cleanup the temporary storage area of the administrative
    directory. */
-svn_error_t *svn_wc__adm_cleanup_tmp_area (svn_stringbuf_t *path,
+svn_error_t *svn_wc__adm_cleanup_tmp_area (svn_stringbuf_t *path, 
                                            apr_pool_t *pool);
 
 
@@ -184,7 +184,7 @@ svn_error_t *svn_wc__adm_cleanup_tmp_area (svn_stringbuf_t *path,
  * When you open a file for writing with svn_wc__open_foo(), the file
  * is actually opened in the corresponding location in the tmp/
  * directory (and if you're appending as well, then the tmp file
- * starts out as a copy of the original file).
+ * starts out as a copy of the original file). 
  *
  * Somehow, this tmp file must eventually get renamed to its real
  * destination in the adm area.  You can do it either by passing the
@@ -299,12 +299,12 @@ svn_error_t *svn_wc__close_props (apr_file_t *fp,
                                   apr_pool_t *pool);
 
 /* Atomically rename a temporary property file to its canonical
-   location.  The tmp file should be closed already.
+   location.  The tmp file should be closed already. 
 
    Again, BASE and WCPROPS flags should be identical to those used to
    open the file. */
 svn_error_t *
-svn_wc__sync_props (svn_stringbuf_t *path,
+svn_wc__sync_props (svn_stringbuf_t *path, 
                     svn_boolean_t base,
                     svn_boolean_t wcprops,
                     apr_pool_t *pool);
@@ -324,7 +324,7 @@ svn_stringbuf_t *svn_wc__text_base_path (const svn_stringbuf_t *path,
 
 
 /* Set *PROP_PATH to PATH's working properties file.
-   If TMP is set, return a path to the tmp working property file.
+   If TMP is set, return a path to the tmp working property file. 
    PATH can be a directory or file, and even have changed w.r.t. the
    working copy's adm knowledge. */
 svn_error_t *svn_wc__prop_path (svn_stringbuf_t **prop_path,
@@ -334,7 +334,7 @@ svn_error_t *svn_wc__prop_path (svn_stringbuf_t **prop_path,
 
 
 /* Set *PROP_PATH to PATH's `pristine' properties file.
-   If TMP is set, return a path to the tmp working property file.
+   If TMP is set, return a path to the tmp working property file. 
    PATH can be a directory or file, and even have changed w.r.t. the
    working copy's adm knowledge. */
 svn_error_t *svn_wc__prop_base_path (svn_stringbuf_t **prop_path,
@@ -369,7 +369,7 @@ svn_error_t *svn_wc__ensure_wc (svn_stringbuf_t *path,
  * a working copy subdir based on URL at REVISION
  *
  * Does not ensure existence of PATH itself; if PATH does not exist,
- * an error will result.
+ * an error will result. 
  */
 svn_error_t *svn_wc__ensure_adm (svn_stringbuf_t *path,
                                  svn_stringbuf_t *url,
@@ -440,7 +440,7 @@ svn_error_t *svn_wc__adm_destroy (svn_stringbuf_t *path,
 /* Make file SVN_WC__LOG_ATTR_NAME readonly */
 #define SVN_WC__LOG_READONLY            "readonly"
 
-/* Handle closure after a commit completes successfully:
+/* Handle closure after a commit completes successfully:  
  *
  *   If SVN/tmp/text-base/SVN_WC__LOG_ATTR_NAME exists, then
  *      compare SVN/tmp/text-base/SVN_WC__LOG_ATTR_NAME with working file
@@ -493,8 +493,8 @@ svn_error_t *svn_wc__adm_destroy (svn_stringbuf_t *path,
 
 /* Starting at PATH, write out log entries indicating that a commit
  * succeeded, using REVISION as the new revision number.  run_log will
- * use these log items to complete the commit.
- *
+ * use these log items to complete the commit. 
+ * 
  * Targets is a hash of files/dirs that actually got committed --
  * these are the only ones who we can write log items for, and whose
  * revision numbers will get set.  todo: eventually this hash will be
@@ -605,7 +605,7 @@ svn_error_t *svn_wc__atts_to_entry (svn_wc_entry_t **new_entry,
    in changes, and sync those changes to disk.  New values for the
    entry are pulled from their respective fields in ENTRY, and
    MODIFY_FLAGS is a bitmask to specify which of those field to pay
-   attention to.
+   attention to.  
 
    - ENTRY->kind specifies the node kind for this entry, and is
      *required* to be set to one of the following valid values:
@@ -798,7 +798,7 @@ void svn_wc__strip_entry_prefix (svn_stringbuf_t *name);
 
 /* Newline and keyword translation properties */
 
-/* Valid states for 'svn:eol-style' property.
+/* Valid states for 'svn:eol-style' property.  
    Property nonexistence is equivalent to 'none'. */
 enum svn_wc__eol_style
 {
@@ -874,7 +874,7 @@ svn_error_t *svn_wc__get_keywords (svn_wc_keywords_t **keywords,
  * contain more information than humans want, for example
  *
  *   "Mon 28 Jan 2002 16:17:09.777994 (day 028, dst 0, gmt_off -21600)"
- *
+ *   
  * would be converted to
  *
  *   "Mon 28 Jan 2002 16:17:09"
@@ -883,7 +883,7 @@ svn_string_t *svn_wc__friendly_date (const char *date, apr_pool_t *pool);
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end:
