@@ -1,4 +1,4 @@
-/*
+/* 
    This file began as James Clark's simple demonstration of how to use
    the expat library.  :)
 */
