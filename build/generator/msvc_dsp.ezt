@@ -7,18 +7,18 @@
 CFG=[target.dsp_name] - [default_platform] [default_config]
 !MESSAGE This is not a valid makefile. To build this project using NMAKE,
 !MESSAGE use the Export Makefile command and run
-!MESSAGE
+!MESSAGE 
 !MESSAGE NMAKE /f "[target.dsp_name]_msvc.mak".
-!MESSAGE
+!MESSAGE 
 !MESSAGE You can specify a configuration when running NMAKE
 !MESSAGE by defining the macro CFG on the command line. For example:
-!MESSAGE
+!MESSAGE 
 !MESSAGE NMAKE /f "[target.dsp_name]_msvc.mak" CFG="[target.dsp_name] - [default_platform] [default_config]"
-!MESSAGE
+!MESSAGE 
 !MESSAGE Possible choices for configuration are:
-!MESSAGE
+!MESSAGE 
 [for platforms][for configs]!MESSAGE "[target.dsp_name] - [platforms] [configs.name]" (based on "[target_type]")
-[end][end]!MESSAGE
+[end][end]!MESSAGE 
 
 # Begin Project
 # PROP AllowPerConfigDependencies 0
@@ -48,7 +48,7 @@ BSC32=bscmake.exe
 LINK32=link.exe
 [if-any is_exe is_apache_mod]# ADD LINK32 /nologo [if-any is_exe]/subsystem:console[end] [is configs.name "Debug"]/debug[end] [if-any is_apache_mod]/dll[end] /machine:IX86[for libs] [libs][end][for configs.libdirs] /libpath:"[configs.libdirs]"[end] /out:"[rootpath]\[configs.name]\[target.path]\[target.name].[if-any is_exe]exe[else]so[end]"
 [end][end][end][end][end]
-!ENDIF
+!ENDIF 
 
 # Begin Target
 
