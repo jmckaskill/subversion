@@ -58,10 +58,10 @@ svn_client_status (apr_hash_t **statushash,
   /* Ask the wc to give us a list of svn_wc_status_t structures. */
   err = svn_wc_statuses (hash, path, descend, pool);
   if (err) return err;
-
+  
   /* Each status structure in the hash now has all fields filled in
    *except* the repos_rev field, which is SVN_INVALID_REVNUM.
-
+   
    Attempt to contact the repos and get the latest revnum. */
 
   /* Get a URL out of the working copy. */
@@ -105,7 +105,7 @@ svn_client_status (apr_hash_t **statushash,
               apr_hash_this (hi, &key, &klen, &val);
               status = (svn_wc_status_t *) val;
               status->repos_rev = latest_revnum;
-            }
+            } 
         }
     }
 

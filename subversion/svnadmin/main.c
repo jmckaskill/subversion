@@ -39,7 +39,7 @@ print_tree (svn_fs_root_t *root,
 {
   apr_hash_t *entries;
   apr_hash_index_t *hi;
-
+  
   SVN_ERR (svn_fs_dir_entries (&entries, root, path, pool));
 
   for (hi = apr_hash_first (pool, entries); hi; hi = apr_hash_next (hi))
@@ -64,7 +64,7 @@ print_tree (svn_fs_root_t *root,
         printf (" ");
 
       printf ("%s", this_entry->name);
-
+      
       SVN_ERR (svn_fs_node_id (&id, root, this_full_path, pool));
       id_str = svn_fs_unparse_id (id, pool);
 
@@ -212,7 +212,7 @@ main (int argc, const char * const *argv)
           if (err) goto error;
           if (! author)
             author = svn_stringbuf_create ("<none>", this_pool);
-
+          
           printf ("Txn %s:\n", txn_name);
           printf ("Author: %s\n", author->data);
           printf ("Created: %s\n", datestamp->data);
@@ -261,7 +261,7 @@ main (int argc, const char * const *argv)
                                     strlen(SVN_PROP_REVISION_DATE)};
           svn_string_t auth_prop = {SVN_PROP_REVISION_AUTHOR,
                                     strlen(SVN_PROP_REVISION_AUTHOR)};
-
+           
           err = svn_fs_revision_root (&this_root, fs, this, this_pool);
           if (err) goto error;
 
@@ -301,7 +301,7 @@ main (int argc, const char * const *argv)
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
