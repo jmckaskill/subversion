@@ -44,7 +44,7 @@ AC_DEFUN(SVN_LIB_BERKELEY_DB,
   dnl      P/include and libraries in P/lib, or
   dnl    - a string of the form `HEADER:LIB', indicating that we should look
   dnl      for headers in HEADER and libraries in LIB.
-  dnl
+  dnl 
   dnl  You'll notice that the value of the `--with-berkeley-db' switch is a
   dnl  place spec.
 
@@ -98,7 +98,7 @@ AC_DEFUN(SVN_LIB_BERKELEY_DB,
     SVN_DB_INCLUDES="-I$dbdir"
     svn_lib_berkeley_db=yes
     if test "$enable_shared" = "yes"; then
-        # Once we upgrade to libtool 1.4 we should change this to
+        # Once we upgrade to libtool 1.4 we should change this to 
         # "$dbdir/libdb-3.3.la"
         SVN_DB_LIBS="-L$dbdir/.libs -ldb-3.3"
     else
