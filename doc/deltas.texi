@@ -25,10 +25,10 @@ The term @dfn{delta} without qualification generally means a tree delta,
 unless some other meaning is clear from context.
 
 @menu
-* Text Deltas::
-* Property Deltas::
-* Tree Deltas::
-* Postfix Text Deltas::
+* Text Deltas::                 
+* Property Deltas::             
+* Tree Deltas::                 
+* Postfix Text Deltas::                     
 * The "Editor" Interface::
 @end menu
 
@@ -291,7 +291,7 @@ Suppose we have the following source tree:
       dir3/file5
            file6
 @end example
-
+  
 If we edit the contents of @file{/dir1/file1}, we can describe the
 effect on the tree with the following tree delta, to be applied to the
 root:
@@ -549,7 +549,7 @@ simplified.  For exact interface details, see
 
 @enumerate
 
-@item
+@item 
 The repository hands an "editor" to the client.
 
 @item
@@ -582,7 +582,7 @@ directory whose ancestor is @file{/dir1/dir3}.
 
 Edits are now made to @file{dir2} (using @emph{dir2_baton}).  In
 particular, a new file is added to this directory whose ancestor is
-@file{/dir1/dir2/file3}.
+@file{/dir1/dir2/file3}. 
 
 @item
   Now the text-delta associated with @emph{file_baton} needs to be
