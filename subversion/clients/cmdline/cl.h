@@ -113,7 +113,7 @@ svn_cl__cmd_proc_t
   svn_cl__update;
 
 
-/* make the command table information available to all commands */
+/* make the command table information available to all commands */ 
 extern const svn_cl__cmd_desc_t svn_cl__cmd_table[];
 
 const svn_cl__cmd_desc_t *
@@ -190,9 +190,9 @@ void svn_cl__init_feedback_vtable (apr_pool_t *top_pool);
 
 #endif /* SVN_CL_H */
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
- * end:
+ * end: 
  */
 
