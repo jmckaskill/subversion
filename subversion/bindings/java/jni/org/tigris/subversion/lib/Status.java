@@ -17,7 +17,7 @@ package org.tigris.subversion.lib;
  *
  */
 
-public class Status
+public class Status 
 {
     public final Entry entry;
     public final Revision repos_rev;
@@ -44,7 +44,7 @@ public class Status
 	}
     public Status(Entry entry, int repos_rev,
 		  int text_status, int prop_status,
-		  boolean locked,
+		  boolean locked, 
 		  int repos_text_status,
 		  int repos_prop_status)
 	{
@@ -57,10 +57,10 @@ public class Status
 	}
 }
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../../../../../svn-dev.el")
- * end:
+ * end: 
  */
 
 
