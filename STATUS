@@ -92,7 +92,7 @@ section for approved changes.)
       Justification: Tiny change, avoid unnecessary interface guarantees.
       Votes:
        +1: kfogel, ghudson, epg
-
+      
 
 Core changes that already have three +1 votes and no vetos.  (If you
 veto something below, or remove a threshold vote, please move it to
@@ -137,7 +137,7 @@ Bindings changes that affect the build system:
                     to support.
      Votes:
       +1: breser
-
+     
 Bindings changes that don't affect the build system:
 
    [none pending right now]
