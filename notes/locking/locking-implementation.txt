@@ -20,7 +20,7 @@ II. Client Implementation
       1. Lock Tokens
 
       2. New client subcommands
-
+          
          a. Creating a lock
 
          b. Using a lock
@@ -28,7 +28,7 @@ II. Client Implementation
             1. Using a lock to Commit
 
             2. Releasing a lock
-
+ 
          c. Breaking a lock
 
          d. Stealing a lock
@@ -52,7 +52,7 @@ III. Server Implementation
    B. Tracking locks
 
       1. Define a lock-token:
-
+ 
             UUID
             owner
             creation-date
