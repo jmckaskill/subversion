@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding = "Windows-1252"?>
+<?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="7.00"
-	Name="apriconv"
+	Name="libapriconv"
 	SccProjectName=""
 	SccLocalPath="">
 	<Platforms>
@@ -12,21 +12,21 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory=".\LibD"
-			IntermediateDirectory=".\LibD"
-			ConfigurationType="4"
+			OutputDirectory=".\Debug"
+			IntermediateDirectory=".\Debug"
+			ConfigurationType="2"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="FALSE">
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
 				AdditionalIncludeDirectories="./include,../apr/include"
-				PreprocessorDefinitions="_DEBUG;APR_DECLARE_STATIC;API_DECLARE_STATIC;WIN32;_WINDOWS"
+				PreprocessorDefinitions="_DEBUG;API_DECLARE_EXPORT;WIN32;_WINDOWS"
 				RuntimeLibrary="3"
-				PrecompiledHeaderFile=".\LibD/apriconv.pch"
-				AssemblerListingLocation=".\LibD/"
-				ObjectFile=".\LibD/"
-				ProgramDataBaseFileName="LibD\apriconv_src"
+				PrecompiledHeaderFile=".\Debug/libapriconv.pch"
+				AssemblerListingLocation=".\Debug/"
+				ObjectFile=".\Debug/"
+				ProgramDataBaseFileName="Debug\libapriconv_src"
 				WarningLevel="3"
 				SuppressStartupBanner="TRUE"
 				DebugInformationFormat="3"
@@ -34,11 +34,24 @@
 			<Tool
 				Name="VCCustomBuildTool"/>
 			<Tool
-				Name="VCLibrarianTool"
-				OutputFile=".\LibD\apriconv.lib"
-				SuppressStartupBanner="TRUE"/>
+				Name="VCLinkerTool"
+				OutputFile=".\Debug/libapriconv.dll"
+				LinkIncremental="1"
+				SuppressStartupBanner="TRUE"
+				GenerateDebugInformation="TRUE"
+				ProgramDatabaseFile=".\Debug/libapriconv.pdb"
+				SubSystem="2"
+				BaseAddress="0x6EE50000"
+				ImportLibrary=".\Debug/libapriconv.lib"
+				TargetMachine="1"/>
 			<Tool
-				Name="VCMIDLTool"/>
+				Name="VCMIDLTool"
+				PreprocessorDefinitions="_DEBUG"
+				MkTypLibCompatible="TRUE"
+				SuppressStartupBanner="TRUE"
+				TargetEnvironment="1"
+				TypeLibraryName=".\Debug/libapriconv.tlb"
+				HeaderFileName=""/>
 			<Tool
 				Name="VCPostBuildEventTool"/>
 			<Tool
@@ -47,15 +60,16 @@
 				Name="VCPreLinkEventTool"/>
 			<Tool
 				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="_DEBUG"
 				Culture="1033"/>
 			<Tool
 				Name="VCWebServiceProxyGeneratorTool"/>
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory=".\LibR"
-			IntermediateDirectory=".\LibR"
-			ConfigurationType="4"
+			OutputDirectory=".\Release"
+			IntermediateDirectory=".\Release"
+			ConfigurationType="2"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="FALSE">
 			<Tool
@@ -63,14 +77,14 @@
 				Optimization="2"
 				InlineFunctionExpansion="1"
 				AdditionalIncludeDirectories="./include,../apr/include"
-				PreprocessorDefinitions="NDEBUG;APR_DECLARE_STATIC;API_DECLARE_STATIC;WIN32;_WINDOWS"
+				PreprocessorDefinitions="NDEBUG;API_DECLARE_EXPORT;WIN32;_WINDOWS"
 				StringPooling="TRUE"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="TRUE"
-				PrecompiledHeaderFile=".\LibR/apriconv.pch"
-				AssemblerListingLocation=".\LibR/"
-				ObjectFile=".\LibR/"
-				ProgramDataBaseFileName="LibR\apriconv_src"
+				PrecompiledHeaderFile=".\Release/libapriconv.pch"
+				AssemblerListingLocation=".\Release/"
+				ObjectFile=".\Release/"
+				ProgramDataBaseFileName="Release\libapriconv_src"
 				WarningLevel="3"
 				SuppressStartupBanner="TRUE"
 				DebugInformationFormat="3"
@@ -78,11 +92,25 @@
 			<Tool
 				Name="VCCustomBuildTool"/>
 			<Tool
-				Name="VCLibrarianTool"
-				OutputFile=".\LibR\apriconv.lib"
-				SuppressStartupBanner="TRUE"/>
+				Name="VCLinkerTool"
+				OutputFile=".\Release/libapriconv.dll"
+				LinkIncremental="1"
+				SuppressStartupBanner="TRUE"
+				GenerateDebugInformation="TRUE"
+				ProgramDatabaseFile=".\Release/libapriconv.pdb"
+				SubSystem="2"
+				OptimizeReferences="2"
+				BaseAddress="0x6EE50000"
+				ImportLibrary=".\Release/libapriconv.lib"
+				TargetMachine="1"/>
 			<Tool
-				Name="VCMIDLTool"/>
+				Name="VCMIDLTool"
+				PreprocessorDefinitions="NDEBUG"
+				MkTypLibCompatible="TRUE"
+				SuppressStartupBanner="TRUE"
+				TargetEnvironment="1"
+				TypeLibraryName=".\Release/libapriconv.tlb"
+				HeaderFileName=""/>
 			<Tool
 				Name="VCPostBuildEventTool"/>
 			<Tool
@@ -91,6 +119,7 @@
 				Name="VCPreLinkEventTool"/>
 			<Tool
 				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="NDEBUG"
 				Culture="1033"/>
 			<Tool
 				Name="VCWebServiceProxyGeneratorTool"/>
@@ -113,7 +142,7 @@
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							AdditionalIncludeDirectories=""
-							PreprocessorDefinitions=""/>
+							PreprocessorDefinitions="_DEBUG;API_DECLARE_EXPORT;WIN32;_WINDOWS;$(NoInherit)"/>
 					</FileConfiguration>
 					<FileConfiguration
 						Name="Release|Win32">
@@ -121,7 +150,7 @@
 							Name="VCCLCompilerTool"
 							Optimization="2"
 							AdditionalIncludeDirectories=""
-							PreprocessorDefinitions=""/>
+							PreprocessorDefinitions="NDEBUG;API_DECLARE_EXPORT;WIN32;_WINDOWS;$(NoInherit)"/>
 					</FileConfiguration>
 				</File>
 				<File
@@ -132,7 +161,7 @@
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							AdditionalIncludeDirectories=""
-							PreprocessorDefinitions=""/>
+							PreprocessorDefinitions="_DEBUG;API_DECLARE_EXPORT;WIN32;_WINDOWS;$(NoInherit)"/>
 					</FileConfiguration>
 					<FileConfiguration
 						Name="Release|Win32">
@@ -140,7 +169,7 @@
 							Name="VCCLCompilerTool"
 							Optimization="2"
 							AdditionalIncludeDirectories=""
-							PreprocessorDefinitions=""/>
+							PreprocessorDefinitions="NDEBUG;API_DECLARE_EXPORT;WIN32;_WINDOWS;$(NoInherit)"/>
 					</FileConfiguration>
 				</File>
 				<File
@@ -151,7 +180,7 @@
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							AdditionalIncludeDirectories=""
-							PreprocessorDefinitions=""/>
+							PreprocessorDefinitions="_DEBUG;API_DECLARE_EXPORT;WIN32;_WINDOWS;$(NoInherit)"/>
 					</FileConfiguration>
 					<FileConfiguration
 						Name="Release|Win32">
@@ -159,7 +188,7 @@
 							Name="VCCLCompilerTool"
 							Optimization="2"
 							AdditionalIncludeDirectories=""
-							PreprocessorDefinitions=""/>
+							PreprocessorDefinitions="NDEBUG;API_DECLARE_EXPORT;WIN32;_WINDOWS;$(NoInherit)"/>
 					</FileConfiguration>
 				</File>
 				<File
@@ -170,7 +199,7 @@
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							AdditionalIncludeDirectories=""
-							PreprocessorDefinitions=""/>
+							PreprocessorDefinitions="_DEBUG;API_DECLARE_EXPORT;WIN32;_WINDOWS;$(NoInherit)"/>
 					</FileConfiguration>
 					<FileConfiguration
 						Name="Release|Win32">
@@ -178,7 +207,7 @@
 							Name="VCCLCompilerTool"
 							Optimization="2"
 							AdditionalIncludeDirectories=""
-							PreprocessorDefinitions=""/>
+							PreprocessorDefinitions="NDEBUG;API_DECLARE_EXPORT;WIN32;_WINDOWS;$(NoInherit)"/>
 					</FileConfiguration>
 				</File>
 				<File
@@ -189,7 +218,7 @@
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							AdditionalIncludeDirectories=""
-							PreprocessorDefinitions=""/>
+							PreprocessorDefinitions="_DEBUG;API_DECLARE_EXPORT;WIN32;_WINDOWS;$(NoInherit)"/>
 					</FileConfiguration>
 					<FileConfiguration
 						Name="Release|Win32">
@@ -197,7 +226,7 @@
 							Name="VCCLCompilerTool"
 							Optimization="2"
 							AdditionalIncludeDirectories=""
-							PreprocessorDefinitions=""/>
+							PreprocessorDefinitions="NDEBUG;API_DECLARE_EXPORT;WIN32;_WINDOWS;$(NoInherit)"/>
 					</FileConfiguration>
 				</File>
 				<File
@@ -208,7 +237,7 @@
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							AdditionalIncludeDirectories=""
-							PreprocessorDefinitions=""/>
+							PreprocessorDefinitions="_DEBUG;API_DECLARE_EXPORT;WIN32;_WINDOWS;$(NoInherit)"/>
 					</FileConfiguration>
 					<FileConfiguration
 						Name="Release|Win32">
@@ -216,7 +245,7 @@
 							Name="VCCLCompilerTool"
 							Optimization="2"
 							AdditionalIncludeDirectories=""
-							PreprocessorDefinitions=""/>
+							PreprocessorDefinitions="NDEBUG;API_DECLARE_EXPORT;WIN32;_WINDOWS;$(NoInherit)"/>
 					</FileConfiguration>
 				</File>
 				<File
@@ -227,7 +256,7 @@
 							Name="VCCLCompilerTool"
 							Optimization="0"
 							AdditionalIncludeDirectories=""
-							PreprocessorDefinitions=""/>
+							PreprocessorDefinitions="_DEBUG;API_DECLARE_EXPORT;WIN32;_WINDOWS;$(NoInherit)"/>
 					</FileConfiguration>
 					<FileConfiguration
 						Name="Release|Win32">
@@ -235,7 +264,7 @@
 							Name="VCCLCompilerTool"
 							Optimization="2"
 							AdditionalIncludeDirectories=""
-							PreprocessorDefinitions=""/>
+							PreprocessorDefinitions="NDEBUG;API_DECLARE_EXPORT;WIN32;_WINDOWS;$(NoInherit)"/>
 					</FileConfiguration>
 				</File>
 			</Filter>
@@ -253,6 +282,30 @@
 				RelativePath="lib\iconv.h">
 			</File>
 		</Filter>
+		<File
+			RelativePath="libapriconv.rc">
+		</File>
+		<File
+			RelativePath="..\apr\build\win32ver.awk">
+			<FileConfiguration
+				Name="Debug|Win32">
+				<Tool
+					Name="VCCustomBuildTool"
+					Description="Creating Version Resource"
+					CommandLine="awk -f ../apr/build/win32ver.awk libapriconv.dll &quot;Apache APR I18N Conversion Library&quot;  ../../include/ap_release.h &gt; .\libapriconv.rc
+"
+					Outputs=".\libapriconv.rc"/>
+			</FileConfiguration>
+			<FileConfiguration
+				Name="Release|Win32">
+				<Tool
+					Name="VCCustomBuildTool"
+					Description="Creating Version Resource"
+					CommandLine="awk -f ../apr/build/win32ver.awk libapriconv.dll &quot;Apache APR I18N Conversion Library&quot;  ../../include/ap_release.h &gt; .\libapriconv.rc
+"
+					Outputs=".\libapriconv.rc"/>
+			</FileConfiguration>
+		</File>
 	</Files>
 	<Globals>
 	</Globals>
