@@ -85,7 +85,7 @@ int svn_fs__key_compare (const char *a, const char *b);
 #endif /* SVN_LIBSVN_FS_KEY_GEN_H */
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end:
