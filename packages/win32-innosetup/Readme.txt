@@ -23,7 +23,7 @@ Introduction
   Subversion repository and tells you how you can roll out your own Windows
   installer for Subversion.
   This instructions are for anyone who wants to roll out a Windows installer
-  for Subversion.
+  for Subversion.  
 
   If you have trouble, make sure that you use the packages versions that are
   noted here (if noted) before asking for help.
@@ -89,7 +89,7 @@ Directory structure
              the repository). All the paths here are determined by the file
              svn_dynamics.iss which is variables that is processed by Inno
              Setup Pre Processor (ISPP) during the compiling of the setup.
-             A template of this file can be found in the
+             A template of this file can be found in the 
              packages\win32-innosetup\templates directory. Copy this file to
              the packages\win32-innosetup directory and edit it according to
              the documentation inside it. This file is not under version
@@ -97,13 +97,13 @@ Directory structure
              to user.
 
   Visible folders looks like this: [ ] and hidden folders like this: [h].
-
+  
   Do you think that is looks complicated? -Dont worry! The programs in the
-  tools folder takes care of copying and preparing files when your
+  tools folder takes care of copying and preparing files when your 
   svn_dynamics.iss file are edited and set correctly.
 
   Static paths (in the Subversion repository):
-  -------------
+  -------------  
   [ ] win32-innosetup                     (svn.iss, main folder for Inno Setup)
    +->[ ] images                             (Various images used by the setup)
    +->[h] in    (you can set your path_setup_in here if you want to, see below)
@@ -117,7 +117,7 @@ Directory structure
 
   This paths are determined by values in the file svn_dynamics.iss. The value
   names of this path variables is:
-
+  
   Path variables:     Setup files:
   ---------------     ---------------------------------------------------------
   path_setup_out      Where svn-X.XX.X-rXXXX-setup.exe is to find after
@@ -178,27 +178,27 @@ Programs used for the Subversion Windows installer
   Subversion path after installing/un-installing Subversion.
   You can find the sources for this program in the Subversion source tree under
   packages\win32-innosetup\tools\svnpath
-
+  
   Have a look in the file main.c for info on how to compile the program.
-
+ 
   libxml, libxslt and iconv
   -------------------------
   We need to include some documentation and this tools will help us to convert
   the XML files in the doc directory in the repository to a Windows HTML help
   file.
-
+  
   Installation notes:
     Unpack the zip-files and place the contents of the 'lib' and 'util' folders
     from each unzipped packages in a folder which is mentioned in your PATH
     environment variable.
-
+    
   docbook-xsl
   -----------
   This package is needed for making documentation.
-
+  
   Unzip the files inside docbook-xsl-*.**.*.zip to a folder named xsl which
   resides under doc\book\tools in your working copy of the subversion
-  repository. The result should be like this:
+  repository. The result should be like this: 
     doc\book\tools\xsl
 
   Perl
@@ -273,45 +273,45 @@ svn-x.xx.x-setup.exe's command line options
     window is not displayed. Everything else is normal so for example error
     messages during installation are displayed and the startup prompt is (if
     you haven't disabled it with DisableStartupPrompt or the '/SP-' command
-    line option explained above)
+    line option explained above) 
 
     If a restart is necessary and the '/NORESTART' command isn't used (see
     below) and Setup is silent, it will display a Reboot now? message box. If
-    it's very silent it will reboot without asking.
+    it's very silent it will reboot without asking. 
 
-  /NOCANCEL
+  /NOCANCEL 
     Prevents the user from cancelling during the installation process, by
     disabling the Cancel button and ignoring clicks on the close button. Useful
-    along with /SILENT.
+    along with /SILENT. 
 
-  /NORESTART
-    Instructs Setup not to reboot even if it's necessary.
+  /NORESTART 
+    Instructs Setup not to reboot even if it's necessary. 
 
-  /LOADINF="filename"
+  /LOADINF="filename" 
     Instructs Setup to load the settings from the specified file after having
     checked the command line. This file can be prepared using the '/SAVEINF='
-    command as explained below.
+    command as explained below. 
 
-    Don't forget to use quotes if the filename contains spaces.
+    Don't forget to use quotes if the filename contains spaces. 
 
-  /SAVEINF="filename"
-    Instructs Setup to save installation settings to the specified file.
+  /SAVEINF="filename" 
+    Instructs Setup to save installation settings to the specified file. 
 
-	  Don't forget to use quotes if the filename contains spaces.
+	  Don't forget to use quotes if the filename contains spaces. 
 
-  /DIR="x:\dirname"
+  /DIR="x:\dirname" 
     Overrides the default directory name displayed on the Select Destination
-    Location wizard page. A fully qualified pathname must be specified.
+    Location wizard page. A fully qualified pathname must be specified. 
 
-   /GROUP="folder name"
+   /GROUP="folder name" 
     Overrides the default folder name displayed on the Select Start Menu Folder
     wizard page. If the [Setup] section directive DisableProgramGroupPage was
-    set to yes, this command line parameter is ignored.
+    set to yes, this command line parameter is ignored. 
 
-  /NOICONS
+  /NOICONS 
     Instructs Setup to initially check the Don't create any icons check box on
-    the Select Start Menu Folder wizard page.
+    the Select Start Menu Folder wizard page. 
 
-  /COMPONENTS="comma separated list of component names"
+  /COMPONENTS="comma separated list of component names" 
     Overrides the default components settings. Using this command line
     parameter causes Setup to automatically select a custom type.
