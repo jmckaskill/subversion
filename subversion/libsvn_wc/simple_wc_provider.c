@@ -33,7 +33,7 @@ typedef struct
   /* the wc directory we're attempting to read/write from */
   const char *base_dir;
   svn_wc_adm_access_t *base_access;
-
+  
 } simple_wc_provider_baton_t;
 
 
@@ -52,7 +52,7 @@ simple_wc_first_creds (void **credentials,
   err = svn_wc_get_auth_file (pb->base_dir, SVN_AUTH_SIMPLE_WC_USERNAME,
                               &susername, pool);
   err = svn_wc_get_auth_file (pb->base_dir, SVN_AUTH_SIMPLE_WC_PASSWORD,
-                              &spassword, pool);
+                              &spassword, pool);  
   if (err)
     {
       /* for now, let's not try to distinguish "real" errors from
@@ -79,7 +79,7 @@ simple_wc_save_creds (svn_boolean_t *saved,
                       void *provider_baton,
                       apr_pool_t *pool)
 {
-  svn_auth_cred_simple_t *creds
+  svn_auth_cred_simple_t *creds 
     = (svn_auth_cred_simple_t *) credentials;
   simple_wc_provider_baton_t *pb
     = (simple_wc_provider_baton_t *) provider_baton;
@@ -116,7 +116,7 @@ simple_wc_save_creds (svn_boolean_t *saved,
 
   /* Do a recursive store of username and password. */
   SVN_ERR (svn_wc_set_auth_file (adm_access, TRUE,
-                                 SVN_AUTH_SIMPLE_WC_USERNAME,
+                                 SVN_AUTH_SIMPLE_WC_USERNAME, 
                                  svn_stringbuf_create (creds->username, pool),
                                  pool));
   SVN_ERR (svn_wc_set_auth_file (adm_access, TRUE,
@@ -134,7 +134,7 @@ simple_wc_save_creds (svn_boolean_t *saved,
 
 
 /* The provider. */
-static const svn_auth_provider_t simple_wc_provider =
+static const svn_auth_provider_t simple_wc_provider = 
   {
     SVN_AUTH_CRED_SIMPLE,  /* username/passwd creds */
     simple_wc_first_creds,
