@@ -51,7 +51,7 @@ send_file_contents (svn_string_t *path,
       return svn_error_createf
         (apr_err, 0, NULL, pool, "error opening `%s' for reading", path->data);
     }
-
+  
   /* Get a readable stream of the file's contents. */
   contents = svn_stream_from_aprfile (f, pool);
 
@@ -63,7 +63,7 @@ send_file_contents (svn_string_t *path,
   SVN_ERR (editor->apply_textdelta (file_baton, &handler, &handler_baton));
 
   /* Pull windows from the delta stream and feed to the consumer. */
-  do
+  do 
     {
       SVN_ERR (svn_txdelta_next_window (&window, delta_stream));
       SVN_ERR ((*handler) (window, handler_baton));
@@ -95,16 +95,16 @@ import_file (const svn_delta_edit_fns_t *editor,
              apr_pool_t *pool)
 {
   void *file_baton;
-
+  
   SVN_ERR (editor->add_file (name, dir_baton,
-                             NULL, SVN_INVALID_REVNUM,
-                             &file_baton));
+                             NULL, SVN_INVALID_REVNUM, 
+                             &file_baton));          
   SVN_ERR (send_file_contents (path, file_baton, editor, pool));
   SVN_ERR (editor->close_file (file_baton));
 
   return SVN_NO_ERROR;
 }
-
+             
 
 /* Import directory PATH into the repository directory indicated by
  * DIR_BATON in EDITOR.  Don't call EDITOR->close_directory(DIR_BATON),
@@ -113,7 +113,7 @@ import_file (const svn_delta_edit_fns_t *editor,
  * Use POOL for any temporary allocation.
  */
 static svn_error_t *
-import_dir (const svn_delta_edit_fns_t *editor,
+import_dir (const svn_delta_edit_fns_t *editor, 
             void *dir_baton,
             svn_string_t *path,
             apr_pool_t *pool)
@@ -138,7 +138,7 @@ import_dir (const svn_delta_edit_fns_t *editor,
           svn_string_t *name = svn_string_create (this_entry.name, subpool);
           void *this_dir_baton;
 
-          /* Skip entries for this dir and its parent.
+          /* Skip entries for this dir and its parent.  
              ### kff todo: APR actually promises that they'll come
              first, so this guard could be moved outside the loop. */
           if ((strcmp (this_entry.name, ".") == 0)
@@ -159,7 +159,7 @@ import_dir (const svn_delta_edit_fns_t *editor,
           SVN_ERR (editor->add_directory (name,
                                           dir_baton,
                                           NULL,
-                                          SVN_INVALID_REVNUM,
+                                          SVN_INVALID_REVNUM, 
                                           &this_dir_baton));
 
           /* Recurse. */
@@ -193,7 +193,7 @@ import_dir (const svn_delta_edit_fns_t *editor,
         return svn_error_createf
           (apr_err, 0, NULL, subpool, "error closing dir `%s'", path->data);
     }
-
+      
   apr_pool_destroy (subpool);
   return SVN_NO_ERROR;
 }
@@ -202,7 +202,7 @@ import_dir (const svn_delta_edit_fns_t *editor,
 
 /*** Public interfaces. ***/
 
-/*
+/* 
  * Note: the repository directory receiving the import was specified
  * when the editor was fetched.  (I.e, when EDITOR->replace_root() is
  * called, it returns a directory baton for that directory, which is
@@ -284,7 +284,7 @@ svn_wc_import (svn_string_t *path,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
