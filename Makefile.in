@@ -178,7 +178,7 @@ doc-ps: doc/programmer/design/svn-design.ps doc/user/manual/svn-manual.ps
 doc-pdf: doc/programmer/design/svn-design.pdf doc/user/manual/svn-manual.pdf
 
 ### Build a tarball.
-dist:
+dist: 
 	./dist.sh
 
 
@@ -200,7 +200,7 @@ dist:
 
 .texi.info:
 	rm -f $@ $@-[0-9] $@-[0-9][0-9]
-	$(MAKEINFO) -I `dirname $(top_srcdir)/$<` -o $@ $<
+	$(MAKEINFO) -I `dirname $(top_srcdir)/$<` -o $@ $< 
 
 .texi.dvi:
 	$(TEXI2DVI) -I `dirname $(top_srcdir)/$<` $<
