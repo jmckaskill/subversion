@@ -61,7 +61,7 @@ typedef struct
 typedef struct
 {
   apr_array_header_t *providers; /* (ordered) array of provider_t */
-
+  
 } provider_set_t;
 
 
@@ -85,7 +85,7 @@ struct svn_auth_iterstate_t
 
 
 
-svn_error_t *
+svn_error_t * 
 svn_auth_open (svn_auth_baton_t **auth_baton,
                apr_pool_t *pool)
 {
@@ -118,15 +118,15 @@ svn_auth_register_provider (svn_auth_baton_t *auth_baton,
      creates the difficulty with manual ordering. Thus, the order
      should probably stay, but implemented right away? *shrug*
      Note that ARRAY->elts could be passed to qsort().  */
-
+  
   provider_t *provider;
   provider_set_t *table;
-
+  
   /* Create the provider */
   provider = apr_pcalloc (auth_baton->pool, sizeof(*provider));
   provider->vtable = vtable;
   provider->provider_baton = provider_baton;
-
+  
   /* Add it to the appropriate table in the auth_baton */
   table = apr_hash_get (auth_baton->tables,
                         vtable->cred_kind, APR_HASH_KEY_STRING);
@@ -137,13 +137,13 @@ svn_auth_register_provider (svn_auth_baton_t *auth_baton,
                                          sizeof (provider_t *));
       apr_hash_set (auth_baton->tables, vtable->cred_kind, APR_HASH_KEY_STRING,
                     table);
-    }
+    }  
 
   if (prepend)
     *(provider_t **)apr_array_prepend (table->providers) = provider;
   else
     *(provider_t **)apr_array_push (table->providers) = provider;
-
+  
   /* ### hmmm, we never used the passed in pool.  maybe we don't need it? */
 }
 
@@ -173,7 +173,7 @@ svn_auth_first_credentials (void **credentials,
   for (i = 0; i < table->providers->nelts; i++)
     {
       provider = APR_ARRAY_IDX(table->providers, i, provider_t *);
-      SVN_ERR (provider->vtable->first_credentials
+      SVN_ERR (provider->vtable->first_credentials 
                (&creds, &iter_baton, provider->provider_baton, pool));
 
       if (creds != NULL)
@@ -219,7 +219,7 @@ svn_auth_next_credentials (void **credentials,
                                provider_t *);
       if (! state->got_first)
         {
-          SVN_ERR (provider->vtable->first_credentials
+          SVN_ERR (provider->vtable->first_credentials 
                    (&creds, &(state->provider_iter_baton),
                     provider->provider_baton, pool));
           state->got_first = TRUE;
@@ -227,7 +227,7 @@ svn_auth_next_credentials (void **credentials,
       else
         {
           if (provider->vtable->next_credentials)
-            SVN_ERR (provider->vtable->next_credentials
+            SVN_ERR (provider->vtable->next_credentials 
                      (&creds, state->provider_iter_baton, pool));
         }
 
@@ -256,17 +256,17 @@ svn_auth_save_credentials (svn_auth_iterstate_t *state,
 
 
   /* Save the credentials using the provider that provided them. */
-  provider = APR_ARRAY_IDX (state->table->providers,
-                            state->provider_idx,
+  provider = APR_ARRAY_IDX (state->table->providers, 
+                            state->provider_idx, 
                             provider_t *);
   if (provider->vtable->save_credentials)
-    SVN_ERR (provider->vtable->save_credentials (&save_succeeded,
+    SVN_ERR (provider->vtable->save_credentials (&save_succeeded, 
                                                  state->last_creds,
-                                                 provider->provider_baton,
+                                                 provider->provider_baton, 
                                                  pool));
 
   /* If provider failed to save, throw an error. */
-  if (! save_succeeded)
+  if (! save_succeeded)                  
     return svn_error_create (SVN_ERR_AUTH_CREDS_NOT_SAVED, NULL,
                              "Provider failed to save credentials.");
 
