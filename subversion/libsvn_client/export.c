@@ -62,7 +62,7 @@ svn_client__remove_admin_dirs (const char *dir,
         SVN_ERR (ctx->cancel_func (ctx->cancel_baton));
 
       /* ### We could also invoke ctx->notify_func somewhere in
-         ### here... Is it called for, though?  Not sure. */
+         ### here... Is it called for, though?  Not sure. */ 
 
       if (*type == svn_node_dir)
         {
@@ -75,7 +75,7 @@ svn_client__remove_admin_dirs (const char *dir,
           else
             {
               SVN_ERR (svn_client__remove_admin_dirs (dir_path, ctx, subpool));
-            }
+            } 
         }
 
       svn_pool_clear (subpool);
@@ -133,7 +133,7 @@ copy_versioned_files (const char *from,
             SVN_ERR (ctx->cancel_func (ctx->cancel_baton));
 
           /* ### We could also invoke ctx->notify_func somewhere in
-             ### here... Is it called for, though?  Not sure. */
+             ### here... Is it called for, though?  Not sure. */ 
 
           if (*type == svn_node_dir)
             {
