@@ -300,7 +300,6 @@ svn_txdelta_next_window (svn_txdelta_window_t **window,
   svn_error_t *err;
   apr_size_t source_len = SVN_STREAM_CHUNK_SIZE;
   apr_size_t target_len = SVN_STREAM_CHUNK_SIZE;
-  svn_txdelta__ops_baton_t build_baton = { 0 };
 
   /* Read the source stream. */
   err = svn_stream_read (stream->source, stream->buf, &source_len);
@@ -332,17 +331,8 @@ svn_txdelta_next_window (svn_txdelta_window_t **window,
                       target_len);
     }
 
-  /* Compute the delta operations. */
-  build_baton.new_data = svn_stringbuf_create ("", pool);
-  svn_txdelta__vdelta (&build_baton, stream->buf,
-                       source_len, target_len,
-                       pool);
-
-  /* Create the delta window. */
-  *window = svn_txdelta__make_window (&build_baton, pool);
-  (*window)->sview_offset = stream->pos - source_len;
-  (*window)->sview_len = source_len;
-  (*window)->tview_len = target_len;
+  *window = compute_window(stream->buf, source_len, target_len,
+                           stream->pos - source_len, pool);
 
   /* That's it. */
   return SVN_NO_ERROR;
