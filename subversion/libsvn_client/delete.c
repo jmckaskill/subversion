@@ -33,7 +33,7 @@
 
 svn_error_t *
 svn_client_delete (svn_stringbuf_t *path,
-                   svn_boolean_t force,
+                   svn_boolean_t force, 
                    apr_pool_t *pool)
 {
   svn_error_t *err;
@@ -74,7 +74,7 @@ svn_client_undelete (svn_stringbuf_t *path,
 }
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end: */
