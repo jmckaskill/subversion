@@ -126,7 +126,7 @@ allocate_txn_id (char **id_p,
     SVN_ERR (DB_WRAP (fs, "allocating new transaction ID (setting `next-id')",
 		      fs->transactions->put (fs->transactions, trail->db_txn,
 					     &key,
-					     svn_fs__set_dbt (&value,
+					     svn_fs__set_dbt (&value, 
 							      buf, buf_len),
 					     0)));
   }
