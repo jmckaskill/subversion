@@ -74,7 +74,7 @@ svn_cl__info (apr_getopt_t *os,
       else
         {
           /* note: we have to be paranoid about checking that these are valid,
-             since svn_wc_entry() doesn't fill them in if they aren't in the
+             since svn_wc_entry() doesn't fill them in if they aren't in the 
              entries file. */
 
           if (entry->name)
@@ -171,8 +171,8 @@ svn_cl__info (apr_getopt_t *os,
 }
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../tools/dev/svn-dev.el")
- * end:
+ * end: 
  */
