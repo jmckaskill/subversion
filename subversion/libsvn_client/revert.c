@@ -90,7 +90,7 @@ svn_client_revert (const char *path,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end: */
