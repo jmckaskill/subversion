@@ -3,7 +3,7 @@
 ###############################################################################
 # Tweak Subversion log messages
 # -----------------------------
-#
+# 
 # It sure would be nice to be able to change the log messages on
 # committed revisions of the Subversion repository via the web.  This
 # is a quick attempt at making that happen.
@@ -15,7 +15,7 @@
 # Upon submitting the form, it will come back with yet another form,
 # which will:
 #
-#   - Display the current log message as static text.
+#   - Display the current log message as static text.  
 #   - Present a textarea for editing, initialized with the current
 #     log message.
 #
@@ -105,7 +105,7 @@ sub doInitialForm
     my $youngest = `$gSvnadminCmd youngest $gReposPath`;
     my $rev;
     my $oldest;
-
+    
     print "<html>\n<head>\n<title>Tweak Log</title>\n</head>\n";
     print "<body>\n<form action=\"$gActionURL\" method=\"post\">\n";
     print "<a name=\"__top__\"></a>\n";
@@ -195,7 +195,7 @@ sub doFetchLog
     {
 	return;
     }
-
+    
     # Fetch the log for that revision.
     $log = `$gSvnlookCmd $gReposPath rev $rev log`;
 
@@ -252,7 +252,7 @@ sub doCommitLog
 	&doError ("Log message doesn't appear to have been edited.");
 	return;
     }
-
+    
     # Open a tempfile
     if (not (open( LOGFILE, "> $tempfile")))
     {
@@ -281,7 +281,7 @@ sub doCommitLog
 
     # Now, make the mods
     `$gSvnadminCmd setlog $gReposPath $rev $tempfile`;
-
+    
     # ...and remove the tempfile.  It is, after all, temporary.
     unlink $tempfile;
 
