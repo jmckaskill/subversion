@@ -125,7 +125,7 @@ svn_cmdline_init (const char *progname, FILE *error_stream)
     char native_file_name[_MAX_PATH];
     const char* internal_path;
     apr_pool_t* pool;
-
+    
     apr_pool_create (&pool, 0);
     /* get exe name - our locale info will be in '../share/locale' */
     GetModuleFileName (0, native_file_name, sizeof(native_file_name));
@@ -135,7 +135,7 @@ svn_cmdline_init (const char *progname, FILE *error_stream)
     /* back up one dir and append 'share/locale' */
     internal_path = svn_path_dirname (internal_path, pool);
     internal_path = svn_path_join (internal_path, "share/locale", pool);
-    bindtextdomain (PACKAGE_NAME, internal_path);
+    bindtextdomain (PACKAGE_NAME, internal_path);    
     apr_pool_destroy (pool);
   }
 #else
