@@ -90,7 +90,7 @@ static svn_error_t * log_receiver(void *baton,
         {
           void *val;
           char action;
-
+          
           apr_hash_this(hi, (void *) &path, NULL, &val);
           action = (char) ((int) val);
 
@@ -127,7 +127,7 @@ dav_error * dav_svn__log_report(const dav_resource *resource,
   apr_xml_elem *child;
   struct log_receiver_baton lrb;
   const dav_svn_repos *repos = resource->info->repos;
-  svn_stringbuf_t *target = NULL;
+  svn_stringbuf_t *target = NULL; 
   int ns;
 
   /* These get determined from the request document. */
@@ -148,7 +148,7 @@ dav_error * dav_svn__log_report(const dav_resource *resource,
                            "namespace, so it is not going to have certain "
                            "required elements.");
     }
-
+  
   /* ### todo: okay, now go fill in svn_ra_dav__get_log() based on the
      syntax implied below... */
   for (child = doc->root->first_child; child != NULL; child = child->next)
@@ -231,13 +231,13 @@ dav_error * dav_svn__log_report(const dav_resource *resource,
          ### even after the response stream has begun */
       return NULL;
     }
-
+  
   return NULL;
 }
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end:
