@@ -2,9 +2,9 @@
 #
 #  run_tests.py:  test suite for cvs2svn
 #
-#  Subversion is a tool for revision control.
+#  Subversion is a tool for revision control. 
 #  See http://subversion.tigris.org for more information.
-#
+#    
 # ====================================================================
 # Copyright (c) 2000-2003 CollabNet.  All rights reserved.
 #
@@ -93,7 +93,7 @@ class Log:
   def __init__(self, revision, author, date):
     self.revision = revision
     self.author = author
-
+    
     # Internally, we represent the date as seconds since epoch (UTC).
     # Since standard subversion log output shows dates in localtime
     #
@@ -182,7 +182,7 @@ def parse_log(svn_repos):
       print 'unexpected log output (missing log separator)'
       print "Line: '%s'" % line
       sys.exit(1)
-
+        
   return logs
 
 
@@ -226,11 +226,11 @@ def ensure_conversion(name):
     saved_wd = os.getcwd()
     try:
       os.chdir(tmp_dir)
-
+      
       # Clean up from any previous invocations of this script.
       erase(svnrepos)
       erase(wc)
-
+      
       run_cvs2svn('--create', '-s', svnrepos, cvsrepos)
       run_svn('co', repos_to_url(svnrepos), wc)
       log_dict = parse_log(svnrepos)
@@ -297,7 +297,7 @@ def prune_with_care():
   #   revision 3:  deletes trunk/cookie
   #   revision 4:  deletes trunk/  [re-deleting trunk/cookie pruned trunk!]
   #   revision 5:  does nothing
-  #
+  #   
   # After fixing cvs2svn, the sequence (correctly) looks like this:
   #
   #   revision 1:  adds trunk/, adds trunk/cookie
@@ -305,7 +305,7 @@ def prune_with_care():
   #   revision 3:  deletes trunk/cookie
   #   revision 4:  does nothing    [because trunk/cookie already deleted]
   #   revision 5:  deletes trunk/NEWS
-  #
+  # 
   # The difference is in 4 and 5.  It's not correct to prune trunk/,
   # because NEWS is still in there, so revision 4 does nothing.  But
   # when we delete NEWS in 5, that should bubble up and prune trunk/
