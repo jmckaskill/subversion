@@ -32,8 +32,8 @@
     instead of END. **/
 
 static void
-write_hash_to_stringbuf (apr_hash_t *hash,
-                         apr_size_t (*unpack_func)
+write_hash_to_stringbuf (apr_hash_t *hash, 
+                         apr_size_t (*unpack_func) 
                          (char **unpacked_data,
                           void *val),
                          svn_stringbuf_t **strbuf,
@@ -97,7 +97,7 @@ struct edit_baton
   const char *path;
 
   /* The stream to dump to. */
-  svn_stream_t *stream;
+  svn_stream_t *stream; 
 
   /* The fs revision root, so we can read the contents of paths. */
   svn_fs_root_t *fs_root;
@@ -155,14 +155,14 @@ make_dir_baton (const char *path,
   new_db->written_out = FALSE;
   new_db->deleted_entries = apr_hash_make (pool);
   new_db->pool = pool;
-
+  
   return new_db;
 }
 
 
 /* This helper is the main "meat" of the editor -- it does all the
    work of writing a node record.
-
+   
    Write out a node record for PATH of type KIND under FS_ROOT.
    ACTION describes what is happening to the node (see enum svn_node_action).
    Write record to writable STREAM, using BUFFER to write in chunks.
@@ -185,31 +185,31 @@ dump_node (svn_fs_root_t *fs_root,
   /* Write out metadata headers for this file node. */
   SVN_ERR (svn_stream_printf (stream, pool,
                               SVN_REPOS_DUMPFILE_NODE_PATH ": %s\n", path));
-
+  
   if (kind == svn_node_file)
     SVN_ERR (svn_stream_printf (stream, pool,
                                 SVN_REPOS_DUMPFILE_NODE_KIND ": file\n"));
   else if (kind == svn_node_dir)
     SVN_ERR (svn_stream_printf (stream, pool,
                                 SVN_REPOS_DUMPFILE_NODE_KIND ": dir\n"));
-
+  
   if (action == svn_node_action_change)
     {
       SVN_ERR (svn_stream_printf (stream, pool,
                                   SVN_REPOS_DUMPFILE_NODE_ACTION
-                                  ": change\n"));
+                                  ": change\n"));  
     }
   else if (action == svn_node_action_replace)
     {
       SVN_ERR (svn_stream_printf (stream, pool,
                                   SVN_REPOS_DUMPFILE_NODE_ACTION
-                                  ": replace\n"));
+                                  ": replace\n"));  
     }
   else if (action == svn_node_action_delete)
     {
       SVN_ERR (svn_stream_printf (stream, pool,
                                   SVN_REPOS_DUMPFILE_NODE_ACTION
-                                  ": delete\n\n"));
+                                  ": delete\n\n"));  
       /* Notice the extra \n above;  that's because this is the -last-
          header in the block.  (Normally, we have a double \n after the
          Content-length header.) */
@@ -236,26 +236,26 @@ dump_node (svn_fs_root_t *fs_root,
       if (copyfrom_path != NULL)
         {
           SVN_ERR (svn_stream_printf (stream, pool,
-                                      SVN_REPOS_DUMPFILE_NODE_COPYFROM_REV
+                                      SVN_REPOS_DUMPFILE_NODE_COPYFROM_REV 
                                       ": %" SVN_REVNUM_T_FMT "\n"
                                       SVN_REPOS_DUMPFILE_NODE_COPYFROM_PATH
-                                      ": %s\n",
+                                      ": %s\n",                  
                                       copyfrom_rev, copyfrom_path));
           /* ### someday write a node-copyfrom-source-checksum. */
         }
     }
-
+  
   /* The content-length is going to be a combination of the full
      proplist and full text of the file.  Let's make a prop-string to
      write out. */
 
   /* If the file has no props, then the prophash will be empty, and
-     the propstring will be nothing but "END".  */
+     the propstring will be nothing but "END".  */    
   SVN_ERR (svn_fs_node_proplist (&prophash, fs_root, path, pool));
-  write_hash_to_stringbuf (prophash, svn_unpack_bytestring,
+  write_hash_to_stringbuf (prophash, svn_unpack_bytestring, 
                            &propstring, pool);
   content_length += propstring->len;
-
+  
   /* Add the length of file's text, too. */
   if (kind == svn_node_file)
     {
@@ -267,13 +267,13 @@ dump_node (svn_fs_root_t *fs_root,
 
   /* This is the last header before we dump the content. */
   SVN_ERR (svn_stream_printf (stream, pool,
-                              SVN_REPOS_DUMPFILE_CONTENT_LENGTH
+                              SVN_REPOS_DUMPFILE_CONTENT_LENGTH 
                               ": %" APR_SIZE_T_FMT "\n\n", content_length));
 
   /* Dump property content. */
   len = propstring->len;
   SVN_ERR (svn_stream_write (stream, propstring->data, &len));
-
+  
   /* Dump text content */
   /*    (this stream "pull and push" code was stolen from
         libsvn_ra_local/ra_plugin.c:get_file().  */
@@ -281,15 +281,15 @@ dump_node (svn_fs_root_t *fs_root,
     {
       apr_size_t rlen, wlen;
       svn_stream_t *contents;
-
+          
       SVN_ERR (svn_fs_file_contents (&contents, fs_root, path, pool));
-
+      
       while (1)
         {
           /* read a maximum number of bytes from the file, please. */
-          rlen = bufsize;
+          rlen = bufsize; 
           SVN_ERR (svn_stream_read (contents, buffer, &rlen));
-
+          
           /* write however many bytes you read, please. */
           wlen = rlen;
           SVN_ERR (svn_stream_write (stream, buffer, &wlen));
@@ -298,12 +298,12 @@ dump_node (svn_fs_root_t *fs_root,
               /* Uh oh, didn't write as many bytes as we read, and no
                  error was returned.  According to the docstring, this
                  should never happen. */
-              return
+              return 
                 svn_error_createf (SVN_ERR_UNEXPECTED_EOF, 0, NULL, pool,
                                    "Error dumping textual contents of %s.",
                                    path);
             }
-
+        
         if (rlen != bufsize)
           {
             /* svn_stream_read didn't throw an error, yet it didn't read
@@ -313,17 +313,17 @@ dump_node (svn_fs_root_t *fs_root,
           }
         }
     }
-
+  
   len = 2;
   SVN_ERR (svn_stream_write (stream, "\n\n", &len)); /* ### needed? */
-
+  
   return SVN_NO_ERROR;
 }
 
 
 static svn_error_t *
-open_root (void *edit_baton,
-           svn_revnum_t base_revision,
+open_root (void *edit_baton, 
+           svn_revnum_t base_revision, 
            apr_pool_t *pool,
            void **root_baton)
 {
@@ -334,7 +334,7 @@ open_root (void *edit_baton,
 
 static svn_error_t *
 delete_entry (const char *path,
-              svn_revnum_t revision,
+              svn_revnum_t revision, 
               void *parent_baton,
               apr_pool_t *pool)
 {
@@ -364,7 +364,7 @@ add_directory (const char *path,
   /* This might be a replacement -- is the path already deleted? */
   val = apr_hash_get (pb->deleted_entries, path, APR_HASH_KEY_STRING);
 
-  SVN_ERR (dump_node (eb->fs_root, path,
+  SVN_ERR (dump_node (eb->fs_root, path, 
                       svn_node_dir,
                       val ? svn_node_action_replace : svn_node_action_add,
                       eb->stream, eb->buffer, eb->bufsize, pool));
@@ -372,7 +372,7 @@ add_directory (const char *path,
   if (val)
     /* delete the path, it's now been dumped. */
     apr_hash_set (pb->deleted_entries, path, APR_HASH_KEY_STRING, NULL);
-
+  
   new_db->written_out = TRUE;
 
   *child_baton = new_db;
@@ -404,7 +404,7 @@ close_directory (void *dir_baton)
   apr_hash_index_t *hi;
   apr_pool_t *pool = db->pool;
   apr_pool_t *subpool = svn_pool_create (pool);
-
+  
   for (hi = apr_hash_first (pool, db->deleted_entries);
        hi;
        hi = apr_hash_next (hi))
@@ -419,7 +419,7 @@ close_directory (void *dir_baton)
          shouldn't care.  */
       SVN_ERR (dump_node (eb->fs_root, path,
                           svn_node_unknown, svn_node_action_delete,
-                          eb->stream, eb->buffer, eb->bufsize, subpool));
+                          eb->stream, eb->buffer, eb->bufsize, subpool));     
 
       svn_pool_clear (subpool);
     }
@@ -444,7 +444,7 @@ add_file (const char *path,
   /* This might be a replacement -- is the path already deleted? */
   val = apr_hash_get (pb->deleted_entries, path, APR_HASH_KEY_STRING);
 
-  SVN_ERR (dump_node (eb->fs_root, path,
+  SVN_ERR (dump_node (eb->fs_root, path, 
                       svn_node_file,
                       val ? svn_node_action_replace : svn_node_action_add,
                       eb->stream, eb->buffer, eb->bufsize, pool));
@@ -468,8 +468,8 @@ open_file (const char *path,
   struct dir_baton *pb = parent_baton;
   struct edit_baton *eb = pb->edit_baton;
 
-  SVN_ERR (dump_node (eb->fs_root, path,
-                      svn_node_file, svn_node_action_change,
+  SVN_ERR (dump_node (eb->fs_root, path, 
+                      svn_node_file, svn_node_action_change, 
                       eb->stream, eb->buffer, eb->bufsize, pool));
 
   *file_baton = NULL;  /* muhahahaha again */
@@ -491,8 +491,8 @@ change_dir_prop (void *parent_baton,
      *actually* changed by itself.  */
   if (! db->written_out)
     {
-      SVN_ERR (dump_node (eb->fs_root, db->path,
-                          svn_node_dir, svn_node_action_change,
+      SVN_ERR (dump_node (eb->fs_root, db->path, 
+                          svn_node_dir, svn_node_action_change, 
                           eb->stream, eb->buffer, eb->bufsize, pool));
       db->written_out = TRUE;
     }
@@ -534,7 +534,7 @@ get_dump_editor (const svn_delta_editor_t **editor,
 
   *edit_baton = eb;
   *editor = dump_editor;
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -564,19 +564,19 @@ write_revision_record (svn_stream_t *stream,
   /* ### someday write a revision-content-checksum */
 
   SVN_ERR (svn_stream_printf (stream, pool,
-                              SVN_REPOS_DUMPFILE_REVISION_NUMBER
+                              SVN_REPOS_DUMPFILE_REVISION_NUMBER 
                               ": %" SVN_REVNUM_T_FMT "\n", rev));
   SVN_ERR (svn_stream_printf (stream, pool,
                               SVN_REPOS_DUMPFILE_CONTENT_LENGTH
                               ": %" APR_SIZE_T_FMT "\n\n",
                               encoded_prophash->len));
-
+  
   len = encoded_prophash->len;
   SVN_ERR (svn_stream_write (stream, encoded_prophash->data, &len));
 
   len = 1;
   SVN_ERR (svn_stream_write (stream, "\n", &len));
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -593,7 +593,7 @@ svn_repos_dump_fs (svn_repos_t *repos,
   const svn_delta_editor_t *dump_editor;
   const svn_delta_edit_fns_t *editor;
   void *dump_edit_baton, *edit_baton;
-  svn_revnum_t i;
+  svn_revnum_t i;  
   svn_fs_t *fs = svn_repos_fs (repos);
   apr_pool_t *subpool = svn_pool_create (pool);
 
@@ -615,7 +615,7 @@ svn_repos_dump_fs (svn_repos_t *repos,
      magic string followed by a dumpfile format version. */
   SVN_ERR (svn_stream_printf (stream, pool, SVN_REPOS_DUMPFILE_MAGIC_HEADER
                               ": %d\n\n", SVN_REPOS_DUMPFILE_FORMAT_VERSION));
-
+                   
   /* Main loop:  we're going to dump revision i.  */
   for (i = start_rev; i <= end_rev; i++)
     {
@@ -652,7 +652,7 @@ svn_repos_dump_fs (svn_repos_t *repos,
       SVN_ERR (write_revision_record (stream, fs, to_rev, subpool));
 
       /* The editor which dumps nodes to a file. */
-      SVN_ERR (get_dump_editor (&dump_editor, &dump_edit_baton,
+      SVN_ERR (get_dump_editor (&dump_editor, &dump_edit_baton, 
                                 fs, to_rev, "/", stream, subpool));
       /* ### remove this wrapper someday: */
       svn_delta_compat_wrap (&editor, &edit_baton,
@@ -661,7 +661,7 @@ svn_repos_dump_fs (svn_repos_t *repos,
       /* Drive the editor. */
       SVN_ERR (svn_fs_revision_root (&from_root, fs, from_rev, subpool));
       SVN_ERR (svn_fs_revision_root (&to_root, fs, to_rev, subpool));
-      SVN_ERR (svn_repos_dir_delta (from_root, "/", NULL,
+      SVN_ERR (svn_repos_dir_delta (from_root, "/", NULL, 
                                     to_root, "/",
                                     editor, edit_baton,
                                     FALSE, /* don't send text-deltas */
@@ -684,7 +684,7 @@ svn_repos_dump_fs (svn_repos_t *repos,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end:
