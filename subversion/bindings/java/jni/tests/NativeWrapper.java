@@ -27,9 +27,9 @@ public class NativeWrapper
     public static native void vectorAdd(Vector vector, Object object);
 }
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../../../../../svn-dev.el")
- * end:
+ * end: 
  */
 
