@@ -56,7 +56,7 @@ to the specific tag directory.  Look at the first column of numbers.)
 
 This is a bit harder to answer.  From question 1, it's easy to see
 that tag X contains version N of foo.c.  But how do we know if that's
-the *latest* foo.c?
+the *latest* foo.c?  
 
 Running 'svn log' on version N of foo.c won't help, because it only
 goes backwards in time.  That is, it only shows predecessor nodes, not
@@ -78,7 +78,7 @@ nodes, just like Clearcase does.
 
 This is the killer question, and the crux of the Tradeoff mentioned at
 the beginning of this document.  Because Subversion has O(1) tagging,
-the only way to answer this question is by brute-force searching.
+the only way to answer this question is by brute-force searching.  
 
 But there are two consolations to this tradeoff:
 
