@@ -1124,17 +1124,6 @@ close_file (void *file_baton)
                              txtb,
                              NULL);
 
-      /* kff todo: Overwrite local mods again, briefly. */
-      svn_xml_make_open_tag (&entry_accum,
-                             fb->pool,
-                             svn_xml_self_closing,
-                             SVN_WC__LOG_CP,
-                             SVN_WC__LOG_ATTR_NAME,
-                             txtb,
-                             SVN_WC__LOG_ATTR_DEST,
-                             fb->name,
-                             NULL);
-
       if (wfile_status == svn_node_none)
         {
           /* Copy the new base text to the working file. */
