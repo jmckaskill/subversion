@@ -35,7 +35,7 @@ class Generator(gen_win.WinGeneratorBase):
         config_type=2
       elif isinstance(target, gen_base.TargetSWIG):
         config_type=2
-        target.output_name = os.path.basename(target.filename)
+        target.output_name = os.path.basename(target.filename)  
       else:
         #LIB
         config_type=4
@@ -125,7 +125,7 @@ class Generator(gen_win.WinGeneratorBase):
     for target in install_targets:
       # These aren't working yet
       if isinstance(target, gen_base.TargetExternal):
-        continue
+        continue    
       guids[target.name] = self.makeguid(target.name)
 
     self.gen_proj_names(install_targets)
