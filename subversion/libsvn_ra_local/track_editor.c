@@ -33,7 +33,7 @@ svn_ra_local__get_commit_track_editor (svn_delta_edit_fns_t **editor,
   svn_error_t *err;
 
   svn_delta_edit_fns_t *track_editor = svn_delta_default_editor (pool);
-
+  
 
 
   return SVN_NO_ERROR;

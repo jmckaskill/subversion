@@ -43,11 +43,11 @@ svn_client_init_ra_libs (void **ra_baton,
 
   const char *url_type;
   const svn_ra_plugin_t *ra_plugin;
-
+  
   /* A logic table that maps repository URL types (key) to the
      ra_plugin vtable (val) that handles it.  */
   apr_hash_t *ra_library_hash = apr_hash_make (pool);
-
+ 
   /* Fetch *all* RA vtables. */
   err = svn_ra_dav_init (0, pool, &url_type, &ra_plugin);
   if (err) return err;
@@ -72,7 +72,7 @@ svn_client_get_ra_library (svn_ra_plugin_t **library,
 {
   apr_hash_index_t *this;
   apr_hash_t *hash = (apr_hash_t *) ra_baton;
-
+  
   /* Figure out which RA library key matches URL */
   for (this = apr_hash_first (hash); this; this = apr_hash_next (this))
     {
@@ -84,14 +84,14 @@ svn_client_get_ra_library (svn_ra_plugin_t **library,
       /* Get key and val. */
       apr_hash_this (this, &key, &keylen, &val);
       keystr = (char *) key;
-
+      
       if (! strncmp (keystr, URL, keylen))
         {
-          *library = (svn_ra_plugin_t *) val;
-          return SVN_NO_ERROR;
+          *library = (svn_ra_plugin_t *) val;          
+          return SVN_NO_ERROR; 
         }
     }
-
+    
   /* Couldn't find a match... */
   *library = NULL;
   return svn_error_createf (SVN_ERR_RA_ILLEGAL_URL, 0, NULL, pool,
