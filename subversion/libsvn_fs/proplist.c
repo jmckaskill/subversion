@@ -40,8 +40,8 @@ svn_fs__get_prop (svn_stringbuf_t **value_p,
 
       if (svn_fs__atom_matches_string (this_name, name))
         {
-          *value_p = svn_string_ncreate (this_value->data,
-                                         this_value->len,
+          *value_p = svn_string_ncreate (this_value->data, 
+                                         this_value->len, 
                                          pool);
           return SVN_NO_ERROR;
         }
@@ -80,8 +80,8 @@ svn_fs__make_prop_hash (apr_hash_t **prop_hash,
       apr_hash_set (table,
                     apr_pstrndup(pool, this_name->data, this_name->len),
                     this_name->len,
-                    svn_string_ncreate (this_value->data,
-                                        this_value->len,
+                    svn_string_ncreate (this_value->data, 
+                                        this_value->len, 
                                         pool));
     }
 
@@ -183,7 +183,7 @@ svn_fs__set_prop (skel_t *proplist,
 }
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
