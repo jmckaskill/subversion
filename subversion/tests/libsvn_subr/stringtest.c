@@ -55,7 +55,7 @@ test1 (const char **msg, apr_pool_t *pool)
 {
   *msg = "make svn_string_t from cstring";
   a = svn_string_create (phrase_1, pool);
-
+  
   /* Test that length, data, and null-termination are correct. */
   if ((a->len == strlen (phrase_1)) && ((strcmp (a->data, phrase_1)) == 0))
     return SVN_NO_ERROR;
@@ -69,7 +69,7 @@ test2 (const char **msg, apr_pool_t *pool)
 {
   *msg = "make svn_string_t from substring of cstring";
   b = svn_string_ncreate (phrase_2, 16, pool);
-
+  
   /* Test that length, data, and null-termination are correct. */
   if ((b->len == 16) && ((strncmp (b->data, phrase_2, 16)) == 0))
     return SVN_NO_ERROR;
@@ -83,7 +83,7 @@ test3 (const char **msg, apr_pool_t *pool)
 {
   char *tmp;
   size_t old_len;
-
+  
   *msg = "append svn_string_t to svn_string_t";
 
   a = svn_string_create (phrase_1, pool);
@@ -94,7 +94,7 @@ test3 (const char **msg, apr_pool_t *pool)
   strcat (tmp, b->data);
   old_len = a->len;
   svn_string_appendstr (a, b);
-
+  
   /* Test that length, data, and null-termination are correct. */
   if ((a->len == (old_len + b->len)) && ((strcmp (a->data, tmp)) == 0))
     return SVN_NO_ERROR;
@@ -108,11 +108,11 @@ test4 (const char **msg, apr_pool_t *pool)
 {
   a = svn_string_create (phrase_1, pool);
   svn_string_appendcstr (a, "new bytes to append");
-
+  
   *msg = "append C string to svn_string_t";
 
   /* Test that length, data, and null-termination are correct. */
-  if (svn_string_compare
+  if (svn_string_compare 
       (a, svn_string_create ("hello, new bytes to append", pool)))
     return SVN_NO_ERROR;
   else
@@ -125,11 +125,11 @@ test5 (const char **msg, apr_pool_t *pool)
 {
   a = svn_string_create (phrase_1, pool);
   svn_string_appendbytes (a, "new bytes to append", 9);
-
+  
   *msg = "append bytes, then compare two strings";
 
   /* Test that length, data, and null-termination are correct. */
-  if (svn_string_compare
+  if (svn_string_compare 
       (a, svn_string_create ("hello, new bytes", pool)))
     return SVN_NO_ERROR;
   else
@@ -169,7 +169,7 @@ test7 (const char **msg, apr_pool_t *pool)
   strcpy (tmp, c->data);
 
   svn_string_chop (c, 11);
-
+  
   if ((c->len == (tmp_len - 11))
       && (strncmp (tmp, c->data, c->len) == 0)
       && (c->data[c->len] == '\0'))
@@ -182,12 +182,12 @@ test7 (const char **msg, apr_pool_t *pool)
 static svn_error_t *
 test8 (const char **msg, apr_pool_t *pool)
 {
-  c = svn_string_create (phrase_2, pool);
-
+  c = svn_string_create (phrase_2, pool);  
+  
   *msg = "emptying a string";
 
   svn_string_setempty (c);
-
+  
   if ((c->len == 0) && (c->data[0] == '\0'))
     return SVN_NO_ERROR;
   else
@@ -218,29 +218,29 @@ static svn_error_t *
 test10 (const char **msg, apr_pool_t *pool)
 {
   svn_string_t *s;
-
+  
   apr_size_t num_chopped_1 = 0;
   apr_size_t num_chopped_2 = 0;
   apr_size_t num_chopped_3 = 0;
-
+  
   int chopped_okay_1 = 0;
   int chopped_okay_2 = 0;
   int chopped_okay_3 = 0;
-
+  
   *msg = "chop_back_to_char";
 
   s = svn_string_create ("chop from slash/you'll never see this", pool);
 
   num_chopped_1 = svn_string_chop_back_to_char (s, '/');
   chopped_okay_1 = (! strcmp (s->data, "chop from slash"));
-
+  
   num_chopped_2 = svn_string_chop_back_to_char (s, 'X');
   chopped_okay_2 = (! strcmp (s->data, "chop from slash"));
-
+  
   num_chopped_3 = svn_string_chop_back_to_char (s, 'c');
   chopped_okay_3 = (strlen (s->data) == 0);
 
-  if (chopped_okay_1
+  if (chopped_okay_1 
       && chopped_okay_2
       && chopped_okay_3
       && (num_chopped_1 == strlen ("/you'll never see this"))
@@ -260,18 +260,18 @@ test11 (const char **msg, apr_pool_t *pool)
   size_t len_2 = 0;
   size_t block_len_1 = 0;
   size_t block_len_2 = 0;
-
+  
   *msg = "block initialization and growth";
 
   s = svn_string_create ("a small string", pool);
   len_1       = (s->len);
   block_len_1 = (s->blocksize);
-
+  
   t = svn_string_create (", plus a string more than twice as long", pool);
   svn_string_appendstr (s, t);
   len_2       = (s->len);
   block_len_2 = (s->blocksize);
-
+  
   /* Test that:
    *   - The initial block was just the right fit.
    *   - The block more than doubled (because second string so long).
@@ -290,14 +290,14 @@ static svn_error_t *
 test12 (const char **msg, apr_pool_t *pool)
 {
   svn_string_t *s;
-
+  
   *msg = "formatting strings from varargs";
 
-  s = svn_string_createf (pool,
+  s = svn_string_createf (pool, 
                           "This %s is used in test %d.",
                           "string",
                           12);
-
+  
   if (strcmp (s->data, "This string is used in test 12.") == 0)
     return SVN_NO_ERROR;
   else
