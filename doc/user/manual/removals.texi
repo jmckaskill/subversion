@@ -27,7 +27,7 @@ Also, please notice that there two different ways to interpret the
 phrase "remove an item".  In the simplest case, the item is removed from
 revision control (i.e. no longer tracked by the client), but not from
 your working copy.  In the more severe case, the item is removed both
-from revision control and disk.
+from revision control and disk.  
 
 Normally, @samp{svn rm} only removes an item from revision control.
 However, the @code{-f} flag (@code{--force}) can be given, which will
@@ -58,7 +58,7 @@ will return an error.
 This subcommand will "unmark" a file or directory that is scheduled for
 removal.  In the directory case, it does not recurse by default (like
 the way @samp{svn rm} does.)  To recurse, use the @code{--recursive}
-flag.
+flag. 
 
 @end table
 

@@ -9,7 +9,7 @@
  * newer version instead, at your option.
  * ====================================================================
  */
-
+	
 // SVNStatus.h : Declaration of the CSVNStatus COM object.
 
 #ifndef WINSVN_STATUS_H_
@@ -20,7 +20,7 @@
 
 /////////////////////////////////////////////////////////////////////////////
 // CSVNStatus
-class ATL_NO_VTABLE CSVNStatus :
+class ATL_NO_VTABLE CSVNStatus : 
 	public CComObjectRootEx<CComMultiThreadModel>,
 	public CComCoClass<CSVNStatus, &CLSID_SVNStatus>,
 	public ISupportErrorInfo,
@@ -45,14 +45,14 @@ BEGIN_COM_MAP(CSVNStatus)
 	COM_INTERFACE_ENTRY_AGGREGATE(IID_IMarshal, m_pUnkMarshaler.p)
 END_COM_MAP()
 
-	HRESULT
+	HRESULT 
 	FinalConstruct()
 	{
 		return CoCreateFreeThreadedMarshaler(
 			GetControllingUnknown(), &m_pUnkMarshaler.p);
 	}
 
-	void
+	void 
 	FinalRelease()
 	{
 		m_pUnkMarshaler.Release();
