@@ -81,7 +81,7 @@ DBT *
 svn_fs__track_dbt (DBT *dbt, apr_pool_t *pool)
 {
   if (dbt->data)
-    apr_pool_cleanup_register (pool, dbt->data, apr_free_cleanup,
+    apr_pool_cleanup_register (pool, dbt->data, apr_free_cleanup, 
                                apr_pool_cleanup_null);
 
   return dbt;
@@ -116,7 +116,7 @@ svn_fs__compare_dbt (const DBT *a, const DBT *b)
 /* Building DBT's from interesting things.  */
 
 
-/* Set DBT to the unparsed form of ID; allocate memory from POOL.
+/* Set DBT to the unparsed form of ID; allocate memory from POOL. 
    Return DBT.  */
 DBT *
 svn_fs__id_to_dbt (DBT *dbt,

@@ -87,7 +87,7 @@ copy_versioned_files (const char *from,
             SVN_ERR (ctx->cancel_func (ctx->cancel_baton));
 
           /* ### We could also invoke ctx->notify_func somewhere in
-             ### here... Is it called for, though?  Not sure. */
+             ### here... Is it called for, though?  Not sure. */ 
 
           if (*type == svn_node_dir)
             {
@@ -153,10 +153,10 @@ svn_client_export (const char *from,
       const svn_delta_editor_t *export_editor;
 
       URL = svn_path_canonicalize (from, pool);
-
+      
       SVN_ERR (svn_client__get_export_editor (&export_editor, &edit_baton,
                                               to, URL, ctx, pool));
-
+      
       if (revision->kind == svn_opt_revision_number)
         revnum = revision->value.number;
       else
@@ -207,7 +207,7 @@ struct file_baton
   const char *path;
   const char *tmppath;
 
-  /* We need to keep this around so we can explicitly close it in close_file,
+  /* We need to keep this around so we can explicitly close it in close_file, 
      thus flushing it's output to disk so we can copy and translate it. */
   apr_file_t *tmp_file;
 
@@ -254,12 +254,12 @@ build_final_keyword_struct (struct file_baton *fb,
   for (i = 0; i < keyword_tokens->nelts; i++)
     {
       const char *keyword = APR_ARRAY_IDX(keyword_tokens,i,const char *);
-
+      
       if ((! strcmp (keyword, SVN_KEYWORD_REVISION_LONG))
           || (! strcasecmp (keyword, SVN_KEYWORD_REVISION_SHORT)))
         {
           new_kw->revision = fb->kw.revision;
-        }
+        }      
       else if ((! strcmp (keyword, SVN_KEYWORD_DATE_LONG))
                || (! strcasecmp (keyword, SVN_KEYWORD_DATE_SHORT)))
         {
@@ -273,11 +273,11 @@ build_final_keyword_struct (struct file_baton *fb,
       else if ((! strcmp (keyword, SVN_KEYWORD_URL_LONG))
                || (! strcasecmp (keyword, SVN_KEYWORD_URL_SHORT)))
         {
-          const char *url =
-            svn_path_url_add_component
+          const char *url = 
+            svn_path_url_add_component 
             (fb->edit_baton->root_url, fb->path, pool);
-
-          new_kw->url = svn_string_create (url, pool);
+          
+          new_kw->url = svn_string_create (url, pool);         
         }
       else if ((! strcasecmp (keyword, SVN_KEYWORD_ID)))
         {
@@ -289,7 +289,7 @@ build_final_keyword_struct (struct file_baton *fb,
                                            fb->kw.date->data,
                                            fb->kw.author->data);
         }
-    }
+    }     
 }
 
 
@@ -301,9 +301,9 @@ open_root (void *edit_baton,
            apr_pool_t *pool,
            void **root_baton)
 {
-  struct edit_baton *eb = edit_baton;
+  struct edit_baton *eb = edit_baton;  
   svn_node_kind_t kind;
-
+  
   SVN_ERR (svn_io_check_path (eb->root_path, &kind, pool));
   if (kind != svn_node_none)
     return svn_error_create (SVN_ERR_WC_OBSTRUCTED_UPDATE,
@@ -369,7 +369,7 @@ add_file (const char *path,
   struct file_baton *fb = apr_pcalloc (pool, sizeof(*fb));
   const char *full_path = svn_path_join (eb->root_path,
                                          path, pool);
-
+  
   fb->edit_baton = eb;
   fb->path = full_path;
 
@@ -452,7 +452,7 @@ change_file_prop (void *file_baton,
   else if (strcmp (name, SVN_PROP_ENTRY_COMMITTED_DATE) == 0)
     /* ### convert to human readable date??? */
     fb->kw.date = svn_string_dup (value, pool);
-
+  
   else if (strcmp (name, SVN_PROP_ENTRY_LAST_AUTHOR) == 0)
     fb->kw.author = svn_string_dup (value, pool);
 
@@ -521,7 +521,7 @@ close_file (void *file_baton,
 
       SVN_ERR (svn_io_remove_file (fb->tmppath, pool));
     }
-
+      
   if (fb->executable_val)
     SVN_ERR (svn_io_set_file_executable (fb->path, TRUE, FALSE, pool));
 
@@ -570,6 +570,6 @@ svn_client__get_export_editor (const svn_delta_editor_t **editor,
                                               editor,
                                               edit_baton,
                                               pool));
-
+  
   return SVN_NO_ERROR;
 }

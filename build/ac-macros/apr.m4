@@ -25,9 +25,9 @@ AC_DEFUN(SVN_LIB_APR,
     SVN_SUBDIRS="$SVN_SUBDIRS apr"
   fi
 
-  dnl check APR version number against regex
+  dnl check APR version number against regex  
 
-  AC_MSG_CHECKING([APR version])
+  AC_MSG_CHECKING([APR version])    
   apr_version="`$apr_config --version`"
   if test $? -ne 0; then
     AC_MSG_ERROR([apr-config --version failed])
@@ -66,7 +66,7 @@ AC_DEFUN(SVN_LIB_APR,
     AC_MSG_ERROR([apr-config --prefix failed])
   fi
 
-  dnl When APR stores the dependent libs in the .la file, we don't need
+  dnl When APR stores the dependent libs in the .la file, we don't need 
   dnl --libs.
   SVN_APR_LIBS="`$apr_config --link-libtool --libs`"
   if test $? -ne 0; then

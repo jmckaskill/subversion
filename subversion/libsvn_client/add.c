@@ -132,7 +132,7 @@ add_dir_recursive (const char *dirname,
 
 /* The main body of svn_client_add;  uses an existing access baton. */
 svn_error_t *
-svn_client__add (const char *path,
+svn_client__add (const char *path, 
                  svn_boolean_t recursive,
                  svn_wc_adm_access_t *adm_access,
                  svn_client_ctx_t *ctx,
@@ -155,7 +155,7 @@ svn_client__add (const char *path,
 
 
 svn_error_t *
-svn_client_add (const char *path,
+svn_client_add (const char *path, 
                 svn_boolean_t recursive,
                 svn_client_ctx_t *ctx,
                 apr_pool_t *pool)
@@ -168,7 +168,7 @@ svn_client_add (const char *path,
                             TRUE, FALSE, pool));
 
   err = svn_client__add (path, recursive, adm_access, ctx, pool);
-
+  
   err2 = svn_wc_adm_close (adm_access);
   if (err2)
     {
@@ -188,7 +188,7 @@ svn_client_mkdir (svn_client_commit_info_t **commit_info,
                   apr_pool_t *pool)
 {
   svn_error_t *err;
-
+  
   /* If this is a URL, we want to drive a commit editor to create this
      directory. */
   if (svn_path_is_url (path))
@@ -211,8 +211,8 @@ svn_client_mkdir (svn_client_commit_info_t **commit_info,
       svn_path_split (path, &anchor, &target, pool);
       target = svn_path_uri_decode (target, pool);
       if (strcmp (target, SVN_WC_ADM_DIR_NAME) == 0)
-        return svn_error_createf
-          (SVN_ERR_RA_ILLEGAL_URL, NULL,
+        return svn_error_createf 
+          (SVN_ERR_RA_ILLEGAL_URL, NULL, 
            "The directory `%s' is reserved for administrative use.", target);
 
       /* Create a new commit item and add it to the array. */
@@ -220,16 +220,16 @@ svn_client_mkdir (svn_client_commit_info_t **commit_info,
         {
           svn_client_commit_item_t *item;
           const char *tmp_file;
-          apr_array_header_t *commit_items
+          apr_array_header_t *commit_items 
             = apr_array_make (pool, 1, sizeof (item));
-
+          
           item = apr_pcalloc (pool, sizeof (*item));
           item->url = apr_pstrdup (pool, path);
           item->state_flags = SVN_CLIENT_COMMIT_ITEM_ADD;
-          (*((svn_client_commit_item_t **) apr_array_push (commit_items)))
+          (*((svn_client_commit_item_t **) apr_array_push (commit_items))) 
             = item;
-
-          SVN_ERR ((*ctx->log_msg_func) (&message, &tmp_file, commit_items,
+          
+          SVN_ERR ((*ctx->log_msg_func) (&message, &tmp_file, commit_items, 
                                          ctx->log_msg_baton, pool));
           if (! message)
             return SVN_NO_ERROR;
@@ -245,7 +245,7 @@ svn_client_mkdir (svn_client_commit_info_t **commit_info,
          base directory, do not want to store auth data, and do not
          (necessarily) have an admin area for temp files. */
       SVN_ERR (svn_client__open_ra_session (&session, ra_lib, anchor, NULL,
-                                            NULL, NULL, FALSE, TRUE,
+                                            NULL, NULL, FALSE, TRUE, 
                                             ctx, pool));
 
       /* Fetch RA commit editor */
@@ -258,7 +258,7 @@ svn_client_mkdir (svn_client_commit_info_t **commit_info,
       /* Drive the editor to create the TARGET. */
       SVN_ERR (editor->open_root (edit_baton, SVN_INVALID_REVNUM, pool,
                                   &root_baton));
-      SVN_ERR (editor->add_directory (target, root_baton, NULL,
+      SVN_ERR (editor->add_directory (target, root_baton, NULL, 
                                       SVN_INVALID_REVNUM, pool, &dir_baton));
       SVN_ERR (editor->close_directory (dir_baton, pool));
       SVN_ERR (editor->close_directory (root_baton, pool));
@@ -275,7 +275,7 @@ svn_client_mkdir (svn_client_commit_info_t **commit_info,
 
   /* This is a regular "mkdir" + "svn add" */
   SVN_ERR (svn_io_dir_make (path, APR_OS_DEFAULT, pool));
-
+  
   err = svn_client_add (path, FALSE, ctx, pool);
 
   /* Trying to add a directory with the same name as a file that is

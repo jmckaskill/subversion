@@ -136,7 +136,7 @@ svn_fs__bdb_write_new_rep (const char **key,
   int db_err;
   apr_size_t len;
   char next_key[SVN_FS__MAX_KEY_SIZE];
-
+  
   /* ### todo: see issue #409 for why bumping the key as part of this
      trail is problematic. */
 
