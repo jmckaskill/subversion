@@ -138,7 +138,7 @@ static void *create_private(void *userdata, const char *url)
   apr_size_t len;
   svn_string_t my_url;
   svn_stringbuf_t *url_str;
-
+  
   my_url.data = url;
   my_url.len = strlen(url);
   url_str = svn_path_uri_decode(&my_url, pc->pool);
@@ -174,7 +174,7 @@ static int add_to_hash(void *userdata, const ne_propname *pname,
 {
   svn_ra_dav_resource_t *r = userdata;
   const char *name;
-
+  
   name = apr_pstrcat(r->pool, pname->nspace, pname->name, NULL);
   value = apr_pstrdup(r->pool, value);
 
@@ -214,7 +214,7 @@ static int validate_element(void *userdata, ne_xml_elmid parent, ne_xml_elmid ch
             /* some other, unrecognized property */
             return NE_XML_DECLINE;
           }
-
+        
     case ELEM_baseline_coll:
     case ELEM_checked_in:
     case ELEM_vcc:
@@ -222,7 +222,7 @@ static int validate_element(void *userdata, ne_xml_elmid parent, ne_xml_elmid ch
         return NE_XML_VALID;
       else
         return NE_XML_DECLINE; /* not concerned with other types */
-
+      
     case ELEM_resourcetype:
       if (child == ELEM_collection)
         return NE_XML_VALID;
@@ -333,13 +333,13 @@ svn_error_t * svn_ra_dav__get_props(apr_hash_t **results,
       /* get the request pointer and add a Label header */
       ne_add_request_header(req, "Label", label);
     }
-
-  if (which_props)
+  
+  if (which_props) 
     {
       rv = ne_propfind_named(pc.dph, which_props, process_results, &pc);
-    }
+    } 
   else
-    {
+    { 
       rv = ne_propfind_allprop(pc.dph, process_results, &pc);
     }
 
@@ -603,7 +603,7 @@ svn_error_t *svn_ra_dav__get_baseline_info(svn_boolean_t *is_dir,
 
       /* ### do we want to optimize the props we fetch, based on what the
          ### user asked for? i.e. omit version-name if latest_rev is NULL */
-      SVN_ERR( svn_ra_dav__get_props_resource(&rsrc, sess,
+      SVN_ERR( svn_ra_dav__get_props_resource(&rsrc, sess, 
                                               baseline->data, NULL,
                                               baseline_props, pool) );
     }
@@ -753,7 +753,7 @@ svn_ra_dav__do_check_path(svn_node_kind_t *kind,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end: */
