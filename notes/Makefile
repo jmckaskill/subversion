@@ -6,7 +6,7 @@ all: html
 
 html: svn-design.html
 
-svn-design.html:
+svn-design.html: 
 	(cd ../src/doc/; make html; mv svn-design.html ../www/)
 
 clean:
