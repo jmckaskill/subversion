@@ -168,7 +168,7 @@ svn_error_t *svn_fs_berkeley_recover (const char *path,
      node_id ::= number | node_revision_id "." number
      node_revision_id ::= node_id "." number
 
-   So:
+   So: 
    - "100" is a node id.
    - "100.10" is a node revision id, referring to revision 10 of node 100.
    - "100.10.3" is a node id, referring to the third branch based on
@@ -239,7 +239,7 @@ int svn_fs_id_length (const svn_fs_id_t *id);
 int svn_fs_id_eq (const svn_fs_id_t *a, const svn_fs_id_t *b);
 
 
-/* Return non-zero iff node revision A is an ancestor of node revision B.
+/* Return non-zero iff node revision A is an ancestor of node revision B.  
    If A == B, then we consider A to be an ancestor of B.  */
 int svn_fs_id_is_ancestor (const svn_fs_id_t *a, const svn_fs_id_t *b);
 
@@ -328,7 +328,7 @@ svn_error_t *svn_fs_get_node_prop (svn_string_t **value_p,
 				   svn_fs_node_t *node,
 				   svn_string_t *propname,
 				   apr_pool_t *pool);
-
+   
 
 /* Set *TABLE_P to the entire property list of NODE, as an APR hash
    table allocated in POOL.  The resulting table maps property names
@@ -345,7 +345,7 @@ svn_error_t *svn_fs_get_node_proplist (apr_hash_t **table_p,
    - NAME is the name of the property to change.
    - VALUE is the new value of the property, or zero if the property should
      be removed altogether.
-
+     
    This creates new mutable clones of any immutable parent directories
    of the node being changed.  If you have any other node objects that
    refer to the cloned directories, that reached them via the same
@@ -460,7 +460,7 @@ svn_error_t *svn_fs_dir_entries (apr_hash_t **table_p,
 svn_error_t *svn_fs_make_dir (svn_fs_node_t *parent,
 			      char *path,
 			      apr_pool_t *pool);
-
+			      
 
 /* Delete the node named PATH relative to directory PARENT.  If the
    node being deleted is a directory, it must be empty.  PARENT must
@@ -880,7 +880,7 @@ typedef svn_error_t *svn_fs_commit_hook_t (svn_revnum_t new_revision,
 /* Return an EDITOR and EDIT_BATON to commit changes to BASE_REVISION
  * of FS.  The directory baton returned by (*EDITOR)->begin_edit is
  * for the root of the tree; all edits must start at the top and
- * descend.
+ * descend. 
  *
  * Calling (*EDITOR)->close_edit completes the commit.  Before
  * close_edit returns, but after the commit has succeeded, it will
