@@ -193,6 +193,7 @@ main (int argc, const char * const *argv)
     /* Here begin authentication args, add more as needed: */
     {"username",      svn_cl__auth_username_opt, 1},
     {"password",      svn_cl__auth_password_opt, 1},
+    {"extensions",    'x', 1},
     {0,               0, 0}
   };
 
@@ -314,6 +315,9 @@ main (int argc, const char * const *argv)
                                      opt_arg);
             svn_handle_error (err, stderr, FALSE);
           }
+        break;
+      case 'x':
+        opt_state.extensions = svn_stringbuf_create(opt_arg, pool);
         break;
       default:
         /* Hmmm. Perhaps this would be a good place to squirrel away
