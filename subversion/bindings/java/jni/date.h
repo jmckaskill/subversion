@@ -24,15 +24,15 @@
 #include <jni.h>
 
 /* functions */
-jobject
+jobject 
 date__apr_to_j(JNIEnv *env, jboolean *hasException,
 			apr_time_t time);
 
 #endif
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../svn-dev.el")
- * end:
+ * end: 
  */
 
 
