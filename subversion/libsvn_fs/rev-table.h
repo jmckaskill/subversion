@@ -75,7 +75,7 @@ svn_error_t *svn_fs__youngest_rev (svn_revnum_t *youngest_p,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
