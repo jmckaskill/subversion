@@ -32,7 +32,7 @@ jobject
 entry__create_from_svn_wc_entry_t(JNIEnv *env, jboolean *hasException,
                                   svn_wc_entry_t *entry);
 
-void
+void 
 entry__set_url(JNIEnv *env, jboolean *hasException,
                     jobject jentry, jstring jurl);
 
@@ -48,7 +48,7 @@ void
 entry__set_schedule(JNIEnv *env, jboolean *hasException,
                     jobject jentry, jint jschedule);
 
-void
+void 
 entry__set_conflicted(JNIEnv *env, jboolean *hasException,
                       jobject jentry, jboolean jconflicted);
 
@@ -56,21 +56,21 @@ void
 entry__set_copied(JNIEnv *env, jboolean *hasException,
                   jobject jentry, jboolean jcopied);
 
-void
+void 
 entry__set_texttime(JNIEnv *env, jboolean *hasException,
                     jobject jentry, jobject jtexttime);
 
-void
+void 
 entry__set_proptime(JNIEnv *env, jboolean *hasException,
                     jobject jentry, jobject jproptime);
 
-void
+void 
 entry__set_attributes(JNIEnv *env, jboolean *hasException,
                       jobject jentry, jobject jattributes);
 #endif
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../svn-dev.el")
- * end:
+ * end: 
  */
