@@ -50,7 +50,7 @@ main (int argc, char *argv[])
   /* Process command-line args */
   if (argc < 2)
     {
-      printf
+      printf 
         ("\nUsage: %s [dir] [-x]:  crawls working copy [dir]\n",
          argv[0]);
       printf ("Prints human-readable `commit', or XML if -x is used.\n");
@@ -66,7 +66,7 @@ main (int argc, char *argv[])
   if (argc > 2)
     if (! strcmp (argv[2], "-x"))
       use_xml = TRUE;
-
+      
   /* Get an editor */
 
   if (use_xml)  /* xml output */
@@ -74,7 +74,7 @@ main (int argc, char *argv[])
       /* Open a stdout filehandle */
       status = apr_file_open (&stdout_handle, "-", APR_WRITE,
                          APR_OS_DEFAULT, globalpool);
-
+      
       err = svn_delta_get_xml_editor (svn_stream_from_aprfile (stdout_handle,
 							       globalpool),
                                       &my_editor, &my_edit_baton,
