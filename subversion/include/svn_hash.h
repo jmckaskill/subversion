@@ -48,17 +48,17 @@ extern "C" {
  */
 
 /** Read a hash table from @a srcfile, storing the resultants names and
- * values in @a hash.  Use a @a pool for all allocations.  @a hash will
- * have <tt>const char *</tt> keys and <tt>svn_string_t *</tt> values.
+ * values in @a hash.  Use a @a pool for all allocations.  @a hash will 
+ * have <tt>const char *</tt> keys and <tt>svn_string_t *</tt> values.  
  */
-apr_status_t svn_hash_read (apr_hash_t *hash,
+apr_status_t svn_hash_read (apr_hash_t *hash, 
                             apr_file_t *srcfile,
                             apr_pool_t *pool);
 
-/** Dump @a hash to @a destfile.  Use @a pool for all allocations.  @a hash
- * has <tt>const char *</tt> keys and <tt>svn_string_t *</tt> values.
+/** Dump @a hash to @a destfile.  Use @a pool for all allocations.  @a hash 
+ * has <tt>const char *</tt> keys and <tt>svn_string_t *</tt> values.  
  */
-apr_status_t svn_hash_write (apr_hash_t *hash,
+apr_status_t svn_hash_write (apr_hash_t *hash, 
                              apr_file_t *destfile,
                              apr_pool_t *pool);
 
@@ -99,7 +99,7 @@ typedef svn_error_t *(*svn_hash_diff_func_t)
  * @c svn_hash_diff_key_status indicating which table(s) the key appears
  * in, and @a diff_func_baton.
  *
- * Process all keys of @a hash_a first, then all remaining keys of @a hash_b.
+ * Process all keys of @a hash_a first, then all remaining keys of @a hash_b. 
  *
  * If @a diff_func returns error, return that error immediately, without
  * applying @a diff_func to anything else.
