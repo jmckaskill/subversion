@@ -138,7 +138,7 @@ svn_client_update (const svn_delta_edit_fns_t *before_editor,
       /* If TM is given, convert the time into a revision number. */
       if (tm)
         SVN_ERR (ra_lib->get_dated_revision (session, &revision, tm));
-
+      
       /* Tell RA to do a update of URL+TARGET to REVISION; if we pass an
          invalid revnum, that means RA will use the latest revision.  */
       SVN_ERR (ra_lib->do_update (session,
@@ -155,8 +155,8 @@ svn_client_update (const svn_delta_edit_fns_t *before_editor,
 
       /* Close the RA session. */
       SVN_ERR (ra_lib->close (session));
-    }
-
+    }      
+  
   /* Else we're checking out from xml */
   else
     {
@@ -189,7 +189,7 @@ svn_client_update (const svn_delta_edit_fns_t *before_editor,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end: */
