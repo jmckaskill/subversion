@@ -9,14 +9,14 @@ An email from John Gardiner Myers <jgmyers@speakeasy.net> about some
 considerations for the tool.
 
 ------
-From: John Gardiner Myers <jgmyers@speakeasy.net>
+From: John Gardiner Myers <jgmyers@speakeasy.net>                     
 Subject: Thoughts on CVS to SVN conversion
-To: gstein@lyra.org
+To: gstein@lyra.org                                  
 Date: Sun, 15 Apr 2001 17:47:10 -0700
 
 Some things you may want to consider for a CVS to SVN conversion utility:
 
-If converting a CVS repository to SVN takes days, it would be good for
+If converting a CVS repository to SVN takes days, it would be good for     
 the conversion utility to keep its progress state on disk.  If the
 conversion fails halfway through due to a network outage or power
 failure, that would allow the conversion to be resumed where it left off
@@ -61,7 +61,7 @@ Further design thoughts from Greg Stein <gstein@lyra.org>
   the read is successful, but the mtime changed, then restart the
   file.
 
-* dump file metadata to a separate log file(s). in particular, we want
+* dump file metadata to a separate log file(s). in particular, we want 
   the following items for each commit:
   - MD5 hash of the commit message
   - author
