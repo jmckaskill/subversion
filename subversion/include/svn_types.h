@@ -3,32 +3,32 @@
  *
  * ================================================================
  * Copyright (c) 2000 Collab.Net.  All rights reserved.
- *
+ * 
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
  * met:
- *
+ * 
  * 1. Redistributions of source code must retain the above copyright
  * notice, this list of conditions and the following disclaimer.
- *
+ * 
  * 2. Redistributions in binary form must reproduce the above copyright
  * notice, this list of conditions and the following disclaimer in the
  * documentation and/or other materials provided with the distribution.
- *
+ * 
  * 3. The end-user documentation included with the redistribution, if
  * any, must include the following acknowlegement: "This product includes
  * software developed by Collab.Net (http://www.Collab.Net/)."
  * Alternately, this acknowlegement may appear in the software itself, if
  * and wherever such third-party acknowlegements normally appear.
- *
+ * 
  * 4. The hosted project names must not be used to endorse or promote
  * products derived from this software without prior written
  * permission. For written permission, please contact info@collab.net.
- *
+ * 
  * 5. Products derived from this software may not use the "Tigris" name
  * nor may "Tigris" appear in their names without prior written
  * permission of Collab.Net.
- *
+ * 
  * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
  * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -42,7 +42,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ====================================================================
- *
+ * 
  * This software consists of voluntary contributions made by many
  * individuals on behalf of Collab.Net.
  */
@@ -110,7 +110,7 @@ typedef struct svn_directory_t
 typedef struct svn_node_t
 {
   enum node_kind {svn_file_kind, svn_directory_kind} kind;
-  union node_union
+  union node_union 
   {
     svn_file_t *file;
     svn_directory_t *directory;
@@ -140,7 +140,7 @@ typedef struct svn_ver
    ACL/authorization system must create its own concept of
    "permissions" around these filesystem calls. */
 
-typedef enum
+typedef enum 
 {
   svn_action_latest,
   svn_action_get_ver_prop,
@@ -216,7 +216,7 @@ typedef unsigned long svn_token_t;
 
 /* These are the in-memory tree deltas; you can convert them to and
  * from XML.
- *
+ * 
  * The XML representation has certain space optimizations.  For
  * example, if an ancestor is omitted, it means the same path at the
  * same version (taken from the surrounding delta context).  We may
@@ -231,9 +231,9 @@ typedef unsigned long svn_token_t;
 /* todo: We'll need a way to stream these, so when you do a checkout
  * of comp-tools, the client doesn't wait for an entire 200 meg tree
  * delta to arrive before doing anything.
- *
+ * 
  * Proposal:
- *
+ * 
  * A caller (say, the working copy library) is given the tree delta as
  * soon as there is at least one svn_change_t in its list ready to
  * use.  The callee may continue to append svn_change_t objects to the
@@ -278,7 +278,7 @@ typedef struct svn_ancestor_t
 /* A change is an action and some content.  This is the content. */
 typedef struct svn_edit_content_t
 {
-  typedef enum {
+  typedef enum { 
     file_type = 1,
     directory_type
   } kind;                           /* what kind of object is this? */
@@ -291,7 +291,7 @@ typedef struct svn_edit_content_t
 /* A tree delta is a list of changes.  This is a change. */
 typedef struct svn_edit_t
 {
-  typedef enum {
+  typedef enum { 
     svn_delta_action_delete = 1,  /* Delete the file or directory. */
     svn_delta_action_new,         /* Create a new file or directory. */
     svn_delta_action_replace,     /* Replace an existing file or dir */
