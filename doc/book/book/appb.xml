@@ -14,20 +14,20 @@
       python script that lives within Subversion's source tree in the
       <filename>tools</filename> subdirectory.  In order to run this
       program, you need a number of external things:</para>
-
+    
     <variablelist>
-
+      
       <varlistentry>
         <term>python 2.0</term>
-
+        
         <listitem><para>Make sure you have python 2.0 or later
             installed.  You can get the latest from <systemitem
             class="url">http://www.python.org/</systemitem>.</para></listitem>
       </varlistentry>
-
+      
       <varlistentry>
-        <term><filename>rcsparse.py</filename></term>
-
+        <term><filename>rcsparse.py</filename></term> 
+        
         <listitem><para>This is a python module for parsing RCS files,
             and is part of the ViewCVS project.  It's needed to read
             your CVS repository.  For convenience, a copy is provided
@@ -39,10 +39,10 @@
             somewhere like
             <filename>/usr/local/lib/python2.2/</filename>.</para></listitem>
       </varlistentry>
-
+      
       <varlistentry>
-        <term>svn python bindings</term>
-
+        <term>svn python bindings</term> 
+        
         <listitem><para>The SWIG-generated python bindings to the
             Subversion libraries must be installed.  In particular,
             <filename>cvs2svn.py</filename> needs to make calls into
@@ -50,14 +50,14 @@
             a Subversion repository.  (See <xref
               linkend="svn-ch-7-sect-2.3"/>.)  </para></listitem>
       </varlistentry>
-
+      
     </variablelist>
-
+  
   </sect1>
-
+  
   <sect1 id="svn-ap-b-sect-2">
     <title>Running cvs2svn.py</title>
-
+    
     <para>Because CVS doesn't have atomic commits,
       <filename>cvs2svn.py</filename> has the difficult job of
       deducing them.  It does this by examing RCS files and looking
@@ -67,7 +67,7 @@
       other), then <filename>cvs2svn.py</filename> places them into a
       common change <quote>group</quote>, and commits the change-group
       to a new Subversion repository as a single revision.</para>
-
+    
     <para>The previous explanation is a bit of a simplification;
       there's much more bookkeeping to do than that.  In fact,
       <filename>cvs2svn.py</filename> does its work in multiple
@@ -77,7 +77,7 @@
       pass to resume with.</para>
 
     <para>Invoking the script is simple:</para>
-
+    
     <screen>
 $ svnadmin create /new/svn/repos
 $ cvs2svn.py -s /new/svn/repos /cvs/repos
