@@ -50,11 +50,11 @@ svn_cl__resolve (apr_getopt_t *os,
   targets = svn_cl__args_to_target_array (os, opt_state, FALSE, pool);
   if (! targets->nelts)
     return svn_error_create (SVN_ERR_CL_ARG_PARSING_ERROR, 0, 0, pool, "");
-
+    
   subpool = svn_pool_create (pool);
   if (! opt_state->quiet)
     svn_cl__get_notifier (&notify_func, &notify_baton, FALSE, FALSE, pool);
-
+  
   for (i = 0; i < targets->nelts; i++)
     {
       const char *target = ((const char **) (targets->elts))[i];
@@ -64,18 +64,18 @@ svn_cl__resolve (apr_getopt_t *os,
           svn_handle_warning (err, err->message);
           svn_error_clear_all (err);
         }
-
+      
       svn_pool_clear (subpool);
     }
-
+  
   svn_pool_destroy (subpool);
   return SVN_NO_ERROR;
 }
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../tools/dev/svn-dev.el")
- * end:
+ * end: 
  */
