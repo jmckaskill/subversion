@@ -29,7 +29,7 @@
 #include <jni.h>
 #include <svn_auth.h>
 #include <string>
-class Prompter
+class Prompter  
 {
 private:
 	jobject m_prompter;
@@ -39,15 +39,15 @@ private:
 	const char *askQuestion(const char *realm, const char *question, bool showAnswer);
 	jstring password();
 	jstring username();
-	static svn_error_t *firstCreds (void **credentials, void **iter_baton,
+	static svn_error_t *firstCreds (void **credentials, void **iter_baton, 
 							void *provider_baton, apr_hash_t *parameters, const char *realmstring, apr_pool_t *pool);
 	static svn_error_t *nextCreds (void **credentials, void *iter_baton,
                           apr_hash_t *parameters, apr_pool_t *pool);
-	static svn_error_t *firstCreds_server_ssl (void **credentials, void **iter_baton,
+	static svn_error_t *firstCreds_server_ssl (void **credentials, void **iter_baton, 
 							void *provider_baton, apr_hash_t *parameters, const char *realmstring, apr_pool_t *pool);
-	static svn_error_t *firstCreds_client_ssl (void **credentials, void **iter_baton,
+	static svn_error_t *firstCreds_client_ssl (void **credentials, void **iter_baton, 
 							void *provider_baton, apr_hash_t *parameters, const char *realmstring, apr_pool_t *pool);
-	static svn_error_t *firstCreds_client_ssl_pass (void **credentials, void **iter_baton,
+	static svn_error_t *firstCreds_client_ssl_pass (void **credentials, void **iter_baton, 
 							void *provider_baton, apr_hash_t *parameters, const char *realmstring, apr_pool_t *pool);
 	int m_retry;
     std::string m_userName;
