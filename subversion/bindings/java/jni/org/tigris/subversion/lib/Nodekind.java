@@ -17,46 +17,32 @@ package org.tigris.subversion.lib;
  *
  */
 
-public final class StatusKind
+public final class Nodekind
 {
     /**
-     * IMPORTANT: REMEMBER TO KEEP THIS
-     * CONSTANTS IN SYNC WITH THE ENUM
-     * svn_wc_status_kind_t
+     * IMPORTANT: KEEP THIS IN SYNC WITH THE
+     * DEFINITION OF svn_node_kind_t
      */
-    public final static int NONE=1;
-    public final static int UNVERSIONED=2;
-    public final static int NORMAL=3;
-    public final static int ADDED=4;
-    public final static int ABSENT=5;
-    public final static int DELETED=6;
-    public final static int REPLACED=7;
-    public final static int MODIFIED=8;
-    public final static int MERGED=9;
-    public final static int CONFLICTED=10;
+    public final static int NONE=0;
+    public final static int FILE=1;
+    public final static int DIR=2;
+    public final static int UNKNOWN=3;
 
     private final int kind;
 
-    public StatusKind(int _kind)
+    public Nodekind(int _kind)
 	{
 	    super();
 	    kind = _kind;
 	}
 
-    public StatusKind(StatusKind statusKind)
+    public Nodekind(Nodekind nodekind)
 	{
-	    this(statusKind.getKind());
+	    this(nodekind.getKind());
 	}
 
-    public int getKind()
+    public final int getKind()
 	{
 	    return kind;
 	}
 }
-
-
-
-
-
-
-

@@ -17,46 +17,32 @@ package org.tigris.subversion.lib;
  *
  */
 
-public final class StatusKind
+public final class Schedule
 {
     /**
-     * IMPORTANT: REMEMBER TO KEEP THIS
-     * CONSTANTS IN SYNC WITH THE ENUM
-     * svn_wc_status_kind_t
+     * IMPORTANT: KEEP THIS IN SYNC WITH THE
+     * DEFINITION OF svn_wc_schedule_t
      */
-    public final static int NONE=1;
-    public final static int UNVERSIONED=2;
-    public final static int NORMAL=3;
-    public final static int ADDED=4;
-    public final static int ABSENT=5;
-    public final static int DELETED=6;
-    public final static int REPLACED=7;
-    public final static int MODIFIED=8;
-    public final static int MERGED=9;
-    public final static int CONFLICTED=10;
+    public final static int NORMAL=0;
+    public final static int ADD=1;
+    public final static int DELETE=2;
+    public final static int REPLACE=3;
 
-    private final int kind;
+    private final int schedule;
 
-    public StatusKind(int _kind)
+    public Schedule(int _schedule)
 	{
 	    super();
-	    kind = _kind;
+	    schedule = _schedule;
 	}
 
-    public StatusKind(StatusKind statusKind)
+    public Schedule(Schedule _schedule)
 	{
-	    this(statusKind.getKind());
+	    this(_schedule.getSchedule());
 	}
 
-    public int getKind()
+    public final int getSchedule()
 	{
-	    return kind;
+	    return schedule;
 	}
 }
-
-
-
-
-
-
-

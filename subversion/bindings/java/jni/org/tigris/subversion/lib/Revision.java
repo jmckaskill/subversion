@@ -17,40 +17,40 @@ package org.tigris.subversion.lib;
  *
  */
 
-public class Revision {
+public final class Revision {
     public final static long INVALID_REVISION=-1;
-    private long revision=INVALID_REVISION;
+    private final long revision;
 
-    public Revision(long revision)
+    public Revision(long _revision)
     {
 	super();
 
-	this.revision = revision;
+	revision = _revision;
     }
 
-    public Revision(Revision revision)
+    public Revision(Revision _revision)
     {
-	this(revision.toLong());
+	this(_revision.toLong());
     }
 
-    public static boolean isValidRevision(Revision revision)
+    public static boolean isValidRevision(Revision _revision)
     {
-	return isValidRevision(revision.toLong());
+	return isValidRevision(_revision.toLong());
     }
 
-    public static boolean isValidRevision(long revision)
+    public static boolean isValidRevision(long _revision)
     {
-	return revision >= 0;
+	return _revision >= 0;
     }
 
-    public long toLong()
+    public final long toLong()
     {
 	return revision;
     }
 
-    public static long toLong(Revision revision)
+    public static long toLong(Revision _revision)
     {
-	return revision.toLong();
+	return _revision.toLong();
     }
 }
 
