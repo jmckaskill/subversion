@@ -80,7 +80,7 @@ svn_fs__bdb_changes_add (svn_fs_t *fs,
   svn_fs__str_to_dbt (&query, (char *) key);
   svn_fs__skel_to_dbt (&value, skel, trail->pool);
   svn_fs__trail_debug (trail, "changes", "put");
-  SVN_ERR (BDB_WRAP (fs, "creating change",
+  SVN_ERR (BDB_WRAP (fs, "creating change", 
                     fs->changes->put (fs->changes, trail->db_txn,
                                       &query, &value, 0)));
 
@@ -95,7 +95,7 @@ svn_fs__bdb_changes_delete (svn_fs_t *fs,
 {
   int db_err;
   DBT query;
-
+  
   svn_fs__trail_debug (trail, "changes", "del");
   db_err = fs->changes->del (fs->changes, trail->db_txn,
                              svn_fs__str_to_dbt (&query, (char *) key), 0);
@@ -126,7 +126,7 @@ fold_change (apr_hash_t *changes,
     {
       /* This path already exists in the hash, so we have to merge
          this change into the already existing one. */
-
+      
       /* Since the path already exists in the hash, we don't have to
          dup the allocation for the path itself. */
       path = change->path;
@@ -134,27 +134,27 @@ fold_change (apr_hash_t *changes,
       /* Sanity check:  only allow NULL node revision ID in the
          `reset' case. */
       if ((! change->noderev_id) && (change->kind != svn_fs_path_change_reset))
-        return svn_error_create
+        return svn_error_create 
           (SVN_ERR_FS_CORRUPT, NULL,
            "Missing required node revision ID");
-
+        
       /* Sanity check:  we should be talking about the same node
          revision ID as our last change except where the last change
          was a deletion. */
       if (change->noderev_id
           && (! svn_fs__id_eq (old_change->node_rev_id, change->noderev_id))
           && (old_change->change_kind != svn_fs_path_change_delete))
-        return svn_error_create
+        return svn_error_create 
           (SVN_ERR_FS_CORRUPT, NULL,
            "Invalid change ordering: new node revision ID without delete");
 
       /* Sanity check: an add, replacement, or reset must be the first
          thing to follow a deletion. */
       if ((old_change->change_kind == svn_fs_path_change_delete)
-          && (! ((change->kind == svn_fs_path_change_replace)
+          && (! ((change->kind == svn_fs_path_change_replace) 
                  || (change->kind == svn_fs_path_change_reset)
                  || (change->kind == svn_fs_path_change_add))))
-        return svn_error_create
+        return svn_error_create 
           (SVN_ERR_FS_CORRUPT, NULL,
            "Invalid change ordering: non-add change on deleted path");
 
@@ -257,7 +257,7 @@ svn_fs__bdb_changes_fetch (apr_hash_t **changes_p,
     {
       svn_fs__change_t *change;
       skel_t *result_skel;
-
+      
       /* RESULT now contains a change record associated with KEY.  We
          need to parse that skel into an svn_fs__change_t structure ...  */
       result_skel = svn_fs__parse_skel (result.data, result.size, subpool);
@@ -270,7 +270,7 @@ svn_fs__bdb_changes_fetch (apr_hash_t **changes_p,
       err = svn_fs__parse_change_skel (&change, result_skel, subpool);
       if (err)
         goto cleanup;
-
+      
       /* ... and merge it with our return hash.  */
       err = fold_change (changes, change);
       if (err)
@@ -278,7 +278,7 @@ svn_fs__bdb_changes_fetch (apr_hash_t **changes_p,
 
       /* Now, if our change was a deletion or replacement, we have to
          blow away any changes thus far on paths that are (or, were)
-         children of this path.
+         children of this path.   
          ### i won't bother with another iteration pool here -- at
              most we talking about a few extra dups of paths into what
              is already a temporary subpool.
@@ -288,15 +288,15 @@ svn_fs__bdb_changes_fetch (apr_hash_t **changes_p,
         {
           apr_hash_index_t *hi;
 
-          for (hi = apr_hash_first (subpool, changes);
-               hi;
+          for (hi = apr_hash_first (subpool, changes); 
+               hi; 
                hi = apr_hash_next (hi))
             {
               /* KEY is the path. */
               const void *hashkey;
               apr_ssize_t klen;
               apr_hash_this (hi, &hashkey, &klen, NULL);
-
+              
               /* If we come across our own path, ignore it. */
               if (strcmp (change->path, hashkey) == 0)
                 continue;
@@ -313,7 +313,7 @@ svn_fs__bdb_changes_fetch (apr_hash_t **changes_p,
       db_err = cursor->c_get (cursor, &query, &result, DB_NEXT_DUP);
       if (! db_err)
         svn_fs__track_dbt (&result, trail->pool);
-
+      
       /* Clear the per-iteration subpool. */
       svn_pool_clear (subpool);
     }
@@ -334,7 +334,7 @@ svn_fs__bdb_changes_fetch (apr_hash_t **changes_p,
   /* If we had an error prior to closing the cursor, return the error. */
   if (err)
     return err;
-
+  
   /* If our only error thus far was when we closed the cursor, return
      that error. */
   if (db_c_err)
@@ -357,7 +357,7 @@ svn_fs__bdb_changes_fetch_raw (apr_array_header_t **changes_p,
   int db_err = 0, db_c_err = 0;
   svn_error_t *err = SVN_NO_ERROR;
   svn_fs__change_t *change;
-  apr_array_header_t *changes = apr_array_make (trail->pool, 4,
+  apr_array_header_t *changes = apr_array_make (trail->pool, 4, 
                                                 sizeof (change));
 
   /* Get a cursor on the first record matching KEY, and then loop over
@@ -377,7 +377,7 @@ svn_fs__bdb_changes_fetch_raw (apr_array_header_t **changes_p,
   while (! db_err)
     {
       skel_t *result_skel;
-
+      
       /* RESULT now contains a change record associated with KEY.  We
          need to parse that skel into an svn_fs__change_t structure ...  */
       result_skel = svn_fs__parse_skel (result.data, result.size, trail->pool);
@@ -390,7 +390,7 @@ svn_fs__bdb_changes_fetch_raw (apr_array_header_t **changes_p,
       err = svn_fs__parse_change_skel (&change, result_skel, trail->pool);
       if (err)
         goto cleanup;
-
+      
       /* ... and add it to our return array.  */
       (*((svn_fs__change_t **) apr_array_push (changes))) = change;
 
@@ -415,7 +415,7 @@ svn_fs__bdb_changes_fetch_raw (apr_array_header_t **changes_p,
   /* If we had an error prior to closing the cursor, return the error. */
   if (err)
     return err;
-
+  
   /* If our only error thus far was when we closed the cursor, return
      that error. */
   if (db_c_err)
