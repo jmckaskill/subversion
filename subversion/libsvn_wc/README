@@ -436,7 +436,7 @@ Scenarios.
   foo/bar.c, even though that change is found as baz/bar.c in the
   repository.  How does the repository implement this?
 
-  Well,
+  Well, 
 
 * Scenario 2:
 
@@ -451,7 +451,7 @@ Scenarios.
   preserved in the rename.
 
   --- Mirror image of Scenario 2 ---
-
+  
   Client renames foo/ to baz/, and foo/bar.c to baz/qux.c.  Meanwhile,
   in repository, foo/bar.c has changed.
 
@@ -463,7 +463,7 @@ Scenarios.
 
 * Scenario 3:
 
-
+  
 
 From Jim's original scenario:
 
