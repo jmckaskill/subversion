@@ -47,7 +47,7 @@ svn_error_t *svn_wc__files_contents_same_p (svn_boolean_t *same,
 
 /* A special timestamp value which means "use the timestamp from the
    working copy".  This is sometimes used in a log entry like:
-
+   
    <modify-entry name="foo.c" revision="5" timestamp="working"/>
 
  */
@@ -67,7 +67,7 @@ svn_error_t *svn_wc__lock (svn_stringbuf_t *path, int wait_for, apr_pool_t *pool
 svn_error_t *svn_wc__unlock (svn_stringbuf_t *path, apr_pool_t *pool);
 
 /* Set *LOCKED to non-zero if PATH is locked, else set it to zero. */
-svn_error_t *svn_wc__locked (svn_boolean_t *locked,
+svn_error_t *svn_wc__locked (svn_boolean_t *locked, 
                              svn_stringbuf_t *path,
                              apr_pool_t *pool);
 
@@ -77,7 +77,7 @@ svn_error_t *svn_wc__locked (svn_boolean_t *locked,
 /* Create DIR as a working copy directory. */
 /* ### This function hasn't been defined nor completely documented
    yet, so I'm not sure whether the "ancestor" arguments are really
-   meant to be urls and should be changed to "url_*".  -kff */
+   meant to be urls and should be changed to "url_*".  -kff */ 
 svn_error_t *svn_wc__set_up_new_dir (svn_stringbuf_t *path,
                                      svn_stringbuf_t *ancestor_path,
                                      svn_revnum_t ancestor_revnum,
@@ -142,7 +142,7 @@ svn_error_t *svn_wc__make_adm_thing (svn_stringbuf_t *path,
 
 /* Cleanup the temporary storage area of the administrative
    directory. */
-svn_error_t *svn_wc__adm_cleanup_tmp_area (svn_stringbuf_t *path,
+svn_error_t *svn_wc__adm_cleanup_tmp_area (svn_stringbuf_t *path, 
                                            apr_pool_t *pool);
 
 
@@ -155,7 +155,7 @@ svn_error_t *svn_wc__adm_cleanup_tmp_area (svn_stringbuf_t *path,
  * When you open a file for writing with svn_wc__open_foo(), the file
  * is actually opened in the corresponding location in the tmp/
  * directory (and if you're appending as well, then the tmp file
- * starts out as a copy of the original file).
+ * starts out as a copy of the original file). 
  *
  * Somehow, this tmp file must eventually get renamed to its real
  * destination in the adm area.  You can do it either by passing the
@@ -257,12 +257,12 @@ svn_error_t *svn_wc__close_props (apr_file_t *fp,
                                   apr_pool_t *pool);
 
 /* Atomically rename a temporary property file to its canonical
-   location.  The tmp file should be closed already.
+   location.  The tmp file should be closed already. 
 
    Again, BASE and WCPROPS flags should be identical to those used to
    open the file. */
 svn_error_t *
-svn_wc__sync_props (svn_stringbuf_t *path,
+svn_wc__sync_props (svn_stringbuf_t *path, 
                     svn_boolean_t base,
                     svn_boolean_t wcprops,
                     apr_pool_t *pool);
@@ -282,7 +282,7 @@ svn_stringbuf_t *svn_wc__text_base_path (const svn_stringbuf_t *path,
 
 
 /* Set *PROP_PATH to PATH's working properties file.
-   If TMP is set, return a path to the tmp working property file.
+   If TMP is set, return a path to the tmp working property file. 
    PATH can be a directory or file, and even have changed w.r.t. the
    working copy's adm knowledge. */
 svn_error_t *svn_wc__prop_path (svn_stringbuf_t **prop_path,
@@ -292,7 +292,7 @@ svn_error_t *svn_wc__prop_path (svn_stringbuf_t **prop_path,
 
 
 /* Set *PROP_PATH to PATH's `pristine' properties file.
-   If TMP is set, return a path to the tmp working property file.
+   If TMP is set, return a path to the tmp working property file. 
    PATH can be a directory or file, and even have changed w.r.t. the
    working copy's adm knowledge. */
 svn_error_t *svn_wc__prop_base_path (svn_stringbuf_t **prop_path,
@@ -327,7 +327,7 @@ svn_error_t *svn_wc__ensure_wc (svn_stringbuf_t *path,
  * a working copy subdir based on URL at REVISION
  *
  * Does not ensure existence of PATH itself; if PATH does not exist,
- * an error will result.
+ * an error will result. 
  */
 svn_error_t *svn_wc__ensure_adm (svn_stringbuf_t *path,
                                  svn_stringbuf_t *url,
@@ -391,7 +391,7 @@ svn_error_t *svn_wc__adm_destroy (svn_stringbuf_t *path,
 #define SVN_WC__LOG_APPEND              "append"
 
 
-/* Handle closure after an update completes successfully:
+/* Handle closure after an update completes successfully:  
  *
  *   If SVN_WC__LOG_ATTR_TEXT_REJFILE exists and has >0 size, then
  *   mark the entry as textually conflicted; else remove a 0 byte
@@ -401,7 +401,7 @@ svn_error_t *svn_wc__adm_destroy (svn_stringbuf_t *path,
  */
 #define SVN_WC__LOG_UPDATED            "updated"
 
-/* Handle closure after a commit completes successfully:
+/* Handle closure after a commit completes successfully:  
  *
  *   If SVN/tmp/text-base/SVN_WC__LOG_ATTR_NAME exists, then
  *      compare SVN/tmp/text-base/SVN_WC__LOG_ATTR_NAME with working file
@@ -434,8 +434,8 @@ svn_error_t *svn_wc__adm_destroy (svn_stringbuf_t *path,
 
 /* Starting at PATH, write out log entries indicating that a commit
  * succeeded, using REVISION as the new revision number.  run_log will
- * use these log items to complete the commit.
- *
+ * use these log items to complete the commit. 
+ * 
  * Targets is a hash of files/dirs that actually got committed --
  * these are the only ones who we can write log items for, and whose
  * revision numbers will get set.  todo: eventually this hash will be
@@ -521,8 +521,8 @@ svn_error_t *svn_wc__atts_to_entry (svn_wc_entry_t **new_entry,
    all.  Note that in the descriptions below, the "valid values"
    restrictions on a field only apply when that field is being
    "noticed" via the MODIFY_FLAGS.
-
-   - REVISION is the entry's revision number.
+ 
+   - REVISION is the entry's revision number.  
 
    - KIND is the node type of this entry.  Valid values are
      svn_node_dir and _file.
@@ -546,11 +546,11 @@ svn_error_t *svn_wc__atts_to_entry (svn_wc_entry_t **new_entry,
    - ATTRIBUTES is a hash of properties on the entry.  The keys are
      (const char *) and the values are (svn_stringbuf_t *).  These
      overwrite where they collide with existing attributes.
-
+     
    Remaining (const char *) arguments are attributes to be removed
    from the entry, terminated by a final NULL.  These will be removed
    even if they also appear in ATTS.
-
+     
    NOTE: when you call this function, the entries file will be read,
    tweaked, and written back out.  */
 svn_error_t *svn_wc__entry_modify (svn_stringbuf_t *path,
@@ -714,7 +714,7 @@ svn_error_t * svn_wc__wcprop_set (svn_stringbuf_t *name,
 svn_error_t *svn_wc__remove_wcprops (svn_stringbuf_t *path, apr_pool_t *pool);
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
