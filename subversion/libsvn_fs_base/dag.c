@@ -197,7 +197,7 @@ set_node_revision (dag_node_t *node,
                    trail_t *trail)
 {
   /* Write it out.  */
-  SVN_ERR (svn_fs_bdb__put_node_revision (node->fs, node->id, noderev,
+  SVN_ERR (svn_fs_bdb__put_node_revision (node->fs, node->id, noderev, 
                                           trail, trail->pool));
 
   /* Since the write succeeded, update the cache.  */
@@ -266,7 +266,7 @@ svn_fs_base__dag_get_predecessor_id (const svn_fs_id_t **id_p,
   node_revision_t *noderev;
 
   SVN_ERR (get_node_revision (&noderev, node, trail));
-  *id_p = noderev->predecessor_id ?
+  *id_p = noderev->predecessor_id ? 
     svn_fs_base__id_copy (noderev->predecessor_id, pool) : NULL;
   return SVN_NO_ERROR;
 }
@@ -322,7 +322,7 @@ dag_walk_predecessors (dag_node_t *node,
 
   /* Get the node revision for NODE so we can start examining its
      predecessor id chain.  */
-  SVN_ERR (svn_fs_bdb__get_node_revision (&this_node_rev, fs,
+  SVN_ERR (svn_fs_bdb__get_node_revision (&this_node_rev, fs, 
                                           svn_fs_base__dag_get_id (node),
                                           trail, oldpool));
 
@@ -333,7 +333,7 @@ dag_walk_predecessors (dag_node_t *node,
          we alternate back and forth between our subpools.  */
       apr_pool_t *tmppool;
       const svn_fs_id_t *pred_id = this_node_rev->predecessor_id;
-
+      
       /* If THIS_NODE_REV has a predecessor, replace THIS_NODE_REV
          with the node_revision_t of that precessor, else set it to
          NULL.  */
@@ -362,7 +362,7 @@ dag_walk_predecessors (dag_node_t *node,
 
 /* Trail body for svn_fs_base__dag_init_fs. */
 static svn_error_t *
-txn_body_dag_init_fs (void *baton,
+txn_body_dag_init_fs (void *baton, 
                       trail_t *trail)
 {
   node_revision_t noderev;
@@ -378,7 +378,7 @@ txn_body_dag_init_fs (void *baton,
   memset (&noderev, 0, sizeof (noderev));
   noderev.kind = svn_node_dir;
   noderev.created_path = "/";
-  SVN_ERR (svn_fs_bdb__put_node_revision (fs, root_id, &noderev,
+  SVN_ERR (svn_fs_bdb__put_node_revision (fs, root_id, &noderev, 
                                           trail, trail->pool));
 
   /* Create a new transaction (better have an id of "0") */
@@ -734,7 +734,7 @@ svn_fs_base__dag_get_proplist (apr_hash_t **proplist_p,
   proplist_skel = svn_fs_base__parse_skel (raw_proplist.data, raw_proplist.len,
                                            pool);
   if (proplist_skel)
-    SVN_ERR (svn_fs_base__parse_proplist_skel (&proplist, proplist_skel,
+    SVN_ERR (svn_fs_base__parse_proplist_skel (&proplist, proplist_skel, 
                                                pool));
 
   *proplist_p = proplist;
@@ -773,7 +773,7 @@ svn_fs_base__dag_set_proplist (dag_node_t *node,
   if (! svn_fs_base__same_keys (mutable_rep_key, rep_key))
     {
       noderev->prop_key = mutable_rep_key;
-      SVN_ERR (svn_fs_bdb__put_node_revision (fs, node->id, noderev,
+      SVN_ERR (svn_fs_bdb__put_node_revision (fs, node->id, noderev, 
                                               trail, trail->pool));
     }
 
@@ -1065,7 +1065,7 @@ svn_fs_base__dag_delete (dag_node_t *parent,
                                       id, trail, pool));
 
   /* If mutable, remove it and any mutable children from db. */
-  SVN_ERR (svn_fs_base__dag_delete_if_mutable (parent->fs, id, txn_id,
+  SVN_ERR (svn_fs_base__dag_delete_if_mutable (parent->fs, id, txn_id, 
                                                trail, pool));
 
   /* Remove this entry from its parent's entries list. */
@@ -1111,7 +1111,7 @@ svn_fs_base__dag_remove_node (svn_fs_t *fs,
                               _("Attempted removal of immutable node"));
 
   /* Get a fresh node-revision. */
-  SVN_ERR (svn_fs_bdb__get_node_revision (&noderev, fs, id,
+  SVN_ERR (svn_fs_bdb__get_node_revision (&noderev, fs, id, 
                                           trail, trail->pool));
 
   /* Delete any mutable property representation. */
@@ -1173,7 +1173,7 @@ svn_fs_base__dag_delete_if_mutable (svn_fs_t *fs,
               apr_hash_this (hi, NULL, NULL, &val);
               dirent = val;
               SVN_ERR (svn_fs_base__dag_delete_if_mutable (fs, dirent->id,
-                                                           txn_id, trail,
+                                                           txn_id, trail, 
                                                            subpool));
             }
         }
@@ -1197,7 +1197,7 @@ svn_fs_base__dag_make_file (dag_node_t **child_p,
                             apr_pool_t *pool)
 {
   /* Call our little helper function */
-  return make_entry (child_p, parent, parent_path, name, FALSE,
+  return make_entry (child_p, parent, parent_path, name, FALSE, 
                      txn_id, trail, pool);
 }
 
@@ -1212,7 +1212,7 @@ svn_fs_base__dag_make_dir (dag_node_t **child_p,
                            apr_pool_t *pool)
 {
   /* Call our little helper function */
-  return make_entry (child_p, parent, parent_path, name, TRUE,
+  return make_entry (child_p, parent, parent_path, name, TRUE, 
                      txn_id, trail, pool);
 }
 
@@ -1341,7 +1341,7 @@ svn_fs_base__dag_get_edit_stream (svn_stream_t **contents,
 
   /* We made a new rep, so update the node revision. */
   noderev->edit_key = mutable_rep_key;
-  SVN_ERR (svn_fs_bdb__put_node_revision (fs, file->id, noderev,
+  SVN_ERR (svn_fs_bdb__put_node_revision (fs, file->id, noderev, 
                                           trail, trail->pool));
 
   /* Return a writable stream with which to set new contents. */
@@ -1411,7 +1411,7 @@ svn_fs_base__dag_finalize_edits (dag_node_t *file,
   old_data_key = noderev->data_key;
   noderev->data_key = noderev->edit_key;
   noderev->edit_key = NULL;
-  SVN_ERR (svn_fs_bdb__put_node_revision (fs, file->id, noderev,
+  SVN_ERR (svn_fs_bdb__put_node_revision (fs, file->id, noderev, 
                                           trail, trail->pool));
 
   /* Only *now* can we safely destroy the old representation (if it
@@ -1534,7 +1534,7 @@ svn_fs_base__dag_copy (dag_node_t *to_node,
     }
 
   /* Set the entry in to_node to the new id. */
-  SVN_ERR (svn_fs_base__dag_set_entry (to_node, entry, id, txn_id,
+  SVN_ERR (svn_fs_base__dag_set_entry (to_node, entry, id, txn_id, 
                                        trail, pool));
 
   return SVN_NO_ERROR;
@@ -1708,7 +1708,7 @@ svn_fs_base__dag_is_ancestor (svn_boolean_t *is_ancestor,
   baton.need_parent = FALSE;
   baton.node1_id = id1;
 
-  SVN_ERR (dag_walk_predecessors (node2, is_ancestor_callback, &baton,
+  SVN_ERR (dag_walk_predecessors (node2, is_ancestor_callback, &baton, 
                                   trail, pool));
   if (baton.is_ancestor)
     *is_ancestor = TRUE;
@@ -1740,7 +1740,7 @@ svn_fs_base__dag_is_parent (svn_boolean_t *is_parent,
   baton.need_parent = TRUE;
   baton.node1_id = id1;
 
-  SVN_ERR (dag_walk_predecessors (node2, is_ancestor_callback, &baton,
+  SVN_ERR (dag_walk_predecessors (node2, is_ancestor_callback, &baton, 
                                   trail, pool));
   if (baton.is_ancestor)
     *is_parent = TRUE;

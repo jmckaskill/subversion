@@ -434,7 +434,7 @@ root_node (dag_node_t **node_p,
   else
     {
       /* It's a transaction root.  Open a fresh copy.  */
-      return svn_fs_base__dag_txn_root (node_p, root->fs, root->txn,
+      return svn_fs_base__dag_txn_root (node_p, root->fs, root->txn, 
                                         trail, trail->pool);
     }
 }
@@ -450,7 +450,7 @@ mutable_root_node (dag_node_t **node_p,
                    trail_t *trail)
 {
   if (root->is_txn_root)
-    return svn_fs_base__dag_clone_root (node_p, root->fs, root->txn,
+    return svn_fs_base__dag_clone_root (node_p, root->fs, root->txn, 
                                         trail, trail->pool);
   else
     /* If it's not a transaction root, we can't change its contents.  */
@@ -762,7 +762,7 @@ open_path (parent_path_t **parent_path_p,
           if (cached_node)
             child = cached_node;
           else
-            err = svn_fs_base__dag_open (&child, here, entry,
+            err = svn_fs_base__dag_open (&child, here, entry, 
                                          trail, trail->pool);
 
           /* "file not found" requires special handling.  */
@@ -1050,7 +1050,7 @@ txn_body_node_created_rev (void *baton, trail_t *trail)
   dag_node_t *node;
 
   SVN_ERR (get_dag (&node, args->root, args->path, trail));
-  SVN_ERR (svn_fs_base__dag_get_revision (&(args->revision), node,
+  SVN_ERR (svn_fs_base__dag_get_revision (&(args->revision), node, 
                                           trail, trail->pool));
   return SVN_NO_ERROR;
 }
@@ -1122,7 +1122,7 @@ txn_body_node_kind (void *baton, trail_t *trail)
   struct node_kind_args *args = baton;
   dag_node_t *node;
 
-  SVN_ERR (svn_fs_base__dag_get_node (&node, trail->fs, args->id,
+  SVN_ERR (svn_fs_base__dag_get_node (&node, trail->fs, args->id, 
                                       trail, trail->pool));
   args->kind = svn_fs_base__dag_node_kind (node);
 
@@ -1189,7 +1189,7 @@ txn_body_node_prop (void *baton,
   apr_hash_t *proplist;
 
   SVN_ERR (get_dag (&node, args->root, args->path, trail));
-  SVN_ERR (svn_fs_base__dag_get_proplist (&proplist, node,
+  SVN_ERR (svn_fs_base__dag_get_proplist (&proplist, node, 
                                           trail, trail->pool));
   *(args->value_p) = NULL;
   if (proplist)
@@ -1235,7 +1235,7 @@ txn_body_node_proplist (void *baton, trail_t *trail)
   apr_hash_t *proplist;
 
   SVN_ERR (get_dag (&node, args->root, args->path, trail));
-  SVN_ERR (svn_fs_base__dag_get_proplist (&proplist, node,
+  SVN_ERR (svn_fs_base__dag_get_proplist (&proplist, node, 
                                           trail, trail->pool));
   *args->table_p = proplist ? proplist : apr_hash_make (trail->pool);
   return SVN_NO_ERROR;
@@ -1546,7 +1546,7 @@ txn_body_pred_id (void *baton, trail_t *trail)
   node_revision_t *nr;
   struct txn_pred_id_args *args = baton;
 
-  SVN_ERR (svn_fs_bdb__get_node_revision (&nr, trail->fs, args->id,
+  SVN_ERR (svn_fs_bdb__get_node_revision (&nr, trail->fs, args->id, 
                                           trail, trail->pool));
   if (nr->predecessor_id)
     args->pred_id = svn_fs_base__id_copy (nr->predecessor_id, args->pool);
@@ -1760,7 +1760,7 @@ id_check_ancestor (svn_boolean_t *is_ancestor,
 
   /* Do the test.  If the test fails, we'll just go with "not an
      ancestor" for now.  ### better come back and check this out.  */
-  return svn_fs_base__dag_is_ancestor (is_ancestor, node1, node2,
+  return svn_fs_base__dag_is_ancestor (is_ancestor, node1, node2, 
                                        trail, trail->pool);
 }
 
@@ -1781,13 +1781,13 @@ update_ancestry (svn_fs_t *fs,
     return svn_error_createf
       (SVN_ERR_FS_NOT_MUTABLE, NULL,
        _("Unexpected immutable node at '%s'"), target_path);
-  SVN_ERR (svn_fs_bdb__get_node_revision (&noderev, fs, target_id,
+  SVN_ERR (svn_fs_bdb__get_node_revision (&noderev, fs, target_id, 
                                           trail, trail->pool));
   noderev->predecessor_id = source_id;
   noderev->predecessor_count = source_pred_count;
   if (noderev->predecessor_count != -1)
     noderev->predecessor_count++;
-  return svn_fs_bdb__put_node_revision (fs, target_id, noderev,
+  return svn_fs_bdb__put_node_revision (fs, target_id, noderev, 
                                         trail, trail->pool);
 }
 
@@ -2050,9 +2050,9 @@ merge (svn_stringbuf_t *conflict_p,
     node_revision_t *tgt_nr, *anc_nr;
 
     /* Get node revisions for our id's. */
-    SVN_ERR (svn_fs_bdb__get_node_revision (&tgt_nr, fs, target_id,
+    SVN_ERR (svn_fs_bdb__get_node_revision (&tgt_nr, fs, target_id, 
                                             trail, trail->pool));
-    SVN_ERR (svn_fs_bdb__get_node_revision (&anc_nr, fs, ancestor_id,
+    SVN_ERR (svn_fs_bdb__get_node_revision (&anc_nr, fs, ancestor_id, 
                                             trail, trail->pool));
 
     /* Now compare the prop-keys of the skels.  Note that just because
@@ -2070,15 +2070,15 @@ merge (svn_stringbuf_t *conflict_p,
   /* ### todo: it would be more efficient to simply check for a NULL
      entries hash where necessary below than to allocate an empty hash
      here, but another day, another day... */
-  SVN_ERR (svn_fs_base__dag_dir_entries (&s_entries, source,
+  SVN_ERR (svn_fs_base__dag_dir_entries (&s_entries, source, 
                                          trail, trail->pool));
   if (! s_entries)
     s_entries = apr_hash_make (trail->pool);
-  SVN_ERR (svn_fs_base__dag_dir_entries (&t_entries, target,
+  SVN_ERR (svn_fs_base__dag_dir_entries (&t_entries, target, 
                                          trail, trail->pool));
   if (! t_entries)
     t_entries = apr_hash_make (trail->pool);
-  SVN_ERR (svn_fs_base__dag_dir_entries (&a_entries, ancestor,
+  SVN_ERR (svn_fs_base__dag_dir_entries (&a_entries, ancestor, 
                                          trail, trail->pool));
   if (! a_entries)
     a_entries = apr_hash_make (trail->pool);
@@ -2183,13 +2183,13 @@ merge (svn_stringbuf_t *conflict_p,
                   int pred_count;
 
                   SVN_ERR (svn_fs_base__dag_get_node (&s_ent_node, fs,
-                                                      s_entry->id, trail,
+                                                      s_entry->id, trail, 
                                                       trail->pool));
                   SVN_ERR (svn_fs_base__dag_get_node (&t_ent_node, fs,
-                                                      t_entry->id, trail,
+                                                      t_entry->id, trail, 
                                                       trail->pool));
                   SVN_ERR (svn_fs_base__dag_get_node (&a_ent_node, fs,
-                                                      a_entry->id, trail,
+                                                      a_entry->id, trail, 
                                                       trail->pool));
 
                   if ((svn_fs_base__dag_node_kind (s_ent_node) != svn_node_dir)
@@ -2214,7 +2214,7 @@ merge (svn_stringbuf_t *conflict_p,
 
                   SVN_ERR (svn_fs_base__dag_get_predecessor_count (&pred_count,
                                                                    s_ent_node,
-                                                                   trail,
+                                                                   trail, 
                                                                    trail->pool));
 
                   /* If target is an immediate descendant of ancestor,
@@ -2358,7 +2358,7 @@ merge (svn_stringbuf_t *conflict_p,
                _("Unexpected immutable node at '%s'"), target_path);
 
           SVN_ERR (svn_fs_base__dag_set_entry
-                   (target, s_entry->name, s_entry->id, txn_id,
+                   (target, s_entry->name, s_entry->id, txn_id, 
                     trail, trail->pool));
         }
       /* E exists in target but is different from E in source */
@@ -2429,7 +2429,7 @@ txn_body_merge (void *baton, trail_t *trail)
   ancestor_node = args->ancestor_node;
   source_id = svn_fs_base__dag_get_id (source_node);
 
-  SVN_ERR (svn_fs_base__dag_txn_root (&txn_root_node, fs, txn_id,
+  SVN_ERR (svn_fs_base__dag_txn_root (&txn_root_node, fs, txn_id, 
                                       trail, trail->pool));
 
   if (ancestor_node == NULL)
@@ -2461,7 +2461,7 @@ txn_body_merge (void *baton, trail_t *trail)
                       source_node, ancestor_node, txn_id, trail));
 
       SVN_ERR (svn_fs_base__dag_get_predecessor_count (&pred_count,
-                                                       source_node, trail,
+                                                       source_node, trail, 
                                                        trail->pool));
 
       /* After the merge, txn's new "ancestor" is now really the node
@@ -3080,7 +3080,7 @@ txn_body_copied_from (void *baton, trail_t *trail)
 
   /* Check the node's predecessor-ID.  If it doesn't have one, it
      isn't a copy. */
-  SVN_ERR (svn_fs_base__dag_get_predecessor_id (&pred_id, node,
+  SVN_ERR (svn_fs_base__dag_get_predecessor_id (&pred_id, node, 
                                                 trail, trail->pool));
   if (! pred_id)
     return SVN_NO_ERROR;
@@ -3211,7 +3211,7 @@ txn_body_file_length (void *baton,
   SVN_ERR (get_dag (&file, args->root, args->path, trail));
 
   /* Now fetch its length */
-  return svn_fs_base__dag_file_length (&args->length, file,
+  return svn_fs_base__dag_file_length (&args->length, file, 
                                        trail, trail->pool);
 }
 
@@ -3248,7 +3248,7 @@ txn_body_file_checksum (void *baton,
   dag_node_t *file;
 
   SVN_ERR (get_dag (&file, args->root, args->path, trail));
-  return svn_fs_base__dag_file_checksum (args->digest, file,
+  return svn_fs_base__dag_file_checksum (args->digest, file, 
                                          trail, trail->pool);
 }
 
@@ -3488,7 +3488,7 @@ txn_body_apply_textdelta (void *baton, trail_t *trail)
 
       /* Until we finalize the node, its data_key points to the old
          contents, in other words, the base text. */
-      SVN_ERR (svn_fs_base__dag_file_checksum (digest, tb->node,
+      SVN_ERR (svn_fs_base__dag_file_checksum (digest, tb->node, 
                                                trail, trail->pool));
       hex = svn_md5_digest_to_cstring (digest, trail->pool);
       if (hex && (strcmp (tb->base_checksum, hex) != 0))
@@ -3833,7 +3833,7 @@ txn_body_paths_changed (void *baton,
   else
     txn_id = args->root->txn;
 
-  return svn_fs_bdb__changes_fetch (&(args->changes), fs, txn_id,
+  return svn_fs_bdb__changes_fetch (&(args->changes), fs, txn_id, 
                                     trail, trail->pool);
 }
 
@@ -4012,7 +4012,7 @@ txn_body_history_prev (void *baton, trail_t *trail)
   node = parent_path->node;
   node_id = svn_fs_base__dag_get_id (node);
   commit_path = svn_fs_base__dag_get_created_path (node);
-  SVN_ERR (svn_fs_base__dag_get_revision (&commit_rev, node,
+  SVN_ERR (svn_fs_base__dag_get_revision (&commit_rev, node, 
                                           trail, trail->pool));
 
   /* The Subversion filesystem is written in such a way that a given
@@ -4048,11 +4048,11 @@ txn_body_history_prev (void *baton, trail_t *trail)
 
           /* Replace NODE and friends with the information from its
              predecessor. */
-          SVN_ERR (svn_fs_base__dag_get_node (&node, fs, pred_id,
+          SVN_ERR (svn_fs_base__dag_get_node (&node, fs, pred_id, 
                                               trail, trail->pool));
           node_id = svn_fs_base__dag_get_id (node);
           commit_path = svn_fs_base__dag_get_created_path (node);
-          SVN_ERR (svn_fs_base__dag_get_revision (&commit_rev, node,
+          SVN_ERR (svn_fs_base__dag_get_revision (&commit_rev, node, 
                                                   trail, trail->pool));
         }
     }
@@ -4081,12 +4081,12 @@ txn_body_history_prev (void *baton, trail_t *trail)
 
       /* Get the COPY record if we haven't already fetched it. */
       if (! copy)
-        SVN_ERR (svn_fs_bdb__get_copy (&copy, fs, end_copy_id, trail,
+        SVN_ERR (svn_fs_bdb__get_copy (&copy, fs, end_copy_id, trail, 
                                        trail->pool));
 
       /* Figure out the destination path of the copy operation. */
       SVN_ERR (svn_fs_base__dag_get_node (&dst_node, fs,
-                                          copy->dst_noderev_id,
+                                          copy->dst_noderev_id, 
                                           trail, trail->pool));
       copy_dst = svn_fs_base__dag_get_created_path (dst_node);
 
