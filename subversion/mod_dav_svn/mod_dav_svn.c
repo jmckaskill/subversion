@@ -390,7 +390,7 @@ static apr_status_t merge_xml_in_filter(ap_filter_t *f,
           if (rv != APR_SUCCESS) {
             return rv;
           }
-
+            
         }
     }
 

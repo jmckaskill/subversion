@@ -792,7 +792,7 @@ svn_fs_set_uuid (svn_fs_t *fs, const char *uuid, apr_pool_t *pool)
 }
 
 svn_error_t *
-svn_fs_lock (svn_lock_t **lock, svn_fs_t *fs, const char *path,
+svn_fs_lock (svn_lock_t **lock, svn_fs_t *fs, const char *path, 
              const char *token, const char *comment, long int timeout,
              svn_revnum_t current_rev, svn_boolean_t force, apr_pool_t *pool)
 {
@@ -802,17 +802,17 @@ svn_fs_lock (svn_lock_t **lock, svn_fs_t *fs, const char *path,
       if (! svn_xml_is_xml_safe(comment, strlen(comment)))
         return svn_error_create
           (SVN_ERR_XML_UNESCAPABLE_DATA, NULL,
-           _("Lock comment has illegal characters."));
+           _("Lock comment has illegal characters."));      
     }
 
   return fs->vtable->lock (lock, fs, path, token, comment, timeout,
-                           current_rev, force, pool);
+                           current_rev, force, pool);  
 }
 
 svn_error_t *
 svn_fs_generate_lock_token (const char **token, svn_fs_t *fs, apr_pool_t *pool)
 {
-  return fs->vtable->generate_lock_token (token, fs, pool);
+  return fs->vtable->generate_lock_token (token, fs, pool);  
 }
 
 svn_error_t *
@@ -835,7 +835,7 @@ svn_fs_get_locks (svn_fs_t *fs, const char *path,
                   void *get_locks_baton,
                   apr_pool_t *pool)
 {
-  return fs->vtable->get_locks (fs, path, get_locks_func,
+  return fs->vtable->get_locks (fs, path, get_locks_func, 
                                 get_locks_baton, pool);
 }
 
@@ -888,7 +888,7 @@ svn_fs_check_related (const svn_fs_id_t *a, const svn_fs_id_t *b)
   return (a->vtable->compare (a, b) != -1);
 }
 
-int
+int 
 svn_fs_compare_ids (const svn_fs_id_t *a, const svn_fs_id_t *b)
 {
   return a->vtable->compare (a, b);
