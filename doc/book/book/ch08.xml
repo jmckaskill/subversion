@@ -7,7 +7,7 @@
 <para>
 ###TODO Write this
 </para>
-
+    
     <!-- Put here for storage -->
     <sect2 id="svn-ch-8-todo1">
       <title><command>svn info</command></title>
@@ -72,7 +72,7 @@ Checked out revision 3.
 
       <para>First, it can be used to simultaneously create a new working copy
         directory and schedule it for addition:</para>
-
+      
       <screen>
 $ svn mkdir new-dir
 A     new-dir
