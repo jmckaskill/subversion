@@ -52,7 +52,7 @@ typedef struct svn_prop_t
 /* Subversion distinguishes among several kinds of properties,
    particularly on the client-side.  There is no "unknown" kind; if
    there's nothing special about a property name, the default category
-   is `svn_prop_regular_kind'. */
+   is `svn_prop_regular_kind'. */ 
 typedef enum svn_prop_kind
 {
   svn_prop_entry_kind,   /* In .svn/entries, i.e., author, date, etc. */
@@ -129,7 +129,7 @@ svn_error_t *svn_categorize_props (const apr_array_header_t *proplist,
 /* Set to either TRUE or FALSE if we want a file to be executable or not. */
 #define SVN_PROP_EXECUTABLE  SVN_PROP_PREFIX "executable"
 
-/* Describes external items to check out into this directory.
+/* Describes external items to check out into this directory. 
  *
  * The format is a series of lines, such as:
  *
@@ -151,7 +151,7 @@ svn_error_t *svn_categorize_props (const apr_array_header_t *proplist,
 /* WC props are props that are invisible to users:  they're generated
    by an RA layer, and stored in secret parts of .svn/.  */
 
-/* The propname *prefix* that makes a propname a "WC property".
+/* The propname *prefix* that makes a propname a "WC property". 
    For example, ra_dav might store a versioned-resource url as a WC
    prop like this:
 
@@ -164,7 +164,7 @@ svn_error_t *svn_categorize_props (const apr_array_header_t *proplist,
 #define SVN_PROP_WC_PREFIX     SVN_PROP_PREFIX "wc:"
 
 /* Another type of non-user-visible property.  "Entry properties" are
-   stored as fields with the adminstrative 'entries' file.
+   stored as fields with the adminstrative 'entries' file.  
 */
 #define SVN_PROP_ENTRY_PREFIX  SVN_PROP_PREFIX "entry:"
 
