@@ -16,7 +16,7 @@
 
 /*** Includes ***/
 
-/*
+/* 
  * Requires:  The working copy library.
  * Provides:  Broad wrappers around working copy library functionality.
  * Used By:   Client programs.
@@ -91,7 +91,7 @@ typedef struct svn_client_auth_t
      drivers" and presented to the RA layer. */
   const char *username;
   const char *password;  /* ### add more fields here for other protocols. */
-
+ 
   /* A callback pointer that libsvn_client can use to make the
      application prompt the user for information (see earlier
      typedef.)   This -must- be provided by the calling application. */
@@ -109,7 +109,7 @@ typedef struct svn_client_auth_t
 
 
 
-/* Return an authenticated session to REPOS_URL via RA_LIB.
+/* Return an authenticated session to REPOS_URL via RA_LIB.  
 
    This routine will negotiate with an RA library and authenticate
    the user using the data in AUTH_OBJ:
@@ -129,16 +129,16 @@ typedef struct svn_client_auth_t
                AUTH_OBJ   (e.g. was given as a command-line arg.)
            2.  checking if the information is already stored in the
                working copy at PATH.
-           3.  checking if the information can be derived automatically
+           3.  checking if the information can be derived automatically 
                (e.g. calling getuid() )
            4.  forcing the application to prompt the user
                (using AUTH_OBJ->PROMPT_CALLBACK)
-
+ 
     Assuming no error occurs, *SESSION_BATON will be set to an object
     that represents an "open" session with the repository.  This
     session_baton is necessary for all further interaction with RA
     layer.
-
+ 
     This routine might also return an *STORAGE_CALLBACK/BATON within
     AUTH_OBJ for storing the authentication information in the working
     copy at PATH.  If a non-NULL routine is returned, the caller of
@@ -267,7 +267,7 @@ svn_client_undelete (svn_stringbuf_t *path,
  * them.
  *
  * Store USER as the author of the commit, LOG_MSG as its log.
- *
+ * 
  * PATH is the path to local tree being imported.  PATH can be a file
  * or directory.
  *
@@ -287,12 +287,12 @@ svn_client_undelete (svn_stringbuf_t *path,
  * by URL.  NEW_ENTRY may not be the empty string.
  *
  * If NEW_ENTRY already exists in the youngest revision, return error.
- *
+ * 
  * If XML_DST is non-NULL, it is a file in which to store the xml
  * result of the commit, and REVISION is used as the revision.
- *
+ * 
  * Use POOL for all allocation.
- *
+ * 
  * ### kff todo: This import is similar to cvs import, in that it does
  * not change the source tree into a working copy.  However, this
  * behavior confuses most people, and I think eventually svn _should_
@@ -302,8 +302,8 @@ svn_client_undelete (svn_stringbuf_t *path,
 svn_error_t *svn_client_import (const svn_delta_edit_fns_t *before_editor,
                                 void *before_edit_baton,
                                 const svn_delta_edit_fns_t *after_editor,
-                                void *after_edit_baton,
-                                svn_client_auth_t *auth_obj,
+                                void *after_edit_baton, 
+                                svn_client_auth_t *auth_obj,   
                                 svn_stringbuf_t *path,
                                 svn_stringbuf_t *url,
                                 svn_stringbuf_t *new_entry,
@@ -364,8 +364,8 @@ svn_client_status (apr_hash_t **statushash,
 /* Given a PATH to a working copy file, return a path to a temporary
    copy of the PRISTINE version of the file.  The client can then
    compare this to the working copy of the file and execute any kind
-   of diff it wishes.
-
+   of diff it wishes. 
+   
    TODO:  Someday this function will need to return a "cleanup"
    routine to remove the pristine file, in case the pristine file is
    fetched and dumped somewhere by the RA layer. */
@@ -400,7 +400,7 @@ svn_client_revert (svn_stringbuf_t *path,
 /* --------------------------------------------------------------
  * local variables:
  * eval: (load-file "../svn-dev.el")
- * end:
+ * end: 
  */
 
 

@@ -186,14 +186,14 @@ doc-pdf: doc/programmer/design/svn-design.pdf doc/user/manual/svn-manual.pdf
 # we go self-hosting and get the first distribution tarball released,
 # this will be totally rewritten to take advantage of the eminently
 # parseable `svn status' command output.
-#
+# 
 # You should run this from a working copy at HEAD, already configured
 # and able to run "make doc".  Although the distribution is built from
 # a freshly exported tree, we must build the docs in the previously
 # existing working copy and copy them into the dist tree, since we
 # can't run "make doc" in the dist tree itself.
 #
-dist:
+dist: 
 	@# Clean up the old docs so we're guaranteed the latest ones.
 	@# This is necessary only because "make clean" doesn't appear
 	@# to clean up docs at the moment.
@@ -306,7 +306,7 @@ dist:
 
 .texi.info:
 	rm -f $@ $@-[0-9] $@-[0-9][0-9]
-	$(MAKEINFO) -I `dirname $(top_srcdir)/$<` -o $@ $<
+	$(MAKEINFO) -I `dirname $(top_srcdir)/$<` -o $@ $< 
 
 .texi.dvi:
 	$(TEXI2DVI) -I `dirname $(top_srcdir)/$<` $<
