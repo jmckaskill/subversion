@@ -2,9 +2,9 @@
 #
 #  run_tests.py:  test suite for cvs2svn
 #
-#  Subversion is a tool for revision control.
+#  Subversion is a tool for revision control. 
 #  See http://subversion.tigris.org for more information.
-#
+#    
 # ====================================================================
 # Copyright (c) 2000-2003 CollabNet.  All rights reserved.
 #
@@ -133,7 +133,7 @@ class Log:
   def __init__(self, revision, author, date):
     self.revision = revision
     self.author = author
-
+    
     # Internally, we represent the date as seconds since epoch (UTC).
     # Since standard subversion log output shows dates in localtime
     #
@@ -223,7 +223,7 @@ def parse_log(svn_repos):
       print 'unexpected log output (missing log separator)'
       print "Line: '%s'" % line
       sys.exit(1)
-
+        
   return logs
 
 
@@ -282,14 +282,14 @@ def ensure_conversion(name, error_re=None, trunk_only=None, no_prune=None):
     saved_wd = os.getcwd()
     try:
       os.chdir(tmp_dir)
-
+      
       svnrepos = '%s-svnrepos' % name
       wc       = '%s-wc' % name
 
       # Clean up from any previous invocations of this script.
       erase(svnrepos)
       erase(wc)
-
+      
       ### I'd have preferred to assemble an arg list conditionally and
       ### then apply() it, or use extended call syntax.  But that
       ### didn't work as expected; I don't know why, it's never been a
@@ -441,7 +441,7 @@ def prune_with_care():
   #   revision 3:  deletes trunk/blah/cookie
   #   revision 4:  deletes blah   [re-deleting trunk/blah/cookie pruned blah!]
   #   revision 5:  does nothing
-  #
+  #   
   # After fixing cvs2svn, the sequence (correctly) looks like this:
   #
   #   revision 1:  adds trunk/blah/, adds trunk/blah/cookie
@@ -449,7 +449,7 @@ def prune_with_care():
   #   revision 3:  deletes trunk/blah/cookie
   #   revision 4:  does nothing    [because trunk/blah/cookie already deleted]
   #   revision 5:  deletes blah
-  #
+  # 
   # The difference is in 4 and 5.  In revision 4, it's not correct to
   # prune blah/, because NEWS is still in there, so revision 4 does
   # nothing now.  But when we delete NEWS in 5, that should bubble up
@@ -512,7 +512,7 @@ def double_delete():
   # bugs in cvs2svn's svn path construction for top-level files); and
   # the --no-prune option.
   repos, wc, logs = ensure_conversion('double-delete', None, 1, 1)
-
+  
   path = '/trunk/twice-removed'
 
   if not (logs[1].changed_paths.get(path) == 'A'):
@@ -550,7 +550,7 @@ def simple_commits():
 
   if logs[rev].msg.find('Initial revision') != 0:
     raise svntest.Failure
-
+    
   # The first commit.
   rev = 18
   for path in ('/trunk/proj/sub1/subsubA/default', '/trunk/proj/sub3/default'):
@@ -598,7 +598,7 @@ def interleaved_commits():
 
   if logs[rev].msg.find('Initial revision') != 0:
     raise svntest.Failure
-
+    
   # This PEP explains why we pass the 'logs' parameter to these two
   # nested functions, instead of just inheriting it from the enclosing
   # scope:   http://www.python.org/peps/pep-0227.html
@@ -719,7 +719,7 @@ def mixed_commit():
   repos, wc, logs = ensure_conversion('main')
 
   rev = 22
-  for path in ('/trunk/proj/sub2/default',
+  for path in ('/trunk/proj/sub2/default', 
                '/branches/B_MIXED/proj/sub2/branch_B_MIXED_only'):
     if not (logs[rev].changed_paths.get(path) == 'M'):
       raise svntest.Failure
@@ -736,7 +736,7 @@ def split_branch():
   # The conversion will fail if the bug is present, and
   # ensure_conversion would raise svntest.Failure.
   repos, wc, logs = ensure_conversion('split-branch')
-
+  
 
 def resync_misgroups():
   "resyncing should not misorder commit groups"
@@ -745,7 +745,7 @@ def resync_misgroups():
   # The conversion will fail if the bug is present, and
   # ensure_conversion would raise svntest.Failure.
   repos, wc, logs = ensure_conversion('resync-misgroups')
-
+  
 
 #----------------------------------------------------------------------
 
