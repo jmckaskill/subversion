@@ -131,9 +131,9 @@ fs_open (svn_fs_t *fs, const char *path, apr_pool_t *pool)
    Subversion 1.0.x compatibility.  Perform all temporary allocations
    in POOL. */
 static svn_error_t *
-fs_hotcopy (const char *src_path,
-            const char *dest_path,
-            svn_boolean_t clean_logs,
+fs_hotcopy (const char *src_path, 
+            const char *dest_path, 
+            svn_boolean_t clean_logs, 
             apr_pool_t *pool)
 {
   SVN_ERR (svn_fs_fs__hotcopy (src_path, dest_path, pool));
@@ -202,7 +202,7 @@ svn_fs_fs__canonicalize_abspath (const char *path, apr_pool_t *pool)
   /* No PATH?  No problem. */
   if (! path)
     return NULL;
-
+  
   /* Empty PATH?  That's just "/". */
   if (! *path)
     return apr_pstrdup (pool, "/");
@@ -217,7 +217,7 @@ svn_fs_fs__canonicalize_abspath (const char *path, apr_pool_t *pool)
     {
       newpath[newpath_i++] = '/';
     }
-
+  
   for (path_i = 0; path_i < path_len; path_i++)
     {
       if (path[path_i] == '/')
@@ -240,7 +240,7 @@ svn_fs_fs__canonicalize_abspath (const char *path, apr_pool_t *pool)
       /* Copy the current character into our new buffer. */
       newpath[newpath_i++] = path[path_i];
     }
-
+  
   /* Did we leave a '/' attached to the end of NEWPATH (other than in
      the root directory case)? */
   if ((newpath[newpath_i - 1] == '/') && (newpath_i > 1))
