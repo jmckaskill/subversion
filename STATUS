@@ -45,7 +45,7 @@ already know about.)
      Justification: Why have copyright notices at all unless legally proper?
                     And, 1.0 *will* be out in 2004!
      Notes:
-      rooneg: This is worth it just so diffing between the branch and the
+      rooneg: This is worth it just so diffing between the branch and the 
               trunk doesn't show differences for every damn file ;-)
      Votes:
       +1 (concept): jerenkrantz
@@ -59,11 +59,11 @@ already know about.)
       jerenkrantz: For 1.0, we'll state that svn_client_ctx_t can only add
                    members, correct?  So, I'm not sure that adding the
                    constructor buys us a lot - it's not opaque.  *shrug*
-      rooneg: Yeah, it doesn't force people to 'do the right thing', but it
-              makes it possible for them to do so, and since 'the right thing'
-              is clearly documented I think that's enough.  Plus, to make it
-              100% bulletproof we'd need accessor functions and an opaque
-              structure, and people didn't like that when I originally did it
+      rooneg: Yeah, it doesn't force people to 'do the right thing', but it 
+              makes it possible for them to do so, and since 'the right thing' 
+              is clearly documented I think that's enough.  Plus, to make it 
+              100% bulletproof we'd need accessor functions and an opaque 
+              structure, and people didn't like that when I originally did it 
               that way.
      Votes:
       +0: jerenkrantz
