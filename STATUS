@@ -35,7 +35,7 @@ Candidate changes:
     Justification: Current Windows install broken without these revisions
     Notes: Thse revisions were what the 0.37.0 version of the Windows
            installer used.  The 0.37.0 version is also the only one so
-           far without any bugreports or complains.
+           far without any bugreports or complains. 
     Votes:
       +1: josander
 
@@ -107,7 +107,7 @@ Candidate changes:
   * r8539, r8540
     Fix shebang line in three Perl scripts in tools.
     Justification:  They won't run at all!
-    Notes:
+    Notes: 
     Votes:
       +1: sussman, blair
 
