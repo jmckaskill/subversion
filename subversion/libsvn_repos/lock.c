@@ -84,7 +84,7 @@ svn_repos_open (svn_fs_t **fs_p,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:

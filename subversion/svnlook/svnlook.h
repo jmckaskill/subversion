@@ -42,24 +42,24 @@ typedef struct repos_node_t
 
 
 repos_node_t *
-svnlook_create_node (const char *name,
+svnlook_create_node (const char *name, 
                      apr_pool_t *pool);
 
 
 repos_node_t *
-svnlook_create_sibling_node (repos_node_t *elder,
-                             const char *name,
+svnlook_create_sibling_node (repos_node_t *elder, 
+                             const char *name, 
                              apr_pool_t *pool);
 
 
 repos_node_t *
-svnlook_create_child_node (repos_node_t *parent,
-                           const char *name,
+svnlook_create_child_node (repos_node_t *parent, 
+                           const char *name, 
                            apr_pool_t *pool);
 
 
 repos_node_t *
-svnlook_find_child_by_name (repos_node_t *parent,
+svnlook_find_child_by_name (repos_node_t *parent, 
                             const char *name);
 
 
@@ -81,7 +81,7 @@ svnlook_edit_baton_tree (void *edit_baton);
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../svn-dev.el")
  * end:
