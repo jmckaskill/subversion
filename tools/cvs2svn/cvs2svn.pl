@@ -41,7 +41,7 @@ sub CvsTime::initialize {
 	$self->{STRING} = join '.', ($year, $mon, $mday, $hours, $min, $secs);
     } else {
 	die "CvsTime constructor must specify either STRING or TIME_T";
-    }
+    }	
 }
 
 sub CvsTime::compare_to {
@@ -472,7 +472,7 @@ sub CvsFileReader::read {
     my $cvs_repo = $self->{REPOSITORY};
     my ($dir, $file) = split /\/(?=[^\/]*$ )/x, $path;
     $file =~ s/,v$//;
-
+    
     my $rcs = Rcs->new;
     $rcs->rcsdir($dir);
     $rcs->file($file);
@@ -731,7 +731,7 @@ sub CheckedClass::new {
     $self->initialize();
     $self->check();
     return $self;
-
+    
 }
 
 sub CheckedClass::initialize {

@@ -6,7 +6,7 @@ General Guide to Textdeltas.... basic use of interfaces.
 
 To SEND textdeltas
 ------------------
-
+ 
  1. txdelta_stream = svn_txdelta (source_stream, target_stream);
 
 
@@ -37,8 +37,8 @@ To SEND textdeltas
 
 To RECEIVE textdeltas
 ---------------------
-
- 1.  (If implementing "apply_textdelta" within an editor:)
+ 
+ 1.  (If implementing "apply_textdelta" within an editor:) 
 
       write a window_consumer_func() which parses the ops within each
       window and applies them to a source file, resulting in target file.
