@@ -7,14 +7,14 @@ http://www.ora.com/oreilly/author/stylesheet.html
 Prose Guide
 ===========
 
-Tone: somewhere between formal and informal.
+Tone: somewhere between formal and informal. 
       For example:
       - We use contractions
       - We don't say things like "You see"
 
-- Always title sidebars
+- Always title sidebars  
 
-- High level chapter outline:
+- High level chapter outline: 
   - This is what I'm going to tell you.
   - I'm telling you this *right now*.
   - This is what I told you.
@@ -73,13 +73,13 @@ Markup Guide
   <!-- ================================================================= -->
   <sect1 id="svn-ch-pi-sect-1">
     <title>Flornthorple Plathering</title>
-
+    
     <para>The real key to <firstterm>Plathering</firstterm> is to start with
        a good glab. A good glab provides a solid thorpy foundation.</para>
 
     <sect2 id="svn-ch-pi-sect-1.1">
       <title>Cross-blather</title>
-
+      
       <para>Cross-blather tends to create a hoopy pile of crandy. You
         can avoid this by using the cross-blather avoid
         command.</para>
@@ -89,7 +89,7 @@ $ cb-avoid
 Avoiding blather......... Done
 $
       </screen>
-
+              
     </sect2>
 
   </sect1>
