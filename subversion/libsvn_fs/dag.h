@@ -272,7 +272,7 @@ svn_error_t *svn_fs__dag_get_copy (svn_revnum_t *rev_p,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
