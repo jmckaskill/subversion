@@ -2,7 +2,7 @@
 
 SVN_PROG=../svn
 TARGET_DIR=this
-ANCESTOR_PATH=anni       # See if Greg Stein notices. :-)
+ANCESTOR_PATH=anni       # See if Greg Stein notices. :-) 
 
 # Remove the testing tree
 rm -rf ${TARGET_DIR}
@@ -33,11 +33,11 @@ ${SVN_PROG} add this/A/B/E/newfile2
 # echo
 # echo "Updating one file."
 # (cd this; ${SVN_PROG} update --xml-file ../../tests-common/xml/up1a-inline.xml)
-#
+#                       
 # echo
 # echo "Updating many files."
 # (cd this; ${SVN_PROG} update --xml-file ../../tests-common/xml/up1b-inline.xml)
-
+                      
 ### Deleting.
 echo
 echo "Deleting a versioned file, with --force."
