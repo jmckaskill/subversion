@@ -56,7 +56,7 @@ test $? = 0 || {
 PASS
 
 
-test ! -z "$BINDINGS_INSTALL" && {
+test ! -z "$BINDINGS_INSTALL" && { 
    # Install
    START "$BINDINGS_NAME::install" "$BINDINGS_NAME::install..."
    cd $TEST_ROOT/$OBJ
@@ -70,7 +70,7 @@ test ! -z "$BINDINGS_INSTALL" && {
    PASS
 }
 
-test ! -z "$BINDINGS_CHECK" && {
+test ! -z "$BINDINGS_CHECK" && { 
    # Run tests
    START "$BINDINGS_NAME::check" "$BINDINGS_NAME::check..."
    cd $TEST_ROOT/$OBJ
@@ -84,7 +84,7 @@ test ! -z "$BINDINGS_CHECK" && {
    }
    PASS
    echo "" >> $LOG_FILE
-   echo "Actual results follow:" >> $LOG_FILE
+   echo "Actual results follow:" >> $LOG_FILE 
    $CAT "${MY_LOG_FILE_PREF}_check" >> $LOG_FILE
 }
 
