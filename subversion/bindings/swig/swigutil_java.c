@@ -596,7 +596,7 @@ static svn_error_t * thunk_apply_textdelta(
   return SVN_NO_ERROR;
 }
 
-static svn_error_t * thunk_apply_text(void *file_baton,
+static svn_error_t * thunk_apply_text(void *file_baton, 
                                       const char *base_checksum,
                                       const char *result_checksum,
                                       svn_stream_t *base,
@@ -665,7 +665,7 @@ void svn_swig_java_make_editor(JNIEnv *jenv,
   thunk_editor->add_file = thunk_add_file;
   thunk_editor->open_file = thunk_open_file;
   thunk_editor->apply_textdelta = thunk_apply_textdelta;
-  /* ### todo#510: ra_svn_editor->apply_text = ra_svn_apply_text; */
+  /* ### todo#510: ra_svn_editor->apply_text = ra_svn_apply_text; */ 
   thunk_editor->change_file_prop = thunk_change_file_prop;
   thunk_editor->close_file = thunk_close_file;
   thunk_editor->close_edit = thunk_close_edit;
