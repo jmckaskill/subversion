@@ -60,14 +60,14 @@
 
    The `svn_fs__retry_txn' function and its friends help you manage
    all of that, in one nice package.
-
+   
    To use it, write your code in a function like this:
-
+  
        static svn_error_t *
        txn_body_do_my_thing (void *baton,
                              trail_t *trail)
        {
-         ...
+         ... 
          Do everything which needs to be protected by a Berkeley DB
          transaction here.  Use TRAIL->db_txn as your Berkeley DB
          transaction, and do your allocation in TRAIL->pool.  Pass
@@ -213,14 +213,14 @@ void svn_fs__record_undo (trail_t *trail,
 void svn_fs__record_completion (trail_t *trail,
                                 void (*func) (void *baton),
                                 void *baton);
-
+                                     
 
 
 #endif /* SVN_LIBSVN_FS_TRAIL_H */
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:

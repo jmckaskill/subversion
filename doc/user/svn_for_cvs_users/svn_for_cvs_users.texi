@@ -135,7 +135,7 @@ users to use it early and often:
    accessed by default.
 @itemize @bullet
 @item -u switch
-   add out-of-dateness information from repository
+   add out-of-dateness information from repository 
 @item -v switch
    show @emph{all} entries under version control
 @item -n switch
@@ -195,7 +195,7 @@ A new feature of Subversion is that you can attach arbitrary metadata to
 files and directories.  We refer to this data as @dfn{properties}, and
 they can be thought of as collections of name/value pairs (hashtables)
 attached to each item in your working copy.
-
+  
 To set or get a property name, use the 'svn propset' and 'svn propget'
 subcommands.  To list all properties on an object, use 'svn proplist'.
 
@@ -410,7 +410,7 @@ labels.  For example, here's a good way to lay out your repository:
 Each time /projectA/trunk reaches a taggable state, make a copy of the
 directory somewhere in /projectA/tags/, and set the copy to
 read-only.  Use the same procedure to create a branch in
-/projectA/branches/.
+/projectA/branches/.  
 
 
 @node Real docs

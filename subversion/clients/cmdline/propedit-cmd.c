@@ -44,8 +44,8 @@ svn_cl__propedit (apr_getopt_t *os,
   const char *editor_cmd;
 
   /* ### todo:  remove this once the feature is completed. */
-  return svn_error_create
-    (SVN_ERR_UNSUPPORTED_FEATURE, 0, NULL, pool,
+  return svn_error_create 
+    (SVN_ERR_UNSUPPORTED_FEATURE, 0, NULL, pool, 
      "Property editing (via `propedit') has not been implemented.");
 
   SVN_ERR (svn_cl__parse_num_args (os, opt_state, "propedit", 1, pool));
@@ -62,7 +62,7 @@ svn_cl__propedit (apr_getopt_t *os,
   /* Get the EDITOR environment variable. */
   editor_cmd = getenv ("EDITOR");
   if (! editor_cmd)
-    return svn_error_create (SVN_ERR_MISSING_ENV_VARIABLE, 0, NULL,
+    return svn_error_create (SVN_ERR_MISSING_ENV_VARIABLE, 0, NULL, 
                              pool, "EDITOR");
 
   /* For each target, edit the property PNAME. */
@@ -87,8 +87,8 @@ svn_cl__propedit (apr_getopt_t *os,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
- * end:
+ * end: 
  */

@@ -1,6 +1,6 @@
-/*
+/* 
  * text-delta.c -- Internal text delta representation
- *
+ * 
  * ====================================================================
  * Copyright (c) 2000-2001 CollabNet.  All rights reserved.
  *
@@ -48,7 +48,7 @@ struct svn_txdelta_stream_t {
   /* Calculated digest from MD5 operations.
      NOTE:  This is only valid after this stream has returned the NULL
      (final) window.  */
-  unsigned char digest[MD5_DIGESTSIZE];
+  unsigned char digest[MD5_DIGESTSIZE]; 
 };
 
 
@@ -162,7 +162,7 @@ svn_txdelta (svn_txdelta_stream_t **stream,
   assert (subpool != NULL);
 
   *stream = apr_palloc (subpool, sizeof (**stream));
-  (*stream)->source = source;
+  (*stream)->source = source; 
   (*stream)->target = target;
   (*stream)->pool = subpool;
   (*stream)->more = TRUE;
@@ -215,7 +215,7 @@ svn_txdelta_next_window (svn_txdelta_window_t **window,
 
       apr_err = apr_md5_final (stream->digest, &(stream->context));
       if (! APR_STATUS_IS_SUCCESS (apr_err))
-        return svn_error_create
+        return svn_error_create 
           (apr_err, 0, NULL, stream->pool,
            "svn_txdelta_next_window: MD5 finalization failed");
 
@@ -247,7 +247,7 @@ svn_txdelta_next_window (svn_txdelta_window_t **window,
          APR_SUCCESS.  As such, we are proposing to the APR folks that
          its interface change to be a void function.  In the meantime,
          we'll simply ignore the return value. */
-      apr_md5_update (&(stream->context),
+      apr_md5_update (&(stream->context), 
                       stream->buf + stream->saved_source_len,
                       new_source_len);
 
@@ -482,7 +482,7 @@ svn_txdelta_apply (svn_stream_t *source,
 
 /* Convenience routines */
 
-svn_error_t *
+svn_error_t * 
 svn_txdelta_send_string (svn_stringbuf_t *string,
                          svn_txdelta_window_handler_t handler,
                          void *handler_baton,
@@ -500,7 +500,7 @@ svn_txdelta_send_string (svn_stringbuf_t *string,
   /* Build a single window containing a ptr to the string. */
   window.tview_len = string->len;
   window.num_ops = 1;
-  window.ops_size = 1;
+  window.ops_size = 1;          
   window.ops = &op;
   window.new_data = string;
   window.pool = pool;
@@ -508,18 +508,18 @@ svn_txdelta_send_string (svn_stringbuf_t *string,
   /* Push the one window at the handler. */
   err = (*handler) (&window, handler_baton);
   if (err) return err;
-
+  
   /* Push a NULL at the handler, because we're done. */
   err = (*handler) (NULL, handler_baton);
   if (err) return err;
-
+  
   return SVN_NO_ERROR;
 }
 
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:

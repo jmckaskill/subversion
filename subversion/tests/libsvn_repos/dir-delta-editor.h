@@ -37,7 +37,7 @@ dir_delta_get_editor (const svn_delta_edit_fns_t **editor,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../svn-dev.el")
  * end:
