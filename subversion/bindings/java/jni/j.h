@@ -24,15 +24,15 @@
 
 /* functions */
 
-/* returns a JNI class reference matching
- * className.
+/* returns a JNI class reference matching 
+ * className. 
  *
  * Remark: you have to ensure that there
  * is enough space for the class reference
  * (needs 1 reference)
  */
 jclass
-j__get_class(JNIEnv *env, jboolean *hasException,
+j__get_class(JNIEnv *env, jboolean *hasException, 
              char *className);
 
 /* return a JNI method reference matching the
@@ -68,8 +68,8 @@ void j__set_object(JNIEnv *env, jboolean *hasException,
 
 #endif
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../svn-dev.el")
- * end:
+ * end: 
  */
