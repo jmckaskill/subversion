@@ -44,7 +44,7 @@
    trembling with a sort of momentarily stayed spring force,
    svn_repos_dir_delta was a timebomb poised for total annihilation of
    the American Midwest.
-
+   
    Subversion needed a change.
 
    Changes, in fact.  And not just in the literary segue sense.  What
@@ -92,13 +92,13 @@
    the filesystem events that occured in that revision or transactions
    (though not necessarily in the same order in which they
    occured). */
-
+   
 
 
 /*** Helper functions. ***/
 
 
-static svn_revnum_t
+static svn_revnum_t 
 get_path_revision (svn_fs_root_t *root,
                    const char *path,
                    apr_pool_t *pool)
@@ -189,8 +189,8 @@ path_driver_cb_func (void **dir_baton,
     {
       SVN_ERR (svn_fs_check_path (&kind, root, path, pool));
       if ((kind != svn_node_dir) && (kind != svn_node_file))
-        return svn_error_createf
-          (SVN_ERR_FS_NOT_FOUND, NULL,
+        return svn_error_createf 
+          (SVN_ERR_FS_NOT_FOUND, NULL, 
            "Filesystem path `%s' is neither a file nor a directory", path);
     }
 
@@ -207,14 +207,14 @@ path_driver_cb_func (void **dir_baton,
       /* Do the right thing based on the path KIND. */
       if (kind == svn_node_dir)
         {
-          SVN_ERR (editor->add_directory (path, parent_baton,
-                                          copyfrom_path, copyfrom_rev,
+          SVN_ERR (editor->add_directory (path, parent_baton, 
+                                          copyfrom_path, copyfrom_rev, 
                                           pool, dir_baton));
         }
       else
         {
-          SVN_ERR (editor->add_file (path, parent_baton,
-                                     copyfrom_path, copyfrom_rev,
+          SVN_ERR (editor->add_file (path, parent_baton, 
+                                     copyfrom_path, copyfrom_rev, 
                                      pool, &file_baton));
         }
     }
@@ -260,8 +260,8 @@ path_driver_cb_func (void **dir_baton,
         {
           svn_txdelta_window_handler_t delta_handler;
           void *delta_handler_baton;
-          SVN_ERR (editor->apply_textdelta (file_baton, NULL, pool,
-                                            &delta_handler,
+          SVN_ERR (editor->apply_textdelta (file_baton, NULL, pool, 
+                                            &delta_handler, 
                                             &delta_handler_baton));
           if (delta_handler)
             SVN_ERR (delta_handler (NULL, delta_handler_baton));
@@ -318,13 +318,13 @@ svn_repos_replay (svn_fs_root_t *root,
       APR_ARRAY_PUSH (paths, const char *) = path;
       apr_hash_set (changed_paths, path, keylen, change);
     }
-
+  
   /* Initialize our callback baton. */
   cb_baton.editor = editor;
   cb_baton.edit_baton = edit_baton;
   cb_baton.root = root;
   cb_baton.changed_paths = changed_paths;
-
+    
   /* Determine the revision to use throughout the edit, and call
      EDITOR's set_target_revision() function.  */
   revision = svn_fs_root_revision (root);
@@ -333,8 +333,8 @@ svn_repos_replay (svn_fs_root_t *root,
     revision = SVN_INVALID_REVNUM;
 
   /* Call the path-based editor driver. */
-  SVN_ERR (svn_delta_path_driver (editor, edit_baton, revision, paths,
+  SVN_ERR (svn_delta_path_driver (editor, edit_baton, revision, paths, 
                                   path_driver_cb_func, &cb_baton, pool));
-
+  
   return SVN_NO_ERROR;
 }
