@@ -66,7 +66,7 @@ begin
     end else begin
         g_bMsVcpNotFound := True;
     end;
-
+    
     Result:= g_bMsVcpNotFound;
 end;
 
