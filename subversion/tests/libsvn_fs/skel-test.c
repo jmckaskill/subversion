@@ -100,7 +100,7 @@ init_char_types (void)
     skel_char_map[i] = type_name;
   for (i = 'a'; i <= 'z'; i++)
     skel_char_map[i] = type_name;
-
+  
   skel_char_map_initialized = 1;
 }
 
@@ -301,7 +301,7 @@ put_explicit_length (svn_string_t *str, const char *data, int len, char sep)
   /* Generate the length and separator character.  */
   sprintf (buf, "%d%c", len, sep);
   length_len = strlen(buf);
-
+  
   /* Copy in the real data (which may contain nulls).  */
   memcpy (buf + length_len, data, len);
 
@@ -336,7 +336,7 @@ try_explicit_length (const char *data, int len, int check_len,
 	put_explicit_length (str, data, len, i);
 	skel = parse_str (str, pool);
 	if (! check_explicit_length (skel, data, check_len))
-	  return fail (pool, "failed to reparse explicit-length atom");
+	  return fail (pool, "failed to reparse explicit-length atom"); 
       }
 
   return SVN_NO_ERROR;
@@ -358,7 +358,7 @@ parse_explicit_length (const char **msg, apr_pool_t *pool)
     for (i = 0; i < 256; i++)
       {
 	char buf[1];
-
+	
 	buf[0] = i;
 	SVN_ERR (try_explicit_length (buf, 1, 1, pool));
       }
@@ -623,7 +623,7 @@ parse_list (const char **msg, apr_pool_t *pool)
   {
     apr_byte_t sep;
 
-    /* Try different separators.  */
+    /* Try different separators.  */ 
     for (sep = 0; sep <= 255; sep++)
       if (skel_is_space (sep))
 	{
@@ -659,7 +659,7 @@ parse_list (const char **msg, apr_pool_t *pool)
 	    }
 	}
   }
-
+	      
   return SVN_NO_ERROR;
 }
 
@@ -751,7 +751,7 @@ unparse_implicit_length (const char **msg, apr_pool_t *pool)
 	  skel_t *skel = build_atom (1, &buf, pool);
 
 	  str = svn_fs__unparse_skel (skel, pool);
-
+	  
 	  if (! (str
 		 && str->len == 1
 		 && str->data[0] == byte))
