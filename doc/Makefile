@@ -4,18 +4,18 @@ default: html
 
 all: txt info html dvi ps
 
-txt:
+txt: 
 	makeinfo --no-headers --no-validate svn-design.texi > svn-design.txt
 
-info:
+info: 
 	makeinfo --no-validate svn-design.texi
 
-html:
+html: 
 	makeinfo --no-headers --no-validate --html svn-design.texi \
                  > svn-design.html
 
-dvi:
-	tex svn-design.texi
+dvi: 
+	tex svn-design.texi 
 
 ps: dvi
 	dvips svn-design.dvi -o svn-design.ps
@@ -23,7 +23,7 @@ ps: dvi
 log:
 	cvs2cl.pl -r -t
 
-texclean:
+texclean: 
 	rm -f *~ *.aux *.cp *.cps *.dvi *.fn *.ky *.log *.pg *.toc *.tp *.vr
 
 clean: texclean

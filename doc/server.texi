@@ -35,16 +35,16 @@ Subversion from the bottom up.  (For full diagram, @xref{Architecture}.)
 @example
 
  +------+-------------+--+---------+-------+ <===== Server interface
- |                                         |
- |            Main SVN Library             |
- |                                         |
+ |                                         |                        
+ |            Main SVN Library             |                        
+ |                                         |                        
  +-----------------------------------------+ <===== Filesystem interface
- |                                         |
- |          Subversion Filesystem          |
- |                                         |
- +-+--------------+--------+---------+-----+ <===== Database interface
-   | Berkeley DBM |        |   SQL   |
-   +--------------+        +---------+
+ |                                         |                            
+ |          Subversion Filesystem          |                            
+ |                                         |                            
+ +-+--------------+--------+---------+-----+ <===== Database interface  
+   | Berkeley DBM |        |   SQL   |                                  
+   +--------------+        +---------+      
 
 @end example
 
@@ -139,7 +139,7 @@ svn_fs implements files and directories as database objects
 
 To begin, please be sure that you're already casually familiar with
 Subversion's ideas of files, directories, and version histories.  If
-not, @xref{Model}.
+not, @xref{Model}.  
 
 For completeness, we can now offer a precise, technical description of
 these terms.  Here is the schema used by svn_fs:
@@ -210,7 +210,7 @@ files;  they're attached to directory entries and versions too.
 @subsection Deltas
 
 (expound) A @dfn{delta} object is a specific data structure used by the
-Subversion server and client.  It's used to
+Subversion server and client.  It's used to 
 
 @table @code
 @item delta (versionA, pathA, versionB, pathB)
@@ -230,7 +230,7 @@ Subversion server and client.  It's used to
  ask filesystem's lock manager for approval of delta; returns token (or
 failure)
 @item write (delta, token)
- actually write the delta into the filesystem
+ actually write the delta into the filesystem 
 @item abandon (token)
  tell lock manager that the delta will @emph{not} be written (despite
  previous approval)
