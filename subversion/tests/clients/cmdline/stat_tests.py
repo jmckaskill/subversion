@@ -2,9 +2,9 @@
 #
 #  stat_tests.py:  testing the svn stat command
 #
-#  Subversion is a tool for revision control.
+#  Subversion is a tool for revision control. 
 #  See http://subversion.tigris.org for more information.
-#
+#    
 # ====================================================================
 # Copyright (c) 2000-2001 CollabNet.  All rights reserved.
 #
@@ -47,7 +47,7 @@ def stat_unversioned_file_in_current_dir(sbox):
 
     stat_output, err_output = svntest.main.run_svn(None, 'stat', 'foo')
 
-    if len(stat_output) != 1:
+    if len(stat_output) != 1: 
       return 1
 
     if len(err_output) != 0:
@@ -72,7 +72,7 @@ def status_update_with_nested_adds(sbox):
   # Make a backup copy of the working copy
   wc_backup = wc_dir + 'backup'
   svntest.actions.duplicate_dir(wc_dir, wc_backup)
-
+  
   # Create newdir and newfile
   newdir_path = os.path.join(wc_dir, 'newdir')
   newfile_path = os.path.join(wc_dir, 'newdir', 'newfile')
@@ -115,7 +115,7 @@ def status_update_with_nested_adds(sbox):
   for item in status_list:
     item[3]['wc_rev'] = '1'
   expected_status_tree = svntest.tree.build_generic_tree(status_list)
-
+  
   # Verify status.  Notice that we're running status *without* the
   # --quiet flag, so the unversioned items will appear.
   # Unfortunately, the regexp that we currently use to parse status
