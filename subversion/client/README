@@ -162,7 +162,7 @@ sub import NAME1 HOST:REPO:NAME2
 
 sub apply NAME1[:N1[:N2]] NAME2
   Apply changes specified by NAME1[:N1[:N2]] to NAME2.
-  If NAME1 form, then
+  If NAME1 form, then 
   If NAME1:N1 form, then the change applied is the difference between
         versions N1-1 and N1.
   If NAME1:N1:N2 form, then the change applied is the difference between
