@@ -57,7 +57,7 @@ struct file_baton
 
 
 static svn_error_t *
-test_delete_entry (svn_stringbuf_t *filename,
+test_delete_entry (svn_stringbuf_t *filename, 
                    svn_revnum_t revision,
                    void *parent_baton)
 {
@@ -86,7 +86,7 @@ test_open_root (void *edit_baton,
   d->path = (svn_stringbuf_t *) svn_stringbuf_dup (eb->root_path, eb->pool);
   d->edit_baton = eb;
   *root_baton = d;
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -148,10 +148,10 @@ test_add_directory (svn_stringbuf_t *name,
       svn_fs_root_t *rev_root = NULL;
 
       SVN_ERR (svn_fs_revision_root (&rev_root,
-                                     pd->edit_baton->fs,
+                                     pd->edit_baton->fs, 
                                      copyfrom_revision,
-                                     pd->edit_baton->pool));
-
+                                     pd->edit_baton->pool));   
+      
       SVN_ERR (svn_fs_copy (rev_root,
                             copyfrom_path->data,
                             pd->edit_baton->txn_root,
@@ -256,7 +256,7 @@ test_apply_textdelta (void *file_baton,
   struct file_baton *fb = (struct file_baton *) file_baton;
 
   return svn_fs_apply_textdelta (handler, handler_baton,
-                                 fb->dir_baton->edit_baton->txn_root,
+                                 fb->dir_baton->edit_baton->txn_root, 
                                  fb->path->data,
                                  fb->dir_baton->edit_baton->pool);
 }
@@ -334,7 +334,7 @@ dir_delta_get_editor (const svn_delta_edit_fns_t **editor,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../tools/dev/svn-dev.el")
  * end:

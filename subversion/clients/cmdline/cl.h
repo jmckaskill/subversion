@@ -233,7 +233,7 @@ svn_cl__get_trace_commit_editor (const svn_delta_edit_fns_t **editor,
 
 
 
-/* Our implementation of the 'auth info callback' routine,
+/* Our implementation of the 'auth info callback' routine, 
    as defined in svn_client.h.   This callback is passed to any
    libsvn_client routine that needs to authenticate against a
    repository. */
@@ -268,7 +268,7 @@ svn_cl__generate_status_codes (char *str_status,
 
 /*** Notification functions to display results on the terminal. */
 
-void svn_cl__notify_func (void *baton,
+void svn_cl__notify_func (void *baton, 
                           svn_wc_notify_action_t action,
                           const char *path);
 void *svn_cl__make_notify_baton (apr_pool_t *pool);
@@ -282,9 +282,9 @@ void *svn_cl__make_notify_baton (apr_pool_t *pool);
 
 #endif /* SVN_CL_H */
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../tools/dev/svn-dev.el")
- * end:
+ * end: 
  */
 

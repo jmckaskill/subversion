@@ -106,7 +106,7 @@ apr_hash_sorted_keys (apr_hash_t *ht,
 
       apr_hash_this (hi, &item->key, &item->klen, &item->value);
     }
-
+  
   /* now quicksort the array.  */
   qsort (ary->elts, ary->nelts, ary->elt_size,
          (int (*)(const void *, const void *))comparison_func);
@@ -117,7 +117,7 @@ apr_hash_sorted_keys (apr_hash_t *ht,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end:
