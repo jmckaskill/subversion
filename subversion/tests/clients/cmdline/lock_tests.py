@@ -138,7 +138,7 @@ def commit_file(sbox):
   svntest.actions.run_and_verify_status(wc_dir, expected_status)
 
   # --- Part 2 ---
-
+  
   # make a change and commit it, allowing lock to be released
   svntest.main.file_append(file_path, "Tweak!\n")
   svntest.main.run_svn(None, 'commit', '-m', '', file_path)
@@ -447,7 +447,7 @@ def defunct_lock(sbox):
 
 
 #----------------------------------------------------------------------
-# Tests dealing with a lock on a deleted path
+# Tests dealing with a lock on a deleted path 
 def deleted_path_lock(sbox):
   "verify lock removal on a deleted path"
 
