@@ -255,7 +255,7 @@ In each cell
 The principles involved are symmetrical, so the immediate source of
 each change (working copy or repository) doesn't matter.
 
-Let's justify this claim of symmetry:
+Let's justify this claim of symmetry:  
 
 It's tempting to think of a change as being either "from" the working
 copy or "in" the repository.  But the true source of every change is
