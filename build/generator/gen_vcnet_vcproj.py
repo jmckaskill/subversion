@@ -147,7 +147,7 @@ class Generator(gen_win.WinGeneratorBase):
       depth = string.count(target.path, os.sep) + 1
       self.write_project(target, fname,
                          string.join(['..'] * depth, '\\'))
-
+      
       if isinstance(target, gen_base.TargetExternal):
         fname = target._sources[0]
 
