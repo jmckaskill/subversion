@@ -23,10 +23,10 @@
 /*
  * utility function to convert a java string
  * to a subversion native string in UTF-8 encoding
- */
+ */   
 svn_string_t *
-svn_jni_string__jstring_to_svn_string(JNIEnv *env,
-			       jstring jstr,
+svn_jni_string__jstring_to_svn_string(JNIEnv *env, 
+			       jstring jstr, 
 			       jboolean *hasException,
 			       apr_pool_t *pool)
 {
@@ -36,11 +36,11 @@ svn_jni_string__jstring_to_svn_string(JNIEnv *env,
 #ifdef SVN_JNI__VERBOSE
   fprintf(stderr, "svn_jni__jstring_to_svn_string\n");
 #endif
-
-  /* make sure there is enough memory left for
+  
+  /* make sure there is enough memory left for 
    * the operation, also push the stack frame
    * we will need 2 local references:
-   * -
+   * - 
    */
   if( (*env)->PushLocalFrame(env, 2) >= 0)
     {
@@ -55,12 +55,12 @@ svn_jni_string__jstring_to_svn_string(JNIEnv *env,
 	  jsize len = (*env)->GetStringUTFLength(env, jstr);
 	  buffer = (char *)malloc(len + 1);
 
-	  /* did the memory allocation succeed?
+	  /* did the memory allocation succeed? 
 	   * otherwise throw an exception */
 	  if( buffer == NULL )
 	    {
-	      svn_jni__throw_exception_by_name(env,
-					       "java/lang/OutOfMemoryError",
+	      svn_jni__throw_exception_by_name(env, 
+					       "java/lang/OutOfMemoryError", 
 					       NULL);
 	      _hasException = JNI_TRUE;
 	    }
