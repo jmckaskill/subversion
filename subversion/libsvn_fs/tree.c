@@ -232,7 +232,7 @@ clone_path (dag_node_t **clone_p,
 	     cloned yet.  Recursively clone the parent, then clone
 	     the node itself.  */
 	  dag_node_t *parent_clone, *child_clone;
-
+	    
 	  SVN_ERR (clone_path (&parent_clone, fs, svn_txn, path->parent,
 			       db_txn, pool));
 	  SVN_ERR (svn_fs__dag_clone (&child_clone, parent_clone, path->name,
@@ -270,7 +270,7 @@ clone_path (dag_node_t **clone_p,
 	  SVN_ERR (svn_fs__dag_clone (&child_clone, parent_clone, path->name,
 				      db_txn, pool));
 	  svn_fs__dag_close (parent_clone);
-
+	    
 	  *clone_p = child_clone;
 	  return 0;
 	}
@@ -283,7 +283,7 @@ clone_path (dag_node_t **clone_p,
       abort ();
     }
 }
-
+	    
 
 /* Clone NODE in DB_TXN, if it hasn't been cloned already.  In either
    case, set *NODE_P to the clone, allocated either in POOL, or in
@@ -374,7 +374,7 @@ txn_body_get_node_prop (void *baton,
 
   SVN_ERR (check_for_clone (&dag_node, args->node, db_txn, args->pool));
   SVN_ERR (svn_fs__dag_get_proplist (&proplist, dag_node, db_txn, args->pool));
-
+  
   /* Search the proplist for a property with the right name.  */
   for (prop = proplist->children; prop; prop = prop->next->next)
     {
@@ -443,14 +443,14 @@ txn_body_change_node_prop (void *baton,
 
   SVN_ERR (make_clone (&dag_node, args->node, db_txn, args->pool));
   SVN_ERR (svn_fs__dag_get_proplist (&proplist, dag_node, db_txn, args->pool));
-
+  
   /* Delete the skel, either replacing or adding the given property.  */
   for (prop = proplist->children; prop; prop = prop->next->next)
     {
       skel_t *name = prop;
       skel_t *value = prop->next;
 
-      /* We've found an existing entry for this property.
+      /* We've found an existing entry for this property. 
 	 Replace the value.  */
       if (name->len == args->name->len
 	  && ! memcmp (name->data, args->name->data, name->len))
@@ -558,7 +558,7 @@ svn_fs_make_dir (svn_fs_node_t *parent,
 {
   abort ();
 }
-
+			      
 
 svn_error_t *
 svn_fs_delete (svn_fs_node_t *parent,
