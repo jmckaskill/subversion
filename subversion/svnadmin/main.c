@@ -32,7 +32,7 @@ print_tree (svn_fs_root_t *root,
 {
   apr_hash_t *entries;
   apr_hash_index_t *hi;
-
+  
   SVN_ERR (svn_fs_dir_entries (&entries, root, path, pool));
 
   for (hi = apr_hash_first (pool, entries); hi; hi = apr_hash_next (hi))
@@ -57,7 +57,7 @@ print_tree (svn_fs_root_t *root,
         printf (" ");
 
       printf ("%s", this_entry->name);
-
+      
       SVN_ERR (svn_fs_node_id (&id, root, this_full_path, pool));
       id_str = svn_fs_unparse_id (id, pool);
 
@@ -113,7 +113,7 @@ usage (const char *progname, int exit_code)
      "   lstxns    REPOS_PATH\n"
      "      Print all txns and their trees.\n"
      "\n"
-#if 0
+#if 0 
 /* see TODO below at next `#if 0' */
      "   recover   REPOS_PATH\n"
      "      Run the Berkeley DB recovery procedure on a repository.  Do\n"
@@ -170,7 +170,7 @@ main (int argc, const char * const *argv)
     is_undeltify = 0,
     is_youngest = 0,
     is_shell = 0;
-
+  
   const char *path = NULL;
 
   /* ### this whole thing needs to be cleaned up once client/main.c
@@ -262,7 +262,7 @@ main (int argc, const char * const *argv)
           if (err) goto error;
           if (! log)
             log = svn_string_create ("", this_pool);
-
+          
           printf ("Txn %s:\n", txn_name);
           printf ("Created: %s\n", datestamp->data);
           printf ("Author: %s\n", author->data);
@@ -312,7 +312,7 @@ main (int argc, const char * const *argv)
           svn_string_t *author;
           svn_string_t *log;
           apr_pool_t *this_pool = svn_pool_create (pool);
-
+           
           err = svn_fs_revision_root (&this_root, fs, this, this_pool);
           if (err) goto error;
 
@@ -403,10 +403,10 @@ main (int argc, const char * const *argv)
           printf ("Error: `setlog' requires exactly 3 arguments.\n");
           exit(1);
         }
-
+      
       /* get revision and file from argv[] */
       the_rev = (svn_revnum_t) atoi (argv[3]);
-      err = svn_string_from_file (&file_contents, argv[4], pool);
+      err = svn_string_from_file (&file_contents, argv[4], pool); 
       if (err) goto error;
 
       log_contents.data = file_contents->data;
@@ -444,7 +444,7 @@ main (int argc, const char * const *argv)
       /* open the filesystem */
       err = svn_repos_open (&repos, path, pool);
       if (err) goto error;
-
+      
       fs = svn_repos_fs (repos);
 
       /* open the revision root */
@@ -457,7 +457,7 @@ main (int argc, const char * const *argv)
       if (err) goto error;
 
       /* do the (un-)deltification */
-      printf ("%seltifying `%s' in revision %ld...",
+      printf ("%seltifying `%s' in revision %ld...", 
               is_deltify ? "D" : "Und", node, (long int)the_rev);
       if (is_deltify)
         {
@@ -512,7 +512,7 @@ main (int argc, const char * const *argv)
         }
 
       /* Run recovery on the Berkeley environment, using FS to get the
-         path to said environment. */
+         path to said environment. */ 
       env_path = svn_fs_db_env (fs, pool);
       /* ### todo: this usually seems to get an error -- namely, that
          the DB needs recovery!  Why would that be, when we just
@@ -568,7 +568,7 @@ main (int argc, const char * const *argv)
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
