@@ -80,7 +80,7 @@ extern "C" {
  * from the repository rather than a "blessed" distribution.
  *
  * When rolling a tarball, we automatically replace this text with " (r1234)"
- * (where 1234 is the last revision on the branch prior to the release)
+ * (where 1234 is the last revision on the branch prior to the release) 
  * for final releases; in prereleases, it becomes " (Alpha)",
  * " (Beta 1)", etc., as appropriate.
  *
@@ -159,7 +159,7 @@ typedef struct svn_version_t
 #define SVN_VER_GEN_PROTO(name) \
 const svn_version_t *svn_##name##_version (void)
 
-/**
+/** 
  * @since New in 1.1.
  *
  * Generate the implementation of a version-query function. */
@@ -198,7 +198,7 @@ svn_boolean_t svn_ver_callback_compatible (const svn_version_t *versioninfo,
                                            int major, int minor, int micro,
                                            const char *tag);
 
-/**
+/** 
  * @since New in 1.1.
  *
  * Shorthand for calling @t svn_ver_compatible. */
@@ -207,7 +207,7 @@ svn_boolean_t svn_ver_callback_compatible (const svn_version_t *versioninfo,
                      SVN_VER_MAJOR, SVN_VER_MINOR, SVN_VER_MICRO, \
                      SVN_VER_NUMTAG)
 
-/**
+/** 
  * @since New in 1.1.
  *
  * Shorthand for calling @t svn_ver_callback_compatible. */
