@@ -232,7 +232,7 @@ free_dir_baton (struct dir_baton *dir_baton)
   svn_pool_destroy (dir_baton->pool);
 
   /* We've declared this directory done, so decrement its parent's ref
-     count too. */
+     count too. */ 
   if (parent)
     {
       err = decrement_ref_count (parent);
@@ -383,7 +383,7 @@ window_handler (svn_txdelta_window_t *window, void *baton)
  * after this call, else the directory must exist already.
  *
  * If the path already exists, but is not a working copy for
- * ANCESTOR_URL, then an error will be returned.
+ * ANCESTOR_URL, then an error will be returned. 
  */
 static svn_error_t *
 prep_directory (svn_stringbuf_t *path,
@@ -395,7 +395,7 @@ prep_directory (svn_stringbuf_t *path,
   svn_error_t *err;
 
   /* kff todo: how about a sanity check that it's not a dir of the
-     same name from a different repository or something?
+     same name from a different repository or something? 
      Well, that will be later on down the line... */
 
   if (force)   /* Make sure the directory exists. */
@@ -449,7 +449,7 @@ open_root (void *edit_baton,
     {
       ancestor_url = eb->ancestor_url;
       ancestor_revision = eb->target_revision;
-
+      
       err = prep_directory (d->path,
                             ancestor_url,
                             ancestor_revision,
@@ -500,7 +500,7 @@ delete_entry (svn_stringbuf_t *name, svn_revnum_t revision, void *parent_baton)
                                    SVN_WC__ADM_LOG,
                                    1, /* sync */
                                    parent_dir_baton->pool));
-
+    
   SVN_ERR (svn_wc__run_log (parent_dir_baton->path, parent_dir_baton->pool));
   SVN_ERR (svn_wc__unlock (parent_dir_baton->path, parent_dir_baton->pool));
   return SVN_NO_ERROR;
@@ -531,13 +531,13 @@ add_directory (svn_stringbuf_t *name,
   if ((copyfrom_path && (! SVN_IS_VALID_REVNUM(copyfrom_revision)))
       || ((! copyfrom_path) && (SVN_IS_VALID_REVNUM(copyfrom_revision))))
     abort();
-
+      
   /* Check that an object by this name doesn't already exist. */
   SVN_ERR (svn_io_check_path (this_dir_baton->path, &kind,
                               this_dir_baton->pool));
   if (kind != svn_node_none)
-    return
-      svn_error_createf
+    return 
+      svn_error_createf 
       (SVN_ERR_WC_OBSTRUCTED_UPDATE, 0, NULL, this_dir_baton->pool,
        "wc editor: add_dir `%s': object already exists and is in the way.",
        this_dir_baton->path->data);
@@ -549,9 +549,9 @@ add_directory (svn_stringbuf_t *name,
          copyfrom args.  Someday it will interpet them as an update
          optimization, and actually copy one part of the wc to another.
          Then it will recursively "normalize" all the ancestry in the
-         copied tree.  Someday! */
-      return
-        svn_error_createf
+         copied tree.  Someday! */      
+      return 
+        svn_error_createf 
         (SVN_ERR_UNSUPPORTED_FEATURE, 0, NULL,
          parent_dir_baton->edit_baton->pool,
          "wc editor: add_dir `%s': sorry, I don't support copyfrom args yet.",
@@ -572,7 +572,7 @@ add_directory (svn_stringbuf_t *name,
       svn_path_add_component (new_URL, name);
 
       copyfrom_path = new_URL;
-      copyfrom_revision = parent_dir_baton->edit_baton->target_revision;
+      copyfrom_revision = parent_dir_baton->edit_baton->target_revision;      
     }
 
   /* Create dir (if it doesn't yet exist), make sure it's formatted
@@ -654,7 +654,7 @@ change_dir_prop (void *dir_baton,
         }
       return SVN_NO_ERROR;
     }
-
+  
   /* If this is an 'entry' prop, store it in the entries file and get
      on with life.  It's not a regular user property. */
   else if (svn_wc_is_entry_prop (name->data))
@@ -734,7 +734,7 @@ close_directory (void *dir_baton)
       err = svn_wc__lock (db->path, 0, db->pool);
       if (err)
         return err;
-
+      
       /* Open log file */
       SVN_ERR (svn_wc__open_adm_file (&log_fp,
                                       db->path,
@@ -747,15 +747,15 @@ close_directory (void *dir_baton)
       err = svn_wc__merge_prop_diffs (db->path->data, NULL,
                                       db->propchanges, db->pool,
                                       &entry_accum, &conflicts);
-      if (err)
-        return
+      if (err) 
+        return 
           svn_error_quick_wrap (err, "close_dir: couldn't do prop merge.");
 
       /* Set revision. */
       revision_str = apr_psprintf (db->pool,
                                    "%ld",
                                    db->edit_baton->target_revision);
-
+      
       /* Write a log entry to bump the directory's revision. */
       svn_xml_make_open_tag (&entry_accum,
                              db->pool,
@@ -790,7 +790,7 @@ close_directory (void *dir_baton)
                                                      db->pool),
                                NULL);
 
-
+      
       /* Write our accumulation of log entries into a log file */
       apr_err = apr_file_write_full (log_fp, entry_accum->data,
                                      entry_accum->len, NULL);
@@ -801,7 +801,7 @@ close_directory (void *dir_baton)
                                     "close_dir: error writing %s's log file",
                                     db->path->data);
         }
-
+      
       /* The log is ready to run, close it. */
       SVN_ERR (svn_wc__close_adm_file (log_fp,
                                        db->path,
@@ -868,7 +868,7 @@ add_or_open_file (svn_stringbuf_t *name,
      and look up name in the result. */
   SVN_ERR (svn_wc_entries_read (&entries, parent_dir_baton->path, subpool));
   entry = apr_hash_get (entries, name->data, name->len);
-
+  
   /* Sanity checks. */
 
   /* If adding, make sure there isn't already a disk entry here with the
@@ -884,7 +884,7 @@ add_or_open_file (svn_stringbuf_t *name,
   /* ben sez: If we're trying to add a file that's already in
      `entries' (but not on disk), that's okay.  It's probably because
      the user deleted the working version and ran 'svn up' as a means
-     of getting the file back.
+     of getting the file back.  
 
      Or... perhaps the entry was removed and committed, leaving its
      existence == `deleted'.  The user may be updating to a revision
@@ -902,7 +902,7 @@ add_or_open_file (svn_stringbuf_t *name,
                               "%s in directory %s",
                               name->data, parent_dir_baton->path->data);
 
-
+        
   /* Make sure we've got a working copy to put the file in. */
   /* kff todo: need stricter logic here */
   SVN_ERR (svn_wc_check_wc (parent_dir_baton->path, &is_wc, subpool));
@@ -947,7 +947,7 @@ open_file (svn_stringbuf_t *name,
 
 
 static svn_error_t *
-apply_textdelta (void *file_baton,
+apply_textdelta (void *file_baton, 
                  svn_txdelta_window_handler_t *handler,
                  void **handler_baton)
 {
@@ -960,9 +960,9 @@ apply_textdelta (void *file_baton,
   hb->source = NULL;
   if (! fb->dir_baton->edit_baton->is_checkout)
     {
-      /*
+      /* 
          kff todo: what we really need to do here is:
-
+         
          1. See if there's a file or dir by this name already here.
          2. See if it's under revision control.
          3. If both are true, open text-base.
@@ -997,15 +997,15 @@ apply_textdelta (void *file_baton,
       svn_pool_destroy (subpool);
       return err;
     }
-
+  
   /* Prepare to apply the delta.  */
   svn_txdelta_apply (svn_stream_from_aprfile (hb->source, subpool),
                      svn_stream_from_aprfile (hb->dest, subpool),
                      subpool, &hb->apply_handler, &hb->apply_baton);
-
+  
   hb->pool = subpool;
   hb->fb = fb;
-
+  
   /* We're all set.  */
   *handler_baton = hb;
   *handler = window_handler;
@@ -1077,12 +1077,12 @@ make_translation_open_tag (svn_stringbuf_t **entry_accum,
 
   /* EOL string. */
   if (eol_str)
-    apr_hash_set (hash, SVN_WC__LOG_ATTR_EOL_STR, APR_HASH_KEY_STRING,
+    apr_hash_set (hash, SVN_WC__LOG_ATTR_EOL_STR, APR_HASH_KEY_STRING, 
                   svn_stringbuf_create (eol_str, pool));
 
   /* Repair inconsitent EOLs? */
   if (repair)
-    apr_hash_set (hash, SVN_WC__LOG_ATTR_REPAIR, APR_HASH_KEY_STRING,
+    apr_hash_set (hash, SVN_WC__LOG_ATTR_REPAIR, APR_HASH_KEY_STRING, 
                   svn_stringbuf_create ("true", pool));
 
   /* Keyword substitution values. */
@@ -1090,7 +1090,7 @@ make_translation_open_tag (svn_stringbuf_t **entry_accum,
     {
       if (keywords->revision)
         apr_hash_set (hash, SVN_WC__LOG_ATTR_REVISION,
-                      APR_HASH_KEY_STRING,
+                      APR_HASH_KEY_STRING, 
                       svn_stringbuf_create_from_string (keywords->revision,
                                                         pool));
       if (keywords->date)
@@ -1112,9 +1112,9 @@ make_translation_open_tag (svn_stringbuf_t **entry_accum,
 
   /* Expanding keywords? (else, contracting) */
   if (expand)
-    apr_hash_set (hash, SVN_WC__LOG_ATTR_EXPAND, APR_HASH_KEY_STRING,
+    apr_hash_set (hash, SVN_WC__LOG_ATTR_EXPAND, APR_HASH_KEY_STRING, 
                   svn_stringbuf_create ("true", pool));
-
+  
   svn_xml_make_open_tag_hash (entry_accum, pool, style, tagname, hash);
   return;
 }
@@ -1148,7 +1148,7 @@ make_patch_open_tag (svn_stringbuf_t **entry_accum,
   /* kff todo: these options will have to be portablized too.  Even if
      we know we're doing a plaintext patch, not all patch programs
      support these args. */
-  svn_xml_make_open_tag (entry_accum,
+  svn_xml_make_open_tag (entry_accum, 
                          pool,
                          svn_xml_self_closing,
                          SVN_WC__LOG_RUN_CMD,
@@ -1160,11 +1160,11 @@ make_patch_open_tag (svn_stringbuf_t **entry_accum,
                          SVN_WC__LOG_ATTR_ARG_2,
                          reject_file,
                          /* backup prefix */
-                         SVN_WC__LOG_ATTR_ARG_3,
-                         backup_prefix,
+                         SVN_WC__LOG_ATTR_ARG_3, 
+                         backup_prefix, 
                          /* force */
                          SVN_WC__LOG_ATTR_ARG_4,
-                         svn_stringbuf_create ("-f", pool),
+                         svn_stringbuf_create ("-f", pool), 
                          /* silent */
                          SVN_WC__LOG_ATTR_ARG_4,
                          svn_stringbuf_create ("--silent", pool),
@@ -1202,11 +1202,11 @@ latest_keyword_data (const apr_array_header_t *props,
       const svn_prop_t *prop;
 
       prop = &APR_ARRAY_IDX(props, i, svn_prop_t);
-
+      
       /* strip the 'svn:entry:' prefix from the property name. */
       propname = svn_stringbuf_create (prop->name, pool);
       svn_wc__strip_entry_prefix (propname);
-
+     
       if (keywords->revision
           && (! strcmp (propname->data, SVN_ENTRY_ATTR_COMMITTED_REV)))
         {
@@ -1276,7 +1276,7 @@ svn_wc_install_file (const char *file_path,
      things are true:
 
          - The new pristine text of F, if any, is present at
-           NEW_TEXT_PATH.
+           NEW_TEXT_PATH.           
 
          - The .svn/entries file still reflects the old version of F.
 
@@ -1324,7 +1324,7 @@ svn_wc_install_file (const char *file_path,
      and run the log.  */
   entry_accum = svn_stringbuf_create ("", pool);
 
-
+  
   /* Sort the property list into three arrays, based on kind. */
   if (props)
     SVN_ERR (svn_categorize_props (props,
@@ -1336,9 +1336,9 @@ svn_wc_install_file (const char *file_path,
     {
       apr_array_header_t *propchanges;
       apr_hash_t *old_pristine_props, *new_pristine_props;
-
+      
       if (is_full_proplist)
-        {
+        {         
           /* If the caller passed a definitive list that represents all
              of the file's properties, we need to compare it to the
              current 'pristine' list and deduce the differences. */
@@ -1346,26 +1346,26 @@ svn_wc_install_file (const char *file_path,
           int i;
           old_pristine_props = apr_hash_make (pool);
           new_pristine_props = apr_hash_make (pool);
-
+          
           /* Get the current pristine props. */
           SVN_ERR (svn_wc__prop_base_path (&pristine_prop_path,
                                            file_path_str, 0, pool));
           SVN_ERR (svn_wc__load_prop_file (pristine_prop_path->data,
                                            old_pristine_props, pool));
-
+          
           /* Convert the given array into hash of 'new' pristine props. */
           for (i = 0; i < regular_props->nelts; i++)
             {
               svn_stringbuf_t *value_buf;
               const svn_prop_t *prop = NULL;
-
+              
               prop = &APR_ARRAY_IDX(regular_props, i, svn_prop_t);
               value_buf = svn_stringbuf_create_from_string (prop->value, pool);
-
+              
               apr_hash_set (new_pristine_props,
                             prop->name, APR_HASH_KEY_STRING, value_buf);
             }
-
+          
           /* Deduce changes. */
           SVN_ERR (svn_wc__get_local_propchanges (&propchanges,
                                                   new_pristine_props,
@@ -1375,9 +1375,9 @@ svn_wc_install_file (const char *file_path,
       else
         /* The user gave us a list prop diffs directly, yay. */
         propchanges = regular_props;
-
+      
       /* Now that we have the list of diffs... */
-
+      
       /* This will merge the old and new props into a new prop db, and
          write <cp> commands to the logfile to install the merged
          props. It also returns any conflicts to us in a hash, which
@@ -1388,7 +1388,7 @@ svn_wc_install_file (const char *file_path,
                                          propchanges, pool,
                                          &entry_accum, &prop_conflicts));
     }
-
+  
   /* If there are any ENTRY PROPS, make sure those get appended to the
      growing log as fields for the file's entry.  This needs to happen
      before we do any textual merging, because that process might
@@ -1396,11 +1396,11 @@ svn_wc_install_file (const char *file_path,
 
      Note that no merging needs to happen; these kinds of props aren't
      versioned, so the value of IS_FULL_PROPLIST is irrelevant -- if
-     the property is present, we overwrite the value. */
+     the property is present, we overwrite the value. */  
   if (entry_props)
     {
       int i;
-
+      
       /* foreach entry prop... */
       for (i = 0; i < entry_props->nelts; i++)
         {
@@ -1413,7 +1413,7 @@ svn_wc_install_file (const char *file_path,
           prop = &APR_ARRAY_IDX(entry_props, i, svn_prop_t);
           propname = svn_stringbuf_create (prop->name, pool);
           kind = svn_property_kind (&prefix_len, prop->name);
-
+                    
           if (prop->value)
             propval = svn_stringbuf_create_from_string(prop->value, pool);
           else
@@ -1421,7 +1421,7 @@ svn_wc_install_file (const char *file_path,
                available.  We don't remove this field from the entries
                file; we have convention just leave it empty. */
             propval = svn_stringbuf_create ("", pool);
-
+          
           /* append a command to the log which will write the
              property as a entry attribute on the file. */
           svn_xml_make_open_tag (&entry_accum,
@@ -1433,7 +1433,7 @@ svn_wc_install_file (const char *file_path,
                                  /* strip 'svn:entry:' prefix */
                                  (propname->data + prefix_len),
                                  propval,
-                                 NULL);
+                                 NULL);         
         }
     }
 
@@ -1441,7 +1441,7 @@ svn_wc_install_file (const char *file_path,
 
                   Text file                Binary File
                --------------------------------------------
-    Local Mods |  run diff/patch   |  rename working file; |
+    Local Mods |  run diff/patch   |  rename working file; | 
                |                   |  copy new file out.   |
                --------------------------------------------
     No Mods    |        Just overwrite working file.       |
@@ -1457,7 +1457,7 @@ svn_wc_install_file (const char *file_path,
          whether the file is actually text or binary, just whether it has
          a mime-type that "marks" the file as binary. */
       SVN_ERR (svn_wc_has_binary_prop (&has_binary_prop, file_path_str, pool));
-
+      
       /* Has the user made local mods to the working file?  */
       SVN_ERR (svn_wc_text_modified_p (&is_locally_modified,
                                        file_path_str, pool));
@@ -1467,7 +1467,7 @@ svn_wc_install_file (const char *file_path,
         /* Did we get a new eol-style passed into this routine? */
         int i;
         svn_stringbuf_t *fresh_eol_style = NULL;
-
+        
         /* Rats, here's one case where it would be *nice* to have a
            hash instead of an array.  */
         if (regular_props)
@@ -1476,17 +1476,17 @@ svn_wc_install_file (const char *file_path,
               const svn_prop_t *prop;
               prop = &APR_ARRAY_IDX(entry_props, i, svn_prop_t);
               if (strcmp (prop->name, SVN_PROP_EOL_STYLE) == 0)
-                fresh_eol_style =
+                fresh_eol_style = 
                   svn_stringbuf_create_from_string (prop->value, pool);
             }
-
-        /* If not, use whatever style is currently in our working props. */
+        
+        /* If not, use whatever style is currently in our working props. */ 
         if (! fresh_eol_style)
           SVN_ERR (svn_wc__get_eol_style (&eol_style, &eol_str,
-                                          file_path, pool));
+                                          file_path, pool));      
 
         else  /* got a fresh eol-style passed in */
-          {
+          {            
             /* Check to see if the new property conflicted. */
             const svn_prop_t *conflict = apr_hash_get (prop_conflicts,
                                                        SVN_PROP_EOL_STYLE,
@@ -1495,11 +1495,11 @@ svn_wc_install_file (const char *file_path,
             if (conflict)
               /* Use our current locally-modified style. */
               SVN_ERR (svn_wc__get_eol_style (&eol_style, &eol_str,
-                                              file_path, pool));
+                                              file_path, pool));      
             else
               {
                 /* Go ahead and use the new style that was passed in. */
-                svn_wc__eol_style_from_value (&eol_style, &eol_str,
+                svn_wc__eol_style_from_value (&eol_style, &eol_str, 
                                               fresh_eol_style->data);
 
                 /* We're not writing out the latest value of the
@@ -1534,7 +1534,7 @@ svn_wc_install_file (const char *file_path,
               const svn_prop_t *prop;
               prop = &APR_ARRAY_IDX(entry_props, i, svn_prop_t);
               if (strcmp (prop->name, SVN_PROP_KEYWORDS) == 0)
-                fresh_keywords_value =
+                fresh_keywords_value = 
                   svn_stringbuf_create_from_string (prop->value, pool);
             }
 
@@ -1542,9 +1542,9 @@ svn_wc_install_file (const char *file_path,
         if (! fresh_keywords_value)
           SVN_ERR (svn_wc__get_keywords (&keywords,
                                          file_path, NULL, pool));
-
+        
         else  /* got a fresh keywords value passed in */
-          {
+          {            
             /* Check to see if the new property conflicted. */
             const svn_prop_t *conflict = apr_hash_get (prop_conflicts,
                                                        SVN_PROP_KEYWORDS,
@@ -1583,7 +1583,7 @@ svn_wc_install_file (const char *file_path,
 
       }
 
-
+      
       /* Before doing any logic, we *know* that the first thing the
          logfile should do is overwrite the old text-base file with the
          new one waiting at the NEW_TEXT_PATH location.
@@ -1650,8 +1650,8 @@ svn_wc_install_file (const char *file_path,
                                      keywords,
                                      TRUE); /* expand */
         }
-
-      else   /* working file is locally modified... */
+  
+      else   /* working file is locally modified... */    
         {
           if (! has_binary_prop)  /* and is of type text... */
             {
@@ -1659,7 +1659,7 @@ svn_wc_install_file (const char *file_path,
               svn_stringbuf_t *received_diff_filename;
               apr_file_t *reject_file = NULL;
               svn_stringbuf_t *reject_filename = NULL;
-
+              
               SVN_ERR (svn_io_check_path (file_path_str, &wfile_kind, pool));
               if (wfile_kind == svn_node_none)
                 {
@@ -1677,7 +1677,7 @@ svn_wc_install_file (const char *file_path,
                                              TRUE); /* expand */
                 }
               else  /* working file exists, with local mods.*/
-                {
+                {                  
                   /* Now we need to use diff/patch to contextually
                      merge the textual changes into the working file.
                      Put on seat belts. */
@@ -1686,14 +1686,14 @@ svn_wc_install_file (const char *file_path,
                      create a temporary patch.  Note that we -always-
                      create the patchfile by diffing two LF versions
                      of our old and new textbases.   */
-                  const char *diff_args[2];
+                  const char *diff_args[2];                  
                   apr_file_t *received_diff_file;
                   apr_file_t *tr_txtb_fp, *tr_tmp_txtb_fp;
                   svn_stringbuf_t *tr_txtb, *tr_tmp_txtb;
-
+                  
                   /* Reserve a filename for the patchfile we'll create. */
                   tmp_loc
-                    = svn_wc__adm_path (parent_dir, 1, pool,
+                    = svn_wc__adm_path (parent_dir, 1, pool, 
                                         basename->data, NULL);
                   SVN_ERR (svn_io_open_unique_file (&received_diff_file,
                                                     &received_diff_filename,
@@ -1701,13 +1701,13 @@ svn_wc_install_file (const char *file_path,
                                                     SVN_WC__DIFF_EXT,
                                                     FALSE,
                                                     pool));
-
+                  
                   /* Reserve filenames for temporary LF-converted textbases. */
                   tmp_txtb_full_path
                     = svn_wc__text_base_path (file_path_str, 1, pool);
                   txtb_full_path
                     = svn_wc__text_base_path (file_path_str, 0, pool);
-
+                  
                   SVN_ERR (svn_io_open_unique_file (&tr_txtb_fp,
                                                     &tr_txtb,
                                                     tmp_loc, SVN_WC__BASE_EXT,
@@ -1726,11 +1726,11 @@ svn_wc_install_file (const char *file_path,
                                                       keywords,
                                                       FALSE,
                                                       pool));
-
+                  
                   SVN_ERR (svn_wc_copy_and_translate (tmp_txtb_full_path->data,
                                                       tr_tmp_txtb->data,
                                                       SVN_WC__DEFAULT_EOL_MARKER,
-                                                      TRUE, /* repair */
+                                                      TRUE, /* repair */ 
                                                       keywords,
                                                       FALSE,
                                                       pool));
@@ -1741,23 +1741,23 @@ svn_wc_install_file (const char *file_path,
 
                   SVN_ERR(svn_io_run_diff
                     (".", diff_args, 2, NULL,
-                     tr_txtb->data, tr_tmp_txtb->data,
+                     tr_txtb->data, tr_tmp_txtb->data, 
                      NULL, received_diff_file, NULL, pool));
 
                   /* Write log commands to remove the two tmp text-bases. */
-
+                  
                   /* (gack, we need the paths to be relative to log's
-                     working directory)  */
-                  tr_txtb = svn_stringbuf_ncreate
+                     working directory)  */ 
+                  tr_txtb = svn_stringbuf_ncreate 
                     (tr_txtb->data + parent_dir->len + 1,
                      tr_txtb->len - parent_dir->len - 1,
                      pool);
 
-                  tr_tmp_txtb = svn_stringbuf_ncreate
+                  tr_tmp_txtb = svn_stringbuf_ncreate 
                     (tr_tmp_txtb->data + parent_dir->len + 1,
                      tr_tmp_txtb->len - parent_dir->len - 1,
                      pool);
-
+                  
                   svn_xml_make_open_tag (&entry_accum,
                                          pool,
                                          svn_xml_self_closing,
@@ -1778,7 +1778,7 @@ svn_wc_install_file (const char *file_path,
                      guaranteed to have a patchfile between the old
                      and new textbases, in LF format.  What we -do-
                      with that patchfile depends on the eol-style property. */
-
+                  
                   /* Get the reject file ready. */
                   /* kff todo: code dup with above, abstract it? */
                   SVN_ERR (svn_io_open_unique_file (&reject_file,
@@ -1795,7 +1795,7 @@ svn_wc_install_file (const char *file_path,
 
                   /* Paths need to be relative to the working dir that uses
                      this log file, so we chop the prefix.
-
+                     
                      kff todo: maybe this should be abstracted into
                      svn_path_whatever, but it's so simple I'm inclined not
                      to.  On the other hand, the +1/-1's are for slashes, and
@@ -1803,13 +1803,13 @@ svn_wc_install_file (const char *file_path,
                      On the third hand, whatever the separator char is, it's
                      still likely to be one char, so the code would work even
                      if it weren't slash.
-
-                     Sometimes I think I think too much.  I think. */
+                     
+                     Sometimes I think I think too much.  I think. */ 
                   reject_filename = svn_stringbuf_ncreate
                     (reject_filename->data + parent_dir->len + 1,
                      reject_filename->len - parent_dir->len - 1,
                      pool);
-
+                  
                   received_diff_filename = svn_stringbuf_ncreate
                     (received_diff_filename->data
                      + parent_dir->len + 1,
@@ -1842,8 +1842,8 @@ svn_wc_install_file (const char *file_path,
                                                         SVN_WC__TMP_EXT,
                                                         FALSE,
                                                         pool));
-
-                      /* Make the temporary working file name relative to
+                      
+                      /* Make the temporary working file name relative to 
                          the parent directory. */
                       tmp_working = svn_stringbuf_ncreate
                         (tmp_working->data + parent_dir->len + 1,
@@ -1892,7 +1892,7 @@ svn_wc_install_file (const char *file_path,
                                                  FALSE, /* repair */
                                                  keywords,
                                                  TRUE); /* expand */
-
+                      
                       /* Remove tmp_working. */
                       svn_xml_make_open_tag (&entry_accum,
                                              pool,
@@ -1900,9 +1900,9 @@ svn_wc_install_file (const char *file_path,
                                              SVN_WC__LOG_RM,
                                              SVN_WC__LOG_ATTR_NAME,
                                              tmp_working, NULL);
-
+                      
                     } /* end:  eol-style is native or fixed */
-
+                  
                   /* Remove the patchfile. */
                   svn_xml_make_open_tag (&entry_accum,
                                          pool,
@@ -1926,7 +1926,7 @@ svn_wc_install_file (const char *file_path,
                                          basename,
                                          SVN_WC_ENTRY_ATTR_REJFILE,
                                          reject_filename,
-                                         NULL);
+                                         NULL);                  
 
                 } /* end: working file exists */
             } /* end:  file is type text */
@@ -1935,7 +1935,7 @@ svn_wc_install_file (const char *file_path,
             {
               apr_file_t *renamed_fp;
               svn_stringbuf_t *renamed_path, *renamed_basename;
-
+              
               /* Rename the working file. */
               SVN_ERR (svn_io_open_unique_file (&renamed_fp,
                                                 &renamed_path,
@@ -1948,7 +1948,7 @@ svn_wc_install_file (const char *file_path,
                 return svn_error_createf (apr_err, 0, NULL, pool,
                                           "close_file: error closing %s",
                                           renamed_path->data);
-
+              
               renamed_basename
                 = svn_path_last_component (renamed_path, pool);
 
@@ -1961,7 +1961,7 @@ svn_wc_install_file (const char *file_path,
                                      SVN_WC__LOG_ATTR_DEST,
                                      renamed_basename,
                                      NULL);
-
+              
               /* Copy the new file out into working area. */
               svn_xml_make_open_tag (&entry_accum,
                                      pool,
@@ -1985,7 +1985,7 @@ svn_wc_install_file (const char *file_path,
                              NULL);
 
     }  /* End  of "textual" merging process */
-
+  
 
   /* Write log entry which will bump the revision number:  */
   revision_str = apr_psprintf (pool, "%ld", new_revision);
@@ -1996,7 +1996,7 @@ svn_wc_install_file (const char *file_path,
                          SVN_WC__LOG_ATTR_NAME,
                          basename,
                          SVN_WC_ENTRY_ATTR_KIND,
-                         svn_stringbuf_create (SVN_WC__ENTRIES_ATTR_FILE_STR,
+                         svn_stringbuf_create (SVN_WC__ENTRIES_ATTR_FILE_STR, 
                                                pool),
                          SVN_WC_ENTRY_ATTR_REVISION,
                          svn_stringbuf_create (revision_str, pool),
@@ -2065,7 +2065,7 @@ svn_wc_install_file (const char *file_path,
     }
 
   /* Write our accumulation of log entries into a log file */
-  apr_err = apr_file_write_full (log_fp, entry_accum->data,
+  apr_err = apr_file_write_full (log_fp, entry_accum->data, 
                                  entry_accum->len, NULL);
   if (apr_err)
     {
@@ -2129,7 +2129,7 @@ close_file (void *file_baton)
   /* Tell the parent directory it has one less thing to worry about. */
   SVN_ERR (free_file_baton (fb));
 
-  return SVN_NO_ERROR;
+  return SVN_NO_ERROR;  
 }
 
 
@@ -2137,7 +2137,7 @@ static svn_error_t *
 close_edit (void *edit_baton)
 {
   struct edit_baton *eb = edit_baton;
-
+  
   /* By definition, anybody "driving" this editor for update or switch
      purposes at a *minimum* must have called set_target_revision() at
      the outset, and close_edit() at the end -- even if it turned out
@@ -2153,11 +2153,11 @@ close_edit (void *edit_baton)
   else  /* must be an update or switch */
     {
       svn_stringbuf_t *full_path = NULL, *url = NULL;
-
+      
       full_path = svn_stringbuf_dup (eb->anchor, eb->pool);
       if (eb->target)
         svn_path_add_component (full_path, eb->target);
-
+      
       if (eb->is_switch)
         url = svn_stringbuf_dup (eb->switch_url, eb->pool);
 
@@ -2173,7 +2173,7 @@ close_edit (void *edit_baton)
 
   /* The edit is over, free its pool. */
   svn_pool_destroy (eb->pool);
-
+    
   return SVN_NO_ERROR;
 }
 
@@ -2245,7 +2245,7 @@ svn_wc_get_update_editor (svn_stringbuf_t *anchor,
                           void **edit_baton,
                           apr_pool_t *pool)
 {
-  return make_editor (anchor, target, target_revision,
+  return make_editor (anchor, target, target_revision, 
                       FALSE, NULL,
                       FALSE, NULL,
                       recurse, editor, edit_baton, pool);
@@ -2261,8 +2261,8 @@ svn_wc_get_checkout_editor (svn_stringbuf_t *dest,
                             void **edit_baton,
                             apr_pool_t *pool)
 {
-  return make_editor (dest, NULL, target_revision,
-                      TRUE, ancestor_url,
+  return make_editor (dest, NULL, target_revision, 
+                      TRUE, ancestor_url, 
                       FALSE, NULL,
                       recurse, editor, edit_baton, pool);
 }
@@ -2402,7 +2402,7 @@ svn_wc_is_wc_root (svn_boolean_t *wc_root,
   /* Get our ancestry (this doubles as a sanity check).  */
   SVN_ERR (svn_wc_entry (&entry, path, pool));
   if (! entry)
-    return svn_error_createf
+    return svn_error_createf 
       (SVN_ERR_ENTRY_NOT_FOUND, 0, NULL, pool,
        "svn_wc_is_wc_root: %s is not a versioned resource", path->data);
 
@@ -2418,13 +2418,13 @@ svn_wc_is_wc_root (svn_boolean_t *wc_root,
   err = svn_wc_entry (&p_entry, parent, pool);
   if (err || ! p_entry)
     return SVN_NO_ERROR;
-
+  
   /* If the parent directory has no url information, something is
      messed up.  Bail with an error. */
   if (! p_entry->url)
-    return svn_error_createf
+    return svn_error_createf 
       (SVN_ERR_ENTRY_MISSING_URL, 0, NULL, pool,
-       "svn_wc_is_wc_root: %s has no ancestry information.",
+       "svn_wc_is_wc_root: %s has no ancestry information.", 
        parent->data);
 
   /* If PATH's parent in the WC is not its parent in the repository,
@@ -2467,9 +2467,9 @@ svn_wc_get_actual_target (svn_stringbuf_t *path,
 }
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
- * end:
+ * end: 
  */
 
