@@ -51,7 +51,7 @@ class SVNShell:
     print "  setrev REV   : set the current revision to browse"
     print "  settxn TXN   : set the current transaction to browse"
     print "  youngest     : list the youngest browsable revision number"
-
+    
   def cmd_cat(self, *args):
     """dump the contents of a file"""
     args = args[0]
@@ -71,14 +71,14 @@ class SVNShell:
     filelen = fs.file_length(self.root, catpath, self.taskpool)
     stream = fs.file_contents(self.root, catpath, self.taskpool)
     print util.svn_stream_read(stream, filelen)
-
+    
   def cmd_cd(self, *args):
     """change directory"""
     args = args[0]
     if len(args) < 1:
       return
     newpath = self._parse_path(args[0])
-
+    
     # make sure that path actually exists in the filesystem as a directory
     kind = fs.check_path(self.root, newpath, self.taskpool)
     if kind != util.svn_node_dir:
@@ -114,7 +114,7 @@ class SVNShell:
       else:
         print "Path '%s' not found." % newpath
         return
-
+      
     keys = entries.keys()
     keys.sort()
 
@@ -143,11 +143,11 @@ class SVNShell:
         date = ""
       else:
         date = self._format_date(date, self.taskpool)
-
+     
       print "%6s %8s <%10s> %8s %12s %s" % (created_rev, author[:8],
                                             node_id, size, date, name)
     util.svn_pool_clear(self.taskpool)
-
+  
   def cmd_lstxns(self, *args):
     """list the transactions available for browsing"""
     txns = fs.list_transactions(self.fs_ptr, self.taskpool)
@@ -161,7 +161,7 @@ class SVNShell:
         counter = 0
     print ""
     util.svn_pool_clear(self.taskpool)
-
+    
   def cmd_pcat(self, *args):
     """list the properties of a path"""
     args = args[0]
@@ -181,7 +181,7 @@ class SVNShell:
       print 'P ' + str(len(pval))
       print pval
     print 'PROPS-END'
-
+    
   def cmd_setrev(self, *args):
     """set the current revision to view"""
     args = args[0]
@@ -212,7 +212,7 @@ class SVNShell:
     self.txn = txn
     self.is_rev = 0
     self._do_path_landing()
-
+  
   def cmd_youngest(self, *args):
     """list the youngest revision available for browsing"""
     rev = fs.youngest_rev(self.fs_ptr, self.taskpool)
@@ -249,12 +249,12 @@ class SVNShell:
 
     # finally, return the calculated path
     return self._parts_to_path(finalparts)
-
+    
   def _format_date(self, date, pool):
     date = util.svn_time_from_cstring(date, pool)
     date = time.asctime(time.localtime(date / 1000000))
     return date[4:-8]
-
+  
   def _do_path_landing(self):
     """try to land on self.path as a directory in root, failing up to '/'"""
     not_found = 1
@@ -291,7 +291,7 @@ class SVNShell:
     cmds = filter(None, string.split(input, ';'))
     for cmd in cmds:
       cmd.strip()
-
+      
       ### This will currently screw up when the arguments to the
       ### commands have spaces in them, like 'cd "My Dir"'
       args = filter(None, string.split(cmd, ' '))
@@ -304,9 +304,9 @@ class SVNShell:
         print msg
       else:
         getattr(self, 'cmd_' + args[0])(args[1:])
-
+        
     self._do_prompt()
-
+    
 
 def _basename(path):
   "Return the basename for a '/'-separated path."
@@ -340,7 +340,7 @@ def main():
     termios.tcsetattr(sys.stdin, termios.TCSANOW, attrs)
   except:
     pass
-
+  
   util.run_app(SVNShell, sys.argv[1])
 
 if __name__ == '__main__':
