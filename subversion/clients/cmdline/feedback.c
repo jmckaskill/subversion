@@ -28,16 +28,16 @@
 
 /* When the cmd-line client sees an unversioned item during an update,
    print a question mark (`?'), just like CVS does. */
-static apr_status_t
+static apr_status_t 
 report_unversioned_item (const char *path)
 {
   printf ("?  %s\n", path);
-
+              
   return APR_SUCCESS;
 }
 
 
-static apr_status_t
+static apr_status_t 
 report_added_item (const char *path, apr_pool_t *pool)
 {
   svn_stringbuf_t *spath = svn_stringbuf_create (path, pool);
@@ -68,12 +68,12 @@ report_added_item (const char *path, apr_pool_t *pool)
           binary ? "binary" : "      ",
           path,
           entry->kind == svn_node_dir ? "/" : "");
-
+          
   return APR_SUCCESS;
 }
 
 
-static apr_status_t
+static apr_status_t 
 report_unadded_item (const char *path, apr_pool_t *pool)
 {
   svn_stringbuf_t *spath = svn_stringbuf_create (path, pool);
@@ -87,12 +87,12 @@ report_unadded_item (const char *path, apr_pool_t *pool)
   printf ("-  %s%s\n",
           path,
           kind == svn_node_dir ? "/" : "");
-
+          
   return APR_SUCCESS;
 }
 
 
-static apr_status_t
+static apr_status_t 
 report_deleted_item (const char *path, apr_pool_t *pool)
 {
   svn_stringbuf_t *spath = svn_stringbuf_create (path, pool);
@@ -106,12 +106,12 @@ report_deleted_item (const char *path, apr_pool_t *pool)
   printf ("D  %s%s\n",
           path,
           entry->kind == svn_node_dir ? "/" : "");
-
+          
   return APR_SUCCESS;
 }
 
 
-static apr_status_t
+static apr_status_t 
 report_undeleted_item (const char *path, apr_pool_t *pool)
 {
   svn_stringbuf_t *spath = svn_stringbuf_create (path, pool);
@@ -125,12 +125,12 @@ report_undeleted_item (const char *path, apr_pool_t *pool)
   printf ("+  %s%s\n",
           path,
           entry->kind == svn_node_dir ? "/" : "");
-
+          
   return APR_SUCCESS;
 }
 
 
-static apr_status_t
+static apr_status_t 
 report_warning (apr_status_t status, const char *warning)
 {
   printf ("WARNING: %s\n", warning);
@@ -145,7 +145,7 @@ report_warning (apr_status_t status, const char *warning)
 #if 0
 /* We're not overriding the report_progress feedback vtable function
    at this time. */
-static apr_status_t
+static apr_status_t 
 report_progress (const char *action, int percentage)
 {
   return APR_SUCCESS;
@@ -171,8 +171,8 @@ svn_cl__init_feedback_vtable (apr_pool_t *top_pool)
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../svn-dev.el")
- * end:
+ * end: 
  */
