@@ -85,7 +85,7 @@ understand Subversion without first glancing over certain header files
 in APR (look in apr/include/):
 
    * memory pools:  apr_pools.h
-
+   
    * filesystem access:  apr_file_io.h
 
    * hashes and arrays:  apr_hash.h, apr_tables.h
@@ -235,7 +235,7 @@ In addition to the GNU standards, Subversion uses these conventions:
    * Put this comment at the bottom of new source files to make Emacs
      automatically load svn-dev.el:
 
-        /*
+        /* 
          * local variables:
          * eval: (load-file "../svn-dev.el")
          * end:
@@ -280,7 +280,7 @@ Later on, when someone is trying to figure out what happened to
 "fast".  A better entry would be:
 
    (twirling_baton_fast, twirling_baton_slow): removed these obsolete
-   structures.
+   structures. 
    (handle_parser_warning): pass data directly to callees, instead of
    storing in twirling_baton_*.
 
@@ -317,7 +317,7 @@ a comment, alongside the code it explains.  Here's an example of doing
 it right:
 
        (consume_count): If `count' is unreasonable, return 0 and don't
-       advance input pointer.
+       advance input pointer.  
 
 And then, in `consume_count' in `cplus-dem.c':
 
@@ -442,7 +442,7 @@ Apache install directories. The apxs script is the key for the
 configure process.
 
 By default, configure will automatically look in /usr/sbin and
-/usr/local/apache/bin for the apxs script. If it isn't found, then you
+/usr/local/apache/bin for the apxs script. If it isn't found, then you 
 must use the --with-apxs=FILE switch to say where it is located (or
 plain --with-apxs to look in the current PATH). For example:
 
@@ -453,7 +453,7 @@ Apache 2.0 installation, and then gather the necessary parameters. It
 will then enable the build and installation of mod_dav_svn.
 
 When building mod_dav_svn for an install Apache, you MUST build it as
-a dynamic library. This means that you cannot pass --disable-shared to
+a dynamic library. This means that you cannot pass --disable-shared to 
 the configure script.
 
 An alternative is to work with an Apache 2.0 source directory. There
@@ -478,8 +478,8 @@ already installed). As a result, this is the preferable form, and will
 be the "standard" install when Subversion ships.
 
 If you are building directly against a source tree (statically), then
-the install will copy mod_dav_svn into the tree along with a number of
-files for Apache's config/build system. After each change and build of
+the install will copy mod_dav_svn into the tree along with a number of 
+files for Apache's config/build system. After each change and build of 
 mod_dav_svn, it must be installed and Apache needs to be relinked to
 pick up the changes. You will also need to put an AddModule line into
 your httpd.conf file (see below).
