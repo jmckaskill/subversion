@@ -3,32 +3,32 @@
  *
  * ================================================================
  * Copyright (c) 2000 CollabNet.  All rights reserved.
- *
+ * 
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
  * met:
- *
+ * 
  * 1. Redistributions of source code must retain the above copyright
  * notice, this list of conditions and the following disclaimer.
- *
+ * 
  * 2. Redistributions in binary form must reproduce the above copyright
  * notice, this list of conditions and the following disclaimer in the
  * documentation and/or other materials provided with the distribution.
- *
+ * 
  * 3. The end-user documentation included with the redistribution, if
  * any, must include the following acknowlegement: "This product includes
  * software developed by CollabNet (http://www.Collab.Net)."
  * Alternately, this acknowlegement may appear in the software itself, if
  * and wherever such third-party acknowlegements normally appear.
- *
+ * 
  * 4. The hosted project names must not be used to endorse or promote
  * products derived from this software without prior written
  * permission. For written permission, please contact info@collab.net.
- *
+ * 
  * 5. Products derived from this software may not use the "Tigris" name
  * nor may "Tigris" appear in their names without prior written
  * permission of CollabNet.
- *
+ * 
  * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
  * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -42,7 +42,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ====================================================================
- *
+ * 
  * This software consists of voluntary contributions made by many
  * individuals on behalf of CollabNet.
  */
@@ -71,7 +71,7 @@ svn_string_t *
 svn_wc__versions_init_contents (svn_vernum_t version, apr_pool_t *pool)
 {
   svn_string_t *ret;
-  const char *part_1 =
+  const char *part_1 = 
     "<wc-versions xmlns=\"http://subversion.tigris.org/xmlns/\">\n"
     "   <entry version=\"";
   const char *part_2 =
@@ -115,13 +115,13 @@ signal_expat_bailout (svn_error_t *error, struct version_mod *vmod)
 
 
 /* Callback: invoked whenever expat finds a new "open" tag.
- *
+ * 
  * NAME holds the name of the tag.
- *
+ * 
  * ATTS is the tag's attributes -- a list of alternating names and
  * values, all null terminated C strings, and the ATTS itself ends
  * with a null pointer as well.
- */
+ */ 
 static void
 xml_handle_start (void *userData, const char *tagname, const char **atts)
 {
@@ -179,7 +179,7 @@ make_xml_parser (struct version_mod *vmod)
   XML_SetUserData (parser, vmod);
 
   /* Register our one callback with the parser */
-  XML_SetElementHandler (parser, xml_handle_start, NULL);
+  XML_SetElementHandler (parser, xml_handle_start, NULL); 
 
   return parser;
 }
@@ -238,7 +238,7 @@ svn_xml_parse (svn_delta_read_fn_t *source_fn,
        definition of an svn_delta_read_fn_t, we should keep reading
        until the reader function says that 0 bytes were read. */
     done = (len == 0);
-
+    
     /* Parse the chunk of stream. */
     if (! XML_Parse (expat_parser, buf, len, done))
     {
@@ -274,7 +274,7 @@ svn_xml_parse (svn_delta_read_fn_t *source_fn,
 #endif /* 0 */
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
