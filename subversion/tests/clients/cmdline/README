@@ -18,7 +18,7 @@ Automated Test Verification
 
 The point of this test system is that it's *automated*:  that is, each
 test can algoritmically verify the results and indicate "PASS" or
-"FAIL".
+"FAIL". 
 
 We've identified two broad classes of verification:
 
@@ -87,7 +87,7 @@ Each node in our generic trees have these fields:
        We need a function that can assemble all the 'entries' files
        into a tree.  The 'contents' field can be ignored;  xml
        attributes can be directly copied into our tree nodes'
-       'properties'.
+       'properties'. 
 
        NOTE: Because directory entries are located in *two* places --
        as the "" entry in its own entries file, and by its own name as
