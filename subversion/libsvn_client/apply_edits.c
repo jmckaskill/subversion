@@ -52,7 +52,7 @@ apply_delta (const svn_delta_edit_fns_t *before_editor,
      simply create an empty one. */
   if (! ancestor_path)
     ancestor_path = svn_string_create ("", pool);
-
+      
   if (is_update)
     {
       err = svn_wc_get_update_editor (dest,
@@ -165,7 +165,7 @@ svn_client__checkout_internal (const svn_delta_edit_fns_t *before_editor,
 {
   return do_edits (before_editor, before_edit_baton,
                    after_editor, after_edit_baton,
-                   path, xml_src, ancestor_path, ancestor_revision,
+                   path, xml_src, ancestor_path, ancestor_revision, 
                    pool, FALSE);
 }
 
@@ -182,13 +182,13 @@ svn_client__update_internal (const svn_delta_edit_fns_t *before_editor,
 {
   return do_edits (before_editor, before_edit_baton,
                    after_editor, after_edit_baton,
-                   path, xml_src, NULL, ancestor_revision,
+                   path, xml_src, NULL, ancestor_revision, 
                    pool, TRUE);
 }
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end: */
