@@ -16,15 +16,15 @@
 
 /* ==================================================================== */
 
-/*
- * Requires:
+/* 
+ * Requires:  
  *            A working copy
- *
- * Provides:
+ * 
+ * Provides: 
  *            - Ability to manipulate working copy's versioned data.
  *            - Ability to manipulate working copy's administrative files.
  *
- * Used By:
+ * Used By:   
  *            Clients.
  */
 
@@ -136,7 +136,7 @@ svn_error_t *svn_wc_entry (svn_wc_entry_t **entry,
 
 /* Given a DIR_PATH under version control, decide if one of its
    entries (ENTRY) is in state of conflict; return the answers in
-   TEXT_CONFLICTED_P and PROP_CONFLICTED_P.
+   TEXT_CONFLICTED_P and PROP_CONFLICTED_P.  
 
    (If the entry mentions that a .rej or .prej exist, but they are
    both removed, assume the conflict has been resolved by the user.)  */
@@ -160,7 +160,7 @@ enum svn_wc_status_kind
     svn_wc_status_conflicted
 };
 
-/* Structure for holding the "status" of a working copy item.
+/* Structure for holding the "status" of a working copy item. 
    The item's entry data is in ENTRY, augmented and possibly shadowed
    by the other fields.  ENTRY is null if this item is not under
    version control. */
@@ -168,7 +168,7 @@ typedef struct svn_wc_status_t
 {
   svn_wc_entry_t *entry;     /* Can be NULL if not under vc. */
   svn_revnum_t repos_rev;    /* Likewise, can be SVN_INVALID_REVNUM */
-
+  
   /* Mutually exclusive states. One of these will always be set for
      the "textual" component and one will be set for the "property"
      component.  */
@@ -194,7 +194,7 @@ svn_error_t *svn_wc_statuses (apr_hash_t *statushash,
 
 
 /* Where you see an argument like
- *
+ * 
  *   apr_array_header_t *paths
  *
  * it means an array of (svn_string_t *) types, each one of which is
@@ -258,7 +258,7 @@ svn_wc_crawl_local_mods (apr_hash_t **targets,
 
    Do a depth-first crawl in a working copy, beginning at
    ROOT_DIRECTORY.  Communicate the `state' of the working copy's
-   revisions to EDIT_FNS.
+   revisions to EDIT_FNS.  
 
    No locks are or logs are created, nor are any animals harmed in the
    process.  No cleanup is necessary.
@@ -266,7 +266,7 @@ svn_wc_crawl_local_mods (apr_hash_t **targets,
    However, after all revisions are reported, edit_fns->close_edit()
    is called, which immediately causes the RA layer to update the
    working copy.  Thus the return value may very well reflect the
-   result of the update!
+   result of the update!   
  */
 svn_error_t *
 svn_wc_crawl_revisions (svn_string_t *root_directory,
@@ -281,7 +281,7 @@ svn_wc_crawl_revisions (svn_string_t *root_directory,
 
 /*
  * Return an editor for updating a working copy.
- *
+ * 
  * DEST is the local path to the working copy.
  *
  * TARGET_REVISION is the repository revision that results from this set
@@ -397,5 +397,5 @@ svn_error_t *svn_wc_prop_set (svn_string_t *name,
 /* --------------------------------------------------------------
  * local variables:
  * eval: (load-file "../svn-dev.el")
- * end:
+ * end: 
  */
