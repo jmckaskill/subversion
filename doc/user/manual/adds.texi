@@ -2,7 +2,7 @@
 @chapter Adds
 
 This section describes how the Subversion client deals with the addition
-of files and directories.
+of files and directories. 
 
 @menu
 * Adding items::              How to add items to revision control.
@@ -74,7 +74,7 @@ When a replaced item is committed, the client will first delete the
 original @file{foo.c} from the repository, and then add the "new"
 @file{foo.c}.
 
-Replacements are useful:  the object being replaced can even
+Replacements are useful:  the object being replaced can even 
 
 
 
