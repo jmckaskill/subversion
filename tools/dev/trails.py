@@ -24,7 +24,7 @@ def output_summary(trails, outfile):
   max_ops = ops[-1]
   median_ops = ops[total_trails / 2]
   average_ops = float(total_ops) / total_trails
-
+  
   outfile.write('Total number of trails: %10i\n' % total_trails)
   outfile.write('Total number of ops:    %10i\n' % total_ops)
   outfile.write('max ops/trail:          %10i\n' % max_ops)
@@ -41,7 +41,7 @@ def output_frequencies(trails, outfile):
     frequencies[rank] = frequencies.get(rank, 0) + 1
 
   total_trails = len(ops)
-
+ 
   # custom compare function
   def rf_cmp((a, b), (c, d)):
     c = cmp(d, b)
