@@ -32,7 +32,7 @@
 **
 **  This code is in the public domain and has no copyright.
 **
-**    July 3rd, 2001:  added to Subversion project and slightly
+**    July 3rd, 2001:  added to Subversion project and slightly 
 **                     tweaked by Ben Collins-Sussman <sussman@collab.net>
 */
 /* SUPPRESS 287 on yaccpar_sccsid *//* Unused static variable */
@@ -269,10 +269,10 @@ static const short yyrline[] =
 /* YYTNAME[TOKEN_NUM] -- String name of the token TOKEN_NUM. */
 static const char *const yytname[] =
 {
-  "$", "error", "$undefined.", "tAGO", "tDAY", "tDAYZONE", "tID",
-  "tMERIDIAN", "tMINUTE_UNIT", "tMONTH", "tMONTH_UNIT", "tSEC_UNIT",
-  "tSNUMBER", "tUNUMBER", "tZONE", "tDST", "':'", "','", "'/'", "spec",
-  "item", "time", "zone", "day", "date", "rel", "relunit", "number",
+  "$", "error", "$undefined.", "tAGO", "tDAY", "tDAYZONE", "tID", 
+  "tMERIDIAN", "tMINUTE_UNIT", "tMONTH", "tMONTH_UNIT", "tSEC_UNIT", 
+  "tSNUMBER", "tUNUMBER", "tZONE", "tDST", "':'", "','", "'/'", "spec", 
+  "item", "time", "zone", "day", "date", "rel", "relunit", "number", 
   "o_merid", 0
 };
 #endif
@@ -1963,7 +1963,7 @@ LookupWord(char *buff)
 	    return tp->type;
 	}
 
-    if (strcmp(buff, "dst") == 0)
+    if (strcmp(buff, "dst") == 0) 
 	return tDST;
 
     for (tp = UnitsTable; tp->name; tp++)

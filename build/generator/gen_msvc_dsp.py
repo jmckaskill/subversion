@@ -136,7 +136,7 @@ class Generator(gen_win.WinGeneratorBase):
       fout.write("}}}\n\n")
       fout.write("Package=<4>\n")
       fout.write("{{{\n")
-
+    
       # For MSVC we need to hack around mod_dav_svn &
       # libsvn_ra because dependencies implies linking
       # and there is no way around that
