@@ -21,14 +21,14 @@ package org.tigris.subversion;
  * the user of the class/method know that there is some
  * unfinished work that has to be done
  */
-public class ToBeDoneException extends SubversionException
+public class ToBeDoneException extends SubversionException 
 {
     public ToBeDoneException(String message)
 	{
 	    super(message);
 	}
-
-    public ToBeDoneException()
+    
+    public ToBeDoneException() 
 	{
 	    this(null);
 	}

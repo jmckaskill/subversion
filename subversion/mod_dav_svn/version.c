@@ -506,7 +506,7 @@ const dav_hooks_vsn dav_svn_hooks_vsn = {
 };
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end:
