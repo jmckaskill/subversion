@@ -1994,6 +1994,11 @@ svn_error_t *svn_fs__fs_begin_txn (svn_fs_txn_t **txn_p,
                                               pool),
                                "", pool));
 
+  /* Create an empty changes file. */
+  SVN_ERR (svn_io_file_create (svn_path_join (txn_dirname, SVN_FS_FS__CHANGES,
+                                              pool),
+                               "", pool));
+
   /* Write the next-ids file. */
   SVN_ERR (svn_io_file_open (&next_ids_file,
                              svn_path_join (txn_dirname, SVN_FS_FS__NEXT_IDS,
@@ -2243,14 +2248,13 @@ svn_fs__fs_purge_txn (svn_fs_t *fs,
                       const char *txn_id,
                       apr_pool_t *pool)
 {
-  /* No-op for debugging purposes. */
-  /*
+  const char *txn_dir;
+
   txn_dir = svn_path_join_many (pool, fs->fs_path, SVN_FS_FS__TXNS_DIR,
                                 apr_pstrcat (pool, txn_id,
                                              SVN_FS_FS__TXNS_EXT, NULL), NULL);
 
   SVN_ERR (svn_io_remove_dir (txn_dir, pool));
-  */
   return SVN_NO_ERROR;
 }
 
@@ -3226,6 +3230,7 @@ svn_fs__fs_commit (svn_revnum_t *new_rev_p,
                                 start_copy_id, pool));
 
   /* Remove this transaction directory. */
+  SVN_ERR (svn_fs__fs_purge_txn (fs, txn->id, pool));
 
   /* Destroy our subpool and release the lock. */
   svn_pool_destroy (subpool);
