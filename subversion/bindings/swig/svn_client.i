@@ -131,14 +131,14 @@
    handle svn_client_get_commit_log_t/baton pairs
 */
 
-%typemap(python,in) (svn_client_get_commit_log_t log_msg_func,
+%typemap(python,in) (svn_client_get_commit_log_t log_msg_func, 
                      void *log_msg_baton) {
 
   $1 = svn_swig_py_get_commit_log_func;
   $2 = $input; /* our function is the baton. */
 }
 
-%typemap(java,in) (svn_client_get_commit_log_t log_msg_func,
+%typemap(java,in) (svn_client_get_commit_log_t log_msg_func, 
                    void *log_msg_baton) {
 
   $1 = svn_swig_java_get_commit_log_func;
@@ -153,7 +153,7 @@
     return $jnicall;
   }
 
-%typemap(perl5,in) (svn_client_get_commit_log_t log_msg_func,
+%typemap(perl5,in) (svn_client_get_commit_log_t log_msg_func, 
                      void *log_msg_baton) {
     /* ### FIXME-perl */
 }
@@ -162,13 +162,13 @@
    handle svn_client_prompt_t/baton pairs
 */
 
-%typemap(java,memberin) (svn_client_prompt_t prompt_func,
+%typemap(java,memberin) (svn_client_prompt_t prompt_func, 
                    void *prompt_baton) {
   //$1 = svn_swig_java_client_prompt_func;
   //$2 = svn_swig_java_make_callback_baton(jenv, $input, _global_pool);
 }
 
-%typemap(java,in) (svn_client_prompt_t prompt_func,
+%typemap(java,in) (svn_client_prompt_t prompt_func, 
                    void *prompt_baton) {
   $1 = svn_swig_java_client_prompt_func;
   $2 = svn_swig_java_make_callback_baton(jenv, $input, _global_pool);
@@ -212,7 +212,7 @@
     /* ### FIXME-perl */
 }
 /* -----------------------------------------------------------------------
-   fix up the return hash for svn_client_ls()
+   fix up the return hash for svn_client_ls() 
 */
 
 %typemap(python,in,numinputs=0) apr_hash_t **dirents = apr_hash_t **OUTPUT;
