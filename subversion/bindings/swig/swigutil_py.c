@@ -507,7 +507,7 @@ static svn_error_t * thunk_window_handler(svn_txdelta_window_t *window,
 }
 
 static svn_error_t * thunk_apply_textdelta(
-    void *file_baton,
+    void *file_baton, 
     svn_txdelta_window_handler_t *handler,
     void **h_baton)
 {
@@ -635,8 +635,8 @@ apr_file_t *svn_swig_py_make_file (PyObject *py_file,
       fd = PyInt_AsLong (py_file);
     }
 
-  if (fd >= 0)
-    {
+  if (fd >= 0) 
+    {  
       apr_status_t status;
       status = apr_os_file_put (&apr_file, &fd, O_CREAT | O_WRONLY, pool);
     }
@@ -680,11 +680,11 @@ void svn_swig_py_notify_func(void *baton,
 
   if (function != NULL && function != Py_None)
     {
-      if ((result = PyObject_CallFunction(function,
-                                          (char *)"(siisiii)",
+      if ((result = PyObject_CallFunction(function, 
+                                          (char *)"(siisiii)", 
                                           path, action, kind,
                                           mime_type,
-                                          content_state, prop_state,
+                                          content_state, prop_state, 
                                           revision)) == NULL)
         {
           Py_XDECREF(result);
@@ -707,7 +707,7 @@ svn_error_t * svn_swig_py_thunk_log_receiver(void *baton,
   PyObject *result;
   swig_type_info *tinfo = SWIG_TypeQuery("SWIGTYPE_p_svn_log_changed_path_t");
   PyObject *chpaths;
-
+ 
   if ((receiver == NULL) || (receiver == Py_None))
     return SVN_NO_ERROR;
 
@@ -722,9 +722,9 @@ svn_error_t * svn_swig_py_thunk_log_receiver(void *baton,
     }
 
   /* ### python doesn't have 'const' on the method name and format */
-  if ((result = PyObject_CallFunction(receiver,
-                                      (char *)"OlsssO&",
-                                      chpaths, rev, author, date, msg,
+  if ((result = PyObject_CallFunction(receiver, 
+                                      (char *)"OlsssO&", 
+                                      chpaths, rev, author, date, msg, 
                                       make_ob_pool, pool)) == NULL)
     {
       Py_DECREF(chpaths);
