@@ -43,7 +43,7 @@ typedef struct svn_ra_plugin_t
   const char *description;  /* Short documentation string */
 
   /* The vtable hooks */
-
+  
   /* Open a "session" with a repository at URL.  *SESSION_BATON is
      returned and then used (opaquely) for all further interactions
      with the repository. */
@@ -109,7 +109,7 @@ typedef struct svn_ra_plugin_t
 
 
 /* svn_ra_init_func_t :
-
+   
    libsvn_client will be reponsible for loading each RA DSO it needs.
    However, all "ra_FOO" implementations *must* export a function named
    `svn_ra_FOO_init()' of type `svn_ra_init_func_t'.
@@ -126,7 +126,7 @@ typedef svn_error_t *svn_ra_init_func_t (int abi_version,
 #endif  /* SVN_RA_H */
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
