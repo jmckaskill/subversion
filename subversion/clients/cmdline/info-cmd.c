@@ -54,20 +54,20 @@ print_entry (const char *target,
      valid, since svn_wc_entry() doesn't fill them in if they
      aren't in the entries file. */
 
-  if ((entry->name)
+  if ((entry->name) 
       && strcmp (entry->name, SVN_WC_ENTRY_THIS_DIR))
     printf ("Name: %s\n", entry->name);
-
+      
   if (entry->url)
     printf ("Url: %s\n", entry->url);
-
+          
   if (entry->repos)
     printf ("Repository: %s\n", entry->repos);
 
   if (SVN_IS_VALID_REVNUM (entry->revision))
     printf ("Revision: %" SVN_REVNUM_T_FMT "\n", entry->revision);
 
-  switch (entry->kind)
+  switch (entry->kind) 
     {
     case svn_node_file:
       printf ("Node Kind: file\n");
@@ -78,41 +78,41 @@ print_entry (const char *target,
                                       dir_name, entry, pool));
       }
       break;
-
+          
     case svn_node_dir:
       printf ("Node Kind: directory\n");
       SVN_ERR (svn_wc_conflicted_p (&text_conflict, &props_conflict,
                                     target, entry, pool));
       break;
-
+          
     case svn_node_none:
       printf ("Node Kind: none\n");
       break;
-
+          
     case svn_node_unknown:
     default:
       printf ("Node Kind: unknown\n");
       break;
     }
 
-  switch (entry->schedule)
+  switch (entry->schedule) 
     {
     case svn_wc_schedule_normal:
       printf ("Schedule: normal\n");
       break;
-
+          
     case svn_wc_schedule_add:
       printf ("Schedule: add\n");
       break;
-
+          
     case svn_wc_schedule_delete:
       printf ("Schedule: delete\n");
       break;
-
+          
     case svn_wc_schedule_replace:
       printf ("Schedule: replace\n");
       break;
-
+          
     default:
       break;
     }
@@ -176,7 +176,7 @@ info_found_entry_callback (const char *path,
   /* We're going to receive dirents twice;  we want to ignore the
      first one (where it's a child of a parent dir), and only print
      the second one (where we're looking at THIS_DIR.)  */
-  if ((entry->kind == svn_node_dir)
+  if ((entry->kind == svn_node_dir) 
       && (strcmp (entry->name, SVN_WC_ENTRY_THIS_DIR)))
     return SVN_NO_ERROR;
 
@@ -184,7 +184,7 @@ info_found_entry_callback (const char *path,
 }
 
 
-static const svn_wc_entry_callbacks_t
+static const svn_wc_entry_callbacks_t 
 entry_walk_callbacks =
   {
     info_found_entry_callback
@@ -236,8 +236,8 @@ svn_cl__info (apr_getopt_t *os,
 }
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../tools/dev/svn-dev.el")
- * end:
+ * end: 
  */
