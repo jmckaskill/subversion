@@ -306,7 +306,7 @@ file_diff (struct dir_baton *dir_baton,
           svn_error_t *err;
 
           pristine_copy = svn_wc__text_base_path (path, FALSE,
-                                                  dir_baton->pool);
+                                                  dir_baton->pool);   
 
           /* Note that this might be the _second_ time we translate
              the file, as svn_wc_text_modified_p() might have used a
@@ -318,7 +318,7 @@ file_diff (struct dir_baton *dir_baton,
 
           err = diff_cmd (pristine_copy->data, translated->data, path->data,
                           dir_baton->edit_baton->diff_cmd_baton);
-
+          
           if (translated != path)
             SVN_ERR (svn_io_remove_file (translated->data, dir_baton->pool));
 
@@ -695,7 +695,7 @@ apply_textdelta (void *file_baton,
 
   /* This is the file that will contain the pristine repository version. It
      is created in the admin temporary area. This file continues to exists
-     until after the diff callback is run, at which point it is deleted. */
+     until after the diff callback is run, at which point it is deleted. */ 
   SVN_ERR (svn_wc__open_text_base (&b->temp_file, b->wc_path,
                                    (APR_WRITE | APR_TRUNCATE | APR_CREATE),
                                    b->pool));
@@ -746,12 +746,12 @@ close_file (void *file_baton)
          file is deleted. */
       svn_error_t *err1, *err2 = SVN_NO_ERROR;
       svn_stringbuf_t *translated;
-
+      
       SVN_ERR (svn_wc_translated_file (&translated, b->path, b->pool));
-
+      
       err1 = diff_cmd (temp_file_path->data, translated->data, b->path->data,
                        b->edit_baton->diff_cmd_baton);
-
+      
       if (translated != b->path)
         err2 = svn_io_remove_file (translated->data, b->pool);
 
