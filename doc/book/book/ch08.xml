@@ -3,7 +3,7 @@ are more than welcome, but patches are probably a bit premature at
 this point. -->
 <chapter id="svn-ch-8">
   <title>Subversion Complete Reference</title>
-
+  
   <simplesect>
     <para>This chapter is intended to be a complete reference to using
       Subversion. This includes the command line client
@@ -14,15 +14,15 @@ this point. -->
       configuration files, and working copy administrative areas.
     </para>
   </simplesect>
-
-
+  
+  
   <!-- ================================================================= -->
   <!-- ======================== SECTION 1 ============================== -->
   <!-- ================================================================= -->
   <sect1 id="svn-ch-8-sect-1">
     <title>The Subversion Command Line Client:
       <command>svn</command></title>
-
+    
     <para>To use the command line client, you type
       <command>svn</command>, the subcommand you wish to use,
       <footnote><para>Yes, yes, you don't need a subcommand to use the
@@ -36,17 +36,17 @@ this point. -->
 
     <screen>
 $ svn -v status
-$ svn status -v
+$ svn status -v 
 $ svn status -v myfile
     </screen>
 
     <para>You can find many more examples of how to use most client
       commands, in <xref linkend="svn-ch-3"/>, commands for managing
       properties in <xref linkend="svn-ch-6-sect-2"/></para>
-
+    
     <sect2 id="svn-ch-8-sect-1.1">
-      <title>Switches</title>
-
+      <title>Switches</title> 
+      
       <para>While Subversion has different switches for its
         subcommands, all switches are global&mdash;that is, each
         switch is guaranteed to mean the same thing regardless of
@@ -54,10 +54,10 @@ $ svn status -v myfile
         <option>--verbose</option> (<option>-v</option>) always
         means <quote>verbose output</quote>, regardless of the
         subcommand you use it with.</para>
-
+      
 <!-- ###TODO remove *any* command specific stuff and put it in that command. -->
       <variablelist>
-
+        
         <varlistentry>
           <term><option>--dry-run</option></term>
           <listitem>
@@ -66,7 +66,7 @@ $ svn status -v myfile
               the repository. </para>
           </listitem>
         </varlistentry>
-
+      
         <varlistentry>
           <term><option>--file</option>
             <replaceable>FILENAME</replaceable>
@@ -103,7 +103,7 @@ $ svn status -v myfile
               </para>
           </listitem>
         </varlistentry>
-
+      
         <varlistentry>
           <term><option>--force</option></term>
           <listitem>
@@ -118,7 +118,7 @@ $ svn status -v myfile
               you're doing, you're likely to get a shock.</para>
           </listitem>
         </varlistentry>
-
+        
         <varlistentry>
           <term><option>--help</option> (<option>-h or -?</option>)</term>
           <listitem>
@@ -127,7 +127,7 @@ $ svn status -v myfile
               used alone.</para>
           </listitem>
         </varlistentry>
-
+        
         <varlistentry>
           <term><option>--incremental</option></term>
           <listitem>
@@ -196,10 +196,10 @@ rev 27: ...
             <para>Note that the incremental switch does provides
               similar output control when using the
               <option>--xml</option> switch.</para>
-
+            
           </listitem>
         </varlistentry>
-
+        
         <varlistentry>
           <term><option>--message</option>
             <replaceable>MESSAGE</replaceable>
@@ -208,12 +208,12 @@ rev 27: ...
             <para>Indicates that you will specify a commit message
               on the command line, following this switch. For
               example:</para>
-
+            
             <para><command>$ svn checkin -m "Initial
                 import."</command></para>
           </listitem>
         </varlistentry>
-
+      
         <varlistentry>
           <term><option>--no-auth-cache</option></term>
           <listitem>
@@ -222,7 +222,7 @@ rev 27: ...
               administrative directories.</para>
           </listitem>
         </varlistentry>
-
+      
         <varlistentry>
           <term><option>--no-diff-deleted</option></term>
         <listitem>
@@ -233,7 +233,7 @@ rev 27: ...
               the file but removed all the content.</para>
           </listitem>
         </varlistentry>
-
+        
         <varlistentry>
           <term><option>--no-ignore</option></term>
           <listitem>
@@ -254,7 +254,7 @@ rev 27: ...
             prompt for more information.</para>
           </listitem>
         </varlistentry>
-
+      
         <varlistentry>
           <term><option>--non-recursive</option> (<option>-N</option>)</term>
           <listitem>
@@ -273,7 +273,7 @@ rev 27: ...
               it.</para>
           </listitem>
         </varlistentry>
-
+      
         <varlistentry>
           <term><option>--quiet</option> (<option>-q</option>)</term>
           <listitem>
@@ -281,7 +281,7 @@ rev 27: ...
               information while performing an operation.</para>
           </listitem>
         </varlistentry>
-
+        
         <varlistentry>
           <term><option>--recursive</option> (<option>-R</option>)</term>
           <listitem>
@@ -290,7 +290,7 @@ rev 27: ...
               others don't.</para>
           </listitem>
         </varlistentry>
-
+        
         <varlistentry>
           <term><option>--revision</option>
             <replaceable>REV</replaceable>
@@ -313,7 +313,7 @@ $ svn checkout -r 1729:{2/17/02}
             </screen>
           </listitem>
         </varlistentry>
-
+        
         <varlistentry>
           <term><option>--revprop</option></term>
           <listitem>
@@ -337,7 +337,7 @@ $ svn checkout -r 1729:{2/17/02}
             </para>
           </listitem>
         </varlistentry>
-
+      
         <varlistentry>
           <term><option>--strict</option></term>
           <listitem>
@@ -345,7 +345,7 @@ $ svn checkout -r 1729:{2/17/02}
                 linkend="svn-ch-8-sect-1.15"/> for more details </para>
           </listitem>
         </varlistentry>
-
+        
         <varlistentry>
           <term><option>--targets</option>
             <replaceable>FILENAME</replaceable></term>
@@ -357,7 +357,7 @@ $ svn checkout -r 1729:{2/17/02}
             </para>
           </listitem>
         </varlistentry>
-
+        
         <varlistentry>
           <term><option>--username</option><replaceable>NAME</replaceable></term>
           <listitem>
@@ -367,7 +367,7 @@ $ svn checkout -r 1729:{2/17/02}
               it.</para>
           </listitem>
         </varlistentry>
-
+      
         <varlistentry>
           <term><option>--verbose</option></term>
           <listitem>
@@ -378,7 +378,7 @@ $ svn checkout -r 1729:{2/17/02}
               additional information regarding its actions.</para>
           </listitem>
         </varlistentry>
-
+        
         <varlistentry>
           <term><option>--version</option></term>
           <listitem>
@@ -389,7 +389,7 @@ $ svn checkout -r 1729:{2/17/02}
               repository.</para>
           </listitem>
         </varlistentry>
-
+        
         <varlistentry>
           <term><option>--xml</option></term>
           <listitem>
@@ -397,16 +397,16 @@ $ svn checkout -r 1729:{2/17/02}
               format.</para>
           </listitem>
         </varlistentry>
-
+        
       </variablelist>
 
     </sect2>
-
+    
     <sect2 id="svn-ch-8-sect-1.2">
     <title><command>svn add</command></title>
-
+    
     <para><literal>svn add PATH [PATH [PATH ... ]]</literal></para>
-
+    
     <para>Adds files and directories to your working copy and
       schedules them for addition to the repository.  They will be
       uploaded and added to the repository on your next commit.  If
@@ -415,28 +415,28 @@ $ svn checkout -r 1729:{2/17/02}
     </para>
 
     <variablelist>
-
+      
       <varlistentry>
         <term>Requires</term>
         <listitem>
           <para>Working copy</para>
         </listitem>
       </varlistentry>
-
+      
       <varlistentry>
         <term>Changes</term>
         <listitem>
           <para>Working copy</para>
         </listitem>
       </varlistentry>
-
+      
       <varlistentry>
         <term>Needs Network</term>
         <listitem>
           <para>No</para>
         </listitem>
       </varlistentry>
-
+      
       <varlistentry>
         <term>Switches</term>
         <listitem>
@@ -467,15 +467,15 @@ $ svn checkout -r 1729:{2/17/02}
     <sect2 id="svn-ch-8-sect-1.3">
       <title><command>svn cat</command></title>
 
-
+      
       <para><literal>svn cat TARGET [TARGET [TARGET ... ]]</literal></para>
-
+      
       <para>Outputs the contents of the specified files or URLs.
         For listing the contents of directories, see <xref
           linkend="svn-ch-8-sect-1.14"/></para>
 
       <variablelist>
-
+        
         <varlistentry>
           <term>Requires</term>
           <listitem>
@@ -484,21 +484,21 @@ $ svn checkout -r 1729:{2/17/02}
             <para>Repository (Only if operating on URLs)</para>
           </listitem>
         </varlistentry>
-
+        
         <varlistentry>
           <term>Changes</term>
           <listitem>
             <para>Nothing</para>
           </listitem>
         </varlistentry>
-
+        
         <varlistentry>
           <term>Needs Network</term>
           <listitem>
             <para>Only if operating on URLs</para>
           </listitem>
         </varlistentry>
-
+        
         <varlistentry>
           <term>Switches</term>
           <listitem>
@@ -531,7 +531,7 @@ $ svn checkout -r 1729:{2/17/02}
       <title><command>svn checkout</command></title>
 
       <para><literal>svn checkout URL [URL [URL ... ]] [PATH]</literal></para>
-
+      
       <para>Checks out a working copy from a repository. If
         <replaceable>PATH</replaceable> is omitted, the basename of
         the URL will be used as the destination. If multiple URLs
@@ -540,35 +540,35 @@ $ svn checkout -r 1729:{2/17/02}
         of the URL.</para>
 
       <variablelist>
-
+        
         <varlistentry>
           <term>Alternate name</term>
           <listitem>
             <para><command>co</command></para>
           </listitem>
         </varlistentry>
-
+        
         <varlistentry>
           <term>Requires</term>
           <listitem>
             <para>Repository</para>
           </listitem>
         </varlistentry>
-
+        
         <varlistentry>
           <term>Changes</term>
           <listitem>
             <para>Nothing</para>
           </listitem>
         </varlistentry>
-
+        
         <varlistentry>
           <term>Needs Network</term>
           <listitem>
             <para>Yes</para>
           </listitem>
         </varlistentry>
-
+        
         <varlistentry>
           <term>Switches</term>
           <listitem>
@@ -617,7 +617,7 @@ $ svn checkout -r 1729:{2/17/02}
       <title><command>svn cleanup</command></title>
 
       <para><literal>svn cleanup [PATH [PATH ... ]]</literal></para>
-
+      
       <para>Recursively clean up the working copy, removing locks
         and resuming unfinished operations.  If you ever get a
         <quote>working copy locked</quote> error, run this command
@@ -625,32 +625,32 @@ $ svn checkout -r 1729:{2/17/02}
         useable state again.</para>
 
       <variablelist>
-
+        
         <varlistentry>
           <term>Requires</term>
           <listitem>
             <para>Working copy</para>
           </listitem>
         </varlistentry>
-
+        
         <varlistentry>
           <term>Changes</term>
           <listitem>
             <para>Administrative data in the working copy</para>
           </listitem>
         </varlistentry>
-
+        
         <varlistentry>
           <term>Needs Network</term>
           <listitem>
             <para>No</para>
           </listitem>
         </varlistentry>
-
+        
       </variablelist>
-
-
-
+      
+      
+      
     </sect2>
 
     <sect2 id="svn-ch-8-sect-1.6">
@@ -680,7 +680,7 @@ $ svn checkout -r 1729:{2/17/02}
         tree of files from a repository directory&mdash;a tree that
         looks like a typical working copy, but doesn't contain the
         <filename>.svn</filename> directories:</para>
-
+      
       <screen>
         $ svn export file:///usr/local/svn/newrepos/fooproject
         A  fooproject/foo.c
@@ -689,7 +689,7 @@ $ svn checkout -r 1729:{2/17/02}
         A  fooproject/subdir/quux.h
         Checked out revision 3.
       </screen>
-
+      
       <para>The resulting directory will not contain any
         <filename>.svn</filename> administrative areas, and all
         property metadata will be lost.  (Hint: don't use this
@@ -697,7 +697,7 @@ $ svn checkout -r 1729:{2/17/02}
         source distributions.)</para>
 
     </sect2>
-
+    
     <sect2 id="svn-ch-8-sect-1.11">
       <title><command>svn help</command></title>
       <para>###TODO Write this</para>
@@ -710,14 +710,14 @@ $ svn checkout -r 1729:{2/17/02}
 
     <sect2 id="svn-ch-8-sect-1.13">
       <title><command>svn info</command></title>
-
+      
       <para>In general, we try to discourage you from directly
         reading the <filename>.svn/entries</filename> file used to
         track items in a Subversion working copy.  Instead, you can
         get tons of information about an item in your working copy
         by using the <command>svn info</command> command to display
         most of the tracked information:</para>
-
+      
       <screen>
         $ svn info rules.txt
         Path: rules.txt
@@ -733,9 +733,9 @@ $ svn checkout -r 1729:{2/17/02}
         Properties Last Updated: 2002-11-16 08:48:03 -0500 (Sat, 16 Nov 2002)
         Checksum: 8sfaU+5dqyOgkhuSdyxGrQ==
       </screen>
-
+      
     </sect2>
-
+    
     <sect2 id="svn-ch-8-sect-1.14">
       <title><command>svn list</command></title>
       <para>###TODO Write this</para>
@@ -762,13 +762,13 @@ $ svn checkout -r 1729:{2/17/02}
 
     <sect2 id="svn-ch-8-sect-1.17">
       <title><command>svn mkdir</command></title>
-
+      
       <para>This is another convenience command, and it has two
         uses.</para>
-
+      
       <para>First, it can be used to simultaneously create a new
         working copy directory and schedule it for addition:</para>
-
+      
       <screen>
         $ svn mkdir new-dir
         A     new-dir
@@ -784,7 +784,7 @@ $ svn checkout -r 1729:{2/17/02}
 
       <para>Again, this is a form of immediate commit, so some sort
         of log message is required.</para>
-
+      
     </sect2>
 
     <sect2 id="svn-ch-8-sect-1.18">
@@ -841,15 +841,15 @@ $ svn checkout -r 1729:{2/17/02}
       <title><command>svn update</command></title>
       <para>###TODO Write this</para>
     </sect2>
-
+    
   </sect1>
-
+  
   <!-- ================================================================= -->
   <!-- ======================== SECTION 2 ============================== -->
   <!-- ================================================================= -->
   <sect1 id="svn-ch-8-sect-2">
     <title><command>svnadmin</command></title>
-
+    
     <para>
       ###TODO Write this
     </para>
@@ -910,17 +910,17 @@ $ svn checkout -r 1729:{2/17/02}
     </sect2>
 
   </sect1>
-
+  
   <!-- ================================================================= -->
   <!-- ======================== SECTION 3 ============================== -->
   <!-- ================================================================= -->
   <sect1 id="svn-ch-8-sect-3">
     <title><command>svnlook</command></title>
-
+    
     <para>### TODO Talk about how svnlook works in general:
       std. command structure, revnums vs. tranny names, what the
       default action is, etc.</para>
-
+    
     <sect2 id="svn-ch-8-sect-3.1">
       <title>svn author</title>
       <para>###TODO Write this</para>
@@ -972,13 +972,13 @@ $ svn checkout -r 1729:{2/17/02}
     </sect2>
 
   </sect1>
-
+  
   <!-- ================================================================= -->
   <!-- ======================== SECTION 4 ============================== -->
   <!-- ================================================================= -->
   <sect1 id="svn-ch-8-sect-4">
     <title>Repository Configuration Files</title>
-
+    
     <para>###TODO We should probably break out Apache stuff into its
       own section and talk about ra_local on its own. For ra_dav, go
       through all the relevant directives and what they do.  Once
@@ -990,7 +990,7 @@ $ svn checkout -r 1729:{2/17/02}
   <!-- ================================================================= -->
   <sect1 id="svn-ch-8-sect-5">
     <title>Repository commit hooks</title>
-
+    
     <para>
       ###TODO pre-commit, post-commit, start-co
     </para>
@@ -1003,9 +1003,9 @@ $ svn checkout -r 1729:{2/17/02}
   <sect1 id="svn-ch-8-sect-6">
     <title>Client configuration (Inside the
       <filename>.subversion</filename> directory)</title>
-
+    
     <para>###TODO Write this</para>
-
+    
   </sect1>
   <!-- ================================================================= -->
   <!-- ======================== SECTION 7 ============================== -->
@@ -1023,7 +1023,7 @@ $ svn checkout -r 1729:{2/17/02}
       prop-base/, props/, text-base/, tmp/, and wcprops/</para>
 
   </sect1>
-
+  
 </chapter>
 
 
