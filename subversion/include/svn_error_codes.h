@@ -16,7 +16,7 @@
  */
 
 /* What's going on here?
-
+ 
    In order to define error codes and their associated description
    strings in the same place, we overload the SVN_ERRDEF() macro with
    two definitions below.  Both take two arguments, an error code name
@@ -27,9 +27,9 @@
    definition creates a static table mapping the enum codes to their
    corresponding strings -- that definition is used by the C file that
    implements svn_strerror().
-
+ 
    The header and C files both include this file, using #defines to
-   control which version of the macro they get.
+   control which version of the macro they get.  
 */
 
 
@@ -89,7 +89,7 @@ extern "C" {
         "OBSOLETE" into the error's name ("SVN_OBSOLETE_ERR_BLAH"),
         again so that the values of other errors are not perturbed.
 
-      - The first error in a category always gets assigned the
+      - The first error in a category always gets assigned the 
         category's start value, using SVN_ERR_CATEGORY_FIRST.
 */
 
@@ -377,7 +377,7 @@ SVN_ERROR_START
 
   SVN_ERRDEF (SVN_ERR_REPOS_BAD_REVISION_REPORT,
               "Bogus revision report")
-
+ 
   /* generic ra errors */
 
   SVN_ERR_CATEGORY_FIRST (SVN_ERR_RA_ILLEGAL_URL,
@@ -392,7 +392,7 @@ SVN_ERROR_START
 
   SVN_ERRDEF (SVN_ERR_RA_NOT_IMPLEMENTED,
               "Repository access method not implemented")
-
+       
   /* ra_dav errors */
 
   SVN_ERR_CATEGORY_FIRST (SVN_ERR_RA_DAV_SOCK_INIT,
@@ -407,7 +407,7 @@ SVN_ERROR_START
 
   SVN_ERRDEF (SVN_ERR_RA_DAV_OPTIONS_REQ_FAILED,
               "RA layer didn't receive requested OPTIONS info")
-
+    
   SVN_ERRDEF (SVN_ERR_RA_DAV_PROPS_NOT_FOUND,
               "RA layer failed to fetch properties")
 
@@ -415,7 +415,7 @@ SVN_ERROR_START
               "RA layer file already exists")
 
   /* ra_local errors */
-
+  
   SVN_ERR_CATEGORY_FIRST (SVN_ERR_RA_LOCAL_REPOS_NOT_FOUND,
                           SVN_ERR_RA_LOCAL_CATEGORY_START,
                           "Couldn't find a repository.")
@@ -500,7 +500,7 @@ SVN_ERROR_START
 
   SVN_ERRDEF (SVN_ERR_TEST_FAILED,
               "Test failed")
-
+       
   SVN_ERRDEF (SVN_ERR_UNSUPPORTED_FEATURE,
               "Trying to use an unsupported feature")
 
@@ -529,7 +529,7 @@ SVN_ERROR_START
               "Not enough args provided")
 
   SVN_ERRDEF (SVN_ERR_CL_MUTUALLY_EXCLUSIVE_ARGS,
-              "Mutually exclusive arguments specified.")
+              "Mutually exclusive arguments specified.")                   
 
   SVN_ERRDEF (SVN_ERR_CL_ADM_DIR_RESERVED,
               "Attempted command in administrative dir")
