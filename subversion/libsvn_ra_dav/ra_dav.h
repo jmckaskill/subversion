@@ -54,7 +54,7 @@ svn_error_t * svn_ra_dav__checkout (void *session_baton,
 #endif  /* RA_DAV_H */
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
