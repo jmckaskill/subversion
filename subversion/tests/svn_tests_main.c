@@ -33,7 +33,7 @@
 
 /* All Subversion test programs include an array of function pointers
    (all of our sub-tests) that begins and ends with a NULL entry. */
-extern svn_error_t *(*test_funcs[])(const char **msg,
+extern svn_error_t *(*test_funcs[])(const char **msg, 
                                     svn_boolean_t msg_only,
                                     apr_pool_t *pool);
 
@@ -76,8 +76,8 @@ get_array_size (void)
 /* Execute a test number TEST_NUM.  Pretty-print test name and dots
    according to our test-suite spec, and return the result code. */
 static int
-do_test_num (const char *progname,
-             int test_num,
+do_test_num (const char *progname, 
+             int test_num, 
              svn_boolean_t msg_only,
              apr_pool_t *pool)
 {
@@ -108,10 +108,10 @@ do_test_num (const char *progname,
     }
   else
     {
-      printf ("%s: %s %2d: %s\n",
+      printf ("%s: %s %2d: %s\n", 
               err ? "FAIL" : "PASS",
               progname,
-              test_num,
+              test_num, 
               msg ? msg : "(test did not provide name)");
     }
 
@@ -133,7 +133,7 @@ main (int argc, char *argv[])
 
   /* How many tests are there? */
   int array_size = get_array_size();
-
+  
   /* Initialize APR (Apache pools) */
   if (apr_initialize () != APR_SUCCESS)
     {
@@ -174,7 +174,7 @@ main (int argc, char *argv[])
             {
               if (do_test_num (prog_name, i, TRUE, pool))
                 got_error = 1;
-
+              
               /* Clear the per-function pool */
               svn_pool_clear (pool);
             }
@@ -189,7 +189,7 @@ main (int argc, char *argv[])
                   test_num = atoi (argv[i]);
                   if (do_test_num (prog_name, test_num, FALSE, pool))
                     got_error = 1;
-
+                  
                   /* Clear the per-function pool */
                   svn_pool_clear (pool);
                 }
