@@ -41,7 +41,7 @@
 
 /* Hmm. This should probably find its way into libsvn_subr -Fitz */
 /* Create a SVN string from the char* and add it to the array */
-static void
+static void 
 array_push_svn_string (apr_array_header_t *array,
                        const char *str,
                        apr_pool_t *pool)
@@ -93,7 +93,7 @@ svn_cl__parse_num_args (apr_getopt_t *os,
                         apr_pool_t *pool)
 {
   int i;
-
+  
   opt_state->args = apr_array_make (pool, DEFAULT_ARRAY_SIZE, sizeof (svn_string_t *));
 
   /* loop for num_args and add each arg to the args array */
@@ -154,15 +154,15 @@ svn_cl__args_to_target_array (apr_getopt_t *os,
          don't add it to the target list.  TODO:  Perhaps this check
          should not call the target a SVN admin dir unless
          svn_wc_check_wc passes on the target, too? */
-      if (! svn_string_compare
-          (basename,
+      if (! svn_string_compare 
+          (basename, 
            svn_string_create (SVN_WC_ADM_DIR_NAME, pool)))
         array_push_svn_string (targets, os->argv[os->ind], pool);
     }
 
   /* kff todo: need to remove redundancies from targets before
      passing it to the cmd_func. */
-
+     
   return targets;
 }
 
@@ -187,8 +187,8 @@ svn_cl__get_canonical_command (const char *cmd)
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
- * end:
+ * end: 
  */
