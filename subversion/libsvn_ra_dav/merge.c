@@ -140,7 +140,7 @@ static svn_boolean_t okay_to_bump_path (const char *path,
   /* Otherwise, this path is bumpable IFF one of its parents is in the
      hash and marked with a 'recursion' flag. */
   parent_path = svn_stringbuf_create (path, pool);
-
+  
   do {
     apr_size_t len = parent_path->len;
     svn_path_remove_component (parent_path);
@@ -161,7 +161,7 @@ static svn_boolean_t okay_to_bump_path (const char *path,
 
 /* If committed PATH appears in MC->valid_targets, and an MC->push_prop
  * function exists, then store VSN_URL as the SVN_RA_DAV__LP_VSN_URL
- * property on PATH.  Use POOL for all allocations.
+ * property on PATH.  Use POOL for all allocations. 
  *
  * Otherwise, just return SVN_NO_ERROR.
  */
@@ -576,7 +576,7 @@ svn_error_t * svn_ra_dav__merge_activity(
   mc.committed_date = MAKE_BUFFER(pool);
   mc.last_author = MAKE_BUFFER(pool);
 
-  if (disable_merge_response
+  if (disable_merge_response 
       || (! keep_locks))
     {
       const char *value;
@@ -586,7 +586,7 @@ svn_error_t * svn_ra_dav__merge_activity(
                               SVN_DAV_OPTION_NO_MERGE_RESPONSE : "",
                            keep_locks ?
                               "" : SVN_DAV_OPTION_RELEASE_LOCKS);
-
+      
       if (! extra_headers)
         extra_headers = apr_hash_make(pool);
       apr_hash_set (extra_headers, SVN_DAV_OPTIONS_HEADER, APR_HASH_KEY_STRING,
@@ -690,7 +690,7 @@ svn_error_t * svn_ra_dav__merge_activity(
                                              validate_element, start_element,
                                              end_element, &mc, extra_headers,
                                              NULL, FALSE, pool) );
-
+  
   /* is there an error stashed away in our context? */
   if (mc.err != NULL)
     return mc.err;
@@ -702,7 +702,7 @@ svn_error_t * svn_ra_dav__merge_activity(
     *committed_date = mc.committed_date->len
                       ? apr_pstrdup(pool, mc.committed_date->data) : NULL;
   if (committed_author)
-    *committed_author = mc.last_author->len
+    *committed_author = mc.last_author->len 
                         ? apr_pstrdup(pool, mc.last_author->data) : NULL;
 
   svn_pool_destroy(mc.scratchpool);
