@@ -3,32 +3,32 @@
  *
  * ================================================================
  * Copyright (c) 2000 Collab.Net.  All rights reserved.
- *
+ * 
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
  * met:
- *
+ * 
  * 1. Redistributions of source code must retain the above copyright
  * notice, this list of conditions and the following disclaimer.
- *
+ * 
  * 2. Redistributions in binary form must reproduce the above copyright
  * notice, this list of conditions and the following disclaimer in the
  * documentation and/or other materials provided with the distribution.
- *
+ * 
  * 3. The end-user documentation included with the redistribution, if
  * any, must include the following acknowlegement: "This product includes
  * software developed by Collab.Net (http://www.Collab.Net/)."
  * Alternately, this acknowlegement may appear in the software itself, if
  * and wherever such third-party acknowlegements normally appear.
- *
+ * 
  * 4. The hosted project names must not be used to endorse or promote
  * products derived from this software without prior written
  * permission. For written permission, please contact info@collab.net.
- *
+ * 
  * 5. Products derived from this software may not use the "Tigris" name
  * nor may "Tigris" appear in their names without prior written
  * permission of Collab.Net.
- *
+ * 
  * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
  * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -42,7 +42,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ====================================================================
- *
+ * 
  * This software consists of voluntary contributions made by many
  * individuals on behalf of Collab.Net.
  */
@@ -54,13 +54,13 @@
 #include "svn_parse.h"
 
 
-/*
+/* 
    svn_svr_load_plugin() : Utility to load/register a server plugin
 
    Input:    * a policy in which to register the plugin
              * pathname of the shared library to load
              * name of the initialization routine in the plugin
-
+            
    Returns:  error structure or SVN_SUCCESS
 
    ASSUMES that ap_dso_init() has already been called!
@@ -72,7 +72,7 @@ svn_svr_load_plugin (svn_svr_policies_t *policy,
                      svn_string_t *path,
                      svn_string_t *init_routine)
 {
-
+  
   return SVN_SUCCESS;
 }
 
@@ -83,7 +83,7 @@ svn_svr_load_plugin (svn_svr_policies_t *policy,
 
     Loops through hash of plugins, loads each using APR's DSO
     routines.  Each plugin ultimately registers (appends) itself into
-    the policy structure.
+    the policy structure.  
 */
 
 svn_error_t *
@@ -92,7 +92,7 @@ svn__svr_load_all_plugins (ap_hash_t *plugins, svn_svr_policies_t *policy)
   ap_hash_index_t *hash_index;
   void *key, *val;
   size_t keylen;
-
+  
 
   /* Initialize the APR DSO mechanism*/
   ap_status_t result = ap_dso_init();
@@ -113,10 +113,10 @@ svn__svr_load_all_plugins (ap_hash_t *plugins, svn_svr_policies_t *policy)
       size_t keylen;
 
       ap_hash_this (hash_index, &key, &keylen, &val);
-
+            
       svn_error_t *err = svn_svr_load_plugin (policy,
-
-
+                                              
+                                              
     }
 }
 
@@ -124,12 +124,12 @@ svn__svr_load_all_plugins (ap_hash_t *plugins, svn_svr_policies_t *policy)
 
 
 
-/*
+/* 
    svn_svr_init()   -- create a new, empty "policy" structure
 
    Input:  ptr to policy ptr, pool
-
-   Returns: alloc's empty policy structure,
+    
+   Returns: alloc's empty policy structure, 
             returns svn_error_t * or SVN_SUCCESS
 
 */
@@ -143,7 +143,7 @@ svn_svr_init (svn_svr_policies_t **policy,
   /* First, allocate a `policy' structure and all of its internal
      lists */
 
-  *policy =
+  *policy = 
     (svn_svr_policies_t *) ap_palloc (pool, sizeof(svn_svr_policies_t));
 
   *policy->repos_aliases = ap_make_hash (pool);
@@ -168,7 +168,7 @@ svn_svr_init (svn_svr_policies_t **policy,
 
 
 svn_error_t *
-svn_svr_load_policy (svn_svr_policies_t *policy,
+svn_svr_load_policy (svn_svr_policies_t *policy, 
                      const char *filename)
 {
   ap_hash_t *configdata;
@@ -182,7 +182,7 @@ svn_svr_load_policy (svn_svr_policies_t *policy,
 
 
   /* Ben sez:  we need a debugging system here.  Let's get one quick. (TODO)
-     i.e.
+     i.e.  
             if (DEBUGLVL >= 2) {  printf...;  svn_uberhash_print(); }
   */
   svn_uberhash_print (configdata, stdout);
@@ -231,29 +231,29 @@ svn_svr_load_policy (svn_svr_policies_t *policy,
             /* The "val" is a pointer to a hash containing plugin
                libraries to load up.  We'll definitely do that here
                and now! */
-
+            
             printf ("svr_init(): loading list of plugins...\n");
-
+            
             svn__svr_load_all_plugins ((ap_hash_t *) val, policy);
 
           }
 
         else
           {
-            svn_string_t *msg =
-              svn_string_create
-              ("svn_svr_load_policy(): warning: ignoring unknown section: ",
+            svn_string_t *msg = 
+              svn_string_create 
+              ("svn_svr_load_policy(): warning: ignoring unknown section: ", 
                                  pool);
             svn_string_appendstr (msg, (svn_string_t *) key, pool);
-            svn_handle_error (svn_create_error
+            svn_handle_error (svn_create_error 
                               (SVN_ERR_UNRECOGNIZED_SECTION, NULL,
                                svn_string_2cstring (msg, pool),
-                               NULL, pool), stderr);
+                               NULL, pool), stderr);            
           }
       }    /* for (hash_index...)  */
-
+       
   } /* closing of Uberhash walk-through */
-
+  
 
   return SVN_SUCCESS;
 }
@@ -271,7 +271,7 @@ svn_svr_register_plugin (svn_svr_policies_t *policy,
   /* just need to push the new plugin pointer onto the policy's
      array of plugin pointers.  */
 
-  /* Store in policy->plugins hashtable :
+  /* Store in policy->plugins hashtable : 
      KEY = new_plugin->name, val = new_plugin */
 
   /* Hm... how would this routine fail? :)  */
