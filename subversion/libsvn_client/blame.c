@@ -68,7 +68,7 @@ blame_create (struct diff_baton *baton, struct rev *rev, apr_off_t start)
   else
     blame = apr_palloc (baton->pool, sizeof (*blame));
   blame->rev = rev;
-  blame->start = start;
+  blame->start = start;       
   blame->next = NULL;
   return blame;
 }
@@ -209,16 +209,16 @@ output_diff_modified (void *baton,
 struct log_message_baton {
   const char *path;        /* The path to be processed */
   struct rev *eldest;      /* The eldest revision processed */
-  svn_cancel_func_t cancel_func; /* cancellation callback */
+  svn_cancel_func_t cancel_func; /* cancellation callback */ 
   void *cancel_baton;            /* cancellation baton */
-  apr_pool_t *pool;
+  apr_pool_t *pool; 
 };
 
 const svn_diff_output_fns_t output_fns = {
         NULL,
         output_diff_modified
 };
-
+                     
 /* Callback for log messages: accumulates revision metadata into
    a chronologically ordered list stored in the baton. */
 static svn_error_t *
@@ -300,7 +300,7 @@ svn_client_blame (const char *target,
   const char *reposURL;
   struct log_message_baton lmb;
   apr_array_header_t *condensed_targets;
-  svn_ra_plugin_t *ra_lib;
+  svn_ra_plugin_t *ra_lib; 
   void *ra_baton, *session;
   const char *url;
   const char *auth_dir;
@@ -396,7 +396,7 @@ svn_client_blame (const char *target,
       SVN_ERR (svn_stream_close (stream));
       apr_err = apr_file_close (file);
       if (apr_err != APR_SUCCESS)
-        return svn_error_createf (apr_err, NULL, "error closing %s",
+        return svn_error_createf (apr_err, NULL, "error closing %s", 
                                   rev->path);
       if (last)
         {
@@ -407,7 +407,7 @@ svn_client_blame (const char *target,
           SVN_ERR (svn_diff_output (diff, &db, &output_fns));
           apr_err = apr_file_remove (last, iterpool);
           if (apr_err != APR_SUCCESS)
-            return svn_error_createf (apr_err, NULL, "error removing %s",
+            return svn_error_createf (apr_err, NULL, "error removing %s", 
                                       last);
         }
       else
