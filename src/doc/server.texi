@@ -162,7 +162,7 @@ implement this same API on top of a more powerful SQL system.
 
 The @dfn{Subversion Filesystem} (abbreviated: @dfn{svn_fs}) gives us an
 abstract way of thinking about the way files are stored and versioned in
-a repository -- independent of the actual means of storage.
+a repository -- independent of the actual means of storage.  
 
 Like any typical UNIX-like filesystem, files are stored in a tree.
 However, while CVS uses the actual UNIX filesystem to hold a repository,
@@ -226,13 +226,13 @@ A @dfn{repository} consists of node table and a history.
 
 @end quotation
 
-@c Some definitions: we say that a node @var{n} is a @dfn{direct child}
-@c of a directory @var{d} iff @var{d} contains a directory entry whose
-@c node number is @var{n}. A node @var{n} is a @dfn{child} of a
-@c directory @var{d} iff @var{n} is a direct child of @var{d}, or if
-@c there exists some directory @var{e} which is a direct child of
-@c @var{d}, and @var{n} is a child of @var{e}. Given this definition of
-@c ``direct child'' and ``child,'' the obvious definitions of ``direct
+@c Some definitions: we say that a node @var{n} is a @dfn{direct child} 
+@c of a directory @var{d} iff @var{d} contains a directory entry whose 
+@c node number is @var{n}. A node @var{n} is a @dfn{child} of a 
+@c directory @var{d} iff @var{n} is a direct child of @var{d}, or if 
+@c there exists some directory @var{e} which is a direct child of 
+@c @var{d}, and @var{n} is a child of @var{e}. Given this definition of 
+@c ``direct child'' and ``child,'' the obvious definitions of ``direct 
 @c parent'' and ``parent'' hold.
 
 @c In these restrictions, let @var{r} be any repository.  When we refer,
@@ -307,7 +307,7 @@ A @dfn{directory entry} (@dfn{dirent}) points to a file or directory.
 A @dfn{directory} (@dfn{dir}) is a list of directory entries.
 
 A @dfn{filesystem object} (@dfn{fs_obj}) contains either a file or
-directory.
+directory. 
 
 A @dfn{version} (abbreviated @dfn{ver}) refers to a global version
 number in a repository's history.
@@ -498,7 +498,7 @@ When the lock manager has no more open server connections, it dies.
 For the initial release of Subversion, we will implement the filesystem
 library on UNIX-class operating systems.  The lock manager will be
 launched and will communicate with other processes via UNIX domain
-sockets.
+sockets. 
 
 
 @c ----------------------------------------------------------------
@@ -507,7 +507,7 @@ sockets.
 @section Main Library
 
 A @dfn{repository} (@dfn{repos}) represents the name of a particular
-repository.
+repository. 
 
 The Main Subversion Library (@dfn{svn_main}) provides a high-level
 server API to the Subversion client.
@@ -524,7 +524,7 @@ Apache and custom HTTP "methods", @xref{Protocol}.)
 
 @table @code
 @item available_methods ()
-  return a list of methods that the server supports
+  return a list of methods that the server supports 
 @end table
 
 @subsection Basic Methods

@@ -35,7 +35,7 @@ wc:
    bool add (path)
    bool delete (path)
    bool rename (old_path, new_path)
-
+   
    [ all the prop calls, sans version ones ]
 
 
@@ -51,7 +51,7 @@ repos:
    get_delta (repos, ver1, path1, ver2, path2)    /* ??? necessary ??? */
    get_diff (repos, ver1, path1, [ver2, path2, ...])
    node read (repos, ver, path)
-
+   
    get_node_prop(ver, path, propname)
     return the value of @emph{propname} for a file or directory
    get_dirent_prop(ver, path, propname)
@@ -110,7 +110,7 @@ including the actual content of file changes.  In other words, this is
 how you get a list of all local modifications..
 
 A PATH can be a directory or a file; if directory, then it's a root from
-which to start looking for modifications.
+which to start looking for modifications.  
 
 Why does it take a variable number arguments?  For the same reason the
 @code{delta()} function below does, read on...
