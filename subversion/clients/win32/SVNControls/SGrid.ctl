@@ -1,5 +1,5 @@
 VERSION 5.00
-Begin VB.UserControl SGrid
+Begin VB.UserControl SGrid 
    ClientHeight    =   3600
    ClientLeft      =   0
    ClientTop       =   0
@@ -7,7 +7,7 @@ Begin VB.UserControl SGrid
    ControlContainer=   -1  'True
    ScaleHeight     =   3600
    ScaleWidth      =   4800
-   Begin VB.PictureBox picImage
+   Begin VB.PictureBox picImage 
       AutoRedraw      =   -1  'True
       AutoSize        =   -1  'True
       BorderStyle     =   0  'None
@@ -438,7 +438,7 @@ Dim iCol As Long, lCCol As Long
    If (m_tCells(lCol, lRow).iFntIndex <> 0) Then
       hFntOld = SelectObject(m_hDC, m_hFnt(m_tCells(lCol, lRow).iFntIndex))
    End If
-
+   
    ' Draw the text, calculating rect:
    If Not IsMissing(m_tCells(lCol, lRow).sText) Then
       sCopy = m_tCells(lCol, lRow).sText
@@ -464,12 +464,12 @@ Dim iCol As Long, lCCol As Long
    Else
       ' don't need to do anything:
    End If
-
+   
    If (hFntOld <> 0) Then
       SelectObject m_hDC, hFntOld
       hFntOld = 0
    End If
-
+      
 End Property
 Public Property Get EvaluateTextWidth( _
       ByVal lRow As Long, _
@@ -498,7 +498,7 @@ Dim lLastRight As Long
    If (m_tCells(lCol, lRow).iFntIndex <> 0) Then
       hFntOld = SelectObject(m_hDC, m_hFnt(m_tCells(lCol, lRow).iFntIndex))
    End If
-
+   
    ' Find the index of lCol in the columns array:
    For iCol = 1 To m_iCols
       If (m_tCols(iCol).lCellColIndex = lCol) Then
@@ -506,7 +506,7 @@ Dim lLastRight As Long
          Exit For
       End If
    Next iCol
-
+   
    ' Evaluate the text in the cell:
    If Not (IsMissing(m_tCells(lCol, lRow).sText)) Then
       sCopy = m_tCells(lCol, lRow).sText
@@ -515,7 +515,7 @@ Dim lLastRight As Long
       sCopy = Format$(sCopy, m_tCols(lCCol).sFmtString)
    End If
    eFlags = m_tCells(lCol, lRow).eTextFlags Or DT_CALCRECT
-
+   
    ' For multi line we specify the right so we get a height:
    If (eFlags And DT_WORDBREAK) = DT_WORDBREAK Then
       tR.Right = m_tCols(lCCol).lWidth
@@ -526,7 +526,7 @@ Dim lLastRight As Long
    If (bForceNoModify) Then
       eFlags = eFlags And Not (DT_WORD_ELLIPSIS Or DT_PATH_ELLIPSIS Or DT_MODIFYSTRING Or DT_END_ELLIPSIS)
    End If
-
+   
    sOrig = sCopy
    DrawText m_hDC, sCopy & vbNullChar, -1, tR, eFlags
    If (eFlags And DT_WORDBREAK) = DT_WORDBREAK Then
@@ -539,14 +539,14 @@ Dim lLastRight As Long
          tR.Right = lLastRight
       Loop
    End If
-
+   
    plEvaluateTextWidth = tR.Right - tR.Left
-
+   
    If (hFntOld <> 0) Then
       SelectObject m_hDC, hFntOld
       hFntOld = 0
    End If
-
+   
 End Property
 
 Public Property Get RowTextStartColumn() As Long
@@ -996,7 +996,7 @@ Dim hIml As Long
    Else
        Err.Raise vbObjectError + 1049, "cToolbar." & App.EXEName, "ImageList property expects ImageList object or long hImageList handle."
    End If
-
+    
    ' If we have a valid image list, then associate it with the control:
    If (hIml <> 0) Then
       m_hIml = hIml
@@ -1172,11 +1172,11 @@ Dim bRecall As Boolean
 Dim bDefaultStartCol As Boolean
 
    If m_bRedraw And m_bUserMode Then
-
+      
       If (m_cHeader.Visible) Then
          lOffset = m_cHeader.Height
       End If
-
+      
       GetClientRect UserControl.hwnd, tR
       If (m_hDC <> 0) Then
          lHDC = m_hDC
@@ -1187,10 +1187,10 @@ Dim bDefaultStartCol As Boolean
          lHDC = UserControl.hdc
          pFillBackground lHDC, tR, 0, 0
       End If
-
+      
       ' Ensure the scroll bars are set correctly:
       pScrollVisible
-
+      
       ' Find the start and end of drawing:
       GetStartEndCell _
          iStartRow, iStartCol, iStartX, iStartY, _
@@ -1205,7 +1205,7 @@ Dim bDefaultStartCol As Boolean
             Loop While iY < m_lAvailheight
          End If
       End If
-
+               
       ' Evaluate the default group column start & end:
       lStartColIndex = m_lRowTextStartCol
       bDefaultStartCol = (lStartColIndex = 0)
@@ -1230,7 +1230,7 @@ Dim bDefaultStartCol As Boolean
             End If
          End If
       Next iCol
-
+           
       'Set up for grid lines:
       If (m_bGridLines) Then
          If (m_bEnabled) Then
@@ -1243,7 +1243,7 @@ Dim bDefaultStartCol As Boolean
       If Not (m_bEnabled) Then
          SetTextColor m_hDC, TranslateColor(vbGrayText)
       End If
-
+      
       ' Draw the dirty cells:
       For iRow = iStartRow To iEndRow
          ' Request new row if in virtual mode:
@@ -1275,9 +1275,9 @@ Dim bDefaultStartCol As Boolean
                Exit Sub
             End If
          End If
-
+         
          If (m_tRows(iRow).bVisible) Then
-
+         
             If (m_hDC <> 0) Then
                tR.Top = 0
             Else
@@ -1287,7 +1287,7 @@ Dim bDefaultStartCol As Boolean
             If (m_hDC <> 0) Then
                pFillBackground lHDC, tBR, 0, m_tRows(iRow).lStartY - m_lStartY
             End If
-
+            
             bDoIt = m_bDirty
             If Not (bDoIt) Then
                ' Any dirty cells on this row?
@@ -1306,7 +1306,7 @@ Dim bDefaultStartCol As Boolean
                   Next iCol
                End If
             End If
-
+            
             If (bDoIt) Then
                ' Draw individual columns unless this row has the group row style, in
                ' which case we draw only the RowTextColumn.
@@ -1401,7 +1401,7 @@ Dim bDefaultStartCol As Boolean
                               End If
                            End If
                         End If
-
+                        
                         If (m_tCells(iCellCol, iRow).lExtraIconIndex > -1) Then
                            If m_tCells(iCellCol, iRow).bSelected And Not m_bHighlightSelectedIcons Then
                                tIR.Left = tR.Left
@@ -1462,7 +1462,7 @@ Dim bDefaultStartCol As Boolean
                      End If
                   Next iCol
                End If
-
+                              
                If (m_bGridLines) Then
                ' If grid lines requested ensure we continue them off RHS of the grid:
                   If (tR.Right < m_lAvailWidth + 32) Then
@@ -1500,7 +1500,7 @@ Dim bDefaultStartCol As Boolean
                      End If
                   End If
                End If
-
+               
                ' Draw the grouped cells:
                If (m_bRowMode) Or (m_tRows(iRow).bGroupRow) Then
                   If (m_iRowTextCol <> 0) Then
@@ -1593,7 +1593,7 @@ Dim bDefaultStartCol As Boolean
                      End If
                   End If
                End If
-
+               
                If (m_hDC <> 0) Then
                   BitBlt lHDCC, 0, m_tRows(iRow).lStartY - m_lStartY + lOffset, m_lAvailWidth + Abs(m_tCols(iStartCol).lStartX - m_lStartX) + 32, m_tRows(iRow).lHeight, m_hDC, 0, 0, vbSrcCopy
                End If
@@ -1610,19 +1610,19 @@ Dim bDefaultStartCol As Boolean
          tR.Right = m_lAvailWidth + 32
          pFillBackground lHDCC, tR, 0, lLastPos
       End If
-
+      
       If (m_bGridLines) Then
          DeleteObject hBrGrid
       End If
-
+      
       If (bSel) Then
          SetTextColor lHDC, TranslateColor(UserControl.ForeColor)
       End If
-
+      
       m_iLastSelRow = m_iSelRow
       m_iLastSelCol = m_iSelCol
       m_bDirty = False
-
+      
       If bRecall Then
          bRecall = False
          m_bDirty = True
@@ -1686,7 +1686,7 @@ Dim lStartColIndex As Long
             End If
          End If
       Next iCellCol
-
+      
       If m_tRows(lRow).bGroupRow Then
          If m_tRows(lRow).lGroupStartColIndex = 0 Then
             lStartColIndex = m_lRowTextStartCol
@@ -1734,7 +1734,7 @@ Dim lStartColIndex As Long
          End If
       End If
    End If
-
+   
    ' Check y
    lYStart = m_tRows(lRow).lStartY
    lYEnd = lYStart + m_tRows(lRow).lHeight
@@ -1759,7 +1759,7 @@ Dim lStartColIndex As Long
          pbEnsureVisible = (m_cScroll.Value(efsVertical) <> lValue)
       End If
    End If
-
+   
 End Function
 
 Private Sub GetStartEndCell( _
@@ -1809,7 +1809,7 @@ Dim i As Long
          End If
       End If
    Next i
-
+         
 End Sub
 
 Public Sub CellFromPoint( _
@@ -1854,7 +1854,7 @@ Dim lOffset As Long
    If (lCol = 0) Then
       Exit Sub
    End If
-
+   
 End Sub
 Public Sub CellBoundary( _
       ByVal lRow As Long, _
@@ -1883,7 +1883,7 @@ Dim lCellCol As Long
    lTop = ((m_tRows(lRow).lStartY - m_lStartY) + lOffsetY) * Screen.TwipsPerPixelY
    lWidth = (m_tCols(lCellCol).lWidth - lOffsetX) * Screen.TwipsPerPixelX
    lHeight = m_tRows(lRow).lHeight * Screen.TwipsPerPixelY
-
+   
 End Sub
 Public Sub EnsureVisible( _
       ByVal lRow As Long, _
@@ -1972,16 +1972,16 @@ Dim i As Long
 Dim lColBefore As Long
 Dim lCol As Long
 Dim iRow As Long
-
+   
    ' Check for valid key:
    If Not (pbIsValidColumnKey(vKey)) Then
       Exit Function
    End If
-
+   
    If (bRowTextColumn) Then
       m_bHasRowText = True
    End If
-
+   
    ' If key valid then check for valid key after:
    If Not IsMissing(vKeyBefore) Then
       lColBefore = ColumnIndex(vKeyBefore)
@@ -1989,12 +1989,12 @@ Dim iRow As Long
          Exit Function
       End If
    End If
-
+   
    ' Correct missing params:
    If (lColumnWidth = -1) Then
       lColumnWidth = m_lDefaultColumnWidth
    End If
-
+   
    ' All ok, add the column:
    ReDim Preserve m_tCols(0 To m_iCols + 1) As tColPosition
    If (lColBefore <> 0) Then
@@ -2006,7 +2006,7 @@ Dim iRow As Long
    Else
       lCol = m_iCols + 1
    End If
-
+         
    With m_tCols(lCol)
       .lCellColIndex = lCol
       .sKey = vKey
@@ -2033,7 +2033,7 @@ Dim iRow As Long
    If (m_tCols(lCol).bVisible) Then
       SetHeaders
    End If
-
+   
 End Function
 Private Sub pAddColToGridArray(ByVal lCol As Long)
 Dim iRow As Long
@@ -2085,7 +2085,7 @@ Dim tGridCopy() As tGridCell
          m_lRowTextStartCol = 0
          m_bHasRowText = False
       End If
-
+      
       ' Quite a lot of hacking to do here!
       If (m_iCols > 1) Then
          ' Make a copy of the grid:
@@ -2095,7 +2095,7 @@ Dim tGridCopy() As tGridCell
                LSet tGridCopy(iCol, iRow) = m_tCells(iCol, iRow)
             Next iCol
          Next iRow
-
+         
          ' Now remove the column:
          For iCol = 1 To m_iCols
             If (m_tCols(iCol).lCellColIndex = lCol) Then
@@ -2106,7 +2106,7 @@ Dim tGridCopy() As tGridCell
          For iCol = iCCol To m_iCols - 1
             LSet m_tCols(iCol) = m_tCols(iCol + 1)
          Next iCol
-
+         
          m_iCols = m_iCols - 1
          For iCol = 1 To m_iCols
             If (m_tCols(iCol).lCellColIndex > lCol) Then
@@ -2116,7 +2116,7 @@ Dim tGridCopy() As tGridCell
          ReDim Preserve m_tCols(0 To m_iCols) As tColPosition
          m_tCols(1).lStartX = 0
          ColumnWidth(1) = ColumnWidth(1)
-
+         
          ' Having removed the column, rebuild the grid cells:
          ReDim m_tCells(1 To m_iCols, 1 To m_iRows) As tGridCell
          For iRow = 1 To m_iRows
@@ -2129,16 +2129,16 @@ Dim tGridCopy() As tGridCell
                LSet m_tCells(iCol, iRow) = tGridCopy(lGridCol, iRow)
             Next iCol
          Next iRow
-
+         
          ' Set the headers back up if required:
          If (m_bHeader) Then
             SetHeaders
          End If
-
+         
          ' Now redraw:
          m_bDirty = True
          Draw
-
+         
       Else
          ' No columns, no grid!
          m_iCols = 0
@@ -2146,12 +2146,12 @@ Dim tGridCopy() As tGridCell
          ReDim m_tRows(0 To 0) As tRowPosition
          ReDim m_tCols(0 To 0) As tColPosition
          Erase m_tCells
-
+         
          ' Set the headers back up if required:
          If (m_bHeader) Then
             SetHeaders
          End If
-
+                  
          m_bDirty = True
          Draw
       End If
@@ -2208,7 +2208,7 @@ Dim lIndex As Long
       Next i
    End If
    plColumnIndex = lIndex
-
+   
 End Function
 Public Property Get ColumnImage(ByVal vKey As Variant) As Long
 Attribute ColumnImage.VB_Description = "Gets/sets the image index to show in a column's header. Image indexes are 0 based indexes of the images in an  ImageList."
@@ -2247,7 +2247,7 @@ Dim lCol As Long
          m_cHeader.ColumnImageOnRight(m_tCols(lCol).lHeadercolIndex - 1) = bState
       End If
    End If
-
+   
 End Property
 Public Property Get ColumnAlign(ByVal vKey As Variant) As ECGHdrTextAlignFlags
 Attribute ColumnAlign.VB_Description = "Gets/sets the alignment used to draw the column header for a column."
@@ -2266,7 +2266,7 @@ Dim lCol As Long
          m_cHeader.ColumnTextAlign(m_tCols(lCol).lHeadercolIndex - 1) = eAlign
       End If
    End If
-
+   
 End Property
 
 Public Property Get ColumnKey(ByVal lCol As Long) As String
@@ -2335,20 +2335,20 @@ Dim bVert As Boolean
 Dim lProportion As Long
 Dim iLastRow As Long
 Dim iCol As Long
-
+   
    GetWindowRect UserControl.hwnd, tR
    m_lAvailWidth = tR.Right - tR.Left - (UserControl.BorderStyle * 4)
    m_lAvailheight = tR.Bottom - tR.Top - (UserControl.BorderStyle * 4)
    If (m_bHeader) Then
       m_lAvailheight = m_lAvailheight - m_cHeader.Height
    End If
-
+   
    For iCol = 1 To m_iCols
       If (m_tCols(iCol).bVisible) And (m_tCols(iCol).lCellColIndex <> m_iRowTextCol) Then
          m_lGridWidth = m_tCols(iCol).lStartX + m_tCols(iCol).lWidth
       End If
    Next iCol
-
+   
    iLastRow = plGetLastVisibleRow()
    If (m_bIsVirtual And m_bInVirtualRequest) Then
       ' Make the grid pretend to be bigger than it is:
@@ -2356,7 +2356,7 @@ Dim iCol As Long
    Else
       m_lGridHeight = m_tRows(iLastRow).lStartY + m_tRows(iLastRow).lHeight
    End If
-
+      
    ' Check horizontal:
    If (m_lGridWidth > m_lAvailWidth) Then
       bHorz = True
@@ -2388,7 +2388,7 @@ Dim iCol As Long
          m_lAvailheight = m_lAvailheight - GetSystemMetrics(SM_CYHSCROLL) - 4
       End If
    End If
-
+   
    ' Set visibility:
    If m_cScroll.Visible(efsHorizontal) <> bHorz Then
       If Not (bHorz And m_bAllowHorz) Then
@@ -2403,7 +2403,7 @@ Dim iCol As Long
       End If
       m_cScroll.Visible(efsVertical) = bVert And m_bAllowVert
    End If
-
+      
    ' Check scaling:
    m_lStartX = 0: m_lStartY = 0
    If (bHorz) Then
@@ -2787,9 +2787,9 @@ Dim lCellColIndex As Long
 Dim lCol As Long
 Dim lLastWidth As Long
 Dim iVisibleCols As Long
-
+   
    lCol = plColumnIndex(vKey)
-
+   
    If (lCol > 0) Then
       If (lCol > m_iCols) Then
          ReDim Preserve m_tCols(0 To lCol) As tColPosition
@@ -2799,10 +2799,10 @@ Dim iVisibleCols As Long
          Next lCalcCol
          m_iCols = lCol
       End If
-
+      
       m_tCols(0).lWidth = 0
       m_tCols(lCol).lWidth = lWidth
-
+      
       For lCalcCol = 1 To m_iCols
          If (m_tCols(lCalcCol).bVisible) Then
             m_tCols(lCalcCol).lStartX = m_tCols(lCalcCol - 1).lStartX + lLastWidth
@@ -2811,13 +2811,13 @@ Dim iVisibleCols As Long
             m_tCols(lCalcCol).lStartX = m_tCols(lCalcCol - 1).lStartX
          End If
       Next lCalcCol
-
+               
       If (m_tCols(lCol).lHeadercolIndex - 1) > 0 Then
          If m_cHeader.ColumnWidth(m_tCols(lCol).lHeadercolIndex - 1) <> lWidth Then
             m_cHeader.ColumnWidth(m_tCols(lCol).lHeadercolIndex - 1) = lWidth
          End If
       End If
-
+      
    Else
       Err.Raise 9, App.EXEName & ".SGrid", "Column subscript out of range"
    End If
@@ -2947,7 +2947,7 @@ Dim bSelDone As Boolean
    If (lHeight < 0) Then
       lHeight = m_lDefaultRowHeight
    End If
-
+   
    If (lRowBefore > 0) And (m_iRows > 0) Then
       ' Inserting a row:
       m_iRows = m_iRows + 1
@@ -2985,7 +2985,7 @@ Dim bSelDone As Boolean
             End If
          End If
       Next iCol
-
+      
    Else
       ' Add row to end:
       m_iRows = m_iRows + 1
@@ -3153,13 +3153,13 @@ Dim iToDirtyX As Long, iToDirtyY As Long
 Dim iXStart As Long, iXEnd As Long
 Dim iYStart As Long, iYEnd As Long
 Dim tSR As RECT, tR As RECT, tJunk As RECT
-
+   
    'm_bDirty = True
    'Exit Sub
    If (m_iRows = 0) Or (m_iCols = 0) Then
       Exit Sub
    End If
-
+      
    GetStartEndCell iStartRow, iStartCol, iStartX, iStartY, iEndRow, iEndCol, iEndX, iEndY
    iStartRow = iStartRow - 1
    If (iStartRow < 1) Then iStartRow = 1
@@ -3170,7 +3170,7 @@ Dim tSR As RECT, tR As RECT, tJunk As RECT
    If (m_cScroll.Visible(efsVertical)) Then
       iV = m_cScroll.Value(efsVertical)
    End If
-
+   
    'Debug.Print s_iLastStartRow - iStartRow, s_iLastEndRow - iEndRow, s_iLastStartCol - iStartCol, s_iLastEndCol - iEndCol, s_iLastH - iH, s_iLastV - iV
    iToDirtyY = Abs(s_iLastStartRow - iStartRow) + 1
    If (Abs(s_iLastEndRow - iEndRow) + 1) > iToDirtyY Then
@@ -3180,13 +3180,13 @@ Dim tSR As RECT, tR As RECT, tJunk As RECT
    If (Abs(s_iLastEndCol - iEndCol) + 1) > iToDirtyX Then
       iToDirtyX = (Abs(s_iLastEndCol - iEndCol) + 1)
    End If
-
+         
    bNoOptimise = bNoOptimise Or m_bNoOptimiseScroll
    If (m_bBitmap) Then
       ' Can't optimise with a background bitmap as it has to stay in place:
       bNoOptimise = True
    End If
-
+   
    If Not (bNoOptimise) Then
       'GetClientRect UserControl.hwnd, tR
       tR.Top = 0: tR.Bottom = 0: tR.Right = UserControl.ScaleWidth \ Screen.TwipsPerPixelX: tR.Bottom = UserControl.ScaleHeight \ Screen.TwipsPerPixelY
@@ -3249,9 +3249,9 @@ Dim tSR As RECT, tR As RECT, tJunk As RECT
          If (iYStart < 1) Then iYStart = 1
          If (iXEnd > m_iCols) Then iXEnd = m_iCols
          If (iYEnd > m_iRows) Then iYEnd = m_iRows
-
+         
          ScrollDC UserControl.hdc, s_iLastH - iH, s_iLastV - iV, tSR, tR, 0, tJunk
-
+         
          For iRow = iYStart To iYEnd
             For iCol = iXStart To iXEnd
                m_tCells(iCol, iRow).bDirtyFlag = True
@@ -3261,7 +3261,7 @@ Dim tSR As RECT, tR As RECT, tJunk As RECT
          bNoOptimise = True
       End If
    End If
-
+   
    If (bNoOptimise) Then
       For iRow = iStartRow To iEndRow
          For iCol = iStartCol To iEndCol
@@ -3269,7 +3269,7 @@ Dim tSR As RECT, tR As RECT, tJunk As RECT
          Next iCol
       Next iRow
    End If
-
+   
    s_iLastStartRow = iStartRow
    s_iLastEndRow = iEndRow
    s_iLastStartCol = iStartCol
@@ -3284,7 +3284,7 @@ Dim tSR As RECT, tR As RECT, tJunk As RECT
    Else
       s_iLastV = 0
    End If
-
+   
 End Sub
 Private Sub pResizeHeader()
 Dim lWidth As Long
@@ -3428,7 +3428,7 @@ Dim sText As String
             Next iRow
          End If
       End If
-
+      
       FindSearchMatchRow = iFindRow
    End If
 End Function
@@ -3489,7 +3489,7 @@ Dim bCheckRowVisible As Boolean
 Dim bFound As Boolean
 Dim iIter As Long
 Dim iRowTextCol As Long
-
+   
    If (cx <> 0) Then
       For i = 1 To m_iCols
          If m_tCols(i).lCellColIndex = m_iSelCol Then
@@ -3497,7 +3497,7 @@ Dim iRowTextCol As Long
             Exit For
          End If
       Next i
-
+   
       iNew = iColIndex + cx
       If (iNew > 0) And (iNew <= m_iCols) Then
          If m_tRows(m_iSelRow).bGroupRow Then
@@ -3520,7 +3520,7 @@ Dim iRowTextCol As Long
             Loop
          End If
       End If
-
+      
       If (iNew < 1) Then
          For i = m_iCols To 1 Step -1
             If m_tCols(i).bVisible Or i = iRowTextCol Then
@@ -3586,9 +3586,9 @@ Dim iRowTextCol As Long
       Else
          m_iSelCol = m_tCols(iNew).lCellColIndex
       End If
-
+            
    End If
-
+   
    If (cy <> 0) Or (bCheckRowVisible) Then
       iOrigRow = m_iSelRow
       bFound = False
@@ -3600,7 +3600,7 @@ Dim iRowTextCol As Long
             m_iSelCol = 0: m_iSelRow = 0
             Exit Sub
          End If
-
+         
          If (m_iSelRow > m_iRows) Then
             m_iSelRow = iOrigRow
             Exit Sub
@@ -3621,10 +3621,10 @@ Dim iRowTextCol As Long
             End If
             bFound = True
          End If
-
+         
       Loop While Not bFound
    End If
-
+   
 End Sub
 Private Function plGetFirstVisibleRow() As Long
 Dim bFound As Boolean
@@ -3668,7 +3668,7 @@ Dim lMaxWidth As Long
 Dim lMaxTextWidth As Long
 Dim iCol As Long
 Dim iCCol As Long
-
+   
    iCol = plColumnIndex(vKey)
    If (iCol > 0) Then
       iCCol = m_tCols(iCol).lCellColIndex
@@ -3696,7 +3696,7 @@ Dim iCCol As Long
    Else
       Err.Raise 9, App.EXEName & ".SGrid"
    End If
-
+   
 End Sub
 Public Sub AutoHeightRow(ByVal lRow As Long, Optional ByVal lMinimumHeight As Long = -1)
 Attribute AutoHeightRow.VB_Description = "Automatically sets the height of a row based on the contents of the cells."
@@ -3742,7 +3742,7 @@ Dim tp As POINTAPI
          Exit For
       End If
    Next iCol
-
+   
    If (iGCol > 0) Then
       ' Add the width:
       If (bFirst) Then
@@ -3754,7 +3754,7 @@ Dim tp As POINTAPI
       tR.Right = tR.Left + 2
       tR.Top = m_cHeader.Height
       tR.Bottom = UserControl.ScaleHeight \ Screen.TwipsPerPixelY
-
+      
       ' Return the rectangle relative to the screen:
       tp.x = tR.Left: tp.y = tR.Top
       ClientToScreen UserControl.hwnd, tp
@@ -3762,7 +3762,7 @@ Dim tp As POINTAPI
       tp.x = tR.Right: tp.y = tR.Bottom
       ClientToScreen UserControl.hwnd, tp
       tR.Right = tp.x: tR.Bottom = tp.y
-
+      
    End If
 End Sub
 
@@ -3819,7 +3819,7 @@ Dim lStartX As Long
             Next iCol
             LSet m_tCols(lOrderPosition) = tSwap
          End If
-
+               
          ' Ensure positions are correct:
          lStartX = 0
          For iCol = 1 To m_iCols
@@ -3828,7 +3828,7 @@ Dim lStartX As Long
                lStartX = lStartX + m_tCols(iCol).lWidth
             End If
          Next iCol
-
+         
          ' Redraw grid:
          m_bDirty = True
          Draw
@@ -3845,7 +3845,7 @@ Dim tR As RECT
 Dim bCancel As Boolean
 
    DrawDragImage tR, False, True
-
+   
    lCCol = lColumn + 1
    For lCol = 1 To m_iCols
       If (m_tCols(lCol).bVisible) And (m_tCols(lCol).lHeadercolIndex = lCCol) Then
@@ -3864,7 +3864,7 @@ Dim bCancel As Boolean
       Draw
       pResizeHeader
    End If
-
+   
 End Sub
 
 
@@ -3891,7 +3891,7 @@ Dim iCCol As Long
 Dim iCol As Long
 
    CancelEdit
-
+   
    ' Autosize column here
    For iCol = 1 To m_iCols
       If (m_tCols(iCol).lHeadercolIndex = lColumn + 1) Then
@@ -3899,9 +3899,9 @@ Dim iCol As Long
          Exit For
       End If
    Next iCol
-
+   
    AutoWidthColumn iCCol
-
+   
 End Sub
 
 Private Sub m_cHeader_RecreateControl()
@@ -3988,7 +3988,7 @@ Private Sub UserControl_Initialize()
       .bSelected = False
       .lItemData = 0
    End With
-
+   
    ReDim m_tRows(0 To 0) As tRowPosition
    ReDim m_tCols(0 To 0) As tColPosition
    m_lDefaultColumnWidth = 64
@@ -4003,7 +4003,7 @@ Private Sub UserControl_Initialize()
    m_bDrawFocusRectangle = True
    m_bDisableIcons = True
    m_bHighlightSelectedIcons = True
-
+      
 End Sub
 
 Private Sub UserControl_InitProperties()
@@ -4042,7 +4042,7 @@ On Error GoTo ErrorHandler
          End If
       End If
    End If
-
+   
    If Not (m_bEnabled) Then
       Select Case KeyCode
       Case vbKeyUp
@@ -4083,11 +4083,11 @@ On Error GoTo ErrorHandler
       If (m_iRows = 0) Or (m_iCols = 0) Then
          Exit Sub
       End If
-
+      
       If m_iSelRow <= 0 Or m_iSelRow <= 0 Then
          Exit Sub
       End If
-
+      
       If (KeyCode = vbKeyLeft Or KeyCode = vbKeyRight) And Shift = 0 Then
          If (m_tRows(m_iSelRow).bGroupRow) Then
             If m_cScroll.Visible(efsHorizontal) Then
@@ -4103,10 +4103,10 @@ On Error GoTo ErrorHandler
             End If
          End If
       End If
-
+      
       iInitSelCOl = m_iSelCol
       iInitSelRow = m_iSelRow
-
+         
       Select Case KeyCode
       Case vbKeySpace
          If (Shift And vbCtrlMask) = vbCtrlMask Then
@@ -4125,7 +4125,7 @@ On Error GoTo ErrorHandler
                pRequestEdit
             End If
          End If
-
+      
       Case vbKeyLeft
          m_sSearchString = ""
          If (m_bRowMode) Or bSingleGroupRowScroll Then
@@ -4155,9 +4155,9 @@ On Error GoTo ErrorHandler
             If Not (pbEnsureVisible(m_iSelRow, m_iSelCol)) Then
                Draw
             End If
-
+            
          End If
-
+         
       Case vbKeyRight
          m_sSearchString = ""
          If (m_bRowMode) Or bSingleGroupRowScroll Then
@@ -4188,7 +4188,7 @@ On Error GoTo ErrorHandler
                Draw
             End If
          End If
-
+      
       Case vbKeyUp
          ' Move selection up if there is one, otherwise scroll:
          m_sSearchString = ""
@@ -4241,7 +4241,7 @@ On Error GoTo ErrorHandler
          Else
             m_cScroll.Value(efsVertical) = m_cScroll.Value(efsVertical) - m_cScroll.SmallChange(efsVertical)
          End If
-
+      
       Case vbKeyDown
          ' Move selection up if there is one, otherwise scroll:
          m_sSearchString = ""
@@ -4294,7 +4294,7 @@ On Error GoTo ErrorHandler
          Else
             m_cScroll.Value(efsVertical) = m_cScroll.Value(efsVertical) - m_cScroll.SmallChange(efsVertical)
          End If
-
+      
       Case vbKeyPageUp
          ' Move up by the equivalent of one page:
          m_sSearchString = ""
@@ -4313,7 +4313,7 @@ On Error GoTo ErrorHandler
                End If
             End If
          Loop While Not bFound
-
+         
          If (m_bMultiSelect) Then
             iSelRow = iRow
             If (Shift And vbShiftMask) = vbShiftMask Then
@@ -4332,7 +4332,7 @@ On Error GoTo ErrorHandler
                   Next iRow
                End If
             ElseIf (Shift And vbCtrlMask) = vbCtrlMask Then
-
+            
             Else
                If (m_bRowMode) Then
                   For iRow = 1 To m_iRows
@@ -4358,7 +4358,7 @@ On Error GoTo ErrorHandler
          If Not (pbEnsureVisible(m_iSelRow, m_iSelCol)) Then
             Draw
          End If
-
+      
       Case vbKeyPageDown
          m_sSearchString = ""
          ' Move down by the equivalent of one page:
@@ -4376,7 +4376,7 @@ On Error GoTo ErrorHandler
                End If
             End If
          Loop While Not bFound
-
+         
          If (m_bMultiSelect) Then
             iSelRow = iRow
             If (Shift And vbShiftMask) = vbShiftMask Then
@@ -4395,7 +4395,7 @@ On Error GoTo ErrorHandler
                   Next iRow
                End If
             ElseIf (Shift And vbCtrlMask) = vbCtrlMask Then
-
+            
             ElseIf (Shift = 0) Then
                If (m_bRowMode) Then
                   For iRow = 1 To m_iRows
@@ -4412,7 +4412,7 @@ On Error GoTo ErrorHandler
                      Next iCol
                   Next iRow
                End If
-
+               
             End If
             m_iSelRow = iSelRow
          Else
@@ -4422,8 +4422,8 @@ On Error GoTo ErrorHandler
          If Not (pbEnsureVisible(m_iSelRow, m_iSelCol)) Then
             Draw
          End If
-
-
+         
+      
       Case vbKeyHome
          m_sSearchString = ""
          m_iSelRow = plGetFirstVisibleRow()
@@ -4461,7 +4461,7 @@ On Error GoTo ErrorHandler
          If Not (pbEnsureVisible(m_iSelRow, m_iSelCol)) Then
             Draw
          End If
-
+         
       Case vbKeyEnd
          m_sSearchString = ""
          m_iSelRow = plGetLastVisibleRow()
@@ -4499,18 +4499,18 @@ On Error GoTo ErrorHandler
          If Not (pbEnsureVisible(m_iSelRow, m_iSelCol)) Then
             Draw
          End If
-
+      
       Case vbKeyReturn
          ' Equivalent to double-clicking the cell:
          pRequestEdit
-
+         
       Case vbKeyEscape
          ' If in Edit then cancel editing:
          m_sSearchString = ""
          CancelEdit
-
+               
       End Select
-
+      
       If (iInitSelCOl <> m_iSelCol) Or (iInitSelRow <> m_iSelRow) Then
          RaiseEvent SelectionChange(m_iSelRow, m_iSelCol)
       End If
@@ -4644,9 +4644,9 @@ On Error GoTo ErrorHandler
             pRequestEdit
             Exit Sub
          End If
-
+         
          If m_bMultiSelect Then
-
+            
             ' we could be selecting entire grid:
             If (m_tRows(lSelRow).bFixed) And (m_tCols(lSelCol).bFixed) Then
                ' Select entire grid:
@@ -4656,7 +4656,7 @@ On Error GoTo ErrorHandler
                      m_tCells(iCol, iRow).bSelected = Not (m_tCells(iCol, iRow).bSelected)
                   Next iCol
                Next iRow
-
+               
             ElseIf (m_tRows(lSelRow).bFixed) Then
                ' Select entire col:
                If (Shift And vbCtrlMask) = vbCtrlMask Then
@@ -4679,7 +4679,7 @@ On Error GoTo ErrorHandler
                      Next iCol
                   Next iRow
                End If
-
+               
             ElseIf (m_tCols(lSelCol).bFixed) Then
                ' Select entire row:
                If (Shift And vbCtrlMask) = vbCtrlMask Then
@@ -4702,7 +4702,7 @@ On Error GoTo ErrorHandler
                      Next iCol
                   Next iRow
                End If
-
+               
             Else
                ' Select this cell or row depending on mode:
                If (Shift And vbCtrlMask) = vbCtrlMask Then
@@ -4747,7 +4747,7 @@ On Error GoTo ErrorHandler
                      Next iRow
                   End If
                End If
-
+               
             End If
             If Not (pbEnsureVisible(m_iSelRow, m_iSelCol)) Then
                Draw
@@ -4759,13 +4759,13 @@ On Error GoTo ErrorHandler
             End If
          End If
       End If
-
+   
       If (iInitSelCOl <> m_iSelCol) Or (iInitSelRow <> m_iSelRow) Then
          RaiseEvent SelectionChange(m_iSelRow, m_iSelCol)
       End If
    End If
    Exit Sub
-
+   
 ErrorHandler:
    Debug.Assert False
    Exit Sub
@@ -4780,11 +4780,11 @@ On Error GoTo ErrorHandler
    If Not (m_bEnabled) Then
       Exit Sub
    End If
-
+   
    RaiseEvent MouseMove(Button, Shift, x, y)
    If (Button <> 0) Then
       ' Drag down!
-
+      
    End If
    Exit Sub
 ErrorHandler:
@@ -4801,7 +4801,7 @@ On Error GoTo ErrorHandler
    If Not (m_bEnabled) Then
       Exit Sub
    End If
-
+   
    m_bMouseDown = False
    RaiseEvent MouseUp(Button, Shift, x, y)
    Exit Sub
@@ -4875,7 +4875,7 @@ Private Sub UserControl_ReadProperties(PropBag As PropertyBag)
    Dim i As Long, cColumns As Long
    Dim colPropBag As PropertyBag
    Dim a() As Byte
-
+      
    cColumns = PropBag.ReadProperty("NumColumns", 0)
    i = 0
    While i < cColumns
@@ -4932,11 +4932,11 @@ End Sub
 
 Private Sub UserControl_Terminate()
 Dim iFnt As Long
-
+   
    Set m_cFlatHeader = Nothing
    Set m_cHeader = Nothing
    Set m_cScroll = Nothing
-
+   
    If (m_hDC <> 0) Then
       If (m_hBmpOld <> 0) Then
          SelectObject m_hDC, m_hBmpOld
@@ -4957,9 +4957,9 @@ Dim iFnt As Long
    For iFnt = 1 To m_iFontCount
       DeleteObject m_hFnt(iFnt)
    Next iFnt
-
+      
    debugmsg "SGrid:Terminate"
-
+   
 End Sub
 
 Private Function pWriteColumn(col As tColPosition, ByRef colPropBag As PropertyBag) As PropertyBag
@@ -4981,7 +4981,7 @@ Private Sub UserControl_WriteProperties(PropBag As PropertyBag)
    Dim colPropBag As PropertyBag
    Dim i As Long
    Dim a() As Byte
-
+   
    PropBag.WriteProperty "MultiSelect", MultiSelect, False
    PropBag.WriteProperty "RowMode", RowMode, False
    PropBag.WriteProperty "GridLines", GridLines, False
