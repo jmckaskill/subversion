@@ -55,7 +55,7 @@ print_delta_window (const char *tag,
 
   if (quiet)
     return len;
-
+  
   fprintf (stream, "%s: (WINDOW %" APR_OFF_T_FMT, tag, len);
   for (i = 0; i < window->num_ops; ++i)
     {
