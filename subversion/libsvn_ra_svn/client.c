@@ -1295,7 +1295,7 @@ static svn_error_t *ra_svn_get_file_revs(svn_ra_session_t *session,
             SVN_ERR(svn_stream_close(stream));
         }
     }
-
+ 
   SVN_ERR(svn_ra_svn_read_cmd_response(sess->conn, pool, ""));
 
   /* Return error if we didn't get any revisions. */
@@ -1346,7 +1346,7 @@ svn_ra_svn__init (const svn_version_t *loader_version,
       { "svn_delta", svn_delta_version },
       { NULL, NULL }
     };
-
+  
   SVN_ERR(svn_ver_check_list(svn_ra_svn_version(), checklist));
 
   /* Simplified version check to make sure we can safely use the
