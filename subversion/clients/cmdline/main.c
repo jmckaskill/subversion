@@ -52,7 +52,7 @@
 /* Option codes and descriptions for the command line client.
  *
  * This must not have more than SVN_OPT_MAX_OPTIONS entries; if you
- * need more, increase that limit first.
+ * need more, increase that limit first. 
  *
  * The entire list must be terminated with an entry of nulls.
  */
@@ -162,7 +162,7 @@ const svn_opt_subcommand_desc_t svn_cl__cmd_table[] =
     "unfinished operations, etc.\n"
     "usage: cleanup [PATH [PATH ... ]]\n",
     {0} },
-
+  
   { "commit", svn_cl__commit, {"ci"},
     "Send changes from your working copy to the repository.\n"
     "usage: commit [PATH [PATH ... ]]\n\n"
@@ -170,7 +170,7 @@ const svn_opt_subcommand_desc_t svn_cl__cmd_table[] =
     {'m', 'F', 'q', 'N', svn_cl__targets_opt,
      svn_cl__force_opt, SVN_CL__AUTH_OPTIONS,
      svn_cl__editor_cmd_opt, svn_cl__encoding_opt} },
-
+  
   { "copy", svn_cl__copy, {"cp"},
     "Duplicate something in working copy or repos, remembering history.\n"
     "usage: copy SRC DST\n\n"
@@ -179,9 +179,9 @@ const svn_opt_subcommand_desc_t svn_cl__cmd_table[] =
     "    WC  -> URL:  immediately commit a copy of WC to URL\n"
     "    URL -> WC:   check out URL into WC, schedule for addition\n"
     "    URL -> URL:  complete server-side copy;  used to branch & tag\n",
-    {'m', 'F', 'r', 'q', SVN_CL__AUTH_OPTIONS,
+    {'m', 'F', 'r', 'q', SVN_CL__AUTH_OPTIONS, 
      svn_cl__editor_cmd_opt, svn_cl__encoding_opt} },
-
+  
   { "delete", svn_cl__delete, {"del", "remove", "rm"},
     "Remove files and directories from version control.\n"
     "usage: delete [TARGET [TARGET ... ]]\n\n"
@@ -195,7 +195,7 @@ const svn_opt_subcommand_desc_t svn_cl__cmd_table[] =
     "  immediate commit.\n",
     {svn_cl__force_opt, 'm', 'F', 'q', svn_cl__targets_opt,
      SVN_CL__AUTH_OPTIONS, svn_cl__editor_cmd_opt, svn_cl__encoding_opt} },
-
+  
   { "diff", svn_cl__diff, {"di"},
     "display the differences between two paths.\n"
     "usage: 1. diff [-r N[:M]] [TARGET [TARGET ... ]]\n"
@@ -234,7 +234,7 @@ const svn_opt_subcommand_desc_t svn_cl__cmd_table[] =
      course.  But those options, since unknown, will result in the
      help message being printed out anyway, so there's no need to
      support them explicitly. */
-
+  
   { "import", svn_cl__import, {0},
     "Commit an unversioned file or tree into the repository.\n"
     "usage: import URL [PATH [NEW_ENTRY_IN_REPOS]]\n\n"
@@ -244,19 +244,19 @@ const svn_opt_subcommand_desc_t svn_cl__cmd_table[] =
     "  begin copy there.\n",
     {'m', 'F', 'q', 'N', SVN_CL__AUTH_OPTIONS,
      svn_cl__editor_cmd_opt, svn_cl__encoding_opt} },
-
+ 
   { "info", svn_cl__info, {0},
     "Display info about a resource.\n"
     "usage: info [PATH [PATH ... ]]\n\n"
     "  Print information about PATHs.\n",
     {svn_cl__targets_opt, 'R'} },
-
+ 
   { "list", svn_cl__ls, {"ls"},
     "List directory entries of a URL.\n"
     "usage: list URL [URL ... ]\n\n"
     "  If URL is a file, just file entry will be displayed.\n",
     {'r', 'v', 'R', SVN_CL__AUTH_OPTIONS} },
-
+  
   { "log", svn_cl__log, {0},
     "Show the log messages for a set of revision(s) and/or file(s).\n"
     "usage: log [URL] [PATH [PATH ... ]]\n"
@@ -292,7 +292,7 @@ const svn_opt_subcommand_desc_t svn_cl__cmd_table[] =
     "  If omitted, a default value of '.' is assumed.\n\n",
     {'r', 'N', 'q', svn_cl__force_opt, svn_cl__dry_run_opt,
      svn_cl__merge_cmd_opt, SVN_CL__AUTH_OPTIONS} },
-
+  
   { "mkdir", svn_cl__mkdir, {0},
     "Create a new directory under revision control.\n"
     "usage: mkdir TARGET [TARGET [TARGET ... ]]\n\n"
@@ -310,10 +310,10 @@ const svn_opt_subcommand_desc_t svn_cl__cmd_table[] =
     "  NOTE:  this command is equivalent to a 'copy' and 'delete'.\n\n"
     "  SRC and DST can both be working copy (WC) paths or URLs:\n"
     "    WC  -> WC:   move and schedule for addition (with history)\n"
-    "    URL -> URL:  complete server-side rename.\n",
+    "    URL -> URL:  complete server-side rename.\n",    
     {'m', 'F', 'r', 'q', svn_cl__force_opt, SVN_CL__AUTH_OPTIONS,
      svn_cl__editor_cmd_opt, svn_cl__encoding_opt} },
-
+  
   { "propdel", svn_cl__propdel, {"pdel"},
     "Remove PROPNAME from files, dirs, or revisions.\n"
     "usage: 1. propdel PROPNAME [PATH [PATH ... ]]\n"
@@ -321,7 +321,7 @@ const svn_opt_subcommand_desc_t svn_cl__cmd_table[] =
     "  1. Removes versioned props in working copy.\n"
     "  2. Removes unversioned remote prop on repos revision.\n\n",
     {'q', 'R', 'r', svn_cl__revprop_opt, SVN_CL__AUTH_OPTIONS} },
-
+  
   { "propedit", svn_cl__propedit, {"pedit", "pe"},
     "Edit property PROPNAME with $EDITOR on targets.\n"
     "usage: 1. propedit PROPNAME PATH [PATH [PATH ... ]]\n"
@@ -330,7 +330,7 @@ const svn_opt_subcommand_desc_t svn_cl__cmd_table[] =
     "  2. Edits unversioned remote prop on repos revision.\n\n",
     {'r', svn_cl__revprop_opt, SVN_CL__AUTH_OPTIONS,
      svn_cl__encoding_opt, svn_cl__editor_cmd_opt} },
-
+  
   { "propget", svn_cl__propget, {"pget", "pg"},
     "Print value of PROPNAME on files, dirs, or revisions.\n"
     "usage: 1. propget PROPNAME [PATH [PATH ... ]]\n"
@@ -338,7 +338,7 @@ const svn_opt_subcommand_desc_t svn_cl__cmd_table[] =
     "  1. Prints versioned prop in working copy.\n"
     "  2. Prints unversioned remote prop on repos revision.\n\n",
     {'R', 'r', svn_cl__revprop_opt, SVN_CL__AUTH_OPTIONS} },
-
+  
   { "proplist", svn_cl__proplist, {"plist", "pl"},
     "List all properties on files, dirs, or revisions.\n"
     "usage: 1. proplist [PATH [PATH ... ]]\n"
@@ -346,7 +346,7 @@ const svn_opt_subcommand_desc_t svn_cl__cmd_table[] =
     "  1. Lists versioned props in working copy.\n"
     "  2. Lists unversioned remote props on repos revision.\n\n",
     {'v', 'R', 'r', svn_cl__revprop_opt, SVN_CL__AUTH_OPTIONS} },
-
+  
   { "propset", svn_cl__propset, {"pset", "ps"},
     "Set PROPNAME to PROPVAL on files, dirs, or revisions.\n\n"
     "usage: 1. propset PROPNAME [PROPVAL | -F VALFILE] PATH [PATH [PATH ... ]]\n"
@@ -382,7 +382,7 @@ const svn_opt_subcommand_desc_t svn_cl__cmd_table[] =
     "        foo/bar -r 1234 http://example.com/repos/zag\n",
     {'F', 'q', 'r', svn_cl__targets_opt, 'R', svn_cl__revprop_opt,
      SVN_CL__AUTH_OPTIONS, svn_cl__encoding_opt} },
-
+  
   { "revert", svn_cl__revert, {0},
     "Restore pristine working copy file (undo all local edits)\n"
     "usage: revert PATH [PATH [PATH ... ]]\n\n"
@@ -397,7 +397,7 @@ const svn_opt_subcommand_desc_t svn_cl__cmd_table[] =
     "  it merely removes conflict-related artifact files and allows PATH\n"
     "  to be committed again.\n",
     {svn_cl__targets_opt, 'R', 'q'} },
-
+ 
   { "status", svn_cl__status, {"stat", "st"},
     "Print the status of working copy files and directories.\n"
     "usage: status [PATH [PATH ... ]]\n\n"
@@ -457,14 +457,14 @@ const svn_opt_subcommand_desc_t svn_cl__cmd_table[] =
     "                 965       687        joe   wc/zig.c\n"
     "    Head revision:   981\n",
     { 'u', 'v', 'N', 'q', svn_cl__no_ignore_opt, SVN_CL__AUTH_OPTIONS} },
-
+  
   { "switch", svn_cl__switch, {"sw"},
     "Update working copy to mirror a new URL\n"
     "usage: switch URL [PATH]\n\n"
     "  Note:  this is the way to move a working copy to a new branch.\n",
     { 'r', 'N', 'q', svn_cl__merge_cmd_opt, SVN_CL__AUTH_OPTIONS} },
-
-  { "update", svn_cl__update, {"up"},
+ 
+  { "update", svn_cl__update, {"up"}, 
     "Bring changes from the repository into the working copy.\n"
     "usage: update [PATH [PATH ... ]]\n\n"
     "  If no revision given, bring working copy up-to-date with HEAD rev.\n"
@@ -518,7 +518,7 @@ main (int argc, const char * const *argv)
   svn_error_t *err;
   apr_pool_t *pool;
   int opt_id;
-  apr_getopt_t *os;
+  apr_getopt_t *os;  
   svn_cl__opt_state_t opt_state = { { 0 } };
   svn_client_ctx_t ctx = { 0 };
   int received_opts[SVN_OPT_MAX_OPTIONS];
@@ -541,7 +541,7 @@ main (int argc, const char * const *argv)
   /* Begin processing arguments. */
   opt_state.start_revision.kind = svn_opt_revision_unspecified;
   opt_state.end_revision.kind = svn_opt_revision_unspecified;
-
+ 
   /* No args?  Show usage. */
   if (argc <= 1)
     {
@@ -657,7 +657,7 @@ main (int argc, const char * const *argv)
             svn_pool_destroy (pool);
             return EXIT_FAILURE;
           }
-
+        
         /* Find out if log message file is under revision control. */
         {
           svn_wc_adm_access_t *adm_access;
@@ -778,7 +778,7 @@ main (int argc, const char * const *argv)
       default:
         /* Hmmm. Perhaps this would be a good place to squirrel away
            opts that commands like svn diff might need. Hmmm indeed. */
-        break;
+        break;  
       }
     }
 
@@ -851,7 +851,7 @@ main (int argc, const char * const *argv)
       if (! svn_opt_subcommand_takes_option (subcommand, opt_id))
         {
           const char *optstr;
-          const apr_getopt_option_t *badopt =
+          const apr_getopt_option_t *badopt = 
             svn_opt_get_option_from_code (opt_id, svn_cl__options);
           svn_opt_format_option (&optstr, badopt, FALSE, pool);
           fprintf (stderr,
@@ -900,7 +900,7 @@ main (int argc, const char * const *argv)
   command_baton.opt_state = &opt_state;
   command_baton.ctx = &ctx;
 
-  ctx.prompt_func = svn_cl__prompt_user;
+  ctx.prompt_func = svn_cl__prompt_user; 
   ctx.prompt_baton = NULL;
 
   if ((err = svn_config_get_config (&(ctx.config), pool)))
@@ -912,7 +912,7 @@ main (int argc, const char * const *argv)
 
   cfg = apr_hash_get (ctx.config, SVN_CONFIG_CATEGORY_CONFIG,
                       APR_HASH_KEY_STRING);
-
+  
   /* Update the options in the config */
   /* XXX: Only diff_cmd for now, overlay rest later and stop passing
      opt_state altogether? */
@@ -924,7 +924,7 @@ main (int argc, const char * const *argv)
                     SVN_CONFIG_OPTION_DIFF3_CMD, opt_state.merge_cmd);
 
   ctx.log_msg_func = svn_cl__get_log_message;
-  ctx.log_msg_baton = svn_cl__make_log_msg_baton (&opt_state, NULL,
+  ctx.log_msg_baton = svn_cl__make_log_msg_baton (&opt_state, NULL, 
                                                   ctx.config, pool);
 
   if (!opt_state.encoding || !*opt_state.encoding)
@@ -945,50 +945,50 @@ main (int argc, const char * const *argv)
 
     /* The main disk-caching auth providers, for both
        'username/password' creds and 'username' creds.  */
-    svn_auth_provider_object_t *simple_wc_provider
+    svn_auth_provider_object_t *simple_wc_provider 
       = apr_pcalloc (pool, sizeof(*simple_wc_provider));
 
-    svn_auth_provider_object_t *username_wc_provider
+    svn_auth_provider_object_t *username_wc_provider 
       = apr_pcalloc (pool, sizeof(*username_wc_provider));
 
     svn_wc_get_simple_provider (&(simple_wc_provider->vtable),
                                 &(simple_wc_provider->provider_baton), pool);
-    *(svn_auth_provider_object_t **)apr_array_push (providers)
+    *(svn_auth_provider_object_t **)apr_array_push (providers) 
       = simple_wc_provider;
 
-    svn_wc_get_username_provider
+    svn_wc_get_username_provider 
       (&(username_wc_provider->vtable),
        &(username_wc_provider->provider_baton), pool);
-    *(svn_auth_provider_object_t **)apr_array_push (providers)
+    *(svn_auth_provider_object_t **)apr_array_push (providers) 
       = username_wc_provider;
 
     if (opt_state.non_interactive == FALSE)
       {
         /* Two prompting providers, one for username/password, one for
            just username. */
-        svn_auth_provider_object_t *simple_prompt_provider
+        svn_auth_provider_object_t *simple_prompt_provider 
           = apr_pcalloc (pool, sizeof(*simple_prompt_provider));
 
-        svn_auth_provider_object_t *username_prompt_provider
+        svn_auth_provider_object_t *username_prompt_provider 
           = apr_pcalloc (pool, sizeof(*username_prompt_provider));
 
-        svn_client_get_simple_prompt_provider
+        svn_client_get_simple_prompt_provider 
           (&(simple_prompt_provider->vtable),
            &(simple_prompt_provider->provider_baton),
            svn_cl__prompt_user, NULL,
            2, /* retry limit */ pool);
 
-        svn_client_get_username_prompt_provider
+        svn_client_get_username_prompt_provider 
           (&(username_prompt_provider->vtable),
            &(username_prompt_provider->provider_baton),
            svn_cl__prompt_user, NULL,
            2, /* retry limit */ pool);
 
-        *(svn_auth_provider_object_t **)apr_array_push (providers)
+        *(svn_auth_provider_object_t **)apr_array_push (providers) 
           = simple_prompt_provider;
 
-        *(svn_auth_provider_object_t **)apr_array_push (providers)
-          = username_prompt_provider;
+        *(svn_auth_provider_object_t **)apr_array_push (providers) 
+          = username_prompt_provider;       
       }
 
     /* Build an authentication baton to give to libsvn_client. */
@@ -998,7 +998,7 @@ main (int argc, const char * const *argv)
 #if 0  /* ### See also #if 0 above at declaration of `cancelled'. */
     /* Set up our cancellation support.
      *
-     * This is temporarily #if 0'd out while the cancellation support is
+     * This is temporarily #if 0'd out while the cancellation support is 
      * being pushed through the client code,
      */
     apr_signal (SIGINT, sig_int);
