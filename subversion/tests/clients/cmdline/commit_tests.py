@@ -2,9 +2,9 @@
 #
 #  commit_tests.py:  testing fancy commit cases.
 #
-#  Subversion is a tool for revision control.
+#  Subversion is a tool for revision control. 
 #  See http://subversion.tigris.org for more information.
-#
+#    
 # ====================================================================
 # Copyright (c) 2000-2001 CollabNet.  All rights reserved.
 #
@@ -56,7 +56,7 @@ def get_standard_status_list(wc_dir):
   status_list[10][3]['status'] = 'D '
   status_list[12][3]['status'] = 'D '
   status_list[15][3]['status'] = 'D '
-
+  
   # A/D/G/pi, A/D/H/omega
   status_list[14][3]['status'] = '_M'
   status_list[20][3]['status'] = 'MM'
@@ -80,7 +80,7 @@ def get_standard_status_list(wc_dir):
                        'repos_rev' : '1'}])
 
   return status_list
-
+  
 
 def make_standard_slew_of_changes(wc_dir):
   """Make a specific set of local mods to WC_DIR.  These will be used
@@ -94,18 +94,18 @@ def make_standard_slew_of_changes(wc_dir):
   # Add a directory
   os.mkdir('Q')
   svntest.main.run_svn('add', 'Q')
-
+  
   # Remove two directories
   svntest.main.run_svn('rm', os.path.join('A', 'B', 'E'))
   svntest.main.run_svn('rm', os.path.join('A', 'C'))
-
+  
   # Replace one of the removed directories
   svntest.main.run_svn('add', os.path.join('A', 'B', 'E'))
-
+  
   # Make property mods to two directories
   svntest.main.run_svn('propset', 'foo', 'bar', os.curdir)
   svntest.main.run_svn('propset', 'foo2', 'bar2', os.path.join('A', 'D'))
-
+  
   # Add three files
   svntest.main.file_append(os.path.join('A', 'B', 'E', 'bloo'), "hi")
   svntest.main.file_append(os.path.join('A', 'D', 'H', 'gloo'), "hello")
@@ -113,30 +113,30 @@ def make_standard_slew_of_changes(wc_dir):
   svntest.main.run_svn('add', os.path.join('A', 'B', 'E', 'bloo'))
   svntest.main.run_svn('add', os.path.join('A', 'D', 'H', 'gloo'))
   svntest.main.run_svn('add', os.path.join('Q', 'floo'))
-
+  
   # Remove three files
   svntest.main.run_svn('rm', os.path.join('A', 'D', 'G', 'rho'))
   svntest.main.run_svn('rm', os.path.join('A', 'D', 'H', 'chi'))
   svntest.main.run_svn('rm', os.path.join('A', 'D', 'gamma'))
-
+  
   # Replace one of the removed files
   svntest.main.run_svn('add', os.path.join('A', 'D', 'H', 'chi'))
-
+  
   # Make textual mods to two files
   svntest.main.file_append(os.path.join('A', 'B', 'lambda'), "new ltext")
   svntest.main.file_append(os.path.join('A', 'D', 'H', 'omega'), "new otext")
-
+  
   # Make property mods to three files
   svntest.main.run_svn('propset', 'blue', 'azul',
-                       os.path.join('A', 'D', 'H', 'omega'))
+                       os.path.join('A', 'D', 'H', 'omega'))  
   svntest.main.run_svn('propset', 'green', 'verde',
                        os.path.join('Q', 'floo'))
   svntest.main.run_svn('propset', 'red', 'rojo',
-                       os.path.join('A', 'D', 'G', 'pi'))
+                       os.path.join('A', 'D', 'G', 'pi'))  
 
   # Restore the CWD.
   os.chdir(was_cwd)
-
+  
   # Build an expected status tree.
   status_list = get_standard_status_list(wc_dir)
   expected_status_tree = svntest.tree.build_generic_tree(status_list)
@@ -169,7 +169,7 @@ def commit_one_file():
   if make_standard_slew_of_changes(wc_dir): return 1
 
   # Create expected output tree.
-  omega_path = os.path.join(wc_dir, 'A', 'D', 'H', 'omega')
+  omega_path = os.path.join(wc_dir, 'A', 'D', 'H', 'omega') 
   output_list = [ [omega_path, None, {}, {'verb' : 'Changing' }] ]
   expected_output_tree = svntest.tree.build_generic_tree(output_list)
 
@@ -210,7 +210,7 @@ def commit_multi_targets():
   "Commit multiple targets. (anchor=common parent, target={tgts})"
 
   pass
-
+  
 #----------------------------------------------------------------------
 
 # regression test for bug #391
@@ -228,11 +228,11 @@ def nested_dir_replacements():
   svntest.main.run_svn('rm', os.path.join(wc_dir, 'A', 'D'))
   svntest.main.run_svn('add', os.path.join(wc_dir, 'A', 'D'))
   svntest.main.run_svn('add', os.path.join(wc_dir, 'A', 'D', 'H'))
-
+                       
   # For kicks, add new file A/D/bloo.
   svntest.main.file_append(os.path.join(wc_dir, 'A', 'D', 'bloo'), "hi")
   svntest.main.run_svn('add', os.path.join(wc_dir, 'A', 'D', 'bloo'))
-
+  
   # Verify pre-commit status:
   #    - A/D and A/D/H should both be scheduled as "R" at rev 0
   #    - A/D/bloo scheduled as "A" at rev 0
@@ -240,13 +240,13 @@ def nested_dir_replacements():
 
   # (abbreviation)
   path_index = svntest.actions.path_index
-
+  
   sl = svntest.actions.get_virginal_status_list(wc_dir, '1')
 
   sl[path_index(sl, os.path.join(wc_dir, 'A', 'D'))][3]['status'] = "R "
-  sl[path_index(sl, os.path.join(wc_dir, 'A', 'D'))][3]['wc_rev'] = "0"
+  sl[path_index(sl, os.path.join(wc_dir, 'A', 'D'))][3]['wc_rev'] = "0"  
   sl[path_index(sl, os.path.join(wc_dir, 'A', 'D', 'H'))][3]['status'] = "R "
-  sl[path_index(sl, os.path.join(wc_dir, 'A', 'D', 'H'))][3]['wc_rev'] = "0"
+  sl[path_index(sl, os.path.join(wc_dir, 'A', 'D', 'H'))][3]['wc_rev'] = "0"  
   sl.append([os.path.join(wc_dir, 'A', 'D', 'bloo'), None, {},
              {'status' : 'A ', 'wc_rev' : '0', 'repos_rev' : '1'}])
 
@@ -277,9 +277,9 @@ def nested_dir_replacements():
   sl = svntest.actions.get_virginal_status_list(wc_dir, '2')
   for item in sl:
     item[3]['wc_rev'] = '1'
-
-  sl[path_index(sl, os.path.join(wc_dir, 'A', 'D'))][3]['wc_rev'] = "2"
-  sl[path_index(sl, os.path.join(wc_dir, 'A', 'D', 'H'))][3]['wc_rev'] = "2"
+  
+  sl[path_index(sl, os.path.join(wc_dir, 'A', 'D'))][3]['wc_rev'] = "2"  
+  sl[path_index(sl, os.path.join(wc_dir, 'A', 'D', 'H'))][3]['wc_rev'] = "2"  
   sl.append([os.path.join(wc_dir, 'A', 'D', 'bloo'), None, {},
              {'status' : '_ ', 'wc_rev' : '2', 'repos_rev' : '2'}])
 
@@ -291,7 +291,7 @@ def nested_dir_replacements():
   sl.pop(path_index(sl, os.path.join(wc_dir, 'A', 'D', 'H', 'omega')))
   sl.pop(path_index(sl, os.path.join(wc_dir, 'A', 'D', 'H', 'psi')))
   sl.pop(path_index(sl, os.path.join(wc_dir, 'A', 'D', 'gamma')))
-
+    
   expected_status_tree = svntest.tree.build_generic_tree(sl)
 
   # Commit from the top of the working copy and verify output & status.
@@ -315,7 +315,7 @@ test_list = [ None,
              ]
 
 if __name__ == '__main__':
-
+  
   ## run the main test routine on them:
   err = svntest.main.run_tests(test_list)
 
