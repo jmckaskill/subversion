@@ -65,7 +65,7 @@ open_or_create (VALUE class, VALUE aPath, int create)
   rb_fs->closed = FALSE;
   argv[0] = aPath;
   rb_obj_call_init (obj, 1, argv);
-
+  
   if (create)
     err = svn_fs_create_berkeley (fs, path);
   else
