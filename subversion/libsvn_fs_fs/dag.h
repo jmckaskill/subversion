@@ -162,7 +162,7 @@ svn_error_t *svn_fs__dag_get_proplist (apr_hash_t **proplist_p,
    transaction under which this occurs.  */
 svn_error_t *svn_fs__dag_set_proplist (dag_node_t *node,
                                        apr_hash_t *proplist,
-                                       const char *txn_id,
+                                       const char *txn_id, 
                                        apr_pool_t *pool);
 
 
@@ -247,7 +247,7 @@ svn_error_t *svn_fs__dag_dir_entries (apr_hash_t **entries_p,
 svn_error_t *svn_fs__dag_set_entry (dag_node_t *node,
                                     const char *entry_name,
                                     const svn_fs_id_t *id,
-                                    const char *txn_id,
+                                    const char *txn_id, 
                                     apr_pool_t *pool);
 
 
@@ -261,7 +261,7 @@ svn_error_t *svn_fs__dag_set_entry (dag_node_t *node,
 
    COPY_ID, if non-NULL, is a key into the `copies' table, and
    indicates that this new node is being created as the result of a
-   copy operation, and specifically which operation that was.
+   copy operation, and specifically which operation that was.  
 
    PATH is the canonicalized absolute path at which this node is being
    created.
@@ -343,7 +343,7 @@ svn_error_t *svn_fs__dag_make_dir (dag_node_t **child_p,
 
 /* Set *CONTENTS to a readable generic stream which yields the
    contents of FILE.  Allocate the stream in POOL.
-
+   
    If FILE is not a file, return SVN_ERR_FS_NOT_FILE.  */
 svn_error_t *svn_fs__dag_get_contents (svn_stream_t **contents,
                                        dag_node_t *file,
@@ -373,7 +373,7 @@ svn_error_t *svn_fs__dag_get_edit_stream (svn_stream_t **contents,
    This operation is a no-op if no edits are present.  */
 svn_error_t *svn_fs__dag_finalize_edits (dag_node_t *file,
                                          const char *checksum,
-                                         const char *txn_id,
+                                         const char *txn_id, 
                                          apr_pool_t *pool);
 
 
@@ -429,14 +429,14 @@ svn_error_t *svn_fs__dag_copy (dag_node_t *to_node,
                                svn_boolean_t preserve_history,
                                svn_revnum_t from_rev,
                                const char *from_path,
-                               const char *txn_id,
+                               const char *txn_id, 
                                apr_pool_t *pool);
 
 
 /* Comparison */
 
 /* Find out what is the same between two nodes.
-
+ 
    If PROPS_CHANGED is non-null, set *PROPS_CHANGED to 1 if the two
    nodes have different property lists, or to 0 if same.
 
