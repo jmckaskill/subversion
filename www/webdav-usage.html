@@ -136,11 +136,11 @@
       <dd>Response: 201, created</dd>
     </dl>
     <p>
-      The (advanced) <code>CHECKOUT</code> method has a way to specify
+      The (advanced) <code>CHECKOUT</code> method has a way to specify 
       an activity upon checkout. This feature will be used to
       associate all items with the newly-created activity.
     </p>
-
+    
     <h3>Mapping changes to WebDAV</h3>
     <p>
       A change set in Subversion is specified with a "tree delta" (see
@@ -220,7 +220,7 @@
 	<code>COPY</code> establishes the proper ancestry for the
 	file.
 	<p>
-	  Note that the source of the <code>COPY</code> is the version
+	  Note that the source of the <code>COPY</code> is the version 
 	  selector. This makes it possible to swap files arbitrarily
 	  since the source (the version selectors) will not change
 	  until <code>MERGE</code> time.
@@ -229,11 +229,11 @@
 
       <dt>Replace directory</dt>
       <dd>
-	In Subversion terms, "replace directory" means that additions,
+	In Subversion terms, "replace directory" means that additions, 
 	deletions, and other changes will occur <em>within</em> the
-	directory. Each of these changes are modeled individually, and
+	directory. Each of these changes are modeled individually, and 
 	the change to the directory is performed
-	implicitly. Therefore, this "change" has no particular mapping
+	implicitly. Therefore, this "change" has no particular mapping 
 	into WebDAV.
 
 	<p></p>
@@ -255,7 +255,7 @@
       <dt>Property delta</dt>
       <dd>
 	A property delta (against a file or directory) maps directly
-	to a <code>PROPPATCH</code> in WebDAV terms. Before applying a
+	to a <code>PROPPATCH</code> in WebDAV terms. Before applying a 
 	<code>PROPPATCH</code>, the target file/directory will be
 	checked out using <code>CHECKOUT</code>
       </dd>
@@ -271,7 +271,7 @@
     <h3>Skeleton Deltas</h3>
     <p>
       As mentioned above, Subversion uses a two-pass system during a
-      commit. The first pass will create the activity, perform all the
+      commit. The first pass will create the activity, perform all the 
       necessary <code>CHECKOUT</code> operations, and then perform a
       number of <code>DELETE</code>, <code>COPY</code>, and
       <code>MKCOL</code> requests against the working resources. To
@@ -290,7 +290,7 @@
 	into a complete <code>PROPPATCH</code>.
 	<p>
 	  Note that DAV says it is okay to remove a property that
-	  doesn't exist. Effectively, the removal of the property will
+	  doesn't exist. Effectively, the removal of the property will 
 	  always be a null operation.
 	</p>
       </dd>
@@ -299,7 +299,7 @@
       <dd>
 	The client will issue a zero-length <code>PUT</code> request
 	against the working resource. When the final commit is
-	performed, another <code>PUT</code> will be performed with the
+	performed, another <code>PUT</code> will be performed with the 
 	entire file contents.
 	<p></p>
       </dd>
@@ -357,7 +357,7 @@
     <ul>
       <li>
 	The <code>&lt;directory ancestor="/dir1/dir3"&gt;</code>
-	specifies that we are overwriting <code>/dir1/dir2</code> with
+	specifies that we are overwriting <code>/dir1/dir2</code> with 
 	<code>/dir1/dir3</code>.
 	<p>
 	  <code>CHECKOUT&nbsp;/dir1/dir2</code><br>
@@ -373,7 +373,7 @@
 	<code>/dir1/dir2/file3</code> is new (since we just overwrote
 	the original <code>dir2</code> directory), and originates from
 	<code>/dir1/dir2/file3</code>. Thus, we simply
-	<code>COPY</code> the file into the target directory's working
+	<code>COPY</code> the file into the target directory's working 
 	resource:
 	<p>
 	  <code>COPY&nbsp;/dir1/dir2/file3</code><br>
@@ -421,7 +421,7 @@
       example, the "foo" project might be located at
       <code>http://www.example.com/foo/</code>. However, the server
       also requires a number of other resources to be exposed for
-      proper operation. These additional resources can be specified on
+      proper operation. These additional resources can be specified on 
       a per-project basis, but will typically be defined on a
       server-wide basis. The <code>SVNAuxLocation</code> directive is
       used to define the location of these auxilliary resources:
@@ -444,7 +444,7 @@
       <dd>
 	This area is where activity resources are created. The client
 	will pick a unique name within this collection and issue a
-	<code>MKACTIVITY</code> for that URL. The client will then use
+	<code>MKACTIVITY</code> for that URL. The client will then use 
 	the activity in further interactions.
 	<p>
 	  No methods are allowed on the <code>/$svn/act/</code> URL.
@@ -460,12 +460,12 @@
 	  <code>DAV:activity</code>.
 	</p>
       </dd>
-
+      
       <dt><code>/$svn/his/</code></dt>
       <dd>
 	This collection contains the version history resources for
 	files and directories in a project. Its internal layout is
-	completely server-defined. Clients will receive URLs into this
+	completely server-defined. Clients will receive URLs into this 
 	collection (or a subcollection) from various responses.
 	<p>
 	  No methods are allowed on the <code>/$svn/his/</code> URL.
@@ -482,12 +482,12 @@
 	  each Subversion project that is located within this history
 	  URL namespace. The <var>node-id</var> is an internal value
 	  that Subversion uses to reference individual files and
-	  directories. The <var>version</var> portion is used to refer
+	  directories. The <var>version</var> portion is used to refer 
 	  to specific versions of a resource.
 	</p>
 	<p>
 	  The <code>DAV:resourcetype</code> of the <var>node-id</var>
-	  collection is <code>DAV:version-history</code>. The resource
+	  collection is <code>DAV:version-history</code>. The resource 
 	  which includes the version is a <code>DAV:???</code> (this
 	  has not been defined in the Delta-V spec)
 	</p>
@@ -503,7 +503,7 @@
 	  No methods are allowed on the <code>/$svn/ver/</code> URL.
 	</p>
 	<p>
-	  The layout of this collection is internal to the server. For
+	  The layout of this collection is internal to the server. For 
 	  reference purposes here (and to describe the
 	  implementation), it is laid out as:
 	</p>
@@ -511,7 +511,7 @@
 	  <code>/$svn/ver/<var>project-id</var>/<var>version</var></code>
 	</blockquote>
 	<p>
-	  <code>PROPFIND</code> and <code>PROPPATCH</code> are allowed
+	  <code>PROPFIND</code> and <code>PROPPATCH</code> are allowed 
 	  against these URLs, but all other methods are illegal.
 	</p>
 	<p>
@@ -553,7 +553,7 @@
     <h2>Property Management (and History/Log Reporting)</h2>
     <p>
       As mentioned before, Subversion properties map onto WebDAV
-      properties. There are particular properties that the WebDAV code
+      properties. There are particular properties that the WebDAV code 
       wants to take particular care of:
     </p>
     <dl>
@@ -574,7 +574,7 @@
       <dt><code>DAV:checkin-date</code></dt>
       <dd>
 	This is a read-only live property maintained by the server on
-	version resources. Strictly speaking, it is only maintained on
+	version resources. Strictly speaking, it is only maintained on 
 	the project-version resources, but the Delta-V specification
 	states that it is exposed on every version resource.
       </dd>
@@ -587,10 +587,10 @@
       the file/directory.
     </p>
     <p>
-      Based on the client design, it may be important to specify other
+      Based on the client design, it may be important to specify other 
       read-only live properties for information about versions. For
       examply, how many lines were added/removed in a particular
-      checkin for a file? Creating these live properties will be quite
+      checkin for a file? Creating these live properties will be quite 
       straight-forward, and driven by the client design over time.
     </p>
 
@@ -635,7 +635,7 @@
     <p>
       The current Subversion design specification is not entirely
       clear on how tagging and branching will be performed. For the
-      most part, all branching will be handled by copying source trees
+      most part, all branching will be handled by copying source trees 
       to another location in the repository.
     </p>
     <p>
@@ -654,7 +654,7 @@
     </p>
     <p>
       <i>Note: we may be able to simplify all of this by simply
-	assuming that <code>DAV:auto-version</code> is set and doing a
+	assuming that <code>DAV:auto-version</code> is set and doing a 
 	single <code>COPY</code> operation to the target area. Some
 	investigation/thought is needed here.</i>
     </p>
