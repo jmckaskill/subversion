@@ -68,9 +68,9 @@ class GeneratorBase:
         raise GenError('ERROR: unknown build type: ' + type)
 
       target_ob = target_class.Section(options, target_class)
-
+      
       self.targets[target] = target_ob
-
+      
       # the target should add all relevant dependencies onto the
       # specified sources
       target_ob.create_targets(self.graph, target, self.cfg,
@@ -109,8 +109,8 @@ class GeneratorBase:
 
       for dt_type, deps_list in dep_types:
         if deps_list:
-          for dep_section in self._find_libs(deps_list):
-            if isinstance(dep_section, Target.Section):
+          for dep_section in self._find_libs(deps_list):            
+            if isinstance(dep_section, Target.Section):              
               for target in section.get_targets():
                 self.graph.bulk_add(dt_type, target.name,
                                     dep_section.get_dep_targets(target))
@@ -202,12 +202,12 @@ class DependencyGraph:
       self.deps[type][target].append(source)
     else:
       self.deps[type][target] = [ source ]
-
+      
   def bulk_add(self, type, target, sources):
     if self.deps[type].has_key(target):
       self.deps[type][target].extend(sources)
     else:
-      self.deps[type][target] = sources[:]
+      self.deps[type][target] = sources[:]  
 
   def get_sources(self, type, target, cls=None):
     sources = self.deps[type].get(target, [ ])
@@ -349,7 +349,7 @@ class TargetLinked(Target):
     self.sources = options.get('sources', '*.c')
 
     # default output name; subclasses can/should change this
-    self.output = os.path.join(self.path, name)
+    self.output = os.path.join(self.path, name)    
     self.fname = self.output
 
   ### hmm. this is Makefile-specific
@@ -529,7 +529,7 @@ class TargetSWIGRuntime(TargetSWIG):
       oname = name + self._objext
       libname = name + self._libext
 
-      self.name = lang + '_runtime'
+      self.name = lang + '_runtime' 
 
       cfile = SWIGObject(os.path.join(self.path, lang, cname), lang)
       ofile = SWIGObject(os.path.join(self.path, lang, oname), lang)
@@ -546,8 +546,8 @@ class TargetSWIGRuntime(TargetSWIG):
       self.targets = { }
       for lang in cfg.swig_lang:
         if lang == 'java':
-          # java doesn't seem to have a separate runtime
-          continue
+          # java doesn't seem to have a separate runtime  
+          continue      
         target = self.target_class(name, self.options, cfg, extmap, lang)
         target.add_dependencies(graph, cfg, extmap)
         self.targets[lang] = target
