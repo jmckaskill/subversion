@@ -73,7 +73,7 @@
       en su trabajo diario.</para>
 
   </sect1>
-
+  
   <!-- ================================================================= -->
   <!-- ======================== SECTION 2 ============================== -->
   <!-- ================================================================= -->
@@ -99,7 +99,7 @@
       cada directorio de proyecto contiene subdirectorios llamados
       <filename>trunk</filename> y <filename>branches</filename>.
       La razón se descubrirá pronto.</para>
-
+    
       <figure id="svn-ch-4-dia-2">
         <title>Estructura inicial del repositorio</title>
         <graphic fileref="images/ch04dia2.png"/>
@@ -246,7 +246,7 @@ Committed revision 341.
         en <xref linkend="svn-ch-4-dia-3"/>. Note cómo el segundo
         método, no obstante, realiza los cambios en el repositorio
         <emphasis>inmediatamente</emphasis>.
-        <footnote>
+        <footnote> 
           <para>Subversion no soporta copias entre diferentes
             repositorios.  Cuando use URLs con <command>svn
             copy</command> o <command>svn move</command>, sólo puede
@@ -256,15 +256,15 @@ Committed revision 341.
         primero una gran copia local de todo el repositorio. De
         hecho, esta técnica ni si quiera requiere que tenga una
         copia local en absoluto.</para>
-
+      
       <figure id="svn-ch-4-dia-3">
         <title>Repositorio con nueva copia</title>
         <graphic fileref="images/ch04dia3.png"/>
       </figure>
-
+      
       <sidebar>
         <title>Copias ligeras</title>
-
+                
         <para>El repositorio de Subversion sigue un diseño
           especial. Cuando copia un directorio, no necesita
           preocuparse por el crecimiento del repositorio&mdash;en
@@ -278,7 +278,7 @@ Committed revision 341.
           copiado, sólo cambia ese fichero&mdash;el resto de los
           ficheros continúan su existencia como enlaces a los
           ficheros originales del directorio original.</para>
-
+      
         <para>Por esta razón escuchará a los usuarios de Subversion
           hablar con frecuencia sobre <quote>copias ligeras</quote>.
           No importa cuán grande sea el directorio&mdash;sólo
@@ -301,7 +301,7 @@ Committed revision 341.
       </sidebar>
 
     </sect2>
-
+    
     <sect2 id="svn-ch-4-sect-2.2">
       <title>Trabajando con su rama</title>
 
@@ -505,7 +505,7 @@ Changed paths:
       haya terminado con su rama, puede que sea casi imposible
       fusionar los cambios con el tronco sin un alto número de
       conflictos.</para>
-
+    
     <para>En su lugar, usted y Carmen pueden continuar compartiendo
       cambios a medida que trabajan. Es tarea suya decidir qué
       cambios merece la pena compartir; Subversion le brinda la
@@ -513,11 +513,11 @@ Changed paths:
       forma selectiva.  Y para cuando haya finalizado completamente
       con su rama, su conjunto entero de cambios en la rama puede
       ser copiado en el tronco.</para>
-
+    
 
     <sect2 id="svn-ch-4-sect-3.1">
       <title>Copiando cambios específicos</title>
-
+      
       <para>El la sección anterior, mencionamos que tanto usted
         como Carmen han realizado cambios a
         <filename>integer.c</filename> en ramas diferentes.
@@ -563,35 +563,35 @@ Index: integer.c
      high = high &lt;&lt; 8;  /* interpret MSB correctly */
 -    total = low + high; /* add them togethe for correct total */
 +    total = low + high; /* add them together for correct total */
-
+ 
      info->extra_header = (unsigned char *) my_malloc(total);
      fread(info->extra_header, total, 1, gzfile);
 @@ -241,7 +241,7 @@
       Store the offset with ftell() ! */
-
+ 
    if ((info->data_offset = ftell(gzfile))== -1) {
 -    printf("error: ftell() retturned -1.\n");
 +    printf("error: ftell() returned -1.\n");
      exit(1);
    }
-
+ 
 @@ -249,7 +249,7 @@
    printf("I believe start of compressed data is %u\n", info->data_offset);
    #endif
-
+   
 -  /* Set postion eight bytes from the end of the file. */
 +  /* Set position eight bytes from the end of the file. */
-
+ 
    if (fseek(gzfile, -8, SEEK_END)) {
      printf("error: fseek() returned non-zero\n");
 </screen>
-
+      
       <para>El comando <command>svn merge</command> es casi
         exáctamente idéntico.  En lugar de mostrar las diferencias
         en su terminal, no obstante, las aplica directamente
         a su copia local como <emphasis>modificaciones
         locales</emphasis>:</para>
-
+    
 <screen>
 $ svn merge -r 343:344 http://svn.example.com/repos/calc/trunk
 U  integer.c
@@ -640,7 +640,7 @@ Committed revision 360.
 
       <sidebar>
         <title>¿Por qué no usar parches?</title>
-
+        
         <para>Una pregunta que tendrá en mente, especialmente si
           es un usuario de Unix: ¿para qué usar el comando
           <command>svn merge</command>?  ¿Por qué no simplemente usar
@@ -679,7 +679,7 @@ done
           aplicándolos a su copia local.</para>
 
       </sidebar>
-
+      
       <para>Aviso: aunque los comandos <command>svn diff</command> y
         <command>svn merge</command> son similares en concepto,
         tienen una diferente sintaxis en muchos casos. Asegúrese de
@@ -709,12 +709,12 @@ done
         directorio actual de trabajo, <command>svn merge</command>
         asume el segundo caso mencionado e intenta aplicar los
         cambios al fichero local de mismo nombre.</para>
-
+      
       <para>Si quiere aplicar los cambios en otro lugar, tendrá que
         especificarlo. Por ejemplo, si todavía está en el directorio
         padre de su copia local, tendrá que especificar el directorio
         destino para recibir los cambios:</para>
-
+      
 <screen>
 $ svn merge -r 343:344 http://svn.example.com/repos/calc/trunk my-calc-branch
 U   my-calc-branch/integer.c
@@ -722,7 +722,7 @@ U   my-calc-branch/integer.c
 
       <!-- ### fix the damn left arrow quoting problem in both screen
       examples -->
-
+      
     </sect2>
 
     <sect2 id="svn-ch-4-sect-3.2">
@@ -776,16 +776,16 @@ U   my-calc-branch/integer.c
           ejemplos de esta técnica en acción.</para>
 
       </sect3>
-
+      
       <sect3 id="svn-ch-4-sect-3.2.2">
         <title>Visualización previa de fusiones</title>
-
+        
         <para>Dado que el fusionado sólo genera modificaciones
           locales, normalmente no es una operación de alto riesgo. Si
           se equivoca en el fusionado la primera vez, simplemente
           ejecute <command>svn revert</command> para ignorar los
           cambios y pruebe de nuevo.</para>
-
+        
         <para>Es posible, no obstante, que su copia local ya
           tenga algunas modificaciones. Los cambios aplicados por
           una fusión se mezclarán con sus modificaciones locales,
@@ -860,7 +860,7 @@ $ svn status
           <command>svn merge -r9237:9238</command> fusionaría el
           changeset #9238 en su copia local.</para>
       </sidebar>
-
+      
       <sect3 id="svn-ch-4-sect-3.2.3">
         <title>Teniendo en cuenta o ignorando ascendencia</title>
 
@@ -1014,7 +1014,7 @@ Changed paths:
 
 $
 </screen>
-
+        
         <para>Como esperábamos, el número final de revisión
         mostrado por este comando es la revisión en la cual
         <filename>my-calc-branch</filename> fue creado a raíz de
@@ -1081,7 +1081,7 @@ Merged my-calc-branch changes r341:405 into the trunk.
 ------------------------------------------------------------------------
 &hellip;
 </screen>
-
+      
       <para>¡Ahá! Dado que todos los cambios que ocurrieron en la
         rama entre las revisiones 341 y 405 fueron fusionados
         con el tronco como la revisión 406, ahora sabe que sólo
@@ -1161,7 +1161,7 @@ Committed revision 350.
         trabajo. En nuestro caso para deshacer un cambio usamos
         <command>svn merge</command> para aplicar el changeset #303
         a nuestra copia local <emphasis>al revés</emphasis>.</para>
-
+    
       <para>Tenga presente que reshacer un cambio de esta manera es
         como realizar cualquier otra operación <command>svn
         merge</command>, así que debería usar <command>svn
@@ -1231,7 +1231,7 @@ Committed revision 350.
         los términos abscisa y coordenada explícitamente. Estos
         existen, aunque creo que no son nada populares. ¿Quizás
         deberíamos hacer lo mismo? --></para>
-
+        
       <para>Subversion no tiene un directorio
         <filename>Attic</filename> como CVS,
         <footnote><para>Dado que CVS no hace versionado de árboles,
@@ -1279,7 +1279,7 @@ Removed real.c because code now in double.c.
       <para>Eso fue la parte difícil&mdash;la investigación. Ahora
         que sabe lo que quiere recuperar, tiene dos posibles
         opciones.</para>
-
+      
       <para>Una de las opciones es usar el comando <command>svn
         merge</command> para aplicar la revisión 808 <quote>al
         revés</quote>.  (Ya hemos discutido cómo deshacer cambios,
@@ -1401,7 +1401,7 @@ URL: http://svn.example.com/repos/calc/branches/my-calc-branch
           de trabajo del tronco para que refleje esa rama.</para>
         </listitem>
       </orderedlist>
-
+    
     <para>En otras palabras, si un usuario sabe que el trabajo
       que quiere realizar sólo ocurrirá en un subdirectorio
       específico, usará <command>svn switch</command> para mover sólo
@@ -1414,7 +1414,7 @@ URL: http://svn.example.com/repos/calc/branches/my-calc-branch
       concepto de <quote>copia local mezclada</quote>&mdash;no sólo
       pueden tener las copias locales una mezcla de revisiones,
       sino también una mezcla de rutas de repositorio.</para>
-
+    
     <para>Si su copia local contiene un número de sub árboles
       cambiados a otras localizaciones del repositorio, sigue
       funcionando de forma normal. Cuando la actualice, recibirá
@@ -1435,10 +1435,10 @@ URL: http://svn.example.com/repos/calc/branches/my-calc-branch
       copia de trabajo existente. Vea la sección <command>svn
       switch</command> en <xref linkend="svn-ch-9"/> para obtener
       más información y un ejemplo.</para> </footnote></para>
-
+    
     <sidebar>
       <title>Cambios y actualizaciones</title>
-
+      
       <para>¿Se ha dado cuenta de que la salida de los comandos
         <command>svn switch</command> y <command>svn update</command>
         parecen iguales?  El comando de cambio es de hecho un
@@ -1451,7 +1451,7 @@ URL: http://svn.example.com/repos/calc/branches/my-calc-branch
         <command>svn switch</command> y <command>svn update</command>
         es que el comando de actualización siempre compara dos
         rutas idénticas.</para>
-
+      
       <para>Es decir, si su copia local es una réplica de
         <filename>/calc/trunk</filename>, entonces <command>svn
         update</command> comparará automáticamente su
@@ -1572,14 +1572,14 @@ Committed revision 351.
         de versiones.</para>
 
     </sect2>
-
+    
     <sect2 id="svn-ch-4-sect-6.2">
       <title>Creando una etiqueta compleja</title>
-
+      
       <para>A veces quiere que su <quote>instantánea</quote> sea
         más complicada que un solo directorio de una revisión
         concreta.</para>
-
+      
       <para>Por ejemplo, pretendamos que su proyecto es mucho más
         grande que nuestro ejemplo <filename>calc</filename>:
         suponga que contiene un número de subdirectorios y muchos más
@@ -1654,7 +1654,7 @@ Committed revision 352.
 
     <sect2 id="svn-ch-4-sect-7.1">
       <title>Estructura del repositorio</title>
-
+      
       <para>Hay maneras estándar recomendadas para organizar un
         repositorio.  La mayoría de las personas crean un
         directorio <filename>trunk</filename> que contendrá la
@@ -1711,9 +1711,9 @@ Committed revision 352.
         copia local usa una ruta que ya no existe, y el usuario
         se verá forzado a hacer <command>svn switch</command>
         a otra localización.</para>
-
+      
     </sect2>
-
+    
     <sect2 id="svn-ch-4-sect-7.2">
       <title>Data Lifetimes</title>
 
@@ -1818,7 +1818,7 @@ Committed revision 377.
 </chapter>
 
 <!--
-local variables:
+local variables: 
 sgml-parent-document: ("book.xml" "chapter")
 end:
 -->
