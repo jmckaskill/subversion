@@ -3,32 +3,32 @@
  *
  * ================================================================
  * Copyright (c) 2000 CollabNet.  All rights reserved.
- *
+ * 
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
  * met:
- *
+ * 
  * 1. Redistributions of source code must retain the above copyright
  * notice, this list of conditions and the following disclaimer.
- *
+ * 
  * 2. Redistributions in binary form must reproduce the above copyright
  * notice, this list of conditions and the following disclaimer in the
  * documentation and/or other materials provided with the distribution.
- *
+ * 
  * 3. The end-user documentation included with the redistribution, if
  * any, must include the following acknowlegement: "This product includes
  * software developed by CollabNet (http://www.Collab.Net)."
  * Alternately, this acknowlegement may appear in the software itself, if
  * and wherever such third-party acknowlegements normally appear.
- *
+ * 
  * 4. The hosted project names must not be used to endorse or promote
  * products derived from this software without prior written
  * permission. For written permission, please contact info@collab.net.
- *
+ * 
  * 5. Products derived from this software may not use the "Tigris" name
  * nor may "Tigris" appear in their names without prior written
  * permission of CollabNet.
- *
+ * 
  * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
  * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -42,7 +42,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ====================================================================
- *
+ * 
  * This software consists of voluntary contributions made by many
  * individuals on behalf of CollabNet.
  */
@@ -138,7 +138,7 @@ svn_error_t *svn_wc__make_adm_thing (svn_string_t *path,
  * When you open a file for writing with svn_wc__open_foo(), the file
  * is actually opened in the corresponding location in the tmp/
  * directory (and if you're appending as well, then the tmp file
- * starts out as a copy of the original file).
+ * starts out as a copy of the original file). 
  *
  * Somehow, this tmp file must eventually get renamed to its real
  * destination in the adm area.  You can do it either by passing the
@@ -165,7 +165,7 @@ svn_error_t *svn_wc__close_adm_file (apr_file_t *fp,
                                      int sync,
                                      apr_pool_t *pool);
 
-/* Remove `PATH/<adminstrative_subdir>/THING'.
+/* Remove `PATH/<adminstrative_subdir>/THING'. 
    kff todo: just using it for files, not dirs, at the moment. */
 svn_error_t *svn_wc__remove_adm_thing (svn_string_t *path,
                                        const char *thing,
@@ -201,7 +201,7 @@ svn_wc__sync_text_base (svn_string_t *path, apr_pool_t *pool);
  * (In practice, this means creating an adm area if none exists, in
  * which case it is locked from birth, or else locking an adm area
  * that's already there.)
- *
+ * 
  * REPOSITORY is a repository string for initializing the adm area.
  *
  * VERSION is the version for this directory.  kff todo: ancestor_path?
@@ -219,7 +219,7 @@ svn_error_t *svn_wc__ensure_wc (svn_string_t *path,
  * Use REPOSITORY for the wc's repository.
  *
  * Does not ensure existence of PATH itself; if PATH does not exist,
- * an error will result.
+ * an error will result. 
  */
 svn_error_t *svn_wc__ensure_adm (svn_string_t *path,
                                  svn_string_t *repository,
@@ -243,11 +243,11 @@ svn_string_t *svn_wc__versions_init_contents (svn_vernum_t version,
 #define SVN_WC__UNWIND_MERGE  "merge"   /* takes SRC and DST args */
 
 
-/* Push an action on the top of the `unwind' stack.
+/* Push an action on the top of the `unwind' stack. 
  * PATH means we're talking about the `PATH/SVN/unwind' file.
  * ACTION is the tag name to push.
  * ATTS are attributes to the action; kff todo: may want a slightly
- * more structured interface when discover similarities among pushes.
+ * more structured interface when discover similarities among pushes. 
  */
 svn_error_t *svn_wc__push_unwind (svn_string_t *path,
                                   const char *action,
@@ -300,7 +300,7 @@ svn_error_t *svn_wc__ensure_directory (svn_string_t *path, apr_pool_t *pool);
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
