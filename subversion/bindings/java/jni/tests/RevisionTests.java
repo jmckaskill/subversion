@@ -19,7 +19,7 @@ import junit.framework.*;
 import org.tigris.subversion.lib.Revision;
 
 /**
- * Testcases for the native functions with prefix "revision"
+ * Testcases for the native functions with prefix "revision" 
  * in the class NativeWrapper
  *
  * @see NativeWrapper
@@ -35,7 +35,7 @@ public class RevisionTests extends TestCase
     public void testRevisionCreate()
 	{
 	    Revision revision = NativeWrapper.revisionCreate(0);
-
+	    
 	    assertNotNull( revision );
 	}
 
