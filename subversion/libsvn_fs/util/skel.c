@@ -268,7 +268,7 @@ svn_stringbuf_t *
 svn_fs__unparse_skel (skel_t *skel, apr_pool_t *pool)
 {
   svn_stringbuf_t *str;
-
+  
   /* Allocate a string to hold the data.  */
   str = apr_palloc (pool, sizeof (*str));
   str->pool = pool;
@@ -291,7 +291,7 @@ estimate_unparsed_size (skel_t *skel)
     {
       if (skel->len < 100)
         /* If we have to use the explicit-length form, that'll be
-           two bytes for the length, one byte for the space, and
+           two bytes for the length, one byte for the space, and 
            the contents.  */
         return skel->len + 3;
       else
@@ -313,7 +313,7 @@ estimate_unparsed_size (skel_t *skel)
 }
 
 
-/* Return non-zero iff we should use the implicit-length form for SKEL.
+/* Return non-zero iff we should use the implicit-length form for SKEL.  
    Assume that SKEL is an atom.  */
 static int
 use_implicit (skel_t *skel)
@@ -382,7 +382,7 @@ unparse (skel_t *skel, svn_stringbuf_t *str, apr_pool_t *pool)
       /* Emit an opening parenthesis.  */
       svn_stringbuf_ensure (str, str->len + 1);
       str->data[str->len++] = '(';
-
+      
       /* Append each element.  Emit a space between each pair of elements.  */
       for (child = skel->children; child; child = child->next)
         {
@@ -419,7 +419,7 @@ svn_fs__str_atom (const char *str, apr_pool_t *pool)
 
 
 skel_t *
-svn_fs__mem_atom (const void *addr,
+svn_fs__mem_atom (const void *addr, 
                   apr_size_t len,
                   apr_pool_t *pool)
 {
@@ -469,7 +469,7 @@ svn_fs__append (skel_t *skel, skel_t *list_skel)
   else
     {
       skel_t *tmp = list_skel->children;
-
+      
       /* Find the last child... */
       while (tmp->next)
         {
@@ -558,7 +558,7 @@ svn_fs__skels_are_equal (skel_t *skel1, skel_t *skel2)
     {
       int len = svn_fs__list_length (skel1);
       int i;
-
+      
       for (i = 0; i < len; i++)
         if (! svn_fs__skels_are_equal ((skel1->children) + i,
                                        (skel2->children) + i))
