@@ -25,7 +25,7 @@ sinclude(apr/apr_common.m4)
 
 dnl Please run ./configure in the apr and neon subdirectories.
 dnl (Add any other sub-projects, like expat-lite, to this list.)
-dnl   TEMPORARILY COMMENTED OUT:
+dnl   TEMPORARILY COMMENTED OUT:  
 dnl RUN_SUBDIR_CONFIG_NOW(apr)
 dnl RUN_SUBDIR_CONFIG_NOW(neon, --with-expat=../expat-lite)
 
@@ -101,7 +101,7 @@ AC_FUNC_MEMCMP
 dnl svn_error's default warning handler uses vfprintf()
 AC_FUNC_VPRINTF
 
-dnl vdelta.c is using strerror() right now
+dnl vdelta.c is using strerror() right now 
 AC_CHECK_FUNCS(strerror)
 
 
