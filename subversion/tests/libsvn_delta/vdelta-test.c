@@ -52,7 +52,7 @@ print_delta_window (int quiet, svn_txdelta_window_t *window, FILE *stream)
 
   if (quiet)
     return len;
-
+  
   fprintf (stream, "(WINDOW %" APR_OFF_T_FMT, len);
   for (i = 0; i < window->num_ops; ++i)
     {
@@ -156,7 +156,7 @@ main (int argc, char **argv)
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../tools/dev/svn-dev.el")
  * end:
