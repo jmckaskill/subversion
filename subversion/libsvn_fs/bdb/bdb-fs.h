@@ -29,7 +29,7 @@ extern "C" {
  * when vtables are implemented in a later patch.
  */
 svn_error_t *
-bdb_set_berkeley_errcall (svn_fs_t *fs,
+bdb_set_berkeley_errcall (svn_fs_t *fs, 
                           void (*db_errcall_fcn) (const char *errpfx,
                           char *msg));
 apr_status_t bdb_cleanup_fs_apr (void *data);
@@ -38,9 +38,9 @@ svn_error_t *bdb_open_fs (svn_fs_t *fs, const char *path);
 svn_error_t *bdb_recover_fs (const char *path, apr_pool_t *pool);
 svn_error_t *bdb_delete_fs (const char *path, apr_pool_t *pool);
 
-/*
- * Table opens are here (moved from xxx-table.h) so that the <db.h> include
- * could be removed from the xxx-table.h files thus removing the dependancy
+/* 
+ * Table opens are here (moved from xxx-table.h) so that the <db.h> include 
+ * could be removed from the xxx-table.h files thus removing the dependancy 
  * for all files that include them.
  */
 
@@ -53,7 +53,7 @@ int svn_fs__bdb_open_changes_table (DB **changes_p,
 
 /* Open a `copies' table in ENV.  If CREATE is non-zero, create
    one if it doesn't exist.  Set *COPIES_P to the new table.
-   Return a Berkeley DB error code. */
+   Return a Berkeley DB error code. */  
 int svn_fs__bdb_open_copies_table (DB **copies_p,
                                    DB_ENV *env,
                                    int create);
