@@ -713,6 +713,10 @@ SVN_ERROR_START
               SVN_ERR_CLIENT_CATEGORY_START + 10,
               SVN_PROP_REVISION_AUTHOR " contains a newline")
 
+  SVN_ERRDEF (SVN_ERR_CLIENT_PROPERTY_NAME,
+              SVN_ERR_CLIENT_CATEGORY_START + 11,
+              "Bad property name")
+
   /* misc errors */
 
   SVN_ERRDEF (SVN_ERR_BASE,
