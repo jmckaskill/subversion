@@ -1,6 +1,6 @@
 ## Makefile.in is generated from this by automake.
 
-noinst_PROGRAMS = ra-local-test
+noinst_PROGRAMS = ra-local-test 
 ra_local_test_SOURCES = ra-local-test.c
 
 ## Flags needed when compiling:
@@ -18,10 +18,10 @@ LIBTOOL = @LIBTOOL@ --silent
 ## Automatic tests run by `make check` -----------------------------
 
 ## A list of test-programs to run.  (Each program contains sub-tests.)
-SVN_TESTS =
+SVN_TESTS = 
 
 ## We're overriding automake's own `check' rule, because it's extremely
-## inflexible;  we want better control over automated-test output.
+## inflexible;  we want better control over automated-test output. 
 check:
 	@echo > tests.log
 	@if test -n "$(SVN_TESTS)"; then \

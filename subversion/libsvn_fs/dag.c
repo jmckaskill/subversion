@@ -62,7 +62,7 @@ dag_init_fs (void *fs_baton, trail_t *trail)
                                                   sizeof (rep_skel) - 1,
                                                   trail->pool),
                               trail));
-  }
+  } 
 
   /* Link it into filesystem revision 0:
      "revisions" : 0 -> "(revision  3 0.0  ())" */
@@ -124,11 +124,11 @@ node_is_kind_p (dag_node_t *node, const char *kindstr)
   /* The node "header" is the first element of a node-revision skel,
      itself a list. */
   skel_t *header = node->contents->children;
-
+  
   /* The first element of the header should be an atom defining the
      node kind. */
   skel_t *kind = header->children;
-
+  
   if (! memcmp (kind->data, kindstr, kind->len))
     return TRUE;
   else
@@ -242,7 +242,7 @@ svn_fs__dag_clone_root (dag_node_t **root_p,
   root_node->id = root_id;
   root_node->contents = root_skel;
   root_node->pool = trail->pool;
-
+  
   /* ... And when it is grown
    *      Then my own little clone
    *        Will be of the opposite sex!
@@ -277,7 +277,7 @@ svn_error_t *svn_fs__dag_delete (dag_node_t *parent,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
