@@ -67,7 +67,7 @@ VERSION="0.0.4"
 #         + https://open.datacore.ch/read-only/
 #       - SVN::Mirror and SVN::Web
 #         + http://svn.elixus.org/repos/member/clkao/
-#         + http://svn.elixus.org/svnweb/repos/browse/member/clkao/
+#         + http://svn.elixus.org/svnweb/repos/browse/member/clkao/ 
 #
 #
 # Changes:
@@ -175,7 +175,7 @@ create_config()
 #
 #######################################################################
 #
-#
+# 
 
 show_help()
 {
