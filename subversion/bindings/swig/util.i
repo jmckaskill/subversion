@@ -24,7 +24,7 @@
 #include "svn_opt.h"
 %}
 
-/* -----------------------------------------------------------------------
+/* ----------------------------------------------------------------------- 
    include svn_types.h early. other .i files will import svn_types.i which
    then includes svn_types.h, making further includes get skipped. we want
    to actually generate wrappers, so manage svn_types.h right here.
@@ -45,14 +45,14 @@
 %include svn_types.h
 
 
-/* -----------------------------------------------------------------------
+/* ----------------------------------------------------------------------- 
    moving along...
 */
 %import apr.i
 %import svn_types.i
 %import svn_string.i
 
-/* -----------------------------------------------------------------------
+/* ----------------------------------------------------------------------- 
    completely ignore a number of functions. the presumption is that the
    scripting language already has facilities for these things (or they
    are relatively trivial).
