@@ -28,7 +28,7 @@
 #include <jni.h>
 #include "JNIUtil.h"
 struct apr_threadkey_t;
-class JNIThreadData
+class JNIThreadData  
 {
 public:
 	static void del(void *);

@@ -21,7 +21,7 @@ import org.tigris.subversion.lib.*;
 import java.util.Hashtable;
 
 /**
- * Testcases for the native functions with prefix "entry"
+ * Testcases for the native functions with prefix "entry" 
  * in the class NativeWrapper
  *
  * @see NativeWrapper
@@ -65,9 +65,9 @@ public class EntryTests extends TestCase
 
 	    fail(" to be done");
 
-	    actualEntry =
+	    actualEntry = 
 		NativeWrapper.entryCreateFromSvnWcEntryT(expectedEntry);
-
+	    
 	    assertEquals( expectedEntry, actualEntry );
 	}
 
@@ -80,7 +80,7 @@ public class EntryTests extends TestCase
 
 	    assertEquals( url, entry.getUrl() );
 	}
-
+    
     public void testEntryGetUrl()
 	{
 	    String expectedUrl = "this is the expected string";
@@ -108,9 +108,9 @@ public class EntryTests extends TestCase
 	    Revision actualRevision;
 
 	    entry.setRevision(expectedRevision);
-
+	    
 	    actualRevision = NativeWrapper.entryGetRevision(entry);
-
+	    
 	    assertEquals( expectedRevision, actualRevision );
 	}
 
@@ -131,9 +131,9 @@ public class EntryTests extends TestCase
 	    Nodekind actualNodekind;
 
 	    entry.setKind(expectedNodekind);
-
+	    
 	    actualNodekind = NativeWrapper.entryGetKind(entry);
-
+	    
 	    assertEquals( expectedNodekind, actualNodekind );
 	}
 
@@ -154,9 +154,9 @@ public class EntryTests extends TestCase
 	    Schedule actualSchedule;
 
 	    entry.setSchedule(expectedSchedule);
-
+	    
 	    actualSchedule = NativeWrapper.entryGetSchedule(entry);
-
+	    
 	    assertEquals( expectedSchedule, actualSchedule );
 	}
 
@@ -197,13 +197,13 @@ public class EntryTests extends TestCase
 	    boolean expectedCopied = true;
 	    boolean actualCopied;
 	    Entry entry = new Entry();
-
+	    
 	    entry.setCopied(expectedCopied);
 	    actualCopied = NativeWrapper.entryGetCopied(entry);
 
 	    assertEquals( expectedCopied, actualCopied );
 	}
-
+   
     public void testEntrySetTexttime()
 	{
 	    Date date = new Date();
