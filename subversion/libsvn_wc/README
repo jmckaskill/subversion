@@ -74,7 +74,7 @@ exactly how to massage a working copy from one state to another.
 Structure of the Working Copy
 =============================
 
-     [Note: this is redundant with some of client.texi, but
+     [Note: this is redundant with some of client.texi, but 
      overrides it.  We'll sync them up after implementation.]
 
 Working copy meta-information is stored in SVN/ subdirectories,
@@ -131,7 +131,7 @@ fooo working here
       21 qux.c
 
    with version number adjusted appropriately of course.
-
+   
 `properties'
 
    Properties for this directory, in standard hashdump format.
@@ -164,7 +164,7 @@ explain how it holds *both* properties and contents...
 todo: some loose ends
 
    1. filename escaping in SVN/versions
-   2.
+   2. 
 
 
 ------------------------
