@@ -19,7 +19,7 @@ import junit.framework.*;
 import java.util.Date;
 
 /**
- * Testcases for the native functions with prefix "date"
+ * Testcases for the native functions with prefix "date" 
  * in the class NativeWrapper
  *
  * @see NativeWrapper
