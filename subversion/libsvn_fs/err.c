@@ -43,7 +43,7 @@ svn_fs__dberrf (apr_pool_t *pool, int db_err, char *fmt, ...)
   msg = apr_pvsprintf (pool, fmt, ap);
   va_end (ap);
 
-  return svn_error_createf (SVN_ERR_BERKELEY_DB, db_err, 0, pool,
+  return svn_error_createf (SVN_ERR_BERKELEY_DB, db_err, 0, pool, 
 			    "%s%s", msg, db_strerror (db_err));
 }
 
@@ -82,7 +82,7 @@ svn_fs__retry_txn (svn_fs_t *fs,
     {
       DB_TXN *db_txn;
       svn_error_t *svn_err;
-
+      
       SVN_ERR (DB_WRAP (fs, "creating transaction (beginning DB transaction)",
 			txn_begin (fs->env, 0, &db_txn, 0)));
 
