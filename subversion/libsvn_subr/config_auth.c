@@ -41,7 +41,7 @@ auth_file_path (const char **path,
 {
   const char *authdir_path, *hexname;
   unsigned char digest[MD5_DIGESTSIZE];
-
+      
   /* Construct the path to the directory containing the creds files,
      e.g. "~/.subversion/auth/svn.simple".  The last component is
      simply the cred_kind.  */
@@ -92,14 +92,14 @@ svn_config_read_auth_data (apr_hash_t **hash,
                                    APR_READ | APR_BUFFERED, APR_OS_DEFAULT,
                                    pool),
                  "unable to open auth file for reading");
-
+      
       *hash = apr_hash_make (pool);
 
       status = svn_hash_read (*hash, authfile, pool);
       if (status)
         return svn_error_createf (status, NULL,
                                   "error parsing `%s'", auth_path);
-
+      
       status = apr_file_close (authfile);
       if (status)
         return svn_error_createf (status, NULL,
@@ -137,7 +137,7 @@ svn_config_write_auth_data (apr_hash_t *hash,
                                 | APR_BUFFERED),
                                APR_OS_DEFAULT, pool),
              "unable to open auth file for writing");
-
+  
   status = svn_hash_write (hash, authfile, pool);
   if (status)
     return svn_error_createf (status, NULL,
