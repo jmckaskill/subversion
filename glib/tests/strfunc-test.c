@@ -21,7 +21,7 @@
  * Modified by the GLib Team and others 1997-1999.  See the AUTHORS
  * file for a list of people on the GLib Team.  See the ChangeLog
  * files for a list of changes.  These files are distributed with
- * GLib at ftp://ftp.gtk.org/pub/gtk/.
+ * GLib at ftp://ftp.gtk.org/pub/gtk/. 
  */
 
 #undef G_LOG_DOMAIN
@@ -87,13 +87,13 @@ main (int   argc,
   g_assert(strcmp(string, GLIB_TEST_STRING) == 0);
   g_free(string);
 
-  string = g_strconcat(GLIB_TEST_STRING, GLIB_TEST_STRING,
+  string = g_strconcat(GLIB_TEST_STRING, GLIB_TEST_STRING, 
   		       GLIB_TEST_STRING, NULL);
   g_assert(string != NULL);
   g_assert(strcmp(string, GLIB_TEST_STRING GLIB_TEST_STRING
   			  GLIB_TEST_STRING) == 0);
   g_free(string);
-
+  
   string = g_strdup_printf ("%05d %-5s", 21, "test");
   g_assert (string != NULL);
   g_assert (strcmp(string, "00021 test ") == 0);
