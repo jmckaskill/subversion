@@ -33,7 +33,7 @@
    foreach file (files - 1)
      generate svndiff which converts file to file + 1;
      write diff to disk;
-
+   
    combine the files - 1 diff data segments into a single diff data
    file;
 
@@ -50,11 +50,11 @@
       return EXIT_FAILURE;                         \
     }                                              \
   } while (0)
-
+      
 
 /* Print a usage message for program PROG, and return ERRVAL. */
-static int
-do_usage (const char *prog,
+static int 
+do_usage (const char *prog, 
           int errval)
 {
   printf ("%s - testing svndiff delta combination\n", prog);
@@ -71,10 +71,10 @@ do_usage (const char *prog,
    for all allocations.  */
 static svn_error_t *
 generate_file_diffs (apr_array_header_t **tmp_files_p,
-                     int num_files,
+                     int num_files, 
                      const char **file_names,
                      apr_pool_t *pool)
-{
+{ 
   int i;
   apr_array_header_t *tmp_files;
   svn_txdelta_stream_t *txdelta_stream;
@@ -102,20 +102,20 @@ generate_file_diffs (apr_array_header_t **tmp_files_p,
          remember!) */
       SVN_ERR (svn_io_open_unique_file (&tmp_file, &tmpfile_name,
                                         "svndiff", ".data", FALSE, pool));
-
+      
       /* Create OUTSTREAM from TMPFILE. */
       out_stream = svn_stream_from_aprfile (tmp_file, pool);
 
       /* Create a TXDELTA_STREAM from the two files. */
-      svn_txdelta (&txdelta_stream,
+      svn_txdelta (&txdelta_stream, 
                    svn_stream_from_stdio (source_file, pool),
-                   svn_stream_from_stdio (target_file, pool),
+                   svn_stream_from_stdio (target_file, pool), 
                    pool);
-
-
+      
+      
       /* Note that we want our txdelta's converted to svndiff data,
          and sent to OUTSTREAM.  */
-      svn_txdelta_to_svndiff (out_stream, pool,
+      svn_txdelta_to_svndiff (out_stream, pool, 
                               &svndiff_handler, &svndiff_baton);
 
       /* Now do the conversion. */
@@ -192,20 +192,20 @@ apply_svndiff_data (const char **out_filename,
 
   /* Make OUT_STREAM a writable stream that will parse svndiff data,
      calling a handler/baton for each window of that data. */
-  out_stream = svn_txdelta_parse_svndiff (svndiff_handler, svndiff_baton,
+  out_stream = svn_txdelta_parse_svndiff (svndiff_handler, svndiff_baton, 
                                           TRUE, pool);
 
   /* Make IN_STREAM a readable stream based on the tmpfile which
      contains our combined delta data. */
   in_stream = svn_stream_from_stdio (svndiff_file, pool);
-
+  
   /* Now, read from IN_STREAM and write to OUT_STREAM. */
   streaming = TRUE;
   while (streaming)
     {
       char buf[SVN_STREAM_CHUNK_SIZE];
       apr_size_t len = SVN_STREAM_CHUNK_SIZE;
-
+      
       SVN_ERR (svn_stream_read (in_stream, buf, &len));
       if (len != SVN_STREAM_CHUNK_SIZE)
         streaming = FALSE;
@@ -284,7 +284,7 @@ contents_identical_p (svn_boolean_t *identical_p,
       (status, 0, NULL, pool,
        "contents_identical_p: apr_file_open failed on `%s'", file1);
 
-  status = apr_file_open (&file2_h, file2, APR_READ,
+  status = apr_file_open (&file2_h, file2, APR_READ, 
                           APR_OS_DEFAULT, pool);
   if (status)
     return svn_error_createf
@@ -298,16 +298,16 @@ contents_identical_p (svn_boolean_t *identical_p,
       if (status && !APR_STATUS_IS_EOF(status))
         return svn_error_createf
           (status, 0, NULL, pool,
-           "contents_identical_p: apr_file_read_full() failed on %s.",
+           "contents_identical_p: apr_file_read_full() failed on %s.", 
            file1);
 
       status = apr_file_read_full (file2_h, buf2, sizeof(buf2), &bytes_read2);
       if (status && !APR_STATUS_IS_EOF(status))
         return svn_error_createf
           (status, 0, NULL, pool,
-           "contents_identical_p: apr_file_read_full() failed on %s.",
+           "contents_identical_p: apr_file_read_full() failed on %s.", 
            file2);
-
+      
       if ((bytes_read1 != bytes_read2)
           || (memcmp (buf1, buf2, bytes_read1)))
         {
@@ -318,13 +318,13 @@ contents_identical_p (svn_boolean_t *identical_p,
 
   status = apr_file_close (file1_h);
   if (status)
-    return svn_error_createf
+    return svn_error_createf 
       (status, 0, NULL, pool,
        "contents_identical_p: apr_file_close failed on %s.", file1);
 
   status = apr_file_close (file2_h);
   if (status)
-    return svn_error_createf
+    return svn_error_createf 
       (status, 0, NULL, pool,
        "contents_identical_p: apr_file_close failed on %s.", file2);
 
@@ -333,7 +333,7 @@ contents_identical_p (svn_boolean_t *identical_p,
 
 
 int
-main (int argc,
+main (int argc, 
       const char **argv)
 {
   apr_pool_t *pool;
@@ -344,11 +344,11 @@ main (int argc,
   /* We have needs, too, you know...like 3 arguments to the program! */
   if (argc < 4)
     return do_usage (argv[0], 1);
-
+  
   /* Initialize APR and create our top-level SVN pool. */
   apr_initialize();
   pool = svn_pool_create (NULL);
-
+  
   /* Generate the successive svndiffs between out input files. */
   INT_ERR (generate_file_diffs (&tmp_files, argc - 1, argv + 1, pool));
 
@@ -359,7 +359,7 @@ main (int argc,
                                  tmp_files,
                                  pool));
 
-
+  
   /* And here, we need to apply our combined delta to our first file,
      and store the results in another tempfilee.  */
   INT_ERR (apply_svndiff_data (&target_regen_filename,
@@ -377,7 +377,7 @@ main (int argc,
     INT_ERR (svn_error_create (SVN_ERR_TEST_FAILED, 0, NULL, pool,
                                "Application of combined delta corrupt"));
 
-  INT_ERR (contents_identical_p (&identical,
+  INT_ERR (contents_identical_p (&identical, 
                                  argv[1],
                                  target_regen_filename,
                                  pool));
@@ -391,7 +391,7 @@ main (int argc,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../tools/dev/svn-dev.el")
  * end:
