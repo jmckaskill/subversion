@@ -32,7 +32,7 @@ typedef struct svn_ra_local__session_baton_t
   /* Each ra_local session does ALL allocation from this pool!  Kind
      of like an Apache transaction, I guess. :) */
   apr_pool_t *pool;
-
+  
   /* A `file://' URL containing a local repository and path. */
   svn_string_t *repository_URL;
 
@@ -62,7 +62,7 @@ typedef struct svn_ra_local__commit_closer_t
   /* A function given to RA by the client;  allows RA to bump WC
      revision numbers of targets. */
   svn_ra_close_commit_func_t *close_func;
-
+  
   /* A function given to RA by the client;  allows RA to store WC
      properties on targets.  (Wonder if ra_local will ever use this?!?) */
   svn_ra_set_wc_prop_func_t *set_func;
@@ -89,7 +89,7 @@ svn_ra_local__get_commit_track_editor (svn_delta_edit_fns_t **editor,
                                        void **edit_baton,
                                        apr_pool_t *pool,
                                        svn_ra_local__commit_closer_t *closer);
-
+    
 
 
 /* Given a `file://' URL, figure out which portion specifies a
