@@ -2,32 +2,32 @@
  *
  * ================================================================
  * Copyright (c) 2000 Collab.Net.  All rights reserved.
- *
+ * 
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
  * met:
- *
+ * 
  * 1. Redistributions of source code must retain the above copyright
  * notice, this list of conditions and the following disclaimer.
- *
+ * 
  * 2. Redistributions in binary form must reproduce the above copyright
  * notice, this list of conditions and the following disclaimer in the
  * documentation and/or other materials provided with the distribution.
- *
+ * 
  * 3. The end-user documentation included with the redistribution, if
  * any, must include the following acknowlegement: "This product includes
  * software developed by Collab.Net (http://www.Collab.Net/)."
  * Alternately, this acknowlegement may appear in the software itself, if
  * and wherever such third-party acknowlegements normally appear.
- *
+ * 
  * 4. The hosted project names must not be used to endorse or promote
  * products derived from this software without prior written
  * permission. For written permission, please contact info@collab.net.
- *
+ * 
  * 5. Products derived from this software may not use the "Tigris" name
  * nor may "Tigris" appear in their names without prior written
  * permission of Collab.Net.
- *
+ * 
  * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
  * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -41,7 +41,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ====================================================================
- *
+ * 
  * This software may consist of voluntary contributions made by many
  * individuals on behalf of Collab.Net.
  */
@@ -63,11 +63,11 @@
   Returns:  a new error structure (containing the old one).
 
 
-  Usage:
+  Usage: 
 
           1.  If this is a BOTTOM level error (i.e. the first one
           thrown), you MUST set child to NULL and pass a real pool_t.
-
+          
              my_err = svn_create_error (errno, SVN_NON_FATAL,
                                         "Can't find repository",
                                         NULL, my_pool);
@@ -83,7 +83,7 @@
 
 svn_error_t *
 svn_create_error (ap_status_t err,
-                  svn_boolean_t fatal,
+                  svn_boolean_t fatal, 
                   char *message,
                   svn_error_t *child;
                   ap_pool_t *pool)
@@ -96,7 +96,7 @@ svn_create_error (ap_status_t err,
   new_error->fatal = fatal;
   new_error->message = message;
   new_error->child = child;
-  new_error->pool = pool;
+  new_error->pool = pool;  
 
   return new_error;
 }
@@ -113,14 +113,14 @@ svn_quick_wrap_error (svn_error_t *child, char *new_msg)
   return (svn_create_error (child->err, child->fatal, new_msg,
                             child, child->pool));
 }
-
+                
 
 
 
 
 /* Very dumb "default" error handler that anyone can use if they wish.
 
-   Just prints out error stack (recursively),
+   Just prints out error stack (recursively), 
    and quits if the fatal flag is set.
 
 */
@@ -133,9 +133,9 @@ svn_handle_error (svn_error_t *err, FILE *stream)
   /* Pretty-print the error */
   /* Note: we can also log errors here someday. */
   /* Create space for strerror()'s result */
-
-  fprintf (stream, "\nsvn_error: errno %d, apr_errno %d: %s\n",
-           err->err,
+  
+  fprintf (stream, "\nsvn_error: errno %d, apr_errno %d: %s\n", 
+           err->err, 
            ap_canonical_error (err->err),
            ap_strerror (err->err, buf, 100));
   fprintf (stream, "      %s\n", err->message);
@@ -149,7 +149,7 @@ svn_handle_error (svn_error_t *err, FILE *stream)
           fprintf (stream, "Fatal error, exiting.\n");
           exit (err->err);
         }
-
+      
       return;
     }
 
@@ -168,7 +168,7 @@ svn_handle_error (svn_error_t *err, FILE *stream)
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end: */
