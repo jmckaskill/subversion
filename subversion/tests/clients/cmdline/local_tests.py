@@ -2,9 +2,9 @@
 #
 #  local_tests.py:  testing working-copy interactions with ra_local
 #
-#  Subversion is a tool for revision control.
+#  Subversion is a tool for revision control. 
 #  See http://subversion.tigris.org for more information.
-#
+#    
 # ====================================================================
 # Copyright (c) 2000-2001 CollabNet.  All rights reserved.
 #
@@ -19,9 +19,9 @@
 import svn_test_main
 import svn_tree
 
-import shutil
-import string
-import os.path
+import shutil         
+import string        
+import os.path       
 
 ######################################################################
 # Globals
@@ -62,7 +62,7 @@ def guarantee_greek_repository(path):
   # If there's no pristine repos, create one.
   if not os.path.exists(pristine_dir):
     svn_test_main.create_repos(pristine_dir)
-
+    
     # dump the greek tree to disk.
     svn_test_main.write_tree(greek_dump_dir,
                              [[x[0], x[1]] for x in svn_test_main.greek_tree])
@@ -88,7 +88,7 @@ def guarantee_greek_repository(path):
       item = [ os.path.join(".", apath), None, {'verb' : 'Adding'}]
       output_list.append(item)
     expected_output_tree = svn_tree.build_generic_tree(output_list)
-
+      
     if svn_tree.compare_trees(output_tree, expected_output_tree):
       print "ERROR:  output of import command is unexpected."
       exit(1)
@@ -163,14 +163,14 @@ def run_and_verify_update(wc_dir_name,
   if status_tree:
     if run_and_verify_status(wc_dir_name, status_tree):
       return 1
-
+  
   return 0
 
 
 def run_and_verify_commit(wc_dir_name, output_tree, status_output_tree, *args):
   """Commit and verify results within working copy WC_DIR_NAME,
   sending ARGS to the commit subcommand.
-
+  
   The subcommand output will be verified against OUTPUT_TREE.  If
   optional STATUS_OUTPUT_TREE is given, then 'svn status' output will
   be compared.  (This is a good way to check that revision numbers
@@ -264,7 +264,7 @@ def duplicate_dir(wc_name, wc_copy_name):
   if os.path.exists(wc_copy_name):
     shutil.rmtree(wc_copy_name)
   shutil.copytree(wc_name, wc_copy_name)
-
+  
 
 
 # A generic starting state for the output of 'svn status'.
@@ -326,14 +326,14 @@ def basic_status():
   expected_output_tree = svn_tree.build_generic_tree(status_list)
 
   return run_and_verify_status (wc_dir, expected_output_tree)
-
+  
 #----------------------------------------------------------------------
 
 def commit_from_wc_top():
   "commit '.' in working copy"
 
   wc_dir = os.path.join (general_wc_dir, 'commit_from_wc_top')
-
+  
   if make_repo_and_wc('commit_from_wc_top'):
     return 1
 
@@ -360,14 +360,14 @@ def commit_from_wc_top():
                                 expected_output_tree,
                                 expected_status_tree,
                                 wc_dir)
-
+  
 #----------------------------------------------------------------------
 
 def commit_one_file():
   "commit one file only"
 
   wc_dir = os.path.join (general_wc_dir, 'commit_one_file')
-
+  
   if make_repo_and_wc('commit_one_file'):
     return 1
 
@@ -396,14 +396,14 @@ def commit_one_file():
                                 expected_output_tree,
                                 expected_status_tree,
                                 rho_path)
-
+  
 #----------------------------------------------------------------------
 
 def commit_multiple_targets():
   "commit multiple targets"
 
   wc_dir = os.path.join (general_wc_dir, 'commit_multiple_targets')
-
+  
   if make_repo_and_wc('commit_multiple_targets'):
     return 1
 
@@ -428,7 +428,7 @@ def commit_multiple_targets():
   svn_test_main.run_svn('propset', 'foo', 'bar', ADG_path)
 
   # Created expected output tree for 'svn ci'.  We should see changes
-  # only on these three targets, no others.
+  # only on these three targets, no others.  
   output_list = [ [psi_path, None, {'verb' : 'Changing' }],
                   [lambda_path, None, {'verb' : 'Changing' }],
                   [pi_path, None, {'verb' : 'Changing' }] ]
@@ -453,7 +453,7 @@ def commit_multiple_targets():
                                 expected_output_tree,
                                 expected_status_tree,
                                 psi_path, AB_path, pi_path)
-
+  
 #----------------------------------------------------------------------
 
 
@@ -461,7 +461,7 @@ def commit_multiple_targets_2():
   "commit multiple targets, 2nd variation"
 
   wc_dir = os.path.join (general_wc_dir, 'commit_multiple_targets_2')
-
+  
   if make_repo_and_wc('commit_multiple_targets_2'):
     return 1
 
@@ -486,7 +486,7 @@ def commit_multiple_targets_2():
   svn_test_main.run_svn('propset', 'foo', 'bar', ADG_path)
 
   # Created expected output tree for 'svn ci'.  We should see changes
-  # only on these three targets, no others.
+  # only on these three targets, no others.  
   output_list = [ [psi_path, None, {'verb' : 'Changing' }],
                   [lambda_path, None, {'verb' : 'Changing' }],
                   [omega_path, None, {'verb' : 'Changing' }],
@@ -512,14 +512,14 @@ def commit_multiple_targets_2():
                                 expected_output_tree,
                                 expected_status_tree,
                                 psi_path, AB_path, omega_path, pi_path)
-
+  
 #----------------------------------------------------------------------
 
 def update_from_wc_top():
   "update '.' in working copy"
 
   wc_dir = os.path.join (general_wc_dir, 'update_from_wc_top')
-
+  
   if make_repo_and_wc('update_from_wc_top'):
     return 1
 
@@ -567,7 +567,7 @@ def update_from_wc_top():
   # Create expected status tree for the update.
   status_list = get_virginal_status_list(wc_backup, '2')
   expected_status_tree = svn_tree.build_generic_tree(status_list)
-
+  
   # Do the update and check the results in three ways.
   return run_and_verify_update(wc_backup,
                                expected_output_tree,
@@ -588,7 +588,7 @@ test_list = [ None,
               update_from_wc_top
              ]
 
-if __name__ == '__main__':
+if __name__ == '__main__':  
   ## And run the main test routine on them:
   svn_test_main.client_test(test_list)
   ## Remove all scratchwork: the 'pristine' repository, greek tree, etc.
