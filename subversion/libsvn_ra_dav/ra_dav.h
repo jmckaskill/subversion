@@ -182,9 +182,9 @@ svn_error_t *svn_ra_dav__parsed_request(svn_ra_session_t *ras,
                                         const char *url,
                                         const char *body,
                                         int fd,
-                                        const struct ne_xml_elm *elements,
+                                        const struct ne_xml_elm *elements, 
                                         ne_xml_validate_cb validate_cb,
-                                        ne_xml_startelm_cb startelm_cb,
+                                        ne_xml_startelm_cb startelm_cb, 
                                         ne_xml_endelm_cb endelm_cb,
                                         void *baton,
                                         apr_pool_t *pool);
@@ -242,7 +242,7 @@ void svn_ra_dav__copy_href(svn_stringbuf_t *dst, const char *src);
 #endif  /* RA_DAV_H */
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
