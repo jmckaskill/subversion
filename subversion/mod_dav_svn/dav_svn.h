@@ -223,7 +223,7 @@ dav_resource *dav_svn_create_working_resource(const dav_resource *base,
 #endif /* DAV_SVN_H */
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
