@@ -2,7 +2,7 @@
  *  propset-cmd.c - Display status information in current directory
  *
  *  svn is free software copyrighted by CollabNet.
- *
+ *  
  *  Redistribution and use in source and binary forms, with or without
  *  modification, are permitted provided that the following conditions
  *  are met:
@@ -14,7 +14,7 @@
  *  3. Neither the name ``CollabNet'' nor the name of any other
  *     contributor may be used to endorse or promote products derived
  *     from this software without specific prior written permission.
- *
+ *  
  *  svn IS PROVIDED BY CollabNet ``AS IS'' AND ANY EXPRESS
  *  OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
  *  WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -28,7 +28,7 @@
  *  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ====================================================================
- *
+ * 
  * This software consists of voluntary contributions made by many
  * individuals on behalf of CollabNet.
  */
@@ -67,9 +67,9 @@ svn_cl__propset( int argc, char** argv, apr_pool_t* pool,
 
   if (filename)
     {
-      /* Load the whole file into `value'.
+      /* Load the whole file into `value'.  
 
-         What?  Don't look at me like that.
+         What?  Don't look at me like that.  
 
          Don't forget that our entire property implementation happens
          "in-memory" right now.  And we're not just talking about
@@ -79,7 +79,7 @@ svn_cl__propset( int argc, char** argv, apr_pool_t* pool,
       apr_status_t status;
       apr_size_t len = BUFSIZ;
       apr_file_t *the_file = NULL;
-
+      
       value = svn_string_create ("", pool);
 
       status = apr_open (&the_file, filename->data,
@@ -88,7 +88,7 @@ svn_cl__propset( int argc, char** argv, apr_pool_t* pool,
         return svn_error_createf (status, 0, NULL, pool,
                                   "svn_cl__propset:  failed to open '%s'",
                                   filename->data);
-
+      
       do {
         error = svn_io_file_reader (the_file, buf, &len, pool);
         if (error) return error;
@@ -104,7 +104,7 @@ svn_cl__propset( int argc, char** argv, apr_pool_t* pool,
 
   err = svn_wc_prop_set (name, value, target, pool);
 
-  if (! err)
+  if (! err) 
     {
       if (value)
         printf ("Property `%s': set on %s.\n", name->data, target->data);
@@ -116,8 +116,8 @@ svn_cl__propset( int argc, char** argv, apr_pool_t* pool,
 }
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
- * end:
+ * end: 
  */
