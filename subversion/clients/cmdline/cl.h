@@ -238,7 +238,7 @@ svn_cl__get_trace_commit_editor (const svn_delta_edit_fns_t **editor,
 
 
 
-/* Our implementation of the 'auth info callback' routine,
+/* Our implementation of the 'auth info callback' routine, 
    as defined in svn_client.h.   This callback is passed to any
    libsvn_client routine that needs to authenticate against a
    repository. */
@@ -288,9 +288,9 @@ void svn_cl__notify_reverted_item (void *baton, const char *path);
 
 #endif /* SVN_CL_H */
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../svn-dev.el")
- * end:
+ * end: 
  */
 
