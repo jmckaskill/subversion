@@ -3,32 +3,32 @@
  *
  * ================================================================
  * Copyright (c) 2000 CollabNet.  All rights reserved.
- *
+ * 
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
  * met:
- *
+ * 
  * 1. Redistributions of source code must retain the above copyright
  * notice, this list of conditions and the following disclaimer.
- *
+ * 
  * 2. Redistributions in binary form must reproduce the above copyright
  * notice, this list of conditions and the following disclaimer in the
  * documentation and/or other materials provided with the distribution.
- *
+ * 
  * 3. The end-user documentation included with the redistribution, if
  * any, must include the following acknowlegement: "This product includes
  * software developed by CollabNet (http://www.Collab.Net)."
  * Alternately, this acknowlegement may appear in the software itself, if
  * and wherever such third-party acknowlegements normally appear.
- *
+ * 
  * 4. The hosted project names must not be used to endorse or promote
  * products derived from this software without prior written
  * permission. For written permission, please contact info@collab.net.
- *
+ * 
  * 5. Products derived from this software may not use the "Tigris" name
  * nor may "Tigris" appear in their names without prior written
  * permission of CollabNet.
- *
+ * 
  * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
  * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -42,7 +42,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ====================================================================
- *
+ * 
  * This software consists of voluntary contributions made by many
  * individuals on behalf of CollabNet.
  */
@@ -120,13 +120,13 @@ posix_file_reader (void *filehandle,
   stat = apr_full_read (xmlfile, buffer,
                         (apr_size_t) *len,
                         (apr_size_t *) len);
-
-  if (stat && (stat != APR_EOF))
+  
+  if (stat && (stat != APR_EOF)) 
     return
       svn_error_create (stat, 0, NULL, pool,
                         "my_read_func: error reading xmlfile");
-
-  return SVN_NO_ERROR;
+  
+  return SVN_NO_ERROR;  
 }
 
 
@@ -139,7 +139,7 @@ set_entry_flags (svn_string_t *current_entry_name,
                  apr_hash_t *current_entry_hash,
                  apr_pool_t *pool,
                  svn_boolean_t *new_p,
-                 svn_boolean_t *modified_p,
+                 svn_boolean_t *modified_p, 
                  svn_boolean_t *delete_p)
 {
   void *value;
@@ -211,22 +211,22 @@ do_apply_textdelta (svn_string_t *filename,
 
   /* Create a text-delta stream object that pulls data out of the two
      files. */
-  err= svn_txdelta (&txdelta_stream,
+  err= svn_txdelta (&txdelta_stream, 
                     posix_file_reader, (void *) localfile,
                     posix_file_reader, (void *) textbasefile,
                     pool);
   if (err) return err;
-
+  
   /* Grab a window from the stream, "push" it at the consumer routine,
      then free it.  Repeat until there are no more windows. */
   while (txdelta_window)
     {
       err = svn_txdelta_next_window (&txdelta_window, txdelta_stream);
       if (err) return err;
-
+      
       err = (* (window_handler)) (txdelta_window, window_handler_baton);
       if (err) return err;
-
+      
       svn_txdelta_free_window (txdelta_window);
     }
 
@@ -244,14 +244,14 @@ do_apply_textdelta (svn_string_t *filename,
 
 
 /* Recursive working-copy crawler.
-
+   
    Examine each entry in the `entries' file in PATH.  Communicate all
    local changes to EDITOR.  Use DIR_BATON as the editor-supplied
    baton for this directory; if this value is NULL, that's okay: it
-   will be automatically set when necessary.
+   will be automatically set when necessary.  
 
    STACK is used to keep track of paths and associated directory
-   batons, and always represents the top (youngest) stackframe.
+   batons, and always represents the top (youngest) stackframe.  
 */
 static svn_error_t *
 process_subdirectory (svn_string_t *path,
@@ -262,7 +262,7 @@ process_subdirectory (svn_string_t *path,
 {
   svn_error_t *err;
   svn_wc__entries_index *index;
-
+  
   /* Vars that we automatically get when fetching a directory entry */
   svn_string_t *current_entry_name;
   svn_vernum_t current_entry_version;
@@ -289,7 +289,7 @@ process_subdirectory (svn_string_t *path,
                                   &current_entry_version, &current_entry_type,
                                   &current_entry_hash);
       if (err) return err;
-
+      
       /* Decide the entry has been added, deleted, or modified. */
       err = set_entry_flags (current_entry_name,
                              current_entry_type,
@@ -297,7 +297,7 @@ process_subdirectory (svn_string_t *path,
                              pool,
                              &new_p, &modified_p, &delete_p);
       if (err) return err;
-
+      
       if (new_p)
         {
           if (current_entry_type == svn_dir_kind)
@@ -327,11 +327,11 @@ process_subdirectory (svn_string_t *path,
               void *file_baton;
               svn_string_t *ancestor_path;
               svn_vernum_t ancestor_ver;
-
+              
               /* Do what's necesary to get a baton for current directory */
               if (! dir_baton)
                 dir_baton = do_dir_replaces (path);
-
+              
               /* Add a new file, getting a file baton */
               err = (* (editor->add_file)) (current_entry_name,
                                             dir_baton,
@@ -339,18 +339,18 @@ process_subdirectory (svn_string_t *path,
                                             ancestor_ver,
                                             &file_baton);
               if (err) return err;
-
+              
               /* Send the text-delta to this file baton */
               err = do_apply_textdelta (current_entry_name,
                                         editor,
                                         file_baton);
-
+              
               /* Close the file baton. */
               err = (* (editor->close_file)) (file_baton);
               if (err) return err;
             }
         }
-
+      
       else if (delete_p)
         {
           /* Do what's necesary to get a baton for current directory */
@@ -371,7 +371,7 @@ process_subdirectory (svn_string_t *path,
           /* Do what's necesary to get a baton for current directory */
           if (! dir_baton)
             dir_baton = do_dir_replaces (path);
-
+          
           /* Replace the file, getting a file baton */
           err = (* (editor->replace_file)) (current_entry_name,
                                             dir_baton,
@@ -398,7 +398,7 @@ process_subdirectory (svn_string_t *path,
         }
 
     } while (current_entry_name)
-
+  
   /* If the current stackframe has a real directory baton, then we
   must have issued an add_dir() or replace_dir() call already.  Since
   we're now done looping through this directory's entries, we're going
@@ -443,7 +443,7 @@ svn_wc_crawl_local_mods (svn_string_t *root_directory,
 
   stack_bottom.path = NULL;
   stack_bottom.baton = NULL;
-
+  
   /* Start the crawler! */
   err = process_subdirectory (svn_string_t *root_directory,
                               NULL,             /* No baton to start with. */
@@ -469,7 +469,7 @@ svn_wc_crawl_local_mods (svn_string_t *root_directory,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end: */
