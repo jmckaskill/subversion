@@ -3,32 +3,32 @@
  *
  * ================================================================
  * Copyright (c) 2000 CollabNet.  All rights reserved.
- *
+ * 
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
  * met:
- *
+ * 
  * 1. Redistributions of source code must retain the above copyright
  * notice, this list of conditions and the following disclaimer.
- *
+ * 
  * 2. Redistributions in binary form must reproduce the above copyright
  * notice, this list of conditions and the following disclaimer in the
  * documentation and/or other materials provided with the distribution.
- *
+ * 
  * 3. The end-user documentation included with the redistribution, if
  * any, must include the following acknowlegement: "This product includes
  * software developed by CollabNet (http://www.Collab.Net)."
  * Alternately, this acknowlegement may appear in the software itself, if
  * and wherever such third-party acknowlegements normally appear.
- *
+ * 
  * 4. The hosted project names must not be used to endorse or promote
  * products derived from this software without prior written
  * permission. For written permission, please contact info@collab.net.
- *
+ * 
  * 5. Products derived from this software may not use the "Tigris" name
  * nor may "Tigris" appear in their names without prior written
  * permission of CollabNet.
- *
+ * 
  * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
  * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -42,7 +42,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ====================================================================
- *
+ * 
  * This software consists of voluntary contributions made by many
  * individuals on behalf of CollabNet.
  */
@@ -87,7 +87,7 @@ svn_wc__file_affected_time (apr_time_t *apr_time,
     libsvn_subr or a libsvn_time. **/
 
 /* Our timestamp strings look like this:
- *
+ * 
  *    "Tue 3 Oct 2000 HH:MM:SS.UUU (day 277, dst 1, gmt_off -18000)"
  *
  * The idea is that they are conventionally human-readable for the
@@ -173,7 +173,7 @@ svn_wc__string_to_time (svn_string_t *tstr)
           &exploded_time.tm_yday,
           &exploded_time.tm_isdst,
           &exploded_time.tm_gmtoff);
-
+  
   exploded_time.tm_year -= 1900;
   exploded_time.tm_yday -= 1;
 
@@ -213,7 +213,7 @@ svn_wc__gnudiff_differ (void **result,
   /* kff todo: someday, do "diff -c SVN/text-base/foo ./foo" and store
      the result in a file, store the filename in dh->patchfile, and
      store dh in *RESULT. */
-
+  
   *result = dh;
 
   return SVN_NO_ERROR;
@@ -232,7 +232,7 @@ svn_wc__gnudiff_patcher (void *user_data,
   apr_status_t apr_err;
 
   /* kff todo: someday, take CHANGES, which are the result of "diff -c
-     SVN/text-base/foo ./foo", and re-apply them to the
+     SVN/text-base/foo ./foo", and re-apply them to the 
      file.  If any hunks fail, that's a conflict, do what CVS does. */
 
   /* kff todo: "Patch?  We don't need no stinkin' patch."  Just
@@ -242,7 +242,7 @@ svn_wc__gnudiff_patcher (void *user_data,
   if (apr_err)
     return svn_error_createf (apr_err, 0, NULL, pool,
                               "copying %s to %s", src->data, target->data);
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -270,7 +270,7 @@ svn_wc__merge_local_changes (svn_wc_patch_fn_t *patch_fn,
 
         1. apply the diff to ./SVN/tmp/text-base/newfile...
         2. ... and store the result in ./newfile
-
+        
      That's right -- we don't want to update SVN/text-base/newfile
      until after the merge, because once the true text-base is
      updated, the ability to merge is lost, as we don't have the old
@@ -296,7 +296,7 @@ svn_wc__merge_local_changes (svn_wc_patch_fn_t *patch_fn,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
