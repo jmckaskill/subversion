@@ -38,9 +38,9 @@ XSL_HTML_CHUNK = $(BOOK_TOP)/tools/chunk-stylesheet.xsl
 RUN_FOP = ${BOOK_TOP}/tools/bin/run-fop.sh
 
 # Book xsltproc options for HTML output
-# Note: --stringparam arguments no longer go here;
+# Note: --stringparam arguments no longer go here; 
 # see tools/html-stylesheet.xsl and tools/chunk-stylesheet.xsl
-BOOK_HTML_XSLTPROC_OPTS =
+BOOK_HTML_XSLTPROC_OPTS = 
 
 # Book xsltproc options for PDF and PostScript output
 # BOOK_PDF_XSLTPROC_OPTS = --stringparam page.height 9in --stringparam page.width 6.4in
@@ -172,7 +172,7 @@ book-clean:
 	rm -f $(BOOK_VERSION_SOURCE)
 	rm -f $(BOOK_HTML_TARGET) $(BOOK_FO_TARGET)
 	rm -rf $(BOOK_HTML_CHUNK_DIR)
-	rm -f $(BOOK_PDF_TARGET) $(BOOK_PS_TARGET)
+	rm -f $(BOOK_PDF_TARGET) $(BOOK_PS_TARGET) 
 
 misc-docs-html: $(MDOCS_HTML_TARGET)
 
