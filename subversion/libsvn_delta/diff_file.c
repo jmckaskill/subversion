@@ -172,7 +172,7 @@ svn_diff__file_datasource_get_token(void *baton,
           if (eol != NULL)
             {
               apr_size_t len = (apr_size_t)(eol - curp);
-
+              
               token->length += len;
               length -= len;
               apr_md5_update(&md5_ctx, curp, len);
