@@ -50,7 +50,7 @@ svn_cl__switch (apr_getopt_t *os,
   /* This command should discover (or derive) exactly two cmdline
      arguments: a local path to update ("target"), and a new url to
      switch to ("switch_url"). */
-  SVN_ERR (svn_cl__args_to_target_array (&targets, os, opt_state,
+  SVN_ERR (svn_cl__args_to_target_array (&targets, os, opt_state, 
                                          FALSE, pool));
   if (targets->nelts == 0)
     return svn_error_create (SVN_ERR_CL_ARG_PARSING_ERROR, 0, 0, pool, "");
@@ -68,17 +68,17 @@ svn_cl__switch (apr_getopt_t *os,
 
   /* Validate the switch_url */
   if (! svn_path_is_url (switch_url))
-    return svn_error_createf
-      (SVN_ERR_BAD_URL, 0, NULL, pool,
+    return svn_error_createf 
+      (SVN_ERR_BAD_URL, 0, NULL, pool, 
        "`%s' does not appear to be a URL", switch_url);
 
   /* Validate the target */
   SVN_ERR (svn_wc_entry (&entry, target, FALSE, pool));
   if (! entry)
-    return svn_error_createf
-      (SVN_ERR_ENTRY_NOT_FOUND, 0, NULL, pool,
+    return svn_error_createf 
+      (SVN_ERR_ENTRY_NOT_FOUND, 0, NULL, pool, 
        "`%s' does not appear to be a working copy path", target);
-
+  
   /* Build an authentication baton to give to libsvn_client. */
   auth_baton = svn_cl__make_auth_baton (opt_state, pool);
 
@@ -105,8 +105,8 @@ svn_cl__switch (apr_getopt_t *os,
 }
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../tools/dev/svn-dev.el")
- * end:
+ * end: 
  */
