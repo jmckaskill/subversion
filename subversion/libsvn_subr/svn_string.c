@@ -1,7 +1,7 @@
 /*
  * svn_string.h:  routines to manipulate counted-length strings
  *                (svn_stringbuf_t and svn_string_t) and C strings.
- *
+ *                
  *
  * ====================================================================
  * Copyright (c) 2000-2002 CollabNet.  All rights reserved.
@@ -30,7 +30,7 @@
 /* Our own realloc, since APR doesn't have one.  Note: this is a
    generic realloc for memory pools, *not* for strings. */
 static void *
-my__realloc (char *data, const apr_size_t oldsize, const apr_size_t request,
+my__realloc (char *data, const apr_size_t oldsize, const apr_size_t request, 
              apr_pool_t *pool)
 {
   void *new_area;
@@ -48,7 +48,7 @@ my__realloc (char *data, const apr_size_t oldsize, const apr_size_t request,
   memcpy (new_area, data, oldsize);
 
   /* I'm NOT freeing old area here -- cuz we're using pools, ugh. */
-
+  
   /* return new area */
   return new_area;
 }
@@ -62,7 +62,7 @@ create_string (const char *data, apr_size_t size,
 {
   svn_string_t *new_string;
 
-  new_string = (svn_string_t *) apr_palloc (pool, sizeof (*new_string));
+  new_string = (svn_string_t *) apr_palloc (pool, sizeof (*new_string)); 
 
   new_string->data = data;
   new_string->len = size;
@@ -71,7 +71,7 @@ create_string (const char *data, apr_size_t size,
 }
 
 svn_string_t *
-svn_string_ncreate (const char *bytes, const apr_size_t size,
+svn_string_ncreate (const char *bytes, const apr_size_t size, 
                     apr_pool_t *pool)
 {
   char *data;
@@ -151,7 +151,7 @@ svn_string_compare (const svn_string_t *str1, const svn_string_t *str2)
     return FALSE;
 
   /* now that we know they have identical lengths... */
-
+  
   if (memcmp (str1->data, str2->data, str1->len))
     return FALSE;
   else
@@ -206,7 +206,7 @@ svn_string_strip_whitespace (svn_string_t *str)
           break;
         }
     }
-
+  
   /* Mmm, waste some more RAM */
   str->len = i + 1;
 
@@ -239,7 +239,7 @@ create_stringbuf (char *data, apr_size_t size, apr_pool_t *pool)
 {
   svn_stringbuf_t *new_string;
 
-  new_string = (svn_stringbuf_t *) apr_palloc (pool, sizeof (*new_string));
+  new_string = (svn_stringbuf_t *) apr_palloc (pool, sizeof (*new_string)); 
 
   new_string->data = data;
   new_string->len = size;
@@ -250,7 +250,7 @@ create_stringbuf (char *data, apr_size_t size, apr_pool_t *pool)
 }
 
 svn_stringbuf_t *
-svn_stringbuf_ncreate (const char *bytes, const apr_size_t size,
+svn_stringbuf_ncreate (const char *bytes, const apr_size_t size, 
                        apr_pool_t *pool)
 {
   char *data;
@@ -306,7 +306,7 @@ svn_stringbuf_createf (apr_pool_t *pool, const char *fmt, ...)
 }
 
 
-void
+void 
 svn_stringbuf_fillchar (svn_stringbuf_t *str, const unsigned char c)
 {
   memset (str->data, c, str->len);
@@ -364,16 +364,16 @@ svn_stringbuf_ensure (svn_stringbuf_t *str, apr_size_t minimum_size)
         while (str->blocksize < minimum_size)
           str->blocksize *= 2;
 
-      str->data = (char *) my__realloc (str->data,
+      str->data = (char *) my__realloc (str->data, 
                                         str->len,
                                         str->blocksize,
-                                        str->pool);
+                                        str->pool); 
     }
 }
 
 
 void
-svn_stringbuf_appendbytes (svn_stringbuf_t *str, const char *bytes,
+svn_stringbuf_appendbytes (svn_stringbuf_t *str, const char *bytes, 
                            const apr_size_t count)
 {
   apr_size_t total_len;
@@ -397,7 +397,7 @@ svn_stringbuf_appendbytes (svn_stringbuf_t *str, const char *bytes,
 
 
 void
-svn_stringbuf_appendstr (svn_stringbuf_t *targetstr,
+svn_stringbuf_appendstr (svn_stringbuf_t *targetstr, 
                          const svn_stringbuf_t *appendstr)
 {
   svn_stringbuf_appendbytes (targetstr, appendstr->data, appendstr->len);
@@ -423,7 +423,7 @@ svn_stringbuf_dup (const svn_stringbuf_t *original_string, apr_pool_t *pool)
 
 
 svn_boolean_t
-svn_stringbuf_compare (const svn_stringbuf_t *str1,
+svn_stringbuf_compare (const svn_stringbuf_t *str1, 
                        const svn_stringbuf_t *str2)
 {
   /* easy way out :)  */
@@ -431,7 +431,7 @@ svn_stringbuf_compare (const svn_stringbuf_t *str1,
     return FALSE;
 
   /* now that we know they have identical lengths... */
-
+  
   if (memcmp (str1->data, str2->data, str1->len))
     return FALSE;
   else
@@ -484,7 +484,7 @@ svn_stringbuf_strip_whitespace (svn_stringbuf_t *str)
           break;
         }
     }
-
+  
   /* Mmm, waste some more RAM */
   str->len = i + 1;
   str->data[str->len] = '\0';
@@ -544,14 +544,14 @@ svn_cstring_split_append (apr_array_header_t *array,
 
   pats = apr_pstrdup (pool, input);  /* strtok wants non-const data */
   p = apr_strtok (pats, sep_chars, &last);
-
+  
   while (p)
     {
       if (chop_whitespace)
         {
           while (apr_isspace (*p))
             p++;
-
+          
           {
             char *e = p + (strlen (p) - 1);
             while ((e >= p) && (apr_isspace (*e)))
