@@ -103,7 +103,7 @@ svn_error_t *
 svn_client_delete (svn_client_commit_info_t **commit_info,
                    const char *path,
                    svn_wc_adm_access_t *optional_adm_access,
-                   svn_boolean_t force,
+                   svn_boolean_t force, 
                    svn_client_auth_baton_t *auth_baton,
                    svn_client_get_commit_log_t log_msg_func,
                    void *log_msg_baton,
@@ -132,16 +132,16 @@ svn_client_delete (svn_client_commit_info_t **commit_info,
       if (log_msg_func)
         {
           svn_client_commit_item_t *item;
-          apr_array_header_t *commit_items
+          apr_array_header_t *commit_items 
             = apr_array_make (pool, 1, sizeof (item));
-
+          
           item = apr_pcalloc (pool, sizeof (*item));
           item->url = apr_pstrdup (pool, path);
           item->state_flags = SVN_CLIENT_COMMIT_ITEM_DELETE;
-          (*((svn_client_commit_item_t **) apr_array_push (commit_items)))
+          (*((svn_client_commit_item_t **) apr_array_push (commit_items))) 
             = item;
-
-          SVN_ERR ((*log_msg_func) (&log_msg, commit_items,
+          
+          SVN_ERR ((*log_msg_func) (&log_msg, commit_items, 
                                     log_msg_baton, pool));
           if (! log_msg)
             return SVN_NO_ERROR;
@@ -163,7 +163,7 @@ svn_client_delete (svn_client_commit_info_t **commit_info,
                                             auth_baton, pool));
 
       /* Verify that the thing to be deleted actually exists. */
-      SVN_ERR (ra_lib->check_path (&kind, session, target,
+      SVN_ERR (ra_lib->check_path (&kind, session, target, 
                                    SVN_INVALID_REVNUM));
       if (kind == svn_node_none)
         return svn_error_createf (SVN_ERR_FS_NOT_FOUND, 0, NULL,
@@ -179,7 +179,7 @@ svn_client_delete (svn_client_commit_info_t **commit_info,
       /* Drive the editor to delete the TARGET. */
       SVN_ERR (editor->open_root (edit_baton, SVN_INVALID_REVNUM, pool,
                                   &root_baton));
-      SVN_ERR (editor->delete_entry (target, SVN_INVALID_REVNUM,
+      SVN_ERR (editor->delete_entry (target, SVN_INVALID_REVNUM, 
                                      root_baton, pool));
       SVN_ERR (editor->close_directory (root_baton, pool));
       SVN_ERR (editor->close_edit (edit_baton, pool));
@@ -189,18 +189,18 @@ svn_client_delete (svn_client_commit_info_t **commit_info,
                                                    committed_author,
                                                    committed_date,
                                                    pool);
-
+      
       /* Free the RA session */
       SVN_ERR (ra_lib->close (session));
 
       return SVN_NO_ERROR;
     }
-
+  
 
   if (! optional_adm_access)
     {
       const char *parent_path;
-
+  
       parent_path = svn_path_remove_component_nts (path, pool);
       SVN_ERR (svn_wc_adm_open (&adm_access, NULL, parent_path, TRUE, TRUE,
                                 pool));
@@ -224,7 +224,7 @@ svn_client_delete (svn_client_commit_info_t **commit_info,
 }
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end: */
