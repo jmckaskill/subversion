@@ -41,7 +41,7 @@ static const char * const timestamp_format =
 "%04d-%02d-%02dT%02d:%02d:%02d.%06dZ";
 
 /* Our old timestamp strings looked like this:
- *
+ * 
  *    "Tue 3 Oct 2000 HH:MM:SS.UUU (day 277, dst 1, gmt_off -18000)"
  *
  * The idea is that they are conventionally human-readable for the
@@ -156,14 +156,14 @@ svn_time_from_nts(apr_time_t *when, const char *data, apr_pool_t *pool)
       exploded_time.tm_yday = 0;
       exploded_time.tm_isdst = 0;
       exploded_time.tm_gmtoff = 0;
-
+      
       apr_err = apr_implode_gmt (when, &exploded_time);
       if(apr_err != APR_SUCCESS)
         {
           return svn_error_createf (SVN_ERR_BAD_DATE, apr_err, NULL, pool,
                                     "Date conversion failed.");
         }
-
+      
       return SVN_NO_ERROR;
     }
   /* Then try the compatibility option. */
@@ -228,7 +228,7 @@ svn_time_to_human_nts (apr_time_t t, apr_pool_t *pool)
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end: */
