@@ -34,7 +34,7 @@ test_stream_from_string (const char **msg,
 #define NUM_TEST_STRINGS 4
 #define TEST_BUF_SIZE 10
 
-  static const char * const strings[NUM_TEST_STRINGS] = {
+  static const char * const strings[NUM_TEST_STRINGS] = { 
     /* 0 */
     "",
     /* 1 */
@@ -49,7 +49,7 @@ test_stream_from_string (const char **msg,
     "it--but I feel that it is safe to assume that I'm far longer than my "
     "peers.  And that demands some amount of respect, wouldn't you say?"
   };
-
+  
   *msg = "test svn_stream_from_string";
 
   if (msg_only)
@@ -75,7 +75,7 @@ test_stream_from_string (const char **msg,
           /* ... and append the chunk to the stringbuf. */
           svn_stringbuf_appendbytes (outbuf, buffer, len);
         }
-
+      
       if (! svn_stringbuf_compare (inbuf, outbuf))
         return svn_error_create (SVN_ERR_TEST_FAILED, NULL,
                                  "Got unexpected result.");
@@ -97,13 +97,13 @@ test_stream_from_string (const char **msg,
       while (amt_read < inbuf->len)
         {
           /* Write a chunk ... */
-          len = TEST_BUF_SIZE < (inbuf->len - amt_read)
-                  ? TEST_BUF_SIZE
+          len = TEST_BUF_SIZE < (inbuf->len - amt_read) 
+                  ? TEST_BUF_SIZE 
                   : inbuf->len - amt_read;
           SVN_ERR (svn_stream_write (stream, inbuf->data + amt_read, &len));
           amt_read += len;
         }
-
+      
       if (! svn_stringbuf_compare (inbuf, outbuf))
         return svn_error_create (SVN_ERR_TEST_FAILED, NULL,
                                  "Got unexpected result.");
