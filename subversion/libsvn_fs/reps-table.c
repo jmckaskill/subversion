@@ -121,7 +121,7 @@ svn_fs__delete_rep (svn_fs_t *fs, const char *key, trail_t *trail)
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:

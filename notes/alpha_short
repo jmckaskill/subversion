@@ -2,7 +2,7 @@
 
 If you are looking at this file in Emacs, it will be displayed in
 Outline Mode:
-
+  
    C-c C-t       compress entire buffer into headings only
    C-c C-a       decompress entire buffer
 
@@ -15,7 +15,7 @@ Outline Mode:
 
   ANSWER: M3 will be client Test suite and self-hosting. "Test suite"
            is defined as follows:
-
+        
            When every command supported by the client is tested
            (edge-cases and all) by the test-suite. Those commands
            include: add, checkout, commit, copy, delete, diff, import,
@@ -28,7 +28,7 @@ Outline Mode:
 
 *** autodetection of text/binary types / keyword sub / newline translation
 
-   ANSWER: This will be solved by three separate properties:
+   ANSWER: This will be solved by three separate properties: 
            - mime-type. We will have a heuristic that determines as best it
            can what the mime-type of a file is (of course it will be
            user-configurable).
@@ -42,7 +42,7 @@ Outline Mode:
            - Newline Translation (BOOL)
            Note that we will always err on the safe side (assume that a file
            is binary and wants no Keyword Substitution or Newline
-           Translation if we are not certain about the contents of a file.
+           Translation if we are not certain about the contents of a file. 
 
                 [ I think it would be better to make these values (a
                   list of) keywords instead of plain switches.
@@ -110,7 +110,7 @@ scenario in both the commit and update case.
    ANSWER: gstein proposed that in the case of pre and post-commit
            hooks, we fire off a subprocess and pass it the transaction
            ID.
-
+           
            Hooks are all going to be provided in the libsvn_repos
            library.  Configuration files are not going to *have* to be
            in the repository. They will sit on the server *near* the
@@ -188,7 +188,7 @@ changing arguments, etc).
 
 *** keep node-rev-id strings short   /* kfogel will do, solution is known */
 
-*** copy properties
+*** copy properties  
 
 We need better history tracking when making cheap copies in the fs, else we lose copy history information.
 
@@ -227,7 +227,7 @@ subdirs, or hide them under a cvs-like interface?
 
    We are purposely ignoring:  history, edit, watch, editors.
 
-  Notes:
+  Notes:  
 
    - 'merge' will probably need to use delta_dirs()
 
@@ -266,17 +266,17 @@ subdirs, or hide them under a cvs-like interface?
                 delete    |---- Change
                 change   /
                 traverse
-
+        
         ACL := ENTRY
-
+        
         ENTRY := USER|GROUP ":" ACTION
-
+        
         ACTION := add_hist_prop|read_hist_prop|list hist_prop
                   |delete hist_prop|add non-hist_prop|read non-hist_prop
                   |list non-hist_prop|delete non-hist_prop
                   |read|write|change_regexp
                   |add|del|list|traverse
-
+        
         Now that you've read through all that, this is where we say that the
         above is all post-1.0 chattering. For now we will use authorization
         schemes provided by Apache. ACLs are post-1.0. Repeat after me: ACLs...
@@ -308,13 +308,13 @@ subdirs, or hide them under a cvs-like interface?
                   glibc-2.1 (I think), that's currently being used on
                   Linux, HP-UX and Win32.                          --xbc ]
 
-
+  
 ** read-only repos mirrors
 
-** modules --- (still discussing)
+** modules --- (still discussing) 
 
 
 
-
+ 
 
 
