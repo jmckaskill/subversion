@@ -72,17 +72,17 @@ svn_cl__switch (apr_getopt_t *os,
   str.data = switch_url->data;
   str.len = switch_url->len;
   if (! svn_path_is_url (&str))
-    return svn_error_createf
-      (SVN_ERR_BAD_URL, 0, NULL, pool,
+    return svn_error_createf 
+      (SVN_ERR_BAD_URL, 0, NULL, pool, 
        "`%s' does not appear to be a URL", switch_url->data);
 
   /* Validate the target */
   SVN_ERR (svn_wc_entry (&entry, target, pool));
   if (! entry)
-    return svn_error_createf
-      (SVN_ERR_ENTRY_NOT_FOUND, 0, NULL, pool,
+    return svn_error_createf 
+      (SVN_ERR_ENTRY_NOT_FOUND, 0, NULL, pool, 
        "`%s' does not appear to be a working copy path", target->data);
-
+  
   /* Build an authentication baton to give to libsvn_client. */
   auth_baton = svn_cl__make_auth_baton (opt_state, pool);
 
@@ -98,14 +98,14 @@ svn_cl__switch (apr_getopt_t *os,
 
   /* Do the 'switch' update. */
   SVN_ERR (svn_client_switch
-           (NULL, NULL,
+           (NULL, NULL, 
             trace_editor, trace_edit_baton,
             auth_baton,
             target,
             switch_url,
             &(opt_state->start_revision),
             opt_state->nonrecursive ? FALSE : TRUE,
-            SVN_CL_NOTIFY(opt_state),
+            SVN_CL_NOTIFY(opt_state), 
             svn_cl__make_notify_baton (pool),
             pool));
 
@@ -113,8 +113,8 @@ svn_cl__switch (apr_getopt_t *os,
 }
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../tools/dev/svn-dev.el")
- * end:
+ * end: 
  */
