@@ -97,6 +97,7 @@ Candidate changes:
       instead.
     Votes:
       +1: pmayweg
+      +0: dionisos
 
   * r13222, r13223, r13232
     Rewrite libsvn_fs_fs's auto-merge algorithm (requires r13193 first)
