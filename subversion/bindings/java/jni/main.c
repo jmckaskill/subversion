@@ -64,7 +64,7 @@ JNI_OnLoad(JavaVM *jvm, void *reserved)
   main__pool = svn_pool_create(NULL);
 
   return JNI_VERSION_1_2;
-
+  
 }
 
 /*
@@ -79,51 +79,51 @@ JNIEXPORT OnUnload(JavaVM *jvm, void *reserved)
 
 }
 
-JNIEXPORT void JNICALL
+JNIEXPORT void JNICALL 
 Java_org_tigris_subversion_lib_ClientImpl_checkout
-  (JNIEnv *env, jobject beforeEditor, jobject obj,
-  jobject afterEditor, jstring url, jstring path, jobject revision,
+  (JNIEnv *env, jobject beforeEditor, jobject obj, 
+  jobject afterEditor, jstring url, jstring path, jobject revision, 
   jobject time, jstring xml_src)
 {
 }
 
-JNIEXPORT void JNICALL
+JNIEXPORT void JNICALL 
 Java_org_tigris_subversion_lib_ClientImpl_update
-  (JNIEnv *env, jobject obj, jobject beforeEditor,
-  jobject afterEditor, jstring path, jstring xml_src,
+  (JNIEnv *env, jobject obj, jobject beforeEditor, 
+  jobject afterEditor, jstring path, jstring xml_src, 
   jstring revision, jobject time)
 {
 }
 
-JNIEXPORT void JNICALL
+JNIEXPORT void JNICALL 
 Java_org_tigris_subversion_lib_ClientImpl_add
   (JNIEnv *env, jobject obj, jstring path, jboolean recursive)
 {
 }
 
-JNIEXPORT void JNICALL
+JNIEXPORT void JNICALL 
 Java_org_tigris_subversion_lib_ClientImpl_delete
   (JNIEnv *env, jobject obj, jstring path, jboolean force)
 {
 }
 
-JNIEXPORT void JNICALL
+JNIEXPORT void JNICALL 
 Java_org_tigris_subversion_lib_ClientImpl_performImport
-  (JNIEnv *env, jobject obj, jobject beforeEditor,
-  jobject afterEditor, jstring path, jstring url,
+  (JNIEnv *env, jobject obj, jobject beforeEditor, 
+  jobject afterEditor, jstring path, jstring url, 
   jstring new_entry, jstring log_msg, jstring xml_dst, jstring revision)
 {
 }
 
-JNIEXPORT void JNICALL
+JNIEXPORT void JNICALL 
 Java_org_tigris_subversion_lib_ClientImpl_commit
-  (JNIEnv *env, jobject obj, jobject beforeEditor,
-  jobject afterEditor, jobjectArray targets,
+  (JNIEnv *env, jobject obj, jobject beforeEditor, 
+  jobject afterEditor, jobjectArray targets, 
   jstring log_msg, jstring xml_dst, jstring revision)
 {
 }
 
-JNIEXPORT jobject JNICALL
+JNIEXPORT jobject JNICALL 
 Java_org_tigris_subversion_lib_ClientImpl_status
   (JNIEnv *env, jobject jobj, jstring jtarget, jboolean jdescend,
    jboolean jget_all, jboolean jupdate)
@@ -139,26 +139,26 @@ Java_org_tigris_subversion_lib_ClientImpl_status
   svn_client_auth_baton_t *auth_baton = NULL;
 
 #ifdef SVN_JNI__VERBOSE
-  fprintf(stderr,
+  fprintf(stderr, 
 	  "Java_org_tigris_subversion_lib_ClientImpl_status\n");
 #endif
 
   /* do all the type conversion stuff */
-  target_string = string__j_to_svn_string(env,
+  target_string = string__j_to_svn_string(env, 
                                    jtarget, &hasException,
                                    main__pool);
 
   if( !hasException )
     {
-      target_stringbuf =
-	svn_stringbuf_create_from_string(target_string,
+      target_stringbuf = 
+	svn_stringbuf_create_from_string(target_string, 
 					 main__pool);
 
       if( target_stringbuf == NULL )
 	{
 	  /* seems like the conversion didnt succeed */
 	  hasException = JNI_TRUE;
-	  misc__throw_exception_by_name(env,
+	  misc__throw_exception_by_name(env, 
                                         SVN_JNI__SUBVERSION_EXCEPTION,
                                         SVN_JNI__ERROR_CREATE_STRINGBUF);
 	}
@@ -170,13 +170,13 @@ Java_org_tigris_subversion_lib_ClientImpl_status
       auth_baton = misc__make_auth_baton(env, jobj);
 
       if( svn_client_status(&statushash, target_stringbuf, auth_baton,
-			    descend, get_all, update,
-			    main__pool) < 0
+			    descend, get_all, update, 
+			    main__pool) < 0 
 	  )
 	{
 	  /* in the case of an error, throw a java exception */
 	  hasException = JNI_TRUE;
-	  misc__throw_exception_by_name(env,
+	  misc__throw_exception_by_name(env, 
                                         SVN_JNI__SUBVERSION_EXCEPTION,
                                         SVN_JNI__ERROR_CLIENT_STATUS);
 	}
@@ -194,7 +194,7 @@ Java_org_tigris_subversion_lib_ClientImpl_status
 	    {
 	      /* iterate through apr hashtable and
 	       * insert each item into java hashtable */
-	      apr_hash_index_t *index = apr_hash_first(main__pool,
+	      apr_hash_index_t *index = apr_hash_first(main__pool, 
 						       statushash);
 	      while( (index != NULL) && (!hasException ) )
 		{
@@ -215,7 +215,7 @@ Java_org_tigris_subversion_lib_ClientImpl_status
 		  /* convert svn_wc_status_t to java class Status */
 		  if( !hasException )
 		    {
-		      jstatus = status__create(env, status,
+		      jstatus = status__create(env, status, 
                                                &hasException);
 		    }
 
@@ -231,10 +231,10 @@ Java_org_tigris_subversion_lib_ClientImpl_status
 		  /* put entry into java hashtable */
 		  if( !hasException )
 		    {
-		      hashtable__put(env, hashtable, jpath, jitem,
+		      hashtable__put(env, hashtable, jpath, jitem, 
                                      &hasException);
 		    }
-
+		  
 		  if( !hasException )
 		    {
 		      /* proceed to the next iteration */
@@ -250,14 +250,14 @@ Java_org_tigris_subversion_lib_ClientImpl_status
   return hashtable;
 }
 
-JNIEXPORT jstring JNICALL
+JNIEXPORT jstring JNICALL 
 Java_org_tigris_subversion_lib_ClientImpl_fileDiff
   (JNIEnv *env, jobject obj, jstring path)
 {
   printf("doing nothing at all\n");
 }
 
-JNIEXPORT void JNICALL
+JNIEXPORT void JNICALL 
 Java_org_tigris_subversion_lib_ClientImpl_cleanup
   (JNIEnv *env, jobject obj, jstring dir)
 {
@@ -265,10 +265,10 @@ Java_org_tigris_subversion_lib_ClientImpl_cleanup
 
 }
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../svn-dev.el")
- * end:
+ * end: 
  */
 
 
