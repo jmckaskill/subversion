@@ -81,7 +81,7 @@ check_status 4
 
 echo "Deleting added files A/B/E/newfile2, without --force."
 ${SVN_PROG} delete ${TEST_DIR_1}/A/B/E/newfile2
-
+ 
 check_status 5
 
 ### Commit.
