@@ -44,14 +44,14 @@
        A/one_mississippi.txt
        A/two_mississippi.txt
        A/three_mississippi.txt
-
+     
    And project B:
 
        B/cat
        B/dog
        B/pig
 
-   If I do 'cvs -d :pserver:fitz@subversion.tigris.org:/cvs co -d foo A',
+   If I do 'cvs -d :pserver:fitz@subversion.tigris.org:/cvs co -d foo A', 
    I get the following:
 
        foo/one_mississippi.txt
@@ -67,7 +67,7 @@
        foo/B/cat
        foo/B/dog
        foo/B/pig
-
+      
   Makes sense, right? Right. Note that we have no provision for this
   right now and we need to support it. My vote is that we stop
   iterating over targets here and just pass the args into
@@ -88,7 +88,7 @@ svn_cl__checkout (apr_getopt_t *os,
   svn_wc_notify_func_t notify_func = NULL;
   void *notify_baton = NULL;
 
-  SVN_ERR (svn_cl__args_to_target_array (&targets, os, opt_state,
+  SVN_ERR (svn_cl__args_to_target_array (&targets, os, opt_state, 
                                          FALSE, pool));
 
   /* If there are no targets at all, then let's just give the user a
@@ -96,7 +96,7 @@ svn_cl__checkout (apr_getopt_t *os,
   if ((targets->nelts < 1) || (targets->nelts > 2))
     return svn_error_create (SVN_ERR_CL_ARG_PARSING_ERROR, 0, 0, pool,
                              "" /* message is unused */);
-
+  
   /* Get the required REPOS_URL, and the optional LOCAL_DIR arguments. */
   if (targets->nelts == 1)
     {
@@ -111,8 +111,8 @@ svn_cl__checkout (apr_getopt_t *os,
 
   /* Validate the REPOS_URL */
   if (! svn_path_is_url (repos_url))
-    return svn_error_createf
-      (SVN_ERR_BAD_URL, 0, NULL, pool,
+    return svn_error_createf 
+      (SVN_ERR_BAD_URL, 0, NULL, pool, 
        "`%s' does not appear to be a URL", repos_url);
 
   /* Canonicalize the URL. */
@@ -122,7 +122,7 @@ svn_cl__checkout (apr_getopt_t *os,
   auth_baton = svn_cl__make_auth_baton (opt_state, pool);
 
   if (! opt_state->quiet)
-    svn_cl__get_notifier (&notify_func, &notify_baton, TRUE, FALSE, pool);
+    svn_cl__get_notifier (&notify_func, &notify_baton, TRUE, FALSE, pool); 
 
   SVN_ERR (svn_client_checkout (notify_func,
                                 notify_baton,
@@ -133,14 +133,14 @@ svn_cl__checkout (apr_getopt_t *os,
                                 opt_state->nonrecursive ? FALSE : TRUE,
                                 opt_state->xml_file,
                                 pool));
-
+  
   return SVN_NO_ERROR;
 }
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../tools/dev/svn-dev.el")
- * end:
+ * end: 
  */
