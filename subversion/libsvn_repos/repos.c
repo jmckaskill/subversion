@@ -159,7 +159,7 @@ create_db_logs_lock (svn_repos_t *repos, apr_pool_t *pool) {
   const char *lockfile_path;
 
   lockfile_path = svn_repos_db_logs_lockfile (repos, pool);
-  contents =
+  contents = 
     "DB logs lock file, representing locks on the versioned filesystem logs.\n"
     "\n"
     "All log manipulators of the repository's\n"
@@ -181,7 +181,7 @@ create_db_lock (svn_repos_t *repos, apr_pool_t *pool) {
     const char *lockfile_path;
 
     lockfile_path = svn_repos_db_lockfile (repos, pool);
-    contents =
+    contents = 
       "DB lock file, representing locks on the versioned filesystem.\n"
       "\n"
       "All accessors -- both readers and writers -- of the repository's\n"
@@ -192,10 +192,10 @@ create_db_lock (svn_repos_t *repos, apr_pool_t *pool) {
       "using the DB during the recovery.\n"
       "\n"
       "You should never have to edit or remove this file.\n";
-
+    
   SVN_ERR_W (svn_io_file_create (lockfile_path, contents, pool),
              "creating db lock file");
-
+    
   return SVN_NO_ERROR;
 }
 
@@ -229,8 +229,8 @@ create_hooks (svn_repos_t *repos, apr_pool_t *pool)
     this_path = apr_psprintf (pool, "%s%s",
                               svn_repos_start_commit_hook (repos, pool),
                               SVN_REPOS__HOOK_DESC_EXT);
-
-    contents =
+    
+    contents = 
       "#!/bin/sh"
       APR_EOL_STR
       APR_EOL_STR
@@ -244,7 +244,7 @@ create_hooks (svn_repos_t *repos, apr_pool_t *pool)
       APR_EOL_STR
       "# by invoking a program (script, executable, binary, etc.) named"
       APR_EOL_STR
-      "# '"
+      "# '" 
       SVN_REPOS__HOOK_START_COMMIT
       "' (for which this file is a template)"
       APR_EOL_STR
@@ -269,7 +269,7 @@ create_hooks (svn_repos_t *repos, apr_pool_t *pool)
       "# On a Unix system, the normal procedure is to have "
       "'"
       SVN_REPOS__HOOK_START_COMMIT
-      "'"
+      "'" 
       APR_EOL_STR
       "# invoke other programs to do the real work, though it may do the"
       APR_EOL_STR
@@ -337,7 +337,7 @@ create_hooks (svn_repos_t *repos, apr_pool_t *pool)
       "# committed.  Subversion runs this hook by invoking a program"
       APR_EOL_STR
       "# (script, executable, binary, etc.) named "
-      "'"
+      "'" 
       SVN_REPOS__HOOK_PRE_COMMIT "' (for which"
       APR_EOL_STR
       "# this file is a template), with the following ordered arguments:"
@@ -363,7 +363,7 @@ create_hooks (svn_repos_t *repos, apr_pool_t *pool)
       "# On a Unix system, the normal procedure is to have "
       "'"
       SVN_REPOS__HOOK_PRE_COMMIT
-      "'"
+      "'" 
       APR_EOL_STR
       "# invoke other programs to do the real work, though it may do the"
       APR_EOL_STR
@@ -435,7 +435,7 @@ create_hooks (svn_repos_t *repos, apr_pool_t *pool)
       APR_EOL_STR
       "exit 0"
       APR_EOL_STR;
-
+    
     SVN_ERR_W (svn_io_file_create (this_path, contents, pool),
                "creating pre-commit hook");
   }  /* end pre-commit hook */
@@ -460,7 +460,7 @@ create_hooks (svn_repos_t *repos, apr_pool_t *pool)
       "# is modified.  Subversion runs this hook by invoking a program"
       APR_EOL_STR
       "# (script, executable, binary, etc.) named "
-      "'"
+      "'" 
       SVN_REPOS__HOOK_PRE_REVPROP_CHANGE "' (for which"
       APR_EOL_STR
       "# this file is a template), with the following ordered arguments:"
@@ -503,12 +503,12 @@ create_hooks (svn_repos_t *repos, apr_pool_t *pool)
       APR_EOL_STR
       "# forever.  We recommend the hook back up the old value somewhere."
       APR_EOL_STR
-      "#"
+      "#"      
       APR_EOL_STR
       "# On a Unix system, the normal procedure is to have "
       "'"
       SVN_REPOS__HOOK_PRE_REVPROP_CHANGE
-      "'"
+      "'" 
       APR_EOL_STR
       "# invoke other programs to do the real work, though it may do the"
       APR_EOL_STR
@@ -551,7 +551,7 @@ create_hooks (svn_repos_t *repos, apr_pool_t *pool)
       APR_EOL_STR
       "exit 1"
       APR_EOL_STR;
-
+    
     SVN_ERR_W (svn_io_file_create (this_path, contents, pool),
               "creating pre-revprop-change hook");
   }  /* end pre-revprop-change hook */
@@ -575,8 +575,8 @@ create_hooks (svn_repos_t *repos, apr_pool_t *pool)
       APR_EOL_STR
       "# this hook by invoking a program (script, executable, binary,"
       APR_EOL_STR
-      "# etc.) named '"
-      SVN_REPOS__HOOK_POST_COMMIT
+      "# etc.) named '" 
+      SVN_REPOS__HOOK_POST_COMMIT 
       "' (for which"
       APR_EOL_STR
       "# this file is a template) with the following ordered arguments:"
@@ -602,7 +602,7 @@ create_hooks (svn_repos_t *repos, apr_pool_t *pool)
       "# On a Unix system, the normal procedure is to have "
       "'"
       SVN_REPOS__HOOK_POST_COMMIT
-      "'"
+      "'" 
       APR_EOL_STR
       "# invoke other programs to do the real work, though it may do the"
       APR_EOL_STR
@@ -666,7 +666,7 @@ create_hooks (svn_repos_t *repos, apr_pool_t *pool)
       "# has been changed. Subversion runs this hook by invoking a program"
       APR_EOL_STR
       "# (script, executable, binary, etc.) named '"
-      SVN_REPOS__HOOK_POST_REVPROP_CHANGE
+      SVN_REPOS__HOOK_POST_REVPROP_CHANGE 
       "'"
       APR_EOL_STR
       "# (for which this file is a template), with the following ordered"
@@ -698,7 +698,7 @@ create_hooks (svn_repos_t *repos, apr_pool_t *pool)
       "# On a Unix system, the normal procedure is to have "
       "'"
       SVN_REPOS__HOOK_POST_REVPROP_CHANGE
-      "'"
+      "'" 
       APR_EOL_STR
       "# invoke other programs to do the real work, though it may do the"
       APR_EOL_STR
@@ -850,7 +850,7 @@ create_repos_structure (svn_repos_t *repos,
 
   /* Write the top-level README file. */
   {
-    const char *readme_file_name
+    const char *readme_file_name 
       = svn_path_join (path, SVN_REPOS__README, pool);
     static const char * const readme_contents =
       "This is a Subversion repository; use the 'svnadmin' tool to examine"
@@ -879,7 +879,7 @@ create_repos_structure (svn_repos_t *repos,
   }
 
   /* Write the top-level FORMAT file. */
-  SVN_ERR (svn_io_write_version_file
+  SVN_ERR (svn_io_write_version_file 
            (svn_path_join (path, SVN_REPOS__FORMAT, pool),
             SVN_REPOS__VERSION, pool));
 
@@ -907,7 +907,7 @@ svn_repos_create (svn_repos_t **repos_p,
   /* Create the various files and subdirectories for the repository. */
   SVN_ERR_W (create_repos_structure (repos, path, pool),
              "repository creation failed");
-
+  
   /* Initialize the filesystem object. */
   repos->fs = svn_fs_new (fs_config, pool);
 
@@ -963,19 +963,19 @@ check_repos_version (const char *path,
   int version;
   svn_error_t *err;
 
-  err = svn_io_read_version_file
+  err = svn_io_read_version_file 
     (&version, svn_path_join (path, SVN_REPOS__FORMAT, pool), pool);
   if (err)
-    return svn_error_createf
+    return svn_error_createf 
       (SVN_ERR_REPOS_UNSUPPORTED_VERSION, err,
        "Expected version '%d' of repository; found no version at all; "
        "is '%s' a valid repository path?",
        SVN_REPOS__VERSION, path);
 
   if (version != SVN_REPOS__VERSION)
-    return svn_error_createf
+    return svn_error_createf 
       (SVN_ERR_REPOS_UNSUPPORTED_VERSION, NULL,
-       "Expected version '%d' of repository; found version '%d'",
+       "Expected version '%d' of repository; found version '%d'", 
        SVN_REPOS__VERSION, version);
 
   return SVN_NO_ERROR;
@@ -1073,7 +1073,7 @@ svn_repos_open (svn_repos_t **repos_p,
 
 
 svn_error_t *
-svn_repos_delete (const char *path,
+svn_repos_delete (const char *path, 
                   apr_pool_t *pool)
 {
   const char *db_path = svn_path_join (path, SVN_REPOS__DB_DIR, pool);
@@ -1143,13 +1143,13 @@ svn_repos_recover (const char *path,
 
     locked_repos = apr_pcalloc (subpool, sizeof (*locked_repos));
     init_repos_dirs (locked_repos, path, subpool);
-
+    
     /* Get a filehandle for the wedged repository's db lockfile. */
     lockfile_path = svn_repos_db_lockfile (locked_repos, subpool);
     SVN_ERR_W (svn_io_file_open (&lockfile_handle, lockfile_path,
                                  APR_READ, APR_OS_DEFAULT, pool),
                "svn_repos_recover: error opening db lockfile");
-
+    
     apr_err = apr_file_unlock (lockfile_handle);
     if (apr_err && ! APR_STATUS_IS_EACCES(apr_err))
       return svn_error_createf
@@ -1164,7 +1164,7 @@ svn_repos_recover (const char *path,
          "svn_repos_recover: failed to close lockfile on repository '%s'.",
          path);
   }
-
+  
   /* Fetch a repository object initialized with an EXCLUSIVE lock on
      the database.   This will at least prevent others from trying to
      read or write to it while we run recovery. */
@@ -1223,7 +1223,7 @@ struct hotcopy_ctx_t {
  * Those directories are handled separetly.
  * @a baton is a pointer to (struct hotcopy_ctx_t) specifying
  * destination path to copy to and the length of the source path.
- *
+ *  
  * @copydoc svn_io_dir_walk()
  */
 static svn_error_t *hotcopy_structure (void *baton,
@@ -1238,14 +1238,14 @@ static svn_error_t *hotcopy_structure (void *baton,
   if (strlen (path) == ctx->src_len)
     {
       sub_path = "";
-    }
+    } 
   else
     {
       sub_path = &path[ctx->src_len+1];
 
       /* Check if we are inside db directory and if so skip it */
       if (svn_path_compare_paths(
-            svn_path_get_longest_ancestor (SVN_REPOS__DB_DIR, sub_path, pool),
+            svn_path_get_longest_ancestor (SVN_REPOS__DB_DIR, sub_path, pool), 
                                            SVN_REPOS__DB_DIR) == 0)
         return SVN_NO_ERROR;
 
@@ -1260,10 +1260,10 @@ static svn_error_t *hotcopy_structure (void *baton,
   if (finfo->filetype == APR_DIR)
     {
       SVN_ERR (create_repos_dir (target, pool));
-    }
+    } 
   else if (finfo->filetype == APR_REG)
     {
-
+    
       SVN_ERR(svn_io_copy_file(path, target, TRUE, pool));
     }
 
@@ -1300,7 +1300,7 @@ svn_repos_hotcopy (const char *src_path,
   svn_repos_t *src_repos;
   svn_repos_t *dst_repos;
   struct hotcopy_ctx_t hotcopy_context;
-
+  
   /* Try to open original repository */
   SVN_ERR (get_repos (&src_repos, src_path,
                       APR_FLOCK_SHARED,
@@ -1310,12 +1310,12 @@ svn_repos_hotcopy (const char *src_path,
   /* If we are going to clean logs, then get an exclusive lock on
      db-logs.lock, to ensure that no one else will work with logs.
 
-     If we are just copying, then get a shared lock to ensure that
+     If we are just copying, then get a shared lock to ensure that 
      no one else will clean logs while we copying them */
-
+  
   SVN_ERR (lock_db_logs_file (src_repos, clean_logs, pool));
 
-  /* Copy the repository to a new path, with exception of
+  /* Copy the repository to a new path, with exception of 
      specially handled directories */
 
   hotcopy_context.dest = dst_path;
@@ -1337,12 +1337,12 @@ svn_repos_hotcopy (const char *src_path,
 
   SVN_ERR (create_repos_dir (dst_repos->db_path, pool));
 
-  /* Open repository, since before we only initialized the directories.
+  /* Open repository, since before we only initialized the directories. 
      Above is a work around because lock creation functions expect a
      pointer to (svn_repos_t) with initialized paths. */
 
-  /* Exclusively lock the new repository.
-     No one should be accessing it at the moment */
+  /* Exclusively lock the new repository.  
+     No one should be accessing it at the moment */ 
   SVN_ERR (get_repos (&dst_repos, dst_path,
                       APR_FLOCK_EXCLUSIVE,
                       FALSE,    /* don't try to open the db yet. */
