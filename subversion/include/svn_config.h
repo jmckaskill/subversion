@@ -45,14 +45,14 @@ typedef struct svn_config_t svn_config_t;
 
 
 /* Merge configuration information from all available sources and
-   store it in *CFGP, which is allocated in POOL.  That is, first
+   store it in *CFGP, which is allocated in POOL.  That is, first 
    read any system-wide configurations (from a file or from the
    registry), then merge in personal configurations (again from
    file or registry).
 
    ###
    ### Currently only reads from ~/.subversion/config.
-   ### See http://subversion.tigris.org/issues/show_bug.cgi?id=579.
+   ### See http://subversion.tigris.org/issues/show_bug.cgi?id=579.  
    ###
 
    If no config information is available, return an empty *CFGP.
@@ -73,7 +73,7 @@ svn_error_t *svn_config_read_config (svn_config_t **cfgp, apr_pool_t *pool);
    is merged in.  System config information under Windows is found
    only in the registry.
 
-   If no proxy config information is available, return an empty *CFGP.
+   If no proxy config information is available, return an empty *CFGP.  
 
    ### Notes: This function, and future ones like it, rather obviates
    the need for svn_config_read() and svn_config_merge() as public
@@ -152,7 +152,7 @@ int svn_config_enumerate (svn_config_t *cfg, const char *section,
 
 /* Try to ensure that the user's ~/.subversion/ area exists, and create no-op
    template files for any absent config files.  Use POOL for any
-   temporary allocation.
+   temporary allocation.  
 
    Don't error if something exists but is the wrong kind (for example,
    ~/.subversion exists but is a file, or ~/.subversion/proxies exists
