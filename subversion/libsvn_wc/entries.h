@@ -126,7 +126,7 @@ svn_error_t *svn_wc__atts_to_entry (svn_wc_entry_t **new_entry,
    in changes, and sync those changes to disk.  New values for the
    entry are pulled from their respective fields in ENTRY, and
    MODIFY_FLAGS is a bitmask to specify which of those field to pay
-   attention to.
+   attention to.  
 
    - ENTRY->kind specifies the node kind for this entry, and is
      *required* to be set to one of the following valid values:
@@ -153,7 +153,7 @@ void svn_wc__entry_remove (apr_hash_t *entries, const char *name);
  * make this the entry's new url.  If NEW_REV is valid, make this the
  * entry's working revision.  (This is purely an in-memory operation.)
  *
- * (Intended as a helper to svn_wc__do_update_cleanup, which see.)
+ * (Intended as a helper to svn_wc__do_update_cleanup, which see.) 
  */
 svn_error_t *
 svn_wc__tweak_entry (apr_hash_t *entries,
@@ -170,7 +170,7 @@ svn_wc__tweak_entry (apr_hash_t *entries,
 #endif /* SVN_LIBSVN_WC_ENTRIES_H */
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end:
