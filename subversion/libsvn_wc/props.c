@@ -121,7 +121,7 @@ svn_wc__get_local_propchanges (apr_array_header_t **local_propchanges,
           svn_propdelta_t *p = apr_pcalloc (pool, sizeof(*p));
           p->name = svn_string_ncreate ((char *) key, klen, pool);
           p->value = NULL;
-
+          
           *((svn_propdelta_t **)apr_push_array (ary)) = p;
         }
       else if (! svn_string_compare (propval1, propval2))
@@ -130,7 +130,7 @@ svn_wc__get_local_propchanges (apr_array_header_t **local_propchanges,
           svn_propdelta_t *p = apr_pcalloc (pool, sizeof(*p));
           p->name = svn_string_ncreate ((char *) key, klen, pool);
           p->value = propval2;
-
+          
           *((svn_propdelta_t **)apr_push_array (ary)) = p;
         }
     }
@@ -157,7 +157,7 @@ svn_wc__get_local_propchanges (apr_array_header_t **local_propchanges,
           svn_propdelta_t *p = apr_pcalloc (pool, sizeof(*p));
           p->name = svn_string_ncreate ((char *) key, klen, pool);
           p->value = propval2;
-
+          
           *((svn_propdelta_t **)apr_push_array (ary)) = p;
         }
     }
