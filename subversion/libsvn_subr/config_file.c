@@ -215,7 +215,7 @@ parse_option (int *pch, parse_context_t *ctx)
  * the line.  Set *PCH to the character that ended the line (either
  * newline or EOF), and set CTX->section to the string of characters
  * seen before ']'.
- *
+ * 
  * This is meant to be called immediately after reading the '[' that
  * starts a section name.
  */
@@ -302,7 +302,7 @@ svn_config__user_config_path (const char *config_dir,
       *path_p = svn_path_join_many(pool, config_dir, fname, NULL);
       return SVN_NO_ERROR;
     }
-
+  
 #ifdef SVN_WIN32
   {
     const char *folder;
@@ -322,19 +322,19 @@ svn_config__user_config_path (const char *config_dir,
     apr_err = apr_uid_current (&uid, &gid, pool);
     if (apr_err)
       return SVN_NO_ERROR;
-
+    
     apr_err = apr_uid_name_get (&username, uid, pool);
     if (apr_err)
       return SVN_NO_ERROR;
-
+    
     apr_err = apr_uid_homepath_get (&homedir, username, pool);
     if (apr_err)
       return SVN_NO_ERROR;
-
+    
     *path_p = svn_path_join_many (pool,
                                   svn_path_canonicalize (homedir, pool),
                                   SVN_CONFIG__USR_DIRECTORY, fname, NULL);
-
+    
   }
 #endif /* SVN_WIN32 */
 
@@ -757,12 +757,12 @@ svn_config_ensure (const char *config_dir, apr_pool_t *pool)
         {
           apr_err = apr_file_write_full (f, contents, strlen (contents), NULL);
           if (apr_err)
-            return svn_error_createf (apr_err, NULL,
+            return svn_error_createf (apr_err, NULL, 
                                       "writing config file `%s'", path);
-
+          
           apr_err = apr_file_close (f);
           if (apr_err)
-            return svn_error_createf (apr_err, NULL,
+            return svn_error_createf (apr_err, NULL, 
                                       "closing config file `%s'", path);
         }
     }
@@ -777,7 +777,7 @@ svn_config_ensure (const char *config_dir, apr_pool_t *pool)
   err = svn_io_check_path (path, &kind, pool);
   if (err)
     return SVN_NO_ERROR;
-
+  
   if (kind == svn_node_none)
     {
       apr_file_t *f;
@@ -795,7 +795,7 @@ svn_config_ensure (const char *config_dir, apr_pool_t *pool)
         "###   http-compression         Whether to compress HTTP requests\n"
         "###   neon-debug-mask          Debug mask for Neon HTTP library\n"
         "###   ssl-authority-files      List of files, each of a trusted CAs\n"
-        "###   ssl-trust-default-ca     Trust the system 'default' CAs\n"
+        "###   ssl-trust-default-ca     Trust the system 'default' CAs\n" 
         "###   ssl-ignore-unknown-ca    Allow untrusted server certificates\n"
         "###   ssl-ignore-invalid-date  Allow expired/postdated certificates\n"
         "###   ssl-ignore-host-mismatch Allow certificates for other servers\n"
@@ -877,12 +877,12 @@ svn_config_ensure (const char *config_dir, apr_pool_t *pool)
         {
           apr_err = apr_file_write_full (f, contents, strlen (contents), NULL);
           if (apr_err)
-            return svn_error_createf (apr_err, NULL,
+            return svn_error_createf (apr_err, NULL, 
                                       "writing config file `%s'", path);
-
+          
           apr_err = apr_file_close (f);
           if (apr_err)
-            return svn_error_createf (apr_err, NULL,
+            return svn_error_createf (apr_err, NULL, 
                                       "closing config file `%s'", path);
         }
     }
@@ -897,7 +897,7 @@ svn_config_ensure (const char *config_dir, apr_pool_t *pool)
   err = svn_io_check_path (path, &kind, pool);
   if (err)
     return SVN_NO_ERROR;
-
+  
   if (kind == svn_node_none)
     {
       apr_file_t *f;
@@ -957,7 +957,7 @@ svn_config_ensure (const char *config_dir, apr_pool_t *pool)
         "### On Windows, if you are specifying a full path to a command,\n"
         "### use a forward slash (/) or a paired backslash (\\\\) as the\n"
         "### path separator.  A single backslash will be treated as an\n"
-        "### escape for the following character.\n"
+        "### escape for the following character.\n" 
         "\n"
         "### Section for configuring miscelleneous Subversion options.\n"
         "# [miscellany]\n"
@@ -972,7 +972,7 @@ svn_config_ensure (const char *config_dir, apr_pool_t *pool)
         "\n"
         "### See http://subversion.tigris.org/issues/show_bug.cgi?id=668\n"
         "### for what else will soon be customized in this file.\n";
-
+        
       apr_err = apr_file_open (&f, path,
                                (APR_WRITE | APR_CREATE | APR_EXCL),
                                APR_OS_DEFAULT,
@@ -982,12 +982,12 @@ svn_config_ensure (const char *config_dir, apr_pool_t *pool)
         {
           apr_err = apr_file_write_full (f, contents, strlen (contents), NULL);
           if (apr_err)
-            return svn_error_createf (apr_err, NULL,
+            return svn_error_createf (apr_err, NULL, 
                                       "writing config file `%s'", path);
-
+          
           apr_err = apr_file_close (f);
           if (apr_err)
-            return svn_error_createf (apr_err, NULL,
+            return svn_error_createf (apr_err, NULL, 
                                       "closing config file `%s'", path);
         }
     }
