@@ -66,7 +66,7 @@ svn_cl__cat (apr_getopt_t *os,
    *    apr_file_open_std* functions exist is that you may not always
    *    have a stderr/out/in on Windows.  This is generally a problem
    *    with newer versions of Windows and services.
-   *
+   * 
    *    The other problem is that the C library functions generally
    *    work differently on Windows and Unix.  So, by using
    *    apr_file_open_std* functions, you can get a handle to an APR
