@@ -51,7 +51,7 @@ svn_fs__open_strings_table (DB **strings_p,
              svn_fs__str_to_dbt (&value, (char *) "0"),
              0));
   }
-
+  
   *strings_p = strings;
   return 0;
 }
@@ -92,18 +92,18 @@ svn_fs__string_read (svn_fs_t *fs,
   SVN_ERR (DB_WRAP (fs, "reading string", db_err));
 
   {
-    /* ### ugly hack!!
+    /* ### ugly hack!!  
 
        Thanks to what is believed to be a bug in Berkeley DB 3.2.9,
        reading off the end of this end (if it is stored in a
        B_OVERFLOW page, as BDB defines it) will not return the proper
        value in results.size, so for now we will hack around that by
-       calculating the legal sizes for ourselves.
+       calculating the legal sizes for ourselves. 
 
        This section of code *should* just be:
 
            *len = result.size;
-
+       
        and is certainly intended to someday return to that. */
     apr_size_t size;
 
@@ -309,7 +309,7 @@ svn_fs__string_copy (svn_fs_t *fs,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:

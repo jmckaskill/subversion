@@ -56,7 +56,7 @@ apply_delta (const svn_delta_edit_fns_t *before_editor,
      simply create an empty one. */
   if (! ancestor_path)
     ancestor_path = svn_stringbuf_create ("", pool);
-
+      
   if (is_update)
     {
       svn_stringbuf_t *anchor, *target;
@@ -197,7 +197,7 @@ svn_client__update_internal (const svn_delta_edit_fns_t *before_editor,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end: */

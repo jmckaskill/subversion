@@ -43,7 +43,7 @@ Here are the tasks:
 <ul>
 
    <li> <b>Convert to more appropriate string types throughout code</b> <p>
-   This is
+   This is 
    <a
    href="http://subversion.tigris.org/issues/show_bug.cgi?id=406">issue
    #406</a>.  It involves tweaks across quite a bit of code, but
@@ -59,31 +59,31 @@ Here are the tasks:
    const char *. I will put "### todo" notes, referencing this issue,
    in the code at some of these places. See in particular the
    declarations of
-
+   
       svn_fs_revision_prop()
       svn_fs_revision_proplist()
       svn_fs__get_prop()
       svn_fs__make_prop_hash()
-
+   
    Really, it is questionable that we even need to use svn_string_t
    for property names.  I believe everyone agreed informally that
    const char * would be fine, and usually more convenient for
    callers.  If so, the fix for this issue is something like:
-
+   
       1. Change all property getting functions to take a const char
          *name, and return by reference svn_string_t *value.
-
+   
       2. Change all property setting functions to take const char
          *name and svn_string_t *value.
-
+   
    Comments?  This affects not just svn_fs.h property interfaces, but
    svn_delta_edit_fns_t in svn_delta.h as well, and probably some
    stuff in svn_wc.h.
-
+   
    -Karl
-
+   
    ------- Additional Comments From Karl Fogel 2001-07-02 09:37 -------
-
+   
    Note that making this change probably implies writing
    svn_string_ncreate() and all that good stuff, or else doing it
    inline.  All our old svn_string_* functions became svn_stringbuf_t
@@ -105,14 +105,14 @@ Here are the tasks:
    $ svn help co
    checkout (co): Check out a working directory from a repository.
    usage: checkout REPOSPATH1 [REPOSPATH2 REPOSPATH3...]
-
+   
    Notice that there's no mention of the fact that it accepts
    the {-r, -d, -D} flags.  We can either just throw that information
    into the usage command, or perhaps somebody can add an organized
    system for specifying exactly which args a subcommand can accept.
    This system would also be able to *report* which args a subcommand
    can accept -- and thus be used in the usage messages.
-
+   
    This is a "bite sized task" for a volunteer.
    </pre>
    </li>

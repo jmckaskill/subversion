@@ -38,10 +38,10 @@ svn_ra_local__split_URL (svn_stringbuf_t **repos_path,
 
   /* First, check for the "file://" prefix. */
   if (memcmp ("file://", url_data, 7))
-    return svn_error_create
-      (SVN_ERR_RA_ILLEGAL_URL, 0, NULL, pool,
+    return svn_error_create 
+      (SVN_ERR_RA_ILLEGAL_URL, 0, NULL, pool, 
        ("svn_ra_local__split_URL: URL does not contain `file://' prefix"));
-
+  
   /* Then, skip what's between the "file://" prefix and the next
      occurance of '/' -- this is the hostname, and we are considering
      everything from that '/' until the end of the URL to be the
@@ -49,15 +49,15 @@ svn_ra_local__split_URL (svn_stringbuf_t **repos_path,
   hostname = url_data + 7;
   path = strchr (hostname, '/');
   if (! path)
-    return svn_error_create
-      (SVN_ERR_RA_ILLEGAL_URL, 0, NULL, pool,
+    return svn_error_create 
+      (SVN_ERR_RA_ILLEGAL_URL, 0, NULL, pool, 
        ("svn_ra_local__split_URL: URL contains only a hostname, no path"));
 
   /* Currently, the only hostnames we are allowing are the empty
      string and 'localhost' */
   if ((hostname != path) && (memcmp (hostname, "localhost", 9)))
-    return svn_error_create
-      (SVN_ERR_RA_ILLEGAL_URL, 0, NULL, pool,
+    return svn_error_create 
+      (SVN_ERR_RA_ILLEGAL_URL, 0, NULL, pool, 
        ("svn_ra_local__split_URL: URL contains unsupported hostname"));
 
   /* Duplicate the URL, starting at the top of the path */
@@ -89,10 +89,10 @@ svn_ra_local__split_URL (svn_stringbuf_t **repos_path,
   /* If we are still sitting in an error-ful state, we must not have
      found the filesystem.  We give up. */
   if (err)
-    return svn_error_create
-      (SVN_ERR_RA_NOT_VERSIONED_RESOURCE, 0, NULL, pool,
+    return svn_error_create 
+      (SVN_ERR_RA_NOT_VERSIONED_RESOURCE, 0, NULL, pool, 
        ("svn_ra_local__split_URL: Unable to find valid repository"));
-
+  
   /* We apparently found a filesystem.  Let's close it since we aren't
      really going to do anything with it. */
   SVN_ERR (svn_fs_close_fs (test_fs));

@@ -30,7 +30,7 @@ def main(fname, oname=None, skip_depends=0):
   install = { }		# install area name -> targets
   test_progs = [ ]
   test_deps = [ ]
-  fs_test_progs = [ ]
+  fs_test_progs = [ ] 
   fs_test_deps = [ ]
   file_deps = [ ]
   target_dirs = { }
@@ -252,7 +252,7 @@ def main(fname, oname=None, skip_depends=0):
   errors = errors or fs_errors
 
   ofile.write('FS_TEST_DEPS = %s\n\n' % string.join(fs_test_deps + fs_scripts))
-  ofile.write('FS_TEST_PROGRAMS = %s\n\n' %
+  ofile.write('FS_TEST_PROGRAMS = %s\n\n' % 
                               string.join(fs_test_progs + fs_scripts))
   ofile.write('TEST_DEPS = %s\n\n' % string.join(test_deps + scripts))
   ofile.write('TEST_PROGRAMS = %s\n\n' % string.join(test_progs + scripts))

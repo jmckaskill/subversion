@@ -121,7 +121,7 @@ typedef struct svn_config_t svn_config_t;
 
    If FILE does not exist, then if MUST_EXIST, return an error,
    otherwise return an empty svn_config_t. */
-
+   
 svn_error_t *svn_config_read (svn_config_t **cfgp,
                               const char *file,
                               svn_boolean_t must_exist,

@@ -25,10 +25,10 @@ and the @dfn{Subversion Server} library.
 @section Filesystem
 
 @menu
-* Filesystem Overview::
-* API::
-* Repository Structure::
-* Implementation::
+* Filesystem Overview::         
+* API::                         
+* Repository Structure::        
+* Implementation::              
 @end menu
 
 @node Filesystem Overview
@@ -82,9 +82,9 @@ Finally, read the well-documented API in
 @subsection Repository Structure
 
 @menu
-* Schema::
-* Bubble-Up Method::
-* Diffy Storage::
+* Schema::                      
+* Bubble-Up Method::            
+* Diffy Storage::               
 @end menu
 
 @node Schema
@@ -701,8 +701,8 @@ ideas for the future.
 Subversion has two levels of security, both abstracted.
 
 @menu
-* Username Authentication::
-* Authorization::
+* Username Authentication::     
+* Authorization::               
 @end menu
 
 @node Username Authentication
@@ -781,7 +781,7 @@ Here's an example of this mapping:
 jimb : Jim Blandy :   jim/unix/localhost,  \
                       jimb/smtp/jimb@@red-bean.com, \
                       jimb/kerberos/redhat.com, \
-                      jblandy/DAV/red-bean.com
+                      jblandy/DAV/red-bean.com 
 @end example
 
 @item

@@ -51,7 +51,7 @@ directory entries (@dfn{dirents}) and properties.
 So far, so good.  The concept of versioning directories seems fine in
 the repository -- the repository is very theoretically pure anyway.
 However, because working copies allow mixed revisions, it's easy to
-create problematic use-cases.
+create problematic use-cases.  
 
 
 @c ------------------------------------------------------------------
@@ -130,7 +130,7 @@ client up to revision 2.
 @c           the entire entry.  (no more `deleted' flag)
 @c
 @c       (2) the repository will say nothing about the item, which means
-@c           that it's fully aware that your item is gone, and this is
+@c           that it's fully aware that your item is gone, and this is 
 @c           the correct state to be in.  In this case, the entire entry
 @c           is removed.  (no more `deleted' flag)
 @c
@@ -157,7 +157,7 @@ client up to revision 2.
 @subsection Problem
 
 Again, suppose our working copy has directory @samp{DIR:1} containing
-file @samp{foo:1}, along with some other files.
+file @samp{foo:1}, along with some other files.  
 
 Now, unbeknownst to us, somebody else adds a new file @file{bar} to this
 directory, creating revision 2 (and @samp{DIR:2}).
@@ -195,7 +195,7 @@ committed, and only such children will have local revisions bumped.)
 
 In this light, it's clear that our "overeager directory" problem only
 happens in the second situation -- those times when we're committing
-directory propchanges.
+directory propchanges.  
 
 Thus the answer is simply not to allow property-commits on directories
 that are out-of-date.  It sounds a bit restrictive, but there's no other
@@ -215,14 +215,14 @@ way to keep directory revisions accurate.
 
 
 Really, the Subversion client seems to have two difficult---almost
-contradictory---goals.
+contradictory---goals.  
 
 First, it needs to make the user experience friendly, which generally
 means being a bit "sloppy" about deciding what a user can or cannot do.
 This is why it allows mixed-revision working copies, and why it tries to
 let users execute local tree-changing operations (delete, add, move,
 copy) in situations that aren't always perfectly, theoretically "safe"
-or pure.
+or pure.  
 
 Second, the client tries to keep the working copy in correctly in sync
 with the repository using as little communication as possible.  Of

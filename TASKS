@@ -14,7 +14,7 @@ to take something on.
 
 
 3. Split XML file handling out of libsvn_client. That stuff should go
-   into libsvn_ra_xml since it is (effectively) a different repository
+   into libsvn_ra_xml since it is (effectively) a different repository 
    type for patches, commits, etc.
 
    libsvn_client would then select the appropriate RA layer
