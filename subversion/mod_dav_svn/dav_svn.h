@@ -71,7 +71,7 @@ typedef struct {
 
   /* the root of the revision tree */
   svn_fs_node_t *root_dir;
-
+  
 } dav_svn_repos;
 
 /* internal structure to hold information about this resource */
@@ -167,7 +167,7 @@ dav_error *dav_svn_store_activity(dav_svn_repos *repos,
 #endif /* DAV_SVN_H */
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:

@@ -106,7 +106,7 @@ main (int argc, char *argv[])
 
   /* How many tests are there? */
   int array_size = get_array_size();
-
+  
   /* Initialize APR (Apache pools) */
   if (apr_initialize () != APR_SUCCESS)
     {
