@@ -65,7 +65,7 @@ make_error_internal (apr_status_t apr_err,
   new_error->apr_err = apr_err;
   new_error->src_err = src_err;
   new_error->child   = child;
-  new_error->pool    = newpool;
+  new_error->pool    = newpool;  
 
   return new_error;
 }
@@ -90,7 +90,7 @@ svn_error__make_error_pool (apr_pool_t *parent, apr_pool_t **error_pool)
   /* Create a subpool to hold all error allocations. We use a subpool rather
      than the parent itself, so that we can clear the error pool. */
   *error_pool = apr_pool_sub_make (parent, abort_on_pool_failure);
-
+  
   /* Set the error pool on itself. */
   apr_err = apr_pool_userdata_set (*error_pool, SVN_ERROR_POOL, apr_pool_cleanup_null,
                               *error_pool);
@@ -100,7 +100,7 @@ svn_error__make_error_pool (apr_pool_t *parent, apr_pool_t **error_pool)
 
 
 /* Get POOL's error pool into *ERROR_POOL.
- *
+ * 
  * If ROOTED_HERE is not null, then
  *   - If the error pool is a direct subpool of POOL, set *ROOTED_HERE to 1
  *   - Else set *ROOTED_HERE to 0
@@ -197,7 +197,7 @@ apr_size_t
 svn_pool_get_size (apr_pool_t *p)
 {
   apr_size_t num_bytes = 0;
-
+  
   /* Do nothing if P is NULL */
   if (p == NULL)
     return 0;
@@ -264,7 +264,7 @@ svn_pool_create_debug (apr_pool_t *parent_pool,
 
 #ifdef SVN_POOL_DEBUG
   {
-    fprintf (stderr, "Pool 0x%08X (parent=0x%08X) created at %s:%d\n",
+    fprintf (stderr, "Pool 0x%08X (parent=0x%08X) created at %s:%d\n", 
              (unsigned int)ret_pool, (unsigned int)parent_pool, file, line);
   }
 #endif /* SVN_POOL_DEBUG */
@@ -274,10 +274,10 @@ svn_pool_create_debug (apr_pool_t *parent_pool,
 
 
 #ifndef SVN_POOL_DEBUG
-void
+void 
 svn_pool_clear (apr_pool_t *p)
 #else /* SVN_POOL_DEBUG */
-void
+void 
 svn_pool_clear_debug (apr_pool_t *p,
                       const char *file,
                       int line)
@@ -285,14 +285,14 @@ svn_pool_clear_debug (apr_pool_t *p,
 {
   apr_pool_t *error_pool;
   svn_boolean_t subpool_of_p_p;  /* That's "predicate" to you, bud. */
-
+    
 #ifdef SVN_POOL_DEBUG
   {
     apr_size_t num_bytes = svn_pool_get_size (p);
-    apr_size_t global_num_bytes =
+    apr_size_t global_num_bytes = 
       svn_pool_get_size (find_oldest_pool_ancestor (p));
-
-    fprintf (stderr, "Pool 0x%08X cleared at %s:%d (%d/%d bytes)\n",
+    
+    fprintf (stderr, "Pool 0x%08X cleared at %s:%d (%d/%d bytes)\n", 
              (unsigned int)p, file, line, num_bytes, global_num_bytes);
   }
 #endif /* SVN_POOL_DEBUG */
@@ -335,10 +335,10 @@ svn_pool_destroy_debug (apr_pool_t *p,
 #ifdef SVN_POOL_DEBUG
   {
     apr_size_t num_bytes = svn_pool_get_size (p);
-    apr_size_t global_num_bytes =
+    apr_size_t global_num_bytes = 
       svn_pool_get_size (find_oldest_pool_ancestor (p));
-
-    fprintf (stderr, "Pool 0x%08X destroyed at %s:%d (%d/%d bytes)\n",
+    
+    fprintf (stderr, "Pool 0x%08X destroyed at %s:%d (%d/%d bytes)\n", 
              (unsigned int)p, file, line, num_bytes, global_num_bytes);
   }
 #endif /* SVN_POOL_DEBUG */
@@ -360,7 +360,7 @@ svn_error_create (apr_status_t apr_err,
   svn_error_t *err;
 
   err = make_error_internal (apr_err, src_err, child, pool);
-
+  
   err->message = (const char *) apr_pstrdup (err->pool, message);
 
   return err;
@@ -416,7 +416,7 @@ svn_handle_error (svn_error_t *err, FILE *stream, svn_boolean_t fatal)
   /* Note: we can also log errors here someday. */
 
   /* Is this a Subversion-specific error code? */
-  if ((err->apr_err > APR_OS_START_USEERR)
+  if ((err->apr_err > APR_OS_START_USEERR) 
       && (err->apr_err <= APR_OS_START_CANONERR))
     fprintf (stream, "\nsvn_error: #%d ", err->apr_err);
 
@@ -442,7 +442,7 @@ svn_handle_error (svn_error_t *err, FILE *stream, svn_boolean_t fatal)
 
 
 
-void
+void 
 svn_handle_warning (void *data, const char *fmt, ...)
 {
   va_list ap;
@@ -459,8 +459,8 @@ svn_handle_warning (void *data, const char *fmt, ...)
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
- * end:
+ * end: 
  */

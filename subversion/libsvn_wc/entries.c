@@ -28,7 +28,7 @@
 
 /* The administrative `entries' file tracks information about files
    and subdirs within a particular directory.
-
+   
    See the section on the `entries' file in libsvn_wc/README, for
    concrete information about the XML format.
 */
@@ -69,13 +69,13 @@ svn_wc__entries_init (svn_string_t *path,
 
   /* Add an entry for the dir itself -- name is absent, only the
      revision and default ancestry are present as xml attributes. */
-  svn_xml_make_open_tag
+  svn_xml_make_open_tag 
     (&accum,
      pool,
      svn_xml_self_closing,
      SVN_WC__ENTRIES_ENTRY,
      SVN_WC_ENTRY_ATTR_KIND,
-     svn_string_create (SVN_WC__ENTRIES_ATTR_DIR_STR, pool),
+     svn_string_create (SVN_WC__ENTRIES_ATTR_DIR_STR, pool), 
      SVN_WC_ENTRY_ATTR_REVISION,
      svn_string_create (initial_revstr, pool),
      SVN_WC_ENTRY_ATTR_ANCESTOR,
@@ -114,7 +114,7 @@ svn_wc__entries_init (svn_string_t *path,
 struct entries_accumulator
 {
   /* Keys are entry names, vals are (struct svn_wc_entry_t *)'s. */
-  apr_hash_t *entries;
+  apr_hash_t *entries; 
 
   /* The dir whose entries file this is. */
   svn_string_t *path;
@@ -198,7 +198,7 @@ handle_start_tag (void *userData, const char *tagname, const char **atts)
               = apr_hash_get (entry->attributes,
                               SVN_WC_ENTRY_ATTR_NAME, APR_HASH_KEY_STRING);
 
-            svn_xml_signal_bailout
+            svn_xml_signal_bailout 
               (svn_error_createf (SVN_ERR_UNKNOWN_NODE_KIND,
                                   0,
                                   NULL,
@@ -226,7 +226,7 @@ handle_start_tag (void *userData, const char *tagname, const char **atts)
                                      SVN_WC_ENTRY_ATTR_PROP_TIME,
                                      APR_HASH_KEY_STRING);
         if (prop_timestr)
-          entry->prop_time = svn_wc__string_to_time (prop_timestr);
+          entry->prop_time = svn_wc__string_to_time (prop_timestr);        
       }
 
       /* Look for any action flags. */
@@ -240,7 +240,7 @@ handle_start_tag (void *userData, const char *tagname, const char **atts)
         svn_string_t *conflictstr
           = apr_hash_get (entry->attributes,
                           SVN_WC_ENTRY_ATTR_CONFLICT, APR_HASH_KEY_STRING);
-
+        
 
         /* Technically, the value has to be "true".  But we only have
            these attributes at all when they have values of "true", so
@@ -268,7 +268,7 @@ take_from_entry (svn_wc_entry_t *src, svn_wc_entry_t *dst, apr_pool_t *pool)
      own, unless this is a subdirectory. */
   if ((dst->revision == SVN_INVALID_REVNUM) && (dst->kind != svn_node_dir))
     dst->revision = src->revision;
-
+  
   /* Inherits parent's ancestor if doesn't have an ancestor of one's
      own and is not marked for addition */
   if ((! dst->ancestor) && (! (dst->state & SVN_WC_ENTRY_ADDED)))
@@ -283,7 +283,7 @@ take_from_entry (svn_wc_entry_t *src, svn_wc_entry_t *dst, apr_pool_t *pool)
 }
 
 /* Declaration to fix circular dependency between two static funcs.
-
+   
    Fill ENTRIES according to PATH's entries file. */
 static svn_error_t *
 read_entries (apr_hash_t *entries,
@@ -323,8 +323,8 @@ resolve_to_defaults (svn_string_t *path,
                              NULL,
                              pool,
                              "default entry missing ancestry");
-
-
+  
+    
   /* Then use it to fill in missing information in other entries. */
   for (hi = apr_hash_first (entries); hi; hi = apr_hash_next (hi))
     {
@@ -338,7 +338,7 @@ resolve_to_defaults (svn_string_t *path,
       this_entry = val;
       entryname = svn_string_ncreate (key, keylen, pool);
 
-      if (this_entry == default_entry)
+      if (this_entry == default_entry) 
         {
           /* THIS_DIR already has all ancestry info.  But all -flag-
              information is living in parent's entry.  Let's go fetch
@@ -356,13 +356,13 @@ resolve_to_defaults (svn_string_t *path,
               svn_wc_entry_t *parent_entry;
               apr_hash_t *parent_entries = apr_hash_make (pool);
               svn_string_t *basename, *parent_path;
-
-              svn_path_split (path, &parent_path, &basename,
+          
+              svn_path_split (path, &parent_path, &basename, 
                               svn_path_local_style, pool);
               read_entries (parent_entries, parent_path, FALSE, pool);
-              parent_entry =
+              parent_entry = 
                 (svn_wc_entry_t *) apr_hash_get (parent_entries,
-                                                 basename->data,
+                                                 basename->data, 
                                                  basename->len);
 
               if (parent_entry)
@@ -381,14 +381,14 @@ resolve_to_defaults (svn_string_t *path,
 
 
           SVN_ERR (read_entries (child_entries, child_path, FALSE, pool));
-          child_entry =
+          child_entry = 
             (svn_wc_entry_t *) apr_hash_get (child_entries,
                                              SVN_WC_ENTRY_THIS_DIR,
                                              APR_HASH_KEY_STRING);
           if (! child_entry)
             return
-              svn_error_createf
-              (SVN_ERR_WC_ENTRY_NOT_FOUND, 0, NULL, pool,
+              svn_error_createf 
+              (SVN_ERR_WC_ENTRY_NOT_FOUND, 0, NULL, pool, 
               "Can't open default entry for %s", child_path->data);
 
           /* Copy all info over *except* the flag state, which
@@ -399,7 +399,7 @@ resolve_to_defaults (svn_string_t *path,
 
           /* TODO: Commenting out this line fixes the case whereby
              modifying the entries file for A/B ends up putting an
-             extra prop-timestamp in the "E" subdir entry.
+             extra prop-timestamp in the "E" subdir entry. 
 
              The REAL issue here is that this whole routine needs to
              stop digging into subdirs to find information.  We've
@@ -423,7 +423,7 @@ resolve_to_defaults (svn_string_t *path,
                         SVN_WC_ENTRY_ATTR_NAME, APR_HASH_KEY_STRING,
                         entryname);
         }
-
+      
       else /* it's a file, so inherit ancestry from THIS_DIR */
         take_from_entry (default_entry, this_entry, pool);
     }
@@ -442,13 +442,13 @@ normalize_entry (svn_wc_entry_t *entry, apr_pool_t *pool)
     apr_hash_set (entry->attributes,
                   SVN_WC_ENTRY_ATTR_REVISION, APR_HASH_KEY_STRING,
                   svn_string_createf (pool, "%ld", entry->revision));
-
+  
   /* Ancestor. */
   if ((entry->ancestor) && (entry->ancestor->len))
   apr_hash_set (entry->attributes,
                 SVN_WC_ENTRY_ATTR_ANCESTOR, APR_HASH_KEY_STRING,
                 entry->ancestor);
-
+  
   /* Kind. */
   if (entry->kind == svn_node_dir)
     apr_hash_set (entry->attributes,
@@ -458,10 +458,10 @@ normalize_entry (svn_wc_entry_t *entry, apr_pool_t *pool)
     apr_hash_set (entry->attributes,
                   SVN_WC_ENTRY_ATTR_KIND, APR_HASH_KEY_STRING,
                   NULL);
-
+  
   /* State. */
   {
-    /* Just make the att hash *exactly* reflect the `state' flags.
+    /* Just make the att hash *exactly* reflect the `state' flags.  
 
        By the time we get here, the CLEAR_NAMED and CLEAR_ALL flags
        should *not* be set in the entry.  This would meaningless;
@@ -488,7 +488,7 @@ normalize_entry (svn_wc_entry_t *entry, apr_pool_t *pool)
                   (entry->state & SVN_WC_ENTRY_CONFLICTED) ?
                   svn_string_create ("true", pool) : NULL);
   }
-
+  
   /* Timestamps. */
   if (entry->text_time)
     {
@@ -547,13 +547,13 @@ read_entries (apr_hash_t *entries,
   do {
     apr_err = apr_file_read_full (infile, buf, sizeof(buf), &bytes_read);
     if (apr_err && !APR_STATUS_IS_EOF(apr_err))
-      return svn_error_create
+      return svn_error_create 
         (apr_err, 0, NULL, pool, "read_entries: apr_file_read_full choked");
-
+    
     err = svn_xml_parse (svn_parser, buf, bytes_read,
                          APR_STATUS_IS_EOF(apr_err));
     if (err)
-      return svn_error_quick_wrap
+      return svn_error_quick_wrap 
         (err,
          "read_entries: xml parser failed.");
   } while (!APR_STATUS_IS_EOF(apr_err));
@@ -623,15 +623,15 @@ svn_wc_entry (svn_wc_entry_t **entry,
          (we could have failed because PATH is under rev control as a
          file, not a directory, i.e., the user rm'd the file and
          created a dir there).
-
+         
          Or maybe we're here because PATH is a regular file.
-
+         
          Either way, if PATH is a versioned entity, it is versioned as
          a file.  So look split and look in parent for entry info. */
 
       svn_string_t *dir, *basename;
       svn_path_split (path, &dir, &basename, svn_path_local_style, pool);
-
+      
       err = svn_wc_check_wc (dir, &is_wc, pool);
       if (err)
         return err;
@@ -639,11 +639,11 @@ svn_wc_entry (svn_wc_entry_t **entry,
         return svn_error_createf
           (SVN_ERR_WC_OBSTRUCTED_UPDATE, 0, NULL, pool,
            "svn_wc_entry: %s is not a working copy directory", path->data);
-
+      
       err = svn_wc_entries_read (&entries, dir, pool);
       if (err)
         return err;
-
+      
       *entry = apr_hash_get (entries, basename->data, basename->len);
     }
 
@@ -681,7 +681,7 @@ svn_wc__entries_write (apr_hash_t *entries,
   apr_status_t apr_err;
   apr_hash_index_t *hi;
   svn_wc_entry_t *this_dir;
-  svn_string_t *this_dir_name =
+  svn_string_t *this_dir_name = 
     svn_string_create (SVN_WC_ENTRY_THIS_DIR, pool);
 
   /* Open entries file for writing. */
@@ -699,7 +699,7 @@ svn_wc__entries_write (apr_hash_t *entries,
                          NULL);
 
   /* Get a copy of the "this dir" entry for comparison purposes. */
-  this_dir = apr_hash_get (entries, SVN_WC_ENTRY_THIS_DIR,
+  this_dir = apr_hash_get (entries, SVN_WC_ENTRY_THIS_DIR, 
                            APR_HASH_KEY_STRING);
 
   for (hi = apr_hash_first (entries); hi; hi = apr_hash_next (hi))
@@ -721,7 +721,7 @@ svn_wc__entries_write (apr_hash_t *entries,
          following things:
          1. the current directory's "this dir" entry.
          2. an entry marked for addition (which should have invalid
-            revnum and
+            revnum and 
          2. the revision or ancestor is valid and different than that of
          the "this dir" entry.
          3. the entry is a new addition
@@ -735,7 +735,7 @@ svn_wc__entries_write (apr_hash_t *entries,
              the same as that of the "this dir" entry, don't write it
              out at all. */
           if (this_entry->revision == this_dir->revision)
-            apr_hash_set (this_entry->attributes,
+            apr_hash_set (this_entry->attributes, 
                           SVN_WC_ENTRY_ATTR_REVISION,
                           APR_HASH_KEY_STRING,
                           NULL);
@@ -749,7 +749,7 @@ svn_wc__entries_write (apr_hash_t *entries,
               svn_path_add_component (this_path, name,
                                       svn_path_repos_style);
               if (svn_string_compare (this_path, this_entry->ancestor))
-                apr_hash_set (this_entry->attributes,
+                apr_hash_set (this_entry->attributes, 
                               SVN_WC_ENTRY_ATTR_ANCESTOR,
                               APR_HASH_KEY_STRING,
                               NULL);
@@ -771,7 +771,7 @@ svn_wc__entries_write (apr_hash_t *entries,
     err = svn_error_createf (apr_err, 0, NULL, pool,
                              "svn_wc__entries_write: %s",
                              path->data);
-
+      
   /* Close & sync. */
   err2 = svn_wc__close_adm_file (outfile, path, SVN_WC__ADM_ENTRIES, 1, pool);
   if (err)
@@ -808,7 +808,7 @@ fold_entry (apr_hash_t *entries,
   struct svn_wc_entry_t *entry
     = apr_hash_get (entries, name->data, name->len);
   int incoming_flags = state;
-
+  
   assert (name != NULL);
 
   if (! entry)
@@ -850,12 +850,12 @@ fold_entry (apr_hash_t *entries,
           void *v;
           const char *key;
           svn_string_t *val;
-
+          
           /* Get a hash key and value */
           apr_hash_this (hi, &k, &klen, &v);
           key = (const char *) k;
           val = (svn_string_t *) v;
-
+          
           apr_hash_set (entry->attributes, key, APR_HASH_KEY_STRING, val);
         }
     }
@@ -945,8 +945,8 @@ interpret_changes (apr_hash_t *entries,
 
       else
         /* Any other flag state is verboten, or at least nonsensical. */
-        return
-          svn_error_createf
+        return 
+          svn_error_createf 
           (SVN_ERR_WC_ENTRY_BOGUS_MERGE, 0, NULL, pool,
            "error: bogus flags (%d) used in creation of entry `%s'",
            *state, name->data);
@@ -962,9 +962,9 @@ interpret_changes (apr_hash_t *entries,
      the delete flag, then another caller set the add flag later.) */
   if ((new_state & SVN_WC_ENTRY_DELETED)
       && (new_state & SVN_WC_ENTRY_ADDED))
-    return
-      svn_error_createf
-      (SVN_ERR_WC_ENTRY_BOGUS_MERGE, 0, NULL, pool,
+    return 
+      svn_error_createf 
+      (SVN_ERR_WC_ENTRY_BOGUS_MERGE, 0, NULL, pool, 
        "error: simultaneous set of add & del flags on `%s'", name->data);
 
   /* All the (remaining) possible current states. */
@@ -982,7 +982,7 @@ interpret_changes (apr_hash_t *entries,
                  && (! (new_state & SVN_WC_ENTRY_DELETED)));
   new_delonly = ((new_state & SVN_WC_ENTRY_DELETED)
                  && (! (new_state & SVN_WC_ENTRY_ADDED)));
-
+  
 
   /* Remaining logic, yum. */
 
@@ -990,7 +990,7 @@ interpret_changes (apr_hash_t *entries,
     {
       if (current_addonly || current_neither)
         {
-          return svn_error_createf(SVN_ERR_WC_ENTRY_EXISTS, 0, NULL, pool,
+          return svn_error_createf(SVN_ERR_WC_ENTRY_EXISTS, 0, NULL, pool, 
                                    "%s is already under version control",
                                    name->data);
         }
@@ -999,7 +999,7 @@ interpret_changes (apr_hash_t *entries,
           /* TODO: generate a friendly warning here someday */
         }
     }
-
+  
   else if (new_delonly)
     {
       if (current_delonly)
@@ -1024,7 +1024,7 @@ interpret_changes (apr_hash_t *entries,
              2. the user added a new entry with the same name
              3. the user reversed decision #2, and now wants to
                 deleted the added file.
-
+                
              So the logical thing to do is just make sure that the add
              flag gets *un*set during the flag merge. */
 
@@ -1039,7 +1039,7 @@ interpret_changes (apr_hash_t *entries,
              add flag now. */
         }
     }
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -1072,7 +1072,7 @@ internal_fold_sync (svn_boolean_t be_intelligent,
   /* Load whole entries file */
   err = svn_wc_entries_read (&entries, path, pool);
   if (err) return err;
-
+  
   if (name == NULL)
     name = svn_string_create (SVN_WC_ENTRY_THIS_DIR, pool);
 
@@ -1098,7 +1098,7 @@ internal_fold_sync (svn_boolean_t be_intelligent,
   if (! entry_was_deleted_p)
     fold_entry (entries, name, revision, kind, state, text_time,
                 prop_time, pool, atts, ap);
-
+  
   /* Write whole entries file */
   err = svn_wc__entries_write (entries, path, pool);
   if (err) return err;
@@ -1149,7 +1149,7 @@ svn_wc__entry_fold_sync (svn_string_t *path,
                             path, name, revision, kind, state,
                             text_time, prop_time, pool, atts, ap);
   va_end (ap);
-
+  
   if (err) return err;
 
   return SVN_NO_ERROR;
@@ -1180,7 +1180,7 @@ svn_wc__entry_fold_sync_intelligently (svn_string_t *path,
                             path, name, revision, kind, state,
                             text_time, prop_time, pool, atts, ap);
   va_end (ap);
-
+  
   if (err) return err;
 
   return SVN_NO_ERROR;
@@ -1281,7 +1281,7 @@ svn_wc__entry_dup (svn_wc_entry_t *entry, apr_pool_t *pool)
  *
  *    svn commit foo bar/baz/blim.c blah.c
  *
- * the commit should
+ * the commit should 
  *
  *    1. descend into foo (which is a directory), calling ENTER_DIR
  *       and LEAVE_DIR on foo itself, and calling those two and
@@ -1372,7 +1372,7 @@ svn_wc__compose_paths (apr_hash_t *paths, apr_pool_t *pool)
 #endif /* 0 */
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
