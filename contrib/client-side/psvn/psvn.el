@@ -436,7 +436,7 @@ for  example: '(\"revert\" \"file1\"\)"
         (goto-char (point-min))
         (while (search-forward "\\" nil t)
           (replace-match "/")))))
-
+    
 (defun svn-process-sentinel (process event)
   ;;(princ (format "Process: %s had the event `%s'" process event)))
   ;;(save-excursion
