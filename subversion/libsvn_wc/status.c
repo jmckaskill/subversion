@@ -28,12 +28,12 @@
 #include "svn_error.h"
 #include "svn_path.h"
 #include "svn_wc.h"
-#include "wc.h"
+#include "wc.h"   
 
 
 
 /* Fill in *STATUS for PATH, whose entry data is in ENTRY.  Allocate
-   *STATUS in POOL.
+   *STATUS in POOL. 
 
    ENTRY may be null, for non-versioned entities.
    Else, ENTRY's pool must not be shorter-lived than STATUS's, since
@@ -69,19 +69,19 @@ assemble_status (svn_wc_status_t **status,
   /* Pre-emptive strike:  see if there are any local mods.  If not, we
      might just return NULL instead of a status structure. */
 
-
+      
   /* Before examining the entry's state, determine if a property
      component exists. */
   err = svn_wc__prop_path (&prop_path, path, 0, pool);
-  if (err) return err;
+  if (err) return err;      
   err = svn_io_check_path (prop_path, &prop_kind, pool);
   if (err) return err;
-
+  
   if (prop_kind == svn_node_file)
     prop_exists = TRUE;
-
+  
   /* Look for local mods, independent of other tests. */
-
+  
   /* If the entry has a property file, see if it has local
      changes. */
   if (prop_exists)
@@ -89,14 +89,14 @@ assemble_status (svn_wc_status_t **status,
       err = svn_wc_props_modified_p (&prop_modified_p, path, pool);
       if (err) return err;
     }
-
+  
   /* If the entry is a file, check for textual modifications */
   if (entry->kind == svn_node_file)
     {
       err = svn_wc_text_modified_p (&text_modified_p, path, pool);
       if (err) return err;
     }
-
+  
   /* Check for absence first.  Note that svn_wc_text_modified_p()
      claims there are no modifications if file is simply absent;
      instead, we use svn_io_check_path() to discover absence. */
@@ -112,7 +112,7 @@ assemble_status (svn_wc_status_t **status,
       *status = NULL;
       return SVN_NO_ERROR;
     }
-
+  
   /* If we get here, then we know that either
        - GET_ALL is set,  or
        - GET_ALL is zero, but we found that ENTRY has local mods.
@@ -138,7 +138,7 @@ assemble_status (svn_wc_status_t **status,
      a list of entries, which has now been changed?  And would
      we then show that `M' in the first column?  Ponder,
      ponder.  */
-
+  
   /* Mark `M' or `?' in status structure based on tests above. */
 
   if (path_kind == svn_node_none)
@@ -147,37 +147,37 @@ assemble_status (svn_wc_status_t **status,
     stat->text_status = svn_wc_status_modified;
 
   if (prop_modified_p)
-    stat->prop_status = svn_wc_status_modified;
-
+    stat->prop_status = svn_wc_status_modified;      
+  
   if (entry->schedule == svn_wc_schedule_add)
     {
       /* If an entry has been marked for future addition to the
          repository, we *know* it has a textual component: */
       stat->text_status = svn_wc_status_added;
-
+      
       /* However, it may or may not have a property component.  If
          it does, report that portion as "added" too. */
       if (prop_exists)
         stat->prop_status = svn_wc_status_added;
     }
-
+  
   else if (entry->schedule == svn_wc_schedule_replace)
     {
       stat->text_status = svn_wc_status_replaced;
-
+      
       if (prop_exists)
         stat->prop_status = svn_wc_status_replaced;
     }
-
+  
   else if ((entry->schedule == svn_wc_schedule_delete)
            || (entry->existence == svn_wc_existence_deleted))
     {
       stat->text_status = svn_wc_status_deleted;
-
+      
       if (prop_exists)
         stat->prop_status = svn_wc_status_deleted;
     }
-
+  
   if (entry->conflicted)
     {
       /* We must decide if either component is "conflicted", based
@@ -185,7 +185,7 @@ assemble_status (svn_wc_status_t **status,
          exist.  Luckily, we have a function to do this.  :) */
       svn_boolean_t text_conflict_p, prop_conflict_p;
       svn_stringbuf_t *parent_dir;
-
+      
       if (entry->kind == svn_node_file)
         {
           parent_dir = svn_stringbuf_dup (path, pool);
@@ -193,24 +193,24 @@ assemble_status (svn_wc_status_t **status,
         }
       else if (entry->kind == svn_node_dir)
         parent_dir = path;
-
+      
       err = svn_wc_conflicted_p (&text_conflict_p,
                                  &prop_conflict_p,
                                  parent_dir,
                                  entry,
                                  pool);
       if (err) return err;
-
+      
       if (text_conflict_p)
         stat->text_status = svn_wc_status_conflicted;
       if (prop_conflict_p)
         stat->prop_status = svn_wc_status_conflicted;
     }
-
+  
   /* Check for locked directories. */
   if (entry->kind == svn_node_dir)
     SVN_ERR (svn_wc__locked (&(stat->locked), path, pool));
-
+  
   *status = stat;
 
   return SVN_NO_ERROR;
@@ -232,7 +232,7 @@ add_status_structure (apr_hash_t *statushash,
 
   if (statstruct)
     apr_hash_set (statushash, path->data, path->len, statstruct);
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -258,7 +258,7 @@ svn_wc_status (svn_wc_status_t **status,
   err = assemble_status (&s, path, entry, TRUE, pool);
   if (err)
     return err;
-
+  
   *status = s;
   return SVN_NO_ERROR;
 }
@@ -277,11 +277,11 @@ svn_wc_statuses (apr_hash_t *statushash,
   apr_hash_t *entries;
   svn_wc_entry_t *entry;
   void *value;
-
+  
   /* Is PATH a directory or file? */
   err = svn_io_check_path (path, &kind, pool);
   if (err) return err;
-
+  
   /* kff todo: this has to deal with the case of a type-changing edit,
      i.e., someone removed a file under vc and replaced it with a dir,
      or vice versa.  In such a case, when you ask for the status, you
@@ -290,7 +290,7 @@ svn_wc_statuses (apr_hash_t *statushash,
      is handled in entries.c:svn_wc_entry. */
 
   /* Read the appropriate entries file */
-
+  
   /* If path points to just one file, or at least to just one
      non-directory, store just one status structure in the
      STATUSHASH and return. */
@@ -300,7 +300,7 @@ svn_wc_statuses (apr_hash_t *statushash,
 
       /* Figure out file's parent dir */
       svn_path_split (path, &dirpath, &basename,
-                      svn_path_local_style, pool);
+                      svn_path_local_style, pool);      
 
       /* Load entries file for file's parent */
       err = svn_wc_entries_read (&entries, dirpath, pool);
@@ -317,7 +317,7 @@ svn_wc_statuses (apr_hash_t *statushash,
                                   path->data);
 
       /* Convert the entry into a status structure, store in the hash.
-
+         
          ### Notice that because we're getting one specific file,
          we're ignoring the GET_ALL flag and unconditionally fetching
          the status structure. */
@@ -371,7 +371,7 @@ svn_wc_statuses (apr_hash_t *statushash,
              kff todo: However, must handle mixed working copies.
              What if the subdir is not under revision control, or is
              from another repository? */
-
+          
           /* Do *not* store THIS_DIR in the statushash, unless this
              path has never been seen before.  We don't want to add
              the path key twice. */
@@ -400,7 +400,7 @@ svn_wc_statuses (apr_hash_t *statushash,
                     {
                       /* If ask to descent, we do not contend. */
                       SVN_ERR (svn_wc_statuses (statushash, fullpath,
-                                                descend, get_all, pool));
+                                                descend, get_all, pool)); 
                     }
                 }
               else if ((kind == svn_node_file) || (kind == svn_node_none))
@@ -412,13 +412,13 @@ svn_wc_statuses (apr_hash_t *statushash,
             }
         }
     }
-
+  
   return SVN_NO_ERROR;
 }
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
