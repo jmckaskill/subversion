@@ -104,7 +104,7 @@ svn_client_update (const char *path,
       /* Open an RA session for the URL */
       SVN_ERR (svn_client__open_ra_session (&session, ra_lib, URL, anchor,
                                             adm_access, NULL,
-                                            TRUE, TRUE, TRUE,
+                                            TRUE, TRUE, TRUE, 
                                             ctx, pool));
 
       /* ### todo: shouldn't svn_client__get_revision_number be able
@@ -135,7 +135,7 @@ svn_client_update (const char *path,
                                     TRUE, recurse,
                                     ctx->notify_func, ctx->notify_baton,
                                     traversal_info, pool);
-
+      
       /* Sleep for one second to ensure timestamp integrity. */
       apr_sleep (apr_time_from_sec(1));
 
@@ -144,8 +144,8 @@ svn_client_update (const char *path,
 
       /* Close the RA session. */
       SVN_ERR (ra_lib->close (session));
-    }
-
+    }      
+  
   /* We handle externals after the update is complete, so that
      handling external items (and any errors therefrom) doesn't delay
      the primary operation.  */
