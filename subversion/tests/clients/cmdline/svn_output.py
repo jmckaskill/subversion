@@ -3,9 +3,9 @@
 #  svn_output.py:  module to parse various kinds of line-oriented output
 #                  from the svn command-line client into trees
 #
-#  Subversion is a tool for revision control.
+#  Subversion is a tool for revision control. 
 #  See http://subversion.tigris.org for more information.
-#
+#    
 # ====================================================================
 # Copyright (c) 2000-2001 CollabNet.  All rights reserved.
 #
@@ -30,7 +30,7 @@ def tree_from_checkout(lines):
 
   root = svn_tree.SVNTreeNode(svn_tree.root_node_name)
   rm = re.compile ('^(..)\s+(.+)')
-
+  
   for line in lines:
     match = rm.search(line)
     if match and match.groups():
@@ -50,7 +50,7 @@ def tree_from_commit(lines):
 
   root = svn_tree.SVNTreeNode(svn_tree.root_node_name)
   rm = re.compile ('^(\w+)\s+(.+)')
-
+  
   for line in lines:
     match = rm.search(line)
     if match and match.groups():
@@ -72,7 +72,7 @@ def tree_from_status(lines):
 
   root = svn_tree.SVNTreeNode(svn_tree.root_node_name)
   rm = re.compile ('^(..)\s+(\d+)\s+\(.+\)\s+(.+)')
-
+  
   for line in lines:
     match = rm.search(line)
     if match and match.groups():
