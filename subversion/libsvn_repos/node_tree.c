@@ -45,7 +45,7 @@
 
 /*** Node creation and assembly structures and routines. ***/
 static svn_repos_node_t *
-create_node (const char *name,
+create_node (const char *name, 
              apr_pool_t *pool)
 {
   svn_repos_node_t *node = apr_pcalloc (pool, sizeof (svn_repos_node_t));
@@ -57,12 +57,12 @@ create_node (const char *name,
 
 
 static svn_repos_node_t *
-create_sibling_node (svn_repos_node_t *elder,
-                     const char *name,
+create_sibling_node (svn_repos_node_t *elder, 
+                     const char *name, 
                      apr_pool_t *pool)
 {
   svn_repos_node_t *tmp_node;
-
+  
   /* No ELDER sibling?  That's just not gonna work out. */
   if (! elder)
     return NULL;
@@ -78,8 +78,8 @@ create_sibling_node (svn_repos_node_t *elder,
 
 
 static svn_repos_node_t *
-create_child_node (svn_repos_node_t *parent,
-                   const char *name,
+create_child_node (svn_repos_node_t *parent, 
+                   const char *name, 
                    apr_pool_t *pool)
 {
   /* No PARENT node?  That's just not gonna work out. */
@@ -97,7 +97,7 @@ create_child_node (svn_repos_node_t *parent,
 
 
 static svn_repos_node_t *
-find_child_by_name (svn_repos_node_t *parent,
+find_child_by_name (svn_repos_node_t *parent, 
                     const char *name)
 {
   svn_repos_node_t *tmp_node;
@@ -163,7 +163,7 @@ delete_entry (const char *path,
   SVN_ERR (svn_fs_check_path (&kind, eb->base_root, path, pool));
   if (kind == svn_node_none)
     return svn_error_create (SVN_ERR_FS_NOT_FOUND, NULL, path);
-
+                              
   /* Get (or create) the change node and update it. */
   name = svn_path_basename (path, pool);
   node = find_child_by_name (d->node, name);
@@ -197,14 +197,14 @@ add_open_helper (const char *path,
   nb->parent_baton = pb;
 
   /* Create and populate the node. */
-  nb->node = create_child_node (pb->node, svn_path_basename (path, pool),
+  nb->node = create_child_node (pb->node, svn_path_basename (path, pool), 
                                 eb->node_pool);
   nb->node->kind = kind;
   nb->node->action = action;
   nb->node->copyfrom_rev = copyfrom_rev;
-  nb->node->copyfrom_path =
+  nb->node->copyfrom_path = 
     copyfrom_path ? apr_pstrdup (eb->node_pool, copyfrom_path) : NULL;
-
+  
   *child_baton = nb;
   return SVN_NO_ERROR;
 }
@@ -225,7 +225,7 @@ open_root (void *edit_baton,
   d->node->kind = svn_node_dir;
   d->node->action = 'R';
   *root_baton = d;
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -253,7 +253,7 @@ add_directory (const char *path,
                void **child_baton)
 {
   SVN_ERR (add_open_helper (path, 'A', svn_node_dir, parent_baton,
-                            copyfrom_path, copyfrom_revision,
+                            copyfrom_path, copyfrom_revision, 
                             pool, child_baton));
   return SVN_NO_ERROR;
 }
@@ -282,14 +282,14 @@ add_file (const char *path,
           void **file_baton)
 {
   SVN_ERR (add_open_helper (path, 'A', svn_node_file, parent_baton,
-                            copyfrom_path, copyfrom_revision,
+                            copyfrom_path, copyfrom_revision, 
                             pool, file_baton));
   return SVN_NO_ERROR;
 }
 
 
 static svn_error_t *
-apply_textdelta (void *file_baton,
+apply_textdelta (void *file_baton, 
                  const char *base_checksum,
                  const char *result_checksum,
                  apr_pool_t *pool,
@@ -307,7 +307,7 @@ apply_textdelta (void *file_baton,
 
 static svn_error_t *
 change_node_prop (void *node_baton,
-                  const char *name,
+                  const char *name, 
                   const svn_string_t *value,
                   apr_pool_t *pool)
 {
