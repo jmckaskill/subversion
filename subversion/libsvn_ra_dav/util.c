@@ -57,13 +57,13 @@ svn_error_t *svn_ra_dav__convert_error(ne_session *sess,
   const char *msg;
 
   /* Convert the return codes. */
-  switch (retcode)
+  switch (retcode) 
     {
     case NE_AUTH:
       errcode = SVN_ERR_RA_NOT_AUTHORIZED;
       msg = "authorization failed";
       break;
-
+      
     case NE_CONNECT:
       msg = "could not connect to server";
       break;
@@ -78,10 +78,10 @@ svn_error_t *svn_ra_dav__convert_error(ne_session *sess,
       break;
     }
 
-  return svn_error_createf (errcode, NULL, "%s: %s (%s://%s)",
-                            context, msg, ne_get_scheme(sess),
+  return svn_error_createf (errcode, NULL, "%s: %s (%s://%s)", 
+                            context, msg, ne_get_scheme(sess), 
                             ne_get_server_hostport(sess));
-
+  
 }
 
 
@@ -102,7 +102,7 @@ static const struct ne_xml_elm error_elements[] =
 {
   { "DAV:", "error", ELEM_error, 0 },
   { "svn:", "error", ELEM_svn_error, 0 },
-  { "http://apache.org/dav/xmlns", "human-readable",
+  { "http://apache.org/dav/xmlns", "human-readable", 
     ELEM_human_readable, NE_XML_CDATA },
 
   /* ### our validator doesn't yet recognize the rich, specific
@@ -158,12 +158,12 @@ static int start_err_element(void *userdata, const struct ne_xml_elm *elm,
     case ELEM_human_readable:
       {
         /* get the errorcode attribute if present */
-        const char *errcode_str =
+        const char *errcode_str = 
           svn_xml_get_attr_value("errcode", /* ### make constant in
                                                some mod_dav header? */
                                  atts);
 
-        if (errcode_str && *err)
+        if (errcode_str && *err) 
           (*err)->apr_err = atoi(errcode_str);
 
         break;
@@ -256,9 +256,9 @@ svn_ra_dav__parsed_request(ne_session *sess,
                            apr_file_t *body_file,
                            void set_parser (ne_xml_parser *parser,
                                             void *baton),
-                           const struct ne_xml_elm *elements,
+                           const struct ne_xml_elm *elements, 
                            ne_xml_validate_cb validate_cb,
-                           ne_xml_startelm_cb startelm_cb,
+                           ne_xml_startelm_cb startelm_cb, 
                            ne_xml_endelm_cb endelm_cb,
                            void *baton,
                            apr_hash_t *extra_headers,
@@ -299,7 +299,7 @@ svn_ra_dav__parsed_request(ne_session *sess,
           const void *key;
           void *val;
           apr_hash_this (hi, &key, NULL, &val);
-          ne_add_request_header(req, (const char *) key, (const char *) val);
+          ne_add_request_header(req, (const char *) key, (const char *) val); 
         }
     }
 
@@ -316,7 +316,7 @@ svn_ra_dav__parsed_request(ne_session *sess,
   /* create a parser to read the <D:error> response body */
   error_parser = ne_xml_create();
   ne_xml_push_handler(error_parser, error_elements, validate_error_elements,
-                      start_err_element, end_err_element, &err);
+                      start_err_element, end_err_element, &err); 
 
   /* Register the "main" accepter and body-reader with the request --
      the one to use when the HTTP status is 2XX */
@@ -366,7 +366,7 @@ svn_ra_dav__parsed_request(ne_session *sess,
           rv = decompress_rv;
         }
     }
-
+  
   code = ne_get_status(req)->code;
   if (status_code)
     *status_code = code;
@@ -380,7 +380,7 @@ svn_ra_dav__parsed_request(ne_session *sess,
   if (strcmp(method, "PROPFIND") == 0)
     expected_code = 207;
 
-  if ((code != expected_code)
+  if ((code != expected_code) 
       || (rv != NE_OK))
     {
       msg = apr_psprintf(pool, "%s of '%s'", method, url);
@@ -423,7 +423,7 @@ svn_ra_dav__maybe_store_auth_info(svn_ra_session_t *ras)
   /* If we ever got credentials, ask the iter_baton to save them.  */
   SVN_ERR (svn_auth_save_credentials(ras->auth_iterstate,
                                      ras->pool));
-
+  
   return SVN_NO_ERROR;
 }
 
