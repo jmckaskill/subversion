@@ -322,6 +322,12 @@ import (svn_stringbuf_t *path,
         SVN_ERR (editor->close_directory (new_dir_baton));
       SVN_ERR (editor->close_directory (root_baton));
     }
+  else if (kind == svn_node_none)
+    {
+      return svn_error_createf
+        (SVN_ERR_UNKNOWN_NODE_KIND, 0, NULL, pool,
+         "'%s' does not exist.", path->data);
+    }
 
   SVN_ERR (editor->close_edit (edit_baton));
 
