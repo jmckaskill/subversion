@@ -92,7 +92,7 @@ svn_client_status (svn_revnum_t *youngest,
   const char *anchor, *target;
   const svn_delta_editor_t *editor;
   void *edit_baton;
-  svn_ra_plugin_t *ra_lib;
+  svn_ra_plugin_t *ra_lib;  
   const svn_wc_entry_t *entry;
   struct status_baton sb;
 
@@ -102,7 +102,7 @@ svn_client_status (svn_revnum_t *youngest,
 
   /* Need to lock the tree as even a non-recursive status requires the
      immediate directories to be locked. */
-  SVN_ERR (svn_wc_adm_probe_open (&adm_access, NULL, path,
+  SVN_ERR (svn_wc_adm_probe_open (&adm_access, NULL, path, 
                                   FALSE, FALSE, pool));
 
   /* Get the entry for this path so we can determine our anchor and
@@ -116,13 +116,13 @@ svn_client_status (svn_revnum_t *youngest,
   else
     return svn_error_createf (SVN_ERR_ENTRY_NOT_FOUND, NULL,
                               "'%s' is not a versioned resource", path);
-
+  
   /* Close up our ADM area.  We'll be re-opening soon. */
   SVN_ERR (svn_wc_adm_close (adm_access));
 
   /* Need to lock the tree as even a non-recursive status requires the
      immediate directories to be locked. */
-  SVN_ERR (svn_wc_adm_probe_open (&adm_access, NULL, anchor,
+  SVN_ERR (svn_wc_adm_probe_open (&adm_access, NULL, anchor, 
                                   FALSE, TRUE, pool));
 
   /* Get the status edit, and use our wrapping status function/baton
@@ -135,7 +135,7 @@ svn_client_status (svn_revnum_t *youngest,
 
   /* If this is a real update, we crawl the working copy and let the
      RA layer drive the editor for real.  Otherwise, we just close the
-     edit.  :-) */
+     edit.  :-) */ 
   if (update)
     {
       void *ra_baton, *session, *report_baton;
@@ -147,7 +147,7 @@ svn_client_status (svn_revnum_t *youngest,
       /* Using pool cleanup to close it. This needs to be recursive so that
          auth data can be stored. */
       if (strlen (anchor) != strlen (path))
-        SVN_ERR (svn_wc_adm_open (&anchor_access, NULL, anchor, FALSE,
+        SVN_ERR (svn_wc_adm_open (&anchor_access, NULL, anchor, FALSE, 
                                   TRUE, pool));
       else
         anchor_access = adm_access;
@@ -170,7 +170,7 @@ svn_client_status (svn_revnum_t *youngest,
 
       /* Open a repository session to the URL. */
       SVN_ERR (svn_client__open_ra_session (&session, ra_lib, URL, anchor,
-                                            anchor_access, NULL, TRUE, TRUE,
+                                            anchor_access, NULL, TRUE, TRUE, 
                                             ctx, pool));
 
       /* Verify that URL exists in HEAD.  If it doesn't, this can save
@@ -195,7 +195,7 @@ svn_client_status (svn_revnum_t *youngest,
         {
           svn_wc_adm_access_t *tgt_access;
           svn_revnum_t revnum;
-
+            
           if (revision->kind == svn_opt_revision_head)
             {
               /* Cause the revision number to be omitted from the request,
@@ -211,17 +211,17 @@ svn_client_status (svn_revnum_t *youngest,
 
           /* Do the deed.  Let the RA layer drive the status editor. */
           SVN_ERR (ra_lib->do_status (session, &reporter, &report_baton,
-                                      target, revnum, descend, editor,
+                                      target, revnum, descend, editor, 
                                       edit_baton, pool));
 
           /* Drive the reporter structure, describing the revisions
              within PATH.  When we call reporter->finish_report,
              EDITOR will be driven to describe differences between our
              working copy and HEAD. */
-          SVN_ERR (svn_wc_adm_probe_retrieve (&tgt_access, adm_access,
+          SVN_ERR (svn_wc_adm_probe_retrieve (&tgt_access, adm_access, 
                                               path, pool));
-          SVN_ERR (svn_wc_crawl_revisions (path, tgt_access, reporter,
-                                           report_baton, FALSE, descend,
+          SVN_ERR (svn_wc_crawl_revisions (path, tgt_access, reporter, 
+                                           report_baton, FALSE, descend, 
                                            FALSE, NULL, NULL, NULL, pool));
         }
     }

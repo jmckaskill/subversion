@@ -260,7 +260,7 @@ Same for the ANSI bold and normal escape sequences."
     (goto-char (point-min))
     (while (search-forward "\b_" nil t) (backward-delete-char 2))
     (goto-char (point-min))
-    (while (re-search-forward "\\(.\\)\\(\b\\1\\)+" nil t)
+    (while (re-search-forward "\\(.\\)\\(\b\\1\\)+" nil t) 
       (replace-match "\\1"))
     (goto-char (point-min))
     (while (re-search-forward "\e\\[[0-9]+m" nil t) (replace-match ""))
@@ -278,7 +278,7 @@ Same for the ANSI bold and normal escape sequences."
 (defun svn-perldoc (file)
   "Run perldoc on FILE, display the output in a buffer."
   (interactive "fRun perldoc on file: ")
-  (let ((outbuf (get-buffer-create
+  (let ((outbuf (get-buffer-create 
                  (format "*%s PerlDoc*" (file-name-nondirectory file))))
         (savepg (getenv "PAGER")))
     (setenv "PAGER" "cat")  ;; for perldoc
@@ -286,7 +286,7 @@ Same for the ANSI bold and normal escape sequences."
       (set-buffer outbuf)
       (delete-region (point-min) (point-max))
       (call-process "perldoc" nil outbuf nil (expand-file-name file))
-      (svn-perldoc-fontify-buffer)
+      (svn-perldoc-fontify-buffer)      
       (svn-perldoc-cleanup-buffer)
       ;; Clean out the inevitable leading dead space.
       (goto-char (point-min))
@@ -396,7 +396,7 @@ See also the function `svn-log-message-file'."
       (goto-char (point-min))
       ;; But if log message for file already in progress, add to it.
       (if (search-forward this-file nil t)
-          (progn
+          (progn 
             (if this-defun (progn
                              (kill-new (format "(%s): " this-defun))
                              (kill-new this-defun)))
