@@ -16,56 +16,41 @@
  * ====================================================================
  */
 
+#ifndef SVN_JNI_J_H
+#define SVN_JNI_J_H
+
+/* includes */
 #include <jni.h>
 
+/* functions */
+
+/* returns a JNI class reference matching
+ * className.
+ *
+ * Remark: you have to ensure that there
+ * is enough space for the class reference
+ * (needs 1 reference)
+ */
 jclass
 j__get_class(JNIEnv *env, jboolean *hasException,
-             char *className)
-{
-  jclass result = NULL;
-  jboolean _hasException = JNI_FALSE;
+             char *className);
 
-  result = (*env)->FindClass(env, className);
-  if( result == NULL )
-    {
-      _hasException = JNI_TRUE;
-    }
-
-  if( hasException != NULL )
-    {
-      *hasException = _hasException;
-    }
-
-  return result;
-}
-
+/* return a JNI method reference matching the
+ * class, methodName and methodSignature
+ *
+ * Remark: you have to ensure that there
+ * is enoug space for the class reference
+ * (needs
+ */
 jmethodID
 j__get_method(JNIEnv *env, jboolean *hasException,
               jclass class,
-              char *methodName, char *methodSignature)
-{
-  jmethodID result = NULL;
-  jboolean _hasException = JNI_FALSE;
+              char *methodName, char *methodSignature);
 
-  result = (*env)->GetMethodID(env, class, methodName,
-                               methodSignature);
-
-  if( result == NULL )
-    {
-      _hasException = JNI_TRUE;
-    }
-
-  if( hasException != NULL )
-    {
-      *hasException = _hasException;
-    }
-
-  return result;
-}
+#endif
 
 /*
  * local variables:
  * eval: (load-file "../../../svn-dev.el")
  * end:
  */
-
