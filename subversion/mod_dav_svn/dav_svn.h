@@ -323,7 +323,7 @@ dav_resource *dav_svn_create_working_resource(dav_resource *base,
                                               const char *activity_id,
                                               const char *txn_name,
                                               int tweak_in_place);
-/*
+/* 
    Convert a working RESOURCE back into a regular one, in-place.
 
    In particular: change the resource type to regular, removing the
@@ -332,7 +332,7 @@ dav_resource *dav_svn_create_working_resource(dav_resource *base,
 */
 dav_error *dav_svn_working_to_regular_resource(dav_resource *resource);
 
-/*
+/* 
    Given a version-resource URI, construct a new version-resource in
    POOL and return it in  *VERSION_RES.
 */
@@ -341,7 +341,7 @@ dav_error *dav_svn_create_version_resource(dav_resource **version_res,
                                            apr_pool_t *pool);
 
 
-/*
+/* 
    Hook function of types 'checkout' and 'checkin', as defined in
    mod_dav.h's versioning provider hooks table (see dav_hooks_vsn).
 */
@@ -392,7 +392,7 @@ const char *dav_svn_build_uri(const dav_svn_repos *repos,
 
 
 /* Compare (PATH in ROOT) to (PATH in ROOT/PATH's created_rev).
-
+   
    If these nodes are identical, then return the created_rev.
 
    If the nodes aren't identical, or if PATH simply doesn't exist in
@@ -476,7 +476,7 @@ dav_error * dav_svn_split_uri (request_rec *r,
 /* Given an apache request R and a ROOT_PATH to the svn location
    block, set *KIND to the node-kind of the URI's associated
    (revision, path) pair, if possible.
-
+   
    Public uris, baseline collections, version resources, and working
    (non-baseline) resources all have associated (revision, path)
    pairs, and thus one of {svn_node_file, svn_node_dir, svn_node_none}
@@ -507,7 +507,7 @@ dav_error * dav_svn__update_report(const dav_resource *resource,
                                    ap_filter_t *output);
 
 /* ### todo: document this, as soon as understand what the heck it
-   does :-).  -kff */
+   does :-).  -kff */   
 dav_error * dav_svn__log_report(const dav_resource *resource,
                                 const apr_xml_doc *doc,
                                 ap_filter_t *output);
