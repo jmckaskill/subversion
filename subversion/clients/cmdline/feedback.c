@@ -60,7 +60,7 @@ void svn_cl__notify_added (void *baton, const char *path)
       printf ("WARNING: apparently failed to add %s\n", path);
       return;
     }
-
+           
   if (entry->kind == svn_node_file)
     {
       const svn_string_t *value;
@@ -99,11 +99,11 @@ void svn_cl__notify_reverted (void *baton, const char *path)
 {
   printf ("Reverted %s\n", path);
 }
-
+ 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../svn-dev.el")
- * end:
+ * end: 
  */
