@@ -31,7 +31,7 @@ extern "C" {
 #endif /* __cplusplus */
 
 /** Overview of the svn authentication system.
- *
+ *    
  * We define an authentication "provider" as a module that is able to
  * return a specific set of credentials. (e.g. username/password,
  * certificate, etc.)  Each provider implements a vtable that
@@ -85,7 +85,7 @@ typedef struct
 {
   /** The kind of credentials this provider knows how to retrieve. */
   const char *cred_kind;
-
+  
   /** Get an initial set of credentials.
    *
    * Set @a *credentials to a set of valid credentials within @a
@@ -116,7 +116,7 @@ typedef struct
                                      void *iter_baton,
                                      apr_hash_t *parameters,
                                      apr_pool_t *pool);
-
+  
   /** Save credentials.
    *
    * Store @a credentials for future use.  @a provider_baton is
@@ -132,7 +132,7 @@ typedef struct
                                      void *provider_baton,
                                      apr_hash_t *parameters,
                                      apr_pool_t *pool);
-
+  
 } svn_auth_provider_t;
 
 
@@ -155,7 +155,7 @@ typedef struct
 {
   const char *username;
   const char *password;
-
+  
 } svn_auth_cred_simple_t;
 
 /** Just a username. */
@@ -240,7 +240,7 @@ typedef struct
  * username and password.  For example, a typical usage would be to
  * pass @a username on the first call, but then leave it null for
  * subsequent calls, on the theory that if credentials failed, it's
- * as likely to be due to incorrect username as incorrect password.
+ * as likely to be due to incorrect username as incorrect password. 
  */
 typedef svn_error_t *
 (*svn_auth_simple_prompt_func_t) (svn_auth_cred_simple_t **cred,
@@ -265,14 +265,14 @@ typedef svn_error_t *
 /** Set @a *cred by prompting the user, allocating @a *cred in @a pool.
  * @a baton is an implementation-specific closure.
  *
- * @a failures_in is a failure bitmask, see (for example)
- *
+ * @a failures_in is a failure bitmask, see (for example) 
+ * 
  *      @c SVN_AUTH_SSL_NOTYETVALID
  *      @c SVN_AUTH_SSL_EXPIRED
  *      @c SVN_AUTH_SSL_CNMISMATCH
  *      @c SVN_AUTH_SSL_UNKNOWNCA
  *      @c SVN_AUTH_SSL_FAILMASK
- *
+ * 
  * for more information.
  */
 typedef svn_error_t *
@@ -369,7 +369,7 @@ const void * svn_auth_get_parameter(svn_auth_baton_t *auth_baton,
 #define SVN_AUTH_PARAM_CONFIG SVN_AUTH_PARAM_PREFIX "config"
 #define SVN_AUTH_PARAM_SERVER_GROUP SVN_AUTH_PARAM_PREFIX "server-group"
 
-/** A configuration directory that overrides the default
+/** A configuration directory that overrides the default 
     ~/.subversion. */
 #define SVN_AUTH_PARAM_CONFIG_DIR SVN_AUTH_PARAM_PREFIX "config-dir"
 /** Get an initial set of credentials.
