@@ -24,7 +24,7 @@ To be fixed by someone:
 
   - ch06 talks about Basic authentication and recommends https.
     Add a mention of Digest authentication now that Apache's bug
-    has been fixed that broke it and potentially update the
+    has been fixed that broke it and potentially update the 
     example to use it instead.
 
   - we seem to inconsistently assume repositories live either in
@@ -96,7 +96,7 @@ ch04:
    - possibly new sidebar:  [what do 'skipped missing target' messages mean?]
 
 
-ch06:
+ch06:  
 
    - in server comparison table, add a footnote to svnserve
      authorization cell: note that per-directory *write* access can
