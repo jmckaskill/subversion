@@ -35,16 +35,16 @@ Subversion from the bottom up.  (For full diagram, @xref{Architecture}.)
 @example
 
  +------+-------------+--+---------+-------+ <===== Server interface
- |                                         |
- |            Main SVN Library             |
- |                                         |
+ |                                         |                        
+ |            Main SVN Library             |                        
+ |                                         |                        
  +-----------------------------------------+ <===== Filesystem interface
- |                                         |
- |          Subversion Filesystem          |
- |                                         |
- +-+--------------+--------+---------+-----+
-   | Berkeley DBM |        |   SQL   |
-   +--------------+        +---------+
+ |                                         |                            
+ |          Subversion Filesystem          |                            
+ |                                         |                            
+ +-+--------------+--------+---------+-----+                            
+   | Berkeley DBM |        |   SQL   |                                  
+   +--------------+        +---------+      
 
 @end example
 
@@ -99,7 +99,7 @@ Here is a rough draft of the Subversion Filesystem API.
 failure)
 
 @item write (delta, token)
- actually write the delta into the filesystem
+ actually write the delta into the filesystem 
 
 @item abandon (token)
  tell lock manager that the delta will @emph{not} be written (despite
