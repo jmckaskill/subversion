@@ -53,7 +53,7 @@ svn_cl__print_file_diff (svn_stringbuf_t *path,
      words, if we *know* that the text hasn't been modified, the
      external display of those (non-existant) changes is a NOOP. */
   SVN_ERR (svn_wc_text_modified_p (&text_is_modified, path, pool));
-  if (!text_is_modified)
+  if (!text_is_modified) 
     return SVN_NO_ERROR;
 
   /* Get a PRISTINE_COPY_PATH to compare against.  */
@@ -75,13 +75,13 @@ svn_cl__print_file_diff (svn_stringbuf_t *path,
   args[4] = NULL;
 
   /* todo: This printf is NOT "my final answer" -- placeholder for
-     real work to be done. */
+     real work to be done. */ 
   printf( "Index: %s\n", path->data );
   printf( "===================================================================\n" );
 
-  SVN_ERR (svn_io_run_cmd (".", SVN_CLIENT_DIFF, args,
+  SVN_ERR (svn_io_run_cmd (".", SVN_CLIENT_DIFF, args, 
                            NULL, outhandle, NULL, pool));
-
+  
   /* TODO:  someday we'll need to worry about two things here:
 
      1.  svn_client_file_diff may be returning a file from RA instead
@@ -90,7 +90,7 @@ svn_cl__print_file_diff (svn_stringbuf_t *path,
 
      2.  we're going to need to write a diff plug-in mechanism that
      makes use of the two paths, instead of just blindly running
-     SVN_CLIENT_DIFF.
+     SVN_CLIENT_DIFF. 
   */
 
   return SVN_NO_ERROR;
@@ -99,10 +99,10 @@ svn_cl__print_file_diff (svn_stringbuf_t *path,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../svn-dev.el")
- * end:
+ * end: 
  */
 
 
