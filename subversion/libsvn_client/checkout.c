@@ -105,7 +105,7 @@ svn_client_checkout (const svn_delta_edit_fns_t *before_editor,
 
       /* Open an RA session to URL */
       SVN_ERR (ra_lib->open (&session, URL, pool));
-
+      
       /* Tell RA to do a checkout of REVISION; if we pass an invalid
          revnum, that means RA will fetch the latest revision.  */
 
@@ -113,8 +113,8 @@ svn_client_checkout (const svn_delta_edit_fns_t *before_editor,
       SVN_ERR (ra_lib->do_checkout (session,
                                     checkout_editor,
                                     checkout_edit_baton));
-    }
-
+    }      
+  
   /* else we're checking out from xml */
   else
     {
@@ -147,7 +147,7 @@ svn_client_checkout (const svn_delta_edit_fns_t *before_editor,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end: */
