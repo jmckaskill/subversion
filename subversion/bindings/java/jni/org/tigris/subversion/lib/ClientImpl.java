@@ -49,5 +49,5 @@ public class ClientImpl implements org.tigris.subversion.lib.Client {
   public native String fileDiff(String path) throws SubversionException;
 
   public native void cleanup(String dir) throws SubversionException;
-
+  
 }
