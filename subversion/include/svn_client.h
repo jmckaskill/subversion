@@ -20,7 +20,7 @@
 
 /*** Includes ***/
 
-/*
+/* 
  * Requires:  The working copy library and repository access library.
  * Provides:  Broad wrappers around working copy library functionality.
  * Used By:   Client programs.
@@ -80,16 +80,16 @@ typedef svn_error_t *(*svn_client_prompt_t)
 
 
 /* This is a baton that contains information from the calling
-   application, passed to libsvn_client to aid in authentication.
+   application, passed to libsvn_client to aid in authentication. 
 
    Applications must build and pass one of these to any routine that
    may require authentication.  */
 typedef struct svn_client_auth_baton_t
 {
   /* auth info that the app -may- already have, e.g. from argv[] */
-  const char *username;
-  const char *password;
-
+  const char *username;    
+  const char *password; 
+  
   /* a callback provided by the app layer, for prompting the user */
   svn_client_prompt_t prompt_callback;
   void *prompt_baton;
@@ -99,7 +99,7 @@ typedef struct svn_client_auth_baton_t
      both the username and password, we don't offer any framework for
      storing just the username but not the password.  If we wanted to
      do that, each of the two variables below should probably be split
-     into two, one pair for username, one pair for password.
+     into two, one pair for username, one pair for password. 
 
      But note that we already check the `store_password' config
      option, so the important case is already covered. */
@@ -119,7 +119,7 @@ typedef struct svn_client_auth_baton_t
 typedef struct svn_client_proplist_item_s
 {
   /* The name of the node on which these properties are set. */
-  svn_stringbuf_t *node_name;
+  svn_stringbuf_t *node_name;  
 
   /* A hash of (const char *) property names, and (svn_stringbuf_t *) property
      values. */
@@ -162,7 +162,7 @@ typedef struct svn_client_commit_item_t
 
 /* Callback type used by commit-y operations to get a commit log message
    from the caller.
-
+   
    Set *LOG_MSG to the log message for the commit, allocated in POOL,
    or NULL if wish to abort the commit process.  COMMIT_ITEMS is an
    array of svn_client_commit_item_t structures, which may be fully or
@@ -243,7 +243,7 @@ svn_client_checkout (svn_wc_notify_func_t notify_func,
    REVISION is svn_client_revision_unspecified, then the revision
    *must* be present in the <delta-pkg> tag; otherwise, store REVISION
    in the wc. (Note: a <delta-pkg> revision still overrides REVISION.)
-
+   
    Use POOL for any temporary allocation. */
 svn_error_t *
 svn_client_update (svn_client_auth_baton_t *auth_baton,
@@ -331,12 +331,12 @@ svn_client_mkdir (svn_client_commit_info_t **commit_info,
                   svn_wc_notify_func_t notify_func,
                   void *notify_baton,
                   apr_pool_t *pool);
-
+                  
 
 /* If PATH is a URL, use the AUTH_BATON and MESSAGE to immediately
    attempt to commit a deletion of the URL from the repository.  If
    the commit succeeds, allocate (in POOL) and populate *COMMIT_INFO.
-
+  
    Else, schedule a working copy PATH for removal from the repository.
    PATH's parent must be under revision control. This is just a
    *scheduling* operation.  No changes will happen to the repository until
@@ -378,11 +378,11 @@ svn_client_delete (svn_client_commit_info_t **commit_info,
    head, authenticating with AUTH_BATON, and using LOG_MSG as the log
    message for the (implied) commit.  Set *COMMIT_INFO to the results
    of the commit, allocated in POOL.
-
+  
    NEW_ENTRY is the new entry created in the repository directory
    identified by URL.  NEW_ENTRY may be null (see below), but may not
    be the empty string.
-
+  
    If PATH is a directory, the contents of that directory are
    imported, under a new directory named NEW_ENTRY under URL; or if
    NEW_ENTRY is null, then the contents of PATH are imported directly
@@ -394,16 +394,16 @@ svn_client_delete (svn_client_commit_info_t **commit_info,
    not be null).
 
    In all cases, if NEW_ENTRY already exists in URL, return error.
-
+   
    If NOTIFY_FUNC is non-null, then call NOTIFY_FUNC with NOTIFY_BATON
    as the import progresses, with any of the following actions:
    svn_wc_notify_commit_added, svn_wc_notify_commit_postfix_txdelta.
 
    If XML_DST is non-NULL, it is a file in which to store the xml
    result of the commit, and REVISION is used as the revision.
-
-   Use POOL for any temporary allocation.
-
+   
+   Use POOL for any temporary allocation.  
+   
    LOG_MSG_FUNC/LOG_MSG_BATON are a callback/baton combo that this
    function can use to query for a commit log message when one is
    needed.
@@ -420,12 +420,12 @@ svn_client_delete (svn_client_commit_info_t **commit_info,
    behavior confuses most people, and I think eventually svn _should_
    turn the tree into a working copy, or at least should offer the
    option. However, doing so is a bit involved, and we don't need it
-   right now.
+   right now.  
 */
 svn_error_t *svn_client_import (svn_client_commit_info_t **commit_info,
                                 svn_wc_notify_func_t notify_func,
                                 void *notify_baton,
-                                svn_client_auth_baton_t *auth_baton,
+                                svn_client_auth_baton_t *auth_baton,   
                                 const char *path,
                                 const char *url,
                                 const char *new_entry,
@@ -527,15 +527,15 @@ svn_client_status (apr_hash_t **statushash,
 /* Invoke RECEIVER with RECEIVER_BATON on each log message from START
    to END in turn, inclusive (but never invoke RECEIVER on a given log
    message more than once).
-
+  
    TARGETS contains all the working copy paths (as const char *'s)
    for which log messages are desired; the common prefix of TARGETS
    determines the repository and auth info.  RECEIVER is invoked only
    on messages whose revisions involved a change to some path in
    TARGETS.
-
+  
    ### todo: the above paragraph is not fully implemented yet.
-
+  
    If DISCOVER_CHANGED_PATHS is set, then the `changed_paths' argument
    to RECEIVER will be passed on each invocation.
 
@@ -587,11 +587,11 @@ svn_client_log (svn_client_auth_baton_t *auth_baton,
 
    If RECURSE is true (and the PATHs are directories) this will be a
    recursive operation.
-
+  
    DIFF_OPTIONS (an array of const char *) is used to pass additional
    command line options to the diff processes invoked to compare
    files.
-
+  
    AUTH_BATON is used to communicate with the repository.  */
 svn_error_t *svn_client_diff (const apr_array_header_t *diff_options,
                               svn_client_auth_baton_t *auth_baton,
@@ -618,7 +618,7 @@ svn_error_t *svn_client_diff (const apr_array_header_t *diff_options,
 
    If either REVISION1 or REVlISION2 has an `unspecified' or
    unrecognized `kind', return SVN_ERR_CLIENT_BAD_REVISION.
-
+  
    If RECURSE is true (and the PATHs are directories), apply changes
    recursively; otherwise, only apply changes in the current
    directory.
@@ -626,7 +626,7 @@ svn_error_t *svn_client_diff (const apr_array_header_t *diff_options,
    If FORCE is not set and the merge involves deleting locally modified or
    unversioned items the operation will fail.  If FORCE is set such items
    will be deleted.
-
+  
    If NOTIFY_FUNC is non-null, then call NOTIFY_FUNC with NOTIFY_BATON
    once for each merged target, passing the target's local path.
 
@@ -731,7 +731,7 @@ svn_client_copy (svn_client_commit_info_t **commit_info,
 /* Move SRC_PATH to DST_PATH.
 
    SRC_PATH must be a file or directory under version control, or the
-   URL of a versioned item in the repository.
+   URL of a versioned item in the repository.  
 
    If SRC_PATH is a repository URL:
 
@@ -770,8 +770,8 @@ svn_client_copy (svn_client_commit_info_t **commit_info,
    NOTIFY_FUNC with the NOTIFY_BATON twice, once to indicate the
    deletion of the moved thing, and once to indicate the addition of
    the new location of the thing. ### Is this really true?  What about
-                                      svn_wc_notify_commit_replaced? ###
-*/
+                                      svn_wc_notify_commit_replaced? ### 
+*/ 
 svn_error_t *
 svn_client_move (svn_client_commit_info_t **commit_info,
                  const char *src_path,
@@ -790,7 +790,7 @@ svn_client_move (svn_client_commit_info_t **commit_info,
 /* Set PROPNAME to PROPVAL on TARGET.  If RECURSE is true, then PROPNAME
    will be set on recursively on TARGET and all children.  If RECURSE is false,
    and TARGET is a directory, PROPNAME will be set on _only_ TARGET.
-
+ 
    A PROPVAL of NULL will delete the property.
 
    Use POOL for all memory allocation. */
@@ -822,13 +822,13 @@ svn_client_revprop_set (const char *propname,
                         svn_client_auth_baton_t *auth_baton,
                         svn_revnum_t *set_rev,
                         apr_pool_t *pool);
-
+                        
 /* Set *PROPS to a hash table whose keys are `char *' paths,
-   prefixed by TARGET, of items in the working copy on which
+   prefixed by TARGET, of items in the working copy on which 
    property PROPNAME is set, and whose values are `svn_string_t *'
    representing the property value for PROPNAME at that path.
    Allocate *PROPS, its keys, and its values in POOL.
-
+             
    Don't store any path, not even TARGET, if it does not have a
    property named PROPNAME.
 
@@ -866,7 +866,7 @@ svn_client_revprop_get (const char *propname,
 
 /* Returns an apr_array_header_t of svn_client_proplist_item_t's in *PROPS,
    allocated from POOL. Each item will contain the node_name relative to the
-   same base as target in item->node_name, and a property hash of
+   same base as target in item->node_name, and a property hash of 
    (const char *) property names, and (svn_stringbuf_t *) property values.
 
    If recurse is false, or TARGET is a file, *PROPS will contain only a single
@@ -874,7 +874,7 @@ svn_client_revprop_get (const char *propname,
    (and including) TARGET. */
 svn_error_t *
 svn_client_proplist (apr_array_header_t **props,
-                     const char *target,
+                     const char *target, 
                      svn_boolean_t recurse,
                      apr_pool_t *pool);
 
@@ -898,8 +898,8 @@ svn_client_revprop_list (apr_hash_t **props,
                          apr_pool_t *pool);
 
 
-/* Export the contents of either a subversion repository or a subversion
-   working copy into a 'clean' directory (meaning a directory with no
+/* Export the contents of either a subversion repository or a subversion 
+   working copy into a 'clean' directory (meaning a directory with no 
    administrative directories).
 
    FROM is either the path the working copy on disk, or a url to the
@@ -908,13 +908,13 @@ svn_client_revprop_list (apr_hash_t **props,
    TO is the path to the directory where you wish to create the exported
    tree.
 
-   REVISION is the revision that should be exported, which is only used
+   REVISION is the revision that should be exported, which is only used 
    when exporting from a repository.
 
-   AUTH_BATON is an authentication baton that is only used when exporting
+   AUTH_BATON is an authentication baton that is only used when exporting 
    from a repository.
 
-   NOTIFY_FUNC and NOTIFY_BATON are the notification functions and baton
+   NOTIFY_FUNC and NOTIFY_BATON are the notification functions and baton 
    which are passed to svn_client_checkout when exporting from a repository.
 
    All allocations are done in POOL.  */
@@ -961,5 +961,5 @@ svn_client_ls (apr_hash_t **dirents,
 /* --------------------------------------------------------------
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
- * end:
+ * end: 
  */
