@@ -19,7 +19,7 @@ Ben todo:
      printing `C' for either textual or property conflicts.  fix this.
 
    - stupid `M' bug only shows up in certain status commands!!!
-
+        
    - redo syntax of client, especially for property commands.  stop
      using --target-dir for anything but update or checkout.  use new
      apr longopts.
