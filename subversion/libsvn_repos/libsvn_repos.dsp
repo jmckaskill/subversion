@@ -1,24 +1,24 @@
-# Microsoft Developer Studio Project File - Name="libsvn_subr" - Package Owner=<4>
+# Microsoft Developer Studio Project File - Name="libsvn_repos" - Package Owner=<4>
 # Microsoft Developer Studio Generated Build File, Format Version 6.00
 # ** DO NOT EDIT **
 
 # TARGTYPE "Win32 (x86) Static Library" 0x0104
 
-CFG=libsvn_subr - Win32 Debug
+CFG=libsvn_repos - Win32 Debug
 !MESSAGE This is not a valid makefile. To build this project using NMAKE,
 !MESSAGE use the Export Makefile command and run
 !MESSAGE
-!MESSAGE NMAKE /f "libsvn_subr.mak".
+!MESSAGE NMAKE /f "libsvn_repos.mak".
 !MESSAGE
 !MESSAGE You can specify a configuration when running NMAKE
 !MESSAGE by defining the macro CFG on the command line. For example:
 !MESSAGE
-!MESSAGE NMAKE /f "libsvn_subr.mak" CFG="libsvn_subr - Win32 Debug"
+!MESSAGE NMAKE /f "libsvn_repos.mak" CFG="libsvn_repos - Win32 Debug"
 !MESSAGE
 !MESSAGE Possible choices for configuration are:
 !MESSAGE
-!MESSAGE "libsvn_subr - Win32 Release" (based on "Win32 (x86) Static Library")
-!MESSAGE "libsvn_subr - Win32 Debug" (based on "Win32 (x86) Static Library")
+!MESSAGE "libsvn_repos - Win32 Release" (based on "Win32 (x86) Static Library")
+!MESSAGE "libsvn_repos - Win32 Debug" (based on "Win32 (x86) Static Library")
 !MESSAGE
 
 # Begin Project
@@ -28,7 +28,7 @@ CFG=libsvn_subr - Win32 Debug
 CPP=cl.exe
 RSC=rc.exe
 
-!IF  "$(CFG)" == "libsvn_subr - Win32 Release"
+!IF  "$(CFG)" == "libsvn_repos - Win32 Release"
 
 # PROP BASE Use_MFC 0
 # PROP BASE Use_Debug_Libraries 0
@@ -38,13 +38,12 @@ RSC=rc.exe
 # PROP Use_MFC 0
 # PROP Use_Debug_Libraries 0
 # PROP Output_Dir "Release"
-# PROP Intermediate_Dir "Release\obj"
+# PROP Intermediate_Dir "Release"
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_MBCS" /D "_LIB" /YX /FD /c
-# ADD CPP /nologo /MD /W3 /GX /O2 /I "..\include" /I "..\..\apr\include" /I "..\..\expat-lite" /I "..\.." /D "NDEBUG" /D "APR_DECLARE_STATIC" /D "WIN32" /D "_WINDOWS" /FD /c
-# SUBTRACT CPP /YX
-# ADD BASE RSC /l 0x424 /d "NDEBUG"
-# ADD RSC /l 0x424 /d "NDEBUG"
+# ADD CPP /nologo /W3 /GX /O2 /I "..\include" /I "..\..\apr\include" /I "..\..\expat-lite" /I "$(SVN_DB3_WIN32)\include" /I "..\.." /D "NDEBUG" /D "WIN32" /D "_MBCS" /D "_LIB" /D "APR_DECLARE_STATIC" /YX /FD /c
+# ADD BASE RSC /l 0x409 /d "NDEBUG"
+# ADD RSC /l 0x409 /d "NDEBUG"
 BSC32=bscmake.exe
 # ADD BASE BSC32 /nologo
 # ADD BSC32 /nologo
@@ -52,7 +51,7 @@ LIB32=link.exe -lib
 # ADD BASE LIB32 /nologo
 # ADD LIB32 /nologo
 
-!ELSEIF  "$(CFG)" == "libsvn_subr - Win32 Debug"
+!ELSEIF  "$(CFG)" == "libsvn_repos - Win32 Debug"
 
 # PROP BASE Use_MFC 0
 # PROP BASE Use_Debug_Libraries 1
@@ -62,13 +61,12 @@ LIB32=link.exe -lib
 # PROP Use_MFC 0
 # PROP Use_Debug_Libraries 1
 # PROP Output_Dir "Debug"
-# PROP Intermediate_Dir "Debug\obj"
+# PROP Intermediate_Dir "Debug"
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_MBCS" /D "_LIB" /YX /FD /GZ /c
-# ADD CPP /nologo /MDd /W3 /GX /ZI /Od /I "..\include" /I "..\..\apr\include" /I "..\..\expat-lite" /I "..\.." /D "SVN_DEBUG" /D "_DEBUG" /D "APR_DECLARE_STATIC" /D "WIN32" /D "_WINDOWS" /FD /GZ /c
-# SUBTRACT CPP /YX
-# ADD BASE RSC /l 0x424 /d "_DEBUG"
-# ADD RSC /l 0x424 /d "_DEBUG"
+# ADD CPP /nologo /MDd /W3 /Gm /GX /ZI /Od /I "..\include" /I "..\..\apr\include" /I "..\..\expat-lite" /I "$(SVN_DB3_WIN32)\include" /I "..\.." /D "SVN_DEBUG" /D "_DEBUG" /D "WIN32" /D "_MBCS" /D "_LIB" /D "APR_DECLARE_STATIC" /YX /FD /GZ /c
+# ADD BASE RSC /l 0x409 /d "_DEBUG"
+# ADD RSC /l 0x409 /d "_DEBUG"
 BSC32=bscmake.exe
 # ADD BASE BSC32 /nologo
 # ADD BSC32 /nologo
@@ -80,51 +78,27 @@ LIB32=link.exe -lib
 
 # Begin Target
 
-# Name "libsvn_subr - Win32 Release"
-# Name "libsvn_subr - Win32 Debug"
+# Name "libsvn_repos - Win32 Release"
+# Name "libsvn_repos - Win32 Debug"
 # Begin Group "Source Files"
 
 # PROP Default_Filter "cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 # Begin Source File
 
-SOURCE=.\base64.c
+SOURCE=.\commit_editor.c
 # End Source File
 # Begin Source File
 
-SOURCE=.\hashdump.c
+SOURCE=.\delta.c
 # End Source File
 # Begin Source File
 
-SOURCE=.\io.c
+SOURCE=.\reporter.c
 # End Source File
-# Begin Source File
+# End Group
+# Begin Group "Header Files"
 
-SOURCE=.\keysort.c
-# End Source File
-# Begin Source File
-
-SOURCE=.\path.c
-# End Source File
-# Begin Source File
-
-SOURCE=.\quoprint.c
-# End Source File
-# Begin Source File
-
-SOURCE=.\svn_error.c
-# End Source File
-# Begin Source File
-
-SOURCE=.\svn_string.c
-# End Source File
-# Begin Source File
-
-SOURCE=.\target.c
-# End Source File
-# Begin Source File
-
-SOURCE=.\xml.c
-# End Source File
+# PROP Default_Filter "h;hpp;hxx;hm;inl"
 # End Group
 # End Target
 # End Project
