@@ -50,9 +50,9 @@ svn_cl__mkdir (apr_getopt_t *os,
 
   /* Build an authentication object to give to libsvn_client. */
   auth_baton = svn_cl__make_auth_baton (opt_state, pool);
-
+            
   if (! opt_state->quiet)
-    svn_cl__get_notifier (&notify_func, &notify_baton, FALSE, FALSE, pool);
+    svn_cl__get_notifier (&notify_func, &notify_baton, FALSE, FALSE, pool); 
 
   if (targets->nelts)
     for (i = 0; i < targets->nelts; i++)
@@ -60,7 +60,7 @@ svn_cl__mkdir (apr_getopt_t *os,
         const char *target = ((const char **) (targets->elts))[i];
         commit_info = NULL;
         SVN_ERR (svn_client_mkdir
-                 (&commit_info, target, auth_baton,
+                 (&commit_info, target, auth_baton, 
                   &svn_cl__get_log_message,
                   svn_cl__make_log_msg_baton (opt_state, NULL, pool),
                   notify_func, notify_baton, pool));
@@ -78,8 +78,8 @@ svn_cl__mkdir (apr_getopt_t *os,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../tools/dev/svn-dev.el")
- * end:
+ * end: 
  */
