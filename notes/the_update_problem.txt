@@ -63,7 +63,7 @@ Here's the plan of attack.
 Defining `Change'
 -----------------
 
-Deltas only talk about entities that have changed.
+Deltas only talk about entities that have changed.  
 
 We say that two deltas *conflict* iff they each change one or more of
 the same entity.
@@ -154,7 +154,7 @@ Example 1:  No conflict
 
 
 Example 2:  One conflict
-
+     
        C(B->WC)   = { 2, 5, 9, 13, 21, 87 }
        C(RWC->L)  = { 3, 4, 6, 22, 54, 87, 102 }
 
@@ -168,7 +168,7 @@ Example 2:  One conflict
 
 
 Example 3:  Client adds a file
-
+  
      Suppose that completely new file has been added to the working
      copy, but not yet committed.
 
