@@ -865,7 +865,7 @@ svn_diff3(svn_diff_t **diff,
                   {
                     type = svn_diff__type_conflict;
                   }
-
+		  
                 if (type == svn_diff__type_conflict)
                   {
                     /* ### If we have a conflict we can try to find the
@@ -892,7 +892,7 @@ svn_diff3(svn_diff_t **diff,
                     apr_pool_t *subpool2;
 
                     subpool2 = svn_pool_create(pool);
-
+		    
 		    /* Calculate how much of the two sequences was
 		     * actually the same.
 		     */
