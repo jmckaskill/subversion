@@ -124,13 +124,13 @@ removed the Packager: portion, and my changelog entry.
 +++ /home/ballbach/rpm/SPECS/apache2.spec	2002-10-10 20:29:12.000000000 -0600
 @@ -37,14 +38,14 @@
  Patch4:			mod_logio-2.0.43.patch.bz2
-
+ 
  BuildRequires:		ADVX-build
 -BuildRequires:		perl >= 0:5.600 libgdbm2-devel libdb3.3-devel byacc glibc-devel libtool
 +BuildRequires:		perl >= 0:5.600 libgdbm2-devel db4.0-devel byacc glibc-devel libtool
  BuildRequires:		openssl-devel libexpat0-devel zlib-devel
  #BuildRequires:		libldap2-devel libsasl7-devel
- Prereq:			%{ap_name}-conf
+ Prereq:			%{ap_name}-conf 
  Prereq:			%{ap_name}-common
  Prereq: 		%{ap_name}-modules = %{ap_version}
  Prereq:			%{apr_name} = %{ap_version}
@@ -138,7 +138,7 @@ removed the Packager: portion, and my changelog entry.
 +Requires:		libgdbm2 db4.0 glibc libexpat0 libtool
  #Requires:		libldap2 libsasl7
  BuildRoot:		%{_tmppath}/%{ap_name}-%{version}-buildroot
- Provides:		webserver
+ Provides:		webserver 
 @@ -230,7 +231,7 @@
  Group: System/Servers
  Summary: The %{ap_name} Source

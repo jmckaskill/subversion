@@ -1042,7 +1042,7 @@ JNIEXPORT jint JNICALL Java_org_tigris_subversion_javahl_SVNClient_versionMajor
 	JNIEntryStatic(SVNClient, versionMajor);
 	return JNI_VER_MAJOR;
 }
-
+	
 /*
  * Class:     org_tigris_subversion_javahl_SVNClient
  * Method:    versionMinor

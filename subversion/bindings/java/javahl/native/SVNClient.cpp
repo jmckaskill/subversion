@@ -143,7 +143,7 @@ jobjectArray SVNClient::list(const char *url, Revision &revision, bool recurse)
 		apr_array_header_t *array =
 		 apr_hash_sorted_keys (dirents, svn_sort_compare_items_as_paths,
 							   subPool.pool());
-
+		
 		// create the array of DirEntry
 		JNIEnv *env = JNIUtil::getEnv();
 		jclass clazz = env->FindClass(JAVA_PACKAGE"/DirEntry");
@@ -736,7 +736,7 @@ jobjectArray SVNClient::properties(jobject jthis, const char *path)
   Pool subPool;
   apr_pool_t * apr_pool = subPool.pool ();
   m_lastPath = path;
-
+	
   Revision rev(Revision::START);
   svn_client_ctx_t *ctx = getContext(NULL);
   if(ctx == NULL)
@@ -747,7 +747,7 @@ jobjectArray SVNClient::properties(jobject jthis, const char *path)
 
   svn_error_t *Err = svn_client_proplist (&props,
                                m_lastPath.c_str (),
-                               rev.revision(),
+                               rev.revision(), 
 							   false,
 							   ctx,
                                apr_pool);
@@ -856,16 +856,16 @@ svn_client_ctx_t * SVNClient::getContext(const char *message)
 
     /* Fetch our two existing authentication providers, and order them
        in an array. */
-    svn_auth_provider_object_t *simple_wc_provider;
+    svn_auth_provider_object_t *simple_wc_provider; 
 
     svn_auth_provider_object_t *username_wc_provider;
 
     svn_client_get_simple_provider (&simple_wc_provider, pool);
-    *(svn_auth_provider_object_t **)apr_array_push (providers)
+    *(svn_auth_provider_object_t **)apr_array_push (providers) 
       = simple_wc_provider;
 
     svn_client_get_username_provider (&username_wc_provider, pool);
-    *(svn_auth_provider_object_t **)apr_array_push (providers)
+    *(svn_auth_provider_object_t **)apr_array_push (providers) 
       = username_wc_provider;
 
     *(svn_auth_provider_object_t **)apr_array_push (providers) = simple_wc_provider;
@@ -895,7 +895,7 @@ svn_client_ctx_t * SVNClient::getContext(const char *message)
 
 	svn_auth_provider_object_t *prompt_provider_server_ssl = Prompter::getProviderServerSSL(m_prompter);
     *(svn_auth_provider_object_t **)apr_array_push (providers) = prompt_provider_server_ssl;
-
+	
 	svn_auth_provider_object_t *prompt_provider_client_ssl = Prompter::getProviderClientSSL(m_prompter);
     *(svn_auth_provider_object_t **)apr_array_push (providers) = prompt_provider_client_ssl;
 
@@ -1323,7 +1323,7 @@ jbyteArray SVNClient::fileContent(const char *path, Revision &revision)
 	svn_stream_t *read_stream = NULL;
 	size_t size = 0;
 
-	if(revision.revision()->kind == svn_opt_revision_base)
+	if(revision.revision()->kind == svn_opt_revision_base) 
 	// we want the base of the current working copy. Bad hack to avoid going to the server
 	{
 
@@ -1354,8 +1354,8 @@ jbyteArray SVNClient::fileContent(const char *path, Revision &revision)
 		}
 		read_stream = svn_stream_from_aprfile(file, pool.pool());
 		size = finfo.size;
-	}
-	else
+	}	
+	else 
 	{
 		svn_client_ctx_t * ctx = getContext(NULL);
 		if(ctx == NULL)
@@ -1472,7 +1472,7 @@ jobject SVNClient::revProperty(jobject jthis, const char *path, const char *name
   Pool subPool;
   apr_pool_t * apr_pool = subPool.pool ();
   m_lastPath = path;
-
+	
   svn_client_ctx_t *ctx = getContext(NULL);
   if(ctx == NULL)
   {
@@ -1481,21 +1481,21 @@ jobject SVNClient::revProperty(jobject jthis, const char *path, const char *name
   const char *URL;
   svn_string_t *propval;
   svn_revnum_t set_rev;
-  svn_error_t * error = svn_client_url_from_path (&URL, path, apr_pool);
+  svn_error_t * error = svn_client_url_from_path (&URL, path, apr_pool);  
 
   if(error != SVN_NO_ERROR)
   {
  	JNIUtil::handleSVNError(error, NULL);
 	return NULL;
   }
-
+   
   if(URL == NULL)
   {
 	  JNIUtil::handleSVNError(svn_error_create(SVN_ERR_UNVERSIONED_RESOURCE, NULL,
                                 "Either a URL or versioned item is required."), NULL);
 	  return NULL;
   }
-
+      
   error = svn_client_revprop_get (name, &propval,
                                        URL, rev.revision(),
                                        &set_rev, ctx, apr_pool);

@@ -2,9 +2,9 @@
 #
 #  run_tests.py:  test suite for cvs2svn
 #
-#  Subversion is a tool for revision control.
+#  Subversion is a tool for revision control. 
 #  See http://subversion.tigris.org for more information.
-#
+#    
 # ====================================================================
 # Copyright (c) 2000-2003 CollabNet.  All rights reserved.
 #
@@ -92,7 +92,7 @@ class Log:
   def __init__(self, revision, author, date):
     self.revision = revision
     self.author = author
-
+    
     # Internally, we represent the date as seconds since epoch (UTC).
     # Since standard subversion log output shows dates in localtime
     #
@@ -182,7 +182,7 @@ def parse_log(svn_repos):
       print 'unexpected log output (missing log separator)'
       print "Line: '%s'" % line
       sys.exit(1)
-
+        
   return logs
 
 
@@ -226,14 +226,14 @@ def ensure_conversion(name, no_prune=None):
     saved_wd = os.getcwd()
     try:
       os.chdir(tmp_dir)
-
+      
       svnrepos = '%s-svnrepos' % name
       wc       = '%s-wc' % name
 
       # Clean up from any previous invocations of this script.
       erase(svnrepos)
       erase(wc)
-
+      
       if no_prune:
         run_cvs2svn('--no-prune', '--create', '-s', svnrepos, cvsrepos)
       else:
@@ -303,7 +303,7 @@ def prune_with_care():
   #   revision 3:  deletes blah/trunk/cookie
   #   revision 4:  deletes blah/  [re-deleting blah/trunk/cookie pruned blah!]
   #   revision 5:  does nothing
-  #
+  #   
   # After fixing cvs2svn, the sequence (correctly) looks like this:
   #
   #   revision 1:  adds blah/trunk/, adds blah/trunk/cookie
@@ -311,7 +311,7 @@ def prune_with_care():
   #   revision 3:  deletes blah/trunk/cookie
   #   revision 4:  does nothing    [because blah/trunk/cookie already deleted]
   #   revision 5:  deletes blah/
-  #
+  # 
   # The difference is in 4 and 5.  In revision 4, it's not correct to
   # prune blah/, because trunk/NEWS is still in there, so revision 4
   # does nothing now.  But when we delete NEWS in 5, that should
@@ -371,7 +371,7 @@ def double_delete():
   # bugs in cvs2svn's svn path construction for top-level files); and
   # the --no-prune option.
   repos, wc, logs = ensure_conversion('double-delete', 1)
-
+  
   path = '/trunk/twice-removed'
 
   if not (logs[1].changed_paths.get(path) == 'A'):
@@ -408,7 +408,7 @@ def simple_commits():
 
   if logs[11].msg.find('Initial revision') != 0:
     raise svntest.Failure
-
+    
   # The first commit.
   for path in ('/proj/trunk/sub1/subsubA/default', '/proj/trunk/sub3/default'):
     if not (logs[12].changed_paths.get(path) == 'M'):
@@ -454,7 +454,7 @@ def interleaved_commits():
 
   if logs[15].msg.find('Initial revision') != 0:
     raise svntest.Failure
-
+    
   # This PEP explains why we pass the 'logs' parameter to these two
   # nested functions, instead of just inheriting it from the enclosing
   # scope:   http://www.python.org/peps/pep-0227.html
@@ -574,7 +574,7 @@ def mixed_commit():
   # See test-data/main-cvsrepos/proj/README.
   repos, wc, logs = ensure_conversion('main')
 
-  for path in ('/proj/trunk/sub2/default',
+  for path in ('/proj/trunk/sub2/default', 
                '/proj/branches/B_MIXED/sub2/branch_B_MIXED_only'):
     if not (logs[13].changed_paths.get(path) == 'M'):
       raise svntest.Failure
@@ -590,26 +590,26 @@ def split_branch():
   repos, wc, logs = ensure_conversion('main')
   # Don't yet know the exact revision numbers, but basically we're
   # testing these steps from test-data/main-cvsrepos/proj/README:
-  #
+  # 
   # 13. Do "cvs up -A" to get everyone back to trunk, then make a new
   #     branch B_SPLIT on everyone except sub1/subsubB/default,v.
-  #
+  # 
   # 14. Switch to branch B_SPLIT (see sub1/subsubB/default disappear)
   #     and commit a change that affects everyone except sub3/default.
-  #
+  # 
   # 15. An hour or so later, "cvs up -A" to get sub1/subsubB/default
   #     back, then commit a change on that file, on trunk.  (It's
   #     important that this change happened after the previous commits
   #     on B_SPLIT.)
-  #
+  # 
   # 16. Branch sub1/subsubB/default to B_SPLIT, then "cvs up -r B_SPLIT"
   #     to switch the whole working copy to the branch.
-  #
+  # 
   # 17. Commit a change on B_SPLIT, to sub1/subsubB/default and
   #     sub3/default.
 
   raise svntest.Failure
-
+  
 
 #----------------------------------------------------------------------
 

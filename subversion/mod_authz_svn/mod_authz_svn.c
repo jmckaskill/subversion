@@ -282,7 +282,7 @@ static int auth_checker(request_rec *r)
 
         status = DECLINED;
     }
-
+    
     /* XXX: DELETE, MOVE, MKCOL and PUT, if the path doesn't exist yet, also
      * XXX: require write access to the parent dir of repos_path.
      */

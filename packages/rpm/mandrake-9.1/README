@@ -11,7 +11,7 @@ Mandrake SVN RPM:
 These are the files required to build a mandrake 9.1 RPM for subversion.
 Mandrake 9.1 (thankfully) has most of the software required to build
 and install subversion. The only thing it does NOT have is a recent enough
-version of NEON. You will need to build and install your own recent
+version of NEON. You will need to build and install your own recent 
 version, or get the source RPM from cooker or what not and update it
 yourself.
 
@@ -83,7 +83,7 @@ So, many combinations of packages are available depending on the type of
 installation you want to do. The apr, apr-util, and subversion-base
 packages are always required, but then you could just simply install
 neon, client-common, and client-dav to get a subversion setup for network
-repositories. Add client-local, and repos, for local repositories, or
+repositories. Add client-local, and repos, for local repositories, or 
 add repos and server to setup a subversion server.
 
 --------
