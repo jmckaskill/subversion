@@ -1,13 +1,13 @@
 VERSION 5.00
 Object = "*\ASGrid.vbp"
-Begin VB.Form frmOutlookGroup
+Begin VB.Form frmOutlookGroup 
    BorderStyle     =   3  'Fixed Dialog
    Caption         =   "frmGroupBy"
    ClientHeight    =   3528
    ClientLeft      =   3516
    ClientTop       =   3288
    ClientWidth     =   6144
-   BeginProperty Font
+   BeginProperty Font 
       Name            =   "Tahoma"
       Size            =   8.4
       Charset         =   0
@@ -23,7 +23,7 @@ Begin VB.Form frmOutlookGroup
    ScaleHeight     =   3528
    ScaleWidth      =   6144
    ShowInTaskbar   =   0   'False
-   Begin VB.ComboBox cboOrder
+   Begin VB.ComboBox cboOrder 
       Height          =   300
       Left            =   4740
       Style           =   2  'Dropdown List
@@ -32,7 +32,7 @@ Begin VB.Form frmOutlookGroup
       Visible         =   0   'False
       Width           =   1875
    End
-   Begin VB.ComboBox cboField
+   Begin VB.ComboBox cboField 
       Height          =   300
       Left            =   4740
       Style           =   2  'Dropdown List
@@ -41,10 +41,10 @@ Begin VB.Form frmOutlookGroup
       Visible         =   0   'False
       Width           =   1875
    End
-   Begin VB.CommandButton cmdMoveDown
+   Begin VB.CommandButton cmdMoveDown 
       Caption         =   "u"
       Enabled         =   0   'False
-      BeginProperty Font
+      BeginProperty Font 
          Name            =   "Marlett"
          Size            =   11.4
          Charset         =   2
@@ -59,10 +59,10 @@ Begin VB.Form frmOutlookGroup
       Top             =   1860
       Width           =   1215
    End
-   Begin VB.CommandButton cmdMoveUp
+   Begin VB.CommandButton cmdMoveUp 
       Caption         =   "t"
       Enabled         =   0   'False
-      BeginProperty Font
+      BeginProperty Font 
          Name            =   "Marlett"
          Size            =   11.4
          Charset         =   2
@@ -77,7 +77,7 @@ Begin VB.Form frmOutlookGroup
       Top             =   1440
       Width           =   1215
    End
-   Begin VB.CommandButton cmdCancel
+   Begin VB.CommandButton cmdCancel 
       Cancel          =   -1  'True
       Caption         =   "Cancel"
       Height          =   375
@@ -86,7 +86,7 @@ Begin VB.Form frmOutlookGroup
       Top             =   540
       Width           =   1215
    End
-   Begin VB.CommandButton cmdOK
+   Begin VB.CommandButton cmdOK 
       Caption         =   "OK"
       Default         =   -1  'True
       Height          =   375
@@ -95,7 +95,7 @@ Begin VB.Form frmOutlookGroup
       Top             =   120
       Width           =   1215
    End
-   Begin SVNControls.SGrid grdGroupBy
+   Begin SVNControls.SGrid grdGroupBy 
       Height          =   3252
       Left            =   120
       TabIndex        =   6
@@ -105,7 +105,7 @@ Begin VB.Form frmOutlookGroup
       _ExtentY        =   5736
       BackgroundPictureHeight=   0
       BackgroundPictureWidth=   0
-      BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851}
+      BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
          Name            =   "Tahoma"
          Size            =   8.4
          Charset         =   0
@@ -165,7 +165,7 @@ Dim lNC As Long
          ' if this isn't the only visible row then swap all
          ' subsequent rows up one and make the last one
          ' invisible:
-
+         
          For i = cboField.Tag + 1 To grdGroupBy.Rows
             If grdGroupBy.RowVisible(i) Then
                grdGroupBy.CellText(i - 1, 1) = grdGroupBy.CellText(i, 1)
@@ -262,15 +262,15 @@ Dim i As Long
    m_bCancel = True
    With grdGroupBy
       .Editable = True
-
+            
       .AddColumn "field", "Field", , , grdGroupBy.Width \ (Screen.TwipsPerPixelX * 2) - 10
       .AddColumn "order", "Order", , , grdGroupBy.Width \ (Screen.TwipsPerPixelX * 2) - 10
       .AddColumn "key", , , , , False
-
+      
       .GridLines = True
       .HeaderButtons = False
       .BorderStyle = ecgBorderStyle3dThin
-
+   
       For i = 1 To 3
          .AddRow , , (i = 1)
          .CellText(i, 1) = m_sFieldList(1)

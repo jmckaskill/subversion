@@ -44,7 +44,7 @@ svn_error_t *svn_fs__reserve_copy_id (const char **copy_id_p,
 /* Create a new copy with id COPY_ID in FS as part of TRAIL.
    SRC_PATH/SRC_REV are the path/revision (respectively) of the copy
    source, and DST_NODEREV_ID is the node revision id of the copy
-   destination.
+   destination.  
 
    COPY_ID should generally come from a call to svn_fs__reserve_copy_id().  */
 svn_error_t *svn_fs__create_copy (const char *copy_id,
@@ -62,7 +62,7 @@ svn_error_t *svn_fs__delete_copy (svn_fs_t *fs,
 
 /* Retrieve the copy *COPY_P named COPY_ID from the `copies' table of
    FS, as part of TRAIL.  Perform all allocations in TRAIL->pool.
-
+   
    If there is no such copy, SVN_ERR_FS_NO_SUCH_COPY is the error
    returned.  */
 svn_error_t *svn_fs__get_copy (svn_fs__copy_t **copy_p,
@@ -79,7 +79,7 @@ svn_error_t *svn_fs__get_copy (svn_fs__copy_t **copy_p,
 #endif /* SVN_LIBSVN_FS_COPIES_TABLE_H */
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end:
