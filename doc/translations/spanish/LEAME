@@ -29,7 +29,7 @@ Pasos para poder compilar el libro:
    larga colección de hojas de estilo XSL que funcionan con
    Docbook. Descarge e instale el paquete 'docbook-xsl-1.65.1'
    de la siguiente página:
-
+  
       http://sourceforge.net/project/showfiles.php?group_id=21935
 
    Tras descargar la última versión de docbook-xsl, descomprima el
@@ -270,7 +270,7 @@ A diferencia de las listas de usuarios y desarrollo de Subversion,
 esta lista de correo incluye la cabecera:
 
   Reply-To: l10n-es@subversion.tigris.org
-
+  
 Así que cualquier cliente de correo decente debería responder a la
 lista y evitar mandar mensajes duplicados al autor y a la lista
 (práctica habitual en las listas de subversion). También incluye
