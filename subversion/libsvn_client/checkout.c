@@ -81,7 +81,7 @@ svn_client__checkout_internal (svn_revnum_t *result_rev,
       SVN_ERR (svn_client__ra_lib_from_path (&ra_lib, &session, &revnum,
                                              &URL, url, peg_revision,
                                              revision, ctx, pool));
-
+      
       SVN_ERR (ra_lib->check_path (session, "", revnum, &kind, pool));
       if (kind == svn_node_none)
         return svn_error_createf (SVN_ERR_RA_ILLEGAL_URL, NULL,
@@ -101,9 +101,9 @@ svn_client__checkout_internal (svn_revnum_t *result_rev,
           /* Bootstrap: create an incomplete working-copy root dir.  Its
              entries file should only have an entry for THIS_DIR with a
              URL, revnum, and an 'incomplete' flag.  */
-          SVN_ERR (svn_io_make_dir_recursively (path, pool));
+          SVN_ERR (svn_io_make_dir_recursively (path, pool));          
           SVN_ERR (svn_wc_ensure_adm (path, uuid, URL, revnum, pool));
-
+          
           /* Have update fix the incompleteness. */
           err = svn_client__update_internal (result_rev, path, revision,
                                              recurse, use_sleep, ctx, pool);
@@ -141,7 +141,7 @@ svn_client__checkout_internal (svn_revnum_t *result_rev,
           else
             {
               const char *errmsg;
-              errmsg = apr_psprintf
+              errmsg = apr_psprintf 
                 (pool,
                  _("'%s' is already a working copy for a different URL"),
                  svn_path_local_style (path, pool));
@@ -169,8 +169,8 @@ svn_client__checkout_internal (svn_revnum_t *result_rev,
           return err;
         }
       *use_sleep = TRUE;
-    }
-
+    }      
+  
   /* We handle externals after the initial checkout is complete, so
      that fetching external items (and any errors therefrom) doesn't
      delay the primary checkout.
@@ -211,7 +211,7 @@ svn_client_checkout (svn_revnum_t *result_rev,
   svn_opt_revision_t peg_revision;
 
   peg_revision.kind = svn_opt_revision_unspecified;
-
+  
   return svn_client__checkout_internal (result_rev, URL, path, &peg_revision,
                                         revision, recurse, NULL, ctx, pool);
 }
