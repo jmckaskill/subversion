@@ -56,11 +56,11 @@ svn_cl__propset (apr_getopt_t *os,
 
   /* Get the PROPVAL from either an external file, or from the command
      line. */
-  if (opt_state->filedata)
+  if (opt_state->filedata) 
     propval = svn_string_create_from_buf (opt_state->filedata, pool);
   else
     propval = svn_string_create (((const char **) (args->elts))[1], pool);
-
+  
   /* We only want special Subversion properties to be in UTF-8.  All
      others should remain in binary format.  ### todo: make this
      happen. */
@@ -68,7 +68,7 @@ svn_cl__propset (apr_getopt_t *os,
     SVN_ERR (svn_utf_string_to_utf8 (&propval, propval, pool));
 
   /* Suck up all the remaining arguments into a targets array */
-  SVN_ERR (svn_opt_args_to_target_array (&targets, os,
+  SVN_ERR (svn_opt_args_to_target_array (&targets, os, 
                                          opt_state->targets,
                                          &(opt_state->start_revision),
                                          &(opt_state->end_revision),
@@ -76,7 +76,7 @@ svn_cl__propset (apr_getopt_t *os,
 
   /* Add "." if user passed 0 file arguments */
   svn_opt_push_implicit_dot_target (targets, pool);
-
+              
   /* Decide if we're making a local mod to a versioned working copy
      prop, or making a permanent change to an unversioned repository
      revision prop.  The existence of the '-r' flag is the key. */
@@ -94,7 +94,7 @@ svn_cl__propset (apr_getopt_t *os,
         return svn_error_create(SVN_ERR_CL_INSUFFICIENT_ARGS, 0, NULL, pool,
                                 "No URL target available.");
       target = ((const char **) (targets->elts))[0];
-      SVN_ERR (svn_cl__get_url_from_target (&URL, target, pool));
+      SVN_ERR (svn_cl__get_url_from_target (&URL, target, pool));  
       if (URL == NULL)
         return svn_error_create(SVN_ERR_UNVERSIONED_RESOURCE, 0, NULL,
                                 pool,
@@ -104,7 +104,7 @@ svn_cl__propset (apr_getopt_t *os,
       SVN_ERR (svn_client_revprop_set (pname_utf8, propval,
                                        URL, &(opt_state->start_revision),
                                        auth_baton, &rev, pool));
-      if (! opt_state->quiet)
+      if (! opt_state->quiet) 
         {
           const char *target_native;
           SVN_ERR (svn_utf_cstring_from_utf8 (&target_native,
@@ -112,9 +112,9 @@ svn_cl__propset (apr_getopt_t *os,
           printf ("property `%s' set on repository revision '%"
                   SVN_REVNUM_T_FMT"'\n",
                   pname, rev);
-        }
+        }      
     }
-
+  
   else
     {
       for (i = 0; i < targets->nelts; i++)
@@ -122,14 +122,14 @@ svn_cl__propset (apr_getopt_t *os,
           const char *target = ((const char **) (targets->elts))[i];
           SVN_ERR (svn_client_propset (pname_utf8, propval, target,
                                        opt_state->recursive, pool));
-
-          if (! opt_state->quiet)
+          
+          if (! opt_state->quiet) 
             {
               const char *target_native;
               SVN_ERR (svn_utf_cstring_from_utf8 (&target_native,
                                                   target, pool));
               printf ("property `%s' set%s on '%s'\n",
-                      pname,
+                      pname, 
                       opt_state->recursive ? " (recursively)" : "",
                       target_native);
             }
@@ -141,8 +141,8 @@ svn_cl__propset (apr_getopt_t *os,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../tools/dev/svn-dev.el")
- * end:
+ * end: 
  */
