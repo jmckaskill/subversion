@@ -3,32 +3,32 @@
  *
  * ================================================================
  * Copyright (c) 2000 Collab.Net.  All rights reserved.
- *
+ * 
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
  * met:
- *
+ * 
  * 1. Redistributions of source code must retain the above copyright
  * notice, this list of conditions and the following disclaimer.
- *
+ * 
  * 2. Redistributions in binary form must reproduce the above copyright
  * notice, this list of conditions and the following disclaimer in the
  * documentation and/or other materials provided with the distribution.
- *
+ * 
  * 3. The end-user documentation included with the redistribution, if
  * any, must include the following acknowlegement: "This product includes
  * software developed by Collab.Net (http://www.Collab.Net/)."
  * Alternately, this acknowlegement may appear in the software itself, if
  * and wherever such third-party acknowlegements normally appear.
- *
+ * 
  * 4. The hosted project names must not be used to endorse or promote
  * products derived from this software without prior written
  * permission. For written permission, please contact info@collab.net.
- *
+ * 
  * 5. Products derived from this software may not use the "Tigris" name
 * nor may "Tigris" appear in their names without prior written
  * permission of Collab.Net.
- *
+ * 
  * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
  * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -42,7 +42,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ====================================================================
- *
+ * 
  * This software consists of voluntary contributions made by many
  * individuals on behalf of Collab.Net.
  */
@@ -87,7 +87,7 @@ maybe_prepend_dest (svn_string_t **name,
      are passed, we only need to do it once at the top of the delta,
      as it will will get passed along automatically underneath that.
      So we should only do this if parent_baton hasn't been set yet. */
-
+      
   /* kff todo: the right way would be to write
      svn_string_prepend_str(), obviating the need to pass by
      reference.  Do that soon. */
@@ -306,7 +306,7 @@ finish_textdelta (void *walk_baton, void *parent_baton, void *handler_baton)
   struct w_baton *wb = (struct w_baton *) walk_baton;
   apr_file_t *f = (apr_file_t *) handler_baton;
   apr_status_t apr_err = apr_close (f);
-
+  
   if (apr_err)
     return svn_create_error (apr_err, 0, NULL, NULL, wb->pool);
   else
@@ -340,7 +340,7 @@ svn_wc_apply_delta (void *delta_src,
              somewhere and be careful.  Right now, though, punt. */
 
           int is_working_copy = 0;
-
+          
           svn_wc__working_copy_p (&is_working_copy, dest, pool);
           if (is_working_copy)
             return svn_create_error (SVN_ERR_OBSTRUCTED_UPDATE,
@@ -379,7 +379,7 @@ svn_wc_apply_delta (void *delta_src,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
