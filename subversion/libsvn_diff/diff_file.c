@@ -96,7 +96,7 @@ svn_error_t *
 map_or_read_file(apr_file_t **file,
                  MMAP_T_PARAM(mm)
                  char **buffer, apr_off_t *size,
-		 const char *path, apr_pool_t *pool)
+                 const char *path, apr_pool_t *pool)
 {
   apr_finfo_t finfo;
   apr_status_t rv;
@@ -135,7 +135,7 @@ map_or_read_file(apr_file_t **file,
       if (rv != APR_SUCCESS)
         {
           return svn_error_createf(rv, NULL, "Failed to read file '%s'.",
-	                           path);
+                                   path);
         }
 
       /* Since we have the entire contents of the file we can
@@ -146,7 +146,7 @@ map_or_read_file(apr_file_t **file,
         {
           return svn_error_createf(rv, NULL, "Failed to close file '%s'.",
                                    path);
-	}
+        }
 
       *file = NULL;
     }
@@ -1035,7 +1035,7 @@ svn_diff_file_output_merge(apr_file_t *output_file,
               return svn_error_createf(rv, NULL, "Failed to close file '%s'.",
                                        baton.path[idx]);
             }
-	}
+        }
     }
 
   return SVN_NO_ERROR;
