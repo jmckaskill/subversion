@@ -185,11 +185,11 @@ Bindings changes that affect the build system:
       +1: clkao (invalidated updated patch)
       +1: breser
       +1: david (r8368)
-
+     
 Bindings changes that don't affect the build system:
 
      * r8344
-     Fix perl bindings to work with new date format.
+     Fix perl bindings to work with new date format. 
      Justification: Perl bindings won't even build now without this.
      Votes:
       +1: breser, epg, clkao
