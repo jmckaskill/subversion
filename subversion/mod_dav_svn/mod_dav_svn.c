@@ -229,7 +229,7 @@ module AP_MODULE_DECLARE_DATA dav_svn_module =
 };
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
