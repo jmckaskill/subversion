@@ -146,9 +146,9 @@ open_root (void *edit_baton,
   if (eb->txn_owner)
     {
       SVN_ERR (svn_repos_fs_begin_txn_for_commit (&(eb->txn),
-                                                  eb->repos,
+                                                  eb->repos, 
                                                   youngest,
-                                                  eb->user,
+                                                  eb->user, 
                                                   eb->log_msg,
                                                   eb->pool));
     }
@@ -173,7 +173,7 @@ open_root (void *edit_baton,
     }
   SVN_ERR (svn_fs_txn_name (&(eb->txn_name), eb->txn, eb->pool));
   SVN_ERR (svn_fs_txn_root (&(eb->txn_root), eb->txn, eb->pool));
-
+  
   /* Create a root dir baton.  The `base_path' field is an -absolute-
      path in the filesystem, upon which all further editor paths are
      based. */
@@ -216,7 +216,7 @@ delete_entry (const char *path,
   SVN_ERR (svn_fs_node_created_rev (&cr_rev, eb->txn_root, full_path, pool));
   if (SVN_IS_VALID_REVNUM (revision) && (revision < cr_rev))
     return out_of_date (full_path, eb->txn_name);
-
+  
   /* This routine is a mindless wrapper.  We call svn_fs_delete_tree
      because that will delete files and recursively delete
      directories.  */
@@ -241,9 +241,9 @@ add_directory (const char *path,
   apr_pool_t *subpool = svn_pool_create (pool);
   svn_boolean_t was_copied = FALSE;
 
-  /* Sanity check. */
+  /* Sanity check. */  
   if (copy_path && (! SVN_IS_VALID_REVNUM (copy_revision)))
-    return svn_error_createf
+    return svn_error_createf 
       (SVN_ERR_FS_GENERAL, NULL,
        _("Got source path but no source revision for '%s'"), full_path);
 
@@ -267,14 +267,14 @@ add_directory (const char *path,
       copy_path = svn_path_uri_decode (copy_path, subpool);
       repos_url_len = strlen (eb->repos_url);
       if (strncmp (copy_path, eb->repos_url, repos_url_len) != 0)
-        return svn_error_createf
+        return svn_error_createf 
           (SVN_ERR_FS_GENERAL, NULL,
            _("Source url '%s' is from different repository"), full_path);
 
       fs_path = apr_pstrdup (subpool, copy_path + repos_url_len);
 
       /* Now use the "fs_path" as an absolute path within the
-         repository to make the copy from. */
+         repository to make the copy from. */      
       SVN_ERR (svn_fs_revision_root (&copy_root, eb->fs,
                                      copy_revision, subpool));
       SVN_ERR (svn_fs_copy (copy_root, fs_path,
@@ -285,7 +285,7 @@ add_directory (const char *path,
     {
       /* No ancestry given, just make a new directory.  We don't
          bother with an out-of-dateness check here because
-         svn_fs_make_dir will error out if PATH already exists.  */
+         svn_fs_make_dir will error out if PATH already exists.  */      
       SVN_ERR (svn_fs_make_dir (eb->txn_root, full_path, subpool));
     }
 
@@ -350,8 +350,8 @@ apply_textdelta (void *file_baton,
                  void **handler_baton)
 {
   struct file_baton *fb = file_baton;
-  return svn_fs_apply_textdelta (handler, handler_baton,
-                                 fb->edit_baton->txn_root,
+  return svn_fs_apply_textdelta (handler, handler_baton, 
+                                 fb->edit_baton->txn_root, 
                                  fb->path,
                                  base_checksum,
                                  NULL,
@@ -375,14 +375,14 @@ add_file (const char *path,
   const char *full_path = svn_path_join (eb->base_path, path, pool);
   apr_pool_t *subpool = svn_pool_create (pool);
 
-  /* Sanity check. */
+  /* Sanity check. */  
   if (copy_path && (! SVN_IS_VALID_REVNUM (copy_revision)))
-    return svn_error_createf
+    return svn_error_createf 
       (SVN_ERR_FS_GENERAL, NULL,
        _("Got source path but no source revision for '%s'"), full_path);
 
   if (copy_path)
-    {
+    {      
       const char *fs_path;
       svn_fs_root_t *copy_root;
       svn_node_kind_t kind;
@@ -401,17 +401,17 @@ add_file (const char *path,
       copy_path = svn_path_uri_decode (copy_path, subpool);
       repos_url_len = strlen (eb->repos_url);
       if (strncmp (copy_path, eb->repos_url, repos_url_len) != 0)
-            return svn_error_createf
+            return svn_error_createf 
               (SVN_ERR_FS_GENERAL, NULL,
                _("Source url '%s' is from different repository"), full_path);
-
+      
       fs_path = apr_pstrdup (subpool, copy_path + repos_url_len);
 
       /* Now use the "fs_path" as an absolute path within the
-         repository to make the copy from. */
+         repository to make the copy from. */      
       SVN_ERR (svn_fs_revision_root (&copy_root, eb->fs,
                                      copy_revision, subpool));
-      SVN_ERR (svn_fs_copy (copy_root, fs_path,
+      SVN_ERR (svn_fs_copy (copy_root, fs_path, 
                             eb->txn_root, full_path, subpool));
     }
   else
@@ -453,9 +453,9 @@ open_file (const char *path,
   const char *full_path = svn_path_join (eb->base_path, path, pool);
 
   /* Get this node's creation revision (doubles as an existence check). */
-  SVN_ERR (svn_fs_node_created_rev (&cr_rev, eb->txn_root, full_path,
+  SVN_ERR (svn_fs_node_created_rev (&cr_rev, eb->txn_root, full_path, 
                                     subpool));
-
+  
   /* If the node our caller has is an older revision number than the
      one in our transaction, return an out-of-dateness error. */
   if (SVN_IS_VALID_REVNUM(base_revision) && (base_revision < cr_rev))
@@ -484,7 +484,7 @@ change_file_prop (void *file_baton,
 {
   struct file_baton *fb = file_baton;
   struct edit_baton *eb = fb->edit_baton;
-  return svn_repos_fs_change_node_prop (eb->txn_root, fb->path,
+  return svn_repos_fs_change_node_prop (eb->txn_root, fb->path, 
                                         name, value, pool);
 }
 
@@ -542,7 +542,7 @@ change_dir_prop (void *dir_baton,
         return out_of_date (db->path, eb->txn_name);
     }
 
-  return svn_repos_fs_change_node_prop (eb->txn_root, db->path,
+  return svn_repos_fs_change_node_prop (eb->txn_root, db->path, 
                                         name, value, pool);
 }
 
@@ -558,7 +558,7 @@ close_edit (void *edit_baton,
   const char *conflict;
 
   /* Commit. */
-  err = svn_repos_fs_commit_txn (&conflict, eb->repos,
+  err = svn_repos_fs_commit_txn (&conflict, eb->repos, 
                                  &new_revision, eb->txn, pool);
 
   /* We want to abort the transaction *unless* the error code tells us
@@ -592,11 +592,11 @@ close_edit (void *edit_baton,
          at least r12960, svn_repos_fs_commit_txn() would never return
          that anyway.  If someone who knows ra_svn better can add
          handling for this special case, this whole "else if" block
-         can go away (again).  */
+         can go away (again).  */ 
       svn_error_clear(err);
       err = SVN_NO_ERROR;
     }
-
+  
   /* Pass new revision information to the caller's callback. */
   {
     svn_string_t *date, *author;
@@ -615,8 +615,8 @@ close_edit (void *edit_baton,
                                     eb->pool);
 
     if (! err2)
-      err2 = (*eb->callback) (new_revision,
-                              date ? date->data : NULL,
+      err2 = (*eb->callback) (new_revision, 
+                              date ? date->data : NULL, 
                               author ? author->data : NULL,
                               eb->callback_baton);
     if (err2)
@@ -692,7 +692,7 @@ svn_repos_get_commit_editor2 (const svn_delta_editor_t **editor,
 
   *edit_baton = eb;
   *editor = e;
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -710,6 +710,6 @@ svn_repos_get_commit_editor (const svn_delta_editor_t **editor,
                              apr_pool_t *pool)
 {
   return svn_repos_get_commit_editor2 (editor, edit_baton, repos, NULL,
-                                       repos_url, base_path, user, log_msg,
+                                       repos_url, base_path, user, log_msg, 
                                        callback, callback_baton, pool);
 }
