@@ -10,8 +10,8 @@ new servers, and new database back-ends are possible.
 (Insert Fancy Postscript diagram "architecture.dia" here!)
 
 @menu
-* Client Layer::
-* Network Layer::
+* Client Layer::                   
+* Network Layer::  
 * Server Layer::
 @end menu
 
@@ -66,7 +66,7 @@ the main SVN library:
 @item
         request_tag_create (path, tag_name)
 @end itemize
-
+        
 @c ------------------------------------------------------------------
 @node Network Layer
 @section Network Layer
@@ -161,7 +161,7 @@ section.)  Here are some atomic filesystem calls:
         write (delta, token)
 @item
         abandon (token)
-@end itemize
+@end itemize        
 
 These filesystem calls can then talk to disk, either through a set of
 Berkeley DBM files, or a more powerful SQL server.
