@@ -111,7 +111,7 @@ Approved changes (further review is welcome, but not required):
       1.1.x-new-swig r13071:HEAD
     Votes:
       +1: maxb, clkao, philip
-
+      
   * r13358
     Fix a case where merge breaks the wc.
     Justification:
