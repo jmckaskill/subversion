@@ -50,7 +50,7 @@ get_username (char **username,
   svn_error_t *err;
   svn_stringbuf_t *uname;
 
-  svn_client_auth_baton_t *ab =
+  svn_client_auth_baton_t *ab = 
     (svn_client_auth_baton_t *) auth_baton;
 
   if (force_prompt)
@@ -59,7 +59,7 @@ get_username (char **username,
       SVN_ERR (ab->prompt_callback (username, prompt,
                                     FALSE, /* screen echo ok */
                                     ab->prompt_baton, pool));
-
+      
       /* Since we got new totally new info, it's okay to overwrite
          any cached info in the working copy (later on). */
       ab->overwrite = TRUE;
@@ -84,12 +84,12 @@ get_username (char **username,
 
   else  /* else get it from file cached in working copy. */
     {
-      err = svn_wc_get_auth_file (ab->path,
+      err = svn_wc_get_auth_file (ab->path, 
                                   SVN_CLIENT_AUTH_USERNAME,
                                   &uname, pool);
       if (! err)
         *username = uname->data;
-
+        
       else
         {
           /* No file cache?  Then just use the process owner. */
@@ -97,18 +97,18 @@ get_username (char **username,
           apr_uid_t uid;
           apr_gid_t gid;
           apr_status_t status;
-
+          
           status = apr_current_userid (&uid, &gid, pool);
           if (status)
-            return
+            return 
               svn_error_createf(status, 0, NULL, pool,
                                 "Error getting UID of process.");
-
+          
           status = apr_get_username (&un, uid, pool);
           if (status)
             return svn_error_createf(status, 0, NULL, pool,
                                      "Error in UID->username.");
-          *username = un;
+          *username = un;                       
         }
 
       /* Store a copy of the username in the auth_baton too. */
@@ -130,20 +130,20 @@ get_password (char **password,
   svn_error_t *err;
   svn_stringbuf_t *pword;
   char *prompt;
-  svn_client_auth_baton_t *ab =
+  svn_client_auth_baton_t *ab = 
     (svn_client_auth_baton_t *) auth_baton;
 
   if (strlen(username) > 0)
     prompt = apr_psprintf (pool, "%s's password: ", username);
   else
     prompt = apr_psprintf (pool, "password: ");
-
+  
   if (force_prompt)
     {
       SVN_ERR (ab->prompt_callback (password, prompt,
                                     TRUE, /* don't echo to the screen */
                                     ab->prompt_baton, pool));
-
+      
       /* Since we got new totally new info, it's okay to overwrite
          any cached info in the working copy (later on). */
       ab->overwrite = TRUE;
@@ -154,13 +154,13 @@ get_password (char **password,
       return SVN_NO_ERROR;
     }
 
-
+  
   /* Does auth_baton already have the value, received from
      the application (probably from argv[])? */
   if (ab->password)
     {
       *password = apr_pstrdup (pool, ab->password);
-
+      
       /* Since we got new totally new info, it's okay to overwrite
          any cached info in the working copy (later on). */
       ab->overwrite = TRUE;
@@ -168,12 +168,12 @@ get_password (char **password,
 
   else  /* else get it from file cached in working copy. */
     {
-      err = svn_wc_get_auth_file (ab->path,
+      err = svn_wc_get_auth_file (ab->path, 
                                   SVN_CLIENT_AUTH_PASSWORD,
                                   &pword, pool);
       if (! err)
         *password = pword->data;
-
+      
       else
         {
           /* No file cache?  Then prompt the user. */
@@ -185,11 +185,11 @@ get_password (char **password,
              any cached info in the working copy (later on). */
           ab->overwrite = TRUE;
         }
-
+      
       /* Store a copy of the password in the auth_baton too. */
       ab->password = apr_pstrdup (pool, *password);
     }
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -224,7 +224,7 @@ store_auth_info (const char *filename,
     return SVN_NO_ERROR;  /* ### is this really not an error? */
 
   /* Do a recursive store. */
-  SVN_ERR (svn_wc_set_auth_file (wc_path, TRUE, filename,
+  SVN_ERR (svn_wc_set_auth_file (wc_path, TRUE, filename, 
                                  svn_stringbuf_create (data, pool), pool));
 
   return SVN_NO_ERROR;
@@ -236,7 +236,7 @@ store_username (const char *username,
                 void *auth_baton)
 {
   svn_client_auth_baton_t *ab = (svn_client_auth_baton_t *) auth_baton;
-
+  
   /* Sanity check:  only store auth info if the `overwrite' flag is
      set.  This flag is set if the user was either prompted or
      specified new info on the commandline. */
@@ -253,7 +253,7 @@ store_password (const char *password,
                 void *auth_baton)
 {
   svn_client_auth_baton_t *ab = (svn_client_auth_baton_t *) auth_baton;
-
+  
   /* Sanity check:  only store auth info if the `overwrite' flag is
      set.  This flag is set if the user was either prompted or
      specified new info on the commandline. */
@@ -270,13 +270,13 @@ static svn_error_t *
 store_user_and_pass (void *auth_baton)
 {
   svn_client_auth_baton_t *ab = (svn_client_auth_baton_t *) auth_baton;
-
+  
   if (ab->username)
     SVN_ERR (store_username (ab->username, auth_baton));
 
   if (ab->password)
     SVN_ERR (store_password (ab->password, auth_baton));
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -316,7 +316,7 @@ get_authenticator (void **authenticator,
 
     case SVN_RA_AUTH_SIMPLE_PASSWORD:
       {
-        svn_ra_simple_password_authenticator_t *ua
+        svn_ra_simple_password_authenticator_t *ua 
           = apr_pcalloc (pool, sizeof(*ua));
 
         ua->get_user_and_pass = get_user_and_pass;
@@ -335,7 +335,7 @@ get_authenticator (void **authenticator,
                                  pool, "Unknown authenticator requested.");
       }
     }
-
+  
   return SVN_NO_ERROR;
 }
 
