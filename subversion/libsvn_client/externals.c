@@ -80,7 +80,7 @@ parse_externals_description (apr_hash_t **externals_p,
   apr_hash_t *externals = apr_hash_make (pool);
   apr_array_header_t *lines = svn_cstring_split (desc, "\n\r", TRUE, pool);
   int i;
-
+  
   for (i = 0; i < lines->nelts; i++)
     {
       const char *line = APR_ARRAY_IDX (lines, i, const char *);
@@ -98,7 +98,7 @@ parse_externals_description (apr_hash_t **externals_p,
       target_dir = APR_ARRAY_IDX (line_parts, 0, const char *);
       url = APR_ARRAY_IDX (line_parts, 1, const char *);
       item = apr_palloc (pool, sizeof (*item));
-
+      
       if (! url)
         return svn_error_createf
           (SVN_ERR_CLIENT_INVALID_EXTERNALS_DESCRIPTION, 0, NULL, pool,
@@ -151,7 +151,7 @@ compare_external_items (struct external_item *new_item,
       || (! svn_client__compare_revisions (&(new_item->revision),
                                            &(old_item->revision))))
     return FALSE;
-
+    
   /* Else. */
   return TRUE;
 }
@@ -230,7 +230,7 @@ handle_external_item_change (const void *key, apr_ssize_t klen,
       SVN_ERR (svn_io_remove_dir (svn_path_join (ib->parent_dir,
                                                  old_item->target_dir,
                                                  ib->pool), ib->pool));
-
+      
       SVN_ERR (svn_client_checkout
                (ib->before_editor,
                 ib->before_edit_baton,
@@ -268,7 +268,7 @@ struct handle_externals_desc_change_baton
 
 
 /* This implements the `svn_hash_diff_func_t' interface.
-   BATON is of type `struct handle_externals_desc_change_baton *'.
+   BATON is of type `struct handle_externals_desc_change_baton *'.  
 */
 static svn_error_t *
 handle_externals_desc_change (const void *key, apr_ssize_t klen,
@@ -339,8 +339,8 @@ svn_client__handle_externals_changes (svn_wc_traversal_info_t *traversal_info,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
- * end:
+ * end: 
  */
