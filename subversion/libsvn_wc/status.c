@@ -3,32 +3,32 @@
  *
  * ================================================================
  * Copyright (c) 2000 CollabNet.  All rights reserved.
- *
+ * 
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
  * met:
- *
+ * 
  * 1. Redistributions of source code must retain the above copyright
  * notice, this list of conditions and the following disclaimer.
- *
+ * 
  * 2. Redistributions in binary form must reproduce the above copyright
  * notice, this list of conditions and the following disclaimer in the
  * documentation and/or other materials provided with the distribution.
- *
+ * 
  * 3. The end-user documentation included with the redistribution, if
  * any, must include the following acknowlegement: "This product includes
  * software developed by CollabNet (http://www.Collab.Net)."
  * Alternately, this acknowlegement may appear in the software itself, if
  * and wherever such third-party acknowlegements normally appear.
- *
+ * 
  * 4. The hosted project names must not be used to endorse or promote
  * products derived from this software without prior written
  * permission. For written permission, please contact info@collab.net.
- *
+ * 
  * 5. Products derived from this software may not use the "Tigris" name
  * nor may "Tigris" appear in their names without prior written
  * permission of CollabNet.
- *
+ * 
  * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
  * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -42,7 +42,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ====================================================================
- *
+ * 
  * This software consists of voluntary contributions made by many
  * individuals on behalf of CollabNet.
  */
@@ -58,7 +58,7 @@
 #include "svn_error.h"
 #include "svn_path.h"
 #include "svn_wc.h"
-#include "wc.h"
+#include "wc.h"   
 
 
 
@@ -77,14 +77,14 @@ add_status_structure (apr_hash_t *statushash,
   statstruct->local_ver = entry->revision;
   statstruct->repos_ver = SVN_INVALID_REVNUM;  /* svn_client_status()
                                                   will fill this in */
-
+  
   if (entry->flags & SVN_WC__ENTRY_ADD)
     statstruct->flag = svn_wc_status_added;
   else if (entry->flags & SVN_WC__ENTRY_DELETE)
     statstruct->flag = svn_wc_status_deleted;
   else if (entry->flags & SVN_WC__ENTRY_CONFLICT)
     statstruct->flag = svn_wc_status_conflicted;
-  else
+  else 
     {
       if (entry->kind == svn_node_file)
         {
@@ -104,7 +104,7 @@ add_status_structure (apr_hash_t *statushash,
     statstruct->flag = svn_wc_status_none;
 
   apr_hash_set (statushash, path->data, path->len, statstruct);
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -119,13 +119,13 @@ svn_wc_get_status (apr_hash_t *statushash,
   apr_hash_t *entries;
   svn_wc__entry_t *entry;
   void *value;
-
+  
   /* Is PATH a directory or file? */
   err = svn_io_check_path (path, &kind, pool);
   if (err) return err;
-
+  
   /* Read the appropriate entries file */
-
+  
   /* If path points to only one file, return just one status structure
      in the STATUSHASH */
   if (kind == svn_node_file)
@@ -134,7 +134,7 @@ svn_wc_get_status (apr_hash_t *statushash,
 
       /* Figure out file's parent dir */
       svn_path_split (path, &dirpath, &basename,
-                      svn_path_local_style, pool);
+                      svn_path_local_style, pool);      
 
       /* Load entries file for file's parent */
       err = svn_wc__entries_read (&entries, dirpath, pool);
@@ -143,7 +143,7 @@ svn_wc_get_status (apr_hash_t *statushash,
       /* Get the entry by looking up file's basename */
       value = apr_hash_get (entries, basename->data, APR_HASH_KEY_STRING);
 
-      if (value)
+      if (value)  
         entry = (svn_wc__entry_t *) value;
       else
         return svn_error_createf (SVN_ERR_BAD_FILENAME, 0, NULL, pool,
@@ -192,18 +192,18 @@ svn_wc_get_status (apr_hash_t *statushash,
               /* This must be the "." dir;  store it instead of
                  recursing. */
               err = add_status_structure (statushash, fullpath, entry, pool);
-              if (err) return err;
+              if (err) return err;              
             }
-        }
+        }      
     }
-
+  
   return SVN_NO_ERROR;
 }
 
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
