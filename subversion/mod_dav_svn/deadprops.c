@@ -222,7 +222,7 @@ static dav_error *dav_svn_db_define_namespaces(dav_db *db, dav_xmlns_info *xi)
   return NULL;
 }
 
-static dav_error *dav_svn_db_output_value(dav_db *db,
+static dav_error *dav_svn_db_output_value(dav_db *db, 
                                           const dav_prop_name *name,
                                           dav_xmlns_info *xi,
                                           apr_text_header *phdr, int *found)
@@ -267,7 +267,7 @@ static dav_error *dav_svn_db_output_value(dav_db *db,
       /* ### at least, per the current mod_dav architecture/API */
       /* ### oops. apr_text is not binary-safe */
       apr_text_append(db->resource->pool, phdr, xmlsafe->data);
-
+      
       s = apr_psprintf(db->resource->pool, "</%s%s>" DEBUG_CR, prefix,
                        name->name);
       apr_text_append(db->resource->pool, phdr, s);
@@ -478,7 +478,7 @@ static dav_error *dav_svn_db_apply_rollback(dav_db *db,
     {
       return dav_svn_db_remove(db, &rollback->name);
     }
-
+  
   return save_value(db, &rollback->name, &rollback->value);
 }
 
