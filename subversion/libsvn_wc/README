@@ -168,7 +168,7 @@ side is the working copy and which is the repository.
    Table 2:   Indirect changes  <==>  Indirect changes
    Table 3:   Direct changes   <==>   Direct changes
 
-In each cell, "C" means "Conflict" and "M" means "Mergeable".
+In each cell, "C" means "Conflict" and "M" means "Mergeable".  
 
 todo: run through a couple of cells from both sides, to show how these
 scenarios play out in real-life.
