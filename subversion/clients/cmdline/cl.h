@@ -135,7 +135,7 @@ svn_cl__cmd_proc_t
   svn_cl__update;
 
 
-/* make the command table information available to all commands */
+/* make the command table information available to all commands */ 
 extern const svn_cl__cmd_desc_t svn_cl__cmd_table[];
 
 const svn_cl__cmd_desc_t *
@@ -180,7 +180,7 @@ void svn_cl__print_status (svn_stringbuf_t *path, svn_wc_status_t *status);
 
 /* Print a hash that maps names to status-structs to stdout for human
    consumption. */
-void svn_cl__print_status_list (apr_hash_t *statushash,
+void svn_cl__print_status_list (apr_hash_t *statushash, 
                                 svn_boolean_t print_modified_only,
                                 apr_pool_t *pool);
 
@@ -191,7 +191,7 @@ void svn_cl__print_prop_hash (apr_hash_t *prop_hash, apr_pool_t *pool);
 /* Print a context diff showing local changes made to PATH */
 svn_error_t *svn_cl__print_file_diff (svn_stringbuf_t *path, apr_pool_t *pool);
 
-/* Print diffs showing all local changes within the directory PATH, if
+/* Print diffs showing all local changes within the directory PATH, if 
  * RECURSE is TRUE, then recurse into subdirectories. */
 svn_error_t *svn_cl__print_dir_diff (svn_stringbuf_t *path,
                                      svn_boolean_t recurse,
@@ -217,7 +217,7 @@ svn_cl__get_trace_commit_editor (const svn_delta_edit_fns_t **editor,
 void svn_cl__init_feedback_vtable (apr_pool_t *top_pool);
 
 
-/* Our implementation of the 'auth info callback' routine,
+/* Our implementation of the 'auth info callback' routine, 
    as defined in svn_client.h.   This callback is passed to any
    libsvn_client routine that needs to authenticate against a
    repository. */
@@ -243,9 +243,9 @@ svn_cl__make_auth_obj (svn_cl__opt_state_t *opt_state,
 
 #endif /* SVN_CL_H */
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../svn-dev.el")
- * end:
+ * end: 
  */
 
