@@ -91,7 +91,7 @@ static svn_error_t * svn_ra_get_authenticator (const void **authenticator,
                               "authentication/authorization mechanism");
     }
 
-  if (uri_parse(repository, &uri, NULL)
+  if (uri_parse(repository, &uri, NULL) 
       || uri.host == NULL || uri.path == NULL)
     {
       return svn_error_create(SVN_ERR_RA_ILLEGAL_URL, 0, NULL, pool,
@@ -204,7 +204,7 @@ svn_error_t *svn_ra_dav_init(int abi_version,
 }
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
