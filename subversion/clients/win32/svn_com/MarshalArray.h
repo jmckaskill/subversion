@@ -34,37 +34,37 @@ public:
 			free(m_ppUnk);
 	}
 
-	DWORD
+	DWORD 
 	Add(IUnknown* pUnk);
 
-	BOOL
+	BOOL 
 	Remove(DWORD dwCookie);
 
-	static DWORD WINAPI
+	static DWORD WINAPI 
 	GetCookie(IUnknown** pp)
 	{
 		return (DWORD)*pp;
 	}
 
-	static IUnknown* WINAPI
+	static IUnknown* WINAPI 
 	GetUnknown(DWORD dwCookie)
 	{
 		return (IUnknown*)dwCookie;
 	}
 
-	IUnknown**
+	IUnknown** 
 	begin()
 	{
 		return (m_nSize < 2) ? &m_pUnk : m_ppUnk;
 	}
 
-	IUnknown**
+	IUnknown** 
 	end()
 	{
 		return (m_nSize < 2) ? (&m_pUnk)+m_nSize : &m_ppUnk[m_nSize];
 	}
 
-	IUnknown*
+	IUnknown* 
 	GetAt(int nIndex)
 	{
 		IUnknown *pUnk = NULL;
@@ -91,13 +91,13 @@ public:
 		return pUnk2;
 	}
 
-	int
+	int 
 	GetSize() const
 	{
 		return m_nSize;
 	}
 
-	void
+	void 
 	clear()
 	{
 		if (m_nSize > 1)
@@ -114,7 +114,7 @@ protected:
 };
 
 template <const IID* piid>
-inline DWORD
+inline DWORD 
 CComDynamicMarshalledUnkArray<piid>::Add(IUnknown* pUnk)
 {
 	IUnknown** pp = NULL;
@@ -133,7 +133,7 @@ CComDynamicMarshalledUnkArray<piid>::Add(IUnknown* pUnk)
 	}
 
 	pUnk = reinterpret_cast<IUnknown *>(pStream);
-
+		
 	if (m_nSize == 0) // no connections
 	{
 		m_pUnk = pUnk;
@@ -171,7 +171,7 @@ CComDynamicMarshalledUnkArray<piid>::Add(IUnknown* pUnk)
 }
 
 template <const IID *piid>
-inline BOOL
+inline BOOL 
 CComDynamicMarshalledUnkArray<piid>::Remove(DWORD dwCookie)
 {
 	IUnknown** pp;
