@@ -822,7 +822,7 @@ svn_fs_check_related (const svn_fs_id_t *a, const svn_fs_id_t *b)
   return (a->vtable->compare (a, b) != -1);
 }
 
-int
+int 
 svn_fs_compare_ids (const svn_fs_id_t *a, const svn_fs_id_t *b)
 {
   return a->vtable->compare (a, b);
