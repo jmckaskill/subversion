@@ -24,7 +24,7 @@
 /*** Code. ***/
 
 /* Our timestamp strings look like this:
- *
+ * 
  *    "Tue 3 Oct 2000 HH:MM:SS.UUU (day 277, dst 1, gmt_off -18000)"
  *
  * The idea is that they are conventionally human-readable for the
@@ -134,7 +134,7 @@ svn_time_from_string (svn_stringbuf_t *tstr)
           &exploded_time.tm_yday,
           &exploded_time.tm_isdst,
           &exploded_time.tm_gmtoff);
-
+  
   exploded_time.tm_year -= 1900;
   exploded_time.tm_yday -= 1;
   exploded_time.tm_wday = find_matching_string (wday, apr_day_snames);
@@ -147,7 +147,7 @@ svn_time_from_string (svn_stringbuf_t *tstr)
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end: */

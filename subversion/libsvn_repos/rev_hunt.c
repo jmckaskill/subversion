@@ -48,7 +48,7 @@ get_time (apr_time_t *time,
                                    strlen(SVN_PROP_REVISION_DATE)};
 
   SVN_ERR (svn_fs_revision_prop (&datestamp, fs, rev, &date_prop, pool));
-  if (! datestamp)
+  if (! datestamp)    
     return svn_error_createf
       (SVN_ERR_FS_GENERAL, 0, NULL, pool,
        "failed to find datestamp on revision %ld", rev);
@@ -76,7 +76,7 @@ svn_repos_dated_revision (svn_revnum_t *revision,
     {
       rev_mid = (rev_top + rev_bot) / 2;
       SVN_ERR (get_time (&this_time, fs, rev_mid, pool));
-
+      
       if (this_time > time) /* we've overshot */
         {
           apr_time_t previous_time;
@@ -95,7 +95,7 @@ svn_repos_dated_revision (svn_revnum_t *revision,
       else if (this_time < time) /* we've undershot */
         {
           apr_time_t next_time;
-
+          
           /* see if time falls between rev_mid and rev_mid+1: */
           SVN_ERR (get_time (&next_time, fs, rev_mid + 1, pool));
           if (next_time > time)
@@ -121,7 +121,7 @@ svn_repos_dated_revision (svn_revnum_t *revision,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
