@@ -94,7 +94,7 @@ prompt (const char **result,
                    ever heard of such a thing? */
                 abort ();
             }
-
+          
           svn_stringbuf_appendbytes (strbuf, &c, 1);
         }
     }
@@ -211,7 +211,7 @@ svn_cl__auth_ssl_server_prompt (svn_auth_cred_server_ssl_t **cred_p,
         }
       svn_stringbuf_appendcstr (buf, "Hostname mismatch");
       previous_output = TRUE;
-    }
+    } 
   failure = failures_in & (SVN_AUTH_SSL_EXPIRED | SVN_AUTH_SSL_NOTYETVALID);
   if (failure)
     {
@@ -225,7 +225,7 @@ svn_cl__auth_ssl_server_prompt (svn_auth_cred_server_ssl_t **cred_p,
 
   svn_stringbuf_appendcstr (buf, ". Accept? (y/N): ");
   SVN_ERR (prompt (&choice, buf->data, FALSE, pool));
-
+  
   if (choice && (choice[0] == 'y' || choice[0] == 'Y'))
     {
       *cred_p = apr_pcalloc (pool, sizeof (**cred_p));
@@ -266,7 +266,7 @@ svn_cl__auth_ssl_client_prompt (svn_auth_cred_client_ssl_t **cred_p,
     {
       cert_type = svn_auth_ssl_pkcs12_cert_type;
     }
-  else if ((strcmp (extension, ".pem") == 0) ||
+  else if ((strcmp (extension, ".pem") == 0) || 
            (strcmp (extension, ".PEM") == 0))
     {
       cert_type = svn_auth_ssl_pem_cert_type;
@@ -280,7 +280,7 @@ svn_cl__auth_ssl_client_prompt (svn_auth_cred_client_ssl_t **cred_p,
         {
           cert_type = svn_auth_ssl_pkcs12_cert_type;
         }
-      else if ((strcmp (type, "pem") == 0) ||
+      else if ((strcmp (type, "pem") == 0) || 
                (strcmp (type, "PEM") == 0))
         {
           cert_type = svn_auth_ssl_pem_cert_type;
@@ -291,7 +291,7 @@ svn_cl__auth_ssl_client_prompt (svn_auth_cred_client_ssl_t **cred_p,
                                     "unknown ssl certificate type '%s'", type);
         }
     }
-
+  
   if (cert_type == svn_auth_ssl_pem_cert_type)
     {
       SVN_ERR (prompt (&key_file, "optional key file: ", FALSE, pool));
@@ -318,7 +318,7 @@ svn_cl__auth_ssl_pw_prompt (svn_auth_cred_client_ssl_pass_t **cred_p,
                             void *baton,
                             apr_pool_t *pool)
 {
-
+  
   const char *result;
 
   SVN_ERR (prompt (&result, "client certificate passphrase: ", TRUE, pool));
