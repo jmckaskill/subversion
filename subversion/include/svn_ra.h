@@ -52,10 +52,10 @@ const svn_version_t *svn_ra_version (void);
  * copy (WC) properties.
  *
  * The @a baton is provided along with the function pointer and should
- * be passed back in. This will be the @a callback_baton or the
+ * be passed back in. This will be the @a callback_baton or the 
  * @a close_baton as appropriate.
  *
- * @a path is relative to the "root" of the session, defined by the
+ * @a path is relative to the "root" of the session, defined by the 
  * @a repos_url passed to the @c RA->open() vtable call.
  *
  * @a name is the name of the property to fetch. If the property is present,
@@ -69,8 +69,8 @@ typedef svn_error_t *(*svn_ra_get_wc_prop_func_t) (void *baton,
 
 /** This is a function type which allows the RA layer to store new
  * working copy properties during update-like operations.  See the
- * comments for @c svn_ra_get_wc_prop_func_t for @a baton, @a path, and
- * @a name. The @a value is the value that will be stored for the property;
+ * comments for @c svn_ra_get_wc_prop_func_t for @a baton, @a path, and 
+ * @a name. The @a value is the value that will be stored for the property; 
  * a null @a value means the property will be deleted.
  */
 typedef svn_error_t *(*svn_ra_set_wc_prop_func_t) (void *baton,
@@ -81,8 +81,8 @@ typedef svn_error_t *(*svn_ra_set_wc_prop_func_t) (void *baton,
 
 /** This is a function type which allows the RA layer to store new
  * working copy properties as part of a commit.  See the comments for
- * @c svn_ra_get_wc_prop_func_t for @a baton, @a path, and @a name.
- * The @a value is the value that will be stored for the property; a
+ * @c svn_ra_get_wc_prop_func_t for @a baton, @a path, and @a name.  
+ * The @a value is the value that will be stored for the property; a 
  * @c NULL @a value means the property will be deleted.
  *
  * Note that this might not actually store the new property before
@@ -113,7 +113,7 @@ typedef svn_error_t *(*svn_ra_invalidate_wc_props_func_t) (void *baton,
 
 
 /** A function type for retrieving the youngest revision from a repos. */
-typedef svn_error_t *(*svn_ra_get_latest_revnum_func_t)
+typedef svn_error_t *(*svn_ra_get_latest_revnum_func_t) 
        (void *session_baton,
         svn_revnum_t *latest_revnum);
 
@@ -166,7 +166,7 @@ typedef svn_error_t *(*svn_ra_file_rev_handler_t)
  */
 typedef struct svn_ra_reporter_t
 {
-  /** Describe a working copy @a path as being at a particular @a revision.
+  /** Describe a working copy @a path as being at a particular @a revision.  
    *
    * If @a START_EMPTY is set and @a path is a directory, the
    * implementor should assume the directory has no entries or props.
@@ -189,7 +189,7 @@ typedef struct svn_ra_reporter_t
   svn_error_t *(*delete_path) (void *report_baton,
                                const char *path,
                                apr_pool_t *pool);
-
+    
   /** Like @c set_path(), but differs in that @a path in the working copy
    * (relative to the root of the report driver) isn't a reflection of
    * @a path in the repository (relative to the URL specified when
@@ -228,7 +228,7 @@ typedef struct svn_ra_reporter_t
 /** A collection of callbacks implemented by libsvn_client which allows
  * an RA layer to "pull" information from the client application, or
  * possibly store information.  libsvn_client passes this vtable to
- * @c RA->open().
+ * @c RA->open().  
  *
  * Each routine takes a @a callback_baton originally provided with the
  * vtable.
@@ -241,7 +241,7 @@ typedef struct svn_ra_callbacks_t
   svn_error_t *(*open_tmp_file) (apr_file_t **fp,
                                  void *callback_baton,
                                  apr_pool_t *pool);
-
+  
   /** An authentication baton, created by the application, which is
    * capable of retrieving all known types of credentials.
    */
@@ -296,8 +296,8 @@ typedef struct svn_ra_session_t svn_ra_session_t;
  * @a callbacks/@a callback_baton is a table of callbacks provided by the
  * client; see @c svn_ra_callbacks_t above.
  *
- * @a config is a hash mapping <tt>const char *</tt> keys to
- * @c svn_config_t * values.  For example, the @c svn_config_t for the
+ * @a config is a hash mapping <tt>const char *</tt> keys to 
+ * @c svn_config_t * values.  For example, the @c svn_config_t for the 
  * "~/.subversion/config" file is under the key "config".
  *
  * All RA requests require a session; they will continue to
@@ -403,7 +403,7 @@ svn_error_t *svn_ra_rev_prop (svn_ra_session_t *session,
  *
  * The caller may not perform any RA operations using @a session before
  * finishing the edit.
- *
+ * 
  * Use @a pool for memory allocation.
  */
 svn_error_t *svn_ra_get_commit_editor (svn_ra_session_t *session,
@@ -424,15 +424,15 @@ svn_error_t *svn_ra_get_commit_editor (svn_ra_session_t *session,
  * If @a revision is @c SVN_INVALID_REVNUM (meaning 'head') and
  * @a *fetched_rev is not @c NULL, then this function will set
  * @a *fetched_rev to the actual revision that was retrieved.  (Some
- * callers want to know, and some don't.)
+ * callers want to know, and some don't.) 
  *
  * If @a stream is non @c NULL, push the contents of the file at @a stream.
  *
- * If @a props is non @c NULL, set @a *props to contain the properties of
+ * If @a props is non @c NULL, set @a *props to contain the properties of 
  * the file.  This means *all* properties: not just ones controlled by
  * the user and stored in the repository fs, but non-tweakable ones
  * generated by the SCM system itself (e.g. 'wcprops', 'entryprops',
- * etc.)  The keys are <tt>const char *</tt>, values are
+ * etc.)  The keys are <tt>const char *</tt>, values are 
  * <tt>@c svn_string_t *</tt>.
  *
  * The stream handlers for @a stream may not perform any RA
@@ -450,8 +450,8 @@ svn_error_t *svn_ra_get_file (svn_ra_session_t *session,
  * @since New in 1.2.
  *
  * If @a dirents is non @c NULL, set @a *dirents to contain all the entries
- * of directory @a path at @a revision.  The keys of @a dirents will be
- * entry names (<tt>const char *</tt>), and the values dirents
+ * of directory @a path at @a revision.  The keys of @a dirents will be 
+ * entry names (<tt>const char *</tt>), and the values dirents 
  * (<tt>@c svn_dirent_t *</tt>).  Use @a pool for all allocations.
  *
  * @a path is interpreted relative to the URL in @a session.
@@ -459,13 +459,13 @@ svn_error_t *svn_ra_get_file (svn_ra_session_t *session,
  * If @a revision is @c SVN_INVALID_REVNUM (meaning 'head') and
  * @a *fetched_rev is not @c NULL, then this function will set
  * @a *fetched_rev to the actual revision that was retrieved.  (Some
- * callers want to know, and some don't.)
+ * callers want to know, and some don't.) 
  *
- * If @a props is non @c NULL, set @a *props to contain the properties of
+ * If @a props is non @c NULL, set @a *props to contain the properties of 
  * the directory.  This means *all* properties: not just ones controlled by
  * the user and stored in the repository fs, but non-tweakable ones
  * generated by the SCM system itself (e.g. 'wcprops', 'entryprops',
- * etc.)  The keys are <tt>const char *</tt>, values are
+ * etc.)  The keys are <tt>const char *</tt>, values are 
  * <tt>@c svn_string_t *</tt>.
  */
 svn_error_t *svn_ra_get_dir (svn_ra_session_t *session,
@@ -481,7 +481,7 @@ svn_error_t *svn_ra_get_dir (svn_ra_session_t *session,
  *
  * Ask the RA layer to update a working copy.
  *
- * The client initially provides an @a update_editor/@a baton to the
+ * The client initially provides an @a update_editor/@a baton to the 
  * RA layer; this editor contains knowledge of where the change will
  * begin in the working copy (when @c open_root() is called).
  *
@@ -526,7 +526,7 @@ svn_error_t *svn_ra_do_update (svn_ra_session_t *session,
  *
  * The client initially provides an @a switch_editor/@a baton to the RA
  * layer; this editor contains knowledge of where the change will
- * begin in the working copy (when @c open_root() is called).
+ * begin in the working copy (when @c open_root() is called). 
  *
  * In return, the client receives a @a reporter/@a report_baton.  The
  * client then describes its working-copy revision numbers by making
@@ -615,7 +615,7 @@ svn_error_t *svn_ra_do_status (svn_ra_session_t *session,
  *
  * The client initially provides a @a diff_editor/@a baton to the RA
  * layer; this editor contains knowledge of where the common diff
- * root is in the working copy (when @c open_root() is called).
+ * root is in the working copy (when @c open_root() is called). 
  *
  * In return, the client receives a @a reporter/@a report_baton. The
  * client then describes its working-copy revision numbers by making
@@ -663,8 +663,8 @@ svn_error_t *svn_ra_do_diff (svn_ra_session_t *session,
  * @since New in 1.2.
  *
  * Invoke @a receiver with @a receiver_baton on each log message from
- * @a start to @a end.  @a start may be greater or less than @a end;
- * this just controls whether the log messages are processed in descending
+ * @a start to @a end.  @a start may be greater or less than @a end; 
+ * this just controls whether the log messages are processed in descending 
  * or ascending revision number order.
  *
  * If @a start or @a end is @c SVN_INVALID_REVNUM, it defaults to youngest.
@@ -672,7 +672,7 @@ svn_error_t *svn_ra_do_diff (svn_ra_session_t *session,
  * If @a paths is non-null and has one or more elements, then only show
  * revisions in which at least one of @a paths was changed (i.e., if
  * file, text or props changed; if dir, props changed or an entry
- * was added or deleted).  Each path is an <tt>const char *</tt>, relative
+ * was added or deleted).  Each path is an <tt>const char *</tt>, relative 
  * to the @a session's common parent.
  *
  * If @a limit is non-zero only invoke @a receiver on the first @a limit
@@ -713,8 +713,8 @@ svn_error_t *svn_ra_get_log (svn_ra_session_t *session,
 /**
  * @since New in 1.2.
  *
- * Set @a *kind to the node kind associated with @a path at @a revision.
- * If @a path does not exist under @a revision, set @a *kind to
+ * Set @a *kind to the node kind associated with @a path at @a revision.  
+ * If @a path does not exist under @a revision, set @a *kind to 
  * @c svn_node_none.  @a path is relative to the @a session's parent URL.
  *
  * Use @a pool for memory allocation.
@@ -826,8 +826,8 @@ svn_error_t *svn_ra_print_ra_libraries (svn_stringbuf_t **descriptions,
 typedef struct svn_ra_plugin_t
 {
   /** The proper name of the RA library, (like "ra_dav" or "ra_local") */
-  const char *name;
-
+  const char *name;         
+  
   /** Short doc string printed out by `svn --version` */
   const char *description;
 
@@ -883,7 +883,7 @@ typedef struct svn_ra_plugin_t
                             const char *name,
                             svn_string_t **value,
                             apr_pool_t *pool);
-
+                                   
   /** Call @c svn_ra_get_commit_editor with the session associated with
    * @a session_baton and all other arguments.
    */
@@ -1053,7 +1053,7 @@ typedef struct svn_ra_plugin_t
  *
  * When called by libsvn_client, this routine adds an entry (or
  * entries) to the hash table for any URL schemes it handles.  The hash
- * value must be of type (<tt>@c svn_ra_plugin_t *</tt>).  @a pool is a
+ * value must be of type (<tt>@c svn_ra_plugin_t *</tt>).  @a pool is a 
  * pool for allocating configuration / one-time data.
  *
  * This type is defined to use the "C Calling Conventions" to ensure that
@@ -1066,7 +1066,7 @@ typedef svn_error_t *(*svn_ra_init_func_t) (int abi_version,
                                             apr_pool_t *pool,
                                             apr_hash_t *hash);
 
-/**
+/** 
  * @deprecated Provided for backward compatibility with the 1.0 API.
  *
  * The current ABI (Application Binary Interface) version for the
