@@ -57,7 +57,7 @@ static apr_status_t wait_for_input (apr_file_t *f,
 #ifdef WIN32
   return APR_ENOTIMPL;
 #endif /* WIN32 */
-
+  
   pollset.desc_type = APR_POLL_FILE;
   pollset.desc.f = f;
   pollset.p = pool;
@@ -115,7 +115,7 @@ prompt (const char **result,
             continue;
           else if (status && status != APR_ENOTIMPL)
             return svn_error_wrap_apr (status, "Can't read stdin");
-
+             
           status = apr_file_getc (&c, fp);
           if (status && ! APR_STATUS_IS_EOF(status))
             return svn_error_wrap_apr (status, "Can't read stdin");
@@ -141,7 +141,7 @@ prompt (const char **result,
                    ever heard of such a thing? */
                 abort ();
             }
-
+          
           svn_stringbuf_appendbytes (strbuf, &c, 1);
         }
     }
@@ -261,7 +261,7 @@ svn_cl__auth_ssl_server_trust_prompt (
     {
       svn_stringbuf_appendcstr
         (buf, " - The certificate hostname does not match.\n");
-    }
+    } 
 
   if (failures & SVN_AUTH_SSL_NOTYETVALID)
     {
@@ -340,7 +340,7 @@ svn_cl__auth_ssl_client_cert_prompt (svn_auth_cred_ssl_client_cert_t **cred_p,
   svn_client_ctx_t *ctx = (svn_client_ctx_t *) baton;
 
   SVN_ERR (maybe_print_realm (realm, pool));
-  SVN_ERR (prompt (&cert_file, "Client certificate filename: ",
+  SVN_ERR (prompt (&cert_file, "Client certificate filename: ", 
                    FALSE, ctx, pool));
 
   cred = apr_palloc (pool, sizeof(*cred));
