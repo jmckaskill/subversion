@@ -188,7 +188,7 @@ static svn_error_t *ra_svn_delete_path(void *baton, const char *path,
   SVN_ERR(svn_ra_svn_read_cmd_response(b->conn, pool, ""));
   return SVN_NO_ERROR;
 }
-
+    
 static svn_error_t *ra_svn_link_path(void *baton, const char *path,
                                      const char *url, svn_revnum_t rev,
                                      apr_pool_t *pool)
@@ -255,12 +255,12 @@ static void ra_svn_get_reporter(svn_ra_svn_conn_t *conn, apr_pool_t *pool,
 static svn_error_t *find_tunnel_agent(const char *hostname, const char **agent,
                                       apr_hash_t *config, apr_pool_t *pool)
 {
-  svn_config_t *cfg = config ? apr_hash_get (config,
+  svn_config_t *cfg = config ? apr_hash_get (config, 
                                              SVN_CONFIG_CATEGORY_SERVERS,
                                              APR_HASH_KEY_STRING) : NULL;
   const char *server_group;
 
-  server_group = svn_config_find_group(cfg, hostname,
+  server_group = svn_config_find_group(cfg, hostname, 
                                        SVN_CONFIG_SECTION_GROUPS, pool);
   if (! server_group)
     server_group = SVN_CONFIG_SECTION_GLOBAL;
@@ -564,7 +564,7 @@ static svn_error_t *ra_svn_get_file(void *sess, const char *path,
     {
       apr_md5_final(digest, &md5_context);
       hex_digest = svn_md5_digest_to_cstring(digest, pool);
-
+      
       if (strcmp(hex_digest, expected_checksum) != 0)
         return svn_error_createf
           (SVN_ERR_CHECKSUM_MISMATCH, NULL,
