@@ -8,7 +8,7 @@ A. How ACLs should work.  Do they live as filesystem props?  How
    should authorization and authentication work in general?
 
    We need a security architecture that:
-
+  
       * will take advantage of Apache
 
       * fits well with the Sourcecast 2.0 framework
@@ -71,6 +71,6 @@ P. Optimizations that *should* be in effect, but aren't yet:
 
 Q. Need more descriptive error messages all around.  Perhaps a table
    that maps errnos to strings.  (We'll need this anyway once we
-   internationalize.)
+   internationalize.) 
 
 R. Speaking of which:  i18n plans?  Mulitlingual plans?
