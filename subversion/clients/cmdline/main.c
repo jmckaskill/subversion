@@ -51,7 +51,7 @@
 /* Option codes and descriptions for the command line client.
  *
  * This must not have more than SVN_OPT_MAX_OPTIONS entries; if you
- * need more, increase that limit first.
+ * need more, increase that limit first. 
  *
  * The entire list must be terminated with an entry of nulls.
  */
@@ -114,7 +114,7 @@ const svn_opt_subcommand_desc_t svn_cl__cmd_table[] =
   { "add", svn_cl__add, {0},
     "Put files and directories under revision control, scheduling\n"
     "them for addition to repository.  They will be added in next commit.\n"
-    "usage: svn add TARGETS\n",
+    "usage: svn add TARGETS\n", 
     {svn_cl__targets_opt, 'R', 'q'} },
 
   { "checkout", svn_cl__checkout, {"co"},
@@ -133,7 +133,7 @@ const svn_opt_subcommand_desc_t svn_cl__cmd_table[] =
     "unfinished operations, etc.\n"
     "usage: svn cleanup [TARGETS]\n",
     {0} },
-
+  
   { "commit", svn_cl__commit, {"ci"},
     "Send changes from your working copy to the repository.\n"
     "usage: svn commit [TARGETS]\n\n"
@@ -142,7 +142,7 @@ const svn_opt_subcommand_desc_t svn_cl__cmd_table[] =
      svn_cl__force_opt, svn_cl__auth_username_opt, svn_cl__auth_password_opt,
      svn_cl__no_auth_cache_opt,  svn_cl__non_interactive_opt,
      svn_cl__msg_encoding_opt} },
-
+  
   { "copy", svn_cl__copy, {"cp"},
     "Duplicate something in working copy or repos, remembering history.\n"
     "usage: svn copy SRC DST.\n\n"
@@ -155,7 +155,7 @@ const svn_opt_subcommand_desc_t svn_cl__cmd_table[] =
      svn_cl__auth_username_opt, svn_cl__auth_password_opt,
      svn_cl__no_auth_cache_opt,  svn_cl__non_interactive_opt,
      svn_cl__msg_encoding_opt} },
-
+  
   { "delete", svn_cl__delete, {"del", "remove", "rm"},
     "Remove files and directories from version control.\n"
     "usage: svn delete [TARGET | URL]\n\n"
@@ -171,7 +171,7 @@ const svn_opt_subcommand_desc_t svn_cl__cmd_table[] =
      svn_cl__auth_username_opt, svn_cl__auth_password_opt,
      svn_cl__no_auth_cache_opt, svn_cl__non_interactive_opt,
      svn_cl__msg_encoding_opt} },
-
+  
   { "diff", svn_cl__diff, {"di"},
     "display the differences between two paths.\n"
     "usage: 1. svn diff [-r N[:M]] [PATH1 [PATH2 [PATH3 ...]]]\n"
@@ -213,7 +213,7 @@ const svn_opt_subcommand_desc_t svn_cl__cmd_table[] =
      course.  But those options, since unknown, will result in the
      help message being printed out anyway, so there's no need to
      support them explicitly. */
-
+  
   { "import", svn_cl__import, {0},
     "Commit an unversioned file or tree into the repository.\n"
     "usage: svn import REPOS_URL [PATH] [NEW_ENTRY_IN_REPOS]\n\n"
@@ -224,21 +224,21 @@ const svn_opt_subcommand_desc_t svn_cl__cmd_table[] =
     {'m', 'F', 'q', 'N', svn_cl__auth_username_opt, svn_cl__auth_password_opt,
      svn_cl__no_auth_cache_opt, svn_cl__non_interactive_opt,
      svn_cl__msg_encoding_opt} },
-
+ 
   { "info", svn_cl__info, {0},
     "Display info about a resource.\n"
     "usage: svn info [PATH1 [PATH2] ...]\n\n"
     "    Print information about PATHs.\n",
     {svn_cl__targets_opt, 'R'} },
-
+ 
   { "list", svn_cl__ls, {"ls"},
     "List directory entries of a URL.\n"
     "usage: svn list URL1 [URL2 ...]\n\n"
     "    If URL is a file, just file entry will be displayed.\n",
-    {'r', 'v', 'R', svn_cl__auth_username_opt,
+    {'r', 'v', 'R', svn_cl__auth_username_opt, 
      svn_cl__auth_password_opt, svn_cl__no_auth_cache_opt,
      svn_cl__non_interactive_opt} },
-
+  
   { "log", svn_cl__log, {0},
     "Show the log messages for a set of revision(s) and/or file(s).\n"
     "usage: svn log [URL] [PATH1 [PATH2] ...] \n"
@@ -276,7 +276,7 @@ const svn_opt_subcommand_desc_t svn_cl__cmd_table[] =
     {'r', 'N', 'q', svn_cl__force_opt, svn_cl__dry_run_opt,
      svn_cl__auth_username_opt, svn_cl__auth_password_opt,
      svn_cl__no_auth_cache_opt, svn_cl__non_interactive_opt} },
-
+  
   { "mkdir", svn_cl__mkdir, {0},
     "Create a new directory under revision control.\n"
     "usage: mkdir [NEW_DIR | REPOS_URL].\n\n"
@@ -292,12 +292,12 @@ const svn_opt_subcommand_desc_t svn_cl__cmd_table[] =
     "  NOTE:  this command is equivalent to a 'copy' and 'delete'.\n\n"
     "  SRC and DST can both be working copy (WC) paths or URLs:\n"
     "    WC  -> WC:   move and schedule for addition (with history)\n"
-    "    URL -> URL:  complete server-side rename.\n",
+    "    URL -> URL:  complete server-side rename.\n",    
     {'m', 'F', 'r', 'q', svn_cl__auth_username_opt,
-     svn_cl__auth_password_opt, svn_cl__no_auth_cache_opt,
+     svn_cl__auth_password_opt, svn_cl__no_auth_cache_opt, 
      svn_cl__non_interactive_opt, svn_cl__force_opt,
      svn_cl__msg_encoding_opt} },
-
+  
   { "propdel", svn_cl__propdel, {"pdel"},
     "Remove PROPNAME from files, dirs, or revisions.\n"
     "usage: 1. propdel [WC_TARGETS]\n"
@@ -305,7 +305,7 @@ const svn_opt_subcommand_desc_t svn_cl__cmd_table[] =
     "First usage removes versioned props in working copy.\n"
     "Second usage removes unversioned remote prop on repos revision.\n\n",
     {'q', 'R', 'r', svn_cl__revprop_opt} },
-
+  
   { "propedit", svn_cl__propedit, {"pedit", "pe"},
     "Edit property PROPNAME with $EDITOR on targets.\n"
     "usage: 1. propedit PROPNAME TARGET1 [TARGET2 ...]\n"
@@ -313,7 +313,7 @@ const svn_opt_subcommand_desc_t svn_cl__cmd_table[] =
     "First usage edits versioned props in working copy.\n"
     "Second usage edits unversioned remote prop on repos revision.\n\n",
     {'r', svn_cl__revprop_opt} },
-
+  
   { "propget", svn_cl__propget, {"pget", "pg"},
     "Print value of PROPNAME on files, dirs, or revisions.\n"
     "usage: 1. propget PROPNAME [WC_TARGETS]\n"
@@ -321,7 +321,7 @@ const svn_opt_subcommand_desc_t svn_cl__cmd_table[] =
     "First usage prints versioned prop in working copy.\n"
     "Second usage prints unversioned remote prop on repos revision.\n\n",
     {'R', 'r', svn_cl__revprop_opt} },
-
+  
   { "proplist", svn_cl__proplist, {"plist", "pl"},
     "List all properties on files, dirs, or revisions.\n"
     "usage: 1. proplist [WC_TARGETS]\n"
@@ -329,7 +329,7 @@ const svn_opt_subcommand_desc_t svn_cl__cmd_table[] =
     "First usage lists versioned props in working copy.\n"
     "Second usage lists unversioned remote props on repos revision.\n\n",
     {'v', 'R', 'r', svn_cl__revprop_opt} },
-
+  
   { "propset", svn_cl__propset, {"pset", "ps"},
     "Set PROPNAME to PROPVAL on files, dirs, or revisions.\n\n"
     "usage: 1. propset PROPNAME [PROPVAL | -F VALFILE] TARGET1 [TARGET2 ...]\n"
@@ -363,7 +363,7 @@ const svn_opt_subcommand_desc_t svn_cl__cmd_table[] =
     "           foo            http://example.com/repos/zig\n"
     "           foo/bar -r1234 http://example.com/repos/zag\n",
     {'F', 'q', 'r', svn_cl__targets_opt, 'R', svn_cl__revprop_opt} },
-
+  
   { "revert", svn_cl__revert, {0},
     "Restore pristine working copy file (undo all local edits)\n"
     "usage: revert TARGET1 [TARGET2 [TARGET3 ... ]]\n\n"
@@ -378,7 +378,7 @@ const svn_opt_subcommand_desc_t svn_cl__cmd_table[] =
     "    it merely removes conflict-related artifact files and allows TARGET\n"
     "    to be committed again.\n",
     {svn_cl__targets_opt, 'R', 'q'} },
-
+ 
   { "status", svn_cl__status, {"stat", "st"},
     "Print the status of working copy files and directories.\n"
     "usage: svn status [TARGETS]\n\n"
@@ -429,7 +429,7 @@ const svn_opt_subcommand_desc_t svn_cl__cmd_table[] =
       svn_cl__auth_username_opt, svn_cl__auth_password_opt,
       svn_cl__no_auth_cache_opt, svn_cl__non_interactive_opt,
       svn_cl__no_ignore_opt } },
-
+  
   { "switch", svn_cl__switch, {"sw"},
     "Update working copy to mirror a new URL\n"
     "usage: switch REPOS_URL [TARGET]\n\n"
@@ -437,8 +437,8 @@ const svn_opt_subcommand_desc_t svn_cl__cmd_table[] =
     { 'r', 'N', 'q', svn_cl__auth_username_opt,
       svn_cl__auth_password_opt, svn_cl__no_auth_cache_opt,
       svn_cl__non_interactive_opt } },
-
-  { "update", svn_cl__update, {"up"},
+ 
+  { "update", svn_cl__update, {"up"}, 
     "Bring changes from the repository into the working copy.\n"
     "usage: update [TARGETS]\n\n"
     "  If no revision given, bring working copy up-to-date with HEAD rev.\n"
@@ -472,7 +472,7 @@ main (int argc, const char * const *argv)
   svn_error_t *err;
   apr_pool_t *pool;
   int opt_id, err2;
-  apr_getopt_t *os;
+  apr_getopt_t *os;  
   svn_cl__opt_state_t opt_state;
   int received_opts[SVN_OPT_MAX_OPTIONS];
   int i, num_opts = 0;
@@ -508,7 +508,7 @@ main (int argc, const char * const *argv)
   memset (&opt_state, 0, sizeof (opt_state));
   opt_state.start_revision.kind = svn_opt_revision_unspecified;
   opt_state.end_revision.kind = svn_opt_revision_unspecified;
-
+  
   /* No args?  Show usage. */
   if (argc <= 1)
     {
@@ -718,7 +718,7 @@ main (int argc, const char * const *argv)
       default:
         /* Hmmm. Perhaps this would be a good place to squirrel away
            opts that commands like svn diff might need. Hmmm indeed. */
-        break;
+        break;  
       }
     }
 
@@ -791,7 +791,7 @@ main (int argc, const char * const *argv)
       if (! svn_opt_subcommand_takes_option (subcommand, opt_id))
         {
           const char *optstr;
-          const apr_getopt_option_t *badopt =
+          const apr_getopt_option_t *badopt = 
             svn_opt_get_option_from_code (opt_id, svn_cl__options);
           svn_opt_format_option (&optstr, badopt, FALSE, pool);
           fprintf (stderr,
