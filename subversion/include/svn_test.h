@@ -44,17 +44,17 @@ extern "C" {
  *
  * VERBOSE is a flag for specifying whether or not your want all the
  * nitty gritty details displayed.  When VERBOSE is FALSE, each editor
- * function will print only a one-line summary.
+ * function will print only a one-line summary. 
  *
  * INDENTATION is the number of spaces to indent by at each level; use
  * 0 for no indentation.  The indent level is always the same for a
  * given call (i.e, stack frame).
- *
+ * 
  */
 
 /* SOME EXAMPLES */
 
-/*
+/* 
  * With an indentation of 3, and with verbose = TRUE
  *
 
@@ -75,7 +75,7 @@ extern "C" {
    [EDITOR_NAME] close_directory (wc/A)
    [EDITOR_NAME] add_file (zeta)
       parent: wc
-      copyfrom_path:
+      copyfrom_path: 
       copyfrom_revision: 0
    [EDITOR_NAME] replace_file (iota)
       parent: wc
@@ -95,7 +95,7 @@ extern "C" {
 [EDITOR_NAME] close_edit
 */
 
-/*
+/* 
  * With an indentation of 3, and with verbose = FALSE
  *
 
@@ -129,7 +129,7 @@ svn_error_t *svn_test_get_editor (const svn_delta_edit_fns_t **editor,
                                   svn_string_t *path,
                                   enum svn_path_style style,
                                   apr_pool_t *pool);
-
+     
 #endif /* SVN_TEST_H */
 
 #ifdef __cplusplus
