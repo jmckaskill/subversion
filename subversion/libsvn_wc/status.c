@@ -37,14 +37,14 @@
 
 static void add_default_ignores (apr_array_header_t *patterns)
 {
-  static const char * const ignores[] =
+  static const char * const ignores[] = 
   {
     "*.o", "*.lo", "*.la", "#*#", "*.rej", "*~", ".#*",
     /* what else? */
     NULL
   };
   int i;
-
+  
   for (i = 0; ignores[i] != NULL; i++)
     {
       const char **ent = apr_array_push(patterns);
@@ -73,12 +73,12 @@ add_ignore_patterns (const char *dirpath,
     svn_cstring_split_append (patterns, value->data, "\n\r", FALSE, pool);
 
   return SVN_NO_ERROR;
-}
+}                  
 
 
-
+                        
 /* Fill in *STATUS for PATH, whose entry data is in ENTRY.  Allocate
-   *STATUS in POOL.
+   *STATUS in POOL. 
 
    ENTRY may be null, for non-versioned entities.  In this case, we
    will assemble a special status structure item which implies a
@@ -145,7 +145,7 @@ assemble_status (svn_wc_status_t **status,
 
   /* Implement predecence rules: */
 
-  /* 1. Set the two main variables to "discovered" values first (M, C).
+  /* 1. Set the two main variables to "discovered" values first (M, C). 
         Together, these two stati are of lowest precedence, and C has
         precedence over M. */
 
@@ -156,39 +156,39 @@ assemble_status (svn_wc_status_t **status,
 
   /* If the entry has a property file, see if it has local changes. */
   SVN_ERR (svn_wc_props_modified_p (&prop_modified_p, path, pool));
-
+  
   /* If the entry is a file, check for textual modifications */
   if (entry->kind == svn_node_file)
     SVN_ERR (svn_wc_text_modified_p (&text_modified_p, path, pool));
-
+  
   if (text_modified_p)
     final_text_status = svn_wc_status_modified;
-
+  
   if (prop_modified_p)
-    final_prop_status = svn_wc_status_modified;
-
-  if (entry->prejfile || entry->conflict_old ||
+    final_prop_status = svn_wc_status_modified;      
+  
+  if (entry->prejfile || entry->conflict_old || 
       entry->conflict_new || entry->conflict_wrk)
     {
       svn_boolean_t text_conflict_p, prop_conflict_p;
       const char *parent_dir;
-
+      
       if (entry->kind == svn_node_dir)
         parent_dir = path;
       else  /* non-directory, that's all we need to know */
         {
           parent_dir = svn_path_remove_component_nts (path, pool);
         }
-
+      
       SVN_ERR (svn_wc_conflicted_p (&text_conflict_p, &prop_conflict_p,
                                     parent_dir, entry, pool));
-
+      
       if (text_conflict_p)
         final_text_status = svn_wc_status_conflicted;
       if (prop_conflict_p)
         final_prop_status = svn_wc_status_conflicted;
     }
-
+   
   /* 2. Possibly overwrite the the text_status variable with
         "scheduled" states from the entry (A, D, R).  As a group,
         these states are of medium precedence.  They also override any
@@ -199,13 +199,13 @@ assemble_status (svn_wc_status_t **status,
       final_text_status = svn_wc_status_added;
       final_prop_status = svn_wc_status_none;
     }
-
+      
   else if (entry->schedule == svn_wc_schedule_replace)
     {
       final_text_status = svn_wc_status_replaced;
       final_prop_status = svn_wc_status_none;
     }
-
+    
   else if (entry->schedule == svn_wc_schedule_delete)
     {
       final_text_status = svn_wc_status_deleted;
@@ -248,8 +248,8 @@ assemble_status (svn_wc_status_t **status,
 
   stat = apr_pcalloc (pool, sizeof(**status));
   stat->entry = svn_wc_entry_dup (entry, pool);
-  stat->text_status = final_text_status;
-  stat->prop_status = final_prop_status;
+  stat->text_status = final_text_status;       
+  stat->prop_status = final_prop_status;    
   stat->repos_text_status = svn_wc_status_none;   /* default */
   stat->repos_prop_status = svn_wc_status_none;   /* default */
   stat->locked = locked_p;
@@ -272,12 +272,12 @@ add_status_structure (apr_hash_t *statushash,
                       apr_pool_t *pool)
 {
   svn_wc_status_t *statstruct;
-
-  SVN_ERR (assemble_status (&statstruct, path, entry,
+  
+  SVN_ERR (assemble_status (&statstruct, path, entry, 
                             get_all, strict, pool));
   if (statstruct)
     apr_hash_set (statushash, path, APR_HASH_KEY_STRING, statstruct);
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -286,7 +286,7 @@ add_status_structure (apr_hash_t *statushash,
    versioned things) to the STATUSHASH as unversioned items,
    allocating everything in POOL. */
 static svn_error_t *
-add_unversioned_items (const char *path,
+add_unversioned_items (const char *path, 
                        apr_hash_t *entries,
                        apr_hash_t *statushash,
                        apr_pool_t *pool)
@@ -317,9 +317,9 @@ add_unversioned_items (const char *path,
 
       apr_hash_this (hi, &key, &klen, &val);
       keystring = key;
-
+        
       /* If the dirent isn't in `.svn/entries'... */
-      if (apr_hash_get (entries, key, klen))
+      if (apr_hash_get (entries, key, klen))        
         continue;
 
       /* and we're not looking at .svn... */
@@ -333,7 +333,7 @@ add_unversioned_items (const char *path,
       for (i = 0; i < patterns->nelts; i++)
         {
           const char *pat = (((const char **) (patterns)->elts))[i];
-
+                
           /* Try to match current_entry_name to pat. */
           if (APR_SUCCESS == apr_fnmatch (pat, keystring, FNM_PERIOD))
             {
@@ -341,13 +341,13 @@ add_unversioned_items (const char *path,
               break;
             }
         }
-
+      
       /* If we aren't ignoring it, add a status structure for this
          dirent. */
       if (! ignore_me)
         {
           printable_path = svn_path_join (path, keystring, pool);
-
+          
           /* Add this item to the status hash. */
           SVN_ERR (add_status_structure (statushash,
                                          printable_path,
@@ -401,7 +401,7 @@ svn_wc_statuses (apr_hash_t *statushash,
 
   /* Is PATH a directory or file? */
   SVN_ERR (svn_io_check_path (path, &kind, pool));
-
+  
   /* kff todo: this has to deal with the case of a type-changing edit,
      i.e., someone removed a file under vc and replaced it with a dir,
      or vice versa.  In such a case, when you ask for the status, you
@@ -410,7 +410,7 @@ svn_wc_statuses (apr_hash_t *statushash,
      is handled in entries.c:svn_wc_entry. */
 
   /* Read the appropriate entries file */
-
+  
   /* If path points to just one file, or at least to just one
      non-directory, store just one status structure in the
      STATUSHASH and return. */
@@ -421,11 +421,11 @@ svn_wc_statuses (apr_hash_t *statushash,
       SVN_ERR (svn_wc_entry (&entry, path, FALSE, pool));
 
       /* Convert the entry into a status structure, store in the hash.
-
+         
          ### Notice that because we're getting one specific file,
          we're ignoring the GET_ALL flag and unconditionally fetching
          the status structure. */
-      SVN_ERR (add_status_structure (statushash, path, entry,
+      SVN_ERR (add_status_structure (statushash, path, entry, 
                                      TRUE, strict, pool));
     }
 
@@ -471,7 +471,7 @@ svn_wc_statuses (apr_hash_t *statushash,
              kff todo: However, must handle mixed working copies.
              What if the subdir is not under revision control, or is
              from another repository? */
-
+          
           /* Do *not* store THIS_DIR in the statushash, unless this
              path has never been seen before.  We don't want to add
              the path key twice. */
@@ -496,22 +496,22 @@ svn_wc_statuses (apr_hash_t *statushash,
 
                   SVN_ERR (svn_wc_entry (&subdir, fullpath, FALSE, pool));
                   SVN_ERR (add_status_structure (statushash, fullpath,
-                                                 subdir, get_all,
+                                                 subdir, get_all, 
                                                  strict, pool));
                   SVN_ERR (svn_wc_statuses (statushash, fullpath,
-                                            descend, get_all, strict, pool));
+                                            descend, get_all, strict, pool)); 
                 }
               else if ((kind == svn_node_file) || (kind == svn_node_none))
                 {
                   /* File entries are ... just fine! */
                   SVN_ERR (add_status_structure (statushash, fullpath,
-                                                 entry, get_all,
+                                                 entry, get_all, 
                                                  strict, pool));
                 }
             }
         }
     }
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -519,7 +519,7 @@ svn_wc_statuses (apr_hash_t *statushash,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end:
