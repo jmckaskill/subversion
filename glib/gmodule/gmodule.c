@@ -21,10 +21,10 @@
  * Modified by the GLib Team and others 1997-1999.  See the AUTHORS
  * file for a list of people on the GLib Team.  See the ChangeLog
  * files for a list of changes.  These files are distributed with
- * GLib at ftp://ftp.gtk.org/pub/gtk/.
+ * GLib at ftp://ftp.gtk.org/pub/gtk/. 
  */
 
-/*
+/* 
  * MT safe
  */
 
@@ -84,7 +84,7 @@ g_module_find_by_handle (gpointer handle)
 {
   GModule *module;
   GModule *retval = NULL;
-
+  
   G_LOCK (GModule);
   if (main_module && main_module->handle == handle)
     retval = main_module;
@@ -105,7 +105,7 @@ g_module_find_by_name (const gchar *name)
 {
   GModule *module;
   GModule *retval = NULL;
-
+  
   G_LOCK (GModule);
   for (module = modules; module; module = module->next)
     if (strcmp (name, module->file_name) == 0)
@@ -169,7 +169,7 @@ _g_module_build_path (const gchar *directory,
 #endif	/* no implementation */
 
 #if defined (NATIVE_WIN32) && defined (__LCC__)
-int __stdcall
+int __stdcall 
 LibMain (void         *hinstDll,
 	 unsigned long dwReason,
 	 void         *reserved)
@@ -184,7 +184,7 @@ gboolean
 g_module_supported (void)
 {
   SUPPORT_OR_RETURN (FALSE);
-
+  
   return TRUE;
 }
 
@@ -194,11 +194,11 @@ g_module_open (const gchar    *file_name,
 {
   GModule *module;
   gpointer handle;
-
+  
   SUPPORT_OR_RETURN (NULL);
-
+  
   if (!file_name)
-    {
+    {      
       G_LOCK (GModule);
       if (!main_module)
 	{
@@ -218,16 +218,16 @@ g_module_open (const gchar    *file_name,
 
       return main_module;
     }
-
+  
   /* we first search the module list by name */
   module = g_module_find_by_name (file_name);
   if (module)
     {
       module->ref_count++;
-
+      
       return module;
     }
-
+  
   /* open the module */
   handle = _g_module_open (file_name, (flags & G_MODULE_BIND_LAZY) != 0);
   if (handle)
@@ -235,7 +235,7 @@ g_module_open (const gchar    *file_name,
       gchar *saved_error;
       GModuleCheckInit check_init;
       const gchar *check_failed = NULL;
-
+      
       /* search the module list by handle, since file names are not unique */
       module = g_module_find_by_handle (handle);
       if (module)
@@ -243,13 +243,13 @@ g_module_open (const gchar    *file_name,
 	  _g_module_close (module->handle, TRUE);
 	  module->ref_count++;
 	  g_module_set_error (NULL);
-
+	  
 	  return module;
 	}
-
+      
       saved_error = g_strdup (g_module_error ());
       g_module_set_error (NULL);
-
+      
       module = g_new (GModule, 1);
       module->file_name = g_strdup (file_name);
       module->handle = handle;
@@ -260,15 +260,15 @@ g_module_open (const gchar    *file_name,
       module->next = modules;
       modules = module;
       G_UNLOCK (GModule);
-
+      
       /* check initialization */
       if (g_module_symbol (module, "g_module_check_init", (gpointer) &check_init))
 	check_failed = check_init (module);
-
+      
       /* we don't call unload() if the initialization check failed. */
       if (!check_failed)
 	g_module_symbol (module, "g_module_unload", (gpointer) &module->unload);
-
+      
       if (check_failed)
 	{
 	  gchar *error;
@@ -284,7 +284,7 @@ g_module_open (const gchar    *file_name,
 
       g_free (saved_error);
     }
-
+  
   return module;
 }
 
@@ -292,12 +292,12 @@ gboolean
 g_module_close (GModule	       *module)
 {
   SUPPORT_OR_RETURN (FALSE);
-
+  
   g_return_val_if_fail (module != NULL, FALSE);
   g_return_val_if_fail (module->ref_count > 0, FALSE);
-
+  
   module->ref_count--;
-
+  
   if (!module->ref_count && !module->is_resident && module->unload)
     {
       GModuleUnload unload;
@@ -311,9 +311,9 @@ g_module_close (GModule	       *module)
     {
       GModule *last;
       GModule *node;
-
+      
       last = NULL;
-
+      
       G_LOCK (GModule);
       node = modules;
       while (node)
@@ -331,13 +331,13 @@ g_module_close (GModule	       *module)
 	}
       module->next = NULL;
       G_UNLOCK (GModule);
-
+      
       _g_module_close (module->handle, FALSE);
       g_free (module->file_name);
-
+      
       g_free (module);
     }
-
+  
   return g_module_error() == NULL;
 }
 
@@ -365,11 +365,11 @@ g_module_symbol (GModule	*module,
   if (symbol)
     *symbol = NULL;
   SUPPORT_OR_RETURN (FALSE);
-
+  
   g_return_val_if_fail (module != NULL, FALSE);
   g_return_val_if_fail (symbol_name != NULL, FALSE);
   g_return_val_if_fail (symbol != NULL, FALSE);
-
+  
 #ifdef	G_MODULE_NEED_USCORE
   {
     gchar *name;
@@ -381,7 +381,7 @@ g_module_symbol (GModule	*module,
 #else	/* !G_MODULE_NEED_USCORE */
   *symbol = _g_module_symbol (module->handle, symbol_name);
 #endif	/* !G_MODULE_NEED_USCORE */
-
+  
   module_error = g_module_error ();
   if (module_error)
     {
@@ -394,7 +394,7 @@ g_module_symbol (GModule	*module,
 
       return FALSE;
     }
-
+  
   return TRUE;
 }
 
@@ -402,10 +402,10 @@ gchar*
 g_module_name (GModule *module)
 {
   g_return_val_if_fail (module != NULL, NULL);
-
+  
   if (module == main_module)
     return "main";
-
+  
   return module->file_name;
 }
 
@@ -414,6 +414,6 @@ g_module_build_path (const gchar *directory,
 		     const gchar *module_name)
 {
   g_return_val_if_fail (module_name != NULL, NULL);
-
+  
   return _g_module_build_path (directory, module_name);
 }
