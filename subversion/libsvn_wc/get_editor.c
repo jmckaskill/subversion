@@ -3,32 +3,32 @@
  *
  * ================================================================
  * Copyright (c) 2000 CollabNet.  All rights reserved.
- *
+ * 
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
  * met:
- *
+ * 
  * 1. Redistributions of source code must retain the above copyright
  * notice, this list of conditions and the following disclaimer.
- *
+ * 
  * 2. Redistributions in binary form must reproduce the above copyright
  * notice, this list of conditions and the following disclaimer in the
  * documentation and/or other materials provided with the distribution.
- *
+ * 
  * 3. The end-user documentation included with the redistribution, if
  * any, must include the following acknowlegement: "This product includes
  * software developed by CollabNet (http://www.Collab.Net)."
  * Alternately, this acknowlegement may appear in the software itself, if
  * and wherever such third-party acknowlegements normally appear.
- *
+ * 
  * 4. The hosted project names must not be used to endorse or promote
  * products derived from this software without prior written
  * permission. For written permission, please contact info@collab.net.
- *
+ * 
  * 5. Products derived from this software may not use the "Tigris" name
  * nor may "Tigris" appear in their names without prior written
  * permission of CollabNet.
- *
+ * 
  * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
  * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -42,7 +42,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ====================================================================
- *
+ * 
  * This software consists of voluntary contributions made by many
  * individuals on behalf of CollabNet.
  */
@@ -80,7 +80,7 @@ struct e_baton
 
 /*** Helpers for the editor callbacks. ***/
 
-/* Prepend EB->dest_dir to *PATH, iff PATH is an empty path or null.
+/* Prepend EB->dest_dir to *PATH, iff PATH is an empty path or null. 
    Return non-zero iff prepended something. */
 static void
 maybe_prepend_dest (svn_string_t **path, struct e_baton *eb)
@@ -92,7 +92,7 @@ maybe_prepend_dest (svn_string_t **path, struct e_baton *eb)
      are passed, we only need to do it once at the top of the delta,
      as it will will get passed along automatically underneath that.
      So we should only do this if parent_baton hasn't been set yet. */
-
+      
   /* kff todo: or, write svn_string_prepend_str(), obviating the need
      to pass by reference. */
 
@@ -120,7 +120,7 @@ window_handler (svn_txdelta_window_t *window, void *baton)
                       window->pool);
   if (apr_err)
     return svn_create_error (apr_err, 0, fname->data, NULL, window->pool);
-
+  
   /* else */
 
   for (i = 0; i < window->num_ops; i++)
@@ -202,7 +202,7 @@ add_directory (svn_string_t *name,
   svn_path_add_component (npath, name, SVN_PATH_LOCAL_STYLE, eb->pool);
 
   /* kff todo: how about a sanity check that it's not a dir of the
-     same name from a different repository or something?
+     same name from a different repository or something? 
      Well, that will be later on down the line... */
 
   /* Make the new directory exist. */
@@ -365,16 +365,16 @@ replace_file (svn_string_t *name,
 static svn_error_t *
 apply_textdelta (void *edit_baton,
                  void *parent_baton,
-                 void *file_baton,
+                 void *file_baton, 
                  svn_txdelta_window_handler_t **handler,
                  void **handler_baton)
 {
   /* kff todo: dance the tmp file dance, eventually. */
   svn_string_t *fname = (svn_string_t *) file_baton;
-
+  
   *handler_baton = fname;
   *handler = window_handler;
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -507,7 +507,7 @@ svn_wc_get_update_editor (svn_string_t *dest,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
