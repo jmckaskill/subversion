@@ -15,7 +15,7 @@
   <sect1 id="svn-ch-1-sect-1">
 
     <title>What is Subversion?</title>
-
+      
     <para>Subversion is a free/open-source <firstterm>version control
         system</firstterm>.  That is, Subversion manages files over
       time.  The files are placed into a central
@@ -25,7 +25,7 @@
       older versions of your files, or browse the history of how
       your files changed.  Many people think of a version control
       system as a sort of ``time machine.''</para>
-
+    
     <para>Some version control systems are also <firstterm>software
         configuration management</firstterm> (SCM) systems.  These
       systems are specifically tailored to manage trees of source
@@ -46,19 +46,19 @@
     <title>Subversion's History</title>
 
     <para>Where did Subversion come from?</para>
-
+    
     <para>Subversion aims to be the successor to the
       <firstterm>Concurrent Versions System</firstterm> (CVS). You
       can find more information about CVS at <systemitem
         class="url">http://www.cvshome.org/</systemitem>.</para>
-
+    
     <para>At the time of writing, CVS is the standard Free version
       control system used by the open-source community.  It has a
       hard-earned, well-deserved reputation as stable and useful
       software, and has a design that makes it perfect for
       open-source development.  However, it also has a number of
       problems that are difficult to fix.</para>
-
+    
     <para>Subversion's original designers settled on a few simple
       goals.  First, it was decided that Subversion should be a
       functional replacement for CVS.  That is, it should do
@@ -67,13 +67,13 @@
       existing CVS users as the first target audience, Subversion
       should be written such that any CVS user should be able to
       start using it with little effort.</para>
-
+    
     <para>Collabnet <systemitem
         class="url">http://www.collab.net/</systemitem> provided the
       initial funding in 2000 to begin development work, and the
       effort has now blossomed into a large, open-source project
       backed by a community of free software developers.</para>
-
+    
   </sect1>
 
   <!-- ================================================================= -->
@@ -117,7 +117,7 @@
             versioned over time, just like file contents.</para>
         </listitem>
       </varlistentry>
-
+      
       <varlistentry>
         <term>Hackability</term>
         <listitem>
@@ -180,7 +180,7 @@
 </chapter>
 
 <!--
-local variables:
+local variables: 
 sgml-parent-document: ("book.xml" "chapter")
 end:
 -->
