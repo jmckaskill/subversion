@@ -65,7 +65,7 @@ svn_cl__delete (apr_getopt_t *os,
 
   /* Build an authentication object to give to libsvn_client. */
   auth_baton = svn_cl__make_auth_baton (opt_state, pool);
-
+            
   if (targets->nelts)
     {
       apr_pool_t *subpool = svn_pool_create (pool);
@@ -76,11 +76,11 @@ svn_cl__delete (apr_getopt_t *os,
           svn_stringbuf_t *target = ((svn_stringbuf_t **) (targets->elts))[i];
           commit_info = NULL;
           err = svn_client_delete
-                   (&commit_info, target, opt_state->force,
-                    auth_baton,
+                   (&commit_info, target, opt_state->force, 
+                    auth_baton, 
                     &svn_cl__get_log_message,
                     svn_cl__make_log_msg_baton (opt_state, NULL, subpool),
-                    SVN_CL_NOTIFY(opt_state),
+                    SVN_CL_NOTIFY(opt_state), 
                     svn_cl__make_notify_baton (subpool),
                     subpool);
           if (err)
@@ -104,8 +104,8 @@ svn_cl__delete (apr_getopt_t *os,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../tools/dev/svn-dev.el")
- * end:
+ * end: 
  */
