@@ -39,19 +39,19 @@ svn_client_update (const svn_delta_edit_fns_t *before_editor,
                    svn_revnum_t ancestor_revision,
                    apr_pool_t *pool)
 {
-  return svn_client__update_internal (before_editor,
+  return svn_client__update_internal (before_editor, 
                                       before_edit_baton,
-                                      after_editor,
+                                      after_editor, 
                                       after_edit_baton,
-                                      path,
-                                      xml_src,
-                                      ancestor_revision,
+                                      path, 
+                                      xml_src, 
+                                      ancestor_revision, 
                                       pool);
 }
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end: */
