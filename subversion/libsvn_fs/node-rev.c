@@ -193,7 +193,7 @@ deltify (svn_fs_id_t *target_id,
     }
     else
       target_dkey = NULL;
-
+    
     /* Source property key. */
     source_pkey_skel = SVN_FS__NR_PROP_KEY (source_nr);
     if (source_pkey_skel->len != 0) {
@@ -222,7 +222,7 @@ deltify (svn_fs_id_t *target_id,
   svn_stream_set_write (new_target_stream, write_string);
 
   /* We're just doing data deltification for now, no props. */
-
+ 
   /* Right now, we just write the delta as a single svndiff string.
      See the section "Random access to delta-encoded files" in the
      top-level IDEAS file for leads on other things we could do here,
@@ -245,9 +245,9 @@ deltify (svn_fs_id_t *target_id,
       SVN_ERR (new_target_handler (window, new_target_handler_baton));
       if (window)
         svn_txdelta_free_window (window);
-
+      
     } while (window);
-
+  
   /* todo: Now `new_target_baton.key' has the key of the new string.
      We should hook it into the representation. */
 
@@ -285,7 +285,7 @@ svn_fs__delete_node_revision (svn_fs_t *fs,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:

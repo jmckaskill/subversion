@@ -172,8 +172,8 @@ is_valid_flag (skel_t *skel)
   if (len == 2
       && svn_fs__matches_atom (skel->children, "mutable")
       && skel->children->next->is_atom)
-    {
-      return 1;
+    {      
+      return 1;      
     }
 
   return 0;
@@ -268,7 +268,7 @@ svn_fs__new_node_id (svn_fs_id_t **id_p,
           (SVN_ERR_FS_CORRUPT, 0, 0, fs->pool,
            "root directory missing from `nodes' table, in filesystem `%s'",
            fs->env_path);
-
+      
       return DB_WRAP (fs, "choosing new node ID (finding last entry)", db_err);
     }
 
@@ -467,13 +467,13 @@ svn_fs__delete_nodes_entry (svn_fs_t *fs,
                             trail_t *trail)
 {
   DBT key;
-
+  
   SVN_ERR (DB_WRAP (fs, "deleting entry from `nodes' table",
                     fs->nodes->del (fs->nodes,
                                     trail->db_txn,
                                     svn_fs__id_to_dbt (&key, id, trail->pool),
                                     0)));
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -541,7 +541,7 @@ svn_fs__put_node_revision (svn_fs_t *fs,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
