@@ -3,32 +3,32 @@
  *
  * ================================================================
  * Copyright (c) 2000 CollabNet.  All rights reserved.
- *
+ * 
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
  * met:
- *
+ * 
  * 1. Redistributions of source code must retain the above copyright
  * notice, this list of conditions and the following disclaimer.
- *
+ * 
  * 2. Redistributions in binary form must reproduce the above copyright
  * notice, this list of conditions and the following disclaimer in the
  * documentation and/or other materials provided with the distribution.
- *
+ * 
  * 3. The end-user documentation included with the redistribution, if
  * any, must include the following acknowlegement: "This product includes
  * software developed by CollabNet (http://www.Collab.Net)."
  * Alternately, this acknowlegement may appear in the software itself, if
  * and wherever such third-party acknowlegements normally appear.
- *
+ * 
  * 4. The hosted project names must not be used to endorse or promote
  * products derived from this software without prior written
  * permission. For written permission, please contact info@collab.net.
- *
+ * 
  * 5. Products derived from this software may not use the "Tigris" name
  * nor may "Tigris" appear in their names without prior written
  * permission of CollabNet.
- *
+ * 
  * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
  * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -42,7 +42,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ====================================================================
- *
+ * 
  * This software consists of voluntary contributions made by many
  * individuals on behalf of CollabNet.
  */
@@ -63,7 +63,7 @@
 
 /* The administrative `entries' file tracks information about files
    and subdirs within a particular directory.
-
+   
    See the section on the `entries' file in libsvn_wc/README, for
    concrete information about the XML format.
 */
@@ -146,7 +146,7 @@ svn_wc__entries_init (svn_string_t *path,
 struct entries_accumulator
 {
   /* Keys are entry names, vals are (struct svn_wc__entry_t *)'s. */
-  apr_hash_t *entries;
+  apr_hash_t *entries; 
 
   /* The dir whose entries file this is. */
   svn_string_t *path;
@@ -229,7 +229,7 @@ handle_start_tag (void *userData, const char *tagname, const char **atts)
               = apr_hash_get (entry->attributes,
                               SVN_WC__ENTRIES_ATTR_NAME, APR_HASH_KEY_STRING);
 
-            svn_xml_signal_bailout
+            svn_xml_signal_bailout 
               (svn_error_createf (SVN_ERR_UNKNOWN_NODE_KIND,
                                   0,
                                   NULL,
@@ -286,7 +286,7 @@ take_from_entry (svn_wc__entry_t *src, svn_wc__entry_t *dst, apr_pool_t *pool)
      unless this is a subdirectory. */
   if ((dst->version == SVN_INVALID_VERNUM) && (dst->kind != svn_dir_kind))
     dst->version = src->version;
-
+  
   if (! dst->ancestor)
     {
       svn_string_t *name = apr_hash_get (dst->attributes,
@@ -329,8 +329,8 @@ resolve_to_defaults (apr_hash_t *entries, apr_pool_t *pool)
                              NULL,
                              pool,
                              "default entry missing ancestry");
-
-
+  
+    
   /* Then use it to fill in missing information in other entries. */
   for (hi = apr_hash_first (entries); hi; hi = apr_hash_next (hi))
     {
@@ -362,12 +362,12 @@ sync_entry (svn_wc__entry_t *entry, apr_pool_t *pool)
     apr_hash_set (entry->attributes,
                   SVN_WC__ENTRIES_ATTR_VERSION, APR_HASH_KEY_STRING,
                   svn_string_createf (pool, "%ld", entry->version));
-
+  
   /* Ancestor. */
   apr_hash_set (entry->attributes,
                 SVN_WC__ENTRIES_ATTR_ANCESTOR, APR_HASH_KEY_STRING,
                 entry->ancestor);
-
+  
   /* Kind. */
   if (entry->kind == svn_dir_kind)
     apr_hash_set (entry->attributes,
@@ -377,7 +377,7 @@ sync_entry (svn_wc__entry_t *entry, apr_pool_t *pool)
     apr_hash_set (entry->attributes,
                   SVN_WC__ENTRIES_ATTR_KIND, APR_HASH_KEY_STRING,
                   NULL);
-
+  
   /* Flags. */
   apr_hash_set (entry->attributes,
                 SVN_WC__ENTRIES_ATTR_ADD, APR_HASH_KEY_STRING,
@@ -387,7 +387,7 @@ sync_entry (svn_wc__entry_t *entry, apr_pool_t *pool)
                 SVN_WC__ENTRIES_ATTR_DELETE, APR_HASH_KEY_STRING,
                 ((entry->flags & SVN_WC__ENTRY_DELETE) ?
                  svn_string_create ("true", pool) : NULL));
-
+  
   /* Timestamp. */
   if (entry->timestamp)
     {
@@ -437,12 +437,12 @@ read_entries (apr_hash_t *entries, svn_string_t *path, apr_pool_t *pool)
   do {
     apr_err = apr_full_read (infile, buf, BUFSIZ, &bytes_read);
     if (apr_err && (apr_err != APR_EOF))
-      return svn_error_create
+      return svn_error_create 
         (apr_err, 0, NULL, pool, "read_entries: apr_full_read choked");
-
+    
     err = svn_xml_parse (svn_parser, buf, bytes_read, (apr_err == APR_EOF));
     if (err)
-      return svn_error_quick_wrap
+      return svn_error_quick_wrap 
         (err,
          "read_entries: xml parser failed.");
   } while (apr_err != APR_EOF);
@@ -535,7 +535,7 @@ svn_wc__entries_write (apr_hash_t *entries,
     err = svn_error_createf (apr_err, 0, NULL, pool,
                              "svn_wc__entries_write: %s",
                              path->data);
-
+      
   /* Close & sync. */
   err2 = svn_wc__close_adm_file (outfile, path, SVN_WC__ADM_ENTRIES, 1, pool);
   if (err)
@@ -667,14 +667,14 @@ svn_wc__entry_merge_sync (svn_string_t *path,
   err = svn_wc__entries_read (&entries, path, pool);
   if (err)
     return err;
-
+  
   if (name == NULL)
     name = svn_string_create (SVN_WC__ENTRIES_THIS_DIR, pool);
 
   va_start (ap, pool);
   stuff_entry_v (entries, name, version, kind, flags, timestamp, pool, ap);
   va_end (ap);
-
+  
   err = svn_wc__entries_write (entries, path, pool);
   if (err)
     return err;
@@ -780,7 +780,7 @@ svn_wc__entry_dup (svn_wc__entry_t *entry, apr_pool_t *pool)
  *
  *    svn commit foo bar/baz/blim.c blah.c
  *
- * the commit should
+ * the commit should 
  *
  *    1. descend into foo (which is a directory), calling ENTER_DIR
  *       and LEAVE_DIR on foo itself, and calling those two and
@@ -871,7 +871,7 @@ svn_wc__compose_paths (apr_hash_t *paths, apr_pool_t *pool)
 #endif /* 0 */
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
