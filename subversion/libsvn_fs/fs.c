@@ -314,7 +314,7 @@ svn_fs_set_warning_func (svn_fs_t *fs,
 
 
 svn_error_t *
-svn_fs_set_berkeley_errcall (svn_fs_t *fs,
+svn_fs_set_berkeley_errcall (svn_fs_t *fs, 
                              void (*db_errcall_fcn) (const char *errpfx,
                                                      char *msg))
 {
@@ -457,14 +457,14 @@ svn_fs_create_berkeley (svn_fs_t *fs, const char *path)
     {
       void *value = NULL;
       const char *choice;
-
+      
       if (fs->config)
         {
           value = apr_hash_get (fs->config,
                                 SVN_FS_CONFIG_BDB_TXN_NOSYNC,
                                 APR_HASH_KEY_STRING);
         }
-
+      
       apr_err = apr_file_write_full (dbconfig_file,
                                      dbconfig_txn_nosync_header,
                                      sizeof (dbconfig_txn_nosync_header) - 1,
@@ -474,14 +474,14 @@ svn_fs_create_berkeley (svn_fs_t *fs, const char *path)
           return svn_error_createf (apr_err, 0, "writing to '%s'",
                                     dbconfig_file_name);
         }
-
+      
       if (value != NULL)
         choice = dbconfig_txn_nosync_val_active;
       else
         choice = dbconfig_txn_nosync_val_inactive;
-
+      
       apr_err = apr_file_write_full (dbconfig_file,
-                                     choice, strlen (choice), NULL);
+                                     choice, strlen (choice), NULL); 
       if (apr_err != APR_SUCCESS)
         {
           return svn_error_createf (apr_err, 0, "writing to '%s'",
@@ -503,7 +503,7 @@ svn_fs_create_berkeley (svn_fs_t *fs, const char *path)
   svn_err = BDB_WRAP (fs, "creating environment",
                      fs->env->open (fs->env, path_native,
                                     (DB_CREATE
-                                     | DB_INIT_LOCK
+                                     | DB_INIT_LOCK 
                                      | DB_INIT_LOG
                                      | DB_INIT_MPOOL
                                      | DB_INIT_TXN),
@@ -587,7 +587,7 @@ svn_fs_open_berkeley (svn_fs_t *fs, const char *path)
 
   /* Open the various databases.  */
   svn_err = BDB_WRAP (fs, "opening 'nodes' table",
-                     svn_fs__bdb_open_nodes_table (&fs->nodes,
+                     svn_fs__bdb_open_nodes_table (&fs->nodes, 
                                                    fs->env, FALSE));
   if (svn_err) goto error;
   svn_err = BDB_WRAP (fs, "opening 'revisions' table",
@@ -620,7 +620,7 @@ svn_fs_open_berkeley (svn_fs_t *fs, const char *path)
   if (svn_err) goto error;
 
   return SVN_NO_ERROR;
-
+  
  error:
   cleanup_fs (fs);
   return svn_err;
@@ -641,10 +641,10 @@ svn_fs_berkeley_recover (const char *path,
   SVN_BDB_ERR (db_env_create (&env, 0));
 
   /* Here's the comment copied from db_recover.c:
-
+   
      Initialize the environment -- we don't actually do anything
      else, that all that's needed to run recovery.
-
+   
      Note that we specify a private environment, as we're about to
      create a region, and we don't want to leave it around.  If we
      leave the region around, the application that should create it
@@ -705,7 +705,7 @@ svn_error_t *svn_fs_berkeley_logfiles (apr_array_header_t **logfiles,
     }
 
   free (filelist);
-
+  
   SVN_BDB_ERR (env->close (env, 0));
 
   return SVN_NO_ERROR;
@@ -751,7 +751,7 @@ svn_fs__canonicalize_abspath (const char *path, apr_pool_t *pool)
   /* No PATH?  No problem. */
   if (! path)
     return NULL;
-
+  
   /* Empty PATH?  That's just "/". */
   if (! *path)
     return apr_pstrdup (pool, "/");
@@ -766,7 +766,7 @@ svn_fs__canonicalize_abspath (const char *path, apr_pool_t *pool)
     {
       newpath[newpath_i++] = '/';
     }
-
+  
   for (path_i = 0; path_i < path_len; path_i++)
     {
       if (path[path_i] == '/')
@@ -789,7 +789,7 @@ svn_fs__canonicalize_abspath (const char *path, apr_pool_t *pool)
       /* Copy the current character into our new buffer. */
       newpath[newpath_i++] = path[path_i];
     }
-
+  
   /* Did we leave a '/' attached to the end of NEWPATH (other than in
      the root directory case)? */
   if ((newpath[newpath_i - 1] == '/') && (newpath_i > 1))
