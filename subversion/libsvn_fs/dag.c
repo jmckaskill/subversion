@@ -61,7 +61,7 @@ dag_init_fs (void *fs_baton, trail_t *trail)
                                                   sizeof (rep_skel) - 1,
                                                   trail->pool),
                               trail));
-  }
+  } 
 
   /* Link it into filesystem revision 0:
      "revisions" : 0 -> "(revision  3 0.0  ())" */
@@ -220,7 +220,7 @@ svn_error_t *svn_fs__dag_delete (dag_node_t *parent,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:

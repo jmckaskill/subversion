@@ -33,7 +33,7 @@ char *svn_fs__txn_id (svn_fs_txn_t *txn);
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
