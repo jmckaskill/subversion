@@ -128,7 +128,7 @@ static svn_boolean_t okay_to_bump_path (const char *path,
   /* Otherwise, this path is bumpable IFF one of its parents is in the
      hash and marked with a 'recursion' flag. */
   parent_path = svn_stringbuf_create (path, pool);
-
+  
   do {
     svn_path_remove_component (parent_path);
     r = (enum svn_recurse_kind) apr_hash_get (valid_targets,
@@ -175,9 +175,9 @@ static svn_error_t *bump_resource(merge_ctx_t *mc,
 
   /* Now set the new valid rev. */
   {
-    /*
+    /* 
      * ### Possibly unreliable assumption being made here:
-     *
+     * 
      * Experiments verified that mc->rev is always set by the time we
      * get here.  I guess the server sends ELEM_baseline early, so we
      * hit the mc->rtype == RTYPE_BASELINE case in handle_resource()
@@ -625,7 +625,7 @@ svn_error_t * svn_ra_dav__merge_activity(
                       ? apr_pstrdup(ras->pool, mc.committed_date->data)
                       : NULL;
   if (committed_author)
-    *committed_author = mc.last_author->len
+    *committed_author = mc.last_author->len 
                         ? apr_pstrdup(ras->pool, mc.last_author->data)
                         : NULL;
 
@@ -633,7 +633,7 @@ svn_error_t * svn_ra_dav__merge_activity(
 }
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end:
