@@ -1,6 +1,6 @@
-/*
+/* 
  * compose_editors.c -- composing two svn_delta_edit_fns_t's
- *
+ * 
  * ====================================================================
  * Copyright (c) 2000 CollabNet.  All rights reserved.
  *
@@ -63,7 +63,7 @@ begin_edit (void *edit_baton, void **root_baton)
       if (err)
         return err;
     }
-
+  
   if (eb->editor_2->begin_edit)
     {
       err = (* (eb->editor_2->begin_edit)) (eb->edit_baton_2,
@@ -71,9 +71,9 @@ begin_edit (void *edit_baton, void **root_baton)
       if (err)
         return err;
     }
-
+  
   *root_baton = d;
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -90,14 +90,14 @@ delete_entry (svn_string_t *name, void *parent_baton)
       if (err)
         return err;
     }
-
+  
   if (d->edit_baton->editor_2->delete_entry)
     {
       err = (* (d->edit_baton->editor_2->delete_entry)) (name, d->dir_baton_2);
       if (err)
         return err;
     }
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -190,7 +190,7 @@ close_directory (void *dir_baton)
       if (err)
         return err;
     }
-
+  
   if (d->edit_baton->editor_2->close_directory)
     {
       err = (* (d->edit_baton->editor_2->close_directory)) (d->dir_baton_2);
@@ -215,7 +215,7 @@ close_file (void *file_baton)
       if (err)
         return err;
     }
-
+  
   if (fb->dir_baton->edit_baton->editor_2->close_file)
     {
       err = (* (fb->dir_baton->edit_baton->editor_2->close_file))
@@ -240,7 +240,7 @@ close_edit (void *edit_baton)
       if (err)
         return err;
     }
-
+  
   if (eb->editor_2->close_edit)
     {
       err = (* (eb->editor_2->close_edit)) (eb->edit_baton_2);
@@ -267,7 +267,7 @@ window_handler (svn_txdelta_window_t *window, void *handler_pair)
 {
   struct handler_pair *hp = handler_pair;
   svn_error_t *err;
-
+  
   if (hp->handler_1)
     {
       err = (* (hp->handler_1)) (window, hp->handler_baton_1);
@@ -295,7 +295,7 @@ apply_textdelta (void *file_baton,
   svn_error_t *err;
   struct handler_pair *hp
     = apr_pcalloc (fb->dir_baton->edit_baton->pool, sizeof (*hp));
-
+  
   hp->file_baton = fb;
 
   if (fb->dir_baton->edit_baton->editor_1->apply_textdelta)
@@ -463,7 +463,7 @@ svn_delta_compose_editors (const svn_delta_edit_fns_t **new_editor,
 {
   struct edit_baton *eb = apr_pcalloc (pool, sizeof (*eb));
   svn_delta_edit_fns_t *editor = svn_delta_default_editor (pool);
-
+  
   /* Set up the editor. */
   editor->begin_edit = begin_edit;
   editor->delete_entry = delete_entry;
@@ -524,7 +524,7 @@ svn_delta_wrap_editor (const svn_delta_edit_fns_t **new_editor,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
