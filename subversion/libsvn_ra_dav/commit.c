@@ -430,7 +430,7 @@ static svn_error_t * commit_send_txdelta(svn_txdelta_window_t *window,
 }
 
 static svn_error_t *
-commit_apply_txdelta (void *file_baton,
+commit_apply_txdelta (void *file_baton, 
                       svn_txdelta_window_handler_t **handler,
                       void **handler_baton)
 {
@@ -547,7 +547,7 @@ svn_error_t * svn_ra_dav__get_commit_editor(
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
