@@ -62,7 +62,7 @@ svn_wc__ensure_directory (svn_stringbuf_t *path, apr_pool_t *pool)
           /* Tried to create the dir, and encountered some problem
              other than non-existence of intermediate dirs.  We can't
              ensure the desired directory's existence, so just return
-             the error. */
+             the error. */ 
           return svn_error_create (apr_err, 0, NULL, pool, npath->data);
         }
       else if (APR_STATUS_IS_ENOENT(apr_err))
@@ -83,7 +83,7 @@ svn_wc__ensure_directory (svn_stringbuf_t *path, apr_pool_t *pool)
           else  /* We have a valid path, so recursively ensure it. */
             {
               err = svn_wc__ensure_directory (shorter, pool);
-
+          
               if (err)
                 return (err);
               else
@@ -111,9 +111,9 @@ svn_wc_translated_file (svn_stringbuf_t **xlated_p,
 {
   enum svn_wc__eol_style style;
   const char *eol;
-
+  
   /* ### todo: add keyword handling here too. */
-
+  
   SVN_ERR (svn_wc__get_eol_style (&style, &eol, vfile->data, pool));
   if ((style == svn_wc__eol_style_none)
       || (style == svn_wc__eol_style_fixed))
@@ -128,20 +128,20 @@ svn_wc_translated_file (svn_stringbuf_t **xlated_p,
       svn_stringbuf_t *tmp_dir, *tmp_vfile;
       apr_file_t *ignored;
       apr_status_t apr_err;
-
+      
       svn_path_split (vfile, &tmp_dir, &tmp_vfile,
                       svn_path_local_style, pool);
-
+      
       tmp_vfile = svn_wc__adm_path (tmp_dir, 1, pool,
                                     tmp_vfile, NULL);
-
+      
       SVN_ERR (svn_io_open_unique_file (&ignored,
                                         &tmp_vfile,
                                         tmp_vfile,
                                         SVN_WC__TMP_EXT,
                                         FALSE,
                                         pool));
-
+      
       /* We were just reserving the name, we don't actually need the
          filehandle, so close immediately. */
       apr_err = apr_file_close (ignored);
@@ -176,7 +176,7 @@ svn_wc_translated_file (svn_stringbuf_t **xlated_p,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
