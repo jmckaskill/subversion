@@ -3,32 +3,32 @@
  *
  * ================================================================
  * Copyright (c) 2000 CollabNet.  All rights reserved.
- *
+ * 
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
  * met:
- *
+ * 
  * 1. Redistributions of source code must retain the above copyright
  * notice, this list of conditions and the following disclaimer.
- *
+ * 
  * 2. Redistributions in binary form must reproduce the above copyright
  * notice, this list of conditions and the following disclaimer in the
  * documentation and/or other materials provided with the distribution.
- *
+ * 
  * 3. The end-user documentation included with the redistribution, if
  * any, must include the following acknowlegement: "This product includes
  * software developed by CollabNet (http://www.Collab.Net)."
  * Alternately, this acknowlegement may appear in the software itself, if
  * and wherever such third-party acknowlegements normally appear.
- *
+ * 
  * 4. The hosted project names must not be used to endorse or promote
  * products derived from this software without prior written
  * permission. For written permission, please contact info@collab.net.
- *
+ * 
  * 5. Products derived from this software may not use the "Tigris" name
  * nor may "Tigris" appear in their names without prior written
  * permission of CollabNet.
- *
+ * 
  * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
  * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -42,7 +42,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ====================================================================
- *
+ * 
  * This software consists of voluntary contributions made by many
  * individuals on behalf of CollabNet.
  */
@@ -66,8 +66,8 @@
  * entries affected by the commit -- dirs and files alike -- are
  * stored in the affected_targets hash, and their entries are recorded
  * along with the baton that needs to be passed to the editor
- * callbacks.
- *
+ * callbacks.  
+ * 
  * At that point, stack_object would hold a (struct target_baton *)
  * instead of an entry and an editor baton, and push_stack() would
  * take a struct (target_baton *).  The other changes follow from
@@ -119,8 +119,8 @@ push_stack (struct stack_object **stack,
   if (*stack == NULL)
     /* This will be the very first object on the stack. */
     *stack = new_top;
-
-  else
+  
+  else 
     {
       /* The stack already exists, so create links both ways, new_top
          becomes the top of the stack.  */
@@ -155,12 +155,12 @@ do_lock (svn_string_t *path, apr_hash_t *locks, apr_pool_t *pool)
 {
   svn_error_t *err;
   char *msg;
-
+      
   err = svn_wc__lock (path, 0, pool);
   if (err)
     {
       /* Couldn't lock */
-
+      
       /* Remove _all_ previous commit locks */
       apr_hash_index_t *hi;
       for (hi = apr_hash_first (locks); hi; hi = apr_hash_next (hi))
@@ -173,9 +173,9 @@ do_lock (svn_string_t *path, apr_hash_t *locks, apr_pool_t *pool)
 
           apr_hash_this (hi, &key, &klen, &val);
           unlock_path = svn_string_create ((char *)key, pool);
-
+          
           err2 = svn_wc__unlock (unlock_path, pool);
-          if (err2)
+          if (err2) 
             {
               char *message =
                 apr_psprintf (pool,
@@ -183,15 +183,15 @@ do_lock (svn_string_t *path, apr_hash_t *locks, apr_pool_t *pool)
                                and also couldn't unlock previously-locked %s",
                               path->data, unlock_path->data);
               return svn_error_quick_wrap (err2, message);
-            }
+            }          
         }
-
+            
       /* Return a wrapped error */
       msg = apr_psprintf (pool,
                           "commit-crawler failed to lock %s", path->data);
       return svn_error_quick_wrap (err, msg);
     }
-
+  
   /* Lock succeeded */
 
   apr_hash_set (locks, path->data, APR_HASH_KEY_STRING, "<locked>");
@@ -225,14 +225,14 @@ do_dir_replaces (void **newest_baton,
                                      examining */
 
   stackptr = stack;   /* Start at the top of the stack */
-
+  
   while (1)  /* Walk down the stack until we find a non-NULL dir baton. */
     {
-      if (stackptr->baton != NULL)
+      if (stackptr->baton != NULL) 
         /* Found an existing directory baton! */
         break;
-
-      if (stackptr->previous)
+      
+      if (stackptr->previous)  
         stackptr = stackptr->previous;  /* descend. */
 
       else
@@ -241,9 +241,9 @@ do_dir_replaces (void **newest_baton,
              root baton. */
           void *root_baton;
 
-          err = editor->replace_root (edit_baton, &root_baton);
+          err = editor->replace_root (edit_baton, &root_baton);  
           if (err) return err;
-
+          
           /* Store it */
           stackptr->baton = root_baton;
           break;
@@ -269,7 +269,7 @@ do_dir_replaces (void **newest_baton,
                                              svn_path_local_style, pool);
 
           /* Get a baton for this directory */
-          err =
+          err = 
             editor->replace_directory (dirname, /* current dir */
                                        stackptr->previous->baton, /* parent */
                                        stackptr->this_dir->ancestor,
@@ -280,8 +280,8 @@ do_dir_replaces (void **newest_baton,
           /* Store it */
           stackptr->baton = dir_baton;
         }
-
-      else
+      
+      else 
         /* Can't move up the stack anymore?  We must be at the top
            of the stack.  We're all done. */
         break;
@@ -294,7 +294,7 @@ do_dir_replaces (void **newest_baton,
   /* Lock this youngest directory */
   err = do_lock (svn_string_dup (stackptr->path, top_pool), locks, top_pool);
   if (err) return err;
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -353,14 +353,14 @@ do_apply_textdelta (svn_string_t *filename,
       if (err)
         return err;
     }
-
+                                
   /* Create a text-delta stream object that pulls data out of the two
      files. */
-  svn_txdelta (&txdelta_stream,
+  svn_txdelta (&txdelta_stream, 
                svn_io_file_reader, textbasefile,
                svn_io_file_reader, localfile,
                pool);
-
+  
   /* Grab a window from the stream, "push" it at the consumer routine,
      then free it.  (When we run out of windows, TXDELTA_WINDOW will
      be set to NULL, and then still passed to window_handler(),
@@ -369,10 +369,10 @@ do_apply_textdelta (svn_string_t *filename,
     {
       err = svn_txdelta_next_window (&txdelta_window, txdelta_stream);
       if (err) return err;
-
+      
       err = (* (window_handler)) (txdelta_window, window_handler_baton);
       if (err) return err;
-
+      
       svn_txdelta_free_window (txdelta_window);
 
     } while (txdelta_window);
@@ -400,7 +400,7 @@ do_apply_textdelta (svn_string_t *filename,
 /* Loop over AFFECTED_TARGETS, calling do_apply_textdelta().
    AFFECTED_TARGETS, if non-empty, contains a mapping of full file
    paths to still-open file_batons.  After sending each text-delta,
-   close each file_baton. */
+   close each file_baton. */ 
 static svn_error_t *
 do_postfix_text_deltas (apr_hash_t *affected_targets,
                         const svn_delta_edit_fns_t *editor,
@@ -448,16 +448,16 @@ do_postfix_text_deltas (apr_hash_t *affected_targets,
 
 /* The recursive working-copy crawler.
 
-   Enter PATH and report any local changes to EDITOR.
+   Enter PATH and report any local changes to EDITOR.  
 
    The DIR_BATON argument holds the current baton used to commit
    changes from PATH.  It may be NULL.  If it is NULL and a local
    change is discovered, then it (and all parent batons) will be
-   automatically generated by do_dir_replaces().
+   automatically generated by do_dir_replaces(). 
 
    All allocations will be made in POOL, and open file-batons will be
    stored in AFFECTED_TARGETS using the never-changing top-level pool
-   TOP_POOL (for submitting postfix text-deltas later.)
+   TOP_POOL (for submitting postfix text-deltas later.)  
 
    STACK begins life as NULL, and is automatically allocated to store
    directory batons returned by the editor.  */
@@ -491,13 +491,13 @@ process_subdirectory (svn_string_t *path, void *dir_baton,
     return err;
 
   /* Grab the entry representing "." */
-  this_dir = (svn_wc__entry_t *)
+  this_dir = (svn_wc__entry_t *) 
     apr_hash_get (entries, SVN_WC__ENTRIES_THIS_DIR, APR_HASH_KEY_STRING);
   if (! this_dir)
     return
       svn_error_createf (SVN_ERR_WC_ENTRY_NOT_FOUND, 0, NULL, subpool,
                          "Can't find `.' entry in %s", path->data);
-
+                              
   /* Push the current {path, baton, this_dir} to the top of the stack */
   push_stack (stack, path, dir_baton, this_dir, subpool);
 
@@ -515,7 +515,7 @@ process_subdirectory (svn_string_t *path, void *dir_baton,
       apr_size_t klen;
       void *val;
       svn_string_t *current_entry_name;
-      svn_wc__entry_t *current_entry;
+      svn_wc__entry_t *current_entry; 
       svn_string_t *full_path_to_entry;
 
       /* Get the next entry name (and structure) from the hash */
@@ -549,11 +549,11 @@ process_subdirectory (svn_string_t *path, void *dir_baton,
                                      locks, top_pool, subpool);
               if (err) return err;
             }
-
+          
           /* Delete the old entry FIRST.  This is IMPORTANT.  :) */
           err = editor->delete (current_entry_name, dir_baton);
           if (err) return err;
-
+          
           /* Now replace the entry, either by calling replace_file()
              or replace_dir(). */
           if (current_entry->kind == svn_file_kind)
@@ -570,7 +570,7 @@ process_subdirectory (svn_string_t *path, void *dir_baton,
                                           current_entry->version,
                                           &(tb->editor_baton)); /* child */
               if (err) return err;
-
+              
               /* Store the file's full pathname and baton for safe keeping (to
                  be used later for postfix text-deltas) */
               longpath = svn_string_dup (path, top_pool);
@@ -578,33 +578,33 @@ process_subdirectory (svn_string_t *path, void *dir_baton,
                 svn_path_add_component (longpath, current_entry_name,
                                         svn_path_local_style);
               apr_hash_set (affected_targets,
-                            longpath->data, longpath->len, tb);
+                            longpath->data, longpath->len, tb);              
             }
 
           else if (current_entry->kind == svn_dir_kind)
             {
               void *new_dir_baton;
               svn_string_t *new_path = svn_string_dup (path, subpool);
-
-              err =
-                editor->replace_directory (current_entry_name,
+              
+              err = 
+                editor->replace_directory (current_entry_name, 
                                            dir_baton,        /* parent */
                                            current_entry->ancestor,
                                            current_entry->version,
                                            &new_dir_baton);
               if (err) return err;
-
+              
               /* Recurse, using the new, extended path and new dir_baton. */
               if (current_entry_name != NULL)
                 svn_path_add_component (new_path,
                                         current_entry_name,
                                         svn_path_local_style);
-
+              
               err = process_subdirectory (new_path, new_dir_baton,
                                           editor, edit_baton,
                                           stack, affected_targets, locks,
                                           top_pool);
-              if (err) return err;
+              if (err) return err;              
             }
         }
 
@@ -619,7 +619,7 @@ process_subdirectory (svn_string_t *path, void *dir_baton,
                                      locks, top_pool, subpool);
               if (err) return err;
             }
-
+          
           /* Delete the entry */
           err = editor->delete (current_entry_name, dir_baton);
           if (err) return err;
@@ -628,7 +628,7 @@ process_subdirectory (svn_string_t *path, void *dir_baton,
           {
             svn_string_t *longpath;
             struct target_baton *tb = apr_pcalloc (top_pool, sizeof (*tb));
-
+            
             tb->entry = svn_wc__entry_dup (current_entry, top_pool);
             longpath = svn_string_dup (path, top_pool);
             if (current_entry_name != NULL)
@@ -647,7 +647,7 @@ process_subdirectory (svn_string_t *path, void *dir_baton,
             {
               void *new_dir_baton;
               svn_string_t *new_path = svn_string_dup (path, subpool);
-
+              
               /* Do what's necesary to get a baton for current directory */
               if (! dir_baton)
                 {
@@ -656,7 +656,7 @@ process_subdirectory (svn_string_t *path, void *dir_baton,
                                          locks, top_pool, subpool);
                   if (err) return err;
                 }
-
+              
               /* Add the new directory, getting a new dir baton.  */
               err = editor->add_directory (current_entry_name,
                                            dir_baton, /* current dir
@@ -665,20 +665,20 @@ process_subdirectory (svn_string_t *path, void *dir_baton,
                                            current_entry->version,
                                            &new_dir_baton); /* get child */
               if (err) return err;
-
+          
               /* Recurse, using the new, extended path and new dir_baton. */
               if (current_entry_name != NULL)
                 svn_path_add_component (new_path,
                                         current_entry_name,
                                         svn_path_local_style);
-
+              
               err = process_subdirectory (new_path, new_dir_baton,
                                           editor, edit_baton,
                                           stack, affected_targets, locks,
                                           top_pool);
               if (err) return err;
             }
-
+      
           /* Adding a new file: */
           else if (current_entry->kind == svn_file_kind)
             {
@@ -695,7 +695,7 @@ process_subdirectory (svn_string_t *path, void *dir_baton,
                                          locks, top_pool, subpool);
                   if (err) return err;
                 }
-
+              
               /* Add a new file, getting a file baton */
               err = editor->add_file (current_entry_name,
                                       dir_baton,             /* parent */
@@ -703,7 +703,7 @@ process_subdirectory (svn_string_t *path, void *dir_baton,
                                       current_entry->version,
                                       &(tb->editor_baton));  /* child */
               if (err) return err;
-
+              
               /* Store the file's full pathname and baton for safe keeping
                  (to be used later for postfix text-deltas) */
               longpath = svn_string_dup (path, top_pool);
@@ -718,8 +718,8 @@ process_subdirectory (svn_string_t *path, void *dir_baton,
             }
         }
 
-      /* Is this entry a modified file? */
-      else if (current_entry->kind == svn_file_kind)
+      /* Is this entry a modified file? */      
+      else if (current_entry->kind == svn_file_kind)      
         {
           struct target_baton *tb = apr_pcalloc (top_pool, sizeof (*tb));
           svn_string_t *longpath;
@@ -742,7 +742,7 @@ process_subdirectory (svn_string_t *path, void *dir_baton,
                                          locks, top_pool, subpool);
                   if (err) return err;
                 }
-
+          
               /* Replace the file, getting a file baton */
               err = editor->replace_file (current_entry_name,
                                           dir_baton,          /* parent */
@@ -750,7 +750,7 @@ process_subdirectory (svn_string_t *path, void *dir_baton,
                                           current_entry->version,
                                           &(tb->editor_baton)); /* child */
               if (err) return err;
-
+              
               /* Store the file's full pathname and baton for safe keeping (to
                  be used later for postfix text-deltas) */
               longpath = svn_string_dup (path, top_pool);
@@ -761,11 +761,11 @@ process_subdirectory (svn_string_t *path, void *dir_baton,
                             longpath->data, longpath->len, tb);
             }
         }
-
+      
       /* Okay, we're not adding or deleting anything, nor is this a
          modified file.  However, if the this entry is a directory, we
          must recurse! */
-      else if ((current_entry->kind == svn_dir_kind)
+      else if ((current_entry->kind == svn_dir_kind) 
                && (current_entry_name != NULL))
         {
           /* Recurse, using a NULL dir_baton.  Why NULL?  Because that
@@ -777,16 +777,16 @@ process_subdirectory (svn_string_t *path, void *dir_baton,
                                       top_pool);
           if (err) return err;
         }
-
-      /* Done examining the current entry. */
-    }
+     
+      /* Done examining the current entry. */      
+    }  
 
   /* Done examining _all_ entries in this subdir. */
 
   /**                                                           **/
   /** Cleanup -- ready to "pop up" a level in the working copy. **/
   /**                                                           **/
-
+  
   /* If the current dir (or any of its children) reported changes to
      the editor, then we must remember to close the current dir baton. */
   if ((*stack)->baton)
@@ -835,7 +835,7 @@ svn_wc_crawl_local_mods (apr_hash_t **targets,
   apr_hash_t *affected_targets = apr_make_hash (pool);
   apr_hash_t *locks = apr_make_hash (pool);
 
-  /* Start the crawler!
+  /* Start the crawler! 
 
      Note that the first thing the crawler will do is push a new stack
      object onto the stack with PATH="root_directory" and BATON=NULL.  */
@@ -869,7 +869,7 @@ svn_wc_crawl_local_mods (apr_hash_t **targets,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end: */
