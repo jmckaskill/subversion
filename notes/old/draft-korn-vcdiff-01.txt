@@ -150,7 +150,7 @@ RFC 1   VCDIFF Generic Differencing and Compression Data Format   March 2000
     Algorithms to encode and decode the Vcdiff data format will be presented
     in the ANSI-C language. To ease the presentation, we shall generally omit
     error checking. The below conventions will be observed:
-
+    
 	a. Tokens with all upper cases letters will be C macros.
 	b. Variables with capitalized names are global.
         c. Code fragments will be presented with line numbers to be used
@@ -514,7 +514,7 @@ COMMENTS.
                         +---------------------+
                         | 11100000 | 00111001 |
                         +---------------------+
-			  byte 0       byte 1
+			  byte 0       byte 1 
 
 				Table 1
 
@@ -658,14 +658,14 @@ RFC 1   VCDIFF Generic Differencing and Compression Data Format   March 2000
     data. Below are the encodings:
 
     VCD_SELF: A is the next integer in the instruction dataset that is
-	encoded in the range [0-H].
+	encoded in the range [0-H]. 
 
                                    -10-
 
 RFC 1   VCDIFF Generic Differencing and Compression Data Format   March 2000
 
 
-
+ 
     VCD_HERE: Let B be the next byte in the instruction dataset.
 	Then A is H-B. That is, the distance from A to H, H-A, must have
 	been in the range [0-255].
@@ -676,7 +676,7 @@ RFC 1   VCDIFF Generic Differencing and Compression Data Format   March 2000
     VCD_NEAR: The "near" cache keeps 4 addresses.  Let B be the next byte
 	in the instruction dataset and t be Vcdinst_t.mode-VCD_NEAR.
 	Then, A is near[t]+B-127.
-
+	
 
     Below are the algorithms to maintain address caches.
 
@@ -735,7 +735,7 @@ RFC 1   VCDIFF Generic Differencing and Compression Data Format   March 2000
     10.     }
     11.     else
     12.     {    for(i = 0; i < 4; ++i)
-    13.          {    if((d = addr - ka->k_near[i]) >= -127 && d <= 128)
+    13.          {    if((d = addr - ka->k_near[i]) >= -127 && d <= 128) 
     14.               {    *best = d + 127;
     15.                    mode = VCD_NEAR+i;
     16.               }
@@ -909,7 +909,7 @@ RFC 1   VCDIFF Generic Differencing and Compression Data Format   March 2000
     15.           data[n++] = tab[i].inst2.mode;
     16. }
 
-
+    
     Below is the function code_define() to retrieve an encoded instruction
     code table from the delta file.
 
@@ -948,7 +948,7 @@ COMMENTS.
     a table optimized for a particular minimum COPY size, this does not mean
     that a COPY instruction with a smaller size cannot be encoded. It simply
     means that the size of such an instruction must be coded separately.
-
+    
 
            TYPE    SIZE      MODE    TYPE    SIZE     MODE    INDEX
         -------------------------------------------------------------
@@ -1177,7 +1177,7 @@ RFC 1   VCDIFF Generic Differencing and Compression Data Format   March 2000
 
     int run_check(uchar_t* tar, int n_tar, int p_tar);
 
-	This function checks to see if there is a run of the same bytes
+	This function checks to see if there is a run of the same bytes 
 	starting at the current location in the target string.
 
 
@@ -1211,7 +1211,7 @@ COMMENTS.
 
    1-4: These lines output the 4-byte header for a delta file.
      6: This line calls win_target() to get a target window. If the target file
-	has been completely processed, the return value is non-positive and
+	has been completely processed, the return value is non-positive and 
 	the loop terminates.
      8: This line computes a source data segment to be compared with the given
 	target window.
@@ -1352,7 +1352,7 @@ COMMENTS.
     Below is the function to encode a COPY instruction.
 
      1. int Size, Addr, Here, Mode;
-
+ 
      2. int copy_encode(Cache_t* ka,int size,int addr,int here,Sfio_t* instf)
      3. {   int code, mode = 0, best = 0, ndel = 0;
 

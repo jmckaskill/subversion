@@ -133,7 +133,7 @@ typedef struct svn_txdelta_window_t {
 
   /* The allocated size of the ops array.  */
   int ops_size;
-
+  
   /* The instructions for this window.  */
   svn_txdelta_op_t *ops;
 
@@ -197,8 +197,8 @@ svn_error_t *svn_txdelta_send_string (svn_stringbuf_t *string,
                                       svn_txdelta_window_handler_t handler,
                                       void *handler_baton,
                                       apr_pool_t *pool);
-
-
+  
+  
 /* Free the delta stream STREAM.  */
 void svn_txdelta_free (svn_txdelta_stream_t *stream);
 
@@ -315,7 +315,7 @@ typedef struct svn_delta_edit_fns_t
      Most of the callbacks work in the obvious way:
 
          delete_entry
-         add_file           add_directory
+         add_file           add_directory    
          open_file          open_directory
 
      Each of these takes a directory baton, indicating the directory
@@ -346,7 +346,7 @@ typedef struct svn_delta_edit_fns_t
         open_directory (ROOT, "foo") --- yielding a baton F for `foo'
         open_directory (F, "bar") --- yielding a baton B for `foo/bar'
         add_file (B, "baz.c")
-
+     
      When the producer is finished making changes to a directory, it
      should call `close_directory'.  This lets the consumer do any
      necessary cleanup, and free the baton's storage.
@@ -429,17 +429,17 @@ typedef struct svn_delta_edit_fns_t
 
 
   /* Deleting things.  */
-
+       
   /* Remove the directory entry named NAME.  */
   svn_error_t *(*delete_entry) (svn_stringbuf_t *name,
                                 void *parent_baton);
 
 
   /* Creating and modifying directories.  */
-
+  
   /* We are going to add a new subdirectory named NAME.  We will use
      the value this callback stores in *CHILD_BATON as the
-     PARENT_BATON for further changes in the new subdirectory.
+     PARENT_BATON for further changes in the new subdirectory.  
 
      If COPYFROM_PATH is non-NULL, this add has history (i.e., is a
      copy), and the origin of the copy may be recorded as
@@ -464,7 +464,7 @@ typedef struct svn_delta_edit_fns_t
      - DIR_BATON specifies the directory whose property should change.
      - NAME is the name of the property to change.
      - VALUE is the new value of the property, or zero if the property
-     should be removed altogether.
+     should be removed altogether.  
 
      ### todo (issue #406): name could be const char *, value
      svn_string_t instead of svn_stringbuf_t.  */
@@ -516,7 +516,7 @@ typedef struct svn_delta_edit_fns_t
      delta windows as we receive them.  The callback should set
      *HANDLER_BATON to the value we should pass as the BATON
      argument to *HANDLER.  */
-  svn_error_t *(*apply_textdelta) (void *file_baton,
+  svn_error_t *(*apply_textdelta) (void *file_baton, 
                                    svn_txdelta_window_handler_t *handler,
                                    void **handler_baton);
 
@@ -569,7 +569,7 @@ svn_delta_edit_fns_t *svn_delta_default_editor (apr_pool_t *pool);
  *
  * Returns a new editor in E which each function FUN calls
  * EDITOR_1->FUN and then EDITOR_2->FUN, with the corresponding batons.
- *
+ * 
  * If EDITOR_1->FUN returns error, that error is returned from E->FUN
  * and EDITOR_2->FUN is never called; otherwise E->FUN's return value
  * is the same as EDITOR_2->FUN's.
@@ -663,7 +663,7 @@ typedef struct svn_delta_xml_parser_t svn_delta_xml_parser_t;
 svn_error_t  *svn_delta_make_xml_parser (svn_delta_xml_parser_t **parser,
                                          const svn_delta_edit_fns_t *editor,
                                          void *edit_baton,
-                                         svn_stringbuf_t *base_path,
+                                         svn_stringbuf_t *base_path, 
                                          svn_revnum_t base_revision,
                                          apr_pool_t *pool);
 
@@ -678,15 +678,15 @@ void svn_delta_free_xml_parser (svn_delta_xml_parser_t *parser);
    final parser "push", ISFINAL must be set to true (so that both
    expat and local cleanup can occur). */
 svn_error_t *
-svn_delta_xml_parsebytes (const char *buffer, apr_size_t len, int isFinal,
+svn_delta_xml_parsebytes (const char *buffer, apr_size_t len, int isFinal, 
                           svn_delta_xml_parser_t *svn_xml_parser);
 
 
 /* Reads an XML stream from SOURCE using expat internally, validating
    the XML as it goes (according to Subversion's own tree-delta DTD).
    Whenever an interesting event happens, it calls a caller-specified
-   callback routine from EDITOR.
-
+   callback routine from EDITOR.  
+   
    Once called, it retains control and "pulls" data from SOURCE
    until either the stream runs out or an error occurs. */
 svn_error_t *svn_delta_xml_auto_parse (svn_stream_t *source,
@@ -703,7 +703,7 @@ svn_error_t *svn_delta_xml_auto_parse (svn_stream_t *source,
 /* A general in-memory representation of a single property.  Most of
    the time, property lists will be stored completely in hashes.  But
    sometimes it's useful to have an "ordered" collection of
-   properties, in which case we use an apr_array of the type below.
+   properties, in which case we use an apr_array of the type below. 
 
    ### todo (issue #406): name could be const char *, value
    svn_string_t instead of svn_stringbuf_t.  */
