@@ -1210,7 +1210,7 @@ or (if no files were marked) the file under point."
                svn-status-ui-information)
       (setq st-info (cdr st-info)))
     svn-status-ui-information))
-
+  
 
 (defun svn-status-create-arg-file (file-name prefix file-info-list postfix)
   (with-temp-file file-name
