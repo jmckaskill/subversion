@@ -43,7 +43,7 @@ extern "C" {
  * that support that kind of thing), #define SVN_POOL_DEBUG here.
  */
 /*
-#define SVN_POOL_DEBUG
+#define SVN_POOL_DEBUG 
 */
 
 
@@ -123,7 +123,7 @@ typedef struct svn_pool_feedback_t
 
   /* Report items just restored ('svn up'). */
   apr_status_t (*report_restoration) (const char *path, apr_pool_t *pool);
-
+  
   /* Generic human-readable we-think-it's-non-fatal warning.  This
      function can parse STATUS and decide whether a "real" error
      should be returned. */
@@ -186,7 +186,7 @@ void svn_pool_clear_debug (apr_pool_t *p,
 
 #ifndef SVN_POOL_DEBUG
 
-/* Destroy a POOL and all of its children.
+/* Destroy a POOL and all of its children. 
  *
  * This wrapper to apr_pool_destroy exists for symmatry (the
  * not-so-grand reason) and for the existence of a great memory usage
