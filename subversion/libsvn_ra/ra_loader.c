@@ -256,7 +256,7 @@ svn_error_t *svn_ra_open (svn_ra_session_t **session_p,
           SVN_ERR (check_ra_version (vtable->get_version (), scheme));
         }
     }
-
+    
   if (vtable == NULL)
     return svn_error_createf (SVN_ERR_RA_ILLEGAL_URL, NULL,
                               _("Unrecognized URL scheme for '%s'"),
@@ -496,7 +496,7 @@ svn_error_t *svn_ra_lock (svn_ra_session_t *session,
                           apr_hash_t *path_revs,
                           const char *comment,
                           svn_boolean_t force,
-                          svn_ra_lock_callback_t lock_func,
+                          svn_ra_lock_callback_t lock_func, 
                           void *lock_baton,
                           apr_pool_t *pool)
 {
@@ -504,7 +504,7 @@ svn_error_t *svn_ra_lock (svn_ra_session_t *session,
     return svn_error_create
       (SVN_ERR_XML_UNESCAPABLE_DATA, NULL,
        _("Lock comment has illegal characters"));
-
+  
   return session->vtable->lock (session, path_revs, comment, force,
                                 lock_func, lock_baton, pool);
 }
@@ -512,11 +512,11 @@ svn_error_t *svn_ra_lock (svn_ra_session_t *session,
 svn_error_t *svn_ra_unlock (svn_ra_session_t *session,
                             apr_hash_t *path_tokens,
                             svn_boolean_t force,
-                            svn_ra_lock_callback_t lock_func,
+                            svn_ra_lock_callback_t lock_func, 
                             void *lock_baton,
                             apr_pool_t *pool)
 {
-  return session->vtable->unlock (session, path_tokens, force,
+  return session->vtable->unlock (session, path_tokens, force, 
                                   lock_func, lock_baton, pool);
 }
 
@@ -652,7 +652,7 @@ svn_ra_get_ra_library (svn_ra_plugin_t **library,
           return SVN_NO_ERROR;
         }
     }
-
+    
   /* Couldn't find a match... */
   *library = NULL;
   return svn_error_createf (SVN_ERR_RA_ILLEGAL_URL, NULL,
