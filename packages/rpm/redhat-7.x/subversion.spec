@@ -213,7 +213,7 @@ Tools for Subversion.
 - Updated to apache-2.0.32-0.2. (Requires apache-libapr and apache-libapr-util).
 - Took out a (now non-existant) documentation file.
 - Moved SPEC file changelog to after all package definitions.
-
+  
 * Sun Feb 03 2002 David Summers <david@summersoft.fay.ar.us> 0.8.0-1153
 - Updated to neon-0.18.5.
 - Broke up apache and apache-devel into apache-apr, apache-apr-devel,

@@ -88,7 +88,7 @@ copy_versioned_files (const char *from,
             SVN_ERR (ctx->cancel_func (ctx->cancel_baton));
 
           /* ### We could also invoke ctx->notify_func somewhere in
-             ### here... Is it called for, though?  Not sure. */
+             ### here... Is it called for, though?  Not sure. */ 
 
           if (*type == svn_node_dir)
             {
@@ -141,7 +141,7 @@ svn_error_t *
 svn_client_export (const char *from,
                    const char *to,
                    svn_opt_revision_t *revision,
-                   svn_boolean_t force,
+                   svn_boolean_t force, 
                    svn_client_ctx_t *ctx,
                    apr_pool_t *pool)
 {
@@ -157,10 +157,10 @@ svn_client_export (const char *from,
       void *report_baton;
 
       URL = svn_path_canonicalize (from, pool);
-
+      
       SVN_ERR (svn_client__get_export_editor (&export_editor, &edit_baton,
                                               to, URL, force, ctx, pool));
-
+      
       SVN_ERR (svn_ra_init_ra_libs (&ra_baton, pool));
       SVN_ERR (svn_ra_get_ra_library (&ra_lib, ra_baton, URL, pool));
 
@@ -187,7 +187,7 @@ svn_client_export (const char *from,
                                    TRUE, /* "help, my dir is empty!" */
                                    pool));
 
-      SVN_ERR (reporter->finish_report (report_baton));
+      SVN_ERR (reporter->finish_report (report_baton));               
     }
   else
     {
@@ -222,7 +222,7 @@ struct file_baton
   const char *path;
   const char *tmppath;
 
-  /* We need to keep this around so we can explicitly close it in close_file,
+  /* We need to keep this around so we can explicitly close it in close_file, 
      thus flushing it's output to disk so we can copy and translate it. */
   apr_file_t *tmp_file;
 
@@ -262,9 +262,9 @@ open_root (void *edit_baton,
            apr_pool_t *pool,
            void **root_baton)
 {
-  struct edit_baton *eb = edit_baton;
+  struct edit_baton *eb = edit_baton;  
   svn_node_kind_t kind;
-
+  
   SVN_ERR (svn_io_check_path (eb->root_path, &kind, pool));
   if ( kind == svn_node_none )
       SVN_ERR (svn_io_dir_make (eb->root_path, APR_OS_DEFAULT, pool));
@@ -484,8 +484,8 @@ close_file (void *file_baton,
         svn_subst_eol_style_from_value (&style, &eol, fb->eol_style_val->data);
 
       if (fb->keywords_val)
-        SVN_ERR (svn_subst_build_keywords (&final_kw, fb->keywords_val->data,
-                                           fb->revision, fb->url, fb->date,
+        SVN_ERR (svn_subst_build_keywords (&final_kw, fb->keywords_val->data, 
+                                           fb->revision, fb->url, fb->date, 
                                            fb->author, pool));
 
       SVN_ERR (svn_subst_copy_and_translate
@@ -498,7 +498,7 @@ close_file (void *file_baton,
 
       SVN_ERR (svn_io_remove_file (fb->tmppath, pool));
     }
-
+      
   if (fb->executable_val)
     SVN_ERR (svn_io_set_file_executable (fb->path, TRUE, FALSE, pool));
 
@@ -522,7 +522,7 @@ svn_client__get_export_editor (const svn_delta_editor_t **editor,
                                void **edit_baton,
                                const char *root_path,
                                const char *root_url,
-                               svn_boolean_t force,
+                               svn_boolean_t force, 
                                svn_client_ctx_t *ctx,
                                apr_pool_t *pool)
 {
@@ -549,6 +549,6 @@ svn_client__get_export_editor (const svn_delta_editor_t **editor,
                                               editor,
                                               edit_baton,
                                               pool));
-
+  
   return SVN_NO_ERROR;
 }
