@@ -65,7 +65,7 @@ add_update_info_to_status_hash (apr_hash_t *statushash,
                                 svn_boolean_t descend,
                                 apr_pool_t *pool)
 {
-  svn_ra_plugin_t *ra_lib;
+  svn_ra_plugin_t *ra_lib;  
   void *ra_baton, *session, *report_baton;
   const svn_delta_editor_t *status_editor;
   void *status_edit_baton;
@@ -104,7 +104,7 @@ add_update_info_to_status_hash (apr_hash_t *statushash,
 
   /* Open a repository session to the URL. */
   SVN_ERR (svn_client__open_ra_session (&session, ra_lib, URL, anchor,
-                                        anchor_access, NULL, TRUE, TRUE, TRUE,
+                                        anchor_access, NULL, TRUE, TRUE, TRUE, 
                                         ctx, pool));
 
   /* Tell RA to drive a status-editor; this will fill in the
@@ -121,7 +121,7 @@ add_update_info_to_status_hash (apr_hash_t *statushash,
   /* Drive the reporter structure, describing the revisions within
      PATH.  When we call reporter->finish_report, the
      status_editor will be driven by svn_repos_dir_delta. */
-  SVN_ERR (svn_wc_crawl_revisions (path, adm_access, reporter, report_baton,
+  SVN_ERR (svn_wc_crawl_revisions (path, adm_access, reporter, report_baton, 
                                    FALSE, /* don't restore missing files */
                                    descend,
                                    NULL, NULL, /* notification is N/A */
@@ -166,7 +166,7 @@ svn_client_status (apr_hash_t **statushash,
                             descend, get_all, no_ignore,
                             ctx->notify_func, ctx->notify_baton, pool));
 
-  if (update)
+  if (update)    
     {
       /* Add "dry-run" update information to our existing structures.
          (Pass the DESCEND flag here, since we may want to ignore update
