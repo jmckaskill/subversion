@@ -21,7 +21,7 @@
 #   - pay attention to when branches are deleted
 #   - be a bit more careful about following the branch history,
 #     it's currently a bit of a quick hack
-#   - take some command line parameters (url, start & end revs,
+#   - take some command line parameters (url, start & end revs, 
 #     node we're tracking, etc)
 #   - calculate the repository root at runtime so the user can pass
 #     the node of interest as a single URL
@@ -45,7 +45,7 @@ require SVN::Ra;
 my $REPOS_URL = 'http://svn.collab.net/repos/svn';
 
 # Point at the root of a repository so we get can look at
-# every revision.
+# every revision.  
 my $ra = SVN::Ra->new($REPOS_URL);
 
 # We're going to look at all revisions
@@ -104,7 +104,7 @@ sub show_log {
 print "digraph branches {\n";
 
 # And we can do it all with just one call to SVN :)
-$ra->get_log(['/'], $startrev, $youngest, 1, 0, \&show_log);
+$ra->get_log(['/'], $startrev, $youngest, 1, 0, \&show_log); 
 
 my %paths = ();
 
