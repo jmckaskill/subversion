@@ -80,7 +80,7 @@ parse_externals_description (apr_hash_t **externals_p,
   apr_hash_t *externals = apr_hash_make (pool);
   apr_array_header_t *lines = svn_cstring_split (desc, "\n\r", TRUE, pool);
   int i;
-
+  
   for (i = 0; i < lines->nelts; i++)
     {
       const char *line = APR_ARRAY_IDX (lines, i, const char *);
@@ -109,10 +109,10 @@ parse_externals_description (apr_hash_t **externals_p,
       else if ((line_parts->nelts == 3) || (line_parts->nelts == 4))
         {
           /* We're dealing with one of these two forms:
-           *
+           * 
            *    TARGET_DIR  -rN  URL
            *    TARGET_DIR  -r N  URL
-           *
+           * 
            * Handle either way.
            */
 
@@ -215,7 +215,7 @@ compare_external_items (struct external_item *new_item,
       || (! svn_client__compare_revisions (&(new_item->revision),
                                            &(old_item->revision))))
     return FALSE;
-
+    
   /* Else. */
   return TRUE;
 }
@@ -380,7 +380,7 @@ handle_external_item_change (const void *key, apr_ssize_t klen,
     {
       /* See comment in above case about fancy rename handling.  Here,
          before removing an old subdir, we would see if it wants to
-         just be renamed to a new one. */
+         just be renamed to a new one. */ 
 
       svn_error_t *err;
       svn_wc_adm_access_t *adm_access;
@@ -413,7 +413,7 @@ handle_external_item_change (const void *key, apr_ssize_t klen,
          here instead of a relegation followed by full checkout. */
 
       SVN_ERR (relegate_external (path, ib->pool));
-
+      
       /* First notify that we're about to handle an external. */
       (*ib->notify_func) (ib->notify_baton,
                           path,
@@ -462,7 +462,7 @@ handle_external_item_change (const void *key, apr_ssize_t klen,
           /* No problem.  Probably user added this external item, but
              hasn't updated since then, so they don't actually have a
              working copy of it yet.  Just check it out. */
-
+          
           svn_error_clear (err);
 
           /* The target dir might have multiple components.  Guarantee
@@ -472,7 +472,7 @@ handle_external_item_change (const void *key, apr_ssize_t klen,
             svn_path_split (path, &parent, NULL, ib->pool);
             SVN_ERR (svn_io_make_dir_recursively (parent, ib->pool));
           }
-
+          
           SVN_ERR (svn_client_checkout
                    (ib->notify_func, ib->notify_baton,
                     new_item->url,
@@ -508,7 +508,7 @@ struct handle_externals_desc_change_baton
 
 
 /* This implements the `svn_hash_diff_func_t' interface.
-   BATON is of type `struct handle_externals_desc_change_baton *'.
+   BATON is of type `struct handle_externals_desc_change_baton *'.  
 */
 static svn_error_t *
 handle_externals_desc_change (const void *key, apr_ssize_t klen,
