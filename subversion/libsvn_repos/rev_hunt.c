@@ -57,7 +57,7 @@ get_time (apr_time_t *tm,
 
   SVN_ERR (svn_fs_revision_prop (&date_str, fs, rev, SVN_PROP_REVISION_DATE,
                                  pool));
-  if (! date_str)
+  if (! date_str)    
     return svn_error_createf
       (SVN_ERR_FS_GENERAL, NULL,
        _("Failed to find time on revision %ld"), rev);
@@ -87,7 +87,7 @@ svn_repos_dated_revision (svn_revnum_t *revision,
     {
       rev_mid = (rev_top + rev_bot) / 2;
       SVN_ERR (get_time (&this_time, fs, rev_mid, pool));
-
+      
       if (this_time > tm)/* we've overshot */
         {
           apr_time_t previous_time;
@@ -118,7 +118,7 @@ svn_repos_dated_revision (svn_revnum_t *revision,
               *revision = rev_latest;
               break;
             }
-
+          
           /* see if time falls between rev_mid and rev_mid+1: */
           SVN_ERR (get_time (&next_time, fs, rev_mid + 1, pool));
           if (next_time > tm)
@@ -155,7 +155,7 @@ svn_repos_get_committed_info (svn_revnum_t *committed_rev,
      properties have char * (i.e., UTF-8) values, not arbitrary
      binary values, hmmm. */
   svn_string_t *committed_date_s, *last_author_s;
-
+  
   /* Get the CR field out of the node's skel. */
   SVN_ERR (svn_fs_node_created_rev (committed_rev, root, path, pool));
 
@@ -169,7 +169,7 @@ svn_repos_get_committed_info (svn_revnum_t *committed_rev,
 
   *committed_date = committed_date_s ? committed_date_s->data : NULL;
   *last_author = last_author_s ? last_author_s->data : NULL;
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -213,12 +213,12 @@ svn_repos_history2 (svn_fs_t *fs,
 
   /* Validate the revisions. */
   if (! SVN_IS_VALID_REVNUM (start))
-    return svn_error_createf
-      (SVN_ERR_FS_NO_SUCH_REVISION, 0,
+    return svn_error_createf 
+      (SVN_ERR_FS_NO_SUCH_REVISION, 0, 
        _("Invalid start revision %ld"), start);
   if (! SVN_IS_VALID_REVNUM (end))
-    return svn_error_createf
-      (SVN_ERR_FS_NO_SUCH_REVISION, 0,
+    return svn_error_createf 
+      (SVN_ERR_FS_NO_SUCH_REVISION, 0, 
        _("Invalid end revision %ld"), end);
 
   /* Ensure that the input is ordered. */
@@ -260,7 +260,7 @@ svn_repos_history2 (svn_fs_t *fs,
       /* Fetch the location information for this history step. */
       SVN_ERR (svn_fs_history_location (&history_path, &history_rev,
                                         history, newpool));
-
+      
       /* If this history item predates our START revision, quit
          here. */
       if (history_rev < start)
@@ -278,9 +278,9 @@ svn_repos_history2 (svn_fs_t *fs,
           if (! readable)
             break;
         }
-
+      
       /* Call the user-provided callback function. */
-      SVN_ERR (history_func (history_baton, history_path,
+      SVN_ERR (history_func (history_baton, history_path, 
                              history_rev, newpool));
 
       /* We're done with the old history item, so we can clear its
@@ -304,7 +304,7 @@ static svn_error_t *
 check_readability (svn_fs_root_t *root,
                    const char *path,
                    svn_repos_authz_func_t authz_read_func,
-                   void *authz_read_baton,
+                   void *authz_read_baton,                          
                    apr_pool_t *pool)
 {
   svn_boolean_t readable;
@@ -375,7 +375,7 @@ check_ancestry_of_peg_path (svn_boolean_t *is_ancestor,
      reassigned fs_path. Else, the path wouldn't have existed at
      future_revision and svn_fs_history would have thrown. */
   assert (fs_path != NULL);
-
+     
   *is_ancestor = (history && strcmp (path, fs_path) == 0);
 
   return SVN_NO_ERROR;
@@ -540,7 +540,7 @@ svn_repos_get_file_revs (svn_repos_t *repos,
 
   /* Open a history object. */
   SVN_ERR (svn_fs_node_history (&history, root, path, last_pool));
-
+  
   /* Get the revisions we are interested in. */
   while (1)
     {
