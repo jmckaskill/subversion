@@ -248,7 +248,7 @@ svn_fs__delete_string (svn_fs_t *fs,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
