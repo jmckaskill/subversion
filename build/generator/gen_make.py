@@ -111,7 +111,7 @@ class Generator(gen_base.GeneratorBase):
 
              targ_varname, string.join(objects),
 
-             targ_varname, targ_varname, targ_varname, target_ob.add_deps,
+             targ_varname, targ_varname, targ_varname, target_ob.add_deps, 
              string.join(deps),
 
              target_ob.name, targ_varname))
@@ -129,7 +129,7 @@ class Generator(gen_base.GeneratorBase):
 
                targ_varname, targ_varname,
 
-               target_ob.link_cmd, target_ob.output_dir, target_ob.classes,
+               target_ob.link_cmd, target_ob.output_dir, target_ob.classes, 
                targ_varname, targ_varname))
 
         # Build the objects from the object_srcs with one 'javac' call
@@ -142,7 +142,7 @@ class Generator(gen_base.GeneratorBase):
 
                targ_varname, targ_varname,
 
-               target_ob.link_cmd, target_ob.output_dir, target_ob.classes,
+               target_ob.link_cmd, target_ob.output_dir, target_ob.classes, 
                targ_varname, targ_varname))
 
         # Once the bytecodes have been compiled up, we produce the
