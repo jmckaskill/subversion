@@ -133,15 +133,15 @@ delete_url (svn_client_commit_info_t **commit_info,
     {
       svn_client_commit_item_t *item;
       const char *tmp_file;
-      apr_array_header_t *commit_items
+      apr_array_header_t *commit_items 
         = apr_array_make (pool, 1, sizeof (item));
-
+          
       item = apr_pcalloc (pool, sizeof (*item));
       item->url = apr_pstrdup (pool, path);
       item->state_flags = SVN_CLIENT_COMMIT_ITEM_DELETE;
       (*((svn_client_commit_item_t **) apr_array_push (commit_items))) = item;
-
-      SVN_ERR ((*ctx->log_msg_func) (&log_msg, &tmp_file, commit_items,
+          
+      SVN_ERR ((*ctx->log_msg_func) (&log_msg, &tmp_file, commit_items, 
                                      ctx->log_msg_baton, pool));
       if (! log_msg)
         return SVN_NO_ERROR;
@@ -166,7 +166,7 @@ delete_url (svn_client_commit_info_t **commit_info,
                                         ctx, pool));
 
   /* Verify that the thing to be deleted actually exists. */
-  SVN_ERR (ra_lib->check_path (&kind, session, target,
+  SVN_ERR (ra_lib->check_path (&kind, session, target, 
                                SVN_INVALID_REVNUM, pool));
   if (kind == svn_node_none)
     return svn_error_createf (SVN_ERR_FS_NOT_FOUND, NULL,
@@ -182,7 +182,7 @@ delete_url (svn_client_commit_info_t **commit_info,
   /* Drive the editor to delete the TARGET. */
   SVN_ERR (editor->open_root (edit_baton, SVN_INVALID_REVNUM, pool,
                               &root_baton));
-  SVN_ERR (editor->delete_entry (target, SVN_INVALID_REVNUM,
+  SVN_ERR (editor->delete_entry (target, SVN_INVALID_REVNUM, 
                                  root_baton, pool));
   SVN_ERR (editor->close_directory (root_baton, pool));
   SVN_ERR (editor->close_edit (edit_baton, pool));
@@ -199,8 +199,8 @@ delete_url (svn_client_commit_info_t **commit_info,
 svn_error_t *
 svn_client__wc_delete (const char *path,
                        svn_wc_adm_access_t *adm_access,
-                       svn_boolean_t force,
-                       svn_boolean_t dry_run,
+                       svn_boolean_t force, 
+                       svn_boolean_t dry_run, 
                        svn_client_ctx_t *ctx,
                        apr_pool_t *pool)
 {
@@ -221,7 +221,7 @@ svn_client__wc_delete (const char *path,
 svn_error_t *
 svn_client_delete (svn_client_commit_info_t **commit_info,
                    const char *path,
-                   svn_boolean_t force,
+                   svn_boolean_t force, 
                    svn_client_ctx_t *ctx,
                    apr_pool_t *pool)
 {
