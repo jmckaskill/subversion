@@ -49,7 +49,7 @@ svn_cl__import (apr_getopt_t *os,
   svn_revnum_t revnum;
   svn_wc_notify_func_t notify_func = NULL;
   void *notify_baton = NULL;
-
+  
   /* Build an authentication object to give to libsvn_client. */
   auth_baton = svn_cl__make_auth_baton (opt_state, pool);
 
@@ -83,7 +83,7 @@ svn_cl__import (apr_getopt_t *os,
    * ### kff todo: review above behaviors.
    */
 
-  SVN_ERR (svn_cl__args_to_target_array (&targets, os, opt_state,
+  SVN_ERR (svn_cl__args_to_target_array (&targets, os, opt_state, 
                                          FALSE, pool));
 
   /* Get a repository url. */
@@ -110,7 +110,7 @@ svn_cl__import (apr_getopt_t *os,
     return svn_error_create
       (SVN_ERR_CL_ARG_PARSING_ERROR, 0, NULL, pool,
        "too many arguments to import command");
-
+  
   /* Get revnum set to something meaningful, to cover the xml case. */
   if (opt_state->start_revision.kind == svn_opt_revision_number)
     revnum = opt_state->start_revision.value.number;
@@ -121,7 +121,7 @@ svn_cl__import (apr_getopt_t *os,
     svn_cl__get_notifier (&notify_func, &notify_baton,
                           FALSE, FALSE, pool);
 
-  SVN_ERR (svn_client_import
+  SVN_ERR (svn_client_import 
            (&commit_info,
             notify_func, notify_baton,
             auth_baton,
@@ -143,8 +143,8 @@ svn_cl__import (apr_getopt_t *os,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../tools/dev/svn-dev.el")
- * end:
+ * end: 
  */
