@@ -14,7 +14,7 @@ Subversion Tarball Release Procedure
 5. Test the tarball:
 
    a.  tar xfz subversion-rXXXX.tar.gz;  cd subversion-rXXXX
-
+     
    b.  ./configure --disable-shared --enable-maintainer-mode
 
    c.  make
