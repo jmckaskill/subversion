@@ -117,7 +117,7 @@ dav_error * dav_svn__log_report(const dav_resource *resource,
   apr_xml_elem *child;
   struct log_receiver_baton lrb;
   const dav_svn_repos *repos = resource->info->repos;
-  svn_stringbuf_t *target = NULL;
+  svn_stringbuf_t *target = NULL; 
   int ns;
 
   /* These get determined from the request document. */
@@ -138,7 +138,7 @@ dav_error * dav_svn__log_report(const dav_resource *resource,
                            "namespace, so it is not going to have certain "
                            "required elements.");
     }
-
+  
   /* ### todo: okay, now go fill in svn_ra_dav__get_log() based on the
      syntax implied below... */
   for (child = doc->root->first_child; child != NULL; child = child->next)
@@ -193,14 +193,14 @@ dav_error * dav_svn__log_report(const dav_resource *resource,
     return dav_svn_convert_err(serr, HTTP_INTERNAL_SERVER_ERROR,
                                "The log receiver or its caller encountered "
                                "an error.");
-
-
+  
+  
   return NULL;
 }
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
