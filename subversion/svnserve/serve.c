@@ -91,7 +91,7 @@ static svn_error_t *delete_path(svn_ra_svn_conn_t *conn, apr_pool_t *pool,
   SVN_ERR(svn_ra_svn_write_cmd_response(conn, pool, ""));
   return SVN_NO_ERROR;
 }
-
+    
 static svn_error_t *link_path(svn_ra_svn_conn_t *conn, apr_pool_t *pool,
                               apr_array_header_t *params, void *baton)
 {
@@ -876,7 +876,7 @@ static svn_error_t *find_repos(const char *url, const char *root,
   if(apr_err)
     return svn_error_create(SVN_ERR_BAD_FILENAME, NULL,
                             "Couldn't determine repository path.");
-
+  
   SVN_ERR(svn_utf_cstring_to_utf8(&full_path,
                                   svn_path_canonicalize (buffer, pool),
                                   NULL, pool));

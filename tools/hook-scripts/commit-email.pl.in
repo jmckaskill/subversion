@@ -11,7 +11,7 @@
 # $LastChangedDate$
 # $LastChangedBy$
 # $LastChangedRevision$
-#
+#    
 # ====================================================================
 # Copyright (c) 2000-2003 CollabNet.  All rights reserved.
 #
@@ -215,7 +215,7 @@ shift @svnlooklines;
 my @log = map { "$_\n" } @svnlooklines;
 
 # Figure out what directories have changed using svnlook.
-my @dirschanged = &read_from_process($svnlook, 'dirs-changed', $repos,
+my @dirschanged = &read_from_process($svnlook, 'dirs-changed', $repos, 
                                      '-r', $rev);
 
 # Lose the trailing slash in the directory names if one exists, except
@@ -415,22 +415,22 @@ foreach my $project (@project_settings_list)
     # Subject: Re: svn commit: rev 2599 - trunk/tools/cgi
     # To: dev@subversion.tigris.org
     # Date: Fri, 19 Jul 2002 23:42:32 -0700
-    #
+    # 
     # Well... that isn't strictly true. The contents of the files
     # might not be UTF-8, so the "diff" portion will be hosed.
-    #
+    # 
     # If you want a truly "proper" commit message, then you'd use
     # multipart MIME messages, with each file going into its own part,
     # and labeled with an appropriate MIME type and charset. Of
     # course, we haven't defined a charset property yet, but no biggy.
-    #
+    # 
     # Going with multipart will surely throw out the notion of "cut
     # out the patch from the email and apply." But then again: the
     # commit emailer could see that all portions are in the same
-    # charset and skip the multipart thang.
-    #
+    # charset and skip the multipart thang. 
+    # 
     # etc etc
-    #
+    # 
     # Basically: adding/tweaking the content-type is nice, but don't
     # think that is the proper solution.
     push(@head, "Content-Type: text/plain; charset=UTF-8\n");
