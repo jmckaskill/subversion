@@ -44,14 +44,14 @@ Behaviors
   having separate global versus command-local option namespaces is
   confusing.  So Subversion has one option namespace, and all options
   come after the subcommand.
-
+  
      svn [<subcommand>] [<option|argument> ...]
-
+  
   (The subcommand is marked as optional because there are a few cases where
   Subversion can do something meaningful without the command -- for
   example, "svn --help".)
-
-
+  
+  
   All files are assumed binary by default.  If the user explicitly
   asks for it, she can get keyword substitution.  And, if she asks for
   it, she can get line-end conversion.  These two filters are
@@ -96,12 +96,12 @@ Subcommands and their Options
 =============================
 
 This is just a beginning.  We need to expand each command to describe
-exactly what it does and what options it honors.
+exactly what it does and what options it honors.  
 
 The commands will look a lot like CVS's, though there are some
 newcomers:
 
-Summary:
+Summary: 
 
    checkout | co
    update   | up
@@ -233,7 +233,7 @@ svn import NAME1 HOST:REPO:NAME2
 
 svn apply NAME1[:N1[:N2]] NAME2
   Apply changes specified by NAME1[:N1[:N2]] to NAME2.
-  If NAME1 form, then
+  If NAME1 form, then 
   If NAME1:N1 form, then the change applied is the difference between
         versions N1-1 and N1.
   If NAME1:N1:N2 form, then the change applied is the difference between
@@ -350,7 +350,7 @@ Usage: cvs commit [-nRlf] [-m msg | -F logfile] [-r rev] files...
 	-r rev	Commit to this branch or trunk revision.
 ====================== diff
 Usage: cvs diff [-lNR] [rcsdiff-options]
-    [[-r rev1 | -D date1] [-r rev2 | -D date2]] [files...]
+    [[-r rev1 | -D date1] [-r rev2 | -D date2]] [files...] 
 	-l	Local directory only, not recursive
 	-R	Process directories recursively.
 	-D d1	Diff revision for date against working file.
