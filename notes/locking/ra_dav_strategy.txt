@@ -46,7 +46,7 @@ RA->get_lock()
 
      * response is the same as what comes back in a LOCK response  --
        a standard property value that describes almost all the
-       svn_lock_t fields.
+       svn_lock_t fields. 
 
          - add one custom response header:  creation-date
 
@@ -64,7 +64,7 @@ RA->get_locks()
 
      * what if older server?  return some sort of 4XX response and
        error indicating the report-type is unknown.
-
+        
      *** NOTE: a dumb client can achieve the exact same effect by
          doing a depth-infinity PROPFIND for the 'DAV:lockdiscovery'
          property.  But this causes mod_dav_svn to do an O(N)
@@ -83,7 +83,7 @@ RA->get_commit_editor2()
        If: header of the request.
 
      * send *all* tokens in the If: header of the final MERGE request.
-
+ 
      * what if older server?  meaningless.  why would you have the
        tokens in the first place.  And anyway, the If: tokens will be
        ignored anyway if the server isn't paying attention to locking.
