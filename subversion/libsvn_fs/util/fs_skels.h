@@ -48,14 +48,14 @@ svn_fs__parse_proplist_skel (apr_hash_t **proplist_p,
 /* Parse a `REVISION' SKEL into *REVISION_P.  Use POOL for all
    allocations.  */
 svn_error_t *
-svn_fs__parse_revision_skel (svn_fs__revision_t **revision_p,
+svn_fs__parse_revision_skel (svn_fs__revision_t **revision_p, 
                              skel_t *skel,
                              apr_pool_t *pool);
 
 /* Parse a `TRANSACTION' SKEL into *TRANSACTION_P.  Use POOL for all
    allocations.  */
 svn_error_t *
-svn_fs__parse_transaction_skel (svn_fs__transaction_t **transaction_p,
+svn_fs__parse_transaction_skel (svn_fs__transaction_t **transaction_p, 
                                 skel_t *skel,
                                 apr_pool_t *pool);
 
@@ -81,7 +81,7 @@ svn_fs__parse_copy_skel (svn_fs__copy_t **copy_p,
 
 /* Parse an `ENTRIES' SKEL into *ENTRIES_P, which is a hash with const
    char * names (the directory entry name) and svn_fs_id_t * values
-   (the node-id of the entry), or NULL if SKEL contains no entries.
+   (the node-id of the entry), or NULL if SKEL contains no entries.  
    Use POOL for all allocations. */
 svn_error_t *
 svn_fs__parse_entries_skel (apr_hash_t **entries_p,
