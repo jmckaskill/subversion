@@ -55,10 +55,10 @@ main ()
   /* Set a bytestring to NULL, and query this fact. */
   svn_string_setempty (c);
   svn_string_print (c, stdout);
-
+  
   printf ("is C empty? : %d\n", svn_string_isempty (c));
   printf ("is A empty? : %d\n", svn_string_isempty (a));
-
+  
   /* Fill a bytestring with hash marks */
   svn_string_fillchar (a, '#');
   svn_string_print (a, stdout);
