@@ -203,7 +203,7 @@ static void add_props(const svn_ra_dav_resource_t *r,
       char *val;
 
       apr_hash_this(hi, (const void **)&key, NULL, (void *)&val);
-
+      
 #define NSLEN (sizeof(SVN_PROP_CUSTOM_PREFIX) - 1)
       if (strncmp(key, SVN_PROP_CUSTOM_PREFIX, NSLEN) == 0)
         {
@@ -239,7 +239,7 @@ static void add_props(const svn_ra_dav_resource_t *r,
 #undef NSLEN
     }
 }
-
+                      
 
 static svn_error_t * fetch_dirents(svn_ra_session_t *ras,
                                    const char *url,
@@ -572,7 +572,7 @@ svn_error_t * svn_ra_dav__do_checkout(void *session_baton,
           if (err)
             return svn_error_quick_wrap(err, "could not add directory");
         }
-      else
+      else 
         {
           /* We are operating in the root of the repository */
           this_baton = root_baton;
@@ -908,7 +908,7 @@ static int start_element(void *userdata, const struct ne_xml_elm *elm,
           rb->editor->change_file_prop(rb->file_baton, namestr, NULL);
         }
       break;
-
+      
     case ELEM_fetch_props:
       if (rb->is_status)
         {
@@ -916,7 +916,7 @@ static int start_element(void *userdata, const struct ne_xml_elm *elm,
              property change are uninteresting.  Simply call our
              editor function with bogus data so it registers a
              property mod. */
-          svn_stringbuf_t *namestr =
+          svn_stringbuf_t *namestr = 
             svn_stringbuf_create(SVN_PROP_PREFIX "BOGOSITY", rb->ras->pool);
           if (rb->file_baton == NULL)
             rb->editor->change_dir_prop(TOP_DIR(rb).baton, namestr, NULL);
@@ -935,7 +935,7 @@ static int start_element(void *userdata, const struct ne_xml_elm *elm,
 
     case ELEM_fetch_file:
       /* assert: rb->href->len > 0 */
-      CHKERR( simple_fetch_file(rb->ras->sess2, rb->href->data,
+      CHKERR( simple_fetch_file(rb->ras->sess2, rb->href->data, 
                                 rb->is_status ? FALSE : TRUE,
                                 rb->file_baton, rb->editor, rb->ras->pool) );
       break;
@@ -983,8 +983,8 @@ add_node_props (report_baton_t *rb)
                                               NULL,
                                               NULL,
                                               rb->ras->pool));
-      add_props(rsrc,
-                rb->editor->change_file_prop,
+      add_props(rsrc, 
+                rb->editor->change_file_prop, 
                 rb->file_baton,
                 rb->ras->pool);
     }
@@ -1000,17 +1000,17 @@ add_node_props (report_baton_t *rb)
                                               NULL,
                                               NULL,
                                               rb->ras->pool));
-      add_props(rsrc,
-                rb->editor->change_dir_prop,
-                TOP_DIR(rb).baton,
+      add_props(rsrc, 
+                rb->editor->change_dir_prop, 
+                TOP_DIR(rb).baton, 
                 rb->ras->pool);
     }
-
+    
   return SVN_NO_ERROR;
 }
 
 /* This implements the `ne_xml_endelm_cb' prototype. */
-static int end_element(void *userdata,
+static int end_element(void *userdata, 
                        const struct ne_xml_elm *elm,
                        const char *cdata)
 {
@@ -1037,7 +1037,7 @@ static int end_element(void *userdata,
          retrieve the href before fetching. */
 
       /* fetch file */
-      CHKERR( simple_fetch_file(rb->ras->sess2, rb->href->data,
+      CHKERR( simple_fetch_file(rb->ras->sess2, rb->href->data, 
                                 rb->is_status ? FALSE : TRUE,
                                 rb->file_baton, rb->editor, rb->ras->pool) );
 
@@ -1289,7 +1289,7 @@ make_reporter (void *session_baton,
      element in that case. */
   if (SVN_IS_VALID_REVNUM(revision))
     {
-      s = apr_psprintf(ras->pool,
+      s = apr_psprintf(ras->pool, 
                        "<S:target-revision>%ld</S:target-revision>",
                        revision);
       status = apr_file_write_full(rb->tmpfile, s, strlen(s), NULL);
@@ -1303,7 +1303,7 @@ make_reporter (void *session_baton,
   /* A NULL target is no problem.  */
   if (target && target->data)
     {
-      s = apr_psprintf(ras->pool,
+      s = apr_psprintf(ras->pool, 
                        "<S:update-target>%s</S:update-target>",
                        target->data);
       status = apr_file_write_full(rb->tmpfile, s, strlen(s), NULL);
@@ -1334,7 +1334,7 @@ make_reporter (void *session_baton,
  error:
   (void) apr_file_close(rb->tmpfile);
   return svn_error_create(status, 0, NULL, ras->pool, msg);
-}
+}                      
 
 
 svn_error_t * svn_ra_dav__do_update(void *session_baton,
@@ -1484,7 +1484,7 @@ log_end_element(void *userdata,
          be... interesting.  Well, not so bad, just need to put an
          attribute on the end element of the last item.  This is a
          change to mod_dav_svn too. */
-
+    
       svn_error_t *err = (*(lb->receiver))(lb->receiver_baton,
                                            NULL,
                                            lb->revision,
@@ -1492,9 +1492,9 @@ log_end_element(void *userdata,
                                            lb->date,
                                            lb->msg,
                                            0);
-
+      
       reset_log_item (lb);
-
+      
       if (err)
         {
           lb->err = err;         /* ### Wrap an existing error, if any? */
@@ -1546,7 +1546,7 @@ svn_error_t * svn_ra_dav__get_log(void *session_baton,
     = "<S:log-report xmlns:S=\"" SVN_XML_NAMESPACE "\">" DEBUG_CR;
 
   const char log_request_tail[] = "</S:log-report>" DEBUG_CR;
-
+  
   static const struct ne_xml_elm log_report_elements[] =
     {
       { SVN_XML_NAMESPACE, "log-report", ELEM_log_report, 0 },
@@ -1558,7 +1558,7 @@ svn_error_t * svn_ra_dav__get_log(void *session_baton,
       { "DAV:", "comment", ELEM_comment, NE_XML_CDATA },
       { NULL }
     };
-
+  
 
   /* Construct the request body. */
   svn_stringbuf_appendcstr(request_body, log_request_head);
@@ -1574,7 +1574,7 @@ svn_error_t * svn_ra_dav__get_log(void *session_baton,
                                apr_psprintf(ras->pool,
                                             "<S:discover-changed-paths/>"));
     }
-
+    
   for (i = 0; i < paths->nelts; i++)
     {
       const char *this_path = (((svn_stringbuf_t **)paths->elts)[i])->data;
@@ -1598,13 +1598,13 @@ svn_error_t * svn_ra_dav__get_log(void *session_baton,
                                       ras->root.path,
                                       request_body->data,
                                       0,  /* ignored */
-                                      log_report_elements,
+                                      log_report_elements, 
                                       log_validate,
                                       log_start_element,
                                       log_end_element,
                                       &lb,
                                       ras->pool) );
-
+  
   svn_pool_destroy (lb.subpool);
 
   return SVN_NO_ERROR;
@@ -1612,7 +1612,7 @@ svn_error_t * svn_ra_dav__get_log(void *session_baton,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
