@@ -24,10 +24,10 @@
  * Modified by the GLib Team and others 1997-1999.  See the AUTHORS
  * file for a list of people on the GLib Team.  See the ChangeLog
  * files for a list of changes.  These files are distributed with
- * GLib at ftp://ftp.gtk.org/pub/gtk/.
+ * GLib at ftp://ftp.gtk.org/pub/gtk/. 
  */
 
-/*
+/* 
  * MT safe
  */
 
@@ -56,7 +56,7 @@ g_thread_init (GThreadFunctions* init)
 
   if (thread_system_already_initialized)
     g_error ("GThread system may only be initialized once.");
-
+    
   thread_system_already_initialized = TRUE;
 
   if (init == NULL)
@@ -70,15 +70,15 @@ g_thread_init (GThreadFunctions* init)
    * thread initialization functions of the different modules are called
    */
 
-  supported = (init->mutex_new &&
-	       init->mutex_lock &&
-	       init->mutex_trylock &&
-	       init->mutex_unlock &&
-	       init->mutex_free &&
-	       init->cond_new &&
-	       init->cond_signal &&
-	       init->cond_broadcast &&
-	       init->cond_wait &&
+  supported = (init->mutex_new &&  
+	       init->mutex_lock && 
+	       init->mutex_trylock && 
+	       init->mutex_unlock && 
+	       init->mutex_free && 
+	       init->cond_new && 
+	       init->cond_signal && 
+	       init->cond_broadcast && 
+	       init->cond_wait && 
 	       init->cond_timed_wait &&
 	       init->cond_free &&
 	       init->private_new &&
