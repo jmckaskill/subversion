@@ -607,7 +607,7 @@ txn_body_begin_txn (void *baton,
   const char *txn_id;
 
   SVN_ERR (svn_fs_base__rev_get_root (&root_id, trail->fs, args->rev, trail));
-  SVN_ERR (svn_fs_bdb__create_txn (&txn_id, trail->fs, root_id,
+  SVN_ERR (svn_fs_bdb__create_txn (&txn_id, trail->fs, root_id, 
                                    trail, trail->pool));
 
   *args->txn_p = make_txn (trail->fs, txn_id, args->rev, trail->pool);
@@ -938,7 +938,7 @@ txn_body_list_transactions (void* baton,
                             trail_t *trail)
 {
   struct list_transactions_args *args = baton;
-  return svn_fs_bdb__get_txn_list (args->names_p, trail->fs,
+  return svn_fs_bdb__get_txn_list (args->names_p, trail->fs, 
                                    trail, args->pool);
 }
 
