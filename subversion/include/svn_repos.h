@@ -162,7 +162,7 @@ svn_repos_dir_delta (svn_fs_root_t *source_root,
    Do any allocation necessary for the delta computation in POOL.
    This function's maximum memory consumption is at most roughly
    proportional to the greatest depth of SOURCE_PATH under
-   TARGET_ROOT, not the total size of the delta.
+   TARGET_ROOT, not the total size of the delta. 
 
    What's the difference between svn_repos_update and
    svn_repos_dir_delta?
@@ -182,13 +182,13 @@ svn_repos_dir_delta (svn_fs_root_t *source_root,
 
    "Fine," I reply, "but that means that everthing in A/D gets
    updated...this is NOT what I requested."
-
+   
    So, what I really need is a way to say, "Mr. Update Editor Driver,
    I want you to have full knowledge of the directory A/D, but I need
    you promise to only pay attention to the entry G in that
    directory."
-
-   And svn_repos_update complies.
+   
+   And svn_repos_update complies. 
 
    TODO:  It is entirely likely that these two functions will become
    one in the near future, at least that is cmpilato's hope.  */
