@@ -3,32 +3,32 @@
  *
  * ================================================================
  * Copyright (c) 2000 Collab.Net.  All rights reserved.
- *
+ * 
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
  * met:
- *
+ * 
  * 1. Redistributions of source code must retain the above copyright
  * notice, this list of conditions and the following disclaimer.
- *
+ * 
  * 2. Redistributions in binary form must reproduce the above copyright
  * notice, this list of conditions and the following disclaimer in the
  * documentation and/or other materials provided with the distribution.
- *
+ * 
  * 3. The end-user documentation included with the redistribution, if
  * any, must include the following acknowlegement: "This product includes
  * software developed by Collab.Net (http://www.Collab.Net/)."
  * Alternately, this acknowlegement may appear in the software itself, if
  * and wherever such third-party acknowlegements normally appear.
- *
+ * 
  * 4. The hosted project names must not be used to endorse or promote
  * products derived from this software without prior written
  * permission. For written permission, please contact info@collab.net.
- *
+ * 
  * 5. Products derived from this software may not use the "Tigris" name
  * nor may "Tigris" appear in their names without prior written
  * permission of Collab.Net.
- *
+ * 
  * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
  * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -42,14 +42,14 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ====================================================================
- *
+ * 
  * This software consists of voluntary contributions made by many
  * individuals on behalf of Collab.Net.
  */
 
 /* ==================================================================== */
 
-/*
+/* 
 
   The property-parsing system is modeled closely after the
   vcdiff-parser API, except that it has two alternate modes of
@@ -57,7 +57,7 @@
   then we buffer and send off the entire* propchange in RAM.  If the
   caller gives us an svn_prop_change_chunk_handler_t, however, then it
   wants the propchange streamed in a chunky way, just like text
-  deltas.  These two methods are *not* mutually exclusive.
+  deltas.  These two methods are *not* mutually exclusive.  
 
    NOTE that (at least in this model), our parser creates a new APR
    sub-pool to buffer each incoming window of data.  It then passes
@@ -84,18 +84,18 @@
 /* Utility: deallocate a parser's subpool (and the propchange inside
    it), andthen create a new subpool with a new propchange, ready to
    buffer the next change.  */
-void
+void 
 svn_reset_parser_subpool (svn_pdelta_parser_t *parser)
 {
   apr_destroy_pool (parser->subpool);
 
   parser->subpool = apr_make_sub_pool (parser->pool, NULL);
 
-  parser->propchange =
-    (svn_propchange_t *) apr_palloc (parser->subpool,
+  parser->propchange = 
+    (svn_propchange_t *) apr_palloc (parser->subpool, 
                                      sizeof(svn_propchange_t));
-
-  parser->propchange->value =
+ 
+  parser->propchange->value = 
     svn_string_create ("", parser->subpool);
 }
 
@@ -114,23 +114,23 @@ svn_make_pdelta_parser (svn_propchange_handler_t *handler,
                         apr_pool_t *pool)
 {
   /* Allocate a vcdiff_parser and fill out its fields */
-  svn_pdelta_parser_t *new_pdelta_parser =
-    (svn_pdelta_parser_t *)
+  svn_pdelta_parser_t *new_pdelta_parser = 
+    (svn_pdelta_parser_t *) 
     apr_palloc (pool, sizeof(svn_pdelta_parser_t));
 
   new_pdelta_parser->handler = handler;
   new_pdelta_parser->baton = handler_baton;
 
   new_pdelta_parser->pool = pool;
-  new_pdelta_parser->subpool =
+  new_pdelta_parser->subpool = 
     apr_make_sub_pool (new_pdelta_parser->pool, NULL);
 
   /* Important:  notice that the parser's buffer lives in a subpool */
-  new_pdelta_parser->propchange =
-    (svn_propchange_t *) apr_palloc (new_pdelta_parser->subpool,
+  new_pdelta_parser->propchange = 
+    (svn_propchange_t *) apr_palloc (new_pdelta_parser->subpool, 
                                      sizeof(svn_propchange_t));
 
-  new_pdelta_parser->propchange->value =
+  new_pdelta_parser->propchange->value = 
     svn_string_create ("", new_pdelta_parser->subpool);
 
   return new_pdelta_parser;
