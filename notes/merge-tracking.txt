@@ -38,7 +38,7 @@ B.  Make 'hunks' of contextually-merged text sensitive to ancestry.
       has a great example of this from Clearcase, which we can draw in
       this space.  See diagram at the bottom for an explanation.
 
-C.  'svn merge' needs to track renames better.
+C.  'svn merge' needs to track renames better.  
 
      Edit foo.c on branchA.  Rename foo.c to bar.c on branchB.
 
@@ -58,38 +58,38 @@ C.  'svn merge' needs to track renames better.
 
 ---------------------------------------------
 Here's an example of problem B above, demonstrating how individual
-lines of code can be "merge tracked".
+lines of code can be "merge tracked".  
 
 In this diagram, we're drawing the lineage of a single file, with time
 flowing downwards.  The file begins life with three lines of text,
 "1\n2\n\3\n".  The file then splits into two lines of development.
 
-
-
-                    1
-                    2
-                    3
-                  /   \
-                 /     \
-                /       \
-            one           1
-            two           2.5
-            three         3
+                                 
+                          
+                    1     
+                    2     
+                    3     
+                  /   \   
+                 /     \  
+                /       \ 
+            one           1   
+            two           2.5 
+            three         3   
              |     \      |
-             |      \     |
-             |       \    |
-             |        \   |
-             |         \ one
+             |      \     |   
+             |       \    |            
+             |        \   |            
+             |         \ one           
              |           two-point-five
-             |           three
+             |           three        
              |            |
              |            |
              |            |
             one          one
             Two          two-point-five
-            three        newline
-               \         three
-                \         |
+            three        newline       
+               \         three  
+                \         |   
                  \        |
                   \       |
                    \      |
@@ -99,11 +99,11 @@ flowing downwards.  The file begins life with three lines of text,
                        \  |
                          one
                          Two-point-five
-                         newline
-                         three
+                         newline       
+                         three  
+                              
 
-
-It's the second merge that's important here.
+It's the second merge that's important here.  
 
 In a system like Subversion, the second merge of the left branch to
 the right will fail miserably: the whole file's contents will be
