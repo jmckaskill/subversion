@@ -2,9 +2,9 @@
 #
 #  prop_tests.py:  testing versioned properties
 #
-#  Subversion is a tool for revision control.
+#  Subversion is a tool for revision control. 
 #  See http://subversion.tigris.org for more information.
-#
+#    
 # ====================================================================
 # Copyright (c) 2000-2001 CollabNet.  All rights reserved.
 #
@@ -46,9 +46,9 @@ def make_local_props(sbox):
   svntest.main.run_svn(None, 'propset', 'blue', 'azul',
                        os.path.join(wc_dir, 'A', 'mu'))
   svntest.main.run_svn(None, 'propset', 'green', 'verde',
-                       os.path.join(wc_dir, 'A', 'mu'))
+                       os.path.join(wc_dir, 'A', 'mu'))  
   svntest.main.run_svn(None, 'propset', 'red', 'rojo',
-                       os.path.join(wc_dir, 'A', 'D', 'G'))
+                       os.path.join(wc_dir, 'A', 'D', 'G'))  
   svntest.main.run_svn(None, 'propset', 'yellow', 'amarillo',
                        os.path.join(wc_dir, 'A', 'D', 'G'))
 
@@ -62,7 +62,7 @@ def make_local_props(sbox):
 
   # Remove one property
   svntest.main.run_svn(None, 'propdel', 'yellow',
-                       os.path.join(wc_dir, 'A', 'D', 'G'))
+                       os.path.join(wc_dir, 'A', 'D', 'G'))  
 
   # What we expect the disk tree to look like:
   expected_disk = svntest.main.greek_state.copy()
@@ -71,7 +71,7 @@ def make_local_props(sbox):
 
   # Read the real disk tree.  Notice we are passing the (normally
   # disabled) "load props" flag to this routine.  This will run 'svn
-  # proplist' on every item in the working copy!
+  # proplist' on every item in the working copy!  
   actual_disk_tree = svntest.tree.build_tree_from_wc(wc_dir, 1)
 
   # Compare actual vs. expected disk trees.
@@ -90,8 +90,8 @@ def commit_props(sbox):
   wc_dir = sbox.wc_dir
 
   # Add a property to a file and a directory
-  mu_path = os.path.join(wc_dir, 'A', 'mu')
-  H_path = os.path.join(wc_dir, 'A', 'D', 'H')
+  mu_path = os.path.join(wc_dir, 'A', 'mu') 
+  H_path = os.path.join(wc_dir, 'A', 'D', 'H') 
   svntest.main.run_svn(None, 'propset', 'blue', 'azul', mu_path)
   svntest.main.run_svn(None, 'propset', 'red', 'rojo', H_path)
 
@@ -131,8 +131,8 @@ def update_props(sbox):
   svntest.actions.duplicate_dir(wc_dir, wc_backup)
 
   # Add a property to a file and a directory
-  mu_path = os.path.join(wc_dir, 'A', 'mu')
-  H_path = os.path.join(wc_dir, 'A', 'D', 'H')
+  mu_path = os.path.join(wc_dir, 'A', 'mu') 
+  H_path = os.path.join(wc_dir, 'A', 'D', 'H') 
   svntest.main.run_svn(None, 'propset', 'blue', 'azul', mu_path)
   svntest.main.run_svn(None, 'propset', 'red', 'rojo', H_path)
 
@@ -156,15 +156,15 @@ def update_props(sbox):
 
   # Overwrite mu_path and H_path to refer to the backup copies from
   # here on out.
-  mu_path = os.path.join(wc_backup, 'A', 'mu')
-  H_path = os.path.join(wc_backup, 'A', 'D', 'H')
-
+  mu_path = os.path.join(wc_backup, 'A', 'mu') 
+  H_path = os.path.join(wc_backup, 'A', 'D', 'H') 
+  
   # Create expected output tree for an update of the wc_backup.
   expected_output = svntest.wc.State(wc_backup, {
     'A/mu' : Item(status='_U'),
     'A/D/H' : Item(status='_U'),
     })
-
+  
   # Create expected disk tree for the update.
   expected_disk = svntest.main.greek_state.copy()
   expected_disk.tweak('A/mu', props={'blue' : 'azul'})
@@ -192,9 +192,9 @@ def downdate_props(sbox):
 
   wc_dir = sbox.wc_dir
 
-  iota_path = os.path.join(wc_dir, 'iota')
+  iota_path = os.path.join(wc_dir, 'iota') 
   mu_path = os.path.join(wc_dir, 'A', 'mu')
-
+  
   # Add a property to a file
   svntest.main.run_svn(None, 'propset', 'cash-sound', 'cha-ching!', iota_path)
 
@@ -235,16 +235,16 @@ def downdate_props(sbox):
                                             None, None, None, None, None,
                                             wc_dir):
     return 1
-
+  
   # Create expected output tree for an update.
   expected_output = svntest.wc.State(wc_dir, {
     'iota' : Item(status='_U'),
     'A/mu' : Item(status='U '),
     })
-
+  
   # Create expected disk tree for the update.
   expected_disk = svntest.main.greek_state
-
+  
   # Create expected status tree for the update.
   expected_status = svntest.actions.get_virginal_state(wc_dir, 1)
   expected_status.tweak(repos_rev=3)
@@ -269,7 +269,7 @@ def remove_props(sbox):
   wc_dir = sbox.wc_dir
 
   # Add a property to a file
-  iota_path = os.path.join(wc_dir, 'iota')
+  iota_path = os.path.join(wc_dir, 'iota') 
   svntest.main.run_svn(None, 'propset', 'cash-sound', 'cha-ching!', iota_path)
 
   # Commit the file
@@ -324,7 +324,7 @@ def update_conflict_props(sbox):
   wc_dir = sbox.wc_dir
 
   # Add a property to a file and a directory
-  mu_path = os.path.join(wc_dir, 'A', 'mu')
+  mu_path = os.path.join(wc_dir, 'A', 'mu') 
   svntest.main.run_svn(None, 'propset', 'cash-sound', 'cha-ching!', mu_path)
   A_path = os.path.join(wc_dir, 'A')
   svntest.main.run_svn(None, 'propset', 'foo', 'bar', A_path)
@@ -426,7 +426,7 @@ def commit_replacement_props(sbox):
     return 1
 
   # Now add a property to lambda.  Iota still doesn't have any.
-  svntest.main.run_svn(None, 'propset', 'capacitor', 'flux', lambda_path)
+  svntest.main.run_svn(None, 'propset', 'capacitor', 'flux', lambda_path)  
 
   # Commit, with careful output checking.  We're actually going to
   # scan the working copy for props after the commit.
@@ -490,7 +490,7 @@ def revert_replacement_props(sbox):
     return 1
 
   # Now add a property to lambda.  Iota still doesn't have any.
-  svntest.main.run_svn(None, 'propset', 'capacitor', 'flux', lambda_path)
+  svntest.main.run_svn(None, 'propset', 'capacitor', 'flux', lambda_path)  
 
   # Now revert both files.
   svntest.main.run_svn(None, 'revert', iota_path, lambda_path)
