@@ -72,7 +72,7 @@ svn_cl__print_prop_hash (apr_hash_t *prop_hash,
 
       SVN_ERR (svn_utf_cstring_from_utf8 (&pname_native, pname, pool));
       printf ("  %s : %s\n", pname_native, propval->data);
-    }
+    } 
   return SVN_NO_ERROR;
 }
 
@@ -90,6 +90,6 @@ svn_cl__print_prop_names (apr_hash_t *prop_hash,
       apr_hash_this (hi, &key, NULL, NULL);
       SVN_ERR (svn_utf_cstring_from_utf8 (&key_native, key, pool));
       printf ("  %s\n", key_native);
-    }
+    } 
   return SVN_NO_ERROR;
 }
