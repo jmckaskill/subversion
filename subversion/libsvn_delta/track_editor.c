@@ -29,8 +29,8 @@
    a "committed target"?
 
    Here is the logic used by the commit-editor-driver
-   (svn_wc_crawl_local_mods):
-
+   (svn_wc_crawl_local_mods): 
+   
    Store a path if:
 
       - an entry is marked for addition
@@ -193,7 +193,7 @@ delete_entry (const char *path,
   svn_stringbuf_t *full_path = svn_stringbuf_dup (eb->path, eb->pool);
   svn_path_add_component_nts (full_path, path);
   apr_hash_set (eb->committed_targets,
-                full_path->data, full_path->len,
+                full_path->data, full_path->len, 
                 (void *) svn_nonrecursive);
 
   return SVN_NO_ERROR;
@@ -221,7 +221,7 @@ change_item_prop (void *item_baton,
 
 
 static svn_error_t *
-apply_textdelta (void *file_baton,
+apply_textdelta (void *file_baton, 
                  svn_txdelta_window_handler_t *handler,
                  void **handler_baton)
 {
@@ -234,7 +234,7 @@ apply_textdelta (void *file_baton,
   apr_hash_set (eb->committed_targets,
                 full_path->data, full_path->len,
                 (void *) svn_nonrecursive);
-
+  
   *handler = NULL;
   *handler_baton = NULL;
 
@@ -298,7 +298,7 @@ svn_delta_get_commit_track_editor (const svn_delta_editor_t **editor,
         set_target_revision
         close_directory
         window_handler
-
+     
   */
   track_editor->open_root = open_root;
   track_editor->add_directory = add_directory;
