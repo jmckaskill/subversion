@@ -21,31 +21,31 @@ import org.tigris.subversion.SubversionException;
 import java.util.Vector;
 import java.util.Date;
 
-public class ClientImpl implements org.tigris.subversion.lib.Client
+public class ClientImpl implements org.tigris.subversion.lib.Client 
 {
   //Authentification information that has to be set explicitly
   //by stating the appropriate getter/setter methods
   private String username = null;
   private String password = null;
 
-  static
+  static 
   {
     System.loadLibrary("svn_jni");
   }
 
   public native void checkout(TreeDeltaEditor beforeEditor,
     TreeDeltaEditor afterEditor, String url, String path,
-    Revision revision, Date time, String xml_src)
+    Revision revision, Date time, String xml_src) 
       throws SubversionException;
 
   public native void update(TreeDeltaEditor beforeEditor,
     TreeDeltaEditor afterEditor, String path, String xml_src,
     String revision, Date time) throws SubversionException;
 
-  public native void add(String path, boolean recursive)
+  public native void add(String path, boolean recursive) 
       throws SubversionException;
 
-  public native void delete(String path, boolean force)
+  public native void delete(String path, boolean force) 
       throws SubversionException;
 
   public native void performImport(TreeDeltaEditor beforeEditor,
@@ -54,16 +54,16 @@ public class ClientImpl implements org.tigris.subversion.lib.Client
       String Revision) throws SubversionException;
 
   public native void commit(TreeDeltaEditor beforeEditor,
-			    TreeDeltaEditor afterEditor,
+			    TreeDeltaEditor afterEditor, 
 			    String targets[], String log_msg,
-			    String xml_dst, String revision)
+			    String xml_dst, String revision) 
       throws SubversionException;
 
-  public native Vector status(String path, boolean descend,
+  public native Vector status(String path, boolean descend, 
 			      boolean get_all, boolean update)
       throws SubversionException;
 
-  public native String fileDiff(String path)
+  public native String fileDiff(String path) 
       throws SubversionException;
 
   public native void cleanup(String dir) throws SubversionException;
@@ -87,5 +87,5 @@ public class ClientImpl implements org.tigris.subversion.lib.Client
   {
     return this.password;
   }
-
+  
 }
