@@ -49,7 +49,7 @@
 
 5.  Go back into your subversion working copy and run ./autogen.sh if
     you need to.  Then run
-
+ 
       ./configure --with-apxs=/usr/local/apache2/bin/apxs
 
     This argument tells subversion to build mod_dav_svn, and where to
@@ -116,7 +116,7 @@ This creates an empty repository.  Then you can import something into
 it, either locally, or over dav:
 
     % svn import file:///absolute/path/to/repository /some/local/dir
-    % svn import http://foo.com/repos/path /some/local/dir
+    % svn import http://foo.com/repos/path /some/local/dir 
 
 The above examples import the contents of /some/local/dir right into
 the root of the repository.  If you want to put these contents into a
