@@ -40,7 +40,7 @@ svn_client_get_ra_library (const svn_client__ra_library_t **library,
                            apr_pool_t *pool)
 {
   const char *library_name, *initfunc_name;
-  svn_client__ra_library_t *the_library;
+  svn_client__ra_library_t *the_library; 
   apr_dso_handle_t *dso;
   apr_dso_handle_sym_t symbol;  /* ick, the pointer is in the type! */
   svn_ra_init_func_t *initfunc;
@@ -52,13 +52,13 @@ svn_client_get_ra_library (const svn_client__ra_library_t **library,
   for (i = 0; i < sizeof(svn_client__ra_library_table); i++)
     {
       const char *url_type = svn_client__ra_library_table[i][0];
-
+      
       if (! strncmp (url_type, URL, sizeof(url_type)))
         break;
     }
-
+  
   if (i == sizeof(svn_client__ra_library_table))
-    return
+    return 
       svn_error_createf (SVN_ERR_RA_ILLEGAL_URL, 0, NULL, pool,
                          "can't find RA library to handle URL `%s'", URL);
 
@@ -66,7 +66,7 @@ svn_client_get_ra_library (const svn_client__ra_library_t **library,
   /* TODO:  uh-oh;  is `.so' portable?  Don't think so. */
   library_name = apr_psprintf (pool, "libsvn_ra_%s.so",
                                svn_client__ra_library_table[i][1]);
-
+    
   initfunc_name = apr_psprintf (pool, "svn_ra_%s_init",
                                 svn_client__ra_library_table[i][1]);
 
@@ -90,9 +90,9 @@ svn_client_get_ra_library (const svn_client__ra_library_t **library,
   err = initfunc (1, /* abi_version (do we still need this?) */
                   pool,
                   &(the_library->plugin));
-  if (err)
+  if (err) 
      return err;
-
+    
   *library = the_library;
 
   return SVN_NO_ERROR;
