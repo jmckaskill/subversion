@@ -498,7 +498,7 @@ svn_error_t * svn_ra_dav__do_checkout(void *session_baton,
 
           /* We're not in the root, add a directory */
           name = my_basename(url, ras->pool);
-
+          
           printf("adding directory: %s\n", name->data);
           err = (*editor->add_directory) (name, parent_baton,
                                           /* ### NULL */ ancestor_path, SVN_INVALID_REVNUM,
@@ -506,7 +506,7 @@ svn_error_t * svn_ra_dav__do_checkout(void *session_baton,
           if (err)
             return svn_error_quick_wrap(err, "could not add directory");
         }
-      else
+      else 
         {
           /* We are operating in the root of the repository */
           this_baton = root_baton;
@@ -594,7 +594,7 @@ svn_error_t * svn_ra_dav__do_update(void *session_baton,
 }
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
