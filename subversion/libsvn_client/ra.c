@@ -275,6 +275,8 @@ svn_client__open_ra_session (void **session_baton,
   cb->do_store = do_store;
   cb->pool = pool;
   cb->commit_items = commit_items;
+  cb->got_new_auth_info = svn_client_ctx_get_default_simple_creds (ctx)
+                          ? TRUE : FALSE;
 
   SVN_ERR (ra_lib->open (session_baton, base_url, cbtable, cb, pool));
 
