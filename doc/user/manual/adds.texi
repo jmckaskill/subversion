@@ -2,7 +2,7 @@
 @chapter Adds
 
 This section describes how the Subversion client deals with the addition
-of files and directories.
+of files and directories. 
 
 @menu
 * Adding items::              How to add items to your working copy.
@@ -66,7 +66,7 @@ file or directory before succeeding.
 Second, you can't schedule an item to be added if any of its parent
 directories are scheduled for deletion.  This is a sanity check
 performed by @samp{svn add};  it makes no sense to add an item within
-a directory that will be destroyed at commit-time.
+a directory that will be destroyed at commit-time. 
 
 
 @c ------------------------------------------------------------------
