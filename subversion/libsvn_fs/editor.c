@@ -93,14 +93,14 @@ replace_root (void *edit_baton,
      root object. */
   SVN_ERR (svn_fs_begin_txn (&(eb->txn), eb->fs, eb->base_rev, eb->pool));
   SVN_ERR (svn_fs_txn_root (&(eb->root), eb->txn, eb->pool));
-
+  
   /* Finish filling out the root dir baton.  The `base_path' field is
      an -absolute- path in the filesystem, upon which all dir batons
      will telescope.  */
   dirb->edit_baton = edit_baton;
   dirb->parent = NULL;
   dirb->path = svn_string_dup (eb->base_path, eb->pool);
-
+ 
   *root_baton = dirb;
   return SVN_NO_ERROR;
 }
@@ -137,10 +137,10 @@ add_directory (svn_string_t *name,
   struct dir_baton *pb = parent_baton;
   struct edit_baton *eb = pb->edit_baton;
 
-  /* Sanity check. */
+  /* Sanity check. */  
   if (copyfrom_path && (copyfrom_revision <= 0))
-    return
-      svn_error_createf
+    return 
+      svn_error_createf 
       (SVN_ERR_FS_GENERAL, 0, NULL, eb->pool,
        "fs editor: add_dir `%s': got copyfrom_path, but no copyfrom_rev",
        name->data);
@@ -166,7 +166,7 @@ add_directory (svn_string_t *name,
     }
   else
     {
-      /* No ancestry given, just make a new directory. */
+      /* No ancestry given, just make a new directory. */      
       SVN_ERR (svn_fs_make_dir (eb->root, new_dirb->path->data, eb->pool));
     }
 
@@ -218,7 +218,7 @@ close_file (void *file_baton)
 
   /* Free any memory used while streamily writing file contents. */
   apr_pool_destroy (fb->subpool);
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -231,12 +231,12 @@ apply_textdelta (void *file_baton,
 {
   struct file_baton *fb = file_baton;
   struct edit_baton *eb = fb->parent->edit_baton;
-
+  
   /* This routine is a mindless wrapper. */
   SVN_ERR (svn_fs_apply_textdelta (handler, handler_baton,
                                    eb->root, fb->path->data,
                                    fb->subpool));
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -254,10 +254,10 @@ add_file (svn_string_t *name,
   struct dir_baton *pb = parent_baton;
   struct edit_baton *eb = pb->edit_baton;
 
-  /* Sanity check. */
+  /* Sanity check. */  
   if (copy_path && (copy_revision <= 0))
-    return
-      svn_error_createf
+    return 
+      svn_error_createf 
       (SVN_ERR_FS_GENERAL, 0, NULL, eb->pool,
        "fs editor: add_file `%s': got copy_path, but no copy_rev",
        name->data);
@@ -283,7 +283,7 @@ add_file (svn_string_t *name,
     }
   else
     {
-      /* No ancestry given, just make a new file. */
+      /* No ancestry given, just make a new file. */      
       SVN_ERR (svn_fs_make_file (eb->root, new_fb->path->data, eb->pool));
     }
 
@@ -438,14 +438,14 @@ svn_fs_get_editor (svn_delta_edit_fns_t **editor,
 
   *edit_baton = eb;
   *editor = e;
-
+  
   return SVN_NO_ERROR;
 }
 
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:

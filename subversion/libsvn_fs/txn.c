@@ -72,7 +72,7 @@ make_txn (svn_fs_t *fs,
 
   return txn;
 }
-
+          
 
 struct begin_txn_args
 {
@@ -115,7 +115,7 @@ svn_fs_begin_txn (svn_fs_txn_t **txn_p,
   args.fs    = fs;
   args.rev   = rev;
   SVN_ERR (svn_fs__retry_txn (fs, txn_body_begin_txn, &args, pool));
-
+  
   *txn_p = txn;
   return SVN_NO_ERROR;
 }
@@ -186,7 +186,7 @@ delete_from_id (svn_fs_t *fs, svn_fs_id_t *id, trail_t *trail)
     {
       skel_t *entries, *entry;
       SVN_ERR (svn_fs__dag_dir_entries_skel (&entries, node, trail));
-
+          
       for (entry = entries->children; entry; entry = entry->next)
         {
           skel_t *id_skel = entry->children->next;
@@ -199,7 +199,7 @@ delete_from_id (svn_fs_t *fs, svn_fs_id_t *id, trail_t *trail)
 
   /* ... then delete the node itself. */
   SVN_ERR (svn_fs__delete_node_revision (fs, id, trail));
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -259,7 +259,7 @@ txn_body_commit_txn (void *baton, trail_t *trail)
     {
       svn_fs_root_t *base_root, *latest_root;
       svn_revnum_t base, latest;
-
+      
       /* Aha.  Houston, we have a problem.
        *
        * The interface to svn_fs_merge() uses svn_fs_root_t's and
@@ -275,7 +275,7 @@ txn_body_commit_txn (void *baton, trail_t *trail)
        * here, that's not at issue.  What is needed is an interface to
        * merging that takes an txn and IDs instead of svn_fs_root_t's
        * and paths.  Sigh.  A little bit of rewriting, but most of the
-       * work is (I think) done already.
+       * work is (I think) done already.  
        *
        * Wish I had seen this coming. :-(
        *
@@ -307,7 +307,7 @@ txn_body_commit_txn (void *baton, trail_t *trail)
 
 
 svn_error_t *
-svn_fs_commit_txn (svn_revnum_t *new_rev,
+svn_fs_commit_txn (svn_revnum_t *new_rev, 
                    svn_fs_txn_t *txn)
 {
   /* How do commits work in Subversion?
@@ -341,7 +341,7 @@ svn_fs_commit_txn (svn_revnum_t *new_rev,
    *    4. Meanwhile, someone commits revision 8.
    *    5. Jane finishes the 6-->7 merge.  T could now be committed
    *       against a latest revision of 7, if only that were still the
-   *       latest.  Unfortunately, 8 is now the latest, so...
+   *       latest.  Unfortunately, 8 is now the latest, so... 
    *    6. Jane starts merging the changes between 7 and 8 into T.
    *    7. Meanwhile, no one commits any new revisions.  Whew.
    *    8. Jane commits T, creating revision 9, whose tree is exactly
@@ -432,7 +432,7 @@ txn_body_open_txn (void *baton,
   SVN_ERR (svn_fs__get_txn (&root_id, &base_root_id,
                             args->fs, args->name, trail));
 
-  *args->txn_p = make_txn (args->fs, args->name, trail->pool);
+  *args->txn_p = make_txn (args->fs, args->name, trail->pool); 
   return SVN_NO_ERROR;
 }
 
@@ -452,7 +452,7 @@ svn_fs_open_txn (svn_fs_txn_t **txn_p,
   args.fs = fs;
   args.name = name;
   SVN_ERR (svn_fs__retry_txn (fs, txn_body_open_txn, &args, pool));
-
+  
   *txn_p = txn;
   return SVN_NO_ERROR;
 }
@@ -501,7 +501,7 @@ svn_fs__txn_id (svn_fs_txn_t *txn)
 }
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
