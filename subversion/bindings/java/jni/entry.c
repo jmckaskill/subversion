@@ -48,7 +48,7 @@ entry__create(JNIEnv *env, jboolean *hasException,
    * -result
    * = 7
    */
-
+    
   if( (*env)->PushLocalFrame(env, 7) < 0 )
     {
       _hasException = JNI_TRUE;
@@ -61,10 +61,10 @@ entry__create(JNIEnv *env, jboolean *hasException,
       jobject jtext_time = NULL;
       jobject jprop_time = NULL;
       jobject jattrobutes = NULL;
-
+      
       entryClass = j__get_class(env, &_hasException,
                                 SVN_JNI_ENTRY__CLASS);
-
+      
       if( !_hasException )
         {
           entryConstructor = j__get_method(env, &_hasException,
@@ -72,36 +72,36 @@ entry__create(JNIEnv *env, jboolean *hasException,
                                            "<init>",
                                            SVN_JNI_ENTRY__SIG);
         }
-
+      
       if( !_hasException )
         {
-          jurl = string_c_to_j(env, (char*)entry->url.data,
+          jurl = string_c_to_j(env, (char*)entry->url.data, 
                                &_hasException);
         }
-
+      
       if( !_hasException )
         {
-          jtext_time = date_apr_to_j(env, &_hasException,
+          jtext_time = date_apr_to_j(env, &_hasException, 
                                      entry->text_time);
         }
-
+      
       if( !_hasException )
         {
           jprop_time = date_apr_to_j(env, &_hasException,
                                      entry->prop_time);
         }
-
+      
       if( !_hasException )
         {
           jattributes = hashtable__create(env, &_hasException);
-
-          /*
+          
+          /* 
            * TODO: conversion of the apr_hashtable with the
            * attributes to a java hashtable
            * NOW THERE IS ONLY AN EMPTY HASHTABLE!!!!
            */
         }
-
+      
       if( !_hasException )
         {
           result = (*env)->NewObject(env, entryClass,
@@ -114,31 +114,31 @@ entry__create(JNIEnv *env, jboolean *hasException,
                                      jtext_time,
                                      jprop_time,
                                      jattributes);
-
+          
           if( result == NULL )
             {
               _hasException = JNI_TRUE;
             }
         }
-
+      
       (*env)->PopLocalFrame(env, result);
     }
-
+ 
   if( hasException != NULL )
     {
       *hasException = _hasException;
     }
-
+            
   return result;
 }
+            
+	
 
 
-
-
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../svn-dev.el")
- * end:
+ * end: 
  */
 
 
