@@ -2,9 +2,9 @@
 #
 #  revert_tests.py:  testing 'svn revert'.
 #
-#  Subversion is a tool for revision control.
+#  Subversion is a tool for revision control. 
 #  See http://subversion.tigris.org for more information.
-#
+#    
 # ====================================================================
 # Copyright (c) 2000-2004 CollabNet.  All rights reserved.
 #
@@ -28,7 +28,7 @@ Skip = svntest.testcase.Skip
 XFail = svntest.testcase.XFail
 Item = svntest.wc.StateItem
 
-
+ 
 ######################################################################
 # Tests
 #
@@ -94,7 +94,7 @@ def revert_reexpand_keyword(sbox):
 
   # Verify that the keyword got re-expanded.
   check_expanded(newfile_path)
-
+  
 
 def revert_corrupted_text_base(sbox):
   "reverting to corrupt text base should fail"
@@ -109,7 +109,7 @@ def revert_corrupted_text_base(sbox):
   #     ".svn/text-base/important.txt.svn-base"
   #   ==
   #   use svn revert.
-  #   you get the corrupted content from the text-base
+  #   you get the corrupted content from the text-base  
   #
   # Any questions?
 
@@ -131,7 +131,7 @@ def revert_corrupted_text_base(sbox):
   svntest.main.file_append (iota_tb_path, 'appended text')
   os.chmod (tb_dir_path, tb_dir_saved_mode)
   os.chmod (iota_tb_path, iota_tb_saved_mode)
-
+  
   # Revert the file.  The keyword should reexpand.
   out, err = svntest.actions.run_and_verify_svn("expected an error, got none",
                                                 None,
