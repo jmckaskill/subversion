@@ -3,32 +3,32 @@
  *
  * ================================================================
  * Copyright (c) 2000 Collab.Net.  All rights reserved.
- *
+ * 
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
  * met:
- *
+ * 
  * 1. Redistributions of source code must retain the above copyright
  * notice, this list of conditions and the following disclaimer.
- *
+ * 
  * 2. Redistributions in binary form must reproduce the above copyright
  * notice, this list of conditions and the following disclaimer in the
  * documentation and/or other materials provided with the distribution.
- *
+ * 
  * 3. The end-user documentation included with the redistribution, if
  * any, must include the following acknowlegement: "This product includes
  * software developed by Collab.Net (http://www.Collab.Net/)."
  * Alternately, this acknowlegement may appear in the software itself, if
  * and wherever such third-party acknowlegements normally appear.
- *
+ * 
  * 4. The hosted project names must not be used to endorse or promote
  * products derived from this software without prior written
  * permission. For written permission, please contact info@collab.net.
- *
+ * 
  * 5. Products derived from this software may not use the "Tigris" name
  * nor may "Tigris" appear in their names without prior written
  * permission of Collab.Net.
- *
+ * 
  * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
  * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -42,7 +42,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ====================================================================
- *
+ * 
  * This software consists of voluntary contributions made by many
  * individuals on behalf of Collab.Net.
  */
@@ -56,13 +56,13 @@
   stream containing Subversion's XML delta representation.
 
   To use this library, see "deltaparse-test.c" in tests/.
-
-  Essentially, one must
-
+  
+  Essentially, one must 
+  
   * create an XML_Parser
   * register the callbacks (below) with the parser
   * call XML_Parse() on a bytestream
-
+  
 */
 
 #include "delta_parse.h"
@@ -71,7 +71,7 @@
 
 
 /* Constructor, for factorizing code */
-svn_edit_t *
+svn_edit_t * 
 svn_create_edit (apr_pool_t *pool, int action, char **atts)
 {
   svn_edit_t *this_edit = apr_pcalloc (pool, sizeof (svn_edit_t *));
@@ -83,7 +83,7 @@ svn_create_edit (apr_pool_t *pool, int action, char **atts)
     {
       char *attr_name = *atts++;
       char *attr_value = *atts++;
-
+      
       if (strcmp (attr_name, "name") == 0)
         {
           this_edit->name
@@ -94,16 +94,16 @@ svn_create_edit (apr_pool_t *pool, int action, char **atts)
           /* TODO: unknown tag attribute, ignore for now.  */
         }
     }
-
+  
   return this_edit;
 }
 
 
 /* Constructor, for factorizing code */
-svn_edit_t *
+svn_edit_t * 
 svn_create_edit_content (apr_pool_t *pool, int kind, char **atts)
 {
-  svn_edit_content_t *this_edit_content
+  svn_edit_content_t *this_edit_content 
     = apr_pcalloc (pool, sizeof (svn_edit_content_t *));
 
   this_edit_content->kind = kind;
@@ -113,7 +113,7 @@ svn_create_edit_content (apr_pool_t *pool, int kind, char **atts)
     {
       char *attr_name = *atts++;
       char *attr_value = *atts++;
-
+      
       if (strcmp (attr_name, "ancestor") == 0)
         {
           this_edit_content->ancestor_path
@@ -133,13 +133,13 @@ svn_create_edit_content (apr_pool_t *pool, int kind, char **atts)
           /* TODO: unknown tag attribute, ignore for now.  */
         }
     }
-
+  
   return this_edit_content;
 }
 
 
 
-/* For code factorization:
+/* For code factorization: 
 
    Go to bottom of delta, and set the state of the edit_content's
    text_delta or prop_delta flag.  (Returns error if bottom of delta
@@ -147,19 +147,19 @@ svn_create_edit_content (apr_pool_t *pool, int kind, char **atts)
 
 */
 svn_error_t *
-svn_twiddle_edit_content_flags (svn_delta_t *d,
+svn_twiddle_edit_content_flags (svn_delta_t *d, 
                                 svn_boolean_t value,
                                 svn_boolean_t text_p)
 {
   void *bottom_ptr, *penult_ptr;
   svn_XML_elt_t bottom_kind, penult_kind;
   svn_edit_content_t *ec;
-
+  
   /* Get a grip on the last two objects in the delta (by cdr'ing down) */
-  svn_find_delta_bottom (&bottom_ptr, &bottom_kind,
-                         &penult_ptr, &penult_kind,
+  svn_find_delta_bottom (&bottom_ptr, &bottom_kind, 
+                         &penult_ptr, &penult_kind, 
                          d);
-
+  
   /* Sanity check:  the bottom object _better_ be an edit_content_t! */
   if (bottom_kind != svn_XML_editcontent)
     {
@@ -167,7 +167,7 @@ svn_twiddle_edit_content_flags (svn_delta_t *d,
                                "found text or prop delta after NON-edit_content_t!",
                                NULL, my_digger->pool);
     }
-
+  
   /* ...just mark flag in edit_content structure (should be the
      last structure on our growing delta) */
   ec = (svn_edit_content *) bottom_ptr;
@@ -186,7 +186,7 @@ svn_twiddle_edit_content_flags (svn_delta_t *d,
    Return the bottommost object in BOTTOM_OBJ and BOTTOM_KIND.
       (Needed later for appending objects to the delta.)
 
-   The penultimate object is returned in PENULT_OBJ and PENULT_KIND.
+   The penultimate object is returned in PENULT_OBJ and PENULT_KIND. 
       (Needed later for removing objects from the delta.)
 */
 
@@ -203,7 +203,7 @@ svn_walk_delta (svn_delta_t *delta,
 
 void
 svn_find_delta_bottom (void **bottom_obj,
-                       svn_XML_elt_t *bottom_kind,
+                       svn_XML_elt_t *bottom_kind, 
                        void **penult_obj,
                        svn_XML_elt_t *penult_kind,
                        svn_delta_t *d,
@@ -265,13 +265,13 @@ svn_find_delta_bottom (void **bottom_obj,
 
 
 
-/*
+/* 
    svn_starpend_delta() : either (ap)pend or (un)pend an object to the
-                          end of a delta.
+                          end of a delta.  
 
    (Feel free to think of a better name: svn_telescope_delta() ?) :)
 
-   Append or remove OBJECT to/from the end of delta D.
+   Append or remove OBJECT to/from the end of delta D.  
 
    ELT_KIND defines which kind of object is being appended or removed.
 
@@ -291,8 +291,8 @@ svn_starpend_delta (svn_delta_digger_t *digger,
   svn_delta_t *d = digger->delta;
 
   /* Get a grip on the last two objects in the delta (by cdr'ing down) */
-  svn_find_delta_bottom (&bottom_ptr, &bottom_kind,
-                         &penult_ptr, &penult_kind,
+  svn_find_delta_bottom (&bottom_ptr, &bottom_kind, 
+                         &penult_ptr, &penult_kind, 
                          d);
 
   /* Sanity-check: if we're destroying the last object in the delta,
@@ -300,8 +300,8 @@ svn_starpend_delta (svn_delta_digger_t *digger,
      BOTTOM_KIND match!  */
   if (destroy_p && (elt_kind != bottom_kind))
     {
-      return
-        svn_create_error
+      return 
+        svn_create_error 
         (SVN_ERR_MALFORMED_XML, NULL,
          "caller thinks delta's bottom object type is different that it is!"
          NULL, digger->pool);
@@ -309,7 +309,7 @@ svn_starpend_delta (svn_delta_digger_t *digger,
 
   switch (bottom_kind)
     {
-    case (svn_XML_treedelta):
+    case (svn_XML_treedelta):  
       {
         if (destroy_p)
           {
@@ -332,7 +332,7 @@ svn_starpend_delta (svn_delta_digger_t *digger,
             this_delta->edit = (svn_edit_t *) object;
             return SVN_NO_ERROR;
           }
-
+        
       }
 
     case (svn_XML_edit):
@@ -368,13 +368,13 @@ svn_starpend_delta (svn_delta_digger_t *digger,
             ed->content = NULL;
             return SVN_NO_ERROR;
           }
-        else  /* appending */
+        else  /* appending */ 
           {
             /* If bottom_ptr is an edit_content, then we must be appending
                one of three kinds of objects.  Examine ELT_KIND. */
-            svn_edit_content_t *this_content
+            svn_edit_content_t *this_content 
               = (svn_edit_content_t *) bottom_ptr;
-
+            
             switch (elt_kind)
               {
               case svn_XML_propdelta:
@@ -394,7 +394,7 @@ svn_starpend_delta (svn_delta_digger_t *digger,
                 }
               default:
                 {
-                  return
+                  return 
                     svn_create_error (SVN_ERR_MALFORMED_XML, NULL,
                                       "found something other than pdelta, vdelta, or textdelta to append.",
                                       NULL, digger->pool);
@@ -423,8 +423,8 @@ svn_starpend_delta (svn_delta_digger_t *digger,
     and the **atts list is a dumb list of name/value pairs, all
     null-terminated Cstrings, and ending with an extra final NULL.
 
-*/
-
+*/  
+      
 void
 svn_xml_handle_start (void *userData, const char *name, const char **atts)
 {
@@ -441,7 +441,7 @@ svn_xml_handle_start (void *userData, const char *name, const char **atts)
       /* Found a new tree-delta element */
 
       /* Create new svn_delta_t structure here, filling in attributes */
-      svn_delta_t *new_delta = apr_pcalloc (my_digger->pool,
+      svn_delta_t *new_delta = apr_pcalloc (my_digger->pool, 
                                             sizeof (svn_delta_t *));
 
       /* TODO: <tree-delta> doesn't take any attributes right now, but
@@ -457,8 +457,8 @@ svn_xml_handle_start (void *userData, const char *name, const char **atts)
       else
         {
           /* This is a nested tree-delta, below a <dir>.  Hook it in. */
-          svn_error_t *err =
-            svn_starpend_delta (my_digger, new_delta,
+          svn_error_t *err = 
+            svn_starpend_delta (my_digger, new_delta, 
                                 svn_XML_treedelta, FALSE);
 
           /* TODO: we're inside an event-driven callback.  What do we
@@ -474,7 +474,7 @@ svn_xml_handle_start (void *userData, const char *name, const char **atts)
       /* Found a new text-delta element */
       /* No need to create a text-delta structure... */
 
-      svn_error_t *err =
+      svn_error_t *err = 
         svn_twiddle_edit_content_flags (my_digger->delta, TRUE)
 
         /* TODO: handle error somehow... */
@@ -485,7 +485,7 @@ svn_xml_handle_start (void *userData, const char *name, const char **atts)
       /* Found a new prop-delta element */
       /* No need to create a prop-delta structure... */
 
-      svn_error_t *err =
+      svn_error_t *err = 
         svn_twiddle_edit_content_flags (my_digger->delta, FALSE)
 
         /* TODO: handle error somehow... */
@@ -498,7 +498,7 @@ svn_xml_handle_start (void *userData, const char *name, const char **atts)
 
       /* Build a new edit struct out of the tag's attributes. */
       svn_edit_t *new_edit = svn_create_edit (my_digger->pool,
-                                              svn_action_new,
+                                              svn_action_new, 
                                               atts);
 
       /* Append this edit to the end of our delta.  */
@@ -514,7 +514,7 @@ svn_xml_handle_start (void *userData, const char *name, const char **atts)
 
       /* Build a new edit struct out of the tag's attributes. */
       svn_edit_t *new_edit = svn_create_edit (my_digger->pool,
-                                              svn_action_replace,
+                                              svn_action_replace, 
                                               atts);
 
       /* Append this edit to the end of our delta.  */
@@ -530,7 +530,7 @@ svn_xml_handle_start (void *userData, const char *name, const char **atts)
 
       /* Build a new edit struct out of the tag's attributes. */
       svn_edit_t *new_edit = svn_create_edit (my_digger->pool,
-                                              svn_action_delete,
+                                              svn_action_delete, 
                                               atts);
 
       /* Append this edit to the end of our delta.  */
@@ -545,7 +545,7 @@ svn_xml_handle_start (void *userData, const char *name, const char **atts)
       /* Found a new svn_edit_content_t */
 
       /* Build a edit_content_t */
-      svn_edit_content_t *this_edit_content
+      svn_edit_content_t *this_edit_content 
         = svn_create_edit_content (my_digger->pool, svn_file_type, atts);
 
       /* Drop the edit_content object on the end of the delta */
@@ -561,7 +561,7 @@ svn_xml_handle_start (void *userData, const char *name, const char **atts)
       /* Found a new svn_edit_content_t */
 
       /* Build a edit_content_t */
-      svn_edit_content_t *this_edit_content
+      svn_edit_content_t *this_edit_content 
         = svn_create_edit_content (my_digger->pool, svn_directory_type, atts);
 
       /* Drop the edit_content object on the end of the delta */
@@ -601,7 +601,7 @@ void svn_xml_handle_end (void *userData, const char *name)
   svn_error_t *err;
   svn_delta_digger_t *my_digger = (svn_delta_digger_t *) userData;
 
-
+  
   /* First, figure out what kind of element is being "closed" in our
      XML stream */
 
@@ -629,7 +629,7 @@ void svn_xml_handle_end (void *userData, const char *name)
       err = svn_twiddle_edit_content_flags (my_digger->delta, FALSE, FALSE);
     }
 
-  else if ((strcmp (name, "new") == 0)
+  else if ((strcmp (name, "new") == 0) 
            || (strcmp (name, "replace") == 0)
            || (strcmp (name, "delete") == 0))
     {
@@ -653,12 +653,12 @@ void svn_xml_handle_end (void *userData, const char *name)
 
   /* TODO: what to do with a potentially returned
      SVN_ERR_MALFORMED_XML at this point?  Do we need to longjump out
-     of expat's callback, or does expat have a error system? */
+     of expat's callback, or does expat have a error system? */  
 }
 
 
 
-/* Callback: called whenever we find data within a tag.
+/* Callback: called whenever we find data within a tag.  
    (Of course, we only care about data within the "text-delta" tag.)  */
 
 void svn_xml_handle_data (void *userData, const char *data, int len)
@@ -689,7 +689,7 @@ svn_delta_make_xml_parser (svn_delta_digger_t *diggy)
   /* Register subversion-specific callbacks with the parser */
   XML_SetElementHandler (parser,
                          svn_xml_handle_start,
-                         svn_xml_handle_end);
+                         svn_xml_handle_end); 
   XML_SetCharacterDataHandler (parser, svn_xml_handle_data);
 
   return parser;
@@ -697,7 +697,7 @@ svn_delta_make_xml_parser (svn_delta_digger_t *diggy)
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
