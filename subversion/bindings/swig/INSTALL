@@ -91,17 +91,17 @@ Step 3:  Install Specific Language Bindings
    SWIG configure (see above).
 
    By default now Perl bindings will be built and installed by the normal:
-       ./configure && make && make install
+       ./configure && make && make install 
    process of installing Subversion.  If you'd like to make sure the Perl
-   bindings are not built or installed, be sure to pass
-   --disable-swig-bindings to the configure script or
+   bindings are not built or installed, be sure to pass 
+   --disable-swig-bindings to the configure script or 
    --enable-swig-bindings=python,java (leaving perl out). However, if you want
    to rebuild or reinstall you may want to follow the instructions below.
 
    1.  Run `make swig-pl' from the top of the Subversion source tree.
 
    2.  Run `make check-swig-pl' from the top of the Subversion source
-       tree, to test the bindings
+       tree, to test the bindings 
 
    3.  to install run `make install-swig-pl' from the top of the
        Subversion source tree.
@@ -133,7 +133,7 @@ BUILDING SWIG BINDINGS FOR SVN ON WINDOWS
 
    3.  Configure Visual C++ with paths to swig.exe and language specific
        libraries. In Visual C++ 6, go to Tools -> Options -> Directories.
-       In Visual C++ .NET, go to Tools -> Options -> Projects
+       In Visual C++ .NET, go to Tools -> Options -> Projects 
        -> VC++ Directories.
 
        Add the following paths:
