@@ -49,7 +49,7 @@ typedef struct {
 
   ne_session *sess;                     /* HTTP session to server */
   ne_session *sess2;
-
+  
   const svn_ra_callbacks_t *callbacks;  /* callbacks to get auth data */
   void *callback_baton;
 
@@ -319,7 +319,7 @@ svn_error_t *svn_ra_dav__get_baseline_info(svn_boolean_t *is_dir,
                                            apr_pool_t *pool);
 
 /* Fetch a baseline resource populated with specific properties.
-
+   
    Given a Neon session SESS and a URL, set *BLN_RSRC to a baseline of
    REVISION, populated with whatever properties are specified by
    WHICH_PROPS.  To fetch all properties, pass NULL for WHICH_PROPS.
@@ -378,9 +378,9 @@ svn_error_t *svn_ra_dav__parsed_request(svn_ra_session_t *ras,
                                         const char *url,
                                         const char *body,
                                         apr_file_t *body_file,
-                                        const struct ne_xml_elm *elements,
+                                        const struct ne_xml_elm *elements, 
                                         ne_xml_validate_cb validate_cb,
-                                        ne_xml_startelm_cb startelm_cb,
+                                        ne_xml_startelm_cb startelm_cb, 
                                         ne_xml_endelm_cb endelm_cb,
                                         void *baton,
                                         apr_hash_t *extra_headers,
@@ -413,7 +413,7 @@ enum {
   /* SVN elements */
   ELEM_add_directory,
   ELEM_add_file,
-  ELEM_baseline_relpath,
+  ELEM_baseline_relpath, 
 #ifdef SVN_DAV_FEATURE_USE_OLD_NAMESPACES
   ELEM_baseline_relpath_old,
 #endif /* SVN_DAV_FEATURE_USE_OLD_NAMESPACES */
