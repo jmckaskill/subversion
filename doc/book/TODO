@@ -113,7 +113,7 @@ To be fixed by sussman:
         a range of changes.
 
       - move use-case to new section:  merging one branch to another.
-
+       
 
   - ch04:  clarify that merged revisions must be tracked in *log
     messages*, i.e. that it's the user's responsibility to document
