@@ -63,7 +63,7 @@ svn_client__remove_admin_dirs (const char *dir,
         SVN_ERR (ctx->cancel_func (ctx->cancel_baton));
 
       /* ### We could also invoke ctx->notify_func somewhere in
-         ### here... Is it called for, though?  Not sure. */
+         ### here... Is it called for, though?  Not sure. */ 
 
       if (*type == svn_node_dir)
         {
@@ -76,7 +76,7 @@ svn_client__remove_admin_dirs (const char *dir,
           else
             {
               SVN_ERR (svn_client__remove_admin_dirs (dir_path, ctx, subpool));
-            }
+            } 
         }
 
       svn_pool_clear (subpool);
@@ -134,7 +134,7 @@ copy_versioned_files (const char *from,
             SVN_ERR (ctx->cancel_func (ctx->cancel_baton));
 
           /* ### We could also invoke ctx->notify_func somewhere in
-             ### here... Is it called for, though?  Not sure. */
+             ### here... Is it called for, though?  Not sure. */ 
 
           if (*type == svn_node_dir)
             {
@@ -204,7 +204,7 @@ svn_client_export (const char *from,
                                               to, ctx, pool));
 
       URL = svn_path_canonicalize (from, pool);
-
+      
       if (revision->kind == svn_opt_revision_number)
         revnum = revision->value.number;
       else
@@ -231,7 +231,7 @@ svn_client_export (const char *from,
                                     TRUE,
                                     ctx,
                                     pool));
-
+      
       /* walk over the wc and remove the administrative directories. */
       SVN_ERR (svn_client__remove_admin_dirs (to, ctx, pool));
 
@@ -298,10 +298,10 @@ open_root (void *edit_baton,
            apr_pool_t *pool,
            void **root_baton)
 {
-  struct edit_baton *eb = edit_baton;
+  struct edit_baton *eb = edit_baton;  
   struct dir_baton *db = apr_pcalloc (pool, sizeof(*db));
   svn_node_kind_t kind;
-
+  
   db->parent_dir_baton = NULL;
   db->edit_baton = edit_baton;
   db->props = apr_hash_make (pool);
@@ -428,7 +428,7 @@ apply_textdelta (void *file_baton,
   struct file_baton *fb = file_baton;
   apr_pool_t *handler_pool = pool;
   struct handler_baton *hb = apr_palloc (handler_pool, sizeof (*hb));
-  apr_file_t *tmp_file = NULL;
+  apr_file_t *tmp_file = NULL; 
 
   SVN_ERR (svn_io_open_unique_file (&tmp_file, &(fb->tmppath),
                                     fb->path, ".tmp", FALSE, handler_pool));
@@ -442,7 +442,7 @@ apply_textdelta (void *file_baton,
                      svn_stream_from_aprfile (hb->dest, handler_pool),
                      NULL, NULL, handler_pool,
                      &hb->apply_handler, &hb->apply_baton);
-
+  
   *handler_baton = hb;
   *handler = window_handler;
   return SVN_NO_ERROR;
@@ -457,7 +457,7 @@ change_file_prop (void *file_baton,
                   apr_pool_t *pool)
 {
   struct file_baton *fb = file_baton;
-
+ 
   apr_hash_set (fb->props, apr_pstrdup (pool, name),
                 APR_HASH_KEY_STRING,
                 value ? svn_string_dup (value, pool) : NULL);
@@ -509,7 +509,7 @@ close_file (void *file_baton,
                                              pool));
       SVN_ERR (svn_io_remove_file (fb->tmppath, pool));
     }
-
+      
   if (executable_value)
     SVN_ERR (svn_io_set_file_executable (fb->path, TRUE, FALSE, pool));
 
@@ -551,6 +551,6 @@ svn_client__get_export_editor (const svn_delta_editor_t **editor,
 
   *edit_baton = eb;
   *editor = export_editor;
-
+  
   return SVN_NO_ERROR;
 }
