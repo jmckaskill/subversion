@@ -3,32 +3,32 @@
  *
  * ================================================================
  * Copyright (c) 2000 CollabNet.  All rights reserved.
- *
+ * 
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
  * met:
- *
+ * 
  * 1. Redistributions of source code must retain the above copyright
  * notice, this list of conditions and the following disclaimer.
- *
+ * 
  * 2. Redistributions in binary form must reproduce the above copyright
  * notice, this list of conditions and the following disclaimer in the
  * documentation and/or other materials provided with the distribution.
- *
+ * 
  * 3. The end-user documentation included with the redistribution, if
  * any, must include the following acknowlegement: "This product includes
  * software developed by CollabNet (http://www.Collab.Net)."
  * Alternately, this acknowlegement may appear in the software itself, if
  * and wherever such third-party acknowlegements normally appear.
- *
+ * 
  * 4. The hosted project names must not be used to endorse or promote
  * products derived from this software without prior written
  * permission. For written permission, please contact info@collab.net.
- *
+ * 
  * 5. Products derived from this software may not use the "Tigris" name
  * nor may "Tigris" appear in their names without prior written
  * permission of CollabNet.
- *
+ * 
  * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
  * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -42,7 +42,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ====================================================================
- *
+ * 
  * This software consists of voluntary contributions made by many
  * individuals on behalf of CollabNet.
  */
@@ -60,14 +60,14 @@
 
 
 /* If PATH exists, set *KIND to the appropriate kind, else set it to
- * svn_node_unknown.
+ * svn_node_unknown. 
  *
  * If PATH is a file, *KIND is set to svn_node_file.
  *
  * If PATH is a directory, *KIND is set to svn_node_dir.
  *
  * If PATH does not exist in its final component, *KIND is set to
- * svn_node_none.
+ * svn_node_none.  
  *
  * If intermediate directories on the way to PATH don't exist, an
  * error is returned, and *KIND's value is undefined.
@@ -103,14 +103,14 @@ svn_error_t *svn_io_check_path (const svn_string_t *path,
  *
  * *UNIQUE_NAME will never be exactly the same as PATH, even if PATH does
  * not exist.
- *
+ * 
  * *F and *UNIQUE_NAME are allocated in POOL.
  *
  * If no unique name can be found, SVN_ERR_IO_UNIQUE_NAMES_EXHAUSTED is
  * the error returned.
  *
  * Claim of Historical Inevitability: this function was written
- * because
+ * because 
  *
  *    tmpnam() is not thread-safe.
  *    tempname() tries standard system tmp areas first.
@@ -167,7 +167,7 @@ typedef svn_error_t *svn_write_fn_t (void *baton,
 
 
 /* A posix-like read function of type svn_read_fn_t (see above).
-   Given an already-open APR FILEHANDLE, read LEN bytes into BUFFER.
+   Given an already-open APR FILEHANDLE, read LEN bytes into BUFFER.  
    (Notice that FILEHANDLE is void *, to match svn_io_read_fn_t).
 
    As a convenience, if FILEHANDLE is null, then this function will
