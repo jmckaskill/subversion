@@ -14,12 +14,12 @@ my @users = @ARGV;
 my @svnlooklines = ();
 
 # open a pipe to 'mail'
-my $userlist = join (' ', @users);
-open (MAILER, "| mail -s 'Commit - Revision $rev' $userlist")
+my $userlist = join (' ', @users); 
+open (MAILER, "| mail -s 'Commit - Revision $rev' $userlist") 
     or die ("Error opening a pipe to your mailer");
 
 # get the auther, date, and log from svnlook
-open (INPUT, "svnlook $repos rev $rev info |")
+open (INPUT, "svnlook $repos rev $rev info |") 
     or die ("Error running svnlook (info)");
 @svnlooklines = <INPUT>;
 close (INPUT);
@@ -31,7 +31,7 @@ chomp $author;
 chomp $date;
 
 # figure out what's changed (using svnlook)
-open (INPUT, "svnlook $repos rev $rev changed |")
+open (INPUT, "svnlook $repos rev $rev changed |") 
     or die ("Error running svnlook (changed)");
 @svnlooklines = <INPUT>;
 close (INPUT);
@@ -56,7 +56,7 @@ foreach my $line (@svnlooklines)
 }
 
 # get the diff from svnlook
-open (INPUT, "svnlook $repos rev $rev diff |")
+open (INPUT, "svnlook $repos rev $rev diff |") 
     or die ("Error running svnlook (diff)");
 my @difflines = <INPUT>;
 close (INPUT);
