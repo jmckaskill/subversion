@@ -1,6 +1,6 @@
 <chapter id="svn-ch-8">
   <title>Subversion Complete Reference</title>
-
+  
   <simplesect>
     <para>This chapter is intended to be a complete reference to using
       Subversion. This includes the command line client
@@ -9,14 +9,14 @@
       and <command>svnlook</command>) and their respective subcommands.
     </para>
   </simplesect>
-
+  
   <!-- ================================================================= -->
   <!-- ======================== SECTION 1 ============================== -->
   <!-- ================================================================= -->
   <sect1 id="svn-ch-8-sect-1">
     <title>The Subversion Command Line Client:
       <command>svn</command></title>
-
+    
     <para>To use the command line client, you type
       <command>svn</command>, the subcommand you wish to use
       <footnote><para>Yes, yes, you don't need a subcommand to use the
@@ -29,17 +29,17 @@
 
     <screen>
 $ svn -v status
-$ svn status -v
+$ svn status -v 
 $ svn status -v myfile
     </screen>
 
     <para>You can find many more examples of how to use most client
       commands in <xref linkend="svn-ch-3"/> and commands for managing
       properties in <xref linkend="svn-ch-6-sect-2"/></para>
-
+    
     <sect2 id="svn-ch-8-sect-1.1">
-      <title><command>svn</command> Switches</title>
-
+      <title><command>svn</command> Switches</title> 
+      
       <para>While Subversion has different switches for its
         subcommands, all switches are global&mdash;that is, each
         switch is guaranteed to mean the same thing regardless of
@@ -49,7 +49,7 @@ $ svn status -v myfile
         subcommand you use it with.</para>
 
       <variablelist>
-
+        
         <varlistentry>
           <term><option>--diff-cmd</option>
             <replaceable>CMD</replaceable></term>
@@ -64,7 +64,7 @@ $ svn status -v myfile
             switch (more on that later in this section).</para>
           </listitem>
         </varlistentry>
-
+      
         <varlistentry>
           <term><option>--diff3-cmd</option>
             <replaceable>CMD</replaceable></term>
@@ -72,7 +72,7 @@ $ svn status -v myfile
             <para>Specifies an external program to use to merge files.</para>
           </listitem>
         </varlistentry>
-
+      
         <varlistentry>
           <term><option>--dry-run</option></term>
           <listitem>
@@ -81,7 +81,7 @@ $ svn status -v myfile
               the repository. </para>
           </listitem>
         </varlistentry>
-
+      
         <varlistentry>
           <term><option>--editor-cmd</option>
             <replaceable>CMD</replaceable></term>
@@ -90,7 +90,7 @@ $ svn status -v myfile
               or a property value.</para>
           </listitem>
         </varlistentry>
-
+      
         <varlistentry>
           <term><option>--encoding</option> <replaceable>ENC</replaceable></term>
           <listitem>
@@ -116,7 +116,7 @@ $ svn status -v myfile
               <option>--diff-cmd</option> switch.</para>
           </listitem>
         </varlistentry>
-
+      
         <varlistentry>
           <term><option>--file</option> (<option>-F</option>)
             <replaceable>FILENAME</replaceable>
@@ -141,7 +141,7 @@ $ svn status -v myfile
               you're doing, you're likely to get a nasty shock.</para>
           </listitem>
         </varlistentry>
-
+        
         <varlistentry>
           <term><option>--force-log</option></term>
           <listitem>
@@ -158,11 +158,11 @@ $ svn status -v myfile
               operation, and that you simply failed to provide some
               other&mdash;unversioned&mdash;file as the source of your log
               message.  To assert your intent and override these types
-              of errors, pass the <option>--force-log</option> option
+              of errors, pass the <option>--force-log</option> option 
               to commands that accept log messages.</para>
           </listitem>
         </varlistentry>
-
+        
         <varlistentry>
           <term><option>--help</option> (<option>-h</option> or
                 <option>-?</option>)
@@ -173,15 +173,15 @@ $ svn status -v myfile
               it displays the general client help text.</para>
           </listitem>
         </varlistentry>
-
+        
         <varlistentry>
           <term><option>--notice-ancestry</option></term>
           <listitem>
-            <para>Pay attention to ancestry when calculating
+            <para>Pay attention to ancestry when calculating 
               differences.</para>
           </listitem>
         </varlistentry>
-
+      
         <varlistentry>
           <term><option>--incremental</option></term>
           <listitem>
@@ -189,7 +189,7 @@ $ svn status -v myfile
               concatenation.</para>
           </listitem>
         </varlistentry>
-
+        
         <varlistentry>
           <term><option>--message</option> (<option>-m</option>)
             <replaceable>MESSAGE</replaceable>
@@ -198,20 +198,20 @@ $ svn status -v myfile
             <para>Indicates that you will specify a commit message
               on the command line, following this switch. For
               example:</para>
-
+            
             <screen>
 $ svn commit -m "They don't make Sunday."
             </screen>
           </listitem>
         </varlistentry>
-
+      
         <varlistentry>
           <term><option>--new</option> <replaceable>ARG</replaceable></term>
           <listitem>
             <para>Uses ARG as the newer target.</para>
           </listitem>
         </varlistentry>
-
+      
         <varlistentry>
           <term><option>--no-auth-cache</option></term>
           <listitem>
@@ -220,7 +220,7 @@ $ svn commit -m "They don't make Sunday."
               administrative directories.</para>
           </listitem>
         </varlistentry>
-
+      
         <varlistentry>
           <term><option>--no-diff-deleted</option></term>
         <listitem>
@@ -231,7 +231,7 @@ $ svn commit -m "They don't make Sunday."
               the file but removed all the content.</para>
           </listitem>
         </varlistentry>
-
+        
         <varlistentry>
           <term><option>--no-ignore</option></term>
           <listitem>
@@ -254,7 +254,7 @@ $ svn commit -m "They don't make Sunday."
             for more information.</para>
           </listitem>
         </varlistentry>
-
+      
         <varlistentry>
           <term><option>--non-recursive</option> (<option>-N</option>)</term>
           <listitem>
@@ -272,7 +272,7 @@ $ svn commit -m "They don't make Sunday."
             <para>Uses ARG as the older target.</para>
           </listitem>
         </varlistentry>
-
+      
         <varlistentry>
           <term><option>--password</option>
             <replaceable>PASS</replaceable></term>
@@ -283,7 +283,7 @@ $ svn commit -m "They don't make Sunday."
               it.</para>
           </listitem>
         </varlistentry>
-
+      
         <varlistentry>
           <term><option>--quiet</option> (<option>-q</option>)</term>
           <listitem>
@@ -291,7 +291,7 @@ $ svn commit -m "They don't make Sunday."
               information while performing an operation.</para>
           </listitem>
         </varlistentry>
-
+        
         <varlistentry>
           <term><option>--recursive</option> (<option>-R</option>)</term>
           <listitem>
@@ -299,7 +299,7 @@ $ svn commit -m "They don't make Sunday."
               Most subcommands recurse by default.</para>
           </listitem>
         </varlistentry>
-
+        
         <varlistentry>
           <term><option>--relocate</option> <replaceable>FROM TO
           [PATH...]</replaceable></term>
@@ -313,7 +313,7 @@ $ svn commit -m "They don't make Sunday."
               example.</para>
           </listitem>
         </varlistentry>
-
+        
         <varlistentry>
           <term><option>--revision</option> (<option>-r</option>)
             <replaceable>REV</replaceable>
@@ -339,7 +339,7 @@ $ svn log -r 1729:{2/17/02}
               information.</para>
           </listitem>
         </varlistentry>
-
+        
         <varlistentry>
           <term><option>--revprop</option></term>
           <listitem>
@@ -352,7 +352,7 @@ $ svn log -r 1729:{2/17/02}
               unversioned properties.</para>
           </listitem>
         </varlistentry>
-
+        
         <varlistentry>
           <term><option>--show-updates</option> (<option>-u</option>)</term>
           <listitem>
@@ -364,7 +364,7 @@ $ svn log -r 1729:{2/17/02}
             </para>
           </listitem>
         </varlistentry>
-
+        
         <varlistentry>
           <term><option>--strict</option></term>
           <listitem>
@@ -376,7 +376,7 @@ $ svn log -r 1729:{2/17/02}
             specified.</para>
           </listitem>
         </varlistentry>
-
+        
         <varlistentry>
           <term><option>--targets</option>
             <replaceable>FILENAME</replaceable></term>
@@ -387,7 +387,7 @@ $ svn log -r 1729:{2/17/02}
             </para>
           </listitem>
         </varlistentry>
-
+        
         <varlistentry>
           <term><option>--username</option>
             <replaceable>NAME</replaceable></term>
@@ -398,7 +398,7 @@ $ svn log -r 1729:{2/17/02}
               it.</para>
           </listitem>
         </varlistentry>
-
+        
         <varlistentry>
           <term><option>--verbose</option> (<option>-v</option>)</term>
           <listitem>
@@ -409,7 +409,7 @@ $ svn log -r 1729:{2/17/02}
               additional information regarding its actions.</para>
           </listitem>
         </varlistentry>
-
+        
         <varlistentry>
           <term><option>--version</option></term>
           <listitem>
@@ -420,18 +420,18 @@ $ svn log -r 1729:{2/17/02}
               repository.</para>
           </listitem>
         </varlistentry>
-
+        
         <varlistentry>
           <term><option>--xml</option></term>
           <listitem>
             <para>Prints output in xml format.</para>
           </listitem>
         </varlistentry>
-
+        
       </variablelist>
-
+      
     </sect2>
-
+    
     <sect2 id="svn-ch-8-sect-1.2">
       <title><command>svn</command> Subcommands</title>
 
@@ -441,12 +441,12 @@ $ svn log -r 1729:{2/17/02}
           <refpurpose>Adds files and directories</refpurpose>
         </refnamediv>
         <refsect1>
-          <title>Synopsis</title>
+          <title>Synopsis</title> 
           <programlisting>svn add PATH...</programlisting>
         </refsect1>
         <refsect1>
           <title>Description</title>
-
+          
           <para>Adds files and directories to your working copy and
             schedules them for addition to the repository.  They
             will be uploaded and added to the repository on your
@@ -454,17 +454,17 @@ $ svn log -r 1729:{2/17/02}
             before committing, you can unschedule the addition using
             <command>svn revert</command>.</para>
         </refsect1>
-
+        
         <refsect1>
           <title>Alternate Names</title>
           <para>None</para>
         </refsect1>
-
+        
         <refsect1>
           <title>Changes</title>
           <para>Working Copy</para>
         </refsect1>
-
+        
         <refsect1>
           <title>Switches</title>
 
@@ -474,20 +474,20 @@ $ svn log -r 1729:{2/17/02}
 --quiet (-q)
           </screen>
         </refsect1>
-
+        
         <refsect1>
           <title>Examples</title>
-
+          
           <para>To add a file to your working copy:</para>
 
           <screen>
-$ svn add foo.c
+$ svn add foo.c 
 A         foo.c
           </screen>
 
           <para>When adding a directory, the default behavior of
             <command>svn add</command> is to recurse:</para>
-
+          
           <screen>
 $ svn add testdir
 A         testdir
@@ -499,7 +499,7 @@ A         testdir/d
 
           <para>You can add a directory without adding its
             contents:</para>
-
+          
           <screen>
 $ svn add --non-recursive otherdir
 A         otherdir
@@ -519,7 +519,7 @@ A         otherdir
         </refsect1>
         <refsect1>
           <title>Description</title>
-
+          
           <para>Outputs the contents of the specified files or URLs.
             For listing the contents of directories, see <command>svn
             list</command>.</para>
@@ -571,13 +571,13 @@ You should read this.
 
           <screen>
 $ cat foo.c
-This file is in my local working copy
+This file is in my local working copy 
 and has changes that I've made.
 
 $ svn cat foo.c
 Latest revision fresh from the repository!
           </screen>
-
+          
         </refsect1>
       </refentry>
 
@@ -593,7 +593,7 @@ Latest revision fresh from the repository!
         </refsect1>
         <refsect1>
           <title>Description</title>
-
+          
           <para>Checks out a working copy from a repository. If
             <replaceable>PATH</replaceable> is omitted, the
             basename of the URL will be used as the
@@ -621,7 +621,7 @@ Latest revision fresh from the repository!
 
         <refsect1>
           <title>Switches</title>
-
+          
           <screen>
 --revision (-r) REV
 --quiet (-q)
@@ -632,7 +632,7 @@ Latest revision fresh from the repository!
 --non-interactive
           </screen>
         </refsect1>
-
+        
         <refsect1>
           <title>Examples</title>
 
@@ -803,11 +803,11 @@ $ svn cleanup /path/to/working-copy
         </refsect1>
 
 
-
+        
         <refsect1>
           <title>Alternate Names</title>
-          <para>ci (short for <quote>check in</quote> not
-            <quote>co</quote>, which is short for
+          <para>ci (short for <quote>check in</quote> not 
+            <quote>co</quote>, which is short for 
             <quote>checkout</quote>)</para>
         </refsect1>
 
@@ -845,7 +845,7 @@ $ svn cleanup /path/to/working-copy
           <para>Commit a simple modification to a file with the
             commit message on the command line and an implicit
             target of your current directory (<quote>.</quote>):</para>
-
+          
           <screen>
 $ svn commit -m "added howto section."
 Sending        a
@@ -889,7 +889,7 @@ Deleting       c
 
 Committed revision 7.
           </screen>
-
+          
         </refsect1>
       </refentry>
 
@@ -908,11 +908,11 @@ Committed revision 7.
 
         <refsect1>
           <title>Description</title>
-
+          
           <para>Copy a file in a working copy or in the repository.
             SRC and DST can each be either a working copy
             (WC) path or URL:</para>
-
+            
             <variablelist>
 
               <varlistentry>
@@ -1113,7 +1113,7 @@ Committed revision 13.
 --encoding ENC
           </screen>
         </refsect1>
-
+        
         <refsect1>
           <title>Examples</title>
 
@@ -1145,15 +1145,15 @@ Committed revision 15.
             that has local mods:</para>
 
           <screen>
-$ svn delete over-there
+$ svn delete over-there 
 svn: Attempting restricted operation for modified resource
 svn: Use --force to override this restriction
 svn: 'over-there' has local modifications
 
-$ svn delete --force over-there
+$ svn delete --force over-there 
 D         over-there
           </screen>
-
+          
         </refsect1>
       </refentry>
 
@@ -1252,7 +1252,7 @@ D         over-there
             popular uses of <command>svn diff</command>):</para>
 
           <screen>
-$ svn diff COMMITTERS
+$ svn diff COMMITTERS 
 Index: COMMITTERS
 ===================================================================
 --- COMMITTERS	(revision 4404)
@@ -1263,7 +1263,7 @@ Index: COMMITTERS
             against an older revision:</para>
 
           <screen>
-$ svn diff -r 3900 COMMITTERS
+$ svn diff -r 3900 COMMITTERS 
 Index: COMMITTERS
 ===================================================================
 --- COMMITTERS	(revision 3900)
@@ -1298,7 +1298,7 @@ Index: COMMITTERS
             differences without typing in the long URLs:</para>
 
           <screen>
-$ svn diff -r 3000:3500 COMMITTERS
+$ svn diff -r 3000:3500 COMMITTERS 
 Index: COMMITTERS
 ===================================================================
 --- COMMITTERS	(revision 3000)
@@ -1309,16 +1309,16 @@ Index: COMMITTERS
             <replaceable>CMD</replaceable> <option>-x</option> to
             pass arguments directly to the external diff
             program</para>
-
+          
           <screen>
-svn diff --diff-cmd /usr/bin/diff -x "-i -b" COMMITTERS
+svn diff --diff-cmd /usr/bin/diff -x "-i -b" COMMITTERS 
 Index: COMMITTERS
 ===================================================================
 0a1,2
 &gt; This is a test
-&gt;
+&gt; 
           </screen>
-
+          
         </refsect1>
       </refentry>
 
@@ -1417,7 +1417,7 @@ Exported revision 15.
           <para>This is your best friend when you're using
             Subversion and this book isn't within reach!</para>
         </refsect1>
-
+        
         <refsect1>
           <title>Alternate Names</title>
           <para>?, h</para>
@@ -1521,7 +1521,7 @@ Adding         myproj/sample.txt
 Transmitting file data .........
 Committed revision 19.
           </screen>
-
+          
         </refsect1>
       </refentry>
 
@@ -1616,7 +1616,7 @@ Last Changed Author: harry
 Last Changed Rev: 19
 Last Changed Date: 2003-01-16 23:21:19 -0600 (Thu, 16 Jan 2003)
           </screen>
-
+          
         </refsect1>
       </refentry>
 
@@ -1930,9 +1930,9 @@ $ svn log -r 20 http://svn.red-bean.com/untouched.txt
               that revision.  If you log from the top of the
               repository, or know the file that changed in that
               revision, you can specify it explicitly:</para>
-
+            
             <screen>
-$ svn log -r 20 touched.txt
+$ svn log -r 20 touched.txt 
 ------------------------------------------------------------------------
 rev 20:  sally | 2003-01-17 22:56:19 -0600 (Fri, 17 Jan 2003) | 1 line
 
@@ -2028,12 +2028,12 @@ $ svn merge -r 23:30 file:///tmp/repos/trunk/vendors
 U  myproj/thhgttg.txt
 &hellip;
           </screen>
-
+          
         <para>To merge changes to a single file:</para>
 
         <screen>
 $ cd myproj
-$ svn merge -r 30:31 thhgttg.txt
+$ svn merge -r 30:31 thhgttg.txt 
 U  thhgttg.txt
         </screen>
 
@@ -2111,7 +2111,7 @@ $ svn mkdir -m "Making a new dir." http://svn.red-bean.com/repos/newdir
 
 Committed revision 26.
           </screen>
-
+          
         </refsect1>
       </refentry>
 
@@ -2281,7 +2281,7 @@ property `svn:mime-type' deleted from 'some-script'.
           <para>Delete a revision property:</para>
 
           <screen>
-$ svn propdel --revprop -r 26 release-date
+$ svn propdel --revprop -r 26 release-date 
 property `release-date' deleted from repository revision '26'
           </screen>
 
@@ -2340,7 +2340,7 @@ property `release-date' deleted from repository revision '26'
             modify properties that have multiple values:</para>
 
           <screen>
-$ svn propedit svn:keywords  foo.c
+$ svn propedit svn:keywords  foo.c 
     &lt;svn will launch your favorite editor here, with a buffer open
     containing the current contents of the svn:keywords property.  You
     can add multiple values to a property easily here by entering one
@@ -2404,7 +2404,7 @@ Set new value for property `svn:keywords' on `foo.c'
 
           <para>Examine a property of a file in your working
             copy:</para>
-
+          
           <screen>
 $ svn propget svn:keywords foo.c
 Author
@@ -2415,10 +2415,10 @@ Rev
           <para>The same goes for a revision property:</para>
 
           <screen>
-$ svn propget svn:log --revprop -r 20
+$ svn propget svn:log --revprop -r 20 
 Began journal.
           </screen>
-
+          
         </refsect1>
       </refentry>
 
@@ -2467,7 +2467,7 @@ Began journal.
 --revprop
           </screen>
         </refsect1>
-
+        
         <refsect1>
           <title>Examples</title>
 
@@ -2493,7 +2493,7 @@ Properties on 'foo.c':
   svn:keywords : Author Date Rev
   owner : sally
           </screen>
-
+          
         </refsect1>
       </refentry>
 
@@ -2560,7 +2560,7 @@ Properties on 'foo.c':
           <para>Set the mimetype on a file:</para>
 
           <screen>
-$ svn propset svn:mime-type image/jpeg foo.jpg
+$ svn propset svn:mime-type image/jpeg foo.jpg 
 property `svn:mime-type' set on 'foo.jpg'
           </screen>
 
@@ -2592,7 +2592,7 @@ property `svn:log' set on repository revision '25'
 
           <para>Or, if you don't have a working copy, you can
           provide a URL.</para>
-
+          
           <screen>
 $ svn propset --revprop -r 26 svn:log "Document nap." http://svn.red-bean.com/repos
 property `svn:log' set on repository revision '25'
@@ -2603,7 +2603,7 @@ property `svn:log' set on repository revision '25'
           property to something binary:</para>
 
           <screen>
-$ svn propset owner-pic -F sally.jpg moo.c
+$ svn propset owner-pic -F sally.jpg moo.c 
 property `owner-pic' set on 'moo.c'
           </screen>
 
@@ -2668,10 +2668,10 @@ property `owner-pic' set on 'moo.c'
 --quiet (-q)
           </screen>
         </refsect1>
-
+        
         <refsect1>
           <title>Examples</title>
-
+          
           <para>If you get a conflict on an update, your working
             copy will sprout three new files:</para>
 
@@ -2825,12 +2825,12 @@ $ svn status
             character wide, and each column gives you information
             about different aspects of each working copy
             item.</para>
-
+          
           <para>The first column indicates that an item
             was added, deleted, or otherwise changed.</para>
 
           <variablelist>
-
+            
             <varlistentry>
               <term>' '</term>
               <listitem>
@@ -2870,7 +2870,7 @@ $ svn status
             <varlistentry>
               <term>'I'</term>
               <listitem>
-                <para>Item is being ignored (e.g. with the
+                <para>Item is being ignored (e.g. with the 
                   svn:ignore property)</para>
               </listitem>
             </varlistentry>
@@ -2906,7 +2906,7 @@ $ svn status
             directory's properties.</para>
 
           <variablelist>
-
+            
             <varlistentry>
               <term>' '</term>
               <listitem>
@@ -2937,14 +2937,14 @@ $ svn status
             working copy directory is locked.</para>
 
           <variablelist>
-
+            
             <varlistentry>
               <term>' '</term>
               <listitem>
                 <para>Item is not locked.</para>
               </listitem>
             </varlistentry>
-
+            
             <varlistentry>
               <term>'L'</term>
               <listitem>
@@ -2956,16 +2956,16 @@ $ svn status
 
           <para>The fourth column is populated only if the item is
             scheduled for addition-with-history.</para>
-
+          
           <variablelist>
-
+            
             <varlistentry>
               <term>' '</term>
               <listitem>
                 <para>No history scheduled with commit.</para>
               </listitem>
             </varlistentry>
-
+            
             <varlistentry>
               <term>'+'</term>
               <listitem>
@@ -2980,14 +2980,14 @@ $ svn status
             linkend="svn-ch-4-sect-5"/>).</para>
 
           <variablelist>
-
+            
             <varlistentry>
               <term>' '</term>
               <listitem>
                 <para>Item is child of its parent directory.</para>
               </listitem>
             </varlistentry>
-
+            
             <varlistentry>
               <term>'S'</term>
               <listitem>
@@ -3002,14 +3002,14 @@ $ svn status
             <option>--show-updates</option> switch).</para>
 
           <variablelist>
-
+            
             <varlistentry>
               <term>' '</term>
               <listitem>
                 <para>The item in your working copy is up-to-date.</para>
               </listitem>
             </varlistentry>
-
+            
             <varlistentry>
               <term>'*'</term>
               <listitem>
@@ -3024,11 +3024,11 @@ $ svn status
             delimited by spaces.  The working revision is the next
             field if the <option>--show-updates</option> or
             <option>--verbose</option> switches are passed.</para>
-
+          
           <para>If the <option>--verbose</option> switch is passed,
             the last committed revision and last committed author
             are displayed next.</para>
-
+          
           <para>The working copy path is always the final field, so
             it can include spaces.</para>
 
@@ -3174,7 +3174,7 @@ Head revision:   981
 --non-interactive
           </screen>
         </refsect1>
-
+        
         <refsect1>
           <title>Examples</title>
 
@@ -3370,11 +3370,11 @@ Updated to revision 30.
               single file, you may want to use <command>svn
               cat</command>.</para>
           </tip>
-
+          
         </refsect1>
       </refentry>
     </sect2>
-
+    
   </sect1>
 
   <!-- ================================================================= -->
@@ -3382,7 +3382,7 @@ Updated to revision 30.
   <!-- ================================================================= -->
   <sect1 id="svn-ch-8-sect-2">
     <title><command>svnadmin</command></title>
-
+    
     <para><command>svnadmin</command> is the administrative tool for
       monitoring and repairing your Subversion repository.  For
       detailed information, see <xref
@@ -3391,25 +3391,25 @@ Updated to revision 30.
     <para>Since <command>svnadmin</command> works via direct repository access
       (and thus can only be used on the machine that holds the
       repository), it refers to the repository with a path, not a URL.</para>
-
+      
     <sect2 id="svn-ch-8-sect-2.1">
-      <title><command>svnadmin</command> Switches</title>
-
+      <title><command>svnadmin</command> Switches</title> 
+      
       <variablelist>
-
+        
         <varlistentry>
           <term><option>--copies</option></term>
           <listitem>
             <para>Follow copy history when examining a path.</para>
           </listitem>
         </varlistentry>
-
+        
         <varlistentry>
           <term><option>--in-repos-template ARG</option></term>
           <listitem>
             <para>Specify a template for the repository structure when
               creating a new repository.</para>
-
+            
             <para>The <quote>in-repository</quote> templates specify
               the layout of the repository itself (which lives in
               Berkeley DB files inside the db/ directory) like
@@ -3511,7 +3511,7 @@ Updated to revision 30.
 
         <refsect1>
           <title>Examples</title>
-
+          
           <para>Remove all unused logfiles from a repository:</para>
 
         <screen>
@@ -3562,7 +3562,7 @@ $ svnadmin list-unused-dblogs /path/to/repos | xargs rm
           <screen>
 $ svnadmin create /usr/local/svn/repos
           </screen>
-
+          
         </refsect1>
       </refentry>
 
@@ -3589,13 +3589,13 @@ $ svnadmin create /usr/local/svn/repos
             </refsect1>
         <refsect1>
           <title>Switches</title>
-
+          
           <screen>
 --revision (-r)
 --incremental
           </screen>
         </refsect1>
-
+        
         <refsect1>
           <title>Examples</title>
 
@@ -3615,7 +3615,7 @@ Content-length: 56
             repository: </para>
 
           <screen>
-$ svnadmin dump /usr/local/svn/repos -r 21 --incremental
+$ svnadmin dump /usr/local/svn/repos -r 21 --incremental 
 * Dumped revision 21.
 SVN-fs-dump-format-version: 1
 Revision-number: 21
@@ -3775,7 +3775,7 @@ $ svnadmin lscr /usr/local/svn/repos/ test-moved-file --copies
             repository.</para>
 
           <screen>
-$ svnadmin lstxns /usr/local/svn/repos/
+$ svnadmin lstxns /usr/local/svn/repos/ 
 1w
 1x
           </screen>
@@ -3810,11 +3810,11 @@ $ svnadmin lstxns /usr/local/svn/repos/
 
         <refsect1>
           <title>Examples</title>
-
+          
           <para>Recover a hung repository:</para>
 
           <screen>
-$ svnadmin recover /usr/local/svn/repos/
+$ svnadmin recover /usr/local/svn/repos/ 
 Acquiring exclusive lock on repository db.
 Recovery is running, please stand by...
 Recovery completed.
@@ -3922,13 +3922,13 @@ $ svnadmin setlog /usr/local/svn/repos/ -r 19 msg
     </sect2>
 
   </sect1>
-
+  
   <!-- ================================================================= -->
   <!-- ======================== SECTION 3 ============================== -->
   <!-- ================================================================= -->
   <sect1 id="svn-ch-8-sect-3">
     <title><command>svnlook</command></title>
-
+    
     <para><command>svnlook</command> is a command-line utility for
       examining different aspects of a Subversion repository.  It
       does not make any changes to the repository&mdash;it's just
@@ -3944,10 +3944,10 @@ $ svnadmin setlog /usr/local/svn/repos/ -r 19 msg
     <para>If no revision or transaction is specified,
       <command>svnlook</command> defaults to the youngest (most
       recent) revision of the repository.</para>
-
+    
     <sect2 id="svn-ch-8-sect-3.1">
       <title><command>svnlook</command> Switches</title>
-
+      
       <para>Switches in <command>svnlook</command> are global, just
         like in <command>svn</command> and
         <command>svnadmin</command>, however, most switches only
@@ -4020,7 +4020,7 @@ $ svnadmin setlog /usr/local/svn/repos/ -r 19 msg
 
         <refsect1>
           <title>Switches</title>
-
+          
           <screen>
 --revision (-r)
 --transaction (-t)
@@ -4034,9 +4034,9 @@ $ svnadmin setlog /usr/local/svn/repos/ -r 19 msg
             very exciting:</para>
 
           <screen>
-$ svnlook author -r 40 /usr/local/svn/repos
+$ svnlook author -r 40 /usr/local/svn/repos 
 sally
-          </screen>
+          </screen>            
 
         </refsect1>
       </refentry>
@@ -4071,7 +4071,7 @@ sally
           <title>Examples</title>
 
           <para>This shows the contents of a file in transation
-            <literal>ax8</literal>, located at
+            <literal>ax8</literal>, located at 
             <filename>/trunk/README</filename>:</para>
 
           <screen>
@@ -4089,7 +4089,7 @@ Contents:
    III. PARTICIPATING IN THE SUBVERSION COMMUNITY
 &hellip;
           </screen>
-
+          
         </refsect1>
       </refentry>
 
@@ -4137,7 +4137,7 @@ A   trunk/vendors/deli/chips.txt
 A   trunk/vendors/deli/sandwich.txt
 A   trunk/vendors/deli/pickle.txt
           </screen>
-
+          
         </refsect1>
       </refentry>
 
@@ -4166,14 +4166,14 @@ A   trunk/vendors/deli/pickle.txt
 --transaction (-t)
           </screen>
         </refsect1>
-
+        
         <refsect1>
           <title>Examples</title>
-
+          
           <para>This shows the date of revision 40 of a test
             repository:</para>
 
-          <screen>
+          <screen>            
 $ svnlook date -r 40 /tmp/repos/
 2003-02-22 17:44:49 -0600 (Sat, 22 Feb 2003)
           </screen>
@@ -4200,7 +4200,7 @@ $ svnlook date -r 40 /tmp/repos/
 
         <refsect1>
           <title>Switches</title>
-
+          
           <screen>
 --revision (-r)
 --transaction (-t)
@@ -4210,7 +4210,7 @@ $ svnlook date -r 40 /tmp/repos/
 
         <refsect1>
           <title>Examples</title>
-
+          
           <para>This shows a newly added (empty) file, a deleted
           file, and a copied file:</para>
 
@@ -4234,7 +4234,7 @@ Deleted: trunk/vendors/deli/chips.txt
 Deleted: trunk/vendors/deli/pickle.txt
 ==============================================================================
           </screen>
-
+          
         </refsect1>
       </refentry>
 
@@ -4275,7 +4275,7 @@ Deleted: trunk/vendors/deli/pickle.txt
 $ svnlook dirs-changed -r 40 /usr/local/svn/repos
 trunk/vendors/deli/
           </screen>
-
+          
         </refsect1>
       </refentry>
 
@@ -4337,7 +4337,7 @@ sally
 15
 Rearrange lunch.
           </screen>
-
+          
         </refsect1>
       </refentry>
 
@@ -4359,16 +4359,16 @@ Rearrange lunch.
 
         <refsect1>
           <title>Switches</title>
-
+          
           <screen>
 --revision (-r)
 --transaction (-t)
           </screen>
         </refsect1>
-
+        
         <refsect1>
           <title>Examples</title>
-
+          
           <para>This shows the log output for revision 40 in our sample
           repository:</para>
 
@@ -4376,7 +4376,7 @@ Rearrange lunch.
 $ svnlook log /tmp/repos/
 Rearrange lunch.
           </screen>
-
+          
         </refsect1>
       </refentry>
 
@@ -4429,7 +4429,7 @@ $ svnlook proplist /usr/local/svn/repos /trunk/README
   original-author : fitz
   svn:mime-type : text/plain
           </screen>
-
+          
         </refsect1>
       </refentry>
 
@@ -4463,7 +4463,7 @@ $ svnlook proplist /usr/local/svn/repos /trunk/README
 
         <refsect1>
           <title>Examples</title>
-
+          
           <para>This shows the tree output (with node-IDs) for revision
             40 in our sample repository:</para>
 
@@ -4477,7 +4477,7 @@ $ svnlook tree -r 40 /usr/local/svn/repos --show-ids
     soda.txt &lt;1k.0.2j&gt;
     sandwich.txt &lt;1j.0.2j&gt;
           </screen>
-
+          
         </refsect1>
       </refentry>
 
@@ -4503,8 +4503,8 @@ $ svnlook tree -r 40 /usr/local/svn/repos --show-ids
         <para>This shows the youngest revision of our sample
             repository:</para>
 
-          <screen>
-$ svnlook youngest /tmp/repos/
+          <screen>          
+$ svnlook youngest /tmp/repos/ 
 42
           </screen>
 
@@ -4515,7 +4515,7 @@ $ svnlook youngest /tmp/repos/
 </chapter>
 
 <!--
-local variables:
+local variables: 
 sgml-parent-document: ("book.xml" "chapter")
 end:
 -->
