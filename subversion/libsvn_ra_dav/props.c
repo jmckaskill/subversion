@@ -136,7 +136,7 @@ static int add_to_hash(void *userdata, const ne_propname *pname,
 {
   svn_ra_dav_resource_t *r = userdata;
   const char *name;
-
+  
   /* ### it's non-compliant to treat property names as a flat string,
    * they should be a (namespace, name) pair as per ne_propname.
    * Could hash using the popular "{namespace}name" convention. */
@@ -146,7 +146,7 @@ static int add_to_hash(void *userdata, const ne_propname *pname,
 
   NE_DEBUG(NE_DBG_HTTP, "added hash for %s -> %s\n", name, value);
 
-  apr_hash_set(r->propset, name, APR_HASH_KEY_STRING,
+  apr_hash_set(r->propset, name, APR_HASH_KEY_STRING, 
                apr_pstrdup(r->pool, value));
 
   return 0;
@@ -186,7 +186,7 @@ static int validate_element(ne_xml_elmid parent, ne_xml_elmid child)
             /* some other, unrecognized property */
             return NE_XML_DECLINE;
           }
-
+        
     case ELEM_baseline_coll:
     case ELEM_checked_in:
     case ELEM_vcc:
@@ -194,7 +194,7 @@ static int validate_element(ne_xml_elmid parent, ne_xml_elmid child)
         return NE_XML_VALID;
       else
         return NE_XML_DECLINE; /* not concerned with other types */
-
+      
     case ELEM_resourcetype:
       if (child == ELEM_collection)
         return NE_XML_VALID;
@@ -268,7 +268,7 @@ static int end_element(void *userdata, const struct ne_xml_elm *elm,
       apr_hash_set(r->propset, name, APR_HASH_KEY_STRING,
                    apr_pstrdup(pc->pool, cdata));
   }
-
+              
 
   return 0;
 }
@@ -300,7 +300,7 @@ svn_error_t * svn_ra_dav__get_props(apr_hash_t **results,
       ne_request *req = ne_propfind_get_request(pc.dph);
       ne_add_request_header(req, "Label", label);
     }
-
+  
   rv = ne_propfind_named(pc.dph, which_props, process_results, &pc);
   ne_propfind_destroy(pc.dph);
 
@@ -315,7 +315,7 @@ svn_error_t * svn_ra_dav__get_props(apr_hash_t **results,
                                    "(%s, port %d).",
                                    ras->root.host, ras->root.port);
         case NE_AUTH:
-          return svn_error_create(SVN_ERR_NOT_AUTHORIZED, 0, NULL,
+          return svn_error_create(SVN_ERR_NOT_AUTHORIZED, 0, NULL, 
                                   pool,
                                   "Authentication failed on server.");
         default:
@@ -351,7 +351,7 @@ svn_error_t * svn_ra_dav__get_props_resource(svn_ra_dav_resource_t **rsrc,
 }
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:

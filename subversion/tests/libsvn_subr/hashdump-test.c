@@ -65,11 +65,11 @@ test1 (const char **msg, apr_pool_t *pool)
   key = svn_stringbuf_create ("color", pool);
   apr_hash_set (proplist, key->data, key->len,
                svn_stringbuf_create ("red", pool));
-
+  
   key = svn_stringbuf_create ("wine review", pool);
   apr_hash_set (proplist, key->data, key->len,
                svn_stringbuf_create (review, pool));
-
+  
   key = svn_stringbuf_create ("price", pool);
   apr_hash_set (proplist, key->data, key->len,
                svn_stringbuf_create ("US $6.50", pool));
@@ -139,7 +139,7 @@ test3 (const char **msg, apr_pool_t *pool)
 
   /* Now let's make sure that proplist and new_proplist contain the
      same data. */
-
+  
   /* Loop over our original hash */
   for (this = apr_hash_first (proplist); this; this = apr_hash_next (this))
     {
@@ -147,7 +147,7 @@ test3 (const char **msg, apr_pool_t *pool)
       size_t keylen;
       void *val;
       svn_stringbuf_t *orig_str, *new_str;
-
+      
       /* Get a key and val. */
       apr_hash_this (this, &key, &keylen, &val);
       orig_str = (svn_stringbuf_t *) val;
