@@ -27,10 +27,10 @@
 
 
 /* Edit the three-byte string STR_STATUS, based on the contents of
-   TEXT_STATUS and PROP_STATUS.
-
+   TEXT_STATUS and PROP_STATUS. 
+   
    If VERBOSE is set, STR_STATUS will show the status of both text and
-   prop.
+   prop. 
 
    If VERBOSE is not set, STR_STATUS will contain only one simplified
    status code, based on a logical combination of the two.  */
@@ -92,7 +92,7 @@ generate_status_codes (char *str_status,
       prop_statuschar = '?';
       break;
     }
-
+  
   sprintf (str_status, "%c%c", text_statuschar, prop_statuschar);
 }
 
@@ -106,7 +106,7 @@ svn_cl__print_status (svn_string_t *path, svn_wc_status_t *status)
   generate_status_codes (str_status,
                          status->text_status,
                          status->prop_status);
-
+  
   /* Grab the entry revision once, safely. */
   if (status->entry)
     entry_rev = status->entry->revision;
@@ -147,7 +147,7 @@ svn_cl__print_status_list (apr_hash_t *statushash, apr_pool_t *pool)
       svn_item_t *item;
       const char *path;
       svn_wc_status_t *status;
-
+      
       item = (((svn_item_t **)(statusarray)->elts)[i]);
       path = (const char *) item->key;
       status = (svn_wc_status_t *) item->data;
@@ -158,8 +158,8 @@ svn_cl__print_status_list (apr_hash_t *statushash, apr_pool_t *pool)
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
- * end:
+ * end: 
  */
