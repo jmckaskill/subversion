@@ -79,57 +79,57 @@ svn_cl__info (apr_getopt_t *os,
          valid, since svn_wc_entry() doesn't fill them in if they
          aren't in the entries file. */
 
-      if ((entry->name)
+      if ((entry->name) 
           && strcmp (entry->name->data, SVN_WC_ENTRY_THIS_DIR))
         printf ("Name: %s\n", entry->name->data);
-
+      
       if (entry->url)
         printf ("Url: %s\n", entry->url->data);
-
+          
       if (entry->repos)
         printf ("Repository: %s\n", entry->repos->data);
 
       if (SVN_IS_VALID_REVNUM (entry->revision))
         printf ("Revision: %ld\n", entry->revision);
 
-      switch (entry->kind)
+      switch (entry->kind) 
         {
         case svn_node_file:
           printf ("Node Kind: file\n");
           break;
-
+          
         case svn_node_dir:
           printf ("Node Kind: directory\n");
           break;
-
+          
         case svn_node_none:
           printf ("Node Kind: none\n");
           break;
-
+          
         case svn_node_unknown:
         default:
           printf ("Node Kind: unknown\n");
           break;
         }
 
-      switch (entry->schedule)
+      switch (entry->schedule) 
         {
         case svn_wc_schedule_normal:
           printf ("Schedule: normal\n");
           break;
-
+          
         case svn_wc_schedule_add:
           printf ("Schedule: add\n");
           break;
-
+          
         case svn_wc_schedule_delete:
           printf ("Schedule: delete\n");
           break;
-
+          
         case svn_wc_schedule_replace:
           printf ("Schedule: replace\n");
           break;
-
+          
         default:
           break;
         }
@@ -169,8 +169,8 @@ svn_cl__info (apr_getopt_t *os,
 }
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../tools/dev/svn-dev.el")
- * end:
+ * end: 
  */
