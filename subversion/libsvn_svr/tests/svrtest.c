@@ -30,7 +30,7 @@ main ()
   configdata = svn_parse (svn_string_create ("testpolicy.conf", pool), pool);
 
 
-  /* Print out our configdata uber-hash
+  /* Print out our configdata uber-hash 
      svn_uberhash_print (configdata, stdout); */
 
 
