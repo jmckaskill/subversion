@@ -155,7 +155,7 @@ make_dir_baton (const char *name,
   dir_baton->added = added;
   dir_baton->pool = pool;
 
-  dir_baton->path = apr_pstrdup (pool,
+  dir_baton->path = apr_pstrdup (pool, 
                                  parent_baton ? parent_baton->path : "");
 
   if (name)
@@ -340,7 +340,7 @@ static svn_error_t *
 set_target_revision (void *edit_baton, svn_revnum_t target_revision)
 {
   struct edit_baton *eb = edit_baton;
-
+  
   eb->target_revision = target_revision;
   return SVN_NO_ERROR;
 }
@@ -483,7 +483,7 @@ open_file (const char *path,
   struct dir_baton *pb = parent_baton;
   struct file_baton *b;
 
-  b = make_file_baton (svn_path_basename (path, pool),
+  b = make_file_baton (svn_path_basename (path, pool), 
                        FALSE, pb->path, pb->edit_baton, pool);
   *file_baton = b;
 
@@ -647,7 +647,7 @@ svn_client__get_diff_editor (svn_stringbuf_t *target,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end: */
