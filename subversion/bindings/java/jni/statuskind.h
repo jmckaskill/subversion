@@ -31,13 +31,13 @@ extern "C" {
 /* functions */
 
 /**
- * create a new org.tigris.subversion.lib.StatusKind instance
+ * create a new org.tigris.subversion.lib.StatusKind instance 
  *
  * @param JNIEnv JNI Environment
  * @param hasException
  * @param statuskind integer representation of the appropriate constants
  */
-jobject
+jobject 
 statuskind__create(JNIEnv *env, jboolean *hasException, jint statuskind);
 
 /**
@@ -53,8 +53,8 @@ statuskind__create_from_svn_wc_status_kind(JNIEnv *env, jboolean *hasException,
 #endif /* __cplusplus */
 
 #endif
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../../tools/dev/svn-dev.el")
- * end:
+ * end: 
  */
