@@ -1,7 +1,7 @@
 
                           A design for locking.
                           ---------------------
-        (...in progress, based on ongoing discussions on dev@ list.
+        (...in progress, based on ongoing discussions on dev@ list.  
                            Please hack on this.)
 
 
@@ -74,7 +74,7 @@ Framework:
 
    - 'svn lock' returns a lock-token to the client, then stored in the WC.
       If the connection is unauthenticated, then the lock creation fails.
-      In other words, we don't allow "anonymous" locks.
+      In other words, we don't allow "anonymous" locks.        
 
    - 'svn commit' notices the lock-token on a committable object, and
      sends it when building the repository transaction.  (The server
