@@ -31,15 +31,15 @@
         You're encouraged to include everything short of what you had
         for breakfast and your mother's maiden name.  </para>
         </footnote> </para>
-
+      
       <itemizedlist>
         <title>Problems Using Subversion</title>
-
+        
         <listitem>
           <para>Every time I try to access my repository,
             <command>svn</command> just hangs.</para>
         </listitem>
-
+        
         <listitem>
           <para>Every time I try to run <command>svn</command>, it
             says my working copy is locked.</para>
@@ -93,7 +93,7 @@
         </listitem>
       </itemizedlist>
 
-
+      
       <sect2 id="svn-ap-c-sect-1.2">
         <title>Problems Using Subversion</title>
 
@@ -118,7 +118,7 @@
             this, run the following command from the machine that
             contains your Subversion Repository:</para>
 
-          <screen>
+          <screen>          
 $ svnadmin recover /path/to/repos
           </screen>
 
@@ -179,9 +179,9 @@ $ svn cleanup working-copy
         <sect3 id="svn-ap-c-sect-1.2.5">
           <title>I'm Having Trouble Doing Write Operations to a
             Subversion Repository over a Network</title>
-
+          
           <para>If import works fine over local access:</para>
-
+          
           <screen>
 $ mkdir test
 $ touch test/testfile
@@ -197,7 +197,7 @@ Committed revision 1.
 $ svn import testfile http://svn.red-bean.com/test -m "import"
 harry's password: xxxxxxx
 
-svn_error: #21110 :
+svn_error: #21110 : 
 
 The specified activity does not exist.
           </screen>
@@ -243,12 +243,12 @@ The specified activity does not exist.
               <para>Pull down the Capture menu, and choose
               Start.</para>
             </listitem>
-
+            
             <listitem>
               <para>Type port 80 for Filter, and turn off promiscuous
                 mode.</para>
             </listitem>
-
+            
             <listitem>
               <para>Run your Subversion client.</para>
             </listitem>
@@ -363,7 +363,7 @@ The specified activity does not exist.
 </appendix>
 
 <!--
-local variables:
+local variables: 
 sgml-parent-document: ("book.xml" "appendix")
 end:
 -->
