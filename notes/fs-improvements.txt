@@ -63,7 +63,7 @@ is just a unique string; in fact, we may use base36 or base62.
    that starts here for the details of this:
    http://subversion.tigris.org/servlets/ReadMsg?msgId=72277&listName=dev
   ]
-
+   
 
 After a commit, the txn record in the transactions table does not go
 away; instead, it is updated so it now maps the txnID to the new
@@ -87,10 +87,10 @@ In the example below, we copy `A' to `Y'.  Node keys for `A', `Y', and
 `bar' are given in parentheses:
 
             BEFORE THE COPY               AFTER THE COPY
-               <root>                         <root>
-              /  |                           /  |  \
-            /    |                         /    |    \
-          /      |                       /      |      \
+               <root>                         <root>     
+              /  |                           /  |  \     
+            /    |                         /    |    \   
+          /      |                       /      |      \ 
         A(3.0.m) B                     A(3.0.m) B       Y(3.jfb.p)
         / \      |                     / \      |      / \
      foo  bar   qux                 foo  bar   qux   foo  bar
@@ -100,10 +100,10 @@ Let's flesh out the example with some commits under A and Y.  To save
 space, the colons represent time flow, not directory hierarchy --
 imagine they're the Z axis coming out of the screen or something :-).
 
-                         <root>
-                        /  |  \
-                      /    |    \
-                    /      |      \
+                         <root>     
+                        /  |  \     
+                      /    |    \   
+                    /      |      \ 
                  A(3.0.m)  B       Y(3.jfb.p)
                   / \      |      / \
                foo  bar   qux   foo  bar
