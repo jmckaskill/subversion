@@ -1,4 +1,4 @@
-/* Handy subroutines used throughout Subversion.
+/* Hashing interface for a vdelta implementation.
  *
  * ================================================================
  * Copyright (c) 2000 Collab.Net.  All rights reserved.
@@ -47,49 +47,49 @@
  */
 
 
-/* Malloc, but with built-in error checking. */
-void *
-svn_malloc (size_t len)
+
+/* *********************** Data Structures ************************** */
+
+
+/* One entry in a hash table. */
+typedef struct hash_entry_t
 {
-  void *buf;
+  /* Notice that this doesn't point to a chain of hash buckets.
+   * That's right -- we clobber on collision.  It's a time-space
+   * tradeoff, and optimizing for time is faster to implement.
+   *
+   * An in-between solution is to keep `pos1', `pos2' ... `posN',
+   * hardcoded in the data type here, and try all of them for the
+   * longest available match.  I think N == 4 would be good, on no
+   * basis whatsoever.
+   *
+   * The best solution, for optimizing delta size, is to be a regular
+   * hash table with an extendable bucket chain.  But vdelta might run
+   * real slow that way. :-)
+   */
 
-  if ((buf = malloc (len)) == NULL)
-    {
-      char err[60];
-      sprintf (err, "unable to allocate %lu bytes", (unsigned long) len);
-      exit (1);   /* todo: use some custom exit function later */
-    }
-
-  /* Else. */
-
-  return (buf);
-}
+  long int pos;        /* Where was this string in the input? */
+} hash_entry_t;
 
 
-/* Realloc, with built-in error checking. */
-void *
-svn_realloc (void *old, size_t new_len)
+/* A hash table is basically an array of hash_entries. */
+typedef struct hash_table_t
 {
-  char *new;
+  size_t size;
+  hash_entry_t *table;
+} hash_table_t;
 
-  /* Not all realloc()s guarantee that a NULL argument is like calling
-     malloc(), but that's the behavior we want. */
-  if (old == NULL)
-    new = malloc (new_len);
-  else
-    new = realloc (old, new_len);
 
-  if (new == NULL)
-    {
-      char err[60];
-      sprintf (err, "unable to allocate %lu bytes", (unsigned long) new_len);
-      exit (1);   /* todo: use some custom exit function later? */
-    }
+/* *********************** Functions ************************** */
 
-  /* Else. */
+hash_table_t *make_hash_table (size_t size);
 
-  return (new);
-}
+void free_hash_table (hash_table_t *table);
+
+/* Return the position associated with the match, if any, else -1.
+   Put STR into the hash_table in any case. */
+long int try_match (unsigned char *str, long int len, long int pos,
+                    hash_table_t *);
 
 
 
