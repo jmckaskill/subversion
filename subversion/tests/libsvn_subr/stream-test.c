@@ -38,8 +38,8 @@ make_baton (apr_pool_t *pool)
 
 
 static svn_error_t *
-read_func (void *baton,
-           char *buffer,
+read_func (void *baton, 
+           char *buffer, 
            apr_size_t *len)
 {
   stream_baton_t *sb = (stream_baton_t *)baton;
@@ -55,8 +55,8 @@ read_func (void *baton,
   memcpy (buffer, sb->buffer->data, *len);
 
   /* Now, lose the bytes that were read from the buffer. */
-  memcpy (sb->buffer->data,
-          sb->buffer->data + *len,
+  memcpy (sb->buffer->data, 
+          sb->buffer->data + *len, 
           sb->buffer->len - *len);
   sb->buffer->len -= *len;
 
@@ -65,8 +65,8 @@ read_func (void *baton,
 
 
 static svn_error_t *
-write_func (void *baton,
-            const char *data,
+write_func (void *baton, 
+            const char *data, 
             apr_size_t *len)
 {
   stream_baton_t *sb = (stream_baton_t *)baton;
@@ -84,8 +84,8 @@ close_func (void *baton)
 
 /* Helper function for test_feedback_stream */
 static svn_error_t *
-binary_recurse (int depth,
-                int limit,
+binary_recurse (int depth, 
+                int limit, 
                 int *next_branch_number,
                 apr_pool_t *pool)
 {
@@ -132,7 +132,7 @@ test_feedback_stream (const char **msg,
   *msg = "test global feedback stream";
 
   fb_stream = svn_pool_get_feedback_stream (pool);
-
+ 
   baton = make_baton (pool);
   svn_stream_set_baton (fb_stream, baton);
   svn_stream_set_read (fb_stream, &read_func);
@@ -146,7 +146,7 @@ test_feedback_stream (const char **msg,
      net result should be that the integers from 1 to ( 2^max_depth -
      1) should be printed, one per line, to the feedback stream. */
   SVN_ERR (binary_recurse (0, max_depth - 1, &next_branch_number, pool));
-
+  
   /* Cheap pow() call. */
   for (i = 0, last_branch = 1; i < max_depth; i++, last_branch *= 2)
     {;}
@@ -165,7 +165,7 @@ test_feedback_stream (const char **msg,
      just to compare the buffer in the stream baton with our expected
      output string.  */
   if (! svn_string_compare (expected_output, baton->buffer))
-    return svn_error_create (SVN_ERR_TEST_FAILED, 0, 0, pool,
+    return svn_error_create (SVN_ERR_TEST_FAILED, 0, 0, pool, 
                              "Easy compare failed");
 
   /* The hard way is to actually use the stream's read() function to
@@ -184,9 +184,9 @@ test_feedback_stream (const char **msg,
         break;
     }
   if (! svn_string_compare (expected_output, read_output))
-    return svn_error_create (SVN_ERR_TEST_FAILED, 0, 0, pool,
+    return svn_error_create (SVN_ERR_TEST_FAILED, 0, 0, pool, 
                              "Hard compare failed");
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -204,7 +204,7 @@ svn_error_t * (*test_funcs[]) (const char **msg,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../svn-dev.el")
  * end:
