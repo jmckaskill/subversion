@@ -65,7 +65,7 @@ already know about.)
      Notes: There is a patch from Julian Foad in the issue, but I
             think there may be more recent patches on dev@.  Voting
             is on a specific patch, so we need the latest patch...
-     Votes:
+     Votes: 
 
 
    * r8023, r8030, r8040
@@ -77,7 +77,7 @@ already know about.)
    * r8048
      Fix a handle leak that caused a test failure on Windows.
      Justification: Windows correctness, test failure, and went into 0.35.1.
-     Votes:
+     Votes: 
 
 
    * r8052, r8062  (issue #1660)
@@ -89,7 +89,7 @@ already know about.)
    * r8021
      'svn revert' performance improvement (timestamp sleep once, not N times)
      Justification: presumably that it's small & safe?  Mike?  Anyone?
-     Votes:
+     Votes: 
 
 
    * r8006
