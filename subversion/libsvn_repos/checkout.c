@@ -59,7 +59,7 @@ set_any_props (svn_fs_root_t *root,
 {
   apr_hash_index_t *hi;
   svn_revnum_t committed_rev;
-  const char *last_author, *committed_date, *revision_str;
+  const char *last_author, *committed_date, *revision_str, *uuid;
   apr_hash_t *props = NULL;
 
   /* Get all user properties attached to PATH. */
@@ -94,8 +94,14 @@ set_any_props (svn_fs_root_t *root,
                 last_author ?
                 svn_string_create (last_author, pool) : NULL);
 
+  SVN_ERR (svn_fs_get_uuid (svn_fs_root_fs (root), &uuid, pool));
 
-  /* Loop over properties, send them through the editor. */
+  apr_hash_set (props, SVN_PROP_ENTRY_UUID,
+                sizeof (SVN_PROP_ENTRY_UUID),
+                uuid ?
+                svn_string_create (uuid, pool) : NULL);
+
+ /* Loop over properties, send them through the editor. */
   for (hi = apr_hash_first (pool, props); hi; hi = apr_hash_next (hi))
     {
       const void *key;
