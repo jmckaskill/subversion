@@ -4,8 +4,8 @@
   <simplesect>
     <programlisting>
 
-Copyright (c) 2002-2004
-Ben Collins-Sussman, Brian W. Fitzpatrick, C. Michael Pilato.
+Copyright (c) 2002-2004 
+Ben Collins-Sussman, Brian W. Fitzpatrick, C. Michael Pilato.  
 
 This work is licensed under the Creative Commons
 Attribution-ShareAlike License. To view a copy of this license, visit
@@ -31,7 +31,7 @@ Under the following conditions:
                 identical to this one.
 
 For any reuse or distribution, you must make clear to others the
-license terms of this work.
+license terms of this work.  
 
 Any of these conditions can be waived if you get permission from the
 author.
@@ -304,7 +304,7 @@ Creative Commons may be contacted at http://creativecommons.org/.
 </appendix>
 
 <!--
-local variables:
+local variables: 
 sgml-parent-document: ("book.xml" "")
 end:
 -->
