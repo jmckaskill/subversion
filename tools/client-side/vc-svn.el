@@ -18,7 +18,7 @@
 
 
 ;;; To do here:
-;;; Provide more of the optional VC backend functions:
+;;; Provide more of the optional VC backend functions: 
 ;;; - dir-state
 ;;; - mode-line-string, to show newly added files, modified props?
 ;;;   see vc-cvs-mode-line-string
@@ -64,7 +64,7 @@
 ;;; Make sure vc's documentation for `workfile-unchanged-p' default
 ;;; function mentions that it must not run asynchronously, and the
 ;;; symptoms if it does.
-;;;
+;;; 
 ;;; Fix logic for finding log entries.
 ;;;
 ;;; Allow historical diff to choose an appropriate default previous
@@ -137,7 +137,7 @@ See `vc-svn-parse-status' for a description of the result."
     ;; error status if FILE isn't under its control, and we want to
     ;; return that as nil, not display it to the user.  We can tell
     ;; vc-do-command to
-
+    
     (let ((status (apply 'call-process vc-svn-program-name nil t nil
                          (append '("status" "-v")
                                  (if update '("-u") '())
@@ -280,7 +280,7 @@ COMMENT is an initial description of the file; currently this is ignored."
 
 
 (defun vc-svn-checkin (file rev comment)
-  (apply 'vc-do-command nil 0 vc-svn-program-name file
+  (apply 'vc-do-command nil 0 vc-svn-program-name file 
          "commit" (if comment (list "-m" comment) '())))
 
 
@@ -322,13 +322,13 @@ conflict markers into the file and leaves additional temporary files
 containing the `ancestor', `mine', and `other' files.
 
 You may need to run `svn resolve' by hand once these conflicts have
-been resolved.
+been resolved.  
 
 Returns a vc status, which is used to determine whether conflicts need
 to be merged."
   (prog1
       (vc-do-command nil 0 vc-svn-program-name file "update")
-
+    
     ;; This file may not have changed in the revisions which were
     ;; merged, which means that its mtime on disk will not have been
     ;; updated.  However, the workfile version may still have been
@@ -373,7 +373,7 @@ This function returns a status of either 0 (no differences found), or
          (status (vc-svn-run-status file))
          (local (elt status 1))
          (changed (elt status 2))
-
+         
          ;; If rev1 is the default (the base revision) set it to nil.
          ;; This is nice because it lets us recognize when the diff
          ;; will run locally, and thus when we shouldn't bother to run
