@@ -58,8 +58,8 @@ svn_cl__delete (svn_cl__opt_state_t *opt_state,
 }
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
- * end:
+ * end: 
  */
