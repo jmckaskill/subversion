@@ -271,7 +271,7 @@ paranoid programmers make occasional mistakes.
 
 Input validation is the act of defining legal input and rejecting
 everything else. The code must perform input validation on all untrusted
-input.
+input. 
 
 
 Security boundaries
@@ -286,7 +286,7 @@ code that does access control or an application with the SUID bit set.
 Functions which make calls to a security boundary must include
 validation checks of the arguments passed. Functions which themselves
 are security boundaries should audit the input received and alarm when
-invoked with improper values.
+invoked with improper values. 
 
 [### todo: need some examples from Subversion here...]
 
@@ -425,7 +425,7 @@ principles:
          }
 
          svn_pool_destroy(subpool);
-
+  
 Except for some legacy code, which was written before these principles
 were fully understood, virtually all pool usage in Subversion follows
 the above guidelines.
@@ -465,7 +465,7 @@ overall performance and lifetime groups.  Instead, foo_t generally
 should not have a `pool' field.  Just allocate as many foo objects as
 you need in the current pool -- when that pool gets cleared or
 destroyed, they will all go away simultaneously.
-
+   
 In summary:
 
    - Objects should not have their own pools.  An object is allocated
