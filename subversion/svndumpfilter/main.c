@@ -374,7 +374,7 @@ new_node_record (void **node_baton,
     {
       *((const char **) apr_array_push (pb->dropped_nodes))
         = apr_pstrdup (pb->dropped_nodes->pool, node_path);
-
+      
       nb->rb->had_dropped_nodes = TRUE;
       pb->node_drop_count ++;
     }
@@ -877,7 +877,7 @@ main (int argc, const char * const *argv)
 
   pool = svn_pool_create_ex (NULL, allocator);
   apr_allocator_set_owner (allocator, pool);
-
+		  
   if (argc <= 1)
     {
       subcommand_help (NULL, NULL, pool);
