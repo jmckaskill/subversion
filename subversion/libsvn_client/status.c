@@ -111,7 +111,7 @@ svn_client_status (svn_revnum_t *result_rev,
 
   /* If we want to know about out-of-dateness, we crawl the working copy and
      let the RA layer drive the editor for real.  Otherwise, we just close the
-     edit.  :-) */
+     edit.  :-) */ 
   if (update)
     {
       void *report_baton;
@@ -136,7 +136,7 @@ svn_client_status (svn_revnum_t *result_rev,
 
       /* Open a repository session to the URL. */
       SVN_ERR (svn_client__open_ra_session (&ra_session, URL, anchor,
-                                            anchor_access, NULL, TRUE, TRUE,
+                                            anchor_access, NULL, TRUE, TRUE, 
                                             ctx, pool));
 
       /* Verify that URL exists in HEAD.  If it doesn't, this can save
@@ -160,7 +160,7 @@ svn_client_status (svn_revnum_t *result_rev,
       else
         {
           svn_revnum_t revnum;
-
+            
           if (revision->kind == svn_opt_revision_head)
             {
               /* Cause the revision number to be omitted from the request,
@@ -176,15 +176,15 @@ svn_client_status (svn_revnum_t *result_rev,
 
           /* Do the deed.  Let the RA layer drive the status editor. */
           SVN_ERR (svn_ra_do_status (ra_session, &reporter, &report_baton,
-                                     target, revnum, descend, editor,
+                                     target, revnum, descend, editor, 
                                      edit_baton, pool));
 
           /* Drive the reporter structure, describing the revisions
              within PATH.  When we call reporter->finish_report,
              EDITOR will be driven to describe differences between our
              working copy and HEAD. */
-          SVN_ERR (svn_wc_crawl_revisions (path, target_access, reporter,
-                                           report_baton, FALSE, descend,
+          SVN_ERR (svn_wc_crawl_revisions (path, target_access, reporter, 
+                                           report_baton, FALSE, descend, 
                                            FALSE, NULL, NULL, NULL, pool));
         }
     }
