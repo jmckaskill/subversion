@@ -71,7 +71,7 @@ svn_repos_get_logs (svn_fs_t *fs,
                             date ? date->data : "",
                             message ? message->data : "",
                             (this_rev == end)));
-
+      
       svn_pool_clear (subpool);
     }
 
@@ -82,7 +82,7 @@ svn_repos_get_logs (svn_fs_t *fs,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
