@@ -55,7 +55,7 @@ svn_client_log (svn_client_auth_baton_t *auth_baton,
                 void *receiver_baton,
                 apr_pool_t *pool)
 {
-  svn_ra_plugin_t *ra_lib;
+  svn_ra_plugin_t *ra_lib;  
   svn_ra_callbacks_t *ra_callbacks;
   void *ra_baton, *cb_baton, *session;
   svn_stringbuf_t *URL;

@@ -321,7 +321,7 @@ txdelta_stream_close (VALUE self)
     {
       rb_iv_set (self, "@closeRequested", Qtrue);
     }
-
+  
   return Qnil;
 }
 
@@ -355,7 +355,7 @@ txdelta_stream_next_window (VALUE self)
       rb_window->stream = self;
       child = rb_iv_get (self, "@childWindow");
       rb_iv_set (self, "@childWindow", LONG2NUM (NUM2LONG (child) + 1));
-
+      
       return obj;
     }
 }
