@@ -33,7 +33,7 @@
 
 /*** Command dispatch. ***/
 
-/* Map names to command routine, etc.
+/* Map names to command routine, etc. 
  *
  * Canonical name entries must come immediately before their aliases.
  * For example, "add" must be the first of the add commands listed,
@@ -45,7 +45,7 @@
  *
  * The entire list must be terminated with a entry of nulls.
  */
-static const svn_cl__cmd_desc_t cmd_table[] =
+static const svn_cl__cmd_desc_t cmd_table[] = 
 {
   { "add",        FALSE,  svn_cl__add_command,      svn_cl__add,
     "Add new files and directories to version control.\n\n"
@@ -160,7 +160,7 @@ get_canonical_command (const char *cmd)
    and if HELP is set, print the help string for the command too. */
 static void
 print_command_info (const svn_cl__cmd_desc_t *cmd_desc,
-                    svn_boolean_t help,
+                    svn_boolean_t help, 
                     apr_pool_t *pool)
 {
   const svn_cl__cmd_desc_t *this_cmd = get_canonical_command (cmd_desc->name);
@@ -202,7 +202,7 @@ print_generic_help (apr_pool_t *pool)
     "\n"
     "Most subcommands take file and/or directory arguments, recursing\n"
     "on the directories.  If no arguments are supplied to such a\n"
-    "command, it will recurse on the current directory (inclusive) by\n"
+    "command, it will recurse on the current directory (inclusive) by\n" 
     "default.\n"
     "\n"
     "Available subcommands:\n";
@@ -221,7 +221,7 @@ print_generic_help (apr_pool_t *pool)
 
 /* Print either generic help, or command-specific help for each
  * command in ARGV.  OPT_STATE is unused and may be null.
- *
+ * 
  * Unlike all the other command routines, ``help'' has its own
  * option processing.  Of course, it does not accept any options :-),
  * just command line args.
@@ -277,12 +277,12 @@ read_from_file (svn_string_t **result, const char *filename, apr_pool_t *pool)
     return svn_error_createf (apr_err, 0, NULL, pool,
                               "read_from_file: failed to open '%s'",
                               filename);
-
+      
   do {
     err = svn_io_file_reader (f, buf, &len, pool);
     if (err)
       return err;
-
+    
     svn_string_appendbytes (res, buf, len);
   } while (len != 0);
 
@@ -291,7 +291,7 @@ read_from_file (svn_string_t **result, const char *filename, apr_pool_t *pool)
     return svn_error_createf (apr_err, 0, NULL, pool,
                               "read_from_file: failed to close '%s'",
                               filename);
-
+  
   *result = res;
   return SVN_NO_ERROR;
 }
@@ -437,7 +437,7 @@ main (int argc, char **argv)
 
   /* Certain commands have an implied `.' as argument, if nothing else
      is specified. */
-  if ((targets->nelts == 0)
+  if ((targets->nelts == 0) 
       && (   (subcommand->cmd_code == svn_cl__commit_command)
           || (subcommand->cmd_code == svn_cl__proplist_command)
           || (subcommand->cmd_code == svn_cl__propget_command)
@@ -457,15 +457,15 @@ main (int argc, char **argv)
   err = (*subcommand->cmd_func) (&opt_state, targets, pool);
   if (err)
     svn_handle_error (err, stdout, 0);
-
+  
   apr_destroy_pool (pool);
   return EXIT_SUCCESS;
 }
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
- * end:
+ * end: 
  */
