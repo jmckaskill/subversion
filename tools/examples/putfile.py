@@ -1,6 +1,6 @@
 #!/usr/bin/env python2
 #
-# USAGE: putfile.py [-m commitmsg] [-u username] file repos-path
+# USAGE: putfile.py [-m commitmsg] [-u username] file repos-path 
 #
 # put a file into an SVN repository
 #
@@ -32,7 +32,7 @@ def putfile(pool, fname, rpath, uname="", commitmsg=""):
     fs.make_file(root, fname, pool)
   elif kind == core.svn_node_dir:
     print "File '%s' is a dir." % fname
-    return
+    return 
   else:
     print "Updating file '%s'" % fname
 
