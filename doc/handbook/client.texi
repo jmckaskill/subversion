@@ -4,13 +4,13 @@
 How to make a lovely gumbo with your Subversion client, in 11 easy steps.
 
 @menu
-* Checkout::
-* Basic Work Cycle::
-* History::
-* Branches and Tags::
-* Properties::
-* Modules::
-* Other Commands::
+* Checkout::                    
+* Basic Work Cycle::            
+* History::                     
+* Branches and Tags::           
+* Properties::                  
+* Modules::                     
+* Other Commands::              
 @end menu
 
 @c ------------------------------------------------------------------
