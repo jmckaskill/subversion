@@ -3,32 +3,32 @@
  *
  * ================================================================
  * Copyright (c) 2000 CollabNet.  All rights reserved.
- *
+ * 
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
  * met:
- *
+ * 
  * 1. Redistributions of source code must retain the above copyright
  * notice, this list of conditions and the following disclaimer.
- *
+ * 
  * 2. Redistributions in binary form must reproduce the above copyright
  * notice, this list of conditions and the following disclaimer in the
  * documentation and/or other materials provided with the distribution.
- *
+ * 
  * 3. The end-user documentation included with the redistribution, if
  * any, must include the following acknowlegement: "This product includes
  * software developed by CollabNet (http://www.Collab.Net)."
  * Alternately, this acknowlegement may appear in the software itself, if
  * and wherever such third-party acknowlegements normally appear.
- *
+ * 
  * 4. The hosted project names must not be used to endorse or promote
  * products derived from this software without prior written
  * permission. For written permission, please contact info@collab.net.
- *
+ * 
  * 5. Products derived from this software may not use the "Tigris" name
  * nor may "Tigris" appear in their names without prior written
  * permission of CollabNet.
- *
+ * 
  * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
  * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -42,7 +42,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ====================================================================
- *
+ * 
  * This software consists of voluntary contributions made by many
  * individuals on behalf of CollabNet.
  */
@@ -202,9 +202,9 @@ start_handler (void *userData, const XML_Char *eltname, const XML_Char **atts)
     }
   else if (strcmp (eltname, SVN_WC__LOG_SET_VERSION) == 0)
     {
-      const char *verstr
+      const char *verstr 
         = svn_xml_get_attr_value (SVN_WC__LOG_ATTR_VERSION, atts);
-
+      
       if (! name)
         signal_error (loggy, "missing name attr in %s");
       else if (! verstr)
@@ -246,7 +246,7 @@ svn_wc__run_log (svn_string_t *path, apr_pool_t *pool)
   loggy->path   = path;
   loggy->pool   = pool;
   loggy->parser = parser;
-
+  
   /* Expat wants everything wrapped in a top-level form, so start with
      a ghost open tag. */
   err = svn_xml_parse (parser, log_start, strlen (log_start), 0);
@@ -257,7 +257,7 @@ svn_wc__run_log (svn_string_t *path, apr_pool_t *pool)
   err = svn_wc__open_adm_file (&f, path, SVN_WC__ADM_LOG, APR_READ, pool);
   if (err)
     return err;
-
+  
   do {
     buf_len = sizeof (buf);
 
@@ -414,7 +414,7 @@ svn_wc__log_commit (svn_string_t *path,
               apr_close (log_fp);
               return svn_error_createf (apr_err, 0, NULL, pool,
                                         "svn_wc__log_commit: "
-                                        "error writing %s's log file",
+                                        "error writing %s's log file", 
                                         path->data);
             }
 
@@ -433,7 +433,7 @@ svn_wc__log_commit (svn_string_t *path,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
