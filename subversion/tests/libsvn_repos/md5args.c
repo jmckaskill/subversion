@@ -51,7 +51,7 @@ main (int argc, const char * const *argv)
   apr_pool_t *pool;
   svn_stringbuf_t *string, *digest_str;
   unsigned char digest[MD5_DIGESTSIZE];
-
+  
   if (apr_initialize () != APR_SUCCESS)
     {
       printf ("apr_initialize() failed.\n");
@@ -76,7 +76,7 @@ main (int argc, const char * const *argv)
   /* Create our expected digest. */
   if (strlen (argv[1]) != (MD5_DIGESTSIZE * 2))
     exit (-2);
-
+  
   /* Build the string of space-separated arguments. */
   string = svn_stringbuf_create ("", pool);
   for (i = 2; i < (argc - 1); i++)
@@ -91,7 +91,7 @@ main (int argc, const char * const *argv)
   digest_str = svn_stringbuf_create ("", pool);
   for (i = 0; i < MD5_DIGESTSIZE; i++)
     {
-      svn_stringbuf_t *tmp_str =
+      svn_stringbuf_t *tmp_str = 
         svn_stringbuf_createf (pool, "%02X", digest[i]);
       svn_stringbuf_appendstr (digest_str, tmp_str);
     }
@@ -110,7 +110,7 @@ main (int argc, const char * const *argv)
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../svn-dev.el")
  * end:
