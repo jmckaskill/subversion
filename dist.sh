@@ -2,7 +2,7 @@
 
 #
 # USAGE: ./dist.sh -v VERSION -r REVISION [-rs REVISION-SVN] [-pr REPOS-PATH]
-#                  [-apr PATH-TO-APR ] [-apu PATH-TO-APR-UTIL]
+#                  [-apr PATH-TO-APR ] [-apu PATH-TO-APR-UTIL] 
 #                  [-neon PATH-TO-NEON ] [-alpha|-beta BETA_NUM]
 #
 #   Create a distribution tarball, labelling it with the given VERSION.
@@ -26,7 +26,7 @@
 #   When building a beta tarball pass -beta NUM where num is the beta
 #   number.  For example:
 #      ./dist.sh -v 1.1.0 -r 10277 -pr branches/1.1.x -beta 1
-#
+# 
 #   Alpha versions can be specified with just -alpha but take no
 #   number parameter since they are not intended for public release.
 #   For example:
@@ -95,7 +95,7 @@ if [ -n "$ALPHA" ] && [ -n "$BETA" ] ; then
   exit 1
 elif [ -n "$ALPHA" ] ; then
   VER_TAG="Alpha"
-  VER_NUMTAG="-alpha"
+  VER_NUMTAG="-alpha" 
 elif [ -n "$BETA" ] ; then
   VER_TAG="Beta $BETA"
   VER_NUMTAG="-beta$BETA"
@@ -103,7 +103,7 @@ else
   VER_TAG="r$REVISION_SVN"
   VER_NUMTAG=""
 fi
-
+  
 if [ -z "$VERSION" ] || [ -z "$REVISION" ] ; then
   echo " $USAGE"
   exit 1
@@ -197,12 +197,12 @@ wget http://svnbook.red-bean.com/book.html \
   ( echo "ERROR: Problem getting the book.html file." && exit 1 )
 
 cat > "$DISTPATH/ChangeLog.CVS" <<EOF
-The old CVS ChangeLog is kept at
+The old CVS ChangeLog is kept at 
 
      http://subversion.tigris.org/
 
 If you want to see changes since Subversion went self-hosting,
-you probably want to use the "svn log" command -- and if it
+you probably want to use the "svn log" command -- and if it 
 does not do what you need, please send in a patch!
 EOF
 
