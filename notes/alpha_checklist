@@ -8,7 +8,7 @@ A. How ACLs should work.  Do they live as filesystem props?  How
    should authorization and authentication work in general?
 
    We need a security architecture that:
-
+  
       * will take advantage of Apache
 
       * fits well with the Sourcecast 2.0 framework
@@ -53,11 +53,11 @@ L. Copy nodes (or props).  we need better history tracking when making
 M. All client commands need to accept multiple targets.
 
 N. Commands that make us *better* than CVS:
-
-     svn mv, svn cp
-     svn revert
+     
+     svn mv, svn cp 
+     svn revert 
      svn unadd, svn undel
-
+     
 O. 90% solution to the "repeated merge" problem?  genetic merging?
    how much changeset metadata should we be tracking?
 
@@ -81,7 +81,7 @@ P. Optimizations that *should* be in effect, but aren't yet:
 
 Q. Need more descriptive error messages all around.  Perhaps a table
    that maps errnos to strings.  (We'll need this anyway once we
-   internationalize.)
+   internationalize.) 
 
 R. Speaking of which:  i18n plans?  Mulitlingual plans?
 

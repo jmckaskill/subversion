@@ -23,7 +23,7 @@
 /* This routine is originally passed as a "hook" to the filesystem
    commit editor.  When we get here, the track-editor has already
    stored committed targets inside the baton.
-
+   
    Loop over all committed target paths within BATON, calling the
    clients' close_func() with NEW_REV. */
 
@@ -34,7 +34,7 @@ cleanup_commit (svn_revnum_t new_rev, void *baton)
   int i;
 
   /* Recover our hook baton: */
-  svn_ra_local__commit_closer_t *closer =
+  svn_ra_local__commit_closer_t *closer = 
     (svn_ra_local__commit_closer_t *) baton;
 
   /* Loop over the closer->targets array, and bump the revision number
@@ -46,7 +46,7 @@ cleanup_commit (svn_revnum_t new_rev, void *baton)
 
       if (closer->close_func)
         SVN_ERR (closer->close_func (closer->close_baton, target, new_rev));
-    }
+    }    
 
   return SVN_NO_ERROR;
 }
@@ -55,7 +55,7 @@ cleanup_commit (svn_revnum_t new_rev, void *baton)
 
 /* The reporter vtable needed by do_update() */
 
-static const svn_ra_reporter_t ra_local_reporter =
+static const svn_ra_reporter_t ra_local_reporter = 
 {
   svn_ra_local__set_path,
   svn_ra_local__finish_report
@@ -80,7 +80,7 @@ open (void **session_baton,
      there. */
   apr_pool_t *subpool = svn_pool_create (pool);
 
-  /* Allocate the session_baton the parent pool */
+  /* Allocate the session_baton the parent pool */ 
   baton = apr_pcalloc (pool, sizeof(*baton));
 
   /* And let all other session_baton data use session's subpool */
@@ -109,7 +109,7 @@ open (void **session_baton,
 static svn_error_t *
 close (void *session_baton)
 {
-  svn_ra_local__session_baton_t *baton =
+  svn_ra_local__session_baton_t *baton = 
     (svn_ra_local__session_baton_t *) session_baton;
 
   /* Close the repository filesystem */
@@ -128,7 +128,7 @@ static svn_error_t *
 get_latest_revnum (void *session_baton,
                    svn_revnum_t *latest_revnum)
 {
-  svn_ra_local__session_baton_t *baton =
+  svn_ra_local__session_baton_t *baton = 
     (svn_ra_local__session_baton_t *) session_baton;
 
   SVN_ERR (svn_fs_youngest_rev (latest_revnum, baton->fs, baton->pool));
@@ -153,7 +153,7 @@ get_commit_editor (void *session_baton,
   const svn_delta_edit_fns_t *composed_editor;
   void *commit_editor_baton, *tracking_editor_baton, *composed_editor_baton;
 
-  svn_ra_local__session_baton_t *sess_baton =
+  svn_ra_local__session_baton_t *sess_baton = 
     (svn_ra_local__session_baton_t *) session_baton;
 
   /* Construct a Magick commit-hook baton */
@@ -166,10 +166,10 @@ get_commit_editor (void *session_baton,
   closer->close_baton = close_baton;
   closer->target_array = apr_array_make (sess_baton->pool, 1,
                                          sizeof(svn_string_t *));
-
-  /* Get the filesystem commit-editor */
+                                         
+  /* Get the filesystem commit-editor */     
   SVN_ERR (svn_fs_get_editor (&commit_editor, &commit_editor_baton,
-                              sess_baton->fs,
+                              sess_baton->fs, 
                               sess_baton->fs_path,
                               log_msg,
                               cleanup_commit, closer, /* fs will call
@@ -212,9 +212,9 @@ do_checkout (void *session_baton,
              void *edit_baton)
 {
   svn_revnum_t revnum_to_fetch;
-  svn_ra_local__session_baton_t *sbaton =
+  svn_ra_local__session_baton_t *sbaton = 
     (svn_ra_local__session_baton_t *) session_baton;
-
+  
   if (! SVN_IS_VALID_REVNUM(revision))
     SVN_ERR (get_latest_revnum (sbaton, &revnum_to_fetch));
   else
@@ -241,10 +241,10 @@ do_update (void *session_baton,
 {
   svn_revnum_t revnum_to_update_to;
   svn_ra_local__report_baton_t *rbaton;
-  svn_ra_local__session_baton_t *sbaton =
+  svn_ra_local__session_baton_t *sbaton = 
     (svn_ra_local__session_baton_t *) session_baton;
   svn_revnum_t *rev_ptr = apr_pcalloc (sbaton->pool, sizeof(*rev_ptr));
-
+  
   if (! SVN_IS_VALID_REVNUM(update_revision))
     SVN_ERR (get_latest_revnum (sbaton, &revnum_to_update_to));
   else
@@ -259,7 +259,7 @@ do_update (void *session_baton,
   rbaton->fs = sbaton->fs;
   rbaton->base_path = sbaton->fs_path;
   rbaton->pool = sbaton->pool;
-
+  
   /* Hand reporter back to client. */
   *reporter = &ra_local_reporter;
   *report_baton = rbaton;
@@ -272,7 +272,7 @@ do_update (void *session_baton,
 
 /** The ra_plugin **/
 
-static const svn_ra_plugin_t ra_local_plugin =
+static const svn_ra_plugin_t ra_local_plugin = 
 {
   "ra_local",
   "RA module for accessing repository on local disk. (file:// URLs)",
