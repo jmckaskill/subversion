@@ -47,7 +47,7 @@ class SVNShell:
     print "  setrev REV   : set the current revision to browse"
     print "  settxn TXN   : set the current transaction to browse"
     print "  youngest     : list the youngest browsable revision number"
-
+    
   def cmd_cd(self, *args):
     """change directory"""
     args = args[0]
@@ -73,7 +73,7 @@ class SVNShell:
       else:
         finalparts.append(part)
     newpath = '/' + string.join(finalparts, '/')
-
+    
     # make sure that path actually exists in the filesystem as a directory
     kind = fs.check_path(self.root, newpath, self.taskpool)
     if kind != util.svn_node_dir:
@@ -106,11 +106,11 @@ class SVNShell:
       date = fs.revision_prop(self.fs_ptr, created_rev,
                               util.SVN_PROP_REVISION_DATE, self.taskpool)
       date = self._format_date(date, self.taskpool)
-
+     
       print "%6s %8s <%10s> %8s %12s %s" % (created_rev, author,
                                             node_id, size, date, name)
     util.svn_pool_clear(self.taskpool)
-
+  
   def cmd_lstxns(self, *args):
     """list the transactions available for browsing"""
     txns = fs.list_transactions(self.fs_ptr, self.taskpool)
@@ -124,7 +124,7 @@ class SVNShell:
         counter = 0
     print ""
     util.svn_pool_clear(self.taskpool)
-
+    
   def cmd_setrev(self, *args):
     """set the current revision to view"""
     args = args[0]
@@ -139,7 +139,7 @@ class SVNShell:
     self.rev = rev
     self.is_rev = 1
     self._do_path_landing()
-
+    
   def cmd_settxn(self, *args):
     """set the current transaction to view"""
     args = args[0]
@@ -155,7 +155,7 @@ class SVNShell:
     self.txn = txn
     self.is_rev = 0
     self._do_path_landing()
-
+  
   def cmd_youngest(self, *args):
     """list the youngest revision available for browsing"""
     rev = fs.youngest_rev(self.fs_ptr, self.taskpool)
@@ -166,7 +166,7 @@ class SVNShell:
     date = util.svn_time_from_nts(date, pool)
     date = time.asctime(time.localtime(date / 1000000))
     return date[4:-8]
-
+  
   def _do_path_landing(self):
     """try to land on self.path as a directory in root, failing up to '/'"""
     not_found = 1
@@ -212,7 +212,7 @@ class SVNShell:
     else:
       getattr(self, 'cmd_' + args[0])(args[1:])
     self._do_prompt()
-
+    
 
 def _basename(path):
   "Return the basename for a '/'-separated path."
