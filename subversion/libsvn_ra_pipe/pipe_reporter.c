@@ -25,7 +25,7 @@
 
 
 /** Structures **/
-typedef struct
+typedef struct 
 {
   apr_file_t *input;
   apr_file_t *output;
@@ -34,7 +34,7 @@ typedef struct
   void *edit_baton;
 
   const char *url;
-
+  
   apr_pool_t *pool;
 } svn_ra_pipe__report_baton_t;
 
@@ -136,7 +136,7 @@ svn_ra_pipe__finish_report (void *report_baton)
   if (apr_err)
     return svn_error_create (apr_err, 0, NULL, baton->pool,
                              "Could not finish the report");
-
+  
   /* Okay, we've sent our report to the server, now we can expect an xml
    * update back. */
   return svn_delta_xml_auto_parse (svn_stream_from_aprfile (baton->input,
@@ -158,7 +158,7 @@ svn_ra_pipe__abort_report (void *report_baton)
   return SVN_NO_ERROR;
 }
 
-static const svn_ra_reporter_t ra_pipe_reporter =
+static const svn_ra_reporter_t ra_pipe_reporter = 
 {
   svn_ra_pipe__set_path,
   svn_ra_pipe__delete_path,
@@ -225,14 +225,14 @@ svn_ra_pipe__get_reporter (const svn_ra_reporter_t **reporter,
       svn_xml_make_open_tag (&buf, pool, svn_xml_normal,
                              SVN_RA_PIPE__DST_PATH_TAG, NULL);
       svn_stringbuf_appendstr (buf, escaped_dst_path);
-      svn_xml_make_close_tag (&buf, pool, SVN_RA_PIPE__DST_PATH_TAG);
+      svn_xml_make_close_tag (&buf, pool, SVN_RA_PIPE__DST_PATH_TAG); 
     }
 
   svn_xml_make_open_tag (&buf, pool, svn_xml_normal,
                          SVN_RA_PIPE__RECURSIVE_TAG, NULL);
   svn_stringbuf_appendcstr (buf, recurse ? "yes" : "no");
   svn_xml_make_close_tag (&buf, pool, SVN_RA_PIPE__RECURSIVE_TAG);
-
+    
   svn_xml_make_open_tag (&buf, pool, svn_xml_normal,
                          SVN_RA_PIPE__FETCH_TEXT_TAG, NULL);
   svn_stringbuf_appendcstr (buf, fetch_text ? "yes" : "no");
