@@ -392,7 +392,7 @@ clone_path (dag_node_t **clone_p,
 	     cloned yet.  Recursively clone the parent, then clone
 	     this node.  */
 	  dag_node_t *parent_clone, *child_clone;
-
+	    
 	  SVN_ERR (clone_path (&parent_clone, fs, svn_txn, path->parent,
 			       trail));
 	  SVN_ERR (svn_fs__dag_clone_child (&child_clone, parent_clone,
@@ -446,7 +446,7 @@ clone_path (dag_node_t **clone_p,
 	  SVN_ERR (svn_fs__record_clone (fs, svn_txn, base_path,
 					 svn_fs__dag_get_id (child_clone),
 					 trail));
-
+	    
 	  *clone_p = child_clone;
 	  return 0;
 	}
@@ -471,7 +471,7 @@ clone_path (dag_node_t **clone_p,
       return 0;
     }
 }
-
+	    
 
 /* Clone NODE in TRAIL, if it hasn't been cloned already.  After this
    call, NODE refers to the clone.  */
@@ -587,7 +587,7 @@ txn_body_get_node_prop (void *baton,
 
   SVN_ERR (check_for_clone (args->node, trail));
   SVN_ERR (svn_fs__dag_get_proplist (&proplist, args->node->dag_node, trail));
-
+  
   /* Search the proplist for a property with the right name.  */
   for (prop = proplist->children; prop; prop = prop->next->next)
     {
@@ -653,14 +653,14 @@ txn_body_change_node_prop (void *baton,
 
   SVN_ERR (make_clone (args->node, trail));
   SVN_ERR (svn_fs__dag_get_proplist (&proplist, args->node->dag_node, trail));
-
+  
   /* Delete the skel, either replacing or adding the given property.  */
   for (prop = proplist->children; prop; prop = prop->next->next)
     {
       skel_t *name = prop;
       skel_t *value = prop->next;
 
-      /* We've found an existing entry for this property.
+      /* We've found an existing entry for this property. 
 	 Replace the value.  */
       if (name->len == args->name->len
 	  && ! memcmp (name->data, args->name->data, name->len))
@@ -781,7 +781,7 @@ svn_fs_make_dir (svn_fs_node_t *parent,
 {
   abort ();
 }
-
+			      
 
 struct delete_args
 {
