@@ -79,7 +79,7 @@ entry__create(JNIEnv *env, jboolean *hasException,
    * -result
    * = 7
    */
-
+    
   if( (*env)->PushLocalFrame(env, 7) < 0 )
     {
       _hasException = JNI_TRUE;
@@ -92,39 +92,39 @@ entry__create(JNIEnv *env, jboolean *hasException,
       jobject jtexttime = NULL;
       jobject jproptime = NULL;
       jobject jattributes = NULL;
-
-      jurl = string__c_to_j(env, (char*)entry->url->data,
+      
+      jurl = string__c_to_j(env, (char*)entry->url->data, 
                             &_hasException);
-
+            
       if( !_hasException )
         {
-          jtexttime = date__apr_to_j(env, &_hasException,
+          jtexttime = date__apr_to_j(env, &_hasException, 
                                      entry->text_time);
         }
-
+      
       if( !_hasException )
         {
           jproptime = date__apr_to_j(env, &_hasException,
                                      entry->prop_time);
         }
-
+      
       if( !_hasException )
         {
           jattributes = hashtable__create(env, &_hasException);
-
-          /*
+          
+          /* 
            * TODO: conversion of the apr_hashtable with the
            * attributes to a java hashtable
            * NOW THERE IS ONLY AN EMPTY HASHTABLE!!!!
            */
         }
-
+      
       if( !_hasException )
         {
           entryClass = j__get_class(env, &_hasException,
                                     SVN_JNI_ENTRY__CLASS);
         }
-
+      
       if( !_hasException )
         {
           entryConstructor = j__get_method(env, &_hasException,
@@ -134,7 +134,7 @@ entry__create(JNIEnv *env, jboolean *hasException,
         }
       if( !_hasException )
         {
-          result = (*env)->NewObject(env, entryClass,
+          result = (*env)->NewObject(env, entryClass, 
                                      entryConstructor);
           if( result == NULL )
             {
@@ -146,7 +146,7 @@ entry__create(JNIEnv *env, jboolean *hasException,
 #ifdef SVN_JNI__DEBUG_ENTRY
       SVN_JNI__DEBUG_PTR(result);
 #endif
-
+      
       if( !_hasException )
         {
           entry__set_revision(env, &_hasException,
@@ -155,7 +155,7 @@ entry__create(JNIEnv *env, jboolean *hasException,
 
       if( !_hasException )
         {
-          entry__set_url(env, &_hasException,
+          entry__set_url(env, &_hasException, 
                          result, jurl);
         }
 
@@ -200,7 +200,7 @@ entry__create(JNIEnv *env, jboolean *hasException,
           entry__set_attributes(env, &_hasException,
                                 result, jattributes);
         }
-
+      
       (*env)->PopLocalFrame(env, result);
     }
 #ifdef SVN_JNI__DEBUG_ENTRY
@@ -208,12 +208,12 @@ entry__create(JNIEnv *env, jboolean *hasException,
   if( _hasException )
   fprintf(stderr, "\n<<<entry__create\n");
 #endif
-
+ 
   if( (hasException != NULL) && _hasException )
     {
       *hasException = JNI_TRUE;
     }
-
+            
   return result;
 }
 
@@ -241,7 +241,7 @@ entry__set_revision(JNIEnv *env, jboolean *hasException,
 #ifdef SVN_JNI__DEBUG_ENTRY
   fprintf(stderr, ">>>entry__set_revision(...)\n");
 #endif
-  j__set_long(env, hasException,
+  j__set_long(env, hasException, 
               SVN_JNI_ENTRY__CLASS, SVN_JNI_ENTRY__SET_REVISION,
               jentry, jrevision);
 #ifdef SVN_JNI__DEBUG_ENTRY
@@ -259,7 +259,7 @@ entry__set_nodekind(JNIEnv *env, jboolean *hasException,
   SVN_JNI__DEBUG_DEC(jnodekind);
   fprintf(stderr, ")\n");
 #endif
-  j__set_int(env, hasException,
+  j__set_int(env, hasException, 
              SVN_JNI_ENTRY__CLASS, SVN_JNI_ENTRY__SET_NODEKIND,
              jentry, jnodekind);
 #ifdef SVN_JNI__DEBUG_ENTRY
@@ -285,7 +285,7 @@ entry__set_schedule(JNIEnv *env, jboolean *hasException,
 #endif
 }
 
-void
+void 
 entry__set_conflicted(JNIEnv *env, jboolean *hasException,
                       jobject jentry, jboolean jconflicted)
 {
@@ -303,7 +303,7 @@ entry__set_conflicted(JNIEnv *env, jboolean *hasException,
 #endif
 }
 
-void
+void 
 entry__set_copied(JNIEnv *env, jboolean *hasException,
                   jobject jentry, jboolean jcopied)
 {
@@ -321,7 +321,7 @@ entry__set_copied(JNIEnv *env, jboolean *hasException,
 #endif
 }
 
-void
+void 
 entry__set_texttime(JNIEnv *env, jboolean *hasException,
                      jobject jentry, jobject jtexttime)
 {
@@ -341,7 +341,7 @@ entry__set_texttime(JNIEnv *env, jboolean *hasException,
 #endif
 }
 
-void
+void 
 entry__set_proptime(JNIEnv *env, jboolean *hasException,
                      jobject jentry, jobject jproptime)
 {
@@ -361,7 +361,7 @@ entry__set_proptime(JNIEnv *env, jboolean *hasException,
 #endif
 }
 
-void
+void 
 entry__set_attributes(JNIEnv *env, jboolean *hasException,
                       jobject jentry, jobject jattributes)
 {
@@ -381,8 +381,8 @@ entry__set_attributes(JNIEnv *env, jboolean *hasException,
 #endif
 }
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../svn-dev.el")
- * end:
+ * end: 
  */
