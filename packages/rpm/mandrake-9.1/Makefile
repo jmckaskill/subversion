@@ -10,7 +10,7 @@
 # You should try the `check_release' target before you make all to make
 # sure all the version numbers were groked correctly.
 #
-# This makefile doesn't copy the source tree to make a tarball, it
+# This makefile doesn't copy the source tree to make a tarball, it 
 # will create a symlink in your $TMPDIR and tar up your source tree
 # in place. This makefile uses the output tarball name as a dependancy,
 # so it wont constantly regenerate it unless your repository version
@@ -293,7 +293,7 @@ APACHE_DIR := $(shell echo $(APACHE_DIR) | sed 's/\//\\\//g')
 APACHE_CONF := $(shell echo $(APACHE_CONF) | sed 's/\//\\\//g')
 EDITOR      := $(if $(EDITOR),\%define editor --with-editor=$(shell which $(EDITOR) | sed 's/\//\\\//g'),)
 
-SOURCES := 46_mod_dav_svn.conf
+SOURCES := 46_mod_dav_svn.conf 
 
 # Replace periods with dashes
 TARBALL := $(SOURCE_RPM_DIR)/$(BASENAME).tar.bz2
@@ -329,7 +329,7 @@ build_rpm_files : build_sources $(BUILDROOT)
 	@echo Building RPM
 	cd $(SPECS_RPM_DIR); rpm --rmspec --clean --rcfile $(RCFILES) -ba $(SPECFILE)-$(NAMEVER) $(NODEPS)
 
-build_sources: $(TARBALL) $(RPMBITS)
+build_sources: $(TARBALL) $(RPMBITS) 
 	@echo Preparing sources and specfile for RPM
 	cp -f $(SOURCES) $(SOURCE_RPM_DIR)
 	cp -f $(RCFILE) $(SOURCE_RPM_DIR)/$(RCFILE)-$(NAMEVER)
