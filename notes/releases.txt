@@ -51,7 +51,7 @@
       To make sure httpd.conf is properly set up for DAV access, see
       subversion/tests/clients/cmdline/README.
 
-   d.
+   d. 
 
       Also, see sections 'Building the Latest Source under Unix' and
       'BUILDING A SUBVERSION SERVER' in the INSTALL file. for more
@@ -85,7 +85,7 @@
 
         For this, start up Apache after having configured according to
         the directions in subversion/tests/clients/cmdline/README.
-
+     
      g) make svncheck
 
         For this step, start up svnserve with these args:
@@ -136,7 +136,7 @@
 
    There will be a single line of 2 fields returned looking something like:
 
-         $ md5sum subversion-0.25.tar.gz
+         $ md5sum subversion-0.25.tar.gz 
          a018220d5c790161bc712ccb7d0f1b38  subversion-0.25.tar.gz
 
    The 32 character alpha-numeric string on the left is the checksum.
