@@ -127,7 +127,7 @@ empty_new (VALUE class)
   stream = svn_stream_empty (pool);
 
   return svn_ruby_stream_new (class, stream, pool);
-}
+}  
 
 typedef struct svn_ruby_file_stream_t
 {
