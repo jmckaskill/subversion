@@ -238,7 +238,7 @@ svn_diff__get_tokens(svn_diff__position_t **position_list,
     {
       position->next = sentinel_position.next;
       position->next->prev = position;
-
+    
       *position_list = position;
     }
 
@@ -462,12 +462,12 @@ svn_diff__lcs(svn_diff__position_t *position_list1, /* pointer to tail (ring) */
                           sizeof(*fp_reverse)
                           * (apr_size_t)(length[0] + length[1] + 3));
   fp_reverse += length[idx] + 1;
-
+  
   sentinel_position[idx].next = position_list1->next;
   sentinel_position[idx].prev = position_list1;
   sentinel_position[idx].next->prev = &sentinel_position[idx];
   sentinel_position[idx].prev->next = &sentinel_position[idx];
-
+  
   sentinel_position[abs(1 - idx)].next = position_list2->next;
   sentinel_position[abs(1 - idx)].prev = position_list2;
   sentinel_position[abs(1 - idx)].next->prev = &sentinel_position[abs(1 - idx)];
@@ -477,7 +477,7 @@ svn_diff__lcs(svn_diff__position_t *position_list1, /* pointer to tail (ring) */
   sentinel_position[1].node = &sentinel_node[1];
 
   d = length[abs(1 - idx)] - length[idx];
-
+  
   /* Since EOF is always a sync point we tack on an EOF link
    * with sentinel positions
    */
@@ -488,7 +488,7 @@ svn_diff__lcs(svn_diff__position_t *position_list1, /* pointer to tail (ring) */
   lcs->position[1]->offset = position_list2->offset + 1;
   lcs->length = 0;
   lcs->next = NULL;
-
+  
   /* k = -1 will be the first to be used to get previous
    * position information from, make sure it holds sane
    * data
@@ -538,7 +538,7 @@ svn_diff__lcs(svn_diff__position_t *position_list1, /* pointer to tail (ring) */
       for (k = d + p; k >= d; k--)
         {
           svn_diff__snake_forward(k, fp_forward, idx, pool);
-
+  
           if (check_for_overlap
               && fp_forward[k].y >= fp_reverse[k].y)
             {
@@ -553,7 +553,7 @@ svn_diff__lcs(svn_diff__position_t *position_list1, /* pointer to tail (ring) */
       for (k = d + p; k > 0; k--)
         {
           svn_diff__snake_reverse(k, fp_reverse, idx, pool);
-
+  
           if (check_for_overlap
               && fp_forward[k].y >= fp_reverse[k].y)
             {
@@ -567,7 +567,7 @@ svn_diff__lcs(svn_diff__position_t *position_list1, /* pointer to tail (ring) */
       for (k = -p; k <= 0; k++)
         {
           svn_diff__snake_reverse(k, fp_reverse, idx, pool);
-
+  
           if (check_for_overlap
               && fp_forward[k].y >= fp_reverse[k].y)
             {
