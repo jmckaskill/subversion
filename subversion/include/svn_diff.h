@@ -161,7 +161,7 @@ svn_diff_contains_diffs (svn_diff_t *diff);
 /* A vtable for displaying (or consuming) differences between datasources.
    Differences, similarities, and conflicts are described by lining up
    "ranges" of data.
-
+   
    Note: these callbacks describe data ranges in units of "tokens".
    A "token" is whatever you've defined it to be in your datasource
    svn_diff_fns_t vtable.
@@ -259,7 +259,7 @@ svn_diff_output (svn_diff_t *diff,
 /* A convenience function to produce a diff between two files.
 
    Return a diff object in *DIFF (allocated from POOL) that represents
-   the difference between an ORIGINAL file and MODIFIED file.
+   the difference between an ORIGINAL file and MODIFIED file.  
    (The file arguments must be full paths to the files.)
  */
 svn_error_t *
