@@ -80,11 +80,11 @@ svn_fs__id_copy (const svn_fs_id_t *id, apr_pool_t *pool)
 /* Comparing node ID's.  */
 
 int
-svn_fs__id_eq (const svn_fs_id_t *a,
+svn_fs__id_eq (const svn_fs_id_t *a, 
                const svn_fs_id_t *b)
 {
   if (a != b)
-    {
+    {  
       if ((a->node_id != b->node_id) && (strcmp (a->node_id, b->node_id)))
         return 0;
       if ((a->copy_id != b->copy_id) && (strcmp (a->copy_id, b->copy_id)))
@@ -133,7 +133,7 @@ svn_fs_parse_id (const char *data,
   if ((! dot) || (dot <= id->copy_id))
     return NULL;
   *dot = 0;
-
+  
   /* Txn Id */
   id->txn_id = dot + 1;
   dot = strchr (id->copy_id, '.');
@@ -149,7 +149,7 @@ svn_string_t *
 svn_fs_unparse_id (const svn_fs_id_t *id,
                    apr_pool_t *pool)
 {
-  return svn_string_createf (pool, "%s.%s.%s",
+  return svn_string_createf (pool, "%s.%s.%s", 
                              id->node_id, id->copy_id, id->txn_id);
 }
 
@@ -170,8 +170,8 @@ svn_fs_check_related (const svn_fs_id_t *id1,
 }
 
 
-int
-svn_fs_compare_ids (const svn_fs_id_t *a,
+int 
+svn_fs_compare_ids (const svn_fs_id_t *a, 
                     const svn_fs_id_t *b)
 {
   if (svn_fs__id_eq (a, b))
