@@ -57,7 +57,7 @@ Version 0.8  (released 15 Jan 2002. revision 909)
 
 Version 0.7  (released 03 Dec 2001, revision 587)
 
-  * 'svn cp/mv' completed:
+  * 'svn cp/mv' completed:  
        - can copy from wc/repos to wc/repos.
        - This how we create branches/tags.
   * 'svn mkdir' [WC_PATH|REPOS_URL]
