@@ -232,7 +232,7 @@ svn_error_t *svn_fs__dag_dir_entries_hash (apr_hash_t **entries_p,
 
 /* Set ENTRY_NAME in NODE to point to ID, as part of TRAIL.
    NODE must be a mutable directory.  ID can refer to a mutable or
-   immutable node.  If ENTRY_NAME does not exist, it will be
+   immutable node.  If ENTRY_NAME does not exist, it will be 
    created.  */
 svn_error_t *svn_fs__dag_set_entry (dag_node_t *node,
                                     const char *entry_name,
@@ -275,7 +275,7 @@ svn_error_t *svn_fs__dag_clone_child (dag_node_t **child_p,
 /* Create a link to CHILD in PARENT named NAME, as part of TRAIL.
    PARENT must be mutable.  CHILD must be immutable.  NAME must be a
    single path component; it cannot be a slash-separated directory
-   path.
+   path.  
 
    Note that it is impossible to use this function to create cyclic
    directory structures.  Since PARENT is mutable, and every parent of
@@ -386,7 +386,7 @@ svn_error_t *svn_fs__dag_get_copy (svn_revnum_t *rev_p,
 
 /* Merge changes between ANCESTOR and SOURCE into TARGET, as part of
  * TRAIL.  ANCESTOR and TARGET must be distinct node revisions, and
- * TARGET must be mutable.
+ * TARGET must be mutable. 
  *
  * SOURCE, TARGET, and ANCESTOR are generally directories; this
  * function recursively merges the directories' contents.  If any are
@@ -399,7 +399,7 @@ svn_error_t *svn_fs__dag_get_copy (svn_revnum_t *rev_p,
  * conflicting node in TARGET, with TARGET_PATH prepended as a path.
  *
  * If there are no conflicting differences, *CONFLICT_P is set to
- * null.
+ * null. 
  *
  * Do any necessary temporary allocation in TRAIL->pool.
  */
@@ -415,7 +415,7 @@ svn_error_t *svn_fs__dag_merge (const char **conflict_p,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
