@@ -163,7 +163,7 @@ svn_error_t *svn_fs__dag_clone_root (dag_node_t **root_p,
 
    If ID refers to an immutable node, then re-base TXN by setting both
    of its roots to ID.
-
+   
    If ID refers to a mutable node, then make a new mutable root for
    TXN and *copy* ID's content over, because we certainly wouldn't
    want to share ID with some other txn.  TXN's base remains
@@ -271,7 +271,7 @@ svn_error_t *svn_fs__dag_clone_child (dag_node_t **child_p,
 /* Create a link to CHILD in PARENT named NAME, as part of TRAIL.
    PARENT must be mutable.  CHILD must be immutable.  NAME must be a
    single path component; it cannot be a slash-separated directory
-   path.
+   path.  
 
    Note that it is impossible to use this function to create cyclic
    directory structures.  Since PARENT is mutable, and every parent of
@@ -384,7 +384,7 @@ svn_error_t *svn_fs__dag_get_copy (svn_revnum_t *rev_p,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
