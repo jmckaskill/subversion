@@ -141,11 +141,11 @@ static svn_error_t *bump_resource(merge_ctx_t *mc,
   /* set up two svn_stringbuf_t values around the path and vsn_url. */
   path_str = svn_stringbuf_create (path, mc->pool);
   vsn_url_str = svn_stringbuf_create (vsn_url, mc->pool);
-
+ 
       /* store the version URL */
   SVN_ERR( (*mc->set_prop)(mc->close_baton, path_str,
                            mc->vsn_url_name, vsn_url_str) );
-
+      
   /* bump the revision and commit the file */
   return (*mc->close_commit)(mc->close_baton, path_str, mc->rev);
 }
@@ -577,7 +577,7 @@ svn_error_t * svn_ra_dav__merge_activity(
 }
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
