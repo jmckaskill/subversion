@@ -40,7 +40,7 @@ int svn_fs__putsize (char *data, apr_size_t len, apr_size_t value);
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
