@@ -33,7 +33,7 @@ typedef struct
   /* the wc directory we're attempting to read/write from */
   const char *base_dir;
   svn_wc_adm_access_t *base_access;
-
+  
   /* any creds possibly passed in by the application (e.g. --username) */
   const char *default_username;
   const char *default_password;
@@ -58,7 +58,7 @@ simple_wc_first_creds (void **credentials,
 
   if (! pb->default_password)
     err = svn_wc_get_auth_file (pb->base_dir, SVN_AUTH_SIMPLE_WC_PASSWORD,
-                                &spassword, pool);
+                                &spassword, pool);  
   if (err)
     {
       /* for now, let's not try to distinguish "real" errors from
@@ -69,9 +69,9 @@ simple_wc_first_creds (void **credentials,
       return SVN_NO_ERROR;
     }
 
-  creds->username = pb->default_username ?
+  creds->username = pb->default_username ? 
                       pb->default_username : susername->data;
-  creds->password = pb->default_password ?
+  creds->password = pb->default_password ? 
                       pb->default_password : spassword->data;
   *credentials = creds;
   *iter_baton = NULL;
@@ -118,7 +118,7 @@ svn_wc_save_simple_creds (svn_boolean_t *saved,
 
   /* Do a recursive store of username and password. */
   SVN_ERR (svn_wc_set_auth_file (adm_access, TRUE,
-                                 SVN_AUTH_SIMPLE_WC_USERNAME,
+                                 SVN_AUTH_SIMPLE_WC_USERNAME, 
                                  svn_stringbuf_create (creds->username, pool),
                                  pool));
   SVN_ERR (svn_wc_set_auth_file (adm_access, TRUE,
@@ -130,7 +130,7 @@ svn_wc_save_simple_creds (svn_boolean_t *saved,
 
   if (! base_access)
     SVN_ERR (svn_wc_adm_close (adm_access));
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -148,7 +148,7 @@ simple_wc_save_creds (svn_boolean_t *saved,
 
   *saved = FALSE;
   if (pb->base_dir)
-    SVN_ERR (svn_wc_save_simple_creds (saved, pb->base_dir, pb->base_access,
+    SVN_ERR (svn_wc_save_simple_creds (saved, pb->base_dir, pb->base_access, 
                                        creds, pool));
   return SVN_NO_ERROR;
 }
