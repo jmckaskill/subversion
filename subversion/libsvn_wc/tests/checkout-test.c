@@ -40,9 +40,9 @@ test_read_fn (void *baton, char *buffer, apr_size_t *len, apr_pool_t *pool)
     return
       svn_error_create (stat, 0, NULL, pool,
                         "error reading incoming delta stream");
-
-  else
-    return 0;
+  
+  else 
+    return 0;  
 }
 
 
@@ -118,13 +118,13 @@ main (int argc, char **argv)
     target = svn_string_create (argv[2], pool);
 
   err = apply_delta
-    (src,
+    (src, 
      test_read_fn,
      target,
      svn_string_create (":ssh:jrandom@svn.tigris.org/repos", pool),
      1,  /* kff todo: revision must be passed in, right? */
      pool);
-
+  
   if (err)
     {
       svn_handle_error (err, stdout, 0);
