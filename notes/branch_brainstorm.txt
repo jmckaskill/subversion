@@ -31,7 +31,7 @@ just wants to make a "cheap" copy of something (svn_fs_link).
 * Use case:  the user wants to rename/move a file or dir.
 
    Right now, all she can do is 'cp foo bar;  svn rm foo;  svn add bar'.
-   Again, no history is recorded in the repository.
+   Again, no history is recorded in the repository.  
 
    Really, unlike 'svn cp', we don't want create any new node-rev-id
    at all; we just want to relink the node-rev-id into some (possibly
@@ -64,7 +64,7 @@ just wants to make a "cheap" copy of something (svn_fs_link).
    people to refer to paths in their working copy.  These paths would
    probably just be converted to repository URLs anyway.)
 
-   So a user might type
+   So a user might type 
 
     % svn tag http://svn.collab.net/repos/svn/trunk \
               http://svn.collab.net/repos/svn/branches/one
