@@ -1,6 +1,6 @@
 <chapter id="svn-ch-8">
   <title>Information für EntwicklerInnen</title>
-
+  
   <simplesect id="svn-ch-8-sect-0"> <para>Subversion ist ein
     Open-Source Softwareprojekt, welches unter einer Lizenz, die der
     von Apache ähnlich ist, entwickelt wird.  Das Projekt wird
@@ -12,7 +12,7 @@
     ihren Möglichkeiten zu unterstützen. Das kann heissen
     Programmfehler zu finden und zu melden, bestehenden Code zu
     verbessern oder komplett neue Funktionen zu programmieren.</para>
-
+    
     <para>Dieses Kapitel ist für Personen, welche die kontinuierliche
       Weiterentwicklung dadurch unterstützen, dass sie Hand an den
       Sourcecode legen.  Wir werden einige Internas der Software
@@ -55,7 +55,7 @@
         </thead>
         <tbody>
           <row>
-            <entry>libsvn_client</entry>
+            <entry>libsvn_client</entry> 
             <entry>Hauptsächliche Schnittstelle für Client Programme</entry>
           </row>
           <row>
@@ -166,7 +166,7 @@
         <footnote> <para>Die Berkeley DB brachte einige elementare
           Eigenschaften, die Subversion benötigt, wie Daten
           Integrität, atomare Schreiboperationen, Wiederherstellung
-          und Sicherung im laufenden Betrieb.</para>
+          und Sicherung im laufenden Betrieb.</para> 
         </footnote>
         Trotzdem gab es beträchtliches Interesse der
         Entwicklungsgemeinschaft in zukünftigen Versionen die
@@ -282,7 +282,7 @@
         <graphic fileref="images/ch08dia1.png"/>
       </figure>
 
-      <para>Das Dateisystem von Subversion aber hat eine dritte
+      <para>Das Dateisystem von Subversion aber hat eine dritte 
         Dimension, welche die meisten Dateisysteme nicht haben &mdash; Zeit!
         <footnote>
           <para>Wir verstehen, dass dies für Sci-Fi Fans, die lange
@@ -341,7 +341,7 @@
         Projektarchiv Bibliothek angeboten werden sind für eine
         Versionskontrolle nicht unbedingt erforderlich, weshalb diese
         in eine eigene Bibliothek gelegt wurden.</para>
-
+      
       <para>EntwicklerInnen, welche die libsvn_repos API benutzen
         wollen, werden bemerken, dass diese keine komplette Kapsel
         (wrapper) um die Dateisystem Schnittstelle darstellt.  Nur
@@ -406,14 +406,14 @@ make_new_directory (const char *repos_path,
   /* Now that we have started a new Subversion transaction, get a root
      object that represents that transaction.  */
   SVN_ERR (svn_fs_txn_root (&amp;txn_root, txn, pool));
-
+  
   /* Create our new directory under the transaction root, at the path
      NEW_DIRECTORY.  */
   SVN_ERR (svn_fs_make_dir (txn_root, new_directory, pool));
 
   /* Commit the transaction, creating a new revision of the filesystem
      which includes our added directory path.  */
-  err = svn_repos_fs_commit_txn (&amp;conflict_str, repos,
+  err = svn_repos_fs_commit_txn (&amp;conflict_str, repos, 
                                  &amp;youngest_rev, txn, pool);
   if (! err)
     {
@@ -424,24 +424,24 @@ make_new_directory (const char *repos_path,
   else if (err->apr_err == SVN_ERR_FS_CONFLICT)
     {
       /* Uh-oh.  Our commit failed as the result of a conflict
-         (someone else seems to have made changes to the same area
+         (someone else seems to have made changes to the same area 
          of the filesystem that we tried to modify).  Print an error
          message.  */
       printf ("A conflict occurred at path '%s' while attempting "
-              "to add directory '%s' to the repository at '%s'.\n",
+              "to add directory '%s' to the repository at '%s'.\n", 
               conflict_str, new_directory, repos_path);
     }
   else
     {
       /* Some other error has occurred.  Print an error message.  */
       printf ("An error occurred while attempting to add directory '%s' "
-              "to the repository at '%s'.\n",
+              "to the repository at '%s'.\n", 
               new_directory, repos_path);
     }
 
   /* Return the result of the attempted commit to our caller.  */
   return err;
-}
+} 
 </programlisting>
       </example>
 
@@ -466,7 +466,7 @@ make_new_directory (const char *repos_path,
         Kernaufgaben der Dateisystem Bibliothek gehören.  (Für weitere
         Information zum Hakensystem von Subversion siehe <xref
         linkend="svn-ch-5-sect-2.1" />.)</para>
-
+      
       <para>Der Haken (hook) Mechanismus ist der Grund für eine eigene
         Projektarchiv Bibliothek neben dem Rest vom Dateisystem Code.
         Die libsvn_repos API bietet verschiedene andere wichtige
@@ -534,7 +534,7 @@ make_new_directory (const char *repos_path,
         welche AZ Module und Protokolle der Subversion Kommandozeilen
         Client zur Verfügung stellt indem sie <command>svn
         --version</command> aufrufen:</para>
-
+     
       <screen>
 $ svn --version
 svn, version 1.0.1 (r9023)
@@ -554,7 +554,7 @@ The following repository access (RA) modules are available:
 * ra_svn : Module for accessing a repository using the svn network protocol.
   - handles 'svn' schema
 </screen>
-
+    
       <sect3 id="svn-ch-8-sect-1.2.1">
         <title>Archivzugriff über HTTP/DAV (RA-DAV/AZ-DAV)</title>
 
@@ -569,7 +569,7 @@ The following repository access (RA) modules are available:
           speziellen Konfiguration der Archivzugriffs-Ebene erwähnen
           &mdash; den mächtigen Apache HTTP Server und die Neon
           HTTP/WebDAV Clienten Bibliothek.</para>
-
+  
         <para>Der primäre Netzwerkserver für Subversion ist der Apache
           HTTP Server.  Apache ist ein lange erprobter, erweiterbarer
           Open-Source Server der in vielen geschäftskritischen
@@ -585,7 +585,7 @@ The following repository access (RA) modules are available:
           meisten Firewalls HTTP Verkehr erlauben, ist im Normalfall
           keine Änderung der Firewall Konfiguration erforderlich,
           damit Subversion unbehindert arbeiten kann.</para>
-
+  
         <para>Subversion verwendet HTTP und WebDAV (mit DeltaV) um mit
           dem Apache Server zu kommunizieren.  Im WebDAV Abschnitt in
           diesem Kapitel können sie mehr darüber erfahren.  Hier sei
@@ -621,7 +621,7 @@ The following repository access (RA) modules are available:
           der Client letztendlich mit mod_dav_svn, welches direkt mit
           der Projektarchiv Ebene von Subversion in Verbindung
           steht.</para>
-
+  
         <para>Das war eine vereinfachte Darstellung des
           Übertragungsvorganges.  Zum Beispiel kann das Projektarchiv
           von Subversion durch Authentifizierungs Direktiven von
@@ -639,9 +639,9 @@ The following repository access (RA) modules are available:
           Authentifizierung stattfindet, dann wird der Aufruf
           schlussendlich fehlschlagen und der Client wird wird dies an
           den/die BenutzerIn zurückmelden.</para>
-
+  
         <!-- A diagram here? -->
-
+  
         <para>Durch die Verwendung von Neon und Apache erhält
           Subversion auch Funktionalitäten in verschiedenen anderen
           komplexen Bereichen.  Wenn zum Beispiel Neon die OpenSSL
@@ -658,7 +658,7 @@ The following repository access (RA) modules are available:
           (zum Beispiel, wenn das Projektarchiv auf eine andere URL
           verschoben wurde) und die Nutzung von HTTP
           Pipelining.</para>
-
+  
         <!-- Beschreibung weiterer Unterschiede zwischen CVS und
              Subversion.  CVS AnwenderInnen müssen angeben, welcher
              Authentifizierungs Mechanismus verwendet werden soll.
@@ -716,9 +716,9 @@ The following repository access (RA) modules are available:
           der <literal>file:</literal> URL angegeben wird entweder
           <literal>localhost</literal> lautet oder leer bleibt und
           dass keine Portangaben verwendet werden.  Die URLs sollten
-          also entweder in der Form
+          also entweder in der Form 
           <literal>file://localhost/path/to/repos</literal> oder in
-          der Form <literal>file:///path/to/repos</literal>
+          der Form <literal>file:///path/to/repos</literal> 
           eingegeben werden.</para>
 
         <para>Seien sie sich also bewusst, dass die
@@ -758,7 +758,7 @@ The following repository access (RA) modules are available:
     <!-- ***************************************************************** -->
     <sect2 id="svn-ch-8-sect-1.3">
       <title>Client Ebene</title>
-
+      
       <para>Auf der Client Seite ist die Suversion Arbeitskopie der
         Ort an dem alle Aktionen stattfinden.  Die Fülle an
         Funktionalität, die durch die clientseitige Bibliothek
@@ -982,7 +982,7 @@ The following repository access (RA) modules are available:
 
     <!-- ***************************************************************** -->
     <sect2 id="svn-ch-8-sect-2.3">
-      <title>Andere Programmiersprachen als C und C++</title>
+      <title>Andere Programmiersprachen als C und C++</title> 
 
       <para>Wenn sie sie Bibliotheken von Subversion mit etwas anderem
         als einem C Programm nutzen wollen &mdash; sagen wir ein
@@ -1028,7 +1028,7 @@ import os.path
 
 def crawl_filesystem_dir (root, directory, pool):
   """Recursively crawl DIRECTORY under ROOT in the filesystem, and return
-  a list of all the paths at or below DIRECTORY.  Use POOL for all
+  a list of all the paths at or below DIRECTORY.  Use POOL for all 
   allocations."""
 
   # Get the directory entries for DIRECTORY.
@@ -1135,7 +1135,7 @@ if __name__ == '__main__':
   <!-- ******************************************************************* -->
   <sect1 id="svn-ch-8-sect-3">
     <title>Der administrative Bereich in der Arbeitskopie</title>
-
+    
     <para>Wie wir früher erwähnten, enthält jedes Verzeichnis einer
       Arbeitskopie von Subversion ein spezielles Unterverzeichnis
       namens <filename>.svn</filename>, welches die Verwaltungsdaten
@@ -1477,7 +1477,7 @@ if __name__ == '__main__':
    children to the FILES array, and doing some task to each path
    encountered.  Use POOL for the all temporary allocations, and store
    the hash paths in the same pool as the hash itself is allocated in.  */
-static apr_status_t
+static apr_status_t 
 crawl_dir (apr_array_header_t *files,
            const char *directory,
            apr_pool_t *pool)
@@ -1571,7 +1571,7 @@ crawl_dir (apr_array_header_t *files,
       die zusätzliche Komplexität vor, die entstehen würde, wenn diese
       Funktion für jedes Datenelement <function>alloc()</function> und
       <function>free()</function> aufrufen müsste!</para>
-
+    
     <para>Pools sind möglicherweise nicht für jede Applikation ideal,
       aber sie sind extrem nützlich in Subversion.  Wenn sie
       Subversion entwicklen müssen sie sich mit Pools vertraut machen
@@ -1588,7 +1588,7 @@ crawl_dir (apr_array_header_t *files,
   <!-- ******************************************************************* -->
   <sect1 id="svn-ch-8-sect-6">
     <title>Subversion unterstützen</title>
-
+    
     <para>Die offizielle Informationsquelle über Subversion ist
       natürlich die Projekt Website unter <systemitem
       class="url">http://subversion.tigris.org/</systemitem>.  Dort
@@ -1602,7 +1602,7 @@ crawl_dir (apr_array_header_t *files,
     <!-- ***************************************************************** -->
     <sect2 id="svn-ch-8-sect-6.1">
       <title>Verbindung mit der Gemeinschaft aufnehmen</title>
-
+      
       <para>Der erste Schritt für die Teilnahme an der Gemeinschaft
         besteht darin, einen Weg zu finden über die aktuellen
         Geschehnisse informiert zu sein.  Am effizientesten geschieht
@@ -1639,13 +1639,13 @@ crawl_dir (apr_array_header_t *files,
         Erweiterungswünschen.  Wenn sie mit irgendeinem kleinen
         Problem beginnen wollen, suchen sie nach Einträgen, die als
         <quote>bite-sized</quote> markiert sind.</para>
-
+      
     </sect2>
-
+    
     <!-- ***************************************************************** -->
     <sect2 id="svn-ch-8-sect-6.2">
       <title>Get the Source Code</title>
-
+      
       <para>Um den Code zu bearbeiten, müssen sie diesen zuerst haben.
         Das heisst sie müssen eine Arbeitskopie aus dem öffentlichen
         Projektarchiv für den Quellcode von Subversion auschecken.  So
@@ -1706,7 +1706,7 @@ A  build.conf
     <!-- ***************************************************************** -->
     <sect2 id="svn-ch-8-sect-6.3">
       <title>Become Familiar with Community Policies</title>
-
+      
       <para>Nun da sie eine Arbeitskopie mit dem letzten Quellcode von
         Subversion haben, wollen sie höchstwahrscheinlich einen Blick
         in die <filename>HACKING</filename> Datei im Basisverzeichnis
@@ -1739,7 +1739,7 @@ A  build.conf
     <!-- ***************************************************************** -->
     <sect2 id="svn-ch-8-sect-6.4">
       <title>Make and Test Your Changes</title>
-
+      
       <para>Mit dem Code und den wohlverstandenen Richtlinien der
         Gemeinschaft können sie nun darangehen ihre eigenen Änderungen
         zu machen.  Es ist das beste zu versuchen kleinere, aber
@@ -1753,7 +1753,7 @@ A  build.conf
         Codebasis in einem Zustand sein, in dem sie ohne Warnungen
         compiliert werden kann.</para>
 
-      <para>Subversion hat eine wirkich gründliche
+      <para>Subversion hat eine wirkich gründliche 
         <footnote>
           <para>Sie sollten sich vielleicht eine Packung Popcorn
             vergönnen.  <quote>Gründlich</quote> bedeutet in diesem
@@ -1796,7 +1796,7 @@ A  build.conf
     <!-- ***************************************************************** -->
     <sect2 id="svn-ch-8-sect-6.5">
       <title>Die Änderungen zur Verfügung stellen</title>
-
+      
       <para>Nachdem sie ihre Änderungen am Quellcode vorgenommen
         haben, erstellen sie eine verständliche und konistente
         Log-Nachricht, um die Änderungen und die Gründe dafür zu
@@ -1819,7 +1819,7 @@ A  build.conf
 </chapter>
 
 <!--
-local variables:
+local variables: 
 sgml-parent-document: ("book.xml" "chapter")
 end:
 -->
