@@ -4,11 +4,11 @@
 A number of other useful documents relevant to Subversion.
 
 @menu
-* SVN for CVS users::
-* Compiling and installing::
-* Command reference::
-* Contributing::
-* Links::
+* SVN for CVS users::                    
+* Compiling and installing::            
+* Command reference::           
+* Contributing::                     
+* Links:: 
 * License::
 @end menu
 
