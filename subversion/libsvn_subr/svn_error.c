@@ -73,7 +73,7 @@ make_error_internal (apr_status_t apr_err,
   new_error->src_err = src_err;
   new_error->message = permanent_msg;
   new_error->child   = child;
-  new_error->pool    = newpool;
+  new_error->pool    = newpool;  
 
   return new_error;
 }
@@ -154,19 +154,19 @@ svn_pool_create (apr_pool_t *parent_pool)
     }
 
   svn_pool__attach_error_pool (ret_pool);
-
+  
   return ret_pool;
 }
 
 
 
-void
+void 
 svn_pool_clear(apr_pool_t *p)
 {
   apr_clear_pool (p);
   /* Clearing the pool, invalidates all userdata attached to the pool,
 	 so reattach the error pool. */
-
+  
   svn_pool__attach_error_pool (p);
 }
 
@@ -230,7 +230,7 @@ svn_handle_error (svn_error_t *err, FILE *stream, svn_boolean_t fatal)
   /* Note: we can also log errors here someday. */
 
   /* Is this a Subversion-specific error code? */
-  if ((err->apr_err > APR_OS_START_USEERR)
+  if ((err->apr_err > APR_OS_START_USEERR) 
       && (err->apr_err <= APR_OS_START_CANONERR))
     fprintf (stream, "\nsvn_error: #%d ", err->apr_err);
 
@@ -253,7 +253,7 @@ svn_handle_error (svn_error_t *err, FILE *stream, svn_boolean_t fatal)
 
 
 
-void
+void 
 svn_handle_warning (void *data, char *fmt, ...)
 {
   va_list ap;
@@ -270,8 +270,8 @@ svn_handle_warning (void *data, char *fmt, ...)
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
- * end:
+ * end: 
  */
