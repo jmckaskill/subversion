@@ -183,7 +183,7 @@ static dav_prop_insert dav_svn_insert_prop(const dav_resource *resource,
                                     DAV_SVN_BUILD_URI_BASELINE,
                                     revnum, NULL,
                                     1 /* add_href */, p);
-
+                                    
         }
       else if (resource->type != DAV_RESOURCE_TYPE_REGULAR)
         {
@@ -407,7 +407,7 @@ void dav_svn_register_uris(apr_pool_t *p)
 }
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
