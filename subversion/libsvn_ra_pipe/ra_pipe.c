@@ -28,7 +28,7 @@
 
 
 /** Structures **/
-typedef struct
+typedef struct 
 {
   apr_file_t *input;
   apr_file_t *output;
@@ -187,7 +187,7 @@ svn_ra_pipe__get_commit_editor (void *session_baton,
   svn_xml_make_open_tag (&buf, sess->pool, svn_xml_normal,
                          SVN_RA_PIPE__REQUEST_TAG, NULL);
   svn_xml_make_open_tag (&buf, sess->pool, svn_xml_normal,
-                         SVN_RA_PIPE__COMMIT_TAG,
+                         SVN_RA_PIPE__COMMIT_TAG, 
                          SVN_RA_PIPE__ATT_LOG_MSG,
                          logbuf,
                          NULL);
@@ -312,7 +312,7 @@ svn_ra_pipe__do_status (void *session_baton,
 }
 
 static svn_error_t *
-svn_ra_pipe__do_merge (void *session_baton,
+svn_ra_pipe__do_merge (void *session_baton, 
                        const svn_ra_reporter_t **reporter,
                        void **report_baton,
                        const char *start_path,
@@ -408,7 +408,7 @@ svn_ra_pipe__do_check_path (svn_node_kind_t *kind,
                          SVN_RA_PIPE__REQUEST_TAG, NULL);
 
   svn_xml_make_open_tag (&buf, sess->pool, svn_xml_self_closing,
-                         SVN_RA_PIPE__CHECK_PATH_TAG,
+                         SVN_RA_PIPE__CHECK_PATH_TAG, 
                          SVN_RA_PIPE__ATT_PATH,
                          pathbuf,
                          SVN_RA_PIPE__ATT_REV,
@@ -472,7 +472,7 @@ svn_ra_pipe__get_file (void *session_baton,
 
 /** The ra_plugin **/
 
-static const svn_ra_plugin_t ra_pipe_plugin =
+static const svn_ra_plugin_t ra_pipe_plugin = 
 {
   "ra_pipe",
   "Module for accessing a repository via stdin/stdout.",
