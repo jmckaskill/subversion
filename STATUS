@@ -20,7 +20,7 @@ If you cast a veto (i.e. -1), then please include a link to a mailing
 list thread explaining your veto.  You can go back and add the link
 later if the thread isn't available at the time you commit the veto.
 
-Voting +1 on a change doesn't just mean you approve of it in principle.
+Voting +1 on a change doesn't just mean you approve of it in principle.  
 It means you have thoroughly reviewed the change, and find it correct
 and as nondisruptive as possible.  When it is committed to the release
 branch, the log message will include the names of all who voted for
@@ -109,7 +109,7 @@ already know about.)
 
 
    * r8031
-     Implementing API change of r8021 in javahl bindings.
+     Implementing API change of r8021 in javahl bindings. 
      Justification: with 8021 and without 8031 javahl breaks. Local change.
      Votes:
 
@@ -131,10 +131,10 @@ already know about.)
       +1: jerenkrantz
 
    * r8015,r8020
-     Implementing API change of r8013 in javahl bindings.
+     Implementing API change of r8013 in javahl bindings. 
      Justification: with 8013 and without 8015,8020 javahl breaks. Local change
      Votes:
-
+     
 
    * r8065
      Update references to BDB version in documentation.
@@ -201,8 +201,9 @@ already know about.)
      Improved interface for blame in javahl bindings.
      Justification: API stability; low risk because of bindings only change.
      Votes:
-
+     
    * r8039
      javahl bindings did not know status external.
      Justification: API stability; low risk because of bindings only change.
      Votes:
+     
