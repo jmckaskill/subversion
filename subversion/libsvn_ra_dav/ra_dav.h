@@ -169,7 +169,7 @@ svn_error_t * svn_ra_dav__merge_activity(svn_ra_session_t *ras,
 #endif  /* RA_DAV_H */
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
