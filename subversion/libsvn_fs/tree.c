@@ -291,7 +291,7 @@ svn_fs_revision_root_revision (svn_fs_root_t *root)
    also needs to change the parent directory.  */
 typedef struct parent_path_t
 {
-
+  
   /* A node along the path.  This could be the final node, one of its
      parents, or the root.  Every parent path ends with an element for
      the root directory.  */
@@ -303,7 +303,7 @@ typedef struct parent_path_t
 
   /* The parent of NODE, or zero if NODE is the root directory.  */
   struct parent_path_t *parent;
-
+  
 } parent_path_t;
 
 
@@ -410,7 +410,7 @@ open_path (parent_path_t **parent_path_p,
 
   /* The path from HERE up to the root.  */
   parent_path_t *parent_path;
-
+  
   /* The portion of PATH we haven't traversed yet.  */
   const char *rest = path;
 
@@ -419,7 +419,7 @@ open_path (parent_path_t **parent_path_p,
 
   /* Whenever we are at the top of this loop:
      - HERE is our current directory,
-     - REST is the path we're going to find in HERE, and
+     - REST is the path we're going to find in HERE, and 
      - PARENT_PATH includes HERE and all its parents.  */
   for (;;)
     {
@@ -464,7 +464,7 @@ open_path (parent_path_t **parent_path_p,
 
           parent_path = make_parent_path (child, entry, parent_path, pool);
         }
-
+      
       /* Are we finished traversing the path?  */
       if (! next)
         break;
@@ -528,11 +528,11 @@ make_path_mutable (svn_fs_root_t *root,
   /* Are we trying to clone the root, or somebody's child node?  */
   if (parent_path->parent)
     {
-      /* We're trying to clone somebody's child.
+      /* We're trying to clone somebody's child. 
          Make sure our parent is mutable.  */
       SVN_ERR (make_path_mutable (root, parent_path->parent, error_path,
                                   trail));
-
+      
       /* Now make this node mutable.  */
       SVN_ERR (svn_fs__dag_clone_child (&clone,
                                         parent_path->parent->node,
@@ -611,7 +611,7 @@ txn_body_node_prop (void *baton,
 
   SVN_ERR (get_dag (&node, args->root, args->path, trail));
   SVN_ERR (svn_fs__dag_get_proplist (&proplist, node, trail));
-
+  
   /* Search the proplist for a property with the right name.  */
   for (prop = proplist->children; prop; prop = prop->next->next)
     {
@@ -728,7 +728,7 @@ txn_body_change_node_prop (void *baton,
   SVN_ERR (open_path (&parent_path, args->root, args->path, 0, trail));
   SVN_ERR (make_path_mutable (args->root, parent_path, args->path, trail));
   SVN_ERR (svn_fs__dag_get_proplist (&proplist, parent_path->node, trail));
-
+  
   /* Delete the skel, either replacing or adding the given property.  */
   for (prop = proplist->children; prop; prop = prop->next->next)
     {
@@ -872,14 +872,14 @@ svn_fs_merge (const char **conflict_p,
     {
       apr_hash_t *source_entries, *target_entries, *ancestor_entries;
       apr_hash_index_t *hi;
-
+      
       SVN_ERR (svn_fs_dir_entries
                (&source_entries, source_root, source_path, pool));
       SVN_ERR (svn_fs_dir_entries
                (&target_entries, target_root, target_path, pool));
       SVN_ERR (svn_fs_dir_entries
                (&ancestor_entries, ancestor_root, ancestor_path, pool));
-
+      
       /* for each entry E in ancestor_entries... */
       for (hi = apr_hash_first (ancestor_entries);
            hi;
@@ -888,9 +888,9 @@ svn_fs_merge (const char **conflict_p,
           const void *key;
           void *val;
           apr_size_t klen;
-
+          
           apr_hash_this (hi, &key, &klen, &val);
-
+          
           /* E exists in target and source */
           if (apr_hash_get (source_entries, key, klen)
               && apr_hash_get (target_entries, key, klen))
@@ -903,7 +903,7 @@ svn_fs_merge (const char **conflict_p,
             {
               target takes source;
             }
-
+          
           /* The remaining two cases are;
            *    - E exists in neither source nor target
            *    - E exists in target but not source
@@ -912,14 +912,14 @@ svn_fs_merge (const char **conflict_p,
            * was added in target only.  In both cases, target
            * stays as is.
            */
-
+          
           /* We've taken care of any possible implications E could
              have.  Remove it from source_entries, so it's easy
              later to loop over all the source entries that didn't
              exist in ancestor_entries. */
           apr_hash_set (source_entries, key, klen, NULL);
         }
-
+      
       /* For each entry E in source but not in ancestor */
       for (hi = apr_hash_first (source_entries);
            hi;
@@ -928,9 +928,9 @@ svn_fs_merge (const char **conflict_p,
           const void *key;
           void *val;
           apr_size_t klen;
-
+          
           apr_hash_this (hi, &key, &klen, &val);
-
+          
           /* E does not exist in target */
           if (! apr_hash_get (target_entries, key, klen))
             {
@@ -939,10 +939,10 @@ svn_fs_merge (const char **conflict_p,
           else   /* else E exists in target */
             {
               svn_fs_dirent_t *source_entry, *target_entry;
-
+              
               source_entry = apr_hash_get (source_entries, key, klen);
               target_entry = apr_hash_get (target_entries, key, klen);
-
+              
               /* E exists in target but is different from E in source */
               if (! svn_fs_id_eq (source_entry->id, target_entry->id))
                 {
@@ -957,7 +957,7 @@ svn_fs_merge (const char **conflict_p,
                */
             }
         }
-
+      
       /* All entries in ancestor and source have been accounted for.
        *
        * Any entry name in target that does not exist in ancestor
@@ -1039,7 +1039,7 @@ svn_fs_dir_entries (apr_hash_t **table_p,
   args.root    = root;
   args.path    = path;
   SVN_ERR (svn_fs__retry_txn (root->fs, txn_body_dir_entries, &args, pool));
-
+  
   *table_p = table;
   return SVN_NO_ERROR;
 }
@@ -1062,7 +1062,7 @@ txn_body_make_dir (void *baton,
   const char *path = args->path;
   parent_path_t *parent_path;
   dag_node_t *sub_dir;
-
+  
   SVN_ERR (open_path (&parent_path, root, path, open_path_last_optional,
                       trail));
 
@@ -1074,7 +1074,7 @@ txn_body_make_dir (void *baton,
   /* Create the subdirectory.  */
   SVN_ERR (make_path_mutable (root, parent_path->parent, path, trail));
   SVN_ERR (svn_fs__dag_make_dir (&sub_dir,
-                                 parent_path->parent->node,
+                                 parent_path->parent->node, 
                                  parent_path->entry,
                                  trail));
 
@@ -1093,7 +1093,7 @@ svn_fs_make_dir (svn_fs_root_t *root,
   args.path = path;
   return svn_fs__retry_txn (root->fs, txn_body_make_dir, &args, pool);
 }
-
+                              
 
 struct delete_args
 {
@@ -1194,7 +1194,7 @@ txn_body_make_file (void *baton,
   const char *path = args->path;
   parent_path_t *parent_path;
   dag_node_t *child;
-
+  
   SVN_ERR (open_path (&parent_path, root, path, open_path_last_optional,
                       trail));
 
@@ -1206,7 +1206,7 @@ txn_body_make_file (void *baton,
   /* Create the file.  */
   SVN_ERR (make_path_mutable (root, parent_path->parent, path, trail));
   SVN_ERR (svn_fs__dag_make_file (&child,
-                                  parent_path->parent->node,
+                                  parent_path->parent->node, 
                                   parent_path->entry,
                                   trail));
 
@@ -1239,7 +1239,7 @@ typedef struct file_contents_baton_t
 
   /* The dag_node that will be made from the above. */
   dag_node_t *node;
-
+    
   /* The readable file stream that will be made from the
      dag_node. (And returned to the caller.) */
   svn_stream_t *file_stream;
@@ -1256,13 +1256,13 @@ txn_body_get_file_contents (void *baton, trail_t *trail)
 
   /* First create a dag_node_t from the root/path pair. */
   SVN_ERR (get_dag (&(fb->node), fb->root, fb->path, trail));
-
+  
   /* Then create a readable stream from the dag_node_t. */
   SVN_ERR (svn_fs__dag_get_contents (&(fb->file_stream),
                                      fb->node,
                                      trail));
   return SVN_NO_ERROR;
-}
+}     
 
 
 
@@ -1279,7 +1279,7 @@ svn_fs_file_contents (svn_stream_t **contents,
   /* Create the readable stream in the context of a db txn.  */
   SVN_ERR (svn_fs__retry_txn (svn_fs_root_fs (root),
                               txn_body_get_file_contents, fb, pool));
-
+  
   *contents = fb->file_stream;
   return SVN_NO_ERROR;
 }
@@ -1313,7 +1313,7 @@ typedef struct txdelta_baton_t
   /* The original file info */
   svn_fs_root_t *root;
   const char *path;
-
+  
   /* Derived from the file info */
   dag_node_t *node;
   svn_stream_t *source_stream;
@@ -1331,7 +1331,7 @@ static svn_error_t *
 write_to_string (void *baton, const char *data, apr_size_t *len)
 {
   txdelta_baton_t *tb = (txdelta_baton_t *) baton;
-
+  
   svn_string_appendbytes (tb->target_string, data, *len);
 
   return SVN_NO_ERROR;
@@ -1347,7 +1347,7 @@ txn_body_get_source_stream (void *baton, trail_t *trail)
 
   /* First create a dag_node_t from the root/path pair. */
   SVN_ERR (get_dag (&(tb->node), tb->root, tb->path, trail));
-
+  
   /* If we get here without error, then the path to the file must
      exist.  Now convert the dag_node into a generic readable
      stream. */
@@ -1390,7 +1390,7 @@ window_consumer (svn_txdelta_window_t *window, void *baton)
     SVN_ERR (svn_fs__retry_txn (svn_fs_root_fs (tb->root),
                                 txn_body_write_target_string, tb,
                                 tb->pool));
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -1410,7 +1410,7 @@ svn_fs_apply_textdelta (svn_txdelta_window_handler_t **contents_p,
   tb->path = path;
   tb->pool = pool;
   tb->target_string = svn_string_create ("", pool);
-
+ 
   /* Make a readable "source" stream out of the current contents of
      ROOT/PATH; obviously, this must done in the context of a
      db_txn.  The stream is returned in tb->source_stream. */
@@ -1428,7 +1428,7 @@ svn_fs_apply_textdelta (svn_txdelta_window_handler_t **contents_p,
                      pool,
                      &(tb->interpreter),
                      &(tb->interpreter_baton));
-
+  
   *contents_p = window_consumer;
   *contents_baton_p = tb;
   return SVN_NO_ERROR;
@@ -1534,7 +1534,7 @@ svn_fs_revision_root (svn_fs_root_t **root_p,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
