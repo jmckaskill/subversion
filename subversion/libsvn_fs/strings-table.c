@@ -56,7 +56,7 @@ svn_fs__open_strings_table (DB **strings_p,
              svn_fs__str_to_dbt (&value, (char *) "0"),
              0));
   }
-
+  
   *strings_p = strings;
   return 0;
 }
@@ -468,7 +468,7 @@ svn_fs__string_copy (svn_fs_t *fs,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end:
