@@ -264,7 +264,7 @@ static svn_error_t *ra_svn_apply_textdelta(void *file_baton,
     }
   return SVN_NO_ERROR;
 }
-
+  
 static svn_error_t *ra_svn_change_file_prop(void *file_baton,
                                             const char *name,
                                             const svn_string_t *value,
@@ -650,7 +650,7 @@ static svn_error_t *ra_svn_handle_close_file(svn_ra_svn_conn_t *conn,
 
   if (text_checksum[0] == '\0')
     text_checksum = NULL;
-
+  
   SVN_CMD_ERR(lookup_token(ds, token, &entry, pool));
   SVN_CMD_ERR(ds->editor->close_file(entry->baton, text_checksum, pool));
   apr_hash_set(ds->tokens, token, APR_HASH_KEY_STRING, NULL);
