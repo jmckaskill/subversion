@@ -41,7 +41,7 @@ class CommitMessage;
 class SVNClient :public SVNBase
 {
 public:
-	jobjectArray revProperties(jobject jthis, const char *path,
+	jobjectArray revProperties(jobject jthis, const char *path, 
                                 Revision &revision);
     void cancelOperation();
     void commitMessageHandler(CommitMessage *commitMessage);
@@ -49,12 +49,12 @@ public:
     void setConfigDirectory(const char *configDir);
     jbyteArray blame(const char *path, Revision& revisionStart,
                          Revision &revisionEnd);
-    void blame(const char *path, Revision &pegRevision,
+    void blame(const char *path, Revision &pegRevision, 
                    Revision &revisionStart,
                    Revision &revisionEnd, BlameCallback *callback);
     void relocate(const char *from, const char *to, const char *path,
                       bool recurse);
-    jbyteArray fileContent(const char *path, Revision &revision,
+    jbyteArray fileContent(const char *path, Revision &revision,  
                            Revision &pegRevision);
     void propertyCreate(const char *path, const char *name,
                             JNIByteArray &value, bool recurse, bool force);
@@ -77,9 +77,9 @@ public:
                       bool recurse);
     jlong doSwitch(const char *path, const char *url, Revision &revision,
                        bool recurse);
-    jlong doExport(const char *srcPath, const char *destPath,
+    jlong doExport(const char *srcPath, const char *destPath, 
                        Revision &revision, Revision &pegRevision, bool force,
-                       bool ignoreExternals, bool recurse,
+                       bool ignoreExternals, bool recurse, 
                        const char *nativeEOL);
     void resolved(const char *path, bool recurse);
     void cleanup(const char *path);
@@ -108,7 +108,7 @@ public:
     jobject singleStatus(const char *path, bool onServer);
     jobjectArray status(const char *path, bool descend, bool onServer,
                             bool getAll, bool noIgnore, bool ignoreExternals);
-    jobjectArray list(const char *url, Revision &revision,
+    jobjectArray list(const char *url, Revision &revision, 
                       Revision &pegRevision, bool recurse);
     jobject revProperty(jobject jthis, const char *path, const char *name,
                             Revision &rev);
