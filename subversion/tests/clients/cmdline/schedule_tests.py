@@ -3,9 +3,9 @@
 #  schedule_tests.py:  testing working copy scheduling
 #                      (adds, deletes, reversion)
 #
-#  Subversion is a tool for revision control.
+#  Subversion is a tool for revision control. 
 #  See http://subversion.tigris.org for more information.
-#
+#    
 # ====================================================================
 # Copyright (c) 2000-2001 CollabNet.  All rights reserved.
 #
@@ -62,13 +62,13 @@ def add_files_core(sbox, wc_dir):
   delta_path = os.path.join(wc_dir, 'delta')
   zeta_path = os.path.join(wc_dir, 'A', 'B', 'zeta')
   epsilon_path = os.path.join(wc_dir, 'A', 'D', 'G', 'epsilon')
-
+  
   svntest.main.file_append(delta_path, "This is the file 'delta'.")
   svntest.main.file_append(zeta_path, "This is the file 'zeta'.")
   svntest.main.file_append(epsilon_path, "This is the file 'epsilon'.")
-
+  
   svntest.main.run_svn(None, 'add', delta_path, zeta_path, epsilon_path)
-
+  
   # Make sure the adds show up as such in status
   status_list = svntest.actions.get_virginal_status_list(wc_dir, '1')
   status_list.append([delta_path, None, {},
@@ -99,13 +99,13 @@ def add_directories_core(sbox, wc_dir):
   X_path = os.path.join(wc_dir, 'X')
   Y_path = os.path.join(wc_dir, 'A', 'C', 'Y')
   Z_path = os.path.join(wc_dir, 'A', 'D', 'H', 'Z')
-
+  
   os.mkdir(X_path)
   os.mkdir(Y_path)
   os.mkdir(Z_path)
-
+  
   svntest.main.run_svn(None, 'add', X_path, Y_path, Z_path)
-
+  
   # Make sure the adds show up as such in status
   status_list = svntest.actions.get_virginal_status_list(wc_dir, '1')
   status_list.append([X_path, None, {},
@@ -150,7 +150,7 @@ def nested_adds_core(sbox, wc_dir):
   os.mkdir(P_path)
   os.mkdir(Q_path)
   os.mkdir(R_path)
-
+  
   delta_path = os.path.join(X_path, 'delta')
   epsilon_path = os.path.join(Y_path, 'epsilon')
   upsilon_path = os.path.join(Y_path, 'upsilon')
@@ -163,7 +163,7 @@ def nested_adds_core(sbox, wc_dir):
 
   # Finally, let's try some recursive adds of our new files and directories
   svntest.main.run_svn(None, 'add', '--recursive', X_path, Y_path, Z_path)
-
+    
   # Make sure the adds show up as such in status
   status_list = svntest.actions.get_virginal_status_list(wc_dir, '1')
   status_list.append([X_path, None, {},
@@ -224,9 +224,9 @@ def delete_files_core(sbox, wc_dir):
   mu_path = os.path.join(wc_dir, 'A', 'mu')
   rho_path = os.path.join(wc_dir, 'A', 'D', 'G', 'rho')
   omega_path = os.path.join(wc_dir, 'A', 'D', 'H', 'omega')
-
+  
   svntest.main.run_svn(None, 'del', iota_path, mu_path, rho_path, omega_path)
-
+    
   # Make sure the deletes show up as such in status
   status_list = svntest.actions.get_virginal_status_list(wc_dir, '1')
   for item in status_list:
@@ -253,10 +253,10 @@ def delete_dirs_core(sbox, wc_dir):
   chi_path   = os.path.join(H_path, 'chi')
   omega_path = os.path.join(H_path, 'omega')
   psi_path   = os.path.join(H_path, 'psi')
-
+  
   # Now, delete (recursively) the directories.
   svntest.main.run_svn(None, 'del', E_path, F_path, H_path)
-
+    
   # Make sure the deletes show up as such in status
   status_list = svntest.actions.get_virginal_status_list(wc_dir, '1')
   for item in status_list:
@@ -609,7 +609,7 @@ test_list = [ None,
              ]
 
 if __name__ == '__main__':
-
+  
   ## run the main test routine on them:
   err = svntest.main.run_tests(test_list)
 
