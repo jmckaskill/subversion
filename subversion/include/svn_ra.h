@@ -319,6 +319,13 @@ typedef struct svn_ra_plugin_t
                                    const char *name,
                                    const svn_string_t *value);
 
+  /* Set *PROPS to the list of unversioned properties attached to
+     revision REV.  The hash maps (const char *) names to
+     (svn_string_t *) values. */
+  svn_error_t *(*rev_proplist) (void *session_baton,
+                                svn_revnum_t rev,
+                                apr_hash_t **props);
+
   /* Set *EDITOR and *EDIT_BATON to an editor for committing changes
      to the repository, using LOG_MSG as the log message.  The
      revisions being committed against are passed to the editor
