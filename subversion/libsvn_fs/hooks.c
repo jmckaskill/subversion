@@ -39,7 +39,7 @@ svn_fs__run_post_commit_hooks (svn_fs_t *fs,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
