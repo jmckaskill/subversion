@@ -4,7 +4,7 @@ SVN_PROG=../svn
 TEST_DIR_1=t1
 TEST_DIR_2=t2
 COMMIT_RESULTFILE_NAME=commit
-ANCESTOR_PATH=anni       # See if Greg Stein notices. :-)
+ANCESTOR_PATH=anni       # See if Greg Stein notices. :-) 
 
 check_status()
 {
@@ -67,7 +67,7 @@ check_status 4
 
 echo "Deleting added files A/B/E/newfile2, without --force."
 ${SVN_PROG} delete ${TEST_DIR_1}/A/B/E/newfile2
-
+ 
 check_status 5
 
 ### Commit.
