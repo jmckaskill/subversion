@@ -9,7 +9,7 @@ AM_CONFIG_HEADER(config.h)
 # ALL_LINGUAS="de fr es ko nl no pl pt sl sv"
 
 # kff todo: change this to (apr expat-lite), if expat-lite is ever
-# autoconfiscated.
+# autoconfiscated. 
 AC_CONFIG_SUBDIRS(apr)
 
 dnl Checks for programs.
