@@ -3,32 +3,32 @@
  *
  * ================================================================
  * Copyright (c) 2000 CollabNet.  All rights reserved.
- *
+ * 
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
  * met:
- *
+ * 
  * 1. Redistributions of source code must retain the above copyright
  * notice, this list of conditions and the following disclaimer.
- *
+ * 
  * 2. Redistributions in binary form must reproduce the above copyright
  * notice, this list of conditions and the following disclaimer in the
  * documentation and/or other materials provided with the distribution.
- *
+ * 
  * 3. The end-user documentation included with the redistribution, if
  * any, must include the following acknowlegement: "This product includes
  * software developed by CollabNet (http://www.CollabNet/)."
  * Alternately, this acknowlegement may appear in the software itself, if
  * and wherever such third-party acknowlegements normally appear.
- *
+ * 
  * 4. The hosted project names must not be used to endorse or promote
  * products derived from this software without prior written
  * permission. For written permission, please contact info@collab.net.
- *
+ * 
  * 5. Products derived from this software may not use the "Tigris" name
  * nor may "Tigris" appear in their names without prior written
  * permission of CollabNet.
- *
+ * 
  * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
  * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -42,7 +42,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ====================================================================
- *
+ * 
  * This software consists of voluntary contributions made by many
  * individuals on behalf of CollabNet.
  */
@@ -76,7 +76,7 @@ static int
 make_svn_string_from_cstring ()
 {
   a = svn_string_create (phrase_1, pool);
-
+  
   /* Test that length, data, and null-termination are correct. */
   if ((a->len == strlen (phrase_1)) && ((strcmp (a->data, phrase_1)) == 0))
     return 0; /* PASS */
@@ -105,13 +105,13 @@ append_svn_string_to_svn_string ()
 {
   char *tmp;
   size_t old_len;
-
+  
   tmp = apr_palloc (pool, (a->len + b->len + 1));
   strcpy (tmp, a->data);
   strcat (tmp, b->data);
   old_len = a->len;
   svn_string_appendstr (a, b, pool);
-
+  
   /* Test that length, data, and null-termination are correct. */
   if ((a->len == (old_len + b->len)) && ((strcmp (a->data, tmp)) == 0))
     return 0;  /* PASS */
@@ -142,7 +142,7 @@ do_tests (apr_pool_t *pool)
     svn_string_appendbytes (a, ", new bytes to append", 11, pool);
 
     /* Test that length, data, and null-termination are correct. */
-    if (svn_string_compare
+    if (svn_string_compare 
         (a, svn_string_create ("hello, a longish phrase, new bytes", pool)))
       {
         print_dots (max_pad - written);
@@ -153,7 +153,7 @@ do_tests (apr_pool_t *pool)
         print_dots (max_pad - written);
         printf (" FAILED\n");
       }
-
+    
     test_number++;
   }
 
@@ -173,7 +173,7 @@ do_tests (apr_pool_t *pool)
         print_dots (max_pad - written);
         printf (" FAILED\n");
       }
-
+    
     test_number++;
   }
 
@@ -202,7 +202,7 @@ do_tests (apr_pool_t *pool)
         print_dots (max_pad - written);
         printf (" FAILED\n");
       }
-
+    
     test_number++;
   }
 
@@ -224,7 +224,7 @@ do_tests (apr_pool_t *pool)
         print_dots (max_pad - written);
         printf (" FAILED\n");
       }
-
+    
     test_number++;
   }
 
@@ -247,7 +247,7 @@ do_tests (apr_pool_t *pool)
         print_dots (max_pad - written);
         printf (" FAILED\n");
       }
-
+    
     test_number++;
   }
 
@@ -276,7 +276,7 @@ do_tests (apr_pool_t *pool)
     num_chopped_3 = svn_string_chop_back_to_char (s, 'c');
     chopped_okay_3 = (strlen (s->data) == 0);
 
-    if (chopped_okay_1
+    if (chopped_okay_1 
         && chopped_okay_2
         && chopped_okay_3
         && (num_chopped_1 == strlen ("/you'll never see this"))
@@ -291,7 +291,7 @@ do_tests (apr_pool_t *pool)
         print_dots (max_pad - written);
         printf (" FAILED\n");
       }
-
+    
     test_number++;
   }
 
@@ -331,7 +331,7 @@ do_tests (apr_pool_t *pool)
         print_dots (max_pad - written);
         printf (" FAILED\n");
       }
-
+    
     test_number++;
   }
 
@@ -341,21 +341,21 @@ do_tests (apr_pool_t *pool)
 
 /* ------------------------------------------------------------------
    If you add a new test, make sure to update these two arrays,
-   and then add the test-number to the TESTS variable in Makefile.am
+   and then add the test-number to the TESTS variable in Makefile.am 
 
 */
 
 /* An array of all test functions */
-int (*test_funcs[])() =
+int (*test_funcs[])() = 
 {
   NULL,
   make_svn_string_from_cstring,
   make_svn_string_from_substring_of_cstring,
-  append_svn_string_to_svn_string
+  append_svn_string_to_svn_string  
 };
 
 /* Descriptions of each test we can run */
-static char *descriptions[] =
+static char *descriptions[] = 
 {
   NULL,
   "make svn_string_t from cstring",
@@ -375,7 +375,7 @@ do_test_num (int test_num)
   int (*func)();
   int array_size = sizeof(test_funcs)/sizeof(int (*)()) - 1;
 
-  if ((test_num > array_size)
+  if ((test_num > array_size) 
       || (test_num <= 0))
     {
       printf ("stringtest test %d: NO SUCH TEST ...", test_num);
@@ -403,10 +403,10 @@ main (int argc, char *argv[])
             argv[0]);
     exit (1);
   }
-
+  
   test_num = atoi (argv[1]);
-
-
+  
+  
   /* Initialize APR (Apache pools) */
   if (apr_initialize () != APR_SUCCESS)
     {
@@ -424,7 +424,7 @@ main (int argc, char *argv[])
     printf ("PASS\n");
   else
     printf ("FAIL\n");
-
+  
 
   apr_destroy_pool (pool);
   apr_terminate();
