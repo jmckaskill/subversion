@@ -35,7 +35,7 @@ svn_error_t *svn_fs__run_post_commit_hooks (svn_fs_t *fs,
 #endif /* SVN_LIBSVN_FS_HOOKS_H */
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
