@@ -209,7 +209,7 @@ parse_option (int *pch, parse_context_t *ctx)
  * the line.  Set *PCH to the character that ended the line (either
  * newline or EOF), and set CTX->section to the string of characters
  * seen before ']'.
- *
+ * 
  * This is meant to be called immediately after reading the '[' that
  * starts a section name.
  */
