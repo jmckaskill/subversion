@@ -2,9 +2,9 @@
 #
 #  trans_tests.py:  testing eol conversion and keyword substitution
 #
-#  Subversion is a tool for revision control.
+#  Subversion is a tool for revision control. 
 #  See http://subversion.tigris.org for more information.
-#
+#    
 # ====================================================================
 # Copyright (c) 2000-2003 CollabNet.  All rights reserved.
 #
@@ -38,7 +38,7 @@ Item = svntest.wc.StateItem
 # status level 1:
 #    enable translation, status
 #    (now throw local text mods into the picture)
-#
+#   
 # commit level 1:
 #    enable translation, commit
 #    (now throw local text mods into the picture)
@@ -74,7 +74,7 @@ Item = svntest.wc.StateItem
 #      Create a greek tree, commit a keyword into one file,
 #      then commit a keyword property (i.e., turn on keywords), then
 #      try to check out head somewhere else.  See seg fault.
-#
+#    
 #   2. Mike encountered this:
 #      Add the keyword property to a file, svn revert the file, see
 #      error.
@@ -96,7 +96,7 @@ embd_bogus_keywords_path = ''
 def setup_working_copy(wc_dir):
   """Setup a standard test working copy, then create (but do not add)
   various files for testing translation."""
-
+  
   global author_rev_unexp_path
   global author_rev_exp_path
   global url_unexp_path
@@ -137,7 +137,7 @@ def setup_working_copy(wc_dir):
                             "blue $Author: blah $ fish$Rev: 0 $\nI fish")
   svntest.main.file_append (embd_bogus_keywords_path,
                             "you fish $Arthur$then\n we$Rev0$ \n\nchew fish")
-
+      
 
 ### Helper functions for setting/removing properties
 
@@ -286,7 +286,7 @@ def disable_translation():
   raise svntest.Failure
   # TODO: Disable translation on files which have had it enabled,
   # with and without local mods, check status, and commit.
-
+  
 
 #----------------------------------------------------------------------
 
@@ -334,7 +334,7 @@ def update_modified_with_translation(sbox):
   f.write("1\n2\n3\n4\n4.5\n5\n6\n7\n8\n9\n")
   f.close()
 
-  # Commit revision 3
+  # Commit revision 3 
   expected_status = svntest.actions.get_virginal_state(wc_dir, 3)
   expected_status.tweak(wc_rev=1)
   expected_status.tweak('A/D/G/rho', wc_rev=3, status='  ')
@@ -396,7 +396,7 @@ This is the file 'rho'.>>>>>>> .r1
 
 def eol_change_is_text_mod(sbox):
   "committing eol-style change forces text send"
-
+  
   sbox.build()
 
   wc_dir = sbox.wc_dir
@@ -414,7 +414,7 @@ def eol_change_is_text_mod(sbox):
   svntest.actions.run_and_verify_svn(None, None, [], 'add', foo_path)
   svntest.actions.run_and_verify_svn(None, None, [], 'ci', '-m', 'log msg',
                                      foo_path)
-
+  
   if svntest.main.windows:
     svntest.actions.run_and_verify_svn(None, None, [], 'propset',
                                        'svn:eol-style', 'LF', foo_path)
@@ -444,7 +444,7 @@ def eol_change_is_text_mod(sbox):
   f.close()
   if contents != base_contents:
     raise svntest.Failure
-
+  
 #----------------------------------------------------------------------
 # Regression test for issue #1151.  A single file in a directory
 # didn't get keywords expanded on checkout.
@@ -459,7 +459,7 @@ def keyword_expanded_on_checkout(sbox):
   # directory, so setup an empty directory.
   Z_path = os.path.join(wc_dir, 'Z')
   svntest.actions.run_and_verify_svn (None, None, [], 'mkdir', Z_path)
-
+  
   # Add the file that has the keyword to be expanded
   url_path = os.path.join(Z_path, 'url')
   svntest.main.file_append (url_path, "$URL$")
@@ -532,7 +532,7 @@ def cat_keyword_expansion(sbox):
   svntest.actions.run_and_verify_svn (None, [ "This is the file 'mu'.\n",
                                               "$Rev: 2 $" ], None,
                                       'cat', '-r', 'HEAD', mu_path)
-
+  
 
 ########################################################################
 # Run the tests
