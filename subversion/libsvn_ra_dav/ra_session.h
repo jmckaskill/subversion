@@ -39,7 +39,7 @@ struct svn_ra_session_t {
 #endif  /* RA_SESSION_H */
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
