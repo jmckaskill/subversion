@@ -216,7 +216,7 @@ svn_fs__record_rename (svn_fs_t *fs,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:

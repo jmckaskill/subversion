@@ -26,7 +26,7 @@ svn_error_t *svn_fs__txn_root_node (svn_fs_root_t **root_p,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
