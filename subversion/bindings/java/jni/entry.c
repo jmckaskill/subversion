@@ -66,7 +66,7 @@ entry__create(JNIEnv *env, jboolean *hasException)
    * -result
    * = 1
    */
-
+    
   if( (*env)->PushLocalFrame(env, 1) < 0 )
     {
       _hasException = JNI_TRUE;
@@ -75,13 +75,13 @@ entry__create(JNIEnv *env, jboolean *hasException)
     {
       jclass entryClass = NULL;
       jmethodID entryConstructor = NULL;
-
+     
       if( !_hasException )
         {
           entryClass = j__get_class(env, &_hasException,
                                     SVN_JNI_ENTRY__CLASS);
         }
-
+      
       if( !_hasException )
         {
           entryConstructor = j__get_method(env, &_hasException,
@@ -91,7 +91,7 @@ entry__create(JNIEnv *env, jboolean *hasException)
         }
       if( !_hasException )
         {
-          result = (*env)->NewObject(env, entryClass,
+          result = (*env)->NewObject(env, entryClass, 
                                      entryConstructor);
           if( result == NULL )
             {
@@ -109,12 +109,12 @@ entry__create(JNIEnv *env, jboolean *hasException)
   if( _hasException )
   fprintf(stderr, "\n<<<entry__create\n");
 #endif
-
+ 
   if( (hasException != NULL) && _hasException )
     {
       *hasException = JNI_TRUE;
     }
-
+            
   return result;
 }
 
@@ -145,7 +145,7 @@ entry__create_from_svn_wc_entry_t(JNIEnv *env, jboolean *hasException,
    * -result
    * = 6
    */
-
+    
   if( (*env)->PushLocalFrame(env, 6) < 0 )
     {
       _hasException = JNI_TRUE;
@@ -158,7 +158,7 @@ entry__create_from_svn_wc_entry_t(JNIEnv *env, jboolean *hasException,
        */
 
       result = entry__create(env, &_hasException);
-
+      
        /*
         * convert the structure members to the
         * corresponding java types
@@ -170,17 +170,17 @@ entry__create_from_svn_wc_entry_t(JNIEnv *env, jboolean *hasException,
           entry__set_revision(env, &_hasException,
                               result, entry->revision);
         }
-
+      
       // member: url
       if( !_hasException )
         {
-          jstring url =
-            string__c_to_j(env, (char*)entry->url->data,
+          jstring url = 
+            string__c_to_j(env, (char*)entry->url->data, 
                            &_hasException);
 
           if( !_hasException )
             {
-              entry__set_url(env, &_hasException,
+              entry__set_url(env, &_hasException, 
                              result, url);
             }
         }
@@ -217,7 +217,7 @@ entry__create_from_svn_wc_entry_t(JNIEnv *env, jboolean *hasException,
       // member: text_time
       if( !_hasException )
         {
-          jobject text_time = date__create(env, &_hasException,
+          jobject text_time = date__create(env, &_hasException, 
                                            entry->text_time);
 
           if( !_hasException )
@@ -230,7 +230,7 @@ entry__create_from_svn_wc_entry_t(JNIEnv *env, jboolean *hasException,
       // member: prop_time
       if( !_hasException )
         {
-          jobject prop_time =
+          jobject prop_time = 
             date__create(env, &_hasException,
                          entry->prop_time);
 
@@ -240,13 +240,13 @@ entry__create_from_svn_wc_entry_t(JNIEnv *env, jboolean *hasException,
                                   result, prop_time);
             }
         }
-
+      
       // member: attributes
       if( !_hasException )
         {
           jobject attributes = hashtable__create(env, &_hasException);
-
-          /*
+          
+          /* 
            * TODO: conversion of the apr_hashtable with the
            * attributes to a java hashtable
            * NOW THERE IS ONLY AN EMPTY HASHTABLE!!!!
@@ -266,12 +266,12 @@ entry__create_from_svn_wc_entry_t(JNIEnv *env, jboolean *hasException,
   if( _hasException )
   fprintf(stderr, "\n<<<entry__create_from_wc_entry_t\n");
 #endif
-
+ 
   if( (hasException != NULL) && _hasException )
     {
       *hasException = JNI_TRUE;
     }
-
+            
   return result;
 }
 
@@ -299,7 +299,7 @@ entry__set_revision(JNIEnv *env, jboolean *hasException,
 #ifdef SVN_JNI__DEBUG_ENTRY
   fprintf(stderr, ">>>entry__set_revision(...)\n");
 #endif
-  j__set_long(env, hasException,
+  j__set_long(env, hasException, 
               SVN_JNI_ENTRY__CLASS, SVN_JNI_ENTRY__SET_REVISION,
               jentry, jrevision);
 #ifdef SVN_JNI__DEBUG_ENTRY
@@ -317,7 +317,7 @@ entry__set_nodekind(JNIEnv *env, jboolean *hasException,
   SVN_JNI__DEBUG_DEC(jnodekind);
   fprintf(stderr, ")\n");
 #endif
-  j__set_int(env, hasException,
+  j__set_int(env, hasException, 
              SVN_JNI_ENTRY__CLASS, SVN_JNI_ENTRY__SET_NODEKIND,
              jentry, jnodekind);
 #ifdef SVN_JNI__DEBUG_ENTRY
@@ -343,7 +343,7 @@ entry__set_schedule(JNIEnv *env, jboolean *hasException,
 #endif
 }
 
-void
+void 
 entry__set_conflicted(JNIEnv *env, jboolean *hasException,
                       jobject jentry, jboolean jconflicted)
 {
@@ -361,7 +361,7 @@ entry__set_conflicted(JNIEnv *env, jboolean *hasException,
 #endif
 }
 
-void
+void 
 entry__set_copied(JNIEnv *env, jboolean *hasException,
                   jobject jentry, jboolean jcopied)
 {
@@ -379,7 +379,7 @@ entry__set_copied(JNIEnv *env, jboolean *hasException,
 #endif
 }
 
-void
+void 
 entry__set_texttime(JNIEnv *env, jboolean *hasException,
                      jobject jentry, jobject jtexttime)
 {
@@ -399,7 +399,7 @@ entry__set_texttime(JNIEnv *env, jboolean *hasException,
 #endif
 }
 
-void
+void 
 entry__set_proptime(JNIEnv *env, jboolean *hasException,
                      jobject jentry, jobject jproptime)
 {
@@ -419,7 +419,7 @@ entry__set_proptime(JNIEnv *env, jboolean *hasException,
 #endif
 }
 
-void
+void 
 entry__set_attributes(JNIEnv *env, jboolean *hasException,
                       jobject jentry, jobject jattributes)
 {
@@ -439,8 +439,8 @@ entry__set_attributes(JNIEnv *env, jboolean *hasException,
 #endif
 }
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../svn-dev.el")
- * end:
+ * end: 
  */
