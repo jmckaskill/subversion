@@ -35,16 +35,16 @@ Subversion from the bottom up.  (For full diagram, @xref{Architecture}.)
 @example
 
  +------+-------------+--+---------+-------+ <===== Server interface
- |                                         |
- |            Main SVN Library             |
- |                                         |
+ |                                         |                        
+ |            Main SVN Library             |                        
+ |                                         |                        
  +-----------------------------------------+ <===== Filesystem interface
- |                                         |
- |          Subversion Filesystem          |
- |                                         |
- +-+--------------+--------+---------+-----+ <===== Database interface
-   | Berkeley DBM |        |   SQL   |
-   +--------------+        +---------+
+ |                                         |                            
+ |          Subversion Filesystem          |                            
+ |                                         |                            
+ +-+--------------+--------+---------+-----+ <===== Database interface  
+   | Berkeley DBM |        |   SQL   |                                  
+   +--------------+        +---------+      
 
 @end example
 
@@ -139,7 +139,7 @@ svn_fs implements files and directories as database objects
 
 To begin, please be sure that you're already casually familiar with
 Subversion's ideas of files, directories, and version histories.  If
-not, @xref{Model}.
+not, @xref{Model}.  
 
 For completeness, we can now offer a precise, technical description of
 these terms.  Here is the schema used by svn_fs:
@@ -236,7 +236,7 @@ Here are functions to retrieve information from the filesystem.
  ask filesystem's lock manager for approval of delta; returns token (or
 failure)
 @item write (delta, token)
- actually write the delta into the filesystem
+ actually write the delta into the filesystem 
 @item abandon (token)
  tell lock manager that the delta will @emph{not} be written (despite
  previous approval)
@@ -288,16 +288,16 @@ The lock manager isn't always running;  when a server process wishes to
 execute a @code{write()} on the filesystem, it must first determine if a
 lock manager is running.  If not, it starts one.
 
-
+              
           \                              /
            \                            /
             \                          /
              \                        /
-              \                      /
+              \                      /  
                    INSERT PICTURE HERE
 
 After the lock manager is up, the server process first sends it a
-@code{submit()} call containing the delta it would like to write.
+@code{submit()} call containing the delta it would like to write.  
 
 The lock manager contains a pool of "approved changes".  This pool is a
 set of deltas which have been okayed for concurrent application to the
