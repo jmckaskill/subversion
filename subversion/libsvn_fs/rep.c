@@ -133,7 +133,7 @@ make_nodes (svn_fs_t *fs, int create)
   SVN_ERR (DB_WRAP (fs, "allocating `nodes' table object",
                     db_create (&fs->nodes, fs->env, 0)));
   SVN_ERR (DB_WRAP (fs, "setting `nodes' comparison function",
-                    fs->nodes->set_bt_compare (fs->nodes,
+                    fs->nodes->set_bt_compare (fs->nodes, 
                                                compare_nodes_keys)));
   SVN_ERR (DB_WRAP (fs,
                     (create
@@ -207,7 +207,7 @@ get_representation_skel (skel_t **skel_p,
 static svn_error_t *
 put_representation_skel (svn_fs_t *fs,
                          DB_TXN *db_txn,
-                         const svn_fs_id_t *id,
+                         const svn_fs_id_t *id, 
                          skel_t *skel,
                          apr_pool_t *pool)
 {
@@ -221,7 +221,7 @@ put_representation_skel (svn_fs_t *fs,
 
   return SVN_NO_ERROR;
 }
-
+                         
 
 
 /* Storing and retrieving NODE-REVISION skels.  */
@@ -325,7 +325,7 @@ new_node_id (svn_fs_id_t **id_p,
           (SVN_ERR_FS_CORRUPT, 0, 0, fs->pool,
            "root directory missing from `nodes' table, in filesystem `%s'",
            fs->env_path);
-
+      
       SVN_ERR (DB_WRAP (fs, "choosing new node ID (finding last entry)",
                         db_err));
     }
@@ -443,7 +443,7 @@ last_key_before (DB *db,
 static svn_error_t *
 new_successor_id (svn_fs_id_t **successor_p,
                   svn_fs_t *fs,
-                  DB_TXN *db_txn,
+                  DB_TXN *db_txn, 
                   svn_fs_id_t *id,
                   apr_pool_t *pool)
 {
@@ -570,7 +570,7 @@ svn_fs__create_successor (svn_fs_id_t **new_id_p,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
