@@ -59,7 +59,7 @@ In addition to the GNU standards, Subversion uses these conventions:
    * Put this comment at the bottom of new source files to make Emacs
      automatically load svn-dev.el:
 
-        /*
+        /* 
          * local variables:
          * eval: (load-file "svn-dev.el")
          * end:
