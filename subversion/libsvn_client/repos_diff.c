@@ -261,7 +261,7 @@ temp_file_plain_cleanup_handler (void *arg)
   struct temp_file_cleanup_s *s = arg;
 
   /* Note to UTF-8 watchers: this is ok because the path is already in
-     APR internal encoding. */
+     APR internal encoding. */ 
   return apr_file_remove (s->path, s->pool);
 }
 
@@ -405,7 +405,7 @@ get_path_access (svn_wc_adm_access_t **path_access,
 
   return SVN_NO_ERROR;
 }
-
+                  
 /* Like get_path_access except the returned access baton, in
    *PARENT_ACCESS, is for the parent of PATH rather than for PATH
    itself. */
@@ -450,12 +450,12 @@ get_empty_file (struct edit_baton *b,
 
 /* An editor function. The root of the comparison hierarchy */
 static svn_error_t *
-set_target_revision (void *edit_baton,
+set_target_revision (void *edit_baton, 
                      svn_revnum_t target_revision,
                      apr_pool_t *pool)
 {
   struct edit_baton *eb = edit_baton;
-
+  
   eb->target_revision = target_revision;
   return SVN_NO_ERROR;
 }
@@ -523,8 +523,8 @@ delete_entry (const char *path,
         SVN_ERR (get_empty_file(b->edit_baton, &(b->path_end_revision)));
 
         get_file_mime_types (&mimetype1, &mimetype2, b);
-
-        SVN_ERR (pb->edit_baton->diff_callbacks->file_deleted
+        
+        SVN_ERR (pb->edit_baton->diff_callbacks->file_deleted 
                  (adm_access, &state, b->wcpath,
                   b->path_start_revision,
                   b->path_end_revision,
@@ -535,7 +535,7 @@ delete_entry (const char *path,
       }
     case svn_node_dir:
       {
-        SVN_ERR (pb->edit_baton->diff_callbacks->dir_deleted
+        SVN_ERR (pb->edit_baton->diff_callbacks->dir_deleted 
                  (adm_access, &state, svn_path_join (eb->target, path, pool),
                   pb->edit_baton->diff_cmd_baton));
         break;
@@ -581,7 +581,7 @@ add_directory (const char *path,
 
   SVN_ERR (get_path_access (&adm_access, pb->edit_baton->adm_access, pb->wcpath,
                             pb->edit_baton->dry_run, pool));
-  SVN_ERR (pb->edit_baton->diff_callbacks->dir_added
+  SVN_ERR (pb->edit_baton->diff_callbacks->dir_added 
            (adm_access, b->wcpath,
             pb->edit_baton->diff_cmd_baton));
 
@@ -747,19 +747,19 @@ close_file (void *file_baton,
     content_state = svn_wc_notify_state_unknown,
     prop_state = svn_wc_notify_state_unknown;
 
-  err = get_parent_access (&adm_access, eb->adm_access,
+  err = get_parent_access (&adm_access, eb->adm_access, 
                            b->wcpath, eb->dry_run, b->pool);
 
   if (err && err->apr_err == SVN_ERR_WC_NOT_LOCKED)
     {
-      /* ### maybe try to stat the local b->wcpath? */
+      /* ### maybe try to stat the local b->wcpath? */      
       /* If the file path doesn't exist, then send a 'skipped' notification. */
       if (eb->notify_func)
         (*eb->notify_func) (eb->notify_baton, b->wcpath,
                             svn_wc_notify_skip, svn_node_file, NULL,
                             svn_wc_notify_state_missing, prop_state,
                             SVN_INVALID_REVNUM);
-
+      
       svn_error_clear (err);
       return SVN_NO_ERROR;
     }
@@ -848,7 +848,7 @@ close_directory (void *dir_baton,
 
       if (err && err->apr_err == SVN_ERR_WC_NOT_LOCKED)
         {
-          /* ### maybe try to stat the local b->wcpath? */
+          /* ### maybe try to stat the local b->wcpath? */          
           /* If the path doesn't exist, then send a 'skipped' notification. */
           if (eb->notify_func)
             (*eb->notify_func) (eb->notify_baton, b->wcpath,
@@ -857,7 +857,7 @@ close_directory (void *dir_baton,
                                 svn_wc_notify_state_missing,
                                 SVN_INVALID_REVNUM);
 
-          svn_error_clear (err);
+          svn_error_clear (err);      
           return SVN_NO_ERROR;
         }
       else if (err)
@@ -900,7 +900,7 @@ change_file_prop (void *file_baton,
   propchange = apr_array_push (b->propchanges);
   propchange->name = apr_pstrdup (b->pool, name);
   propchange->value = value ? svn_string_dup (value, b->pool) : NULL;
-
+  
   return SVN_NO_ERROR;
 }
 
