@@ -2,9 +2,9 @@
 #
 #  stat_tests.py:  testing the svn stat command
 #
-#  Subversion is a tool for revision control.
+#  Subversion is a tool for revision control. 
 #  See http://subversion.tigris.org for more information.
-#
+#    
 # ====================================================================
 # Copyright (c) 2000-2003 CollabNet.  All rights reserved.
 #
@@ -52,7 +52,7 @@ def status_unversioned_file_in_current_dir(sbox):
 
     stat_output, err_output = svntest.main.run_svn(None, 'stat', 'foo')
 
-    if len(stat_output) != 1:
+    if len(stat_output) != 1: 
       return 1
 
     if len(err_output) != 0:
@@ -76,7 +76,7 @@ def status_update_with_nested_adds(sbox):
   # Make a backup copy of the working copy
   wc_backup = sbox.add_wc_path('backup')
   svntest.actions.duplicate_dir(wc_dir, wc_backup)
-
+  
   # Create newdir and newfile
   newdir_path = os.path.join(wc_dir, 'newdir')
   newfile_path = os.path.join(wc_dir, 'newdir', 'newfile')
@@ -176,7 +176,7 @@ def status_missing_file(sbox):
   for line in stat_output:
     if not re.match("! +iota", line):
       return 1
-
+  
   os.chdir(was_cwd)
 
   return 0
@@ -356,7 +356,7 @@ def status_for_unignored_file(sbox):
                                         'I      newfile\n'],
                                        [],
                                        'status', 'newdir', 'newfile')
-
+  
   finally:
     os.chdir(was_cwd)
 
@@ -374,16 +374,16 @@ def status_for_nonexistent_file(sbox):
   os.chdir(wc_dir)
 
   try:
-    stat_output, err_output = svntest.main.run_svn(None, 'status',
+    stat_output, err_output = svntest.main.run_svn(None, 'status', 
                                                    'nonexistent-file')
     if err_output:
       raise svntest.Failure
 
-    # there should *not* be a status line printed for the nonexistent file
+    # there should *not* be a status line printed for the nonexistent file 
     for line in stat_output:
       if re.match(" +nonexistent-file", line):
         raise svntest.Failure
-
+  
   finally:
     os.chdir(was_cwd)
 
@@ -405,7 +405,7 @@ def status_file_needs_update(sbox):
   #    %
   #
   # ...and yet...
-  #
+  # 
   #    % svn st -u -v
   #                   56        6          k   cron-daily.pl
   #           *       56       44          k   crontab.root
@@ -567,7 +567,7 @@ def status_on_forward_deletion(sbox):
     out, err = svntest.main.run_svn(None, 'st', '-u', 'wc')
     if err:
       raise svntest.Failure
-
+    
   finally:
     os.chdir(saved_cwd)
 
