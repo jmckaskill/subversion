@@ -87,7 +87,7 @@ create_fs_and_repos (svn_fs_t **fs_p, const char *name)
 
   SVN_ERR (fs_new (fs_p));
   SVN_ERR (svn_fs_create_berkeley (*fs_p, name));
-
+  
   /* Provide a handler for Berkeley DB error messages.  */
   SVN_ERR (svn_fs_set_berkeley_errcall (*fs_p, berkeley_error_handler));
 
@@ -101,7 +101,7 @@ get_ra_local_plugin (const svn_ra_plugin_t **plugin)
 {
   /* Someday, we need to rewrite svn_client_init_ra_libs() so that it
      returns a hash of loaded vtables *regardless* of whether the
-     application is statically or dynamically linked!
+     application is statically or dynamically linked!  
 
      When that happens, call that function here, then do a simple
      apr_hash_get() on the "file" key.  Voila.
@@ -173,7 +173,7 @@ get_youngest_rev (const char **msg)
 
   /* Get the youngest revision and make sure it's 0. */
   SVN_ERR (plugin->get_latest_revnum (session, &latest_rev));
-
+  
   if (latest_rev != 0)
       return svn_error_create (SVN_ERR_FS_GENERAL, 0, NULL, pool,
                                "youngest rev isn't 0!");
