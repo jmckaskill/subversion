@@ -54,10 +54,10 @@ handle_externals_description (const char *externals,
   apr_array_header_t *description_lines
     = svn_cstring_split (externals, "\n\r", TRUE, pool);
   int i;
-
+  
   for (i = 0; i < description_lines->nelts; i++)
     {
-#if 0
+#if 0      
       /* ### in progress */
 
       const char *target_dir;
@@ -66,7 +66,7 @@ handle_externals_description (const char *externals,
       const char *this_line
         = APR_ARRAY_IDX (description_lines, i, (const char *));
 #endif /* 0 */
-
+      
     }
 
   return SVN_NO_ERROR;
@@ -79,7 +79,7 @@ handle_externals_description (const char *externals,
    of the directory that had the property.
 
    Use POOL for temporary allocation.
-
+   
    Notes: This is done _after_ the entire initial checkout is complete
    so that fetching external items (and any errors therefrom) doesn't
    delay the primary checkout.  */
@@ -97,7 +97,7 @@ process_externals (svn_stringbuf_t *path, apr_pool_t *pool)
   {
     apr_hash_t *entries;
     apr_hash_index_t *hi;
-
+    
     SVN_ERR (svn_wc_entries_read (&entries, path, FALSE, pool));
     for (hi = apr_hash_first (pool, entries); hi; hi = apr_hash_next (hi))
       {
@@ -105,7 +105,7 @@ process_externals (svn_stringbuf_t *path, apr_pool_t *pool)
         apr_ssize_t klen;
         void *val;
         svn_wc_entry_t *ent;
-
+        
         apr_hash_this (hi, &key, &klen, &val);
         ent = (svn_wc_entry_t *) val;
 
@@ -205,14 +205,14 @@ svn_client_checkout (const svn_delta_editor_t *before_editor,
                                  checkout_edit_baton);
       /* Sleep for one second to ensure timestamp integrity. */
       apr_sleep (APR_USEC_PER_SEC * 1);
-
+      
       if (err)
         return err;
 
       /* Close the RA session. */
       SVN_ERR (ra_lib->close (session));
-    }
-
+    }      
+  
   /* else we're checking out from xml */
   else
     {
@@ -246,7 +246,7 @@ svn_client_checkout (const svn_delta_editor_t *before_editor,
 
       /* Sleep for one second to ensure timestamp integrity. */
       apr_sleep (APR_USEC_PER_SEC * 1);
-
+      
       if (err)
         return err;
 
@@ -261,7 +261,7 @@ svn_client_checkout (const svn_delta_editor_t *before_editor,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end: */
