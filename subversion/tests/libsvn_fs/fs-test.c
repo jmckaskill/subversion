@@ -200,7 +200,7 @@ int (*test_funcs[]) (const char **msg) = {
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../svn-dev.el")
  * end:
