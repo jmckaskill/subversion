@@ -140,7 +140,7 @@ typedef struct svn_config_t svn_config_t;
    merged in.  System config information under Windows is found only
    in the registry.
 
-   If no config information is available, return an empty *CFGP.
+   If no config information is available, return an empty *CFGP.  
 
    ### Notes: This function obviates the need for svn_config_read()
    and svn_config_merge() as public interfaces.  However, I'm leaving
