@@ -78,7 +78,7 @@ int svn_fs__dag_is_mutable (dag_node_t *node);
 
 
 /* Close NODE.  */
-void svn_fs__dag_close (dag_node_t *node);
+void svn_fs__dag_close (dag_node_t *node); 
 
 
 /* Return true iff NODE is a file/directory/copy.  */
@@ -270,7 +270,7 @@ svn_error_t *svn_fs__dag_get_copy (svn_revnum_t *rev_p,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
