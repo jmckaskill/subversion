@@ -46,7 +46,7 @@ svn_cl__status (apr_getopt_t *os,
   svn_client_auth_baton_t *auth_baton;
   svn_revnum_t youngest = SVN_INVALID_REVNUM;
 
-  SVN_ERR (svn_cl__args_to_target_array (&targets, os, opt_state,
+  SVN_ERR (svn_cl__args_to_target_array (&targets, os, opt_state, 
                                          FALSE, pool));
 
   /* Build an authentication object to give to libsvn_client. */
@@ -87,8 +87,8 @@ svn_cl__status (apr_getopt_t *os,
 }
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../tools/dev/svn-dev.el")
- * end:
+ * end: 
  */

@@ -44,7 +44,7 @@ svn_cl__cleanup (apr_getopt_t *os,
   apr_pool_t *subpool;
   int i;
 
-  SVN_ERR (svn_cl__args_to_target_array (&targets, os, opt_state,
+  SVN_ERR (svn_cl__args_to_target_array (&targets, os, opt_state, 
                                          FALSE, pool));
 
   /* Add "." if user passed 0 arguments */
@@ -70,8 +70,8 @@ svn_cl__cleanup (apr_getopt_t *os,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../tools/dev/svn-dev.el")
- * end:
+ * end: 
  */
