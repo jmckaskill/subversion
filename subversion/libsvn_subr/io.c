@@ -197,7 +197,7 @@ apr_transfer_file_contents (const char *src,
   apr_err = apr_open (&s, src, APR_READ, APR_OS_DEFAULT, pool);
   if (apr_err)
     return apr_err;
-
+  
   /* Get its size. */
   apr_err = apr_getfileinfo (&finfo, s);
   if (apr_err)
@@ -215,7 +215,7 @@ apr_transfer_file_contents (const char *src,
       apr_close (s);  /* toss */
       return apr_err;
     }
-
+  
   /* Copy bytes till the cows come home. */
   read_err = 0;
   while (!APR_STATUS_IS_EOF(read_err))
@@ -248,7 +248,7 @@ apr_transfer_file_contents (const char *src,
               apr_close (d);
               return apr_err;
             }
-
+          
           apr_err = apr_close (d);
           if (apr_err)
             return apr_err;
@@ -321,7 +321,7 @@ svn_io_copy_file (svn_string_t *src, svn_string_t *dst, apr_pool_t *pool)
                         src->data, dst->data);
       return svn_error_create (apr_err, 0, NULL, pool, msg);
     }
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -339,7 +339,7 @@ svn_io_append_file (svn_string_t *src, svn_string_t *dst, apr_pool_t *pool)
                         src->data, dst->data);
       return svn_error_create (apr_err, 0, NULL, pool, msg);
     }
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -581,7 +581,7 @@ svn_stream_t *svn_stream_from_stdio (FILE *fp, apr_pool_t *pool)
 }
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
