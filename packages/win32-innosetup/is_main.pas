@@ -278,7 +278,7 @@ begin
     iStatusModDav := STATUS_NONE;
     iStatusModDavSvn := STATUS_NONE;
     iStatusModAuthzSvn := STATUS_NONE;
-
+    
     sConfFileName:= g_sApachePathConf + '\httpd.conf';
 
     //Load the httpd.conf to the aHttpdConf array  and init vars
@@ -365,7 +365,7 @@ begin
     ExtractTemporaryFile('mod_dav_svn.so');
     ExtractTemporaryFile('mod_authz_svn.so');
     ExtractTemporaryFile('intl.dll');
-
+	
     //Copy the files from the temp dir to Apache's module foder
     FileCopy (sTPathTmp + '\libdb42.dll', g_sApachePathModules + '\libdb42.dll', False);
     FileCopy (sTPathTmp + '\mod_dav_svn.so', g_sApachePathModules + '\mod_dav_svn.so', False);
