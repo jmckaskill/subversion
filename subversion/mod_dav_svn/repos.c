@@ -1452,7 +1452,7 @@ dav_resource *dav_svn_create_working_resource(const dav_resource *base,
   svn_string_t *path = svn_string_createf(base->pool, "/%s/wrk/%s%s",
                                           base->info->repos->special_uri,
                                           activity_id, repos_path);
-
+  
 
   comb = apr_pcalloc(base->pool, sizeof(*comb));
 
@@ -1503,7 +1503,7 @@ const dav_hooks_repository dav_svn_hooks_repos =
 };
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
