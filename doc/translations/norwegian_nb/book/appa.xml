@@ -89,7 +89,7 @@
       Fordi vi &#248;nsker &#229; tillate kopier som inneholder blandede revisjoner, er det lagt innt begrensninger i hvor langt vi kan g&#229; n&#229;r det gjelder &#229; misbruke denne modellen.
     </para>
 
-
+    
     <para>
       Fra et teoretisk synspunkt definerer vi <quote>revisjon 5 av katalogen <filename>foo</filename></quote> til &#229; bety en spesifikk samling av katalogposter og egenskaper.
       Tenk deg s&#229; at vi begynner &#229; legge til og fjerne filer fra <filename>foo</filename>, og deretter legger det inn.
@@ -102,7 +102,7 @@
       <emphasis>Derfor, det er kun etter en oppdatering det er helt sikkert &#229; si at du har en <quote>perfekt</quote> revisjon av en katalog.</emphasis>
       Mesteparten av tiden vil arbeidskopien din inneholde <quote>uperfekte</quote> katalogrevisjoner.
     </para>
-
+    
     <para>
       P&#229; samme m&#229;te vil et problem oppst&#229; hvis du fors&#248;ker &#229; legge inn forandringer i egenskapene for en katalog.
       Normalt ville innleggingen &#248;ke det lokale revisjonsnummeret for arbeidskatalogen.
@@ -132,9 +132,9 @@
       Den administrative katalogen <filename>.svn</filename> tjener samme form&#229;l som <filename>CVS</filename>-katalogen, unntatt at den ogs&#229; lagrer skrivebeskyttede, <quote>rene</quote> kopier av filene dine.
       Dette gj&#248;r at du kan gj&#248;re mange ting uten nettforbindelse:
     </para>
-
+    
     <variablelist>
-
+      
       <varlistentry>
         <term><command>svn status</command></term>
         <listitem>
@@ -216,7 +216,7 @@
           </para>
         </listitem>
       </varlistentry>
-
+      
       <varlistentry>
         <term><option>-v</option></term>
         <listitem>
@@ -343,7 +343,7 @@ X    Ressursen er ekstern i denne arbeidskopien (kommer fra et annet
       En ny funksjon i Subversion lar deg legge til vilk&#229;rlige metadata (eller<quote>egenskaper</quote>) til filer og katalgoer.
       Egenskaper er vilk&#229;rlige navn/verdi-par koblet til filer og kataloger i arbeidskopien din.
     </para>
-
+    
     <para>
       For &#229; sette eller lese et egenskapsnavn, bruk delkommandoene <command>svn propset</command> og <command>svn propget</command>.
       For &#229; liste ut alle egenskaper ved et objekt, bruk <command>svn proplist</command>.
@@ -367,7 +367,7 @@ X    Ressursen er ekstern i denne arbeidskopien (kommer fra et annet
       Mange brukere glemmer (eller ser ikke) <command>C</command>-en etter den fyker forbi p&#229; terminalen deres.
       Ofte glemmer de at konfliktmerkene er der i det hele tatt, og de legger deretter inn filer som inneholder konfliktmerker.
     </para>
-
+    
     <para>
       Subversion l&#248;ser dette problemet ved &#229; gj&#248;re konflikter mer synlige.
       Den husker at en fil har en konflikt, og vil ikke tillate deg &#229; legge inn forandringene dine f&#248;r du kj&#248;rer <command>svn resolved</command>.
@@ -387,7 +387,7 @@ X    Ressursen er ekstern i denne arbeidskopien (kommer fra et annet
       Men internt behandler Subversion forskjeller mellom filer ved hjelp av en bin&#230;rdata-basert algoritme, uansett om de inneholder tekst eller bin&#230;re data.
       Dette betyr at alle filer er lagret differensielt (pakket) i depotet, og sm&#229; forandringer blir alltid sendt over nettverket.
     </para>
-
+    
     <para>
       CVS-brukere m&#229; merke bin&#230;re filer med flagget <option>-kb</option>, for &#229; forhindre data &#229; bli rotet til (p&#229; grunn av n&#248;kkelordutvidelser og oversettelse av linjeslutt).
       Dette glemmer de noen ganger.
@@ -486,7 +486,7 @@ X    Ressursen er ekstern i denne arbeidskopien (kommer fra et annet
 </appendix>
 
 <!--
-local variables:
+local variables: 
 sgml-parent-document: ("book.xml" "appendix")
 end:
 vim: set textwidth=0 wrap expandtab shiftwidth=2 tabstop=2 softtabstop=2 fileencoding=utf8 :

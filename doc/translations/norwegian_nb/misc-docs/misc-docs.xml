@@ -12,7 +12,7 @@
 
   <!-- External entity refs -->
 <!-- Kommentert ut for å ikke plage make {{{
-  &quick_walkthrough;
+  &quick_walkthrough; 
   &best_practices;
   &directory_versioning;
 }}} -->
