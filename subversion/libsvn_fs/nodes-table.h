@@ -31,7 +31,7 @@ extern "C" {
 
 
 /* Open a `nodes' table in ENV.  If CREATE is non-zero, create
-   one if it doesn't exist.  Set *NODES_P to the new table.
+   one if it doesn't exist.  Set *NODES_P to the new table.  
    Return a Berkeley DB error code.  */
 int svn_fs__open_nodes_table (DB **nodes_p,
                               DB_ENV *env,
@@ -102,7 +102,7 @@ svn_error_t *svn_fs__put_node_revision (svn_fs_t *fs,
 #endif /* SVN_LIBSVN_FS_NODES_TABLE_H */
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end:
