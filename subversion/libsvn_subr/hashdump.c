@@ -3,32 +3,32 @@
  *
  * ================================================================
  * Copyright (c) 2000 Collab.Net.  All rights reserved.
- *
+ * 
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
  * met:
- *
+ * 
  * 1. Redistributions of source code must retain the above copyright
  * notice, this list of conditions and the following disclaimer.
- *
+ * 
  * 2. Redistributions in binary form must reproduce the above copyright
  * notice, this list of conditions and the following disclaimer in the
  * documentation and/or other materials provided with the distribution.
- *
+ * 
  * 3. The end-user documentation included with the redistribution, if
  * any, must include the following acknowlegement: "This product includes
  * software developed by Collab.Net (http://www.Collab.Net/)."
  * Alternately, this acknowlegement may appear in the software itself, if
  * and wherever such third-party acknowlegements normally appear.
- *
+ * 
  * 4. The hosted project names must not be used to endorse or promote
  * products derived from this software without prior written
  * permission. For written permission, please contact info@collab.net.
- *
+ * 
  * 5. Products derived from this software may not use the "Tigris" name
  * nor may "Tigris" appear in their names without prior written
  * permission of Collab.Net.
- *
+ * 
  * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
  * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -42,7 +42,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ====================================================================
- *
+ * 
  * This software consists of voluntary contributions made by many
  * individuals on behalf of Collab.Net.
  */
@@ -62,7 +62,7 @@
 
 
 
-/*
+/* 
  * The format of a dumped hash table is:
  *
  *   K <nlength>
@@ -90,7 +90,7 @@
  *   be pleased to note the familiar, subtle hints of mulberries and
  *   carburator fluid.  Its confident finish is marred only by a barely
  *   detectable suggestion of rancid squid ink.
- *   K 5
+ *   K 5 
  *   price
  *   V 8
  *   US $6.50
@@ -112,7 +112,7 @@
  *
  */
 
-ap_size_t
+ap_size_t 
 svn_unpack_bytestring (char **returndata, void *value)
 {
   svn_string_t *valstring = (svn_string_t *) value;
@@ -144,9 +144,9 @@ svn_pack_bytestring (size_t len, const char *val, ap_pool_t *pool)
 
 
 /* hash_write():  dump a hash table to a file.
- *
+ * 
  *  Input:  a hash, an "unpack" function (see above), an opened file pointer
- *
+ * 
  *  Returns:  error status
  *
  *     The "unpack" routine knows how to convert a hash value into a
@@ -155,7 +155,7 @@ svn_pack_bytestring (size_t len, const char *val, ap_pool_t *pool)
  */
 
 ap_status_t
-hash_write (ap_hash_t *hash,
+hash_write (ap_hash_t *hash, 
             ap_size_t (*unpack_func) (char **unpacked_data, void *val),
             ap_file_t *destfile)
 {
@@ -224,9 +224,9 @@ hash_write (ap_hash_t *hash,
  * Does not include newline, instead '\0' is put there.
  * Length (as in strlen) is returned in *LIMIT.
  * BUF should be pre-allocated.
- * FILE should be already opened.
+ * FILE should be already opened. 
  *
- * (This is meant for reading length lines from hashdump files.)
+ * (This is meant for reading length lines from hashdump files.) 
  */
 static ap_status_t
 read_length_line (ap_file_t *file, char *buf, size_t *limit)
@@ -237,7 +237,7 @@ read_length_line (ap_file_t *file, char *buf, size_t *limit)
 
   for (i = 0; i < *limit; i++)
   {
-    err = ap_getc (&c, file);
+    err = ap_getc (&c, file); 
     if (err)
       return err;   /* Note: this status code could be APR_EOF, which
                        is totally fine.  The caller should be aware of
@@ -262,9 +262,9 @@ read_length_line (ap_file_t *file, char *buf, size_t *limit)
 
 
 /* hash_read():  read a hash table from a file.
- *
+ * 
  *  Input:  a hash, a "pack" function, an opened file pointer, a pool
- *
+ * 
  *  Returns:  error status
  *
  *     The "pack" routine should take a specific-length bytestring and
@@ -274,7 +274,7 @@ read_length_line (ap_file_t *file, char *buf, size_t *limit)
  */
 
 ap_status_t
-hash_read (ap_hash_t **hash,
+hash_read (ap_hash_t **hash, 
            void * (*pack_func) (size_t len, const char *val, ap_pool_t *pool),
            ap_file_t *srcfile,
            ap_pool_t *pool)
