@@ -35,7 +35,7 @@ open_admin_tmp_file (apr_file_t **fp,
                      void *callback_baton)
 {
   svn_client__callback_baton_t *cb = callback_baton;
-
+  
   SVN_ERR (svn_wc_create_tmp_file (fp, cb->base_dir, TRUE, cb->pool));
 
   return SVN_NO_ERROR;
@@ -59,7 +59,7 @@ open_tmp_file (apr_file_t **fp,
   /* Tack on a made-up filename. */
   truepath = svn_path_join (truepath, "tempfile", cb->pool);
 
-  /* Open a unique file;  use APR_DELONCLOSE. */
+  /* Open a unique file;  use APR_DELONCLOSE. */  
   SVN_ERR (svn_io_open_unique_file (fp, &ignored_filename,
                                     truepath, ".tmp", TRUE, cb->pool));
 
@@ -88,7 +88,7 @@ get_wc_prop (void *baton,
         {
           svn_client_commit_item_t *item
             = ((svn_client_commit_item_t **) cb->commit_items->elts)[i];
-          if (! strcmp (relpath,
+          if (! strcmp (relpath, 
                         svn_path_uri_decode (item->url, pool)))
             return svn_wc_prop_get (value, name, item->path, cb->base_access,
                                     pool);
@@ -129,12 +129,12 @@ push_wc_prop (void *baton,
     {
       svn_client_commit_item_t *item
         = ((svn_client_commit_item_t **) cb->commit_items->elts)[i];
-
+      
       if (strcmp (relpath, svn_path_uri_decode (item->url, pool)) == 0)
         {
           apr_pool_t *cpool = item->wcprop_changes->pool;
           svn_prop_t *prop = apr_palloc (cpool, sizeof (*prop));
-
+          
           prop->name = apr_pstrdup (cpool, name);
           if (value)
             {
@@ -143,7 +143,7 @@ push_wc_prop (void *baton,
             }
           else
             prop->value = NULL;
-
+          
           /* Buffer the propchange to take effect during the
              post-commit process. */
           *((svn_prop_t **) apr_array_push (item->wcprop_changes)) = prop;
@@ -227,7 +227,7 @@ invalidate_wc_props (void *baton,
 }
 
 
-svn_error_t *
+svn_error_t * 
 svn_client__open_ra_session (void **session_baton,
                              const svn_ra_plugin_t *ra_lib,
                              const char *base_url,
@@ -242,7 +242,7 @@ svn_client__open_ra_session (void **session_baton,
 {
   svn_ra_callbacks_t *cbtable = apr_pcalloc (pool, sizeof(*cbtable));
   svn_client__callback_baton_t *cb = apr_pcalloc (pool, sizeof(*cb));
-
+  
   cbtable->open_tmp_file = use_admin ? open_admin_tmp_file : open_tmp_file;
   cbtable->get_authenticator = svn_client__get_authenticator;
   cbtable->get_wc_prop = use_admin ? get_wc_prop : NULL;
