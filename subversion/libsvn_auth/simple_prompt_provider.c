@@ -37,7 +37,7 @@ typedef struct
 
   /* a default password, to try before prompting.  can be NULL. */
   const char *default_password;
-
+  
 } simple_prompt_provider_baton_t;
 
 
@@ -129,7 +129,7 @@ simple_prompt_next_creds (void **credentials,
   SVN_ERR (ib->pb->prompt_func (&creds->password, prompt,
                                 TRUE, /* don't echo to screen */
                                 ib->pb->prompt_baton, pool));
-
+  
   *credentials = creds;
 
   return SVN_NO_ERROR;
@@ -138,7 +138,7 @@ simple_prompt_next_creds (void **credentials,
 
 
 /* The provider. */
-static const svn_auth_provider_t simple_prompt_provider =
+static const svn_auth_provider_t simple_prompt_provider = 
   {
     SVN_AUTH_CRED_SIMPLE,  /* username/passwd creds */
     simple_prompt_first_creds,
