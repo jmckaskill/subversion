@@ -37,14 +37,14 @@ extern "C" {
 
 
 /* If PATH exists, set *KIND to the appropriate kind, else set it to
- * svn_node_unknown.
+ * svn_node_unknown. 
  *
  * If PATH is a file, *KIND is set to svn_node_file.
  *
  * If PATH is a directory, *KIND is set to svn_node_dir.
  *
  * If PATH does not exist in its final component, *KIND is set to
- * svn_node_none.
+ * svn_node_none.  
  *
  * If intermediate directories on the way to PATH don't exist, an
  * error is returned, and *KIND's value is undefined.
@@ -82,14 +82,14 @@ svn_error_t *svn_io_check_path (const svn_stringbuf_t *path,
  *
  * *UNIQUE_NAME will never be exactly the same as PATH, even if PATH does
  * not exist.
- *
+ * 
  * *F and *UNIQUE_NAME are allocated in POOL.
  *
  * If no unique name can be found, SVN_ERR_IO_UNIQUE_NAMES_EXHAUSTED is
  * the error returned.
  *
  * Claim of Historical Inevitability: this function was written
- * because
+ * because 
  *
  *    tmpnam() is not thread-safe.
  *    tempname() tries standard system tmp areas first.
@@ -134,7 +134,7 @@ svn_error_t *svn_io_append_file (svn_stringbuf_t *src,
  * Does not include newline, instead '\0' is put there.
  * Length (as in strlen) is returned in *LIMIT.
  * BUF should be pre-allocated.
- * FILE should be already opened.
+ * FILE should be already opened. 
  *
  * When the file is out of lines, APR_EOF will be returned.
  */
@@ -257,8 +257,8 @@ svn_error_t *svn_stream_write (svn_stream_t *stream, const char *data,
 svn_error_t *svn_stream_close (svn_stream_t *stream);
 
 /* Sets *RESULT to a string containing the contents of FILENAME. */
-svn_error_t *svn_string_from_file (svn_stringbuf_t **result,
-                                   const char *filename,
+svn_error_t *svn_string_from_file (svn_stringbuf_t **result, 
+                                   const char *filename, 
                                    apr_pool_t *pool);
 
 /* Sets *RESULT to a string containing the contents of the already opened
@@ -311,7 +311,7 @@ svn_error_t *svn_io_run_cmd (const char *path,
 svn_error_t *svn_io_detect_mimetype (const char **mimetype,
                                      const char *file,
                                      apr_pool_t *pool);
-
+                                      
 
 
 #ifdef __cplusplus
