@@ -119,14 +119,14 @@
    svn_client_ctx_t
 */
 
-%typemap(python,in) (svn_client_get_commit_log_t log_msg_func,
+%typemap(python,in) (svn_client_get_commit_log_t log_msg_func, 
                      void *log_msg_baton) {
 
   $1 = svn_swig_py_get_commit_log_func;
   $2 = $input; /* our function is the baton. */
 }
 
-%typemap(java,in) (svn_client_get_commit_log_t log_msg_func,
+%typemap(java,in) (svn_client_get_commit_log_t log_msg_func, 
                    void *log_msg_baton) {
 
   $1 = svn_swig_java_get_commit_log_func;
@@ -146,7 +146,7 @@
    svn_client_blame()
 */
 
-%typemap(python, in) (svn_client_blame_receiver_t receiver,
+%typemap(python, in) (svn_client_blame_receiver_t receiver, 
                       void *receiver_baton) {
     $1 = svn_swig_py_client_blame_receiver_func;
     $2 = (void *)$input;
@@ -262,7 +262,7 @@
 }
 #endif
 
-/* -----------------------------------------------------------------------
+/* ----------------------------------------------------------------------- 
  * Convert perl hashes back into apr_hash_t * for setting the config
  * member of the svn_client_ctx_t.   This is an ugly hack, it will
  * always allocate the new apr_hash_t out of the global current_pool
@@ -284,7 +284,7 @@
  * override default typemap for svn_client_commit_info_t for perl.  Some calls
  * never allocate and fill the commit_info struct.  This lets us return
  * undef for them.  Otherwise the object we pass back can cause crashes */
-%typemap(perl5, in, numinputs=0) svn_client_commit_info_t **
+%typemap(perl5, in, numinputs=0) svn_client_commit_info_t ** 
                                  ( svn_client_commit_info_t * temp ) {
     temp = NULL;
     $1 = &temp;
@@ -329,7 +329,7 @@
   SWIG_MakePtr($result, (void *)*$1,
                $*1_descriptor, 0);
   argvi++;
-}
+}  
 
 /* ----------------------------------------------------------------------- */
 
