@@ -1,6 +1,6 @@
-/*
+/* 
  * pipe_editors.c -- an editor that acts as a "pipe" to another editor
- *
+ * 
  * ====================================================================
  * Copyright (c) 2000-2002 CollabNet.  All rights reserved.
  *
@@ -47,9 +47,9 @@ open_root (void *edit_baton, svn_revnum_t base_revision, void **root_baton)
   SVN_ERR ((* (eb->real_editor->open_root)) (eb->real_edit_baton,
                                              base_revision,
                                              &(d->real_dir_baton)));
-
+    
   *root_baton = d;
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -59,9 +59,9 @@ delete_entry (svn_stringbuf_t *name, svn_revnum_t revision, void *parent_baton)
 {
   struct svn_pipe_dir_baton *d = parent_baton;
 
-  SVN_ERR ((* (d->edit_baton->real_editor->delete_entry))
+  SVN_ERR ((* (d->edit_baton->real_editor->delete_entry)) 
            (name, revision, d->real_dir_baton));
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -82,7 +82,7 @@ add_directory (svn_stringbuf_t *name,
   SVN_ERR ((* (d->edit_baton->real_editor->add_directory))
            (name, d->real_dir_baton, copyfrom_path, copyfrom_revision,
             &(child->real_dir_baton)));
-
+           
   *child_baton = child;
 
   return SVN_NO_ERROR;
@@ -115,7 +115,7 @@ close_directory (void *dir_baton)
 {
   struct svn_pipe_dir_baton *d = dir_baton;
 
-  SVN_ERR ((* (d->edit_baton->real_editor->close_directory))
+  SVN_ERR ((* (d->edit_baton->real_editor->close_directory)) 
            (d->real_dir_baton));
 
   return SVN_NO_ERROR;
@@ -151,7 +151,7 @@ abort_edit (void *edit_baton)
   struct svn_pipe_edit_baton *eb = edit_baton;
 
   SVN_ERR ((* (eb->real_editor->abort_edit)) (eb->real_edit_baton));
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -160,7 +160,7 @@ static svn_error_t *
 window_handler (svn_txdelta_window_t *window, void *handler)
 {
   struct svn_pipe_handler_wrapper *hw = handler;
-
+  
   SVN_ERR ((* (hw->real_handler)) (window, hw->real_handler_baton));
 
   return SVN_NO_ERROR;
@@ -175,7 +175,7 @@ apply_textdelta (void *file_baton,
   struct svn_pipe_file_baton *fb = file_baton;
   struct svn_pipe_handler_wrapper *hw
     = apr_pcalloc (fb->dir_baton->edit_baton->pool, sizeof (*hw));
-
+  
   hw->file_baton = fb;
 
   SVN_ERR ((* (fb->dir_baton->edit_baton->real_editor->apply_textdelta))
@@ -203,7 +203,7 @@ add_file (svn_stringbuf_t *name,
   fb->dir_baton = d;
 
   SVN_ERR ((* (d->edit_baton->real_editor->add_file))
-           (name, d->real_dir_baton, copyfrom_path,
+           (name, d->real_dir_baton, copyfrom_path, 
             copyfrom_revision, &(fb->real_file_baton)));
 
   *file_baton = fb;
@@ -271,7 +271,7 @@ svn_delta_old_default_pipe_editor (svn_delta_edit_fns_t **new_editor,
 {
   struct svn_pipe_edit_baton *eb = apr_pcalloc (pool, sizeof (*eb));
   svn_delta_edit_fns_t *editor = svn_delta_old_default_editor (pool);
-
+  
   /* Set up the editor. */
   editor->set_target_revision = set_target_revision;
   editor->open_root = open_root;
@@ -298,7 +298,7 @@ svn_delta_old_default_pipe_editor (svn_delta_edit_fns_t **new_editor,
 }
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end:
