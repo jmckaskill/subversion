@@ -112,14 +112,14 @@ svn_client_checkout (svn_wc_notify_func_t notify_func,
                                  checkout_edit_baton);
       /* Sleep for one second to ensure timestamp integrity. */
       apr_sleep (apr_time_from_sec(1));
-
+      
       if (err)
         return err;
 
       /* Close the RA session. */
       SVN_ERR (ra_lib->close (session));
-    }
-
+    }      
+  
   /* We handle externals after the initial checkout is complete, so
      that fetching external items (and any errors therefrom) doesn't
      delay the primary checkout.  */
