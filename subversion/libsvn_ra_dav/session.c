@@ -57,7 +57,7 @@ static int request_auth(void *userdata, const char *realm, int attempt,
   svn_ra_simple_password_authenticator_t *authenticator = NULL;
   svn_ra_session_t *ras = userdata;
 
-  if (attempt > 1)
+  if (attempt > 1) 
     {
       /* Only use two retries. */
       return -1;
@@ -67,12 +67,12 @@ static int request_auth(void *userdata, const char *realm, int attempt,
      get_authenticator, get_username, get_password... */
 
   /* pull the username and password from the client */
-  ras->callbacks->get_authenticator (&a, &auth_baton,
-                                     svn_ra_auth_simple_password,
-                                     ras->callback_baton, ras->pool);
-  authenticator = (svn_ra_simple_password_authenticator_t *) a;
+  ras->callbacks->get_authenticator (&a, &auth_baton, 
+                                     svn_ra_auth_simple_password, 
+                                     ras->callback_baton, ras->pool);      
+  authenticator = (svn_ra_simple_password_authenticator_t *) a;      
   authenticator->get_user_and_pass (&uname, &pword,
-                                    auth_baton,
+                                    auth_baton, 
                                     /* possibly force a user-prompt: */
                                     attempt ? TRUE : FALSE,
                                     ras->pool);
@@ -321,7 +321,7 @@ svn_ra_dav__open (void **session_baton,
   int is_ssl_session;
 
   /* Sanity check the URI */
-  if (uri_parse(repos_URL, &uri, NULL)
+  if (uri_parse(repos_URL, &uri, NULL) 
       || uri.host == NULL || uri.path == NULL)
     {
       uri_free(&uri);
@@ -383,7 +383,7 @@ svn_ra_dav__open (void **session_baton,
     const char *proxy_username;
     const char *proxy_password;
     svn_error_t *err;
-
+    
     err = get_proxy(&proxy_host,
                     &proxy_port,
                     &proxy_username,
@@ -412,7 +412,7 @@ svn_ra_dav__open (void **session_baton,
 
             pab->username = proxy_username;
             pab->password = proxy_password ? proxy_password : "";
-
+        
             ne_set_proxy_auth(sess, proxy_auth, pab);
             ne_set_proxy_auth(sess2, proxy_auth, pab);
           }
@@ -453,7 +453,7 @@ svn_ra_dav__open (void **session_baton,
   ras->url = apr_pstrdup (pool, repos_URL);
   ras->root = uri; /* copies uri pointer members, they get free'd in __close. */
   ras->sess = sess;
-  ras->sess2 = sess2;
+  ras->sess2 = sess2;  
   ras->callbacks = callbacks;
   ras->callback_baton = callback_baton;
 
@@ -520,7 +520,7 @@ svn_error_t *svn_ra_dav_init(int abi_version,
 }
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end:
