@@ -1388,15 +1388,15 @@ static dav_error * dav_svn_copy_resource(const dav_resource *src,
       apr_psprintf
       (src->pool, "Got a COPY request with src arg '%s' and dst arg '%s'",
       src->uri, dst->uri);
-
+      
       return dav_new_error(src->pool, HTTP_NOT_IMPLEMENTED, 0, msg);
   */
 
   svn_error_t *serr;
-
+  
   serr = svn_fs_copy (src->info->root.root,  /* the root object of src */
                       src->info->repos_path  /* the relative path of src */
-                      dst->info->root.txn,   /* the txn of dst */
+                      dst->info->root.txn,   /* the txn of dst */ 
                       dst->info->repos_path, /* the relative path of dst */
                       src->pool);
   if (serr)
@@ -1672,7 +1672,7 @@ dav_resource *dav_svn_create_working_resource(const dav_resource *base,
     path = svn_stringbuf_createf(base->pool, "/%s/wrk/%s%s",
                               base->info->repos->special_uri,
                               activity_id, base->info->repos_path);
-
+  
 
   comb = apr_pcalloc(base->pool, sizeof(*comb));
 
@@ -1724,7 +1724,7 @@ const dav_hooks_repository dav_svn_hooks_repos =
 };
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
