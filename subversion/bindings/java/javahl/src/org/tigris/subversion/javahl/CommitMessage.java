@@ -15,15 +15,17 @@
  * ====================================================================
  * @endcopyright
  */
-#define JNI_VER_MAJOR	0
-#define JNI_VER_MINOR	9
-#define JNI_VER_MICRO	0
-
-#define JNI_VER_NUM APR_STRINGIFY(JNI_VER_MAJOR) "." \
-        APR_STRINGIFY(JNI_VER_MINOR) "." APR_STRINGIFY(JNI_VER_MICRO)
-
-/** Version number with tag (contains no whitespace) */
-#define JNI_VER_NUMBER     JNI_VER_NUM
-
-/** Complete version string */
-#define JNI_VERSION        JNI_VER_NUM
+package org.tigris.subversion.javahl;
+/**
+ * this is callback interface which has to implemented by the client to
+ * receive which files will be commited and to enter the log message
+ */
+public interface CommitMessage
+{
+    /**
+     * Retrieve a commit message from the user based on the items to be commited
+     * @param elementsToBeCommited  Array of elements to be commited
+     * @return  the log message of the commit.
+     */
+    String getLogMessage(CommitItem[] elementsToBeCommited);
+}

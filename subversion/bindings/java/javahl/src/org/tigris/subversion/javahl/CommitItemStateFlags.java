@@ -15,15 +15,31 @@
  * ====================================================================
  * @endcopyright
  */
-#define JNI_VER_MAJOR	0
-#define JNI_VER_MINOR	9
-#define JNI_VER_MICRO	0
-
-#define JNI_VER_NUM APR_STRINGIFY(JNI_VER_MAJOR) "." \
-        APR_STRINGIFY(JNI_VER_MINOR) "." APR_STRINGIFY(JNI_VER_MICRO)
-
-/** Version number with tag (contains no whitespace) */
-#define JNI_VER_NUMBER     JNI_VER_NUM
-
-/** Complete version string */
-#define JNI_VERSION        JNI_VER_NUM
+package org.tigris.subversion.javahl;
+/**
+ * the constants in this interface describe the changes to an item
+ * to be commited
+ */
+public interface CommitItemStateFlags
+{
+    /**
+     * the item has been added
+     */
+    public static final int Add=1;
+    /**
+     * the item has been deleted
+     */
+    public static final int Delete=2;
+    /**
+     * the item has text modifications
+     */
+    public static final int TextMods=4;
+    /**
+     * the item has property modifications
+     */
+    public static final int PropMods=8;
+    /**
+     * the item has been copied
+     */
+    public static final int IsCopy=16;
+}
