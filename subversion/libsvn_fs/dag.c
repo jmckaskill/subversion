@@ -1434,8 +1434,10 @@ svn_fs__dag_copy (dag_node_t *to_node,
       /* Now that we've done the copy, we need to add the information
          about the copy to the `copies' table, using the COPY_ID we
          reserved above.  */
-      SVN_ERR (svn_fs__create_copy (copy_id, fs, from_path, from_rev,
-                                    id, trail));
+      SVN_ERR (svn_fs__create_copy
+               (copy_id, fs,
+                svn_fs__canonicalize_abspath (from_path, trail->pool),
+                from_rev, id, trail));
 
       /* Finally, add the COPY_ID to the transaction's list of copies
          so that, if this transaction is aborted, the `copies' table
