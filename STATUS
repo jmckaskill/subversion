@@ -361,9 +361,9 @@ These changes are to the "core" of Subversion:
       +1: bliss, ghudson
       +0: cmpilato
       -0: gstein
-
+     
    * r8154
-     Fix a small bug in the FS history harvesting code.
+     Fix a small bug in the FS history harvesting code.  
      Notes:  The codespeak repository is sufficient complex enough
              (history-wise) to trigger this bug (seen by the inability
              to run 'svn blame' on certain files in the repository).
