@@ -216,7 +216,7 @@ Chapter 9
               Status against revision:     42
 
     Section svn-ch-9-sect-2.2
-
+        
         #1) naked
 
             "svnadmin list-dblogs" and "svnadmin list-unused-dblogs"

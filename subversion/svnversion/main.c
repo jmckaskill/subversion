@@ -46,7 +46,7 @@ analyze_status (void *baton,
                 svn_wc_status_t *status)
 {
   struct status_baton *sb = baton;
-
+  
   if (sb->done)
     return;
 
@@ -71,9 +71,9 @@ analyze_status (void *baton,
   sb->modified |= (status->text_status != svn_wc_status_normal);
   sb->modified |= (status->prop_status != svn_wc_status_normal
                    && status->prop_status != svn_wc_status_none);
-
-  if (sb->wc_path
-      && (! sb->wc_url)
+  
+  if (sb->wc_path 
+      && (! sb->wc_url) 
       && (strcmp (path, sb->wc_path) == 0)
       && (status->entry))
     sb->wc_url = apr_pstrdup (sb->pool, status->entry->url);
@@ -118,7 +118,7 @@ static svn_error_t * version(apr_getopt_t *os, apr_pool_t *pool)
 static void
 usage(const apr_getopt_option_t *options, apr_pool_t *pool)
 {
-  fprintf(stderr,
+  fprintf(stderr, 
           "usage: svnversion [options] wc_path [trail_url]\n\n"
           "  Produce a compact \"version number\" for the working copy path\n"
           "  WC_PATH.  TRAIL_URL is the trailing portion of the URL used to\n"
@@ -276,7 +276,7 @@ main(int argc, const char *argv[])
   ctx.cancel_func = cancel;
   ctx.cancel_baton = &sb;
 
-  err = svn_client_status (NULL, wc_path, &rev, analyze_status,
+  err = svn_client_status (NULL, wc_path, &rev, analyze_status, 
                            &sb, TRUE, TRUE, FALSE, FALSE, &ctx, pool);
   if (err && (err->apr_err == SVN_ERR_CANCELLED))
     svn_error_clear (err);
