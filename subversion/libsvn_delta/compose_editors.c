@@ -1,34 +1,34 @@
-/*
+/* 
  * compose_editors.c -- composing two svn_delta_edit_fns_t's
- *
+ * 
  * ================================================================
  * Copyright (c) 2000 Collab.Net.  All rights reserved.
- *
+ * 
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
  * met:
- *
+ * 
  * 1. Redistributions of source code must retain the above copyright
  * notice, this list of conditions and the following disclaimer.
- *
+ * 
  * 2. Redistributions in binary form must reproduce the above copyright
  * notice, this list of conditions and the following disclaimer in the
  * documentation and/or other materials provided with the distribution.
- *
+ * 
  * 3. The end-user documentation included with the redistribution, if
  * any, must include the following acknowlegement: "This product includes
  * software developed by Collab.Net (http://www.Collab.Net/)."
  * Alternately, this acknowlegement may appear in the software itself, if
  * and wherever such third-party acknowlegements normally appear.
- *
+ * 
  * 4. The hosted project names must not be used to endorse or promote
  * products derived from this software without prior written
  * permission. For written permission, please contact info@collab.net.
- *
+ * 
  * 5. Products derived from this software may not use the "Tigris" name
  * nor may "Tigris" appear in their names without prior written
  * permission of Collab.Net.
- *
+ * 
  * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
  * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -42,7 +42,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ====================================================================
- *
+ * 
  * This software may consist of voluntary contributions made by many
  * individuals on behalf of Collab.Net.
  */
@@ -97,7 +97,7 @@ replace_root (void *edit_baton, void **root_baton)
       if (err)
         return err;
     }
-
+  
   if (eb->editor_2->replace_root)
     {
       err = (* (eb->editor_2->replace_root)) (eb->edit_baton_2,
@@ -105,9 +105,9 @@ replace_root (void *edit_baton, void **root_baton)
       if (err)
         return err;
     }
-
+  
   *root_baton = d;
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -124,14 +124,14 @@ delete (svn_string_t *name, void *parent_baton)
       if (err)
         return err;
     }
-
+  
   if (d->edit_baton->editor_2->delete)
     {
       err = (* (d->edit_baton->editor_2->delete)) (name, d->dir_baton_2);
       if (err)
         return err;
     }
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -224,7 +224,7 @@ close_directory (void *dir_baton)
       if (err)
         return err;
     }
-
+  
   if (d->edit_baton->editor_2->close_directory)
     {
       err = (* (d->edit_baton->editor_2->close_directory)) (d->dir_baton_2);
@@ -249,7 +249,7 @@ close_file (void *file_baton)
       if (err)
         return err;
     }
-
+  
   if (fb->dir_baton->edit_baton->editor_2->close_file)
     {
       err = (* (fb->dir_baton->edit_baton->editor_2->close_file))
@@ -274,7 +274,7 @@ close_edit (void *edit_baton)
       if (err)
         return err;
     }
-
+  
   if (eb->editor_2->close_edit)
     {
       err = (* (eb->editor_2->close_edit)) (eb->edit_baton_2);
@@ -301,7 +301,7 @@ window_handler (svn_txdelta_window_t *window, void *handler_pair)
 {
   struct handler_pair *hp = handler_pair;
   svn_error_t *err;
-
+  
   if (hp->handler_1)
     {
       err = (* (hp->handler_1)) (window, hp->handler_baton_1);
@@ -329,7 +329,7 @@ apply_textdelta (void *file_baton,
   svn_error_t *err;
   struct handler_pair *hp
     = apr_pcalloc (fb->dir_baton->edit_baton->pool, sizeof (*hp));
-
+  
   hp->file_baton = fb;
 
   if (fb->dir_baton->edit_baton->editor_1->apply_textdelta)
@@ -512,7 +512,7 @@ svn_delta_compose_editors (const svn_delta_edit_fns_t **new_editor,
                            apr_pool_t *pool)
 {
   struct edit_baton *eb = apr_pcalloc (pool, sizeof (*eb));
-
+  
   eb->editor_1 = editor_1;
   eb->editor_2 = editor_2;
   eb->edit_baton_1 = edit_baton_1;
@@ -521,6 +521,6 @@ svn_delta_compose_editors (const svn_delta_edit_fns_t **new_editor,
 
   *new_edit_baton = eb;
   *new_editor = &composed_editor;
-
+  
   return SVN_NO_ERROR;
 }
