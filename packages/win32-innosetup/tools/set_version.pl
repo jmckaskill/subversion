@@ -54,16 +54,16 @@ sub Main
         $g_AutoRun="y";
       }
 
-    my ($SvnVersion, $SvnRelease) = &SetVersion;
+    my ($SvnVersion, $SvnRevision) = &SetVersion;
     my $PathSetupOut = &PathSetupOut;
 
     if (! $g_AutoRun)
       {
-        print "Setting version $SvnVersion and release $SvnRelease on...\n";
+        print "Setting version $SvnVersion and revision $SvnRevision on...\n";
       }
 
     #Set version info on svn.iss
-    &SetVerSvnIss($SvnVersion, $SvnRelease);
+    &SetVerSvnIss($SvnVersion, $SvnRevision);
 }
 
 #-------------------------------------------------------------------------------
@@ -111,8 +111,10 @@ sub PathSvn
 # DOES     Gets and returns version info from userinput
 sub SetVersion
 {
-    my ($SvnVersion, $SvnRelease) = &SvnVersion;
-    my $Input='';
+    my ($SvnVersion, $SvnRevision) = &SvnVersion;
+    my ($InputVersion, $InputRevision)='';
+
+    $SvnRevision = "unset" if (! $SvnRevision);
 
     if (! $g_AutoRun)
       {
@@ -120,7 +122,7 @@ sub SetVersion
           "told me that the\n",
           "version you want to make a distro from is $SvnVersion and that the ",
           "revision is\n",
-          "$SvnRelease. You can confirm this by hitting the ENTER button ",
+          "$SvnRevision. You can confirm this by hitting the ENTER button ",
           "(wich then sets the numbers\n",
           "inside the brackets) or write some new data followed by the ENTER",
           " button.\n\n",
@@ -129,22 +131,25 @@ sub SetVersion
 
           print "  Version [$SvnVersion]: ";
 
-        chomp ($Input = <STDIN>);
+        chomp ($InputVersion = <STDIN>);
 
-        if ($Input)
+        if ($InputVersion)
           {
-            $SvnVersion = $Input;
+            $SvnVersion = $InputVersion;
+
           }
 
-        print "  Release [$SvnRelease]: ";
-        chomp ($Input = <STDIN>);
-        if ($Input)
+        $SvnRevision = "" if ($SvnRevision eq "unset");
+        print "  Revision [$SvnRevision]: ";
+        chomp ($InputRevision = <STDIN>);
+
+        if ($InputRevision)
           {
-            $SvnVersion = $Input;
+            $SvnRevision = $InputRevision;
           }
       }
 
-    return ($SvnVersion, $SvnRelease);
+    return ($SvnVersion, $SvnRevision);
 }
 
 #-------------------------------------------------------------------------------
@@ -152,8 +157,11 @@ sub SetVersion
 # DOES     Setting version info on svn.iss
 sub SetVerSvnIss
 {
-    my ($SvnVersion, $SvnRelease) = @_;
+    my ($SvnVersion, $SvnRevision) = @_;
+    my $SvnPreTxtRevision='';
     my $IssFileCnt='';
+
+    $SvnPreTxtRevision='-r' if ($SvnRevision);
 
     if (! -e '../svn_version.iss')
       {
@@ -176,9 +184,13 @@ sub SetVerSvnIss
           {
               $IssFileCnt= $IssFileCnt . "#define svn_version \"$SvnVersion\"";
           }
-        elsif (/^#define svn_release/)
+        elsif (/^#define svn_revision/)
           {
-              $IssFileCnt= $IssFileCnt . "#define svn_release \"$SvnRelease\"";
+              $IssFileCnt= $IssFileCnt . "#define svn_revision \"$SvnRevision\"";
+          }
+        elsif (/^#define svn_pretxtrevision/)
+          {
+              $IssFileCnt= $IssFileCnt . "#define svn_pretxtrevision \"$SvnPreTxtRevision\"";
           }
         else
           {
@@ -197,25 +209,46 @@ sub SetVerSvnIss
 
 #-------------------------------------------------------------------------------
 # FUNCTION SvnVersion
-# DOES     Getting and returns the version and release number from the svn.exe
+# DOES     Getting and returns the version and revision number from the svn.exe
 #          as of the binary to include in the distro
 sub SvnVersion
 {
     my $Svn = &PathSvn;
+    my @SvnVerOut;
     my $SvnRetVal='';
-    my ($SvnVersion, $SvnRelease) ='';
+    my ($SvnVersion, $SvnRevision) ='';
 
     $Svn = "\"$Svn\"";
     $SvnRetVal = `$Svn --version`;
-    $SvnRetVal =~ s/svn, version//;
-    $SvnRetVal =~ s/(^.*)\).*/$1/;
 
-    ($SvnVersion, $SvnRelease) = split (/\(/, $1);
+    @SvnVerOut = split(/\n/, $SvnRetVal);
+
+    for (@SvnVerOut)
+      {
+        if (/svn, version /)
+          {
+            $SvnRetVal = $_;
+            last;
+          }
+      }
+
+    $SvnRetVal =~ s/svn, version //s;
+
+    if ($SvnRetVal =~ /.+\(r.+\)/)
+      {
+        $SvnRetVal =~ s/(^.*)\).*/$1/;
+        ($SvnVersion, $SvnRevision) = split (/\(/, $1);
+      }
+    else
+      {
+        $SvnRetVal =~ s/([\d]?\.[\d]{1,2}\.[\d]{1,2})/$1/;
+        $SvnVersion = $SvnRetVal;
+      }
 
     $SvnVersion =~ s/^\s+//;
 	   $SvnVersion =~ s/\s+$//;
-    $SvnRelease =~ s/r//;
-    $SvnRelease =~ s/dev build/_dev-build/;
+    $SvnRevision =~ s/r//;
+    $SvnRevision =~ s/dev build/_dev-build/;
 
-    return ($SvnVersion, $SvnRelease);
+    return ($SvnVersion, $SvnRevision);
 }
