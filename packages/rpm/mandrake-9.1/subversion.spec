@@ -49,7 +49,7 @@ This package contains the common files required by subversion clients and
 servers.
 
 #####################################
-###### Sub-Package Definitions ######
+###### Sub-Package Definitions ###### 
 #####################################
 %package base
 Provides: %{name} = %{version}-%{release}
@@ -132,11 +132,11 @@ Requires: db4-utils
 %description tools
 This package contains a myriad tools for subversion. This package also contains
 'cvs2svn' - a program for migrating CVS repositories into Subversion repositories.
-The package also contains all of the python bindings for the subersion API,
+The package also contains all of the python bindings for the subersion API, 
 required by several of the tools.
 
 ###########################
-########## Files ##########
+########## Files ########## 
 ###########################
 %files base
 %defattr(-,root,root)
@@ -196,7 +196,7 @@ required by several of the tools.
 /etc/httpd/2.0/modules/mod_dav_svn.so
 
 ################################
-######### Build Stages #########
+######### Build Stages ######### 
 ################################
 %prep
 %setup -q
@@ -226,7 +226,7 @@ LDFLAGS="-L$RPM_BUILD_DIR/subversion-%{version}/subversion/libsvn_client/.libs \
 %make
 
 ################################
-######### Installation #########
+######### Installation ######### 
 ################################
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -242,7 +242,7 @@ make install \
 	fs_bindir=$RPM_BUILD_ROOT/usr/bin \
 	base_libdir=$RPM_BUILD_ROOT/usr/lib \
 	swig_py_libdir=$RPM_BUILD_ROOT/usr/lib
-
+	
 mkdir -p $RPM_BUILD_ROOT/etc/httpd/conf.d
 cp %{SOURCE1} $RPM_BUILD_ROOT/etc/httpd/conf.d
 
@@ -254,7 +254,7 @@ cp -r tools $RPM_BUILD_ROOT/%{_datadir}/%{name}-%{version}
 rm -rf $RPM_BUILD_ROOT
 
 ##################################
-###### Post and Pre Scripts ######
+###### Post and Pre Scripts ###### 
 ##################################
 %post base -p /sbin/ldconfig
 %postun base -p /sbin/ldconfig
@@ -278,7 +278,7 @@ rm -rf $RPM_BUILD_ROOT
 %postun repos -p /sbin/ldconfig
 
 ############################
-######## Change Log ########
+######## Change Log ######## 
 ############################
 %changelog
 * Mon Jun 30 2003 Michael Ballbach <ballbach@rten.net> 0.24.2-6372.2mdk
