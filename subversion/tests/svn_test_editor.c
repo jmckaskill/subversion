@@ -75,7 +75,7 @@ newline (struct edit_baton *eb)
   return svn_stream_write (eb->out_stream, eb->newline->data, &len);
 }
 
-
+ 
 /* Print EB->indentation * LEVEL spaces, followed by STR,
    to EB->out_stream.  */
 static svn_error_t *
@@ -119,7 +119,7 @@ my_vcdiff_windoweater (svn_txdelta_window_t *window, void *baton)
     str = svn_stringbuf_createf (pool,
                               "[%s] window_handler (EOT)\n",
                               fb->dir_baton->edit_baton->editor_name->data);
-
+    
   SVN_ERR (print (fb->dir_baton->edit_baton, fb->indent_level + 2, str));
 
   if (window)
@@ -131,11 +131,11 @@ my_vcdiff_windoweater (svn_txdelta_window_t *window, void *baton)
             {
             case svn_txdelta_new:
               {
-                str = svn_stringbuf_createf
+                str = svn_stringbuf_createf 
                   (pool,
                    "(%d) new text: length %" APR_SIZE_T_FMT "\n",
                    i, (window->ops[i].length));
-
+            
                 SVN_ERR (print (fb->dir_baton->edit_baton,
                                 fb->indent_level + 2,
                                 str));
@@ -143,7 +143,7 @@ my_vcdiff_windoweater (svn_txdelta_window_t *window, void *baton)
               }
             case svn_txdelta_source:
               {
-                str = svn_stringbuf_createf
+                str = svn_stringbuf_createf 
                   (pool,
                    "(%d) source text: offset %" APR_SIZE_T_FMT
                    ", length %" APR_SIZE_T_FMT "\n",
@@ -162,7 +162,7 @@ my_vcdiff_windoweater (svn_txdelta_window_t *window, void *baton)
                    "(%d) target text: offset %" APR_SIZE_T_FMT
                    ", length %" APR_SIZE_T_FMT "\n",
                    i,  window->ops[i].offset, window->ops[i].length);
-
+            
                 SVN_ERR (print (fb->dir_baton->edit_baton,
                                 fb->indent_level + 2,
                                 str));
@@ -173,7 +173,7 @@ my_vcdiff_windoweater (svn_txdelta_window_t *window, void *baton)
               {
                 str = svn_stringbuf_createf
                   (pool, "(%d) unknown window type\n", i);
-
+            
                 SVN_ERR (print (fb->dir_baton->edit_baton,
                                 fb->indent_level + 2,
                                 str));
@@ -191,7 +191,7 @@ my_vcdiff_windoweater (svn_txdelta_window_t *window, void *baton)
 
 
 static svn_error_t *
-test_delete_entry (svn_stringbuf_t *filename,
+test_delete_entry (svn_stringbuf_t *filename, 
                    svn_revnum_t revision,
                    void *parent_baton)
 {
@@ -210,7 +210,7 @@ test_delete_entry (svn_stringbuf_t *filename,
   if (d->edit_baton->verbose)
     SVN_ERR (newline (d->edit_baton));
 
-  return SVN_NO_ERROR;
+  return SVN_NO_ERROR;         
 }
 
 
@@ -260,7 +260,7 @@ test_open_root (void *edit_baton,
   if (! eb->verbose)
     return SVN_NO_ERROR;
 
-  str = svn_stringbuf_createf (eb->pool,
+  str = svn_stringbuf_createf (eb->pool, 
                             "base_revision: %" SVN_REVNUM_T_FMT "\n",
                             base_revision);
   SVN_ERR (print (eb, d->indent_level, str));
@@ -378,7 +378,7 @@ test_close_directory (void *dir_baton)
   if (d->edit_baton->verbose)
     SVN_ERR (newline (d->edit_baton));
 
-  return SVN_NO_ERROR;
+  return SVN_NO_ERROR;    
 }
 
 
@@ -397,7 +397,7 @@ test_close_file (void *file_baton)
   if (fb->dir_baton->edit_baton->verbose)
     SVN_ERR (newline (fb->dir_baton->edit_baton));
 
-  return SVN_NO_ERROR;
+  return SVN_NO_ERROR;    
 }
 
 
@@ -463,9 +463,9 @@ add_or_open_file (svn_stringbuf_t *name,
   svn_path_add_component (fb->path, name);
   fb->indent_level = (d->indent_level + 1);
   *file_baton = fb;
-
+ 
   str = svn_stringbuf_createf (d->edit_baton->pool,
-                            "[%s] %s_file (%s)\n",
+                            "[%s] %s_file (%s)\n", 
                             d->edit_baton->editor_name->data,
                             pivot_string,
                             fb->path->data);
@@ -483,7 +483,7 @@ add_or_open_file (svn_stringbuf_t *name,
   if (strcmp (pivot_string, "add") == 0)
     {
       str = svn_stringbuf_createf (d->edit_baton->pool,
-                                "copyfrom_path: %s\n",
+                                "copyfrom_path: %s\n", 
                                 base_path ? base_path->data : "");
       SVN_ERR (print (fb->dir_baton->edit_baton, fb->indent_level, str));
 
@@ -555,12 +555,12 @@ test_change_file_prop (void *file_baton,
     return SVN_NO_ERROR;
 
   str = svn_stringbuf_createf (fb->dir_baton->edit_baton->pool,
-                            "name: %s\n",
+                            "name: %s\n", 
                             name->data);
   SVN_ERR (print (fb->dir_baton->edit_baton, fb->indent_level + 1, str));
 
   str = svn_stringbuf_createf (fb->dir_baton->edit_baton->pool,
-                            "value: %s\n",
+                            "value: %s\n", 
                             value ? value->data : "(null)");
   SVN_ERR (print (fb->dir_baton->edit_baton, fb->indent_level + 1, str));
 
@@ -588,12 +588,12 @@ test_change_dir_prop (void *parent_baton,
     return SVN_NO_ERROR;
 
   str = svn_stringbuf_createf (d->edit_baton->pool,
-                            "name: %s\n",
+                            "name: %s\n", 
                             name->data);
   SVN_ERR (print (d->edit_baton, d->indent_level + 1, str));
 
   str = svn_stringbuf_createf (d->edit_baton->pool,
-                            "value: %s\n",
+                            "value: %s\n", 
                             value ? value->data : "(null)");
   SVN_ERR (print (d->edit_baton, d->indent_level + 1, str));
 
