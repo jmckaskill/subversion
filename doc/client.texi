@@ -33,7 +33,7 @@ including the actual content of file changes.  In other words, this is
 how you get a list of all local modifications..
 
 A PATH can be a directory or a file; if directory, then it's a root from
-which to start looking for modifications.
+which to start looking for modifications.  
 
 Why does it take a variable number arguments?  For the same reason the
 @code{delta()} function below does, read on...
