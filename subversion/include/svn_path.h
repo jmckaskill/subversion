@@ -2,32 +2,32 @@
  *
  * ================================================================
  * Copyright (c) 2000 CollabNet.  All rights reserved.
- *
+ * 
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
  * met:
- *
+ * 
  * 1. Redistributions of source code must retain the above copyright
  * notice, this list of conditions and the following disclaimer.
- *
+ * 
  * 2. Redistributions in binary form must reproduce the above copyright
  * notice, this list of conditions and the following disclaimer in the
  * documentation and/or other materials provided with the distribution.
- *
+ * 
  * 3. The end-user documentation included with the redistribution, if
  * any, must include the following acknowlegement: "This product includes
  * software developed by CollabNet (http://www.Collab.Net)."
  * Alternately, this acknowlegement may appear in the software itself, if
  * and wherever such third-party acknowlegements normally appear.
- *
+ * 
  * 4. The hosted project names must not be used to endorse or promote
  * products derived from this software without prior written
  * permission. For written permission, please contact info@collab.net.
- *
+ * 
  * 5. Products derived from this software may not use the "Tigris" name
  * nor may "Tigris" appear in their names without prior written
  * permission of CollabNet.
- *
+ * 
  * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
  * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -41,7 +41,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ====================================================================
- *
+ * 
  * This software may consist of voluntary contributions made by many
  * individuals on behalf of CollabNet.
  */
@@ -58,7 +58,7 @@
 
 
 /*** Notes:
- *
+ * 
  * No result path ever ends with a separator, no matter whether the
  * path is a file or directory, because we always canonicalize() it.
  *
@@ -95,9 +95,9 @@ void svn_path_add_component (svn_string_t *path,
                              enum svn_path_style style,
                              apr_pool_t *pool);
 
-/* Same as `svn_path_add_component', except that the COMPONENT argument is
+/* Same as `svn_path_add_component', except that the COMPONENT argument is 
    a C-style '\0'-terminated string, not an svn_string_t.  */
-void svn_path_add_component_nts (svn_string_t *path,
+void svn_path_add_component_nts (svn_string_t *path, 
                                  const char *component,
                                  enum svn_path_style style,
                                  apr_pool_t *pool);
@@ -115,7 +115,7 @@ svn_string_t *svn_path_last_component (svn_string_t *path,
 /* Divide PATH into DIRPATH and BASENAME, return them by reference,
    in their own storage in POOL.  The separator between DIRPATH and
    BASENAME is not included in either of the new names. */
-void svn_path_split (svn_string_t *path,
+void svn_path_split (svn_string_t *path, 
                      svn_string_t **dirpath,
                      svn_string_t **basename,
                      enum svn_path_style style,
