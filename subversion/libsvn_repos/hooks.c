@@ -43,7 +43,7 @@ run_start_commit_hook (svn_fs_t *fs,
   enum svn_node_kind kind;
   const char *hook = svn_fs_start_commit_hook (fs, pool);
 
-  if ((! svn_io_check_path (svn_stringbuf_create (hook, pool), &kind, pool))
+  if ((! svn_io_check_path (svn_stringbuf_create (hook, pool), &kind, pool)) 
       && (kind != svn_node_dir))
     {
       svn_error_t *err;
@@ -55,7 +55,7 @@ run_start_commit_hook (svn_fs_t *fs,
       args[4] = NULL;
 
       if ((err = svn_io_run_cmd (".", hook, args, NULL, NULL, NULL, pool)))
-        return svn_error_createf
+        return svn_error_createf 
           (SVN_ERR_REPOS_HOOK_FAILURE, 0, err, pool,
            "run_start_commit_hook: running cmd `%s'", hook);
     }
@@ -74,7 +74,7 @@ run_pre_commit_hook (svn_fs_t *fs,
   enum svn_node_kind kind;
   const char *hook = svn_fs_pre_commit_hook (fs, pool);
 
-  if ((! svn_io_check_path (svn_stringbuf_create (hook, pool), &kind, pool))
+  if ((! svn_io_check_path (svn_stringbuf_create (hook, pool), &kind, pool)) 
       && (kind != svn_node_dir))
     {
       svn_error_t *err;
@@ -87,7 +87,7 @@ run_pre_commit_hook (svn_fs_t *fs,
 
       if ((err = svn_io_run_cmd (".", hook, args, NULL, NULL, NULL, pool)))
         {
-          return svn_error_createf
+          return svn_error_createf 
             (SVN_ERR_REPOS_HOOK_FAILURE, 0, err, pool,
              "run_pre_commit_hook: running cmd `%s'", hook);
         }
@@ -107,7 +107,7 @@ run_post_commit_hook (svn_fs_t *fs,
   enum svn_node_kind kind;
   const char *hook = svn_fs_post_commit_hook (fs, pool);
 
-  if ((! svn_io_check_path (svn_stringbuf_create (hook, pool), &kind, pool))
+  if ((! svn_io_check_path (svn_stringbuf_create (hook, pool), &kind, pool)) 
       && (kind != svn_node_dir))
     {
       svn_error_t *err;
@@ -120,7 +120,7 @@ run_post_commit_hook (svn_fs_t *fs,
 
       if ((err = svn_io_run_cmd (".", hook, args, NULL, NULL, NULL, pool)))
         {
-          return svn_error_createf
+          return svn_error_createf 
             (SVN_ERR_REPOS_HOOK_FAILURE, 0, err, pool,
              "run_post_commit_hook: running cmd `%s'", hook);
         }
@@ -196,11 +196,11 @@ svn_repos_fs_begin_txn_for_commit (svn_fs_txn_t **txn_p,
       svn_string_t val;
       val.data = author;
       val.len = strlen (author);
-
+      
       SVN_ERR (svn_fs_change_txn_prop (*txn_p, &author_prop_name,
                                        &val, pool));
     }
-
+    
     /* Log message. */
     SVN_ERR (svn_fs_change_txn_prop (*txn_p, &log_prop_name,
                                      log_msg, pool));
@@ -235,10 +235,10 @@ svn_repos_fs_begin_txn_for_update (svn_fs_txn_t **txn_p,
       svn_string_t val;
       val.data = author;
       val.len = strlen (author);
-
+      
       SVN_ERR (svn_fs_change_txn_prop (*txn_p, &author_prop_name,
                                        &val, pool));
-    }
+    }    
   }
 
   return SVN_NO_ERROR;
@@ -247,7 +247,7 @@ svn_repos_fs_begin_txn_for_update (svn_fs_txn_t **txn_p,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
