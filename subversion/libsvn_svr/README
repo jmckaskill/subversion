@@ -45,7 +45,7 @@ somewhere.)
        routines.
 
     5. Call any number of wrappered filesystem calls, passing in the
-       user structure and the policy structure.
+       user structure and the policy structure.  
 
 
 ---------------------------------
