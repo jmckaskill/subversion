@@ -80,7 +80,7 @@ svn_repos_get_logs (svn_fs_t *fs,
           svn_stringbuf_t *this_top = svn_stringbuf_create ("", subpool);
 
           changed_paths = apr_hash_make (subpool);
-
+          
           SVN_ERR (svn_fs_revision_root (&base_root, fs, this_rev - 1, pool));
           SVN_ERR (svn_fs_revision_root (&this_root, fs, this_rev, pool));
 
@@ -126,7 +126,7 @@ svn_repos_get_logs (svn_fs_t *fs,
                          path library doesn't like a lone slash. */
                       char *p = apr_pstrcat (subpool,
                                              "/", this_path->data, NULL);
-
+                      
                       apr_hash_set (changed_paths, p,
                                     this_path->len + 1, (void *) 1);
                     }
@@ -143,7 +143,7 @@ svn_repos_get_logs (svn_fs_t *fs,
                             date ? date->data : "",
                             message ? message->data : "",
                             (this_rev == end)));
-
+      
       svn_pool_clear (subpool);
     }
 
@@ -154,7 +154,7 @@ svn_repos_get_logs (svn_fs_t *fs,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
