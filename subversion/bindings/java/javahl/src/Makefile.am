@@ -1,8 +1,8 @@
 
-noinst_JAVA =   ${wildcard org/tigris/subversion/javahl/*.java}
+noinst_JAVA =   ${wildcard org/tigris/subversion/javahl/*.java} 
 
 
-EXTRA_DIST = ${noinst_JAVA}
+EXTRA_DIST = ${noinst_JAVA} 
 
 JAVAC = @JDK@/bin/javac
 
