@@ -41,7 +41,7 @@ sub CvsTime::initialize {
 	$self->{STRING} = join '.', ($year, $mon, $mday, $hours, $min, $secs);
     } else {
 	die "CvsTime constructor must specify either STRING or TIME_T";
-    }
+    }	
 }
 
 sub CvsTime::time_t {
@@ -279,7 +279,7 @@ sub CvsDirEntry::path {
     my ($self) = @_;
     return $self->{NAME} unless $self->{PARENT_DIR};
     return $self->{PARENT_DIR}->path . "/" . $self->{NAME};
-
+			       
 }
 
 sub CvsDirEntry::set_parent {
@@ -645,7 +645,7 @@ sub CvsFileReader::read {
     my $cvs_repo = $self->{REPOSITORY};
     my ($dir, $file) = split /\/(?=[^\/]*$ )/x, $path;
     $file =~ s/,v$//;
-
+    
     my $rcs = Rcs->new;
     $rcs->rcsdir($dir);
     $rcs->file($file);
@@ -1081,7 +1081,7 @@ sub CheckedClass::new {
     $self->initialize();
     $self->check();
     return $self;
-
+    
 }
 
 sub CheckedClass::initialize {
@@ -1264,7 +1264,7 @@ sub build_commit_list {
 	unless ($commit and $commit->accepts_filerev($rev)) {
 	    $commit = Commit->new(DURATION => $commit_duration);
 	    push @commit_list, $commit;
-	}
+	} 
 	$commit->add_filerev($rev);
     }
     return @commit_list;
