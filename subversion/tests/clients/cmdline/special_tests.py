@@ -2,9 +2,9 @@
 #
 #  special_tests.py:  testing special file handling
 #
-#  Subversion is a tool for revision control.
+#  Subversion is a tool for revision control. 
 #  See http://subversion.tigris.org for more information.
-#
+#    
 # ====================================================================
 # Copyright (c) 2000-2004 CollabNet.  All rights reserved.
 #
@@ -28,7 +28,7 @@ Skip = svntest.testcase.Skip
 XFail = svntest.testcase.XFail
 Item = svntest.wc.StateItem
 
-
+ 
 ######################################################################
 # Tests
 #
@@ -75,10 +75,10 @@ def general_symlink(sbox):
   # Is the symlink gone?
   if os.path.isfile(newfile_path) or os.path.islink(newfile_path):
     raise svntest.Failure
-
+  
   svntest.actions.run_and_verify_svn(None, None, [],
                                      'up', '-r', '2', wc_dir)
-
+  
   # Is the symlink back?
   new_target = os.readlink(newfile_path)
   if new_target != 'linktarget':
@@ -105,7 +105,7 @@ def general_symlink(sbox):
     'newfile' : Item(status='  ', wc_rev=3, repos_rev=3),
     'linktarget' : Item(status='  ', wc_rev=2, repos_rev=3),
     })
-
+  
   svntest.actions.run_and_verify_commit(wc_dir, expected_output,
                                         expected_status, None,
                                         None, None, None, None, wc_dir)
@@ -141,7 +141,7 @@ def replace_file_with_symlink(sbox):
     raise svntest.Failure
 
 
-
+  
 ########################################################################
 # Run the tests
 
