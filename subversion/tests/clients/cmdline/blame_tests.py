@@ -2,9 +2,9 @@
 #
 #  blame_tests.py:  testing line-by-line annotation.
 #
-#  Subversion is a tool for revision control.
+#  Subversion is a tool for revision control. 
 #  See http://subversion.tigris.org for more information.
-#
+#    
 # ====================================================================
 # Copyright (c) 2000-2004 CollabNet.  All rights reserved.
 #
@@ -28,7 +28,7 @@ Skip = svntest.testcase.Skip
 XFail = svntest.testcase.XFail
 Item = svntest.wc.StateItem
 
-
+ 
 ######################################################################
 # Tests
 #
@@ -40,7 +40,7 @@ Item = svntest.wc.StateItem
 def blame_space_in_name(sbox):
   "annotate a file whose name contains a space"
   sbox.build()
-
+  
   file_path = os.path.join(sbox.wc_dir, 'space in name')
   svntest.main.file_append(file_path, "Hello\n")
   svntest.main.run_svn(None, 'add', file_path)
@@ -82,12 +82,12 @@ def blame_binary(sbox):
                        '--username', svntest.main.wc_author,
                        '--password', svntest.main.wc_passwd,
                        '-m', '', iota)
-
+  
   output, errput = svntest.main.run_svn(None, 'blame', iota)
   if (len(output) != 1) or (output[0].find('Skipping') == -1):
     raise svntest.Failure
-
-
+    
+  
 
 ########################################################################
 # Run the tests
