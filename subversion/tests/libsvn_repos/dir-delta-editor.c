@@ -122,7 +122,7 @@ test_add_directory (const char *path,
                                      eb->fs,
                                      copyfrom_revision,
                                      dir_pool));
-
+      
       SVN_ERR (svn_fs_copy (rev_root,
                             copyfrom_path,
                             eb->txn_root,
@@ -208,7 +208,7 @@ test_apply_textdelta (void *file_baton,
   struct file_baton *fb = file_baton;
 
   return svn_fs_apply_textdelta (handler, handler_baton,
-                                 fb->edit_baton->txn_root,
+                                 fb->edit_baton->txn_root, 
                                  fb->path,
                                  pool);
 }
@@ -282,7 +282,7 @@ dir_delta_get_editor (const svn_delta_editor_t **editor,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../tools/dev/svn-dev.el")
  * end:
