@@ -2,9 +2,9 @@
 #
 #  stat_tests.py:  testing the svn stat command
 #
-#  Subversion is a tool for revision control.
+#  Subversion is a tool for revision control. 
 #  See http://subversion.tigris.org for more information.
-#
+#    
 # ====================================================================
 # Copyright (c) 2000-2004 CollabNet.  All rights reserved.
 #
@@ -67,7 +67,7 @@ def status_update_with_nested_adds(sbox):
   # Make a backup copy of the working copy
   wc_backup = sbox.add_wc_path('backup')
   svntest.actions.duplicate_dir(wc_dir, wc_backup)
-
+  
   # Create newdir and newfile
   newdir_path = os.path.join(wc_dir, 'newdir')
   newfile_path = os.path.join(wc_dir, 'newdir', 'newfile')
@@ -115,7 +115,7 @@ def status_update_with_nested_adds(sbox):
   # positively match the mostly-empty lines.
   svntest.actions.run_and_verify_unquiet_status(wc_backup,
                                                 expected_status)
-
+  
 #----------------------------------------------------------------------
 
 # svn status -vN should include all entries in a directory
@@ -146,9 +146,9 @@ def status_missing_file(sbox):
 
   sbox.build()
   wc_dir = sbox.wc_dir
-
+  
   was_cwd = os.getcwd()
-
+  
   os.chdir(wc_dir)
   try:
 
@@ -232,7 +232,7 @@ def status_type_change_to_symlink(sbox):
 
   sbox.build()
   wc_dir = sbox.wc_dir
-
+  
   was_cwd = os.getcwd()
 
   os.chdir(wc_dir)
@@ -275,7 +275,7 @@ def status_with_new_files_pending(sbox):
 
   sbox.build()
   wc_dir = sbox.wc_dir
-
+  
   was_cwd = os.getcwd()
 
   os.chdir(wc_dir)
@@ -311,7 +311,7 @@ def status_for_unignored_file(sbox):
 
   sbox.build()
   wc_dir = sbox.wc_dir
-
+  
   was_cwd = os.getcwd()
 
   os.chdir(wc_dir)
@@ -334,7 +334,7 @@ def status_for_unignored_file(sbox):
                                         'I      newfile\n'],
                                        [],
                                        'status', 'newdir', 'newfile')
-
+  
   finally:
     os.chdir(was_cwd)
 
@@ -356,11 +356,11 @@ def status_for_nonexistent_file(sbox):
                                                      'status',
                                                      'nonexistent-file')
 
-    # there should *not* be a status line printed for the nonexistent file
+    # there should *not* be a status line printed for the nonexistent file 
     for line in output:
       if re.match(" +nonexistent-file", line):
         raise svntest.Failure
-
+  
   finally:
     os.chdir(was_cwd)
 
@@ -382,7 +382,7 @@ def status_file_needs_update(sbox):
   #    %
   #
   # ...and yet...
-  #
+  # 
   #    % svn st -u -v
   #                   56        6          k   cron-daily.pl
   #           *       56       44          k   crontab.root
@@ -396,7 +396,7 @@ def status_file_needs_update(sbox):
 
   sbox.build()
   wc_dir = sbox.wc_dir
-
+  
   other_wc = sbox.add_wc_path('other')
 
   svntest.actions.duplicate_dir(wc_dir, other_wc)
@@ -459,7 +459,7 @@ def status_uninvited_parent_directory(sbox):
 
   sbox.build()
   wc_dir = sbox.wc_dir
-
+  
   other_wc = sbox.add_wc_path('other')
 
   svntest.actions.duplicate_dir(wc_dir, other_wc)
@@ -495,7 +495,7 @@ def status_on_forward_deletion(sbox):
   # See issue #1289.
   sbox.build()
   wc_dir = sbox.wc_dir
-
+  
   top_url = svntest.main.current_repo_url
   A_url = top_url + '/A'
 
@@ -528,7 +528,7 @@ def status_on_forward_deletion(sbox):
     svntest.main.safe_rmtree('wc')
     svntest.main.run_svn(None, 'co', '-r1', A_url + "@1", 'wc')
     svntest.actions.run_and_verify_svn(None, None, [], 'st', '-u', 'wc')
-
+    
   finally:
     os.chdir(saved_cwd)
 
@@ -677,12 +677,12 @@ def status_on_unversioned_dotdot(sbox):
   # See issue #1617.
   sbox.build()
   wc_dir = sbox.wc_dir
-
+  
   new_dir = os.path.join(wc_dir, 'new_dir')
   new_subdir = os.path.join(new_dir, 'new_subdir')
   os.mkdir(new_dir)
   os.mkdir(new_subdir)
-
+  
   saved_cwd = os.getcwd()
   os.chdir(new_subdir)
   try:
@@ -706,13 +706,13 @@ def status_on_partially_nonrecursive_wc(sbox):
   #    $ svn co -N -r 213 svn://svn.debian.org/pkg-kde .
   #    A  README
   #    Checked out revision 213.
-  #
+  #    
   #    $ svn up -r 213 scripts www
   #    [ List of scripts/* files.]
   #    Updated to revision 213.
   #    [ List of www/* files.]
   #    Updated to revision 213.
-  #
+  #    
   #    $ svn st -u
   #       *      213   www/IGNORE-ME
   #       *      213   www
@@ -726,13 +726,13 @@ def status_on_partially_nonrecursive_wc(sbox):
   #    $ svn st -u
   #    subversion/libsvn_wc/lock.c:642: (apr_err=155005)
   #    svn: Working copy 'www' not locked
-  #    $
+  #    $ 
   #
   # instead of the assertion error.
 
   sbox.build()
   wc_dir = sbox.wc_dir
-
+  
   top_url = svntest.main.current_repo_url
   A_url = top_url + '/A'
   D_url = top_url + '/A/D'
@@ -778,7 +778,7 @@ def missing_dir_in_anchor(sbox):
   svntest.actions.run_and_verify_status(wc_dir, expected_status)
 
 
-#----------------------------------------------------------------------
+#----------------------------------------------------------------------  
 
 
 ########################################################################
