@@ -43,7 +43,7 @@ svn_client__parse_externals_description (apr_hash_t **externals_p,
   apr_hash_t *externals = apr_hash_make (pool);
   apr_array_header_t *lines = svn_cstring_split (desc, "\n\r", TRUE, pool);
   int i;
-
+  
   for (i = 0; i < lines->nelts; i++)
     {
       const char *line = APR_ARRAY_IDX (lines, i, const char *);
@@ -63,7 +63,7 @@ svn_client__parse_externals_description (apr_hash_t **externals_p,
       url = APR_ARRAY_IDX (line_parts, 1, const char *);
       item = apr_palloc (pool, sizeof (*item));
       revision = apr_palloc (pool, sizeof (*revision));
-
+      
       if (! url)
         return svn_error_createf
           (SVN_ERR_CLIENT_INVALID_EXTERNALS_DESCRIPTION, 0, NULL, pool,
@@ -122,7 +122,7 @@ checkout_externals_description (const char *description,
     {
       svn_client__external_item_t *item;
       void *val;
-
+          
       /* We can ignore the hash name, it's in the item anyway. */
       apr_hash_this (hi, NULL, NULL, &val);
       item = val;
@@ -161,12 +161,12 @@ checkout_externals_description (const char *description,
        produced auth baton in the first place.  Hmmm. ###
 
    Use POOL for temporary allocation.
-
+   
    Notes: This is done _after_ the entire initial checkout is complete
    so that fetching external items (and any errors therefrom) won't
    delay the primary checkout.  */
 svn_error_t *
-svn_client__checkout_externals (const char *path,
+svn_client__checkout_externals (const char *path, 
                                 const svn_delta_editor_t *before_editor,
                                 void *before_edit_baton,
                                 const svn_delta_editor_t *after_editor,
@@ -187,19 +187,19 @@ svn_client__checkout_externals (const char *path,
                                              after_edit_baton,
                                              auth_baton,
                                              pool));
-
+  
   /* Recurse. */
   {
     apr_hash_t *entries;
     apr_hash_index_t *hi;
     apr_pool_t *subpool = svn_pool_create (pool);
-
+    
     SVN_ERR (svn_wc_entries_read (&entries, path, FALSE, pool));
     for (hi = apr_hash_first (pool, entries); hi; hi = apr_hash_next (hi))
       {
         void *val;
         svn_wc_entry_t *ent;
-
+        
         apr_hash_this (hi, NULL, NULL, &val);
         ent = val;
 
@@ -207,7 +207,7 @@ svn_client__checkout_externals (const char *path,
             && (strcmp (ent->name, SVN_WC_ENTRY_THIS_DIR) != 0))
           {
             const char *path2 = svn_path_join (path, ent->name, subpool);
-            SVN_ERR (svn_client__checkout_externals (path2,
+            SVN_ERR (svn_client__checkout_externals (path2, 
                                                      before_editor,
                                                      before_edit_baton,
                                                      after_editor,
@@ -227,8 +227,8 @@ svn_client__checkout_externals (const char *path,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
- * end:
+ * end: 
  */

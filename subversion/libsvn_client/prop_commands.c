@@ -45,7 +45,7 @@ svn_client_propset (const char *propname,
   SVN_ERR (svn_wc_entry (&node, target, FALSE, pool));
   if (!node)
     return svn_error_createf (SVN_ERR_ENTRY_NOT_FOUND, 0, NULL, pool,
-                              "'%s' -- not a versioned resource",
+                              "'%s' -- not a versioned resource", 
                               target);
 
   if (recurse && node->kind == svn_node_dir)
@@ -68,7 +68,7 @@ svn_client_propset (const char *propname,
           apr_hash_this (hi, &key, &klen, &val);
           keystring = key;
           current_entry = val;
-
+        
           if (! strcmp (keystring, SVN_WC_ENTRY_THIS_DIR))
               current_entry_name = NULL;
           else
@@ -93,7 +93,7 @@ svn_client_propset (const char *propname,
                 }
             }
         }
-
+      
     }
   else
     {
@@ -125,7 +125,7 @@ recursive_propget (apr_hash_t *props,
       apr_hash_this (hi, &key, NULL, &val);
       keystring = key;
       current_entry = val;
-
+    
       if (! strcmp (keystring, SVN_WC_ENTRY_THIS_DIR))
           current_entry_name = NULL;
       else
@@ -236,7 +236,7 @@ recursive_proplist (apr_array_header_t *props,
       apr_hash_this (hi, &key, &klen, &val);
       keystring = key;
       current_entry = val;
-
+    
       if (! strcmp (keystring, SVN_WC_ENTRY_THIS_DIR))
           current_entry_name = NULL;
       else
@@ -261,7 +261,7 @@ recursive_proplist (apr_array_header_t *props,
 
 svn_error_t *
 svn_client_proplist (apr_array_header_t **props,
-                     const char *target,
+                     const char *target, 
                      svn_boolean_t recurse,
                      apr_pool_t *pool)
 {
@@ -272,13 +272,13 @@ svn_client_proplist (apr_array_header_t **props,
   SVN_ERR (svn_wc_entry (&entry, target, FALSE, pool));
   if (! entry)
     return svn_error_createf (SVN_ERR_ENTRY_NOT_FOUND, 0, NULL, pool,
-                              "'%s' -- not a versioned resource",
+                              "'%s' -- not a versioned resource", 
                               target);
 
 
   if (recurse && entry->kind == svn_node_dir)
       SVN_ERR (recursive_proplist (prop_list, target, pool));
-  else
+  else 
       SVN_ERR (add_to_proplist (prop_list, target, pool));
 
   *props = prop_list;
@@ -286,7 +286,7 @@ svn_client_proplist (apr_array_header_t **props,
 }
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../tools/dev/svn-dev.el")
  * end: */
