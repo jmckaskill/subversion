@@ -44,7 +44,7 @@
 
 /*** Command dispatch. ***/
 
-/* Map names to command routine, etc.
+/* Map names to command routine, etc. 
  *
  * Canonical name entries must come immediately before their aliases.
  * For example, "add" must be the first of the add commands listed,
@@ -56,7 +56,7 @@
  *
  * The entire list must be terminated with a entry of nulls.
  */
-const svn_cl__cmd_desc_t svn_cl__cmd_table[] =
+const svn_cl__cmd_desc_t svn_cl__cmd_table[] = 
 {
   { "add",        FALSE, svn_cl__add,
     "Add new files and directories to version control.\n"
@@ -116,14 +116,14 @@ const svn_cl__cmd_desc_t svn_cl__cmd_table[] =
   { "pget",       TRUE, NULL, NULL },
   { "pg",         TRUE, NULL, NULL },
 
-  { "propset",    FALSE, svn_cl__propset,
+  { "propset",    FALSE, svn_cl__propset, 
     "Set property PROPNAME to PROPVAL on files and directories.\n"
     "usage: propset PROPNAME [PROPVAL | -F/--filedata VALFILE] "
     "[TARGETS]\n"},
   { "pset",       TRUE, NULL, NULL },
   { "ps",         TRUE, NULL, NULL },
 
-  { "propdel",    FALSE, svn_cl__propdel,
+  { "propdel",    FALSE, svn_cl__propdel, 
     "Remove property PROPNAME on files and directories.\n"
     "usage: propdel PROPNAME [TARGETS]\n"},
   { "pdel",       TRUE, NULL, NULL },
@@ -133,7 +133,7 @@ const svn_cl__cmd_desc_t svn_cl__cmd_table[] =
     "usage: status [TARGETS]\n" },
   { "stat",       TRUE, NULL, NULL },
   { "st",         TRUE, NULL, NULL },
-
+ 
   { "diff",       FALSE, svn_cl__diff,
     "Display local file changes as contextual diffs.\n"
     "usage: diff [TARGETS]\n" },
@@ -174,7 +174,7 @@ main (int argc, const char * const *argv)
 
   static const apr_getopt_option_t options[] =
   {
-    {"destination",   'd', 1},
+    {"destination",   'd', 1}, 
     {"force",         svn_cl__force_opt, 0},
     {"help",          'h', 0},
     {"message",       'm', 1},
@@ -191,7 +191,7 @@ main (int argc, const char * const *argv)
     {"show-updates",  'u', 0},
     /* Here begin authentication args, add more as needed: */
     {"username",      svn_cl__auth_username_opt, 1},
-    {"password",      svn_cl__auth_password_opt, 1},
+    {"password",      svn_cl__auth_password_opt, 1},    
     {"extensions",    'x', 1},
     {0,               0, 0}
   };
@@ -329,7 +329,7 @@ main (int argc, const char * const *argv)
       default:
         /* Hmmm. Perhaps this would be a good place to squirrel away
            opts that commands like svn diff might need. Hmmm indeed. */
-        break;
+        break;  
       }
     }
 
@@ -385,8 +385,8 @@ main (int argc, const char * const *argv)
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../svn-dev.el")
- * end:
+ * end: 
  */
