@@ -54,7 +54,7 @@ typedef struct svn_ra__library_t
 
 
 /* A global hash which represents all RA implementations that are
-   currently loaded and re-usable.
+   currently loaded and re-usable. 
 
    The hash maps (const char *name) --> (svn_ra_library_t *library)
 
@@ -109,7 +109,7 @@ svn_ra_get_ra_library (const svn_ra_library_t **library,
       /* 5. apr_hash_set (library_name, the_library) */
       /* unlock hash */
     }
-
+  
   *library = the_library;
 
   return SVN_NO_ERROR;
