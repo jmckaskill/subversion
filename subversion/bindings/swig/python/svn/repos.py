@@ -64,9 +64,9 @@ class ChangedPath:
 class ChangeCollector(svn.delta.Editor):
   """Available Since: 1.2.0
   """
-
+  
   # BATON FORMAT: [path, base_path, base_rev]
-
+  
   def __init__(self, fs_ptr, root, pool, notify_cb=None):
     self.fs_ptr = fs_ptr
     self.changes = { } # path -> ChangedPathEntry()
@@ -94,13 +94,13 @@ class ChangeCollector(svn.delta.Editor):
 
   def get_changes(self):
     return self.changes
-
+  
   def _send_change(self, path):
     if self.notify_cb:
       change = self.changes.get(path)
       if change:
         self.notify_cb(change)
-
+    
   def _make_base_path(self, parent_path, path):
     idx = string.rfind(path, '/')
     if parent_path:
@@ -116,7 +116,7 @@ class ChangeCollector(svn.delta.Editor):
       pass
     root = self.roots[rev] = svn.fs.revision_root(self.fs_ptr, rev, self.pool)
     return root
-
+    
   def open_root(self, base_revision, dir_pool):
     return ('', '', self.base_rev)  # dir_baton
 
@@ -229,16 +229,16 @@ class ChangeCollector(svn.delta.Editor):
                                             )
   def close_directory(self, dir_baton):
     self._send_change(dir_baton[0])
-
+    
   def close_file(self, file_baton, text_checksum):
     self._send_change(file_baton[0])
-
+    
 
 class RevisionChangeCollector(ChangeCollector):
   """Deprecated: Use ChangeCollector.
   This is a compatibility wrapper providing the interface of the
   Subversion 1.1.x and earlier bindings.
-
+  
   Important difference: base_path members have a leading '/' character in
   this interface."""
 
