@@ -1,4 +1,4 @@
-This Software should compile and run under win32 and linux. The
+This Software should compile and run under win32 and linux. The 
 integration into the subversion build system has been done by
 Justin Erenkrantz for non win32 systems. The intergration for win32
 system will be provided later.
@@ -7,10 +7,10 @@ It will produce libsvnjavahl.so or libsvnjavahl.dll (the native
 library for Unix or win32, respectively) and svnjavahl.jar (platform
 independent archive of Java bytecode).
 
-For build non win32 platforms, add "--enable-javahl" to the configure
+For build non win32 platforms, add "--enable-javahl" to the configure 
 parameters. "--with-jdk" can be provided to specify the path to a jdk.
-"--with-junit" can be provided to specify the path to a junit.jar.
-JUnit version 3.8.1 has been tested.
+"--with-junit" can be provided to specify the path to a junit.jar. 
+JUnit version 3.8.1 has been tested. 
 
 The following make target are provided:
 
