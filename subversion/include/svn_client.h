@@ -20,7 +20,7 @@
 
 /*** Includes ***/
 
-/*
+/* 
  * Requires:  The working copy library and repository access library.
  * Provides:  Broad wrappers around working copy library functionality.
  * Used By:   Client programs.
@@ -104,16 +104,16 @@ typedef svn_error_t *(*svn_client_prompt_t)
 
 
 /* This is a baton that contains information from the calling
-   application, passed to libsvn_client to aid in authentication.
+   application, passed to libsvn_client to aid in authentication. 
 
    Applications must build and pass one of these to any routine that
    may require authentication.  */
 typedef struct svn_client_auth_baton_t
 {
   /* auth info that the app -may- already have, e.g. from argv[] */
-  char *username;
-  char *password;
-
+  char *username;    
+  char *password; 
+  
   /* a callback provided by the app layer, for prompting the user */
   svn_client_prompt_t prompt_callback;
   void *prompt_baton;
@@ -130,7 +130,7 @@ typedef struct svn_client_auth_baton_t
 typedef struct svn_client_proplist_item_s
 {
   /* The name of the node on which these properties are set. */
-  svn_stringbuf_t *node_name;
+  svn_stringbuf_t *node_name;  
 
   /* A hash of (const char *) property names, and (svn_stringbuf_t *) property
      values. */
@@ -320,12 +320,12 @@ svn_client_mkdir (svn_client_commit_info_t **commit_info,
                   svn_wc_notify_func_t notify_func,
                   void *notify_baton,
                   apr_pool_t *pool);
-
+                  
 
 /* If PATH is a URL, use the AUTH_BATON and MESSAGE to immediately
    attempt to commit a deletion of the URL from the repository.  If
    the commit succeeds, allocate (in POOL) and populate *COMMIT_INFO.
-
+  
    Else, schedule a working copy PATH for removal from the repository.
    PATH's parent must be under revision control.  If FORCE is set,
    then PATH itself will be recursively removed as well; otherwise
@@ -353,37 +353,37 @@ svn_client_delete (svn_client_commit_info_t **commit_info,
    AFTER_EDIT_BATON).  These editors are purely optional and exist
    only for extensibility; pass four NULLs here if you don't need
    them.
-
+  
    If the import succeeds, allocate (in POOL) and populate
    *COMMIT_INFO.
-
+  
    Store LOG_MSG as the log of the commit.
-
+   
    PATH is the path to local tree being imported.  PATH can be a file
    or directory.
-
+  
    URL is the repository directory where the imported data is placed.
-
+  
    NEW_ENTRY is the new entry created in the repository directory
    identified by URL.
-
+  
    If PATH is a file, that file is imported as NEW_ENTRY.  If PATH is
    a directory, the contents of that directory are imported, under a
    new directory the NEW_ENTRY in the repository.  Note and the
    directory itself is not imported; that is, the basename of PATH is
    not part of the import.
-
+  
    If PATH is a directory and NEW_ENTRY is null, then the contents of
    PATH are imported directly into the repository directory identified
    by URL.  NEW_ENTRY may not be the empty string.
-
+  
    If NEW_ENTRY already exists in the youngest revision, return error.
-
+   
    If XML_DST is non-NULL, it is a file in which to store the xml
    result of the commit, and REVISION is used as the revision.
-
+   
    Use POOL for all allocation.
-
+   
    ### kff todo: This import is similar to cvs import, in that it does
    not change the source tree into a working copy.  However, this
    behavior confuses most people, and I think eventually svn _should_
@@ -394,8 +394,8 @@ svn_error_t *svn_client_import (svn_client_commit_info_t **commit_info,
                                 const svn_delta_edit_fns_t *before_editor,
                                 void *before_edit_baton,
                                 const svn_delta_edit_fns_t *after_editor,
-                                void *after_edit_baton,
-                                svn_client_auth_baton_t *auth_baton,
+                                void *after_edit_baton, 
+                                svn_client_auth_baton_t *auth_baton,   
                                 svn_stringbuf_t *path,
                                 svn_stringbuf_t *url,
                                 svn_stringbuf_t *new_entry,
@@ -413,7 +413,7 @@ svn_error_t *svn_client_import (svn_client_commit_info_t **commit_info,
 
    If the commit succeeds, allocate (in POOL) and populate
    *COMMIT_INFO.
-
+  
    TARGETS is an array of svn_stringbuf_t * paths to commit.  They need
    not be canonicalized nor condensed; this function will take care of
    that.
@@ -483,19 +483,19 @@ svn_client_status (apr_hash_t **statushash,
 
 
 /* Invoke RECEIVER with RECEIVER_BATON on each log message from START
-   to END in turn.
-
+   to END in turn.  
+  
    PATHS contains all the working copy paths (as svn_stringbuf_t *'s)
    for which log messages are desired; the common prefix of PATHS
    determines the repository and auth info.  RECEIVER is invoked only
    on messages whose revisions involved a change to some path in
    PATHS.
-
+  
    ### todo: the above paragraph is not fully implemented yet.
-
+  
    If DISCOVER_CHANGED_PATHS is set, then the `changed_paths' argument
    to RECEIVER will be passed on each invocation.
-
+  
    Use POOL for any temporary allocation.
  */
 svn_error_t *
@@ -511,20 +511,20 @@ svn_client_log (svn_client_auth_baton_t *auth_baton,
 
 /* Given a TARGET which is either a path in the working copy or an URL,
    compare it against the given repository version(s).
-
+  
    START_REVISION/START_DATE and END_REVISION/END_DATE are the two
    repository versions, for each specify either the revision of the
    date. If the two revisions are the different the two repository versions
    are compared. If the two revisions are the same the working copy is
    compared against the repository.
-
+  
    If TARGET is a directory and RECURSE is true, this will be a recursive
    operation.
-
+  
    DIFF_OPTIONS is used to pass additional command line options to the diff
    processes invoked to compare files. DIFF_OPTIONS is an array of
    svn_stringbuf_t * items.
-
+  
    AUTH_BATON is used to communicate with the repository.
  */
 svn_error_t *svn_client_diff (svn_stringbuf_t *target,
@@ -608,7 +608,7 @@ svn_client_copy (svn_client_commit_info_t **commit_info,
 /* Move SRC_PATH to DST_PATH.
 
    SRC_PATH must be a file or directory under version control, or the
-   URL of a versioned item in the repository.
+   URL of a versioned item in the repository.  
 
    If SRC_PATH is a repository URL:
 
@@ -652,7 +652,7 @@ svn_client_move (svn_client_commit_info_t **commit_info,
 /* Set PROPNAME to PROPVAL on TARGET.  If RECURSE is true, then PROPNAME
    will be set on recursively on TARGET and all children.  If RECURSE is false,
    and TARGET is a directory, PROPNAME will be set on _only_ TARGET.
-
+ 
    Use POOL for all memory allocation. */
 svn_error_t *
 svn_client_propset (const char *propname,
@@ -662,11 +662,11 @@ svn_client_propset (const char *propname,
                     apr_pool_t *pool);
 
 /* Set *PROPS to a hash table whose keys are `char *' paths,
-   prefixed by TARGET, of items in the working copy on which
+   prefixed by TARGET, of items in the working copy on which 
    property PROPNAME is set, and whose values are `svn_string_t *'
    representing the property value for PROPNAME at that path.
    Allocate *PROPS, its keys, and its values in POOL.
-
+             
    Don't store any path, not even TARGET, if it does not have a
    property named PROPNAME.
 
@@ -684,7 +684,7 @@ svn_client_propget (apr_hash_t **props,
 
 /* Returns an apr_array_header_t of svn_client_proplist_item_t's in *PROPS,
    allocated from POOL. Each item will contain the node_name relative to the
-   same base as target in item->node_name, and a property hash of
+   same base as target in item->node_name, and a property hash of 
    (const char *) property names, and (svn_stringbuf_t *) property values.
 
    If recurse is false, or TARGET is a file, *PROPS will contain only a single
@@ -692,7 +692,7 @@ svn_client_propget (apr_hash_t **props,
    (and including) TARGET. */
 svn_error_t *
 svn_client_proplist (apr_array_header_t **props,
-                     const char *target,
+                     const char *target, 
                      svn_boolean_t recurse,
                      apr_pool_t *pool);
 
@@ -707,5 +707,5 @@ svn_client_proplist (apr_array_header_t **props,
 /* --------------------------------------------------------------
  * local variables:
  * eval: (load-file "../svn-dev.el")
- * end:
+ * end: 
  */
