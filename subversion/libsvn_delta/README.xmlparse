@@ -22,12 +22,12 @@ Here's how to use the API provided in xml_parse.c.
 
         - the "base" path and version of the source tree (for deriving
           default ancestry when none is specified in the xml stream)
-
+          
   3.  Now push chunks of the xml stream to the parser by calling
       svn_xml_parsebytes().  As the parser traverses the xml, it will
       make appropriate calls into the editor.
 
-  4.  When you're *finished*:
+  4.  When you're *finished*: 
 
         - call svn_xml_parsebytes() with a TRUE value in the `isFinal'
           field.  This allows both expat and svn to clean up.  (It's
