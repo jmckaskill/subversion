@@ -117,7 +117,7 @@ svn_txdelta__apply_instructions (svn_txdelta_window_t *window,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end:
