@@ -4,13 +4,13 @@
 How to make a lovely gumbo with your Subversion client, in 11 easy steps.
 
 @menu
-* Checkout::
-* Basic Work Cycle::
-* History::
-* Branches and Tags::
-* Properties::
-* Modules::
-* Other Commands::
+* Checkout::                    
+* Basic Work Cycle::            
+* History::                     
+* Branches and Tags::           
+* Properties::                  
+* Modules::                     
+* Other Commands::              
 @end menu
 
 @c ------------------------------------------------------------------
@@ -18,7 +18,7 @@ How to make a lovely gumbo with your Subversion client, in 11 easy steps.
 @section Checkout
 
 Most of the time, you will start using a Subversion repository by doing
-a @dfn{checkout} of your project.
+a @dfn{checkout} of your project. 
 
 @node Basic Work Cycle
 @section Basic Work Cycle

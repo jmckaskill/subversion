@@ -60,7 +60,7 @@ svn_cl__print_prop_hash (apr_hash_t *prop_hash,
         SVN_ERR (svn_utf_stringbuf_from_utf8 (propval, &propval, pool));
       SVN_ERR (svn_utf_cstring_from_utf8 (pname, &pname_native, pool));
       printf ("  %s : %s\n", pname_native, propval->data);
-    }
+    } 
   return SVN_NO_ERROR;
 }
 
@@ -78,12 +78,12 @@ svn_cl__print_prop_names (apr_hash_t *prop_hash,
       apr_hash_this (hi, &key, NULL, NULL);
       SVN_ERR (svn_utf_cstring_from_utf8 (key, &key_native, pool));
       printf ("  %s\n", key_native);
-    }
+    } 
   return SVN_NO_ERROR;
 }
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../tools/dev/svn-dev.el")
  * end: */
