@@ -65,10 +65,10 @@ svn_client__update_internal (const char *path,
   svn_ra_plugin_t *ra_lib;
   svn_node_kind_t kind;
   svn_wc_adm_access_t *dir_access;
-  svn_config_t *cfg = ctx->config ? apr_hash_get (ctx->config,
+  svn_config_t *cfg = ctx->config ? apr_hash_get (ctx->config, 
                                                   SVN_CONFIG_CATEGORY_CONFIG,
                                                   APR_HASH_KEY_STRING) : NULL;
-
+  
   /* Sanity check.  Without this, the update is meaningless. */
   assert (path);
 
@@ -79,7 +79,7 @@ svn_client__update_internal (const char *path,
   /* Get full URL from the ANCHOR. */
   SVN_ERR (svn_wc_entry (&entry, anchor, adm_access, FALSE, pool));
   if (! entry)
-    return svn_error_createf (SVN_ERR_WC_OBSTRUCTED_UPDATE, NULL,
+    return svn_error_createf (SVN_ERR_WC_OBSTRUCTED_UPDATE, NULL, 
                               "'%s' is not under version control", anchor);
   if (! entry->url)
     return svn_error_createf (SVN_ERR_ENTRY_MISSING_URL, NULL,
@@ -93,7 +93,7 @@ svn_client__update_internal (const char *path,
   else
     revnum = SVN_INVALID_REVNUM;
 
-  /* Get the external diff3, if any. */
+  /* Get the external diff3, if any. */    
   svn_config_get (cfg, &diff3_cmd, SVN_CONFIG_SECTION_HELPERS,
                   SVN_CONFIG_OPTION_DIFF3_CMD, NULL);
 
@@ -101,7 +101,7 @@ svn_client__update_internal (const char *path,
   svn_config_get (cfg, &commit_time_str, SVN_CONFIG_SECTION_MISCELLANY,
                   SVN_CONFIG_OPTION_USE_COMMIT_TIMES, NULL);
   if (commit_time_str)
-    use_commit_times = (strcasecmp (commit_time_str, "yes") == 0)
+    use_commit_times = (strcasecmp (commit_time_str, "yes") == 0) 
                        ? TRUE : FALSE;
   else
     use_commit_times = FALSE;
@@ -111,8 +111,8 @@ svn_client__update_internal (const char *path,
   SVN_ERR (svn_ra_get_ra_library (&ra_lib, ra_baton, URL, pool));
 
   /* Open an RA session for the URL */
-  SVN_ERR (svn_client__open_ra_session (&session, ra_lib, URL, anchor,
-                                        adm_access, NULL, TRUE, TRUE,
+  SVN_ERR (svn_client__open_ra_session (&session, ra_lib, URL, anchor, 
+                                        adm_access, NULL, TRUE, TRUE, 
                                         ctx, pool));
 
   /* ### todo: shouldn't svn_client__get_revision_number be able
@@ -142,10 +142,10 @@ svn_client__update_internal (const char *path,
 
   SVN_ERR (svn_io_check_path (path, &kind, pool));
   SVN_ERR (svn_wc_adm_retrieve (&dir_access, adm_access,
-                                (kind == svn_node_dir ? path
+                                (kind == svn_node_dir ? path 
                                  : svn_path_dirname (path, pool)),
                                 pool));
-
+  
   /* Drive the reporter structure, describing the revisions within
      PATH.  When we call reporter->finish_report, the
      update_editor will be driven by svn_repos_dir_delta. */
@@ -153,7 +153,7 @@ svn_client__update_internal (const char *path,
                                 TRUE, recurse, use_commit_times,
                                 ctx->notify_func, ctx->notify_baton,
                                 traversal_info, pool);
-
+      
   if (err)
     {
       /* Don't rely on the error handling to handle the sleep later, do
@@ -162,12 +162,12 @@ svn_client__update_internal (const char *path,
       return err;
     }
   *use_sleep = TRUE;
-
+  
   /* We handle externals after the update is complete, so that
      handling external items (and any errors therefrom) doesn't delay
      the primary operation.  */
   if (recurse)
-    SVN_ERR (svn_client__handle_externals (traversal_info,
+    SVN_ERR (svn_client__handle_externals (traversal_info, 
                                            TRUE, /* update unchanged ones */
                                            use_sleep, ctx, pool));
 
@@ -197,6 +197,6 @@ svn_client_update (const char *path,
                    svn_client_ctx_t *ctx,
                    apr_pool_t *pool)
 {
-  return svn_client__update_internal (path, revision, recurse,
+  return svn_client__update_internal (path, revision, recurse, 
                                       NULL, ctx, pool);
 }
