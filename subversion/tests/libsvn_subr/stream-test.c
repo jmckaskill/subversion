@@ -32,7 +32,7 @@ test_stream_from_string (const char **msg,
 #define NUM_TEST_STRINGS 5
 #define TEST_BUF_SIZE 10
 
-  static const char * const strings[NUM_TEST_STRINGS] = {
+  static const char * const strings[NUM_TEST_STRINGS] = { 
     /* 0 */
     NULL,
     /* 1 */
@@ -49,7 +49,7 @@ test_stream_from_string (const char **msg,
     "it--but I feel that it is safe to assume that I'm far longer than my "
     "peers.  And that demands some amount of respect, wouldn't you say?"
   };
-
+  
   *msg = "test svn_stream_from_string";
 
   if (msg_only)
@@ -75,7 +75,7 @@ test_stream_from_string (const char **msg,
           /* ... and append the chunk to the stringbuf. */
           svn_stringbuf_appendbytes (stringbuf, buffer, len);
         }
-
+      
       if (orig_len != stringbuf->len)
         return svn_error_create (SVN_ERR_TEST_FAILED, 0, NULL,
                                  "Result had unexpected length.");
