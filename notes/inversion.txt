@@ -422,7 +422,7 @@ A look at its table description below will make things clearer...
      VERSION int                   The version number of this commit.
              (never null)          Initial import gets 1.
      USER    string                Whodunnit.
-             (never null)
+             (never null)          
      LOG_MSG text                  The log message for this commit.
 
 
@@ -513,7 +513,7 @@ longer than retrieving a recent one, because old versions will take
 longer to construct.  This is a tradeoff of using diff-based storage,
 and has worked out pretty well in practice.
 
-** Scenarios
+** Scenarios 
 
 Each scenario should be mentally played out for a given design,
 analyzing for performance and scalability issues (particularly in
@@ -577,7 +577,7 @@ what desired behavior is!)
 
 *** Retrieve version X of a file
 
-*** Retrieve version X of a directory tree
+*** Retrieve version X of a directory tree 
 
 *** Show annotations of both modified and old versions of files.
 
@@ -833,7 +833,7 @@ Yup, thanks.  Still a draft, we'll normalize.
 >subdirectory of some dir named named api.  You have some of this in
 >your ACCESSES table.  For the sourcexchange.com web site we developed
 >a much more general permission scheme that you can read about at
->http://joist.tigris.org.
+>http://joist.tigris.org. 
 
 I'll look into this.
 
@@ -889,7 +889,7 @@ out).
 >selling inversion as "version control that you actually want to use"
 >trumps speed claims anyway, we should make it easy in use and easy to
 >enhance.  Java would also give us no-brainer internationalization
->support.
+>support.  
 
 In my experience (not nearly as great as yours) Java is the least
 portable language: it is unusual in requiring *both* a compiler and a
