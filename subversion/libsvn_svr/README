@@ -31,7 +31,7 @@ Method #1:  Using a `svn.conf' file.
 
 void access_subversion_repository (ap_pool_t *pool)
 {
-  svn_user_t *my_user = svn_create_user ("joe", "DAV", "red-bean", "joe");
+  svn_user_t *my_user = svn_create_user ("joe", "DAV", "red-bean", "joe"); 
   svn_svr_policies_t *my_policy = svn_svr_init (svn_parse ("svn.conf"));
 
   /* Use my_policy for all wrappered filesystem calls */
@@ -50,7 +50,7 @@ void access_subversion_repository (ap_pool_t *pool)
        svn_user_t->auth_username will be used.)
 
     3. Create (or use a preexisting) `svn.conf' file that contains
-       general server config options.
+       general server config options.  
 
     4. Parse the configfile with svn_parse(), and pass the resulting
        hashtable to svn_svr_init().  You'll get back a svn_policies_t
@@ -58,7 +58,7 @@ void access_subversion_repository (ap_pool_t *pool)
        routines.
 
     5. Call any number of wrappered filesystem calls, passing in the
-       user structure and the policy structure.
+       user structure and the policy structure.  
 
 
 
