@@ -1,4 +1,4 @@
-/**
+/** 
  * @copyright
  * ====================================================================
  * Copyright (c) 2000-2003 CollabNet.  All rights reserved.
@@ -90,9 +90,9 @@ typedef struct svn_config_t svn_config_t;
  * categories (SVN_CONFIG_CATEGORY_SERVERS,
  * SVN_CONFIG_CATEGORY_CONFIG, etc.) and whose values are the @c
  * svn_config_t * items representing the configuration values for that
- * category.
+ * category.  
  */
-svn_error_t *svn_config_get_config (apr_hash_t **cfg_hash,
+svn_error_t *svn_config_get_config (apr_hash_t **cfg_hash, 
                                     apr_pool_t *pool);
 
 
@@ -111,7 +111,7 @@ svn_error_t *svn_config_read (svn_config_t **cfgp,
 
 /** Merge config data from a @a file into an @c svn_config_t.
  *
- * Like @c svn_config_read, but merge the configuration data from @a file
+ * Like @c svn_config_read, but merge the configuration data from @a file 
  * (a file or registry path) into @a *cfg, which was previously returned
  * from @c svn_config_read.  This function invalidates all value
  * expansions in @a cfg, so that the next @c svn_option_get takes the
@@ -124,7 +124,7 @@ svn_error_t *svn_config_merge (svn_config_t *cfg,
 
 /** Find a config option's setting.
  *
- * Find the value of a (@a section, @a option) pair in @a cfg, set @a
+ * Find the value of a (@a section, @a option) pair in @a cfg, set @a 
  * *valuep to the value.
  *
  * If @a cfg is @c NULL, just sets @a *valuep to @a default_value. If
@@ -142,7 +142,7 @@ void svn_config_get (svn_config_t *cfg, const char **valuep,
 
 /** Set a config option.
  *
- * Add or replace the value of a (@a section, @a option) pair in @a cfg with
+ * Add or replace the value of a (@a section, @a option) pair in @a cfg with 
  * @a value.
  *
  * This function invalidates all value expansions in @a cfg.
@@ -159,12 +159,12 @@ void svn_config_set (svn_config_t *cfg,
 typedef svn_boolean_t (*svn_config_enumerator_t)
        (const char *name, const char *value, void *baton);
 
-/** Enumerate the options in @a section by calling @a callback and passing
+/** Enumerate the options in @a section by calling @a callback and passing 
  * it @a baton for each of them.
  *
  * Enumerate the options in @a section, passing @a baton and the current
  * option's name and value to @a callback.  Continue the enumeration if
- * @a callback returns @c TRUE.  Return the number of times @a callback
+ * @a callback returns @c TRUE.  Return the number of times @a callback 
  * was called.
  *
  * ### kff asks: A more usual interface is to continue enumerating
@@ -218,12 +218,12 @@ svn_error_t *svn_config_get_server_setting_int(svn_config_t *cfg,
                                                apr_pool_t *pool);
 
 
-/** Ensure that the user's ~/.subversion/ area exists, and create no-op
+/** Ensure that the user's ~/.subversion/ area exists, and create no-op 
  * template files for any absent config files.
  *
  * Try to ensure that the user's ~/.subversion/ area exists, and create no-op
  * template files for any absent config files.  Use @a pool for any
- * temporary allocation.
+ * temporary allocation.  
  *
  * Don't error if something exists but is the wrong kind (for example,
  * ~/.subversion exists but is a file, or ~/.subversion/servers exists
