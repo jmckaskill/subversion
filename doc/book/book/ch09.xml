@@ -512,6 +512,11 @@ $ svn log -r 1729:{2002-02-17}
         </refsect1>
 
         <refsect1>
+          <title>Accesses Repository</title>
+          <para>No</para>
+        </refsect1>
+
+        <refsect1>
           <title>Switches</title>
 
           <screen>
