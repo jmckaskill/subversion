@@ -172,12 +172,12 @@ class DependencyGraph:
       self.deps[type][target].append(source)
     else:
       self.deps[type][target] = [ source ]
-
+      
   def bulk_add(self, type, target, sources):
     if self.deps[type].has_key(target):
       self.deps[type][target].extend(sources)
     else:
-      self.deps[type][target] = sources[:]
+      self.deps[type][target] = sources[:]  
 
   def get_sources(self, type, target, cls=None):
     sources = self.deps[type].get(target, [ ])
@@ -270,7 +270,7 @@ lang_utillib_suffix = {
   'perl' : 'perl',
   'ruby' : 'ruby',
   }
-
+  
 class Target(DependencyNode):
   "A build target is a node in our dependency graph."
 
@@ -289,10 +289,10 @@ class Target(DependencyNode):
 
   class Section:
     """Represents an individual section of build.conf
-
+    
     The Section class is sort of a factory class which is responsible for
     creating and keeping track of Target instances associated with a section
-    of the configuration file. By default it only allows one Target per
+    of the configuration file. By default it only allows one Target per 
     section, but subclasses may create multiple Targets.
     """
 
@@ -613,7 +613,7 @@ class TargetJavaHeaders(TargetJava):
       class_name = build_path_basename(src[:-5])
 
       class_header = build_path_join(self.headers, class_name + '.h')
-      class_header_win = build_path_join(self.headers,
+      class_header_win = build_path_join(self.headers, 
                                          string.replace(self.package,".", "_")
                                          + "_" + class_name + '.h')
       class_pkg_list = string.split(self.package, '.')
@@ -670,7 +670,7 @@ class TargetJavaClasses(TargetJava):
         while sourcedirs:
           if sourcedirs.pop() in self.packages:
             sourcepath = apply(build_path_join, sourcedirs)
-            objname = apply(build_path_join,
+            objname = apply(build_path_join, 
                             [self.classes] + dirs[len(sourcedirs):])
             break
         else:
@@ -787,12 +787,12 @@ def build_path_strip(path, files):
 
 def _collect_paths(pats, path=None):
   """Find files matching a space separated list of globs
-
+  
   pats (string) is the list of glob patterns
 
   path (string), if specified, is a path that will be prepended to each
     glob pattern before it is evaluated
-
+    
   If path is none the return value is a list of filenames, otherwise
   the return value is a list of 2-tuples. The first element in each tuple
   is a matching filename and the second element is the portion of the
@@ -827,7 +827,7 @@ class IncludeDependencyInfo:
   headers.
 
   This class works exclusively in native-style paths.
-
+  
   Note: Has the requirement that the basenames of all headers under
   consideration are unique. This is currently the case for Subversion, and
   it allows the code to be quite a bit simpler."""
@@ -837,7 +837,7 @@ class IncludeDependencyInfo:
     all header files that this IncludeDependencyInfo instance should
     consider as interesting when following and reporting dependencies - i.e.
     all the Subversion header files, no system header files."""
-
+    
     basenames = map(os.path.basename, filenames)
 
     # This data structure is:
@@ -868,7 +868,7 @@ class IncludeDependencyInfo:
     """Mutate the passed dictionary HDRS, by performing a single pass
     through the listed headers, adding the headers on which the first group
     of headers depend, if not already present.
-
+    
     Return a boolean indicating whether any changes were made."""
     keys = hdrs.keys()
     for h in keys:
