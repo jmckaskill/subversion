@@ -54,7 +54,7 @@ class VCActions:
 class NoVCActions(VCActions):
   def remove_file(self, path):
     os.unlink(path)
-
+  
 
 class CVSActions(VCActions):
   def add_file(self, path):
@@ -82,7 +82,7 @@ class SVNActions(VCActions):
     os.remove(path)
     os.system('svn rm --quiet --force "%s"' % (path))
 
-
+    
 class hashDir:
   """Given a directory, creates a string containing all directories
   and files under that directory (sorted alphanumerically) and makes a
@@ -122,7 +122,7 @@ talented scramble-tree.py script.
 """
     self.file_modders = [self._mod_append_to_file,
                          self._mod_append_to_file,
-                         self._mod_append_to_file,
+                         self._mod_append_to_file,                         
                          self._mod_remove_from_file,
                          self._mod_remove_from_file,
                          self._mod_remove_from_file,
@@ -139,7 +139,7 @@ talented scramble-tree.py script.
         open(path, 'w').write(self.greeking)
         return path
     raise Exception("Ran out of unique new filenames in directory '%s'" % dir)
-
+    
   def _mod_append_to_file(self, path):
     if not self.quiet:
       print 'append_to_file:', path
@@ -169,7 +169,7 @@ talented scramble-tree.py script.
     if not self.quiet:
       print 'delete_file:', path
     if self.dry_run:
-      return
+      return    
     self.vc_actions.remove_file(path)
 
   def munge_file(self, path):
@@ -215,7 +215,7 @@ def main():
   vc_actions = NoVCActions()
   dry_run = 0
   quiet = 0
-
+  
   # Mm... option parsing.
   optlist, args = getopt.getopt(sys.argv[1:], "hq",
                                 ['seed=', 'use-svn', 'use-cvs',
@@ -244,10 +244,10 @@ def main():
   if seed is None:
     seed = hashDir(rootdir).gen_seed()
   scrambler = Scrambler(seed, vc_actions, dry_run, quiet)
-
+  
   # Fire up the treewalker
   print 'SEED: ' + seed
-
+  
   os.path.walk(rootdir, walker_callback, scrambler)
 
 
