@@ -224,7 +224,7 @@ txn_body_get_node_prop (void *baton,
 
   SVN_ERR (check_for_clone (args->node, trail));
   SVN_ERR (svn_fs__dag_get_proplist (&proplist, args->node->dag_node, trail));
-
+  
   /* Search the proplist for a property with the right name.  */
   for (prop = proplist->children; prop; prop = prop->next->next)
     {
@@ -292,14 +292,14 @@ txn_body_change_node_prop (void *baton,
 
   SVN_ERR (make_clone (args->node, trail));
   SVN_ERR (svn_fs__dag_get_proplist (&proplist, args->node->dag_node, trail));
-
+  
   /* Delete the skel, either replacing or adding the given property.  */
   for (prop = proplist->children; prop; prop = prop->next->next)
     {
       skel_t *name = prop;
       skel_t *value = prop->next;
 
-      /* We've found an existing entry for this property.
+      /* We've found an existing entry for this property. 
          Replace the value.  */
       if (name->len == args->name->len
           && ! memcmp (name->data, args->name->data, name->len))
@@ -415,7 +415,7 @@ svn_fs_make_dir (svn_fs_root_t *root,
 {
   abort ();
 }
-
+                              
 
 struct delete_args
 {
@@ -525,7 +525,7 @@ svn_fs__txn_root_node (svn_fs_root_t **root_p,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
