@@ -133,11 +133,11 @@
       <dd>Response: 201, created</dd>
     </dl>
     <p>
-      The (advanced) <code>CHECKOUT</code> method has a way to specify
+      The (advanced) <code>CHECKOUT</code> method has a way to specify 
       an activity upon checkout. This feature will be used to
       associate all items with the newly-created activity.
     </p>
-
+    
     <h3>Mapping changes to WebDAV</h3>
     <p>
       A change set in Subversion is specified with a "tree delta" (see
@@ -217,7 +217,7 @@
 	<code>COPY</code> establishes the proper ancestry for the
 	file.
 	<p>
-	  Note that the source of the <code>COPY</code> is the version
+	  Note that the source of the <code>COPY</code> is the version 
 	  selector. This makes it possible to swap files arbitrarily
 	  since the source (the version selectors) will not change
 	  until <code>MERGE</code> time.
@@ -226,11 +226,11 @@
 
       <dt>Replace directory</dt>
       <dd>
-	In Subversion terms, "replace directory" means that additions,
+	In Subversion terms, "replace directory" means that additions, 
 	deletions, and other changes will occur <em>within</em> the
-	directory. Each of these changes are modeled individually, and
+	directory. Each of these changes are modeled individually, and 
 	the change to the directory is performed
-	implicitly. Therefore, this "change" has no particular mapping
+	implicitly. Therefore, this "change" has no particular mapping 
 	into WebDAV.
 
 	<p></p>
@@ -252,7 +252,7 @@
       <dt>Property delta</dt>
       <dd>
 	A property delta (against a file or directory) maps directly
-	to a <code>PROPPATCH</code> in WebDAV terms. Before applying a
+	to a <code>PROPPATCH</code> in WebDAV terms. Before applying a 
 	<code>PROPPATCH</code>, the target file/directory will be
 	checked out using <code>CHECKOUT</code>
       </dd>
@@ -268,7 +268,7 @@
     <h3>Skeleton Deltas</h3>
     <p>
       As mentioned above, Subversion uses a two-pass system during a
-      commit. The first pass will create the activity, perform all the
+      commit. The first pass will create the activity, perform all the 
       necessary <code>CHECKOUT</code> operations, and then perform a
       number of <code>DELETE</code>, <code>COPY</code>, and
       <code>MKCOL</code> requests against the working resources. To
@@ -287,7 +287,7 @@
 	into a complete <code>PROPPATCH</code>.
 	<p>
 	  Note that DAV says it is okay to remove a property that
-	  doesn't exist. Effectively, the removal of the property will
+	  doesn't exist. Effectively, the removal of the property will 
 	  always be a null operation.
 	</p>
       </dd>
@@ -296,7 +296,7 @@
       <dd>
 	The client will issue a zero-length <code>PUT</code> request
 	against the working resource. When the final commit is
-	performed, another <code>PUT</code> will be performed with the
+	performed, another <code>PUT</code> will be performed with the 
 	entire file contents.
 	<p></p>
       </dd>
@@ -354,7 +354,7 @@
     <ul>
       <li>
 	The <code>&lt;directory ancestor="/dir1/dir3"&gt;</code>
-	specifies that we are overwriting <code>/dir1/dir2</code> with
+	specifies that we are overwriting <code>/dir1/dir2</code> with 
 	<code>/dir1/dir3</code>.
 	<p>
 	  <code>CHECKOUT&nbsp;/dir1/dir2</code><br>
@@ -370,7 +370,7 @@
 	<code>/dir1/dir2/file3</code> is new (since we just overwrote
 	the original <code>dir2</code> directory), and originates from
 	<code>/dir1/dir2/file3</code>. Thus, we simply
-	<code>COPY</code> the file into the target directory's working
+	<code>COPY</code> the file into the target directory's working 
 	resource:
 	<p>
 	  <code>COPY&nbsp;/dir1/dir2/file3</code><br>
