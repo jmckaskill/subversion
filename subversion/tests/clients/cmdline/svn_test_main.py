@@ -2,9 +2,9 @@
 #
 #  svn_test_main.py: a shared, automated test suite for Subversion
 #
-#  Subversion is a tool for revision control.
+#  Subversion is a tool for revision control. 
 #  See http://subversion.tigris.org for more information.
-#
+#    
 # ====================================================================
 # Copyright (c) 2000-2001 CollabNet.  All rights reserved.
 #
@@ -112,9 +112,9 @@ def run_svnadmin(*varargs):
   if pipe.close():
     print "ERROR running svnadmin:", output
     sys.exit(1)
-
-
-
+  
+  
+  
 
 # For clearing away working copies
 def remove_wc(dirname):
@@ -157,7 +157,7 @@ def write_tree(path, lists):
       fp = open(fullpath, 'w')
       fp.write(item[1])
       fp.close()
-
+      
 
 
 ######################################################################
@@ -205,11 +205,11 @@ def client_test(test_list):
 
 match = re.search('^(\d+\.\d+)', sys.version)
 this_version = string.atof(match.group(1))
-if (this_version < python_required_version):
+if (this_version < python_required_version):  
   print "Error: this test suite requires python", python_required_version
   print "       but you have python", this_version
   sys.exit(1)
-
+  
 
 
 ### End of file.
