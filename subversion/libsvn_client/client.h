@@ -93,7 +93,7 @@ svn_client__update_internal (const svn_delta_edit_fns_t *before_editor,
 #endif /* CLIENT_H */
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
