@@ -30,7 +30,7 @@
 /* THINGS TODO:  Currently the code herein gives only a slight nod to
    fully supporting directory deltas that involve renames, copies, and
    such.  */
-
+ 
 
 /* Some datatypes and declarations used throughout the file.  */
 
@@ -68,21 +68,21 @@ typedef svn_error_t *proplist_change_fn_t (struct context *c,
 
 
 /* Retrieving the base revision from the path/revision hash.  */
-static svn_revnum_t get_revision_from_hash (apr_hash_t *hash,
+static svn_revnum_t get_revision_from_hash (apr_hash_t *hash, 
                                             const char *path,
                                             apr_pool_t *pool);
 
 
 /* proplist_change_fn_t property changing functions.  */
-static svn_error_t *change_dir_prop (struct context *c,
+static svn_error_t *change_dir_prop (struct context *c, 
                                      void *object,
-                                     const char *name,
+                                     const char *name, 
                                      const svn_string_t *value,
                                      apr_pool_t *pool);
 
-static svn_error_t *change_file_prop (struct context *c,
+static svn_error_t *change_file_prop (struct context *c, 
                                       void *object,
-                                      const char *name,
+                                      const char *name, 
                                       const svn_string_t *value,
                                       apr_pool_t *pool);
 
@@ -102,7 +102,7 @@ static svn_error_t *send_text_delta (struct context *c,
                                      svn_txdelta_stream_t *delta_stream,
                                      apr_pool_t *pool);
 
-static svn_error_t *delta_files (struct context *c,
+static svn_error_t *delta_files (struct context *c, 
                                  void *file_baton,
                                  const char *source_path,
                                  const char *target_path,
@@ -110,22 +110,22 @@ static svn_error_t *delta_files (struct context *c,
 
 
 /* Generic directory deltafication routines.  */
-static svn_error_t *delete (struct context *c,
-                            void *dir_baton,
+static svn_error_t *delete (struct context *c, 
+                            void *dir_baton, 
                             const char *target_entry,
                             apr_pool_t *pool);
 
-static svn_error_t *add_file_or_dir (struct context *c,
-                                     void *dir_baton,
-                                     const char *source_parent,
+static svn_error_t *add_file_or_dir (struct context *c, 
+                                     void *dir_baton, 
+                                     const char *source_parent, 
                                      const char *source_entry,
-                                     const char *target_parent,
+                                     const char *target_parent, 
                                      const char *target_entry,
                                      apr_pool_t *pool);
 
-static svn_error_t *replace_file_or_dir (struct context *c,
+static svn_error_t *replace_file_or_dir (struct context *c, 
                                          void *dir_baton,
-                                         const char *source_parent,
+                                         const char *source_parent, 
                                          const char *source_entry,
                                          const char *target_parent,
                                          const char *target_entry,
@@ -134,27 +134,27 @@ static svn_error_t *replace_file_or_dir (struct context *c,
 #if 0 /* comment out until used, to avoid compiler warning */
 static svn_error_t *find_nearest_entry (svn_fs_dirent_t **s_entry,
                                         int *distance,
-                                        struct context *c,
-                                        const char *source_parent,
+                                        struct context *c, 
+                                        const char *source_parent, 
                                         const char *target_parent,
                                         svn_fs_dirent_t *t_entry,
                                         apr_pool_t *pool);
 #endif /* 0 */
 
-static svn_error_t *delta_dirs (struct context *c,
+static svn_error_t *delta_dirs (struct context *c, 
                                 void *dir_baton,
-                                const char *source_path,
+                                const char *source_path, 
                                 const char *target_path,
                                 apr_pool_t *pool);
 
 
 
 static svn_error_t *
-not_a_dir_error (const char *role,
+not_a_dir_error (const char *role, 
                  const char *path,
                  apr_pool_t *pool)
 {
-  return svn_error_createf
+  return svn_error_createf 
     (SVN_ERR_FS_NOT_DIRECTORY, 0, 0, pool,
      "not_a_dir_error: invalid %s directory '%s'",
      role, path ? path : "(null)");
@@ -230,7 +230,7 @@ svn_repos_dir_delta (svn_fs_root_t *src_root,
       if ((! s_dir) || (! t_dir))
         return not_a_dir_error ("target parent", tgt_parent_dir->data, pool);
     }
-
+  
   /* Setup our pseudo-global structure here.  We need these variables
      throughout the deltafication process, so pass them around by
      reference to all the helper functions. */
@@ -244,12 +244,12 @@ svn_repos_dir_delta (svn_fs_root_t *src_root,
 
   /* Set the global target revision if the target is a revision. */
   if (c.target_is_rev)
-    SVN_ERR (editor->set_target_revision
+    SVN_ERR (editor->set_target_revision 
              (edit_baton, svn_fs_revision_root_revision (tgt_root)));
 
   /* Call open_root to get our root_baton... */
-  SVN_ERR (editor->open_root
-           (edit_baton,
+  SVN_ERR (editor->open_root 
+           (edit_baton, 
             get_revision_from_hash (src_revs, src_parent_dir, pool),
             &root_baton));
 
@@ -354,7 +354,7 @@ get_revision_from_hash (apr_hash_t *hash, const char *path,
     {
       revision = *((svn_revnum_t *) val);
       if (SVN_IS_VALID_REVNUM(revision))
-        return revision;
+        return revision;      
     }
 
   /* Make a copy of our path that we can hack on. */
@@ -363,7 +363,7 @@ get_revision_from_hash (apr_hash_t *hash, const char *path,
   /* If we haven't found a valid revision yet, and our copy of the
      path isn't empty, hack the last component off the path and see if
      *that* has a revision entry in our hash. */
-  while ((! SVN_IS_VALID_REVNUM(revision))
+  while ((! SVN_IS_VALID_REVNUM(revision)) 
          && (! svn_path_is_empty (path_copy)))
     {
       svn_path_remove_component (path_copy);
@@ -372,7 +372,7 @@ get_revision_from_hash (apr_hash_t *hash, const char *path,
       if (val)
         revision = *((svn_revnum_t *) val);
     }
-
+  
   return revision;
 }
 
@@ -439,7 +439,7 @@ delta_proplists (struct context *c,
   apr_hash_index_t *hi;
   apr_pool_t *subpool;
 
-  /* Make a subpool for local allocations. */
+  /* Make a subpool for local allocations. */ 
   subpool = svn_pool_create (pool);
 
   if (source_path && target_path)
@@ -462,13 +462,13 @@ delta_proplists (struct context *c,
 
   /* Get the source file's properties */
   if (source_path)
-    SVN_ERR (svn_fs_node_proplist
+    SVN_ERR (svn_fs_node_proplist 
              (&s_props, c->source_root, source_path,
               subpool));
 
   /* Get the target file's properties */
   if (target_path)
-    SVN_ERR (svn_fs_node_proplist
+    SVN_ERR (svn_fs_node_proplist 
              (&t_props, c->target_root, target_path,
               subpool));
 
@@ -478,14 +478,14 @@ delta_proplists (struct context *c,
       const void *key;
       void *val;
       apr_size_t klen;
-
+          
       /* KEY is property name in target, VAL the value */
       apr_hash_this (hi, &key, &klen, &val);
 
       /* See if this property existed in the source.  If so, and if
          the values in source and target differ, open the value in
          target with the one in source. */
-      if (s_props
+      if (s_props 
           && ((s_value = apr_hash_get (s_props, key, klen)) != 0))
         {
           if (svn_string_compare (s_value, val))
@@ -510,7 +510,7 @@ delta_proplists (struct context *c,
       for (hi = apr_hash_first (subpool, s_props); hi; hi = apr_hash_next (hi))
         {
           const void *key;
-
+          
           /* KEY is property name in target, VAL the value */
           apr_hash_this (hi, &key, NULL, NULL);
 
@@ -542,10 +542,10 @@ send_text_delta (struct context *c,
   void *delta_handler_baton;
 
   /* Get a handler that will apply the delta to the file.  */
-  SVN_ERR (c->editor->apply_textdelta
+  SVN_ERR (c->editor->apply_textdelta 
            (file_baton, &delta_handler, &delta_handler_baton));
 
-
+  
   if (c->text_deltas)
     {
       /* Deliver the delta stream to the file.  */
@@ -605,8 +605,8 @@ delta_files (struct context *c, void *file_baton,
 
       /* Get a delta stream turning SOURCE_PATH's contents into
          TARGET_PATH's contents.  */
-      SVN_ERR (svn_fs_get_file_delta_stream
-               (&delta_stream,
+      SVN_ERR (svn_fs_get_file_delta_stream 
+               (&delta_stream, 
                 c->source_root, source_path,
                 c->target_root, target_path,
                 subpool));
@@ -615,7 +615,7 @@ delta_files (struct context *c, void *file_baton,
     {
       /* Get a delta stream turning an empty file into one having
          TARGET_PATH's contents.  */
-      SVN_ERR (svn_fs_get_file_delta_stream
+      SVN_ERR (svn_fs_get_file_delta_stream 
                (&delta_stream, 0, 0,
                 c->target_root, target_path, subpool));
     }
@@ -636,8 +636,8 @@ delta_files (struct context *c, void *file_baton,
 
 /* Emit a delta to delete the entry named TARGET_ENTRY from DIR_BATON.  */
 static svn_error_t *
-delete (struct context *c,
-        void *dir_baton,
+delete (struct context *c, 
+        void *dir_baton, 
         const char *target_entry,
         apr_pool_t *pool)
 {
@@ -676,7 +676,7 @@ add_file_or_dir (struct context *c, void *dir_baton,
   svn_path_add_component_nts (target_full_path, target_entry);
 
   /* Is the target a file or a directory?  */
-  SVN_ERR (svn_fs_is_dir (&is_dir, c->target_root,
+  SVN_ERR (svn_fs_is_dir (&is_dir, c->target_root, 
                           target_full_path->data, pool));
 
   if (source_parent && source_entry)
@@ -698,8 +698,8 @@ add_file_or_dir (struct context *c, void *dir_baton,
     {
       void *subdir_baton;
 
-      SVN_ERR (c->editor->add_directory
-               (namebuf, dir_baton,
+      SVN_ERR (c->editor->add_directory 
+               (namebuf, dir_baton, 
                 source_full_path, base_revision, &subdir_baton));
       SVN_ERR (delta_dirs (c, subdir_baton,
                            source_full_path ? source_full_path->data : NULL,
@@ -710,8 +710,8 @@ add_file_or_dir (struct context *c, void *dir_baton,
     {
       void *file_baton;
 
-      SVN_ERR (c->editor->add_file
-               (namebuf, dir_baton,
+      SVN_ERR (c->editor->add_file 
+               (namebuf, dir_baton, 
                 source_full_path, base_revision, &file_baton));
       SVN_ERR (delta_files (c, file_baton,
                             source_full_path ? source_full_path->data : NULL,
@@ -727,11 +727,11 @@ add_file_or_dir (struct context *c, void *dir_baton,
    TARGET_ENTRY with the SOURCE_ENTRY found in SOURCE_PARENT.  Pass
    DIR_BATON through to editor functions that require it. */
 static svn_error_t *
-replace_file_or_dir (struct context *c,
+replace_file_or_dir (struct context *c, 
                      void *dir_baton,
-                     const char *target_parent,
+                     const char *target_parent, 
                      const char *target_entry,
-                     const char *source_parent,
+                     const char *source_parent, 
                      const char *source_entry,
                      apr_pool_t *pool)
 {
@@ -754,7 +754,7 @@ replace_file_or_dir (struct context *c,
   svn_path_add_component_nts (target_full_path, target_entry);
 
   /* Is the target a file or a directory?  */
-  SVN_ERR (svn_fs_is_dir (&is_dir, c->target_root,
+  SVN_ERR (svn_fs_is_dir (&is_dir, c->target_root, 
                           target_full_path->data, pool));
 
   /* Get the source's full path */
@@ -771,7 +771,7 @@ replace_file_or_dir (struct context *c,
     {
       void *subdir_baton;
 
-      SVN_ERR (c->editor->open_directory
+      SVN_ERR (c->editor->open_directory 
                (namebuf, dir_baton, base_revision, &subdir_baton));
       SVN_ERR (delta_dirs (c, subdir_baton,
                            source_full_path->data, target_full_path->data,
@@ -782,7 +782,7 @@ replace_file_or_dir (struct context *c,
     {
       void *file_baton;
 
-      SVN_ERR (c->editor->open_file
+      SVN_ERR (c->editor->open_file 
                (namebuf, dir_baton, base_revision, &file_baton));
       SVN_ERR (delta_files (c, file_baton,
                             source_full_path->data, target_full_path->data,
@@ -803,8 +803,8 @@ replace_file_or_dir (struct context *c,
 static svn_error_t *
 find_nearest_entry (svn_fs_dirent_t **s_entry,
                     int *distance,
-                    struct context *c,
-                    const char *source_parent,
+                    struct context *c, 
+                    const char *source_parent, 
                     const char *target_parent,
                     const svn_fs_dirent_t *t_entry,
                     apr_pool_t *pool)
@@ -817,7 +817,7 @@ find_nearest_entry (svn_fs_dirent_t **s_entry,
   svn_stringbuf_t *target_full_path;
   int t_is_dir;
   apr_pool_t *subpool;
-
+  
   /* Make a subpool for local allocations */
   subpool = svn_pool_create (pool);
 
@@ -842,11 +842,11 @@ find_nearest_entry (svn_fs_dirent_t **s_entry,
   svn_path_add_component_nts (target_full_path, t_entry->name);
 
   /* Is the target a file or a directory?  */
-  SVN_ERR (svn_fs_is_dir (&t_is_dir, c->target_root,
+  SVN_ERR (svn_fs_is_dir (&t_is_dir, c->target_root, 
                           target_full_path->data, subpool));
 
   /* Find the closest relative to TARGET_ENTRY in SOURCE.
-
+     
      In principle, a replace operation can choose the ancestor from
      anywhere in the delta's whole source tree.  In this
      implementation, we only search SOURCE for possible ancestors.
@@ -860,7 +860,7 @@ find_nearest_entry (svn_fs_dirent_t **s_entry,
       int this_distance;
       svn_fs_dirent_t *this_entry;
       int s_is_dir;
-
+     
       /* KEY will be the entry name in source, VAL the dirent */
       apr_hash_this (hi, &key, &klen, &val);
       this_entry = val;
@@ -869,7 +869,7 @@ find_nearest_entry (svn_fs_dirent_t **s_entry,
       svn_path_add_component_nts (source_full_path, this_entry->name);
 
       /* Is this entry a file or a directory?  */
-      SVN_ERR (svn_fs_is_dir (&s_is_dir, c->source_root,
+      SVN_ERR (svn_fs_is_dir (&s_is_dir, c->source_root, 
                               source_full_path->data, subpool));
 
       /* If we aren't looking at the same node type, skip this
@@ -913,9 +913,9 @@ find_nearest_entry (svn_fs_dirent_t **s_entry,
    DIR_BATON represents the directory we're constructing to the editor
    in the context C.  */
 static svn_error_t *
-delta_dirs (struct context *c,
+delta_dirs (struct context *c, 
             void *dir_baton,
-            const char *source_path,
+            const char *source_path, 
             const char *target_path,
             apr_pool_t *pool)
 {
@@ -966,7 +966,7 @@ delta_dirs (struct context *c,
       apr_size_t klen;
       svn_stringbuf_t *target_fullpath =
         svn_stringbuf_create (target_path, subpool);
-
+          
       /* KEY is the entry name in target, VAL the dirent */
       apr_hash_this (hi, &key, &klen, &val);
       t_entry = val;
@@ -975,7 +975,7 @@ delta_dirs (struct context *c,
 
       /* Can we find something with the same name in the source
          entries hash? */
-      if (s_entries
+      if (s_entries 
           && ((s_entry = apr_hash_get (s_entries, key, klen)) != 0))
         {
           int distance;
@@ -987,7 +987,7 @@ delta_dirs (struct context *c,
           if (c->recurse || !is_dir)
             {
 
-              /* Check the distance between the ids.
+              /* Check the distance between the ids.  
 
                  0 means they are the same id, and this is a noop.
 
@@ -1010,7 +1010,7 @@ delta_dirs (struct context *c,
                   int best_distance;
 
                   SVN_ERR (find_nearest_entry (&best_entry, &best_distance,
-                                               c, source_path,
+                                               c, source_path, 
                                                target_path, t_entry));
 
                   if (best_distance == -1)
@@ -1019,8 +1019,8 @@ delta_dirs (struct context *c,
                       /* We found no ancestral match at all.  Delete this
                          entry and create a new one from scratch. */
                       SVN_ERR (delete (c, dir_baton, t_entry->name, subpool));
-                      SVN_ERR (add_file_or_dir
-                               (c, dir_baton, NULL, NULL,
+                      SVN_ERR (add_file_or_dir 
+                               (c, dir_baton, NULL, NULL, 
                                 target_path, t_entry->name, subpool));
                     }
 #if SVN_FS_SUPPORT_COPY_FROM_ARGS
@@ -1030,20 +1030,20 @@ delta_dirs (struct context *c,
                          same name (since this case gets caught in the
                          first distance check above), but does it really
                          matter? */
-                      SVN_ERR (replace_file_or_dir
+                      SVN_ERR (replace_file_or_dir 
                                (c, dir_baton,
                                 source_path,
                                 best_entry->name,
                                 target_path,
                                 t_entry->name,
                                 subpool));
-                    }
+                    } 
 #endif
                 }
               else
                 {
                   SVN_ERR (replace_file_or_dir
-                           (c, dir_baton,
+                           (c, dir_baton, 
                             source_path,
                             s_entry->name,
                             target_path,
@@ -1054,7 +1054,7 @@ delta_dirs (struct context *c,
 
           /*  Remove the entry from the source_hash. */
           apr_hash_set (s_entries, key, APR_HASH_KEY_STRING, NULL);
-        }
+        }            
       else
         {
           int is_dir;
@@ -1072,28 +1072,28 @@ delta_dirs (struct context *c,
               int best_distance;
 
               SVN_ERR (find_nearest_entry (&best_entry, &best_distance,
-                                           c, source_path,
+                                           c, source_path, 
                                            target_path, t_entry, subpool));
-
+              
               /* Add (with history if we found an ancestor) this new
                  entry. */
               if (best_distance == -1)
 #endif
-                SVN_ERR (add_file_or_dir
+                SVN_ERR (add_file_or_dir 
                          (c, dir_baton, NULL, NULL,
                           target_path, t_entry->name,
                           subpool));
 #if SVN_FS_SUPPORT_COPY_FROM_ARGS
               else
                 SVN_ERR (add_file_or_dir
-                         (c, dir_baton,
+                         (c, dir_baton, 
                           source_path,
                           best_entry->name,
-                          target_path,
+                          target_path, 
                           t_entry->name,
                           subpool));
 #endif
-            }
+            } 
         }
 
       /* Clear out our subpool for the next iteration... */
@@ -1113,7 +1113,7 @@ delta_dirs (struct context *c,
           svn_stringbuf_t *source_fullpath = svn_stringbuf_create (source_path,
                                                                    subpool);
           int is_dir;
-
+          
           /* KEY is the entry name in source, VAL the dirent */
           apr_hash_this (hi, &key, &klen, &val);
           s_entry = val;
@@ -1141,7 +1141,7 @@ delta_dirs (struct context *c,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
