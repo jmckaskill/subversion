@@ -90,10 +90,10 @@ svn_cl__diff (apr_getopt_t *os,
 
         svn_stringbuf_t *target1
           = ((svn_stringbuf_t **) (condensed_targets->elts))[0];
-
+   
         svn_stringbuf_t *target2
           = ((svn_stringbuf_t **) (condensed_targets->elts))[1];
-
+   
         if ((condensed_targets->nelts == 2)
             && ((is_a_url (target1)) || (is_a_url (target2))))
           {
@@ -142,8 +142,8 @@ svn_cl__diff (apr_getopt_t *os,
 }
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../tools/dev/svn-dev.el")
- * end:
+ * end: 
  */
