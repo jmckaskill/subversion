@@ -1,14 +1,14 @@
 <chapter id="svn-ch-6">
   <title>Server Configuration</title>
-
+  
   <simplesect>
-
+    
     <para>A Subversion repository can be accessed simultaneously by
       clients running on the same machine on which the repository
       resides.  But the typical Subversion setup involves a single
       server machine being accessed from clients on computers all over
       the office&mdash;or, perhaps, all over the world.</para>
-
+    
     <para>This section describes how to get your Subversion repository
       exposed outside its host machine for use by remote clients.  We
       will cover Subversion's currently available server mechanisms,
@@ -16,16 +16,16 @@
       this section, you should be able to decide which networking
       setup is right for your needs, and understand how to enable such
       a setup on your host computer.</para>
-
+    
   </simplesect>
-
+  
   <!-- ================================================================= -->
   <!-- ======================== SECTION 1 ============================== -->
   <!-- ================================================================= -->
   <sect1 id="svn-ch-6-sect-1">
-
+    
     <title>Overview</title>
-
+    
     <para>Subversion was designed with an abstract network layer.
       This means that a repository can be programmatically accessed by
       any sort of server process, and the client "repository access"
@@ -33,7 +33,7 @@
       network protocols.  In theory, Subversion can sport an infinite
       number of network implementations.  In practice, there are only
       two servers at the time of writing.</para>
-
+    
     <para>Apache is an extremely popular webserver; using the
       <command>mod_dav_svn</command> module, Apache can access a
       repository and make it available to clients via WebDAV/DeltaV
@@ -51,7 +51,7 @@
       available Subversion servers&mdash; as an administrator, it's up
       to you to choose whatever works best for you and your
       users.</para>
-
+      
 
     <table id="svn-ch-06-table-1">
       <title>Network Server Comparison</title>
@@ -66,34 +66,34 @@
         <tbody>
           <row>
             <entry>Authentication options</entry>
-
+            
             <entry>HTTP basic auth, X.509 certificates, LDAP, NTLM, or
               any other mechanism available to Apache httpd</entry>
-
+            
             <entry>CRAM-MD5 or SSH</entry>
           </row>
-
+          
           <row>
             <entry>User account options</entry>
-
+            
             <entry>private 'users' file</entry>
-
+            
             <entry>private 'users' file, or existing system (SSH)
               accounts</entry>
           </row>
-
+          
           <row>
             <entry>Authorization options</entry>
-
+            
             <entry>blanket read/write access, or per-directory access
               control</entry>
-
+            
             <entry>blanket read/write access</entry>
           </row>
-
+          
           <row>
             <entry>Encryption</entry>
-
+            
             <entry>via optional SSL</entry>
 
             <entry>via SSH only</entry>
@@ -101,7 +101,7 @@
 
           <row>
             <entry>Interoperability</entry>
-
+            
             <entry>partially usable by other WebDAV clients</entry>
 
             <entry>not interoperable</entry>
@@ -109,7 +109,7 @@
 
           <row>
             <entry>Web Viewing</entry>
-
+            
             <entry>limited built-in support, or via 3rd-party tools
               such as ViewCVS</entry>
 
@@ -118,7 +118,7 @@
 
           <row>
             <entry>Speed</entry>
-
+            
             <entry>somewhat slower</entry>
 
             <entry>somewhat faster</entry>
@@ -126,16 +126,16 @@
 
           <row>
             <entry>Initial setup</entry>
-
+            
             <entry>somewhat complex</entry>
 
             <entry>fairly simple</entry>
           </row>
 
         </tbody>
-      </tgroup>
+      </tgroup>      
     </table>
-
+    
   </sect1>
 
   <!-- ================================================================= -->
@@ -179,7 +179,7 @@
   <!-- ======================== SECTION 3 ============================== -->
   <!-- ================================================================= -->
   <sect1 id="svn-ch-6-sect-3">
-
+    
     <title>svnserve, a custom server</title>
 
     <para>blah</para>
@@ -205,7 +205,7 @@
       that the result is identical.  Footnote:  see RFC 2195.</para>
 
     </sect2>
-
+    
     <sect2 id="svn-ch-6-sect-3.3">
       <title>SSH authentication and authorization</title>
 
@@ -222,7 +222,7 @@
   <!-- ======================== SECTION 4 ============================== -->
   <!-- ================================================================= -->
   <sect1 id="svn-ch-6-sect-4">
-
+    
     <title>httpd, the Apache HTTP server</title>
 
     <para>blah</para>
@@ -243,7 +243,7 @@
         and document how to manage client/server certs from client.</para>
 
     </sect2>
-
+    
     <sect2 id="svn-ch-6-sect-4.3">
       <title>Authorization Options</title>
 
@@ -260,7 +260,7 @@
   <!-- ======================== SECTION 5 ============================== -->
   <!-- ================================================================= -->
   <sect1 id="svn-ch-6-sect-5">
-
+    
     <title>Using Multiple Servers</title>
 
     <para>You've seen how a repository can be accessed in many
@@ -268,10 +268,10 @@
       your repository to be accessed by multiple repository access
       methods simultaneously?  The answer is yes, provided you use a
       bit of foresight.</para>
-
+    
     <para>At any given time, these processes may require read and/or
       write access to your repository:</para>
-
+    
     <itemizedlist>
       <listitem>
         <para>regular system users using a Subversion client (as
@@ -293,7 +293,7 @@
           particular fixed user.</para>
       </listitem>
     </itemizedlist>
-
+    
     <para>The most common problem administrators run into is repository
       ownership and permissions.  Does every process (or user) in the
       previous list have the rights to read and write the Berkeley DB
@@ -304,7 +304,7 @@
       not enough, because a process may write to the database files
       using an unfriendly umask&mdash;one that prevents access by
       other users.</para>
-
+    
     <para>So the next step beyond setting up a common group for
       repository users is to force every repository-accessing process
       to use a sane umask.  For users accessing the repository
@@ -317,13 +317,13 @@
       <filename>apachectl</filename>.</para>
 
     <!-- TODO: example of such a wrapper script? -->
-
+    
     <para>Once you've jumped through these hoops, your repository
       should be accessible by all the necessary processes.  It may
       seem a bit messy and complicated, but the problems of having
       multiple users sharing write-access to common files are classic
       ones that are not often elegantly solved.</para>
-
+    
     <para>Fortunately, most repository administrators will never
       <emphasis>need</emphasis> to have such a complex configuration.
       Users who wish to access repositories that live on the same
@@ -345,7 +345,7 @@
 </chapter>
 
 <!--
-local variables:
+local variables: 
 sgml-parent-document: ("book.xml" "chapter")
 end:
 -->
