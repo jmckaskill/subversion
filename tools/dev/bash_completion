@@ -24,7 +24,7 @@ _svn()
 		COMPREPLY=( $( compgen -W "$cmds" -- $cur ) )
 		return 0
 	else
-		# if we're completing for 'svn help' or 'svn h', then just
+		# if we're completing for 'svn help' or 'svn h', then just 
 		# complete on any valid svn command
 		case ${COMP_WORDS[1]} in
 		help|h|\?)
@@ -89,7 +89,7 @@ _svn()
 		;;
 	import)
 		cmdOpts="$mOpts $qOpts $nOpts --targets --force $pOpts"
-		;;
+		;; 
 	info)
 		cmdOpts="--targets -R --recursive"
 		;;
