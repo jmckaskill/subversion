@@ -42,9 +42,9 @@ svn_error_t *svn_ra_dav__parsed_request(svn_ra_session_t *ras,
                                         const char *url,
                                         const char *body,
                                         FILE *fp,
-                                        const struct hip_xml_elm *elements,
+                                        const struct hip_xml_elm *elements, 
                                         hip_xml_validate_cb validate_cb,
-                                        hip_xml_startelm_cb startelm_cb,
+                                        hip_xml_startelm_cb startelm_cb, 
                                         hip_xml_endelm_cb endelm_cb,
                                         void *baton,
                                         apr_pool_t *pool)
@@ -142,7 +142,7 @@ svn_error_t *svn_ra_dav__parsed_request(svn_ra_session_t *ras,
 }
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
