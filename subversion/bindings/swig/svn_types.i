@@ -45,7 +45,7 @@
 */
 %typemap(python, in, parse="z") const char *MAY_BE_NULL "";
 
-%typemap(java, in) const char *MAY_BE_NULL {
+%typemap(java, in) const char *MAY_BE_NULL { 
   /* ### WHEN IS THIS USED? */
   $1 = 0;
   if ($input) {
