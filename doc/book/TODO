@@ -21,7 +21,7 @@ To be fixed by someone:
 
 To be fixed by cmpilato:
 
-ch05:
+ch05: 
 
   - from Tatiana: "we need some text between the two headings on page
     79: Repository Maintenance and an Administrator's Toolkit"
@@ -29,7 +29,7 @@ ch05:
 --------------------------------------------------------------
 
 To be fixed by fitz:
-
+  
 ch09:
 
   - svnserve isn't mentioned at *all*.  this is really inconsistent;
