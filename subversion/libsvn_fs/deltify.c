@@ -97,18 +97,18 @@ deltify_undeltify (svn_fs_t *fs,
       SVN_ERR (svn_fs__dag_dir_entries (&entries, node, trail));
       if (entries)
         {
-          for (hi = apr_hash_first (subpool, entries);
-               hi;
+          for (hi = apr_hash_first (subpool, entries); 
+               hi; 
                hi = apr_hash_next (hi))
             {
               void *val;
               svn_fs_dirent_t *entry;
-
+              
               /* KEY (unneeded) is be the entry name in source, and
                  VAL is the dirent */
               apr_hash_this (hi, NULL, NULL, &val);
               entry = val;
-
+              
               /* Construct the full path of this entry, and recurse. */
               svn_stringbuf_set (full_path, path);
               svn_path_add_component_nts (full_path, entry->name);
@@ -245,7 +245,7 @@ svn_fs_undeltify (svn_fs_root_t *root,
 }
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end:
