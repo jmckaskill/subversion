@@ -77,7 +77,7 @@ svn_fs__append_string_stream (svn_stream_t **stream,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
