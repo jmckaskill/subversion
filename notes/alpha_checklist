@@ -34,7 +34,7 @@ C. Copy nodes (or props).  we need better history tracking when making
 
 D. Need more descriptive error messages all around.  Perhaps a table
    that maps errnos to strings.  (We'll need this anyway once we
-   internationalize.)
+   internationalize.) 
 
 E. Binary files: how do we deal with diffing/patching binary files?
    (like, say, if someone wants to keep an MS Word file under revision
@@ -66,7 +66,7 @@ A. All client commands need to accept multiple targets.
 B. Authentication & authorization system.
 
    We need a security architecture that:
-
+  
       * will take advantage of Apache
       * fits well with the Sourcecast 2.0 framework
       * will still be present even with nothing but ra_local
@@ -97,9 +97,9 @@ III. Missing Features (that surpass CVS)
 ---------------------
 
 A. Commands that make us *better* than CVS, need to be written:
-
-     svn mv, svn cp
-     svn revert
+     
+     svn mv, svn cp 
+     svn revert 
      svn unadd, svn undel
 
 B. External diff program invocation via client-side plugins.
@@ -112,7 +112,7 @@ D. svnadmin app.  What does it need to do?  who will write?
 E. Chris wants to talk about distributed repositories: read-only
    repositories that have data "pushed" at them via hierarchy, while
    only the Master repo can accept commits.
-
+    
 F. 90% solution to the "repeated merge" problem?  genetic merging?
    how much changeset metadata should we be tracking?
 
@@ -122,5 +122,5 @@ G. i18n plans?  Mulitlingual plans?
 
 
 
-
+ 
 
