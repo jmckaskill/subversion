@@ -179,7 +179,7 @@ static void replace_helper(svn_boolean_t is_dir,
 
 static void close_helper(svn_boolean_t is_dir, item_baton_t *baton)
 {
-  if (baton->seen_prop_change
+  if (baton->seen_prop_change 
       && (! baton->added))
     send_xml(baton->uc, "<S:fetch-props/>" DEBUG_CR);
 
@@ -306,7 +306,7 @@ static svn_error_t * noop_handler(svn_txdelta_window_t *window, void *baton)
   return NULL;
 }
 
-static svn_error_t * upd_apply_textdelta(void *file_baton,
+static svn_error_t * upd_apply_textdelta(void *file_baton, 
                                        svn_txdelta_window_handler_t *handler,
                                        void **handler_baton)
 {
@@ -369,7 +369,7 @@ dav_error * dav_svn__update_report(const dav_resource *resource,
                            "svn:target-revision element. That element "
                            "is required.");
     }
-
+  
   for (child = doc->root->first_child; child != NULL; child = child->next)
     {
       if (child->ns == ns && strcmp(child->name, "target-revision") == 0)
@@ -380,7 +380,7 @@ dav_error * dav_svn__update_report(const dav_resource *resource,
       if (child->ns == ns && strcmp(child->name, "update-target") == 0)
         {
           /* ### assume no white space, no child elems, etc */
-          target = svn_stringbuf_create (child->first_cdata.first->text,
+          target = svn_stringbuf_create (child->first_cdata.first->text, 
                                          resource->pool);
         }
     }
@@ -423,7 +423,7 @@ dav_error * dav_svn__update_report(const dav_resource *resource,
 
   fs_base = svn_stringbuf_create(resource->info->repos_path, resource->pool);
   uc.anchor = fs_base->data;
-  serr = svn_repos_begin_report(&rbaton, revnum, repos->username,
+  serr = svn_repos_begin_report(&rbaton, revnum, repos->username, 
                                 repos->fs, fs_base, target, FALSE,
                                 editor, &uc, resource->pool);
 
@@ -503,7 +503,7 @@ dav_error * dav_svn__update_report(const dav_resource *resource,
 }
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
