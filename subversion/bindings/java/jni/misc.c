@@ -66,14 +66,14 @@ misc__throw_exception_by_name(JNIEnv *env,
 
   return;
 }
-
+   
 
 svn_client_auth_baton_t *
 misc__make_auth_baton(JNIEnv *env, jobject jobj)
 {
   /* the code here will build the auth_baton structure
    * right now, this doesnt work. now only NULL
-   * is being returned
+   * is being returned 
    */
 #ifdef SVN_JNI_MISC__DEBUG
     fprintf(stderr, ">>>misc__make_auth_baton(...)\n");
@@ -81,4 +81,4 @@ misc__make_auth_baton(JNIEnv *env, jobject jobj)
 #endif
 
   return NULL;
-}
+} 
