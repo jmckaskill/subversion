@@ -3,32 +3,32 @@
  *
  * ================================================================
  * Copyright (c) 2000 CollabNet.  All rights reserved.
- *
+ * 
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
  * met:
- *
+ * 
  * 1. Redistributions of source code must retain the above copyright
  * notice, this list of conditions and the following disclaimer.
- *
+ * 
  * 2. Redistributions in binary form must reproduce the above copyright
  * notice, this list of conditions and the following disclaimer in the
  * documentation and/or other materials provided with the distribution.
- *
+ * 
  * 3. The end-user documentation included with the redistribution, if
  * any, must include the following acknowlegement: "This product includes
  * software developed by CollabNet (http://www.Collab.Net)."
  * Alternately, this acknowlegement may appear in the software itself, if
  * and wherever such third-party acknowlegements normally appear.
- *
+ * 
  * 4. The hosted project names must not be used to endorse or promote
  * products derived from this software without prior written
  * permission. For written permission, please contact info@collab.net.
- *
+ * 
  * 5. Products derived from this software may not use the "Tigris" name
  * nor may "Tigris" appear in their names without prior written
  * permission of CollabNet.
- *
+ * 
  * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
  * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -42,7 +42,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ====================================================================
- *
+ * 
  * This software consists of voluntary contributions made by many
  * individuals on behalf of CollabNet.
  */
@@ -136,7 +136,7 @@ typedef struct svn_txdelta_op_t {
        depends on this.  */
     svn_txdelta_new
   } action_code;
-
+  
   apr_off_t offset;
   apr_off_t length;
 } svn_txdelta_op_t;
@@ -158,7 +158,7 @@ typedef struct svn_txdelta_window_t {
 
   /* The allocated size of the ops array.  */
   int ops_size;
-
+  
   /* The instructions for this window.  */
   svn_txdelta_op_t *ops;
 
@@ -197,7 +197,7 @@ svn_error_t *svn_txdelta_next_window (svn_txdelta_window_t **window,
 
 /* Free the delta window WINDOW.  */
 void svn_txdelta_free_window (svn_txdelta_window_t *window);
-
+     
 
 /* Set *STREAM to a pointer to a delta stream that will turn the byte
    string from SOURCE into the byte stream from TARGET.
@@ -335,7 +335,7 @@ typedef struct svn_delta_edit_fns_t
      Most of the callbacks work in the obvious way:
 
          delete
-         add_file        add_directory
+         add_file        add_directory    
          replace_file    replace_directory
 
      Each of these takes a directory baton, indicating the directory
@@ -367,7 +367,7 @@ typedef struct svn_delta_edit_fns_t
         replace_directory (ROOT, "foo") --- yielding a baton F for `foo'
         replace_directory (F, "bar") --- yielding a baton B for `foo/bar'
         add_file (B, "baz.c")
-
+     
      When the producer is finished making changes to a directory, it
      should call `close_directory'.  This lets the consumer do any
      necessary cleanup, and free the baton's storage.
@@ -443,14 +443,14 @@ typedef struct svn_delta_edit_fns_t
 
 
   /* Deleting things.  */
-
+       
   /* Remove the directory entry named NAME.  */
   svn_error_t *(*delete) (svn_string_t *name,
                           void *parent_baton);
 
 
   /* Creating and modifying directories.  */
-
+  
   /* We are going to add a new subdirectory named NAME.  We will use
      the value this callback stores in *CHILD_BATON as the
      PARENT_BATON for further changes in the new subdirectory.  The
@@ -524,7 +524,7 @@ typedef struct svn_delta_edit_fns_t
      delta windows as we receive them.  The callback should set
      *HANDLER_BATON to the value we should pass as the BATON
      argument to *HANDLER.  */
-  svn_error_t *(*apply_textdelta) (void *file_baton,
+  svn_error_t *(*apply_textdelta) (void *file_baton, 
                                    svn_txdelta_window_handler_t **handler,
                                    void **handler_baton);
 
@@ -549,11 +549,11 @@ typedef struct svn_delta_edit_fns_t
 } svn_delta_edit_fns_t;
 
 
-/* Compose EDITOR_1 and its baton with EDITOR_2 and its baton.
+/* Compose EDITOR_1 and its baton with EDITOR_2 and its baton. 
  *
  * Returns a new editor in E which each function FUN calls
  * EDITOR_1->FUN and then EDITOR_2->FUN, with the corresponding batons.
- *
+ * 
  * If EDITOR_1->FUN returns error, that error is returned from E->FUN
  * and EDITOR_2->FUN is never called; otherwise E->FUN's return value
  * is the same as EDITOR_2->FUN's.
@@ -622,7 +622,7 @@ typedef struct svn_delta_xml_parser_t svn_delta_xml_parser_t;
 svn_error_t  *svn_delta_make_xml_parser (svn_delta_xml_parser_t **parser,
                                          const svn_delta_edit_fns_t *editor,
                                          void *edit_baton,
-                                         svn_string_t *base_path,
+                                         svn_string_t *base_path, 
                                          svn_revnum_t base_revision,
                                          apr_pool_t *pool);
 
@@ -637,15 +637,15 @@ void svn_delta_free_xml_parser (svn_delta_xml_parser_t *parser);
    final parser "push", ISFINAL must be set to true (so that both
    expat and local cleanup can occur). */
 svn_error_t *
-svn_delta_xml_parsebytes (const char *buffer, apr_size_t len, int isFinal,
+svn_delta_xml_parsebytes (const char *buffer, apr_size_t len, int isFinal, 
                           svn_delta_xml_parser_t *svn_xml_parser);
 
 
 /* Reads an XML stream from SOURCE_FN using expat internally,
    validating the XML as it goes (according to Subversion's own
    tree-delta DTD).  Whenever an interesting event happens, it calls a
-   caller-specified callback routine from EDITOR.
-
+   caller-specified callback routine from EDITOR.  
+   
    Once called, it retains control and "pulls" data from SOURCE_FN
    until either the stream runs out or an error occurs. */
 svn_error_t *svn_delta_xml_auto_parse (svn_read_fn_t *source_fn,
@@ -672,7 +672,7 @@ typedef struct svn_propdelta_t
 
   svn_string_t *entity_name; /* The name of the file, dir, or dirent
                                 which is being patched. */
-
+  
   svn_string_t *name;        /* name of property to change */
   svn_string_t *value;       /* new value of property; if NULL, then
                                 this property should be deleted. */
@@ -686,7 +686,7 @@ typedef struct svn_propdelta_t
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
