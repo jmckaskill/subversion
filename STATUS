@@ -67,7 +67,7 @@ Approved changes (further review is welcome, but not required):
       +1: maxb
       +0: cmpilato (only tested that it didn't regress on Unix)
 
-
+  
   * r13222, r13223, r13232
     Rewrite libsvn_fs_fs's auto-merge algorithm
     Justification:
