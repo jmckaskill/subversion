@@ -60,7 +60,7 @@ typedef struct
 typedef struct
 {
   apr_array_header_t *providers; /* (ordered) array of provider_t */
-
+  
 } provider_set_t;
 
 
@@ -82,7 +82,7 @@ struct svn_auth_iterstate_t
 };
 
 
-svn_error_t *
+svn_error_t * 
 svn_auth_open (svn_auth_baton_t **auth_baton,
                apr_pool_t *pool)
 {
