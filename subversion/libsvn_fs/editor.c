@@ -114,14 +114,14 @@ begin_edit (void *edit_baton, void **root_baton)
   err = svn_fs_txn_name (&(eb->txn_name), eb->txn, eb->pool);
   if (err)
     return err;
-
+  
   /* What don't we do?
-   *
+   * 
    * What we don't do is start a single Berkeley DB transaction here,
    * keep it open throughout the entire edit, and then call
    * txn_commit() inside close_edit().  That would result in writers
    * interfering with writers unnecessarily.
-   *
+   * 
    * Instead, we take small steps.  When we clone the root node, it
    * actually gets a new node -- a mutable one -- in the nodes table.
    * If we clone the next dir down, it gets a new node then too.  When
@@ -170,7 +170,7 @@ add_directory (svn_string_t *name,
 {
   struct dir_baton *pb = parent_baton;
   struct dir_baton *dirb = apr_pcalloc (pb->edit_baton->pool, sizeof (*dirb));
-
+  
   dirb->parent = pb;
   dirb->edit_baton = pb->edit_baton;
   dirb->name = svn_string_dup (name, pb->edit_baton->pool);
@@ -189,7 +189,7 @@ replace_directory (svn_string_t *name,
 {
   struct dir_baton *pb = parent_baton;
   struct dir_baton *dirb = apr_pcalloc (pb->edit_baton->pool, sizeof (*dirb));
-
+  
   dirb->parent = pb;
   dirb->edit_baton = pb->edit_baton;
   dirb->name = svn_string_dup (name, pb->edit_baton->pool);
@@ -340,13 +340,13 @@ svn_fs_get_editor (svn_delta_edit_fns_t **editor,
 
   *edit_baton = eb;
   *editor = e;
-
+  
   return SVN_NO_ERROR;
 }
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
