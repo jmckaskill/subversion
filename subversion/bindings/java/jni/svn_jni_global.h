@@ -29,18 +29,18 @@ svn_jni_hashtable__put(JNIEnv *env, jobject hashtable, jobject key,
 
 /* svn_jni_status */
 jobject
-svn_jni_status__create(JNIEnv *env, svn_wc_status_t *status,
+svn_jni_status__create(JNIEnv *env, svn_wc_status_t *status, 
 		       jboolean *hasException);
 
 /* svn_jni_item */
 jobject
-svn_jni_item__create(JNIEnv *env, jobject jpath, jobject jstatus,
+svn_jni_item__create(JNIEnv *env, jobject jpath, jobject jstatus, 
 		     jboolean *hasException);
 
 /* svn_jni_string */
 svn_string_t *
-svn_jni_string__jstring_to_svn_string(JNIEnv *env,
-				      jstring jstr,
+svn_jni_string__jstring_to_svn_string(JNIEnv *env, 
+				      jstring jstr, 
 				      jboolean *hasException,
 				      apr_pool_t *pool);
 
