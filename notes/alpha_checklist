@@ -66,7 +66,7 @@ C. Copy nodes (or props).  We need better history tracking when making
 D. Auto-detection of text/binary file types.  Use it for keyword
    substitution, line-ending conversion, and merging.
 
-   ANSWER: This will be solved by three separate properties:
+   ANSWER: This will be solved by three separate properties: 
            - mime-type. We will have a heuristic that determines as best it
            can what the mime-type of a file is (of course it will be
            user-configurable).
@@ -80,7 +80,7 @@ D. Auto-detection of text/binary file types.  Use it for keyword
            - Newline Translation (BOOL)
            Note that we will always err on the safe side (assume that a file
            is binary and wants no Keyword Substitution or Newline
-           Translation if we are not certain about the contents of a file.
+           Translation if we are not certain about the contents of a file. 
 
                 [ I think it would be better to make these values (a
                   list of) keywords instead of plain switches.
@@ -112,7 +112,7 @@ E. Locking issues with the filesystem: mod_dav_svn (as well as
    ACTION: Greg will implement a cross-process reader/writer lock.
 
 H. Change #6:  inverting the text-delta interface.  Should we do it?
-
+ 
    Answer: driver will provide editor with a struct that contains a
    "menu" of ways to produce a textdelta... i.e. a pair of filenames,
    and/or a pair of svn_stream_t's, and/or an svn_txdelta_stream.  Let
@@ -123,7 +123,7 @@ H. Change #6:  inverting the text-delta interface.  Should we do it?
 I. Greg and Ben think that ra_local should adapt to ra_dav's style of
    committing.
 
-   ACTION: Ben and Greg will talk about this offline.
+   ACTION: Ben and Greg will talk about this offline. 
 
 
 II. Missing Features (that are needed to match CVS)
@@ -137,7 +137,7 @@ A. All client commands need to accept multiple targets.
 B. Authentication & authorization system.
 
    We need a security architecture that:
-
+  
       * will take advantage of Apache
       * fits well with the Sourcecast 2.0 framework
       * will still be present even with nothing but ra_local
@@ -165,17 +165,17 @@ B. Authentication & authorization system.
                 delete    |---- Change
                 change   /
                 traverse
-
+        
         ACL := ENTRY
-
+        
         ENTRY := USER|GROUP ":" ACTION
-
+        
         ACTION := add_hist_prop|read_hist_prop|list hist_prop
                   |delete hist_prop|add non-hist_prop|read non-hist_prop
                   |list non-hist_prop|delete non-hist_prop
                   |read|write|change_regexp
                   |add|del|list|traverse
-
+        
         Now that you've read through all that, this is where we say that the
         above is all post-1.0 chattering. For now we will use authorization
         schemes provided by Apache. ACLs are post-1.0. Repeat after me: ACLs...
@@ -223,12 +223,12 @@ E. Hook system. How will we implement?  How will we make them
    ANSWER: gstein proposed that in the case of pre and post-commit
            hooks, we fire off a subprocess and pass it the transaction
            ID.
-
+           
            Hooks are all going to be provided in the libsvn_repos
            library.  Configuration files are not going to *have* to be
            in the repository. They will sit on the server *near* the
            repository, and users *can* put them in the repository.
-
+           
 
 F. Need built-in patch/diff functionality, instead of relying on
    external tools.
@@ -241,12 +241,12 @@ G. Define M3 to be self-hosting.
 
    ANSWER: M3 will be client Test suite and self-hosting. "Test suite"
            is defined as follows:
-
+        
            When every command supported by the client is tested
            (edge-cases and all) by the test-suite. Those commands
            include: add, checkout, commit, copy, delete, diff, import,
            merge, propget, propset, status, update, and help.
-
+        
 
 H. Need lots of user docs, and updated technical/design spec too.
 
@@ -258,7 +258,7 @@ III. Better than CVS, and part of 1.0  ("low hanging fruit")
 
 A. Commands that make us *better* than CVS, need to be written:
 
-     svn mv, svn cp
+     svn mv, svn cp 
      svn revert, svn rollback
      svn unadd, svn undel
      svn obliterate
@@ -280,7 +280,7 @@ IV.  Post 1.0 stuff
 -------------------
 
    ACTION:  general theoretical discussion on all these topics.
-
+  
 A. Genetic merging: solution to the "repeated merge" problem?.
    Start tracking changeset metadata.
 
@@ -300,7 +300,7 @@ B. i18n/multilingual development.
                   stand-alone gettext implementation, based on
                   glibc-2.1 (I think), that's currently being used on
                   Linux, HP-UX and Win32.                          --xbc ]
-
+        
 C. GUI clients.
 
    ANSWER: Deferred
@@ -309,7 +309,7 @@ D. Read-only mirrored repositories.
 
    ANSWER: Deferred
 
-V. Things that came up in the meeting that weren't on the agenda.
+V. Things that came up in the meeting that weren't on the agenda. 
 -------------------------------------
 
 A. Fitz and gstein will do a general pool review including documenting
@@ -337,9 +337,9 @@ C. We are going to create a new library called libsvn_repos. We are
 
 
 
+ 
 
 
 
-
-
+ 
 
