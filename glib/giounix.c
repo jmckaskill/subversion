@@ -24,10 +24,10 @@
  * Modified by the GLib Team and others 1997-1999.  See the AUTHORS
  * file for a list of people on the GLib Team.  See the ChangeLog
  * files for a list of changes.  These files are distributed with
- * GLib at ftp://ftp.gtk.org/pub/gtk/.
+ * GLib at ftp://ftp.gtk.org/pub/gtk/. 
  */
 
-/*
+/* 
  * MT safe
  */
 
@@ -56,17 +56,17 @@ struct _GIOUnixWatch {
 };
 
 
-static GIOError g_io_unix_read (GIOChannel *channel,
-		       gchar     *buf,
+static GIOError g_io_unix_read (GIOChannel *channel, 
+		       gchar     *buf, 
 		       guint      count,
 		       guint     *bytes_written);
-
-static GIOError g_io_unix_write(GIOChannel *channel,
-				gchar     *buf,
+		       
+static GIOError g_io_unix_write(GIOChannel *channel, 
+				gchar     *buf, 
 				guint      count,
 				guint     *bytes_written);
 static GIOError g_io_unix_seek (GIOChannel *channel,
-				gint      offset,
+				gint      offset, 
 				GSeekType type);
 static void g_io_unix_close    (GIOChannel *channel);
 static void g_io_unix_free     (GIOChannel *channel);
@@ -76,7 +76,7 @@ static guint  g_io_unix_add_watch (GIOChannel      *channel,
 				   GIOFunc        func,
 				   gpointer       user_data,
 				   GDestroyNotify notify);
-static gboolean g_io_unix_prepare  (gpointer source_data,
+static gboolean g_io_unix_prepare  (gpointer source_data, 
 				    GTimeVal *current_time,
 				    gint *timeout,
 				    gpointer user_data);
@@ -104,8 +104,8 @@ GIOFuncs unix_channel_funcs = {
   g_io_unix_free,
 };
 
-static gboolean
-g_io_unix_prepare  (gpointer source_data,
+static gboolean 
+g_io_unix_prepare  (gpointer source_data, 
 		    GTimeVal *current_time,
 		    gint     *timeout,
 		    gpointer user_data)
@@ -114,7 +114,7 @@ g_io_unix_prepare  (gpointer source_data,
   return FALSE;
 }
 
-static gboolean
+static gboolean 
 g_io_unix_check    (gpointer source_data,
 		    GTimeVal *current_time,
 		    gpointer user_data)
@@ -125,7 +125,7 @@ g_io_unix_check    (gpointer source_data,
 }
 
 static gboolean
-g_io_unix_dispatch (gpointer source_data,
+g_io_unix_dispatch (gpointer source_data, 
 		    GTimeVal *current_time,
 		    gpointer user_data)
 
@@ -137,7 +137,7 @@ g_io_unix_dispatch (gpointer source_data,
 			   user_data);
 }
 
-static void
+static void 
 g_io_unix_destroy (gpointer source_data)
 {
   GIOUnixWatch *data = source_data;
@@ -147,9 +147,9 @@ g_io_unix_destroy (gpointer source_data)
   g_free (data);
 }
 
-static GIOError
-g_io_unix_read (GIOChannel *channel,
-		gchar     *buf,
+static GIOError 
+g_io_unix_read (GIOChannel *channel, 
+		gchar     *buf, 
 		guint      count,
 		guint     *bytes_read)
 {
@@ -177,10 +177,10 @@ g_io_unix_read (GIOChannel *channel,
       return G_IO_ERROR_NONE;
     }
 }
-
-static GIOError
-g_io_unix_write(GIOChannel *channel,
-		gchar     *buf,
+		       
+static GIOError 
+g_io_unix_write(GIOChannel *channel, 
+		gchar     *buf, 
 		guint      count,
 		guint     *bytes_written)
 {
@@ -209,9 +209,9 @@ g_io_unix_write(GIOChannel *channel,
     }
 }
 
-static GIOError
+static GIOError 
 g_io_unix_seek (GIOChannel *channel,
-		gint      offset,
+		gint      offset, 
 		GSeekType type)
 {
   GIOUnixChannel *unix_channel = (GIOUnixChannel *)channel;
@@ -251,7 +251,7 @@ g_io_unix_seek (GIOChannel *channel,
 }
 
 
-static void
+static void 
 g_io_unix_close (GIOChannel *channel)
 {
   GIOUnixChannel *unix_channel = (GIOUnixChannel *)channel;
@@ -259,7 +259,7 @@ g_io_unix_close (GIOChannel *channel)
   close (unix_channel->fd);
 }
 
-static void
+static void 
 g_io_unix_free (GIOChannel *channel)
 {
   GIOUnixChannel *unix_channel = (GIOUnixChannel *)channel;
@@ -267,7 +267,7 @@ g_io_unix_free (GIOChannel *channel)
   g_free (unix_channel);
 }
 
-static guint
+static guint 
 g_io_unix_add_watch (GIOChannel    *channel,
 		     gint           priority,
 		     GIOCondition   condition,
@@ -277,7 +277,7 @@ g_io_unix_add_watch (GIOChannel    *channel,
 {
   GIOUnixWatch *watch = g_new (GIOUnixWatch, 1);
   GIOUnixChannel *unix_channel = (GIOUnixChannel *)channel;
-
+  
   watch->channel = channel;
   g_io_channel_ref (channel);
 
