@@ -43,12 +43,12 @@ svn_fs__bdb_open_uuids_table (DB **uuids_p,
   BDB_ERR (svn_fs__bdb_check_version());
   BDB_ERR (db_create (&uuids, env, 0));
   BDB_ERR (uuids->set_re_len (uuids, APR_UUID_FORMATTED_LENGTH));
-
+  
   error = uuids->open (SVN_BDB_OPEN_PARAMS (uuids, NULL),
                        "uuids", 0, DB_RECNO,
                        open_flags | SVN_BDB_AUTO_COMMIT,
                        0666);
-
+  
   /* This is a temporary compatibility check; it creates the
      UUIDs table if one does not already exist. */
   if (error == ENOENT && (! create))
@@ -57,7 +57,7 @@ svn_fs__bdb_open_uuids_table (DB **uuids_p,
       return svn_fs__bdb_open_uuids_table (uuids_p, env, TRUE);
     }
 
-  BDB_ERR (error);
+  BDB_ERR (error);    
 
   if (create)
     {
@@ -77,10 +77,10 @@ svn_fs__bdb_open_uuids_table (DB **uuids_p,
       apr_uuid_get (&uuid);
       apr_uuid_format (buffer, &uuid);
 
-      BDB_ERR (uuids->put (uuids, 0, &key, &value,
+      BDB_ERR (uuids->put (uuids, 0, &key, &value, 
                            DB_APPEND | SVN_BDB_AUTO_COMMIT));
     }
-
+  
   *uuids_p = uuids;
   return 0;
 }
@@ -98,7 +98,7 @@ svn_error_t *svn_fs__bdb_get_uuid (svn_fs_t *fs,
   svn_fs__clear_dbt (&key);
   key.data = &idx;
   key.size = sizeof (idx);
-
+  
   svn_fs__clear_dbt (&value);
   value.data = buffer;
   value.size = sizeof (buffer) - 1;
@@ -106,9 +106,9 @@ svn_error_t *svn_fs__bdb_get_uuid (svn_fs_t *fs,
   svn_fs__trail_debug (trail, "uuids", "get");
   SVN_ERR (BDB_WRAP (fs, "get repository uuid",
                      uuids->get (uuids, trail->db_txn, &key, &value, 0)));
-
+  
   *uuid = apr_pstrmemdup (trail->pool, value.data, value.size);
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -120,18 +120,18 @@ svn_error_t *svn_fs__bdb_set_uuid (svn_fs_t *fs,
   DB *uuids = fs->uuids;
   DBT key;
   DBT value;
-
+  
   svn_fs__clear_dbt (&key);
   key.data = &idx;
   key.size = sizeof (idx);
-
+  
   svn_fs__clear_dbt (&value);
   value.size = strlen (uuid);
   value.data = apr_pstrmemdup (trail->pool, uuid, value.size + 1);
-
+  
   svn_fs__trail_debug (trail, "uuids", "put");
   SVN_ERR (BDB_WRAP (fs, "set repository uuid",
                      uuids->put (uuids, trail->db_txn, &key, &value, 0)));
-
+  
   return SVN_NO_ERROR;
 }
