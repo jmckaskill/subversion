@@ -48,7 +48,7 @@ enum svn_node_kind
 
 typedef struct svn_item_t {
     /** The key for the current table entry */
-    char *key;
+    char *key; 
     /** Size of the opaque block comprising the item's content. */
     size_t size;
     /** A pointer to the content itself. */
