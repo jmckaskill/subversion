@@ -94,7 +94,7 @@ prompt (const char **result,
                    ever heard of such a thing? */
                 abort ();
             }
-
+          
           svn_stringbuf_appendbytes (strbuf, &c, 1);
         }
     }
@@ -210,7 +210,7 @@ svn_cl__auth_ssl_server_prompt (
       svn_stringbuf_appendcstr (buf, " - Hostname mismatch (");
       svn_stringbuf_appendcstr (buf, cert_info->hostname);
       svn_stringbuf_appendcstr (buf, ")\n");
-    }
+    } 
 
   if (failures & SVN_AUTH_SSL_NOTYETVALID)
     {
@@ -285,7 +285,7 @@ svn_cl__auth_ssl_pw_prompt (svn_auth_cred_client_ssl_pass_t **cred_p,
                             void *baton,
                             apr_pool_t *pool)
 {
-
+  
   const char *result;
 
   SVN_ERR (prompt (&result, "client certificate passphrase: ", TRUE, pool));
