@@ -166,9 +166,9 @@ struct handler_baton
 
 /* Return the url for NAME in DIR, allocated in POOL, or null if
  * unable to obtain a url.  If NAME is null, get the url for DIR.
- *
+ * 
  * Use ASSOCIATED_ACCESS to retrieve an access baton for PATH, and do
- * all temporary allocation in POOL.
+ * all temporary allocation in POOL. 
  */
 static const char *
 get_entry_url (svn_wc_adm_access_t *associated_access,
@@ -211,7 +211,7 @@ make_dir_baton (const char *path,
 {
   struct dir_baton *d = apr_pcalloc (pool, sizeof (*d));
   struct bump_dir_info *bdi;
-
+  
   /* Don't do this.  Just do NOT do this to me. */
   if (pb && (! path))
     abort();
@@ -310,7 +310,7 @@ maybe_bump_dir_info (struct edit_baton *eb,
 
           SVN_ERR (svn_wc_adm_retrieve (&adm_access, eb->adm_access, bdi->path,
                                         pool));
-
+          
           SVN_ERR (svn_wc__entry_modify (adm_access, NULL, &tmp_entry,
                                          modify_flags, TRUE, pool));
         }
@@ -402,7 +402,7 @@ make_file_baton (struct dir_baton *pb,
     {
       f->new_URL = svn_path_url_add_component (pb->new_URL, f->name, pool);
     }
-  else
+  else 
     {
       f->new_URL = get_entry_url (pb->edit_baton->adm_access,
                                   pb->path, f->name, pool);
@@ -474,7 +474,7 @@ window_handler (svn_txdelta_window_t *window, void *baton)
 /* Prepare directory for dir_baton DB for updating or checking out.
  *
  * If the path already exists, but is not a working copy for
- * ANCESTOR_URL and ANCESTOR_REVISION, then an error will be returned.
+ * ANCESTOR_URL and ANCESTOR_REVISION, then an error will be returned. 
  */
 static svn_error_t *
 prep_directory (struct dir_baton *db,
@@ -505,7 +505,7 @@ prep_directory (struct dir_baton *db,
       if (!db->edit_baton->adm_access)
         db->edit_baton->adm_access = adm_access;
     }
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -547,7 +547,7 @@ accumulate_entry_props (svn_stringbuf_t *log_accum,
                              SVN_WC__LOG_MODIFY_ENTRY,
                              SVN_WC__LOG_ATTR_NAME, base_name,
                              entry_field, prop->value->data,
-                             NULL);
+                             NULL);         
     }
 }
 
@@ -578,12 +578,12 @@ accumulate_wcprops (svn_stringbuf_t *log_accum,
                              NULL);
     }
 }
-
+      
 
 /*** The callbacks we'll plug into an svn_delta_editor_t structure. ***/
 
 static svn_error_t *
-set_target_revision (void *edit_baton,
+set_target_revision (void *edit_baton, 
                      svn_revnum_t target_revision,
                      apr_pool_t *pool)
 {
@@ -613,8 +613,8 @@ open_root (void *edit_baton,
 
 
 static svn_error_t *
-delete_entry (const char *path,
-              svn_revnum_t revision,
+delete_entry (const char *path, 
+              svn_revnum_t revision, 
               void *parent_baton,
               apr_pool_t *pool)
 {
@@ -662,7 +662,7 @@ delete_entry (const char *path,
                                    SVN_WC__ADM_LOG,
                                    TRUE, /* sync */
                                    pool));
-
+    
   SVN_ERR (svn_wc__run_log (adm_access, pool));
 
   /* The passed-in `path' is relative to the anchor of the edit, so if
@@ -727,7 +727,7 @@ add_directory (const char *path,
          copyfrom args.  Someday it will interpet them as an update
          optimization, and actually copy one part of the wc to another.
          Then it will recursively "normalize" all the ancestry in the
-         copied tree.  Someday! */
+         copied tree.  Someday! */      
       return svn_error_createf
         (SVN_ERR_UNSUPPORTED_FEATURE, NULL,
          "failed to add directory '%s': copyfrom args not yet supported",
@@ -746,10 +746,10 @@ add_directory (const char *path,
                                     pb->path, db->pool));
       SVN_ERR (svn_wc_entry (&parent_entry, pb->path, adm_access, FALSE,
                              db->pool));
-      copyfrom_path = svn_path_url_add_component (parent_entry->url,
+      copyfrom_path = svn_path_url_add_component (parent_entry->url, 
                                                   db->name,
                                                   db->pool);
-      copyfrom_revision = pb->edit_baton->target_revision;
+      copyfrom_revision = pb->edit_baton->target_revision;      
 
       /* Extra check:  a directory by this name may not exist, but there
          may still be one scheduled for addition.  That's a genuine
@@ -871,7 +871,7 @@ close_directory (void *dir_baton,
 
       SVN_ERR (svn_wc_adm_retrieve (&adm_access, db->edit_baton->adm_access,
                                     db->path, db->pool));
-
+      
       /* Open log file */
       SVN_ERR (svn_wc__open_adm_file (&log_fp,
                                       db->path,
@@ -1073,7 +1073,7 @@ add_or_open_file (const char *path,
   SVN_ERR (svn_wc_adm_retrieve (&adm_access, pb->edit_baton->adm_access,
                                 pb->path, subpool));
   SVN_ERR (svn_wc_entry (&entry, fb->path, adm_access, FALSE, subpool));
-
+  
   /* Sanity checks. */
 
   /* If adding there may be a file with this name if this is a checkout,
@@ -1089,7 +1089,7 @@ add_or_open_file (const char *path,
   /* sussman sez: If we're trying to add a file that's already in
      `entries' (but not on disk), that's okay.  It's probably because
      the user deleted the working version and ran 'svn up' as a means
-     of getting the file back.
+     of getting the file back.  
 
      It certainly doesn't hurt to re-add the file.  We can't possibly
      get the entry showing up twice in `entries', since it's a hash;
@@ -1106,7 +1106,7 @@ add_or_open_file (const char *path,
       (SVN_ERR_WC_OBSTRUCTED_UPDATE, NULL,
        "failed to add file '%s': \nobject of the same name is already "
        "scheduled for addition", fb->path);
-
+    
 
   /* If replacing, make sure the .svn entry already exists. */
   if ((! adding) && (! entry))
@@ -1114,8 +1114,8 @@ add_or_open_file (const char *path,
                               "trying to open non-versioned file "
                               "'%s' in directory '%s'",
                               fb->name, pb->path);
-
-
+  
+        
   /* Make sure we've got a working copy to put the file in. */
   /* kff todo: need stricter logic here */
   SVN_ERR (svn_wc_check_wc (pb->path, &is_wc, subpool));
@@ -1146,7 +1146,7 @@ add_file (const char *name,
           apr_pool_t *pool,
           void **file_baton)
 {
-  return add_or_open_file (name, parent_baton, copyfrom_path,
+  return add_or_open_file (name, parent_baton, copyfrom_path, 
                            copyfrom_revision, file_baton, TRUE, pool);
 }
 
@@ -1158,13 +1158,13 @@ open_file (const char *name,
            apr_pool_t *pool,
            void **file_baton)
 {
-  return add_or_open_file (name, parent_baton, NULL, base_revision,
+  return add_or_open_file (name, parent_baton, NULL, base_revision, 
                            file_baton, FALSE, pool);
 }
 
 
 static svn_error_t *
-apply_textdelta (void *file_baton,
+apply_textdelta (void *file_baton, 
                  const char *base_checksum,
                  const char *result_checksum,
                  apr_pool_t *pool,
@@ -1180,9 +1180,9 @@ apply_textdelta (void *file_baton,
   hb->source = NULL;
   if (! fb->edit_baton->is_checkout)
     {
-      /*
+      /* 
          kff todo: what we really need to do here is:
-
+         
          1. See if there's a file or dir by this name already here.
          2. See if it's under revision control.
          3. If both are true, open text-base.
@@ -1220,7 +1220,7 @@ apply_textdelta (void *file_baton,
             tb = svn_wc__text_base_path (fb->path, FALSE, subpool);
             SVN_ERR (svn_io_file_checksum (digest, tb, subpool));
             hex_digest = svn_md5_digest_to_cstring (digest, pool);
-
+            
             /* Compare the base_checksum here, rather than in the
                window handler, because there's no guarantee that the
                handler will see every byte of the base file. */
@@ -1240,7 +1240,7 @@ apply_textdelta (void *file_baton,
                 /* Compatibility hack: working copies created before
                    13 Jan 2003 may have entry checksums stored in
                    base64.  See svn_io_file_checksum_base64()'s doc
-                   string for details. */
+                   string for details. */ 
                 const char *base64_digest
                   = (svn_base64_from_md5 (digest, pool))->data;
 
@@ -1290,7 +1290,7 @@ apply_textdelta (void *file_baton,
       svn_pool_destroy (subpool);
       return err;
     }
-
+  
   /* Prepare to apply the delta.  */
   {
     const char *tmp_path;
@@ -1301,10 +1301,10 @@ apply_textdelta (void *file_baton,
                        result_checksum, tmp_path, subpool,
                        &hb->apply_handler, &hb->apply_baton);
   }
-
+  
   hb->pool = subpool;
   hb->fb = fb;
-
+  
   /* We're all set.  */
   *handler_baton = hb;
   *handler = window_handler;
@@ -1377,7 +1377,7 @@ svn_wc_install_file (svn_wc_notify_state_t *content_state,
      things are true:
 
          - The new pristine text of F, if any, is present at
-           NEW_TEXT_PATH.
+           NEW_TEXT_PATH.           
 
          - The .svn/entries file still reflects the old version of F.
 
@@ -1404,7 +1404,7 @@ svn_wc_install_file (svn_wc_notify_state_t *content_state,
   /* Accumulate log commands in this buffer until we're ready to close
      and run the log.  */
   log_accum = svn_stringbuf_create ("", pool);
-
+  
 
   /* Log commands can only operate on paths that are below the
      parent_dir.  Thus if NEW_TEXT_PATH is somewhere *outside* of
@@ -1414,9 +1414,9 @@ svn_wc_install_file (svn_wc_notify_state_t *content_state,
      -- that's where the rest of this code wants it to be anyway. */
   if (new_text_path)
     {
-      const char *final_location =
+      const char *final_location = 
         svn_wc__text_base_path (file_path, TRUE, pool);
-
+      
       /* Only do the 'move' if NEW_TEXT_PATH isn't -already-
          pointing to parent_dir/.svn/tmp/text-base/basename.  */
       if (strcmp (final_location, new_text_path))
@@ -1428,7 +1428,7 @@ svn_wc_install_file (svn_wc_notify_state_t *content_state,
           new_text_path = final_location;
         }
     }
-
+  
   /* Sort the property list into three arrays, based on kind. */
   if (props)
     SVN_ERR (svn_categorize_props (props,
@@ -1444,9 +1444,9 @@ svn_wc_install_file (svn_wc_notify_state_t *content_state,
     {
       apr_array_header_t *propchanges;
       apr_hash_t *old_pristine_props, *new_pristine_props;
-
+      
       if (is_full_proplist)
-        {
+        {         
           /* If the caller passed a definitive list that represents all
              of the file's properties, we need to compare it to the
              current 'pristine' list and deduce the differences. */
@@ -1454,13 +1454,13 @@ svn_wc_install_file (svn_wc_notify_state_t *content_state,
           int i;
           old_pristine_props = apr_hash_make (pool);
           new_pristine_props = apr_hash_make (pool);
-
+          
           /* Get the current pristine props. */
           SVN_ERR (svn_wc__prop_base_path (&pristine_prop_path,
                                            file_path, adm_access, FALSE, pool));
           SVN_ERR (svn_wc__load_prop_file (pristine_prop_path,
                                            old_pristine_props, pool));
-
+          
           /* Convert the given array into hash of 'new' pristine props. */
           for (i = 0; i < regular_props->nelts; i++)
             {
@@ -1469,7 +1469,7 @@ svn_wc_install_file (svn_wc_notify_state_t *content_state,
               apr_hash_set (new_pristine_props,
                             prop->name, APR_HASH_KEY_STRING, prop->value);
             }
-
+          
           /* Deduce changes. */
           SVN_ERR (svn_wc_get_local_propchanges (&propchanges,
                                                  new_pristine_props,
@@ -1479,9 +1479,9 @@ svn_wc_install_file (svn_wc_notify_state_t *content_state,
       else
         /* The user gave us a list prop diffs directly, yay. */
         propchanges = regular_props;
-
+      
       /* Now that we have the list of diffs... */
-
+      
       /* Determine if any of the propchanges are the "magic" ones that
          might require changing the working file. */
       {
@@ -1490,7 +1490,7 @@ svn_wc_install_file (svn_wc_notify_state_t *content_state,
           {
             svn_prop_t *propchange
               = &APR_ARRAY_IDX (propchanges, i, svn_prop_t);
-
+            
             if ((! strcmp (propchange->name, SVN_PROP_EXECUTABLE))
                 || (! strcmp (propchange->name, SVN_PROP_KEYWORDS))
                 || (! strcmp (propchange->name, SVN_PROP_EOL_STYLE)))
@@ -1506,7 +1506,7 @@ svn_wc_install_file (svn_wc_notify_state_t *content_state,
                                          propchanges, TRUE, FALSE, pool,
                                          &log_accum));
     }
-
+  
   /* If there are any ENTRY PROPS, make sure those get appended to the
      growing log as fields for the file's entry.  This needs to happen
      before we do any textual merging, because that process might
@@ -1514,7 +1514,7 @@ svn_wc_install_file (svn_wc_notify_state_t *content_state,
 
      Note that no merging needs to happen; these kinds of props aren't
      versioned, so the value of IS_FULL_PROPLIST is irrelevant -- if
-     the property is present, we overwrite the value. */
+     the property is present, we overwrite the value. */  
   if (entry_props)
     accumulate_entry_props (log_accum, base_name, entry_props, pool);
 
@@ -1621,11 +1621,11 @@ svn_wc_install_file (svn_wc_notify_state_t *content_state,
                                  base_name,
                                  NULL);
         }
-
+  
       else   /* working file is locally modified... */
         {
           svn_node_kind_t wfile_kind = svn_node_unknown;
-
+          
           SVN_ERR (svn_io_check_path (file_path, &wfile_kind, pool));
           if (wfile_kind == svn_node_none) /* working file is missing?! */
             {
@@ -1641,12 +1641,12 @@ svn_wc_install_file (svn_wc_notify_state_t *content_state,
                                      NULL);
             }
           else  /* working file exists, and has local mods.*/
-            {
+            {                  
               /* Now we need to let loose svn_wc_merge() to merge the
                  textual changes into the working file. */
               const char *oldrev_str, *newrev_str;
               const svn_wc_entry_t *e;
-
+              
               /* Create strings representing the revisions of the
                  old and new text-bases. */
               SVN_ERR (svn_wc_entry (&e, file_path, adm_access, FALSE, pool));
@@ -1655,7 +1655,7 @@ svn_wc_install_file (svn_wc_notify_state_t *content_state,
                                          e->revision);
               newrev_str = apr_psprintf (pool, ".r%" SVN_REVNUM_T_FMT,
                                          new_revision);
-
+              
               /* Merge the changes from the old-textbase (TXTB) to
                  new-textbase (TMP_TXTB) into the file we're
                  updating (BASE_NAME).  Either the merge will
@@ -1675,11 +1675,11 @@ svn_wc_install_file (svn_wc_notify_state_t *content_state,
                                      SVN_WC__LOG_ATTR_ARG_4, newrev_str,
                                      SVN_WC__LOG_ATTR_ARG_5, ".mine",
                                      NULL);
-
+              
               /* If a conflict happens, then the entry will be
                  marked "Conflicted" and will track either 2 or 3 new
                  temporary fulltext files that resulted. */
-
+              
             } /* end: working file exists and has mods */
         } /* end: working file has mods */
     }  /* end:  "textual" merging process */
@@ -1740,7 +1740,7 @@ svn_wc_install_file (svn_wc_notify_state_t *content_state,
                              SVN_WC__LOG_ATTR_DEST,
                              txtb,
                              NULL);
-
+      
       svn_xml_make_open_tag (&log_accum,
                              pool,
                              svn_xml_self_closing,
@@ -1766,9 +1766,9 @@ svn_wc_install_file (svn_wc_notify_state_t *content_state,
 
   if (wc_props)
     accumulate_wcprops (log_accum, base_name, wc_props, pool);
-
+  
   /* Write our accumulation of log entries into a log file */
-  apr_err = apr_file_write_full (log_fp, log_accum->data,
+  apr_err = apr_file_write_full (log_fp, log_accum->data, 
                                  log_accum->len, NULL);
   if (apr_err)
     {
@@ -1790,7 +1790,7 @@ svn_wc_install_file (svn_wc_notify_state_t *content_state,
 
       /* Initialize the state of our returned value. */
       *content_state = svn_wc_notify_state_unknown;
-
+      
       /* ### There should be a more efficient way of finding out whether
          or not the file is modified|merged|conflicted.  If the
          svn_wc__run_log() call above could return a special error code
@@ -1798,7 +1798,7 @@ svn_wc_install_file (svn_wc_notify_state_t *content_state,
 
       SVN_ERR (svn_wc_entry (&entry, file_path, adm_access, TRUE, pool));
       SVN_ERR (svn_wc_conflicted_p (&tc, &pc, parent_dir, entry, pool));
-
+      
       /* This is kind of interesting.  Even if no new text was
          installed (i.e., new_text_path was null), we could still
          report a pre-existing conflict state.  Say a file, already
@@ -1843,7 +1843,7 @@ close_file (void *file_baton,
     propchanges = fb->propchanges;
 
   parent_path = svn_path_dirname (fb->path, fb->pool);
-
+    
   SVN_ERR (svn_wc_adm_retrieve (&adm_access, fb->edit_baton->adm_access,
                                 parent_path, fb->pool));
 
@@ -1877,7 +1877,7 @@ close_file (void *file_baton,
            prop_state,
            SVN_INVALID_REVNUM);
     }
-  return SVN_NO_ERROR;
+  return SVN_NO_ERROR;  
 }
 
 
@@ -1886,7 +1886,7 @@ close_edit (void *edit_baton,
             apr_pool_t *pool)
 {
   struct edit_baton *eb = edit_baton;
-
+  
   /* By definition, anybody "driving" this editor for update or switch
      purposes at a *minimum* must have called set_target_revision() at
      the outset, and close_edit() at the end -- even if it turned out
@@ -1935,7 +1935,7 @@ close_edit (void *edit_baton,
      and change callers of svn_client_{checkout,update,switch} to do
      better pool management. ### */
   svn_pool_destroy (eb->pool);
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -2017,7 +2017,7 @@ svn_wc_get_update_editor (svn_wc_adm_access_t *anchor,
                           apr_pool_t *pool)
 {
   return make_editor (anchor, svn_wc_adm_access_path (anchor),
-                      target, target_revision,
+                      target, target_revision, 
                       FALSE, NULL, NULL,
                       recurse, notify_func, notify_baton,
                       editor, edit_baton, traversal_info, pool);
@@ -2036,7 +2036,7 @@ svn_wc_get_checkout_editor (const char *dest,
                             svn_wc_traversal_info_t *traversal_info,
                             apr_pool_t *pool)
 {
-  return make_editor (NULL, dest, NULL, target_revision,
+  return make_editor (NULL, dest, NULL, target_revision, 
                       TRUE, ancestor_url, NULL,
                       recurse, notify_func, notify_baton,
                       editor, edit_baton,
@@ -2071,11 +2071,11 @@ svn_wc_traversal_info_t *
 svn_wc_init_traversal_info (apr_pool_t *pool)
 {
   svn_wc_traversal_info_t *ti = apr_palloc (pool, sizeof (*ti));
-
+  
   ti->pool           = pool;
   ti->externals_old  = apr_hash_make (pool);
   ti->externals_new  = apr_hash_make (pool);
-
+  
   return ti;
 }
 
@@ -2193,7 +2193,7 @@ svn_wc_edited_externals (apr_hash_t **externals_old,
 static svn_error_t *
 check_wc_root (svn_boolean_t *wc_root,
                svn_node_kind_t *kind,
-               const char *path,
+               const char *path, 
                svn_wc_adm_access_t *adm_access,
                apr_pool_t *pool)
 {
@@ -2208,7 +2208,7 @@ check_wc_root (svn_boolean_t *wc_root,
   /* Get our ancestry (this doubles as a sanity check).  */
   SVN_ERR (svn_wc_entry (&entry, path, adm_access, FALSE, pool));
   if (! entry)
-    return svn_error_createf
+    return svn_error_createf 
       (SVN_ERR_ENTRY_NOT_FOUND, NULL,
        "svn_wc_is_wc_root: '%s' is not a versioned resource", path);
   if (kind)
@@ -2232,18 +2232,18 @@ check_wc_root (svn_boolean_t *wc_root,
 
       return SVN_NO_ERROR;
     }
-
+  
   /* If the parent directory has no url information, something is
      messed up.  Bail with an error. */
   if (! p_entry->url)
-    return svn_error_createf
+    return svn_error_createf 
       (SVN_ERR_ENTRY_MISSING_URL, NULL,
-       "svn_wc_is_wc_root: '%s' has no ancestry information.",
+       "svn_wc_is_wc_root: '%s' has no ancestry information.", 
        parent);
 
   /* If PATH's parent in the WC is not its parent in the repository,
      PATH is a WC root. */
-  if (entry->url
+  if (entry->url 
       && (strcmp (svn_path_url_add_component (p_entry->url, base_name, pool),
                   entry->url) != 0))
     return SVN_NO_ERROR;
