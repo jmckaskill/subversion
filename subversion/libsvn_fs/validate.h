@@ -38,7 +38,7 @@ int svn_fs__is_single_path_component (const char *name);
 #endif /* SVN_LIBSVN_FS_VALIDATE_H */
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end:

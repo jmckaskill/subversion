@@ -32,7 +32,7 @@
 #include "../id.h"
 
 
-static int
+static int 
 is_committed (svn_fs__transaction_t *txn)
 {
   return SVN_IS_VALID_REVNUM (txn->revision);
@@ -57,7 +57,7 @@ svn_fs__open_transactions_table (DB **transactions_p,
     DBT key, value;
 
     DB_ERR (txns->put (txns, 0,
-                       svn_fs__str_to_dbt (&key,
+                       svn_fs__str_to_dbt (&key, 
                                            (char *) svn_fs__next_key_key),
                        svn_fs__str_to_dbt (&value, (char *) "0"),
                        0));
@@ -111,8 +111,8 @@ allocate_txn_id (const char **id_p,
      copies table.  */
   SVN_ERR (DB_WRAP (fs, "allocating new txn ID (getting `next-key')",
                     fs->transactions->get (fs->transactions, trail->db_txn,
-                                           &query,
-                                           svn_fs__result_dbt (&result),
+                                           &query, 
+                                           svn_fs__result_dbt (&result), 
                                            0)));
   svn_fs__track_dbt (&result, trail->pool);
 
@@ -123,9 +123,9 @@ allocate_txn_id (const char **id_p,
   len = result.size;
   svn_fs__next_key (result.data, &len, next_key);
   db_err = fs->copies->put (fs->transactions, trail->db_txn,
-                            svn_fs__str_to_dbt (&query,
+                            svn_fs__str_to_dbt (&query, 
                                                 (char *) svn_fs__next_key_key),
-                            svn_fs__str_to_dbt (&result, (char *) next_key),
+                            svn_fs__str_to_dbt (&result, (char *) next_key), 
                             0);
 
   SVN_ERR (DB_WRAP (fs, "bumping next txn key", db_err));
@@ -150,7 +150,7 @@ svn_fs__create_txn (const char **txn_name_p,
   txn.revision = SVN_INVALID_REVNUM;
   SVN_ERR (put_txn (fs, &txn, txn_name, trail));
 
-  *txn_name_p = txn_name;
+  *txn_name_p = txn_name; 
   return SVN_NO_ERROR;
 }
 
@@ -184,12 +184,12 @@ svn_fs__delete_txn (svn_fs_t *fs,
 {
   DBT key;
   svn_fs__transaction_t *txn;
-
+  
   /* Make sure TXN is not a committed transaction. */
   SVN_ERR (svn_fs__get_txn (&txn, fs, txn_name, trail));
   if (is_committed (txn))
     return svn_fs__err_txn_not_mutable (fs, txn_name);
-
+  
   /* Delete the transaction from the `transactions' table. */
   svn_fs__str_to_dbt (&key, (char *) txn_name);
   SVN_ERR (DB_WRAP (fs, "deleting entry from `transactions' table",
@@ -243,7 +243,7 @@ svn_fs__get_txn_ids (const svn_fs_id_t **root_id_p,
                      trail_t *trail)
 {
   svn_fs__transaction_t *txn;
-
+  
   SVN_ERR (svn_fs__get_txn (&txn, fs, txn_name, trail));
   if (is_committed (txn))
     return svn_fs__err_txn_not_mutable (fs, txn_name);
@@ -371,12 +371,12 @@ svn_error_t *svn_fs__get_txn_list (apr_array_header_t **names_p,
       /* Parse TRANSACTION skel */
       txn_skel = svn_fs__parse_skel (value.data, value.size, subpool);
       if (! txn_skel)
-        return svn_fs__err_corrupt_txn
+        return svn_fs__err_corrupt_txn 
           (fs, apr_pstrmemdup (trail->pool, key.data, key.size));
 
       /* Convert skel to native type. */
       SVN_ERR (svn_fs__parse_transaction_skel (&txn, txn_skel, subpool));
-
+      
       /* If this is a immutable "committed" transaction, ignore it. */
       if (is_committed (txn))
         continue;
@@ -422,14 +422,14 @@ txn_body_txn_prop (void *baton,
 {
   struct txn_prop_args *args = baton;
   svn_fs__transaction_t *txn;
-
-  SVN_ERR (svn_fs__get_txn (&txn, args->fs, args->id, trail));
+  
+  SVN_ERR (svn_fs__get_txn (&txn, args->fs, args->id, trail)); 
   if (is_committed (txn))
     return svn_fs__err_txn_not_mutable (args->fs, args->id);
 
   *(args->value_p) = NULL;
   if (txn->proplist)
-    *(args->value_p) = apr_hash_get (txn->proplist,
+    *(args->value_p) = apr_hash_get (txn->proplist, 
                                      args->propname, APR_HASH_KEY_STRING);
   return SVN_NO_ERROR;
 }
@@ -476,7 +476,7 @@ txn_body_txn_proplist (void *baton, trail_t *trail)
   if (is_committed (txn))
     return svn_fs__err_txn_not_mutable (args->fs, args->id);
 
-  *(args->table_p) = txn->proplist
+  *(args->table_p) = txn->proplist 
                      ? txn->proplist : apr_hash_make (trail->pool);
   return SVN_NO_ERROR;
 }
@@ -544,7 +544,7 @@ static svn_error_t *
 txn_body_change_txn_prop (void *baton, trail_t *trail)
 {
   struct change_txn_prop_args *args = baton;
-  return svn_fs__set_txn_prop (args->fs, args->id, args->name,
+  return svn_fs__set_txn_prop (args->fs, args->id, args->name, 
                                args->value, trail);
 }
 
@@ -570,7 +570,7 @@ svn_fs_change_txn_prop (svn_fs_txn_t *txn,
 }
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../tools/dev/svn-dev.el")
  * end:
