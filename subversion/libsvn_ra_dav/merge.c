@@ -129,7 +129,7 @@ static svn_boolean_t okay_to_bump_path (const char *path,
   /* Otherwise, this path is bumpable IFF one of its parents is in the
      hash and marked with a 'recursion' flag. */
   parent_path = svn_stringbuf_create (path, pool);
-
+  
   do {
     apr_size_t len = parent_path->len;
     svn_path_remove_component (parent_path);
@@ -571,7 +571,7 @@ svn_error_t * svn_ra_dav__merge_activity(
                                       NULL, merge_elements, validate_element,
                                       start_element, end_element, &mc,
                                       extra_headers, NULL, pool) );
-
+  
   /* is there an error stashed away in our context? */
   if (mc.err != NULL)
     return mc.err;
@@ -584,7 +584,7 @@ svn_error_t * svn_ra_dav__merge_activity(
                       ? apr_pstrdup(ras->pool, mc.committed_date->data)
                       : NULL;
   if (committed_author)
-    *committed_author = mc.last_author->len
+    *committed_author = mc.last_author->len 
                         ? apr_pstrdup(ras->pool, mc.last_author->data)
                         : NULL;
 
