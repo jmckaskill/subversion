@@ -4,32 +4,32 @@
  *
  * ================================================================
  * Copyright (c) 2000 CollabNet.  All rights reserved.
- *
+ * 
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
  * met:
- *
+ * 
  * 1. Redistributions of source code must retain the above copyright
  * notice, this list of conditions and the following disclaimer.
- *
+ * 
  * 2. Redistributions in binary form must reproduce the above copyright
  * notice, this list of conditions and the following disclaimer in the
  * documentation and/or other materials provided with the distribution.
- *
+ * 
  * 3. The end-user documentation included with the redistribution, if
  * any, must include the following acknowlegement: "This product includes
  * software developed by CollabNet (http://www.Collab.Net)."
  * Alternately, this acknowlegement may appear in the software itself, if
  * and wherever such third-party acknowlegements normally appear.
- *
+ * 
  * 4. The hosted project names must not be used to endorse or promote
  * products derived from this software without prior written
  * permission. For written permission, please contact info@collab.net.
- *
+ * 
  * 5. Products derived from this software may not use the "Tigris" name
  * nor may "Tigris" appear in their names without prior written
  * permission of CollabNet.
- *
+ * 
  * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
  * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -43,7 +43,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ====================================================================
- *
+ * 
  * This software may consist of voluntary contributions made by many
  * individuals on behalf of CollabNet.
  */
@@ -68,49 +68,49 @@ size_t
 file_size (char *file)
 {
   struct stat s;
-
+  
   if (stat (file, &s) < 0)
     {
       fprintf (stderr, "can't stat %s (%s)", file, strerror (errno));
       exit (1);
     }
-
+  
   /* else */
 
   return s.st_size;
 }
 
 
-/* Read LEN bytes from FILE into BUF.
+/* Read LEN bytes from FILE into BUF. 
    BUF must already point to allocated space. */
 int
 file_into_buffer (char *file, size_t len, char *buf)
 {
   FILE *fp;
   size_t total_so_far = 0;
-
+  
   fp = fopen (file, "r");
-
+  
   while (1)
     {
       size_t received;
-
+      
       received = fread (buf, 1, (len - total_so_far), fp);
       if (ferror (fp))
         {
           fprintf (stderr, "can't read %s", file);
           break;
         }
-
+      
       total_so_far += received;
-
+      
       if ((total_so_far >= len) || (feof (fp)))
         break;
     }
-
+  
   if (fclose (fp) < 0)
     fprintf (stderr, "cannot close %s (%s)", file, strerror (errno));
-
+  
   return 0;
 }
 
@@ -128,21 +128,21 @@ make_vdelta (char *data, size_t source_len, size_t target_len)
    *     Lecture Notes in Computer Science 1167 (July 1996), 49-66.
    *
    * The plan is to coax this to output vcdiff format, as described in
-   *
+   * 
    *    http://www.ietf.org/internet-drafts/draft-korn-vcdiff-01.txt
-   *
+   * 
    * and write a `patch' program that takes vcdiff input.  Once that's
    * done, the delta generator will be improved, adding windowing, the
    * use of the vdelta matching technique, and whatever else is called
    * for.
-   *
+   * 
    * Here's how it works right now.  Step 1 all happened before this
-   * function, Step 2 is what this function does:
-   *
+   * function, Step 2 is what this function does: 
+   * 
    *   1. Read source_text and target_text into buf, concatenated.
    *      (And know where the dividing point between them is, of
-   *      course.)
-   *
+   *      course.) 
+   * 
    *   2. Slide along buf a byte at a time.  At each location, look up
    *      the current position in a hash table, using the 4-byte chunk
    *      starting here as key.
@@ -161,11 +161,11 @@ make_vdelta (char *data, size_t source_len, size_t target_len)
    *           target data, and move on.
    *
    * Some things to notice:
-   *
+   * 
    * This differencing algorithm is really a compression algorithm in
    * disguise -- one that happens not to generate any output until
    * it's in the target data.
-   *
+   * 
    * Hash collisions are just ignored -- the older data wins.  This
    * strategy simply means that some matches won't be noticed.  One
    * could also overwrite it (that's XDelta's answer), or keep a
@@ -184,20 +184,20 @@ make_vdelta (char *data, size_t source_len, size_t target_len)
    * with the positions in the hash table, and doing hash compares
    * where formerly did direct byte compares.
    */
-
+  
   size_t pos = 0;       /* current position in DATA */
   size_t total_len;     /* put this in a var for readability */
   hash_table_t *table;  /* where we hold the back-lookup table. */
-
+  
   total_len = source_len + target_len;
   table = make_hash_table (1511);
-
+  
   /* todo: fix o-b-o-e, see test 0 */
 
   while (pos < (total_len - (MIN_MATCH_LEN - 1)))
     {
       hash_entry_t *e;
-
+      
       e = try_match (data + pos, MIN_MATCH_LEN, pos, table);
 
       if (e && (strncmp (data + e->pos, data + pos, MIN_MATCH_LEN) == 0))
@@ -224,7 +224,7 @@ make_vdelta (char *data, size_t source_len, size_t target_len)
           if (pos >= source_len)
             printf ("COPY %d %d\n", old_pos, match_len);
 
-          /* Record the unrecorded positions from this match.
+          /* Record the unrecorded positions from this match. 
              (Step 2a on page 18 of Hunt/Vo/Tichy.) */
           for (i = (MIN_MATCH_LEN - 1); i > 0; i--)
             {
@@ -301,7 +301,7 @@ main (int argc, char **argv)
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
