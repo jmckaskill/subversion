@@ -111,9 +111,9 @@ get_log_msg (svn_stringbuf_t **log_msg,
 {
 #define EDITOR_PREFIX_TXT  "SVN:"
   const char *default_msg = "\n"
-    EDITOR_PREFIX_TXT
-    " ---------------------------------------------------------------------\n"
-    EDITOR_PREFIX_TXT " Enter Log.  Lines beginning with '"
+    EDITOR_PREFIX_TXT 
+    " ---------------------------------------------------------------------\n" 
+    EDITOR_PREFIX_TXT " Enter Log.  Lines beginning with '" 
                              EDITOR_PREFIX_TXT "' are removed automatically\n"
     EDITOR_PREFIX_TXT "\n"
     EDITOR_PREFIX_TXT " Current status of the target files and directories:\n"
@@ -164,8 +164,8 @@ get_log_msg (svn_stringbuf_t **log_msg,
 
           svn_stringbuf_appendcstr (tmp_message, EDITOR_PREFIX_TXT);
           svn_stringbuf_appendcstr (tmp_message, "   ");
-          svn_stringbuf_appendbytes (tmp_message, &text_mod, 1);
-          svn_stringbuf_appendbytes (tmp_message, &prop_mod, 1);
+          svn_stringbuf_appendbytes (tmp_message, &text_mod, 1); 
+          svn_stringbuf_appendbytes (tmp_message, &prop_mod, 1); 
           svn_stringbuf_appendcstr (tmp_message, "   ");
           svn_stringbuf_appendcstr (tmp_message, path->data);
           svn_stringbuf_appendcstr (tmp_message, "\n");
@@ -173,7 +173,7 @@ get_log_msg (svn_stringbuf_t **log_msg,
 
       tmp_str.data = tmp_message->data;
       tmp_str.len = tmp_message->len;
-      SVN_ERR (svn_cl__edit_externally (&message, lmb->base_dir,
+      SVN_ERR (svn_cl__edit_externally (&message, lmb->base_dir, 
                                         &tmp_str, pool));
 
       /* Strip the prefix from the buffer. */
@@ -214,7 +214,7 @@ get_log_msg (svn_stringbuf_t **log_msg,
 
               /* If the user chooses to continue, we make an empty
                  message, which will cause us to exit the loop. */
-              if ('c' == letter)
+              if ('c' == letter) 
                 message = svn_stringbuf_create ("", pool);
 
               /* If the user chooses anything else, the loop will
@@ -222,7 +222,7 @@ get_log_msg (svn_stringbuf_t **log_msg,
             }
         }
     }
-
+  
   *log_msg = message ? svn_stringbuf_dup (message, pool) : NULL;
   return SVN_NO_ERROR;
 }
@@ -240,7 +240,7 @@ svn_cl__commit (apr_getopt_t *os,
   svn_client_commit_info_t *commit_info = NULL;
   svn_revnum_t revnum;
   struct log_msg_baton *lmb = apr_pcalloc (pool, sizeof (*lmb));
-
+    
   targets = svn_cl__args_to_target_array (os, opt_state, pool);
 
   /* Build an authentication object to give to libsvn_client. */
@@ -259,7 +259,7 @@ svn_cl__commit (apr_getopt_t *os,
     {
       svn_stringbuf_t *parent_dir, *basename;
 
-      SVN_ERR (svn_wc_get_actual_target (base_dir, &parent_dir,
+      SVN_ERR (svn_wc_get_actual_target (base_dir, &parent_dir, 
                                          &basename, pool));
       if (basename)
         svn_stringbuf_set (base_dir, parent_dir->data);
@@ -272,7 +272,7 @@ svn_cl__commit (apr_getopt_t *os,
     revnum = SVN_INVALID_REVNUM; /* no matter, this is fine */
 
   /* Initialize our log message baton. */
-  if (opt_state->filedata)
+  if (opt_state->filedata) 
     lmb->msg = opt_state->filedata;
   else
     lmb->msg = opt_state->message;
@@ -282,7 +282,7 @@ svn_cl__commit (apr_getopt_t *os,
   SVN_ERR (svn_client_commit (&commit_info,
                               NULL, NULL,
                               NULL, NULL,
-                              SVN_CL_NOTIFY(opt_state),
+                              SVN_CL_NOTIFY(opt_state), 
                               svn_cl__make_notify_baton (pool),
                               auth_baton,
                               targets,
@@ -299,8 +299,8 @@ svn_cl__commit (apr_getopt_t *os,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../tools/dev/svn-dev.el")
- * end:
+ * end: 
  */
