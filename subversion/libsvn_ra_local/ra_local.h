@@ -43,7 +43,7 @@ typedef struct svn_ra_local__session_baton_t
   /* Each ra_local session does ALL allocation from this pool!  Kind
      of like an Apache transaction, I guess. :) */
   apr_pool_t *pool;
-
+  
   /* A `file://' URL containing a local repository and path. */
   const char *repository_URL;
 
@@ -72,7 +72,7 @@ typedef struct svn_ra_local__session_baton_t
 
 /** Private routines **/
 
-
+    
 
 
 /* Given a `file://' URL, decode it, figure out which portion
