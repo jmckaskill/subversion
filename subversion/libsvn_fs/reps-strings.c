@@ -59,7 +59,7 @@ static const char empty_digest[] = {
    write new (non-empty) data to a rep, we need to store all zeroes
    for the empty rep's checksum.  This always succeeds in a checksum
    comparison, so it's equivalent to not having checksumming at all --
-   which is the state we're in until issues #649 and #689 are done! */
+   which is the state we're in until issues #649 and #689 are done! */ 
 static const char empty_digest[] = {
   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 };
@@ -79,9 +79,9 @@ checksums_match (unsigned const char d1[], unsigned const char d2[])
 #if 0  /* ### for debugging */
   printf ("   checksums_match: %.2x %.2x %.2x %.2x %.2x %.2x %.2x %.2x %.2x %.2x %.2x %.2x %.2x %.2x %.2x %.2x \n"
           "                    %.2x %.2x %.2x %.2x %.2x %.2x %.2x %.2x %.2x %.2x %.2x %.2x %.2x %.2x %.2x %.2x \n",
-          d1[0], d1[1], d1[2], d1[3], d1[4], d1[5], d1[6], d1[7],
+          d1[0], d1[1], d1[2], d1[3], d1[4], d1[5], d1[6], d1[7], 
           d1[8], d1[9], d1[10], d1[11], d1[12], d1[13], d1[14], d1[15],
-          d2[0], d2[1], d2[2], d2[3], d2[4], d2[5], d2[6], d2[7],
+          d2[0], d2[1], d2[2], d2[3], d2[4], d2[5], d2[6], d2[7], 
           d2[8], d2[9], d2[10], d2[11], d2[12], d2[13], d2[14], d2[15]);
 #endif /* 0 */
 
@@ -93,18 +93,18 @@ checksums_match (unsigned const char d1[], unsigned const char d2[])
 
 /* Return a `fulltext' representation, allocated in POOL, which
  * references the string STR_KEY.
- *
+ * 
  * If TXN_ID is non-zero and non-NULL, make the representation mutable
  * under that TXN_ID.
- *
+ * 
  * If STR_KEY is non-null, copy it into an allocation from POOL.
- *
+ * 
  * If CHECKSUM is non-null, use it as the checksum for the new rep;
  * else initialize the rep with an all-zero (i.e., always successful)
  * checksum.
  */
 static svn_fs__representation_t *
-make_fulltext_rep (const char *str_key,
+make_fulltext_rep (const char *str_key, 
                    const char *txn_id,
                    const unsigned char *checksum,
                    apr_pool_t *pool)
@@ -120,7 +120,7 @@ make_fulltext_rep (const char *str_key,
   else
     memset (rep->checksum, 0, MD5_DIGESTSIZE);
 
-  rep->contents.fulltext.string_key
+  rep->contents.fulltext.string_key 
     = str_key ? apr_pstrdup (pool, str_key) : NULL;
   return rep;
 }
@@ -130,7 +130,7 @@ make_fulltext_rep (const char *str_key,
    representation REP.  Allocate *KEYS in POOL. */
 static svn_error_t *
 delta_string_keys (apr_array_header_t **keys,
-                   const svn_fs__representation_t *rep,
+                   const svn_fs__representation_t *rep, 
                    apr_pool_t *pool)
 {
   const char *key;
@@ -138,7 +138,7 @@ delta_string_keys (apr_array_header_t **keys,
   apr_array_header_t *chunks;
 
   if (rep->kind != svn_fs__rep_kind_delta)
-    return svn_error_create
+    return svn_error_create 
       (SVN_ERR_FS_GENERAL, NULL,
        "delta_string_key: representation is not of type `delta'");
 
@@ -149,13 +149,13 @@ delta_string_keys (apr_array_header_t **keys,
   *keys = apr_array_make (pool, chunks->nelts, sizeof (key));
   if (! chunks->nelts)
     return SVN_NO_ERROR;
-
+  
   /* Now, push the string keys for each window into *KEYS */
   for (i = 0; i < chunks->nelts; i++)
     {
-      svn_fs__rep_delta_chunk_t *chunk =
+      svn_fs__rep_delta_chunk_t *chunk = 
         (((svn_fs__rep_delta_chunk_t **) chunks->elts)[i]);
-
+      
       key = apr_pstrdup (pool, chunk->string_key);
       (*((const char **)(apr_array_push (*keys)))) = key;
     }
@@ -166,8 +166,8 @@ delta_string_keys (apr_array_header_t **keys,
 
 /* Delete the strings associated with array KEYS in FS as part of TRAIL.  */
 static svn_error_t *
-delete_strings (apr_array_header_t *keys,
-                svn_fs_t *fs,
+delete_strings (apr_array_header_t *keys, 
+                svn_fs_t *fs, 
                 trail_t *trail)
 {
   int i;
@@ -478,7 +478,7 @@ rep_read_range (svn_fs_t *fs,
   SVN_ERR (svn_fs__bdb_read_rep (&rep, fs, rep_key, trail));
   if (rep->kind == svn_fs__rep_kind_fulltext)
     {
-      SVN_ERR (svn_fs__bdb_string_read (fs, rep->contents.fulltext.string_key,
+      SVN_ERR (svn_fs__bdb_string_read (fs, rep->contents.fulltext.string_key, 
                                         buf, offset, len, trail));
     }
   else if (rep->kind == svn_fs__rep_kind_delta)
@@ -557,7 +557,7 @@ svn_fs__get_mutable_rep (const char **new_rep_key,
           return SVN_NO_ERROR;
         }
     }
-
+  
   /* Either we weren't provided a base key to examine, or the base key
      we were provided was not mutable.  So, let's make a new
      representation and return its key to the caller. */
@@ -623,7 +623,7 @@ struct rep_read_baton
      refetch the representation skel every time we want to read
      another chunk.  */
   const char *rep_key;
-
+  
   /* How many bytes have been read already. */
   apr_size_t offset;
 
@@ -672,7 +672,7 @@ svn_fs__rep_contents_size (apr_size_t *size_p,
   if (rep->kind == svn_fs__rep_kind_fulltext)
     {
       /* Get the size by asking Berkeley for the string's length. */
-      SVN_ERR (svn_fs__bdb_string_size (size_p, fs,
+      SVN_ERR (svn_fs__bdb_string_size (size_p, fs, 
                                         rep->contents.fulltext.string_key, trail));
     }
   else if (rep->kind == svn_fs__rep_kind_delta)
@@ -686,7 +686,7 @@ svn_fs__rep_contents_size (apr_size_t *size_p,
 
       assert (chunks->nelts);
 
-      last_chunk
+      last_chunk 
         = (((svn_fs__rep_delta_chunk_t **) chunks->elts)[chunks->nelts - 1]);
       *size_p = last_chunk->offset + last_chunk->size;
     }
@@ -738,7 +738,7 @@ struct read_rep_args
 
    Afterwards, *(BATON->len) is the number of bytes actually read, and
    BATON->rb->offset is incremented by that amount.
-
+   
    If BATON->rb->rep_key is null, this is assumed to mean the file's
    contents have no representation, i.e., the file has no contents.
    In that case, if BATON->rb->offset > 0, return the error
@@ -816,13 +816,13 @@ struct rep_write_baton
 
   /* The representation skel whose contents we want to write. */
   const char *rep_key;
-
+  
   /* The transaction id under which this write action will take
      place. */
   const char *txn_id;
 
   /* If present, do the write as part of this trail, and use trail's
-     pool.  Otherwise, see `pool' below.  */
+     pool.  Otherwise, see `pool' below.  */ 
   trail_t *trail;
 
   /* Used for temporary allocations, iff `trail' (above) is null.  */
@@ -865,7 +865,7 @@ rep_write (svn_fs_t *fs,
            trail_t *trail)
 {
   svn_fs__representation_t *rep;
-
+        
   SVN_ERR (svn_fs__bdb_read_rep (&rep, fs, rep_key, trail));
 
   if (! rep_is_mutable (rep, txn_id))
@@ -875,8 +875,8 @@ rep_write (svn_fs_t *fs,
 
   if (rep->kind == svn_fs__rep_kind_fulltext)
     {
-      SVN_ERR (svn_fs__bdb_string_append (fs,
-                                          &(rep->contents.fulltext.string_key),
+      SVN_ERR (svn_fs__bdb_string_append (fs, 
+                                          &(rep->contents.fulltext.string_key), 
                                           len, buf, trail));
     }
   else if (rep->kind == svn_fs__rep_kind_delta)
@@ -900,13 +900,13 @@ struct write_rep_args
   struct rep_write_baton *wb;   /* Destination.       */
   const char *buf;              /* Data.              */
   apr_size_t len;               /* How much to write. */
-  const char *txn_id;           /* Transaction ID.    */
+  const char *txn_id;           /* Transaction ID.    */  
 };
 
 
 /* BATON is of type `write_rep_args':
    Append onto BATON->wb->rep_key's contents BATON->len bytes of
-   data from BATON->wb->buf, in BATON->rb->fs, as part of TRAIL.
+   data from BATON->wb->buf, in BATON->rb->fs, as part of TRAIL.  
 
    If the representation is not mutable, return the error
    SVN_FS_REP_NOT_MUTABLE.  */
@@ -927,8 +927,8 @@ txn_body_write_rep (void *baton, trail_t *trail)
 
 
 static svn_error_t *
-rep_write_contents (void *baton,
-                    const char *buf,
+rep_write_contents (void *baton, 
+                    const char *buf, 
                     apr_size_t *len)
 {
   struct rep_write_baton *wb = baton;
@@ -1134,13 +1134,13 @@ write_svndiff_strings (void *baton, const char *data, apr_size_t *len)
       *len -= nheader;
       buf += nheader;
       wb->header_read += nheader;
-
+      
       /* If we have *now* read the full 4-byte header, check that
          least byte for the version number of the svndiff format. */
       if (wb->header_read == 4)
         wb->version = *(buf - 1);
     }
-
+  
   /* Append to the current string we're writing (or create a new one
      if WB->key is NULL). */
   SVN_ERR (svn_fs__bdb_string_append (wb->fs, &(wb->key), *len, buf, wb->trail));
@@ -1189,11 +1189,11 @@ svn_fs__rep_deltify (svn_fs_t *fs,
   /* stream to write new (deltified) target data and its baton */
   svn_stream_t *new_target_stream;
   struct write_svndiff_strings_baton new_target_baton;
-
+  
   /* window handler/baton for writing to above stream */
   svn_txdelta_window_handler_t new_target_handler;
   void *new_target_handler_baton;
-
+  
   /* yes, we do windows */
   svn_txdelta_window_t *window;
 
@@ -1207,7 +1207,7 @@ svn_fs__rep_deltify (svn_fs_t *fs,
 
   /* TARGET's original string keys */
   apr_array_header_t *orig_str_keys;
-
+  
   /* The digest for the representation's fulltext contents. */
   unsigned char rep_digest[MD5_DIGESTSIZE];
 
@@ -1272,7 +1272,7 @@ svn_fs__rep_deltify (svn_fs_t *fs,
           /* Update our recordkeeping variables. */
           tview_off += window->tview_len;
           diffsize += ww->svndiff_len;
-
+           
           /* Free the window. */
           svn_pool_clear (wpool);
         }
@@ -1368,7 +1368,7 @@ svn_fs__rep_deltify (svn_fs_t *fs,
         /* Add this chunk to the array. */
         (*((svn_fs__rep_delta_chunk_t **)(apr_array_push (chunks)))) = chunk;
       }
-
+    
     /* Put the chunks array into the representation. */
     new_rep.contents.delta.chunks = chunks;
 
