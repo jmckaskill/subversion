@@ -1,10 +1,10 @@
 \input texinfo  @c -*-texinfo-*-
 
-@comment Subversion Design
-@comment Copyright (C) 1999, 2000 CollabNet
+@comment Subversion User Manual
+@comment Copyright (C) 2001 CollabNet
 
 @c  ================================================================
-@c  Copyright (c) 2000 CollabNet.  All rights reserved.
+@c  Copyright (c) 2001 CollabNet.  All rights reserved.
 @c
 @c  Redistribution and use in source and binary forms, with or without
 @c  modification, are permitted provided that the following conditions are
@@ -50,8 +50,8 @@
 
 
 @c %**start of header
-@setfilename svn-design.info
-@settitle Subversion Design
+@setfilename svn-manual.info
+@settitle Subversion User Manual
 @setchapternewpage odd
 @c %**end of header
 
@@ -68,18 +68,18 @@
 
 @c -----------------------------------------------------------------
 @titlepage
-@title @titlefont{Subversion}
-@subtitle{A New Version Control System}
-@author Jim Blandy <@email{jimb@@redhat.com}>
-@author Karl Fogel <@email{kfogel@@collab.net}>
-@author Ben Collins-Sussman <@email{sussman@@collab.net}>
+@title @titlefont{Subversion User Manual}
+@c @subtitle{A New Version Control System}
+@c @author Jim Blandy <@email{jimb@@redhat.com}>
+@author written by various Subversion developers
+
 
 @page
 @vskip 0pt plus 1filll
-Copyright @copyright{} 2000 Collab.Net, Inc. @*
+Copyright @copyright{} 2001 Collab.Net, Inc. @*
 See @xref{License} for details. @*
-First version: June 2000.  @*
-Last updated:  $Date: 2000-12-08 01:36:45 $
+First version: June 2001.  @*
+Last updated:  $Date: 2001-06-04 22:00:53 $
 
 @end titlepage
 @c -----------------------------------------------------------------
@@ -91,33 +91,24 @@ Last updated:  $Date: 2000-12-08 01:36:45 $
 @top
 
 @ifinfo
-This manual describes the design of the Subversion version control
-system.
+This manual describes the behavior of the Subversion command-line client.
 
 @end ifinfo
 
+@c Here is our logical table of contents.
+@c
+@c  For now, don't worry about creating well-organized chapters.
+@c  If you have a set of behaviors to document, just create a new
+@c  chapter document and @include it below.  We'll rearrange all the
+@c  information some other day.
 @menu
-* Goals::                        The goals of the Subversion project.
-* Model::                        The versioning model used by Subversion.
-* Architecture::                 How Subversion's components work together.
-* Deltas::                       How to describe changes.
-* Client::                       How the client works.
-* Protocol::                     How the client and server communicate.
-* Server::                       How the server works.
-* Future::                       Future plans.
-* License::                      Copyright.
+* Removals::                     How file and directory removals work.
+@c * Model::                     The versioning model used by Subversion.
+@c * Architecture::              How Subversion's components work together.
 @end menu
 
-@include goals.texi
-@include model.texi
-@include architecture.texi
-@include deltas.texi
-@include client.texi
-@include protocol.texi
-@include server.texi
-@include future.texi
-@include license.texi
-
-@c @include indices.texi
+@include removals.texi
+@c @include model.texi
+@c @include architecture.texi
 
 @bye
