@@ -93,7 +93,7 @@ static const char *config_values[] = { "bar", "Aa", "100", "bar",
                                        "Aa 100", NULL };
 
 static svn_error_t *
-test1 (const char **msg,
+test1 (const char **msg, 
        svn_boolean_t msg_only,
        apr_pool_t *pool)
 {
