@@ -44,11 +44,11 @@ typedef struct {
 /* Compare two svn_item_t's, returning an integer greater than,
  * equal to, or less than 0, according as A is greater than, equal to,
  * or less than B.
- *
+ * 
  * This is useful for converting a hash into a sorted
  * apr_array_header_t.  For example, to convert hash HSH to a sorted
  * array, do this:
- *
+ * 
  *   apr_array_header_t *HDR;
  *   HDR = apr_hash_sorted_keys (HSH, svn_sort_compare_items_as_paths, pool);
  *
