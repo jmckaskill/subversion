@@ -36,8 +36,8 @@ JNIEXPORT OnUnload(JavaVM *jvm, void *reserved)
   apr_terminate();
 }
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../../../../../svn-dev.el")
- * end:
+ * end: 
  */
