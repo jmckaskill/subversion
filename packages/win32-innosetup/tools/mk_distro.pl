@@ -50,7 +50,7 @@ sub Main
 {
     $g_AutoRun="y" if ($ARGV[0] eq "-a");
     my $Input='';
-
+    
     if ($g_AutoRun)
       {
         system ("perl set_version.pl -a");
@@ -70,14 +70,14 @@ sub Main
           "  e) Make everything\n\n",
           "  q) quit\n\n",
           "  Please, select one item [v/d/s/e/q]: ";
-
+        
         chomp ($Input = <STDIN>);
         exit if ($Input eq "q");
 
         $g_MakeVersion='y' if ($Input eq "v" || $Input eq "e");
         $g_MakeDocs='y' if ($Input eq "d" || $Input eq "e");
         $g_MakeSetup='y' if ($Input eq "s" || $Input eq "e");
-
+        
         if (! $g_MakeVersion && ! $g_MakeDocs && ! $g_MakeSetup)
           {
             print "\nUh, you did not give me a v,d,s,e or q, please try again\n";
@@ -102,14 +102,14 @@ sub MakeSetup
     my $RetVal=0;
 
     #chdir $SetupOut;
-    #system
+    #system 
     chdir '..';
     #system ("$PathIsxExe svn.iss");
     if (! $g_AutoRun)
       {
         print "Compiling the setup...\n";
       }
-
+    
     $RetVal=`$PathIsxExe svn.iss`;
 
     chdir $SetupOut;
@@ -122,10 +122,10 @@ sub MakeSetup
         $RetVal=`mk7zsfx.bat`;
       }
     else
-      {
+      { 
         die "ERROR using ISCC.exe"
       }
-
+    
     chdir $DirOrig;
 
 }
@@ -137,12 +137,12 @@ sub MakeSetup
 sub PathIsxExe
 {
     my $PathIsxExe = &cmn_ValuePathfile('path_isx');
-
+  
     if ( ! -e "$PathIsxExe/ISCC.exe")
       {
         die "ERROR: Could not find path to ISCC.exe in paths_inno_src.iss\n";
       }
-
+    
     $PathIsxExe = "$PathIsxExe\\ISCC.exe";
     return $PathIsxExe;
 }
@@ -154,7 +154,7 @@ sub PathIsxExe
 sub PathSetupOut
 {
     my $SetupOut = &cmn_ValuePathfile('path_setup_out');
-
+  
     if ( ! -e "../$SetupOut")
       {
         die "ERROR: Could not find output directory as described in paths_inno_src.iss\n";
