@@ -279,11 +279,11 @@ svn_error_t *svn_fs__fs_write_revision_zero (svn_fs_t *fs);
 #define SVN_FS_FS__REV               "rev"
 
 /* Headers used to describe node-revision in the revision file. */
-#define SVN_FS_FS__NODE_ID           "id"
-#define SVN_FS_FS__KIND              "type"
-#define SVN_FS_FS__COUNT             "count"
-#define SVN_FS_FS__PROPS             "props"
-#define SVN_FS_FS__TEXT              "text"
+#define SVN_FS_FS__NODE_ID           "id"       
+#define SVN_FS_FS__KIND              "type"     
+#define SVN_FS_FS__COUNT             "count"    
+#define SVN_FS_FS__PROPS             "props"    
+#define SVN_FS_FS__TEXT              "text"      
 #define SVN_FS_FS__CPATH             "cpath"
 #define SVN_FS_FS__PRED              "pred"
 #define SVN_FS_FS__COPYFROM          "copyfrom"

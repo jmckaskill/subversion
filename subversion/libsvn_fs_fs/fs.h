@@ -30,7 +30,7 @@ extern "C" {
 
 /*** The filesystem structure.  ***/
 
-struct svn_fs_t
+struct svn_fs_t 
 {
   /* A pool managing this filesystem.  Freeing this pool must
      completely clean up the filesystem, including any database
@@ -130,7 +130,7 @@ typedef struct
   /* MD5 checksum for the contents produced by this representation.
      This checksum is for the contents the rep shows to consumers,
      regardless of how the rep stores the data under the hood.  It is
-     independent of the storage (fulltext, delta, whatever).
+     independent of the storage (fulltext, delta, whatever). 
 
      If all the bytes are 0, then for compatibility behave as though
      this checksum matches the expected checksum. */
@@ -176,7 +176,7 @@ typedef struct
 
   /* If this node-rev is a copy, how was it created? */
   svn_fs__copy_kind_t copykind;
-
+  
   /* Helper for history tracing, root of the parent tree from whence
      this node-rev was copied. */
   const svn_fs_id_t *copyroot;
@@ -192,7 +192,7 @@ typedef struct
   /* representation for this node's data.  may be NULL if there is
      no data. */
   svn_fs__representation_t *data_rep;
-
+  
   /* representation key for this node's text-data-in-progess (files
      only).  NULL if no edits are currently in-progress.  This field
      is always NULL for kinds other than "file".  */
@@ -214,7 +214,7 @@ typedef enum
 
 
 /*** "Delta" Offset/Window Chunk ***/
-typedef struct
+typedef struct 
 {
   /* diff format version number ### at this point, "svndiff" is the
      only format used. */
@@ -224,7 +224,7 @@ typedef struct
   svn_filesize_t offset;
 
   /* string-key to which this representation points. */
-  const char *string_key;
+  const char *string_key; 
 
   /* size of the fulltext data represented by this delta window. */
   apr_size_t size;
