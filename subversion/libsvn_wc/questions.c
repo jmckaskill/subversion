@@ -51,7 +51,7 @@ svn_wc_check_wc (const char *path,
   svn_node_kind_t kind;
 
   SVN_ERR (svn_io_check_path (path, &kind, pool));
-
+  
   if (kind == svn_node_none)
     {
       return svn_error_createf
@@ -105,7 +105,7 @@ svn_wc_check_wc (const char *path,
    notice that we are *NOT* answering the question, "are the contents
    of F different than revision V of F?"  While F may be at a different
    revision number than its parent directory, but we're only looking
-   for local edits on F, not for consistent directory revisions.
+   for local edits on F, not for consistent directory revisions.  
 
    TODO:  the logic of the routines on this page might change in the
    future, as they bear some relation to the user interface.  For
@@ -153,7 +153,7 @@ svn_wc__timestamps_equal_p (svn_boolean_t *equal_p,
       SVN_ERR (svn_io_file_affected_time (&wfile_time, path, pool));
       entrytime = entry->text_time;
     }
-
+  
   else if (timestamp_kind == svn_wc__prop_time)
     {
       const char *prop_path;
@@ -185,7 +185,7 @@ svn_wc__timestamps_equal_p (svn_boolean_t *equal_p,
     SVN_ERR (svn_time_from_cstring (&wfile_time, tstr, pool));
     */
   }
-
+  
   if (wfile_time == entrytime)
     *equal_p = TRUE;
   else
@@ -223,16 +223,16 @@ contents_identical_p (svn_boolean_t *identical_p,
       if (status && !APR_STATUS_IS_EOF(status))
         return svn_error_createf
           (status, NULL,
-           "contents_identical_p: full read failed on '%s'.",
+           "contents_identical_p: full read failed on '%s'.", 
            file1);
 
       status = apr_file_read_full (file2_h, buf2, sizeof(buf2), &bytes_read2);
       if (status && !APR_STATUS_IS_EOF(status))
         return svn_error_createf
           (status, NULL,
-           "contents_identical_p: full read failed on '%s'.",
+           "contents_identical_p: full read failed on '%s'.", 
            file2);
-
+      
       if ((bytes_read1 != bytes_read2)
           || (memcmp (buf1, buf2, bytes_read1)))
         {
@@ -243,13 +243,13 @@ contents_identical_p (svn_boolean_t *identical_p,
 
   status = apr_file_close (file1_h);
   if (status)
-    return svn_error_createf
+    return svn_error_createf 
       (status, NULL,
        "contents_identical_p: failed to close '%s'.", file1);
 
   status = apr_file_close (file2_h);
   if (status)
-    return svn_error_createf
+    return svn_error_createf 
       (status, NULL,
        "contents_identical_p: failed to close '%s'.", file2);
 
@@ -273,7 +273,7 @@ svn_wc__files_contents_same_p (svn_boolean_t *same,
       *same = 0;
       return SVN_NO_ERROR;
     }
-
+  
   SVN_ERR (contents_identical_p (&q, file1, file2, pool));
 
   if (q)
@@ -298,13 +298,13 @@ svn_wc__versioned_file_modcheck (svn_boolean_t *modified_p,
 
   SVN_ERR (svn_wc_translated_file (&tmp_vfile, versioned_file, adm_access,
                                    TRUE, pool));
-
+  
   err = svn_wc__files_contents_same_p (&same, tmp_vfile, base_file, pool);
   *modified_p = (! same);
-
+  
   if (tmp_vfile != versioned_file)
     SVN_ERR (svn_io_remove_file (tmp_vfile, pool));
-
+  
   return err;
 }
 
@@ -345,7 +345,7 @@ svn_wc_text_modified_p (svn_boolean_t *modified_p,
           goto cleanup;
         }
     }
-
+      
   /* If there's no text-base file, we have to assume the working file
      is modified.  For example, a file scheduled for addition but not
      yet committed. */
@@ -356,7 +356,7 @@ svn_wc_text_modified_p (svn_boolean_t *modified_p,
       *modified_p = TRUE;
       goto cleanup;
     }
-
+  
   /* Otherwise, fall back on the standard mod detector. */
   SVN_ERR (svn_wc__versioned_file_modcheck (modified_p,
                                             filename,
@@ -425,7 +425,7 @@ svn_wc_conflicted_p (svn_boolean_t *text_conflicted_p,
       if (kind == svn_node_file)
         *prop_conflicted_p = TRUE;
     }
-
+  
   svn_pool_destroy (subpool);
   return SVN_NO_ERROR;
 }
@@ -443,12 +443,12 @@ svn_wc_has_binary_prop (svn_boolean_t *has_binary_prop,
   apr_pool_t *subpool = svn_pool_create (pool);
 
   SVN_ERR (svn_wc_prop_get (&value, SVN_PROP_MIME_TYPE, path, subpool));
-
+ 
   if (value && (svn_mime_type_is_binary (value->data)))
     *has_binary_prop = TRUE;
   else
     *has_binary_prop = FALSE;
-
+  
   svn_pool_destroy (subpool);
   return SVN_NO_ERROR;
 }
