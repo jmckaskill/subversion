@@ -25,14 +25,14 @@
 
 /* functions */
 jobject
-item__create(JNIEnv *env, jobject jpath, jobject jstatus,
+item__create(JNIEnv *env, jobject jpath, jobject jstatus, 
 	     jboolean *hasException);
 
 
 #endif
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../../tools/dev/svn-dev.el")
- * end:
+ * end: 
  */
