@@ -94,7 +94,7 @@ svn_error_t *svn_fs__stable_node (svn_fs_t *fs,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
