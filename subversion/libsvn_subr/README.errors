@@ -40,7 +40,7 @@ typedef struct svn_error
         error = some_routine (foo);
         if (error)
           return (error);
-
+        
     c) Throw the error upwards, wrapping it in a new error structure
        by including it as the "child" argument:
 
