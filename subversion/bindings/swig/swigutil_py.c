@@ -500,7 +500,7 @@ static svn_error_t * thunk_window_handler(svn_txdelta_window_t *window,
 }
 
 static svn_error_t * thunk_apply_textdelta(
-    void *file_baton,
+    void *file_baton, 
     svn_txdelta_window_handler_t *handler,
     void **h_baton)
 {
@@ -617,9 +617,9 @@ static svn_error_t * log_receiver(void *baton,
   /* ### for now, we're leaving CHANGED_PATHS outta this. */
 
   /* ### python doesn't have 'const' on the method name and format */
-  if ((result = PyObject_CallFunction(receiver,
-                                      (char *)"lsssO&",
-                                      rev, author, date, msg,
+  if ((result = PyObject_CallFunction(receiver, 
+                                      (char *)"lsssO&", 
+                                      rev, author, date, msg, 
                                       make_ob_pool, pool)) == NULL)
     {
       return convert_python_error(pool);
@@ -639,9 +639,9 @@ svn_error_t * svn_swig_py_repos_get_logs(svn_repos_t *repos,
                                          PyObject *py_receiver,
                                          apr_pool_t *pool)
 {
-  return svn_repos_get_logs(repos, paths, start, end,
+  return svn_repos_get_logs(repos, paths, start, end, 
                             FALSE /* discover_changed_paths */,
-                            strict_node_history,
+                            strict_node_history, 
                             log_receiver, py_receiver, pool);
 }
 
