@@ -51,7 +51,7 @@ $editor = SVN::Delta::Editor->
 my $rootbaton = $editor->open_root(1, $pool);
 
 my $dirbaton = $editor->add_directory ('tags', $rootbaton, undef, 1, $pool);
-my $subdirbaton = $editor->add_directory ('tags/foo', $dirbaton,
+my $subdirbaton = $editor->add_directory ('tags/foo', $dirbaton, 
 					  "file://$repospath/trunk", 1, $pool);
 
 $editor->close_edit($pool);
