@@ -77,7 +77,7 @@ main (int argc, char **argv)
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../svn-dev.el")
  * end:
