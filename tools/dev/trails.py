@@ -26,7 +26,7 @@ def output_summary(trails, outfile):
   max_ops = ops[-1]
   median_ops = ops[total_trails / 2]
   average_ops = float(total_ops) / total_trails
-
+  
   outfile.write('Total number of trails: %10i\n' % total_trails)
   outfile.write('Total number of ops:    %10i\n' % total_ops)
   outfile.write('max ops/trail:          %10i\n' % max_ops)
@@ -50,7 +50,7 @@ def output_trail_length_frequencies(trails, outfile):
     frequencies[rank] = frequencies.get(rank, 0) + 1
 
   total_trails = len(ops)
-
+ 
   ranks = frequencies.items()
   ranks.sort(freqtable_cmp)
 
@@ -67,7 +67,7 @@ def output_trail_frequencies(trails, outfile):
 
   # Since lists can't be keys, turn all trails into tuples
   ttrails = map(tuple, trails)
-
+  
   freqs = {}
   for trail in ttrails:
     freqs[trail] = freqs.get(trail, 0) + 1
@@ -80,7 +80,7 @@ def output_trail_frequencies(trails, outfile):
     p = float(f) * 100 / total_trails
     t = list(tt)
     outfile.write('%6i        %5.2f       %4i       ' % (f, p, len(t)))
-
+    
     ### Output the trail itself, in it's own column
     line = str(t[0])
     for op in t[1:]:
@@ -92,7 +92,7 @@ def output_trail_frequencies(trails, outfile):
       else:
         line = line + ', ' + op_str
     outfile.write('%s\n' % line)
-
+    
   outfile.write('\n')
 
 
