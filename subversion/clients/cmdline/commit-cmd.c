@@ -52,7 +52,7 @@ svn_cl__commit (apr_getopt_t *os,
   svn_revnum_t revnum;
   svn_wc_notify_func_t notify_func = NULL;
   void *notify_baton = NULL;
-
+    
   targets = svn_cl__args_to_target_array (os, opt_state, FALSE, pool);
 
   /* Build an authentication object to give to libsvn_client. */
@@ -71,7 +71,7 @@ svn_cl__commit (apr_getopt_t *os,
     {
       const char *parent_dir, *base_name;
 
-      SVN_ERR (svn_wc_get_actual_target (base_dir, &parent_dir,
+      SVN_ERR (svn_wc_get_actual_target (base_dir, &parent_dir, 
                                          &base_name, pool));
       if (base_name)
         base_dir = apr_pstrdup (pool, parent_dir);
@@ -87,7 +87,7 @@ svn_cl__commit (apr_getopt_t *os,
     svn_cl__get_notifier (&notify_func, &notify_baton, FALSE, FALSE, pool);
 
   /* Commit. */
-  SVN_ERR (svn_client_commit
+  SVN_ERR (svn_client_commit 
            (&commit_info,
             NULL, NULL,
             NULL, NULL,
@@ -108,8 +108,8 @@ svn_cl__commit (apr_getopt_t *os,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../tools/dev/svn-dev.el")
- * end:
+ * end: 
  */
