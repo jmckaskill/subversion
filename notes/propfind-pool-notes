@@ -17,7 +17,7 @@ dav_svn_do_walk [ S:repos.c ]
       - may call dav_find_liveprop [ M:props.c ]
         - dav_svn_find_liveprop [ S:liveprops.c ]
           - dav_do_find_liveprop [ M:liveprop.c ]
-            ** static storage
+            ** static storage 
       - dav_insert_liveprop [ M:props.c ]
         - dav_svn_insert_prop [ S:liveprops.c ]
           ** uses resource->info->pool to svn_fs_*
