@@ -45,7 +45,7 @@ svn_ra_local__split_URL (svn_string_t **repos_path,
       svn_path_remove_component (shrinking_URL, svn_path_url_style);
 
     } while (shrinking_URL);
-
+  
   /* Start from the 2nd item in the component array, build up a path,
      successively adding new components and trying to successfuly call
      svn_fs_open_berkeley().  */
@@ -60,11 +60,11 @@ svn_ra_local__split_URL (svn_string_t **repos_path,
   /* We're out of the loop, either because we ran out of search
      paths... */
   if (i >= components->nelts)
-    return
-      svn_error_create
+    return 
+      svn_error_create 
       (SVN_ERR_RA_ILLEGAL_URL, 0, NULL, pool,
        "svn_ra_local__split_url:  can't find a repository anywhere in URL!");
-
+  
   /* ..or because svn_fs_open_berkeley() finally returned SVN_NO_ERROR. */
   else
     {
