@@ -4,7 +4,7 @@
                       A Guide for Newcomers
                ======================================
 
-
+               
    ********************************************************************
    ***                                                              ***
    ***  Note: this is PRE-ALPHA code.  Don't use it on real data,   ***
@@ -105,7 +105,7 @@ III.  INSTALLATION
 
          $ ./configure --enable-maintainer-mode --disable-shared
          $ make
-         $ make check    (optional)
+         $ make check    (optional)           
          # make install
 
       The flags to `configure' are highly recommended for developers,
@@ -146,7 +146,7 @@ III.  INSTALLATION
       Berkeley DB is needed to build a Subversion server, or to access
       a repository on local disk.  If you are only interested in
       building a Subversion client that speaks to a remote (networked)
-      repository, you don't need it.
+      repository, you don't need it.  
 
       You'll need Berkeley DB 4.0.14 installed on your system.  You can
       get it from http://www.sleepycat.com/.
@@ -202,7 +202,7 @@ IV.  QUICKSTART GUIDE
            - handles 'http' schema
          * ra_local : Module for accessing a repository on local disk.
            - handles 'file' schema
-
+           
 
       If you don't see ra_local, it probably means that Berkeley DB
       wasn't found when compiling your client binary.  If you don't
@@ -236,9 +236,9 @@ IV.  QUICKSTART GUIDE
       Also, watch out for 'ownership' pitfalls.  Notice who has the
       rights to modify the .db files in the repository.  Repository
       commit access is ultimately determined by whomever has the
-      rights to modify the .db files.
+      rights to modify the .db files.  
 
-
+      
       3. CREATING A SUBVERSION SERVER
 
       Subversion uses Apache 2.0 as its network server.  Apache's
@@ -251,7 +251,7 @@ IV.  QUICKSTART GUIDE
       all sorts of Apache errors.  Often people create a special 'svn'
       user who owns the repository, and folks put a line into
       httpd.conf that tells Apache to run as that special user.
-
+      
       Compiling Apache and mod_dav_svn is a separate project; please
       see section V at the end of this document for a HOWTO.
 
@@ -349,7 +349,7 @@ V.  BUILDING A SUBVERSION SERVER
        line.  Make sure this is the same db as the one Subversion uses.
        This note assumes you have installed Berkeley DB 4.0.14
        at its default locations.  For more info about the db requirement,
-       see section III.C.1.
+       see section III.C.1. 
 
   All instructions below assume you configured Apache to install
   under /usr/local/apache2/; substitute appropriately if you
@@ -359,7 +359,7 @@ V.  BUILDING A SUBVERSION SERVER
 
   5.  Go back into your subversion working copy and run ./autogen.sh if
       you need to.  Then run
-
+ 
         ./configure --with-apxs=/usr/local/apache2/bin/apxs
 
       This argument tells subversion to build mod_dav_svn, and where to
@@ -406,7 +406,7 @@ V.  BUILDING A SUBVERSION SERVER
 
     If you are using virtual hosting through Apache's NameVirtualHost
     directive, this will not be an issue.
-
+ 
 10. Now fire up apache 2.0:
 
            /usr/local/apache2/bin/apachectl stop
