@@ -1,5 +1,8 @@
 #
-# client.py : various utilities for interacting with the _client module
+# client.py: public Python interface for client components
+#
+# Subversion is a tool for revision control.
+# See http://subversion.tigris.org for more information.
 #
 ######################################################################
 #
@@ -12,7 +15,6 @@
 # newer version instead, at your option.
 #
 ######################################################################
-#
 
 import libsvn.client
 
