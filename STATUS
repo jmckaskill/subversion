@@ -23,16 +23,6 @@ Candidate changes:
     Votes:
       +1: cmpilato
 
-  * r10616, r10638, r10642
-    Work around directory creation bug in APR shipped with httpd 2.0.50.
-    Justification:
-      Not a tiny patch, but most of the pieces are simple and
-      independent.  Bug breaks shared working copies and litters
-      unsightly sticky bits around people's working copies and
-      repositories.
-    Votes:
-      +1: ghudson, maxb, lundblad
-
   * r10645
     Add new abbreviation 'Revision' for 'LastChangedRevision'.
     Justification:
