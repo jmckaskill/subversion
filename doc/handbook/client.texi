@@ -8,13 +8,13 @@ For a first conversational overview of the the client's CVS-like
 ``copy-modify-merge'' model of development, @xref{Basics}.
 
 @menu
-* Checkout::
-* Basic Work Cycle::
-* History::
-* Branches and Tags::
-* Properties::
-* Modules::
-* Other Commands::
+* Checkout::                    
+* Basic Work Cycle::            
+* History::                     
+* Branches and Tags::           
+* Properties::                  
+* Modules::                     
+* Other Commands::              
 @end menu
 
 @c ------------------------------------------------------------------
