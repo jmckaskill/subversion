@@ -67,7 +67,7 @@
       local copy of the <literal>HEAD</literal> (latest revision) of
       the Subversion repository that you specify on the command
       line.</para>
-
+    
 
     <screen>
 $ svn co http://svn.collab.net/repos/svn/trunk
@@ -79,7 +79,7 @@ A  trunk/IDEAS
 &hellip;
 Checked out revision 2499.
     </screen>
-
+    
     <sidebar>
       <title>Repository Layout</title>
 
@@ -98,7 +98,7 @@ Checked out revision 2499.
       you can just as easily checkout any deep subdirectory of a
       repository by specifying the subdirectory in the checkout
       URL:</para>
-
+    
     <screen>
 $ svn co http://svn.collab.net/repos/svn/trunk/doc/book/tools
 A  tools/readme-dblite.html
@@ -109,7 +109,7 @@ A  tools/dtd/dblite.dtd
 &hellip;
 Checked out revision 3678.
     </screen>
-
+    
     <para>Since Subversion uses a <quote>copy-modify-merge</quote>
       model instead of <quote>lock-modify-unlock,</quote> (See <xref
       linkend="svn-ch-2"/>) you're now ready to start making changes
@@ -137,7 +137,7 @@ Checked out revision 3678.
       url of the repository as the only argument, you can also specify
       a directory after your repository url.  This places your working
       copy into the new directory that you name.  For example:</para>
-
+    
     <screen>
 $ svn co http://svn.collab.net/repos/svn/trunk subv
 A  subv/subversion.dsw
@@ -148,7 +148,7 @@ A  subv/IDEAS
 &hellip;
 Checked out revision 2499.
     </screen>
-
+    
     <para>That will place your working copy in a directory named
       <literal>subv</literal> instead of a directory named
       <literal>trunk</literal> as was the case above.</para>
@@ -165,7 +165,7 @@ Checked out revision 2499.
       a day-to-day basis, odds are that you will only use a few of them. In
       this section we'll run through the most common things that you might
       find yourself doing with Subversion in the course of a day's work.</para>
-
+    
     <para>The typical work cycle looks like this</para>
 
     <itemizedlist>
@@ -200,19 +200,19 @@ Checked out revision 2499.
         receive any changes from other developers on the project.
         <command>svn update</command> brings your working copy
         in-sync with the latest revision in the repository.</para>
-
+      
       <screen>
 $ svn up
 U  ./foo.c
 U  ./bar.c
 Updated to revision 2.
       </screen>
-
+      
       <para>In this case, someone else checked in modifications to
         both <filename>foo.c</filename> and <filename>bar.c</filename>
         since the last time you updated, and Subversion has updated
         your working copy to include those changes.</para>
-
+      
       <para>Let's examine the output of <command>svn update</command>
         a bit more.  When the server sends changes to your working
         copy, a letter code is displayed next to each item to let you
@@ -247,7 +247,7 @@ Updated to revision 2.
               copy.</para>
           </listitem>
         </varlistentry>
-
+        
         <varlistentry>
           <term><computeroutput>R      foo</computeroutput></term>
           <listitem>
@@ -290,7 +290,7 @@ Updated to revision 2.
 
     <sect2 id="svn-ch-3-sect-4.2">
       <title>Make Changes to Your Working Copy</title>
-
+      
       <para>Now you can to get to work and make changes in your
         working copy. It's usually most convenient to create a
         <quote>task</quote> for yourself, such as writing a new
@@ -298,10 +298,10 @@ Updated to revision 2.
         will use here are <command>svn add</command>, <command>svn
         delete</command>, <command>svn copy</command>, and
         <command>svn move</command>).</para>
-
+      
       <variablelist>
         <title>Changes you can make to your working copy:</title>
-
+        
         <varlistentry>
           <term>File changes</term>
           <listitem>
@@ -325,19 +325,19 @@ Updated to revision 2.
         </varlistentry>
 
       </variablelist>
-
+      
       <para>To make file changes, just use your text editor, word
         processor, or graphics program&mdash;whatever tool you would
         normally use.  A file needn't be in text-format; Subversion
         handles binary files with no problems.</para>
-
+      
       <para>Here is an overview of the four Subversion subcommands
         that you'll use most often to make tree changes (we'll cover
         <command>svn import</command> and <command>svn mkdir</command>
         later).</para>
-
+      
       <variablelist>
-
+        
         <varlistentry>
           <term><command>svn add foo</command></term>
           <listitem>
@@ -401,7 +401,7 @@ Updated to revision 2.
 
       <sidebar>
         <title>Changing the repository without committing</title>
-
+        
         <para>Earlier in this chapter, we said that you have to commit
           any changes that you make in order for the repository to
           reflect these changes. That's not entirely true&mdash;there
@@ -419,10 +419,10 @@ Updated to revision 2.
 
     <sect2 id="svn-ch-3-sect-4.3">
       <title>Examine Your Changes</title>
-
+      
       <!-- ###TODO Note that this sect2 currently mentions nothing about
       info. -Fitz -->
-
+      
       <sect3 id="svn-ch-3-sect-4.3.1">
         <title><command>svn status</command></title>
 
@@ -438,7 +438,7 @@ Updated to revision 2.
           diff</command>, and <command>svn revert</command> to find
           out what files have changed where and possibly remove these
           changes.</para>
-
+      
         <para>Subversion has been optimized to help you with this
           task, and is able to do many things without communicating
           with the repository.  In particular, your working copy
@@ -450,17 +450,17 @@ Updated to revision 2.
 
         <para>You'll probably use the <command>svn status</command>
           command more than any other Subversion command.</para>
-
+        
         <sidebar>
           <title>CVS Users note</title>
-
+          
           <para>You're probably used to using <command>cvs
               update</command> to see what changes you've made to your
             working copy.  <command>svn status</command> will give
             you all the information you need regarding what has
             changed in your working copy&mdash;without accessing the
             repository.</para>
-
+        
           <para>In Subversion, <command>update</command> does just
             that&mdash;it updates your working copy with any changes
             committed to the repository since the last time you've
@@ -469,7 +469,7 @@ Updated to revision 2.
             local modifications you've made.</para>
 
         </sidebar>
-
+        
         <para> If you run <command>svn status</command> at the top of
           your working copy with no arguments, it will detect all file
           and tree changes you've made.  This example is designed to
@@ -477,7 +477,7 @@ Updated to revision 2.
           status</command> can return.  Note that the text in
           <literal>[]</literal> is not printed by <command>svn
           status</command>.</para>
-
+      
         <screen>
 $ svn status
   L    ./abc.c               [svn has a lock in its .svn directory for abc.c]
@@ -491,7 +491,7 @@ M  +   ./moved_dir/README    [added with history and has local modifications]
 D      ./stuff/fish.c        [this file is scheduled for deletion]
 A      ./stuff/things/bloo.h [this file is scheduled for addition]
         </screen><!-- ###TODO Should the above be a table? -Fitz -->
-
+      
         <para>In this output format <command>svn status</command>
           prints four columns of characters followed by several
           whitespace characters followed by a file or directory name.
@@ -604,7 +604,7 @@ A      ./stuff/things/bloo.h [this file is scheduled for addition]
           <computeroutput>M</computeroutput> appears in the second
           column, then the properties have been modified, otherwise a
           whitespace will be printed.</para>
-
+        
         <para>The third column will only show whitespace or an
           <computeroutput>L</computeroutput> which means that Subversion
           has locked the item in the<filename>.svn</filename> working
@@ -616,7 +616,7 @@ A      ./stuff/things/bloo.h [this file is scheduled for addition]
           and the lock needs to be cleaned up by running <command>svn
             cleanup</command>.  Locks typically appear if a Subversion
           command is interrupted before completion.</para>
-
+        
         <para>The fourth column will only show whitespace or a
           <computeroutput>+</computeroutput> which means that the file
           or directory is scheduled to be added or modified with
@@ -637,22 +637,22 @@ A      ./stuff/things/bloo.h [this file is scheduled for addition]
           which means this file will automatically exist in the copy.
           Then the local modifications will be uploaded into the
           copy.</para>
-
+        
         <para>If you pass a specific path is passed to <command>svn
             status</command>, it give you information about that item
           alone:</para>
-
+        
         <screen>
 $ svn status stuff/fish.c
 D      stuff/fish.c
         </screen>
-
+        
         <para><command>svn status</command> also has a
           <option>--verbose</option> (<option>-v</option>) switch,
           which will show you the status of <emphasis>every</emphasis>
           item in your working copy, even if it has not been changed
           in your working copy:</para>
-
+           
         <screen>
 $ svn status -v
 M               44        23    sally     ./README
@@ -665,7 +665,7 @@ D               44        19    ira       ./stuff/fish.c
 A                0         ?     ?        ./stuff/things/bloo.h
                 44        36    harry     ./stuff/things/gloo.c
         </screen>
-
+           
         <para>This is the <quote>long form</quote> output of
           <command>svn status</command>.  The first column remains
           same, but the second column shows the working-revision of
@@ -677,12 +677,12 @@ A                0         ?     ?        ./stuff/things/bloo.h
           locally by comparing the metadata in the
           <filename>.svn</filename> directory with the working
           copy.</para>
-
+           
         <para>Finally, there is the <option>--show-updates</option>
           (<option>-u</option>) switch, which contacts the repository
           and adds information about things that are
           <firstterm>out-of-date</firstterm>:</para>
-
+      
         <screen>
 $ svn status -u -v
 M      *        44        23    sally     ./README
@@ -691,7 +691,7 @@ M               44        20    harry     ./bar.c
 D               44        19    ira       ./stuff/fish.c
 A                0         ?     ?        ./stuff/things/bloo.h
         </screen>
-
+           
         <para>Notice the two asterisks: if you were to run
             <command>svn up</command> at this point, you would receive
           changes to<filename>README</filename>
@@ -705,13 +705,13 @@ A                0         ?     ?        ./stuff/things/bloo.h
 
       <sect3 id="svn-ch-3-sect-4.3.2">
         <title><command>svn diff</command></title>
-
+           
         <para>Another way to examine your changes is with the
           <command>svn diff</command> command.  You can find out
           <emphasis>exactly</emphasis> how you've modified things by
           running <command>svn diff</command> with no arguments, which
           prints out file changes in unified diff format:</para>
-
+        
         <screen>
 $ svn diff
 Index: ./bar.c
@@ -735,7 +735,7 @@ Index: ./README
 ===================================================================
 --- ./README
 +++ ./README	Mon Jul 15 17:58:18 2002
-@@ -193,3 +193,4 @@
+@@ -193,3 +193,4 @@ 
 +Note to self:  pick up laundry.
 
 Index: ./stuff/fish.c
@@ -752,7 +752,7 @@ Index: ./stuff/things/bloo.h
 +Here is a new file to describe
 +things about bloo.
         </screen>
-
+        
         <para>The <command>svn diff</command> command produces this
           output by comparing your working files against the cached
           <quote>pristine</quote> copies within the
@@ -788,15 +788,15 @@ $ svn diff > patchfile
           that your changes to <filename>README</filename> are a
           mistake; perhaps you accidentally typed that text into the
           wrong file in your editor.</para>
-
+      
         <para>This is a prime example for using <command>svn
           revert</command>.</para>
-
+           
         <screen>
 $ svn revert README
 Reverted ./README
         </screen>
-
+        
         <para>The file is reverted to its pre-modified state by
           overwriting it with the cached <quote>pristine</quote> copy
           from the <filename>.svn</filename> area.  But also note that
@@ -822,10 +822,10 @@ $ svn st foo
           control:</para>
 
         <screen>
-$ svn st README
+$ svn st README 
        README
 
-$ svn rm README
+$ svn rm README 
 D         README
 
 $ svn revert README
@@ -868,18 +868,18 @@ $ svn st README
 
     <sect2 id="svn-ch-3-sect-4.4">
       <title>Resolving conflicts (Merging others' changes)</title>
-
+           
       <para>We've already seen how <command>svn status -u</command>
           can predict conflicts.  Suppose you run <command>svn
           update</command> and some interesting things occur:</para>
-
+      
       <screen>
 $ svn up
 U  ./INSTALL
 G  ./README
 C  ./bar.c
       </screen>
-
+           
       <para>The <computeroutput>U</computeroutput> and
         <computeroutput>G</computeroutput> codes are nothing to sweat
         about; those files cleanly absorbed changes from the
@@ -887,14 +887,14 @@ C  ./bar.c
         mer<computeroutput>G</computeroutput>ed, which means that the
         file had local changes to begin with, but the repository
         changes didn't overlap in any way.</para>
-
+           
       <para>But the <computeroutput>C</computeroutput> stands for
         conflict.  This means that the server's changes overlapped
         with your own, and now you have to manually choose between
         them.</para>
-
+           
       <para>Whenever a conflict occurs:</para>
-
+           
       <itemizedlist>
 
         <listitem>
@@ -931,17 +931,17 @@ C  ./bar.c
         </listitem>
 
       </itemizedlist>
-
+      
       <para>At this point, Subversion will <emphasis>not</emphasis>
         allow you to commit the file until the three temporary files
         are removed.</para>
-
+           
       <para>If you get a conflict, you need to either (1) hand-merge
         the conflicted text (by examining and editing the conflict
         markers within the file), (2) copy one of the tmpfiles on top
         of your working file, or (3) run <command>svn revert</command>
         to toss all of your changes.</para>
-
+           
       <para>Once you've resolved the conflict, you need to let
         Subversion know by removing the three tmpfiles.  (The
         <command>svn resolve</command> command, by the way, is a
@@ -949,7 +949,7 @@ C  ./bar.c
         tmpfiles for you.)  When the tmpfiles are gone, Subversion no
         longer considers the file to be in a state of conflict
         anymore.</para>
-
+           
     </sect2>
 
     <sect2 id="svn-ch-3-sect-4.5">
@@ -958,14 +958,14 @@ C  ./bar.c
       <para>Finally!  Your edits are finished, you've merged all
         updates from the server, and you're ready to commit your
         changes.</para>
-
+      
       <para>The <command>svn commit</command> command sends all (or,
            if you specify files or directories, some) of your changes
            to the repository.  When you commit a change, you need to
            supply a <firstterm>log message</firstterm>, describing
            your change.  Your log message will be permanently attached
            to the new revision you create.</para>
-
+           
       <screen>
 $ svn commit -m "Added include lines and corrected # of cheese slices."
 Sending        bar.c
@@ -973,14 +973,14 @@ Transmitting file data .
 Committed revision 3.
 $
       </screen>
-
+           
       <para>Another way to specify a log message is to place it in a
         file, and pass the filename with the <option>-F</option>
         switch.  If you fail to specify either the <option>-m</option> or
         <option>-F</option> switch, then Subversion will
         automatically launch your favorite <command>$EDITOR</command>
         for composing a log message.</para>
-
+           
       <para>The repository doesn't know or care if your changes make
         any sense as a whole; it only checks to make sure that nobody
         else has changed any of the same files that you did when you
@@ -990,13 +990,13 @@ $
         you need to run <command>svn update</command> again, deal with any
         merges or conflicts that result, and attempt your commit
         again.</para>
-
+           
       <para>That covers the most basic work cycle for using
         Subversion. Run <command>svn help
         &lt;commandname&gt;</command> for help on any of the commands
         covered in this section.</para><!-- ###TODO Again,
         recommending svn help. Leave in? -Fitz -->
-
+           
     </sect2>
 
   </sect1>
@@ -1010,7 +1010,7 @@ $
     <para>As we mentioned earlier, the repository is like a time machine.  It
       remembers every revision ever committed, and allows you to explore
       this history.</para>
-
+           
     <para>There are two commands that mine historical data from the
       repository.  <command>svn log</command> shows you broad
       information: log messages attached to revisions, and which paths
@@ -1020,14 +1020,14 @@ $
 
     <sect2 id="svn-ch-3-sect-5.1">
       <title>svn log</title>
-
+           
       <para>To find out information about the history of a file or
         directory, you use the <command>svn log</command>
         command. <command>svn log</command> will tell you who made
         changes to a file and at what revision, the time and date of
         that revision, and the log message that accompanied the
         commit.</para>
-
+           
       <screen>
 $ svn log
 ------------------------------------------------------------------------
@@ -1044,13 +1044,13 @@ rev 1:  fitz | Mon, 15 Jul 2002 17:40:08 -0500 | 2 lines
 Initial import
 ------------------------------------------------------------------------
       </screen>
-
+           
       <para>Note that the log messages are printed in reverse
         chronological order by default.  If you wish to see a
         different range of revisions in a particular order, or just a
         single revision, pass the <option>--revision</option>
         (<option>-r</option>) switch:</para>
-
+           
       <screen>
 $ svn log -r 5:19
 &hellip; # shows logs 5 through 19 in chronological order
@@ -1059,26 +1059,26 @@ $ svn log -r 19:5
 $ svn log -r 8
 &hellip;
       </screen>
-
+        
       <para>You can also examine the log history on a single file or directory.
       The commands</para>
-
+           
       <screen>
 $ svn log foo.c
 &hellip;
 $ svn log http://foo.com/svn/trunk/code/foo.c
 &hellip;
       </screen>
-
+           
       <para>will display log messages <emphasis>only</emphasis> for
         those revisions in which the working file (or URL)
         changed.</para>
-
+           
       <para>And while we're on the subject, <command>svn log</command>
         also takes a <option>--verbose</option>
         (<option>-v</option>) switch too; it includes a list of
         changed-paths in each revision:</para>
-
+           
       <screen>
 $ svn log -r 8 -v
 ------------------------------------------------------------------------
@@ -1092,7 +1092,7 @@ Frozzled the sub-space winch.
 
 ------------------------------------------------------------------------
       </screen>
-
+           
     </sect2>
 
     <sect2 id="svn-ch-3-sect-5.2">
@@ -1102,11 +1102,11 @@ Frozzled the sub-space winch.
         previous section; it displays file differences in unified diff
         format.  Earlier, it was used to show the local modifications
         made to our working copy.</para>
-
+      
       <para>In fact, it turns out that there are
         <emphasis>three</emphasis> distinct uses of <command>svn
           diff</command>:</para>
-
+      
       <sect3 id="svn-ch-3-sect-5.2.1">
         <title>Examining local changes</title>
 
@@ -1114,7 +1114,7 @@ Frozzled the sub-space winch.
           will compare your working files to the cached
           <quote>pristine</quote> copies in
           the<filename>.svn</filename> area:</para>
-
+        
         <screen>
 $ svn diff foo
 Index: ./foo
@@ -1125,7 +1125,7 @@ Index: ./foo
 An early version of the file
 +...extra edits
         </screen>
-
+        
       </sect3>
 
       <sect3 id="svn-ch-3-sect-5.2.2">
@@ -1135,7 +1135,7 @@ An early version of the file
           (<option>-r</option>) number is passed, then your
           working files are compared to a particular revision in the
           repository.</para>
-
+          
         <screen>
 $ svn diff -r 3 foo
 Index: ./foo
@@ -1147,16 +1147,16 @@ An early version of the file
 -Second version of the file
 +...extra edits
         </screen>
-
+          
       </sect3>
 
       <sect3 id="svn-ch-3-sect-5.2.3">
         <title>Comparing repository to repository</title>
-
+        
         <para>If two revision numbers are passed via
           <option>-r</option>, then the two revisions are
           directly compared.</para>
-
+          
         <screen>
 $ svn diff -r 2:3 foo
 
@@ -1168,13 +1168,13 @@ Index: ./foo
 An early version of the file
 +Second version of the file
         </screen>
-
+          
         <para>If you read the help for <command>svn diff</command>, you'll discover that you
            can supply URLs instead of working copy paths as well. <!-- ###TODO Again,
         recommending svn help. Flesh out? -Fitz --> This is
            especially useful if you wish to inspect changes when you have no
            working copy available:</para>
-
+           
         <screen>
 $ svn diff -r 23:24 http://foo.com/some/project
 &hellip;
@@ -1200,10 +1200,10 @@ $ svn diff -r 23:24 http://foo.com/some/project
       <firstterm>revision keywords</firstterm>.  These keywords can be
       used instead of integer arguments to the <option>-r</option>
       switch, and are resolved into specific revision numbers:</para>
-
-
+    
+    
     <variablelist>
-
+      
       <varlistentry>
         <term>HEAD</term>
         <listitem>
@@ -1294,7 +1294,7 @@ $ svn update -r PREV foo.c
       <screen>
 $ svn st
   L    ./somedir
-M      ./somedir/foo.c
+M      ./somedir/foo.c 
 
 $ svn cleanup
 $ svn st
@@ -1414,7 +1414,7 @@ Checked out revision 3.
 
       <para>The ls command lets you find what files are in a
         repository directory.</para>
-
+      
       <screen>
 $ svn ls http://svn.collab.net/repos/svn
 README
@@ -1442,7 +1442,7 @@ _    2785    brane        0 Jul 29 19:07 trunk/
         the revision it was last updated at, the user who last updated
         it, it's size, the date it was last updated, and the
         filename.</para>
-
+ 
     </sect2>
 
     <sect2 id="svn-ch-3-sect-7.6">
@@ -1453,7 +1453,7 @@ _    2785    brane        0 Jul 29 19:07 trunk/
 
       <para>First, it can be used to simultaneously create a new working copy
         directory and schedule it for addition:</para>
-
+      
       <screen>
 $ svn mkdir new-dir
 A     new-dir
@@ -1477,7 +1477,7 @@ Committed revision 1123.
 </chapter>
 
 <!--
-local variables:
+local variables: 
 sgml-parent-document: ("book.xml" "chapter")
 end:
 -->
