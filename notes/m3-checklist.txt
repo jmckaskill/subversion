@@ -23,7 +23,7 @@ What's left to do:
 
              (This is the semi-large project.  It may require some
               large changes to mod_dav itself, not just mod_dav_svn.
-
+              
        * modifying python tests to run over RA_DAV (sussman will do.)
 
 * Mime-types:  (cmpilato -- working on)
