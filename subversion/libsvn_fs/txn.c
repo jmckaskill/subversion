@@ -2,32 +2,32 @@
  *
  * ================================================================
  * Copyright (c) 2000 Collab.Net.  All rights reserved.
- *
+ * 
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
  * met:
- *
+ * 
  * 1. Redistributions of source code must retain the above copyright
  * notice, this list of conditions and the following disclaimer.
- *
+ * 
  * 2. Redistributions in binary form must reproduce the above copyright
  * notice, this list of conditions and the following disclaimer in the
  * documentation and/or other materials provided with the distribution.
- *
+ * 
  * 3. The end-user documentation included with the redistribution, if
  * any, must include the following acknowlegement: "This product includes
  * software developed by Collab.Net (http://www.Collab.Net/)."
  * Alternately, this acknowlegement may appear in the software itself, if
  * and wherever such third-party acknowlegements normally appear.
- *
+ * 
  * 4. The hosted project names must not be used to endorse or promote
  * products derived from this software without prior written
  * permission. For written permission, please contact info@collab.net.
- *
+ * 
  * 5. Products derived from this software may not use the "Tigris" name
  * nor may "Tigris" appear in their names without prior written
  * permission of Collab.Net.
- *
+ * 
  * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
  * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -41,7 +41,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ====================================================================
- *
+ * 
  * This software consists of voluntary contributions made by many
  * individuals on behalf of Collab.Net.
  */
@@ -195,7 +195,7 @@ make_transactions (svn_fs_t *fs, int create)
   SVN_ERR (DB_WRAP (fs, "setting `transactions' comparison function",
 		    transactions->set_bt_compare (transactions,
 						  compare_transactions_keys)));
-  SVN_ERR (DB_WRAP (fs,
+  SVN_ERR (DB_WRAP (fs, 
 		    (create
 		     ? "creating `transactions' table"
 		     : "opening `transactions' table"),
@@ -251,7 +251,7 @@ put_transaction_skel (svn_fs_t *fs, DB_TXN *db_txn,
   SVN_ERR (DB_WRAP (fs, "storing transaction skel",
 		    transactions->put (transactions, db_txn,
 				       svn_fs__str_to_dbt (&key, id),
-				       svn_fs__skel_to_dbt (&value, txn_skel,
+				       svn_fs__skel_to_dbt (&value, txn_skel, 
 							    pool),
 				       create ? DB_NOOVERWRITE : 0)));
 
@@ -454,7 +454,7 @@ replace_root_body (void *baton,
     {
       /* Read in SVN_TXN's TRANSACTION skel, and try to find the root
 	 directory ID there.  */
-      SVN_ERR (get_transaction_skel (&txn_skel, svn_txn, db_txn,
+      SVN_ERR (get_transaction_skel (&txn_skel, svn_txn, db_txn, 
 				     svn_txn->pool));
       if (svn_fs__list_length (txn_skel) != 2
 	  || ! txn_skel->children->is_atom
@@ -473,7 +473,7 @@ replace_root_body (void *baton,
       else
 	svn_txn->root = 0;
     }
-
+      
   /* At this point, the cache svn_txn->root is up-to-date: it is zero
      iff the transaction has no root directory yet.  */
   if (svn_txn->root)
@@ -504,7 +504,7 @@ replace_root_body (void *baton,
       if (svn_err)
 	return svn_err;
 
-      /* Record this transaction's new root directory ID.  We know that
+      /* Record this transaction's new root directory ID.  We know that 
 	 txn_skel has been read in, and root_skel set, because svn_txn had
 	 no root directory when we began.  */
       {
