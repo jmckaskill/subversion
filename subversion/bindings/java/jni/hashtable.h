@@ -32,8 +32,8 @@ jni_hashtable__put(JNIEnv *env, jobject hashtable, jobject key,
 
 #endif
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../svn-dev.el")
- * end:
+ * end: 
  */
