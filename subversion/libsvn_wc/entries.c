@@ -343,23 +343,31 @@ resolve_to_defaults (svn_string_t *path,
           /* THIS_DIR already has all ancestry info.  But all -flag-
              information is living in parent's entry.  Let's go fetch
              it (assuming the parent exists!) */
+          if (svn_path_is_empty (path, svn_path_local_style))
+            {
+              /* If we have a path of ".", we're going to have a
+                 heckuva time trying to find this directory's entry in
+                 its parent.  Why?  Well, we don't exactly know it's
+                 name.  This is a *great* place to have an
+                 apr_realpath() function. */
+            }
+          else
+            {
+              svn_wc_entry_t *parent_entry;
+              apr_hash_t *parent_entries = apr_hash_make (pool);
+              svn_string_t *basename, *parent_path;
 
-          /* Temporarily commented out, because if PATH == ".", we
-             currently have no way of knowing which name to look up in
-             ..'s entries file! */
+              svn_path_split (path, &parent_path, &basename,
+                              svn_path_local_style, pool);
+              read_entries (parent_entries, parent_path, FALSE, pool);
+              parent_entry =
+                (svn_wc_entry_t *) apr_hash_get (parent_entries,
+                                                 basename->data,
+                                                 basename->len);
 
-          /* svn_wc_entry_t *parent_entry;
-             apr_hash_t *parent_entries = apr_hash_make (pool);
-             svn_string_t *parent_path = svn_string_create ("..", pool);
-
-             read_entries (parent_entries, parent_path, FALSE, pool);
-             parent_entry =
-             (svn_wc_entry_t *) apr_hash_get (parent_entries,
-             entryname->data,
-             entryname->len);
-
-             if (parent_entry)
-             this_entry->state |= parent_entry->state; */
+              if (parent_entry)
+                this_entry->state |= parent_entry->state;
+            }
         }
 
       else if (this_entry->kind == svn_node_dir)
