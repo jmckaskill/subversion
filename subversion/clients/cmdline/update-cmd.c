@@ -47,7 +47,7 @@ svn_cl__update (apr_getopt_t *os,
   apr_pool_t *subpool = svn_pool_create (pool);
   int i;
 
-  SVN_ERR (svn_opt_args_to_target_array (&targets, os,
+  SVN_ERR (svn_opt_args_to_target_array (&targets, os, 
                                          opt_state->targets,
                                          &(opt_state->start_revision),
                                          &(opt_state->end_revision),
