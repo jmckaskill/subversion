@@ -82,7 +82,7 @@ Private Declare Function SetScrollRange Lib "user32" (ByVal hwnd As Long, ByVal 
 
    Private Const ESB_DISABLE_BOTH = &H3
    Private Const ESB_ENABLE_BOTH = &H0
-
+   
 Private Declare Function EnableScrollBar Lib "user32" (ByVal hwnd As Long, ByVal wSBflags As Long, ByVal wArrows As Long) As Long
 Private Declare Function ShowScrollBar Lib "user32" (ByVal hwnd As Long, ByVal wBar As Long, ByVal bShow As Long) As Long
 
@@ -209,11 +209,11 @@ End Sub
 
 Private Sub pGetSI(ByVal eBar As EFSScrollBarConstants, ByRef tSI As SCROLLINFO, ByVal fMask As Long)
 Dim lO As Long
-
+    
     lO = eBar
     tSI.fMask = fMask
     tSI.cbSize = LenB(tSI)
-
+    
     If (m_bNoFlatScrollBars) Then
         GetScrollInfo m_hWnd, lO, tSI
     Else
@@ -223,17 +223,17 @@ Dim lO As Long
 End Sub
 Private Sub pLetSI(ByVal eBar As EFSScrollBarConstants, ByRef tSI As SCROLLINFO, ByVal fMask As Long)
 Dim lO As Long
-
+        
     lO = eBar
     tSI.fMask = fMask
     tSI.cbSize = LenB(tSI)
-
+    
     If (m_bNoFlatScrollBars) Then
         SetScrollInfo m_hWnd, lO, tSI, True
     Else
         FlatSB_SetScrollInfo m_hWnd, lO, tSI, True
     End If
-
+    
 End Sub
 
 Friend Property Get Style() As EFSStyleConstants
@@ -252,7 +252,7 @@ Dim lR As Long
       If (m_eOrientation = efsoVertical) Or (m_eOrientation = efsoBoth) Then
          lR = FlatSB_SetScrollProp(m_hWnd, WSB_PROP_VSTYLE, eStyle, True)
       End If
-
+      
       'Debug.Print lR
       m_eStyle = eStyle
    End If
@@ -282,7 +282,7 @@ End Property
 Friend Property Let Enabled(ByVal eBar As EFSScrollBarConstants, ByVal bEnabled As Boolean)
 Dim lO As Long
 Dim lF As Long
-
+        
    lO = eBar
    If (bEnabled) Then
       lF = ESB_ENABLE_BOTH
@@ -294,7 +294,7 @@ Dim lF As Long
    Else
       FlatSB_EnableScrollBar m_hWnd, lO, lF
    End If
-
+    
 End Property
 Friend Property Get Min(ByVal eBar As EFSScrollBarConstants) As Long
 Dim tSI As SCROLLINFO
@@ -340,7 +340,7 @@ Friend Property Let LargeChange(ByVal eBar As EFSScrollBarConstants, ByVal iLarg
 Dim tSI As SCROLLINFO
 Dim lCurMax As Long
 Dim lCurLargeChange As Long
-
+    
    pGetSI eBar, tSI, SIF_ALL
    tSI.nMax = tSI.nMax - tSI.nPage + iLargeChange
    tSI.nPage = iLargeChange
@@ -361,7 +361,7 @@ Dim hParent As Long
    SetWindowPos m_hWnd, HWND_NOTOPMOST, 0, 0, 0, 0, _
            (SWP_NOSIZE Or SWP_NOZORDER Or _
            SWP_NOMOVE Or SWP_DRAWFRAME)
-
+   
    On Error Resume Next
    lR = InitialiseFlatSB(m_hWnd)
    If (Err.Number <> 0) Then
@@ -372,7 +372,7 @@ Dim hParent As Long
    Else
       Style = m_eStyle
    End If
-
+   
 End Sub
 
 Friend Sub Create(ByVal hWndA As Long)
@@ -389,7 +389,7 @@ Private Sub pClearUp()
       If Not (m_bNoFlatScrollBars) Then
          UninitializeFlatSB m_hWnd
       End If
-
+    
       On Error GoTo 0
       ' Remove subclass:
       DetachMessage Me, m_hWnd, WM_HSCROLL
@@ -447,15 +447,15 @@ Dim eBar As EFSScrollBarConstants
          pGetSI eBar, tSI, SIF_TRACKPOS
          Value(eBar) = tSI.nTrackPos
          pRaiseEvent eBar, True
-
+         
       Case SB_LEFT, SB_BOTTOM
          Value(eBar) = Min(eBar)
          pRaiseEvent eBar, False
-
+         
       Case SB_RIGHT, SB_TOP
          Value(eBar) = Max(eBar)
          pRaiseEvent eBar, False
-
+          
       Case SB_LINELEFT, SB_LINEUP
          'Debug.Print "Line"
          lV = Value(eBar)
@@ -470,7 +470,7 @@ Dim eBar As EFSScrollBarConstants
             Value(eBar) = lV - lSC
          End If
          pRaiseEvent eBar, False
-
+         
       Case SB_LINERIGHT, SB_LINEDOWN
           'Debug.Print "Line"
          lV = Value(eBar)
@@ -485,20 +485,20 @@ Dim eBar As EFSScrollBarConstants
             Value(eBar) = lV + lSC
          End If
          pRaiseEvent eBar, False
-
+          
       Case SB_PAGELEFT, SB_PAGEUP
          Value(eBar) = Value(eBar) - LargeChange(eBar)
          pRaiseEvent eBar, False
-
+         
       Case SB_PAGERIGHT, SB_PAGEDOWN
          Value(eBar) = Value(eBar) + LargeChange(eBar)
          pRaiseEvent eBar, False
-
+         
       Case SB_ENDSCROLL
          pRaiseEvent eBar, False
-
+         
       End Select
-
+         
    End Select
 
 End Function
@@ -513,5 +513,5 @@ Static s_lLastValue(0 To 1) As Long
       End If
       s_lLastValue(eBar) = Value(eBar)
    End If
-
+   
 End Function
