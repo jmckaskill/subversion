@@ -36,7 +36,7 @@ svn_client_add (svn_string_t *path, apr_pool_t *pool)
   svn_error_t * err;
 
   SVN_ERR (svn_io_check_path (path, &kind, pool));
-
+  
   if (kind == svn_node_file)
     err = svn_wc_add_file (path, pool);
   else if (kind == svn_node_dir)
@@ -49,7 +49,7 @@ svn_client_add (svn_string_t *path, apr_pool_t *pool)
   if (err)
     {
       if (err->apr_err == SVN_ERR_WC_ENTRY_EXISTS)
-        return svn_error_quick_wrap
+        return svn_error_quick_wrap 
           (err,
            "svn warning: Cannot add because entry already exists.");
       else
@@ -60,7 +60,7 @@ svn_client_add (svn_string_t *path, apr_pool_t *pool)
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end: */
