@@ -384,7 +384,7 @@ class Commit:
                                                self.t_max - self.t_min)
 
     def _commit_internal(txn):
-      ### FIXME:
+      ### FIXME: 
       #
       # There's some disagreement between C and Python as to how the
       # return parameters from commit_txn() are to be handled.
@@ -417,12 +417,12 @@ class Commit:
       # distinguish between "there's nothing in this result list" and
       # "there's a single None in this result list", see this code:
       #
-      #    if (!target) {
+      #    if (!target) {                   
       #        target = o;
-      #    } else if (target == Py_None) {
+      #    } else if (target == Py_None) {  
       #        Py_DECREF(Py_None);
       #        target = o;
-      #    } else {
+      #    } else {                         
       #        if (!PyTuple_Check(target)) {
       #            o2 = target;
       #            target = PyTuple_New(1);
@@ -459,7 +459,7 @@ class Commit:
       else:
         print "Unexpected type for commit result:", str(commit_result)
         sys.exit(1)
-
+          
       if conflicts:
         print 'Exiting due to conflicts:', str(conflicts)
         sys.exit(1)
@@ -786,7 +786,7 @@ def pass4(ctx):
 
       # ISSUE: the has_file() check below is not optimal.
       # it does fix the dataloss bug where revisions would get lost
-      # if checked in too quickly, but it can alco break apart the
+      # if checked in too quickly, but it can alco break apart the 
       # commits. The correct fix would require tracking the dependencies
       # between change sets and commiting them in proper order.
       if scan_c.t_max + COMMIT_THRESHOLD < timestamp or \

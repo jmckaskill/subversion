@@ -40,7 +40,7 @@
 #include "svn_hash.h"
 #include "svn_subst.h"
 
-void
+void 
 svn_subst_eol_style_from_value (svn_subst_eol_style_t *style,
                                 const char **eol,
                                 const char *value)
@@ -135,7 +135,7 @@ translate_keyword_subst (char *buf,
 
   /* Check for unexpanded keyword. */
   if ((buf_ptr[0] == '$')          /* "$keyword$" */
-      || ((buf_ptr[0] == ':')
+      || ((buf_ptr[0] == ':') 
           && (buf_ptr[1] == '$'))) /* "$keyword:$" */
     {
       /* unexpanded... */
@@ -209,9 +209,9 @@ translate_keyword_subst (char *buf,
         }
       return TRUE;
     }
-
+  
   return FALSE;
-}
+}                         
 
 /* Parse BUF (whose length is *LEN) for Subversion keywords.  If a
    keyword is found, optionally perform the substitution on it in
@@ -324,7 +324,7 @@ translate_keyword (char *buf,
 
 /* Translate NEWLINE_BUF (length of NEWLINE_LEN) to the newline format
    specified in EOL_STR (length of EOL_STR_LEN), and write the
-   translated thing to FILE (whose path is DST_PATH).
+   translated thing to FILE (whose path is DST_PATH).  
 
    SRC_FORMAT (length *SRC_FORMAT_LEN) is a cache of the first newline
    found while processing SRC_PATH.  If the current newline is not the
@@ -332,7 +332,7 @@ translate_keyword (char *buf,
    REPAIR is TRUE, ignore the inconsistency, else return an
    SVN_ERR_IO_INCONSISTENT_EOL error.  If we are examining the first
    newline in the file, copy it to {SRC_FORMAT, *SRC_FORMAT_LEN} to
-   use for later consistency checks.
+   use for later consistency checks.  
 
    Use POOL to allocate errors that may occur. */
 static svn_error_t *
@@ -354,7 +354,7 @@ translate_newline (const char *eol_str,
          we are NOT repairing the file, generate an error! */
       if ((! repair) &&
           ((*src_format_len != newline_len) ||
-           (strncmp (src_format, newline_buf, newline_len))))
+           (strncmp (src_format, newline_buf, newline_len)))) 
         return svn_error_create
           (SVN_ERR_IO_INCONSISTENT_EOL, NULL,
            "inconsistent line-endings in source stream, repair flag is off.");
@@ -381,7 +381,7 @@ svn_subst_keywords_differ (const svn_subst_keywords_t *a,
 {
   if (((a == NULL) && (b == NULL)) /* no A or B */
       /* no A, and B has no contents */
-      || ((a == NULL)
+      || ((a == NULL) 
           && (b->revision == NULL)
           && (b->date == NULL)
           && (b->author == NULL)
@@ -392,7 +392,7 @@ svn_subst_keywords_differ (const svn_subst_keywords_t *a,
           && (a->author == NULL)
           && (a->url == NULL))
       /* neither A nor B has any contents */
-      || ((a != NULL) && (b != NULL)
+      || ((a != NULL) && (b != NULL) 
           && (b->revision == NULL)
           && (b->date == NULL)
           && (b->author == NULL)
@@ -406,35 +406,35 @@ svn_subst_keywords_differ (const svn_subst_keywords_t *a,
     }
   else if ((a == NULL) || (b == NULL))
     return TRUE;
-
+  
   /* Else both A and B have some keywords. */
-
+  
   if ((! a->revision) != (! b->revision))
     return TRUE;
   else if ((compare_values && (a->revision != NULL))
            && (strcmp (a->revision->data, b->revision->data) != 0))
     return TRUE;
-
+    
   if ((! a->date) != (! b->date))
     return TRUE;
   else if ((compare_values && (a->date != NULL))
            && (strcmp (a->date->data, b->date->data) != 0))
     return TRUE;
-
+    
   if ((! a->author) != (! b->author))
     return TRUE;
   else if ((compare_values && (a->author != NULL))
            && (strcmp (a->author->data, b->author->data) != 0))
     return TRUE;
-
+  
   if ((! a->url) != (! b->url))
     return TRUE;
   else if ((compare_values && (a->url != NULL))
            && (strcmp (a->url->data, b->url->data) != 0))
     return TRUE;
-
-  /* Else we never found a difference, so they must be the same. */
-
+  
+  /* Else we never found a difference, so they must be the same. */  
+  
   return FALSE;
 }
 
@@ -488,16 +488,16 @@ svn_subst_translate_stream (svn_stream_t *s, /* src stream */
              the newline buffer will need to be translated.  */
           if (newline_off)
             {
-              if ((err = translate_newline (eol_str, eol_str_len,
+              if ((err = translate_newline (eol_str, eol_str_len, 
                                             src_format, &src_format_len,
                                             newline_buf, newline_off,
                                             d, repair)))
                 goto cleanup;
             }
-          if (((len = keyword_off)) &&
+          if (((len = keyword_off)) && 
               ((err = translate_write (d, keyword_buf, len))))
             goto cleanup;
-
+          
           /* Close the source and destination streams. */
           close_err = svn_stream_close (s);
           if (close_err)
@@ -506,11 +506,11 @@ svn_subst_translate_stream (svn_stream_t *s, /* src stream */
           close_err = svn_stream_close (d);
           if (close_err)
             goto cleanup;
-
+          
           /* All done, all streams closed, all is well, and all that. */
           return SVN_NO_ERROR;
         }
-
+    
 
       /* Handle the byte. */
       switch (c)
@@ -524,7 +524,7 @@ svn_subst_translate_stream (svn_stream_t *s, /* src stream */
              along. */
           if (newline_off)
             {
-              if ((err = translate_newline (eol_str, eol_str_len,
+              if ((err = translate_newline (eol_str, eol_str_len, 
                                             src_format, &src_format_len,
                                             newline_buf, newline_off,
                                             d, repair)))
@@ -610,7 +610,7 @@ svn_subst_translate_stream (svn_stream_t *s, /* src stream */
               if ((c0 == c) || ((c0 == '\n') && (c == '\r')))
                 {
                   /* The first '\n' (or '\r') is the newline... */
-                  if ((err = translate_newline (eol_str, eol_str_len,
+                  if ((err = translate_newline (eol_str, eol_str_len, 
                                                 src_format, &src_format_len,
                                                 newline_buf, 1,
                                                 d, repair)))
@@ -621,11 +621,11 @@ svn_subst_translate_stream (svn_stream_t *s, /* src stream */
                   newline_buf[0] = c;
                   newline_off = 1;
                 }
-              else
+              else 
                 {
                   /* '\r\n' is our newline */
                   newline_buf[newline_off++] = c;
-                  if ((err = translate_newline (eol_str, eol_str_len,
+                  if ((err = translate_newline (eol_str, eol_str_len, 
                                                 src_format, &src_format_len,
                                                 newline_buf, 2,
                                                 d, repair)))
@@ -641,7 +641,7 @@ svn_subst_translate_stream (svn_stream_t *s, /* src stream */
           if (keyword_off)
             {
               keyword_buf[keyword_off++] = c;
-
+              
               /* If we've reached the end of this buffer without
                  finding a terminating '$', we just flush the buffer
                  and continue on. */
@@ -660,7 +660,7 @@ svn_subst_translate_stream (svn_stream_t *s, /* src stream */
              character.  */
           if (newline_off)
             {
-              if ((err = translate_newline (eol_str, eol_str_len,
+              if ((err = translate_newline (eol_str, eol_str_len, 
                                             src_format, &src_format_len,
                                             newline_buf, newline_off,
                                             d, repair)))
@@ -671,7 +671,7 @@ svn_subst_translate_stream (svn_stream_t *s, /* src stream */
           /* Write out this character. */
           if ((err = translate_write (d, (const void *)&c, 1)))
             goto cleanup;
-          break;
+          break; 
 
         } /* switch (c) */
     }
@@ -697,7 +697,7 @@ svn_subst_translate_cstring (const char *src,
   svn_error_t *err;
 
   src_stringbuf = svn_stringbuf_create (src, pool);
-
+  
   /* The easy way out:  no translation needed, just copy. */
   if (! (eol_str || keywords))
     {
@@ -716,8 +716,8 @@ svn_subst_translate_cstring (const char *src,
   if (err)
     {
       svn_stream_close (src_stream);
-      svn_stream_close (dst_stream);
-      return
+      svn_stream_close (dst_stream);      
+      return 
         svn_error_create (err->apr_err, err,
                           "stringbuf translation failed");
     }
@@ -773,16 +773,16 @@ svn_subst_copy_and_translate (const char *src,
     {
       /* ignore closure errors if we're bailing. */
       svn_stream_close (src_stream);
-      svn_stream_close (dst_stream);
+      svn_stream_close (dst_stream);      
       if (s)
         apr_file_close (s);
       if (d)
-        apr_file_close (d);
+        apr_file_close (d);      
 
-      err2 = svn_io_remove_file (dst_tmp, pool);
+      err2 = svn_io_remove_file (dst_tmp, pool);      
       if (err2)
         svn_error_clear (err2);
-      return
+      return 
         svn_error_createf (err->apr_err, err,
                            "file translation failed when copying '%s' to '%s'",
                            src, dst);
@@ -826,7 +826,7 @@ svn_subst_translate_string (svn_string_t **new_value,
 
   if (encoding)
     {
-      apr_status_t apr_err =
+      apr_status_t apr_err =  
         apr_xlate_open (&xlator, "UTF-8", encoding, pool);
       if (apr_err != APR_SUCCESS)
         return svn_error_create (apr_err, NULL,
@@ -841,7 +841,7 @@ svn_subst_translate_string (svn_string_t **new_value,
                                         NULL,  /* no keywords */
                                         FALSE, /* no expansion */
                                         pool));
-
+  
   *new_value = svn_string_create (val_utf8_lf, pool);
 
   return SVN_NO_ERROR;
@@ -876,7 +876,7 @@ svn_subst_detranslate_string (svn_string_t **new_value,
                                         NULL,  /* no keywords */
                                         FALSE, /* no expansion */
                                         pool));
-
+  
   *new_value = svn_string_create (val_nlocale_neol, pool);
 
   return SVN_NO_ERROR;
