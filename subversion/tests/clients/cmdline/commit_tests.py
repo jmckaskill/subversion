@@ -2,9 +2,9 @@
 #
 #  commit_tests.py:  testing fancy commit cases.
 #
-#  Subversion is a tool for revision control.
+#  Subversion is a tool for revision control. 
 #  See http://subversion.tigris.org for more information.
-#
+#    
 # ====================================================================
 # Copyright (c) 2000-2001 CollabNet.  All rights reserved.
 #
@@ -34,7 +34,7 @@ def sandbox(x):
 
 # (abbreviation)
 path_index = svntest.actions.path_index
-
+  
 
 ######################################################################
 # Utilities
@@ -66,7 +66,7 @@ def get_standard_status_list(wc_dir):
   status_list[10][3]['status'] = 'D '
   status_list[12][3]['status'] = 'D '
   status_list[15][3]['status'] = 'D '
-
+  
   # A/D/G/pi, A/D/H/omega
   status_list[14][3]['status'] = '_M'
   status_list[20][3]['status'] = 'MM'
@@ -94,7 +94,7 @@ def get_standard_status_list(wc_dir):
                        'repos_rev' : '1'}])
 
   return status_list
-
+  
 
 def make_standard_slew_of_changes(wc_dir):
   """Make a specific set of local mods to WC_DIR.  These will be used
@@ -108,18 +108,18 @@ def make_standard_slew_of_changes(wc_dir):
   # Add a directory
   os.mkdir('Q')
   svntest.main.run_svn(None, 'add', 'Q')
-
+  
   # Remove two directories
   svntest.main.run_svn(None, 'rm', os.path.join('A', 'B', 'E'))
   svntest.main.run_svn(None, 'rm', os.path.join('A', 'C'))
-
+  
   # Replace one of the removed directories
   svntest.main.run_svn(None, 'add', os.path.join('A', 'B', 'E'))
-
+  
   # Make property mods to two directories
   svntest.main.run_svn(None, 'propset', 'foo', 'bar', os.curdir)
   svntest.main.run_svn(None, 'propset', 'foo2', 'bar2', os.path.join('A', 'D'))
-
+  
   # Add three files
   svntest.main.file_append(os.path.join('A', 'B', 'E', 'bloo'), "hi")
   svntest.main.file_append(os.path.join('A', 'D', 'H', 'gloo'), "hello")
@@ -127,30 +127,30 @@ def make_standard_slew_of_changes(wc_dir):
   svntest.main.run_svn(None, 'add', os.path.join('A', 'B', 'E', 'bloo'))
   svntest.main.run_svn(None, 'add', os.path.join('A', 'D', 'H', 'gloo'))
   svntest.main.run_svn(None, 'add', os.path.join('Q', 'floo'))
-
+  
   # Remove three files
   svntest.main.run_svn(None, 'rm', os.path.join('A', 'D', 'G', 'rho'))
   svntest.main.run_svn(None, 'rm', os.path.join('A', 'D', 'H', 'chi'))
   svntest.main.run_svn(None, 'rm', os.path.join('A', 'D', 'gamma'))
-
+  
   # Replace one of the removed files
   svntest.main.run_svn(None, 'add', os.path.join('A', 'D', 'H', 'chi'))
-
+  
   # Make textual mods to two files
   svntest.main.file_append(os.path.join('A', 'B', 'lambda'), "new ltext")
   svntest.main.file_append(os.path.join('A', 'D', 'H', 'omega'), "new otext")
-
+  
   # Make property mods to three files
   svntest.main.run_svn(None, 'propset', 'blue', 'azul',
-                       os.path.join('A', 'D', 'H', 'omega'))
+                       os.path.join('A', 'D', 'H', 'omega'))  
   svntest.main.run_svn(None, 'propset', 'green', 'verde',
                        os.path.join('Q', 'floo'))
   svntest.main.run_svn(None, 'propset', 'red', 'rojo',
-                       os.path.join('A', 'D', 'G', 'pi'))
+                       os.path.join('A', 'D', 'G', 'pi'))  
 
   # Restore the CWD.
   os.chdir(was_cwd)
-
+  
   # Build an expected status tree.
   status_list = get_standard_status_list(wc_dir)
   expected_status_tree = svntest.tree.build_generic_tree(status_list)
@@ -183,7 +183,7 @@ def commit_one_file():
   if make_standard_slew_of_changes(wc_dir): return 1
 
   # Create expected output tree.
-  omega_path = os.path.join(wc_dir, 'A', 'D', 'H', 'omega')
+  omega_path = os.path.join(wc_dir, 'A', 'D', 'H', 'omega') 
   output_list = [ [omega_path, None, {}, {'verb' : 'Sending' }] ]
   expected_output_tree = svntest.tree.build_generic_tree(output_list)
 
@@ -227,7 +227,7 @@ def commit_inclusive_dir():
   chi_path = os.path.join(wc_dir, 'A', 'D', 'H', 'chi')
   omega_path = os.path.join(wc_dir, 'A', 'D', 'H', 'omega')
   gamma_path = os.path.join(wc_dir, 'A', 'D', 'gamma')
-
+  
   output_list = [ [D_path, None, {}, {'verb' : 'Sending' }],
                   [pi_path, None, {}, {'verb' : 'Sending'}],
                   [rho_path, None, {}, {'verb' : 'Deleting'}],
@@ -235,7 +235,7 @@ def commit_inclusive_dir():
                   [chi_path, None, {}, {'verb' : 'Replacing'}], # stacked!
                   [omega_path, None, {}, {'verb' : 'Sending'}],
                   [gamma_path, None, {}, {'verb' : 'Deleting'}] ]
-
+                  
   expected_output_tree = svntest.tree.build_generic_tree(output_list)
 
   # Created expected status tree.
@@ -250,7 +250,7 @@ def commit_inclusive_dir():
     if (item[0] == chi_path) or (item[0] == gloo_path):
       item[3]['wc_rev'] = '2'
       item[3]['status'] = '_ '
-
+      
   expected_status_tree = svntest.tree.build_generic_tree(status_list)
 
   # Commit the one file.
@@ -291,14 +291,14 @@ def commit_top_dir():
   chi_path = os.path.join(wc_dir, 'A', 'D', 'H', 'chi')
   omega_path = os.path.join(wc_dir, 'A', 'D', 'H', 'omega')
   gamma_path = os.path.join(wc_dir, 'A', 'D', 'gamma')
-
+  
   output_list = [ [top_path, None, {}, {'verb' : 'Sending'}],
                   [Q_path, None, {}, {'verb' : 'Adding'}],
                   [floo_path, None, {}, {'verb' : 'Adding'}],
                   [E_path, None, {}, {'verb' : 'Replacing'}],
                   [bloo_path, None, {}, {'verb' : 'Adding'}],
                   [lambda_path, None, {}, {'verb' : 'Sending'}],
-                  [C_path, None, {}, {'verb' : 'Deleting'}],
+                  [C_path, None, {}, {'verb' : 'Deleting'}],                  
                   [D_path, None, {}, {'verb' : 'Sending' }],
                   [pi_path, None, {}, {'verb' : 'Sending'}],
                   [rho_path, None, {}, {'verb' : 'Deleting'}],
@@ -306,7 +306,7 @@ def commit_top_dir():
                   [chi_path, None, {}, {'verb' : 'Replacing'}], # stacked!
                   [omega_path, None, {}, {'verb' : 'Sending'}],
                   [gamma_path, None, {}, {'verb' : 'Deleting'}] ]
-
+                  
   expected_output_tree = svntest.tree.build_generic_tree(output_list)
 
   # Created expected status tree.
@@ -318,7 +318,7 @@ def commit_top_dir():
                              os.path.join(wc_dir,'A','B','E','alpha')))
   status_list.pop(path_index(status_list,
                              os.path.join(wc_dir,'A','B','E','beta')))
-  for item in status_list:
+  for item in status_list:    
     item[3]['repos_rev'] = '2'     # post-commit status
     if ((item[0] == D_path)
         or (item[0] == pi_path)
@@ -335,7 +335,7 @@ def commit_top_dir():
         or (item[0] == gloo_path)):
       item[3]['wc_rev'] = '2'
       item[3]['status'] = '_ '
-
+      
   expected_status_tree = svntest.tree.build_generic_tree(status_list)
 
   # Commit the one file.
@@ -350,13 +350,13 @@ def commit_top_dir():
 #----------------------------------------------------------------------
 
 # Regression test for bug reported by Jon Trowbridge:
-#
+# 
 #    From: Jon Trowbridge <trow@ximian.com>
 #    Subject:  svn segfaults if you commit a file that hasn't been added
 #    To: dev@subversion.tigris.org
 #    Date: 17 Jul 2001 03:20:55 -0500
 #    Message-Id: <995358055.16975.5.camel@morimoto>
-#
+#   
 #    The problem is that report_single_mod in libsvn_wc/adm_crawler.c is
 #    called with its entry parameter as NULL, but the code doesn't
 #    check that entry is non-NULL before trying to dereference it.
@@ -368,7 +368,7 @@ def commit_unversioned_thing():
 
   sbox = sandbox(commit_unversioned_thing)
   wc_dir = os.path.join (svntest.main.general_wc_dir, sbox)
-
+  
   if svntest.actions.make_repo_and_wc(sbox):
     return 1
 
@@ -401,11 +401,11 @@ def nested_dir_replacements():
   svntest.main.run_svn(None, 'rm', os.path.join(wc_dir, 'A', 'D'))
   svntest.main.run_svn(None, 'add', os.path.join(wc_dir, 'A', 'D'))
   svntest.main.run_svn(None, 'add', os.path.join(wc_dir, 'A', 'D', 'H'))
-
+                       
   # For kicks, add new file A/D/bloo.
   svntest.main.file_append(os.path.join(wc_dir, 'A', 'D', 'bloo'), "hi")
   svntest.main.run_svn(None, 'add', os.path.join(wc_dir, 'A', 'D', 'bloo'))
-
+  
   # Verify pre-commit status:
   #    - A/D and A/D/H should both be scheduled as "R" at rev 0
   #    - A/D/bloo scheduled as "A" at rev 0
@@ -414,9 +414,9 @@ def nested_dir_replacements():
   sl = svntest.actions.get_virginal_status_list(wc_dir, '1')
 
   sl[path_index(sl, os.path.join(wc_dir, 'A', 'D'))][3]['status'] = "R "
-  sl[path_index(sl, os.path.join(wc_dir, 'A', 'D'))][3]['wc_rev'] = "0"
+  sl[path_index(sl, os.path.join(wc_dir, 'A', 'D'))][3]['wc_rev'] = "0"  
   sl[path_index(sl, os.path.join(wc_dir, 'A', 'D', 'H'))][3]['status'] = "R "
-  sl[path_index(sl, os.path.join(wc_dir, 'A', 'D', 'H'))][3]['wc_rev'] = "0"
+  sl[path_index(sl, os.path.join(wc_dir, 'A', 'D', 'H'))][3]['wc_rev'] = "0"  
   sl.append([os.path.join(wc_dir, 'A', 'D', 'bloo'), None, {},
              {'status' : 'A ',
               'locked' : ' ',
@@ -450,9 +450,9 @@ def nested_dir_replacements():
   sl = svntest.actions.get_virginal_status_list(wc_dir, '2')
   for item in sl:
     item[3]['wc_rev'] = '1'
-
-  sl[path_index(sl, os.path.join(wc_dir, 'A', 'D'))][3]['wc_rev'] = "2"
-  sl[path_index(sl, os.path.join(wc_dir, 'A', 'D', 'H'))][3]['wc_rev'] = "2"
+  
+  sl[path_index(sl, os.path.join(wc_dir, 'A', 'D'))][3]['wc_rev'] = "2"  
+  sl[path_index(sl, os.path.join(wc_dir, 'A', 'D', 'H'))][3]['wc_rev'] = "2"  
   sl.append([os.path.join(wc_dir, 'A', 'D', 'bloo'), None, {},
              {'status' : '_ ',
               'locked' : ' ',
@@ -467,7 +467,7 @@ def nested_dir_replacements():
   sl.pop(path_index(sl, os.path.join(wc_dir, 'A', 'D', 'H', 'omega')))
   sl.pop(path_index(sl, os.path.join(wc_dir, 'A', 'D', 'H', 'psi')))
   sl.pop(path_index(sl, os.path.join(wc_dir, 'A', 'D', 'gamma')))
-
+    
   expected_status_tree = svntest.tree.build_generic_tree(sl)
 
   # Commit from the top of the working copy and verify output & status.
@@ -496,20 +496,20 @@ def hudson_part_1():
   if svntest.actions.make_repo_and_wc(sbox): return 1
 
   # Remove gamma from the working copy.
-  gamma_path = os.path.join(wc_dir, 'A', 'D', 'gamma')
+  gamma_path = os.path.join(wc_dir, 'A', 'D', 'gamma') 
   svntest.main.run_svn(None, 'rm', gamma_path)
 
   # Create expected commit output.
   output_list = [ [gamma_path, None, {}, {'verb' : 'Deleting' }] ]
   expected_output_tree = svntest.tree.build_generic_tree(output_list)
-
+  
   # After committing, status should show no sign of gamma.
   status_list = svntest.actions.get_virginal_status_list(wc_dir, '2')
   for item in status_list:
     item[3]['wc_rev'] = '1'
   status_list.pop(path_index(status_list, gamma_path))
   expected_status_tree = svntest.tree.build_generic_tree(status_list)
-
+  
   # Commit the deletion of gamma and verify.
   if svntest.actions.run_and_verify_commit (wc_dir,
                                             expected_output_tree,
@@ -521,7 +521,7 @@ def hudson_part_1():
   # Now gamma should be marked as `deleted' under the hood.  When we
   # update, we should see NO output at all, and a perfect, virginal
   # status list at revision 2.  (The `deleted' entry should be removed.)
-
+  
   # Expected output of update:  nothing.
   expected_output_tree = svntest.tree.build_generic_tree([])
 
@@ -529,10 +529,10 @@ def hudson_part_1():
   my_greek_tree = svntest.main.copy_greek_tree()
   my_greek_tree.pop(11)  # removing gamma
   expected_disk_tree = svntest.tree.build_generic_tree(my_greek_tree)
-
+  
   # Expected status after update:  totally clean revision 2, minus gamma.
   status_list = svntest.actions.get_virginal_status_list(wc_dir, '2')
-  status_list.pop(path_index(status_list, gamma_path))
+  status_list.pop(path_index(status_list, gamma_path))  
   expected_status_tree = svntest.tree.build_generic_tree(status_list)
 
   return svntest.actions.run_and_verify_update(wc_dir,
@@ -555,13 +555,13 @@ def hudson_part_1_variation_1():
   if svntest.actions.make_repo_and_wc(sbox): return 1
 
   # Remove H from the working copy.
-  H_path = os.path.join(wc_dir, 'A', 'D', 'H')
+  H_path = os.path.join(wc_dir, 'A', 'D', 'H') 
   svntest.main.run_svn(None, 'rm', H_path)
 
   # Create expected commit output.
   output_list = [ [H_path, None, {}, {'verb' : 'Deleting' }] ]
   expected_output_tree = svntest.tree.build_generic_tree(output_list)
-
+  
   # After committing, status should show no sign of H or its contents
   status_list = svntest.actions.get_virginal_status_list(wc_dir, '2')
   for item in status_list:
@@ -571,7 +571,7 @@ def hudson_part_1_variation_1():
   status_list.pop(path_index(status_list, os.path.join(H_path, 'omega')))
   status_list.pop(path_index(status_list, os.path.join(H_path, 'psi')))
   expected_status_tree = svntest.tree.build_generic_tree(status_list)
-
+  
   # Commit the deletion of H and verify.
   if svntest.actions.run_and_verify_commit (wc_dir,
                                             expected_output_tree,
@@ -583,7 +583,7 @@ def hudson_part_1_variation_1():
   # Now H should be marked as `deleted' under the hood.  When we
   # update, we should see NO output at all, and a perfect, virginal
   # status list at revision 2.  (The `deleted' entry should be removed.)
-
+  
   # Expected output of update:  nothing.
   expected_output_tree = svntest.tree.build_generic_tree([])
 
@@ -591,7 +591,7 @@ def hudson_part_1_variation_1():
   my_greek_tree = svntest.main.copy_greek_tree()
   my_greek_tree.pop(16)  # removing H
   my_greek_tree.pop(16)  # removing H/chi
-  my_greek_tree.pop(16)  # removing H/psi
+  my_greek_tree.pop(16)  # removing H/psi  
   my_greek_tree.pop(16)  # removing H/omega
   expected_disk_tree = svntest.tree.build_generic_tree(my_greek_tree)
 
@@ -624,20 +624,20 @@ def hudson_part_1_variation_2():
   if svntest.actions.make_repo_and_wc(sbox): return 1
 
   # Remove gamma from the working copy.
-  gamma_path = os.path.join(wc_dir, 'A', 'D', 'gamma')
+  gamma_path = os.path.join(wc_dir, 'A', 'D', 'gamma') 
   svntest.main.run_svn(None, 'rm', gamma_path)
 
   # Create expected commit output.
   output_list = [ [gamma_path, None, {}, {'verb' : 'Deleting' }] ]
   expected_output_tree = svntest.tree.build_generic_tree(output_list)
-
+  
   # After committing, status should show no sign of gamma.
   status_list = svntest.actions.get_virginal_status_list(wc_dir, '2')
   for item in status_list:
     item[3]['wc_rev'] = '1'
   status_list.pop(path_index(status_list, gamma_path))
   expected_status_tree = svntest.tree.build_generic_tree(status_list)
-
+  
   # Commit the deletion of gamma and verify.
   if svntest.actions.run_and_verify_commit (wc_dir,
                                             expected_output_tree,
@@ -668,7 +668,7 @@ def hudson_part_1_variation_2():
   #   which results in our "stacked" value of `Replacing'.
   output_list = [ [gamma_path, None, {}, {'verb' : 'Replacing' }] ]
   expected_output_tree = svntest.tree.build_generic_tree(output_list)
-
+  
   # After committing, status should show only gamma at revision 2.
   status_list = svntest.actions.get_virginal_status_list(wc_dir, '3')
   for item in status_list:
@@ -700,20 +700,20 @@ def hudson_part_2():
   if svntest.actions.make_repo_and_wc(sbox): return 1
 
   # Remove gamma from the working copy.
-  gamma_path = os.path.join(wc_dir, 'A', 'D', 'gamma')
+  gamma_path = os.path.join(wc_dir, 'A', 'D', 'gamma') 
   svntest.main.run_svn(None, 'rm', gamma_path)
 
   # Create expected commit output.
   output_list = [ [gamma_path, None, {}, {'verb' : 'Deleting' }] ]
   expected_output_tree = svntest.tree.build_generic_tree(output_list)
-
+  
   # After committing, status should show no sign of gamma.
   status_list = svntest.actions.get_virginal_status_list(wc_dir, '2')
   for item in status_list:
     item[3]['wc_rev'] = '1'
   status_list.pop(path_index(status_list, gamma_path))
   expected_status_tree = svntest.tree.build_generic_tree(status_list)
-
+  
   # Commit the deletion of gamma and verify.
   if svntest.actions.run_and_verify_commit (wc_dir,
                                             expected_output_tree,
@@ -787,7 +787,7 @@ def hook_test():
   if len (expected_output) != len (output): return 1
   for index in range (len (output)):
     if output[index] != expected_output[index]: return 1
-
+    
   return 0
 
 
@@ -815,7 +815,7 @@ def merge_mixed_revisions():
 
   # Here's the reproduction formula, in 5 parts.
   # Hoo, what a buildup of state!
-
+  
   # 1. echo "moo" >> iota; echo "moo" >> A/D/H/chi; svn ci
   svntest.main.file_append(iota_path, "moo")
   svntest.main.file_append(chi_path, "moo")
@@ -872,7 +872,7 @@ def merge_mixed_revisions():
       item[3]['wc_rev'] = '1'
     if ((item[0] == H_path) or (item[0] == omega_path)
         or (item[0] == chi_path) or (item[0] == psi_path)):
-      item[3]['wc_rev'] = '2'
+      item[3]['wc_rev'] = '2'    
   expected_status_tree = svntest.tree.build_generic_tree(status_list)
   if svntest.actions.run_and_verify_commit (wc_dir,
                                             expected_output_tree,
@@ -995,7 +995,7 @@ test_list = [ None,
              ]
 
 if __name__ == '__main__':
-
+  
   ## run the main test routine on them:
   err = svntest.main.run_tests(test_list)
 
