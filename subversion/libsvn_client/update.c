@@ -105,7 +105,7 @@ svn_client_update (svn_client_auth_baton_t *auth_baton,
 
       /* Open an RA session for the URL */
       SVN_ERR (svn_client__open_ra_session (&session, ra_lib, URL, anchor,
-                                            adm_access, NULL, TRUE, TRUE,
+                                            adm_access, NULL, TRUE, TRUE, 
                                             auth_baton, pool));
 
       /* ### todo: shouldn't svn_client__get_revision_number be able
@@ -137,7 +137,7 @@ svn_client_update (svn_client_auth_baton_t *auth_baton,
                                     TRUE, recurse,
                                     notify_func, notify_baton,
                                     traversal_info, pool);
-
+      
       /* Sleep for one second to ensure timestamp integrity. */
       apr_sleep (APR_USEC_PER_SEC * 1);
 
@@ -146,8 +146,8 @@ svn_client_update (svn_client_auth_baton_t *auth_baton,
 
       /* Close the RA session. */
       SVN_ERR (ra_lib->close (session));
-    }
-
+    }      
+  
   /* We handle externals after the update is complete, so that
      handling external items (and any errors therefrom) doesn't delay
      the primary operation.  */
@@ -165,7 +165,7 @@ svn_client_update (svn_client_auth_baton_t *auth_baton,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end: */
