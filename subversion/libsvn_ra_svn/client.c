@@ -204,7 +204,7 @@ static svn_error_t *ra_svn_delete_path(void *baton, const char *path,
   SVN_ERR(svn_ra_svn_write_cmd(b->conn, pool, "delete-path", "c", path));
   return SVN_NO_ERROR;
 }
-
+    
 static svn_error_t *ra_svn_link_path(void *baton, const char *path,
                                      const char *url,
                                      svn_revnum_t rev,
@@ -453,8 +453,8 @@ static svn_error_t *ra_svn_open(void **sess, const char *url,
         {
           realmstring = apr_psprintf(pool, "<svn://%s:%d>", hostname, port);
 
-          err = svn_auth_first_credentials(&creds, &iterstate,
-                                           SVN_AUTH_CRED_USERNAME, realmstring,
+          err = svn_auth_first_credentials(&creds, &iterstate, 
+                                           SVN_AUTH_CRED_USERNAME, realmstring, 
                                            callbacks->auth_baton, pool);
           if (err)
             svn_error_clear(err);
@@ -462,8 +462,8 @@ static svn_error_t *ra_svn_open(void **sess, const char *url,
             user = ((svn_auth_cred_username_t *) creds)->username;
         }
 
-      /* We send along whatever username we've got as the mechanism argument,
-       * and if the server wants, it can make use of that when committing
+      /* We send along whatever username we've got as the mechanism argument, 
+       * and if the server wants, it can make use of that when committing 
        * changes. */
       SVN_ERR(svn_ra_svn_write_tuple(conn, pool, "nw(c)()", (apr_uint64_t) 1,
                                      "ANONYMOUS", user ? user : ""));
@@ -798,7 +798,7 @@ static svn_error_t *ra_svn_status(void *sess,
     target = "";
 
   /* Tell the server we want to start a status operation. */
-  SVN_ERR(svn_ra_svn_write_cmd(conn, pool, "status", "cb(?r)",
+  SVN_ERR(svn_ra_svn_write_cmd(conn, pool, "status", "cb(?r)", 
                                target, recurse, rev));
 
   /* Fetch a reporter for the caller to drive.  The reporter will drive
