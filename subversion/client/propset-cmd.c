@@ -81,7 +81,7 @@ svn_cl__propset (apr_getopt_t *os,
         printf ("property `%s' set on %s.\n",
                 propname->data, target->data);
       else
-        printf ("property `%s' deleted from %s\n",
+        printf ("property `%s' deleted from %s\n", 
                 propname->data, target->data);
     }
 
@@ -90,8 +90,8 @@ svn_cl__propset (apr_getopt_t *os,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
- * end:
+ * end: 
  */
