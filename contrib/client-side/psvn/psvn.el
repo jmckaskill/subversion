@@ -601,7 +601,7 @@ A and B must be line-info's."
           (name &optional keep-backup-version)
           (svn-status-file-name-sans-versions name keep-backup-version)))
     (normal-mode)))
-
+  
 
 (condition-case nil
     ;;(easy-menu-add-item nil '("tools") ["SVN Status" svn-status t] "PCL-CVS")
