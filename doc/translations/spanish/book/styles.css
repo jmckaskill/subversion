@@ -88,14 +88,14 @@ A
     text-decoration: underline;
 }
 
-A:hover
+A:hover 
 {
     background: rgb(75%,75%,100%);
     color: blue;
     text-decoration: underline;
 }
 
-A:visited
+A:visited 
 {
     color: purple;
     text-decoration: underline;
@@ -142,7 +142,7 @@ IMG
     color: black;
 }
 
-.sidebar
+.sidebar 
 {
     border: 2px black solid;
     background: rgb(230,230,235);
