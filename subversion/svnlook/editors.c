@@ -56,7 +56,7 @@ struct file_baton
 
 
 static svn_error_t *
-delete_entry (svn_stringbuf_t *name,
+delete_entry (svn_stringbuf_t *name, 
               void *parent_baton)
 {
   struct dir_baton *d = (struct dir_baton *) parent_baton;
@@ -101,7 +101,7 @@ replace_root (void *edit_baton,
   d->node = (eb->node = svnlook_create_node ("", eb->pool));
   d->node->kind = svn_node_dir;
   *root_baton = d;
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -207,7 +207,7 @@ add_file (svn_stringbuf_t *name,
 
 
 static svn_error_t *
-window_handler (svn_txdelta_window_t *window,
+window_handler (svn_txdelta_window_t *window, 
                 void *baton)
 {
   /* Do nothing. */
@@ -231,7 +231,7 @@ apply_textdelta (void *file_baton,
 
 static svn_error_t *
 change_file_prop (void *file_baton,
-                  svn_stringbuf_t *name,
+                  svn_stringbuf_t *name, 
                   svn_stringbuf_t *value)
 {
   struct file_baton *fb = (struct file_baton *) file_baton;
@@ -243,7 +243,7 @@ change_file_prop (void *file_baton,
 
 static svn_error_t *
 change_dir_prop (void *parent_baton,
-                 svn_stringbuf_t *name,
+                 svn_stringbuf_t *name, 
                  svn_stringbuf_t *value)
 {
   struct dir_baton *d = (struct dir_baton *) parent_baton;
@@ -332,7 +332,7 @@ svnlook_edit_baton_tree (void *edit_baton)
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../svn-dev.el")
  * end:
