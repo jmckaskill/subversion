@@ -65,7 +65,7 @@ svn_cl__make_auth_baton (svn_cl__opt_state_t *opt_state,
 
 
 
-/*** Our implementation of the 'auth info callback' routine,
+/*** Our implementation of the 'auth info callback' routine, 
      as defined in svn_client.h.   This callback is passed to any
      libsvn_client routine that needs to authenticate against a
      repository. ***/
@@ -110,7 +110,7 @@ svn_cl__prompt_user (char **result,
                                      "error reading stdin.");
           if ((c == '\n') || (c == '\r'))
             break;
-
+          
           svn_stringbuf_appendbytes (strbuf, &c, 1);
         }
     }
@@ -123,7 +123,7 @@ svn_cl__prompt_user (char **result,
       status = apr_password_get (native_prompt, strbuf->data, &bufsize);
       if (status)
         return svn_error_create (status, 0, NULL, pool,
-                                 "error from apr_password_get().");
+                                 "error from apr_password_get().");      
 
       /* If echo is turned off, then we must manually add the visible
          newline that the user's input would have provided; this
@@ -140,8 +140,8 @@ svn_cl__prompt_user (char **result,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../tools/dev/svn-dev.el")
- * end:
+ * end: 
  */
