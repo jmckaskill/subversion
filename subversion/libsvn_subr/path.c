@@ -62,7 +62,7 @@ get_separator_from_style (enum svn_path_style style)
   /* default case = repos style (we should never hit this...) */
   return SVN_PATH_REPOS_SEPARATOR;
 }
-
+ 
 
 
 void
@@ -102,7 +102,7 @@ add_component_internal (svn_string_t *path,
 
 
 void
-svn_path_add_component_nts (svn_string_t *path,
+svn_path_add_component_nts (svn_string_t *path, 
                             const char *component,
                             enum svn_path_style style)
 {
@@ -111,7 +111,7 @@ svn_path_add_component_nts (svn_string_t *path,
 
 
 void
-svn_path_add_component (svn_string_t *path,
+svn_path_add_component (svn_string_t *path, 
                         const svn_string_t *component,
                         enum svn_path_style style)
 {
@@ -153,7 +153,7 @@ svn_path_last_component (const svn_string_t *path,
 
 
 void
-svn_path_split (const svn_string_t *path,
+svn_path_split (const svn_string_t *path, 
                 svn_string_t **dirpath,
                 svn_string_t **basename,
                 enum svn_path_style style,
@@ -212,7 +212,7 @@ svn_path_compare_paths (const svn_string_t *path1,
   size_t min_len = ((path1->len) < (path2->len)) ? path1->len : path2->len;
   size_t i;
   char dirsep = get_separator_from_style (style);
-
+  
   /* Skip past common prefix. */
   for (i = 0; (i < min_len) && (path1->data[i] == path2->data[i]); i++)
     ;
@@ -241,11 +241,11 @@ svn_path_get_longest_ancestor (const svn_string_t *path1,
   int last_dirsep = 0;
 
   /* If either string is NULL or empty, we must go no further. */
-
+  
   if ((! path1) || (! path2)
       || (svn_string_isempty (path1)) || (svn_string_isempty (path2)))
     return NULL;
-
+  
   while (path1->data[i] == path2->data[i])
     {
       /* Keep track of the last directory separator we hit. */
@@ -262,13 +262,13 @@ svn_path_get_longest_ancestor (const svn_string_t *path1,
   /* last_dirsep is now the offset of the last directory separator we
      crossed before reaching a non-matching byte.  i is the offset of
      that non-matching byte. */
-  if (((i == path1->len) && (path2->data[i] == dirsep))
+  if (((i == path1->len) && (path2->data[i] == dirsep)) 
       || ((i == path2->len) && (path1->data[i] == dirsep))
       || ((i == path1->len) && (i == path2->len)))
     common_path = svn_string_ncreate (path1->data, i, pool);
   else
     common_path = svn_string_ncreate (path1->data, last_dirsep, pool);
-
+    
   svn_path_canonicalize (common_path, svn_path_local_style);
 
   return common_path;
@@ -288,12 +288,12 @@ svn_path_is_child (const svn_string_t *path1,
 {
   char dirsep = get_separator_from_style (style);
   int i = 0;
-
+      
   /* If either path is empty, return NULL. */
   if ((! path1) || (! path2)
       || (svn_string_isempty (path1)) || (svn_string_isempty (path2)))
     return NULL;
-
+  
   /* If path2 isn't longer than path1, return NULL.  */
   if (path2->len <= path1->len)
     return NULL;
@@ -315,8 +315,8 @@ svn_path_is_child (const svn_string_t *path1,
   if (i == path1->len)
     {
       if (path1->data[i - 1] == dirsep)
-        return svn_string_ncreate (path2->data + i,
-                                   path2->len - i,
+        return svn_string_ncreate (path2->data + i, 
+                                   path2->len - i, 
                                    pool);
       else if (path2->data[i] == dirsep)
         return svn_string_ncreate (path2->data + i + 1,
@@ -336,7 +336,7 @@ store_component (apr_array_header_t *array,
                  apr_pool_t *pool)
 {
   svn_string_t **receiver;
-
+  
   svn_string_t *component = svn_string_ncreate (bytes, len, pool);
 
   receiver = (svn_string_t **) apr_array_push (array);
@@ -351,7 +351,7 @@ svn_path_decompose (const svn_string_t *path,
 {
   int i, oldi;
 
-  apr_array_header_t *components =
+  apr_array_header_t *components = 
     apr_array_make (pool, 1, sizeof(svn_string_t *));
 
   char dirsep = get_separator_from_style (style);
@@ -384,7 +384,7 @@ svn_path_decompose (const svn_string_t *path,
 }
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
