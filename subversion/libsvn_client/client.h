@@ -42,7 +42,7 @@
    on what it's about to do with the RA session:
 
       - PATH customizes the callbacks to operate on a specific path in
-        the working copy.
+        the working copy.  
 
       - DO_STORE indicates whether the RA layer should attempt to
         store authentication info.
@@ -94,7 +94,7 @@ svn_client__update_internal (const svn_delta_edit_fns_t *before_editor,
 #endif /* CLIENT_H */
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
