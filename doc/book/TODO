@@ -141,9 +141,9 @@ To be fixed by sussman:
         - AuthZ options
              - blanket access control via 'Require' directive
              - per-path access control via mod_authz_svn
-
+       
       * Accessing the repository via multiple methods
-
+ 
         - why you'd want to
         - repository perm problems, wrappers, etc.
 
@@ -168,7 +168,7 @@ To be fixed by sussman:
       - move use-case to new section:  undoing a committed change.
 
       - move use-case to new section:  merging one branch to another.
-
+       
   - in httpd.conf setup, remind people not to put the svn <Location>
     within an existing DocumentRoot, else the 301 error.
 
