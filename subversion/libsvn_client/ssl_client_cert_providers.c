@@ -44,7 +44,7 @@ ssl_client_cert_file_first_credentials (void **credentials_p,
                                         const char *realmstring,
                                         apr_pool_t *pool)
 {
-  svn_config_t *cfg = apr_hash_get (parameters,
+  svn_config_t *cfg = apr_hash_get (parameters, 
                                     SVN_AUTH_PARAM_CONFIG,
                                     APR_HASH_KEY_STRING);
   const char *server_group = apr_hash_get (parameters,
@@ -61,7 +61,7 @@ ssl_client_cert_file_first_credentials (void **credentials_p,
     {
       svn_auth_cred_ssl_client_cert_t *cred =
         apr_palloc (pool, sizeof (*cred));
-
+      
       cred->cert_file = cert_file;
       *credentials_p = cred;
     }
@@ -85,7 +85,7 @@ static const svn_auth_provider_t ssl_client_cert_file_provider =
 
 
 /*** Public API to SSL file providers. ***/
-void
+void 
 svn_client_get_ssl_client_cert_file_provider (
   svn_auth_provider_object_t **provider,
   apr_pool_t *pool)
