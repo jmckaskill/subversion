@@ -127,7 +127,7 @@ make_file_baton (struct edit_baton *eb, enum elemtype addreplace)
    never have to unwind past a dir element, so the unwinding steps are
    bounded in number and easy to visualize.  The nesting of the
    elements we care about looks like:
-
+  
         dir -> prop_delta
             -> tree_delta -> add/replace -> file -> prop_delta
 
@@ -463,7 +463,7 @@ output_svndiff_data (void *baton, const char *data, apr_size_t *len,
 
 
 static svn_error_t *
-apply_textdelta (void *file_baton,
+apply_textdelta (void *file_baton, 
                  svn_txdelta_window_handler_t **handler,
                  void **handler_baton)
 {
@@ -606,7 +606,7 @@ svn_delta_get_xml_editor (svn_write_fn_t *output,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
