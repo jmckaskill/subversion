@@ -102,9 +102,9 @@ wc_to_wc_copy (svn_stringbuf_t *src_path,
 
 
 static svn_error_t *
-repos_to_repos_copy (svn_stringbuf_t *src_url,
-                     svn_revnum_t src_rev,
-                     svn_stringbuf_t *dst_url,
+repos_to_repos_copy (svn_stringbuf_t *src_url, 
+                     svn_revnum_t src_rev, 
+                     svn_stringbuf_t *dst_url, 
                      svn_client_auth_baton_t *auth_baton,
                      svn_stringbuf_t *message,
                      svn_boolean_t is_move,
@@ -136,14 +136,14 @@ repos_to_repos_copy (svn_stringbuf_t *src_url,
   SVN_ERR (svn_ra_get_ra_library (&ra_lib, ra_baton, top_url->data, pool));
 
   /* Get the client callbacks for auth stuffs. */
-  SVN_ERR (svn_client__get_ra_callbacks (&ra_callbacks, &cb_baton, auth_baton,
+  SVN_ERR (svn_client__get_ra_callbacks (&ra_callbacks, &cb_baton, auth_baton, 
                                          top_url, TRUE, TRUE, pool));
   SVN_ERR (ra_lib->open (&sess, top_url, ra_callbacks, cb_baton, pool));
-
+      
   /* Verify that SRC_URL exists in the repository. */
   SVN_ERR (ra_lib->check_path (&src_kind, sess, src_rel, src_rev));
   if ((src_kind != svn_node_dir) && (src_kind != svn_node_file))
-    return svn_error_createf
+    return svn_error_createf 
       (SVN_ERR_FS_NOT_FOUND, 0, NULL, pool,
        "path `%s' does not exist in revision `%ld'", src_url->data, src_rev);
 
@@ -159,7 +159,7 @@ repos_to_repos_copy (svn_stringbuf_t *src_url,
      1.  Get a commit editor, anchored above SRC and DST
      2.  replace-dir() down DST (inclusive, if DST is a directory)
      3.  add-file/dir(copyfrom=src,rev) either
-         - basename(DST) if DST doesn't exist, or
+         - basename(DST) if DST doesn't exist, or 
          - basename(SRC) if DST does exist as a dir
      4.  close up all those batons and stuffs
      5.  if this is a move, replace-dir() back down to SRC's parent,
@@ -173,8 +173,8 @@ repos_to_repos_copy (svn_stringbuf_t *src_url,
 
 
 static svn_error_t *
-wc_to_repos_copy (svn_stringbuf_t *src_path,
-                  svn_stringbuf_t *dst_url,
+wc_to_repos_copy (svn_stringbuf_t *src_path, 
+                  svn_stringbuf_t *dst_url, 
                   svn_client_auth_baton_t *auth_baton,
                   svn_stringbuf_t *message,
                   apr_pool_t *pool)
@@ -185,9 +185,9 @@ wc_to_repos_copy (svn_stringbuf_t *src_path,
 
 
 static svn_error_t *
-repos_to_wc_copy (svn_stringbuf_t *src_url,
+repos_to_wc_copy (svn_stringbuf_t *src_url, 
                   svn_revnum_t src_rev,
-                  svn_stringbuf_t *dst_path,
+                  svn_stringbuf_t *dst_path, 
                   svn_client_auth_baton_t *auth_baton,
                   svn_stringbuf_t *message,
                   apr_pool_t *pool)
@@ -274,7 +274,7 @@ svn_client_move (svn_stringbuf_t *src_path,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end: */
