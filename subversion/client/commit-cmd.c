@@ -45,11 +45,11 @@ svn_cl__commit (apr_getopt_t *os,
   void *trace_edit_baton;
 
   /* Take our message from ARGV or a FILE */
-  if (opt_state->filedata)
+  if (opt_state->filedata) 
     message = opt_state->filedata;
   else
     message = opt_state->message;
-
+  
   targets = svn_cl__args_to_target_array (os, pool);
 
   /* Add "." if user passed 0 arguments */
@@ -79,7 +79,7 @@ svn_cl__commit (apr_getopt_t *os,
   else
     trace_dir = base_dir;
 
-  SVN_ERR (svn_cl__get_trace_commit_editor
+  SVN_ERR (svn_cl__get_trace_commit_editor 
            (&trace_editor,
             &trace_edit_baton,
             trace_dir,
@@ -99,8 +99,8 @@ svn_cl__commit (apr_getopt_t *os,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
- * end:
+ * end: 
  */
