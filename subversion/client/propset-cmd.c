@@ -56,7 +56,7 @@ svn_cl__propset (svn_cl__opt_state_t *opt_state,
           printf ("property `%s' set on %s.\n",
                   name->data, target->data);
         else
-          printf ("property `%s' deleted from %s\n",
+          printf ("property `%s' deleted from %s\n", 
                   name->data, target->data);
       }
   else
@@ -72,8 +72,8 @@ svn_cl__propset (svn_cl__opt_state_t *opt_state,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
- * end:
+ * end: 
  */
