@@ -211,7 +211,7 @@ parse_option (int *pch, parse_context_t *ctx)
  * the line.  Set *PCH to the character that ended the line (either
  * newline or EOF), and set CTX->section to the string of characters
  * seen before ']'.
- *
+ * 
  * This is meant to be called immediately after reading the '[' that
  * starts a section name.
  */
@@ -293,7 +293,7 @@ svn_config__user_config_path (const char **path_p,
      prototype should change? */
 
   *path_p = NULL;
-
+  
   /* Note that even if fname is null, svn_path_join_many will DTRT. */
 
 #ifdef SVN_WIN32
@@ -318,18 +318,18 @@ svn_config__user_config_path (const char **path_p,
     apr_err = apr_current_userid (&uid, &gid, pool);
     if (apr_err)
       return SVN_NO_ERROR;
-
+    
     apr_err = apr_get_username (&username, uid, pool);
     if (apr_err)
       return SVN_NO_ERROR;
-
+    
     apr_err = apr_get_home_directory (&homedir, username, pool);
     if (apr_err)
       return SVN_NO_ERROR;
-
+    
     *path_p = svn_path_join_many (pool, homedir,
                                   SVN_CONFIG__USR_DIRECTORY, fname, NULL);
-
+    
   }
 #endif /* SVN_WIN32 */
 
@@ -615,12 +615,12 @@ svn_config_ensure (apr_pool_t *pool)
         {
           apr_err = apr_file_write_full (f, contents, strlen (contents), NULL);
           if (apr_err)
-            return svn_error_createf (apr_err, 0, NULL, pool,
+            return svn_error_createf (apr_err, 0, NULL, pool, 
                                       "writing config file `%s'", path);
-
+          
           apr_err = apr_file_close (f);
           if (apr_err)
-            return svn_error_createf (apr_err, 0, NULL, pool,
+            return svn_error_createf (apr_err, 0, NULL, pool, 
                                       "closing config file `%s'", path);
         }
     }
@@ -635,7 +635,7 @@ svn_config_ensure (apr_pool_t *pool)
   err = svn_io_check_path (path, &kind, pool);
   if (err)
     return SVN_NO_ERROR;
-
+  
   if (kind == svn_node_none)
     {
       apr_file_t *f;
@@ -696,12 +696,12 @@ svn_config_ensure (apr_pool_t *pool)
         {
           apr_err = apr_file_write_full (f, contents, strlen (contents), NULL);
           if (apr_err)
-            return svn_error_createf (apr_err, 0, NULL, pool,
+            return svn_error_createf (apr_err, 0, NULL, pool, 
                                       "writing config file `%s'", path);
-
+          
           apr_err = apr_file_close (f);
           if (apr_err)
-            return svn_error_createf (apr_err, 0, NULL, pool,
+            return svn_error_createf (apr_err, 0, NULL, pool, 
                                       "closing config file `%s'", path);
         }
     }
@@ -716,7 +716,7 @@ svn_config_ensure (apr_pool_t *pool)
   err = svn_io_check_path (path, &kind, pool);
   if (err)
     return SVN_NO_ERROR;
-
+  
   if (kind == svn_node_none)
     {
       apr_file_t *f;
@@ -728,7 +728,7 @@ svn_config_ensure (apr_pool_t *pool)
         "\n"
         "### Section for authentication and authorization customizations.\n"
         "### Set store_password to 'no' to avoid storing your subversion\n"
-        "###   password in your working copies.  It defaults to 'yes'.\n"
+        "###   password in your working copies.  It defaults to 'yes'.\n"   
         "# [auth]\n"
         "# store_password = no\n"
         "\n"
@@ -759,7 +759,7 @@ svn_config_ensure (apr_pool_t *pool)
         "\n"
         "### See http://subversion.tigris.org/issues/show_bug.cgi?id=668\n"
         "### for what else will soon be customized in this file.\n";
-
+        
       apr_err = apr_file_open (&f, path,
                                (APR_WRITE | APR_CREATE | APR_EXCL),
                                APR_OS_DEFAULT,
@@ -769,12 +769,12 @@ svn_config_ensure (apr_pool_t *pool)
         {
           apr_err = apr_file_write_full (f, contents, strlen (contents), NULL);
           if (apr_err)
-            return svn_error_createf (apr_err, 0, NULL, pool,
+            return svn_error_createf (apr_err, 0, NULL, pool, 
                                       "writing config file `%s'", path);
-
+          
           apr_err = apr_file_close (f);
           if (apr_err)
-            return svn_error_createf (apr_err, 0, NULL, pool,
+            return svn_error_createf (apr_err, 0, NULL, pool, 
                                       "closing config file `%s'", path);
         }
     }
