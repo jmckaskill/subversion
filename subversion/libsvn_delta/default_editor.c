@@ -31,8 +31,6 @@ set_target_revision (void *edit_baton,
 {
   return SVN_NO_ERROR;
 }
-
-
 static svn_error_t *
 add_item (const char *path,
           void *parent_baton,
