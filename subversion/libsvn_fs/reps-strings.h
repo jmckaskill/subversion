@@ -60,7 +60,7 @@ int svn_fs__rep_is_mutable (skel_t *rep);
    returned.  */
 svn_error_t *svn_fs__get_mutable_rep (const char **new_key,
                                       const char *key,
-                                      svn_fs_t *fs,
+                                      svn_fs_t *fs, 
                                       trail_t *trail);
 
 
@@ -76,7 +76,7 @@ svn_error_t *svn_fs__make_rep_immutable (svn_fs_t *fs,
    trail, or do nothing if the rep is immutable.  If a mutable rep is
    deleted, the string it refers to is deleted as well.
 
-   If no such rep, return SVN_ERR_FS_NO_SUCH_REPRESENTATION.  */
+   If no such rep, return SVN_ERR_FS_NO_SUCH_REPRESENTATION.  */ 
 svn_error_t *svn_fs__delete_rep_if_mutable (svn_fs_t *fs,
                                             const char *key,
                                             trail_t *trail);
@@ -97,7 +97,7 @@ typedef struct svn_fs__rep_read_baton_t svn_fs__rep_read_baton_t;
    The baton is for reading representation REP_KEY's data starting at
    OFFSET in FS, doing temporary allocations in POOL.  If TRAIL is
    non-null, do the stream's reads as part of TRAIL; otherwise, each
-   read happens in an internal, one-off trail.
+   read happens in an internal, one-off trail. 
 
    POOL may be TRAIL->pool.  */
 svn_fs__rep_read_baton_t *svn_fs__rep_read_get_baton (svn_fs_t *fs,
@@ -112,7 +112,7 @@ svn_fs__rep_read_baton_t *svn_fs__rep_read_get_baton (svn_fs_t *fs,
 
    Read *LEN bytes into BUF starting at BATON->offset in the data
    represented by BATON->rep_key, in BATON->FS.  Set *LEN to the
-   amount read and add that amount to BATON->offset.
+   amount read and add that amount to BATON->offset.  
 
    If BATON->trail is non-null, then do the read as part of that
    trail.  Use BATON->pool for all allocations; if BATON->trail is
@@ -133,7 +133,7 @@ typedef struct svn_fs__rep_write_baton_t svn_fs__rep_write_baton_t;
    The baton is for writing to representation REP_KEY's data starting
    at OFFSET in FS, doing temporary allocations in POOL.  If TRAIL is
    non-null, do the stream's writes as part of TRAIL; otherwise, each
-   write happens in an internal, one-off trail.
+   write happens in an internal, one-off trail. 
 
    POOL may be TRAIL->pool.  */
 svn_fs__rep_write_baton_t *svn_fs__rep_write_get_baton (svn_fs_t *fs,
@@ -168,7 +168,7 @@ svn_fs__rep_write_contents (void *baton, const char *buf, apr_size_t *len);
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
