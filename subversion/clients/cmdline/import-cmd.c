@@ -46,11 +46,11 @@ svn_cl__import (apr_getopt_t *os,
   void *trace_edit_baton;
 
   /* Take our message from ARGV or a FILE */
-  if (opt_state->filedata)
+  if (opt_state->filedata) 
     message = opt_state->filedata;
   else
     message = opt_state->message;
-
+  
   /* Import takes up to three arguments, for example
    *
    *   $ svn import  file:///home/jrandom/repos  ./myproj  myproj
@@ -114,14 +114,14 @@ svn_cl__import (apr_getopt_t *os,
     return svn_error_create
       (SVN_ERR_CL_ARG_PARSING_ERROR, 0, NULL, pool,
        "too many arguments to import command");
-
+  
   SVN_ERR (svn_cl__get_trace_commit_editor (&trace_editor,
                                             &trace_edit_baton,
                                             printpath,
                                             pool));
 
   SVN_ERR (svn_client_import (NULL, NULL,
-                              opt_state->quiet ? NULL : trace_editor,
+                              opt_state->quiet ? NULL : trace_editor, 
                               opt_state->quiet ? NULL : trace_edit_baton,
                               svn_cl__prompt_user, NULL,
                               path,
@@ -138,8 +138,8 @@ svn_cl__import (apr_getopt_t *os,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../svn-dev.el")
- * end:
+ * end: 
  */
