@@ -259,7 +259,7 @@ static svn_error_t *ra_svn_apply_textdelta(void *file_baton,
     }
   return SVN_NO_ERROR;
 }
-
+  
 static svn_error_t *ra_svn_change_file_prop(void *file_baton,
                                             const char *name,
                                             const svn_string_t *value,
@@ -325,7 +325,7 @@ void svn_ra_svn_get_editor(const svn_delta_editor_t **editor,
   ra_svn_editor->add_file = ra_svn_add_file;
   ra_svn_editor->open_file = ra_svn_open_file;
   ra_svn_editor->apply_textdelta = ra_svn_apply_textdelta;
-  /* ### todo#510: ra_svn_editor->apply_text = ra_svn_apply_text; */
+  /* ### todo#510: ra_svn_editor->apply_text = ra_svn_apply_text; */ 
   ra_svn_editor->change_file_prop = ra_svn_change_file_prop;
   ra_svn_editor->close_file = ra_svn_close_file;
   ra_svn_editor->close_edit = ra_svn_close_edit;
