@@ -68,7 +68,7 @@ svn_cl__merge (apr_getopt_t *os,
   targets = svn_cl__args_to_target_array (os, opt_state,
                                           TRUE, /* extract @rev revisions */
                                           pool);
-
+  
   if (using_alternate_syntax)
     {
       if (targets->nelts < 1)
@@ -131,7 +131,7 @@ svn_cl__merge (apr_getopt_t *os,
                           targetpath,
                           opt_state->nonrecursive ? FALSE : TRUE,
                           opt_state->force,
-                          pool);
+                          pool); 
   if (err)
      return svn_cl__may_need_force (err);
 
@@ -139,8 +139,8 @@ svn_cl__merge (apr_getopt_t *os,
 }
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../tools/dev/svn-dev.el")
- * end:
+ * end: 
  */
