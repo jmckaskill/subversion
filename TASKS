@@ -11,7 +11,7 @@ to take something on.
    something like this:
 
       apr_status_t make_bdiff (apr_file_t **out,
-                               apr_file_t *seekable_src,
+                               apr_file_t *seekable_src, 
                                apr_file_t *streamy_target);
 
    Josh MacDonald's xdelta might be a good place to start
