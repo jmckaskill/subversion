@@ -49,10 +49,10 @@ svn_error_t * svn_client__open_ra_session (void **session_baton,
 
   return SVN_NO_ERROR;
 }
-
+                                        
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end: */
