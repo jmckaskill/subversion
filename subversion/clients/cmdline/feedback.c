@@ -26,15 +26,15 @@
 
 /* When the cmd-line client sees an unversioned item during an update,
    print a question mark (`?'), just like CVS does. */
-static apr_status_t
+static apr_status_t 
 report_unversioned_item (const char *path)
 {
   printf ("?  %s\n", path);
-
+              
   return APR_SUCCESS;
 }
 
-static apr_status_t
+static apr_status_t 
 report_warning (apr_status_t status, const char *warning)
 {
   printf ("WARNING: %s\n", warning);
@@ -46,7 +46,7 @@ report_warning (apr_status_t status, const char *warning)
 }
 
 
-static apr_status_t
+static apr_status_t 
 report_progress (const char *action, int percentage)
 {
   return APR_SUCCESS;
@@ -67,8 +67,8 @@ svn_cl__init_feedback_vtable (apr_pool_t *top_pool)
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
- * end:
+ * end: 
  */
