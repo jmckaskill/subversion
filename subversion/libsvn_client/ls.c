@@ -40,7 +40,7 @@ get_dir_contents (apr_hash_t *dirents,
   apr_hash_index_t *hi;
 
   /* Get the directory's entries, but not its props. */
-  SVN_ERR (svn_ra_get_dir (ra_session, dir, rev, &tmpdirents,
+  SVN_ERR (svn_ra_get_dir (ra_session, dir, rev, &tmpdirents, 
                            NULL, NULL, pool));
 
   if (ctx->cancel_func)
@@ -75,7 +75,7 @@ svn_client_ls2 (apr_hash_t **dirents,
                 const char *path_or_url,
                 const svn_opt_revision_t *peg_revision,
                 const svn_opt_revision_t *revision,
-                svn_boolean_t recurse,
+                svn_boolean_t recurse,               
                 svn_client_ctx_t *ctx,
                 apr_pool_t *pool)
 {
@@ -113,11 +113,11 @@ svn_client_ls2 (apr_hash_t **dirents,
       base_name = svn_path_uri_decode(base_name, pool);
       SVN_ERR (svn_client__open_ra_session (&ra_session, parent_url,
                                             NULL,
-                                            NULL, NULL, FALSE, TRUE,
+                                            NULL, NULL, FALSE, TRUE, 
                                             ctx, pool));
 
       /* Get all parent's entries, no props. */
-      SVN_ERR (svn_ra_get_dir (ra_session, "", rev, &parent_ents,
+      SVN_ERR (svn_ra_get_dir (ra_session, "", rev, &parent_ents, 
                                NULL, NULL, pool));
 
       /* Copy the relevant entry into the caller's hash. */
@@ -142,7 +142,7 @@ svn_error_t *
 svn_client_ls (apr_hash_t **dirents,
                const char *path_or_url,
                svn_opt_revision_t *revision,
-               svn_boolean_t recurse,
+               svn_boolean_t recurse,               
                svn_client_ctx_t *ctx,
                apr_pool_t *pool)
 {
