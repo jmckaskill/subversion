@@ -16,7 +16,7 @@
 
 /*** Includes ***/
 
-/*
+/* 
  * Requires:  The working copy library.
  * Provides:  Broad wrappers around working copy library functionality.
  * Used By:   Client programs.
@@ -82,7 +82,7 @@ svn_error_t *
 svn_client_commit (const svn_delta_edit_fns_t *before_editor,
                    void *before_edit_baton,
                    const svn_delta_edit_fns_t *after_editor,
-                   void *after_edit_baton,
+                   void *after_edit_baton,                   
                    svn_string_t *path,
                    svn_string_t *xml_dst,
                    svn_revnum_t revision,  /* this param is temporary */
@@ -99,7 +99,7 @@ svn_client_status (apr_hash_t **statushash,
 /* Given a PATH to a working copy file, return a path to a temporary
    copy of the PRISTINE version of the file.  The client can then
    compare this to the working copy of the file and execute any kind
-   of diff it wishes.
+   of diff it wishes. 
 
    NOTE: the caller of this routine is responsible for *removing* the
    temporary file after doing a diff. */
@@ -119,6 +119,6 @@ svn_client_file_diff (svn_string_t *path,
 /* --------------------------------------------------------------
  * local variables:
  * eval: (load-file "../svn-dev.el")
- * end:
+ * end: 
  */
 
