@@ -18,7 +18,7 @@
 
 
 
-/* Advice to those adding new tests to this file:
+/* Advice to those adding new tests to this file: 
  * ==============================================
  *
  * Read the doc string for substitute_and_verify(), then read the
@@ -63,7 +63,7 @@ const char *lines[] =
     "Line 18: fairly boring subst test data... blah blah.",
     "Line 19: Invalid expanded keyword spanning two lines: $Author: ",
     /* The idea here is that, were it not broken across two lines,
-       "$Author: Line 20: jrandom$" would be a valid if odd, keyword. */
+       "$Author: Line 20: jrandom$" would be a valid if odd, keyword. */ 
     "Line 20: jrandom$ remainder of invalid keyword spanning two lines.",
     "Line 21: fairly boring subst test data... blah blah.",
     "Line 22: an unknown keyword $LastChangedSocks$.",
@@ -139,15 +139,15 @@ create_file (const char *fname, const char *eol_str, apr_pool_t *pool)
                            APR_OS_DEFAULT, pool);
   if (! APR_STATUS_IS_SUCCESS (apr_err))
     return svn_error_create (apr_err, 0, NULL, pool, fname);
-
+  
   for (i = 0; i < (sizeof (lines) / sizeof (*lines)); i++)
     {
       const char *this_eol_str = eol_str ? eol_str : random_eol_marker ();
-
+          
       apr_err = apr_file_printf (f, lines[i]);
 
       /* Is it overly paranoid to use putc(), because of worry about
-         fprintf() doing a newline conversion? */
+         fprintf() doing a newline conversion? */ 
       for (j = 0; this_eol_str[j]; j++)
         {
           apr_err = apr_file_putc (this_eol_str[j], f);
@@ -159,7 +159,7 @@ create_file (const char *fname, const char *eol_str, apr_pool_t *pool)
   apr_err = apr_file_close (f);
   if (! APR_STATUS_IS_SUCCESS (apr_err))
     return svn_error_create (apr_err, 0, NULL, pool, fname);
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -200,7 +200,7 @@ remove_file (const char *fname, apr_pool_t *pool)
  *
  * If the verification succeeds, remove both files and return
  * SVN_NO_ERROR.
- *
+ * 
  * If the verification fails, leave the files for post-mortem.  If the
  * failure is due to non-eol data being wrong, return
  * SVN_ERR_MALFORMED_FILE.  If the problem is an incorrect eol marker,
@@ -275,7 +275,7 @@ substitute_and_verify (const char *test_name,
   else if (err)
     return err;
 
-
+      
   /** Verify that the conversion worked. **/
 
   for (i = 0; i < (sizeof (expect) / sizeof (*expect)); i++)
@@ -432,7 +432,7 @@ substitute_and_verify (const char *test_name,
 
       if (strncmp (contents->data + idx, expect[i], strlen (expect[i])) != 0)
         return svn_error_createf
-          (SVN_ERR_MALFORMED_FILE, 0, NULL, pool,
+          (SVN_ERR_MALFORMED_FILE, 0, NULL, pool, 
            "%s has wrong contents at line %d", dst_fname, i + 1);
 
       /* Else, the data is correct, at least up to the next eol. */
@@ -443,7 +443,7 @@ substitute_and_verify (const char *test_name,
         {
           if (strncmp (contents->data + idx, dst_eol, strlen (dst_eol)) != 0)
             return svn_error_createf
-              (SVN_ERR_IO_CORRUPT_EOL, 0, NULL, pool,
+              (SVN_ERR_IO_CORRUPT_EOL, 0, NULL, pool, 
                "%s has wrong eol style at line %d", dst_fname, i + 1);
           else
             idx += strlen (dst_eol);
@@ -1097,7 +1097,7 @@ svn_error_t * (*test_funcs[]) (const char **msg,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../svn-dev.el")
  * end:
