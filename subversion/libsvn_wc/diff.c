@@ -56,7 +56,7 @@
 /* A little helper function.
 
    You see, when we ask the server to update us to a certain revision,
-   we construct the new fulltext, and then run
+   we construct the new fulltext, and then run 
 
          'diff <repos_fulltext> <working_fulltext>'
 
@@ -79,11 +79,11 @@ reverse_propchanges (apr_hash_t *baseprops,
     {
       svn_prop_t *propchange
         = &APR_ARRAY_IDX (propchanges, i, svn_prop_t);
-
+      
       const svn_stringbuf_t *original_value =
         apr_hash_get (baseprops, propchange->name, APR_HASH_KEY_STRING);
-
-      if ((original_value == NULL) && (propchange->value != NULL))
+     
+      if ((original_value == NULL) && (propchange->value != NULL)) 
         {
           /* found an addition.  make it look like a deletion. */
           apr_hash_set (baseprops, propchange->name, APR_HASH_KEY_STRING,
@@ -92,7 +92,7 @@ reverse_propchanges (apr_hash_t *baseprops,
           propchange->value = NULL;
         }
 
-      else if ((original_value != NULL) && (propchange->value == NULL))
+      else if ((original_value != NULL) && (propchange->value == NULL)) 
         {
           /* found a deletion.  make it look like an addition. */
           propchange->value = svn_string_create_from_buf (original_value,
@@ -101,7 +101,7 @@ reverse_propchanges (apr_hash_t *baseprops,
                         NULL);
         }
 
-      else if ((original_value != NULL) && (propchange->value != NULL))
+      else if ((original_value != NULL) && (propchange->value != NULL)) 
         {
           /* found a change.  just swap the values.  */
           const svn_string_t *tmpstr = propchange->value;
@@ -382,8 +382,8 @@ file_diff (struct dir_baton *dir_baton,
       empty_file = svn_wc__empty_file_path (path, pool);
 
       SVN_ERR (dir_baton->edit_baton->callbacks->file_deleted
-               (NULL, path,
-                pristine_copy,
+               (NULL, path, 
+                pristine_copy, 
                 empty_file,
                 dir_baton->edit_baton->callback_baton));
 
@@ -428,7 +428,7 @@ file_diff (struct dir_baton *dir_baton,
           const char *translated;
           svn_error_t *err;
 
-          pristine_copy = svn_wc__text_base_path (path, FALSE, pool);
+          pristine_copy = svn_wc__text_base_path (path, FALSE, pool);   
 
           /* Note that this might be the _second_ time we translate
              the file, as svn_wc_text_modified_p() might have used a
@@ -437,16 +437,16 @@ file_diff (struct dir_baton *dir_baton,
              modularity is liveable. */
           SVN_ERR (svn_wc_translated_file (&translated, path, adm_access,
                                            pool));
-
+          
           err = dir_baton->edit_baton->callbacks->file_changed
             (NULL, NULL,
              path,
-             pristine_copy,
+             pristine_copy, 
              translated,
              entry->revision,
              entry->revision,
              dir_baton->edit_baton->callback_baton);
-
+          
           if (translated != path)
             SVN_ERR (svn_io_remove_file (translated, pool));
 
@@ -527,7 +527,7 @@ directory_elements_diff (struct dir_baton *dir_baton,
           SVN_ERR (svn_wc_get_prop_diffs (&propchanges, &baseprops,
                                           dir_baton->path,
                                           dir_baton->pool));
-
+              
           SVN_ERR (dir_baton->edit_baton->callbacks->props_changed
                    (NULL, NULL,
                     dir_baton->path,
@@ -553,7 +553,7 @@ directory_elements_diff (struct dir_baton *dir_baton,
       apr_hash_this (hi, &key, NULL, &val);
       name = key;
       entry = val;
-
+      
       /* Skip entry for the directory itself. */
       if (strcmp (key, SVN_WC_ENTRY_THIS_DIR) == 0)
         continue;
@@ -893,7 +893,7 @@ apply_textdelta (void *file_baton,
 
   /* This is the file that will contain the pristine repository version. It
      is created in the admin temporary area. This file continues to exists
-     until after the diff callback is run, at which point it is deleted. */
+     until after the diff callback is run, at which point it is deleted. */ 
   SVN_ERR (svn_wc__open_text_base (&b->temp_file, b->wc_path,
                                    (APR_WRITE | APR_TRUNCATE | APR_CREATE),
                                    b->pool));
@@ -949,7 +949,7 @@ close_file (void *file_baton)
          file is deleted. */
       svn_error_t *err1, *err2 = SVN_NO_ERROR;
       const char *translated;
-
+      
       SVN_ERR (svn_wc_translated_file (&translated, b->path, adm_access,
                                        b->pool));
 
@@ -961,13 +961,13 @@ close_file (void *file_baton)
          0,       /* non-existent revision */
          entry ? entry->revision : SVN_INVALID_REVNUM,
          b->edit_baton->callback_baton);
-
+      
       if (translated != b->path)
         err2 = svn_io_remove_file (translated, b->pool);
 
       if (err1 || err2)
         return err1 ? err1 : err2;
-
+      
       if (b->propchanges->nelts > 0)
         {
           reverse_propchanges (b->baseprops, b->propchanges, b->pool);
@@ -1002,7 +1002,7 @@ change_file_prop (void *file_baton,
   propchange = apr_array_push (b->propchanges);
   propchange->name = apr_pstrdup (b->pool, name->data);
   propchange->value = value ? svn_string_create (value->data, b->pool) : NULL;
-
+  
   /* Read the baseprops if you haven't already. */
   if (! b->fetched_baseprops)
     {
