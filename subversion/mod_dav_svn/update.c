@@ -1050,6 +1050,8 @@ dav_error * dav_svn__update_report(const dav_resource *resource,
          cannot be moved to the top of the loop, because then it would
          wrongly catch other elements that do allow empty cdata. */
 
+      //###FIXME: do we need a subpool here?
+
       if (child->ns == ns && strcmp(child->name, "target-revision") == 0)
         {
           if (! child->first_cdata.first)
