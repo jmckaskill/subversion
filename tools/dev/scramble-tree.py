@@ -75,7 +75,7 @@ class SVNActions(VCActions):
     os.remove(path)
     os.system('svn rm --quiet --force ' + path)
 
-
+    
 class hashDir:
   """Given a directory, creates a string containing all directories
   and files under that directory (sorted alphanumerically) and makes a
@@ -106,7 +106,7 @@ class Scrambler:
   def __init__(self, seed, vc_actions, dry_run):
     self.vc_actions = vc_actions
     self.dry_run = dry_run
-    self.file_name = 'newfile.txt'
+    self.file_name = 'newfile.txt' 
     self.greeking = """
 ======================================================================
 This is some text that was inserted into this file by the lovely and
@@ -115,7 +115,7 @@ talented scramble-tree.py script.
 """
     self.file_modders = [self._mod_append_to_file,
                          self._mod_append_to_file,
-                         self._mod_append_to_file,
+                         self._mod_append_to_file,                         
                          self._mod_remove_from_file,
                          self._mod_remove_from_file,
                          self._mod_remove_from_file,
@@ -149,7 +149,7 @@ talented scramble-tree.py script.
   def _mod_delete_file(self, path):
     print 'delete_file:', path
     if self.dry_run:
-      return
+      return    
     if self.vc_actions:
       self.vc_actions.remove_file(path)
 
@@ -222,11 +222,11 @@ def main():
   # If a seed wasn't provide, calculate one.
   if seed is None:
     seed = hashDir(rootdir).gen_seed()
-  scrambler = Scrambler(seed, vc_actions, dry_run)
-
+  scrambler = Scrambler(seed, vc_actions, dry_run)  
+  
   # Fire up the treewalker
   print 'SEED: ' + seed
-
+  
   os.path.walk(rootdir, walker_callback, scrambler)
 
 
