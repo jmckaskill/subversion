@@ -12,7 +12,7 @@ class NodePath:
     def __init__(self, path, headers):
         self.path = path
         self.headers = headers
-
+        
     def dump(self):
         print (' ' * 3) + self.path
         headers = self.headers.keys()
@@ -28,7 +28,7 @@ def dump_revision(rev, nodepaths):
     for path in paths:
         nodepath = nodepaths[path]
         nodepath.dump()
-
+        
 
 def parse_header_block(fp):
     headers = {}
@@ -44,14 +44,14 @@ def parse_header_block(fp):
             raise Exception('Malformed header block')
         headers[matches.group(1)] = matches.group(2)
 
-
+        
 def parse_file(fp):
     headers = {}
     nodepaths = {}
     harvesting = None # (could be 'R'evision or 'N'ode)
     current_rev = None
     eof = 0
-
+    
     while 1:
         # Parse a block of headers
         headers, eof = parse_header_block(fp)
@@ -103,7 +103,7 @@ def usage():
     print 'printing summarized and sorted information.  This is useful for'
     print 'generating data about dumpfiles in a diffable fashion.'
     sys.exit(0)
-
+    
 def main():
     if len(sys.argv) > 1:
         if sys.argv[1] == '--help':
@@ -113,7 +113,7 @@ def main():
         fp = sys.stdin
     parse_file(fp)
 
-
+    
 if __name__ == '__main__':
     main()
 

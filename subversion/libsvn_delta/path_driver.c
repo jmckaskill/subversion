@@ -1,6 +1,6 @@
-/*
+/* 
  * path_driver.c -- drive an editor across a set of paths
- *
+ * 
  * ====================================================================
  * Copyright (c) 2000-2003 CollabNet.  All rights reserved.
  *
@@ -56,7 +56,7 @@ push_stack (apr_array_header_t *db_stack,
 
 /* Call EDITOR's open_directory() function with the PATH and REVISION
  * arguments, and then add the resulting dir baton to the dir baton
- * stack.
+ * stack. 
  */
 static svn_error_t *
 open_dir (apr_array_header_t *db_stack,
@@ -189,7 +189,7 @@ svn_delta_path_driver (const svn_delta_editor_t *editor,
       const char *pdir, *bname;
       const char *common = "";
       size_t common_len;
-
+      
       /* Get the next path. */
       path = APR_ARRAY_IDX (paths, i, const char *);
 
@@ -233,9 +233,9 @@ svn_delta_path_driver (const svn_delta_editor_t *editor,
                 *piece = 0;
 
               /* Open the subdirectory. */
-              SVN_ERR (open_dir (db_stack, &stack_ptr, editor,
+              SVN_ERR (open_dir (db_stack, &stack_ptr, editor, 
                                  rel, revision, pool));
-
+              
               /* If we temporarily replaced a '/' with a NULL,
                  un-replace it and move our piece pointer to the
                  character after the '/' we found.  If there was no
@@ -243,7 +243,7 @@ svn_delta_path_driver (const svn_delta_editor_t *editor,
               if (piece)
                 {
                   *piece = '/';
-                  piece++;
+                  piece++;    
                 }
               else
                 break;
