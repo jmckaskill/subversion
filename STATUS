@@ -39,7 +39,7 @@ Candidate changes:
       +1: breser
 
   * r9104, r9197
-    Do not turn /s in URLS to \s on Windows.
+    Do not turn /s in URLS to \s on Windows. 
     Justification: The paths are for URLS they should be copyable for use on
     repo URLS.
     Votes (on both):
@@ -87,7 +87,7 @@ Status of 1.0.3:
     Justification: Perl correctness issue.
     Votes:
        +1: sussman
-       -1: breser (Doesn't error out properly on older versions and
+       -1: breser (Doesn't error out properly on older versions and 
                    needs more discussion).
 
 
