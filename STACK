@@ -68,7 +68,7 @@ Greg:
         REPORT: need the SVN:status-report
         need: CHECKOUT
 	need: MERGE (activity)
-	validate proper support for VERSION-CONTROL. this would be the
+	validate proper support for VERSION-CONTROL. this would be the 
 	  missing piece for DeltaV "Core" support.
 
    - mod_dav: no apparent changes until vsn comes in
