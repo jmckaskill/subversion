@@ -41,10 +41,10 @@ struct dag_node_t
   /* The node revision ID for this dag node, allocated in POOL.  */
   svn_fs_id_t *id;
 
-  /* The node's NODE-REVISION skel.
+  /* The node's NODE-REVISION skel.  
      jimb todo: the contents of mutable nodes could be changed by
      other processes, so we should fetch them afresh within each
-     trail.
+     trail. 
      jimb todo: What pool is this allocated in?  Chaos!  */
   skel_t *contents;
 
@@ -68,7 +68,7 @@ txn_body_dag_init_fs (void *fs_baton, trail_t *trail)
 
     SVN_ERR (svn_fs__put_node_revision (fs, root_id, node_rev, trail));
     SVN_ERR (svn_fs__stable_node (fs, root_id, trail));
-  }
+  } 
 
   /* Link it into filesystem revision 0:
      "revisions" : 0 -> "(revision 3 0.0 ())" */
@@ -154,7 +154,7 @@ find_dir_entry (dag_node_t *node, const char *name)
     }
   return (skel_t *)NULL;
 }
-
+        
 
 /* Helper for next three funcs */
 static int
@@ -167,13 +167,13 @@ node_is_kind_p (dag_node_t *node, const char *kindstr)
   /* The node "header" is the first element of a node-revision skel,
      itself a list. */
   skel_t *header = node->contents->children;
-
+  
   /* The first element of the header should be an atom defining the
      node kind. */
   skel_t *kind = header->children;
 
   apr_size_t kindstr_len = strlen(kindstr);
-
+  
   if ((kind->len == kindstr_len)
       && (! memcmp (kind->data, kindstr, kindstr_len)))
     return TRUE;
@@ -202,11 +202,11 @@ int svn_fs__dag_is_mutable (dag_node_t *node)
   /* The node "header" is the first element of a node-revision skel,
      itself a list. */
   skel_t *header = node->contents->children;
-
+  
   /* The 3rd element of the header, IF it exists, is the header's
      first `flag'.  It could be NULL.  */
   skel_t *flag = header->children->next->next;
-
+  
   while (flag)
     {
       /* Looking for the `mutable' flag, which is itself a list. */
@@ -216,7 +216,7 @@ int svn_fs__dag_is_mutable (dag_node_t *node)
       /* Move to next header flag. */
       flag = flag->next;
     }
-
+  
   /* Reached the end of the header skel, no mutable flag was found. */
   return FALSE;
 }
@@ -237,7 +237,7 @@ svn_error_t *svn_fs__dag_get_proplist (skel_t **proplist_p,
      promise about lifetimes.  This is instead of doing fancier
      cache-y things. */
   *proplist_p = svn_fs__copy_skel (props, trail->pool);
-
+   
   return SVN_NO_ERROR;
 }
 
@@ -289,7 +289,7 @@ svn_fs__dag_clone_root (dag_node_t **root_p,
   /* Oh, give me a clone...
      (If they're the same, we haven't cloned the transaction's root
      directory yet.)  */
-  if (svn_fs_id_eq (root_id, base_root_id))
+  if (svn_fs_id_eq (root_id, base_root_id)) 
     {
       /* Of my own flesh and bone...
          (Get the NODE-REVISION skel for the base node, and then write
@@ -316,7 +316,7 @@ svn_fs__dag_clone_root (dag_node_t **root_p,
   root_node->id = root_id;
   root_node->contents = root_skel;
   root_node->pool = trail->pool;
-
+  
   /* ... And when it is grown
    *      Then my own little clone
    *        Will be of the opposite sex!
@@ -373,22 +373,22 @@ make_entry (dag_node_t **child_p,
 
     /* Call .toString() on parent's id -- oops!  This isn't Java! */
     id_str = svn_fs_unparse_id (parent->id, trail->pool);
-
+    
     /* Create a new skel for our new node, the format of which is
        (HEADER KIND-SPECIFIC).  If we are making a directory, the
        HEADER is (dir PROPLIST (mutable PARENT-ID)).  If not, then
        this is a file, whose HEADER is (file PROPLIST (mutable
        PARENT-ID)).  KIND-SPECIFIC is an empty atom for files, an
        empty list for directories. */
-
+    
     /* Step 1: create the FLAG skel. */
     flag_skel = svn_fs__make_empty_list (trail->pool);
     svn_fs__prepend (svn_fs__str_atom (id_str->data, trail->pool),
                      flag_skel);
-    svn_fs__prepend (svn_fs__str_atom ((char *) "mutable", trail->pool),
+    svn_fs__prepend (svn_fs__str_atom ((char *) "mutable", trail->pool), 
                      flag_skel);
     /* Now we have a FLAG skel: (mutable PARENT-ID) */
-
+    
     /* Step 2: create the HEADER skel. */
     header_skel = svn_fs__make_empty_list (trail->pool);
     svn_fs__prepend (flag_skel, header_skel);
@@ -405,7 +405,7 @@ make_entry (dag_node_t **child_p,
                          header_skel);
       }
     /* Now we have a HEADER skel: (file-or-dir () FLAG) */
-
+    
     /* Step 3: assemble the NODE-REVISION skel. */
     noderev_skel = svn_fs__make_empty_list (trail->pool);
     if (is_dir)
@@ -421,7 +421,7 @@ make_entry (dag_node_t **child_p,
     svn_fs__prepend (header_skel, noderev_skel);
     /* All done, skel-wise.  We have a NODE-REVISION skel as described
        far above. */
-
+    
     /* Time to actually create our new node */
     SVN_ERR (svn_fs__create_node (&new_node_id, parent->fs,
                                   noderev_skel, trail));
@@ -452,13 +452,13 @@ make_entry (dag_node_t **child_p,
                        entry_skel);
       svn_fs__prepend (svn_fs__str_atom ((char *) name, trail->pool),
                        entry_skel);
-
+      
       /* ...and now we have an ENTRY skel for this new child: (NAME ID).
          So.  We now get to slap this entry into the parent's list of
-         entries.
+         entries. 
       */
       svn_fs__append (entry_skel, pnoderev_skel);
-
+      
       /* Finally, update the parent's stored skel. */
       SVN_ERR (svn_fs__put_node_revision (parent->fs,
                                           parent->id,
@@ -489,7 +489,7 @@ svn_error_t *svn_fs__dag_make_dir (dag_node_t **child_p,
 }
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
