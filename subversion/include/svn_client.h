@@ -16,7 +16,7 @@
 
 /*** Includes ***/
 
-/*
+/* 
  * Requires:  The working copy library.
  * Provides:  Broad wrappers around working copy library functionality.
  * Used By:   Client programs.
@@ -95,6 +95,6 @@ svn_client_status (apr_hash_t **statushash,
 /* --------------------------------------------------------------
  * local variables:
  * eval: (load-file "../svn-dev.el")
- * end:
+ * end: 
  */
 
