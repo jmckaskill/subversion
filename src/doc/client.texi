@@ -37,8 +37,8 @@ TODO: this should go somewhere else in the document
 
    "vdelta", "vdiff"   ===> you know what this is
 
-   "pdelta", "pdiff"   ===> deltas for property lists.
-                            May include vdeltas.
+   "pdelta", "pdiff"   ===> deltas for property lists.  
+                            May include vdeltas. 
 
    "delta"             ===> the lispy encapsulating data structure.
                             May include vdeltas and pdeltas.
@@ -63,7 +63,7 @@ not including the actual content of the changes (i.e., the vdeltas).  In
 other words, this is how you get a list of all local modifications.
 
 A PATH can be a directory or a file; if directory, then it's a root from
-which to start looking for modifications.
+which to start looking for modifications.  
 
 Takes multiple @code{path} arguments because you might want to do
 something like this:
@@ -87,7 +87,7 @@ into the skelta.
 
 @item make_delta (path1, ...)
 
-Equivalent to
+Equivalent to 
 
 @example
    fill_skelta (make_skelta (path1, ...))
