@@ -2,9 +2,9 @@
 #
 #  diff_tests.py:  some basic diff tests
 #
-#  Subversion is a tool for revision control.
+#  Subversion is a tool for revision control. 
 #  See http://subversion.tigris.org for more information.
-#
+#    
 # ====================================================================
 # Copyright (c) 2001 CollabNet.  All rights reserved.
 #
@@ -103,7 +103,7 @@ def update_a_file():
   "update a file"
   svntest.main.file_append(os.path.join('A', 'B', 'E', 'alpha'), "new atext")
   return 0
-
+  
 def check_update_a_file(diff_output):
   "check diff for update a file"
   return check_diff_output(diff_output,
@@ -172,7 +172,7 @@ def check_replace_a_file(diff_output):
                        'A'):
     return 1
   return 0
-
+    
 #----------------------------------------------------------------------
 
 def update_three_files():
@@ -197,7 +197,7 @@ def check_update_three_files(diff_output):
                         'M'):
     return 1
   return 0
-
+                        
 
 ######################################################################
 # make a change, check the diff, commit the change, check the diff
@@ -391,7 +391,7 @@ def diff_non_recursive():
   # When checking D recursively there are three changes. When checking
   # D non-recursively there is only one change. When checking G
   # recursively, there is only one change even though D is the anchor
-
+  
   # full diff has three changes
   diff_output, err_output = svntest.main.run_svn(None, 'diff', '-r1',
                                                  os.path.join(wc_dir, 'A', 'D'))
@@ -410,7 +410,7 @@ def diff_non_recursive():
                                                               'A', 'D', 'G'))
   if count_diff_output(diff_output) != 1:
     return 1
-
+  
   return 0
 
 ########################################################################
@@ -428,7 +428,7 @@ test_list = [ None,
              ]
 
 if __name__ == '__main__':
-
+  
   ## run the main test routine on them:
   err = svntest.main.run_tests(test_list)
 
@@ -446,4 +446,4 @@ if __name__ == '__main__':
 # eval: (load-file "../../../svn-dev.el")
 # end:
 
-
+  
