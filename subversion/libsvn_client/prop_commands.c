@@ -57,7 +57,7 @@ recursive_propset (const char *propname,
       apr_hash_this (hi, &key, NULL, &val);
       keystring = key;
       current_entry = val;
-
+        
       if (! strcmp (keystring, SVN_WC_ENTRY_THIS_DIR))
         current_entry_name = NULL;
       else
@@ -108,7 +108,7 @@ svn_client_propset (const char *propname,
   SVN_ERR (svn_wc_entry (&node, target, adm_access, FALSE, pool));
   if (!node)
     return svn_error_createf (SVN_ERR_ENTRY_NOT_FOUND, 0, NULL,
-                              "'%s' -- not a versioned resource",
+                              "'%s' -- not a versioned resource", 
                               target);
 
   if (recurse && node->kind == svn_node_dir)
@@ -162,7 +162,7 @@ svn_client_revprop_set (const char *propname,
 
 
 /* Set *PROPS to the pristine (base) properties at PATH, if PRISTINE
- * is true, or else the working value if PRISTINE is false.
+ * is true, or else the working value if PRISTINE is false.  
  *
  * The keys of *PROPS will be `const char *' property names, and the
  * values `const svn_stringbuf_t *' property values.  Allocate *PROPS
@@ -178,7 +178,7 @@ pristine_or_working_props (apr_hash_t **props,
     SVN_ERR (svn_wc_get_prop_diffs (NULL, props, path, pool));
   else
     SVN_ERR (svn_wc_prop_list (props, path, pool));
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -197,7 +197,7 @@ pristine_or_working_propval (const svn_string_t **propval,
   if (pristine)
     {
       apr_hash_t *pristine_props;
-
+      
       SVN_ERR (svn_wc_get_prop_diffs (NULL, &pristine_props, path, pool));
       *propval = apr_hash_get (pristine_props, propname, APR_HASH_KEY_STRING);
     }
@@ -205,13 +205,13 @@ pristine_or_working_propval (const svn_string_t **propval,
     {
       SVN_ERR (svn_wc_prop_get (propval, propname, path, pool));
     }
-
+  
   return SVN_NO_ERROR;
 }
 
 
 /* Helper for svn_client_propget.
- *
+ * 
  * Starting from the path associated with ADM_ACCESS, populate PROPS
  * with the values of property PROPNAME.  If PRISTINE is true, use the
  * base values, else use working values.
@@ -243,7 +243,7 @@ recursive_propget (apr_hash_t *props,
       apr_hash_this (hi, &key, NULL, &val);
       keystring = key;
       current_entry = val;
-
+    
       if (! strcmp (keystring, SVN_WC_ENTRY_THIS_DIR))
           current_entry_name = NULL;
       else
@@ -310,18 +310,18 @@ maybe_convert_to_url (const char **new_target,
       svn_node_kind_t kind;
       const char *pdir;
       const svn_wc_entry_t *entry;
-
+      
       SVN_ERR (svn_io_check_path (target, &kind, pool));
       if (kind == svn_node_file)
         svn_path_split (target, &pdir, NULL, pool);
       else
         pdir = target;
-
+      
       SVN_ERR (svn_wc_adm_open (&adm_access, NULL, pdir, FALSE, FALSE, pool));
       SVN_ERR (svn_wc_entry (&entry, target, adm_access, FALSE, pool));
       if (! entry)
         return svn_error_createf (SVN_ERR_ENTRY_NOT_FOUND, 0, NULL,
-                                  "'%s' is not a versioned resource",
+                                  "'%s' is not a versioned resource", 
                                   target);
       *new_target = entry->url;
     }
@@ -341,7 +341,7 @@ maybe_convert_to_url (const char **new_target,
  * If RECURSE is true and KIND is svn_node_dir, then recurse.
  *
  * KIND is the kind of the node at "TARGET_PREFIX/TARGET_RELATIVE".
- * Yes, caller passes this; it makes the recursion more efficient :-).
+ * Yes, caller passes this; it makes the recursion more efficient :-). 
  *
  * Allocate the keys and values in POOL.
  */
@@ -359,7 +359,7 @@ remote_propget (apr_hash_t *props,
 {
   apr_hash_t *dirents;
   apr_hash_t *prop_hash;
-
+  
   if (kind == svn_node_dir)
     {
       SVN_ERR (ra_lib->get_dir (session, target_relative, revnum,
@@ -378,13 +378,13 @@ remote_propget (apr_hash_t *props,
          "unknown node kind for \"%s\"",
          svn_path_join (target_prefix, target_relative, pool));
     }
-
+  
   apr_hash_set (props,
                 svn_path_join (target_prefix, target_relative, pool),
                 APR_HASH_KEY_STRING,
                 apr_hash_get (prop_hash, propname, APR_HASH_KEY_STRING));
-
-
+  
+  
   if (recurse && (kind == svn_node_dir) && (apr_hash_count (dirents) > 0))
     {
       apr_hash_index_t *hi;
@@ -492,7 +492,7 @@ svn_client_propget (apr_hash_t **props,
                 {
                   SVN_ERR (svn_client__get_revision_number
                            (&revnum, NULL, NULL, revision, target, pool));
-
+                  
                   SVN_ERR (ra_lib->check_path (&kind, session, "", revnum));
 
                   SVN_ERR (remote_propget (*props, propname, utarget, "",
@@ -506,7 +506,7 @@ svn_client_propget (apr_hash_t **props,
                  "Recursing on previous revision not yet supported.\n"
                  "(http://subversion.tigris.org/issues/show_bug.cgi?id=943)\n",
                      target);
-
+                  
                   /* In the recursive case, the correctest behavior is
                      hard to implement.  If the command is
 
@@ -540,16 +540,16 @@ svn_client_propget (apr_hash_t **props,
       svn_boolean_t pristine;
 
       prop_hash = apr_hash_make (pool);
-
+      
       SVN_ERR (svn_wc_adm_probe_open (&adm_access, NULL, target,
                                       FALSE, TRUE, pool));
-
+      
       SVN_ERR (svn_wc_entry (&node, target, adm_access, FALSE, pool));
       if (! node)
         return svn_error_createf
           (SVN_ERR_ENTRY_NOT_FOUND, 0, NULL,
            "'%s' -- not a versioned resource", target);
-
+      
       SVN_ERR (svn_client__get_revision_number
                (&revnum, NULL, NULL, revision, target, pool));
 
@@ -572,15 +572,15 @@ svn_client_propget (apr_hash_t **props,
       else
         {
           const svn_string_t *propval;
-
+          
           SVN_ERR (pristine_or_working_propval (&propval, propname,
                                                 target, pristine, pool));
 
           apr_hash_set (prop_hash, target, APR_HASH_KEY_STRING, propval);
         }
-
+      
       SVN_ERR (svn_wc_adm_close (adm_access));
-
+      
       *props = prop_hash;
     }
 
@@ -642,7 +642,7 @@ push_props_on_list (apr_array_header_t *list,
         = apr_palloc (pool, sizeof (svn_client_proplist_item_t));
       item->node_name = svn_stringbuf_create (path, pool);
       item->prop_hash = prop_hash;
-
+      
       *((svn_client_proplist_item_t **) apr_array_push (list)) = item;
     }
 }
@@ -675,7 +675,7 @@ remote_proplist (apr_array_header_t *proplist,
   apr_hash_t *dirents;
   apr_hash_t *prop_hash;
   apr_hash_index_t *hi;
-
+  
   if (kind == svn_node_dir)
     {
       SVN_ERR (ra_lib->get_dir (session, target_relative, revnum,
@@ -694,7 +694,7 @@ remote_proplist (apr_array_header_t *proplist,
          "unknown node kind for \"%s\"",
          svn_path_join (target_prefix, target_relative, pool));
     }
-
+  
   /* Filter out non-regular properties, since the RA layer
      returns all kinds. */
   for (hi = apr_hash_first (pool, prop_hash);
@@ -704,18 +704,18 @@ remote_proplist (apr_array_header_t *proplist,
       const void *key;
       apr_ssize_t klen;
       svn_prop_kind_t prop_kind;
-
+      
       apr_hash_this (hi, &key, &klen, NULL);
       prop_kind = svn_property_kind (NULL, (const char *) key);
-
+      
       if (prop_kind != svn_prop_regular_kind)
         apr_hash_set (prop_hash, key, klen, NULL);
     }
-
+  
   push_props_on_list (proplist, prop_hash,
                       svn_path_join (target_prefix, target_relative, pool),
                       pool);
-
+  
   if (recurse && (kind == svn_node_dir) && (apr_hash_count (dirents) > 0))
     {
       for (hi = apr_hash_first (pool, dirents);
@@ -774,7 +774,7 @@ add_to_proplist (apr_array_header_t *prop_list,
 }
 
 /* Helper for svn_client_proplist.
- *
+ * 
  * Starting from the path associated with ADM_ACCESS, populate PROPS
  * with the values of property PROPNAME.  If PRISTINE is true, use the
  * base values, else use working values.
@@ -806,7 +806,7 @@ recursive_proplist (apr_array_header_t *props,
       apr_hash_this (hi, &key, NULL, &val);
       keystring = key;
       current_entry = val;
-
+    
       if (! strcmp (keystring, SVN_WC_ENTRY_THIS_DIR))
           current_entry_name = NULL;
       else
@@ -838,7 +838,7 @@ recursive_proplist (apr_array_header_t *props,
 
 svn_error_t *
 svn_client_proplist (apr_array_header_t **props,
-                     const char *target,
+                     const char *target, 
                      const svn_opt_revision_t *revision,
                      svn_client_auth_baton_t *auth_baton,
                      svn_boolean_t recurse,
@@ -902,7 +902,7 @@ svn_client_proplist (apr_array_header_t **props,
                 {
                   SVN_ERR (svn_client__get_revision_number
                            (&revnum, NULL, NULL, revision, target, pool));
-
+                  
                   SVN_ERR (ra_lib->check_path (&kind, session, "", revnum));
 
                   SVN_ERR (remote_proplist (prop_list, utarget, "",
@@ -916,7 +916,7 @@ svn_client_proplist (apr_array_header_t **props,
                  "Recursing on previous revision not yet supported.\n"
                  "(http://subversion.tigris.org/issues/show_bug.cgi?id=943)\n",
                      target);
-
+                  
                   /* In the recursive case, the correctest behavior is
                      hard to implement.  If the command is
 
@@ -953,12 +953,12 @@ svn_client_proplist (apr_array_header_t **props,
       SVN_ERR (svn_wc_entry (&entry, target, adm_access, FALSE, pool));
       if (! entry)
         return svn_error_createf (SVN_ERR_ENTRY_NOT_FOUND, 0, NULL,
-                                  "'%s' -- not a versioned resource",
+                                  "'%s' -- not a versioned resource", 
                                   target);
-
+      
       SVN_ERR (svn_client__get_revision_number
                (&revnum, NULL, NULL, revision, target, pool));
-
+      
       if ((revision->kind == svn_opt_revision_committed)
           || (revision->kind == svn_opt_revision_base))
         {
@@ -971,9 +971,9 @@ svn_client_proplist (apr_array_header_t **props,
 
       if (recurse && entry->kind == svn_node_dir)
         SVN_ERR (recursive_proplist (prop_list, adm_access, pristine, pool));
-      else
+      else 
         SVN_ERR (add_to_proplist (prop_list, target, pristine, pool));
-
+      
       SVN_ERR (svn_wc_adm_close (adm_access));
     }
 
@@ -1017,14 +1017,14 @@ svn_client_revprop_list (apr_hash_t **props,
       const void *key;
       void *val;
       apr_ssize_t klen;
-
+      
       apr_hash_this (hi, &key, &klen, &val);
       apr_hash_set (proplist, key, klen, val);
-    }
+    } 
 
   /* All done. */
   SVN_ERR (ra_lib->close(session));
-
+  
   *props = proplist;
   return SVN_NO_ERROR;
 }
