@@ -411,7 +411,7 @@ A look at its table description below will make things clearer...
 
 <table border=1>
  <tr>
-  <td valign=top>PKEY
+  <td valign=top>PKEY 
   </td>
   <td valign=top><tt>int</tt>
       <br><tt>(never&nbsp;null)</tt>
@@ -423,7 +423,7 @@ A look at its table description below will make things clearer...
  </tr>
 
  <tr>
-  <td valign=top>NAME
+  <td valign=top>NAME 
   </td>
   <td valign=top><tt>string</tt>
   </td>
@@ -438,7 +438,7 @@ A look at its table description below will make things clearer...
  </tr>
 
  <tr>
-  <td valign=top>PROJECT
+  <td valign=top>PROJECT 
   </td>
   <td valign=top><tt>int&nbsp;[fkey]</tt>
       <br><tt>(never&nbsp;null)</tt>
@@ -449,7 +449,7 @@ A look at its table description below will make things clearer...
  </tr>
 
  <tr>
-  <td valign=top>VERSION
+  <td valign=top>VERSION 
   </td>
   <td valign=top><tt>int</tt>
       <br><tt>(never&nbsp;null)</tt>
@@ -463,7 +463,7 @@ A look at its table description below will make things clearer...
  </tr>
 
  <tr>
-  <td valign=top>NEXT_VERSION
+  <td valign=top>NEXT_VERSION 
   </td>
   <td valign=top><tt>int</tt>
   </td>
@@ -475,7 +475,7 @@ A look at its table description below will make things clearer...
  </tr>
 
  <tr>
-  <td valign=top>PREV_VERSION
+  <td valign=top>PREV_VERSION 
   </td>
   <td valign=top><tt>int</tt>
   </td>
@@ -489,7 +489,7 @@ A look at its table description below will make things clearer...
  </tr>
 
  <tr>
-  <td valign=top>STATE
+  <td valign=top>STATE 
   </td>
   <td valign=top><tt>string</tt>
       <br><tt>(never&nbsp;null)</tt>
@@ -502,7 +502,7 @@ A look at its table description below will make things clearer...
  </tr>
 
  <tr>
-  <td valign=top>CONTENTS
+  <td valign=top>CONTENTS 
   </td>
   <td valign=top><tt>text</tt>
   </td>
@@ -526,7 +526,7 @@ A look at its table description below will make things clearer...
  </tr>
 
  <tr>
-  <td valign=top>LINE_MODS
+  <td valign=top>LINE_MODS 
   </td>
   <td valign=top><tt>text</tt>
   </td>
@@ -539,7 +539,7 @@ A look at its table description below will make things clearer...
  </tr>
 
  <tr>
-  <td valign=top>TYPE
+  <td valign=top>TYPE 
   </td>
   <td valign=top><tt>string</tt>
       <br><tt>(never&nbsp;null)</tt>
@@ -551,7 +551,7 @@ A look at its table description below will make things clearer...
  </tr>
 
  <tr>
-  <td valign=top>PROPERTIES
+  <td valign=top>PROPERTIES 
   </td>
   <td valign=top><tt>text</tt>
   </td>
@@ -566,7 +566,7 @@ A look at its table description below will make things clearer...
  </tr>
 
  <tr>
-  <td valign=top>PARENT_DIR
+  <td valign=top>PARENT_DIR 
   </td>
   <td valign=top><tt>int&nbsp;[pkey]</tt>
   </td>
@@ -586,7 +586,7 @@ A look at its table description below will make things clearer...
  </tr>
 
  <tr>
-  <td valign=top>MERGE_METHOD
+  <td valign=top>MERGE_METHOD 
   </td>
   <td valign=top><tt>string</tt>
   </td>
@@ -613,7 +613,7 @@ A look at its table description below will make things clearer...
 <table border=1>
 
  <tr>
-  <td valign=top>PKEY
+  <td valign=top>PKEY 
   </td>
   <td valign=top><tt>int</tt>
   </td>
@@ -628,7 +628,7 @@ A look at its table description below will make things clearer...
  </tr>
 
  <tr>
-  <td valign=top>NAME
+  <td valign=top>NAME 
   </td>
   <td valign=top><tt>string</tt>
   </td>
@@ -638,7 +638,7 @@ A look at its table description below will make things clearer...
  </tr>
 
  <tr>
-  <td valign=top>DESCRIPTION
+  <td valign=top>DESCRIPTION 
   </td>
   <td valign=top><tt>string</tt>
   </td>
@@ -648,7 +648,7 @@ A look at its table description below will make things clearer...
  </tr>
 
  <tr>
-  <td valign=top>HIGHEST_VERSION
+  <td valign=top>HIGHEST_VERSION 
   </td>
   <td valign=top><tt>int</tt>
       <br><tt>(never&nbsp;null)</tt>
@@ -659,7 +659,7 @@ A look at its table description below will make things clearer...
  </tr>
 
  <tr>
-  <td valign=top>LOWEST_VERSION
+  <td valign=top>LOWEST_VERSION 
   </td>
   <td valign=top><tt>int</tt>
       <br><tt>(never&nbsp;null)</tt>
@@ -671,7 +671,7 @@ A look at its table description below will make things clearer...
  </tr>
 
  <tr>
-  <td valign=top>ANCESTOR
+  <td valign=top>ANCESTOR 
   </td>
   <td valign=top><tt>int&nbsp;[fkey]</tt> or <tt>string</tt></tt>
   </td>
@@ -692,7 +692,7 @@ A look at its table description below will make things clearer...
  </tr>
 
  <tr>
-  <td valign=top>LOG_MSG_POLICY
+  <td valign=top>LOG_MSG_POLICY 
   </td>
   <td valign=top><tt>bool</tt>
   </td>
@@ -732,7 +732,7 @@ command).
 <table border=1>
 
  <tr>
-  <td valign=top>PROJECT
+  <td valign=top>PROJECT 
   </td>
   <td valign=top><tt>int&nbsp;[fkey]</tt> or <tt>string</tt>
       <br><tt>(never&nbsp;null)</tt>
@@ -743,14 +743,14 @@ command).
  </tr>
 
  <tr>
-  <td valign=top>VERSION
+  <td valign=top>VERSION 
   </td>
   <td valign=top><tt>int</tt>
       <br><tt>(never&nbsp;null)</tt>
   </td>
   <td>
       The version number of this commit.
-      Initial import gets 1.
+      Initial import gets 1. 
   </td>
  </tr>
 
@@ -777,7 +777,7 @@ command).
 <table border=1>
 
  <tr>
-  <td valign=top>USERNAME
+  <td valign=top>USERNAME 
   </td>
   <td valign=top><tt>string</tt>
   </td>
@@ -787,7 +787,7 @@ command).
  </tr>
 
  <tr>
-  <td valign=top>REALNAME
+  <td valign=top>REALNAME 
   </td>
   <td valign=top><tt>string</tt>
   </td>
@@ -797,7 +797,7 @@ command).
  </tr>
 
  <tr>
-  <td valign=top>EMAIL
+  <td valign=top>EMAIL 
   </td>
   <td valign=top><tt>string</tt>
   </td>
@@ -807,7 +807,7 @@ command).
  </tr>
 
  <tr>
-  <td valign=top>USE_SYSTEM
+  <td valign=top>USE_SYSTEM 
   </td>
   <td valign=top><tt>bool</tt>
   </td>
@@ -840,7 +840,7 @@ command).
 <table border=1>
 
  <tr>
-  <td valign=top>USER
+  <td valign=top>USER 
   </td>
   <td valign=top><tt>string</tt>
   </td>
@@ -850,7 +850,7 @@ command).
  </tr>
 
  <tr>
-  <td valign=top>PROJECT
+  <td valign=top>PROJECT 
   </td>
   <td valign=top><tt>int</tt> or <tt>string</tt>
   </td>
@@ -860,9 +860,9 @@ command).
       (Referenced by fkey or name?  See similar discussions above.)
   </td>
  </tr>
-
+    
  <tr>
-  <td valign=top>ACCESS_TYPE
+  <td valign=top>ACCESS_TYPE 
   </td>
   <td valign=top><tt>?</tt>
   </td>
@@ -890,7 +890,7 @@ now, we only know one column:
 
  <tr>
   <td valign=top>IVN_RELEASE
-
+ 
   </td>
   <td valign=top><tt>?</tt></td>
   <td>
