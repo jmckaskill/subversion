@@ -57,13 +57,13 @@ svn_error_t *svn_ra_dav__convert_error(ne_session *sess,
   const char *msg;
 
   /* Convert the return codes. */
-  switch (retcode)
+  switch (retcode) 
     {
     case NE_AUTH:
       errcode = SVN_ERR_RA_NOT_AUTHORIZED;
       msg = "authorization failed";
       break;
-
+      
     case NE_CONNECT:
       msg = "could not connect to server";
       break;
@@ -80,7 +80,7 @@ svn_error_t *svn_ra_dav__convert_error(ne_session *sess,
 
   return svn_error_createf (errcode, 0, NULL, pool,
                             "%s: %s", context, msg);
-
+  
 }
 
 
@@ -90,10 +90,10 @@ svn_error_t *svn_ra_dav__convert_error(ne_session *sess,
 /* Context baton for the error parser.  Obviously, it just builds an
    ERR from POOL. */
 typedef struct {
-
+  
   svn_error_t *err;
   apr_pool_t *pool;
-
+  
 } parser_cxt_t;
 
 
@@ -111,7 +111,7 @@ static const struct ne_xml_elm error_elements[] =
 {
   { "DAV:", "error", ELEM_error, 0 },
   { "svn:", "error", ELEM_svn_error, 0 },
-  { "http://apache.org/dav/xmlns", "human-readable",
+  { "http://apache.org/dav/xmlns", "human-readable", 
     ELEM_human_readable, NE_XML_CDATA },
 
   /* ### our validator doesn't yet recognize the rich, specific
@@ -167,12 +167,12 @@ static int start_err_element(void *userdata, const struct ne_xml_elm *elm,
     case ELEM_human_readable:
       {
         /* get the errorcode attribute if present */
-        const char *errcode_str =
+        const char *errcode_str = 
           svn_xml_get_attr_value("errcode", /* ### make constant in
                                                some mod_dav header? */
                                  atts);
 
-        if (errcode_str && pc->err)
+        if (errcode_str && pc->err) 
           pc->err->apr_err = atoi(errcode_str);
 
         break;
@@ -214,9 +214,9 @@ svn_error_t *svn_ra_dav__parsed_request(svn_ra_session_t *ras,
                                         const char *url,
                                         const char *body,
                                         int fd,
-                                        const struct ne_xml_elm *elements,
+                                        const struct ne_xml_elm *elements, 
                                         ne_xml_validate_cb validate_cb,
-                                        ne_xml_startelm_cb startelm_cb,
+                                        ne_xml_startelm_cb startelm_cb, 
                                         ne_xml_endelm_cb endelm_cb,
                                         void *baton,
                                         apr_pool_t *pool)
@@ -255,7 +255,7 @@ svn_error_t *svn_ra_dav__parsed_request(svn_ra_session_t *ras,
   /* create a parser to read the <D:error> response body */
   error_parser = ne_xml_create();
   ne_xml_push_handler(error_parser, error_elements, validate_error_elements,
-                      start_err_element, end_err_element, pc);
+                      start_err_element, end_err_element, pc); 
 
   /* Register the "main" accepter and body-reader with the request --
      the one to use when the HTTP status is 2XX */
@@ -281,7 +281,7 @@ svn_error_t *svn_ra_dav__parsed_request(svn_ra_session_t *ras,
     {
       rv = decompress_rv;
     }
-
+  
   code = ne_get_status(req)->code;
   ne_request_destroy(req);
 
@@ -341,18 +341,18 @@ svn_ra_dav__maybe_store_auth_info(svn_ra_session_t *ras)
 {
   void *a, *auth_baton;
   svn_ra_simple_password_authenticator_t *authenticator;
-
-  SVN_ERR (ras->callbacks->get_authenticator (&a, &auth_baton,
-                                              svn_ra_auth_simple_password,
+  
+  SVN_ERR (ras->callbacks->get_authenticator (&a, &auth_baton, 
+                                              svn_ra_auth_simple_password, 
                                               ras->callback_baton,
                                               ras->pool));
-  authenticator = (svn_ra_simple_password_authenticator_t *) a;
-
+  authenticator = (svn_ra_simple_password_authenticator_t *) a;      
+  
   /* If we have a auth-info storage callback, use it. */
   if (authenticator->store_user_and_pass)
     /* Storage will only happen if AUTH_BATON is already caching auth info. */
     SVN_ERR (authenticator->store_user_and_pass (auth_baton));
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -419,7 +419,7 @@ svn_ra_dav__request_dispatch(int *code,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end:
