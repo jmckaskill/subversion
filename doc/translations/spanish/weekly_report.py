@@ -66,7 +66,7 @@ def parse_file(input_lines):
                     file_status[filename].append((section, rest))
                 else:
                     file_status[filename] = [(section, rest)]
-
+            
     return commiters, file_status
 
 
@@ -77,7 +77,7 @@ def print_header(string):
     print string
     print "-" * len(string)
 
-
+    
 def show_commiter_info(commiters):
     """f({commiters})
 
@@ -92,7 +92,7 @@ def show_commiter_info(commiters):
         date_text, days, commit = statistics[nick]
         results.append((full, date_text, days, commit))
     results.sort()
-
+    
     for name, date_text, days, commit in results:
         if commit:
             print "Último cambio de", name, "en", date_text, \
