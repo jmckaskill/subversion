@@ -71,10 +71,10 @@ get_creds (const char **username,
 {
   apr_hash_t *creds_hash = NULL;
   svn_string_t *susername = NULL, *spassword = NULL;
-  const char *def_username = apr_hash_get (parameters,
+  const char *def_username = apr_hash_get (parameters, 
                                            SVN_AUTH_PARAM_DEFAULT_USERNAME,
                                            APR_HASH_KEY_STRING);
-  const char *def_password = apr_hash_get (parameters,
+  const char *def_password = apr_hash_get (parameters, 
                                            SVN_AUTH_PARAM_DEFAULT_PASSWORD,
                                            APR_HASH_KEY_STRING);
   const char *config_dir;
@@ -89,7 +89,7 @@ get_creds (const char **username,
   *username = NULL;
   if (password)
     *password = NULL;
-
+  
   /* Try to load simple credentials from a file on disk, based on the
      realmstring.  Don't throw an error, though:  if something went
      wrong reading the file, no big deal.  What really matters is that
@@ -118,7 +118,7 @@ get_creds (const char **username,
     pb->username = susername->data;
   if (spassword && spassword->data)
     pb->password = spassword->data;
-
+      
   *username = def_username ? def_username : susername ? susername->data : NULL;
   if (password)
     *password
@@ -186,7 +186,7 @@ save_creds (svn_boolean_t *saved,
         {
           creds_hash = apr_hash_make (pool);
           apr_hash_set (creds_hash, SVN_CLIENT__AUTHFILE_USERNAME_KEY,
-                        APR_HASH_KEY_STRING,
+                        APR_HASH_KEY_STRING,                        
                         svn_string_create (username, pool));
 
           /* ...and write to disk. */
@@ -252,14 +252,14 @@ simple_save_creds (svn_boolean_t *saved,
 
   *saved = FALSE;
 
-  no_auth_cache = apr_hash_get (parameters,
+  no_auth_cache = apr_hash_get (parameters, 
                                 SVN_AUTH_PARAM_NO_AUTH_CACHE,
                                 APR_HASH_KEY_STRING);
-
+ 
   config_dir = apr_hash_get (parameters,
                              SVN_AUTH_PARAM_CONFIG_DIR,
                              APR_HASH_KEY_STRING);
-
+  
   if (no_auth_cache == NULL)
     SVN_ERR (save_creds (saved, pb, creds->username, creds->password,
                          config_dir, pool));
@@ -339,14 +339,14 @@ username_save_creds (svn_boolean_t *saved,
 
   *saved = FALSE;
 
-  no_auth_cache = apr_hash_get (parameters,
+  no_auth_cache = apr_hash_get (parameters, 
                                 SVN_AUTH_PARAM_NO_AUTH_CACHE,
                                 APR_HASH_KEY_STRING);
 
   config_dir = apr_hash_get (parameters,
                              SVN_AUTH_PARAM_CONFIG_DIR,
                              APR_HASH_KEY_STRING);
-
+  
   if (no_auth_cache == NULL)
     SVN_ERR (save_creds (saved, pb, creds->username, NULL, config_dir, pool));
 
