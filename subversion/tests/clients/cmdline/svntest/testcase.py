@@ -2,9 +2,9 @@
 #
 #  testcase.py:  Control of test case execution.
 #
-#  Subversion is a tool for revision control.
+#  Subversion is a tool for revision control. 
 #  See http://subversion.tigris.org for more information.
-#
+#    
 # ====================================================================
 # Copyright (c) 2001 Collabnet.  All rights reserved.
 #
