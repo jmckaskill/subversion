@@ -56,7 +56,7 @@ class WinGeneratorBase(gen_base.GeneratorBase):
     # Instrumentation options
     self.instrument_apr_pools = None
     self.instrument_purify_quantify = None
-
+    
     # NLS options
     self.enable_nls = None
 
@@ -140,14 +140,14 @@ class WinGeneratorBase(gen_base.GeneratorBase):
             'openssl_path': self.openssl_path}
     self.write_with_template(os.path.join('build', 'win32', 'build_neon.bat'),
                              'build_neon.ezt', data)
-
+    
     # Generate the build_locale.bat file
     pofiles = []
     if self.enable_nls:
       for po in os.listdir(os.path.join('subversion', 'po')):
         if fnmatch.fnmatch(po, '*.po'):
           pofiles.append(POFile(po[:-3]))
-
+    
     data = {'pofiles': pofiles}
     self.write_with_template(os.path.join('build', 'win32', 'build_locale.bat'),
                              'build_locale.ezt', data)
@@ -238,7 +238,7 @@ class WinGeneratorBase(gen_base.GeneratorBase):
                     libs=self.get_win_libs(target, cfg),
                     ))
     return configs
-
+  
   def get_proj_sources(self, quote_path, target, rootpath):
     "Get the list of source files for each project"
     sources = [ ]
@@ -289,7 +289,7 @@ class WinGeneratorBase(gen_base.GeneratorBase):
                    % tuple(map(self.quote, (classes, targetdir, sourcepath)))
 
           ctarget = os.path.join(rootpath, target.classes,
-                                 *dirs[len(sourcedirs):-1] +
+                                 *dirs[len(sourcedirs):-1] + 
                                  [dirs[-1][:-5] + target.objext]
                                  )
 
@@ -348,7 +348,7 @@ class WinGeneratorBase(gen_base.GeneratorBase):
 
     sources.sort(lambda x, y: cmp(x.path, y.path))
     return sources
-
+  
   def gen_proj_names(self, install_targets):
     "Generate project file names for the targets"
     # Generate project file names for the targets: replace dashes with
@@ -368,7 +368,7 @@ class WinGeneratorBase(gen_base.GeneratorBase):
       else:
         proj_name = string.replace(name, '-', '_')
       target.proj_name = proj_name
-
+  
   def adjust_win_depends(self, target, name):
     "Handle special dependencies if needed"
 
@@ -380,7 +380,7 @@ class WinGeneratorBase(gen_base.GeneratorBase):
     depends.extend(self.get_win_depends(target, FILTER_PROJECTS))
 
     return depends
-
+    
   def get_win_depends(self, target, mode):
     """Return the list of dependencies for target"""
 
