@@ -33,7 +33,7 @@ Private sRootFolder As String
 Private Sub tvTreeView_Collapse(ByVal Node As MSComctlLib.Node)
     Dim oChild As Node
     Dim oNext As Node
-
+    
     ' We can't very well go deleting our drive nodes,
     ' now can we?
     If Node.Key <> "Computer" Then
@@ -54,7 +54,7 @@ Private Sub ExpandNodes(ByVal Node As MSComctlLib.Node, sPath As String)
     Dim oNode2 As Node
     Dim f As Folder
     Dim fldrs As Folders
-
+    
     ' TODO: Handle GetFolder() failing, it can for removable drives.
     On Error Resume Next
     Set f = g_fs.GetFolder(sPath)
@@ -87,7 +87,7 @@ NextLabel:
 End Sub
 Private Sub tvTreeView_Expand(ByVal Node As MSComctlLib.Node)
     Dim sPath As String
-
+    
     ' Need to virtally expand the nodes here.
     If Node.Children = 1 Then
         If Node.Child.Tag = "LAZY" Then
@@ -101,7 +101,7 @@ End Sub
 
 Private Sub tvTreeView_NodeClick(ByVal Node As MSComctlLib.Node)
     Dim sPath As String
-
+    
     sPath = GetNodePath(Node)
     fMainForm.g_oLVH.PopulateSGrid sPath
 End Sub
@@ -111,15 +111,15 @@ Private Sub LoadTreeView(sPath As String, iType As Long)
     Dim col As Collection
     Dim sType As String
     Dim oNode2 As Node
-
+    
     tvTreeView.Nodes.Clear
     lRootType = iType
-
+    
     If iType = k_gComputer Then
-
+    
         Set oNode = tvTreeView.Nodes.Add(, tvwFirst, "Computer", g_sComputerName, "COMPUTER")
         Set col = GetDriveList()
-
+        
         For Each item In col
             sType = GetDriveTypeImageListKey(item)
             ' Worrying about working copy data on a CD
@@ -165,7 +165,7 @@ End Sub
 
 Public Sub AddLazyNode(oNode As Node)
     Dim oNode2 As Node
-
+    
     Set oNode2 = tvTreeView.Nodes.Add(oNode, tvwChild)
     oNode2.Tag = "LAZY"
 End Sub
@@ -180,14 +180,14 @@ Private Function GetNodePath(Node As MSComctlLib.Node) As String
 End Function
 Public Function StripRootNode(s As String) As String
     Dim sPath As String
-
+    
     ' Strip off the computer name
     sPath = PathSkipRoot(s)
     ' Ensure \ is at the end.
     If Right(sPath, 1) <> "\" Then
         sPath = sPath & "\"
     End If
-
+    
     StripRootNode = sPath
 End Function
 
