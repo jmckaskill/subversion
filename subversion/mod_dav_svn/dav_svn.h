@@ -336,7 +336,7 @@ const char *dav_svn_build_uri(const dav_svn_repos *repos,
 
 
 /* Compare (PATH in ROOT) to (PATH in ROOT/PATH's created_rev).
-
+   
    If these nodes are identical, then return the created_rev.
 
    If the nodes aren't identical, or if PATH simply doesn't exist in
@@ -424,7 +424,7 @@ dav_error * dav_svn_split_uri (request_rec *r,
 
     2. if the URI is a working resource, is it the path "new" in the
        transaction?  i.e. does this object exist in the original
-       revision?
+       revision? 
  */
 dav_error * dav_svn_is_new_resource (request_rec *r,
                                      const char *uri,
@@ -446,7 +446,7 @@ dav_error * dav_svn__update_report(const dav_resource *resource,
                                    ap_filter_t *output);
 
 /* ### todo: document this, as soon as understand what the heck it
-   does :-).  -kff */
+   does :-).  -kff */   
 dav_error * dav_svn__log_report(const dav_resource *resource,
                                 const apr_xml_doc *doc,
                                 ap_filter_t *output);
@@ -461,7 +461,7 @@ int dav_svn_find_ns(apr_array_header_t *namespaces, const char *uri);
 #endif /* DAV_SVN_H */
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end:
