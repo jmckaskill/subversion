@@ -43,11 +43,11 @@ svn_fs_base__create_node (const svn_fs_id_t **id_p,
   svn_fs_id_t *id;
 
   /* Find an unused ID for the node.  */
-  SVN_ERR (svn_fs_bdb__new_node_id (&id, fs, copy_id, txn_id,
+  SVN_ERR (svn_fs_bdb__new_node_id (&id, fs, copy_id, txn_id, 
                                     trail, trail->pool));
 
   /* Store its NODE-REVISION skel.  */
-  SVN_ERR (svn_fs_bdb__put_node_revision (fs, id, noderev,
+  SVN_ERR (svn_fs_bdb__put_node_revision (fs, id, noderev, 
                                           trail, trail->pool));
 
   *id_p = id;
@@ -74,7 +74,7 @@ svn_fs_base__create_successor (const svn_fs_id_t **new_id_p,
                                          txn_id, trail, trail->pool));
 
   /* Store the new skel under that ID.  */
-  SVN_ERR (svn_fs_bdb__put_node_revision (fs, new_id, new_noderev,
+  SVN_ERR (svn_fs_bdb__put_node_revision (fs, new_id, new_noderev, 
                                           trail, trail->pool));
 
   *new_id_p = new_id;

@@ -607,7 +607,7 @@ txn_body_begin_txn (void *baton,
   const char *txn_id;
 
   SVN_ERR (svn_fs_base__rev_get_root (&root_id, trail->fs, args->rev, trail));
-  SVN_ERR (svn_fs_bdb__create_txn (&txn_id, trail->fs, root_id,
+  SVN_ERR (svn_fs_bdb__create_txn (&txn_id, trail->fs, root_id, 
                                    trail, trail->pool));
 
   *args->txn_p = make_txn (trail->fs, txn_id, args->rev, trail->pool);
@@ -753,7 +753,7 @@ txn_body_get_dirents (void *baton, trail_t *trail)
   dag_node_t *node;
 
   /* Get the node. */
-  SVN_ERR (svn_fs_base__dag_get_node (&node, trail->fs, args->id,
+  SVN_ERR (svn_fs_base__dag_get_node (&node, trail->fs, args->id, 
                                       trail, trail->pool));
 
   /* If immutable, do nothing and return. */
@@ -766,7 +766,7 @@ txn_body_get_dirents (void *baton, trail_t *trail)
     return SVN_NO_ERROR;
 
   /* Else it's mutable.  Get it's dirents. */
-  return svn_fs_base__dag_dir_entries (args->dirents, node,
+  return svn_fs_base__dag_dir_entries (args->dirents, node, 
                                        trail, trail->pool);
 }
 
@@ -940,7 +940,7 @@ txn_body_list_transactions (void* baton,
                             trail_t *trail)
 {
   struct list_transactions_args *args = baton;
-  return svn_fs_bdb__get_txn_list (args->names_p, trail->fs,
+  return svn_fs_bdb__get_txn_list (args->names_p, trail->fs, 
                                    trail, args->pool);
 }
 
