@@ -54,7 +54,6 @@ typedef struct {
   const char *user;
   svn_boolean_t tunnel;    /* Tunneled through login agent; allow EXTERNAL */
   svn_boolean_t read_only; /* Disallow write access (global flag) */
-  svn_boolean_t believe;   /* Believe ANONYMOUS usernames */
   int protocol_version;
 } server_baton_t;
 
@@ -166,8 +165,6 @@ static svn_error_t *auth(svn_ra_svn_conn_t *conn, apr_pool_t *pool,
   if (get_access(b, UNAUTHENTICATED) >= required
       && strcmp(mech, "ANONYMOUS") == 0)
     {
-      if (b->believe && mecharg && *mecharg)
-        b->user = mecharg;
       SVN_ERR(svn_ra_svn_write_tuple(conn, pool, "w()", "success"));
       *success = TRUE;
       return SVN_NO_ERROR;
@@ -1044,7 +1041,7 @@ static svn_error_t *find_repos(const char *url, const char *root,
 
 svn_error_t *serve(svn_ra_svn_conn_t *conn, const char *root,
                    svn_boolean_t tunnel, svn_boolean_t read_only,
-                   svn_boolean_t believe_username, apr_pool_t *pool)
+                   apr_pool_t *pool)
 {
   svn_error_t *err, *io_err;
   apr_uint64_t ver;
@@ -1056,7 +1053,6 @@ svn_error_t *serve(svn_ra_svn_conn_t *conn, const char *root,
 
   b.tunnel = tunnel;
   b.read_only = read_only;
-  b.believe = believe_username;
   b.user = NULL;
   b.cfg = NULL;  /* Ugly; can drop when we remove v1 support. */
   b.pwdb = NULL; /* Likewise */
