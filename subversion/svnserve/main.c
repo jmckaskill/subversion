@@ -121,7 +121,7 @@ static void * APR_THREAD_FUNC serve_thread(apr_thread_t *tid, void *data)
 {
   struct serve_thread_t *d = data;
 
-  svn_error_clear(serve(d->conn, d->root, FALSE, d->read_only,
+  svn_error_clear(serve(d->conn, d->root, FALSE, d->read_only, 
                         d->believe_username, d->pool));
   svn_pool_destroy(d->pool);
 
@@ -211,7 +211,7 @@ int main(int argc, const char *const *argv)
       apr_file_open_stdin(&in_file, pool);
       apr_file_open_stdout(&out_file, pool);
       conn = svn_ra_svn_create_conn(NULL, in_file, out_file, pool);
-      svn_error_clear(serve(conn, root, tunnel_mode, read_only,
+      svn_error_clear(serve(conn, root, tunnel_mode, read_only, 
                             believe_username, pool));
       exit(0);
     }
@@ -283,7 +283,7 @@ int main(int argc, const char *const *argv)
 
       if (listen_once)
         {
-          err = serve(conn, root, FALSE, read_only, believe_username,
+          err = serve(conn, root, FALSE, read_only, believe_username, 
                       connection_pool);
 
           if (listen_once && err
@@ -358,7 +358,7 @@ int main(int argc, const char *const *argv)
 
         case connection_mode_single:
           /* Serve one connection at a time. */
-          svn_error_clear(serve(conn, root, FALSE, read_only, believe_username,
+          svn_error_clear(serve(conn, root, FALSE, read_only, believe_username, 
                                 connection_pool));
           svn_pool_destroy(connection_pool);
         }
