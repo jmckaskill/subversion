@@ -73,7 +73,7 @@ typedef struct
   /* A string that describes the kind of credentials this provider
      understands. */
   const char *cred_kind;
-
+  
   /* Set *CREDENTIALS to a set of valid credentials, or NULL if none
      available.  Set *ITER_BATON to context that allows a subsequent
      call to next_credentials(), in case the first credentials fail to
@@ -86,17 +86,17 @@ typedef struct
 
   /* Set *CREDENTIALS to another set of valid credentials, (using
      ITER_BATON as the context from previous call to first_credentials
-     or next_credentials), or NULL if no more options are available. */
+     or next_credentials), or NULL if no more options are available. */  
   svn_error_t * (*next_credentials) (void **credentials,
                                      void *iter_baton,
                                      apr_pool_t *pool);
-
+  
   /* Store CREDENTIALS for future use.  PROVIDER_BATON is general
      context for the vtable. */
   svn_error_t * (*save_credentials) (void *credentials,
                                      void *provider_baton,
                                      apr_pool_t *pool);
-
+  
 } svn_auth_provider_t;
 
 /** Specific types of credentials **/
@@ -107,7 +107,7 @@ typedef struct
 {
   const char *username;
   const char *password;
-
+  
 } svn_auth_cred_simple_t;
 
 /* A type of credentials:  just a username. */
