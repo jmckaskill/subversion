@@ -106,13 +106,13 @@ STOPPED HERE -Fitz $Date: 2001-03-19 06:39:23 $
 Options
 ==============
 
-* Options
+* Options 
 
-  This lists *all* command line options available to the subversion
+  This lists *all* command line options available to the subversion 
   client.
 
   -? -h -H --help                Help.
-
+      
   -V --verbose [ KEY ]           [quiet|progress|verbose|trace]
                                  Determines the level of spewage that the
                                  client gives (progress is the default,
@@ -125,27 +125,27 @@ Options
   -v --version                   subversion version is printed.
 
   -l --local-dir                 Local; run only in current working directory.
-
+      
      --recursive                 Operate recursively (default).
-
+      
   -d --destination DEST          Target directory (like "cvs checkout -d DEST")
-
-  -f --force                     Force.
-
+      
+  -f --force                     Force. 
+      
   -m --message MSG               Use "MSG" for the log message
-
+      
   -F --msg-file FILE             Read the log message from FILE.
-
-  -p --stdout                    Check out/update/whatever files to standard output
-
-  -n --dry-run                   Like "cvs -n"
-
+              
+  -p --stdout                    Check out/update/whatever files to standard output 
+              
+  -n --dry-run                   Like "cvs -n" 
+      
      --no-rc                     Suppress reading of .svnrc.
-
+              
   -e --editor EDITOR             Edit messages with EDITOR.
-
+      
      --read-only                 Make new working files read-only.
-
+      
      --writable                  Make new working files read-write (default)
 
   -I --ignore GLOB               Ignore entities whose names match GLOB
@@ -169,7 +169,7 @@ Subcommands
 The commands will look a lot like CVS's, though there are some
 newcomers:
 
-Summary:
+Summary: 
 
    add      | ad | new
    annotate | an | ann
@@ -203,8 +203,8 @@ NOTE: For now, the option descriptions are mostly not included in the
   ========
 
   Usage: svn checkout URL
-
-  This checks out a working copy from a repository.
+  
+  This checks out a working copy from a repository. 
 
   e.g. svn checkout http://svn.tigris.org/repository1/subversion
 
@@ -218,7 +218,7 @@ NOTE: For now, the option descriptions are mostly not included in the
   If PATH is specified, update based on PATH in the repository (Which
   is presumed to share a lot of ancestry with the current working copy).
 
-  e.g. svn update foo.c bar.h baz/ bat/*.m
+  e.g. svn update foo.c bar.h baz/ bat/*.m 
        svn update -b /some/branch/path
 
   commit
@@ -228,18 +228,18 @@ NOTE: For now, the option descriptions are mostly not included in the
 
   Commit changes from your working copy into the repository.
 
-  e.g. svn commit foo.c bar.h baz/ bat/*.m
+  e.g. svn commit foo.c bar.h baz/ bat/*.m 
 
 
   add
-  ===
+  === 
 
   Usage: svn add [[FILE|DIR] ...]
 
   Add files/directories to your working copy. Commit will check them
   into the repository.
 
-  e.g. svn add foo.c bar.h baz/ bat/*.m
+  e.g. svn add foo.c bar.h baz/ bat/*.m 
 
 
   rename
@@ -250,9 +250,9 @@ NOTE: For now, the option descriptions are mostly not included in the
   This command moves files/directories within your working copy. When
   you commit after doing this, the files/directories are moved within
   the repository (thus retaining all ancestry and revision
-  history).
-
-  e.g. svn rename foo.c bar.c
+  history). 
+ 
+  e.g. svn rename foo.c bar.c 
 
   Note that this command behaves in the way that unix `mv' does:
 
@@ -270,7 +270,7 @@ NOTE: For now, the option descriptions are mostly not included in the
 
   delete
   ======
-
+ 
   Usage: svn remove [[FILE|DIR] ...]
 
   Marks FILE|DIR for deletion upon commit. When you commit, the file
@@ -283,7 +283,7 @@ NOTE: For now, the option descriptions are mostly not included in the
 
   copy
   ====
-
+  
   Usage: svn copy SOURCE DESTINATION
 
   Where SOURCE and DESTINATION can be directories or files. `copy' is
@@ -300,7 +300,7 @@ NOTE: For now, the option descriptions are mostly not included in the
 
   But, if you do this (NO ANCESTRY)
 
-  $ cp foo.c bar.c
+  $ cp foo.c bar.c 
   $ svn add bar.c
   $ svn ci -m "Initial Import"
 
@@ -320,8 +320,8 @@ NOTE: For now, the option descriptions are mostly not included in the
   [[TODO: this needs to be documented _very_ thoroughly.  These are not
   much like CVS tags.]]  [[Then you need to reference another doc, since
   here we are mostly putting together option/usage text. -b]]
-
-
+ 
+ 
   status
   ======
 
@@ -357,11 +357,11 @@ NOTE: For now, the option descriptions are mostly not included in the
   ========
 
   This is like cvs annotate. [[Anyone have anything to add?]]
-
+ 
 
   import
   ======
-
+ 
   Usage: svn import URL [-I GLOB] [-K GLOB] [-L GLOB] [-T GLOB]
 
   Import something new into the repository
@@ -371,7 +371,7 @@ NOTE: For now, the option descriptions are mostly not included in the
 
   log
   ===
-
+ 
   Usage: svn log [-D DATESPEC] [-r REVSPEC] [[FILE|DIR] ...]
 
   Show log messages (and affected entities) for commits in which any
@@ -392,7 +392,7 @@ NOTE: For now, the option descriptions are mostly not included in the
 
    svn key STATE FILE
    svn eol STATE FILE
-
+ 
 
   propget
   =======
@@ -409,15 +409,15 @@ NOTE: For now, the option descriptions are mostly not included in the
   commit.
 
     /* Taken from update */
-    -r REV    Merge in changes made between current revision and REV.
+    -r REV    Merge in changes made between current revision and REV. 
 
   Note: Merges cannot happen in the repository. The repository has no
   way to resolve conflicts, so all merges have to be done in a working
   copy. If you don't have a working copy for your trunk and your
   branch, you can't merge (for now). In the future, there's no reason
-  why your branch can't be a URL (a reference directly to the repository).
+  why your branch can't be a URL (a reference directly to the repository). 
 
   TODO This is related to the ancestry sets mentioned in the spec and
-  must be described in careful detail.
+  must be described in careful detail. 
 
 
