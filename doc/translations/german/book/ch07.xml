@@ -48,7 +48,7 @@
   <!-- ******************************************************************* -->
   <sect1 id="svn-ch-7-sect-1">
     <title>Laufzeit Konfiguration</title>
-
+    
     <para>Subversion bietet viele Optionen, die das Verhalten von
       Subversion beeinflussen.  Manchmal ist es erwünscht, dass solche
       Optionen auf alle Operationen von Subversion angewendet werden.
@@ -175,7 +175,7 @@
         überschrieben, falls dort Einstellungen für die gleiche Option
         gefunden werden.  Die Konfigurationen auf Windows Systemen
         werden also nach folgender Priorität berücksichtigt:</para>
-
+      
       <orderedlist>
         <listitem>
           <para>Kommandozeilen Optionen</para>
@@ -603,7 +603,7 @@ collabnet = svn.collab.net
                 linkend="svn-ch-7-sect-2.3.3" />.</para>
             </listitem>
           </varlistentry>
-
+          
           <varlistentry>
             <term><literal>enable-auto-props</literal></term>
             <listitem>
@@ -642,7 +642,7 @@ collabnet = svn.collab.net
 
           <varlistentry>
             <term><literal>log-encoding</literal></term>
-            <listitem>
+            <listitem>         
               <para>Diese Variable setzt den Standard-Zeichenkodierung
                 für Log-Nachrichten.  Es ist eine dauerhafte
                 Einstellung für die <option>--encoding</option> Option
@@ -658,7 +658,7 @@ collabnet = svn.collab.net
 
           <varlistentry>
             <term><literal>use-commit-times</literal></term>
-            <listitem>
+            <listitem>         
               <para>Normalerweise entspricht der Zeitstempel der
                 Dateien in ihrer Arbeitskopie dem Zeitpunkt, an dem
                 die Datei das letzte Mal verwendet wurde &mdash;
@@ -685,7 +685,7 @@ collabnet = svn.collab.net
                 behandeln.</para>
             </listitem>
           </varlistentry>
-
+          
 	  <!-- ###TODO add description of other options shown in example
           registry file, e.g., log-encoding, etc. -->
         </variablelist>
@@ -826,7 +826,7 @@ $ svn propset copyright '(c) 2003 Red-Bean Software' calc/button.c
 property 'copyright' set on 'calc/button.c'
 $
 </screen>
-
+       
       <para>Wir die Flexibilität beworben, die Subversion für die
         Werte von Eigenschaften bietet.  Wenn sie mehrzeilige Texte
         oder auch binäre Werte haben, dann werden Sie diese nicht auf
@@ -917,7 +917,7 @@ Properties on 'calc/button.c':
 Copyright (c) 2003 Red-Bean Software.  All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions
+modification, are permitted provided that the following conditions 
 are met:
 
 1. Redistributions of source code must retain the above copyright
@@ -940,7 +940,7 @@ property 'license' set on 'calc/button.c'
 $ svn proplist --verbose calc/button.c
 Properties on 'calc/button.c':
   copyright : (c) 2003 Red-Bean Software
-  license :
+  license : 
 $
 </screen>
 
@@ -1051,15 +1051,15 @@ $
           Eigenschaften unter Versionskontrolle empfangen, die mit
           ihren eigenen Kollidieren, wird Subversion dies melden und
           das Objekt mit dem Konflikt-Status versehen.</para>
-
+ 
         <screen>
 % svn update calc
 M  calc/Makefile.in
  C calc/button.c
 Updated to revision 143.
-$
+$ 
 </screen>
-
+         
         <para>Subversion wird in dem Verzeichnis, in dem das Objekt
           mit dem Konflikt-Status liegt eine Datei mit der
           <filename>.prej</filename> Erweiterung anlegen, welche die
@@ -1070,16 +1070,16 @@ $
           zweiten Spalte der <command>svn status</command> Ausgabe und
           Versuche die lokalen Änderungen zu übertragen werden
           fehlschlagen.</para>
-
+ 
         <screen>
 $ svn status calc
  C     calc/button.c
 ?      calc/button.c.prej
-$ cat calc/button.c.prej
+$ cat calc/button.c.prej 
 prop 'linecount': user set to '1256', but update set to '1301'.
 $
 </screen>
-
+ 
         <para>Um Konflikte von Eigenschaften aufzulösen, stellen Sie
           einfach sicher, dass die kollidierte Eigenschaft die Werte
           enthält, die sie enthalten soll und benutzen Sie dann das
@@ -1116,7 +1116,7 @@ $
 
     <!-- ***************************************************************** -->
     <sect2 id="svn-ch-7-sect-2.3">
-
+      
       <title>Spezielle Eigenschaften</title>
 
       <para>Subversion hat keine spezielle Vorschriften betreffend der
@@ -1131,10 +1131,10 @@ $
         Schleier lüften und beschreiben, wie diese
         Spezialeigenschaften ihr Leben ein bischen einfacher machen
         können.</para>
-
+      
       <sect3 id="svn-ch-7-sect-2.3.1">
         <title><literal>svn:executable</literal></title>
-
+ 
         <para>Die <literal>svn:executable</literal> Eigenschaft wird
           benutzt um das Ausführungsrecht-Bit (execute permission bit)
           einer Datei unter Versionskontrolle auf eine
@@ -1179,7 +1179,7 @@ $
 
       <sect3 id="svn-ch-7-sect-2.3.2">
         <title><literal>svn:mime-type</literal></title>
-
+        
         <para>Die <literal>svn:mime-type</literal> Eigenschaft bietet
           viele Einsatzmöglichkeiten in Subversion.  Neben der
           Speicherung der Multipurpose Internet Mail Extensions (MIME)
@@ -1278,7 +1278,7 @@ $
 
         <sidebar>
           <title>Zu ignorierende Dateimuster für CVS Anwender</title>
-
+        
           <para>Die <literal>svn:ignore</literal> Eigenschaft von
             Subversion ist in Syntax und Funktion der CVS
             <filename>.cvsignore</filename> Datei sehr ähnlich.
@@ -1287,12 +1287,12 @@ $
             <filename>.cvsignore</filename> Datei als Eingabedatei für
             das <command>svn propset</command> Kommando
             verwenden:</para>
-
+       
           <screen>
 $ svn propset svn:ignore -F .cvsignore .
 property 'svn:ignore' set on '.'
 $
-</screen>
+</screen>        
 
           <para>Trotzdem gibt es einige Unterschiede in der Art, wie
             CVS und Subversion die zu ignorierenden Dateimuster
@@ -1409,7 +1409,7 @@ I      calc/debug_log.3.gz
           Dateien um festzustellen, welche Dateien ignoriert werden
           sollen, wenn sie Teil einer grösseren rekursiven Übernahme
           in die Versionskontrolle sind.</para>
-
+   
       </sect3>
 
       <sect3 id="svn-ch-7-sect-2.3.4">
@@ -1518,7 +1518,7 @@ I      calc/debug_log.3.gz
           <footnote>
             <para>&hellip; oder vielleicht einen Abschnitt in einem
               Buch &hellip;</para>
-          </footnote>
+          </footnote> 
           darüber schreiben, wie Schlüsselworte zu verwenden sind und
           Sie wollen natürlich nicht, dass Subversion ihre hübschen
           Beispiele der noch nicht ersetzen Schlüsselwort-Anker
@@ -1544,7 +1544,7 @@ $LastChangedDate$
 $Rev$
 Die Cumulus-Wolken entfernen sich mit der Ankunft des Sommers.
 </programlisting>
-
+        
         <para>Wenn die <literal>svn:keywords</literal> Eigenschaft für
           diese Datei nicht gesetzt wird, dann wird Subversion auch
           nichts besonderes machen.  Nun schalten wir die Ersetzung
@@ -1555,7 +1555,7 @@ Die Cumulus-Wolken entfernen sich mit der Ankunft des Sommers.
 $ svn propset svn:keywords "LastChangedDate Author" wetter.txt
 property 'svn:keywords' set on 'wetter.txt'
 $
-</screen>
+</screen>        
 
         <para>Sie haben nun eine lokale Änderung der Eigenschaften für
           die Datei <filename>wetter.txt</filename> durchgeführt.  Sie
@@ -1609,7 +1609,7 @@ $LastChangedDate: 2002-07-22 21:42:37 -0700 (Mon, 22 Jul 2002) $
 $Rev$
 Die Cumulus-Wolken entfernen sich mit der Ankunft des Sommers.
 </screen>
-
+        
         <para>Wenn nun eine andere Person Änderungen für die Datei
           <filename>wetter.txt</filename> überträgt, dann wird Ihre
           Kopie der Datei den gleichen Ersatztext zeigen wie davor
@@ -1636,7 +1636,7 @@ Die Cumulus-Wolken entfernen sich mit der Ankunft des Sommers.
           ob bei dieser Datei Unterschiede kontextbezogen ermittelt
           werden können.  Ansonsten arbeitet Subversion
           byteweise.</para>
-
+        
         <para>Das bedeutet, dass Subversion standardmässig den
           <firstterm>end-of-line (EOL)</firstterm> also
           Zeilenende-Markierungen, ihrer Dateien keine Beachtung
@@ -1762,7 +1762,7 @@ Die Cumulus-Wolken entfernen sich mit der Ankunft des Sommers.
             </listitem>
           </varlistentry>
         </variablelist>
-
+        
       </sect3>
 
       <sect3 id="svn-ch-7-sect-2.3.6">
@@ -1839,7 +1839,7 @@ Die Cumulus-Wolken entfernen sich mit der Ankunft des Sommers.
         linkend="svn-ch-7-sect-1.3.2"/> für weitere Informationen, wie
         diese Unterstützung konfiguriert wird.</para>
 
-    </sect2>
+    </sect2>     
   </sect1>
 
   <!-- ******************************************************************* -->
@@ -1847,7 +1847,7 @@ Die Cumulus-Wolken entfernen sich mit der Ankunft des Sommers.
   <!-- ******************************************************************* -->
   <sect1 id="svn-ch-7-sect-3">
     <title>Externe Definitionen</title>
-
+    
     <para>Manchmal ist es nützlich, eine Arbeitskopie zu erstellen,
       die aus einer Anzahl von verschiedenen <!-- *TODO* -->Checkouts
       zusammengesetz ist.  Zum Beispiel können Sie wollen, dass
@@ -1891,7 +1891,7 @@ third-party/skins/toolkit -r21 http://svn.red-bean.com/repos/skin-maker
       wird und alle anderen automatisch davon profitieren.  Anders
       gesagt, sobald sich jemand die Mühe gemacht hat die
       verschachtelten Checkouts zu definieren, müssen sich die anderen
-      nicht mehr darum kümmern &mdash; Subversion wird, nach dem
+      nicht mehr darum kümmern &mdash; Subversion wird, nach dem 
       auschecken der Original-Arbeitskopie, auch die externen
       Arbeitskopien auschecken.</para>
 
@@ -2033,7 +2033,7 @@ Fetching external item into calc/third-party/skins
       die Änderungen werden niemals an die externe Quelle
       zurückgegeben und dienen nur der Anpassung an spezielle eigene
       Bedürfnisse.</para>
-
+ 
     <para>Nun stehen Sie einer interessanten Situation gegenüber.  Ihr
       Projekt kann die eigenen Änderungen an den externen Daten
       getrennt verwalten indem Patch-Dateien oder vollkommen
@@ -2105,7 +2105,7 @@ $ svn import /path/to/libcomplex-1.0 \
              -m 'importing initial 1.0 vendor drop'
 &hellip;
 </screen>
-
+    
       <para>Wir haben nun die aktuelle Version des libcomplex
         Quellcodes in <filename>/vendor/libcomplex/current</filename>.
         Jetzt markieren wir diese Version (siehe <xref
@@ -2115,7 +2115,7 @@ $ svn import /path/to/libcomplex-1.0 \
         existierenden <filename>calc</filename> Projektverzeichnis
         erstellen.  In dieser Kopie der Lieferanten-Daten werden wir
         unsere Änderungen vornehmen.</para>
-
+    
       <screen>
 $ svn copy http://svn.example.com/repos/vendor/libcomplex/current  \
            http://svn.example.com/repos/vendor/libcomplex/1.0      \
@@ -2151,7 +2151,7 @@ $ svn copy http://svn.example.com/repos/vendor/libcomplex/1.0  \
         Richtung, indem wir die Änderungen, die zwischen den Versionen
         1.0 und 1.1 an libcomplex vorgenommen wurden auf unsere
         abgeänderte Kopie übertragen.</para>
-
+      
       <para>Um die Aktualisierung vorzunehmen checken wir eine neue
         Kopie der Lieferanten-Zweigline aus und ersetzen den Code im
         <filename>current</filename> Verzeichnis mit dem neuen
@@ -2376,7 +2376,7 @@ $ svn_load_dirs.pl -t libcomplex-1.1                              \
 </chapter>
 
 <!--
-local variables:
+local variables: 
 sgml-parent-document: ("book.xml" "chapter")
 end:
 -->
