@@ -3,32 +3,32 @@
  *
  * ================================================================
  * Copyright (c) 2000 Collab.Net.  All rights reserved.
- *
+ * 
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
  * met:
- *
+ * 
  * 1. Redistributions of source code must retain the above copyright
  * notice, this list of conditions and the following disclaimer.
- *
+ * 
  * 2. Redistributions in binary form must reproduce the above copyright
  * notice, this list of conditions and the following disclaimer in the
  * documentation and/or other materials provided with the distribution.
- *
+ * 
  * 3. The end-user documentation included with the redistribution, if
  * any, must include the following acknowlegement: "This product includes
  * software developed by Collab.Net (http://www.Collab.Net/)."
  * Alternately, this acknowlegement may appear in the software itself, if
  * and wherever such third-party acknowlegements normally appear.
- *
+ * 
  * 4. The hosted project names must not be used to endorse or promote
  * products derived from this software without prior written
  * permission. For written permission, please contact info@collab.net.
- *
+ * 
  * 5. Products derived from this software may not use the "Tigris" name
  * nor may "Tigris" appear in their names without prior written
  * permission of Collab.Net.
- *
+ * 
  * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
  * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -42,14 +42,14 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ====================================================================
- *
+ * 
  * This software consists of voluntary contributions made by many
  * individuals on behalf of Collab.Net.
  */
 
 
 /* **************************************************************
-
+   
    The main idea here is that filesystem calls are "wrappered", giving
    the server library the chance to check for authorization and
    execute any policies that may supercede the request.
@@ -119,7 +119,7 @@ svr__policy_authorize (svn_svr_policies_t *policy,
 }
 
 
-/*
+/* 
    svr__authorize :  NOT EXPORTED.
 
    This routine is called by each "wrappered" filesystem call in this
@@ -134,9 +134,9 @@ svr__policy_authorize (svn_svr_policies_t *policy,
 */
 
 svn_boolean_t
-svr__authorize (svn_svr_policies_t *policy,
-                svn_string_t *repos,
-                svn_user_t *user,
+svr__authorize (svn_svr_policies_t *policy, 
+                svn_string_t *repos, 
+                svn_user_t *user, 
                 svn_svr_action_t *action,
                 unsigned long ver,
                 svn_string_t *path)
@@ -148,7 +148,7 @@ svr__authorize (svn_svr_policies_t *policy,
                               svr_string_t *p);
 
   /* Start off assuming we're authorized! */
-  svn_boolean_t authorized = TRUE;
+  svn_boolean_t authorized = TRUE;  
 
   /* First: see if our server policy allows the action.  This is a
      kind of "uber" authorization hook that subsumes all authorization
@@ -169,7 +169,7 @@ svr__authorize (svn_svr_policies_t *policy,
 
       /* grab the authorization routine from this plugin */
       current_auth_hook = current_plugin->authorization_hook;
-
+      
       if (current_auth_hook != NULL)
         {
           /* Call the authorization routine, giving it a chance to
@@ -184,7 +184,7 @@ svr__authorize (svn_svr_policies_t *policy,
     }
 
   /* If all auth_hooks are successful, double-check that
-     user->svn_username is actually filled in!
+     user->svn_username is actually filled in! 
      (A good auth_hook should fill it in automatically, though.)
   */
 
@@ -195,7 +195,7 @@ svr__authorize (svn_svr_policies_t *policy,
       user->svn_username = svn_string_dup (user->auth_username,
                                            policy->pool);
     }
-
+  
   return TRUE;  /* successfully authorized to perform the action! */
 }
 
@@ -212,9 +212,9 @@ svr__authorize (svn_svr_policies_t *policy,
 
 /* Returns latest version of the repository */
 
-svn_ver_t *
-svn_svr_latest (svn_svr_policies_t *policy,
-                svn_string_t *repos,
+svn_ver_t * 
+svn_svr_latest (svn_svr_policies_t *policy, 
+                svn_string_t *repos, 
                 svn_user_t *user)
 {
   /* Convert "repos" into real pathname */
@@ -223,7 +223,7 @@ svn_svr_latest (svn_svr_policies_t *policy,
   /* Check authorization, both server policy & auth hooks */
   svn_boolean_t authorized = FALSE;
   svn_svr_action_t my_action = latest;
-  authorized = svr__authorize (policy, repository, user,
+  authorized = svr__authorize (policy, repository, user, 
                                my_action, NULL, NULL);
 
   if (! authorized)
@@ -237,7 +237,7 @@ svn_svr_latest (svn_svr_policies_t *policy,
   else
     {
       /* Do filesystem call with "canonical" username */
-      return (svn_fs_latest (repository,
+      return (svn_fs_latest (repository, 
                              user->svn_username));
     }
 }
@@ -246,11 +246,11 @@ svn_svr_latest (svn_svr_policies_t *policy,
 
 /* Given a version, return a certain property value */
 
-svn_string_t *
+svn_string_t * 
 svn_svr_get_ver_prop (svn_svr_policies_t *policy,
-                      svn_string_t *repos,
-                      svn_string_t *user,
-                      unsigned long ver,
+                      svn_string_t *repos, 
+                      svn_string_t *user, 
+                      unsigned long ver, 
                       svn_string_t *propname)
 {
   /* Convert "repos" into real pathname */
@@ -259,7 +259,7 @@ svn_svr_get_ver_prop (svn_svr_policies_t *policy,
   /* Check authorization, both server policy & auth hooks */
   svn_boolean_t authorized = FALSE;
   svn_svr_action_t my_action = get_ver_prop;
-  authorized = svr__authorize (policy, repository, user,
+  authorized = svr__authorize (policy, repository, user, 
                                my_action, ver, NULL);
 
   if (! authorized)
@@ -273,7 +273,7 @@ svn_svr_get_ver_prop (svn_svr_policies_t *policy,
   else
     {
       /* Do filesystem call with "canonical" username */
-      return (svn_fs_get_ver_prop (repository,
+      return (svn_fs_get_ver_prop (repository, 
                                    user->svn_username,
                                    ver,
                                    propname));
@@ -284,10 +284,10 @@ svn_svr_get_ver_prop (svn_svr_policies_t *policy,
 
 /* Retrieve entire proplist of a version */
 
-svn_proplist_t *
+svn_proplist_t * 
 svn_svr_get_ver_proplist (svn_svr_policies_t *policy,
-                          svn_string_t *repos,
-                          svn_string_t *user,
+                          svn_string_t *repos, 
+                          svn_string_t *user, 
                           unsigned long ver)
 {
   /* Convert "repos" into real pathname */
@@ -296,7 +296,7 @@ svn_svr_get_ver_proplist (svn_svr_policies_t *policy,
   /* Check authorization, both server policy & auth hooks */
   svn_boolean_t authorized = FALSE;
   svn_svr_action_t my_action = get_ver_proplist;
-  authorized = svr__authorize (policy, repository, user,
+  authorized = svr__authorize (policy, repository, user, 
                                my_action, ver, NULL);
 
   if (! authorized)
@@ -310,7 +310,7 @@ svn_svr_get_ver_proplist (svn_svr_policies_t *policy,
   else
     {
       /* Do filesystem call with "canonical" username */
-      return (svn_fs_get_ver_proplist (repository,
+      return (svn_fs_get_ver_proplist (repository, 
                                        user->svn_username,
                                        ver));
     }
@@ -320,14 +320,14 @@ svn_svr_get_ver_proplist (svn_svr_policies_t *policy,
 
 /* Return the property names of a version.
    TODO:  Should this return something other than a proplist?
-          If not, how is it any different than get_ver_proplist()?
+          If not, how is it any different than get_ver_proplist()? 
 */
 
 
-svn_proplist_t *
+svn_proplist_t * 
 svn_svr_get_ver_propnames (svn_svr_policies_t *policy,
-                           svn_string_t *repos,
-                           svn_string_t *user,
+                           svn_string_t *repos, 
+                           svn_string_t *user, 
                            unsigned long ver)
 {
   /* Convert "repos" into real pathname */
@@ -336,7 +336,7 @@ svn_svr_get_ver_propnames (svn_svr_policies_t *policy,
   /* Check authorization, both server policy & auth hooks */
   svn_boolean_t authorized = FALSE;
   svn_svr_action_t my_action = get_ver_propnames;
-  authorized = svr__authorize (policy, repository, user,
+  authorized = svr__authorize (policy, repository, user, 
                                my_action, ver, NULL);
 
   if (! authorized)
@@ -350,7 +350,7 @@ svn_svr_get_ver_propnames (svn_svr_policies_t *policy,
   else
     {
       /* Do filesystem call with "canonical" username */
-      return (svn_fs_get_ver_propnames (repository,
+      return (svn_fs_get_ver_propnames (repository, 
                                         user->svn_username,
                                         ver));
     }
@@ -371,11 +371,11 @@ svn_svr_get_ver_propnames (svn_svr_policies_t *policy,
 
 /* Return the entire contents of a node */
 
-svn_node_t *
+svn_node_t * 
 svn_svr_read (svn_svr_policies_t *policy,
-              svn_string_t *repos,
-              svn_user_t *user,
-              unsigned long ver,
+              svn_string_t *repos, 
+              svn_user_t *user, 
+              unsigned long ver, 
               svn_string_t *path)
 {
   /* Convert "repos" into real pathname */
@@ -384,7 +384,7 @@ svn_svr_read (svn_svr_policies_t *policy,
   /* Check authorization, both server policy & auth hooks */
   svn_boolean_t authorized = FALSE;
   svn_svr_action_t my_action = read;
-  authorized = svr__authorize (policy, repository, user,
+  authorized = svr__authorize (policy, repository, user, 
                                my_action, ver, path);
 
   if (! authorized)
@@ -398,7 +398,7 @@ svn_svr_read (svn_svr_policies_t *policy,
   else
     {
       /* Do filesystem call with "canonical" username */
-      return (svn_fs_read (repository,
+      return (svn_fs_read (repository, 
                            user->svn_username,
                            ver,
                            path));
@@ -409,12 +409,12 @@ svn_svr_read (svn_svr_policies_t *policy,
 
 /* Return the value of a node's propery */
 
-svn_string_t *
+svn_string_t * 
 svn_svr_get_node_prop (svn_svr_policies_t *policy,
-                       svn_string_t *repos,
-                       svn_user_t *user,
-                       unsigned long ver,
-                       svn_string_t *path,
+                       svn_string_t *repos, 
+                       svn_user_t *user, 
+                       unsigned long ver, 
+                       svn_string_t *path, 
                        svn_string_t *propname)
 
 {
@@ -424,7 +424,7 @@ svn_svr_get_node_prop (svn_svr_policies_t *policy,
   /* Check authorization, both server policy & auth hooks */
   svn_boolean_t authorized = FALSE;
   svn_svr_action_t my_action = get_node_prop;
-  authorized = svr__authorize (policy, repository, user,
+  authorized = svr__authorize (policy, repository, user, 
                                my_action, ver, path);
 
   if (! authorized)
@@ -438,23 +438,23 @@ svn_svr_get_node_prop (svn_svr_policies_t *policy,
   else
     {
       /* Do filesystem call with "canonical" username */
-      return (svn_fs_get_node_prop (repository,
+      return (svn_fs_get_node_prop (repository, 
                                     user->svn_username,
                                     ver,
                                     path,
                                     propname));
-    }
+    }  
 }
 
 
 /* Get the value of a dirent's property */
 
-svn_string_t *
+svn_string_t * 
 svn_svr_get_dirent_prop (svn_svr_policies_t *policy,
-                         svn_string_t *repos,
-                         svn_user_t *user,
-                         unsigned long ver,
-                         svn_string_t *path,
+                         svn_string_t *repos, 
+                         svn_user_t *user, 
+                         unsigned long ver, 
+                         svn_string_t *path, 
                          svn_string_t *propname)
 {
     /* Convert "repos" into real pathname */
@@ -463,7 +463,7 @@ svn_svr_get_dirent_prop (svn_svr_policies_t *policy,
   /* Check authorization, both server policy & auth hooks */
   svn_boolean_t authorized = FALSE;
   svn_svr_action_t my_action = get_dirent_prop;
-  authorized = svr__authorize (policy, repository, user,
+  authorized = svr__authorize (policy, repository, user, 
                                my_action, ver, path);
 
   if (! authorized)
@@ -477,23 +477,23 @@ svn_svr_get_dirent_prop (svn_svr_policies_t *policy,
   else
     {
       /* Do filesystem call with "canonical" username */
-      return (svn_fs_get_dirent_prop (repository,
+      return (svn_fs_get_dirent_prop (repository, 
                                       user->svn_username,
                                       ver,
                                       path,
                                       propname));
-    }
+    }  
 }
-
+ 
 
 
 /* Get a node's entire proplist */
 
-svn_proplist_t *
+svn_proplist_t * 
 svn_svr_get_node_proplist (svn_svr_policies_t *policy,
                            svn_string_t *repos,
                            svn_user_t *user,
-                           unsigned long ver,
+                           unsigned long ver, 
                            svn_string_t *path)
 {
   /* Convert "repos" into real pathname */
@@ -502,7 +502,7 @@ svn_svr_get_node_proplist (svn_svr_policies_t *policy,
   /* Check authorization, both server policy & auth hooks */
   svn_boolean_t authorized = FALSE;
   svn_svr_action_t my_action = get_node_proplist;
-  authorized = svr__authorize (policy, repository, user,
+  authorized = svr__authorize (policy, repository, user, 
                                my_action, ver, path);
 
   if (! authorized)
@@ -516,23 +516,23 @@ svn_svr_get_node_proplist (svn_svr_policies_t *policy,
   else
     {
       /* Do filesystem call with "canonical" username */
-      return (svn_fs_get_node_proplist (repository,
+      return (svn_fs_get_node_proplist (repository, 
                                         user->svn_username,
                                         ver,
                                         path));
     }
 }
-
+ 
 
 
 
 /* Get a dirent's entire proplist */
 
-svn_proplist_t *
+svn_proplist_t * 
 svn_svr_get_dirent_proplist (svn_svr_policies_t *policy,
-                             svn_string_t *repos,
-                             svn_user_t *user,
-                             unsigned long ver,
+                             svn_string_t *repos, 
+                             svn_user_t *user, 
+                             unsigned long ver, 
                              svn_string_t *path)
 {
   /* Convert "repos" into real pathname */
@@ -541,7 +541,7 @@ svn_svr_get_dirent_proplist (svn_svr_policies_t *policy,
   /* Check authorization, both server policy & auth hooks */
   svn_boolean_t authorized = FALSE;
   svn_svr_action_t my_action = get_dirent_proplist;
-  authorized = svr__authorize (policy, repository, user,
+  authorized = svr__authorize (policy, repository, user, 
                                my_action, ver, path);
 
   if (! authorized)
@@ -555,22 +555,22 @@ svn_svr_get_dirent_proplist (svn_svr_policies_t *policy,
   else
     {
       /* Do filesystem call with "canonical" username */
-      return (svn_fs_get_dirent_proplist (repository,
+      return (svn_fs_get_dirent_proplist (repository, 
                                           user->svn_username,
                                           ver,
                                           path));
     }
 }
-
+ 
 
 
 /* Get a list of a node's property names */
 
-svn_proplist_t *
+svn_proplist_t * 
 svn_svr_get_node_propnames (svn_svr_policies_t *policy,
-                            svn_string_t *repos,
-                            svn_user_t *user,
-                            unsigned long ver,
+                            svn_string_t *repos, 
+                            svn_user_t *user, 
+                            unsigned long ver, 
                             svn_string_t *path)
 {
   /* Convert "repos" into real pathname */
@@ -579,7 +579,7 @@ svn_svr_get_node_propnames (svn_svr_policies_t *policy,
   /* Check authorization, both server policy & auth hooks */
   svn_boolean_t authorized = FALSE;
   svn_svr_action_t my_action = get_node_propnames;
-  authorized = svr__authorize (policy, repository, user,
+  authorized = svr__authorize (policy, repository, user, 
                                my_action, ver, path);
 
   if (! authorized)
@@ -593,22 +593,22 @@ svn_svr_get_node_propnames (svn_svr_policies_t *policy,
   else
     {
       /* Do filesystem call with "canonical" username */
-      return (svn_fs_get_node_propnames (repository,
+      return (svn_fs_get_node_propnames (repository, 
                                          user->svn_username,
                                          ver,
                                          path));
     }
 }
-
+ 
 
 
 /* Get a list of a dirent's property names */
-
-svn_proplist_t *
+     
+svn_proplist_t * 
 svn_svr_get_dirent_propnames (svn_svr_policies_t *policy,
-                              svn_string_t *repos,
-                              svn_user_t *user,
-                              unsigned long ver,
+                              svn_string_t *repos, 
+                              svn_user_t *user, 
+                              unsigned long ver, 
                               svn_string_t *path)
 {
   /* Convert "repos" into real pathname */
@@ -617,7 +617,7 @@ svn_svr_get_dirent_propnames (svn_svr_policies_t *policy,
   /* Check authorization, both server policy & auth hooks */
   svn_boolean_t authorized = FALSE;
   svn_svr_action_t my_action = get_dirent_propnames;
-  authorized = svr__authorize (policy, repository, user,
+  authorized = svr__authorize (policy, repository, user, 
                                my_action, ver, path);
 
   if (! authorized)
@@ -631,7 +631,7 @@ svn_svr_get_dirent_propnames (svn_svr_policies_t *policy,
   else
     {
       /* Do filesystem call with "canonical" username */
-      return (svn_fs_get_dirent_propnames (repository,
+      return (svn_fs_get_dirent_propnames (repository, 
                                            user->svn_username,
                                            ver,
                                            path));
@@ -653,10 +653,10 @@ svn_svr_get_dirent_propnames (svn_svr_policies_t *policy,
 /* Submit a skelta for approval; on success, returns a transaction
    token. */
 
-svn_token_t
+svn_token_t 
 svn_svr_submit (svn_svr_policies_t *policy,
-                svn_string_t *repos,
-                svn_user_t *user,
+                svn_string_t *repos, 
+                svn_user_t *user, 
                 svn_skelta_t *skelta)
 {
   /* Convert "repos" into real pathname */
@@ -665,7 +665,7 @@ svn_svr_submit (svn_svr_policies_t *policy,
   /* Check authorization, both server policy & auth hooks */
   svn_boolean_t authorized = FALSE;
   svn_svr_action_t my_action = submit;
-  authorized = svr__authorize (policy, repository, user,
+  authorized = svr__authorize (policy, repository, user, 
                                my_action, NULL, NULL);
   /* TODO: perhaps the "path" argument to svr__authorize should be
      somehow read out of the skelta?  */
@@ -686,17 +686,17 @@ svn_svr_submit (svn_svr_policies_t *policy,
                              skelta));
     }
 }
+ 
 
 
-
-/* Use the token to apply the delta to the filesystem.
+/* Use the token to apply the delta to the filesystem.  
    On success, returns the new version number of the repository. */
 
 unsigned long
 svn_svr_write (svn_svr_policies_t *policy,
-               svn_string_t *repos,
-               svn_user_t *user,
-               svn_delta_t *delta,
+               svn_string_t *repos, 
+               svn_user_t *user, 
+               svn_delta_t *delta, 
                svn_token_t token)
 {
   /* Convert "repos" into real pathname */
@@ -705,10 +705,10 @@ svn_svr_write (svn_svr_policies_t *policy,
   /* Check authorization, both server policy & auth hooks */
   svn_boolean_t authorized = FALSE;
   svn_svr_action_t my_action = write;
-  authorized = svr__authorize (policy, repository, user,
+  authorized = svr__authorize (policy, repository, user, 
                                my_action, NULL, NULL);
   /* TODO: perhaps the "path" argument to svr__authorize should be
-     somehow read out of the delta?
+     somehow read out of the delta?  
 
      Actually, nobody can call this routine without a token, which
      means they've already been authorized to submit().  Is there any
@@ -732,15 +732,15 @@ svn_svr_write (svn_svr_policies_t *policy,
                             token));
     }
 }
-
+ 
 
 
 /* Abandon an approved, pending token */
 
 svn_boolean_t
 svn_svr_abandon (svn_svr_policies_t *policy,
-                 svn_string_t *repos,
-                 svn_user_t *user,
+                 svn_string_t *repos, 
+                 svn_user_t *user, 
                  svn_token_t token)
 {
   /* Convert "repos" into real pathname */
@@ -749,10 +749,10 @@ svn_svr_abandon (svn_svr_policies_t *policy,
   /* Check authorization, both server policy & auth hooks */
   svn_boolean_t authorized = FALSE;
   svn_svr_action_t my_action = abandon;
-  authorized = svr__authorize (policy, repository, user,
+  authorized = svr__authorize (policy, repository, user, 
                                my_action, NULL, NULL);
-  /* TODO:
-
+  /* TODO: 
+     
      What does it mean to have (or *not* have) permission to abandon an
      approved token?  :)
   */
@@ -771,7 +771,7 @@ svn_svr_abandon (svn_svr_policies_t *policy,
       return (svn_fs_abandon (repository,
                               user->svn_username,
                               token));
-    }
+    }  
 }
 
 
@@ -788,13 +788,13 @@ svn_svr_abandon (svn_svr_policies_t *policy,
 /* Return a delta that describes the difference between two trees in
    the repository.  */
 
-svn_delta_t *
+svn_delta_t * 
 svn_svr_get_delta (svn_svr_policies_t *policy,
-                   svn_string_t *repos,
-                   svn_user_t *user,
-                   unsigned long ver1,
-                   svn_string_t *path1,
-                   unsigned long ver2,
+                   svn_string_t *repos, 
+                   svn_user_t *user, 
+                   unsigned long ver1, 
+                   svn_string_t *path1, 
+                   unsigned long ver2, 
                    svn_string_t *path2)
 {
   /* Convert "repos" into real pathname */
@@ -803,11 +803,11 @@ svn_svr_get_delta (svn_svr_policies_t *policy,
   /* Check authorization, both server policy & auth hooks */
   svn_boolean_t authorized = FALSE;
   svn_svr_action_t my_action = get_delta;
-  authorized = svr__authorize (policy, repository, user,
+  authorized = svr__authorize (policy, repository, user, 
                                my_action, ver1, path1);
-  authorized = svr__authorize (policy, repository, user,
+  authorized = svr__authorize (policy, repository, user, 
                                my_action, ver2, path2);
-  /*
+  /* 
      TODO: notice I'm calling the authorize routine twice, checking
      *both* paths and versions.  Is this right?
   */
@@ -826,20 +826,20 @@ svn_svr_get_delta (svn_svr_policies_t *policy,
       return (svn_fs_get_delta (repository,
                                 user->svn_username,
                                 ver1, path1, ver2, path2));
-    }
+    }  
 }
-
+ 
 
 
 /* Return a GNU diff describing the difference between two files */
 
-svn_diff_t *
+svn_diff_t * 
 svn_svr_get_diff (svn_svr_policies_t *policy,
-                  svn_string_t *repos,
-                  svn_user_t *user,
-                  unsigned long ver1,
-                  svn_string_t *path1,
-                  unsigned long ver2,
+                  svn_string_t *repos, 
+                  svn_user_t *user, 
+                  unsigned long ver1, 
+                  svn_string_t *path1, 
+                  unsigned long ver2, 
                   svn_string_t *path2)
 {
   /* Convert "repos" into real pathname */
@@ -848,11 +848,11 @@ svn_svr_get_diff (svn_svr_policies_t *policy,
   /* Check authorization, both server policy & auth hooks */
   svn_boolean_t authorized = FALSE;
   svn_svr_action_t my_action = get_diff;
-  authorized = svr__authorize (policy, repository, user,
+  authorized = svr__authorize (policy, repository, user, 
                                my_action, ver1, path1);
-  authorized = svr__authorize (policy, repository, user,
+  authorized = svr__authorize (policy, repository, user, 
                                my_action, ver2, path2);
-  /*
+  /* 
      TODO: notice I'm calling the authorize routine twice, checking
      *both* paths and versions.  Is this right?
   */
@@ -871,7 +871,7 @@ svn_svr_get_diff (svn_svr_policies_t *policy,
       return (svn_fs_get_diff (repository,
                                user->svn_username,
                                ver1, path1, ver2, path2));
-    }
+    }  
 }
 
 
@@ -892,23 +892,23 @@ svn_svr_get_diff (svn_svr_policies_t *policy,
 
 /* Input:  a skelta describing working copy's current tree
 
-   Output: a skelta describing exactly how the tree is out of date
+   Output: a skelta describing exactly how the tree is out of date 
 
 */
 
-svn_skelta_t *
+svn_skelta_t * 
 svn_svr_get_status (svn_svr_policies_t *policy,
-                    svn_string_t *repos,
-                    svn_user_t *user,
+                    svn_string_t *repos, 
+                    svn_user_t *user, 
                     svn_skelta_t *skelta)
 {
-  /* Can't do anything here till we have a working delta/skelta library.
+  /* Can't do anything here till we have a working delta/skelta library.  
 
      We would iterate over the skelta and call svn_fs_cmp() on each
      file to check for up-to-date-ness.  Then we'd built a new skelta
      to send back the results.  */
 }
-
+ 
 
 /* Input: a skelta describing working copy's current tree.
 
@@ -916,16 +916,16 @@ svn_svr_get_status (svn_svr_policies_t *policy,
    copy's tree to latest version.
 */
 
-svn_delta_t *
+svn_delta_t * 
 svn_svr_get_update (svn_svr_policies_t *policy,
-                    svn_string_t *repos,
-                    svn_user_t *user,
+                    svn_string_t *repos, 
+                    svn_user_t *user, 
                     svn_skelta_t *skelta)
 {
-  /* Can't do anything here till we have a working delta/skelta library.
+  /* Can't do anything here till we have a working delta/skelta library.  
 
      We would iterate over the skelta and call svn_fs_get_delta() on
-     each file.  Then we'd built a new composite delta to send back.
+     each file.  Then we'd built a new composite delta to send back. 
   */
 }
 
