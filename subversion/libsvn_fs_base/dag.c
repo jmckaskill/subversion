@@ -224,7 +224,7 @@ set_node_revision (dag_node_t *node,
                    trail_t *trail)
 {
   /* Write it out.  */
-  SVN_ERR (svn_fs_bdb__put_node_revision (node->fs, node->id, noderev,
+  SVN_ERR (svn_fs_bdb__put_node_revision (node->fs, node->id, noderev, 
                                           trail, trail->pool));
 
   /* Since the write succeeded, update the cache.  */
@@ -363,7 +363,7 @@ txn_body_dag_init_fs (void *baton, trail_t *trail)
   memset (&noderev, 0, sizeof (noderev));
   noderev.kind = svn_node_dir;
   noderev.created_path = "/";
-  SVN_ERR (svn_fs_bdb__put_node_revision (fs, root_id, &noderev,
+  SVN_ERR (svn_fs_bdb__put_node_revision (fs, root_id, &noderev, 
                                           trail, trail->pool));
 
   /* Create a new transaction (better have an id of "0") */
@@ -750,7 +750,7 @@ svn_fs_base__dag_set_proplist (dag_node_t *node,
   if (! svn_fs_base__same_keys (mutable_rep_key, rep_key))
     {
       noderev->prop_key = mutable_rep_key;
-      SVN_ERR (svn_fs_bdb__put_node_revision (fs, node->id, noderev,
+      SVN_ERR (svn_fs_bdb__put_node_revision (fs, node->id, noderev, 
                                               trail, trail->pool));
     }
 
@@ -1080,7 +1080,7 @@ svn_fs_base__dag_remove_node (svn_fs_t *fs,
                               _("Attempted removal of immutable node"));
 
   /* Get a fresh node-revision. */
-  SVN_ERR (svn_fs_bdb__get_node_revision (&noderev, fs, id,
+  SVN_ERR (svn_fs_bdb__get_node_revision (&noderev, fs, id, 
                                           trail, trail->pool));
 
   /* Delete any mutable property representation. */
@@ -1302,7 +1302,7 @@ svn_fs_base__dag_get_edit_stream (svn_stream_t **contents,
 
   /* We made a new rep, so update the node revision. */
   noderev->edit_key = mutable_rep_key;
-  SVN_ERR (svn_fs_bdb__put_node_revision (fs, file->id, noderev,
+  SVN_ERR (svn_fs_bdb__put_node_revision (fs, file->id, noderev, 
                                           trail, trail->pool));
 
   /* Return a writable stream with which to set new contents. */
@@ -1371,7 +1371,7 @@ svn_fs_base__dag_finalize_edits (dag_node_t *file,
   old_data_key = noderev->data_key;
   noderev->data_key = noderev->edit_key;
   noderev->edit_key = NULL;
-  SVN_ERR (svn_fs_bdb__put_node_revision (fs, file->id, noderev,
+  SVN_ERR (svn_fs_bdb__put_node_revision (fs, file->id, noderev, 
                                           trail, trail->pool));
 
   /* Only *now* can we safely destroy the old representation (if it

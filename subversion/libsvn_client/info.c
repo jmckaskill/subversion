@@ -111,7 +111,7 @@ push_dir_info (svn_ra_session_t *ra_session,
   apr_hash_index_t *hi;
   apr_pool_t *subpool = svn_pool_create (pool);
 
-  SVN_ERR (svn_ra_get_dir (ra_session, dir, rev, &tmpdirents,
+  SVN_ERR (svn_ra_get_dir (ra_session, dir, rev, &tmpdirents, 
                            NULL, NULL, pool));
 
   for (hi = apr_hash_first (pool, tmpdirents); hi; hi = apr_hash_next (hi))
@@ -155,7 +155,7 @@ push_dir_info (svn_ra_session_t *ra_session,
 struct found_entry_baton
 {
   svn_info_receiver_t receiver;
-  void *receiver_baton;
+  void *receiver_baton;         
 };
 
 static svn_error_t *
@@ -170,18 +170,18 @@ info_found_entry_callback (const char *path,
   /* We're going to receive dirents twice;  we want to ignore the
      first one (where it's a child of a parent dir), and only print
      the second one (where we're looking at THIS_DIR.)  */
-  if ((entry->kind == svn_node_dir)
+  if ((entry->kind == svn_node_dir) 
       && (strcmp (entry->name, SVN_WC_ENTRY_THIS_DIR)))
     return SVN_NO_ERROR;
 
   SVN_ERR (build_info_from_entry (&info, entry, pool));
-
+ 
   return fe_baton->receiver (fe_baton->receiver_baton, path, info, pool);
 }
 
 
 
-static const svn_wc_entry_callbacks_t
+static const svn_wc_entry_callbacks_t 
 entry_walk_callbacks =
   {
     info_found_entry_callback
@@ -193,7 +193,7 @@ entry_walk_callbacks =
 static svn_error_t *
 crawl_entries (const char *wcpath,
                svn_info_receiver_t receiver,
-               void *receiver_baton,
+               void *receiver_baton,               
                svn_boolean_t recurse,
                svn_client_ctx_t *ctx,
                apr_pool_t *pool)
@@ -202,7 +202,7 @@ crawl_entries (const char *wcpath,
   const svn_wc_entry_t *entry;
   svn_info_t *info;
   struct found_entry_baton fe_baton;
-
+  
   SVN_ERR (svn_wc_adm_probe_open3 (&adm_access, NULL, wcpath, FALSE,
                                    recurse ? -1 : 0,
                                    ctx->cancel_func, ctx->cancel_baton,
@@ -231,7 +231,7 @@ crawl_entries (const char *wcpath,
       else
         return receiver (receiver_baton, wcpath, info, pool);
     }
-
+      
   return SVN_NO_ERROR;
 }
 
@@ -255,15 +255,15 @@ svn_client_info (const char *path_or_url,
   const char *parent_url, *base_name;
   svn_dirent_t *the_ent;
   svn_info_t *info;
-
-  if ((revision == NULL
+   
+  if ((revision == NULL 
        || revision->kind == svn_opt_revision_unspecified)
       && (peg_revision == NULL
           || peg_revision->kind == svn_opt_revision_unspecified))
     {
       /* Do all digging in the working copy. */
       return crawl_entries (path_or_url,
-                            receiver, receiver_baton,
+                            receiver, receiver_baton,               
                             recurse, ctx, pool);
     }
 
@@ -289,31 +289,31 @@ svn_client_info (const char *path_or_url,
 
   /* Open a new RA session to the item's parent. */
   svn_path_split (url, &parent_url, &base_name, pool);
-
+  
   /* 'base_name' is now the last component of an URL, but we want
      to use it as a plain file name. Therefore, we must URI-decode
      it. */
   base_name = svn_path_uri_decode(base_name, pool);
   SVN_ERR (svn_client__open_ra_session (&parent_ra_session, parent_url,
                                         NULL,
-                                        NULL, NULL, FALSE, TRUE,
+                                        NULL, NULL, FALSE, TRUE, 
                                         ctx, pool));
-
+  
   /* Get all parent's entries, no props. */
-  SVN_ERR (svn_ra_get_dir (parent_ra_session, "", rev, &parent_ents,
+  SVN_ERR (svn_ra_get_dir (parent_ra_session, "", rev, &parent_ents, 
                            NULL, NULL, pool));
-
+  
   /* Find the item's own dirent and push it an the info receiver.*/
   the_ent = apr_hash_get (parent_ents, base_name, APR_HASH_KEY_STRING);
   if (the_ent == NULL)
     return svn_error_createf (SVN_ERR_RA_ILLEGAL_URL, NULL,
                               _("URL '%s' non-existent in that revision"),
                               url);
-
+  
   SVN_ERR (build_info_from_dirent (&info, the_ent, url, rev,
                                    repos_UUID, repos_root_URL, pool));
   SVN_ERR (receiver (receiver_baton, base_name, info, pool));
-
+  
   /* Step 2:  possibly recurse, using the original RA session. */
 
   if (recurse && (url_kind == svn_node_dir))
