@@ -129,7 +129,7 @@ svn_fs_dir_delta (svn_fs_dir_t *source,
 		  apr_pool_t *parent_pool)
 {
   svn_error_t *svn_err = 0;
-  apr_pool_t *pool = apr_make_sub_pool (parent_pool, svn_fs__pool_abort);
+  apr_pool_t *pool = svn_pool_create (parent_pool, svn_fs__pool_abort);
   svn_string_t source_path;
   void *root_baton;
   struct context c;
