@@ -7,23 +7,23 @@
 CFG=svnjavahl - Win32 Debug DB42
 !MESSAGE This is not a valid makefile. To build this project using NMAKE,
 !MESSAGE use the Export Makefile command and run
-!MESSAGE
+!MESSAGE 
 !MESSAGE NMAKE /f "svnjavahl.mak".
-!MESSAGE
+!MESSAGE 
 !MESSAGE You can specify a configuration when running NMAKE
 !MESSAGE by defining the macro CFG on the command line. For example:
-!MESSAGE
+!MESSAGE 
 !MESSAGE NMAKE /f "svnjavahl.mak" CFG="svnjavahl - Win32 Debug DB42"
-!MESSAGE
+!MESSAGE 
 !MESSAGE Possible choices for configuration are:
-!MESSAGE
+!MESSAGE 
 !MESSAGE "svnjavahl - Win32 Release" (based on "Win32 (x86) Dynamic-Link Library")
 !MESSAGE "svnjavahl - Win32 Debug" (based on "Win32 (x86) Dynamic-Link Library")
 !MESSAGE "svnjavahl - Win32 Release DB40" (based on "Win32 (x86) Dynamic-Link Library")
 !MESSAGE "svnjavahl - Win32 Debug DB40" (based on "Win32 (x86) Dynamic-Link Library")
 !MESSAGE "svnjavahl - Win32 Debug DB42" (based on "Win32 (x86) Dynamic-Link Library")
 !MESSAGE "svnjavahl - Win32 Release DB42" (based on "Win32 (x86) Dynamic-Link Library")
-!MESSAGE
+!MESSAGE 
 
 # Begin Project
 # PROP AllowPerConfigDependencies 0
@@ -199,7 +199,7 @@ LINK32=link.exe
 # ADD LINK32 shfolder.lib ../../../../../db4-win32\lib\libdb42.lib ../../../../../Release/subversion/libsvn_fs_base/libsvn_fs_base-1.lib ../../../../../Release/subversion/libsvn_fs/libsvn_fs-1.lib ../../../../../Release/subversion/libsvn_fs_fs/libsvn_fs_fs-1.lib ../../../../../Release/subversion/libsvn_diff/libsvn_diff-1.lib ../../../../../Release/subversion/libsvn_repos/libsvn_repos-1.lib ../../../../../Release/subversion/libsvn_delta/libsvn_delta-1.lib ../../../../../Release/subversion/libsvn_ra_dav/libsvn_ra_dav-1.lib ../../../../../Release/subversion/libsvn_ra_svn/libsvn_ra_svn-1.lib ../../../../../Release/subversion/libsvn_ra_local/libsvn_ra_local-1.lib ../../../../../Release/subversion/libsvn_ra/libsvn_ra-1.lib ../../../../../Release/subversion/libsvn_wc/libsvn_wc-1.lib ../../../../../apr/Release/libapr.lib ../../../../../apr-iconv/Release/libapriconv.lib ../../../../../apr-util/Release/libaprutil.lib ../../../../../apr-util/xml/expat/lib/libR/xml.lib ../../../../../Release/subversion/libsvn_subr/libsvn_subr-1.lib ../../../../../Release/subversion/libsvn_client/libsvn_client-1.lib ../../../../../neon/libneon.lib intl.lib ws2_32.lib Rpcrt4.lib Mswsock.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /machine:I386 /out:"svnjavahl___Win32_Release_DB42/svnjavahl-1.dll"
 # SUBTRACT LINK32 /pdb:none
 
-!ENDIF
+!ENDIF 
 
 # Begin Target
 
@@ -464,7 +464,7 @@ InputPath=..\src\org\tigris\subversion\javahl\BlameCallback.java
 
 # End Custom Build
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -531,7 +531,7 @@ InputPath=..\src\org\tigris\subversion\javahl\ClientException.java
 
 # End Custom Build
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -598,7 +598,7 @@ InputPath=..\src\org\tigris\subversion\javahl\DirEntry.java
 
 # End Custom Build
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -665,7 +665,7 @@ InputPath=..\src\org\tigris\subversion\javahl\InputInterface.java
 
 # End Custom Build
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -732,7 +732,7 @@ InputPath=..\src\org\tigris\subversion\javahl\JNIError.java
 
 # End Custom Build
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -799,7 +799,7 @@ InputPath=..\src\org\tigris\subversion\javahl\LogMessage.java
 
 # End Custom Build
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -866,7 +866,7 @@ InputPath=..\src\org\tigris\subversion\javahl\NodeKind.java
 
 # End Custom Build
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -933,7 +933,7 @@ InputPath=..\src\org\tigris\subversion\javahl\Notify.java
 
 # End Custom Build
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -1000,7 +1000,7 @@ InputPath=..\src\org\tigris\subversion\javahl\NotifyAction.java
 
 # End Custom Build
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -1067,7 +1067,7 @@ InputPath=..\src\org\tigris\subversion\javahl\NotifyStatus.java
 
 # End Custom Build
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -1134,7 +1134,7 @@ InputPath=..\src\org\tigris\subversion\javahl\OutputInterface.java
 
 # End Custom Build
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -1201,7 +1201,7 @@ InputPath=..\src\org\tigris\subversion\javahl\PromptUserPassword.java
 
 # End Custom Build
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -1268,7 +1268,7 @@ InputPath=..\src\org\tigris\subversion\javahl\PromptUserPassword2.java
 
 # End Custom Build
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -1335,7 +1335,7 @@ InputPath=..\src\org\tigris\subversion\javahl\PromptUserPassword3.java
 
 # End Custom Build
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -1402,7 +1402,7 @@ InputPath=..\src\org\tigris\subversion\javahl\PropertyData.java
 
 # End Custom Build
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -1469,7 +1469,7 @@ InputPath=..\src\org\tigris\subversion\javahl\Revision.java
 
 # End Custom Build
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -1536,7 +1536,7 @@ InputPath=..\src\org\tigris\subversion\javahl\RevisionKind.java
 
 # End Custom Build
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -1603,7 +1603,7 @@ InputPath=..\src\org\tigris\subversion\javahl\Status.java
 
 # End Custom Build
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -1670,7 +1670,7 @@ InputPath=..\src\org\tigris\subversion\javahl\StatusKind.java
 
 # End Custom Build
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -1737,7 +1737,7 @@ InputPath=..\src\org\tigris\subversion\javahl\SVNAdmin.java
 
 # End Custom Build
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -1804,7 +1804,7 @@ InputPath=..\src\org\tigris\subversion\javahl\SVNClient.java
 
 # End Custom Build
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -1871,7 +1871,7 @@ InputPath=..\src\org\tigris\subversion\javahl\SVNClientLogLevel.java
 
 # End Custom Build
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -1938,7 +1938,7 @@ InputPath=..\src\org\tigris\subversion\javahl\SVNClientSynchronized.java
 
 # End Custom Build
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -2005,7 +2005,7 @@ InputPath=..\src\org\tigris\subversion\javahl\SVNInputStream.java
 
 # End Custom Build
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -2072,7 +2072,7 @@ InputPath=..\src\org\tigris\subversion\javahl\SVNOutputStream.java
 
 # End Custom Build
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # End Group
@@ -2143,7 +2143,7 @@ InputPath=..\classes\org\tigris\subversion\javahl\NodeKind.class
 
 # End Custom Build
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -2210,7 +2210,7 @@ InputPath="..\classes\org\tigris\subversion\javahl\NotifyAction.class"
 
 # End Custom Build
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -2277,7 +2277,7 @@ InputPath="..\classes\org\tigris\subversion\javahl\NotifyStatus.class"
 
 # End Custom Build
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -2344,7 +2344,7 @@ InputPath=..\classes\org\tigris\subversion\javahl\PromptUserPassword2.class
 
 # End Custom Build
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -2411,7 +2411,7 @@ InputPath=..\classes\org\tigris\subversion\javahl\Revision.class
 
 # End Custom Build
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -2478,7 +2478,7 @@ InputPath="..\classes\org\tigris\subversion\javahl\RevisionKind.class"
 
 # End Custom Build
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -2545,7 +2545,7 @@ InputPath="..\classes\org\tigris\subversion\javahl\StatusKind.class"
 
 # End Custom Build
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -2612,7 +2612,7 @@ InputPath=..\classes\org\tigris\subversion\javahl\SVNAdmin.class
 
 # End Custom Build
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -2679,7 +2679,7 @@ InputPath=..\classes\org\tigris\subversion\javahl\SVNClient.class
 
 # End Custom Build
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -2746,7 +2746,7 @@ InputPath="..\classes\org\tigris\subversion\javahl\SVNClientLogLevel.class"
 
 # End Custom Build
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # End Group
