@@ -57,7 +57,7 @@ static int request_auth(void *userdata, const char *realm, int attempt,
   svn_ra_simple_password_authenticator_t *authenticator = NULL;
   svn_ra_session_t *ras = userdata;
 
-  if (attempt > 1)
+  if (attempt > 1) 
     {
       /* Only use two retries. */
       return -1;
@@ -67,12 +67,12 @@ static int request_auth(void *userdata, const char *realm, int attempt,
      get_authenticator, get_username, get_password... */
 
   /* pull the username and password from the client */
-  ras->callbacks->get_authenticator (&a, &auth_baton,
-                                     SVN_RA_AUTH_SIMPLE_PASSWORD,
-                                     ras->callback_baton, ras->pool);
-  authenticator = (svn_ra_simple_password_authenticator_t *) a;
+  ras->callbacks->get_authenticator (&a, &auth_baton, 
+                                     SVN_RA_AUTH_SIMPLE_PASSWORD, 
+                                     ras->callback_baton, ras->pool);      
+  authenticator = (svn_ra_simple_password_authenticator_t *) a;      
   authenticator->get_user_and_pass (&uname, &pword,
-                                    auth_baton,
+                                    auth_baton, 
                                     /* possibly force a user-prompt: */
                                     attempt ? TRUE : FALSE,
                                     ras->pool);
@@ -136,8 +136,8 @@ struct search_groups_baton
  *
  * If an element of VALUE matches BATON->requested_host, then set
  * BATON->proxy_group to a copy of NAME allocated in BATON->pool, and
- * return false (to end the enumeration).
- *
+ * return false (to end the enumeration).  
+ * 
  * VALUE is a comma-separated list of one or more expressions to match
  * a host, possibly using wildcards.  For example, these are all
  * valid VALUEs:
@@ -244,7 +244,7 @@ svn_ra_dav__open (void **session_baton,
   int is_ssl_session;
 
   /* Sanity check the URI */
-  if (uri_parse(repository, &uri, NULL)
+  if (uri_parse(repository, &uri, NULL) 
       || uri.host == NULL || uri.path == NULL)
     {
       uri_free(&uri);
@@ -270,7 +270,7 @@ svn_ra_dav__open (void **session_baton,
     int proxy_port;
     const char *proxy_username;
     const char *proxy_password;
-
+    
     SVN_ERR (get_proxy (&proxy_host,
                         &proxy_port,
                         &proxy_username,
@@ -359,7 +359,7 @@ svn_ra_dav__open (void **session_baton,
   ras->url = apr_pstrdup (pool, repos_URL->data);
   ras->root = uri;
   ras->sess = sess;
-  ras->sess2 = sess2;
+  ras->sess2 = sess2;  
   ras->callbacks = callbacks;
   ras->callback_baton = callback_baton;
 
@@ -426,7 +426,7 @@ svn_error_t *svn_ra_dav_init(int abi_version,
 }
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end:
