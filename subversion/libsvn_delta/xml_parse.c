@@ -3,32 +3,32 @@
  *
  * ================================================================
  * Copyright (c) 2000 Collab.Net.  All rights reserved.
- *
+ * 
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
  * met:
- *
+ * 
  * 1. Redistributions of source code must retain the above copyright
  * notice, this list of conditions and the following disclaimer.
- *
+ * 
  * 2. Redistributions in binary form must reproduce the above copyright
  * notice, this list of conditions and the following disclaimer in the
  * documentation and/or other materials provided with the distribution.
- *
+ * 
  * 3. The end-user documentation included with the redistribution, if
  * any, must include the following acknowlegement: "This product includes
  * software developed by Collab.Net (http://www.Collab.Net/)."
  * Alternately, this acknowlegement may appear in the software itself, if
  * and wherever such third-party acknowlegements normally appear.
- *
+ * 
  * 4. The hosted project names must not be used to endorse or promote
  * products derived from this software without prior written
  * permission. For written permission, please contact info@collab.net.
- *
+ * 
  * 5. Products derived from this software may not use the "Tigris" name
  * nor may "Tigris" appear in their names without prior written
  * permission of Collab.Net.
- *
+ * 
  * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
  * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -42,7 +42,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ====================================================================
- *
+ * 
  * This software consists of voluntary contributions made by many
  * individuals on behalf of Collab.Net.
  */
@@ -56,12 +56,12 @@
   svn_delta_stackframe_t structure from a stream containing
   Subversion's XML delta representation.
 
-  Essentially, one must
-
+  Essentially, one must 
+  
   * create an Subversion-specific XML_Parser with svn_delta_xml_parser()
 
   * call XML_Parse(parser) on a bytestream
-
+  
 */
 
 #include <stdio.h>
@@ -89,7 +89,7 @@ fill_attributes (apr_pool_t *pool,
     {
       const char *attr_name = *atts++;
       const char *attr_value = *atts++;
-
+      
       if (strcmp (attr_name, "ancestor") == 0)
         {
           frame->ancestor_path
@@ -140,17 +140,17 @@ find_delta_bottom (svn_delta_stackframe_t *frame)
 
 
 
-/*
+/* 
    Go to bottom of frame D, and set the state of the content's
-   text_delta or prop_delta flag.
+   text_delta or prop_delta flag. 
 */
 static void
-twiddle_edit_content_flags (svn_delta_stackframe_t *d,
+twiddle_edit_content_flags (svn_delta_stackframe_t *d, 
                             svn_boolean_t value,
                             svn_boolean_t text_p)
 {
   svn_delta_stackframe_t *bot_frame = find_delta_bottom (d);
-
+  
   /* ...just mark flag in edit_content structure (should be the
      last structure on our growing delta) */
   if (text_p)
@@ -169,7 +169,7 @@ XML_type_error (apr_pool_t *pool, const char *name, svn_boolean_t destroy_p)
 {
   if (destroy_p)
     {
-      char *msg =
+      char *msg = 
         apr_psprintf (pool, "Typecheck error in starpend_delta: trying to remove frame type '%s', but current bottom of stackframe is different type!", name);
       return svn_create_error (SVN_ERR_MALFORMED_XML, 0,
                                msg, NULL, pool);
@@ -177,7 +177,7 @@ XML_type_error (apr_pool_t *pool, const char *name, svn_boolean_t destroy_p)
 
   else
     {
-      char *msg =
+      char *msg = 
         apr_psprintf (pool, "Typecheck error in starpend_delta: trying to append frame type '%s', but current bottom of stackframe is wrong type!", name);
       return svn_create_error (SVN_ERR_MALFORMED_XML, 0,
                                msg, NULL, pool);
@@ -186,9 +186,9 @@ XML_type_error (apr_pool_t *pool, const char *name, svn_boolean_t destroy_p)
 
 
 
-/*
+/* 
    starpend_delta() : either (ap)pend or (un)pend a frame to the
-                          end of a delta.
+                          end of a delta.  
 
    Append or remove NEW_FRAME to/from the end of delta-stackframe
    within DIGGER.
@@ -221,12 +221,12 @@ telescope_delta_stack (svn_delta_digger_t *digger,
       if ((strcmp (tagname, "tree-delta") == 0)
           && (bot_frame->kind != svn_XML_tree))
         return XML_type_error (digger->pool, tagname, TRUE);
-      else if (((strcmp (tagname, "new") == 0)
+      else if (((strcmp (tagname, "new") == 0) 
                 || (strcmp (tagname, "replace") == 0)
                 || (strcmp (tagname, "delete") == 0))
                && (bot_frame->kind != svn_XML_edit))
         return XML_type_error (digger->pool, tagname, TRUE);
-      else if (((strcmp (tagname, "file") == 0)
+      else if (((strcmp (tagname, "file") == 0) 
                 || (strcmp (tagname, "dir") == 0))
                && (bot_frame->kind != svn_XML_content))
         return XML_type_error (digger->pool, tagname, TRUE);
@@ -249,12 +249,12 @@ telescope_delta_stack (svn_delta_digger_t *digger,
       if ((strcmp (tagname, "tree-delta") == 0)
           && (bot_frame->kind != svn_XML_content))
         return XML_type_error (digger->pool, tagname, FALSE);
-      else if (((strcmp (tagname, "new") == 0)
+      else if (((strcmp (tagname, "new") == 0) 
                 || (strcmp (tagname, "replace") == 0)
                 || (strcmp (tagname, "delete") == 0))
                && (bot_frame->kind != svn_XML_tree))
         return XML_type_error (digger->pool, tagname, FALSE);
-      else if (((strcmp (tagname, "file") == 0)
+      else if (((strcmp (tagname, "file") == 0) 
                 || (strcmp (tagname, "dir") == 0))
                && (bot_frame->kind != svn_XML_edit))
         return XML_type_error (digger->pool, tagname, FALSE);
@@ -274,8 +274,8 @@ telescope_delta_stack (svn_delta_digger_t *digger,
    and the **atts list is a dumb list of name/value pairs, all
    null-terminated Cstrings, and ending with an extra final NULL.
 
-*/
-
+*/  
+      
 static void
 xml_handle_start (void *userData, const char *name, const char **atts)
 {
@@ -289,11 +289,11 @@ xml_handle_start (void *userData, const char *name, const char **atts)
       /* Found a new tree-delta element */
 
       /* Create new stackframe */
-      svn_delta_stackframe_t *new_frame
+      svn_delta_stackframe_t *new_frame 
         = apr_pcalloc (my_digger->pool, sizeof (svn_delta_stackframe_t));
 
       new_frame->kind = svn_XML_tree;
-
+      
       if (my_digger->stack == NULL)
         /* This is the very FIRST element of our tree delta! */
         my_digger->stack = new_frame;
@@ -320,7 +320,7 @@ xml_handle_start (void *userData, const char *name, const char **atts)
   else if (strcmp (name, "new") == 0)
     {
       /* Create new stackframe */
-      svn_delta_stackframe_t *new_frame
+      svn_delta_stackframe_t *new_frame 
         = apr_pcalloc (my_digger->pool, sizeof (svn_delta_stackframe_t));
 
       new_frame->kind = svn_XML_edit;
@@ -336,7 +336,7 @@ xml_handle_start (void *userData, const char *name, const char **atts)
   else if (strcmp (name, "replace") == 0)
     {
       /* Create new stackframe */
-      svn_delta_stackframe_t *new_frame
+      svn_delta_stackframe_t *new_frame 
         = apr_pcalloc (my_digger->pool, sizeof (svn_delta_stackframe_t));
 
       new_frame->kind = svn_XML_edit;
@@ -352,7 +352,7 @@ xml_handle_start (void *userData, const char *name, const char **atts)
   else if (strcmp (name, "delete") == 0)
     {
       /* Create new stackframe */
-      svn_delta_stackframe_t *new_frame
+      svn_delta_stackframe_t *new_frame 
         = apr_pcalloc (my_digger->pool, sizeof (svn_delta_stackframe_t));
 
       new_frame->kind = svn_XML_edit;
@@ -369,7 +369,7 @@ xml_handle_start (void *userData, const char *name, const char **atts)
   else if (strcmp (name, "file") == 0)
     {
       /* Create new stackframe */
-      svn_delta_stackframe_t *new_frame
+      svn_delta_stackframe_t *new_frame 
         = apr_pcalloc (my_digger->pool, sizeof (svn_delta_stackframe_t));
 
       new_frame->kind = svn_XML_content;
@@ -385,7 +385,7 @@ xml_handle_start (void *userData, const char *name, const char **atts)
   else if (strcmp (name, "dir") == 0)
     {
       /* Create new stackframe */
-      svn_delta_stackframe_t *new_frame
+      svn_delta_stackframe_t *new_frame 
         = apr_pcalloc (my_digger->pool, sizeof (svn_delta_stackframe_t));
 
       new_frame->kind = svn_XML_content;
@@ -423,17 +423,17 @@ xml_handle_start (void *userData, const char *name, const char **atts)
 
 /*  Callback:  called whenever we find a close tag (close paren) */
 
-static void
+static void 
 xml_handle_end (void *userData, const char *name)
 {
   svn_delta_digger_t *my_digger = (svn_delta_digger_t *) userData;
 
-
+  
   /* Figure out what kind of element is being "closed" in our
      XML stream */
 
-  if ((strcmp (name, "tree-delta") == 0)
-      || (strcmp (name, "new") == 0)
+  if ((strcmp (name, "tree-delta") == 0) 
+      || (strcmp (name, "new") == 0) 
       || (strcmp (name, "replace") == 0)
       || (strcmp (name, "delete") == 0)
       || (strcmp (name, "file") == 0)
@@ -470,10 +470,10 @@ xml_handle_end (void *userData, const char *name)
 
 
 
-/* Callback: called whenever we find data within a tag.
+/* Callback: called whenever we find data within a tag.  
    (Of course, we only care about data within the "text-delta" tag.)  */
 
-static void
+static void 
 svn_xml_handle_data (void *userData, const char *data, int len)
 {
   svn_delta_digger_t *my_digger = (svn_delta_digger_t *) userData;
@@ -504,7 +504,7 @@ svn_delta_make_xml_parser (svn_delta_digger_t *diggy)
   /* Register subversion-specific callbacks with the parser */
   XML_SetElementHandler (parser,
                          xml_handle_start,
-                         xml_handle_end);
+                         xml_handle_end); 
   XML_SetCharacterDataHandler (parser, svn_xml_handle_data);
 
   return parser;
@@ -512,7 +512,7 @@ svn_delta_make_xml_parser (svn_delta_digger_t *diggy)
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
