@@ -3,32 +3,32 @@
  *
  * ================================================================
  * Copyright (c) 2000 CollabNet.  All rights reserved.
- *
+ * 
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
  * met:
- *
+ * 
  * 1. Redistributions of source code must retain the above copyright
  * notice, this list of conditions and the following disclaimer.
- *
+ * 
  * 2. Redistributions in binary form must reproduce the above copyright
  * notice, this list of conditions and the following disclaimer in the
  * documentation and/or other materials provided with the distribution.
- *
+ * 
  * 3. The end-user documentation included with the redistribution, if
  * any, must include the following acknowlegement: "This product includes
  * software developed by CollabNet (http://www.Collab.Net)."
  * Alternately, this acknowlegement may appear in the software itself, if
  * and wherever such third-party acknowlegements normally appear.
- *
+ * 
  * 4. The hosted project names must not be used to endorse or promote
  * products derived from this software without prior written
  * permission. For written permission, please contact info@collab.net.
- *
+ * 
  * 5. Products derived from this software may not use the "Tigris" name
  * nor may "Tigris" appear in their names without prior written
  * permission of CollabNet.
- *
+ * 
  * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
  * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -42,7 +42,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ====================================================================
- *
+ * 
  * This software consists of voluntary contributions made by many
  * individuals on behalf of CollabNet.
  */
@@ -92,11 +92,11 @@ test1()
   key = svn_string_create ("color", pool);
   apr_hash_set (proplist, key->data, key->len,
                svn_string_create ("red", pool));
-
+  
   key = svn_string_create ("wine review", pool);
   apr_hash_set (proplist, key->data, key->len,
                svn_string_create (review, pool));
-
+  
   key = svn_string_create ("price", pool);
   apr_hash_set (proplist, key->data, key->len,
                svn_string_create ("US $6.50", pool));
@@ -160,7 +160,7 @@ test3()
 
   /* Now let's make sure that proplist and new_proplist contain the
      same data. */
-
+  
   /* Loop over our original hash */
   for (this = apr_hash_first (proplist); this; this = apr_hash_next (this))
     {
@@ -168,7 +168,7 @@ test3()
       size_t keylen;
       void *val;
       svn_string_t *orig_str, *new_str;
-
+      
       /* Get a key and val. */
       apr_hash_this (this, &key, &keylen, &val);
       orig_str = (svn_string_t *) val;
@@ -199,7 +199,7 @@ test3()
 */
 
 /* An array of all test functions */
-int (*test_funcs[])() =
+int (*test_funcs[])() = 
 {
   NULL,
   test1,
@@ -210,7 +210,7 @@ int (*test_funcs[])() =
 
 
 /* Descriptions of each test we can run */
-char *descriptions[] =
+char *descriptions[] = 
 {
   NULL,
   "test 1: write a hash to a file",
