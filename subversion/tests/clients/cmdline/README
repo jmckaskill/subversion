@@ -38,7 +38,7 @@ How to Run the Scripts
               ./basic_tests.py 7
 
 
->>> To make a script run over ra_dav instead of ra_local:
+>>> To make a script run over ra_dav instead of ra_local: 
 
    * Because repositories are still created on-the-fly (which httpd
      must read), the client and server must still running on the
@@ -83,7 +83,7 @@ Directory Contents
                             copy, and converting to/from trees.
 
           /actions.py:      Main API for driving subversion client and
-                            using trees to verify results.
+                            using trees to verify results. 
 
           /entry.py:        Parse an `entries' file (### not used yet)
 
