@@ -40,7 +40,7 @@ extern "C" {
 /* ### NOTE: Some functions mention that when the rest of Marcus
    Comsted's patch is applied, they will handle charset conversion
    too, and to see issue #494 for details.  Other functions do not say
-   this.
+   this. 
 
    In fact, all svn_io_foo() functions will handle charset conversion.
    The ones that explicitly warn of this impending feature are those
@@ -59,14 +59,14 @@ extern "C" {
 
 
 /* If PATH exists, set *KIND to the appropriate kind, else set it to
- * svn_node_unknown.
+ * svn_node_unknown. 
  *
  * If PATH is a file, *KIND is set to svn_node_file.
  *
  * If PATH is a directory, *KIND is set to svn_node_dir.
  *
  * If PATH does not exist in its final component, *KIND is set to
- * svn_node_none.
+ * svn_node_none.  
  *
  * If intermediate directories on the way to PATH don't exist, an
  * error is returned, and *KIND's value is undefined.
@@ -104,14 +104,14 @@ svn_error_t *svn_io_check_path (const char *path,
  *
  * *UNIQUE_NAME will never be exactly the same as PATH, even if PATH does
  * not exist.
- *
+ * 
  * *F and *UNIQUE_NAME are allocated in POOL.
  *
  * If no unique name can be found, SVN_ERR_IO_UNIQUE_NAMES_EXHAUSTED is
  * the error returned.
  *
  * Claim of Historical Inevitability: this function was written
- * because
+ * because 
  *
  *    tmpnam() is not thread-safe.
  *    tempname() tries standard system tmp areas first.
@@ -205,7 +205,7 @@ svn_error_t *svn_io_set_file_executable (const char *path,
  * Does not include newline, instead '\0' is put there.
  * Length (as in strlen) is returned in *LIMIT.
  * BUF should be pre-allocated.
- * FILE should be already opened.
+ * FILE should be already opened. 
  *
  * When the file is out of lines, APR_EOF will be returned.
  */
@@ -371,8 +371,8 @@ svn_stream_readline (svn_stream_t *stream,
                      apr_pool_t *pool);
 
 /* Sets *RESULT to a string containing the contents of FILENAME. */
-svn_error_t *svn_string_from_file (svn_stringbuf_t **result,
-                                   const char *filename,
+svn_error_t *svn_string_from_file (svn_stringbuf_t **result, 
+                                   const char *filename, 
                                    apr_pool_t *pool);
 
 /* Sets *RESULT to a string containing the contents of the already opened
@@ -427,16 +427,16 @@ svn_error_t *svn_io_run_cmd (const char *path,
                              apr_file_t *errfile,
                              apr_pool_t *pool);
 
-/* Invoke SVN_CLIENT_DIFF, with USER_ARGS (which is an array of NUM_USER_ARGS
-   arguments), if they are specified, or "-u" if they are not.
+/* Invoke SVN_CLIENT_DIFF, with USER_ARGS (which is an array of NUM_USER_ARGS 
+   arguments), if they are specified, or "-u" if they are not.  
 
-   Diff runs in DIR, and its exit status is stored in EXITCODE, if it is not
-   NULL.
+   Diff runs in DIR, and its exit status is stored in EXITCODE, if it is not 
+   NULL.  
 
    If LABEL is given, it will be passed in as the argument to the "-L" option.
 
-   FROM is the first file passed to diff, and TO is the second.  The stdout of
-   diff will be sent to OUTFILE, and the stderr to ERRFILE.  All memory will be
+   FROM is the first file passed to diff, and TO is the second.  The stdout of 
+   diff will be sent to OUTFILE, and the stderr to ERRFILE.  All memory will be 
    allocated using POOL.  */
 svn_error_t *svn_io_run_diff (const char *dir,
                               const char *const *user_args,
@@ -491,11 +491,11 @@ svn_error_t *svn_io_run_diff3 (const char *dir,
 svn_error_t *svn_io_detect_mimetype (const char **mimetype,
                                      const char *file,
                                      apr_pool_t *pool);
-
+                                      
 
 /* Wrapper for apr_file_open(), which see.
    ### NOTE: when the rest of Marcus Comsted's patch is applied, this
-   will handle charset conversion too, see issue #494 for details.  */
+   will handle charset conversion too, see issue #494 for details.  */ 
 svn_error_t *
 svn_io_file_open (apr_file_t **new_file, const char *fname,
                   apr_int32_t flag, apr_fileperms_t perm,
@@ -504,7 +504,7 @@ svn_io_file_open (apr_file_t **new_file, const char *fname,
 
 /* Wrapper for apr_stat(), which see.
    ### NOTE: when the rest of Marcus Comsted's patch is applied, this
-   will handle charset conversion too, see issue #494 for details.  */
+   will handle charset conversion too, see issue #494 for details.  */ 
 svn_error_t *
 svn_io_stat (apr_finfo_t *finfo, const char *fname,
              apr_int32_t wanted, apr_pool_t *pool);
@@ -512,7 +512,7 @@ svn_io_stat (apr_finfo_t *finfo, const char *fname,
 
 /* Wrapper for apr_file_rename(), which see.
    ### NOTE: when the rest of Marcus Comsted's patch is applied, this
-   will handle charset conversion too, see issue #494 for details.  */
+   will handle charset conversion too, see issue #494 for details.  */ 
 svn_error_t *
 svn_io_file_rename (const char *from_path, const char *to_path,
                     apr_pool_t *pool);
@@ -520,14 +520,14 @@ svn_io_file_rename (const char *from_path, const char *to_path,
 
 /* Wrapper for apr_dir_make(), which see.
    ### NOTE: when the rest of Marcus Comsted's patch is applied, this
-   will handle charset conversion too, see issue #494 for details.  */
+   will handle charset conversion too, see issue #494 for details.  */ 
 svn_error_t *
 svn_io_dir_make (const char *path, apr_fileperms_t perm, apr_pool_t *pool);
 
 
 /* Wrapper for apr_dir_open(), which see.
    ### NOTE: when the rest of Marcus Comsted's patch is applied, this
-   will handle charset conversion too, see issue #494 for details.  */
+   will handle charset conversion too, see issue #494 for details.  */ 
 svn_error_t *
 svn_io_dir_open (apr_dir_t **new_dir, const char *dirname, apr_pool_t *pool);
 
@@ -535,7 +535,7 @@ svn_io_dir_open (apr_dir_t **new_dir, const char *dirname, apr_pool_t *pool);
 /* Wrapper for apr_dir_remove(), which see.  Given this name to avoid
    confusion with svn_io_remove_dir, which is recursive.
    ### NOTE: when the rest of Marcus Comsted's patch is applied, this
-   will handle charset conversion too, see issue #494 for details.  */
+   will handle charset conversion too, see issue #494 for details.  */ 
 svn_error_t *
 svn_io_dir_remove_nonrecursive (const char *dirname, apr_pool_t *pool);
 
@@ -543,7 +543,7 @@ svn_io_dir_remove_nonrecursive (const char *dirname, apr_pool_t *pool);
 /* Wrapper for apr_dir_read, which see.  Use POOL only for error
    allocation.
    ### NOTE: when the rest of Marcus Comsted's patch is applied, this
-   will handle charset conversion too, see issue #494 for details.  */
+   will handle charset conversion too, see issue #494 for details.  */ 
 svn_error_t *
 svn_io_dir_read (apr_finfo_t *finfo,
                  apr_int32_t wanted,
@@ -553,7 +553,7 @@ svn_io_dir_read (apr_finfo_t *finfo,
 
 /* Wrapper for apr_file_printf(), which see.
    ### NOTE: when the rest of Marcus Comsted's patch is applied, this
-   will handle charset conversion too, see issue #494 for details.  */
+   will handle charset conversion too, see issue #494 for details.  */ 
 svn_error_t *
 svn_io_file_printf (apr_file_t *fptr, const char *format, ...);
 
