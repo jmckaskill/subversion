@@ -107,7 +107,7 @@ ch00.xml. -->
 </preface>
 
 <!--
-local variables:
+local variables: 
 sgml-parent-document: ("book.xml" "foreword")
 end:
 vim: set textwidth=0 wrap expandtab shiftwidth=2 tabstop=2 softtabstop=2 fileencoding=utf8 :
