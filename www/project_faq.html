@@ -9,40 +9,40 @@
 </p>
 <li><a href="#why">Why does this project exist?</a></li>
 <li><a href="#collab">Is Subversion proprietary?  I heard that it
-    belongs to CollabNet.</a></li>
+    belongs to CollabNet.</a></li> 
 <li><a href="#stable">Is Subversion stable enough for me to use for my
     own projects?</a></li>
 <li><a href="#interop">What is Subversion's pre-1.0 interoperability
     policy?</a></li>
 <li><a href="#portability">What operating systems does Subversion run
-    on?</a></li>
+    on?</a></li> 
 <li><a href="#filesystem">What's all this about a new filesystem?  Is
-    it like ext2?</a></li>
+    it like ext2?</a></li> 
 <li><a href="#apache-extension">I heard that Subversion is an Apache
-    extension?</a></li>
+    extension?</a></li> 
 <li><a href="#need-apache">Does this mean I have to set up Apache to
-    use Subversion?</a></li>
+    use Subversion?</a></li> 
 <li><a href="#multiple-apachim">I run Apache 1.x right now, and can't
     switch to Apache 2.0 just to serve Subversion repositories.
-    Does that mean I can't run a Subversion server?</a></li>
+    Does that mean I can't run a Subversion server?</a></li>  
 <li><a href="#feature-x">Why don't you do X, just like SCM system Y?</a></li>
-<li><a href="#globalrev">Why does the entire repository share the
+<li><a href="#globalrev">Why does the entire repository share the 
     same revision number? I want each of my projects to have their
     own revision numbers.  </a></li>
 <li><a href="#release">When's the next release?</a></li>
 <li><a href="#more-information">I have other questions.  Where can I
-    get more information?</a></li>
+    get more information?</a></li>  
 <p>
 <strong>How-to:</strong>
 </p>
 <li><a href="#co-svn">How do I check out the Subversion code?</a></li>
 <li><a href="#repository">How do I create a repository?  How do I
-    import data into it?</a></li>
+    import data into it?</a></li> 
 <li><a href="#cvs2svn">How do I convert an existing CVS repository
     into a Subversion repository?</a></li>
     <li><a href="#proxy">What if I'm behind a proxy?</a></li>
 <li><a href="#paranoid">My admins don't want me to have a HTTP server for
-    Subversion.  What can I do if I still want remote usage?</a></li>
+    Subversion.  What can I do if I still want remote usage?</a></li> 
 <li><a href="#multi-proj">How do I manage several different projects
     under Subversion?</a></li>
 <li><a href="#multi-merge">How do I merge two completely separate repositories?</a></li>
@@ -53,9 +53,9 @@
 <li><a href="#patch">How do I submit a patch for Subversion?</a></li>
 <li><a href="#in-place-import">How can I do an in-place 'import'
     (i.e. add a tree to subversion without moving or deleting the
-    original working copy)?</a></li>
+    original working copy)?</a></li> 
 <li><a href="#dumpload">What is this "dump/load cycle" people
-    sometimes talk about when upgrading a Subversion server?</a></li>
+    sometimes talk about when upgrading a Subversion server?</a></li> 
 <p>
 <strong>Troubleshooting:</strong>
 </p>
@@ -69,7 +69,7 @@
     binary, and when I try to check out Subversion, I get an error
     about an "Unrecognized URL scheme."  What's up with that?</a></li>
 <li><a href="#db-recover">I'm getting errors finding or opening a repository,
-    but I know my repository URL is correct.  What's wrong?</a></li>
+    but I know my repository URL is correct.  What's wrong?</a></li> 
 <li><a href="#configure-sed-error">When I run `<tt>configure</tt>', I
     get errors <tt>subs-1.sed&nbsp;line&nbsp;38:&nbsp;Unterminated&nbsp;`s'&nbsp;command</tt>.  What's wrong?</a></li>
 <li><a href="#windows-msvc-build">I'm having trouble building
@@ -81,7 +81,7 @@
     operations to a Subversion repository over a network.</a></li>
 <li><a href="#windows-xp-server">Under Windows XP, the Subversion
     server sometimes seems to send out corrupted data.  Can this really be
-    happening?</a></li>
+    happening?</a></li>  
 <li><a href="#ethereal">What is the best method of doing a network
     trace of the conversation between a Subversion client and server?</a></li>
 <li><a href="#revert">Why does the <tt>svn revert</tt> require an
@@ -104,10 +104,10 @@
 <p>
 <strong>References:</strong>
 </p>
-<li><a href="#http-methods">What are all the HTTP methods Subversion
+<li><a href="#http-methods">What are all the HTTP methods Subversion 
     uses?</a></li>
-<li><a href="#bikeshed">What's a 'bikeshed'?</a></li>
-<li><a href="#baton">What's a 'baton'?</a></li>
+<li><a href="#bikeshed">What's a 'bikeshed'?</a></li> 
+<li><a href="#baton">What's a 'baton'?</a></li> 
 </ol>
 
 <![CDATA[=========================================================]]>
@@ -208,7 +208,7 @@ accidentally discover that your clients and servers no longer
     policy?</h3>
 
 <p>The client and server are guaranteed to work as long as they aren't
- more than one major release version apart.  (For example, a 0.25.X
+ more than one major release version apart.  (For example, a 0.25.X 
  client will talk to a 0.24.X or 0.26.X server.)</p>
 
 <![CDATA[-----------------------------------------------------------]]>
@@ -300,7 +300,7 @@ there.  We're trying to replace CVS.  See the first question.</p>
 
 <![CDATA[-----------------------------------------------------------]]>
 
-<h3><a name="globalrev">Why does the entire repository share the
+<h3><a name="globalrev">Why does the entire repository share the 
     same revision number? I want each of my projects to have their
     own revision numbers.</a></h3>
 <p>
@@ -582,7 +582,7 @@ Ben Collins-Sussman &lt;sussman@collab.net&gt;):
 </ul>
 
 <![CDATA[=========================================================]]>
-
+  
 <h3><a name="multi-merge">How do I merge two completely separate repositories?</a></h3>
 
 <p>If you don't care about retaining all the history of one of the
@@ -617,7 +617,7 @@ equivalent to CVS modules:
 
 
 <![CDATA[=========================================================]]>
-
+  
 <h3><a name="bdblogs">Why is my repository taking up so much disk space?</h3>
 
 <p>The repository stores all your data in a Berkeley DB "environment"
@@ -733,7 +733,7 @@ formatting or content changes necessary), and check it in.
 	$ cd subversion/www
 
 		[ make changes to project_faq.html ]
-
+	
 	$ svn diff project_faq.html > /tmp/foo
 
 	$ Mail -s "[PATCH] FAQ updates" < /tmp/foo
@@ -750,7 +750,7 @@ understood it <em>before</em> actually hacking the code, right? :)
 
 <h3><a name="in-place-import">How can I do an in-place 'import'
     (i.e. add a tree to subversion without moving or deleting the
-    original working copy)?</a></h3>
+    original working copy)?</a></h3> 
 
 <p>Suppose, for example, that you wanted to put some of /etc under
 version control inside a brand-new repository you created using:
@@ -767,7 +767,7 @@ version control inside a brand-new repository you created using:
      # cd /
      # svn co file:///root/svn etc
      # cd etc
-     # svn add apache samba alsa X11
+     # svn add apache samba alsa X11 
      # svn commit -m "configury"
 </pre>
 
@@ -941,7 +941,7 @@ variable.</p>
 <![CDATA[-----------------------------------------------------------]]>
 
 <h3><a name="db-recover">I'm getting errors finding or opening a repository,
-    but I know my repository URL is correct.  What's wrong?</a></h3>
+    but I know my repository URL is correct.  What's wrong?</a></h3> 
 
 <p>See <a href="#wedged-repos">this faq.</a></p>
 
@@ -961,7 +961,7 @@ building with are completely up-to-date, and try again.
 </p>
 
 <![CDATA[-----------------------------------------------------------]]>
-
+ 
 <h3>I'm having trouble building Subversion under Windows with MSVC++ 6.0.
 <a name="windows-msvc-build"> What should I do?</a></h3>
 
