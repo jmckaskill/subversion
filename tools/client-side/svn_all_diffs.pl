@@ -28,7 +28,7 @@ while (@revs > 1) {
   my $old_rev = $revs[0];
   print join("\n", read_from_process('svn', 'diff',
                                      "-r$old_rev:$new_rev", $file_or_dir),
-                   "\n");
+                   "\n");  
 }
 
 exit 0;
