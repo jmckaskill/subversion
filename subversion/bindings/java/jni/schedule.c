@@ -31,7 +31,7 @@
 //JUST UNCOMMENT THE FOLLOWING LINE
 #define SVN_JNI_SCHEDULE__DEBUG
 
-jobject
+jobject 
 schedule__create(JNIEnv *env, jboolean *hasException, jint schedule)
 {
   jobject result = NULL;
@@ -68,7 +68,7 @@ schedule__create(JNIEnv *env, jboolean *hasException, jint schedule)
       /* get method reference */
       if( !_hasException )
 	{
-	  constructor =
+	  constructor = 
             j__get_method(env, &_hasException,
                           class,
                           "<init>",
@@ -78,7 +78,7 @@ schedule__create(JNIEnv *env, jboolean *hasException, jint schedule)
       /* create new instance */
       if( !_hasException )
 	{
-	  result = (*env)->NewObject(env, class, constructor,
+	  result = (*env)->NewObject(env, class, constructor, 
                                      schedule);
 
 	  if( result == NULL )
@@ -95,7 +95,7 @@ schedule__create(JNIEnv *env, jboolean *hasException, jint schedule)
   SVN_JNI__DEBUG_BOOL(_hasException);
   fprintf(stderr, ")\n");
 #endif
-
+				    
   if( (hasException != NULL) && _hasException )
     {
       *hasException = JNI_TRUE;

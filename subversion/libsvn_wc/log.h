@@ -88,7 +88,7 @@ extern "C" {
 /* Make file SVN_WC__LOG_ATTR_NAME readonly */
 #define SVN_WC__LOG_READONLY            "readonly"
 
-/* Handle closure after a commit completes successfully:
+/* Handle closure after a commit completes successfully:  
  *
  *   If SVN/tmp/text-base/SVN_WC__LOG_ATTR_NAME exists, then
  *      compare SVN/tmp/text-base/SVN_WC__LOG_ATTR_NAME with working file
@@ -149,8 +149,8 @@ extern "C" {
 
 /* Starting at PATH, write out log entries indicating that a commit
  * succeeded, using REVISION as the new revision number.  run_log will
- * use these log items to complete the commit.
- *
+ * use these log items to complete the commit. 
+ * 
  * Targets is a hash of files/dirs that actually got committed --
  * these are the only ones who we can write log items for, and whose
  * revision numbers will get set.

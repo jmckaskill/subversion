@@ -75,7 +75,7 @@ wc_has_binary_prop (VALUE self, VALUE aPath)
 
   pool = svn_pool_create (NULL);
 
-  SVN_RB_ERR (svn_wc_has_binary_prop (&has_binary_prop, StringValuePtr (aPath),
+  SVN_RB_ERR (svn_wc_has_binary_prop (&has_binary_prop, StringValuePtr (aPath), 
                                       pool),
               pool);
 
@@ -102,7 +102,7 @@ text_modified_p (VALUE self, VALUE aFilename)
                                      pool),
               pool);
 
-  SVN_RB_ERR (svn_wc_text_modified_p (&modified_p, StringValuePtr (aFilename),
+  SVN_RB_ERR (svn_wc_text_modified_p (&modified_p, StringValuePtr (aFilename), 
                                       adm_access, pool),
               pool);
 
@@ -124,11 +124,11 @@ props_modified_p (VALUE self, VALUE aPath)
 
   pool = svn_pool_create (NULL);
 
-  SVN_RB_ERR (svn_wc_adm_probe_open (&adm_access, NULL, StringValuePtr (aPath),
+  SVN_RB_ERR (svn_wc_adm_probe_open (&adm_access, NULL, StringValuePtr (aPath), 
                                      FALSE, FALSE, pool),
               pool);
 
-  SVN_RB_ERR (svn_wc_props_modified_p (&modified_p, StringValuePtr (aPath),
+  SVN_RB_ERR (svn_wc_props_modified_p (&modified_p, StringValuePtr (aPath), 
                                        adm_access, pool),
               pool);
 
@@ -149,7 +149,7 @@ prop_list (VALUE class, VALUE aPath)
   pool = svn_pool_create (NULL);
 
   SVN_RB_ERR (svn_wc_prop_list (&table, StringValuePtr (aPath), pool), pool);
-
+  
   {
     VALUE obj;
     apr_hash_index_t *hi;
@@ -206,7 +206,7 @@ wc_prop_set (VALUE class, VALUE aName, VALUE aValue, VALUE aPath)
 
   pool = svn_pool_create (NULL);
 
-  SVN_RB_ERR (svn_wc_adm_probe_open (&adm_access, NULL, StringValuePtr (aPath),
+  SVN_RB_ERR (svn_wc_adm_probe_open (&adm_access, NULL, StringValuePtr (aPath), 
                                      TRUE, FALSE, pool),
               pool);
 
@@ -289,11 +289,11 @@ wc_revert (VALUE class, VALUE aPath, VALUE recursive)
 
   pool = svn_pool_create (NULL);
 
-  /* XXX this is wrong.  see the code in svn_client_revert to see what we need
-   * to be doing to get the correct adm_access baton.  i'm not going to bother
-   * at this point since you can just as well use Svn::Client::Revert instead
-   * for the time being.  at some point, we might want to do something funky to
-   * give one access to the notification callbacks or something, but for now
+  /* XXX this is wrong.  see the code in svn_client_revert to see what we need 
+   * to be doing to get the correct adm_access baton.  i'm not going to bother 
+   * at this point since you can just as well use Svn::Client::Revert instead 
+   * for the time being.  at some point, we might want to do something funky to 
+   * give one access to the notification callbacks or something, but for now 
    * it's just not worth the trouble. */
 
   SVN_RB_ERR (svn_wc_adm_probe_open (&adm_access, NULL, StringValuePtr (aPath),
@@ -361,7 +361,7 @@ wc_entry_create (VALUE class, VALUE aPath, VALUE show_deleted)
                                      FALSE, FALSE, pool),
               pool);
 
-  SVN_RB_ERR (svn_wc_entry (&entry, StringValuePtr (aPath), adm_access,
+  SVN_RB_ERR (svn_wc_entry (&entry, StringValuePtr (aPath), adm_access, 
                             RTEST (show_deleted), pool),
               pool);
 
@@ -652,7 +652,7 @@ wc_status (VALUE class, VALUE aPath)
 
   pool = svn_pool_create (NULL);
 
-  SVN_RB_ERR (svn_wc_adm_probe_open (&adm_access, NULL, StringValuePtr (aPath),
+  SVN_RB_ERR (svn_wc_adm_probe_open (&adm_access, NULL, StringValuePtr (aPath), 
                                      FALSE, FALSE, pool),
               pool);
 
@@ -720,7 +720,7 @@ wc_statuses (VALUE class, VALUE aPath, VALUE descend, VALUE get_all,
 
   statushash = apr_hash_make (pool);
 
-  SVN_RB_ERR (svn_wc_adm_probe_open (&adm_access, NULL, StringValuePtr (aPath),
+  SVN_RB_ERR (svn_wc_adm_probe_open (&adm_access, NULL, StringValuePtr (aPath), 
                                      FALSE, TRUE, pool),
               pool);
 

@@ -31,13 +31,13 @@ extern "C" {
 /* functions */
 
 /**
- * create a new org.tigris.subversion.lib.Revision instance
+ * create a new org.tigris.subversion.lib.Revision instance 
  *
  * @param JNIEnv JNI Environment
  * @param hasException
  * @param revision decimal revision number
  */
-jobject
+jobject 
 revision__create(JNIEnv *env, jboolean *hasException, jlong revision);
 
 #ifdef __cplusplus

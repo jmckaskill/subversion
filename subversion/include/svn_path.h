@@ -33,7 +33,7 @@ extern "C" {
 /*** Notes:
  *
  * All incoming and outgoing paths are in UTF-8.
- *
+ * 
  * No result path ever ends with a separator, no matter whether the
  * path is a file or directory, because we always canonicalize() it.
  *
@@ -117,7 +117,7 @@ char *svn_path_dirname (const char *path, apr_pool_t *pool);
    COMPONENT; don't add any separator character.
 
    If the result ends in a separator character, then remove the separator. */
-void svn_path_add_component (svn_stringbuf_t *path,
+void svn_path_add_component (svn_stringbuf_t *path, 
                              const char *component);
 
 /* Remove one component off the end of PATH. */
@@ -134,13 +134,13 @@ void svn_path_remove_component (svn_stringbuf_t *path);
  * If PATH has two or more components, the separator between DIRPATH
  * and BASE_NAME is not included in either of the new names.
  *
- *   examples:  "/foo/bar/baz"  ==>  "/foo/bar" and "baz"
+ *   examples:  "/foo/bar/baz"  ==>  "/foo/bar" and "baz" 
  *              "/bar"          ==>  "/"  and "bar"
  *              "/"             ==>  "/"  and ""
  *              "bar"           ==>  ""   and "bar"
  *              ""              ==>  ""   and ""
  */
-void svn_path_split (const char *path,
+void svn_path_split (const char *path, 
                      const char **dirpath,
                      const char **base_name,
                      apr_pool_t *pool);
@@ -185,7 +185,7 @@ svn_path_get_absolute (const char **pabsolute,
    since directories do not normally vanish. */
 svn_error_t *
 svn_path_split_if_file(const char *path,
-                       const char **pdirectory,
+                       const char **pdirectory, 
                        const char **pfile,
                        apr_pool_t *pool);
 
@@ -195,7 +195,7 @@ svn_path_split_if_file(const char *path,
  * const char *).
  *
  * If there are multiple targets, or exactly one target and it's not a
- * directory, then
+ * directory, then 
  *
  *   - *PBASENAME is set to the absolute path of the common parent
  *     directory of all of those targets, and
@@ -233,12 +233,12 @@ svn_path_condense_targets (const char **pbasename,
    omitting any targets that are found earlier in the list, or whose
    ancestor is found earlier in the list.  Ordering of targets in the
    original list is preserved in the condensed list of targets.  Use
-   POOL for any allocations.
+   POOL for any allocations.  
 
    How does this differ in functionality from svn_path_condense_targets?
 
    Here's the short version:
-
+   
    1.  Disclaimer: if you wish to debate the following, talk to Karl. :-)
        Order matters for updates because a multi-arg update is not
        atomic, and CVS users are used to, when doing 'cvs up targetA
@@ -249,7 +249,7 @@ svn_path_condense_targets (const char **pbasename,
        I can."  So that user will do 'svn up wc/A/D/G/tau wc', and if
        something dies in the middles of the 'wc' update, at least the
        user has 'tau' up-to-date.
-
+   
    2.  Also, we have this notion of an anchor and a target for updates
        (the anchor is where the update editor is rooted, the target is
        the actual thing we want to update).  I needed a function that
@@ -283,7 +283,7 @@ apr_array_header_t *svn_path_decompose (const char *path,
 /* Test that NAME is a single path component, that is:
      - not NULL or empty.
      - not a `/'-separated directory path
-     - not empty or `..'
+     - not empty or `..'  
 */
 svn_boolean_t svn_path_is_single_path_component (const char *name);
 
@@ -292,7 +292,7 @@ svn_boolean_t svn_path_is_single_path_component (const char *name);
    If not, return NULL.
    If so, return a copy of the remainder path, allocated in POOL.
    (The remainder is the component which, added to PATH1, yields
-   PATH2.  The remainder does not begin with a dir separator.)
+   PATH2.  The remainder does not begin with a dir separator.)  
 
    Both paths must be in canonical form. */
 const char *svn_path_is_child (const char *path1,

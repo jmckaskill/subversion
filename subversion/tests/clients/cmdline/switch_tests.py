@@ -2,9 +2,9 @@
 #
 #  switch_tests.py:  testing `svn switch'.
 #
-#  Subversion is a tool for revision control.
+#  Subversion is a tool for revision control. 
 #  See http://subversion.tigris.org for more information.
-#
+#    
 # ====================================================================
 # Copyright (c) 2000-2001 CollabNet.  All rights reserved.
 #
@@ -41,7 +41,7 @@ Item = svntest.wc.StateItem
 def get_routine_status_state(wc_dir):
   """get the routine status list for WC_DIR at the completion of an
   initial call to do_routine_switching()"""
-
+  
   # Construct some paths for convenience
   ADH_path = os.path.join(wc_dir, 'A', 'D', 'H')
   chi_path = os.path.join(ADH_path, 'chi')
@@ -110,7 +110,7 @@ def do_routine_switching(wc_dir, verify):
     # Create expected status tree
     expected_status = svntest.actions.get_virginal_state(wc_dir, 1)
     expected_status.tweak('iota', switched='S')
-
+  
     # Do the switch and check the results in three ways.
     if svntest.actions.run_and_verify_switch(wc_dir, iota_path, gamma_url,
                                              expected_output,
@@ -119,7 +119,7 @@ def do_routine_switching(wc_dir, verify):
       return 1
   else:
     svntest.main.run_svn(None, 'switch', gamma_url, iota_path)
-
+  
   ### Switch the directory `A/B' to `A/D/G'.
 
   # Construct some paths for convenience
@@ -136,15 +136,15 @@ def do_routine_switching(wc_dir, verify):
       'A/B/tau' : Item(status='A '),
       'A/B/rho' : Item(status='A '),
       })
-
+    
     # Create expected disk tree (iota will have gamma's contents,
     # A/B/* will look like A/D/G/*)
     expected_disk = get_routine_disk_state(wc_dir)
-
+    
     # Create expected status
     expected_status = get_routine_status_state(wc_dir)
     expected_status.tweak('iota', 'A/B', switched='S')
-
+  
     # Do the switch and check the results in three ways.
     if svntest.actions.run_and_verify_switch(wc_dir, AB_path, ADG_url,
                                              expected_output,
@@ -160,7 +160,7 @@ def do_routine_switching(wc_dir, verify):
 
 def commit_routine_switching(wc_dir, verify):
   "Commit some stuff in a routinely-switched working copy."
-
+  
   # Make some local mods
   iota_path = os.path.join(wc_dir, 'iota')
   Bpi_path = os.path.join(wc_dir, 'A', 'B', 'pi')
@@ -229,7 +229,7 @@ def commit_routine_switching(wc_dir, verify):
 
 def routine_switching(sbox):
   "test some basic switching operations"
-
+    
   if sbox.build():
     return 1
 
@@ -245,7 +245,7 @@ def commit_switched_things(sbox):
     return 1
 
   wc_dir = sbox.wc_dir
-
+  
   # Setup some switched things (don't bother verifying)
   if do_routine_switching(wc_dir, 0):
     return 1
@@ -255,7 +255,7 @@ def commit_switched_things(sbox):
     return 1
 
   return 0
-
+    
 #----------------------------------------------------------------------
 
 def full_update(sbox):
@@ -265,7 +265,7 @@ def full_update(sbox):
     return 1
 
   wc_dir = sbox.wc_dir
-
+  
   # Setup some switched things (don't bother verifying)
   if do_routine_switching(wc_dir, 0):
     return 1
@@ -273,7 +273,7 @@ def full_update(sbox):
   # Copy wc_dir to a backup location
   wc_backup = wc_dir + 'backup'
   svntest.actions.duplicate_dir(wc_dir, wc_backup)
-
+  
   # Commit some stuff (don't bother verifying)
   if commit_routine_switching(wc_backup, 0):
     return 1
@@ -338,7 +338,7 @@ def full_rev_update(sbox):
     return 1
 
   wc_dir = sbox.wc_dir
-
+  
   # Setup some switched things (don't bother verifying)
   if do_routine_switching(wc_dir, 0):
     return 1
@@ -370,7 +370,7 @@ def full_rev_update(sbox):
 
   # Create expected disk tree
   expected_disk = get_routine_disk_state(wc_dir)
-
+    
   # Create expected status
   expected_status = get_routine_status_state(wc_dir)
   expected_status.tweak(repos_rev=2)
@@ -393,7 +393,7 @@ def update_switched_things(sbox):
     return 1
 
   wc_dir = sbox.wc_dir
-
+  
   # Setup some switched things (don't bother verifying)
   if do_routine_switching(wc_dir, 0):
     return 1
@@ -401,7 +401,7 @@ def update_switched_things(sbox):
   # Copy wc_dir to a backup location
   wc_backup = wc_dir + 'backup'
   svntest.actions.duplicate_dir(wc_dir, wc_backup)
-
+  
   # Commit some stuff (don't bother verifying)
   if commit_routine_switching(wc_backup, 0):
     return 1
@@ -458,7 +458,7 @@ def rev_update_switched_things(sbox):
     return 1
 
   wc_dir = sbox.wc_dir
-
+  
   # Setup some switched things (don't bother verifying)
   if do_routine_switching(wc_dir, 0):
     return 1
@@ -489,7 +489,7 @@ def rev_update_switched_things(sbox):
     'A/D/G/Z' : Item(),
     'A/D/G/Z/zeta' : Item("This is the file 'zeta'."),
     })
-
+    
   # Create expected status tree for the update.
   expected_status = get_routine_status_state(wc_dir)
   expected_status.tweak(repos_rev=2, wc_rev=2)

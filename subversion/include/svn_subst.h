@@ -28,7 +28,7 @@ extern "C" {
 
 /*** Eol conversion and keyword expansion. ***/
 
-/* Valid states for 'svn:eol-style' property.
+/* Valid states for 'svn:eol-style' property.  
    Property nonexistence is equivalent to 'none'. */
 typedef enum svn_subst_eol_style
 {
@@ -39,7 +39,7 @@ typedef enum svn_subst_eol_style
 
 } svn_subst_eol_style_t;
 
-/* Set *STYLE to the appropriate svn_subst_eol_style_t and *EOL to the
+/* Set *STYLE to the appropriate svn_subst_eol_style_t and *EOL to the 
    appropriate cstring for a given svn:eol-style property value.
 
    Set *EOL to
@@ -48,7 +48,7 @@ typedef enum svn_subst_eol_style
 
       - a null-terminated C string containing the native eol marker
         for this platform, for svn_subst_eol_style_native, or
-
+              
       - a null-terminated C string containing the eol marker indicated
         by the property value, for svn_subst_eol_style_fixed.
 
@@ -82,7 +82,7 @@ typedef struct svn_subst_keywords_t
  * A and/or B may be NULL; for purposes of comparison, NULL is
  * equivalent to holding no keywords.
  */
-svn_boolean_t
+svn_boolean_t 
 svn_subst_keywords_differ (const svn_subst_keywords_t *a,
                            const svn_subst_keywords_t *b,
                            svn_boolean_t compare_values);
@@ -115,7 +115,7 @@ svn_subst_keywords_differ (const svn_subst_keywords_t *a,
    Recommendation: if EXPAND is false, then you don't care about the
    keyword values, so pass empty strings as non-null signifiers.
 
-   Notes:
+   Notes: 
 
    See svn_wc__get_keywords() and svn_wc__get_eol_style() for a
    convenient way to get EOL_STR and KEYWORDS if in libsvn_wc.
@@ -176,7 +176,7 @@ svn_subst_translate_cstring (const char *src,
 /* Translate the data in VALUE (assumed to be in encoded in charset
    ENCODING) to UTF8 and LF line-endings.  If ENCODING is NULL, then
    assume that VALUE is in the system-default language encoding.
-   Return the translated data in *NEW_VALUE, allocated in POOL.
+   Return the translated data in *NEW_VALUE, allocated in POOL.  
 */
 svn_error_t *svn_subst_translate_string (svn_string_t **new_value,
                                          const svn_string_t *value,
@@ -185,7 +185,7 @@ svn_error_t *svn_subst_translate_string (svn_string_t **new_value,
 
 /* Translate the data in VALUE from UTF8 and LF line-endings into
    native locale and native line-endings.  Return the translated data
-   in *NEW_VALUE, allocated in POOL.
+   in *NEW_VALUE, allocated in POOL.  
 */
 svn_error_t *svn_subst_detranslate_string (svn_string_t **new_value,
                                            const svn_string_t *value,
