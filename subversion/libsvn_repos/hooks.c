@@ -40,7 +40,7 @@
    When constructing *ARGS, expand "$user" to USER, "$rev" to a string
    representation of REV, "$txn" to TXN_NAME, and "$repos" to REPOS.
    If expansion is attempted on a null USER or TXN_NAME, or on an
-   invalid REV, then return SVN_ERR_REPOS_HOOK_FAILURE.
+   invalid REV, then return SVN_ERR_REPOS_HOOK_FAILURE.  
 
    *ARGS and *PROG_NAME are allocated in POOL, which is also used for
    any temporary allocations.  */
@@ -62,7 +62,7 @@ read_hook_line (const char **prog_name,
 
   apr_status_t apr_err;
   apr_array_header_t *args_ary = apr_array_make (pool, 4, sizeof (*args));
-
+  
   raw_idx = idx = 0;
   while (apr_err = apr_file_getc (&c, hook_file))
     {
@@ -76,7 +76,7 @@ read_hook_line (const char **prog_name,
         {
           char *filename;
           apr_file_name_get (&filename, hook_file);
-          return svn_error_createf
+          return svn_error_createf 
             (apr_err, 0, NULL, pool,
              "read_hook_line: error reading line from `%s'", filename);
         }
@@ -88,11 +88,11 @@ read_hook_line (const char **prog_name,
         {
           char *filename;
           apr_file_name_get (&filename, hook_file);
-          return svn_error_createf
+          return svn_error_createf 
             (apr_err, 0, NULL, pool,
              "read_hook_line: line too long in `%s'", filename);
         }
-
+        
       if (escaped)
         {
           /* The char before this one was backslash, the escape
@@ -116,7 +116,7 @@ read_hook_line (const char **prog_name,
         case '\\':
           escaped = 1;
           break;
-
+          
         case ' ':
         case '\t':
           if (isspace (raw_buf[raw_idx]))
@@ -128,11 +128,11 @@ read_hook_line (const char **prog_name,
         case '#':
           commented = 1;
           break;
-
+          
         case '\n':
           raw_buf[raw_idx++] = '\0';
           break;
-
+          
         default:
           raw_buf[raw_idx++] = c;
         }
@@ -298,11 +298,11 @@ svn_repos_fs_begin_txn_for_commit (svn_fs_txn_t **txn_p,
       svn_string_t val;
       val.data = author;
       val.len = strlen (author);
-
+      
       SVN_ERR (svn_fs_change_txn_prop (*txn_p, &author_prop_name,
                                        &val, pool));
     }
-
+    
     /* Log message. */
     SVN_ERR (svn_fs_change_txn_prop (*txn_p, &log_prop_name,
                                      log_msg, pool));
@@ -313,7 +313,7 @@ svn_repos_fs_begin_txn_for_commit (svn_fs_txn_t **txn_p,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
