@@ -109,7 +109,7 @@ Candidate changes:
       it's too trivial to create a branch forit.
     Votes:
       +1: lundblad
-
+ 
   * r11862 (part of issue #1997)
     Fix encoding bug in svnserve -h.
     Justification:
