@@ -25,11 +25,11 @@ and the @dfn{Subversion Server} library.
 @section Filesystem
 
 @menu
-* Filesystem Overview::
-* API::
-* Repository Structure::
-* Locking::
-* Implementation::
+* Filesystem Overview::         
+* API::                         
+* Repository Structure::        
+* Locking::                     
+* Implementation::              
 @end menu
 
 @node Filesystem Overview
@@ -106,9 +106,9 @@ repository has changed since the base version mentioned in the skelta.
 @subsection Repository Structure
 
 @menu
-* Schema::
-* Bubble-Up Method::
-* Diffy Storage::
+* Schema::                      
+* Bubble-Up Method::            
+* Diffy Storage::               
 @end menu
 
 @node Schema
@@ -686,9 +686,9 @@ writers, and writers only wait for other writers whose changes conflict
 with theirs.
 
 @menu
-* Reading::
-* The Lock Manager::
-* Write Locking::
+* Reading::                     
+* The Lock Manager::            
+* Write Locking::               
 @end menu
 
 @node Reading
@@ -795,10 +795,10 @@ For the initial release of Subversion,
 
 
 @menu
-* Server Library Overview::
-* Multiplexing::
-* Policy Enforcement::
-* Plug-Ins::
+* Server Library Overview::     
+* Multiplexing::                
+* Policy Enforcement::          
+* Plug-Ins::                    
 @end menu
 
 @node Server Library Overview
