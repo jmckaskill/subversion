@@ -196,7 +196,7 @@ svn_diff__file_datasource_open(void *baton,
   SVN_ERR( svn_io_file_open (&file_baton->file[idx], file_baton->path[idx],
                              APR_READ, APR_OS_DEFAULT, file_baton->pool));
 
-  SVN_ERR (svn_io_file_info_get (&finfo, APR_FINFO_SIZE,
+  SVN_ERR (svn_io_file_info_get (&finfo, APR_FINFO_SIZE, 
                                  file_baton->file[idx], file_baton->pool));
 
   file_baton->size[idx] = finfo.size;
@@ -307,7 +307,7 @@ svn_diff__file_datasource_get_next_token(apr_uint32_t *hash, void **token,
       file_baton->endp[idx] = endp;
 
       SVN_ERR(read_chunk(file_baton->file[idx], file_baton->path[idx],
-                         curp, length,
+                         curp, length, 
                          chunk_to_offset(file_baton->chunk[idx]),
                          file_baton->pool));
     }
@@ -694,7 +694,7 @@ svn_diff__file_output_unified_flush_hunk(svn_diff__file_output_baton_t *baton)
 
   /* Output the hunk header.  If the hunk length is 1, the file is a one line
      file.  In this case, surpress the number of lines in the hunk (it is
-     1 implicitly)
+     1 implicitly) 
    */
   SVN_ERR(svn_stream_printf(baton->output_stream, baton->pool,
                             "@@ -%" APR_OFF_T_FMT,
