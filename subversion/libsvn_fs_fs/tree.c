@@ -952,6 +952,7 @@ make_path_mutable (svn_fs_root_t *root,
                                         clone_path,
                                         parent_path->entry,
                                         copy_id, txn_id,
+                                        (inherit == copy_id_inherit_new),
                                         pool));
     }
   else

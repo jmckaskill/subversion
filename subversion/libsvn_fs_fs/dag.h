@@ -293,6 +293,7 @@ svn_error_t *svn_fs__dag_clone_child (dag_node_t **child_p,
                                       const char *name,
                                       const char *copy_id,
                                       const char *txn_id,
+                                      svn_boolean_t is_copy,
                                       apr_pool_t *pool);
 
 
