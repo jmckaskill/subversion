@@ -41,7 +41,7 @@
 /*
  * Prints a single status line to a given file about the given entry.
  */
-static void
+static void 
 print_short_format (apr_file_t *file,
                     const char *path,
                     svn_wc_status_t *status)
@@ -79,7 +79,7 @@ print_short_format (apr_file_t *file,
  */
 void static
 print_status (apr_file_t *file,
-              apr_hash_t *statushash,
+              apr_hash_t *statushash, 
               apr_pool_t *pool)
 {
   int i;
@@ -138,7 +138,7 @@ write_status_to_file(apr_pool_t *pool,
          The flag we pass indicates whether to use the 'detailed'
          output format or not. */
       print_status (file,
-                    statushash,
+                    statushash, 
                     pool);
     }
 
@@ -222,7 +222,7 @@ message_from_editor(apr_pool_t *pool,
       /* ### FIXME: The documentation for apr_file_full_write()
          doesn't explicitly promise that if size != written, then
          there *must* be an error returned, so below we handle the two
-         cases separately.  But a glance at apr_file_full_write's
+         cases separately.  But a glance at apr_file_full_write's 
          implementation, on Unix at least, shows that it could
          document that promise.  Maybe we should fix the doc in APR,
          and just check rc below?  */
@@ -244,7 +244,7 @@ message_from_editor(apr_pool_t *pool,
          been allowed to edit any message */
       apr_stat (&finfo_before, fullfile,
                 APR_FINFO_MTIME|APR_FINFO_SIZE, pool);
-
+  
       /* create the command line */
       apr_snprintf (command, editorlen + strlen(fullfile) + 2,
                    "%s %s", editor, fullfile);
@@ -254,7 +254,7 @@ message_from_editor(apr_pool_t *pool,
       /* Get information about the message file after the assumed editing. */
       apr_stat (&finfo_after, fullfile,
                 APR_FINFO_MTIME|APR_FINFO_SIZE, pool);
-
+      
       /* Check if there seems to be any changes in the file */
       if((finfo_before.mtime == finfo_after.mtime) &&
          (finfo_before.size == finfo_after.size))
@@ -281,7 +281,7 @@ message_from_editor(apr_pool_t *pool,
             svn_stringbuf_t *entirefile;
             char *ptr;
             char *prefix;
-
+            
             /* create a buffer */
             entirefile = svn_stringbuf_ncreate ("", 0, pool);
 
@@ -376,7 +376,7 @@ message_from_editor(apr_pool_t *pool,
             /* set the return-message to the entire-file buffer */
             *messagep = entirefile;
           }
-
+        
       }
 
       /* free the memory allocated for the command line here */
@@ -428,7 +428,7 @@ store_message(svn_stringbuf_t *message,
       printf("The commit message has been stored in this location:\n%s\n",
              fullfile);
     }
-  else
+  else 
     {
       /* FIX! return a proper error message here */
     }
@@ -457,7 +457,7 @@ svn_cl__commit (apr_getopt_t *os,
   svn_revnum_t revnum;
 
   /* Take our message from ARGV or a FILE */
-  if (opt_state->filedata)
+  if (opt_state->filedata) 
     message = opt_state->filedata;
   else
     message = opt_state->message;
@@ -485,7 +485,7 @@ svn_cl__commit (apr_getopt_t *os,
     {
       svn_stringbuf_t *parent_dir, *basename;
 
-      SVN_ERR (svn_wc_get_actual_target (base_dir, &parent_dir,
+      SVN_ERR (svn_wc_get_actual_target (base_dir, &parent_dir, 
                                          &basename, pool));
       if (basename)
         svn_stringbuf_set (base_dir, parent_dir->data);
@@ -544,7 +544,7 @@ svn_cl__commit (apr_getopt_t *os,
                   printf("*** Commit aborted!\n");
                   return SVN_NO_ERROR;
                 }
-              else if('c' == letter)
+              else if('c' == letter) 
                 break;
 
               /* anything else will cause a loop and have the editor
@@ -553,7 +553,7 @@ svn_cl__commit (apr_getopt_t *os,
         }
     }
 
-  SVN_ERR (svn_cl__get_trace_commit_editor
+  SVN_ERR (svn_cl__get_trace_commit_editor 
            (&trace_editor,
             &trace_edit_baton,
             trace_dir,
@@ -568,7 +568,7 @@ svn_cl__commit (apr_getopt_t *os,
   /* Commit. */
   error = svn_client_commit (&commit_info,
                              NULL, NULL,
-                             opt_state->quiet ? NULL : trace_editor,
+                             opt_state->quiet ? NULL : trace_editor, 
                              opt_state->quiet ? NULL : trace_edit_baton,
                              auth_baton,
                              targets,
@@ -580,7 +580,7 @@ svn_cl__commit (apr_getopt_t *os,
   if (error)
     {
       if (messagep)
-        /* An editor was used and the commit failed, we store the
+        /* An editor was used and the commit failed, we store the 
            edited message for the user's convenience. This function in
            itself can of course also fail which makes it troublesome! */
         store_message(message, base_dir, pool);
@@ -597,8 +597,8 @@ svn_cl__commit (apr_getopt_t *os,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../tools/dev/svn-dev.el")
- * end:
+ * end: 
  */
