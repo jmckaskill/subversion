@@ -15,10 +15,10 @@ libsvn_client_la_SOURCES = checkout.c update.c apply_edits.c \
 
 ## Build flags ---------
 
-INCLUDES = @SVN_INCLUDES@ @SVN_APR_INCLUDES@ @SVN_EXPAT_INCLUDES@
+INCLUDES = @SVN_INCLUDES@ @SVN_APR_INCLUDES@ @SVN_EXPAT_INCLUDES@ 
 
 ## Put `tests' after `.' when we have a tests directory.
-SUBDIRS = .
+SUBDIRS = . 
 
 
 ## Make libtool be quiet
