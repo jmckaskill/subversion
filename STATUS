@@ -40,6 +40,6 @@ Candidate changes:
     doesn't make BDB vs FSFS assumptions.
     Justification: This is the first release in which the text could be wrong.
     Notes: No need for this to restart the soak time for 1.1.0.  Whenever
-      other changes are going in anyway, this can go in too. -kfogel
+      other changes are going in anyway, this can go in too. -kfogel 
     Votes:
       +1: kfogel
