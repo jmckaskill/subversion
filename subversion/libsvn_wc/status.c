@@ -3,32 +3,32 @@
  *
  * ================================================================
  * Copyright (c) 2000 CollabNet.  All rights reserved.
- *
+ * 
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
  * met:
- *
+ * 
  * 1. Redistributions of source code must retain the above copyright
  * notice, this list of conditions and the following disclaimer.
- *
+ * 
  * 2. Redistributions in binary form must reproduce the above copyright
  * notice, this list of conditions and the following disclaimer in the
  * documentation and/or other materials provided with the distribution.
- *
+ * 
  * 3. The end-user documentation included with the redistribution, if
  * any, must include the following acknowlegement: "This product includes
  * software developed by CollabNet (http://www.Collab.Net)."
  * Alternately, this acknowlegement may appear in the software itself, if
  * and wherever such third-party acknowlegements normally appear.
- *
+ * 
  * 4. The hosted project names must not be used to endorse or promote
  * products derived from this software without prior written
  * permission. For written permission, please contact info@collab.net.
- *
+ * 
  * 5. Products derived from this software may not use the "Tigris" name
  * nor may "Tigris" appear in their names without prior written
  * permission of CollabNet.
- *
+ * 
  * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
  * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -42,7 +42,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ====================================================================
- *
+ * 
  * This software consists of voluntary contributions made by many
  * individuals on behalf of CollabNet.
  */
@@ -58,7 +58,7 @@
 #include "svn_error.h"
 #include "svn_path.h"
 #include "svn_wc.h"
-#include "wc.h"
+#include "wc.h"   
 
 
 
@@ -94,10 +94,10 @@ assemble_status (svn_wc_status_t *status,
           /* We must decide to mark 0, 1, or 2 status flags as
              "conflicted", based on whether reject files are mentioned
              and/or continue to exist.  Luckily, we have a function to do
-             this.  :)  */
+             this.  :)  */          
           svn_boolean_t text_conflict_p, prop_conflict_p;
           svn_string_t *parent_dir;
-
+          
           if (entry->kind == svn_node_file)
             {
               parent_dir = svn_string_dup (path, pool);
@@ -112,20 +112,20 @@ assemble_status (svn_wc_status_t *status,
           /*          err = svn_wc__conflicted_p (&conflicted_p, path,
                                       entry, pool);
           if (err) return err;
-
+          
           if (conflicted_p)*/
             status->text_status = svn_wc_status_conflicted;
             status->prop_status = svn_wc_status_conflicted;
         }
-      else
+      else 
         {
           if (entry->kind == svn_node_file)
             {
               svn_boolean_t modified_p;
-
+              
               err = svn_wc_text_modified_p (&modified_p, path, pool);
               if (err) return err;
-
+              
               if (modified_p)
                 status->text_status = svn_wc_status_modified;
             }
@@ -152,7 +152,7 @@ add_status_structure (apr_hash_t *statushash,
     return err;
 
   apr_hash_set (statushash, path->data, path->len, statstruct);
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -173,7 +173,7 @@ svn_wc_status (svn_wc_status_t **status,
   err = assemble_status (s, path, entry, pool);
   if (err)
     return err;
-
+  
   *status = s;
   return SVN_NO_ERROR;
 }
@@ -189,11 +189,11 @@ svn_wc_statuses (apr_hash_t *statushash,
   apr_hash_t *entries;
   svn_wc_entry_t *entry;
   void *value;
-
+  
   /* Is PATH a directory or file? */
   err = svn_io_check_path (path, &kind, pool);
   if (err) return err;
-
+  
   /* kff todo: this has to deal with the case of a type-changing edit,
      i.e., someone removed a file under vc and replaced it with a dir,
      or vice versa.  In such a case, when you ask for the status, you
@@ -202,7 +202,7 @@ svn_wc_statuses (apr_hash_t *statushash,
      is handled in entries.c:svn_wc_entry. */
 
   /* Read the appropriate entries file */
-
+  
   /* If path points to only one file, return just one status structure
      in the STATUSHASH */
   if (kind == svn_node_file)
@@ -211,7 +211,7 @@ svn_wc_statuses (apr_hash_t *statushash,
 
       /* Figure out file's parent dir */
       svn_path_split (path, &dirpath, &basename,
-                      svn_path_local_style, pool);
+                      svn_path_local_style, pool);      
 
       /* Load entries file for file's parent */
       err = svn_wc__entries_read (&entries, dirpath, pool);
@@ -220,7 +220,7 @@ svn_wc_statuses (apr_hash_t *statushash,
       /* Get the entry by looking up file's basename */
       value = apr_hash_get (entries, basename->data, basename->len);
 
-      if (value)
+      if (value)  
         entry = (svn_wc_entry_t *) value;
       else
         return svn_error_createf (SVN_ERR_BAD_FILENAME, 0, NULL, pool,
@@ -267,17 +267,17 @@ svn_wc_statuses (apr_hash_t *statushash,
           else
             {
               err = add_status_structure (statushash, fullpath, entry, pool);
-              if (err) return err;
+              if (err) return err;              
             }
         }
     }
-
+  
   return SVN_NO_ERROR;
 }
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
