@@ -235,9 +235,9 @@ svn_client_switch (const svn_delta_edit_fns_t *before_editor,
                                     proparray, TRUE, /* is full proplist */
                                     switch_url->data, /* new url */
                                     pool));
+      if (notify_func != NULL)
+        (*notify_func) (notify_baton, svn_wc_notify_update, path->data);
 
-      /* ### shouldn't the user see a 'U' somehow?  we have no trace
-         editor here!  Think about this... */
     }
 
   /* Sleep for one second to ensure timestamp integrity. */
