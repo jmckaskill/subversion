@@ -1,6 +1,6 @@
-/*
+/* 
  * svndiff.c -- Encoding and decoding svndiff-format deltas.
- *
+ * 
  * ====================================================================
  * Copyright (c) 2000-2001 CollabNet.  All rights reserved.
  *
@@ -514,7 +514,7 @@ svn_txdelta_parse_svndiff (svn_txdelta_window_handler_t handler,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end: */
