@@ -10,7 +10,7 @@
 # You should try the `check_release' target before you make all to make
 # sure all the version numbers were groked correctly.
 #
-# This makefile doesn't copy the source tree to make a tarball, it
+# This makefile doesn't copy the source tree to make a tarball, it 
 # will create a symlink in your $TMPDIR and tar up your source tree
 # in place. This makefile uses the output tarball name as a dependancy,
 # so it wont constantly regenerate it unless your repository version
