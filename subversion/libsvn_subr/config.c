@@ -163,8 +163,8 @@ svn_config_read_all (svn_config_t **cfgp, apr_pool_t *pool)
     usr_cfg_path = apr_psprintf
       (pool, "%s/%s/%s", homedir, SVN_CONFIG__DIRECTORY, SVN_CONFIG__FILE);
 
-   svn_config_merge (*cfgp, usr_cfg_path, FALSE);
- }
+    SVN_ERR (svn_config_merge (*cfgp, usr_cfg_path, FALSE));
+  }
 
   return SVN_NO_ERROR;
 }
