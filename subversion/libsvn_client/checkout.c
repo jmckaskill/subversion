@@ -63,6 +63,13 @@ svn_client__checkout_internal (const char *URL,
   assert (path != NULL);
   assert (URL != NULL);
 
+  /* Fulfill the docstring promise of svn_client_checkout: */
+  if ((revision->kind != svn_opt_revision_number)
+      && (revision->kind != svn_opt_revision_date)
+      && (revision->kind != svn_opt_revision_head))
+    return svn_error_create (SVN_ERR_CLIENT_BAD_REVISION, NULL,
+                             "Bogus revision passed to svn_client_checkout");
+
   /* Get revnum set to something meaningful, so we can fetch the
      checkout editor. */
   if (revision->kind == svn_opt_revision_number)
@@ -107,14 +114,14 @@ svn_client__checkout_internal (const char *URL,
       SVN_ERR (svn_client__get_revision_number
                (&revnum, ra_lib, session, revision, path, pool));
 
-      /* Tell RA to do a checkout of REVISION; if we pass an invalid
-         revnum, that means RA will fetch the latest revision.  */
-      err = ra_lib->do_checkout (session,
-                                 revnum,
-                                 recurse,
-                                 checkout_editor,
-                                 checkout_edit_baton,
-                                 pool);
+      /* Bootstrap: create an incomplete working-copy root dir.  Its
+         entries file should only have an entry for THIS_DIR with a
+         URL, revnum, and an 'incomplete' flag.  */
+      SVN_ERR (svn_io_make_dir_recursively (path, pool));
+      SVN_ERR (svn_wc_ensure_adm (path, URL, revnum, pool));
+
+      /* Have update flesh everything out. */
+      err = svn_client_update (path, revision, recurse, ctx, pool);
 
       if (err)
         {
