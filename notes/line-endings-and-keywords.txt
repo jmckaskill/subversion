@@ -12,7 +12,7 @@ NEW USER-VISIBLE FEATURES:
   2.  newline conversion
 
       Text files in the working copy can (optionally) automatically
-      have the client's 'native' line-endings.
+      have the client's 'native' line-endings.      
 
 
 DESIGN GOAL
@@ -65,8 +65,8 @@ I. NEWLINE CONVERSION
 
 
   B. HOW A CLIENT DOES NEWLINE CONVERSION
-
-     [ History:
+ 
+     [ History:  
 
       * Gstein and Pilchie proposed per-directory default line-ending styles.
       * Karl proposed something differerent.
@@ -116,7 +116,7 @@ II.  KEYWORD EXPANSION
      mime-type is irrelevant.
 
   B. HOW A CLIENT DOES KEYWORD EXPANSION
-
+ 
      - When updating/checking out, the client looks to see if the
        keyword-expansion property is 'on'.  If so, then the file has
        keywords substituted when copying from text-base to the
@@ -175,7 +175,7 @@ Phase 1:  gathering the values of the keywords.
                     stored, but is too specific to the update-use-case
                     to be included as general arguments to Editor
                     calls.  this metadata ends up in the entries file,
-                    also invisible to users.
+                    also invisible to users.  
 
      It's important to note that only the update-editor understands
      these three types of props (by examining svn: namespaces).  A
@@ -253,7 +253,7 @@ The text-base still reflects exactly what is in the repository.
 
      - To compare two arbitrary revisions of a file, we must always
        compare translated copies of them.
-
+ 
 
 ----------------------
 
@@ -265,7 +265,7 @@ Go back to first proposal. No more flip-flopping of repository line styles.
 EOL-style property is one of:  'native' or 'none'.
 
 For checkout/update, client automatically translates all working files
-to client's "preferred" OS style.
+to client's "preferred" OS style.  
 
 For commit, de-translate back to EOL-property IFF a translation was
 done on checkout/update.  For *initial* add/commit of file, this is
