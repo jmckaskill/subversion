@@ -121,7 +121,7 @@ run_start_commit_hook (svn_repos_t *repos,
   enum svn_node_kind kind;
   const char *hook = svn_repos_start_commit_hook (repos, pool);
 
-  if ((! svn_io_check_path (hook, &kind, pool))
+  if ((! svn_io_check_path (hook, &kind, pool)) 
       && (kind == svn_node_file))
     {
       const char *args[4];
@@ -148,7 +148,7 @@ run_pre_commit_hook (svn_repos_t *repos,
   enum svn_node_kind kind;
   const char *hook = svn_repos_pre_commit_hook (repos, pool);
 
-  if ((! svn_io_check_path (hook, &kind, pool))
+  if ((! svn_io_check_path (hook, &kind, pool)) 
       && (kind == svn_node_file))
     {
       const char *args[4];
@@ -175,7 +175,7 @@ run_post_commit_hook (svn_repos_t *repos,
   enum svn_node_kind kind;
   const char *hook = svn_repos_post_commit_hook (repos, pool);
 
-  if ((! svn_io_check_path (hook, &kind, pool))
+  if ((! svn_io_check_path (hook, &kind, pool)) 
       && (kind == svn_node_file))
     {
       const char *args[4];
@@ -205,7 +205,7 @@ run_pre_revprop_change_hook (svn_repos_t *repos,
   enum svn_node_kind kind;
   const char *hook = svn_repos_pre_revprop_change_hook(repos, pool);
 
-  if ((! svn_io_check_path (hook, &kind, pool))
+  if ((! svn_io_check_path (hook, &kind, pool)) 
       && (kind == svn_node_file))
     {
       const char *args[5];
@@ -226,8 +226,8 @@ run_pre_revprop_change_hook (svn_repos_t *repos,
          MASSIVE PARANOIA.  Changing revision properties is a lossy
          operation; so unless the repository admininstrator has
          *deliberately* created the pre-hook, disallow all changes. */
-      return
-        svn_error_create
+      return 
+        svn_error_create 
         (SVN_ERR_REPOS_DISABLED_FEATURE, 0, NULL, pool,
          "Repository has not been enabled to accept revision propchanges;\n"
          "ask the administrator to create a pre-revprop-change hook.");
@@ -248,8 +248,8 @@ run_post_revprop_change_hook (svn_repos_t *repos,
 {
   enum svn_node_kind kind;
   const char *hook = svn_repos_post_revprop_change_hook(repos, pool);
-
-  if ((! svn_io_check_path (hook, &kind, pool))
+  
+  if ((! svn_io_check_path (hook, &kind, pool)) 
       && (kind == svn_node_file))
     {
       const char *args[5];
@@ -282,7 +282,7 @@ svn_repos_fs_commit_txn (const char **conflict_p,
   apr_pool_t *pool = svn_fs_txn_pool (txn);
 
   if (fs != svn_fs_txn_fs (txn))
-    return svn_error_createf
+    return svn_error_createf 
       (SVN_ERR_FS_GENERAL, 0, NULL, pool,
        "Transaction does not belong to given repository's filesystem");
 
@@ -350,11 +350,11 @@ svn_repos_fs_begin_txn_for_commit (svn_fs_txn_t **txn_p,
       svn_string_t val;
       val.data = author;
       val.len = strlen (author);
-
+      
       SVN_ERR (svn_fs_change_txn_prop (*txn_p, SVN_PROP_REVISION_AUTHOR,
                                        &val, pool));
     }
-
+    
     /* Log message. */
     if (log_msg != NULL)
       {
@@ -400,10 +400,10 @@ svn_repos_fs_begin_txn_for_update (svn_fs_txn_t **txn_p,
       svn_string_t val;
       val.data = author;
       val.len = strlen (author);
-
+      
       SVN_ERR (svn_fs_change_txn_prop (*txn_p, SVN_PROP_REVISION_AUTHOR,
                                        &val, pool));
-    }
+    }    
   }
 
   return SVN_NO_ERROR;
@@ -412,11 +412,11 @@ svn_repos_fs_begin_txn_for_update (svn_fs_txn_t **txn_p,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end:
- * vim:ts=4:sw=4:expandtab:tw=80:fo=tcroq
- * vim:isk=a-z,A-Z,48-57,_,.,-,>
+ * vim:ts=4:sw=4:expandtab:tw=80:fo=tcroq 
+ * vim:isk=a-z,A-Z,48-57,_,.,-,> 
  * vim:cino=>1s,e0,n0,f0,{.5s,}0,^-.5s,=.5s,t0,+1s,c3,(0,u0,\:0
  */
