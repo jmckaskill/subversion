@@ -36,8 +36,8 @@
  * entries affected by the commit -- dirs and files alike -- are
  * stored in the affected_targets hash, and their entries are recorded
  * along with the baton that needs to be passed to the editor
- * callbacks.
- *
+ * callbacks.  
+ * 
  * At that point, stack_object would hold a (struct target_baton *)
  * instead of an entry and an editor baton, and push_stack() would
  * take a struct (target_baton *).  The other changes follow from
@@ -102,7 +102,7 @@ push_stack (struct stack_object **stack,
       /* This will be the very first object on the stack. */
       *stack = new_top;
     }
-  else
+  else 
     {
       /* The stack already exists, so create links both ways, new_top
          becomes the top of the stack.  */
@@ -137,7 +137,7 @@ static svn_error_t *
 remove_all_locks (apr_hash_t *locks, apr_pool_t *pool)
 {
   apr_hash_index_t *hi;
-
+  
   for (hi = apr_hash_first (pool, locks); hi; hi = apr_hash_next (hi))
     {
       svn_error_t *err;
@@ -145,19 +145,19 @@ remove_all_locks (apr_hash_t *locks, apr_pool_t *pool)
       void *val;
       apr_size_t klen;
       svn_stringbuf_t *unlock_path;
-
+      
       apr_hash_this (hi, &key, &klen, &val);
       unlock_path = svn_stringbuf_create ((char *)key, pool);
-
+      
       err = svn_wc__unlock (unlock_path, pool);
-      if (err)
+      if (err) 
         {
           char *message =
             apr_psprintf (pool,
                           "remove_all_locks:  couldn't unlock %s",
                           unlock_path->data);
           return svn_error_quick_wrap (err, message);
-        }
+        }          
     }
 
   return SVN_NO_ERROR;
@@ -182,19 +182,19 @@ do_lock (svn_stringbuf_t *path, apr_hash_t *locks, apr_pool_t *pool)
   if (err)
     {
       /* Couldn't lock: */
-
+      
       /* Remove _all_ previous commit locks */
       err2 = remove_all_locks (locks, pool);
-      if (err2)
+      if (err2) 
         {
           /* If this also errored, put the original error inside it. */
           err2->child = err;
           return err2;
         }
-
+      
       return err;
     }
-
+  
   /* Lock succeeded */
   apr_hash_set (locks, path->data, APR_HASH_KEY_STRING, "(locked)");
 
@@ -223,15 +223,15 @@ do_dir_replaces (void **newest_baton,
   struct stack_object *stackptr;  /* current stack object we're examining */
 
   /* Start at the top of the stack */
-  stackptr = stack;
-
+  stackptr = stack;  
+  
   /* Walk down the stack until we find a non-NULL dir baton. */
-  while (1)
+  while (1)  
     {
-      if (stackptr->baton != NULL)
+      if (stackptr->baton != NULL) 
         /* Found an existing directory baton! */
         break;
-
+      
       if (stackptr->previous)
         {
           /* There's a previous stack frame, so descend. */
@@ -244,8 +244,8 @@ do_dir_replaces (void **newest_baton,
           void *root_baton;
 
           SVN_ERR (editor->replace_root (edit_baton,
-                                         stackptr->this_dir->revision,
-                                         &root_baton));
+                                         stackptr->this_dir->revision, 
+                                         &root_baton));  
           /* Store it */
           stackptr->baton = root_baton;
           break;
@@ -256,7 +256,7 @@ do_dir_replaces (void **newest_baton,
      to the frame with the "youngest" directory baton. */
 
   /* Now walk _up_ the stack, creating & storing new batons. */
-  while (1)
+  while (1)  
     {
       if (stackptr->next)
         {
@@ -269,11 +269,11 @@ do_dir_replaces (void **newest_baton,
           /* We only want the last component of the path; that's what
              the editor's replace_directory() expects from us. */
           dirname = svn_path_last_component (stackptr->path,
-                                             svn_path_local_style,
+                                             svn_path_local_style, 
                                              stackptr->pool);
 
           /* Get a baton for this directory */
-          SVN_ERR (editor->replace_directory
+          SVN_ERR (editor->replace_directory 
                    (dirname, /* current dir */
                     stackptr->previous->baton, /* parent */
                     stackptr->this_dir->revision,
@@ -282,7 +282,7 @@ do_dir_replaces (void **newest_baton,
           /* Store it */
           stackptr->baton = dir_baton;
         }
-      else
+      else 
         {
           /* Can't move up the stack anymore?  We must be at the top
              of the stack.  We're all done. */
@@ -295,9 +295,9 @@ do_dir_replaces (void **newest_baton,
   *newest_baton = stackptr->baton;
 
   /* Lock this youngest directory */
-  SVN_ERR (do_lock
+  SVN_ERR (do_lock 
            (svn_stringbuf_dup (stackptr->path, top_pool), locks, top_pool));
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -317,7 +317,7 @@ do_dir_closures (svn_stringbuf_t *desired_path,
     {
       if ((*stack)->baton)
         SVN_ERR (editor->close_directory ((*stack)->baton));
-
+      
       pop_stack (stack);
     }
 
@@ -369,7 +369,7 @@ do_apply_textdelta (svn_stringbuf_t *filename,
   if ((! (tb->entry->schedule == svn_wc_schedule_add))
       && (! (tb->entry->schedule == svn_wc_schedule_replace)))
     {
-      SVN_ERR (svn_wc__open_text_base (&textbasefile, filename,
+      SVN_ERR (svn_wc__open_text_base (&textbasefile, filename, 
                                        APR_READ, pool));
     }
 
@@ -379,7 +379,7 @@ do_apply_textdelta (svn_stringbuf_t *filename,
                svn_stream_from_aprfile (textbasefile, pool),
                svn_stream_from_aprfile (localfile, pool),
                pool);
-
+  
   /* Grab a window from the stream, "push" it at the consumer routine,
      then free it.  (When we run out of windows, TXDELTA_WINDOW will
      be set to NULL, and then still passed to window_handler(),
@@ -412,7 +412,7 @@ do_apply_textdelta (svn_stringbuf_t *filename,
 /* Loop over AFFECTED_TARGETS, calling do_apply_textdelta().
    AFFECTED_TARGETS, if non-empty, contains a mapping of full file
    paths to still-open file_batons.  After sending each text-delta,
-   close each file_baton. */
+   close each file_baton. */ 
 static svn_error_t *
 do_postfix_text_deltas (apr_hash_t *affected_targets,
                         const svn_delta_edit_fns_t *editor,
@@ -425,8 +425,8 @@ do_postfix_text_deltas (apr_hash_t *affected_targets,
   void *val;
   size_t keylen;
 
-  for (hi = apr_hash_first (pool, affected_targets);
-       hi;
+  for (hi = apr_hash_first (pool, affected_targets); 
+       hi; 
        hi = apr_hash_next (hi))
     {
       apr_hash_this (hi, &key, &keylen, &val);
@@ -460,10 +460,10 @@ do_prop_deltas (svn_stringbuf_t *path,
   apr_array_header_t *local_propchanges;
   apr_hash_t *localprops = apr_hash_make (pool);
   apr_hash_t *baseprops = apr_hash_make (pool);
-
+  
   /* First, get the prop_path from the original path */
   SVN_ERR (svn_wc__prop_path (&prop_path, path, 0, pool));
-
+  
   /* Get the full path of the prop-base `pristine' file */
   SVN_ERR (svn_wc__prop_base_path (&prop_base_path, path, 0, pool));
 
@@ -474,18 +474,18 @@ do_prop_deltas (svn_stringbuf_t *path,
   /* Load all properties into hashes */
   SVN_ERR (svn_wc__load_prop_file (tmp_prop_path, localprops, pool));
   SVN_ERR (svn_wc__load_prop_file (prop_base_path, baseprops, pool));
-
+  
   /* Get an array of local changes by comparing the hashes. */
-  SVN_ERR (svn_wc__get_local_propchanges
+  SVN_ERR (svn_wc__get_local_propchanges 
            (&local_propchanges, localprops, baseprops, pool));
-
+  
   /* Apply each local change to the baton */
   for (i = 0; i < local_propchanges->nelts; i++)
     {
       svn_prop_t *change;
 
       change = (((svn_prop_t **)(local_propchanges)->elts)[i]);
-
+      
       if (entry->kind == svn_node_file)
         SVN_ERR (editor->change_file_prop (baton,
                                            change->name,
@@ -506,7 +506,7 @@ do_prop_deltas (svn_stringbuf_t *path,
    in a state of conflict.  If so, aid in the bailout of the current
    commit by unlocking all admin-area locks in LOCKS and returning an
    error.
-
+   
    Obviously, this routine should only be called on entries who have
    the `conflicted' flag bit set.  */
 static svn_error_t *
@@ -522,7 +522,7 @@ bail_if_unresolved_conflict (svn_stringbuf_t *full_path,
          exist.  Luckily, we have a function to do this.  :) */
       svn_boolean_t text_conflict_p, prop_conflict_p;
       svn_stringbuf_t *parent_dir;
-
+      
       if (entry->kind == svn_node_file)
         {
           parent_dir = svn_stringbuf_dup (full_path, pool);
@@ -530,7 +530,7 @@ bail_if_unresolved_conflict (svn_stringbuf_t *full_path,
         }
       else if (entry->kind == svn_node_dir)
         parent_dir = full_path;
-
+      
       SVN_ERR (svn_wc_conflicted_p (&text_conflict_p,
                                     &prop_conflict_p,
                                     parent_dir,
@@ -544,20 +544,20 @@ bail_if_unresolved_conflict (svn_stringbuf_t *full_path,
         {
           svn_error_t *err;
           svn_error_t *final_err;
-
-          final_err = svn_error_createf
+          
+          final_err = svn_error_createf 
             (SVN_ERR_WC_FOUND_CONFLICT, 0, NULL, pool,
              "Aborting commit: '%s' remains in conflict.",
              full_path->data);
-
+          
           err = remove_all_locks (locks, pool);
           if (err)
             final_err->child = err; /* nestle them */
-
+          
           return final_err;
         }
     }
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -584,10 +584,10 @@ verify_tree_deletion (svn_stringbuf_t *dir,
   apr_hash_index_t *hi;
   svn_stringbuf_t *fullpath = svn_stringbuf_dup (dir, pool);
 
-  if ((schedule != svn_wc_schedule_delete)
+  if ((schedule != svn_wc_schedule_delete) 
       && (schedule != svn_wc_schedule_replace))
     {
-      return svn_error_createf
+      return svn_error_createf 
         (SVN_ERR_WC_FOUND_CONFLICT, 0, NULL, pool,
          "Aborting commit: '%s' not scheduled for deletion as expected.",
          dir->data);
@@ -602,7 +602,7 @@ verify_tree_deletion (svn_stringbuf_t *dir,
       const void *key;
       apr_size_t klen;
       void *val;
-      svn_wc_entry_t *entry;
+      svn_wc_entry_t *entry; 
       int is_this_dir;
 
       /* Get the next entry */
@@ -623,7 +623,7 @@ verify_tree_deletion (svn_stringbuf_t *dir,
       if ((schedule == svn_wc_schedule_delete)
           && (entry->schedule != svn_wc_schedule_delete))
         {
-          return svn_error_createf
+          return svn_error_createf 
             (SVN_ERR_WC_FOUND_CONFLICT, 0, NULL, pool,
              "Aborting commit: '%s' dangling in deleted directory.",
              fullpath->data);
@@ -636,7 +636,7 @@ verify_tree_deletion (svn_stringbuf_t *dir,
                  || (entry->schedule == svn_wc_schedule_add)
                  || (entry->schedule == svn_wc_schedule_replace))))
         {
-          return svn_error_createf
+          return svn_error_createf 
             (SVN_ERR_WC_FOUND_CONFLICT, 0, NULL, pool,
              "Aborting commit: '%s' dangling in replaced directory.",
              fullpath->data);
@@ -673,7 +673,7 @@ static svn_error_t *crawl_dir (svn_stringbuf_t *path,
 
 /* Report modifications to file or directory NAME in STACK->path
    (represented by ENTRY).  NAME is NOT SVN_WC_ENTRY_THIS_DIR.
-
+   
    Keep track of modified targets in AFFECTED_TARGETS, and of locked
    directories in LOCKS.
 
@@ -701,7 +701,7 @@ report_single_mod (const char *name,
   svn_stringbuf_t *entry_name;
   void *new_dir_baton = NULL;
   svn_boolean_t do_add = FALSE, do_delete = FALSE;
-
+      
   if (! strcmp (name, SVN_WC_ENTRY_THIS_DIR))
     return SVN_NO_ERROR;
 
@@ -742,7 +742,7 @@ report_single_mod (const char *name,
   /* Preemptive strike:  if the current entry is a file in a state
      of conflict that has NOT yet been resolved, we abort the
      entire commit.  */
-  SVN_ERR (bail_if_unresolved_conflict (full_path, entry, locks,
+  SVN_ERR (bail_if_unresolved_conflict (full_path, entry, locks, 
                                         (*stack)->pool));
 
 
@@ -756,7 +756,7 @@ report_single_mod (const char *name,
    *   if (dir)
    *      recurse() */
 
-
+      
   /* DELETION CHECK */
   if (do_delete)
     {
@@ -768,25 +768,25 @@ report_single_mod (const char *name,
         SVN_ERR (do_dir_replaces (dir_baton,
                                   *stack, editor, edit_baton,
                                   locks, top_pool));
-
+      
       /* If this entry is a directory, we do a sanity check and make
          sure that all the directory's children are also marked for
          deletion.  If not, we're in a screwy state. */
       if (entry->kind == svn_node_dir)
-        SVN_ERR (verify_tree_deletion (full_path, entry->schedule,
+        SVN_ERR (verify_tree_deletion (full_path, entry->schedule, 
                                        (*stack)->pool));
 
       /* Delete the entry */
       SVN_ERR (editor->delete_entry (entry_name, *dir_baton));
-
+          
       /* Remember that it was affected. */
-      tb = apr_pcalloc (top_pool, sizeof (*tb));
+      tb = apr_pcalloc (top_pool, sizeof (*tb));            
       tb->entry = svn_wc__entry_dup (entry, top_pool);
       longpath = svn_stringbuf_dup (full_path, top_pool);
       apr_hash_set (affected_targets, longpath->data, longpath->len, tb);
-    }
+    }  
   /* END DELETION CHECK */
-
+  
 
   /* ADDITION CHECK */
   if (do_add)
@@ -794,28 +794,28 @@ report_single_mod (const char *name,
       /* Create an affected-target object */
       svn_stringbuf_t *longpath;
       struct target_baton *tb;
-      svn_boolean_t prop_modified_p;
+      svn_boolean_t prop_modified_p;        
 
       tb = apr_pcalloc (top_pool, sizeof (*tb));
-      tb->entry = svn_wc__entry_dup (entry, top_pool);
-
+      tb->entry = svn_wc__entry_dup (entry, top_pool);          
+      
       /* Do what's necesary to get a baton for current directory */
       if (! *dir_baton)
         SVN_ERR (do_dir_replaces (dir_baton,
                                   *stack, editor, edit_baton,
                                   locks, top_pool));
-
+      
       /* Adding a new directory: */
       if (entry->kind == svn_node_dir)
-        {
+        {             
           svn_stringbuf_t *copyfrom_URL = NULL;
           svn_wc_entry_t *subdir_entry;
-
+          
           /* A directory's interesting information is stored in
              its own THIS_DIR entry, so read that to get the real
              data for this directory. */
           SVN_ERR (svn_wc_entry (&subdir_entry, full_path, (*stack)->pool));
-
+          
           /* If the directory is completely new, the wc records
              its pre-committed revision as "0", even though it may
              have a "default" URL listed.  But the delta.h
@@ -823,7 +823,7 @@ report_single_mod (const char *name,
              args must be either both valid or both invalid. */
           if (subdir_entry->revision > 0)
             copyfrom_URL = subdir_entry->ancestor;
-
+          
           /* Add the new directory, getting a new dir baton.  */
           SVN_ERR (editor->add_directory (entry_name,
                                           *dir_baton,
@@ -831,7 +831,7 @@ report_single_mod (const char *name,
                                           subdir_entry->revision,
                                           &new_dir_baton));
         }
-
+      
       /* Adding a new file: */
       else if (entry->kind == svn_node_file)
         {
@@ -841,11 +841,11 @@ report_single_mod (const char *name,
                                      entry->ancestor,
                                      entry->revision,
                                      &(tb->editor_baton)));
-
+          
           /* This might be a *newly* added file, in which case the
              revision is 0 or invalid; assume that the contents need
              to be sent. */
-          if ((entry->revision == 0)
+          if ((entry->revision == 0) 
               || (! SVN_IS_VALID_REVNUM (entry->revision)))
             {
               tb->text_modified_p = TRUE;
@@ -860,77 +860,77 @@ report_single_mod (const char *name,
             }
 
           /* Check for local property changes to send */
-          SVN_ERR (svn_wc_props_modified_p (&prop_modified_p, full_path,
+          SVN_ERR (svn_wc_props_modified_p (&prop_modified_p, full_path, 
                                             (*stack)->pool));
 
           /* Send propchanges to the editor. */
           if (prop_modified_p)
-            SVN_ERR (do_prop_deltas (full_path, entry, editor,
+            SVN_ERR (do_prop_deltas (full_path, entry, editor, 
                                      tb->editor_baton, (*stack)->pool));
         }
-
+      
       /* Store the (added) affected-target for safe keeping (possibly
          to be used later for postfix text-deltas) */
       longpath = svn_stringbuf_dup (full_path, top_pool);
       apr_hash_set (affected_targets, longpath->data, longpath->len, tb);
-    }
+    } 
   /* END ADDITION CHECK */
-
+  
 
   /* LOCAL MOD CHECK */
   else if (! adds_only)
     {
       svn_boolean_t text_modified_p, prop_modified_p;
-
+          
       /* Is text modified? */
-      SVN_ERR (svn_wc_text_modified_p (&text_modified_p, full_path,
+      SVN_ERR (svn_wc_text_modified_p (&text_modified_p, full_path, 
                                        (*stack)->pool));
-
+          
       /* Only check for local propchanges if we're looking at a file,
          or if we're looking at SVN_WC_ENTRY_THIS_DIR.  Otherwise,
          each directory will end up being checked twice! */
       if (entry->kind == svn_node_dir)
         prop_modified_p = FALSE;
       else
-        SVN_ERR (svn_wc_props_modified_p (&prop_modified_p, full_path,
+        SVN_ERR (svn_wc_props_modified_p (&prop_modified_p, full_path, 
                                           (*stack)->pool));
-
+      
       if (text_modified_p || prop_modified_p)
         {
           svn_stringbuf_t *longpath;
           struct target_baton *tb;
-
+          
           /* There was a local change.  Build an affected-target
              object in the top-most pool. */
           tb = apr_pcalloc (top_pool, sizeof (*tb));
           tb->entry = svn_wc__entry_dup (entry, top_pool);
           tb->text_modified_p = text_modified_p;
-
+          
           /* Build the full path to this entry, also from the top-pool. */
           longpath = svn_stringbuf_dup (full_path, top_pool);
-
+          
           /* Do what's necesary to get a baton for current directory */
           if (! *dir_baton)
             SVN_ERR (do_dir_replaces (dir_baton,
                                       *stack, editor, edit_baton,
                                       locks, top_pool));
-
+          
           /* Replace a file's text, getting a new file baton */
           if (entry->kind == svn_node_file)
             SVN_ERR (editor->replace_file (entry_name,
                                            *dir_baton,
                                            entry->revision,
                                            &(tb->editor_baton)));
-
+          
           if (prop_modified_p)
             {
               void *baton = (entry->kind == svn_node_file) ?
                 tb->editor_baton : *dir_baton;
-
+              
               /* Send propchanges to editor. */
-              SVN_ERR (do_prop_deltas (longpath, entry, editor, baton,
+              SVN_ERR (do_prop_deltas (longpath, entry, editor, baton, 
                                        (*stack)->pool));
-
+                  
               /* Very important: if there are *only* propchanges, but
                  not textual ones, close the file here and now.
                  (Otherwise the file will be closed after sending
@@ -938,33 +938,33 @@ report_single_mod (const char *name,
               if ((entry->kind == svn_node_file) && (! text_modified_p))
                 SVN_ERR (editor->close_file (tb->editor_baton));
             }
-
+          
           /* Store the affected-target for safe keeping (possibly to
              be used later for postfix text-deltas) */
           apr_hash_set (affected_targets, longpath->data, longpath->len, tb);
         }
-    }
+    }  
   /* END LOCAL MOD CHECK */
-
+  
 
   /* Finally, decide whether or not to recurse.  Recurse only on
      directories that are not scheduled for deletion (add and replace
      are okay). */
-  if ((entry->kind == svn_node_dir)
+  if ((entry->kind == svn_node_dir) 
       && (entry->schedule != svn_wc_schedule_delete))
     {
       /* Recurse, using new_dir_baton, which will most often be NULL
          (unless the entry is a newly added directory.)  Why NULL?
          Because that will later force a call to do_dir_replaces() and
          get the _correct_ dir baton for the child directory. */
-      SVN_ERR (crawl_dir (full_path,
-                          new_dir_baton,
-                          editor,
-                          edit_baton,
+      SVN_ERR (crawl_dir (full_path, 
+                          new_dir_baton, 
+                          editor, 
+                          edit_baton, 
                           adds_only,
                           stack,
-                          affected_targets,
-                          locks,
+                          affected_targets, 
+                          locks, 
                           top_pool));
     }
 
@@ -983,7 +983,7 @@ report_single_mod (const char *name,
    The DIR_BATON argument holds the current baton used to commit
    changes from PATH.  It may be NULL.  If it is NULL and a local
    change is discovered, then it (and all parent batons) will be
-   automatically generated by do_dir_replaces().
+   automatically generated by do_dir_replaces(). 
 
    Open file-batons will be stored in AFFECTED_TARGETS using the
    never-changing top-level pool TOP_POOL (for submitting postfix
@@ -1018,10 +1018,10 @@ crawl_dir (svn_stringbuf_t *path,
   SVN_ERR (svn_wc_entries_read (&entries, path, subpool));
 
   /* Grab the entry representing "." */
-  this_dir_entry = apr_hash_get (entries, SVN_WC_ENTRY_THIS_DIR,
+  this_dir_entry = apr_hash_get (entries, SVN_WC_ENTRY_THIS_DIR, 
                                  APR_HASH_KEY_STRING);
   if (! this_dir_entry)
-    return svn_error_createf
+    return svn_error_createf 
       (SVN_ERR_WC_ENTRY_NOT_FOUND, 0, NULL, top_pool,
        "Can't find `.' entry in %s", path->data);
 
@@ -1037,7 +1037,7 @@ crawl_dir (svn_stringbuf_t *path,
 
   /* Take care of any property changes this directory might have
      pending. */
-  SVN_ERR (svn_wc_props_modified_p (&prop_modified_p, path,
+  SVN_ERR (svn_wc_props_modified_p (&prop_modified_p, path, 
                                     (*stack)->pool));
 
   if (prop_modified_p)
@@ -1048,9 +1048,9 @@ crawl_dir (svn_stringbuf_t *path,
         SVN_ERR (do_dir_replaces (&dir_baton,
                                   *stack, editor, edit_baton,
                                   locks, top_pool));
-
+        
       /* Send propchanges to editor. */
-      SVN_ERR (do_prop_deltas (path, this_dir_entry, editor, dir_baton,
+      SVN_ERR (do_prop_deltas (path, this_dir_entry, editor, dir_baton, 
                                (*stack)->pool));
     }
 
@@ -1062,8 +1062,8 @@ crawl_dir (svn_stringbuf_t *path,
       const char *keystring;
       apr_size_t klen;
       void *val;
-      svn_wc_entry_t *current_entry;
-
+      svn_wc_entry_t *current_entry; 
+      
       /* Get the next entry name (and structure) from the hash */
       apr_hash_this (entry_index, &key, &klen, &val);
       keystring = (const char *) key;
@@ -1079,7 +1079,7 @@ crawl_dir (svn_stringbuf_t *path,
       if ((current_entry->existence == svn_wc_existence_deleted)
           && (current_entry->schedule != svn_wc_schedule_add))
         continue;
-
+      
       /* Report mods for a single entry. */
       SVN_ERR (report_single_mod (keystring,
                                   current_entry,
@@ -1091,7 +1091,7 @@ crawl_dir (svn_stringbuf_t *path,
                                   &dir_baton,
                                   adds_only,
                                   top_pool));
-
+      
     }
 
   /* The presence of a baton in this stack frame means that at some
@@ -1099,7 +1099,7 @@ crawl_dir (svn_stringbuf_t *path,
      must close that dir baton. */
   if ((*stack)->baton)
     SVN_ERR (editor->close_directory ((*stack)->baton));
-
+  
   /* If stack has no previous pointer, then we'd be removing the base
      stackframe.  We don't want to do this, however;
      svn_wc_crawl_local_mods() needs to examine it to determine if any
@@ -1109,7 +1109,7 @@ crawl_dir (svn_stringbuf_t *path,
 
   /* Free all memory used when processing this subdir. */
   svn_pool_destroy (subpool);
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -1122,7 +1122,7 @@ crawl_dir (svn_stringbuf_t *path,
 
       - assumes that CONDENSED_TARGETS has been sorted (critical!)
       - takes an initialized LOCKED_DIRS hash for storing locked wc dirs.
-
+            
 */
 static svn_error_t *
 svn_wc__crawl_local_mods (svn_stringbuf_t *parent_dir,
@@ -1154,23 +1154,23 @@ svn_wc__crawl_local_mods (svn_stringbuf_t *parent_dir,
          close_edit(). */
       err = crawl_dir (parent_dir,
                        NULL,
-                       editor,
+                       editor, 
                        edit_baton,
                        FALSE,
-                       &stack,
-                       affected_targets,
+                       &stack, 
+                       affected_targets, 
                        locked_dirs,
                        pool);
 
-      if (err)
-        return svn_error_quick_wrap
+      if (err)        
+        return svn_error_quick_wrap 
           (err, "commit failed: while sending tree-delta to repos.");
     }
 
   /* This is the "multi-arg" commit processing branch.  That's not to
      say that there is necessarily more than one commit target, but
      whatever..." */
-  else
+  else 
     {
       svn_wc_entry_t *parent_entry, *tgt_entry;
       int i;
@@ -1195,13 +1195,13 @@ svn_wc__crawl_local_mods (svn_stringbuf_t *parent_dir,
           /* Get the full path of the target. */
           target = svn_stringbuf_dup (parent_dir, pool);
           svn_path_add_component (target, tgt_name, svn_path_local_style);
-
+          
           /* Examine top of stack and target, and get a nearer common
              'subparent'. */
 
-          subparent = svn_path_get_longest_ancestor
+          subparent = svn_path_get_longest_ancestor 
             (target, stack->path, svn_path_local_style, pool);
-
+          
           /* If the current stack path is NOT equal to the subparent,
              it must logically be a child of the subparent.  So... */
           if (svn_path_compare_paths (stack->path, subparent,
@@ -1209,9 +1209,9 @@ svn_wc__crawl_local_mods (svn_stringbuf_t *parent_dir,
             {
               /* ...close directories and remove stackframes until the
                  stack reaches the common parent. */
-              err = do_dir_closures (subparent, &stack, editor);
+              err = do_dir_closures (subparent, &stack, editor);         
               if (err)
-                return svn_error_quick_wrap
+                return svn_error_quick_wrap 
                   (err, "commit failed: error traversing working copy.");
 
               /* Reset the dir_baton to NULL; it is of no use to our
@@ -1226,18 +1226,18 @@ svn_wc__crawl_local_mods (svn_stringbuf_t *parent_dir,
              subparent. */
           svn_path_split (target, &ptarget, NULL,
                           svn_path_local_style, pool);
-          remainder = svn_path_is_child (stack->path, ptarget,
+          remainder = svn_path_is_child (stack->path, ptarget, 
                                          svn_path_local_style,
                                          pool);
-
+          
           /* If PTARGET is below the current stackframe, we have to
              push a new stack frame for each directory level between
              them. */
-          if (remainder)
+          if (remainder)  
             {
               apr_array_header_t *components;
               int j;
-
+              
               /* Invalidate the dir_baton, because it no longer
                  represents target's immediate parent directory. */
               dir_baton = NULL;
@@ -1246,12 +1246,12 @@ svn_wc__crawl_local_mods (svn_stringbuf_t *parent_dir,
               components = svn_path_decompose (remainder,
                                                svn_path_local_style,
                                                pool);
-
+              
               for (j = 0; j < components->nelts; j++)
                 {
                   svn_stringbuf_t *new_path;
                   svn_wc_entry_t *new_entry;
-                  svn_stringbuf_t *component =
+                  svn_stringbuf_t *component = 
                     (((svn_stringbuf_t **) components->elts)[j]);
 
                   new_path = svn_stringbuf_dup (stack->path, pool);
@@ -1259,40 +1259,40 @@ svn_wc__crawl_local_mods (svn_stringbuf_t *parent_dir,
                                           svn_path_local_style);
                   err = svn_wc_entry (&new_entry, new_path, pool);
                   if (err)
-                    return svn_error_quick_wrap
+                    return svn_error_quick_wrap 
                       (err, "commit failed: looking for next commit target");
 
                   push_stack (&stack, new_path, NULL, new_entry, pool);
                 }
             }
-
+          
 
           /* NOTE: At this point of processing, the topmost stackframe
            * is GUARANTEED to be the parent of TARGET, regardless of
-           * whether TARGET is a file or a directory.
+           * whether TARGET is a file or a directory. 
            */
-
+          
 
           /* Get the entry for TARGET. */
           err = svn_wc_entry (&tgt_entry, target, pool);
           if (err)
-            return svn_error_quick_wrap
+            return svn_error_quick_wrap 
               (err, "commit failed: getting entry of commit target");
 
           if (tgt_entry)
             {
               apr_pool_t *subpool = svn_pool_create (pool);
               svn_stringbuf_t *basename;
-
+              
               if (tgt_entry->existence == svn_wc_existence_deleted)
                 return svn_error_createf
                   (SVN_ERR_WC_ENTRY_NOT_FOUND, 0, NULL, pool,
                    "entry '%s' has already been deleted", target->data);
 
               basename = svn_path_last_component (target,
-                                                  svn_path_local_style,
+                                                  svn_path_local_style, 
                                                   pool);
-
+              
               /* If TARGET is a file, we check that file for mods.  No
                  stackframes will be pushed or popped, since (the file's
                  parent is already on the stack).  No batons will be
@@ -1308,11 +1308,11 @@ svn_wc__crawl_local_mods (svn_stringbuf_t *parent_dir,
                                        &dir_baton,
                                        FALSE,
                                        pool);
-
+              
               svn_pool_destroy (subpool);
-
+              
               if (err)
-                return svn_error_quick_wrap
+                return svn_error_quick_wrap 
                   (err, "commit failed: while sending tree-delta.");
             }
           else
@@ -1322,21 +1322,21 @@ svn_wc__crawl_local_mods (svn_stringbuf_t *parent_dir,
                target->data);
 
         } /*  -- End of main target loop -- */
-
+      
       /* To finish, pop the stack all the way back to the grandaddy
          parent_dir, and call close_dir() on all batons we find. */
       err = do_dir_closures (parent_dir, &stack, editor);
       if (err)
-        return svn_error_quick_wrap
+        return svn_error_quick_wrap 
           (err, "commit failed: finishing the crawl");
 
       /* Don't forget to close the root-dir baton on the bottom
          stackframe, if one exists. */
-      if (stack->baton)
+      if (stack->baton)        
         {
           err = editor->close_directory (stack->baton);
           if (err)
-            return svn_error_quick_wrap
+            return svn_error_quick_wrap 
               (err, "commit failed: closing editor's root directory");
         }
 
@@ -1348,7 +1348,7 @@ svn_wc__crawl_local_mods (svn_stringbuf_t *parent_dir,
      fire off any postfix text-deltas that need to be sent. */
   err = do_postfix_text_deltas (affected_targets, editor, pool);
   if (err)
-    return svn_error_quick_wrap
+    return svn_error_quick_wrap 
       (err, "commit failed:  while sending postfix text-deltas.");
 
   /* Have *any* edits been made at all?  We can tell by looking at the
@@ -1372,7 +1372,7 @@ svn_wc__crawl_local_mods (svn_stringbuf_t *parent_dir,
         }
     }
 
-  /* The commit is complete, and revisions have been bumped. */
+  /* The commit is complete, and revisions have been bumped. */  
   return SVN_NO_ERROR;
 }
 
@@ -1425,7 +1425,7 @@ report_revisions (svn_stringbuf_t *wc_path,
       keystring = (const char *) key;
 
       /* If the dirent isn't in `SVN/entries'... */
-      if (! apr_hash_get (entries, key, klen))
+      if (! apr_hash_get (entries, key, klen))        
         /* and we're not looking at SVN... */
         if (strcmp (keystring, SVN_WC_ADM_DIR_NAME))
           {
@@ -1435,10 +1435,10 @@ report_revisions (svn_stringbuf_t *wc_path,
             printable_path = svn_stringbuf_dup (full_path, subpool);
             svn_path_add_component (printable_path, current_entry_name,
                                     svn_path_local_style);
-
+            
             status = fbtable->report_unversioned_item (printable_path->data);
             if (status)
-              return
+              return 
                 svn_error_createf (status, 0, NULL, subpool,
                                    "error while reporting unversioned '%s'",
                                    printable_path->data);
@@ -1456,7 +1456,7 @@ report_revisions (svn_stringbuf_t *wc_path,
       apr_size_t klen;
       void *val;
       svn_stringbuf_t *current_entry_name;
-      svn_wc_entry_t *current_entry;
+      svn_wc_entry_t *current_entry; 
       svn_stringbuf_t *full_entry_path;
       enum svn_node_kind *dirent_kind;
 
@@ -1478,8 +1478,8 @@ report_revisions (svn_stringbuf_t *wc_path,
                                 svn_path_local_style);
 
       /* The Big Tests: */
-
-      /* If the entry isn't on disk, report it as missing.
+      
+      /* If the entry isn't on disk, report it as missing. 
          Also report the entry as missing if it's already been `deleted'. */
       dirent_kind = (enum svn_node_kind *) apr_hash_get (dirents, key, klen);
 
@@ -1489,17 +1489,17 @@ report_revisions (svn_stringbuf_t *wc_path,
 
       else /* The entry exists on disk, and isn't `deleted'. */
         {
-          if (current_entry->kind == svn_node_file)
+          if (current_entry->kind == svn_node_file) 
             {
               if (*dirent_kind != svn_node_file)
                 /* If the dirent changed kind, report it as missing.
                    Later on, the update editor will return an
                    'obstructed update' error.  :)  */
                 SVN_ERR (reporter->delete_path (report_baton,
-                                                full_entry_path));
+                                                full_entry_path));       
 
               /* Otherwise, possibly report a differing revision. */
-              else if (current_entry->revision !=  dir_rev)
+              else if (current_entry->revision !=  dir_rev)                
                 SVN_ERR (reporter->set_path (report_baton,
                                              full_entry_path,
                                              current_entry->revision));
@@ -1519,17 +1519,17 @@ report_revisions (svn_stringbuf_t *wc_path,
                    "which prevents proper updates.\n"
                    "Please remove this entry and try updating again.",
                    full_entry_path->data);
-
+              
               /* Otherwise, possibly report a differing revision, and
                  recurse. */
               {
                 svn_wc_entry_t *subdir_entry;
-                svn_stringbuf_t *megalong_path =
+                svn_stringbuf_t *megalong_path = 
                   svn_stringbuf_dup (wc_path, subpool);
                 svn_path_add_component (megalong_path, full_entry_path,
                                         svn_path_local_style);
                 SVN_ERR (svn_wc_entry (&subdir_entry, megalong_path, subpool));
-
+                
                 if (subdir_entry->revision != dir_rev)
                   SVN_ERR (reporter->set_path (report_baton,
                                                full_entry_path,
@@ -1542,7 +1542,7 @@ report_revisions (svn_stringbuf_t *wc_path,
                                            subpool));
               }
             } /* end directory case */
-        } /* end 'entry exists on disk' */
+        } /* end 'entry exists on disk' */   
     } /* end main entries loop */
 
   /* We're done examining this dir's entries, so free everything. */
@@ -1642,7 +1642,7 @@ svn_wc_crawl_local_mods (svn_stringbuf_t *parent_dir,
     }
 
   if (err)
-    return svn_error_quick_wrap
+    return svn_error_quick_wrap 
       (err, "commit failed: wc locks have been removed.");
 
   if (err2)
@@ -1699,7 +1699,7 @@ svn_wc_crawl_revisions (svn_stringbuf_t *path,
             return err;
         }
     }
-  else if ((entry->kind == svn_node_file)
+  else if ((entry->kind == svn_node_file) 
            && (entry->revision != base_rev))
     {
       /* If this entry is a file node, we just want to report that
@@ -1707,7 +1707,7 @@ svn_wc_crawl_revisions (svn_stringbuf_t *path,
          of the report (not some file in a subdirectory of a target
          directory), and that target is a file, we need to pass an
          empty string to set_path. */
-      err = reporter->set_path (report_baton,
+      err = reporter->set_path (report_baton, 
                                 svn_stringbuf_create ("", pool),
                                 base_rev);
       if (err)
@@ -1742,10 +1742,10 @@ svn_wc_crawl_revisions (svn_stringbuf_t *path,
 
 
 
-/*
+/* 
 
    Status of multi-arg commits:
-
+   
    TODO:
 
    * the "path analysis" phase needs to happen at a high level in the
@@ -1759,11 +1759,11 @@ svn_wc_crawl_revisions (svn_stringbuf_t *path,
 
    * secret worry:  do all the new path routines work -- both Kevin
    P-B's as well as my own?
-
+ 
  */
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end: */
