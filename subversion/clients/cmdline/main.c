@@ -124,7 +124,7 @@ const svn_cl__cmd_desc_t svn_cl__cmd_table[] =
   { "add", svn_cl__add, {0},
     "Put files and directories under revision control, scheduling\n"
     "them for addition to repository.  They will be added in next commit.\n"
-    "usage: svn add [TARGETS]\n",
+    "usage: svn add [TARGETS]\n", 
     {svn_cl__targets_opt, 'R', 'q'} },
 
   { "checkout", svn_cl__checkout, {"co"},
@@ -143,7 +143,7 @@ const svn_cl__cmd_desc_t svn_cl__cmd_table[] =
     "unfinished operations, etc.\n"
     "usage: svn cleanup [TARGETS]\n",
     {0} },
-
+  
   { "commit", svn_cl__commit, {"ci"},
     "Send changes from your working copy to the repository.\n"
     "usage: svn commit [TARGETS]\n\n"
@@ -152,7 +152,7 @@ const svn_cl__cmd_desc_t svn_cl__cmd_table[] =
     {'m', 'F', 'q', 'N', svn_cl__targets_opt,
      svn_cl__force_opt, svn_cl__auth_username_opt, svn_cl__auth_password_opt,
      svn_cl__xml_file_opt, 'r', svn_cl__msg_encoding_opt} },
-
+  
   { "copy", svn_cl__copy, {"cp"},
     "Duplicate something in working copy or repos, remembering history.\n"
     "usage: svn copy SRC DST.\n\n"
@@ -164,7 +164,7 @@ const svn_cl__cmd_desc_t svn_cl__cmd_table[] =
     {'m', 'F', 'r', 'D', 'q',
      svn_cl__auth_username_opt, svn_cl__auth_password_opt,
      svn_cl__msg_encoding_opt} },
-
+  
   { "delete", svn_cl__delete, {"del", "remove", "rm"},
     "Remove files and directories from version control.\n"
     "usage: svn delete [TARGET | URL]\n\n"
@@ -179,7 +179,7 @@ const svn_cl__cmd_desc_t svn_cl__cmd_table[] =
     {svn_cl__force_opt, 'm', 'F', 'q', svn_cl__targets_opt,
      svn_cl__auth_username_opt, svn_cl__auth_password_opt,
      svn_cl__msg_encoding_opt} },
-
+  
   { "diff", svn_cl__diff, {"di"},
     "display the differences between two paths.\n"
     "usage: 1. svn diff [-r N[:M]] [PATH1 [PATH2 [PATH3 ...]]]\n"
@@ -219,7 +219,7 @@ const svn_cl__cmd_desc_t svn_cl__cmd_table[] =
      course.  But those options, since unknown, will result in the
      help message being printed out anyway, so there's no need to
      support them explicitly. */
-
+  
   { "import", svn_cl__import, {0},
     "Commit an unversioned file or tree into the repository.\n"
     "usage: svn import REPOS_URL [PATH] [NEW_ENTRY_IN_REPOS]\n\n"
@@ -229,20 +229,20 @@ const svn_cl__cmd_desc_t svn_cl__cmd_table[] =
     "    begin copy there.  (-r is only needed if importing to --xml-file)\n",
     {'F', 'm', 'q', 'N', svn_cl__auth_username_opt, svn_cl__auth_password_opt,
      svn_cl__xml_file_opt, 'r', svn_cl__msg_encoding_opt} },
-
+ 
   { "info", svn_cl__info, {0},
     "Display info about a resource.\n"
     "usage: svn info [PATH1 [PATH2] ...]\n\n"
     "    Print information about PATHs.\n",
     {svn_cl__targets_opt, 'R'} },
-
+ 
   { "list", svn_cl__ls, {"ls"},
     "List directory entries of a URL.\n"
     "usage: svn list URL1 [URL2 ...]\n\n"
     "    If URL is a file, just file entry will be displayed.\n",
-    {'r', 'D', 'v', 'R', svn_cl__auth_username_opt,
+    {'r', 'D', 'v', 'R', svn_cl__auth_username_opt, 
      svn_cl__auth_password_opt} },
-
+  
   { "log", svn_cl__log, {0},
     "Show the log messages for a set of revision(s) and/or file(s).\n"
     "usage: svn log [URL] [PATH1 [PATH2] ...] \n"
@@ -274,7 +274,7 @@ const svn_cl__cmd_desc_t svn_cl__cmd_table[] =
     "    If omitted, a default value of '.' is assumed.\n\n",
     {'r', 'D', 'N', 'q', svn_cl__force_opt,
      svn_cl__auth_username_opt, svn_cl__auth_password_opt} },
-
+  
   { "mkdir", svn_cl__mkdir, {0},
     "Create a new directory under revision control.\n"
     "usage: mkdir [NEW_DIR | REPOS_URL].\n\n"
@@ -289,30 +289,30 @@ const svn_cl__cmd_desc_t svn_cl__cmd_table[] =
     "  NOTE:  this command is equivalent to a 'copy' and 'delete'.\n\n"
     "  SRC and DST can both be working copy (WC) paths or URLs:\n"
     "    WC  -> WC:   move and schedule for addition (with history)\n"
-    "    URL -> URL:  complete server-side rename.\n",
+    "    URL -> URL:  complete server-side rename.\n",    
     {'m', 'F', 'r', 'D', 'q', svn_cl__auth_username_opt,
      svn_cl__auth_password_opt, svn_cl__force_opt, svn_cl__msg_encoding_opt} },
-
+  
   { "propdel", svn_cl__propdel, {"pdel"},
     "Remove property PROPNAME on files and directories.\n"
     "usage: propdel PROPNAME [TARGETS]\n",
     {'q', 'R'} },
-
+  
   { "propedit", svn_cl__propedit, {"pedit", "pe"},
     "Edit property PROPNAME with $EDITOR on targets.\n"
     "usage: propedit PROPNAME [TARGETS]\n",
     {0} },
-
+  
   { "propget", svn_cl__propget, {"pget", "pg"},
     "Print value of property PROPNAME on files or directories.\n"
     "usage: propget PROPNAME [TARGETS]\n",
     {'R'} },
-
+  
   { "proplist", svn_cl__proplist, {"plist", "pl"},
     "List all properties attached to files or directories.\n"
     "usage: proplist [TARGETS]\n",
     {'v', 'R'} },
-
+  
   { "propset", svn_cl__propset, {"pset", "ps"},
     "Set property PROPNAME to PROPVAL on files or directories.\n"
     "usage: propset PROPNAME PROPVAL [TARGETS]\n\n"
@@ -343,7 +343,7 @@ const svn_cl__cmd_desc_t svn_cl__cmd_table[] =
     "           foo            http://example.com/repos/zig\n"
     "           foo/bar -r1234 http://example.com/repos/zag\n",
     {'F', 'q', svn_cl__targets_opt, 'R'} },
-
+  
   { "revert", svn_cl__revert, {0},
     "Restore pristine working copy file (undo all local edits)\n"
     "usage: revert TARGET1 [TARGET2 [TARGET3 ... ]]\n\n"
@@ -358,7 +358,7 @@ const svn_cl__cmd_desc_t svn_cl__cmd_table[] =
     "    it merely removes conflict-related artifact files and allows TARGET\n"
     "    to be committed again.\n",
     {svn_cl__targets_opt, 'R', 'q'} },
-
+ 
   { "status", svn_cl__status, {"stat", "st"},
     "Print the status of working copy files and directories.\n"
     "usage: svn status [TARGETS]\n\n"
@@ -388,15 +388,15 @@ const svn_cl__cmd_desc_t svn_cl__cmd_table[] =
     { 'u', 'v', 'N', 'q',
       svn_cl__auth_username_opt, svn_cl__auth_password_opt,
       svn_cl__no_ignore_opt } },
-
+  
   { "switch", svn_cl__switch, {"sw"},
     "Update working copy to mirror a new URL\n"
     "usage: switch REPOS_URL [TARGET]\n\n"
     "   Note:  this is the way to move a working copy to a new branch.\n",
     { 'r', 'D', 'N', 'q', svn_cl__auth_username_opt,
       svn_cl__auth_password_opt} },
-
-  { "update", svn_cl__update, {"up"},
+ 
+  { "update", svn_cl__update, {"up"}, 
     "Bring changes from the repository into the working copy.\n"
     "usage: update [TARGETS]\n\n"
     "  If no revision given, bring working copy up-to-date with HEAD rev.\n"
@@ -433,8 +433,8 @@ svn_cl__get_canonical_command (const char *cmd_name)
     int j;
     if (strcmp (cmd_name, svn_cl__cmd_table[i].name) == 0)
       return svn_cl__cmd_table + i;
-    for (j = 0;
-         (j < SVN_CL__MAX_ALIASES) && svn_cl__cmd_table[i].aliases[j];
+    for (j = 0; 
+         (j < SVN_CL__MAX_ALIASES) && svn_cl__cmd_table[i].aliases[j]; 
          j++)
       if (strcmp (cmd_name, svn_cl__cmd_table[i].aliases[j]) == 0)
         return svn_cl__cmd_table + i;
@@ -469,7 +469,7 @@ format_option (const char **string,
 
   /* We have a valid option which may or may not have a "short
      name" (a single-character alias for the long option). */
-  if (opt->optch <= 255)
+  if (opt->optch <= 255)  
     opts = apr_psprintf (pool, "-%c [--%s]", opt->optch, opt->name);
   else
     opts = apr_psprintf (pool, "--%s", opt->name);
@@ -500,7 +500,7 @@ svn_cl__get_option_from_enum (int code,
           break;
         }
     }
-
+  
   return opt;
 }
 
@@ -512,9 +512,9 @@ subcommand_takes_option (const svn_cl__cmd_desc_t *command,
                          int option_code)
 {
   apr_size_t i;
-
+  
   for (i = 0; i < SVN_CL__MAX_OPTS; i++)
-    {
+    {          
       if (command->valid_options[i] == option_code)
         return TRUE;
     }
@@ -526,7 +526,7 @@ subcommand_takes_option (const svn_cl__cmd_desc_t *command,
    and if HELP is set, print the help string for the command too. */
 static void
 print_command_info (const svn_cl__cmd_desc_t *cmd_desc,
-                    svn_boolean_t help,
+                    svn_boolean_t help, 
                     apr_pool_t *pool,
                     FILE *stream)
 {
@@ -540,7 +540,7 @@ print_command_info (const svn_cl__cmd_desc_t *cmd_desc,
 
   /* Print the list of aliases. */
   first_time = TRUE;
-  for (i = 0; i < SVN_CL__MAX_ALIASES; i++)
+  for (i = 0; i < SVN_CL__MAX_ALIASES; i++) 
     {
       if (canonical_cmd->aliases[i] == NULL)
         break;
@@ -551,13 +551,13 @@ print_command_info (const svn_cl__cmd_desc_t *cmd_desc,
       }
       else
         fprintf (stream, ", ");
-
+      
       fprintf (stream, "%s", canonical_cmd->aliases[i]);
     }
 
   if (! first_time)
     fprintf (stream, ")");
-
+  
   if (help)
     {
       const apr_getopt_option_t *option;
@@ -577,7 +577,7 @@ print_command_info (const svn_cl__cmd_desc_t *cmd_desc,
                 }
 
               /* convert each option code into an option */
-              option =
+              option = 
                 svn_cl__get_option_from_enum (canonical_cmd->valid_options[i],
                                               svn_cl__options);
 
@@ -608,7 +608,7 @@ svn_cl__print_generic_help (apr_pool_t *pool, FILE *stream)
     "\n"
     "Most subcommands take file and/or directory arguments, recursing\n"
     "on the directories.  If no arguments are supplied to such a\n"
-    "command, it will recurse on the current directory (inclusive) by\n"
+    "command, it will recurse on the current directory (inclusive) by\n" 
     "default.\n"
     "\n"
     "Available subcommands:\n";
@@ -620,7 +620,7 @@ svn_cl__print_generic_help (apr_pool_t *pool, FILE *stream)
   int i = 0;
 
   fprintf (stream, "%s", usage);
-  while (svn_cl__cmd_table[i].name)
+  while (svn_cl__cmd_table[i].name) 
     {
       fprintf (stream, "   ");
       print_command_info (svn_cl__cmd_table + i, FALSE, pool, stream);
@@ -644,7 +644,7 @@ svn_cl__subcommand_help (const char* subcommand,
 {
   const svn_cl__cmd_desc_t *cmd =
     svn_cl__get_canonical_command (subcommand);
-
+    
   if (cmd)
     print_command_info (cmd, TRUE, pool, stdout);
   else
@@ -741,7 +741,7 @@ svn_cl__parse_revision (svn_cl__opt_state_t *os,
 
   /* Operate on a copy of the argument. */
   left_rev = apr_pstrdup (pool, arg);
-
+  
   if ((sep = strchr (arg, ':')))
     {
       /* There can only be one colon. */
@@ -787,7 +787,7 @@ svn_cl__parse_revision (svn_cl__opt_state_t *os,
 
 /* Set OPT_STATE->start_revision and/or OPT_STATE->end_revision
  * according to ARG, where ARG is "X" or "X:Y", like so:
- *
+ * 
  *    - If ARG is "X", set OPT_STATE->start_revision's kind to
  *      svn_client_revision_date and value to the apr_time_t for X,
  *      and leave OPT_STATE->end_revision untouched.
@@ -795,7 +795,7 @@ svn_cl__parse_revision (svn_cl__opt_state_t *os,
  *    - If ARG is "X:Y", set OPT_STATE->start_revision's and
  *      OPT_STATE->end_revision's kinds to svn_client_revision_date
  *      and values to (apr_time_t) X and Y respectively.
- *
+ * 
  * X and/or Y may be one of the special revision descriptors
  * recognized by revision_from_word().
  *
@@ -837,7 +837,7 @@ parse_date (svn_cl__opt_state_t *os, const char *arg, apr_pool_t *pool)
     }
   else  /* no separator */
     right_date = NULL;
-
+    
   /* Now left_date holds X and right_date holds Y or null. */
 
   if (! revision_from_word (&(os->start_revision), left_date))
@@ -872,7 +872,7 @@ main (int argc, const char * const *argv)
   svn_error_t *err;
   apr_pool_t *pool;
   int opt_id, err2;
-  apr_getopt_t *os;
+  apr_getopt_t *os;  
   svn_cl__opt_state_t opt_state;
   int received_opts[SVN_CL__MAX_OPTS];
   int i, num_opts = 0;
@@ -908,7 +908,7 @@ main (int argc, const char * const *argv)
   memset (&opt_state, 0, sizeof (opt_state));
   opt_state.start_revision.kind = svn_client_revision_unspecified;
   opt_state.end_revision.kind = svn_client_revision_unspecified;
-
+  
   /* No args?  Show usage. */
   if (argc <= 1)
     {
@@ -1124,7 +1124,7 @@ main (int argc, const char * const *argv)
       default:
         /* Hmmm. Perhaps this would be a good place to squirrel away
            opts that commands like svn diff might need. Hmmm indeed. */
-        break;
+        break;  
       }
     }
 
@@ -1196,7 +1196,7 @@ main (int argc, const char * const *argv)
       if (! subcommand_takes_option (subcommand, opt_id))
         {
           const char *optstr;
-          const apr_getopt_option_t *badopt =
+          const apr_getopt_option_t *badopt = 
             svn_cl__get_option_from_enum (opt_id, svn_cl__options);
           format_option (&optstr, badopt, FALSE, pool);
           fprintf (stderr,
@@ -1259,8 +1259,8 @@ main (int argc, const char * const *argv)
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../tools/dev/svn-dev.el")
- * end:
+ * end: 
  */
