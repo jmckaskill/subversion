@@ -139,26 +139,26 @@ convert_to_stringbuf (apr_xlate_t *convset,
   apr_size_t srclen, destlen;
 
   *dest = svn_stringbuf_create ("", pool);
-
+  
   do {
     /* Set up state variables for xlate */
     srclen = src_length;
     destlen = buflen;
-
+    
     svn_stringbuf_ensure (*dest, buflen+1);
-
+    
     /* Attempt the conversion */
     apr_err = apr_xlate_conv_buffer (convset, src_data, &srclen,
                                      (*dest)->data, &destlen);
-
+    
     /* Conversion succeeded, trim result */
     if (apr_err == APR_SUCCESS && !srclen)
       (*dest)->data[(*dest)->len = buflen - destlen] = '\0';
-
+    
     /* In case we got here because the buffer was too small,
        double the size for the next iteration...              */
     buflen *= 2;
-
+    
   } while (apr_err == APR_SUCCESS && srclen);
 
   if (apr_err)
@@ -446,13 +446,13 @@ svn_utf_utf8_to_native (const char *utf8_string,
       buf[i++] = '?';
 
   buf[i>=bufsize? bufsize-1 : i] = '\0';
-  return buf;
+  return buf;  
 }
 
 #endif /* SVN_UTF8 */
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end:
