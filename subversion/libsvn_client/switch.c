@@ -75,7 +75,7 @@ svn_client_switch (svn_client_auth_baton_t *auth_baton,
   SVN_ERR (svn_wc_adm_probe_open (&adm_access, NULL, path, TRUE, recurse,
                                   pool));
   SVN_ERR (svn_wc_entry (&entry, path, adm_access, FALSE, pool));
-
+  
   if (! entry)
     return svn_error_createf
       (SVN_ERR_WC_PATH_NOT_FOUND, 0, NULL, pool,
@@ -89,7 +89,7 @@ svn_client_switch (svn_client_auth_baton_t *auth_baton,
   if (entry->kind == svn_node_file)
     {
       SVN_ERR (svn_wc_get_actual_target (path, &anchor, &target, pool));
-
+      
       /* get the parent entry */
       SVN_ERR (svn_wc_entry (&session_entry, anchor, adm_access, FALSE, pool));
       if (! session_entry)
@@ -127,7 +127,7 @@ svn_client_switch (svn_client_auth_baton_t *auth_baton,
   /* Get the RA vtable that matches working copy's current URL. */
   SVN_ERR (svn_ra_init_ra_libs (&ra_baton, pool));
   SVN_ERR (svn_ra_get_ra_library (&ra_lib, ra_baton, URL, pool));
-
+    
   if (entry->kind == svn_node_dir)
     {
       const svn_delta_editor_t *switch_editor;
@@ -140,7 +140,7 @@ svn_client_switch (svn_client_auth_baton_t *auth_baton,
       /* Open an RA session to 'source' URL */
       SVN_ERR (svn_client__open_ra_session (&session, ra_lib, URL,
                                             path, adm_access,
-                                            NULL, TRUE, TRUE, FALSE,
+                                            NULL, TRUE, TRUE, FALSE, 
                                             auth_baton, pool));
       SVN_ERR (svn_client__get_revision_number
                (&revnum, ra_lib, session, revision, path, pool));
@@ -156,7 +156,7 @@ svn_client_switch (svn_client_auth_baton_t *auth_baton,
 
       /* ### todo:  This is a TEMPORARY wrapper around our editor so we
          can use it with an old driver. */
-      svn_delta_compat_wrap (&wrapped_old_editor, &wrapped_old_edit_baton,
+      svn_delta_compat_wrap (&wrapped_old_editor, &wrapped_old_edit_baton, 
                              switch_editor, switch_edit_baton, pool);
 
       /* Tell RA to do a update of URL+TARGET to REVISION; if we pass an
@@ -168,14 +168,14 @@ svn_client_switch (svn_client_auth_baton_t *auth_baton,
                                   recurse,
                                   switch_url,
                                   wrapped_old_editor, wrapped_old_edit_baton));
-
+      
       /* Drive the reporter structure, describing the revisions within
          PATH.  When we call reporter->finish_report, the
-         update_editor will be driven by svn_repos_dir_delta.
+         update_editor will be driven by svn_repos_dir_delta. 
 
          We pass NULL for traversal_info because this is a switch, not
          an update, and therefore we don't want to handle any
-         externals except the ones directly affected by the switch. */
+         externals except the ones directly affected by the switch. */ 
       err = svn_wc_crawl_revisions (path, adm_access, reporter, report_baton,
                                     TRUE, recurse,
                                     notify_func, notify_baton,
@@ -195,7 +195,7 @@ svn_client_switch (svn_client_auth_baton_t *auth_baton,
                                              FALSE,
                                              pool));
     }
-
+  
   else if (entry->kind == svn_node_file)
     {
       /* If switching a single file, just fetch the file directly and
@@ -249,7 +249,7 @@ svn_client_switch (svn_client_auth_baton_t *auth_baton,
           const void *key;
           void *val;
           svn_prop_t *prop;
-
+          
           apr_hash_this (hi, &key, NULL, &val);
 
           prop = apr_array_push (proparray);
@@ -269,7 +269,7 @@ svn_client_switch (svn_client_auth_baton_t *auth_baton,
                                       new_text_path,
                                       proparray, TRUE, /* is full proplist */
                                       switch_url, /* new url */
-                                      pool));
+                                      pool));     
 
         if (notify_func != NULL)
           (*notify_func) (notify_baton, path, svn_wc_notify_update_update,
@@ -280,7 +280,7 @@ svn_client_switch (svn_client_auth_baton_t *auth_baton,
                           SVN_INVALID_REVNUM);
       }
     }
-
+  
   /* Sleep for one second to ensure timestamp integrity. */
   apr_sleep (APR_USEC_PER_SEC * 1);
 
@@ -297,7 +297,7 @@ svn_client_switch (svn_client_auth_baton_t *auth_baton,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end: */
