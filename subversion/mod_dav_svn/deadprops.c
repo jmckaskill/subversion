@@ -183,8 +183,8 @@ static dav_error *dav_svn_db_store(dav_db *db, dav_datum key, dav_datum value)
   /* ### (another) temp hack.  Until mod_dav stops xml-escaping the
      values of the properties, we need to perform another unescape of
      the same. */
-  svn_xml_unescape_string
-    (&unxml,
+  svn_xml_unescape_string 
+    (&unxml, 
      svn_stringbuf_create (propval.data, db->resource->pool),
      db->resource->pool);
   propval.data = unxml->data;
@@ -362,7 +362,7 @@ const dav_hooks_propdb dav_svn_hooks_propdb = {
 };
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
