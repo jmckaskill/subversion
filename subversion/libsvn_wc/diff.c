@@ -310,7 +310,7 @@ file_diff (struct dir_baton *dir_baton,
           const char *eol;
 
           pristine_copy = svn_wc__text_base_path (path, FALSE,
-                                                  dir_baton->pool);
+                                                  dir_baton->pool);   
           SVN_ERR (svn_wc__get_eol_style (&style, &eol,
                                           path->data, dir_baton->pool));
 
@@ -330,7 +330,7 @@ file_diff (struct dir_baton *dir_baton,
               svn_stringbuf_t *tmp_dir, *tmp_workingfile;
               apr_file_t *ignored;
               apr_status_t apr_err;
-
+              
               svn_path_split (path, &tmp_dir, &tmp_workingfile,
                               svn_path_local_style, dir_baton->pool);
 
@@ -342,7 +342,7 @@ file_diff (struct dir_baton *dir_baton,
                                                 SVN_WC__TMP_EXT,
                                                 FALSE,
                                                 dir_baton->pool));
-
+              
               /* Toss return value from this, it doesn't matter, we're not
                  writing to this handle anyway. */
               apr_file_close (ignored);
@@ -357,14 +357,14 @@ file_diff (struct dir_baton *dir_baton,
                                                   "",
                                                   0,
                                                   dir_baton->pool));
-
+              
               SVN_ERR (diff_cmd (pristine_copy, tmp_workingfile, path,
                                  dir_baton->edit_baton->diff_cmd_baton));
 
               apr_err = apr_file_remove (tmp_workingfile->data,
                                          dir_baton->pool);
               if (apr_err)
-                return svn_error_createf
+                return svn_error_createf 
                   (apr_err, 0, NULL, dir_baton->pool,
                    "file_diff: error removing scratch file %s.",
                    tmp_workingfile->data);
@@ -375,9 +375,9 @@ file_diff (struct dir_baton *dir_baton,
                 (SVN_ERR_IO_INCONSISTENT_EOL, 0, NULL, dir_baton->pool,
                  "file_diff: %s has unknown eol style property",
                  path->data);
-            }
+            }          
         }
-
+      
       break;
     }
 
@@ -739,7 +739,7 @@ apply_textdelta (void *file_baton,
 
   /* This is the file that will contain the pristine repository version. It
      is created in the admin temporary area. This file continues to exists
-     until after the diff callback is run, at which point it is deleted. */
+     until after the diff callback is run, at which point it is deleted. */ 
   SVN_ERR (svn_wc__open_text_base (&b->temp_file, b->wc_path,
                                    (APR_WRITE | APR_TRUNCATE | APR_CREATE),
                                    b->pool));
@@ -795,7 +795,7 @@ close_file (void *file_baton)
     {
       enum svn_wc__eol_style style;
       const char *eol;
-
+      
       SVN_ERR (svn_wc__get_eol_style (&style, &eol,
                                       b->wc_path->data, b->pool));
 
@@ -815,10 +815,10 @@ close_file (void *file_baton)
           svn_stringbuf_t *tmp_dir, *tmp_workingfile;
           apr_file_t *ignored;
           apr_status_t apr_err;
-
+          
           svn_path_split (b->wc_path, &tmp_dir, &tmp_workingfile,
                           svn_path_local_style, b->pool);
-
+          
           tmp_workingfile = svn_wc__adm_path (tmp_dir, 1, b->pool,
                                               tmp_workingfile, NULL);
           SVN_ERR (svn_io_open_unique_file (&ignored,
@@ -827,7 +827,7 @@ close_file (void *file_baton)
                                             SVN_WC__TMP_EXT,
                                             FALSE,
                                             b->pool));
-
+              
           /* Toss return value from this, it doesn't matter, we're not
              writing to this handle anyway. */
           apr_file_close (ignored);
@@ -848,7 +848,7 @@ close_file (void *file_baton)
 
           apr_err = apr_file_remove (tmp_workingfile->data, b->pool);
           if (apr_err)
-            return svn_error_createf
+            return svn_error_createf 
               (apr_err, 0, NULL, b->pool,
                "close_file: error removing scratch file %s.",
                tmp_workingfile->data);
@@ -859,7 +859,7 @@ close_file (void *file_baton)
             (SVN_ERR_IO_INCONSISTENT_EOL, 0, NULL, b->pool,
              "close_file: %s has unknown eol style property",
              b->wc_path->data);
-        }
+        }                
     }
 
 #if 0
