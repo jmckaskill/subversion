@@ -36,11 +36,11 @@ would be stored in our dump format.
     Each tree is called a "revision" and has unversioned properties attached.
 
   - A revision has a tree of "nodes" hanging off of it.
-
+ 
   - The majority of a tree's nodes are hard-links (references) to
     nodes that were created in earlier trees.
 
-  - A node contains
+  - A node contains 
 
         - versioned text
         - versioned properties
@@ -55,7 +55,7 @@ Implementation (Questions)
 ==============
 
   * file format
-
+   
     Although it's tempting to use XML (easy to output, easy to write a
     parser), gstein pointed out that it may create more problems in
     the long run.  Storing binary data (and escaping) in XML can be
