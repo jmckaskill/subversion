@@ -32,7 +32,7 @@
 
 /*** Hook/sentinel file parsing. ***/
 
-/* Set *C to the next char from open file F.
+/* Set *C to the next char from open file F.  
    If hit EOF, set *C to '\n', set *GOT_EOF to 1, and return success.
    If neither EOF nor error, set *GOT_EOF to 0.
    Use POOL for error allocation.  */
@@ -89,7 +89,7 @@ eat_to_eol (int *got_eof, apr_file_t *f, apr_pool_t *pool)
    column is null, return the error SVN_ERR_REPOS_HOOK_FAILURE.  Also,
    return that error if the variable name being expanded does not
    appear in the left hand column at all.
-
+   
    Valid variable names contain only alphanumerics, hyphen, and
    underscore; this is used to stop reading and ungetc() when reach
    the end of the variable.  */
@@ -113,7 +113,7 @@ expand (char *buf,
   while (1)
     {
       SVN_ERR (read_char (&c, got_eof, hook_file, pool));
-
+      
       if ((isalnum (c)) || (c == '-') || (c == '_'))
         {
           unexpanded_name[unexpanded_len++] = c;
@@ -163,13 +163,13 @@ expand (char *buf,
         (SVN_ERR_REPOS_HOOK_FAILURE, 0, NULL, pool,
          "expand: cannot expand an empty variable");
     }
-
+  
   /* Check that there was an expansion available for the valid var. */
   if (expansion == NULL)
     return svn_error_createf
       (SVN_ERR_REPOS_HOOK_FAILURE, 0, NULL, pool,
        "expand: no expansion available for var `%s'", unexpanded_name);
-
+    
   /* Check that the expansion is not too long. */
   if (((strlen (expansion)) + *idx) > max_idx)
     return svn_error_createf
@@ -180,7 +180,7 @@ expand (char *buf,
   /* Everything checks out, store the expanded variable. */
   strcpy (buf + *idx, expansion);
   *idx += strlen (expansion);
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -233,14 +233,14 @@ read_hook_line (char **line_p,
   apr_status_t apr_err;
   const char *hook_file_path;  /* for error msgs */
   int this_line_done, got_eof;
-
+              
   /* Get the hook's file name, for use in error messages. */
   apr_err = apr_file_name_get (&hook_file_path, hook_file);
   if (! APR_STATUS_IS_SUCCESS (apr_err))
     return svn_error_create
       (apr_err, 0, NULL, pool,
        "read_hook_line: error getting hook file name");
-
+    
  restart:
 
   /* Reset the parms. */
@@ -348,12 +348,12 @@ run_hook_file (svn_fs_t *fs,
     rev_str = apr_psprintf (pool, "%ld", rev);
   else
     rev_str = NULL;
-
+  
   apr_err = apr_file_open (&f, hook_file, APR_READ, APR_OS_DEFAULT, pool);
   if (apr_err)
     return svn_error_createf (apr_err, 0, NULL, pool,
                               "run_hook_file: opening `%s'", hook_file);
-
+  
   while (1)
     {
       err = read_hook_line (&cmd,
@@ -363,7 +363,7 @@ run_hook_file (svn_fs_t *fs,
                             rev_str,
                             txn_name,
                             pool);
-
+      
       if (! cmd)
         break;
       else if (err)
@@ -530,11 +530,11 @@ svn_repos_fs_begin_txn_for_commit (svn_fs_txn_t **txn_p,
       svn_string_t val;
       val.data = author;
       val.len = strlen (author);
-
+      
       SVN_ERR (svn_fs_change_txn_prop (*txn_p, &author_prop_name,
                                        &val, pool));
     }
-
+    
     /* Log message. */
     SVN_ERR (svn_fs_change_txn_prop (*txn_p, &log_prop_name,
                                      log_msg, pool));
@@ -569,10 +569,10 @@ svn_repos_fs_begin_txn_for_update (svn_fs_txn_t **txn_p,
       svn_string_t val;
       val.data = author;
       val.len = strlen (author);
-
+      
       SVN_ERR (svn_fs_change_txn_prop (*txn_p, &author_prop_name,
                                        &val, pool));
-    }
+    }    
   }
 
   return SVN_NO_ERROR;
@@ -581,7 +581,7 @@ svn_repos_fs_begin_txn_for_update (svn_fs_txn_t **txn_p,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
