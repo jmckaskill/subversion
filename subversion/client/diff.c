@@ -63,12 +63,12 @@ svn_cl__print_file_diff (svn_string_t *path,
   args[3] = pristine_copy_path->data;
   args[4] = NULL;
 
-  err = svn_wc_run_cmd_in_directory (svn_string_create (".", pool),
+  err = svn_wc_run_cmd_in_directory (svn_string_create (".", pool), 
                                      SVN_CLIENT_DIFF,
                                      args,
                                      NULL, outhandle, NULL, pool);
   if (err) return err;
-
+  
   apr_close (outhandle);
 
   return SVN_NO_ERROR;
@@ -77,10 +77,10 @@ svn_cl__print_file_diff (svn_string_t *path,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
- * end:
+ * end: 
  */
 
 
