@@ -41,7 +41,7 @@ open_admin_tmp_file (apr_file_t **fp,
                      apr_pool_t *pool)
 {
   svn_client__callback_baton_t *cb = callback_baton;
-
+  
   SVN_ERR (svn_wc_create_tmp_file (fp, cb->base_dir, TRUE, pool));
 
   return SVN_NO_ERROR;
@@ -65,7 +65,7 @@ open_tmp_file (apr_file_t **fp,
   /* Tack on a made-up filename. */
   truepath = svn_path_join (truepath, "tempfile", pool);
 
-  /* Open a unique file;  use APR_DELONCLOSE. */
+  /* Open a unique file;  use APR_DELONCLOSE. */  
   SVN_ERR (svn_io_open_unique_file (fp, &ignored_filename,
                                     truepath, ".tmp", TRUE, pool));
 
@@ -94,7 +94,7 @@ get_wc_prop (void *baton,
         {
           svn_client_commit_item_t *item
             = ((svn_client_commit_item_t **) cb->commit_items->elts)[i];
-          if (! strcmp (relpath,
+          if (! strcmp (relpath, 
                         svn_path_uri_decode (item->url, pool)))
             return svn_wc_prop_get (value, name, item->path, cb->base_access,
                                     pool);
@@ -135,12 +135,12 @@ push_wc_prop (void *baton,
     {
       svn_client_commit_item_t *item
         = ((svn_client_commit_item_t **) cb->commit_items->elts)[i];
-
+      
       if (strcmp (relpath, svn_path_uri_decode (item->url, pool)) == 0)
         {
           apr_pool_t *cpool = item->wcprop_changes->pool;
           svn_prop_t *prop = apr_palloc (cpool, sizeof (*prop));
-
+          
           prop->name = apr_pstrdup (cpool, name);
           if (value)
             {
@@ -149,7 +149,7 @@ push_wc_prop (void *baton,
             }
           else
             prop->value = NULL;
-
+          
           /* Buffer the propchange to take effect during the
              post-commit process. */
           *((svn_prop_t **) apr_array_push (item->wcprop_changes)) = prop;
@@ -185,7 +185,7 @@ set_wc_prop (void *baton,
                                  ? full_path
                                  : svn_path_dirname (full_path, pool)),
                                 pool));
-
+    
   /* We pass 1 for the 'force' parameter here.  Since the property is
      coming from the repository, we definitely want to accept it.
      Ideally, we'd raise a conflict if, say, the received property is
@@ -257,7 +257,7 @@ invalidate_wc_props (void *baton,
 }
 
 
-svn_error_t *
+svn_error_t * 
 svn_client__open_ra_session (svn_ra_session_t **ra_session,
                              const char *base_url,
                              const char *base_dir,
@@ -270,7 +270,7 @@ svn_client__open_ra_session (svn_ra_session_t **ra_session,
 {
   svn_ra_callbacks_t *cbtable = apr_pcalloc (pool, sizeof(*cbtable));
   svn_client__callback_baton_t *cb = apr_pcalloc (pool, sizeof(*cb));
-
+  
   cbtable->open_tmp_file = use_admin ? open_admin_tmp_file : open_tmp_file;
   cbtable->get_wc_prop = use_admin ? get_wc_prop : NULL;
   cbtable->set_wc_prop = read_only_wc ? NULL : set_wc_prop;
@@ -303,7 +303,7 @@ svn_client_uuid_from_url (const char **uuid,
   /* use subpool to create a temporary RA session */
   SVN_ERR (svn_client__open_ra_session (&ra_session, url,
                                         NULL, /* no base dir */
-                                        NULL, NULL, FALSE, TRUE,
+                                        NULL, NULL, FALSE, TRUE, 
                                         ctx, subpool));
 
   SVN_ERR (svn_ra_get_uuid (ra_session, uuid, subpool));
@@ -392,7 +392,7 @@ svn_client__prev_log_path (const char **prev_path_p,
             prev_path = apr_pstrdup (pool, change->copyfrom_path);
           else
             prev_path = NULL;
-
+          
           *prev_path_p = prev_path;
           if (action_p)
             *action_p = change->action;
@@ -401,7 +401,7 @@ svn_client__prev_log_path (const char **prev_path_p,
           return SVN_NO_ERROR;
         }
     }
-
+  
   if (apr_hash_count (changed_paths))
     {
       /* The path was not explicitly changed in this revision.  The
@@ -443,7 +443,7 @@ svn_client__prev_log_path (const char **prev_path_p,
                 *action_p = change->action;
               if (copyfrom_rev_p)
                 *copyfrom_rev_p = change->copyfrom_rev;
-              prev_path = svn_path_join (change->copyfrom_path,
+              prev_path = svn_path_join (change->copyfrom_path, 
                                          path + len + 1, pool);
               break;
             }
@@ -463,7 +463,7 @@ svn_client__prev_log_path (const char **prev_path_p,
                                     "'%s' in revision %ld"),
                                   svn_path_local_style (path, pool), revision);
     }
-
+  
   *prev_path_p = prev_path;
   return SVN_NO_ERROR;
 }
@@ -485,7 +485,7 @@ struct log_receiver_baton
   const char **end_path_p;
   svn_revnum_t peg_revision;
   const char *peg_path;
-
+  
   /* Client context baton. */
   svn_client_ctx_t *ctx;
 
@@ -518,7 +518,7 @@ log_receiver (void *baton,
   /* No paths were changed in this revision.  Nothing to do. */
   if (!changed_paths)
     return SVN_NO_ERROR;
-
+  
   /* If we've already determined all of our paths, then frankly, why
      are we here?  Oh well, just do nothing. */
   if (*lrb->start_path_p && lrb->peg_path && *lrb->end_path_p)
@@ -536,7 +536,7 @@ log_receiver (void *baton,
   /* Figure out at which repository path our object of interest lived
      in the previous revision. */
   SVN_ERR (svn_client__prev_log_path (&prev_path, NULL, NULL, changed_paths,
-                                      current_path, lrb->kind,
+                                      current_path, lrb->kind, 
                                       revision, pool));
 
   /* Squirrel away our "next place to look" path (suffer the strcmp
@@ -594,12 +594,12 @@ slow_locations (const char **start_path, const char** end_path,
     {
       youngest = peg_revnum;
       lrb.peg_path = lrb.last_path;
-      pegrev_is_youngest = TRUE;
+      pegrev_is_youngest = TRUE;      
     }
   else if (end_revnum > peg_revnum)
     {
       if (end_revnum >= start_revnum)
-        {
+        {        
           youngest = end_revnum;
           *end_path = lrb.last_path;
         }
@@ -622,7 +622,7 @@ slow_locations (const char **start_path, const char** end_path,
           *end_path = lrb.last_path;
         }
     }
-
+    
   /* Build a one-item TARGETS array, as input to ra->get_log() */
   targets = apr_array_make (pool, 1, sizeof (const char *));
   APR_ARRAY_PUSH (targets, const char *) = "";
@@ -635,7 +635,7 @@ slow_locations (const char **start_path, const char** end_path,
 
   /* Check that we got the peg path. */
   if (! lrb.peg_path)
-    return svn_error_createf
+    return svn_error_createf 
       (APR_EGENERAL, NULL,
        _("Unable to find repository location for '%s' in revision %ld"),
        orig_path, peg_revnum);
@@ -654,7 +654,7 @@ slow_locations (const char **start_path, const char** end_path,
 
   return SVN_NO_ERROR;
 }
-
+                
 svn_error_t *
 svn_client__repos_locations (const char **start_url,
                              svn_opt_revision_t **start_revision,
@@ -732,7 +732,7 @@ svn_client__repos_locations (const char **start_url,
     SVN_ERR (svn_client__get_revision_number (&peg_revnum,
                                               ra_session, revision, path,
                                               pool));
-
+  
   SVN_ERR (svn_client__get_revision_number (&start_revnum,
                                             ra_session, start, path, pool));
   if (end->kind == svn_opt_revision_unspecified)
@@ -770,17 +770,17 @@ svn_client__repos_locations (const char **start_url,
 
   /* We'd better have all the paths we were looking for! */
   if (! start_path)
-    return svn_error_createf
+    return svn_error_createf 
       (APR_EGENERAL, NULL,
        _("Unable to find repository location for '%s' in revision %ld"),
        path, start_revnum);
   if (! end_path)
-    return svn_error_createf
+    return svn_error_createf 
       (APR_EGENERAL, NULL,
        _("The location for '%s' for revision %ld does not exist in the "
          "repository or refers to an unrelated object"),
        path, end_revnum);
-
+    
   /* Repository paths might be absolute, but we want to treat them as
      relative.
      ### Aren't they always absolute? */
@@ -803,7 +803,7 @@ svn_client__repos_locations (const char **start_url,
       (*end_revision)->kind = svn_opt_revision_number;
       (*end_revision)->value.number = end_revnum;
     }
-
+  
   svn_pool_destroy (subpool);
   return SVN_NO_ERROR;
 }
@@ -828,7 +828,7 @@ svn_client__ra_session_from_path (svn_ra_session_t **ra_session_p,
   svn_opt_revision_t *ignored_rev, *new_rev;
   svn_revnum_t rev;
   const char *ignored_url;
-
+  
   SVN_ERR (svn_client_url_from_path (&initial_url, path_or_url, pool));
   if (! initial_url)
     return svn_error_createf (SVN_ERR_ENTRY_MISSING_URL, NULL,
@@ -839,7 +839,7 @@ svn_client__ra_session_from_path (svn_ra_session_t **ra_session_p,
   if (revision->kind == svn_opt_revision_unspecified &&
       peg_revision_p->kind != svn_opt_revision_unspecified)
     revision = peg_revision_p;
-
+  
   if (svn_path_is_url (path_or_url))
     {
       /* URLs get a default starting rev of HEAD. */
@@ -847,7 +847,7 @@ svn_client__ra_session_from_path (svn_ra_session_t **ra_session_p,
         start_rev.kind = svn_opt_revision_head;
       else
         start_rev = *revision;
-
+          
       /* If an explicit URL was passed in, the default peg revision is
          HEAD. */
       if (peg_revision_p->kind == svn_opt_revision_unspecified)
@@ -862,16 +862,16 @@ svn_client__ra_session_from_path (svn_ra_session_t **ra_session_p,
         start_rev.kind = svn_opt_revision_base;
       else
         start_rev = *revision;
-
+      
       /* WC paths have a default peg revision of WORKING. */
       if (peg_revision_p->kind == svn_opt_revision_unspecified)
         peg_revision.kind = svn_opt_revision_working;
       else
         peg_revision = *peg_revision_p;
     }
-
+  
   dead_end_rev.kind = svn_opt_revision_unspecified;
-
+  
   /* Run the history function to get the object's (possibly
      different) url in REVISION. */
   SVN_ERR (svn_client__repos_locations (&url, &new_rev,
