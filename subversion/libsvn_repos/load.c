@@ -50,7 +50,7 @@ svn_repos_parse_dumpstream (svn_stream_t *stream,
        new_revision_record()
     else if hash contains node-path,
        new_node_record()
-
+     
     if hash contains content-length,
        read n bytes of content
        parse content:
@@ -75,7 +75,7 @@ svn_repos_parse_dumpstream (svn_stream_t *stream,
 struct parse_baton
 {
   svn_fs_t *fs;
-
+  
 };
 
 struct revision_baton
@@ -120,7 +120,7 @@ make_revision_baton (apr_hash_t *headers,
                      apr_pool_t *pool)
 {
   struct revision_baton *rb = apr_pcalloc (pool, sizeof(*rb));
-
+  
   rb->pb = pb;
   rb->pool = pool;
 
@@ -248,8 +248,8 @@ svn_repos_load_fs (svn_repos_t *repos,
 {
   const svn_repos_parser_fns_t *parser;
   void *parse_baton;
-
-  /* This is really simple. */
+  
+  /* This is really simple. */  
 
   SVN_ERR (get_parser (&parser, &parse_baton, repos, pool));
 
@@ -260,7 +260,7 @@ svn_repos_load_fs (svn_repos_t *repos,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end:
