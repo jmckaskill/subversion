@@ -159,7 +159,7 @@ public class SVNClient implements SVNClientInterface
     * @param path
     * @param revisionStart
     * @param revisionEnd
-    * @param stopOnCopy
+    * @param stopOnCopy 
     */
    public native LogMessage[] logMessages(String path, Revision revisionStart, Revision revisionEnd,
                                           boolean stopOnCopy) throws ClientException;
