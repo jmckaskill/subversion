@@ -42,7 +42,7 @@
    on what it's about to do with the RA session:
 
       - PATH customizes the callbacks to operate on a specific path in
-        the working copy.
+        the working copy.  
 
       - DO_STORE indicates whether the RA layer should attempt to
         store authentication info.
@@ -151,7 +151,7 @@ svn_client__get_diff_editor (svn_stringbuf_t *target,
                              void *diff_cmd_baton,
                              svn_boolean_t recurse,
                              svn_ra_plugin_t *ra_lib,
-                             void *ra_session,
+                             void *ra_session, 
                              svn_revnum_t revision,
                              const svn_delta_edit_fns_t **editor,
                              void **edit_baton,
@@ -160,7 +160,7 @@ svn_client__get_diff_editor (svn_stringbuf_t *target,
 #endif /* CLIENT_H */
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
