@@ -86,7 +86,7 @@ svn_client_revert (const char *path,
     const char *commit_time_str;
 
     svn_config_t *cfg = ctx->config
-      ? apr_hash_get (ctx->config, SVN_CONFIG_CATEGORY_CONFIG,
+      ? apr_hash_get (ctx->config, SVN_CONFIG_CATEGORY_CONFIG,  
                       APR_HASH_KEY_STRING)
       : NULL;
 
