@@ -81,7 +81,7 @@ svn_repos_fs_commit_txn (const char **conflict_p,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
