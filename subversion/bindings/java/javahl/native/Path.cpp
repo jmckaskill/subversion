@@ -71,7 +71,7 @@ Path::init (const char * pi_path)
     }
     else
     {
-        const char * int_path = svn_path_internal_style (pi_path,
+        const char * int_path = svn_path_internal_style (pi_path, 
             JNIUtil::getRequestPool()->pool() );
 
         m_path = int_path;
