@@ -51,7 +51,7 @@ class ChangedPath:
 class RevisionChangeCollector(svn.delta.Editor):
 
   # BATON FORMAT: [path, base_path, base_rev]
-
+  
   def __init__(self, fs_ptr, rev):
     self.fs_ptr = fs_ptr
     self.rev = rev
@@ -63,7 +63,7 @@ class RevisionChangeCollector(svn.delta.Editor):
     if idx == -1:
       return parent_path + '/' + path
     return parent_path + path[idx:]
-
+    
   def open_root(self, base_revision, dir_pool):
     return ('', '', self.rev - 1)  # dir_baton
 
