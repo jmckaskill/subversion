@@ -84,7 +84,7 @@ void SVNAdmin::finalize()
 	JNIUtil::putFinalizedClient(this);
 }
 
-void SVNAdmin::create(const char *path, bool disableFsyncCommits,
+void SVNAdmin::create(const char *path, bool disableFsyncCommits, 
                       bool keepLogs, const char *configPath,
                       const char *fstype)
 {
@@ -119,7 +119,7 @@ void SVNAdmin::create(const char *path, bool disableFsyncCommits,
 	  return;
   }
   err = svn_repos_create (&repos, path,
-                             NULL, NULL,
+                             NULL, NULL, 
                              config, fs_config, subpool.pool());
 
   if(err != SVN_NO_ERROR)
@@ -127,7 +127,7 @@ void SVNAdmin::create(const char *path, bool disableFsyncCommits,
 	  JNIUtil::handleSVNError(err);
 	  return;
   }
-
+	
 }
 
 void SVNAdmin::deltify(const char *path, Revision &revStart, Revision &revEnd)
@@ -179,7 +179,7 @@ void SVNAdmin::deltify(const char *path, Revision &revStart, Revision &revEnd)
     start = youngest;
   if (end == SVN_INVALID_REVNUM)
     end = start;
-
+        
   if (start > end)
   {
 	  JNIUtil::handleSVNError( svn_error_create
@@ -191,7 +191,7 @@ void SVNAdmin::deltify(const char *path, Revision &revStart, Revision &revEnd)
   {
 	  JNIUtil::handleSVNError(svn_error_createf
       (SVN_ERR_CL_ARG_PARSING_ERROR, NULL,
-       _("Revisions must not be greater than the youngest revision (%"
+       _("Revisions must not be greater than the youngest revision (%" 
        SVN_REVNUM_T_FMT ")"), youngest));
 	  return;
   }
@@ -267,7 +267,7 @@ void SVNAdmin::dump(const char *path, Outputer &dataOut, Outputer &messageOut, R
     {
       upper = lower;
     }
-
+        
   if (lower > upper)
   {
 	  JNIUtil::handleSVNError(svn_error_create
@@ -279,7 +279,7 @@ void SVNAdmin::dump(const char *path, Outputer &dataOut, Outputer &messageOut, R
   {
 	  JNIUtil::handleSVNError(svn_error_createf
       (SVN_ERR_CL_ARG_PARSING_ERROR, NULL,
-       _("Revisions must not be greater than the youngest revision (%"
+       _("Revisions must not be greater than the youngest revision (%" 
        SVN_REVNUM_T_FMT ")"), youngest));
 	  return;
   }
@@ -310,7 +310,7 @@ void SVNAdmin::hotcopy(const char *path, const char *targetPath, bool cleanLogs)
     }
   path = svn_path_internal_style(path, subpool.pool());
   targetPath = svn_path_internal_style(targetPath, subpool.pool());
-  svn_error_t *err = svn_repos_hotcopy (path,
+  svn_error_t *err = svn_repos_hotcopy (path, 
                               targetPath,
                               cleanLogs,
                               subpool.pool());
@@ -342,7 +342,7 @@ list_dblogs (const char *path, MessageReceiver &receiver, bool only_unused)
 	  JNIUtil::handleSVNError(err);
 	  return;
   }
-
+  
   /* Loop, printing log files.  We append the log paths to the
      repository path, making sure to return everything to the native
      style and encoding before printing. */
@@ -355,17 +355,17 @@ list_dblogs (const char *path, MessageReceiver &receiver, bool only_unused)
       log_utf8 = svn_path_local_style (log_utf8, subpool.pool());
 	  receiver.receiveMessage(log_utf8);
     }
-
+  
 }
 
 void SVNAdmin::listDBLogs(const char *path, MessageReceiver &messageReceiver)
 {
-	list_dblogs(path, messageReceiver, false);
+	list_dblogs(path, messageReceiver, false);		
 }
 
 void SVNAdmin::listUnusedDBLogs(const char *path, MessageReceiver &messageReceiver)
 {
-	list_dblogs(path, messageReceiver, true);
+	list_dblogs(path, messageReceiver, true);		
 }
 
 void SVNAdmin::load(const char *path, Inputer &dataIn, Outputer &messageOut, bool ignoreUUID, bool forceUUID, const char *relativePath)
@@ -389,7 +389,7 @@ void SVNAdmin::load(const char *path, Inputer &dataIn, Outputer &messageOut, boo
 	  JNIUtil::handleSVNError(err);
 	  return;
   }
-
+  
   err = svn_repos_load_fs (repos, dataIn.getStream(subpool), messageOut.getStream(subpool),
                               uuid_action, relativePath,
                               NULL, NULL, subpool.pool());
@@ -399,7 +399,7 @@ void SVNAdmin::load(const char *path, Inputer &dataIn, Outputer &messageOut, boo
 	  JNIUtil::handleSVNError(err);
 	  return;
   }
-
+  
 
 }
 
@@ -416,7 +416,7 @@ void SVNAdmin::lstxns(const char *path, MessageReceiver &messageReceiver)
   svn_fs_t *fs;
   apr_array_header_t *txns;
   int i;
-
+  
   svn_error_t *err = svn_repos_open (&repos, path, subpool.pool());
   if(err != SVN_NO_ERROR)
   {
@@ -436,7 +436,7 @@ void SVNAdmin::lstxns(const char *path, MessageReceiver &messageReceiver)
     {
       messageReceiver.receiveMessage(APR_ARRAY_IDX (txns, i, const char *));
     }
-
+  
 
 }
 
@@ -492,7 +492,7 @@ void SVNAdmin::rmtxns(const char *path, Targets &transactions)
   const apr_array_header_t *args;
   int i;
   apr_pool_t *subpool = svn_pool_create (masterpool.pool());
-
+  
   svn_error_t *err = svn_repos_open (&repos, path, masterpool.pool());
   if(err != SVN_NO_ERROR)
   {
@@ -512,7 +512,7 @@ void SVNAdmin::rmtxns(const char *path, Targets &transactions)
       err = svn_fs_open_txn (&txn, fs, txn_name, subpool);
       if (! err)
         err = svn_fs_abort_txn (txn, subpool);
-
+        
       /* If either the open or the abort of the txn fails because that
          transaction is dead, just try to purge the thing.  Else,
          there was either an error worth reporting, or not error at
@@ -564,7 +564,7 @@ void SVNAdmin::setLog(const char *path, Revision &revision, const char *message,
 	  JNIUtil::handleSVNError(svn_error_createf (SVN_ERR_CL_ARG_PARSING_ERROR, NULL,
                               _("Only one revision allowed")));
 	  return;
-  }
+  } 
   /* Open the filesystem  */
   svn_error_t *err = svn_repos_open (&repos, path, subpool.pool());
   if(err != SVN_NO_ERROR)
@@ -578,13 +578,13 @@ void SVNAdmin::setLog(const char *path, Revision &revision, const char *message,
   if (bypassHooks)
     {
       svn_fs_t *fs = svn_repos_fs (repos);
-      err = svn_fs_change_rev_prop
-               (fs, revision.revision()->value.number,
+      err = svn_fs_change_rev_prop 
+               (fs, revision.revision()->value.number, 
                 SVN_PROP_REVISION_LOG, log_contents, subpool.pool());
     }
   else
     {
-      err = svn_repos_fs_change_rev_prop
+      err = svn_repos_fs_change_rev_prop 
                (repos, revision.revision()->value.number,
                 NULL, SVN_PROP_REVISION_LOG, log_contents, subpool.pool());
     }
@@ -621,7 +621,7 @@ void SVNAdmin::verify(const char *path, Outputer &messageOut, Revision &revision
 	  JNIUtil::handleSVNError(err);
 	  return;
   }
-  err = svn_repos_dump_fs (repos, NULL, messageOut.getStream(subpool),
+  err = svn_repos_dump_fs (repos, NULL, messageOut.getStream(subpool), 
                               0, youngest, FALSE, NULL, NULL, subpool.pool());
   if(err != SVN_NO_ERROR)
   {

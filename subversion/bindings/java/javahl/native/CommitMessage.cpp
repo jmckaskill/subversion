@@ -73,7 +73,7 @@ jstring CommitMessage::getCommitMessage(apr_array_header_t *commit_items)
     static jmethodID midConstructor = 0;
     if(midConstructor == 0)
     {
-        midConstructor = env->GetMethodID(clazz, "<init>",
+        midConstructor = env->GetMethodID(clazz, "<init>", 
             "(Ljava/lang/String;IILjava/lang/String;Ljava/lang/String;J)V");
         if(JNIUtil::isExceptionThrown())
         {
@@ -108,19 +108,19 @@ jstring CommitMessage::getCommitMessage(apr_array_header_t *commit_items)
         jint jnodeKind = item->kind;
         jint jstateFlags = 0;
         if(item->state_flags & SVN_CLIENT_COMMIT_ITEM_ADD)
-            jstateFlags |=
+            jstateFlags |= 
                 org_tigris_subversion_javahl_CommitItemStateFlags_Add;
         if(item->state_flags & SVN_CLIENT_COMMIT_ITEM_DELETE)
-            jstateFlags |=
+            jstateFlags |= 
                 org_tigris_subversion_javahl_CommitItemStateFlags_Delete;
         if(item->state_flags & SVN_CLIENT_COMMIT_ITEM_TEXT_MODS)
-            jstateFlags |=
+            jstateFlags |= 
                 org_tigris_subversion_javahl_CommitItemStateFlags_TextMods;
         if(item->state_flags & SVN_CLIENT_COMMIT_ITEM_PROP_MODS)
-            jstateFlags |=
+            jstateFlags |= 
                 org_tigris_subversion_javahl_CommitItemStateFlags_PropMods;
         if(item->state_flags & SVN_CLIENT_COMMIT_ITEM_IS_COPY)
-            jstateFlags |=
+            jstateFlags |= 
                 org_tigris_subversion_javahl_CommitItemStateFlags_IsCopy;
         jstring jurl = JNIUtil::makeJString(item->url);
         jstring jcopyUrl = JNIUtil::makeJString(item->copyfrom_url);
@@ -138,7 +138,7 @@ jstring CommitMessage::getCommitMessage(apr_array_header_t *commit_items)
 		    return NULL;
 	    }
     }
-    jstring jmessage = (jstring)env->CallObjectMethod(m_jcommitMessage,
+    jstring jmessage = (jstring)env->CallObjectMethod(m_jcommitMessage, 
                                             midCallback, jitems);
 	if(JNIUtil::isJavaExceptionThrown())
 	{

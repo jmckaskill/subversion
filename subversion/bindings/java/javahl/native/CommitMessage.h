@@ -11,7 +11,7 @@
 
 #include <jni.h>
 struct apr_array_header_t;
-class CommitMessage
+class CommitMessage  
 {
 public:
 	jstring getCommitMessage(apr_array_header_t *commit_items);
