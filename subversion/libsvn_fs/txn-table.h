@@ -69,7 +69,7 @@ svn_error_t *svn_fs__get_txn_list (char ***names_p,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
