@@ -16,7 +16,7 @@
  */
 
 /* What's going on here?
-
+ 
    In order to define error codes and their associated description
    strings in the same place, we overload the SVN_ERRDEF() macro with
    two definitions below.  Both take two arguments, an error code name
@@ -27,9 +27,9 @@
    definition creates a static table mapping the enum codes to their
    corresponding strings -- that definition is used by the C file that
    implements svn_strerror().
-
+ 
    The header and C files both include this file, using #defines to
-   control which version of the macro they get.
+   control which version of the macro they get.  
 */
 
 
@@ -302,13 +302,13 @@ SVN_ERROR_START
   /* End of ra_dav errors */
 
   /* These RA errors are specific to ra_local */
-
+  
     SVN_ERRDEF (SVN_ERR_RA_NOT_VERSIONED_RESOURCE,
                 "URL is not a versioned resource")
 
     SVN_ERRDEF (SVN_ERR_RA_BAD_REVISION_REPORT,
                 "Bogus revision report")
-
+ 
   /* End of ra_local errors */
 
   /* BEGIN svndiff errors */
@@ -348,13 +348,13 @@ SVN_ERROR_START
               "Client error in parsing arguments")
 
   SVN_ERRDEF (SVN_ERR_CL_MUTUALLY_EXCLUSIVE_ARGS,
-              "Mutually exclusive arguments specified.")
+              "Mutually exclusive arguments specified.")                   
 
   SVN_ERRDEF (SVN_ERR_CL_ADM_DIR_RESERVED,
               "Attempted command in administrative dir")
 
   /* END Client errors */
-
+  
 
 SVN_ERROR_END
 
