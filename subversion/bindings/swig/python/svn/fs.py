@@ -1,9 +1,9 @@
 #
 # svn.fs: public Python FS interface
 #
-#  Subversion is a tool for revision control.
+#  Subversion is a tool for revision control. 
 #  See http://subversion.tigris.org for more information.
-#
+#    
 # ====================================================================
 # Copyright (c) 2000-2002 CollabNet.  All rights reserved.
 #
