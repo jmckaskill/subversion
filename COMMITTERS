@@ -1,13 +1,13 @@
-The following people have commit access to the Subversion tree.  Note
-that this is not a full list of Subversion's authors, however -- for
-that, you'd need to look over the log messages to see all the patch
-contributors.
+The following people have commit access to the Subversion sources.
+Note that this is not a full list of Subversion's authors, however --
+for that, you'd need to look over the log messages to see all the
+patch contributors.
 
 If you have a question or comment, it's probably best to mail
 dev@subversion.tigris.org, rather than mailing any of these people
 directly.
 
-Blanket commit access:
+Blanket commit access (excluding /clients):
 
             jimb   Jim Blandy <jimb@redhat.com>
          sussman   Ben Collins-Sussman <sussman@collab.net>
@@ -33,9 +33,10 @@ Blanket commit access:
 
 Commit access for specific areas:
 
-      XelaRellum   Alexander Mueller <alex@littleblue.de>      (Java bindings)
+            xela   Alexander Mueller <alex@littleblue.de>      (Java bindings)
          yoshiki   Yoshiki Hayashi <yoshiki@xemacs.org>        (Ruby bindings)
            david   David Summers <david@summersoft.fay.ar.us>  (RPMs)
         rassilon   Bill Tutt <rassilon@lyra.org>               (Win32 / COM)
         kbohling   Kirby C. Bohling <kbohling@birddog.com>     (tools/dev)
              nsd   Nick Duffek <nick@duffek.com>               (doc)
+         fmatias   Féliciano Matias <feliciano.matias@free.fr> (French docs)
