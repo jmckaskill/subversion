@@ -19,7 +19,7 @@ import junit.framework.*;
 import org.tigris.subversion.lib.*;
 
 /**
- * Testcases for the native functions with prefix "status"
+ * Testcases for the native functions with prefix "status" 
  * in the class NativeWrapper
  *
  * @see NativeWrapper
@@ -66,7 +66,7 @@ public class StatusTests extends TestCase
 	    StatusKind prop_status = new StatusKind(StatusKind.REPLACED);
 
 	    NativeWrapper.statusSetPropStatus(status, prop_status.getKind());
-
+	    
 	    assertTrue( status.getPropStatus().equals(prop_status) );
 	}
 
@@ -95,9 +95,9 @@ public class StatusTests extends TestCase
 	    Status status = new Status();
 	    StatusKind repos_text_status = new StatusKind(22);
 
-	    NativeWrapper.statusSetReposTextStatus(status,
+	    NativeWrapper.statusSetReposTextStatus(status, 
 						   repos_text_status.getKind());
-
+	    
 	    assertTrue( status.getReposTextStatus().equals(repos_text_status) );
 	}
 
