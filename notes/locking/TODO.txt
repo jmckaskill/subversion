@@ -27,13 +27,13 @@ This is a summary of the current state of the locking implementation.
    * fs 'changes' table needs to be discussed w.r.t lock enforcement
 
 * svnserve bugs:
-
+  
    * Fix svn_fs_access_t handling in svnserve
 
 * DAV bugs:
 
    * need to xml-escape lock-comments over http.  (sussman;  almost done)
-
+   
 * get httpd 2.0.54 released, so that svn 1.2 can compile on win32 (??)
 
 * get neon 0.25 released, so the control-c bug can go away?? (jorton)
@@ -59,7 +59,7 @@ This is a summary of the current state of the locking implementation.
 
 
 * Stuff to document in book:
-
+     
        - 4 new hooks
        - 'lock' and 'unlock' commands, svn:needs-lock property.
        - svnadmin lslocks, rmlocks, lock
@@ -70,7 +70,7 @@ This is a summary of the current state of the locking implementation.
        - two new bdb tables in BDB section.
        - update the description of autoversioning in appendix C!
 
-         ### remember to update authz policy doc.
+         ### remember to update authz policy doc. 
 
 * Autoversioning TODO:
 
