@@ -3,32 +3,32 @@
  *
  * ================================================================
  * Copyright (c) 2000 CollabNet.  All rights reserved.
- *
+ * 
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
  * met:
- *
+ * 
  * 1. Redistributions of source code must retain the above copyright
  * notice, this list of conditions and the following disclaimer.
- *
+ * 
  * 2. Redistributions in binary form must reproduce the above copyright
  * notice, this list of conditions and the following disclaimer in the
  * documentation and/or other materials provided with the distribution.
- *
+ * 
  * 3. The end-user documentation included with the redistribution, if
  * any, must include the following acknowlegement: "This product includes
  * software developed by CollabNet (http://www.Collab.Net)."
  * Alternately, this acknowlegement may appear in the software itself, if
  * and wherever such third-party acknowlegements normally appear.
- *
+ * 
  * 4. The hosted project names must not be used to endorse or promote
  * products derived from this software without prior written
  * permission. For written permission, please contact info@collab.net.
- *
+ * 
  * 5. Products derived from this software may not use the "Tigris" name
  * nor may "Tigris" appear in their names without prior written
  * permission of CollabNet.
- *
+ * 
  * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
  * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -42,7 +42,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ====================================================================
- *
+ * 
  * This software consists of voluntary contributions made by many
  * individuals on behalf of CollabNet.
  */
@@ -129,7 +129,7 @@ do_crawl (svn_string_t *current_dir,
   /* grab contents of current `delta-here' file */
 
   svn_string_t *localmod_buffer = get_delta_here_contents (current_dir);
-
+  
   /* if non-empty, send the contents to the parser */
 
   if (localmod_buffer)
@@ -148,8 +148,8 @@ do_crawl (svn_string_t *current_dir,
       err = do_crawl (child);
       if (err)
         return err;
-    }
-
+    } 
+  
   write 3 "up" tags into xml_buffer;
   return SVN_NO_ERROR;
 }
@@ -173,7 +173,7 @@ svn_cl_crawl_local_mods (svn_string_t *root_directory,
                          apr_pool_t *pool)
 {
   svn_error_t *err;
-
+  
   svn_string_t *xml_buffer = svn_string_create ("", pool);
 
   /* Always begin with a lone "<text-delta"> */
@@ -202,7 +202,7 @@ svn_cl_crawl_local_mods (svn_string_t *root_directory,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
