@@ -113,14 +113,14 @@ svn_client_checkout (svn_wc_notify_func_t notify_func,
                                  checkout_edit_baton);
       /* Sleep for one second to ensure timestamp integrity. */
       apr_sleep (APR_USEC_PER_SEC * 1);
-
+      
       if (err)
         return err;
 
       /* Close the RA session. */
       SVN_ERR (ra_lib->close (session));
-    }
-
+    }      
+  
   /* else we're checking out from xml */
   else
     {
@@ -154,7 +154,7 @@ svn_client_checkout (svn_wc_notify_func_t notify_func,
 
       /* Sleep for one second to ensure timestamp integrity. */
       apr_sleep (APR_USEC_PER_SEC * 1);
-
+      
       if (err)
         return err;
 
@@ -162,7 +162,7 @@ svn_client_checkout (svn_wc_notify_func_t notify_func,
       apr_file_close (in);
 
     }
-
+   
   /* We handle externals after the initial checkout is complete, so
      that fetching external items (and any errors therefrom) doesn't
      delay the primary checkout.  */
@@ -178,7 +178,7 @@ svn_client_checkout (svn_wc_notify_func_t notify_func,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end: */
