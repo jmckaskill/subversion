@@ -25,9 +25,9 @@ Candidate changes:
       +1: pmayweg
 
   * r8027
-    Passing a Revision.DateSpec in javahl failed with
-    java.lang.NoSuchFieldError because java.util.Date.getTime() was
-    searched as a field when it is a method.
+    Passing a Revision.DateSpec in javahl failed with 
+    java.lang.NoSuchFieldError because java.util.Date.getTime() was 
+    searched as a field when it is a method. 
     Justification: small change in javahl binding only
     Votes:
       +1: pmayweg
@@ -53,7 +53,7 @@ Candidate changes:
 
   * r10132, r10136, 10138, 10139
     Allow user to interrupt between auth prompts.
-    Justification:  not a critical bugfix, but something users have
+    Justification:  not a critical bugfix, but something users have 
                     repeatedly complained about.
     Votes:
       +0: sussman (not yet reviewed)
