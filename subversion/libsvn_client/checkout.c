@@ -65,22 +65,22 @@ handle_externals_description (const char *externals,
   apr_array_header_t *description_lines
     = svn_cstring_split (externals, "\n\r", TRUE, pool);
   int i;
-
+  
   for (i = 0; i < description_lines->nelts; i++)
     {
       const char *this_line
         = APR_ARRAY_IDX (description_lines, i, const char *);
       apr_array_header_t *line_parts
         = svn_cstring_split (this_line, " \t", TRUE, pool);
-
+      
       const char *target_dir = APR_ARRAY_IDX (line_parts, 0, const char *);
       const char *url = APR_ARRAY_IDX (line_parts, 1, const char *);
       svn_client_revision_t revision;
-
+      
       /* ### Eventually, parse revision numbers and even dates from
          the description file. */
       revision.kind = svn_client_revision_head;
-
+      
       SVN_ERR (svn_client_checkout (before_editor,
                                     before_edit_baton,
                                     after_editor,
@@ -114,12 +114,12 @@ handle_externals_description (const char *externals,
        produced auth baton in the first place.  Hmmm. ###
 
    Use POOL for temporary allocation.
-
+   
    Notes: This is done _after_ the entire initial checkout is complete
    so that fetching external items (and any errors therefrom) won't
    delay the primary checkout.  */
 static svn_error_t *
-process_externals (const char *path,
+process_externals (const char *path, 
                    const svn_delta_editor_t *before_editor,
                    void *before_edit_baton,
                    const svn_delta_editor_t *after_editor,
@@ -146,13 +146,13 @@ process_externals (const char *path,
     apr_hash_t *entries;
     apr_hash_index_t *hi;
     apr_pool_t *subpool = svn_pool_create (pool);
-
+    
     SVN_ERR (svn_wc_entries_read (&entries, path, FALSE, pool));
     for (hi = apr_hash_first (pool, entries); hi; hi = apr_hash_next (hi))
       {
         void *val;
         svn_wc_entry_t *ent;
-
+        
         apr_hash_this (hi, NULL, NULL, &val);
         ent = val;
 
@@ -160,7 +160,7 @@ process_externals (const char *path,
             && (strcmp (ent->name, SVN_WC_ENTRY_THIS_DIR) != 0))
           {
             const char *path2 = svn_path_join (path, ent->name, subpool);
-            SVN_ERR (process_externals (path2,
+            SVN_ERR (process_externals (path2, 
                                         before_editor,
                                         before_edit_baton,
                                         after_editor,
@@ -261,14 +261,14 @@ svn_client_checkout (const svn_delta_editor_t *before_editor,
                                  checkout_edit_baton);
       /* Sleep for one second to ensure timestamp integrity. */
       apr_sleep (APR_USEC_PER_SEC * 1);
-
+      
       if (err)
         return err;
 
       /* Close the RA session. */
       SVN_ERR (ra_lib->close (session));
-    }
-
+    }      
+  
   /* else we're checking out from xml */
   else
     {
@@ -302,7 +302,7 @@ svn_client_checkout (const svn_delta_editor_t *before_editor,
 
       /* Sleep for one second to ensure timestamp integrity. */
       apr_sleep (APR_USEC_PER_SEC * 1);
-
+      
       if (err)
         return err;
 
@@ -320,7 +320,7 @@ svn_client_checkout (const svn_delta_editor_t *before_editor,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end: */
