@@ -134,7 +134,7 @@ svn_error_t *svn_fs__err_no_such_txn (svn_fs_t *fs, const char *txn);
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
