@@ -117,14 +117,14 @@ svn_client_checkout (const svn_delta_edit_fns_t *before_editor,
                                  checkout_edit_baton);
       /* Sleep for one second to ensure timestamp integrity. */
       apr_sleep (APR_USEC_PER_SEC * 1);
-
+      
       if (err)
         return err;
 
       /* Close the RA session. */
       SVN_ERR (ra_lib->close (session));
-    }
-
+    }      
+  
   /* else we're checking out from xml */
   else
     {
@@ -151,7 +151,7 @@ svn_client_checkout (const svn_delta_edit_fns_t *before_editor,
 
       /* Sleep for one second to ensure timestamp integrity. */
       apr_sleep (APR_USEC_PER_SEC * 1);
-
+      
       if (err)
         return err;
 
@@ -164,7 +164,7 @@ svn_client_checkout (const svn_delta_edit_fns_t *before_editor,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end: */
