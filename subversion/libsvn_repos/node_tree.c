@@ -32,7 +32,7 @@
 
 /*** Node creation and assembly structures and routines. ***/
 static svn_repos_node_t *
-create_node (const char *name,
+create_node (const char *name, 
              apr_pool_t *pool)
 {
   svn_repos_node_t *node = apr_pcalloc (pool, sizeof (svn_repos_node_t));
@@ -44,12 +44,12 @@ create_node (const char *name,
 
 
 static svn_repos_node_t *
-create_sibling_node (svn_repos_node_t *elder,
-                     const char *name,
+create_sibling_node (svn_repos_node_t *elder, 
+                     const char *name, 
                      apr_pool_t *pool)
 {
   svn_repos_node_t *tmp_node;
-
+  
   /* No ELDER sibling?  That's just not gonna work out. */
   if (! elder)
     return NULL;
@@ -65,8 +65,8 @@ create_sibling_node (svn_repos_node_t *elder,
 
 
 static svn_repos_node_t *
-create_child_node (svn_repos_node_t *parent,
-                   const char *name,
+create_child_node (svn_repos_node_t *parent, 
+                   const char *name, 
                    apr_pool_t *pool)
 {
   /* No PARENT node?  That's just not gonna work out. */
@@ -84,7 +84,7 @@ create_child_node (svn_repos_node_t *parent,
 
 
 static svn_repos_node_t *
-find_child_by_name (svn_repos_node_t *parent,
+find_child_by_name (svn_repos_node_t *parent, 
                     const char *name)
 {
   svn_repos_node_t *tmp_node;
@@ -149,7 +149,7 @@ struct window_handler_baton
 
 
 static svn_error_t *
-delete_entry (svn_stringbuf_t *name,
+delete_entry (svn_stringbuf_t *name, 
               void *parent_baton)
 {
   struct dir_baton *d = (struct dir_baton *) parent_baton;
@@ -176,7 +176,7 @@ delete_entry (svn_stringbuf_t *name,
     node->kind = svn_node_file;
 
   node->action = 'D';
-  SVN_ERR (svn_fs_node_id (&(node->id), eb->base_root,
+  SVN_ERR (svn_fs_node_id (&(node->id), eb->base_root, 
                            full_path->data, eb->pool));
 
   return SVN_NO_ERROR;
@@ -198,7 +198,7 @@ replace_root (void *edit_baton,
   d->node->action = 'R';
   SVN_ERR (svn_fs_node_id (&(d->node->id), eb->root, "", eb->pool));
   *root_baton = d;
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -275,7 +275,7 @@ replace_file (svn_stringbuf_t *name,
   fb->node = create_child_node (pd->node, name->data, eb->pool);
   fb->node->kind = svn_node_file;
   fb->node->action = 'R';
-  SVN_ERR (svn_fs_node_id (&(fb->node->id), eb->root,
+  SVN_ERR (svn_fs_node_id (&(fb->node->id), eb->root, 
                            fb->path->data, eb->pool));
   *file_baton = fb;
 
@@ -303,7 +303,7 @@ add_file (svn_stringbuf_t *name,
   fb->node = create_child_node (pd->node, name->data, eb->pool);
   fb->node->kind = svn_node_file;
   fb->node->action = 'A';
-  SVN_ERR (svn_fs_node_id (&(fb->node->id), eb->root,
+  SVN_ERR (svn_fs_node_id (&(fb->node->id), eb->root, 
                            fb->path->data, eb->pool));
   *file_baton = fb;
 
@@ -315,7 +315,7 @@ static svn_error_t *
 window_handler (svn_txdelta_window_t *window, void *baton)
 {
   struct window_handler_baton *whb = baton;
-
+  
   if (window != NULL)
     whb->node->text_mod = TRUE;
 
@@ -324,7 +324,7 @@ window_handler (svn_txdelta_window_t *window, void *baton)
 
 
 static svn_error_t *
-apply_textdelta (void *file_baton,
+apply_textdelta (void *file_baton, 
                  svn_txdelta_window_handler_t *handler,
                  void **handler_baton)
 {
@@ -343,7 +343,7 @@ apply_textdelta (void *file_baton,
 
 static svn_error_t *
 change_file_prop (void *file_baton,
-                  svn_stringbuf_t *name,
+                  svn_stringbuf_t *name, 
                   svn_stringbuf_t *value)
 {
   struct file_baton *fb = (struct file_baton *) file_baton;
@@ -355,7 +355,7 @@ change_file_prop (void *file_baton,
 
 static svn_error_t *
 change_dir_prop (void *parent_baton,
-                 svn_stringbuf_t *name,
+                 svn_stringbuf_t *name, 
                  svn_stringbuf_t *value)
 {
   struct dir_baton *d = (struct dir_baton *) parent_baton;
@@ -412,7 +412,7 @@ svn_repos_node_from_baton (void *edit_baton)
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../svn-dev.el")
  * end:
