@@ -1,33 +1,33 @@
-/* deltaparse-test.c -- simple demo of using SVN's XML parser interface.
+/* deltaparse-test.c -- simple demo of using SVN's XML parser interface. 
  *
  * ================================================================
  * Copyright (c) 2000 CollabNet.  All rights reserved.
- *
+ * 
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
  * met:
- *
+ * 
  * 1. Redistributions of source code must retain the above copyright
  * notice, this list of conditions and the following disclaimer.
- *
+ * 
  * 2. Redistributions in binary form must reproduce the above copyright
  * notice, this list of conditions and the following disclaimer in the
  * documentation and/or other materials provided with the distribution.
- *
+ * 
  * 3. The end-user documentation included with the redistribution, if
  * any, must include the following acknowlegement: "This product includes
  * software developed by CollabNet (http://www.Collab.Net/)."
  * Alternately, this acknowlegement may appear in the software itself, if
  * and wherever such third-party acknowlegements normally appear.
- *
+ * 
  * 4. The hosted project names must not be used to endorse or promote
  * products derived from this software without prior written
  * permission. For written permission, please contact info@collab.net.
- *
+ * 
  * 5. Products derived from this software may not use the "Tigris" name
  * nor may "Tigris" appear in their names without prior written
  * permission of CollabNet.
- *
+ * 
  * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
  * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -41,7 +41,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ====================================================================
- *
+ * 
  * This software consists of voluntary contributions made by many
  * individuals on behalf of CollabNet.
  */
@@ -59,7 +59,7 @@
 
 
 
-/* An official subversion "read" routine, comforming to POSIX standards.
+/* An official subversion "read" routine, comforming to POSIX standards. 
    This one reads our XML filehandle, passed in as our baton.  */
 static svn_error_t *
 my_read_func (void *baton, char *buffer, apr_size_t *len, apr_pool_t *pool)
@@ -72,7 +72,7 @@ my_read_func (void *baton, char *buffer, apr_size_t *len, apr_pool_t *pool)
   stat = apr_full_read (xmlfile, buffer,
                         (apr_size_t) *len,
                         (apr_size_t *) len);
-
+  
   /* We want to return general I/O errors, but we explicitly ignore
      the APR_EOF error.  Why?  Because the caller of this routine
      doesn't want to know about that error.  It uses (*len == 0) as a
@@ -82,12 +82,12 @@ my_read_func (void *baton, char *buffer, apr_size_t *len, apr_pool_t *pool)
      Therfore, if apr_full_read() does this, the caller will call this
      routine one more time, and *len should then be set to 0 for sure. */
 
-  if (stat && !APR_STATUS_IS_EOF(stat))
+  if (stat && !APR_STATUS_IS_EOF(stat)) 
     return
       svn_error_create (stat, 0, NULL, pool,
                         "my_read_func: error reading xmlfile");
-
-  return SVN_NO_ERROR;
+  
+  return SVN_NO_ERROR;  
 }
 
 
@@ -108,7 +108,7 @@ main (int argc, char *argv[])
   /* Process args */
   if (argc != 2)
     {
-      printf
+      printf 
         ("\nUsage: %s [filename], where [filename] contains an XML tree-delta",
          argv[0]);
       exit (1);
@@ -127,18 +127,18 @@ main (int argc, char *argv[])
       printf ("Error opening %s\n.", argv[1]);
       exit (1);
     }
-
+    
 
   /* Set context variables for evaluating a tree-delta */
   base_revision = 37;
   base_path = svn_string_create ("/root", globalpool);
-
+  
   /* Grab the "test" editor and baton */
   err = svn_test_get_editor (&editor, &edit_baton,
                              base_path, base_revision, globalpool);
-
+  
   /* Fire up the XML parser */
-  err = svn_delta_xml_auto_parse (my_read_func, source_baton,
+  err = svn_delta_xml_auto_parse (my_read_func, source_baton, 
                                   editor,
                                   edit_baton,
                                   base_path,
@@ -146,7 +146,7 @@ main (int argc, char *argv[])
                                   globalpool);
 
   apr_close (source_baton);
-
+  
   if (err)
     {
       svn_handle_error (err, stderr, 0);
