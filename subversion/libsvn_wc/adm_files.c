@@ -3,7 +3,7 @@
  *              working copy administrative area (creating,
  *              deleting, opening, and closing).  This is the only
  *              code that actually knows where administrative
- *              information is kept.
+ *              information is kept.  
  *
  * ====================================================================
  * Copyright (c) 2000-2002 CollabNet.  All rights reserved.
@@ -55,7 +55,7 @@ adm_subdir (void)
 
 
 /* Return the path to something in PATH's administrative area.
- *
+ * 
  * First, the adm subdir is appended to PATH as a component, then the
  * "tmp" directory is added iff USE_TMP is set, then each of the
  * varargs in AP (char *'s) is appended as a path component.  The list
@@ -120,7 +120,7 @@ extend_with_adm_name (const char *path,
 const char *
 svn_wc__adm_path (const char *path,
                   svn_boolean_t tmp,
-                  apr_pool_t *pool,
+                  apr_pool_t *pool, 
                   ...)
 {
   va_list ap;
@@ -136,7 +136,7 @@ svn_wc__adm_path (const char *path,
 svn_boolean_t
 svn_wc__adm_path_exists (const char *path,
                          svn_boolean_t tmp,
-                         apr_pool_t *pool,
+                         apr_pool_t *pool, 
                          ...)
 {
   enum svn_node_kind kind;
@@ -158,7 +158,7 @@ svn_wc__adm_path_exists (const char *path,
 /*** Making and using files in the adm area. ***/
 
 
-/* Create an empty THING in the adm area with permissions set to PERMS.
+/* Create an empty THING in the adm area with permissions set to PERMS. 
  * If TMP is non-zero, then create THING in the tmp dir.
  *
  * Does not check if THING already exists, so be careful -- THING will
@@ -205,7 +205,7 @@ svn_wc__make_adm_thing (svn_wc_adm_access_t *adm_access,
       /* We're only capturing this here because there wouldn't be a
          segfault or other obvious indicator that something went
          wrong.  Even so, not sure if it's appropriate.  Thoughts? */
-      err = svn_error_create
+      err = svn_error_create 
         (0, 0, NULL, pool, "svn_wc__make_admin_thing: bad type indicator");
     }
 
@@ -242,7 +242,7 @@ maybe_copy_file (const char *src, const char *dst, apr_pool_t *pool)
         return SVN_NO_ERROR;
     }
   else /* SRC exists, so copy it to DST. */
-    {
+    {    
       err = svn_io_copy_file (src, dst, FALSE, pool);
       if (err)
         return err;
@@ -266,20 +266,20 @@ sync_adm_file (const char *path,
 
   const char *tmp_path;
   va_list ap;
-
+  
   /* Extend tmp name. */
   va_start (ap, pool);
   tmp_path = v_extend_with_adm_name (path, extension, 1, pool, ap);
   va_end (ap);
-
+  
   /* Extend real name. */
   va_start (ap, pool);
   path = v_extend_with_adm_name (path, extension, 0, pool, ap);
   va_end (ap);
-
+  
   /* Remove read-only flag on destination. */
   SVN_ERR (svn_io_set_file_read_write (path, TRUE, pool));
-
+ 
   /* Rename. */
   SVN_ERR (svn_io_file_rename (tmp_path, path, pool));
   SVN_ERR (svn_io_set_file_read_only (path, FALSE, pool));
@@ -348,7 +348,7 @@ prop_path_internal (const char **prop_path,
       if (err)
         return err;
     }
-
+  
   if (is_wc)  /* It's not only a dir, it's a working copy dir */
     {
       *prop_path = extend_with_adm_name
@@ -429,7 +429,7 @@ svn_wc__wcprop_path (const char **wcprop_path,
   else  /* It's either a file, or a non-wc dir (i.e., maybe an ex-file) */
     {
       svn_path_split_nts (path, wcprop_path, &entry_name, pool);
-
+ 
       err = svn_wc_check_wc (*wcprop_path, &is_wc, pool);
       if (err)
         return err;
@@ -480,7 +480,7 @@ svn_wc__prop_base_path (const char **prop_path,
 /* Open a file somewhere in the adm area for directory PATH.
  * First, the adm subdir is appended as a path component, then each of
  * the varargs (they are char *'s) is appended as a path component,
- * and the resulting file opened.
+ * and the resulting file opened.  
  *
  * If FLAGS indicates writing, then the file is opened in the adm tmp
  * area, whence it must be renamed, either by passing the sync flag to
@@ -582,14 +582,14 @@ close_adm_file (apr_file_t *fp,
       va_start (ap, pool);
       path = v_extend_with_adm_name (path, extension, 0, pool, ap);
       va_end (ap);
-
+      
       /* Temporarily remove read-only flag on destination. */
       SVN_ERR (svn_io_set_file_read_write (path, TRUE, pool));
-
+      
       /* Rename. */
       SVN_ERR (svn_io_file_rename (tmp_path, path, pool));
       SVN_ERR (svn_io_set_file_read_only (path, FALSE, pool));
-
+      
       return SVN_NO_ERROR;
     }
 
@@ -627,7 +627,7 @@ svn_wc__remove_adm_file (const char *path, apr_pool_t *pool, ...)
   va_start (ap, pool);
   path = v_extend_with_adm_name (path, NULL, 0, pool, ap);
   va_end (ap);
-
+      
   /* Remove read-only flag on path. */
   SVN_ERR(svn_io_set_file_read_write (path, FALSE, pool));
   SVN_ERR(svn_io_remove_file (path, pool));
@@ -734,9 +734,9 @@ svn_wc__open_props (apr_file_t **handle,
   /* If file, split the path. */
   if (kind == svn_node_file)
     svn_path_split_nts (path, &parent_dir, &base_name, pool);
-  else
+  else    
     parent_dir = path;
-
+  
   /* At this point, we know we need to open a file in the admin area
      of parent_dir.  Examine the flags to know -which- kind of prop
      file to get -- there are three types! */
@@ -796,9 +796,9 @@ svn_wc__close_props (apr_file_t *fp,
   /* If file, split the path. */
   if (kind == svn_node_file)
     svn_path_split_nts (path, &parent_dir, &base_name, pool);
-  else
+  else    
     parent_dir = path;
-
+  
   /* At this point, we know we need to open a file in the admin area
      of parent_dir.  Examine the flags to know -which- kind of prop
      file to get -- there are three types! */
@@ -854,9 +854,9 @@ svn_wc__sync_props (const char *path,
   /* If file, split the path. */
   if (kind == svn_node_file)
     svn_path_split_nts (path, &parent_dir, &base_name, pool);
-  else
+  else    
     parent_dir = path;
-
+  
   /* At this point, we know we need to open a file in the admin area
      of parent_dir.  Examine the flags to know -which- kind of prop
      file to get -- there are three types! */
@@ -902,7 +902,7 @@ svn_wc__sync_props (const char *path,
 
 /* Set *EXISTS to non-zero iff there's an adm area for PATH, and it
  * matches URL and REVISION.
- *
+ * 
  * If an error occurs, just return the error and don't touch *EXISTS.
  */
 static svn_error_t *
@@ -1017,7 +1017,7 @@ make_empty_adm (const char *path, apr_pool_t *pool)
 }
 
 
-/* Init an adm file with some contents.
+/* Init an adm file with some contents. 
    Don't call this until a tmp area exists in adm. */
 static svn_error_t *
 init_adm_file (const char *path,
@@ -1038,7 +1038,7 @@ init_adm_file (const char *path,
   err = svn_wc__close_adm_file (f, path, thing, 1, pool);
   if (err)
     return err;
-
+  
   if (apr_err)
     err = svn_error_create (apr_err, 0, NULL, pool, path);
 
@@ -1056,7 +1056,7 @@ init_adm_tmp_area (svn_wc_adm_access_t *adm_access,
   /* SVN_WC__ADM_TMP */
   SVN_ERR (svn_wc__make_adm_thing (adm_access, SVN_WC__ADM_TMP,
                                    svn_node_dir, perms, 0, pool));
-
+  
   /* SVN_WC__ADM_TMP/SVN_WC__ADM_TEXT_BASE */
   SVN_ERR (svn_wc__make_adm_thing (adm_access, SVN_WC__ADM_TEXT_BASE,
                                    svn_node_dir, perms, 1, pool));
@@ -1130,13 +1130,13 @@ init_adm (const char *path,
 
   /* SVN_WC__ADM_AUTH_DIR */
   SVN_ERR (svn_wc__make_adm_thing (adm_access, SVN_WC__ADM_AUTH_DIR,
-                                   svn_node_dir,
+                                   svn_node_dir, 
                                    (APR_UREAD | APR_UWRITE | APR_UEXECUTE),
                                    0, pool));
 
   /** Init the tmp area. ***/
   SVN_ERR (init_adm_tmp_area (adm_access, pool));
-
+  
   /** Initialize each administrative file. */
 
   /* SVN_WC__ADM_FORMAT */
@@ -1154,7 +1154,7 @@ init_adm (const char *path,
   SVN_ERR (svn_wc__make_adm_thing (adm_access, SVN_WC__ADM_EMPTY_FILE,
                                    svn_node_file, APR_UREAD, 0, pool));
 
-  /* THIS FILE MUST BE CREATED LAST:
+  /* THIS FILE MUST BE CREATED LAST: 
      After this exists, the dir is considered complete. */
   SVN_ERR (init_adm_file (path, SVN_WC__ADM_README, readme_contents, pool));
 
@@ -1234,7 +1234,7 @@ svn_wc_create_tmp_file (apr_file_t **fp,
   /* Use a self-explanatory name for the file :-) . */
   path = svn_wc__adm_path (path, TRUE, pool, "tempfile", NULL);
 
-  /* Open a unique file;  use APR_DELONCLOSE. */
+  /* Open a unique file;  use APR_DELONCLOSE. */  
   SVN_ERR (svn_io_open_unique_file (fp, &ignored_filename,
                                     path, ".tmp", delete_on_close, pool));
 
@@ -1245,7 +1245,7 @@ svn_wc_create_tmp_file (apr_file_t **fp,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end:
