@@ -43,20 +43,20 @@ class Ctx:
     self.nodes_db   = open_db('nodes')
     self.reps_db    = open_db('representations')
     self.strings_db = open_db('strings')
-
+  
   def close(self):
     def close_if_not_None(i):
       if i is not None:
         i.close()
-    close_if_not_None(self.uuids_db   )
-    close_if_not_None(self.revs_db    )
-    close_if_not_None(self.txns_db    )
-    close_if_not_None(self.changes_db )
-    close_if_not_None(self.copies_db  )
-    close_if_not_None(self.nodes_db   )
-    close_if_not_None(self.reps_db    )
-    close_if_not_None(self.strings_db )
-    close_if_not_None(self.env        )
+    close_if_not_None(self.uuids_db   )    
+    close_if_not_None(self.revs_db    )    
+    close_if_not_None(self.txns_db    )    
+    close_if_not_None(self.changes_db )    
+    close_if_not_None(self.copies_db  )    
+    close_if_not_None(self.nodes_db   )    
+    close_if_not_None(self.reps_db    )    
+    close_if_not_None(self.strings_db )    
+    close_if_not_None(self.env        )    
 
   # And now, some utility functions
   def get_whole_string(self, key):
@@ -71,5 +71,5 @@ class Ctx:
         rec = cur.next_dup()
     finally:
       cur.close()
-    return str
+    return str  
 
