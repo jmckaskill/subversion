@@ -46,7 +46,7 @@
 
 /* Hmm. This should probably find its way into libsvn_subr -Fitz */
 /* Create a SVN string from the char* and add it to the array */
-static void
+static void 
 array_push_svn_stringbuf (apr_array_header_t *array,
                           const char *str,
                           apr_pool_t *pool)
@@ -60,7 +60,7 @@ array_push_svn_stringbuf (apr_array_header_t *array,
  * with no arguments. Those commands make use of this function to
  * add "." to the target array if the user passes no args */
 void
-svn_cl__push_implicit_dot_target (apr_array_header_t *targets,
+svn_cl__push_implicit_dot_target (apr_array_header_t *targets, 
                                   apr_pool_t *pool)
 {
   if (targets->nelts == 0)
@@ -79,8 +79,8 @@ svn_cl__parse_num_args (apr_getopt_t *os,
                         apr_pool_t *pool)
 {
   int i;
-
-  opt_state->args = apr_array_make (pool, DEFAULT_ARRAY_SIZE,
+  
+  opt_state->args = apr_array_make (pool, DEFAULT_ARRAY_SIZE, 
                                     sizeof (svn_stringbuf_t *));
 
   /* loop for num_args and add each arg to the args array */
@@ -89,7 +89,7 @@ svn_cl__parse_num_args (apr_getopt_t *os,
       if (os->ind >= os->argc)
         {
           svn_cl__subcommand_help (subcommand, pool);
-          return svn_error_create (SVN_ERR_CL_ARG_PARSING_ERROR,
+          return svn_error_create (SVN_ERR_CL_ARG_PARSING_ERROR, 
                                    0, 0, pool, "");
         }
       array_push_svn_stringbuf (opt_state->args, os->argv[os->ind++], pool);
@@ -107,7 +107,7 @@ svn_cl__parse_all_args (apr_getopt_t *os,
                         const char *subcommand,
                         apr_pool_t *pool)
 {
-  opt_state->args = apr_array_make (pool, DEFAULT_ARRAY_SIZE,
+  opt_state->args = apr_array_make (pool, DEFAULT_ARRAY_SIZE, 
                                     sizeof (svn_stringbuf_t *));
 
   if (os->ind >= os->argc)
@@ -132,7 +132,7 @@ svn_cl__args_to_target_array (apr_getopt_t *os,
 {
   apr_array_header_t *targets =
     apr_array_make (pool, DEFAULT_ARRAY_SIZE, sizeof (svn_stringbuf_t *));
-
+  
   for (; os->ind < os->argc; os->ind++)
     {
       svn_stringbuf_t *target = svn_stringbuf_create (os->argv[os->ind], pool);
@@ -163,7 +163,7 @@ svn_cl__args_to_target_array (apr_getopt_t *os,
 
   /* kff todo: need to remove redundancies from targets before
      passing it to the cmd_func. */
-
+     
   return targets;
 }
 
@@ -180,7 +180,7 @@ svn_cl__stringlist_to_array(svn_stringbuf_t *buffer, apr_pool_t *pool)
       while (end < buffer->len)
         {
           while (isspace(buffer->data[start]))
-                start++;
+                start++; 
 
           end = start;
 
@@ -195,14 +195,14 @@ svn_cl__stringlist_to_array(svn_stringbuf_t *buffer, apr_pool_t *pool)
         }
     }
   return array;
-}
+} 
 
 
 
 void
 svn_cl__print_commit_info (svn_client_commit_info_t *commit_info)
 {
-  if ((commit_info)
+  if ((commit_info) 
       && (SVN_IS_VALID_REVNUM (commit_info->revision)))
     printf ("Committed revision %ld.\n", commit_info->revision);
 
@@ -252,16 +252,16 @@ svn_cl__edit_externally (svn_stringbuf_t **edited_contents,
        the file we just created!! ***/
 
   /* Dump initial CONTENTS to TMP_FILE. */
-  apr_err = apr_file_write_full (tmp_file, contents->data,
+  apr_err = apr_file_write_full (tmp_file, contents->data, 
                                  contents->len, &written);
 
   /* Close the file. */
   apr_file_close (tmp_file);
-
+  
   /* Make sure the whole CONTENTS were written, else return an error. */
   if (apr_err || (written != contents->len))
     {
-      err = svn_error_create
+      err = svn_error_create 
         (apr_err ? apr_err : SVN_ERR_INCOMPLETE_DATA, 0, NULL, pool,
          "Unable to write initial contents to temporary file.");
       goto cleanup;
@@ -272,19 +272,19 @@ svn_cl__edit_externally (svn_stringbuf_t **edited_contents,
 
   /* Get information about the temporary file before the user has
      been allowed to edit its contents. */
-  apr_stat (&finfo_before, tmpfile_name,
+  apr_stat (&finfo_before, tmpfile_name, 
             APR_FINFO_MTIME | APR_FINFO_SIZE, pool);
 
-  /* Now, run the editor command line.
+  /* Now, run the editor command line.  
 
      ### todo: The following might be better done using APR's
      process code (or svn_io_run_cmd, perhaps).  */
   system (command);
 
   /* Get information about the temporary file after the assumed editing. */
-  apr_stat (&finfo_after, tmpfile_name,
+  apr_stat (&finfo_after, tmpfile_name, 
             APR_FINFO_MTIME | APR_FINFO_SIZE, pool);
-
+  
   /* If the file looks changed... */
   if ((finfo_before.mtime != finfo_after.mtime) ||
       (finfo_before.size != finfo_after.size))
@@ -294,12 +294,12 @@ svn_cl__edit_externally (svn_stringbuf_t **edited_contents,
       /* We have new contents in a temporary file, so read them. */
       apr_err = apr_file_open (&tmp_file, tmpfile_name, APR_READ,
                                APR_UREAD, pool);
-
+      
       if (apr_err)
         {
           /* This is an annoying situation, as the file seems to have
              been edited but we can't read it! */
-
+          
           /* ### todo: Handle error here. */
           goto cleanup;
         }
@@ -307,15 +307,15 @@ svn_cl__edit_externally (svn_stringbuf_t **edited_contents,
         {
           /* Read the entire file into memory. */
           svn_stringbuf_ensure (new_contents, finfo_after.size + 1);
-          apr_err = apr_file_read_full (tmp_file,
-                                        new_contents->data,
+          apr_err = apr_file_read_full (tmp_file, 
+                                        new_contents->data, 
                                         finfo_after.size,
                                         &(new_contents->len));
           new_contents->data[new_contents->len] = 0;
-
+          
           /* Close the file */
           apr_file_close (tmp_file);
-
+          
           /* Make sure we read the whole file, or return an error if we
              didn't. */
           if (apr_err || (new_contents->len != finfo_after.size))
@@ -345,8 +345,8 @@ svn_cl__edit_externally (svn_stringbuf_t **edited_contents,
 }
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../tools/dev/svn-dev.el")
- * end:
+ * end: 
  */

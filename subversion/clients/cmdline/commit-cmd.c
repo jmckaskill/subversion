@@ -79,7 +79,7 @@ print_single_file_status (apr_file_t *file,
       /* write the prefix and status output first */
       apr_snprintf (array, sizeof (array),
                     "%s   %s   ", editor_prefix, str_status);
-
+      
       size = strlen (array);
 
       rc = apr_file_write_full (file, array, size, &written);
@@ -119,7 +119,7 @@ print_single_file_status (apr_file_t *file,
 static svn_boolean_t
 print_hash_status (apr_file_t *file,
                    const char *editor_prefix,
-                   apr_hash_t *statushash,
+                   apr_hash_t *statushash, 
                    apr_pool_t *pool)
 {
   int i;
@@ -187,7 +187,7 @@ write_status_to_file (apr_pool_t *pool,
       if (print_hash_status (file, editor_prefix, statushash, pool))
         {
           return svn_error_create
-            (SVN_ERR_CMDLINE__TMPFILE_WRITE, 0, NULL,
+            (SVN_ERR_CMDLINE__TMPFILE_WRITE, 0, NULL, 
              pool,
              "Failed to write status information to temporary file: %s");
         }
@@ -297,7 +297,7 @@ message_from_editor (apr_pool_t *pool,
      1. the command line
      2. config file.
      3. environment variable
-     4. configure-default */
+     4. configure-default */     
 
   /* try to get an editor to use */
   editor = getenv ("SVN_EDITOR");
@@ -333,18 +333,18 @@ message_from_editor (apr_pool_t *pool,
 
       /* could not get name we can't continue */
       return svn_error_create
-        (SVN_ERR_CMDLINE__TMPFILE_WRITE, 0, NULL,
+        (SVN_ERR_CMDLINE__TMPFILE_WRITE, 0, NULL, 
          pool,
          "Failed to write status information to temporary file.");
     }
 
   size = strlen (default_msg);
   rc = apr_file_write_full (tempfile, default_msg, size, &written);
-
+  
   if ((APR_SUCCESS != rc) || written != size)
     {
       error = svn_error_create
-        (SVN_ERR_CMDLINE__TMPFILE_WRITE, 0, NULL,
+        (SVN_ERR_CMDLINE__TMPFILE_WRITE, 0, NULL, 
          pool,
          "Failed to write stauts information to temporary file.");
     }
@@ -357,12 +357,12 @@ message_from_editor (apr_pool_t *pool,
   apr_file_close (tempfile); /* we don't check return code here, since
                                 we have no way to deal with errors on
                                 file close */
-
+  
   if (error)
     {
       /* we didn't manage to write the complete file, we can't fulfill
          what we're set out to do, get out */
-
+      
       return error;
     }
 
@@ -377,7 +377,7 @@ message_from_editor (apr_pool_t *pool,
       apr_file_remove (fullfile, pool);
 
       return svn_error_create
-        (SVN_ERR_CMDLINE__TMPFILE_STAT, 0, NULL,
+        (SVN_ERR_CMDLINE__TMPFILE_STAT, 0, NULL, 
          pool,
          "Failed getting info about temporary file.");
     }
@@ -389,7 +389,7 @@ message_from_editor (apr_pool_t *pool,
 
   /* now we must convert the stringbuf** array to a plain char ** array,
      allocate two extra entries for the file and the trailing NULL */
-  cmdargs = (const char **)apr_palloc (pool,
+  cmdargs = (const char **)apr_palloc (pool, 
                                        sizeof (char *) * (array->nelts + 2) );
 
   cmdstrings=(svn_stringbuf_t **)array->elts;
@@ -428,11 +428,11 @@ message_from_editor (apr_pool_t *pool,
       apr_file_remove (fullfile, pool);
 
       return svn_error_create
-        (SVN_ERR_CMDLINE__TMPFILE_STAT, 0, NULL,
+        (SVN_ERR_CMDLINE__TMPFILE_STAT, 0, NULL, 
          pool,
          "Failed getting info about temporary file.");
     }
-
+  
   /* Check if there seems to be any changes in the file */
   if ((finfo_before.mtime != finfo_after.mtime) ||
       (finfo_before.size != finfo_after.size))
@@ -443,7 +443,7 @@ message_from_editor (apr_pool_t *pool,
       /* we have a commit message in a temporary file, get it */
       rc = apr_file_open (&read_file, fullfile,
                           APR_READ, APR_UREAD, pool);
-
+          
       if (APR_SUCCESS != rc) /* open failed */
         {
           /* This is an annoying situation, as the file seems to have
@@ -453,7 +453,7 @@ message_from_editor (apr_pool_t *pool,
           apr_file_remove (fullfile, pool);
 
           return svn_error_create
-            (SVN_ERR_CMDLINE__TMPFILE_OPEN, 0, NULL,
+            (SVN_ERR_CMDLINE__TMPFILE_OPEN, 0, NULL, 
              pool,
              "Failed opening temporary file.");
         }
@@ -470,12 +470,12 @@ message_from_editor (apr_pool_t *pool,
           /* strip prefix lines lines */
           entirefile = strip_prefix_from_buffer(entirefile,
                                                 editor_prefix,
-                                                pool);
-
+                                                pool);          
+          
           /* set the return-message to the entire-file buffer */
           *messagep = entirefile;
         }
-
+        
     }
 
   /* remove the temporary file */
@@ -521,10 +521,10 @@ store_message (svn_stringbuf_t *message,
       printf ("The commit message has been stored in this location:\n%s\n",
               fullfile);
     }
-  else
+  else 
     {
       return svn_error_createf
-        (SVN_ERR_CMDLINE__TMPFILE_WRITE, 0, NULL,
+        (SVN_ERR_CMDLINE__TMPFILE_WRITE, 0, NULL, 
          pool,
          "Failed writing to temporary file %s.", fullfile);
     }
@@ -553,7 +553,7 @@ svn_cl__commit (apr_getopt_t *os,
   svn_boolean_t used_editor_for_message = FALSE;
 
   /* Take our message from ARGV or a FILE */
-  if (opt_state->filedata)
+  if (opt_state->filedata) 
     message = opt_state->filedata;
   else
     message = opt_state->message;
@@ -581,7 +581,7 @@ svn_cl__commit (apr_getopt_t *os,
     {
       svn_stringbuf_t *parent_dir, *basename;
 
-      SVN_ERR (svn_wc_get_actual_target (base_dir, &parent_dir,
+      SVN_ERR (svn_wc_get_actual_target (base_dir, &parent_dir, 
                                          &basename, pool));
       if (basename)
         svn_stringbuf_set (base_dir, parent_dir->data);
@@ -606,8 +606,8 @@ svn_cl__commit (apr_getopt_t *os,
       const char editor_prefix[] = EDITOR_PREFIX_TXT;
 
       /* this default message might need to be configurable somehow */
-      const char *default_msg=
-        "\n" EDITOR_PREFIX_TXT " ----------------------------------------------------------------------\n"
+      const char *default_msg= 
+        "\n" EDITOR_PREFIX_TXT " ----------------------------------------------------------------------\n" 
         EDITOR_PREFIX_TXT " Enter Log.  Lines beginning with '" EDITOR_PREFIX_TXT "' are removed automatically\n" \
         EDITOR_PREFIX_TXT "\n"
         EDITOR_PREFIX_TXT " Current status of the target files and directories:\n"
@@ -654,7 +654,7 @@ svn_cl__commit (apr_getopt_t *os,
                   printf("*** Commit aborted!\n");
                   return SVN_NO_ERROR;
                 }
-              else if('c' == letter)
+              else if('c' == letter) 
                 break;
 
               /* anything else will cause a loop and have the editor
@@ -677,7 +677,7 @@ svn_cl__commit (apr_getopt_t *os,
   /* Commit. */
   err = svn_client_commit (&commit_info,
                            NULL, NULL,
-                           opt_state->quiet ? NULL : trace_editor,
+                           opt_state->quiet ? NULL : trace_editor, 
                            opt_state->quiet ? NULL : trace_edit_baton,
                            auth_baton,
                            targets,
@@ -704,8 +704,8 @@ svn_cl__commit (apr_getopt_t *os,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../tools/dev/svn-dev.el")
- * end:
+ * end: 
  */

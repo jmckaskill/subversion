@@ -3,18 +3,18 @@
 Svnlook is used to examine a txn or revision tree in the various ways a
 hook program might want.  The `svnlook' program produces output that is
 both human- and machine-readable, so hook scripts can easily parse it.
-
+   
    svnlook repos [txn|rev] ID  [subcommand ...]
-
+   
 With no subcommand, the default output contains:
-
+   
    - log message
    - author
    - date (in revision case)
    - The tree, in summary form similar to `svnadmin's output.
-
+   
 Subcommands are:
-
+   
    - log:           log message to stdout.
    - author:        author to stdout
    - date:          date to stdout (only for revs, not txns)
@@ -25,8 +25,8 @@ Subcommands are:
 Default output format:
 
    AUTHOR - The author, followed by newline.
-   DATE - Timestamp in ISO8601 format ("YYYY-MM-DD hh:mm GMT") in the
-          revision case, or the empty string in the transaction case.
+   DATE - Timestamp in ISO8601 format ("YYYY-MM-DD hh:mm GMT") in the 
+          revision case, or the empty string in the transaction case.  
           In either case, this will be followed by a newline.
    LOGSIZE - Length in bytes of log message, followed by newline.
    LOG - Log message, followed by newline.
@@ -55,4 +55,4 @@ Subcommand output formats:
 
       TBD.  Show added and modified files in GNU diff format, property
       modifications and removed files/dirs in some other (yet
-      undetermined) fashion.
+      undetermined) fashion.      

@@ -11,7 +11,7 @@ for execfile in gen-make.py \
                 ac-helpers/gnu-diff.sh \
                 ac-helpers/gnu-patch.sh \
                 ac-helpers/install-sh; do
-  chmod +x $execfile
+  chmod +x $execfile                
 done
 
 
@@ -101,7 +101,7 @@ fi
 echo "Creating svn_private_config.h.in..."
 autoheader
 
-# If there's a config.cache file, we may need to delete it.
+# If there's a config.cache file, we may need to delete it.  
 # If we have an existing configure script, save a copy for comparison.
 if [ -f config.cache ] && [ -f configure ]; then
   cp configure configure.$$.tmp

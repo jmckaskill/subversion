@@ -135,8 +135,8 @@ static void send_vsn_url(item_baton_t *baton)
 			   SVN_INVALID_REVNUM, stable_id->data,
 			   0 /* add_href */, baton->pool);
 
-  send_xml(baton->uc,
-           "<D:checked-in><D:href>%s</D:href></D:checked-in>" DEBUG_CR,
+  send_xml(baton->uc, 
+           "<D:checked-in><D:href>%s</D:href></D:checked-in>" DEBUG_CR, 
            apr_xml_quote_string (baton->pool, href, 1));
 }
 
@@ -200,7 +200,7 @@ static void open_helper(svn_boolean_t is_dir,
 static void close_helper(svn_boolean_t is_dir, item_baton_t *baton)
 {
   int i;
-
+  
   /* ### ack!  binary names won't float here! */
   if (baton->removed_props && (! baton->added))
     {
@@ -228,7 +228,7 @@ static void close_helper(svn_boolean_t is_dir, item_baton_t *baton)
     svn_revnum_t committed_rev = SVN_INVALID_REVNUM;
     svn_string_t *committed_date = NULL;
     svn_string_t *last_author = NULL;
-
+    
     /* Get the CR and two derivative props. ### check for error returns. */
     svn_fs_node_created_rev(&committed_rev,
                             baton->uc->rev_root, baton->path2, baton->pool);
@@ -238,7 +238,7 @@ static void close_helper(svn_boolean_t is_dir, item_baton_t *baton)
     svn_fs_revision_prop(&last_author,
                          baton->uc->resource->info->repos->fs,
                          committed_rev, SVN_PROP_REVISION_AUTHOR, baton->pool);
-
+    
     /* ### grrr, these DAV: property names are already #defined in
        ra_dav.h, and statically defined in liveprops.c.  And now
        they're hardcoded here.  Isn't there some header file that both
@@ -407,7 +407,7 @@ static svn_error_t * noop_handler(svn_txdelta_window_t *window, void *baton)
   return NULL;
 }
 
-static svn_error_t * upd_apply_textdelta(void *file_baton,
+static svn_error_t * upd_apply_textdelta(void *file_baton, 
                                        svn_txdelta_window_handler_t *handler,
                                        void **handler_baton)
 {
@@ -471,7 +471,7 @@ dav_error * dav_svn__update_report(const dav_resource *resource,
                            "svn:target-revision element. That element "
                            "is required.");
     }
-
+  
   for (child = doc->root->first_child; child != NULL; child = child->next)
     {
       if (child->ns == ns && strcmp(child->name, "target-revision") == 0)
@@ -532,7 +532,7 @@ dav_error * dav_svn__update_report(const dav_resource *resource,
       /* The 2nd argument to dir_delta should be [anchor + target]. */
       dir_delta_target = dst_path;
       if (target)
-        dir_delta_target = apr_pstrcat(resource->pool,
+        dir_delta_target = apr_pstrcat(resource->pool, 
                                        dir_delta_target, "/", target, NULL);
     }
   else  /* this is some kind of 'switch' operation */
@@ -581,8 +581,8 @@ dav_error * dav_svn__update_report(const dav_resource *resource,
      dir_delta() between REPOS_PATH/TARGET and TARGET_PATH.  In the
      case of an update or status, these paths should be identical.  In
      the case of a switch, they should be different. */
-  serr = svn_repos_begin_report(&rbaton, revnum, repos->username,
-                                repos->repos,
+  serr = svn_repos_begin_report(&rbaton, revnum, repos->username, 
+                                repos->repos, 
                                 resource->info->repos_path, target,
                                 dir_delta_target,
                                 FALSE, /* don't send text-deltas */
@@ -659,7 +659,7 @@ dav_error * dav_svn__update_report(const dav_resource *resource,
 }
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end:

@@ -190,7 +190,7 @@ svn_fs_parse_id (const char *data,
 {
   svn_fs_id_t *id;
   int id_len;
-
+  
   /* Count the number of components in the ID, and check its syntax.  */
   id_len = svn_fs__count_id_components (data, data_len);
   if (id_len == 0)
@@ -268,7 +268,7 @@ svn_fs_copy_id (const svn_fs_id_t *id, apr_pool_t *pool)
   apr_size_t id_size = (svn_fs_id_length (id) + 1) * sizeof (id[0]);
   svn_fs_id_t *copy = apr_palloc (pool, id_size);
   memcpy (copy, id, id_size);
-
+  
   return copy;
 }
 
@@ -307,7 +307,7 @@ svn_fs_predecessor_id (const svn_fs_id_t *id, apr_pool_t *pool)
     predecessor_id[len - 2] = -1;
   else
     predecessor_id = NULL;
-
+  
   return predecessor_id;
 }
 
@@ -319,14 +319,14 @@ svn_fs_predecessor_id (const svn_fs_id_t *id, apr_pool_t *pool)
 
     - If B is a copy of directory A, B's children are id-related to the
       corresponding children of A.
-
+ 
     - Brand new nodes (like, resulting from adds and copies) have the
-      first component of their node id > older nodes.
+      first component of their node id > older nodes. 
 
     Also note:  it is acceptable for this function to call back into
     public FS API interfaces because it does not itself use trails.  */
 svn_error_t *
-svn_fs_check_related (int *related,
+svn_fs_check_related (int *related, 
                       svn_fs_t *fs,
                       const svn_fs_id_t *id1,
                       const svn_fs_id_t *id2,
@@ -344,7 +344,7 @@ svn_fs_check_related (int *related,
       *related = 1;
       return SVN_NO_ERROR;
     }
-
+  
   /* Figure out which id is youngest. */
   if (id1[0] > id2[0])
     {
@@ -396,7 +396,7 @@ svn_fs_check_related (int *related,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end:

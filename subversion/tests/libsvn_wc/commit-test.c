@@ -42,7 +42,7 @@ svn_error_t *(*test_funcs[])(char **msg, apr_pool_t *p) = { 0, 0 };
 static void
 print_usage (const char *progname)
 {
-  printf
+  printf 
     ("\nUsage: %s DIRNAME [--xml] [--verbose]:  crawls working copy [dir]\n",
      progname);
   printf ("Prints human-readable `commit' of directory DIRNAME, ");
@@ -98,7 +98,7 @@ main (int argc, char *argv[])
           exit (1);
         }
     }
-
+      
   /* Get an editor */
 
   if (use_xml)  /* xml output */
@@ -106,7 +106,7 @@ main (int argc, char *argv[])
       /* Open a stdout filehandle */
       status = apr_file_open (&stdout_handle, "-", APR_WRITE,
                          APR_OS_DEFAULT, globalpool);
-
+      
       err = svn_delta_get_xml_editor (svn_stream_from_aprfile (stdout_handle,
 							       globalpool),
                                       &my_editor, &my_edit_baton,
@@ -116,7 +116,7 @@ main (int argc, char *argv[])
 
       /* ### todo: This is a TEMPORARY wrapper around our editor so we
          can use it with an old driver. */
-      svn_delta_compat_wrap (&wrap_editor, &wrap_edit_baton,
+      svn_delta_compat_wrap (&wrap_editor, &wrap_edit_baton, 
                              my_editor, my_edit_baton, globalpool);
 
     }
@@ -126,14 +126,14 @@ main (int argc, char *argv[])
       /* A stream to print to stdout. */
       out_stream = svn_stream_from_stdio (stdout, globalpool);
 
-      err = svn_test_get_editor (&wrap_editor,
+      err = svn_test_get_editor (&wrap_editor, 
                                  &wrap_edit_baton,
-                                 svn_stringbuf_create ("COMMIT-TEST",
+                                 svn_stringbuf_create ("COMMIT-TEST", 
                                                     globalpool),
-                                 out_stream,
-                                 3,
-                                 be_verbose,
-                                 rootdir,
+                                 out_stream, 
+                                 3, 
+                                 be_verbose, 
+                                 rootdir, 
                                  globalpool);
       if (err)
         goto handle_error;
@@ -144,7 +144,7 @@ main (int argc, char *argv[])
     /* Condense the targets, although we happen to know in this case
        that it's essentially a no-op -- there's only one target. */
     apr_array_header_t *condensed_targets;
-
+    
     err = svn_path_condense_targets (&rootdir, &condensed_targets,
                                      targets, globalpool);
     if (err)

@@ -59,7 +59,7 @@ AC_ARG_ENABLE(subdir-config,
       if test "$enableval" = "yes" ; then
         do_subdir_config="yes"
       fi
-  ],
+  ], 
   [
       do_subdir_config=yes
   ])
@@ -224,12 +224,12 @@ if test "$SVN_CLIENT_PATCH" = "";  then
   AC_MSG_ERROR([not found
 
 Cannot find a GNU patch program in your PATH.
-Please make sure you have GNU patch (version 2.5 or later) installed.
+Please make sure you have GNU patch (version 2.5 or later) installed.  
 You can get it from ftp://ftp.gnu.org/pub/gnu/patch.
 ])
 fi
 AC_MSG_RESULT([$SVN_CLIENT_PATCH])
-AC_DEFINE_UNQUOTED(SVN_CLIENT_PATCH, "$SVN_CLIENT_PATCH",
+AC_DEFINE_UNQUOTED(SVN_CLIENT_PATCH, "$SVN_CLIENT_PATCH", 
 	[Define to be the full path to your GNU patch program])
 
 dnl Find a (non-broken) version of GNU diff
@@ -239,17 +239,17 @@ if test "$SVN_CLIENT_DIFF" = "";  then
   AC_MSG_ERROR([not found
 
 Cannot find an unbroken GNU diff program in your PATH.
-Please make sure you have GNU diff (version 2.7 or later) installed.
+Please make sure you have GNU diff (version 2.7 or later) installed.  
 You can get it from ftp://ftp.gnu.org/pub/gnu/diffutils.
 
 (Note that FreeBSD uses a *hacked* version of GNU diff that is unable
-to handle certain types of text files.  If you are using FreeBSD, please
-install the textproc/diffutils package to get the appropriate version of
+to handle certain types of text files.  If you are using FreeBSD, please 
+install the textproc/diffutils package to get the appropriate version of 
 diff.)
 ])
 fi
 AC_MSG_RESULT([$SVN_CLIENT_DIFF])
-AC_DEFINE_UNQUOTED(SVN_CLIENT_DIFF, "$SVN_CLIENT_DIFF",
+AC_DEFINE_UNQUOTED(SVN_CLIENT_DIFF, "$SVN_CLIENT_DIFF", 
 	[Define to be the full path to your GNU diff program])
 
 dnl Find GNU diff3
@@ -258,11 +258,11 @@ if test "$SVN_CLIENT_DIFF3" = "none"; then
    AC_MSG_ERROR([not found
 
 Cannot find a GNU diff3 program in your PATH.
-Please make sure you have GNU diff3 (version 2.7 or later) installed.
+Please make sure you have GNU diff3 (version 2.7 or later) installed.  
 You can get it from ftp://ftp.gnu.org/pub/gnu/diffutils.
 ])
 fi
-AC_DEFINE_UNQUOTED(SVN_CLIENT_DIFF3, "$SVN_CLIENT_DIFF3",
+AC_DEFINE_UNQUOTED(SVN_CLIENT_DIFF3, "$SVN_CLIENT_DIFF3", 
 	[Define to be the full path to your GNU diff3 program])
 
 dnl Since this is used only on Unix-y systems, define the path separator as '/'
@@ -358,7 +358,7 @@ dnl
 case "$host" in
 *bsdi*)
     # Check whether they've installed GNU make
-    if make --version > /dev/null 2>&1; then
+    if make --version > /dev/null 2>&1; then 
 	INCLUDE_OUTPUTS="include \$(top_srcdir)/build-outputs.mk"
     else
 	# BSDi make
@@ -383,7 +383,7 @@ if test "$abs_srcdir" != "$abs_builddir"; then
 fi
 
 
-dnl  Print warning messages about what we did and didn't configure at the
+dnl  Print warning messages about what we did and didn't configure at the 
 dnl  end, where people will actually see them.
 case "$svn_lib_berkeley_db" in
   "no" )
