@@ -12,7 +12,7 @@ vdelta: hash.c vdelta.c
 
 check: test
 
-test:
+test: 
 	@for num in 1 2 3 4 5; do                                     \
           echo "Test #$${num}:";                                      \
           echo "Texts:";                                              \

@@ -2,32 +2,32 @@
  *
  * ================================================================
  * Copyright (c) 2000 Collab.Net.  All rights reserved.
- *
+ * 
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
  * met:
- *
+ * 
  * 1. Redistributions of source code must retain the above copyright
  * notice, this list of conditions and the following disclaimer.
- *
+ * 
  * 2. Redistributions in binary form must reproduce the above copyright
  * notice, this list of conditions and the following disclaimer in the
  * documentation and/or other materials provided with the distribution.
- *
+ * 
  * 3. The end-user documentation included with the redistribution, if
  * any, must include the following acknowlegement: "This product includes
  * software developed by Collab.Net (http://www.Collab.Net/)."
  * Alternately, this acknowlegement may appear in the software itself, if
  * and wherever such third-party acknowlegements normally appear.
- *
+ * 
  * 4. The hosted project names must not be used to endorse or promote
  * products derived from this software without prior written
  * permission. For written permission, please contact info@collab.net.
- *
+ * 
  * 5. Products derived from this software may not use the "Tigris" name
  * nor may "Tigris" appear in their names without prior written
  * permission of Collab.Net.
- *
+ * 
  * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
  * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -41,7 +41,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ====================================================================
- *
+ * 
  * This software may consist of voluntary contributions made by many
  * individuals on behalf of Collab.Net.
  */
@@ -66,49 +66,49 @@ size_t
 file_size (char *file)
 {
   struct stat s;
-
+  
   if (stat (file, &s) < 0)
     {
       fprintf (stderr, "can't stat %s (%s)", file, strerror (errno));
       exit (1);
     }
-
+  
   /* else */
 
   return s.st_size;
 }
 
 
-/* Read LEN bytes from FILE into BUF.
+/* Read LEN bytes from FILE into BUF. 
    BUF must already point to allocated space. */
 int
 file_into_buffer (char *file, size_t len, char *buf)
 {
   FILE *fp;
   size_t total_so_far = 0;
-
+  
   fp = fopen (file, "r");
-
+  
   while (1)
     {
       size_t received;
-
+      
       received = fread (buf, 1, (len - total_so_far), fp);
       if (ferror (fp))
         {
           fprintf (stderr, "can't read %s", file);
           break;
         }
-
+      
       total_so_far += received;
-
+      
       if ((total_so_far >= len) || (feof (fp)))
         break;
     }
-
+  
   if (fclose (fp) < 0)
     fprintf (stderr, "cannot close %s (%s)", file, strerror (errno));
-
+  
   return 0;
 }
 
@@ -120,24 +120,24 @@ take_delta (char *data, size_t source_len, size_t target_len)
    * PSEUDOCODE:
    *   read file1 into buf1;
    *   read file2 into buf2;
-   *
+   * 
    *   slide along buf1 a char at a time, recording 4-byte strings in hash;
    *   slide along buf2 a char at a time, checking for matches against buf1;
    *      if no match, output an INSERT and record in hash
    *      if match, extend it as far as can, then output a COPY and bump pos
    */
-
+  
   size_t pos = 0;       /* current position in DATA */
   size_t total_len;     /* put this in a var for readability */
   hash_table_t *table;  /* where we hold the back-lookup table. */
-
+  
   total_len = source_len + target_len;
   table = make_hash_table (1511);
-
+  
   while (pos < total_len)
     {
       hash_entry_t *e;
-
+      
       e = try_match (data + pos, MIN_MATCH_LEN, pos, table);
 
       if (e && (strncmp (data + e->pos, data + pos, MIN_MATCH_LEN) == 0))
@@ -164,7 +164,7 @@ take_delta (char *data, size_t source_len, size_t target_len)
           if (pos >= source_len)
             printf ("COPY %d %d\n", old_pos, match_len);
 
-          /* Record the unrecorded positions from this match.
+          /* Record the unrecorded positions from this match. 
              (Step 2a on page 18 of Hunt/Vo/Tichy.) */
           for (i = (MIN_MATCH_LEN - 1); i > 0; i--)
             {
