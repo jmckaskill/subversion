@@ -116,7 +116,7 @@ svn_xml_make_parser (void *userData,
   XML_Parser parser = XML_ParserCreate (NULL);
 
   XML_SetUserData (parser, userData);
-  XML_SetElementHandler (parser, start_handler, end_handler);
+  XML_SetElementHandler (parser, start_handler, end_handler); 
   XML_SetCharacterDataHandler (parser, data_handler);
 
   subpool = svn_pool_create (pool);
@@ -135,7 +135,7 @@ void
 svn_xml_free_parser (svn_xml_parser_t *svn_parser)
 {
   /* Free the expat parser */
-  XML_ParserFree (svn_parser->parser);
+  XML_ParserFree (svn_parser->parser);        
 
   /* Free the subversion parser */
   svn_pool_destroy (svn_parser->pool);
@@ -160,11 +160,11 @@ svn_xml_parse (svn_xml_parser_t *svn_parser,
   if (! success)
     {
       err = svn_error_createf
-        (SVN_ERR_XML_MALFORMED, NULL,
+        (SVN_ERR_XML_MALFORMED, NULL, 
          "%s at line %d",
          XML_ErrorString (XML_GetErrorCode (svn_parser->parser)),
          XML_GetCurrentLineNumber (svn_parser->parser));
-
+      
       /* Kill all parsers and return the expat error */
       svn_xml_free_parser (svn_parser);
       return err;
@@ -177,7 +177,7 @@ svn_xml_parse (svn_xml_parser_t *svn_parser,
       svn_xml_free_parser (svn_parser);
       return err;
     }
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -189,7 +189,7 @@ void svn_xml_signal_bailout (svn_error_t *error,
   /* This will cause the current XML_Parse() call to finish quickly! */
   XML_SetElementHandler (svn_parser->parser, NULL, NULL);
   XML_SetCharacterDataHandler (svn_parser->parser, NULL);
-
+  
   /* Once outside of XML_Parse(), the existence of this field will
      cause svn_delta_parse()'s main read-loop to return error. */
   svn_parser->error = error;
@@ -253,14 +253,14 @@ amalgamate (const char **atts,
         const char *val = *(++atts);
         size_t keylen;
         assert (key != NULL);
-        /* kff todo: should we also insist that val be non-null here?
+        /* kff todo: should we also insist that val be non-null here? 
            Probably. */
 
         keylen = strlen (key);
         if (preserve && ((apr_hash_get (ht, key, keylen)) != NULL))
           continue;
         else
-          apr_hash_set (ht, apr_pstrndup(pool, key, keylen), keylen,
+          apr_hash_set (ht, apr_pstrndup(pool, key, keylen), keylen, 
                         val ? apr_pstrdup (pool, val) : NULL);
       }
 }
@@ -271,7 +271,7 @@ svn_xml_ap_to_hash (va_list ap, apr_pool_t *pool)
 {
   apr_hash_t *ht = apr_hash_make (pool);
   const char *key;
-
+  
   while ((key = va_arg (ap, char *)) != NULL)
     {
       const char *val = va_arg (ap, const char *);
