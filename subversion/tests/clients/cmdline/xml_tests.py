@@ -2,9 +2,9 @@
 #
 #  xml_tests.py:  testing working-copy interactions with XML files.
 #
-#  Subversion is a tool for revision control.
+#  Subversion is a tool for revision control. 
 #  See http://subversion.tigris.org for more information.
-#
+#    
 # ====================================================================
 # Copyright (c) 2000-2001 CollabNet.  All rights reserved.
 #
@@ -52,7 +52,7 @@ def xml_checkout(wc_dir, xml_path, expected_lines):
   # Verify actual output against expected output.
   return svn_tree.compare_trees (output_tree, expected_tree)
 
-  # TODO:  someday inspect the entries file too??
+  # TODO:  someday inspect the entries file too?? 
 
 
 
@@ -64,7 +64,7 @@ def xml_commit(wc_dir, xml_path, revision, expected_lines):
   """Commit changes in WC_DIR to an xml file XML_PATH, and verify
   against the EXPECTED_LINES given.  WC_DIR will be bumped to
   REVISION.  Return 0 on success."""
-
+  
   output = svn_test_main.run_svn("ci", "--xml-file", xml_path,
                                  "-r", revision, wc_dir)
 
@@ -77,7 +77,7 @@ def xml_commit(wc_dir, xml_path, revision, expected_lines):
   return svn_output.compare_sets(expected_lines, output,
                                  svn_output.line_matches_regexp)
 
-  # TODO:  someday inspect the entries file too??
+  # TODO:  someday inspect the entries file too?? 
 
 
 ######################################################################
@@ -204,7 +204,7 @@ def xml_test_4():
     return 0
   else:
     return 1
-
+  
 ########################################################################
 ## List all tests here, starting with None:
 test_list = [ None,
@@ -214,7 +214,7 @@ test_list = [ None,
               xml_test_4
              ]
 
-if __name__ == '__main__':
+if __name__ == '__main__':  
   ## And run the main test routine on them:
   svn_test_main.client_test(test_list)
 
