@@ -107,7 +107,7 @@ Commit access for specific areas:
          ruben   Rubén Gómez <rugoli@euskalnet.net>          (doc: es)
       dbrouard   Diego Brouard <dbrouard@gmail.com>          (doc: es)
   gerhardoettl   Gerhard Oettl <gerhard.oettl.ml@oesoft.at>  (doc: de)
-
+  
   Subprojects that are complete or inactive:
 
        yoshiki   Yoshiki Hayashi <yoshiki@xemacs.org>        (Non-SWIG Ruby b.)
