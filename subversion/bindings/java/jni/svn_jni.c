@@ -18,7 +18,7 @@ char *svn_jni__GetStringNativeChars(JNIEnv *env, jstring jstr)
   jthrowable exc;
   char *result = NULL;
   jint len;
-
+  
   if( (*env)->EnsureLocalCapacity(env, 2) < 0)
     {
       return NULL; /* out of memory error */
@@ -35,7 +35,7 @@ char *svn_jni__GetStringNativeChars(JNIEnv *env, jstring jstr)
   (*env)->GetStringUTFRegion(env, jstr, 0, len, result);
 
   return result;
-}
+}      
 
 /*
  * JNI OnLoad Handler
@@ -48,7 +48,7 @@ JNI_OnLoad(JavaVM *jvm, void *reserved)
   pool = svn_pool_create(NULL);
 
   return JNI_VERSION_1_2;
-
+  
 }
 
 /*
@@ -60,23 +60,23 @@ JNIEXPORT OnUnload(JavaVM *jvm, void *reserved)
 
 }
 
-JNIEXPORT void JNICALL
+JNIEXPORT void JNICALL 
 Java_org_tigris_subversion_lib_ClientImpl_checkout
-  (JNIEnv *env, jobject beforeEditor, jobject obj,
-  jobject afterEditor, jstring url, jstring path, jobject revision,
+  (JNIEnv *env, jobject beforeEditor, jobject obj, 
+  jobject afterEditor, jstring url, jstring path, jobject revision, 
   jobject time, jstring xml_src)
 {
 }
 
-JNIEXPORT void JNICALL
+JNIEXPORT void JNICALL 
 Java_org_tigris_subversion_lib_ClientImpl_update
-  (JNIEnv *env, jobject obj, jobject beforeEditor,
-  jobject afterEditor, jstring path, jstring xml_src,
+  (JNIEnv *env, jobject obj, jobject beforeEditor, 
+  jobject afterEditor, jstring path, jstring xml_src, 
   jstring revision, jobject time)
 {
 }
 
-JNIEXPORT void JNICALL
+JNIEXPORT void JNICALL 
 Java_org_tigris_subversion_lib_ClientImpl_add
   (JNIEnv *env, jobject obj, jstring path, jboolean recursive)
 {
@@ -87,7 +87,7 @@ Java_org_tigris_subversion_lib_ClientImpl_add
     {
       c_recursive = " -r ";
     }
-
+ 
   printf("command: svn add%s%s\n", c_recursive, c_path);
   printf("doing nothing yet!\n");
 
@@ -97,46 +97,46 @@ Java_org_tigris_subversion_lib_ClientImpl_add
     }
 }
 
-JNIEXPORT void JNICALL
+JNIEXPORT void JNICALL 
 Java_org_tigris_subversion_lib_ClientImpl_delete
   (JNIEnv *env, jobject obj, jstring path, jboolean force)
 {
 }
 
-JNIEXPORT void JNICALL
+JNIEXPORT void JNICALL 
 Java_org_tigris_subversion_lib_ClientImpl_performImport
-  (JNIEnv *env, jobject obj, jobject beforeEditor,
-  jobject afterEditor, jstring path, jstring url,
+  (JNIEnv *env, jobject obj, jobject beforeEditor, 
+  jobject afterEditor, jstring path, jstring url, 
   jstring new_entry, jstring log_msg, jstring xml_dst, jstring revision)
 {
 }
 
-JNIEXPORT void JNICALL
+JNIEXPORT void JNICALL 
 Java_org_tigris_subversion_lib_ClientImpl_commit
-  (JNIEnv *env, jobject obj, jobject beforeEditor,
-  jobject afterEditor, jobjectArray targets,
+  (JNIEnv *env, jobject obj, jobject beforeEditor, 
+  jobject afterEditor, jobjectArray targets, 
   jstring log_msg, jstring xml_dst, jstring revision)
 {
 }
 
-JNIEXPORT jobject JNICALL
+JNIEXPORT jobject JNICALL 
 Java_org_tigris_subversion_lib_ClientImpl_status
   (JNIEnv *env, jobject obj, jstring path, jboolean descend,
    jboolean get_all, jboolean update)
 {
   printf("svn_client_status doing nothing at all\n");
-
-  return NULL;
+  
+  return NULL; 
 }
 
-JNIEXPORT jstring JNICALL
+JNIEXPORT jstring JNICALL 
 Java_org_tigris_subversion_lib_ClientImpl_fileDiff
   (JNIEnv *env, jobject obj, jstring path)
 {
   printf("doing nothing at all\n");
 }
 
-JNIEXPORT void JNICALL
+JNIEXPORT void JNICALL 
 Java_org_tigris_subversion_lib_ClientImpl_cleanup
   (JNIEnv *env, jobject obj, jstring dir)
 {
