@@ -284,8 +284,8 @@ file_diff (struct dir_baton *dir_baton,
       empty_file = svn_wc__empty_file_path (path, dir_baton->pool);
 
       SVN_ERR (dir_baton->edit_baton->diff_callbacks->file_deleted
-               (path->data,
-                pristine_copy->data,
+               (path->data, 
+                pristine_copy->data, 
                 empty_file->data,
                 dir_baton->edit_baton->diff_cmd_baton));
 
@@ -311,7 +311,7 @@ file_diff (struct dir_baton *dir_baton,
           svn_error_t *err;
 
           pristine_copy = svn_wc__text_base_path (path, FALSE,
-                                                  dir_baton->pool);
+                                                  dir_baton->pool);   
 
           /* Note that this might be the _second_ time we translate
              the file, as svn_wc_text_modified_p() might have used a
@@ -320,15 +320,15 @@ file_diff (struct dir_baton *dir_baton,
              modularity is liveable. */
           SVN_ERR (svn_wc_translated_file (&translated, path,
                                            dir_baton->pool));
-
+          
           err = dir_baton->edit_baton->diff_callbacks->file_changed
             (path->data,
-             pristine_copy->data,
+             pristine_copy->data, 
              translated->data,
              entry->revision,
              entry->revision,
              dir_baton->edit_baton->diff_cmd_baton);
-
+          
           if (translated != path)
             SVN_ERR (svn_io_remove_file (translated->data, dir_baton->pool));
 
@@ -705,7 +705,7 @@ apply_textdelta (void *file_baton,
 
   /* This is the file that will contain the pristine repository version. It
      is created in the admin temporary area. This file continues to exists
-     until after the diff callback is run, at which point it is deleted. */
+     until after the diff callback is run, at which point it is deleted. */ 
   SVN_ERR (svn_wc__open_text_base (&b->temp_file, b->wc_path,
                                    (APR_WRITE | APR_TRUNCATE | APR_CREATE),
                                    b->pool));
@@ -758,7 +758,7 @@ close_file (void *file_baton)
          file is deleted. */
       svn_error_t *err1, *err2 = SVN_NO_ERROR;
       svn_stringbuf_t *translated;
-
+      
       SVN_ERR (svn_wc_translated_file (&translated, b->path, b->pool));
 
       err1 = b->edit_baton->diff_callbacks->file_changed
@@ -768,7 +768,7 @@ close_file (void *file_baton)
          0,       /* non-existent revision */
          entry ? entry->revision : SVN_INVALID_REVNUM,
          b->edit_baton->diff_cmd_baton);
-
+      
       if (translated != b->path)
         err2 = svn_io_remove_file (translated->data, b->pool);
 
