@@ -53,6 +53,7 @@ struct context {
   svn_boolean_t recurse;
   svn_boolean_t entry_props;
   svn_boolean_t use_copy_history;
+  svn_boolean_t ignore_ancestry;
 };
 
 
@@ -183,6 +184,7 @@ svn_repos_dir_delta (svn_fs_root_t *src_root,
                      svn_boolean_t recurse,
                      svn_boolean_t entry_props,
                      svn_boolean_t use_copy_history,
+                     svn_boolean_t ignore_ancestry,
                      apr_pool_t *pool)
 {
   void *root_baton;
@@ -251,6 +253,7 @@ svn_repos_dir_delta (svn_fs_root_t *src_root,
   c.recurse = recurse;
   c.entry_props = entry_props;
   c.use_copy_history = use_copy_history;
+  c.ignore_ancestry = ignore_ancestry;
 
   /* Set the global target revision if one can be determined. */
   if (svn_fs_is_revision_root (tgt_root))
@@ -325,7 +328,7 @@ svn_repos_dir_delta (svn_fs_root_t *src_root,
         {
           /* They're the same node!  No-op (you gotta love those). */
         }
-      else if (distance == -1)
+      else if ((distance == -1) && (! ignore_ancestry))
         {
           /* The nodes are not related at all.  Delete the one, and
              add the other. */
@@ -923,7 +926,7 @@ delta_dirs (struct context *c,
                 {
                   /* no-op */
                 }
-              else if (distance == -1)
+              else if ((distance == -1) && (! c->ignore_ancestry))
                 {
                   SVN_ERR (delete (c, dir_baton, t_fullpath, subpool));
                   SVN_ERR (add_file_or_dir (c, dir_baton, target_path,
