@@ -60,7 +60,7 @@ svn_error_t *svn_fs__dag_txn_node (dag_node_t **node_p,
 
 
 /* Close NODE.  */
-void svn_fs__dag_close (dag_node_t *node);
+void svn_fs__dag_close (dag_node_t *node); 
 
 
 
