@@ -48,7 +48,7 @@ svn_error_t *svn_fs__bdb_reserve_copy_id (const char **copy_id_p,
 
    SRC_PATH is expected to be a canonicalized filesystem path (see
    svn_fs__canonicalize_abspath).
-
+   
    COPY_ID should generally come from a call to svn_fs__reserve_copy_id().  */
 svn_error_t *svn_fs__bdb_create_copy (const char *copy_id,
                                       svn_fs_t *fs,
@@ -65,7 +65,7 @@ svn_error_t *svn_fs__bdb_delete_copy (svn_fs_t *fs,
 
 /* Retrieve the copy *COPY_P named COPY_ID from the `copies' table of
    FS, as part of TRAIL.  Perform all allocations in TRAIL->pool.
-
+   
    If there is no such copy, SVN_ERR_FS_NO_SUCH_COPY is the error
    returned.  */
 svn_error_t *svn_fs__bdb_get_copy (svn_fs__copy_t **copy_p,
