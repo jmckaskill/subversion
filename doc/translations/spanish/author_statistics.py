@@ -79,7 +79,7 @@ def parse_date(text):
     """
     return time.strptime(text[:19], "%Y-%m-%dT%H:%M:%S"), text[:19]
 
-
+    
 def start_element(name, dummy):
     """Processes logentry, author and date XML start tags. Changes state."""
     if STATE.num == 0:
@@ -101,7 +101,7 @@ def end_element(name):
         STATE.num = 1
     elif STATE.num == 3 and name == "date":
         STATE.num = 1
-
+        
 
 def char_data(data):
     """If in the correct state, appends data to the global state data."""
@@ -142,7 +142,7 @@ def print_statistics():
     earliest_time, earliest_text = parse_date(STATE.earliest_date)
     current_time = time.localtime()
     current_seconds = time.mktime(current_time)
-
+    
     for author, date in STATISTICS:
         date_time, date_text = parse_date(date)
         date_seconds = time.mktime(date_time)
@@ -177,7 +177,7 @@ def obtain_information():
     and connects its output to the XML parsing of expat.
     """
     p = xml.parsers.expat.ParserCreate()
-
+    
     p.StartElementHandler = start_element
     p.EndElementHandler = end_element
     p.CharacterDataHandler = char_data
@@ -202,13 +202,13 @@ def main():
     """Main entry point of the application.
 
     First obtains information from the authors, then prints it.
-
+    
     end of the operation, statistics are printed.
     """
     update_working_copy()
     obtain_information()
     print_statistics()
-
+    
 
 if __name__ == "__main__":
     main()
