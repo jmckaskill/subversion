@@ -128,31 +128,31 @@ svn_config_read_all (svn_config_t **cfgp, apr_pool_t *pool)
   /* Check for user config file in both Windows and non-Windows. */
   {
     apr_status_t apr_err;
-
+    
     /* ### Are there any platforms where APR_HAS_USER is not defined?
        This code won't compile without it.  */
-
+    
     char *usr_cfg_path;
     apr_uid_t uid;
     apr_gid_t gid;
     char *username;
     char *homedir;
-
+   
     /* ### Will these calls fail under Windows sometimes?  If so,
        we shouldn't error, we should just fall fack to registry. */
-
+   
     apr_err = apr_current_userid (&uid, &gid, pool);
     if (apr_err)
       return svn_error_create
         (apr_err, 0, NULL, pool,
          "svn_config_read_all: unable to get current userid.");
-
+   
     apr_err = apr_get_username (&username, uid, pool);
     if (apr_err)
       return svn_error_create
         (apr_err, 0, NULL, pool,
          "svn_config_read_all: unable to get username.");
-
+   
     apr_err = apr_get_home_directory (&homedir, username, pool);
     if (apr_err)
       return svn_error_createf
