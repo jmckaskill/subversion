@@ -253,7 +253,7 @@ the project:
       |         |
       |   A     |                 /* Two dir_entries, `A' and `B'. */
       |    \    |
-      |   B \   |
+      |   B \   | 
       |__/___\__|
         /     \
        |       \
@@ -329,32 +329,32 @@ node:
       |         |
       |   A     |
       |    \    |
-      |   B \   |
+      |   B \   | 
       |__/___\__|
         /     \
        |       \
        |        \
     ___|____     \ ________
    |D       |     |D       |
-   |        |     |        |
-   |        |     | subA   |
-   |________|     |___\____|
-                       \
-                        \
-                      ___\____
-                     |D       |
-                     |        |
-                     | fish   |
-                     |___\____|
-                          \
-                           \
-                         ___\____
-                        |D       |
-                        |        |
-                        | foo    |
-                        |___\____|
-                             \
-                              \
+   |        |     |        |                         
+   |        |     | subA   |                         
+   |________|     |___\____|                         
+                       \                             
+                        \                            
+                      ___\____                       
+                     |D       |                      
+                     |        |                      
+                     | fish   |                      
+                     |___\____|                      
+                          \                          
+                           \                         
+                         ___\____                    
+                        |D       |                   
+                        |        |                   
+                        | foo    |                   
+                        |___\____|                   
+                             \                       
+                              \                      
                             ___\____            ________
                            |F       |          |F       |
                            |        |          |        |
@@ -377,7 +377,7 @@ new version at the top of the repository, thus making it externally
 visible.  That's done by making entry 2 in the version array point to
 something:
 
-      Figure 3: The `myproj' repository, after commit of version 2.
+      Figure 3: The `myproj' repository, after commit of version 2. 
 
        ______________________________________________________
       |___1_______2________3________4________5_________6_____...etc...
@@ -388,7 +388,7 @@ something:
       |         |
       |   A     |
       |    \    |
-      |   B \   |
+      |   B \   | 
       |__/___\__|
         /     \
        |       \
@@ -405,15 +405,15 @@ something:
                      |        |
                      | fish   |
                      |___\____|
-                          \
-                           \
-                         ___\____
-                        |D       |
-                        |        |
-                        | foo    |
-                        |___\____|
-                             \
-                              \
+                          \ 
+                           \                         
+                         ___\____                    
+                        |D       |                   
+                        |        |                   
+                        | foo    |                   
+                        |___\____|                   
+                             \                       
+                              \                      
                             ___\____            ________
                            |F       |          |F       |
                            |        |          |        |
@@ -426,14 +426,14 @@ something:
 
 Version 2 points to exactly the same root node as version 1, because
 that directory hasn't changed at all.  Nor has its child, nor has
-anything until you get all the way down to foo.
+anything until you get all the way down to foo.      
 
 That's why nodes don't store version numbers -- the exact same node
-may appear in many different versions.
+may appear in many different versions.               
 
-Here's how to retrieve foo:N, in general:
+Here's how to retrieve foo:N, in general:            
 
-   1. Go to the version table, find version N.
+   1. Go to the version table, find version N.       
 
    2. Walk down the tree in the obvious way, starting from the root
       node N points to.  As you walk, anytime you get to a node with a
@@ -441,25 +441,25 @@ Here's how to retrieve foo:N, in general:
       (Follow this rule even when you get to a node for `foo'.)
 
    3. When you have nowhere else to go, this is the droid you're
-      looking for.
+      looking for.                                   
 
 Now watch what happens when we add a new file `bar' into `fish'
 (i.e., bar will be a sibling of `foo').  Here's the new tree, the
-intermediate steps not being shown:
+intermediate steps not being shown:                  
 
       Figure 4: The `myproj' repository, after commit of version 3
                 (the addition of a sibling to `fish/foo').
 
        ______________________________________________________
       |___1_______2________3________4________5_________6_____...etc...
-          |       |       /
-          |      /       /
-       ___|_____/       /
-      |D        |______/
-      |         |
+          |       |       /                          
+          |      /       /                           
+       ___|_____/       /                            
+      |D        |______/                             
+      |         |                                    
       |   A     |
       |    \    |
-      |   B \   |
+      |   B \   | 
       |__/___\__|
         /     \
        |       \
@@ -476,7 +476,7 @@ intermediate steps not being shown:
                      |        |
                      | fish   |
                      |___\____|
-                          \
+                          \ 
                            \
                          ___\____        ________
                         |D       |      |D       |
@@ -520,7 +520,7 @@ Whether fish:2 is stored as some sort of diff from fish:3 is an
 implementation detail.  We could do it that way, but it may not be
 necessary, since new directory nodes would only be created when a new
 file or directory is added to the project, or a name is changed.  Most
-commits tend to be edits to existing files.
+commits tend to be edits to existing files.       
 
 Just to drive the point mercilessly home, and to explore the
 theoretical limits of ASCII diagrams, here is myproj:4, in which a
@@ -530,8 +530,8 @@ README was added to the project's top level directory:
 
        ______________________________________________________
       |___1_______2________3________4________5_________6_____...etc...
-          |      /       /         /
-          |     /       /         /
+          |      /       /         /              
+          |     /       /         /               
       ____|____/       /         /               _________
      |D        |______/         /               |D        |
      |         |               /                |         |
@@ -588,14 +588,14 @@ README was added to the project's top level directory:
            |________|       | full   |          | diffy  |
                             |contents|          |contents|
                             |________|          |________|
-
-
-There, wasn't that pretty?  I knew you would.
+     
+     
+There, wasn't that pretty?  I knew you would.          
 
 ** Crash-proof repository mutation and locking
 
 We want to make repository changes in a such way that the repository
-is in a "sane" (unambiguous and readable) state at every step.
+is in a "sane" (unambiguous and readable) state at every step.  
 
 At the same time, we want to keep locking to a minimum: no operation
 should ever lock out readers, no read-only operation should ever lock
@@ -643,13 +643,13 @@ version of foo:
   node (which in turn points to foo:1).
 
               \
-            ___\____
-           |D       |
-           |        |
-           | foo    |
-           |___\____|
-                \
-                 \
+            ___\____                    
+           |D       |                   
+           |        |                   
+           | foo    |                   
+           |___\____|                   
+                \                       
+                 \                      
                ___\____            ________
               |F       |          |F       |
               |        |          |        |
@@ -681,7 +681,7 @@ version of foo:
            |         |
            |   A     |
            |    \    |
-           |   B \   |
+           |   B \   | 
            |__/___\__|
              /     \
             |       \
@@ -737,7 +737,7 @@ server crashes (todo: can we implement that efficiently?)
      check if there's a corresponding negative lock on a version
      number somewhere.  If there is, then you don't have to block on
      the original lock, because all the important parts of its commit
-     are complete, except for lock removal.
+     are complete, except for lock removal. 
 
 Now, we could actually stop right there.  The commit is done; all the
 information is in the right place in the repository.  Removing the
@@ -774,7 +774,7 @@ This implies that each entity (where "entity" means roughly "a
 most-recent node along with everything it backlinks to") has some
 unique identifier aside from its name.  These identifiers are stored
 alongside the name in the parent's dir_entry, and are unique within
-the project.
+the project.  
 
 Having both the human-visible name and an internal identifier allows
 Inversion to choose between following a history by name or by
@@ -823,7 +823,7 @@ might sprout off any version in myproj's history):
 
   [Still writing this up, although we know how it works.  The basic
   thing to note is how once you start committing on a copy,
-  line-of-ancestry copying is forced.]
+  line-of-ancestry copying is forced.] 
 
 
 ** How meta-data is stored
@@ -941,7 +941,7 @@ longer than retrieving a recent one, because old versions will take
 longer to construct.  This is a tradeoff of using diff-based storage,
 and has worked out pretty well in practice.
 
-** Scenarios
+** Scenarios 
 
 Each scenario should be mentally played out for a given design,
 analyzing for performance and scalability issues (particularly in
@@ -1005,7 +1005,7 @@ a brain dump; there's no reason it can't be shortened.)
 
   + Retrieve version X of a file
 
-  + Retrieve version X of a directory tree
+  + Retrieve version X of a directory tree 
 
   + Show annotations of both modified and old versions of files.
 
@@ -1263,7 +1263,7 @@ Yup, thanks.  Still a draft, we'll normalize.
 >subdirectory of some dir named named api.  You have some of this in
 >your ACCESSES table.  For the sourcexchange.com web site we developed
 >a much more general permission scheme that you can read about at
->http://joist.tigris.org.
+>http://joist.tigris.org. 
 
 I'll look into this.
 
@@ -1319,7 +1319,7 @@ out).
 >selling inversion as "version control that you actually want to use"
 >trumps speed claims anyway, we should make it easy in use and easy to
 >enhance.  Java would also give us no-brainer internationalization
->support.
+>support.  
 
 In my experience (not nearly as great as yours) Java is the least
 portable language: it is unusual in requiring *both* a compiler and a
