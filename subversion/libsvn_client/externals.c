@@ -78,7 +78,7 @@ parse_externals_description (apr_hash_t **externals_p,
   apr_hash_t *externals = apr_hash_make (pool);
   apr_array_header_t *lines = svn_cstring_split (desc, "\n\r", TRUE, pool);
   int i;
-
+  
   for (i = 0; i < lines->nelts; i++)
     {
       const char *line = APR_ARRAY_IDX (lines, i, const char *);
@@ -98,7 +98,7 @@ parse_externals_description (apr_hash_t **externals_p,
       url = APR_ARRAY_IDX (line_parts, 1, const char *);
       item = apr_palloc (pool, sizeof (*item));
       revision = apr_palloc (pool, sizeof (*revision));
-
+      
       if (! url)
         return svn_error_createf
           (SVN_ERR_CLIENT_INVALID_EXTERNALS_DESCRIPTION, 0, NULL, pool,
@@ -159,7 +159,7 @@ checkout_externals_description (const char *description,
     {
       struct external_item_t *item;
       void *val;
-
+          
       /* We can ignore the hash name, it's in the item anyway. */
       apr_hash_this (hi, NULL, NULL, &val);
       item = val;
@@ -205,7 +205,7 @@ struct handle_external_item_change_baton
 
 
 /* This implements the `svn_hash_diff_func_t' interface.
-   BATON is of type `struct handle_external_item_change_baton *'.
+   BATON is of type `struct handle_external_item_change_baton *'.  
 */
 static svn_error_t *
 handle_external_item_change (const void *key, apr_ssize_t klen,
@@ -257,7 +257,7 @@ struct handle_externals_desc_change_baton
 
 
 /* This implements the `svn_hash_diff_func_t' interface.
-   BATON is of type `struct handle_externals_desc_change_baton *'.
+   BATON is of type `struct handle_externals_desc_change_baton *'.  
 */
 static svn_error_t *
 handle_externals_desc_change (const void *key, apr_ssize_t klen,
@@ -326,8 +326,8 @@ svn_client__handle_externals_changes (void *traversal_info,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
- * end:
+ * end: 
  */
