@@ -138,7 +138,7 @@ svn_error_t *svn_wc__remove_wcprops (const char *path, apr_pool_t *pool);
 #endif /* SVN_LIBSVN_WC_PROPS_H */
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end:
