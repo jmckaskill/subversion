@@ -2,32 +2,32 @@
  *
  * ================================================================
  * Copyright (c) 2000 Collab.Net.  All rights reserved.
- *
+ * 
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
  * met:
- *
+ * 
  * 1. Redistributions of source code must retain the above copyright
  * notice, this list of conditions and the following disclaimer.
- *
+ * 
  * 2. Redistributions in binary form must reproduce the above copyright
  * notice, this list of conditions and the following disclaimer in the
  * documentation and/or other materials provided with the distribution.
- *
+ * 
  * 3. The end-user documentation included with the redistribution, if
  * any, must include the following acknowlegement: "This product includes
  * software developed by Collab.Net (http://www.Collab.Net/)."
  * Alternately, this acknowlegement may appear in the software itself, if
  * and wherever such third-party acknowlegements normally appear.
- *
+ * 
  * 4. The hosted project names must not be used to endorse or promote
  * products derived from this software without prior written
  * permission. For written permission, please contact info@collab.net.
- *
+ * 
  * 5. Products derived from this software may not use the "Tigris" name
  * nor may "Tigris" appear in their names without prior written
  * permission of Collab.Net.
- *
+ * 
  * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
  * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -41,7 +41,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ====================================================================
- *
+ * 
  * This software consists of voluntary contributions made by many
  * individuals on behalf of Collab.Net.
  */
@@ -160,10 +160,10 @@ is_valid_dirent_name (char *data, apr_size_t len)
 	unsigned char head = data[i++];
 
 	/* The way UTF-8 works is this:
-	   - If the first byte has the binary form `0xxxxxxx',
+	   - If the first byte has the binary form `0xxxxxxx', 
 	   that's the whole encoding --- there are no other bytes,
 	   and the character's value is `xxxxxxx'.
-	   - If the first byte has the binary form `110xxxxx',
+	   - If the first byte has the binary form `110xxxxx', 
 	   then it's followed by another byte of the form `10yyyyyy',
 	   and the character's value is `xxxxxyyyyyy'.
 	   - If the first byte has the binary form `1110xxxx', then
@@ -259,7 +259,7 @@ build_entries (skel_t *entries_skel,
       }
 
     entries[i] = 0;
-
+    
     if (i != num_entries)
       abort ();
   }
@@ -288,9 +288,9 @@ build_entries (skel_t *entries_skel,
 
 svn_error_t *
 svn_fs__dir_from_skel (svn_fs_node_t **node,
-		       svn_fs_t *fs,
+		       svn_fs_t *fs, 
 		       svn_fs_id_t *id,
-		       skel_t *nv,
+		       skel_t *nv, 
 		       apr_pool_t *skel_pool)
 {
   svn_fs_dir_t *dir = 0;
@@ -449,7 +449,7 @@ svn_fs_open_node (svn_fs_node_t **child,
 	scan = name_end;
 
       /* Now everything from start to scan is a filename component.  */
-
+	
       /* Yes, but is it a *valid* filename component?  */
       if (! is_valid_dirent_name (start, scan - start))
 	return path_syntax (fs, name);
@@ -471,7 +471,7 @@ svn_fs_open_node (svn_fs_node_t **child,
       if (scan >= name_end)
 	break;
 
-      /* Close the old directory.  */
+      /* Close the old directory.  */ 
       svn_fs_close_dir (dir);
 
       /* The new node is now our current directory...  */
