@@ -6,23 +6,23 @@ EXEC_PATH="`dirname $0`"
 . "$EXEC_PATH/svntest-config.sh"
 
 # Check that every commands could be found
-test -x "$SVN" || {
+test -x "$SVN" || { 
     echo "SVN: Not found or not executable [$SVN]"
     exit 1
 }
-test -x "$CVS" || {
+test -x "$CVS" || { 
     echo "CVS: Not found or not executable [$CVS]"
     exit 1
 }
-test -x "$GUESS" || {
+test -x "$GUESS" || { 
     echo "GUESS: Not found or not executable [$GUESS]"
     exit 1
 }
-test -x "$SENDMAIL" || {
+test -x "$SENDMAIL" || { 
     echo "SENDMAIL: Not found or not executable [$SENDMAIL]"
     exit 1
 }
-test -x "$BASE64" || {
+test -x "$BASE64" || { 
     echo "BASE64: Not found or not executable [$BASE64]"
     exit 1
 }
@@ -99,7 +99,7 @@ test -x "$UMOUNT" || {
 test -z "$TEST_ROOT" && {
     echo "TEST_ROOT: Empty value"
     exit 1
-}
+} 
 test -z "$INST_DIR" && {
     echo "INST_DIR: Empty value"
     exit 1
