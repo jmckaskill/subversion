@@ -50,7 +50,7 @@
            However, by the time you read this, the situation may have
            changed; check the <filename>README</filename> for
            updates.</para></listitem></varlistentry>
-
+        
         <varlistentry>
            <term>Subversion plugin for VCP</term>
            <listitem><para>Chia-liang Kao has written a converter
@@ -140,7 +140,7 @@
 </appendix>
 
 <!--
-local variables:
+local variables: 
 sgml-parent-document: ("book.xml" "appendix")
 end:
 -->
