@@ -22,7 +22,7 @@ import org.tigris.subversion.lib.*;
 /**
  * This classed is used for the unit tests. All of the C helper
  * functions for the Java Subversion binding should be reached
- * with this class.
+ * with this class. 
  *
  * Sometimes this is not possible, because
  * the class needs non-trivial native parameters. In this case
@@ -68,7 +68,7 @@ public class NativeWrapper
      * setter for "revision" in Entry class
      */
     public static native void entrySetRevision(Entry entry, long revision);
-
+    
     /**
      * setter for "nodekind" in Entry class
      */
@@ -78,12 +78,12 @@ public class NativeWrapper
      * setter for "schedule" in Entry class
      */
     public static native void entrySetSchedule(Entry entry, int schedule);
-
+    
     /**
      * setter for "conflicted" in Entry class
      */
     public static native void entrySetConflicted(Entry entry, boolean conflicted);
-
+       
     /**
      * setter for "copied" in Entry class
      */
@@ -93,7 +93,7 @@ public class NativeWrapper
      * setter for "texttime" in Entry class
      */
     public static native void entrySetTexttime(Entry entry, Date texttime);
-
+    
     /**
      * setter for "proptime" in Entry class
      */
@@ -103,7 +103,7 @@ public class NativeWrapper
      * setter for "attributes" in Entry class
      */
     public static native void entrySetAttributes(Entry entry, Hashtable attributes);
-
+    
     /**
      * wrapper for function "hashtable__create" (hashtable.h)
      */
@@ -116,9 +116,9 @@ public class NativeWrapper
 
 }
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../../../../../svn-dev.el")
- * end:
+ * end: 
  */
 
