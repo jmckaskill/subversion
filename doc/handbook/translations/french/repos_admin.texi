@@ -158,9 +158,9 @@ Ou, si vous voulez uniquement voir certains type d'information,
 $ svnlook repos rev 522 log
 $ svnlook repos rev 559 diff
 @end example
-
+   
 Les sous-commandes disponibles sont:
-
+   
 @table @samp
 @item log
 Affiche la description des modifications de l'aborescence.
@@ -188,7 +188,7 @@ Les commandes de base @command{cd}, @command{ls}, @command{exit}, et
 @command{cr} -- "changer de révision". La dernière commande vous permet de
 vous déplacer entre révisions d'arborescence.
 
-@example
+@example 
 $ svnadmin shell repos
 <609: />$
 <609: />$ ls
@@ -400,7 +400,7 @@ le fichier @file{repos/db/DB_CONFIG}. Ne changez pas les valeurs par
 défaut sans savoir exactement ce que vous faites; Voyez sûr d'avoir lu
 @url{http://www.sleepycat.com/docs/ref/lock/max.html} en premier.
 
-@subsection Utilisation de svnadmin
+@subsection Utilisation de svnadmin 
 
 L'outil @command{svnadmin} a des sous-commandes qui sont spécifiquement
 utiles à un administrateur de dépôt. Faites attention lorsque vous
@@ -595,7 +595,7 @@ AuthGroupFile /my/svn/group/file
 @end example
 
 Ce ne sont que de simples exemples. Pour un tutorial complet sur les
-contrôle d'accès d'Apache, regarder
+contrôle d'accès d'Apache, regarder 
 @url{http://httpd.apache.org/docs-2.0/misc/tutorials.html}.
 
 Autre remarque: pour que 'svn cp' marche (ce qui est actuellement
@@ -612,7 +612,7 @@ Editez votre @file{httpd.conf} pour inclure:
 
 @example
 ServerName svn.myserver.org
-@end example
+@end example 
 
 Si vous utilisez le "virtual hosting" d'apache avec la directive
 NameVirtualHost, vous pourrez avoir besoin d'utiliser la directive
@@ -751,7 +751,7 @@ révision 2000:
 @itemize @bullet
 @item
 Ouvrire le @file{dumpfile2} dans un éditeur
-@item
+@item 
 ne @emph{pas} supprimer la ligne d'entête
 @code{SVN-fs-dump-format-version} au début du fichier.
 @item
