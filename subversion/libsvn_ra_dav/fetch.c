@@ -191,13 +191,13 @@ validate_element (hip_xml_elmid parent, hip_xml_elmid child)
           default:
             return HIP_XML_DECLINE;
           }
-
+        
     case ELEM_checked_in:
       if (child == DAV_ELM_href)
         return HIP_XML_VALID;
       else
         return HIP_XML_DECLINE; /* not concerned with other types */
-
+      
     case ELEM_resourcetype:
       if (child == ELEM_collection)
         return HIP_XML_VALID;
@@ -289,7 +289,7 @@ fetch_dirents (svn_ra_session_t *ras,
                                    "Could not connect to server (%s, port %d).",
                                    ras->root.host, ras->root.port);
         case HTTP_AUTH:
-          return svn_error_create(SVN_ERR_NOT_AUTHORIZED, 0, NULL,
+          return svn_error_create(SVN_ERR_NOT_AUTHORIZED, 0, NULL, 
                                   fc->pool,
                                   "Authentication failed on server.");
         default:
@@ -528,7 +528,7 @@ svn_error_t * svn_ra_dav__do_checkout (void *session_baton,
         {
           /* We're not in the root, add a directory */
           name = my_basename(url, ras->pool);
-
+          
           printf("adding directory: %s\n", name->data);
           err = (*editor->add_directory) (name, parent_baton,
                                           /* ### NULL, SVN_INVALID_REVNUM, */
@@ -537,7 +537,7 @@ svn_error_t * svn_ra_dav__do_checkout (void *session_baton,
           if (err)
             return svn_error_quick_wrap(err, "could not add directory");
         }
-      else
+      else 
         {
           /* We are operating in the root of the repository */
           this_baton = root_baton;
@@ -627,7 +627,7 @@ svn_error_t * svn_ra_dav__do_update(void *session_baton,
 }
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
