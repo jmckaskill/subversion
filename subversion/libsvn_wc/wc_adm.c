@@ -4,32 +4,32 @@
  *
  * ================================================================
  * Copyright (c) 2000 Collab.Net.  All rights reserved.
- *
+ * 
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
  * met:
- *
+ * 
  * 1. Redistributions of source code must retain the above copyright
  * notice, this list of conditions and the following disclaimer.
- *
+ * 
  * 2. Redistributions in binary form must reproduce the above copyright
  * notice, this list of conditions and the following disclaimer in the
  * documentation and/or other materials provided with the distribution.
- *
+ * 
  * 3. The end-user documentation included with the redistribution, if
  * any, must include the following acknowlegement: "This product includes
  * software developed by Collab.Net (http://www.Collab.Net/)."
  * Alternately, this acknowlegement may appear in the software itself, if
  * and wherever such third-party acknowlegements normally appear.
- *
+ * 
  * 4. The hosted project names must not be used to endorse or promote
  * products derived from this software without prior written
  * permission. For written permission, please contact info@collab.net.
- *
+ * 
  * 5. Products derived from this software may not use the "Tigris" name
  * nor may "Tigris" appear in their names without prior written
  * permission of Collab.Net.
- *
+ * 
  * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
  * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -43,7 +43,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ====================================================================
- *
+ * 
  * This software consists of voluntary contributions made by many
  * individuals on behalf of Collab.Net.
  */
@@ -93,9 +93,9 @@ extend_with_admin_name (svn_string_t *path,
                         char *adm_file,
                         apr_pool_t *pool)
 {
-  svn_path_add_component     (path, svn_wc__adm_subdir (pool),
+  svn_path_add_component     (path, svn_wc__adm_subdir (pool), 
                               SVN_PATH_LOCAL_STYLE, pool);
-  svn_path_add_component_nts (path, adm_file,
+  svn_path_add_component_nts (path, adm_file, 
                               SVN_PATH_LOCAL_STYLE, pool);
 }
 
@@ -119,7 +119,7 @@ make_adm_subdir (svn_string_t *path, apr_pool_t *pool)
   svn_error_t *err = NULL;
   apr_status_t apr_err = 0;
 
-  svn_path_add_component (path, svn_wc__adm_subdir (pool),
+  svn_path_add_component (path, svn_wc__adm_subdir (pool), 
                           SVN_PATH_LOCAL_STYLE, pool);
 
   apr_err = apr_make_dir (path->data, APR_OS_DEFAULT, pool);
@@ -143,7 +143,7 @@ make_adm_subdir (svn_string_t *path, apr_pool_t *pool)
  *
  * If not file type, but RETURN_FILE is non-null, then return an
  * error, because the caller is probably making a mistake.
- */
+ */ 
 static svn_error_t *
 create_adm_thing (svn_string_t *path,
                   char *thing,
@@ -187,7 +187,7 @@ create_adm_thing (svn_string_t *path,
     }
   else   /* unknown type argument, wrongness */
     {
-      err = svn_create_error
+      err = svn_create_error 
         (0, 0, "init_admin_thing: bad type indicator", NULL, pool);
     }
 
@@ -197,7 +197,7 @@ create_adm_thing (svn_string_t *path,
   leave_town:
   return err;
 }
-
+                       
 
 /* Remove path/SVN/thing; really only used for lock files right now. */
 static svn_error_t *
@@ -252,7 +252,7 @@ adm_init_versions (svn_string_t *path,
 /* Set up working copy directory PATH with appropriate ancestry.
    Leaves the directory in a locked state. */
 svn_error_t *
-svn_wc__set_up_new_dir (svn_string_t *path,
+svn_wc__set_up_new_dir (svn_string_t *path, 
                         svn_string_t *ancestor_path,
                         svn_vernum_t ancestor_version,
                         apr_pool_t *pool)
@@ -374,7 +374,7 @@ svn_wc_get_dirent_prop (svn_string_t **value,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
