@@ -236,10 +236,10 @@ class WinGeneratorBase(gen_base.GeneratorBase):
       else:
         proj_name = string.replace(name, '-', '_')
       target.proj_name = proj_name
-
+  
   def adjust_win_depends(self, target, name):
     "Handle special dependencies if needed"
-
+    
     # For MSVC we need to hack around Apache modules &
     # libsvn_ra because dependencies implies linking
     # and there is no way around that
@@ -280,13 +280,13 @@ class WinGeneratorBase(gen_base.GeneratorBase):
       for lib in self.graph.get_sources(gen_base.DT_LINK, target):
         if hasattr(lib, 'proj_name'):
           depends.append(lib)
-          depends.extend(self.get_win_depends(lib, 0))
+          depends.extend(self.get_win_depends(lib, 0))          
     else:
       assert 0
-
+      
     return depends
-
-
+    
+  
   def get_win_depends(self, target, recurse=0):
     """
     Return the list of dependencies for target not including external libraries
@@ -318,7 +318,7 @@ class WinGeneratorBase(gen_base.GeneratorBase):
     deps = { }
 
     sub = self.get_win_depends(target, 2)
-
+    
     for obj in self.graph.get_sources(gen_base.DT_LINK, target.name):
       if not isinstance(obj, gen_base.Target):
         continue
@@ -375,7 +375,7 @@ class WinGeneratorBase(gen_base.GeneratorBase):
     elif isinstance(target, gen_base.SWIGLibrary):
       fakeincludes = self.map_rootpath(["subversion/bindings/swig",
                                         "subversion/include",
-                                        "apr/include"], rootpath)
+                                        "apr/include"], rootpath)  
     else:
       fakeincludes = self.map_rootpath(["subversion/include",
                                         "apr/include",
