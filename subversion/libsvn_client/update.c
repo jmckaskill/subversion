@@ -127,7 +127,7 @@ svn_client_update (const svn_delta_editor_t *before_editor,
 
   /* ### todo:  This is a TEMPORARY wrapper around our editor so we
      can use it with an old driver. */
-  svn_delta_compat_wrap (&wrapped_old_editor, &wrapped_old_edit_baton,
+  svn_delta_compat_wrap (&wrapped_old_editor, &wrapped_old_edit_baton, 
                          wrap_editor, wrap_edit_baton, pool);
 
   /* Using an RA layer */
@@ -142,7 +142,7 @@ svn_client_update (const svn_delta_editor_t *before_editor,
 
       /* Open an RA session for the URL */
       SVN_ERR (svn_client__open_ra_session (&session, ra_lib, URL, anchor,
-                                            TRUE, TRUE, TRUE,
+                                            TRUE, TRUE, TRUE, 
                                             auth_baton, pool));
 
       /* ### todo: shouldn't svn_client__get_revision_number be able
@@ -165,7 +165,7 @@ svn_client_update (const svn_delta_editor_t *before_editor,
       err = svn_wc_crawl_revisions (path, reporter, report_baton,
                                     TRUE, recurse,
                                     notify_func, notify_baton, pool);
-
+      
       /* Sleep for one second to ensure timestamp integrity. */
       apr_sleep (APR_USEC_PER_SEC * 1);
 
@@ -174,8 +174,8 @@ svn_client_update (const svn_delta_editor_t *before_editor,
 
       /* Close the RA session. */
       SVN_ERR (ra_lib->close (session));
-    }
-
+    }      
+  
   /* Else we're checking out from xml */
   else
     {
@@ -215,7 +215,7 @@ svn_client_update (const svn_delta_editor_t *before_editor,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end: */
