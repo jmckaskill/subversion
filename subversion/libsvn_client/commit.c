@@ -77,7 +77,7 @@ svn_client_commit (svn_string_t *path,
   if (apr_err)
     return svn_error_createf (apr_err, 0, NULL, pool,
                               "error closing %s", xml_dst->data);
-
+  
   /* Step 2: tell the working copy the commit succeeded. */
   err = svn_wc_close_commit (path, revision, targets, pool);
   if (err)
@@ -88,7 +88,7 @@ svn_client_commit (svn_string_t *path,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end: */
