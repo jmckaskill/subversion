@@ -23,14 +23,14 @@
 
 /* This interface provides raw access to the `strings' table.  It does
    not deal with deltification, undeltification, or skels.  It just
-   reads and writes strings of bytes.
+   reads and writes strings of bytes.  
 
    They KEY argument is often, but not necessarily, an unparsed
    svn_fs_id_t.  */
 
 
 /* Open a `strings' table in ENV.  If CREATE is non-zero, create
- * one if it doesn't exist.  Set *STRINGS_P to the new table.
+ * one if it doesn't exist.  Set *STRINGS_P to the new table.  
  * Return a Berkeley DB error code.
  */
 int svn_fs__open_strings_table (DB **strings_p,
@@ -39,12 +39,12 @@ int svn_fs__open_strings_table (DB **strings_p,
 
 
 /* Set *STREAM to a read stream on string KEY in FS, as part of
- * TRAIL.
- *
+ * TRAIL.  
+ * 
  * The stream is allocated in TRAIL->pool.  KEY will be shared by the
  * stream, not copied, so KEY's storage must be at least as long-lived
  * as TRAIL->pool.
- *
+ * 
  * If string KEY does not exist, SVN_ERR_FS_NO_SUCH_STRING is the
  * error returned.
  */
@@ -68,13 +68,13 @@ svn_error_t *svn_fs__string_size (apr_size_t *size,
 
 /* Set *STREAM to a write stream for string KEY in FS, as part of
  * TRAIL.
- *
+ * 
  * The stream is allocated in TRAIL->pool.  KEY will be shared by the
  * stream, not copied, so KEY's storage must be at least as long-lived
  * as TRAIL->pool.
- *
+ * 
  * The string is created if it does not exist; otherwise, it is
- * overwritten.
+ * overwritten. 
  */
 svn_error_t *svn_fs__write_string_stream (svn_stream_t **stream,
                                           svn_fs_t *fs,
@@ -84,13 +84,13 @@ svn_error_t *svn_fs__write_string_stream (svn_stream_t **stream,
 
 /* Set *STREAM to an appending write stream for string KEY in FS, as
  * part of TRAIL.
- *
+ * 
  * The stream is allocated in TRAIL->pool.  KEY will be shared by the
  * stream, not copied, so KEY's storage must be at least as long-lived
  * as TRAIL->pool.
- *
+ * 
  * The string is created if it does not exist, otherwise, it is
- * appended to.
+ * appended to. 
  */
 svn_error_t *svn_fs__append_string_stream (svn_stream_t **stream,
                                            svn_fs_t *fs,
@@ -108,7 +108,7 @@ svn_error_t *svn_fs__append_string_stream (svn_stream_t **stream,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
