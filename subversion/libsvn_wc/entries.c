@@ -28,7 +28,7 @@
 
 /* The administrative `entries' file tracks information about files
    and subdirs within a particular directory.
-
+   
    See the section on the `entries' file in libsvn_wc/README, for
    concrete information about the XML format.
 */
@@ -111,7 +111,7 @@ svn_wc__entries_init (svn_string_t *path,
 struct entries_accumulator
 {
   /* Keys are entry names, vals are (struct svn_wc_entry_t *)'s. */
-  apr_hash_t *entries;
+  apr_hash_t *entries; 
 
   /* The dir whose entries file this is. */
   svn_string_t *path;
@@ -194,7 +194,7 @@ handle_start_tag (void *userData, const char *tagname, const char **atts)
               = apr_hash_get (entry->attributes,
                               SVN_WC_ENTRY_ATTR_NAME, APR_HASH_KEY_STRING);
 
-            svn_xml_signal_bailout
+            svn_xml_signal_bailout 
               (svn_error_createf (SVN_ERR_UNKNOWN_NODE_KIND,
                                   0,
                                   NULL,
@@ -222,7 +222,7 @@ handle_start_tag (void *userData, const char *tagname, const char **atts)
                                      SVN_WC_ENTRY_ATTR_PROP_TIME,
                                      APR_HASH_KEY_STRING);
         if (prop_timestr)
-          entry->prop_time = svn_wc__string_to_time (prop_timestr);
+          entry->prop_time = svn_wc__string_to_time (prop_timestr);        
       }
 
       /* Look for any action flags. */
@@ -236,7 +236,7 @@ handle_start_tag (void *userData, const char *tagname, const char **atts)
         svn_string_t *conflictstr
           = apr_hash_get (entry->attributes,
                           SVN_WC_ENTRY_ATTR_CONFLICT, APR_HASH_KEY_STRING);
-
+        
 
         /* Technically, the value has to be "true".  But we only have
            these attributes at all when they have values of "true", so
@@ -264,7 +264,7 @@ take_from_entry (svn_wc_entry_t *src, svn_wc_entry_t *dst, apr_pool_t *pool)
      unless this is a subdirectory. */
   if ((dst->revision == SVN_INVALID_REVNUM) && (dst->kind != svn_node_dir))
     dst->revision = src->revision;
-
+  
   if (! dst->ancestor)
     {
       svn_string_t *name = apr_hash_get (dst->attributes,
@@ -307,8 +307,8 @@ resolve_to_defaults (apr_hash_t *entries, apr_pool_t *pool)
                              NULL,
                              pool,
                              "default entry missing ancestry");
-
-
+  
+    
   /* Then use it to fill in missing information in other entries. */
   for (hi = apr_hash_first (entries); hi; hi = apr_hash_next (hi))
     {
@@ -340,12 +340,12 @@ sync_entry (svn_wc_entry_t *entry, apr_pool_t *pool)
     apr_hash_set (entry->attributes,
                   SVN_WC_ENTRY_ATTR_REVISION, APR_HASH_KEY_STRING,
                   svn_string_createf (pool, "%ld", entry->revision));
-
+  
   /* Ancestor. */
   apr_hash_set (entry->attributes,
                 SVN_WC_ENTRY_ATTR_ANCESTOR, APR_HASH_KEY_STRING,
                 entry->ancestor);
-
+  
   /* Kind. */
   if (entry->kind == svn_node_dir)
     apr_hash_set (entry->attributes,
@@ -355,18 +355,18 @@ sync_entry (svn_wc_entry_t *entry, apr_pool_t *pool)
     apr_hash_set (entry->attributes,
                   SVN_WC_ENTRY_ATTR_KIND, APR_HASH_KEY_STRING,
                   NULL);
-
+  
   /* State. */
   {
     svn_boolean_t clearall = (entry->state & SVN_WC_ENTRY_CLEAR_ALL);
     svn_string_t *val;
-
+    
     /* Are we clearing or setting the affected bits? */
     if (clearall || (entry->state & SVN_WC_ENTRY_CLEAR_NAMED))
       val = NULL;
     else
       val = svn_string_create ("true", pool);
-
+    
     if (clearall || (entry->state & SVN_WC_ENTRY_ADDED))
       apr_hash_set (entry->attributes,
                     SVN_WC_ENTRY_ATTR_ADD, APR_HASH_KEY_STRING, val);
@@ -383,7 +383,7 @@ sync_entry (svn_wc_entry_t *entry, apr_pool_t *pool)
       apr_hash_set (entry->attributes,
                     SVN_WC_ENTRY_ATTR_CONFLICT, APR_HASH_KEY_STRING, val);
   }
-
+  
   /* Timestamps. */
   if (entry->text_time)
     {
@@ -439,13 +439,13 @@ read_entries (apr_hash_t *entries, svn_string_t *path, apr_pool_t *pool)
   do {
     apr_err = apr_full_read (infile, buf, BUFSIZ, &bytes_read);
     if (apr_err && !APR_STATUS_IS_EOF(apr_err))
-      return svn_error_create
+      return svn_error_create 
         (apr_err, 0, NULL, pool, "read_entries: apr_full_read choked");
-
+    
     err = svn_xml_parse (svn_parser, buf, bytes_read,
                          APR_STATUS_IS_EOF(apr_err));
     if (err)
-      return svn_error_quick_wrap
+      return svn_error_quick_wrap 
         (err,
          "read_entries: xml parser failed.");
   } while (!APR_STATUS_IS_EOF(apr_err));
@@ -516,15 +516,15 @@ svn_wc_entry (svn_wc_entry_t **entry,
          (we could have failed because PATH is under rev control as a
          file, not a directory, i.e., the user rm'd the file and
          created a dir there).
-
+         
          Or maybe we're here because PATH is a regular file.
-
+         
          Either way, if PATH is a versioned entity, it is versioned as
          a file.  So look split and look in parent for entry info. */
 
       svn_string_t *dir, *basename;
       svn_path_split (path, &dir, &basename, svn_path_local_style, pool);
-
+      
       err = svn_wc_check_wc (dir, &is_wc, pool);
       if (err)
         return err;
@@ -532,11 +532,11 @@ svn_wc_entry (svn_wc_entry_t **entry,
         return svn_error_createf
           (SVN_ERR_WC_OBSTRUCTED_UPDATE, 0, NULL, pool,
            "svn_wc_entry: %s is not a working copy directory", path->data);
-
+      
       err = svn_wc__entries_read (&entries, dir, pool);
       if (err)
         return err;
-
+      
       *entry = apr_hash_get (entries, basename->data, basename->len);
     }
 
@@ -615,7 +615,7 @@ svn_wc__entries_write (apr_hash_t *entries,
     err = svn_error_createf (apr_err, 0, NULL, pool,
                              "svn_wc__entries_write: %s",
                              path->data);
-
+      
   /* Close & sync. */
   err2 = svn_wc__close_adm_file (outfile, path, SVN_WC__ADM_ENTRIES, 1, pool);
   if (err)
@@ -671,12 +671,12 @@ stuff_entry (apr_hash_t *entries,
           void *v;
           const char *key;
           svn_string_t *val;
-
+          
           /* Get a hash key and value */
           apr_hash_this (hi, &k, &klen, &v);
           key = (const char *) k;
           val = (svn_string_t *) v;
-
+          
           apr_hash_set (entry->attributes, key, APR_HASH_KEY_STRING, val);
         }
     }
@@ -740,7 +740,7 @@ svn_wc__entry_merge_sync (svn_string_t *path,
   err = svn_wc__entries_read (&entries, path, pool);
   if (err)
     return err;
-
+  
   if (name == NULL)
     name = svn_string_create (SVN_WC_ENTRY_THIS_DIR, pool);
 
@@ -748,7 +748,7 @@ svn_wc__entry_merge_sync (svn_string_t *path,
   stuff_entry (entries, name, revision, kind, state, text_time,
                prop_time, pool, atts, ap);
   va_end (ap);
-
+  
   err = svn_wc__entries_write (entries, path, pool);
   if (err)
     return err;
@@ -849,7 +849,7 @@ svn_wc__entry_dup (svn_wc_entry_t *entry, apr_pool_t *pool)
  *
  *    svn commit foo bar/baz/blim.c blah.c
  *
- * the commit should
+ * the commit should 
  *
  *    1. descend into foo (which is a directory), calling ENTER_DIR
  *       and LEAVE_DIR on foo itself, and calling those two and
@@ -940,7 +940,7 @@ svn_wc__compose_paths (apr_hash_t *paths, apr_pool_t *pool)
 #endif /* 0 */
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
