@@ -89,7 +89,7 @@ AC_FUNC_MEMCMP
 dnl svn_error's default warning handler uses vfprintf()
 AC_FUNC_VPRINTF
 
-dnl vdelta.c is using strerror() right now
+dnl vdelta.c is using strerror() right now 
 AC_CHECK_FUNCS(strerror)
 
 
