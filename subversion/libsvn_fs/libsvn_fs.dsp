@@ -99,21 +99,7 @@ SOURCE=.\dbt.c
 # End Source File
 # Begin Source File
 
-SOURCE=.\delta.c
-# PROP Exclude_From_Build 1
-# End Source File
-# Begin Source File
-
-SOURCE=.\editor.c
-# End Source File
-# Begin Source File
-
 SOURCE=.\err.c
-# End Source File
-# Begin Source File
-
-SOURCE=.\file.c
-# PROP Exclude_From_Build 1
 # End Source File
 # Begin Source File
 
@@ -134,11 +120,6 @@ SOURCE=".\nodes-table.c"
 # Begin Source File
 
 SOURCE=".\rev-table.c"
-# End Source File
-# Begin Source File
-
-SOURCE=.\revision.c
-# PROP Exclude_From_Build 1
 # End Source File
 # Begin Source File
 
