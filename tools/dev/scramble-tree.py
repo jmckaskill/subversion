@@ -54,7 +54,7 @@ class hashDir:
   def md5(self):
     return md5.md5(''.join(self.allfiles))
 
-
+    
   def walker_callback(self, baselen, dirname, fnames):
     if ((dirname == '.svn')
         or (dirname == 'CVS')):
@@ -79,7 +79,7 @@ talented scramble-tree.py script.
 """
     self.file_modders = [self.append_to_file,
                          self.append_to_file,
-                         self.append_to_file,
+                         self.append_to_file,                         
                          self.remove_from_file,
                          self.remove_from_file,
                          self.remove_from_file,
@@ -157,7 +157,7 @@ if __name__ == '__main__':
 
   seed = hashDir(rootdir).md5().digest()
   scrambler = Scrambler(seed)
-
+  
   # Fire up the treewalker
   os.path.walk(rootdir, walker_callback, scrambler)
 
