@@ -55,7 +55,7 @@ struct svn_fs_t {
   /* The head of a linked list of all currently open nodes, or zero if
      we have no currently open nodes.  */
   svn_fs_node_t *all_nodes;
-
+  
   /* A callback function for printing warning messages, and a baton to
      pass through to it.  */
   svn_fs_warning_callback_t *warning;
