@@ -136,7 +136,7 @@ book-clean:
 	rm -f $(BOOK_VERSION_SOURCE)
 	rm -f $(BOOK_HTML_TARGET) $(BOOK_FO_TARGET)
 	rm -rf $(BOOK_HTML_CHUNK_DIR)
-	rm -f $(BOOK_PDF_TARGET) $(BOOK_PS_TARGET)
+	rm -f $(BOOK_PDF_TARGET) $(BOOK_PS_TARGET) 
 
 misc-docs-html: $(MDOCS_HTML_TARGET)
 
