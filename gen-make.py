@@ -30,7 +30,7 @@ def main(fname, oname=None, skip_depends=0):
   install = { }		# install area name -> targets
   test_progs = [ ]
   test_deps = [ ]
-  fs_test_progs = [ ]
+  fs_test_progs = [ ] 
   fs_test_deps = [ ]
   file_deps = [ ]
   target_dirs = { }
@@ -265,7 +265,7 @@ def main(fname, oname=None, skip_depends=0):
 					string.join(script_dirs)))
 
   ofile.write('FS_TEST_DEPS = %s\n\n' % string.join(fs_test_deps + fs_scripts))
-  ofile.write('FS_TEST_PROGRAMS = %s\n\n' %
+  ofile.write('FS_TEST_PROGRAMS = %s\n\n' % 
                               string.join(fs_test_progs + fs_scripts))
   ofile.write('TEST_DEPS = %s\n\n' % string.join(test_deps + scripts))
   ofile.write('TEST_PROGRAMS = %s\n\n' % string.join(test_progs + scripts))
@@ -517,7 +517,7 @@ def _usage_exit():
 
 if __name__ == '__main__':
   argc = len(sys.argv)
-
+  
   if argc == 1:
     _usage_exit()
   if sys.argv[1] == '-s':
