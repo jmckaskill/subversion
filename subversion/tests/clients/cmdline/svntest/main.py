@@ -2,9 +2,9 @@
 #
 #  main.py: a shared, automated test suite for Subversion
 #
-#  Subversion is a tool for revision control.
+#  Subversion is a tool for revision control. 
 #  See http://subversion.tigris.org for more information.
-#
+#    
 # ====================================================================
 # Copyright (c) 2000-2001 CollabNet.  All rights reserved.
 #
@@ -297,7 +297,7 @@ def copy_repos(src_path, dst_path, head_revision):
   dump_err.close()
   load_out.close()
   load_err.close()
-
+ 
   dump_re = re.compile('\* Dumped revision (\d+)\.\n')
   expect_revision = 0
   for dump_line in dump_lines:
@@ -310,7 +310,7 @@ def copy_repos(src_path, dst_path, head_revision):
     print 'Dump failed!  Did not see revision ' + str(head_revision)
     return 1
 
-  load_re = re.compile('------- Committed new rev (\d+) \(loaded from original rev (\d+)\) >>>\n')
+  load_re = re.compile('------- Committed new rev (\d+) \(loaded from original rev (\d+)\) >>>\n') 
   expect_revision = 1
   for load_line in load_lines:
     match = load_re.match(load_line)
@@ -436,7 +436,7 @@ def run_tests(test_list):
       match = url_re.search(arg)
       if match:
         test_area_url = match.group(1)
-
+    
       else:
         try:
           testnum = int(arg)
