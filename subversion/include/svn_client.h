@@ -20,7 +20,7 @@
 
 /*** Includes ***/
 
-/*
+/* 
  * Requires:  The working copy library and repository access library.
  * Provides:  Broad wrappers around working copy library functionality.
  * Used By:   Client programs.
@@ -80,16 +80,16 @@ typedef svn_error_t *(*svn_client_prompt_t)
 
 
 /* This is a baton that contains information from the calling
-   application, passed to libsvn_client to aid in authentication.
+   application, passed to libsvn_client to aid in authentication. 
 
    Applications must build and pass one of these to any routine that
    may require authentication.  */
 typedef struct svn_client_auth_baton_t
 {
   /* auth info that the app -may- already have, e.g. from argv[] */
-  char *username;
-  char *password;
-
+  char *username;    
+  char *password; 
+  
   /* a callback provided by the app layer, for prompting the user */
   svn_client_prompt_t prompt_callback;
   void *prompt_baton;
@@ -99,7 +99,7 @@ typedef struct svn_client_auth_baton_t
 
   /* if it's ok to overwrite wc auth info */
   svn_boolean_t overwrite;
-
+  
   /* --- client fills these fields later;  application should ignore. */
 
   svn_stringbuf_t *path;    /* where to get/set auth info in wc */
@@ -210,7 +210,7 @@ svn_client_delete (svn_stringbuf_t *path,
  * them.
  *
  * Store USER as the author of the commit, LOG_MSG as its log.
- *
+ * 
  * PATH is the path to local tree being imported.  PATH can be a file
  * or directory.
  *
@@ -230,12 +230,12 @@ svn_client_delete (svn_stringbuf_t *path,
  * by URL.  NEW_ENTRY may not be the empty string.
  *
  * If NEW_ENTRY already exists in the youngest revision, return error.
- *
+ * 
  * If XML_DST is non-NULL, it is a file in which to store the xml
  * result of the commit, and REVISION is used as the revision.
- *
+ * 
  * Use POOL for all allocation.
- *
+ * 
  * ### kff todo: This import is similar to cvs import, in that it does
  * not change the source tree into a working copy.  However, this
  * behavior confuses most people, and I think eventually svn _should_
@@ -245,8 +245,8 @@ svn_client_delete (svn_stringbuf_t *path,
 svn_error_t *svn_client_import (const svn_delta_edit_fns_t *before_editor,
                                 void *before_edit_baton,
                                 const svn_delta_edit_fns_t *after_editor,
-                                void *after_edit_baton,
-                                svn_client_auth_baton_t *auth_baton,
+                                void *after_edit_baton, 
+                                svn_client_auth_baton_t *auth_baton,   
                                 svn_stringbuf_t *path,
                                 svn_stringbuf_t *url,
                                 svn_stringbuf_t *new_entry,
@@ -326,8 +326,8 @@ svn_client_status (apr_hash_t **statushash,
 /* Given a PATH to a working copy file, return a path to a temporary
    copy of the PRISTINE version of the file.  The client can then
    compare this to the working copy of the file and execute any kind
-   of diff it wishes.
-
+   of diff it wishes. 
+   
    TODO:  Someday this function will need to return a "cleanup"
    routine to remove the pristine file, in case the pristine file is
    fetched and dumped somewhere by the RA layer. */
@@ -363,7 +363,7 @@ svn_client_revert (svn_stringbuf_t *path,
 /* --------------------------------------------------------------
  * local variables:
  * eval: (load-file "../svn-dev.el")
- * end:
+ * end: 
  */
 
 
