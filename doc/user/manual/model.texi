@@ -14,11 +14,11 @@ This chapter explains the user's view of Subversion --- what ``objects''
 you interact with, how they behave, and how they relate to each other.
 
 @menu
-* Working Directories and Repositories::
-* Transactions and Revision Numbers::
-* How Working Directories Track the Repository::
-* Subversion Does Not Lock Files::
-* Properties::
+* Working Directories and Repositories::  
+* Transactions and Revision Numbers::  
+* How Working Directories Track the Repository::  
+* Subversion Does Not Lock Files::  
+* Properties::                  
 @end menu
 
 @c -----------------------------------------------------------------------
