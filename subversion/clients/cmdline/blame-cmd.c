@@ -53,7 +53,7 @@ blame_receiver (void *baton,
   const char *time_utf8;
   const char *time_stdout;
   const char *author_stdout;
-  const char *rev_str = SVN_IS_VALID_REVNUM (revision)
+  const char *rev_str = SVN_IS_VALID_REVNUM (revision) 
                         ? apr_psprintf (pool, "%6ld", revision)
                         : "     -";
 
@@ -74,17 +74,17 @@ blame_receiver (void *baton,
              abbreviations for the month and weekday names.  Else, the
              line contents will be misaligned. */
           time_stdout = "                                           -";
-      return svn_stream_printf (out, pool, "%s %10s %s %s\n", rev_str,
-                                author ? author_stdout : "         -",
+      return svn_stream_printf (out, pool, "%s %10s %s %s\n", rev_str, 
+                                author ? author_stdout : "         -", 
                                 time_stdout , line);
     }
   else
     {
-      return svn_stream_printf (out, pool, "%s %10s %s\n", rev_str,
+      return svn_stream_printf (out, pool, "%s %10s %s\n", rev_str, 
                                 author ? author_stdout : "         -", line);
     }
 }
-
+ 
 
 /* This implements the `svn_opt_subcommand_t' interface. */
 svn_error_t *
@@ -101,7 +101,7 @@ svn_cl__blame (apr_getopt_t *os,
   int i;
   svn_boolean_t is_head_or_base = FALSE;
 
-  SVN_ERR (svn_opt_args_to_target_array (&targets, os,
+  SVN_ERR (svn_opt_args_to_target_array (&targets, os, 
                                          opt_state->targets,
                                          &opt_state->start_revision,
                                          &opt_state->end_revision,
@@ -135,7 +135,7 @@ svn_cl__blame (apr_getopt_t *os,
   SVN_ERR (svn_stream_for_stdout (&out, pool));
   bl.opt_state = opt_state;
   bl.out = out;
-
+  
   subpool = svn_pool_create (pool);
 
   for (i = 0; i < targets->nelts; i++)
