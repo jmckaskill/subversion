@@ -31,13 +31,13 @@ extern "C" {
 /* functions */
 
 /**
- * create a new org.tigris.subversion.lib.Schedule instance
+ * create a new org.tigris.subversion.lib.Schedule instance 
  *
  * @param JNIEnv JNI Environment
  * @param hasException
  * @param schedule integer representation of the appropriate constants
  */
-jobject
+jobject 
 schedule__create(JNIEnv *env, jboolean *hasException, jint schedule);
 
 /**
