@@ -45,7 +45,7 @@ svn_error_t *svn_fs__delete_txn (svn_fs_t *fs,
                                  const char *svn_txn,
                                  trail_t *trail);
 
-
+ 
 /* Retrieve the transaction skel *TXN_SKEL for the Subversion transaction
    SVN_TXN from the `transactions' table of FS, as part of TRAIL.
 
@@ -105,7 +105,7 @@ svn_error_t *svn_fs__get_txn_list (char ***names_p,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
