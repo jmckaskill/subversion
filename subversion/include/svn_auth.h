@@ -31,7 +31,7 @@ extern "C" {
 #endif /* __cplusplus */
 
 /** Overview of the svn authentication system.
- *
+ *    
  * We define an authentication "provider" as a module that is able to
  * return a specific set of credentials. (e.g. username/password,
  * certificate, etc.)  Each provider implements a vtable that
@@ -78,7 +78,7 @@ typedef struct
 {
   /** The kind of credentials this provider knows how to retrieve. */
   const char *cred_kind;
-
+  
   /** Get an initial set of credentials.
    *
    * Set @a *credentials to a set of valid credentials, or NULL if no
@@ -102,7 +102,7 @@ typedef struct
   svn_error_t * (*next_credentials) (void **credentials,
                                      void *iter_baton,
                                      apr_pool_t *pool);
-
+  
   /** Save credentials.
    *
    * Store @a credentials for future use.  @a provider_baton is
@@ -114,7 +114,7 @@ typedef struct
                                      void *credentials,
                                      void *provider_baton,
                                      apr_pool_t *pool);
-
+  
 } svn_auth_provider_t;
 
 
@@ -126,7 +126,7 @@ typedef struct
 {
   const char *username;
   const char *password;
-
+  
 } svn_auth_cred_simple_t;
 
 /** Just a username. */
