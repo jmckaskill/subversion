@@ -138,7 +138,7 @@ wc_to_wc_copy (const char *src_path,
                               pool));
   else
     adm_access = optional_adm_access;
-
+                              
   /* Perform the copy and (optionally) delete. */
 
   /* ### If this is not a move, we won't have locked the source, so we
@@ -167,9 +167,9 @@ wc_to_wc_copy (const char *src_path,
 
 static svn_error_t *
 repos_to_repos_copy (svn_client_commit_info_t **commit_info,
-                     const char *src_url,
-                     const svn_opt_revision_t *src_revision,
-                     const char *dst_url,
+                     const char *src_url, 
+                     const svn_opt_revision_t *src_revision, 
+                     const char *dst_url, 
                      svn_client_auth_baton_t *auth_baton,
                      const char *message,
                      svn_boolean_t is_move,
@@ -224,7 +224,7 @@ repos_to_repos_copy (svn_client_commit_info_t **commit_info,
       src_rel = svn_path_uri_decode (src_rel, pool);
       src_pieces = svn_path_decompose (src_rel, pool);
       if ((! src_pieces) || (! src_pieces->nelts))
-        return svn_error_createf
+        return svn_error_createf 
           (SVN_ERR_WC_PATH_NOT_FOUND, NULL,
            "error decomposing relative path `%s'", src_rel);
     }
@@ -235,7 +235,7 @@ repos_to_repos_copy (svn_client_commit_info_t **commit_info,
       dst_rel = svn_path_uri_decode (dst_rel, pool);
       dst_pieces = svn_path_decompose (dst_rel, pool);
       if ((! dst_pieces) || (! dst_pieces->nelts))
-        return svn_error_createf
+        return svn_error_createf 
           (SVN_ERR_WC_PATH_NOT_FOUND, NULL,
            "error decomposing relative path `%s'", dst_rel);
     }
@@ -261,7 +261,7 @@ repos_to_repos_copy (svn_client_commit_info_t **commit_info,
      directory, nor a place to put temp files or store the auth data. */
   SVN_ERR (svn_client__open_ra_session (&sess, ra_lib, top_url,
                                         auth_dir,
-                                        NULL, NULL, FALSE, FALSE, TRUE,
+                                        NULL, NULL, FALSE, FALSE, TRUE, 
                                         auth_baton, pool));
 
   /* Pass null for the path, to ensure error if trying to get a
@@ -274,11 +274,11 @@ repos_to_repos_copy (svn_client_commit_info_t **commit_info,
   /* Use YOUNGEST for copyfrom args if not provided. */
   if (! SVN_IS_VALID_REVNUM (src_revnum))
     src_revnum = youngest;
-
+  
   /* Verify that SRC_URL exists in the repository. */
   SVN_ERR (ra_lib->check_path (&src_kind, sess, src_rel, src_revnum));
   if (src_kind == svn_node_none)
-    return svn_error_createf
+    return svn_error_createf 
       (SVN_ERR_FS_NOT_FOUND, NULL,
        "path `%s' does not exist in revision `%" SVN_REVNUM_T_FMT "'",
        src_url, src_revnum);
@@ -299,10 +299,10 @@ repos_to_repos_copy (svn_client_commit_info_t **commit_info,
          basename to dst_rel, and see if that already exists.  */
       svn_node_kind_t some_kind;
       const char *hypothetical_repos_path;
-
+      
       base_name = svn_path_basename (src_url, pool);
-      hypothetical_repos_path
-        = svn_path_join (dst_rel ? dst_rel : "",
+      hypothetical_repos_path 
+        = svn_path_join (dst_rel ? dst_rel : "", 
                          svn_path_uri_decode (base_name, pool), pool);
       SVN_ERR (ra_lib->check_path (&some_kind, sess,
                                    hypothetical_repos_path, youngest));
@@ -344,14 +344,14 @@ repos_to_repos_copy (svn_client_commit_info_t **commit_info,
         {
           piece = (((const char **)(dst_pieces)->elts)[i]);
           telepath = svn_path_join (telepath, piece, pool);
-          SVN_ERR (editor->open_directory (telepath, batons[i],
+          SVN_ERR (editor->open_directory (telepath, batons[i], 
                                            youngest, pool, &(batons[i + 1])));
           i++;
         }
     }
   /* Add our file/dir with copyfrom history. */
-  telepath = svn_path_join (telepath,
-                            svn_path_uri_decode (base_name, pool),
+  telepath = svn_path_join (telepath, 
+                            svn_path_uri_decode (base_name, pool), 
                             pool);
   if (src_kind == svn_node_dir)
     {
@@ -388,15 +388,15 @@ repos_to_repos_copy (svn_client_commit_info_t **commit_info,
         {
           piece = (((const char **)(src_pieces)->elts)[i]);
           telepath = svn_path_join (telepath, piece, pool);
-          SVN_ERR (editor->open_directory (telepath, batons[i],
+          SVN_ERR (editor->open_directory (telepath, batons[i], 
                                            youngest, pool, &(batons[i + 1])));
           i++;
         }
-
+          
       /* Delete SRC. */
       piece = (((const char **)(src_pieces)->elts)[i]);
       telepath = svn_path_join (telepath, piece, pool);
-      SVN_ERR (editor->delete_entry (telepath, SVN_INVALID_REVNUM,
+      SVN_ERR (editor->delete_entry (telepath, SVN_INVALID_REVNUM, 
                                      batons[i], pool));
 
       /* Now, close up all those batons (except the root
@@ -469,7 +469,7 @@ reconcile_errors (svn_error_t *commit_err,
      that. */
   if (commit_err)
     {
-      commit_err = svn_error_quick_wrap
+      commit_err = svn_error_quick_wrap 
         (commit_err, "Commit failed (details follow):");
       err = commit_err;
     }
@@ -484,7 +484,7 @@ reconcile_errors (svn_error_t *commit_err,
   if (unlock_err)
     {
       /* Wrap the error with some headers. */
-      unlock_err = svn_error_quick_wrap
+      unlock_err = svn_error_quick_wrap 
         (unlock_err, "Error unlocking locked dirs (details follow):");
 
       /* Append this error to the chain. */
@@ -495,7 +495,7 @@ reconcile_errors (svn_error_t *commit_err,
   if (cleanup_err)
     {
       /* Wrap the error with some headers. */
-      cleanup_err = svn_error_quick_wrap
+      cleanup_err = svn_error_quick_wrap 
         (cleanup_err, "Error in post-commit clean-up (details follow):");
 
       /* Append this error to the chain. */
@@ -509,8 +509,8 @@ reconcile_errors (svn_error_t *commit_err,
 
 static svn_error_t *
 wc_to_repos_copy (svn_client_commit_info_t **commit_info,
-                  const char *src_path,
-                  const char *dst_url,
+                  const char *src_path, 
+                  const char *dst_url, 
                   svn_client_auth_baton_t *auth_baton,
                   const char *message,
                   svn_wc_notify_func_t notify_func,
@@ -554,14 +554,14 @@ wc_to_repos_copy (svn_client_commit_info_t **commit_info,
 
   /* Open an RA session for the anchor URL. */
   SVN_ERR (svn_client__open_ra_session (&session, ra_lib, anchor, parent,
-                                        adm_access, NULL, TRUE, TRUE, TRUE,
+                                        adm_access, NULL, TRUE, TRUE, TRUE, 
                                         auth_baton, pool));
 
   /* Figure out the basename that will result from this operation. */
-  SVN_ERR (ra_lib->check_path (&dst_kind, session,
+  SVN_ERR (ra_lib->check_path (&dst_kind, session, 
                                svn_path_uri_decode (target, pool),
                                SVN_INVALID_REVNUM));
-
+  
   /* Close the RA session.  We'll re-open it after we've figured out
      the right URL to open. */
   SVN_ERR (ra_lib->close (session));
@@ -594,7 +594,7 @@ wc_to_repos_copy (svn_client_commit_info_t **commit_info,
      SVN_ERR (svn_wc_adm_retrieve (&dir_access, adm_access, base_path, pool));
   else
     dir_access = adm_access;
-  if ((cmt_err = svn_client__get_copy_committables (&committables,
+  if ((cmt_err = svn_client__get_copy_committables (&committables, 
                                                     base_url,
                                                     base_path,
                                                     dir_access,
@@ -606,14 +606,14 @@ wc_to_repos_copy (svn_client_commit_info_t **commit_info,
      canonical repository URLs.  Then, the hacked name can go away and
      be replaced with a entry->repos (or whereever the entry's
      canonical repos URL is stored). */
-  if (! ((commit_items = apr_hash_get (committables,
-                                       SVN_CLIENT__SINGLE_REPOS_NAME,
+  if (! ((commit_items = apr_hash_get (committables, 
+                                       SVN_CLIENT__SINGLE_REPOS_NAME, 
                                        APR_HASH_KEY_STRING))))
     goto cleanup;
 
   /* Sort and condense our COMMIT_ITEMS. */
-  if ((cmt_err = svn_client__condense_commit_items (&base_url,
-                                                    commit_items,
+  if ((cmt_err = svn_client__condense_commit_items (&base_url, 
+                                                    commit_items, 
                                                     pool)))
     goto cleanup;
 
@@ -626,8 +626,8 @@ wc_to_repos_copy (svn_client_commit_info_t **commit_info,
     goto cleanup;
 
   /* Fetch RA commit editor. */
-  if ((cmt_err = ra_lib->get_commit_editor (session, &editor, &edit_baton,
-                                            &committed_rev, &committed_date,
+  if ((cmt_err = ra_lib->get_commit_editor (session, &editor, &edit_baton, 
+                                            &committed_rev, &committed_date, 
                                             &committed_author, message)))
     goto cleanup;
 
@@ -636,7 +636,7 @@ wc_to_repos_copy (svn_client_commit_info_t **commit_info,
 
   /* Perform the commit. */
   cmt_err = svn_client__do_commit (base_url, commit_items, adm_access,
-                                   editor, edit_baton,
+                                   editor, edit_baton, 
                                    notify_func, notify_baton,
                                    0, /* ### any notify_path_offset needed? */
                                    &tempfiles, pool);
@@ -663,8 +663,8 @@ wc_to_repos_copy (svn_client_commit_info_t **commit_info,
     cleanup_err = remove_tmpfiles (tempfiles, pool);
 
   /* Fill in the commit_info structure */
-  *commit_info = svn_client__make_commit_info (committed_rev,
-                                               committed_author,
+  *commit_info = svn_client__make_commit_info (committed_rev, 
+                                               committed_author, 
                                                committed_date, pool);
 
   return reconcile_errors (cmt_err, unlock_err, cleanup_err, pool);
@@ -679,7 +679,7 @@ wc_to_repos_copy (svn_client_commit_info_t **commit_info,
 static svn_error_t *
 repos_to_wc_copy (const char *src_url,
                   const svn_opt_revision_t *src_revision,
-                  const char *dst_path,
+                  const char *dst_path, 
                   svn_wc_adm_access_t *optional_adm_access,
                   svn_client_auth_baton_t *auth_baton,
                   svn_wc_notify_func_t notify_func,
@@ -706,9 +706,9 @@ repos_to_wc_copy (const char *src_url,
      cannot go into the admin area. We do want to store the resulting
      auth data, though, once the WC is built. */
   SVN_ERR (svn_client__open_ra_session (&sess, ra_lib, src_url, auth_dir,
-                                        NULL, NULL, TRUE, FALSE, TRUE,
+                                        NULL, NULL, TRUE, FALSE, TRUE, 
                                         auth_baton, pool));
-
+      
   /* Pass null for the path, to ensure error if trying to get a
      revision based on the working copy. */
   SVN_ERR (svn_client__get_revision_number
@@ -756,7 +756,7 @@ repos_to_wc_copy (const char *src_url,
     {
       const char *base_name;
       svn_path_split (src_url, NULL, &base_name, pool);
-      dst_path = svn_path_join (dst_path,
+      dst_path = svn_path_join (dst_path, 
                                 svn_path_uri_decode (base_name, pool),
                                 pool);
     }
@@ -778,9 +778,9 @@ repos_to_wc_copy (const char *src_url,
                                     pool));
   else
     adm_access = optional_adm_access;
-
+                              
   if (src_kind == svn_node_dir)
-    {
+    {    
       const svn_delta_editor_t *editor;
       void *edit_baton;
 
@@ -789,10 +789,10 @@ repos_to_wc_copy (const char *src_url,
                                            notify_func, notify_baton,
                                            &editor, &edit_baton,
                                            NULL, pool));
-
+      
       /* Check out the new tree.  The parent dir will get no entry, so
          it will be as if the new tree isn't really there yet. */
-      SVN_ERR (ra_lib->do_checkout (sess, src_revnum, 1,
+      SVN_ERR (ra_lib->do_checkout (sess, src_revnum, 1, 
                                     editor,
                                     edit_baton));
 
@@ -804,13 +804,13 @@ repos_to_wc_copy (const char *src_url,
              entry, and when we try to commit later on, the
              'add-dir-with-history' step will be -very- unhappy; it only
              accepts specific revisions.
-
+             
              On the other hand, we *could* say that -1 is a legitimate
              copyfrom_rev, but I think that's bogus.  Somebody made a copy
              from a particular revision;  if they wait a long time to
              commit, it would be terrible if the copied happened from a
              newer revision!! */
-
+          
           /* We just did a checkout; whatever revision we just got, that
              should be the copyfrom_revision when we commit later. */
           const svn_wc_entry_t *d_entry;
@@ -829,7 +829,7 @@ repos_to_wc_copy (const char *src_url,
       svn_stream_t *fstream;
       apr_file_t *fp;
       svn_revnum_t fetched_rev = 0;
-
+      
       /* Open DST_PATH for writing. */
       SVN_ERR_W (svn_io_file_open (&fp, dst_path,
                                    (APR_CREATE | APR_WRITE),
@@ -838,11 +838,11 @@ repos_to_wc_copy (const char *src_url,
 
       /* Create a generic stream that operates on this file.  */
       fstream = svn_stream_from_aprfile (fp, pool);
-
+      
       /* Have the RA layer 'push' data at this stream.  We pass a
          relative path of "", because we opened SRC_URL, which is
-         already the full URL to the file. */
-      SVN_ERR (ra_lib->get_file (sess, "", src_revnum, fstream,
+         already the full URL to the file. */         
+      SVN_ERR (ra_lib->get_file (sess, "", src_revnum, fstream, 
                                  &fetched_rev, &props));
 
       /* Close the file. */
@@ -850,8 +850,8 @@ repos_to_wc_copy (const char *src_url,
       if (status)
         return svn_error_createf (status, NULL,
                                   "failed to close file '%s'.",
-                                  dst_path);
-
+                                  dst_path);   
+     
       /* Also, if SRC_REVNUM is invalid ('head'), then FETCHED_REV is now
          equal to the revision that was actually retrieved.  This is
          the value we want to use as 'copyfrom_rev' in the call to
@@ -862,7 +862,7 @@ repos_to_wc_copy (const char *src_url,
 
   /* Free the RA session. */
   SVN_ERR (ra_lib->close (sess));
-
+      
   /* Schedule the new item for addition-with-history.
 
      If the new item is a directory, the URLs will be recursively
@@ -876,14 +876,14 @@ repos_to_wc_copy (const char *src_url,
      changes now. */
   if (props)
     {
-      for (hi = apr_hash_first(pool, props); hi; hi = apr_hash_next(hi))
+      for (hi = apr_hash_first(pool, props); hi; hi = apr_hash_next(hi)) 
         {
           const void *key;
           void *val;
           enum svn_prop_kind kind;
-
+          
           apr_hash_this (hi, &key, NULL, &val);
-
+          
           /* We only want to set 'normal' props.  For now, we're
              ignoring any wc props (they're not needed when we commit
              an addition), and we're ignoring entry props (they're
@@ -947,7 +947,7 @@ setup_copy (svn_client_commit_info_t **commit_info,
       else
         {
           /* Disallow moves between the working copy and the repository. */
-          return svn_error_create
+          return svn_error_create 
             (SVN_ERR_UNSUPPORTED_FEATURE, NULL,
              "no support for repos <--> working copy moves");
         }
@@ -958,7 +958,7 @@ setup_copy (svn_client_commit_info_t **commit_info,
          someone could pass in an svn_opt_revision_number that just
          happens to be the HEAD.  It's fair enough to punt then, IMHO,
          and just demand that the user not specify a revision at all;
-         beats mucking up this function with RA calls and such. */
+         beats mucking up this function with RA calls and such. */ 
       if (src_revision->kind != svn_opt_revision_unspecified
           && src_revision->kind != svn_opt_revision_head)
         {
@@ -994,16 +994,16 @@ setup_copy (svn_client_commit_info_t **commit_info,
     {
       svn_client_commit_item_t *item;
       const char *tmp_file;
-      apr_array_header_t *commit_items
+      apr_array_header_t *commit_items 
         = apr_array_make (pool, 1, sizeof (item));
-
+      
       item = apr_pcalloc (pool, sizeof (*item));
       item->url = apr_pstrdup (pool, dst_path);
       item->state_flags = SVN_CLIENT_COMMIT_ITEM_ADD;
-      (*((svn_client_commit_item_t **) apr_array_push (commit_items)))
+      (*((svn_client_commit_item_t **) apr_array_push (commit_items))) 
         = item;
-
-      SVN_ERR ((*log_msg_func) (&message, &tmp_file, commit_items,
+      
+      SVN_ERR ((*log_msg_func) (&message, &tmp_file, commit_items, 
                                 log_msg_baton, pool));
       if (! message)
         return SVN_NO_ERROR;
@@ -1019,13 +1019,13 @@ setup_copy (svn_client_commit_info_t **commit_info,
                             pool));
 
   else if ((! src_is_url) && (dst_is_url))
-    SVN_ERR (wc_to_repos_copy (commit_info, src_path, dst_path,
-                               auth_baton, message,
+    SVN_ERR (wc_to_repos_copy (commit_info, src_path, dst_path, 
+                               auth_baton, message, 
                                notify_func, notify_baton,
                                pool));
 
   else if ((src_is_url) && (! dst_is_url))
-    SVN_ERR (repos_to_wc_copy (src_path, src_revision,
+    SVN_ERR (repos_to_wc_copy (src_path, src_revision, 
                                dst_path, optional_adm_access, auth_baton,
                                notify_func, notify_baton,
                                pool));
@@ -1060,9 +1060,9 @@ svn_client_copy (svn_client_commit_info_t **commit_info,
                  void *notify_baton,
                  apr_pool_t *pool)
 {
-  return setup_copy (commit_info,
+  return setup_copy (commit_info, 
                      src_path, src_revision, dst_path, optional_adm_access,
-                     auth_baton,
+                     auth_baton, 
                      log_msg_func, log_msg_baton,
                      FALSE /* is_move */,
                      TRUE /* force, set to avoid deletion check */,
