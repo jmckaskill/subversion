@@ -27,7 +27,7 @@ II. Client Implementation
           we call 'entryprops' are called 'live props'.)
 
       2. New client subcommands
-
+          
          a. Creating a lock
 
              'svn lock' calls new RA->lock() function, which marshalls
@@ -51,7 +51,7 @@ II. Client Implementation
                   - for ra_dav, a new standard header in the PUT request.
 
             2. Releasing a lock
-
+ 
          c. Breaking a lock
 
          d. Stealing a lock
@@ -86,7 +86,7 @@ III. Server Implementation
    B. Tracking locks
 
       1. Define a lock-token:
-
+ 
             UUID
             owner
             creation-date
