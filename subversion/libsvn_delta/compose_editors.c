@@ -1,6 +1,6 @@
-/*
+/* 
  * compose_editors.c -- composing two svn_delta_editor_t's
- *
+ * 
  * ====================================================================
  * Copyright (c) 2000-2002 CollabNet.  All rights reserved.
  *
@@ -51,7 +51,7 @@ struct file_baton
 
 
 static svn_error_t *
-set_target_revision (void *edit_baton,
+set_target_revision (void *edit_baton, 
                      svn_revnum_t target_revision,
                      apr_pool_t *pool)
 {
@@ -59,7 +59,7 @@ set_target_revision (void *edit_baton,
 
   SVN_ERR ((* (eb->editor_1->set_target_revision)) (eb->edit_baton_1,
                                                     target_revision, pool));
-
+  
   SVN_ERR ((* (eb->editor_2->set_target_revision)) (eb->edit_baton_2,
                                                     target_revision, pool));
 
@@ -82,14 +82,14 @@ open_root (void *edit_baton,
                                           base_revision,
                                           dir_pool,
                                           &(d->dir_baton_1)));
-
+  
   SVN_ERR ((* (eb->editor_2->open_root)) (eb->edit_baton_2,
                                           base_revision,
                                           dir_pool,
                                           &(d->dir_baton_2)));
-
+  
   *root_baton = d;
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -106,12 +106,12 @@ delete_entry (const char *path,
                                                         revision,
                                                         d->dir_baton_1,
                                                         pool));
-
+  
   SVN_ERR ((* (d->edit_baton->editor_2->delete_entry)) (path,
                                                         revision,
                                                         d->dir_baton_2,
                                                         pool));
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -135,7 +135,7 @@ add_directory (const char *path,
                                                          copyfrom_revision,
                                                          dir_pool,
                                                          &child->dir_baton_1));
-
+    
   SVN_ERR ((* (d->edit_baton->editor_2->add_directory)) (path,
                                                          d->dir_baton_2,
                                                          copyfrom_path,
@@ -164,7 +164,7 @@ open_directory (const char *path,
   SVN_ERR ((* (d->edit_baton->editor_1->open_directory))
            (path, d->dir_baton_1, base_revision, dir_pool,
             &(child->dir_baton_1)));
-
+  
   SVN_ERR ((* (d->edit_baton->editor_2->open_directory))
            (path, d->dir_baton_2, base_revision, dir_pool,
             &(child->dir_baton_2)));
@@ -183,7 +183,7 @@ close_directory (void *dir_baton,
 
   SVN_ERR ((* (d->edit_baton->editor_1->close_directory)) (d->dir_baton_1,
                                                            pool));
-
+  
   SVN_ERR ((* (d->edit_baton->editor_2->close_directory)) (d->dir_baton_2,
                                                            pool));
 
@@ -197,10 +197,10 @@ close_file (void *file_baton,
 {
   struct file_baton *fb = file_baton;
 
-  SVN_ERR ((* (fb->edit_baton->editor_1->close_file)) (fb->file_baton_1,
+  SVN_ERR ((* (fb->edit_baton->editor_1->close_file)) (fb->file_baton_1, 
                                                        pool));
-
-  SVN_ERR ((* (fb->edit_baton->editor_2->close_file)) (fb->file_baton_2,
+  
+  SVN_ERR ((* (fb->edit_baton->editor_2->close_file)) (fb->file_baton_2, 
                                                        pool));
 
   return SVN_NO_ERROR;
@@ -214,7 +214,7 @@ close_edit (void *edit_baton,
   struct edit_baton *eb = edit_baton;
 
   SVN_ERR ((* (eb->editor_1->close_edit)) (eb->edit_baton_1, pool));
-
+  
   SVN_ERR ((* (eb->editor_2->close_edit)) (eb->edit_baton_2, pool));
 
   return SVN_NO_ERROR;
@@ -228,7 +228,7 @@ abort_edit (void *edit_baton,
   struct edit_baton *eb = edit_baton;
 
   SVN_ERR ((* (eb->editor_1->abort_edit)) (eb->edit_baton_1, pool));
-
+  
   SVN_ERR ((* (eb->editor_2->abort_edit)) (eb->edit_baton_2, pool));
 
   return SVN_NO_ERROR;
@@ -271,7 +271,7 @@ apply_textdelta (void *file_baton,
   svn_txdelta_window_handler_t h2;
   void *hb1;
   void *hb2;
-
+  
   SVN_ERR ((* (fb->edit_baton->editor_1->apply_textdelta)) (fb->file_baton_1,
                                                             pool,
                                                             &h1,
@@ -320,14 +320,14 @@ add_file (const char *path,
 
   SVN_ERR ((* (d->edit_baton->editor_1->add_file)) (path,
                                                     d->dir_baton_1,
-                                                    copyfrom_path,
+                                                    copyfrom_path, 
                                                     copyfrom_revision,
                                                     file_pool,
                                                     &(fb->file_baton_1)));
 
   SVN_ERR ((* (d->edit_baton->editor_2->add_file)) (path,
                                                     d->dir_baton_2,
-                                                    copyfrom_path,
+                                                    copyfrom_path, 
                                                     copyfrom_revision,
                                                     file_pool,
                                                     &(fb->file_baton_2)));
@@ -425,7 +425,7 @@ svn_delta_compose_editors (const svn_delta_editor_t **new_editor,
 {
   struct edit_baton *eb = apr_pcalloc (pool, sizeof (*eb));
   svn_delta_editor_t *editor = svn_delta_default_editor (pool);
-
+  
   /* Set up the editor. */
   editor->set_target_revision = set_target_revision;
   editor->open_root = open_root;
@@ -495,7 +495,7 @@ svn_delta_wrap_editor (const svn_delta_editor_t **new_editor,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end:
