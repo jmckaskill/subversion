@@ -60,7 +60,7 @@ apply_delta (svn_stream_t *delta,
 
   /* ### todo:  This is a TEMPORARY wrapper around our editor so we
      can use it with an old driver. */
-  svn_delta_compat_wrap (&wrap_editor, &wrap_edit_baton,
+  svn_delta_compat_wrap (&wrap_editor, &wrap_edit_baton, 
                          editor, edit_baton, pool);
 
   /* ... and edit! */
@@ -115,7 +115,7 @@ main (int argc, char **argv)
      ":ssh:jrandom@svn.tigris.org/repos",
      1,  /* kff todo: revision must be passed in, right? */
      pool);
-
+  
   if (err)
     {
       svn_handle_error (err, stdout, 0);
