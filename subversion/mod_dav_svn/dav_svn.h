@@ -339,7 +339,7 @@ const char *dav_svn_build_uri(const dav_svn_repos *repos,
 
 
 /* Compare (PATH in ROOT) to (PATH in ROOT/PATH's created_rev).
-
+   
    If these nodes are identical, then return the created_rev.
 
    If the nodes aren't identical, or if PATH simply doesn't exist in
@@ -423,7 +423,7 @@ dav_error * dav_svn_split_uri (request_rec *r,
 /* Given an apache request R and a ROOT_PATH to the svn location
    block, set *KIND to the node-kind of the URI's associated
    (revision, path) pair, if possible.
-
+   
    Public uris, baseline collections, version resources, and working
    (non-baseline) resources all have associated (revision, path)
    pairs, and thus one of {svn_node_file, svn_node_dir, svn_node_none}
@@ -432,7 +432,7 @@ dav_error * dav_svn_split_uri (request_rec *r,
    If URI is something more abstract, then set *KIND to to
    svn_node_unknown.  This is true for baselines, working baselines,
    version controled configurations, activities, histories, and other
-   private resources.
+   private resources.  
 */
 dav_error * dav_svn_resource_kind (request_rec *r,
                                    const char *uri,
@@ -454,7 +454,7 @@ dav_error * dav_svn__update_report(const dav_resource *resource,
                                    ap_filter_t *output);
 
 /* ### todo: document this, as soon as understand what the heck it
-   does :-).  -kff */
+   does :-).  -kff */   
 dav_error * dav_svn__log_report(const dav_resource *resource,
                                 const apr_xml_doc *doc,
                                 ap_filter_t *output);
