@@ -20,7 +20,7 @@ numbers.
   node_id ::= number | node_version_id "." number
   node_version_id ::= node_id "." number
 
-So:
+So: 
 - "100" is a node id.
 - "100.10" is a node version id, referring to version 10 of node 100.
 - "100.10.3" is a node id, referring to the third branch based on
@@ -90,7 +90,7 @@ arrange the nodes for quick traversal, given our access patterns.
 Here's the sort order we use:
 
 - Nodes are sorted by their node number.
-- All the versions of a given node come together, in order of
+- All the versions of a given node come together, in order of 
   increasing version number.
 - Each node's versions are followed by a record whose key is
   "NODENUM.head".  This lets us quickly find the head of any given
@@ -125,7 +125,7 @@ where each NAMEi is the name of a property, and VALUEi is the value of
 the property named NAMEi.
 
 
-DELTA forms
+DELTA forms 
 
 The job of a DELTA form is to describe how to turn one string (the
 `source' string) into another (the `target' string).  The context of
