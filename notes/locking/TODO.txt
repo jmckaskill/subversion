@@ -46,11 +46,11 @@ These are in the format of
       These need to be discussed--ra_local and svnserve are just
       throwing these errors away ATM. Perhaps we could do the following:
       - mod_dav_svn: log the error in the error_log
-      - svn_serve: place a TODO comment in the code that when logging
+      - svn_serve: place a TODO comment in the code that when logging 
         is implemented, this should be logged as a warning
       - ra_local: Throw a warning somehow?
 
-* subversion/libsvn_fs_fs/lock.c:523
+* subversion/libsvn_fs_fs/lock.c:523 
     /* ### TODO:  We need the write lock here, but some callers
        ### already has it.  Also, we need to reread the lock to
        ### avoid a race.  We don't want the write lock grabbed just
@@ -89,11 +89,11 @@ NICE TO HAVE
 
    * Decide what should happen when unlocking in commit if an error happens.
 
-   * how do locks relate to dump/load?  file as an enhancement?
+   * how do locks relate to dump/load?  file as an enhancement? 
 
 
 * Stuff to document in book:
-
+     
        - 4 new hooks
        - 'lock' and 'unlock' commands, svn:needs-lock property.
        - svnadmin lslocks, rmlocks, lock
@@ -104,7 +104,7 @@ NICE TO HAVE
        - two new bdb tables in BDB section.
        - update the description of autoversioning in appendix C!
 
-         ### remember to update authz policy doc.
+         ### remember to update authz policy doc. 
 
 * Autoversioning TODO:
 
