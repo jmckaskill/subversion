@@ -1,5 +1,5 @@
 /*
- * checkout-test.c :  testing checkout
+ * questions.c:  routines for asking questions about working copies
  *
  * ================================================================
  * Copyright (c) 2000 Collab.Net.  All rights reserved.
@@ -49,96 +49,48 @@
 
 
 
-#include <stdio.h>
-#include <stdlib.h>
 #include <apr_pools.h>
-#include <apr_hash.h>
 #include <apr_file_io.h>
+#include <apr_time.h>
 #include "svn_types.h"
-#include "svn_delta.h"
-#include "svn_wc.h"
 #include "svn_string.h"
 #include "svn_error.h"
 #include "svn_hash.h"
+#include "svn_path.h"
+#include "svn_wc.h"
+#include "wc.h"
 
 
 
-static svn_error_t *
-test_read_fn (void *baton, char *buffer, apr_off_t *len, apr_pool_t *pool)
+svn_error_t *
+svn_wc__working_copy_p (int *answer, svn_string_t *path, apr_pool_t *pool)
 {
-  apr_file_t *src = (apr_file_t *) baton;
-  svn_error_t *err;
-  apr_status_t stat;
-
-  stat = apr_full_read (src, buffer, (apr_size_t) *len, (apr_size_t *) len);
-
-  if (stat && (stat != APR_EOF))
-    return
-      svn_create_error (stat, 0, "error reading incoming delta stream",
-                        NULL, pool);
-
-  else
-    return 0;
-}
-
-
-int
-main (int argc, char **argv)
-{
-  apr_pool_t *pool = NULL;
-  apr_status_t apr_err = 0;
-  apr_file_t *src = NULL;     /* init to NULL very important! */
+  /* Nothing fancy, just check for an administrative subdir and a
+     `repository' file. */
+  apr_file_t *f = NULL;
   svn_error_t *err = NULL;
-  svn_string_t *target = NULL;  /* init to NULL also important here,
-                                   because NULL implies delta's top dir */
-  char *src_file = NULL;
 
-  apr_initialize ();
-  apr_create_pool (&pool, NULL);
-
-  if ((argc < 2) || (argc > 3))
-    {
-      fprintf (stderr, "usage: %s DELTA_SRC_FILE [TARGET_NAME]\n", argv[0]);
-      return 1;
-    }
-  else
-    src_file = argv[1];
-
-  apr_err = apr_open (&src, src_file,
-                      (APR_READ | APR_CREATE),
-                      APR_OS_DEFAULT,
-                      pool);
-
-  if (apr_err)
-    {
-      fprintf (stderr, "error opening %s: %s",
-               src_file, apr_canonical_error (apr_err));
-      exit (1);
-    }
-
-  if (argc == 3)
-    target = svn_string_create (argv[2], pool);
-
-  err = svn_wc_apply_delta (src,
-                            test_read_fn,
-                            target,
-                            svn_string_create ("some repository", pool),
-                            pool);
-
+  err = svn_wc__open_adm_file (&f, path, SVN_WC__ADM_REPOSITORY,
+                               APR_READ, pool);
   if (err)
-    svn_handle_error (err, stdout);
+    {
+      /* It really doesn't matter what kind of error it is; for our
+         purposes, this is not a working copy. */
+      *answer = 0;
+      return err;
+    }
 
-  apr_close (src);
+  /* Else. */
 
-  return 0;
+  *answer = 1;
+  err = svn_wc__close_adm_file (f, path, SVN_WC__ADM_REPOSITORY, pool);
+  return err;
 }
 
 
-
-
 
-/* -----------------------------------------------------------------
+/*
  * local variables:
- * eval: (load-file "../../svn-dev.el")
+ * eval: (load-file "../svn-dev.el")
  * end:
  */

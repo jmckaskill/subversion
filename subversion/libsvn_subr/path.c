@@ -1,5 +1,5 @@
 /*
- * paths.c:   a path manipulation library
+ * paths.c:   a path manipulation library using svn_string_t
  *
  * ================================================================
  * Copyright (c) 2000 Collab.Net.  All rights reserved.
@@ -109,4 +109,22 @@ svn_path_remove_component (svn_string_t *path, int style)
 
   if (! svn_string_chop_back_to_char (path, SVN_PATH_REPOS_SEPARATOR))
     svn_string_setempty (path);
+}
+
+
+/* Duplicate and return PATH's last component, w/o separator. */
+svn_string_t *
+svn_path_last_component (svn_string_t *path, apr_pool_t *pool)
+{
+  apr_off_t i;
+
+  i = svn_string_find_char_backward (path, SVN_PATH_REPOS_SEPARATOR);
+
+  if (i < path->len)
+    {
+      i += 1;  /* Get past the separator char. */
+      return svn_string_ncreate (path->data + i, (path->len - i), pool);
+    }
+  else
+    return svn_string_dup (path, pool);
 }
