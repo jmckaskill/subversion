@@ -190,7 +190,7 @@ analogous to CVS/ sudirs:
 
   Same as `dir-props', except this is the pristine copy;  analagous to
   the "text-base" versions of files.  The last up-to-date copy of the
-  directory's properties live here.
+  directory's properties live here. 
 
 `lock'
 
@@ -237,7 +237,7 @@ analogous to CVS/ sudirs:
 
    To recover from a crash:
 
-      1. Look for a log file.
+      1. Look for a log file.  
 
            A. If none, just "rm -r tmp/*".
 
@@ -286,7 +286,7 @@ analogous to CVS/ sudirs:
 todo: some loose ends
 
    1. filename escaping in SVN/entries
-   2.
+   2. 
 
 
 
