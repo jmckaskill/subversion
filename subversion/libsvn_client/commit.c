@@ -39,7 +39,7 @@ svn_error_t *
 svn_client_commit (const svn_delta_edit_fns_t *before_editor,
                    void *before_edit_baton,
                    const svn_delta_edit_fns_t *after_editor,
-                   void *after_edit_baton,
+                   void *after_edit_baton,                   
                    svn_string_t *path,
                    svn_string_t *log_msg,
                    svn_string_t *xml_dst,
@@ -59,7 +59,7 @@ svn_client_commit (const svn_delta_edit_fns_t *before_editor,
   struct svn_wc_close_commit_baton ccb = {path, pool};
   apr_array_header_t *tgt_array = apr_array_make (pool, 1,
                                                   sizeof(svn_string_t *));
-
+  
   /* If we're committing to XML... */
   if (xml_dst && xml_dst->data)
     {
@@ -71,7 +71,7 @@ svn_client_commit (const svn_delta_edit_fns_t *before_editor,
       if (apr_err)
         return svn_error_createf (apr_err, 0, NULL, pool,
                                   "error opening %s", xml_dst->data);
-
+      
 
       /* Fetch the xml commit editor. */
       SVN_ERR (svn_delta_get_xml_editor (svn_stream_from_aprfile (dst, pool),
@@ -91,11 +91,11 @@ svn_client_commit (const svn_delta_edit_fns_t *before_editor,
                                                       revision,
                                                       svn_wc_set_revision,
                                                       &ccb));
-
+                                                      
           svn_delta_compose_editors (&editor, &edit_baton,
                                      commit_editor, commit_edit_baton,
                                      track_editor, track_edit_baton, pool);
-        }
+        }        
     }
   else /* We're committing to an RA layer */
     {
@@ -117,9 +117,9 @@ svn_client_commit (const svn_delta_edit_fns_t *before_editor,
 
       /* Open an RA session to URL */
       SVN_ERR (ra_lib->open (&session, svn_string_create (URL, pool), pool));
-
+      
       /* Fetch RA commit editor, giving it svn_wc_set_revision(). */
-      SVN_ERR (ra_lib->get_commit_editor
+      SVN_ERR (ra_lib->get_commit_editor 
                (session,
                 &editor, &edit_baton,
                 log_msg,
@@ -131,7 +131,7 @@ svn_client_commit (const svn_delta_edit_fns_t *before_editor,
   /* Wrap the resulting editor with BEFORE and AFTER editors. */
   svn_delta_wrap_editor (&editor, &edit_baton,
                          before_editor, before_edit_baton,
-                         editor, edit_baton,
+                         editor, edit_baton, 
                          after_editor, after_edit_baton, pool);
 
   /* Crawl local mods and report changes to EDITOR.  When close_edit()
@@ -140,16 +140,16 @@ svn_client_commit (const svn_delta_edit_fns_t *before_editor,
 
   if (xml_dst && xml_dst->data)
     {
-      /* If we were committing into XML, close the xml file. */
+      /* If we were committing into XML, close the xml file. */      
       apr_err = apr_file_close (dst);
       if (apr_err)
         return svn_error_createf (apr_err, 0, NULL, pool,
-                                  "error closing %s", xml_dst->data);
+                                  "error closing %s", xml_dst->data);      
     }
   else
     /* We were committing to RA, so close the session. */
     SVN_ERR (ra_lib->close (session));
-
+    
   /* THE END. */
 
   return SVN_NO_ERROR;
@@ -157,7 +157,7 @@ svn_client_commit (const svn_delta_edit_fns_t *before_editor,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end: */

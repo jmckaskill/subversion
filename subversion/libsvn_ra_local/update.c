@@ -25,7 +25,7 @@ svn_ra_local__set_path (void *report_baton,
 {
   svn_fs_root_t *from_root;
   svn_string_t *from_path;
-  svn_ra_local__report_baton_t *rbaton
+  svn_ra_local__report_baton_t *rbaton 
     = (svn_ra_local__report_baton_t *) report_baton;
   svn_revnum_t *rev_ptr = apr_pcalloc (rbaton->pool, sizeof(*rev_ptr));
 
@@ -56,15 +56,15 @@ svn_error_t *
 svn_ra_local__finish_report (void *report_baton)
 {
   svn_fs_root_t *rev_root;
-  svn_ra_local__report_baton_t *rbaton
+  svn_ra_local__report_baton_t *rbaton 
     = (svn_ra_local__report_baton_t *) report_baton;
 
   /* Get the root of the revision we want to update to. */
   SVN_ERR (svn_fs_revision_root (&rev_root, rbaton->fs,
                                  rbaton->revnum_to_update_to,
                                  rbaton->pool));
-
-  /* Ah!  The good stuff!  dir_delta does all the hard work. */
+  
+  /* Ah!  The good stuff!  dir_delta does all the hard work. */  
 
   /* ben sez:  comment this back in when we start compiling delta.c
      into libsvn_fs again. */
@@ -73,7 +73,7 @@ svn_ra_local__finish_report (void *report_baton)
                              rbaton->update_editor,
                              rbaton->update_edit_baton,
                              rbaton->pool)); */
-
+  
   /* Still here?  Great.  Throw out the transaction. */
   SVN_ERR (svn_fs_abort_txn (rbaton->txn));
 
