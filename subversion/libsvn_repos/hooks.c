@@ -117,7 +117,7 @@ svn_repos__hooks_start_commit (svn_repos_t *repos,
   svn_node_kind_t kind;
   const char *hook = svn_repos_start_commit_hook (repos, pool);
 
-  if ((! svn_io_check_resolved_path (hook, &kind, pool))
+  if ((! svn_io_check_resolved_path (hook, &kind, pool)) 
       && (kind == svn_node_file))
     {
       const char *args[4];
@@ -144,7 +144,7 @@ svn_repos__hooks_pre_commit (svn_repos_t *repos,
   svn_node_kind_t kind;
   const char *hook = svn_repos_pre_commit_hook (repos, pool);
 
-  if ((! svn_io_check_resolved_path (hook, &kind, pool))
+  if ((! svn_io_check_resolved_path (hook, &kind, pool)) 
       && (kind == svn_node_file))
     {
       const char *args[4];
@@ -171,7 +171,7 @@ svn_repos__hooks_post_commit (svn_repos_t *repos,
   svn_node_kind_t kind;
   const char *hook = svn_repos_post_commit_hook (repos, pool);
 
-  if ((! svn_io_check_resolved_path (hook, &kind, pool))
+  if ((! svn_io_check_resolved_path (hook, &kind, pool)) 
       && (kind == svn_node_file))
     {
       const char *args[4];
@@ -202,7 +202,7 @@ svn_repos__hooks_pre_revprop_change (svn_repos_t *repos,
   svn_node_kind_t kind;
   const char *hook = svn_repos_pre_revprop_change_hook (repos, pool);
 
-  if ((! svn_io_check_resolved_path (hook, &kind, pool))
+  if ((! svn_io_check_resolved_path (hook, &kind, pool)) 
       && (kind == svn_node_file))
     {
       const char *args[6];
@@ -224,8 +224,8 @@ svn_repos__hooks_pre_revprop_change (svn_repos_t *repos,
          MASSIVE PARANOIA.  Changing revision properties is a lossy
          operation; so unless the repository admininstrator has
          *deliberately* created the pre-hook, disallow all changes. */
-      return
-        svn_error_create
+      return 
+        svn_error_create 
         (SVN_ERR_REPOS_DISABLED_FEATURE, NULL,
          "Repository has not been enabled to accept revision propchanges;\n"
          "ask the administrator to create a pre-revprop-change hook.");
@@ -247,8 +247,8 @@ svn_repos__hooks_post_revprop_change (svn_repos_t *repos,
 {
   svn_node_kind_t kind;
   const char *hook = svn_repos_post_revprop_change_hook (repos, pool);
-
-  if ((! svn_io_check_resolved_path (hook, &kind, pool))
+  
+  if ((! svn_io_check_resolved_path (hook, &kind, pool)) 
       && (kind == svn_node_file))
     {
       const char *args[6];
@@ -268,8 +268,8 @@ svn_repos__hooks_post_revprop_change (svn_repos_t *repos,
 
 
 
-/*
- * vim:ts=4:sw=4:expandtab:tw=80:fo=tcroq
- * vim:isk=a-z,A-Z,48-57,_,.,-,>
+/* 
+ * vim:ts=4:sw=4:expandtab:tw=80:fo=tcroq 
+ * vim:isk=a-z,A-Z,48-57,_,.,-,> 
  * vim:cino=>1s,e0,n0,f0,{.5s,}0,^-.5s,=.5s,t0,+1s,c3,(0,u0,\:0
  */
