@@ -221,7 +221,7 @@ def usage(exit):
      "   tree:          print the tree.\n"
      "\n"
      % (sys.argv[0], sys.argv[0], sys.argv[0]))
-
+  
   sys.exit(exit)
 
 def main():
