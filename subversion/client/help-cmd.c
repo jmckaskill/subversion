@@ -32,7 +32,7 @@
    and if HELP is set, print the help string for the command too. */
 static void
 print_command_info (const svn_cl__cmd_desc_t *cmd_desc,
-                    svn_boolean_t help,
+                    svn_boolean_t help, 
                     apr_pool_t *pool)
 {
   const svn_cl__cmd_desc_t *this_cmd
@@ -45,7 +45,7 @@ print_command_info (const svn_cl__cmd_desc_t *cmd_desc,
 
   /* Print the list of aliases. */
   first_time = TRUE;
-  for (this_cmd++; (this_cmd->name && this_cmd->is_alias); this_cmd++)
+  for (this_cmd++; (this_cmd->name && this_cmd->is_alias); this_cmd++) 
     {
       if (first_time) {
         printf (" (");
@@ -53,13 +53,13 @@ print_command_info (const svn_cl__cmd_desc_t *cmd_desc,
       }
       else
         printf (", ");
-
+      
       printf ("%s", this_cmd->name);
     }
 
   if (! first_time)
     printf (")");
-
+  
   if (help)
     printf (": %s\n", canonical_cmd->help);
 }
@@ -75,7 +75,7 @@ print_generic_help (apr_pool_t *pool)
     "\n"
     "Most subcommands take file and/or directory arguments, recursing\n"
     "on the directories.  If no arguments are supplied to such a\n"
-    "command, it will recurse on the current directory (inclusive) by\n"
+    "command, it will recurse on the current directory (inclusive) by\n" 
     "default.\n"
     "\n"
     "Available subcommands:\n";
@@ -87,7 +87,7 @@ print_generic_help (apr_pool_t *pool)
   int i = 0;
 
   printf ("%s", usage);
-  while (svn_cl__cmd_table[i].name)
+  while (svn_cl__cmd_table[i].name) 
     {
       /*  for (i = 0; i < max; i++) */
       if (! svn_cl__cmd_table[i].is_alias)
@@ -137,7 +137,7 @@ print_version_info (apr_pool_t *pool)
 /* Print either generic help, or command-specific help for each
  * command in os->args.  OPT_STATE is unused and may be null.
  * If OS is null then generic help will always be printed.
- *
+ * 
  * Unlike all the other command routines, ``help'' has its own
  * option processing.
  */
@@ -161,11 +161,11 @@ svn_cl__help (apr_getopt_t *os,
   else
     {
       /* the -v or --version option was given */
-      if (opt_state && opt_state->version)
-          SVN_ERR (print_version_info (pool));
+      if (opt_state && opt_state->version) 
+          SVN_ERR (print_version_info (pool));        
 
       else
-        print_generic_help (pool);
+        print_generic_help (pool);      
     }
 
   return SVN_NO_ERROR;
@@ -181,7 +181,7 @@ svn_cl__subcommand_help (const char* subcommand,
 {
   const svn_cl__cmd_desc_t *cmd =
     svn_cl__get_canonical_command (subcommand);
-
+    
   if (cmd)
     print_command_info (cmd, TRUE, pool);
   else
@@ -189,8 +189,8 @@ svn_cl__subcommand_help (const char* subcommand,
 }
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
- * end:
+ * end: 
  */
