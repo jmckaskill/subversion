@@ -45,7 +45,7 @@ extern "C" {
 
 #endif
 
-/*
+/* 
    Define custom Subversion error numbers, in the range reserved for
    that in APR: from APR_OS_START_USEERR to APR_OS_START_SYSERR (see
    apr_errno.h).
@@ -260,13 +260,13 @@ SVN_ERROR_START
   /* End of ra_dav errors */
 
   /* These RA errors are specific to ra_local */
-
+  
     /* the given URL does not seem to point to a versioned resource */
     SVN_ERRDEF(SVN_ERR_RA_NOT_VERSIONED_RESOURCE, "URL is not a versioned resource")
 
     /* the update reporter was given a bogus first path. */
     SVN_ERRDEF(SVN_ERR_RA_BAD_REVISION_REPORT, "Bogus revision report")
-
+ 
   /* End of ra_local errors */
 
   /* an unsuitable container-pool was passed to svn_make_pool() */
@@ -292,7 +292,7 @@ SVN_ERROR_START
   SVN_ERRDEF(SVN_ERR_CL_ADM_DIR_RESERVED, "Attempted command in administrative dir")
 
   /* END Client errors */
-
+  
 
 SVN_ERROR_END
 
