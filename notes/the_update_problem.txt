@@ -63,7 +63,7 @@ Here's the plan of attack.
 Defining `Change'
 -----------------
 
-Deltas only talk about entities that have changed.
+Deltas only talk about entities that have changed.  
 
 We say that two deltas *conflict* iff they each change one or more of
 the same entity.
@@ -154,13 +154,13 @@ Example 1:
 
 
 Example 2:
-
+     
        C(B->WC)   = { 2, 5, 9, 13, 21, 87 }
        C(RWC->L)  = { 3, 4, 6, 22, 54, 87, 102 }
 
     Both deltas have changed node 87.  If the client were attempting
     to commit, the entire transaction would be denied.  If the client
-    were asking for an update,
+    were asking for an update, 
 
 ;  the client
     would then use conflict markers (or other methods) to show how
