@@ -27,8 +27,8 @@
 
 /*** Code ***/
 svn_string_t *
-string__j_to_svn_string(JNIEnv *env,
-                        jstring jstr,
+string__j_to_svn_string(JNIEnv *env, 
+                        jstring jstr, 
                         jboolean *hasException,
                         apr_pool_t *pool)
 {
@@ -38,11 +38,11 @@ string__j_to_svn_string(JNIEnv *env,
 #ifdef SVN_JNI__VERBOSE
   fprintf(stderr, "string__j_to_svn_string\n");
 #endif
-
-  /* make sure there is enough memory left for
+  
+  /* make sure there is enough memory left for 
    * the operation, also push the stack frame
    * we will need 2 local references:
-   * -
+   * - 
    */
   if( (*env)->PushLocalFrame(env, 2) >= 0)
     {
@@ -57,12 +57,12 @@ string__j_to_svn_string(JNIEnv *env,
 	  jsize len = (*env)->GetStringUTFLength(env, jstr);
 	  buffer = (char *)malloc(len + 1);
 
-	  /* did the memory allocation succeed?
+	  /* did the memory allocation succeed? 
 	   * otherwise throw an exception */
 	  if( buffer == NULL )
 	    {
-	      throw_exception_by_name(env,
-                                      "java/lang/OutOfMemoryError",
+	      throw_exception_by_name(env, 
+                                      "java/lang/OutOfMemoryError", 
                                       NULL);
 	      _hasException = JNI_TRUE;
 	    }
@@ -118,7 +118,7 @@ string__c_to_stringbuf(JNIEnv *env,
       // did the call succed? otherwise exception
       if( result == NULL )
         {
-          misc__throw_exception_by_name(env,
+          misc__throw_exception_by_name(env, 
                                         SVN_JNI_SUBVERSION_EXCEPTION,
                                         "svn_stringbuf_create_from_string" \
                                         " failed");
@@ -135,8 +135,8 @@ string__c_to_stringbuf(JNIEnv *env,
 }
 
 jstring
-string__c_to_j(JNIEnv *env,
-               char *string,
+string__c_to_j(JNIEnv *env, 
+               char *string, 
                jboolean *hasException)
 {
   jboolean _hasException = JNI_FALSE;
@@ -158,11 +158,11 @@ string__c_to_j(JNIEnv *env,
 }
 
 jstring
-string__svn_string_to_j(JNIEnv *env,
-                        svn_string_t *string,
+string__svn_string_to_j(JNIEnv *env, 
+                        svn_string_t *string, 
                         jboolean *hasException)
 {
-  return string__c_to_j(env, (char*)string->data,
+  return string__c_to_j(env, (char*)string->data, 
                         hasException);
 }
 
@@ -175,10 +175,10 @@ string__svn_stringbuf_to_j(JNIEnv *env,
                         hasException);
 }
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../svn-dev.el")
- * end:
+ * end: 
  */
 
 
