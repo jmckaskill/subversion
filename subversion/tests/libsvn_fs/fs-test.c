@@ -37,9 +37,9 @@ create_fs_and_repos (svn_fs_t **fs, const char *name)
   if (! fs)
     return svn_error_create (SVN_ERR_FS_GENERAL, 0, NULL, pool,
                              "Couldn't alloc a new fs object.");
-
+  
   SVN_ERR (svn_fs_create_berkeley (*fs, name));
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -60,7 +60,7 @@ create_berkeley_filesystem (const char **msg)
   /* Create and close a repository. */
   SVN_ERR (create_fs_and_repos (&fs, "test-repo-1")); /* helper */
   SVN_ERR (svn_fs_close_fs (fs));
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -103,7 +103,7 @@ fetch_youngest_rev (const char **msg)
   SVN_ERR (create_fs_and_repos (&fs, "test-repo-3")); /* helper */
 
   SVN_ERR (svn_fs_youngest_rev (&rev, fs, pool));
-
+  
   SVN_ERR (svn_fs_close_fs (fs));
 
   return SVN_NO_ERROR;
@@ -125,10 +125,10 @@ trivial_transaction (const char **msg)
 
   /* Begin a new transaction that is based on revision 0.  */
   SVN_ERR (svn_fs_begin_txn (&txn, fs, 0, pool));
-
+      
   /* Test that the txn name is non-null. */
   SVN_ERR (svn_fs_txn_name (&txn_name, txn, pool));
-
+  
   if (! txn_name)
     return svn_error_create (SVN_ERR_FS_GENERAL, 0, NULL, pool,
                              "Got a NULL txn name.");
@@ -190,7 +190,7 @@ create_file_transaction (const char **msg)
 
   /* Get the txn root */
   SVN_ERR (svn_fs_txn_root (&txn_root, txn, pool));
-
+  
   /* Create a new file in the root directory. */
   SVN_ERR (svn_fs_make_file (txn_root, "beer.txt", pool));
 
@@ -233,23 +233,23 @@ verify_txn_list (const char **msg)
       || (txn_list[1] == NULL)
       || (txn_list[2] != NULL))
     goto all_bad;
-
+  
   /* We should be able to find our 2 txn names in the list, in some
      order. */
   if ((! strcmp (txn_list[0], name1))
       && (! strcmp (txn_list[1], name2)))
     goto all_good;
-
+  
   else if ((! strcmp (txn_list[1], name1))
            && (! strcmp (txn_list[0], name2)))
     goto all_good;
-
+  
  all_bad:
 
   return svn_error_create (SVN_ERR_FS_GENERAL, 0, NULL, pool,
                            "Got a bogus txn list.");
  all_good:
-
+  
   /* Close the fs. */
   SVN_ERR (svn_fs_close_fs (fs));
 
@@ -274,7 +274,7 @@ int (*test_funcs[]) (const char **msg) = {
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../svn-dev.el")
  * end:
