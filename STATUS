@@ -73,16 +73,16 @@ Candidate changes:
   * r8969
     Do not copy doc/book/book/images into sandbox.
     Justification: Don't waste space in the tarball by having duplictate
-    images.
+    images. 
     Votes:
 
   * Issue #1775
     Allow reverting a replaced file with no properties.
-    Justification: Results in a somewhat wedged working copy.  Fix is
+    Justification: Results in a somewhat wedged working copy.  Fix is 
     straightforward, we just look at the results of the test for the existence
-    of the file that we were already running.
+    of the file that we were already running. 
     Notes: Attachment 312 is a backported version of this fix.  Which was
-    applied to trunk in r8981.
+    applied to trunk in r8981. 
     Votes:
 
   * r8985
