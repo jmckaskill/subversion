@@ -80,7 +80,7 @@ svn_cl__propdel (apr_getopt_t *os,
         return svn_error_create(SVN_ERR_CL_INSUFFICIENT_ARGS, NULL,
                                 "No URL target available.");
       target = ((const char **) (targets->elts))[0];
-      SVN_ERR (svn_client_url_from_path (&URL, target, pool));
+      SVN_ERR (svn_client_url_from_path (&URL, target, pool));  
       if (URL == NULL)
         return svn_error_create(SVN_ERR_UNVERSIONED_RESOURCE, NULL,
                                 "Either a URL or versioned item is required.");
@@ -89,12 +89,12 @@ svn_cl__propdel (apr_getopt_t *os,
       SVN_ERR (svn_client_revprop_set (pname_utf8, NULL,
                                        URL, &(opt_state->start_revision),
                                        &rev, ctx, FALSE, pool));
-      if (! opt_state->quiet)
+      if (! opt_state->quiet) 
         {
           printf ("property '%s' deleted from repository revision '%"
                   SVN_REVNUM_T_FMT"'\n",
                   pname, rev);
-        }
+        }      
     }
   else if (opt_state->start_revision.kind != svn_opt_revision_unspecified)
     {
@@ -115,7 +115,7 @@ svn_cl__propdel (apr_getopt_t *os,
           svn_pool_clear (subpool);
           SVN_ERR (svn_client_propset (pname_utf8, NULL, target,
                                        opt_state->recursive, subpool));
-          if (! opt_state->quiet)
+          if (! opt_state->quiet) 
             {
               const char *target_native;
               SVN_ERR (svn_utf_cstring_from_utf8 (&target_native,
