@@ -30,19 +30,19 @@ anyway, there's no point using skels for straight file contents.
 Before we go on, here's some background from `structure':
 
    ! NODE-REVISION and HEADER: how we represent a node revision
-   !
+   ! 
    ! We represent a given revision of a file or directory node using a list
    ! skel (see skel.h for an explanation of skels).  A node revision skel
    ! has the form:
-   !
+   ! 
    !     (HEADER KIND-SPECIFIC ...)
-   !
+   ! 
    ! where HEADER is a header skel, whose structure is common to all nodes,
    ! and the KIND-SPECIFIC elements carry data dependent on what kind of
    ! node this is --- file, directory, etc.
-   !
+   ! 
    ! HEADER has the form:
-   !
+   ! 
    !     (KIND PROPLIST FLAG ...)
    !
    ! [...]
@@ -61,7 +61,7 @@ Before we go on, here's some background from `structure':
    !
    ! If the header's KIND is "dir", then the node-revision skel
    ! represents a directory, and has the form:
-   !
+   ! 
    !     (HEADER (ENTRY ...))
 
 Great, thank you `structure'.  Take it away, Eric the Orchestra
@@ -72,20 +72,20 @@ both separately from node revisions.  We break PROPLIST out of HEADER,
 and put PROPLIST and DATA in the `strings' table:
 
    ! NODE-REVISION and HEADER: how we represent a node revision
-   !
+   ! 
    ! We represent a given revision of a file or directory node using a list
    ! skel (see skel.h for an explanation of skels).  A node revision skel
    ! has the form:
-   !
+   ! 
    !     (HEADER PROPLIST KIND-SPECIFIC ...)
-   !
+   ! 
    ! where HEADER is a header skel, whose structure is common to all
    ! nodes, PROPLIST is a property list, whose structure is also
    ! common to all nodes, and the KIND-SPECIFIC elements carry data
    ! dependent on what kind of node this is --- file, directory, etc.
-   !
+   ! 
    ! HEADER has the form:
-   !
+   ! 
    !     (KIND FLAG ...)
    !
    ! [...]
@@ -99,7 +99,7 @@ and put PROPLIST and DATA in the `strings' table:
    ! table, the values for which are the property list skel and node
    ! revision's contents, respectively.  For files, the content is a
    ! straight string, for directories, it is a skel:
-   !
+   ! 
    !     (ENTRY ...)
 
 Now,
@@ -171,7 +171,7 @@ c) Reverse-delta storage.
 =========================
 
 Here's how nodes are represented now:
-
+   
     REPRESENTATION ::= ("fulltext" NODE-REVISION)
                      | ("younger" DELTA CHECKSUM) ;
              DELTA ::= ("svndiff" DATA) ;
@@ -193,10 +193,10 @@ seem to be using them now:
    !       "transactions" : btree(TXN -> TRANSACTION,
    !                              "next-id" -> TXN)
    !            "strings" : recno(PROPLIST | ENTRIES_LIST | string)
-   !
+   ! 
    ! Syntactic elements
    ! ------------------
-   !
+   ! 
    ! Table keys:
    !                   ID ::= node.revision-id ;
    !                  TXN ::= number ;
@@ -231,7 +231,7 @@ seem to be using them now:
    !
    !             CHECKSUM ::= ("md5" BYTES) ;
    !                BYTES ::= atom ;
-   !
+   ! 
    ! Lexical elements
    ! ----------------
    !
