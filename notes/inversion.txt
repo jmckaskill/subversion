@@ -597,7 +597,7 @@ like to grant a particular developer the ability to commit
 subdirectory of some dir named named api.  You have some of this in
 your ACCESSES table.  For the sourcexchange.com web site we developed
 a much more general permission scheme that you can read about at
-http://joist.tigris.org.
+http://joist.tigris.org. 
 
 11. I would like to see some audit mechanism.  I think in this version
 of the document you left off the basic ability to see who did each
@@ -638,7 +638,7 @@ probably dont have that many concurrent accesses anyway.  I think
 selling inversion as "version control that you actually want to use"
 trumps speed claims anyway, we should make it easy in use and easy to
 enhance.  Java would also give us no-brainer internationalization
-support.
+support.  
 
 15. Compression.  It would be great if the protocol batched up all the
 files that need to be transfered for a given transaction and then
