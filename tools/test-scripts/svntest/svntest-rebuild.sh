@@ -31,7 +31,7 @@ START "create object directory" "Creating object directory..."
 $RM_RF "$TEST_ROOT/$OBJ" >> $LOG_FILE 2>&1 || FAIL
 $MKDIR "$TEST_ROOT/$OBJ" >> $LOG_FILE 2>&1 || FAIL
 $MKDIR_P "$TEST_ROOT/$OBJ/subversion/tests" >> $LOG_FILE 2>&1 || FAIL
-mount_ramdisk "$TEST_ROOT/$OBJ/subversion/tests" >> $LOG_FILE 2>&1 || FAIL
+mount_ramdisk "$TEST_ROOT/$OBJ/subversion/tests" >> $LOG_FILE 2>&1 || FAIL 
 PASS
 
 # Configure
@@ -60,7 +60,7 @@ test $? = 0 || {
 PASS
 
 
-# Install (bc mod_dav_svn.so)
+# Install (bc mod_dav_svn.so) 
 START "install" "Installing..."
 cd $TEST_ROOT/$OBJ
 $RM_RF "$INST_DIR/$SVN_NAME"
