@@ -135,7 +135,7 @@ log_start_element(void *userdata,
     case ELEM_replaced_path:
     case ELEM_deleted_path:
     case ELEM_modified_path:
-      lb->this_path_item = apr_pcalloc(lb->subpool,
+      lb->this_path_item = apr_pcalloc(lb->subpool, 
                                        sizeof(*(lb->this_path_item)));
       lb->this_path_item->copyfrom_rev = SVN_INVALID_REVNUM;
 
@@ -144,12 +144,12 @@ log_start_element(void *userdata,
          about these action codes. */
       if ((elm->id == ELEM_added_path) || (elm->id == ELEM_replaced_path))
         {
-          lb->this_path_item->action
+          lb->this_path_item->action 
             = (elm->id == ELEM_added_path) ? 'A' : 'R';
           copyfrom_path = get_attr(atts, "copyfrom-path");
           copyfrom_rev = get_attr(atts, "copyfrom-rev");
-          if (copyfrom_path
-              && copyfrom_rev
+          if (copyfrom_path 
+              && copyfrom_rev 
               && SVN_IS_VALID_REVNUM (copyfrom_rev))
             {
               lb->this_path_item->copyfrom_path = apr_pstrdup(lb->subpool,
@@ -204,7 +204,7 @@ log_end_element(void *userdata,
         char *path = apr_pstrdup (lb->subpool, cdata);
         if (! lb->changed_paths)
           lb->changed_paths = apr_hash_make(lb->subpool);
-        apr_hash_set(lb->changed_paths, path, APR_HASH_KEY_STRING,
+        apr_hash_set(lb->changed_paths, path, APR_HASH_KEY_STRING, 
                      lb->this_path_item);
         break;
       }
@@ -220,9 +220,9 @@ log_end_element(void *userdata,
                                              lb->date,
                                              lb->msg,
                                              lb->subpool);
-
+        
         reset_log_item (lb);
-
+        
         if (err)
           {
             lb->err = err;         /* ### Wrap an existing error, if any? */
@@ -319,7 +319,7 @@ svn_error_t * svn_ra_dav__get_log(void *session_baton,
     = "<S:log-report xmlns:S=\"" SVN_XML_NAMESPACE "\">" DEBUG_CR;
 
   static const char log_request_tail[] = "</S:log-report>" DEBUG_CR;
-
+  
   static const struct ne_xml_elm log_report_elements[] =
     {
       { SVN_XML_NAMESPACE, "log-report", ELEM_log_report, 0 },
@@ -335,7 +335,7 @@ svn_error_t * svn_ra_dav__get_log(void *session_baton,
       { "DAV:", "comment", ELEM_comment, NE_XML_CDATA },
       { NULL }
     };
-
+  
 
   /* Construct the request body. */
   svn_stringbuf_appendcstr(request_body, log_request_head);
@@ -385,7 +385,7 @@ svn_error_t * svn_ra_dav__get_log(void *session_baton,
                                       ras->root.path,
                                       request_body->data,
                                       0,  /* ignored */
-                                      log_report_elements,
+                                      log_report_elements, 
                                       log_validate,
                                       log_start_element,
                                       log_end_element,
@@ -402,7 +402,7 @@ svn_error_t * svn_ra_dav__get_log(void *session_baton,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end:
