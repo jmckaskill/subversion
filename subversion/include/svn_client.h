@@ -20,7 +20,7 @@
 
 /*** Includes ***/
 
-/*
+/* 
  * Requires:  The working copy library and repository access library.
  * Provides:  Broad wrappers around working copy library functionality.
  * Used By:   Client programs.
@@ -58,8 +58,8 @@ extern "C" {
 
 
 
-/* Various ways of specifying revisions.
- *
+/* Various ways of specifying revisions. 
+ *   
  * Note:
  * In contexts where local mods are relevant, the `working' kind
  * refers to the uncommitted "working" revision, which may be modified
@@ -112,16 +112,16 @@ typedef svn_error_t *(*svn_client_prompt_t)
 
 
 /* This is a baton that contains information from the calling
-   application, passed to libsvn_client to aid in authentication.
+   application, passed to libsvn_client to aid in authentication. 
 
    Applications must build and pass one of these to any routine that
    may require authentication.  */
 typedef struct svn_client_auth_baton_t
 {
   /* auth info that the app -may- already have, e.g. from argv[] */
-  char *username;
-  char *password;
-
+  char *username;    
+  char *password; 
+  
   /* a callback provided by the app layer, for prompting the user */
   svn_client_prompt_t prompt_callback;
   void *prompt_baton;
@@ -138,7 +138,7 @@ typedef struct svn_client_auth_baton_t
 typedef struct svn_client_proplist_item_s
 {
   /* The name of the node on which these properties are set. */
-  svn_stringbuf_t *node_name;
+  svn_stringbuf_t *node_name;  
 
   /* A hash of (const char *) property names, and (svn_stringbuf_t *) property
      values. */
@@ -179,7 +179,7 @@ typedef struct svn_client_commit_item_t
 
 /* Callback type used by commit-y operations to get a commit log message
    from the caller.
-
+   
    COMMIT_ITEMS is an array of svn_client_commit_item_t structures,
    which may be fully or only partially filled-in, depending on the
    type of commit operation.  The callback handler should populate
@@ -269,7 +269,7 @@ svn_client_checkout (const svn_delta_editor_t *before_editor,
    REVISION is svn_client_revision_unspecified, then the revision
    *must* be present in the <delta-pkg> tag; otherwise, store REVISION
    in the wc. (Note: a <delta-pkg> revision still overrides REVISION.)
-
+   
    Use POOL for any temporary allocation. */
 svn_error_t *
 svn_client_update (const svn_delta_editor_t *before_editor,
@@ -366,12 +366,12 @@ svn_client_mkdir (svn_client_commit_info_t **commit_info,
                   svn_wc_notify_func_t notify_func,
                   void *notify_baton,
                   apr_pool_t *pool);
-
+                  
 
 /* If PATH is a URL, use the AUTH_BATON and MESSAGE to immediately
    attempt to commit a deletion of the URL from the repository.  If
    the commit succeeds, allocate (in POOL) and populate *COMMIT_INFO.
-
+  
    Else, schedule a working copy PATH for removal from the repository.
    PATH's parent must be under revision control.  If FORCE is set,
    then PATH itself will be recursively removed as well; otherwise
@@ -398,11 +398,11 @@ svn_client_delete (svn_client_commit_info_t **commit_info,
    head, authenticating with AUTH_BATON, and using LOG_MSG as the log
    message for the (implied) commit.  Set *COMMIT_INFO to the results
    of the commit, allocated in POOL.
-
+  
    NEW_ENTRY is the new entry created in the repository directory
    identified by URL.  NEW_ENTRY may be null (see below), but may not
    be the empty string.
-
+  
    If PATH is a directory, the contents of that directory are
    imported, under a new directory named NEW_ENTRY under URL; or if
    NEW_ENTRY is null, then the contents of PATH are imported directly
@@ -414,7 +414,7 @@ svn_client_delete (svn_client_commit_info_t **commit_info,
    not be null).
 
    In all cases, if NEW_ENTRY already exists in URL, return error.
-
+   
    BEFORE_EDITOR, BEFORE_EDIT_BATON, and AFTER_EDITOR,
    AFTER_EDIT_BATON are pre- and post-import (i.e., post-commit) hook
    editors.  They are optional; pass four NULLs here if you don't need
@@ -422,9 +422,9 @@ svn_client_delete (svn_client_commit_info_t **commit_info,
 
    If XML_DST is non-NULL, it is a file in which to store the xml
    result of the commit, and REVISION is used as the revision.
-
-   Use POOL for any temporary allocation.
-
+   
+   Use POOL for any temporary allocation.  
+   
    Note: REVISION is svn_revnum_t, rather than svn_client_revision_t,
    because only the svn_client_revision_number kind would be useful
    anyway.
@@ -434,14 +434,14 @@ svn_client_delete (svn_client_commit_info_t **commit_info,
    behavior confuses most people, and I think eventually svn _should_
    turn the tree into a working copy, or at least should offer the
    option. However, doing so is a bit involved, and we don't need it
-   right now.
+   right now.  
 */
 svn_error_t *svn_client_import (svn_client_commit_info_t **commit_info,
                                 const svn_delta_editor_t *before_editor,
                                 void *before_edit_baton,
                                 const svn_delta_editor_t *after_editor,
-                                void *after_edit_baton,
-                                svn_client_auth_baton_t *auth_baton,
+                                void *after_edit_baton, 
+                                svn_client_auth_baton_t *auth_baton,   
                                 svn_stringbuf_t *path,
                                 svn_stringbuf_t *url,
                                 svn_stringbuf_t *new_entry,
@@ -545,18 +545,18 @@ svn_client_status (apr_hash_t **statushash,
 /* Invoke RECEIVER with RECEIVER_BATON on each log message from START
    to END in turn, inclusive (but never invoke RECEIVER on a given log
    message more than once).
-
+  
    TARGETS contains all the working copy paths (as svn_stringbuf_t *'s)
    for which log messages are desired; the common prefix of TARGETS
    determines the repository and auth info.  RECEIVER is invoked only
    on messages whose revisions involved a change to some path in
    TARGETS.
-
+  
    ### todo: the above paragraph is not fully implemented yet.
-
+  
    If DISCOVER_CHANGED_PATHS is set, then the `changed_paths' argument
    to RECEIVER will be passed on each invocation.
-
+  
    If START->kind or END->kind is svn_revision_unspecified_kind,
    return the error SVN_ERR_CLIENT_BAD_REVISION.
 
@@ -584,14 +584,14 @@ svn_client_log (svn_client_auth_baton_t *auth_baton,
 
    If either REVISION1 or REVISION2 has an `unspecified' or
    unrecognized `kind', return SVN_ERR_CLIENT_BAD_REVISION.
-
+  
    If RECURSE is true (and the PATHs are directories) this will be a
    recursive operation.
-
+  
    DIFF_OPTIONS (an array of svn_stringbuf_t * items) is used to pass
    additional command line options to the diff processes invoked to
    compare files.
-
+  
    AUTH_BATON is used to communicate with the repository.  */
 svn_error_t *svn_client_diff (const apr_array_header_t *diff_options,
                               svn_client_auth_baton_t *auth_baton,
@@ -615,14 +615,14 @@ svn_error_t *svn_client_diff (const apr_array_header_t *diff_options,
 
    If either REVISION1 or REVlISION2 has an `unspecified' or
    unrecognized `kind', return SVN_ERR_CLIENT_BAD_REVISION.
-
+  
    If RECURSE is true (and the PATHs are directories), apply changes
    recursively; otherwise, only apply changes in the current
    directory.
-
+  
    MERGE_OPTIONS (an array of svn_stringbuf_t * items) is used to pass
    additional command line options to diff3.  ### good idea?  bad?
-
+  
    AFTER_EDITOR/BATON are optional.  If non-NULL, they represent some
    sort of "trace" editor to be used during the merging.
 
@@ -724,7 +724,7 @@ svn_client_copy (svn_client_commit_info_t **commit_info,
 /* Move SRC_PATH to DST_PATH.
 
    SRC_PATH must be a file or directory under version control, or the
-   URL of a versioned item in the repository.
+   URL of a versioned item in the repository.  
 
    If SRC_PATH is a repository URL:
 
@@ -768,7 +768,7 @@ svn_client_move (svn_client_commit_info_t **commit_info,
 /* Set PROPNAME to PROPVAL on TARGET.  If RECURSE is true, then PROPNAME
    will be set on recursively on TARGET and all children.  If RECURSE is false,
    and TARGET is a directory, PROPNAME will be set on _only_ TARGET.
-
+ 
    Use POOL for all memory allocation. */
 svn_error_t *
 svn_client_propset (const char *propname,
@@ -778,11 +778,11 @@ svn_client_propset (const char *propname,
                     apr_pool_t *pool);
 
 /* Set *PROPS to a hash table whose keys are `char *' paths,
-   prefixed by TARGET, of items in the working copy on which
+   prefixed by TARGET, of items in the working copy on which 
    property PROPNAME is set, and whose values are `svn_string_t *'
    representing the property value for PROPNAME at that path.
    Allocate *PROPS, its keys, and its values in POOL.
-
+             
    Don't store any path, not even TARGET, if it does not have a
    property named PROPNAME.
 
@@ -800,7 +800,7 @@ svn_client_propget (apr_hash_t **props,
 
 /* Returns an apr_array_header_t of svn_client_proplist_item_t's in *PROPS,
    allocated from POOL. Each item will contain the node_name relative to the
-   same base as target in item->node_name, and a property hash of
+   same base as target in item->node_name, and a property hash of 
    (const char *) property names, and (svn_stringbuf_t *) property values.
 
    If recurse is false, or TARGET is a file, *PROPS will contain only a single
@@ -808,7 +808,7 @@ svn_client_propget (apr_hash_t **props,
    (and including) TARGET. */
 svn_error_t *
 svn_client_proplist (apr_array_header_t **props,
-                     const char *target,
+                     const char *target, 
                      svn_boolean_t recurse,
                      apr_pool_t *pool);
 
@@ -848,5 +848,5 @@ svn_error_t *svn_client_get_cancellation_editor
 /* --------------------------------------------------------------
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
- * end:
+ * end: 
  */
