@@ -54,7 +54,7 @@ static int request_auth(void *userdata, const char *realm, int attempt,
 {
   svn_error_t *err;
   svn_ra_session_t *ras = userdata;
-  svn_auth_cred_simple_t *creds;
+  svn_auth_cred_simple_t *creds;  
 
   /* No auth_baton?  Give up. */
   if (! ras->callbacks->auth_baton)
@@ -62,7 +62,7 @@ static int request_auth(void *userdata, const char *realm, int attempt,
 
   if (attempt == 0)
     err = svn_auth_first_credentials ((void **) &creds,
-                                      &(ras->auth_iterstate),
+                                      &(ras->auth_iterstate), 
                                       SVN_AUTH_CRED_SIMPLE,
                                       ras->callbacks->auth_baton,
                                       ras->pool);
@@ -72,7 +72,7 @@ static int request_auth(void *userdata, const char *realm, int attempt,
                                      ras->pool);
   if (err || ! creds)
     return -1;
-
+  
   /* ### silently truncates username/password to 256 chars. */
   apr_cpystrn(username, creds->username, NE_ABUFSIZ);
   apr_cpystrn(password, creds->password, NE_ABUFSIZ);
@@ -318,7 +318,7 @@ svn_ra_dav__open (void **session_baton,
   svn_boolean_t compression;
 
   /* Sanity check the URI */
-  if (ne_uri_parse(repos_URL, &uri)
+  if (ne_uri_parse(repos_URL, &uri) 
       || uri.host == NULL || uri.path == NULL)
     {
       ne_uri_free(&uri);
@@ -374,7 +374,7 @@ svn_ra_dav__open (void **session_baton,
     int timeout;
     int debug;
     svn_error_t *err;
-
+    
     err = get_server_settings(&proxy_host,
                               &proxy_port,
                               &proxy_username,
@@ -407,7 +407,7 @@ svn_ra_dav__open (void **session_baton,
 
             pab->username = proxy_username;
             pab->password = proxy_password ? proxy_password : "";
-
+        
             ne_set_proxy_auth(sess, proxy_auth, pab);
             ne_set_proxy_auth(sess2, proxy_auth, pab);
           }
@@ -454,7 +454,7 @@ svn_ra_dav__open (void **session_baton,
   ras->url = apr_pstrdup (pool, repos_URL);
   ras->root = uri; /* copies uri pointer members, they get free'd in __close. */
   ras->sess = sess;
-  ras->sess2 = sess2;
+  ras->sess2 = sess2;  
   ras->callbacks = callbacks;
   ras->callback_baton = callback_baton;
   ras->compression = compression;
