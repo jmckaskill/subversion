@@ -210,7 +210,7 @@ parse_option (int *pch, parse_context_t *ctx)
  * the line.  Set *PCH to the character that ended the line (either
  * newline or EOF), and set CTX->section to the string of characters
  * seen before ']'.
- *
+ * 
  * This is meant to be called immediately after reading the '[' that
  * starts a section name.
  */
@@ -256,37 +256,37 @@ svn_config__user_config_path (const char **path_p,
                               apr_pool_t *pool)
 {
   apr_status_t apr_err;
-
+  
   /* ### Are there any platforms where APR_HAS_USER is not defined?
      This code won't compile without it.  */
-
+  
   apr_uid_t uid;
   apr_gid_t gid;
   char *username;
   char *homedir;
-
+  
   /* ### Will these calls fail under Windows sometimes?  If so, maybe
      we shouldn't error, since the caller may not care (it can often
      just fall back to registry). */
-
+  
   apr_err = apr_current_userid (&uid, &gid, pool);
   if (apr_err)
     return svn_error_create
       (apr_err, 0, NULL, pool,
        "svn_config_read_all: unable to get current userid.");
-
+  
   apr_err = apr_get_username (&username, uid, pool);
   if (apr_err)
     return svn_error_create
       (apr_err, 0, NULL, pool,
        "svn_config_read_all: unable to get username.");
-
+  
   apr_err = apr_get_home_directory (&homedir, username, pool);
   if (apr_err)
     return svn_error_createf
       (apr_err, 0, NULL, pool,
        "svn_config_read_all: unable to get home dir for user %s.", username);
-
+  
   /* ### No compelling reason to use svn's path lib here? */
   if (fname)
     {
@@ -568,15 +568,15 @@ svn_config_ensure (apr_pool_t *pool)
       if (apr_err)
         return svn_error_createf
           (apr_err, 0, NULL, pool, "creating config file `%s'", path);
-
+      
       apr_err = apr_file_write_full (f, contents, strlen (contents), NULL);
       if (apr_err)
-        return svn_error_createf (apr_err, 0, NULL, pool,
+        return svn_error_createf (apr_err, 0, NULL, pool, 
                                   "writing config file `%s'", path);
-
+      
       apr_err = apr_file_close (f);
       if (apr_err)
-        return svn_error_createf (apr_err, 0, NULL, pool,
+        return svn_error_createf (apr_err, 0, NULL, pool, 
                                   "closing config file `%s'", path);
     }
 
@@ -638,15 +638,15 @@ svn_config_ensure (apr_pool_t *pool)
       if (apr_err)
         return svn_error_createf
           (apr_err, 0, NULL, pool, "creating config file `%s'", path);
-
+      
       apr_err = apr_file_write_full (f, contents, strlen (contents), NULL);
       if (apr_err)
-        return svn_error_createf (apr_err, 0, NULL, pool,
+        return svn_error_createf (apr_err, 0, NULL, pool, 
                                   "writing config file `%s'", path);
-
+      
       apr_err = apr_file_close (f);
       if (apr_err)
-        return svn_error_createf (apr_err, 0, NULL, pool,
+        return svn_error_createf (apr_err, 0, NULL, pool, 
                                   "closing config file `%s'", path);
     }
 
