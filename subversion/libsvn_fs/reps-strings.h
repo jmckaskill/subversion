@@ -43,7 +43,7 @@ int svn_fs__rep_is_mutable (skel_t *rep);
 
 
 /* Get a key to a mutable version of the representation pointed to by
-   KEY in FS, and store it in *NEW_KEY.
+   KEY in FS, and store it in *NEW_KEY.  
 
    If KEY is already a mutable representation, *NEW_KEY is set to
    KEY, else *NEW_KEY is set to a new rep key allocated in
@@ -58,7 +58,7 @@ int svn_fs__rep_is_mutable (skel_t *rep);
    returned.  */
 svn_error_t *svn_fs__get_mutable_rep (const char **new_key,
                                       const char *key,
-                                      svn_fs_t *fs,
+                                      svn_fs_t *fs, 
                                       trail_t *trail);
 
 
@@ -74,7 +74,7 @@ svn_error_t *svn_fs__make_rep_immutable (svn_fs_t *fs,
    trail, or do nothing if the rep is immutable.  If a mutable rep is
    deleted, the string it refers to is deleted as well.
 
-   If no such rep, return SVN_ERR_FS_NO_SUCH_REPRESENTATION.  */
+   If no such rep, return SVN_ERR_FS_NO_SUCH_REPRESENTATION.  */ 
 svn_error_t *svn_fs__delete_rep_if_mutable (svn_fs_t *fs,
                                             const char *key,
                                             trail_t *trail);
@@ -102,7 +102,7 @@ typedef struct svn_fs__rep_read_baton_t
      refetch the representation skel every time we want to read
      another chunk.  */
   const char *rep_key;
-
+  
   /* How many bytes have been read already. */
   apr_size_t offset;
 
@@ -121,7 +121,7 @@ typedef struct svn_fs__rep_read_baton_t
 
    Read LEN bytes into BUF starting at BATON->offset in the data
    represented by BATON->rep_key, in BATON->FS.  Set *LEN to the
-   amount read and add that amount to BATON->offset.
+   amount read and add that amount to BATON->offset.  
 
    If BATON->trail is non-null, then do the read as part of that
    trail, and use the trail's pool for all allocations.  Otherwise,
@@ -137,7 +137,7 @@ svn_fs__rep_read_contents (void *baton, char *buf, apr_size_t *len);
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
