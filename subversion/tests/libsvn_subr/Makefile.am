@@ -19,7 +19,7 @@ hashdump_test_LDADD = ../libsvn_subr.la \
 SVN_TEST_PROGRAMS = hashdump-test
 
 ## We're overriding automake's own `check' rule, because it's extremely
-## inflexible;  we want better control over automated-test output.
+## inflexible;  we want better control over automated-test output. 
 check:
 	@echo > tests.log
 	@for prog in $(SVN_TEST_PROGRAMS); do \
