@@ -65,7 +65,7 @@ add_component_internal (svn_string_t *path,
 
 
 void
-svn_path_add_component_nts (svn_string_t *path,
+svn_path_add_component_nts (svn_string_t *path, 
                             const char *component,
                             enum svn_path_style style)
 {
@@ -74,7 +74,7 @@ svn_path_add_component_nts (svn_string_t *path,
 
 
 void
-svn_path_add_component (svn_string_t *path,
+svn_path_add_component (svn_string_t *path, 
                         const svn_string_t *component,
                         enum svn_path_style style)
 {
@@ -116,7 +116,7 @@ svn_path_last_component (const svn_string_t *path,
 
 
 void
-svn_path_split (const svn_string_t *path,
+svn_path_split (const svn_string_t *path, 
                 svn_string_t **dirpath,
                 svn_string_t **basename,
                 enum svn_path_style style,
@@ -166,7 +166,7 @@ svn_path_compare_paths (const svn_string_t *path1,
 {
   size_t min_len = ((path1->len) < (path2->len)) ? path1->len : path2->len;
   size_t i;
-
+  
   /* Skip past common prefix. */
   for (i = 0; (i < min_len) && (path1->data[i] == path2->data[i]); i++)
     ;
@@ -194,7 +194,7 @@ svn_path_get_longest_ancestor (const svn_string_t *path1,
   if ((! path1) || (! path2)
       || (svn_string_isempty (path1)) || (svn_string_isempty (path2)))
     return NULL;
-
+  
   while (path1->data[i] == path2->data[i])
     {
       i++;
@@ -203,7 +203,7 @@ svn_path_get_longest_ancestor (const svn_string_t *path1,
     }
 
   /* i is now the offset of the first _non_-matching byte. */
-  common_path = svn_string_ncreate (path1->data, i, pool);
+  common_path = svn_string_ncreate (path1->data, i, pool);  
 
   svn_path_canonicalize (common_path, svn_path_local_style);
 
@@ -214,7 +214,7 @@ svn_path_get_longest_ancestor (const svn_string_t *path1,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
