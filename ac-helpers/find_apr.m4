@@ -134,7 +134,7 @@ APR, nor an APR build directory.])
           LDFLAGS="$preserve_LDFLAGS -L$lookdir/lib"
           AC_TRY_LINK_FUNC(apr_initialize, [
             apr_found="yes"
-            apr_libdir="$lookdir/lib"
+            apr_libdir="$lookdir/lib" 
             apr_includes="-I$lookdir/include"
             if test -x "$withval/bin/apr-config"; then
               apr_config="$withval/bin/apr-config"
