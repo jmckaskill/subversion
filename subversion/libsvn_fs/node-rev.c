@@ -133,7 +133,7 @@ deltify (svn_fs_id_t *target_id,
     }
     else
       target_dkey = NULL;
-
+    
     /* Source property key. */
     source_pkey_skel = SVN_FS__NR_PROP_KEY (source_nr);
     if (source_pkey_skel->len != 0) {
@@ -160,7 +160,7 @@ deltify (svn_fs_id_t *target_id,
     SVN_ERR (svn_fs__rep_deltify (fs, target_pkey, source_pkey, trail));
 
   if ((target_dkey && source_dkey)
-      && (strcmp (target_dkey, source_dkey)))
+      && (strcmp (target_dkey, source_dkey)))     
    SVN_ERR (svn_fs__rep_deltify (fs, target_dkey, source_dkey, trail));
 
   return SVN_NO_ERROR;
@@ -227,7 +227,7 @@ txn_body_deltify (void *baton, trail_t *trail)
      exhaustive (linear) search from the youngest revision to
      ARGS->root's revision to find the youngest fulltext in existence,
      but this could be losing if the node was renamed prior to the
-     next fulltext storage of it.
+     next fulltext storage of it. 
 
      ### todo II:  write up a sweet new id-searching method.
   */
@@ -236,7 +236,7 @@ txn_body_deltify (void *baton, trail_t *trail)
   svn_revnum_t youngest;
   svn_fs_root_t *y_root;
 
-
+  
   /* ### todo:  Don't abort.  Currently, however, this function is
      work-in-progress.  */
   abort();
@@ -350,7 +350,7 @@ svn_fs__delete_node_revision (svn_fs_t *fs,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
