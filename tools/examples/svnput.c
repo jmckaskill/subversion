@@ -145,7 +145,7 @@ main (int argc, const char **argv)
   const char *upload_file, *URL, *url;
   const char *parent_URL, *basename;
   svn_node_kind_t url_kind, child_kind;
-  svn_ra_plugin_t *ra_lib;
+  svn_ra_plugin_t *ra_lib;  
   void *session, *ra_baton;
   svn_revnum_t rev;
   const svn_delta_editor_t *editor;
@@ -157,7 +157,7 @@ main (int argc, const char **argv)
 
   if (argc <= 2)
     {
-      printf ("Usage:  %s PATH URL\n", argv[0]);
+      printf ("Usage:  %s PATH URL\n", argv[0]);  
       printf ("    Uploads file at PATH to Subversion repository URL.\n");
       return EXIT_FAILURE;
     }
@@ -173,13 +173,13 @@ main (int argc, const char **argv)
      understand how to properly use/free subpools. */
   pool = svn_pool_create (NULL);
 
-  /* Make sure the ~/.subversion run-time config files exist, and load. */
+  /* Make sure the ~/.subversion run-time config files exist, and load. */  
   err = svn_config_ensure (NULL, pool);
   if (err) goto hit_error;
 
   err = svn_config_get_config (&cfg_hash, NULL, pool);
   if (err) goto hit_error;
-
+    
   /* Build an authentication baton. */
   {
     /* There are many different kinds of authentication back-end
@@ -187,21 +187,21 @@ main (int argc, const char **argv)
     svn_auth_provider_object_t *provider;
     apr_array_header_t *providers
       = apr_array_make (pool, 4, sizeof (svn_auth_provider_object_t *));
-
+    
     svn_client_get_simple_prompt_provider (&provider,
                                            my_simple_prompt_callback,
                                            NULL, /* baton */
                                            2, /* retry limit */ pool);
     APR_ARRAY_PUSH (providers, svn_auth_provider_object_t *) = provider;
-
+    
     svn_client_get_username_prompt_provider (&provider,
                                              my_username_prompt_callback,
                                              NULL, /* baton */
                                              2, /* retry limit */ pool);
     APR_ARRAY_PUSH (providers, svn_auth_provider_object_t *) = provider;
-
+    
     /* Register the auth-providers into the context's auth_baton. */
-    svn_auth_open (&auth_baton, providers, pool);
+    svn_auth_open (&auth_baton, providers, pool);      
   }
 
   /* Create a table of callbacks for the RA session, mostly nonexistent. */
@@ -219,7 +219,7 @@ main (int argc, const char **argv)
 
   err = svn_ra_get_ra_library (&ra_lib, ra_baton, parent_URL, pool);
   if (err) goto hit_error;
-
+  
   err = ra_lib->open (&session, parent_URL, cbtable, NULL, cfg_hash, pool);
   if (err) goto hit_error;
 
@@ -274,14 +274,14 @@ main (int argc, const char **argv)
     svn_txdelta_window_handler_t handler;
     svn_stream_t *contents;
     apr_file_t *f = NULL;
-
+  
     err = editor->open_root (edit_baton, rev, pool, &root_baton);
     if (err) goto hit_error;
 
     if (! dirent)
       {
         err = editor->add_file (basename, root_baton, NULL, SVN_INVALID_REVNUM,
-                                pool, &file_baton);
+                                pool, &file_baton);         
       }
     else
       {
@@ -293,7 +293,7 @@ main (int argc, const char **argv)
     err = editor->apply_textdelta (file_baton, NULL, pool,
                                    &handler, &handler_baton);
     if (err) goto hit_error;
-
+    
     err = svn_io_file_open (&f, upload_file, APR_READ, APR_OS_DEFAULT, pool);
     if (err) goto hit_error;
 
