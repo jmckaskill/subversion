@@ -43,7 +43,7 @@ typedef enum svnlook_cmd_t
   svnlook_cmd_dirschanged,
   svnlook_cmd_changed,
   svnlook_cmd_diff
-
+  
 } svnlook_cmd_t;
 
 
@@ -201,7 +201,7 @@ main (int argc, const char * const *argv)
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
