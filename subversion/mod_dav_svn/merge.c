@@ -75,7 +75,7 @@ typedef struct mr_baton {
    PRIVATE HELPER FUNCTIONS
 */
 
-static mr_baton *make_child_baton(mr_baton *parent,
+static mr_baton *make_child_baton(mr_baton *parent, 
                                   const char *path,
                                   apr_pool_t *pool)
 {
@@ -91,7 +91,7 @@ static mr_baton *make_child_baton(mr_baton *parent,
 }
 
 /* send a response to the client for this baton */
-static svn_error_t *send_response(mr_baton *baton,
+static svn_error_t *send_response(mr_baton *baton, 
                                   svn_boolean_t is_dir,
                                   apr_pool_t *pool)
 {
@@ -118,7 +118,7 @@ static svn_error_t *send_response(mr_baton *baton,
 
   status = ap_fputstrs(mrc->output, mrc->bb,
                        "<D:response>" DEBUG_CR
-                       "<D:href>",
+                       "<D:href>", 
                        apr_xml_quote_string (pool, href, 1),
                        "</D:href>" DEBUG_CR
                        "<D:propstat><D:prop>" DEBUG_CR,
@@ -327,7 +327,7 @@ dav_error * dav_svn__merge_response(ap_filter_t *output,
   bb = apr_brigade_create(pool, output->c->bucket_alloc);
 
   /* prep some strings */
-
+  
   /* the HREF for the baseline is actually the VCC */
   vcc = dav_svn_build_uri(repos, DAV_SVN_BUILD_URI_VCC, SVN_IGNORED_REVNUM,
                           NULL, 0 /* add_href */, pool);
@@ -341,14 +341,14 @@ dav_error * dav_svn__merge_response(ap_filter_t *output,
   if (serr != NULL)
     {
       return dav_svn_convert_err(serr, HTTP_INTERNAL_SERVER_ERROR,
-                                 "Could not get date of newest revision");
+                                 "Could not get date of newest revision"); 
     }
   serr = svn_fs_revision_prop(&creator_displayname, repos->fs, new_rev,
                               SVN_PROP_REVISION_AUTHOR, pool);
   if (serr != NULL)
     {
       return dav_svn_convert_err(serr, HTTP_INTERNAL_SERVER_ERROR,
-                                 "Could not get author of newest revision");
+                                 "Could not get author of newest revision"); 
     }
 
 
@@ -359,7 +359,7 @@ dav_error * dav_svn__merge_response(ap_filter_t *output,
 
                      /* generate a response for the new baseline */
                      "<D:response>" DEBUG_CR
-                     "<D:href>",
+                     "<D:href>", 
                      apr_xml_quote_string (pool, vcc, 1),
                      "</D:href>" DEBUG_CR
                      "<D:propstat><D:prop>" DEBUG_CR
@@ -368,7 +368,7 @@ dav_error * dav_svn__merge_response(ap_filter_t *output,
                         ### resource for the version-name. */
                      "<D:resourcetype><D:baseline/></D:resourcetype>" DEBUG_CR
                      "<D:version-name>", revbuf, "</D:version-name>" DEBUG_CR
-                     "<D:creationdate>", creationdate->data,
+                     "<D:creationdate>", creationdate->data, 
                                      "</D:creationdate>" DEBUG_CR
                      "<D:creator-displayname>", creator_displayname->data,
                                      "</D:creator-displayname>" DEBUG_CR
@@ -412,7 +412,7 @@ dav_error * dav_svn__merge_response(ap_filter_t *output,
   serr = svn_repos_dir_delta(previous_root, "/",
                              NULL,      /* ### should fix */
                              committed_root, "/",
-                             editor, &mrc,
+                             editor, &mrc, 
                              FALSE, /* don't bother with text-deltas */
                              TRUE, /* Do recurse into subdirectories */
                              FALSE, /* Do not allow entry props */
