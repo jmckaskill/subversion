@@ -375,7 +375,7 @@ new_revision_record(void **revision_baton, apr_hash_t *headers, void *baton,
   const char *revstr;
   svn_revnum_t rev;
   struct entry *root;
-
+ 
   /* Get the number of this revision in string and integral form. */
   revstr = apr_hash_get(headers, SVN_REPOS_DUMPFILE_REVISION_NUMBER,
                        APR_HASH_KEY_STRING);

@@ -1,6 +1,6 @@
 VERSION 5.00
 Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCTL.OCX"
-Begin VB.Form frmOptions
+Begin VB.Form frmOptions 
    BorderStyle     =   3  'Fixed Dialog
    Caption         =   "Options"
    ClientHeight    =   5064
@@ -16,7 +16,7 @@ Begin VB.Form frmOptions
    ShowInTaskbar   =   0   'False
    StartUpPosition =   1  'CenterOwner
    Tag             =   "1059 - Options Caption"
-   Begin VB.CommandButton cmdOK
+   Begin VB.CommandButton cmdOK 
       Caption         =   "OK"
       Height          =   375
       Left            =   2490
@@ -25,7 +25,7 @@ Begin VB.Form frmOptions
       Top             =   4455
       Width           =   1095
    End
-   Begin VB.CommandButton cmdCancel
+   Begin VB.CommandButton cmdCancel 
       Cancel          =   -1  'True
       Caption         =   "Cancel"
       Height          =   375
@@ -35,7 +35,7 @@ Begin VB.Form frmOptions
       Top             =   4455
       Width           =   1095
    End
-   Begin VB.CommandButton cmdApply
+   Begin VB.CommandButton cmdApply 
       Caption         =   "&Apply"
       Height          =   375
       Left            =   4920
@@ -44,7 +44,7 @@ Begin VB.Form frmOptions
       Top             =   4455
       Width           =   1095
    End
-   Begin VB.PictureBox picOptions
+   Begin VB.PictureBox picOptions 
       BorderStyle     =   0  'None
       Height          =   3780
       Index           =   3
@@ -56,7 +56,7 @@ Begin VB.Form frmOptions
       TabStop         =   0   'False
       Top             =   480
       Width           =   5685
-      Begin VB.Frame fraSample4
+      Begin VB.Frame fraSample4 
          Caption         =   "Sample 4"
          Height          =   2029
          Left            =   506
@@ -66,7 +66,7 @@ Begin VB.Form frmOptions
          Width           =   2039
       End
    End
-   Begin VB.PictureBox picOptions
+   Begin VB.PictureBox picOptions 
       BorderStyle     =   0  'None
       Height          =   3780
       Index           =   2
@@ -78,7 +78,7 @@ Begin VB.Form frmOptions
       TabStop         =   0   'False
       Top             =   480
       Width           =   5685
-      Begin VB.Frame fraSample3
+      Begin VB.Frame fraSample3 
          Caption         =   "Sample 3"
          Height          =   2029
          Left            =   407
@@ -88,7 +88,7 @@ Begin VB.Form frmOptions
          Width           =   2039
       End
    End
-   Begin VB.PictureBox picOptions
+   Begin VB.PictureBox picOptions 
       BorderStyle     =   0  'None
       Height          =   3780
       Index           =   1
@@ -100,7 +100,7 @@ Begin VB.Form frmOptions
       TabStop         =   0   'False
       Top             =   480
       Width           =   5685
-      Begin VB.Frame fraSample2
+      Begin VB.Frame fraSample2 
          Caption         =   "Sample 2"
          Height          =   2029
          Left            =   308
@@ -110,7 +110,7 @@ Begin VB.Form frmOptions
          Width           =   2039
       End
    End
-   Begin VB.PictureBox picOptions
+   Begin VB.PictureBox picOptions 
       BorderStyle     =   0  'None
       Height          =   3780
       Index           =   0
@@ -122,7 +122,7 @@ Begin VB.Form frmOptions
       TabStop         =   0   'False
       Top             =   480
       Width           =   5685
-      Begin VB.Frame fraSample1
+      Begin VB.Frame fraSample1 
          Caption         =   "Sample 1"
          Height          =   2029
          Left            =   208
@@ -132,7 +132,7 @@ Begin VB.Form frmOptions
          Width           =   2039
       End
    End
-   Begin MSComctlLib.TabStrip tbsOptions
+   Begin MSComctlLib.TabStrip tbsOptions 
       Height          =   4245
       Left            =   105
       TabIndex        =   0
@@ -141,21 +141,21 @@ Begin VB.Form frmOptions
       _ExtentX        =   10393
       _ExtentY        =   7493
       _Version        =   393216
-      BeginProperty Tabs {1EFB6598-857C-11D1-B16A-00C0F0283628}
+      BeginProperty Tabs {1EFB6598-857C-11D1-B16A-00C0F0283628} 
          NumTabs         =   4
-         BeginProperty Tab1 {1EFB659A-857C-11D1-B16A-00C0F0283628}
+         BeginProperty Tab1 {1EFB659A-857C-11D1-B16A-00C0F0283628} 
             Caption         =   "Group 1"
             ImageVarType    =   2
          EndProperty
-         BeginProperty Tab2 {1EFB659A-857C-11D1-B16A-00C0F0283628}
+         BeginProperty Tab2 {1EFB659A-857C-11D1-B16A-00C0F0283628} 
             Caption         =   "Group 2"
             ImageVarType    =   2
          EndProperty
-         BeginProperty Tab3 {1EFB659A-857C-11D1-B16A-00C0F0283628}
+         BeginProperty Tab3 {1EFB659A-857C-11D1-B16A-00C0F0283628} 
             Caption         =   "Group 3"
             ImageVarType    =   2
          EndProperty
-         BeginProperty Tab4 {1EFB659A-857C-11D1-B16A-00C0F0283628}
+         BeginProperty Tab4 {1EFB659A-857C-11D1-B16A-00C0F0283628} 
             Caption         =   "Group 4"
             ImageVarType    =   2
          EndProperty
@@ -227,7 +227,7 @@ End Sub
 
 
 Private Sub tbsOptions_Click()
-
+    
 
     Dim i As Integer
     'show and enable the selected tab's controls
@@ -241,7 +241,7 @@ Private Sub tbsOptions_Click()
             picOptions(i).Enabled = False
         End If
     Next
-
+    
 
 End Sub
 
