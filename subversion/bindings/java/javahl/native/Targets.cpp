@@ -90,13 +90,13 @@ const apr_array_header_t *Targets::array (const Pool & pool)
 	}
 
     std::vector<Path>::const_iterator it;
-
+    
     apr_pool_t *apr_pool = pool.pool ();
-    apr_array_header_t *apr_targets =
+    apr_array_header_t *apr_targets = 
       apr_array_make (apr_pool,
                       m_targets.size(),
                       sizeof (const char *));
-
+    
     for (it = m_targets.begin (); it != m_targets.end (); it++)
     {
       const Path &path = *it;
@@ -104,7 +104,7 @@ const apr_array_header_t *Targets::array (const Pool & pool)
         apr_pstrdup (apr_pool, path.c_str());
       (*((const char **) apr_array_push (apr_targets))) = target;
     }
-
+    
     return apr_targets;
 }
 
