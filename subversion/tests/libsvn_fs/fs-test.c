@@ -55,13 +55,13 @@ create_berkeley_filesystem (const char **msg)
       fs = svn_fs_new (pool);
       if (fs == NULL)
         return fail();
-
+      
       if (SVN_NO_ERROR != svn_fs_create_berkeley (fs, repository))
         return fail();
-
+      
       if (SVN_NO_ERROR != svn_fs_close_fs (fs))
         return fail();
-
+      
       fs_already_created = 1;
     }
 
@@ -170,23 +170,23 @@ trivial_transaction (const char **msg)
       /* Begin a transaction. */
       if (SVN_NO_ERROR != svn_fs_begin_txn (&txn, fs, 0, pool))
         return fail();
-
+      
       /* Test that it got id "0", since it's the first txn. */
       {
         char *txn_name;
-
+        
         err = svn_fs_txn_name (&txn_name, txn, pool);
         if (err)
           return fail();
-
+        
         if (strcmp (txn_name, "0") != 0)
           return fail();
       }
-
+      
       /* Close it. */
       if (SVN_NO_ERROR != svn_fs_close_txn (txn))
         return fail();
-
+      
       /* Close the FS. */
       if (SVN_NO_ERROR != svn_fs_close_fs (fs))
         return fail();
@@ -246,23 +246,23 @@ create_file_transaction (const char **msg)
       /* Do our common `startup stuff' */
       if (common_test_prologue (&fs))
         return fail();
-
+      
       /* Begin a transaction. */
       if (SVN_NO_ERROR != svn_fs_begin_txn (&txn, fs, 0, pool))
         return fail();
-
+      
       /* Test that it got id "0", since it's the second txn. */
       {
         char *txn_name;
-
+        
         err = svn_fs_txn_name (&txn_name, txn, pool);
         if (err)
           return fail();
-
+        
         if (strcmp (txn_name, "0") != 0)
           return fail();
       }
-
+      
       {
         svn_fs_root_t *txn_root;
 
@@ -280,7 +280,7 @@ create_file_transaction (const char **msg)
       /* Close it. */
       if (SVN_NO_ERROR != svn_fs_close_txn (txn))
         return fail();
-
+      
      /* Close the FS. */
       if (SVN_NO_ERROR != svn_fs_close_fs (fs))
         return fail();
@@ -343,7 +343,7 @@ int (*test_funcs[]) (const char **msg) = {
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../svn-dev.el")
  * end:
