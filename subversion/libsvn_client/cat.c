@@ -34,8 +34,8 @@
 
 /*** Code. ***/
 
-/* A helper function to convert the date property to something suitable for
-   printing out.  If LONG_P is TRUE, use the long format, otherwise use a
+/* A helper function to convert the date property to something suitable for 
+   printing out.  If LONG_P is TRUE, use the long format, otherwise use a 
    shorter one. */
 static svn_error_t *
 date_prop_to_human (const char **human, svn_boolean_t long_p, const char *prop,
@@ -65,7 +65,7 @@ date_prop_to_human (const char **human, svn_boolean_t long_p, const char *prop,
   return SVN_NO_ERROR;
 }
 
-/* A helper function to fill in a a keywords struct KW with the appropriate
+/* A helper function to fill in a a keywords struct KW with the appropriate 
    contents for a particular file. */
 static svn_error_t *
 build_keyword_struct (svn_subst_keywords_t *kw,
@@ -91,7 +91,7 @@ build_keyword_struct (svn_subst_keywords_t *kw,
           || (! strcasecmp (keyword, SVN_KEYWORD_REVISION_SHORT)))
         {
           kw->revision = svn_string_createf (pool, "%" SVN_REVNUM_T_FMT, rev);
-        }
+        }      
       else if ((! strcmp (keyword, SVN_KEYWORD_DATE_LONG))
                || (! strcasecmp (keyword, SVN_KEYWORD_DATE_SHORT)))
         {
@@ -102,7 +102,7 @@ build_keyword_struct (svn_subst_keywords_t *kw,
             {
               const char *human_date;
 
-              SVN_ERR (date_prop_to_human (&human_date, TRUE, date->data,
+              SVN_ERR (date_prop_to_human (&human_date, TRUE, date->data, 
                                            pool));
 
               kw->date = svn_string_create (human_date, pool);
@@ -128,7 +128,7 @@ build_keyword_struct (svn_subst_keywords_t *kw,
 
               SVN_ERR (svn_wc_adm_probe_open (&adm_access, NULL, path_or_url,
                                               FALSE, FALSE, pool));
-              SVN_ERR (svn_wc_entry (&entry, path_or_url, adm_access, FALSE,
+              SVN_ERR (svn_wc_entry (&entry, path_or_url, adm_access, FALSE, 
                                      pool));
               if (entry && entry->url)
                 kw->url = svn_string_create (entry->url, pool);
@@ -208,7 +208,7 @@ svn_client_cat (svn_stream_t *out,
     return svn_error_createf(SVN_ERR_CLIENT_IS_DIRECTORY, NULL,
                              "URL \"%s\" refers to directory", url);
 
-  /* Grab some properties we need to know in order to figure out if anything
+  /* Grab some properties we need to know in order to figure out if anything 
      special needs to be done with this file. */
   SVN_ERR (ra_lib->get_file (session, "", rev, NULL, NULL, &props, pool));
 
@@ -216,13 +216,13 @@ svn_client_cat (svn_stream_t *out,
   eol_style = apr_hash_get (props, SVN_PROP_EOL_STYLE, APR_HASH_KEY_STRING);
   keywords = apr_hash_get (props, SVN_PROP_KEYWORDS, APR_HASH_KEY_STRING);
 
-  /* FIXME: Someday we should also check the keywords property and if it's
+  /* FIXME: Someday we should also check the keywords property and if it's 
    * set do keyword expansion, but that's a fair amount of work. */
 
   if ((mime_type && svn_mime_type_is_binary (mime_type->data))
       || (! eol_style && ! keywords))
     {
-      /* Either it's a binary file, or it's a text file with no special eol
+      /* Either it's a binary file, or it's a text file with no special eol 
          style. */
       SVN_ERR (ra_lib->get_file (session, "", rev, out, NULL, NULL, pool));
     }
@@ -238,12 +238,12 @@ svn_client_cat (svn_stream_t *out,
       const char *eol = NULL;
 
       /* grab a temporary file to write the target to. */
-      SVN_ERR (svn_io_open_unique_file (&tmp_file, &tmp_filename, "", ".tmp",
+      SVN_ERR (svn_io_open_unique_file (&tmp_file, &tmp_filename, "", ".tmp", 
                                         TRUE, pool));
 
       tmp_stream = svn_stream_from_aprfile (tmp_file, pool);
 
-      SVN_ERR (ra_lib->get_file (session, "", rev, tmp_stream,
+      SVN_ERR (ra_lib->get_file (session, "", rev, tmp_stream, 
                                  NULL, NULL, pool));
 
       /* rewind our stream. */
