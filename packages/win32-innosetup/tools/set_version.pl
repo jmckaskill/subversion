@@ -54,12 +54,12 @@ sub Main
     my ($Path7Zip_exe, $Path7Zip_sfx) = &Path7Zip;
 
     print "Setting version $SvnVersion and release $SvnRelease on...\n";
-
+    
     #Make mk7zsfx.bat and 7z.conf in $PathSetupOut
     &Mk7zSfxBat($Path7Zip_exe, $Path7Zip_sfx, $SvnVersion,
                  $SvnRelease, $PathSetupOut);
     &Mk7zConf($SvnVersion, $SvnRelease, $PathSetupOut);
-
+    
     #Set version info on svn.iss
     &SetVerSvnIss($SvnVersion, $SvnRelease);
 }
@@ -162,12 +162,12 @@ sub Path7Zip
 sub PathSetupOut
 {
     my $SetupOut = &cmn_ValuePathfile('path_setup_out');
-
+  
     if ( ! -e "../$SetupOut")
       {
         die "ERROR: Could not find $SetupOut in ..\\paths_inno_src.iss\n";
       }
-
+    
     return $SetupOut;
 }
 
@@ -178,7 +178,7 @@ sub PathSetupOut
 sub PathSvn
 {
     my $RetVal = &cmn_ValuePathfile('path_svnclient');
-
+    
     if (-e "$RetVal\\svn.exe")
       {
         $RetVal="$RetVal\\svn.exe";
@@ -212,7 +212,7 @@ sub SetVersion
           " button.\n\n",
           "Please, make sure that svn.iss is not opened by another ",
           "applications before you continue:\n\n";
-
+          
     print "  Version [$SvnVersion]: ";
     chomp ($Input = <STDIN>);
 
@@ -240,7 +240,7 @@ sub SetVerSvnIss
     my $IssFileCnt='';
 
     print "  svn.iss in the Inno Setup directory.\n";
-
+    
     open (FH_ISSFILE, '../svn.iss') || die "ERROR: Could not open ..\\svn.iss";
     while (<FH_ISSFILE>)
       {
@@ -264,7 +264,7 @@ sub SetVerSvnIss
               $IssFileCnt= $IssFileCnt . $_;
           }
       }
-    close (FH_ISSFILE);
+    close (FH_ISSFILE);  
 
     $IssFileCnt="$IssFileCnt\n";
 
@@ -283,15 +283,15 @@ sub SvnVersion
     my $Svn = &PathSvn;
     my $SvnRetVal='';
     my ($SvnVersion, $SvnRelease) ='';
-
+ 
     $Svn = "\"$Svn\"";
     $SvnRetVal  = `$Svn --version`;
-
+    
     $SvnRetVal = `$Svn --version`;
     $SvnRetVal =~ s/svn, version\s//;
     ($SvnVersion, $SvnRelease) = split (/\s/, $SvnRetVal);
     $SvnRelease =~ s/^\(r(.*)\)$/$1/;
-
+    
     return ($SvnVersion, $SvnRelease);
 }
 
