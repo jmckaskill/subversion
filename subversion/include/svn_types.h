@@ -48,7 +48,7 @@ enum svn_node_kind
 
 typedef struct svn_item_t {
     /** The key for the current table entry */
-    char *key;
+    char *key; 
     /** Size of the opaque block comprising the item's content. */
     size_t size;
     /** A pointer to the content itself. */
@@ -85,8 +85,8 @@ typedef int svn_boolean_t;
 /* The fs revision property that stores the commit-log. */
 #define SVN_PROP_REVISION_LOG "svn:log"
 
-/* The propname *prefix* that makes a propname a "WC property".
-
+/* The propname *prefix* that makes a propname a "WC property". 
+   
    For example, ra_dav might store a versioned-resource url as a WC
    prop like this:
 
