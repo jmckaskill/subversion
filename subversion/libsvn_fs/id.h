@@ -34,7 +34,7 @@ extern "C" {
      node_id ::= number | node_revision_id "." number
      node_revision_id ::= node_id "." number
 
-   So:
+   So: 
    - "100" is a node id.
    - "100.10" is a node revision id, referring to revision 10 of node 100.
    - "100.10.3" is a node id, referring to the third branch based on
@@ -126,7 +126,7 @@ void svn_fs__precede_id (svn_fs_id_t *id);
 svn_fs_id_t *svn_fs__id_predecessor (const svn_fs_id_t *id, apr_pool_t *pool);
 
 
-/* Return non-zero iff node revision A is an ancestor of node revision B.
+/* Return non-zero iff node revision A is an ancestor of node revision B.  
    If A == B, then we consider A to be an ancestor of B.  */
 int svn_fs__id_is_ancestor (const svn_fs_id_t *a, const svn_fs_id_t *b);
 
@@ -147,7 +147,7 @@ int svn_fs__id_is_parent (const svn_fs_id_t *parent,
 #endif /* SVN_LIBSVN_FS_ID_H */
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end:

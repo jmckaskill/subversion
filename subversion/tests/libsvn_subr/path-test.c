@@ -30,14 +30,14 @@ test_path_is_child (const char **msg,
 {
   int i, j;
 
-  static const char * const paths[] = {
+  static const char * const paths[] = { 
     "/foo/bar",
     "/foo/baz",
     "/foo/bar/baz",
     "/flu/blar/blaz",
     "/foo/bar/baz/bing/boom"
     };
-
+  
   static const char * const remainders[][5] = {
     { 0, 0, "baz", 0, "baz/bing/boom" },
     { 0, 0, 0, 0, 0 },
@@ -45,7 +45,7 @@ test_path_is_child (const char **msg,
     { 0, 0, 0, 0, 0 },
     { 0, 0, 0, 0, 0 }
   };
-
+  
   *msg = "test svn_path_is_child";
 
   if (msg_only)
@@ -65,7 +65,7 @@ test_path_is_child (const char **msg,
             return svn_error_createf
               (SVN_ERR_TEST_FAILED, 0, NULL, pool,
                "svn_path_is_child (%s, %s) returned '%s' instead of '%s'",
-               paths[i], paths[j],
+               paths[i], paths[j], 
                remainder ? remainder : "(null)",
                remainders[i][j] ? remainders[i][j] : "(null)" );
         }
@@ -81,14 +81,14 @@ test_path_split (const char **msg,
 {
   int i;
 
-  static const char * const paths[][3] = {
+  static const char * const paths[][3] = { 
     { "/foo/bar",        "/foo",     "bar" },
     { "/foo/bar/",       "/foo",     "bar" },
     { "/foo/bar/ ",      "/foo/bar", " " },
     { "/foo",            "",         "foo" },
     { "/flu\\b/\\blarg", "/flu\\b",  "\\blarg" },
   };
-
+  
   *msg = "test svn_path_split";
 
   if (msg_only)
@@ -128,7 +128,7 @@ test_is_url (const char **msg,
   int i;
 
   /* Paths to test. */
-  static const char * const paths[] = {
+  static const char * const paths[] = { 
     "://blah/blah",
     "a:abb://boo/",
     "http://svn.collab.net/repos/svn",
@@ -172,8 +172,8 @@ test_uri_encode (const char **msg,
 {
   int i;
 
-  const char *paths[5][2] = {
-    { "http://subversion.tigris.org",
+  const char *paths[5][2] = { 
+    { "http://subversion.tigris.org", 
          "http://subversion.tigris.org"},
     { " special_at_beginning",
          "%20special_at_beginning" },
@@ -181,10 +181,10 @@ test_uri_encode (const char **msg,
          "special_at_end%20" },
     { "special in middle",
          "special%20in%20middle" },
-    { "\"Ouch!\"  \"Did that hurt?\"",
+    { "\"Ouch!\"  \"Did that hurt?\"", 
          "%22Ouch!%22%20%20%22Did%20that%20hurt%3F%22" }
   };
-
+  
   *msg = "test svn_path_uri_[en/de]code";
 
   if (msg_only)
@@ -203,7 +203,7 @@ test_uri_encode (const char **msg,
              "svn_path_uri_encode ('%s') returned '%s' instead of '%s'",
              paths[i][0], en_path, paths[i][1]);
         }
-
+ 
       /* URI-decode the path, and make sure we're back where we started. */
       de_path = svn_path_uri_decode (en_path, pool);
       if (strcmp (de_path, paths[i][0]))
@@ -386,7 +386,7 @@ svn_error_t * (*test_funcs[]) (const char **msg,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../tools/dev/svn-dev.el")
  * end:
