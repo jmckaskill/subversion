@@ -2,9 +2,9 @@
 #
 #  run_tests.py:  test suite for cvs2svn
 #
-#  Subversion is a tool for revision control.
+#  Subversion is a tool for revision control. 
 #  See http://subversion.tigris.org for more information.
-#
+#    
 # ====================================================================
 # Copyright (c) 2000-2003 CollabNet.  All rights reserved.
 #
@@ -89,7 +89,7 @@ class Log:
     self.author = None
     self.date = None
     self.msg = None
-
+    
     # Keys are paths such as '/trunk/foo/bar', values are letter codes
     # such as 'M', 'A', and 'D'.
     self.changed_paths = { }
@@ -136,11 +136,11 @@ def ensure_conversion(name):
     try:
       os.chdir(tmp_dir)
       svn_url  = 'file://%s' % os.path.abspath(svnrepos)
-
+      
       # Clean up from any previous invocations of this script.
       erase(svnrepos)
       erase(wc)
-
+      
       run_cvs2svn('--create', '-s', svnrepos, cvsrepos)
       run_svn('co', svn_url, wc)
     finally:
@@ -204,7 +204,7 @@ def prune_with_care():
   #   revision 3:  deletes trunk/cookie
   #   revision 4:  deletes trunk/  [oops, re-deleting trunk/cookie pruned!]
   #   revision 5:  does nothing
-  #
+  #   
   # After fixing cvs2svn, the sequence (correctly) looks like this:
   #
   #   revision 1:  adds trunk/, adds trunk/cookie
@@ -212,7 +212,7 @@ def prune_with_care():
   #   revision 3:  deletes trunk/cookie
   #   revision 4:  does nothing    [because trunk/cookie already deleted]
   #   revision 5:  deletes trunk/NEWS
-  #
+  # 
   # The difference is in 4 and 5.  It's not correct to prune trunk/,
   # because NEWS is still in there, so revision 4 does nothing.  But
   # when we delete NEWS in 5, that should bubble up and prune trunk/
