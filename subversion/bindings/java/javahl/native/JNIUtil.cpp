@@ -61,7 +61,7 @@ std::ofstream JNIUtil::g_logStream;
 bool JNIUtil::JNIInit(JNIEnv *env)
 {
 	static bool run = false;
-	if(run)
+	if(run) 
 	{
 		env->ExceptionClear();
 		setEnv(env);
@@ -156,7 +156,7 @@ bool JNIUtil::JNIInit(JNIEnv *env)
         apr_pool_t* pool;
         apr_status_t apr_err;
         unsigned int inwords, outbytes, outlength;
-
+    
         apr_pool_create (&pool, 0);
         /* get exe name - our locale info will be in '../share/locale' */
         inwords = sizeof (ucs2_path) / sizeof(ucs2_path[0]);
@@ -181,7 +181,7 @@ bool JNIUtil::JNIInit(JNIEnv *env)
         internal_path = svn_path_dirname (internal_path, pool);
         internal_path = svn_path_join (internal_path, SVN_LOCALE_RELATIVE_PATH,
                                        pool);
-        bindtextdomain (PACKAGE_NAME, internal_path);
+        bindtextdomain (PACKAGE_NAME, internal_path);    
         apr_pool_destroy (pool);
     }
 #else
