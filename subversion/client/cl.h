@@ -143,8 +143,8 @@ svn_error_t *svn_cl__get_trace_editor (const svn_delta_edit_fns_t **editor,
 #endif /* SVN_CL_H */
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
- * end:
+ * end: 
  */
