@@ -2,7 +2,7 @@
 
 #
 # USAGE: ./dist.sh -v VERSION -r REVISION [-rs REVISION-SVN] [-pr REPOS-PATH]
-#                  [-apr PATH-TO-APR ] [-apru PATH-TO-APR-UTIL]
+#                  [-apr PATH-TO-APR ] [-apru PATH-TO-APR-UTIL] 
 #                  [-apri PATH-TO-APR-ICONV] [-neon PATH-TO-NEON]
 #                  [-zip] [-alpha ALPHA_NUM|-beta BETA_NUM|-rc RC_NUM]
 #
@@ -28,10 +28,10 @@
 #   followeb by the number for that releasse.  For example you'd do
 #   the following for a Beta 1 release:
 #      ./dist.sh -v 1.1.0 -r 10277 -pr branches/1.1.x -beta 1
-#
+# 
 #   If neither an -alpha, -beta or -rc option with a number is
 #   specified, it will build a release tarball.
-#
+#  
 #   To build a Windows zip file package pass -zip and the path
 #   to apr-iconv with -apri.
 
@@ -101,7 +101,7 @@ if [ -n "$ALPHA" ] && [ -n "$BETA" ] ||
   exit 1
 elif [ -n "$ALPHA" ] ; then
   VER_TAG="Alpha $ALPHA"
-  VER_NUMTAG="-alpha$ALPHA"
+  VER_NUMTAG="-alpha$ALPHA" 
 elif [ -n "$BETA" ] ; then
   VER_TAG="Beta $BETA"
   VER_NUMTAG="-beta$BETA"
@@ -112,7 +112,7 @@ else
   VER_TAG="r$REVISION_SVN"
   VER_NUMTAG=""
 fi
-
+  
 if [ -n "$ZIP" ] ; then
   EXTRA_EXPORT_OPTIONS="--native-eol CRLF"
 fi
@@ -232,12 +232,12 @@ wget http://svnbook.red-bean.com/svnbook-1.1/svn-book.html \
   ( echo "ERROR: Problem getting the svn-book.html file." && exit 1 )
 
 cat > "$DISTPATH/ChangeLog.CVS" <<EOF
-The old CVS ChangeLog is kept at
+The old CVS ChangeLog is kept at 
 
      http://subversion.tigris.org/
 
 If you want to see changes since Subversion went self-hosting,
-you probably want to use the "svn log" command -- and if it
+you probably want to use the "svn log" command -- and if it 
 does not do what you need, please send in a patch!
 EOF
 
