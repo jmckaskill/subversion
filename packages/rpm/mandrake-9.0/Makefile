@@ -33,7 +33,13 @@
 
 # Allow --nodeps flag 0/1
 # Setting this to 1 ignores rpm dependencies during builds
-# NODEPS := 0
+# NODEPS := 1
+
+# Docs only please
+# DOCS_ONLY := 1
+
+# No documentation please
+# NO_DOCS := 1
 
 # Silent 0/1
 # Setting this to 1 removes white noise
@@ -55,6 +61,13 @@
 # Setting this causes the system to use the build revision
 # This can only be set to sanctioned build numbers
 # BLESSED := 6982
+
+# FOP location
+# FOP := /opt/fop
+
+# FOP options
+# FOP_OPTS := -q
+
 
 # The specific release number
 MDK_RELEASE := 1
@@ -100,6 +113,20 @@ APACHE_CONF := /etc/httpd/conf.d
 #                    END OF CONFIGURATION AREA                     #
 ####################################################################
 
+# Detect user
+ifeq ($(USER),root)
+RPMDIR := /usr/src/RPM
+else
+RPMDIR := $(TMPDIR)/$(USER)-rpm
+endif
+
+# Directories used
+SOURCE_RPM_DIR := $(RPMDIR)/SOURCES
+SPECS_RPM_DIR  := $(RPMDIR)/SPECS
+BUILD_RPM_DIR  := $(RPMDIR)/BUILD
+i586_RPM_DIR   := $(RPMDIR)/RPMS/i586
+SRPMS_RPM_DIR  := $(RPMDIR)/SRPMS
+
 # Where the svn executable is
 SVNEXEC := $(shell which svn 2>/dev/null)
 
@@ -141,7 +168,7 @@ VERSION := $(PRE)$(SVN_VERSION_MAJOR).$(SVN_VERSION_MINOR).$(SVN_VERSION_MICRO)
 # If this is not a blessed copy, the release is what's found
 # If subversion is not installed, RELEASE can be specified on
 # the command line
-ifneq ($(BLESSED),)
+ifneq ($(strip $(BLESSED)),)
 RELEASE := $(BLESSED)
 else
 RELEASE := $(if $(SVNEXEC),$(shell $(SVNEXEC) st -v $(SPECFILE) | cut -b 10- | ( read one two ; echo $$one ) ),)
@@ -149,9 +176,12 @@ endif
 
 # Default values
 GE_30           := $(shell sh ge-0-30-0 $(SVN_VERSION_MAJOR) $(SVN_VERSION_MINOR) $(SVN_VERSION_MICRO))
+GE_30_EXT       := $(if $(GE_30),-ge-0-30-0,)
 TMPDIR          := $(if $(TMPDIR),$(TMPDIR),/tmp)
 NODEPS          := $(if $(NODEPS),$(NODEPS),0)
 SILENT          := $(if $(SILENT),$(SILENT),1)
+DOCS_ONLY       := $(if $(DOCS_ONLY),$(DOCS_ONLY),0)
+NO_DOCS         := $(if $(NO_DOCS),$(NO_DOCS),0)
 NO_ACTIVATION   := $(if $(NO_ACTIVATION),$(NO_ACTIVATION),1)
 NO_APACHE2      := $(if $(NO_APACHE2),$(NO_APACHE2),0)
 REQUIRE_APACHE2 := $(if $(REQUIRE_APACHE2),$(REQUIRE_APACHE2),1)
@@ -164,8 +194,63 @@ APACHE_MIN      := $(if $(APACHE_MIN),$(APACHE_MIN),$(if $(GE_30),2.0.47,2.0.43)
 DB4_MIN         := $(if $(DB4_MIN),$(DB4_MIN),$(if $(GE_30),4.1.25,4.0.14))
 GPG_PATH        := $(if $(GPG_PATH),$(GPG_PATH),\~/.gnupg)
 GPG_PATH        := $(shell echo $(GPG_PATH)|sed 's/\//\\\//g' | sed 's/\./\\\./g')
-WIN32_RELEASE    := $(if $(WIN32_RELEASE),$(WIN32_RELEASE),0)
-MDK_RELEASE := $(if $(MDK_RELEASE),$(MDK_RELEASE),1)
+WIN32_RELEASE   := $(if $(WIN32_RELEASE),$(WIN32_RELEASE),0)
+MDK_RELEASE     := $(if $(MDK_RELEASE),$(MDK_RELEASE),1)
+DOCBOOK         := $(shell rpm -q docbook-style-xsl)
+XSLT            := $(shell rpm -q libxslt-proc)
+FOP_PGM         := $(shell sh fop-installed $(FOP))
+FOP_OPTS := $(if ($FOP_OPTS),\%define fop_opts $(FOP_OPTS),\%undefine fop_opts)
+ifeq ($(strip $(FOP_PGM)),0)
+FOP_SOURCE    := $(shell sh fop-file)
+FOP_BZ2       := $(shell sh fop-bz2 $(FOP_SOURCE))
+FOP_GZ        := $(shell sh fop-gz $(FOP_SOURCE))
+FOP           := $(strip $(FOP))
+FOP           := $(if $(FOP),$(FOP),$(if $(FOP_SOURCE),$(if $(FOP_BZ2),$(FOP_BZ2),$(if $(FOP_GZ),$(FOP_GZ),))))
+ifneq ($(strip $(FOP)),)
+FOP_ARC := $(if $(FOP_BZ2),j,$(if $(FOP_GZ),z,))
+FOP_DIR := \%define fop_dir $(shell tar $(FOP_ARC)tvf $(FOP_SOURCE) | head -1 | cut -f3 -d: | cut -f2 -d\  | cut -f1 -d/)
+FOP_ARC := $(if $(FOP_ARC),\%define fop_arc tar $(FOP_ARC)xf $(SOURCE_RPM_DIR)/$(FOP_SOURCE),\%undefine fop_arc)
+FOP_ARC := $(shell echo $(FOP_ARC)| sed 's/\//\\\//g')
+FOP_SRC := \%define fop_src $(FOP_SOURCE)
+USE_FOP := 1
+else
+FOP_ARC := \%undefine fop_arc
+FOP_SRC := \%undefine fop_src
+FOP_DIR  := \%undefine fop_dir
+USE_FOP := 0
+endif
+else
+FOP_ARC := \%undefine fop_arc
+FOP_SRC := \%undefine fop_src
+FOP_DIR  := \%undefine fop_dir
+USE_FOP := 1
+endif
+ifneq ($(strip $(XSLT)),)
+ifneq ($(strip $(DOCBOOK)),)
+ifneq ($(strip $(USE_FOP)),0)
+DOCBOOK_PATH:=$(shell rpm -q -l docbook-style-xsl | grep stylesheets$$)
+endif
+endif
+endif
+
+ifeq ($(strip $(DOCBOOK_PATH)),)
+NO_DOCS := 1
+endif
+
+
+ifeq ($(NO_DOCS),1)
+DOCBOOK_PATH :=
+NOT_JUST_DOCS:= \%define not_just_docs 1
+MAKE_DOC     := \%undefine docbook
+FOP_PATH     := \%undefine fop
+else
+ORG_DOCBOOK := $(DOCBOOK_PATH)
+DOCBOOK_PATH :=$(shell echo $(DOCBOOK_PATH)| sed 's/\//\\\//g')
+MAKE_DOC:=$(if $(DOCBOOK_PATH),\%define docbook $(DOCBOOK_PATH),\%undefine docbook)
+NOT_JUST_DOCS := \%define not_just_docs $(if $(shell sh just-docs $(DOCS_ONLY)),0,1)
+FOP_PATH      := $(if $(FOP),\%define fop $(FOP),\%undefine fop)
+endif
+
 
 ifeq ($(WIN32_RELEASE),1)
 RELEASE_MODE    := \%define release_mode --release
@@ -179,7 +264,7 @@ SKIP_DEPS       := \%undefine skip_deps
 endif
 
 # Predefined complete names
-ifeq ($(BLESSED),)
+ifeq ($(strip $(BLESSED)),)
 BLESSDEF:= \%undefine blessed
 BLESS   :=
 NAMEVER  := $(VERSION)-$(RELEASE)
@@ -195,13 +280,6 @@ endif
 BASENAME := $(NAME)-$(NAMEVER)
 SHORTNAME := $(NAME)-$(FULLVER)
 
-# Detect user
-ifeq ($(USER),root)
-RPMDIR := /usr/src/RPM
-else
-RPMDIR := $(TMPDIR)/$(USER)-rpm
-endif
-
 # Translate dependencies
 ifeq ($(NODEPS),1)
 NODEPS := --nodeps
@@ -212,12 +290,12 @@ ifeq ($(SILENT),1)
 SILENT      := \%define silent --silent
 SILENT_FLAG := \%define silent_flag -s
 # Trunk changes the silent patch slightly
-PATCH       := svn-install.patch svn-install-silent$(if $(GE_30),-ge-0-30-0,).patch
+PATCH       := svn-install.patch svn-book.patch svn-book-fop$(GE_30_EXT).patch svn-install-silent$(GE_30_EXT).patch
 SILENT_TGT  := all_silent
 else
 SILENT      := \%undefine silent
 SILENT_FLAG :=  \%undefine silent_flag
-PATCH       := svn-install.patch
+PATCH       := svn-install.patch svn-book.patch svn-book-fop$(GE_30_EXT).patch
 SILENT_TGT  := all_noisy
 endif
 ifeq ($(NO_ACTIVATION),1)
@@ -225,13 +303,6 @@ MOD_ACTIVATE := --disable-mod-activation
 else
 MOD_ACTIVATE := --enable-mod-activation
 endif
-
-# Directories used
-SOURCE_RPM_DIR := $(RPMDIR)/SOURCES
-SPECS_RPM_DIR  := $(RPMDIR)/SPECS
-BUILD_RPM_DIR  := $(RPMDIR)/BUILD
-i586_RPM_DIR   := $(RPMDIR)/RPMS/i586
-SRPMS_RPM_DIR  := $(RPMDIR)/SRPMS
 
 # Assemble all rc files
 DEFRC1   := $(shell ls /usr/lib/rpm/rpmrc 2>/dev/null | grep rpm)
@@ -251,7 +322,7 @@ else
 USE_APACHE2      := \%define use_apache2 0
 REQUIRE_APACHE2 := 0
 endif
-ifneq ($(APXS),)
+ifneq ($(strip $(APXS)),)
 WITH_APXS     := \%define with_apxs --with-apxs=
 APACHE_CONF   := $(if $(APACHE_CONF),$(APACHE_CONF),$(shell $(APXS) -q sysconfdir).d)
 APACHE_DIR    := $(if $(APACHE_DIR),$(APACHE_DIR),$(shell $(APXS) -q libexecdir)-extramodules)
@@ -270,7 +341,7 @@ APACHE2  := $(shell rpm -q -l apache2 | grep sbin | grep httpd2 )
 else
 NO_APACHE2 := 0
 endif
-ifeq ($(APACHE2),)
+ifeq ($(strip $(APACHE2)),)
 ifeq ($(REQUIRE_APACHE2),1)
 QUIT := quit
 endif
@@ -293,7 +364,7 @@ APACHE_DIR := $(shell echo $(APACHE_DIR) | sed 's/\//\\\//g')
 APACHE_CONF := $(shell echo $(APACHE_CONF) | sed 's/\//\\\//g')
 EDITOR      := $(if $(EDITOR),\%define editor --with-editor=$(shell which $(EDITOR) | sed 's/\//\\\//g'),)
 
-SOURCES := 46_mod_dav_svn.conf
+SOURCES := 46_mod_dav_svn.conf $(FOP_SOURCE)
 
 # Replace periods with dashes
 TARBALL := $(SOURCE_RPM_DIR)/$(BASENAME).tar.bz2
@@ -312,7 +383,7 @@ all : $(SILENT_TGT)
 all_noisy : $(QUIT) rpm
 
 all_silent :
-	@make -s all_noisy
+	@make -e -s all_noisy
 
 subversion rpm : check_release build_sources build_rpm_files
 
@@ -334,6 +405,7 @@ build_sources: $(TARBALL) $(RPMBITS)
 	cp -f $(SOURCES) $(SOURCE_RPM_DIR)
 	cp -f $(RCFILE) $(SOURCE_RPM_DIR)/$(RCFILE)-$(NAMEVER)
 	cat $(PATCH) > $(SOURCE_RPM_DIR)/svn-install.patch-$(NAMEVER)
+	if [ "$(DOCBOOK_PATH)" != "" ] ; then sh make-fo-patch $(ORG_DOCBOOK) >> $(SOURCE_RPM_DIR)/svn-install.patch-$(NAMEVER) ; fi
 	sh make-version-patch $(VERSION_FILE) $(RELEASE) $(MDK_RELEASE) $(BLESS) > $(SOURCE_RPM_DIR)/svn-version.patch-$(NAMEVER)
 	sed -e 's/@MDK_RELEASE@/$(MDK_RELEASE)/' \
 		-e 's/@REPOS_REV@/$(RELEASE)/' \
@@ -342,11 +414,18 @@ build_sources: $(TARBALL) $(RPMBITS)
 		-e 's/@BLESSED@/$(BLESSDEF)/' \
 		-e 's/@VERSION@/$(VERSION)/' \
 		-e 's/@RPMDIR@/$(SEDRPM)/' \
+		-e 's/@FOP_ARC@/$(FOP_ARC)/' \
+		-e 's/@FOP_OPTS@/$(FOP_OPTS)/' \
+		-e 's/@FOP_DIR@/$(FOP_DIR)/' \
+		-e 's/@FOP_SRC@/$(FOP_SRC)/' \
 		-e 's/@TMPDIR@/$(SEDTMP)/' \
 		-e 's/@BUILDROOT@/$(SEDROOT)/' \
 		-e 's/@DB4_RPM@/$(DB4_RPM)/' \
 		-e 's/@DB4_VER@/$(DB4_VER)/' \
 		-e 's/@APXS@/$(APXS)/' \
+		-e 's/@MAKE_DOC@/$(MAKE_DOC)/' \
+		-e 's/@FOP_PATH@/$(FOP_PATH)/' \
+		-e 's/@NOT_JUST_DOCS@/$(NOT_JUST_DOCS)/' \
 		-e 's/@GPG_PATH@/$(GPG_PATH)/' \
 		-e 's/@APR_CONFIG@/$(APR_CONFIG)/' \
 		-e 's/@APU_CONFIG@/$(APU_CONFIG)/' \
