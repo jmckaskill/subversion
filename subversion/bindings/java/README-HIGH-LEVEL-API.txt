@@ -1,9 +1,9 @@
 
              Subversion High Level Java API
              ===============================
-
+             
  $LastChangedDate$
-
+ 
  Contents:
 
 	I. ABOUT
@@ -34,11 +34,11 @@ A plugin for eclipse is in the works.
 
 
 II. STATUS
-
+	
 The interface is complete and in beta. Any function that is possible through the command line client
 can be done through the API. The reference implementation will be maintained, to follow
 changes in the C-Client-API.
-The reference implemetation provides the resources to build it on Windows and Unix.
+The reference implemetation provides the resources to build it on Windows and Unix.  
 
 III. WHY INTERFACES?
 
@@ -50,17 +50,17 @@ or a ide plugin.
 
 IV. WHY NOT 100% PURE JAVA?
 
-100% pure Java would require reimplementing the whole subversion Client library in Java.
+100% pure Java would require reimplementing the whole subversion Client library in Java. 
 This would mean a lot of duplication and it would not be clear which client implementation
 is the reference. However we believe that there should be one primary client API and that should be
 the C-API.
 
-
+	
 V. WHY JNI?
 
 If you know JNI it is probably the fastest approach, because it allows to handle the various
 internal structures of the C-Client-API directly in C while exposing more natural interfaces to the Java programmer.
-
+	
 VI. TODO
 
 Integration into subversion build systems for Windows and Unix.
