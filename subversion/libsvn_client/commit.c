@@ -38,7 +38,7 @@ svn_error_t *
 svn_client_commit (const svn_delta_edit_fns_t *before_editor,
                    void *before_root_dir_baton,
                    const svn_delta_edit_fns_t *after_editor,
-                   void *after_root_dir_baton,
+                   void *after_root_dir_baton,                   
                    svn_string_t *path,
                    svn_string_t *xml_dst,
                    svn_revnum_t revision,  /* this param is temporary */
@@ -96,7 +96,7 @@ svn_client_commit (const svn_delta_edit_fns_t *before_editor,
   if (apr_err)
     return svn_error_createf (apr_err, 0, NULL, pool,
                               "error closing %s", xml_dst->data);
-
+  
   /* Step 2: tell the working copy the commit succeeded. */
   err = svn_wc_close_commit (path, revision, targets, pool);
   if (err)
@@ -107,7 +107,7 @@ svn_client_commit (const svn_delta_edit_fns_t *before_editor,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end: */
