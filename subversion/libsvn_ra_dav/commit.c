@@ -126,7 +126,7 @@ create_activity (commit_ctx_t *cc)
 
 #if 0  /* With -Wall, we keep getting a warning that this is defined
           but not used.  It aids Emacs reflexes to have no warnings at
-          all, so #if this out until it's actually used.  -kff*/
+          all, so #if this out until it's actually used.  -kff*/  
 static svn_error_t *
 checkout_resource (commit_ctx_t *cc, const char *src_url, const char **wr_url)
 {
@@ -292,7 +292,7 @@ static svn_error_t * commit_send_txdelta(svn_txdelta_window_t *window,
 }
 
 static svn_error_t *
-commit_apply_txdelta (void *file_baton,
+commit_apply_txdelta (void *file_baton, 
                       svn_txdelta_window_handler_t **handler,
                       void **handler_baton)
 {
@@ -399,7 +399,7 @@ svn_error_t * svn_ra_dav__get_commit_editor(
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
