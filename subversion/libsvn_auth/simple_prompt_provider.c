@@ -38,7 +38,7 @@ typedef struct
 
   /* a default password, to try before prompting.  can be NULL. */
   const char *default_password;
-
+  
 } simple_prompt_provider_baton_t;
 
 
@@ -146,7 +146,7 @@ simple_prompt_next_creds (void **credentials,
 
 
 /* The provider. */
-const svn_auth_provider_t simple_prompt_provider =
+const svn_auth_provider_t simple_prompt_provider = 
   {
     SVN_AUTH_CRED_SIMPLE,  /* username/passwd creds */
     simple_prompt_first_creds,
