@@ -77,7 +77,7 @@ talented scramble-tree.py script.
 """
     self.file_modders = [self._mod_append_to_file,
                          self._mod_append_to_file,
-                         self._mod_append_to_file,
+                         self._mod_append_to_file,                         
                          self._mod_remove_from_file,
                          self._mod_remove_from_file,
                          self._mod_remove_from_file,
@@ -181,8 +181,8 @@ if __name__ == '__main__':
   if seed is None:
     seed = hashDir(rootdir).gen_seed()
   scrambler = Scrambler(seed, use_svn, dry_run)
-
+  
   # Fire up the treewalker
   print 'SEED: ' + seed
-
+  
   os.path.walk(rootdir, walker_callback, scrambler)
