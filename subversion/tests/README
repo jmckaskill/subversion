@@ -1,7 +1,7 @@
 
 This directory contains a number of items related to testing.
 
-1.  svn_tests_main.c
+1.  svn_tests_main.c 
 
     This produces a shared library "libsvn_tests_main", which contains
     a standardized main() that is linked into all Subversion automated
