@@ -3,32 +3,32 @@
  *
  * ================================================================
  * Copyright (c) 2000 Collab.Net.  All rights reserved.
- *
+ * 
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
  * met:
- *
+ * 
  * 1. Redistributions of source code must retain the above copyright
  * notice, this list of conditions and the following disclaimer.
- *
+ * 
  * 2. Redistributions in binary form must reproduce the above copyright
  * notice, this list of conditions and the following disclaimer in the
  * documentation and/or other materials provided with the distribution.
- *
+ * 
  * 3. The end-user documentation included with the redistribution, if
  * any, must include the following acknowlegement: "This product includes
  * software developed by Collab.Net (http://www.Collab.Net/)."
  * Alternately, this acknowlegement may appear in the software itself, if
  * and wherever such third-party acknowlegements normally appear.
- *
+ * 
  * 4. The hosted project names must not be used to endorse or promote
  * products derived from this software without prior written
  * permission. For written permission, please contact info@collab.net.
- *
+ * 
  * 5. Products derived from this software may not use the "Tigris" name
  * nor may "Tigris" appear in their names without prior written
  * permission of Collab.Net.
- *
+ * 
  * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
  * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -42,7 +42,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ====================================================================
- *
+ * 
  * This software consists of voluntary contributions made by many
  * individuals on behalf of Collab.Net.
  */
@@ -109,7 +109,7 @@ svn_delta__vcdiff_flush_buffer (svn_delta__vcdiff_parser_t *parser);
 
 /* These are the in-memory tree-delta stackframes; they are used to
  * keep track of a delta's state while the XML stream is being parsed.
- *
+ * 
  * The XML representation has certain space optimizations.  For
  * example, if an ancestor is omitted, it means the same path at the
  * same version (taken from the surrounding delta context).  We may
@@ -156,13 +156,13 @@ typedef struct svn_delta__stackframe_t
   svn_delta__XML_t tag;  /* represents an open <tag> */
   void *baton;           /* holds caller data for a particular subdirectory */
   svn_string_t *name;    /* if the tag had a "name" attribute attached */
-
-  svn_string_t *ancestor_path;     /* Explicit, else inherited from parent */
-  svn_vernum_t ancestor_version;   /* Explicit, else inherited from parent */
+  
+  svn_string_t *ancestor_path;     /* Explicit, else inherited from parent */ 
+  svn_vernum_t ancestor_version;   /* Explicit, else inherited from parent */ 
 
   struct svn_delta__stackframe_t *next;
   struct svn_delta__stackframe_t *previous;
-
+  
 } svn_delta__stackframe_t;
 
 
@@ -201,8 +201,8 @@ typedef struct svn_delta__digger_t
   apr_pool_t *pool;
 
   /* A mirror of the stack we're getting from the XML structure, used
-     for storing XML attributes and for XML validation.
-
+     for storing XML attributes and for XML validation. 
+     
      NOTE that this is the *YOUNGEST* frame on the stack, not the oldest! */
   svn_delta__stackframe_t *stack;
 
@@ -256,10 +256,10 @@ typedef struct svn_delta__pdelta_parser_t
   /* Pool to create subpools from; each developing chunk will live in
      a subpool */
   apr_pool_t *pool;
-
+  
   /* The current subpool which contains our current chunk */
   apr_pool_t *subpool;
-
+  
   /* The final propchange we're going to send to our caller, when
      we're done. */
   svn_propchange_t *propchange;
@@ -295,7 +295,7 @@ svn_delta__reset_parser_subpool (svn_delta__pdelta_parser_t *parser);
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
