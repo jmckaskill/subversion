@@ -27,7 +27,7 @@
 
 
 
-/*
+/* 
  * The format of a dumped hash table is:
  *
  *   K <nlength>
@@ -55,7 +55,7 @@
  *   be pleased to note the familiar, subtle hints of mulberries and
  *   carburator fluid.  Its confident finish is marred only by a barely
  *   detectable suggestion of rancid squid ink.
- *   K 5
+ *   K 5 
  *   price
  *   V 8
  *   US $6.50
@@ -69,7 +69,7 @@
 
 /*** Code. ***/
 
-apr_size_t
+apr_size_t 
 svn_unpack_bytestring (char **returndata, void *value)
 {
   svn_string_t *valstring = (svn_string_t *) value;
@@ -83,7 +83,7 @@ svn_unpack_bytestring (char **returndata, void *value)
 void *
 svn_pack_bytestring (size_t len, const char *val, apr_pool_t *pool)
 {
-  svn_string_t *valstring = apr_palloc (pool, sizeof (*valstring));
+  svn_string_t *valstring = apr_palloc (pool, sizeof (*valstring)); 
 
   valstring->len       = len;
   valstring->blocksize = len;
@@ -95,7 +95,7 @@ svn_pack_bytestring (size_t len, const char *val, apr_pool_t *pool)
 
 
 apr_status_t
-svn_hash_write (apr_hash_t *hash,
+svn_hash_write (apr_hash_t *hash, 
                 apr_size_t (*unpack_func) (char **unpacked_data, void *val),
                 apr_file_t *destfile)
 {
@@ -164,9 +164,9 @@ svn_hash_write (apr_hash_t *hash,
  * Does not include newline, instead '\0' is put there.
  * Length (as in strlen) is returned in *LIMIT.
  * BUF should be pre-allocated.
- * FILE should be already opened.
+ * FILE should be already opened. 
  *
- * (This is meant for reading length lines from hashdump files.)
+ * (This is meant for reading length lines from hashdump files.) 
  */
 static apr_status_t
 read_length_line (apr_file_t *file, char *buf, apr_size_t *limit)
@@ -177,7 +177,7 @@ read_length_line (apr_file_t *file, char *buf, apr_size_t *limit)
 
   for (i = 0; i < *limit; i++)
   {
-    err = apr_file_getc (&c, file);
+    err = apr_file_getc (&c, file); 
     if (err)
       return err;   /* Note: this status code could be APR_EOF, which
                        is totally fine.  The caller should be aware of
@@ -200,7 +200,7 @@ read_length_line (apr_file_t *file, char *buf, apr_size_t *limit)
 
 
 apr_status_t
-svn_hash_read (apr_hash_t *hash,
+svn_hash_read (apr_hash_t *hash, 
                void * (*pack_func) (size_t len,
                                     const char *val,
                                     apr_pool_t *pool),
@@ -213,7 +213,7 @@ svn_hash_read (apr_hash_t *hash,
   char c;
   void *package;
   int first_time = 1;
-
+  
 
   while (1)
     {
@@ -223,7 +223,7 @@ svn_hash_read (apr_hash_t *hash,
       err = read_length_line (srcfile, buf, &len);
       if ((err == APR_EOF) && first_time)
         /* We got an EOF on our very first attempt to read, which
-           means it's a zero-byte file.  No problem, just go home. */
+           means it's a zero-byte file.  No problem, just go home. */        
         return APR_SUCCESS;
       else if (err)
         /* Any other circumstance is a genuine error. */
@@ -296,7 +296,7 @@ svn_hash_read (apr_hash_t *hash,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
