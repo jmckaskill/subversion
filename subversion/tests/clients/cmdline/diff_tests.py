@@ -2,9 +2,9 @@
 #
 #  diff_tests.py:  some basic diff tests
 #
-#  Subversion is a tool for revision control.
+#  Subversion is a tool for revision control. 
 #  See http://subversion.tigris.org for more information.
-#
+#    
 # ====================================================================
 # Copyright (c) 2000-2003 CollabNet.  All rights reserved.
 #
@@ -131,13 +131,13 @@ def diff_check_update_a_file_repo_subset(wc_dir):
   repo_subset = os.path.join('A', 'B')
   if diff_check_repo_subset(wc_dir, repo_subset, check_update_a_file, 1):
     return 1
-
+  
   repo_subset = os.path.join('A', 'B', 'E', 'alpha')
   if diff_check_repo_subset(wc_dir, repo_subset, check_update_a_file, 1):
     return 1
 
   return 0
-
+  
 
 #----------------------------------------------------------------------
 
@@ -165,7 +165,7 @@ def diff_check_add_a_file_repo_subset(wc_dir):
   repo_subset = os.path.join('A', 'B')
   if diff_check_repo_subset(wc_dir, repo_subset, check_add_a_file, 1):
     return 1
-
+  
   repo_subset = os.path.join('A', 'B', 'E', 'theta')
   ### TODO: diff -r HEAD doesn't work for added file
   if diff_check_repo_subset(wc_dir, repo_subset, check_add_a_file, 0):
@@ -212,7 +212,7 @@ def diff_check_add_a_file_in_a_subdir_repo_subset(wc_dir):
   if diff_check_repo_subset(wc_dir, repo_subset,
                             check_add_a_file_in_a_subdir, 0):
     return 1
-
+  
   repo_subset = os.path.join('A', 'B', 'T', 'phi')
   ### TODO: diff -r HEAD doesn't work for added file in subdir
   if diff_check_repo_subset(wc_dir, repo_subset,
@@ -239,7 +239,7 @@ def check_replace_a_file(diff_output):
                        'A'):
     return 1
   return 0
-
+    
 #----------------------------------------------------------------------
 
 def update_three_files():
@@ -264,7 +264,7 @@ def check_update_three_files(diff_output):
                         'M'):
     return 1
   return 0
-
+                        
 
 ######################################################################
 # make a change, check the diff, commit the change, check the diff
@@ -476,7 +476,7 @@ def diff_non_recursive(sbox):
   # When checking D recursively there are three changes. When checking
   # D non-recursively there is only one change. When checking G
   # recursively, there is only one change even though D is the anchor
-
+  
   # full diff has three changes
   diff_output, err_output = svntest.main.run_svn(None, 'diff', '-r', '1',
                                                  os.path.join(wc_dir, 'A', 'D'))
@@ -495,7 +495,7 @@ def diff_non_recursive(sbox):
                                                               'A', 'D', 'G'))
   if count_diff_output(diff_output) != 1:
     return 1
-
+  
   return 0
 
 # test 7
@@ -515,16 +515,16 @@ def diff_repo_subset(sbox):
   add_a_file_in_a_subdir()
 
   os.chdir(was_cwd)
-
+  
   if diff_check_update_a_file_repo_subset(wc_dir):
     return 1
-
+  
   if diff_check_add_a_file_repo_subset(wc_dir):
     return 1
-
+  
   if diff_check_add_a_file_in_a_subdir_repo_subset(wc_dir):
     return 1
-
+  
   return 0
 
 
@@ -539,20 +539,20 @@ def diff_non_version_controlled_file(sbox):
 
   svntest.main.file_append(os.path.join(wc_dir, 'A', 'D', 'foo'), "a new file")
 
-  diff_output, err_output = svntest.main.run_svn(1, 'diff',
-                                                 os.path.join(wc_dir,
+  diff_output, err_output = svntest.main.run_svn(1, 'diff', 
+                                                 os.path.join(wc_dir, 
                                                               'A', 'D', 'foo'))
 
   if count_diff_output(diff_output) != 0: return 1
 
-  # At one point this would crash, so we would only get a 'Segmentation Fault'
-  # error message.  The appropriate response is a few lines of errors.  I wish
-  # there was a way to figure out if svn crashed, but all run_svn gives us is
+  # At one point this would crash, so we would only get a 'Segmentation Fault' 
+  # error message.  The appropriate response is a few lines of errors.  I wish 
+  # there was a way to figure out if svn crashed, but all run_svn gives us is 
   # the output, so here we are...
   if len(err_output) <= 1: return 1
 
   return 0
-
+  
 # test 9
 def diff_pure_repository_update_a_file(sbox):
   "pure repository diff update a file"
