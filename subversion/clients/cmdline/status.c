@@ -110,8 +110,8 @@ generate_status_codes (char *str_status,
       break;
     }
 
-  sprintf (str_status, "%c%c%c%c",
-           text_statuschar,
+  sprintf (str_status, "%c%c%c%c", 
+           text_statuschar, 
            prop_statuschar,
            locked ? 'L' : ' ',
            copied ? '+' : ' ');
@@ -119,7 +119,7 @@ generate_status_codes (char *str_status,
 
 
 /* Print a single status structure in the short format */
-static void
+static void 
 print_short_format (const char *path,
                     svn_wc_status_t *status)
 {
@@ -140,7 +140,7 @@ print_short_format (const char *path,
 
 
 /* Print a single status structure in the long format */
-static void
+static void 
 print_long_format (const char *path,
                    svn_boolean_t show_last_committed,
                    svn_wc_status_t *status)
@@ -190,7 +190,7 @@ print_long_format (const char *path,
         sprintf (last_committed, "%6.6s   %8.8s   ",
                  revstr ? revstr->data : "      ",
                  s_author ? s_author->data : "        ");
-
+        
     }
   else
     strcpy (last_committed, "                 ");
@@ -212,9 +212,9 @@ print_long_format (const char *path,
     sprintf (str_rev, "%6ld", local_rev);
 
   /* One Printf to rule them all, one Printf to bind them..." */
-  printf ("%s   %c   %s   %s%s\n",
-          str_status,
-          update_char,
+  printf ("%s   %c   %s   %s%s\n", 
+          str_status, 
+          update_char, 
           str_rev,
           show_last_committed ? last_committed : "",
           path);
@@ -224,7 +224,7 @@ print_long_format (const char *path,
 
 /* Called by status-cmd.c */
 void
-svn_cl__print_status_list (apr_hash_t *statushash,
+svn_cl__print_status_list (apr_hash_t *statushash, 
                            svn_revnum_t youngest,
                            svn_boolean_t detailed,
                            svn_boolean_t show_last_committed,
@@ -265,8 +265,8 @@ svn_cl__print_status_list (apr_hash_t *statushash,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../svn-dev.el")
- * end:
+ * end: 
  */
