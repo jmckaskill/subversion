@@ -2,10 +2,10 @@
 @chapter Protocol
 
 @menu
-* Transport::
-* Common Protocol Conventions::
-* Feature Negotiation::
-* Selecting a Repository::
+* Transport::                   
+* Common Protocol Conventions::  
+* Feature Negotiation::         
+* Selecting a Repository::      
 @end menu
 
 @node Transport
@@ -24,10 +24,10 @@ This section describes some general conventions and assumptions used in
 the description of the protocol.
 
 @menu
-* Character Sets::
-* Whitespace::
-* Octet Strings::
-* Requests and replies::
+* Character Sets::              
+* Whitespace::                  
+* Octet Strings::               
+* Requests and replies::        
 @end menu
 
 @node Character Sets
@@ -101,7 +101,7 @@ the bare string @samp{play-me}, followed by whitespace,
 @item
 the argument @var{piece}, followed by more whitespace,
 @item
-the bare string @samp{on}, followed by more whitespace,
+the bare string @samp{on}, followed by more whitespace, 
 @item
 the argument @var{instrument},
 @item
@@ -165,7 +165,7 @@ itself.
 The list of permissible requests sent must include at least the
 following:
 @table @code
-@item auth-schemes
+@item auth-schemes 
 @item repository
 @end table
 
@@ -204,7 +204,7 @@ perform the appropriate authentication handshakes for that repository.
 The client can use the @code{repository} request to select a repository.
 
 @deffn Request repository @var{name}
-Select the repository named @var{name}.  @var{name} is an octet string;
+Select the repository named @var{name}.  @var{name} is an octet string; 
 its interpretation is server-specific.
 
 The server replies to this request with either a @code{repository-ok}
@@ -213,10 +213,10 @@ reply or an @code{error} reply.
 
 @deffn Reply repository-ok @var{auth-scheme}
 This reply indicates that the repository indicated by the @var{name} in
-the client's @code{repository} request exists, and tells the server
+the client's @code{repository} request exists, and tells the server 
 @end deffn
 
 @node Authentication Schemes
 @section Authentication Schemes
 
-When the client selects a repository,
+When the client selects a repository, 
