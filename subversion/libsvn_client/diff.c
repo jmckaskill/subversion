@@ -76,7 +76,7 @@ diff_cmd (const char *path1,
       args = apr_palloc (subpool, nargs * sizeof (char *));
       for (i = 0; i < diff_cmd_baton->options->nelts; i++)
         {
-          args[i] =
+          args[i] = 
             ((svn_stringbuf_t **)(diff_cmd_baton->options->elts))[i]->data;
         }
       assert (i == nargs);
@@ -84,15 +84,15 @@ diff_cmd (const char *path1,
 
   /* Print out the diff header. */
   apr_file_printf (outfile, "Index: %s\n", label ? label : path1);
-  apr_file_printf (outfile,
+  apr_file_printf (outfile, 
      "===================================================================\n");
 
-  SVN_ERR (svn_io_run_diff (".", args, nargs, label,
-                            path1, path2,
+  SVN_ERR (svn_io_run_diff (".", args, nargs, label, 
+                            path1, path2, 
                             &exitcode, outfile, errfile, subpool));
 
   /* ### todo: Handle exit code == 2 (i.e. errors with diff) here */
-
+  
   /* ### todo: someday we'll need to worry about whether we're going
      to need to write a diff plug-in mechanism that makes use of the
      two paths, instead of just blindly running SVN_CLIENT_DIFF.  */
@@ -170,23 +170,23 @@ merge_cmd (const char *older,
                          left_label, right_label, target_label,
                          subpool);
       if (err && (err->apr_err != SVN_ERR_WC_CONFLICT))
-        return err;
+        return err;  
       break;
-
+      
     case svn_diff_action_add:
       SVN_ERR (svn_io_copy_file (yours, mine, TRUE, subpool));
-      SVN_ERR (svn_client_add (svn_stringbuf_create (mine, subpool),
+      SVN_ERR (svn_client_add (svn_stringbuf_create (mine, subpool), 
                                FALSE, NULL, NULL, subpool));
       break;
-
+      
     case svn_diff_action_delete: /*  */
-      SVN_ERR (svn_client_delete (NULL,
+      SVN_ERR (svn_client_delete (NULL, 
                                   svn_stringbuf_create (mine, subpool),
                                   FALSE, /* don't force */
                                   NULL, NULL, NULL, NULL, subpool));
       break;
     }
-
+  
   svn_pool_destroy (subpool);
   return SVN_NO_ERROR;
 }
@@ -315,7 +315,7 @@ diff_or_merge (const svn_delta_editor_t *after_editor, /* ### still unused */
                                        pool));
       if (after_editor)
         {
-
+          
         }
 
       SVN_ERR (ra_lib->do_update (session,
@@ -421,7 +421,7 @@ diff_or_merge (const svn_delta_editor_t *after_editor, /* ### still unused */
    NOTE:  In the near future, svn_client_diff() will likely only
    continue to report textual differences in files.  Property diffs
    are important, too, and will need to be supported in some fashion
-   so that this code can be re-used for svn_client_merge().
+   so that this code can be re-used for svn_client_merge(). 
 */
 svn_error_t *
 svn_client_diff (const apr_array_header_t *options,
@@ -471,7 +471,7 @@ svn_client_merge (const svn_delta_editor_t *after_editor,
   struct merge_cmd_baton merge_cmd_baton;
 
   merge_cmd_baton.pool = pool;
-
+  
   return diff_or_merge (after_editor, after_edit_baton,
                         options,
                         auth_baton,
