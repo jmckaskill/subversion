@@ -3,12 +3,12 @@
 #=======================================================================
 # $URL$
 # $Id$
-# Eat stdin, smack those @ENGLISH* markers around it and send it to
-# stdout. After that, print all the XML elements with all the text
-# outside of the elements removed. Some attempt to automate things a
+# Eat stdin, smack those @ENGLISH* markers around it and send it to 
+# stdout. After that, print all the XML elements with all the text 
+# outside of the elements removed. Some attempt to automate things a 
 # bit.
 #
-# This complicated piece of software is licensed under the GNU General
+# This complicated piece of software is licensed under the GNU General 
 # Public License version 2 or later.
 #=======================================================================
 
@@ -32,7 +32,7 @@ $Orig =~ /^(\s+)/ && ($Indent = $1);
 # Remove everything except elements
 $Data =~ s/>[^<>]+?</></gs;
 
-# Remove line breaks inside elements and replace it with exactly one
+# Remove line breaks inside elements and replace it with exactly one 
 # space.
 $Data =~ s/\s*\n\s*[^\$]/ /gs;
 
@@ -46,8 +46,8 @@ sub usage {
 
 Usage: $0 [file [...]]
 
-Eat stdin, smack those \@ENGLISH* markers around it and send it to
-stdout. After that, print all the XML elements with all the text outside
+Eat stdin, smack those \@ENGLISH* markers around it and send it to 
+stdout. After that, print all the XML elements with all the text outside 
 of the elements removed. Some attempt to automate things a bit.
 
 END
