@@ -4,14 +4,14 @@
   <simplesect>
     <programlisting>
 
-Copyright (c) 2002-2004
-Ben Collins-Sussman, Brian W. Fitzpatrick, C. Michael Pilato.
+Copyright (c) 2002-2004 
+Ben Collins-Sussman, Brian W. Fitzpatrick, C. Michael Pilato.  
 
 This work is licensed under the Creative Commons Attribution
 License. To view a copy of this license, visit
 http://creativecommons.org/licenses/by/1.0/ or send a letter to
 Creative Commons, 559 Nathan Abbott Way, Stanford, California 94305,
-USA.
+USA.  
 
 A summary of the license is given below, followed by the full legal
 text.
@@ -25,7 +25,7 @@ You are free:
     * to make commercial use of the work
 
 Under the following conditions:
-
+	
 Attribution. You must give the original author credit.
 
     * For any reuse or distribution, you must make clear to others the
@@ -280,7 +280,7 @@ Creative Commons may be contacted at http://creativecommons.org/
 </appendix>
 
 <!--
-local variables:
+local variables: 
 sgml-parent-document: ("book.xml" "")
 end:
 -->
