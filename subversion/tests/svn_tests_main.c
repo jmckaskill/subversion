@@ -28,7 +28,7 @@
 
 /* All Subversion test programs include an array of function pointers
    (all of our sub-tests) that begins and ends with a NULL entry. */
-extern svn_error_t *(*test_funcs[])(const char **msg,
+extern svn_error_t *(*test_funcs[])(const char **msg, 
                                     apr_pool_t *pool);
 
 /* ================================================================= */
@@ -72,10 +72,10 @@ do_test_num (const char *progname, int test_num, apr_pool_t *pool)
   if (err)
     svn_handle_error (err, stdout, 0);
 
-  printf ("%s: %s %2d: %s\n",
+  printf ("%s: %s %2d: %s\n", 
           err ? "FAIL" : "PASS",
           progname,
-          test_num,
+          test_num, 
           msg ? msg : "(test did not provide name)");
 
   return err != SVN_NO_ERROR;
@@ -96,7 +96,7 @@ main (int argc, char *argv[])
 
   /* How many tests are there? */
   int array_size = get_array_size();
-
+  
   /* Initialize APR (Apache pools) */
   if (apr_initialize () != APR_SUCCESS)
     {
