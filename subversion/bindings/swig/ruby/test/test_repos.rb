@@ -8,7 +8,7 @@ require "svn/client"
 
 class TestSvnRepos < Test::Unit::TestCase
   include SvnTestUtil
-
+  
   def setup
     setup_basic
   end
@@ -23,10 +23,10 @@ class TestSvnRepos < Test::Unit::TestCase
     assert_equal(File.join(@repos_path, "db"), @repos.db_env)
 
     assert_equal(File.join(@repos_path, "conf"), @repos.conf_dir)
-
+    
     assert_equal(File.join(@repos_path, "conf", "svnserve.conf"),
                  @repos.svnserve_conf)
-
+    
     assert_equal(File.join(@repos_path, "locks"), @repos.lock_dir)
 
 
@@ -37,13 +37,13 @@ class TestSvnRepos < Test::Unit::TestCase
                  @repos.pre_commit_hook)
     assert_equal(File.join(hooks_dir, "post-commit"),
                  @repos.post_commit_hook)
-
+    
     assert_equal(File.join(hooks_dir, "pre-revprop-change"),
                  @repos.pre_revprop_change_hook)
     assert_equal(File.join(hooks_dir, "post-revprop-change"),
                  @repos.post_revprop_change_hook)
 
-
+    
     search_path = @repos_path
     assert_equal(@repos_path, Svn::Repos.find_root_path(search_path, @pool))
     search_path = "#{@repos_path}/XXX"
@@ -58,7 +58,7 @@ class TestSvnRepos < Test::Unit::TestCase
     ctx = make_context(log)
     ctx.checkout(@repos_uri, @wc_path)
     ctx.mkdir(["#{@wc_path}/new_dir"])
-
+    
     prev_rev = @repos.youngest_rev
     past_date = Time.now
     @repos.transaction_for_commit(@author, log) do |txn|
@@ -66,7 +66,7 @@ class TestSvnRepos < Test::Unit::TestCase
     end
     assert_equal(prev_rev, @repos.youngest_rev)
     assert_equal(prev_rev, @repos.dated_revision(past_date))
-
+    
     prev_rev = @repos.youngest_rev
     @repos.transaction_for_commit(@author, log) do |txn|
     end
@@ -74,5 +74,5 @@ class TestSvnRepos < Test::Unit::TestCase
     assert_equal(prev_rev, @repos.dated_revision(past_date))
     assert_equal(prev_rev + 1, @repos.dated_revision(Time.now))
   end
-
+  
 end
