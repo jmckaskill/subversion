@@ -23,7 +23,7 @@ It should be noted that these changes are extremely rare.  Now that
 subversion has reached 1.0.0 our compatibility guarantees require
 forward and backward compatible repository formats for all patch
 releases and backward compatible for minor releases.  So until
-2.0.0 comes out there will be no change that should require a
+2.0.0 comes out there will be no change that should require a 
 dump for upgrading to newer versions.
 
 
@@ -43,7 +43,7 @@ to access an 'old' repository, you'll see an error like:
 
 Or if you use an 'old' libsvn_fs library to access a 'new' repository,
 you might see an error like:
-
+  
    Expected version '1' of repository; found version '2'
 
    or
@@ -102,6 +102,6 @@ constantly improving.  These changes were planned, and took a long
 time to complete.  They fix both efficiency and correctness problems
 in the database code.
 
-In the future it may be necessary to make changes to support new
+In the future it may be necessary to make changes to support new 
 features.  But we will do so in a manner that is consistent with our
 compatibility guarantees.
