@@ -4,7 +4,7 @@ require "svn/info"
 
 class SvnDeltaTest < Test::Unit::TestCase
   include SvnTestUtil
-
+  
   def setup
     setup_basic
   end
@@ -12,7 +12,7 @@ class SvnDeltaTest < Test::Unit::TestCase
   def teardown
     teardown_basic
   end
-
+  
   def test_changed
     dir = "changed_dir"
     tmp_dir1 = "changed_tmp_dir1"
@@ -79,10 +79,10 @@ class SvnDeltaTest < Test::Unit::TestCase
                  ].sort,
                  editor.added_dirs)
 
-
+    
     log = "deleted 2 dirs\nchanged 3 files\ndeleted 2 files\nadded 3 files"
     ctx = make_context(log)
-
+    
     file6 = "changed6.txt"
     file7 = "changed7.txt"
     file8 = "changed8.txt"
@@ -95,7 +95,7 @@ class SvnDeltaTest < Test::Unit::TestCase
     file7_svn_path = file7
     file8_svn_path = [dir_svn_path, file8].join("/")
     file9_svn_path = [dir_svn_path, file9].join("/")
-
+    
     File.open(file1_path, "w") {|f| f.puts "changed"}
     File.open(file2_path, "w") {|f| f.puts "changed"}
     File.open(file3_path, "w") {|f| f.puts "changed"}
@@ -112,7 +112,7 @@ class SvnDeltaTest < Test::Unit::TestCase
 
     commit_info = ctx.commit(@wc_path)
     second_rev = commit_info.revision
-
+    
     editor = traverse(Svn::Delta::ChangedEditor, commit_info.revision, true)
     assert_equal([file1_svn_path, file2_svn_path, file3_svn_path].sort,
                  editor.updated_files)
@@ -137,7 +137,7 @@ class SvnDeltaTest < Test::Unit::TestCase
   def test_change_prop
     prop_name = "prop"
     prop_value = "value"
-
+    
     dir = "dir"
     dir_path = File.join(@wc_path, dir)
     dir_svn_path = dir
@@ -166,10 +166,10 @@ class SvnDeltaTest < Test::Unit::TestCase
     assert_equal(["", dir_svn_path].collect{|path| "#{path}/"}.sort,
                  editor.changed_dirs)
 
-
+    
     log = "prop changed"
     ctx = make_context(log)
-
+    
     ctx.propdel(prop_name, dir_path)
 
     commit_info = ctx.commit(@wc_path)
@@ -178,7 +178,7 @@ class SvnDeltaTest < Test::Unit::TestCase
     assert_equal([dir_svn_path].collect{|path| "#{path}/"}.sort,
                  editor.changed_dirs)
 
-
+    
     ctx.propset(prop_name, prop_value, file1_path)
 
     commit_info = ctx.commit(@wc_path)
@@ -210,7 +210,7 @@ class SvnDeltaTest < Test::Unit::TestCase
     ctx = make_context(log)
 
     ctx.mkdir([dir1_path, dir2_path])
-
+    
     file1 = "file1.txt"
     file2 = "file2.txt"
     file3 = "file3.txt"
@@ -246,19 +246,19 @@ class SvnDeltaTest < Test::Unit::TestCase
                  ].sort,
                  editor.added_dirs)
 
-
+    
     log = "copied top dir"
     ctx = make_context(log)
 
     dir3 = "dir3"
     dir3_path = File.join(@wc_path, dir3)
     dir3_svn_path = dir3
-
+    
     ctx.cp(dir1_path, dir3_path)
 
     commit_info = ctx.commit(@wc_path)
     second_rev = commit_info.revision
-
+    
     editor = traverse(Svn::Delta::ChangedEditor, commit_info.revision, true)
     assert_equal([].sort, editor.updated_files)
     assert_equal([].sort, editor.deleted_files)
@@ -272,7 +272,7 @@ class SvnDeltaTest < Test::Unit::TestCase
     assert_equal([].sort, editor.deleted_dirs)
     assert_equal([].sort, editor.added_dirs)
   end
-
+  
   private
   def traverse(editor_class, rev, pass_root=false)
     root = @fs.root
