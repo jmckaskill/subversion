@@ -61,9 +61,9 @@ Wed Dec 16 03:16:16 1998  Tim Janik  <timj@gtk.org>
 	* testgthread.c, gthread-*.c: Changed private to private_key to
 	avoid problems when compiling with under C++.
 
-	* gthread-none.c:
+	* gthread-none.c: 
 	s/g_mutex_functions_for_glib_use/g_thread_functions_for_glib_use/
 
 	* ChangeLog: from now on there is an extra ChangeLog for gthread
-
+	
 
