@@ -673,7 +673,7 @@ class DiffGenerator:
       'base_rev' : change.base_rev,
       }
     return urlstr % args
-
+    
   def __getitem__(self, idx):
     while 1:
       if self.idx == len(self.changelist):
@@ -691,7 +691,7 @@ class DiffGenerator:
       binary = None
       singular = None
       content = None
-
+      
       # just skip directories. they have no diffs.
       if change.item_kind == svn.core.svn_node_dir:
         continue
@@ -719,7 +719,7 @@ class DiffGenerator:
           label1 = '%s\t%s' % (change.base_path, self.date)
           label2 = '(empty file)'
           singular = True
-
+          
       elif change.added:
         if change.base_path and (change.base_rev != -1):
           # this file was copied.
@@ -955,7 +955,7 @@ class TextCommitRenderer:
 
       if not diff.diff:
         continue
-
+      
       w(SEPARATOR + '\n')
 
       if diff.binary:
@@ -1061,7 +1061,7 @@ class Config:
       value = getattr(sub, option, None)
     if value is None:
       value = getattr(self.defaults, option, '')
-
+    
     # parameterize it
     if params is not None:
       value = value % params
