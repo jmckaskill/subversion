@@ -39,7 +39,7 @@
  *
  * The CHANGED hash set and its keys and values are allocated in POOL;
  * keys are const char * paths and values are svn_log_changed_path_t.
- *
+ * 
  * If optional AUTHZ_READ_FUNC is non-NULL, then use it (with
  * AUTHZ_READ_BATON and FS) to check whether each changed-path (and
  * copyfrom_path) is readable:
@@ -150,7 +150,7 @@ detect_changed (apr_hash_t **changed,
               if (authz_read_func)
                 {
                   svn_fs_root_t *copyfrom_root;
-
+                  
                   SVN_ERR (svn_fs_revision_root (&copyfrom_root, fs,
                                                  copyfrom_rev, subpool));
                   SVN_ERR (authz_read_func (&readable,
@@ -167,7 +167,7 @@ detect_changed (apr_hash_t **changed,
                 }
             }
         }
-      apr_hash_set (*changed, apr_pstrdup (pool, path),
+      apr_hash_set (*changed, apr_pstrdup (pool, path), 
                     APR_HASH_KEY_STRING, item);
     }
 
@@ -253,8 +253,8 @@ svn_repos_get_logs3 (svn_repos_t *repos,
      only about answering that question, and we already know the
      answer ... well, you get the picture.
   */
-  if (paths
-      && (((paths->nelts == 1)
+  if (paths 
+      && (((paths->nelts == 1) 
            && (! svn_path_is_empty (APR_ARRAY_IDX (paths, 0, const char *))))
           || (paths->nelts > 1)))
     {
@@ -270,8 +270,8 @@ svn_repos_get_logs3 (svn_repos_t *repos,
           SVN_ERR (svn_repos_history2 (fs, this_path,
                                        history_to_revs_array, revs,
                                        authz_read_func, authz_read_baton,
-                                       start, end,
-                                       strict_node_history ? FALSE : TRUE,
+                                       start, end, 
+                                       strict_node_history ? FALSE : TRUE, 
                                        pool));
         }
       else
@@ -284,7 +284,7 @@ svn_repos_get_logs3 (svn_repos_t *repos,
           for (i = 0; i < paths->nelts; i++)
             {
               const char *this_path = APR_ARRAY_IDX (paths, i, const char *);
-              apr_array_header_t *changed_revs =
+              apr_array_header_t *changed_revs = 
                 apr_array_make (pool, 64, sizeof (svn_revnum_t));
               int j;
 
@@ -293,14 +293,14 @@ svn_repos_get_logs3 (svn_repos_t *repos,
               SVN_ERR (svn_repos_history2 (fs, this_path,
                                            history_to_revs_array, changed_revs,
                                            authz_read_func, authz_read_baton,
-                                           start, end,
-                                           strict_node_history ? FALSE : TRUE,
+                                           start, end, 
+                                           strict_node_history ? FALSE : TRUE, 
                                            pool));
               for (j = 0; j < changed_revs->nelts; j++)
                 {
                   /* We're re-using the memory allocated for the array
                      here in order to avoid more allocations.  */
-                  svn_revnum_t *chrev =
+                  svn_revnum_t *chrev = 
                     (((svn_revnum_t *)(changed_revs)->elts) + j);
                   apr_hash_set (all_revs, chrev, sizeof (chrev), (void *)1);
                 }
@@ -309,22 +309,22 @@ svn_repos_get_logs3 (svn_repos_t *repos,
           /* Now that we have a hash of all the revisions in which any of
              our paths changed, we can convert that back into a sorted
              array. */
-          revs = apr_array_make (pool, apr_hash_count (all_revs),
+          revs = apr_array_make (pool, apr_hash_count (all_revs), 
                                  sizeof (svn_revnum_t));
-          for (hi = apr_hash_first (pool, all_revs);
-               hi;
+          for (hi = apr_hash_first (pool, all_revs); 
+               hi; 
                hi = apr_hash_next (hi))
             {
               const void *key;
               svn_revnum_t revision;
-
+              
               apr_hash_this (hi, &key, NULL, NULL);
               revision = *((const svn_revnum_t *)key);
               (*((svn_revnum_t *) apr_array_push (revs))) = revision;
             }
 
           /* Now sort the array */
-          qsort ((revs)->elts, (revs)->nelts, (revs)->elt_size,
+          qsort ((revs)->elts, (revs)->nelts, (revs)->elt_size, 
                  svn_sort_compare_revisions);
         }
 
@@ -368,7 +368,7 @@ svn_repos_get_logs3 (svn_repos_t *repos,
 
       /* Discover changed paths if the user requested them
          or if we need to check that they are readable. */
-      if ((this_rev > 0)
+      if ((this_rev > 0)        
           && (authz_read_func || discover_changed_paths))
         {
           svn_fs_root_t *newroot;
@@ -384,7 +384,7 @@ svn_repos_get_logs3 (svn_repos_t *repos,
               && patherr->apr_err == SVN_ERR_AUTHZ_UNREADABLE)
             {
               /* All changed-paths are unreadable, so clear all fields. */
-              svn_error_clear (patherr);
+              svn_error_clear (patherr);              
               changed_paths = NULL;
               author = NULL;
               date = NULL;
