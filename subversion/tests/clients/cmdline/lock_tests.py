@@ -138,7 +138,7 @@ def commit_file(sbox):
   svntest.actions.run_and_verify_status(wc_dir, expected_status)
 
   # --- Part 2 ---
-
+  
   # make a change and commit it, allowing lock to be released
   svntest.main.file_append(file_path, "Tweak!\n")
   svntest.main.run_svn(None, 'commit', '-m', '', file_path)
@@ -477,7 +477,7 @@ def defunct_lock(sbox):
 
 
 #----------------------------------------------------------------------
-# Tests dealing with a lock on a deleted path
+# Tests dealing with a lock on a deleted path 
 def deleted_path_lock(sbox):
   "verify lock removal on a deleted path"
 
@@ -579,12 +579,12 @@ def lock_status(sbox):
                        '--password', svntest.main.wc_passwd,
                        '-m', '', file_path)
 
-  svntest.main.run_svn(None, 'lock',
+  svntest.main.run_svn(None, 'lock', 
                        '--username', svntest.main.wc_author,
                        '--password', svntest.main.wc_passwd,
-                       '-m', '', file_path)
+                       '-m', '', file_path) 
 
-  expected_status = svntest.actions.get_virginal_state(wc_dir, 2)
+  expected_status = svntest.actions.get_virginal_state(wc_dir, 2)  
   expected_status.tweak(wc_rev=1)
   expected_status.tweak(fname, wc_rev=2)
   expected_status.tweak(fname, writelocked='K')
@@ -607,7 +607,7 @@ def lock_status(sbox):
 
 #----------------------------------------------------------------------
 # III.c : Steal lock on a file from another working copy with 'svn lock
-# --force', and check the status of lock in the repository from the
+# --force', and check the status of lock in the repository from the 
 # working copy in which the file was initially locked.
 def stolen_lock_status (sbox):
   "verify status of stolen lock"
@@ -647,7 +647,7 @@ def stolen_lock_status (sbox):
                        '--username', svntest.main.wc_author,
                        '--password', svntest.main.wc_passwd,
                        '-m', '', '--force', file_path_b)
-
+ 
   # Verify status from working copy where file was initially locked
   expected_status.tweak(fname, writelocked='T')
   svntest.actions.run_and_verify_status(wc_dir, expected_status)
