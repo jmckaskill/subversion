@@ -13,7 +13,7 @@ module Svn
     alias locked? locked
     module_function :locked?
 
-
+    
     AdmAccess = SWIG::TYPE_p_svn_wc_adm_access_t
     class AdmAccess
       class << self
@@ -21,7 +21,7 @@ module Svn
           adm = Util.set_pool(pool) do
             Wc.adm_open2(associated, path, write_lock, depth, pool)
           end
-
+          
           if block_given?
             ret = yield adm
             adm.close
@@ -36,7 +36,7 @@ module Svn
       def close
         Wc.adm_close(self)
       end
-
+      
       def status(path)
         Wc.status(path, self, @pool)
       end
