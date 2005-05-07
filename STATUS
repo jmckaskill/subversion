@@ -41,7 +41,7 @@ Candidate changes:
                     r14614 adds a test for this bug.
     Justification:
       2 line change.  Stop trying to look up a property name in a hash mapping
-      paths->lock_tokens.  It's redundant, and guaranteed to overwrite the
+      paths->lock_tokens.  It's redundant, and guaranteed to overwrite the 
       existing value with NULL.
     Votes:
       +1: brane, sussman (r14612 only), lundblad
