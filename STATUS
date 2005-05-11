@@ -35,8 +35,8 @@ Approved changes (further review is welcome, but not required):
     Justification:
       Without this bugfix, many DAV clients won't work against mod_dav_svn.
     Notes:
-      Very tiny amount of code-churn.  Touches many files only because
-      it's a public API change.
+      Very tiny amount of code-churn.  Touches many files only because 
+      it's a public API change. 
     Votes:
       +1: sussman, ringstrom, fitz
 
