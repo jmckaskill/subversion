@@ -147,7 +147,7 @@ svn_boolean_t svn_ra_svn__input_waiting(svn_ra_svn_conn_t *conn,
 }
 #else
   return ((apr_poll(&pfd, 1, &n, 0) == APR_SUCCESS) && n);
-#endif
+#endif  
 }
 
 /* --- WRITE BUFFER MANAGEMENT --- */
@@ -380,17 +380,17 @@ static svn_error_t *readbuf_skip_leading_garbage(svn_ra_svn_conn_t *conn)
 }
 
 /* --- WRITING DATA ITEMS --- */
-
+ 
 svn_error_t *svn_ra_svn_write_number(svn_ra_svn_conn_t *conn, apr_pool_t *pool,
                                      apr_uint64_t number)
 {
-  return writebuf_printf(conn, pool, "%" APR_UINT64_T_FMT " ", number);
+  return writebuf_printf(conn, pool, "%" APR_UINT64_T_FMT " ", number);                       
 }
 
 svn_error_t *svn_ra_svn_write_string(svn_ra_svn_conn_t *conn, apr_pool_t *pool,
                                      const svn_string_t *str)
 {
-  SVN_ERR(writebuf_printf(conn, pool, "%" APR_SIZE_T_FMT ":", str->len));
+  SVN_ERR(writebuf_printf(conn, pool, "%" APR_SIZE_T_FMT ":", str->len));                      
   SVN_ERR(writebuf_write(conn, pool, str->data, str->len));
   SVN_ERR(writebuf_write(conn, pool, SVN_UTF8_SPACE_STR, 1));
   return SVN_NO_ERROR;
@@ -399,7 +399,7 @@ svn_error_t *svn_ra_svn_write_string(svn_ra_svn_conn_t *conn, apr_pool_t *pool,
 svn_error_t *svn_ra_svn_write_cstring(svn_ra_svn_conn_t *conn,
                                       apr_pool_t *pool, const char *s)
 {
-  return writebuf_printf(conn, pool, "%" APR_SIZE_T_FMT ":%s ", strlen(s), s);
+  return writebuf_printf(conn, pool, "%" APR_SIZE_T_FMT ":%s ", strlen(s), s);                       
 }
 
 svn_error_t *svn_ra_svn_write_word(svn_ra_svn_conn_t *conn, apr_pool_t *pool,
@@ -518,7 +518,7 @@ static svn_error_t *read_string(svn_ra_svn_conn_t *conn, apr_pool_t *pool,
 
   /* We can't store strings longer than the maximum size of apr_size_t,
    * so check for wrapping */
-  if (((apr_size_t) len) < len)
+  if (((apr_size_t) len) < len) 
     return svn_error_create(SVN_ERR_RA_SVN_MALFORMED_DATA, NULL,
                             "String length larger than maximum");
 
@@ -533,13 +533,13 @@ static svn_error_t *read_string(svn_ra_svn_conn_t *conn, apr_pool_t *pool,
       svn_stringbuf_appendbytes(stringbuf, readbuf, readbuf_len);
       len -= readbuf_len;
     }
-
+  
   item->kind = SVN_RA_SVN_STRING;
   item->u.string = apr_palloc(pool, sizeof(*item->u.string));
   item->u.string->data = stringbuf->data;
   item->u.string->len = stringbuf->len;
 
-  return SVN_NO_ERROR;
+  return SVN_NO_ERROR; 
 }
 
 /* Given the first non-whitespace character FIRST_CHAR, read an item
@@ -568,7 +568,7 @@ static svn_error_t *read_item(svn_ra_svn_conn_t *conn, apr_pool_t *pool,
           val = val * 10 + (c - SVN_UTF8_0);
           if ((val / 10) != prev_val) /* val wrapped past maximum value */
             return svn_error_create(SVN_ERR_RA_SVN_MALFORMED_DATA, NULL,
-                                    "Number is larger than maximum");
+                                    "Number is larger than maximum"); 
         }
       if (c == SVN_UTF8_COLON)
         {
@@ -796,10 +796,10 @@ svn_error_t *svn_ra_svn_read_cmd_response(svn_ra_svn_conn_t *conn,
           if (!*message)
             message = NULL;
 #if APR_CHARSET_EBCDIC
-          /* On ebcdic platforms we always assume errors are created with
+          /* On ebcdic platforms we always assume errors are created with 
            * natively encoded messages. */
           SVN_ERR (svn_utf_cstring_from_utf8(&message, message, pool));
-#endif
+#endif            
           err = svn_error_create(apr_err, err, message);
           err->file = apr_pstrdup(err->pool, file);
           err->line = line;
@@ -897,16 +897,16 @@ svn_error_t *svn_ra_svn_write_cmd_failure(svn_ra_svn_conn_t *conn,
 {
   SVN_ERR(svn_ra_svn_start_list(conn, pool));
   SVN_ERR(svn_ra_svn_write_word(conn, pool, FAILURE_STR));
-
+                                            
   SVN_ERR(svn_ra_svn_start_list(conn, pool));
   for (; err; err = err->child)
     {
 #if APR_CHARSET_EBCDIC
-      /* ebcdic platforms must convert the string representation of
+      /* ebcdic platforms must convert the string representation of 
        * err->message and err->file to utf8. */
       SVN_ERR(svn_utf_cstring_to_utf8(&(err->message), err->message, pool));
-      SVN_ERR(svn_utf_cstring_to_utf8(&(err->file), err->file, pool));
-#endif
+      SVN_ERR(svn_utf_cstring_to_utf8(&(err->file), err->file, pool)); 
+#endif      
       /* The message string should have been optional, but we can't
          easily change that, so marshal nonexistent messages as "". */
       SVN_ERR(svn_ra_svn_write_tuple(conn, pool, "nccn",

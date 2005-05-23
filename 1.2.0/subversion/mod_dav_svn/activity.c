@@ -47,8 +47,8 @@ const char *dav_svn_get_txn(const dav_svn_repos *repos,
   pathname = svn_path_join(repos->fs_path, ACTIVITY_DB, repos->pool);
 #else
   pathname = svn_path_join_ebcdic(repos->fs_path, ACTIVITY_DB, repos->pool);
-#endif
-  status = apr_dbm_open(&dbm, pathname, APR_DBM_READONLY,
+#endif  
+  status = apr_dbm_open(&dbm, pathname, APR_DBM_READONLY, 
                         APR_OS_DEFAULT, repos->pool);
   if (status != APR_SUCCESS)
     {
@@ -100,8 +100,8 @@ dav_error *dav_svn_delete_activity(const dav_svn_repos *repos,
   pathname = svn_path_join(repos->fs_path, ACTIVITY_DB, repos->pool);
 #else
   pathname = svn_path_join_ebcdic(repos->fs_path, ACTIVITY_DB, repos->pool);
-#endif
-  status = apr_dbm_open(&dbm, pathname, APR_DBM_READWRITE,
+#endif  
+  status = apr_dbm_open(&dbm, pathname, APR_DBM_READWRITE, 
                         APR_OS_DEFAULT, repos->pool);
   if (status != APR_SUCCESS)
     return dav_new_error(repos->pool, HTTP_NOT_FOUND, 0,
@@ -139,7 +139,7 @@ dav_error *dav_svn_delete_activity(const dav_svn_repos *repos,
           else
             {
               err = dav_svn_convert_err(serr, HTTP_INTERNAL_SERVER_ERROR,
-                                        "could not open transaction.",
+                                        "could not open transaction.", 
                                         repos->pool);
               goto cleanup;
             }
@@ -150,13 +150,13 @@ dav_error *dav_svn_delete_activity(const dav_svn_repos *repos,
           if (serr)
             {
               err = dav_svn_convert_err(serr, HTTP_INTERNAL_SERVER_ERROR,
-                                        "could not abort transaction.",
+                                        "could not abort transaction.", 
                                         repos->pool);
               goto cleanup;
             }
         }
     }
-
+  
   /* Finally, we remove the activity from the activities database. */
   status = apr_dbm_delete(dbm, key);
   if (status)
@@ -189,14 +189,14 @@ dav_error *dav_svn_store_activity(const dav_svn_repos *repos,
 #else
   pathname = svn_path_join_ebcdic(repos->fs_path, ACTIVITY_DB, repos->pool);
 #endif
-  status = apr_dbm_open(&dbm, pathname, APR_DBM_RWCREATE,
+  status = apr_dbm_open(&dbm, pathname, APR_DBM_RWCREATE, 
                         APR_OS_DEFAULT, repos->pool);
   if (status != APR_SUCCESS)
     {
       svn_error_t *serr = svn_error_wrap_apr(status, "Can't open activity db");
 
       return dav_svn_convert_err(serr, HTTP_INTERNAL_SERVER_ERROR,
-                                 "could not open dbm files.",
+                                 "could not open dbm files.", 
                                  repos->pool);
     }
 
@@ -212,7 +212,7 @@ dav_error *dav_svn_store_activity(const dav_svn_repos *repos,
         svn_error_wrap_apr(status, "Can't close activity db");
 
       return dav_svn_convert_err(serr, HTTP_INTERNAL_SERVER_ERROR,
-                                 "could not close dbm files.",
+                                 "could not close dbm files.", 
                                  repos->pool);
     }
 
@@ -232,7 +232,7 @@ dav_error *dav_svn_create_activity(const dav_svn_repos *repos,
   if (serr != NULL)
     {
       return dav_svn_convert_err(serr, HTTP_INTERNAL_SERVER_ERROR,
-                                 "could not determine youngest revision",
+                                 "could not determine youngest revision", 
                                  repos->pool);
     }
 #if APR_CHARSET_EBCDIC
@@ -242,14 +242,14 @@ dav_error *dav_svn_create_activity(const dav_svn_repos *repos,
                          apr_psprintf(repos->pool,
                                       "Error converting string '%s'",
                                       repos->username));
-#endif
+#endif 
   serr = svn_repos_fs_begin_txn_for_commit(&txn, repos->repos, rev,
-                                           username_utf8, NULL,
+                                           username_utf8, NULL, 
                                            repos->pool);
   if (serr != NULL)
     {
       return dav_svn_convert_err(serr, HTTP_INTERNAL_SERVER_ERROR,
-                                 "could not begin a transaction",
+                                 "could not begin a transaction", 
                                  repos->pool);
     }
 
@@ -257,7 +257,7 @@ dav_error *dav_svn_create_activity(const dav_svn_repos *repos,
   if (serr != NULL)
     {
       return dav_svn_convert_err(serr, HTTP_INTERNAL_SERVER_ERROR,
-                                 "could not fetch transaction name",
+                                 "could not fetch transaction name", 
                                  repos->pool);
     }
 
