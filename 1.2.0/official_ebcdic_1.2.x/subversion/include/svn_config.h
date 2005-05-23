@@ -1,4 +1,4 @@
-/**
+/** 
  * @copyright
  * ====================================================================
  * Copyright (c) 2000-2004 CollabNet.  All rights reserved.
@@ -55,15 +55,15 @@ typedef struct svn_config_t svn_config_t;
  * client configuration files.
  */
 #define SVN_CONFIG_CATEGORY_SERVERS \
-        "\x73\x65\x72\x76\x65\x72\x73"
+        "\x73\x65\x72\x76\x65\x72\x73"  
         /* "servers" */
 
 #define SVN_CONFIG_SECTION_GROUPS \
-        "\x67\x72\x6f\x75\x70\x73"
+        "\x67\x72\x6f\x75\x70\x73"      
         /* "groups" */
 
 #define SVN_CONFIG_SECTION_GLOBAL \
-        "\x67\x6c\x6f\x62\x61\x6c"
+        "\x67\x6c\x6f\x62\x61\x6c"      
         /* "global" */
 
 #define SVN_CONFIG_OPTION_HTTP_PROXY_HOST \
@@ -76,7 +76,7 @@ typedef struct svn_config_t svn_config_t;
 
 #define SVN_CONFIG_OPTION_HTTP_PROXY_USERNAME \
         "\x68\x74\x74\x70\x2d\x70\x72\x6f\x78\x79\x2d\x75\x73\x65\x72" \
-        "\x6e\x61\x6d\x65"
+        "\x6e\x61\x6d\x65"  
         /* "http-proxy-username" */
 
 #define SVN_CONFIG_OPTION_HTTP_PROXY_PASSWORD \
@@ -181,10 +181,10 @@ typedef struct svn_config_t svn_config_t;
 #define SVN_CONFIG_OPTION_ENABLE_AUTO_PROPS \
         "\x65\x6e\x61\x62\x6c\x65\x2d\x61\x75\x74\x6f\x2d\x70\x72\x6f\x70\x73"
         /* "enable-auto-props" */
-
+        
 #define SVN_CONFIG_OPTION_NO_UNLOCK \
         "\x6e\x6f\x2d\x75\x6e\x6c\x6f\x63\x6b"
-        /* "no-unlock" */
+        /* "no-unlock" */        
 
 #define SVN_CONFIG_SECTION_TUNNELS \
         "\x74\x75\x6e\x6e\x65\x6c\x73"
@@ -232,7 +232,7 @@ typedef struct svn_config_t svn_config_t;
         "\x2a\x2e\x6f\x20\x2a\x2e\x6c\x6f\x20\x2a\x2e\x6c\x61\x20\x23" \
         "\x2a\x23\x20\x2e\x2a\x2e\x72\x65\x6a\x20\x2a\x2e\x72\x65\x6a" \
         "\x20\x2e\x2a\x7e\x20\x2a\x7e\x20\x2e\x23\x2a\x20\x2e\x44\x53" \
-        "\x5f\x53\x74\x6f\x72\x65"
+        "\x5f\x53\x74\x6f\x72\x65"  
         /* "*.o *.lo *.la #*# .*.rej *.rej .*~ *~ .#* .DS_Store" */
 
 #define SVN_CONFIG_TRUE \
@@ -256,7 +256,7 @@ typedef struct svn_config_t svn_config_t;
  * categories (@c SVN_CONFIG_CATEGORY_SERVERS,
  * @c SVN_CONFIG_CATEGORY_CONFIG, etc.) and whose values are the @c
  * svn_config_t * items representing the configuration values for that
- * category.
+ * category.  
  */
 svn_error_t *svn_config_get_config (apr_hash_t **cfg_hash,
                                     const char *config_dir,
@@ -274,7 +274,7 @@ svn_error_t *svn_config_read (svn_config_t **cfgp,
                               svn_boolean_t must_exist,
                               apr_pool_t *pool);
 
-/** Like @c svn_config_read, but merges the configuration data from @a file
+/** Like @c svn_config_read, but merges the configuration data from @a file 
  * (a file or registry path) into @a *cfg, which was previously returned
  * from @c svn_config_read.  This function invalidates all value
  * expansions in @a cfg, so that the next @c svn_option_get takes the
@@ -285,7 +285,7 @@ svn_error_t *svn_config_merge (svn_config_t *cfg,
                                svn_boolean_t must_exist);
 
 
-/** Find the value of a (@a section, @a option) pair in @a cfg, set @a
+/** Find the value of a (@a section, @a option) pair in @a cfg, set @a 
  * *valuep to the value.
  *
  * If @a cfg is @c NULL, just sets @a *valuep to @a default_value. If
@@ -301,7 +301,7 @@ void svn_config_get (svn_config_t *cfg, const char **valuep,
                      const char *section, const char *option,
                      const char *default_value);
 
-/** Add or replace the value of a (@a section, @a option) pair in @a cfg with
+/** Add or replace the value of a (@a section, @a option) pair in @a cfg with 
  * @a value.
  *
  * This function invalidates all value expansions in @a cfg.
@@ -345,7 +345,7 @@ typedef svn_boolean_t (*svn_config_section_enumerator_t)
  * @a callback's @a name and @a name parameters are only valid for the
  * duration of the call.
  */
-int svn_config_enumerate_sections (svn_config_t *cfg,
+int svn_config_enumerate_sections (svn_config_t *cfg, 
                                    svn_config_section_enumerator_t callback,
                                    void *baton);
 
@@ -358,7 +358,7 @@ typedef svn_boolean_t (*svn_config_enumerator_t)
 
 /** Enumerate the options in @a section, passing @a baton and the current
  * option's name and value to @a callback.  Continue the enumeration if
- * @a callback returns @c TRUE.  Return the number of times @a callback
+ * @a callback returns @c TRUE.  Return the number of times @a callback 
  * was called.
  *
  * ### kff asks: A more usual interface is to continue enumerating
@@ -442,7 +442,7 @@ svn_error_t *svn_config_ensure (const char *config_dir, apr_pool_t *pool);
  * authentication data should have this key.
  */
 #define SVN_CONFIG_REALMSTRING_KEY \
-        "\x73\x76\x6e\x3a\x72\x65\x61\x6c\x6d\x73\x74\x72\x69\x6e\x67"
+        "\x73\x76\x6e\x3a\x72\x65\x61\x6c\x6d\x73\x74\x72\x69\x6e\x67"  
         /* "svn:realmstring" */
 
 /** Use @a cred_kind and @a realmstring to locate a file within the
