@@ -38,7 +38,7 @@ Candidate changes:
 
 Approved changes (further review is welcome, but not required):
 
-  * r14732
+  * r14732 
     Fix svn-push, which was segfaulting all the time, due to violating API
     not-NULL requirements.
     Justification:
