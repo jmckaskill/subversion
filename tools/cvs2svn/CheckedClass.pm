@@ -86,7 +86,7 @@ sub CheckedClass::new {
     $self->initialize();
     $self->check();
     return $self;
-
+    
 }
 
 sub CheckedClass::initialize {
