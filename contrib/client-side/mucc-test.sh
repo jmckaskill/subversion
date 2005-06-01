@@ -43,7 +43,7 @@ $MUCC mv   $REPO/z.c $REPO/zig/zag/bar/y.c \
 stat
 
 $MUCC mv      $REPO/zig/zag/bar/y.c $REPO/zig/zag/bar/y%20y.c \
-      cp head $REPO/zig/zag/bar/y.c $REPO/zig/zag/bar/y%2520y.c
+      cp head $REPO/zig/zag/bar/y.c $REPO/zig/zag/bar/y%2520y.c 
 stat
 
 $MUCC mv      $REPO/zig/zag/bar/y%20y.c   $REPO/zig/zag/bar/z\ z1.c \
