@@ -2,13 +2,13 @@ VERSION 5.00
 Object = "{396F7AC0-A0DD-11D3-93EC-00C0DFE7442A}#1.0#0"; "vbalIml6.ocx"
 Object = "{831FDD16-0C5C-11D2-A9FC-0000F8754DA1}#2.0#0"; "MSCOMCTL.OCX"
 Object = "{4D4325C0-BD54-473C-8CE8-3C856739E161}#1.0#0"; "SVNControls.ocx"
-Begin VB.Form frmDemo
+Begin VB.Form frmDemo 
    Caption         =   "SGrid Demonstrator"
    ClientHeight    =   7608
    ClientLeft      =   888
    ClientTop       =   888
    ClientWidth     =   9204
-   BeginProperty Font
+   BeginProperty Font 
       Name            =   "Tahoma"
       Size            =   8.4
       Charset         =   0
@@ -21,7 +21,7 @@ Begin VB.Form frmDemo
    LinkTopic       =   "Form1"
    ScaleHeight     =   7608
    ScaleWidth      =   9204
-   Begin SVNControls.SGrid grdThis
+   Begin SVNControls.SGrid grdThis 
       Height          =   5412
       Left            =   120
       TabIndex        =   28
@@ -31,7 +31,7 @@ Begin VB.Form frmDemo
       _ExtentY        =   9546
       BackgroundPictureHeight=   0
       BackgroundPictureWidth=   0
-      BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851}
+      BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
          Name            =   "MS Sans Serif"
          Size            =   7.8
          Charset         =   0
@@ -40,7 +40,7 @@ Begin VB.Form frmDemo
          Italic          =   0   'False
          Strikethrough   =   0   'False
       EndProperty
-      Begin VB.TextBox txtEdit
+      Begin VB.TextBox txtEdit 
          Height          =   300
          Left            =   2160
          TabIndex        =   29
@@ -49,7 +49,7 @@ Begin VB.Form frmDemo
          Width           =   972
       End
    End
-   Begin MSComctlLib.ListView ListView1
+   Begin MSComctlLib.ListView ListView1 
       Height          =   492
       Left            =   5640
       TabIndex        =   27
@@ -65,19 +65,19 @@ Begin VB.Form frmDemo
       BorderStyle     =   1
       Appearance      =   1
       NumItems        =   2
-      BeginProperty ColumnHeader(1) {BDD1F052-858B-11D1-B16A-00C0F0283628}
+      BeginProperty ColumnHeader(1) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
          Key             =   "Blah"
          Text            =   "Blah"
          Object.Width           =   2540
       EndProperty
-      BeginProperty ColumnHeader(2) {BDD1F052-858B-11D1-B16A-00C0F0283628}
+      BeginProperty ColumnHeader(2) {BDD1F052-858B-11D1-B16A-00C0F0283628} 
          SubItemIndex    =   1
          Key             =   "Blah2"
          Text            =   "Blah2"
          Object.Width           =   2540
       EndProperty
    End
-   Begin vbalIml6.vbalImageList ilsIcons
+   Begin vbalIml6.vbalImageList ilsIcons 
       Left            =   5760
       Top             =   180
       _ExtentX        =   762
@@ -90,7 +90,7 @@ Begin VB.Form frmDemo
       KeyCount        =   26
       Keys            =   "ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ"
    End
-   Begin VB.PictureBox picBackground
+   Begin VB.PictureBox picBackground 
       Height          =   1515
       Left            =   4560
       Picture         =   "frmTest.frx":CB0A
@@ -102,7 +102,7 @@ Begin VB.Form frmDemo
       Visible         =   0   'False
       Width           =   1575
    End
-   Begin VB.PictureBox picStatus
+   Begin VB.PictureBox picStatus 
       Align           =   2  'Align Bottom
       Height          =   315
       Left            =   0
@@ -113,13 +113,13 @@ Begin VB.Form frmDemo
       Top             =   7290
       Width           =   9204
    End
-   Begin VB.Frame fraOptions
+   Begin VB.Frame fraOptions 
       Height          =   7095
       Left            =   6300
       TabIndex        =   21
       Top             =   60
       Width           =   2175
-      Begin VB.CheckBox chkFlatHeader
+      Begin VB.CheckBox chkFlatHeader 
          Appearance      =   0  'Flat
          Caption         =   "&Flat Header"
          ForeColor       =   &H80000008&
@@ -130,7 +130,7 @@ Begin VB.Form frmDemo
          Value           =   1  'Checked
          Width           =   1935
       End
-      Begin VB.CommandButton cmdGetSel
+      Begin VB.CommandButton cmdGetSel 
          Caption         =   "&Selected"
          Height          =   435
          Left            =   1200
@@ -138,7 +138,7 @@ Begin VB.Form frmDemo
          Top             =   780
          Width           =   915
       End
-      Begin VB.CheckBox chkDrawFocusRect
+      Begin VB.CheckBox chkDrawFocusRect 
          Appearance      =   0  'Flat
          Caption         =   "Dra&w Focus Rectangle"
          ForeColor       =   &H80000008&
@@ -149,7 +149,7 @@ Begin VB.Form frmDemo
          Value           =   1  'Checked
          Width           =   1935
       End
-      Begin VB.CheckBox chkHighlightSelectedIcons
+      Begin VB.CheckBox chkHighlightSelectedIcons 
          Appearance      =   0  'Flat
          Caption         =   "Highlight Selected Ico&ns"
          ForeColor       =   &H80000008&
@@ -160,7 +160,7 @@ Begin VB.Form frmDemo
          Value           =   1  'Checked
          Width           =   1935
       End
-      Begin VB.CommandButton cmdAutoRowHeight
+      Begin VB.CommandButton cmdAutoRowHeight 
          Caption         =   "Fit &Heights"
          Height          =   375
          Left            =   1080
@@ -168,7 +168,7 @@ Begin VB.Form frmDemo
          Top             =   6120
          Width           =   975
       End
-      Begin VB.CheckBox chkEnabled
+      Begin VB.CheckBox chkEnabled 
          Appearance      =   0  'Flat
          Caption         =   "E&nabled"
          ForeColor       =   &H80000008&
@@ -179,7 +179,7 @@ Begin VB.Form frmDemo
          Value           =   1  'Checked
          Width           =   1935
       End
-      Begin VB.CheckBox chkEditable
+      Begin VB.CheckBox chkEditable 
          Appearance      =   0  'Flat
          Caption         =   "&Editable"
          ForeColor       =   &H80000008&
@@ -189,7 +189,7 @@ Begin VB.Form frmDemo
          Top             =   2580
          Width           =   1815
       End
-      Begin VB.CommandButton cmdRemoveCol
+      Begin VB.CommandButton cmdRemoveCol 
          Caption         =   "&Del Col..."
          Height          =   375
          Left            =   1080
@@ -197,7 +197,7 @@ Begin VB.Form frmDemo
          Top             =   6540
          Width           =   975
       End
-      Begin VB.CommandButton cmdAddCol
+      Begin VB.CommandButton cmdAddCol 
          Caption         =   "&Add Col..."
          Height          =   375
          Left            =   60
@@ -205,7 +205,7 @@ Begin VB.Form frmDemo
          Top             =   6540
          Width           =   975
       End
-      Begin VB.CheckBox chkRnd
+      Begin VB.CheckBox chkRnd 
          Appearance      =   0  'Flat
          Caption         =   "Ran&dom Row Heights"
          ForeColor       =   &H80000008&
@@ -216,7 +216,7 @@ Begin VB.Form frmDemo
          Value           =   1  'Checked
          Width           =   1935
       End
-      Begin VB.CheckBox chkCol4
+      Begin VB.CheckBox chkCol4 
          Appearance      =   0  'Flat
          Caption         =   "Date Column &Visible"
          ForeColor       =   &H80000008&
@@ -226,7 +226,7 @@ Begin VB.Form frmDemo
          Top             =   3300
          Width           =   1995
       End
-      Begin VB.TextBox txtRows
+      Begin VB.TextBox txtRows 
          Height          =   285
          Left            =   60
          TabIndex        =   16
@@ -234,7 +234,7 @@ Begin VB.Form frmDemo
          Top             =   5580
          Width           =   2010
       End
-      Begin VB.CommandButton cmdRepopulate
+      Begin VB.CommandButton cmdRepopulate 
          Caption         =   "&Repopulate"
          Height          =   375
          Left            =   1080
@@ -242,7 +242,7 @@ Begin VB.Form frmDemo
          Top             =   5160
          Width           =   975
       End
-      Begin VB.CommandButton cmdEmpty
+      Begin VB.CommandButton cmdEmpty 
          Caption         =   "&Clear"
          Height          =   375
          Left            =   60
@@ -250,7 +250,7 @@ Begin VB.Form frmDemo
          Top             =   5160
          Width           =   975
       End
-      Begin VB.CheckBox chkHeaderButtons
+      Begin VB.CheckBox chkHeaderButtons 
          Appearance      =   0  'Flat
          Caption         =   "Header Bu&ttons"
          ForeColor       =   &H80000008&
@@ -261,7 +261,7 @@ Begin VB.Form frmDemo
          Value           =   1  'Checked
          Width           =   1935
       End
-      Begin VB.CheckBox chkHeader
+      Begin VB.CheckBox chkHeader 
          Appearance      =   0  'Flat
          Caption         =   "&Header"
          ForeColor       =   &H80000008&
@@ -272,7 +272,7 @@ Begin VB.Form frmDemo
          Value           =   1  'Checked
          Width           =   1935
       End
-      Begin VB.CheckBox chkItalic
+      Begin VB.CheckBox chkItalic 
          Appearance      =   0  'Flat
          Caption         =   "&Italic"
          ForeColor       =   &H80000008&
@@ -282,7 +282,7 @@ Begin VB.Form frmDemo
          Top             =   4680
          Width           =   975
       End
-      Begin VB.CheckBox chkBold
+      Begin VB.CheckBox chkBold 
          Appearance      =   0  'Flat
          Caption         =   "&Bold"
          ForeColor       =   &H80000008&
@@ -292,7 +292,7 @@ Begin VB.Form frmDemo
          Top             =   4440
          Width           =   975
       End
-      Begin VB.CheckBox chkBackground
+      Begin VB.CheckBox chkBackground 
          Appearance      =   0  'Flat
          Caption         =   "&Background Bitmap"
          ForeColor       =   &H80000008&
@@ -302,7 +302,7 @@ Begin VB.Form frmDemo
          Top             =   2820
          Width           =   1815
       End
-      Begin VB.CommandButton cmdCellText
+      Begin VB.CommandButton cmdCellText 
          Caption         =   "&Cell Text..."
          Height          =   375
          Left            =   1080
@@ -310,7 +310,7 @@ Begin VB.Form frmDemo
          Top             =   4500
          Width           =   975
       End
-      Begin VB.CheckBox chkVisible
+      Begin VB.CheckBox chkVisible 
          Appearance      =   0  'Flat
          Caption         =   "Show &Odd Rows only"
          ForeColor       =   &H80000008&
@@ -320,7 +320,7 @@ Begin VB.Form frmDemo
          Top             =   3060
          Width           =   1995
       End
-      Begin VB.CheckBox chkOptions
+      Begin VB.CheckBox chkOptions 
          Appearance      =   0  'Flat
          Caption         =   "&Grid-Lines"
          ForeColor       =   &H80000008&
@@ -331,7 +331,7 @@ Begin VB.Form frmDemo
          Top             =   1260
          Width           =   1995
       End
-      Begin VB.CheckBox chkOptions
+      Begin VB.CheckBox chkOptions 
          Appearance      =   0  'Flat
          Caption         =   "&Row Mode"
          ForeColor       =   &H80000008&
@@ -342,21 +342,21 @@ Begin VB.Form frmDemo
          Top             =   1020
          Width           =   1995
       End
-      Begin VB.Image Image2
+      Begin VB.Image Image2 
          Height          =   384
          Left            =   1080
          Picture         =   "frmTest.frx":D366
          Top             =   180
          Width           =   780
       End
-      Begin VB.Image Image1
+      Begin VB.Image Image1 
          Height          =   384
          Left            =   120
          Picture         =   "frmTest.frx":D985
          Top             =   180
          Width           =   768
       End
-      Begin VB.Label Label1
+      Begin VB.Label Label1 
          BackColor       =   &H00000000&
          BorderStyle     =   1  'Fixed Single
          Caption         =   "Label1"
@@ -367,25 +367,25 @@ Begin VB.Form frmDemo
          Width           =   2055
       End
    End
-   Begin VB.Menu mnuDemoTOP
+   Begin VB.Menu mnuDemoTOP 
       Caption         =   "&Demo"
-      Begin VB.Menu mnuDemo
+      Begin VB.Menu mnuDemo 
          Caption         =   "&Outlook Style..."
          Index           =   0
       End
-      Begin VB.Menu mnuDemo
+      Begin VB.Menu mnuDemo 
          Caption         =   "&Matrix..."
          Index           =   1
       End
-      Begin VB.Menu mnuDemo
+      Begin VB.Menu mnuDemo 
          Caption         =   "&Virtual Grid..."
          Index           =   2
       End
-      Begin VB.Menu mnuDemo
+      Begin VB.Menu mnuDemo 
          Caption         =   "-"
          Index           =   3
       End
-      Begin VB.Menu mnuDemo
+      Begin VB.Menu mnuDemo 
          Caption         =   "E&xit"
          Index           =   4
       End
@@ -473,12 +473,12 @@ Dim i As Long
       End If
    Next i
    grdThis.CellText(1, 5) = sOut
-
+   
    ' test visible...
    grdThis.Redraw = False
    grdThis.CellSelected(48, 2) = True
    grdThis.Redraw = True
-
+   
 End Sub
 
 
@@ -529,12 +529,12 @@ End Property
 
 Private Sub pPopulate()
 Dim lRow As Long, lCol As Long, lIndent As Long
-
+      
    Dim sFnt2 As New StdFont
    sFnt2.Name = "Times New Roman"
    sFnt2.Bold = True
    sFnt2.Size = 12
-
+   
    With grdThis
       .DefaultRowHeight = 24
       .Redraw = False
@@ -563,7 +563,7 @@ Dim lRow As Long, lCol As Long, lIndent As Long
                ' Text:
                .CellDetails lRow, lCol, "Row" & lRow & ",Col" & lCol
             End If
-
+            
             ' Demonstrating multiple forecolor, backcolor and fonts for cells
             If (lRow Mod 42) = 0 Then
                .CellFont(lRow, lCol) = sFnt2
@@ -576,7 +576,7 @@ Dim lRow As Long, lCol As Long, lIndent As Long
             ElseIf (lRow Mod 10) = 0 Then
                .CellForeColor(lRow, lCol) = &HFF&
             End If
-
+            
          Next lCol
          If (lRow Mod 10) = 0 Then
             Value = Value + 10
@@ -586,7 +586,7 @@ Dim lRow As Long, lCol As Long, lIndent As Long
       Value = 0
       .Redraw = True
    End With
-
+   
 End Sub
 
 
@@ -767,16 +767,16 @@ Private Sub cmdRepopulate_Click()
 End Sub
 
 Private Sub Form_Load()
-
+   
    ThinBorder picStatus.hwnd, True
-
+   
    Me.Show
    Me.Refresh
-
+   
    With grdThis
       ' Turn redraw off for speed:
       .Redraw = False
-
+      
       .ImageList = ilsIcons.hIml
       .AddColumn "file", "Name", , , 32, , , , False
       .AddColumn "size", "Size", , , 48
@@ -793,10 +793,10 @@ Private Sub Form_Load()
       .KeySearchColumn = .ColumnIndex("size")
       .HighlightSelectedIcons = False
       pPopulate
-
+      
       ' Ensure the grid will draw!
       .Redraw = True
-
+      
    End With
 End Sub
 
@@ -818,11 +818,11 @@ End Sub
 Private Sub grdThis_ColumnClick(ByVal lCol As Long)
 Dim sTag As String
 Dim i As Long
-
+      
    With grdThis.SortObject
       .Clear
       .SortColumn(1) = lCol
-
+   
       sTag = grdThis.ColumnTag(lCol)
       If (sTag = "") Then
          sTag = "DESC"
@@ -832,7 +832,7 @@ Dim i As Long
          .SortOrder(1) = CCLOrderDescending
       End If
       grdThis.ColumnTag(lCol) = sTag
-
+   
       Select Case grdThis.ColumnKey(lCol)
       Case "file", "col8"
          ' sort by icon:
@@ -848,7 +848,7 @@ Dim i As Long
    Screen.MousePointer = vbHourglass
    grdThis.Sort
    Screen.MousePointer = vbDefault
-
+   
 End Sub
 
 Private Sub grdThis_ColumnWidthChanging(ByVal lCol As Long, ByVal lWidth As Long, bCancel As Boolean)
