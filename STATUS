@@ -10,13 +10,13 @@ Status of 1.2.1:
 Candidate changes:
 
   * r14859, r14923
-    Branch: 1.2.x-r14859
+    Branch: 1.2.x-r14859 
     Fix bug where an unlocked file loses its executable bits when
     svn:executable is set.
     Justification:
       Buggy interaction between locking and svn:executable.
     Votes:
-      +1:
+      +1: 
       +1: fitz (for original r14859 @ trunk)
 
   * r14774, r14849, r14851, r14862, r14893, r14898, r14905
@@ -24,8 +24,8 @@ Candidate changes:
     a bug when locking an URL with URL-encoded characters in the path.
     Justification:
       Old behavior caused the wrong file to be locked.
-    Notes:
-      14774 is the commit of the test, 14849 is the fix, the rest are
+    Notes: 
+      14774 is the commit of the test, 14849 is the fix, the rest are 
       refinements.
       Without r14898, this introduces a regression on locking paths
       with "funny" characters.
@@ -70,6 +70,6 @@ Candidate changes:
       Small change, potentially useful, 1.3 is quite some way off.
     Votes:
       +1: maxb
-
+      
 Approved changes (further review is welcome, but not required):
 
