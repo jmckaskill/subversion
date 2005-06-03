@@ -64,10 +64,10 @@ svn_client__update_internal (svn_revnum_t *result_rev,
   const char *diff3_cmd;
   svn_ra_session_t *ra_session;
   svn_wc_adm_access_t *dir_access;
-  svn_config_t *cfg = ctx->config ? apr_hash_get (ctx->config,
+  svn_config_t *cfg = ctx->config ? apr_hash_get (ctx->config, 
                                                   SVN_CONFIG_CATEGORY_CONFIG,
                                                   APR_HASH_KEY_STRING) : NULL;
-
+  
   /* Sanity check.  Without this, the update is meaningless. */
   assert (path);
 
@@ -92,7 +92,7 @@ svn_client__update_internal (svn_revnum_t *result_rev,
   else
     revnum = SVN_INVALID_REVNUM;
 
-  /* Get the external diff3, if any. */
+  /* Get the external diff3, if any. */    
   svn_config_get (cfg, &diff3_cmd, SVN_CONFIG_SECTION_HELPERS,
                   SVN_CONFIG_OPTION_DIFF3_CMD, NULL);
 
@@ -104,7 +104,7 @@ svn_client__update_internal (svn_revnum_t *result_rev,
   /* Open an RA session for the URL */
   SVN_ERR (svn_client__open_ra_session_internal (&ra_session, entry->url,
                                                  anchor, adm_access,
-                                                 NULL, TRUE, TRUE,
+                                                 NULL, TRUE, TRUE, 
                                                  ctx, pool));
 
   /* ### todo: shouldn't svn_client__get_revision_number be able
@@ -139,7 +139,7 @@ svn_client__update_internal (svn_revnum_t *result_rev,
                                  TRUE, recurse, use_commit_times,
                                  ctx->notify_func2, ctx->notify_baton2,
                                  traversal_info, pool);
-
+      
   if (err)
     {
       /* Don't rely on the error handling to handle the sleep later, do
@@ -148,12 +148,12 @@ svn_client__update_internal (svn_revnum_t *result_rev,
       return err;
     }
   *use_sleep = TRUE;
-
+  
   /* We handle externals after the update is complete, so that
      handling external items (and any errors therefrom) doesn't delay
      the primary operation.  */
   if (recurse && (! ignore_externals))
-    SVN_ERR (svn_client__handle_externals (traversal_info,
+    SVN_ERR (svn_client__handle_externals (traversal_info, 
                                            TRUE, /* update unchanged ones */
                                            use_sleep, ctx, pool));
 
@@ -178,7 +178,7 @@ svn_client__update_internal (svn_revnum_t *result_rev,
   /* If the caller wants the result revision, give it to them. */
   if (result_rev)
     *result_rev = revnum;
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -210,7 +210,7 @@ svn_client_update2 (apr_array_header_t **result_revs,
         break;
 
       err = svn_client__update_internal (&result_rev, path, revision,
-                                         recurse, ignore_externals,
+                                         recurse, ignore_externals, 
                                          &sleep, ctx, subpool);
       if (err && err->apr_err != SVN_ERR_WC_NOT_DIRECTORY)
         {
@@ -246,6 +246,6 @@ svn_client_update (svn_revnum_t *result_rev,
                    svn_client_ctx_t *ctx,
                    apr_pool_t *pool)
 {
-  return svn_client__update_internal (result_rev, path, revision, recurse,
+  return svn_client__update_internal (result_rev, path, revision, recurse, 
                                       FALSE, NULL, ctx, pool);
 }
