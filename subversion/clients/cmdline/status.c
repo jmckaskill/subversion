@@ -286,7 +286,7 @@ svn_cl__print_status_xml (const char *path,
                                  "token", NULL);
           svn_xml_escape_cdata_cstring (&sb, status->repos_lock->token, pool);
           svn_xml_make_close_tag (&sb, pool, "token");
-
+          
           svn_xml_make_open_tag (&sb, pool, svn_xml_protect_pcdata,
                                  "owner", NULL);
           svn_xml_escape_cdata_cstring (&sb, status->repos_lock->owner, pool);
@@ -339,7 +339,7 @@ svn_cl__print_status (const char *path,
                       svn_boolean_t repos_locks,
                       apr_pool_t *pool)
 {
-  if (! status
+  if (! status 
       || (skip_unrecognized && ! status->entry)
       || (status->text_status == svn_wc_status_none
           && status->repos_text_status == svn_wc_status_none))
