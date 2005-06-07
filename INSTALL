@@ -1216,8 +1216,8 @@ IV.   PLATFORM-SPECIFIC ISSUES
 
 V.    PROGRAMMING LANGUAGE BINDINGS (PYTHON, PERL, RUBY, JAVA)
       ========================================================
-
-      For Python, Perl and Ruby bindings, see the file
+  
+      For Python, Perl and Ruby bindings, see the file     
 
           ./subversion/bindings/swig/INSTALL
 
