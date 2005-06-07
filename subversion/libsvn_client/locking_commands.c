@@ -53,8 +53,8 @@ struct lock_baton
  * SVN_ERR_FS_LOCK_OWNER_MISMATCH.
  */
 static svn_error_t *
-store_locks_callback (void *baton,
-                      const char *path,
+store_locks_callback (void *baton, 
+                      const char *path, 
                       svn_boolean_t do_lock,
                       const svn_lock_t *lock,
                       svn_error_t *ra_err, apr_pool_t *pool)
@@ -79,7 +79,7 @@ store_locks_callback (void *baton,
 
   if (lb->adm_access)
     {
-      abs_path = svn_path_join (svn_wc_adm_access_path (lb->adm_access),
+      abs_path = svn_path_join (svn_wc_adm_access_path (lb->adm_access), 
                                 path, lb->pool);
 
       SVN_ERR (svn_wc_adm_probe_retrieve (&adm_access, lb->adm_access,
@@ -112,7 +112,7 @@ store_locks_callback (void *baton,
             notify->lock_state = svn_wc_notify_lock_state_unchanged;
         }
     }
-
+  
   if (lb->ctx->notify_func2)
     lb->ctx->notify_func2 (lb->ctx->notify_baton2, notify, pool);
 
@@ -166,7 +166,7 @@ organize_lock_targets (const char **common_parent,
   apr_hash_t *rel_targets_ret = apr_hash_make(pool);
 
   /* Get the common parent and all relative paths */
-  SVN_ERR (svn_path_condense_targets (common_parent, &rel_targets, targets,
+  SVN_ERR (svn_path_condense_targets (common_parent, &rel_targets, targets, 
                                       FALSE, pool));
 
   /* svn_path_condense_targets leaves paths empty if TARGETS only had
@@ -183,7 +183,7 @@ organize_lock_targets (const char **common_parent,
     return svn_error_create
       (SVN_ERR_UNSUPPORTED_FEATURE, NULL,
        _("No common parent found, unable to operate on disjoint arguments"));
-
+  
   if (svn_path_is_url (*common_parent))
     {
       svn_revnum_t *invalid_revnum;
@@ -217,16 +217,16 @@ organize_lock_targets (const char **common_parent,
 
       /* Open the common parent. */
       SVN_ERR (svn_wc_adm_probe_open3 (parent_adm_access_p, NULL,
-                                       *common_parent,
-                                       TRUE, max_depth, ctx->cancel_func,
-                                       ctx->cancel_baton, pool));
+                                       *common_parent, 
+                                       TRUE, max_depth, ctx->cancel_func, 
+                                       ctx->cancel_baton, pool));  
 
-      SVN_ERR (svn_wc_entry (parent_entry_p, *common_parent,
+      SVN_ERR (svn_wc_entry (parent_entry_p, *common_parent, 
                              *parent_adm_access_p, FALSE, pool));
 
       if (! *parent_entry_p)
         return svn_error_createf (SVN_ERR_UNVERSIONED_RESOURCE, NULL,
-                                  _("'%s' is not under version control"),
+                                  _("'%s' is not under version control"), 
                                   svn_path_local_style (*common_parent, pool));
       if (! (*parent_entry_p)->url)
         return svn_error_createf (SVN_ERR_ENTRY_MISSING_URL, NULL,
@@ -239,28 +239,28 @@ organize_lock_targets (const char **common_parent,
           const svn_wc_entry_t *entry;
           const char *target = ((const char **) (rel_targets->elts))[i];
           const char *abs_path;
-
+          
           abs_path = svn_path_join
             (svn_wc_adm_access_path (*parent_adm_access_p), target, pool);
-
+          
           SVN_ERR (svn_wc_entry (&entry, abs_path, *parent_adm_access_p, FALSE,
                                  pool));
-
+          
           if (! entry)
             return svn_error_createf (SVN_ERR_UNVERSIONED_RESOURCE, NULL,
-                                      _("'%s' is not under version control"),
+                                      _("'%s' is not under version control"), 
                                       svn_path_local_style (target, pool));
           if (! entry->url)
             return svn_error_createf (SVN_ERR_ENTRY_MISSING_URL, NULL,
                                       _("'%s' has no URL"),
                                       svn_path_local_style (target, pool));
-
+          
           if (do_lock) /* Lock. */
             {
               svn_revnum_t *revnum;
               revnum = apr_palloc (pool, sizeof (* revnum));
               *revnum = entry->revision;
-
+              
               apr_hash_set (rel_targets_ret, apr_pstrdup (pool, target),
                             APR_HASH_KEY_STRING, revnum);
             }
@@ -270,12 +270,12 @@ organize_lock_targets (const char **common_parent,
               if (! force)
                 {
                   if (! entry->lock_token)
-                    return svn_error_createf
+                    return svn_error_createf 
                       (SVN_ERR_CLIENT_MISSING_LOCK_TOKEN, NULL,
                        _("'%s' is not locked in this working copy"), target);
-
+                  
                   apr_hash_set (rel_targets_ret, apr_pstrdup (pool, target),
-                                APR_HASH_KEY_STRING,
+                                APR_HASH_KEY_STRING, 
                                 apr_pstrdup (pool, entry->lock_token));
                 }
               else
@@ -315,7 +315,7 @@ fetch_tokens (svn_ra_session_t *ra_session, apr_hash_t *path_tokens,
       SVN_ERR (svn_ra_get_lock (ra_session, &lock, path, iterpool));
 
       if (! lock)
-        return svn_error_createf
+        return svn_error_createf 
           (SVN_ERR_CLIENT_MISSING_LOCK_TOKEN, NULL,
            _("'%s' is not locked"), path);
 
@@ -350,7 +350,7 @@ svn_client_lock (const apr_array_header_t *targets,
       if (! svn_xml_is_xml_safe(comment, strlen(comment)))
         return svn_error_create
           (SVN_ERR_XML_UNESCAPABLE_DATA, NULL,
-           _("Lock comment has illegal characters"));
+           _("Lock comment has illegal characters"));      
     }
 
   SVN_ERR (organize_lock_targets (&common_parent, &entry, &adm_access,
@@ -374,7 +374,7 @@ svn_client_lock (const apr_array_header_t *targets,
   cb.ctx = ctx;
 
   /* Lock the paths. */
-  SVN_ERR (svn_ra_lock (ra_session, path_revs, comment,
+  SVN_ERR (svn_ra_lock (ra_session, path_revs, comment, 
                         steal_lock, store_locks_callback, &cb, pool));
 
   /* Unlock the wc. */
@@ -427,7 +427,7 @@ svn_client_unlock (const apr_array_header_t *targets,
   cb.ctx = ctx;
 
   /* Unlock the paths. */
-  SVN_ERR (svn_ra_unlock (ra_session, path_tokens, break_lock,
+  SVN_ERR (svn_ra_unlock (ra_session, path_tokens, break_lock, 
                           store_locks_callback, &cb, pool));
 
   /* Unlock the wc. */
