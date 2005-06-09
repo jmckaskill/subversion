@@ -9,7 +9,7 @@
             <class name="org.tigris.subversion.javahl.PromptUserPassword2"/>
             <class name="org.tigris.subversion.javahl.Revision"/>
             <class name="org.tigris.subversion.javahl.RevisionKind"/>
-            <class name="org.tigris.subversion.javahl.ScheduleKind"/>
+            <class name="org.tigris.subversion.javahl.ScheduleKind"/> 
             <class name="org.tigris.subversion.javahl.StatusKind"/>
             <class name="org.tigris.subversion.javahl.SVNAdmin"/>
             <class name="org.tigris.subversion.javahl.SVNClient"/>
