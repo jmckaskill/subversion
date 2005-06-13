@@ -143,7 +143,7 @@ svn_intl_initialize (apr_pool_t *parent_pool)
               if (! GetModuleFileNameA (0, ansi_path, sizeof (ansi_path)))
                 goto utf8_error;
 
-              inwords =
+              inwords = 
                 MultiByteToWideChar (CP_ACP, 0, ansi_path, -1, ucs2_path,
                                      sizeof (ucs2_path) /
                                      sizeof (ucs2_path[0]));
@@ -172,7 +172,7 @@ svn_intl_initialize (apr_pool_t *parent_pool)
           internal_path = svn_path_join (internal_path,
                                          SVN_LOCALE_RELATIVE_PATH,
                                          pool);
-          bindtextdomain (PACKAGE_NAME, internal_path);
+          bindtextdomain (PACKAGE_NAME, internal_path);    
           apr_pool_destroy (pool);
         }
 #else
