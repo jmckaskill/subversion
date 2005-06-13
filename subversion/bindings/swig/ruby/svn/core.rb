@@ -11,7 +11,7 @@ module Svn
 
     apr_initialize
     at_exit {Svn::Core.apr_terminate}
-
+    
     class << self
 
       alias pool_destroy apr_pool_destroy
@@ -23,8 +23,8 @@ module Svn
     AuthCredSSLClientCert = AuthCredSslClientCert
     AuthCredSSLClientCertPw = AuthCredSslClientCertPw
     AuthCredSSLServerTrust = AuthCredSslServerTrust
-
-
+    
+    
     Pool = SWIG::TYPE_p_apr_pool_t
 
     class Pool
@@ -44,13 +44,13 @@ module Svn
       def clear
         Core.pool_clear(self)
       end
-
+      
       def destroy
         Core.pool_destroy(self)
       end
     end
 
-
+    
     Stream = SWIG::TYPE_p_svn_stream_t
 
     class Stream
@@ -61,7 +61,7 @@ module Svn
       def write(data)
         Core.stream_close(self, @pool)
       end
-
+      
       def read(len=nil)
         if len.nil?
           read_all
@@ -75,7 +75,7 @@ module Svn
           buf
         end
       end
-
+      
       def close
         Core.stream_close(self, @pool)
       end
@@ -83,12 +83,12 @@ module Svn
       def copy(other)
         Core.stream_copy(self, other, @pool)
       end
-
+      
       private
       def _read(size)
         Core.stream_read(self, size, @pool)
       end
-
+      
       def read_all
         buf = ""
         while chunk = _read(CHUNK_SIZE)
@@ -107,7 +107,7 @@ module Svn
         end
       end
     end
-
+    
 
     class AuthProviderObject
       class << self
@@ -133,7 +133,7 @@ module Svn
           end
         end
       end
-
+      
       def unified(orig_label, mod_label)
         output = StringIO.new
         args = [
