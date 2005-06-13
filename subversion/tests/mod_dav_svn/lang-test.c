@@ -71,7 +71,7 @@ static lang_pref_t lang_prefs[] =
   };
 
 static svn_error_t *
-test1 (const char **msg,
+test1 (const char **msg, 
        svn_boolean_t msg_only,
        svn_test_opts_t *opts,
        apr_pool_t *pool)
