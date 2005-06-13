@@ -122,7 +122,7 @@ static l10n_t l10n_list[] =
   };
 
 static svn_error_t *
-test1 (const char **msg,
+test1 (const char **msg, 
        svn_boolean_t msg_only,
        svn_test_opts_t *opts,
        apr_pool_t *pool)
@@ -166,7 +166,7 @@ test1 (const char **msg,
 
 
 static svn_error_t *
-test2 (const char **msg,
+test2 (const char **msg, 
        svn_boolean_t msg_only,
        svn_test_opts_t *opts,
        apr_pool_t *pool)
