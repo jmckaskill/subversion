@@ -81,7 +81,7 @@ module SvnTestUtil
       end
     end
   end
-
+  
   def add_authentication
     passwd_file = "passwd"
     File.open(@repos.svnserve_conf, "w") do |conf|
@@ -100,7 +100,7 @@ realm = #{@realm}
       PASSWD
     end
   end
-
+  
   def youngest_rev
     @fs.youngest_rev
   end
@@ -124,5 +124,5 @@ realm = #{@realm}
     end
     ctx
   end
-
+  
 end
