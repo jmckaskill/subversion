@@ -10,7 +10,7 @@ A rough guide:
                              experts alike.  Written in DocBook Lite,
                              and now maintained in a separate repository
                              of its own.
-
+                             
   misc-docs                  Holds additional DocBook Lite material that
                              either isn't yet ready to go into the
                              Definitive Guide, or which may never go
@@ -19,7 +19,7 @@ A rough guide:
                              Subversion site.  Think of it as a
                              temporary, but published, holding area.
 
-  HOWTO.DocBook              Instructions on how to build HTML, PDF,
+  HOWTO.DocBook              Instructions on how to build HTML, PDF, 
                              or PostScript from DocBook Lite source.
 
   programmer/                Documents for Subversion programmers.
@@ -42,7 +42,7 @@ A rough guide:
 
   translations/french        A translation of the Subversion handbook
                              (which has been absorbed into the book).
-
+ 
 If you'd like to document a new feature, try to find a place for it
 somewhere in misc-docs.
 
