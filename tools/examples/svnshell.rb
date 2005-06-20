@@ -35,11 +35,11 @@ require "svn/repos"
 #           the filesystem.
 class SvnShell
 
-  # A list of potential commands. This list is populated by
+  # A list of potential commands. This list is populated by 
   # the 'method_added' function (see below).
   WORDS = []
 
-  # Check for methods that start with "do_"
+  # Check for methods that start with "do_" 
   # and list them as potential commands
   class << self
     def method_added(name)
@@ -48,7 +48,7 @@ class SvnShell
       end
     end
   end
-
+  
   # Constructor for SvnShell
   #
   # pool: A Subversion memory pool for this object to use
@@ -87,7 +87,7 @@ class SvnShell
 
         # Close the connection to the repo
         @root.close
-
+        
       end
     end
   end
@@ -110,7 +110,7 @@ class SvnShell
     # Return the prompt string
     "<#{mode}: #{info} #{@path}>$ "
   end
-
+  
   # Dispatch a command to the appropriate do_* subroutine
   def dispatch(cmd, *args)
 
@@ -162,19 +162,19 @@ class SvnShell
       puts "Path '#{normalized_path}' is not a valid filesystem directory."
     end
   end
-
+  
   # List the contents of the current directory or provided paths
   def do_ls(*paths)
 
     # Default to listing the contents of the current directory
     paths << @path if paths.empty?
-
+    
     # Foreach path
     paths.each do |path|
 
       # Normalize the path to an absolute path
       normalized_path = normalize_path(path)
-
+      
       # Is it a directory or file?
       case @root.check_path(normalized_path)
       when Svn::Core::NODE_DIR
@@ -230,7 +230,7 @@ class SvnShell
           size = @root.file_length(fullpath).to_i.to_s
           name = entry
         end
-
+        
         # Output the entry
         node_id = entries[entry].id.to_s
         created_rev = @root.node_created_rev(fullpath)
@@ -241,24 +241,24 @@ class SvnShell
           node_id, size, format_date(date), name
         ]
         puts "%6s %8s <%10s> %8s %17s %s" % args
-
+        
       end
     end
   end
 
   # List all currently open transactions available for browsing
   def do_lstxns
-
+    
     # Get a sorted list of open transactions
     txns = @fs.list_transactions
     txns.sort
     counter = 0
-
+    
     # Output the open transactions
     txns.each do |txn|
       counter = counter + 1
       puts "%8s  " % txn
-
+      
       # Every six transactions, output an extra newline
       if counter == 6
         puts
@@ -267,10 +267,10 @@ class SvnShell
     end
     puts
   end
-
+  
   # Output the properties of a particular path
   def do_pcat(path=nil)
-
+    
     # Default to the current directory
     catpath = path || @path
 
@@ -284,7 +284,7 @@ class SvnShell
     plist = @root.node_proplist(catpath)
     return if plist.nil?
 
-    # Output each property
+    # Output each property 
     plist.each do |key, value|
       puts "K #{key.size}"
       puts key
@@ -294,12 +294,12 @@ class SvnShell
 
     # That's all folks!
     puts 'PROPS-END'
-
+    
   end
-
+      
   # Set the current revision to view
   def do_setrev(rev)
-
+    
     # Make sure the specified revision exists
     begin
       @fs.root(Integer(rev)).close
@@ -307,12 +307,12 @@ class SvnShell
       puts "Error setting the revision to '#{rev}': #{$!.message}"
       return
     end
-
+    
     # Set the revision
     self.rev = Integer(rev)
-
+    
   end
-
+  
   # Open an existing transaction to view
   def do_settxn(name)
 
@@ -324,10 +324,10 @@ class SvnShell
       puts "Error setting the transaction to '#{name}': #{$!.message}"
       return
     end
-
+    
     # Set the transaction
     self.txn = name
-
+    
   end
 
   # List the youngest revision available for browsing
@@ -335,7 +335,7 @@ class SvnShell
     rev = @fs.youngest_rev
     puts rev
   end
-
+  
   # Exit this program
   def do_exit
     @exited = true
@@ -365,7 +365,7 @@ class SvnShell
   def rev_mode?
     @txn.nil?
   end
-
+  
   # Close the current root and setup a new one
   def reset_root
     if @root
@@ -382,7 +382,7 @@ class SvnShell
       @root = @fs.open_txn(name).root
     end
   end
-
+  
   # Convert a path into its component parts
   def path_to_parts(path)
     path.split(/\/+/)
@@ -393,7 +393,7 @@ class SvnShell
     normalized_parts = parts.reject{|part| part.empty?}
     "/#{normalized_parts.join('/')}"
   end
-
+  
   # Convert a path to a normalized, absolute path
   def normalize_path(path)
 
@@ -404,8 +404,8 @@ class SvnShell
 
     # Split the path into its component parts
     parts = path_to_parts(path)
-
-    # Build a list of the normalized parts of the path
+    
+    # Build a list of the normalized parts of the path 
     normalized_parts = []
     parts.each do |part|
       case part
@@ -427,9 +427,9 @@ class SvnShell
   def parent_dir(path)
     normalize_path("#{path}/..")
   end
-
+  
   # Try to land on the specified path as a directory.
-  # If the specified path does not exist, look for
+  # If the specified path does not exist, look for 
   # an ancestor path that does exist.
   def find_available_path(path=@path)
     if @root.check_path(path) == Svn::Core::NODE_DIR
@@ -444,7 +444,7 @@ class SvnShell
     date = Svn::Util.string_to_time(date_str, @taskpool)
     date.strftime("%b %d %H:%M(%Z)")
   end
-
+  
 end
 
 
