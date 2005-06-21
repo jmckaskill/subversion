@@ -15,7 +15,7 @@ Candidate changes:
       Small change, potentially useful, 1.3 is quite some way off.
     Votes:
       +1: maxb, dlr
-
+      
   * r15088
     Make lock/unlock over ra_dav able to cache authentication data.
     Justfication: Users of locking over http:// will get very annoyed.
@@ -48,8 +48,8 @@ Approved changes (further review is welcome, but not required):
     Justification:
       Old behavior caused the wrong file to be locked and locking of URLs
       with spaces and non-ASCII characters to not work.
-    Notes:
-      14774 is the commit of the test, 14849 is the fix, the rest are
+    Notes: 
+      14774 is the commit of the test, 14849 is the fix, the rest are 
       refinements.
       Without r14898, this introduces a regression on locking paths
       with "funny" characters.
