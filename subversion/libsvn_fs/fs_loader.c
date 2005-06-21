@@ -229,7 +229,7 @@ svn_error_t *
 svn_fs_history_location (const char **path, svn_revnum_t *revision,
                          svn_fs_history_t *history, apr_pool_t *pool)
 {
-}
+}                                      
 
 svn_error_t *
 svn_fs_is_dir (svn_boolean_t *is_dir, svn_fs_root_t *root, const char *path,
@@ -265,7 +265,7 @@ svn_error_t *
 svn_fs_node_prop (svn_string_t **value_p, svn_fs_root_t *root,
                   const char *path, const char *propname, apr_pool_t *pool)
 {
-}
+}   
 
 svn_error_t *
 svn_fs_node_proplist (apr_hash_t **table_p, svn_fs_root_t *root,
@@ -310,7 +310,7 @@ svn_fs_dir_entries (apr_hash_t **entries_p, svn_fs_root_t *root,
 svn_error_t *
 svn_fs_make_dir (svn_fs_root_t *root, const char *path, apr_pool_t *pool)
 {
-}
+}                              
 
 svn_error_t *
 svn_fs_delete (svn_fs_root_t *root, const char *path, apr_pool_t *pool)
