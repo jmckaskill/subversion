@@ -80,9 +80,9 @@ unrelated set of baseprops, no common ancestor.
 
 
      old-baseprops                    target-baseprops
-          |                                 |
+          |                                 |         
           |  (server-propsets)              |  (localedit-propsets)
-          |                                 |
+          |                                 |                      
           v                                 v
      new-baseprops                      workingprops
 
@@ -131,12 +131,12 @@ The 'svn merge' 3-way property merging algorithm should look like:
 
                else:  /* same value */
                   apply change, unless existing local-mod conflicts.
-
+           
 
 ### FOOTNOTE:
 
     Our 'svn merge' diagram really suggests using a diff4 algorithm,
-    rather than diff3.
+    rather than diff3.  
 
     What should we do in the case of a server-propset attempting to
     change PROPNAME from A to B, while the user has locally changed
