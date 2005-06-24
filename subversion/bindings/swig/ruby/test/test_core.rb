@@ -5,7 +5,7 @@ require "svn/core"
 
 class SvnCoreTest < Test::Unit::TestCase
   include SvnTestUtil
-
+  
   def setup
     @repos_path = File.join("test", "repos")
     setup_repository(@repos_path)
@@ -14,7 +14,7 @@ class SvnCoreTest < Test::Unit::TestCase
   def teardown
     teardown_repository(@repos_path)
   end
-
+  
   def test_binary_mime_type?
     assert(Svn::Core.binary_mime_type?("image/png"))
     assert(!Svn::Core.binary_mime_type?("text/plain"))
