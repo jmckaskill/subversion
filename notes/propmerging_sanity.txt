@@ -80,9 +80,9 @@ unrelated set of baseprops, no common ancestor.
 
 
      old-baseprops                    target-baseprops
-          |                                 |
+          |                                 |         
           |  (server-propsets)              |  (localedit-propsets)
-          |                                 |
+          |                                 |                      
           v                                 v
      new-baseprops                      workingprops
 
@@ -130,5 +130,5 @@ The 'svn merge' 3-way property merging algorithm should look like:
 
                else:  /* same value */
                   apply change, unless existing local-mod conflicts.
-
+           
 
