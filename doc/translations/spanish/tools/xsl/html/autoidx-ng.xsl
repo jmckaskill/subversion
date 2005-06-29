@@ -30,7 +30,7 @@
 
 <xsl:include href="../common/autoidx-ng.xsl"/>
 
-<!-- Modified original code is using index group codes instead of just first letter
+<!-- Modified original code is using index group codes instead of just first letter 
      to gain better grouping -->
 <xsl:template name="generate-index">
   <xsl:param name="scope" select="(ancestor::book|/)[last()]"/>
