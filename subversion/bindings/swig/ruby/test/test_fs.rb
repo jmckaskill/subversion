@@ -8,7 +8,7 @@ require "svn/client"
 
 class SvnFsTest < Test::Unit::TestCase
   include SvnTestUtil
-
+  
   def setup
     setup_basic
   end
@@ -16,7 +16,7 @@ class SvnFsTest < Test::Unit::TestCase
   def teardown
     teardown_basic
   end
-
+  
   def test_prop
     log = "sample log"
     ctx = make_context(log)
