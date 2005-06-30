@@ -152,7 +152,7 @@ c2r_swig_type(void *value, void *ctx)
     SWIG_InitRuntime();
     inited = Qtrue;
   }
-
+  
   info = SWIG_TypeQuery((char *)ctx);
   if (info) {
     return SWIG_NewPointerObj(value, info, 0);
@@ -248,7 +248,7 @@ DEFINE_APR_ARRAY_TO_ARRAY(VALUE, svn_swig_rb_apr_array_to_array_prop,
                           (void *)"svn_prop_t *")
 DEFINE_APR_ARRAY_TO_ARRAY(VALUE, svn_swig_rb_apr_array_to_array_svn_rev,
                           c2r_long, &, svn_revnum_t, NULL)
-
+     
 
 
 /* Ruby Array -> apr_array_t */
@@ -297,14 +297,14 @@ c2r_hash(apr_hash_t *hash,
     const void *key;
     void *val;
     VALUE v = Qnil;
-
+      
     apr_hash_this(hi, &key, NULL, &val);
     if (val) {
       v = (*func)(val, ctx);
     }
     rb_hash_aset(r_hash, c2r_string2(key), v);
   }
-
+    
   return r_hash;
 }
 
@@ -364,7 +364,7 @@ r2c_hash(VALUE hash, r2c_func func, void *ctx, apr_pool_t *pool)
     apr_hash = apr_hash_make(pool);
     data.apr_hash = apr_hash;
     rb_hash_foreach(hash, r2c_hash_i, (VALUE)&data);
-
+    
     return apr_hash;
   }
 }
@@ -399,11 +399,11 @@ convert_svn_client_commit_item_t(void *value, void *ctx)
   svn_client_commit_item_t *item = value;
 
   ary = rb_ary_new2(6);
-
+  
   path = c2r_string2(item->path);
   url = c2r_string2(item->url);
   cf_url = c2r_string2(item->copyfrom_url);
-
+        
   kind = INT2NUM(item->kind);
   rev = INT2NUM(item->revision);
   state = INT2NUM(item->state_flags);
@@ -468,7 +468,7 @@ find_swig_type_object(int num, VALUE *objects)
       return objects[i];
     }
   }
-
+  
   return Qnil;
 }
 
@@ -477,7 +477,7 @@ svn_swig_rb_get_pool(int argc, VALUE *argv, VALUE self,
                      VALUE *rb_pool, apr_pool_t **pool)
 {
   *rb_pool = Qnil;
-
+  
   if (argc > 0 && POOL_P(argv[argc - 1])) {
     *rb_pool = argv[argc - 1];
   } else if (RTEST(rb_obj_is_kind_of(self, rb_cModule))) {
@@ -486,7 +486,7 @@ svn_swig_rb_get_pool(int argc, VALUE *argv, VALUE self,
       *rb_pool = rb_get_pool(target);
     }
   }
-
+  
   if (NIL_P(*rb_pool)) {
     *rb_pool = rb_pool_new();
     if (RTEST(rb_obj_is_kind_of(self, rb_cModule))) {
@@ -496,7 +496,7 @@ svn_swig_rb_get_pool(int argc, VALUE *argv, VALUE self,
       }
     }
   }
-
+  
   SWIG_ConvertPtr(*rb_pool, (void **)pool, SWIG_TypeQuery("apr_pool_t *"), 1);
 }
 
@@ -504,7 +504,7 @@ static VALUE
 rb_set_pool_if_swig_type_object(VALUE target, VALUE pool)
 {
   VALUE targets[1] = {target};
-
+  
   if (!NIL_P(find_swig_type_object(1, targets))) {
     rb_set_pool(target, pool);
   }
@@ -520,10 +520,10 @@ svn_swig_rb_set_pool(VALUE target, VALUE pool)
   if (NIL_P(target)) {
     return;
   }
-
+    
   rb_p(target);
   rb_p(pool);
-
+  
   if (!RTEST(rb_obj_is_kind_of(target, rb_cArray))) {
     target = rb_ary_new3(1, target);
   }
@@ -556,7 +556,7 @@ callback_rescue(VALUE error)
 {
   svn_error_t **err = (svn_error_t **)error;
   VALUE message;
-
+  
   message = rb_funcall(ruby_errinfo, rb_id_message(), 0);
   *err = svn_error_create(NUM2INT(rb_funcall(ruby_errinfo, rb_id_code(), 0)),
                           NULL,
@@ -834,7 +834,7 @@ window_handler(svn_txdelta_window_t *window, void *baton)
 }
 
 static svn_error_t *
-apply_textdelta(void *file_baton,
+apply_textdelta(void *file_baton, 
                 const char *base_checksum,
                 apr_pool_t *pool,
                 svn_txdelta_window_handler_t *handler,
@@ -954,7 +954,7 @@ svn_swig_rb_make_editor(const svn_delta_editor_t **editor,
                         apr_pool_t *pool)
 {
   svn_delta_editor_t *thunk_editor = svn_delta_default_editor(pool);
-
+  
   thunk_editor->set_target_revision = set_target_revision;
   thunk_editor->open_root = open_root;
   thunk_editor->delete_entry = delete_entry;
@@ -995,7 +995,7 @@ svn_swig_rb_log_receiver(void *baton,
     args = rb_ary_new3(7,
                        proc,
                        rb_id_call(),
-                       changed_paths ?
+                       changed_paths ? 
                        svn_swig_rb_apr_hash_to_hash_string(changed_paths) :
                        Qnil,
                        c2r_long(&revision, NULL),
@@ -1021,7 +1021,7 @@ svn_swig_rb_repos_authz_func(svn_boolean_t *allowed,
   svn_error_t *err = SVN_NO_ERROR;
 
   *allowed = TRUE;
-
+  
   if (!NIL_P(proc)) {
     VALUE args;
     VALUE result;
@@ -1097,7 +1097,7 @@ svn_swig_rb_auth_simple_prompt_func(svn_auth_cred_simple_t **cred,
   if (!NIL_P(proc)) {
     VALUE args;
     VALUE result;
-
+    
     args = rb_ary_new3(5,
                        proc,
                        rb_id_call(),
@@ -1111,7 +1111,7 @@ svn_swig_rb_auth_simple_prompt_func(svn_auth_cred_simple_t **cred,
     if (!NIL_P(result)) {
       void *result_cred = NULL;
       svn_auth_cred_simple_t *tmp_cred = NULL;
-
+      
       SWIG_ConvertPtr(result, &result_cred,
                       SWIG_TypeQuery("svn_auth_cred_simple_t *"), 1);
       tmp_cred = (svn_auth_cred_simple_t *)result_cred;
@@ -1123,7 +1123,7 @@ svn_swig_rb_auth_simple_prompt_func(svn_auth_cred_simple_t **cred,
       new_cred->may_save = tmp_cred->may_save;
     }
   }
-
+  
   *cred = new_cred;
   return err;
 }
@@ -1155,7 +1155,7 @@ svn_swig_rb_auth_username_prompt_func(svn_auth_cred_username_t **cred,
     if (!NIL_P(result)) {
       void *result_cred = NULL;
       svn_auth_cred_username_t *tmp_cred = NULL;
-
+      
       SWIG_ConvertPtr(result, &result_cred,
                       SWIG_TypeQuery("svn_auth_cred_username_t *"), 1);
       tmp_cred = (svn_auth_cred_username_t *)result_cred;
@@ -1165,7 +1165,7 @@ svn_swig_rb_auth_username_prompt_func(svn_auth_cred_username_t **cred,
       new_cred->may_save = tmp_cred->may_save;
     }
   }
-
+  
   *cred = new_cred;
   return err;
 }
@@ -1203,7 +1203,7 @@ svn_swig_rb_auth_ssl_server_trust_prompt_func(
     if (!NIL_P(result)) {
       void *result_cred;
       svn_auth_cred_ssl_server_trust_t *tmp_cred = NULL;
-
+      
       SWIG_ConvertPtr(result, &result_cred,
                       SWIG_TypeQuery("svn_auth_cred_ssl_server_trust_t *"), 1);
       tmp_cred = (svn_auth_cred_ssl_server_trust_t *)result_cred;
@@ -1211,7 +1211,7 @@ svn_swig_rb_auth_ssl_server_trust_prompt_func(
       *new_cred = *tmp_cred;
     }
   }
-
+  
   *cred = new_cred;
   return err;
 }
@@ -1244,7 +1244,7 @@ svn_swig_rb_auth_ssl_client_cert_prompt_func(
     if (!NIL_P(result)) {
       void *result_cred = NULL;
       svn_auth_cred_ssl_client_cert_t *tmp_cred = NULL;
-
+      
       SWIG_ConvertPtr(result, &result_cred,
                       SWIG_TypeQuery("svn_auth_cred_ssl_client_cert_t *"), 1);
       tmp_cred = (svn_auth_cred_ssl_client_cert_t *)result_cred;
@@ -1254,7 +1254,7 @@ svn_swig_rb_auth_ssl_client_cert_prompt_func(
       new_cred->may_save = tmp_cred->may_save;
     }
   }
-
+  
   *cred = new_cred;
   return err;
 }
@@ -1287,7 +1287,7 @@ svn_swig_rb_auth_ssl_client_cert_pw_prompt_func(
     if (!NIL_P(result)) {
       void *result_cred = NULL;
       svn_auth_cred_ssl_client_cert_pw_t *tmp_cred = NULL;
-
+      
       SWIG_ConvertPtr(result, &result_cred,
                       SWIG_TypeQuery("svn_auth_cred_ssl_client_cert_pw_t *"), 1);
       tmp_cred = (svn_auth_cred_ssl_client_cert_pw_t *)result_cred;
@@ -1297,7 +1297,7 @@ svn_swig_rb_auth_ssl_client_cert_pw_prompt_func(
       new_cred->may_save = tmp_cred->may_save;
     }
   }
-
+  
   *cred = new_cred;
   return err;
 }
@@ -1307,12 +1307,12 @@ apr_file_t *
 svn_swig_rb_make_file(VALUE file, apr_pool_t *pool)
 {
   apr_file_t *apr_file = NULL;
-
+  
   apr_file_open(&apr_file, StringValuePtr(file),
                 APR_CREATE | APR_READ | APR_WRITE,
                 APR_OS_DEFAULT,
                 pool);
-
+  
   return apr_file;
 }
 
@@ -1346,20 +1346,20 @@ svn_stream_t *
 svn_swig_rb_make_stream(VALUE io)
 {
   svn_stream_t *stream;
-
+  
   if (RTEST(rb_funcall(rb_svn_core_stream(), rb_id_eqq(), 1, io))) {
     SWIG_ConvertPtr(io, (void **)&stream, SWIG_TypeQuery("svn_stream_t *"), 1);
   } else {
     VALUE rb_pool = rb_pool_new();
     apr_pool_t *pool;
-
+    
     rb_set_pool(io, rb_pool);
     SWIG_ConvertPtr(rb_pool, (void **)&pool, SWIG_TypeQuery("apr_pool_t *"), 1);
     stream = svn_stream_create((void *)io, pool);
     svn_stream_set_read(stream, read_handler_rbio);
     svn_stream_set_write(stream, write_handler_rbio);
   }
-
+  
   return stream;
 }
 
@@ -1393,12 +1393,12 @@ svn_swig_rb_set_revision(svn_opt_revision_t *rev, VALUE value)
     else if (RTEST(rb_reg_match(rb_reg_new("^COMMITTED$",
                                            strlen("^COMMITTED$"),
                                            RE_OPTION_IGNORECASE),
-                                value)))
+                                value))) 
       rev->kind = svn_opt_revision_committed;
     else if (RTEST(rb_reg_match(rb_reg_new("^PREV$",
                                            strlen("^PREV$"),
                                            RE_OPTION_IGNORECASE),
-                                value)))
+                                value))) 
       rev->kind = svn_opt_revision_previous;
     else
       rb_raise(rb_eArgError,
