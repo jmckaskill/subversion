@@ -5768,7 +5768,7 @@ msgstr ""
 
 #: libsvn_subr/opt.c:237
 msgid " arg"
-msgstr " arg"
+msgstr " arg" 
 
 #: libsvn_subr/opt.c:261
 #, c-format
