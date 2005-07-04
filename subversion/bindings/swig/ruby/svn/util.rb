@@ -4,12 +4,12 @@ module Svn
   module Util
 
     MILLION = 1000000
-
+    
     module_function
     def to_ruby_class_name(name)
       name.split("_").collect{|x| "#{x[0,1].upcase}#{x[1..-1]}"}.join("")
     end
-
+      
     def to_ruby_const_name(name)
       name.upcase
     end
@@ -34,7 +34,7 @@ module Svn
     def copy?(copyfrom_path, copyfrom_rev)
       Util.valid_rev?(copyfrom_rev) && !copyfrom_path.nil?
     end
-
+    
     def set_constants(ext_mod, target_mod=self)
       target_name = nil
       ext_mod.constants.each do |const|
