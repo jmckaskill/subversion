@@ -21,12 +21,12 @@ module Svn
         print "number of pools after the second GC: "
         p ObjectSpace.each_object(Svn::Core::Pool) {}
       end
-
+      
       # We don't need to call apr_termintae because pools
       # are destroyed by ruby's GC.
       # Svn::Core.apr_terminate
     end
-
+    
     class << self
       alias binary_mime_type? mime_type_is_binary
     end
@@ -35,8 +35,8 @@ module Svn
     AuthCredSSLClientCert = AuthCredSslClientCert
     AuthCredSSLClientCertPw = AuthCredSslClientCertPw
     AuthCredSSLServerTrust = AuthCredSslServerTrust
-
-
+    
+    
     Pool = Svn::Ext::Core::Apr_pool_t
 
     class Pool
@@ -47,7 +47,7 @@ module Svn
         _initialize(parent)
       end
     end
-
+    
     Stream = SWIG::TYPE_p_svn_stream_t
 
     class Stream
@@ -56,7 +56,7 @@ module Svn
       def write(data)
         Core.stream_close(self)
       end
-
+      
       def read(len=nil)
         if len.nil?
           read_all
@@ -70,7 +70,7 @@ module Svn
           buf
         end
       end
-
+      
       def close
         Core.stream_close(self)
       end
@@ -78,12 +78,12 @@ module Svn
       def copy(other)
         Core.stream_copy(self, other)
       end
-
+      
       private
       def _read(size)
         Core.stream_read(self, size)
       end
-
+      
       def read_all
         buf = ""
         while chunk = _read(CHUNK_SIZE)
@@ -102,7 +102,7 @@ module Svn
         end
       end
     end
-
+    
 
     class AuthProviderObject
       class << self
@@ -125,7 +125,7 @@ module Svn
           diff
         end
       end
-
+      
       def unified(orig_label, mod_label)
         output = StringIO.new
         args = [
