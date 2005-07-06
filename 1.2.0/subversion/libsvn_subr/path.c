@@ -184,7 +184,7 @@ char *svn_path_join_ebcdic (const char *base,
   path[blen] = '/';
   memcpy (path + blen + 1, component, clen + 1);
 
-  return path;
+  return path;          
 }
 #endif
 
@@ -333,7 +333,7 @@ svn_path_component_count (const char *path)
         ++path;
 
       start = path;
-
+      
       while (*path && *path != SVN_UTF8_FSLASH)
         ++path;
 
@@ -388,7 +388,7 @@ previous_segment_ebcdic (const char *path,
 #endif
 
 void
-svn_path_add_component (svn_stringbuf_t *path,
+svn_path_add_component (svn_stringbuf_t *path, 
                         const char *component)
 {
   apr_size_t len = strlen (component);
@@ -561,7 +561,7 @@ svn_path_compare_paths (const char *path1,
 
   /* Are the paths exactly the same? */
   if ((path1_len == path2_len) && (i >= min_len))
-    return 0;
+    return 0;    
 
   /* Children of paths are greater than their parents, but less than
      greater siblings of their parents. */
@@ -580,13 +580,13 @@ svn_path_compare_paths (const char *path1,
 }
 
 
-/* Return the string length of the longest common ancestor of PATH1 and PATH2.
+/* Return the string length of the longest common ancestor of PATH1 and PATH2.  
  *
- * This function handles everything except the URL-handling logic
- * of svn_path_get_longest_ancestor, and assumes that PATH1 and
- * PATH2 are *not* URLs.
+ * This function handles everything except the URL-handling logic 
+ * of svn_path_get_longest_ancestor, and assumes that PATH1 and 
+ * PATH2 are *not* URLs.  
  *
- * If the two paths do not share a common ancestor, return 0.
+ * If the two paths do not share a common ancestor, return 0. 
  *
  * New strings are allocated in POOL.
  */
@@ -598,7 +598,7 @@ get_path_ancestor_length (const char *path1,
   apr_size_t path1_len, path2_len;
   apr_size_t i = 0;
   apr_size_t last_dirsep = 0;
-
+  
   path1_len = strlen (path1);
   path2_len = strlen (path2);
 
@@ -639,9 +639,9 @@ svn_path_get_longest_ancestor (const char *path1,
   path1_is_url = svn_path_is_url (path1);
   path2_is_url = svn_path_is_url (path2);
 
-  if (path1_is_url && path2_is_url)
+  if (path1_is_url && path2_is_url) 
     {
-      apr_size_t path_ancestor_len;
+      apr_size_t path_ancestor_len; 
       apr_size_t i = 0;
 
       /* Find ':' */
@@ -649,10 +649,10 @@ svn_path_get_longest_ancestor (const char *path1,
         {
           /* No shared protocol => no common prefix */
           if (path1[i] != path2[i])
-            return apr_pmemdup (pool, SVN_EMPTY_PATH,
+            return apr_pmemdup (pool, SVN_EMPTY_PATH, 
                                 sizeof (SVN_EMPTY_PATH));
 
-          if (path1[i] == SVN_UTF8_COLON)
+          if (path1[i] == SVN_UTF8_COLON) 
             break;
 
           /* They're both URLs, so EOS can't come before ':' */
@@ -663,18 +663,18 @@ svn_path_get_longest_ancestor (const char *path1,
 
       i += 3;  /* Advance past '://' */
 
-      path_ancestor_len = get_path_ancestor_length (path1 + i, path2 + i,
+      path_ancestor_len = get_path_ancestor_length (path1 + i, path2 + i, 
                                                     pool);
 
       if (path_ancestor_len == 0)
         return apr_pmemdup (pool, SVN_EMPTY_PATH, sizeof (SVN_EMPTY_PATH));
       else
-        return apr_pstrndup (pool, path1, path_ancestor_len + i);
+        return apr_pstrndup (pool, path1, path_ancestor_len + i); 
     }
 
   else if ((! path1_is_url) && (! path2_is_url))
-    {
-      return apr_pstrndup (pool, path1,
+    { 
+      return apr_pstrndup (pool, path1, 
                            get_path_ancestor_length (path1, path2, pool));
     }
 
@@ -740,7 +740,7 @@ svn_path_decompose (const char *path,
 {
   apr_size_t i, oldi;
 
-  apr_array_header_t *components =
+  apr_array_header_t *components = 
     apr_array_make (pool, 1, sizeof(const char *));
 
   /* assert (is_canonical (path, strlen (path)));  ### Expensive strlen */
@@ -792,8 +792,8 @@ svn_path_is_single_path_component (const char *name)
 
   /* Can't be empty or `..'  */
   if (SVN_PATH_IS_EMPTY (name)
-      || (name[0] == SVN_UTF8_DOT &&
-          name[1] == SVN_UTF8_DOT &&
+      || (name[0] == SVN_UTF8_DOT && 
+          name[1] == SVN_UTF8_DOT && 
           name[2] == '\0'))
     return FALSE;
 
@@ -810,13 +810,13 @@ svn_boolean_t
 svn_path_is_backpath_present (const char *path)
 {
   int len = strlen (path);
-
+  
   if (! strcmp (path, "\x2E\x2E")) /* ".." */
     return TRUE;
 
   if (! strncmp (path, "\x2E\x2E\x2F", 3))  /* "../" */
     return TRUE;
-
+  
   if (strstr (path, "\x2F\x2E\x2E\x2F") != NULL) /* "/../" */
     return TRUE;
 
@@ -868,19 +868,19 @@ skip_uri_scheme (const char *path)
       if ((path[j + 1] == SVN_UTF8_FSLASH)
           && (path[j + 2] == SVN_UTF8_FSLASH))
         return path + j + 3;
-
+      
       return NULL;
     }
-
+     
   return NULL;
 }
 
-svn_boolean_t
+svn_boolean_t 
 svn_path_is_url (const char *path)
 {
   /* ### This function is reaaaaaaaaaaaaaally stupid right now.
      We're just going to look for:
-
+ 
         (scheme)://(optional_stuff)
 
      Where (scheme) has no ':' or '/' characters.
@@ -895,7 +895,7 @@ svn_path_is_url (const char *path)
 /* Here is the BNF for path components in a URI. "pchar" is a
    character in a path component.
 
-      pchar       = unreserved | escaped |
+      pchar       = unreserved | escaped | 
                     ":" | "@" | "&" | "=" | "+" | "$" | ","
       unreserved  = alphanum | mark
       mark        = "-" | "_" | "." | "!" | "~" | "*" | "'" | "(" | ")"
@@ -903,7 +903,7 @@ svn_path_is_url (const char *path)
    Note that "escaped" doesn't really apply to what users can put in
    their paths, so that really means the set of characters is:
 
-      alphanum | mark | ":" | "@" | "&" | "=" | "+" | "$" | ","
+      alphanum | mark | ":" | "@" | "&" | "=" | "+" | "$" | "," 
 */
 static const char uri_char_validity[256] = {
   0, 0, 0, 0, 0, 0, 0, 0,   0, 0, 0, 0, 0, 0, 0, 0,
@@ -937,19 +937,19 @@ static const char uri_char_validity_native[256] = {
   0, 0, 0, 0, 0, 0, 0, 0,   0, 0, 0, 0, 0, 0, 0, 0,
   0, 0, 0, 0, 0, 0, 0, 0,   0, 0, 0, 0, 0, 0, 0, 0,
   0, 0, 0, 0, 0, 0, 0, 0,   0, 0, 0, 0, 0, 0, 0, 0,
-
+  
   /* 64 */
   0, 0, 0, 0, 0, 0, 0, 0,   0, 0, 0, 1, 0, 1, 1, 0,
   1, 0, 0, 0, 0, 0, 0, 0,   0, 0, 1, 1, 1, 1, 0, 0,
   1, 1, 0, 0, 0, 0, 0, 0,   0, 0, 0, 1, 0, 1, 0, 0,
   0, 0, 0, 0, 0, 0, 0, 0,   0, 0, 1, 0, 1, 1, 1, 0,
-
+  
   /* 128 */
   0, 1, 1, 1, 1, 1, 1, 1,   1, 1, 0, 0, 0, 0, 0, 0,
   0, 1, 1, 1, 1, 1, 1, 1,   1, 1, 0, 0, 0, 0, 0, 0,
   0, 1, 1, 1, 1, 1, 1, 1,   1, 1, 0, 0, 0, 0, 0, 0,
   0, 0, 0, 0, 0, 0, 0, 0,   0, 0, 0, 0, 0, 0, 0, 0,
-
+  
   /* 192 */
   0, 1, 1, 1, 1, 1, 1, 1,   1, 1, 0, 0, 0, 0, 0, 0,
   0, 1, 1, 1, 1, 1, 1, 1,   1, 1, 0, 0, 0, 0, 0, 0,
@@ -959,7 +959,7 @@ static const char uri_char_validity_native[256] = {
 #endif
 
 
-svn_boolean_t
+svn_boolean_t 
 svn_path_is_uri_safe (const char *path)
 {
   apr_size_t i;
@@ -985,7 +985,7 @@ svn_path_is_uri_safe (const char *path)
       /* Allow '%XX' (where each X is a hex digit) */
       if (path[i] == SVN_UTF8_PERCENT)
         {
-          if (APR_IS_ASCII_XDIGIT (path[i + 1]) &&
+          if (APR_IS_ASCII_XDIGIT (path[i + 1]) && 
               APR_IS_ASCII_XDIGIT (path[i + 2]))
             {
               i += 2;
@@ -997,11 +997,11 @@ svn_path_is_uri_safe (const char *path)
         {
           return FALSE;
         }
-    }
+    } 
 
   return TRUE;
 }
-
+  
 /* URI-encode each character c in PATH for which TABLE[c] is 0.
    If no encoding was needed, return PATH, else return a new string allocated
    in POOL. */
@@ -1012,24 +1012,24 @@ uri_escape (const char *path, const char table[], svn_boolean_t escape_ibm,
   svn_stringbuf_t *retstr;
   apr_size_t i, copied = 0;
   int c;
-
+  
   /* If we know which validity table was passed we can deduce the encoding of
    * path:
-   *
+   * 
    * 1) uri_char_validity        --> utf-8  --> utf8_path = TRUE
    * 2) iri_escape_chars         --> utf-8  --> utf8_path = TRUE
    * 3) uri_autoescape_chars     --> utf-8  --> utf8_path = TRUE
    * 4) uri_char_validity_native --> ebcdic --> utf8_path = FALSE
-   *
+   * 
    * So we just pick something unique about the uri_char_validity_native table:
-   *
+   * 
    * e.g. uri_char_validity_native[128] ^ uri_char_validity_native[129] == 1
-   *      only for that table, so that's the test!
-   *
+   *      only for that table, so that's the test!  
+   * 
    * See something you like better? Go nuts!
    */
   svn_boolean_t utf8_path = table[128] ^ table[129] ? FALSE : TRUE;
-
+  
   retstr = svn_stringbuf_create ("", pool);
   for (i = 0; path[i]; i++)
     {
@@ -1037,24 +1037,24 @@ uri_escape (const char *path, const char table[], svn_boolean_t escape_ibm,
 
       if (table[c])
         continue;
-
+      
 #if APR_CHARSET_EBCDIC
-      /* We don't want to escape IBM's utf-8 transforms in an ebcdic path if
+      /* We don't want to escape IBM's utf-8 transforms in an ebcdic path if 
        * escape_ibm flag is false.  To detect a transform, the char is escaped
-       * to it's utf-8 value with ap_escape_path_segment(), the first hex
+       * to it's utf-8 value with ap_escape_path_segment(), the first hex 
        * escape digit is converted to an int, and if that int is greater
-       * than 7 the escaped byte pattern starts with a '1' and that char is
-       * part of a utf-8 transform.
+       * than 7 the escaped byte pattern starts with a '1' and that char is 
+       * part of a utf-8 transform. 
        */
       if (!utf8_path &&
           !escape_ibm)
         {
-          char *escaped_str = ap_escape_path_segment(pool, &(path[i]));
+          char *escaped_str = ap_escape_path_segment(pool, &(path[i]));	
           apr_int64_t hex_digit_val;
           escaped_str[2] = '\0';
           hex_digit_val = apr_strtoi64(&(escaped_str[1]), NULL, 16);
           if (hex_digit_val  > 7 )
-            continue;
+            continue;  
         }
 #endif
 
@@ -1065,9 +1065,9 @@ uri_escape (const char *path, const char table[], svn_boolean_t escape_ibm,
       /* First things first, copy all the good stuff that we haven't
          yet copied into our output buffer. */
       if (i - copied)
-        svn_stringbuf_appendbytes (retstr, path + copied,
+        svn_stringbuf_appendbytes (retstr, path + copied, 
                                    i - copied);
-
+      
       /* Now, sprintf() in our escaped character, making sure our
          buffer is big enough to hold the '%' and two digits.  We cast
          the C to unsigned char here because the 'X' format character
@@ -1093,8 +1093,8 @@ uri_escape (const char *path, const char table[], svn_boolean_t escape_ibm,
 		    {
 		      /* We are always dealing with ebcdic string representations of hex
 		       * digits, so we can convert without calling
-		       * svn_utf_cstring_to_utf8.
-		       *
+		       * svn_utf_cstring_to_utf8.  
+		       * 
 		       * Checking for upper and lower case may not be necessary if
 		       * apr_psprintf() is guaranteed to return a consistent case (?) */
 		      if (str[d] >= '0' && str[d] <= '9')
@@ -1103,19 +1103,19 @@ uri_escape (const char *path, const char table[], svn_boolean_t escape_ibm,
 		        retstr->data[retstr->len + d] = (str[d] - 32);
 		      else /* c == {A | B | C | D | E | F} */
 		        retstr->data[retstr->len + d] = (str[d] - 128);
-		    }
+		    }          
 #endif
           retstr->len += 3;
           retstr->data[retstr->len + 3] = '\0';
-        }
-#if APR_CHARSET_EBCDIC
+        } 
+#if APR_CHARSET_EBCDIC       
       else if(!use_ebcdic_escapes)
-        {
+        { 
         /** This is an ebcdic path.  ap_escape_path_segment() on IBM Apache
          *  conveniently escapes with the utf-8 value for the escaped
          *  character, how nice!  But more importantly it also handles utf-8
          *  values transformed into ebcdic, and does so based on the netCCSID
-         *  and fsCCSID Apache is using.
+         *  and fsCCSID Apache is using. 
          */
            svn_stringbuf_appendbytes (retstr,
                                      ap_escape_path_segment(pool, &(path[i])),
@@ -1124,13 +1124,13 @@ uri_escape (const char *path, const char table[], svn_boolean_t escape_ibm,
       else /* use_ebcdic_escapes */
         {
         /** This is an ebcdic path and the caller wants the escapes to use
-         *  ebcdic equivalents.  e.g. "Dir A" --> "Dir%40A"
+         *  ebcdic equivalents.  e.g. "Dir A" --> "Dir%40A" 
          */
           sprintf (retstr->data + retstr->len, "%%%02X", (unsigned char)c);
           retstr->len += 3;
-          retstr->data[retstr->len + 3] = '\0';
+          retstr->data[retstr->len + 3] = '\0';      
         }
-#endif
+#endif        
       /* Finally, update our copy counter. */
       copied = i + 1;
     }
@@ -1170,7 +1170,7 @@ svn_path_uri_encode_native_partial (const char *path, apr_pool_t *pool)
 {
   const char *ret;
   ret = uri_escape (path, uri_char_validity_native, FALSE, FALSE, pool);
-
+  	
   /* Our interface guarantees a copy. */
   if (ret == path)
     return apr_pstrdup (pool, path);
@@ -1183,20 +1183,20 @@ svn_path_uri_encode_native_partial_2 (const char *path, apr_pool_t *pool)
 {
   const char *ret;
   ret = uri_escape (path, uri_char_validity_native, FALSE, TRUE, pool);
-
+  	
   /* Our interface guarantees a copy. */
   if (ret == path)
     return apr_pstrdup (pool, path);
   else
     return ret;
-}
-
+}                                                
+                                                  
 const char *
 svn_path_uri_encode_native_full (const char *path, apr_pool_t *pool)
 {
   const char *ret;
   ret = uri_escape (path, uri_char_validity_native, TRUE, FALSE, pool);
-
+  	
   /* Our interface guarantees a copy. */
   if (ret == path)
     return apr_pstrdup (pool, path);
@@ -1274,7 +1274,7 @@ svn_path_uri_decode (const char *path, apr_pool_t *pool)
   retstr = svn_stringbuf_create ("", pool);
 
   /* avoid repeated realloc */
-  svn_stringbuf_ensure (retstr, strlen (path) + 1);
+  svn_stringbuf_ensure (retstr, strlen (path) + 1); 
 
   retstr->len = 0;
   for (i = 0; path[i]; i++)
@@ -1297,7 +1297,7 @@ svn_path_uri_decode (const char *path, apr_pool_t *pool)
         {
 #if APR_CHARSET_EBCDIC
           int d;
-#endif
+#endif        	
           char digitz[3];
           digitz[0] = path[++i];
           digitz[1] = path[++i];
@@ -1315,8 +1315,8 @@ svn_path_uri_decode (const char *path, apr_pool_t *pool)
             else /* digitz[d] == {A | B | C | D | E | F} */
               digitz[d] += 128;
           }
-#endif
-          c = (char)(strtol (digitz, NULL, 16));
+#endif          
+          c = (char)(strtol (digitz, NULL, 16));          
         }
 
       retstr->data[retstr->len++] = c;
@@ -1382,7 +1382,7 @@ svn_path_get_absolute(const char **pabsolute,
 
       if (apr_err)
         return svn_error_createf(SVN_ERR_BAD_FILENAME, NULL,
-                                 _("Couldn't determine absolute path of '%s'"),
+                                 _("Couldn't determine absolute path of '%s'"), 
                                  svn_path_local_style (relative, pool));
     }
 
@@ -1418,7 +1418,7 @@ svn_path_split_if_file(const char *path,
       *pdirectory = path;
       *pfile = SVN_EMPTY_PATH;
     }
-  else
+  else 
     {
       return svn_error_createf(SVN_ERR_BAD_FILENAME, NULL,
                                _("'%s' is neither a file nor a directory name"),
@@ -1467,7 +1467,7 @@ svn_path_canonicalize (const char *path, apr_pool_t *pool)
       if (!uri && *src == SVN_UTF8_FSLASH)
         *(dst++) = *(src++);
 #endif /* WIN32 or Cygwin */
-
+      
     }
 
   while (*src)
@@ -1502,7 +1502,7 @@ svn_path_canonicalize (const char *path, apr_pool_t *pool)
   /* Remove the trailing slash. */
   if ((canon_segments > 0 || uri) && *(dst - 1) == SVN_UTF8_FSLASH)
     dst--;
-
+  
   *dst = '\0';
 
 #if defined(WIN32) || defined(__CYGWIN__)
@@ -1540,7 +1540,7 @@ svn_path_cstring_from_utf8 (const char **path_apr,
                             const char *path_utf8,
                             apr_pool_t *pool)
 {
-
+  
   svn_boolean_t path_is_utf8;
   SVN_ERR (get_path_encoding (&path_is_utf8, pool));
   if (path_is_utf8)

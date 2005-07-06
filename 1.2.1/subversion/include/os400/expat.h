@@ -248,7 +248,7 @@ typedef void (*XML_EntityDeclHandler) (void *userData,
 				       const XML_Char *systemId,
 				       const XML_Char *publicId,
 				       const XML_Char *notationName);
-
+				       
 void XMLPARSEAPI
 XML_SetEntityDeclHandler(XML_Parser parser,
 			 XML_EntityDeclHandler handler);
@@ -536,7 +536,7 @@ XML_SetEncoding(XML_Parser parser, const XML_Char *encoding);
 as the first argument to callbacks instead of userData.
 The userData will still be accessible using XML_GetUserData. */
 
-void XMLPARSEAPI
+void XMLPARSEAPI 
 XML_UseParserAsHandlerArg(XML_Parser parser);
 
 /* Sets the base to be used for resolving relative URIs in system

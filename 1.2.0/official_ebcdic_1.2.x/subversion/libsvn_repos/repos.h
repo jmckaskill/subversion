@@ -43,13 +43,13 @@ extern "C" {
 #define SVN_REPOS__FORMAT \
         "\x66\x6f\x72\x6d\x61\x74"
         /* "format" - Stores the current version of the repository. */
-
+        
 #define SVN_REPOS__DB_DIR \
         "\x64\x62"
         /* "db" - Where Berkeley lives. */
 
 #define SVN_REPOS__DAV_DIR \
-        "\x64\x61\x76"
+        "\x64\x61\x76"  
         /* "dav" - DAV sandbox. */
 
 #define SVN_REPOS__LOCK_DIR \
@@ -131,11 +131,11 @@ extern "C" {
 #define SVN_REPOS__CONF_SVNSERVE_CONF \
         "\x73\x76\x6e\x73\x65\x72\x76\x65\x2e\x63\x6f\x6e\x66"
         /* "svnserve.conf" */
-
+         
 #define SVN_REPOS__CONF_PASSWD \
         "\x70\x61\x73\x73\x77\x64"
         /* "passwd" */
-
+        
 /* The Repository object, created by svn_repos_open() and
    svn_repos_create(), allocated in POOL. */
 struct svn_repos_t
@@ -178,7 +178,7 @@ svn_repos__hooks_start_commit (svn_repos_t *repos,
                                apr_pool_t *pool);
 
 /* Run the pre-commit hook for REPOS.  Use POOL for any temporary
-   allocations.  If the hook fails, return SVN_ERR_REPOS_HOOK_FAILURE.
+   allocations.  If the hook fails, return SVN_ERR_REPOS_HOOK_FAILURE.  
 
    TXN_NAME is the name of the transaction that is being committed.  */
 svn_error_t *
@@ -197,11 +197,11 @@ svn_repos__hooks_post_commit (svn_repos_t *repos,
 
 /* Run the pre-revprop-change hook for REPOS.  Use POOL for any
    temporary allocations.  If the hook fails, return
-   SVN_ERR_REPOS_HOOK_FAILURE.
+   SVN_ERR_REPOS_HOOK_FAILURE.  
 
    REV is the revision whose property is being changed.
    AUTHOR is the authenticated name of the user changing the prop.
-   NAME is the name of the property being changed.
+   NAME is the name of the property being changed.  
    NEW_VALUE is the new value of the property.
    ACTION is indicates if the property is being 'A'dded, 'M'odified,
    or 'D'eleted.
@@ -220,7 +220,7 @@ svn_repos__hooks_pre_revprop_change (svn_repos_t *repos,
 
 /* Run the pre-revprop-change hook for REPOS.  Use POOL for any
    temporary allocations.  If the hook fails, return
-   SVN_ERR_REPOS_HOOK_FAILURE.
+   SVN_ERR_REPOS_HOOK_FAILURE. 
 
    REV is the revision whose property was changed.
    AUTHOR is the authenticated name of the user who changed the prop.
@@ -241,7 +241,7 @@ svn_repos__hooks_post_revprop_change (svn_repos_t *repos,
                                       apr_pool_t *pool);
 
 /* Run the pre-lock hook for REPOS.  Use POOL for any temporary
-   allocations.  If the hook fails, return SVN_ERR_REPOS_HOOK_FAILURE.
+   allocations.  If the hook fails, return SVN_ERR_REPOS_HOOK_FAILURE.  
 
    PATH is the path being locked, USERNAME is the person doing it.  */
 svn_error_t *
@@ -251,7 +251,7 @@ svn_repos__hooks_pre_lock (svn_repos_t *repos,
                            apr_pool_t *pool);
 
 /* Run the post-lock hook for REPOS.  Use POOL for any temporary
-   allocations.  If the hook fails, return SVN_ERR_REPOS_HOOK_FAILURE.
+   allocations.  If the hook fails, return SVN_ERR_REPOS_HOOK_FAILURE.  
 
    PATHS is an array of paths being locked, USERNAME is the person
    who did it.  */
@@ -262,8 +262,8 @@ svn_repos__hooks_post_lock (svn_repos_t *repos,
                             apr_pool_t *pool);
 
 /* Run the pre-unlock hook for REPOS.  Use POOL for any temporary
-   allocations.  If the hook fails, return SVN_ERR_REPOS_HOOK_FAILURE.
-
+   allocations.  If the hook fails, return SVN_ERR_REPOS_HOOK_FAILURE.  
+   
    PATH is the path being unlocked, USERNAME is the person doing it.  */
 svn_error_t *
 svn_repos__hooks_pre_unlock (svn_repos_t *repos,
@@ -272,8 +272,8 @@ svn_repos__hooks_pre_unlock (svn_repos_t *repos,
                              apr_pool_t *pool);
 
 /* Run the post-unlock hook for REPOS.  Use POOL for any temporary
-   allocations.  If the hook fails, return SVN_ERR_REPOS_HOOK_FAILURE.
-
+   allocations.  If the hook fails, return SVN_ERR_REPOS_HOOK_FAILURE.  
+   
    PATHS is an array of paths being unlocked, USERNAME is the person
    who did it.  */
 svn_error_t *

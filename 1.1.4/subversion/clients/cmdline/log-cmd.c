@@ -67,7 +67,7 @@
 #define LOG_STR \
         "\x6c\x6f\x67"
         /* "logentry" */
-
+        
 #define LOGENTRY_STR \
         "\x6c\x6f\x67\x65\x6e\x74\x72\x79"
         /* "logentry" */
@@ -86,11 +86,11 @@
 
 #define REVISION_STR \
         "\x72\x65\x76\x69\x73\x69\x6f\x6e"
-        /* "revision" */
+        /* "revision" */ 
 
 /*** Code. ***/
 
-/* Helper for log_message_receiver().
+/* Helper for log_message_receiver(). 
  *
  * Return the number of lines in MSG, allowing any kind of newline
  * termination (CR, CRLF, or LFCR), even inconsistent.  The minimum
@@ -163,7 +163,7 @@ struct log_receiver_baton
 
 
 /* Implement `svn_log_message_receiver_t', printing the logs in
- * a human-readable and machine-parseable format.
+ * a human-readable and machine-parseable format.  
  *
  * BATON is of type `struct log_receiver_baton'.
  *
@@ -177,20 +177,20 @@ struct log_receiver_baton
  * $ svn log -r1847:1846
  * ------------------------------------------------------------------------
  * rev 1847:  cmpilato | Wed 1 May 2002 15:44:26 | 7 lines
- *
+ * 
  * Fix for Issue #694.
- *
+ * 
  * * subversion/libsvn_repos/delta.c
  *   (delta_files): Rework the logic in this function to only call
  * send_text_deltas if there are deltas to send, and within that case,
  * only use a real delta stream if the caller wants real text deltas.
- *
+ * 
  * ------------------------------------------------------------------------
  * rev 1846:  whoever | Wed 1 May 2002 15:23:41 | 1 line
- *
+ *   
  * imagine an example log message here
  * ------------------------------------------------------------------------
- *
+ * 
  * Or:
  *
  * $ svn log -r1847:1846 -v
@@ -198,23 +198,23 @@ struct log_receiver_baton
  * rev 1847:  cmpilato | Wed 1 May 2002 15:44:26 | 7 lines
  * Changed paths:
  *    M /trunk/subversion/libsvn_repos/delta.c
- *
+ * 
  * Fix for Issue #694.
- *
+ * 
  * * subversion/libsvn_repos/delta.c
  *   (delta_files): Rework the logic in this function to only call
  * send_text_deltas if there are deltas to send, and within that case,
  * only use a real delta stream if the caller wants real text deltas.
- *
+ * 
  * ------------------------------------------------------------------------
  * rev 1846:  whoever | Wed 1 May 2002 15:23:41 | 1 line
  * Changed paths:
  *    M /trunk/notes/fs_dumprestore.txt
  *    M /trunk/subversion/libsvn_repos/dump.c
- *
+ *   
  * imagine an example log message here
  * ------------------------------------------------------------------------
- *
+ * 
  * Or:
  *
  * $ svn log -r1847:1846 -q
@@ -267,18 +267,18 @@ log_message_receiver (void *baton,
 #if APR_CHARSET_EBCDIC
   else
     SVN_ERR (svn_utf_cstring_from_utf8 (&author, author, pool));
-#endif
+#endif    
 
   if (date && date[0])
     {
       /* Convert date to a format for humans. */
       apr_time_t time_temp;
-
+      
       SVN_ERR (svn_time_from_cstring (&time_temp, date, pool));
       date = svn_time_to_human_cstring(time_temp, pool);
 #if APR_CHARSET_EBCDIC
       SVN_ERR (svn_utf_cstring_from_utf8 (&date, date, pool));
-#endif
+#endif       
     }
   else
     date = _("(no date)");
@@ -319,15 +319,15 @@ log_message_receiver (void *baton,
           svn_sort__item_t *item = &(APR_ARRAY_IDX (sorted_paths, i,
                                                     svn_sort__item_t));
           const char *path = item->key;
-          svn_log_changed_path_t *log_item
+          svn_log_changed_path_t *log_item 
             = apr_hash_get (changed_paths, item->key, item->klen);
           const char *copy_data = "";
-
-          if (log_item->copyfrom_path
+          
+          if (log_item->copyfrom_path 
               && SVN_IS_VALID_REVNUM (log_item->copyfrom_rev))
             {
-              copy_data
-                = APR_PSPRINTF2 (pool,
+              copy_data 
+                = APR_PSPRINTF2 (pool, 
                                  _(" (from %s:%ld)"),
                                  log_item->copyfrom_path,
                                  log_item->copyfrom_rev);
@@ -340,7 +340,7 @@ log_message_receiver (void *baton,
 
   if (! lb->omit_log_message)
     {
-      SVN_ERR (svn_cmdline_printf (pool, "\n%s\n", msg));
+      SVN_ERR (svn_cmdline_printf (pool, "\n%s\n", msg));      
     }
 
   return SVN_NO_ERROR;
@@ -353,7 +353,7 @@ log_message_receiver (void *baton,
  *
  * Here is an example of the output; note that the "<log>" and
  * "</log>" tags are not emitted by this function:
- *
+ * 
  * $ svn log --xml -r 1648:1649
  * <log>
  * <logentry
@@ -369,13 +369,13 @@ log_message_receiver (void *baton,
  * <date>Sat 6 Apr 2002 17:01:28.185136 (day 096, dst 0, gmt_off -21600)</date>
  * <msg>Fix error handling when the $EDITOR is needed but unavailable.  Ah
  * ... now that&apos;s *much* nicer.
- *
+ * 
  * * subversion/clients/cmdline/util.c
  *   (svn_cl__edit_externally): Clean up the &quot;no external editor&quot;
  *   error message.
- *   (svn_cl__get_log_message): Wrap &quot;no external editor&quot;
+ *   (svn_cl__get_log_message): Wrap &quot;no external editor&quot; 
  *   errors with helpful hints about the -m and -F options.
- *
+ * 
  * * subversion/libsvn_client/commit.c
  *   (svn_client_commit): Actually capture and propogate &quot;no external
  *   editor&quot; errors.</msg>
@@ -436,7 +436,7 @@ log_message_receiver_xml (void *baton,
       /* <paths> */
       svn_xml_make_open_tag (&sb, pool, svn_xml_normal, PATHS_STR,
                              NULL);
-
+      
       for (hi = apr_hash_first (pool, changed_paths);
            hi != NULL;
            hi = apr_hash_next (hi))
@@ -444,7 +444,7 @@ log_message_receiver_xml (void *baton,
           void *val;
           char action[2];
           svn_log_changed_path_t *log_item;
-
+          
           apr_hash_this(hi, (void *) &path, NULL, &val);
           log_item = val;
 
@@ -457,7 +457,7 @@ log_message_receiver_xml (void *baton,
               svn_stringbuf_t *escpath = svn_stringbuf_create ("", pool);
               svn_xml_escape_attr_cstring (&escpath,
                                            log_item->copyfrom_path, pool);
-              revstr = APR_PSPRINTF2 (pool, "%ld",
+              revstr = APR_PSPRINTF2 (pool, "%ld", 
                                       log_item->copyfrom_rev);
               svn_xml_make_open_tag (&sb, pool, svn_xml_protect_pcdata,
                                      PATH_STR, ACTION_STR, action,
@@ -510,7 +510,7 @@ svn_cl__log (apr_getopt_t *os,
   apr_array_header_t *targets;
   struct log_receiver_baton lb;
 
-  SVN_ERR (svn_opt_args_to_target_array (&targets, os,
+  SVN_ERR (svn_opt_args_to_target_array (&targets, os, 
                                          opt_state->targets,
                                          &(opt_state->start_revision),
                                          &(opt_state->end_revision),
@@ -570,13 +570,13 @@ svn_cl__log (apr_getopt_t *os,
 
           /* <?xml version="1.0" encoding="utf-8"?> */
           svn_xml_make_header (&sb, pool);
-
+          
           /* "<log>" */
           svn_xml_make_open_tag (&sb, pool, svn_xml_normal, LOG_STR, NULL);
 
           SVN_ERR (error_checked_fputs (sb->data, stdout));
         }
-
+      
       SVN_ERR (svn_client_log (targets,
                                &(opt_state->start_revision),
                                &(opt_state->end_revision),
@@ -586,7 +586,7 @@ svn_cl__log (apr_getopt_t *os,
                                &lb,
                                ctx,
                                pool));
-
+      
       if (! opt_state->incremental)
         {
           svn_stringbuf_t *sb = svn_stringbuf_create ("", pool);

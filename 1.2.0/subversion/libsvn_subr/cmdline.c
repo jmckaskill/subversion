@@ -172,7 +172,7 @@ svn_cmdline_init (const char *progname, FILE *error_stream)
     apr_pool_t* pool;
     apr_status_t apr_err;
     apr_size_t inwords, outbytes, outlength;
-
+    
     apr_pool_create (&pool, 0);
     /* get exe name - our locale info will be in '../share/locale' */
     inwords = GetModuleFileNameW (0, ucs2_path,
@@ -186,7 +186,7 @@ svn_cmdline_init (const char *progname, FILE *error_stream)
         if (! GetModuleFileNameA (0, ansi_path, sizeof (ansi_path)))
           goto utf8_error;
 
-        inwords =
+        inwords = 
           MultiByteToWideChar (CP_ACP, 0, ansi_path, -1, ucs2_path,
                                sizeof (ucs2_path) / sizeof (ucs2_path[0]));
         if (! inwords)
@@ -213,7 +213,7 @@ svn_cmdline_init (const char *progname, FILE *error_stream)
     internal_path = svn_path_dirname (internal_path, pool);
     internal_path = svn_path_join (internal_path, SVN_LOCALE_RELATIVE_PATH,
                                    pool);
-    bindtextdomain (PACKAGE_NAME, internal_path);
+    bindtextdomain (PACKAGE_NAME, internal_path);    
     apr_pool_destroy (pool);
   }
 #else
@@ -301,7 +301,7 @@ svn_cmdline_printf_ebcdic (apr_pool_t *pool, const char *fmt, ...)
 {
   const char *message;
   va_list ap;
-
+ 
   va_start (ap, fmt);
   message = svn_ebcdic_pvsprintf2 (pool, fmt, ap);
   va_end (ap);
@@ -332,7 +332,7 @@ svn_cmdline_fprintf_ebcdic (FILE *stream, apr_pool_t *pool,
 {
   const char *message;
   va_list ap;
-
+  
   va_start (ap, fmt);
   message = svn_ebcdic_pvsprintf2 (pool, fmt, ap);
   va_end (ap);
@@ -354,7 +354,7 @@ svn_cmdline_fputs (const char *string, FILE* stream, apr_pool_t *pool)
    * set does not have ASCII as a subset.
    */
   err = NULL;
-  out = string;
+  out = string;  
 #endif
 
   if (err)

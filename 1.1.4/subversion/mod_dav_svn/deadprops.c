@@ -68,10 +68,10 @@ static void get_repos_propname(dav_db *db, const dav_prop_name *name,
     {
       /* recombine the namespace ("svn:") and the name. */
       const char *prefix = SVN_PROP_PREFIX;
-#if APR_CHARSET_EBCDIC
+#if APR_CHARSET_EBCDIC    
       if (svn_utf_cstring_from_netccsid(&prefix, prefix, db->resource->pool))
         prefix = SVN_PROP_PREFIX;
-#endif
+#endif         
       svn_stringbuf_set(db->work, prefix);
       svn_stringbuf_appendcstr(db->work, name->name);
       *repos_propname = db->work->data;
@@ -125,7 +125,7 @@ static dav_error *get_value(dav_db *db, const dav_prop_name *name,
                                         db->authz_read_baton, db->p);
   else
     {
-      const char *repos_path = get_repos_path(db->resource->info);
+      const char *repos_path = get_repos_path(db->resource->info);	
 #if APR_CHARSET_EBCDIC
       if (svn_utf_cstring_to_netccsid(&repos_path, repos_path,
                                       db->resource->pool))
@@ -133,7 +133,7 @@ static dav_error *get_value(dav_db *db, const dav_prop_name *name,
                              apr_psprintf(db->resource->pool,
                                           "Error converting string '%s'",
                                           repos_path));
-#endif
+#endif    	
       serr = svn_fs_node_prop(pvalue, db->resource->info->root.root, repos_path,
                               propname, db->p);
     }
@@ -165,7 +165,7 @@ static dav_error *save_value(dav_db *db, const dav_prop_name *name,
                              SVN_DAV_PROP_NS_SVN " and " SVN_DAV_PROP_NS_CUSTOM
                              " namespaces.");
     }
-#if APR_CHARSET_EBCDIC
+#if APR_CHARSET_EBCDIC    
   if (value &&
       svn_utf_string_to_netccsid(&value, value,
                                  db->resource->pool))
@@ -178,8 +178,8 @@ static dav_error *save_value(dav_db *db, const dav_prop_name *name,
     return dav_new_error(db->resource->pool, HTTP_INTERNAL_SERVER_ERROR, 0,
                          apr_psprintf(db->resource->pool,
                                       "Error converting string '%s'",
-                                      propname));
-#endif
+                                      propname));                                                                            
+#endif 
   /* Working Baseline or Working (Version) Resource */
   if (db->resource->baselined)
     {
@@ -188,15 +188,15 @@ static dav_error *save_value(dav_db *db, const dav_prop_name *name,
                                             propname, value, db->resource->pool);
       else
         {
-          const char *username_utf8 = db->resource->info->repos->username;
-#if APR_CHARSET_EBCDIC
+          const char *username_utf8 = db->resource->info->repos->username;	
+#if APR_CHARSET_EBCDIC          
           if (svn_utf_cstring_to_netccsid(&username_utf8,
                                           db->resource->info->repos->username,
                                           db->p))
             return dav_new_error(db->p, HTTP_INTERNAL_SERVER_ERROR, 0,
                      apr_psprintf(db->p, "Error converting string '%s'",
                                   db->resource->info->repos->username));
-#endif
+#endif       	
           /* ### VIOLATING deltaV: you can't proppatch a baseline, it's
              not a working resource!  But this is how we currently
              (hackily) allow the svn client to change unversioned rev
@@ -212,7 +212,7 @@ static dav_error *save_value(dav_db *db, const dav_prop_name *name,
     }
   else
     {
-      const char *repos_path = get_repos_path(db->resource->info);
+      const char *repos_path = get_repos_path(db->resource->info);	
 #if APR_CHARSET_EBCDIC
       if (svn_utf_cstring_to_netccsid(&repos_path, repos_path,
                                       db->resource->pool))
@@ -220,7 +220,7 @@ static dav_error *save_value(dav_db *db, const dav_prop_name *name,
                              apr_psprintf(db->resource->pool,
                                           "Error converting string '%s'",
                                           repos_path));
-#endif
+#endif    
     serr = svn_repos_fs_change_node_prop(db->resource->info->root.root,
                                          repos_path, propname, value,
                                          db->resource->pool);
@@ -305,7 +305,7 @@ static dav_error *dav_svn_db_define_namespaces(dav_db *db, dav_xmlns_info *xi)
   return NULL;
 }
 
-static dav_error *dav_svn_db_output_value(dav_db *db,
+static dav_error *dav_svn_db_output_value(dav_db *db, 
                                           const dav_prop_name *name,
                                           dav_xmlns_info *xi,
                                           apr_text_header *phdr, int *found)
@@ -333,7 +333,7 @@ static dav_error *dav_svn_db_output_value(dav_db *db,
     {
       /* empty value. add an empty elem.        DEBUG_CR */
       s = apr_psprintf(pool, "<%s%s/>\n", prefix, name->name);
-      apr_text_append(pool, phdr, s);
+      apr_text_append(pool, phdr, s); 
     }
   else
     {
@@ -350,7 +350,7 @@ static dav_error *dav_svn_db_output_value(dav_db *db,
           encoding = apr_pstrcat(pool, " V:encoding=\"base64\"", NULL);
         }
       else
-        {
+        {    
           svn_stringbuf_t *xmlval = NULL;
           svn_xml_escape_cdata_string(&xmlval, propval, pool);
           xml_safe = xmlval->data;
@@ -360,14 +360,14 @@ static dav_error *dav_svn_db_output_value(dav_db *db,
                                  apr_psprintf(pool,
                                               "Error converting string '%s'",
                                               xml_safe));
-#endif
+#endif          
         }
-      s = apr_psprintf(pool, "<%s%s%s>", prefix, name->name, encoding);
+      s = apr_psprintf(pool, "<%s%s%s>", prefix, name->name, encoding); 
       apr_text_append(pool, phdr, s);
 
       /* the value is in our pool which means it has the right lifetime. */
       /* ### at least, per the current mod_dav architecture/API */
-      apr_text_append(pool, phdr, xml_safe);
+      apr_text_append(pool, phdr, xml_safe);                                                
       s = apr_psprintf(pool, "</%s%s>\n", prefix, name->name);
       apr_text_append(pool, phdr, s);
     }
@@ -401,7 +401,7 @@ static dav_error *dav_svn_db_store(dav_db *db, const dav_prop_name *name,
 
   propval->data = dav_xml_get_cdata(elem, pool, 0 /* strip_white */);
   propval->len = strlen(propval->data);
-
+  
   /* Check for special encodings of the property value. */
   while (attr)
     {
@@ -420,7 +420,7 @@ static dav_error *dav_svn_db_store(dav_db *db, const dav_prop_name *name,
                                      apr_psprintf(pool,
                                                   "Error converting string '%s'",
                                                   propval->data));
-#endif
+#endif            
             }
           else
             return dav_new_error (pool, HTTP_INTERNAL_SERVER_ERROR, 0,
@@ -459,9 +459,9 @@ static dav_error *dav_svn_db_remove(dav_db *db, const dav_prop_name *name)
       serr = svn_repos_fs_change_txn_prop(db->resource->info->root.txn,
                                           propname, NULL, db->resource->pool);
     else
-      {
-      	const char *username_utf8 = db->resource->info->repos->username;
-#if APR_CHARSET_EBCDIC
+      { 
+      	const char *username_utf8 = db->resource->info->repos->username;    
+#if APR_CHARSET_EBCDIC          
         if (svn_utf_cstring_to_netccsid(&username_utf8,
                                         db->resource->info->repos->username,
                                         db->p))
@@ -469,7 +469,7 @@ static dav_error *dav_svn_db_remove(dav_db *db, const dav_prop_name *name)
                                apr_psprintf(db->p,
                                             "Error converting string '%s'",
                                              db->resource->info->repos->username));
-#endif
+#endif         	
         /* ### VIOLATING deltaV: you can't proppatch a baseline, it's
            not a working resource!  But this is how we currently
            (hackily) allow the svn client to change unversioned rev
@@ -563,8 +563,8 @@ static void get_name(dav_db *db, dav_prop_name *pname)
                                             (const char *)name + 4,
                                             db->p))
             /* How to best handle a conversion error here? */
-            pname->name = (const char *)name + 4;
-#endif
+            pname->name = (const char *)name + 4;                                  
+#endif          
         }
       else
         {
@@ -572,11 +572,11 @@ static void get_name(dav_db *db, dav_prop_name *pname)
 #if !APR_CHARSET_EBCDIC
           pname->name = name;
 #else
-          if (svn_utf_cstring_from_netccsid(&(pname->name), (const char *)name,
+          if (svn_utf_cstring_from_netccsid(&(pname->name), (const char *)name, 
                                             db->p))
             /* How to best handle a conversion error here? */
             pname->name = name;
-#endif
+#endif               
         }
     }
 }
@@ -592,7 +592,7 @@ static dav_error *dav_svn_db_first_name(dav_db *db, dav_prop_name *pname)
       if (db->resource->baselined)
         {
           if (db->resource->type == DAV_RESOURCE_TYPE_WORKING)
-            serr = svn_fs_txn_proplist(&db->props,
+            serr = svn_fs_txn_proplist(&db->props, 
                                        db->resource->info->root.txn,
                                        db->p);
           else
@@ -616,8 +616,8 @@ static dav_error *dav_svn_db_first_name(dav_db *db, dav_prop_name *pname)
                                                 "Error converting string '%s'",
                                                 repos_path_utf8));
             }
-#endif
-          serr = svn_fs_node_proplist(&db->props,
+#endif        	
+          serr = svn_fs_node_proplist(&db->props, 
                                       db->resource->info->root.root,
                                       repos_path_utf8, db->p);
         }
@@ -649,7 +649,7 @@ static dav_error *dav_svn_db_next_name(dav_db *db, dav_prop_name *pname)
   return NULL;
 }
 
-static dav_error *dav_svn_db_get_rollback(dav_db *db,
+static dav_error *dav_svn_db_get_rollback(dav_db *db, 
                                           const dav_prop_name *name,
                                           dav_deadprop_rollback **prollback)
 {
@@ -676,7 +676,7 @@ static dav_error *dav_svn_db_apply_rollback(dav_db *db,
     {
       return dav_svn_db_remove(db, &rollback->name);
     }
-
+  
   return save_value(db, &rollback->name, &rollback->value);
 }
 
