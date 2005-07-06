@@ -3,9 +3,9 @@
 #  hot-backup.py: perform a "hot" backup of a Berkeley DB repository.
 #                 (and clean old logfiles after backup completes.)
 #
-#  Subversion is a tool for revision control.
+#  Subversion is a tool for revision control. 
 #  See http://subversion.tigris.org for more information.
-#
+#    
 # ====================================================================
 # Copyright (c) 2000-2004 CollabNet.  All rights reserved.
 #
@@ -125,7 +125,7 @@ if young_list:
 ###         copied last.
 
 print "Backing up repository to '" + backup_subdir + "'..."
-err_code = os.spawnl(os.P_WAIT, svnadmin, "svnadmin", "hotcopy", repo_dir,
+err_code = os.spawnl(os.P_WAIT, svnadmin, "svnadmin", "hotcopy", repo_dir, 
                      backup_subdir, "--clean-logs")
 if(err_code != 0):
   print "Unable to backup the repository."
