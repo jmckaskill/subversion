@@ -33,7 +33,7 @@ Candidate changes:
     Votes:
       +1: maxb
 
-  * r15290
+  * r15290 
     Hooks bugfix: if lock already exists and --force not passed, then
     don't call 'pre-(un)lock'.
     Justification:
