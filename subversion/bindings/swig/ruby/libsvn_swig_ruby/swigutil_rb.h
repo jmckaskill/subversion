@@ -47,7 +47,7 @@ svn_swig_rb_array_to_auth_provider_object_apr_array(VALUE array,
                                                     apr_pool_t *pool);
 apr_array_header_t * svn_swig_rb_array_to_apr_array_prop(VALUE array,
                                                          apr_pool_t *pool);
-
+  
 void svn_swig_rb_get_pool(int argc, VALUE *argv, VALUE self, VALUE *rb_pool, apr_pool_t **pool);
 void svn_swig_rb_set_pool(VALUE target, VALUE pool);
 void svn_swig_rb_push_pool(VALUE pool);
@@ -65,19 +65,19 @@ svn_error_t *svn_swig_rb_log_receiver(void *baton,
                                       const char *date,
                                       const char *message,
                                       apr_pool_t *pool);
-
+  
 svn_error_t *svn_swig_rb_repos_authz_func(svn_boolean_t *allowed,
                                           svn_fs_root_t *root,
                                           const char *path,
                                           void *baton,
                                           apr_pool_t *pool);
-
+  
 svn_error_t *svn_swig_rb_get_commit_log_func(const char **log_msg,
                                              const char **tmp_file,
                                              apr_array_header_t *commit_items,
                                              void *baton,
                                              apr_pool_t *pool);
-
+  
 /* auth provider callbacks */
 svn_error_t *svn_swig_rb_auth_simple_prompt_func(
     svn_auth_cred_simple_t **cred,
