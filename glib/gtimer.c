@@ -21,10 +21,10 @@
  * Modified by the GLib Team and others 1997-1999.  See the AUTHORS
  * file for a list of people on the GLib Team.  See the ChangeLog
  * files for a list of changes.  These files are distributed with
- * GLib at ftp://ftp.gtk.org/pub/gtk/.
+ * GLib at ftp://ftp.gtk.org/pub/gtk/. 
  */
 
-/*
+/* 
  * MT safe
  */
 
@@ -187,14 +187,14 @@ g_timer_elapsed (GTimer *timer,
   if (total < 0)
     {
       total = 0;
-
+      
       if (microseconds)
 	*microseconds = 0;
     }
   else
     if (microseconds)
       *microseconds = elapsed.tv_usec;
-
+  
 #endif /* !NATIVE_WIN32 */
 
   return total;
