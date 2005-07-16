@@ -37,7 +37,7 @@ svn_error_t *
 svn_nls_environment_init (void)
 {
   svn_error_t *error = SVN_NO_ERROR;
-
+  
 #ifdef ENABLE_NLS
 #ifdef WIN32
   {
@@ -47,7 +47,7 @@ svn_nls_environment_init (void)
     apr_pool_t* pool;
     apr_status_t apr_err;
     apr_size_t inwords, outbytes, outlength;
-
+    
     apr_pool_create (&pool, 0);
     /* get exe name - our locale info will be in '../share/locale' */
     inwords = GetModuleFileNameW (0, ucs2_path,
@@ -60,7 +60,7 @@ svn_nls_environment_init (void)
 
         if (GetModuleFileNameA (0, ansi_path, sizeof (ansi_path)))
           {
-            inwords =
+            inwords = 
               MultiByteToWideChar (CP_ACP, 0, ansi_path, -1, ucs2_path,
                                    sizeof (ucs2_path) / sizeof (ucs2_path[0]));
             if (! inwords) {
