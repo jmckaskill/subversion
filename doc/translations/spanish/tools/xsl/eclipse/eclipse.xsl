@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 		version="1.0">
-
+  
 <xsl:import href="../html/chunk.xsl"/>
 
 <!-- ********************************************************************
@@ -72,7 +72,7 @@
               <xsl:with-param name="object" select="key('id',$rootid)"/>
             </xsl:call-template>
           </xsl:variable>
-
+          
           <toc label="{$title}" topic="{$href}">
             <xsl:apply-templates select="key('id',$rootid)/*" mode="etoc"/>
           </toc>
@@ -95,7 +95,7 @@
               <xsl:with-param name="object" select="/"/>
             </xsl:call-template>
           </xsl:variable>
-
+          
           <toc label="{$title}" topic="{$href}">
             <xsl:apply-templates select="/*/*" mode="etoc"/>
           </toc>
@@ -151,7 +151,7 @@
         <extension point="org.eclipse.help.toc">
           <toc file="toc.xml" primary="true"/>
         </extension>
-
+          
       </plugin>
     </xsl:with-param>
   </xsl:call-template>
