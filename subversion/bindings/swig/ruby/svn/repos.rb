@@ -17,7 +17,7 @@ module Svn
     end
     alias_method :_create, :create
     alias_method :_open, :open
-
+    
     module_function
     def open(path)
       repos = _open(path)
@@ -45,13 +45,13 @@ module Svn
           end
         end
       end
-
+      
       def_simple_delegate :path, :db_env, :conf_dir
       def_simple_delegate :svnserve_conf, :lock_dir
       def_simple_delegate :start_commit_hook
       def_simple_delegate :pre_commit_hook, :post_commit_hook
       def_simple_delegate :pre_revprop_change_hook, :post_revprop_change_hook
-
+      
       def fs
         @fs ||= Repos.fs(self)
       end
@@ -68,7 +68,7 @@ module Svn
         txn = nil
         args = [self, rev || youngest_rev, author, log]
         txn = Repos.fs_begin_txn_for_commit(*args)
-
+        
         if block_given?
           yield(txn)
           commit(txn) if fs.transactions.include?(txn.name)
@@ -99,7 +99,7 @@ module Svn
 
       alias text_mod? text_mod
       alias prop_mod? prop_mod
-
+      
       def copy?
         Util.copy?(copyfrom_path, copyfrom_rev)
       end
@@ -131,7 +131,7 @@ module Svn
       def unknown?
         kind == Core::NODE_UNKNOWN
       end
-
+      
     end
   end
 end
