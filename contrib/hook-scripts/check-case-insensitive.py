@@ -230,12 +230,12 @@ class CheckCase:
         print >> sys.stderr, 'Changedroot is ' + changedroot.encode('utf-8')
       # Get that part of the file tree.
       tree = self.look.cmd_tree(changedroot)
-
+  
       if debug:
         print >> sys.stderr, 'File tree:'
         for path in tree.paths.keys():
           print >> sys.stderr, '  [%d] %s len %d' % (tree.paths[path], path.encode('utf-8'), len(path))
-
+  
       # If a member of the paths hash has a count of more than one there is a
       # case conflict.
       for path in tree.paths.keys():
