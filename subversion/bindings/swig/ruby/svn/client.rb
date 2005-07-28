@@ -27,7 +27,7 @@ module Svn
       end
     end
 
-
+    
     Context = Ctx
     class Context
       class << self
@@ -41,7 +41,7 @@ module Svn
 
       alias _auth_baton auth_baton
       attr_reader :auth_baton
-
+      
       alias _initialize initialize
       def initialize
         @prompts = []
@@ -54,7 +54,7 @@ module Svn
       def checkout(url, path, revision="HEAD", recurse=true)
         Client.checkout(url, path, revision, recurse, self)
       end
-
+      
       def checkout2(url, path, peg_revision=nil, revision="HEAD", recurse=true)
         Client.checkout2(url, path, peg_revision, revision, recurse, self)
       end
@@ -100,20 +100,20 @@ module Svn
         paths = [paths] unless paths.is_a?(Array)
         Client.revert(paths, recurse, self)
       end
-
+      
       def propset(name, value, target, recurse=true, force=false)
         Client.propset2(name, value, target, recurse, force, self)
       end
-
+      
       def propdel(name, target, recurse=true, force=false)
         Client.propset2(name, nil, target, recurse, force, self)
       end
-
+      
       def copy(src_path, dst_path, rev=nil)
         Client.copy(src_path, rev || "HEAD", dst_path, self)
       end
       alias cp copy
-
+      
       def move(src_path, dst_path, rev=nil, force=false)
         Client.move(src_path, rev || "HEAD", dst_path, force, self)
       end
@@ -140,7 +140,7 @@ module Svn
           output
         end
       end
-
+      
       def cat2(path, peg_rev=nil, rev="HEAD", output=nil)
         used_string_io = output.nil?
         output ||= StringIO.new
@@ -152,7 +152,7 @@ module Svn
           output
         end
       end
-
+      
       def log(paths, start_rev, end_rev, limit,
               discover_changed_paths, strict_node_history)
         paths = [paths] unless paths.is_a?(Array)
@@ -165,7 +165,7 @@ module Svn
                     strict_node_history,
                     receiver, self)
       end
-
+      
       def log_message(paths, start_rev=nil, end_rev=nil)
         start_rev ||= "HEAD"
         end_rev ||= start_rev
@@ -186,35 +186,35 @@ module Svn
       def add_simple_provider
         add_provider(Client.get_simple_provider)
       end
-
+      
       def add_username_provider
         add_provider(Client.get_username_provider)
       end
-
+      
       def add_simple_prompt_provider(retry_limit, prompt=Proc.new)
         args = [retry_limit]
         klass = Core::AuthCredSimple
         add_prompt_provider("simple", args, prompt, klass)
       end
-
+      
       def add_username_prompt_provider(retry_limit, prompt=Proc.new)
         args = [retry_limit]
         klass = Core::AuthCredUsername
         add_prompt_provider("username", args, prompt, klass)
       end
-
+      
       def add_ssl_server_trust_prompt_provider(prompt=Proc.new)
         args = []
         klass = Core::AuthCredSSLServerTrust
         add_prompt_provider("ssl_server_trust", args, prompt, klass)
       end
-
+      
       def add_ssl_client_cert_prompt_provider(retry_limit, prompt=Proc.new)
         args = [retry_limit]
         klass = Core::AuthCredSSLClientCert
         add_prompt_provider("ssl_client_cert", args, prompt, klass)
       end
-
+      
       def add_ssl_client_cert_pw_prompt_provider(retry_limit, prompt=Proc.new)
         args = [retry_limit]
         klass = Core::AuthCredSSLClientCertPw
