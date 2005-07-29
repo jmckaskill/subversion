@@ -5,7 +5,7 @@ require "svn/core"
 
 class SvnCoreTest < Test::Unit::TestCase
   include SvnTestUtil
-
+  
   def setup
     @repos_path = File.join("test", "repos")
     setup_repository(@repos_path)
@@ -15,7 +15,7 @@ class SvnCoreTest < Test::Unit::TestCase
     GC.enable
     teardown_repository(@repos_path)
   end
-
+  
   def test_binary_mime_type?
     assert(Svn::Core.binary_mime_type?("image/png"))
     assert(!Svn::Core.binary_mime_type?("text/plain"))
@@ -32,7 +32,7 @@ class SvnCoreTest < Test::Unit::TestCase
     assert_true(Svn::Core::Version.new(nil, nil, nil, "").valid?)
     assert_true(Svn::Core::Version.new.valid?)
   end
-
+  
   def test_version_equal
     major = 1
     minor = 2
@@ -90,13 +90,13 @@ class SvnCoreTest < Test::Unit::TestCase
       auth[key] = 1
     end
   end
-
+  
   def test_pool_GC
     GC.disable
 
     made_number_of_pool = 100
     pools = []
-
+    
     gc
     before_number_of_pools = number_of_pools
     made_number_of_pool.times do
