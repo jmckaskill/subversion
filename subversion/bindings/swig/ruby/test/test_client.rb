@@ -18,7 +18,7 @@ class SvnClientTest < Test::Unit::TestCase
   def test_version
     assert_equal(Svn::Core.subr_version, Svn::Client.version)
   end
-
+  
   def test_commit
     log = "sample log"
     ctx = make_context(log)
@@ -28,7 +28,7 @@ class SvnClientTest < Test::Unit::TestCase
     ctx.commit(@wc_path)
     assert_equal(1, youngest_rev)
   end
-
+  
   def test_update
     log = "sample log"
     file = "hello.txt"
@@ -37,11 +37,11 @@ class SvnClientTest < Test::Unit::TestCase
     File.open(path, "w"){|f| f.print(content)}
 
     ctx = make_context(log)
-
+    
     assert_nothing_raised do
       ctx.update(File.join(@wc_path, "non-exist"), youngest_rev)
     end
-
+    
     ctx.add(path)
     commit_info = ctx.commit(@wc_path)
 
@@ -50,7 +50,7 @@ class SvnClientTest < Test::Unit::TestCase
     assert_equal(commit_info.revision,
                  ctx.update(path, commit_info.revision))
     assert_equal(content, File.read(path))
-
+    
     FileUtils.rm(path)
     assert(!File.exist?(path))
     assert_equal([commit_info.revision],
@@ -147,7 +147,7 @@ class SvnClientTest < Test::Unit::TestCase
 
     assert_equal(src1, ctx.cat(path, rev1))
     assert_equal(src1, ctx.cat(path))
-
+    
     File.open(path, "w") {|f| f.print(src2)}
 
     commit_info = ctx.commit(@wc_path)
@@ -198,7 +198,7 @@ class SvnClientTest < Test::Unit::TestCase
                  ctx.revprop(Svn::Core::PROP_REVISION_LOG,
                              @repos_uri, info.revision))
   end
-
+  
   def test_authentication
     log = "sample log"
     src = "source\n"
@@ -213,11 +213,11 @@ class SvnClientTest < Test::Unit::TestCase
     ctx.commit(@wc_path)
 
     ctx = Svn::Client::Context.new
-
+    
     assert_raises(Svn::Error::AUTHN_NO_PROVIDER) do
       ctx.cat(svnserve_uri)
     end
-
+    
     ctx.add_simple_prompt_provider(0) do |cred, realm, username, may_save|
       cred.username = "wrong-#{@author}"
       cred.password = @password
@@ -226,7 +226,7 @@ class SvnClientTest < Test::Unit::TestCase
     assert_raises(Svn::Error::RA_NOT_AUTHORIZED) do
       ctx.cat(svnserve_uri)
     end
-
+    
     ctx.add_simple_prompt_provider(0) do |cred, realm, username, may_save|
       cred.username = @author
       cred.password = "wrong-#{@password}"
@@ -235,7 +235,7 @@ class SvnClientTest < Test::Unit::TestCase
     assert_raises(Svn::Error::RA_NOT_AUTHORIZED) do
       ctx.cat(svnserve_uri)
     end
-
+    
     ctx.add_simple_prompt_provider(0) do |cred, realm, username, may_save|
       cred.username = @author
       cred.password = @password
@@ -250,7 +250,7 @@ class SvnClientTest < Test::Unit::TestCase
     file = "sample.txt"
     path = File.join(@wc_path, file)
     svnserve_uri = "#{@repos_svnserve_uri}/#{file}"
-
+    
     File.open(path, "w") {|f| f.print(src)}
 
     ctx = make_context(log)
@@ -289,7 +289,7 @@ class SvnClientTest < Test::Unit::TestCase
     file = "sample.txt"
     path = File.join(@wc_path, file)
     svnserve_uri = "#{@repos_svnserve_uri}/#{file}"
-
+    
     File.open(path, "w") {|f| f.print(src)}
 
     ctx = make_context(log)
@@ -319,7 +319,7 @@ class SvnClientTest < Test::Unit::TestCase
     ctx.add_windows_simple_provider
     assert_equal(src, ctx.cat(svnserve_uri))
   end
-
+  
   def test_username_provider
     log = "sample log"
     new_log = "sample new log"
@@ -373,7 +373,7 @@ class SvnClientTest < Test::Unit::TestCase
                       repos_uri, info.revision)
     end
   end
-
+  
   def test_not_new
     assert_raise(NoMethodError) do
       Svn::Client::CommitItem.new
