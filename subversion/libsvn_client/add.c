@@ -100,7 +100,7 @@ auto_props_enumerator (const char *name,
   /* check if filename matches and return if it doesn't */
   if (apr_fnmatch (name, autoprops->filename, 0) == APR_FNM_NOMATCH)
     return TRUE;
-
+  
   /* parse the value (we dup it first to effectively lose the
      'const', and to avoid messing up the original value) */
   property = apr_pstrdup (autoprops->pool, value);
@@ -178,7 +178,7 @@ svn_client__get_auto_props (apr_hash_t **properties,
       SVN_ERR (svn_io_detect_mimetype (&autoprops.mimetype, path, pool));
       if (autoprops.mimetype)
         apr_hash_set (autoprops.properties, SVN_PROP_MIME_TYPE,
-                      strlen (SVN_PROP_MIME_TYPE),
+                      strlen (SVN_PROP_MIME_TYPE), 
                       svn_string_create (autoprops.mimetype, pool));
     }
 
@@ -189,7 +189,7 @@ svn_client__get_auto_props (apr_hash_t **properties,
       SVN_ERR (svn_io_is_file_executable (&executable, path, pool));
       if (executable)
         apr_hash_set (autoprops.properties, SVN_PROP_EXECUTABLE,
-                      strlen (SVN_PROP_EXECUTABLE),
+                      strlen (SVN_PROP_EXECUTABLE), 
                       svn_string_create ("", pool));
     }
 
@@ -239,7 +239,7 @@ add_file (const char *path,
             {
               const void *pname;
               void *pval;
-
+          
               apr_hash_this (hi, &pname, NULL, &pval);
               /* It's probably best to pass 0 for force, so that if
                  the autoprops say to set some weird combination,
@@ -263,16 +263,16 @@ add_file (const char *path,
   return SVN_NO_ERROR;
 }
 
-/* Schedule directory DIRNAME recursively for addition with access baton
+/* Schedule directory DIRNAME recursively for addition with access baton 
  * ADM_ACCESS.
  *
  * If DIRNAME (or any item below directory DIRNAME) is already scheduled for
  * addition, add will fail and return an error unless FORCE is TRUE.
  *
- * Files and directories that match ignore patterns will not be added unless
+ * Files and directories that match ignore patterns will not be added unless 
  * NO_IGNORE is TRUE.
  *
- * If CTX->CANCEL_FUNC is non-null, call it with CTX->CANCEL_BATON to allow
+ * If CTX->CANCEL_FUNC is non-null, call it with CTX->CANCEL_BATON to allow 
  * the user to cancel the operation
  */
 static svn_error_t *
@@ -322,11 +322,11 @@ add_dir_recursive (const char *dirname,
     {
       const char *fullpath;
 
-      /* Check cancellation so you can cancel during an
+      /* Check cancellation so you can cancel during an 
        * add of a directory with lots of files. */
       if (ctx->cancel_func)
         SVN_ERR (ctx->cancel_func (ctx->cancel_baton));
-
+      
       /* Skip over SVN admin directories. */
       if (strcmp (this_entry.name, SVN_WC_ADM_DIR_NAME) == 0)
         continue;
@@ -338,7 +338,7 @@ add_dir_recursive (const char *dirname,
         continue;
 
       if ((!no_ignore) && svn_cstring_match_glob_list (this_entry.name,
-                                                       ignores))
+                                                       ignores)) 
         continue;
 
       /* Construct the full path of the entry. */
@@ -397,7 +397,7 @@ add_dir_recursive (const char *dirname,
    is that this function uses an existing access baton.
    (svn_client_add just generates an access baton and calls this func.) */
 static svn_error_t *
-add (const char *path,
+add (const char *path, 
      svn_boolean_t recursive,
      svn_boolean_t force,
      svn_boolean_t no_ignore,
@@ -430,7 +430,7 @@ add (const char *path,
 
 
 svn_error_t *
-svn_client_add3 (const char *path,
+svn_client_add3 (const char *path, 
                  svn_boolean_t recursive,
                  svn_boolean_t force,
                  svn_boolean_t no_ignore,
@@ -446,7 +446,7 @@ svn_client_add3 (const char *path,
                              pool));
 
   err = add (path, recursive, force, no_ignore, adm_access, ctx, pool);
-
+  
   err2 = svn_wc_adm_close (adm_access);
   if (err2)
     {
@@ -471,7 +471,7 @@ svn_client_add2 (const char *path,
 }
 
 svn_error_t *
-svn_client_add (const char *path,
+svn_client_add (const char *path, 
                 svn_boolean_t recursive,
                 svn_client_ctx_t *ctx,
                 apr_pool_t *pool)
@@ -552,9 +552,9 @@ mkdir_urls (svn_client_commit_info_t **commit_info,
     {
       svn_client_commit_item_t *item;
       const char *tmp_file;
-      apr_array_header_t *commit_items
+      apr_array_header_t *commit_items 
         = apr_array_make (pool, targets->nelts, sizeof (item));
-
+          
       for (i = 0; i < targets->nelts; i++)
         {
           const char *path = APR_ARRAY_IDX (targets, i, const char *);
@@ -563,7 +563,7 @@ mkdir_urls (svn_client_commit_info_t **commit_info,
           item->state_flags = SVN_CLIENT_COMMIT_ITEM_ADD;
           APR_ARRAY_PUSH (commit_items, svn_client_commit_item_t *) = item;
         }
-      SVN_ERR ((*ctx->log_msg_func) (&log_msg, &tmp_file, commit_items,
+      SVN_ERR ((*ctx->log_msg_func) (&log_msg, &tmp_file, commit_items, 
                                      ctx->log_msg_baton, pool));
       if (! log_msg)
         return SVN_NO_ERROR;
@@ -589,13 +589,13 @@ mkdir_urls (svn_client_commit_info_t **commit_info,
   SVN_ERR (svn_client__commit_get_baton (&commit_baton, commit_info, pool));
   SVN_ERR (svn_ra_get_commit_editor (ra_session, &editor, &edit_baton,
                                      log_msg, svn_client__commit_callback,
-                                     commit_baton,
+                                     commit_baton, 
                                        NULL, TRUE, /* No lock tokens */
                                      pool));
-
+  
   /* Call the path-based editor driver. */
-  err = svn_delta_path_driver (editor, edit_baton, SVN_INVALID_REVNUM,
-                               targets, path_driver_cb_func,
+  err = svn_delta_path_driver (editor, edit_baton, SVN_INVALID_REVNUM, 
+                               targets, path_driver_cb_func, 
                                (void *)editor, pool);
   if (err)
     {
@@ -619,7 +619,7 @@ svn_client_mkdir (svn_client_commit_info_t **commit_info,
 {
   if (! paths->nelts)
     return SVN_NO_ERROR;
-
+  
   if (svn_path_is_url (APR_ARRAY_IDX (paths, 0, const char *)))
     {
       SVN_ERR (mkdir_urls (commit_info, paths, ctx, pool));
