@@ -93,6 +93,11 @@ module Svn
           Client.update(paths, rev, recurse, self)
         end
       end
+      alias up update
+
+      def import(path, uri, recurse=true, no_ignore=false)
+        Client.import2(path, uri, !recurse, no_ignore, self)
+      end
 
       def cleanup(dir)
         Client.cleanup(dir, self)
