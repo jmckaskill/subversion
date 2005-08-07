@@ -14,7 +14,7 @@ Candidate changes:
     Justification:
       It's possible to get authz failures when they shouldn't exist.
     Notes:
-      See the original bug report at
+      See the original bug report at 
       http://subversion.tigris.org/servlets/ReadMsg?listName=users&msgNo=35734
     Votes:
       +1: sussman, lundblad, kfogel
@@ -60,12 +60,12 @@ Approved changes (further review is welcome, but not required):
       branch was required to fix a trivial conflict.
     Votes:
       +1: sussman, lundblad, philip
-
+  
   * r15609
     Make SVN::Delta::Editor friendlier for debugging.
     Justification:
       Bindings only.  Makes error handling simpler.
     Votes:
       +1: clkao
-      +0: djames
+      +0: djames  
 
