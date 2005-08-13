@@ -157,7 +157,7 @@ def locate_libs():
 
   os.environ['APR_ICONV_PATH'] = apriconv_so_path
   os.environ['PATH'] = abs_objdir + os.pathsep + os.environ['PATH']
-
+  
 def fix_case(path):
     path = os.path.normpath(path)
     parts = string.split(path, '\\')
