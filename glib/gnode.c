@@ -24,10 +24,10 @@
  * Modified by the GLib Team and others 1997-1999.  See the AUTHORS
  * file for a list of people on the GLib Team.  See the ChangeLog
  * files for a list of changes.  These files are distributed with
- * GLib at ftp://ftp.gtk.org/pub/gtk/.
+ * GLib at ftp://ftp.gtk.org/pub/gtk/. 
  */
 
-/*
+/* 
  * MT safe
  */
 
@@ -128,13 +128,13 @@ g_node_new (gpointer data)
       current_allocator->free_nodes = node->next;
     }
   G_UNLOCK (current_allocator);
-
+  
   node->data = data;
   node->next = NULL;
   node->prev = NULL;
   node->parent = NULL;
   node->children = NULL;
-
+  
   return node;
 }
 
@@ -153,7 +153,7 @@ g_nodes_free (GNode *node)
       else
 	break;
     }
-
+  
   G_LOCK (current_allocator);
   parent->next = current_allocator->free_nodes;
   current_allocator->free_nodes = node;
@@ -164,10 +164,10 @@ void
 g_node_destroy (GNode *root)
 {
   g_return_if_fail (root != NULL);
-
+  
   if (!G_NODE_IS_ROOT (root))
     g_node_unlink (root);
-
+  
   g_nodes_free (root);
 }
 
@@ -175,7 +175,7 @@ void
 g_node_unlink (GNode *node)
 {
   g_return_if_fail (node != NULL);
-
+  
   if (node->prev)
     node->prev->next = node->next;
   else if (node->parent)
@@ -197,7 +197,7 @@ g_node_insert (GNode *parent,
   g_return_val_if_fail (parent != NULL, node);
   g_return_val_if_fail (node != NULL, node);
   g_return_val_if_fail (G_NODE_IS_ROOT (node), node);
-
+  
   if (position > 0)
     return g_node_insert_before (parent,
 				 g_node_nth_child (parent, position),
@@ -218,9 +218,9 @@ g_node_insert_before (GNode *parent,
   g_return_val_if_fail (G_NODE_IS_ROOT (node), node);
   if (sibling)
     g_return_val_if_fail (sibling->parent == parent, node);
-
+  
   node->parent = parent;
-
+  
   if (sibling)
     {
       if (sibling->prev)
@@ -259,7 +259,7 @@ g_node_prepend (GNode *parent,
 		GNode *node)
 {
   g_return_val_if_fail (parent != NULL, node);
-
+  
   return g_node_insert_before (parent, parent->children, node);
 }
 
@@ -267,10 +267,10 @@ GNode*
 g_node_get_root (GNode *node)
 {
   g_return_val_if_fail (node != NULL, NULL);
-
+  
   while (node->parent)
     node = node->parent;
-
+  
   return node;
 }
 
@@ -280,15 +280,15 @@ g_node_is_ancestor (GNode *node,
 {
   g_return_val_if_fail (node != NULL, FALSE);
   g_return_val_if_fail (descendant != NULL, FALSE);
-
+  
   while (descendant)
     {
       if (descendant->parent == node)
 	return TRUE;
-
+      
       descendant = descendant->parent;
     }
-
+  
   return FALSE;
 }
 
@@ -299,13 +299,13 @@ guint
 g_node_depth (GNode *node)
 {
   register guint depth = 0;
-
+  
   while (node)
     {
       depth++;
       node = node->parent;
     }
-
+  
   return depth;
 }
 
@@ -314,9 +314,9 @@ g_node_reverse_children (GNode *node)
 {
   GNode *child;
   GNode *last;
-
+  
   g_return_if_fail (node != NULL);
-
+  
   child = node->children;
   last = NULL;
   while (child)
@@ -334,21 +334,21 @@ g_node_max_height (GNode *root)
 {
   register GNode *child;
   register guint max_height = 0;
-
+  
   if (!root)
     return 0;
-
+  
   child = root->children;
   while (child)
     {
       register guint tmp_height;
-
+      
       tmp_height = g_node_max_height (child);
       if (tmp_height > max_height)
 	max_height = tmp_height;
       child = child->next;
     }
-
+  
   return max_height + 1;
 }
 
@@ -361,16 +361,16 @@ g_node_traverse_pre_order (GNode	    *node,
   if (node->children)
     {
       GNode *child;
-
+      
       if ((flags & G_TRAVERSE_NON_LEAFS) &&
 	  func (node, data))
 	return TRUE;
-
+      
       child = node->children;
       while (child)
 	{
 	  register GNode *current;
-
+	  
 	  current = child;
 	  child = current->next;
 	  if (g_node_traverse_pre_order (current, flags, func, data))
@@ -380,7 +380,7 @@ g_node_traverse_pre_order (GNode	    *node,
   else if ((flags & G_TRAVERSE_LEAFS) &&
 	   func (node, data))
     return TRUE;
-
+  
   return FALSE;
 }
 
@@ -394,20 +394,20 @@ g_node_depth_traverse_pre_order (GNode		  *node,
   if (node->children)
     {
       GNode *child;
-
+      
       if ((flags & G_TRAVERSE_NON_LEAFS) &&
 	  func (node, data))
 	return TRUE;
-
+      
       depth--;
       if (!depth)
 	return FALSE;
-
+      
       child = node->children;
       while (child)
 	{
 	  register GNode *current;
-
+	  
 	  current = child;
 	  child = current->next;
 	  if (g_node_depth_traverse_pre_order (current, flags, depth, func, data))
@@ -417,7 +417,7 @@ g_node_depth_traverse_pre_order (GNode		  *node,
   else if ((flags & G_TRAVERSE_LEAFS) &&
 	   func (node, data))
     return TRUE;
-
+  
   return FALSE;
 }
 
@@ -430,27 +430,27 @@ g_node_traverse_post_order (GNode	     *node,
   if (node->children)
     {
       GNode *child;
-
+      
       child = node->children;
       while (child)
 	{
 	  register GNode *current;
-
+	  
 	  current = child;
 	  child = current->next;
 	  if (g_node_traverse_post_order (current, flags, func, data))
 	    return TRUE;
 	}
-
+      
       if ((flags & G_TRAVERSE_NON_LEAFS) &&
 	  func (node, data))
 	return TRUE;
-
+      
     }
   else if ((flags & G_TRAVERSE_LEAFS) &&
 	   func (node, data))
     return TRUE;
-
+  
   return FALSE;
 }
 
@@ -467,28 +467,28 @@ g_node_depth_traverse_post_order (GNode		   *node,
       if (depth)
 	{
 	  GNode *child;
-
+	  
 	  child = node->children;
 	  while (child)
 	    {
 	      register GNode *current;
-
+	      
 	      current = child;
 	      child = current->next;
 	      if (g_node_depth_traverse_post_order (current, flags, depth, func, data))
 		return TRUE;
 	    }
 	}
-
+      
       if ((flags & G_TRAVERSE_NON_LEAFS) &&
 	  func (node, data))
 	return TRUE;
-
+      
     }
   else if ((flags & G_TRAVERSE_LEAFS) &&
 	   func (node, data))
     return TRUE;
-
+  
   return FALSE;
 }
 
@@ -502,18 +502,18 @@ g_node_traverse_in_order (GNode		   *node,
     {
       GNode *child;
       register GNode *current;
-
+      
       child = node->children;
       current = child;
       child = current->next;
-
+      
       if (g_node_traverse_in_order (current, flags, func, data))
 	return TRUE;
-
+      
       if ((flags & G_TRAVERSE_NON_LEAFS) &&
 	  func (node, data))
 	return TRUE;
-
+      
       while (child)
 	{
 	  current = child;
@@ -525,7 +525,7 @@ g_node_traverse_in_order (GNode		   *node,
   else if ((flags & G_TRAVERSE_LEAFS) &&
 	   func (node, data))
     return TRUE;
-
+  
   return FALSE;
 }
 
@@ -543,18 +543,18 @@ g_node_depth_traverse_in_order (GNode		 *node,
 	{
 	  GNode *child;
 	  register GNode *current;
-
+	  
 	  child = node->children;
 	  current = child;
 	  child = current->next;
-
+	  
 	  if (g_node_depth_traverse_in_order (current, flags, depth, func, data))
 	    return TRUE;
-
+	  
 	  if ((flags & G_TRAVERSE_NON_LEAFS) &&
 	      func (node, data))
 	    return TRUE;
-
+	  
 	  while (child)
 	    {
 	      current = child;
@@ -570,7 +570,7 @@ g_node_depth_traverse_in_order (GNode		 *node,
   else if ((flags & G_TRAVERSE_LEAFS) &&
 	   func (node, data))
     return TRUE;
-
+  
   return FALSE;
 }
 
@@ -581,16 +581,16 @@ g_node_traverse_children (GNode		    *node,
 			  gpointer	     data)
 {
   GNode *child;
-
+  
   child = node->children;
-
+  
   while (child)
     {
       register GNode *current;
-
+      
       current = child;
       child = current->next;
-
+      
       if (current->children)
 	{
 	  if ((flags & G_TRAVERSE_NON_LEAFS) &&
@@ -601,21 +601,21 @@ g_node_traverse_children (GNode		    *node,
 	       func (current, data))
 	return TRUE;
     }
-
+  
   child = node->children;
-
+  
   while (child)
     {
       register GNode *current;
-
+      
       current = child;
       child = current->next;
-
+      
       if (current->children &&
 	  g_node_traverse_children (current, flags, func, data))
 	return TRUE;
     }
-
+  
   return FALSE;
 }
 
@@ -627,16 +627,16 @@ g_node_depth_traverse_children (GNode		 *node,
 				gpointer	  data)
 {
   GNode *child;
-
+  
   child = node->children;
-
+  
   while (child)
     {
       register GNode *current;
-
+      
       current = child;
       child = current->next;
-
+      
       if (current->children)
 	{
 	  if ((flags & G_TRAVERSE_NON_LEAFS) &&
@@ -647,25 +647,25 @@ g_node_depth_traverse_children (GNode		 *node,
 	       func (current, data))
 	return TRUE;
     }
-
+  
   depth--;
   if (!depth)
     return FALSE;
-
+  
   child = node->children;
-
+  
   while (child)
     {
       register GNode *current;
-
+      
       current = child;
       child = current->next;
-
+      
       if (current->children &&
 	  g_node_depth_traverse_children (current, flags, depth, func, data))
 	return TRUE;
     }
-
+  
   return FALSE;
 }
 
@@ -682,7 +682,7 @@ g_node_traverse (GNode		  *root,
   g_return_if_fail (order <= G_LEVEL_ORDER);
   g_return_if_fail (flags <= G_TRAVERSE_MASK);
   g_return_if_fail (depth == -1 || depth > 0);
-
+  
   switch (order)
     {
     case G_PRE_ORDER:
@@ -730,12 +730,12 @@ g_node_find_func (GNode	  *node,
 		  gpointer data)
 {
   register gpointer *d = data;
-
+  
   if (*d != node->data)
     return FALSE;
-
+  
   *(++d) = node;
-
+  
   return TRUE;
 }
 
@@ -746,16 +746,16 @@ g_node_find (GNode	       *root,
 	     gpointer		data)
 {
   gpointer d[2];
-
+  
   g_return_val_if_fail (root != NULL, NULL);
   g_return_val_if_fail (order <= G_LEVEL_ORDER, NULL);
   g_return_val_if_fail (flags <= G_TRAVERSE_MASK, NULL);
-
+  
   d[0] = data;
   d[1] = NULL;
-
+  
   g_node_traverse (root, order, flags, -1, g_node_find_func, d);
-
+  
   return d[1];
 }
 
@@ -767,10 +767,10 @@ g_node_count_func (GNode	 *node,
   if (node->children)
     {
       GNode *child;
-
+      
       if (flags & G_TRAVERSE_NON_LEAFS)
 	(*n)++;
-
+      
       child = node->children;
       while (child)
 	{
@@ -787,12 +787,12 @@ g_node_n_nodes (GNode	      *root,
 		GTraverseFlags flags)
 {
   guint n = 0;
-
+  
   g_return_val_if_fail (root != NULL, 0);
   g_return_val_if_fail (flags <= G_TRAVERSE_MASK, 0);
-
+  
   g_node_count_func (root, flags, &n);
-
+  
   return n;
 }
 
@@ -800,12 +800,12 @@ GNode*
 g_node_last_child (GNode *node)
 {
   g_return_val_if_fail (node != NULL, NULL);
-
+  
   node = node->children;
   if (node)
     while (node->next)
       node = node->next;
-
+  
   return node;
 }
 
@@ -814,12 +814,12 @@ g_node_nth_child (GNode *node,
 		  guint	 n)
 {
   g_return_val_if_fail (node != NULL, NULL);
-
+  
   node = node->children;
   if (node)
     while ((n-- > 0) && node)
       node = node->next;
-
+  
   return node;
 }
 
@@ -827,16 +827,16 @@ guint
 g_node_n_children (GNode *node)
 {
   guint n = 0;
-
+  
   g_return_val_if_fail (node != NULL, 0);
-
+  
   node = node->children;
   while (node)
     {
       n++;
       node = node->next;
     }
-
+  
   return n;
 }
 
@@ -847,7 +847,7 @@ g_node_find_child (GNode	 *node,
 {
   g_return_val_if_fail (node != NULL, NULL);
   g_return_val_if_fail (flags <= G_TRAVERSE_MASK, NULL);
-
+  
   node = node->children;
   while (node)
     {
@@ -866,7 +866,7 @@ g_node_find_child (GNode	 *node,
 	}
       node = node->next;
     }
-
+  
   return NULL;
 }
 
@@ -875,11 +875,11 @@ g_node_child_position (GNode *node,
 		       GNode *child)
 {
   register guint n = 0;
-
+  
   g_return_val_if_fail (node != NULL, -1);
   g_return_val_if_fail (child != NULL, -1);
   g_return_val_if_fail (child->parent == node, -1);
-
+  
   node = node->children;
   while (node)
     {
@@ -888,7 +888,7 @@ g_node_child_position (GNode *node,
       n++;
       node = node->next;
     }
-
+  
   return -1;
 }
 
@@ -897,9 +897,9 @@ g_node_child_index (GNode   *node,
 		    gpointer data)
 {
   register guint n = 0;
-
+  
   g_return_val_if_fail (node != NULL, -1);
-
+  
   node = node->children;
   while (node)
     {
@@ -908,7 +908,7 @@ g_node_child_index (GNode   *node,
       n++;
       node = node->next;
     }
-
+  
   return -1;
 }
 
@@ -916,10 +916,10 @@ GNode*
 g_node_first_sibling (GNode *node)
 {
   g_return_val_if_fail (node != NULL, NULL);
-
+  
   while (node->prev)
     node = node->prev;
-
+  
   return node;
 }
 
@@ -927,10 +927,10 @@ GNode*
 g_node_last_sibling (GNode *node)
 {
   g_return_val_if_fail (node != NULL, NULL);
-
+  
   while (node->next)
     node = node->next;
-
+  
   return node;
 }
 
@@ -943,12 +943,12 @@ g_node_children_foreach (GNode		 *node,
   g_return_if_fail (node != NULL);
   g_return_if_fail (flags <= G_TRAVERSE_MASK);
   g_return_if_fail (func != NULL);
-
+  
   node = node->children;
   while (node)
     {
       register GNode *current;
-
+      
       current = node;
       node = current->next;
       if (G_NODE_IS_LEAF (current))
