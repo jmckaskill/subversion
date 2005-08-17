@@ -33,7 +33,7 @@ module Svn
       end
     end
 
-
+    
     Context = Ctx
     class Context
       class << self
@@ -47,7 +47,7 @@ module Svn
 
       alias _auth_baton auth_baton
       attr_reader :auth_baton
-
+      
       alias _initialize initialize
       def initialize
         @prompts = []
@@ -114,7 +114,7 @@ module Svn
       def import(path, uri, recurse=true, no_ignore=false)
         Client.import2(path, uri, !recurse, no_ignore, self)
       end
-
+      
       def cleanup(dir)
         Client.cleanup(dir, self)
       end
@@ -131,14 +131,14 @@ module Svn
       def resolved(path, recurse=true)
         Client.resolved(path, recurse, self)
       end
-
+      
       def propset(name, value, target, recurse=true, force=false)
         Client.propset2(name, value, target, recurse, force, self)
       end
       alias prop_set propset
       alias pset propset
       alias ps propset
-
+      
       def propdel(name, target, recurse=true, force=false)
         Client.propset2(name, nil, target, recurse, force, self)
       end
@@ -154,12 +154,12 @@ module Svn
       alias prop_get propget
       alias pget propget
       alias pg propget
-
+      
       def copy(src_path, dst_path, rev=nil)
         Client.copy2(src_path, rev || "HEAD", dst_path, self)
       end
       alias cp copy
-
+      
       def move(src_path, dst_path, force=false)
         Client.move3(src_path, dst_path, force, self)
       end
@@ -211,7 +211,7 @@ module Svn
                          target_wcpath, recurse, ignore_ancestry,
                          force, dry_run, self)
       end
-
+      
       def cat(path, rev="HEAD", output=nil)
         used_string_io = output.nil?
         output ||= StringIO.new
@@ -223,7 +223,7 @@ module Svn
           output
         end
       end
-
+      
       def cat2(path, peg_rev=nil, rev="HEAD", output=nil)
         used_string_io = output.nil?
         output ||= StringIO.new
@@ -235,7 +235,7 @@ module Svn
           output
         end
       end
-
+      
       def log(paths, start_rev, end_rev, limit,
               discover_changed_paths, strict_node_history)
         paths = [paths] unless paths.is_a?(Array)
@@ -248,7 +248,7 @@ module Svn
                     strict_node_history,
                     receiver, self)
       end
-
+      
       def log_message(paths, start_rev=nil, end_rev=nil)
         start_rev ||= "HEAD"
         end_rev ||= start_rev
@@ -279,12 +279,12 @@ module Svn
       alias praise blame
       alias annotate blame
       alias ann annotate
-
+      
       def revprop(name, uri, rev)
         value, = revprop_get(name, uri, rev)
         value
       end
-
+      
       def revprop_get(name, uri, rev)
         result = Client.revprop_get(name, uri, rev, self)
         if result.is_a?(Array)
@@ -293,19 +293,19 @@ module Svn
           [nil, result]
         end
       end
-
+      
       def revprop_set(name, value, uri, rev, force=false)
         Client.revprop_set(name, value, uri, rev, force, self)
       end
-
+      
       def revprop_del(name, uri, rev, force=false)
         Client.revprop_set(name, nil, uri, rev, force, self)
       end
-
+      
       def switch(path, uri, rev=nil, recurse=true)
         Client.switch(path, uri, rev, recurse, self)
       end
-
+      
       def add_simple_provider
         add_provider(Client.get_simple_provider)
       end
@@ -315,35 +315,35 @@ module Svn
           add_provider(Client.get_windows_simple_provider)
         end
       end
-
+      
       def add_username_provider
         add_provider(Client.get_username_provider)
       end
-
+      
       def add_simple_prompt_provider(retry_limit, prompt=Proc.new)
         args = [retry_limit]
         klass = Core::AuthCredSimple
         add_prompt_provider("simple", args, prompt, klass)
       end
-
+      
       def add_username_prompt_provider(retry_limit, prompt=Proc.new)
         args = [retry_limit]
         klass = Core::AuthCredUsername
         add_prompt_provider("username", args, prompt, klass)
       end
-
+      
       def add_ssl_server_trust_prompt_provider(prompt=Proc.new)
         args = []
         klass = Core::AuthCredSSLServerTrust
         add_prompt_provider("ssl_server_trust", args, prompt, klass)
       end
-
+      
       def add_ssl_client_cert_prompt_provider(retry_limit, prompt=Proc.new)
         args = [retry_limit]
         klass = Core::AuthCredSSLClientCert
         add_prompt_provider("ssl_client_cert", args, prompt, klass)
       end
-
+      
       def add_ssl_client_cert_pw_prompt_provider(retry_limit, prompt=Proc.new)
         args = [retry_limit]
         klass = Core::AuthCredSSLClientCertPw
@@ -355,19 +355,19 @@ module Svn
         @log_msg_baton = callback
         self.log_msg_baton = callback
       end
-
+      
       def set_notify_func(callback=Proc.new)
         self.notify_func2 = nil
         @notify_baton2 = callback
         self.notify_baton2 = callback
       end
-
+      
       def set_cancel_func(callback=Proc.new)
         self.cancel_func = nil
         @cancel_baton = callback
         self.cancel_baton = callback
       end
-
+      
       private
       def init_callbacks
         set_log_msg_func(nil)
@@ -382,7 +382,7 @@ module Svn
         private "#{type}_func2", "#{type}_baton2"
         private "#{type}_func2=", "#{type}_baton2="
       end
-
+      
       def add_prompt_provider(name, args, prompt, cred_class)
         real_prompt = Proc.new do |*prompt_args|
           cred = cred_class.new
