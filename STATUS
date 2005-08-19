@@ -37,7 +37,7 @@ Approved changes (further review is welcome, but not required):
     Votes:
       +1: blair
       +0: djames
-
+  
   * r15732, r15796, r15802
     Add contrib/client-side/svn_export_empty_files.py.
     Justification:
