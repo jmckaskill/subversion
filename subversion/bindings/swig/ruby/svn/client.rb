@@ -303,6 +303,15 @@ module Svn
         Client.revprop_set(name, nil, uri, rev, force, self)
       end
 
+      def revprop_list(uri, rev)
+        props, rev = Client.revprop_list(uri, rev, self)
+        if props.has_key?(Svn::Core::PROP_REVISION_DATE)
+          props[Svn::Core::PROP_REVISION_DATE] =
+            Util.string_to_time(props[Svn::Core::PROP_REVISION_DATE])
+        end
+        [props, rev]
+      end
+
       def switch(path, uri, rev=nil, recurse=true)
         Client.switch(path, uri, rev, recurse, self)
       end
