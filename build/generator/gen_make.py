@@ -422,6 +422,9 @@ class Generator(gen_base.GeneratorBase):
         self.ofile.write('\n')
 
 
+    self.ofile.close()
+
+
 class UnknownDependency(Exception):
   "We don't know how to deal with the dependent to link it in."
   pass
