@@ -64,7 +64,7 @@ PyObject * svn_swig_py_register_cleanup(PyObject *py_pool, apr_pool_t *pool);
 /*** SWIG Wrappers ***/
 
 /* Wrapper for SWIG_NewPointerObj */
-PyObject *svn_swig_NewPointerObj(void *obj, swig_type_info *type,
+PyObject *svn_swig_NewPointerObj(void *obj, swig_type_info *type, 
                                  PyObject *pool);
 
 /* Wrapper for SWIG_ConvertPtr */
@@ -96,7 +96,7 @@ PyObject *svn_swig_py_prophash_to_dict(apr_hash_t *hash);
 PyObject *svn_swig_py_locationhash_to_dict(apr_hash_t *hash);
 
 /* convert a hash of 'const char *' -> TYPE into a Python dict */
-PyObject *svn_swig_py_convert_hash(apr_hash_t *hash, swig_type_info *type,
+PyObject *svn_swig_py_convert_hash(apr_hash_t *hash, swig_type_info *type, 
                                    PyObject *py_pool);
 
 /* helper function to convert a 'char **' into a Python list of string
@@ -171,8 +171,8 @@ void svn_swig_py_status_func(void *baton,
 svn_error_t *svn_swig_py_cancel_func(void *cancel_baton);
 
 /* thunked fs get_locks function */
-svn_error_t *svn_swig_py_fs_get_locks_func (void *baton,
-                                            svn_lock_t *lock,
+svn_error_t *svn_swig_py_fs_get_locks_func (void *baton, 
+                                            svn_lock_t *lock, 
                                             apr_pool_t *pool);
 
 /* thunked commit log fetcher */
