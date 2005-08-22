@@ -35,7 +35,7 @@ def main(fname, gentype, verfname=None,
     swig_generator.compute_hdr_deps()
 
   swig_generator.write()
-
+  
   gen_module = __import__(gen_modules[gentype][0])
 
   generator = gen_module.Generator(fname, verfname, other_options)
@@ -44,7 +44,7 @@ def main(fname, gentype, verfname=None,
     generator.compute_hdr_deps()
 
   generator.write()
-
+  
   if gentype == "make":
     swig_generator.write_swig_deps()
 
