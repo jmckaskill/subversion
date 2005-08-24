@@ -10,7 +10,7 @@ from gen_base import unique, native_path
 
 class Generator(gen_make.Generator):
   """Generate SWIG interface files"""
-
+ 
   # Ignore svn_md5.h because SWIG can't parse it
   _ignores = ["svn_md5.h", "svn_repos_parse_fns_t"]
 
@@ -35,7 +35,7 @@ class Generator(gen_make.Generator):
         else:
           dirs = [ value, os.path.join(value, "bin") ]
           self.swig_path = self._find_executable("swig", dirs)
-
+          
     self.swig_version = self._get_swig_version()
 
   def _is_executable(self, file):
@@ -61,7 +61,7 @@ class Generator(gen_make.Generator):
     swig_version_cmd = "%s -version" % self.swig_path
     try:
       stdin, stdout, stderr = os.popen3(swig_version_cmd)
-      swig_version = stdout.read() + stderr.read()
+      swig_version = stdout.read() + stderr.read()    
       stdin.close()
       stdout.close()
       stderr.close()
@@ -123,32 +123,32 @@ class Generator(gen_make.Generator):
     self.ofile.write('%%{\n#include "%s"\n%%}\n' % base_fname)
     if base_fname not in self._ignores:
       self.ofile.write('%%include %s\n' % base_fname)
-
+  
   def _write_callbacks(self, callbacks):
     """Write invoker functions for callbacks"""
     self.ofile.write('\n/* Callbacks */\n')
     self.ofile.write("\n%inline %{\n")
-
+        
     struct = None
     for match in callbacks:
-
+      
       if match[0]:
         struct = match[0]
       elif struct not in self._ignores:
         name, params = match[1:]
-
+      
         if params == "void":
           param_names = ""
         else:
           param_names = string.join(self._re_param_names.findall(params), ", ")
-
+        
         params = string.join(string.split(params))
         self.ofile.write(
           "static svn_error_t *%s_invoke_%s(\n" % (struct[:-2], name) +
           "  %s *_obj, %s) {\n" % (struct, params) +
           "  return _obj->%s(%s);\n" % (name, param_names) +
           "}\n\n")
-
+      
     self.ofile.write("%}\n")
 
   def _write_proxy_definitions(self, structs):
@@ -171,13 +171,13 @@ class Generator(gen_make.Generator):
   """Regular expression for parsing callbacks from a C header file"""
   _re_callbacks = re.compile(r'\btypedef\s+struct\s+(svn_[a-z_0-9]+_t)\b|'
                              r'\n\s*svn_error_t\s*\*\(\*(\w+)\)\s*\(([^)]+)\);')
-
+  
   """Regular expression for parsing parameter names from a parameter list"""
   _re_param_names = re.compile(r'\b(\w+)\s*\)*\s*(?:,|$)')
-
+  
   """Regular expression for parsing comments"""
   _re_comments = re.compile(r'/\*.*?\*/')
-
+  
   def _write_swig_interface_file(self, base_fname, includes, structs,
       callbacks):
     """Convert a header file into a SWIG header file"""
@@ -241,7 +241,7 @@ class Generator(gen_make.Generator):
     """Execute a system command"""
     return_code = os.system(cmd)
     assert return_code == 0
-
+  
   def _checkout(self, dir, file):
     """Checkout a specific header file from SWIG"""
     out = "%s/%s" % (self.swig_proxy_dir, file)
@@ -251,13 +251,13 @@ class Generator(gen_make.Generator):
       shutil.copy("%s/%s/%s" % (self.swiglibdir, dir, file), out)
     else:
       self._cmd("%s -o %s -co %s/%s" % (self.swig_path, out, dir, file))
-
+  
   def _write_long_long_fix(self):
     """Hide the SWIG implementation of 'long long' converters so that
        Visual C++ won't get confused by it."""
-
+    
     self._checkout("python","python.swg")
-
+    
     python_swg_filename = "%s/python.swg" % self.swig_proxy_dir
     python_swg = open(python_swg_filename).read()
     file = open(python_swg_filename,"w")
@@ -270,28 +270,28 @@ class Generator(gen_make.Generator):
     }\n""")
     file.write(python_swg)
     file.close()
-
+  
   def _write_external_runtime(self, langs):
     """Generate external runtime header files for each SWIG language"""
-
+    
     # Gather necessary header files
     self.swiglibdir = string.strip(os.popen("%s -swiglib" %
         self.swig_path).read())
     assert self.swiglibdir
-    self._checkout(".","swigrun.swg")
+    self._checkout(".","swigrun.swg") 
     if self.swig_version == 103024:
-      self._checkout(".","common.swg")
-    self._checkout(".","runtime.swg")
-    self._checkout("python","pyrun.swg")
-    self._checkout("perl5","perlrun.swg")
-    self._checkout("ruby","rubydef.swg")
+      self._checkout(".","common.swg") 
+    self._checkout(".","runtime.swg") 
+    self._checkout("python","pyrun.swg") 
+    self._checkout("perl5","perlrun.swg") 
+    self._checkout("ruby","rubydef.swg") 
     self._checkout("ruby", "rubyhead.swg")
-
+  
     # Runtime library names
     runtime_library = {
       "python": "pyrun.swg", "perl":"perlrun.swg", "ruby":"rubydef.swg"
     }
-
+    
     # Build runtime files
     for lang in langs:
       out = "%s/swig_%s_external_runtime.swg" % (self.swig_proxy_dir, lang)
@@ -306,7 +306,7 @@ class Generator(gen_make.Generator):
         out_file.close()
       else:
         self._cmd("%s -%s -external-runtime %s" % (self.swig_path, lang, out))
-
+  
   def _get_swig_includes(self):
     """Get list of SWIG includes as a string of compiler options"""
     includes = []
@@ -317,7 +317,7 @@ class Generator(gen_make.Generator):
     includes.append("-I%s" % native_path(self.apr_util_include_path))
     includes.append("$(SWIG_INCLUDES)")
     return string.join(includes)
-
+  
   def _get_swig_deps(self):
     """Get list of SWIG dependencies"""
     deps = {"python":[], "perl":[], "ruby":[]}
@@ -326,21 +326,21 @@ class Generator(gen_make.Generator):
     for objname, sources in swig_c_deps:
       deps[objname.lang].append(native_path(str(objname)))
     return deps
-
+ 
   def write_swig_deps(self):
     """Write SWIG dependencies to swig-outputs.mk"""
-
+    
     # Gather data
     short = { "perl": "pl", "python": "py", "ruby": "rb" }
-    includes = self._get_swig_includes()
+    includes = self._get_swig_includes() 
     deps = self._get_swig_deps()
-
+   
     # Write swig-outputs.mk
     ofile = open("build-outputs.mk", 'a')
     for lang in short.keys():
       ofile.write('RUN_SWIG_%s = %s -DSVN_SWIG_VERSION=%s %s %s -o $@\n'
         % (string.upper(short[lang]), self.swig_path, self.swig_version,
-           self._build_opts(lang), includes))
+           self._build_opts(lang), includes))  
       ofile.write(
         'autogen-swig-%s: %s\n' % (short[lang], string.join(deps[lang])) +
         'swig-%s: autogen-swig-%s\n' % (short[lang], short[lang]) +
@@ -354,7 +354,7 @@ class Generator(gen_make.Generator):
         'Please install SWIG, add it to your PATH,\\n'
         'and rerun ./autogen.sh\'"')
     ofile.close()
-
+  
   def write(self):
     """Generate SWIG interface files"""
     header_files = map(native_path, self.includes)
@@ -363,9 +363,9 @@ class Generator(gen_make.Generator):
       if fname[-2:] == ".h":
         self._process_header_file(fname)
 
-    langs = ["perl", "python", "ruby"]
+    langs = ["perl", "python", "ruby"] 
     if self.swig_version >= 103024:
       self._write_external_runtime(langs)
-
+    
       # Fix SWIG's "long long" support on WIN32
       self._write_long_long_fix()
