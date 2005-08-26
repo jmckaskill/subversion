@@ -133,7 +133,7 @@ typedef apr_int32_t time_t;
    create an OUTPUT argument defn for an apr_array_header_t ** which is
    storing svn_prop_t * property values
 */
-%typemap(python, in, numinputs=0)
+%typemap(python, in, numinputs=0) 
      apr_array_header_t **OUTPUT_OF_PROP (apr_array_header_t *temp)
 {
   $1 = &temp;
@@ -205,7 +205,7 @@ apr_array_header_t **OUTPUT_OF_CONST_CHAR_P {
 %typemap(python,argout,fragment="t_output_helper") apr_file_t **
     "$result = t_output_helper(
         $result,
-        svn_swig_NewPointerObj(*$1, $*1_descriptor,
+        svn_swig_NewPointerObj(*$1, $*1_descriptor, 
            _global_svn_swig_py_pool));";
 
 %typemap(perl5, argout) apr_file_t ** {
