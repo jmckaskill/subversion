@@ -5,7 +5,7 @@ require "svn/core"
 
 class SvnCoreTest < Test::Unit::TestCase
   include SvnTestUtil
-
+  
   def setup
     @repos_path = File.join("test", "repos")
     @config_path = File.join("test", "config")
@@ -20,7 +20,7 @@ class SvnCoreTest < Test::Unit::TestCase
     teardown_repository(@repos_path)
     teardown_config
   end
-
+  
   def test_binary_mime_type?
     assert(Svn::Core.binary_mime_type?("image/png"))
     assert(!Svn::Core.binary_mime_type?("text/plain"))
@@ -38,17 +38,17 @@ class SvnCoreTest < Test::Unit::TestCase
     patch = 3
     tag = "-dev"
     ver = Svn::Core::Version.new(major, minor, patch, tag)
-
+    
     assert_equal("#{major}.#{minor}.#{patch}#{tag}", ver.to_s)
     assert_equal([major, minor, patch, tag], ver.to_a)
   end
-
+  
   def test_version_valid?
     assert_true(Svn::Core::Version.new(1, 2, 3, "-devel").valid?)
     assert_true(Svn::Core::Version.new(nil, nil, nil, "").valid?)
     assert_true(Svn::Core::Version.new.valid?)
   end
-
+  
   def test_version_equal
     major = 1
     minor = 2
@@ -106,13 +106,13 @@ class SvnCoreTest < Test::Unit::TestCase
       auth[key] = 1
     end
   end
-
+  
   def test_pool_GC
     GC.disable
 
     made_number_of_pool = 100
     pools = []
-
+    
     gc
     before_number_of_pools = number_of_pools
     made_number_of_pool.times do
@@ -143,17 +143,17 @@ class SvnCoreTest < Test::Unit::TestCase
     section = Svn::Core::CONFIG_SECTION_HELPERS
     option = Svn::Core::CONFIG_OPTION_DIFF_CMD
     value = "diff"
-
+    
     assert_nil(config.get(section, option))
     config.set(section, option, value)
     assert_equal(value, config.get(section, option))
   end
-
+  
   def test_config_bool
     config = Svn::Core::Config.read(@config_file)
     section = Svn::Core::CONFIG_SECTION_MISCELLANY
     option = Svn::Core::CONFIG_OPTION_ENABLE_AUTO_PROPS
-
+    
     assert(config.get_bool(section, option, true))
     config.set_bool(section, option, false)
     assert(!config.get_bool(section, option, true))
@@ -217,7 +217,7 @@ class SvnCoreTest < Test::Unit::TestCase
     port_prop_name = "http-proxy-port"
     port_prop_value = 8080
     default_port_value = 1818
-
+    
     File.open(@servers_file, "w") do |f|
       f.puts("[#{group}]")
     end
@@ -231,7 +231,7 @@ class SvnCoreTest < Test::Unit::TestCase
                  config.get_server_setting_int(group,
                                                port_prop_name,
                                                default_port_value))
-
+    
     File.open(@servers_file, "w") do |f|
       f.puts("[#{group}]")
       f.puts("#{host_prop_name} = #{host_prop_value}")
@@ -264,7 +264,7 @@ class SvnCoreTest < Test::Unit::TestCase
                                                   realm_string,
                                                   @config_path))
   end
-
+  
   private
   def used_pool
     pool = Svn::Core::Pool.new
