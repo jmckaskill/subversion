@@ -86,7 +86,7 @@ Write Commands  :  (MKACTIVITY, PROPPATCH, PUT, CHECKOUT, MKCOL, MOVE,
   committing the transaction (MERGE).  If the MERGE fails, the client
   may try to clean up the transaction with a DELETE.
 
-  * svn commit:     OPTIONS, PROPFIND, MKACTIVITY,
+  * svn commit:     OPTIONS, PROPFIND, MKACTIVITY, 
                     {CHECKOUT, COPY, MOVE, DELETE, PROPPATCH, PUT, MKCOL},
                     MERGE (DELETE)
 
@@ -95,7 +95,7 @@ Write Commands  :  (MKACTIVITY, PROPPATCH, PUT, CHECKOUT, MKCOL, MOVE,
                     MERGE (DELETE)
 
   * svn lock:       PROPFIND, LOCK
-
+  
   * svn unlock:     PROPFIND, UNLOCK
 
   * svn cp URL URL: OPTIONS, PROPFIND, MKACTIVITY, PROPPATCH,
