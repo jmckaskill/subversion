@@ -57,7 +57,7 @@
         "\x50\x61\x73\x73\x77\x6f\x72\x64\x20\x69\x6e\x63\x6f\x72\x72\x65" \
         "\x63\x74"
         /* "Password incorrect" */
-
+        
 #define STEP_STR \
         "\x73\x74\x65\x70"
         /* "step" */
@@ -65,13 +65,13 @@
 #define SUCCESS_STR \
         "\x73\x75\x63\x63\x65\x73\x73"
         /* "success" */
-
+        
 #define USER_NOT_FOUND_STR \
         "\x55\x73\x65\x72\x6e\x61\x6d\x65\x20\x6e\x6f\x74\x20\x66\x6f\x75" \
         "\x6e\x64"
         /* "Username not found" */
-
-
+        
+                
 static int hex_to_int(char c)
 {
   return (c >= SVN_UTF8_0 && c <= SVN_UTF8_9) ? c - SVN_UTF8_0
@@ -185,11 +185,11 @@ svn_error_t *svn_ra_svn_cram_server(svn_ra_svn_conn_t *conn, apr_pool_t *pool,
 
   challenge = apr_psprintf(pool,
                            "<%" APR_UINT64_T_FMT ".%" APR_TIME_T_FMT
-                           "@%s>", nonce, apr_time_now(), hostbuf);
+                           "@%s>", nonce, apr_time_now(), hostbuf);                           
 #if APR_CHARSET_EBCDIC
   SVN_ERR (svn_utf_cstring_to_utf8(&challenge, challenge, pool));
 #endif
-
+                           
   SVN_ERR(svn_ra_svn_write_tuple(conn, pool, "w(c)", STEP_STR, challenge));
 
   /* Read the client's response and decode it into *user and cdigest. */
@@ -202,7 +202,7 @@ svn_error_t *svn_ra_svn_cram_server(svn_ra_svn_conn_t *conn, apr_pool_t *pool,
       || !hex_decode(cdigest, sep + 1))
     return fail(conn, pool, MALFORMED_CLIENT_RESP_STR);
   *user = apr_pstrmemdup(pool, resp->data, sep - resp->data);
-
+  
   /* Verify the digest against the password in pwfile. */
   svn_config_get(pwdb, &password, SVN_CONFIG_SECTION_USERS, *user, NULL);
   if (!password)

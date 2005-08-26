@@ -42,7 +42,7 @@
 #define SVN_NULL_DEVICE_NAME \
         "\x2f\x64\x65\x76\x2f\x6e\x75\x6c\x6c"
         /* "/dev/null" */
-
+        
 /* Link fs base library into the fs library */
 //#define SVN_LIBSVN_FS_LINKS_FS_BASE
 

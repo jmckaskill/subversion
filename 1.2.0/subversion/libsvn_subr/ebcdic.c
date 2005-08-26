@@ -135,7 +135,7 @@ svn_ebcdic_pvsprintf(apr_pool_t *pool, const char *fmt, va_list arg_ptr)
             add_ch_to_sbuf(ptr++[0], temp_fmt);
         }
         /* Gather all precision digits, ok if there are none, the user must
-         * want the default precision for this type. */
+         * want the default precision for this type. */  
         while(apr_isdigit(*s))
           add_ch_to_sbuf(s++[0], temp_fmt);
       }
@@ -181,7 +181,7 @@ svn_ebcdic_pvsprintf(apr_pool_t *pool, const char *fmt, va_list arg_ptr)
                   svn_stringbuf_setempty(temp_fmt);
                   add_ch_to_sbuf(s++[0], temp_fmt);
                   svn_stringbuf_appendcstr(result, temp_fmt->data);
-                }
+                }                
               }
             }
             break;
@@ -214,13 +214,13 @@ svn_ebcdic_pvsprintf(apr_pool_t *pool, const char *fmt, va_list arg_ptr)
             add_ch_to_sbuf(s++[0], temp_fmt);
             if(svn_ebcdic_valid_uint_types(*s))
             {
-              unsigned int t;
+              unsigned int t;	
               /* SUCCESS unsigned short ints
                * %ho | %hu | %hx | %hX */
               add_ch_to_sbuf(s++[0], temp_fmt);
               /* iSeries needs unsigned int here, not unsigned short int */
               temp_usi = va_arg(arg_ptr, unsigned int);
-              temp_result = apr_psprintf(subpool_temp, temp_fmt->data,
+              temp_result = apr_psprintf(subpool_temp, temp_fmt->data, 
                                          temp_usi);
               svn_stringbuf_appendcstr(result, temp_result ? temp_result : "");
             }
@@ -231,7 +231,7 @@ svn_ebcdic_pvsprintf(apr_pool_t *pool, const char *fmt, va_list arg_ptr)
               add_ch_to_sbuf(s++[0], temp_fmt);
               /* iSeries needs signed int here, not unsigned short int */
               temp_ssi = va_arg(arg_ptr, signed int);
-              temp_result = apr_psprintf(subpool_temp, temp_fmt->data,
+              temp_result = apr_psprintf(subpool_temp, temp_fmt->data, 
                                          temp_ssi);
               svn_stringbuf_appendcstr(result, temp_result ? temp_result : "");
             }
@@ -262,7 +262,7 @@ svn_ebcdic_pvsprintf(apr_pool_t *pool, const char *fmt, va_list arg_ptr)
                 temp_ulli = va_arg(arg_ptr, unsigned long long int);
                 temp_result = apr_psprintf(subpool_temp, temp_fmt->data,
                                            temp_ulli);
-                svn_stringbuf_appendcstr(result, temp_result ?
+                svn_stringbuf_appendcstr(result, temp_result ? 
                                          temp_result : "");
               }
               else if(svn_ebcdic_valid_sint_types(*s))
@@ -287,7 +287,7 @@ svn_ebcdic_pvsprintf(apr_pool_t *pool, const char *fmt, va_list arg_ptr)
                 svn_stringbuf_setempty(temp_fmt);
                 add_ch_to_sbuf(s++[0], temp_fmt);
                 svn_stringbuf_appendcstr(result, temp_fmt->data);
-              }
+              }              
             }
             else if(svn_ebcdic_valid_uint_types(*s))
             {
@@ -331,7 +331,7 @@ svn_ebcdic_pvsprintf(apr_pool_t *pool, const char *fmt, va_list arg_ptr)
               add_ch_to_sbuf(s++[0], temp_fmt);
               svn_stringbuf_appendcstr(result, temp_fmt->data);
             }
-            break;
+            break;   
           case 'd' :
           case 'i' :
             /* SUCCESS signed int
@@ -362,7 +362,7 @@ svn_ebcdic_pvsprintf(apr_pool_t *pool, const char *fmt, va_list arg_ptr)
             temp_result = apr_psprintf(subpool_temp, temp_fmt->data, temp_ch);
             if(temp_result)
               svn_utf_cstring_from_netccsid(&temp_result, temp_result,
-                                            subpool_temp);
+                                            subpool_temp);            
             svn_stringbuf_appendcstr(result, temp_result ? temp_result : "");
             break;
           case 'f' :
@@ -380,7 +380,7 @@ svn_ebcdic_pvsprintf(apr_pool_t *pool, const char *fmt, va_list arg_ptr)
             break;
           case 's' :
             temp_str = va_arg(arg_ptr, char*);
-            if(temp_str)
+            if(temp_str) 
               svn_utf_cstring_from_netccsid(&temp_str, temp_str, subpool_temp);
             svn_stringbuf_appendcstr(result, temp_str ? temp_str : "");
             s++;
@@ -445,7 +445,7 @@ svn_ebcdic_psprintf(apr_pool_t *p,
   result = svn_ebcdic_pvsprintf(p, fmt, ap);
   va_end(ap);
   return result;
-}
+}  
 
 
 char *
@@ -459,7 +459,7 @@ svn_ebcdic_psprintf2(apr_pool_t *p,
   result = svn_ebcdic_pvsprintf2(p, fmt, ap);
   va_end(ap);
   return result;
-}
+}  
 #endif /* APR_CHARSET_EBCDIC */
 
 #if AS400
@@ -477,10 +477,10 @@ svn_ebcdic_set_file_ccsid (const char *path,
     return svn_error_createf(SVN_ERR_EXTERNAL_PROGRAM, NULL,
                              "Attempt to set ccsid of '%s' to '%d' failed " \
                              "with exit code = '%d'",
-                             path, ccsid, exit_code);
+                             path, ccsid, exit_code);  
   return SVN_NO_ERROR;
 }
-
+                           
 
 svn_error_t *
 svn_ebcdic_run_unix_type_script (const char *path,
@@ -490,7 +490,7 @@ svn_ebcdic_run_unix_type_script (const char *path,
                                  apr_exit_why_e *exitwhy,
                                  svn_boolean_t check_exitcode,
                                  apr_pool_t *pool)
-{
+{                                    	
   /* Special handling of hook scripts on iSeries */
   apr_pool_t *temp_subpool = svn_pool_create_ex(pool, NULL);
   svn_stringbuf_t *native_cmd = svn_stringbuf_create("", temp_subpool);
@@ -516,11 +516,11 @@ svn_ebcdic_run_unix_type_script (const char *path,
       svn_stringbuf_appendcstr(native_cmd, "' ");
     }
   }
-
+  
   *exitcode = QzshSystem(native_cmd->data);
   svn_pool_destroy(temp_subpool);
   if (!check_exitcode)
-    return SVN_NO_ERROR;
+    return SVN_NO_ERROR;  
   else if (WIFEXITED(*exitcode))
   {
     /* WIFEXITED - Evaluates to a nonzero value if the status was returned
@@ -552,7 +552,7 @@ svn_ebcdic_run_unix_type_script (const char *path,
      */
     *exitwhy = APR_PROC_EXIT; /* Not sure what to set this to in this
                                  circumstance so this will have to do */
-
+    
     return svn_error_createf(SVN_ERR_EXTERNAL_PROGRAM, NULL,
       "Unable to run script '%s'.  Returned error number =  %d",
       cmd, errno);
@@ -567,23 +567,23 @@ svn_ebcdic_file_transfer_contents(const char *from_path,
                                   apr_fileperms_t to_perms,
                                   apr_pool_t *pool)
 {
-/* Assuming IBM's implmentation of
- *
+/* Assuming IBM's implmentation of 
+ *   
  *     apr_status_t) apr_file_copy(const char *from_path,
  *                                 const char *to_path,
  *                                 apr_fileperms_t perms,
- *                                 apr_pool_t *pool);
- *
+ *                                 apr_pool_t *pool); 
+ *                  
  * is similar to the open source version it opens from_path as text.  On the
  * iSeries the OS attempts to convert from_path's contents from it's CCSID to
  * the job CCSID when it reads the file.  This fails if from_path is binary or
  * contains multi-byte utf-8 chars that cannot be represented in one byte in
  * the job CCSID; if these multi-byte chars can be converted to one ebcdic
  * byte the dest file is still corrupted.
- *
+ * 
  * This function prevents this by forcing a binary copy.  It is a copy of the
  * private function
- *
+ * 
  *     static apr_status_t apr_file_transfer_contents(const char *from_path,
  *                                                     const char *to_path,
  *                                                     apr_int32_t flags,
@@ -592,9 +592,9 @@ svn_ebcdic_file_transfer_contents(const char *from_path,
  *
  * in srclib/apr/file_io/unix/copy.c of version 2.0.54 of the Apache HTTP
  * Server (http://httpd.apache.org/) excepting that APR_LARGEFILE is not used
- * and the from_path is always opened with APR_BINARY.
- */
-
+ * and the from_path is always opened with APR_BINARY. 
+ */ 
+ 
     apr_file_t *s, *d;
     apr_status_t status;
     apr_fileperms_t perms;
@@ -613,7 +613,7 @@ svn_ebcdic_file_transfer_contents(const char *from_path,
         if (fstat64(s->filedes, &st) != 0)
             return errno;
 
-        perms = apr_unix_mode2perms(st.st_mode);
+        perms = apr_unix_mode2perms(st.st_mode);  
 #else
         apr_finfo_t finfo;
 
@@ -676,11 +676,11 @@ svn_ebcdic_file_transfer_contents(const char *from_path,
 /* IBM doesn't implement apr_dir_make_recursive in it's current port of APR.
  * Previously subversion implemented assumed this function was not implemented
  * on any platform other than unix and had a work-around in place.  This
- * work-around was removed in Julian's rev 11868.  So until IBM implements
+ * work-around was removed in Julian's rev 11868.  So until IBM implements 
  * svn_io_make_dir_recursively for the iSeries we'll do it here with the
  * following three functions.
  */
-
+ 
 #define PATH_SEPARATOR '/'
 
 /* Remove trailing separators that don't affect the meaning of PATH. */
@@ -690,10 +690,10 @@ static const char *path_canonicalize (const char *path, apr_pool_t *pool)
      * now, it just makes sure there is no trailing slash. */
     apr_size_t len = strlen (path);
     apr_size_t orig_len = len;
-
+    
     while ((len > 0) && (path[len - 1] == PATH_SEPARATOR))
         len--;
-
+    
     if (len != orig_len)
         return apr_pstrndup (pool, path, len);
     else
@@ -707,7 +707,7 @@ path_remove_last_component(const char *path,
 {
   const char *newpath = path_canonicalize (path, pool);
   int i;
-
+    
   for (i = (strlen(newpath) - 1); i >= 0; i--)
   {
     if (path[i] == PATH_SEPARATOR)
@@ -719,24 +719,24 @@ path_remove_last_component(const char *path,
 apr_status_t
 apr_dir_make_recursive(const char *path,
                        apr_fileperms_t perm,
-                       apr_pool_t *pool)
+                       apr_pool_t *pool) 
 {
   apr_status_t apr_err = 0;
-
+    
   apr_err = apr_dir_make (path, perm, pool); /* Try to make PATH right out */
 
   if (apr_err == EEXIST) /* It's OK if PATH exists */
     return APR_SUCCESS;
-
+    
   if (apr_err == ENOENT)
-  {
+  { 
     /* Missing an intermediate dir */
     char *dir;
-
+         
     dir = path_remove_last_component(path, pool);
     apr_err = apr_dir_make_recursive(dir, perm, pool);
-
-    if (!apr_err)
+         
+    if (!apr_err) 
       apr_err = apr_dir_make (path, perm, pool);
   }
 
