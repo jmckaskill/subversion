@@ -2,7 +2,7 @@ dnl check to see if SWIG is current enough.
 dnl
 dnl if it is, then check to see if we have the correct version of python.
 dnl
-dnl if we do, then set up the appropriate SWIG_ variables to build the
+dnl if we do, then set up the appropriate SWIG_ variables to build the 
 dnl python bindings.
 
 AC_DEFUN(SVN_CHECK_SWIG,
@@ -47,7 +47,7 @@ AC_DEFUN(SVN_FIND_SWIG,
     fi
     if test ! -f "$SWIG" -o ! -x "$SWIG"; then
       AC_MSG_ERROR([Could not find swig binary at $SWIG])
-    fi
+    fi 
   fi
 
   if test "$SWIG" != "none"; then
@@ -56,7 +56,7 @@ AC_DEFUN(SVN_FIND_SWIG,
                        sed -ne 's/^.*Version \(.*\)$/\1/p'`"
     # We want the version as an integer so we can test against
     # which version we're using.  SWIG doesn't provide this
-    # to us so we have to come up with it on our own.
+    # to us so we have to come up with it on our own. 
     # The major is passed straight through,
     # the minor is zero padded to two places,
     # and the patch level is zero padded to three places.
@@ -84,12 +84,12 @@ AC_DEFUN(SVN_FIND_SWIG,
       AC_MSG_WARN([Subversion can use SWIG version 1.3.24 or later])
     fi
   fi
-
+ 
   SWIG_PY_COMPILE="none"
   SWIG_PY_LINK="none"
   if test "$PYTHON" != "none"; then
     AC_MSG_NOTICE([Configuring python swig binding])
-    SWIG_CLEAN_RULES="$SWIG_CLEAN_RULES clean-swig-py"
+    SWIG_CLEAN_RULES="$SWIG_CLEAN_RULES clean-swig-py" 
 
     AC_CACHE_CHECK([for Python includes], [ac_cv_python_includes],[
       ac_cv_python_includes="`$PYTHON ${abs_srcdir}/build/get-py-info.py --includes`"
@@ -154,7 +154,7 @@ AC_DEFUN(SVN_FIND_SWIG,
     PERL_VERSION="`$PERL -e 'q([[); print $]] * 1000000,$/;'`"
     AC_MSG_RESULT([$PERL_VERSION])
     if test "$PERL_VERSION" -ge "5008000"; then
-      SWIG_CLEAN_RULES="$SWIG_CLEAN_RULES clean-swig-pl"
+      SWIG_CLEAN_RULES="$SWIG_CLEAN_RULES clean-swig-pl" 
       SWIG_PL_INCLUDES="\$(SWIG_INCLUDES) `$PERL -MExtUtils::Embed -e ccopts`"
     else
       AC_MSG_WARN([perl bindings require perl 5.8.0 or newer.])
@@ -166,7 +166,7 @@ AC_DEFUN(SVN_FIND_SWIG,
   if test "$RUBY" != "none"; then
 
     AC_MSG_NOTICE([Configuring Ruby SWIG binding])
-    SWIG_CLEAN_RULES="$SWIG_CLEAN_RULES clean-swig-rb"
+    SWIG_CLEAN_RULES="$SWIG_CLEAN_RULES clean-swig-rb" 
 
     AC_CACHE_CHECK([for Ruby include path], [svn_cv_ruby_includes],[
     svn_cv_ruby_includes="-I. -I`$RUBY -rrbconfig -e 'print Config::CONFIG.fetch(%q(archdir))'`"
