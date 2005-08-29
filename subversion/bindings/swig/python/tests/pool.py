@@ -12,11 +12,11 @@ class PoolTestCase(unittest.TestCase):
   def assertNotNone(self, value):
     """Assert that the specified value is not None"""
     return self.assertNotEqual(value, None);
-
+  
   def assertNone(self, value):
     """Assert that the specified value is None"""
     return self.assertEqual(value, None);
-
+  
   def test_pool(self):
     # Create pools
     parent_pool = Pool()

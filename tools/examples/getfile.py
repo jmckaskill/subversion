@@ -14,7 +14,7 @@ from svn import fs, core, repos
 CHUNK_SIZE = 16384
 
 def getfile(pool, path, filename, rev=None):
-  #since the backslash on the end of path is not allowed,
+  #since the backslash on the end of path is not allowed, 
   #we truncate it
   if path[-1] == "/":
      path = path[:-1]
@@ -25,7 +25,7 @@ def getfile(pool, path, filename, rev=None):
   if rev is None:
     rev = fs.youngest_rev(fsob, pool)
     print "Using youngest revision ", rev
-
+    
   root = fs.revision_root(fsob, rev, pool)
   file = fs.file_contents(root, filename, pool)
   while 1:
