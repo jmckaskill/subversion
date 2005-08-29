@@ -30,14 +30,14 @@ module Svn
           Fs.open(path, config)
         end
       end
-
+      
       def open_txn(name)
         Fs.open_txn(self, name)
       end
 
       def transaction(rev=nil)
         txn = Fs.begin_txn(self, rev || youngest_rev)
-
+        
         if block_given?
           yield(txn)
           txn.commit if transactions.include?(txn.name)
@@ -45,7 +45,7 @@ module Svn
           txn
         end
       end
-
+      
       def youngest_rev
         Fs.youngest_rev(self)
       end
@@ -63,14 +63,14 @@ module Svn
       end
     end
 
-
+    
     Transaction = SWIG::TYPE_p_svn_fs_txn_t
     class Transaction
 
       def name
         Fs.txn_name(self)
       end
-
+      
       def prop(name)
         Fs.txn_prop(self, name)
       end
@@ -113,7 +113,7 @@ module Svn
       def fs
         Fs.root_fs(self)
       end
-
+      
       def node_id(path)
         Fs.node_id(self, path)
       end
@@ -125,7 +125,7 @@ module Svn
       def node_prop(path, key)
         Fs.node_prop(self, path, key)
       end
-
+      
       def node_proplist(path)
         Fs.node_proplist(self, path)
       end
@@ -196,19 +196,19 @@ module Svn
 
 
     DirectoryEntry = Dirent
-
+    
     Id = SWIG::TYPE_p_svn_fs_id_t
     class Id
       def to_s
         unparse
       end
-
+      
       def unparse
         Fs.unparse_id(self)
       end
     end
 
-
+    
     class FileDiff
 
       def initialize(root1, path1, root2, path2)
@@ -257,7 +257,7 @@ module Svn
           ""
         end
       end
-
+      
       private
       def dump_contents(tempfile, root, path)
         if root and path
