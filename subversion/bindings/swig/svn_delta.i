@@ -98,7 +98,7 @@ void svn_swig_rb_make_editor(const svn_delta_editor_t **editor,
 
 %typemap(ruby, in) (svn_delta_path_driver_cb_func_t callback_func,
                     void *callback_baton)
-
+     
 {
   $1 = svn_swig_rb_delta_path_driver_cb_func;
   $2 = (void *)$input;
@@ -148,7 +148,7 @@ svn_txdelta_to_svndiff_handler(svn_stream_t *output, apr_pool_t *pool)
   svn_txdelta_to_svndiff(output, pool, handler, handler_baton);
 
   obj = rb_class_new_instance(0, NULL, rb_cObject);
-
+  
   rb_ivar_set(obj, rb_id_handler,
               SWIG_NewPointerObj((void *)*handler,
                                  SWIG_TypeQuery("svn_txdelta_window_handler_t"),
@@ -158,7 +158,7 @@ svn_txdelta_to_svndiff_handler(svn_stream_t *output, apr_pool_t *pool)
                                  SWIG_TypeQuery("void *"),
                                  0));
   rb_ivar_set(obj, rb_id_pool, rb_handler_pool);
-
+  
   return obj;
 }
 
@@ -179,7 +179,7 @@ svn_txdelta_invoke_handler(VALUE obj, svn_txdelta_window_t *window)
 
   SVN_ERR(handler(window, handler_baton));
 }
-
+ 
 %}
 #endif
 
