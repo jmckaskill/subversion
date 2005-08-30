@@ -9,7 +9,7 @@ require "svn/client"
 
 class SvnFsTest < Test::Unit::TestCase
   include SvnTestUtil
-
+  
   def setup
     setup_basic
   end
@@ -40,14 +40,14 @@ class SvnFsTest < Test::Unit::TestCase
     file = "hello.txt"
     path = File.join(@wc_path, file)
     FileUtils.touch(path)
-
+    
     ctx = make_context(log)
     ctx.add(path)
     commit_info = ctx.commit(@wc_path)
     rev = commit_info.revision
-
+    
     assert_equal(log, ctx.log_message(path, rev))
-
+    
     dest_path = File.join(@tmp_path, "dest")
     backup_path = File.join(@tmp_path, "back")
     config = {}
@@ -78,7 +78,7 @@ class SvnFsTest < Test::Unit::TestCase
     src = "sample source"
     path_in_repos = "/#{file}"
     path = File.join(@wc_path, file)
-
+    
     ctx = make_context(log)
     FileUtils.touch(path)
     ctx.add(path)
@@ -89,7 +89,7 @@ class SvnFsTest < Test::Unit::TestCase
     info = @fs.root.paths_changed[path_in_repos]
     assert(info.text_mod?)
     assert(info.add?)
-
+    
     File.open(path, "w") {|f| f.print(src)}
     rev2 = ctx.commit(@wc_path).revision
     file_id2 = @fs.root.node_id(path_in_repos)
@@ -112,7 +112,7 @@ class SvnFsTest < Test::Unit::TestCase
     assert(file_id1.related?(file_id2))
     assert_equal(1, file_id1.compare(file_id2))
     assert_equal(1, file_id2.compare(file_id1))
-
+    
     assert_equal(rev2, @fs.root.node_created_rev(path_in_repos))
     assert_equal(path_in_repos, @fs.root.node_created_path(path_in_repos))
   end
