@@ -20,7 +20,7 @@ module Svn
       alias_method "_#{target}", target
     end
     @@alias_targets = nil
-
+    
     module_function
     def locked?(path)
       Wc.locked(path)
@@ -41,11 +41,11 @@ module Svn
     def normal_prop?(name)
       Wc.is_normal_prop(name)
     end
-
+    
     def wc_prop?(name)
       Wc.is_wc_prop(name)
     end
-
+    
     def entry_prop?(name)
       Wc.is_entry_prop(name)
     end
@@ -57,7 +57,7 @@ module Svn
     def default_ignores(config)
       Wc.get_default_ignores(config)
     end
-
+    
     AdmAccess = SWIG::TYPE_p_svn_wc_adm_access_t
     class AdmAccess
       class << self
@@ -82,7 +82,7 @@ module Svn
         private
         def _open(name, *args, &block)
           adm = Wc.__send__(name, *args, &block)
-
+          
           if block_given?
             ret = yield adm
             adm.close
@@ -104,7 +104,7 @@ module Svn
       def retrieve(path)
         Wc.adm_retrieve(self, path)
       end
-
+        
       def probe_retrieve(path)
         Wc.adm_probe_retrieve(self, path)
       end
@@ -132,7 +132,7 @@ module Svn
       def text_modified?(filename, force=false)
         Wc.text_modified_p(filename, force, self)
       end
-
+      
       def props_modified?(path)
         Wc.props_modified_p(path, self)
       end
@@ -160,7 +160,7 @@ module Svn
       def maybe_set_repos_root(path, repos)
         Wc.maybe_set_repos_rot(self, path, repos)
       end
-
+      
       def status(path)
         Wc.status2(path, self)
       end
@@ -366,11 +366,11 @@ module Svn
       def text_conflicted?(dir_path)
         conflicted(dir_path)[0]
       end
-
+      
       def prop_conflicted?(dir_path)
         conflicted(dir_path)[1]
       end
-
+      
       def dir?
         kind == Core::NODE_DIR
       end
@@ -387,12 +387,12 @@ module Svn
         schedule == SCHEDULE_NORMAL
       end
     end
-
+    
     class Status2
       def dup
         Wc.dup_status2(self, Core::Pool.new)
       end
-
+      
       def text_added?
         text_status == STATUS_ADDED
       end
@@ -412,7 +412,7 @@ module Svn
       def dup
         Wc.dup_nodtify(self, Core::Pool.new)
       end
-
+      
       def commit_added?
         action == NOTIFY_COMMIT_ADDED
       end
@@ -437,6 +437,6 @@ module Svn
         lock_state = NOTIFY_LOCK_STATE_UNLOCKED
       end
     end
-
+    
   end
 end
