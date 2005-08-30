@@ -18,7 +18,7 @@ module Svn
         print_modules("")
       end
     end
-
+    
     Session = SWIG::TYPE_p_svn_ra_session_t
 
     class Session
@@ -56,7 +56,7 @@ module Svn
         editor, editor_baton = Ra.get_commit_editor(log_msg, callback,
                                                     lock_tokens, keep_lock)
       end
-
+      
       def file(path, rev=nil)
         output = StringIO.new
         *rv = Ra.get_file(self, path, rev || latest_revnum, output)
@@ -98,7 +98,7 @@ module Svn
         reporter, reporter_baton = Ra.do_status(self, status_target,
                                                 revision, recurse, editor,
                                                 editor_baton)
-
+        
         reporter.baton = reporter_baton
         if block_given?
           yield(reporter)
@@ -197,11 +197,11 @@ module Svn
       def set_path(path, revision, start_empty=true, lock_token=nil)
         _set_path(@baton, path, revision, start_empty, lock_token)
       end
-
+      
       def delete_path(path)
         _set_path(@baton, path)
       end
-
+      
       def link_path(path, url, revision, start_empty=true, lock_token=nil)
         _link_path(@baton, path, url, revision,
                    start_empty, lock_token)
@@ -214,7 +214,7 @@ module Svn
       def abort_report
         _abort_report(@baton)
       end
-
+      
     end
   end
 end
