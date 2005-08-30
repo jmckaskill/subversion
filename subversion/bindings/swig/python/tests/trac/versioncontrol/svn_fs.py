@@ -52,62 +52,62 @@ class Pool(object):
     """
     A wrapper for a new Subversion `pool` object that ties the lifetime of the
     pool to that of a  given object.
-
+    
     Instances of this type return their associated `pool` when called.
     """
-
+    
     def __init__(self, parent, parent_pool=None):
         """
         Create a new pool that is a sub-pool of `parent_pool`, and arrange for
         `self._close` to be called up when the `parent` object is destroyed.
-
+        
         The `parent` object must be weak-referenceable.  The returned `Pool`
-        instance will have the value of the newly created pool.
+        instance will have the value of the newly created pool. 
         """
         self._parent_pool = parent_pool
         self._children = []
         self._waiting_to_close = False
-
+        
         if self._parent_pool:
-            self._pool = core.svn_pool_create(self._parent_pool())
+            self._pool = core.svn_pool_create(self._parent_pool())        
             self._parent_pool._children.append(self)
         else:
             self._pool = core.svn_pool_create(None)
-
+        
         try:
             parent._pool_closer = weakref.ref(parent, self._close)
         except TypeError:
             self._close(None)
             raise
-
+    
     def __call__(self):
         return self._pool
-
+    
     def _child_closed(self, child):
         self._children.remove(child)
         if self._waiting_to_close:
             self._close(None)
-
+    
     def _close(self, x):
         """
         The parent object has been destroyed so it is time for us to go.
-
+        
         If we still have children that are alive, we do not clean up just
         yet.  This would lead to their memory being freed from under them.
         Instead, we wait for our child to notify us that they have been
-        closed and clean up then.
-
+        closed and clean up then. 
+        
         -- So long, and thanks for all the fish!
         """
         assert self._pool
-
+        
         if self._children:
             self._waiting_to_close = True
             return
-
+        
         core.svn_pool_destroy(self._pool)
         self._pool = None
-
+        
         if self._parent_pool:
             self._parent_pool._child_closed(self)
             self._parent_pool = None
@@ -362,7 +362,7 @@ class SubversionNode(Node):
         #          * the node existed at (created_path,created_rev)
         # TODO: check node id
         self.rev = self.created_rev
-
+        
         Node.__init__(self, path, self.rev, _kindmap[node_type])
 
     def get_content(self):
@@ -506,11 +506,11 @@ class SubversionChangeset(Changeset):
 # Note 2: the 'dir_baton' is the path of the parent directory
 #
 
-class DiffChangeEditor(delta.Editor):
+class DiffChangeEditor(delta.Editor): 
 
     def __init__(self):
         self.deltas = []
-
+    
     # -- svn.delta.Editor callbacks
 
     def open_root(self, base_revision, dir_pool):
