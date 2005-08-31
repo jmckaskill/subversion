@@ -190,11 +190,11 @@ svn_wc__save_prop_file (const char *propfile_path,
 
   SVN_ERR (svn_io_file_open (&prop_tmp, propfile_path,
                              (APR_WRITE | APR_CREATE | APR_TRUNCATE
-                              | APR_BUFFERED),
+                              | APR_BUFFERED), 
                              APR_OS_DEFAULT, pool));
 
   SVN_ERR_W (svn_hash_write (hash, prop_tmp, pool),
-             apr_psprintf (pool,
+             apr_psprintf (pool, 
                            _("Can't write property hash to '%s'"),
                            svn_path_local_style (propfile_path, pool)));
 
@@ -252,7 +252,7 @@ svn_wc__get_existing_prop_reject_file (const char **reject_file,
        name,
        svn_path_local_style (svn_wc_adm_access_path (adm_access), pool));
 
-  *reject_file = the_entry->prejfile
+  *reject_file = the_entry->prejfile 
                  ? apr_pstrdup (pool, the_entry->prejfile)
                  : NULL;
   return SVN_NO_ERROR;
@@ -309,7 +309,7 @@ svn_wc_merge_props (svn_wc_notify_state_t *state,
                                       pool));
       log_accum = svn_stringbuf_create ("", pool);
     }
-
+  
   /* Note that while this routine does the "real" work, it's only
      prepping tempfiles and writing log commands.  */
   SVN_ERR (svn_wc__merge_props (state, adm_access, base_name, baseprops,
@@ -318,7 +318,7 @@ svn_wc_merge_props (svn_wc_notify_state_t *state,
 
   if (! dry_run)
     {
-      SVN_ERR_W (svn_io_file_write_full (log_fp, log_accum->data,
+      SVN_ERR_W (svn_io_file_write_full (log_fp, log_accum->data, 
                                          log_accum->len, NULL, pool),
                  apr_psprintf (pool, _("Error writing log for '%s'"),
                                svn_path_local_style (path, pool)));
@@ -351,11 +351,11 @@ svn_wc__merge_props (svn_wc_notify_state_t *state,
   const char *full_path;
   apr_hash_t *working_props;   /* all `working' properties */
   apr_hash_t *base_props;    /* all `pristine' properties */
-
+  
   /* Zillions of pathnames to compute!  yeargh!  */
   const char *base_propfile_path, *local_propfile_path;
   const char *base_prop_tmp_path, *local_prop_tmp_path;
-  const char *tmp_props, *real_props;
+  const char *tmp_props, *real_props;      
   const char *access_path = svn_wc_adm_access_path (adm_access);
   int access_len = strlen (access_path);
   apr_file_t *reject_fp = NULL;           /* the real conflicts file */
@@ -388,18 +388,18 @@ svn_wc__merge_props (svn_wc_notify_state_t *state,
   working_props = apr_hash_make (pool);
   base_props = apr_hash_make (pool);
   SVN_ERR (svn_wc__prop_path (&local_propfile_path, full_path, adm_access,
-                              FALSE, pool));
+                              FALSE, pool)); 
   SVN_ERR (svn_wc__prop_base_path (&base_propfile_path, full_path, adm_access,
                                    FALSE, pool));
   SVN_ERR (svn_wc__load_prop_file (base_propfile_path, base_props, pool));
   SVN_ERR (svn_wc__load_prop_file (local_propfile_path, working_props, pool));
-
+  
   if (state)
     {
       /* Start out assuming no conflicts.  Don't bother to examine
          propchanges->nelts yet; even if we knew there were
          propchanges, we wouldn't yet know if they are "normal" props,
-         as opposed wc or entry props.  */
+         as opposed wc or entry props.  */ 
       if (propchanges->nelts > 0)
         *state = svn_wc_notify_state_changed;
       else
@@ -419,16 +419,16 @@ svn_wc__merge_props (svn_wc_notify_state_t *state,
       incoming_change = &APR_ARRAY_IDX (propchanges, i, svn_prop_t);
       propname = incoming_change->name;
       is_normal = svn_wc_is_normal_prop (propname);
-      to_val = incoming_change->value
+      to_val = incoming_change->value 
                 ? svn_string_dup (incoming_change->value, pool) : NULL;
       from_val = apr_hash_get (server_baseprops, propname, APR_HASH_KEY_STRING);
-
+                
       working_val = apr_hash_get (working_props, propname, APR_HASH_KEY_STRING);
 
       /* Apply the update_change to the pristine hash while we're
          here.  We may or may not write this hash back out later on. */
       apr_hash_set (base_props, propname, APR_HASH_KEY_STRING, to_val);
-
+      
       /* We already know that state is at least `modified', so mark
          that, but remember that we may later upgrade to `merged' or
          even `conflicted'. */
@@ -437,10 +437,10 @@ svn_wc__merge_props (svn_wc_notify_state_t *state,
 
       if (! from_val)  /* adding a new property */
         {
-          if (working_val)
+          if (working_val) 
             {
               /* the property already exists in working_props... */
-
+              
               if (svn_string_compare (working_val, to_val))
                 {
                   /* The value we want is already there, so it's a
@@ -453,15 +453,15 @@ svn_wc__merge_props (svn_wc_notify_state_t *state,
               else
                 {
                   conflict = TRUE;
-                  conflict_description =
-                    svn_string_createf
-                    (pool,
+                  conflict_description = 
+                    svn_string_createf 
+                    (pool, 
                      _("Trying to add new property '%s' with value '%s',\n"
                        "but property already exists with value '%s'."),
                      propname, to_val->data, working_val->data);
                 }
             }
-
+          
           else  /* property dosen't yet exist in working_props...  */
             {
               /* so just set it */
@@ -469,20 +469,20 @@ svn_wc__merge_props (svn_wc_notify_state_t *state,
                             APR_HASH_KEY_STRING, to_val);
             }
         }
-
+      
       else  /* changing or deleting an existing property */
         {
           if (! working_val)  /* ... but it's not in the working_props */
             {
               conflict = TRUE;
-              conflict_description =
-                svn_string_createf
-                (pool,
+              conflict_description = 
+                svn_string_createf 
+                (pool, 
                  _("Trying to change property '%s' from '%s' to '%s',\n"
                    "but the property does not exist."),
                  propname, from_val->data, to_val->data);
             }
-
+          
           else  /* property already exists */
             {
               if (svn_string_compare (working_val, from_val))
@@ -504,9 +504,9 @@ svn_wc__merge_props (svn_wc_notify_state_t *state,
               else /* property has some random value */
                 {
                   conflict = TRUE;
-                  conflict_description =
-                    svn_string_createf
-                    (pool,
+                  conflict_description = 
+                    svn_string_createf 
+                    (pool, 
                      _("Trying to change property '%s' from '%s' to '%s',\n"
                        "but property already exists with value '%s'."),
                      propname, from_val->data, to_val->data, working_val->data);
@@ -516,35 +516,35 @@ svn_wc__merge_props (svn_wc_notify_state_t *state,
 
       /* merging logic complete, now we need to possibly log conflict
          data to tmpfiles.  */
-
+      
       if (conflict)
         {
           if (state && is_normal)
             *state = svn_wc_notify_state_conflicted;
-
+          
           if (dry_run)
             continue;   /* skip to next incoming change */
-
+          
           if (! reject_tmp_fp)
             {
               /* This is the very first prop conflict found on this item. */
               const char *tmppath, *tmpname;
-
+              
               /* Get path to temporary local prop file, and reserve a
                  .prej filename based on it. */
               SVN_ERR (svn_wc__prop_path (&tmppath, full_path, adm_access,
-                                          TRUE, pool));
+                                          TRUE, pool));              
               SVN_ERR (svn_io_open_unique_file (&reject_tmp_fp,
                                                 &reject_tmp_path,
                                                 tmppath, SVN_WC__PROP_REJ_EXT,
                                                 FALSE, pool));
-
+              
               /* reject_tmp_path is an absolute path at this point,
                  but that's no good for us.  We need to convert this
                  path to a *relative* path to use in the logfile. */
               tmpname = svn_path_basename (reject_tmp_path, pool);
-
-              if (is_dir)  /* Dealing with directory "path" */
+              
+              if (is_dir)  /* Dealing with directory "path" */                
                 reject_tmp_path = svn_wc__adm_path ("", TRUE, /* use tmp */
                                                     pool, tmpname, NULL);
               else /* Dealing with file "path/name" */
@@ -552,7 +552,7 @@ svn_wc__merge_props (svn_wc_notify_state_t *state,
                                                     SVN_WC__ADM_PROPS,
                                                     tmpname, NULL);
             }
-
+          
           /* Append the conflict to the open tmp/PROPS/---.prej file */
           SVN_ERR (append_prop_conflict (reject_tmp_fp, conflict_description,
                                          pool));
@@ -561,7 +561,7 @@ svn_wc__merge_props (svn_wc_notify_state_t *state,
     }  /* foreach propchange ... */
 
   /* Finished applying all incoming propchanges to our hashes! */
-
+  
   if (dry_run)
     return SVN_NO_ERROR;
 
@@ -570,17 +570,17 @@ svn_wc__merge_props (svn_wc_notify_state_t *state,
      routines require.*/
   SVN_ERR (svn_wc__prop_path (&local_prop_tmp_path, full_path,
                               adm_access, TRUE, pool));
-
+  
   /* Write the merged working prop hash to path/.svn/tmp/props/name or
      path/.svn/tmp/dir-props */
   SVN_ERR (svn_wc__save_prop_file (local_prop_tmp_path, working_props, pool));
-
+  
   /* Compute pathnames for the "mv" log entries.  Notice that these
      paths are RELATIVE pathnames (each beginning with ".svn/"), so
      that each .svn subdir remains separable when executing run_log().  */
   tmp_props = apr_pstrdup (pool, local_prop_tmp_path + access_len + slash);
   real_props = apr_pstrdup (pool, local_propfile_path + access_len + slash);
-
+  
   /* Write log entry to move working tmp copy to real working area. */
   svn_xml_make_open_tag (entry_accum,
                          pool,
@@ -642,7 +642,7 @@ svn_wc__merge_props (svn_wc_notify_state_t *state,
       /* First, _close_ this temporary conflicts file.  We've been
          appending to it all along. */
       SVN_ERR (svn_io_file_close (reject_tmp_fp, pool));
-
+                                  
       /* Now try to get the name of a pre-existing .prej file from the
          entries file */
       SVN_ERR (svn_wc__get_existing_prop_reject_file (&reject_path,
@@ -657,7 +657,7 @@ svn_wc__merge_props (svn_wc_notify_state_t *state,
           const char *reserved_path;
           const char *full_reject_path;
 
-          full_reject_path = svn_path_join
+          full_reject_path = svn_path_join 
             (access_path, is_dir ? SVN_WC__THIS_DIR_PREJ : name, pool);
 
           SVN_ERR (svn_io_open_unique_file (&reject_fp, &reserved_path,
@@ -666,7 +666,7 @@ svn_wc__merge_props (svn_wc_notify_state_t *state,
                                             FALSE, pool));
 
           SVN_ERR (svn_io_file_close (reject_fp, pool));
-
+          
           /* This file will be overwritten when the log is run; that's
              ok, because at least now we have a reservation on
              disk. */
@@ -678,7 +678,7 @@ svn_wc__merge_props (svn_wc_notify_state_t *state,
 
       /* We've now guaranteed that some kind of .prej file exists
          above the .svn/ dir.  We write log entries to append our
-         conflicts to it. */
+         conflicts to it. */      
       svn_xml_make_open_tag (entry_accum,
                              pool,
                              svn_xml_self_closing,
@@ -697,7 +697,7 @@ svn_wc__merge_props (svn_wc_notify_state_t *state,
                              SVN_WC__LOG_ATTR_NAME,
                              reject_tmp_path,
                              NULL);
-
+      
       /* Mark entry as "conflicted" with a particular .prej file. */
       svn_xml_make_open_tag (entry_accum,
                              pool,
@@ -707,10 +707,10 @@ svn_wc__merge_props (svn_wc_notify_state_t *state,
                              entryname,
                              SVN_WC__ENTRY_ATTR_PREJFILE,
                              reject_path,
-                             NULL);
+                             NULL);      
 
     } /* if (reject_tmp_fp) */
-
+  
 
   return SVN_NO_ERROR;
 }
@@ -732,7 +732,7 @@ svn_wc__merge_prop_diffs (svn_wc_notify_state_t *state,
 {
   int i;
   svn_boolean_t is_dir;
-
+  
   /* Zillions of pathnames to compute!  yeargh!  */
   const char *base_propfile_path, *local_propfile_path;
   const char *base_prop_tmp_path, *local_prop_tmp_path;
@@ -745,7 +745,7 @@ svn_wc__merge_prop_diffs (svn_wc_notify_state_t *state,
 
   const char *entryname;
   const char *full_path;
-
+  
   apr_array_header_t *local_propchanges; /* propchanges that the user
                                             has made since last update */
   apr_hash_t *localhash;   /* all `working' properties */
@@ -782,28 +782,28 @@ svn_wc__merge_prop_diffs (svn_wc_notify_state_t *state,
   /* Get paths to the local and pristine property files. */
   SVN_ERR (svn_wc__prop_path (&local_propfile_path, full_path, adm_access,
                               FALSE, pool));
-
+  
   SVN_ERR (svn_wc__prop_base_path (&base_propfile_path, full_path, adm_access,
                                    FALSE, pool));
 
   /* Load the base & working property files into hashes */
   localhash = apr_hash_make (pool);
   basehash = apr_hash_make (pool);
-
+  
   SVN_ERR (svn_wc__load_prop_file (base_propfile_path, basehash, pool));
-
+  
   SVN_ERR (svn_wc__load_prop_file (local_propfile_path, localhash, pool));
-
+  
   /* Deduce any local propchanges the user has made since the last
      update.  */
   SVN_ERR (svn_prop_diffs (&local_propchanges, localhash, basehash, pool));
-
+  
   if (state)
     {
       /* Start out assuming no conflicts.  Don't bother to examine
          propchanges->nelts yet; even if we knew there were
          propchanges, we wouldn't yet know if they are "normal" props,
-         as opposed wc or entry props.  */
+         as opposed wc or entry props.  */ 
       if (local_propchanges->nelts > 0)
         *state = svn_wc_notify_state_changed;
       else
@@ -814,7 +814,7 @@ svn_wc__merge_prop_diffs (svn_wc_notify_state_t *state,
   for (i = 0; i < propchanges->nelts; i++)
     {
       int j;
-      int found_match = 0;
+      int found_match = 0;          
       const svn_string_t *conflict_description;
       const svn_prop_t *update_change;
       const svn_prop_t *local_change = NULL;
@@ -823,14 +823,14 @@ svn_wc__merge_prop_diffs (svn_wc_notify_state_t *state,
 
       update_change = &APR_ARRAY_IDX (propchanges, i, svn_prop_t);
       is_normal = svn_wc_is_normal_prop (update_change->name);
-      value = update_change->value
-              ? svn_string_dup (update_change->value, pool)
+      value = update_change->value 
+              ? svn_string_dup (update_change->value, pool) 
               : NULL;
 
       /* Apply the update_change to the pristine hash, no questions
          asked. */
       apr_hash_set (basehash, update_change->name, APR_HASH_KEY_STRING, value);
-
+      
       /* We already know that state is at least `modified', so mark
          that, but remember that we may later upgrade to `merged' or
          even `conflicted'. */
@@ -838,7 +838,7 @@ svn_wc__merge_prop_diffs (svn_wc_notify_state_t *state,
         *state = svn_wc_notify_state_changed;
 
       /* Now, does the update_change conflict with some local change?  */
-
+      
       /* First check if the property name even exists in our list
          of local changes... */
       for (j = 0; j < local_propchanges->nelts; j++)
@@ -851,7 +851,7 @@ svn_wc__merge_prop_diffs (svn_wc_notify_state_t *state,
               break;
             }
         }
-
+      
       if (found_match)
         {
           svn_boolean_t conflict
@@ -897,7 +897,7 @@ svn_wc__merge_prop_diffs (svn_wc_notify_state_t *state,
                   if (is_dir)
                     {
                       /* Dealing with directory "path" */
-                      reject_tmp_path =
+                      reject_tmp_path = 
                         svn_wc__adm_path ("",
                                           TRUE, /* use tmp */
                                           pool,
@@ -907,14 +907,14 @@ svn_wc__merge_prop_diffs (svn_wc_notify_state_t *state,
                   else
                     {
                       /* Dealing with file "path/name" */
-                      reject_tmp_path =
+                      reject_tmp_path = 
                         svn_wc__adm_path ("",
-                                          TRUE,
+                                          TRUE, 
                                           pool,
                                           SVN_WC__ADM_PROPS,
                                           tmpname,
                                           NULL);
-                    }
+                    }               
                 }
 
               /* Append the conflict to the open tmp/PROPS/---.prej file */
@@ -933,15 +933,15 @@ svn_wc__merge_prop_diffs (svn_wc_notify_state_t *state,
                 *state = svn_wc_notify_state_merged;
             }
         }
-
+      
       /* Every time we reach this point, it's not a conflict, so we
          can safely apply the update_change to our working property hash. */
       apr_hash_set (localhash,
                     update_change->name, APR_HASH_KEY_STRING,
                     value);
     }
-
-
+  
+  
   if (dry_run)
     return SVN_NO_ERROR;
 
@@ -952,17 +952,17 @@ svn_wc__merge_prop_diffs (svn_wc_notify_state_t *state,
 
   SVN_ERR (svn_wc__prop_path (&local_prop_tmp_path, full_path, adm_access, TRUE,
                               pool));
-
+  
   /* Write the merged local prop hash to path/.svn/tmp/props/name or
      path/.svn/tmp/dir-props */
   SVN_ERR (svn_wc__save_prop_file (local_prop_tmp_path, localhash, pool));
-
+  
   /* Compute pathnames for the "mv" log entries.  Notice that these
      paths are RELATIVE pathnames (each beginning with ".svn/"), so
      that each .svn subdir remains separable when executing run_log().  */
   tmp_props = apr_pstrdup (pool, local_prop_tmp_path + access_len + slash);
   real_props = apr_pstrdup (pool, local_propfile_path + access_len + slash);
-
+  
   /* Write log entry to move working tmp copy to real working area. */
   svn_xml_make_open_tag (entry_accum,
                          pool,
@@ -1022,7 +1022,7 @@ svn_wc__merge_prop_diffs (svn_wc_notify_state_t *state,
       /* First, _close_ this temporary conflicts file.  We've been
          appending to it all along. */
       SVN_ERR (svn_io_file_close (reject_tmp_fp, pool));
-
+                                  
       /* Now try to get the name of a pre-existing .prej file from the
          entries file */
       SVN_ERR (svn_wc__get_existing_prop_reject_file (&reject_path,
@@ -1050,7 +1050,7 @@ svn_wc__merge_prop_diffs (svn_wc_notify_state_t *state,
                                             pool));
 
           SVN_ERR (svn_io_file_close (reject_fp, pool));
-
+          
           /* This file will be overwritten when the log is run; that's
              ok, because at least now we have a reservation on
              disk. */
@@ -1062,7 +1062,7 @@ svn_wc__merge_prop_diffs (svn_wc_notify_state_t *state,
 
       /* We've now guaranteed that some kind of .prej file exists
          above the .svn/ dir.  We write log entries to append our
-         conflicts to it. */
+         conflicts to it. */      
       svn_xml_make_open_tag (entry_accum,
                              pool,
                              svn_xml_self_closing,
@@ -1081,7 +1081,7 @@ svn_wc__merge_prop_diffs (svn_wc_notify_state_t *state,
                              SVN_WC__LOG_ATTR_NAME,
                              reject_tmp_path,
                              NULL);
-
+      
       /* Mark entry as "conflicted" with a particular .prej file. */
       svn_xml_make_open_tag (entry_accum,
                              pool,
@@ -1091,10 +1091,10 @@ svn_wc__merge_prop_diffs (svn_wc_notify_state_t *state,
                              entryname,
                              SVN_WC__ENTRY_ATTR_PREJFILE,
                              reject_path,
-                             NULL);
+                             NULL);      
 
     } /* if (reject_tmp_fp) */
-
+  
   /* At this point, we need to write log entries that bump revision
      number and set new entry timestamps.  The caller of this function
      should (hopefully) add those commands to the log accumulator. */
@@ -1147,7 +1147,7 @@ svn_wc_merge_prop_diffs (svn_wc_notify_state_t *state,
                                       pool));
       log_accum = svn_stringbuf_create ("", pool);
     }
-
+  
   /* Note that while this routine does the "real" work, it's only
      prepping tempfiles and writing log commands.  */
   SVN_ERR (svn_wc__merge_prop_diffs (state, adm_access, base_name,
@@ -1156,7 +1156,7 @@ svn_wc_merge_prop_diffs (svn_wc_notify_state_t *state,
 
   if (! dry_run)
     {
-      SVN_ERR_W (svn_io_file_write_full (log_fp, log_accum->data,
+      SVN_ERR_W (svn_io_file_write_full (log_fp, log_accum->data, 
                                          log_accum->len, NULL, pool),
                  apr_psprintf (pool, _("Error writing log for '%s'"),
                                svn_path_local_style (path, pool)));
@@ -1185,18 +1185,18 @@ wcprop_list (apr_hash_t **props,
 {
   svn_node_kind_t kind, pkind;
   const char *prop_path;
-
+  
   *props = apr_hash_make (pool);
 
   /* Check validity of PATH */
   SVN_ERR( svn_io_check_path (path, &kind, pool) );
-
+  
 #if 0
   if (kind == svn_node_none)
     return svn_error_createf (SVN_ERR_BAD_FILENAME, NULL,
                               _("'%s' does not exist"),
                               svn_path_local_style (path, pool));
-
+  
   if (kind == svn_node_unknown)
     return svn_error_createf (SVN_ERR_NODE_UNKNOWN_KIND, NULL,
                               _("Unknown node kind: '%s'"),
@@ -1208,11 +1208,11 @@ wcprop_list (apr_hash_t **props,
 
   /* Does the property file exist? */
   SVN_ERR( svn_io_check_path (prop_path, &pkind, pool) );
-
+  
   if (pkind == svn_node_none)
     /* No property file exists.  Just go home, with an empty hash. */
     return SVN_NO_ERROR;
-
+  
   /* else... */
 
   SVN_ERR( svn_wc__load_prop_file (prop_path, *props, pool) );
@@ -1264,7 +1264,7 @@ svn_wc__wcprop_set (const char *name,
   apr_hash_set (prophash, name, APR_HASH_KEY_STRING, value);
 
   /* Open the propfile for writing. */
-  SVN_ERR (svn_wc__open_props (&fp,
+  SVN_ERR (svn_wc__open_props (&fp, 
                                path, /* open in PATH */
                                (APR_WRITE | APR_CREATE | APR_BUFFERED),
                                0, /* not base props */
@@ -1275,7 +1275,7 @@ svn_wc__wcprop_set (const char *name,
              apr_psprintf (pool,
                            _("Cannot write property hash for '%s'"),
                            svn_path_local_style (path, pool)));
-
+  
   /* Close file, and doing an atomic "move". */
   SVN_ERR (svn_wc__close_props (fp, path, 0, 1,
                                 1, /* sync! */
@@ -1342,7 +1342,7 @@ svn_wc_prop_get (const svn_string_t **value,
         return
           svn_error_quick_wrap
           (err, _("Failed to load properties from disk"));
-
+      
       *value = apr_hash_get (prophash, name, APR_HASH_KEY_STRING);
 
       return SVN_NO_ERROR;
@@ -1397,11 +1397,11 @@ validate_prop_against_node_kind (const char *name,
     }
 
   return SVN_NO_ERROR;
-}
+}                             
 
 
 static svn_error_t *
-validate_eol_prop_against_file (const char *path,
+validate_eol_prop_against_file (const char *path, 
                                 svn_wc_adm_access_t *adm_access,
                                 apr_pool_t *pool)
 {
@@ -1414,13 +1414,13 @@ validate_eol_prop_against_file (const char *path,
   SVN_ERR (svn_wc_prop_get (&mime_type, SVN_PROP_MIME_TYPE, path, adm_access,
                             pool));
   if (mime_type && svn_mime_type_is_binary (mime_type->data))
-    return svn_error_createf
+    return svn_error_createf 
       (SVN_ERR_ILLEGAL_TARGET, NULL,
        _("File '%s' has binary mime type property"),
        svn_path_local_style (path, pool));
 
   /* Open PATH. */
-  SVN_ERR (svn_io_file_open (&fp, path,
+  SVN_ERR (svn_io_file_open (&fp, path, 
                              (APR_READ | APR_BINARY | APR_BUFFERED),
                              0, pool));
 
@@ -1434,7 +1434,7 @@ validate_eol_prop_against_file (const char *path,
      here is whether or not the function fails on inconsistent line
      endings.  The function is "translating" to an empty stream.  This
      is sneeeeeeeeeeeaky. */
-  err = svn_subst_translate_stream2 (read_stream, write_stream,
+  err = svn_subst_translate_stream2 (read_stream, write_stream, 
                                      "", FALSE, NULL, FALSE, pool);
   if (err && err->apr_err == SVN_ERR_IO_INCONSISTENT_EOL)
     return svn_error_createf (SVN_ERR_ILLEGAL_TARGET, err,
@@ -1557,7 +1557,7 @@ svn_wc_prop_set2 (const char *name,
          to read-write */
       if (value == NULL)
         {
-          SVN_ERR (svn_io_set_file_read_write_carefully (path, TRUE,
+          SVN_ERR (svn_io_set_file_read_write_carefully (path, TRUE, 
                                                          FALSE, pool));
         }
       else
@@ -1598,9 +1598,9 @@ svn_wc_prop_set2 (const char *name,
   if (new_value)
     value = svn_string_create_from_buf (new_value, pool);
   apr_hash_set (prophash, name, APR_HASH_KEY_STRING, value);
-
+  
   /* Open the propfile for writing. */
-  SVN_ERR (svn_wc__open_props (&fp,
+  SVN_ERR (svn_wc__open_props (&fp, 
                                path, /* open in PATH */
                                (APR_WRITE | APR_CREATE | APR_BUFFERED),
                                0, /* not base props */
@@ -1608,10 +1608,10 @@ svn_wc_prop_set2 (const char *name,
                                pool));
   /* Write. */
   SVN_ERR_W (svn_hash_write (prophash, fp, pool),
-             apr_psprintf (pool,
+             apr_psprintf (pool, 
                            _("Cannot write property hash for '%s'"),
                            svn_path_local_style (path, pool)));
-
+  
   /* Close file, and doing an atomic "move". */
   SVN_ERR (svn_wc__close_props (fp, path, 0, 0,
                                 1, /* sync! */
@@ -1711,7 +1711,7 @@ empty_props_p (svn_boolean_t *empty_p,
 
       /* If we remove props from a propfile, eventually the file will
          contain nothing but "END\n" */
-      if (finfo.filetype == APR_REG && finfo.size == 4)
+      if (finfo.filetype == APR_REG && finfo.size == 4)  
         *empty_p = TRUE;
 
       else
@@ -1776,11 +1776,11 @@ svn_wc_props_modified_p (svn_boolean_t *modified_p,
   /* If something is scheduled for replacement, we do *not* want to
      pay attention to any base-props;  they might be residual from the
      old deleted file. */
-  SVN_ERR (svn_wc_entry (&entry, path, adm_access, TRUE, subpool));
+  SVN_ERR (svn_wc_entry (&entry, path, adm_access, TRUE, subpool));  
   if (entry && (entry->schedule == svn_wc_schedule_replace))
     {
       *modified_p = wempty ? FALSE : TRUE;
-      goto cleanup;
+      goto cleanup;        
     }
 
   /* Easy out:  if the base file is empty, we know the answer
@@ -1811,25 +1811,25 @@ svn_wc_props_modified_p (svn_boolean_t *modified_p,
 
   /* At this point, we know both files exists.  Therefore we have no
      choice but to start checking their contents. */
-
+  
   /* There are at least three tests we can try in succession. */
-
+  
   /* Easy-answer attempt #1:  (### this stat's the files again) */
-
+  
   /* Check if the local and prop-base file have *definitely* different
      filesizes. */
   SVN_ERR (svn_io_filesizes_different_p (&different_filesizes,
                                          prop_path,
                                          prop_base_path,
                                          subpool));
-  if (different_filesizes)
+  if (different_filesizes) 
     {
       *modified_p = TRUE;
       goto cleanup;
     }
-
+  
   /* Easy-answer attempt #2:  (### this stat's the files again) */
-
+      
   /* See if the local file's prop timestamp is the same as the one
      recorded in the administrative directory.  */
   SVN_ERR (svn_wc__timestamps_equal_p (&equal_timestamps, path, adm_access,
@@ -1839,9 +1839,9 @@ svn_wc_props_modified_p (svn_boolean_t *modified_p,
       *modified_p = FALSE;
       goto cleanup;
     }
-
+  
   /* Last ditch attempt:  */
-
+  
   /* If we get here, then we know that the filesizes are the same,
      but the timestamps are different.  That's still not enough
      evidence to make a correct decision;  we need to look at the
@@ -1864,9 +1864,9 @@ svn_wc_props_modified_p (svn_boolean_t *modified_p,
     SVN_ERR (svn_wc__load_prop_file (prop_base_path,
                                      baseprops,
                                      subpool));
-    SVN_ERR (svn_prop_diffs (&local_propchanges, localprops,
+    SVN_ERR (svn_prop_diffs (&local_propchanges, localprops, 
                              baseprops, subpool));
-
+                                         
     if (local_propchanges->nelts > 0)
       *modified_p = TRUE;
     else
@@ -1896,10 +1896,10 @@ svn_wc_props_modified_p (svn_boolean_t *modified_p,
                                        TRUE, pool));
       }
   }
-
+ 
  cleanup:
   svn_pool_destroy (subpool);
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -1930,11 +1930,11 @@ svn_wc_get_prop_diffs (apr_array_header_t **propchanges,
 
   /* At this point, if either of the propfiles are non-existent, then
      the corresponding hash is simply empty. */
-
+  
   if (propchanges != NULL)
     {
-      SVN_ERR (svn_prop_diffs (&local_propchanges, localprops,
-                               baseprops, pool));
+      SVN_ERR (svn_prop_diffs (&local_propchanges, localprops, 
+                               baseprops, pool));      
       *propchanges = local_propchanges;
     }
 
@@ -1953,7 +1953,7 @@ svn_wc_parse_externals_description2 (apr_array_header_t **externals_p,
 {
   apr_array_header_t *lines = svn_cstring_split (desc, "\n\r", TRUE, pool);
   int i;
-
+  
   if (externals_p)
     *externals_p = apr_array_make (pool, 1, sizeof (svn_wc_external_item_t *));
 
@@ -1985,10 +1985,10 @@ svn_wc_parse_externals_description2 (apr_array_header_t **externals_p,
       else if ((line_parts->nelts == 3) || (line_parts->nelts == 4))
         {
           /* We're dealing with one of these two forms:
-           *
+           * 
            *    TARGET_DIR  -rN  URL
            *    TARGET_DIR  -r N  URL
-           *
+           * 
            * Handle either way.
            */
 
