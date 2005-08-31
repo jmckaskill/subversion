@@ -99,7 +99,7 @@
 }
 %typemap(perl5,in,numinputs=0) apr_hash_t **entries_p = apr_hash_t **OUTPUT;
 %typemap(perl5,argout) apr_hash_t **entries_p {
-    ST(argvi++) = svn_swig_pl_convert_hash(*$1,
+    ST(argvi++) = svn_swig_pl_convert_hash(*$1, 
       $descriptor(svn_fs_dirent_t *));
 }
 %typemap(ruby,in,numinputs=0) apr_hash_t **entries_p = apr_hash_t **OUTPUT;
@@ -122,7 +122,7 @@
 
 %typemap(perl5, in,numinputs=0) apr_hash_t **changed_paths_p = apr_hash_t **OUTPUT;
 %typemap(perl5, argout) apr_hash_t **changed_paths_p {
-    ST(argvi++) = svn_swig_pl_convert_hash(*$1,
+    ST(argvi++) = svn_swig_pl_convert_hash(*$1, 
       $descriptor(svn_fs_path_change_t *));
 }
 
@@ -190,7 +190,7 @@ svn_fs_apply_textdelta_wrapper(svn_fs_root_t *root,
                                const char *path,
                                const char *base_checksum,
                                const char *result_checksum,
-                               apr_pool_t *pool)
+                               apr_pool_t *pool)  	
 {
   VALUE obj;
   VALUE rb_handler_pool;
@@ -211,7 +211,7 @@ svn_fs_apply_textdelta_wrapper(svn_fs_root_t *root,
                                base_checksum, result_checksum, pool);
   if (err)
     svn_swig_rb_handle_svn_error(err);
-
+  
   svn_swig_rb_setup_txdelta_window_handler_wrapper(obj,
                                                    *handler,
                                                    *handler_baton);
