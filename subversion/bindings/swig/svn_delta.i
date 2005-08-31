@@ -182,7 +182,7 @@ svn_txdelta_invoke_handler(VALUE obj, svn_txdelta_window_t *window)
 {
   return svn_swig_rb_invoke_txdelta_window_handler_wrapper(obj, window);
 }
-
+ 
 static const char *
 svn_txdelta_md5_digest_as_cstring(svn_txdelta_stream_t *stream,
                                   apr_pool_t *pool)
@@ -197,7 +197,7 @@ svn_txdelta_md5_digest_as_cstring(svn_txdelta_stream_t *stream,
     return NULL;
   }
 }
-
+ 
 %}
 #endif
 
