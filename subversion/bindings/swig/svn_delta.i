@@ -141,13 +141,13 @@ svn_swig_rb_id_handler(void)
 {
   return rb_intern("@handler");
 }
-
+ 
 static ID
 svn_swig_rb_id_handler_baton(void)
 {
   return rb_intern("@handler_baton");
 }
-
+ 
 static void
 svn_swig_rb_make_handler_wrapper(VALUE obj,
                                  svn_txdelta_window_handler_t handler,
@@ -180,7 +180,7 @@ svn_txdelta_to_svndiff_handler(svn_stream_t *output, apr_pool_t *pool)
 
   svn_txdelta_to_svndiff(output, pool, handler, handler_baton);
 
-  svn_swig_rb_make_handler_wrapper(obj, *handler, *handler_baton);
+  svn_swig_rb_make_handler_wrapper(obj, *handler, *handler_baton);  
   return obj;
 }
 
@@ -206,7 +206,7 @@ svn_txdelta_apply_wrapper(svn_stream_t *source,
   svn_txdelta_apply(source, target, result_digest, error_info, pool,
                     handler, handler_baton);
 
-  svn_swig_rb_make_handler_wrapper(obj, *handler, *handler_baton);
+  svn_swig_rb_make_handler_wrapper(obj, *handler, *handler_baton);  
   return obj;
 }
 
@@ -225,7 +225,7 @@ svn_txdelta_invoke_handler(VALUE obj, svn_txdelta_window_t *window)
 
   SVN_ERR(handler(window, handler_baton));
 }
-
+ 
 static const char *
 svn_txdelta_md5_digest_as_cstring(svn_txdelta_stream_t *stream,
                                   apr_pool_t *pool)
@@ -240,7 +240,7 @@ svn_txdelta_md5_digest_as_cstring(svn_txdelta_stream_t *stream,
     return NULL;
   }
 }
-
+ 
 %}
 #endif
 
