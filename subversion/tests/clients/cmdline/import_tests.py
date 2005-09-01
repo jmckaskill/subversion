@@ -2,9 +2,9 @@
 #
 #  import_tests.py:  import tests
 #
-#  Subversion is a tool for revision control.
+#  Subversion is a tool for revision control. 
 #  See http://subversion.tigris.org for more information.
-#
+#    
 # ====================================================================
 # Copyright (c) 2000-2004 CollabNet.  All rights reserved.
 #
@@ -216,7 +216,7 @@ def import_no_ignores(sbox):
     None, None, [], 'import',
     '--username', svntest.main.wc_author,
     '--password', svntest.main.wc_passwd,
-    '-m', 'Log message for new import', '--no-ignore',
+    '-m', 'Log message for new import', '--no-ignore', 
     dir_path, url)
 
   lastline = string.strip(output.pop())
@@ -267,29 +267,29 @@ def import_no_ignores(sbox):
 #----------------------------------------------------------------------
 def import_avoid_empty_revision(sbox):
   "avoid creating empty revisions with import"
-
+  
   sbox.build()
   wc_dir = sbox.wc_dir
 
-  # create a new directory
+  # create a new directory 
   empty_dir = os.path.join(wc_dir, "empty_dir")
   os.makedirs(empty_dir)
 
-  url = svntest.main.current_repo_url
+  url = svntest.main.current_repo_url  
   svntest.actions.run_and_verify_svn(None, None, None, 'import',
                                      '--username', svntest.main.wc_author,
                                      '--password', svntest.main.wc_passwd,
-                                     '-m', 'Log message for new import',
+                                     '-m', 'Log message for new import', 
                                      empty_dir, url)
 
-  svntest.main.safe_rmtree(empty_dir)
+  svntest.main.safe_rmtree(empty_dir) 
 
   # Verify that an empty revision has not been created
-  svntest.actions.run_and_verify_svn(None, [ "At revision 1.\n"],
-                                     None, "update",
+  svntest.actions.run_and_verify_svn(None, [ "At revision 1.\n"], 
+                                     None, "update", 
                                      '--username', svntest.main.wc_author,
                                      '--password', svntest.main.wc_passwd,
-                                     empty_dir)
+                                     empty_dir) 
 
 #----------------------------------------------------------------------
 ########################################################################
