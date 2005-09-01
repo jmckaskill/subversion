@@ -22,7 +22,7 @@ module Svn
       alias_method "_#{target}", target
     end
     @@alias_targets = nil
-
+    
     module_function
     def open(path)
       repos = _open(path)
@@ -55,7 +55,7 @@ module Svn
     def read_authz(file, must_exist=true)
       Repos.authz_read(file, must_exist)
     end
-
+      
     ReposCore = SWIG::TYPE_p_svn_repos_t
     class ReposCore
       class << self
@@ -84,7 +84,7 @@ module Svn
       def set_authz_read_func(&block)
         @authz_read_func = block
       end
-
+      
       def report(rev, username, fs_base, target, tgt_path,
                  editor, text_deltas=true, recurse=true,
                  ignore_ancestry=false)
@@ -115,7 +115,7 @@ module Svn
         editor.baton = baton
         editor
       end
-
+      
       def youngest_rev
         fs.youngest_rev
       end
@@ -133,7 +133,7 @@ module Svn
                strict_node_history=false)
         paths = [paths] unless paths.is_a?(Array)
         receiver = Proc.new do |changed_paths, revision, author, date, message|
-          date = Util.string_to_time(date) if date
+          date = Util.string_to_time(date) if date 
           yield(changed_paths, revision, author, date, message)
         end
         Repos.get_logs3(self, paths, start_rev, end_rev,
@@ -158,7 +158,7 @@ module Svn
         txn = nil
         args = [self, rev || youngest_rev, author, log]
         txn = Repos.fs_begin_txn_for_commit(*args)
-
+        
         if block_given?
           yield(txn)
           commit(txn) if fs.transactions.include?(txn.name)
@@ -171,7 +171,7 @@ module Svn
         txn = nil
         args = [self, rev || youngest_rev, author]
         txn = Repos.fs_begin_txn_for_update(*args)
-
+        
         if block_given?
           yield(txn)
           commit(txn) if fs.transactions.include?(txn.name)
@@ -179,7 +179,7 @@ module Svn
           txn
         end
       end
-
+      
       def commit(txn)
         Repos.fs_commit_txn(self, txn)
       end
@@ -253,11 +253,11 @@ module Svn
         def parser.outstream=(new_stream)
           @outstream = new_stream
         end
-
+      
         def parser.baton=(new_baton)
           @baton = new_baton
         end
-
+        
         def parser.baton
           @baton
         end
@@ -266,55 +266,55 @@ module Svn
         parser.baton = baton
         parser
       end
-
+    
       def delta_tree(root, base_rev)
         base_root = fs.root(base_rev)
         editor, edit_baton = node_editor(base_root, root)
         root.replay(editor, edit_baton)
         Repos.node_from_baton(edit_baton)
       end
-
+      
       private
       def setup_report_baton(baton)
         def baton.set_path(path, revision, start_empty=false, lock_token=nil)
           Repos.set_path2(self, path, revision, start_empty, lock_token)
         end
-
+        
         def baton.link_path(path, link_path, revision,
                             start_empty=false, lock_token=nil)
           Repos.set_link2(self, path, link_path, revision,
                           start_empty, lock_tokens)
         end
-
+        
         def baton.delete_path(path)
           Repos.delete_path(self, path)
         end
-
+        
         def baton.finish_report
           Repos.finish_report(self)
         end
-
+        
         def baton.abort_report
           Repos.finish_report(self)
         end
-
+        
       end
     end
-
-
+    
+    
     class Node
-
+      
       alias text_mod? text_mod
       alias prop_mod? prop_mod
-
+      
       def copy?
         Util.copy?(copyfrom_path, copyfrom_rev)
       end
-
+      
       def add?
         action == "A"
       end
-
+      
       def delete?
         action == "D"
       end
@@ -338,7 +338,7 @@ module Svn
       def unknown?
         kind == Core::NODE_UNKNOWN
       end
-
+      
     end
 
     Authz = SWIG::TYPE_p_p_svn_authz_t
