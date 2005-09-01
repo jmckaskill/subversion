@@ -18,7 +18,7 @@ module Svn
         print_modules("")
       end
     end
-
+    
     FileSystem = SWIG::TYPE_p_svn_fs_t
     class FileSystem
 
@@ -48,7 +48,7 @@ module Svn
       def path
         Fs.path(self)
       end
-
+      
       def open_txn(name)
         Fs.open_txn(self, name)
       end
@@ -59,7 +59,7 @@ module Svn
 
       def transaction(rev=nil, flags=0)
         txn = Fs.begin_txn2(self, rev || youngest_rev, flags)
-
+        
         if block_given?
           yield(txn)
           txn.commit if transactions.include?(txn.name)
@@ -67,7 +67,7 @@ module Svn
           txn
         end
       end
-
+      
       def youngest_rev
         Fs.youngest_rev(self)
       end
@@ -196,14 +196,14 @@ module Svn
                                    authz_read_func)
       end
     end
-
+    
     Transaction = SWIG::TYPE_p_svn_fs_txn_t
     class Transaction
 
       def name
         Fs.txn_name(self)
       end
-
+      
       def prop(name)
         value = Fs.txn_prop(self, name)
         if name == Svn::Core::PROP_REVISION_DATE and value
@@ -259,11 +259,11 @@ module Svn
       def dir?(path)
         Fs.is_dir(self, path)
       end
-
+      
       def file?(path)
         Fs.is_file(self, path)
       end
-
+      
       def revision
         Fs.revision_root_revision(self)
       end
@@ -275,7 +275,7 @@ module Svn
       def fs
         Fs.root_fs(self)
       end
-
+      
       def node_id(path)
         Fs.node_id(self, path)
       end
@@ -291,7 +291,7 @@ module Svn
       def node_prop(path, key)
         Fs.node_prop(self, path, key)
       end
-
+      
       def set_node_prop(path, key, value, validate=true)
         if validate
           Repos.fs_change_node_prop(self, path, key, value)
@@ -299,7 +299,7 @@ module Svn
           Fs.change_node_prop(self, path, key, value)
         end
       end
-
+      
       def node_proplist(path)
         Fs.node_proplist(self, path)
       end
@@ -316,7 +316,7 @@ module Svn
       def file_md5_checksum(path)
         Fs.file_md5_checksum(self, path)
       end
-
+      
       def file_contents(path)
         stream = Fs.file_contents(self, path)
         if block_given?
@@ -401,7 +401,7 @@ module Svn
       def delete(path)
         Fs.delete(self, path)
       end
-
+      
       def copy(to_path, from_root, from_path)
         Fs.copy(from_root, from_path, self, to_path)
       end
@@ -421,7 +421,7 @@ module Svn
         handler.baton = handler_baton
         handler
       end
-
+      
       def apply_text(path, result_checksum=nil)
         Fs.apply_text(self, path, result_checksum)
       end
@@ -457,16 +457,16 @@ module Svn
         Fs.history_prev(self, cross_copies)
       end
     end
-
+    
 
     DirectoryEntry = Dirent
-
+    
     Id = SWIG::TYPE_p_svn_fs_id_t
     class Id
       def to_s
         unparse
       end
-
+      
       def unparse
         Fs.unparse_id(self)
       end
@@ -493,13 +493,13 @@ module Svn
         text_mod
       end
     end
-
+    
     class FileDiff
 
       def initialize(root1, path1, root2, path2)
         @tempfile1 = nil
         @tempfile2 = nil
-
+        
         @binary = nil
 
         @root1 = root1
@@ -542,7 +542,7 @@ module Svn
           ""
         end
       end
-
+      
       private
       def dump_contents(tempfile, root, path)
         if root and path

@@ -40,7 +40,7 @@ class SvnWcTest < Test::Unit::TestCase
       assert_equal(Svn::Wc::STATUS_UNVERSIONED, status.text_status)
       assert_nil(status.entry)
     end
-
+    
     log = "sample log"
     ctx = make_context(log)
     ctx.add(file1_path)
@@ -48,9 +48,9 @@ class SvnWcTest < Test::Unit::TestCase
       status = adm.status(file1_path)
       assert_equal(Svn::Wc::STATUS_ADDED, status.text_status)
     end
-
+    
     commit_info = ctx.commit(@wc_path)
-
+    
     Svn::Wc::AdmAccess.open(nil, @wc_path, false, 0) do |adm|
       status = adm.status(file1_path)
       assert_equal(Svn::Wc::STATUS_NORMAL, status.text_status)
@@ -80,18 +80,18 @@ class SvnWcTest < Test::Unit::TestCase
 
     result = Svn::Wc::AdmAccess.open_anchor(path, true, 5)
     anchor_access, target_access, target = result
-
+    
     assert_equal(file, target)
     assert_equal(@wc_path, anchor_access.path)
     assert_equal(@wc_path, target_access.path)
-
+    
     assert(anchor_access.locked?)
     assert(target_access.locked?)
-
+    
     assert(!target_access.has_binary_prop?(path))
     assert(!target_access.text_modified?(path))
     assert(!target_access.props_modified?(path))
-
+    
     File.open(path, "w") {|f| f.print(source * 2)}
     target_access.set_prop(prop_name, prop_value, path)
     assert_equal(prop_value, target_access.prop(prop_name, path))
@@ -99,14 +99,14 @@ class SvnWcTest < Test::Unit::TestCase
                  target_access.prop_list(path))
     assert(target_access.text_modified?(path))
     assert(target_access.props_modified?(path))
-
+    
     target_access.set_prop("name", nil, path)
     assert(!target_access.props_modified?(path))
-
+    
     target_access.revert(path)
     assert(!target_access.text_modified?(path))
     assert(!target_access.props_modified?(path))
-
+    
     anchor_access.close
     target_access.close
 
@@ -115,7 +115,7 @@ class SvnWcTest < Test::Unit::TestCase
     assert_equal(Svn::Wc.default_ignores({}), access.ignores({}))
     assert(access.wc_root?(@wc_path))
   end
-
+  
   def test_locked
     log = "sample log"
 
