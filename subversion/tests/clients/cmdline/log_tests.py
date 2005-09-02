@@ -2,9 +2,9 @@
 #
 #  log_tests.py:  testing "svn log"
 #
-#  Subversion is a tool for revision control.
+#  Subversion is a tool for revision control. 
 #  See http://subversion.tigris.org for more information.
-#
+#    
 # ====================================================================
 # Copyright (c) 2000-2004 CollabNet.  All rights reserved.
 #
@@ -93,7 +93,7 @@ def guarantee_repos_and_wc(sbox):
   # is done for that.
 
   # Revision 2: edit iota
-  msg=""" Log message for revision 2
+  msg=""" Log message for revision 2 
   but with multiple lines
   to test the code"""
   log_file=open (msg_file, 'w')
@@ -112,7 +112,7 @@ def guarantee_repos_and_wc(sbox):
   svntest.main.run_svn (None, 'up')
 
   # Revision 4: edit iota again, add A/C/epsilon
-  msg=""" Log message for revision 4
+  msg=""" Log message for revision 4 
   but with multiple lines
   to test the code"""
   log_file=open (msg_file, 'w')
@@ -131,13 +131,13 @@ def guarantee_repos_and_wc(sbox):
   svntest.main.run_svn (None, 'up')
 
   # Revision 6: prop change on A/B, edit A/D/H/psi
-  msg=""" Log message for revision 6
+  msg=""" Log message for revision 6 
   but with multiple lines
   to test the code"""
   log_file=open (msg_file, 'w')
   log_file.write (msg)
   log_file.close ()
-  svntest.main.run_svn (None, 'ps', 'blue', 'azul', B_path)
+  svntest.main.run_svn (None, 'ps', 'blue', 'azul', B_path)  
   svntest.main.file_append (psi_path, "6")
   svntest.main.run_svn (None, 'ci', '-F', msg_file)
   svntest.main.run_svn (None, 'up')
@@ -149,7 +149,7 @@ def guarantee_repos_and_wc(sbox):
   svntest.main.run_svn (None, 'up')
 
   # Revision 8: edit iota yet again, re-add A/D/G/rho
-  msg=""" Log message for revision 8
+  msg=""" Log message for revision 8 
   but with multiple lines
   to test the code"""
   log_file=open (msg_file, 'w')
@@ -218,30 +218,30 @@ def parse_log_output(log_lines):
      """
 
   # Here's some log output to look at while writing this function:
-
+  
   # ------------------------------------------------------------------------
   # r5 | kfogel | Tue 6 Nov 2001 17:18:19 | 1 line
-  #
+  # 
   # Log message for revision 5.
   # ------------------------------------------------------------------------
   # r4 | kfogel | Tue 6 Nov 2001 17:18:18 | 3 lines
-  #
+  # 
   # Log message for revision 4
   # but with multiple lines
   # to test the code.
   # ------------------------------------------------------------------------
   # r3 | kfogel | Tue 6 Nov 2001 17:18:17 | 1 line
-  #
+  # 
   # Log message for revision 3.
   # ------------------------------------------------------------------------
   # r2 | kfogel | Tue 6 Nov 2001 17:18:16 | 3 lines
-  #
-  # Log message for revision 2
+  # 
+  # Log message for revision 2 
   # but with multiple lines
   # to test the code.
   # ------------------------------------------------------------------------
   # r1 | foo | Tue 6 Nov 2001 15:27:57 | 1 line
-  #
+  # 
   # Log message for revision 1.
   # ------------------------------------------------------------------------
 
@@ -329,11 +329,11 @@ def check_log_chain (chain, revlist):
              or author == '(no author)')): raise svntest.Failure
 
     # Check for multiline log messages.
-    # If revision is an even number then it should have
+    # If revision is an even number then it should have 
     # a three line log message.
     if (saw_rev % 2 == 0 and log_item['lines'] != 3):
       raise svntest.Failure
-
+       
     # Check that the log message looks right:
     msg_re = re.compile ('Log message for revision ' + `saw_rev`)
     if (not msg_re.search (msg)): raise svntest.Failure
@@ -359,7 +359,7 @@ def plain_log(sbox):
     log_chain = parse_log_output (output)
     if check_log_chain (log_chain, range(max_revision, 1 - 1, -1)):
       raise svntest.Failure
-
+    
   finally:
     os.chdir (was_cwd)
 
@@ -377,9 +377,9 @@ def versioned_log_message(sbox):
     iota_path = os.path.join ('iota')
     mu_path = os.path.join ('A', 'mu')
     log_path = os.path.join ('A', 'D', 'H', 'omega')
-
+    
     svntest.main.file_append (iota_path, "2")
-
+    
     # try to check in a change using a versioned file as your log entry.
     svntest.actions.run_and_verify_svn("", None, SVNAnyOutput,
                                        'ci', '-F', log_path)
@@ -450,7 +450,7 @@ def log_to_revision_zero(sbox):
   sbox.build()
 
   # This used to segfault the server.
-
+  
   svntest.actions.run_and_verify_svn(None, None, [],
                                      'log', '-v',
                                      '-r', '1:0', sbox.wc_dir)
@@ -483,7 +483,7 @@ def url_missing_in_head(sbox):
   guarantee_repos_and_wc(sbox)
 
   my_url = svntest.main.current_repo_url + "/A/B/E/alpha"
-
+  
   svntest.actions.run_and_verify_svn(None, None, [],
                                      'log', '-r', '8', my_url)
 
@@ -499,16 +499,16 @@ def log_through_copyfrom_history(sbox):
   mu2_path = os.path.join (wc_dir, 'A', 'mu2')
   mu_URL = svntest.main.current_repo_url + '/A/mu'
   mu2_URL = svntest.main.current_repo_url + '/A/mu2'
-
-  msg2=""" Log message for revision 2
+   
+  msg2=""" Log message for revision 2 
   but with multiple lines
   to test the code"""
-
+  
   msg4=""" Log message for revision 4
   but with multiple lines
   to test the code"""
 
-  msg6=""" Log message for revision 6
+  msg6=""" Log message for revision 6 
   but with multiple lines
   to test the code"""
 
@@ -573,7 +573,7 @@ def log_through_copyfrom_history(sbox):
                                       'log', '-r', '2', mu2_path)
   svntest.actions.run_and_verify_svn (None, [], SVNAnyOutput,
                                       'log', '-r', '2', mu2_URL)
-
+  
 #----------------------------------------------------------------------
 def escape_control_chars(sbox):
   "mod_dav_svn must escape invalid XML control chars"
@@ -675,7 +675,7 @@ def log_xml_empty_date(sbox):
   output, errput = svntest.actions.run_and_verify_svn("", None, [],
                                                       'log', '--xml', '-r1',
                                                       sbox.wc_dir)
-  for line in output:
+  for line in output:  
     if date_re.search(line):
       raise svntest.Failure ("log contains date element when svn:date is empty")
 
