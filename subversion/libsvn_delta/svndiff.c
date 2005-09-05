@@ -1,6 +1,6 @@
-/*
+/* 
  * svndiff.c -- Encoding and decoding svndiff-format deltas.
- *
+ * 
  * ====================================================================
  * Copyright (c) 2000-2004 CollabNet.  All rights reserved.
  *
@@ -419,7 +419,7 @@ decode_window (svn_txdelta_window_t *window, svn_filesize_t sview_offset,
 
   /* Count the instructions and make sure they are all valid.  */
   end = data + inslen;
-  SVN_ERR (count_and_verify_instructions (&ninst, data, end, sview_len,
+  SVN_ERR (count_and_verify_instructions (&ninst, data, end, sview_len, 
                                           tview_len, newlen));
 
   /* Allocate a buffer for the instructions and decode them. */
@@ -522,7 +522,7 @@ write_handler (void *baton,
       if (sview_offset < 0 || inslen + newlen < inslen
           || sview_len + tview_len < sview_len
           || sview_offset + sview_len < sview_offset)
-        return svn_error_create (SVN_ERR_SVNDIFF_CORRUPT_WINDOW, NULL,
+        return svn_error_create (SVN_ERR_SVNDIFF_CORRUPT_WINDOW, NULL, 
                                  _("Svndiff contains corrupt window header"));
 
       /* Check for source windows which slide backwards.  */
@@ -531,7 +531,7 @@ write_handler (void *baton,
               || (sview_offset + sview_len
                   < db->last_sview_offset + db->last_sview_len)))
         return svn_error_create
-          (SVN_ERR_SVNDIFF_BACKWARD_VIEW, NULL,
+          (SVN_ERR_SVNDIFF_BACKWARD_VIEW, NULL, 
            _("Svndiff has backwards-sliding source views"));
 
       /* Wait for more data if we don't have enough bytes for the
@@ -549,7 +549,7 @@ write_handler (void *baton,
       newpool = svn_pool_create (db->pool);
       p += inslen + newlen;
       remaining = db->buffer->data + db->buffer->len - (const char *) p;
-      db->buffer =
+      db->buffer = 
         svn_stringbuf_ncreate ((const char *) p, remaining, newpool);
 
       /* Remember the offset and length of the source view for next time.  */
@@ -677,7 +677,7 @@ read_window_header (svn_stream_t *stream, svn_filesize_t *sview_offset,
   if (*sview_offset < 0 || *inslen + *newlen < *inslen
       || *sview_len + *tview_len < *sview_len
       || *sview_offset + *sview_len < *sview_offset)
-    return svn_error_create (SVN_ERR_SVNDIFF_CORRUPT_WINDOW, NULL,
+    return svn_error_create (SVN_ERR_SVNDIFF_CORRUPT_WINDOW, NULL, 
                              _("Svndiff contains corrupt window header"));
 
   return SVN_NO_ERROR;
