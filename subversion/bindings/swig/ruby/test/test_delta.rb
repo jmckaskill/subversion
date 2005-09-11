@@ -67,9 +67,6 @@ class SvnDeltaTest < Test::Unit::TestCase
     apply_result.rewind
     assert_equal(target_text, apply_result.read)
 
-    puts "skip #{self.class}#test_apply to avoid SEGV"
-    return
-
     handler.send(target_text)
     apply_result.rewind
     assert_equal(target_text * 2, apply_result.read)
