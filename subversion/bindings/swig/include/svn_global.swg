@@ -40,16 +40,16 @@ static PyObject * _global_svn_swig_py_pool = NULL;
    Python programmers, because the underlying C function may have
    very different argument numbers than the wrapper Python function.
 
-   SWIG doesn't provide any good way of getting Python argument
-   numbers, so we extract the argument number using macros. This
+   SWIG doesn't provide any good way of getting Python argument 
+   numbers, so we extract the argument number using macros. This 
    isn't a perfect solution, but it does the job. */
 #define $svn_argnum svn_argnum_$input
 
 /* Pointers, references, and arrays */
 %typemap (arginit) POOLINIT ( \
-  PyObject *_global_svn_swig_py_pool, apr_pool_t *_global_pool)
+  PyObject *_global_svn_swig_py_pool, apr_pool_t *_global_pool) 
 {
-  svn_swig_get_application_pool(&_global_svn_swig_py_pool, &_global_pool);
+  svn_swig_get_application_pool(&_global_svn_swig_py_pool, &_global_pool); 
 }
 %apply POOLINIT { void *, SWIGTYPE *, SWIGTYPE [] };
 
@@ -65,11 +65,11 @@ static PyObject * _global_svn_swig_py_pool = NULL;
 
 /* Output arguments */
 %typemap (out) SWIGTYPE *, SWIGTYPE &
-    "$result = svn_swig_NewPointerObj((void*)($1), $descriptor,
+    "$result = svn_swig_NewPointerObj((void*)($1), $descriptor, 
                                       _global_svn_swig_py_pool);";
 
-/* Python format specifiers. Use Python instead of SWIG to parse
-   these basic types, because Python reports better error messages
+/* Python format specifiers. Use Python instead of SWIG to parse 
+   these basic types, because Python reports better error messages 
    (with correct argument numbers). */
 %typemap (in, parse="s")
   char *, char const *, char * const, char const * const "";
@@ -93,7 +93,7 @@ static PyObject * _global_svn_swig_py_pool = NULL;
 %}
 
 /* These typemaps use PY_LONG_LONG so that they will work on Win32 and Unix */
-%typemap (out) apr_time_t, apr_int64_t, long long, __int64
+%typemap (out) apr_time_t, apr_int64_t, long long, __int64 
   " $result = PyLong_FromLongLong((PY_LONG_LONG)($1)); ";
 
 %typemap (out) apr_uint64_t, unsigned long long, unsigned __int64
