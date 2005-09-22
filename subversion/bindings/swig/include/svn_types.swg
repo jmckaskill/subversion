@@ -108,7 +108,7 @@
 %typemap(ruby, in) const char *header_encoding
 {
   $1 = NULL;
-
+  
   if (NIL_P($input)) {
   } else if (TYPE($input) == T_FIXNUM) {
     $1 = (char *)NUM2INT($input);
@@ -118,7 +118,7 @@
   } else {
     $1 = StringValuePtr($input);
   }
-
+  
   if (!$1) {
     $1 = (char *)APR_LOCALE_CHARSET;
   }
@@ -182,7 +182,7 @@
 
 /* -----------------------------------------------------------------------
    Define an OUTPUT typemap for 'svn_filesize_t *'.  For now, we'll
-   treat it as a 'long' even if that isn't entirely correct...
+   treat it as a 'long' even if that isn't entirely correct...  
 */
 %typemap(python,in,numinputs=0) svn_filesize_t * (svn_filesize_t temp)
     "$1 = &temp;";
@@ -218,7 +218,7 @@
 
 %typemap(ruby,argout,fragment="output_helper") svn_filesize_t *
     "$result = output_helper($result, LL2NUM((apr_int64_t) (*$1)));";
-#endif
+#endif 
 
 /* -----------------------------------------------------------------------
    Define a general ptr/len typemap. This takes a single script argument
@@ -299,11 +299,11 @@
       if (PyErr_Occurred()) {
         PyErr_Clear();
       }
-      svn_swig_get_application_pool(&_global_svn_swig_py_pool, &_global_pool);
+      svn_swig_get_application_pool(&_global_svn_swig_py_pool, &_global_pool); 
       svn_swig_py_pool_create_subpool(_global_svn_swig_py_pool, _global_pool);
     }
   } else {
-    svn_swig_get_application_pool(&_global_svn_swig_py_pool, &_global_pool);
+    svn_swig_get_application_pool(&_global_svn_swig_py_pool, &_global_pool); 
     svn_swig_py_pool_create_subpool(_global_svn_swig_py_pool, _global_pool);
   }
   $1 = _global_pool;
@@ -313,7 +313,7 @@
 %typemap(python, in) apr_pool_t * {
   if ($input != Py_None && _global_is_default_pool == 1) {
     svn_swig_py_pool_check($input)
-    _global_pool = svn_swig_MustGetPtr($input, $1_descriptor, $svn_argnum,
+    _global_pool = svn_swig_MustGetPtr($input, $1_descriptor, $svn_argnum, 
       NULL);
     if (PyErr_Occurred()) {
         SWIG_fail;
@@ -391,18 +391,18 @@
    svn_repos_get_logs()
 */
 
-%typemap(python, in) (svn_log_message_receiver_t receiver,
+%typemap(python, in) (svn_log_message_receiver_t receiver, 
                       void *receiver_baton) {
     $1 = svn_swig_py_log_receiver;
     $2 = (void *)$input;
 }
-%typemap(perl5, in) (svn_log_message_receiver_t receiver,
+%typemap(perl5, in) (svn_log_message_receiver_t receiver, 
                      void *receiver_baton) {
     $1 = svn_swig_pl_thunk_log_receiver;
     $2 = (void *)$input;
 }
 
-%typemap(ruby, in) (svn_log_message_receiver_t receiver,
+%typemap(ruby, in) (svn_log_message_receiver_t receiver, 
                     void *receiver_baton) {
     $1 = svn_swig_rb_log_receiver;
     $2 = (void *)$input;
@@ -589,7 +589,7 @@
 
 %typemap(python,in,numinputs=0) apr_hash_t **dirents = apr_hash_t **OUTPUT;
 %typemap(python,argout,fragment="t_output_helper") apr_hash_t **dirents {
-  $result = t_output_helper($result, svn_swig_py_convert_hash(*$1,
+  $result = t_output_helper($result, svn_swig_py_convert_hash(*$1, 
     $descriptor(svn_dirent_t *), _global_svn_swig_py_pool));
 }
 
