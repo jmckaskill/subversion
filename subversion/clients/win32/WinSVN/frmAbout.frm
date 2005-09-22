@@ -1,5 +1,5 @@
 VERSION 5.00
-Begin VB.Form frmAbout
+Begin VB.Form frmAbout 
    BorderStyle     =   3  'Fixed Dialog
    Caption         =   "About WinSVN"
    ClientHeight    =   3648
@@ -15,7 +15,7 @@ Begin VB.Form frmAbout
    ShowInTaskbar   =   0   'False
    StartUpPosition =   1  'CenterOwner
    Tag             =   "1067 - About Caption"
-   Begin VB.PictureBox picIcon
+   Begin VB.PictureBox picIcon 
       AutoSize        =   -1  'True
       BackColor       =   &H00C0C0C0&
       ClipControls    =   0   'False
@@ -30,7 +30,7 @@ Begin VB.Form frmAbout
       Top             =   240
       Width           =   432
    End
-   Begin VB.CommandButton cmdOK
+   Begin VB.CommandButton cmdOK 
       Cancel          =   -1  'True
       Caption         =   "OK"
       Default         =   -1  'True
@@ -41,7 +41,7 @@ Begin VB.Form frmAbout
       Top             =   2625
       Width           =   1467
    End
-   Begin VB.CommandButton cmdSysInfo
+   Begin VB.CommandButton cmdSysInfo 
       Caption         =   "&System Info..."
       Height          =   345
       Left            =   4260
@@ -50,7 +50,7 @@ Begin VB.Form frmAbout
       Top             =   3075
       Width           =   1452
    End
-   Begin VB.Label lblDescription
+   Begin VB.Label lblDescription 
       Caption         =   "App Description"
       ForeColor       =   &H00000000&
       Height          =   1170
@@ -60,7 +60,7 @@ Begin VB.Form frmAbout
       Top             =   1125
       Width           =   4092
    End
-   Begin VB.Label lblTitle
+   Begin VB.Label lblTitle 
       Caption         =   "Application Title"
       ForeColor       =   &H00000000&
       Height          =   480
@@ -70,7 +70,7 @@ Begin VB.Form frmAbout
       Top             =   240
       Width           =   4092
    End
-   Begin VB.Line Line1
+   Begin VB.Line Line1 
       BorderColor     =   &H00808080&
       BorderStyle     =   6  'Inside Solid
       Index           =   1
@@ -79,7 +79,7 @@ Begin VB.Form frmAbout
       Y1              =   2430
       Y2              =   2430
    End
-   Begin VB.Line Line1
+   Begin VB.Line Line1 
       BorderColor     =   &H00FFFFFF&
       BorderWidth     =   2
       Index           =   0
@@ -88,7 +88,7 @@ Begin VB.Form frmAbout
       Y1              =   2445
       Y2              =   2445
    End
-   Begin VB.Label lblVersion
+   Begin VB.Label lblVersion 
       Caption         =   "Version"
       Height          =   225
       Left            =   1050
@@ -97,7 +97,7 @@ Begin VB.Form frmAbout
       Top             =   780
       Width           =   4092
    End
-   Begin VB.Label lblDisclaimer
+   Begin VB.Label lblDisclaimer 
       Caption         =   "Warning: ..."
       ForeColor       =   &H00000000&
       Height          =   825
@@ -127,7 +127,7 @@ Attribute VB_Exposed = False
 Option Explicit
 ' Reg Key Security Options...
 Const KEY_ALL_ACCESS = &H2003F
-
+                                          
 
 ' Reg Key ROOT Types...
 Const HKEY_LOCAL_MACHINE = &H80000002
@@ -170,7 +170,7 @@ Public Sub StartSysInfo()
 
         Dim rc As Long
         Dim SysInfoPath As String
-
+        
 
         ' Try To Get System Info Program Path\Name From Registry...
         If GetKeyValue(HKEY_LOCAL_MACHINE, gREGKEYSYSINFO, gREGVALSYSINFO, SysInfoPath) Then
@@ -179,7 +179,7 @@ Public Sub StartSysInfo()
                 ' Validate Existance Of Known 32 Bit File Version
                 If (Dir(SysInfoPath & "\MSINFO32.EXE") <> "") Then
                         SysInfoPath = SysInfoPath & "\MSINFO32.EXE"
-
+                        
 
                 ' Error - File Can Not Be Found...
                 Else
@@ -189,10 +189,10 @@ Public Sub StartSysInfo()
         Else
                 GoTo SysInfoErr
         End If
-
+        
 
         Call Shell(SysInfoPath, vbNormalFocus)
-
+        
 
         Exit Sub
 SysInfoErr:
@@ -212,23 +212,23 @@ Public Function GetKeyValue(KeyRoot As Long, KeyName As String, SubKeyRef As Str
         ' Open RegKey Under KeyRoot {HKEY_LOCAL_MACHINE...}
         '------------------------------------------------------------
         rc = RegOpenKeyEx(KeyRoot, KeyName, 0, KEY_ALL_ACCESS, hKey) ' Open Registry Key
-
+        
 
         If (rc <> ERROR_SUCCESS) Then GoTo GetKeyError          ' Handle Error...
-
+        
 
         tmpVal = String$(1024, 0)                             ' Allocate Variable Space
         KeyValSize = 1024                                       ' Mark Variable Size
-
+        
 
         '------------------------------------------------------------
         ' Retrieve Registry Key Value...
         '------------------------------------------------------------
         rc = RegQueryValueEx(hKey, SubKeyRef, 0, KeyValType, tmpVal, KeyValSize)    ' Get/Create Key Value
-
+                                                
 
         If (rc <> ERROR_SUCCESS) Then GoTo GetKeyError          ' Handle Errors
-
+        
 
         tmpVal = VBA.Left(tmpVal, InStr(tmpVal, VBA.Chr(0)) - 1)
         '------------------------------------------------------------
@@ -243,12 +243,12 @@ Public Function GetKeyValue(KeyRoot As Long, KeyName As String, SubKeyRef As Str
                 Next
                 KeyVal = Format$("&h" + KeyVal)                     ' Convert Double Word To String
         End Select
-
+        
 
         GetKeyValue = True                                      ' Return Success
         rc = RegCloseKey(hKey)                                  ' Close Registry Key
         Exit Function                                           ' Exit
-
+        
 
 GetKeyError:    ' Cleanup After An Error Has Occured...
         KeyVal = ""                                             ' Set Return Val To Empty String
