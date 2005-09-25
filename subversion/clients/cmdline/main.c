@@ -845,6 +845,16 @@ main (int argc, const char * const *argv)
   if (err)
     return svn_cmdline_handle_exit_error (err, pool, "svn: ");
 
+#ifdef WIN32
+  /* Set the working copy administrative directory name. */
+  if (getenv ("SVN_ASP_DOT_NET_HACK"))
+    {
+      err = svn_wc_set_adm_dir ("_svn", pool);
+      if (err)
+        return svn_cmdline_handle_exit_error (err, pool, "svn: ");
+    }
+#endif
+
   /* Initialize the RA library. */
   err = svn_ra_initialize (pool);
   if (err)
