@@ -13,19 +13,19 @@ class PoolTestCase(unittest.TestCase):
   def assertNotNone(self, value):
     """Assert that the specified value is not None"""
     return self.assertNotEqual(value, None);
-
+  
   def assertNone(self, value):
     """Assert that the specified value is None"""
     return self.assertEqual(value, None);
-
+  
   def test_object_struct_members(self):
     """Check that object struct members work correctly"""
-
+    
     # Test good object assignment operations
     client_ctx = svn.client.svn_client_create_context()
     config = svn.core.svn_config_get_config(None)
     client_ctx.config = config
-
+    
     # Check that parent pools are set correctly on struct accesses
     self.assertEqual(client_ctx.config._parent_pool, config._parent_pool)
 
@@ -46,7 +46,7 @@ class PoolTestCase(unittest.TestCase):
 
   def test_integer_struct_members(self):
     """Check that integer struct members work correctly"""
-
+ 
     # Test good integer assignment operations
     head_revision = svn.core.svn_opt_revision_t()
     head_revision.kind = svn.core.svn_opt_revision_head
