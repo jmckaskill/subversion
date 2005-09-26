@@ -41,7 +41,7 @@ Candidate changes:
     Thread: http://svn.haxx.se/users/archive-2005-09/0106.shtml
     Votes:
       +1: djames
-
+  
   * r15943, r15967, r16050
     Improve portability of the build system for Python bindings, so that
     they will work out of the box in a variety of build setups.
