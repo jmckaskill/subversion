@@ -70,7 +70,7 @@ module Svn
         end
       end
 
-      def_simple_delegate :fs, :path, :db_env, :conf_dir
+      def_simple_delegate :path, :db_env, :conf_dir
       def_simple_delegate :svnserve_conf, :lock_dir
       def_simple_delegate :db_lockfile, :db_logs_lockfile
       def_simple_delegate :hook_dir, :start_commit_hook
@@ -80,6 +80,10 @@ module Svn
       def_simple_delegate :pre_unlock_hook, :post_unlock_hook
 
       attr_reader :authz_read_func
+
+      def fs
+        Repos.fs_wrapper(self)
+      end
 
       def set_authz_read_func(&block)
         @authz_read_func = block
