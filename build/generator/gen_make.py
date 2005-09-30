@@ -56,7 +56,7 @@ class Generator(gen_base.GeneratorBase):
 
     ########################################
     self.begin_section('Global make variables')
-
+    
     for target in install_sources:
       if isinstance(target, gen_base.TargetRaModule) or \
          isinstance(target, gen_base.TargetFsModule):
@@ -123,16 +123,16 @@ class Generator(gen_base.GeneratorBase):
         string.replace(build_path_basename(fname),".h","_h.swg"))
       python_script = "$(abs_srcdir)/build/generator/swig/header_wrappers.py"
       self.ofile.write(
-        '%s: %s %s\n\t$(PYTHON) %s %s $(SWIG) $<\n' % (
+        '%s: %s %s\n\t$(PYTHON) %s %s $(SWIG) $<\n' % ( 
           wrapper_fname, fname, python_script,
           python_script, self.conf))
       self.ofile.write(
         'swig-headers: %s\n' % wrapper_fname +
-        'extraclean-swig-headers-%s:\n' % wrapper_fname +
-        '\trm -f $(abs_srcdir)/%s\n' % wrapper_fname +
-        'clean-swig-headers-%s:\n' % wrapper_fname +
+        'extraclean-swig-headers-%s:\n' % wrapper_fname + 
+        '\trm -f $(abs_srcdir)/%s\n' % wrapper_fname + 
+        'clean-swig-headers-%s:\n' % wrapper_fname + 
         '\tif test $(abs_srcdir) != $(abs_builddir); then ' +
-        'rm -f $(abs_builddir)/%s; ' % wrapper_fname +
+        'rm -f $(abs_builddir)/%s; ' % wrapper_fname + 
         'fi\n' +
         'clean-swig-headers: clean-swig-headers-%s\n' % wrapper_fname +
         'extraclean-swig-headers: extraclean-swig-headers-%s\n' % wrapper_fname
@@ -165,7 +165,7 @@ class Generator(gen_base.GeneratorBase):
     swig_lang_deps = {}
     for lang in self.swig.langs:
       swig_lang_deps[lang] = []
-
+      
     short = self.swig.short
     for objname, sources in swig_c_deps:
       lang = objname.lang
@@ -174,14 +174,14 @@ class Generator(gen_base.GeneratorBase):
         'extraclean-swig-%s:\n' % objname +
         '\trm -f $(abs_builddir)/%s $(abs_srcdir)/%s\n' % (objname, objname) +
         'extraclean-swig-%s: extraclean-swig-%s\n' % (short[lang], objname) +
-        'clean-swig-%s:\n' % objname +
+        'clean-swig-%s:\n' % objname + 
         '\tif test $(abs_srcdir) != $(abs_builddir); then ' +
-        'rm -f $(abs_builddir)/%s; ' % objname +
-        'rm -f $(abs_builddir)/%s; ' % sources[0] +
+        'rm -f $(abs_builddir)/%s; ' % objname + 
+        'rm -f $(abs_builddir)/%s; ' % sources[0] + 
         'fi\n' +
         'clean-swig-headers: clean-swig-%s\n' % objname
-      )
-
+      ) 
+    
     for lang in self.swig.langs:
       lang_deps = string.join(swig_lang_deps[lang])
       self.ofile.write(
@@ -193,7 +193,7 @@ class Generator(gen_base.GeneratorBase):
         'extraclean-swig-%s: clean-swig-%s\n' % (short[lang], short[lang]) +
         'extraclean: extraclean-swig-%s\n' % short[lang])
     self.ofile.write('\n')
-
+    
     ########################################
     self.begin_section('Rules to build SWIG .c files from .i files')
 
@@ -211,7 +211,7 @@ class Generator(gen_base.GeneratorBase):
         'autogen-swig-%s: copy-swig-%s\n' % (short[objname.lang], objname) +
         'copy-swig-%s: %s\n' % (objname, objname) +
         '\t@if test $(abs_srcdir) != $(abs_builddir) -a ' +
-        '-e $(abs_srcdir)/%s -a ' % objname +
+        '-e $(abs_srcdir)/%s -a ' % objname + 
         '! -e $(abs_builddir)/%s; then ' % objname +
         'cp -pf $(abs_srcdir)/%s $(abs_builddir)/%s; fi\n' % (objname, objname)
       )
@@ -284,7 +284,7 @@ class Generator(gen_base.GeneratorBase):
 
       # Output value of path variable
       self.ofile.write('%s_PATH = %s\n' % (targ_varname, path))
-
+      
       # Add additional install dependencies if necessary
       if target_ob.add_install_deps:
         self.ofile.write('install-%s: %s\n'
@@ -300,7 +300,7 @@ class Generator(gen_base.GeneratorBase):
 
              targ_varname, string.join(objects),
 
-             targ_varname, targ_varname, targ_varname, target_ob.add_deps,
+             targ_varname, targ_varname, targ_varname, target_ob.add_deps, 
              string.join(deps),
 
              target_ob.name, targ_varname))
@@ -318,7 +318,7 @@ class Generator(gen_base.GeneratorBase):
 
                targ_varname, targ_varname,
 
-               target_ob.link_cmd, target_ob.output_dir, target_ob.classes,
+               target_ob.link_cmd, target_ob.output_dir, target_ob.classes, 
                targ_varname, targ_varname))
 
         # Build the objects from the object_srcs with one 'javac' call
@@ -331,7 +331,7 @@ class Generator(gen_base.GeneratorBase):
 
                targ_varname, targ_varname,
 
-               target_ob.link_cmd, target_ob.output_dir, target_ob.classes,
+               target_ob.link_cmd, target_ob.output_dir, target_ob.classes, 
                targ_varname, targ_varname))
 
         # Once the bytecodes have been compiled up, we produce the
@@ -370,7 +370,7 @@ class Generator(gen_base.GeneratorBase):
 
     ########################################
     self.begin_section('Install-Group build targets')
-
+    
     for itype, i_targets in install_deps:
 
       # perl bindings do their own thing, "swig-pl" target is
@@ -520,14 +520,14 @@ class Generator(gen_base.GeneratorBase):
           self.ofile.write('\t%s %s\n\n' % (cmd, sources[0]))
       else:
         self.ofile.write('\n')
-
-
+    
+    
     self.ofile.close()
     self.write_standalone()
 
   def write_standalone(self):
     """Write autogen-standalone.mk"""
-
+    
     standalone = open("autogen-standalone.mk", "w")
     standalone.write('# DO NOT EDIT -- AUTOMATICALLY GENERATED\n')
     standalone.write('abs_srcdir = %s\n' % os.getcwd())
