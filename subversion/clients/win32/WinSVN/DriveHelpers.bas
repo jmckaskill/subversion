@@ -71,27 +71,27 @@ Public Function GetDriveList() As Collection
     Dim lDriveBitmap As Long
     Dim i As Long
     Static fIsInit As Boolean
-
+    
     If Not fIsInit Then
         Init
         fIsInit = True
     End If
-
+    
     lDriveBitmap = GetLogicalDrives()
-
+    
     For i = 0 To 31
         If m_lPower2(i) And lDriveBitmap Then
             col.Add Chr(Asc("A") + i) & ":"
         End If
     Next i
-
+    
     Set GetDriveList = col
 End Function
 
 Public Function GetDriveTypeImageListKey(ByVal s As String) As String
     Dim lType As Long
     Dim sRet As String
-
+    
     lType = GetDriveType(s)
     Select Case lType
     Case DRIVE_UNKNOWN:
@@ -116,14 +116,14 @@ Public Function GetComputerName() As String
 
     Dim s As String
     Dim l As Long
-
+    
     ' Allocate more than enough space.
     s = Space(MAX_COMPUTERNAME_LENGTH + 3)
     l = Len(s)
     GetComputerName32 s, l
     ' Trim results based on # of characters used.
     s = Mid(s, 1, l)
-
+    
     GetComputerName = s
 End Function
 
