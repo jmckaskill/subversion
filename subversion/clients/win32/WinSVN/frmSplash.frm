@@ -1,5 +1,5 @@
 VERSION 5.00
-Begin VB.Form frmSplash
+Begin VB.Form frmSplash 
    BorderStyle     =   3  'Fixed Dialog
    ClientHeight    =   4728
    ClientLeft      =   36
@@ -14,13 +14,13 @@ Begin VB.Form frmSplash
    ShowInTaskbar   =   0   'False
    StartUpPosition =   2  'CenterScreen
    Visible         =   0   'False
-   Begin VB.Frame fraMainFrame
+   Begin VB.Frame fraMainFrame 
       Height          =   4590
       Left            =   45
       TabIndex        =   0
       Top             =   -15
       Width           =   7380
-      Begin VB.PictureBox picLogo
+      Begin VB.PictureBox picLogo 
          Height          =   2385
          Left            =   510
          Picture         =   "frmSplash.frx":0000
@@ -30,7 +30,7 @@ Begin VB.Form frmSplash
          Top             =   855
          Width           =   1815
       End
-      Begin VB.Label lblLicenseTo
+      Begin VB.Label lblLicenseTo 
          Alignment       =   1  'Right Justify
          Caption         =   "LicenseTo"
          Height          =   255
@@ -40,10 +40,10 @@ Begin VB.Form frmSplash
          Top             =   300
          Width           =   6855
       End
-      Begin VB.Label lblProductName
+      Begin VB.Label lblProductName 
          AutoSize        =   -1  'True
          Caption         =   "Product"
-         BeginProperty Font
+         BeginProperty Font 
             Name            =   "MS Sans Serif"
             Size            =   31.2
             Charset         =   0
@@ -59,10 +59,10 @@ Begin VB.Form frmSplash
          Top             =   1200
          Width           =   2304
       End
-      Begin VB.Label lblCompanyProduct
+      Begin VB.Label lblCompanyProduct 
          AutoSize        =   -1  'True
          Caption         =   "CompanyProduct"
-         BeginProperty Font
+         BeginProperty Font 
             Name            =   "MS Sans Serif"
             Size            =   18
             Charset         =   0
@@ -78,11 +78,11 @@ Begin VB.Form frmSplash
          Top             =   768
          Width           =   2940
       End
-      Begin VB.Label lblPlatform
+      Begin VB.Label lblPlatform 
          Alignment       =   1  'Right Justify
          AutoSize        =   -1  'True
          Caption         =   "Platform"
-         BeginProperty Font
+         BeginProperty Font 
             Name            =   "MS Sans Serif"
             Size            =   15.6
             Charset         =   0
@@ -98,11 +98,11 @@ Begin VB.Form frmSplash
          Top             =   2400
          Width           =   1284
       End
-      Begin VB.Label lblVersion
+      Begin VB.Label lblVersion 
          Alignment       =   1  'Right Justify
          AutoSize        =   -1  'True
          Caption         =   "Version"
-         BeginProperty Font
+         BeginProperty Font 
             Name            =   "MS Sans Serif"
             Size            =   12
             Charset         =   0
@@ -118,7 +118,7 @@ Begin VB.Form frmSplash
          Top             =   2760
          Width           =   900
       End
-      Begin VB.Label lblWarning
+      Begin VB.Label lblWarning 
          Caption         =   "Warning"
          Height          =   195
          Left            =   300
@@ -127,7 +127,7 @@ Begin VB.Form frmSplash
          Top             =   3720
          Width           =   6855
       End
-      Begin VB.Label lblCompany
+      Begin VB.Label lblCompany 
          Caption         =   "Company"
          Height          =   255
          Left            =   4710
@@ -136,7 +136,7 @@ Begin VB.Form frmSplash
          Top             =   3330
          Width           =   2415
       End
-      Begin VB.Label lblCopyright
+      Begin VB.Label lblCopyright 
          Caption         =   "Copyright"
          Height          =   255
          Left            =   4710
