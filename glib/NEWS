@@ -153,18 +153,18 @@ Overview of Changes in GLib 1.1.6:
 Overview of Changes in GLib 1.1.5:
 
 * Win32 portability
-* GIOChannel structure to encapsulate the IPC mechanism
+* GIOChannel structure to encapsulate the IPC mechanism 
 * Reimplemented endian stuff, using inline asm for x86
 * New functions:
   - g_strescape: escapes backslashes
   - g_path_is_absolute and g_path_skip_root
-  - g_getenv: expands environment variables that contain references
+  - g_getenv: expands environment variables that contain references 
     to other environment variables
   - g_scanner_sync_file_offset: rewind the filedescriptor to the current
     buffer position and blow the file read ahead buffer
   - g_array_remove_index: remove an entry, preserving the order
   - g_array_remove_index_fast: remove an entry, order might be distorted
-  - g_ptr_array_remove: remove an entry, preserving the order
+  - g_ptr_array_remove: remove an entry, preserving the order 
   - g_ptr_array_remove_fast: remove an entry, order might be distorted
   - g_byte_array_remove_index: wrapper for g_array_remove_index
   - g_byte_array_remove_index_fast: wrapper for g_array_remove_index_fast
@@ -184,7 +184,7 @@ Overview of Changes in GLib 1.1.4:
 
 * Added generic callback maintenance functions (ghook)
 * New endian defines (G_*_ENDIAN)
-* New string join/split/free routines
+* New string join/split/free routines 
 * Fixes
 
 Overview of Changes in GLib 1.1.3:
@@ -208,7 +208,7 @@ Overview of Changes in GLib 1.1.3:
 * New utility functions:
   g_strndup(), g_on_error_query(), g_on_error_stack_trace(), g_strdup_printf(),
   g_strdup_vprintf(), g_printf_string_upper_bound(), g_spaced_primes_closest(),
-  g_strnfill(), g_memdup().
+  g_strnfill(), g_memdup(). 
 * Overhaul of the array implementations, this contains some source incompatible
   changes. Again, the ChangeLog is much more informative (grep for garray.c).
 * The internals of the g_dataset mechanism are now exported through the
