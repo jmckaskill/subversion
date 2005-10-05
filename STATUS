@@ -101,7 +101,7 @@ Candidate changes:
       Greater visibility is not required, so keep the exported namespace clean.
     Votes:
       +1: maxb
-
+     
   * r16486
     Fiddle with the Perl bindings link command to avoid linking to installed,
     rather then build-tree libsvn_* libraries.
