@@ -1,7 +1,7 @@
 How SVN deals with Server Certs
 
 This is a description of a design for issue #1330, which is one of the
-last "enhancements" for pre-1.0 subversion, scheduled for svn 0.31.
+last "enhancements" for pre-1.0 subversion, scheduled for svn 0.31. 
 
 The goal here is to essentially toss the existing server-certificate
 validation code, and replace it with a totally new system that allows
@@ -49,11 +49,11 @@ NEW PROPOSED SYSTEM
 1.  Toss the old SERVER_SSL cred-kind, and both providers.
 
 2.  Create a completely new cred-kind, with two fields:
-
-         {
+ 
+         { 
            const char *server_cert;  /* stringified somehow */
            svn_boolean_t trust_forever;
-         }
+         }  
 
 3. Write a disk provider for the new cred-kind:
 
