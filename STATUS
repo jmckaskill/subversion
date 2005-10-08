@@ -68,7 +68,7 @@ Candidate changes (NOT under subversion/bindings/swig):
       Cygwin is likely to be exposed to native-Windows-created WCs.
     Votes:
       +1: maxb, dlr
-
+     
   * r16556
     Consolidated and better documented loading of the "svnjavahl-1"
     native library.
@@ -89,7 +89,7 @@ Candidate changes (NOT under subversion/bindings/swig):
   * r16563
     Remove unnecessary complication in Makefile SWIG clean rules.
     Justification:
-      Modernize the 'clean-swig' rules, because a future commit will add
+      Modernize the 'clean-swig' rules, because a future commit will add 
       'extraclean-swig' rules in the new style.
     Votes:
       +1: maxb
@@ -103,7 +103,7 @@ Candidate changes (under subversion/bindings/swig):
 
   IMPORTANT NOTE: If all these changes are approved, we need not merge them
   individually. We can just:
-
+    
     rs=http://svn.collab.net/repos/svn
     svn rm $rs/branches/1.3.x/subversion/bindings/swig
     svn cp -r 16582 $rs/trunk/subversion/bindings/swig \
