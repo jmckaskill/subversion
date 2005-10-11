@@ -10,7 +10,7 @@ Notes on the 'greg hudson' directory versioning problem.
    If I commit a deletion, it's not enough to simply remove the entry
    from the parents' entries file.  Why?  Because the next time the
    parent dir is updated, the state-reporter will say "I have revision
-   N of this directory."
+   N of this directory."  
 
    The truth is, you *don't* have revision N of the directory; you
    have revision N *minus* an entry.  If the missing entry isn't
@@ -19,7 +19,7 @@ Notes on the 'greg hudson' directory versioning problem.
    sent by the server.  (For example, if the update is backdating, the
    server won't know to re-send the missing file; if updating to HEAD,
    the server might try to re-delete the missing file.)
-
+  
    The solution is to have the entries file continue tracking
    committed items as 'deleted'.  See description below.
 
@@ -63,7 +63,7 @@ Notes on the 'greg hudson' directory versioning problem.
    whether a deleted entries should be returned.
 
    Generally, anyone who gets a single entry or a list of entries will
-   NOT want deleted entries returned.
+   NOT want deleted entries returned. 
 
    Only the routines listed above will want to see them:
 
