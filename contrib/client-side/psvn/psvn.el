@@ -581,7 +581,7 @@ Otherwise, return \"\"."
   (if (fboundp 'point-at-eol) 'point-at-eol 'line-end-position))
 (defalias 'svn-point-at-bol
   (if (fboundp 'point-at-bol) 'point-at-bol 'line-beginning-position))
-(defalias 'svn-read-directory-name
+(defalias 'svn-read-directory-name 
   (if (fboundp 'read-directory-name) 'read-directory-name 'read-file-name))
 
 (eval-when-compile
