@@ -581,7 +581,7 @@ Otherwise, return \"\"."
   (if (fboundp 'point-at-eol) 'point-at-eol 'line-end-position))
 (defalias 'svn-point-at-bol
   (if (fboundp 'point-at-bol) 'point-at-bol 'line-beginning-position))
-(defalias 'svn-read-directory-name
+(defalias 'svn-read-directory-name 
   (if (fboundp 'read-directory-name) 'read-directory-name 'read-file-name))
 
 (eval-when-compile
@@ -2424,7 +2424,7 @@ If ARG then prompt for revision to diff against, else compare working copy with 
   (svn-status-show-svn-diff-internal (svn-status-marked-files)
                                      (if arg :ask "BASE")))
 
-(defun svn-status-show-svn-diff-internal (line-infos revision)
+(defun svn-status-show-svn-diff-internal (line-infos revision) 
   ;; REVISION must be one of:
   ;; - a string: whatever the -r option allows.
   ;; - `:ask': asks the user to specify the revision, which then becomes
