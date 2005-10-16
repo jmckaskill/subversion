@@ -68,7 +68,7 @@ svn_log_changed_path_dup (const svn_log_changed_path_t *changed_path,
   return new_changed_path;
 }
 
-/**
+/** 
  * Reallocate the members of @a prop using @a pool.
  */
 static void
@@ -88,11 +88,11 @@ svn_prop_dup (const svn_prop_t *prop, apr_pool_t *pool)
   *new_prop = *prop;
 
   svn_prop_member_dup (new_prop, pool);
-
+  
   return new_prop;
 }
 
-/**
+/** 
  * Duplicate a @a hash containing (char * -> svn_string_t *) key/value
  * pairs using @a pool.
  */
@@ -121,7 +121,7 @@ svn_client_proplist_item_dup (const svn_client_proplist_item_t *item,
   svn_client_proplist_item_t *new_item
     = apr_pcalloc (pool, sizeof (*new_item));
 
-  if (item->node_name)
+  if (item->node_name) 
     new_item->node_name = svn_stringbuf_dup (item->node_name, pool);
 
   if (item->prop_hash)
@@ -130,7 +130,7 @@ svn_client_proplist_item_dup (const svn_client_proplist_item_t *item,
   return new_item;
 }
 
-/**
+/** 
  * Duplicate an @a array of svn_prop_t items using @a pool.
  */
 static apr_array_header_t *
@@ -160,11 +160,11 @@ svn_client_commit_item2_dup (const svn_client_commit_item2_t *item,
   if (new_item->url)
     new_item->url = apr_pstrdup (pool, new_item->url);
 
-  if (new_item->copyfrom_url)
+  if (new_item->copyfrom_url)   
     new_item->copyfrom_url = apr_pstrdup (pool, new_item->copyfrom_url);
 
   if (new_item->wcprop_changes)
-    new_item->wcprop_changes = svn_prop_array_dup (new_item->wcprop_changes,
+    new_item->wcprop_changes = svn_prop_array_dup (new_item->wcprop_changes, 
                                                    pool);
 
   return new_item;
