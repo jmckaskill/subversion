@@ -13,7 +13,7 @@ Checkout:
 
 Update:
 
-- If svn:needs-lock is unset in wc, but update sets it:
+- If svn:needs-lock is unset in wc, but update sets it: 
   - If the file has local mods, print a warning and do nothing???
   - Else, set file to read-only.
 - If svn:needs-lock is set in wc, but update unsets it: Set file to
@@ -22,14 +22,14 @@ Update:
 - If svn:needs-lock is set and the lock is removed by update (i.e.,
   the lock in the wc was defunct):
   - If the file has local mods, print a warning and do nothing???
-  - Else, set the file to read-only.
+  - Else, set the file to read-only. 
 
 Propset:
 
 - Setting the svn:needs-lock property does nothing WRT a file's
   permissions.  The file will be set to read-only at commit time.  See
   "Commit" below.  (Propset does, however, canonicalizes the value to '*')
-
+  
 Propdel:
 - Removing svn:needs-lock sets the file to read-write.
 
@@ -48,7 +48,7 @@ Copy:
 - repos-to-wc or wc-to-wc copy: Ensure that the copy is read-write
    even if svn:needs-lock is set as this is another schedule add case.
 
-Commit:
+Commit: 
 - If a file has the svn:needs-lock property set and is not locked:
   - Unconditionally set the file to read-only.
 - Else, do nothing.
