@@ -43,10 +43,10 @@ print_dirents (apr_hash_t *dirents,
 {
   apr_array_header_t *array;
   int i;
-  apr_pool_t *subpool = svn_pool_create (pool);
+  apr_pool_t *subpool = svn_pool_create (pool); 
 
   array = svn_sort__hash (dirents, svn_sort_compare_items_as_paths, pool);
-
+  
   for (i = 0; i < array->nelts; ++i)
     {
       const char *utf8_entryname;
@@ -57,7 +57,7 @@ print_dirents (apr_hash_t *dirents,
 
       if (ctx->cancel_func)
         SVN_ERR (ctx->cancel_func (ctx->cancel_baton));
-
+     
       item = &APR_ARRAY_IDX (array, i, svn_sort__item_t);
 
       utf8_entryname = item->key;
@@ -72,7 +72,7 @@ print_dirents (apr_hash_t *dirents,
           apr_size_t size;
           char timestr[20];
           const char *sizestr, *utf8_timestr;
-
+          
           /* svn_time_to_human_cstring gives us something *way* too long
              to use for this, so we have to roll our own.  We include
              the year if the entry's time is not within half a year. */
@@ -117,7 +117,7 @@ print_dirents (apr_hash_t *dirents,
     }
 
   svn_pool_destroy (subpool);
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -144,10 +144,10 @@ print_header_xml (apr_pool_t *pool)
 
   /* <?xml version="1.0" encoding="utf-8"?> */
   svn_xml_make_header (&sb, pool);
-
+  
   /* "<lists>" */
   svn_xml_make_open_tag (&sb, pool, svn_xml_normal, "lists", NULL);
-
+  
   return svn_cl__error_checked_fputs (sb->data, stdout);
 }
 
@@ -160,7 +160,7 @@ print_dirents_xml (apr_hash_t *dirents,
 {
   apr_array_header_t *array;
   int i;
-  apr_pool_t *subpool = svn_pool_create (pool);
+  apr_pool_t *subpool = svn_pool_create (pool); 
 
   array = svn_sort__hash (dirents, svn_sort_compare_items_as_paths, pool);
 
@@ -184,7 +184,7 @@ print_dirents_xml (apr_hash_t *dirents,
 
       if (ctx->cancel_func)
         SVN_ERR (ctx->cancel_func (ctx->cancel_baton));
-
+     
       item = &APR_ARRAY_IDX (array, i, svn_sort__item_t);
 
       utf8_entryname = item->key;
@@ -245,7 +245,7 @@ print_dirents_xml (apr_hash_t *dirents,
     }
 
   svn_pool_destroy (subpool);
-
+  
   {
     /* "</list>" */
     svn_stringbuf_t *sb = svn_stringbuf_create ("", pool);
@@ -277,9 +277,9 @@ svn_cl__ls (apr_getopt_t *os,
   svn_client_ctx_t *ctx = ((svn_cl__cmd_baton_t *) baton)->ctx;
   apr_array_header_t *targets;
   int i;
-  apr_pool_t *subpool = svn_pool_create (pool);
+  apr_pool_t *subpool = svn_pool_create (pool); 
 
-  SVN_ERR (svn_opt_args_to_target_array2 (&targets, os,
+  SVN_ERR (svn_opt_args_to_target_array2 (&targets, os, 
                                           opt_state->targets, pool));
 
   /* Add "." if user passed 0 arguments */
@@ -316,7 +316,7 @@ svn_cl__ls (apr_getopt_t *os,
       svn_opt_revision_t peg_revision;
 
       svn_pool_clear (subpool);
-
+     
       SVN_ERR (svn_cl__check_cancel (ctx->cancel_baton));
 
       /* Get peg revisions. */
@@ -333,7 +333,7 @@ svn_cl__ls (apr_getopt_t *os,
     }
 
   svn_pool_destroy (subpool);
-
+  
   if (opt_state->xml)
     {
       if (! opt_state->incremental)
