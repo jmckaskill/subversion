@@ -37,7 +37,7 @@ Candidate changes:
        +1: djames, danderson
 
 Approved changes:
-
+ 
    * r16816
      Use new APIs for a sample script, svnshell.rb, to fix its breakage
      caused by using obsolete APIs.
