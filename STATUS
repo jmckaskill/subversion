@@ -65,7 +65,7 @@ Approved changes:
       using propdel, or a DAV server which does not require auth.
     Votes:
       +1: dlr, lundblad, rooneg
-
+ 
   * r16744
     Duplicate C object when converting to Ruby object.
     Justification:
