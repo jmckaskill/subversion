@@ -54,7 +54,7 @@ Approved changes:
        worse, the values for the elements do not even match!
      Votes:
        +1: dlr, lundblad, rooneg
-
+ 
    * r16816
      Use new APIs for a sample script, svnshell.rb, to fix its breakage
      caused by using obsolete APIs.
