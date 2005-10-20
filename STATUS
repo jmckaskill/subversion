@@ -12,7 +12,7 @@ Candidate changes:
   * r16855
     Don't write empty hashes to props file
     Justification:
-    Severely bloats working copy size and causes extra i/o when you have a
+    Severely bloats working copy size and causes extra i/o when you have a 
     lot of files, but no properties on them.
     (4k per file on most fs'en)
     Votes:
