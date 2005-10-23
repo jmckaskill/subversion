@@ -148,7 +148,7 @@ svn_wc__loggy_delete_lock (svn_stringbuf_t **log_accum,
                            apr_pool_t *pool);
 
 
-/* Extend **LOG_ACCUM with
+/* Extend **LOG_ACCUM with 
  */
 svn_error_t *
 svn_wc__loggy_entry_modify (svn_stringbuf_t **log_accum,
@@ -255,7 +255,7 @@ svn_wc__write_log (svn_wc_adm_access_t *adm_access,
                    apr_pool_t *pool);
 
 
-/* Process the instructions in the log file for ADM_ACCESS.
+/* Process the instructions in the log file for ADM_ACCESS. 
    DIFF3_CMD is the external differ used by the 'SVN_WC__LOG_MERGE'
    log entry.  It is always safe to pass null for this.
 
