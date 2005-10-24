@@ -23,7 +23,7 @@ Candidate changes:
        Trivial fix.
      Votes:
        +1: djames, jerenkrantz
-
+ 
    * r16948
      Disable call to svn_wc__get_special() unless HAVE_SYMLINK defined.
      Justification:
