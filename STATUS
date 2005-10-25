@@ -109,7 +109,7 @@ Approved changes:
        Trivial fix.
      Votes:
        +1: djames, jerenkrantz, lundblad
-
+ 
    * r16930
      Tweak Perl bindings to avoid use of goto in svn_txdelta_apply.
      Justification:
