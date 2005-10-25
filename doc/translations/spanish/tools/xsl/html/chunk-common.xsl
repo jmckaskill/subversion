@@ -502,7 +502,7 @@
       <xsl:with-param name="object" select="$context"/>
     </xsl:call-template>
   </xsl:variable>
-
+  
   <!--
   <xsl:message>href.to.uri: <xsl:value-of select="$href.to.uri"/></xsl:message>
   <xsl:message>href.from.uri: <xsl:value-of select="$href.from.uri"/></xsl:message>
@@ -701,7 +701,7 @@
 
   <xsl:variable name="row1" select="$navig.showtitles != 0"/>
   <xsl:variable name="row2" select="count($prev) &gt; 0
-                                    or (count($up) &gt; 0
+                                    or (count($up) &gt; 0 
 					and generate-id($up) != generate-id($home)
                                         and $navig.showtitles != 0)
                                     or count($next) &gt; 0"/>
