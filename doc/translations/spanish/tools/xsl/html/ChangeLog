@@ -67,7 +67,7 @@
 
 2003-11-30  Robert Stayton <bobstayton@users.sourceforge.net>
 
-	* autoidx.xsl, changebars.xsl, chunk-code.xsl, chunk-common.xsl, chunk.xsl, chunker.xsl, chunkfast.xsl, chunktoc.xsl, html-rtf.xsl, htmltbl.xsl, maketoc.xsl, manifest.xsl, oldchunker.xsl, onechunk.xsl, profile-chunk.xsl, profile-onechunk.xsl, task.xsl:
+	* autoidx.xsl, changebars.xsl, chunk-code.xsl, chunk-common.xsl, chunk.xsl, chunker.xsl, chunkfast.xsl, chunktoc.xsl, html-rtf.xsl, htmltbl.xsl, maketoc.xsl, manifest.xsl, oldchunker.xsl, onechunk.xsl, profile-chunk.xsl, profile-onechunk.xsl, task.xsl: 
 	Added CVS $Id$ comments.
 
 2003-11-29  Jirka Kosek <kosek@users.sourceforge.net>
@@ -114,7 +114,7 @@
 
 2003-09-23  Jirka Kosek <kosek@users.sourceforge.net>
 
-	* Makefile.param, html.xsl, manifest.xsl, param.ent, param.xweb:
+	* Makefile.param, html.xsl, manifest.xsl, param.ent, param.xweb: 
 	Added new parameter manifest.in.base.dir which can be used to place manifest file and also project files for HTML Help and Eclipse Help into base.dir. This improvement also fixes bug (feature) #662955.
 
 2003-08-29  Robert Stayton <bobstayton@users.sourceforge.net>
@@ -257,7 +257,7 @@
 
 2003-05-12  Jirka Kosek <kosek@users.sourceforge.net>
 
-	* Makefile, Makefile.param, profile-chunk.xsl, profile-onechunk.xsl:
+	* Makefile, Makefile.param, profile-chunk.xsl, profile-onechunk.xsl: 
 	Fixed profiling to work with modified chunking code
 
 2003-05-08  Norman Walsh <nwalsh@users.sourceforge.net>
@@ -538,7 +538,7 @@
 
 2002-10-19  Norman Walsh <nwalsh@users.sourceforge.net>
 
-	* block.xsl, component.xsl, division.xsl, refentry.xsl, sections.xsl:
+	* block.xsl, component.xsl, division.xsl, refentry.xsl, sections.xsl: 
 	Support output of language attribute
 
 	* inline.xsl: Support output of language attribute on foreignphrase and fix bug in glossterm linking
@@ -691,7 +691,7 @@
 
 	* autoidx.xsl: Format see/seealso entries correctly
 
-	* autotoc.xsl, chunk-common.xsl, chunk.xsl, component.xsl, division.xsl:
+	* autotoc.xsl, chunk-common.xsl, chunk.xsl, component.xsl, division.xsl: 
 	Rework(ing) ToC/LoT generation to support chunking the ToC/LoT; don't output empty rows in navigation tables
 
 2002-08-22  Jirka Kosek <kosek@users.sourceforge.net>
@@ -1049,7 +1049,7 @@
 
 2002-03-18  Norman Walsh <nwalsh@users.sourceforge.net>
 
-	* Makefile, autotoc.xsl, component.xsl, division.xsl, param.ent, param.xweb, qandaset.xsl, refentry.xsl, sections.xsl:
+	* Makefile, autotoc.xsl, component.xsl, division.xsl, param.ent, param.xweb, qandaset.xsl, refentry.xsl, sections.xsl: 
 	Replace generate.*.toc and generate.*.lot with single generate.toc parameter.
 
 	* autotoc.xsl: Fix ToC section depth calculation
@@ -1064,10 +1064,10 @@
 
 	* Makefile: Make profiling onechunk
 
-	* admon.xsl, autoidx.xsl, autotoc.xsl, biblio.xsl, block.xsl, callout.xsl, changebars.xsl, chunk-common.xsl, chunk.xsl, chunker.xsl, chunktoc.xsl, component.xsl, division.xsl, docbook.xsl, ebnf.xsl, footnote.xsl, formal.xsl, glossary.xsl, graphics.xsl, html-rtf.xsl, html.xsl, index.xsl, info.xsl, inline.xsl, keywords.xsl, lists.xsl, maketoc.xsl, math.xsl, oldchunker.xsl, onechunk.xsl, param.ent, param.xweb, pi.xsl, qandaset.xsl, refentry.xsl, sections.xsl, synop.xsl, table.xsl, titlepage.templates.xml, titlepage.xsl, toc.xsl, verbatim.xsl, xref.xsl:
+	* admon.xsl, autoidx.xsl, autotoc.xsl, biblio.xsl, block.xsl, callout.xsl, changebars.xsl, chunk-common.xsl, chunk.xsl, chunker.xsl, chunktoc.xsl, component.xsl, division.xsl, docbook.xsl, ebnf.xsl, footnote.xsl, formal.xsl, glossary.xsl, graphics.xsl, html-rtf.xsl, html.xsl, index.xsl, info.xsl, inline.xsl, keywords.xsl, lists.xsl, maketoc.xsl, math.xsl, oldchunker.xsl, onechunk.xsl, param.ent, param.xweb, pi.xsl, qandaset.xsl, refentry.xsl, sections.xsl, synop.xsl, table.xsl, titlepage.templates.xml, titlepage.xsl, toc.xsl, verbatim.xsl, xref.xsl: 
 	Whitespace only: change CR/LF back to LF. Norm was a total moron.
 
-	* admon.xsl, autoidx.xsl, autotoc.xsl, biblio.xsl, block.xsl, callout.xsl, changebars.xsl, chunk-common.xsl, chunk.xsl, chunker.xsl, chunktoc.xsl, component.xsl, division.xsl, docbook.xsl, ebnf.xsl, footnote.xsl, formal.xsl, glossary.xsl, graphics.xsl, html-rtf.xsl, html.xsl, index.xsl, info.xsl, inline.xsl, keywords.xsl, lists.xsl, maketoc.xsl, math.xsl, oldchunker.xsl, onechunk.xsl, param.ent, param.xweb, pi.xsl, qandaset.xsl, refentry.xsl, sections.xsl, synop.xsl, table.xsl, titlepage.templates.xml, titlepage.xsl, toc.xsl, verbatim.xsl, xref.xsl:
+	* admon.xsl, autoidx.xsl, autotoc.xsl, biblio.xsl, block.xsl, callout.xsl, changebars.xsl, chunk-common.xsl, chunk.xsl, chunker.xsl, chunktoc.xsl, component.xsl, division.xsl, docbook.xsl, ebnf.xsl, footnote.xsl, formal.xsl, glossary.xsl, graphics.xsl, html-rtf.xsl, html.xsl, index.xsl, info.xsl, inline.xsl, keywords.xsl, lists.xsl, maketoc.xsl, math.xsl, oldchunker.xsl, onechunk.xsl, param.ent, param.xweb, pi.xsl, qandaset.xsl, refentry.xsl, sections.xsl, synop.xsl, table.xsl, titlepage.templates.xml, titlepage.xsl, toc.xsl, verbatim.xsl, xref.xsl: 
 	Whitespace changes only: use PC-style CR/LF because Unix clients choke on this far less often than PC clients choke on the reverse. Grrr.
 
 	* block.xsl: Generate anchors before the formal.object.heading, not within it; support formal.title.placement
@@ -1109,7 +1109,7 @@
 
 	* biblio.xsl: Support the new generate.id.attributes parameter to prevent generating both div ID and a NAME attributes; also suppress revhistory in bibliographies
 
-	* component.xsl, division.xsl, glossary.xsl, index.xsl, param.ent, param.xweb:
+	* component.xsl, division.xsl, glossary.xsl, index.xsl, param.ent, param.xweb: 
 	Support the new generate.id.attributes parameter to prevent generating both div ID and a NAME attributes
 
 	* inline.xsl: Use em instead of i for emphasis
@@ -1143,7 +1143,7 @@
 
 2002-02-25  Robert Stayton <bobstayton@users.sourceforge.net>
 
-	* chunker.xsl, chunktoc.xsl, graphics.xsl, param.ent, param.xweb, titlepage.xsl:
+	* chunker.xsl, chunktoc.xsl, graphics.xsl, param.ent, param.xweb, titlepage.xsl: 
 	Added chunk.quietly parameter and altered the calls
 	to write.chunk to set the 'quiet' param to that value.
 
@@ -1165,10 +1165,10 @@
 
 2002-02-07  Norman Walsh <nwalsh@users.sourceforge.net>
 
-	* autotoc.xsl, chunk-common.xsl, chunk.xsl, chunktoc.xsl, maketoc.xsl, param.ent, param.xweb:
+	* autotoc.xsl, chunk-common.xsl, chunk.xsl, chunktoc.xsl, maketoc.xsl, param.ent, param.xweb: 
 	Added experimental manual TOC processing for chunking and TOC generation
 
-	* calc-chunks.xsl, chunk-experimental.xsl, expchunk.xsl:
+	* calc-chunks.xsl, chunk-experimental.xsl, expchunk.xsl: 
 	Deleting old experiments
 
 	* docbook.xsl: Tweaked rendering of 'draft' watermark
@@ -1185,7 +1185,7 @@
 
 	* biblio.xsl, block.xsl, docbook.xsl, footnote.xsl: Bug #503271: output biblioentry.item.separator after citetitle
 
-	* block.xsl, footnote.xsl, html-rtf.xsl, param.ent, param.xweb:
+	* block.xsl, footnote.xsl, html-rtf.xsl, param.ent, param.xweb: 
 	Added html.cleanup parameter; if non-zero, do some post-processing of RTFs to improve formatting
 
 2002-01-22  Jirka Kosek <kosek@users.sourceforge.net>
@@ -1248,14 +1248,14 @@
 
 2001-12-06  Jirka Kosek <kosek@users.sourceforge.net>
 
-	* Makefile.param, docbook.xsl, math.xsl, param.ent, param.xweb:
+	* Makefile.param, docbook.xsl, math.xsl, param.ent, param.xweb: 
 	Added support for TeX math in alt element. When using PassiveTeX, TeX equations can be directly passed to TeX. When using HTML, TeX file with code necessary to produce image equivalents of equations is generated.
 
 	* chunk.xsl, chunker.xsl: Template write.text.chunk moved to common place.
 
 2001-12-04  Norman Walsh <nwalsh@users.sourceforge.net>
 
-	* Makefile, Makefile.param, chunk.xsl, param.ent, param.xweb:
+	* Makefile, Makefile.param, chunk.xsl, param.ent, param.xweb: 
 	Fix chunking parameter errors
 
 	* Makefile, Makefile.param, param.ent, param.xweb: Updated parameters and parameter consistency checking
@@ -1318,7 +1318,7 @@
 
 2001-11-18  Jirka Kosek <kosek@users.sourceforge.net>
 
-	* Makefile, glossary.xsl, inline.xsl, param.ent, param.xweb:
+	* Makefile, glossary.xsl, inline.xsl, param.ent, param.xweb: 
 	Added parameter glossterm.auto.link. When set to 1 links from glossterm to glossentry are created automatically even if there is no linkend attribute on glossterm and id attribute on glossentry.
 
 	* inline.xsl: Baseform attribute is taken into account when autogenerating links for glossterms.
@@ -1331,7 +1331,7 @@
 
 2001-11-12  Norman Walsh <nwalsh@users.sourceforge.net>
 
-	* chunk-experimental.xsl, chunk.xsl, docbook.xsl, ebnf.xsl, footnote.xsl, inline.xsl, lists.xsl, param.xweb, synop.xsl, toc.xsl, xref.xsl:
+	* chunk-experimental.xsl, chunk.xsl, docbook.xsl, ebnf.xsl, footnote.xsl, inline.xsl, lists.xsl, param.xweb, synop.xsl, toc.xsl, xref.xsl: 
 	Support well-formed documents, use key() instead of id()
 
 	* param.xweb: Added fragref for navig.* params
@@ -1414,10 +1414,10 @@
 
 	* .cvsignore: Added param.html to ignore list
 
-	* .cvsignore, Makefile, param.ent, param.xsl, param.xweb:
+	* .cvsignore, Makefile, param.ent, param.xsl, param.xweb: 
 	Generate params from an xweb file
 
-	* autotoc.xsl, calc-chunks.xsl, chunk-common.xsl, chunk-experimental.xsl, chunker.xsl, ebnf.xsl:
+	* autotoc.xsl, calc-chunks.xsl, chunk-common.xsl, chunk-experimental.xsl, chunker.xsl, ebnf.xsl: 
 	Removed all top-level parameters; they're now all in param.xsl
 
 2001-10-06  Norman Walsh <nwalsh@users.sourceforge.net>
@@ -1446,7 +1446,7 @@
 
 2001-09-26  Norman Walsh <nwalsh@users.sourceforge.net>
 
-	* admon.xsl, biblio.xsl, block.xsl, callout.xsl, component.xsl, division.xsl, ebnf.xsl, formal.xsl, glossary.xsl, graphics.xsl, html.xsl, index.xsl, inline.xsl, lists.xsl, qandaset.xsl, refentry.xsl, sections.xsl, synop.xsl, table.xsl, verbatim.xsl, xref.xsl:
+	* admon.xsl, biblio.xsl, block.xsl, callout.xsl, component.xsl, division.xsl, ebnf.xsl, formal.xsl, glossary.xsl, graphics.xsl, html.xsl, index.xsl, inline.xsl, lists.xsl, qandaset.xsl, refentry.xsl, sections.xsl, synop.xsl, table.xsl, verbatim.xsl, xref.xsl: 
 	Bug #464487: use (new) anchor template to consistently generate HTML anchors (usually conditionally, in other words, only for elements that actually have an ID)
 
 2001-09-25  Norman Walsh <nwalsh@users.sourceforge.net>
@@ -1717,7 +1717,7 @@
 
 	* titlepage.templates.xml: Reworked titlepage template processing to support use of more interesting
 	predicates.
-
+	
 	Note: in previous versions, at most one title, subtitle, or titleabbrev
 	element would be processed for each title page. In the new design, if you
 	have multiple title, subtitle, or titleabbrev elements inside an info
@@ -1847,7 +1847,7 @@
 
 2001-04-02  Norman Walsh <nwalsh@users.sourceforge.net>
 
-	* .cvsignore, Makefile, admon.xsl, autoidx.xsl, autotoc.xsl, biblio.xsl, block.xsl, callout.xsl, changebars.xsl, chunk-common.xsl, chunk.xsl, chunker.xsl, component.xsl, division.xsl, docbook.xsl, ebnf.xsl, footnote.xsl, formal.xsl, glossary.xsl, graphics.xsl, html.xsl, index.xsl, info.xsl, inline.xsl, keywords.xsl, lists.xsl, math.xsl, param.xsl, pi.xsl, qandaset.xsl, refentry.xsl, sections.xsl, synop.xsl, table.xsl, titlepage.templates.xml, titlepage.xsl, toc.xsl, verbatim.xsl, xref.xsl, xtchunk.xsl, xtchunker.xsl:
+	* .cvsignore, Makefile, admon.xsl, autoidx.xsl, autotoc.xsl, biblio.xsl, block.xsl, callout.xsl, changebars.xsl, chunk-common.xsl, chunk.xsl, chunker.xsl, component.xsl, division.xsl, docbook.xsl, ebnf.xsl, footnote.xsl, formal.xsl, glossary.xsl, graphics.xsl, html.xsl, index.xsl, info.xsl, inline.xsl, keywords.xsl, lists.xsl, math.xsl, param.xsl, pi.xsl, qandaset.xsl, refentry.xsl, sections.xsl, synop.xsl, table.xsl, titlepage.templates.xml, titlepage.xsl, toc.xsl, verbatim.xsl, xref.xsl, xtchunk.xsl, xtchunker.xsl: 
 	New file.
 
 	* Makefile: Use the cvstools version of saxon
