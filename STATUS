@@ -16,7 +16,7 @@ Candidate changes:
      graceful fallback.
    Votes:
      +1: dionisos, rooneg
-
+ 
  * r17082
    Fix atexit handler in Python bindings to only destroy the application
    pool if it is still valid.
