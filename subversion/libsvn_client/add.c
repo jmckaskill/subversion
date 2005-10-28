@@ -322,6 +322,12 @@ add_dir_recursive (const char *dirname,
     {
       const char *fullpath;
 
+      /* Skip entries for this dir and its parent.  */
+      if (this_entry.name[0] == '.'
+          && (this_entry.name[1] == '\0'
+              || (this_entry.name[1] == '.' && this_entry.name[2] == '\0')))
+        continue;
+
       /* Check cancellation so you can cancel during an
        * add of a directory with lots of files. */
       if (ctx->cancel_func)
@@ -329,12 +335,6 @@ add_dir_recursive (const char *dirname,
 
       /* Skip over SVN admin directories. */
       if (svn_wc_is_adm_dir (this_entry.name, subpool))
-        continue;
-
-      /* Skip entries for this dir and its parent.  */
-      if (this_entry.name[0] == '.'
-          && (this_entry.name[1] == '\0'
-              || (this_entry.name[1] == '.' && this_entry.name[2] == '\0')))
         continue;
 
       if ((!no_ignore) && svn_cstring_match_glob_list (this_entry.name,
