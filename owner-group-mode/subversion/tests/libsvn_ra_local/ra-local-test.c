@@ -54,7 +54,7 @@ current_directory_url (const char **url,
   /* 8KB is a lot, but it almost guarantees that any path will fit. */
   char curdir[8192];
   const char *utf8_ls_curdir, *utf8_is_curdir, *unencoded_url;
-
+  
   if (! getcwd (curdir, sizeof(curdir)))
     return svn_error_create (SVN_ERR_BASE, NULL, "getcwd() failed");
 
@@ -140,7 +140,7 @@ get_youngest_rev (const char **msg, svn_boolean_t msg_only, apr_pool_t *pool)
 
   /* Get the youngest revision and make sure it's 0. */
   SVN_ERR (plugin->get_latest_revnum (session, &latest_rev, pool));
-
+  
   if (latest_rev != 0)
       return svn_error_create (SVN_ERR_FS_GENERAL, NULL,
                                "youngest rev isn't 0!");
@@ -220,7 +220,7 @@ split_url_bad_host (const char **msg, svn_boolean_t msg_only, apr_pool_t *pool)
   /* Give a hostname other than `' or `localhost' */
   apr_err = try_split_url ("file://myhost/repos/path", pool);
   if (apr_err != SVN_ERR_RA_ILLEGAL_URL)
-    return svn_error_create
+    return svn_error_create 
       (SVN_ERR_TEST_FAILED, NULL,
        "svn_ra_local__split_URL failed to catch bad URL (hostname)");
 
@@ -276,15 +276,15 @@ check_split_url (const char *repos_path,
   url = apr_pstrcat (pool, root_url, in_repos_path, NULL);
 
   /* Run this URL through our splitter... */
-  SVN_ERR (svn_ra_local__split_URL (&repos, &repos_part, &in_repos_part,
+  SVN_ERR (svn_ra_local__split_URL (&repos, &repos_part, &in_repos_part, 
                                     url, pool));
   if ((strcmp (repos_part, root_url))
       || (strcmp (in_repos_part, in_repos_path)))
-    return svn_error_createf
+    return svn_error_createf 
       (SVN_ERR_TEST_FAILED, NULL,
        "svn_ra_local__split_URL failed to properly split the URL\n%s\n%s\n%s\n%s",
        repos_part, root_url, in_repos_part, in_repos_path);
-
+  
   return SVN_NO_ERROR;
 }
 

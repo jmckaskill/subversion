@@ -273,7 +273,7 @@ txn_body_change_rev_prop (void *baton, trail_t *trail)
   struct change_rev_prop_args *args = baton;
 
   SVN_ERR (svn_fs_base__set_rev_prop (trail->fs, args->rev,
-                                      args->name, args->value,
+                                      args->name, args->value, 
                                       trail, trail->pool));
 
   return SVN_NO_ERROR;
@@ -617,9 +617,9 @@ txn_body_begin_txn (void *baton, trail_t *trail)
   const svn_fs_id_t *root_id;
   const char *txn_id;
 
-  SVN_ERR (svn_fs_base__rev_get_root (&root_id, trail->fs, args->rev,
+  SVN_ERR (svn_fs_base__rev_get_root (&root_id, trail->fs, args->rev, 
                                       trail, trail->pool));
-  SVN_ERR (svn_fs_bdb__create_txn (&txn_id, trail->fs, root_id,
+  SVN_ERR (svn_fs_bdb__create_txn (&txn_id, trail->fs, root_id, 
                                    trail, trail->pool));
 
   *args->txn_p = make_txn (trail->fs, txn_id, args->rev, trail->pool);
@@ -721,7 +721,7 @@ static svn_error_t *
 txn_body_cleanup_txn (void *baton, trail_t *trail)
 {
   struct cleanup_txn_args *args = baton;
-  return get_txn (args->txn_p, trail->fs, args->name, TRUE,
+  return get_txn (args->txn_p, trail->fs, args->name, TRUE, 
                   trail, trail->pool);
 }
 
@@ -729,7 +729,7 @@ txn_body_cleanup_txn (void *baton, trail_t *trail)
 static svn_error_t *
 txn_body_cleanup_txn_copy (void *baton, trail_t *trail)
 {
-  svn_error_t *err = svn_fs_bdb__delete_copy (trail->fs, baton, trail,
+  svn_error_t *err = svn_fs_bdb__delete_copy (trail->fs, baton, trail, 
                                               trail->pool);
 
   /* Copy doesn't exist?  No sweat. */
@@ -764,7 +764,7 @@ txn_body_get_dirents (void *baton, trail_t *trail)
   dag_node_t *node;
 
   /* Get the node. */
-  SVN_ERR (svn_fs_base__dag_get_node (&node, trail->fs, args->id,
+  SVN_ERR (svn_fs_base__dag_get_node (&node, trail->fs, args->id, 
                                       trail, trail->pool));
 
   /* If immutable, do nothing and return. */
@@ -777,7 +777,7 @@ txn_body_get_dirents (void *baton, trail_t *trail)
     return SVN_NO_ERROR;
 
   /* Else it's mutable.  Get it's dirents. */
-  return svn_fs_base__dag_dir_entries (args->dirents, node,
+  return svn_fs_base__dag_dir_entries (args->dirents, node, 
                                        trail, trail->pool);
 }
 
@@ -950,7 +950,7 @@ static svn_error_t *
 txn_body_list_transactions (void* baton, trail_t *trail)
 {
   struct list_transactions_args *args = baton;
-  return svn_fs_bdb__get_txn_list (args->names_p, trail->fs,
+  return svn_fs_bdb__get_txn_list (args->names_p, trail->fs, 
                                    trail, args->pool);
 }
 

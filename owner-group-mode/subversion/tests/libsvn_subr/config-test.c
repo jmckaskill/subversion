@@ -93,7 +93,7 @@ static const char *config_values[] = { "bar", "Aa", "100", "bar",
                                        "Aa 100", NULL };
 
 static svn_error_t *
-test1 (const char **msg,
+test1 (const char **msg, 
        svn_boolean_t msg_only,
        apr_pool_t *pool)
 {
@@ -117,7 +117,7 @@ test1 (const char **msg,
   for (i = 0; config_keys[i] != NULL; i++)
     {
       const char *key, *py_val, *c_val;
-
+      
       key = config_keys[i];
       py_val = config_values[i];
       svn_config_get(cfg, &c_val, "section1", key, "default value");
@@ -142,7 +142,7 @@ static const char *false_keys[] = {"false1", "false2", "false3", "false4",
                                    NULL};
 
 static svn_error_t *
-test2 (const char **msg,
+test2 (const char **msg, 
        svn_boolean_t msg_only,
        apr_pool_t *pool)
 {
