@@ -84,7 +84,7 @@ typedef struct {
 enum authn_type { UNAUTHENTICATED, AUTHENTICATED };
 enum access_type { NO_ACCESS, READ_ACCESS, WRITE_ACCESS };
 
-/* Verify that URL is inside REPOS_URL and get its fs path. Assume that
+/* Verify that URL is inside REPOS_URL and get its fs path. Assume that 
    REPOS_URL and URL are already URI-decoded. */
 static svn_error_t *get_fs_path(const char *repos_url, const char *url,
                                 const char **fs_path, apr_pool_t *pool)
@@ -1090,7 +1090,7 @@ static svn_error_t *file_rev_handler(void *baton, const char *path,
     }
   else
     SVN_ERR(svn_ra_svn_write_cstring(frb->conn, pool, ""));
-
+      
   return SVN_NO_ERROR;
 }
 
@@ -1103,7 +1103,7 @@ static svn_error_t *get_file_revs(svn_ra_svn_conn_t *conn, apr_pool_t *pool,
   svn_revnum_t start_rev, end_rev;
   const char *path;
   const char *full_path;
-
+  
   /* Parse arguments. */
   SVN_ERR(svn_ra_svn_parse_tuple(params, pool, "c(?r)(?r)",
                                  &path, &start_rev, &end_rev));
