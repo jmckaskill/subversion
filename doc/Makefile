@@ -22,7 +22,7 @@ ENSURE_XSL = if ! test -e "$(TOOLS_DIR)/xsl"; \
 	     then $(TOOLS_DIR)/bin/find-xsl.py; fi
 
 # Customization hooks for xsltproc options
-MDOCS_HTML_XSLTPROC_OPTS =
+MDOCS_HTML_XSLTPROC_OPTS = 
 MDOCS_FO_XSLTPROC_OPTS =
 # FO example: --stringparam page.height 9in --stringparam page.width 6.4in
 
@@ -80,7 +80,7 @@ install-misc-docs-ps: $(MDOCS_PS_TARGET) $(MDOCS_INSTALL_DIR)
 # Clean targets
 misc-docs-clean:
 	rm -f $(MDOCS_HTML_TARGET) $(MDOCS_FO_TARGET)
-	rm -f $(MDOCS_PDF_TARGET) $(MDOCS_PS_TARGET)
+	rm -f $(MDOCS_PDF_TARGET) $(MDOCS_PS_TARGET) 
 
 # Utility targets
 valid:
