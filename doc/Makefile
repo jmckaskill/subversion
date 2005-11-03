@@ -12,7 +12,7 @@ TOOLS_DIR = tools
 MDOCS_DIR = misc-docs
 MDOCS_HTML_CHUNK_DIR = $(MDOCS_DIR)/html-chunk
 MDOCS_HTML_TARGET = $(MDOCS_DIR)/svn-misc-docs.html
-# In the HTML chunk build, index.html is created last, so serves as an
+# In the HTML chunk build, index.html is created last, so serves as an 
 # acceptable timestamp file for the entire multi-file output.
 MDOCS_HTML_CHUNK_TARGET = $(MDOCS_HTML_CHUNK_DIR)/index.html
 MDOCS_PDF_TARGET = $(MDOCS_DIR)/svn-misc-docs.pdf
@@ -27,7 +27,7 @@ ENSURE_XSL = if ! test -e "$(TOOLS_DIR)/xsl"; \
 	     then $(TOOLS_DIR)/bin/find-xsl.py; fi
 
 # Customization hooks for xsltproc options
-MDOCS_HTML_XSLTPROC_OPTS =
+MDOCS_HTML_XSLTPROC_OPTS = 
 MDOCS_FO_XSLTPROC_OPTS =
 # FO example: --stringparam page.height 9in --stringparam page.width 6.4in
 
@@ -119,7 +119,7 @@ misc-docs-clean:
 	rm -f $(MDOCS_VERSION_SOURCE)
 	rm -f $(MDOCS_HTML_TARGET) $(MDOCS_FO_TARGET)
 	rm -rf $(MDOCS_HTML_CHUNK_DIR)
-	rm -f $(MDOCS_PDF_TARGET) $(MDOCS_PS_TARGET)
+	rm -f $(MDOCS_PDF_TARGET) $(MDOCS_PS_TARGET) 
 
 # Utility targets
 valid: $(MDOCS_VERSION_SOURCE)
