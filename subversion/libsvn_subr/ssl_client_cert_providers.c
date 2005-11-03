@@ -24,7 +24,6 @@
 /*** Includes. ***/
 
 #include <apr_pools.h>
-#include "svn_client.h"
 #include "svn_auth.h"
 #include "svn_error.h"
 #include "svn_config.h"
@@ -87,7 +86,7 @@ static const svn_auth_provider_t ssl_client_cert_file_provider =
 
 /*** Public API to SSL file providers. ***/
 void
-svn_client_get_ssl_client_cert_file_provider (
+svn_auth_get_ssl_client_cert_file_provider (
   svn_auth_provider_object_t **provider,
   apr_pool_t *pool)
 {
@@ -193,7 +192,7 @@ static const svn_auth_provider_t ssl_client_cert_prompt_provider = {
 
 /*** Public API to SSL prompting providers. ***/
 void
-svn_client_get_ssl_client_cert_prompt_provider (
+svn_auth_get_ssl_client_cert_prompt_provider (
   svn_auth_provider_object_t **provider,
   svn_auth_ssl_client_cert_prompt_func_t prompt_func,
   void *prompt_baton,
