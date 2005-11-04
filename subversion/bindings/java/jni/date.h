@@ -43,7 +43,7 @@ extern "C" {
  *        since 1970-01-01 00:00:00 GMT
  * @return java.util.Date
  */
-jobject
+jobject 
 date__create(JNIEnv *env, jboolean *hasException, jlong time);
 
 /**
@@ -55,7 +55,7 @@ date__create(JNIEnv *env, jboolean *hasException, jlong time);
  * @return java.util.Date
  */
 jobject
-date__create_from_apr_time_t(JNIEnv *env, jboolean *hasException,
+date__create_from_apr_time_t(JNIEnv *env, jboolean *hasException, 
                              apr_time_t time);
 
 
