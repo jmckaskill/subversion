@@ -285,7 +285,7 @@ Suppose we have the following source tree:
       dir3/file5
            file6
 @end example
-
+  
 If we edit the contents of @file{/dir1/file1}, we can describe the
 effect on the tree with the following tree delta, to be applied to the
 root:
@@ -583,7 +583,7 @@ Turns @emph{skelta} into a delta by generating the appropriate vdiffs
 and pdiffs, and placing them into the skelta.
 
 @item delta_t wc_make_delta (pathlist)
-Equivalent to
+Equivalent to 
 
 @example
    wc_fill_skelta (make_skelta (pathlist))
@@ -753,7 +753,7 @@ repository.
   @end itemize
 @end itemize
 
-These functions correspond to user-level client commands.
+These functions correspond to user-level client commands.  
 
 They are listed here to show how it is possible to implement them using
 the libraries given above, not to explain what they do.  Their behavior
