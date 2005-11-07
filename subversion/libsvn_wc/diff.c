@@ -62,7 +62,7 @@
 /* A little helper function.
 
    You see, when we ask the server to update us to a certain revision,
-   we construct the new fulltext, and then run
+   we construct the new fulltext, and then run 
 
          'diff <repos_fulltext> <working_fulltext>'
 
@@ -87,11 +87,11 @@ reverse_propchanges (apr_hash_t *baseprops,
     {
       svn_prop_t *propchange
         = &APR_ARRAY_IDX (propchanges, i, svn_prop_t);
-
+      
       const svn_string_t *original_value =
         apr_hash_get (baseprops, propchange->name, APR_HASH_KEY_STRING);
-
-      if ((original_value == NULL) && (propchange->value != NULL))
+     
+      if ((original_value == NULL) && (propchange->value != NULL)) 
         {
           /* found an addition.  make it look like a deletion. */
           apr_hash_set (baseprops, propchange->name, APR_HASH_KEY_STRING,
@@ -99,7 +99,7 @@ reverse_propchanges (apr_hash_t *baseprops,
           propchange->value = NULL;
         }
 
-      else if ((original_value != NULL) && (propchange->value == NULL))
+      else if ((original_value != NULL) && (propchange->value == NULL)) 
         {
           /* found a deletion.  make it look like an addition. */
           propchange->value = svn_string_dup (original_value, pool);
@@ -107,7 +107,7 @@ reverse_propchanges (apr_hash_t *baseprops,
                         NULL);
         }
 
-      else if ((original_value != NULL) && (propchange->value != NULL))
+      else if ((original_value != NULL) && (propchange->value != NULL)) 
         {
           /* found a change.  just swap the values.  */
           const svn_string_t *str = svn_string_dup (propchange->value, pool);
@@ -365,7 +365,7 @@ load_base_props (struct file_baton *b)
   /* the 'base' props to compare against, in this case, are
      actually the working props.  that's what we do with texts,
      anyway, in the 'svn diff -rN foo' case.  */
-
+  
   /* This path might not exist in the working copy, in which case
      the baseprops remains an empty hash. */
   SVN_ERR (svn_wc_prop_list (&(b->baseprops), b->path,
@@ -432,7 +432,7 @@ get_local_mimetypes (const char **pristine_mimetype,
           /* first search any new propchanges from the repository */
           int i;
           svn_prop_t *propchange;
-
+                    
           for (i = 0; i < b->propchanges->nelts; i++)
             {
               propchange = &APR_ARRAY_IDX(b->propchanges, i, svn_prop_t);
@@ -441,7 +441,7 @@ get_local_mimetypes (const char **pristine_mimetype,
                   pristine_val = propchange->value;
                   break;
                 }
-            }
+            }          
         }
       if (! pristine_val)
         {
@@ -547,8 +547,8 @@ file_diff (struct dir_baton *dir_baton,
                                     adm_access, path, pool));
 
       SVN_ERR (dir_baton->edit_baton->callbacks->file_deleted
-               (NULL, NULL, path,
-                pristine_copy,
+               (NULL, NULL, path, 
+                pristine_copy, 
                 empty_file,
                 pristine_mimetype,
                 NULL,
@@ -580,7 +580,7 @@ file_diff (struct dir_baton *dir_baton,
       break;
 
     default:
-      SVN_ERR (svn_wc_text_modified_p (&modified, path, FALSE,
+      SVN_ERR (svn_wc_text_modified_p (&modified, path, FALSE, 
                                        adm_access, pool));
       if (modified)
         {
@@ -612,7 +612,7 @@ file_diff (struct dir_baton *dir_baton,
              working_mimetype,
              propchanges, baseprops,
              dir_baton->edit_baton->callback_baton);
-
+          
           if (translated && translated != path)
             err2 = svn_io_remove_file (translated, pool);
 
@@ -687,7 +687,7 @@ directory_elements_diff (struct dir_baton *dir_baton,
           SVN_ERR (svn_wc_get_prop_diffs (&propchanges, &baseprops,
                                           dir_baton->path, adm_access,
                                           dir_baton->pool));
-
+              
           SVN_ERR (dir_baton->edit_baton->callbacks->dir_props_changed
                    (NULL, NULL,
                     dir_baton->path,
@@ -714,7 +714,7 @@ directory_elements_diff (struct dir_baton *dir_baton,
       apr_hash_this (hi, &key, NULL, &val);
       name = key;
       entry = val;
-
+      
       /* Skip entry for the directory itself. */
       if (strcmp (key, SVN_WC_ENTRY_THIS_DIR) == 0)
         continue;
@@ -775,7 +775,7 @@ directory_elements_diff (struct dir_baton *dir_baton,
 
 /* An editor function. */
 static svn_error_t *
-set_target_revision (void *edit_baton,
+set_target_revision (void *edit_baton, 
                      svn_revnum_t target_revision,
                      apr_pool_t *pool)
 {
@@ -1228,7 +1228,7 @@ close_file (void *file_baton,
         }
       else
         localfile = temp_file_path = NULL;
-
+      
       if (localfile || b->propchanges->nelts > 0)
         {
           /* The working copy properties at the base of the wc->repos
@@ -1256,7 +1256,7 @@ close_file (void *file_baton,
              eb->reverse_order ? pristine_mimetype : working_mimetype,
              b->propchanges, wcprops,
              b->edit_baton->callback_baton);
-
+      
           if (localfile && (! eb->use_text_base) && (! b->schedule_delete)
               && localfile != b->path)
             err2 = svn_io_remove_file (localfile, b->pool);
@@ -1286,7 +1286,7 @@ change_file_prop (void *file_baton,
   propchange = apr_array_push (b->propchanges);
   propchange->name = apr_pstrdup (b->pool, name);
   propchange->value = value ? svn_string_dup (value, b->pool) : NULL;
-
+  
   /* Read the baseprops if you haven't already. */
   if (! b->fetched_baseprops)
     SVN_ERR (load_base_props (b));
@@ -1423,7 +1423,7 @@ file_deleted (svn_wc_adm_access_t *adm_access,
                                      tmpfile1, tmpfile2, mimetype1, mimetype2,
                                      b->baton);
 }
-
+  
 /* An svn_wc_diff_callbacks2_t function. */
 static svn_error_t *
 dir_added (svn_wc_adm_access_t *adm_access,
@@ -1436,7 +1436,7 @@ dir_added (svn_wc_adm_access_t *adm_access,
 
   return b->callbacks->dir_added (adm_access, state, path, rev, b->baton);
 }
-
+  
 /* An svn_wc_diff_callbacks2_t function. */
 static svn_error_t *
 dir_deleted (svn_wc_adm_access_t *adm_access,
@@ -1448,7 +1448,7 @@ dir_deleted (svn_wc_adm_access_t *adm_access,
 
   return b->callbacks->dir_deleted (adm_access, state, path, b->baton);
 }
-
+  
 /* An svn_wc_diff_callbacks2_t function. */
 static svn_error_t *
 dir_props_changed (svn_wc_adm_access_t *adm_access,
