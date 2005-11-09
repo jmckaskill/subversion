@@ -97,7 +97,7 @@
 %typemap(ruby, in) const char *header_encoding
 {
   $1 = NULL;
-
+  
   if (NIL_P($input)) {
   } else if (TYPE($input) == T_FIXNUM) {
     $1 = (char *)NUM2INT($input);
@@ -107,7 +107,7 @@
   } else {
     $1 = StringValuePtr($input);
   }
-
+  
   if (!$1) {
     $1 = (char *)APR_LOCALE_CHARSET;
   }
@@ -169,7 +169,7 @@
     VALUE message;
 
     message = rb_str_new2(error->message ? error->message : "");
-
+    
     while (error->child) {
       error = error->child;
       if (error->message) {
@@ -178,7 +178,7 @@
       }
     }
     svn_error_clear(error);
-
+    
     rb_exc_raise(svn_swig_rb_svn_error_new(error_code, message));
   }
   $result = Qnil;
@@ -186,7 +186,7 @@
 
 /* -----------------------------------------------------------------------
    Define an OUTPUT typemap for 'svn_filesize_t *'.  For now, we'll
-   treat it as a 'long' even if that isn't entirely correct...
+   treat it as a 'long' even if that isn't entirely correct...  
 */
 %typemap(python,in,numinputs=0) svn_filesize_t * (svn_filesize_t temp)
     "$1 = &temp;";
@@ -222,7 +222,7 @@
 
 %typemap(ruby,argout,fragment="output_helper") svn_filesize_t *
     "$result = output_helper($result, LL2NUM((apr_int64_t) (*$1)));";
-#endif
+#endif 
 
 /* -----------------------------------------------------------------------
    Define a general ptr/len typemap. This takes a single script argument
@@ -331,18 +331,18 @@
    svn_repos_get_logs()
 */
 
-%typemap(python, in) (svn_log_message_receiver_t receiver,
+%typemap(python, in) (svn_log_message_receiver_t receiver, 
                       void *receiver_baton) {
     $1 = svn_swig_py_log_receiver;
     $2 = (void *)$input;
 }
-%typemap(perl5, in) (svn_log_message_receiver_t receiver,
+%typemap(perl5, in) (svn_log_message_receiver_t receiver, 
                      void *receiver_baton) {
     $1 = svn_swig_pl_thunk_log_receiver;
     $2 = (void *)$input;
 }
 
-%typemap(ruby, in) (svn_log_message_receiver_t receiver,
+%typemap(ruby, in) (svn_log_message_receiver_t receiver, 
                     void *receiver_baton) {
     $1 = svn_swig_rb_log_receiver;
     $2 = (void *)$input;
