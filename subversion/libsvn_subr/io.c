@@ -2929,16 +2929,13 @@ svn_io_dir_empty (svn_boolean_t *is_empty_p,
 /*** Version/format files ***/
 
 svn_error_t *
-svn_io_write_version_file2 (const char *path,
-                            int version,
-                            const char *comment,
-                            apr_pool_t *pool)
+svn_io_write_version_file (const char *path,
+                           int version,
+                           apr_pool_t *pool)
 {
   apr_file_t *format_file = NULL;
   const char *path_tmp;
-  const char *format_contents =
-    apr_psprintf (pool, "%d\n%s%s",
-                  version, comment ? "\n" : "", comment ? comment : "");
+  const char *format_contents = apr_psprintf (pool, "%d\n", version);
 
   /* We only promise to handle non-negative integers. */
   if (version < 0)
@@ -2971,13 +2968,6 @@ svn_io_write_version_file2 (const char *path,
   return SVN_NO_ERROR;
 }
 
-svn_error_t *
-svn_io_write_version_file (const char *path,
-                           int version,
-                           apr_pool_t *pool)
-{
-  return svn_io_write_version_file2 (path, version, NULL, pool);
-}
 
 svn_error_t *
 svn_io_read_version_file (int *version,
