@@ -1072,7 +1072,7 @@ test_list = [ None,
               obstructed_switch,
               commit_mods_below_switch,
               relocate_beyond_repos_root,
-              XFail(refresh_read_only_attribute),
+              refresh_read_only_attribute,
              ]
 
 if __name__ == '__main__':
