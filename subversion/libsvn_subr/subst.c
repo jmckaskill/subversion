@@ -52,7 +52,7 @@
  */
 #define SVN_SUBST__SPECIAL_LINK_STR "link"
 
-void
+void 
 svn_subst_eol_style_from_value (svn_subst_eol_style_t *style,
                                 const char **eol,
                                 const char *value)
@@ -503,7 +503,7 @@ translate_keyword_subst (char *buf,
 
   buf_ptr = buf + 1 + keyword_len;
 
-  /* Check for fixed-length expansion.
+  /* Check for fixed-length expansion. 
    * The format of fixed length keyword and its data is
    * Unexpanded keyword:         "$keyword::       $"
    * Expanded keyword:           "$keyword:: value $"
@@ -527,9 +527,9 @@ translate_keyword_subst (char *buf,
             while (*buf_ptr != '$')
                 *(buf_ptr++) = ' ';
         }
-      else
+      else 
         {
-          if (value->len <= max_value_len)
+          if (value->len <= max_value_len) 
             { /* replacement not as long as template, pad with spaces */
               strncpy (buf_ptr + 3, value->data, value->len);
               buf_ptr += 3 + value->len;
@@ -549,7 +549,7 @@ translate_keyword_subst (char *buf,
 
   /* Check for unexpanded keyword. */
   else if ((buf_ptr[0] == '$')          /* "$keyword$" */
-           || ((buf_ptr[0] == ':')
+           || ((buf_ptr[0] == ':') 
                && (buf_ptr[1] == '$'))) /* "$keyword:$" */
     {
       /* unexpanded... */
@@ -623,9 +623,9 @@ translate_keyword_subst (char *buf,
         }
       return TRUE;
     }
-
+  
   return FALSE;
-}
+}                         
 
 /* Parse BUF (whose length is *LEN) for Subversion keywords.  If a
    keyword is found, optionally perform the substitution on it in
@@ -681,7 +681,7 @@ translate_keyword (char *buf,
 
 /* Translate NEWLINE_BUF (length of NEWLINE_LEN) to the newline format
    specified in EOL_STR (length of EOL_STR_LEN), and write the
-   translated thing to FILE (whose path is DST_PATH).
+   translated thing to FILE (whose path is DST_PATH).  
 
    SRC_FORMAT (length *SRC_FORMAT_LEN) is a cache of the first newline
    found while processing SRC_PATH.  If the current newline is not the
@@ -709,7 +709,7 @@ translate_newline (const char *eol_str,
          we are NOT repairing the file, generate an error! */
       if ((! repair) &&
           ((*src_format_len != newline_len) ||
-           (strncmp (src_format, newline_buf, newline_len))))
+           (strncmp (src_format, newline_buf, newline_len)))) 
         return svn_error_create (SVN_ERR_IO_INCONSISTENT_EOL, NULL, NULL);
     }
   else
@@ -734,7 +734,7 @@ svn_subst_keywords_differ (const svn_subst_keywords_t *a,
 {
   if (((a == NULL) && (b == NULL)) /* no A or B */
       /* no A, and B has no contents */
-      || ((a == NULL)
+      || ((a == NULL) 
           && (b->revision == NULL)
           && (b->date == NULL)
           && (b->author == NULL)
@@ -745,7 +745,7 @@ svn_subst_keywords_differ (const svn_subst_keywords_t *a,
           && (a->author == NULL)
           && (a->url == NULL))
       /* neither A nor B has any contents */
-      || ((a != NULL) && (b != NULL)
+      || ((a != NULL) && (b != NULL) 
           && (b->revision == NULL)
           && (b->date == NULL)
           && (b->author == NULL)
@@ -759,35 +759,35 @@ svn_subst_keywords_differ (const svn_subst_keywords_t *a,
     }
   else if ((a == NULL) || (b == NULL))
     return TRUE;
-
+  
   /* Else both A and B have some keywords. */
-
+  
   if ((! a->revision) != (! b->revision))
     return TRUE;
   else if ((compare_values && (a->revision != NULL))
            && (strcmp (a->revision->data, b->revision->data) != 0))
     return TRUE;
-
+    
   if ((! a->date) != (! b->date))
     return TRUE;
   else if ((compare_values && (a->date != NULL))
            && (strcmp (a->date->data, b->date->data) != 0))
     return TRUE;
-
+    
   if ((! a->author) != (! b->author))
     return TRUE;
   else if ((compare_values && (a->author != NULL))
            && (strcmp (a->author->data, b->author->data) != 0))
     return TRUE;
-
+  
   if ((! a->url) != (! b->url))
     return TRUE;
   else if ((compare_values && (a->url != NULL))
            && (strcmp (a->url->data, b->url->data) != 0))
     return TRUE;
-
-  /* Else we never found a difference, so they must be the same. */
-
+  
+  /* Else we never found a difference, so they must be the same. */  
+  
   return FALSE;
 }
 
@@ -921,7 +921,7 @@ svn_subst_translate_stream3 (svn_stream_t *s, /* src stream */
             {
               /* No closing '$' found; flush the keyword buffer. */
               SVN_ERR (translate_write (d, keyword_buf, keyword_off));
-
+              
               keyword_off = 0;
             }
           else if (keyword_off)
@@ -942,7 +942,7 @@ svn_subst_translate_stream3 (svn_stream_t *s, /* src stream */
             }
           if (len)
             SVN_ERR (translate_write (d, p, len));
-
+          
           p += len;
 
           /* Set up state according to the interesting character, if any. */
@@ -1024,7 +1024,7 @@ svn_subst_translate_cstring2 (const char *src,
   svn_error_t *err;
 
   src_stringbuf = svn_stringbuf_create (src, pool);
-
+  
   /* The easy way out:  no translation needed, just copy. */
   if (! (eol_str || (keywords && (apr_hash_count (keywords) > 0))))
     {
@@ -1083,7 +1083,7 @@ detranslate_special_file (const char *src,
   apr_file_t *s, *d;
   svn_stream_t *src_stream, *dst_stream;
   apr_finfo_t finfo;
-
+  
   /* First determine what type of special file we are
      detranslating. */
   SVN_ERR (svn_io_stat (&finfo, src, APR_FINFO_MIN | APR_FINFO_LINK, pool));
@@ -1094,7 +1094,7 @@ detranslate_special_file (const char *src,
                                      ".tmp", svn_io_file_del_none, pool));
 
   dst_stream = svn_stream_from_aprfile (d, pool);
-
+  
   switch (finfo.filetype) {
   case APR_REG:
     /* Nothing special to do here, just copy the original file's
@@ -1120,7 +1120,7 @@ detranslate_special_file (const char *src,
 
   /* Do the atomic rename from our temporary location. */
   SVN_ERR (svn_io_file_rename (dst_tmp, dst, pool));
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -1152,14 +1152,14 @@ create_special_file (const char *src,
       SVN_ERR (detranslate_special_file (src, src_tmp, pool));
       src = src_tmp;
     }
-
+  
   /* Read in the detranslated file. */
   SVN_ERR (svn_stringbuf_from_file (&contents, src, pool));
 
   /* If there was just a temporary detranslation, remove it now. */
   if (src_tmp)
     SVN_ERR (svn_io_remove_file (src_tmp, pool));
-
+      
   /* Separate off the identifier.  The first space character delimits
      the identifier, after which any remaining characters are specific
      to the actual special device being created. */
@@ -1173,7 +1173,7 @@ create_special_file (const char *src,
           break;
         }
     }
-
+           
   if (! strcmp (identifier, SVN_SUBST__SPECIAL_LINK_STR))
     {
       /* For symlinks, the type specific data is just a filesystem
@@ -1256,7 +1256,7 @@ svn_subst_copy_and_translate3 (const char *src,
         SVN_ERR (create_special_file (src, dst, pool));
       else
         SVN_ERR (detranslate_special_file (src, dst, pool));
-
+      
       return SVN_NO_ERROR;
     }
 
@@ -1336,7 +1336,7 @@ svn_subst_translate_string (svn_string_t **new_value,
                                          NULL,  /* no keywords */
                                          FALSE, /* no expansion */
                                          pool));
-
+  
   *new_value = svn_string_create (val_utf8_lf, pool);
 
   return SVN_NO_ERROR;
