@@ -2784,7 +2784,7 @@ If no files have been marked, commit recursively the file at point."
     (setq default-directory dir)
     (unless use-existing-buffer
       (when (and svn-log-edit-file-name (file-readable-p svn-log-edit-file-name))
-        (insert-file svn-log-edit-file-name)))
+        (insert-file-contents svn-log-edit-file-name)))
     (svn-log-edit-mode)))
 
 (defun svn-status-export ()
@@ -3752,7 +3752,7 @@ The conflicts must be marked with rcsmerge conflict markers."
     (save-excursion
       (set-buffer your-buffer)
       (erase-buffer)
-      (insert-buffer result-buffer)
+      (insert-buffer-substring result-buffer)
       (goto-char (point-min))
       (while (re-search-forward "^<<<<<<< .mine\n" nil t)
         (setq found t)
@@ -3771,7 +3771,7 @@ The conflicts must be marked with rcsmerge conflict markers."
             (error "No conflict markers found")))
       (set-buffer other-buffer)
       (erase-buffer)
-      (insert-buffer result-buffer)
+      (insert-buffer-substring result-buffer)
       (goto-char (point-min))
       (while (re-search-forward "^<<<<<<< .mine\n" nil t)
         (let ((start (match-beginning 0)))
@@ -3806,7 +3806,7 @@ The conflicts must be marked with rcsmerge conflict markers."
                   (ediff-cleanup-mess)
                   (set-buffer result)
                   (erase-buffer)
-                  (insert-buffer buffer-C)
+                  (insert-buffer-substring buffer-C)
                   (kill-buffer buffer-A)
                   (kill-buffer buffer-B)
                   (kill-buffer buffer-C)
