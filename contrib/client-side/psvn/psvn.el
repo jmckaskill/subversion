@@ -256,7 +256,7 @@ This can be either absolute or looked up on `exec-path'."
   "*A list of environment variables that should be set for that svn process.
 Each element is either a string \"VARIABLE=VALUE\" which will be added to
 the environment when svn is run, or just \"VARIABLE\" which causes that
-variable to be entirely removed from the environment.
+variable to be entirely removed from the environment. 
 
 You could set this for example to '(\"LANG=C\")"
   :type '(repeat string)
@@ -649,7 +649,7 @@ Otherwise, return \"\"."
   (if (fboundp 'point-at-eol) 'point-at-eol 'line-end-position))
 (defalias 'svn-point-at-bol
   (if (fboundp 'point-at-bol) 'point-at-bol 'line-beginning-position))
-(defalias 'svn-read-directory-name
+(defalias 'svn-read-directory-name 
   (if (fboundp 'read-directory-name) 'read-directory-name 'read-file-name))
 
 (eval-when-compile
