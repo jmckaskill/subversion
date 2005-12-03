@@ -12,7 +12,7 @@ Index: configure.in
 -APU_VER_REGEX=["0\.9\.[5-9]"]
 +APU_VER_REGEX=["0\.9\.[4-9]"]
  APU_VER_REGEX_TOO="1\."
-
+ 
  SVN_LIB_APR($APR_VER_REGEX, $APR_VER_REGEX_TOO)
 Index: subversion/libsvn_fs_base/fs.c
 ===================================================================
@@ -20,8 +20,8 @@ Index: subversion/libsvn_fs_base/fs.c
 +++ subversion/libsvn_fs_base/fs.c	(working copy)
 @@ -1029,6 +1029,12 @@
  #endif /* DB_LOG_AUTOREMOVE */
-
-
+ 
+ 
 +/* Ensure compatibility with older APR 0.9.5 snapshots which don't
 + * support the APR_LARGEFILE flag. */
 +#ifndef APR_LARGEFILE
@@ -36,7 +36,7 @@ Index: subversion/libsvn_subr/io.c
 --- subversion/libsvn_subr/io.c	(revision 17608)
 +++ subversion/libsvn_subr/io.c	(working copy)
 @@ -23,7 +23,13 @@
-
+ 
  #ifndef WIN32
  #include <unistd.h>
 +#ifndef APR_GSETID
@@ -46,13 +46,13 @@ Index: subversion/libsvn_subr/io.c
 +#include <errno.h>
  #endif
 +#endif
-
+ 
  #ifndef APR_STATUS_IS_EPERM
  #ifdef EPERM
 @@ -487,10 +493,108 @@
  }
-
-
+ 
+ 
 +#if 1 /* TODO: Remove this code when APR 0.9.6 is released. */
 +#include <apr_env.h>
 +
@@ -98,7 +98,7 @@ Index: subversion/libsvn_subr/io.c
 +       "/tmp"
 +       "/var/tmp"
 +       "/usr/tmp"
-+       `pwd`
++       `pwd` 
 +
 +     NOTE: This algorithm is basically the same one used by Python
 +     2.2's tempfile.py module. */
@@ -126,7 +126,7 @@ Index: subversion/libsvn_subr/io.c
 +      goto end;
 +    }
 +#endif /* WIN32 */
-+
++			    
 +  /* Next, try a set of hard-coded paths. */
 +  for (i = 0; i < (sizeof(try_dirs) / sizeof(const char *)); i++)
 +    {
@@ -156,22 +156,22 @@ Index: subversion/libsvn_subr/io.c
 +
 +#else
    apr_status_t apr_err = apr_temp_dir_get (dir, pool);
-
+ 
    if (apr_err)
 @@ -498,7 +602,8 @@
-
+ 
    *dir = svn_path_canonicalize (*dir, pool);
-
+ 
 -  return svn_path_cstring_to_utf8 (dir, *dir, pool);
 +  return SVN_NO_ERROR;
 +#endif
  }
-
-
+ 
+ 
 @@ -2527,6 +2632,7 @@
      }
  #endif
-
+ 
 +#if defined(APR_GSETID)
    if (sgid)
      {
@@ -186,7 +186,7 @@ Index: subversion/libsvn_subr/io.c
 +  if (sgid)
 +  {
 +    struct stat st;
-
+ 
 +    if (stat (path_apr, &st) != 0)
 +      return svn_error_wrap_apr (APR_FROM_OS_ERROR (errno),
 +                                 _("Can't stat new directory '%s'"),
@@ -197,4 +197,4 @@ Index: subversion/libsvn_subr/io.c
 +
    return SVN_NO_ERROR;
  }
-
+ 
