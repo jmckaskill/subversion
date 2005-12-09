@@ -235,7 +235,7 @@ INSTALL_EXTRA_SWIG_RB=\
     $(INSTALL_DATA) "$$i" $(DESTDIR)$(SWIG_RB_SITE_LIB_DIR)/svn; \
   done
 
-APXS = @APXS@
+APXS = @APXS@ 
 
 PYTHON = @PYTHON@
 PERL = @PERL@
@@ -385,23 +385,23 @@ check: $(TEST_DEPS) @BDB_TEST_DEPS@
 
 # First, set up Apache as documented in
 # subversion/tests/svn/README.
-davcheck:
+davcheck: 
 	@$(MAKE) check BASE_URL=http://localhost
 
 # Automatically configure and run Apache httpd on a random port, and then
 # run make check.
-davautocheck:
+davautocheck: 
 	@APXS=$(APXS) bash $(top_srcdir)/subversion/tests/svn/davautocheck.sh
 
 # First, run:
 #   subversion/svnserve/svnserve -d -r `pwd`/subversion/tests/svn
-svncheck:
+svncheck: 
 	@$(MAKE) check BASE_URL=svn://localhost
 
 # First, run:
 #   subversion/svnserve/svnserve --listen-host "::1" -d -r `pwd`/subversion/tests/svn
 
-svncheck6:
+svncheck6: 
 	@$(MAKE) check BASE_URL=svn://\[::1\]
 
 # First make sure you can ssh to localhost and that "svnserve" is in
