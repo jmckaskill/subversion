@@ -24,7 +24,7 @@ We need to provide annotation of individual files (i.e. who wrote which
 line in which version), because CVS does this reasonably well.
 
 The information needed to annotate files should be stored by the
-filesystem as properties.
+filesystem as properties.  
 
 The ``annotate'' method itself should be implemented as a server-side
 plug-in.  This makes the output much more hackable.
@@ -131,7 +131,7 @@ This is one that people request a lot: the ability to commit changes
 first to a local "working repository" (not visible to the rest of the
 world), and then commit what's in the working repository to the real
 repository (with the several commits maybe being folded into one
-commit).
+commit).  
 
 Why do people want this?  It may be the psychological comfort of making
 a snapshot whenever one reaches a good stopping point, but not
