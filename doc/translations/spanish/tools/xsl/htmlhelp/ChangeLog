@@ -59,7 +59,7 @@
 
 2002-06-12  Jirka Kosek <kosek@users.sourceforge.net>
 
-	* Makefile, htmlhelp-common.xsl, htmlhelp.xsl, profile-htmlhelp.xsl:
+	* Makefile, htmlhelp-common.xsl, htmlhelp.xsl, profile-htmlhelp.xsl: 
 	Rearranged code so HTML Help can be easily combined with custom chunking schemes. This is needed for TDG processing.
 
 2002-06-09  Jirka Kosek <kosek@users.sourceforge.net>
@@ -200,6 +200,6 @@
 
 2001-04-04  Norman Walsh <nwalsh@users.sourceforge.net>
 
-	* README, htmlhelp-common.xsl, htmlhelp.xsl, langcodes.xml, xthtmlhelp.xsl:
+	* README, htmlhelp-common.xsl, htmlhelp.xsl, langcodes.xml, xthtmlhelp.xsl: 
 	New file.
 
