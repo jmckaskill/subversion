@@ -64,7 +64,7 @@ static svn_error_t *
 maybe_close_textdelta(dav_svn_edit_baton_t *eb)
 {
   if (eb->sending_textdelta)
-    {
+    { 
       SVN_ERR(dav_svn__send_xml (eb->bb, eb->output,
                                  "</S:apply-textdelta>" DEBUG_CR));
       eb->sending_textdelta = FALSE;
