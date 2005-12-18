@@ -1780,6 +1780,7 @@ single_file_merge_get_file (const char **filename,
 {
   svn_ra_session_t *ra_session;
   apr_file_t *fp;
+  svn_stream_t *stream;
 
   SVN_ERR (svn_client__open_ra_session_internal (&ra_session, url, NULL,
                                                  NULL, NULL, FALSE, TRUE,
@@ -1789,10 +1790,10 @@ single_file_merge_get_file (const char **filename,
   SVN_ERR (svn_io_open_unique_file2 (&fp, filename,
                                      merge_b->target, ".tmp",
                                      svn_io_file_del_none, pool));
+  stream = svn_stream_from_aprfile2 (fp, pool);
   SVN_ERR (svn_ra_get_file (ra_session, "", *rev,
-                            svn_stream_from_aprfile (fp, pool),
-                            NULL, props, pool));
-  SVN_ERR (svn_io_file_close (fp, pool));
+                            stream, NULL, props, pool));
+  SVN_ERR (svn_stream_close (stream));
 
   return SVN_NO_ERROR;
 }
