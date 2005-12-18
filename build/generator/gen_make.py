@@ -56,7 +56,7 @@ class Generator(gen_base.GeneratorBase):
 
     ########################################
     self.begin_section('Global make variables')
-
+    
     for target in install_sources:
       if isinstance(target, gen_base.TargetRaModule) or \
          isinstance(target, gen_base.TargetFsModule):
@@ -125,7 +125,7 @@ class Generator(gen_base.GeneratorBase):
 
     if self.release_mode:
       self.ofile.write('RELEASE_MODE = 1\n\n')
-
+    
     ########################################
     self.begin_section('SWIG headers (wrappers and external runtimes)')
 
@@ -168,12 +168,12 @@ class Generator(gen_base.GeneratorBase):
     swig_lang_deps = {}
     for lang in self.swig.langs:
       swig_lang_deps[lang] = []
-
+      
     short = self.swig.short
     for objname, sources in swig_c_deps:
       lang = objname.lang
       swig_lang_deps[lang].append(str(objname))
-
+    
     for lang in self.swig.langs:
       lang_deps = string.join(swig_lang_deps[lang])
       self.ofile.write(
@@ -186,7 +186,7 @@ class Generator(gen_base.GeneratorBase):
     self.ofile.write('clean-swig: clean-swig-headers\n')
     self.ofile.write('extraclean-swig: extraclean-swig-headers\n')
     self.ofile.write('\n')
-
+    
     ########################################
     self.begin_section('Rules to build SWIG .c files from .i files')
 
@@ -271,7 +271,7 @@ class Generator(gen_base.GeneratorBase):
 
       # Output value of path variable
       self.ofile.write('%s_PATH = %s\n' % (targ_varname, path))
-
+      
       # Add additional install dependencies if necessary
       if target_ob.add_install_deps:
         self.ofile.write('install-%s: %s\n'
@@ -287,7 +287,7 @@ class Generator(gen_base.GeneratorBase):
 
              targ_varname, string.join(objects),
 
-             targ_varname, targ_varname, targ_varname, target_ob.add_deps,
+             targ_varname, targ_varname, targ_varname, target_ob.add_deps, 
              string.join(deps),
 
              target_ob.name, targ_varname))
@@ -305,7 +305,7 @@ class Generator(gen_base.GeneratorBase):
 
                targ_varname, targ_varname,
 
-               target_ob.link_cmd, target_ob.output_dir, target_ob.classes,
+               target_ob.link_cmd, target_ob.output_dir, target_ob.classes, 
                targ_varname, targ_varname))
 
         # Build the objects from the object_srcs with one 'javac' call
@@ -318,7 +318,7 @@ class Generator(gen_base.GeneratorBase):
 
                targ_varname, targ_varname,
 
-               target_ob.link_cmd, target_ob.output_dir, target_ob.classes,
+               target_ob.link_cmd, target_ob.output_dir, target_ob.classes, 
                targ_varname, targ_varname))
 
         # Once the bytecodes have been compiled up, we produce the
@@ -357,7 +357,7 @@ class Generator(gen_base.GeneratorBase):
 
     ########################################
     self.begin_section('Install-Group build targets')
-
+    
     for itype, i_targets in install_deps:
 
       # perl bindings do their own thing, "swig-pl" target is
@@ -509,14 +509,14 @@ class Generator(gen_base.GeneratorBase):
           self.ofile.write('\t%s %s\n\n' % (cmd, sources[0]))
       else:
         self.ofile.write('\n')
-
-
+    
+    
     self.ofile.close()
     self.write_standalone()
 
   def write_standalone(self):
     """Write autogen-standalone.mk"""
-
+    
     standalone = open("autogen-standalone.mk", "w")
     standalone.write('# DO NOT EDIT -- AUTOMATICALLY GENERATED\n')
     standalone.write('abs_srcdir = %s\n' % os.getcwd())
