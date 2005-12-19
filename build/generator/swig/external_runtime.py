@@ -110,7 +110,7 @@ class Generator(generator.swig.Generator):
     file.close()
 
   def _output_file(self, lang):
-    """Return the output filename of the runtime for the given language"""
+    """Return the output filename of the runtime for the given language""" 
     return '%s/swig_%s_external_runtime.swg' % (self.proxy_dir, lang)
 
 
