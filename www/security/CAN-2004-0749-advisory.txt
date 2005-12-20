@@ -1,16 +1,16 @@
 
-            mod_authz_svn fails to protect metadata
+            mod_authz_svn fails to protect metadata 
 
 Summary:
 =======
 
 mod_authz_svn, the Apache httpd module which does path-based
 authorization on Subversion repositories, is not correctly protecting
-all metadata on unreadable paths.
+all metadata on unreadable paths.  
 
 This metadata leakage affects the mod_authz_svn module in all released
 versions of Subversion (through 1.0.7), as well as the 1.1-rc1, -rc2
-and -rc3 release candidates.  The leakage is fixed in the 1.0.8 and
+and -rc3 release candidates.  The leakage is fixed in the 1.0.8 and 
 1.1-rc4 release, as well as the upcoming 1.1 final release.
 
 
@@ -18,7 +18,7 @@ Details:
 =======
 
 If a Subversion commit affects paths that an administrator has marked
-"unreadable" using mod_authz_svn, then
+"unreadable" using mod_authz_svn, then 
 
    - "svn log -v" will list the existence of the unreadable paths;
    - "svn log -v" will show the commit's log message, which might be
