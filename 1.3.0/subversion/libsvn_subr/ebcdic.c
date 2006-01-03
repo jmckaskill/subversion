@@ -48,8 +48,8 @@ void add_ch_to_sbuf(char c, svn_stringbuf_t *sb)
 
 /* Helper function for svn_ebcdic_pvsprintf processing of format
  * specifications with a WIDTH specified for strings and chars,
- *
- *   e.g.
+ * 
+ *   e.g. 
  *     svn_ebcdic_pvsprintf(pool, "%[WIDTH]s", someasciistring);
  *     svn_ebcdic_pvsprintf(pool, "%[WIDTH]c", someasciichar);
  *
@@ -58,7 +58,7 @@ void add_ch_to_sbuf(char c, svn_stringbuf_t *sb)
  * encoded leading/trailing spaces in the temp string if the string
  * variable arg is shorter than the minimum width.  These ebcdic spaces must
  * be converted to ascii.
- *
+ * 
  * If sub_string is shorter than string then the
  * (strlen(string) - strlen(sub_string)) leading or trailing characters are
  * replaced with ascii encoded spaces.
@@ -71,7 +71,7 @@ fix_padding(const char *sub_string, char *string, apr_pool_t *pool)
   if (!sub_string || !string)
     /* If either string is NULL abandon ship! */
     return;
-
+  
   sslen = strlen(sub_string);
   slen = strlen(string);
 
@@ -185,7 +185,7 @@ svn_ebcdic_pvsprintf(apr_pool_t *pool, const char *fmt, va_list arg_ptr)
             add_ch_to_sbuf(ptr++[0], temp_fmt);
         }
         /* Gather all precision digits, ok if there are none, the user must
-         * want the default precision for this type. */
+         * want the default precision for this type. */  
         while(apr_isdigit(*s))
           add_ch_to_sbuf(s++[0], temp_fmt);
       }
@@ -231,7 +231,7 @@ svn_ebcdic_pvsprintf(apr_pool_t *pool, const char *fmt, va_list arg_ptr)
                   svn_stringbuf_setempty(temp_fmt);
                   add_ch_to_sbuf(s++[0], temp_fmt);
                   svn_stringbuf_appendcstr(result, temp_fmt->data);
-                }
+                }                
               }
             }
             break;
@@ -264,13 +264,13 @@ svn_ebcdic_pvsprintf(apr_pool_t *pool, const char *fmt, va_list arg_ptr)
             add_ch_to_sbuf(s++[0], temp_fmt);
             if(svn_ebcdic_valid_uint_types(*s))
             {
-              unsigned int t;
+              unsigned int t;	
               /* SUCCESS unsigned short ints
                * %ho | %hu | %hx | %hX */
               add_ch_to_sbuf(s++[0], temp_fmt);
               /* iSeries needs unsigned int here, not unsigned short int */
               temp_usi = va_arg(arg_ptr, unsigned int);
-              temp_result = apr_psprintf(subpool_temp, temp_fmt->data,
+              temp_result = apr_psprintf(subpool_temp, temp_fmt->data, 
                                          temp_usi);
               svn_stringbuf_appendcstr(result, temp_result ? temp_result : "");
             }
@@ -281,7 +281,7 @@ svn_ebcdic_pvsprintf(apr_pool_t *pool, const char *fmt, va_list arg_ptr)
               add_ch_to_sbuf(s++[0], temp_fmt);
               /* iSeries needs signed int here, not unsigned short int */
               temp_ssi = va_arg(arg_ptr, signed int);
-              temp_result = apr_psprintf(subpool_temp, temp_fmt->data,
+              temp_result = apr_psprintf(subpool_temp, temp_fmt->data, 
                                          temp_ssi);
               svn_stringbuf_appendcstr(result, temp_result ? temp_result : "");
             }
@@ -312,7 +312,7 @@ svn_ebcdic_pvsprintf(apr_pool_t *pool, const char *fmt, va_list arg_ptr)
                 temp_ulli = va_arg(arg_ptr, unsigned long long int);
                 temp_result = apr_psprintf(subpool_temp, temp_fmt->data,
                                            temp_ulli);
-                svn_stringbuf_appendcstr(result, temp_result ?
+                svn_stringbuf_appendcstr(result, temp_result ? 
                                          temp_result : "");
               }
               else if(svn_ebcdic_valid_sint_types(*s))
@@ -337,7 +337,7 @@ svn_ebcdic_pvsprintf(apr_pool_t *pool, const char *fmt, va_list arg_ptr)
                 svn_stringbuf_setempty(temp_fmt);
                 add_ch_to_sbuf(s++[0], temp_fmt);
                 svn_stringbuf_appendcstr(result, temp_fmt->data);
-              }
+              }              
             }
             else if(svn_ebcdic_valid_uint_types(*s))
             {
@@ -381,7 +381,7 @@ svn_ebcdic_pvsprintf(apr_pool_t *pool, const char *fmt, va_list arg_ptr)
               add_ch_to_sbuf(s++[0], temp_fmt);
               svn_stringbuf_appendcstr(result, temp_fmt->data);
             }
-            break;
+            break;   
           case 'd' :
           case 'i' :
             /* SUCCESS signed int
@@ -530,7 +530,7 @@ svn_ebcdic_psprintf(apr_pool_t *p,
   result = svn_ebcdic_pvsprintf(p, fmt, ap);
   va_end(ap);
   return result;
-}
+}  
 
 
 char *
@@ -544,7 +544,7 @@ svn_ebcdic_psprintf2(apr_pool_t *p,
   result = svn_ebcdic_pvsprintf2(p, fmt, ap);
   va_end(ap);
   return result;
-}
+}  
 #endif /* APR_CHARSET_EBCDIC */
 
 #if AS400
@@ -554,33 +554,33 @@ svn_ebcdic_set_file_ccsid (const char *path,
                            apr_pool_t *pool)
 {
   /* Modified from code by jack j. woehr jax@softwoehr.com
-   * http://www.well.com/~jax/rcfb/as400examp/CHGCCSID.MBR */
-
+   * http://www.well.com/~jax/rcfb/as400examp/CHGCCSID.MBR */ 
+  
   /* Structs required by Qp0lSetAttr */
   typedef struct t_path_name
   {
     Qlg_Path_Name_T qlg_path_name;
     char *ifs_path;
   } path_name_t;
-
+  
   typedef struct t_chg_cod_pag
   {
     Qp0l_Attr_Header_t attr_hdr;
     int code_page;
   } chg_cod_pag_t;
-
+  
   int result;
   char *path_native;
   path_name_t *path_name;
   chg_cod_pag_t *chg_cod_pag;
-
-  SVN_ERR (svn_utf_cstring_from_utf8(&path_native, path, pool));
-
+  
+  SVN_ERR (svn_utf_cstring_from_utf8(&path_native, path, pool));  
+    
   /* Allocate memory for Qp0lSetAttr structs */
-  path_name = apr_palloc(pool, sizeof(Qlg_Path_Name_T) + strlen(path_native));
+  path_name = apr_palloc(pool, sizeof(Qlg_Path_Name_T) + strlen(path_native));  
   chg_cod_pag = apr_palloc(pool, sizeof(chg_cod_pag_t));
-
-  /* Build chg_cod_pag_t
+  
+  /* Build chg_cod_pag_t   
    * Note: Using strncpy here and below because we
    * don't want null termination. */
   chg_cod_pag->attr_hdr.Next_Attr_Offset = 0;
@@ -590,22 +590,22 @@ svn_ebcdic_set_file_ccsid (const char *path,
   chg_cod_pag->code_page = ccsid;
 
   /* Build path_name_t */
-
+  
   /* Use current job default CCSID */
   path_name->qlg_path_name.CCSID = 0;
-
-  /* Use current job country ID */
+  
+  /* Use current job country ID */  
   strncpy(path_name->qlg_path_name.Country_ID , "\x00\x00", 2);
-
-  /* Use current job language ID */
-  strncpy(path_name->qlg_path_name.Language_ID, "\x00\x00\x00", 3);
-
+  
+  /* Use current job language ID */  
+  strncpy(path_name->qlg_path_name.Language_ID, "\x00\x00\x00", 3);  
+  
   strncpy(path_name->qlg_path_name.Reserved, "\x00\x00", 3);
   path_name->qlg_path_name.Path_Type = 0;
   path_name->qlg_path_name.Path_Length = strlen(path_native);
   strncpy(path_name->qlg_path_name.Path_Name_Delimiter, "/", 2);
   strncpy(path_name->qlg_path_name.Reserved2, "\0\0\0\0\0\0\0\0\0", 10);
-
+  
   /* Path must follow immediately after Qlg_Path_Name_T in memory */
   strncpy((char *)(&(path_name->ifs_path)), path_native, strlen(path_native));
 
@@ -614,13 +614,13 @@ svn_ebcdic_set_file_ccsid (const char *path,
                        (char *) chg_cod_pag,
                        sizeof(*chg_cod_pag),
                        QP0L_FOLLOW_SYMLNK);
-
+                       
   if (result)
     return svn_error_createf(SVN_ERR_EXTERNAL_PROGRAM, NULL,
                              "Attempt to set ccsid of '%s' to '%d' failed " \
                              "with errno = '%d'",
                              path, ccsid, errno);
-  return SVN_NO_ERROR;
+  return SVN_NO_ERROR; 
 }
 
 
@@ -631,11 +631,11 @@ svn_ebcdic_set_file_mtime(const char *fname,
 {
   const char *cmd;
   apr_status_t status;
-  apr_time_exp_t *timex = apr_palloc(pool, sizeof(apr_time_exp_t));
-
+  apr_time_exp_t *timex = apr_palloc(pool, sizeof(apr_time_exp_t)); 
+  
   status = apr_time_exp_lt(timex, mtime);
   if (status)
-    return status;
+    return status; 
 
   cmd = apr_psprintf(pool,
                      "touch -acfm -t %4i%02i%02i%02i%02i.%02i \"%s\"",
@@ -649,8 +649,8 @@ svn_ebcdic_set_file_mtime(const char *fname,
                      fname);
 
   return QzshSystem(cmd);
-}
-
+} 
+ 
 //apr_status_t
 //svn_ebcdic_set_file_mtime(const char *path,
 //                          apr_time_t mtime,
@@ -658,11 +658,11 @@ svn_ebcdic_set_file_mtime(const char *fname,
 //{
 //  const char *cmd;
 //  apr_status_t status;
-//  apr_time_exp_t *timex = apr_palloc(pool, sizeof(apr_time_exp_t));
-//
+//  apr_time_exp_t *timex = apr_palloc(pool, sizeof(apr_time_exp_t)); 
+//  
 //  status = apr_time_exp_lt(timex, mtime);
 //  if (status)
-//    return status;
+//    return status; 
 //
 //  cmd = apr_psprintf(pool,
 //                     "touch -acfm -t %4i%02i%02i%02i%02i.%02i \"%s\"",
@@ -678,7 +678,7 @@ svn_ebcdic_set_file_mtime(const char *fname,
 //  return QzshSystem(cmd);
 //}
 //  /* Modified from code by jack j. woehr jax@softwoehr.com
-//   * http://www.well.com/~jax/rcfb/as400examp/CHGCCSID.MBR */
+//   * http://www.well.com/~jax/rcfb/as400examp/CHGCCSID.MBR */ 
 //  typedef struct t_chg_cod_pag
 //  {
 //    Qp0l_Attr_Header_t attr_hdr;
@@ -690,12 +690,12 @@ svn_ebcdic_set_file_mtime(const char *fname,
 //    Qlg_Path_Name_T qlg_path_name;
 //    char ifs_path [FILENAME_MAX];
 //  } path_name_t;
-//
+//  
 //  int result;
 //  char *path_native;
 //  chg_cod_pag_t chg_cod_pag;
 //  path_name_t path_name;
-//
+//  
 //  SVN_ERR (svn_utf_cstring_from_utf8(&path_native, path, pool));
 //
 //  chg_cod_pag.attr_hdr.Next_Attr_Offset = 0;
@@ -723,7 +723,7 @@ svn_ebcdic_set_file_mtime(const char *fname,
 //
 //  if (result)
 //    return errno;
-//  return result;
+//  return result; 
 
 
 svn_error_t *
@@ -746,12 +746,12 @@ svn_ebcdic_run_unix_type_script (const char *path,
   pid_t child_pid, wait_rv;
   svn_stringbuf_t *script_output = svn_stringbuf_create ("", pool);
   apr_size_t args_arr_size = 0, i = 0;
-
+  
   *err_stream = svn_stringbuf_create ("", pool);
 
   if (path)
     SVN_ERR (svn_utf_cstring_from_utf8 (&path, path, pool));
-
+                                      
   /* Find number of elements in args array */
   while (args[args_arr_size] != NULL)
     args_arr_size++;
@@ -759,7 +759,7 @@ svn_ebcdic_run_unix_type_script (const char *path,
   /* Allocate memory for the native_args string array plus one for
    * the ending null element. */
   native_args = apr_palloc (pool, sizeof(char *) * args_arr_size + 1);
-
+  
   /* Convert utf-8 args to ebcdic. */
   while(args[i] != NULL)
     {
@@ -768,7 +768,7 @@ svn_ebcdic_run_unix_type_script (const char *path,
     }
   /* Make the last element in the array a NULL pointer as required
    * by spawn. */
-  native_args[args_arr_size] = NULL;
+  native_args[args_arr_size] = NULL;                                      
 
   /* Get two data pipes, allowing stdout and stderr to be separate. */
   if (pipe (ignoreFds) != 0 || pipe (useFds) != 0)
@@ -781,7 +781,7 @@ svn_ebcdic_run_unix_type_script (const char *path,
   fd_map[0] = ignoreFds[1];
   /* Map stdin, stdout. */
   fd_map[1] = read_stdout ? useFds[1] : ignoreFds[1];
-  fd_map[2] = read_stderr ? useFds[1] : ignoreFds[1];
+  fd_map[2] = read_stderr ? useFds[1] : ignoreFds[1];  
 
   if ((child_pid = spawn (native_args[0], 3, fd_map, &xmp_inherit,
                           native_args, xmp_envp)) == -1)
@@ -795,7 +795,7 @@ svn_ebcdic_run_unix_type_script (const char *path,
     {
       return svn_error_createf(SVN_ERR_EXTERNAL_PROGRAM, NULL,
                                "Error waiting for process completion of " \
-                               "hook script %s.", cmd);
+                               "hook script %s.", cmd);    
     }
 
   close (ignoreFds[1]);
@@ -817,7 +817,7 @@ svn_ebcdic_run_unix_type_script (const char *path,
       /* Caller is claiming not to care about exit_why, but to be on the
        * safe side set it to something. */
       *exitwhy = APR_PROC_EXIT;
-      return SVN_NO_ERROR;
+      return SVN_NO_ERROR;  
     }
   else if (WIFEXITED (*exitcode))
     {
@@ -872,23 +872,23 @@ svn_ebcdic_file_transfer_contents(const char *from_path,
                                   apr_fileperms_t to_perms,
                                   apr_pool_t *pool)
 {
-/* Assuming IBM's implmentation of
- *
+/* Assuming IBM's implmentation of 
+ *   
  *     apr_status_t) apr_file_copy(const char *from_path,
  *                                 const char *to_path,
  *                                 apr_fileperms_t perms,
- *                                 apr_pool_t *pool);
- *
+ *                                 apr_pool_t *pool); 
+ *                  
  * is similar to the open source version it opens from_path as text.  On the
  * iSeries the OS attempts to convert from_path's contents from it's CCSID to
  * the job CCSID when it reads the file.  This fails if from_path is binary or
  * contains multi-byte utf-8 chars that cannot be represented in one byte in
  * the job CCSID; if these multi-byte chars can be converted to one ebcdic
  * byte the dest file is still corrupted.
- *
+ * 
  * This function prevents this by forcing a binary copy.  It is a copy of the
  * private function
- *
+ * 
  *     static apr_status_t apr_file_transfer_contents(const char *from_path,
  *                                                     const char *to_path,
  *                                                     apr_int32_t flags,
@@ -897,9 +897,9 @@ svn_ebcdic_file_transfer_contents(const char *from_path,
  *
  * in srclib/apr/file_io/unix/copy.c of version 2.0.54 of the Apache HTTP
  * Server (http://httpd.apache.org/) excepting that APR_LARGEFILE is not used
- * and the from_path is always opened with APR_BINARY.
- */
-
+ * and the from_path is always opened with APR_BINARY. 
+ */ 
+ 
     apr_file_t *s, *d;
     apr_status_t status;
     apr_fileperms_t perms;
@@ -918,7 +918,7 @@ svn_ebcdic_file_transfer_contents(const char *from_path,
         if (fstat64(s->filedes, &st) != 0)
             return errno;
 
-        perms = apr_unix_mode2perms(st.st_mode);
+        perms = apr_unix_mode2perms(st.st_mode);  
 #else
         apr_finfo_t finfo;
 
@@ -981,11 +981,11 @@ svn_ebcdic_file_transfer_contents(const char *from_path,
 /* IBM doesn't implement apr_dir_make_recursive in it's current port of APR.
  * Previously subversion implemented assumed this function was not implemented
  * on any platform other than unix and had a work-around in place.  This
- * work-around was removed in Julian's rev 11868.  So until IBM implements
+ * work-around was removed in Julian's rev 11868.  So until IBM implements 
  * svn_io_make_dir_recursively for the iSeries we'll do it here with the
  * following three functions.
  */
-
+ 
 #define PATH_SEPARATOR '/'
 
 /* Remove trailing separators that don't affect the meaning of PATH. */
@@ -996,10 +996,10 @@ svn_ebcdic_file_transfer_contents(const char *from_path,
 //     * now, it just makes sure there is no trailing slash. */
 //    apr_size_t len = strlen (path);
 //    apr_size_t orig_len = len;
-//
+//    
 //    while ((len > 0) && (path[len - 1] == PATH_SEPARATOR))
 //        len--;
-//
+//    
 //    if (len != orig_len)
 //        return apr_pstrndup (pool, path, len);
 //    else
@@ -1013,7 +1013,7 @@ svn_ebcdic_file_transfer_contents(const char *from_path,
 //{
 //  const char *newpath = path_canonicalize (path, pool);
 //  int i;
-//
+//    
 //  for (i = (strlen(newpath) - 1); i >= 0; i--)
 //  {
 //    if (path[i] == PATH_SEPARATOR)
@@ -1025,24 +1025,24 @@ svn_ebcdic_file_transfer_contents(const char *from_path,
 //apr_status_t
 //apr_dir_make_recursive(const char *path,
 //                       apr_fileperms_t perm,
-//                       apr_pool_t *pool)
+//                       apr_pool_t *pool) 
 //{
 //  apr_status_t apr_err = 0;
-//
+//    
 //  apr_err = apr_dir_make (path, perm, pool); /* Try to make PATH right out */
 //
 //  if (apr_err == EEXIST) /* It's OK if PATH exists */
 //    return APR_SUCCESS;
-//
+//    
 //  if (apr_err == ENOENT)
-//  {
+//  { 
 //    /* Missing an intermediate dir */
 //    char *dir;
-//
+//         
 //    dir = path_remove_last_component(path, pool);
 //    apr_err = apr_dir_make_recursive(dir, perm, pool);
-//
-//    if (!apr_err)
+//         
+//    if (!apr_err) 
 //      apr_err = apr_dir_make (path, perm, pool);
 //  }
 //

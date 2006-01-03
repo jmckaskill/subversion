@@ -99,7 +99,7 @@ enum access_type { NO_ACCESS, READ_ACCESS, WRITE_ACCESS };
 #define EDIT_PIPELINE_STR     "\x65\x64\x69\x74\x2d\x70\x69\x70\x65\x6c\x69" \
                               "\x6e\x65"
                               /* "edit-pipeline" */
-
+                          
 #define USR_NO_MATCH_STR      "\x52\x65\x71\x75\x65\x73\x74\x65\x64\x20\x75" \
                               "\x73\x65\x72\x6e\x61\x6d\x65\x20\x64\x6f\x65" \
                               "\x73\x20\x6e\x6f\x74\x20\x6d\x61\x74\x63\x68"
@@ -110,8 +110,8 @@ enum access_type { NO_ACCESS, READ_ACCESS, WRITE_ACCESS };
                               "\x20\x6c\x69\x73\x74\x65\x64\x20\x6d\x65\x63" \
                               "\x68\x61\x6e\x69\x73\x6d"
                               /* "Must authenticate with listed mechanism" */
-
-/* Verify that URL is inside REPOS_URL and get its fs path. Assume that
+                              
+/* Verify that URL is inside REPOS_URL and get its fs path. Assume that 
    REPOS_URL and URL are already URI-decoded. */
 static svn_error_t *get_fs_path(const char *repos_url, const char *url,
                                 const char **fs_path, apr_pool_t *pool)
@@ -471,7 +471,7 @@ static svn_error_t *get_props(apr_hash_t **props, svn_fs_root_t *root,
                           pool);
 #if APR_CHARSET_EBCDIC
   SVN_ERR(svn_utf_string_to_utf8(&str, str, pool));
-#endif
+#endif                          
   apr_hash_set(*props, SVN_PROP_ENTRY_COMMITTED_REV, APR_HASH_KEY_STRING, str);
   str = (cdate) ? svn_string_create(cdate, pool) : NULL;
   apr_hash_set(*props, SVN_PROP_ENTRY_COMMITTED_DATE, APR_HASH_KEY_STRING,
@@ -1126,7 +1126,7 @@ static svn_error_t *file_rev_handler(void *baton, const char *path,
     }
   else
     SVN_ERR(svn_ra_svn_write_cstring(frb->conn, pool, ""));
-
+      
   return SVN_NO_ERROR;
 }
 
@@ -1139,7 +1139,7 @@ static svn_error_t *get_file_revs(svn_ra_svn_conn_t *conn, apr_pool_t *pool,
   svn_revnum_t start_rev, end_rev;
   const char *path;
   const char *full_path;
-
+  
   /* Parse arguments. */
   SVN_ERR(svn_ra_svn_parse_tuple(params, pool, "c(?r)(?r)",
                                  &path, &start_rev, &end_rev));

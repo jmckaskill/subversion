@@ -227,7 +227,7 @@ two_way_diff (const char *filename1,
 #if APR_CHARSET_EBCDIC
   SVN_ERR (svn_utf_cstring_from_utf8(&diff_name_native, diff_name, pool));
 #endif
-
+  
   SVN_ERR (make_file (filename1, contents1, pool));
   SVN_ERR (make_file (filename2, contents2, pool));
 
@@ -361,7 +361,7 @@ make_random_merge_file (const char *filename,
                                        "added line %d\n"
                                        "unmodified line %d\n"
                                        "added line %d\n",
-                                       i, i, i);
+                                       i, i, i);                               
 #endif
               break;
             default:
@@ -374,7 +374,7 @@ make_random_merge_file (const char *filename,
           apr_file_printf (file, "unmodified line %d\n", i);
 #else
           svn_ebcdic_file_printf2 (pool, file, "unmodified line %d\n", i);
-#endif
+#endif        
         }
     }
 
@@ -1469,7 +1469,7 @@ random_three_way_merge (const char **msg,
       struct random_mod *mrg_lines = apr_palloc (subpool,
                                                  (sizeof (*mrg_lines)
                                                   * (num_src + num_dst)));
-
+      
       select_lines (src_lines, num_src, lines, num_lines);
       select_lines (dst_lines, num_dst, lines, num_lines);
       memcpy (mrg_lines, src_lines, sizeof (*mrg_lines) * num_src);
@@ -1545,7 +1545,7 @@ merge_with_part_already_present (const char **msg,
       struct random_mod *mrg_lines = apr_palloc (subpool,
                                                  (sizeof (*mrg_lines)
                                                   * (num_src + num_dst / 2)));
-
+      
       select_lines (src_lines, num_src, lines, num_lines);
       /* Select half the destination changes at random */
       select_lines (dst_lines, num_dst / 2, lines, num_lines);
@@ -1616,7 +1616,7 @@ merge_adjacent_changes (const char **msg,
                             "foo\n"
                             "bar\n"
                             "new_baz\n",
-
+  
                             "zig\n"
                             "foo\n"
                             "new_bar\n"

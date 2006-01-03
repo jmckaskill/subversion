@@ -157,19 +157,19 @@ svn_cmdline_init (const char *progname, FILE *error_stream)
      up by APR at exit time. */
   pool = svn_pool_create (NULL);
   svn_utf_initialize (pool);
-
+  
   {
     svn_error_t *err = svn_nls_init();
     if (err)
       {
         if (error_stream && err->message)
           fprintf (error_stream, "%s", err->message);
-
+        
         svn_error_clear (err);
         return EXIT_FAILURE;
       }
   }
-
+  
   return EXIT_SUCCESS;
 }
 
@@ -246,7 +246,7 @@ svn_cmdline_printf_ebcdic (apr_pool_t *pool, const char *fmt, ...)
 {
   const char *message;
   va_list ap;
-
+ 
   va_start (ap, fmt);
   message = svn_ebcdic_pvsprintf2 (pool, fmt, ap);
   va_end (ap);
@@ -259,7 +259,7 @@ svn_cmdline_printf_ebcdic2 (apr_pool_t *pool, const char *fmt, ...)
 {
   const char *message;
   va_list ap;
-
+ 
   va_start (ap, fmt);
   message = svn_ebcdic_pvsprintf (pool, fmt, ap);
   va_end (ap);
@@ -290,7 +290,7 @@ svn_cmdline_fprintf_ebcdic (FILE *stream, apr_pool_t *pool,
 {
   const char *message;
   va_list ap;
-
+  
   va_start (ap, fmt);
   message = svn_ebcdic_pvsprintf2 (pool, fmt, ap);
   va_end (ap);
@@ -304,7 +304,7 @@ svn_cmdline_fprintf_ebcdic2 (FILE *stream, apr_pool_t *pool,
 {
   const char *message;
   va_list ap;
-
+  
   va_start (ap, fmt);
   message = svn_ebcdic_pvsprintf (pool, fmt, ap);
   va_end (ap);
@@ -326,7 +326,7 @@ svn_cmdline_fputs (const char *string, FILE* stream, apr_pool_t *pool)
    * set does not have ASCII as a subset.
    */
   err = NULL;
-  out = string;
+  out = string;  
 #endif
 
   if (err)
@@ -374,7 +374,7 @@ const char *svn_cmdline_output_encoding (apr_pool_t *pool)
   if (output_encoding)
     return apr_pstrdup (pool, output_encoding);
   else
-#if !AS400
+#if !AS400  
     return APR_LOCALE_CHARSET;
 #else
     /* APR_LOCALE_CHARSET is an int on iSeries.

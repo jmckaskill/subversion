@@ -42,7 +42,7 @@
 #define OS400_UTF8_CCSID (int)1208
 #define OS400_NATIVE_CCSID (int)0
 #endif
-
+  
 #define SVN_UTF_NTOU_XLATE_HANDLE "svn-utf-ntou-xlate-handle"
 #define SVN_UTF_UTON_XLATE_HANDLE "svn-utf-uton-xlate-handle"
 
@@ -50,7 +50,7 @@
 #define SVN_UTF_FSTONET_XLATE_HANDLE "svn-utf-fton-xlate-handle"
 #define SVN_UTF_NETTOFS_XLATE_HANDLE "svn-utf-ntof-xlate-handle"
 #endif
-
+       
 #if APR_HAS_THREADS
 static apr_thread_mutex_t *xlate_handle_mutex = NULL;
 #endif
@@ -126,7 +126,7 @@ svn_utf_initialize (apr_pool_t *pool)
       else
         return;
 #endif
-
+      
       xlate_handle_hash = apr_hash_make (subpool);
       apr_pool_cleanup_register (subpool, NULL, xlate_cleanup,
                                  apr_pool_cleanup_null);
@@ -140,7 +140,7 @@ svn_utf_initialize (apr_pool_t *pool)
    apr_xlate_open returned APR_EINVAL, then set *RET to null and
    return SVN_NO_ERROR; if fail for some other reason, return
    error. */
-#if !APR_CHARSET_EBCDIC
+#if !APR_CHARSET_EBCDIC   
 static svn_error_t *
 get_xlate_handle_node (xlate_handle_node_t **ret,
                        const char *topage, const char *frompage,
@@ -255,7 +255,7 @@ get_xlate_handle_node (xlate_handle_node_t **ret,
 static svn_error_t *
 get_xlate_handle_node (xlate_handle_node_t **ret,
                        int topage, int frompage,
-                       const char *userdata_key, apr_pool_t *pool)
+                       const char *userdata_key, apr_pool_t *pool) 
 {
   xlate_handle_node_t **old_handle_p;
   xlate_handle_node_t *old_handle = NULL;
@@ -355,10 +355,10 @@ get_xlate_handle_node (xlate_handle_node_t **ret,
     return svn_error_createf
       (apr_err, NULL, "Can't create a converter from '%s' to '%s'",
        (topage == APR_LOCALE_CHARSET ? OS400_NATIVE_CCSID : topage),
-       (frompage == APR_LOCALE_CHARSET ? OS400_NATIVE_CCSID : frompage));
+       (frompage == APR_LOCALE_CHARSET ? OS400_NATIVE_CCSID : frompage));    
   return SVN_NO_ERROR;
 }
-#endif // APR_CHARSET_EBCDIC
+#endif // APR_CHARSET_EBCDIC       
 
 /* Put back NODE into the xlate handle cache for use by other calls.
    If there is no global cache, store the handle in POOL.
@@ -408,13 +408,13 @@ put_xlate_handle_node (xlate_handle_node_t *node,
 static svn_error_t *
 get_ntou_xlate_handle_node (xlate_handle_node_t **ret, apr_pool_t *pool)
 {
-#if !APR_CHARSET_EBCDIC
+#if !APR_CHARSET_EBCDIC 
   return get_xlate_handle_node (ret, "UTF-8", APR_LOCALE_CHARSET,
                                 SVN_UTF_NTOU_XLATE_HANDLE, pool);
 #else
   return get_xlate_handle_node (ret, OS400_UTF8_CCSID, APR_LOCALE_CHARSET,
                                 SVN_UTF_NTOU_XLATE_HANDLE, pool);
-#endif
+#endif  
 }
 
 
@@ -426,13 +426,13 @@ get_ntou_xlate_handle_node (xlate_handle_node_t **ret, apr_pool_t *pool)
 static svn_error_t *
 get_uton_xlate_handle_node (xlate_handle_node_t **ret, apr_pool_t *pool)
 {
-#if !APR_CHARSET_EBCDIC
+#if !APR_CHARSET_EBCDIC 
   return get_xlate_handle_node (ret, APR_LOCALE_CHARSET, "UTF-8",
                                 SVN_UTF_UTON_XLATE_HANDLE, pool);
 #else
   return get_xlate_handle_node (ret, APR_LOCALE_CHARSET, OS400_UTF8_CCSID,
                                 SVN_UTF_UTON_XLATE_HANDLE, pool);
-#endif
+#endif  
 }
 
 
@@ -460,7 +460,7 @@ convert_to_stringbuf (apr_xlate_t *convset,
   if (src_length == 0)
     return SVN_NO_ERROR;
 
-  do
+  do 
     {
       /* A 1:2 ratio of input characters to output characters should
          be enough for most translations, and conveniently enough, if
@@ -480,10 +480,10 @@ convert_to_stringbuf (apr_xlate_t *convset,
       destlen = buflen - (*dest)->len;
 
       /* Attempt the conversion. */
-      apr_err = apr_xlate_conv_buffer (convset,
-                                       src_data + (src_length - srclen),
+      apr_err = apr_xlate_conv_buffer (convset, 
+                                       src_data + (src_length - srclen), 
                                        &srclen,
-                                       destbuf,
+                                       destbuf, 
                                        &destlen);
 
       /* Now, update the *DEST->len to track the amount of output data
@@ -497,7 +497,7 @@ convert_to_stringbuf (apr_xlate_t *convset,
     /* Can't use svn_error_wrap_apr here because it calls functions in
        this file, leading to infinite recursion. */
     return svn_error_create (apr_err, NULL, "Can't recode string");
-
+  
   /* Else, exited due to success.  Trim the result buffer down to the
      right length. */
   (*dest)->data[(*dest)->len] = '\0';
@@ -527,7 +527,7 @@ check_non_ascii (const char *data, apr_size_t len, apr_pool_t *pool)
              time tracking down the non-ASCII data, so we want to help
              as much as possible.  And yes, we just call the unsafe
              data "non-ASCII", even though the actual constraint is
-             somewhat more complex than that. */
+             somewhat more complex than that. */ 
 
           if (data - data_start)
             {
@@ -592,7 +592,7 @@ invalid_utf8 (const char *data, apr_size_t len, apr_pool_t *pool)
   msg = apr_pstrcat (pool, msg, SVN_UTF8_RPAREN_STR, NULL);
 #if APR_CHARSET_EBCDIC
   SVN_ERR (svn_utf_cstring_from_utf8(&msg, msg, pool));
-#endif
+#endif  
 
   return svn_error_create (APR_EINVAL, NULL, msg);
 }
@@ -657,7 +657,7 @@ svn_utf_string_to_utf8 (const svn_string_t **dest,
 
   if (node->handle)
     {
-      err = convert_to_stringbuf (node->handle, src->data, src->len,
+      err = convert_to_stringbuf (node->handle, src->data, src->len, 
                                   &destbuf, pool);
       put_xlate_handle_node (node, SVN_UTF_NTOU_XLATE_HANDLE, pool);
       SVN_ERR (err);
@@ -1011,24 +1011,24 @@ svn_error_t *svn_utf_cstring_from_netccsid (const char **dest,
 {
   char *src_utf8;
   const char *src_utf8_encoded;
-  char *src_ebcdic_encoded;
+  char *src_ebcdic_encoded;  
   svn_stringbuf_t *new_src_utf8 = svn_stringbuf_create ("", pool);
   apr_size_t i, copied = 0;
   xlate_handle_node_t *node;
   int n,d;
-
+  
   if (!src)
     {
       *dest = NULL;
       return SVN_NO_ERROR;
     }
-
+    
   /* If the string is already escaped we can convert normally. */
   if ( strchr (src, (int)SVN_UTF8_PERCENT) != NULL )
     return svn_utf_cstring_from_utf8(dest, src, pool);
 
   SVN_ERR (get_nettofs_xlate_handle_node (&node, pool));
-
+    
   src_utf8 = apr_pstrdup(pool, src);
 
   for (i = 0; src_utf8[i]; i++)
@@ -1042,14 +1042,14 @@ svn_error_t *svn_utf_cstring_from_netccsid (const char **dest,
       /* If this is an ascii char do nothing */
       if (src_utf8[i] < 128)
         continue;
-
-      /* Found a non-ascii char, copy what's been tested so far. */
+      
+      /* Found a non-ascii char, copy what's been tested so far. */  
       if (i - copied)
         svn_stringbuf_appendbytes (new_src_utf8, src_utf8 + copied, i - copied);
-
-      /* Convert this single char */
+      
+      /* Convert this single char */   
       ebcdic_char[0] = apr_xlate_conv_byte(node->handle, src_utf8[i]);
-
+      
       /* Get the char's escape sequence string */
       escaped_char = apr_psprintf(pool, "%%%02X", ebcdic_char[0]);
 
@@ -1057,16 +1057,16 @@ svn_error_t *svn_utf_cstring_from_netccsid (const char **dest,
       ebcdic_char_escaped[1] = (ebcdic_char[0] >> 4) > 9 ?
                                (ebcdic_char[0] >> 4) + 55 :
                                (ebcdic_char[0] >> 4) + 48;
-
+      
       ebcdic_char_escaped[2] = (ebcdic_char[0] & 15) > 9 ?
                                (ebcdic_char[0] & 15) + 55 :
-                               (ebcdic_char[0] & 15) + 48;
+                               (ebcdic_char[0] & 15) + 48;      
 
       /* Append the ascii encoded escape string for the char. */
-      svn_stringbuf_appendbytes (new_src_utf8, ebcdic_char_escaped, 3);
+      svn_stringbuf_appendbytes (new_src_utf8, ebcdic_char_escaped, 3);    
       copied = i + 1;
     }
-
+  
   /* Copy anything still left. */
   if (i - copied)
     svn_stringbuf_appendbytes (new_src_utf8, src_utf8 + copied, i - copied);
@@ -1077,10 +1077,10 @@ svn_error_t *svn_utf_cstring_from_netccsid (const char **dest,
   /* Unescape the resulting ebcdic string. */
   n = ap_unescape_url(src_ebcdic_encoded);
   *dest = src_ebcdic_encoded;
-
+  
   put_xlate_handle_node (node, SVN_UTF_NETTOFS_XLATE_HANDLE, pool);
   return SVN_NO_ERROR;
-}
+}  
 
 
 svn_error_t *
@@ -1096,7 +1096,7 @@ svn_utf_string_to_netccsid (const svn_string_t **dest,
 
   if (node->handle)
     {
-      err = convert_to_stringbuf (node->handle, src->data, src->len,
+      err = convert_to_stringbuf (node->handle, src->data, src->len, 
                                   &destbuf, pool);
       put_xlate_handle_node (node, SVN_UTF_FSTONET_XLATE_HANDLE, pool);
       SVN_ERR (err);
@@ -1127,8 +1127,8 @@ svn_error_t *svn_utf_cstring_to_netccsid (const char **dest,
       err = convert_cstring (dest, src, node->handle, pool);
       put_xlate_handle_node (node, SVN_UTF_FSTONET_XLATE_HANDLE, pool);
       SVN_ERR (err);
-      SVN_ERR (check_cstring_utf8 (*dest, pool));
+      SVN_ERR (check_cstring_utf8 (*dest, pool));      
     }
-  return SVN_NO_ERROR;
-}
+  return SVN_NO_ERROR;	
+} 
 #endif /* APR_CHARSET_EBCDIC */

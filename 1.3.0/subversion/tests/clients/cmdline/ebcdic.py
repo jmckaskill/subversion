@@ -470,7 +470,7 @@ def os400_run_cmd_list(command, stdin_lines=None, out_utf8=0, err_utf8=0, va=[])
     else:
       selines.pop()
   else:
-    selines = selog.readlines()
+    selines = selog.readlines() 
 
   solog.close()
   selog.close()

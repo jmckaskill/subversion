@@ -92,7 +92,7 @@ svn_fs_fs__id_unparse (const svn_fs_id_t *id,
   if ((! pvt->txn_id))
     {
       txn_rev_id = APR_PSPRINTF2 (pool, "%ld/%"
-                                  APR_OFF_T_FMT, pvt->rev, pvt->offset);
+                                  APR_OFF_T_FMT, pvt->rev, pvt->offset);                              
     }
   else
     {
@@ -287,16 +287,16 @@ svn_fs_fs__id_parse (const char *data,
 #else
       if (svn_utf_cstring_from_utf8 (&str_native, str, pool))
         str_native = str;
-      pvt->rev = SVN_STR_TO_REV (str_native);
-#endif
+      pvt->rev = SVN_STR_TO_REV (str_native);      
+#endif           
 
       str = apr_strtok (NULL, SVN_UTF8_FSLASH_STR, &last_str);
       if (str == NULL)
         return NULL;
 #if APR_CHARSET_EBCDIC
       if (!svn_utf_cstring_from_utf8 (&str_native, str, pool))
-        str = str_native;
-#endif
+        str = str_native;    
+#endif        
       pvt->offset = apr_atoi64 (str);
     }
   else if (str[0] == SVN_UTF8_t)

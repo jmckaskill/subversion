@@ -41,7 +41,7 @@
 
 /* ASCII hex escaped symbolic constants for commonly
  * used string and char literals */
-
+ 
 /* Whitespace */
 #define SVN_UTF8_BS              '\x08' /* '\b' */
 #define SVN_UTF8_BS_STR          "\x08" /* "\b" */
@@ -253,31 +253,31 @@
  */
   #define APR_IS_ASCII_ALPHA(x) \
     (((unsigned char)x >= SVN_UTF8_a && (unsigned char)x <= SVN_UTF8_z) || \
-     ((unsigned char)x >= SVN_UTF8_A && (unsigned char)x <= SVN_UTF8_Z))
-
+     ((unsigned char)x >= SVN_UTF8_A && (unsigned char)x <= SVN_UTF8_Z)) 
+      
   #define APR_IS_ASCII_DIGIT(x) ( (unsigned char)x >= SVN_UTF8_0 && \
                                   (unsigned char)x <= SVN_UTF8_9 )
-
+  
   #define APR_IS_ASCII_ALNUM(x) \
     (((unsigned char)x >= SVN_UTF8_0 && (unsigned char)x <= SVN_UTF8_9) ||  \
      ((unsigned char)x >= SVN_UTF8_a && (unsigned char)x <= SVN_UTF8_z) ||  \
      ((unsigned char)x >= SVN_UTF8_A && (unsigned char)x <= SVN_UTF8_Z))
-
+                               
   #define APR_IS_ASCII_SPACE(x) ( (unsigned char)x == SVN_UTF8_SPACE   || \
                                   (unsigned char)x == SVN_UTF8_TAB     || \
                                   (unsigned char)x == SVN_UTF8_VTAB    || \
                                   (unsigned char)x == SVN_UTF8_FF      || \
                                   (unsigned char)x == SVN_UTF8_NEWLINE || \
                                   (unsigned char)x == SVN_UTF8_CR )
-
+                                 
   #define APR_IS_ASCII_XDIGIT(x) \
     (((unsigned char)x >= SVN_UTF8_0 && (unsigned char)x <= SVN_UTF8_9) || \
      ((unsigned char)x >= SVN_UTF8_a && (unsigned char)x <= SVN_UTF8_f) || \
-     ((unsigned char)x >= SVN_UTF8_A && (unsigned char)x <= SVN_UTF8_F))
-
+     ((unsigned char)x >= SVN_UTF8_A && (unsigned char)x <= SVN_UTF8_F)) 
+     
   #define TO_ASCII_LOWER(x) ( ( (unsigned char)x < SVN_UTF8_A ||  \
                                 (unsigned char)x > SVN_UTF8_Z ) ? \
-                                 x : x + 32 )
+                                 x : x + 32 ) 
 #endif
 
 #ifdef __cplusplus
@@ -425,11 +425,11 @@ svn_error_t *svn_utf_cstring_from_utf8_string (const char **dest,
 #if APR_CHARSET_EBCDIC
 /** Set @a *dest to a utf-8-preserving ebcdic svn_string_t from utf8 encoded
  * svn_string_t @a src; allocate @a *dest in @a pool.
- *
+ * 
  * If Apache is running, the utf-8-preserving aspects of the conversion are
  * determined by the values of DefaultNetCCSID and DefaultFsCCSID (see os.h).
  * If not, conversion to ebcdic (CCSID 0) from ascii (CCSID 819) is assumed.
- *
+ * 
  * This allows us to use the four svn_utf_(c)string_to/from_netccsid
  * variations outside of mod_dav_svn to convert strings back and forth between
  * utf-8 and ebcdic in a way that preserves multi-byte utf-8 sequences (this
@@ -444,9 +444,9 @@ svn_error_t *svn_utf_string_from_netccsid (const svn_string_t **dest,
                                            apr_pool_t *pool);
 
 
-/** Set @a *dest to a utf-8-preserving ebcdic C string from utf8 encoded
+/** Set @a *dest to a utf-8-preserving ebcdic C string from utf8 encoded 
  * C string @a src; allocate @a *dest in @a pool.
- *
+ * 
  * The utf-8-preserving aspects of the conversion are dictated by the values
  * of DefaultNetCCSID and DefaultFsCCSID in the same manner as
  * svn_utf_string_from_netccsid, which see.
@@ -458,22 +458,22 @@ svn_error_t *svn_utf_cstring_from_netccsid (const char **dest,
 
 /** Set @a *dest to a utf-8 svn_string_t from the utf-8-preserving ebcdic
  * encoded svn_string_t @a src; allocate @a *dest in @a pool.
- *
+ * 
  * The utf-8-preserving aspects of the conversion are dictated by the values
  * of DefaultNetCCSID and DefaultFsCCSID in the same manner as
- * svn_utf_string_from_netccsid, which see.
+ * svn_utf_string_from_netccsid, which see. 
  */
 svn_error_t *svn_utf_string_to_netccsid (const svn_string_t **dest,
                                          const svn_string_t *src,
-                                         apr_pool_t *pool);
+                                         apr_pool_t *pool);  
 
 
-/** Set @a *dest to a utf-8 C string from the utf-8-preserving ebcdic encoded
+/** Set @a *dest to a utf-8 C string from the utf-8-preserving ebcdic encoded 
  * C string @a src; allocate @a *dest in @a pool.
- *
+ * 
  * The utf-8-preserving aspects of the conversion are dictated by the values
  * of DefaultNetCCSID and DefaultFsCCSID in the same manner as
- * svn_utf_string_from_netccsid, which see.
+ * svn_utf_string_from_netccsid, which see. 
  */
 svn_error_t *svn_utf_cstring_to_netccsid (const char **dest,
                                           const char *src,
@@ -483,9 +483,9 @@ svn_error_t *svn_utf_cstring_to_netccsid (const char **dest,
  * according to the rules laid down by the Unicode 4.0 standard, FALSE
  * otherwise.
  */
-svn_boolean_t svn_utf_is_valid_utf (const char *src, apr_size_t len);
+svn_boolean_t svn_utf_is_valid_utf (const char *src, apr_size_t len);                                          
 #endif /* APR_CHARSET_EBCDIC */
-
+                                          
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */
