@@ -6,7 +6,7 @@
 #
 # usage: make_python_utf8 svn_root_dir
 #        Where svn_root_dir is the root directory of the subversion source
-#        code tree.
+#        code tree. 
 
 ROOTDIR=$1
 
@@ -43,34 +43,34 @@ convert_file subversion/tests/clients/cmdline/svntest/main.py
 convert_file subversion/tests/clients/cmdline/svntest/testcase.py
 convert_file subversion/tests/clients/cmdline/svntest/tree.py
 convert_file subversion/tests/clients/cmdline/svntest/wc.py
-convert_file subversion/tests/clients/cmdline/autoprop_tests.py
-convert_file subversion/tests/clients/cmdline/basic_tests.py
-convert_file subversion/tests/clients/cmdline/blame_tests.py
-convert_file subversion/tests/clients/cmdline/cat_tests.py
-convert_file subversion/tests/clients/cmdline/commit_tests.py
-convert_file subversion/tests/clients/cmdline/copy_tests.py
-convert_file subversion/tests/clients/cmdline/diff_tests.py
-convert_file subversion/tests/clients/cmdline/ebcdic.py
-convert_file subversion/tests/clients/cmdline/export_tests.py
+convert_file subversion/tests/clients/cmdline/autoprop_tests.py 
+convert_file subversion/tests/clients/cmdline/basic_tests.py    
+convert_file subversion/tests/clients/cmdline/blame_tests.py    
+convert_file subversion/tests/clients/cmdline/cat_tests.py      
+convert_file subversion/tests/clients/cmdline/commit_tests.py   
+convert_file subversion/tests/clients/cmdline/copy_tests.py     
+convert_file subversion/tests/clients/cmdline/diff_tests.py     
+convert_file subversion/tests/clients/cmdline/ebcdic.py         
+convert_file subversion/tests/clients/cmdline/export_tests.py   
 convert_file subversion/tests/clients/cmdline/externals_tests.py
-convert_file subversion/tests/clients/cmdline/getopt_tests.py
-convert_file subversion/tests/clients/cmdline/history_tests.py
-convert_file subversion/tests/clients/cmdline/import_tests.py
-convert_file subversion/tests/clients/cmdline/lock_tests.py
-convert_file subversion/tests/clients/cmdline/log_tests.py
-convert_file subversion/tests/clients/cmdline/merge_tests.py
-convert_file subversion/tests/clients/cmdline/prop_tests.py
-convert_file subversion/tests/clients/cmdline/revert_tests.py
-convert_file subversion/tests/clients/cmdline/schedule_tests.py
-convert_file subversion/tests/clients/cmdline/special_tests.py
-convert_file subversion/tests/clients/cmdline/stat_tests.py
-convert_file subversion/tests/clients/cmdline/svnadmin_tests.py
-convert_file subversion/tests/clients/cmdline/svnlook_tests.py
+convert_file subversion/tests/clients/cmdline/getopt_tests.py   
+convert_file subversion/tests/clients/cmdline/history_tests.py  
+convert_file subversion/tests/clients/cmdline/import_tests.py    
+convert_file subversion/tests/clients/cmdline/lock_tests.py      
+convert_file subversion/tests/clients/cmdline/log_tests.py       
+convert_file subversion/tests/clients/cmdline/merge_tests.py     
+convert_file subversion/tests/clients/cmdline/prop_tests.py      
+convert_file subversion/tests/clients/cmdline/revert_tests.py    
+convert_file subversion/tests/clients/cmdline/schedule_tests.py  
+convert_file subversion/tests/clients/cmdline/special_tests.py   
+convert_file subversion/tests/clients/cmdline/stat_tests.py      
+convert_file subversion/tests/clients/cmdline/svnadmin_tests.py  
+convert_file subversion/tests/clients/cmdline/svnlook_tests.py   
 convert_file subversion/tests/clients/cmdline/svnversion_tests.py
-convert_file subversion/tests/clients/cmdline/switch_tests.py
-convert_file subversion/tests/clients/cmdline/trans_tests.py
-convert_file subversion/tests/clients/cmdline/update_tests.py
-convert_file subversion/tests/clients/cmdline/utf8_tests.py
+convert_file subversion/tests/clients/cmdline/switch_tests.py    
+convert_file subversion/tests/clients/cmdline/trans_tests.py     
+convert_file subversion/tests/clients/cmdline/update_tests.py    
+convert_file subversion/tests/clients/cmdline/utf8_tests.py   
 convert_file subversion/tests/libsvn_subr/target-test.py
 
 exit 0

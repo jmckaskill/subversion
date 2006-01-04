@@ -262,7 +262,7 @@ static svn_error_t *compat_do_status (void *session_baton,
 {
   const svn_ra_reporter2_t *reporter2;
   void *baton2;
-
+  
   SVN_ERR (VTBL.do_status (session_baton, &reporter2, &baton2, status_target,
                            revision, recurse, editor, status_baton, pool));
 
@@ -285,7 +285,7 @@ static svn_error_t *compat_do_diff (void *session_baton,
 {
   const svn_ra_reporter2_t *reporter2;
   void *baton2;
-
+  
   SVN_ERR (VTBL.do_diff (session_baton, &reporter2, &baton2, revision,
                          diff_target, recurse, ignore_ancestry, versus_url,
                          diff_editor, diff_baton, pool));
