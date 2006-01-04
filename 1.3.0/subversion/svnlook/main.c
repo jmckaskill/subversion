@@ -56,6 +56,10 @@
         "\x44\x65\x6c\x65\x74\x65\x64"
         /* "Deleted" */
 
+#define DOT_TMP_STR \
+        "\x2e\x74\x6d\x70"
+        /* ".tmp" */
+
 #define INDEX_STR \
         "\x49\x6e\x64\x65\x78"
         /* "Index" */
@@ -731,7 +735,7 @@ prepare_tmpfiles (const char **tmpfile1,
 
   /* The second file is constructed from the first one's path. */
   SVN_ERR (svn_io_open_unique_file (&fh, tmpfile1, *tmpfile2,
-                                    ".tmp", FALSE, pool));
+                                    DOT_TMP_STR, FALSE, pool));
   if (root1)
     SVN_ERR (dump_contents (fh, root1, path1, pool));
   apr_file_close (fh);
@@ -1003,7 +1007,7 @@ print_diff_tree (svn_fs_root_t *root,
       if (! printed_header
           && (node->action != SVN_UTF8_R || node->text_mod))
         {
-          SVN_ERR (svn_cmdline_printf (pool, "%s: %s\n",
+          SVN_ERR (SVN_CMDLINE_PRINTF (pool, "%s: %s\n",
                                        ((node->action == SVN_UTF8_A) ? _(ADDED_STR) :
                                         ((node->action == SVN_UTF8_D) ? _(DELETED_STR) :
                                          ((node->action == SVN_UTF8_R) ? _(MODIFIED_STR)
@@ -1015,11 +1019,11 @@ print_diff_tree (svn_fs_root_t *root,
 
   if (do_diff)
     {
-      SVN_ERR (svn_cmdline_printf (pool, "%s\n", equal_string));
+      SVN_ERR (SVN_CMDLINE_PRINTF (pool, "%s\n", equal_string));
       SVN_ERR (svn_cmdline_fflush (stdout));
 
       if (binary)
-        SVN_ERR (svn_cmdline_printf (pool, _("(Binary files differ)\n")));
+        SVN_ERR (SVN_CMDLINE_PRINTF (pool, _("(Binary files differ)\n")));
       else
         {
           svn_diff_t *diff;
