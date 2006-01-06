@@ -43,7 +43,7 @@ svn_cl__revert (apr_getopt_t *os,
   svn_client_ctx_t *ctx = ((svn_cl__cmd_baton_t *) baton)->ctx;
   apr_array_header_t *targets;
 
-  SVN_ERR (svn_opt_args_to_target_array (&targets, os,
+  SVN_ERR (svn_opt_args_to_target_array (&targets, os, 
                                          opt_state->targets,
                                          &(opt_state->start_revision),
                                          &(opt_state->end_revision),

@@ -131,10 +131,10 @@ svn_wc_relocate (const char *path,
           const char *subdir = svn_path_join (path, key, pool);
           if (svn_wc__adm_missing (adm_access, subdir))
             continue;
-          SVN_ERR (svn_wc_adm_retrieve (&subdir_access, adm_access,
+          SVN_ERR (svn_wc_adm_retrieve (&subdir_access, adm_access, 
                                         subdir, pool));
           SVN_ERR (svn_wc_relocate (subdir, subdir_access, from, to,
-                                    recurse, validator,
+                                    recurse, validator, 
                                     validator_baton, pool));
         }
       SVN_ERR (relocate_entry (adm_access, entry, from, to,
