@@ -96,7 +96,7 @@ svn_error_t *svn_cmdline_printf_ebcdic (apr_pool_t *pool,
                                         const char *fmt,
                                         ...)
        __attribute__((format(printf, 2, 3)));
-
+       
 /** Write to the stdio @a stream, using a printf-like format string @a fmt,
  * passed through @c apr_pvsprintf.  All string arguments are in UTF-8;
  * the output is converted to the output encoding.  Use @a pool for
@@ -123,7 +123,7 @@ svn_error_t *svn_cmdline_fprintf_ebcdic (FILE *stream,
                                          ...)
        __attribute__((format(printf, 3, 4)));
 #endif
-
+       
 /** Output the @a string to the stdio @a stream, converting from UTF-8
  * to the output encoding.  Use @a pool for temporary allocation.
  */

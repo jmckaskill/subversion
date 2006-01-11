@@ -49,14 +49,14 @@ struct log_receiver_baton
 };
 
 
-static svn_error_t * send_xml(struct log_receiver_baton *lrb,
+static svn_error_t * send_xml(struct log_receiver_baton *lrb, 
                               const char *fmt, ...)
 {
   apr_status_t apr_err;
   va_list ap;
 
   va_start(ap, fmt);
-  apr_err = apr_brigade_vprintf(lrb->bb, ap_filter_flush,
+  apr_err = apr_brigade_vprintf(lrb->bb, ap_filter_flush, 
                                 lrb->output, fmt, ap);
   va_end(ap);
   if (apr_err)
@@ -106,8 +106,8 @@ static svn_error_t * log_receiver(void *baton,
     {
 #if APR_CHARSET_EBCDIC
     SVN_ERR (svn_utf_cstring_from_netccsid(&author, author, pool));
-#endif
-    SVN_ERR( send_xml(lrb, "<D:creator-displayname>%s</D:creator-displayname>"
+#endif    
+    SVN_ERR( send_xml(lrb, "<D:creator-displayname>%s</D:creator-displayname>" 
                       DEBUG_CR, apr_xml_quote_string(pool, author, 0)) );
     }
   /* ### this should be DAV:creation-date, but we need to format
@@ -115,16 +115,16 @@ static svn_error_t * log_receiver(void *baton,
   if (date)
     {
 #if APR_CHARSET_EBCDIC
-    SVN_ERR (svn_utf_cstring_from_netccsid(&date, date, pool));
-#endif
+    SVN_ERR (svn_utf_cstring_from_netccsid(&date, date, pool));    
+#endif 
     SVN_ERR( send_xml(lrb, "<S:date>%s</S:date>" DEBUG_CR,
                       apr_xml_quote_string(pool, date, 0)) );
     }
   if (msg)
     {
 #if   APR_CHARSET_EBCDIC
-      SVN_ERR (svn_utf_cstring_from_netccsid(&msg, msg, pool));
-#endif
+      SVN_ERR (svn_utf_cstring_from_netccsid(&msg, msg, pool));        
+#endif   
       SVN_ERR( send_xml(lrb, "<D:comment>%s</D:comment>" DEBUG_CR,
                         apr_xml_quote_string(pool, msg, 0)) );
     }
@@ -140,68 +140,68 @@ static svn_error_t * log_receiver(void *baton,
         {
           void *val;
           svn_log_changed_path_t *log_item;
-
+          
           apr_hash_this(hi, (void *) &path, NULL, &val);
           log_item = val;
 #if APR_CHARSET_EBCDIC
           SVN_ERR (svn_utf_cstring_from_netccsid(&path, path, pool));
           SVN_ERR (svn_utf_cstring_from_netccsid(&(log_item->copyfrom_path),
-                                                log_item->copyfrom_path, pool));
-#endif
+                                                log_item->copyfrom_path, pool));              
+#endif 
           /* ### todo: is there a D: namespace equivalent for
              `changed-path'?  Should use it if so. */
           switch (log_item->action)
             {
             case SVN_UTF8_A:
-              if (log_item->copyfrom_path
+              if (log_item->copyfrom_path 
                   && SVN_IS_VALID_REVNUM(log_item->copyfrom_rev))
-                SVN_ERR( send_xml(lrb,
+                SVN_ERR( send_xml(lrb, 
                                   "<S:added-path"
-                                  " copyfrom-path=\"%s\""
+                                  " copyfrom-path=\"%s\"" 
                                   " copyfrom-rev=\"%ld\">"
                                   "%s</S:added-path>" DEBUG_CR,
-                                  apr_xml_quote_string(pool,
+                                  apr_xml_quote_string(pool, 
                                                        log_item->copyfrom_path,
                                                        1), /* escape quotes */
                                   log_item->copyfrom_rev,
                                   apr_xml_quote_string(pool, path, 0)) );
               else
-                SVN_ERR( send_xml(lrb, "<S:added-path>%s</S:added-path>"
-                                  DEBUG_CR,
+                SVN_ERR( send_xml(lrb, "<S:added-path>%s</S:added-path>" 
+                                  DEBUG_CR, 
                                   apr_xml_quote_string(pool, path, 0)) );
               break;
 
             case SVN_UTF8_R:
-              if (log_item->copyfrom_path
+              if (log_item->copyfrom_path 
                   && SVN_IS_VALID_REVNUM(log_item->copyfrom_rev))
-                SVN_ERR( send_xml(lrb,
+                SVN_ERR( send_xml(lrb, 
                                   "<S:replaced-path"
-                                  " copyfrom-path=\"%s\""
+                                  " copyfrom-path=\"%s\"" 
                                   " copyfrom-rev=\"%ld\">"
                                   "%s</S:replaced-path>" DEBUG_CR,
-                                  apr_xml_quote_string(pool,
+                                  apr_xml_quote_string(pool, 
                                                        log_item->copyfrom_path,
                                                        1), /* escape quotes */
                                   log_item->copyfrom_rev,
                                   apr_xml_quote_string(pool, path, 0)) );
               else
-                SVN_ERR( send_xml(lrb, "<S:replaced-path>%s</S:replaced-path>"
-                                  DEBUG_CR,
+                SVN_ERR( send_xml(lrb, "<S:replaced-path>%s</S:replaced-path>" 
+                                  DEBUG_CR, 
                                   apr_xml_quote_string(pool, path, 0)) );
               break;
 
             case SVN_UTF8_D:
-              SVN_ERR( send_xml(lrb, "<S:deleted-path>%s</S:deleted-path>"
+              SVN_ERR( send_xml(lrb, "<S:deleted-path>%s</S:deleted-path>" 
                                 DEBUG_CR,
                                 apr_xml_quote_string(pool, path, 0)) );
               break;
 
             case SVN_UTF8_M:
-              SVN_ERR( send_xml(lrb, "<S:modified-path>%s</S:modified-path>"
+              SVN_ERR( send_xml(lrb, "<S:modified-path>%s</S:modified-path>" 
                                 DEBUG_CR,
                                 apr_xml_quote_string(pool, path, 0)) );
               break;
-
+              
             default:
               break;
             }
@@ -249,7 +249,7 @@ dav_error * dav_svn__log_report(const dav_resource *resource,
                                SVN_DAV_ERROR_NAMESPACE,
                                SVN_DAV_ERROR_TAG);
     }
-
+  
   /* ### todo: okay, now go fill in svn_ra_dav__get_log() based on the
      syntax implied below... */
   for (child = doc->root->first_child; child != NULL; child = child->next)
@@ -287,7 +287,7 @@ dav_error * dav_svn__log_report(const dav_resource *resource,
                                                  "Error converting string"
                                                  " '%s'", target));
             }
-#endif
+#endif         
 
           /* Don't add on an empty string, but do add the target to the
              path.  This special case means that we have passed a single
@@ -307,8 +307,8 @@ dav_error * dav_svn__log_report(const dav_resource *resource,
                                        apr_psprintf (resource->pool,
                                                      "Error converting string"
                                                      " '%s'", target));
-                }
-#endif
+                } 
+#endif 
               target = svn_path_join(target, first_text,
                                      resource->pool);
             }
@@ -351,7 +351,7 @@ dav_error * dav_svn__log_report(const dav_resource *resource,
                                  resource->pool);
       goto cleanup;
     }
-
+  
   if ((serr = maybe_send_header(&lrb)))
     {
       derr = dav_svn_convert_err(serr, HTTP_INTERNAL_SERVER_ERROR,
@@ -359,7 +359,7 @@ dav_error * dav_svn__log_report(const dav_resource *resource,
                                  resource->pool);
       goto cleanup;
     }
-
+    
   if ((serr = send_xml(&lrb, "</S:log-report>" DEBUG_CR)))
     {
       derr = dav_svn_convert_err(serr, HTTP_INTERNAL_SERVER_ERROR,

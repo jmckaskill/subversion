@@ -269,13 +269,13 @@ const char *dav_svn_get_fs_parent_path(request_rec *r)
     return conf->fs_parent_path;
 }
 
-AP_MODULE_DECLARE(dav_error *) dav_svn_get_repos_path(request_rec *r,
+AP_MODULE_DECLARE(dav_error *) dav_svn_get_repos_path(request_rec *r, 
                                                       const char *root_path,
                                                       const char **repos_path)
 {
 
-    const char *fs_path;
-    const char *fs_parent_path;
+    const char *fs_path;        
+    const char *fs_parent_path; 
     const char *repos_name;
     const char *ignored_path_in_repos;
     const char *ignored_cleaned_uri;
@@ -457,23 +457,23 @@ static apr_status_t merge_xml_in_filter(ap_filter_t *f,
 #else
           /* IBM didn't provide apr_xml_parser_convert_doc in it's APR
            * port to the iSeries. Hmmm....what to do then?
-           *
+           * 
            * From util_charset.h:
-           *
-           *   On EBCDIC machine this is a translation handle used to translate the
+           * 
+           *   On EBCDIC machine this is a translation handle used to translate the 
            *   headers from the local machine format to ASCII for network transmission.
-           *   On an ASCII machine this is NULL
+           *   On an ASCII machine this is NULL 
            *     extern apr_xlate_t *ap_hdrs_to_ascii;
            *
            *   On EBCDIC machine this is a translation handle used to translate the
            *   headers from ASCII to the local machine format after network transmission.
-           *   On an ASCII machine this is NULL
+           *   On an ASCII machine this is NULL 
            *     extern apr_xlate_t *ap_hdrs_from_ascii;
-           *
+           * 
            * There are no comments of substance in the open source apr_xml.h for
            * apr_xml_parser_convert_doc.
            */
-#endif
+#endif          
 #endif
           /* stash the doc away for mod_dav_svn's later use. */
           rv = apr_pool_userdata_set(pdoc, "svn-request-body",
@@ -481,7 +481,7 @@ static apr_status_t merge_xml_in_filter(ap_filter_t *f,
           if (rv != APR_SUCCESS) {
             return rv;
           }
-
+            
         }
     }
 

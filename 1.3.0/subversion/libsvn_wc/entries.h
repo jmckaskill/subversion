@@ -65,7 +65,7 @@ extern "C" {
 #define SVN_WC__ENTRY_ATTR_REPOS \
         "\x72\x65\x70\x6f\x73"
         /* "repos" */
-
+        
 #define SVN_WC__ENTRY_ATTR_KIND \
         "\x6b\x69\x6e\x64"
         /* "kind" */
@@ -297,7 +297,7 @@ void svn_wc__entry_remove (apr_hash_t *entries, const char *name);
  * require the entries to be written to disk, otherwise *WRITE_REQUIRED
  * will not be altered.
  *
- * (Intended as a helper to svn_wc__do_update_cleanup, which see.)
+ * (Intended as a helper to svn_wc__do_update_cleanup, which see.) 
  */
 svn_error_t *
 svn_wc__tweak_entry (apr_hash_t *entries,

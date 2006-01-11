@@ -41,7 +41,7 @@ dir_deltas (const char **msg,
             svn_boolean_t msg_only,
             svn_test_opts_t *opts,
             apr_pool_t *pool)
-{
+{ 
   svn_repos_t *repos;
   svn_fs_t *fs;
   svn_fs_txn_t *txn;
@@ -65,7 +65,7 @@ dir_deltas (const char **msg,
     return SVN_NO_ERROR;
 
   /* The Test Plan
-
+     
      The filesystem function svn_repos_dir_delta exists to drive an
      editor in such a way that given a source tree S and a target tree
      T, that editor manipulation will transform S into T, insomuch as
@@ -76,7 +76,7 @@ dir_deltas (const char **msg,
      S is identical to T when it is all said and done.  */
 
   /* Create a filesystem and repository. */
-  SVN_ERR (svn_test__create_repos (&repos, "test-repo-dir-deltas",
+  SVN_ERR (svn_test__create_repos (&repos, "test-repo-dir-deltas", 
                                    opts->fs_type, pool));
   fs = svn_repos_fs (repos);
   expected_trees[revision_count].num_entries = 0;
@@ -117,9 +117,9 @@ dir_deltas (const char **msg,
     };
     expected_trees[revision_count].entries = expected_entries;
     expected_trees[revision_count].num_entries = 20;
-    SVN_ERR (svn_fs_revision_root (&revision_root, fs,
-                                   youngest_rev, subpool));
-    SVN_ERR (svn_test__validate_tree
+    SVN_ERR (svn_fs_revision_root (&revision_root, fs, 
+                                   youngest_rev, subpool)); 
+    SVN_ERR (svn_test__validate_tree 
              (revision_root, expected_trees[revision_count].entries,
               expected_trees[revision_count].num_entries, subpool));
     revision_count++;
@@ -144,7 +144,7 @@ dir_deltas (const char **msg,
       { 'e', "iota",        "Changed file 'iota'.\n" },
       { 'e', "A/D/G/rho",   "Changed file 'rho'.\n" }
     };
-    SVN_ERR (svn_test__txn_script_exec (txn_root, script_entries, 10,
+    SVN_ERR (svn_test__txn_script_exec (txn_root, script_entries, 10, 
                                         subpool));
   }
   SVN_ERR (svn_repos_fs_commit_txn (NULL, repos, &youngest_rev, txn, subpool));
@@ -178,13 +178,13 @@ dir_deltas (const char **msg,
     };
     expected_trees[revision_count].entries = expected_entries;
     expected_trees[revision_count].num_entries = 20;
-    SVN_ERR (svn_fs_revision_root (&revision_root, fs,
-                                   youngest_rev, subpool));
-    SVN_ERR (svn_test__validate_tree
+    SVN_ERR (svn_fs_revision_root (&revision_root, fs, 
+                                   youngest_rev, subpool)); 
+    SVN_ERR (svn_test__validate_tree 
              (revision_root, expected_trees[revision_count].entries,
               expected_trees[revision_count].num_entries, subpool));
     revision_count++;
-  }
+  } 
   svn_pool_clear (subpool);
 
   /* Make a new txn based on the youngest revision, make some changes,
@@ -233,9 +233,9 @@ dir_deltas (const char **msg,
     };
     expected_trees[revision_count].entries = expected_entries;
     expected_trees[revision_count].num_entries = 21;
-    SVN_ERR (svn_fs_revision_root (&revision_root, fs,
-                                   youngest_rev, subpool));
-    SVN_ERR (svn_test__validate_tree
+    SVN_ERR (svn_fs_revision_root (&revision_root, fs, 
+                                   youngest_rev, subpool)); 
+    SVN_ERR (svn_test__validate_tree 
              (revision_root, expected_trees[revision_count].entries,
               expected_trees[revision_count].num_entries, subpool));
     revision_count++;
@@ -247,7 +247,7 @@ dir_deltas (const char **msg,
      revision). */
   SVN_ERR (svn_fs_begin_txn (&txn, fs, youngest_rev, subpool));
   SVN_ERR (svn_fs_txn_root (&txn_root, txn, subpool));
-  SVN_ERR (svn_fs_revision_root (&revision_root, fs, youngest_rev, subpool));
+  SVN_ERR (svn_fs_revision_root (&revision_root, fs, youngest_rev, subpool)); 
   SVN_ERR (svn_fs_copy (revision_root, "A/D/G",
                         txn_root, "A/D/G2",
                         subpool));
@@ -290,9 +290,9 @@ dir_deltas (const char **msg,
     };
     expected_trees[revision_count].entries = expected_entries;
     expected_trees[revision_count].num_entries = 25;
-    SVN_ERR (svn_fs_revision_root (&revision_root, fs,
-                                   youngest_rev, pool));
-    SVN_ERR (svn_test__validate_tree
+    SVN_ERR (svn_fs_revision_root (&revision_root, fs, 
+                                   youngest_rev, pool)); 
+    SVN_ERR (svn_test__validate_tree 
              (revision_root, expected_trees[revision_count].entries,
               expected_trees[revision_count].num_entries, subpool));
     revision_count++;
@@ -324,7 +324,7 @@ dir_deltas (const char **msg,
                                          subpool));
 
           /* Here's the kicker...do the directory delta. */
-          SVN_ERR (svn_fs_revision_root (&revision_root, fs, j, subpool));
+          SVN_ERR (svn_fs_revision_root (&revision_root, fs, j, subpool)); 
           SVN_ERR (svn_repos_dir_delta (txn_root,
                                         "",
                                         "",
@@ -343,7 +343,7 @@ dir_deltas (const char **msg,
           /* Hopefully at this point our transaction has been modified
              to look exactly like our latest revision.  We'll check
              that. */
-          SVN_ERR (svn_test__validate_tree
+          SVN_ERR (svn_test__validate_tree 
                    (txn_root, expected_trees[j].entries,
                     expected_trees[j].num_entries, subpool));
 
@@ -366,14 +366,14 @@ node_tree_delete_under_copy (const char **msg,
                              svn_boolean_t msg_only,
                              svn_test_opts_t *opts,
                              apr_pool_t *pool)
-{
+{ 
   svn_repos_t *repos;
   svn_fs_t *fs;
   svn_fs_txn_t *txn;
   svn_fs_root_t *txn_root, *revision_root, *revision_2_root;
   svn_revnum_t youngest_rev;
   void *edit_baton;
-  const svn_delta_editor_t *editor;
+  const svn_delta_editor_t *editor; 
   svn_repos_node_t *tree;
   apr_pool_t *subpool = svn_pool_create (pool);
 
@@ -389,7 +389,7 @@ node_tree_delete_under_copy (const char **msg,
     return SVN_NO_ERROR;
 
   /* Create a filesystem and repository. */
-  SVN_ERR (svn_test__create_repos (&repos, "test-repo-del-under-copy",
+  SVN_ERR (svn_test__create_repos (&repos, "test-repo-del-under-copy", 
                                    opts->fs_type, pool));
   fs = svn_repos_fs (repos);
 
@@ -403,7 +403,7 @@ node_tree_delete_under_copy (const char **msg,
 
   /* Now, commit again, this time after copying a directory, and then
      deleting some paths under that directory. */
-  SVN_ERR (svn_fs_revision_root (&revision_root, fs, youngest_rev, pool));
+  SVN_ERR (svn_fs_revision_root (&revision_root, fs, youngest_rev, pool)); 
   SVN_ERR (svn_fs_begin_txn (&txn, fs, youngest_rev, pool));
   SVN_ERR (svn_fs_txn_root (&txn_root, txn, pool));
   SVN_ERR (svn_fs_copy (revision_root, "A", txn_root, "Z", pool));
@@ -413,12 +413,12 @@ node_tree_delete_under_copy (const char **msg,
 
   /* Now, we run the node_tree editor code, and see that a) it doesn't
      bomb out, and b) that our nodes are all good. */
-  SVN_ERR (svn_fs_revision_root (&revision_2_root, fs, youngest_rev, pool));
+  SVN_ERR (svn_fs_revision_root (&revision_2_root, fs, youngest_rev, pool)); 
   SVN_ERR (svn_repos_node_editor (&editor, &edit_baton, repos,
-                                  revision_root, revision_2_root,
+                                  revision_root, revision_2_root, 
                                   pool, subpool));
   SVN_ERR (svn_repos_replay (revision_2_root, editor, edit_baton, subpool));
-
+  
   /* Get the root of the generated tree, and cleanup our mess. */
   tree = svn_repos_node_from_baton (edit_baton);
   svn_pool_destroy (subpool);
@@ -435,7 +435,7 @@ node_tree_delete_under_copy (const char **msg,
 #if APR_CHARSET_EBCDIC
 #pragma convert(37)
 #endif
-    return svn_error_create (SVN_ERR_TEST_FAILED, NULL,
+    return svn_error_create (SVN_ERR_TEST_FAILED, NULL, 
                              "Generated node tree is bogus.");
 #if APR_CHARSET_EBCDIC
 #pragma convert(1208)
@@ -454,7 +454,7 @@ node_tree_delete_under_copy (const char **msg,
 #if APR_CHARSET_EBCDIC
 #pragma convert(37)
 #endif
-    return svn_error_create (SVN_ERR_TEST_FAILED, NULL,
+    return svn_error_create (SVN_ERR_TEST_FAILED, NULL, 
                              "Generated node tree is bogus.");
 
   return SVN_NO_ERROR;
@@ -478,7 +478,7 @@ print_chrevs (const apr_array_header_t *revs_got,
       for (i = 0; i < revs_got->nelts; i++)
         {
           rev = ((svn_revnum_t *)revs_got->elts)[i];
-          outstr = apr_pstrcat (pool,
+          outstr = apr_pstrcat (pool, 
                                 outstr,
                                 APR_PSPRINTF2 (pool, "%ld ", rev),
                                 NULL);
@@ -493,7 +493,7 @@ print_chrevs (const apr_array_header_t *revs_got,
 #endif
   for (i = 0; i < num_revs_expected; i++)
     {
-      outstr = apr_pstrcat (pool,
+      outstr = apr_pstrcat (pool, 
                             outstr,
                             APR_PSPRINTF2 (pool, "%ld ",
                                            revs_expected[i]),
@@ -532,7 +532,7 @@ revisions_changed (const char **msg,
                    svn_boolean_t msg_only,
                    svn_test_opts_t *opts,
                    apr_pool_t *pool)
-{
+{ 
   apr_pool_t *spool = svn_pool_create (pool);
   svn_repos_t *repos;
   svn_fs_t *fs;
@@ -542,7 +542,7 @@ revisions_changed (const char **msg,
 
 #if APR_CHARSET_EBCDIC
 #pragma convert(37)
-#endif
+#endif  
   *msg = "test svn_repos_history() (partially)";
 #if APR_CHARSET_EBCDIC
 #pragma convert(1208)
@@ -552,7 +552,7 @@ revisions_changed (const char **msg,
     return SVN_NO_ERROR;
 
   /* Create a filesystem and repository. */
-  SVN_ERR (svn_test__create_repos (&repos, "test-repo-revisions-changed",
+  SVN_ERR (svn_test__create_repos (&repos, "test-repo-revisions-changed", 
                                    opts->fs_type, pool));
   fs = svn_repos_fs (repos);
 
@@ -695,7 +695,7 @@ revisions_changed (const char **msg,
       { "A/D/H/psi",      4,    {        8,    6,       3,    1    } },
       { "A/D/H/omega",    5,    {        8,    6,       3, 2, 1    } }
     };
-
+    
     /* Now, for each path in the revision, get its changed-revisions
        array and compare the array to the static results above.  */
     for (j = 0; j < 25; j++)
@@ -704,10 +704,10 @@ revisions_changed (const char **msg,
         const char *path = test_data[j].path;
         int num_revs = test_data[j].num_revs;
         const svn_revnum_t *revs_changed = test_data[j].revs_changed;
-        apr_array_header_t *revs = apr_array_make (spool, 10,
+        apr_array_header_t *revs = apr_array_make (spool, 10, 
                                                    sizeof (svn_revnum_t));
 
-        SVN_ERR (svn_repos_history (fs, path, history_to_revs_array, revs,
+        SVN_ERR (svn_repos_history (fs, path, history_to_revs_array, revs, 
                                     0, youngest_rev, TRUE, spool));
 
         /* Are we at least looking at the right number of returned
@@ -731,7 +731,7 @@ revisions_changed (const char **msg,
                  "Changed revisions differ from expected for '%s'\n%s",
                  path, print_chrevs (revs, num_revs, revs_changed, spool));
           }
-
+        
         /* Clear the per-iteration subpool. */
         svn_pool_clear (spool);
       }
@@ -771,7 +771,7 @@ check_locations_info (apr_hash_t *locations, const struct locations_info *info)
   if (apr_hash_count (locations) > i)
     return svn_error_create (SVN_ERR_TEST_FAILED, NULL,
                              "Returned locations contain too many elements.");
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -797,8 +797,8 @@ check_locations (svn_fs_t *fs, struct locations_info *info,
 }
 
 static svn_error_t *
-node_locations (const char **msg,
-                svn_boolean_t msg_only,
+node_locations (const char **msg, 
+                svn_boolean_t msg_only, 
                 svn_test_opts_t *opts,
                 apr_pool_t *pool)
 {
@@ -820,7 +820,7 @@ node_locations (const char **msg,
     return SVN_NO_ERROR;
 
   /* Create the repository with a Greek tree. */
-  SVN_ERR (svn_test__create_repos (&repos, "test-repo-node-locations",
+  SVN_ERR (svn_test__create_repos (&repos, "test-repo-node-locations", 
                                    opts->fs_type, pool));
   fs = svn_repos_fs (repos);
   SVN_ERR (svn_fs_begin_txn (&txn, fs, 0, subpool));
@@ -850,7 +850,7 @@ node_locations (const char **msg,
     SVN_ERR (check_locations (fs, info, "mu.new", 2, pool));
   }
   svn_pool_clear (subpool);
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -1028,7 +1028,7 @@ rmlocks (const char **msg,
     return SVN_NO_ERROR;
 
   /* Create a filesystem and repository. */
-  SVN_ERR (svn_test__create_repos (&repos, "test-repo-rmlocks",
+  SVN_ERR (svn_test__create_repos (&repos, "test-repo-rmlocks", 
                                    opts->fs_type, pool));
   fs = svn_repos_fs (repos);
 
@@ -1076,7 +1076,7 @@ rmlocks (const char **msg,
                                   subpool));
     SVN_ERR (svn_repos_set_path2 (report_baton, "A/D/gamma", 1, FALSE,
                                   l3->token, subpool));
-
+    
     /* End the report. */
     SVN_ERR (svn_repos_finish_report (report_baton, pool));
 
@@ -1730,7 +1730,7 @@ commit_continue_txn (const char **msg,
 
   /* Finally, commit it. */
   SVN_ERR (editor->close_edit (edit_baton, subpool));
-
+  
   /* Check that the edits really happened. */
   {
     static svn_test__tree_entry_t expected_entries[] = {
@@ -1758,9 +1758,9 @@ commit_continue_txn (const char **msg,
       { "f1",          "" },
       { "f2",          "" }
     };
-    SVN_ERR (svn_fs_revision_root (&revision_root, fs,
-                                   2, subpool));
-    SVN_ERR (svn_test__validate_tree
+    SVN_ERR (svn_fs_revision_root (&revision_root, fs, 
+                                   2, subpool)); 
+    SVN_ERR (svn_test__validate_tree 
              (revision_root, expected_entries,
               sizeof (expected_entries) / sizeof(expected_entries[0]),
               subpool));

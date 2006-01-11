@@ -2,9 +2,9 @@
 
 #
 # USAGE: ./dist.sh -v VERSION -r REVISION [-rs REVISION-SVN] [-pr REPOS-PATH]
-#                  [-apr APR-PATH] [-apu APR-UTIL-PATH]
+#                  [-apr APR-PATH] [-apu APR-UTIL-PATH] 
 #                  [-api APR-ICONV-PATH] [-neon NEON-PATH]
-#                  [-apr-tag APR-TAG] [-apu-tag APR-UTIL-TAG]
+#                  [-apr-tag APR-TAG] [-apu-tag APR-UTIL-TAG] 
 #                  [-api-tag APR-ICONV-TAG] [-neon-tag NEON-TAG]
 #                  [-zip] [-sign] [-fetch]
 #                  [-alpha ALPHA_NUM|-beta BETA_NUM|-rc RC_NUM]
@@ -31,10 +31,10 @@
 #   followeb by the number for that releasse.  For example you'd do
 #   the following for a Beta 1 release:
 #      ./dist.sh -v 1.1.0 -r 10277 -pr branches/1.1.x -beta 1
-#
+# 
 #   If neither an -alpha, -beta or -rc option with a number is
 #   specified, it will build a release tarball.
-#
+#  
 #   To build a Windows zip file package pass -zip and the path
 #   to apr-iconv with -apri.
 
@@ -118,7 +118,7 @@ if [ -n "$ALPHA" ] && [ -n "$BETA" ] ||
   exit 1
 elif [ -n "$ALPHA" ] ; then
   VER_TAG="Alpha $ALPHA"
-  VER_NUMTAG="-alpha$ALPHA"
+  VER_NUMTAG="-alpha$ALPHA" 
 elif [ -n "$BETA" ] ; then
   VER_TAG="Beta $BETA"
   VER_NUMTAG="-beta$BETA"
@@ -129,7 +129,7 @@ else
   VER_TAG="r$REVISION_SVN"
   VER_NUMTAG=""
 fi
-
+  
 if [ -n "$ZIP" ] ; then
   EXTRA_EXPORT_OPTIONS="--native-eol CRLF"
 fi
@@ -248,7 +248,7 @@ install_dependency()
       ${SVN:-svn} export -q $EXTRA_EXPORT_OPTIONS "$DEP_PATH" "$DISTPATH/$DEP_NAME"
     else
       echo "Copying local $DEP_NAME into sandbox"
-      cp -r "$DEP_PATH" "$DISTPATH/$DEP_NAME"
+      cp -r "$DEP_PATH" "$DISTPATH/$DEP_NAME" 
       (cd "$DISTPATH/$DEP_NAME" && [ -f Makefile ] && make extraclean)
       echo "Removing all CVS/ and .cvsignore files from $DEP_NAME..."
       find "$DISTPATH/$DEP_NAME" -name CVS -type d -print | xargs rm -fr
@@ -296,12 +296,12 @@ $HTTP_FETCH $BOOK_HTML $HTTP_FETCH_OUTPUT $BOOK_HTML_DEST ||
   ( echo "ERROR: Problem getting the svn-book.html file." && exit 1 )
 
 cat > "$DISTPATH/ChangeLog.CVS" <<EOF
-The old CVS ChangeLog is kept at
+The old CVS ChangeLog is kept at 
 
      http://subversion.tigris.org/
 
 If you want to see changes since Subversion went self-hosting,
-you probably want to use the "svn log" command -- and if it
+you probably want to use the "svn log" command -- and if it 
 does not do what you need, please send in a patch!
 EOF
 

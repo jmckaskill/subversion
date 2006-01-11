@@ -2,7 +2,7 @@
 
 #
 # This script copies SWIG runtime code from the SWIG library directory into
-# C source files that be compiled into DLLs. It's based on SWIG's
+# C source files that be compiled into DLLs. It's based on SWIG's 
 # Runtime/Makefile.in file.
 #
 

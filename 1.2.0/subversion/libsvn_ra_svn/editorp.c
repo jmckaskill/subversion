@@ -161,7 +161,7 @@ typedef struct {
 static const char *make_token(char type, ra_svn_edit_baton_t *eb,
                               apr_pool_t *pool)
 {
-  return APR_PSPRINTF2(pool, "%c%d", type, eb->next_token++);
+  return APR_PSPRINTF2(pool, "%c%d", type, eb->next_token++);  
 }
 
 static ra_svn_baton_t *ra_svn_make_baton(svn_ra_svn_conn_t *conn,
@@ -363,7 +363,7 @@ static svn_error_t *ra_svn_apply_textdelta(void *file_baton,
   svn_txdelta_to_svndiff(diff_stream, pool, wh, wh_baton);
   return SVN_NO_ERROR;
 }
-
+  
 static svn_error_t *ra_svn_change_file_prop(void *file_baton,
                                             const char *name,
                                             const svn_string_t *value,
@@ -789,7 +789,7 @@ static const struct {
 } ra_svn_edit_cmds[] = {
 #if APR_CHARSET_EBCDIC
 #pragma convert(1208)
-#endif
+#endif	
   { "target-rev",       ra_svn_handle_target_rev },
   { "open-root",        ra_svn_handle_open_root },
   { "delete-entry",     ra_svn_handle_delete_entry },

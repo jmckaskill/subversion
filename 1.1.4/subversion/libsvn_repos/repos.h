@@ -43,13 +43,13 @@ extern "C" {
 #define SVN_REPOS__FORMAT \
         "\x66\x6f\x72\x6d\x61\x74"
         /* "format" - Stores the current version of the repository. */
-
+        
 #define SVN_REPOS__DB_DIR \
         "\x64\x62"
         /* "db" - Where Berkeley lives. */
 
 #define SVN_REPOS__DAV_DIR \
-        "\x64\x61\x76"
+        "\x64\x61\x76"  
         /* "dav" - DAV sandbox. */
 
 #define SVN_REPOS__LOCK_DIR \
@@ -114,7 +114,7 @@ extern "C" {
 /* In the repository conf directory, look for these files. */
 #define SVN_REPOS__CONF_SVNSERVE_CONF \
         "\x73\x76\x6e\x73\x65\x72\x76\x65\x2e\x63\x6f\x6e\x66"
-        /* "svnserve.conf" */
+        /* "svnserve.conf" */ 
 
 
 /* The Repository object, created by svn_repos_open() and
@@ -156,7 +156,7 @@ svn_repos__hooks_start_commit (svn_repos_t *repos,
                                apr_pool_t *pool);
 
 /* Run the pre-commit hook for REPOS.  Use POOL for any temporary
-   allocations.  If the hook fails, return SVN_ERR_REPOS_HOOK_FAILURE.
+   allocations.  If the hook fails, return SVN_ERR_REPOS_HOOK_FAILURE.  
 
    TXN_NAME is the name of the transaction that is being committed.  */
 svn_error_t *
@@ -175,11 +175,11 @@ svn_repos__hooks_post_commit (svn_repos_t *repos,
 
 /* Run the pre-revprop-change hook for REPOS.  Use POOL for any
    temporary allocations.  If the hook fails, return
-   SVN_ERR_REPOS_HOOK_FAILURE.
+   SVN_ERR_REPOS_HOOK_FAILURE.  
 
    REV is the revision whose property is being changed.
    AUTHOR is the authenticated name of the user changing the prop.
-   NAME is the name of the property being changed.
+   NAME is the name of the property being changed.  
    VALUE is the new value of the property.
 
    The pre-revprop-change hook will have the new property value
@@ -195,7 +195,7 @@ svn_repos__hooks_pre_revprop_change (svn_repos_t *repos,
 
 /* Run the pre-revprop-change hook for REPOS.  Use POOL for any
    temporary allocations.  If the hook fails, return
-   SVN_ERR_REPOS_HOOK_FAILURE.
+   SVN_ERR_REPOS_HOOK_FAILURE. 
 
    REV is the revision whose property was changed.
    AUTHOR is the authenticated name of the user who changed the prop.

@@ -202,7 +202,7 @@ svn_error_t *svn_ra_svn_cram_server(svn_ra_svn_conn_t *conn, apr_pool_t *pool,
       || !hex_decode(cdigest, sep + 1))
     return fail(conn, pool, MALFORMED_CLIENT_RESP_STR);
   *user = apr_pstrmemdup(pool, resp->data, sep - resp->data);
-
+  
   /* Verify the digest against the password in pwfile. */
   svn_config_get(pwdb, &password, SVN_CONFIG_SECTION_USERS, *user, NULL);
   if (!password)
