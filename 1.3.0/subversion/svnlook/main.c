@@ -517,7 +517,7 @@ print_changed_tree (svn_repos_node_t *node,
                     apr_pool_t *pool)
 {
   const char *full_path;
-  char status[3] = SVN_UTF8_UNDERSCORE_STR SVN_UTF8_SPACE_STR SVN_UTF8_SPACE_STR;
+  char status[4] = SVN_UTF8_UNDERSCORE_STR SVN_UTF8_SPACE_STR SVN_UTF8_SPACE_STR;
   int print_me = 1;
   apr_pool_t *subpool;
 
@@ -784,7 +784,13 @@ generate_label (const char **label,
     datestr = APR_PSPRINTF2 (pool, "%.10s %.8s UTC", date->data, date->data + 11);
 
   else
+#if APR_CHARSET_EBCDIC
+#pragma convert(1208)
+#endif
     datestr = "                       ";
+#if APR_CHARSET_EBCDIC
+#pragma convert(37)
+#endif
 
   if (name)
     *label = APR_PSPRINTF2 (pool, "%s\t%s (txn %s)",
