@@ -655,7 +655,7 @@ directory_elements_diff (struct dir_baton *dir_baton,
                                           dir_baton->pool));
 
           SVN_ERR (dir_baton->edit_baton->callbacks->dir_props_changed
-                   (NULL, NULL,
+                   (adm_access, NULL,
                     dir_baton->path,
                     propchanges, baseprops,
                     dir_baton->edit_baton->callback_baton));
