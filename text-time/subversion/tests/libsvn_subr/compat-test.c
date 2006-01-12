@@ -23,7 +23,7 @@
 #include "svn_version.h"
 
 static svn_error_t *
-test_version_compatibility (const char **msg,
+test_version_compatibility (const char **msg, 
                             svn_boolean_t msg_only,
                             apr_pool_t *pool)
 {

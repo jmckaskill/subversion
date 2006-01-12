@@ -115,7 +115,7 @@ svn_utf_initialize (apr_pool_t *pool)
       else
         return;
 #endif
-
+      
       xlate_handle_hash = apr_hash_make (subpool);
       apr_pool_cleanup_register (subpool, NULL, xlate_cleanup,
                                  apr_pool_cleanup_null);
@@ -396,7 +396,7 @@ convert_to_stringbuf (xlate_handle_node_t *node,
   if (src_length == 0)
     return SVN_NO_ERROR;
 
-  do
+  do 
     {
       /* A 1:2 ratio of input characters to output characters should
          be enough for most translations, and conveniently enough, if
@@ -417,9 +417,9 @@ convert_to_stringbuf (xlate_handle_node_t *node,
 
       /* Attempt the conversion. */
       apr_err = apr_xlate_conv_buffer (node->handle,
-                                       src_data + (src_length - srclen),
+                                       src_data + (src_length - srclen), 
                                        &srclen,
-                                       destbuf,
+                                       destbuf, 
                                        &destlen);
 
       /* Now, update the *DEST->len to track the amount of output data
@@ -481,7 +481,7 @@ check_non_ascii (const char *data, apr_size_t len, apr_pool_t *pool)
              time tracking down the non-ASCII data, so we want to help
              as much as possible.  And yes, we just call the unsafe
              data "non-ASCII", even though the actual constraint is
-             somewhat more complex than that. */
+             somewhat more complex than that. */ 
 
           if (data - data_start)
             {
