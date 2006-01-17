@@ -24,14 +24,14 @@ class TestSvnWc < Test::Unit::TestCase
       assert_equal(Svn::Wc::STATUS_NONE, status.text_status)
       assert_nil(status.entry)
     end
-
+    
     FileUtils.touch(file1_path)
     Svn::Wc::AdmAccess.open(nil, @wc_path, false, 0, @pool) do |adm|
       status = adm.status(file1_path)
       assert_equal(Svn::Wc::STATUS_UNVERSIONED, status.text_status)
       assert_nil(status.entry)
     end
-
+    
     log = "sample log"
     ctx = make_context(log)
     ctx.add(file1_path)
@@ -39,16 +39,16 @@ class TestSvnWc < Test::Unit::TestCase
       status = adm.status(file1_path)
       assert_equal(Svn::Wc::STATUS_ADDED, status.text_status)
     end
-
+    
     commit_info = ctx.commit(@wc_path)
-
+    
     Svn::Wc::AdmAccess.open(nil, @wc_path, false, 0, @pool) do |adm|
       status = adm.status(file1_path)
       assert_equal(Svn::Wc::STATUS_NORMAL, status.text_status)
       assert_equal(commit_info.revision, status.entry.revision)
     end
   end
-
+  
   def test_locked
     log = "sample log"
 
