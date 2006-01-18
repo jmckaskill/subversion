@@ -240,7 +240,7 @@ public class SVNTests extends TestCase
         //
         // ### The paths are now "svn-test-work/repositories" and
         // ### "svn-test-work/repositories".  However, I'm not sure
-        // ### how to update this code for that.
+        // ### how to update this code for that. 
         repositories = new File(rootDir, "repositories");
         repositories.mkdirs();
         workingCopies = new File(rootDir, "working_copies");
