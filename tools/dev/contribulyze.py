@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 
 # See usage() for details, or run with --help option.
-#
+# 
 #          .-------------------------------------------------.
 #          |  "An ad hoc format deserves an ad hoc parser."  |
 #          `-------------------------------------------------'
-#
+# 
 # Some Subversion project log messages include parseable data to help
 # track who's contributing what.  The exact syntax is described in
 # hacking.html#crediting, but here's an example, indented by three
@@ -275,7 +275,7 @@ class Contributor:
         first_dot_after_at = self.email.find('.', at_posn)
         return self.email[0:first_dot_after_at]
     if self.real_name:
-      # Last resort: construct canonical name based on real name.
+      # Last resort: construct canonical name based on real name.  
       # ### FIXME: Need to tweak to guarantee that it's made only of
       # ### characters that would be safe in an email address.
       return ''.join(self.real_name.lower().split(' '))
@@ -428,7 +428,7 @@ class LogMessage:
     if a > b: return -1
     if a < b: return 1
     else:     return 0
-
+    
   def __hash__(self):
     """I don't really understand why defining __cmp__() but not
     __hash__() renders an object type unfit to be a dictionary key,
@@ -467,7 +467,7 @@ parenthetical_aside_re = re.compile('^\(.*\)\s*$')
 
 def graze(input):
   just_saw_separator = False
-
+  
   while True:
     line = input.readline()
     if line == '': break
