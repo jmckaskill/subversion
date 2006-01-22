@@ -42,7 +42,7 @@ get_dir_contents (apr_uint32_t dirent_fields,
   apr_hash_index_t *hi;
 
   /* Get the directory's entries, but not its props. */
-  SVN_ERR (svn_ra_get_dir2 (ra_session, dir, rev, dirent_fields, &tmpdirents,
+  SVN_ERR (svn_ra_get_dir2 (ra_session, dir, rev, dirent_fields, &tmpdirents, 
                             NULL, NULL, pool));
 
   if (ctx->cancel_func)
@@ -251,7 +251,7 @@ svn_error_t *
 svn_client_ls (apr_hash_t **dirents,
                const char *path_or_url,
                svn_opt_revision_t *revision,
-               svn_boolean_t recurse,
+               svn_boolean_t recurse,               
                svn_client_ctx_t *ctx,
                apr_pool_t *pool)
 {
