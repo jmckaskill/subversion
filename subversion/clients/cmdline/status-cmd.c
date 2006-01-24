@@ -159,7 +159,7 @@ svn_cl__status (apr_getopt_t *os,
   struct status_baton sb;
   svn_revnum_t repos_rev = SVN_INVALID_REVNUM;
 
-  SVN_ERR (svn_opt_args_to_target_array2 (&targets, os,
+  SVN_ERR (svn_opt_args_to_target_array2 (&targets, os, 
                                           opt_state->targets, pool));
 
   /* We want our -u statuses to be against HEAD. */
