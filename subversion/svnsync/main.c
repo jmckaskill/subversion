@@ -79,7 +79,7 @@ static const svn_opt_subcommand_desc_t svnsync_cmd_table[] =
       N_("usage: svnsync help [SUBCOMMAND...]\n"
          "Describe the usage of this program or its subcommands.\n"),
       { svnsync_opt_version } },
-    { NULL, NULL, { 0 }, NULL, { 0 } }
+    { NULL, NULL, { 0 }, NULL, { 0 } } 
   };
 
 static const apr_getopt_option_t svnsync_options[] =
@@ -168,7 +168,7 @@ get_lock (svn_ra_session_t *session, apr_pool_t *pool)
   if (apr_err)
     return svn_error_wrap_apr (apr_err, _("Can't get local hostname"));
 
-  mylocktoken = svn_string_createf (pool, "%s:%s", hostname_str,
+  mylocktoken = svn_string_createf (pool, "%s:%s", hostname_str, 
                                     svn_uuid_generate (pool));
 
   subpool = svn_pool_create (pool);
@@ -912,7 +912,7 @@ do_synchronize (svn_ra_session_t *to_session, void *b, apr_pool_t *pool)
 
             /* Now update last merged rev and drop currently changing.
              * Note that the order here is significant, if we do them
-             * in the wrong order there are race conditions where we
+             * in the wrong order there are race conditions where we 
              * end up not being able to tell if there have been bogus
              * (i.e. non-svnsync) commits to the dest repository. */
 
