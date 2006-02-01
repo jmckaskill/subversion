@@ -1454,7 +1454,7 @@ start_report(void *userData, const char *name, const char **attrs)
                                                              ctx->sess->pool);
       ctx->state->info->file_name = "";
     }
-  else if (ctx->state &&
+  else if (ctx->state && 
            (ctx->state->state == OPEN_DIR || ctx->state->state == ADD_DIR) &&
            strcmp(prop_name.name, "add-directory") == 0)
     {
