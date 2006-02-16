@@ -381,7 +381,7 @@ svn_ra_serf__get_uuid(svn_ra_session_t *ra_session,
 
   props = apr_hash_make(pool);
 
-  SVN_ERR(retrieve_props(props, session, session->repos_url.path,
+  SVN_ERR(retrieve_props(props, session, session->repos_url.path, 
                          SVN_INVALID_REVNUM, "0", uuid_props, pool));
   *uuid = get_prop(props, session->repos_url.path,
                      SVN_DAV_PROP_NS_DAV, "repository-uuid");
@@ -409,7 +409,7 @@ svn_ra_serf__get_repos_root(svn_ra_session_t *ra_session,
 
       props = apr_hash_make(pool);
 
-      SVN_ERR(retrieve_props(props, session, session->repos_url.path,
+      SVN_ERR(retrieve_props(props, session, session->repos_url.path, 
                              SVN_INVALID_REVNUM, "0", repos_root_props, pool));
       baseline_url = get_prop(props, session->repos_url.path,
                                 SVN_DAV_PROP_NS_DAV, "baseline-relative-path");
