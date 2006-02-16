@@ -99,45 +99,45 @@ extern "C" {
 /* Leave one category of room at the beginning, for SVN_WARNING and
    any other such beasts we might create in the future. */
 #define SVN_ERR_BAD_CATEGORY_START      (APR_OS_START_USERERR \
-                                          + ( 1 * SVN_ERR_CATEGORY_SIZE))
+                                         + ( 1 * SVN_ERR_CATEGORY_SIZE))
 #define SVN_ERR_XML_CATEGORY_START      (APR_OS_START_USERERR \
-                                          + ( 2 * SVN_ERR_CATEGORY_SIZE))
+                                         + ( 2 * SVN_ERR_CATEGORY_SIZE))
 #define SVN_ERR_IO_CATEGORY_START       (APR_OS_START_USERERR \
-                                          + ( 3 * SVN_ERR_CATEGORY_SIZE))
+                                         + ( 3 * SVN_ERR_CATEGORY_SIZE))
 #define SVN_ERR_STREAM_CATEGORY_START   (APR_OS_START_USERERR \
-                                          + ( 4 * SVN_ERR_CATEGORY_SIZE))
+                                         + ( 4 * SVN_ERR_CATEGORY_SIZE))
 #define SVN_ERR_NODE_CATEGORY_START     (APR_OS_START_USERERR \
-                                          + ( 5 * SVN_ERR_CATEGORY_SIZE))
+                                         + ( 5 * SVN_ERR_CATEGORY_SIZE))
 #define SVN_ERR_ENTRY_CATEGORY_START    (APR_OS_START_USERERR \
-                                          + ( 6 * SVN_ERR_CATEGORY_SIZE))
+                                         + ( 6 * SVN_ERR_CATEGORY_SIZE))
 #define SVN_ERR_WC_CATEGORY_START       (APR_OS_START_USERERR \
-                                          + ( 7 * SVN_ERR_CATEGORY_SIZE))
+                                         + ( 7 * SVN_ERR_CATEGORY_SIZE))
 #define SVN_ERR_FS_CATEGORY_START       (APR_OS_START_USERERR \
-                                          + ( 8 * SVN_ERR_CATEGORY_SIZE))
+                                         + ( 8 * SVN_ERR_CATEGORY_SIZE))
 #define SVN_ERR_REPOS_CATEGORY_START    (APR_OS_START_USERERR \
-                                          + ( 9 * SVN_ERR_CATEGORY_SIZE))
+                                         + ( 9 * SVN_ERR_CATEGORY_SIZE))
 #define SVN_ERR_RA_CATEGORY_START       (APR_OS_START_USERERR \
-                                          + (10 * SVN_ERR_CATEGORY_SIZE))
+                                         + (10 * SVN_ERR_CATEGORY_SIZE))
 #define SVN_ERR_RA_DAV_CATEGORY_START   (APR_OS_START_USERERR \
-                                          + (11 * SVN_ERR_CATEGORY_SIZE))
+                                         + (11 * SVN_ERR_CATEGORY_SIZE))
 #define SVN_ERR_RA_LOCAL_CATEGORY_START (APR_OS_START_USERERR \
                                          + (12 * SVN_ERR_CATEGORY_SIZE))
 #define SVN_ERR_SVNDIFF_CATEGORY_START  (APR_OS_START_USERERR \
-                                          + (13 * SVN_ERR_CATEGORY_SIZE))
+                                         + (13 * SVN_ERR_CATEGORY_SIZE))
 #define SVN_ERR_APMOD_CATEGORY_START    (APR_OS_START_USERERR \
-                                          + (14 * SVN_ERR_CATEGORY_SIZE))
+                                         + (14 * SVN_ERR_CATEGORY_SIZE))
 #define SVN_ERR_CLIENT_CATEGORY_START   (APR_OS_START_USERERR \
-                                          + (15 * SVN_ERR_CATEGORY_SIZE))
+                                         + (15 * SVN_ERR_CATEGORY_SIZE))
 #define SVN_ERR_MISC_CATEGORY_START     (APR_OS_START_USERERR \
-                                           + (16 * SVN_ERR_CATEGORY_SIZE))
+                                         + (16 * SVN_ERR_CATEGORY_SIZE))
 #define SVN_ERR_CL_CATEGORY_START       (APR_OS_START_USERERR \
-                                           + (17 * SVN_ERR_CATEGORY_SIZE))
+                                         + (17 * SVN_ERR_CATEGORY_SIZE))
 #define SVN_ERR_RA_SVN_CATEGORY_START   (APR_OS_START_USERERR \
-                                           + (18 * SVN_ERR_CATEGORY_SIZE))
+                                         + (18 * SVN_ERR_CATEGORY_SIZE))
 #define SVN_ERR_AUTHN_CATEGORY_START    (APR_OS_START_USERERR \
-                                           + (19 * SVN_ERR_CATEGORY_SIZE))
+                                         + (19 * SVN_ERR_CATEGORY_SIZE))
 #define SVN_ERR_AUTHZ_CATEGORY_START    (APR_OS_START_USERERR \
-                                           + (20 * SVN_ERR_CATEGORY_SIZE))
+                                         + (20 * SVN_ERR_CATEGORY_SIZE))
 #define SVN_ERR_DIFF_CATEGORY_START     (APR_OS_START_USERERR \
                                          + (21 * SVN_ERR_CATEGORY_SIZE))
 
