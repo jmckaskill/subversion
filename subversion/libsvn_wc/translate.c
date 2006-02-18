@@ -174,7 +174,7 @@ svn_wc__get_keywords(apr_hash_t **keywords,
 
       SVN_ERR(svn_wc_prop_get(&propval, SVN_PROP_KEYWORDS, path, adm_access,
                               pool));
-
+      
       list = propval ? propval->data : NULL;
     }
   else
@@ -212,7 +212,7 @@ svn_wc__get_special(svn_boolean_t *special,
                     apr_pool_t *pool)
 {
   const svn_string_t *propval;
-
+  
   /* Get the property value. */
   SVN_ERR(svn_wc_prop_get(&propval, SVN_PROP_SPECIAL, path,
                           adm_access, pool));
@@ -261,12 +261,12 @@ svn_wc__maybe_set_read_only(svn_boolean_t *did_set,
   if (entry && entry->lock_token)
     return SVN_NO_ERROR;
 
-  SVN_ERR(svn_wc_prop_get(&needs_lock, SVN_PROP_NEEDS_LOCK, path,
+  SVN_ERR(svn_wc_prop_get(&needs_lock, SVN_PROP_NEEDS_LOCK, path, 
                           adm_access, pool));
 
   if (needs_lock != NULL)
     {
-      SVN_ERR(svn_io_set_file_read_write_carefully(path, FALSE,
+      SVN_ERR(svn_io_set_file_read_write_carefully(path, FALSE, 
                                                    FALSE, pool));
       if (did_set)
         *did_set = TRUE;
