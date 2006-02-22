@@ -9,7 +9,7 @@
 <link rel="stylesheet" type="text/css" media="print"
   href="tigris-branding/css/print.css"/>
 <script type="text/javascript" src="tigris-branding/scripts/tigris.js"></script>
-<title>Variance-Adjusted Patching for Divergent Texts</title>
+<title>Variance-Adjusted Patching for Divergent Texts</title> 
 </head>
 
 <body>
@@ -55,7 +55,7 @@ diverges from a trunk T, and an engineer wants to merge the change
 from revision T:18 to T:19 into B:10, creating B:11.  If B:10 is too
 dissimilar to T:18, the merge may fail due to textual conflicts, even
 though there is no logical conflict.  Variance adjustment is about
-changing the diff T:18-T:19 so that it applies cleanly to B:10.
+changing the diff T:18-T:19 so that it applies cleanly to B:10.  
 </p>
 
 <p>
@@ -108,7 +108,7 @@ ignoring floating due to out-of-bounds insertion and deletion:
       <p>Either way, the line needs to be changed to the "corresponding"
       line in the target text -- that is, the line that, in target,
       now occupies the place of the obsolete expected line.  The
-      version control system has enough information to determine
+      version control system has enough information to determine 
       which of the two cases above applies, and can use that to
       decide which of the lines currently in target is the best
       candidate to substitute for the missing line.</p>
@@ -167,7 +167,7 @@ Some terminology:
       since the common ancestor.</dd>
       <dt><i>out-range</i></dt>
       <dd>An event that happened to either source or target since the
-      common ancestor, but to a line that is not covered in any of
+      common ancestor, but to a line that is not covered in any of 
       the diff hunks in the patch undergoing variance adjustment.  For
       example, an <i>out-range insertion</i> means a line was added in
       some region not directly touched by any of the hunks in the
@@ -182,7 +182,7 @@ Some terminology:
       a line that was deleted from some region affected by a hunk.</dd>
       <dt><i>context</i></dt>
       <dd>A line included in a hunk for context only -- such lines are
-      not affected by the patch.</dd>
+      not affected by the patch.</dd> 
       <dt><i>destination line, affected line</i></dt>
       <dd>(Used interchangeably).  A line that is actually affected by
       a patch.  For lines being edited or deleted, the line is already
@@ -220,7 +220,7 @@ unadjusted P to B:15.  P, being based on source text T:19,
    <ol>
    <li>contains certain changes not present in B:15, namely, changes T:9
    through T:19.
-   </li>
+   </li> 
    <li>does not contain certain changes present in B:15, namely,
    changes B:2 through B:15.</li>
    </ol>
@@ -238,9 +238,9 @@ categories:
    <li><i>Out-range deleted line</i>: increment the line numbers in
        every hunk in P that comes after the deletion.  This undoes the
        effect of the deletion, since the deletion never happened in
-       B.</li>
+       B.</li> 
    <li><i>Out-range edited line</i>: do nothing.  Out-range edits
-       are irrelevant to P.</li>
+       are irrelevant to P.</li> 
    <li><i>Added line in context range in P</i>: remove the
        corresponding line from the context, optionally replacing it
        with new context <i>based on that region in B:15</i>, and
@@ -266,7 +266,7 @@ categories:
    <li><i>In-range edited line</i>: reverse that edit in the "before"
        version of the corresponding line in the appropriate hunk in
        P, to obtain the version of the line that will be found in
-       B when P is applied.</li>
+       B when P is applied.</li> 
    </ol>
 
 <p>
@@ -279,7 +279,7 @@ Now walk over the diff B:1-B:15, further adjusting P:
    <li><i>Out-range deleted line</i>: decrement the line numbers in
        every hunk in P that comes after the deletion.</li>
    <li><i>Out-range edited line</i>: do nothing.  Out-range edits
-       are irrelevant to P.</li>
+       are irrelevant to P.</li> 
    <li><i>Added line in context range in P</i>: add that line to both
        sides of the context in the appropriate hunk, adjust line
        numbers in that hunk and all following hunks.</li>
@@ -290,7 +290,7 @@ Now walk over the diff B:1-B:15, further adjusting P:
        pass above.</li>
    <li><i>In-range edited line</i>: apply that edit to the "before"
        version of the corresponding line in the appropriate hunk in
-       P.</li>
+       P.</li> 
    </ol>
 
 <p>
