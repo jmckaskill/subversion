@@ -243,7 +243,7 @@ open_file(const char *path,
   new_file->parent_dir = ctx;
 
   new_file->commit = ctx->commit;
-
+  
   /* TODO: Remove directory names? */
   new_file->name = path;
 
@@ -364,7 +364,7 @@ absent_file(const char *path,
 }
 
 static svn_error_t *
-close_edit(void *edit_baton,
+close_edit(void *edit_baton, 
            apr_pool_t *pool)
 {
   commit_context_t *ctx = edit_baton;
