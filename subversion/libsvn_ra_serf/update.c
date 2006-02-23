@@ -774,14 +774,14 @@ handle_fetch(serf_bucket_t *response,
               continue;
             }
 
-          /* Woo-hoo.  We're back. */
+          /* Woo-hoo.  We're back. */ 
           fetch_ctx->aborted_read = FALSE;
 
           /* Increment data and len by the difference. */
           data += fetch_ctx->read_size - fetch_ctx->aborted_read_size;
           len += fetch_ctx->read_size - fetch_ctx->aborted_read_size;
         }
-
+      
       if (fetch_ctx->delta_stream)
         {
           svn_stream_write(fetch_ctx->delta_stream, data, &len);
