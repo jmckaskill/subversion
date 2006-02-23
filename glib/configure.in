@@ -612,7 +612,7 @@ LIBS_NOT_FOUND_1="I can't find the libraries for the thread implementation
 
 LIBS_NOT_FOUND_2=". Please choose another thread implementation or
 		provide information on your thread implementation.
-		You can also run 'configure --disable-threads'
+		You can also run 'configure --disable-threads' 
 		to compile without thread support."
 
 FUNC_NO_GETPWUID_R="the 'g_get_(user_name|real_name|home_dir|tmp_dir)'
@@ -772,8 +772,8 @@ dnl ***********************************
 if test x"$have_threads" != xnone; then
 	glib_save_LIBS="$LIBS"
 	glib_save_CFLAGS="$CFLAGS"
-	# we are not doing the following for now, as this might require glib
-	# to always be linked with the thread libs on some platforms.
+	# we are not doing the following for now, as this might require glib 
+	# to always be linked with the thread libs on some platforms. 
 	# LIBS="$LIBS $G_THREAD_LIBS"
 	CFLAGS="$CFLAGS $G_THREAD_CFLAGS"
 	AC_CHECK_FUNCS(localtime_r rand_r)
@@ -781,12 +781,12 @@ if test x"$have_threads" != xnone; then
 		AC_MSG_CHECKING([for getpwuid_r])
 	 	AC_CACHE_VAL(ac_cv_func_getpwuid_r,
 			[AC_TRY_RUN([#include <errno.h>
-				int main () { char buffer[10000], *pointer;
+				int main () { char buffer[10000], *pointer; 
 				char getpwuid_r (long, void*, void*,
 					int, void*);
 				int error;
 				errno = 0;
-				error = getpwuid_r (0, &buffer, &buffer,
+				error = getpwuid_r (0, &buffer, &buffer, 
 					sizeof (buffer), &pointer);
 				return errno == ENOSYS || error == ENOSYS;}],
 				[ac_cv_func_getpwuid_r=yes],
@@ -823,7 +823,7 @@ if test x"$have_threads" != xnone; then
 		# DCE Threads return 1 as success, posix 0. what a mess.
 		AC_TRY_RUN([#include <pthread.h>
 			pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
-			int main () {
+			int main () { 
 			return !pthread_mutex_trylock (&mutex); }],
 			[AC_MSG_RESULT(no)],
 			[AC_MSG_RESULT(yes)
@@ -831,7 +831,7 @@ if test x"$have_threads" != xnone; then
 		AC_MSG_CHECKING(whether pthread_cond_timedwait is posix like)
 		# DCE Threads return -1 as failure, posix ETIMEDOUT.
 		AC_TRY_RUN([#include <pthread.h>
-			int main () {
+			int main () { 
 			pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 			pthread_cond_t cond = PTHREAD_COND_INITIALIZER;
 			struct timeval tval;
@@ -839,7 +839,7 @@ if test x"$have_threads" != xnone; then
 			gettimeofday (&tval, NULL);
 			tspec.tv_sec = tval.tv_sec;
 			tspec.tv_nsec = 0;
-			return pthread_cond_timedwait (&cond,&mutex,&tspec)
+			return pthread_cond_timedwait (&cond,&mutex,&tspec) 
 				!= -1;}],
 			[AC_MSG_RESULT(no)],
 			[AC_MSG_RESULT(yes)
