@@ -214,7 +214,7 @@ handle_mkactivity(serf_bucket_t *response,
 }
 
 #define CHECKOUT_HEADER "<?xml version=\"1.0\" encoding=\"utf-8\"?><D:checkout xmlns:D=\"DAV:\"><D:activity-set><D:href>"
-
+  
 #define CHECKOUT_TRAILER "</D:href></D:activity-set></D:checkout>"
 
 static apr_status_t
@@ -630,7 +630,7 @@ open_file(const char *path,
   new_file->parent_dir = ctx;
 
   new_file->commit = ctx->commit;
-
+  
   /* TODO: Remove directory names? */
   new_file->name = path;
 
@@ -658,7 +658,7 @@ open_file(const char *path,
       abort();
     }
 
-
+  
   /* CHECKOUT the file into our activity. */
   checkout_ctx = apr_pcalloc(new_file->pool, sizeof(*checkout_ctx));
 
@@ -780,7 +780,7 @@ absent_file(const char *path,
 }
 
 static svn_error_t *
-close_edit(void *edit_baton,
+close_edit(void *edit_baton, 
            apr_pool_t *pool)
 {
   commit_context_t *ctx = edit_baton;
@@ -797,7 +797,7 @@ close_edit(void *edit_baton,
                            pool));
 
   merge_done = merge_get_done_ptr(merge_ctx);
-
+ 
   SVN_ERR(context_run_wait(merge_done, ctx->session, pool));
 
   if (merge_get_status(merge_ctx) != 200)
