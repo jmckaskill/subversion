@@ -52,7 +52,7 @@
   <xsl:text>"&#10;</xsl:text>
   <xsl:apply-templates/>
   <xsl:text>&#10;.RE&#10;</xsl:text>
-</xsl:template>
+</xsl:template> 
 
 <xsl:template match="refsection|refsect1">
   <xsl:choose>
@@ -128,7 +128,7 @@
 </xsl:text>
 </xsl:template>
 
-
+  
 <xsl:template match="refentry">
 
   <xsl:variable name="section">
@@ -147,7 +147,7 @@
        (x) volume numbers, and 2 spaces, leaves 56 -->
   <xsl:variable name="twidth" select="(56 - string-length(refmeta/refentrytitle)) div 2"/>
 
-  <xsl:variable name="reftitle"
+  <xsl:variable name="reftitle" 
 		select="substring(refmeta/refentrytitle, 1, $twidth)"/>
 
   <xsl:variable name="title">
@@ -277,7 +277,7 @@
     <xsl:variable name="author">
       <xsl:apply-templates select="."/>
     </xsl:variable>
-    <xsl:value-of select="normalize-space($author)"/>
+    <xsl:value-of select="normalize-space($author)"/>    
   </xsl:for-each>
   <xsl:text>.&#10;</xsl:text>
   <xsl:if test=".//editor">
