@@ -341,7 +341,7 @@ class TestCase_TestRepo(TestCase_SvnMerge):
         # repository to the test repository so the template repository
         # is not affected by commits.
         self.launch("svn switch --relocate %(TEMPLATE_REPO_URL)s %(TEST_REPO_URL)s trunk test-branch")
-
+        
         os.chdir("test-branch")
 
     def command_dict(self):
