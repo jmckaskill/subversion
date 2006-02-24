@@ -87,6 +87,12 @@ def blame_binary(sbox):
   if (len(errput) != 1) or (errput[0].find('Skipping') == -1):
     raise svntest.Failure
 
+  # But with --force, it should work.
+  output, errput = svntest.main.run_svn(2, 'blame', '--force', iota)
+  if (len(errput) != 0 or len(output) != 4):
+    raise svntest.Failure
+
+
 
 
 # Issue #2154 - annotating a directory should fail
