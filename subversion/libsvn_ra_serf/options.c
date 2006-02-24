@@ -237,7 +237,7 @@ handle_options(serf_bucket_t *response,
 {
   options_context_t *ctx = handler_baton;
   apr_status_t status;
-
+ 
   if (!ctx->xmlp)
     {
       ctx->xmlp = XML_ParserCreate(NULL);
