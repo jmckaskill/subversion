@@ -290,7 +290,7 @@ class RevisionLog:
             # The --verbose flag lets us grab merge tracking information
             # by looking at propchanges
             log_opts = "--verbose " + log_opts
-
+    
         # Read the log to look for revision numbers and merge-tracking info
         self.revs = []
         self.propchange_revs = []
