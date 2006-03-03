@@ -296,7 +296,7 @@ start_blame(void *userData, const char *raw_name, const char **attrs)
             {
               info->prop_base64 = TRUE;
             }
-          else
+          else 
             {
               info->prop_base64 = FALSE;
             }
