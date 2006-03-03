@@ -688,7 +688,7 @@ def analyze_revs(target_dir, url, begin=1, end=None,
     if find_reflected:
         merge_revs = merges.keys()
         merge_revs.sort()
-
+                
         report("checking for reflected changes in %d revision(s)"
                % len(merge_revs))
 
