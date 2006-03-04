@@ -279,7 +279,7 @@ typedef struct {
   ra_serf_session_t *session;
 } ra_serf_handler_t;
 
-/*
+/* 
  * Default handler that does dispatching.
  */
 apr_status_t
