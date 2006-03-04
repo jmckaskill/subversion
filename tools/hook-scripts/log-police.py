@@ -99,7 +99,7 @@ def main(ignored_pool, argv):
     sys.stderr.write("ERROR: only one argument allowed (the repository).\n\n")
     usage(sys.stderr)
     sys.exit(1)
-
+    
   repos_path = args[0]
 
   # A non-bindings version of this could be implemented by calling out
