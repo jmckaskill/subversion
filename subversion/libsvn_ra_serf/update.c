@@ -756,14 +756,14 @@ handle_fetch(serf_request_t *request,
               continue;
             }
 
-          /* Woo-hoo.  We're back. */
+          /* Woo-hoo.  We're back. */ 
           fetch_ctx->aborted_read = FALSE;
 
           /* Increment data and len by the difference. */
           data += fetch_ctx->read_size - fetch_ctx->aborted_read_size;
           len += fetch_ctx->read_size - fetch_ctx->aborted_read_size;
         }
-
+      
       if (fetch_ctx->delta_stream)
         {
           svn_stream_write(fetch_ctx->delta_stream, data, &len);
@@ -1569,7 +1569,7 @@ finish_report(void *report_baton,
                     }
                   cur_dir = cur_dir->parent_dir;
                 }
-              while (cur_dir && !cur_dir->ref_count &&
+              while (cur_dir && !cur_dir->ref_count && 
                      cur_dir->propfind && is_propfind_done(cur_dir->propfind));
             }
         }
