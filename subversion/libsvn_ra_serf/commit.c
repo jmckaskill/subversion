@@ -143,8 +143,8 @@ typedef struct {
 
   /* The checked-in root to base CHECKOUTs from */
   const char *checked_in_url;
-
-  /* The root baseline collection */
+ 
+  /* The root baseline collection */ 
   const char *baseline_url;
 } commit_context_t;
 
@@ -294,7 +294,7 @@ handle_mkactivity(serf_request_t *request,
 }
 
 #define CHECKOUT_HEADER "<?xml version=\"1.0\" encoding=\"utf-8\"?><D:checkout xmlns:D=\"DAV:\"><D:activity-set><D:href>"
-
+  
 #define CHECKOUT_TRAILER "</D:href></D:activity-set></D:checkout>"
 
 static apr_status_t
@@ -482,7 +482,7 @@ static void proppatch_walker(void *baton,
 }
 
 #define PROPPATCH_HEADER "<?xml version=\"1.0\" encoding=\"utf-8\"?><D:propertyupdate xmlns:D=\"DAV:\"><D:set>"
-
+  
 #define PROPPATCH_TRAILER "</D:set></D:propertyupdate>"
 
 static apr_status_t
@@ -665,7 +665,7 @@ accept_head(serf_request_t *request,
             apr_pool_t *pool)
 {
   serf_bucket_t *response;
-
+    
   response = svn_ra_serf__accept_response(request, stream, acceptor_baton,
                                           pool);
 
@@ -988,7 +988,7 @@ add_file(const char *path,
   new_file->parent_dir = dir;
 
   new_file->commit = dir->commit;
-
+  
   /* TODO: Remove directory names? */
   new_file->name = path;
 
@@ -1009,7 +1009,7 @@ add_file(const char *path,
   head_ctx->acceptor = accept_head;
   head_ctx->acceptor_baton = new_file->commit->session;
   head_ctx->handler = handle_head;
-  head_ctx->path =
+  head_ctx->path = 
       svn_path_url_add_component(new_file->commit->session->repos_url.path,
                                  path, new_file->pool);
 
@@ -1020,7 +1020,7 @@ add_file(const char *path,
                                         new_file->pool));
 
   if (head_ctx->status != 404)
-    {
+    { 
       abort();
     }
 
@@ -1061,7 +1061,7 @@ open_file(const char *path,
   new_file->parent_dir = ctx;
 
   new_file->commit = ctx->commit;
-
+  
   /* TODO: Remove directory names? */
   new_file->name = path;
 
@@ -1202,7 +1202,7 @@ absent_file(const char *path,
 }
 
 static svn_error_t *
-close_edit(void *edit_baton,
+close_edit(void *edit_baton, 
            apr_pool_t *pool)
 {
   commit_context_t *ctx = edit_baton;
@@ -1219,7 +1219,7 @@ close_edit(void *edit_baton,
                                         ctx->activity_url_len, pool));
 
   merge_done = svn_ra_serf__merge_get_done_ptr(merge_ctx);
-
+ 
   SVN_ERR(svn_ra_serf__context_run_wait(merge_done, ctx->session, pool));
 
   if (svn_ra_serf__merge_get_status(merge_ctx) != 200)
