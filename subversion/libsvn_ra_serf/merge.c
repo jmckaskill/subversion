@@ -437,7 +437,7 @@ cdata_merge(void *userData, const char *data, int len)
 }
 
 #define MERGE_HEADER "<?xml version=\"1.0\" encoding=\"utf-8\"?><D:merge xmlns:D=\"DAV:\"><D:source><D:href>"
-
+ 
 #define MERGE_TRAILER "</D:href></D:source><D:no-auto-merge/><D:no-checkout/><D:prop><D:checked-in/><D:version-name/><D:resourcetype/><D:creationdate/><D:creator-displayname/></D:prop></D:merge>"
 
 static serf_bucket_t*
