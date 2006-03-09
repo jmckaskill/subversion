@@ -289,7 +289,7 @@ handle_auth(ra_serf_session_t *session,
                                         session->auth_state,
                                         session->pool);
     }
-
+  
   session->auth_attempts++;
 
   if (error)
