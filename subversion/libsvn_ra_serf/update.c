@@ -784,14 +784,14 @@ handle_fetch(serf_request_t *request,
               continue;
             }
 
-          /* Woo-hoo.  We're back. */
+          /* Woo-hoo.  We're back. */ 
           fetch_ctx->aborted_read = FALSE;
 
           /* Increment data and len by the difference. */
           data += fetch_ctx->read_size - fetch_ctx->aborted_read_size;
           len += fetch_ctx->read_size - fetch_ctx->aborted_read_size;
         }
-
+      
       if (fetch_ctx->delta_stream)
         {
           svn_stream_write(fetch_ctx->delta_stream, data, &len);
@@ -908,14 +908,14 @@ handle_stream(serf_request_t *request,
               continue;
             }
 
-          /* Woo-hoo.  We're back. */
+          /* Woo-hoo.  We're back. */ 
           fetch_ctx->aborted_read = FALSE;
 
           /* Increment data and len by the difference. */
           data += fetch_ctx->read_size - fetch_ctx->aborted_read_size;
           len += fetch_ctx->read_size - fetch_ctx->aborted_read_size;
         }
-
+      
       if (len)
         {
           apr_size_t written_len;
@@ -1995,7 +1995,7 @@ svn_ra_serf__get_file(svn_ra_session_t *ra_session,
 
       SVN_ERR(retrieve_props(fetch_props, session, conn, fetch_url,
                              SVN_INVALID_REVNUM, "0", base_props, pool));
-
+      
       vcc_url = get_ver_prop(fetch_props, fetch_url, SVN_INVALID_REVNUM,
                              "DAV:", "version-controlled-configuration");
 
@@ -2007,7 +2007,7 @@ svn_ra_serf__get_file(svn_ra_session_t *ra_session,
 
       baseline_url = get_ver_prop(fetch_props, vcc_url, revision,
                                   "DAV:", "baseline-collection");
-
+      
       fetch_url = svn_path_url_add_component(baseline_url, rel_path, pool);
     }
 
