@@ -290,7 +290,7 @@ handle_auth(svn_ra_serf__session_t *session,
                                         session->auth_state,
                                         session->pool);
     }
-
+  
   session->auth_attempts++;
 
   if (error)

@@ -298,7 +298,7 @@ typedef struct {
   svn_ra_serf__session_t *session;
 } svn_ra_serf__handler_t;
 
-/*
+/* 
  * Default handler that does dispatching.
  */
 apr_status_t
