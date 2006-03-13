@@ -135,7 +135,7 @@ analogous to CVS/ subdirs.  See the separate sections below for more details.
 
    Same as `dir-props', except this is the pristine copy;  analogous to
    the "text-base" revisions of files.  The last up-to-date copy of the
-   directory's properties live here.
+   directory's properties live here. 
 
 `dir-prop-revert':
    In a schedule-replace situation for this directory, this holds the
@@ -193,7 +193,7 @@ analogous to CVS/ subdirs.  See the separate sections below for more details.
 
    To recover from a crash:
 
-      1. Look for a log file.
+      1. Look for a log file.  
 
            A. If none, just "rm -r tmp/*".
 
@@ -205,11 +205,11 @@ analogous to CVS/ subdirs.  See the separate sections below for more details.
 
    Note that foo/.svn/log always uses paths relative to foo/, for
    example, this:
-
+   
        <!-- THIS IS GOOD -->
        <mv name=".svn/tmp/prop-base/name"
            dest=".svn/prop-base/name">
-
+           
    rather than this:
 
        <!-- THIS WOULD BE BAD -->
@@ -224,7 +224,7 @@ analogous to CVS/ subdirs.  See the separate sections below for more details.
 
    The problem with the second way is that is violates the
    separability of .svn subdirectories -- a subdir should be operable
-   independent of its location in the local filesystem.
+   independent of its location in the local filesystem.  
 
    The problem with the third way is that it can't conveniently refer
    to the user's actual working files, only to files inside .svn/.
@@ -262,7 +262,7 @@ analogous to CVS/ subdirs.  See the separate sections below for more details.
    For an entry scheduled for replacement, the text-base of the deleted
    entry may be stored in `foo.c.svn-revert'.
 
-
+   
 `props/'
 
    The non-pristine (working copy) of each file's properties.  These
@@ -294,7 +294,7 @@ analogous to CVS/ subdirs.  See the separate sections below for more details.
    networking layer (DAV right now) and need to be secretly saved and
    retrieved, much like a web browser stores "cookies".  Special wc
    library routines allow the networking layer to get and set these
-   properties.
+   properties.  
 
    Note that because these properties aren't being versioned, we don't
    bother to keep pristine forms of them in a 'base' area.  Nor do we
@@ -313,7 +313,7 @@ analogous to CVS/ subdirs.  See the separate sections below for more details.
    This file was removed in format 5.  It used to contain a short text
    saying what this directory is for and warning users not to alter
    its contents.
-
+   
 The entries file
 ----------------
 
@@ -355,7 +355,7 @@ svn_time_to_cstring().
    Optional for the this_dir entry, for compatibility.
 
 `kind':
-   The kind of this entry: `file' or `dir'.  Required for all entries.
+   The kind of this entry: `file' or `dir'.  Required for all entries. 
 
 `text-time':
    For file entries, the timestamp of the working file when it was
