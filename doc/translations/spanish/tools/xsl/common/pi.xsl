@@ -43,7 +43,7 @@
         </xsl:call-template>
       </xsl:otherwise>
     </xsl:choose>
-  </xsl:variable>
+  </xsl:variable>  
 
   <xsl:variable name="padding">
     <xsl:variable name="pi-padding">
@@ -87,7 +87,7 @@
   <xsl:param name="date"/>
   <xsl:param name="format"/>
   <xsl:param name="padding" select="1"/>
-
+  
   <xsl:if test="$format != ''">
     <xsl:variable name="char" select="substring($format,1,1)"/>
 
@@ -163,7 +163,7 @@
         <xsl:value-of select="$char"/>
       </xsl:otherwise>
     </xsl:choose>
-
+    
     <!-- Process rest of format specifier -->
     <xsl:call-template name="datetime.format">
       <xsl:with-param name="date" select="$date"/>
