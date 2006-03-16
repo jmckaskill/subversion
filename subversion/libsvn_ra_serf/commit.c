@@ -137,8 +137,8 @@ typedef struct {
 
   /* The checked-in root to base CHECKOUTs from */
   const char *checked_in_url;
-
-  /* The root baseline collection */
+ 
+  /* The root baseline collection */ 
   const char *baseline_url;
 
   /* Deleted files - so we can detect delete+add (replace) ops. */
@@ -275,7 +275,7 @@ handle_mkactivity(serf_request_t *request,
 }
 
 #define CHECKOUT_HEADER "<?xml version=\"1.0\" encoding=\"utf-8\"?><D:checkout xmlns:D=\"DAV:\"><D:activity-set><D:href>"
-
+  
 #define CHECKOUT_TRAILER "</D:href></D:activity-set></D:checkout>"
 
 static apr_status_t
@@ -423,7 +423,7 @@ static void proppatch_walker(void *baton,
   serf_bucket_alloc_t *alloc;
   const svn_string_t *prop_value;
   svn_boolean_t binary_prop;
-
+ 
   prop_value = val;
   if (svn_xml_is_xml_safe(prop_value->data, prop_value->len))
     {
@@ -730,7 +730,7 @@ accept_head(serf_request_t *request,
             apr_pool_t *pool)
 {
   serf_bucket_t *response;
-
+    
   response = svn_ra_serf__accept_response(request, stream, acceptor_baton,
                                           pool);
 
@@ -1119,22 +1119,22 @@ close_directory(void *dir_baton,
     {
       proppatch_ctx = apr_pcalloc(pool, sizeof(*proppatch_ctx));
       proppatch_ctx->pool = pool;
-
+     
       proppatch_ctx->session = dir->commit->session;
       proppatch_ctx->conn = dir->commit->conn;
-
+      
       proppatch_ctx->acceptor = svn_ra_serf__accept_response;
       proppatch_ctx->acceptor_baton = dir->commit->session;
       proppatch_ctx->handler = handle_proppatch;
-
+      
       proppatch_ctx->path = dir->checkout->resource_url;
       proppatch_ctx->changed_props = dir->changed_props;
       proppatch_ctx->removed_props = dir->removed_props;
-
+      
       serf_connection_request_create(proppatch_ctx->conn->conn,
                                      setup_proppatch, proppatch_ctx);
-
-      /* If we don't wait for the response, our pool will be gone! */
+     
+      /* If we don't wait for the response, our pool will be gone! */ 
       SVN_ERR(svn_ra_serf__context_run_wait(&proppatch_ctx->done,
                                             dir->commit->session, dir->pool));
     }
@@ -1174,7 +1174,7 @@ add_file(const char *path,
   new_file->parent_dir = dir;
 
   new_file->commit = dir->commit;
-
+  
   new_file->name = path;
 
   new_file->base_revision = SVN_INVALID_REVNUM;
@@ -1193,17 +1193,17 @@ add_file(const char *path,
                     new_file->name, APR_HASH_KEY_STRING))
     {
       simple_request_context_t *head_ctx;
-
+      
       head_ctx = apr_pcalloc(new_file->pool, sizeof(*head_ctx));
-
+      
       head_ctx->pool = new_file->pool;
       head_ctx->session = new_file->commit->session;
       head_ctx->conn = new_file->commit->conn;
-
+      
       head_ctx->acceptor = accept_head;
       head_ctx->acceptor_baton = new_file->commit->session;
       head_ctx->handler = handle_head;
-      head_ctx->path =
+      head_ctx->path = 
           svn_path_url_add_component(new_file->commit->session->repos_url.path,
                                      path, new_file->pool);
       serf_connection_request_create(head_ctx->conn->conn,
@@ -1212,7 +1212,7 @@ add_file(const char *path,
                                             dir->commit->session,
                                             new_file->pool));
       if (head_ctx->status != 404)
-        {
+        { 
           abort();
         }
     }
@@ -1255,7 +1255,7 @@ open_file(const char *path,
   new_file->parent_dir = ctx;
 
   new_file->commit = ctx->commit;
-
+  
   /* TODO: Remove directory names? */
   new_file->name = path;
 
@@ -1417,22 +1417,22 @@ close_file(void *file_baton,
 
       proppatch_ctx = apr_pcalloc(ctx->pool, sizeof(*proppatch_ctx));
       proppatch_ctx->pool = ctx->pool;
-
+     
       proppatch_ctx->session = ctx->commit->session;
       proppatch_ctx->conn = ctx->commit->conn;
-
+      
       proppatch_ctx->acceptor = svn_ra_serf__accept_response;
       proppatch_ctx->acceptor_baton = ctx->commit->session;
       proppatch_ctx->handler = handle_proppatch;
-
+      
       proppatch_ctx->path = ctx->put_url;
       proppatch_ctx->changed_props = ctx->changed_props;
       proppatch_ctx->removed_props = ctx->removed_props;
-
+      
       serf_connection_request_create(proppatch_ctx->conn->conn,
                                      setup_proppatch, proppatch_ctx);
-
-      /* If we don't wait for the response, our pool will be gone! */
+     
+      /* If we don't wait for the response, our pool will be gone! */ 
       SVN_ERR(svn_ra_serf__context_run_wait(&proppatch_ctx->done,
                                             ctx->commit->session,
                                             ctx->pool));
@@ -1452,7 +1452,7 @@ absent_file(const char *path,
 }
 
 static svn_error_t *
-close_edit(void *edit_baton,
+close_edit(void *edit_baton, 
            apr_pool_t *pool)
 {
   commit_context_t *ctx = edit_baton;
@@ -1469,7 +1469,7 @@ close_edit(void *edit_baton,
                                         ctx->activity_url_len, pool));
 
   merge_done = svn_ra_serf__merge_get_done_ptr(merge_ctx);
-
+ 
   SVN_ERR(svn_ra_serf__context_run_wait(merge_done, ctx->session, pool));
 
   if (svn_ra_serf__merge_get_status(merge_ctx) != 200)
