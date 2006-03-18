@@ -30,7 +30,7 @@ struct svn_error_t;
 /**
  * Encapsulation for Subversion Path handling
  */
-class Path
+class Path  
 {
 private:
     // the path to be stored
@@ -53,7 +53,7 @@ public:
      * @param pi_path Path string
      */
     Path (const std::string & pi_path = "");
-
+    
     /**
      * Constructor
      *
@@ -83,12 +83,12 @@ public:
     /**
      * @return Path string as c string
      */
-    const char *
+    const char * 
     c_str() const;
 
-    svn_error_t *
+    svn_error_t * 
     error_occured() const;
 };
 
 // !defined(AFX_PATH_H__A143CB2A_1115_4770_8CD5_AA33CCD285FA__INCLUDED_)
-#endif
+#endif 
