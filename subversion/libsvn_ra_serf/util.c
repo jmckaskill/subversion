@@ -273,7 +273,7 @@ handle_auth(svn_ra_serf__session_t *session,
               if (strcmp(attr, "realm") == 0)
                 {
                   realm_name = apr_strtok(NULL, "=", &last);
-                  if (realm_name[0] == '\"')
+                  if (realm_name[0] == '\"') 
                     {
                       apr_size_t realm_len;
 
@@ -331,7 +331,7 @@ handle_auth(svn_ra_serf__session_t *session,
                                         session->auth_state,
                                         session->pool);
     }
-
+  
   session->auth_attempts++;
 
   if (error)
@@ -576,7 +576,7 @@ setup_default(serf_request_t *request,
         {
           *acceptor = accept_head;
         }
-
+ 
       if (ctx->body_delegate)
         {
           ctx->body_buckets =
