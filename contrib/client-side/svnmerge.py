@@ -289,7 +289,7 @@ class RevisionLog:
             # The --verbose flag lets us grab merge tracking information
             # by looking at propchanges
             log_opts = "--verbose " + log_opts
-
+    
         # Read the log to look for revision numbers and merge-tracking info
         self.revs = []
         self.propchange_revs = []
@@ -571,7 +571,7 @@ def set_props(dir, name, props):
     if props:
         _run_propset(dir, name, props)
     else:
-        svn_command('propdel "%s" "%s"' % (name, dir))
+        svn_command('propdel "%s" "%s"' % (name, dir)) 
 
 def set_merge_props(dir, props):
     set_props(dir, opts["prop"], props)
