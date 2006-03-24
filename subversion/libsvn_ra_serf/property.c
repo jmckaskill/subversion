@@ -284,7 +284,7 @@ end_propfind(void *userData, const char *name)
           ctx->attr_val = apr_pstrdup(ctx->pool, name);
           ctx->attr_val_len = strlen(ctx->attr_val);
         }
-
+   
       if (ctx->in_response && strcmp(prop_name.name, "href") == 0)
         {
           apr_pool_t *pool;
