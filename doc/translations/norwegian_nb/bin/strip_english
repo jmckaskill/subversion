@@ -28,7 +28,7 @@ sub usage {
 
 Usage: $0 [file [...]]
 
-Strips the \@ENGLISH markers and all text inside from stdin or files
+Strips the \@ENGLISH markers and all text inside from stdin or files 
 specified on the command line. All output goes to stdout.
 
 END
