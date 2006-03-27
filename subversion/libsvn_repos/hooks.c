@@ -292,7 +292,7 @@ run_hook_cmd(const char *name,
                                      "script '%s'", cmd);
 
           wc = write(stdin_pipe[1], buffer, bytes_read);
-          if (wc == -1)
+          if (wc == -1)     
             return svn_error_createf(SVN_ERR_EXTERNAL_PROGRAM, NULL,
                                      "Error piping stdin to hook "
                                      "script '%s'", cmd);
@@ -312,7 +312,7 @@ run_hook_cmd(const char *name,
                              "hook script '%s'", cmd);
 
   /* Close the write end of the stderr pipe so any subsequent reads
-   * don't hang. */
+   * don't hang. */  
   if (close(fd_map[2]) == -1)
     return svn_error_createf(SVN_ERR_EXTERNAL_PROGRAM, NULL,
                              "Error closing write end of stderr pipe to "
@@ -441,7 +441,7 @@ create_temp_file(apr_file_t **f, const svn_string_t *value, apr_pool_t *pool)
 
 
 /* Check if the HOOK program exists and is a file or a symbolic link, using
-   POOL for temporary allocations.
+   POOL for temporary allocations. 
 
    If the hook exists but is a broken symbolic link, set *BROKEN_LINK
    to TRUE, else if the hook program exists set *BROKEN_LINK to FALSE.
@@ -469,7 +469,7 @@ check_hook_cmd(const char *hook, svn_boolean_t *broken_link, apr_pool_t *pool)
     {
       const char *const hook_path =
         (**extn ? apr_pstrcat(pool, hook, *extn, 0) : hook);
-
+      
       svn_node_kind_t kind;
       if (!(err = svn_io_check_resolved_path(hook_path, &kind, pool))
           && kind == svn_node_file)
@@ -507,7 +507,7 @@ svn_repos__hooks_start_commit(svn_repos_t *repos,
 {
   const char *hook = svn_repos_start_commit_hook(repos, pool);
   svn_boolean_t broken_link;
-
+  
   if ((hook = check_hook_cmd(hook, &broken_link, pool)) && broken_link)
     {
       return hook_symlink_error(hook);
@@ -635,8 +635,8 @@ svn_repos__hooks_pre_revprop_change(svn_repos_t *repos,
          MASSIVE PARANOIA.  Changing revision properties is a lossy
          operation; so unless the repository admininstrator has
          *deliberately* created the pre-hook, disallow all changes. */
-      return
-        svn_error_create
+      return 
+        svn_error_create 
         (SVN_ERR_REPOS_DISABLED_FEATURE, NULL,
          _("Repository has not been enabled to accept revision propchanges;\n"
            "ask the administrator to create a pre-revprop-change hook"));
@@ -657,7 +657,7 @@ svn_repos__hooks_post_revprop_change(svn_repos_t *repos,
 {
   const char *hook = svn_repos_post_revprop_change_hook(repos, pool);
   svn_boolean_t broken_link;
-
+  
   if ((hook = check_hook_cmd(hook, &broken_link, pool)) && broken_link)
     {
       return hook_symlink_error(hook);
@@ -688,7 +688,7 @@ svn_repos__hooks_post_revprop_change(svn_repos_t *repos,
 
       SVN_ERR(run_hook_cmd("post-revprop-change", hook, args, FALSE,
                            stdin_handle, pool));
-
+      
       SVN_ERR(svn_io_file_close(stdin_handle, pool));
     }
 
@@ -735,7 +735,7 @@ svn_repos__hooks_post_lock(svn_repos_t *repos,
 {
   const char *hook = svn_repos_post_lock_hook(repos, pool);
   svn_boolean_t broken_link;
-
+  
   if ((hook = check_hook_cmd(hook, &broken_link, pool)) && broken_link)
     {
       return hook_symlink_error(hook);
@@ -745,7 +745,7 @@ svn_repos__hooks_post_lock(svn_repos_t *repos,
       const char *args[5];
       apr_file_t *stdin_handle = NULL;
       svn_string_t *paths_str = svn_string_create(svn_cstring_join
-                                                  (paths, "\n", pool),
+                                                  (paths, "\n", pool), 
                                                   pool);
 
       SVN_ERR(create_temp_file(&stdin_handle, paths_str, pool));
@@ -756,7 +756,7 @@ svn_repos__hooks_post_lock(svn_repos_t *repos,
       args[3] = NULL;
       args[4] = NULL;
 
-      SVN_ERR(run_hook_cmd("post-lock", hook, args, FALSE,
+      SVN_ERR(run_hook_cmd("post-lock", hook, args, FALSE, 
                            stdin_handle, pool));
 
       SVN_ERR(svn_io_file_close(stdin_handle, pool));
@@ -804,7 +804,7 @@ svn_repos__hooks_post_unlock(svn_repos_t *repos,
 {
   const char *hook = svn_repos_post_unlock_hook(repos, pool);
   svn_boolean_t broken_link;
-
+  
   if ((hook = check_hook_cmd(hook, &broken_link, pool)) && broken_link)
     {
       return hook_symlink_error(hook);
@@ -814,7 +814,7 @@ svn_repos__hooks_post_unlock(svn_repos_t *repos,
       const char *args[5];
       apr_file_t *stdin_handle = NULL;
       svn_string_t *paths_str = svn_string_create(svn_cstring_join
-                                                  (paths, "\n", pool),
+                                                  (paths, "\n", pool), 
                                                   pool);
 
       SVN_ERR(create_temp_file(&stdin_handle, paths_str, pool));
@@ -825,7 +825,7 @@ svn_repos__hooks_post_unlock(svn_repos_t *repos,
       args[3] = NULL;
       args[4] = NULL;
 
-      SVN_ERR(run_hook_cmd("post-unlock", hook, args, FALSE,
+      SVN_ERR(run_hook_cmd("post-unlock", hook, args, FALSE, 
                            stdin_handle, pool));
 
       SVN_ERR(svn_io_file_close(stdin_handle, pool));
@@ -836,8 +836,8 @@ svn_repos__hooks_post_unlock(svn_repos_t *repos,
 
 
 
-/*
- * vim:ts=4:sw=4:expandtab:tw=80:fo=tcroq
- * vim:isk=a-z,A-Z,48-57,_,.,-,>
+/* 
+ * vim:ts=4:sw=4:expandtab:tw=80:fo=tcroq 
+ * vim:isk=a-z,A-Z,48-57,_,.,-,> 
  * vim:cino=>1s,e0,n0,f0,{.5s,}0,^-.5s,=.5s,t0,+1s,c3,(0,u0,\:0
  */
