@@ -224,7 +224,7 @@ start_error(void *userData, const char *name, const char **attrs)
   /* look up name space if present */
   prop_name = svn_ra_serf__expand_ns(ctx->ns_list, name);
 
-  if (!ctx->in_error &&
+  if (!ctx->in_error && 
       strcmp(prop_name.namespace, "DAV:") == 0 &&
       strcmp(prop_name.name, "error") == 0)
     {
@@ -310,7 +310,7 @@ svn_ra_serf__handler_discard_body(serf_request_t *request,
         {
           serf_bucket_t *hdrs;
           const char *val;
-
+          
           server_err->init = TRUE;
           hdrs = serf_bucket_response_get_headers(response);
           val = serf_bucket_headers_get(hdrs, "Content-Type");
@@ -336,7 +336,7 @@ svn_ra_serf__handler_discard_body(serf_request_t *request,
           status = svn_ra_serf__handle_xml_parser(request, response,
                                                   &server_err->parser, pool);
 
-          if (server_err->done && server_err->error->apr_err == APR_SUCCESS)
+          if (server_err->done && server_err->error->apr_err == APR_SUCCESS) 
             {
               svn_error_clear(server_err->error);
               server_err->error = SVN_NO_ERROR;
@@ -344,7 +344,7 @@ svn_ra_serf__handler_discard_body(serf_request_t *request,
 
           return status;
         }
-
+      
     }
 
   /* Just loop through and discard the body. */
@@ -403,7 +403,7 @@ handle_auth(svn_ra_serf__session_t *session,
               if (strcmp(attr, "realm") == 0)
                 {
                   realm_name = apr_strtok(NULL, "=", &last);
-                  if (realm_name[0] == '\"')
+                  if (realm_name[0] == '\"') 
                     {
                       apr_size_t realm_len;
 
@@ -461,7 +461,7 @@ handle_auth(svn_ra_serf__session_t *session,
                                         session->auth_state,
                                         session->pool);
     }
-
+  
   session->auth_attempts++;
 
   if (error)
@@ -738,7 +738,7 @@ setup_default(serf_request_t *request,
         {
           *acceptor = accept_head;
         }
-
+ 
       if (ctx->body_delegate)
         {
           ctx->body_buckets =
