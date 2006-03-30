@@ -275,7 +275,7 @@ end_propfind(svn_ra_serf__xml_parser_t *parser,
               ctx->attr_val_len = 1;
             }
         }
-
+   
       if (ctx->in_response && strcmp(name.name, "href") == 0)
         {
           if (strcmp(ctx->depth, "1") == 0)
