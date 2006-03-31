@@ -21,11 +21,11 @@
  * Modified by the GLib Team and others 1997-1999.  See the AUTHORS
  * file for a list of people on the GLib Team.  See the ChangeLog
  * files for a list of changes.  These files are distributed with
- * GLib at ftp://ftp.gtk.org/pub/gtk/.
+ * GLib at ftp://ftp.gtk.org/pub/gtk/. 
  */
 
-/*
- * MT safe ; except for g_on_error_stack_trace, but who wants thread safety
+/* 
+ * MT safe ; except for g_on_error_stack_trace, but who wants thread safety 
  * then
  */
 
@@ -92,9 +92,9 @@ g_on_error_query (const gchar *prg_name)
 
   if (!prg_name)
     prg_name = g_get_prgname ();
-
+  
  retry:
-
+  
   if (prg_name)
     fprintf (stdout,
 	     "%s (pid:%u): %s%s%s: ",
@@ -110,14 +110,14 @@ g_on_error_query (const gchar *prg_name)
 	     query1,
 	     query3);
   fflush (stdout);
-
+  
 #ifndef NATIVE_WIN32
   if (isatty(0) && isatty(1))
-    fgets (buf, 8, stdin);
+    fgets (buf, 8, stdin); 
   else
     strcpy (buf, "E\n");
 #else
-  fgets (buf, 8, stdin);
+  fgets (buf, 8, stdin); 
 #endif
 
   if ((buf[0] == 'E' || buf[0] == 'e')
@@ -172,7 +172,7 @@ g_on_error_stack_trace (const gchar *prg_name)
       perror ("unable to fork gdb");
       return;
     }
-
+  
   while (glib_on_error_halt)
     ;
   glib_on_error_halt = TRUE;
