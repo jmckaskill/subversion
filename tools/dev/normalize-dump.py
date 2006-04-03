@@ -47,11 +47,8 @@ def parse_header_block(fp):
 
 
 def parse_file(fp):
-    headers = {}
     nodepaths = {}
-    harvesting = None # (could be 'R'evision or 'N'ode)
     current_rev = None
-    eof = 0
 
     while 1:
         # Parse a block of headers
