@@ -111,7 +111,7 @@ write_hash_to_stringbuf (apr_hash_t *hash,
             continue;
 
           /* Output name length, then name. */
-          svn_stringbuf_appendcstr (*strbuf,
+          svn_stringbuf_appendcstr (*strbuf, 
                                     APR_PSPRINTF2 (pool,
                                                    "D %" APR_SSIZE_T_FMT
                                                    "\n", keylen));
@@ -120,7 +120,7 @@ write_hash_to_stringbuf (apr_hash_t *hash,
           svn_stringbuf_appendbytes (*strbuf, SVN_UTF8_NEWLINE_STR, 1);
         }
     }
-  svn_stringbuf_appendbytes (*strbuf,
+  svn_stringbuf_appendbytes (*strbuf, 
                              "\x50\x52\x4f\x50\x53\x2d\x45\x4e\x44\x0a", 10);
                              /* "PROPS-END\n" */
 }
@@ -149,7 +149,7 @@ store_delta (apr_file_t **tempfile, svn_filesize_t *len,
   SVN_ERR (svn_io_open_unique_file (tempfile, &name,
                                     APR_PSPRINTF2 (pool, "%s/dump", tempdir),
                                     ".tmp", TRUE, pool));
-
+                                    
   temp_stream = svn_stream_from_aprfile (*tempfile, pool);
 
   /* Compute the delta and send it to the temporary file. */
@@ -180,7 +180,7 @@ struct edit_baton
   const char *path;
 
   /* The stream to dump to. */
-  svn_stream_t *stream;
+  svn_stream_t *stream; 
 
   /* Send feedback here, if non-NULL */
   svn_stream_t *feedback_stream;
@@ -207,7 +207,7 @@ struct dir_baton
 
   /* is this directory a new addition to this revision? */
   svn_boolean_t added;
-
+  
   /* has this directory been written to the output stream? */
   svn_boolean_t written_out;
 
@@ -233,13 +233,13 @@ struct dir_baton
 
 
 /* Make a directory baton to represent the directory was path
-   (relative to EDIT_BATON's path) is PATH.
+   (relative to EDIT_BATON's path) is PATH.  
 
    CMP_PATH/CMP_REV are the path/revision against which this directory
    should be compared for changes.  If either is omitted (NULL for the
    path, SVN_INVALID_REVNUM for the rev), just compare this directory
    PATH against itself in the previous revision.
-
+   
    PARENT_DIR_BATON is the directory baton of this directory's parent,
    or NULL if this is the top-level directory of the edit.  ADDED
    indicated if this directory is newly added in this revision.
@@ -281,14 +281,14 @@ make_dir_baton (const char *path,
   new_db->written_out = FALSE;
   new_db->deleted_entries = apr_hash_make (pool);
   new_db->pool = pool;
-
+  
   return new_db;
 }
 
 
 /* This helper is the main "meat" of the editor -- it does all the
    work of writing a node record.
-
+   
    Write out a node record for PATH of type KIND under EB->FS_ROOT.
    ACTION describes what is happening to the node (see enum svn_node_action).
    Write record to writable EB->STREAM, using EB->BUFFER to write in chunks.
@@ -321,14 +321,14 @@ dump_node (struct edit_baton *eb,
   if (eb->stream)
     {
       SVN_ERR (svn_stream_printf (eb->stream, pool,            /* ": %s\n" */
-                                  SVN_REPOS_DUMPFILE_NODE_PATH "\x3A\x20%s\x0A",
+                                  SVN_REPOS_DUMPFILE_NODE_PATH "\x3A\x20%s\x0A", 
                                   (*path == SVN_UTF8_FSLASH) ? path + 1 : path));
       if (kind == svn_node_file)
         SVN_ERR (svn_stream_printf (eb->stream, pool,
                                     SVN_REPOS_DUMPFILE_NODE_KIND
                                     "\x3a\x20\x66\x69\x6c\x65\x0a"));
                                     /* ": file\n" */
-
+                                    
       else if (kind == svn_node_dir)
         SVN_ERR (svn_stream_printf (eb->stream, pool,
                                     SVN_REPOS_DUMPFILE_NODE_KIND
@@ -356,10 +356,10 @@ dump_node (struct edit_baton *eb,
                                     /* ": change\n" */
 
       /* either the text or props changed, or possibly both. */
-      SVN_ERR (svn_fs_revision_root (&compare_root,
+      SVN_ERR (svn_fs_revision_root (&compare_root, 
                                      svn_fs_root_fs (eb->fs_root),
                                      compare_rev, pool));
-
+      
       SVN_ERR (svn_fs_props_changed (&must_dump_props,
                                      compare_root, compare_path,
                                      eb->fs_root, path, pool));
@@ -378,7 +378,7 @@ dump_node (struct edit_baton *eb,
                                         SVN_REPOS_DUMPFILE_NODE_ACTION
                                         "\x3a\x20\x72\x65\x70\x6c\x61"
                                         "\x63\x65\x0a"));
-                                        /* ": replace\n" */
+                                        /* ": replace\n" */ 
 
           /* definitely need to dump all content for a replace. */
           if (kind == svn_node_file)
@@ -396,7 +396,7 @@ dump_node (struct edit_baton *eb,
                                         SVN_REPOS_DUMPFILE_NODE_ACTION
                                         "\x3a\x20\x64\x65\x6c\x65\x74"
                                         "\x65\x0a\x0a"));
-                                        /* ": delete\n\n" */
+                                        /* ": delete\n\n" */  
 
           /* recurse:  print an additional add-with-history record. */
           SVN_ERR (dump_node (eb, path, kind, svn_node_action_add,
@@ -414,7 +414,7 @@ dump_node (struct edit_baton *eb,
         SVN_ERR (svn_stream_printf (eb->stream, pool,
                                     SVN_REPOS_DUMPFILE_NODE_ACTION
                                     "\x3a\x20\x64\x65\x6c\x65\x74\x65\x0a"));
-                                    /* ": delete\n" */
+                                    /* ": delete\n" */  
 
       /* we can leave this routine quietly now, don't need to dump
          any content. */
@@ -440,9 +440,9 @@ dump_node (struct edit_baton *eb,
         {
           if ((cmp_rev < eb->oldest_dumped_rev)
               && eb->feedback_stream)
-            svn_stream_printf
+            svn_stream_printf 
               (eb->feedback_stream, pool,
-               _("WARNING: Referencing data in revision %ld"
+               _("WARNING: Referencing data in revision %ld" 
                  ", which is older than the oldest\nWARNING: dumped revision "
                  "(%ld).  Loading this dump into an empty "
                  "repository\nWARNING: will fail.\n"),
@@ -452,14 +452,14 @@ dump_node (struct edit_baton *eb,
           {
             const char *rev_str = APR_PSPRINTF2(pool, "%ld", cmp_rev);
             SVN_ERR (svn_stream_printf (eb->stream, pool,
-                                        SVN_REPOS_DUMPFILE_NODE_COPYFROM_REV
+                                        SVN_REPOS_DUMPFILE_NODE_COPYFROM_REV 
                                         "\x3A\x20%s\x0A"
                                         SVN_REPOS_DUMPFILE_NODE_COPYFROM_PATH
                                         "\x3A\x20%s\x0A",
                                         rev_str, cmp_path));
-          }
+          }                                        
 
-          SVN_ERR (svn_fs_revision_root (&compare_root,
+          SVN_ERR (svn_fs_revision_root (&compare_root, 
                                          svn_fs_root_fs (eb->fs_root),
                                          compare_rev, pool));
 
@@ -472,7 +472,7 @@ dump_node (struct edit_baton *eb,
             SVN_ERR (svn_fs_contents_changed (&must_dump_text,
                                               compare_root, compare_path,
                                               eb->fs_root, path, pool));
-
+          
           /* ### someday write a node-copyfrom-source-checksum. */
         }
     }
@@ -511,7 +511,7 @@ dump_node (struct edit_baton *eb,
                                          pool));
           if (eb->stream)
             SVN_ERR (svn_stream_printf (eb->stream, pool,
-                                        SVN_REPOS_DUMPFILE_PROP_DELTA
+                                        SVN_REPOS_DUMPFILE_PROP_DELTA 
                                         "\x3a\x20\x74\x72\x75\x65\x0a"));
                                         /* ": true\n" */
         }
@@ -520,10 +520,10 @@ dump_node (struct edit_baton *eb,
       content_length += proplen;
       if (eb->stream)
       {
-      	const char *len_str = APR_PSPRINTF2 (pool, "%" APR_SIZE_T_FMT,
-      	                                     proplen);
+      	const char *len_str = APR_PSPRINTF2 (pool, "%" APR_SIZE_T_FMT, 
+      	                                     proplen); 
         SVN_ERR (svn_stream_printf (eb->stream, pool,
-                                    SVN_REPOS_DUMPFILE_PROP_CONTENT_LENGTH
+                                    SVN_REPOS_DUMPFILE_PROP_CONTENT_LENGTH 
                                     "\x3A\x20%s\x0A", len_str));
       }
     }
@@ -559,17 +559,17 @@ dump_node (struct edit_baton *eb,
       if (eb->stream)
       {
       	const char *len_str = APR_PSPRINTF2 (pool, "%" SVN_FILESIZE_T_FMT,
-      	                                     textlen);
+      	                                     textlen); 
         SVN_ERR (svn_stream_printf (eb->stream, pool,
-                                    SVN_REPOS_DUMPFILE_TEXT_CONTENT_LENGTH
+                                    SVN_REPOS_DUMPFILE_TEXT_CONTENT_LENGTH 
                                     "\x3A\x20%s\x0A", len_str));
       }
-
+      
       SVN_ERR (svn_fs_file_md5_checksum (md5_digest, eb->fs_root, path, pool));
       hex_digest = svn_md5_digest_to_cstring (md5_digest, pool);
       if (hex_digest && eb->stream)
         SVN_ERR (svn_stream_printf (eb->stream, pool,
-                                    SVN_REPOS_DUMPFILE_TEXT_CONTENT_CHECKSUM
+                                    SVN_REPOS_DUMPFILE_TEXT_CONTENT_CHECKSUM 
                                     "\x3A\x20%s\x0A", hex_digest));
     }
 
@@ -580,12 +580,12 @@ dump_node (struct edit_baton *eb,
   if (eb->stream)
   {
     const char *len_str = APR_PSPRINTF2 (pool, "%" SVN_FILESIZE_T_FMT,
-                                         content_length);
+                                         content_length); 
     SVN_ERR (svn_stream_printf (eb->stream, pool,
-                                SVN_REPOS_DUMPFILE_CONTENT_LENGTH
+                                SVN_REPOS_DUMPFILE_CONTENT_LENGTH 
                                 "\x3A\x20%s\x0A\x0A", len_str));
   }
-
+  
   /* Dump property content if we're supposed to do so. */
   if (must_dump_props && eb->stream)
     {
@@ -605,24 +605,24 @@ dump_node (struct edit_baton *eb,
 
       SVN_ERR (svn_stream_copy (contents, eb->stream, pool));
     }
-
+  
   if (eb->stream)
     {
       len = 2;
       SVN_ERR (svn_stream_write (eb->stream, "\x0A\x0A", &len)); /* ### needed? */
     }
-
+  
   return SVN_NO_ERROR;
 }
 
 
 static svn_error_t *
-open_root (void *edit_baton,
-           svn_revnum_t base_revision,
+open_root (void *edit_baton, 
+           svn_revnum_t base_revision, 
            apr_pool_t *pool,
            void **root_baton)
 {
-  *root_baton = make_dir_baton (NULL, NULL, SVN_INVALID_REVNUM,
+  *root_baton = make_dir_baton (NULL, NULL, SVN_INVALID_REVNUM, 
                                 edit_baton, NULL, FALSE, pool);
   return SVN_NO_ERROR;
 }
@@ -630,7 +630,7 @@ open_root (void *edit_baton,
 
 static svn_error_t *
 delete_entry (const char *path,
-              svn_revnum_t revision,
+              svn_revnum_t revision, 
               void *parent_baton,
               apr_pool_t *pool)
 {
@@ -656,7 +656,7 @@ add_directory (const char *path,
   struct edit_baton *eb = pb->edit_baton;
   void *val;
   svn_boolean_t is_copy = FALSE;
-  struct dir_baton *new_db
+  struct dir_baton *new_db 
     = make_dir_baton (path, copyfrom_path, copyfrom_rev, eb, pb, TRUE, pool);
 
   /* This might be a replacement -- is the path already deleted? */
@@ -666,18 +666,18 @@ add_directory (const char *path,
   is_copy = ARE_VALID_COPY_ARGS (copyfrom_path, copyfrom_rev) ? TRUE : FALSE;
 
   /* Dump the node. */
-  SVN_ERR (dump_node (eb, path,
+  SVN_ERR (dump_node (eb, path, 
                       svn_node_dir,
                       val ? svn_node_action_replace : svn_node_action_add,
                       is_copy,
-                      is_copy ? copyfrom_path : NULL,
+                      is_copy ? copyfrom_path : NULL, 
                       is_copy ? copyfrom_rev : SVN_INVALID_REVNUM,
                       pool));
 
   if (val)
     /* Delete the path, it's now been dumped. */
     apr_hash_set (pb->deleted_entries, path, APR_HASH_KEY_STRING, NULL);
-
+  
   new_db->written_out = TRUE;
 
   *child_baton = new_db;
@@ -702,11 +702,11 @@ open_directory (const char *path,
      record the same for this one. */
   if (pb && ARE_VALID_COPY_ARGS (pb->cmp_path, pb->cmp_rev))
     {
-      cmp_path = svn_path_join (pb->cmp_path,
+      cmp_path = svn_path_join (pb->cmp_path, 
                                 svn_path_basename (path, pool), pool);
       cmp_rev = pb->cmp_rev;
     }
-
+        
   new_db = make_dir_baton (path, cmp_path, cmp_rev, eb, pb, FALSE, pool);
   *child_baton = new_db;
   return SVN_NO_ERROR;
@@ -721,7 +721,7 @@ close_directory (void *dir_baton,
   struct edit_baton *eb = db->edit_baton;
   apr_hash_index_t *hi;
   apr_pool_t *subpool = svn_pool_create (pool);
-
+  
   for (hi = apr_hash_first (pool, db->deleted_entries);
        hi;
        hi = apr_hash_next (hi))
@@ -766,12 +766,12 @@ add_file (const char *path,
   is_copy = ARE_VALID_COPY_ARGS (copyfrom_path, copyfrom_rev) ? TRUE : FALSE;
 
   /* Dump the node. */
-  SVN_ERR (dump_node (eb, path,
+  SVN_ERR (dump_node (eb, path, 
                       svn_node_file,
                       val ? svn_node_action_replace : svn_node_action_add,
                       is_copy,
-                      is_copy ? copyfrom_path : NULL,
-                      is_copy ? copyfrom_rev : SVN_INVALID_REVNUM,
+                      is_copy ? copyfrom_path : NULL, 
+                      is_copy ? copyfrom_rev : SVN_INVALID_REVNUM, 
                       pool));
 
   if (val)
@@ -794,18 +794,18 @@ open_file (const char *path,
   struct edit_baton *eb = pb->edit_baton;
   const char *cmp_path = NULL;
   svn_revnum_t cmp_rev = SVN_INVALID_REVNUM;
-
+  
   /* If the parent directory has explicit comparison path and rev,
      record the same for this one. */
   if (pb && ARE_VALID_COPY_ARGS (pb->cmp_path, pb->cmp_rev))
     {
-      cmp_path = svn_path_join (pb->cmp_path,
+      cmp_path = svn_path_join (pb->cmp_path, 
                                 svn_path_basename (path, pool), pool);
       cmp_rev = pb->cmp_rev;
     }
 
-  SVN_ERR (dump_node (eb, path,
-                      svn_node_file, svn_node_action_change,
+  SVN_ERR (dump_node (eb, path, 
+                      svn_node_file, svn_node_action_change, 
                       FALSE, cmp_path, cmp_rev, pool));
 
   *file_baton = NULL;  /* muhahahaha again */
@@ -827,8 +827,8 @@ change_dir_prop (void *parent_baton,
      *actually* changed by itself.  */
   if (! db->written_out)
     {
-      SVN_ERR (dump_node (eb, db->path,
-                          svn_node_dir, svn_node_action_change,
+      SVN_ERR (dump_node (eb, db->path, 
+                          svn_node_dir, svn_node_action_change, 
                           FALSE, db->cmp_path, db->cmp_rev, pool));
       db->written_out = TRUE;
     }
@@ -877,7 +877,7 @@ get_dump_editor (const svn_delta_editor_t **editor,
 
   *edit_baton = eb;
   *editor = dump_editor;
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -931,27 +931,27 @@ write_revision_record (svn_stream_t *stream,
   /* ### someday write a revision-content-checksum */
   num_str = APR_PSPRINTF2 (pool, "%ld", rev);
   SVN_ERR (svn_stream_printf (stream, pool,
-                              SVN_REPOS_DUMPFILE_REVISION_NUMBER
+                              SVN_REPOS_DUMPFILE_REVISION_NUMBER 
                               "\x3A\x20%s\x0A", num_str));
-
+  
   num_str = APR_PSPRINTF2 (pool, "%" APR_SIZE_T_FMT, encoded_prophash->len);
   SVN_ERR (svn_stream_printf (stream, pool,
                               SVN_REPOS_DUMPFILE_PROP_CONTENT_LENGTH
                               "\x3A\x20%s\x0A", num_str));
-
+  
   /* Write out a regular Content-length header for the benefit of
      non-Subversion RFC-822 parsers. */
   num_str = APR_PSPRINTF2 (pool, "%" APR_SIZE_T_FMT, encoded_prophash->len);
   SVN_ERR (svn_stream_printf (stream, pool,
                               SVN_REPOS_DUMPFILE_CONTENT_LENGTH
                               "\x3A\x20%s\x0A\x0A", num_str));
-
+  
   len = encoded_prophash->len;
   SVN_ERR (svn_stream_write (stream, encoded_prophash->data, &len));
-
+  
   len = 1;
   SVN_ERR (svn_stream_write (stream, SVN_UTF8_NEWLINE_STR, &len));
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -972,7 +972,7 @@ svn_repos_dump_fs2 (svn_repos_t *repos,
 {
   const svn_delta_editor_t *dump_editor;
   void *dump_edit_baton;
-  svn_revnum_t i;
+  svn_revnum_t i;  
   svn_fs_t *fs = svn_repos_fs (repos);
   apr_pool_t *subpool = svn_pool_create (pool);
   svn_revnum_t youngest;
@@ -1020,9 +1020,9 @@ svn_repos_dump_fs2 (svn_repos_t *repos,
          compatibility with svn 1.0.x. */
       if (!use_deltas)
         version--;
-
+  
       num_str = APR_PSPRINTF2 (pool, "%d", version);
-      SVN_ERR (svn_stream_printf (stream, pool,
+      SVN_ERR (svn_stream_printf (stream, pool, 
                                   SVN_REPOS_DUMPFILE_MAGIC_HEADER
                                   "\x3A\x20%s\x0A\x0A", num_str));
       SVN_ERR (svn_stream_printf (stream, pool, SVN_REPOS_DUMPFILE_UUID
@@ -1101,7 +1101,7 @@ svn_repos_dump_fs2 (svn_repos_t *repos,
         }
       else
         {
-          SVN_ERR (svn_repos_replay (to_root, dump_editor,
+          SVN_ERR (svn_repos_replay (to_root, dump_editor, 
                                      dump_edit_baton, subpool));
         }
 

@@ -91,7 +91,7 @@ typedef struct report_baton_t
   svn_boolean_t ignore_ancestry;
   svn_boolean_t is_switch;
   const svn_delta_editor_t *editor;
-  void *edit_baton;
+  void *edit_baton; 
   svn_repos_authz_func_t authz_read_func;
   void *authz_read_baton;
 
@@ -203,7 +203,7 @@ read_path_info (path_info_t **pi, apr_file_t *temp, apr_pool_t *pool)
 }
 
 /* Return true if PI's path is a child of PREFIX (which has length PLEN). */
-static svn_boolean_t
+static svn_boolean_t 
 relevant (path_info_t *pi, const char *prefix, apr_size_t plen)
 {
   return (pi && strncmp (pi->path, prefix, plen) == 0 &&
@@ -334,7 +334,7 @@ get_source_root (report_baton_t *b, svn_fs_root_t **s_root, svn_revnum_t rev)
 /* Call the directory property-setting function of B->editor to set
    the property NAME to VALUE on DIR_BATON. */
 static svn_error_t *
-change_dir_prop (report_baton_t *b, void *dir_baton, const char *name,
+change_dir_prop (report_baton_t *b, void *dir_baton, const char *name, 
                  const svn_string_t *value, apr_pool_t *pool)
 {
   return b->editor->change_dir_prop (dir_baton, name, value, pool);
@@ -343,7 +343,7 @@ change_dir_prop (report_baton_t *b, void *dir_baton, const char *name,
 /* Call the file property-setting function of B->editor to set the
    property NAME to VALUE on FILE_BATON. */
 static svn_error_t *
-change_file_prop (report_baton_t *b, void *file_baton, const char *name,
+change_file_prop (report_baton_t *b, void *file_baton, const char *name, 
                   const svn_string_t *value, apr_pool_t *pool)
 {
   return b->editor->change_file_prop (file_baton, name, value, pool);
@@ -389,7 +389,7 @@ delta_proplists (report_baton_t *b, svn_revnum_t s_rev, const char *s_path,
       cdate = apr_hash_get (r_props, SVN_PROP_REVISION_DATE,
                             APR_HASH_KEY_STRING);
       if (cdate || s_path)
-        SVN_ERR (change_fn (b, object, SVN_PROP_ENTRY_COMMITTED_DATE,
+        SVN_ERR (change_fn (b, object, SVN_PROP_ENTRY_COMMITTED_DATE, 
                             cdate, pool));
 
       /* Transmit the last-author. */
@@ -658,7 +658,7 @@ update_entry (report_baton_t *b, svn_revnum_t s_rev, const char *s_path,
   if (t_entry->kind == svn_node_dir)
     {
       if (related)
-        SVN_ERR (b->editor->open_directory (e_path, dir_baton, s_rev, pool,
+        SVN_ERR (b->editor->open_directory (e_path, dir_baton, s_rev, pool, 
                                             &new_baton));
       else
         SVN_ERR (b->editor->add_directory (e_path, dir_baton, NULL,
@@ -705,7 +705,7 @@ delta_dirs (report_baton_t *b, svn_revnum_t s_rev, const char *s_path,
 
   /* Compare the property lists.  If we're starting empty, pass a NULL
      source path so that we add all the properties.
-
+     
      When we support directory locks, we must pass the lock token here. */
   SVN_ERR (delta_proplists (b, s_rev, start_empty ? NULL : s_path, t_path,
                             NULL, change_dir_prop, dir_baton, pool));
@@ -935,13 +935,13 @@ write_path_info (report_baton_t *b, const char *path, const char *lpath,
   /* Munge the path to be anchor-relative, so that we can use edit paths
      as report paths. */
   path = svn_path_join (b->s_operand, path, pool);
-
+  
   lrep = lpath ? APR_PSPRINTF2 (pool, "+%" APR_SIZE_T_FMT ":%s",
                                 strlen(lpath), lpath) : SVN_UTF8_MINUS_STR;
   rrep = (SVN_IS_VALID_REVNUM (rev)) ?
     APR_PSPRINTF2 (pool, "+%ld:", rev) : SVN_UTF8_MINUS_STR;
   ltrep = lock_token ? APR_PSPRINTF2 (pool, "+%" APR_SIZE_T_FMT ":%s",
-                                      strlen(lock_token), lock_token)
+                                      strlen(lock_token), lock_token) 
                      : SVN_UTF8_MINUS_STR;
   rep = APR_PSPRINTF2 (pool, "+%" APR_SIZE_T_FMT ":%s%s%s%c%s",
                        strlen(path), path, lrep, rrep,
@@ -1053,7 +1053,7 @@ svn_repos_begin_report (void **report_baton,
   b->authz_read_baton = authz_read_baton;
 
   SVN_ERR (svn_io_temp_dir (&tempdir, pool));
-  SVN_ERR (svn_io_open_unique_file (&b->tempfile, &dummy,
+  SVN_ERR (svn_io_open_unique_file (&b->tempfile, &dummy, 
                                     APR_PSPRINTF2 (pool, "%s/report",
                                                    tempdir),
                   DOT_TMP_STR, TRUE, pool));
