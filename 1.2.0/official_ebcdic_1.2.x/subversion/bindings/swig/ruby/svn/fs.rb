@@ -36,9 +36,9 @@ module Svn
           end
         end
       end
-
+      
       attr_accessor :pool
-
+      
       def open_txn(name)
         Util.set_pool(@pool) do
           Fs.open_txn(self, name, @pool)
@@ -50,7 +50,7 @@ module Svn
         Util.set_pool(@pool) do
           txn = Fs.begin_txn(self, rev || youngest_rev, @pool)
         end
-
+        
         if block_given?
           yield(txn)
           txn.commit if transactions.include?(txn.name)
@@ -58,7 +58,7 @@ module Svn
           txn
         end
       end
-
+      
       def youngest_rev
         Fs.youngest_rev(self, @pool)
       end
@@ -78,7 +78,7 @@ module Svn
       end
     end
 
-
+    
     Transaction = SWIG::TYPE_p_svn_fs_txn_t
     class Transaction
 
@@ -87,7 +87,7 @@ module Svn
       def name
         Fs.txn_name(self, @pool)
       end
-
+      
       def prop(name)
         Fs.txn_prop(self, name, @pool)
       end
@@ -135,7 +135,7 @@ module Svn
           Fs.root_fs(self)
         end
       end
-
+      
       def node_id(path)
         Fs.node_id(self, path, @pool)
       end
@@ -147,7 +147,7 @@ module Svn
       def node_prop(path, key)
         Fs.node_prop(self, path, key, @pool)
       end
-
+      
       def node_proplist(path)
         Fs.node_proplist(self, path, @pool)
       end
@@ -229,22 +229,22 @@ module Svn
         end
       end
     end
-
-
+    
+    
     Id = SWIG::TYPE_p_svn_fs_id_t
     class Id
       attr_accessor :pool
-
+      
       def to_s
         unparse
       end
-
+      
       def unparse
         Fs.unparse_id(self, pool)
       end
     end
 
-
+    
     class FileDiff
 
       def initialize(root1, path1, root2, path2, pool)
@@ -297,7 +297,7 @@ module Svn
           ""
         end
       end
-
+      
       private
       def dump_contents(tempfile, root, path)
         if root and path

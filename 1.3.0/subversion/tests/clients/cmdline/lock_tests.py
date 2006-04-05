@@ -515,7 +515,7 @@ def defunct_lock(sbox):
 
 
 #----------------------------------------------------------------------
-# Tests dealing with a lock on a deleted path
+# Tests dealing with a lock on a deleted path 
 def deleted_path_lock(sbox):
   "verify lock removal on a deleted path"
 
@@ -625,12 +625,12 @@ def lock_status(sbox):
                        '--password', svntest.main.wc_passwd,
                        '-m', '', file_path)
 
-  svntest.main.run_svn(None, 'lock',
+  svntest.main.run_svn(None, 'lock', 
                        '--username', svntest.main.wc_author,
                        '--password', svntest.main.wc_passwd,
-                       '-m', '', file_path)
+                       '-m', '', file_path) 
 
-  expected_status = svntest.actions.get_virginal_state(wc_dir, 2)
+  expected_status = svntest.actions.get_virginal_state(wc_dir, 2)  
   expected_status.tweak(wc_rev=1)
   expected_status.tweak(fname, wc_rev=2)
   expected_status.tweak(fname, writelocked='K')
@@ -808,7 +808,7 @@ def revert_lock(sbox):
 
   mode = stat.S_IWGRP | stat.S_IWOTH | stat.S_IWRITE
 
-  # set the prop in wc
+  # set the prop in wc 
   svntest.actions.run_and_verify_svn(None, None, [], 'propset',
                                   'svn:needs-lock', 'foo', iota_path)
 
@@ -839,7 +839,7 @@ def revert_lock(sbox):
     print "Deleting the 'svn:needs-lock' property "
     print "did not remove read-only-ness"
     raise svntest.Failure
-
+  
   # revert the change
   svntest.actions.run_and_verify_svn(None, None, [], 'revert', iota_path)
 
@@ -848,7 +848,7 @@ def revert_lock(sbox):
     print "Reverting a file with 'svn:needs-lock'"
     print "did not set the file back to read-only"
     raise svntest.Failure
-
+ 
   # try propdel and revert from a different directory so
   # full filenames are used
   extra_name = 'xx'
@@ -858,7 +858,7 @@ def revert_lock(sbox):
                        '--username', svntest.main.wc_author,
                        '--password', svntest.main.wc_passwd,
                        '-m', '', iota_path)
-
+  
   # modify it
   svntest.main.file_append(iota_path, "This line added\n".encode('utf-8'))
 
@@ -866,7 +866,7 @@ def revert_lock(sbox):
   expected_status.tweak('iota', wc_rev=2)
   expected_status.tweak('iota', status='M ', writelocked='K')
   svntest.actions.run_and_verify_status(wc_dir, expected_status)
-
+  
   # revert it
   svntest.actions.run_and_verify_svn(None, None, [], 'revert', iota_path)
 
@@ -875,7 +875,7 @@ def revert_lock(sbox):
     print "Reverting a 'svn:needs-lock' file (with lock in wc) "
     print "did not leave the file writable"
     raise svntest.Failure
-
+  
 
 #----------------------------------------------------------------------
 def examine_lock_via_url(sbox):
@@ -923,7 +923,7 @@ def lock_several_files(sbox):
                                      '--no-auth-cache',
                                      '-m', 'lock several',
                                      iota_path, lambda_path, alpha_path)
-
+  
   expected_status = svntest.actions.get_virginal_state(wc_dir, 1)
   expected_status.tweak('iota', 'A/B/lambda', 'A/B/E/alpha', writelocked='K')
   svntest.actions.run_and_verify_status(wc_dir, expected_status)
