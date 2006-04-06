@@ -313,7 +313,7 @@ end_propfind(svn_ra_serf__xml_parser_t *parser,
               info->val_len = 0;
             }
         }
-
+   
       if (parser->state->prev->current_state == RESPONSE &&
           strcmp(name.name, "href") == 0)
         {
