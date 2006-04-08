@@ -58,6 +58,11 @@ module Svn
                                                     lock_tokens, keep_lock)
       end
 
+      def commit_editor2(log_msg, lock_tokens={}, keep_lock=false, &callback)
+        editor, editor_baton = Ra.get_commit_editor2(self, log_msg, callback,
+                                                     lock_tokens, keep_lock)
+      end
+
       def file(path, rev=nil)
         output = StringIO.new
         rev ||= latest_revnum
