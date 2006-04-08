@@ -135,9 +135,9 @@ sock_read_cb(void *baton, char *buffer, apr_size_t *len)
 {
   baton_t *sb = baton;
   apr_status_t status;
-  apr_interval_time_t interval;
+  apr_interval_time_t interval; 
   apr_socket_t *sock = sb->d.s;
-
+  
   status = apr_socket_timeout_get(sock, &interval);
   if (status)
     return svn_error_wrap_apr(status, _("Can't get socket timeout"));
