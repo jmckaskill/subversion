@@ -136,7 +136,7 @@ sock_read_cb(void *baton, char *buffer, apr_size_t *len)
   baton_t *sb = baton;
   apr_status_t status;
   apr_socket_t *sock = sb->d.s;
-
+  
   /* Always block on read. */
   apr_socket_timeout_set(sock, -1);
   status = apr_socket_recv(sock, buffer, len);
