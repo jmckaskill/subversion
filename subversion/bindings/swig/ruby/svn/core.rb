@@ -169,7 +169,7 @@ module Svn
 
     Diff = SWIG::TYPE_p_svn_diff_t
     class Diff
-      attr_accessor :original, :modified, :latest
+      attr_accessor :original, :modified, :latest, :ancestor
 
       class << self
         def version
@@ -193,6 +193,19 @@ module Svn
             diff.original = original
             diff.modified = modified
             diff.latest = latest
+          end
+          diff
+        end
+
+        def file_diff4(original, modified, latest, ancestor, options=nil)
+          options ||= Core::DiffFileOptions.new
+          args = [original, modified, latest, ancestor, options]
+          diff = Core.diff_file_diff4_2(*args)
+          if diff
+            diff.original = original
+            diff.modified = modified
+            diff.latest = latest
+            diff.ancestor = ancestor
           end
           diff
         end
