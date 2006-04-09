@@ -631,11 +631,11 @@ ssl_last_error(apr_pool_t *pool)
 {
   unsigned long ssl_error = ERR_get_error();
   char *buffer;
-
+  
   if (ssl_error == 0)
     return strerror(errno);
 
-  buffer = apr_pcalloc(pool, 256);
+  buffer = apr_pcalloc(pool, 256);  
   ERR_error_string_n(ssl_error, buffer, 256);
   return buffer;
 }
