@@ -379,7 +379,7 @@ cdata_merge(svn_ra_serf__xml_parser_t *parser,
 }
 
 #define MERGE_HEADER "<?xml version=\"1.0\" encoding=\"utf-8\"?><D:merge xmlns:D=\"DAV:\"><D:source><D:href>"
-
+ 
 #define MERGE_TRAILER "</D:href></D:source><D:no-auto-merge/><D:no-checkout/><D:prop><D:checked-in/><D:version-name/><D:resourcetype/><D:creationdate/><D:creator-displayname/></D:prop></D:merge>"
 
 static serf_bucket_t*
