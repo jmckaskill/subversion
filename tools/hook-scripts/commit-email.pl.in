@@ -13,7 +13,7 @@
 # $LastChangedRevision$
 #
 # ====================================================================
-# Copyright (c) 2000-2004 CollabNet.  All rights reserved.
+# Copyright (c) 2000-2006 CollabNet.  All rights reserved.
 #
 # This software is licensed as described in the file COPYING, which
 # you should have received as part of this distribution.  The terms
@@ -61,7 +61,7 @@ my $no_diff_added = 0;
 ######################################################################
 
 # Since the path to svnlook depends upon the local installation
-# preferences, check that the required programs exist to insure that
+# preferences, check that the required programs exist to ensure that
 # the administrator has set up the script properly.
 {
   my $ok = 1;
@@ -145,10 +145,6 @@ while (@ARGV)
             $current_project->{match_regex} = $value;
             push(@project_settings_list, $current_project);
           }
-      }
-    elsif ($arg =~ /^-/)
-      {
-        die "$0: command line option `$arg' is not recognized.\n";
       }
     else
       {
