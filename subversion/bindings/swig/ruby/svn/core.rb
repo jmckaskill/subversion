@@ -62,6 +62,11 @@ module Svn
     AuthCredSSLClientCertPw = AuthCredSslClientCertPw
     AuthCredSSLServerTrust = AuthCredSslServerTrust
 
+    dirent_all = 0
+    constants.each do |name|
+      dirent_all |= const_get(name) if /^DIRENT_/ =~ name
+    end
+    DIRENT_ALL = dirent_all
 
     Pool = Svn::Ext::Core::Apr_pool_wrapper_t
 
