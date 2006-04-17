@@ -2,9 +2,9 @@
 #
 #  svnsync_tests.py:  Tests SVNSync's repository mirroring capabilities.
 #
-#  Subversion is a tool for revision control.
+#  Subversion is a tool for revision control. 
 #  See http://subversion.tigris.org for more information.
-#
+#    
 # ====================================================================
 # Copyright (c) 2005 CollabNet.  All rights reserved.
 #
