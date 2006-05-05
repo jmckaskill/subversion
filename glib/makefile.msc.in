@@ -5,7 +5,7 @@
 # should be in your PATH.
 BIN = C:\bin
 
-# This is the location of pthreads for Win32,
+# This is the location of pthreads for Win32, 
 # see http://sourceware.cygnus.com/pthreads-win32/
 # We want the 1999-04-07 snapshot.
 PTHREADS = ..\pthreads-snap-1999-04-07
@@ -124,7 +124,7 @@ testgdateparser.obj : testgdateparser.c
 	$(CC) -c $(CFLAGS) testgdateparser.c
 
 testgmodule.exe : glib-$(GLIB_VER).dll gmodule-$(GLIB_VER).dll testgmodule.obj libgplugin_a.dll libgplugin_b.dll
-	$(CC) $(CFLAGS) testgmodule.obj glib-$(GLIB_VER).lib gmodule-$(GLIB_VER).lib $(LDFLAGS) /subsystem:console
+	$(CC) $(CFLAGS) testgmodule.obj glib-$(GLIB_VER).lib gmodule-$(GLIB_VER).lib $(LDFLAGS) /subsystem:console 
 
 testgmodule.obj : gmodule\testgmodule.c
 	$(CC) $(CFLAGS) -Igmodule -c gmodule\testgmodule.c
@@ -142,7 +142,7 @@ libgplugin_b.obj : gmodule\libgplugin_b.c
 	$(CC) $(CFLAGS) -Igmodule -c gmodule\libgplugin_b.c
 
 testgthread.exe : glib-$(GLIB_VER).dll gthread-$(GLIB_VER).dll testgthread.obj
-	$(CC) $(CFLAGS) testgthread.obj glib-$(GLIB_VER).lib gthread-$(GLIB_VER).lib $(PTHREAD_LIB) $(LDFLAGS) /subsystem:console
+	$(CC) $(CFLAGS) testgthread.obj glib-$(GLIB_VER).lib gthread-$(GLIB_VER).lib $(PTHREAD_LIB) $(LDFLAGS) /subsystem:console 
 
 testgthread.obj : gthread\testgthread.c
 	$(CC) $(CFLAGS) $(PTHREAD_INC) -c gthread\testgthread.c
