@@ -3,32 +3,32 @@
  *
  * ================================================================
  * Copyright (c) 2000 CollabNet.  All rights reserved.
- *
+ * 
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
  * met:
- *
+ * 
  * 1. Redistributions of source code must retain the above copyright
  * notice, this list of conditions and the following disclaimer.
- *
+ * 
  * 2. Redistributions in binary form must reproduce the above copyright
  * notice, this list of conditions and the following disclaimer in the
  * documentation and/or other materials provided with the distribution.
- *
+ * 
  * 3. The end-user documentation included with the redistribution, if
  * any, must include the following acknowlegement: "This product includes
  * software developed by CollabNet (http://www.Collab.Net)."
  * Alternately, this acknowlegement may appear in the software itself, if
  * and wherever such third-party acknowlegements normally appear.
- *
+ * 
  * 4. The hosted project names must not be used to endorse or promote
  * products derived from this software without prior written
  * permission. For written permission, please contact info@collab.net.
- *
+ * 
  * 5. Products derived from this software may not use the "Tigris" name
  * nor may "Tigris" appear in their names without prior written
  * permission of CollabNet.
- *
+ * 
  * THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
  * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -42,7 +42,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * ====================================================================
- *
+ * 
  * This software consists of voluntary contributions made by many
  * individuals on behalf of CollabNet.
  */
@@ -62,7 +62,7 @@
 
 /* The administrative `entries' file tracks information about files
    and subdirs within a particular directory.
-
+   
    See the section on the `entries' file in libsvn_wc/README, for
    concrete information about the XML format.
 */
@@ -110,7 +110,7 @@ svn_wc__entries_init (svn_string_t *path, apr_pool_t *pool)
      version is present in the dir entry. */
   {
     char *verstr = apr_psprintf (pool, "%ld", 0);
-    err = svn_xml_write_tag (f,
+    err = svn_xml_write_tag (f, 
                              pool,
                              svn_xml__self_close_tag,
                              SVN_WC__ENTRIES_ENTRY,
@@ -154,7 +154,7 @@ svn_wc__entries_init (svn_string_t *path, apr_pool_t *pool)
  * version to VERSION.  Also set other XML attributes via varargs:
  * key, value, key, value, etc, terminated by a single NULL.  (The
  * keys are char *'s and values are svn_string_t *'s.)
- *
+ * 
  * If no such ENTRYNAME exists, create it.
  */
 
@@ -201,7 +201,7 @@ get_entry_attributes (const char **atts,
   apr_hash_index_t *hi;
 
   /* Handle version specially. */
-  *version = (svn_vernum_t)
+  *version = (svn_vernum_t) 
     atoi (svn_xml_get_attr_value (SVN_WC__ENTRIES_ATTR_VERSION, atts));
 
   /* Now loop through the requested attributes, setting by reference. */
@@ -209,9 +209,9 @@ get_entry_attributes (const char **atts,
     {
       const char *key;
       size_t keylen;
-      const char *val;
+      const char *val; 
       svn_string_t **receiver;
-
+      
       apr_hash_this (hi, (const void **) &key, &keylen, (void **) &receiver);
       assert (receiver != NULL);
 
@@ -235,7 +235,7 @@ handle_start_tag (void *userData, const char *tagname, const char **atts)
     {
       const char *entry
         = svn_xml_get_attr_value (SVN_WC__ENTRIES_ATTR_NAME, atts);
-
+      
       /* Nulls count as a match, because null represents the dir itself. */
       if (((entry == NULL) && (baton->entryname == NULL))
           || ((entry != NULL)
@@ -281,27 +281,27 @@ handle_start_tag (void *userData, const char *tagname, const char **atts)
         {
           if (baton->outfile)  /* just write it back out unchanged. */
             {
-              err = svn_xml_write_tag_hash
+              err = svn_xml_write_tag_hash 
                 (baton->outfile,
                  baton->pool,
                  svn_xml__self_close_tag,
                  SVN_WC__ENTRIES_ENTRY,
                  svn_xml_make_att_hash (atts, baton->pool));
-
+                                            
               if (err)
                 {
                   svn_xml_signal_bailout (err, baton->parser);
                   return;
                 }
             }
-        }
+        } 
     }
   else  /* This is some tag other than `entry', preserve it unchanged.  */
     {
       if (baton->outfile)
         {
           err = svn_xml_write_tag_hash
-            (baton->outfile,
+            (baton->outfile, 
              baton->pool,
              svn_xml__open_tag,
              tagname,
@@ -329,7 +329,7 @@ handle_end_tag (void *userData, const char *tagname)
             {
               char *verstr
                 = apr_psprintf (baton->pool, "%ld", (long int) baton->version);
-
+              
               err = svn_xml_write_tag (baton->outfile,
                                        baton->pool,
                                        svn_xml__self_close_tag,
@@ -361,7 +361,7 @@ handle_end_tag (void *userData, const char *tagname)
 
 
 /* Code chunk shared by svn_wc__[gs]et_entry()
-
+   
    Parses xml in BATON->infile using BATON as userdata. */
 static svn_error_t *
 do_parse (svn_wc__entry_baton_t *baton)
@@ -388,13 +388,13 @@ do_parse (svn_wc__entry_baton_t *baton)
   do {
     apr_err = apr_full_read (baton->infile, buf, BUFSIZ, &bytes_read);
     if (apr_err && (apr_err != APR_EOF))
-      return svn_error_create
+      return svn_error_create 
         (apr_err, 0, NULL, baton->pool,
          "svn_wc__entry_set: apr_full_read choked");
-
+    
     err = svn_xml_parse (svn_parser, buf, bytes_read, (apr_err == APR_EOF));
     if (err)
-      return svn_error_quick_wrap
+      return svn_error_quick_wrap 
         (err,
          "svn_wc__entry_set:  xml parser failed.");
   } while (apr_err != APR_EOF);
@@ -426,7 +426,7 @@ do_entry (svn_string_t *path,
   apr_file_t *infile = NULL;
   apr_file_t *outfile = NULL;
 
-  svn_wc__entry_baton_t *baton
+  svn_wc__entry_baton_t *baton 
     = apr_pcalloc (pool, sizeof (svn_wc__entry_baton_t));
 
   /* Open current entries file for reading */
@@ -464,7 +464,7 @@ do_entry (svn_string_t *path,
                                 SVN_WC__ADM_ENTRIES, 0, pool);
   if (err)
     return err;
-
+  
   if (setting)
     {
       /* Close the outfile and *sync* it, so it replaces the original
@@ -529,7 +529,7 @@ svn_error_t *svn_wc__entry_remove (svn_string_t *path,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
