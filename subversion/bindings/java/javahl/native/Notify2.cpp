@@ -129,7 +129,7 @@ Notify2::onNotify (
         {
             return;
         }
-        mid = env->GetMethodID(clazz, "onNotify",
+        mid = env->GetMethodID(clazz, "onNotify", 
             "(Lorg/tigris/subversion/javahl/NotifyInformation;)V");
         if(JNIUtil::isJavaExceptionThrown() || mid == 0)
         {
@@ -149,7 +149,7 @@ Notify2::onNotify (
     }
     if(midCT == 0)
     {
-        midCT = env->GetMethodID(clazz, "<init>",
+        midCT = env->GetMethodID(clazz, "<init>", 
             "(Ljava/lang/String;IILjava/lang/String;"
             "Lorg/tigris/subversion/javahl/Lock;Ljava/lang/String;IIIJ)V");
         if(JNIUtil::isJavaExceptionThrown() || mid == 0)
@@ -186,8 +186,8 @@ Notify2::onNotify (
     jint jPropState = EnumMapper::mapNotifyState(wcNotify->prop_state);
     jint jLockState = EnumMapper::mapNotifyLockState(wcNotify->lock_state);
     // call the java method
-    jobject jInfo = env->NewObject(clazz, midCT, jPath, jAction, jKind,
-        jMimeType, jLock, jErr, jContentState, jPropState, jLockState,
+    jobject jInfo = env->NewObject(clazz, midCT, jPath, jAction, jKind, 
+        jMimeType, jLock, jErr, jContentState, jPropState, jLockState, 
         (jlong) wcNotify->revision);
     if(JNIUtil::isJavaExceptionThrown())
     {
