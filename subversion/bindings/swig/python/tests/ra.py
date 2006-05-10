@@ -15,7 +15,7 @@ class SubversionRepositoryTestCase(unittest.TestCase):
     ra.initialize()
 
     self.repos_url = "file://" + pathname2url(REPOS_PATH)
-
+    
     # Open repository directly for cross-checking
     self.repos = repos.open(REPOS_PATH)
     self.fs = repos.fs(self.repos)
