@@ -75,7 +75,7 @@
    handle svn_ra_get_locations()
 */
 %typemap(python,in) apr_array_header_t *location_revisions {
-    $1 = (apr_array_header_t *) svn_swig_py_revnums_to_array($input,
+    $1 = (apr_array_header_t *) svn_swig_py_revnums_to_array($input, 
                                                              _global_pool);
     if ($1 == NULL)
         SWIG_fail;
@@ -123,7 +123,7 @@
   svn_swig_rb_setup_ra_callbacks(&$1, &$2, $input, _global_pool);
 }
 
-%typemap(python, in) (svn_ra_callbacks2_t *callbacks,
+%typemap(python, in) (svn_ra_callbacks2_t *callbacks, 
                       void *callback_baton) {
   svn_swig_py_setup_ra_callbacks(&$1, &$2, $input, _global_pool);
 }
