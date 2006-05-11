@@ -2,9 +2,9 @@
 #
 #  module_tests.py:  testing modules / external sources.
 #
-#  Subversion is a tool for revision control.
+#  Subversion is a tool for revision control. 
 #  See http://subversion.tigris.org for more information.
-#
+#    
 # ====================================================================
 # Copyright (c) 2000-2004 CollabNet.  All rights reserved.
 #
@@ -137,7 +137,7 @@ def externals_test_setup(sbox):
   svntest.actions.run_and_verify_svn("", None, [],
                                      'pset',
                                      '-F', tmp_f, 'svn:externals', C_path)
-
+   
   os.remove(tmp_f)
 
   externals_desc = \
@@ -262,7 +262,7 @@ def update_receive_new_external(sbox):
 
   externals_test_setup(sbox)
   wc_dir         = sbox.wc_dir
-
+  
   other_wc_dir   = sbox.add_wc_path('other')
   repo_dir       = sbox.repo_dir
   repo_url       = sbox.repo_url
@@ -312,7 +312,7 @@ def update_lose_external(sbox):
 
   externals_test_setup(sbox)
   wc_dir         = sbox.wc_dir
-
+  
   other_wc_dir   = sbox.add_wc_path('other')
   repo_dir       = sbox.repo_dir
   repo_url       = sbox.repo_url
@@ -396,7 +396,7 @@ def update_change_pristine_external(sbox):
 
   externals_test_setup(sbox)
   wc_dir         = sbox.wc_dir
-
+  
   other_wc_dir   = sbox.add_wc_path('other')
   repo_dir       = sbox.repo_dir
   repo_url       = sbox.repo_url
@@ -510,7 +510,7 @@ def update_receive_change_under_external(sbox):
 
   externals_test_setup(sbox)
   wc_dir         = sbox.wc_dir
-
+  
   other_wc_dir   = sbox.add_wc_path('other')
   repo_dir       = sbox.repo_dir
   repo_url       = sbox.repo_url
@@ -543,7 +543,7 @@ def update_receive_change_under_external(sbox):
                                         expected_status,
                                         None, None, None, None, None,
                                         other_wc_dir)
-
+  
   # Now update the regular wc to see if we get the change.  Note that
   # none of the module *properties* in this wc have been changed; only
   # the source repository of the modules has received a change, and
@@ -631,7 +631,7 @@ def modify_and_update_receive_new_external(sbox):
   os.chdir(B_path)
   try:
     # Once upon a time there was a core-dump here
-
+    
     svntest.actions.run_and_verify_svn("update failed",
                                        SVNAnyOutput, [], 'up' )
 
