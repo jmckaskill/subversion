@@ -21,7 +21,7 @@ import org.tigris.subversion.lib.*;
 import java.util.Vector;
 
 /**
- * JUnit Testcases
+ * JUnit Testcases 
  *
  * @see NativeWrapper
  * @see org.tigris.subversion.lib
@@ -54,10 +54,10 @@ public class ClientTests extends TestCase
 	    Vector result;
 
 	    result = client.status(path, descend, get_all, update);
-
+	       
 	    assertNotNull( result );
 	}
-
+	    
 }
 
 
