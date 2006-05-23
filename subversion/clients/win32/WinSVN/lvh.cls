@@ -34,31 +34,31 @@ Private Sub InitSGrid()
     With grdFiles
         ' Turn drawaing off for optimization.
         .Redraw = False
-
+        
         .ImageList = fMainForm.imlSGrid.hIml
-
+        
         ' Allow multiple rows to be selected.
         .MultiSelect = True
         ' Make rows selectable as opposed to individual cells.
         .RowMode = True
-
+        
         ' Have a DevStudio 6 looking grid view.
         .HeaderFlat = True
         .HeaderButtons = True
-
+        
         .DisableIcons = False
         .HighlightSelectedIcons = False
         .DrawFocusRectangle = False
-
+        
         .AddColumn "file", "Name", ecgHdrTextALignLeft, , , , , , , , , CCLSortString
         .AddColumn "size", "Size", ecgHdrTextALignLeft
         .AddColumn "date", "Last Modified", ecgHdrTextALignLeft
         .SetHeaders
-
+        
         ' This enables moving the selection based on subsequent keystrokes
         ' in the SGrid.
         .KeySearchColumn = .ColumnIndex("file")
-
+        
         ' Turn drawing back on
         .Redraw = True
     End With
@@ -91,7 +91,7 @@ End Sub
 Public Function FindRow(sCol As String, s As String) As Long
     Dim iCol As Long
     Dim i As Long
-
+    
     iCol = grdFiles.ColumnIndex(sCol)
     For i = 1 To grdFiles.Rows
         If grdFiles.Cell(i, iCol).Key = s Then
@@ -102,16 +102,16 @@ Public Function FindRow(sCol As String, s As String) As Long
     FindRow = -1
 End Function
 Public Sub PopulateSGrid(sPath As String)
-
+    
     Dim fldr As Folder
     Dim f As File
     Dim i As Long
     Dim aStatus() As SVNCOMLib.SVNStatus
     Dim iRow As Long
     Dim IsSVNDir As Boolean
-
+    
     grdFiles.Redraw = False
-
+    
     grdFiles.Clear
     i = 1
     Set fldr = g_fs.GetFolder(sPath)
@@ -144,7 +144,7 @@ Public Sub PopulateSGrid(sPath As String)
                 Else
                    grdFiles.Cell(iRow, grdFiles.ColumnIndex("file")).IconIndex = 4
                 End If
-
+                   
             End If
         Next i
         ' Fixup any icons for files we don't know about
@@ -159,7 +159,7 @@ Public Sub PopulateSGrid(sPath As String)
         g_sListViewPath = sPath
     End If
     grdFiles.Redraw = True
-
+    
 End Sub
 
 
