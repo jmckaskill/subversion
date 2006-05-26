@@ -13,7 +13,7 @@
 </head>
 
 <!--
-  TODO: The license below dates from the old ../doc/design/*.xml files.
+  TODO: The license below dates from the old ../doc/design/*.xml files. 
   It's probably a bit weird for documentation, and especially for HTML
   documentation.  However, let's leave it for now, so that there's a
   clear indication that the design doc is open source.  We can change
@@ -23,32 +23,32 @@
 <!--
   ================================================================
   Copyright (c) 1999-2004 CollabNet.  All rights reserved.
-
+  
   Redistribution and use in source and binary forms, with or without
   modification, are permitted provided that the following conditions are
   met:
-
+  
   1. Redistributions of source code must retain the above copyright
   notice, this list of conditions and the following disclaimer.
-
+  
   2. Redistributions in binary form must reproduce the above copyright
   notice, this list of conditions and the following disclaimer in the
   documentation and/or other materials provided with the distribution.
-
+  
   3. The end-user documentation included with the redistribution, if
   any, must include the following acknowledgment: "This product includes
   software developed by CollabNet (http://www.Collab.Net/)."
   Alternately, this acknowledgment may appear in the software itself, if
   and wherever such third-party acknowledgments normally appear.
-
+  
   4. The hosted project names must not be used to endorse or promote
   products derived from this software without prior written
   permission. For written permission, please contact info@collab.net.
-
+  
   5. Products derived from this software may not use the "Tigris" name
   nor may "Tigris" appear in their names without prior written
   permission of CollabNet.
-
+  
   THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED
   WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
   MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -60,9 +60,9 @@
   IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
   OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
   ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-
+ 
   ====================================================================
-
+  
   This software consists of voluntary contributions made by many
   individuals on behalf of CollabNet.
 -->
@@ -74,7 +74,7 @@
 
 <p class="warningmark"><em>NOTE: This document is out of date.  The
 last substantial update was in October 2002 (r3377).  However, people
-often come here for the section on the
+often come here for the section on the 
 <a href="#server:fs:bubble-up">directory bubble-up method</a>, which
 is still accurate.</em></p>
 
@@ -329,7 +329,7 @@ a compelling reason to be different.</p>
 
   <div class="h3" id="goals:branching-and-tagging" title="goals:branching-and-tagging">
     <h3>Branching and tagging</h3>
-
+  
     <p>Subversion supports branching and tagging with one efficient
       operation: `clone'.  To clone a tree is to copy it, to create another
       tree exactly like it (except that the new tree knows its ancestry
@@ -993,15 +993,15 @@ a compelling reason to be different.</p>
 </pre>
 
 <!--
-  Heh, what about this:
+  Heh, what about this: 
 
-    B:3 adds line 3, with the text "foo".
-    B:5 deletes line 3.
-    B:7 adds line 3, with the text "foo".
-    B:9 deletes line 3.
+    B:3 adds line 3, with the text "foo". 
+    B:5 deletes line 3. 
+    B:7 adds line 3, with the text "foo". 
+    B:9 deletes line 3. 
 
   The user first merges B:5 and B:9 into A.  If A had that line, it goes away
-  now, nothing more.
+  now, nothing more. 
 
   Next, user merges B:3 and B:7 into A.  The second merge must conflict.
 
@@ -1165,7 +1165,7 @@ a compelling reason to be different.</p>
           arbitrary directory trees, the way a traditional patch describes the
           difference between two files.  For example, the delta between
           directories A and B could be applied to A, to produce B.</p>
-
+        
         <p>Tree deltas can also carry ancestry information, indicating how
           the files in one tree are related to files in the other tree.  And
           deltas can describe changes to file meta-information, like permission
@@ -1244,7 +1244,7 @@ a compelling reason to be different.</p>
 
   <div class="h3" id="deltas:prop" title="deltas:prop">
     <h3>Property Deltas</h3>
-
+    
     <p>A property delta describes changes to a property list, of the sort
       associated with files, directories, and directory entries, and revision
       numbers (see <a href="#model:props">model:props</a>).  A property delta can record
@@ -1412,7 +1412,7 @@ a compelling reason to be different.</p>
             describing how <em>f</em>'s properties differ
             from that ancestor; it may be omitted, indicating that the
             properties are unchanged.</p>
-
+          
           <p><em>Text-delta</em> is a text delta
             describing how to construct <em>f</em> from that
             ancestor; it may also be omitted, indicating that
@@ -1435,12 +1435,12 @@ a compelling reason to be different.</p>
             <em>Ancestor</em> indicates which directory in
             the source tree <em>sub</em> is derived from, if
             any.</p>
-
+            
           <p><em>Prop-delta</em> is a property delta
             describing how <em>sub</em>'sproperties differ
             from that ancestor; it may be omitted, indicating thatthe
             properties are unchanged.</p>
-
+            
           <p><em>Tree-delta</em>
             describes how to construct <em>sub</em> from
             that ancestor; it may be omitted, indicating that the directory is
@@ -1448,7 +1448,7 @@ a compelling reason to be different.</p>
             should be interpreted with a new
             <em>target-dir</em> of
             <tt><em>target-dir</em>/<em>name</em></tt>.</p>
-
+            
           <p>Since <em>tree-delta</em> is itself a
             complete tree delta structure, tree deltas are themselves trees,
             whose structure is a subgraph of the target tree.</p></dd>
@@ -1681,9 +1681,9 @@ a compelling reason to be different.</p>
       <li><p>the new directory <tt>/dir1/dir4</tt> is
           derived from the old <tt>/dir1/dir2</tt>, except that its
           entry for <tt>file3</tt> is now gone.</p></li>
-
+    
     </ul>
-
+    
     <p>Some more possible maneuvers, left as exercises for the
       reader:</p>
 
@@ -1934,7 +1934,7 @@ a compelling reason to be different.</p>
           <literal>editor-&gt;close_dir(root_baton);</literal></p></li>
 
     </ol>
-
+    
     <p>Of course, at any point above, the repository may reject an edit.  If
       this is the case, the client aborts the transmission and the repository
       hasn't changed a bit.  (Thank goodness for transactions!)</p>
@@ -2058,11 +2058,11 @@ a compelling reason to be different.</p>
           <li><p>A <tt>format</tt> file, which indicates
               which version of the working copy adm format this is (so future
               clients can be backwards compatibleeasily).</p></li>
-
+          
           <li><p>A <tt>text-base</tt> directory,
               containing the pristine repository revisions of the files in the
               corresponding working directory</p></li>
-
+          
           <li><p>An <tt>entries</tt> file, which holds
               revision numbers and other information for this directory and its
               files, and records the presence of subdirs.  It also contains the
@@ -2106,12 +2106,12 @@ a compelling reason to be different.</p>
       <h4>The working copy management library</h4>
 
       <ul>
-        <li><p><emphasis role="bold">Requires:</em>
+        <li><p><emphasis role="bold">Requires:</em>  
           <ul>
             <li><p>a working copy</p></li>
           </ul>
         </p></li>
-        <li><p><emphasis role="bold">Provides:</em>
+        <li><p><emphasis role="bold">Provides:</em>  
           <ul>
             <li><p>ability to manipulate the working copy's versioned
                 data</p></li>
@@ -2134,13 +2134,13 @@ a compelling reason to be different.</p>
     <h3>The repository access library</h3>
 
     <ul>
-      <li><p><emphasis role="bold">Requires:</em>
+      <li><p><emphasis role="bold">Requires:</em>  
         <ul>
           <li><p>network access to a Subversion
               server</p></li>
         </ul>
       </p></li>
-      <li><p><emphasis role="bold">Provides:</em>
+      <li><p><emphasis role="bold">Provides:</em>  
         <ul>
           <li><p>the ability to interact with a
               repository</p></li>
@@ -2164,15 +2164,15 @@ a compelling reason to be different.</p>
 
   <div class="h3" id="client:libsvn_client" title="client:libsvn_client">
     <h3>The client operation library</h3>
-
+    
     <ul>
-      <li><p><emphasis role="bold">Requires:</em>
+      <li><p><emphasis role="bold">Requires:</em>  
         <ul>
           <li><p>the working copy management library</p></li>
           <li><p>a repository access library</p></li>
         </ul>
       </p></li>
-      <li><p><emphasis role="bold">Provides:</em>
+      <li><p><emphasis role="bold">Provides:</em>  
         <ul>
           <li><p>all client-side Subversion commands</p></li>
         </ul>
@@ -2246,13 +2246,13 @@ a compelling reason to be different.</p>
     <div class="h4" id="server:fs:overview" title="server:fs:overview">
       <h4>Filesystem Overview</h4>
       <ul>
-        <li><p><emphasis role="bold">Requires:</em>
+        <li><p><emphasis role="bold">Requires:</em>  
           <ul>
             <li><p>some writable disk space</p></li>
             <li><p>(for now) Berkeley DB library</p></li>
           </ul>
         </p></li>
-        <li><p><emphasis role="bold">Provides:</em>
+        <li><p><emphasis role="bold">Provides:</em>  
           <ul>
             <li><p>a repository for storing files</p></li>
             <li><p>concurrent client transactions</p></li>
@@ -2868,7 +2868,7 @@ a compelling reason to be different.</p>
 
       <div class="h5" id="server:fs:struct:diffy-storage" title="server:fs:struct:diffy-storage">
         <h5>Diffy Storage</h5>
-
+          
         <p>You may have been thinking, &ldquo;Gee, this bubble up method
           seems nice, but it sure wastes a lot of space.  Every commit to the
           repository creates an entire line of new directory
