@@ -16,7 +16,7 @@ Candidate changes:
       Minor issue, non-intrusive fix.
     Votes:
       +1: rooneg, lundblad
-
+ 
   * r19841
     Check cmdline arguments and report errors in svn-backup-dumps.py.
     The tool showed a python backtrace instead of a useful error message.
@@ -24,5 +24,5 @@ Candidate changes:
       Not everyone can interpret a python backtrace.
     Votes:
       +1: mf
-
+      
 Approved changes:
