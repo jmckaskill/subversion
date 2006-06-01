@@ -140,7 +140,7 @@ static svn_boolean_t okay_to_bump_path (const char *path,
   /* Otherwise, this path is bumpable IFF one of its parents is in the
      hash and marked with a 'recursion' flag. */
   parent_path = svn_stringbuf_create (path, pool);
-
+  
   do {
     apr_size_t len = parent_path->len;
     svn_path_remove_component (parent_path);
@@ -161,7 +161,7 @@ static svn_boolean_t okay_to_bump_path (const char *path,
 
 /* If committed PATH appears in MC->valid_targets, and an MC->push_prop
  * function exists, then store VSN_URL as the SVN_RA_DAV__LP_VSN_URL
- * property on PATH.  Use POOL for all allocations.
+ * property on PATH.  Use POOL for all allocations. 
  *
  * Otherwise, just return SVN_NO_ERROR.
  */
@@ -550,7 +550,7 @@ svn_error_t * svn_ra_dav__assemble_locktoken_body(svn_stringbuf_t **body,
   apr_size_t buf_size;
   const char *closing_tag = "</S:lock-token-list>";
   apr_size_t closing_tag_size = strlen(closing_tag);
-  svn_stringbuf_t *lockbuf =
+  svn_stringbuf_t *lockbuf = 
     svn_stringbuf_create
     ("<S:lock-token-list xmlns:S=\"" SVN_XML_NAMESPACE "\">", pool);
 
@@ -568,7 +568,7 @@ svn_error_t * svn_ra_dav__assemble_locktoken_body(svn_stringbuf_t **body,
 #define SVN_LOCK_TOKEN_LEN sizeof(SVN_LOCK_TOKEN)-1
 #define SVN_LOCK_TOKEN_CLOSE "</S:lock-token>"
 #define SVN_LOCK_TOKEN_CLOSE_LEN sizeof(SVN_LOCK_TOKEN_CLOSE)-1
-
+  
   /* First, figure out how much string data we're talking about,
      and allocate a stringbuf big enough to hold it all... we *never*
      want have the stringbuf do an auto-reallocation.  */
@@ -577,9 +577,9 @@ svn_error_t * svn_ra_dav__assemble_locktoken_body(svn_stringbuf_t **body,
       const void *key;
       void *val;
       apr_ssize_t klen;
-
+      
       apr_hash_this(hi, &key, &klen, &val);
-
+      
       buf_size += SVN_LOCK_LEN;
       buf_size += SVN_LOCK_PATH_LEN;
       buf_size += klen;
@@ -589,11 +589,11 @@ svn_error_t * svn_ra_dav__assemble_locktoken_body(svn_stringbuf_t **body,
       buf_size += SVN_LOCK_TOKEN_CLOSE_LEN;
       buf_size += SVN_LOCK_CLOSE_LEN;
     }
-
+  
   buf_size += closing_tag_size;
-
+  
   svn_stringbuf_ensure(lockbuf, buf_size + 1);
-
+  
   /* Now append all the hash's keys and values into the stringbuf.
      This is better than doing apr_pstrcat() in a loop, because
      (1) there's no need to constantly re-alloc, and (2) the
@@ -603,9 +603,9 @@ svn_error_t * svn_ra_dav__assemble_locktoken_body(svn_stringbuf_t **body,
     {
       const void *key;
       void *val;
-
+      
       apr_hash_this(hi, &key, NULL, &val);
-
+      
       svn_stringbuf_appendcstr(lockbuf, SVN_LOCK);
       svn_stringbuf_appendcstr(lockbuf, SVN_LOCK_PATH);
       svn_stringbuf_appendcstr(lockbuf, key);
@@ -615,7 +615,7 @@ svn_error_t * svn_ra_dav__assemble_locktoken_body(svn_stringbuf_t **body,
       svn_stringbuf_appendcstr(lockbuf, SVN_LOCK_TOKEN_CLOSE);
       svn_stringbuf_appendcstr(lockbuf, SVN_LOCK_CLOSE);
     }
-
+  
   svn_stringbuf_appendcstr(lockbuf, closing_tag);
 
 #undef SVN_LOCK
@@ -671,7 +671,7 @@ svn_error_t * svn_ra_dav__merge_activity(
   mc.committed_date = MAKE_BUFFER(pool);
   mc.last_author = MAKE_BUFFER(pool);
 
-  if (disable_merge_response
+  if (disable_merge_response 
       || (! keep_locks))
     {
       const char *value;
@@ -681,7 +681,7 @@ svn_error_t * svn_ra_dav__merge_activity(
                               SVN_DAV_OPTION_NO_MERGE_RESPONSE : "",
                            keep_locks ?
                               "" : SVN_DAV_OPTION_RELEASE_LOCKS);
-
+      
       if (! extra_headers)
         extra_headers = apr_hash_make(pool);
       apr_hash_set (extra_headers, SVN_DAV_OPTIONS_HEADER, APR_HASH_KEY_STRING,
@@ -712,7 +712,7 @@ svn_error_t * svn_ra_dav__merge_activity(
                                              validate_element, start_element,
                                              end_element, &mc, extra_headers,
                                              NULL, FALSE, pool) );
-
+  
   /* is there an error stashed away in our context? */
   if (mc.err != NULL)
     return mc.err;
@@ -724,7 +724,7 @@ svn_error_t * svn_ra_dav__merge_activity(
     *committed_date = mc.committed_date->len
                       ? apr_pstrdup(pool, mc.committed_date->data) : NULL;
   if (committed_author)
-    *committed_author = mc.last_author->len
+    *committed_author = mc.last_author->len 
                         ? apr_pstrdup(pool, mc.last_author->data) : NULL;
 
   svn_pool_destroy(mc.scratchpool);

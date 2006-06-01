@@ -1300,7 +1300,7 @@ public class BasicTests extends SVNTests
         // create the working copy
         OneTest thisTest = new OneTest();
         assertEquals("wrong version info","1",
-                client.getVersionInfo(thisTest.getWCPath(), null, false));
+                client.getVersionInfo(thisTest.getWCPath(), null, false));        
     }
 
     /**
@@ -1342,7 +1342,7 @@ public class BasicTests extends SVNTests
     }
 
     /**
-     * test the baisc SVNClient.info2 functionality
+     * test the baisc SVNClient.info2 functionality 
      * @throws Throwable
      * @since 1.2
      */
