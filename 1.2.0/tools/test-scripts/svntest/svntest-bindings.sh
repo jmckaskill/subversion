@@ -51,8 +51,8 @@ test "$TEST_BINDINGS_SWIG_PYTHON" = "yes" && {
     then
         cat >> "$LOG_FILE_DIR/LOG_${BINDING_NAME}.$BUILD_TYPE" <<EOF
 
-Hey!  My friends have got beautiful and shining unit tests,
-but I have been left out in the cold. This is soooo unfair!
+Hey!  My friends have got beautiful and shining unit tests, 
+but I have been left out in the cold. This is soooo unfair! 
 
 EOF
         send_bindings_email "$BINDING_NAME" "PASS"

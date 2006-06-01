@@ -13,7 +13,7 @@ CVS_UPDATE_REGEXP_2='^[UPARMC] [A-Za-z]'
 
 #
 # If update status file contains already
-# '0' (== don't rebuild) then update value,
+# '0' (== don't rebuild) then update value, 
 # otherwise, honor current 'rebuild needed' (1)
 # value, and don't update it because
 # current rebuild value could be '0'
@@ -28,8 +28,8 @@ UPDATE_REBUILD_FLAG () {
     $GREP -v "$CVS_UPDATE_REGEXP_1" "$CVS_UP_LOGFILE" \
 	| $GREP -q "$CVS_UPDATE_REGEXP_2" > /dev/null 2>&1
     CVS_UP_STATUS="$?"
-
-    if test ! -f "$RB_FILE"
+    
+    if test ! -f "$RB_FILE" 
     then
         echo "1" > "$RB_FILE"
     elif test 0 -eq `$CAT "$RB_FILE"`

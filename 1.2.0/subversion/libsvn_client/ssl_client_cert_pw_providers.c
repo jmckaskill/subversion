@@ -128,7 +128,7 @@ ssl_client_cert_pw_prompt_first_cred (void **credentials_p,
   ssl_client_cert_pw_prompt_provider_baton_t *pb = provider_baton;
   ssl_client_cert_pw_prompt_iter_baton_t *ib =
     apr_pcalloc (pool, sizeof (*ib));
-  const char *no_auth_cache = apr_hash_get (parameters,
+  const char *no_auth_cache = apr_hash_get (parameters, 
                                             SVN_AUTH_PARAM_NO_AUTH_CACHE,
                                             APR_HASH_KEY_STRING);
 
@@ -154,7 +154,7 @@ ssl_client_cert_pw_prompt_next_cred (void **credentials_p,
                                      apr_pool_t *pool)
 {
   ssl_client_cert_pw_prompt_iter_baton_t *ib = iter_baton;
-  const char *no_auth_cache = apr_hash_get (parameters,
+  const char *no_auth_cache = apr_hash_get (parameters, 
                                             SVN_AUTH_PARAM_NO_AUTH_CACHE,
                                             APR_HASH_KEY_STRING);
 

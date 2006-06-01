@@ -67,7 +67,7 @@ typedef struct svn_ra_local__session_baton_t
 
 /** Private routines **/
 
-
+    
 
 
 /* Given a `file://' URL, figure out which portion specifies a
