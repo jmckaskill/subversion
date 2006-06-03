@@ -17,7 +17,7 @@ package org.tigris.subversion.lib;
  *
  */
 
-public final class Schedule
+public final class Schedule 
 {
     /**
      * IMPORTANT: KEEP THIS IN SYNC WITH THE
@@ -30,7 +30,7 @@ public final class Schedule
 
     private final int schedule;
 
-    public Schedule(int _schedule)
+    public Schedule(int _schedule) 
 	{
 	    super();
 	    schedule = _schedule;
