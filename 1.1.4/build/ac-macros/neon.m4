@@ -9,15 +9,15 @@ dnl   url is the URL of the latest version of Neon.
 dnl
 dnl   If a --with-neon=PREFIX option is passed search for a suitable
 dnl   neon installed on the system whose configuration can be found in
-dnl   PREFIX/bin/neon-config.  In this case ignore any neon/ subdir
+dnl   PREFIX/bin/neon-config.  In this case ignore any neon/ subdir 
 dnl   within the source tree.
 dnl
 dnl   If no --with-neon option is passed look first for a neon/ subdir.
-dnl   If a neon/ subdir exists and is the wrong version exit with a
+dnl   If a neon/ subdir exists and is the wrong version exit with a 
 dnl   failure.  If no neon/ subdir is present search for a neon installed
 dnl   on the system.
 dnl
-dnl   If the search for neon fails, set svn_lib_neon to no, otherwise set
+dnl   If the search for neon fails, set svn_lib_neon to no, otherwise set 
 dnl   it to yes.
 
 AC_DEFUN(SVN_LIB_NEON,
@@ -29,9 +29,9 @@ AC_DEFUN(SVN_LIB_NEON,
   AC_MSG_NOTICE([checking neon library])
 
   AC_ARG_WITH(neon,
-              AC_HELP_STRING([--with-neon=PREFIX],
-	      [Determine neon library configuration based on
-	      'PREFIX/bin/neon-config'. Default is to search for neon
+              AC_HELP_STRING([--with-neon=PREFIX], 
+	      [Determine neon library configuration based on 
+	      'PREFIX/bin/neon-config'. Default is to search for neon 
 	      in a subdirectory of the top source directory and then to
 	      look for neon-config in $PATH.]),
   [
@@ -57,7 +57,7 @@ AC_DEFUN(SVN_LIB_NEON,
 dnl Configure neon --------------------------
           # The arguments passed to this configure script are passed down to
           # neon's configure script, but, since neon defaults to *not* building
-          # shared libs, and we default to building shared libs, we have to
+          # shared libs, and we default to building shared libs, we have to 
           # explicitly pass down an --{enable,disable}-shared argument, to make
           # sure neon does the same as we do.
           if test "$enable_shared" = "yes"; then
@@ -67,7 +67,7 @@ dnl Configure neon --------------------------
           fi
 
           # If we have apr-util and it's bundled expat, we can point neon
-          # there, otherwise, neon is on its own to find expat.
+          # there, otherwise, neon is on its own to find expat. 
           if test -f "$abs_builddir/apr-util/xml/expat/lib/expat.h" ; then
             args="$args --with-expat='$abs_builddir/apr-util/xml/expat/lib/libexpat.la'"
           fi
@@ -105,7 +105,7 @@ dnl Configure neon --------------------------
     fi
 
   ])
-
+  
   AC_SUBST(SVN_NEON_INCLUDES)
   AC_SUBST(NEON_LIBS)
 ])

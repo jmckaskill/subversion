@@ -28,7 +28,7 @@ test_parse_peg_rev (const char **msg,
                     svn_boolean_t msg_only,
                     svn_test_opts_t *opts,
                     apr_pool_t *pool)
-{
+{      
   apr_size_t i;
   static struct {
       const char *input;
@@ -37,7 +37,7 @@ test_parse_peg_rev (const char **msg,
   } const tests[] = {
 #if APR_CHARSET_EBCDIC
 #pragma convert(1208)
-#endif
+#endif 
     { "foo/bar",              "foo/bar",      {svn_opt_revision_unspecified} },
     { "foo/bar@13",           "foo/bar",      {svn_opt_revision_number, {13}} },
     { "foo/bar@HEAD",         "foo/bar",      {svn_opt_revision_head} },
@@ -54,7 +54,7 @@ test_parse_peg_rev (const char **msg,
     { "foo@HEAD/bar",         "foo@HEAD/bar", {svn_opt_revision_unspecified} },
 #if APR_CHARSET_EBCDIC
 #pragma convert(37)
-#endif
+#endif 
   };
 
   *msg = "test svn_opt_parse_path";
@@ -91,14 +91,14 @@ test_parse_peg_rev (const char **msg,
                "svn_opt_parse_path ('%s') returned '%s' instead of '%s'", tests[i].input,
 #if APR_CHARSET_EBCDIC
 #pragma convert(1208)
-#endif
+#endif 
                path ? path : "NULL", tests[i].path ? tests[i].path : "NULL");
 #if APR_CHARSET_EBCDIC
 #pragma convert(37)
-#endif
+#endif 
         }
     }
-
+  
   return SVN_NO_ERROR;
 }
 

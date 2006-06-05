@@ -80,7 +80,7 @@ extern "C" {
 #define SVN_WC__LOG_SET_TIMESTAMP       "set-timestamp"
 
 
-/* Handle closure after a commit completes successfully:
+/* Handle closure after a commit completes successfully:  
  *
  *   If SVN/tmp/text-base/SVN_WC__LOG_ATTR_NAME exists, then
  *      compare SVN/tmp/text-base/SVN_WC__LOG_ATTR_NAME with working file
@@ -142,7 +142,7 @@ extern "C" {
 const char *svn_wc__logfile_path (int log_number,
                                   apr_pool_t *pool);
 
-/* Process the instructions in the log file for ADM_ACCESS.
+/* Process the instructions in the log file for ADM_ACCESS. 
    DIFF3_CMD is the external differ used by the 'SVN_WC__LOG_MERGE'
    log entry.  It is always safe to pass null for this.
 

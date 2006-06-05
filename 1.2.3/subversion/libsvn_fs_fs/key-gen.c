@@ -91,7 +91,7 @@ svn_fs_fs__putsize (char *data, apr_size_t len, apr_size_t value)
   apr_size_t i = 0;
 
   /* Generate the digits, least-significant first.  */
-  do
+  do 
     {
       if (i >= len)
         return 0;
@@ -139,12 +139,12 @@ svn_fs_fs__add_keys (const char *key1, const char *key2, char *result)
                (key1[i1] - SVN_UTF8_a + 10);
 
       if (i2>=0)
-        val += (key2[i2] <= SVN_UTF8_9) ? (key2[i2] - SVN_UTF8_0) :
+        val += (key2[i2] <= SVN_UTF8_9) ? (key2[i2] - SVN_UTF8_0) : 
                (key2[i2] - SVN_UTF8_a + 10);
 
       carry = val / 36;
       val = val % 36;
-
+      
       buf[i3++] = (val <= 9) ? (val + SVN_UTF8_0) : (val - 10 + SVN_UTF8_a);
 
       if (i1>=0)
@@ -159,7 +159,7 @@ svn_fs_fs__add_keys (const char *key1, const char *key2, char *result)
 
   result[i1] = '\0';
 }
-
+      
 
 const char NEXT_KEY_KEY[] = "\x6e\x65\x78\x74\x2d\x6b\x65\x79"; /* "next-key" */
 
@@ -173,20 +173,20 @@ svn_fs_fs__next_key (const char *this, apr_size_t *len, char *next)
   svn_boolean_t carry = TRUE; /* boolean: do we have a carry or not?
                                  We start with a carry, because we're
                                  incrementing the number, after all. */
-
+  
   /* Leading zeros are not allowed, except for the string "0". */
   if ((*len > 1) && (this[0] == SVN_UTF8_0))
     {
       *len = 0;
       return;
     }
-
+  
   for (i = (olen - 1); i >= 0; i--)
     {
       c = this[i];
 
       /* Validate as we go. */
-      if (! (((c >= SVN_UTF8_0) && (c <= SVN_UTF8_9)) ||
+      if (! (((c >= SVN_UTF8_0) && (c <= SVN_UTF8_9)) || 
              ((c >= SVN_UTF8_a) && (c <= SVN_UTF8_z))))
         {
           *len = 0;
@@ -200,7 +200,7 @@ svn_fs_fs__next_key (const char *this, apr_size_t *len, char *next)
           else
             {
               carry = FALSE;
-
+              
               if (c == SVN_UTF8_9)
                 next[i] = SVN_UTF8_a;
               else
