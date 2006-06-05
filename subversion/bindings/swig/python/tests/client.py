@@ -53,7 +53,7 @@ class SubversionClientTestCase(unittest.TestCase):
     # because you can't get a PyObject back out of a PY_AS_VOID field
     test_object1 = lambda *args: "message 1"
     test_object2 = lambda *args: "message 2"
-
+    
     # Verify that the refcount of a Python object is incremented when
     # you insert it into a PY_AS_VOID field.
     temp_client_ctx.log_msg_baton2 = test_object1
@@ -64,7 +64,7 @@ class SubversionClientTestCase(unittest.TestCase):
     # when a PY_AS_VOID field is replaced.
     temp_client_ctx.log_msg_baton2 = test_object2
     self.assertEqual(test_object1(), None)
-
+  
     # Verify that the reference count of the new Python object (which
     # replaced test_object1) was incremented.
     test_object2 = weakref.ref(test_object2)
@@ -94,7 +94,7 @@ class SubversionClientTestCase(unittest.TestCase):
   def test_mkdir_url(self):
     """Test svn_client_mkdir2 on a file:// URL"""
     dir = urljoin(self.repos_url+"/", "dir1")
-
+    
     commit_info = client.mkdir2((dir,), self.client_ctx)
     self.assertEqual(commit_info.revision, 13)
     self.assertEqual(self.log_message_func_calls, 1)
@@ -109,7 +109,7 @@ class SubversionClientTestCase(unittest.TestCase):
     client.log3((dir,), start, start, end, 1, True, False, self.log_receiver,
         self.client_ctx)
     self.assertEqual(self.change_author, "john")
-    self.assertEqual(self.log_message, "More directories.")
+    self.assertEqual(self.log_message, "More directories.")    
     self.assertEqual(len(self.changed_paths), 3)
     for dir in ('/trunk/dir1', '/trunk/dir2', '/trunk/dir3'):
       self.assertTrue(self.changed_paths.has_key(dir))
