@@ -107,10 +107,10 @@ libgthread_la_LDFLAGS =  	-version-info $(LT_CURRENT):$(LT_REVISION):$(LT_AGE) 	
 libgthread_la_LIBADD = @G_THREAD_LIBS@
 
 noinst_PROGRAMS = testgthread
-testgthread_LDADD = ../libglib.la libgthread.la
+testgthread_LDADD = ../libglib.la libgthread.la 
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
 CONFIG_HEADER = ../config.h
-CONFIG_CLEAN_FILES =
+CONFIG_CLEAN_FILES = 
 LTLIBRARIES =  $(lib_LTLIBRARIES)
 
 
@@ -118,14 +118,14 @@ DEFS = @DEFS@ -I. -I$(srcdir) -I..
 CPPFLAGS = @CPPFLAGS@
 LDFLAGS = @LDFLAGS@
 LIBS = @LIBS@
-libgthread_la_DEPENDENCIES =
+libgthread_la_DEPENDENCIES = 
 libgthread_la_OBJECTS =  gthread.lo
 PROGRAMS =  $(noinst_PROGRAMS)
 
 testgthread_SOURCES = testgthread.c
 testgthread_OBJECTS =  testgthread.o
 testgthread_DEPENDENCIES =  ../libglib.la libgthread.la
-testgthread_LDFLAGS =
+testgthread_LDFLAGS = 
 CFLAGS = @CFLAGS@
 COMPILE = $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
 LTCOMPILE = $(LIBTOOL) --mode=compile $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
@@ -144,7 +144,7 @@ OBJECTS = $(libgthread_la_OBJECTS) testgthread.o
 all: all-redirect
 .SUFFIXES:
 .SUFFIXES: .S .c .lo .o .s
-$(srcdir)/Makefile.in: @MAINTAINER_MODE_TRUE@ Makefile.am $(top_srcdir)/configure.in $(ACLOCAL_M4)
+$(srcdir)/Makefile.in: @MAINTAINER_MODE_TRUE@ Makefile.am $(top_srcdir)/configure.in $(ACLOCAL_M4) 
 	cd $(top_srcdir) && $(AUTOMAKE) --gnu --include-deps gthread/Makefile
 
 Makefile: $(srcdir)/Makefile.in  $(top_builddir)/config.status
