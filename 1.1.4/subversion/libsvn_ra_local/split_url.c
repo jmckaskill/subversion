@@ -33,12 +33,12 @@
 #define FILE_PREFIX_STR \
         "\x66\x69\x6c\x65\x3a\x2f\x2f"
         /* "file://" */
-
+        
 #define LOCALHOST_STR \
         "\x6c\x6f\x63\x61\x6c\x68\x6f\x73\x74"
-        /* "localhost" */
+        /* "localhost" */        
 
-
+        
 svn_error_t *
 svn_ra_local__split_URL (svn_repos_t **repos,
                          const char **repos_url,
@@ -55,10 +55,10 @@ svn_ra_local__split_URL (svn_repos_t **repos,
 
   /* First, check for the "file://" prefix. */
   if (strncmp (URL, FILE_PREFIX_STR, 7) != 0)
-    return svn_error_createf
-      (SVN_ERR_RA_ILLEGAL_URL, NULL,
+    return svn_error_createf 
+      (SVN_ERR_RA_ILLEGAL_URL, NULL, 
        _("Local URL '%s' does not contain 'file://' prefix"), URL);
-
+  
   /* Then, skip what's between the "file://" prefix and the next
      occurance of '/' -- this is the hostname, and we are considering
      everything from that '/' until the end of the URL to be the
@@ -66,8 +66,8 @@ svn_ra_local__split_URL (svn_repos_t **repos,
   hostname = URL + 7;
   path = strchr (hostname, SVN_UTF8_FSLASH);
   if (! path)
-    return svn_error_createf
-      (SVN_ERR_RA_ILLEGAL_URL, NULL,
+    return svn_error_createf 
+      (SVN_ERR_RA_ILLEGAL_URL, NULL, 
        _("Local URL '%s' contains only a hostname, no path"), URL);
 
   /* Currently, the only hostnames we are allowing are the empty
@@ -78,7 +78,7 @@ svn_ra_local__split_URL (svn_repos_t **repos,
                                                      path - hostname), pool);
         if ((strncmp (hostname, LOCALHOST_STR, 9) != 0))
           return svn_error_createf
-            (SVN_ERR_RA_ILLEGAL_URL, NULL,
+            (SVN_ERR_RA_ILLEGAL_URL, NULL, 
              _("Local URL '%s' contains unsupported hostname"), URL);
     }
 
@@ -119,14 +119,14 @@ svn_ra_local__split_URL (svn_repos_t **repos,
   /* Search for a repository in the full path. */
   repos_root = svn_repos_find_root_path(repos_root, pool);
   if (!repos_root)
-    return svn_error_createf
+    return svn_error_createf 
       (SVN_ERR_RA_LOCAL_REPOS_OPEN_FAILED, NULL,
        _("Unable to open repository '%s'"), URL);
 
   /* Attempt to open a repository at URL. */
   err = svn_repos_open (repos, repos_root, pool);
   if (err)
-    return svn_error_createf
+    return svn_error_createf 
       (SVN_ERR_RA_LOCAL_REPOS_OPEN_FAILED, err,
        _("Unable to open repository '%s'"), URL);
 

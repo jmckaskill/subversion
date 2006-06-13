@@ -286,7 +286,7 @@ svn_fs_fs__id_parse (const char *data,
 #else
       if (svn_utf_cstring_from_utf8 (&str_native, str, pool))
         str_native = str;
-      pvt->rev = SVN_STR_TO_REV (str_native);
+      pvt->rev = SVN_STR_TO_REV (str_native);      
 #endif
 
       str = apr_strtok (NULL, SVN_UTF8_FSLASH_STR, &last_str);
@@ -294,7 +294,7 @@ svn_fs_fs__id_parse (const char *data,
         return NULL;
 #if APR_CHARSET_EBCDIC
       if (!svn_utf_cstring_from_utf8 (&str_native, str, pool))
-        str = str_native;
+        str = str_native;    
 #endif
       pvt->offset = apr_atoi64 (str);
     }

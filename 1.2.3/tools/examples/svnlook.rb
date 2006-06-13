@@ -57,7 +57,7 @@ class SvnLook
   def cmd_changed
     print_tree(ChangedEditor, nil, true)
   end
-
+  
   def cmd_date
     if @txn
       puts
@@ -75,15 +75,15 @@ class SvnLook
   def cmd_diff
     print_tree(DiffEditor, nil, true)
   end
-
+  
   def cmd_dirs_changed
     print_tree(DirsChangedEditor)
   end
-
+  
   def cmd_ids
     print_tree(Editor, 0, true)
   end
-
+  
   def cmd_info
     cmd_author
     cmd_date
@@ -138,15 +138,15 @@ class SvnLook
   def str_to_time(str)
     Svn::Util.string_to_time(str, @pool)
   end
-
+  
   class Editor < Svn::Delta::Editor
     def initialize(root=nil, base_root=nil)
       @root = root
       # base_root ignored
-
+      
       @indent = ""
     end
-
+    
     def open_root(base_revision, dir_pool)
       puts "/#{id('/', dir_pool)}"
       @indent << ' '
@@ -166,7 +166,7 @@ class SvnLook
     def add_file(path, *args)
       puts "#{@indent}#{basename(path)}#{id(path, args[-1])}"
     end
-
+    
     alias open_file add_file
 
     private
@@ -221,7 +221,7 @@ class SvnLook
       end
     end
   end
-
+    
   class ChangedEditor < Svn::Delta::Editor
     def initialize(root, base_root)
       @root = root
@@ -277,7 +277,7 @@ class SvnLook
     def change_file_prop(file_baton, name, value, pool)
       file_baton[1] = 'U'
     end
-
+    
     def close_file(file_baton, text_checksum)
       text_mod, prop_mod, path = file_baton
       # test the path. it will be None if we added this file.
@@ -290,7 +290,7 @@ class SvnLook
       end
     end
   end
-
+        
   class DiffEditor < Svn::Delta::Editor
 
     def initialize(root, base_root)
@@ -334,11 +334,11 @@ class SvnLook
         puts "Modified: #{path}"
         name = path
       end
-
+      
       base_label = "#{name} (original)"
       label = "#{name} (new)"
       differ = Svn::Fs::FileDiff.new(@base_root, base_path, @root, path, pool)
-
+      
       puts "=" * 78
       puts differ.unified(base_label, label)
       puts

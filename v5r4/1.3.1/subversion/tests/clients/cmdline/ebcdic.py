@@ -391,7 +391,7 @@ def os400_run_cmd_list(command, stdin_lines=None, out_utf8=0, err_utf8=0, va=[])
   # Return the stdout and stderr from the command as lists and the file
   # names of the temp files containing the stdout and stderr.
 
-  # Let's try making all scratch files 1208 since UTF support in
+  # Let's try making all scratch files 1208 since UTF support in 
   out_utf8=1
   err_utf8=1
 
@@ -446,9 +446,9 @@ def os400_run_cmd_list(command, stdin_lines=None, out_utf8=0, err_utf8=0, va=[])
 #  solog = open(out_file, 'rb')
 #  selog = open(err_file, 'rb')
 
-  solines = []
+  solines = [] 
   if os.stat(out_file)[stat.ST_SIZE] > 0:
-    solog = open(out_file, 'rb')
+    solog = open(out_file, 'rb') 
     # Using .readlines() is ok for ebcdic files, but it doesn't work
     # for utf-8 files - it reads in the entire file as one line.
     if (out_utf8):
@@ -481,9 +481,9 @@ def os400_run_cmd_list(command, stdin_lines=None, out_utf8=0, err_utf8=0, va=[])
       solines = solog.readlines()
     solog.close()
 
-  selines = []
+  selines = [] 
   if os.stat(err_file)[stat.ST_SIZE] > 0:
-    selog = open(err_file, 'rb')
+    selog = open(err_file, 'rb')         
     if (err_utf8):
       se_contents = selog.read()
       if se_contents.endswith('\n'.encode('utf-8')):
@@ -500,7 +500,7 @@ def os400_run_cmd_list(command, stdin_lines=None, out_utf8=0, err_utf8=0, va=[])
         else:
           selines.pop()
     else:
-      selines = selog.readlines()
+      selines = selog.readlines() 
     selog.close()
 
   #solog.close()
@@ -514,7 +514,7 @@ def os400_run_cmd_list(command, stdin_lines=None, out_utf8=0, err_utf8=0, va=[])
     os.remove(err_file)
 
 #  return solines, selines, out_file, err_file
-
+  
   # Let's return ebcdic output for everything for now:
   stdoutlines = []
   stderrlines = []

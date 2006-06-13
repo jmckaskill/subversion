@@ -2,9 +2,9 @@
 #
 #  svnadmin_tests.py:  testing the 'svnadmin' tool.
 #
-#  Subversion is a tool for revision control.
+#  Subversion is a tool for revision control. 
 #  See http://subversion.tigris.org for more information.
-#
+#    
 # ====================================================================
 # Copyright (c) 2000-2004 CollabNet.  All rights reserved.
 #
@@ -37,7 +37,7 @@ Item = svntest.wc.StateItem
 #                        root node has a proper created-revision,
 #                        because there was once a bug where it
 #                        didn't.
-#
+# 
 #                        Note also that "svnadmin create" is tested
 #                        implicitly every time we run a python test
 #                        script.  (An empty repository is always
@@ -229,7 +229,7 @@ def inconsistent_headers(sbox):
 
 def dump_copied_dir(sbox):
   "'svnadmin dump' on copied directory"
-
+  
   sbox.build()
   wc_dir = sbox.wc_dir
   repo_dir = sbox.repo_dir
@@ -329,7 +329,7 @@ def hotcopy_format(sbox):
   if errput:
     print "Error: hotcopy failed"
     raise svntest.Failure
-
+  
   # verify that the db/format files are the same
   fp = open(os.path.join(sbox.repo_dir, "db", "format"), 'rb')
   contents1 = fp.read()
@@ -338,11 +338,11 @@ def hotcopy_format(sbox):
   fp2 = open(os.path.join(backup_dir, "db", "format"), 'rb')
   contents2 = fp2.read()
   fp2.close()
-
+  
   if contents1 != contents2:
     print "Error: db/format file contents do not match after hotcopy"
     raise svntest.Failure
-
+  
 
 
 
