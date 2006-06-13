@@ -31,7 +31,7 @@ Where To Report A Bug:
    * If the bug is in Apache httpd 2.0, please report it to both of
      these mailing lists: dev@httpd.apache.org, dev@subversion.tigris.org
      The Apache httpd developer mailing list is high-traffic, so your
-     bug report post has the possibility to be overlooked.  You may also
+     bug report post has the possibility to be overlooked.  You may also 
      file a bug report at:
      http://httpd.apache.org/bug_report.html
 
