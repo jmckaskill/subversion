@@ -797,7 +797,7 @@ def run_and_validate_lock(path, username, password):
 
   # Run info and check that we get the lock fields.
   output, err = run_and_verify_svn(None, None, [],
-                                   'info','-R',
+                                   'info','-R', 
                                    path)
 
   # prepare the regexs to compare against
