@@ -15,7 +15,7 @@ class SubversionRepositoryTestCase(unittest.TestCase):
     """Load a Subversion repository"""
 
     self.repos_url = "file://" + pathname2url(REPOS_PATH)
-
+    
     # Open repository directly for cross-checking
     self.repos = repos.open(REPOS_PATH)
     self.fs = repos.fs(self.repos)
@@ -23,11 +23,11 @@ class SubversionRepositoryTestCase(unittest.TestCase):
     self.path = os.path.join(tempfile.gettempdir(), 'wc')
 
     client_ctx = client.create_context()
-
+    
     rev = core.svn_opt_revision_t()
     rev.kind = core.svn_opt_revision_head
 
-    client.checkout2(self.repos_url, self.path, rev, rev, True, True,
+    client.checkout2(self.repos_url, self.path, rev, rev, True, True, 
             client_ctx)
 
     self.wc = wc.adm_open3(None, self.path, True, 0, None)
@@ -76,7 +76,7 @@ class SubversionRepositoryTestCase(unittest.TestCase):
       self.assert_(wc.check_wc(self.path) > 0)
 
   def test_get_ancestry(self):
-      self.assertEqual([self.repos_url, 12],
+      self.assertEqual([self.repos_url, 12], 
                        wc.get_ancestry(self.path, self.wc))
 
   def test_status(self):
