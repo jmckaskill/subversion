@@ -15,7 +15,7 @@ class SubversionRepositoryTestCase(unittest.TestCase):
     ra.initialize()
 
     self.repos_url = "file://" + pathname2url(REPOS_PATH)
-
+    
     # Open repository directly for cross-checking
     self.repos = repos.open(REPOS_PATH)
     self.fs = repos.fs(self.repos)
@@ -74,7 +74,7 @@ class SubversionRepositoryTestCase(unittest.TestCase):
     editor = TestEditor()
 
     e_ptr, e_baton = delta.make_editor(editor)
-
+    
     reporter, reporter_baton = ra.do_update(self.ra_ctx, 10, "", True, e_ptr, e_baton)
 
     ra.reporter2_invoke_set_path(reporter, reporter_baton, "", 0, True, None)
