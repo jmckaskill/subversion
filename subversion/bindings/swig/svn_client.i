@@ -50,7 +50,7 @@
   svn_client_ctx_t **
 };
 
-%apply Pointer NONNULL {
+%apply Pointer NONNULL { 
   const svn_opt_revision_t *revision,
   const svn_opt_revision_t *peg_revision
 };
@@ -166,7 +166,7 @@
 */
 
 #ifdef SWIGPYTHON
-%typemap(in) (svn_client_get_commit_log_t log_msg_func,
+%typemap(in) (svn_client_get_commit_log_t log_msg_func, 
                      void *log_msg_baton) {
 
   $1 = svn_swig_py_get_commit_log_func;
@@ -216,7 +216,7 @@
 */
 
 #ifdef SWIGPYTHON
-%typemap(in) (svn_client_blame_receiver_t receiver,
+%typemap(in) (svn_client_blame_receiver_t receiver, 
                       void *receiver_baton) {
     $1 = svn_swig_py_client_blame_receiver_func;
     $2 = (void *)$input;
@@ -246,7 +246,7 @@
 */
 
 #ifdef SWIGPYTHON
-%typemap(in) (svn_info_receiver_t receiver,
+%typemap(in) (svn_info_receiver_t receiver, 
                       void *receiver_baton) {
     $1 = svn_swig_py_info_receiver_func;
     $2 = (void *)$input;
@@ -418,7 +418,7 @@
 }
 #endif
 
-/* -----------------------------------------------------------------------
+/* ----------------------------------------------------------------------- 
  * Convert perl hashes back into apr_hash_t * for setting the config
  * member of the svn_client_ctx_t.   This is an ugly hack, it will
  * always allocate the new apr_hash_t out of the global current_pool
@@ -433,7 +433,7 @@
 }
 
 %typemap(out) apr_hash_t *config {
-  $result = svn_swig_pl_convert_hash($1,
+  $result = svn_swig_pl_convert_hash($1, 
     $descriptor(svn_config_t *));
   argvi++;
 }
@@ -445,7 +445,7 @@
   #include <apr_pools.h>
 
   static apr_pool_t *
-  _svn_client_pool(void)
+  _svn_client_pool(void) 
   {
     static apr_pool_t *__svn_client_pool = NULL;
     if (!__svn_client_pool) {
@@ -455,7 +455,7 @@
   }
 
   static apr_pool_t *
-  _svn_client_config_pool(void)
+  _svn_client_config_pool(void) 
   {
     static apr_pool_t *__svn_client_config_pool = NULL;
     if (!__svn_client_config_pool) {
@@ -487,7 +487,7 @@
  * never allocate and fill the commit_info struct.  This lets us return
  * undef for them.  Otherwise the object we pass back can cause crashes */
 #ifdef SWIGPERL
-%typemap(in, numinputs=0) svn_client_commit_info_t **
+%typemap(in, numinputs=0) svn_client_commit_info_t ** 
                                  ( svn_client_commit_info_t * temp ) {
     temp = NULL;
     $1 = &temp;
@@ -537,7 +537,7 @@
   SWIG_MakePtr($result, (void *)*$1,
                $*1_descriptor, 0);
   argvi++;
-}
+}  
 #endif
 
 /* svn_client_update2 */
@@ -595,7 +595,7 @@ svn_client_set_log_msg_func2(svn_client_ctx_t *ctx,
   ctx->log_msg_baton2 = log_msg_baton2;
   return (VALUE)log_msg_baton2;
 }
-
+ 
 static VALUE
 svn_client_set_notify_func2(svn_client_ctx_t *ctx,
                             svn_wc_notify_func2_t notify_func2,
