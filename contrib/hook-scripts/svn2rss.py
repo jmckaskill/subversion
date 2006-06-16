@@ -23,7 +23,7 @@ py_version  = sys.version_info
 if sys.version_info[0:2] < (2,3):
     sys.stderr.write("Error: Python 2.3 or higher required")
     sys.exit(1)
-
+    
 import datetime
 
 try:
@@ -86,7 +86,7 @@ class SVN2RSS:
         self.pickle_file = file + ".pickle"
         self.rss_item = self.make_rss_item()
         self.rss = self.make_rss()
-
+        
     def make_rss_item_desc(self):
         cmd = "svnlook info -r " + self.revision + " " + self.repos_path
         out, x, y = popen2.popen3(cmd)
@@ -98,7 +98,7 @@ class SVN2RSS:
         out.close()
         x.close()
         y.close()
-
+        
         cmd = "svnlook changed -r " + self.revision + " " + self.repos_path
         out, x, y = popen2.popen3(cmd)
         cmd_out = out.readlines()
@@ -110,11 +110,11 @@ class SVN2RSS:
         out.close()
         x.close()
         y.close()
-
+        
         return item_desc
-
+        
     def pickle(self):
-        s = StringIO()
+        s = StringIO()    
         pickle.dump(self.rss, s)
         f = open(self.pickle_file,"w")
         f.write (s.getvalue())
