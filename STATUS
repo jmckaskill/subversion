@@ -11,7 +11,7 @@ Candidate changes:
 
  * r19919
    Fix SVN_CONFIG_NICE to work with autoconf 2.60-dev CVS and prereleases,
-   which clobber configure arguments in AC_INIT.
+   which clobber configure arguments in AC_INIT. 
    Justification:
      Developer convenience throughout the lifetime of 1.4.x.
      Note that affected versions are already packaged within Debian etch.
@@ -62,10 +62,10 @@ Candidate changes:
     Votes:
       +1: lgo    (non-binding)
 
-  * r20032
+  * r20032      
     Python test that validates that checkout uses the peg rev if provided.
     Justification:
-      Change is already included in 1.4.x (r18422)
+      Change is already included in 1.4.x (r18422)  
     Votes:
       +1: lgo
 
@@ -114,7 +114,7 @@ Candidate changes:
   * r20104, r20105, r20106
     Python tests for diff and blame ignoring whitespaces (-x -w option)
     Justification:
-      New feature in 1.4.x (r18487)
+      New feature in 1.4.x (r18487)  
     Votes:
       +1: lgo
 
@@ -127,12 +127,12 @@ Candidate changes:
       +1: jerenkrantz, rooneg
 
   * r20127, r20128
-    Python tests for diff and blame ignoring eol style
+    Python tests for diff and blame ignoring eol style 
      (-x --ignore-eol-style option)
     Justification:
-      New feature in 1.4.x (r18602)
+      New feature in 1.4.x (r18602)  
     Votes:
-      +1: lgo
+      +1: lgo  
 
   * r20170
     Don't carry around our own Visual Studio project files for Apache/APR --
