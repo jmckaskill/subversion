@@ -15,7 +15,7 @@ class SubversionRepositoryTestCase(unittest.TestCase):
     ra.initialize()
 
     self.repos_url = "file://" + pathname2url(REPOS_PATH)
-
+    
     # Open repository directly for cross-checking
     self.repos = repos.open(REPOS_PATH)
     self.fs = repos.fs(self.repos)
@@ -70,8 +70,8 @@ class SubversionRepositoryTestCase(unittest.TestCase):
   def test_get_locations(self):
     locations = ra.get_locations(self.ra_ctx, "/trunk/README.txt", 2, range(1,5))
     self.assertEqual(locations, {
-        2: '/trunk/README.txt',
-        3: '/trunk/README.txt',
+        2: '/trunk/README.txt', 
+        3: '/trunk/README.txt', 
         4: '/trunk/README.txt'})
 
   def test_get_file_revs(self):
@@ -102,7 +102,7 @@ class SubversionRepositoryTestCase(unittest.TestCase):
     editor = TestEditor()
 
     e_ptr, e_baton = delta.make_editor(editor)
-
+    
     reporter, reporter_baton = ra.do_update(self.ra_ctx, 10, "", True, e_ptr, e_baton)
 
     ra.reporter2_invoke_set_path(reporter, reporter_baton, "", 0, True, None)
