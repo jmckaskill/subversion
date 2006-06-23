@@ -135,16 +135,16 @@ def guarantee_greek_repository(path):
     expected_output = main.greek_state.copy()
     expected_output.wc_dir = main.pristine_wc_dir
     expected_output.tweak(status='A ', contents=None)
-
+  
     # Generate an expected wc tree.
     expected_wc = main.greek_state
-
+  
     # Do a checkout, and verify the resulting output and disk contents.
-    run_and_verify_checkout(main.test_area_url + '/' + main.pristine_dir,
+    run_and_verify_checkout(main.test_area_url + '/' + main.pristine_dir, 
                             main.pristine_wc_dir,
                             expected_output,
                             expected_wc)
-
+  
 def run_and_verify_svnversion(message, wc_dir, repo_url,
                               expected_stdout, expected_stderr):
   "Run svnversion command and check its output"
@@ -813,7 +813,7 @@ def run_and_validate_lock(path, username, password):
 
   # Run info and check that we get the lock fields.
   output, err = run_and_verify_svn(None, None, [],
-                                   'info','-R',
+                                   'info','-R', 
                                    path)
 
   # prepare the regexs to compare against
