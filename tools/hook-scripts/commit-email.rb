@@ -25,47 +25,47 @@ def parse(args)
             "Add [PATH] to load path") do |path|
       $LOAD_PATH.unshift(path)
     end
-
+    
     opts.on("-t", "--to [TO]",
             "Add [TO] to to address") do |to|
       options.to << to unless to.nil?
     end
-
+    
     opts.on("-e", "--error-to [TO]",
             "Add [TO] to to address when error is occurred") do |to|
       options.error_to << to unless to.nil?
     end
-
+    
     opts.on("-f", "--from [FROM]",
             "Use [FROM] as from address") do |from|
       options.from = from
     end
-
+    
     opts.on("-n", "--no-diff",
             "Don't add diffs") do |from|
       options.add_diff = false
     end
-
+    
     opts.on("-r", "--repository-uri [URI]",
             "Use [URI] as URI of repository") do |uri|
       options.repository_uri = uri
     end
-
+    
     opts.on("--rss-path [PATH]",
             "Use [PATH] as output RSS path") do |path|
       options.rss_path = path
     end
-
+    
     opts.on("--rss-uri [URI]",
             "Use [URI] as output RSS URI") do |uri|
       options.rss_uri = uri
     end
-
+    
     opts.on("--name [NAME]",
             "Use [NAME] as repository name") do |name|
       options.name = name
     end
-
+    
     opts.on_tail("--help", "Show this message") do
       puts opts
       exit!
@@ -251,7 +251,7 @@ HEADER
     % svn #{command} #{link}@#{rev}
 CONTENT
         end
-
+      
         [desc, link]
       end
     ]
@@ -340,10 +340,10 @@ def make_rss(base_rss, name, rss_uri, repos_uri, info)
 
     if base_rss
       base_rss.items.each do |item|
-        item.setup_maker(maker)
+        item.setup_maker(maker) 
       end
     end
-
+    
     diff_info(info, repos_uri, true).each do |name, infos|
       infos.each do |desc, link|
         item = maker.items.new_item
@@ -371,7 +371,7 @@ def rss_items(items, info, repos_uri)
       items << [link, name, desc, info.date]
     end
   end
-
+  
   items.sort_by do |uri, title, desc, date|
     date
   end.reverse
@@ -384,7 +384,7 @@ def main
     repos, revision, to, *rest = ARGV
     options = parse(rest)
   end
-
+  
   require "svn/info"
   info = Svn::Info.new(repos, revision)
   from = options.from || info.author
