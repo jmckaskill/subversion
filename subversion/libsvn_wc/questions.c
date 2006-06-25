@@ -73,7 +73,7 @@ svn_wc_check_wc(const char *path,
         = svn_wc__adm_path(path, FALSE, pool, SVN_WC__ADM_FORMAT, NULL);
 
       err = svn_io_read_version_file(wc_format, format_file_path, pool);
-    }
+    }      
 
   if (err && (APR_STATUS_IS_ENOENT(err->apr_err)
               || APR_STATUS_IS_ENOTDIR(err->apr_err)))
@@ -149,7 +149,7 @@ svn_wc__check_format(int wc_format, const char *path, apr_pool_t *pool)
    notice that we are *NOT* answering the question, "are the contents
    of F different than revision V of F?"  While F may be at a different
    revision number than its parent directory, but we're only looking
-   for local edits on F, not for consistent directory revisions.
+   for local edits on F, not for consistent directory revisions.  
 
    TODO:  the logic of the routines on this page might change in the
    future, as they bear some relation to the user interface.  For
@@ -188,7 +188,7 @@ svn_wc__timestamps_equal_p(svn_boolean_t *equal_p,
       SVN_ERR(svn_io_file_affected_time(&wfile_time, path, pool));
       entrytime = entry->text_time;
     }
-
+  
   else if (timestamp_kind == svn_wc__prop_time)
     {
       const char *prop_path;
@@ -220,7 +220,7 @@ svn_wc__timestamps_equal_p(svn_boolean_t *equal_p,
     SVN_ERR (svn_time_from_cstring (&wfile_time, tstr, pool));
     */
   }
-
+  
   if (wfile_time == entrytime)
     *equal_p = TRUE;
   else
@@ -274,7 +274,7 @@ compare_and_verify(svn_boolean_t *modified_p,
       svn_stream_t *v_stream, *b_stream;
       const svn_wc_entry_t *entry;
       svn_error_t *err;
-
+      
       SVN_ERR(svn_io_file_open(&b_file_h, base_file, APR_READ,
                               APR_OS_DEFAULT, pool));
 
@@ -536,7 +536,7 @@ svn_wc_conflicted_p(svn_boolean_t *text_conflicted_p,
       if (kind == svn_node_file)
         *prop_conflicted_p = TRUE;
     }
-
+  
   svn_pool_destroy(subpool);
   return SVN_NO_ERROR;
 }
@@ -556,12 +556,12 @@ svn_wc_has_binary_prop(svn_boolean_t *has_binary_prop,
 
   SVN_ERR(svn_wc_prop_get(&value, SVN_PROP_MIME_TYPE, path, adm_access,
                           subpool));
-
+ 
   if (value && (svn_mime_type_is_binary(value->data)))
     *has_binary_prop = TRUE;
   else
     *has_binary_prop = FALSE;
-
+  
   svn_pool_destroy(subpool);
   return SVN_NO_ERROR;
 }
