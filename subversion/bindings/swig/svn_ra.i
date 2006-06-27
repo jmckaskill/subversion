@@ -78,7 +78,7 @@
 */
 #ifdef SWIGPYTHON
 %typemap(in) apr_array_header_t *location_revisions {
-    $1 = (apr_array_header_t *) svn_swig_py_revnums_to_array($input,
+    $1 = (apr_array_header_t *) svn_swig_py_revnums_to_array($input, 
                                                              _global_pool);
     if ($1 == NULL)
         SWIG_fail;
@@ -134,7 +134,7 @@
 #endif
 
 #ifdef SWIGPYTHON
-%typemap(in) (svn_ra_callbacks2_t *callbacks,
+%typemap(in) (svn_ra_callbacks2_t *callbacks, 
                       void *callback_baton) {
   svn_swig_py_setup_ra_callbacks(&$1, &$2, $input, _global_pool);
 }
