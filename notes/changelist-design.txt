@@ -260,7 +260,7 @@ with any changelist.
 
 'svn status' considers changelist membership to be inherently
 "interesting enough" to justify displaying a path, regardless of
-whether it's modified.
+whether it's modified. 
 
 
 ### Open question:  at the moment, changelists are implemented by
