@@ -825,8 +825,7 @@
 #ifdef SWIGPERL
 %typemap(in,numinputs=0) apr_hash_t **dirents = apr_hash_t **OUTPUT;
 %typemap(argout) apr_hash_t **dirents {
-    ST(argvi++) = svn_swig_pl_convert_hash
-	(*$1, $descriptor(svn_dirent_t *));
+    ST(argvi++) = svn_swig_pl_convert_hash(*$1, $descriptor(svn_dirent_t *));
 }
 #endif
 
