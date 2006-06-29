@@ -33,7 +33,7 @@ except ImportError:
     print >> sys.stderr, ""
     sys.exit(1)
 
-# All clear on the custom module checks.  Import some standard stuff.
+# All clear on the custom module checks.  Import some standard stuff.    
 import getopt, os, popen2, pickle, datetime
 from StringIO import StringIO
 
@@ -101,7 +101,7 @@ class SVN2RSS:
         self.pickle_file = file + ".pickle"
         self.rss_item = self.make_rss_item()
         self.rss = self.make_rss()
-
+        
     def make_rss_item_desc(self):
         cmd = "svnlook info -r " + self.revision + " " + self.repos_path
         out, x, y = popen2.popen3(cmd)
@@ -113,7 +113,7 @@ class SVN2RSS:
         out.close()
         x.close()
         y.close()
-
+        
         cmd = "svnlook changed -r " + self.revision + " " + self.repos_path
         out, x, y = popen2.popen3(cmd)
         cmd_out = out.readlines()
@@ -125,11 +125,11 @@ class SVN2RSS:
         out.close()
         x.close()
         y.close()
-
+        
         return item_desc
-
+        
     def pickle(self):
-        s = StringIO()
+        s = StringIO()    
         pickle.dump(self.rss, s)
         f = open(self.pickle_file,"w")
         f.write (s.getvalue())
