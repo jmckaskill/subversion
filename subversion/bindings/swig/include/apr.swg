@@ -102,7 +102,7 @@ typedef apr_int32_t time_t;
 %typemap(in,numinputs=0) apr_hash_t **OUTPUT (apr_hash_t *temp) "$1 = &temp;";
 
 /* -----------------------------------------------------------------------
-   Output of apr_hash_t * <svn_dirent_t *>
+   Output of apr_hash_t * <svn_dirent_t *> 
 */
 
 %typemap(in,numinputs=0) apr_hash_t **DIRENTHASH = apr_hash_t **OUTPUT;
