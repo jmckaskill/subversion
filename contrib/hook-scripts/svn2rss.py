@@ -9,7 +9,7 @@
  -u | --item-url=    link to appear in the rss item
  -f | --rss-file=    filename to store the rss feed
  -m | --max-items=   maximum items to store in the rss feed
- -U | --feed-url=    global RSS feed url
+ -U | --feed-url=    global RSS feed url 
 
 Generates a RSS 2.0 file containing commit information.  Once the
 maximum number of items is reached, older elements are removed.  The
@@ -34,7 +34,7 @@ except ImportError:
     print >> sys.stderr, ""
     sys.exit(1)
 
-# All clear on the custom module checks.  Import some standard stuff.
+# All clear on the custom module checks.  Import some standard stuff.    
 import getopt, os, popen2, pickle, datetime
 from StringIO import StringIO
 
@@ -61,7 +61,7 @@ def check_url(url, opt):
 
 
 class SVN2RSS:
-    def __init__(self, svn_path, revision, repos_path, item_url, rss_file,
+    def __init__(self, svn_path, revision, repos_path, item_url, rss_file, 
                  max_items, feed_url):
         self.svn_path = svn_path
         self.revision = revision
@@ -77,7 +77,7 @@ class SVN2RSS:
         self.pickle_file = file + ".pickle"
         self.rss_item = self.make_rss_item()
         self.rss = self.make_rss()
-
+        
     def make_rss_item_desc(self):
         cmd = "svnlook info -r " + self.revision + " " + self.repos_path
         out, x, y = popen2.popen3(cmd)
@@ -89,7 +89,7 @@ class SVN2RSS:
         out.close()
         x.close()
         y.close()
-
+        
         cmd = "svnlook changed -r " + self.revision + " " + self.repos_path
         out, x, y = popen2.popen3(cmd)
         cmd_out = out.readlines()
@@ -101,11 +101,11 @@ class SVN2RSS:
         out.close()
         x.close()
         y.close()
-
+        
         return item_desc
-
+        
     def pickle(self):
-        s = StringIO()
+        s = StringIO()    
         pickle.dump(self.rss, s)
         f = open(self.pickle_file,"w")
         f.write(s.getvalue())
@@ -146,7 +146,7 @@ def main():
     max_items = 20
     commit_rev = None
     item_url = feed_url = None
-
+    
     if len(sys.argv) == 1:
         usage_and_exit("Not enough arguments provided.")
     try:
@@ -186,7 +186,7 @@ def main():
         elif opt in ("-U", "--feed-url"):
             feed_url = arg
             check_url(feed_url, opt)
-
+    
     if (commit_rev == None):
         cmd = "svnlook youngest " + repos_path
         out, x, y = popen2.popen3(cmd)
@@ -216,15 +216,15 @@ def main():
         else:
             usage_and_exit("svn2rss.py: Invalid value '%s' for --revision." \
                            % (commit_rev))
-
+    
     for revision in revisions:
         revision = str(revision)
-        svn2rss = SVN2RSS(svn_path, revision, repos_path, item_url, rss_file,
+        svn2rss = SVN2RSS(svn_path, revision, repos_path, item_url, rss_file, 
                           max_items, feed_url)
         rss = svn2rss.rss
         svn2rss.pickle()
         rss.write_xml(open(svn2rss.rss_file, "w"))
-
-
+    
+  
 if __name__ == "__main__":
     main()
