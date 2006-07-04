@@ -25,7 +25,7 @@
 /* -----------------------------------------------------------------------
    Generic handling for "type **" parameters.  Almost all such parameters
    are OUTPUT parameters.  Handling is as follows:
-   - "in" typemap which allocates storage for a pointer, and points the
+   - "in" typemap which allocates storage for a pointer, and points the 
      argument to that storage.
    - Default "argout" typemap which complains at compile time, and raises
      an exception at runtime.
