@@ -2498,7 +2498,7 @@ static svn_error_t *reporter_delete_path(void *report_baton,
   if ((result = PyObject_CallMethod(py_reporter,
                                     (char *)"delete_path",
                                     (char *)"sO&",
-                                    path,
+                                    path, 
                                     make_ob_pool, pool)) == NULL)
     {
       err = callback_exception_error();
@@ -2514,7 +2514,7 @@ static svn_error_t *reporter_delete_path(void *report_baton,
 
   return err;
 }
-
+    
 static svn_error_t *reporter_link_path(void *report_baton,
                             const char *path,
                             const char *url,
