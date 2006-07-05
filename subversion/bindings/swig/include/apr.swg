@@ -86,7 +86,7 @@ typedef apr_int64_t apr_time_t;
 typedef apr_int32_t time_t;
 
 /* -----------------------------------------------------------------------
-   Output of apr_hash_t * <svn_dirent_t *>
+   Output of apr_hash_t * <svn_dirent_t *> 
 */
 
 #ifdef SWIGPYTHON
