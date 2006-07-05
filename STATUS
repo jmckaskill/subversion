@@ -25,10 +25,10 @@ Candidate changes:
      an API mismatch between trunk and the 1.4.x branch - thanks!
    Votes:
      +1: maxb
-
+      
  * r19919
    Fix SVN_CONFIG_NICE to work with autoconf 2.60-dev CVS and prereleases,
-   which clobber configure arguments in AC_INIT.
+   which clobber configure arguments in AC_INIT. 
    Justification:
      Developer convenience throughout the lifetime of 1.4.x.
      Note that affected versions are already packaged within Debian etch.
@@ -61,7 +61,7 @@ Candidate changes:
       Quite a few user requests and also RPMs should work on all architectures.
     Votes:
       +1: david
-
+    
   * r20041
     Get rid of requirement for another RPM package (chrpath) to build the
     Linux RPM packages.
