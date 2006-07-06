@@ -24,7 +24,7 @@
 */
 
 /* -----------------------------------------------------------------------
-   Output of apr_hash_t * <svn_dirent_t *>
+   Output of apr_hash_t * <svn_dirent_t *> 
 */
 
 #ifdef SWIGPYTHON
