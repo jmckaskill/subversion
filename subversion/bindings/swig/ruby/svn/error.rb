@@ -20,7 +20,7 @@ module Svn
         TABLE[value] = const_get(error_const_name)
       end
     end
-
+    
     class << self
       def new_corresponding_error(code, message, file=nil, line=nil)
         if TABLE.has_key?(code)
