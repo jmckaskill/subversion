@@ -252,6 +252,10 @@ class WinGeneratorBase(GeneratorBase):
                                               and x.install == 'bdb-test'),
                                install_targets)
 
+    # Drop the serf target if we don't have it
+    if not self.serf_path:
+      install_targets = filter(lambda x: x.name != 'serf', install_targets)
+
     for target in install_targets:
       if isinstance(target, gen_base.TargetLib) and target.msvc_fake:
         install_targets.append(self.create_fake_target(target))
