@@ -26,7 +26,7 @@
 /* -----------------------------------------------------------------------
    Generic handling for "type **" parameters.  Almost all such parameters
    are OUTPUT parameters.  Handling is as follows:
-   - "in" typemap which allocates storage for a pointer, and points the
+   - "in" typemap which allocates storage for a pointer, and points the 
      argument to that storage.
    - Default "argout" typemap which complains at compile time, and raises
      an exception at runtime.
@@ -733,8 +733,8 @@
      These are *delayed* output parameters in svn_stream_checksummed().
      Would be quite complex to wrap, so this function is %ignore-d in the
      svn_io.h cherrypicking section.
-
-
+     
+   
    Function Parameters (Category 3):
 
    'const unsigned char digest[]' (also, 'd1', 'd2'):
