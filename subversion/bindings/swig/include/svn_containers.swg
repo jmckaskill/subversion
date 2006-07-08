@@ -193,7 +193,7 @@
   $1 = svn_swig_rb_hash_to_apr_hash_string($input, _global_pool);
 }
 %typemap(in) apr_hash_t *HASH_CSTRING_MAYBENULL {
-  $1 = (NIL_P($input)) ? NULL :
+  $1 = (NIL_P($input)) ? NULL : 
     svn_swig_rb_hash_to_apr_hash_string($input, _global_pool);
 }
 #endif
