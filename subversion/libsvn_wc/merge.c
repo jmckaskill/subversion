@@ -69,7 +69,7 @@ svn_wc__merge_internal(svn_stringbuf_t **log_accum,
 
   /* Decide if the merge target is a text or binary file. */
   SVN_ERR(svn_wc_has_binary_prop(&is_binary, merge_target, adm_access, pool));
-
+  
   if (! is_binary)              /* this is a text file */
     {
       apr_uint32_t translate_opts = SVN_WC_TRANSLATE_TO_NF;
@@ -161,7 +161,7 @@ svn_wc__merge_internal(svn_stringbuf_t **log_accum,
       if (contains_conflicts && ! dry_run)  /* got a conflict */
         {
           /* Preserve the three pre-merge files, and modify the
-             entry (mark as conflicted, track the preserved files). */
+             entry (mark as conflicted, track the preserved files). */ 
           const char *left_copy, *right_copy, *target_copy;
           const char *tmp_left, *tmp_right, *tmp_target_copy;
           const char *parentt, *left_base, *right_base, *target_base;
