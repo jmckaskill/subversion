@@ -8,10 +8,10 @@ Status of 1.4.0:
 ================
 
 Candidate changes:
-
+      
   * r19919
     Fix SVN_CONFIG_NICE to work with autoconf 2.60-dev CVS and prereleases,
-    which clobber configure arguments in AC_INIT.
+    which clobber configure arguments in AC_INIT. 
     Justification:
       Developer convenience throughout the lifetime of 1.4.x.
       Note that affected versions are already packaged within Debian etch.
@@ -27,7 +27,7 @@ Candidate changes:
       Quite a few user requests and also RPMs should work on all architectures.
     Votes:
       +1: dws
-
+    
   * r20041
     Get rid of requirement for another RPM package (chrpath) to build the
     Linux RPM packages.
