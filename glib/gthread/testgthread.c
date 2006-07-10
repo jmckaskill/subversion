@@ -42,7 +42,7 @@ test_mutexes (void)
     }
 }
 
-#if defined(G_THREADS_IMPL_NSPR)
+#if defined(G_THREADS_IMPL_NSPR)	
 #warning "note, that you have to link with whatever library"
 #warning "nspr is building upon, it might otherwise (as on solaris) lead to"
 #warning "run time failure, as the mutex functions are defined in libc, but"
@@ -60,7 +60,7 @@ new_thread (GHookFunc func, gpointer data)
 #define join_thread(thread) PR_JoinThread (thread)
 #define self_thread() PR_GetCurrentThread ()
 
-#elif defined(G_THREADS_IMPL_SOLARIS)
+#elif defined(G_THREADS_IMPL_SOLARIS)	
 #include <thread.h>
 
 gpointer
@@ -83,7 +83,7 @@ new_thread(GHookFunc func, gpointer data)
   pthread_t thread;
   pthread_attr_t pthread_attr;
   pthread_attr_init (&pthread_attr);
-  /* This is the default, it seems, so leave that out for now
+  /* This is the default, it seems, so leave that out for now 
      pthread_attr_setdetachstate (&pthread_attr, PTHREAD_CREATE_JOINABLE);
   */
   pthread_create (&thread, &pthread_attr, (void *(*)(void *)) func, data);
