@@ -72,15 +72,7 @@ Candidate changes:
 
 Candidate changes for the RPMs:
 
-  === The next 6 backports form a chain of merge dependencies! ===
-
-  * r20012
-    RPM packages: Adjust various comments and merge all the flavours of the
-    RPM changelogs into a single consistent one.
-    Justification:
-      Avoid merge conflicts with future backports.
-    Votes:
-      +1: maxb, malcolm, dws
+  === The next 5 backports form a chain of merge dependencies! ===
 
   * r20023
     RPM specfiles: Abstract Python version into macro.
