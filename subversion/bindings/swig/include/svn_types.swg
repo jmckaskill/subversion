@@ -26,7 +26,7 @@
 /* -----------------------------------------------------------------------
    Generic handling for "type **" parameters.  Almost all such parameters
    are OUTPUT parameters.  Handling is as follows:
-   - "in" typemap which allocates storage for a pointer, and points the
+   - "in" typemap which allocates storage for a pointer, and points the 
      argument to that storage.
    - Default "argout" typemap which complains at compile time, and raises
      an exception at runtime.
@@ -717,7 +717,7 @@
    'unsigned char digest[]':
      Output parameter in: svn_fs_file_md5_checksum(), svn_io_file_checksum(),
                           svn_wc_transmit_text_deltas2()
-
+     
      *but* appears as an input parameter in svn_base64_from_md5() -
      practically, this means that svn_base64_from_md5 is in error, and
      should be using 'const unsigned char digest[]', but fortunately, we
@@ -741,8 +741,8 @@
      These are *delayed* output parameters in svn_stream_checksummed().
      Would be quite complex to wrap, so this function is %ignore-d in the
      svn_io.h cherrypicking section.
-
-
+     
+   
    Function Parameters (Category 3):
 
    'const unsigned char digest[]' (also, 'd1', 'd2'):
