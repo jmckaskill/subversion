@@ -5,34 +5,34 @@
  parts of it have already moved there.]
 
 6.  It's release time, so cd to the release branch's working copy.
-
+ 
     Make sure your release branch wc has the following packages
     extracted into the root of the wc tree:
-
+ 
        apr           (see INSTALL, section I)
        apr-util      (see INSTALL, section I)
        neon          (see INSTALL, section I)
-
+ 
     To install apr/apr-util, see INSTALL, section I.1.
-
+ 
     To install neon, see INSTALL, section I.5.
-
+ 
     To configure/install Apache (httpd-2.X.YY), see INSTALL,
     section I.7 and section III.  If you maintain a separate
     build/release area, and don't want to over-write an
     existing/working installation of Apache, you may want to use
     --prefix=/usr/local/apache2 to install a parallel instance of
     Apache.
-
+ 
     To make sure httpd.conf is properly set up for DAV access, see
     subversion/tests/cmdline/README.
-
+ 
     Also, see sections 'Building the Latest Source under Unix' and
     'BUILDING A SUBVERSION SERVER' in the INSTALL file. for more
     detailed build information.
-
+ 
     When building the Windows .zip release be sure to use the apr files
-    from the .zip packaging of Apache.  Additionally you'll want to
+    from the .zip packaging of Apache.  Additionally you'll want to 
     also include the apr-iconv directory from right next to apr-util in
     the Apache zip file.  See INSTALL, section I.1, for details.
 
@@ -42,101 +42,101 @@
     the planned release date of the tarball.
 
 8.  Build the tarballs and zip file
-
+ 
     a) Run './dist.sh -v X.Y.Z -r 1234 -pr branches/X.Y.Z'
-
+ 
        Watch dist.sh's output to make sure everything goes smoothly;
        when it's done, you'll have 'subversion-X.Y.Z.tar.gz' and
        'subversion-X.Y.Z.tar.bz2' in the cwd.
-
-    b) Be sure to replace the apr, apr-util and apr-iconv dirs with the
+ 
+    b) Be sure to replace the apr, apr-util and apr-iconv dirs with the 
        ones from the .zip packaging of Apache, before building the .zip,
        as mentioned above in 6.
-
+ 
     c) Run './dist.sh -v X.Y.Z -r 1234 -pr branches/X.Y.Z -zip'
-
+ 
        Again watch dist.sh's output to make sure everything goes smoothly;
        when it's done, you'll have 'subversion-X.Y.Z.zip' in the cwd.
 
 9.  Test one or both of the tarballs:
-
+ 
     a) tar zxvf subversion-X.Y.Z.tar.gz;  cd subversion-X.Y.Z
     b) ./configure
-
+ 
        See INSTALL, section III.B for detailed instructions on
        configuring/building Subversion.
-
+ 
        If you installed Apache in some place other than the default, as
        mentioned above, you will need to use the same
        --prefix=/usr/local/apache2 option as used to configure Apache.
-
+ 
        You may also want to use --enable-mod-activation, which will
        automatically enable the required Subversion modules in the
        Apache config file.
-
+ 
     c) make
     d) make check
     e) make install (this activates mod_dav)
     f) make davcheck
-
+ 
        For this, start up Apache after having configured according to
        the directions in subversion/tests/cmdline/README.
-
+ 
        Make sure, that if you maintain a development installation of
        apache, that you check the config file and update it for the
        new release area where you're testing the tar-ball.
-
+ 
        (Unless you rename the tree which gets extracted from the
        tarball to match what's in httpd.conf, you will need to edit
        httpd.conf)
-
+ 
     g) make svncheck
-
+ 
        First, start up svnserve with these args:
-
+ 
           $ subversion/svnserve/svnserve -d -r \
             `pwd`/subversion/tests/cmdline
-
+ 
        -d tells svnserve to run as a daemon
        -r tells svnserve to use the following directory as the
           logical file system root directory.
-
+ 
        After svnserve is running as a daemon 'make svncheck' should run
-
+ 
     h) Then test that you can check out the subversion repository
        with this environment:
-
+ 
           subversion/svn/svn co https://svn.collab.net/repos/svn/trunk
-
+ 
     i) Verify that the perl and python swig bindings at least compile.
        If you can't do this, then have another developer verify.
-
+ 
        (see bindings/swig/INSTALL for details)
-
+ 
        Ensure that ./configure detected a suitable version of swig,
        perl, and python.  Then:
-
+ 
           make swig-py
           make check-swig-py
           sudo make install-swig-py
-
+ 
           make swig-pl
           make check-swig-pl
           sudo make install-swig-pl
-
+ 
     j) Verify that the javahl bindings at least compile.
        If you can't do this, then have another developer verify.
-
+ 
        (see bindings/java/javahl/README for details)
-
+ 
        Ensure that ./configure detected a suitable jdk, and then
        possibly re-run with '--enable-javahl' and '--with-jdk=':
-
+ 
           make javahl
           sudo make install-javahl
           make check-javahl
 
-10. Use GPG to sign release.
+10. Use GPG to sign release. 
 
     gpg -b --armor subversion-X.Y.Z.tar.gz
     gpg -b --armor subversion-X.Y.Z.tar.bz2
@@ -146,12 +146,12 @@
     You do this by updating your working copy to the release revision, 1234 in
     the example below.  Run svnversion to verify that you do not have a mixed
     working copy or modified working copy, i.e. svnversion outputs only the
-    release revision (not 1234:1235 or 1234M).  Then place the
+    release revision (not 1234:1235 or 1234M).  Then place the 
     svn_version.h.dist file in place in the working copy and copy from
     the working copy to the tag URL.
 
     For example:
-
+      
        svn up -r 1234
        svnversion .
        cp svn_version.h.dist subversion/include/svn_version.h
@@ -193,7 +193,7 @@
 
    a) Edit the www/project_status.html file appropriately in /trunk *NOT*
       in the release branch and commit. Remember edit a search term at the
-      end of release's issue link.
+      end of release's issue link. 
 
       If you used 'svn switch' in 3b above, you can simply 'switch' back
       to /trunk using:
