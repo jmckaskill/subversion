@@ -11,25 +11,25 @@ date, log messages and changed paths.
 Options:
 
  -h, --help             Show this help message.
-
+ 
  -f, --feed-file=PATH   Store the feed in the file located at PATH, which
                         will be created if it does not exist, or overwritten if
                         it does.  If not provided, the script will store the
                         feed in the current working directory, in a file named
                         REPOS_NAME.rss (where REPOS_NAME is the basename
-                        of the REPOS_PATH command-line argument).
-
+                        of the REPOS_PATH command-line argument). 
+ 
  -r, --revision=X[:Y]   Subversion revision (or revision range) to generate
                         info for.  If not provided, info for the single
                         youngest revision in the repository will be generated.
-
+ 
  -m, --max-items=N      Keep only N items in the feed file.  By default,
                         20 items are kept.
-
+ 
  -u, --item-url=URL     Use URL as the basis for generating feed item links.
                         This value is appended with '?rev=REV_NUMBER' to form
                         the actual item links.
-
+ 
  -U, --feed-url=URL     Use URL as the global link associated with the feed.
 
  -P, --svn-path=DIR     Look in DIR for the svnlook binary.  If not provided,
@@ -86,7 +86,7 @@ def check_url(url, opt):
 
 
 class Svn2RSS:
-    def __init__(self, svn_path, revision, repos_path, item_url, rss_file,
+    def __init__(self, svn_path, revision, repos_path, item_url, rss_file, 
                  max_items, feed_url):
         self.revision = revision
         self.repos_path = repos_path
@@ -102,7 +102,7 @@ class Svn2RSS:
         self.pickle_file = file + ".pickle"
         self.rss_item = self.make_rss_item()
         self.rss = self.make_rss()
-
+        
     def make_item_desc(self):
         cmd = [self.svnlook_cmd, 'info', '-r', self.revision, self.repos_path]
         child_out, child_in, child_err = popen2.popen3(cmd)
@@ -110,7 +110,7 @@ class Svn2RSS:
         child_out.close()
         child_in.close()
         child_err.close()
-
+        
         cmd = [self.svnlook_cmd, 'changed', '-r', self.revision,
                self.repos_path]
         child_out, child_in, child_err = popen2.popen3(cmd)
@@ -122,7 +122,7 @@ class Svn2RSS:
         return ("\nAuthor: %sDate: %sRevision: %s\nLog: %sModified: \n%s"
                 % (info_lines[0], info_lines[1], self.revision, info_lines[3],
                    changed_data))
-
+        
     def pickle(self):
         s = pickle.dumps(self.rss)
         f = open(self.pickle_file, "w")
@@ -187,7 +187,7 @@ def main():
     commit_rev = svn_path = None
     item_url = feed_url = ""
     feed_file = os.path.basename(repos_path) + ".rss"
-
+    
     for opt, arg in opts:
         if opt in ("-h", "--help"):
             usage_and_exit()
@@ -210,7 +210,7 @@ def main():
         elif opt in ("-U", "--feed-url"):
             feed_url = arg
             check_url(feed_url, opt)
-
+    
     if commit_rev is None:
         svnlook_cmd = 'svnlook'
         if svn_path is not None:
@@ -243,15 +243,15 @@ def main():
         except ValueError, msg:
             usage_and_exit("svn2rss.py: Invalid value '%s' for --revision." \
                            % (commit_rev))
-
+    
     for revision in revisions:
         revision = str(revision)
-        svn2rss = Svn2RSS(svn_path, revision, repos_path, item_url, feed_file,
+        svn2rss = Svn2RSS(svn_path, revision, repos_path, item_url, feed_file, 
                           max_items, feed_url)
         rss = svn2rss.rss
         svn2rss.pickle()
         rss.write_xml(open(svn2rss.rss_file, "w"))
-
-
+    
+  
 if __name__ == "__main__":
     main()
