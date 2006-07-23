@@ -23,7 +23,7 @@ Candidate changes:
     Justification:
       Most are very low impact build improvements, but without r20826 the
       Perl bindings won't build on Windows.
-
+      
     Votes:
       +1: djh, brane (r20826 only from email)
 
@@ -31,7 +31,7 @@ Candidate changes:
     Update the Windows build instructions.
     Justification:
       Documentation that more closely matches the reality is good.
-
+      
     Votes:
       +1: djh
 
