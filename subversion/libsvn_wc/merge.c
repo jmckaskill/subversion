@@ -393,7 +393,7 @@ svn_wc__merge_internal(svn_stringbuf_t **log_accum,
       if (contains_conflicts && ! dry_run)  /* got a conflict */
         {
           /* Preserve the three pre-merge files, and modify the
-             entry (mark as conflicted, track the preserved files). */
+             entry (mark as conflicted, track the preserved files). */ 
           const char *left_copy, *right_copy, *target_copy;
           const char *tmp_left, *tmp_right, *tmp_target_copy;
           const char *parentt, *left_base, *right_base, *target_base;
