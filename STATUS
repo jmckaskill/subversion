@@ -81,6 +81,13 @@ Candidate changes:
     Votes:
       +1: nori
 
+  * r20885
+    Clarify an error message.
+    Justification:
+      Just an error message improvement and low impact.
+    Votes:
+      +1: nori
+
 Approved changes:
 
 
