@@ -76,7 +76,7 @@ Candidate changes:
       Just an error message improvement and low impact.
     Votes:
       +1: nori
-
+    
   * r20886 (depends on r20833 group above)
     Allow javahl to build with VC Express and fix its debug symbol files.
     Justification:
