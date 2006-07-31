@@ -78,7 +78,7 @@ static const svn_opt_subcommand_desc_t svnsync_cmd_table[] =
       N_("usage: svnsync help [SUBCOMMAND...]\n"
          "Describe the usage of this program or its subcommands.\n"),
       { 0 } },
-    { NULL, NULL, { 0 }, NULL, { 0 } }
+    { NULL, NULL, { 0 }, NULL, { 0 } } 
   };
 
 static const apr_getopt_option_t svnsync_options[] =
@@ -167,7 +167,7 @@ get_lock(svn_ra_session_t *session, apr_pool_t *pool)
   if (apr_err)
     return svn_error_wrap_apr(apr_err, _("Can't get local hostname"));
 
-  mylocktoken = svn_string_createf(pool, "%s:%s", hostname_str,
+  mylocktoken = svn_string_createf(pool, "%s:%s", hostname_str, 
                                    svn_uuid_generate(pool));
 
   subpool = svn_pool_create(pool);
@@ -394,10 +394,10 @@ initialize_cmd(apr_getopt_t *os, void *b, apr_pool_t *pool)
   from_url = svn_path_canonicalize(opt_baton->source_url, pool);
 
   if (! svn_path_is_url(to_url))
-    return svn_error_createf(SVN_ERR_CL_ARG_PARSING_ERROR, NULL,
+    return svn_error_createf(SVN_ERR_CL_ARG_PARSING_ERROR, NULL, 
                              _("Path '%s' is not a URL"), to_url);
   if (! svn_path_is_url(from_url))
-    return svn_error_createf(SVN_ERR_CL_ARG_PARSING_ERROR, NULL,
+    return svn_error_createf(SVN_ERR_CL_ARG_PARSING_ERROR, NULL, 
                              _("Path '%s' is not a URL"), from_url);
 
   baton.to_url = svn_path_canonicalize(APR_ARRAY_IDX(args, 0, const char *),
@@ -841,7 +841,7 @@ copy_revprops(svn_ra_session_t *from_session,
                                      subpool));
     }
 
-  SVN_ERR(svn_cmdline_printf(subpool,
+  SVN_ERR(svn_cmdline_printf(subpool, 
                              _("Copied properties for revision %ld.\n"), rev));
   svn_pool_destroy(subpool);
 
@@ -930,7 +930,7 @@ do_synchronize(svn_ra_session_t *to_session, void *b, apr_pool_t *pool)
 
             /* Now update last merged rev and drop currently changing.
              * Note that the order here is significant, if we do them
-             * in the wrong order there are race conditions where we
+             * in the wrong order there are race conditions where we 
              * end up not being able to tell if there have been bogus
              * (i.e. non-svnsync) commits to the dest repository. */
 
@@ -1060,7 +1060,7 @@ synchronize_cmd(apr_getopt_t *os, void *b, apr_pool_t *pool)
   to_url = svn_path_canonicalize(APR_ARRAY_IDX(args, 0, const char *), pool);
 
   if (! svn_path_is_url(to_url))
-    return svn_error_createf(SVN_ERR_CL_ARG_PARSING_ERROR, NULL,
+    return svn_error_createf(SVN_ERR_CL_ARG_PARSING_ERROR, NULL, 
                              _("Path '%s' is not a URL"), to_url);
 
   callbacks.open_tmp_file = open_tmp_file;
@@ -1126,7 +1126,7 @@ copy_revprops_cmd(apr_getopt_t *os, void *b, apr_pool_t *pool)
   to_url = svn_path_canonicalize(APR_ARRAY_IDX(args, 0, const char *), pool);
 
   if (! svn_path_is_url(to_url))
-    return svn_error_createf(SVN_ERR_CL_ARG_PARSING_ERROR, NULL,
+    return svn_error_createf(SVN_ERR_CL_ARG_PARSING_ERROR, NULL, 
                              _("Path '%s' is not a URL"), to_url);
 
   if (! SVN_IS_VALID_REVNUM(opt_baton->revision))
