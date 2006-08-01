@@ -78,7 +78,7 @@ Candidate changes:
       A low-risk error message improvement.
     Votes:
       +1: nori, dlr
-
+    
   * r20886 (depends on r20833 group above)
     Allow javahl to build with VC Express and fix its debug symbol files.
     Justification:
