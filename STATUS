@@ -71,7 +71,7 @@ Candidate changes:
       characters.  The change has low impact.
     Notes:
       An entry for CHANGES may be something like
-      "fixed: a wrongly-encoded error message on invalid options for svn
+      "fixed: a wrongly-encoded error message on invalid options for svn 
       (r20883)".
     Votes:
       +1: nori
@@ -82,7 +82,7 @@ Candidate changes:
       A low-risk error message improvement.
     Votes:
       +1: nori, dlr
-
+    
   * r20886 (depends on r20833 group above)
     Allow javahl to build with VC Express and fix its debug symbol files.
     Justification:
@@ -97,7 +97,7 @@ Candidate changes:
       about what is available in 1.4.
     Votes:
       +1: nori
-
+    
 
 Approved changes:
 
