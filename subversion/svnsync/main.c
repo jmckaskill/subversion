@@ -82,7 +82,7 @@ static const svn_opt_subcommand_desc_t svnsync_cmd_table[] =
       N_("usage: svnsync help [SUBCOMMAND...]\n"
          "Describe the usage of this program or its subcommands.\n"),
       { 0 } },
-    { NULL, NULL, { 0 }, NULL, { 0 } }
+    { NULL, NULL, { 0 }, NULL, { 0 } } 
   };
 
 static const apr_getopt_option_t svnsync_options[] =
@@ -165,7 +165,7 @@ get_lock(svn_ra_session_t *session, apr_pool_t *pool)
   if (apr_err)
     return svn_error_wrap_apr(apr_err, _("Can't get local hostname"));
 
-  mylocktoken = svn_string_createf(pool, "%s:%s", hostname_str,
+  mylocktoken = svn_string_createf(pool, "%s:%s", hostname_str, 
                                    svn_uuid_generate(pool));
 
   subpool = svn_pool_create(pool);
@@ -301,13 +301,13 @@ copy_revprops(svn_ra_session_t *from_session,
     }
 
   if (saw_sync_props)
-    SVN_ERR(svn_cmdline_printf(subpool,
+    SVN_ERR(svn_cmdline_printf(subpool, 
                                _("Copied properties for revision %ld "
                                  "(%s* properties skipped).\n"),
                                rev, PROP_PREFIX));
   else
-    SVN_ERR(svn_cmdline_printf(subpool,
-                               _("Copied properties for revision %ld.\n"),
+    SVN_ERR(svn_cmdline_printf(subpool, 
+                               _("Copied properties for revision %ld.\n"), 
                                rev));
 
   svn_pool_destroy(subpool);
@@ -402,10 +402,10 @@ initialize_cmd(apr_getopt_t *os, void *b, apr_pool_t *pool)
   from_url = svn_path_canonicalize(APR_ARRAY_IDX(args, 1, const char *), pool);
 
   if (! svn_path_is_url(to_url))
-    return svn_error_createf(SVN_ERR_CL_ARG_PARSING_ERROR, NULL,
+    return svn_error_createf(SVN_ERR_CL_ARG_PARSING_ERROR, NULL, 
                              _("Path '%s' is not a URL"), to_url);
   if (! svn_path_is_url(from_url))
-    return svn_error_createf(SVN_ERR_CL_ARG_PARSING_ERROR, NULL,
+    return svn_error_createf(SVN_ERR_CL_ARG_PARSING_ERROR, NULL, 
                              _("Path '%s' is not a URL"), from_url);
 
   baton.to_url = svn_path_canonicalize(to_url, pool);
@@ -640,7 +640,7 @@ close_file(void *file_baton,
 {
   node_baton_t *fb = file_baton;
   edit_baton_t *eb = fb->edit_baton;
-  return eb->wrapped_editor->close_file(fb->wrapped_node_baton,
+  return eb->wrapped_editor->close_file(fb->wrapped_node_baton, 
                                         text_checksum, pool);
 }
 
@@ -670,7 +670,7 @@ absent_directory(const char *path,
 {
   node_baton_t *db = dir_baton;
   edit_baton_t *eb = db->edit_baton;
-  return eb->wrapped_editor->absent_directory(path, db->wrapped_node_baton,
+  return eb->wrapped_editor->absent_directory(path, db->wrapped_node_baton, 
                                               pool);
 }
 
@@ -855,7 +855,7 @@ do_synchronize(svn_ra_session_t *to_session, void *b, apr_pool_t *pool)
 
             /* Now update last merged rev and drop currently changing.
              * Note that the order here is significant, if we do them
-             * in the wrong order there are race conditions where we
+             * in the wrong order there are race conditions where we 
              * end up not being able to tell if there have been bogus
              * (i.e. non-svnsync) commits to the dest repository. */
 
@@ -985,7 +985,7 @@ synchronize_cmd(apr_getopt_t *os, void *b, apr_pool_t *pool)
   to_url = svn_path_canonicalize(APR_ARRAY_IDX(args, 0, const char *), pool);
 
   if (! svn_path_is_url(to_url))
-    return svn_error_createf(SVN_ERR_CL_ARG_PARSING_ERROR, NULL,
+    return svn_error_createf(SVN_ERR_CL_ARG_PARSING_ERROR, NULL, 
                              _("Path '%s' is not a URL"), to_url);
 
   callbacks.open_tmp_file = open_tmp_file;
@@ -1052,9 +1052,9 @@ copy_revprops_cmd(apr_getopt_t *os, void *b, apr_pool_t *pool)
 
   to_url = svn_path_canonicalize(APR_ARRAY_IDX(args, 0, const char *), pool);
   revision = strtol(APR_ARRAY_IDX(args, 1, const char *), &digits_end, 10);
-
+  
   if (! svn_path_is_url(to_url))
-    return svn_error_createf(SVN_ERR_CL_ARG_PARSING_ERROR, NULL,
+    return svn_error_createf(SVN_ERR_CL_ARG_PARSING_ERROR, NULL, 
                              _("Path '%s' is not a URL"), to_url);
   if ((! SVN_IS_VALID_REVNUM(revision)) || (! digits_end) || *digits_end)
     return svn_error_create(SVN_ERR_CL_ARG_PARSING_ERROR, NULL,
