@@ -64,7 +64,7 @@ Candidate changes:
       characters.  The change has low impact.
     Notes:
       An entry for CHANGES may be something like
-      "fixed: a wrongly-encoded error message on invalid options for svn
+      "fixed: a wrongly-encoded error message on invalid options for svn 
       (r20883)".
     Votes:
       +1: nori
@@ -101,14 +101,14 @@ Candidate changes:
       +1: rooneg, cmpilato
 
 Approved changes:
-
+    
   * r20885
     Clarify an error message for node replacement.
     Justification:
       A low-risk error message improvement.
     Votes:
       +1: nori, dlr, cmpilato
-
+    
 
 Status of 1.4.1:
 ================
