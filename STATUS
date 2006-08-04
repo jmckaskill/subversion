@@ -109,13 +109,6 @@ Candidate changes:
 
 Approved changes:
 
-  * r20940
-    Give svnsync a minimal man page.
-    Justification:
-      Low risk, helpful for new users.
-    Votes:
-      +1: rooneg, dlr, cmpilato
-
 
 Status of 1.4.1:
 ================
