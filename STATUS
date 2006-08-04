@@ -102,13 +102,6 @@ Candidate changes:
 
 Approved changes:
 
-  * r20885
-    Clarify an error message for node replacement.
-    Justification:
-      A low-risk error message improvement.
-    Votes:
-      +1: nori, dlr, cmpilato
-
 
 Status of 1.4.1:
 ================
