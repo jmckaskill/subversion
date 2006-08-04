@@ -64,7 +64,7 @@ Candidate changes:
       characters.  The change has low impact.
     Notes:
       An entry for CHANGES may be something like
-      "fixed: a wrongly-encoded error message on invalid options for svn
+      "fixed: a wrongly-encoded error message on invalid options for svn 
       (r20883)".
     Votes:
       +1: nori
