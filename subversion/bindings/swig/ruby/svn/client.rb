@@ -521,6 +521,14 @@ module Svn
         @cancel_baton = Client.set_cancel_func(self, callback)
       end
 
+      def config=(new_config)
+        Client.set_config(self, new_config)
+      end
+
+      def config
+        Client.get_config(self)
+      end
+
       private
       def init_callbacks
         set_log_msg_func(nil)
