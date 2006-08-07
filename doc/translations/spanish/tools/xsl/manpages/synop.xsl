@@ -147,7 +147,7 @@
 </xsl:template>
 
 <!-- disable hyphenation, and use left-aligned filling for the duration
-     of the synopsis, so that line breaks only occur between
+     of the synopsis, so that line breaks only occur between 
      separate paramdefs. -->
 <xsl:template match="funcsynopsis">
   <xsl:text>.ad l&#10;.hy 0&#10;</xsl:text>
@@ -175,7 +175,7 @@
     <xsl:with-param name="replace" select="' '"/>
     <xsl:with-param name="with" select="'\ '"/>
   </xsl:call-template>
-  <xsl:if test="local-name(.) = 'paramdef' and
+  <xsl:if test="local-name(.) = 'paramdef' and 
 	  (following-sibling::paramdef or following-sibling::varargs)">
     <xsl:text>, </xsl:text>
   </xsl:if>
