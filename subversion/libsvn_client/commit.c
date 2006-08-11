@@ -62,7 +62,7 @@
 typedef struct import_ctx_t
 {
   /* Whether any changes were made to the repository */
-  svn_boolean_t repos_changed;
+  svn_boolean_t repos_changed; 
 
 } import_ctx_t;
 
@@ -159,7 +159,7 @@ send_file_contents(const char *path,
 
 
 /* Import file PATH as EDIT_PATH in the repository directory indicated
- * by DIR_BATON in EDITOR.
+ * by DIR_BATON in EDITOR.  
  *
  * Accumulate file paths and their batons in FILES, which must be
  * non-null.  (These are used to send postfix textdeltas later).
@@ -200,7 +200,7 @@ import_file(const svn_delta_editor_t *editor,
     }
 
   /* Add the file, using the pool from the FILES hash. */
-  SVN_ERR(editor->add_file(edit_path, dir_baton, NULL, SVN_INVALID_REVNUM,
+  SVN_ERR(editor->add_file(edit_path, dir_baton, NULL, SVN_INVALID_REVNUM, 
                            pool, &file_baton));
 
   /* Remember that the repository was modified */
@@ -214,7 +214,7 @@ import_file(const svn_delta_editor_t *editor,
     }
   else
     properties = apr_hash_make(pool);
-
+      
   if (properties)
     {
       for (hi = apr_hash_first(pool, properties); hi; hi = apr_hash_next(hi))
@@ -254,7 +254,7 @@ import_file(const svn_delta_editor_t *editor,
     }
 
   /* Now, transmit the file contents. */
-  SVN_ERR(send_file_contents(path, file_baton, editor,
+  SVN_ERR(send_file_contents(path, file_baton, editor, 
                              properties, digest, pool));
 
   /* Finally, close the file. */
@@ -263,7 +263,7 @@ import_file(const svn_delta_editor_t *editor,
 
   return SVN_NO_ERROR;
 }
-
+             
 
 /* Import directory PATH into the repository directory indicated by
  * DIR_BATON in EDITOR.  EDIT_PATH is the path imported as the root
@@ -274,7 +274,7 @@ import_file(const svn_delta_editor_t *editor,
  *
  * EXCLUDES is a hash whose keys are absolute paths to exclude from
  * the import (values are unused).
- *
+ * 
  * If NO_IGNORE is FALSE, don't import files or directories that match
  * ignore patterns.
  *
@@ -283,7 +283,7 @@ import_file(const svn_delta_editor_t *editor,
  *
  * Use POOL for any temporary allocation.  */
 static svn_error_t *
-import_dir(const svn_delta_editor_t *editor,
+import_dir(const svn_delta_editor_t *editor, 
            void *dir_baton,
            const char *path,
            const char *edit_path,
@@ -313,7 +313,7 @@ import_dir(const svn_delta_editor_t *editor,
       const char *filename;
       const void *key;
       void *val;
-
+      
       svn_pool_clear(subpool);
 
       apr_hash_this(hi, &key, NULL, &val);
@@ -369,7 +369,7 @@ import_dir(const svn_delta_editor_t *editor,
 
           /* Add the new subdirectory, getting a descent baton from
              the editor. */
-          SVN_ERR(editor->add_directory(this_edit_path, dir_baton,
+          SVN_ERR(editor->add_directory(this_edit_path, dir_baton, 
                                         NULL, SVN_INVALID_REVNUM, subpool,
                                         &this_dir_baton));
 
@@ -393,9 +393,9 @@ import_dir(const svn_delta_editor_t *editor,
             }
 
           /* Recurse. */
-          SVN_ERR(import_dir(editor, this_dir_baton, this_path,
-                             this_edit_path, FALSE, excludes,
-                             no_ignore, import_ctx, ctx,
+          SVN_ERR(import_dir(editor, this_dir_baton, this_path, 
+                             this_edit_path, FALSE, excludes, 
+                             no_ignore, import_ctx, ctx, 
                              subpool));
 
           /* Finally, close the sub-directory. */
@@ -404,7 +404,7 @@ import_dir(const svn_delta_editor_t *editor,
       else if (dirent->kind == svn_node_file)
         {
           /* Import a file. */
-          SVN_ERR(import_file(editor, dir_baton, this_path,
+          SVN_ERR(import_file(editor, dir_baton, this_path, 
                               this_edit_path, import_ctx, ctx, subpool));
         }
       /* We're silently ignoring things that aren't files or
@@ -419,7 +419,7 @@ import_dir(const svn_delta_editor_t *editor,
 
 /* Recursively import PATH to a repository using EDITOR and
  * EDIT_BATON.  PATH can be a file or directory.
- *
+ * 
  * NEW_ENTRIES is an ordered array of path components that must be
  * created in the repository (where the ordering direction is
  * parent-to-child).  If PATH is a directory, NEW_ENTRIES may be empty
@@ -432,14 +432,14 @@ import_dir(const svn_delta_editor_t *editor,
  * NEW_ENTRIES contains more than one item, all but the last item are
  * the names of intermediate directories that are created before the
  * real import begins.  NEW_ENTRIES may NOT be NULL.
- *
+ * 
  * EXCLUDES is a hash whose keys are absolute paths to exclude from
  * the import (values are unused).
  *
  * If NO_IGNORE is FALSE, don't import files or directories that match
  * ignore patterns.
  *
- * If CTX->NOTIFY_FUNC is non-null, invoke it with CTX->NOTIFY_BATON for
+ * If CTX->NOTIFY_FUNC is non-null, invoke it with CTX->NOTIFY_BATON for 
  * each imported path, passing actions svn_wc_notify_commit_added.
  *
  * Use POOL for any temporary allocation.
@@ -470,7 +470,7 @@ import(const char *path,
   /* Get a root dir baton.  We pass an invalid revnum to open_root
      to mean "base this on the youngest revision".  Should we have an
      SVN_YOUNGEST_REVNUM defined for these purposes? */
-  SVN_ERR(editor->open_root(edit_baton, SVN_INVALID_REVNUM,
+  SVN_ERR(editor->open_root(edit_baton, SVN_INVALID_REVNUM, 
                             pool, &root_baton));
 
   /* Import a file or a directory tree. */
@@ -528,22 +528,22 @@ import(const char *path,
           SVN_ERR(svn_wc_get_default_ignores(&ignores, ctx->config, pool));
           ignores_match = svn_cstring_match_glob_list(path, ignores);
         }
-      if (!ignores_match)
+      if (!ignores_match) 
         SVN_ERR(import_file(editor, root_baton, path, edit_path,
                             import_ctx, ctx, pool));
     }
   else if (kind == svn_node_dir)
     {
       SVN_ERR(import_dir(editor, root_baton, path, edit_path,
-                         nonrecursive, excludes, no_ignore, import_ctx,
+                         nonrecursive, excludes, no_ignore, import_ctx, 
                          ctx, pool));
 
     }
   else if (kind == svn_node_none)
     {
-      return svn_error_createf(SVN_ERR_NODE_UNKNOWN_KIND, NULL,
+      return svn_error_createf(SVN_ERR_NODE_UNKNOWN_KIND, NULL, 
                                _("'%s' does not exist"),
-                               svn_path_local_style(path, pool));
+                               svn_path_local_style(path, pool));  
     }
 
   /* Close up shop; it's time to go home. */
@@ -609,7 +609,7 @@ get_ra_editor(svn_ra_session_t **ra_session,
   /* Fetch the latest revision if requested. */
   if (latest_rev)
     SVN_ERR(svn_ra_get_latest_revnum(*ra_session, latest_rev, pool));
-
+  
   /* Fetch RA commit editor. */
   SVN_ERR(svn_client__commit_get_baton(&commit_baton, commit_info_p, pool));
   return svn_ra_get_commit_editor2(*ra_session, editor, edit_baton, log_msg,
@@ -638,7 +638,7 @@ svn_client_import2(svn_commit_info_t **commit_info_p,
   apr_hash_t *excludes = apr_hash_make(pool);
   svn_node_kind_t kind;
   const char *base_dir = path;
-  apr_array_header_t *new_entries = apr_array_make(pool, 4,
+  apr_array_header_t *new_entries = apr_array_make(pool, 4, 
                                                    sizeof(const char *));
   const char *temp;
   const char *dir;
@@ -652,14 +652,14 @@ svn_client_import2(svn_commit_info_t **commit_info_p,
          array is not used for the import itself. */
       svn_client_commit_item2_t *item;
       const char *tmp_file;
-      apr_array_header_t *commit_items
+      apr_array_header_t *commit_items 
         = apr_array_make(pool, 1, sizeof(item));
-
+      
       item = apr_pcalloc(pool, sizeof(*item));
       item->path = apr_pstrdup(pool, path);
       item->state_flags = SVN_CLIENT_COMMIT_ITEM_ADD;
       APR_ARRAY_PUSH(commit_items, svn_client_commit_item2_t *) = item;
-
+      
       SVN_ERR(svn_client__get_log_msg(&log_msg, &tmp_file, commit_items,
                                       ctx, pool));
       if (! log_msg)
@@ -692,14 +692,14 @@ svn_client_import2(svn_commit_info_t **commit_info_p,
           /* If get_ra_editor below failed we either tried to open
              an invalid url, or else some other kind of error.  In case
              the url was bad we back up a directory and try again. */
-
+          
           if (err->apr_err != SVN_ERR_FS_NO_SUCH_ENTRY)
             return err;
           else
             svn_error_clear(err);
-
+          
           svn_path_split(url, &temp, &dir, pool);
-          *((const char **) apr_array_push(new_entries)) =
+          *((const char **) apr_array_push(new_entries)) = 
             svn_path_uri_decode(dir, pool);
           url = temp;
         }
@@ -717,15 +717,15 @@ svn_client_import2(svn_commit_info_t **commit_info_p,
       for (i = 0; i < (new_entries->nelts / 2); i++)
         {
           j = new_entries->nelts - i - 1;
-          component =
+          component = 
             APR_ARRAY_IDX(new_entries, i, const char *);
           APR_ARRAY_IDX(new_entries, i, const char *) =
             APR_ARRAY_IDX(new_entries, j, const char *);
-          APR_ARRAY_IDX(new_entries, j, const char *) =
+          APR_ARRAY_IDX(new_entries, j, const char *) = 
             component;
         }
     }
-
+  
   /* An empty NEW_ENTRIES list the first call to get_ra_editor() above
      succeeded.  That means that URL corresponds to an already
      existing filesystem entity. */
@@ -754,7 +754,7 @@ svn_client_import2(svn_commit_info_t **commit_info_p,
 
   /* If an error occurred during the commit, abort the edit and return
      the error.  We don't even care if the abort itself fails.  */
-  if ((err = import(path, new_entries, editor, edit_baton,
+  if ((err = import(path, new_entries, editor, edit_baton, 
                     nonrecursive, excludes, no_ignore, ctx, subpool)))
     {
       svn_error_clear(editor->abort_edit(edit_baton, subpool));
@@ -862,7 +862,7 @@ reconcile_errors(svn_error_t *commit_err,
      that. */
   if (commit_err)
     {
-      commit_err = svn_error_quick_wrap
+      commit_err = svn_error_quick_wrap 
         (commit_err, _("Commit failed (details follow):"));
       err = commit_err;
     }
@@ -877,7 +877,7 @@ reconcile_errors(svn_error_t *commit_err,
   if (unlock_err)
     {
       /* Wrap the error with some headers. */
-      unlock_err = svn_error_quick_wrap
+      unlock_err = svn_error_quick_wrap 
         (unlock_err, _("Error unlocking locked dirs (details follow):"));
 
       /* Append this error to the chain. */
@@ -888,7 +888,7 @@ reconcile_errors(svn_error_t *commit_err,
   if (bump_err)
     {
       /* Wrap the error with some headers. */
-      bump_err = svn_error_quick_wrap
+      bump_err = svn_error_quick_wrap 
         (bump_err, _("Error bumping revisions post-commit (details follow):"));
 
       /* Append this error to the chain. */
@@ -899,7 +899,7 @@ reconcile_errors(svn_error_t *commit_err,
   if (cleanup_err)
     {
       /* Wrap the error with some headers. */
-      cleanup_err = svn_error_quick_wrap
+      cleanup_err = svn_error_quick_wrap 
         (cleanup_err, _("Error in post-commit clean-up (details follow):"));
 
       /* Append this error to the chain. */
@@ -945,7 +945,7 @@ remove_redundancies(apr_array_header_t **punique_targets,
   apr_array_header_t *abs_targets;
   apr_array_header_t *rel_targets;
   int i;
-
+ 
   if ((nonrecursive_targets->nelts <= 0) || (! punique_targets))
     {
       /* No targets or no place to store our work means this function
@@ -957,7 +957,7 @@ remove_redundancies(apr_array_header_t **punique_targets,
 
   /* Initialize our temporary pool. */
   temp_pool = svn_pool_create(pool);
-
+ 
   /* Create our list of absolute paths for our "keepers" */
   abs_targets = apr_array_make(temp_pool, nonrecursive_targets->nelts,
                                sizeof(const char *));
@@ -965,13 +965,13 @@ remove_redundancies(apr_array_header_t **punique_targets,
   /* Create our list of absolute paths for our recursive targets */
   if (recursive_targets)
     {
-      abs_recursive_targets = apr_array_make(temp_pool,
+      abs_recursive_targets = apr_array_make(temp_pool, 
                                              recursive_targets->nelts,
                                              sizeof(const char *));
 
       for (i = 0; i < recursive_targets->nelts; i++)
         {
-          const char *rel_path =
+          const char *rel_path = 
             APR_ARRAY_IDX(recursive_targets, i, const char *);
           const char *abs_path;
 
@@ -981,13 +981,13 @@ remove_redundancies(apr_array_header_t **punique_targets,
           APR_ARRAY_PUSH(abs_recursive_targets, const char *) = abs_path;
         }
     }
-
+ 
   /* Create our list of untainted paths for our "keepers" */
   rel_targets = apr_array_make(pool, nonrecursive_targets->nelts,
                                sizeof(const char *));
-
+ 
   /* For each target in our list we do the following:
-
+ 
      1. Calculate its absolute path (ABS_PATH).
      2. See if any of the keepers in RECURSIVE_TARGETS is a parent of, or
         is the same path as, ABS_PATH.  If so, we ignore this
@@ -1000,10 +1000,10 @@ remove_redundancies(apr_array_header_t **punique_targets,
       const char *abs_path;
       int j;
       svn_boolean_t keep_me;
-
+ 
       /* Get the absolute path for this target. */
       SVN_ERR(svn_path_get_absolute(&abs_path, rel_path, temp_pool));
-
+ 
       /* For each keeper in ABS_TARGETS, see if this target is the
          same as or a child of that keeper. */
       keep_me = TRUE;
@@ -1014,7 +1014,7 @@ remove_redundancies(apr_array_header_t **punique_targets,
             {
               const char *keeper = APR_ARRAY_IDX(abs_recursive_targets, j,
                                                  const char *);
-
+ 
               /* Quit here if we find this path already in the keepers. */
               if (strcmp(keeper, abs_path) == 0)
                 {
@@ -1035,9 +1035,9 @@ remove_redundancies(apr_array_header_t **punique_targets,
         {
           for (j = 0; j < abs_targets->nelts; j++)
             {
-              const char *keeper =
+              const char *keeper = 
                 APR_ARRAY_IDX(abs_targets, j, const char *);
-
+ 
               /* Quit here if we find this path already in the keepers. */
               if (strcmp(keeper, abs_path) == 0)
                 {
@@ -1046,7 +1046,7 @@ remove_redundancies(apr_array_header_t **punique_targets,
                 }
             }
         }
-
+ 
       /* If this is a new keeper, add its absolute path to ABS_TARGETS
          and its original path to REL_TARGETS. */
       if (keep_me)
@@ -1055,13 +1055,13 @@ remove_redundancies(apr_array_header_t **punique_targets,
           APR_ARRAY_PUSH(abs_targets, const char *) = abs_path;
         }
     }
-
+ 
   /* Destroy our temporary pool. */
   svn_pool_destroy(temp_pool);
-
+ 
   /* Make sure we return the list of untainted keeper paths. */
   *punique_targets = rel_targets;
-
+ 
   return SVN_NO_ERROR;
 }
 
@@ -1100,7 +1100,7 @@ adjust_rel_targets(const char **pbase_dir,
   if (anchor_one_up)
     {
       const char *parent_dir, *name;
-
+              
       SVN_ERR(svn_wc_get_actual_target(base_dir, &parent_dir, &name, pool));
 
       if (*name)
@@ -1109,7 +1109,7 @@ adjust_rel_targets(const char **pbase_dir,
              of the former one. */
           base_dir = apr_pstrdup(pool, parent_dir);
 
-          new_rel_targets = apr_array_make(pool, rel_targets->nelts,
+          new_rel_targets = apr_array_make(pool, rel_targets->nelts, 
                                            sizeof(name));
           for (i = 0; i < rel_targets->nelts; i++)
             {
@@ -1285,20 +1285,20 @@ svn_client_commit3(svn_commit_info_t **commit_info_p,
           if (kind == svn_node_dir)
             {
               if (recurse)
-                APR_ARRAY_PUSH(dirs_to_lock_recursive,
+                APR_ARRAY_PUSH(dirs_to_lock_recursive, 
                                const char *) = apr_pstrdup(pool, target);
               else
-                /* Don't lock if target is the base_dir, base_dir will be
+                /* Don't lock if target is the base_dir, base_dir will be 
                    locked anyway and we can't lock it twice */
                 if (strcmp(target, base_dir) != 0)
-                  APR_ARRAY_PUSH(dirs_to_lock,
+                  APR_ARRAY_PUSH(dirs_to_lock, 
                                  const char *) = apr_pstrdup(pool, target);
             }
 
           /* Now we need to iterate over the parent paths of this path
-             adding them to the set of directories we want to lock.
+             adding them to the set of directories we want to lock. 
              Do nothing if target is already the base_dir. */
-          if (strcmp(target, base_dir) != 0)
+          if (strcmp(target, base_dir) != 0) 
             {
               svn_path_split(target, &parent_dir, &name, subpool);
 
@@ -1407,7 +1407,7 @@ svn_client_commit3(svn_commit_info_t **commit_info_p,
         {
           svn_wc_status2_t *status;
           svn_node_kind_t kind;
-
+          
           SVN_ERR(svn_io_check_path(target, &kind, pool));
 
           if (kind == svn_node_dir)
@@ -1426,7 +1426,7 @@ svn_client_commit3(svn_commit_info_t **commit_info_p,
   if ((cmt_err = svn_client__harvest_committables(&committables,
                                                   &lock_tokens,
                                                   base_dir_access,
-                                                  rel_targets,
+                                                  rel_targets, 
                                                   recurse ? FALSE : TRUE,
                                                   ! keep_locks,
                                                   ctx,
@@ -1440,7 +1440,7 @@ svn_client_commit3(svn_commit_info_t **commit_info_p,
      are poised to started handling nested working copies.  See
      http://subversion.tigris.org/issues/show_bug.cgi?id=960. */
   if (! ((commit_items = apr_hash_get(committables,
-                                      SVN_CLIENT__SINGLE_REPOS_NAME,
+                                      SVN_CLIENT__SINGLE_REPOS_NAME, 
                                       APR_HASH_KEY_STRING))))
     goto cleanup;
 
@@ -1454,8 +1454,8 @@ svn_client_commit3(svn_commit_info_t **commit_info_p,
       {
         svn_client_commit_item2_t *item;
         item = APR_ARRAY_IDX(commit_items, i, svn_client_commit_item2_t *);
-
-        if (item->state_flags != SVN_CLIENT_COMMIT_ITEM_LOCK_TOKEN)
+        
+        if (item->state_flags != SVN_CLIENT_COMMIT_ITEM_LOCK_TOKEN) 
           {
             found_changed_path = TRUE;
             break;
@@ -1509,7 +1509,7 @@ svn_client_commit3(svn_commit_info_t **commit_info_p,
 
   /* Perform the commit. */
   cmt_err = svn_client__do_commit(base_url, commit_items, base_dir_access,
-                                  editor, edit_baton,
+                                  editor, edit_baton, 
                                   display_dir,
                                   &tempfiles, &digests, ctx, pool);
 
@@ -1571,10 +1571,10 @@ svn_client_commit3(svn_commit_info_t **commit_info_p,
                                                              subpool);
                       if (bump_err)
                         goto cleanup;
-                      continue;
-                    }
+                      continue;                      
+                    }                  
                 }
-              goto cleanup;
+              goto cleanup;              
             }
           if ((bump_err = svn_wc_entry(&entry, item->path, adm_access, TRUE,
                                        subpool)))
@@ -1586,7 +1586,7 @@ svn_client_commit3(svn_commit_info_t **commit_info_p,
                has been processed as a child of an earlier item. */
             continue;
 
-          if ((item->state_flags & SVN_CLIENT_COMMIT_ITEM_ADD)
+          if ((item->state_flags & SVN_CLIENT_COMMIT_ITEM_ADD) 
               && (item->kind == svn_node_dir)
               && (item->copyfrom_url))
             loop_recurse = TRUE;
@@ -1662,7 +1662,7 @@ svn_client_commit(svn_client_commit_info_t **commit_info_p,
                   apr_pool_t *pool)
 {
   return svn_client_commit2(commit_info_p, targets,
-                            nonrecursive ? FALSE : TRUE,
+                            nonrecursive ? FALSE : TRUE, 
                             TRUE,
                             ctx, pool);
 }
