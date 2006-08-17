@@ -64,7 +64,7 @@ module SvnTestUtil
       end
     end
   end
-
+  
   def gc_disable(&block)
     change_gc_status(GC.disable, &block)
   end
@@ -81,7 +81,7 @@ module SvnTestUtil
   def teardown_tmp(path=@tmp_path)
     FileUtils.rm_rf(path)
   end
-
+  
   def setup_repository(path=@repos_path, config={}, fs_config={})
     FileUtils.rm_rf(path)
     FileUtils.mkdir_p(File.dirname(path))
@@ -142,7 +142,7 @@ module SvnTestUtil
   def teardown_wc
     FileUtils.rm_rf(@wc_base_dir)
   end
-
+  
   def setup_config
     teardown_config
     Svn::Core::Config.ensure(@config_path)
@@ -151,7 +151,7 @@ module SvnTestUtil
   def teardown_config
     FileUtils.rm_rf(@config_path)
   end
-
+  
   def add_authentication
     passwd_file = "passwd"
     File.open(@repos.svnserve_conf, "w") do |conf|
@@ -194,7 +194,7 @@ exit 1
     end
     FileUtils.chmod(0755, @repos.pre_revprop_change_hook)
   end
-
+  
   def youngest_rev
     @fs.youngest_rev
   end
