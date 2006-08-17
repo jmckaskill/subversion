@@ -34,8 +34,8 @@
 svn_boolean_t
 svn_prop_is_svn_prop(const char *prop_name)
 {
-  return strncmp(prop_name, SVN_PROP_PREFIX, (sizeof(SVN_PROP_PREFIX) - 1))
-         ? FALSE
+  return strncmp(prop_name, SVN_PROP_PREFIX, (sizeof(SVN_PROP_PREFIX) - 1)) 
+         ? FALSE 
          : TRUE;
 }
 
@@ -51,14 +51,14 @@ svn_property_kind(int *prefix_len,
     {
       if (prefix_len)
         *prefix_len = wc_prefix_len;
-      return svn_prop_wc_kind;
+      return svn_prop_wc_kind;     
     }
 
   if (strncmp(prop_name, SVN_PROP_ENTRY_PREFIX, entry_prefix_len) == 0)
     {
       if (prefix_len)
         *prefix_len = entry_prefix_len;
-      return svn_prop_entry_kind;
+      return svn_prop_entry_kind;     
     }
 
   /* else... */
@@ -87,8 +87,8 @@ svn_categorize_props(const apr_array_header_t *proplist,
     {
       svn_prop_t *prop, *newprop;
       enum svn_prop_kind kind;
-
-      prop = &APR_ARRAY_IDX(proplist, i, svn_prop_t);
+      
+      prop = &APR_ARRAY_IDX(proplist, i, svn_prop_t);      
       kind = svn_property_kind(NULL, prop->name);
       newprop = NULL;
 
