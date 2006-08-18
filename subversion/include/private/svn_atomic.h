@@ -34,7 +34,7 @@ extern "C" {
 /**
  * @name Macro definitions for atomic types and operations
  *
- * @note These are necessary because the apr_atomic API changed somewhat
+ * @note These are necessary because the apr_atomic API changed somewhat 
  *       between apr-0.x and apr-1.x.
  * @{
  */
@@ -60,10 +60,10 @@ extern "C" {
 #define svn_atomic_set(mem, val) apr_atomic_set((mem), (val))
 #endif /* APR_MAJOR_VERSION */
 
-/**
+/** 
  * Atomic compare-and-swap.
  *
- * Compare the value that @a mem points to with @a cmp. If they are
+ * Compare the value that @a mem points to with @a cmp. If they are 
  * the same swap the value with @a with.
  *
  * @note svn_atomic_cas should not be combined with the other
@@ -83,7 +83,7 @@ extern "C" {
 /**
  * Call an initialization function in a thread-safe manner.
  *
- * @a global_status must be a pointer to a global, zero-initialized
+ * @a global_status must be a pointer to a global, zero-initialized 
  * #svn_atomic_t. @a init_func is a pointer to the function that performs
  * the actual initialization.
  *
