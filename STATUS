@@ -48,7 +48,7 @@ Candidate changes:
       +1: maxb
 
   * r21117, -8
-    Move svn:sync-* revprops to svn_props.h, with all the other svn:
+    Move svn:sync-* revprops to svn_props.h, with all the other svn: 
     revprops.
     Justification:
       All svn: revprops should be declared in the svn API.
