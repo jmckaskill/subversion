@@ -255,9 +255,9 @@ def forced_checkout_with_real_obstructions_and_unversioned_files(sbox):
 def forced_checkout_with_versioned_obstruction(sbox):
   """forced co with versioned obstruction"""
 
-  # Make a greek tree working copy
+  # Make a greek tree working copy 
   sbox.build()
-
+  
   # Create a second repository with the same greek tree
   repo_dir = sbox.repo_dir
   repo_url = sbox.repo_url
@@ -376,7 +376,7 @@ def checkout_broken_eol(sbox):
   expected_output = svntest.wc.State(sbox.wc_dir, {
     'file': Item(status='A '),
     })
-
+                                     
   expected_wc = svntest.wc.State('', {
     'file': Item(contents='line\nline2\n'),
     })
