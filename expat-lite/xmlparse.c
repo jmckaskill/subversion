@@ -545,7 +545,7 @@ XML_Parser XML_ExternalEntityParserCreate(XML_Parser oldParser,
   void *oldHandlerArg = handlerArg;
   int oldDefaultExpandInternalEntities = defaultExpandInternalEntities;
   void *oldExternalEntityRefHandlerArg = externalEntityRefHandlerArg;
-
+ 
   parser = (ns
             ? XML_ParserCreateNS(encodingName, namespaceSeparator)
 	    : XML_ParserCreate(encodingName));
@@ -2618,7 +2618,7 @@ reportComment(XML_Parser parser, const ENCODING *enc, const char *start, const c
   }
   data = poolStoreString(&tempPool,
                          enc,
-                         start + enc->minBytesPerChar * 4,
+                         start + enc->minBytesPerChar * 4, 
 			 end - enc->minBytesPerChar * 3);
   if (!data)
     return 0;
