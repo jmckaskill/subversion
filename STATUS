@@ -46,7 +46,7 @@ Approved changes:
       svn merge -r 21183:head $rs/branches/1.4.x-fixwarn
     Votes:
       +1: maxb, rooneg, cmpilato
-
+  
 Status of 1.4.1:
 ================
 
