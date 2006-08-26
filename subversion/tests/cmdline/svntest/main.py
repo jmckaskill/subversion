@@ -463,15 +463,15 @@ def copy_repos(src_path, dst_path, head_revision, ignore_uuid = 0):
   if not ignore_uuid:
     if not os.path.exists(general_repo_dir):
       os.makedirs(general_repo_dir) # this also creates all the intermediate dirs
-
+      
     output, errput = run_svnadmin('hotcopy', src_path, dst_path)
   else:
-    # Do an svnadmin dump|svnadmin load cycle. Print a fake pipe command so that
+    # Do an svnadmin dump|svnadmin load cycle. Print a fake pipe command so that 
     # the displayed CMDs can be run by hand
     create_repos(dst_path)
     dump_args = ' dump "' + src_path + '"'
     load_args = ' load "' + dst_path + '"'
-
+  
     if ignore_uuid:
       load_args = load_args + " --ignore-uuid"
     if verbose_mode:
@@ -483,14 +483,14 @@ def copy_repos(src_path, dst_path, head_revision, ignore_uuid = 0):
     stop = time.time()
     if verbose_mode:
       print '<TIME = %.6f>' % (stop - start)
-
+  
     while 1:
       data = dump_out.read(1024*1024)  # Arbitrary buffer size
       if data == "":
         break
       load_in.write(data)
     load_in.close() # Tell load we are done
-
+  
     dump_lines = dump_err.readlines()
     load_lines = load_out.readlines()
     dump_in.close()
@@ -498,7 +498,7 @@ def copy_repos(src_path, dst_path, head_revision, ignore_uuid = 0):
     dump_err.close()
     load_out.close()
     load_err.close()
-
+  
     dump_re = re.compile(r'^\* Dumped revision (\d+)\.\r?$')
     expect_revision = 0
     for dump_line in dump_lines:
@@ -510,7 +510,7 @@ def copy_repos(src_path, dst_path, head_revision, ignore_uuid = 0):
     if expect_revision != head_revision + 1:
       print 'ERROR:  dump failed; did not see revision', head_revision
       raise SVNRepositoryCopyFailure
-
+  
     load_re = re.compile(r'^------- Committed revision (\d+) >>>\r?$')
     expect_revision = 1
     for load_line in load_lines:
@@ -853,8 +853,8 @@ def run_tests(test_list):
   # Calculate pristine_url from test_area_url.
   pristine_url = test_area_url + '/' + pristine_dir
   if windows == 1:
-    pristine_url = string.replace(pristine_url, '\\', '/')
-
+    pristine_url = string.replace(pristine_url, '\\', '/')  
+  
   if not testnums:
     # If no test numbers were listed explicitly, include all of them:
     testnums = range(1, len(test_list))
