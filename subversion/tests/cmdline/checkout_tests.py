@@ -256,9 +256,9 @@ def forced_checkout_with_real_obstructions_and_unversioned_files(sbox):
 def forced_checkout_with_versioned_obstruction(sbox):
   """forced co with versioned obstruction"""
 
-  # Make a greek tree working copy
+  # Make a greek tree working copy 
   sbox.build()
-
+  
   # Create a second repository with the same greek tree
   repo_dir = sbox.repo_dir
   repo_url = sbox.repo_url
@@ -377,7 +377,7 @@ def checkout_broken_eol(sbox):
   expected_output = svntest.wc.State(sbox.wc_dir, {
     'file': Item(status='A '),
     })
-
+                                     
   expected_wc = svntest.wc.State('', {
     'file': Item(contents='line\nline2\n'),
     })
@@ -392,21 +392,21 @@ def checkout_creates_intermediate_folders(sbox):
   sbox.build(create_wc = False)
 
   checkout_target = os.path.join(sbox.wc_dir, 'a', 'b', 'c')
-
-  # checkout a working copy in a/b/c, should create these intermediate
+  
+  # checkout a working copy in a/b/c, should create these intermediate 
   # folders
   expected_output = svntest.main.greek_state.copy()
   expected_output.wc_dir = checkout_target
   expected_output.tweak(status='A ', contents=None)
 
   expected_wc = svntest.main.greek_state
-
+  
   svntest.actions.run_and_verify_checkout(sbox.repo_url,
                                           checkout_target,
                                           expected_output,
                                           expected_wc)
 
-# Test that, if a peg revision is provided without an explicit revision,
+# Test that, if a peg revision is provided without an explicit revision, 
 # svn will checkout the directory as it was at rPEG, rather than at HEAD.
 def checkout_peg_rev(sbox):
   "checkout with peg revision"
@@ -428,16 +428,16 @@ def checkout_peg_rev(sbox):
   expected_output = svntest.main.greek_state.copy()
   expected_output.wc_dir = checkout_target
   expected_output.tweak(status='A ', contents=None)
-
+  
   expected_wc = svntest.main.greek_state.copy()
-
+  
   svntest.actions.run_and_verify_checkout(sbox.repo_url + '@1',
-                                          checkout_target,
+                                          checkout_target, 
                                           expected_output,
                                           expected_wc)
 
 #----------------------------------------------------------------------
-# Issue 2601: Test that peg revision dates are correctly supported.
+# Issue 2601: Test that peg revision dates are correctly supported. 
 def checkout_peg_rev_date(sbox):
   "checkout with peg revision date"
 
@@ -458,12 +458,12 @@ def checkout_peg_rev_date(sbox):
   expected_output = svntest.main.greek_state.copy()
   expected_output.wc_dir = checkout_target
   expected_output.tweak(status='A ', contents=None)
-
+  
   expected_wc = svntest.main.greek_state.copy()
-
+  
   # use an old date to checkout, that way we're sure we get the first revision
   svntest.actions.run_and_verify_checkout(sbox.repo_url + '@{1980-01-01}',
-                                          checkout_target,
+                                          checkout_target, 
                                           expected_output,
                                           expected_wc)
 
