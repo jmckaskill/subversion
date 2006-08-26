@@ -50,7 +50,7 @@ static apr_pool_t *sasl_pool = NULL;
 /* Pool cleanup called when sasl_pool is destroyed. */
 static apr_status_t sasl_done_cb(void *data)
 {
-  /* Reset sasl_status, in case the client calls
+  /* Reset sasl_status, in case the client calls 
      apr_initialize()/apr_terminate() more than once. */
   sasl_status = 0;
   if (svn_atomic_dec(&sasl_ctx_count) == 0)
@@ -139,7 +139,7 @@ apr_status_t svn_ra_svn__sasl_common_init(void)
 
   sasl_pool = svn_pool_create(NULL);
   sasl_ctx_count = 1;
-  apr_pool_cleanup_register(sasl_pool, NULL, sasl_done_cb,
+  apr_pool_cleanup_register(sasl_pool, NULL, sasl_done_cb, 
                             apr_pool_cleanup_null);
 #ifdef APR_HAS_THREADS
   sasl_set_mutex(sasl_mutex_alloc_cb,
@@ -148,7 +148,7 @@ apr_status_t svn_ra_svn__sasl_common_init(void)
                  sasl_mutex_free_cb);
   free_mutexes = apr_array_make(sasl_pool, 0, sizeof(apr_thread_mutex_t *));
   apr_err = apr_thread_mutex_create(&array_mutex,
-                                    APR_THREAD_MUTEX_DEFAULT,
+                                    APR_THREAD_MUTEX_DEFAULT, 
                                     sasl_pool);
 #endif /* APR_HAS_THREADS */
   return apr_err;
@@ -157,7 +157,7 @@ apr_status_t svn_ra_svn__sasl_common_init(void)
 static sasl_callback_t interactions[] =
 {
   /* Use SASL interactions for username & password */
-  {SASL_CB_AUTHNAME, NULL, NULL},
+  {SASL_CB_AUTHNAME, NULL, NULL}, 
   {SASL_CB_PASS, NULL, NULL},
   {SASL_CB_LIST_END, NULL, NULL}
 };
@@ -189,16 +189,16 @@ static apr_status_t sasl_dispose_cb(void *data)
 /* Create a new SASL context. */
 static svn_error_t *new_sasl_ctx(sasl_conn_t **sasl_ctx,
                                  svn_boolean_t is_tunneled,
-                                 const char *hostname,
+                                 const char *hostname, 
                                  const char *local_addrport,
-                                 const char *remote_addrport,
+                                 const char *remote_addrport, 
                                  apr_pool_t *pool)
 {
   sasl_security_properties_t secprops = SVN_RA_SVN__DEFAULT_SECPROPS;
   int result;
 
   result = sasl_client_new("svn", hostname, local_addrport, remote_addrport,
-                           interactions, SASL_SUCCESS_DATA,
+                           interactions, SASL_SUCCESS_DATA, 
                            sasl_ctx);
   if (result != SASL_OK)
     return svn_error_create(SVN_ERR_RA_NOT_AUTHORIZED, NULL,
@@ -214,14 +214,14 @@ static svn_error_t *new_sasl_ctx(sasl_conn_t **sasl_ctx,
          otherwise it will ignore EXTERNAL. The third paramater
          should be the username, but since SASL doesn't seem
          to use it on the client side, any non-empty string will do. */
-      result = sasl_setprop(*sasl_ctx,
+      result = sasl_setprop(*sasl_ctx, 
                             SASL_AUTH_EXTERNAL, " ");
       if (result != SASL_OK)
         return svn_error_create(SVN_ERR_RA_NOT_AUTHORIZED, NULL,
                                 sasl_errdetail(*sasl_ctx));
     }
 
-  /* Set security properties. Don't allow PLAIN or LOGIN, since we
+  /* Set security properties. Don't allow PLAIN or LOGIN, since we 
      don't support TLS yet. */
   secprops.security_flags = SASL_SEC_NOPLAINTEXT;
   sasl_setprop(*sasl_ctx, SASL_SEC_PROPS, &secprops);
@@ -299,18 +299,18 @@ static svn_error_t *try_auth(svn_ra_svn__session_baton_t *sess,
                             sasl_errdetail(sasl_ctx));
 
   /* Prepare the initial authentication token. */
-  if (outlen > 0 || strcmp(mech, "EXTERNAL") == 0)
-    arg = svn_base64_encode_string(svn_string_ncreate(out, outlen, pool),
+  if (outlen > 0 || strcmp(mech, "EXTERNAL") == 0) 
+    arg = svn_base64_encode_string(svn_string_ncreate(out, outlen, pool), 
                                    pool);
 
   /* Send the initial client response */
-  SVN_ERR(svn_ra_svn__auth_response(sess->conn, pool, mech,
+  SVN_ERR(svn_ra_svn__auth_response(sess->conn, pool, mech, 
                                     arg ? arg->data : NULL, compat));
 
-  while (result == SASL_CONTINUE)
+  while (result == SASL_CONTINUE) 
     {
       /* Read the server response */
-      SVN_ERR(svn_ra_svn_read_tuple(sess->conn, pool, "w(?s)",
+      SVN_ERR(svn_ra_svn_read_tuple(sess->conn, pool, "w(?s)", 
                                     &status, &in));
 
       if (strcmp(status, "failure") == 0)
@@ -323,22 +323,22 @@ static svn_error_t *try_auth(svn_ra_svn__session_baton_t *sess,
           return SVN_NO_ERROR;
         }
 
-      if ((strcmp(status, "success") != 0 && strcmp(status, "step") != 0)
+      if ((strcmp(status, "success") != 0 && strcmp(status, "step") != 0) 
           || in == NULL)
         return svn_error_create(SVN_ERR_RA_NOT_AUTHORIZED, NULL,
                                 _("Unexpected server response"
                                 " to authentication"));
 
       /* If the mech is CRAM-MD5 we don't base64-decode the server response. */
-      if (strcmp(mech, "CRAM-MD5") != 0)
+      if (strcmp(mech, "CRAM-MD5") != 0) 
         in = svn_base64_decode_string(in, pool);
-
+ 
       do
         {
-          result = sasl_client_step(sasl_ctx,
+          result = sasl_client_step(sasl_ctx, 
                                     in->data,
                                     in->len,
-                                    &client_interact,
+                                    &client_interact, 
                                     &out, /* Filled in by SASL. */
                                     &outlen);
 
@@ -354,7 +354,7 @@ static svn_error_t *try_auth(svn_ra_svn__session_baton_t *sess,
 
       if (outlen > 0)
         {
-          arg = svn_string_ncreate(out, outlen, pool);
+          arg = svn_string_ncreate(out, outlen, pool); 
           /* Write our response. */
           /* For CRAM-MD5, we don't use base64-encoding. */
           if (strcmp(mech, "CRAM-MD5") != 0)
@@ -366,7 +366,7 @@ static svn_error_t *try_auth(svn_ra_svn__session_baton_t *sess,
   if (!status || strcmp(status, "step") == 0)
     {
       /* This is a client-send-last mech.  Read the last server response. */
-      SVN_ERR(svn_ra_svn_read_tuple(sess->conn, pool, "w(?s)",
+      SVN_ERR(svn_ra_svn_read_tuple(sess->conn, pool, "w(?s)", 
               &status, &in));
 
       if (strcmp(status, "failure") == 0)
@@ -389,7 +389,7 @@ static svn_error_t *try_auth(svn_ra_svn__session_baton_t *sess,
   return SVN_NO_ERROR;
 }
 
-svn_error_t *svn_ra_svn__get_addresses(const char **local_addrport,
+svn_error_t *svn_ra_svn__get_addresses(const char **local_addrport, 
                                       const char **remote_addrport,
                                       apr_socket_t *sock,
                                       apr_pool_t *pool)
@@ -417,7 +417,7 @@ svn_error_t *svn_ra_svn__get_addresses(const char **local_addrport,
   /* Format the IP address and port number like this: a.b.c.d;port */
   *local_addrport = apr_pstrcat(pool, local_addr, ";",
                                 apr_itoa(pool, (int)local_sa->port), NULL);
-  *remote_addrport = apr_pstrcat(pool, remote_addr, ";",
+  *remote_addrport = apr_pstrcat(pool, remote_addr, ";", 
                                  apr_itoa(pool, (int)remote_sa->port), NULL);
 
   return SVN_NO_ERROR;
@@ -474,9 +474,9 @@ svn_error_t *svn_ra_svn__do_auth(svn_ra_svn__session_baton_t *sess,
           break;
         }
 
-      mechstring = apr_pstrcat(pool,
-                               mechstring,
-                               i == 0 ? "" : " ",
+      mechstring = apr_pstrcat(pool, 
+                               mechstring, 
+                               i == 0 ? "" : " ", 
                                elt->u.word, NULL);
     }
 
@@ -484,11 +484,11 @@ svn_error_t *svn_ra_svn__do_auth(svn_ra_svn__session_baton_t *sess,
     {
       const char *realmstring;
 
-      realmstring = realm ?
+      realmstring = realm ? 
                     apr_psprintf(pool, "%s %s", sess->realm_prefix, realm)
                     : sess->realm_prefix;
       SVN_ERR(svn_auth_first_credentials(&creds, &iterstate,
-                                         SVN_AUTH_CRED_SIMPLE,
+                                         SVN_AUTH_CRED_SIMPLE, 
                                          realmstring,
                                          sess->auth_baton, pool));
     }
