@@ -2310,9 +2310,9 @@ ra_callbacks_open_tmp_file(apr_file_t **fp,
 
   svn_swig_py_acquire_py_lock();
 
-  if ((result = PyObject_CallMethod(callbacks,
+  if ((result = PyObject_CallMethod(callbacks, 
                                     "open_tmp_file",
-                                    (char *)"O&",
+                                    (char *)"O&", 
                                     make_ob_pool, pool)) == NULL)
     {
       err = callback_exception_error();
@@ -2321,7 +2321,7 @@ ra_callbacks_open_tmp_file(apr_file_t **fp,
     {
       *fp = NULL;
     }
-  else
+  else 
     {
       *fp = svn_swig_py_make_file(result, pool);
       if (*fp == NULL)
@@ -2354,16 +2354,16 @@ svn_swig_py_setup_ra_callbacks(svn_ra_callbacks2_t **callbacks,
 
   py_auth_baton = PyObject_GetAttrString(py_callbacks, "auth_baton");
 
-  if (svn_swig_ConvertPtrString(py_auth_baton,
+  if (svn_swig_ConvertPtrString(py_auth_baton, 
                                 (void **)&((*callbacks)->auth_baton),
-                                "svn_auth_baton_t *"))
+                                "svn_auth_baton_t *")) 
     {
       err = type_conversion_error("svn_auth_baton_t *");
       svn_swig_py_svn_exception(err);
       Py_XDECREF(py_auth_baton);
       return;
     }
-
+  
   Py_XDECREF(py_auth_baton);
 
   *baton = py_callbacks;
@@ -2548,7 +2548,7 @@ static svn_error_t *reporter_delete_path(void *report_baton,
   if ((result = PyObject_CallMethod(py_reporter,
                                     (char *)"delete_path",
                                     (char *)"sO&",
-                                    path,
+                                    path, 
                                     make_ob_pool, pool)) == NULL)
     {
       err = callback_exception_error();
@@ -2564,7 +2564,7 @@ static svn_error_t *reporter_delete_path(void *report_baton,
 
   return err;
 }
-
+    
 static svn_error_t *reporter_link_path(void *report_baton,
                             const char *path,
                             const char *url,
