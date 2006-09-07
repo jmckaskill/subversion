@@ -101,7 +101,7 @@ svn_sort_compare_revisions(const void *a, const void *b)
 }
 
 
-int
+int 
 svn_sort_compare_paths(const void *a, const void *b)
 {
   const char *item1 = *((const char * const *) a);
@@ -131,7 +131,7 @@ svn_sort__hash(apr_hash_t *ht,
 
       apr_hash_this(hi, &item->key, &item->klen, &item->value);
     }
-
+  
   /* now quicksort the array.  */
   qsort(ary->elts, ary->nelts, ary->elt_size,
         (int (*)(const void *, const void *))comparison_func);
