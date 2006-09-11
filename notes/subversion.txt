@@ -88,8 +88,8 @@ Keyword expansion is when CVS expands "$ Revision$" into "$ Revision
 1.1$", for example.  There are a number of keywords in CVS: "$
 Author$", "$ Date$", and so on.
 
-  (Note: the examples above contain an extra space, to
-   prevent keyword expansion from happening to them!)
+  (Note: the examples above contain an extra space, to 
+   prevent keyword expansion from happening to them!) 
 
 Line-end conversion is when CVS gives plaintext files in the working
 copy the appropriate line-ending conventions (LF, CRLF, or CR) for
@@ -283,7 +283,7 @@ client-side diff interface).
 
 Certain kinds of conflicts can be resolved without human intervention.
 For example, files like /etc/passwd just need to keep lines unique by
-username and user ID.
+username and user ID.  
 
 Right now, merging new repository data into a modified working copy of
 a passwd file can result in a textual conflict even when there's no
@@ -413,7 +413,7 @@ the project:
       |         |
       |   A     |                 /* Two dir_entries, `A' and `B'. */
       |    \    |
-      |   B \   |
+      |   B \   | 
       |__/___\__|
         /     \
        |       \
@@ -489,32 +489,32 @@ node:
       |         |
       |   A     |
       |    \    |
-      |   B \   |
+      |   B \   | 
       |__/___\__|
         /     \
        |       \
        |        \
     ___|____     \ ________
    |D       |     |D       |
-   |        |     |        |
-   |        |     | subA   |
-   |________|     |___\____|
-                       \
-                        \
-                      ___\____
-                     |D       |
-                     |        |
-                     | fish   |
-                     |___\____|
-                          \
-                           \
-                         ___\____
-                        |D       |
-                        |        |
-                        | tuna   |
-                        |___\____|
-                             \
-                              \
+   |        |     |        |                         
+   |        |     | subA   |                         
+   |________|     |___\____|                         
+                       \                             
+                        \                            
+                      ___\____                       
+                     |D       |                      
+                     |        |                      
+                     | fish   |                      
+                     |___\____|                      
+                          \                          
+                           \                         
+                         ___\____                    
+                        |D       |                   
+                        |        |                   
+                        | tuna   |                   
+                        |___\____|                   
+                             \                       
+                              \                      
                             ___\____            ________
                            |F       |          |F       |
                            |        |          |        |
@@ -538,7 +538,7 @@ new version at the top of the repository, thus making it externally
 visible.  That's done by making entry 2 in the version array point to
 something:
 
-      Figure 3: The `myproj' repository, after commit of version 2.
+      Figure 3: The `myproj' repository, after commit of version 2. 
 
        ______________________________________________________
       |___1_______2________3________4________5_________6_____...etc...
@@ -549,7 +549,7 @@ something:
       |         |
       |   A     |
       |    \    |
-      |   B \   |
+      |   B \   | 
       |__/___\__|
         /     \
        |       \
@@ -566,15 +566,15 @@ something:
                      |        |
                      | fish   |
                      |___\____|
-                          \
-                           \
-                         ___\____
-                        |D       |
-                        |        |
-                        | tuna   |
-                        |___\____|
-                             \
-                              \
+                          \ 
+                           \                         
+                         ___\____                    
+                        |D       |                   
+                        |        |                   
+                        | tuna   |                   
+                        |___\____|                   
+                             \                       
+                              \                      
                             ___\____            ________
                            |F       |          |F       |
                            |        |          |        |
@@ -590,11 +590,11 @@ that directory hasn't changed at all.  Nor has its child, nor has
 anything until you get all the way down to tuna.
 
 That's why nodes don't store version numbers -- the exact same node
-may appear in many different versions.
+may appear in many different versions.               
 
 So, the general recipe for retrieving `foo:N' is:
 
-   1. Go to the version table, find version N.
+   1. Go to the version table, find version N.       
 
    2. Walk down the tree in the obvious way, starting from the root
       node N points to.  As you walk, anytime you get to a node with a
@@ -602,7 +602,7 @@ So, the general recipe for retrieving `foo:N' is:
       (Follow this rule even when you get to a node for `foo'.)
 
    3. When you have nowhere else to go, this is the droid you're
-      looking for.
+      looking for.                                   
 
    (Note: this recipe will be slightly modified later to work
    with locking, but the general idea here is accurate.)
@@ -616,14 +616,14 @@ intermediate steps not being shown:
 
        ______________________________________________________
       |___1_______2________3________4________5_________6_____...etc...
-          |       |       /
-          |      /       /
-       ___|_____/       /
-      |D        |______/
-      |         |
+          |       |       /                          
+          |      /       /                           
+       ___|_____/       /                            
+      |D        |______/                             
+      |         |                                    
       |   A     |
       |    \    |
-      |   B \   |
+      |   B \   | 
       |__/___\__|
         /     \
        |       \
@@ -640,7 +640,7 @@ intermediate steps not being shown:
                      |        |
                      | fish   |
                      |___\____|
-                          \
+                          \ 
                            \
                          ___\____        ________
                         |D       |      |D       |
@@ -695,8 +695,8 @@ README was added to the project's top level directory:
 
        ______________________________________________________
       |___1_______2________3________4________5_________6_____...etc...
-          |      /       /         /
-          |     /       /         /
+          |      /       /         /              
+          |     /       /         /               
       ____|____/       /         /               _________
      |D        |______/         /               |D        |
      |         |               /                |         |
@@ -753,14 +753,14 @@ README was added to the project's top level directory:
            |________|       | full   |          | diffy  |
                             |contents|          |contents|
                             |________|          |________|
-
-
-There, wasn't that pretty?  I knew you would.
+     
+     
+There, wasn't that pretty?  I knew you would.          
 
 *** Crash-proof repository mutation and locking
 
 We want to make repository changes in a such way that the repository
-is in a "sane" (unambiguous and readable) state at every step.
+is in a "sane" (unambiguous and readable) state at every step.  
 
 At the same time, we want to keep locking to a minimum: no operation
 locks out readers, no read-only operation locks out anyone, and write
@@ -804,16 +804,16 @@ version of tuna:
 
   *** Step 3: In each of tuna's parent nodes (which are listed in
   tuna, remember), change the entry for tuna to point to point to the
-  new tuna:2 node:
+  new tuna:2 node: 
 
               \
-            ___\____
-           |D       |
-           |        |
-           | tuna   |
-           |___\____|
-                \
-                 \
+            ___\____                    
+           |D       |                   
+           |        |                   
+           | tuna   |                   
+           |___\____|                   
+                \                       
+                 \                      
                ___\____            ________
               |F       |          |F       |
               |        |          |        |
@@ -833,7 +833,7 @@ version of tuna:
   though tuna:2 isn't there, because N can't be higher than 1 yet
   anyway.  In other words, version 2 of the project does not exist
   yet, therefore you can't ask for it; if you ask for the head
-  version, you'll get version 1.
+  version, you'll get version 1. 
 
   *** Step 3: Hook up version 2 to the root node.
 
@@ -846,7 +846,7 @@ version of tuna:
            |         |
            |   A     |
            |    \    |
-           |   B \   |
+           |   B \   | 
            |__/___\__|
              /     \
             |       \
@@ -900,7 +900,7 @@ Locks persist through server crashes.
 
   1. Lock the nodes you're committing new versions for (though if
      you're adding a new file, there's no node to lock).  These
-     primary locks will last throughout the commit.
+     primary locks will last throughout the commit.  
 
      If you try to lock a node that's already locked, compare your Num
      with the other lock's -- if that lock is still Pending and your
@@ -1198,7 +1198,7 @@ a political judgement involving the importance of your clone, of the
 historical data antecedant to your clone, and of the original
 repository's stability.  What if you think that source repository
 might disappear on you?  Then you want something more than just a
-surface clone.
+surface clone.  
 
 Subversion offers two more choices: "shallow" and "deep" clones.
 Shallow clones locally duplicate all the data for the version in which
@@ -1259,7 +1259,7 @@ end up looking like this at all:
                                         parent->changed_children, so
                                         it's easy to get the changes
                                         for just a particular
-                                        directory. */
+                                        directory. */ 
    } version;
 
 
@@ -1270,7 +1270,7 @@ end up looking like this at all:
                                         lock is no longer pending, it
                                         can't be usurped, even by a
                                         lock with otherwise dominant
-                                        priority num. */
+                                        priority num. */ 
       int num;                       /* Identification and priority
                                         number. */
    } lock;
@@ -1281,14 +1281,14 @@ end up looking like this at all:
       char *name;                    /* Child's name, multi-lingual I hope */
       node *child;                   /* The target node.  Given here
                                         as a pointer, but it might be
-                                        a node_id in reality. */
+                                        a node_id in reality. */ 
    } dir_entry;
 
 
    typedef struct node
    {
       unsigned long int entity_id;   /* Unvarying unique id for this entity */
-      unsigned long int node_id;     /* Unique id for this node
+      unsigned long int node_id;     /* Unique id for this node 
                                         (See struct dir_entry above
                                         about pointer vs node_id.) */
       int type;                      /* File, directory, symlink, etc */
@@ -1414,7 +1414,7 @@ longer than retrieving a recent one, because old versions will take
 longer to construct.  This is a tradeoff of using diff-based storage,
 and has worked out pretty well in practice.
 
-** Scenarios
+** Scenarios 
 
 Each scenario should be mentally played out for a given design,
 analyzing for performance and scalability issues (particularly in
@@ -1480,7 +1480,7 @@ TODO: incorporate the WebDAV/DeltaV scenarios list here too.
 
   + Retrieve version X of a file
 
-  + Retrieve version X of a directory tree
+  + Retrieve version X of a directory tree 
 
   + Show annotations of both modified and old versions of files.
 
@@ -1562,5 +1562,5 @@ Put blue-sky requests here...
 
    + import/export format?  (Jason mentioned this.)
 
-   +
+   + 
 
