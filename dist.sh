@@ -3,7 +3,7 @@
 # USAGE: ./dist.sh -v VERSION -r REVISION -pr REPOS-PATH
 #                  [-rs REVISION-VER-TAG]
 #                  [-alpha ALPHA_NUM|-beta BETA_NUM|-rc RC_NUM]
-#                  [-apr PATH-TO-APR ] [-apru PATH-TO-APR-UTIL]
+#                  [-apr PATH-TO-APR ] [-apru PATH-TO-APR-UTIL] 
 #                  [-apri PATH-TO-APR-ICONV] [-neon PATH-TO-NEON]
 #                  [-zlib PATH-TO-ZLIB]
 #                  [-zip] [-sign] [-nodeps]
@@ -31,13 +31,13 @@
 #   working copy, so you may wish to create a dist-resources directory
 #   containing the apr/, apr-util/ and neon/ dependencies, and run
 #   dist.sh from that.
-#
+#  
 #   When building alpha, beta or rc tarballs pass the appropriate flag
 #   followed by a number.  For example "-alpha 5", "-beta 3", "-rc 2".
-#
+# 
 #   If neither an -alpha, -beta or -rc option is specified, a release
 #   tarball will be built.
-#
+#  
 #   To build a Windows zip file package, additionally pass -zip, the
 #   path to apr-iconv with -apri, and the path to zlib with -zlib.
 
@@ -101,7 +101,7 @@ if [ -n "$ALPHA" ] && [ -n "$BETA" ] ||
   exit 1
 elif [ -n "$ALPHA" ] ; then
   VER_TAG="Alpha $ALPHA"
-  VER_NUMTAG="-alpha$ALPHA"
+  VER_NUMTAG="-alpha$ALPHA" 
 elif [ -n "$BETA" ] ; then
   VER_TAG="Beta $BETA"
   VER_NUMTAG="-beta$BETA"
@@ -112,7 +112,7 @@ else
   VER_TAG="r$REVISION_VER_TAG"
   VER_NUMTAG=""
 fi
-
+  
 if [ -n "$ZIP" ] ; then
   EXTRA_EXPORT_OPTIONS="--native-eol CRLF"
 fi
@@ -209,7 +209,7 @@ install_dependency()
       ${SVN:-svn} export -q $EXTRA_EXPORT_OPTIONS "$DEP_PATH" "$DISTPATH/$DEP_NAME"
     else
       echo "Copying local $DEP_NAME into sandbox"
-      cp -r "$DEP_PATH" "$DISTPATH/$DEP_NAME"
+      cp -r "$DEP_PATH" "$DISTPATH/$DEP_NAME" 
       (cd "$DISTPATH/$DEP_NAME" && [ -f Makefile ] && make distclean)
       echo "Removing all CVS/ and .cvsignore files from $DEP_NAME..."
       find "$DISTPATH/$DEP_NAME" -name CVS -type d -print | xargs rm -fr
