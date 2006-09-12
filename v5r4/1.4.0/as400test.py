@@ -25,7 +25,7 @@ test_scripts = [
                 'subversion/tests/libsvn_wc/TEST_XLATE'       ,
                 'subversion/tests/libsvn_subr/TEST_UTF'       ,
                 'subversion/tests/libsvn_subr/target-test.py' ,
-                'subversion/tests/cmdline/getopt_tests.py'    ,
+                'subversion/tests/cmdline/getopt_tests.py'    , 
                 'subversion/tests/cmdline/basic_tests.py'     ,
                 'subversion/tests/cmdline/commit_tests.py'    ,
                 'subversion/tests/cmdline/update_tests.py'    ,
@@ -54,7 +54,7 @@ test_scripts = [
                 'subversion/tests/cmdline/import_tests.py'    ,
                 'subversion/tests/cmdline/svnsync_tests.py'   ,
                 'subversion/tests/cmdline/authz_tests.py'
-               ]
+               ]      
 
 import os, sys, re
 
@@ -181,4 +181,4 @@ else:
   os.chdir(old_cwd)
 
 if failed:
-  sys.exit(1)
+  sys.exit(1)  

@@ -149,13 +149,13 @@ blame_receiver (void *baton,
   apr_time_t atime;
   const char *time_utf8;
   const char *time_stdout;
-  const char *rev_str = SVN_IS_VALID_REVNUM (revision)
+  const char *rev_str = SVN_IS_VALID_REVNUM (revision) 
                         ? APR_PSPRINTF2 (pool, "%6ld", revision)
                         : FIVE_SPACE_MINUS_STR;
 #if APR_CHARSET_EBCDIC
   static svn_error_t *err;
 #endif
-
+  
   if (opt_state->verbose)
     {
       if (date)
@@ -181,8 +181,8 @@ blame_receiver (void *baton,
 #pragma convert(37)
 #endif
 #if !APR_CHARSET_EBCDIC
-      return svn_stream_printf (out, pool, "%s %10s %s %s\n", rev_str,
-                                author ? author : NINE_SPACE_MINUS_STR,
+      return svn_stream_printf (out, pool, "%s %10s %s %s\n", rev_str, 
+                                author ? author : NINE_SPACE_MINUS_STR, 
                                 time_stdout , line);
 #else
       /* On ebcdic platforms a versioned text file may be in ebcdic.  In those
@@ -193,10 +193,10 @@ blame_receiver (void *baton,
        * based on SVN_UTF8_NEWLINE_STR that there will only be one big ebcdic
        * line for the blamed file.  After some investigation there does not
        * appear to be an obvious/easy fix for this.
-       *
+       * 
        * TODO: Handle ebcdic encoded text files properly. */
-      err = svn_stream_printf_ebcdic (out, pool, "%s %10s %s ", rev_str,
-                                      author ? author : NINE_SPACE_MINUS_STR,
+      err = svn_stream_printf_ebcdic (out, pool, "%s %10s %s ", rev_str, 
+                                      author ? author : NINE_SPACE_MINUS_STR, 
                                       time_stdout);
       return err ? err : svn_stream_printf (out, pool, "%s%s", line,
                                             SVN_UTF8_NEWLINE_STR);
@@ -205,18 +205,18 @@ blame_receiver (void *baton,
   else
     {
 #if !APR_CHARSET_EBCDIC
-      return svn_stream_printf (out, pool, "%s %10s %s\n", rev_str,
+      return svn_stream_printf (out, pool, "%s %10s %s\n", rev_str, 
                                 author ? author : NINE_SPACE_MINUS_STR, line);
 #else
       /* On ebcdic platforms line may be encoded in ebcdic - see above. */
-      err = svn_stream_printf_ebcdic (out, pool, "%s %10s ", rev_str,
+      err = svn_stream_printf_ebcdic (out, pool, "%s %10s ", rev_str, 
                                       author ? author : NINE_SPACE_MINUS_STR);
       return err ? err : svn_stream_printf (out, pool, "%s%s", line,
                                             SVN_UTF8_NEWLINE_STR);
 #endif
     }
 }
-
+ 
 
 /* Prints XML header to standard out. */
 static svn_error_t *

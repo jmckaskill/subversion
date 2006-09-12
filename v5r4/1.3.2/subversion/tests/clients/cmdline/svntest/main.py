@@ -2,9 +2,9 @@
 #
 #  main.py: a shared, automated test suite for Subversion
 #
-#  Subversion is a tool for revision control.
+#  Subversion is a tool for revision control. 
 #  See http://subversion.tigris.org for more information.
-#
+#    
 # ====================================================================
 # Copyright (c) 2000-2004 CollabNet.  All rights reserved.
 #
@@ -211,7 +211,7 @@ greek_statenouse = wc.State('', {
   'A/D/H/chi'   : _item("This is the file 'chi'.\n"),
   'A/D/H/psi'   : _item("This is the file 'psi'.\n"),
   'A/D/H/omega' : _item("This is the file 'omega'.\n"),
-  })
+  })   
 
 ######################################################################
 # Utilities shared by the tests
@@ -258,11 +258,11 @@ def run_command(command, error_expected, binary_mode=0, *varargs):
   """Run COMMAND with VARARGS; return stdout, stderr as lists of lines.
   If ERROR_EXPECTED is None, any stderr also will be printed."""
 
-  return run_command_stdin(command, error_expected, binary_mode,
+  return run_command_stdin(command, error_expected, binary_mode, 
                            None, *varargs)
 
 # Run any binary, supplying input text, logging the command line
-def run_command_stdin(command, error_expected, binary_mode=0,
+def run_command_stdin(command, error_expected, binary_mode=0, 
                       stdin_lines=None, *varargs):
   """Run COMMAND with VARARGS; input STDIN_LINES (a list of strings
   which should include newline characters) to program via stdin - this
@@ -354,8 +354,8 @@ def create_config_dir(cfgdir,
 
   if sys.platform == 'AS/400':
     config_contents = config_contents.encode('utf-8')
-    server_contents = server_contents.encode('utf-8')
-
+    server_contents = server_contents.encode('utf-8')    
+    
   # config file names
   cfgfile_cfg = os.path.join(cfgdir, 'config')
   cfgfile_srv = os.path.join(cfgdir, 'server')
@@ -450,7 +450,7 @@ def file_append(path, new_text):
   if sys.platform != 'AS/400':
     fp = open(path, 'a')  # open in (a)ppend mode
   else:
-    new_text = new_text.decode('cp037').encode('utf-8')
+    new_text = new_text.decode('cp037').encode('utf-8') 
     if not os.path.exists(path):
       fp = open(path, 'ab')  # open in (a)ppend mode
       fp.close()
@@ -555,7 +555,7 @@ def copy_repos(src_path, dst_path, head_revision, ignore_uuid = 0):
   else:
     dump_lines = dump_err
     load_lines = load_out
-
+  
   dump_re = re.compile(r'^\* Dumped revision (\d+)\.\r?$')
   expect_revision = 0
   for dump_line in dump_lines:
@@ -593,7 +593,7 @@ def set_repos_paths(repo_dir):
 
 def canonize_url(input):
   "Canonize the url, if the scheme is unknown, returns intact input"
-
+  
   m = re.match(r"^((file://)|((svn|svn\+ssh|http|https)(://)))", input)
   if m:
     scheme = m.group(1)
