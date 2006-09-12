@@ -155,8 +155,8 @@ get_array_size(void)
 /* Execute a test number TEST_NUM.  Pretty-print test name and dots
    according to our test-suite spec, and return the result code. */
 static int
-do_test_num(const char *progname,
-            int test_num,
+do_test_num(const char *progname, 
+            int test_num, 
             svn_boolean_t msg_only,
             svn_test_opts_t *opts,
             apr_pool_t *pool)
@@ -199,12 +199,12 @@ do_test_num(const char *progname,
     }
   else
     {
-      printf("%s %s %d: %s\n",
+      printf("%s %s %d: %s\n", 
              (err
               ? (xfail ? "XFAIL:" : "FAIL: ")
               : (xfail ? "XPASS:" : (skip ? "SKIP: " : "PASS: "))),
              progname,
-             test_num,
+             test_num, 
              msg ? msg : "(test did not provide name)");
     }
 
@@ -218,7 +218,7 @@ do_test_num(const char *progname,
       if (apr_isupper(msg[0]))
         printf("WARNING: Test docstring is capitalized\n");
     }
-
+    
   /* Fail on unexpected result -- FAIL or XPASS. */
   skip_cleanup = ((err != SVN_NO_ERROR) != (xfail != 0));
   return skip_cleanup;
@@ -243,7 +243,7 @@ main(int argc, const char *argv[])
   char errmsg[200];
   /* How many tests are there? */
   int array_size = get_array_size();
-
+  
   svn_test_opts_t opts = { NULL };
 
   opts.fs_type = DEFAULT_FS_TYPE;
@@ -265,7 +265,7 @@ main(int argc, const char *argv[])
   err = svn_cmdline__getopt_init(&os, argc, argv, pool);
   if (err)
     return svn_cmdline_handle_exit_error(err, pool, prog_name);
-
+  
   /* Strip off any leading path components from the program name.  */
   prog_name = strrchr(argv[0], '/');
   if (prog_name)

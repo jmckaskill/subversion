@@ -2,9 +2,9 @@
 #
 #  diff_tests.py:  some basic diff tests
 #
-#  Subversion is a tool for revision control.
+#  Subversion is a tool for revision control. 
 #  See http://subversion.tigris.org for more information.
-#
+#    
 # ====================================================================
 # Copyright (c) 2000-2006 CollabNet.  All rights reserved.
 #
@@ -166,13 +166,13 @@ def diff_check_update_a_file_repo_subset(wc_dir):
   repo_subset = os.path.join('A', 'B')
   if diff_check_repo_subset(wc_dir, repo_subset, check_update_a_file, 1):
     return 1
-
+  
   repo_subset = os.path.join('A', 'B', 'E', 'alpha')
   if diff_check_repo_subset(wc_dir, repo_subset, check_update_a_file, 1):
     return 1
 
   return 0
-
+  
 
 #----------------------------------------------------------------------
 
@@ -200,7 +200,7 @@ def diff_check_add_a_file_repo_subset(wc_dir):
   repo_subset = os.path.join('A', 'B')
   if diff_check_repo_subset(wc_dir, repo_subset, check_add_a_file, 1):
     return 1
-
+  
   repo_subset = os.path.join('A', 'B', 'E', 'theta')
   ### TODO: diff -r HEAD doesn't work for added file
   if diff_check_repo_subset(wc_dir, repo_subset, check_add_a_file, 0):
@@ -247,7 +247,7 @@ def diff_check_add_a_file_in_a_subdir_repo_subset(wc_dir):
   if diff_check_repo_subset(wc_dir, repo_subset,
                             check_add_a_file_in_a_subdir, 0):
     return 1
-
+  
   repo_subset = os.path.join('A', 'B', 'T', 'phi')
   ### TODO: diff -r HEAD doesn't work for added file in subdir
   if diff_check_repo_subset(wc_dir, repo_subset,
@@ -268,7 +268,7 @@ def check_replace_a_file(diff_output):
   return check_diff_output(diff_output,
                        os.path.join('A', 'D', 'G', 'rho'),
                        'M')
-
+    
 #----------------------------------------------------------------------
 
 def update_three_files():
@@ -293,7 +293,7 @@ def check_update_three_files(diff_output):
                         'M'):
     return 1
   return 0
-
+                        
 
 ######################################################################
 # make a change, check the diff, commit the change, check the diff
@@ -481,7 +481,7 @@ def diff_non_recursive(sbox):
   # When checking D recursively there are three changes. When checking
   # D non-recursively there is only one change. When checking G
   # recursively, there is only one change even though D is the anchor
-
+  
   # full diff has three changes
   diff_output, err_output = svntest.main.run_svn(None, 'diff', '-r', '1',
                                                  os.path.join(wc_dir, 'A', 'D'))
@@ -500,7 +500,7 @@ def diff_non_recursive(sbox):
                                                               'A', 'D', 'G'))
   if count_diff_output(diff_output) != 1:
     raise svntest.Failure
-
+  
 
 # test 7
 def diff_repo_subset(sbox):
@@ -522,13 +522,13 @@ def diff_repo_subset(sbox):
 
   if diff_check_update_a_file_repo_subset(wc_dir):
     raise svntest.Failure
-
+  
   if diff_check_add_a_file_repo_subset(wc_dir):
     raise svntest.Failure
-
+  
   if diff_check_add_a_file_in_a_subdir_repo_subset(wc_dir):
     raise svntest.Failure
-
+  
 
 # test 8
 def diff_non_version_controlled_file(sbox):
@@ -539,29 +539,29 @@ def diff_non_version_controlled_file(sbox):
 
   svntest.main.file_append(os.path.join(wc_dir, 'A', 'D', 'foo'), "a new file")
 
-  diff_output, err_output = svntest.main.run_svn(1, 'diff',
-                                                 os.path.join(wc_dir,
+  diff_output, err_output = svntest.main.run_svn(1, 'diff', 
+                                                 os.path.join(wc_dir, 
                                                               'A', 'D', 'foo'))
 
   if count_diff_output(diff_output) != 0: raise svntest.Failure
 
-  # At one point this would crash, so we would only get a 'Segmentation Fault'
-  # error message.  The appropriate response is a few lines of errors.  I wish
-  # there was a way to figure out if svn crashed, but all run_svn gives us is
+  # At one point this would crash, so we would only get a 'Segmentation Fault' 
+  # error message.  The appropriate response is a few lines of errors.  I wish 
+  # there was a way to figure out if svn crashed, but all run_svn gives us is 
   # the output, so here we are...
   for line in err_output:
     if re.search("foo' is not under version control$", line):
       break
   else:
     raise svntest.Failure
-
+  
 # test 9
 def diff_pure_repository_update_a_file(sbox):
   "pure repository diff update a file"
 
   sbox.build()
   wc_dir = sbox.wc_dir
-
+  
   was_cwd = os.getcwd()
   os.chdir(wc_dir)
 
@@ -700,7 +700,7 @@ def dont_diff_binary_file(sbox):
 
   sbox.build()
   wc_dir = sbox.wc_dir
-
+  
   # Add a binary file to the project.
   fp = open(os.path.join(sys.path[0], "theta.bin"), 'rb')
   theta_contents = fp.read()  # suck up contents of a test .png file
@@ -710,8 +710,8 @@ def dont_diff_binary_file(sbox):
   fp = open(theta_path, 'wb')
   fp.write(theta_contents)    # write png filedata into 'A/theta'
   fp.close()
-
-  svntest.main.run_svn(None, 'add', theta_path)
+  
+  svntest.main.run_svn(None, 'add', theta_path)  
 
   # Created expected output tree for 'svn ci'
   expected_output = svntest.wc.State(wc_dir, {
@@ -869,7 +869,7 @@ def diff_base_to_repos(sbox):
   expected_output = svntest.wc.State(wc_dir, {
     'iota' : Item(verb='Sending'),
     })
-
+  
   expected_status = svntest.actions.get_virginal_state(wc_dir, 2)
   expected_status.tweak(wc_rev=1)
   expected_status.tweak('iota', wc_rev=2)
@@ -886,7 +886,7 @@ def diff_base_to_repos(sbox):
   expected_status = svntest.actions.get_virginal_state(wc_dir, 2)
   svntest.actions.run_and_verify_update(wc_dir, expected_output,
                                         expected_disk, expected_status)
-
+  
   # Now make another local mod to iota.
   svntest.main.file_append(iota_path, "an iota local mod.\n")
 
@@ -937,7 +937,7 @@ def diff_base_to_repos(sbox):
 
   # For example, we just ran 'svn diff -rBASE:1'.  The output should
   # look exactly the same as 'svn diff -r2:1'.  (If you remove the
-  # header commentary)
+  # header commentary)  
   diff_output2, err = svntest.actions.run_and_verify_svn(None, None, [],
                                                          'diff', '-r', '2:1',
                                                          wc_dir)
@@ -952,7 +952,7 @@ def diff_base_to_repos(sbox):
   diff_output, err = svntest.actions.run_and_verify_svn(None, None, [],
                                                         'diff',
                                                         '-r', '1:2', wc_dir)
-
+  
   diff_output2, err = svntest.actions.run_and_verify_svn(None, None, [],
                                                          'diff',
                                                          '-r', '1:BASE',
@@ -1040,7 +1040,7 @@ def diff_base_to_repos(sbox):
     })
   svntest.actions.run_and_verify_update(wc_dir, expected_output,
                                         expected_disk, expected_status)
-
+  
   # Now 'svn diff -r3:2' should == 'svn diff -rBASE:2', showing the
   # removal of changes to iota, the adding of mu, and deletion of newfile.
   diff_output, err = svntest.actions.run_and_verify_svn(None, None, [],
@@ -1066,7 +1066,7 @@ def diff_base_to_repos(sbox):
 
   if list1 != list2:
     raise svntest.Failure
-
+  
 
 #----------------------------------------------------------------------
 # This is a simple regression test for issue #891, whereby ra_dav's
@@ -1205,7 +1205,7 @@ def diff_targets(sbox):
 
   finally:
     os.chdir(was_cwd)
-
+  
 
 #----------------------------------------------------------------------
 def diff_branches(sbox):
@@ -1342,7 +1342,7 @@ def diff_file_urls(sbox):
   # Put some different text into iota, and commit.
   os.remove(iota_path)
   svntest.main.file_append(iota_path, "foo\nbar\nsnafu\n")
-
+  
   svntest.actions.run_and_verify_svn(None, None, [],
                                      'ci', '-m', 'log msg', iota_path)
 
@@ -1383,7 +1383,7 @@ def diff_file_urls(sbox):
   verify_expected_output(out, "-bar")
   verify_expected_output(out, "+abcdefg")
   verify_expected_output(out, "+opqrstuv")
-
+  
 #----------------------------------------------------------------------
 def diff_prop_change_local_edit(sbox):
   "diff a property change plus a local edit"
@@ -1659,7 +1659,7 @@ def diff_keywords(sbox):
   sbox.build()
 
   iota_path = os.path.join(sbox.wc_dir, 'iota')
-
+  
   svntest.actions.run_and_verify_svn(None, None, [],
                                      'ps',
                                      'svn:keywords',
@@ -1674,7 +1674,7 @@ def diff_keywords(sbox):
   fp.write(("$Id::%s$\n"   % (' ' * 80)).encode('utf-8'))
   fp.write(("$Rev::%s$\n"  % (' ' * 80)).encode('utf-8'))
   fp.close()
-
+  
   svntest.actions.run_and_verify_svn(None, None, [],
                                      'ci', '-m', 'keywords', sbox.wc_dir)
 
@@ -1693,7 +1693,7 @@ def diff_keywords(sbox):
   verify_excluded_output(diff_output, "$Date:")
   verify_excluded_output(diff_output, "$Rev:")
   verify_excluded_output(diff_output, "$Id:")
-
+  
   diff_output, err = svntest.actions.run_and_verify_svn(None, None, [],
                                                         'diff',
                                                         '-r', 'head:prev',
@@ -1741,13 +1741,13 @@ def diff_force(sbox):
 
   sbox.build()
   wc_dir = sbox.wc_dir
-
+  
   iota_path = os.path.join(wc_dir, 'iota')
-
+  
   # Append a line to iota and make it binary.
   svntest.main.file_append(iota_path, "new line")
   svntest.main.run_svn(None, 'propset', 'svn:mime-type',
-                       'application/octet-stream', iota_path)
+                       'application/octet-stream', iota_path)  
 
   # Created expected output tree for 'svn ci'
   expected_output = svntest.wc.State(wc_dir, {
@@ -1967,7 +1967,7 @@ def diff_property_changes_to_base(sbox):
 
 def diff_schedule_delete(sbox):
   "scheduled deleted"
-
+  
   sbox.build()
 
   expected_output_r2_working = [
@@ -2306,7 +2306,7 @@ def diff_repos_wc_add_with_props(sbox):
       "___________________________________________________________________\n",
       "Name: propname\n",
       "   + propvalue\n",
-      "\n" ]
+      "\n" ] 
 
   # The output from the BASE->repos diff is the same content, but in a
   # different order.
@@ -2344,7 +2344,7 @@ def diff_repos_wc_add_with_props(sbox):
       "___________________________________________________________________\n",
       "Name: propname\n",
       "   + propvalue\n",
-      "\n" ]
+      "\n" ] 
 
   current_dir = os.getcwd()
   os.chdir(sbox.wc_dir)
@@ -2661,7 +2661,7 @@ def diff_ignore_whitespace(sbox):
 
   svntest.actions.run_and_verify_svn(None, [], [],
                                      'diff', '-x', '-w', file_path)
-
+  
   # some changes + whitespace
   open(file_path, 'wb').write(" A  a   \n".encode("utf-8")
                               "Xxxx X\n".encode("utf-8")
@@ -2717,9 +2717,9 @@ def diff_ignore_eolstyle(sbox):
     "-Cc\n",
     "+Cc\n",
     "\ No newline at end of file\n" ]
-
+    
   svntest.actions.run_and_verify_svn(None, expected_output, [],
-                                     'diff', '-x', '--ignore-eol-style',
+                                     'diff', '-x', '--ignore-eol-style', 
                                      file_path)
 
 ########################################################################

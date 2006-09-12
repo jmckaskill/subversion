@@ -223,7 +223,7 @@ static dav_prop_insert dav_svn_insert_prop(const dav_resource *resource,
           {
             return DAV_PROP_INSERT_NOTSUPP;
           }
-
+       
         if (propid == DAV_PROPID_creationdate)
           {
             /* Return an ISO8601 date; this is what the svn client
@@ -246,7 +246,7 @@ static dav_prop_insert dav_svn_insert_prop(const dav_resource *resource,
       }
 
     case DAV_PROPID_creator_displayname:
-      {
+      {        
         svn_revnum_t committed_rev = SVN_INVALID_REVNUM;
         svn_string_t *last_author = NULL;
 
@@ -283,7 +283,7 @@ static dav_prop_insert dav_svn_insert_prop(const dav_resource *resource,
                 value = "###error###";
                 break;
               }
-          }
+          }        
         else
           {
             return DAV_PROP_INSERT_NOTSUPP;
@@ -326,7 +326,7 @@ static dav_prop_insert dav_svn_insert_prop(const dav_resource *resource,
     case DAV_PROPID_getcontentlength:
       {
         svn_filesize_t len = 0;
-
+        
         /* our property, but not defined on collection resources */
         if (resource->collection || resource->baselined)
           return DAV_PROP_INSERT_NOTSUPP;
@@ -391,7 +391,7 @@ static dav_prop_insert dav_svn_insert_prop(const dav_resource *resource,
 
             if (pval)
               mime_type = pval->data;
-            else if ((! resource->info->repos->is_svn_client)
+            else if ((! resource->info->repos->is_svn_client) 
                      && resource->info->r->content_type)
               mime_type = resource->info->r->content_type;
             else
@@ -464,9 +464,9 @@ static dav_prop_insert dav_svn_insert_prop(const dav_resource *resource,
               break;
             }
           s = dav_svn_build_uri(resource->info->repos,
-                                DAV_SVN_BUILD_URI_BASELINE,
+                                DAV_SVN_BUILD_URI_BASELINE, 
                                 revnum, NULL, 0 /* add_href */, p);
-          value = apr_psprintf(p, "<D:href>%s</D:href>",
+          value = apr_psprintf(p, "<D:href>%s</D:href>", 
                                apr_xml_quote_string(p, s, 1));
         }
       else if (resource->type != DAV_RESOURCE_TYPE_REGULAR)
@@ -484,7 +484,7 @@ static dav_prop_insert dav_svn_insert_prop(const dav_resource *resource,
                                 DAV_SVN_BUILD_URI_VERSION,
                                 rev_to_use, resource->info->repos_path,
                                 0 /* add_href */, p);
-          value = apr_psprintf(p, "<D:href>%s</D:href>",
+          value = apr_psprintf(p, "<D:href>%s</D:href>", 
                                apr_xml_quote_string(p, s, 1));
         }
       break;
@@ -496,7 +496,7 @@ static dav_prop_insert dav_svn_insert_prop(const dav_resource *resource,
       if (resource->type != DAV_RESOURCE_TYPE_REGULAR)
         return DAV_PROP_INSERT_NOTSUPP;
       value = dav_svn_build_uri(resource->info->repos, DAV_SVN_BUILD_URI_VCC,
-                                SVN_IGNORED_REVNUM, NULL,
+                                SVN_IGNORED_REVNUM, NULL, 
                                 1 /* add_href */, p);
       break;
 
@@ -539,7 +539,7 @@ static dav_prop_insert dav_svn_insert_prop(const dav_resource *resource,
               value = "###error###";
               break;
             }
-
+          
           /* Convert the revision into a quoted string */
           s = apr_psprintf(p, "%ld", committed_rev);
           value = apr_xml_quote_string(p, s, 1);
@@ -819,7 +819,7 @@ int dav_svn_get_last_modified_time (const char **datestring,
            || resource->type == DAV_RESOURCE_TYPE_WORKING
            || resource->type == DAV_RESOURCE_TYPE_VERSION)
     {
-      const char *repos_path_utf8 = resource->info->repos_path;
+      const char *repos_path_utf8 = resource->info->repos_path;  
 #if APR_CHARSET_EBCDIC
       serr = svn_utf_cstring_to_netccsid(&repos_path_utf8, repos_path_utf8, pool);
       if (!serr)
@@ -879,18 +879,18 @@ int dav_svn_get_last_modified_time (const char **datestring,
     {
       apr_time_exp_t tms;
       apr_status_t status;
-
+      
       /* convert the apr_time_t into an apr_time_exp_t */
       status = apr_time_exp_gmt(&tms, timeval_tmp);
       if (status != APR_SUCCESS)
         return 1;
-
+              
       /* stolen from dav/fs/repos.c   :-)  */
       *datestring = apr_psprintf(pool, "%s, %.2d %s %d %.2d:%.2d:%.2d GMT",
                                  apr_day_snames[tms.tm_wday],
                                  tms.tm_mday, apr_month_snames[tms.tm_mon],
                                  tms.tm_year + 1900,
-                                 tms.tm_hour, tms.tm_min, tms.tm_sec);
+                                 tms.tm_hour, tms.tm_min, tms.tm_sec);      
     }
   else /* unknown time format */
     {
@@ -898,4 +898,4 @@ int dav_svn_get_last_modified_time (const char **datestring,
     }
 
   return 0;
-}
+}                                              

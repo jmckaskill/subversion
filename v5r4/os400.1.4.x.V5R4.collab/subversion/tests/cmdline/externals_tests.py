@@ -2,9 +2,9 @@
 #
 #  module_tests.py:  testing modules / external sources.
 #
-#  Subversion is a tool for revision control.
+#  Subversion is a tool for revision control. 
 #  See http://subversion.tigris.org for more information.
-#
+#    
 # ====================================================================
 # Copyright (c) 2000-2006 CollabNet.  All rights reserved.
 #
@@ -142,13 +142,13 @@ def externals_test_setup(sbox):
   else:
     tmp_fd, tmp_f = tempfile.mkstemp('', 'tmp1', wc_init_dir)
     os.close(tmp_fd)
-    ebcdic.os400_tagtree(tmp_f, 1208, 1)
+    ebcdic.os400_tagtree(tmp_f, 1208, 1) 
 
   svntest.main.file_append(tmp_f, externals_desc)
   svntest.actions.run_and_verify_svn("", None, [],
                                      'pset',
                                      '-F', tmp_f, 'svn:externals', C_path)
-
+   
   os.remove(tmp_f)
 
   externals_desc = \
@@ -193,7 +193,7 @@ def change_external(path, new_val):
   else:
     tmp_fd, tmp_f = tempfile.mkstemp('', 'tmp2', svntest.main.temp_dir)
     os.close(tmp_fd)
-    ebcdic.os400_tagtree(tmp_f, 1208, 1)
+    ebcdic.os400_tagtree(tmp_f, 1208, 1)  
 
   svntest.main.file_append(tmp_f, new_val)
   svntest.actions.run_and_verify_svn("", None, [], 'pset',
@@ -270,7 +270,7 @@ def checkout_with_externals(sbox):
   fp = open(exdir_H_omega_path, 'rb')
   lines = fp.readlines()
   if sys.platform == 'AS/400':
-    lines = ebcdic.os400_split_utf8_lines(lines)
+    lines = ebcdic.os400_split_utf8_lines(lines) 
   if not ((len(lines) == 1) and (lines[0] == "This is the file 'omega'.\n".encode('utf-8'))):
 
     raise svntest.Failure("Unexpected contents for rev 1 of " +
@@ -283,7 +283,7 @@ def update_receive_new_external(sbox):
 
   externals_test_setup(sbox)
   wc_dir         = sbox.wc_dir
-
+  
   other_wc_dir   = sbox.add_wc_path('other')
   repo_dir       = sbox.repo_dir
   repo_url       = sbox.repo_url
@@ -333,7 +333,7 @@ def update_lose_external(sbox):
 
   externals_test_setup(sbox)
   wc_dir         = sbox.wc_dir
-
+  
   other_wc_dir   = sbox.add_wc_path('other')
   repo_dir       = sbox.repo_dir
   repo_url       = sbox.repo_url
@@ -417,7 +417,7 @@ def update_change_pristine_external(sbox):
 
   externals_test_setup(sbox)
   wc_dir         = sbox.wc_dir
-
+  
   other_wc_dir   = sbox.add_wc_path('other')
   repo_dir       = sbox.repo_dir
   repo_url       = sbox.repo_url
@@ -531,7 +531,7 @@ def update_receive_change_under_external(sbox):
 
   externals_test_setup(sbox)
   wc_dir         = sbox.wc_dir
-
+  
   other_wc_dir   = sbox.add_wc_path('other')
   repo_dir       = sbox.repo_dir
   repo_url       = sbox.repo_url
@@ -564,7 +564,7 @@ def update_receive_change_under_external(sbox):
                                         expected_status,
                                         None, None, None, None, None,
                                         other_wc_dir)
-
+  
   # Now update the regular wc to see if we get the change.  Note that
   # none of the module *properties* in this wc have been changed; only
   # the source repository of the modules has received a change, and
@@ -579,7 +579,7 @@ def update_receive_change_under_external(sbox):
   fp = open(external_gamma_path, 'rb')
   lines = fp.readlines()
   if sys.platform == 'AS/400':
-    lines = ebcdic.os400_split_utf8_lines(lines)
+    lines = ebcdic.os400_split_utf8_lines(lines) 
   if not ((len(lines) == 2)
           and (lines[0] == "This is the file 'gamma'.\n".encode('utf-8'))
           and (lines[1] == "New text in other gamma.\n".encode('utf-8'))):
@@ -610,7 +610,7 @@ def update_receive_change_under_external(sbox):
   fp = open(external_rho_path, 'rb')
   lines = fp.readlines()
   if sys.platform == 'AS/400':
-    lines = ebcdic.os400_split_utf8_lines(lines)
+    lines = ebcdic.os400_split_utf8_lines(lines) 
   if not ((len(lines) == 2)
           and (lines[0] == "This is the file 'rho'.\n".encode('utf-8'))
           and (lines[1] == "New text in other rho.\n".encode('utf-8'))):
@@ -663,7 +663,7 @@ def modify_and_update_receive_new_external(sbox):
   os.chdir(B_path)
   try:
     # Once upon a time there was a core-dump here
-
+    
     svntest.actions.run_and_verify_svn("update failed",
                                        SVNAnyOutput, [], 'up' )
 
@@ -688,7 +688,7 @@ def disallow_dot_or_dotdot_directory_reference(sbox):
     if not sys.platform == 'AS/400':
       tmp_f = os.tempnam(dir, 'tmp')
     else:
-      tmp_fd, tmp_f = tempfile.mkstemp('', 'tmp3', dir)
+      tmp_fd, tmp_f = tempfile.mkstemp('', 'tmp3', dir)  
       os.close(tmp_fd)
       ebcdic.os400_tagtree(tmp_f, 1208, 1)
 
@@ -778,7 +778,7 @@ def export_with_externals(sbox):
   fp = open(exdir_G_pi_path, 'rb')
   lines = fp.readlines()
   if sys.platform == 'AS/400':
-    lines = ebcdic.os400_split_utf8_lines(lines)
+    lines = ebcdic.os400_split_utf8_lines(lines) 
   if not ((len(lines) == 2) \
           and (lines[0] == "This is the file 'pi'.\n".encode('utf-8')) \
           and (lines[1] == "Added to pi in revision 3.\n".encode('utf-8'))):
@@ -787,7 +787,7 @@ def export_with_externals(sbox):
   fp = open(exdir_H_omega_path, 'rb')
   lines = fp.readlines()
   if sys.platform == 'AS/400':
-    lines = ebcdic.os400_split_utf8_lines(lines)
+    lines = ebcdic.os400_split_utf8_lines(lines) 
   if not ((len(lines) == 1) and (lines[0] == "This is the file 'omega'.\n".encode('utf-8'))):
     raise svntest.Failure("Unexpected contents for rev 1 of " +
                           exdir_H_omega_path)

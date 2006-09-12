@@ -46,14 +46,14 @@ struct file_rev_baton {
   void *window_baton;
 };
 
-static svn_error_t *send_xml(struct file_rev_baton *frb,
+static svn_error_t *send_xml(struct file_rev_baton *frb, 
                              const char *fmt, ...)
 {
   apr_status_t apr_err;
   va_list ap;
 
   va_start(ap, fmt);
-  apr_err = apr_brigade_vprintf(frb->bb, ap_filter_flush,
+  apr_err = apr_brigade_vprintf(frb->bb, ap_filter_flush, 
                                 frb->output, fmt, ap);
   va_end(ap);
   if (apr_err)
@@ -81,7 +81,7 @@ static svn_error_t *maybe_send_header(struct file_rev_baton *frb)
   return SVN_NO_ERROR;
 }
 
-/* Send a property named NAME with value VAL in an element named ELEM_NAME.
+/* Send a property named NAME with value VAL in an element named ELEM_NAME. 
    Quote NAME and base64-encode VAL if necessary. */
 static svn_error_t *
 send_prop(struct file_rev_baton *frb, const char *elem_name,
@@ -89,7 +89,7 @@ send_prop(struct file_rev_baton *frb, const char *elem_name,
 {
 #if APR_CHARSET_EBCDIC
   SVN_ERR(svn_utf_cstring_from_netccsid(&name, name, pool));
-#endif
+#endif	
   name = apr_xml_quote_string(pool, name, 1);
 
   if (svn_xml_is_xml_safe(val->data, val->len))
@@ -99,7 +99,7 @@ send_prop(struct file_rev_baton *frb, const char *elem_name,
       val = svn_string_create(tmp->data, pool);
 #if APR_CHARSET_EBCDIC
       SVN_ERR(svn_utf_string_from_netccsid(&val, val, pool));
-#endif
+#endif        
       SVN_ERR(send_xml(frb, "<S:%s name=\"%s\">%s</S:%s>" DEBUG_CR,
                        elem_name, name, val->data, elem_name));
     }
@@ -153,7 +153,7 @@ file_rev_handler(void *baton,
   SVN_ERR(maybe_send_header(frb));
 #if APR_CHARSET_EBCDIC
   SVN_ERR(svn_utf_cstring_from_netccsid(&path, path, pool));
-#endif
+#endif     
   SVN_ERR(send_xml(frb, "<S:file-rev path=\"%s\" rev=\"%ld\">" DEBUG_CR,
                    apr_xml_quote_string(pool, path, 1), revnum));
 
@@ -186,7 +186,7 @@ file_rev_handler(void *baton,
         {
 #if APR_CHARSET_EBCDIC
           SVN_ERR(svn_utf_cstring_from_netccsid(&prop_name, prop_name, pool));
-#endif
+#endif         	
           /* Property was removed. */
           SVN_ERR(send_xml(frb,
                            "<S:remove-prop name=\"%s\"/>" DEBUG_CR,
@@ -231,7 +231,7 @@ dav_svn__file_revs_report(const dav_resource *resource,
   struct file_rev_baton frb;
   dav_svn_authz_read_baton arb;
   const char *path = NULL;
-
+  
   /* These get determined from the request document. */
   svn_revnum_t start = SVN_INVALID_REVNUM;
   svn_revnum_t end = SVN_INVALID_REVNUM;
@@ -279,10 +279,10 @@ dav_svn__file_revs_report(const dav_resource *resource,
 #endif
           if (child->first_cdata.first)
             {
-              if ((derr = dav_svn__test_canonical
+              if ((derr = dav_svn__test_canonical 
                    (child->first_cdata.first->text, resource->pool)))
                 return derr;
-              path = svn_path_join(path,
+              path = svn_path_join(path, 
                                    child->first_cdata.first->text,
                                    resource->pool);
             }
@@ -308,7 +308,7 @@ dav_svn__file_revs_report(const dav_resource *resource,
                                  resource->pool);
       goto cleanup;
     }
-
+  
   if ((serr = maybe_send_header(&frb)))
     {
       derr = dav_svn_convert_err(serr, HTTP_INTERNAL_SERVER_ERROR,
@@ -316,7 +316,7 @@ dav_svn__file_revs_report(const dav_resource *resource,
                                  resource->pool);
       goto cleanup;
     }
-
+    
   if ((serr = send_xml(&frb, "</S:file-revs-report>" DEBUG_CR)))
     {
       derr = dav_svn_convert_err(serr, HTTP_INTERNAL_SERVER_ERROR,

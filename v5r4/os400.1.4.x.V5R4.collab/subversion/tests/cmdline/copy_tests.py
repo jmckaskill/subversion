@@ -2,9 +2,9 @@
 #
 #  copy_tests.py:  testing the many uses of 'svn cp' and 'svn mv'
 #
-#  Subversion is a tool for revision control.
+#  Subversion is a tool for revision control. 
 #  See http://subversion.tigris.org for more information.
-#
+#    
 # ====================================================================
 # Copyright (c) 2000-2006 CollabNet.  All rights reserved.
 #
@@ -315,7 +315,7 @@ def basic_copy_and_move_files(sbox):
 
   # Create expected status tree; all local revisions should be at 1,
   # but several files should be at revision 2.  Also, two files should
-  # be missing.
+  # be missing.  
   expected_status = svntest.actions.get_virginal_state(wc_dir, 2)
   expected_status.tweak(wc_rev=1)
   expected_status.tweak('A/D/G/rho', 'A/mu', wc_rev=2)
@@ -381,7 +381,7 @@ def receive_copy_in_update(sbox):
   b_newGrho_path = os.path.join(wc_backup, 'A', 'B', 'newG', 'rho')
   b_newGtau_path = os.path.join(wc_backup, 'A', 'B', 'newG', 'tau')
 
-  # Copy directory A/D to A/B/newG
+  # Copy directory A/D to A/B/newG  
   svntest.actions.run_and_verify_svn(None, None, [], 'cp', G_path, newG_path)
 
   # Created expected output tree for 'svn ci':
@@ -473,7 +473,7 @@ def resurrect_deleted_dir(sbox):
   expected_status.remove('A/D/G/pi')
   expected_status.remove('A/D/G/rho')
   expected_status.remove('A/D/G/tau')
-
+  
   svntest.actions.run_and_verify_commit (wc_dir,
                                          expected_output,
                                          expected_status,
@@ -483,7 +483,7 @@ def resurrect_deleted_dir(sbox):
                                          wc_dir)
 
   # Use 'svn cp -r 1 URL URL' to resurrect the deleted directory, where
-  # the two URLs are identical.  This used to trigger a failure.
+  # the two URLs are identical.  This used to trigger a failure.  
   url = svntest.main.current_repo_url + '/A/D/G'
   svntest.actions.run_and_verify_svn(None, None, [], 'cp',
                                      '--username', svntest.main.wc_author,
@@ -504,7 +504,7 @@ def resurrect_deleted_dir(sbox):
   expected_disk = svntest.main.greek_state.copy()
 
   expected_status = svntest.actions.get_virginal_state(wc_dir, 3)
-
+  
   svntest.actions.run_and_verify_update(wc_dir,
                                         expected_output,
                                         expected_disk,
@@ -564,7 +564,7 @@ def no_copy_overwrites(sbox):
   dirURL1  =  svntest.main.current_repo_url + "/A/D/G"
   dirURL2  =  svntest.main.current_repo_url + "/A/D/H"
 
-  # Expect out-of-date failure if 'svn cp URL URL' tries to overwrite a file
+  # Expect out-of-date failure if 'svn cp URL URL' tries to overwrite a file  
   svntest.actions.run_and_verify_svn("Whoa, I was able to overwrite a file!",
                                      None, SVNAnyOutput,
                                      'cp', fileURL1, fileURL2,
@@ -629,10 +629,10 @@ def copy_modify_commit(sbox):
 
   sbox.build()
   wc_dir = sbox.wc_dir
-
+  
   svntest.actions.run_and_verify_svn(None, None, [], 'cp',
                                      wc_dir + '/A/B', wc_dir + '/A/B2')
-
+  
   alpha_path = os.path.join(wc_dir, 'A', 'B2', 'E', 'alpha')
   svntest.main.file_append(alpha_path, "modified alpha")
 
@@ -736,7 +736,7 @@ def copy_delete_commit(sbox):
   # copy a tree
   svntest.actions.run_and_verify_svn(None, None, [], 'cp',
                                      wc_dir + '/A/B', wc_dir + '/A/B2')
-
+  
   # delete a file
   alpha_path = os.path.join(wc_dir, 'A', 'B2', 'E', 'alpha')
   svntest.actions.run_and_verify_svn(None, None, [], 'rm', alpha_path)
@@ -757,7 +757,7 @@ def copy_delete_commit(sbox):
   # copy a tree
   svntest.actions.run_and_verify_svn(None, None, [], 'cp',
                                      wc_dir + '/A/B', wc_dir + '/A/B3')
-
+  
   # delete a directory
   E_path = os.path.join(wc_dir, 'A', 'B3', 'E')
   svntest.actions.run_and_verify_svn(None, None, [], 'rm', E_path)
@@ -822,7 +822,7 @@ def copy_preserve_executable_bit(sbox):
   svntest.actions.run_and_verify_svn(None, None, [], 'add', newpath1)
 
   mode1 = os.stat(newpath1)[stat.ST_MODE]
-
+  
   # Doing this to get the executable bit set on systems that support
   # that -- the property itself is not the point.
   svntest.actions.run_and_verify_svn(None, None, [], 'propset',
@@ -972,7 +972,7 @@ def repos_to_wc(sbox):
       for line in out:
         ebcdic.os400_spool_print(line)
     raise svntest.Failure
-
+  
   # Revert everything and verify.
   svntest.actions.run_and_verify_svn(None, None, [], 'revert', '-R', wc_dir)
 
@@ -993,7 +993,7 @@ def repos_to_wc(sbox):
     'C' :  Item(status='A ', copied='+', wc_rev='-'),
     })
   svntest.actions.run_and_verify_status (wc_dir, expected_output)
-
+  
   # Revert everything and verify.
   svntest.actions.run_and_verify_svn(None, None, [], 'revert', '-R', wc_dir)
 
@@ -1010,7 +1010,7 @@ def repos_to_wc(sbox):
 
   # Expect an error in the directory case
   svntest.actions.run_and_verify_svn("", None, SVNAnyOutput,
-                                     'copy', E_url, wc_dir)
+                                     'copy', E_url, wc_dir)  
 
   # But file case should work fine.
   svntest.actions.run_and_verify_svn(None, None, [], 'copy', pi_url, wc_dir)
@@ -1045,7 +1045,7 @@ def url_copy_parent_into_child(sbox):
 
   sbox.build()
   wc_dir = sbox.wc_dir
-
+  
   B_url = svntest.main.current_repo_url + "/A/B"
   F_url = svntest.main.current_repo_url + "/A/B/F"
 
@@ -1096,7 +1096,7 @@ def wc_copy_parent_into_child(sbox):
 
   sbox.build()
   wc_dir = sbox.wc_dir
-
+  
   B_url = svntest.main.current_repo_url + "/A/B"
   F_B_url = svntest.main.current_repo_url + "/A/B/F/B"
 
@@ -1214,17 +1214,17 @@ def diff_repos_to_wc_copy(sbox):
 
   sbox.build()
   wc_dir = sbox.wc_dir
-
+  
   iota_repos_path = svntest.main.current_repo_url + '/iota'
   target_wc_path = os.path.join(wc_dir, 'new_file')
 
   # Copy a file from the repository to the working copy.
-  svntest.actions.run_and_verify_svn(None, None, [], 'cp',
+  svntest.actions.run_and_verify_svn(None, None, [], 'cp', 
                                      iota_repos_path, target_wc_path)
 
   # Run diff.
   svntest.actions.run_and_verify_svn(None, None, [], 'diff', wc_dir)
-
+ 
 
 #-------------------------------------------------------------
 
@@ -1238,7 +1238,7 @@ def repos_to_wc_copy_eol_keywords(sbox):
 
   sbox.build()
   wc_dir = sbox.wc_dir
-
+  
   iota_repos_path = svntest.main.current_repo_url + '/iota'
   iota_wc_path = os.path.join(wc_dir, 'iota')
   target_wc_path = os.path.join(wc_dir, 'new_file')
@@ -1261,7 +1261,7 @@ def repos_to_wc_copy_eol_keywords(sbox):
                                      wc_dir)
 
   # Copy a file from the repository to the working copy.
-  svntest.actions.run_and_verify_svn(None, None, [], 'cp',
+  svntest.actions.run_and_verify_svn(None, None, [], 'cp', 
                                      iota_repos_path, target_wc_path)
 
   # The original bug was that the copy would seg fault.  So we test
@@ -1333,7 +1333,7 @@ def revision_kinds_local_source(sbox):
               ]
 
   for dst, from_rev, text, rev_arg in sub_tests:
-    dst_path = os.path.join(wc_dir, dst)
+    dst_path = os.path.join(wc_dir, dst) 
     if rev_arg is None:
       svntest.actions.run_and_verify_svn(None, None, [], "copy",
                                          mu_path, dst_path)
@@ -1363,7 +1363,7 @@ def copy_over_missing_file(sbox):
   "copy over a missing file"
   sbox.build()
   wc_dir = sbox.wc_dir
-
+  
   mu_path = os.path.join(wc_dir, 'A', 'mu')
   iota_path = os.path.join(wc_dir, 'iota')
   iota_url = svntest.main.current_repo_url + "/iota"
@@ -1386,7 +1386,7 @@ def copy_over_missing_file(sbox):
                                         expected_output,
                                         expected_disk,
                                         expected_status)
-
+  
 
 
 #----------------------------------------------------------------------
@@ -1440,7 +1440,7 @@ def double_uri_escaping_1814(sbox):
 
   sbox.build()
   wc_dir = sbox.wc_dir
-
+  
   base_url = svntest.main.current_repo_url + '/base'
 
   svntest.actions.run_and_verify_svn(None, None, [], 'mkdir', '-m', 'mybase',
@@ -1596,7 +1596,7 @@ def wc_to_wc_copy_deleted(sbox):
                                          wc_dir)
 
 #----------------------------------------------------------------------
-# Test for copy into a non-existent URL path
+# Test for copy into a non-existent URL path 
 def url_to_non_existent_url_path(sbox):
   "svn cp src-URL non-existent-URL-path"
 
@@ -1735,7 +1735,7 @@ def mixed_wc_to_url(sbox):
   svntest.main.safe_rmtree(wc_dir)
   svntest.actions.run_and_verify_svn(None, None, [],
                                      'co', Z_url, wc_dir)
-
+  
   if os.path.exists(os.path.join(wc_dir, 'pi')):
     raise svntest.Failure
 
@@ -1758,7 +1758,7 @@ def mixed_wc_to_url(sbox):
 
 def wc_copy_replacement(sbox):
   "svn cp PATH PATH replace file"
-
+  
   copy_replace(sbox, 1)
 
 def wc_copy_replace_with_props(sbox):
@@ -1778,7 +1778,7 @@ def repos_to_wc_copy_replace_with_props(sbox):
 
 def delete_replaced_file(sbox):
   "delete file scheduled for replace"
-
+  
   sbox.build()
   wc_dir = sbox.wc_dir
 
@@ -1798,11 +1798,11 @@ def delete_replaced_file(sbox):
   # Check that file copied.
   expected_status.tweak('A/D/G/rho', status='R ', copied='+', wc_rev='-')
   svntest.actions.run_and_verify_status(wc_dir, expected_status)
-
+  
   # Now delete replaced file.
   svntest.actions.run_and_verify_svn(None, None, [], 'rm',
                                      '--force', rho_path)
-
+  
   # Verify status after deletion.
   expected_status = svntest.actions.get_virginal_state(wc_dir, 1)
   expected_status.tweak('A/D/G/rho', status='D ')
@@ -1818,7 +1818,7 @@ def mv_unversioned_file(sbox):
   unver_path_1 = os.path.join(wc_dir, 'unversioned1')
   dest_path_1 = os.path.join(wc_dir, 'dest')
   svntest.main.file_append(unver_path_1, "an unversioned file")
-
+  
   unver_path_2 = os.path.join(wc_dir, 'A', 'unversioned2')
   dest_path_2 = os.path.join(wc_dir, 'A', 'dest_forced')
   svntest.main.file_append(unver_path_2, "another unversioned file")
@@ -1841,7 +1841,7 @@ def force_move(sbox):
   wc_dir = sbox.wc_dir
   file_name = "iota"
   file_path = os.path.join(wc_dir, file_name)
-
+  
   # modify the content
   file_handle = file(file_path, "ab")
   file_handle.write("Added contents\n".encode("utf-8"))
@@ -1856,13 +1856,13 @@ def force_move(sbox):
   file_handle.close()
 
   if sys.platform == 'AS/400':
-    modified_file_content = ebcdic.os400_split_utf8_lines(modified_file_content)
+    modified_file_content = ebcdic.os400_split_utf8_lines(modified_file_content) 
 
   if modified_file_content != expected_file_content:
     raise svntest.Failure("Test setup failed. Incorrect file contents.")
 
   # force move the file
-  move_output = [ "A         dest\n",
+  move_output = [ "A         dest\n", 
                   "D         iota\n",
                 ]
   was_cwd = os.getcwd()
@@ -1870,7 +1870,7 @@ def force_move(sbox):
   try:
     svntest.actions.run_and_verify_svn(None, move_output,
                                        [],
-                                       'move', '--force',
+                                       'move', '--force', 
                                        file_name, "dest")
   finally:
     os.chdir(was_cwd)
@@ -1881,7 +1881,7 @@ def force_move(sbox):
   file_handle.close()
 
   if sys.platform == 'AS/400':
-    modified_file_content = ebcdic.os400_split_utf8_lines(modified_file_content)
+    modified_file_content = ebcdic.os400_split_utf8_lines(modified_file_content)  
 
   # Error if we dont find the modified contents...
   if modified_file_content != expected_file_content:
@@ -1889,7 +1889,7 @@ def force_move(sbox):
 
   # Commit the move and make sure the new content actually reaches
   # the repository.
-  expected_output = svntest.wc.State(wc_dir, {
+  expected_output = svntest.wc.State(wc_dir, {  
     'iota': Item(verb='Deleting'),
     'dest': Item(verb='Adding'),
   })
@@ -1907,7 +1907,7 @@ def force_move(sbox):
 
   if sys.platform == 'AS/400':
     for i in range(len(expected_file_content)):
-      expected_file_content[i] = expected_file_content[i].decode('utf-8').encode('cp037')
+      expected_file_content[i] = expected_file_content[i].decode('utf-8').encode('cp037')  
 
   svntest.actions.run_and_verify_svn('Cat file', expected_file_content, [],
                                      'cat',
@@ -1963,5 +1963,5 @@ if __name__ == '__main__':
   # NOTREACHED
 
 
-### End of file.
+### End of file. 
 
