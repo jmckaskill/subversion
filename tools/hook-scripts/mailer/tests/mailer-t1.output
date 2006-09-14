@@ -255,7 +255,7 @@ Modified: dir6/file4
  file4
 +change C6
 Group: defaults
-Subject: r9 -
+Subject: r9 - 
 
 Author: mailer test
 Date: Mon Sep 10 00:00:00 2001
@@ -273,7 +273,7 @@ Added: file11
 ==============================================================================
 Binary file. No diff available.
 Group: defaults
-Subject: r10 -
+Subject: r10 - 
 
 Author: mailer test
 Date: Mon Sep 10 02:46:40 2001
