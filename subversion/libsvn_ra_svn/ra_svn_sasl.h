@@ -1,5 +1,5 @@
 /*
- * ra_svn_sasl.h :  SASL-related declarations shared between the
+ * ra_svn_sasl.h :  SASL-related declarations shared between the 
  * ra_svn and svnserve module
  *
  * ====================================================================
@@ -56,7 +56,7 @@ extern volatile svn_atomic_t svn_ra_svn__sasl_status;
    calling sasl_{client, server}_init. */
 apr_status_t svn_ra_svn__sasl_common_init(void);
 
-/* Sets local_addrport and remote_addrport to a string containing the
+/* Sets local_addrport and remote_addrport to a string containing the 
    remote and local IP address and port, formatted like this: a.b.c.d;port. */
 svn_error_t *svn_ra_svn__get_addresses(const char **local_addrport,
                                        const char **remote_addrport,
