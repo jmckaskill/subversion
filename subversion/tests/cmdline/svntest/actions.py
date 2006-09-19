@@ -130,16 +130,16 @@ def guarantee_greek_repository(path):
     expected_output = main.greek_state.copy()
     expected_output.wc_dir = main.pristine_wc_dir
     expected_output.tweak(status='A ', contents=None)
-
+  
     # Generate an expected wc tree.
     expected_wc = main.greek_state
-
+  
     # Do a checkout, and verify the resulting output and disk contents.
-    run_and_verify_checkout(main.pristine_url,
+    run_and_verify_checkout(main.pristine_url, 
                             main.pristine_wc_dir,
                             expected_output,
                             expected_wc)
-
+  
 def run_and_verify_svnversion(message, wc_dir, repo_url,
                               expected_stdout, expected_stderr):
   "Run svnversion command and check its output"
@@ -251,7 +251,7 @@ def run_and_verify_checkout(URL, wc_dir_name, output_tree, disk_tree,
                             *args):
   """Checkout the URL into a new directory WC_DIR_NAME. *ARGS are any
   extra optional args to the checkout subcommand.
-
+ 
   The subcommand output will be verified against OUTPUT_TREE,
   and the working copy itself will be verified against DISK_TREE.
   SINGLETON_HANDLER_A and SINGLETON_HANDLER_B will be passed to
@@ -837,7 +837,7 @@ def run_and_validate_lock(path, username, password):
 
   # Run info and check that we get the lock fields.
   output, err = run_and_verify_svn(None, None, [],
-                                   'info','-R',
+                                   'info','-R', 
                                    path)
 
   # prepare the regexs to compare against
@@ -933,7 +933,7 @@ def make_repo_and_wc(sbox, create_wc = True):
     # this dir doesn't exist out of the box, so we may have to make it
     if not os.path.exists(main.general_wc_dir):
       os.makedirs(main.general_wc_dir)
-
+        
     # copy the pristine wc and relocate it to our new repository.
     duplicate_dir(main.pristine_wc_dir, sbox.wc_dir)
 
