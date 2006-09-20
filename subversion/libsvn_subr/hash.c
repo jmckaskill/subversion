@@ -35,7 +35,7 @@
 
 
 
-/*
+/* 
  * The format of a dumped hash table is:
  *
  *   K <nlength>
@@ -63,7 +63,7 @@
  *   be pleased to note the familiar, subtle hints of mulberries and
  *   carburator fluid.  Its confident finish is marred only by a barely
  *   detectable suggestion of rancid squid ink.
- *   K 5
+ *   K 5 
  *   price
  *   V 8
  *   US $6.50
@@ -284,7 +284,7 @@ svn_hash_write(apr_hash_t *hash, apr_file_t *destfile, apr_pool_t *pool)
 /* There are enough quirks in the deprecated svn_hash_read that we
    should just preserve its implementation. */
 svn_error_t *
-svn_hash_read(apr_hash_t *hash,
+svn_hash_read(apr_hash_t *hash, 
               apr_file_t *srcfile,
               apr_pool_t *pool)
 {
@@ -293,7 +293,7 @@ svn_hash_read(apr_hash_t *hash,
   apr_size_t num_read;
   char c;
   int first_time = 1;
-
+  
 
   while (1)
     {
@@ -304,7 +304,7 @@ svn_hash_read(apr_hash_t *hash,
       if (err && APR_STATUS_IS_EOF(err->apr_err) && first_time)
         {
           /* We got an EOF on our very first attempt to read, which
-             means it's a zero-byte file.  No problem, just go home. */
+             means it's a zero-byte file.  No problem, just go home. */        
           svn_error_clear(err);
           return SVN_NO_ERROR;
         }
@@ -336,13 +336,13 @@ svn_hash_read(apr_hash_t *hash,
 
           /* Now read that much into a buffer, + 1 byte for null terminator */
           void *keybuf = apr_palloc(pool, keylen + 1);
-          SVN_ERR(svn_io_file_read_full(srcfile,
+          SVN_ERR(svn_io_file_read_full(srcfile, 
                                         keybuf, keylen, &num_read, pool));
           ((char *) keybuf)[keylen] = '\0';
 
           /* Suck up extra newline after key data */
           SVN_ERR(svn_io_file_getc(&c, srcfile, pool));
-          if (c != '\n')
+          if (c != '\n') 
             return svn_error_create(SVN_ERR_MALFORMED_FILE, NULL, NULL);
 
           /* Read a val length line */
@@ -358,8 +358,8 @@ svn_hash_read(apr_hash_t *hash,
 
               /* Again, 1 extra byte for the null termination. */
               void *valbuf = apr_palloc(pool, vallen + 1);
-              SVN_ERR(svn_io_file_read_full(srcfile,
-                                            valbuf, vallen,
+              SVN_ERR(svn_io_file_read_full(srcfile, 
+                                            valbuf, vallen, 
                                             &num_read, pool));
               ((char *) valbuf)[vallen] = '\0';
 
@@ -404,9 +404,9 @@ svn_hash_diff(apr_hash_t *hash_a,
       {
         const void *key;
         apr_ssize_t klen;
-
+        
         apr_hash_this(hi, &key, &klen, NULL);
-
+        
         if (hash_b && (apr_hash_get(hash_b, key, klen)))
           SVN_ERR((*diff_func)(key, klen, svn_hash_diff_key_both,
                                diff_func_baton));
@@ -420,9 +420,9 @@ svn_hash_diff(apr_hash_t *hash_a,
       {
         const void *key;
         apr_ssize_t klen;
-
+        
         apr_hash_this(hi, &key, &klen, NULL);
-
+        
         if (! (hash_a && apr_hash_get(hash_a, key, klen)))
           SVN_ERR((*diff_func)(key, klen, svn_hash_diff_key_b,
                                diff_func_baton));
