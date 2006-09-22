@@ -554,7 +554,7 @@ Modified: dir6/file4
  file4
 +change C6
 Group: file plus other areas
-Subject: r9 -
+Subject: r9 - 
 
 Author: mailer test
 Date: Mon Sep 10 00:00:00 2001
@@ -572,7 +572,7 @@ Added: file11
 ==============================================================================
 Binary file. No diff available.
 Group: All
-Subject: r9 -
+Subject: r9 - 
 
 Author: mailer test
 Date: Mon Sep 10 00:00:00 2001
@@ -590,7 +590,7 @@ Added: file11
 ==============================================================================
 Binary file. No diff available.
 Group: file
-Subject: r9 -
+Subject: r9 - 
 
 Author: mailer test
 Date: Mon Sep 10 00:00:00 2001
@@ -608,7 +608,7 @@ Added: file11
 ==============================================================================
 Binary file. No diff available.
 Group: file plus other areas
-Subject: r10 -
+Subject: r10 - 
 
 Author: mailer test
 Date: Mon Sep 10 02:46:40 2001
@@ -625,7 +625,7 @@ Modified: file11
 ==============================================================================
 Binary file (source and/or target). No diff available.
 Group: All
-Subject: r10 -
+Subject: r10 - 
 
 Author: mailer test
 Date: Mon Sep 10 02:46:40 2001
@@ -642,7 +642,7 @@ Modified: file11
 ==============================================================================
 Binary file (source and/or target). No diff available.
 Group: file
-Subject: r10 -
+Subject: r10 - 
 
 Author: mailer test
 Date: Mon Sep 10 02:46:40 2001
