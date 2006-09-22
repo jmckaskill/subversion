@@ -213,7 +213,7 @@ class SVNTreeNode:
     s = StringIO.StringIO()
     self.pprint(s)
     return s.getvalue()
-
+    
 
 # reserved name of the root of the tree
 root_node_name = "__SVN_ROOT_NODE"
