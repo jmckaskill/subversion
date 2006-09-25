@@ -83,9 +83,9 @@ svn_error_t *serve(svn_ra_svn_conn_t *conn, serve_params_t *params,
 svn_error_t *sasl_init(void);
 
 /* Authenticate using Cyrus SASL. */
-svn_error_t *sasl_auth_request(svn_ra_svn_conn_t *conn,
+svn_error_t *sasl_auth_request(svn_ra_svn_conn_t *conn, 
                                apr_pool_t *pool,
-                               server_baton_t *b,
+                               server_baton_t *b, 
                                enum access_type required,
                                svn_boolean_t needs_username);
 
