@@ -828,7 +828,7 @@ Modified: dir6/file4
  file4
 +change C6
 Group: file plus other areas
-Subject: r9 -
+Subject: r9 - 
 
 Author: mailer test
 Date: Mon Sep 10 00:00:00 2001
@@ -856,7 +856,7 @@ Added property for: file9 (from r8, file9)
 
 Binary property. No diff available.
 Group: All
-Subject: r9 -
+Subject: r9 - 
 
 Author: mailer test
 Date: Mon Sep 10 00:00:00 2001
@@ -894,7 +894,7 @@ Added property for: file9 (from r8, file9)
 
 Binary property. No diff available.
 Group: file
-Subject: r9 -
+Subject: r9 - 
 
 Author: mailer test
 Date: Mon Sep 10 00:00:00 2001
@@ -922,7 +922,7 @@ Added property for: file9 (from r8, file9)
 
 Binary property. No diff available.
 Group: file plus other areas
-Subject: r10 -
+Subject: r10 - 
 
 Author: mailer test
 Date: Mon Sep 10 02:46:40 2001
@@ -949,7 +949,7 @@ Copied path and modified property for: file9 (from r9, file9)
 
 Binary property (source and/or target). No diff available.
 Group: All
-Subject: r10 -
+Subject: r10 - 
 
 Author: mailer test
 Date: Mon Sep 10 02:46:40 2001
@@ -976,7 +976,7 @@ Copied path and modified property for: file9 (from r9, file9)
 
 Binary property (source and/or target). No diff available.
 Group: file
-Subject: r10 -
+Subject: r10 - 
 
 Author: mailer test
 Date: Mon Sep 10 02:46:40 2001
