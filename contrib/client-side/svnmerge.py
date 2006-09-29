@@ -1324,7 +1324,7 @@ def action_rollback(branch_dir, branch_props):
         report('wrote commit message to "%s"' % opts["commit-file"])
 
     # Update the set of merged revisions.
-    merged_revs = merged_revs - revs
+    merged_revs = merged_revs - revs 
     branch_props[opts["head-path"]] = str(merged_revs)
     set_merge_props(branch_dir, branch_props)
 
