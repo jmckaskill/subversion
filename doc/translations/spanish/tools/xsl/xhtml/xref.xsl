@@ -868,7 +868,7 @@
 
           <!-- Proceed with good olink syntax -->
           <xsl:otherwise>
-
+            
             <!-- Does the target database use a sitemap? -->
             <xsl:variable name="use.sitemap">
               <xsl:for-each select="$target.database">
@@ -901,7 +901,7 @@
                     <xsl:otherwise>
                       <xsl:message>Olink warning: cannot compute relative sitemap path without $current.docid parameter</xsl:message>
                     </xsl:otherwise>
-                  </xsl:choose>
+                  </xsl:choose> 
                   <!-- In either case, add baseuri from its document entry-->
                   <xsl:variable name="docbaseuri">
                     <xsl:for-each select="$target.database">
@@ -1102,7 +1102,7 @@
   <xsl:param name="dirnode"/>
   <xsl:param name="targetdoc" select="''"/>
 
-<!--
+<!-- 
 <xsl:message>dirnode is <xsl:value-of select="$dirnode/@name"/></xsl:message>
 <xsl:message>targetdoc is <xsl:value-of select="$targetdoc"/></xsl:message>
 -->
