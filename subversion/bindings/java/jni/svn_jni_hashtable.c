@@ -1,5 +1,5 @@
 /*
- * svn_jni_hashtable.c utility functions to handle
+ * svn_jni_hashtable.c utility functions to handle 
  * java hashtables with c
  *
  * ====================================================================
@@ -31,9 +31,9 @@ svn_jni_hashtable__create(JNIEnv *env, jboolean *hasException)
 #ifdef SVN_JNI__VERBOSE
   fprintf(stderr, "svn_jni__create_hashtable\n");
 #endif
-
+  
   /* is there enough memory to have twoadditional
-   * local references?
+   * local references? 
    * - class reference
    * - constructor method id
    */
@@ -42,14 +42,14 @@ svn_jni_hashtable__create(JNIEnv *env, jboolean *hasException)
       jclass hashtableClass = (*env)->FindClass(env,
 						"java/util/Hashtable");
       jmethodID hashtableConstructor = NULL;
-
+      
       if( hashtableClass == NULL )
 	{
 	  _hasException = JNI_TRUE;
 	}
       else
 	{
-	  hashtableConstructor =
+	  hashtableConstructor = 
 	    (*env)->GetMethodID(env, hashtableClass,
 				"<init>", "()V");
 	}
@@ -109,8 +109,8 @@ svn_jni_hashtable__put(JNIEnv *env, jobject hashtable, jobject key,
 	}
       else
 	{
-	  hashtablePut =
-	    (*env)->GetMethodID(env, hashtableClass,
+	  hashtablePut = 
+	    (*env)->GetMethodID(env, hashtableClass, 
 				"put", SVN_JNI__HASHTABLE_PUT);
 	  if( hashtablePut == NULL )
 	    {
@@ -123,7 +123,7 @@ svn_jni_hashtable__put(JNIEnv *env, jobject hashtable, jobject key,
 	  /* the put method usually returns an object
 	   * but we dont care about this so we dont have
 	   * to take care for the otherweise created
-	   * local reference
+	   * local reference 
 	   */
 	  (*env)->CallVoidMethod(env, hashtable, hashtablePut,
 				   key, value);
@@ -139,7 +139,7 @@ svn_jni_hashtable__put(JNIEnv *env, jobject hashtable, jobject key,
     {
       (*hasException) = _hasException;
     }
-}
+} 
 
 /* local variables:
  * eval: (load-file "../../../svn-dev.el")
