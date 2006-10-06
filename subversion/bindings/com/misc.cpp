@@ -28,7 +28,7 @@ apr_pool_t *g_global_pool = NULL;
 
 // Converts an svn_error_t to an HRESULT, and
 // an IErrorInfo record.
-HRESULT
+HRESULT 
 convert_err_to_hresult(svn_error_t *error)
 {
 	HRESULT hr;
@@ -40,7 +40,7 @@ convert_err_to_hresult(svn_error_t *error)
 	char szBuff[k_uicbINTAsDecimalString * 2 + sizeof(szFmt) + 1];
 
 	memset(szBuff, 0, sizeof(szBuff));
-
+	
 	hr = CreateErrorInfo(&spCreateErrorInfo);
 	if (FAILED(hr))
 	{
@@ -48,35 +48,35 @@ convert_err_to_hresult(svn_error_t *error)
 	}
 
 	hr = spCreateErrorInfo->SetGUID(IID_NULL);
-	if (FAILED(hr))
+	if (FAILED(hr)) 
 		goto Cleanup;
 	hr = spCreateErrorInfo->SetHelpContext(0);
-	if (FAILED(hr))
+	if (FAILED(hr)) 
 		goto Cleanup;
 	hr = spCreateErrorInfo->SetHelpFile(NULL);
-	if (FAILED(hr))
+	if (FAILED(hr)) 
 		goto Cleanup;
 	hr = spCreateErrorInfo->SetSource(W2BSTR(L"Subversion"));
-	if (FAILED(hr))
+	if (FAILED(hr)) 
 		goto Cleanup;
 
 	next = error;
 	while (next != NULL) {
 		current = next;
 		_snprintf(
-			szBuff,
-			sizeof(szBuff),
-			szFmt,
-			current->apr_err,
+			szBuff, 
+			sizeof(szBuff), 
+			szFmt, 
+			current->apr_err, 
 			current->src_err);
 		sbstrDesc.Append("\r\n");
 		sbstrDesc.Append(current->message);
 		sbstrDesc.Append("\r\n");
-		next = current->child;
+		next = current->child;	
 	}
-
+	
 	hr = spCreateErrorInfo->SetDescription(sbstrDesc);
-	if (FAILED(hr))
+	if (FAILED(hr)) 
 		goto Cleanup;
 
 	SetErrorInfo(0, (IErrorInfo *)((IUnknown *)spCreateErrorInfo));
