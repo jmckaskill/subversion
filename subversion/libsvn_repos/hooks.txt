@@ -50,7 +50,7 @@ directory:
    start-commit.tmpl     pre-commit.tmpl        post-commit.tmpl
    read-sentinels        write-sentinels
    read-sentinels.tmpl   write-sentinels.tmpl
-   $
+   $ 
 
 The actual hooks are `start-commit', `pre-commit' and `post-commit'.
 The template (.tmpl) files are example shell scripts to get you
@@ -103,14 +103,14 @@ More On Read and Write Sentinels (just discussion, not implemented yet!)
    (see svn_fs.h).  All operations on paths beneath that root are first
    "checked" with the sentinel; the sentinel's response determines
    whether the operation is permitted.
-
+   
    Our hope is that sentinels can be kept very simple: they will simply
    take paths on stdin, and respond with "Okay" or "Not Okay" (or
    slightly more formal XML equivalents).  All kinds of read operations
    on a path will be treated as equivalent, as will all write operations.
    The relevant question will be simply: was the user allowed to read or
    write this path?
-
+   
    The point of sentinels is to provide real-time feedback as a commit
    is being built (or even before the txn is started), or as a
    checkout or update is being produced -- but without the overhead of
@@ -118,7 +118,7 @@ More On Read and Write Sentinels (just discussion, not implemented yet!)
 
    Almost all reading and writing functions in svn_fs.h will need to be
    wrapped by libsvn_repos, which will drive the sentinels:
-
+   
       Read actions to be wrapped:
       ---------------------------
          svn_fs_revision_root
@@ -136,7 +136,7 @@ More On Read and Write Sentinels (just discussion, not implemented yet!)
          svn_fs_youngest_rev
          svn_fs_revision_prop
          svn_fs_revision_proplist
-
+   
       Write actions to be wrapped:
       ----------------------------
          svn_fs_begin_txn
@@ -153,7 +153,7 @@ More On Read and Write Sentinels (just discussion, not implemented yet!)
          svn_fs_make_file
          svn_fs_apply_textdelta
          svn_fs_change_rev_prop
-
+   
    The exact sentinel protocol is still TBD; obviously, a precise
    specification is very important for sentinel implementors.
 
