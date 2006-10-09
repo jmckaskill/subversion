@@ -17,7 +17,7 @@ package org.tigris.subversion.lib;
  *
  */
 
-public class Status
+public class Status 
 {
     private Entry entry = null;
     private StatusKind textStatus = null;
@@ -35,7 +35,7 @@ public class Status
     public Status(Status status)
         {
             this();
-
+            
             setEntry(status.getEntry());
             setTextStatus(status.getTextStatus());
             setPropStatus(status.getPropStatus());
@@ -49,7 +49,7 @@ public class Status
         {
             entry = _entry;
         }
-
+    
     public Entry getEntry()
         {
             return entry;
