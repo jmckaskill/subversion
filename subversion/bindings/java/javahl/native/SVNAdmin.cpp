@@ -85,7 +85,7 @@ void SVNAdmin::create(const char *path, bool disableFsyncCommits,
                   APR_HASH_KEY_STRING,
                   fstype);
 
-    svn_error_t *err =
+    svn_error_t *err = 
         svn_config_get_config (&config, configPath, requestPool.pool());
     if(err != SVN_NO_ERROR)
     {
@@ -186,8 +186,8 @@ void SVNAdmin::deltify(const char *path, Revision &revStart, Revision &revEnd)
     return;
 }
 
-void SVNAdmin::dump(const char *path, Outputer &dataOut, Outputer &messageOut,
-                    Revision &revsionStart, Revision &revisionEnd,
+void SVNAdmin::dump(const char *path, Outputer &dataOut, Outputer &messageOut, 
+                    Revision &revsionStart, Revision &revisionEnd, 
                     bool incremental)
 {
     Pool requestPool;
@@ -270,7 +270,7 @@ void SVNAdmin::dump(const char *path, Outputer &dataOut, Outputer &messageOut,
 
 }
 
-void SVNAdmin::hotcopy(const char *path, const char *targetPath,
+void SVNAdmin::hotcopy(const char *path, const char *targetPath, 
                        bool cleanLogs)
 {
     Pool requestPool;
@@ -365,7 +365,7 @@ void SVNAdmin::load(const char *path, Inputer &dataIn, Outputer &messageOut, boo
         return;
     }
 
-    err = svn_repos_load_fs (repos, dataIn.getStream(requestPool),
+    err = svn_repos_load_fs (repos, dataIn.getStream(requestPool), 
                              messageOut.getStream(requestPool),
                              uuid_action, relativePath,
                              NULL, NULL, requestPool.pool());
@@ -444,7 +444,7 @@ jlong SVNAdmin::recover(const char *path)
         JNIUtil::handleSVNError(err);
         return -1;
     }
-    err = svn_fs_youngest_rev (&youngest_rev, svn_repos_fs (repos),
+    err = svn_fs_youngest_rev (&youngest_rev, svn_repos_fs (repos), 
                                requestPool.pool());
     if(err != SVN_NO_ERROR)
     {
@@ -541,7 +541,7 @@ void SVNAdmin::setRevProp(const char *path, Revision &revision,
         return;
     }
     else if (revision.revision()->kind != svn_opt_revision_unspecified)
-    {
+    { 
         JNIUtil::handleSVNError(
             svn_error_createf (SVN_ERR_CL_ARG_PARSING_ERROR, NULL,
                               _("Only one revision allowed")));
@@ -583,7 +583,7 @@ void SVNAdmin::setRevProp(const char *path, Revision &revision,
     }
 }
 
-void SVNAdmin::verify(const char *path, Outputer &messageOut,
+void SVNAdmin::verify(const char *path, Outputer &messageOut, 
                       Revision &revisionStart, Revision &revisionEnd)
 {
     Pool requestPool;
@@ -604,15 +604,15 @@ void SVNAdmin::verify(const char *path, Outputer &messageOut,
         JNIUtil::handleSVNError(err);
         return;
     }
-    err = svn_fs_youngest_rev (&youngest, svn_repos_fs (repos),
+    err = svn_fs_youngest_rev (&youngest, svn_repos_fs (repos), 
                                requestPool.pool());
     if(err != SVN_NO_ERROR)
-    {
+    { 
         JNIUtil::handleSVNError(err);
         return;
     }
     err = svn_repos_dump_fs (repos, NULL, messageOut.getStream(requestPool),
-                             0, youngest, FALSE, NULL, NULL,
+                             0, youngest, FALSE, NULL, NULL, 
                              requestPool.pool());
     if(err != SVN_NO_ERROR)
     {
@@ -643,7 +643,7 @@ jobjectArray SVNAdmin::lslocks(const char *path)
     }
     fs = svn_repos_fs (repos);
     /* Fetch all locks on or below the root directory. */
-    err = svn_repos_fs_get_locks (&locks, repos, "/", NULL, NULL,
+    err = svn_repos_fs_get_locks (&locks, repos, "/", NULL, NULL, 
         requestPool.pool());
     if(err != SVN_NO_ERROR)
     {
@@ -669,9 +669,9 @@ jobjectArray SVNAdmin::lslocks(const char *path)
     {
         return NULL;
     }
-
+    
     int i = 0;
-    for (hi = apr_hash_first (requestPool.pool(), locks); hi;
+    for (hi = apr_hash_first (requestPool.pool(), locks); hi; 
             hi = apr_hash_next (hi),i++)
     {
         const void *key;
@@ -690,7 +690,7 @@ jobjectArray SVNAdmin::lslocks(const char *path)
             return NULL;
         }
     }
-
+  
     return ret;
 }
 void SVNAdmin::rmlocks(const char *path, Targets &locks)
@@ -715,7 +715,7 @@ void SVNAdmin::rmlocks(const char *path, Targets &locks)
     }
     fs = svn_repos_fs (repos);
     const char *username;
-
+  
     /* svn_fs_unlock() demands that some username be associated with the
        filesystem, so just use the UID of the person running 'svnadmin'.*/
     {
@@ -754,7 +754,7 @@ void SVNAdmin::rmlocks(const char *path, Targets &locks)
     {
         const char *lock_path = APR_ARRAY_IDX (args, i, const char *);
         svn_lock_t *lock;
-
+      
         /* Fetch the path's svn_lock_t. */
         err = svn_fs_get_lock (&lock, fs, lock_path, subpool);
         if (err)
@@ -763,14 +763,14 @@ void SVNAdmin::rmlocks(const char *path, Targets &locks)
         {
             continue;
         }
-
+      
         /* Now forcibly destroy the lock. */
         err = svn_fs_unlock (fs, lock_path,
                              lock->token, 1 /* force */, subpool);
         if (err)
             goto move_on;
-
-    move_on:
+      
+    move_on:      
         svn_error_clear (err);
         svn_pool_clear (subpool);
     }
