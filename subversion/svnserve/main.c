@@ -381,7 +381,7 @@ int main(int argc, const char *argv[])
           SVN_INT_ERR(version(os, pool));
           exit(0);
           break;
-
+          
         case 'd':
           if (run_mode != run_mode_daemon)
             {
@@ -505,7 +505,7 @@ int main(int argc, const char *argv[])
           svn_error_clear(err);
           exit(1);
         }
-
+                                
       conn = svn_ra_svn_create_conn(NULL, in_file, out_file, pool);
       svn_error_clear(serve(conn, &params, pool));
       exit(0);
@@ -564,7 +564,7 @@ int main(int argc, const char *argv[])
 
   /* Make sure we have IPV6 support first before giving apr_sockaddr_info_get
      APR_UNSPEC, because it may give us back an IPV6 address even if we can't
-     create IPV6 sockets. */
+     create IPV6 sockets. */  
 
 #if APR_HAVE_IPV6
 #ifdef MAX_SECS_TO_LINGER
@@ -574,13 +574,13 @@ int main(int argc, const char *argv[])
   status = apr_socket_create(&sock, APR_INET6, SOCK_STREAM, APR_PROTO_TCP,
                              pool);
 #endif
-  if (status == 0)
+  if (status == 0)   
     {
       apr_socket_close(sock);
       family = APR_UNSPEC;
     }
 #endif
-
+  
   status = apr_sockaddr_info_get(&sa, host, family, port, 0, pool);
   if (status)
     {
