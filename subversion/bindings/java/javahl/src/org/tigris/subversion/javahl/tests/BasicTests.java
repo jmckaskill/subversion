@@ -1193,7 +1193,7 @@ public class BasicTests extends SVNTests
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         client.streamFileContent(thisTest.getWCPath() + "/A/mu", null, null,
                                  100, baos);
-
+        
         byte[] content = baos.toByteArray();
         byte[] testContent = thisTest.getWc().getItemContent("A/mu").getBytes();
 
@@ -1358,7 +1358,7 @@ public class BasicTests extends SVNTests
         // create the working copy
         OneTest thisTest = new OneTest();
         assertEquals("wrong version info","1",
-                client.getVersionInfo(thisTest.getWCPath(), null, false));
+                client.getVersionInfo(thisTest.getWCPath(), null, false));        
     }
 
     /**
@@ -1411,7 +1411,7 @@ public class BasicTests extends SVNTests
     }
 
     /**
-     * test the baisc SVNClient.info2 functionality
+     * test the baisc SVNClient.info2 functionality 
      * @throws Throwable
      * @since 1.2
      */
@@ -1438,7 +1438,7 @@ public class BasicTests extends SVNTests
     {
         // build the test setup
         OneTest thisTest = new OneTest();
-
+        
         // create branches directory in the repository
         addExpectedCommitItem(null, thisTest.getUrl(), "branches", NodeKind.none,
               CommitItemStateFlags.Add);
@@ -1489,7 +1489,7 @@ public class BasicTests extends SVNTests
 
         // now do the real merge
         client.merge(modUrl, new Revision.Number(2), modUrl, Revision.HEAD, branchPath, false, true, false, false);
-
+        
         // commit the changes so that we can verify merge
         addExpectedCommitItem(thisTest.getWCPath(),
                 thisTest.getUrl(), "branches/A/mu",NodeKind.file,
@@ -1500,7 +1500,7 @@ public class BasicTests extends SVNTests
         assertEquals("wrong revision number from commit",
               client.commit(new String[]{thisTest.getWCPath()}, "log msg",
                       true), 5);
-
+ 
     }
     /**
      * test the basic SVNClient.isAdminDirectory functionality
