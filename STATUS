@@ -76,7 +76,7 @@ Candidate changes:
       +1: dlr, pburba
 
   * r21717
-    Regression test for issue #2533, part of the r21566 group (but was
+    Regression test for issue #2533, part of the r21566 group (but was 
     forgotten).
     Justification:
       Test for an issue fixed (if backported) in 1.4.x
@@ -135,5 +135,5 @@ Candidate changes:
     Votes:
       +1: dlr
 
-  *
+  * 
 Approved changes:
