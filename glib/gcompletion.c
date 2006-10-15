@@ -21,10 +21,10 @@
  * Modified by the GLib Team and others 1997-1999.  See the AUTHORS
  * file for a list of people on the GLib Team.  See the ChangeLog
  * files for a list of changes.  These files are distributed with
- * GLib at ftp://ftp.gtk.org/pub/gtk/.
+ * GLib at ftp://ftp.gtk.org/pub/gtk/. 
  */
 
-/*
+/* 
  * MT safe
  */
 
@@ -34,11 +34,11 @@
 static void completion_check_cache (GCompletion* cmp,
 				    gchar**	 new_prefix);
 
-GCompletion*
+GCompletion* 
 g_completion_new (GCompletionFunc func)
 {
   GCompletion* gcomp;
-
+  
   gcomp = g_new (GCompletion, 1);
   gcomp->items = NULL;
   gcomp->cache = NULL;
@@ -48,15 +48,15 @@ g_completion_new (GCompletionFunc func)
   return gcomp;
 }
 
-void
+void 
 g_completion_add_items (GCompletion* cmp,
 			GList*	     items)
 {
   GList* it;
-
+  
   g_return_if_fail (cmp != NULL);
   g_return_if_fail (items != NULL);
-
+  
   /* optimize adding to cache? */
   if (cmp->cache)
     {
@@ -69,7 +69,7 @@ g_completion_add_items (GCompletion* cmp,
       g_free (cmp->prefix);
       cmp->prefix = NULL;
     }
-
+  
   it = items;
   while (it)
     {
@@ -78,15 +78,15 @@ g_completion_add_items (GCompletion* cmp,
     }
 }
 
-void
+void 
 g_completion_remove_items (GCompletion* cmp,
 			   GList*	items)
 {
   GList* it;
-
+  
   g_return_if_fail (cmp != NULL);
   g_return_if_fail (items != NULL);
-
+  
   it = items;
   while (cmp->items && it)
     {
@@ -102,11 +102,11 @@ g_completion_remove_items (GCompletion* cmp,
     }
 }
 
-void
+void 
 g_completion_clear_items (GCompletion* cmp)
 {
   g_return_if_fail (cmp != NULL);
-
+  
   g_list_free (cmp->items);
   cmp->items = NULL;
   g_list_free (cmp->cache);
@@ -115,7 +115,7 @@ g_completion_clear_items (GCompletion* cmp)
   cmp->prefix = NULL;
 }
 
-static void
+static void   
 completion_check_cache (GCompletion* cmp,
 			gchar**	     new_prefix)
 {
@@ -125,7 +125,7 @@ completion_check_cache (GCompletion* cmp,
   register gint plen;
   gchar* postfix;
   gchar* s;
-
+  
   if (!new_prefix)
     return;
   if (!cmp->cache)
@@ -133,14 +133,14 @@ completion_check_cache (GCompletion* cmp,
       *new_prefix = NULL;
       return;
     }
-
+  
   len = strlen(cmp->prefix);
   list = cmp->cache;
   s = cmp->func ? cmp->func (list->data) : (gchar*) list->data;
   postfix = s + len;
   plen = strlen (postfix);
   list = list->next;
-
+  
   while (list && plen)
     {
       s = cmp->func ? cmp->func (list->data) : (gchar*) list->data;
@@ -153,13 +153,13 @@ completion_check_cache (GCompletion* cmp,
       plen = i;
       list = list->next;
     }
-
+  
   *new_prefix = g_new0 (gchar, len + plen + 1);
   strncpy (*new_prefix, cmp->prefix, len);
   strncpy (*new_prefix + len, postfix, plen);
 }
 
-GList*
+GList* 
 g_completion_complete (GCompletion* cmp,
 		       gchar*	    prefix,
 		       gchar**	    new_prefix)
@@ -167,16 +167,16 @@ g_completion_complete (GCompletion* cmp,
   gint plen, len;
   gint done = 0;
   GList* list;
-
+  
   g_return_val_if_fail (cmp != NULL, NULL);
   g_return_val_if_fail (prefix != NULL, NULL);
-
+  
   len = strlen (prefix);
   if (cmp->prefix && cmp->cache)
     {
       plen = strlen (cmp->prefix);
       if (plen <= len && !strncmp (prefix, cmp->prefix, plen))
-	{
+	{ 
 	  /* use the cache */
 	  list = cmp->cache;
 	  while (list)
@@ -195,7 +195,7 @@ g_completion_complete (GCompletion* cmp,
 	  done = 1;
 	}
     }
-
+  
   if (!done)
     {
       /* normal code */
@@ -219,15 +219,15 @@ g_completion_complete (GCompletion* cmp,
   if (cmp->cache)
     cmp->prefix = g_strdup (prefix);
   completion_check_cache (cmp, new_prefix);
-
+  
   return *prefix ? cmp->cache : cmp->items;
 }
 
-void
+void 
 g_completion_free (GCompletion* cmp)
 {
   g_return_if_fail (cmp != NULL);
-
+  
   g_completion_clear_items (cmp);
   g_free (cmp);
 }
@@ -246,20 +246,20 @@ main (int   argc,
   GCompletion *cmp;
   gint i;
   gchar *longp = NULL;
-
+  
   if (argc < 3)
     {
       g_warning ("Usage: %s filename prefix1 [prefix2 ...]\n", argv[0]);
       return 1;
     }
-
+  
   file = fopen (argv[1], "r");
   if (!file)
     {
       g_warning ("Cannot open %s\n", argv[1]);
       return 1;
     }
-
+  
   cmp = g_completion_new (NULL);
   list = g_list_alloc ();
   while (fgets (buf, 1024, file))
@@ -268,7 +268,7 @@ main (int   argc,
       g_completion_add_items (cmp, list);
     }
   fclose (file);
-
+  
   for (i = 2; i < argc; ++i)
     {
       printf ("COMPLETING: %s\n", argv[i]);
@@ -278,11 +278,11 @@ main (int   argc,
       g_free (longp);
       longp = NULL;
     }
-
+  
   g_list_foreach (cmp->items, (GFunc) g_free, NULL);
   g_completion_free (cmp);
   g_list_free (list);
-
+  
   return 0;
 }
 #endif
