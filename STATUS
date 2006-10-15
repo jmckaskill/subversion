@@ -147,7 +147,7 @@ Approved changes:
       +1: dlr, pburba, glasser
 
   * r21717
-    Regression test for issue #2533, part of the r21566 group (but was
+    Regression test for issue #2533, part of the r21566 group (but was 
     forgotten).
     Justification:
       Test for an issue fixed (if backported) in 1.4.x
@@ -160,7 +160,7 @@ Approved changes:
     - Test to validate that svn merge ignores whitespace when requested
       (-x -w option).
     - Test to validate that svn merge ignores eolstyle when requested
-      (-x --ignore-eol-style option).
+      (-x --ignore-eol-style option). 
     - Test that a copy of a directory (by URL) to a pre-existing
       directory (within the WC) copies the source *under* the target
       directory
