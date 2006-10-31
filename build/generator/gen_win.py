@@ -151,7 +151,7 @@ class WinGeneratorBase(GeneratorBase):
     # Look for ML
     if self.zlib_path:
       self._find_ml()
-
+      
     # Find neon version
     if self.neon_path:
       self._find_neon()
@@ -225,11 +225,11 @@ class WinGeneratorBase(GeneratorBase):
         swig.Generator(self.conf, self.swig_exe).write()
     else:
       print "%s not found; skipping SWIG file generation..." % self.swig_exe
-
+      
   def path(self, *paths):
     """Convert build path to msvc path and prepend root"""
     return msvc_path_join(self.rootpath, *map(msvc_path, paths))
-
+  
   def apath(self, path, *paths):
     """Convert build path to msvc path and prepend root if not absolute"""
     ### On Unix, os.path.isabs won't do the right thing if "item"
@@ -250,12 +250,12 @@ class WinGeneratorBase(GeneratorBase):
     # Don't create projects for scripts
     install_targets = filter(lambda x: not isinstance(x, gen_base.TargetScript),
                              install_targets)
-
+    
     # Drop the gen_uri_delims target unless we're on an old apr-util
     if not self.have_gen_uri:
       install_targets = filter(lambda x: x.name != 'gen_uri_delims',
                                install_targets)
-
+      
     # Drop the libsvn_fs_base target and tests if we don't have BDB
     if not self.bdb_lib:
       install_targets = filter(lambda x: x.name != 'libsvn_fs_base',
@@ -263,8 +263,8 @@ class WinGeneratorBase(GeneratorBase):
       install_targets = filter(lambda x: not (isinstance(x, gen_base.TargetExe)
                                               and x.install == 'bdb-test'),
                                install_targets)
-
-    # Drop the serf target if we don't have both serf and openssl
+      
+    # Drop the serf target if we don't have both serf and openssl 
     if not self.serf_lib:
       install_targets = filter(lambda x: x.name != 'serf', install_targets)
       install_targets = filter(lambda x: x.name != 'libsvn_ra_serf',
@@ -305,7 +305,7 @@ class WinGeneratorBase(GeneratorBase):
                     libs=self.get_win_libs(target, cfg),
                     ))
     return configs
-
+  
   def get_proj_sources(self, quote_path, target):
     "Get the list of source files for each project"
     sources = [ ]
@@ -403,7 +403,7 @@ class WinGeneratorBase(GeneratorBase):
       sources.append(ProjectItem(path=gsrc, reldir=None, custom_build=cbuild,
                                  user_deps=deps, custom_target=def_file))
 
-      sources.append(ProjectItem(path=def_file, reldir=None,
+      sources.append(ProjectItem(path=def_file, reldir=None, 
                                  custom_build=None, user_deps=[]))
 
     sources.sort(lambda x, y: cmp(x.path, y.path))
@@ -632,7 +632,7 @@ class WinGeneratorBase(GeneratorBase):
     # check if they wanted nls
     if self.enable_nls:
       fakedefines.append("ENABLE_NLS")
-
+      
     # check for neon 0.26.x or newer
     if self.neon_ver >= 26000:
       fakedefines.append("SVN_NEON_0_26=1")
@@ -650,7 +650,7 @@ class WinGeneratorBase(GeneratorBase):
 
   def get_win_includes(self, target):
     "Return the list of include directories for target"
-
+    
     fakeincludes = [ self.path("subversion/include"),
                      self.path("subversion"),
                      self.apath(self.apr_path, "include"),
@@ -676,7 +676,7 @@ class WinGeneratorBase(GeneratorBase):
 
     if self.libintl_path:
       fakeincludes.append(self.apath(self.libintl_path, 'inc'))
-
+    
     if self.serf_lib:
       fakeincludes.append(self.apath(self.serf_path, ""))
 
@@ -689,7 +689,7 @@ class WinGeneratorBase(GeneratorBase):
 
     if self.sasl_path:
       fakeincludes.append(self.apath(self.sasl_path, 'include'))
-
+    
     return fakeincludes
 
   def get_win_lib_dirs(self, target, cfg):
@@ -708,7 +708,7 @@ class WinGeneratorBase(GeneratorBase):
     if isinstance(target, gen_base.TargetApacheMod):
       fakelibdirs.append(self.apath(self.httpd_path, cfg))
       if target.name == 'mod_dav_svn':
-        fakelibdirs.append(self.apath(self.httpd_path, "modules/dav/main",
+        fakelibdirs.append(self.apath(self.httpd_path, "modules/dav/main", 
                                       cfg))
 
     return fakelibdirs
@@ -749,7 +749,7 @@ class WinGeneratorBase(GeneratorBase):
     if isinstance(target, gen_base.TargetExe):
       nondeplibs.append('setargv.obj')
 
-    if ((isinstance(target, gen_base.TargetSWIG)
+    if ((isinstance(target, gen_base.TargetSWIG) 
          or isinstance(target, gen_base.TargetSWIGLib))
         and target.lang == 'perl'):
       nondeplibs.append(self.perl_lib)
@@ -762,13 +762,13 @@ class WinGeneratorBase(GeneratorBase):
 
       if self.neon_lib and dep.external_lib == '$(NEON_LIBS)':
         nondeplibs.append(neonlib)
-
+        
       if self.serf_lib and dep.external_lib == '$(SVN_SERF_LIBS)':
         nondeplibs.append(serflib)
 
       if dep.external_lib == '$(SVN_SASL_LIBS)':
         nondeplibs.append(sasllib)
-
+        
     return gen_base.unique(nondeplibs)
 
   def get_win_sources(self, target, reldir_prefix=''):
@@ -848,7 +848,7 @@ class WinGeneratorBase(GeneratorBase):
                          ('expat_path',
                           os.path.join(os.path.abspath(self.apr_util_path),
                                        'xml', 'expat', 'lib')),
-                         ('zlib_path', self.zlib_path
+                         ('zlib_path', self.zlib_path 
                                        and os.path.abspath(self.zlib_path)),
                          ('openssl_path',
                           self.openssl_path
@@ -869,7 +869,7 @@ class WinGeneratorBase(GeneratorBase):
                           glob.glob(os.path.join(serf_path, '*.h'))
                           + glob.glob(os.path.join(serf_path, 'buckets',
                                                    '*.h'))),
-                         ('zlib_path', self.zlib_path
+                         ('zlib_path', self.zlib_path 
                                        and os.path.abspath(self.zlib_path)),
                          ('openssl_path',
                           self.openssl_path
@@ -1010,7 +1010,7 @@ class WinGeneratorBase(GeneratorBase):
       txt = fp.read()
       vermatch = re.compile(r'(\d+)\.(\d+)\.(\d+)$', re.M) \
                    .search(txt)
-
+  
       if vermatch:
         version = (int(vermatch.group(1)),
                    int(vermatch.group(2)),
