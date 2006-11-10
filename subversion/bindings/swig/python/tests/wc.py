@@ -18,11 +18,11 @@ class SubversionWorkingCopyTestCase(unittest.TestCase):
     self.path = tempfile.mktemp()
 
     client_ctx = client.create_context()
-
+    
     rev = core.svn_opt_revision_t()
     rev.kind = core.svn_opt_revision_head
 
-    client.checkout2(REPOS_URL, self.path, rev, rev, True, True,
+    client.checkout2(REPOS_URL, self.path, rev, rev, True, True, 
             client_ctx)
 
     self.wc = wc.adm_open3(None, self.path, True, -1, None)
@@ -120,7 +120,7 @@ class SubversionWorkingCopyTestCase(unittest.TestCase):
       self.assert_(wc.check_wc(self.path) > 0)
 
   def test_get_ancestry(self):
-      self.assertEqual([REPOS_URL, 12],
+      self.assertEqual([REPOS_URL, 12], 
                        wc.get_ancestry(self.path, self.wc))
 
   def test_status(self):
@@ -151,7 +151,7 @@ class SubversionWorkingCopyTestCase(unittest.TestCase):
 
   def test_entries_read(self):
       entries = wc.entries_read(self.wc, True)
-
+        
       self.assertEqual(['', 'tags', 'branches', 'trunk'], entries.keys())
 
   def test_get_ignores(self):
