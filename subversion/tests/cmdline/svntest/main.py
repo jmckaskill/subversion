@@ -453,7 +453,7 @@ def create_repos(path):
 def copy_repos(src_path, dst_path, head_revision, ignore_uuid = 0):
   "Copy the repository SRC_PATH, with head revision HEAD_REVISION, to DST_PATH"
 
-  # Do an svnadmin dump|svnadmin load cycle. Print a fake pipe command so that
+  # Do an svnadmin dump|svnadmin load cycle. Print a fake pipe command so that 
   # the displayed CMDs can be run by hand
   create_repos(dst_path)
   dump_args = ' dump "' + src_path + '"'
@@ -862,8 +862,8 @@ def run_tests(test_list):
   # Calculate pristine_url from test_area_url.
   pristine_url = test_area_url + '/' + pristine_dir
   if windows == 1:
-    pristine_url = string.replace(pristine_url, '\\', '/')
-
+    pristine_url = string.replace(pristine_url, '\\', '/')  
+  
   # Setup the pristine repository (and working copy)
   actions.setup_pristine_repository()
 
