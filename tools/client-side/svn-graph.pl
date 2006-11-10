@@ -40,7 +40,7 @@ my $REPOS_URL = 'file:///some/repository';
 #my $REPOS_URL = 'http://svn.collab.net/repos/svn';
 
 # Point at the root of a repository so we get can look at
-# every revision.
+# every revision.  
 my $ra = SVN::Ra->new($REPOS_URL);
 
 # We're going to look at all revisions
@@ -91,7 +91,7 @@ sub process_revision {
     }
 
     # If this is a copy, work out if it was from somewhere interesting
-    if (defined($copyfrom_path) &&
+    if (defined($copyfrom_path) && 
         exists($interesting{$copyfrom_path . ':' . $copyfrom_rev}))
     {
       $interesting{$path . ':' . $revision} = 1;
