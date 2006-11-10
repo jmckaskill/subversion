@@ -18,7 +18,7 @@
 # ====================================================================
 #
 # TODO:
-#   - take some command line parameters (url, start & end revs,
+#   - take some command line parameters (url, start & end revs, 
 #     node we're tracking, etc)
 #   - calculate the repository root at runtime so the user can pass
 #     the node of interest as a single URL
@@ -40,7 +40,7 @@ my $REPOS_URL = 'file:///some/repository';
 #my $REPOS_URL = 'http://svn.collab.net/repos/svn';
 
 # Point at the root of a repository so we get can look at
-# every revision.
+# every revision.  
 my $ra = SVN::Ra->new($REPOS_URL);
 
 # We're going to look at all revisions
@@ -82,7 +82,7 @@ sub process_revision {
     my $action = $$changed_paths{$path}->action;
 
     # See if we're deleting one of our tracking nodes
-    if ($action eq "D" and exists($tracking{$path}))
+    if ($action eq "D" and exists($tracking{$path})) 
     {
       print "\t\"$path:$tracking{$path}\" ";
       print "[label=\"$path:$tracking{$path}\\nDeleted in r$revision\",color=red];\n";
@@ -91,8 +91,8 @@ sub process_revision {
     }
 
     # If this is a copy, work out if it was from somewhere interesting
-    if (defined($copyfrom_path) &&
-        exists($interesting{$copyfrom_path.":".$copyfrom_rev}))
+    if (defined($copyfrom_path) && 
+        exists($interesting{$copyfrom_path.":".$copyfrom_rev})) 
     {
       $interesting{$path.":".$revision} = 1;
       $tracking{$path} = $revision;
