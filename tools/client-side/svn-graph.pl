@@ -157,7 +157,7 @@ sub process_revision
     ### operation with [sytle=dashed,color=blue]
 
     # If this is a copy, work out if it was from somewhere interesting
-    if (defined($copyfrom_path) &&
+    if (defined($copyfrom_path) && 
         exists($interesting{$copyfrom_path . ':' . $copyfrom_rev}))
     {
       $interesting{$path . ':' . $revision} = 1;
