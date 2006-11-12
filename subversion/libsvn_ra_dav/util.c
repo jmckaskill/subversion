@@ -537,7 +537,11 @@ parse_spool_file(const char *spool_file_name,
       len = SVN__STREAM_CHUNK_SIZE;
       SVN_ERR(svn_stream_read(spool_stream, buf, &len));
       if (len > 0)
-        ne_xml_parse(success_parser, buf, len);
+        if (ne_xml_parse(success_parser, buf, len) != 0)
+          /* The parse encountered an error or
+             was aborted by a user defined callback */
+          break;
+
       if (len != SVN__STREAM_CHUNK_SIZE)
         break;
     }
