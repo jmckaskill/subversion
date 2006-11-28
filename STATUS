@@ -89,7 +89,7 @@ Candidate changes:
 Approved changes:
 
   * r19842
-    Synchronize (and improve readability of) the various instances of our
+    Synchronize (and improve readability of) the various instances of our 
     license text + upgrade to 2006.
     Justification:
      Preparing to release 1.4.2 windows installer, license now on 1.4 branch
