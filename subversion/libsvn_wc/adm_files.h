@@ -89,7 +89,7 @@ svn_error_t *svn_wc__wcprop_path(const char **wcprop_path,
 
 
 /* Set *PROP_PATH to PATH's working properties file.
-   If TMP is set, return a path to the tmp working property file.
+   If TMP is set, return a path to the tmp working property file. 
    PATH can be a directory or file, and even have changed w.r.t. the
    working copy's adm knowledge. Valid values for KIND are svn_node_dir
    and svn_node_file. */
@@ -101,7 +101,7 @@ svn_error_t *svn_wc__prop_path(const char **prop_path,
 
 
 /* Set *PROP_PATH to PATH's `pristine' properties file.
-   If TMP is set, return a path to the tmp working property file.
+   If TMP is set, return a path to the tmp working property file. 
    PATH can be a directory or file, and even have changed w.r.t. the
    working copy's adm knowledge. Valid values for KIND are svn_node_dir
    and svn_node_file. */
@@ -113,7 +113,7 @@ svn_error_t *svn_wc__prop_base_path(const char **prop_path,
 
 
 /* Set *PROP_PATH to PATH's revert properties file.
-   If TMP is set, return a path to the tmp working property file.
+   If TMP is set, return a path to the tmp working property file. 
    PATH can be a directory or file, and even have changed w.r.t. the
    working copy's adm knowledge. Valid values for KIND are svn_node_dir
    and svn_node_file. */
@@ -230,11 +230,11 @@ svn_error_t *svn_wc__close_props(apr_file_t *fp,
                                  apr_pool_t *pool);
 
 /* Atomically rename a temporary property file to its canonical
-   location.  The tmp file should be closed already.
+   location.  The tmp file should be closed already. 
 
    Again, BASE and WCPROPS flags should be identical to those used to
    open the file. */
-svn_error_t *svn_wc__sync_props(const char *path,
+svn_error_t *svn_wc__sync_props(const char *path, 
                                 svn_boolean_t base,
                                 svn_boolean_t wcprops,
                                 apr_pool_t *pool);
