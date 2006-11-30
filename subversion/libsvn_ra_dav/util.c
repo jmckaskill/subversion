@@ -320,7 +320,7 @@ static void shim_xml_push_handler(ne_xml_parser *p,
                                   const svn_ra_dav__xml_elm_t *elements,
                                   svn_ra_dav__xml_validate_cb validate_cb,
                                   svn_ra_dav__xml_startelm_cb startelm_cb,
-                                  svn_ra_dav__xml_endelm_cb endelm_cb,
+                                  svn_ra_dav__xml_endelm_cb endelm_cb, 
                                   void *userdata,
                                   apr_pool_t *pool)
 {
@@ -365,7 +365,7 @@ svn_error_t *svn_ra_dav__convert_error(ne_session *sess,
   const char *hostport;
 
   /* Convert the return codes. */
-  switch (retcode)
+  switch (retcode) 
     {
     case NE_AUTH:
       errcode = SVN_ERR_RA_NOT_AUTHORIZED;
@@ -390,8 +390,8 @@ svn_error_t *svn_ra_dav__convert_error(ne_session *sess,
   SVN_ERR(svn_utf_cstring_to_utf8(&hostport, ne_get_server_hostport(sess),
                                   pool));
 
-  return svn_error_createf(errcode, NULL, "%s: %s (%s://%s)",
-                           context, msg, ne_get_scheme(sess),
+  return svn_error_createf(errcode, NULL, "%s: %s (%s://%s)", 
+                           context, msg, ne_get_scheme(sess), 
                            hostport);
 }
 
@@ -414,12 +414,12 @@ static int ra_dav_error_accepter(void *userdata,
   /* Only accept non-2xx responses with text/xml content-type */
   if (st->klass != 2 && ne_get_content_type(req, &ctype) == 0)
     {
-      int is_xml =
+      int is_xml = 
         (strcmp(ctype.type, "text") == 0 && strcmp(ctype.subtype, "xml") == 0);
-      ne_free(ctype.value);
+      ne_free(ctype.value);        
       return is_xml;
     }
-  else
+  else 
     return 0;
 }
 
@@ -428,7 +428,7 @@ static const svn_ra_dav__xml_elm_t error_elements[] =
 {
   { "DAV:", "error", ELEM_error, 0 },
   { "svn:", "error", ELEM_svn_error, 0 },
-  { "http://apache.org/dav/xmlns", "human-readable",
+  { "http://apache.org/dav/xmlns", "human-readable", 
     ELEM_human_readable, SVN_RA_DAV__XML_CDATA },
 
   /* ### our validator doesn't yet recognize the rich, specific
@@ -516,12 +516,12 @@ start_err_element(void *baton, int parent,
     case ELEM_human_readable:
       {
         /* get the errorcode attribute if present */
-        const char *errcode_str =
+        const char *errcode_str = 
           svn_xml_get_attr_value("errcode", /* ### make constant in
                                                some mod_dav header? */
                                  atts);
 
-        if (errcode_str && *err)
+        if (errcode_str && *err) 
           (*err)->apr_err = atoi(errcode_str);
 
         break;
@@ -724,8 +724,8 @@ typedef struct spool_reader_baton_t
 
 /* This implements the ne_block_reader() callback interface. */
 static int
-spool_reader(void *userdata,
-             const char *buf,
+spool_reader(void *userdata, 
+             const char *buf, 
              size_t len)
 {
   spool_reader_baton_t *baton = userdata;
@@ -914,7 +914,7 @@ parsed_request(ne_session *sess,
                svn_boolean_t use_neon_shim,
                /* These three are defined iff use_neon_shim is defined. */
                svn_ra_dav__xml_validate_cb validate_compat_cb,
-               svn_ra_dav__xml_startelm_cb startelm_compat_cb,
+               svn_ra_dav__xml_startelm_cb startelm_compat_cb, 
                svn_ra_dav__xml_endelm_cb endelm_compat_cb,
                /* These three are defined iff use_neon_shim is NOT defined. */
                svn_ra_dav__startelm_cb_t startelm_cb,
@@ -1096,9 +1096,9 @@ svn_ra_dav__parsed_request_compat(ne_session *sess,
                                   apr_file_t *body_file,
                                   void set_parser(ne_xml_parser *parser,
                                                   void *baton),
-                                  const svn_ra_dav__xml_elm_t *elements,
+                                  const svn_ra_dav__xml_elm_t *elements, 
                                   svn_ra_dav__xml_validate_cb validate_cb,
-                                  svn_ra_dav__xml_startelm_cb startelm_cb,
+                                  svn_ra_dav__xml_startelm_cb startelm_cb, 
                                   svn_ra_dav__xml_endelm_cb endelm_cb,
                                   void *baton,
                                   apr_hash_t *extra_headers,
@@ -1129,7 +1129,7 @@ svn_ra_dav__maybe_store_auth_info(svn_ra_dav__session_t *ras,
   /* If we ever got credentials, ask the iter_baton to save them.  */
   SVN_ERR(svn_auth_save_credentials(ras->auth_iterstate,
                                     pool));
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -1147,7 +1147,7 @@ svn_ra_dav__maybe_store_auth_info_after_result(svn_error_t *err,
       else if (err)
         {
           svn_error_clear(err2);
-          return err;
+          return err;          
         }
     }
 
