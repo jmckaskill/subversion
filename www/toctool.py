@@ -15,7 +15,7 @@ import xml.parsers.expat
 
 
 def bind_handler_object_to_expat_parser(handlerobj, parser):
-  for name in dir(handlerobj):
+  for name in dir(handlerobj): 
     if name.endswith('Handler'):
       setattr(parser, name, getattr(handlerobj, name))
 
@@ -204,13 +204,13 @@ def do_expat_parse(handler, file, ordered_attributes):
   p.specified_attributes = True
   bind_handler_object_to_expat_parser(handler, p)
   p.ParseFile(file)
-
+  
 
 def main():
   builder = IndexBuildHandler()
   infp = open('design.html', 'r')
   do_expat_parse(builder, infp, False)
-
+  
   infp.seek(0)
   outfp = open('design.html.new', 'w')
   inserter = IndexInsertHandler(builder.index, outfp)
