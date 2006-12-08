@@ -115,7 +115,7 @@ apr_status_t dav_svn__location_in_filter(ap_filter_t *f,
         apr_size_t len;
 
         if (APR_BUCKET_IS_METADATA(bkt)) {
-            bkt = APR_BUCKET_NEXT(bkt);
+            bkt = APR_BUCKET_NEXT(bkt); 
             continue;
         }
 
@@ -126,7 +126,7 @@ apr_status_t dav_svn__location_in_filter(ap_filter_t *f,
             apr_bucket *next_bucket;
             char *foo;
             apr_bucket_split(bkt, match - data);
-            next_bucket = APR_BUCKET_NEXT(bkt);
+            next_bucket = APR_BUCKET_NEXT(bkt); 
             apr_bucket_split(next_bucket, ctx->pattern_len);
             bkt = APR_BUCKET_NEXT(next_bucket);
             apr_bucket_delete(next_bucket);
@@ -136,7 +136,7 @@ apr_status_t dav_svn__location_in_filter(ap_filter_t *f,
             APR_BUCKET_INSERT_BEFORE(bkt, next_bucket);
         }
         else {
-            bkt = APR_BUCKET_NEXT(bkt);
+            bkt = APR_BUCKET_NEXT(bkt); 
         }
     }
     return APR_SUCCESS;
@@ -216,7 +216,7 @@ apr_status_t dav_svn__location_body_filter(ap_filter_t *f,
             apr_bucket *next_bucket;
             char *foo;
             apr_bucket_split(bkt, match - data);
-            next_bucket = APR_BUCKET_NEXT(bkt);
+            next_bucket = APR_BUCKET_NEXT(bkt); 
             apr_bucket_split(next_bucket, ctx->pattern_len);
             bkt = APR_BUCKET_NEXT(next_bucket);
             apr_bucket_delete(next_bucket);
