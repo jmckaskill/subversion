@@ -25,10 +25,10 @@ and the @dfn{Subversion Repository} library.
 @section Filesystem
 
 @menu
-* Filesystem Overview::
-* API::
-* Repository Structure::
-* Implementation::
+* Filesystem Overview::         
+* API::                         
+* Repository Structure::        
+* Implementation::              
 @end menu
 
 @node Filesystem Overview
@@ -82,9 +82,9 @@ Finally, read the well-documented API in
 @subsection Repository Structure
 
 @menu
-* Schema::
-* Bubble-Up Method::
-* Diffy Storage::
+* Schema::                      
+* Bubble-Up Method::            
+* Diffy Storage::               
 @end menu
 
 @node Schema
