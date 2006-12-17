@@ -72,7 +72,7 @@ VERSION="0.0.6"
 #         + https://open.datacore.ch/read-only/
 #       - SVN::Mirror and SVN::Web
 #         + http://svn.elixus.org/repos/member/clkao/
-#         + http://svn.elixus.org/svnweb/repos/browse/member/clkao/
+#         + http://svn.elixus.org/svnweb/repos/browse/member/clkao/ 
 #
 # Changes:
 #
@@ -137,7 +137,7 @@ DFLT_KEYCHAIN=""
 #
 # see "svnadmin help dump" for it.
 # default is "--incremental"
-#
+# 
 # if you use svn 1.1 on both you should add "--deltas"
 # it should speed up the transfer on slow lines.
 #
@@ -219,7 +219,7 @@ create_config()
 #
 #######################################################################
 #
-#
+# 
 
 show_help()
 {

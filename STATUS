@@ -56,7 +56,7 @@ Candidate changes:
       Quite a few user requests and also RPMs should work on all architectures.
     Votes:
       +1: david
-
+    
   * r20041
     Get rid of requirement for another RPM package (chrpath) to build the
     Linux RPM packages.
