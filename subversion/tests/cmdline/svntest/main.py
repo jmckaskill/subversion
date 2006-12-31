@@ -393,7 +393,7 @@ def file_append(path, new_text):
 def file_append_binary(path, new_text):
   "Append NEW_TEXT to file at PATH in binary mode"
   file_write(path, new_text, 'ab')  # open in (a)ppend mode
-
+  
 # For creating new files, and making local mods to existing files.
 def file_write(path, contents, mode = 'w'):
   """Write the CONTENTS to the file at PATH, opening file using MODE,
@@ -441,7 +441,7 @@ def create_repos(path):
 def copy_repos(src_path, dst_path, head_revision, ignore_uuid = 0):
   "Copy the repository SRC_PATH, with head revision HEAD_REVISION, to DST_PATH"
 
-  # Do an svnadmin dump|svnadmin load cycle. Print a fake pipe command so that
+  # Do an svnadmin dump|svnadmin load cycle. Print a fake pipe command so that 
   # the displayed CMDs can be run by hand
   create_repos(dst_path)
   dump_args = ' dump "' + src_path + '"'
@@ -870,8 +870,8 @@ def run_tests(test_list):
   # Calculate pristine_url from test_area_url.
   pristine_url = test_area_url + '/' + pristine_dir
   if windows == 1:
-    pristine_url = pristine_url.replace('\\', '/')
-
+    pristine_url = pristine_url.replace('\\', '/')  
+  
   # Setup the pristine repository (and working copy)
   actions.setup_pristine_repository()
 
