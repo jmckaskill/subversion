@@ -235,7 +235,7 @@ start_blame(svn_ra_serf__xml_parser_t *parser,
             {
               info->prop_base64 = TRUE;
             }
-          else
+          else 
             {
               info->prop_base64 = FALSE;
             }
