@@ -60,7 +60,7 @@ Candidate changes:
       -1: jerenkrantz (This is an unnecessary change to backport.)
 
   * r22991, -8
-    Fix error in post-commit phase of commit with replaced folder
+    Fix error in post-commit phase of commit with replaced folder 
     (merge test 30).
     Justification:
       Fixes a regression introduced in 1.4.2.
