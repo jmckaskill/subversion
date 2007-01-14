@@ -105,7 +105,7 @@ VI.    TODO
 
          Or 2), the SWIG .i files would be responsible for loading
          their own native libraries:
-
+         
            %pragma(java) jniclasscode=%{
              static {
                try {
