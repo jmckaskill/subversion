@@ -53,7 +53,7 @@ import types
 class _VerboseWriter:
     def __init__(self, verbose=0):
         self.verbose = verbose
-
+    
     def write(self, data):
         if self.verbose:
             sys.stderr.write(data)
@@ -82,14 +82,14 @@ def checkout(url, revision=None):
     # Create a temp dir to hold our working copy
     wc_dir = tempfile.mkdtemp(prefix=prog_name)
     atexit.register(del_temp_tree, wc_dir)
-
+    
     if (revision):
         url += "@"+revision
 
     # Check out
     print >>sys.stderr, "Checking out "+url+" to "+wc_dir
     returncode = call_cmd(["svn", "checkout", url, wc_dir])
-
+    
     if (returncode == 1):
         return None
     else:
@@ -109,7 +109,7 @@ def treat_status(wc_dir_orig, wc_dir):
     global entries_to_treat, entries_to_delete
     entries_to_treat = status_tree.xpath("/status/target/entry")
     entries_to_delete = []
-
+    
     while len(entries_to_treat) > 0:
         entry = entries_to_treat.pop(0)
         entry_type = get_entry_type(entry)
@@ -143,12 +143,12 @@ def is_entry_copied(entry):
 
 def copy(wc_dir_orig, wc_dir, file):
     print >>sys.stderr, "A+ %s" % (file)
-
+    
     # Retreiving the original URL
     os.chdir(wc_dir_orig)
     info_tree = call_cmd_xml_tree_out(["svn", "info", "--xml", os.path.join(wc_dir_orig, file)])
     url = get_xml_text_content(info_tree, "/info/entry/url")
-
+    
     # Detecting original svn root
     global orig_svn_subroot
     if not orig_svn_subroot:
@@ -159,10 +159,10 @@ def copy(wc_dir_orig, wc_dir, file):
         #print >>sys.stderr, "sub_url : %s" % (sub_url)
         if sub_url.startswith(os.path.sep):
             sub_url = sub_url[1:]
-
+                
         orig_svn_subroot = '/'+sub_url.split(file)[0].replace(os.path.sep, '/')
         #print >>sys.stderr, "orig_svn_subroot : %s" % (orig_svn_subroot)
-
+    
     global log_tree
     if not log_tree:
         # Detecting original file copy path
@@ -192,7 +192,7 @@ def copy(wc_dir_orig, wc_dir, file):
     # We catch the relative URL for the original file
     orig_file = convert_relative_url_to_path(orig_url_file)
     #print >>sys.stderr, "  svn copy %s %s" % (os.path.join(wc_dir, orig_file), os.path.join(wc_dir, file))
-
+    
     # Detect if it's a move
     cmd = 'copy'
     global entries_to_treat, entries_to_delete
@@ -326,7 +326,7 @@ usage: %s [options] REPO_URL CURRENT_PATH ORIGINAL_REPO_URL -r N:M
   6. Commit.
   7. Optionally tag new release.
   8. Delete the temporary directories.
-
+  
   (1) : if -c wasn't passed
   (2) : if -w wasn't passed
 
@@ -342,7 +342,7 @@ Valid options:
   -c [--merged-vendor] arg : working copy path of the original already merged vendor trunk (skips the steps 1. and 2.)
   -w [--current-wc] arg    : working copy path of the current checked out trunk of the vendor branch (skips the step 3.)
     """ % ((prog_name,) * 2)
-
+    
     if error:
         print >>sys.stder, "", "Current error : "+error
 
@@ -392,7 +392,7 @@ def main():
         usage("the revision numbers are mendatory")
     global r_from, r_to
     r_from, r_to = re.match("(\d+):(\d+)", revision_to_parse).groups()
-
+    
     if not r_from or not r_to:
         usage("the revision numbers are mendatory")
 
@@ -401,7 +401,7 @@ def main():
         r_to_int = int(r_to)
     except ValueError:
         usage("the revision parameter is not a number")
-
+    
     if r_from >= r_to:
         usage("the 'from revision' must be inferior to the 'to revision'")
 
@@ -429,7 +429,7 @@ def main():
         message = "New vendor version, upgrading from revision %s to revision %s" % (r_from, r_to)
         alert(["No message was specified to commit, the program will use that default one : '%s'" % (message),
             "Press Enter to commit, or Ctrl-C to abort."])
-
+        
     check_exit(commit(wc_dir, message), "Error during commit")
 
     if tag:
@@ -438,7 +438,7 @@ def main():
             alert(["No message was specified to tag, the program will use that default one : '%s'" % (message),
                 "Press Enter to tag, or Ctrl-C to abort."])
         check_exit(tag_wc(repo_url, current_path, tag, message), "Error during tag")
-
+    
     print >>sys.stderr, "Vendor branch merged, passed from %s to %s !" % (r_from, r_to)
 
 def check_exit(returncode, message):
