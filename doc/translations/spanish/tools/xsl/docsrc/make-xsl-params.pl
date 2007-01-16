@@ -1,4 +1,4 @@
-#!/usr/bin/perl -- # -*- Perl -*-
+#!/usr/bin/perl -- # -*- Perl -*- 
 
 # Must be run from the "docssrc" directory
 
@@ -18,7 +18,7 @@ read (F, $_, -s "../html/param.xsl");
 close (F);
 foreach my $param (/<xsl:param name="[^\"]+"/gs) {
     $param =~ /name=\"(.*)\"/;
-    print "    <member>$1</member>\n",
+    print "    <member>$1</member>\n", 
 }
 
 print <<EOF2;
@@ -34,7 +34,7 @@ read (F, $_, -s "../fo/param.xsl");
 close (F);
 foreach my $param (/<xsl:param name="[^\"]+"/gs) {
     $param =~ /name=\"(.*)\"/;
-    print "    <member>$1</member>\n",
+    print "    <member>$1</member>\n", 
 }
 
 print <<EOF3;
