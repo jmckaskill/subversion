@@ -61,7 +61,7 @@ Candidate changes:
 
   * r22209
     Fix the order in which the Javahl targets are built on Windows
-    Justification:
+    Justification: 
       Needed for a clean build of JavaHL on Windows
     Votes:
       +1: lgo
