@@ -298,7 +298,7 @@ svn_ra_dav__lock(svn_ra_session_t *session,
                  apr_hash_t *path_revs,
                  const char *comment,
                  svn_boolean_t force,
-                 svn_ra_lock_callback_t lock_func,
+                 svn_ra_lock_callback_t lock_func, 
                  void *lock_baton,
                  apr_pool_t *pool)
 {
@@ -411,7 +411,7 @@ svn_error_t *
 svn_ra_dav__unlock(svn_ra_session_t *session,
                    apr_hash_t *path_tokens,
                    svn_boolean_t force,
-                   svn_ra_lock_callback_t lock_func,
+                   svn_ra_lock_callback_t lock_func, 
                    void *lock_baton,
                    apr_pool_t *pool)
 {
@@ -428,7 +428,7 @@ svn_ra_dav__unlock(svn_ra_session_t *session,
       const char *path;
       void *val;
       const char *token;
-      svn_error_t *err, *callback_err = NULL;
+      svn_error_t *err, *callback_err = NULL; 
 
       svn_pool_clear(iterpool);
 
@@ -492,7 +492,7 @@ svn_ra_dav__get_lock(svn_ra_session_t *session,
     "</D:propfind>";
 
   /* To begin, we convert the incoming path into an absolute fs-path. */
-  url = svn_path_url_add_component(ras->url->data, path, pool);
+  url = svn_path_url_add_component(ras->url->data, path, pool);  
 
   err = svn_ra_dav__get_baseline_info(NULL, NULL, &fs_path, NULL, ras,
                                       url, SVN_INVALID_REVNUM, pool);
