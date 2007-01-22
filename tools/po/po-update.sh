@@ -69,8 +69,8 @@ function update_po()
     # GNU gettext-tools 0.14.6 implementation) inverts the order of obsolete
     # messages every time it is run. Therefore, run it twice, to invert and
     # then re-invert, to minimize spurious diffs.
-    $MSGMERGE --sort-by-file --update $i subversion.pot
-    $MSGMERGE --sort-by-file --update $i subversion.pot
+    $MSGMERGE --sort-by-file --update $i subversion.pot 
+    $MSGMERGE --sort-by-file --update $i subversion.pot 
   done )
 }
 
