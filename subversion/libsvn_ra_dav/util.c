@@ -532,12 +532,12 @@ static int ra_dav_error_accepter(void *userdata,
   /* Only accept non-2xx responses with text/xml content-type */
   if (st->klass != 2 && ne_get_content_type(req, &ctype) == 0)
     {
-      int is_xml =
+      int is_xml = 
         (strcmp(ctype.type, "text") == 0 && strcmp(ctype.subtype, "xml") == 0);
-      ne_free(ctype.value);
+      ne_free(ctype.value);        
       return is_xml;
     }
-  else
+  else 
     return 0;
 }
 
@@ -546,7 +546,7 @@ static const svn_ra_dav__xml_elm_t error_elements[] =
 {
   { "DAV:", "error", ELEM_error, 0 },
   { "svn:", "error", ELEM_svn_error, 0 },
-  { "http://apache.org/dav/xmlns", "human-readable",
+  { "http://apache.org/dav/xmlns", "human-readable", 
     ELEM_human_readable, SVN_RA_DAV__XML_CDATA },
 
   /* ### our validator doesn't yet recognize the rich, specific
@@ -634,12 +634,12 @@ start_err_element(void *baton, int parent,
     case ELEM_human_readable:
       {
         /* get the errorcode attribute if present */
-        const char *errcode_str =
+        const char *errcode_str = 
           svn_xml_get_attr_value("errcode", /* ### make constant in
                                                some mod_dav header? */
                                  atts);
 
-        if (errcode_str && *err)
+        if (errcode_str && *err) 
           (*err)->apr_err = atoi(errcode_str);
 
         break;
@@ -1275,7 +1275,7 @@ svn_ra_dav__maybe_store_auth_info(svn_ra_dav__session_t *ras,
   /* If we ever got credentials, ask the iter_baton to save them.  */
   SVN_ERR(svn_auth_save_credentials(ras->auth_iterstate,
                                     pool));
-
+  
   return SVN_NO_ERROR;
 }
 
