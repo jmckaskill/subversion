@@ -54,7 +54,7 @@ void MessageReceiver::receiveMessage(const char *message)
             return;
         }
         mid = env->GetMethodID(clazz, "receiveMessageLine",
-            "(Ljava/lang/String;)V");
+                               "(Ljava/lang/String;)V");
         if(JNIUtil::isJavaExceptionThrown() || mid == 0)
         {
             return;
