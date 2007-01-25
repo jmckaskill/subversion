@@ -167,9 +167,9 @@ Ou, si vous voulez uniquement voir certains type d'information,
 $ svnlook repos rev 522 log
 $ svnlook repos rev 559 diff
 @end example
-
+   
 Les sous-commandes disponibles sont:
-
+   
 @table @samp
 @item @samp{log}
 Affiche la description des modifications de l'aborescence.
@@ -197,7 +197,7 @@ imaginaire.  Les commandes de base @samp{cd}, @samp{ls}, @samp{exit}, et
 @samp{cr} -- ``changer de révision''. La dernière commande vous permet de
 vous déplacer entre révisions d'arborescence.
 
-@example
+@example 
 $ svnadmin shell repos
 <609: />$
 <609: />$ ls
@@ -295,7 +295,7 @@ ce programme: le chemin vers le dépôt et le nom de la transaction en
 attende de validation. Si le programme retourne un code de sortie
 différente de zéro, la remontée est annulée et la transaction supprimée.
 
-Subversion inclut le script @file{tools/hook-scripts/commit-access-control.pl}
+Subversion inclut le script @file{tools/hook-scripts/commit-access-control.pl} 
 qui peut être appelé depuis @file{pre-commit} pour implémenter un contrôle
 d'accès plus fin.
 
@@ -428,7 +428,7 @@ le fichier @file{repos/db/DB_CONFIG}. Ne changez pas les valeurs par
 défaut sans savoir exactement ce que vous faites; Voyez sûr d'avoir lu
 @uref{http://www.sleepycat.com/docs/ref/lock/max.html} en premier.
 
-@subsection Utilisation de svnadmin
+@subsection Utilisation de svnadmin 
 
 L'outil @command{svnadmin} a des sous-commandes qui sont spécifiquement
 utiles à un administrateur de dépôt. Faites attention lorsque vous
@@ -566,8 +566,8 @@ présent dans le répertoire @file{bin} d'Apache.
 
 @example
 $ /usr/local/apache2/bin/htpasswd -n sussman
-New password:
-Re-type new password:
+New password: 
+Re-type new password: 
 sussman:kUqncD/TBbdC6
 @end example
 
@@ -618,7 +618,7 @@ AuthGroupFile /my/svn/group/file
 @end example
 
 Ce ne sont que de simples exemples. Pour un tutorial complet sur les
-contrôle d'accès d'Apache, regarder
+contrôle d'accès d'Apache, regarder 
 @uref{http://httpd.apache.org/docs-2.0/misc/tutorials.html}.
 
 Autre remarque: pour que @samp{svn cp} marche (ce qui est actuellement
@@ -635,7 +635,7 @@ Editez votre @file{httpd.conf} pour inclure:
 
 @example
 ServerName svn.myserver.org
-@end example
+@end example 
 
 Si vous utilisez le ``virtual hosting'' d'apache avec la directive
 @samp{NameVirtualHost}, vous pourrez avoir besoin d'utiliser la directive
@@ -775,7 +775,7 @@ révision 2000:
 @itemize @bullet
 @item
 Ouvrire le @file{dumpfile2} dans un éditeur
-@item
+@item 
 ne @emph{pas} supprimer la ligne d'entête
 @samp{SVN-fs-dump-format-version} au début du fichier.
 @item
