@@ -44,7 +44,7 @@ SVN::Client - Subversion client functions
               SVN::Client::get_username_provider()]
               );
 
-    $ctx->cat (\*STDOUT, 'http://svn.collab.net/repos/svn/trunk/README',
+    $ctx->cat (\*STDOUT, 'http://svn.collab.net/repos/svn/trunk/README', 
                'HEAD');
 
     sub simple_prompt {
@@ -107,7 +107,7 @@ An SVN::Client object that you get from the constructor.
 
 =item $url
 
-This is a URL to a subversion repository.
+This is a URL to a subversion repository.  
 
 =item $path
 
@@ -196,7 +196,7 @@ methods described below:
 
     cancel                 undef
 
-    config                 Hash containing the config from the
+    config                 Hash containing the config from the 
                            default subversion config file location.
 
     log_msg                undef
@@ -230,7 +230,7 @@ sub new
     {
         my $pool_type = ref($args{'pool'});
         if ($pool_type eq 'SVN::Pool' ||
-            $pool_type eq '_p_apr_pool_t')
+            $pool_type eq '_p_apr_pool_t') 
         {
             $self->{'pool'} = $args{'pool'};
         } else {
@@ -264,7 +264,7 @@ sub new
     {
         $self->cancel($args{'cancel'});
     }
-
+    
     return $self;
 }
 
@@ -307,7 +307,7 @@ You can create an svn_error_t object with SVN::Error::create().
 =head2 $ctx-E<gt>cat(\*FILEHANDLE, $target, $revision, $pool);
 
 Outputs the content of the file identified by $target and $revision to the
-FILEHANDLE.  FILEHANDLE is a reference to a filehandle.
+FILEHANDLE.  FILEHANDLE is a reference to a filehandle. 
 
 If $target is not a local path and if $revision is 'PREV' (or some
 other kind that requires a local path), then an error will be raised,
@@ -323,7 +323,7 @@ because the desired revision can not be determined.
   });
 
 Checkout a working copy of $url at $revision using $path as the root directory
-of the newly checked out working copy.
+of the newly checked out working copy.  
 
 $revision must be a number, 'HEAD', or a date.  If $revision does not
 meet these requirements the $SVN::Error::CLIENT_BAD_REVISION is raised.
@@ -410,7 +410,7 @@ Has no return.
 Produces diff output which describes the delta between $target1 at
 $revision1 and $target2 at $revision2.  They both must represent the same
 node type (i.e. they most both be directories or files).  The revisions
-must not be undef.
+must not be undef.  
 
 Prints the output of the diff to the filename or filehandle passed as
 $outfile, and any errors to the filename or filehandle passed as $errfile.
@@ -457,7 +457,7 @@ If some components of $url do not exist then create parent directories
 as necessary.
 
 If $path is a directory, the contents of that directory are imported
-directly into the directory identified by $url.  Note that the directory
+directly into the directory identified by $url.  Note that the directory 
 $path itself is not imported; that is, the basename of $path is not part
 of the import.
 
@@ -641,14 +641,14 @@ called for items added to the working copy.
 
 Move $src_path to $dst_path.
 
-$src_path must be a file or directory under version control, or the URL
+$src_path must be a file or directory under version control, or the URL 
 of a versioned item in the repository.
 
 If $src_path is a repository URL:
 
 * $dst_path must also be a repository URL (existent or not).
 
-* $src_revision is used to choose the revision from which to copy the
+* $src_revision is used to choose the revision from which to copy the 
 $src_path.
 
 * The log_msg callback will be called for the commit log message.
@@ -692,7 +692,7 @@ the name relative to the same base as $target.
 
 If $revision is undef, then get properties from the working copy, if
 $target is a working copy, or from the repository head if $target is a URL.
-Else get the properties as of $revision.
+Else get the properties as of $revision. 
 
 If $recursive is false, or $target is a file, the returned array will only
 contain a single element.  Otherwise, it will contain one entry for each
@@ -736,10 +736,10 @@ If $path is not in a state of conflict to begin with, do nothing.
 If $path's conflict state is removed, call the notify callback with the
 $path.
 
-=head2 $ctx-E<gt>revert($paths, $recursive, $pool);
+=head2 $ctx-E<gt>revert($paths, $recursive, $pool); 
 
 Restore the pristine version of a working copy $paths, effectively undoing
-any local mods.
+any local mods.  
 
 For each path in $paths, if it is a directory and $recursive
 is true, this will be a recursive operation.
@@ -879,7 +879,7 @@ operation, invoking C<receiver> on each child.
 
 Switch working tree $path to $url at $revision.
 
-$revision must be a number, 'HEAD', or a date, otherwise it raises the
+$revision must be a number, 'HEAD', or a date, otherwise it raises the 
 $SVN::Error::CLIENT_BAD_REVISION error.
 
 Calls the notify callback on paths affected by the switch.  Also invokes
@@ -892,14 +892,14 @@ an existing working directory is more efficient than checking out $url from
 scratch.
 
 Returns the value of the revision to which the working copy was actually
-switched.
+switched. 
 
 =head2 $ctx-E<gt>update($path, $revision, $recursive, $pool)
 
 Update a working copy $path to $revision.
 
 $revision must be a revision number, 'HEAD', or a date or this method will
-raise the $SVN::Error::CLIENT_BAD_REVISION error.
+raise the $SVN::Error::CLIENT_BAD_REVISION error. 
 
 Calls the notify callback for each item handled by the update, and
 also for files restored from the text-base.
@@ -967,7 +967,7 @@ my $arg_path_or_url = {
 my $arg_peg_revision = {
     name => 'peg_revision',
     spec => {
-	type => SCALAR | UNDEF
+	type => SCALAR | UNDEF 
     },
 };
 
@@ -1151,7 +1151,7 @@ foreach my $method (keys %method_defs) {
 		} else {
 		    %v_spec = %{ $method_defs{$method}{_nam_valid} };
 		}
-
+		
 		my %v_args = validate(
 		    @args, { %v_spec,
 			     pool => { optional => 1 } }
@@ -1180,7 +1180,7 @@ foreach my $method (keys %method_defs) {
 		}
 
 		my @v_args = validate_pos(@args, @spec, { optional => 1 });
-
+		
 		@call_args = @v_args;
 	    }
 
@@ -1220,9 +1220,9 @@ foreach my $function (@_all_fns)
     {
         my ($self, $ctx);
         my @args;
-
+    
         # Don't shift the first param if it isn't a SVN::Client
-        # object.  This lets the old style interface still work.
+        # object.  This lets the old style interface still work.  
         # And is useful for functions like url_from_path which
         # don't take a ctx param, but might be called in method
         # invocation style or as a normal function.
@@ -1269,7 +1269,7 @@ foreach my $function (@_all_fns)
             {
                 push @args,$ctx;
             }
-            if (defined($self->{'pool'}) &&
+            if (defined($self->{'pool'}) && 
                 (ref($self->{'pool'}) eq '_p_apr_pool_t' ||
                  ref($self->{'pool'}) eq 'SVN::Pool'))
             {
@@ -1351,7 +1351,7 @@ for a list of the possible states.  The 6th and final parameter is the numeric
 revision number of the changed file.  The revision number will be -1 except
 when the action is $SVN::Wc::Notify::Action::update_completed.
 
-=cut
+=cut 
 
 sub notify {
     my $self = shift;
@@ -1373,7 +1373,7 @@ It receives 4 parameters.  The first parameter is a reference to a scalar
 value in which the callback should place the log_msg.  If you wish to cancel
 the commit you can set this scalar to undef.  The 2nd value is a path to a
 temporary file which might be holding that log message, or undef if no such
-field exists (though, if log_msg is undef, this value is undefined).  The
+field exists (though, if log_msg is undef, this value is undefined).  The 
 log message B<MUST> be a UTF8 string with LF line separators.  The 3rd parameter
 is a reference to an array of L<svn_client_commit_item3_t|/svn_client_commit_item3_t> objects, which may
 be fully or only partially filled-in, depending on the type of commit
@@ -1561,7 +1561,7 @@ $SVN::Auth::SSL::CNMISMATCH
 $SVN::Auth::SSL::UNKNOWNCA
 $SVN::Auth::SSL::OTHER
 
-You reply by setting the accepted_failures of the cred object with an integer
+You reply by setting the accepted_failures of the cred object with an integer 
 of the values for what you want to accept bitwise AND'd together.
 
 =head2 SVN::Client::get_ssl_cert_file_provider
@@ -1599,7 +1599,7 @@ may_save.
 
 These are some of the object types that are returned from the methods
 and functions.  Others are documented in L<SVN::Core> and L<SVN::Wc>.
-If an object is not documented, it is more than likely opaque and
+If an object is not documented, it is more than likely opaque and 
 not something you can do anything with, except pass to other functions
 that require such objects.
 
@@ -1787,7 +1787,7 @@ A reference to a hash of property names and values.
 
 * Better support for the config.
 
-* Unit tests for cleanup, diff, export, merge, move, relocate, resolved
+* Unit tests for cleanup, diff, export, merge, move, relocate, resolved 
 and switch.  This may reveal problems for using these methods as I haven't
 tested them yet that require deeper fixes.
 
