@@ -50,7 +50,7 @@ init(const char *application)
 
   SVN_VERSION_DEFINE(my_version);
 
-  if (svn_cmdline_init(application, stderr)
+  if (svn_cmdline_init(application, stderr) 
       || apr_allocator_create(&allocator))
     exit(EXIT_FAILURE);
 
@@ -67,7 +67,7 @@ init(const char *application)
 
 static svn_ra_callbacks_t *
 ra_callbacks(const char *username,
-             const char *password,
+             const char *password, 
              apr_pool_t *pool)
 {
   svn_ra_callbacks_t *callbacks = apr_palloc(pool, sizeof(*callbacks));
@@ -298,8 +298,8 @@ execute(const apr_array_header_t *actions,
   svn_error_t *err;
   int i;
 
-  SVN_ERR(svn_ra_open(&session, anchor,
-                      ra_callbacks(username, password, pool),
+  SVN_ERR(svn_ra_open(&session, anchor, 
+                      ra_callbacks(username, password, pool), 
                       NULL, NULL, pool));
 
   SVN_ERR(svn_ra_get_latest_revnum(session, &head, pool));
