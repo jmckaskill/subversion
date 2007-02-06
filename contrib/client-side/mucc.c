@@ -50,7 +50,7 @@ init(const char *application)
 
   SVN_VERSION_DEFINE(my_version);
 
-  if (svn_cmdline_init(application, stderr)
+  if (svn_cmdline_init(application, stderr) 
       || apr_allocator_create(&allocator))
     exit(EXIT_FAILURE);
 
@@ -67,7 +67,7 @@ init(const char *application)
 
 static svn_ra_callbacks_t *
 ra_callbacks(const char *username,
-             const char *password,
+             const char *password, 
              apr_pool_t *pool)
 {
   svn_ra_callbacks_t *callbacks = apr_palloc(pool, sizeof(*callbacks));
@@ -274,7 +274,7 @@ build(const char *path,
         {
           /* Copy: check validity of the copy source. */
           if (operation->kind == svn_node_none)
-            return svn_error_createf(SVN_ERR_BAD_URL, NULL,
+            return svn_error_createf(SVN_ERR_BAD_URL, NULL, 
                                      "'%s' not found", url);
           operation->url = url;
           operation->rev = rev;
@@ -317,8 +317,8 @@ execute(const apr_array_header_t *actions,
   struct operation root;
   svn_error_t *err;
   int i;
-  SVN_ERR(svn_ra_open(&session, anchor,
-                      ra_callbacks(username, password, pool),
+  SVN_ERR(svn_ra_open(&session, anchor, 
+                      ra_callbacks(username, password, pool), 
                       NULL, NULL, pool));
 
   SVN_ERR(svn_ra_get_latest_revnum(session, &head, pool));
@@ -406,7 +406,7 @@ int
 main(int argc, const char **argv)
 {
   apr_pool_t *pool = init("mucc");
-  apr_array_header_t *actions = apr_array_make(pool, 1,
+  apr_array_header_t *actions = apr_array_make(pool, 1, 
                                                sizeof(struct action *));
   const char *anchor = NULL;
   svn_error_t *err = SVN_NO_ERROR;
@@ -487,8 +487,8 @@ main(int argc, const char **argv)
   while (getopt->ind < getopt->argc)
     {
       const char *arg = getopt->argv[getopt->ind++];
-      if ((err = svn_utf_cstring_to_utf8(&(APR_ARRAY_PUSH(action_args,
-                                                          const char *)),
+      if ((err = svn_utf_cstring_to_utf8(&(APR_ARRAY_PUSH(action_args, 
+                                                          const char *)), 
                                          arg, pool)))
         handle_error(err, pool);
     }
@@ -512,10 +512,10 @@ main(int argc, const char **argv)
         }
       else
         {
-          err = svn_utf_cstring_to_utf8(&extra_args_file_utf8,
+          err = svn_utf_cstring_to_utf8(&extra_args_file_utf8, 
                                         extra_args_file, pool);
           if (! err)
-            err = svn_stringbuf_from_file(&contents, extra_args_file_utf8,
+            err = svn_stringbuf_from_file(&contents, extra_args_file_utf8, 
                                           pool);
         }
       if (! err)
@@ -544,7 +544,7 @@ main(int argc, const char **argv)
         action->action = ACTION_RM;
       else
         handle_error(svn_error_createf(SVN_ERR_INCORRECT_PARAMS, NULL,
-                                       "'%s' is not an action\n",
+                                       "'%s' is not an action\n", 
                                        action_string), pool);
       if (++i == action_args->nelts)
         insufficient(pool);
@@ -562,8 +562,8 @@ main(int argc, const char **argv)
               char *end;
               action->rev = strtol(rev_str, &end, 0);
               if (*end)
-                handle_error(svn_error_createf(SVN_ERR_INCORRECT_PARAMS, NULL,
-                                               "'%s' is not a revision\n",
+                handle_error(svn_error_createf(SVN_ERR_INCORRECT_PARAMS, NULL, 
+                                               "'%s' is not a revision\n", 
                                                rev_str), pool);
             }
           if (++i == action_args->nelts)
