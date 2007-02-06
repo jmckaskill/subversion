@@ -363,7 +363,7 @@ push_state(svn_ra_serf__xml_parser_t *parser,
 
           /* Point our ns_list at our parents to try to reuse it. */
           new_info->dir->ns_list = info->dir->ns_list;
-
+          
           /* Add ourselves to our parent's list */
           new_info->dir->sibling = info->dir->children;
           info->dir->children = new_info->dir;
@@ -592,7 +592,7 @@ static void
 check_lock(report_info_t *info)
 {
   const char *lock_val;
-
+      
   lock_val = svn_ra_serf__get_ver_prop(info->props, info->url,
                                        info->target_rev,
                                        "DAV:", "lockdiscovery");
@@ -816,14 +816,14 @@ handle_fetch(serf_request_t *request,
               continue;
             }
 
-          /* Woo-hoo.  We're back. */
+          /* Woo-hoo.  We're back. */ 
           fetch_ctx->aborted_read = FALSE;
 
           /* Increment data and len by the difference. */
           data += fetch_ctx->read_size - fetch_ctx->aborted_read_size;
           len = fetch_ctx->read_size - fetch_ctx->aborted_read_size;
         }
-
+      
       if (fetch_ctx->delta_stream)
         {
           err = svn_stream_write(fetch_ctx->delta_stream, data, &len);
@@ -971,14 +971,14 @@ handle_stream(serf_request_t *request,
               continue;
             }
 
-          /* Woo-hoo.  We're back. */
+          /* Woo-hoo.  We're back. */ 
           fetch_ctx->aborted_read = FALSE;
 
           /* Increment data and len by the difference. */
           data += fetch_ctx->read_size - fetch_ctx->aborted_read_size;
           len += fetch_ctx->read_size - fetch_ctx->aborted_read_size;
         }
-
+      
       if (len)
         {
           apr_size_t written_len;
@@ -1120,15 +1120,15 @@ static void fetch_file(report_context_t *ctx, report_info_t *info)
       fetch_ctx->done_list = &ctx->done_fetches;
       fetch_ctx->sess = ctx->sess;
       fetch_ctx->conn = conn;
-
+      
       handler = apr_pcalloc(info->pool, sizeof(*handler));
-
+      
       handler->method = "GET";
       handler->path = fetch_ctx->info->url;
 
       handler->conn = conn;
       handler->session = ctx->sess;
-
+      
       handler->header_delegate = headers_fetch;
       handler->header_delegate_baton = fetch_ctx;
 
@@ -1411,7 +1411,7 @@ start_report(svn_ra_serf__xml_parser_t *parser,
           info->prop_val = NULL;
           info->prop_val_len = 0;
         }
-      else if (strcmp(name.name, "set-prop") == 0 ||
+      else if (strcmp(name.name, "set-prop") == 0 || 
                strcmp(name.name, "remove-prop") == 0)
         {
           const char *full_prop_name;
@@ -1518,7 +1518,7 @@ start_report(svn_ra_serf__xml_parser_t *parser,
       report_info_t *info;
 
       info = push_state(parser, ctx, PROP);
-
+      
       info->prop_ns = name.namespace;
       info->prop_name = apr_pstrdup(parser->state->pool, name.name);
       info->prop_val = NULL;
@@ -1609,10 +1609,10 @@ end_report(svn_ra_serf__xml_parser_t *parser,
           svn_path_add_component(info->name_buf, info->base_name);
           info->name = info->name_buf->data;
         }
-
+      
       info->lock_token = apr_hash_get(ctx->lock_path_tokens, info->name,
                                       APR_HASH_KEY_STRING);
-
+      
       if (info->lock_token && info->fetch_props == FALSE)
         info->fetch_props = TRUE;
 
@@ -2354,7 +2354,7 @@ make_update_reporter(svn_ra_session_t *ra_session,
   if (report->destination && *report->destination)
     {
       svn_ra_serf__add_tag_buckets(report->buckets,
-                                   "S:dst-path",
+                                   "S:dst-path", 
                                    report->destination,
                                    report->sess->bkt_alloc);
     }
@@ -2508,7 +2508,7 @@ svn_ra_serf__get_file(svn_ra_session_t *ra_session,
 
       baseline_url = svn_ra_serf__get_ver_prop(fetch_props, vcc_url, revision,
                                                "DAV:", "baseline-collection");
-
+      
       fetch_url = svn_path_url_add_component(baseline_url, rel_path, pool);
       revision = SVN_INVALID_REVNUM;
     }
@@ -2537,7 +2537,7 @@ svn_ra_serf__get_file(svn_ra_session_t *ra_session,
       stream_ctx->conn = conn;
       stream_ctx->info = apr_pcalloc(pool, sizeof(*stream_ctx->info));
       stream_ctx->info->name = fetch_url;
-
+      
       handler = apr_pcalloc(pool, sizeof(*handler));
       handler->method = "GET";
       handler->path = fetch_url;
@@ -2546,12 +2546,12 @@ svn_ra_serf__get_file(svn_ra_session_t *ra_session,
 
       handler->response_handler = handle_stream;
       handler->response_baton = stream_ctx;
-
+      
       handler->response_error = cancel_fetch;
       handler->response_error_baton = stream_ctx;
-
+      
       svn_ra_serf__request_create(handler);
-
+      
       SVN_ERR(svn_ra_serf__context_run_wait(&stream_ctx->done, session, pool));
       SVN_ERR(stream_ctx->err);
     }
