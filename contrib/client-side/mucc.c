@@ -50,7 +50,7 @@ init(const char *application)
 
   SVN_VERSION_DEFINE(my_version);
 
-  if (svn_cmdline_init(application, stderr)
+  if (svn_cmdline_init(application, stderr) 
       || apr_allocator_create(&allocator))
     exit(EXIT_FAILURE);
 
@@ -67,7 +67,7 @@ init(const char *application)
 
 static svn_ra_callbacks_t *
 ra_callbacks(const char *username,
-             const char *password,
+             const char *password, 
              apr_pool_t *pool)
 {
   svn_ra_callbacks_t *callbacks = apr_palloc(pool, sizeof(*callbacks));
@@ -274,7 +274,7 @@ build(const char *path,
         {
           /* Copy: check validity of the copy source. */
           if (operation->kind == svn_node_none)
-            return svn_error_createf(SVN_ERR_BAD_URL, NULL,
+            return svn_error_createf(SVN_ERR_BAD_URL, NULL, 
                                      "'%s' not found", url);
           operation->url = url;
           operation->rev = rev;
@@ -317,8 +317,8 @@ execute(const apr_array_header_t *actions,
   struct operation root;
   svn_error_t *err;
   int i;
-  SVN_ERR(svn_ra_open(&session, anchor,
-                      ra_callbacks(username, password, pool),
+  SVN_ERR(svn_ra_open(&session, anchor, 
+                      ra_callbacks(username, password, pool), 
                       NULL, NULL, pool));
 
   SVN_ERR(svn_ra_get_latest_revnum(session, &head, pool));
@@ -404,7 +404,7 @@ int
 main(int argc, const char **argv)
 {
   apr_pool_t *pool = init("mucc");
-  apr_array_header_t *actions = apr_array_make(pool, 1,
+  apr_array_header_t *actions = apr_array_make(pool, 1, 
                                                sizeof(struct action *));
   const char *anchor = NULL;
   svn_error_t *err;
@@ -502,7 +502,7 @@ main(int argc, const char **argv)
               char *end;
               action->rev = strtol(getopt->argv[getopt->ind], &end, 0);
               if (*end)
-                handle_error(svn_error_createf(SVN_ERR_INCORRECT_PARAMS, NULL,
+                handle_error(svn_error_createf(SVN_ERR_INCORRECT_PARAMS, NULL, 
                                                "'%s' is not a revision\n",
                                                getopt->argv[getopt->ind]),
                              pool);
