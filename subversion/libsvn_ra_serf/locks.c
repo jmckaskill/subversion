@@ -424,7 +424,7 @@ create_getlock_body(void *baton,
                     apr_pool_t *pool)
 {
   serf_bucket_t *buckets, *tmp;
-
+      
   buckets = serf_bucket_aggregate_create(alloc);
   tmp = SERF_BUCKET_SIMPLE_STRING_LEN(GET_LOCK, sizeof(GET_LOCK)-1, alloc);
   serf_bucket_aggregate_append(buckets, tmp);
@@ -442,9 +442,9 @@ create_lock_body(void *baton,
 {
   lock_info_t *ctx = baton;
   serf_bucket_t *buckets, *tmp;
-
+      
   buckets = serf_bucket_aggregate_create(alloc);
-
+      
   tmp = SERF_BUCKET_SIMPLE_STRING_LEN(LOCK_HEADER, sizeof(LOCK_HEADER)-1,
                                       alloc);
   serf_bucket_aggregate_append(buckets, tmp);
@@ -495,28 +495,28 @@ svn_ra_serf__get_lock(svn_ra_session_t *ra_session,
   lock_ctx->lock->path = path;
 
   handler = apr_pcalloc(pool, sizeof(*handler));
-
+      
   handler->method = "PROPFIND";
   handler->path = req_url;
   handler->body_type = "text/xml";
   handler->conn = session->conns[0];
   handler->session = session;
-
+      
   parser_ctx = apr_pcalloc(pool, sizeof(*parser_ctx));
-
+      
   parser_ctx->pool = pool;
   parser_ctx->user_data = lock_ctx;
   parser_ctx->start = start_lock;
   parser_ctx->end = end_lock;
   parser_ctx->cdata = cdata_lock;
   parser_ctx->done = &lock_ctx->done;
-
+  
   handler->body_delegate = create_getlock_body;
   handler->body_delegate_baton = lock_ctx;
 
   handler->response_handler = handle_lock;
   handler->response_baton = parser_ctx;
-
+      
   svn_ra_serf__request_create(handler);
   err = svn_ra_serf__context_run_wait(&lock_ctx->done, session, pool);
 
@@ -574,22 +574,22 @@ svn_ra_serf__lock(svn_ra_session_t *ra_session,
                                            lock_ctx->path, subpool);
 
       handler = apr_pcalloc(subpool, sizeof(*handler));
-
+      
       handler->method = "LOCK";
       handler->path = req_url;
       handler->body_type = "text/xml";
       handler->conn = session->conns[0];
       handler->session = session;
-
+      
       parser_ctx = apr_pcalloc(subpool, sizeof(*parser_ctx));
-
+      
       parser_ctx->pool = subpool;
       parser_ctx->user_data = lock_ctx;
       parser_ctx->start = start_lock;
       parser_ctx->end = end_lock;
       parser_ctx->cdata = cdata_lock;
       parser_ctx->done = &lock_ctx->done;
-
+     
       handler->header_delegate = set_lock_headers;
       handler->header_delegate_baton = lock_ctx;
 
@@ -598,7 +598,7 @@ svn_ra_serf__lock(svn_ra_session_t *ra_session,
 
       handler->response_handler = handle_lock;
       handler->response_baton = parser_ctx;
-
+      
       svn_ra_serf__request_create(handler);
       error = svn_ra_serf__context_run_wait(&lock_ctx->done, session, subpool);
       SVN_ERR(lock_ctx->error);
@@ -697,18 +697,18 @@ svn_ra_serf__unlock(svn_ra_session_t *ra_session,
                                            subpool);
 
       handler = apr_pcalloc(subpool, sizeof(*handler));
-
+      
       handler->method = "UNLOCK";
       handler->path = req_url;
       handler->conn = session->conns[0];
       handler->session = session;
-
+      
       handler->header_delegate = set_unlock_headers;
       handler->header_delegate_baton = &unlock_ctx;
 
       handler->response_handler = svn_ra_serf__handle_status_only;
       handler->response_baton = ctx;
-
+      
       svn_ra_serf__request_create(handler);
       SVN_ERR(svn_ra_serf__context_run_wait(&ctx->done, session, subpool));
 
