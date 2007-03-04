@@ -97,7 +97,7 @@ typedef enum perl_func_invoker {
  *  - b: svn_boolean_t
  *  - t: svn_string_t
  *  - z: apr_size_t
- *
+ *  
  *  Please do not add C types here.  Add a new format code if needed.
  *  Using the underlying C types and not the APR or SVN types can
  *  break things if these data types change in the future or on
