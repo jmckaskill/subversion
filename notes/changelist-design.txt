@@ -423,7 +423,7 @@ perform metadata operations on a whole set of files.
 
 * make --cl the same as --changelist, for convenience?
 
-* questions about commits:
+* questions about commits:  
 
     - how does 'svn ci --changelist' interact with nonrecursive commits?
     - how does it interact with a list of specific targets?

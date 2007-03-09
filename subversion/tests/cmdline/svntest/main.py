@@ -306,10 +306,10 @@ def run_command_stdin(command, error_expected, binary_mode=0,
 
   if verbose_mode:
     start = time.time()
-
-  exit_code, stdout_lines, stderr_lines = spawn_process(command,
-                                                        binary_mode,
-                                                        stdin_lines,
+  
+  exit_code, stdout_lines, stderr_lines = spawn_process(command, 
+                                                        binary_mode, 
+                                                        stdin_lines, 
                                                         *varargs)
 
   if verbose_mode:
@@ -412,7 +412,7 @@ def file_append(path, new_text):
 def file_append_binary(path, new_text):
   "Append NEW_TEXT to file at PATH in binary mode"
   file_write(path, new_text, 'ab')  # open in (a)ppend mode
-
+  
 # For creating new files, and making local mods to existing files.
 def file_write(path, contents, mode = 'w'):
   """Write the CONTENTS to the file at PATH, opening file using MODE,
@@ -460,7 +460,7 @@ def create_repos(path):
 def copy_repos(src_path, dst_path, head_revision, ignore_uuid = 0):
   "Copy the repository SRC_PATH, with head revision HEAD_REVISION, to DST_PATH"
 
-  # Do an svnadmin dump|svnadmin load cycle. Print a fake pipe command so that
+  # Do an svnadmin dump|svnadmin load cycle. Print a fake pipe command so that 
   # the displayed CMDs can be run by hand
   create_repos(dst_path)
   dump_args = ' dump "' + src_path + '"'
@@ -688,8 +688,8 @@ def _cleanup_test_path(path, retrying=None):
     _deferred_test_paths.append(path)
 
 class SpawnTest(threading.Thread):
-  """Encapsulate a single test case, run it in a separate child process.
-  Instead of waiting till the process is finished, add this class to a
+  """Encapsulate a single test case, run it in a separate child process. 
+  Instead of waiting till the process is finished, add this class to a 
   list of active tests for follow up in the parent process."""
   def __init__(self, index, tests = None):
     threading.Thread.__init__(self)
@@ -716,7 +716,7 @@ class SpawnTest(threading.Thread):
       args.append('--cleanup')
     if enable_sasl:
       args.append('--enable-sasl')
-
+    
     self.result, self.stdout_lines, self.stderr_lines =\
                                          spawn_process(command, 1, None, *args)
     sys.stdout.write('.')
@@ -815,7 +815,7 @@ class TestRunner:
 # Func to run one test in the list.
 def run_one_test(n, test_list, parallel = 0, finished_tests = None):
   """Run the Nth client test in TEST_LIST, return the result.
-
+  
   If we're running the tests in parallel spawn the test in a new process.
   """
 
@@ -834,9 +834,9 @@ def run_one_test(n, test_list, parallel = 0, finished_tests = None):
 
 def _internal_run_tests(test_list, testnums, parallel):
   """Run the tests from TEST_LIST whose indices are listed in TESTNUMS.
-
+  
   If we're running the tests in parallel spawn as much parallel processes
-  as requested and gather the results in a temp. buffer when a child
+  as requested and gather the results in a temp. buffer when a child 
   process is finished.
   """
 
@@ -980,7 +980,7 @@ def run_tests(test_list, serial_only = False):
 
   ######################################################################
   # Initialization
-
+  
   # Cleanup: if a previous run crashed or interrupted the python
   # interpreter, then `temp_dir' was never removed.  This can cause wonkiness.
   if not is_child_process:
@@ -989,8 +989,8 @@ def run_tests(test_list, serial_only = False):
   # Calculate pristine_url from test_area_url.
   pristine_url = test_area_url + '/' + pristine_dir
   if windows == 1:
-    pristine_url = pristine_url.replace('\\', '/')
-
+    pristine_url = pristine_url.replace('\\', '/')  
+  
   # Setup the pristine repository (and working copy)
   actions.setup_pristine_repository()
 
@@ -998,7 +998,7 @@ def run_tests(test_list, serial_only = False):
     # If no test numbers were listed explicitly, include all of them:
     testnums = range(1, len(test_list))
 
-  # don't run tests in parallel when the tests don't support it or there
+  # don't run tests in parallel when the tests don't support it or there 
   # are only a few tests to run.
   if serial_only or len(testnums) < 2:
     parallel = 0
