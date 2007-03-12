@@ -50,7 +50,7 @@ init(const char *application)
 
   SVN_VERSION_DEFINE(my_version);
 
-  if (svn_cmdline_init(application, stderr)
+  if (svn_cmdline_init(application, stderr) 
       || apr_allocator_create(&allocator))
     exit(EXIT_FAILURE);
 
@@ -76,14 +76,14 @@ open_tmp_file(apr_file_t **fp,
   SVN_ERR(svn_io_temp_dir(&temp_dir, pool));
 
   /* Open a unique file;  use APR_DELONCLOSE. */
-  return svn_io_open_unique_file2(fp, NULL,
-                                  svn_path_join(temp_dir, "mucc", pool),
+  return svn_io_open_unique_file2(fp, NULL, 
+                                  svn_path_join(temp_dir, "mucc", pool), 
                                   ".tmp", svn_io_file_del_on_close, pool);
 }
 
 static svn_ra_callbacks_t *
 ra_callbacks(const char *username,
-             const char *password,
+             const char *password, 
              apr_pool_t *pool)
 {
   svn_ra_callbacks_t *callbacks = apr_palloc(pool, sizeof(*callbacks));
@@ -168,7 +168,7 @@ drive(struct operation *operation,
         {
           if (child->kind == svn_node_dir)
             {
-              SVN_ERR(editor->open_directory(key, operation->baton, head,
+              SVN_ERR(editor->open_directory(key, operation->baton, head, 
                                              subpool, &child->baton));
             }
           else
@@ -188,7 +188,7 @@ drive(struct operation *operation,
             }
           else
             {
-              SVN_ERR(editor->add_file(key, operation->baton, child->url,
+              SVN_ERR(editor->add_file(key, operation->baton, child->url, 
                                        child->rev, subpool, &file_baton));
             }
         }
@@ -203,10 +203,10 @@ drive(struct operation *operation,
 
           SVN_ERR(editor->apply_textdelta(file_baton, NULL, subpool,
                                           &handler, &handler_baton));
-          SVN_ERR(svn_io_file_open(&f, child->src_file, APR_READ,
+          SVN_ERR(svn_io_file_open(&f, child->src_file, APR_READ, 
                                    APR_OS_DEFAULT, pool));
           contents = svn_stream_from_aprfile(f, pool);
-          SVN_ERR(svn_txdelta_send_stream(contents, handler,
+          SVN_ERR(svn_txdelta_send_stream(contents, handler, 
                                           handler_baton, NULL, pool));
           SVN_ERR(svn_io_file_close(f, pool));
         }
@@ -219,7 +219,7 @@ drive(struct operation *operation,
          recurse and then close it. */
       if ((child->kind == svn_node_dir)
           && (child->operation == OP_OPEN
-              || child->operation == OP_ADD
+              || child->operation == OP_ADD 
               || child->operation == OP_REPLACE))
         {
           SVN_ERR(drive(child, head, editor, subpool));
@@ -305,7 +305,7 @@ build(action_code_t action,
       const char *path_bit = APR_ARRAY_IDX(path_bits, i, const char *);
       path_so_far = svn_path_join(path_so_far, path_bit, pool);
       operation = get_operation(path_so_far, operation, pool);
-
+      
       /* If we cross a replace or add, they must have come via copy
       operations, so remember the source of those things in case we
       need to lookup the node kind of one of their children.  And if
@@ -322,7 +322,7 @@ build(action_code_t action,
           copy_src = svn_path_join(copy_src, path_bit, pool);
         }
     }
-
+  
   /* We won't fuss about multiple operations on the same path in the
      following cases:
 
@@ -366,12 +366,12 @@ build(action_code_t action,
         return svn_error_create(SVN_ERR_CL_ARG_PARSING_ERROR, NULL,
                                 "Copy source revision cannot be younger "
                                 "than base revision");
-      operation->operation =
+      operation->operation = 
         operation->operation == OP_DELETE ? OP_REPLACE : OP_ADD;
       SVN_ERR(svn_ra_check_path(session, subtract_anchor(anchor, url, pool),
                                 rev, &operation->kind, pool));
       if (operation->kind == svn_node_none)
-        return svn_error_createf(SVN_ERR_BAD_URL, NULL,
+        return svn_error_createf(SVN_ERR_BAD_URL, NULL, 
                                  "'%s' not found", url);
       operation->url = url;
       operation->rev = rev;
@@ -379,7 +379,7 @@ build(action_code_t action,
   /* Handle mkdir operations (which can be adds or replacements). */
   else if (action == ACTION_MKDIR)
     {
-      operation->operation =
+      operation->operation = 
         operation->operation == OP_DELETE ? OP_REPLACE : OP_ADD;
       operation->kind = svn_node_dir;
     }
@@ -401,7 +401,7 @@ build(action_code_t action,
           else if (operation->kind == svn_node_none)
             operation->operation = OP_ADD;
           else
-            return svn_error_createf(SVN_ERR_BAD_URL, NULL,
+            return svn_error_createf(SVN_ERR_BAD_URL, NULL, 
                                      "'%s' is not a file", path);
         }
       operation->kind = svn_node_file;
@@ -410,7 +410,7 @@ build(action_code_t action,
   else
     {
       /* We shouldn't get here. */
-      abort();
+      abort(); 
     }
 
   return SVN_NO_ERROR;
@@ -420,7 +420,7 @@ struct action {
   action_code_t action;
 
   /* revision (copy-from-rev of path[0] for cp; base-rev for put) */
-  svn_revnum_t rev;
+  svn_revnum_t rev;     
 
   /* action  path[0]  path[1]
    * ------  -------  -------
@@ -449,8 +449,8 @@ execute(const apr_array_header_t *actions,
   struct operation root;
   svn_error_t *err;
   int i;
-  SVN_ERR(svn_ra_open(&session, anchor,
-                      ra_callbacks(username, password, pool),
+  SVN_ERR(svn_ra_open(&session, anchor, 
+                      ra_callbacks(username, password, pool), 
                       NULL, NULL, pool));
 
   SVN_ERR(svn_ra_get_latest_revnum(session, &head, pool));
@@ -475,9 +475,9 @@ execute(const apr_array_header_t *actions,
           path1 = subtract_anchor(anchor, action->path[0], pool);
           path2 = subtract_anchor(anchor, action->path[1], pool);
           SVN_ERR(build(ACTION_RM, path2, action->path[0], head,
-                        NULL, head, anchor,
+                        NULL, head, anchor, 
                         session, &root, pool));
-          SVN_ERR(build(ACTION_CP, path1, NULL,
+          SVN_ERR(build(ACTION_CP, path1, NULL, 
                         SVN_INVALID_REVNUM, NULL, head, anchor,
                         session, &root, pool));
           break;
@@ -486,26 +486,26 @@ execute(const apr_array_header_t *actions,
           path2 = subtract_anchor(anchor, action->path[1], pool);
           if (action->rev == SVN_INVALID_REVNUM)
             action->rev = head;
-          SVN_ERR(build(ACTION_CP, path2, action->path[0],
-                        action->rev, NULL, head, anchor,
+          SVN_ERR(build(ACTION_CP, path2, action->path[0], 
+                        action->rev, NULL, head, anchor, 
                         session, &root, pool));
           break;
         case ACTION_RM:
           path1 = subtract_anchor(anchor, action->path[0], pool);
-          SVN_ERR(build(ACTION_RM, path1, NULL,
-                        SVN_INVALID_REVNUM, NULL, head, anchor,
+          SVN_ERR(build(ACTION_RM, path1, NULL, 
+                        SVN_INVALID_REVNUM, NULL, head, anchor, 
                         session, &root, pool));
           break;
         case ACTION_MKDIR:
           path1 = subtract_anchor(anchor, action->path[0], pool);
-          SVN_ERR(build(ACTION_MKDIR, path1, action->path[0],
-                        SVN_INVALID_REVNUM, NULL, head, anchor,
+          SVN_ERR(build(ACTION_MKDIR, path1, action->path[0], 
+                        SVN_INVALID_REVNUM, NULL, head, anchor, 
                         session, &root, pool));
           break;
         case ACTION_PUT:
           path1 = subtract_anchor(anchor, action->path[0], pool);
-          SVN_ERR(build(ACTION_PUT, path1, action->path[0],
-                        SVN_INVALID_REVNUM, action->path[1], head, anchor,
+          SVN_ERR(build(ACTION_PUT, path1, action->path[0], 
+                        SVN_INVALID_REVNUM, action->path[1], head, anchor, 
                         session, &root, pool));
           break;
         }
@@ -565,7 +565,7 @@ int
 main(int argc, const char **argv)
 {
   apr_pool_t *pool = init("mucc");
-  apr_array_header_t *actions = apr_array_make(pool, 1,
+  apr_array_header_t *actions = apr_array_make(pool, 1, 
                                                sizeof(struct action *));
   const char *anchor = NULL;
   svn_error_t *err = SVN_NO_ERROR;
@@ -661,8 +661,8 @@ main(int argc, const char **argv)
   while (getopt->ind < getopt->argc)
     {
       const char *arg = getopt->argv[getopt->ind++];
-      if ((err = svn_utf_cstring_to_utf8(&(APR_ARRAY_PUSH(action_args,
-                                                          const char *)),
+      if ((err = svn_utf_cstring_to_utf8(&(APR_ARRAY_PUSH(action_args, 
+                                                          const char *)), 
                                          arg, pool)))
         handle_error(err, pool);
     }
@@ -674,7 +674,7 @@ main(int argc, const char **argv)
       const char *extra_args_file_utf8;
       svn_stringbuf_t *contents, *contents_utf8;
 
-      err = svn_utf_cstring_to_utf8(&extra_args_file_utf8,
+      err = svn_utf_cstring_to_utf8(&extra_args_file_utf8, 
                                     extra_args_file, pool);
       if (! err)
         err = svn_stringbuf_from_file2(&contents, extra_args_file_utf8, pool);
@@ -706,7 +706,7 @@ main(int argc, const char **argv)
         action->action = ACTION_PUT;
       else
         handle_error(svn_error_createf(SVN_ERR_INCORRECT_PARAMS, NULL,
-                                       "'%s' is not an action\n",
+                                       "'%s' is not an action\n", 
                                        action_string), pool);
       if (++i == action_args->nelts)
         insufficient(pool);
@@ -724,8 +724,8 @@ main(int argc, const char **argv)
               char *end;
               action->rev = strtol(rev_str, &end, 0);
               if (*end)
-                handle_error(svn_error_createf(SVN_ERR_INCORRECT_PARAMS, NULL,
-                                               "'%s' is not a revision\n",
+                handle_error(svn_error_createf(SVN_ERR_INCORRECT_PARAMS, NULL, 
+                                               "'%s' is not a revision\n", 
                                                rev_str), pool);
             }
           if (++i == action_args->nelts)
@@ -739,8 +739,8 @@ main(int argc, const char **argv)
       /* For puts, there should be a local file next. */
       if (action->action == ACTION_PUT)
         {
-          action->path[1] = svn_path_canonicalize(APR_ARRAY_IDX(action_args,
-                                                                i,
+          action->path[1] = svn_path_canonicalize(APR_ARRAY_IDX(action_args, 
+                                                                i, 
                                                                 const char *),
                                                   pool);
           if (++i == action_args->nelts)
@@ -748,7 +748,7 @@ main(int argc, const char **argv)
         }
 
       /* How many URLs does this action expect? */
-      if (action->action == ACTION_RM
+      if (action->action == ACTION_RM 
           || action->action == ACTION_MKDIR
           || action->action == ACTION_PUT)
         num_url_args = 1;
@@ -790,7 +790,7 @@ main(int argc, const char **argv)
   if (! actions->nelts)
     usage(pool, EXIT_FAILURE);
 
-  if ((err = execute(actions, anchor, message, username, password,
+  if ((err = execute(actions, anchor, message, username, password, 
                      base_revision, pool)))
     handle_error(err, pool);
 
