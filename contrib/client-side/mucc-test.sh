@@ -52,7 +52,7 @@ stat
 
 $MUCC -U $REPO \
       mv      zig/zag/bar/y.c zig/zag/bar/y%20y.c \
-      cp head zig/zag/bar/y.c zig/zag/bar/y%2520y.c
+      cp head zig/zag/bar/y.c zig/zag/bar/y%2520y.c 
 stat
 
 $MUCC -U $REPO \
