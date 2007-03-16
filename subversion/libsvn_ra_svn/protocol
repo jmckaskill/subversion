@@ -180,7 +180,7 @@ The following capabilities are currently defined:
   absent-entries    If the remote end announces support for this capability,
                     it will accept the absent-dir and absent-file editor
                     commands.
-  commit-revprops   If the server presents this capability, it supports the
+  commit-revprops   If the server presents this capability, it supports the 
                     rev-props parameter of the commit command.
                     See section 3.1.1.
 
@@ -492,7 +492,7 @@ call).  Errors resulting from an abort-report call are ignored.
     params: ( path:string )
 
   link-path:
-    params: ( path:string url:string rev:number start-empty:bool
+    params: ( path:string url:string rev:number start-empty:bool 
               ? [ lock-token:string ] )
 
   finish-report:
