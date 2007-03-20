@@ -313,7 +313,7 @@ public class SVNClient implements SVNClientInterface
      * @param stopOnCopy    do not continue on copy operations
      * @return array of LogMessages
      */
-    public LogMessage[] logMessages(String path, Revision revisionStart,
+    public LogMessage[] logMessages(String path, Revision revisionStart, 
                                     Revision revisionEnd, boolean stopOnCopy)
             throws ClientException
     {
@@ -375,7 +375,7 @@ public class SVNClient implements SVNClientInterface
                                 boolean recurse, boolean ignoreExternals,
                                 boolean allowUnverObstructions)
             throws ClientException;
-
+    
     /**
      * Executes a revision checkout.
      * @param moduleName name of the module to checkout.
@@ -761,7 +761,7 @@ public class SVNClient implements SVNClientInterface
      * @param recurse   traverse into subdirectories
      * @param allowUnverObstructions allow unversioned paths that obstruct adds
      * @exception ClientException
-     * @since 1.5
+     * @since 1.5 
      */
     public native long doSwitch(String path, String url, Revision revision,
                                 boolean recurse,
@@ -1256,10 +1256,10 @@ public class SVNClient implements SVNClientInterface
      * @see <a href="http://java.sun.com/j2se/1.4.2/docs/api/java/io/PipedOutputStream.html">PipedOutputStream</a>
      * @see <a href="http://java.sun.com/j2se/1.4.2/docs/api/java/io/PipedInputStream.html">PipedInputStream</a>
      */
-    public native void streamFileContent(String path, Revision revision,
-                            Revision pegRevision, int bufferSize,
-                            OutputStream stream)
-            throws ClientException;
+    public native void streamFileContent(String path, Revision revision, 
+                            Revision pegRevision, int bufferSize, 
+                            OutputStream stream) 
+            throws ClientException;    
 
     /**
      * Rewrite the url's in the working copy
