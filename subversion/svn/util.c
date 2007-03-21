@@ -34,6 +34,7 @@
 #include <apr_general.h>
 #include <apr_lib.h>
 
+#include "svn_ctype.h"
 #include "svn_client.h"
 #include "svn_cmdline.h"
 #include "svn_string.h"
@@ -130,7 +131,22 @@ svn_cl__edit_externally(svn_string_t **edited_contents /* UTF-8! */,
 #endif
 
   /* Abort if there is no editor specified */
-  if (! editor)
+  if (editor)
+    {
+      const char *c;
+
+      for (c = editor; *c; c++)
+        if (!svn_ctype_isspace(*c))
+          break;
+
+      if (! *c)
+        return svn_error_create
+          (SVN_ERR_CL_NO_EXTERNAL_EDITOR, NULL,
+           _("The EDITOR, SVN_EDITOR or VISUAL environment variable or "
+             "'editor-cmd' run-time configuration option is empty or "
+             "consists solely of whitespace. Expected a shell command."));
+    }
+  else
     return svn_error_create
       (SVN_ERR_CL_NO_EXTERNAL_EDITOR, NULL,
        _("None of the environment variables SVN_EDITOR, VISUAL or EDITOR is "
