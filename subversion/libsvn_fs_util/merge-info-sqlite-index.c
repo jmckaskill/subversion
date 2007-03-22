@@ -120,7 +120,7 @@ check_format(sqlite3 *db)
 }
 
 const char SVN_MTD_CREATE_SQL[] = "pragma auto_vacuum = 1;"
-  APR_EOL_STR
+  APR_EOL_STR 
   "create table mergeinfo (revision integer not null, mergedfrom text not null, mergedto text not null, mergedrevstart integer not null, mergedrevend integer not null);"
   APR_EOL_STR
   "create index mi_mergedfrom_idx on mergeinfo (mergedfrom);"
@@ -183,7 +183,7 @@ svn_fs_merge_info__create_index(const char *path, apr_pool_t *pool)
    on PATH as of NEW_REV, which is provided (unparsed) in MINFOSTRING.
    Use POOL for temporary allocations.*/
 static svn_error_t *
-index_path_merge_info(svn_revnum_t new_rev, sqlite3 *db, const char *path,
+index_path_merge_info(svn_revnum_t new_rev, sqlite3 *db, const char *path, 
                       svn_string_t *minfostring, apr_pool_t *pool)
 {
   apr_hash_t *minfo;
@@ -484,7 +484,7 @@ get_merge_info_for_path(sqlite3 *db,
      mergeinfo hash */
   if (lastmerged_rev > 0)
     {
-      SVN_ERR(parse_mergeinfo_from_db(db, path, lastmerged_rev,
+      SVN_ERR(parse_mergeinfo_from_db(db, path, lastmerged_rev, 
                                       &path_mergeinfo, pool));
       if (path_mergeinfo)
         {
