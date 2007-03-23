@@ -289,7 +289,7 @@ I.    INTRODUCTION
             http://www.zlib.net
 
 
-      3. SQLite 3.3.13 or newer  (REQUIRED)
+      3. SQLite 3.x newer  (REQUIRED for server)
 
          SQLite is a lightweight, embeddable SQL library necessary to
          build any repository-related code.
@@ -327,7 +327,7 @@ I.    INTRODUCTION
 
       6.  An HTTP client libary:  either neon or serf.  (OPTIONAL)
 
-        libneon and libserf are competing implementations of HTTP
+        neon and serf are competing implementations of HTTP
         client libraries.  If you want your client to be able to speak
         to an Apache server, you must link against one of these
         libraries.  Though optional, we strongly recommend this.
@@ -380,7 +380,7 @@ I.    INTRODUCTION
            then there should be a file
            "/usr/local/myneon/bin/neon-config".
 
-       b.  Serf library 0.1.0
+       b.  Serf library 0.1.0 (http://code.google.com/p/serf/)
 
            serf is a library for HTTP and WebDAV which is an
            alternative to Neon for accessing Subversion repositories
@@ -525,7 +525,7 @@ I.    INTRODUCTION
       is done: See section III for details.
 
 
-      11.  Python 2.0 (http://www.python.org/)  (OPTIONAL)
+      11.  Python 2.0 or newer (http://www.python.org/)  (OPTIONAL)
 
       If you want to run "make check" or build from the latest source
       under Unix as described in section II.B and III.D, install
