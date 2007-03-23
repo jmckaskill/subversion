@@ -33,7 +33,7 @@
   </xsl:if>
 
   <!-- Preserve order of PIs and comments -->
-  <xsl:apply-templates
+  <xsl:apply-templates 
       select="*[not(self::listitem
                 or self::title
                 or self::titleabbrev)]
@@ -50,7 +50,7 @@
         <xsl:otherwise>1.5em</xsl:otherwise>
       </xsl:choose>
     </xsl:attribute>
-    <xsl:apply-templates
+    <xsl:apply-templates 
           select="listitem
                   |comment()[preceding-sibling::listitem]
                   |processing-instruction()[preceding-sibling::listitem]"/>
@@ -150,7 +150,7 @@
   </xsl:if>
 
   <!-- Preserve order of PIs and comments -->
-  <xsl:apply-templates
+  <xsl:apply-templates 
       select="*[not(self::listitem
                 or self::title
                 or self::titleabbrev)]
@@ -167,7 +167,7 @@
         <xsl:otherwise>2em</xsl:otherwise>
       </xsl:choose>
     </xsl:attribute>
-    <xsl:apply-templates
+    <xsl:apply-templates 
           select="listitem
                   |comment()[preceding-sibling::listitem]
                   |processing-instruction()[preceding-sibling::listitem]"/>
@@ -242,14 +242,14 @@
   </xsl:choose>
 </xsl:template>
 
-<xsl:template match="listitem/*[1][local-name()='para' or
-                                   local-name()='simpara' or
+<xsl:template match="listitem/*[1][local-name()='para' or 
+                                   local-name()='simpara' or 
                                    local-name()='formalpara']
-                     |step/*[1][local-name()='para' or
-                                   local-name()='simpara' or
+                     |step/*[1][local-name()='para' or 
+                                   local-name()='simpara' or 
                                    local-name()='formalpara']
-                     |callout/*[1][local-name()='para' or
-                                   local-name()='simpara' or
+                     |callout/*[1][local-name()='para' or 
+                                   local-name()='simpara' or 
                                    local-name()='formalpara']"
               priority="2">
   <fo:block>
@@ -340,7 +340,7 @@
   </xsl:if>
 
   <!-- Preserve order of PIs and comments -->
-  <xsl:apply-templates
+  <xsl:apply-templates 
     select="*[not(self::varlistentry
               or self::title
               or self::titleabbrev)]
@@ -373,7 +373,7 @@
     </xsl:when>
     <xsl:when test="string-length($terms[1]/node()[not(indexterm)]) &gt; $longest">
       <xsl:call-template name="longest.term">
-        <xsl:with-param name="longest"
+        <xsl:with-param name="longest" 
 	    select="string-length($terms[1]/node()[not(indexterm)])"/>
         <xsl:with-param name="maxlength" select="$maxlength"/>
         <xsl:with-param name="terms" select="$terms[position() &gt; 1]"/>
@@ -417,7 +417,7 @@
   </xsl:if>
 
   <!-- Preserve order of PIs and comments -->
-  <xsl:apply-templates
+  <xsl:apply-templates 
     select="*[not(self::varlistentry
               or self::title
               or self::titleabbrev)]
@@ -435,8 +435,8 @@
 <xsl:template match="varlistentry" mode="vl.as.blocks">
   <xsl:variable name="id"><xsl:call-template name="object.id"/></xsl:variable>
 
-  <fo:block id="{$id}" xsl:use-attribute-sets="list.item.spacing"
-      keep-together.within-column="always"
+  <fo:block id="{$id}" xsl:use-attribute-sets="list.item.spacing"  
+      keep-together.within-column="always" 
       keep-with-next.within-column="always">
     <xsl:apply-templates select="term"/>
   </fo:block>
@@ -706,7 +706,7 @@
                 |comment()[not(preceding-sibling::step)]
                 |processing-instruction()[not(preceding-sibling::step)]"/>
 
-  <xsl:variable name="steps"
+  <xsl:variable name="steps" 
                 select="step
                         |comment()[preceding-sibling::step]
                         |processing-instruction()[preceding-sibling::step]"/>
@@ -802,7 +802,7 @@
 
 <xsl:template match="step/title">
   <fo:block font-weight="bold"
-            keep-together.within-column="always"
+            keep-together.within-column="always" 
             keep-with-next.within-column="always">
     <xsl:apply-templates/>
   </fo:block>
