@@ -410,7 +410,7 @@ rb_pools(VALUE self)
     pools = rb_hash_new();
     rb_ivar_set(self, rb_id___pools__(), pools);
   }
-
+  
   return pools;
 }
 
@@ -465,7 +465,7 @@ find_swig_type_object(int num, VALUE *objects)
       return objects[i];
     }
   }
-
+  
   return Qnil;
 }
 
@@ -474,7 +474,7 @@ svn_swig_rb_get_pool(int argc, VALUE *argv, VALUE self,
                      VALUE *rb_pool, apr_pool_t **pool)
 {
   *rb_pool = Qnil;
-
+  
   if (argc > 0) {
     if (POOL_P(argv[argc - 1])) {
       *rb_pool = rb_pool_new(argv[argc - 1]);
@@ -567,7 +567,7 @@ svn_swig_rb_set_pool_for_no_swig_type(VALUE target, VALUE pool)
   if (NIL_P(target)) {
     return;
   }
-
+    
   if (!RTEST(rb_obj_is_kind_of(target, rb_cArray))) {
     target = rb_ary_new3(1, target);
   }
@@ -653,9 +653,9 @@ svn_swig_rb_svn_error_to_rb_error(svn_error_t *error)
     file = rb_str_new2(error->file);
   if (error->line)
     line = LONG2NUM(error->line);
-
+  
   message = rb_str_new2(error->message ? error->message : "");
-
+  
   while (error->child) {
     error = error->child;
     if (error->message) {
@@ -687,7 +687,7 @@ svn_swig_rb_from_swig_type(void *value, void *ctx)
     SWIG_InitRuntime();
     inited = Qtrue;
   }
-
+  
   info = SWIG_TypeQuery((char *)ctx);
   if (info) {
     return SWIG_NewPointerObj(value, info, 0);
@@ -969,14 +969,14 @@ c2r_hash_with_key_convert(apr_hash_t *hash,
     const void *key;
     void *val;
     VALUE v = Qnil;
-
+    
     apr_hash_this(hi, &key, NULL, &val);
     if (val) {
       v = (*value_conv)(val, value_ctx);
     }
     rb_hash_aset(r_hash, (*key_conv)((void *)key, key_ctx), v);
   }
-
+  
   return r_hash;
 }
 
@@ -1057,7 +1057,7 @@ r2c_hash(VALUE hash, r2c_func func, void *ctx, apr_pool_t *pool)
     apr_hash = apr_hash_make(pool);
     data.apr_hash = apr_hash;
     rb_hash_foreach(hash, r2c_hash_i, (VALUE)&data);
-
+    
     return apr_hash;
   }
 }
@@ -1112,7 +1112,7 @@ svn_swig_rb_hash_to_apr_hash_revnum(VALUE hash, apr_pool_t *pool)
     apr_hash = apr_hash_make(pool);
     data.apr_hash = apr_hash;
     rb_hash_foreach(hash, r2c_hash_i_for_revnum, (VALUE)&data);
-
+    
     return apr_hash;
   }
 }
@@ -1155,7 +1155,7 @@ callback_rescue(VALUE baton)
 
   *(rescue_baton->err) = r2c_svn_err(ruby_errinfo, NULL, NULL);
   svn_swig_rb_push_pool(rescue_baton->pool);
-
+  
   return Qnil;
 }
 
@@ -1184,7 +1184,7 @@ callback_handle_error(VALUE baton)
 {
   callback_handle_error_baton_t *handle_error_baton;
   handle_error_baton = (callback_handle_error_baton_t *)baton;
-
+  
   return rb_rescue2(callback,
                     (VALUE)(handle_error_baton->callback_baton),
                     callback_rescue,
@@ -1205,7 +1205,7 @@ invoke_callback_handle_error(VALUE baton, VALUE pool, svn_error_t **err)
   cbb->pool = pool;
   handle_error_baton.callback_baton = cbb;
   handle_error_baton.rescue_baton = &rescue_baton;
-
+  
   return rb_ensure(callback_handle_error, (VALUE)&handle_error_baton,
                    callback_ensure, pool);
 }
@@ -1223,7 +1223,7 @@ add_baton(VALUE editor, VALUE baton)
   if (NIL_P((rb_ivar_get(editor, rb_id_baton())))) {
     rb_ivar_set(editor, rb_id_baton(), rb_ary_new());
   }
-
+  
   rb_ary_push(rb_ivar_get(editor, rb_id_baton()), baton);
 }
 
@@ -1484,7 +1484,7 @@ delta_editor_window_handler(svn_txdelta_window_t *window, void *baton)
 }
 
 static svn_error_t *
-delta_editor_apply_textdelta(void *file_baton,
+delta_editor_apply_textdelta(void *file_baton, 
                              const char *base_checksum,
                              apr_pool_t *pool,
                              svn_txdelta_window_handler_t *handler,
@@ -1590,7 +1590,7 @@ svn_swig_rb_make_delta_editor(svn_delta_editor_t **editor,
                               apr_pool_t *pool)
 {
   svn_delta_editor_t *thunk_editor = svn_delta_default_editor(pool);
-
+  
   thunk_editor->set_target_revision = delta_editor_set_target_revision;
   thunk_editor->open_root = delta_editor_open_root;
   thunk_editor->delete_entry = delta_editor_delete_entry;
@@ -1649,7 +1649,7 @@ svn_swig_rb_log_receiver(void *baton,
   VALUE proc, rb_pool;
 
   svn_swig_rb_from_baton((VALUE)baton, &proc, &rb_pool);
-
+  
   if (!NIL_P(proc)) {
     callback_baton_t cbb;
     VALUE rb_changed_paths = Qnil;
@@ -1687,7 +1687,7 @@ svn_swig_rb_repos_authz_func(svn_boolean_t *allowed,
   svn_swig_rb_from_baton((VALUE)baton, &proc, &rb_pool);
 
   *allowed = TRUE;
-
+  
   if (!NIL_P(proc)) {
     callback_baton_t cbb;
     VALUE result;
@@ -1719,7 +1719,7 @@ svn_swig_rb_repos_authz_callback(svn_repos_authz_access_t required,
   svn_swig_rb_from_baton((VALUE)baton, &proc, &rb_pool);
 
   *allowed = TRUE;
-
+  
   if (!NIL_P(proc)) {
     callback_baton_t cbb;
     VALUE result;
@@ -1797,7 +1797,7 @@ svn_swig_rb_notify_func2(void *baton,
   VALUE proc, rb_pool;
 
   svn_swig_rb_from_baton((VALUE)baton, &proc, &rb_pool);
-
+  
   if (!NIL_P(proc)) {
     callback_baton_t cbb;
 
@@ -1830,7 +1830,7 @@ svn_swig_rb_commit_callback(svn_revnum_t new_revision,
                            c2r_string2(author));
     invoke_callback_handle_error((VALUE)(&cbb), rb_pool, &err);
   }
-
+  
   return err;
 }
 
@@ -1851,7 +1851,7 @@ svn_swig_rb_commit_callback2(const svn_commit_info_t *commit_info,
     cbb.args = rb_ary_new3(1, c2r_commit_info__dup(commit_info));
     invoke_callback_handle_error((VALUE)(&cbb), rb_pool, &err);
   }
-
+  
   return err;
 }
 
@@ -1871,7 +1871,7 @@ svn_swig_rb_cancel_func(void *cancel_baton)
     cbb.args = rb_ary_new3(0);
     invoke_callback_handle_error((VALUE)(&cbb), rb_pool, &err);
   }
-
+  
   return err;
 }
 
@@ -1894,7 +1894,7 @@ svn_swig_rb_info_receiver(void *baton,
     cbb.args = rb_ary_new3(2, c2r_string2(path), c2r_info__dup(info));
     invoke_callback_handle_error((VALUE)(&cbb), rb_pool, &err);
   }
-
+  
   return err;
 }
 
@@ -1917,7 +1917,7 @@ svn_swig_rb_config_enumerator(const char *name,
     cbb.args = rb_ary_new3(2, c2r_string2(name), c2r_string2(value));
     result = RTEST(invoke_callback((VALUE)(&cbb), rb_pool));
   }
-
+  
   return result;
 }
 
@@ -1939,7 +1939,7 @@ svn_swig_rb_config_section_enumerator(const char *name,
     cbb.args = rb_ary_new3(1, c2r_string2(name));
     result = RTEST(invoke_callback((VALUE)(&cbb), rb_pool));
   }
-
+  
   return result;
 }
 
@@ -1987,7 +1987,7 @@ svn_swig_rb_txdelta_window_handler(svn_txdelta_window_t *window,
     cbb.args = rb_ary_new3(1, c2r_txdelta_window__dup(window));
     invoke_callback_handle_error((VALUE)(&cbb), rb_pool, &err);
   }
-
+  
   return err;
 }
 
@@ -2042,7 +2042,7 @@ svn_swig_rb_fs_get_locks_callback(void *baton,
     cbb.args = rb_ary_new3(1, c2r_lock__dup(lock));
     invoke_callback_handle_error((VALUE)(&cbb), rb_pool, &err);
   }
-
+  
   return err;
 }
 
@@ -2063,11 +2063,11 @@ ra_callbacks_open_tmp_file(apr_file_t **fp,
     cbb.receiver = callbacks;
     cbb.message = rb_id_open_tmp_file();
     cbb.args = rb_ary_new3(0);
-
+    
     result = invoke_callback_handle_error((VALUE)(&cbb), Qnil, &err);
     *fp = svn_swig_rb_make_file(result, pool);
   }
-
+  
   return err;
 }
 
@@ -2095,7 +2095,7 @@ ra_callbacks_get_wc_prop(void *baton,
       *value = r2c_svn_string(result, NULL, pool);
     }
   }
-
+  
   return err;
 }
 
@@ -2120,7 +2120,7 @@ ra_callbacks_set_wc_prop(void *baton,
                            c2r_svn_string((void *)value, NULL));
     invoke_callback_handle_error((VALUE)(&cbb), Qnil, &err);
   }
-
+  
   return err;
 }
 
@@ -2145,7 +2145,7 @@ ra_callbacks_push_wc_prop(void *baton,
                            c2r_svn_string((void *)value, NULL));
     invoke_callback_handle_error((VALUE)(&cbb), Qnil, &err);
   }
-
+  
   return err;
 }
 
@@ -2166,7 +2166,7 @@ ra_callbacks_invalidate_wc_props(void *baton,
     cbb.args = rb_ary_new3(2, c2r_string2(path), c2r_string2(name));
     invoke_callback_handle_error((VALUE)(&cbb), Qnil, &err);
   }
-
+  
   return err;
 }
 
@@ -2197,9 +2197,9 @@ svn_swig_rb_setup_ra_callbacks(svn_ra_callbacks2_t **callbacks,
   VALUE rb_auth_baton;
 
   rb_auth_baton = rb_funcall(rb_callbacks, rb_id_auth_baton(), 0);
-
+  
   *callbacks = apr_pcalloc(pool, sizeof(**callbacks));
-
+  
   (*callbacks)->open_tmp_file = ra_callbacks_open_tmp_file;
   (*callbacks)->auth_baton = r2c_swig_type(rb_auth_baton,
                                            (void *)"svn_auth_baton_t *",
@@ -2240,7 +2240,7 @@ svn_swig_rb_ra_lock_callback(void *baton,
                              Qnil);
     invoke_callback_handle_error((VALUE)(&cbb), rb_pool, &err);
   }
-
+  
   return err;
 }
 
@@ -2260,7 +2260,7 @@ svn_swig_rb_just_call(void *baton)
     cbb.args = rb_ary_new3(0);
     invoke_callback_handle_error((VALUE)(&cbb), rb_pool, &err);
   }
-
+  
   return err;
 }
 
@@ -2291,7 +2291,7 @@ svn_swig_rb_ra_file_rev_handler(void *baton,
                            svn_swig_rb_apr_array_to_array_prop(prop_diffs));
     invoke_callback_handle_error((VALUE)(&cbb), rb_pool, &err);
   }
-
+  
   return err;
 }
 
@@ -2321,7 +2321,7 @@ svn_swig_rb_repos_history_func(void *baton,
       err = r2c_svn_err(result, NULL, NULL);
     }
   }
-
+  
   return err;
 }
 
@@ -2352,7 +2352,7 @@ svn_swig_rb_repos_file_rev_handler(void *baton,
                            svn_swig_rb_apr_array_to_array_prop(prop_diffs));
     invoke_callback_handle_error((VALUE)(&cbb), rb_pool, &err);
   }
-
+  
   return err;
 }
 
@@ -2415,7 +2415,7 @@ svn_swig_rb_auth_simple_prompt_func(svn_auth_cred_simple_t **cred,
     if (!NIL_P(result)) {
       void *result_cred = NULL;
       svn_auth_cred_simple_t *tmp_cred = NULL;
-
+      
       r2c_swig_type2(result, "svn_auth_cred_simple_t *", &result_cred);
       tmp_cred = (svn_auth_cred_simple_t *)result_cred;
       new_cred = apr_pcalloc(pool, sizeof(*new_cred));
@@ -2426,7 +2426,7 @@ svn_swig_rb_auth_simple_prompt_func(svn_auth_cred_simple_t **cred,
       new_cred->may_save = tmp_cred->may_save;
     }
   }
-
+  
   *cred = new_cred;
   return err;
 }
@@ -2458,7 +2458,7 @@ svn_swig_rb_auth_username_prompt_func(svn_auth_cred_username_t **cred,
     if (!NIL_P(result)) {
       void *result_cred = NULL;
       svn_auth_cred_username_t *tmp_cred = NULL;
-
+      
       r2c_swig_type2(result, "svn_auth_cred_username_t *", &result_cred);
       tmp_cred = (svn_auth_cred_username_t *)result_cred;
       new_cred = apr_pcalloc(pool, sizeof(*new_cred));
@@ -2467,7 +2467,7 @@ svn_swig_rb_auth_username_prompt_func(svn_auth_cred_username_t **cred,
       new_cred->may_save = tmp_cred->may_save;
     }
   }
-
+  
   *cred = new_cred;
   return err;
 }
@@ -2504,7 +2504,7 @@ svn_swig_rb_auth_ssl_server_trust_prompt_func(
     if (!NIL_P(result)) {
       void *result_cred;
       svn_auth_cred_ssl_server_trust_t *tmp_cred = NULL;
-
+      
       r2c_swig_type2(result, "svn_auth_cred_ssl_server_trust_t *",
                      &result_cred);
       tmp_cred = (svn_auth_cred_ssl_server_trust_t *)result_cred;
@@ -2512,7 +2512,7 @@ svn_swig_rb_auth_ssl_server_trust_prompt_func(
       *new_cred = *tmp_cred;
     }
   }
-
+  
   *cred = new_cred;
   return err;
 }
@@ -2545,7 +2545,7 @@ svn_swig_rb_auth_ssl_client_cert_prompt_func(
     if (!NIL_P(result)) {
       void *result_cred = NULL;
       svn_auth_cred_ssl_client_cert_t *tmp_cred = NULL;
-
+      
       r2c_swig_type2(result, "svn_auth_cred_ssl_client_cert_t *",
                      &result_cred);
       tmp_cred = (svn_auth_cred_ssl_client_cert_t *)result_cred;
@@ -2555,7 +2555,7 @@ svn_swig_rb_auth_ssl_client_cert_prompt_func(
       new_cred->may_save = tmp_cred->may_save;
     }
   }
-
+  
   *cred = new_cred;
   return err;
 }
@@ -2588,7 +2588,7 @@ svn_swig_rb_auth_ssl_client_cert_pw_prompt_func(
     if (!NIL_P(result)) {
       void *result_cred = NULL;
       svn_auth_cred_ssl_client_cert_pw_t *tmp_cred = NULL;
-
+      
       r2c_swig_type2(result, "svn_auth_cred_ssl_client_cert_pw_t *",
                      &result_cred);
       tmp_cred = (svn_auth_cred_ssl_client_cert_pw_t *)result_cred;
@@ -2598,7 +2598,7 @@ svn_swig_rb_auth_ssl_client_cert_pw_prompt_func(
       new_cred->may_save = tmp_cred->may_save;
     }
   }
-
+  
   *cred = new_cred;
   return err;
 }
@@ -2608,12 +2608,12 @@ apr_file_t *
 svn_swig_rb_make_file(VALUE file, apr_pool_t *pool)
 {
   apr_file_t *apr_file = NULL;
-
+  
   apr_file_open(&apr_file, StringValuePtr(file),
                 APR_CREATE | APR_READ | APR_WRITE,
                 APR_OS_DEFAULT,
                 pool);
-
+  
   return apr_file;
 }
 
@@ -2651,7 +2651,7 @@ svn_stream_t *
 svn_swig_rb_make_stream(VALUE io)
 {
   svn_stream_t *stream;
-
+  
   if (RTEST(rb_funcall(rb_svn_core_stream(), rb_id_eqq(), 1, io))) {
     svn_stream_t **stream_p;
     stream_p = &stream;
@@ -2660,7 +2660,7 @@ svn_swig_rb_make_stream(VALUE io)
     VALUE rb_pool = rb_pool_new(Qnil);
     apr_pool_wrapper_t *pool_wrapper;
     apr_pool_wrapper_t **pool_wrapper_p;
-
+    
     rb_set_pool(io, rb_pool);
     pool_wrapper_p = &pool_wrapper;
     r2c_swig_type2(rb_pool, "apr_pool_wrapper_t *", (void **)pool_wrapper_p);
@@ -2668,7 +2668,7 @@ svn_swig_rb_make_stream(VALUE io)
     svn_stream_set_read(stream, read_handler_rbio);
     svn_stream_set_write(stream, write_handler_rbio);
   }
-
+  
   return stream;
 }
 
@@ -2709,12 +2709,12 @@ svn_swig_rb_set_revision(svn_opt_revision_t *rev, VALUE value)
     else if (RTEST(rb_reg_match(rb_reg_new("^COMMITTED$",
                                            strlen("^COMMITTED$"),
                                            RE_OPTION_IGNORECASE),
-                                value)))
+                                value))) 
       rev->kind = svn_opt_revision_committed;
     else if (RTEST(rb_reg_match(rb_reg_new("^PREV$",
                                            strlen("^PREV$"),
                                            RE_OPTION_IGNORECASE),
-                                value)))
+                                value))) 
       rev->kind = svn_opt_revision_previous;
     else
       rb_raise(rb_eArgError,
@@ -2801,7 +2801,7 @@ svn_swig_rb_client_blame_receiver_func(void *baton,
                            c2r_string2(line));
     invoke_callback_handle_error((VALUE)(&cbb), rb_pool, &err);
   }
-
+  
   return err;
 }
 
@@ -2829,7 +2829,7 @@ wc_entry_callbacks_found_entry(const char *path,
                            c2r_wc_entry__dup(entry));
     invoke_callback_handle_error((VALUE)(&cbb), rb_pool, &err);
   }
-
+  
   return err;
 }
 
@@ -2889,7 +2889,7 @@ wc_diff_callbacks_file_changed(svn_wc_adm_access_t *adm_access,
     if (propstate)
       *propstate = NUM2INT(rb_ary_entry(result, 1));
   }
-
+  
   return err;
 }
 
@@ -2936,7 +2936,7 @@ wc_diff_callbacks_file_added(svn_wc_adm_access_t *adm_access,
     if (propstate)
       *propstate = NUM2INT(rb_ary_entry(result, 1));
   }
-
+  
   return err;
 }
 
@@ -2973,7 +2973,7 @@ wc_diff_callbacks_file_deleted(svn_wc_adm_access_t *adm_access,
     if (state)
       *state = NUM2INT(result);
   }
-
+  
   return err;
 }
 
@@ -3002,7 +3002,7 @@ wc_diff_callbacks_dir_added(svn_wc_adm_access_t *adm_access,
     if (state)
       *state = NUM2INT(result);
   }
-
+  
   return err;
 }
 
@@ -3029,7 +3029,7 @@ wc_diff_callbacks_dir_deleted(svn_wc_adm_access_t *adm_access,
     if (state)
       *state = NUM2INT(result);
   }
-
+  
   return err;
 }
 
@@ -3061,7 +3061,7 @@ wc_diff_callbacks_dir_props_changed(svn_wc_adm_access_t *adm_access,
     if (state)
       *state = NUM2INT(result);
   }
-
+  
   return err;
 }
 
