@@ -73,7 +73,7 @@ def set_up_depthy_working_copies(sbox, empty=False, files=False,
     svntest.actions.run_and_verify_svn(
       "Unexpected error from co --depth=files",
       SVNAnyOutput, [], "co", "--depth", "files", sbox.repo_url, wc_files)
-
+    
   wc_immediates = None
   if immediates:
     wc_immediates = sbox.wc_dir + '-depth-immediates'
@@ -103,7 +103,7 @@ def depth_empty_checkout(sbox):
   svntest.actions.run_and_verify_svn(
     "Expected depth empty for top of WC, got some other depth",
     "Depth: empty", [], "info", wc_empty)
-
+                    
 
 # Helper for two test functions.
 def depth_files_same_as_nonrecursive(sbox, opt):
@@ -136,7 +136,7 @@ def depth_files_same_as_nonrecursive(sbox, opt):
   svntest.actions.run_and_verify_svn(
     "Expected depth files for top of WC, got some other depth",
     "Depth: files", [], "info", sbox.wc_dir)
-
+                    
 
 def depth_files_checkout(sbox):
   "depth-files checkout"
