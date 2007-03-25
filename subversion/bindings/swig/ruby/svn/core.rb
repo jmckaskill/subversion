@@ -28,7 +28,7 @@ class Time
       end
     end
   end
-
+  
   def to_apr_time
     to_i * MILLION + usec
   end
@@ -60,7 +60,7 @@ module Svn
 
     DEFAULT_CHARSET = default_charset
     LOCALE_CHARSET = locale_charset
-
+    
     AuthCredSSLClientCert = AuthCredSslClientCert
     AuthCredSSLClientCertPw = AuthCredSslClientCertPw
     AuthCredSSLServerTrust = AuthCredSslServerTrust
@@ -72,7 +72,7 @@ module Svn
     DIRENT_ALL = dirent_all
 
     Pool = Svn::Ext::Core::Apr_pool_wrapper_t
-
+    
     class Pool
       class << self
         def number_of_pools
@@ -104,7 +104,7 @@ module Svn
       def write(data)
         Core.stream_write(self, data)
       end
-
+      
       def read(len=nil)
         if len.nil?
           read_all
@@ -118,7 +118,7 @@ module Svn
           buf
         end
       end
-
+      
       def close
         Core.stream_close(self)
       end
@@ -126,12 +126,12 @@ module Svn
       def copy(other, &cancel_proc)
         Core.stream_copy2(self, other, cancel_proc)
       end
-
+      
       private
       def _read(size)
         Core.stream_read(self, size)
       end
-
+      
       def read_all
         buf = ""
         while chunk = _read(CHUNK_SIZE)
@@ -174,7 +174,7 @@ module Svn
         end
       end
     end
-
+    
 
     class AuthProviderObject
       class << self
@@ -320,7 +320,7 @@ module Svn
       def to_a
         [major, minor, patch, tag]
       end
-
+      
       def to_s
         "#{major}.#{minor}.#{patch}#{tag}"
       end
@@ -370,7 +370,7 @@ module Svn
     end
 
     Config = SWIG::TYPE_p_svn_config_t
-
+    
     class Config
       include Enumerable
 
@@ -404,7 +404,7 @@ module Svn
       def get(section, option, default=nil)
         Core.config_get(self, section, option, default)
       end
-
+      
       def get_bool(section, option, default)
         Core.config_get_bool(self, section, option, default)
       end
@@ -413,7 +413,7 @@ module Svn
         Core.config_set(self, section, option, value)
       end
       alias_method :[]=, :set
-
+      
       def set_bool(section, option, value)
         Core.config_set_bool(self, section, option, value)
       end
@@ -540,7 +540,7 @@ module Svn
           info
         end
       end
-
+      
       alias _date date
       def date
         __date = _date
