@@ -409,6 +409,32 @@ EOE
     end
   end
 
+  def test_delete
+    source = "source"
+    file = "file"
+    path = File.join(@wc_path, file)
+    log = "sample log"
+    ctx = make_context(log)
+
+    File.open(path, "w") {|f| f.print(source)}
+    ctx.add(path)
+    ctx.ci(@wc_path).revision
+
+    assert(File.exists?(path))
+    Svn::Wc::AdmAccess.open(nil, @wc_path, true, 5) do |access|
+      access.delete(path)
+    end
+    assert(!File.exists?(path))
+
+    ctx.revert(path)
+
+    assert(File.exists?(path))
+    Svn::Wc::AdmAccess.open(nil, @wc_path, true, 5) do |access|
+      access.delete(path, nil, nil, true)
+    end
+    assert(File.exists?(path))
+  end
+
   def test_locked
     assert(!Svn::Wc.locked?(@wc_path))
     Svn::Wc::AdmAccess.open(nil, @wc_path, true, -1) do |access|
