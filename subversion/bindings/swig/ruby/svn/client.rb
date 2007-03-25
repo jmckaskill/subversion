@@ -64,7 +64,7 @@ module Svn
         end
       end
     end
-
+    
     Context = Ctx
     class Context
       class << self
@@ -78,7 +78,7 @@ module Svn
 
       alias _auth_baton auth_baton
       attr_reader :auth_baton
-
+      
       alias _initialize initialize
       def initialize
         @prompts = []
@@ -147,7 +147,7 @@ module Svn
       def import(path, uri, recurse=true, no_ignore=false)
         Client.import2(path, uri, !recurse, no_ignore, self)
       end
-
+      
       def cleanup(dir)
         Client.cleanup(dir, self)
       end
@@ -164,14 +164,14 @@ module Svn
       def resolved(path, recurse=true)
         Client.resolved(path, recurse, self)
       end
-
+      
       def propset(name, value, target, recurse=true, force=false)
         Client.propset2(name, value, target, recurse, force, self)
       end
       alias prop_set propset
       alias pset propset
       alias ps propset
-
+      
       def propdel(name, target, recurse=true, force=false)
         Client.propset2(name, nil, target, recurse, force, self)
       end
@@ -201,12 +201,12 @@ module Svn
       alias prop_list proplist
       alias plist proplist
       alias pl proplist
-
+      
       def copy(src_path, dst_path, rev=nil)
         Client.copy3(src_path, rev || "HEAD", dst_path, self)
       end
       alias cp copy
-
+      
       def move(src_path, dst_path, force=false)
         Client.move4(src_path, dst_path, force, self)
       end
@@ -274,7 +274,7 @@ module Svn
                           target_wcpath, recurse, ignore_ancestry,
                           force, dry_run, options, self)
       end
-
+      
       # Returns a content of +path+ at +rev+ as a String.
       def cat(path, rev="HEAD", peg_rev=nil, output=nil)
         used_string_io = output.nil?
@@ -292,7 +292,7 @@ module Svn
         targets = [targets] unless targets.is_a?(Array)
         Client.lock(targets, comment, steal_lock, self)
       end
-
+      
       def unlock(targets, break_lock=false)
         targets = [targets] unless targets.is_a?(Array)
         Client.unlock(targets, break_lock, self)
@@ -311,11 +311,11 @@ module Svn
       def url_from_path(path)
         Client.url_from_path(path)
       end
-
+      
       def uuid_from_path(path, adm)
         Client.uuid_from_path(path, adm, self)
       end
-
+      
       # Returns UUID for +url+ as a String.
       def uuid_from_url(url)
         Client.uuid_from_url(url, self)
@@ -324,7 +324,7 @@ module Svn
       def open_ra_session(url)
         Client.open_ra_session(url, self)
       end
-
+      
       # Scans revisions from +start_rev+ to +end_rev+ for each path in
       # +paths+, invokes block once for each revision, and then returns
       # +nil+.
@@ -388,7 +388,7 @@ module Svn
       alias praise blame
       alias annotate blame
       alias ann annotate
-
+      
       # Returns a value of a revision property named +name+ for +uri+
       # at +rev+, as a String.
       # Both URLs and paths are available as +uri+.
@@ -397,7 +397,7 @@ module Svn
         value
       end
       alias rp revprop
-
+      
       # Returns a value of a revision property named +name+ for +uri+
       # at +rev+, as an Array such as <tt>[value, rev]</tt>.
       # Both URLs and paths are available as +uri+.
@@ -411,7 +411,7 @@ module Svn
       end
       alias rpget revprop_get
       alias rpg revprop_get
-
+      
       # Sets +value+ as a revision property named +name+ for +uri+ at +rev+.
       # Both URLs and paths are available as +uri+.
       def revprop_set(name, value, uri, rev, force=false)
@@ -419,7 +419,7 @@ module Svn
       end
       alias rpset revprop_set
       alias rps revprop_set
-
+      
       # Deletes a revision property, named +name+, for +uri+ at +rev+.
       # Both URLs and paths are available as +uri+.
       def revprop_del(name, uri, rev, force=false)
@@ -449,7 +449,7 @@ module Svn
         Client.export3(from, to, rev, peg_rev, force,
                        ignore_externals, recurse, native_eol, self)
       end
-
+      
       def ls(path_or_uri, rev=nil, peg_rev=nil, recurse=false)
         rev ||= URI(path_or_uri).scheme ? "HEAD" : "BASE"
         peg_rev ||= rev
@@ -472,7 +472,7 @@ module Svn
       def switch(path, uri, rev=nil, recurse=true)
         Client.switch(path, uri, rev, recurse, self)
       end
-
+      
       def add_simple_provider
         add_provider(Core.auth_get_simple_provider)
       end
@@ -482,13 +482,13 @@ module Svn
           add_provider(Core.auth_get_windows_simple_provider)
         end
       end
-
+      
       if Core.respond_to?(:auth_get_keychain_simple_provider)
         def add_keychain_simple_provider
           add_provider(Core.auth_get_keychain_simple_provider)
         end
       end
-
+      
       def add_username_provider
         add_provider(Core.auth_get_username_provider)
       end
@@ -516,25 +516,25 @@ module Svn
         klass = Core::AuthCredSimple
         add_prompt_provider("simple", args, prompt, klass)
       end
-
+      
       def add_username_prompt_provider(retry_limit, prompt=Proc.new)
         args = [retry_limit]
         klass = Core::AuthCredUsername
         add_prompt_provider("username", args, prompt, klass)
       end
-
+      
       def add_ssl_server_trust_prompt_provider(prompt=Proc.new)
         args = []
         klass = Core::AuthCredSSLServerTrust
         add_prompt_provider("ssl_server_trust", args, prompt, klass)
       end
-
+      
       def add_ssl_client_cert_prompt_provider(retry_limit, prompt=Proc.new)
         args = [retry_limit]
         klass = Core::AuthCredSSLClientCert
         add_prompt_provider("ssl_client_cert", args, prompt, klass)
       end
-
+      
       def add_ssl_client_cert_pw_prompt_provider(retry_limit, prompt=Proc.new)
         args = [retry_limit]
         klass = Core::AuthCredSSLClientCertPw
@@ -544,11 +544,11 @@ module Svn
       def set_log_msg_func(callback=Proc.new)
         @log_msg_baton = Client.set_log_msg_func3(self, callback)
       end
-
+      
       def set_notify_func(callback=Proc.new)
         @notify_baton = Client.set_notify_func2(self, callback)
       end
-
+      
       def set_cancel_func(callback=Proc.new)
         @cancel_baton = Client.set_cancel_func(self, callback)
       end
@@ -575,7 +575,7 @@ module Svn
         private "#{type}_func2", "#{type}_baton2"
         private "#{type}_func2=", "#{type}_baton2="
       end
-
+      
       def add_prompt_provider(name, args, prompt, cred_class)
         real_prompt = Proc.new do |*prompt_args|
           cred = cred_class.new
