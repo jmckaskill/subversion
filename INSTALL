@@ -42,7 +42,7 @@ I.    INTRODUCTION
 
       This document is written for people who intend to build
       Subversion from source code.  Normally, the only people who do
-      this are Subversion developers and package maintainers.
+      this are Subversion developers and package maintainers.  
 
       If neither of these labels fits you, we recommend you find an
       appropriate binary package of Subversion and install that.
@@ -1187,8 +1187,8 @@ III.  BUILDING A SUBVERSION SERVER
 
 
         ****************************************************************
-        **    IMPORTANT ISSUE ABOUT APACHE VERSIONS:  READ THIS.      **
-        **                                                            **
+        **    IMPORTANT ISSUE ABOUT APACHE VERSIONS:  READ THIS.      **     
+        **                                                            ** 
         ****************************************************************
         |                                                              |
         | First, be sure to read the APR version warning box, back in  |
@@ -1203,7 +1203,7 @@ III.  BUILDING A SUBVERSION SERVER
         | and Apache are using the same version of APR.  If you don't, |
         | things will segfault and break.                              |
         |______________________________________________________________|
-
+                                                                        
 
       If you have questions about the Apache httpd 2.0 build, please consult
       the httpd install documentation:
@@ -1477,8 +1477,8 @@ IV.   PLATFORM-SPECIFIC ISSUES
 
 V.    PROGRAMMING LANGUAGE BINDINGS (PYTHON, PERL, RUBY, JAVA)
       ========================================================
-
-      For Python, Perl and Ruby bindings, see the file
+  
+      For Python, Perl and Ruby bindings, see the file     
 
           ./subversion/bindings/swig/INSTALL
 
