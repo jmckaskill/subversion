@@ -27,7 +27,7 @@ class Time
       end
     end
   end
-
+  
   def to_apr_time
     to_i * MILLION + usec
   end
@@ -63,13 +63,13 @@ module Svn
         end
         puts "GC ran #{i} times"
       end
-
+      
       # We don't need to call apr_termintae because pools
       # are destroyed by ruby's GC.
       # Svn::Core.apr_terminate
     end
     nls_init
-
+    
     class << self
       alias binary_mime_type? mime_type_is_binary
     end
@@ -77,14 +77,14 @@ module Svn
 
     DEFAULT_CHARSET = default_charset
     LOCALE_CHARSET = locale_charset
-
+    
     AuthCredSSLClientCert = AuthCredSslClientCert
     AuthCredSSLClientCertPw = AuthCredSslClientCertPw
     AuthCredSSLServerTrust = AuthCredSslServerTrust
-
-
+    
+    
     Pool = Svn::Ext::Core::Apr_pool_wrapper_t
-
+    
     class Pool
       class << self
         def number_of_pools
@@ -108,7 +108,7 @@ module Svn
       def write(data)
         Core.stream_write(self, data)
       end
-
+      
       def read(len=nil)
         if len.nil?
           read_all
@@ -122,7 +122,7 @@ module Svn
           buf
         end
       end
-
+      
       def close
         Core.stream_close(self)
       end
@@ -130,12 +130,12 @@ module Svn
       def copy(other)
         Core.stream_copy(self, other)
       end
-
+      
       private
       def _read(size)
         Core.stream_read(self, size)
       end
-
+      
       def read_all
         buf = ""
         while chunk = _read(CHUNK_SIZE)
@@ -178,7 +178,7 @@ module Svn
         end
       end
     end
-
+    
 
     class AuthProviderObject
       class << self
@@ -215,7 +215,7 @@ module Svn
           diff
         end
       end
-
+      
       def unified(orig_label, mod_label, header_encoding=nil)
         header_encoding ||= Svn::Core.locale_charset
         output = StringIO.new
@@ -287,7 +287,7 @@ module Svn
       def to_a
         [major, minor, patch, tag]
       end
-
+      
       def to_s
         "#{major}.#{minor}.#{patch}#{tag}"
       end
@@ -304,7 +304,7 @@ module Svn
     end
 
     Config = SWIG::TYPE_p_svn_config_t
-
+    
     class Config
       class << self
         def config(path)
@@ -336,7 +336,7 @@ module Svn
       def get(section, option, default=nil)
         Core.config_get(self, section, option, default)
       end
-
+      
       def get_bool(section, option, default)
         Core.config_get_bool(self, section, option, default)
       end
@@ -344,7 +344,7 @@ module Svn
       def set(section, option, value)
         Core.config_set(self, section, option, value)
       end
-
+      
       def set_bool(section, option, value)
         Core.config_set_bool(self, section, option, value)
       end
@@ -409,7 +409,7 @@ module Svn
           info
         end
       end
-
+      
       alias _date date
       def date
         __date = _date
