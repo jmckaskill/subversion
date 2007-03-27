@@ -214,7 +214,7 @@ public class SVNClientSynchronized implements SVNClientInterface
      * @param onServer  Request status information from the server.
      * @return  the subversion status of the file.
      */
-    public Status singleStatus(String path, boolean onServer)
+    public Status singleStatus(String path, boolean onServer) 
             throws ClientException
     {
         synchronized(clazz)
@@ -1590,7 +1590,7 @@ public class SVNClientSynchronized implements SVNClientInterface
      */
     public void streamFileContent(String path, Revision revision,
                                   Revision pegRevision, int bufferSize,
-                                  OutputStream stream)
+                                  OutputStream stream) 
         throws ClientException
     {
         synchronized(clazz)
@@ -1883,7 +1883,7 @@ public class SVNClientSynchronized implements SVNClientInterface
             return worker.info2(pathOrUrl, revision, pegRevision, recurse);
         }
     }
-
+    
     /**
      *  Return the URL a given path or URL was copied from
      * @param path  path of the item
