@@ -122,7 +122,7 @@ public class BasicTests extends SVNTests
         OneTest thisTest = new OneTest();
 
         // Make a whole slew of changes to a WC:
-        //
+        // 
         //  (root)               r7 - prop change
         //  iota
         //  A
@@ -398,7 +398,7 @@ public class BasicTests extends SVNTests
         // -----  to rev 1 so it's out of date
         thisTest.checkStatus();
 
-        assertEquals("wrong revision from update",
+        assertEquals("wrong revision from update", 
                      client.update(thisTest.getWCPath(),
                                    Revision.getInstance(1), true),
                      1);
@@ -585,7 +585,7 @@ public class BasicTests extends SVNTests
         String itemPath = thisTest.getWCPath() + "/iota";
 
         client.propertySet(itemPath, "abc", "def", false);
-        PropertyData[] properties =
+        PropertyData[] properties = 
             client.properties(itemPath);
 
         PropertyData prop = properties[0];
@@ -1695,7 +1695,7 @@ public class BasicTests extends SVNTests
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         client.streamFileContent(thisTest.getWCPath() + "/A/mu", null, null,
                                  100, baos);
-
+        
         byte[] content = baos.toByteArray();
         byte[] testContent = thisTest.getWc().getItemContent("A/mu").getBytes();
 
@@ -1860,7 +1860,7 @@ public class BasicTests extends SVNTests
         // create the working copy
         OneTest thisTest = new OneTest();
         assertEquals("wrong version info","1",
-                client.getVersionInfo(thisTest.getWCPath(), null, false));
+                client.getVersionInfo(thisTest.getWCPath(), null, false));        
     }
 
     /**
@@ -1913,7 +1913,7 @@ public class BasicTests extends SVNTests
     }
 
     /**
-     * test the baisc SVNClient.info2 functionality
+     * test the baisc SVNClient.info2 functionality 
      * @throws Throwable
      * @since 1.2
      */
@@ -1967,7 +1967,7 @@ public class BasicTests extends SVNTests
     {
         // build the test setup
         OneTest thisTest = new OneTest();
-
+        
         // create branches directory in the repository (r2)
         addExpectedCommitItem(null, thisTest.getUrl(), "branches",
                               NodeKind.none, CommitItemStateFlags.Add);
@@ -2333,7 +2333,7 @@ public class BasicTests extends SVNTests
         }
 
         // Attempt to update backup WC with "--force"
-        assertEquals("wrong revision from update",
+        assertEquals("wrong revision from update", 
                      client.update(backupTest.getWCPath(),
                                    null, true, false, true), 2);
 
