@@ -28,8 +28,8 @@ import java.util.StringTokenizer;
 
 /**
  * Merge history
- *
- *
+ * 
+ * 
  * @since 1.5
  */
 public class MergeInfo
@@ -151,7 +151,7 @@ public class MergeInfo
     /**
      * Parses a given line of the merge info property. Example:
      * /trunk:1-100,104,108,110-115
-     *
+     * 
      * @param line a line of merge info
      */
     private void parseMergeInfoLine(String line)
@@ -169,7 +169,7 @@ public class MergeInfo
     /**
      * Parses the revisions in a merge info line into RevisionRange objects and
      * adds each of them to the internal Map Example: 1-100,104,108,110-115
-     *
+     * 
      * @param path the merge source path
      * @param revisions the revision info
      */
