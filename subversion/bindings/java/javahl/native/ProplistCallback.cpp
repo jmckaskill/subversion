@@ -35,7 +35,7 @@ ProplistCallback::ProplistCallback(jobject jcallback)
  */
 ProplistCallback::~ProplistCallback()
 {
-    // the m_callback does not need to be destroyed, because it is the passed
+    // the m_callback does not need to be destroyed, because it is the passed 
     // in parameter to the java SVNClient.blame method.
 }
 /**
@@ -52,7 +52,7 @@ svn_error_t* ProplistCallback::callback(svn_stringbuf_t *path,
 
     static jmethodID mid = 0; // the method id will not change during
                               // the time this library is loaded, so
-                              // it can be cached.
+                              // it can be cached. 
     if (mid == 0)
     {
         jclass clazz = env->FindClass(JAVA_PACKAGE"/ProplistCallback");
@@ -60,7 +60,7 @@ svn_error_t* ProplistCallback::callback(svn_stringbuf_t *path,
         {
             return SVN_NO_ERROR;
         }
-        mid = env->GetMethodID(clazz, "singlePath",
+        mid = env->GetMethodID(clazz, "singlePath", 
             "(Ljava/lang/String;Ljava/util/Map;)V");
         if (JNIUtil::isJavaExceptionThrown() || mid == 0)
         {
@@ -116,7 +116,7 @@ jobject ProplistCallback::makeMapFromHash(apr_hash_t *prop_hash,
     {
         return NULL;
     }
-
+    
     static jmethodID init_mid = 0;
     if (init_mid == 0)
     {
