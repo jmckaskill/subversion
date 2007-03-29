@@ -22,7 +22,7 @@ module Svn
       alias_method "_#{target}", target
     end
     @@alias_targets = nil
-
+    
     module_function
     def locked?(path)
       Wc.locked(path)
@@ -44,11 +44,11 @@ module Svn
     def normal_prop?(name)
       Wc.is_normal_prop(name)
     end
-
+    
     def wc_prop?(name)
       Wc.is_wc_prop(name)
     end
-
+    
     def entry_prop?(name)
       Wc.is_entry_prop(name)
     end
@@ -60,7 +60,7 @@ module Svn
     def default_ignores(config)
       Wc.get_default_ignores(config)
     end
-
+    
     def cleanup(path, diff3_cmd=nil, cancel_func=nil)
       Wc.cleanup2(path, diff3_cmd, cancel_func)
     end
@@ -107,7 +107,7 @@ module Svn
         private
         def _open(name, *args, &block)
           adm = Wc.__send__(name, *args, &block)
-
+          
           if block_given?
             begin
               yield adm
@@ -131,7 +131,7 @@ module Svn
       def retrieve(path)
         Wc.adm_retrieve(self, path)
       end
-
+        
       def probe_retrieve(path)
         Wc.adm_probe_retrieve(self, path)
       end
@@ -159,7 +159,7 @@ module Svn
       def text_modified?(filename, force=false)
         Wc.text_modified_p(filename, force, self)
       end
-
+      
       def props_modified?(path)
         Wc.props_modified_p(path, self)
       end
@@ -187,7 +187,7 @@ module Svn
       def maybe_set_repos_root(path, repos)
         Wc.maybe_set_repos_root(self, path, repos)
       end
-
+      
       def status(path)
         Wc.status2(path, self)
       end
@@ -449,7 +449,7 @@ module Svn
     end
 
     TraversalInfo = SWIG::TYPE_p_svn_wc_traversal_info_t
-
+    
     class TraversalInfo
       class << self
         def new
@@ -469,7 +469,7 @@ module Svn
           Wc.entry(path, adm_access, show_hidden)
         end
       end
-
+      
       def dup
         Wc.entry_dup(self, Svn::Core::Pool.new)
       end
@@ -485,11 +485,11 @@ module Svn
       def text_conflicted?(dir_path)
         conflicted(dir_path)[0]
       end
-
+      
       def prop_conflicted?(dir_path)
         conflicted(dir_path)[1]
       end
-
+      
       def dir?
         kind == Core::NODE_DIR
       end
@@ -506,12 +506,12 @@ module Svn
         schedule == SCHEDULE_NORMAL
       end
     end
-
+    
     class Status2
       def dup
         Wc.dup_status2(self, Core::Pool.new)
       end
-
+      
       def text_added?
         text_status == STATUS_ADDED
       end
@@ -531,7 +531,7 @@ module Svn
       def dup
         Wc.dup_notify(self, Core::Pool.new)
       end
-
+      
       def commit_added?
         action == NOTIFY_COMMIT_ADDED
       end
