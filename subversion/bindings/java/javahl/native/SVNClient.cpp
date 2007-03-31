@@ -2386,7 +2386,7 @@ svn_error_t *SVNClient::infoReceiver(void *baton,
     const svn_wc_entry_t *entry;
     const char *full_path;
 
-    // If we've cached the wcPath, it means that
+    // If we've cached the wcPath, it means that 
     if (infoBaton->wcPath != NULL)
     {
         full_path = svn_path_join(infoBaton->wcPath, path, pool);
