@@ -254,7 +254,7 @@ svn_client_status3(svn_revnum_t *result_rev,
 
   /* If we want to know about out-of-dateness, we crawl the working copy and
      let the RA layer drive the editor for real.  Otherwise, we just close the
-     edit.  :-) */
+     edit.  :-) */ 
   if (update)
     {
       svn_ra_session_t *ra_session;
@@ -275,7 +275,7 @@ svn_client_status3(svn_revnum_t *result_rev,
       /* Open a repository session to the URL. */
       SVN_ERR(svn_client__open_ra_session_internal(&ra_session, URL, anchor,
                                                    anchor_access, NULL,
-                                                   FALSE, TRUE,
+                                                   FALSE, TRUE, 
                                                    ctx, pool));
 
       /* Verify that URL exists in HEAD.  If it doesn't, this can save
@@ -300,7 +300,7 @@ svn_client_status3(svn_revnum_t *result_rev,
         {
           svn_revnum_t revnum;
           report_baton_t rb;
-
+            
           if (revision->kind == svn_opt_revision_head)
             {
               /* Cause the revision number to be omitted from the request,
@@ -317,7 +317,7 @@ svn_client_status3(svn_revnum_t *result_rev,
           /* Do the deed.  Let the RA layer drive the status editor. */
           SVN_ERR(svn_ra_do_status2(ra_session, &rb.wrapped_reporter,
                                     &rb.wrapped_report_baton,
-                                    target, revnum, depth, editor,
+                                    target, revnum, depth, editor, 
                                     edit_baton, pool));
 
           /* Init the report baton. */
@@ -325,7 +325,7 @@ svn_client_status3(svn_revnum_t *result_rev,
           rb.set_locks_baton = set_locks_baton;
           rb.ctx = ctx;
           rb.pool = pool;
-
+          
           /* Drive the reporter structure, describing the revisions
              within PATH.  When we call reporter->finish_report,
              EDITOR will be driven to describe differences between our
@@ -404,7 +404,7 @@ struct old_status_func_cb_baton
 
 /* Help svn_client_status() accept an old-style status func and baton,
    by wrapping them before passing along to svn_client_status2().
-
+   
    This implements the 'svn_wc_status_func2_t' function type. */
 static void old_status_func_cb(void *baton,
                                const char *path,
@@ -412,7 +412,7 @@ static void old_status_func_cb(void *baton,
 {
   struct old_status_func_cb_baton *b = baton;
   svn_wc_status_t *stat = (svn_wc_status_t *) status;
-
+  
   b->original_func(b->original_baton, path, stat);
 }
 
@@ -434,7 +434,7 @@ svn_client_status(svn_revnum_t *result_rev,
   b->original_func = status_func;
   b->original_baton = status_baton;
 
-  return svn_client_status2(result_rev, path, revision,
+  return svn_client_status2(result_rev, path, revision, 
                             old_status_func_cb, b,
                             recurse, get_all, update, no_ignore, FALSE,
                             ctx, pool);
