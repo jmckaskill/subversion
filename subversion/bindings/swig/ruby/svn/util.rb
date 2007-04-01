@@ -28,7 +28,7 @@ module Svn
         "#{x[0,1].upcase}#{x[1..-1].downcase}"
       end.join("")
     end
-
+      
     def to_ruby_const_name(name)
       name.upcase
     end
