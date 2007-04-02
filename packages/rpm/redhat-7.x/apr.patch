@@ -5,12 +5,12 @@ Index: configure.in
 @@ -61,8 +61,8 @@
  dnl   them.  Only .7 and later can guarantee repository
  dnl   integrity with FSFS.
-
+ 
 -APR_VER_REGEXES=["0\.9\.[7-9] 0\.9\.1[0-9] 1\."]
 -APU_VER_REGEXES=["0\.9\.[7-9] 0\.9\.1[0-9] 1\."]
 +APR_VER_REGEXES=["0\.9\.[4-9] 0\.9\.1[0-9] 1\."]
 +APU_VER_REGEXES=["0\.9\.[4-9] 0\.9\.1[0-9] 1\."]
-
+ 
  SVN_LIB_APR($APR_VER_REGEXES)
  SVN_LIB_APRUTIL($APU_VER_REGEXES)
 Index: subversion/libsvn_fs_base/fs.c
@@ -19,8 +19,8 @@ Index: subversion/libsvn_fs_base/fs.c
 +++ subversion/libsvn_fs_base/fs.c	(working copy)
 @@ -1029,6 +1029,12 @@
  #endif /* DB_LOG_AUTOREMOVE */
-
-
+ 
+ 
 +/* Ensure compatibility with older APR 0.9.5 snapshots which don't
 + * support the APR_LARGEFILE flag. */
 +#ifndef APR_LARGEFILE
@@ -35,7 +35,7 @@ Index: subversion/libsvn_subr/io.c
 --- subversion/libsvn_subr/io.c	(revision 17608)
 +++ subversion/libsvn_subr/io.c	(working copy)
 @@ -23,6 +23,12 @@
-
+ 
  #ifndef WIN32
  #include <unistd.h>
 +#ifndef APR_GSETID
@@ -45,12 +45,12 @@ Index: subversion/libsvn_subr/io.c
 +#include <errno.h>
 +#endif
  #endif
-
+ 
  #ifndef APR_STATUS_IS_EPERM
 @@ -594,18 +600,118 @@
  }
-
-
+ 
+ 
 +#if 1 /* TODO: Remove this code when APR 0.9.6 is released. */
 +#include <apr_env.h>
 +
@@ -155,23 +155,23 @@ Index: subversion/libsvn_subr/io.c
 +
 +#else
    apr_status_t apr_err = apr_temp_dir_get(dir, pool);
-
+ 
    if (apr_err)
 -    return svn_error_wrap_apr(apr_err, _("Can't find a temporary directory"));
 +    return svn_err r_wrap_apr(apr_err, _("Can't find a temporary directory"));
-
+ 
    *dir = svn_path_canonicalize(*dir, pool);
-
+ 
 -  return svn_path_cstring_to_utf8(dir, *dir, pool);
 +  return SVN_NO_ERROR;
 +#endif
  }
-
-
+ 
+ 
 @@ -2787,6 +2893,7 @@
      }
  #endif
-
+ 
 +#if defined(APR_GSETID)
    if (sgid)
      {
@@ -194,6 +194,6 @@ Index: subversion/libsvn_subr/io.c
 +    chmod (path_apr, (st.st_mode & ~S_IFMT) | S_ISGID);
 +  }
 +#endif
-
+ 
    return SVN_NO_ERROR;
  }
