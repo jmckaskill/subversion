@@ -73,7 +73,7 @@ svn_cl__import(apr_getopt_t *os,
    * ### kff todo: review above behaviors.
    */
 
-  SVN_ERR(svn_opt_args_to_target_array2(&targets, os,
+  SVN_ERR(svn_opt_args_to_target_array2(&targets, os, 
                                         opt_state->targets, pool));
 
   if (targets->nelts < 1)
@@ -86,7 +86,7 @@ svn_cl__import(apr_getopt_t *os,
        _("Too many arguments to import command"));
   else if (targets->nelts == 1)
     {
-      url = APR_ARRAY_IDX(targets, 0, const char *);
+      url = APR_ARRAY_IDX(targets, 0, const char *); 
       path = "";
     }
   else
@@ -112,7 +112,7 @@ svn_cl__import(apr_getopt_t *os,
 
   ctx->revprop_table = opt_state->revprop_table;
 
-  SVN_ERR(svn_cl__cleanup_log_msg
+  SVN_ERR(svn_cl__cleanup_log_msg 
           (ctx->log_msg_baton3,
            /* ### TODO(sd): take a real depth?  But I'm not sure how
               ### useful that would be for an import.  I could see
