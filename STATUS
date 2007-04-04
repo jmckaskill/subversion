@@ -82,8 +82,8 @@ Candidate changes:
       commands without this patch.
     Votes:
       +1: jszakmeister
-
-Approved changes (further review is welcome, but not required):
+                                         
+Approved changes (further review is welcome, but not required):  
 
   * r24073, r24126, r24128
     Branch: 1.1.x-issue-2751
