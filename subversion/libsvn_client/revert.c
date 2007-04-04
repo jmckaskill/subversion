@@ -84,7 +84,7 @@ revert (const char *path,
   /* Look for run-time config variables that affect behavior. */
   {
     svn_config_t *cfg = ctx->config
-      ? apr_hash_get (ctx->config, SVN_CONFIG_CATEGORY_CONFIG,
+      ? apr_hash_get (ctx->config, SVN_CONFIG_CATEGORY_CONFIG,  
                       APR_HASH_KEY_STRING)
       : NULL;
 
@@ -146,15 +146,15 @@ svn_client_revert (const apr_array_header_t *paths,
         }
 
       /* See if we've been asked to cancel this operation. */
-      if ((ctx->cancel_func)
+      if ((ctx->cancel_func) 
           && ((err = ctx->cancel_func (ctx->cancel_baton))))
         goto errorful;
 
       svn_pool_clear (subpool);
     }
-
+  
   svn_pool_destroy (subpool);
-
+  
  errorful:
 
   /* Sleep to ensure timestamp integrity. */

@@ -17,13 +17,13 @@
 #-------------------------------------------------------------------------------
 # FUNCTION   cmn_IniDir
 # DOES       Returns the directory where the initialization file is. The
-#            dir is application directory of the current user
+#            dir is application directory of the current user 
 sub cmn_IniDir
 {
     my $DirAppData='';
-
+  
     # The registry is the safe way of retrieving the Application data directory,
-    # but we let the environment variable %APPDATA% have the priority. This
+    # but we let the environment variable %APPDATA% have the priority. This 
     # should work on every Win32 platform.
     if ($ENV{'APPDATA'})
       {
@@ -47,12 +47,12 @@ sub cmn_IniDir
 sub cmn_RegGetValue
 {
     use Win32::TieRegistry;
-
+  
     my ($Key, $Value) = @_;
-
+  
     # Replace back slashes with slashes
     $Key =~ s/\\/\//g;
-
+  
     # Do some filtering if the caller includes HKLM in stead of HKEY_LOCAL_MACHINE
     # or the Win32::TieRegistry shortcut LMachine and so on
     $Key =~ s/^HKCC/CConfig/;
@@ -62,7 +62,7 @@ sub cmn_RegGetValue
     $Key =~ s/^HKLM/LMachine/;
     $Key =~ s/^HKPD/PerfData/;
     $Key =~ s/^HKUS/Users/;
-
+  
     $Registry->Delimiter("/");
 
     return $Registry -> {"$Key//$Value"};

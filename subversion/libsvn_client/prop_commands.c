@@ -58,15 +58,15 @@ is_valid_prop_name (const char *name)
 
 
 /* Check whether NAME is a revision property name.
- *
+ * 
  * Return TRUE if it is.
- * Return FALSE if it is not.
- */
+ * Return FALSE if it is not.  
+ */ 
 static svn_boolean_t
 is_revision_prop_name (const char *name)
 {
   apr_size_t i;
-  const char *revision_props[] =
+  const char *revision_props[] = 
     {
       SVN_PROP_REVISION_ALL_PROPS
     };
@@ -88,7 +88,7 @@ struct propset_walk_baton
 };
 
 /* An entries-walk callback for svn_client_propset.
- *
+ * 
  * For the path given by PATH and ENTRY,
  * set the property named wb->PROPNAME to the value wb->PROPVAL,
  * where "wb" is the WALK_BATON of type "struct propset_walk_baton *".
@@ -165,7 +165,7 @@ svn_client_propset (const char *propname,
   SVN_ERR (svn_wc_entry (&node, target, adm_access, FALSE, pool));
   if (!node)
     return svn_error_createf (SVN_ERR_UNVERSIONED_RESOURCE, NULL,
-                              "'%s' is not under version control",
+                              "'%s' is not under version control", 
                               target);
 
   if (recurse && node->kind == svn_node_dir)
@@ -205,8 +205,8 @@ svn_client_revprop_set (const char *propname,
   svn_ra_plugin_t *ra_lib;
 
   if ((strcmp (propname, SVN_PROP_REVISION_AUTHOR) == 0)
-      && propval
-      && strchr (propval->data, '\n') != NULL
+      && propval 
+      && strchr (propval->data, '\n') != NULL 
       && (! force))
     return svn_error_create (SVN_ERR_CLIENT_REVISION_AUTHOR_CONTAINS_NEWLINE,
                              NULL, "Value will not be set unless forced");
@@ -237,7 +237,7 @@ svn_client_revprop_set (const char *propname,
 
 
 /* Set *PROPS to the pristine (base) properties at PATH, if PRISTINE
- * is true, or else the working value if PRISTINE is false.
+ * is true, or else the working value if PRISTINE is false.  
  *
  * The keys of *PROPS will be 'const char *' property names, and the
  * values 'const svn_string_t *' property values.  Allocate *PROPS
@@ -254,7 +254,7 @@ pristine_or_working_props (apr_hash_t **props,
     SVN_ERR (svn_wc_get_prop_diffs (NULL, props, path, adm_access, pool));
   else
     SVN_ERR (svn_wc_prop_list (props, path, adm_access, pool));
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -274,7 +274,7 @@ pristine_or_working_propval (const svn_string_t **propval,
   if (pristine)
     {
       apr_hash_t *pristine_props;
-
+      
       SVN_ERR (svn_wc_get_prop_diffs (NULL, &pristine_props, path, adm_access,
                                       pool));
       *propval = apr_hash_get (pristine_props, propname, APR_HASH_KEY_STRING);
@@ -283,7 +283,7 @@ pristine_or_working_propval (const svn_string_t **propval,
     {
       SVN_ERR (svn_wc_prop_get (propval, propname, path, adm_access, pool));
     }
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -298,7 +298,7 @@ struct propget_walk_baton
 };
 
 /* An entries-walk callback for svn_client_propget.
- *
+ * 
  * For the path given by PATH and ENTRY,
  * populate wb->PROPS with the values of property wb->PROPNAME,
  * where "wb" is the WALK_BATON of type "struct propget_walk_baton *".
@@ -369,18 +369,18 @@ maybe_convert_to_url (const char **new_target,
       svn_node_kind_t kind;
       const char *pdir;
       const svn_wc_entry_t *entry;
-
+      
       SVN_ERR (svn_io_check_path (target, &kind, pool));
       if (kind == svn_node_file)
         svn_path_split (target, &pdir, NULL, pool);
       else
         pdir = target;
-
+      
       SVN_ERR (svn_wc_adm_open (&adm_access, NULL, pdir, FALSE, FALSE, pool));
       SVN_ERR (svn_wc_entry (&entry, target, adm_access, FALSE, pool));
       if (! entry)
         return svn_error_createf (SVN_ERR_UNVERSIONED_RESOURCE, NULL,
-                                  "'%s' is not under version control",
+                                  "'%s' is not under version control", 
                                   target);
       *new_target = entry->url;
     }
@@ -400,7 +400,7 @@ maybe_convert_to_url (const char **new_target,
  * If RECURSE is true and KIND is svn_node_dir, then recurse.
  *
  * KIND is the kind of the node at "TARGET_PREFIX/TARGET_RELATIVE".
- * Yes, caller passes this; it makes the recursion more efficient :-).
+ * Yes, caller passes this; it makes the recursion more efficient :-). 
  *
  * Allocate the keys and values in POOL.
  */
@@ -418,7 +418,7 @@ remote_propget (apr_hash_t *props,
 {
   apr_hash_t *dirents;
   apr_hash_t *prop_hash;
-
+  
   if (kind == svn_node_dir)
     {
       SVN_ERR (ra_lib->get_dir (session, target_relative, revnum,
@@ -437,13 +437,13 @@ remote_propget (apr_hash_t *props,
          "Unknown node kind for '%s'",
          svn_path_join (target_prefix, target_relative, pool));
     }
-
+  
   apr_hash_set (props,
                 svn_path_join (target_prefix, target_relative, pool),
                 APR_HASH_KEY_STRING,
                 apr_hash_get (prop_hash, propname, APR_HASH_KEY_STRING));
-
-
+  
+  
   if (recurse && (kind == svn_node_dir) && (apr_hash_count (dirents) > 0))
     {
       apr_hash_index_t *hi;
@@ -567,7 +567,7 @@ svn_client_propget (apr_hash_t **props,
       if (! node)
         return svn_error_createf (SVN_ERR_UNVERSIONED_RESOURCE, NULL,
                                   "'%s' is not under version control", target);
-
+      
       SVN_ERR (svn_client__get_revision_number
                (&revnum, NULL, NULL, revision, target, pool));
 
@@ -599,13 +599,13 @@ svn_client_propget (apr_hash_t **props,
       else
         {
           const svn_string_t *propval;
-
+          
           SVN_ERR (pristine_or_working_propval (&propval, propname, target,
                                                 adm_access, pristine, pool));
 
           apr_hash_set (*props, target, APR_HASH_KEY_STRING, propval);
         }
-
+      
       SVN_ERR (svn_wc_adm_close (adm_access));
     }
 
@@ -664,7 +664,7 @@ push_props_on_list (apr_array_header_t *list,
         = apr_palloc (pool, sizeof (svn_client_proplist_item_t));
       item->node_name = svn_stringbuf_create (path, pool);
       item->prop_hash = prop_hash;
-
+      
       *((svn_client_proplist_item_t **) apr_array_push (list)) = item;
     }
 }
@@ -697,7 +697,7 @@ remote_proplist (apr_array_header_t *proplist,
   apr_hash_t *dirents;
   apr_hash_t *prop_hash;
   apr_hash_index_t *hi;
-
+  
   if (kind == svn_node_dir)
     {
       SVN_ERR (ra_lib->get_dir (session, target_relative, revnum,
@@ -716,7 +716,7 @@ remote_proplist (apr_array_header_t *proplist,
          "Unknown node kind for '%s'",
          svn_path_join (target_prefix, target_relative, pool));
     }
-
+  
   /* Filter out non-regular properties, since the RA layer
      returns all kinds. */
   for (hi = apr_hash_first (pool, prop_hash);
@@ -726,18 +726,18 @@ remote_proplist (apr_array_header_t *proplist,
       const void *key;
       apr_ssize_t klen;
       svn_prop_kind_t prop_kind;
-
+      
       apr_hash_this (hi, &key, &klen, NULL);
       prop_kind = svn_property_kind (NULL, (const char *) key);
-
+      
       if (prop_kind != svn_prop_regular_kind)
         apr_hash_set (prop_hash, key, klen, NULL);
     }
-
+  
   push_props_on_list (proplist, prop_hash,
                       svn_path_join (target_prefix, target_relative, pool),
                       pool);
-
+  
   if (recurse && (kind == svn_node_dir) && (apr_hash_count (dirents) > 0))
     {
       for (hi = apr_hash_first (pool, dirents);
@@ -806,7 +806,7 @@ struct proplist_walk_baton
 };
 
 /* An entries-walk callback for svn_client_proplist.
- *
+ * 
  * For the path given by PATH and ENTRY,
  * populate wb->PROPS with a svn_client_proplist_item_t for each path,
  * where "wb" is the WALK_BATON of type "struct proplist_walk_baton *".
@@ -843,7 +843,7 @@ proplist_walk_cb (const char *path,
 /* Note: this implementation is very similar to svn_client_propget. */
 svn_error_t *
 svn_client_proplist (apr_array_header_t **props,
-                     const char *target,
+                     const char *target, 
                      const svn_opt_revision_t *revision,
                      svn_boolean_t recurse,
                      svn_client_ctx_t *ctx,
@@ -924,7 +924,7 @@ svn_client_proplist (apr_array_header_t **props,
       if (! node)
         return svn_error_createf (SVN_ERR_UNVERSIONED_RESOURCE, NULL,
                                   "'%s' is not under version control", target);
-
+      
       SVN_ERR (svn_client__get_revision_number
                (&revnum, NULL, NULL, revision, target, pool));
 
@@ -952,9 +952,9 @@ svn_client_proplist (apr_array_header_t **props,
           SVN_ERR (svn_wc_walk_entries (target, adm_access,
                                         &walk_callbacks, &wb, FALSE, pool));
         }
-      else
+      else 
         SVN_ERR (add_to_proplist (*props, target, adm_access, pristine, pool));
-
+      
       SVN_ERR (svn_wc_adm_close (adm_access));
     }
 

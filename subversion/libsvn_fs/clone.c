@@ -47,7 +47,7 @@ clone_one (svn_fs_id_t *clone_id_p,
   SVN_ERR (svn_fs__get_node_revision (&base_skel, fs, db_txn,
 				      base_path->id,
 				      pool));
-  SVN_ERR (svn_fs__create_successor (&clone_id, fs, db_txn,
+  SVN_ERR (svn_fs__create_successor (&clone_id, fs, db_txn, 
 				     base_path->id, base_skel,
 				     pool));
   if (! base_path->parent)
@@ -81,7 +81,7 @@ svn_fs__clone_path (svn_fs_id_t **clone_id_p,
   svn_fs_id_t *clone_id;
   svn_fs_id_t *parent_clone;
   const char *entry;
-
+  
   /* Are we trying to clone the root directory?  */
   if (! base_path->parent)
     {

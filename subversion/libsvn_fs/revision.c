@@ -58,7 +58,7 @@ no_such_revision (svn_fs_t *fs, svn_revnum_t v)
 static svn_error_t *
 get_revision_skel (skel_t **skel,
                    svn_fs_t *fs,
-                   svn_revnum_t v,
+                   svn_revnum_t v, 
                    apr_pool_t *pool)
 {
   db_recno_t recno;
@@ -75,7 +75,7 @@ get_revision_skel (skel_t **skel,
   svn_fs__set_dbt (&key, &recno, sizeof (recno));
 
   svn_fs__result_dbt (&value);
-  db_err = fs->revisions->get (fs->revisions, 0, /* no transaction */
+  db_err = fs->revisions->get (fs->revisions, 0, /* no transaction */ 
                                &key, &value, 0);
   if (db_err == DB_NOTFOUND)
     return no_such_revision (fs, v);
@@ -212,7 +212,7 @@ svn_fs__open_revisions (svn_fs_t *fs)
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
