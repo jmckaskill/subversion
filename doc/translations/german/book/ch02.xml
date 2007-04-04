@@ -8,8 +8,8 @@
       concepts, work our way into the specific ideas behind
       Subversion, and show some simple examples of Subversion in
 	  use.
-
-      Dieses Kapitel ist eine kurze, beiläufige Einleitung zur Subversion.
+  
+      Dieses Kapitel ist eine kurze, beiläufige Einleitung zur Subversion. 
 	  Wenn Sie neu sind im Bereich Versionskontrolle, dann ist
 	  dieses Kapitel definitiv für Sie.
 	  Wir fangen mit einer Diskussion über allgemeine Konzepte bei
@@ -17,33 +17,33 @@
 	  die hinter Subversion stehen vor und zeigen einige einfache Beispiele
       der Anwendung von Subversion.
   </para>
-
+    
   <para>Obwohl die Beispiele in diesem Kapitel Leute zeigen,
       die Ansammlungen von Quellcode teilen, bedenken
       Sie, dass Subversion jede art von Dateikansammlungen verwalten
       kann. Das ist nich auf den Bereich Programmierung begrenzt.
-
+      
 	  Even though the examples in this chapter show people sharing
       collections of program source code, keep in mind that Subversion
       can manage any sort of file collection&mdash;it's not limited to
       helping computer programmers.</para>
   </simplesect>
-
-
-  <sect1 id="svn-ch2-sect-1" >
-    <title>Das Repository</title>
-
+  
+  
+  <sect1 id="svn-ch2-sect-1" > 
+    <title>Das Repository</title>  
+    
     <para>Subversion ist ein zentralisiertes System, um Informationen
-       zu teilen. Seine Basis ist ein Repository, dass die Zentrale
-       Datenspeicherung darstellt.
-       Das Repository legt Informationen in Form eines
+       zu teilen. Seine Basis ist ein Repository, dass die Zentrale 
+       Datenspeicherung darstellt. 
+       Das Repository legt Informationen in Form eines 
        <firstterm>Dateisystem Baumes</firstterm> ab. Eine typische Hirarchie
        von Dateien und Verzeichnissen. Eine beliebige Anzahl von
        <firstterm>Clients</firstterm> verbinden sich mit dem Repository und
        lesen oder schreiben dann diese Datenen. Durch das schreiben der Daten,
        macht der Client die Informationen für die anderen Verfügbar. Durch das lesen
        erhält der Client Informationen von anderen.
-
+        
         Subversion is a centralized system for sharing information.
       At its core is a repository, which is a central store of data.
       The repository stores information in the form of a
@@ -58,7 +58,7 @@
         <title>Ein typisches Client/Server System</title>
       <graphic fileref="images/ch02dia1.png"/>
     </figure>
-
+    
     <para>Warum ist das interessant? So weit, klingt dass wie
         eine Definition eines typischen Dateiservers. Und in der Tat,
         das Repository <emphasis>ist</emphasis> eine Art von Dateiserver,
@@ -68,7 +68,7 @@
         geschrieben wurde merkt. Jede Änderung an jeder Datei und eben auch
         die Änderung am Verzeichnissbaum selbst und zusätzlich das hinzufügen, löschen
         und Umordnen von Dateien und Verzeichnissen.
-
+        
         So why is this interesting?  So far, this sounds like the
       definition of a typical file server.  And indeed, the repository
       <emphasis>is</emphasis> a kind of file server, but it's not your
@@ -78,19 +78,19 @@
       directory tree itself, such as the addition, deletion, and
       rearrangement of files and directories.</para>
 
-  <para>Wenn ein Client Daten vom Repository liest, sieht
+  <para>Wenn ein Client Daten vom Repository liest, sieht 
       er normalerweise nur die letzte Version des Dateisystembaumes.
       Der Client hat aber auch die Möglichkeit <emphasis>vorherige</emphasis>
       Zustände des Dateisystems anzusehen.
       Beispielsweise kann der Client die Frage stellen: <quote>Was beinhaltete
       das Verzeichnis letzen Mittwoch?</quote> oder <quote>Wer war
       die letzte Person, die diese Datei geändert hat und welche Änderungen
-      wurden durchgeführt?</quote> Diese Art von Fragen sind Grundlegend
+      wurden durchgeführt?</quote> Diese Art von Fragen sind Grundlegend 
       für jedes <firstterm>Versionkontrollsystem</firstterm>: Systeme,
-      die dazu geschaffen wurden jede Veränderung aufzuzeichnen und
+      die dazu geschaffen wurden jede Veränderung aufzuzeichnen und 
       zu verfolgen über die Zeit.
-
-
+          
+      
       When a client reads data from the repository, it normally
       sees only the latest version of the filesystem tree.  But the
       client also has the ability to view
@@ -107,17 +107,17 @@
 
   <sect1 id="svn-ch-2-sect-2">
       <title>Modelle der Versionierung    Versioning Models</title>
-
+    
     <sect2 id="svn-ch-2-sect-2.1">
       <title>Das Problem des gemeinsamen Datei zugriffs     The Problem of File-Sharing</title>
-
-      <para>Alle Versionskontrollsystem haben alle das gleiche
-          Fundamentale Problem zu lösen: Wie soll es ein System
+      
+      <para>Alle Versionskontrollsystem haben alle das gleiche 
+          Fundamentale Problem zu lösen: Wie soll es ein System 
           Anwendern erlauben Informationen zu Teilen, aber davon
           abzuhalten durch Zufall gegenseitig auf die Füße zu treten?
-          Es ist allzu einfach für Anwender sich durch Zufall
+          Es ist allzu einfach für Anwender sich durch Zufall 
           gegenseitig Änderungen im Repository zu überschreiben.
-
+          
           All version control systems have to solve the same
         fundamental problem: how will the system allow users to share
         information, but prevent them from accidentally stepping on
@@ -125,8 +125,8 @@
         accidentally overwrite each other's changes in the
         repository.</para>
 
-    <para>Betrachten wird das folgende Szenario: Angenommen, wir
-        habe zwei Kollegen, Harry und Sally. Sie haben sich beide
+    <para>Betrachten wird das folgende Szenario: Angenommen, wir 
+        habe zwei Kollegen, Harry und Sally. Sie haben sich beide 
         entschieden die gleiche Repository Datei zu gleichen Zeit
         zu bearbeiten. Wenn Harry seine Änderungen nun zuerst in das
         Repository speichert, dann ist es möglich (einige Momente
@@ -135,19 +135,19 @@
         Während Harrys Version der Datei nicht für immer verloren ist
         (das System erinnert sich ja an jede Änderung), aber jede Änderung
         die Harry gemacht hat ist nicht in Sallys neuer Version zu sehen.
-        Das liegt daran, dass Sally nie die Änderungen von Harry zu Anfang
+        Das liegt daran, dass Sally nie die Änderungen von Harry zu Anfang 
         gesehen hat. Harrys Arbiets ist doch gewissermaßen verloren, oder
         wenigstens nicht in der letzten Version der Datei möglichweise
         durch Zufall. Das ist definitiv eine Situations, die vermieden
         werden muß.
 
-
+        
         Consider this scenario: suppose we have two co-workers,
         Harry and Sally.  They each decide to edit the same repository
         file at the same time.  If Harry saves his changes to the
         repository first, then it's possible that (a few moments
         later) Sally could accidentally overwrite them with her own
-        new version of the file.
+        new version of the file.  
         While Harry's version of the file
         won't be lost forever (because the system remembers every
         change), any changes Harry made <emphasis>won't</emphasis> be
@@ -163,26 +163,26 @@
       </figure>
 
       </sect2>
-
+    
     <sect2 id="svn-ch-2-sect-2.2">
         <title>Die Lock-Modify-Unlock Lösung ???     The Lock-Modify-Unlock Solution</title>
-
-        <para>Viele Versionskontrollsysteme verwenden ein
-            <firstterm>Sperren-Ändern-Entsperren<footnote>Lock-Modify-Unlock</footnote></firstterm> Modell um
-            das Problem auf diese Weise zu behandeln, wobei das eine sehr
-            einfache Lösungsmethode ist. In solchen Systemen erlaubt
+      
+        <para>Viele Versionskontrollsysteme verwenden ein 
+            <firstterm>Sperren-Ändern-Entsperren<footnote>Lock-Modify-Unlock</footnote></firstterm> Modell um 
+            das Problem auf diese Weise zu behandeln, wobei das eine sehr 
+            einfache Lösungsmethode ist. In solchen Systemen erlaubt 
             das Repository genau einer Person eine Datei zur gleichen
             Zeit zu ändern. Zuerst müsste Harry die Datei <quote>sperren</quote>
             bevor er Änderungen an der Datei durchführen könnte. Das Sperren
             einer Datei ist ein wenig wie die Ausleihe eines Buches aus
             einer Bibliothek. Wenn Harry die Datei gesperrt hat, dann kann
             Sally keinerlei Änderungen an der Datei durchführen. Wenn Sie versucht
-            die Datei zu Sperren, wird das Repository das verbieten. Alles
+            die Datei zu Sperren, wird das Repository das verbieten. Alles 
             was Sie machen kann ist die Datei lesen und darauf warten, dass
             Harry mit seinen Änderungen fertig wird und die Sperre wieder aufhebt.
             Wenn Harry die Sperry wieder freigegeben hat ist nun Sally an der
             Reihe zu Sperren und Änderungen an der Datei zu machen.
-
+            
             Many version control systems use a
         <firstterm>lock-modify-unlock</firstterm> model to address
         this problem, which is a very simple solution.  In such a
@@ -196,16 +196,16 @@
         to finish his changes and release his lock.  After Harry
         unlocks the file, his turn is over, and now Sally can take her
         turn by locking and editing.</para>
-
+      
       <figure id="svn-ch2-dia3">
         <title>Die Lock-Modify-Unlock Lösung ???     The Lock-Modify-Unlock Solution</title>
         <graphic fileref="images/ch02dia3.png"/>
       </figure>
-
-      <para>Das Problem mit der Vorgehensweise ist, dass es
-          ein bisschen Einschränkend ist und oft zu einer Hürde
+      
+      <para>Das Problem mit der Vorgehensweise ist, dass es 
+          ein bisschen Einschränkend ist und oft zu einer Hürde 
           für die Anwender wird.
-
+          
           The problem with the lock-modify-unlock model is that it's
         a bit restrictive, and often becomes a roadblock for
         users:</para>
@@ -222,30 +222,30 @@
             Und dann geht Harry in Urlaub. Nun muß Sally zum Administrator
             rennen, um Harrys Sperre aufheben zu lassen. Das führt zu
             einer Menge unnötiger Verzögerungen und verschwendeter Zeit.
-
-
+            
+            
             Sometimes Harry will lock a file and then forget about it.
             Meanwhile, because Sally is still waiting to edit the file,
             her hands are tied.  And then Harry goes on vacation.  Now
             Sally has to get an administrator to release Harry's lock.
             The situation ends up causing a lot of unnecessary delay
             and wasted time.</para></listitem>
-
+        
         <listitem><para>
-                <emphasis>Sperren für zu unnötiger Anordnung der Arbeit ???
+                <emphasis>Sperren für zu unnötiger Anordnung der Arbeit ??? 
                     der Reihe nach ???
-
+                    
                     Locking may cause unnecessary serialization.</emphasis>
 
             Was ist wenn Harry am Anfang eine Text Datei änderungen macht,
             und Sally möchte einfach am Ende der gleichen Datei Änderungen machen?
             Diese Änderungen überlappen sich überhaupt nicht. Sie könnten einfach
             die Datei gleichzeitig bearbeiten und es würde kein großer Nachteil
-            würde entstehen, vorausgesetzt dass die Änderungen genau
-            zusammengeführt<footnote>merged</footnote> würden.
-            Es besteht keine Notwendigkeit für die Beiden abwechselnd zu
+            würde entstehen, vorausgesetzt dass die Änderungen genau 
+            zusammengeführt<footnote>merged</footnote> würden. 
+            Es besteht keine Notwendigkeit für die Beiden abwechselnd zu 
             Arbeiten in dieser Situtaion.
-
+            
 
             What if Harry is editing the beginning of a text file,
             and Sally simply wants to edit the end of the same file?
@@ -254,10 +254,10 @@
             come, assuming the changes were properly merged together.
             There's no need for them to take turns in this
             situation.</para></listitem>
-
+    
         <listitem><para>
                 <emphasis>Sperren kann zu einem falschen Gefühl von Sicherheit führen.
-
+                    
                     Locking may create a false sense of security.</emphasis>
 
 
@@ -278,7 +278,7 @@
 
     <sect2 id="svn-ch-2-sect-2.3">
       <title>The Copy-Modify-Merge Solution</title>
-
+      
       <para>Subversion, CVS, and other version control systems use a
         <firstterm>copy-modify-merge</firstterm> model as an
         alternative to locking.  In this model, each user's client
@@ -290,7 +290,7 @@
         The version control system often assists with the merging, but
         ultimately a human being is responsible for making it happen
         correctly.</para>
-
+      
       <para>Here's an example.  Say that Harry and Sally each create
         working copies of the same project, copied from the
         repository.  They work concurrently, and make changes to the
@@ -309,7 +309,7 @@
         <title>The Copy-Modify-Merge Solution</title>
         <graphic fileref="images/ch02dia4.png"/>
       </figure>
-
+      
       <figure id="svn-ch2-dia5">
         <title>&hellip;Copy-Modify-Merge Continued</title>
         <graphic fileref="images/ch02dia5.png"/>
@@ -345,22 +345,22 @@
         promise that a locking system will somehow prevent conflicts;
         in practice, locking seems to inhibit productivity more than
         anything else.</para>
-
+      
     </sect2>
-
+    
   </sect1>
-
+  
   <!-- How svn implements the philosophy -->
   <sect1 id="svn-ch-2-sect-3">
     <title>Subversion in Action</title>
-
+    
     <sect2 id="svn-ch-2-sect-3.1">
       <title>Working Copies</title>
-
+      
       <para>You've already read about working copies; now we'll
         demonstrate how the Subversion client creates and uses
         them.</para>
-
+      
       <para>A Subversion working copy is an ordinary directory tree on
         your local system, containing a collection of files.  You can
         edit these files however you wish, and if they're source code
@@ -388,13 +388,13 @@
         directory help Subversion recognize which files contain
         unpublished changes, and which files are out-of-date with
         respect to others' work.</para>
-
+      
       <para>A typical Subversion repository often holds the files (or
         source code) for several projects; usually, each project is a
         subdirectory in the repository's filesystem tree.  In this
         arrangement, a user's working copy will usually correspond to
         a particular subtree of the repository.</para>
-
+      
       <para>For example, suppose you have a repository that contains
         two software projects.</para>
 
@@ -402,7 +402,7 @@
         <title>The Repository's Filesystem</title>
         <graphic fileref="images/ch02dia6.png"/>
       </figure>
-
+      
       <para>In other words, the repository's root directory has two
         subdirectories: <filename>paint</filename> and
         <filename>calc</filename>.</para>
@@ -480,7 +480,7 @@ Makefile  integer.c  button.c  .svn/
             </tbody>
           </tgroup>
         </table>
-
+ 
         <para>For the most part, Subversion's URLs use the standard
           syntax, allowing for server names and port numbers to be
           specified as part of the URL.  Remember that the
@@ -489,7 +489,7 @@ Makefile  integer.c  button.c  .svn/
           accordance with convention, the server name portion of the
           URL is required to be either absent or
           <literal>localhost</literal>:</para>
-
+ 
         <screen>
 $ svn checkout file:///path/to/repos
 &hellip;
@@ -512,7 +512,7 @@ C:\> svn checkout file:///X:/path/to/repos
 C:\> svn checkout "file:///X|/path/to/repos"
 &hellip;
 </screen>
-
+ 
         <para>In the second syntax, you need to quote the URL so that
           the vertical bar character is not interpreted as a pipe.</para>
 
@@ -563,7 +563,7 @@ Committed revision 57.
 $ pwd
 /home/sally/calc
 
-$ ls -a
+$ ls -a 
 .svn/ Makefile integer.c button.c
 
 $ svn update
@@ -577,10 +577,10 @@ U button.c
         in the <filename>.svn</filename> directory, and further
         information in the repository, to decide which files need to
         be brought up to date.</para>
-
+      
     </sect2>
-
-
+    
+    
     <sect2 id="svn-ch-2-sect-3.2">
       <title>Revisions</title>
 
@@ -604,14 +604,14 @@ U button.c
         previous revision.  The initial revision of a freshly created
         repository is numbered zero, and consists of nothing but an
         empty root directory.</para>
-
+      
       <para>A nice way to visualize the repository is as a series of
         trees.  Imagine an array of revision numbers, starting at 0,
         stretching from left to right.  Each revision number has a
         filesystem tree hanging below it, and each tree is a
         <quote>snapshot</quote> of the way the repository looked after
         each commit. </para>
-
+      
       <figure id="svn-ch2-dia7">
         <title>The Repository</title>
         <graphic fileref="images/ch02dia7.png"/>
@@ -620,7 +620,7 @@ U button.c
 
       <sidebar>
         <title>Global Revision Numbers</title>
-
+         
         <para>Unlike those of many other version control systems,
           Subversion's revision numbers apply to <emphasis>entire
           trees</emphasis>, not individual files.  Each revision
@@ -684,21 +684,21 @@ calc/Makefile:6
         correspond to exactly one revision in the repository.</para>
 
     </sect2>
-
-
+    
+    
     <sect2 id="svn-ch-2-sect-3.3">
       <title>How Working Copies Track the Repository</title>
-
+      
       <para>For each file in a working directory, Subversion records
         two essential pieces of information in the
         <filename>.svn/</filename> administrative area:</para>
-
-
+      
+      
       <itemizedlist>
         <listitem><para>what revision your working file is based on
             (this is called the file's <firstterm>working
              revision</firstterm>), and</para></listitem>
-
+        
         <listitem><para>a timestamp recording when the local copy was
             last updated by the repository.</para></listitem>
       </itemizedlist>
@@ -709,7 +709,7 @@ calc/Makefile:6
 
       <variablelist>
         <varlistentry>
-          <term>Unchanged, and current</term>
+          <term>Unchanged, and current</term> 
 
           <listitem><para>The file is unchanged in the working
           directory, and no changes to that file have been committed
@@ -718,7 +718,7 @@ calc/Makefile:6
           and an <command>svn update</command> of the file will do
           nothing. </para></listitem>
         </varlistentry>
-
+        
         <varlistentry>
           <term>Locally changed, and current</term>
 
@@ -730,9 +730,9 @@ calc/Makefile:6
           publishing your changes, and an <command>svn update</command>
           of the file will do nothing.</para></listitem>
         </varlistentry>
-
+        
         <varlistentry>
-          <term>Unchanged, and out-of-date</term>
+          <term>Unchanged, and out-of-date</term> 
 
           <listitem><para>The file has not been changed in the working
           directory, but it has been changed in the repository.  The
@@ -742,7 +742,7 @@ calc/Makefile:6
           the file will fold the latest changes into your working
           copy.</para></listitem>
         </varlistentry>
-
+        
         <varlistentry>
           <term>Locally changed, and out-of-date</term>
 
@@ -757,15 +757,15 @@ calc/Makefile:6
           conflict.</para></listitem>
         </varlistentry>
       </variablelist>
-
-
+      
+      
       <para>This may sound like a lot to keep track of, but the
         <command>svn status</command> command will show you the state
         of any item in your working copy.  For more information on
         that command, see <xref linkend="svn-ch-3-sect-4.3.1" />.</para>
-
+     
     </sect2>
-
+    
     <sect2 id="svn-ch-2-sect-3.4">
       <title>The Limitations of Mixed Revisions</title>
 
@@ -793,7 +793,7 @@ calc/Makefile:6
         contained in a subdirectory, or perhaps you'd like to examine
         a number of previous versions of a file in the context of the
         latest tree.</para>
-
+        
       <para>However you make use of mixed-revisions in your working
         copy, there are limitations to this flexibility.</para>
 
@@ -817,7 +817,7 @@ calc/Makefile:6
 
   <sect1 id="svn-ch-2-sect-4">
     <title>Summary</title>
-
+    
     <para>We've covered a number of fundamental Subversion concepts in
     this chapter:</para>
 
@@ -840,18 +840,18 @@ calc/Makefile:6
       </listitem>
 
     </itemizedlist>
-
+    
     <para>At this point, you should have a good idea of how Subversion
     works in the most general sense.  Armed with this knowledge, you
     should now be ready to jump into the next chapter, which is a
     detailed tour of Subversion's commands and features. </para>
-
+      
   </sect1>
 
 </chapter>
 
 <!--
-local variables:
+local variables: 
 sgml-parent-document: ("book.xml" "chapter")
 end:
 -->

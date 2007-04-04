@@ -73,12 +73,12 @@ sub Main
 sub PathSetupOut
 {
     my $SetupOut = &cmn_ValuePathfile('path_setup_out');
-
+  
     if ( ! -e "../$SetupOut")
       {
         die "ERROR: Could not find $SetupOut in ..\\svn_dynamics.iss\n";
       }
-
+    
     return $SetupOut;
 }
 
@@ -93,7 +93,7 @@ sub PathSvn
     $ErrMsg=$ErrMsg . "Please, check that the path_svnclient variable in the ";
     $ErrMsg=$ErrMsg . "..\\svn_dynamics.iss\n";
     $ErrMsg=$ErrMsg . "file are correct and try again\n";
-
+    
     if (-e "$RetVal\\svn.exe")
       {
         $RetVal="$RetVal\\svn.exe";
@@ -115,7 +115,7 @@ sub SetVersion
     my ($InputVersion, $InputRevision)='';
 
     $SvnRevision = "unset" if (! $SvnRevision);
-
+    
     if (! $g_AutoRun)
       {
         print "\nsvn.exe that's mentioned in your svn_dynamics.iss file have ",
@@ -128,15 +128,15 @@ sub SetVersion
           " button.\n\n",
           "Please, make sure that svn.iss is not opened by another ",
           "applications before you continue:\n\n";
-
+          
           print "  Version [$SvnVersion]: ";
-
+        
         chomp ($InputVersion = <STDIN>);
 
         if ($InputVersion)
           {
             $SvnVersion = $InputVersion;
-
+            
           }
 
         $SvnRevision = "" if ($SvnRevision eq "unset");
@@ -197,7 +197,7 @@ sub SetVerSvnIss
               $IssFileCnt= $IssFileCnt . $_;
           }
       }
-    close (FH_ISSFILE);
+    close (FH_ISSFILE);  
 
     $IssFileCnt="$IssFileCnt\n";
 
@@ -228,7 +228,7 @@ sub SvnVersion
         if (/svn, version /)
           {
             $SvnRetVal = $_;
-            last;
+            last;          
           }
       }
 
