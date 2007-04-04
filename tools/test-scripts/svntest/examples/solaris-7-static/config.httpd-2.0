@@ -1,5 +1,5 @@
 #!/bin/sh
-
+    
 CURR_WD="`pwd`"
 cd ../httpd-2.0
 
