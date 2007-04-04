@@ -148,7 +148,7 @@ svn_boolean_t svn_fs__matches_atom (skel_t *skel, const char *str);
 
 
 /* Return true iff SKEL is an atom whose data is the same as STR.  */
-svn_boolean_t svn_fs__atom_matches_string (skel_t *skel,
+svn_boolean_t svn_fs__atom_matches_string (skel_t *skel, 
                                            const svn_string_t *str);
 
 

@@ -25,7 +25,7 @@ import java.util.Date;
 
 /**
  * A general subversion directory entry.
- * @author Cédric Chabanois
+ * @author Cédric Chabanois 
  *         <a href="mailto:cchabanois@ifrance.com">cchabanois@ifrance.com</a>
  *
  */

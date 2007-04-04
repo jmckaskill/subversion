@@ -68,7 +68,7 @@ AC_DEFUN(APR_FIND_APU, [
     dnl be valid
     if test "$apu_found" != "yes"; then
       AC_MSG_ERROR([
-The directory given to --with-apr-util does not specify a prefix for an
+The directory given to --with-apr-util does not specify a prefix for an 
 installed APU, nor an APR-util build directory.])
     fi
   ],[

@@ -124,7 +124,7 @@ Notify::onNotify (
 		return;
 	}
 
-	jint jAction = -1;
+	jint jAction = -1; 
 	switch(action)
 	{
 	case svn_wc_notify_add:
