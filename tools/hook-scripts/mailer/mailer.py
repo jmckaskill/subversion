@@ -47,7 +47,7 @@ SEPARATOR = '=' * 78
 
 def main(pool, cmd, config_fname, repos_dir, cmd_args):
   ### TODO:  Sanity check the incoming args
-
+  
   if cmd == 'commit':
     revision = int(cmd_args[0])
     repos = Repository(repos_dir, revision, pool)
@@ -989,7 +989,7 @@ class Config:
       value = getattr(sub, option, None)
     if value is None:
       value = getattr(self.defaults, option, '')
-
+    
     # parameterize it
     if params is not None:
       value = value % params

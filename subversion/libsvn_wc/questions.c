@@ -55,7 +55,7 @@ svn_wc_check_wc (const char *path,
   svn_node_kind_t kind;
 
   SVN_ERR (svn_io_check_path (path, &kind, pool));
-
+  
   if (kind == svn_node_none)
     {
       return svn_error_createf
@@ -138,7 +138,7 @@ svn_wc__check_format (int wc_format, const char *path, apr_pool_t *pool)
    notice that we are *NOT* answering the question, "are the contents
    of F different than revision V of F?"  While F may be at a different
    revision number than its parent directory, but we're only looking
-   for local edits on F, not for consistent directory revisions.
+   for local edits on F, not for consistent directory revisions.  
 
    TODO:  the logic of the routines on this page might change in the
    future, as they bear some relation to the user interface.  For
@@ -177,7 +177,7 @@ svn_wc__timestamps_equal_p (svn_boolean_t *equal_p,
       SVN_ERR (svn_io_file_affected_time (&wfile_time, path, pool));
       entrytime = entry->text_time;
     }
-
+  
   else if (timestamp_kind == svn_wc__prop_time)
     {
       const char *prop_path;
@@ -209,7 +209,7 @@ svn_wc__timestamps_equal_p (svn_boolean_t *equal_p,
     SVN_ERR (svn_time_from_cstring (&wfile_time, tstr, pool));
     */
   }
-
+  
   if (wfile_time == entrytime)
     *equal_p = TRUE;
   else
@@ -234,10 +234,10 @@ svn_wc__versioned_file_modcheck (svn_boolean_t *modified_p,
 
   SVN_ERR (svn_wc_translated_file (&tmp_vfile, versioned_file, adm_access,
                                    TRUE, pool));
-
+  
   err = svn_io_files_contents_same_p (&same, tmp_vfile, base_file, pool);
   *modified_p = (! same);
-
+  
   if (tmp_vfile != versioned_file)
     err2 = svn_io_remove_file (tmp_vfile, pool);
 
@@ -313,12 +313,12 @@ compare_and_verify (svn_boolean_t *modified_p,
             if (v_err && !APR_STATUS_IS_EOF(v_err->apr_err))
               return v_err;
           }
-
+        
         b_err = svn_io_file_read_full (b_file_h, b_buf, sizeof(b_buf),
                                        &b_file_bytes_read, loop_pool);
         if (b_err && !APR_STATUS_IS_EOF(b_err->apr_err))
           return b_err;
-
+        
         if (entry->checksum)
           apr_md5_update (&context, b_buf, b_file_bytes_read);
 
@@ -329,14 +329,14 @@ compare_and_verify (svn_boolean_t *modified_p,
             identical = FALSE;
           }
       } while (! b_err);
-
+    
     svn_pool_destroy (loop_pool);
 
     /* Clear any errors, but don't set the error variables to null, as
        we still depend on them for conditionals. */
     svn_error_clear (v_err);
     svn_error_clear (b_err);
-
+    
     SVN_ERR (svn_io_file_close (v_file_h, pool));
     SVN_ERR (svn_io_file_close (b_file_h, pool));
 
@@ -360,7 +360,7 @@ compare_and_verify (svn_boolean_t *modified_p,
 
     *modified_p = ! identical;
   }
-
+  
   if (tmp_vfile != versioned_file)
     err2 = svn_io_remove_file (tmp_vfile, pool);
 
@@ -411,7 +411,7 @@ svn_wc_text_modified_p (svn_boolean_t *modified_p,
           goto cleanup;
         }
     }
-
+      
   /* If there's no text-base file, we have to assume the working file
      is modified.  For example, a file scheduled for addition but not
      yet committed. */
@@ -422,8 +422,8 @@ svn_wc_text_modified_p (svn_boolean_t *modified_p,
       *modified_p = TRUE;
       goto cleanup;
     }
-
-
+  
+  
   if (force_comparison)  /* Check all bytes, and verify checksum. */
     {
       SVN_ERR (compare_and_verify (modified_p,
@@ -517,7 +517,7 @@ svn_wc_conflicted_p (svn_boolean_t *text_conflicted_p,
       if (kind == svn_node_file)
         *prop_conflicted_p = TRUE;
     }
-
+  
   svn_pool_destroy (subpool);
   return SVN_NO_ERROR;
 }
@@ -537,12 +537,12 @@ svn_wc_has_binary_prop (svn_boolean_t *has_binary_prop,
 
   SVN_ERR (svn_wc_prop_get (&value, SVN_PROP_MIME_TYPE, path, adm_access,
                             subpool));
-
+ 
   if (value && (svn_mime_type_is_binary (value->data)))
     *has_binary_prop = TRUE;
   else
     *has_binary_prop = FALSE;
-
+  
   svn_pool_destroy (subpool);
   return SVN_NO_ERROR;
 }
