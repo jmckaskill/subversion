@@ -113,7 +113,7 @@ Dim iPos As Long
 Dim hWndP As Long
 
    Detach
-
+   
    sClassName = String$(256, 0)
    GetClassName hWndA, sClassName, 255
    iPos = InStr(sClassName, Chr$(0))
@@ -133,7 +133,7 @@ Dim hWndP As Long
    Else
       Err.Raise 26020, App.EXEName & ".cFlatHeader", "Invalid Window Passed to cFlatHeader - no header control detected."
    End If
-
+   
 End Sub
 Public Sub Detach()
    If Not m_hWnd = 0 Then
@@ -156,7 +156,7 @@ End Property
 
 Private Function ISubClass_WindowProc(ByVal hwnd As Long, ByVal iMsg As Long, ByVal wParam As Long, ByVal lParam As Long) As Long
    If iMsg = WM_PAINT Then
-
+            
       Dim tR As RECT
       Dim lC As Long
       Dim lColIndex As Long
@@ -168,19 +168,19 @@ Private Function ISubClass_WindowProc(ByVal hwnd As Long, ByVal iMsg As Long, By
       Dim hPen As Long, hPenOld As Long
       Dim hPenFace As Long, hPenShadow As Long, hPenHighlight As Long
       Dim lX As Long, lXStart As Long
-
+      
       GetWindowRect m_hWnd, tR
       OffsetRect tR, -tR.Left, -tR.Top
-
+      
       hdc = GetDC(m_hWnd)
-
+            
       lColor = GetSysColor(vb3DHighlight And &H1F&)
       hPenHighlight = CreatePen(PS_SOLID, 1, lColor)
       lColor = GetSysColor(vbButtonFace And &H1F&)
       hPenFace = CreatePen(PS_SOLID, 1, lColor)
       lColor = GetSysColor(vbButtonShadow And &H1F&)
       hPenShadow = CreatePen(PS_SOLID, 1, lColor)
-
+            
       lC = SendMessageByLong(m_hWnd, HDM_GETITEMCOUNT, 0, 0)
       For i = 0 To lC - 1
          tHI.mask = HDI_WIDTH
@@ -188,14 +188,14 @@ Private Function ISubClass_WindowProc(ByVal hwnd As Long, ByVal iMsg As Long, By
          If SendMessage(m_hWnd, HDM_GETITEM, lColIndex, tHI) <> 0 Then
             lXStart = lX + 1
             lX = lX + tHI.cxy
-
+            
             ' Draw over existing shadow with btn face:
             hPenOld = SelectObject(hdc, hPenFace)
             MoveToEx hdc, lXStart, tR.Bottom - 2, tJunk
             LineTo hdc, lX - 2, tR.Bottom - 2
             LineTo hdc, lX - 2, tR.Top
             SelectObject hdc, hPenOld
-
+            
             ' Draw over existing black with shadow:
             If GetPixel(hdc, lXStart, tR.Top) = lColor Then
                ' Item is depressed!
@@ -207,10 +207,10 @@ Private Function ISubClass_WindowProc(ByVal hwnd As Long, ByVal iMsg As Long, By
             LineTo hdc, lX - 1, tR.Bottom - 1
             LineTo hdc, lX - 1, tR.Top - 1
             SelectObject hdc, hPenOld
-
+            
          End If
       Next i
-
+      
       If lX < tR.Right Then
          ' Draw over existing shadow with btn face:
          hPenOld = SelectObject(hdc, hPenFace)
@@ -218,14 +218,14 @@ Private Function ISubClass_WindowProc(ByVal hwnd As Long, ByVal iMsg As Long, By
          LineTo hdc, tR.Right, tR.Bottom - 2
          SelectObject hdc, hPenOld
       End If
-
+      
       ' Clear up objects:
       DeleteObject hPenFace
       DeleteObject hPenShadow
       DeleteObject hPenHighlight
-
+      
       ReleaseDC m_hWnd, hdc
-
+      
    End If
 
 End Function

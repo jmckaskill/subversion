@@ -1,7 +1,7 @@
 # Brazilian portuguese translations for Subversion
 # Copyright (C) 2004 CollabNet.
 # This file is distributed under the same license as the subversion package.
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: subversion 1.1.0\n"
