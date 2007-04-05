@@ -52,7 +52,7 @@ extern "C" {
    implements the BDB filesystem type.  Consult the dev list for
    details on the "FSP-level" abstraction concept.
 */
-
+   
 
 
 /*** Top-level library vtable type ***/
@@ -302,7 +302,7 @@ typedef struct root_vtable_t
                                     apr_hash_t *info,
                                     apr_pool_t *pool);
   svn_error_t *(*get_merge_info)(apr_hash_t **minfohash,
-                                 svn_fs_root_t *root,
+                                 svn_fs_root_t *root, 
                                  const apr_array_header_t *paths,
                                  svn_boolean_t include_parents,
                                  apr_pool_t *pool);
