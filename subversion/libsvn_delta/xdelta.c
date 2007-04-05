@@ -138,7 +138,7 @@ init_matches_table (const char *data,
    BADVANCEP.  PENDING_INSERT is a pointer to a stringbuf pointer that is the
    last insert operation that has not been committed yet to the delta stream,
    if any.  This is used when extending the matches backwards, possibly
-   alleviating the need for the insert entirely.
+   alleviating the need for the insert entirely. 
    Return TRUE if the lookup found a match, regardless of length.
    Return FALSE otherwise.  */
 
@@ -273,7 +273,7 @@ compute_delta (svn_txdelta__ops_baton_t *build_baton,
       apr_size_t next;
       svn_boolean_t match;
 
-      match = find_match (matches, &rolling, a, asize, b, bsize, lo, &apos,
+      match = find_match (matches, &rolling, a, asize, b, bsize, lo, &apos, 
                           &alen, &badvance, &pending_insert);
 
       /* If we didn't find a real match, insert the byte at the target
