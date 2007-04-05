@@ -72,7 +72,7 @@ It's just a place to enumerate potential problems that need solving.
 
 * Track Renames in Merge
 
-  'svn merge' needs to track renames better.
+  'svn merge' needs to track renames better.  
 
   (Actually, Subversion in general needs to track renames better.  See
   http://subversion.tigris.org/issues/show_bug.cgi?id=898.)
@@ -107,7 +107,7 @@ It's just a place to enumerate potential problems that need solving.
   otherwise irrelevant).  See
   http://subversion.tigris.org/issues/show_bug.cgi?id=1525
   about user-visible entity IDs.
-
+    
 -*- -*- -*- -*- -*- -*- -*- -*- -*- -*- -*- -*- -*- -*- -*- -*- -*- -*- -*-
 
 Here's an example of "Ancestry-Sensitive Line-Based Merge" above,
@@ -116,32 +116,32 @@ demonstrating how individual lines of code can be tracked.
 In this diagram, we're drawing the lineage of a single file, with time
 flowing downwards.  The file begins life with three lines of text,
 "1\n2\n\3\n".  The file then splits into two lines of development.
-
-
-                    1
-                    2
-                    3
-                  /   \
-                 /     \
-                /       \
-            one           1
-            two           2.5
-            three         3
+                                 
+                          
+                    1     
+                    2     
+                    3     
+                  /   \   
+                 /     \  
+                /       \ 
+            one           1   
+            two           2.5 
+            three         3   
              |     \      |
-             |      \     |
-             |       \    |
-             |        \   |
+             |      \     |   
+             |       \    |            
+             |        \   |            
              |         \ one                ## This node is a human's
              |           two-point-five     ## merge of two sides.
-             |           three
+             |           three        
              |            |
              |            |
              |            |
             one          one
             Two          two-point-five
-            three        newline
-               \         three
-                \         |
+            three        newline       
+               \         three  
+                \         |   
                  \        |
                   \       |
                    \      |
@@ -153,9 +153,9 @@ flowing downwards.  The file begins life with three lines of text,
                          Two-point-five     ## merge of the changes
                          newline            ## since the last merge.
                          three
+                              
 
-
-It's the second merge that's important here.
+It's the second merge that's important here.  
 
 In a system like Subversion, the second merge of the left branch to
 the right will fail miserably: the whole file's contents will be
