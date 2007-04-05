@@ -118,7 +118,7 @@ public class SVNClientSynchronized implements SVNClientInterface
      * @param onServer  Request status information from the server.
      * @return  the subversion status of the file.
      */
-    public Status singleStatus(String path, boolean onServer)
+    public Status singleStatus(String path, boolean onServer) 
             throws ClientException
     {
         synchronized(clazz)

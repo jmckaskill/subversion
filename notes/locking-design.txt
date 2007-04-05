@@ -1,7 +1,7 @@
 
                           A design for locking.
                           ---------------------
-        (...in progress, based on ongoing discussions on dev@ list.
+        (...in progress, based on ongoing discussions on dev@ list.  
                            Please hack on this.)
 
 
@@ -88,7 +88,7 @@ Framework:
      standard display of "interesting things."  (Additionally, 'svn st
      -u' probably needs to show objects locked in the repository,
      along with lock comments if --verbose is used.)
-
+     
 
 UI interaction models:
 
