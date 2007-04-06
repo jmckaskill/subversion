@@ -30,7 +30,7 @@ Candidate changes:
       Quite a few user requests and also RPMs should work on all architectures.
     Votes:
       +1: david
-
+    
   * r20041
     Get rid of requirement for another RPM package (chrpath) to build the
     Linux RPM packages.
@@ -79,7 +79,7 @@ Veto-blocked changes:
                   http://svn.haxx.se/dev/archive-2006-07/0227.shtml)
 
  * r24483
-   Stop merge notifications for locally modified files unchanged by a merge.
+   Stop merge notifications for locally modified files unchanged by a merge. 
    Justification:
      Long standing bug effecting only the output of svn merge.
    Votes:
