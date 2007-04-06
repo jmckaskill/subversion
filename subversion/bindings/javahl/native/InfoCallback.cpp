@@ -124,7 +124,7 @@ InfoCallback::createInfoEntry(info_entry &infoEntry, const char *path,
     const svn_wc_entry_t *entry;
     const char *full_path;
 
-    // If we've cached the wcPath, it means that
+    // If we've cached the wcPath, it means that 
     if (wcPath != NULL)
         full_path = svn_path_join(wcPath, path, pool);
     else
