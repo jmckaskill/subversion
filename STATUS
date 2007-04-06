@@ -80,7 +80,7 @@ Candidate changes:
      +0: malcolm
 
  * r24483
-   Stop merge notifications for locally modified files unchanged by a merge.
+   Stop merge notifications for locally modified files unchanged by a merge. 
    Justification:
      Long standing bug effecting only the output of svn merge.
    Votes:
