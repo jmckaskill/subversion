@@ -60,7 +60,7 @@ private:
     const char *wcPath;
 
     svn_error_t *
-    createInfoEntry(info_entry &infoEntry, const char *path,
+    createInfoEntry(info_entry &infoEntry, const char *path, 
                     const svn_info_t *info, apr_pool_t *pool);
     static jobject createJavaInfo2(info_entry *infoEntry);
 };
