@@ -2,9 +2,9 @@
 #
 #  special_tests.py:  testing special file handling
 #
-#  Subversion is a tool for revision control.
+#  Subversion is a tool for revision control. 
 #  See http://subversion.tigris.org for more information.
-#
+#    
 # ====================================================================
 # Copyright (c) 2000-2007 CollabNet.  All rights reserved.
 #
@@ -28,7 +28,7 @@ Skip = svntest.testcase.Skip
 XFail = svntest.testcase.XFail
 Item = svntest.wc.StateItem
 
-
+ 
 ######################################################################
 # Tests
 #
@@ -57,14 +57,14 @@ def general_symlink(sbox):
 
   # Run a diff and verify that we get the correct output
   stdout_lines, stderr_lines = svntest.main.run_svn(1, 'diff', wc_dir)
-
+  
   regex = '^\+link linktarget'
   for line in stdout_lines:
     if re.match(regex, line):
       break
   else:
     raise svntest.Failure
-
+  
   # Commit and make sure everything is good
   expected_status = svntest.actions.get_virginal_state(wc_dir, 1)
   expected_status.add({
@@ -85,10 +85,10 @@ def general_symlink(sbox):
   # Is the symlink gone?
   if os.path.isfile(newfile_path) or os.path.islink(newfile_path):
     raise svntest.Failure
-
+  
   svntest.actions.run_and_verify_svn(None, None, [],
                                      'up', '-r', '2', wc_dir)
-
+  
   # Is the symlink back?
   new_target = os.readlink(newfile_path)
   if new_target != 'linktarget':
@@ -114,7 +114,7 @@ def general_symlink(sbox):
     'newfile' : Item(status='  ', wc_rev=3),
     'linktarget' : Item(status='  ', wc_rev=2),
     })
-
+  
   svntest.actions.run_and_verify_commit(wc_dir, expected_output,
                                         expected_status, None,
                                         None, None, None, None, wc_dir)
@@ -173,14 +173,14 @@ def import_export_symlink(sbox):
       break
   else:
     raise svntest.Failure
-
+  
   # remove the unversioned link
   os.remove(new_path)
 
   # run update and verify that the symlink is put back into place
   svntest.actions.run_and_verify_svn(None, None, [],
                                      'up', wc_dir)
-
+  
   # Is the symlink back?
   link_path = wc_dir + "/dirA/dirB/new_link"
   new_target = os.readlink(link_path)
@@ -195,8 +195,8 @@ def import_export_symlink(sbox):
                                (sbox.repo_url, 'export-url')]:
     export_target = sbox.add_wc_path(dest_dir)
     svntest.actions.run_and_verify_svn(None, None, [],
-                                       'export', export_src, export_target)
-
+                                       'export', export_src, export_target) 
+  
     # is the link at the correct place?
     link_path = os.path.join(export_target, "dirA/dirB/new_link")
     new_target = os.readlink(link_path)
@@ -330,7 +330,7 @@ def remove_symlink(sbox):
   svntest.actions.run_and_verify_commit(wc_dir, expected_output,
                                         expected_status, None,
                                         None, None, None, None, wc_dir)
-
+  
   # Now remove it
   svntest.actions.run_and_verify_svn(None, None, [], 'rm', newfile_path)
 
@@ -338,7 +338,7 @@ def remove_symlink(sbox):
   expected_output = svntest.wc.State(wc_dir, {
     'newfile' : Item(verb='Deleting'),
     })
-
+  
   expected_status = svntest.actions.get_virginal_state(wc_dir, 1)
   expected_status.add({
     'linktarget' : Item(status='  ', wc_rev=2),
@@ -347,7 +347,7 @@ def remove_symlink(sbox):
   svntest.actions.run_and_verify_commit(wc_dir, expected_output,
                                         expected_status, None,
                                         None, None, None, None, wc_dir)
-
+  
 def merge_symlink_into_file(sbox):
   "merge symlink into file"
 
@@ -461,7 +461,7 @@ def merge_file_into_symlink(sbox):
   svntest.main.run_svn(None, 'merge', '-r', '4:5', d_url,
                        os.path.join(wc_dir, 'A', 'Dprime'))
 
-# Issue 2701: Tests to see repository with symlinks can be checked out on all
+# Issue 2701: Tests to see repository with symlinks can be checked out on all 
 # platforms.
 def checkout_repo_with_symlinks(sbox):
   "checkout a repository containing symlinks"
@@ -476,7 +476,7 @@ def checkout_repo_with_symlinks(sbox):
   dump_str = svntest.main.file_read(os.path.join(data_dir,
                                                  "symlink.dump"), "rb")
   svntest.actions.run_and_verify_load(sbox.repo_dir, dump_str)
-
+  
   expected_output = svntest.wc.State(sbox.wc_dir, {
     'from': Item(status='A '),
     'to': Item(status='A '),
@@ -577,19 +577,19 @@ def replace_symlink_with_dir(sbox):
                                                  "symlink.dump"), "rb")
   svntest.actions.run_and_verify_load(sbox.repo_dir, dump_str)
   svntest.main.run_svn(1, 'co', sbox.repo_url, wc_dir)
-
+                                                    
   # Now replace the symlink with a directory and try to commit, we
   # should get an error
   os.remove(from_path);
   os.mkdir(from_path);
-
+  
   # Does status show the obstruction?
   was_cwd = os.getcwd()
   os.chdir(wc_dir)
   svntest.actions.run_and_verify_svn(None, [ "~      from\n" ], [], 'st')
 
   # The commit shouldn't do anything.
-  # I'd expect a failed commit here, but replacing a file locally with a
+  # I'd expect a failed commit here, but replacing a file locally with a 
   # directory seems to make svn thing the file is unchanged.
   os.chdir(was_cwd)
   stdout_lines, stderr_lines = svntest.main.run_svn(1, 'ci', '-m',
