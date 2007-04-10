@@ -4,7 +4,7 @@ Thu May 25 02:29:35 2000  Tim Janik  <timj@gtk.org>
 
 Fri May 19 11:37:54 2000  Tim Janik  <timj@gtk.org>
 
-	* gutils.c (g_snprintf):
+	* gutils.c (g_snprintf): 
 	(g_vsnprintf): added argument assertments.
 
 	* gstring.c (g_string_assign):
@@ -102,7 +102,7 @@ Fri Feb  4 19:39:38 2000  Tim Janik  <timj@gtk.org>
 
 	* configure.in: up version number to 1.2.7, interface age 7 and
 	binary age 7.
-
+	
 	* NEWS: updates.
 
 Thu Feb  3 14:46:53 PST 2000 Manish Singh <yosh@gimp.org>
@@ -118,8 +118,8 @@ Thu Feb  3 14:46:53 PST 2000 Manish Singh <yosh@gimp.org>
 Fri Jan 28 11:37:41 2000  Owen Taylor  <otaylor@redhat.com>
 
         Bug #4156 - Changes vaguely modelled after Scott Gifford's patch
-
-	* gtimer.c (g_timer_elapsed): Never report negative times -
+	
+	* gtimer.c (g_timer_elapsed): Never report negative times - 
 	clip times to 0.
 
 	* gmain.c (g_timeout_prepare): Guard against unexpected
@@ -151,7 +151,7 @@ Tue Nov  2 17:21:29 1999  ape@spacetec.no  (Asbjorn Pettersen)
 Sun Oct 31 18:55:01 1999  ape@spacetec.no  (Asbjorn Pettersen)
 
 	* gcache.c (g_cache_remove): Test if node is NULL.
-	If not tested, GIMP's script-fu will crash.
+	If not tested, GIMP's script-fu will crash. 
 
 Sun Oct 17 18:11:40 1999  Tim Janik  <timj@gtk.org>
 
@@ -209,10 +209,10 @@ Mon Aug 23 18:29:45 1999  Tim Janik  <timj@gtk.org>
 
 	* Makefile.am: require automake 1.4, build README from README.in and
         INSTALL from INSTALL.in in dist-hook.
-
+        
         * README.in:
 	* INSTALL.in: new files to autogenerate README and INSTALL from.
-
+	
 	* COPYING: update to the GNU LESSER GENERAL PUBLIC LICENSE.
 
 Thursday July 29, 1999 Elliot Lee <sopwith@redhat.com>
@@ -268,7 +268,7 @@ Mon May 10 22:03:52 CDT 1999 Shawn T. Amundson <amundson@gtk.org>
 	win32-related files that are made from corresponding .in files.
 	Is there a cleaner way than explicitly writing rules that invoke
 	config.status?
-
+	
 Sat May  1 10:18:01 PDT 1999 Manish Singh <yosh@gimp.org>
 
 	* acinclude.m4
@@ -286,7 +286,7 @@ Sat May  1 10:18:01 PDT 1999 Manish Singh <yosh@gimp.org>
 
 	* configure.in: Also substitute @GLIB_INTERFACE_AGE@ and
 	@GLIB_BINARY_AGE@ (needed in config.h.win32).
-
+	
 	* glibconfig.h.win32.in: Use static mutex structure and initial
 	value corresponding to the 1999-04-07 snapshot of pthreads-win32.
 
@@ -353,7 +353,7 @@ Sun Apr 11 15:07:34 1999  Tim Janik  <timj@gtk.org>
 
 	* configure.in: bumped versin number to GLib 1.2.2, interface 2,
 	binary 2.
-
+	
 	* NEWS: updates.
 
 Sun Apr 11 14:37:06 1999  Tim Janik  <timj@gtk.org>
@@ -383,14 +383,14 @@ Thu Apr  8 19:53:19 1999  Owen Taylor  <otaylor@redhat.com>
 	systems. Please do not merge this into 1.3 branch. It's taken care
 	of differently there. Info from J. Rhett Aultman
 	<cuplan@alley.gator.net>
-
+	
 Wed Mar 24 21:23:47 CST 1999 Shawn T. Amundson <amundson@gtk.org>
 
 	* Released GLib 1.2.1
 
 	* README:
-	  INSTALL:
-	  NEWS:
+	  INSTALL: 
+	  NEWS: 
 	  sanity_check: updated
 
 	* glibconfig.h.win32.in:
@@ -402,7 +402,7 @@ Wed Mar 24 21:23:47 CST 1999 Shawn T. Amundson <amundson@gtk.org>
 	  docs/glib-config.1: Removed, now generated.
 
 	* configure.in: Added to output now-generated files.
-
+	
 Tue Mar 23 13:43:39 PST 1999 Manish Singh <yosh@gimp.org>
 
 	* giounix.c: add user_data param to check and prepare functions
@@ -436,10 +436,10 @@ Fri Mar 19 16:29:50 PST 1999 Manish Singh <yosh@gimp.org>
 	s/g_static_/g_private_/g
 
 Wed Mar 17 03:17:42 1999  Tim Janik  <timj@gtk.org>
-
+	
 	* configure.in bumped versin number to GLib 1.2.1, interface 1,
 	binary 1.
-
+	
 	* NEWS: updates.
 
 	* glib.h: added GLIB_CHECK_VERSION() macro similar to
@@ -449,8 +449,8 @@ Sun Mar 14 17:50:35 1999  Tim Janik  <timj@gtk.org>
 
 	* gmem.c (g_mem_chunk_*): changed a bunch of g_assert() statements
 	to g_return_if_fail().
-	(g_mem_profile):
-	(g_mem_chunk_print):
+	(g_mem_profile): 
+	(g_mem_chunk_print): 
 	(g_mem_chunk_info): removed some extraneous "\n"s at the end of the log
 	messages.
 
@@ -513,7 +513,7 @@ Wed Feb 24 00:08:42 CST 1999 Shawn T. Amundson <amundson@gtk.org>
 Sun Feb 21 14:01:00 1999  Dr Mike <drmike@redhat.com>
 
 	* Made specfile generated, tweaked slightly
-
+	
 Thu Feb 18 08:24:12 1999  Tim Janik  <timj@gtk.org>
 
 	* gmem.c (g_realloc): plugged a memory leak, reported by Koen D'Hondt
@@ -536,7 +536,7 @@ Tue Feb 16 14:08:59 CST 1999 Shawn T. Amundson <amundson@gtk.org>
 	  configure.in
 	  glib.spec
 	  glibconfig.h.win32
-	  docs/glib-config.1: version=1.1.16
+	  docs/glib-config.1: version=1.1.16 
 
 	* Released GLib 1.1.16
 
@@ -591,14 +591,14 @@ February 9, 1999 sopwith@redhat.com
 	* configure.in, acconfig.h: Changed the test for getpwuid_r to
 	exclude those systems (i.e. IRIX), that set ENOSYS after the call.
 	Test, if pthread_getspecific is posix like or something different,
-	as on PCThreads.
+	as on PCThreads.	
 
 Sun Feb  7 21:56:00 1999  Owen Taylor  <otaylor@redhat.com>
 
 	* gmem.c (g_mem_profile): Copy all elements
 	of the allocations[] array, including the last.
 	(Pointed out by "Matthew W. Samsonoff" <mws7323@osfmail.isc.rit.edu>)
-
+	
 1999-02-05  Sebastian Wilhelmi  <wilhelmi@ira.uka.de>
 
 	* configure.in: Make the error message in case of a broken thread
@@ -749,12 +749,12 @@ Sun Jan 24 10:33:30 1999  Tim Janik  <timj@gtk.org>
 
 1999-01-24  Raja R Harinath  <harinath@cs.umn.edu>
 
-	* gutils.c
-	(g_get_any_init) [HAVE_GETPWUID_R && HAVE_GETPWUID_R_POSIX]:
+	* gutils.c 
+	(g_get_any_init) [HAVE_GETPWUID_R && HAVE_GETPWUID_R_POSIX]: 
 	Hopefully got the error handling for `getpwuid_r' right.
 	(g_get_any_init) [HAVE_GETPWUID_R && !HAVE_GETPWUID_R_POSIX]:
 	Fix typo (change `pw == NULL' to `pw != NULL').
-
+	
 Sun Jan 24 00:36:22 EST 1999  Jeff Garzik  <jgarzik@pobox.com>
 
 	* ghash.c:
@@ -812,7 +812,7 @@ Sat Jan 23 22:45:59 1999  Jeff Garzik  <jgarzik@pobox.com>
 	* gutils.c (g_get_any_init) [HAVE_GETPWUID_R]:
 	Rewrite not to look at `errno' if library call succeeds, since
 	`errno' is not reset to 0.
-
+	
 Sat Jan 23 16:17:04 1999  Tor Lillqvist  <tml@iki.fi>
 
 	* glibconfig.h.win32: Update the magic values for
@@ -895,7 +895,7 @@ Wed Jan 20 20:48:58 GMT 1999  Adam D. Moss  <adam@gimp.org>
 	its signature.
 
 Tue Jan 19 20:52:43 1999  Tor Lillqvist  <tml@iki.fi>
-
+	
 	* Makefile.am (EXTRA_DIST): Add new Win32 files.
 
 	* README.win32: Describe the conditional compilation macros.
