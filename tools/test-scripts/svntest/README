@@ -13,7 +13,7 @@ Usage
    file, especially the sections about bootstrapping from a tarball
    and getting the latest APR-0.9, APR-UTIL-0.9 and httpd-2.0 sources.
    Check out and compile the latest Subversion. You could easily run
-   svntest.sh against APR/APR-UTIL 1.0 and HTTPD 2.1 branches, just
+   svntest.sh against APR/APR-UTIL 1.0 and HTTPD 2.1 branches, just 
    checkout corresponding repositories, and edit svntest-config.sh.
 
 2) Copy the svntest scripts from trunk/tools/test-scripts/svntest to
@@ -41,7 +41,7 @@ Usage
 4) Tailor ${TEST_ROOT}/$HTTPD_NAME.conf (e.g., httpd-2.0.conf) as
    necessary.  The easiest way to get a template for http-2.0.conf is
    to install Apache httpd once, take the installed conf/httpd.conf,
-   and edit it.  Things you probably want to change are:
+   and edit it.  Things you probably want to change are: 
 
       a) Listen 127.0.0.1:52080
 
@@ -53,7 +53,7 @@ Usage
       d) ServerName localhost:52080
 
       e) Add a mod_dav_svn block:
-
+    
            <IfModule mod_dav_svn.c>
               Include conf/mod_dav_svn.conf
            </IfModule>
@@ -75,13 +75,13 @@ Usage
 
            sed 's!/svn-test-work!!' mod_dav_svn.conf > mod_dav_svn_1.2.x.conf
            sed 's!/svn-test-work!!' mod_dav_svn.conf > mod_dav_svn_1.1.x.conf
-
+        
          and set SVN_NAME=svn_1.2.x for 1.2.x, and SVN_NAME=svn_1.1.x
          for 1.1.x.
 
    Don't ever touch config files under $INST_DIR/$HTTPD_NAME/conf,
    they will be overwritten by the script.
-
+   
 5) Make sure your environment (e.g., LD_LIBRARY_PATH) is set correctly
    to find Berkeley DB, etc.
 
@@ -102,13 +102,13 @@ Usage
    your system is not GNU/Linux.  See
    http://subversion.tigris.org/faq.html#ramdisk-tests for further
    information.
-
+   
 7) Run svntest.sh to get the latest versions of APR, APR-UTIL, HTTPPD and
-   Subversion, build and test all the configurations.
+   Subversion, build and test all the configurations. 
 
 8) If you like force rebuilding of some component, you could do:
    echo "0" > $<PROJ>_SOURCE.rb, dependencies are:
    apr-util depends on apr, and httpd depends on apr and apr-util.
    Any dependent project will be also rebuild.
-   When you run this script first time, everything will be rebuilt
+   When you run this script first time, everything will be rebuilt 
    automatically.
