@@ -367,10 +367,10 @@ def make_rss(base_rss, name, rss_uri, repos_uri, info)
 
     if base_rss
       base_rss.items.each do |item|
-        item.setup_maker(maker)
+        item.setup_maker(maker) 
       end
     end
-
+    
     diff_info(info, repos_uri, true).each do |name, infos|
       infos.each do |desc, link|
         item = maker.items.new_item
@@ -398,7 +398,7 @@ def rss_items(items, info, repos_uri)
       items << [link, name, desc, info.date]
     end
   end
-
+  
   items.sort_by do |uri, title, desc, date|
     date
   end.reverse
