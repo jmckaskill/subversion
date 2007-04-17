@@ -195,7 +195,7 @@ private:
               bool noDiffDelete, bool force);
 
     jobject createJavaInfo(const svn_wc_entry_t *entry);
-
+    
     Notify *m_notify;
     Notify2 *m_notify2;
     ProgressListener *m_progressListener;
