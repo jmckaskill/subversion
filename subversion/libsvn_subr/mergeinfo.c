@@ -38,8 +38,8 @@
 #endif
 
 /* Attempt to combine two ranges, IN1 and IN2, and put the result in
-   OUTPUT.  Return whether they could be combined.
-   Range overlapping detection algorithm from
+   OUTPUT.  Return whether they could be combined. 
+   Range overlapping detection algorithm from 
    http://c2.com/cgi-bin/wiki/fullSearch?TestIfDateRangesOverlap
 */
 static svn_boolean_t
@@ -95,8 +95,8 @@ parse_pathname(const char **input, const char *end,
   with *lastrange or *lastrange is NULL.
 */
 static APR_INLINE void
-combine_with_lastrange(svn_merge_range_t** lastrange,
-                       svn_merge_range_t *mrange, svn_boolean_t dup_mrange,
+combine_with_lastrange(svn_merge_range_t** lastrange, 
+                       svn_merge_range_t *mrange, svn_boolean_t dup_mrange, 
                        apr_array_header_t *revlist, apr_pool_t *pool)
 {
   svn_merge_range_t *pushed_mrange = mrange;
@@ -217,8 +217,8 @@ parse_top(const char **input, const char *end, apr_hash_t *hash,
 
 /* Parse mergeinfo.  */
 svn_error_t *
-svn_mergeinfo_parse(apr_hash_t **mergehash,
-                    const char *input,
+svn_mergeinfo_parse(apr_hash_t **mergehash, 
+                    const char *input, 
                     apr_pool_t *pool)
 {
   *mergehash = apr_hash_make(pool);
@@ -385,7 +385,7 @@ rangelist_intersect_or_remove(apr_array_header_t **output,
         {
           if (!do_remove)
               combine_with_lastrange(&lastrange, elt1, TRUE, *output, pool);
-
+          
           i++;
 
           if (elt1->start == elt2->start && elt1->end == elt2->end)
@@ -422,10 +422,10 @@ rangelist_intersect_or_remove(apr_array_header_t **output,
               if (!do_remove)
                 {
                   /* Partial overlap. */
-                  svn_merge_range_t tmp_range;
+                  svn_merge_range_t tmp_range;                  
                   tmp_range.start = elt1->start;
                   tmp_range.end = elt2->end;
-
+                  
                   combine_with_lastrange(&lastrange, &tmp_range, TRUE, *output, pool);
                 }
 
@@ -556,7 +556,7 @@ svn_rangelist_diff(apr_array_header_t **deleted, apr_array_header_t **added,
    ### libsvn_subr/sorts.c:svn_prop_diffs().  Factor out a generic
    ### hash diffing function for addition to APR's apr_hash.h API. */
 static svn_error_t *
-walk_mergeinfo_hash_for_diff(apr_hash_t *from, apr_hash_t *to,
+walk_mergeinfo_hash_for_diff(apr_hash_t *from, apr_hash_t *to, 
                              apr_hash_t *deleted, apr_hash_t *added,
                              apr_pool_t *pool)
 {
@@ -684,7 +684,7 @@ svn_mergeinfo_remove(apr_hash_t **output, apr_hash_t *eraser,
                      apr_hash_t *whiteboard, apr_pool_t *pool)
 {
   *output = apr_hash_make(pool);
-  SVN_ERR(walk_mergeinfo_hash_for_diff(whiteboard, eraser, *output, NULL,
+  SVN_ERR(walk_mergeinfo_hash_for_diff(whiteboard, eraser, *output, NULL, 
                                        pool));
   return SVN_NO_ERROR;
 }
