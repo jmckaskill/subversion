@@ -196,7 +196,7 @@ further reducing their utility.  </p>
 single-character shortcut, will be introduced for the auditing commands.
 Using it will enable these commands to show the additional information gleaned
 from parsing and processing the merge info on the targets in question.  This
-switch will also work with <code>--xml</code> to include additional merge
+switch will also work with <code>--xml</code> to include additional merge 
 information.  The new functionality added by <code>--merge-sensitive</code> is
 as follows.</p>
 
@@ -343,30 +343,30 @@ text, "1\n2\n\3\n".  The file then splits into two lines of
 development.</p>
 
 <pre>
-                    1
-                    2
-                    3
-                  /   \
-                 /     \
-                /       \
-            one           1
-            two           2.5
-            three         3
+                    1     
+                    2     
+                    3     
+                  /   \   
+                 /     \  
+                /       \ 
+            one           1   
+            two           2.5 
+            three         3   
              |     \      |
-             |      \     |
-             |       \    |
-             |        \   |
+             |      \     |   
+             |       \    |            
+             |        \   |            
              |         \ one                ## This node is a human's
              |           two-point-five     ## merge of two sides.
-             |           three
+             |           three        
              |            |
              |            |
              |            |
             one          one
             Two          two-point-five
-            three        newline
-               \         three
-                \         |
+            three        newline       
+               \         three  
+                \         |   
                  \        |
                   \       |
                    \      |
@@ -534,7 +534,7 @@ in the <code>tools/server-side/</code> area of the distribution .</p>
   functionality.  The one case where merge info might come into play
   is when the merge info for a path is available locally (e.g. in the
   client's WC); in this case, repeated merges may be avoided.</li>
-
+ 
   <li>A 1.5.x client will record merge tracking meta data for merges
   performed, regardless of repository version.  However, a repository
   1.4.x- won't know to do anything special with this merge info.  When
