@@ -475,7 +475,7 @@ public class SVNClient implements SVNClientInterface
                          boolean recurse, boolean ignoreExternals)
             throws ClientException
     {
-        return checkout(moduleName, destPath, revision, revision,
+        return checkout(moduleName, destPath, revision, revision, 
                         Depth.fromRecurse(recurse), ignoreExternals,
                         false);
     }
