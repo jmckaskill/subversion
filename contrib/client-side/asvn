@@ -15,7 +15,7 @@
 #    Every file and directory has a 'file:permissions' property set and
 #    every directory has a 'dir:devices' and 'dir:symlinks' for
 #    recording the extra information.
-#
+#	
 #    Run this script instead of svn with the normal svn arguments.
 #
 #
@@ -81,7 +81,7 @@ function addignorefile()
     if ! ($SVN propget svn:ignore "$dir" | grep -q "^$gefile\$")
     then
 	$SVN propget svn:ignore "$dir"  |sed -e '/^$/d' >$TMPFILE2
-	echo "$efile" >>$TMPFILE2
+	echo "$efile" >>$TMPFILE2 
 	$SVN propset svn:ignore -F $TMPFILE2 "$dir"
 	echo setting ignore
 #cat $TMPFILE2 >&2
@@ -132,7 +132,7 @@ function updatedirdevices()
 	[ -b $file ] && echo -n ' type=b'
 	[ -c $file ] && echo -n ' type=c'
 	[ -p $file ] && echo ' type=p'
-	if [ -b $file -o -c $file ]
+	if [ -b $file -o -c $file ] 
 	then
 	    ls -l $file |
 		sed -e 's/^[-lcpbrdwxXstugoTS]* *[0-9] [^ ]* *[^ ]* *\([0-9]*\), *\([0-9]*\) .*/ major=\1 minor=\2/'
@@ -230,7 +230,7 @@ function updatedirsymlinks()
     #
     find "$dir" \( -type l -printf "file='%f' dest='%l'\n" \)  -o  -type d ! -name "`basename $dir`" -prune |
 	sort >$TMPFILE
-
+    
     #
     # Make sure all the symlinks are being ignored.
     #
@@ -239,7 +239,7 @@ function updatedirsymlinks()
 	file=`expr "$line" : "file='\(.*\)' dest"`
 	addignorefile "$dir/$file"
     done
-
+    
     #
     # Obtain the currently defined symlinks
     #
@@ -295,7 +295,7 @@ function updatedirsymlinks()
 	    if [ -L $dir/$file  ]
 	    then
 		[ "`find $dir/$file -printf '%l'`" = "$dest" ] && continue
-	    fi
+	    fi 
 	    rm -f $dir/$file
 	    ln -s $dest $dir/$file
 	done
@@ -367,8 +367,8 @@ function post_checkout()
 	cd $1
     PCWD="$PCWD/$1"
     fi
-    recorddirinfo
-    recordpermissions
+    recorddirinfo 
+    recordpermissions 
 }
 
 CHDIR=false
