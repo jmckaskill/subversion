@@ -21,10 +21,10 @@
  * Modified by the GLib Team and others 1997-1999.  See the AUTHORS
  * file for a list of people on the GLib Team.  See the ChangeLog
  * files for a list of changes.  These files are distributed with
- * GLib at ftp://ftp.gtk.org/pub/gtk/.
+ * GLib at ftp://ftp.gtk.org/pub/gtk/. 
  */
 
-/*
+/* 
  * MT safe
  */
 
@@ -241,7 +241,7 @@ g_tree_traverse (GTree         *tree,
     case G_POST_ORDER:
       g_tree_node_post_order (rtree->root, traverse_func, data);
       break;
-
+    
     case G_LEVEL_ORDER:
       g_warning ("g_tree_traverse(): traverse type G_LEVEL_ORDER isn't implemented.");
       break;
@@ -719,23 +719,23 @@ g_tree_node_check (GTreeNode *node)
   gint left_height;
   gint right_height;
   gint balance;
-
+  
   if (node)
     {
       left_height = 0;
       right_height = 0;
-
+      
       if (node->left)
 	left_height = g_tree_node_height (node->left);
       if (node->right)
 	right_height = g_tree_node_height (node->right);
-
+      
       balance = right_height - left_height;
       if (balance != node->balance)
 	g_log (g_log_domain_glib, G_LOG_LEVEL_INFO,
 	       "g_tree_node_check: failed: %d ( %d )\n",
 	       balance, node->balance);
-
+      
       if (node->left)
 	g_tree_node_check (node->left);
       if (node->right)
