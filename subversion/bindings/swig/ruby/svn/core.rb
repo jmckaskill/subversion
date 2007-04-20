@@ -640,7 +640,7 @@ module Svn
       end
 
       def to_s
-        Core.mergeinfo__to_string(self)
+        Core.mergeinfo_to_stringbuf(self)
       end
     end
 
