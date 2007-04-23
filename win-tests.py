@@ -25,7 +25,7 @@ except AttributeError:
 
 def _usage_exit():
   "print usage, exit the script"
-
+  
   print "Driver for running the tests on Windows."
   print "Usage: python win-tests.py [option] [test-path]"
   print
@@ -136,7 +136,7 @@ if run_httpd:
   if not httpd_port:
     httpd_port = random.randrange(1024, 30000)
   if not base_url:
-    base_url = 'http://localhost:' + str(httpd_port)
+    base_url = 'http://localhost:' + str(httpd_port) 
 
 if base_url:
   all_tests = client_tests
@@ -150,7 +150,7 @@ if base_url:
     # Don't know this scheme, but who're we to judge whether it's
     # correct or not?
     log = 'url-tests.log'
-
+  
 # Have to move the executables where the tests expect them to be
 copied_execs = []   # Store copied exec files to avoid the final dir scan
 
@@ -196,7 +196,7 @@ def locate_libs():
   "Move DLLs to a known location and set env vars"
 
   dlls = []
-
+  
   # look for APR 1.x dll's and use those if found
   apr_test_path = os.path.join(gen_obj.apr_path, objdir, 'libapr-1.dll')
   if os.path.exists(apr_test_path):
@@ -245,7 +245,7 @@ def locate_libs():
   apriconv_so_path = os.path.join(gen_obj.apr_iconv_path, objdir, 'iconv')
   os.environ['APR_ICONV_PATH'] = os.path.abspath(apriconv_so_path)
   os.environ['PATH'] = abs_objdir + os.pathsep + os.environ['PATH']
-
+  
 def fix_case(path):
     path = os.path.normpath(path)
     parts = string.split(path, os.path.sep)
@@ -315,7 +315,7 @@ class Httpd:
   def __init__(self, abs_httpd_dir, abs_objdir, abs_builddir, httpd_port):
     self.name = 'apache.exe'
     self.httpd_port = httpd_port
-    self.httpd_dir = abs_httpd_dir
+    self.httpd_dir = abs_httpd_dir 
     self.path = os.path.join(self.httpd_dir, 'bin', self.name)
 
     if not os.path.exists(self.path):
@@ -337,12 +337,12 @@ class Httpd:
     self.service_name = 'svn-test-httpd-' + str(httpd_port)
     self.httpd_args = [self.name, '-n', self._quote(self.service_name),
                        '-f', self._quote(self.httpd_config)]
-
+   
     create_target_dir(self.root_dir)
-
+    
     self._create_users_file()
     self._create_mime_types_file()
-
+       
     # Determine version.
     if os.path.exists(os.path.join(self.httpd_dir,
                                    'modules', 'mod_access_compat.so')):
@@ -353,7 +353,7 @@ class Httpd:
     else:
       self.httpd_ver = 2.0
 
-    # Create httpd config file
+    # Create httpd config file    
     fp = open(self.httpd_config, 'w')
 
     # Global Environment
@@ -378,7 +378,7 @@ class Httpd:
       fp.write(self._sys_module('auth_module', 'mod_auth.so'))
     fp.write(self._sys_module('mime_module', 'mod_mime.so'))
     fp.write(self._sys_module('log_config_module', 'mod_log_config.so'))
-
+    
     # Write LoadModule for Subversion modules
     fp.write(self._svn_module('dav_svn_module', 'mod_dav_svn.so'))
     fp.write(self._svn_module('authz_svn_module', 'mod_authz_svn.so'))
@@ -410,7 +410,7 @@ class Httpd:
                                     'jrandom', 'rayjandom'])
     os.spawnv(os.P_WAIT, htpasswd, ['htpasswd.exe', '-mb',  self.httpd_users,
                                     'jconstant', 'rayjandom'])
-
+  
   def _create_mime_types_file(self):
     "Create empty mime.types file"
     fp = open(self.httpd_mime_types, 'w')
@@ -422,7 +422,7 @@ class Httpd:
 
   def _svn_module(self, name, path):
     full_path = os.path.join(self.abs_objdir, path)
-    return 'LoadModule ' + name + ' ' + self._quote(full_path) + '\n'
+    return 'LoadModule ' + name + ' ' + self._quote(full_path) + '\n' 
 
   def _svn_repo(self, name):
     path = os.path.join(self.abs_builddir,
