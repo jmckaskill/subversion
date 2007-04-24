@@ -75,32 +75,24 @@ class SvnFsTest < Test::Unit::TestCase
 
     assert_equal(log, ctx.log_message(path, rev))
 
-    dest_path = File.join(@tmp_path, "dest")
     backup_path = File.join(@tmp_path, "back")
-    config = {}
-
-    dest_fs = yield(:create, [dest_path, config])
 
     FileUtils.mv(@fs.path, backup_path)
-    FileUtils.mv(dest_fs.path, @fs.path)
+    FileUtils.mkdir_p(@fs.path)
 
-    assert_raises(Svn::Error::FsNoSuchRevision) do
-      assert_equal(log, ctx.log_message(path, rev))
-    end
-
-    yield(:hotcopy, [backup_path, @fs.path])
+    yield(backup_path, @fs.path)
     assert_equal(log, ctx.log_message(path, rev))
   end
 
   def test_hotcopy
-    assert_hotcopy do |method, args, block|
-      Svn::Fs.__send__(method, *args, &block)
+    assert_hotcopy do |src, dest|
+      Svn::Fs.hotcopy(src, dest)
     end
   end
 
   def test_hotcopy_for_backward_compatibility
-    assert_hotcopy do |method, args, block|
-      Svn::Fs::FileSystem.__send__(method, *args, &block)
+    assert_hotcopy do |src, dest|
+      Svn::Fs::FileSystem.hotcopy(src, dest)
     end
   end
 
