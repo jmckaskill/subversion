@@ -1615,7 +1615,7 @@ Java_org_tigris_subversion_javahl_SVNClient_getCopySource
   Revision rev(jrevision);
   if (JNIUtil::isExceptionThrown())
     return NULL;
-
+ 
   return cl->getCopySource(path, rev);
 }
 
