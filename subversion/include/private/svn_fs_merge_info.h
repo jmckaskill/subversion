@@ -42,9 +42,9 @@ svn_fs_merge_info__create_index(const char *path, apr_pool_t *pool);
    called to make sure there is no stray merge info for this revision
    left from a previous failed commit.  */
 svn_error_t *
-svn_fs_merge_info__update_index(svn_fs_txn_t *txn,
+svn_fs_merge_info__update_index(svn_fs_txn_t *txn, 
                                 svn_revnum_t new_rev,
-                                apr_hash_t *mergeinfo,
+                                apr_hash_t *mergeinfo, 
                                 apr_pool_t *pool);
 
 /* Get the merge info for the set of PATHS (an array of
