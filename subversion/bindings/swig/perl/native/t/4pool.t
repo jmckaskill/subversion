@@ -7,7 +7,7 @@ use File::Temp qw(tempdir);
 # shut up about variables that are only used once.
 # these come from constants and variables used
 # by the bindings but not elsewhere in perl space.
-no warnings 'once';
+no warnings 'once'; 
 
 require SVN::Core;
 require SVN::Repos;
