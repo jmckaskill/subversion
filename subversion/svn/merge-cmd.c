@@ -158,7 +158,7 @@ svn_cl__merge(apr_getopt_t *os,
           svn_node_kind_t kind;
           const char *decoded_path = svn_path_uri_decode(sp1_basename, pool);
           SVN_ERR(svn_io_check_path(decoded_path, &kind, pool));
-          if (kind == svn_node_file)
+          if (kind == svn_node_file) 
             {
               targetpath = decoded_path;
             }
