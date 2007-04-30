@@ -79,7 +79,7 @@
 
  <!-- the length of a line to wrap messages at -->
  <xsl:param name="linelen" select="75" />
-
+ 
  <!-- whether entries should be grouped by day -->
  <xsl:param name="groupbyday" select="'no'" />
 
