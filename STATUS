@@ -92,7 +92,7 @@ Veto-blocked changes:
 Approved changes:
 
  * r24483
-   Stop merge notifications for locally modified files unchanged by a merge.
+   Stop merge notifications for locally modified files unchanged by a merge. 
    Justification:
      Long standing bug effecting only the output of svn merge.
    Branch: 1.4.x-r24483 (-r24761:24865)
