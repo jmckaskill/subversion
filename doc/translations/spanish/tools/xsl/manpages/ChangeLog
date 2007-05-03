@@ -43,7 +43,7 @@
 2003-11-06  <twaugh@users.sourceforge.net>
 
 	* lists.xsl, synop.xsl: 2003-11-06  Tim Waugh  <twaugh@redhat.com>
-
+	
 	        * lists.xsl: Normalize space in itemizedlist/listitem.
 	        * synop.xsl: Likewise.
 
@@ -107,6 +107,6 @@
 
 2002-07-04  Norman Walsh <nwalsh@users.sourceforge.net>
 
-	* README, db2man.xsl, lists.xsl, sect23.xsl, synop.xsl, xref.xsl:
+	* README, db2man.xsl, lists.xsl, sect23.xsl, synop.xsl, xref.xsl: 
 	New file.
 
