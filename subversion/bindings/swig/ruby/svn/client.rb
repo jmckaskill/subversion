@@ -51,6 +51,11 @@ module Svn
     class Info
       alias url URL
       alias repos_root_url repos_root_URL
+
+      alias _last_changed_date last_changed_date
+      def last_changed_date
+        Time.from_apr_time(_last_changed_date)
+      end
     end
 
 
