@@ -43,7 +43,7 @@ svn_mergeinfo__to_string(svn_string_t **output, apr_hash_t *mergeinput,
  */
 svn_error_t *
 svn_mergeinfo__equals(svn_boolean_t *is_equal,
-                      apr_hash_t *info1,
+                      apr_hash_t *info1, 
                       apr_hash_t *info2,
                       apr_pool_t *pool);
 
