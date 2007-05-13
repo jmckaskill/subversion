@@ -307,7 +307,7 @@ public class SVNClient implements SVNClientInterface
         MyListCallback callback = new MyListCallback();
 
         list(url, revision, pegRevision,
-             recurse ? Depth.infinity : Depth.immediates,
+             recurse ? Depth.infinity : Depth.immediates, 
              DirEntry.Fields.all, false, callback);
 
         return callback.getDirEntryArray();
@@ -500,7 +500,7 @@ public class SVNClient implements SVNClientInterface
                          boolean recurse, boolean ignoreExternals)
             throws ClientException
     {
-        return checkout(moduleName, destPath, revision, revision,
+        return checkout(moduleName, destPath, revision, revision, 
                         Depth.fromRecurse(recurse), ignoreExternals,
                         false);
     }
