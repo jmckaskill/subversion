@@ -51,11 +51,11 @@ Candidate changes:
       There's a small merge conflict when merging the test case, backport branch
       not needed though.
 
-  * r24926, r24939
+  * r24926, r24939 
     Fix issue 2698: Merging replaced file does not update text-base version
     Justification:
       Small fix, non intrusive.
-    Votes:
+    Votes: 
       +1: lgo
       +0: giovannibajo (can't review on the patch, but interested in the fix)
 
@@ -63,9 +63,9 @@ Candidate changes:
     Prevent spurious failure of svnadmin test 4 on this branch.
     Justification:
       Minor fix affecting test suite only.
-    Votes:
+    Votes: 
       +1: pburba
-
+      
 Veto-blocked changes:
 
   * r21531, r21848, r21934
