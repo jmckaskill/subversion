@@ -120,7 +120,7 @@ check_format(sqlite3 *db)
 }
 
 const char SVN_MTD_CREATE_SQL[] = "PRAGMA auto_vacuum = 1;"
-  APR_EOL_STR
+  APR_EOL_STR 
   "CREATE TABLE mergeinfo (revision INTEGER NOT NULL, mergedfrom TEXT NOT "
   "NULL, mergedto TEXT NOT NULL, mergedrevstart INTEGER NOT NULL, "
   "mergedrevend INTEGER NOT NULL);"
@@ -151,7 +151,7 @@ static svn_error_t *
 open_db(sqlite3 **db, const char *repos_path, apr_pool_t *pool)
 {
   svn_error_t *err;
-  const char *db_path = svn_path_join(repos_path,
+  const char *db_path = svn_path_join(repos_path, 
                                       SVN_FS_MERGEINFO__DB_NAME, pool);
   SQLITE_ERR(sqlite3_open(db_path, db), *db);
 #ifdef SQLITE3_DEBUG
@@ -199,7 +199,7 @@ static svn_merge_range_t no_mergeinfo = { SVN_INVALID_REVNUM,
    on PATH as of NEW_REV, which is provided (unparsed) in
    MERGEINFO_STR.  Use POOL for temporary allocations.*/
 static svn_error_t *
-index_path_merge_info(svn_revnum_t new_rev, sqlite3 *db, const char *path,
+index_path_merge_info(svn_revnum_t new_rev, sqlite3 *db, const char *path, 
                       svn_string_t *mergeinfo_str, apr_pool_t *pool)
 {
   apr_hash_t *mergeinfo;
@@ -244,7 +244,7 @@ index_path_merge_info(svn_revnum_t new_rev, sqlite3 *db, const char *path,
         {
           int i;
           SQLITE_ERR(sqlite3_prepare
-                     (db,
+                     (db, 
                       "INSERT INTO mergeinfo (revision, mergedfrom, "
                       "mergedto, mergedrevstart, mergedrevend) VALUES "
                       "(?, ?, ?, ?, ?);",
@@ -513,7 +513,7 @@ get_merge_info_for_path(sqlite3 *db,
 
   /* See if we have a mergeinfo_changed record for this path. If not,
      then it can't have mergeinfo.  */
-  SQLITE_ERR(sqlite3_prepare(db,
+  SQLITE_ERR(sqlite3_prepare(db, 
                              "SELECT MAX(revision) FROM mergeinfo_changed "
                              "WHERE path = ? AND revision <= ?;",
                              -1, &stmt, NULL), db);
@@ -532,7 +532,7 @@ get_merge_info_for_path(sqlite3 *db,
      mergeinfo hash */
   if (lastmerged_rev > 0)
     {
-      SVN_ERR(parse_mergeinfo_from_db(db, path, lastmerged_rev,
+      SVN_ERR(parse_mergeinfo_from_db(db, path, lastmerged_rev, 
                                       &path_mergeinfo, pool));
       if (path_mergeinfo)
         {
