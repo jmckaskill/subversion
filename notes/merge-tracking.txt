@@ -71,7 +71,7 @@ history index).
       solution which allows interactivity to be deferred until all
       possible merging has occurred.  (They are not alone in a desire
       to see this use case handled.)
-
+      
     * Add a notification message or perhaps a notification callback so
       that a client may provide detailed information about the state of
       the merge.  Something which identifies which revisions have been
@@ -132,7 +132,7 @@ Implement auditing/reporting and other high-level features.
 
 * Add some set of svnmerge.py-like commands for merge info
   auditing/editing to the 'svn' command-line binary.
-
+  
   * Discuss the following command set on the dev list (as just a
     jumping-off point):
 
@@ -223,7 +223,7 @@ questions other developers I've talked to while coming up with this
 design have had, in the hopes that it will answer some common queries
 the list may have.
 
-Use cases and requirements can be found at
+Use cases and requirements can be found at 
 http://subversion.tigris.org/merge-tracking/requirements.html
 
 Goals:
@@ -316,7 +316,7 @@ indexing, etc), to make this eliding not affect performance.
 
 Eliding will never affect the semantics of merge information, as it should
 only be performed in the case when it was exactly the same, and if it was
-exactly the same, it could not have had an effect on the merge results.
+exactly the same, it could not have had an effect on the merge results.  
 
 Other than eliding, any directory or file may have merge info attached to it.
 
@@ -360,10 +360,10 @@ revisionline -> PATHNAME COLON revisionlist
 
 top -> revisionline (NEWLINE revisionline)*
 
-This merge history ("top"), existing on a file, dir or repo,
-specifies all the changes that have ever been merged into this object (file,
-dir or repo) within this repository.  It specifies the sources of the merges,
-(and thus two or more pathnames may be required to represent one source object
+This merge history ("top"), existing on a file, dir or repo, 
+specifies all the changes that have ever been merged into this object (file, 
+dir or repo) within this repository.  It specifies the sources of the merges, 
+(and thus two or more pathnames may be required to represent one source object 
 at different revisions due to renaming).
 
 This list will *not* be stored in a canonicalized minimal form for a
@@ -394,7 +394,7 @@ svn add:  No change to merge info
 svn delete: No change to merge info
 svn rename: No change to merge info
 svn copy: Copies the merge info from the source path to the destination
-path, if any.
+path, if any.  
 
 All copies include full-copies of the merge information.
 
@@ -440,7 +440,7 @@ correct.
 3. The path (known as PATHNAME in the grammar) used as the key to
 determine which revision line to change is the subdirectory path being
 merged from, relative to the repo root, with the repo url stripped from
-it.
+it.  
 
 In the case that we are merging changes that themselves contain merge
 info, the merge info properties must be merged.  The effect of this is
@@ -482,7 +482,7 @@ do not affect that path.  This is also an acceptable answer, as is any
 variant that represents the same information).
 
 
-Repeated merge with indirect info:
+Repeated merge with indirect info: 
 Assume the repository is in the state it would be after the "Repeated
 merge" example.
 Assume additionally, we now have a branch /branches/next-release, with
@@ -510,11 +510,11 @@ merge with indirect info" example.
 Assume we have revision 25 on /trunk, which affects /trunk/foo.c and
 /trunk/foo/bar/bar.c
 
-We wish to merge the portion of change affecting /trunk/foo.c
+We wish to merge the portion of change affecting /trunk/foo.c 
 
 A merge of revision 25 of /trunk/foo.c into /branches/release/foo.c
 will produce the merge info:
-"/trunk/foo.c:1-9,14-18,25".
+"/trunk/foo.c:1-9,14-18,25".  
 This merge information will be placed on /branches/release/foo.c
 
 All other merge information will still be intact on /branches/release
@@ -604,7 +604,7 @@ I don't think only that copying info on svn copy is correct, what if you
 copy a dir with merge info into a dir where the dir has merge info,
 won't it get the info wrong now?
 
-No.
+No.  
 
 Let's say you have
 
