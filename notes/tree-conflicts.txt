@@ -100,7 +100,7 @@ Anyway, there appear to me to be some pretty clear goals:
         - apply those mods elsewhere if necessary
         - overrule the conflict and make their changes anyway
 
-   * Tree conflicts appear to be something special, and should be
+   * Tree conflicts appear to be something special, and should be 
      annotated as such.
 
 With those things in mind, here are some not-fully-baked ideas:
