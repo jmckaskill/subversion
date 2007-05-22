@@ -167,7 +167,7 @@ static PyObject * _global_py_pool = NULL;
   %append_output(LL2NUM(*$1));
 }
 
-/* Ruby has strict capitalization conventions -
+/* Ruby has strict capitalization conventions - 
    tell SWIG to not warn as it renames things to follow these. */
 #pragma SWIG nowarn=801
 
