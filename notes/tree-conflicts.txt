@@ -100,7 +100,7 @@ Anyway, there appear to me to be some pretty clear goals:
         - apply those mods elsewhere if necessary
         - overrule the conflict and make their changes anyway
 
-   * Tree conflicts appear to be something special, and should be
+   * Tree conflicts appear to be something special, and should be 
      annotated as such.
 
 With those things in mind, here are some not-fully-baked ideas:
@@ -146,4 +146,4 @@ contents can note the details of the tree conflict.
         data we'd like to keep easy track of:  diffs between
         deleted-source and wc base file, and diffs between wc base and
         wc working files.  need more thinkin' 'round these parts...
-        here, quickly ruling out any deletion that
+        here, quickly ruling out any deletion that 
