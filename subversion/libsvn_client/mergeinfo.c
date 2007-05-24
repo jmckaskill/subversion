@@ -99,7 +99,7 @@ svn_client__record_wc_merge_info(const char *wcpath,
     {
       mergeinfo_str = NULL;
     }
-
+  
   /* Record the new merge info in the WC. */
   /* ### Later, we'll want behavior more analogous to
      ### svn_client__get_prop_from_wc(). */
