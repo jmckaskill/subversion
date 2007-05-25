@@ -50,7 +50,7 @@
 
 
 /* Helper for report_revisions_and_depths().
-
+   
    Perform an atomic restoration of the file FILE_PATH; that is, copy
    the file's text-base to the administrative tmp area, and then move
    that file to FILE_PATH with possible translations/expansions.  If
@@ -92,7 +92,7 @@ restore_file(const char *file_path,
 
   if (use_commit_times)
     {
-      SVN_ERR(svn_wc__get_special(&special, file_path, adm_access, pool));
+      SVN_ERR(svn_wc__get_special(&special, file_path, adm_access, pool)); 
     }
 
   /* Possibly set timestamp to last-commit-time. */
@@ -132,7 +132,7 @@ restore_file(const char *file_path,
    missing from disk, report its absence to REPORTER.  If an entry has
    a different URL than expected, report that to REPORTER.  If an
    entry has a different depth than its parent, report that to
-   REPORTER.
+   REPORTER.  
 
    Alternatively, if REPORT_EVERYTHING is set, then report all
    children unconditionally.
@@ -175,16 +175,16 @@ report_revisions_and_depths(svn_wc_adm_access_t *adm_access,
 
   /* Get both the SVN Entries and the actual on-disk entries.   Also
      notice that we're picking up hidden entries too. */
-  full_path = svn_path_join(svn_wc_adm_access_path(adm_access),
+  full_path = svn_path_join(svn_wc_adm_access_path(adm_access), 
                             dir_path, subpool);
   SVN_ERR(svn_wc_adm_retrieve(&dir_access, adm_access, full_path, subpool));
   SVN_ERR(svn_wc_entries_read(&entries, dir_access, TRUE, subpool));
   SVN_ERR(svn_io_get_dir_filenames(&dirents, full_path, subpool));
-
+  
   /*** Do the real reporting and recursing. ***/
-
+  
   /* First, look at "this dir" to see what its URL is. */
-  dot_entry = apr_hash_get(entries, SVN_WC_ENTRY_THIS_DIR,
+  dot_entry = apr_hash_get(entries, SVN_WC_ENTRY_THIS_DIR, 
                            APR_HASH_KEY_STRING);
 
   /* If "this dir" has "svn:externals" property set on it, store its name
@@ -214,7 +214,7 @@ report_revisions_and_depths(svn_wc_adm_access_t *adm_access,
       const void *key;
       apr_ssize_t klen;
       void *val;
-      const svn_wc_entry_t *current_entry;
+      const svn_wc_entry_t *current_entry; 
       svn_io_dirent_t *dirent;
       svn_node_kind_t dirent_kind;
       svn_boolean_t missing = FALSE;
@@ -232,7 +232,7 @@ report_revisions_and_depths(svn_wc_adm_access_t *adm_access,
         continue;
 
       /* Compute the paths and URLs we need. */
-      this_url = svn_path_join(dot_entry->url,
+      this_url = svn_path_join(dot_entry->url, 
                                svn_path_uri_encode(key, iterpool), iterpool);
       this_path = svn_path_join(dir_path, key, iterpool);
       this_full_path = svn_path_join(full_path, key, iterpool);
@@ -249,7 +249,7 @@ report_revisions_and_depths(svn_wc_adm_access_t *adm_access,
             SVN_ERR(reporter->delete_path(report_baton, this_path, iterpool));
           continue;
         }
-
+      
       /* Is the entry on disk?  Set a flag if not. */
       dirent = apr_hash_get(dirents, key, klen);
       if (! dirent)
@@ -262,26 +262,26 @@ report_revisions_and_depths(svn_wc_adm_access_t *adm_access,
           if (dirent_kind == svn_node_none)
             missing = TRUE;
         }
-
+      
       /* From here on out, ignore any entry scheduled for addition */
       if (current_entry->schedule == svn_wc_schedule_add)
         continue;
-
+      
       /*** Files ***/
-      if (current_entry->kind == svn_node_file)
+      if (current_entry->kind == svn_node_file) 
         {
           /* If the item is missing from disk, and we're supposed to
              restore missing things, and it isn't missing as a result
              of a scheduling operation, then ... */
-          if (missing
-              && restore_files
+          if (missing 
+              && restore_files 
               && (current_entry->schedule != svn_wc_schedule_delete)
               && (current_entry->schedule != svn_wc_schedule_replace))
             {
               /* ... recreate file from text-base, and ... */
               SVN_ERR(restore_file(this_full_path, dir_access,
                                    use_commit_times, iterpool));
-
+              
               /* ... report the restoration to the caller.  */
               if (notify_func != NULL)
                 {
@@ -308,7 +308,7 @@ report_revisions_and_depths(svn_wc_adm_access_t *adm_access,
                                            current_entry->revision,
                                            current_entry->depth,
                                            FALSE, current_entry->lock_token,
-                                           iterpool));
+                                           iterpool));              
             }
 
           /* Possibly report a disjoint URL ... */
@@ -336,7 +336,7 @@ report_revisions_and_depths(svn_wc_adm_access_t *adm_access,
                                        current_entry->lock_token,
                                        iterpool));
         } /* end file case */
-
+      
       /*** Directories (in recursive mode) ***/
       else if (current_entry->kind == svn_node_dir
                && depth == svn_depth_infinity)
@@ -346,7 +346,7 @@ report_revisions_and_depths(svn_wc_adm_access_t *adm_access,
              ### specified depth is not infinity, then we don't want
              ### to recurse at all.  If it is, then we want recursion
              ### to be dependent on the subdirs' entries, right?
-             ### That's what the code below does. */
+             ### That's what the code below does. */ 
 
           svn_wc_adm_access_t *subdir_access;
           const svn_wc_entry_t *subdir_entry;
@@ -387,7 +387,7 @@ report_revisions_and_depths(svn_wc_adm_access_t *adm_access,
                                            subdir_entry->depth,
                                            subdir_entry->incomplete,
                                            subdir_entry->lock_token,
-                                           iterpool));
+                                           iterpool));              
             }
 
           /* Possibly report a disjoint URL ... */
@@ -414,7 +414,7 @@ report_revisions_and_depths(svn_wc_adm_access_t *adm_access,
                                        iterpool));
 
           /* ### TODO(sd): See TODO comment in svn_wc_crawl_revisions3()
-             ### about depth treatment here. */
+             ### about depth treatment here. */ 
           if (depth == svn_depth_infinity)
             SVN_ERR(report_revisions_and_depths(adm_access, this_path,
                                                 subdir_entry->revision,
@@ -477,9 +477,9 @@ svn_wc_crawl_revisions3(const char *path,
       if (depth == svn_depth_unknown)
         depth = parent_entry->depth;
       SVN_ERR(reporter->set_path(report_baton, "", base_rev, depth,
-                                 entry ? entry->incomplete : TRUE,
+                                 entry ? entry->incomplete : TRUE, 
                                  NULL, pool));
-      SVN_ERR(reporter->delete_path(report_baton, "", pool));
+      SVN_ERR(reporter->delete_path(report_baton, "", pool)); 
 
       /* Finish the report, which causes the update editor to be
          driven. */
@@ -577,7 +577,7 @@ svn_wc_crawl_revisions3(const char *path,
               (*notify_func)(notify_baton, notify, pool);
             }
         }
-
+      
       /* Split PATH into parent PDIR and basename BNAME. */
       svn_path_split(path, &pdir, &bname, pool);
       if (! parent_entry)
@@ -586,12 +586,12 @@ svn_wc_crawl_revisions3(const char *path,
           if (err)
             goto abort_report;
         }
-
-      if (parent_entry
-          && parent_entry->url
+      
+      if (parent_entry 
+          && parent_entry->url 
           && entry->url
-          && strcmp(entry->url,
-                    svn_path_url_add_component(parent_entry->url,
+          && strcmp(entry->url, 
+                    svn_path_url_add_component(parent_entry->url, 
                                                bname, pool)))
         {
           /* This file is disjoint with respect to its parent
@@ -640,7 +640,7 @@ svn_wc_crawl_revisions3(const char *path,
 
 
 /*** Compatibility wrapper: turns an svn_ra_reporter2_t into an
-     svn_ra_reporter3_t.
+     svn_ra_reporter3_t. 
 
      This code looks like it duplicates code in libsvn_ra/ra_loader.c,
      but it does not.  That code makes an new thing look like an old
@@ -673,7 +673,7 @@ static svn_error_t *wrap_3to2_delete_path(void *report_baton,
 
   return wrb->reporter->delete_path(wrb->baton, path, pool);
 }
-
+    
 static svn_error_t *wrap_3to2_link_path(void *report_baton,
                                         const char *path,
                                         const char *url,
@@ -744,7 +744,7 @@ svn_wc_crawl_revisions2(const char *path,
 
 
 /*** Compatibility wrapper: turns an svn_ra_reporter_t into an
-     svn_ra_reporter2_t.
+     svn_ra_reporter2_t. 
 
      This code looks like it duplicates code in libsvn_ra/ra_loader.c,
      but it does not.  That code makes an new thing look like an old
@@ -776,7 +776,7 @@ static svn_error_t *wrap_2to1_delete_path(void *report_baton,
 
   return wrb->reporter->delete_path(wrb->baton, path, pool);
 }
-
+    
 static svn_error_t *wrap_2to1_link_path(void *report_baton,
                                         const char *path,
                                         const char *url,
@@ -830,7 +830,7 @@ svn_wc_crawl_revisions(const char *path,
 {
   struct wrap_2to1_report_baton wrb;
   svn_wc__compat_notify_baton_t nb;
-
+  
   wrb.reporter = reporter;
   wrb.baton = report_baton;
 
@@ -1100,7 +1100,7 @@ svn_wc_transmit_prop_deltas(const char *path,
   apr_array_header_t *propmods;
   apr_hash_t *localprops = apr_hash_make(pool);
   apr_hash_t *baseprops = apr_hash_make(pool);
-
+  
   /* Get the right access baton for the job. */
   SVN_ERR(svn_wc_adm_probe_retrieve(&adm_access, adm_access, path, pool));
 
@@ -1115,7 +1115,7 @@ svn_wc_transmit_prop_deltas(const char *path,
 
   /* First, get the prop_path from the original path */
   SVN_ERR(svn_wc__prop_path(&props, path, entry->kind, FALSE, pool));
-
+  
   /* Get the full path of the prop-base `pristine' file */
   if (entry->schedule == svn_wc_schedule_replace)
     {
@@ -1142,7 +1142,7 @@ svn_wc_transmit_prop_deltas(const char *path,
   SVN_ERR(svn_wc__load_prop_file(props_tmp, localprops, pool));
   if (props_base)
     SVN_ERR(svn_wc__load_prop_file(props_base, baseprops, pool));
-
+  
   /* Get an array of local changes by comparing the hashes. */
   SVN_ERR(svn_prop_diffs(&propmods, localprops, baseprops, pool));
 
