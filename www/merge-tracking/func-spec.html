@@ -264,7 +264,7 @@ use by third-party clients like <a href="http://tortoisesvn.tigris.org/"
 >TortoiseSVN</a>).</p>
 
 <p>A new switch, <code>--merge-sensitive</code>, along with a corresponding
-single-character shortcut (<code>-g</code>), will be introduced for the
+single-character shortcut (<code>-g</code>), will be introduced for the 
 toggle merge information.  Using it will enable these commands to show the
 additional information gleaned from parsing and processing the merge info
 on the targets in question.  This switch will also work with
@@ -292,7 +292,7 @@ functionality added by <code>--merge-sensitive</code> is as follows.</p>
   <pre>
 ------------------------------------------------------------------------
 r24 | chuck | 2007-04-30 10:18:01 -0500 (Mon, 16 Apr 2007) | 1 line
-
+ 
 Merge r12 and r14 from branch to trunk.
 ------------------------------------------------------------------------
 r14 | bob | 2007-04-16 18:50:29 -0500 (Mon, 16 Apr 2007) | 1 line
@@ -315,7 +315,7 @@ r24 | chuck | 2007-04-30 10:18:01 -0500 (Mon, 16 Apr 2007) | 1 line
 Changed paths:
    M /trunk/death-ray.c
    M /trunk/frobnicator/frapnalyzer.c
-
+ 
 Merge r12 and r14 from branch to trunk.
 ------------------------------------------------------------------------
 r14 | bob | 2007-04-16 18:50:29 -0500 (Mon, 16 Apr 2007) | 1 line
@@ -340,7 +340,7 @@ Fix frapnalyzer bug in frobnicator.
   <pre>
 ------------------------------------------------------------------------
 r24 | chuck | 2007-04-30 10:18:01 -0500 (Mon, 16 Apr 2007) | 1 line
-
+ 
 Merge r12 and r14 from branch to trunk.
 ------------------------------------------------------------------------
 r14 | bob | 2007-04-16 18:50:29 -0500 (Mon, 16 Apr 2007) | 1 line
@@ -368,7 +368,7 @@ Whitespace fixes.  No functional change.
   revisions, and sorted by revision number.  This may mean that not all log
   messages will be in revision number order, but changes will be presented in
   the order they were actually made.</p>
-
+  
   </dd>
 
   <dt><code>svn blame</code></dt>
@@ -491,30 +491,30 @@ text, "1\n2\n\3\n".  The file then splits into two lines of
 development.</p>
 
 <pre>
-                    1
-                    2
-                    3
-                  /   \
-                 /     \
-                /       \
-            one           1
-            two           2.5
-            three         3
+                    1     
+                    2     
+                    3     
+                  /   \   
+                 /     \  
+                /       \ 
+            one           1   
+            two           2.5 
+            three         3   
              |     \      |
-             |      \     |
-             |       \    |
-             |        \   |
+             |      \     |   
+             |       \    |            
+             |        \   |            
              |         \ one                ## This node is a human's
              |           two-point-five     ## merge of two sides.
-             |           three
+             |           three        
              |            |
              |            |
              |            |
             one          one
             Two          two-point-five
-            three        newline
-               \         three
-                \         |
+            three        newline       
+               \         three  
+                \         |   
                  \        |
                   \       |
                    \      |
@@ -682,7 +682,7 @@ in the <code>tools/server-side/</code> area of the distribution .</p>
   functionality.  The one case where merge info might come into play
   is when the merge info for a path is available locally (e.g. in the
   client's WC); in this case, repeated merges may be avoided.</li>
-
+ 
   <li>A 1.5.x client will record merge tracking meta data for merges
   performed, regardless of repository version.  However, a repository
   1.4.x- won't know to do anything special with this merge info.  When
