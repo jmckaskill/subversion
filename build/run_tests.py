@@ -176,7 +176,7 @@ class TestHarness:
 def main():
   try:
     opts, args = my_getopt(sys.argv[1:], 'u:f:vc',
-                           ['url=', 'fs-type=', 'verbose', 'cleanup',
+                           ['url=', 'fs-type=', 'verbose', 'cleanup', 
                             'enable-sasl', 'parallel'])
   except getopt.GetoptError:
     args = []
