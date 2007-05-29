@@ -31,7 +31,7 @@ jobject
 vector__create(JNIEnv *env, jboolean *hasException);
 
 void
-vector__add(JNIEnv *env, jobject vector, jobject value,
+vector__add(JNIEnv *env, jobject vector, jobject value, 
             jboolean *hasException);
 
 #ifdef __cplusplus
