@@ -79,7 +79,7 @@ Read Commands  :  (OPTIONS, PROPFIND, GET, REPORT)
   * svn plist URL:  PROPFIND
 
   * svn pget URL:   PROPFIND
-
+ 
 
 
 
@@ -94,7 +94,7 @@ Write Commands  :  (MKACTIVITY, PROPPATCH, PUT, CHECKOUT, MKCOL, MOVE,
   may try to remove the transaction with a DELETE.
 
   * svn commit:
-     ra_dav:        OPTIONS, PROPFIND, MKACTIVITY,
+     ra_dav:        OPTIONS, PROPFIND, MKACTIVITY, 
                     {CHECKOUT, COPY, MOVE, DELETE, PROPPATCH, PUT, MKCOL},
                     MERGE (DELETE)
 
@@ -114,7 +114,7 @@ Write Commands  :  (MKACTIVITY, PROPPATCH, PUT, CHECKOUT, MKCOL, MOVE,
                     MERGE (DELETE)
 
   * svn lock:       PROPFIND, LOCK
-
+  
   * svn unlock:     PROPFIND, UNLOCK
 
   * svn cp URL URL: OPTIONS, PROPFIND, MKACTIVITY, PROPPATCH,
@@ -170,7 +170,7 @@ Response:
   ETag: "3//httpd/configure"
   Vary: Accept-Encoding
   Content-Type: application/vnd.svn-svndiff
-
+  
   ...svn-svndiff stream that can be passed to svn_txdelta_parse_svndiff...
 
 Custom REPORTs
@@ -283,7 +283,7 @@ Target URL: Current baseline collection for a directory plus relative paths.
             Example: REPORT /repos/test/!svn/bc/5/httpd
 
 Request:
-
+ 
   <S:get-locations xmlns:S="svn:">
     <S:path></S:path>
     <S:peg-revision>5</S:peg-revision>
