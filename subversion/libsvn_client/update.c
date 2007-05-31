@@ -78,7 +78,7 @@ svn_client__update_internal(svn_revnum_t *result_rev,
   apr_hash_t *children_with_mergeinfo_hash;
   const char *preserved_exts_str;
   apr_array_header_t *preserved_exts;
-  svn_config_t *cfg = ctx->config ? apr_hash_get(ctx->config,
+  svn_config_t *cfg = ctx->config ? apr_hash_get(ctx->config, 
                                                  SVN_CONFIG_CATEGORY_CONFIG,
                                                  APR_HASH_KEY_STRING) : NULL;
 
@@ -98,7 +98,7 @@ svn_client__update_internal(svn_revnum_t *result_rev,
     adm_open_depth = 0;
   else
     adm_open_depth = -1;
-
+  
   /* Sanity check.  Without this, the update is meaningless. */
   assert(path);
 
@@ -164,7 +164,7 @@ svn_client__update_internal(svn_revnum_t *result_rev,
   else
     revnum = SVN_INVALID_REVNUM;
 
-  /* Get the external diff3, if any. */
+  /* Get the external diff3, if any. */    
   svn_config_get(cfg, &diff3_cmd, SVN_CONFIG_SECTION_HELPERS,
                  SVN_CONFIG_OPTION_DIFF3_CMD, NULL);
 
@@ -177,14 +177,14 @@ svn_client__update_internal(svn_revnum_t *result_rev,
      conflict files are made. */
   svn_config_get(cfg, &preserved_exts_str, SVN_CONFIG_SECTION_MISCELLANY,
                  SVN_CONFIG_OPTION_PRESERVED_CF_EXTS, "");
-  preserved_exts = *preserved_exts_str
+  preserved_exts = *preserved_exts_str 
     ? svn_cstring_split(preserved_exts_str, "\n\r\t\v ", FALSE, pool)
     : NULL;
 
   /* Open an RA session for the URL */
   SVN_ERR(svn_client__open_ra_session_internal(&ra_session, entry->url,
                                                anchor, adm_access,
-                                               NULL, TRUE, TRUE,
+                                               NULL, TRUE, TRUE, 
                                                ctx, pool));
 
   /* ### todo: shouldn't svn_client__get_revision_number be able
@@ -230,7 +230,7 @@ svn_client__update_internal(svn_revnum_t *result_rev,
                                 TRUE, depth, use_commit_times,
                                 ctx->notify_func2, ctx->notify_baton2,
                                 traversal_info, pool);
-
+      
   if (err)
     {
       /* Don't rely on the error handling to handle the sleep later, do
@@ -239,12 +239,12 @@ svn_client__update_internal(svn_revnum_t *result_rev,
       return err;
     }
   *use_sleep = TRUE;
-
+  
   /* We handle externals after the update is complete, so that
      handling external items (and any errors therefrom) doesn't delay
      the primary operation.  */
   if ((depth == svn_depth_infinity) && (! ignore_externals))
-    SVN_ERR(svn_client__handle_externals(traversal_info,
+    SVN_ERR(svn_client__handle_externals(traversal_info, 
                                          TRUE, /* update unchanged ones */
                                          use_sleep, ctx, pool));
 
@@ -254,7 +254,7 @@ svn_client__update_internal(svn_revnum_t *result_rev,
   if (adm_open_depth)
     {
       SVN_ERR(svn_wc_adm_probe_retrieve(&path_adm_access, adm_access, path,
-                                        pool));
+                                        pool));  
     }
   else
     {
@@ -268,7 +268,7 @@ svn_client__update_internal(svn_revnum_t *result_rev,
 
     /* Check if any mergeinfo on PATH or any its children elides as a
      result of the update. */
-  children_with_mergeinfo_hash = apr_hash_make(pool);
+  children_with_mergeinfo_hash = apr_hash_make(pool);  
   err = svn_client__get_prop_from_wc(children_with_mergeinfo_hash,
                                      SVN_PROP_MERGE_INFO, path, FALSE,
                                      entry, path_adm_access, TRUE, ctx,
@@ -329,7 +329,7 @@ svn_client__update_internal(svn_revnum_t *result_rev,
   /* If the caller wants the result revision, give it to them. */
   if (result_rev)
     *result_rev = revnum;
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -414,6 +414,6 @@ svn_client_update(svn_revnum_t *result_rev,
                   apr_pool_t *pool)
 {
   return svn_client__update_internal(result_rev, path, revision,
-                                     SVN_DEPTH_FROM_RECURSE(recurse),
+                                     SVN_DEPTH_FROM_RECURSE(recurse), 
                                      FALSE, FALSE, NULL, ctx, pool);
 }
