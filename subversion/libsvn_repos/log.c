@@ -33,8 +33,8 @@
 #include "repos.h"
 
 /* The actual worker log function, most the arguments are the same as for
-   svn_repos_get_logs4().
-
+   svn_repos_get_logs4(). 
+   
    Build a log tree, and put it in *TREE, or send it if SEND_TREE is TRUE. */
 static svn_error_t *
 do_logs(struct log_tree_node **tree,
@@ -101,7 +101,7 @@ svn_repos_check_revision_access(svn_repos_revision_access_level_t *access,
       apr_hash_this(hi, &key, NULL, &val);
       change = val;
 
-      SVN_ERR(authz_read_func(&readable, rev_root, key,
+      SVN_ERR(authz_read_func(&readable, rev_root, key, 
                               authz_read_baton, subpool));
       if (! readable)
         found_unreadable = TRUE;
@@ -172,7 +172,7 @@ svn_repos_check_revision_access(svn_repos_revision_access_level_t *access,
  *
  * The CHANGED hash set and its keys and values are allocated in POOL;
  * keys are const char * paths and values are svn_log_changed_path_t.
- *
+ * 
  * If optional AUTHZ_READ_FUNC is non-NULL, then use it (with
  * AUTHZ_READ_BATON and FS) to check whether each changed-path (and
  * copyfrom_path) is readable:
@@ -286,7 +286,7 @@ detect_changed(apr_hash_t **changed,
               if (authz_read_func)
                 {
                   svn_fs_root_t *copyfrom_root;
-
+                  
                   SVN_ERR(svn_fs_revision_root(&copyfrom_root, fs,
                                                copyfrom_rev, subpool));
                   SVN_ERR(authz_read_func(&readable,
@@ -303,7 +303,7 @@ detect_changed(apr_hash_t **changed,
                 }
             }
         }
-      apr_hash_set(*changed, apr_pstrdup(pool, path),
+      apr_hash_set(*changed, apr_pstrdup(pool, path), 
                    APR_HASH_KEY_STRING, item);
     }
 
@@ -431,7 +431,7 @@ get_history(struct path_info *info,
       info->done = TRUE;
       return SVN_NO_ERROR;
     }
-
+  
   /* Is the history item readable?  If not, done with path. */
   if (authz_read_func)
     {
@@ -536,7 +536,7 @@ get_combined_mergeinfo(apr_hash_t **mergeinfo,
   apr_hash_index_t *hi;
   apr_hash_t *tree_mergeinfo;
   apr_pool_t *subpool = svn_pool_create(pool);
-
+  
   /* Get the mergeinfo for each tree roots in PATHS. */
   SVN_ERR(svn_fs_revision_root(&root, fs, rev, subpool));
   SVN_ERR(svn_fs_get_mergeinfo_for_tree(&tree_mergeinfo, root, paths, pool));
@@ -639,7 +639,7 @@ fill_log_entry(svn_log_entry_t *log_entry,
 
   /* Discover changed paths if the user requested them
      or if we need to check that they are readable. */
-  if ((rev > 0)
+  if ((rev > 0)        
       && (authz_read_func || discover_changed_paths))
     {
       svn_fs_root_t *newroot;
@@ -655,7 +655,7 @@ fill_log_entry(svn_log_entry_t *log_entry,
           && patherr->apr_err == SVN_ERR_AUTHZ_UNREADABLE)
         {
           /* All changed-paths are unreadable, so clear all fields. */
-          svn_error_clear(patherr);
+          svn_error_clear(patherr);              
           changed_paths = NULL;
           author = NULL;
           date = NULL;
@@ -774,7 +774,7 @@ find_merge_source(const char **merge_source,
  * not NULL, or if DISCOVER_CHANGED_PATHS is TRUE.  See it for details.
  *
  * If DESCENDING_ORDER is true, send child messages in descending order.
- *
+ * 
  * If OMIT_LOG_TEXT is true, don't send the log text to RECEIVER.
  *
  * If INCLUDE_MERGED_REVISIONS is TRUE, include as children of the log tree
@@ -819,7 +819,7 @@ build_log_tree(struct log_tree_node **out_tree,
 
   if (nbr_children > 0)
     {
-      /* Build the subtree, starting at the most recent revision in the
+      /* Build the subtree, starting at the most recent revision in the 
          rangelist difference.  The idea is to construct the tree rooted at
          the current message, and remove any revisions which are included by
          children that tree from the remaining revisions.  In this way, we can
@@ -827,7 +827,7 @@ build_log_tree(struct log_tree_node **out_tree,
          at the appropriate level.
 
          The drawback is that we basically have to build the tree locally,
-         before sending any of it to the client, because we don't know how
+         before sending any of it to the client, because we don't know how 
          many children we have until we've constructed the tree.  The approach
          could be time and memory expensive. */
 
