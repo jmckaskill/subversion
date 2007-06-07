@@ -1,5 +1,5 @@
 /*
- * svn_fs_util.h: Declarations for the APIs of libsvn_fs_util to be
+ * svn_fs_util.h: Declarations for the APIs of libsvn_fs_util to be 
  * consumed by only fs_* libs.
  *
  * ====================================================================
