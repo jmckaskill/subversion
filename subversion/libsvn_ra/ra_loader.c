@@ -238,7 +238,7 @@ check_ra_version(const svn_version_t *ra_version, const char *scheme)
 
 /*** Compatibility Wrappers ***/
 
-/* Wrap @c svn_ra_reporter3_t in an interface that looks like
+/* Wrap @c svn_ra_reporter3_t in an interface that looks like 
    @c svn_ra_reporter2_t, for compatibility with functions that take
    the latter.  This shields the ra-specific implementations from
    worrying about what kind of reporter they're dealing with.
@@ -286,7 +286,7 @@ delete_path(void *report_baton,
   struct reporter_3in2_baton *b = report_baton;
   return b->reporter3->delete_path(b->reporter3_baton, path, pool);
 }
-
+    
 /* Wrap the corresponding svn_ra_reporter3_t field in an
    svn_ra_reporter2_t interface.  @a report_baton is a
    @c reporter_3in2_baton_t *. */
@@ -411,7 +411,7 @@ svn_error_t *svn_ra_open2(svn_ra_session_t **session_p,
           svn_ra__init_func_t initfunc = defn->initfunc;
 
 #ifdef MUST_CHOOSE_DAV
-          if (defn->schemes == dav_schemes
+          if (defn->schemes == dav_schemes 
               && strcmp(defn->ra_name, http_library) != 0)
             continue;
 #endif
@@ -430,7 +430,7 @@ svn_error_t *svn_ra_open2(svn_ra_session_t **session_p,
           break;
         }
     }
-
+    
   if (vtable == NULL)
     return svn_error_createf(SVN_ERR_RA_ILLEGAL_URL, NULL,
                              _("Unrecognized URL scheme for '%s'"),
@@ -918,7 +918,7 @@ svn_error_t *svn_ra_lock(svn_ra_session_t *session,
                          apr_hash_t *path_revs,
                          const char *comment,
                          svn_boolean_t steal_lock,
-                         svn_ra_lock_callback_t lock_func,
+                         svn_ra_lock_callback_t lock_func, 
                          void *lock_baton,
                          apr_pool_t *pool)
 {
@@ -926,7 +926,7 @@ svn_error_t *svn_ra_lock(svn_ra_session_t *session,
     return svn_error_create
       (SVN_ERR_XML_UNESCAPABLE_DATA, NULL,
        _("Lock comment contains illegal characters"));
-
+  
   return session->vtable->lock(session, path_revs, comment, steal_lock,
                                lock_func, lock_baton, pool);
 }
@@ -934,7 +934,7 @@ svn_error_t *svn_ra_lock(svn_ra_session_t *session,
 svn_error_t *svn_ra_unlock(svn_ra_session_t *session,
                            apr_hash_t *path_tokens,
                            svn_boolean_t break_lock,
-                           svn_ra_lock_callback_t lock_func,
+                           svn_ra_lock_callback_t lock_func, 
                            void *lock_baton,
                            apr_pool_t *pool)
 {
@@ -1089,7 +1089,7 @@ svn_ra_get_ra_library(svn_ra_plugin_t **library,
           return SVN_NO_ERROR;
         }
     }
-
+    
   /* Couldn't find a match... */
   *library = NULL;
   return svn_error_createf(SVN_ERR_RA_ILLEGAL_URL, NULL,
