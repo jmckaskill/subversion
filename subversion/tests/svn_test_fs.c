@@ -572,8 +572,3 @@ svn_test__create_greek_tree(svn_fs_root_t *txn_root,
           (txn_root, "A/D/H/omega", "This is the file 'omega'.\n", pool));
   return SVN_NO_ERROR;
 }
-
-
-
-
-
