@@ -127,7 +127,7 @@ class SVNClient :public SVNBase
   void logMessages(const char *path, Revision &pegRevision,
                    Revision &revisionStart,
                    Revision &revisionEnd, bool stopOnCopy,
-                   bool discoverPaths, bool includeMergedRevisions,
+                   bool discoverPaths, bool includeMergedRevisions, 
                    bool omitLogText, long limit,
                    LogMessageCallback *callback);
   void setPrompt(Prompter *prompter);
@@ -199,7 +199,7 @@ class SVNClient :public SVNBase
             bool noDiffDelete, bool force);
 
   jobject createJavaInfo(const svn_wc_entry_t *entry);
-
+    
   Notify *m_notify;
   Notify2 *m_notify2;
   ProgressListener *m_progressListener;
