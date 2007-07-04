@@ -376,7 +376,7 @@ information.  The new functionality added by
   <pre>
 ------------------------------------------------------------------------
 r24 | chuck | 2007-04-30 10:18:01 -0500 (Mon, 16 Apr 2007) | 1 line
-
+ 
 Merge r12 and r14 from branch to trunk.
 ------------------------------------------------------------------------
 r14 | bob | 2007-04-16 18:50:29 -0500 (Mon, 16 Apr 2007) | 1 line
@@ -399,7 +399,7 @@ r24 | chuck | 2007-04-30 10:18:01 -0500 (Mon, 16 Apr 2007) | 1 line
 Changed paths:
    M /trunk/death-ray.c
    M /trunk/frobnicator/frapnalyzer.c
-
+ 
 Merge r12 and r14 from branch to trunk.
 ------------------------------------------------------------------------
 r14 | bob | 2007-04-16 18:50:29 -0500 (Mon, 16 Apr 2007) | 1 line
@@ -424,7 +424,7 @@ Fix frapnalyzer bug in frobnicator.
   <pre>
 ------------------------------------------------------------------------
 r24 | chuck | 2007-04-30 10:18:01 -0500 (Mon, 16 Apr 2007) | 1 line
-
+ 
 Merge r12 and r14 from branch to trunk.
 ------------------------------------------------------------------------
 r14 | bob | 2007-04-16 18:50:29 -0500 (Mon, 16 Apr 2007) | 1 line
@@ -452,7 +452,7 @@ Whitespace fixes.  No functional change.
   revisions, and sorted by revision number.  This may mean that not all log
   messages will be in revision number order, but changes will be presented in
   the order they were actually made.</p>
-
+  
   <p>Output for <code>svn log -g --xml</code> will exploit the tree structure
   of XML to include child messages as subelements of the corresponding parent
   log messages.  Consumers can use the location of a particular log message in
@@ -581,30 +581,30 @@ text, "1\n2\n\3\n".  The file then splits into two lines of
 development.</p>
 
 <pre>
-                    1
-                    2
-                    3
-                  /   \
-                 /     \
-                /       \
-            one           1
-            two           2.5
-            three         3
+                    1     
+                    2     
+                    3     
+                  /   \   
+                 /     \  
+                /       \ 
+            one           1   
+            two           2.5 
+            three         3   
              |     \      |
-             |      \     |
-             |       \    |
-             |        \   |
+             |      \     |   
+             |       \    |            
+             |        \   |            
              |         \ one                ## This node is a human's
              |           two-point-five     ## merge of two sides.
-             |           three
+             |           three        
              |            |
              |            |
              |            |
             one          one
             Two          two-point-five
-            three        newline
-               \         three
-                \         |
+            three        newline       
+               \         three  
+                \         |   
                  \        |
                   \       |
                    \      |
@@ -772,7 +772,7 @@ in the <code>tools/server-side/</code> area of the distribution .</p>
   functionality.  The one case where merge info might come into play
   is when the merge info for a path is available locally (e.g. in the
   client's WC); in this case, repeated merges may be avoided.</li>
-
+ 
   <li>A 1.5.x client will record merge tracking meta data for merges
   performed, regardless of repository version.  However, a repository
   1.4.x- won't know to do anything special with this merge info.  When
