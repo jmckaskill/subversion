@@ -79,9 +79,9 @@ check_scheme_match(svn_wc_adm_access_t *adm_access, const char *url)
   apr_pool_t *pool = svn_wc_adm_access_pool(adm_access);
   const svn_wc_entry_t *ent;
   const char *idx1, *idx2;
-
+  
   SVN_ERR(svn_wc_entry(&ent, path, adm_access, TRUE, pool));
-
+  
   idx1 = strchr(url, ':');
   idx2 = strchr(ent->url, ':');
 
@@ -265,7 +265,7 @@ merge_file_changed(svn_wc_adm_access_t *adm_access,
       svn_pool_destroy(subpool);
       return SVN_NO_ERROR;
     }
-
+  
   /* Other easy outs:  if the merge target isn't under version
      control, or is just missing from disk, fogettaboutit.  There's no
      way svn_wc_merge3() can do the merge. */
@@ -616,7 +616,7 @@ merge_file_deleted(svn_wc_adm_access_t *adm_access,
         *state = svn_wc_notify_state_unknown;
       break;
     }
-
+    
   svn_pool_destroy(subpool);
   return SVN_NO_ERROR;
 }
@@ -762,13 +762,13 @@ merge_delete_notify_func(void *baton,
   svn_wc_notify_t *new_notify;
 
   /* Skip the notification for the path we called svn_client__wc_delete() with,
-   * because it will be outputed by repos_diff.c:delete_item */
+   * because it will be outputed by repos_diff.c:delete_item */  
   if (strcmp(notify->path, mdb->path_skip) == 0)
     return;
-
+  
   /* svn_client__wc_delete() is written primarily for scheduling operations not
    * update operations.  Since merges are update operations we need to alter
-   * the delete notification to show as an update not a schedule so alter
+   * the delete notification to show as an update not a schedule so alter 
    * the action. */
   if (notify->action == svn_wc_notify_delete)
     {
@@ -807,7 +807,7 @@ merge_dir_deleted(svn_wc_adm_access_t *adm_access,
       svn_pool_destroy(subpool);
       return SVN_NO_ERROR;
     }
-
+  
   SVN_ERR(svn_io_check_path(path, &kind, subpool));
   switch (kind)
     {
@@ -854,7 +854,7 @@ merge_dir_deleted(svn_wc_adm_access_t *adm_access,
   svn_pool_destroy(subpool);
   return SVN_NO_ERROR;
 }
-
+  
 /* The main callback table for 'svn merge'.  */
 static const svn_wc_diff_callbacks2_t
 merge_callbacks =
@@ -961,7 +961,7 @@ get_wc_mergeinfo(apr_hash_t **mergeinfo,
 #if defined(WIN32) || defined(__CYGWIN__)
       /* On Windows a path is also absolute when it starts with
          'H:/' where 'H' is any upper or lower case letter. */
-      if (strlen(wcpath) == 0
+      if (strlen(wcpath) == 0 
           || ((strlen(wcpath) > 0 && wcpath[0] != '/')
                && !(strlen(wcpath) > 2
                     && wcpath[1] == ':'
@@ -1083,7 +1083,7 @@ get_wc_or_repos_mergeinfo(apr_hash_t **target_mergeinfo,
      a URL and without that we cannot get accurate mergeinfo for
      TARGET_WCPATH. */
   if (! (*entry)->url)
-    return svn_error_createf(SVN_ERR_ENTRY_MISSING_URL, NULL,
+    return svn_error_createf(SVN_ERR_ENTRY_MISSING_URL, NULL, 
                              _("Entry '%s' has no URL"),
                              svn_path_local_style(target_wcpath, pool));
 
@@ -1232,7 +1232,7 @@ get_empty_rangelists_unique_to_child(apr_hash_t **empty_range_mergeinfo,
    svn_client__elide_mergeinfo()'s docstring.  If elision (full or partial)
    does occur, then update PATH's mergeinfo appropriately.  If CHILD_MERGEINFO
    is NULL, do nothing.
-
+   
    If PATH_SUFFIX and PARENT_MERGEINFO are not NULL append PATH_SUFFIX to each
    path in PARENT_MERGEINFO before performing the comparison. */
 static svn_error_t *
@@ -1256,7 +1256,7 @@ elide_mergeinfo(apr_hash_t *parent_mergeinfo,
                              map to empty revision ranges elide. */
     elision_type_full     /* All mergeinfo in CHILD_MERGEINFO elides. */
   } elision_type = elision_type_none;
-
+  
   /* Easy out: No child mergeinfo to elide. */
   if (child_mergeinfo == NULL)
     return SVN_NO_ERROR;
@@ -1292,7 +1292,7 @@ elide_mergeinfo(apr_hash_t *parent_mergeinfo,
                                                &child_nonempty_mergeinfo,
                                                child_mergeinfo, mergeinfo,
                                                subpool));
-
+  
   /* If *all* paths in CHILD_MERGEINFO map to empty revision ranges and none
      of these paths exist in PARENT_MERGEINFO full elision occurs; if only
      *some* of the paths in CHILD_MERGEINFO meet this criteria we know, at a
@@ -1304,11 +1304,11 @@ elide_mergeinfo(apr_hash_t *parent_mergeinfo,
   if (elision_type == elision_type_none && mergeinfo)
     {
       apr_hash_t *parent_empty_mergeinfo, *parent_nonempty_mergeinfo;
-
+      
       /* Full elision also occurs if MERGEINFO and TARGET_MERGEINFO are
          equal except for paths unique to MERGEINFO that map to empty
          revision ranges.
-
+        
          Separate any mergeinfo with empty rev ranges for paths that exist
          only in MERGEINFO and store these in PARENT_EMPTY_MERGEINFO and
          compare that with CHILD_MERGEINFO. */
@@ -1328,7 +1328,7 @@ elide_mergeinfo(apr_hash_t *parent_mergeinfo,
       /* If no determination of elision status has been made yet or we know
         only that partial elision occurs, compare CHILD_NONEMPTY_MERGEINFO
         with the PATH_SUFFIX tweaked version of PARENT_MERGEINFO for equality.
-
+        
         If we determined that at least partial elision occurs, full elision
         may still yet occur if CHILD_NONEMPTY_MERGEINFO, which no longer
         contains any paths unique to it that map to empty revision ranges,
@@ -1436,7 +1436,7 @@ elide_children(apr_array_header_t *children_with_mergeinfo,
                                                          iterpool);
               const char *path_suffix = svn_path_basename(child_wcpath,
                                                           iterpool);
-
+              
               SVN_ERR(svn_client__parse_mergeinfo(&child_mergeinfo, entry,
                                                   child_wcpath, FALSE,
                                                   adm_access, ctx, iterpool));
@@ -1515,7 +1515,7 @@ svn_client__elide_mergeinfo(const char *target_wcpath,
                                                 NULL, target_wcpath,
                                                 adm_access, ctx, pool));
             }
-
+          
           /* If there is nowhere to elide TARGET_WCPATH's mergeinfo to and
              the elision is limited, then we are done.*/
           if (!mergeinfo && wc_elision_limit_path)
@@ -1798,7 +1798,7 @@ update_wc_mergeinfo(const char *target_wcpath, const svn_wc_entry_t *entry,
                                           adm_access, ctx, subpool));
 
       /* If we are attempting to set empty revision range override mergeinfo
-         on a path with no explicit mergeinfo, we first need the pristine
+         on a path with no explicit mergeinfo, we first need the pristine 
          mergeinfo that path inherits. */
       if (mergeinfo == NULL && ranges->nelts == 0)
         {
@@ -1922,7 +1922,7 @@ grok_range_info_from_opt_revisions(svn_merge_range_t *range,
           range->start = range->end = SVN_INVALID_REVNUM;
         }
     }
-  else
+  else 
     {
       *merge_type = merge_type_merge;
       range->start += 1;
@@ -2090,7 +2090,7 @@ do_merge(const char *initial_URL1,
       revision1 = &assumed_initial_revision1;
       revision2 = &assumed_initial_revision2;
     }
-
+  
 
   notify_b.same_urls = (strcmp(URL1, URL2) == 0);
   if (!notify_b.same_urls && merge_b->record_only)
@@ -2339,10 +2339,10 @@ do_merge(const char *initial_URL1,
 }
 
 
-/* Get REVISION of the file at URL.  SOURCE is a path that refers to that
-   file's entry in the working copy, or NULL if we don't have one.  Return in
-   *FILENAME the name of a file containing the file contents, in *PROPS a hash
-   containing the properties and in *REV the revision.  All allocation occurs
+/* Get REVISION of the file at URL.  SOURCE is a path that refers to that 
+   file's entry in the working copy, or NULL if we don't have one.  Return in 
+   *FILENAME the name of a file containing the file contents, in *PROPS a hash 
+   containing the properties and in *REV the revision.  All allocation occurs 
    in POOL. */
 static svn_error_t *
 single_file_merge_get_file(const char **filename,
@@ -2564,12 +2564,12 @@ do_single_file_merge(const char *initial_URL1,
 
       /* While we currently don't allow it, in theory we could be
          fetching two fulltexts from two different repositories here. */
-      SVN_ERR(single_file_merge_get_file(&tmpfile1, ra_session1, &props1,
-                                         is_revert ? r->start : r->start - 1,
+      SVN_ERR(single_file_merge_get_file(&tmpfile1, ra_session1, &props1, 
+                                         is_revert ? r->start : r->start - 1, 
                                          URL1, target_wcpath, subpool));
 
-      SVN_ERR(single_file_merge_get_file(&tmpfile2, ra_session2, &props2,
-                                         is_revert ? r->end - 1 : r->end,
+      SVN_ERR(single_file_merge_get_file(&tmpfile2, ra_session2, &props2, 
+                                         is_revert ? r->end - 1 : r->end, 
                                          URL2, target_wcpath, subpool));
 
       /* Discover any svn:mime-type values in the proplists */
@@ -2589,8 +2589,8 @@ do_single_file_merge(const char *initial_URL1,
                                  target_wcpath,
                                  tmpfile1,
                                  tmpfile2,
-                                 is_revert ? r->start : r->start - 1,
-                                 is_revert ? r->end - 1 : r->end,
+                                 is_revert ? r->start : r->start - 1, 
+                                 is_revert ? r->end - 1 : r->end, 
                                  mimetype1, mimetype2,
                                  propchanges, props1,
                                  merge_b));
@@ -2604,7 +2604,7 @@ do_single_file_merge(const char *initial_URL1,
       if (err && ! APR_STATUS_IS_ENOENT(err->apr_err))
         return err;
       svn_error_clear(err);
-
+  
         {
           svn_wc_notify_t *notify
           = svn_wc_create_notify(target_wcpath, svn_wc_notify_update_update,
@@ -2732,7 +2732,7 @@ get_sw_mergeinfo_walk_cb(const char *path,
     {
       path = apr_pstrdup(wb->children_sw_or_with_mergeinfo->pool, path);
       APR_ARRAY_PUSH(wb->children_sw_or_with_mergeinfo, const char *) = path;
-    }
+    }  
 
   return SVN_NO_ERROR;
 }
@@ -2796,7 +2796,7 @@ get_sw_mergeinfo_paths(apr_array_header_t *children_sw_or_with_mergeinfo,
    REVISION2, PEG_REVISION, DEPTH, IGNORE_ANCESTRY, ADM_ACCESS, and
    MERGE_CMD_BATON to do_merge() and do_single_file_merge().  All
    allocation occurs in POOL.
-
+   
    Note that any paths in CHILDREN_SW_OR_WITH_MERGEINFO which were switched
    but had no explicit working mergeinfo at the start of the call, will have
    some at the end as a result of do_merge() and/or do_single_file_merge. */
@@ -2882,7 +2882,7 @@ from_same_repos(struct merge_cmd_baton *merge_cmd_baton, const char *src_url,
 {
   if (merge_cmd_baton->dry_run)
     {
-      merge_cmd_baton->same_repos = FALSE;
+      merge_cmd_baton->same_repos = FALSE;  
     }
   else
     {
@@ -2929,10 +2929,10 @@ svn_client_merge3(const char *source1,
   peg_revision.kind = svn_opt_revision_unspecified;
 
   /* If source1 or source2 are paths, we need to get the underlying URL
-   * from the wc and save the initial path we were passed so we can use it as
-   * a path parameter (either in the baton or not).  otherwise, the path
-   * will just be NULL, which means we won't be able to figure out some kind
-   * of revision specifications, but in that case it won't matter, because
+   * from the wc and save the initial path we were passed so we can use it as 
+   * a path parameter (either in the baton or not).  otherwise, the path 
+   * will just be NULL, which means we won't be able to figure out some kind 
+   * of revision specifications, but in that case it won't matter, because 
    * those ways of specifying a revision are meaningless for a url.
    */
   SVN_ERR(svn_client_url_from_path(&URL1, source1, pool));
@@ -2943,7 +2943,7 @@ svn_client_merge3(const char *source1,
 
   SVN_ERR(svn_client_url_from_path(&URL2, source2, pool));
   if (! URL2)
-    return svn_error_createf(SVN_ERR_ENTRY_MISSING_URL, NULL,
+    return svn_error_createf(SVN_ERR_ENTRY_MISSING_URL, NULL, 
                              _("'%s' has no URL"),
                              svn_path_local_style(source2, pool));
 
