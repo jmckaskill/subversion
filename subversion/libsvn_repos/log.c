@@ -39,7 +39,7 @@
  *
  * The CHANGED hash set and its keys and values are allocated in POOL;
  * keys are const char * paths and values are svn_log_changed_path_t.
- *
+ * 
  * If optional AUTHZ_READ_FUNC is non-NULL, then use it (with
  * AUTHZ_READ_BATON and FS) to check whether each changed-path (and
  * copyfrom_path) is readable:
@@ -150,7 +150,7 @@ detect_changed(apr_hash_t **changed,
               if (authz_read_func)
                 {
                   svn_fs_root_t *copyfrom_root;
-
+                  
                   SVN_ERR(svn_fs_revision_root(&copyfrom_root, fs,
                                                copyfrom_rev, subpool));
                   SVN_ERR(authz_read_func(&readable,
@@ -167,7 +167,7 @@ detect_changed(apr_hash_t **changed,
                 }
             }
         }
-      apr_hash_set(*changed, apr_pstrdup(pool, path),
+      apr_hash_set(*changed, apr_pstrdup(pool, path), 
                    APR_HASH_KEY_STRING, item);
     }
 
@@ -292,7 +292,7 @@ get_history(struct path_info *info,
       info->done = TRUE;
       return SVN_NO_ERROR;
     }
-
+  
   /* Is the history item readable?  If not, done with path. */
   if (authz_read_func)
     {
@@ -415,7 +415,7 @@ send_change_rev(svn_revnum_t rev,
 
   /* Discover changed paths if the user requested them
      or if we need to check that they are readable. */
-  if ((rev > 0)
+  if ((rev > 0)        
       && (authz_read_func || discover_changed_paths))
     {
       svn_fs_root_t *newroot;
@@ -431,7 +431,7 @@ send_change_rev(svn_revnum_t rev,
           && patherr->apr_err == SVN_ERR_AUTHZ_UNREADABLE)
         {
           /* All changed-paths are unreadable, so clear all fields. */
-          svn_error_clear(patherr);
+          svn_error_clear(patherr);              
           changed_paths = NULL;
           author = NULL;
           date = NULL;
