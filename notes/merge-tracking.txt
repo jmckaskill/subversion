@@ -73,7 +73,7 @@ history index).
       solution which allows interactivity to be deferred until all
       possible merging has occurred.  (They are not alone in a desire
       to see this use case handled.)
-
+      
     * Add a notification message or perhaps a notification callback so
       that a client may provide detailed information about the state of
       the merge.  Something which identifies which revisions have been
@@ -142,7 +142,7 @@ Implement auditing/reporting and other high-level features.
 
 * Add some set of svnmerge.py-like commands for merge info
   auditing/editing to the 'svn' command-line binary.
-
+  
   * Discuss the following command set on the dev list (as just a
     jumping-off point):
 
