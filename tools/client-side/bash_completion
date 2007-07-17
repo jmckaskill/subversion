@@ -472,13 +472,13 @@ _svn()
 
 		[[ $SVN_BASH_COMPL_EXT == *recurse* ]] || \
 		    status="$status --non-recursive"
-
+		
     	        # I'm not sure that it can work with externals in call cases
 	        # the output contains translatable sentences (even with quiet)
 		[[ $SVN_BASH_COMPL_EXT == *externals* ]] || \
 		    status="$status --ignore-externals"
 
-		local cs=
+		local cs= 
 		[[ $cur ]] && cs=$cur*
 		case $cmd in
 		    st*) # status completion must include all files
@@ -529,7 +529,7 @@ _svn()
 		esac
 
 	        # also suggest subdirectories: svn-managed subdirs??
-		if [[ $SVN_BASH_COMPL_EXT != *recurse* ]] ; then
+		if [[ $SVN_BASH_COMPL_EXT != *recurse* ]] ; then 
 		    files="$files $( _svn_lls dir $cur* )"
 		fi
 
@@ -605,7 +605,7 @@ _svn()
 	import)
 		cmdOpts="--auto-props --no-auto-props $mOpts $qOpts $nOpts \
 		         --no-ignore --editor-cmd $pOpts"
-		;;
+		;; 
 	info)
 		cmdOpts="$pOpts $rOpts --targets -R --recursive \
                          --incremental --xml --changelist"
