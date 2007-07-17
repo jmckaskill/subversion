@@ -410,7 +410,6 @@ svn_client__make_local_parents(const char *path,
    If ALLOW_UNVER_OBSTRUCTIONS is TRUE, unversioned children of PATH
    that obstruct items added from the repos are tolerated; if FALSE,
    these obstructions cause the update to fail. */
-
 svn_error_t *
 svn_client__update_internal(svn_revnum_t *result_rev,
                             const char *path,
