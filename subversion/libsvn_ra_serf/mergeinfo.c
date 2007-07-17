@@ -103,7 +103,7 @@ end_element(svn_ra_serf__xml_parser_t *parser, void *userData,
     {
       svn_ra_serf__xml_pop_state(parser);
     }
-  else if (state == MERGE_INFO_ITEM
+  else if (state == MERGE_INFO_ITEM 
            && strcmp(name.name, SVN_DAV__MERGEINFO_ITEM) == 0)
     {
       if (mergeinfo_ctx->curr_info->len && mergeinfo_ctx->curr_path->len)
@@ -120,12 +120,12 @@ end_element(svn_ra_serf__xml_parser_t *parser, void *userData,
         }
       svn_ra_serf__xml_pop_state(parser);
     }
-  else if (state == MERGE_INFO_PATH
+  else if (state == MERGE_INFO_PATH 
            && strcmp(name.name, SVN_DAV__MERGEINFO_PATH) == 0)
     {
       svn_ra_serf__xml_pop_state(parser);
     }
-  else if (state == MERGE_INFO_INFO
+  else if (state == MERGE_INFO_INFO 
            && strcmp(name.name, SVN_DAV__MERGEINFO_INFO) == 0)
     {
       svn_ra_serf__xml_pop_state(parser);
@@ -211,7 +211,7 @@ svn_ra_serf__get_mergeinfo(svn_ra_session_t *ra_session,
           const char *this_path =
             apr_xml_quote_string(pool, APR_ARRAY_IDX(paths, i, const char *),
                                  0);
-          svn_ra_serf__add_tag_buckets(buckets, "S:" SVN_DAV__PATH,
+          svn_ra_serf__add_tag_buckets(buckets, "S:" SVN_DAV__PATH, 
                                        this_path, session->bkt_alloc);
         }
     }
