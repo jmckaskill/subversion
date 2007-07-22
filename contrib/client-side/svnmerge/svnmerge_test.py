@@ -29,7 +29,7 @@ import getopt
 
 ####
 # IMPORTANT NOTE TO TEST AUTHORS
-#
+# 
 # Any quoted strings inside the arguments of the parameter "cmd" must
 # be enclosed in double-, not single-quotes, so that the command parser
 # knows to keep them together. For example, do not write this:
