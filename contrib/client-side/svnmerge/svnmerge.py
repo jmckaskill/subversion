@@ -864,8 +864,8 @@ class SvnLogParser:
 def get_copyfrom(target):
     """Get copyfrom info for a given target (it represents the directory from
     where it was branched). NOTE: repos root has no copyfrom info. In this case
-    None is returned.
-
+    None is returned.  
+    
     Returns the:
         - source file or directory from which the copy was made
         - revision from which that source was copied
@@ -876,7 +876,7 @@ def get_copyfrom(target):
                                       split_lines=False)):
         for p in chg.paths():
             if p.action() == 'A' and p.pathid() == repos_path:
-                # These values will be None if the corresponding elements are
+                # These values will be None if the corresponding elements are 
                 # not found in the log.
                 return p.copyfrom_pathid(), p.copyfrom_rev(), chg.revision()
     return None,None,None
@@ -1140,14 +1140,14 @@ def action_init(target_dir, target_props):
         if target_path == cf_source:
             # If source was originally copyied from target, and we are merging
             # changes from source to target (the copy target is the merge source,
-            # and the copy source is the merge target), then we want to mark as
-            # integrated up to the rev in which the copy was committed which
+            # and the copy source is the merge target), then we want to mark as 
+            # integrated up to the rev in which the copy was committed which 
             # created the merge source:
             report('the source "%s" is a branch of "%s"' %
                    (opts["source-url"], target_dir))
             revision_range = "1-" + copy_committed_in_rev
         else:
-            # If the copy source is the merge source, and
+            # If the copy source is the merge source, and 
             # the copy target is the merge target, then we want to
             # mark as integrated up to the specific rev of the merge
             # target from which the merge source was copied.  (Longer
@@ -1161,9 +1161,9 @@ def action_init(target_dir, target_props):
                        (opts["source-url"], target_dir))
                 revision_range = "1-" + cf_rev
 
-    # When neither the merge source nor target is a copy of the other, and
-    # the user did not specify a revision range, then choose a default which is
-    # the current revision; saying, in effect, "everything has been merged, so
+    # When neither the merge source nor target is a copy of the other, and 
+    # the user did not specify a revision range, then choose a default which is 
+    # the current revision; saying, in effect, "everything has been merged, so 
     # mark as integrated up to the latest rev on source url).
     revs = revision_range or "1-" + get_latest_rev(opts["source-url"])
     revs = RevisionSet(revs)
@@ -1172,7 +1172,7 @@ def action_init(target_dir, target_props):
            (target_dir, revs, opts["source-url"]))
 
     revs = str(revs)
-    # If the local svnmerge-integrated property already has an entry
+    # If the local svnmerge-integrated property already has an entry 
     # for the source-pathid, simply error out.
     if not opts["force"] and target_props.has_key(opts["source-pathid"]):
         error('Repository-relative path %s has already been initialized at %s\n'
@@ -1471,7 +1471,7 @@ def action_rollback(branch_dir, branch_props):
         report('wrote commit message to "%s"' % opts["commit-file"])
 
     # Update the set of merged revisions.
-    merged_revs = merged_revs - revs
+    merged_revs = merged_revs - revs 
     branch_props[opts["source-pathid"]] = str(merged_revs)
     set_merge_props(branch_dir, branch_props)
 
