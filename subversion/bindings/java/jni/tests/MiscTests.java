@@ -18,7 +18,7 @@
 import junit.framework.*;
 
 /**
- * Testcases for the native functions with prefix "misc"
+ * Testcases for the native functions with prefix "misc" 
  * in the class NativeWrapper
  *
  * @see NativeWrapper
