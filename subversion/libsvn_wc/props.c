@@ -1139,7 +1139,6 @@ svn_wc__merge_props(svn_wc_notify_state_t *state,
 
     } /* if (reject_tmp_fp) */
 
-
   return SVN_NO_ERROR;
 }
 
