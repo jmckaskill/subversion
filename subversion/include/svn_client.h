@@ -1128,6 +1128,9 @@ svn_client_update(svn_revnum_t *result_rev,
  * ### TODO(sd): But, I think the svn_depth_immediates behavior is not
  * ### actually implemented yet.
  *
+ * If @a ignore_externals is set, don't process externals definitions
+ * as part of this operation.
+ *
  * If @a allow_unver_obstructions is true then the switch tolerates
  * existing unversioned items that obstruct added paths from @a URL.  Only
  * obstructions of the same type (file or dir) as the added item are
@@ -1151,6 +1154,7 @@ svn_client_switch2(svn_revnum_t *result_rev,
                    const char *url,
                    const svn_opt_revision_t *revision,
                    svn_depth_t depth,
+                   svn_boolean_t ignore_externals,
                    svn_boolean_t allow_unver_obstructions,
                    svn_client_ctx_t *ctx,
                    apr_pool_t *pool);
@@ -1158,9 +1162,10 @@ svn_client_switch2(svn_revnum_t *result_rev,
 
 /**
  * Similar to svn_client_switch2() but with @a allow_unver_obstructions
- * always set to false, and @a depth set according to @a recurse: if
- * @a recurse is true, set @a depth to @c svn_depth_infinity, if @a
- * recurse is false, set @a depth to @c svn_depth_files.
+ * and @a ignore_externals always set to false, and @a depth set according
+ * to @a recurse: if @a recurse is true, set @a depth to
+ * @c svn_depth_infinity, if @a recurse is false, set @a depth to
+ * @c svn_depth_files.
  *
  * @deprecated Provided for backward compatibility with the 1.4 API.
  */
@@ -1453,8 +1458,11 @@ svn_client_delete(svn_client_commit_info_t **commit_info_p,
  * Use @a nonrecursive to indicate that imported directories should not
  * recurse into any subdirectories they may have.
  *
- * If @a no_ignore is false, don't add files or directories that match
+ * If @a no_ignore is @c FALSE, don't add files or directories that match
  * ignore patterns.
+ *
+ * If @a ignore_unknown_node_types is @c FALSE, ignore files of which the
+ * node type is unknown, such as device files and pipes.
  *
  * ### kff todo: This import is similar to cvs import, in that it does
  * not change the source tree into a working copy.  However, this
@@ -1463,7 +1471,24 @@ svn_client_delete(svn_client_commit_info_t **commit_info_p,
  * option. However, doing so is a bit involved, and we don't need it
  * right now.
  *
+ * @since New in 1.5.
+ */
+svn_error_t *svn_client_import3(svn_commit_info_t **commit_info_p,
+                                const char *path,
+                                const char *url,
+                                svn_boolean_t nonrecursive,
+                                svn_boolean_t no_ignore,
+                                svn_boolean_t ignore_unknown_node_types,
+                                svn_client_ctx_t *ctx,
+                                apr_pool_t *pool);
+
+/**
+ * Similar to svn_client_import3(), but with @a ignore_unknown_node_types
+ * always set to @c FALSE.
+ *
  * @since New in 1.3.
+ *
+ * @deprecated Provided for backward compatibility with the 1.4 API
  */
 svn_error_t *svn_client_import2(svn_commit_info_t **commit_info_p,
                                 const char *path,
