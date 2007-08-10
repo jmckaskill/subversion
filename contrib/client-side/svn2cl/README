@@ -37,7 +37,7 @@ from several changelog-like scripts using common xslt constructs found in
 different places.
 
 I made it because it was the only thing that I missed from cvs after I
-converted a repository to subversion. I used cvs2cl before.
+converted a repository to subversion. I used cvs2cl before. 
 
 INSTALLING SVN2CL
 =================
