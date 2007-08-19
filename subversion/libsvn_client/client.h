@@ -410,7 +410,6 @@ svn_client__make_local_parents(const char *path,
    If ALLOW_UNVER_OBSTRUCTIONS is TRUE, unversioned children of PATH
    that obstruct items added from the repos are tolerated; if FALSE,
    these obstructions cause the update to fail. */
-
 svn_error_t *
 svn_client__update_internal(svn_revnum_t *result_rev,
                             const char *path,
@@ -458,15 +457,15 @@ svn_client__checkout_internal(svn_revnum_t *result_rev,
                               apr_pool_t *pool);
 
 /* Switch a working copy PATH to URL at REVISION, and (if not NULL)
-   set RESULT_REV to the switch revision.  Only switch as deep as DEPTH
+   set RESULT_REV to the switch revision.  Only switch as deeply as DEPTH
    indicates.  If TIMESTAMP_SLEEP is NULL this function will sleep before
    returning to ensure timestamp integrity.  If TIMESTAMP_SLEEP is not
    NULL then the function will not sleep but will set *TIMESTAMP_SLEEP
    to TRUE if a sleep is required, and will not change
-   *TIMESTAMP_SLEEP if no sleep is required.  If ALLOW_UNVER_OBSTRUCTIONS
-   is TRUE, unversioned children of PATH that obstruct items added from
-   the repos are tolerated; if FALSE, these obstructions cause the switch
-   to fail. */
+   *TIMESTAMP_SLEEP if no sleep is required.  If IGNORE_EXTERNALS is true,
+   don't process externals.  If ALLOW_UNVER_OBSTRUCTIONS is TRUE, unversioned
+   children of PATH that obstruct items added from the repos are tolerated;
+   if FALSE, these obstructions cause the switch to fail. */
 svn_error_t *
 svn_client__switch_internal(svn_revnum_t *result_rev,
                             const char *path,
@@ -474,6 +473,7 @@ svn_client__switch_internal(svn_revnum_t *result_rev,
                             const svn_opt_revision_t *revision,
                             svn_depth_t depth,
                             svn_boolean_t *timestamp_sleep,
+                            svn_boolean_t ignore_externals,
                             svn_boolean_t allow_unver_obstructions,
                             svn_client_ctx_t *ctx,
                             apr_pool_t *pool);
@@ -536,7 +536,9 @@ svn_client__get_diff_editor(const char *target,
  * repository version against the other and only providing information
  * about the changed items without the text deltas.
  *
- * @a summarize_func is called with @a summarize_baton as parameter by the
+ * TARGET is the target of the diff, relative to the root of the edit.
+ *
+ * SUMMARIZE_FUNC is called with SUMMARIZE_BATON as parameter by the
  * created svn_delta_editor_t for each changed item.
  *
  * See svn_client__get_diff_editor() for a description of the other

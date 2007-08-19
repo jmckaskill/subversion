@@ -243,7 +243,7 @@ switch_external(const char *path,
               SVN_ERR(svn_client__switch_internal(NULL, path, url, revision,
                                                   svn_depth_infinity,
                                                   timestamp_sleep,
-                                                  FALSE, ctx, subpool));
+                                                  FALSE, FALSE, ctx, subpool));
 
               svn_pool_destroy(subpool);
               return SVN_NO_ERROR;
@@ -274,8 +274,8 @@ switch_external(const char *path,
     }
 
   /* ... Hello, new hotness. */
-  SVN_ERR(svn_client__checkout_internal(NULL, url, path, peg_revision, revision,
-                                        SVN_DEPTH_FROM_RECURSE(TRUE),
+  SVN_ERR(svn_client__checkout_internal(NULL, url, path, peg_revision,
+                                        revision, SVN_DEPTH_FROM_RECURSE(TRUE),
                                         FALSE, FALSE, timestamp_sleep,
                                         ctx, pool));
 

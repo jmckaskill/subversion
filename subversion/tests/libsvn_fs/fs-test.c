@@ -123,6 +123,9 @@ trivial_transaction(const char **msg,
   svn_fs_t *fs;
   svn_fs_txn_t *txn;
   const char *txn_name;
+  int is_invalid_char[256];
+  int i;
+  const char *p;
 
   *msg = "begin a txn, check its name, then close it";
 
@@ -141,6 +144,27 @@ trivial_transaction(const char **msg,
   if (! txn_name)
     return svn_error_create(SVN_ERR_FS_GENERAL, NULL,
                             "Got a NULL txn name.");
+
+  /* Test that the txn name contains only valid characters.  See
+     svn_fs.h for the list of valid characters. */
+  for (i = 0; i < sizeof(is_invalid_char)/sizeof(*is_invalid_char); ++i)
+    is_invalid_char[i] = 1;
+  for (i = '0'; i <= '9'; ++i)
+    is_invalid_char[i] = 0;
+  for (i = 'a'; i <= 'z'; ++i)
+    is_invalid_char[i] = 0;
+  for (i = 'A'; i <= 'Z'; ++i)
+    is_invalid_char[i] = 0;
+  for (p = "-."; *p; ++p)
+    is_invalid_char[(unsigned char) *p] = 0;
+
+  for (p = txn_name; *p; ++p)
+    {
+      if (is_invalid_char[(unsigned char) *p])
+        return svn_error_createf(SVN_ERR_FS_GENERAL, NULL,
+                                 "The txn name '%s' contains an illegal '%c' "
+                                 "character", txn_name, *p);
+    }
 
   return SVN_NO_ERROR;
 }
@@ -274,6 +298,112 @@ verify_txn_list(const char **msg,
   return svn_error_create(SVN_ERR_FS_GENERAL, NULL,
                           "Got a bogus txn list.");
  all_good:
+
+  return SVN_NO_ERROR;
+}
+
+
+/* Generate N consecutive transactions, then abort them all.  Return
+   the list of transaction names. */
+static svn_error_t *
+txn_names_are_not_reused_helper1(apr_hash_t **txn_names,
+                                 svn_fs_t *fs,
+                                 apr_pool_t *pool)
+{
+  apr_hash_index_t *hi;
+  const int N = 10;
+  int i;
+
+  *txn_names = apr_hash_make(pool);
+
+  /* Create the transactions and store in a hash table the transaction
+     name as the key and the svn_fs_txn_t * as the value. */
+  for (i = 0; i < N; ++i)
+    {
+      svn_fs_txn_t *txn;
+      const char *name;
+      SVN_ERR(svn_fs_begin_txn(&txn, fs, 0, pool));
+      SVN_ERR(svn_fs_txn_name(&name, txn, pool));
+      if (apr_hash_get(*txn_names, name, APR_HASH_KEY_STRING) != NULL)
+        return svn_error_createf(SVN_ERR_FS_GENERAL, NULL,
+                                 "beginning a new transaction used an "
+                                 "existing transaction name '%s'",
+                                 name);
+      apr_hash_set(*txn_names, name, APR_HASH_KEY_STRING, txn);
+    }
+
+  i = 0;
+  for (hi = apr_hash_first(pool, *txn_names); hi; hi = apr_hash_next(hi))
+    {
+      void *val;
+      apr_hash_this(hi, NULL, NULL, &val);
+      SVN_ERR(svn_fs_abort_txn((svn_fs_txn_t *)val, pool));
+      ++i;
+    }
+
+  if (i != N)
+    return svn_error_createf(SVN_ERR_FS_GENERAL, NULL,
+                             "created %d transactions, but only aborted %d",
+                             N, i);
+
+  return SVN_NO_ERROR;
+}
+
+/* Compare two hash tables and ensure that no keys in the first hash
+   table appear in the second hash table. */
+static svn_error_t *
+txn_names_are_not_reused_helper2(apr_hash_t *ht1,
+                                 apr_hash_t *ht2,
+                                 apr_pool_t *pool)
+{
+  apr_hash_index_t *hi;
+
+  for (hi = apr_hash_first(pool, ht1); hi; hi = apr_hash_next(hi))
+    {
+      const void *key;
+      const char *key_string;
+      apr_hash_this(hi, &key, NULL, NULL);
+      key_string = key;
+      if (apr_hash_get(ht2, key, APR_HASH_KEY_STRING) != NULL)
+        return svn_error_createf(SVN_ERR_FS_GENERAL, NULL,
+                                 "the transaction name '%s' was reused",
+                                 key_string);
+    }
+
+  return SVN_NO_ERROR;
+}
+
+/* Make sure that transaction names are not reused. */
+static svn_error_t *
+txn_names_are_not_reused(const char **msg,
+                         svn_boolean_t msg_only,
+                         svn_test_opts_t *opts,
+                         apr_pool_t *pool)
+{
+  svn_fs_t *fs;
+  apr_pool_t *subpool;
+  apr_hash_t *txn_names1, *txn_names2;
+
+  *msg = "check that transaction names are not reused";
+
+  if (msg_only)
+    return SVN_NO_ERROR;
+
+  SVN_ERR(svn_test__create_fs(&fs, "test-repo-txn-names-are-not-reused",
+                              opts->fs_type, pool));
+
+  subpool = svn_pool_create(pool);
+
+  /* Create N transactions, abort them all, and collect the generated
+     transaction names.  Do this twice. */
+  SVN_ERR(txn_names_are_not_reused_helper1(&txn_names1, fs, subpool));
+  SVN_ERR(txn_names_are_not_reused_helper1(&txn_names2, fs, subpool));
+
+  /* Check that no transaction names appear in both hash tables. */
+  SVN_ERR(txn_names_are_not_reused_helper2(txn_names1, txn_names2, subpool));
+  SVN_ERR(txn_names_are_not_reused_helper2(txn_names2, txn_names1, subpool));
+
+  svn_pool_destroy(subpool);
 
   return SVN_NO_ERROR;
 }
@@ -4489,10 +4619,12 @@ get_mergeinfo(const char **msg,
 
   paths = apr_array_make(pool, 1, sizeof (const char *));
   APR_ARRAY_PUSH(paths, const char *) = "/A/E";
-  SVN_ERR(svn_fs_get_mergeinfo(&result, revision_root, paths, TRUE, pool));
+  SVN_ERR(svn_fs_get_mergeinfo(&result, revision_root, paths,
+                               svn_mergeinfo_inherited, pool));
   paths = apr_array_make(pool, 1, sizeof (const char *));
   APR_ARRAY_PUSH(paths, const char *) = "/A/B/E";
-  SVN_ERR(svn_fs_get_mergeinfo(&result, revision_root, paths, TRUE, pool));
+  SVN_ERR(svn_fs_get_mergeinfo(&result, revision_root, paths,
+                               svn_mergeinfo_inherited, pool));
   return SVN_NO_ERROR;
 }
 
@@ -4686,5 +4818,6 @@ struct svn_test_descriptor_t test_funcs[] =
     SVN_TEST_PASS(closest_copy_test),
     SVN_TEST_PASS(root_revisions),
     SVN_TEST_PASS(unordered_txn_dirprops),
+    SVN_TEST_PASS(txn_names_are_not_reused),
     SVN_TEST_NULL
   };
