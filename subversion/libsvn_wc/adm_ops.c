@@ -1471,7 +1471,7 @@ svn_wc_add2(const char *path,
        svn_path_local_style(path, pool));
 
   /* Init the modify flags. */
-  modify_flags = SVN_WC__ENTRY_MODIFY_KIND;
+  modify_flags = SVN_WC__ENTRY_MODIFY_SCHEDULE | SVN_WC__ENTRY_MODIFY_KIND;
   if (! (is_replace || copyfrom_url))
     modify_flags |= SVN_WC__ENTRY_MODIFY_REVISION;
 
@@ -1508,11 +1508,7 @@ svn_wc_add2(const char *path,
 
   tmp_entry.revision = 0;
   tmp_entry.kind = kind;
-  SVN_ERR(svn_wc__schedule_for_added_entry(&tmp_entry.schedule,
-                                           adm_access, path,
-                                           copyfrom_url, copyfrom_rev, pool));
-  if (tmp_entry.schedule == svn_wc_schedule_add)
-    modify_flags |= SVN_WC__ENTRY_MODIFY_SCHEDULE;
+  tmp_entry.schedule = svn_wc_schedule_add;
 
   /* Now, add the entry for this item to the parent_dir's
      entries file, marking it for addition. */
