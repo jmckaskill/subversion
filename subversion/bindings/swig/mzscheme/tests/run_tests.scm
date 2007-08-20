@@ -35,8 +35,8 @@
 			 (svn-version-t-minor-set myver3 2)
 			 (svn-version-t-patch-set myver1 3)
 			 (svn-version-t-patch-set myver2 5)
-			 (svn-version-t-patch-set myver3 4)
-			 (test-suite "version numbers"
+			 (svn-version-t-patch-set myver3 4) 
+			 (test-suite "version numbers" 
 			 (test-equal? "majour version number" (svn-version-t-major-get myver1) 1)
 			 (test-equal? "majour version number" (svn-version-t-major-get myver2) 1)
 			 (test-equal? "majour version number" (svn-version-t-major-get myver3) 1)
