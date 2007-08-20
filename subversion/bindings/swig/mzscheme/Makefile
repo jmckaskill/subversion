@@ -5,7 +5,7 @@ ALDPATH= -L./ -L./.libs -L/usr/lib -L$(ALDTOP)libsvn_subr/.libs -L$(ALDTOP)libsv
 ALIBS= -lsvn_subr-1 -lsvn_fs_util-1 -lsvn_fs-1 -lsvn_fs_fs-1 -lsvn_fs-1 -lsvn_delta-1 -lneon -lapr-1 -laprutil-1  -lsvn_delta-1 -lsvn_subr-1 -lsvn_client-1  -lsvn_delta-1 -lsvn_fs-1 -lsvn_ra_svn-1 -lsvn_ra-1 -lsvn_ra_neon-1 -lsvn_ra-1 -lsvn_ra_local-1 -lsvn_ra_svn-1  -lsvn_repos-1 -lsvn_wc-1 -lsvn_diff-1 -lsvn_subr-1 -lsvn_delta-1 -lsvn_fs-1 -lsvn_ra-1 -lsvn_fs-1 -lsvn_fs_fs-1 -lsvn_delta-1 -lsvn_fs_fs-1 -lsvn_fs_util-1 -lsvn_swig_mzscheme-1 -lsvn_subr-1
 all: shared_magic
 
-shared-magic: core.so svn_client.so svn_delta.so svn_fs.so svn_ra.so svn_repos.so svn_wc.so
+shared-magic: core.so svn_client.so svn_delta.so svn_fs.so svn_ra.so svn_repos.so svn_wc.so 
 	@echo "building magic"
 
 
