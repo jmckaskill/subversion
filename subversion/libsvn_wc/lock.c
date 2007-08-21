@@ -181,6 +181,8 @@ convert_wcprops(svn_stringbuf_t *log_accum,
       const svn_wc_entry_t *entry;
       apr_hash_t *wcprops;
       apr_hash_index_t *hj;
+      const char *full_path
+        = svn_path_join(svn_wc_adm_access_path(adm_access), entry->name, pool);
 
       apr_hash_this(hi, NULL, NULL, &val);
       entry = val;
@@ -207,7 +209,7 @@ convert_wcprops(svn_stringbuf_t *log_accum,
           propname = key2;
           propval = val2;
           SVN_ERR(svn_wc__loggy_modify_wcprop(&log_accum, adm_access,
-                                              entry->name, propname,
+                                              full_path, propname,
                                               propval->data,
                                               subpool));
         }

@@ -379,6 +379,10 @@ svn_boolean_t svn_path_is_backpath_present(const char *path);
  * If @a path2 is the same as @a path1, it is not considered a child, so the
  * result is @c NULL; an empty string is never returned.
  *
+ * @note In 1.5 this function has been extended to allow a @c NULL @a pool
+ *       in which case a pointer into @a path2 will be returned to
+ *       identify the remainder path.
+ *
  * ### todo: the ".." restriction is unfortunate, and would ideally
  * be lifted by making the implementation smarter.  But this is not
  * trivial: if the path is "../foo", how do you know whether or not
