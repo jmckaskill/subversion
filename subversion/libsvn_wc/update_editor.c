@@ -1574,7 +1574,7 @@ close_directory(void *dir_baton,
           /* Merge pending properties into temporary files (ignoring
              conflicts). */
           SVN_ERR_W(svn_wc__merge_props(&prop_state,
-                                        adm_access, NULL,
+                                        adm_access, db->path,
                                         NULL /* use baseprops */,
                                         regular_props, TRUE, FALSE,
                                         db->pool, &db->log_accum),
@@ -2063,9 +2063,6 @@ merge_props(svn_stringbuf_t *log_accum,
 {
   apr_array_header_t *regular_props = NULL, *wc_props = NULL,
     *entry_props = NULL;
-  const char *base_name;
-
-  svn_path_split(file_path, NULL, &base_name, pool);
 
   /* Sort the property list into three arrays, based on kind. */
   SVN_ERR(svn_categorize_props(prop_changes,
@@ -2082,7 +2079,7 @@ merge_props(svn_stringbuf_t *log_accum,
          write <cp> commands to the logfile to install the merged
          props.  */
       SVN_ERR(svn_wc__merge_props(prop_state,
-                                  adm_access, base_name,
+                                  adm_access, file_path,
                                   NULL /* use base props */,
                                   regular_props, TRUE, FALSE, pool,
                                   &log_accum));
@@ -3177,7 +3174,6 @@ install_added_props(svn_stringbuf_t *log_accum,
 {
   apr_array_header_t *regular_props = NULL, *wc_props = NULL,
     *entry_props = NULL;
-  const char *base_name = svn_path_basename(dst_path, pool);
 
   /* Categorize the base properties. */
   {
@@ -3204,7 +3200,7 @@ install_added_props(svn_stringbuf_t *log_accum,
   }
 
   /* Install base and working props. */
-  SVN_ERR(svn_wc__install_props(&log_accum, adm_access, base_name,
+  SVN_ERR(svn_wc__install_props(&log_accum, adm_access, dst_path,
                                 new_base_props,
                                 new_props ? new_props : new_base_props,
                                 TRUE, pool));

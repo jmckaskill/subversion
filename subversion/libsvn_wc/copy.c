@@ -460,7 +460,7 @@ copy_file_administratively(const char *src_path,
 
     /* Load source base and working props. */
     SVN_ERR(svn_wc__load_props(&base_props, &props, src_access,
-                               src_entry->name, pool));
+                               src_path, pool));
 
     /* Copy pristine text-base to temporary location. */
     SVN_ERR(svn_io_copy_file(src_txtb, tmp_txtb, TRUE, pool));
