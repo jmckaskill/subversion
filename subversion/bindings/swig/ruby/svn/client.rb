@@ -316,7 +316,7 @@ module Svn
       end
 
 
-      def uri?(p)
+      def uri?(p) 
         u = URI.parse(p)
         # URI.parse is pretty liberal in what it will accept as a scheme,
         # but if we get a scheme and a host we can be pretty sure it's a
@@ -324,7 +324,7 @@ module Svn
         u.scheme && u.host
       end
       private :uri?
-
+      
       def merge_peg(src, rev1, rev2, target_wcpath,
                     peg_rev=nil, depth=nil,
                     ignore_ancestry=false, force=false,
