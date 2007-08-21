@@ -27,7 +27,7 @@
 /* -----------------------------------------------------------------------
    Generic handling for "type **" parameters.  Almost all such parameters
    are OUTPUT parameters.  Handling is as follows:
-   - "in" typemap which allocates storage for a pointer, and points the
+   - "in" typemap which allocates storage for a pointer, and points the 
      argument to that storage.
    - Default "argout" typemap which complains at compile time, and raises
      an exception at runtime.
@@ -403,7 +403,7 @@ svn_ ## TYPE ## _swig_rb_closed(VALUE self)
 #ifdef SWIGMZSCHEME
 %typemap(in) const char *MAY_BE_NULL
 {
- if (SCHEME_NULLP($input)) {
+ if (SCHEME_NULLP($input)) { 
   /* If it s a null ptr */
   $1 = NULL;
  } else {
@@ -560,7 +560,7 @@ svn_ ## TYPE ## _swig_rb_closed(VALUE self)
 
 #ifdef SWIGMZSCHEME
 %typemap(in) (const char *PTR, apr_size_t LEN) {
-	//Assume it is a string, if not badness will happen :)
+	//Assume it is a string, if not badness will happen :) 
 	//FIXME: Check if this is passed a string later
 	$1 = scheme_make_sized_string($input , $2);
 }
@@ -1052,7 +1052,7 @@ svn_ ## TYPE ## _swig_rb_closed(VALUE self)
 
      Output parameter in: svn_fs_file_md5_checksum(), svn_io_file_checksum(),
                           svn_wc_transmit_text_deltas2()
-
+     
      *but* appears as an input parameter in svn_base64_from_md5() -
      practically, this means that svn_base64_from_md5 is in error, and
      should be using 'const unsigned char digest[]', but fortunately, we
@@ -1070,7 +1070,7 @@ svn_ ## TYPE ## _swig_rb_closed(VALUE self)
      These are *delayed* output parameters in svn_stream_checksummed().
      Would be quite complex to wrap, so this function is %ignore-d in the
      svn_io.h cherrypicking section.
-
+     
    'unsigned char *result_digest'
      This parameter serves as a buffer for the digest results of
      svn_txdelta_apply. As you supply data to this function via
@@ -1080,7 +1080,7 @@ svn_ ## TYPE ## _swig_rb_closed(VALUE self)
 
     FIXME: Both Ruby and Perl have broken typemaps for result_digest.
     The Python bindings ignore this parameter altogether.
-
+   
    Function Parameters (Category 3):
 
    'const unsigned char digest[]' (also, 'd1', 'd2'):
