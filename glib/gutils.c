@@ -21,10 +21,10 @@
  * Modified by the GLib Team and others 1997-1999.  See the AUTHORS
  * file for a list of people on the GLib Team.  See the ChangeLog
  * files for a list of changes.  These files are distributed with
- * GLib at ftp://ftp.gtk.org/pub/gtk/.
+ * GLib at ftp://ftp.gtk.org/pub/gtk/. 
  */
 
-/*
+/* 
  * MT safe for the unix part, FIXME: make the win32 part MT safe as well.
  */
 
@@ -82,7 +82,7 @@ const guint glib_interface_age = GLIB_INTERFACE_AGE;
 const guint glib_binary_age = GLIB_BINARY_AGE;
 
 #if defined (NATIVE_WIN32) && defined (__LCC__)
-int __stdcall
+int __stdcall 
 LibMain (void         *hinstDll,
 	 unsigned long dwReason,
 	 void         *reserved)
@@ -135,7 +135,7 @@ g_snprintf (gchar	*str,
 #ifdef	HAVE_VSNPRINTF
   va_list args;
   gint retval;
-
+  
   g_return_val_if_fail (str != NULL, 0);
   g_return_val_if_fail (n > 0, 0);
   g_return_val_if_fail (fmt != NULL, 0);
@@ -154,7 +154,7 @@ g_snprintf (gchar	*str,
 #else	/* !HAVE_VSNPRINTF */
   gchar *printed;
   va_list args;
-
+  
   g_return_val_if_fail (str != NULL, 0);
   g_return_val_if_fail (n > 0, 0);
   g_return_val_if_fail (fmt != NULL, 0);
@@ -162,12 +162,12 @@ g_snprintf (gchar	*str,
   va_start (args, fmt);
   printed = g_strdup_vprintf (fmt, args);
   va_end (args);
-
+  
   strncpy (str, printed, n);
   str[n-1] = '\0';
 
   g_free (printed);
-
+  
   return strlen (str);
 #endif	/* !HAVE_VSNPRINTF */
 }
@@ -184,9 +184,9 @@ g_vsnprintf (gchar	 *str,
   g_return_val_if_fail (str != NULL, 0);
   g_return_val_if_fail (n > 0, 0);
   g_return_val_if_fail (fmt != NULL, 0);
-
+  
   retval = vsnprintf (str, n, fmt, args);
-
+  
   if (retval < 0)
     {
       str[n-1] = '\0';
@@ -196,7 +196,7 @@ g_vsnprintf (gchar	 *str,
   return retval;
 #else	/* !HAVE_VSNPRINTF */
   gchar *printed;
-
+  
   g_return_val_if_fail (str != NULL, 0);
   g_return_val_if_fail (n > 0, 0);
   g_return_val_if_fail (fmt != NULL, 0);
@@ -206,21 +206,21 @@ g_vsnprintf (gchar	 *str,
   str[n-1] = '\0';
 
   g_free (printed);
-
+  
   return strlen (str);
 #endif /* !HAVE_VSNPRINTF */
 }
 
-guint
-g_parse_debug_string  (const gchar *string,
-		       GDebugKey   *keys,
+guint	     
+g_parse_debug_string  (const gchar *string, 
+		       GDebugKey   *keys, 
 		       guint	    nkeys)
 {
   guint i;
   guint result = 0;
-
+  
   g_return_val_if_fail (string != NULL, 0);
-
+  
   if (!g_strcasecmp (string, "all"))
     {
       for (i=0; i<nkeys; i++)
@@ -232,7 +232,7 @@ g_parse_debug_string  (const gchar *string,
       gchar *p = str;
       gchar *q;
       gboolean done = FALSE;
-
+      
       while (*p && !done)
 	{
 	  q = strchr (p, ':');
@@ -241,19 +241,19 @@ g_parse_debug_string  (const gchar *string,
 	      q = p + strlen(p);
 	      done = TRUE;
 	    }
-
+	  
 	  *q = 0;
-
+	  
 	  for (i=0; i<nkeys; i++)
 	    if (!g_strcasecmp(keys[i].key, p))
 	      result |= keys[i].value;
-
+	  
 	  p = q+1;
 	}
-
+      
       g_free (str);
     }
-
+  
   return result;
 }
 
@@ -261,9 +261,9 @@ gchar*
 g_basename (const gchar	   *file_name)
 {
   register gchar *base;
-
+  
   g_return_val_if_fail (file_name != NULL, NULL);
-
+  
   base = strrchr (file_name, G_DIR_SEPARATOR);
   if (base)
     return base + 1;
@@ -272,7 +272,7 @@ g_basename (const gchar	   *file_name)
   if (isalpha (file_name[0]) && file_name[1] == ':')
     return (gchar*) file_name + 2;
 #endif /* NATIVE_WIN32 */
-
+  
   return (gchar*) file_name;
 }
 
@@ -280,7 +280,7 @@ gboolean
 g_path_is_absolute (const gchar *file_name)
 {
   g_return_val_if_fail (file_name != NULL, FALSE);
-
+  
   if (file_name[0] == G_DIR_SEPARATOR)
     return TRUE;
 
@@ -296,7 +296,7 @@ gchar*
 g_path_skip_root (gchar *file_name)
 {
   g_return_val_if_fail (file_name != NULL, NULL);
-
+  
   if (file_name[0] == G_DIR_SEPARATOR)
     return file_name + 1;
 
@@ -313,20 +313,20 @@ g_dirname (const gchar	   *file_name)
 {
   register gchar *base;
   register guint len;
-
+  
   g_return_val_if_fail (file_name != NULL, NULL);
-
+  
   base = strrchr (file_name, G_DIR_SEPARATOR);
   if (!base)
     return g_strdup (".");
   while (base > file_name && *base == G_DIR_SEPARATOR)
     base--;
   len = (guint) 1 + base - file_name;
-
+  
   base = g_new (gchar, len + 1);
   g_memmove (base, file_name, len);
   base[len] = 0;
-
+  
   return base;
 }
 
@@ -338,7 +338,7 @@ g_get_current_dir (void)
 
   buffer = g_new (gchar, G_PATH_LENGTH);
   *buffer = 0;
-
+  
   /* We don't use getcwd(3) on SUNOS, because, it does a popen("pwd")
    * and, if that wasn't bad enough, hangs in doing so.
    */
@@ -347,7 +347,7 @@ g_get_current_dir (void)
 #else	/* !sun */
   dir = getcwd (buffer, G_PATH_LENGTH - 1);
 #endif	/* !sun */
-
+  
   if (!dir || !*buffer)
     {
       /* hm, should we g_error() out here?
@@ -359,7 +359,7 @@ g_get_current_dir (void)
 
   dir = g_strdup (buffer);
   g_free (buffer);
-
+  
   return dir;
 }
 
@@ -378,11 +378,11 @@ g_getenv (const gchar *variable)
   gchar dummy[2];
 
   g_return_val_if_fail (variable != NULL, NULL);
-
+  
   v = getenv (variable);
   if (!v)
     return NULL;
-
+  
   /* On Windows NT, it is relatively typical that environment variables
    * contain references to other environment variables. Handle that by
    * calling ExpandEnvironmentStrings.
@@ -425,7 +425,7 @@ g_get_any_init (void)
 	g_tmp_dir = g_strdup (g_getenv ("TMP"));
       if (!g_tmp_dir)
 	g_tmp_dir = g_strdup (g_getenv ("TEMP"));
-
+      
 #ifdef P_tmpdir
       if (!g_tmp_dir)
 	{
@@ -436,7 +436,7 @@ g_get_any_init (void)
 	    g_tmp_dir[k-1] = '\0';
 	}
 #endif
-
+      
       if (!g_tmp_dir)
 	{
 #ifndef NATIVE_WIN32
@@ -445,10 +445,10 @@ g_get_any_init (void)
 	  g_tmp_dir = g_strdup ("C:\\");
 #endif /* NATIVE_WIN32 */
 	}
-
+      
       if (!g_home_dir)
 	g_home_dir = g_strdup (g_getenv ("HOME"));
-
+      
 #ifdef NATIVE_WIN32
       if (!g_home_dir)
 	{
@@ -458,37 +458,37 @@ g_get_any_init (void)
 	   * This is inside #ifdef NATIVE_WIN32 because with the cygwin dll,
 	   * HOME should be a POSIX style pathname.
 	   */
-
+	  
 	  if (getenv ("HOMEDRIVE") != NULL && getenv ("HOMEPATH") != NULL)
 	    {
 	      gchar *homedrive, *homepath;
-
+	      
 	      homedrive = g_strdup (g_getenv ("HOMEDRIVE"));
 	      homepath = g_strdup (g_getenv ("HOMEPATH"));
-
+	      
 	      g_home_dir = g_strconcat (homedrive, homepath, NULL);
 	      g_free (homedrive);
 	      g_free (homepath);
 	    }
 	}
 #endif /* !NATIVE_WIN32 */
-
+      
 #ifdef HAVE_PWD_H
       {
 	struct passwd *pw = NULL;
 	gpointer buffer = NULL;
-
+	
 #  ifdef HAVE_GETPWUID_R
         struct passwd pwd;
         guint bufsize = 64;
         gint error;
-
+	
         do
           {
             g_free (buffer);
             buffer = g_malloc (bufsize);
 	    errno = 0;
-
+	    
 #    ifdef HAVE_GETPWUID_R_POSIX
 	    error = getpwuid_r (getuid (), &pwd, buffer, bufsize, &pw);
             error = error < 0 ? errno : error;
@@ -499,9 +499,9 @@ g_get_any_init (void)
 #      else /* !_AIX */
             pw = getpwuid_r (getuid (), &pwd, buffer, bufsize);
             error = pw ? 0 : errno;
-#      endif /* !_AIX */
+#      endif /* !_AIX */            
 #    endif /* !HAVE_GETPWUID_R_POSIX */
-
+	    
 	    if (!pw)
 	      {
 		/* we bail out prematurely if the user id can't be found
@@ -521,13 +521,13 @@ g_get_any_init (void)
 			       g_strerror (error));
 		    break;
 		  }
-
+		
 		bufsize *= 2;
 	      }
 	  }
 	while (!pw);
 #  endif /* !HAVE_GETPWUID_R */
-
+	
 	if (!pw)
 	  {
 	    setpwent ();
@@ -543,14 +543,14 @@ g_get_any_init (void)
 	  }
 	g_free (buffer);
       }
-
+      
 #else /* !HAVE_PWD_H */
-
+      
 #  ifdef NATIVE_WIN32
       {
 	guint len = 17;
 	gchar buffer[17];
-
+	
 	if (GetUserName (buffer, &len))
 	  {
 	    g_user_name = g_strdup (buffer);
@@ -558,9 +558,9 @@ g_get_any_init (void)
 	  }
       }
 #  endif /* NATIVE_WIN32 */
-
+      
 #endif /* !HAVE_PWD_H */
-
+      
       if (!g_user_name)
 	g_user_name = g_strdup ("somebody");
       if (!g_real_name)
@@ -589,7 +589,7 @@ g_get_user_name (void)
   if (!g_tmp_dir)
     g_get_any_init ();
   G_UNLOCK (g_utils_global);
-
+  
   return g_user_name;
 }
 
@@ -600,7 +600,7 @@ g_get_real_name (void)
   if (!g_tmp_dir)
     g_get_any_init ();
   G_UNLOCK (g_utils_global);
-
+ 
   return g_real_name;
 }
 
@@ -617,7 +617,7 @@ g_get_home_dir (void)
   if (!g_tmp_dir)
     g_get_any_init ();
   G_UNLOCK (g_utils_global);
-
+  
   return g_home_dir;
 }
 
@@ -635,7 +635,7 @@ g_get_tmp_dir (void)
   if (!g_tmp_dir)
     g_get_any_init ();
   G_UNLOCK (g_utils_global);
-
+  
   return g_tmp_dir;
 }
 
@@ -657,7 +657,7 @@ void
 g_set_prgname (const gchar *prgname)
 {
   gchar *c;
-
+    
   G_LOCK (g_utils_global);
   c = g_prgname;
   g_prgname = g_strdup (prgname);
@@ -765,7 +765,7 @@ gwin_ftruncate (gint  fd,
   guint curpos;
 
   g_return_val_if_fail (fd >= 0, -1);
-
+  
   hfile = (HANDLE) _get_osfhandle (fd);
   curpos = SetFilePointer (hfile, 0, NULL, FILE_CURRENT);
   if (curpos == 0xFFFFFFFF
@@ -802,7 +802,7 @@ gwin_opendir (const char *dirname)
   result = g_new0 (DIR, 1);
   result->find_file_data = g_new0 (WIN32_FIND_DATA, 1);
   result->dir_name = g_strdup (dirname);
-
+  
   k = strlen (result->dir_name);
   if (k && result->dir_name[k - 1] == '\\')
     {
@@ -861,7 +861,7 @@ gwin_readdir (DIR *dir)
 	}
     }
   strcpy (result.d_name, g_basename (((LPWIN32_FIND_DATA) dir->find_file_data)->cFileName));
-
+      
   return &result;
 }
 
@@ -892,7 +892,7 @@ gwin_rewinddir (DIR *dir)
 	}
     }
   dir->just_opened = TRUE;
-}
+}  
 
 gint
 gwin_closedir (DIR *dir)
