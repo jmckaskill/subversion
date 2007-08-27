@@ -3504,9 +3504,9 @@ from_same_repos(struct merge_cmd_baton *merge_cmd_baton, const char *src_url,
 }
 
 svn_error_t *
-svn_client__get_repos_root(const char **repos_root,
+svn_client__get_repos_root(const char **repos_root, 
                            const char *path_or_url,
-                           svn_client_ctx_t *ctx,
+                           svn_client_ctx_t *ctx, 
                            apr_pool_t *pool)
 {
   svn_revnum_t rev;
@@ -3624,7 +3624,7 @@ svn_client_merge3(const char *source1,
     }
   else
     {
-      SVN_ERR(svn_client__get_repos_root(&wc_repos_root, target_wcpath,
+      SVN_ERR(svn_client__get_repos_root(&wc_repos_root, target_wcpath, 
                                          ctx, pool));
     }
 
@@ -3807,7 +3807,7 @@ svn_client_merge_peg3(const char *source,
     }
   else
     {
-      SVN_ERR(svn_client__get_repos_root(&wc_repos_root, target_wcpath,
+      SVN_ERR(svn_client__get_repos_root(&wc_repos_root, target_wcpath, 
                                          ctx, pool));
     }
 
