@@ -212,7 +212,7 @@ svn_cl__merge(apr_getopt_t *os,
                                      svn_path_local_style(targetpath, pool));
           sourcepath1 = APR_ARRAY_IDX(suggested_sources, 0, const char *);
         }
-
+        
       err = svn_client_merge_peg3(sourcepath1,
                                   &(opt_state->start_revision),
                                   &(opt_state->end_revision),
