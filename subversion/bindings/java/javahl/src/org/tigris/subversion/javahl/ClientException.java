@@ -25,7 +25,7 @@ public class ClientException extends Exception
 {
     /**
      * The constructor is only used by the native library.
-     * @param message message
+     * @param message message 
      * @param source source
      * @param aprError APR error code
      */
