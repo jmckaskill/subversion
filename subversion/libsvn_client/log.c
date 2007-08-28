@@ -243,7 +243,7 @@ svn_client_suggest_merge_sources(apr_array_header_t **suggestions,
   SVN_ERR(svn_client__get_copy_source(path, &revision, &copyfrom_path,
                                       &copyfrom_rev, ctx, pool));
   if (copyfrom_path)
-    APR_ARRAY_PUSH(list, const char *) =
+    APR_ARRAY_PUSH(list, const char *) = 
       svn_path_url_add_component(repos_root, copyfrom_path + 1, pool);
 
   SVN_ERR(svn_client_get_mergeinfo(&mergeinfo, path, &revision, ctx, pool));
@@ -254,7 +254,7 @@ svn_client_suggest_merge_sources(apr_array_header_t **suggestions,
           const char *merge_path;
           apr_hash_this(hi, (void *)(&merge_path), NULL, NULL);
           if (copyfrom_path == NULL || strcmp(merge_path, copyfrom_path) != 0)
-            APR_ARRAY_PUSH(list, const char *) =
+            APR_ARRAY_PUSH(list, const char *) = 
               svn_path_url_add_component(repos_root, merge_path + 1, pool);
         }
     }
