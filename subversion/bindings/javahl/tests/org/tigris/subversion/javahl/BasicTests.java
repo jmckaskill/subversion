@@ -847,7 +847,7 @@ public class BasicTests extends SVNTests
         throws SubversionException
     {
         String wcPath = new File(thisTest.getWCPath(), destPath).getPath();
-        String[] suggestions = client.suggestMergeSources(wcPath,
+        String[] suggestions = client.suggestMergeSources(wcPath, 
                                                           Revision.WORKING);
         assertNotNull(suggestions);
         assertTrue(suggestions.length >= 1);
