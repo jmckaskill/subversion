@@ -3637,7 +3637,7 @@ svn_client_merge3(const char *source1,
     }
   else
     {
-      SVN_ERR(svn_client__get_repos_root(&wc_repos_root, target_wcpath,
+      SVN_ERR(svn_client__get_repos_root(&wc_repos_root, target_wcpath, 
                                          ctx, pool));
     }
 
@@ -3820,7 +3820,7 @@ svn_client_merge_peg3(const char *source,
     }
   else
     {
-      SVN_ERR(svn_client__get_repos_root(&wc_repos_root, target_wcpath,
+      SVN_ERR(svn_client__get_repos_root(&wc_repos_root, target_wcpath, 
                                          ctx, pool));
     }
 
