@@ -847,7 +847,7 @@ public class BasicTests extends SVNTests
         throws SubversionException
     {
         String wcPath = new File(thisTest.getWCPath(), destPath).getPath();
-        String[] suggestions = client.suggestMergeSources(wcPath,
+        String[] suggestions = client.suggestMergeSources(wcPath, 
                                                           Revision.WORKING);
         assertNotNull(suggestions);
         assertTrue(suggestions.length >= 1);
@@ -867,7 +867,7 @@ public class BasicTests extends SVNTests
         assertTrue("Unexpected copy source path, expected " +
                    expectedSrc + ", got " + suggestions[0],
                    suggestions[0].endsWith(new File(wcPath).getName()));
-
+    
     }
 
     /**
