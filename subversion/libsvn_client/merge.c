@@ -3627,7 +3627,7 @@ svn_client_merge3(const char *source1,
     {
       svn_opt_revision_t working_rev;
       working_rev.kind = svn_opt_revision_working;
-      SVN_ERR(svn_client__get_repos_root(&wc_repos_root, target_wcpath,
+      SVN_ERR(svn_client__get_repos_root(&wc_repos_root, target_wcpath, 
                                          &working_rev, ctx, pool));
     }
 
@@ -3812,7 +3812,7 @@ svn_client_merge_peg3(const char *source,
     {
       svn_opt_revision_t working_rev;
       working_rev.kind = svn_opt_revision_working;
-      SVN_ERR(svn_client__get_repos_root(&wc_repos_root, target_wcpath,
+      SVN_ERR(svn_client__get_repos_root(&wc_repos_root, target_wcpath, 
                                          peg_revision, ctx, pool));
     }
 
