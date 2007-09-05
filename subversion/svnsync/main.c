@@ -441,8 +441,8 @@ typedef struct {
  * locked.  Implements `with_locked_func_t' interface.
  */
 static svn_error_t *
-do_initialize(svn_ra_session_t *to_session,
-              void *b,
+do_initialize(svn_ra_session_t *to_session, 
+              void *b, 
               apr_pool_t *pool)
 {
   svn_ra_session_t *from_session;
@@ -495,7 +495,7 @@ do_initialize(svn_ra_session_t *to_session,
   /* Finally, copy all non-svnsync revprops from rev 0 of the source
      repos into the dest repos. */
 
-  SVN_ERR(copy_revprops(from_session, to_session, 0, FALSE,
+  SVN_ERR(copy_revprops(from_session, to_session, 0, FALSE, 
                         baton->quiet, pool));
 
   /* TODO: It would be nice if we could set the dest repos UUID to be
@@ -1165,7 +1165,7 @@ do_synchronize(svn_ra_session_t *to_session, void *b, apr_pool_t *pool)
          enough to filter those out for us.  */
 
       SVN_ERR(get_sync_editor(commit_editor, commit_baton, current - 1,
-                              baton->to_url, baton->quiet,
+                              baton->to_url, baton->quiet, 
                               &sync_editor, &sync_baton, subpool));
 
       SVN_ERR(svn_delta_get_cancellation_editor(check_cancel, NULL,
@@ -1189,7 +1189,7 @@ do_synchronize(svn_ra_session_t *to_session, void *b, apr_pool_t *pool)
       /* Ok, we're done with the data, now we just need to do the
          revprops and we're all set. */
 
-      SVN_ERR(copy_revprops(from_session, to_session, current, TRUE,
+      SVN_ERR(copy_revprops(from_session, to_session, current, TRUE, 
                             baton->quiet, subpool));
 
       /* Ok, we're done, bring the last-merged-rev property up to date. */
@@ -1326,7 +1326,7 @@ do_copy_revprops(svn_ra_session_t *to_session, void *b, apr_pool_t *pool)
   for (i = baton->start_rev; i != baton->end_rev + step; i = i + step)
     {
       SVN_ERR(check_cancel(NULL));
-      SVN_ERR(copy_revprops(from_session, to_session, i, FALSE,
+      SVN_ERR(copy_revprops(from_session, to_session, i, FALSE, 
                             baton->quiet, pool));
     }
 
