@@ -1176,7 +1176,7 @@ def ignore_conflict_files_singleton_handler(node, path):
   """An implementation of a tree comparison 'singleton' handler.  PATH
   is supplied as the baton."""
   if not re.match(path + ".*\.(r\d+|working)", node.name):
-    raise tree.SVNTreeUnequal("Merge encountered unexpected path '" +
+    raise tree.SVNTreeUnequal("Merge encountered unexpected path '" + 
                               node.name + "'")
 
 def inject_conflict_into_expected_state(state_path,
