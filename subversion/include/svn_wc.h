@@ -3077,7 +3077,7 @@ svn_error_t *svn_wc_get_actual_target(const char *path,
  * directory, its file entries, and the presence or absence of
  * subdirectories (but do not descend into the subdirectories).
  * Else if it is @c svn_depth_files, update the uppermost directory
- * and its immediate file entries, but not subdirectories.
+ * and its immediate file entries, but not subdirectories.  
  * Else if it is @c svn_depth_empty, update exactly the uppermost
  * target, and don't touch its entries.
  *
