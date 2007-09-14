@@ -8044,7 +8044,7 @@ def faulty_reflective_merges(sbox):
 
   # Some paths we'll care about
   repo_url = sbox.repo_url
-  A_path = os.path.join(wc_dir, 'A')
+  A_path = os.path.join(wc_dir, 'A')  
   A_COPY_path = os.path.join(wc_dir, 'A_COPY')
   tfile1_path = os.path.join(wc_dir, 'A', 'tfile1')
   tfile2_path = os.path.join(wc_dir, 'A', 'tfile2')
@@ -8157,7 +8157,7 @@ def faulty_reflective_merges(sbox):
   expected_output = wc.State(wc_dir, {
     'A_COPY'        : Item(verb='Sending'),
     'A_COPY/tfile2' : Item(verb='Adding'),
-    'A_COPY/tfile1' : Item(verb='Adding'),
+    'A_COPY/tfile1' : Item(verb='Adding'),    
     })
   svntest.actions.run_and_verify_commit(wc_dir, expected_output,
                                         None, None, None, None,
@@ -8172,7 +8172,7 @@ def faulty_reflective_merges(sbox):
     'A_COPY/bfile2' : Item(status='  ', wc_rev=7),
     'A_COPY'        : Item(status='  ', wc_rev=6),
     'A_COPY/tfile2' : Item(status='  ', wc_rev=6),
-    'A_COPY/tfile1' : Item(status='  ', wc_rev=6),
+    'A_COPY/tfile1' : Item(status='  ', wc_rev=6),    
     })
   svntest.actions.run_and_verify_commit(wc_dir, expected_output,
                                         wc_status, None, None, None,
