@@ -187,10 +187,10 @@ svn_client__ra_session_from_path(svn_ra_session_t **ra_session_p,
    the authentication baton cached in CTX as necessary.  Use POOL for
    all allocations. */
 svn_error_t *
-svn_client__get_repos_root(const char **repos_root,
+svn_client__get_repos_root(const char **repos_root, 
                            const char *path_or_url,
                            const svn_opt_revision_t *peg_revision,
-                           svn_client_ctx_t *ctx,
+                           svn_client_ctx_t *ctx, 
                            apr_pool_t *pool);
 
 /* Return the path of PATH_OR_URL relative to the repository root
