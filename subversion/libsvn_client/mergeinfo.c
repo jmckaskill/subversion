@@ -351,8 +351,8 @@ svn_client__get_wc_or_repos_mergeinfo(apr_hash_t **target_mergeinfo,
   if (repos_only)
     *target_mergeinfo = NULL;
   else
-    SVN_ERR(svn_client__get_wc_mergeinfo(target_mergeinfo, indirect, FALSE,
-                                         inherit, entry, target_wcpath,
+    SVN_ERR(svn_client__get_wc_mergeinfo(target_mergeinfo, indirect, FALSE, 
+                                         inherit, entry, target_wcpath, 
                                          NULL, NULL, adm_access, ctx, pool));
 
   /* If there in no WC mergeinfo check the repository. */
@@ -635,8 +635,8 @@ svn_client__elide_children(apr_array_header_t *children_with_mergeinfo,
           apr_hash_t *child_mergeinfo;
           svn_boolean_t switched;
           const svn_wc_entry_t *child_entry;
-          svn_client__merge_path_t *child =
-            APR_ARRAY_IDX(children_with_mergeinfo, i,
+          svn_client__merge_path_t *child = 
+            APR_ARRAY_IDX(children_with_mergeinfo, i, 
                           svn_client__merge_path_t *);
           svn_pool_clear(iterpool);
 
@@ -731,9 +731,9 @@ svn_client__elide_mergeinfo(const char *target_wcpath,
                                                FALSE, svn_mergeinfo_inherited,
                                                entry, target_wcpath,
                                                wc_elision_limit_path
-                                                 ? wc_elision_limit_path
+                                                 ? wc_elision_limit_path 
                                                  : NULL,
-                                               &walk_path, adm_access,
+                                               &walk_path, adm_access, 
                                                ctx, pool));
 
          /* If TARGET_WCPATH has no explicit mergeinfo, there's nothing to
@@ -743,12 +743,12 @@ svn_client__elide_mergeinfo(const char *target_wcpath,
 
           /* Get TARGET_WCPATH's inherited mergeinfo from the WC. */
           SVN_ERR(svn_client__get_wc_mergeinfo(&mergeinfo, &inherited, FALSE,
-                                               svn_mergeinfo_nearest_ancestor,
+                                               svn_mergeinfo_nearest_ancestor, 
                                                entry, target_wcpath,
                                                wc_elision_limit_path
-                                                 ? wc_elision_limit_path
+                                                 ? wc_elision_limit_path 
                                                  : NULL,
-                                               &walk_path, adm_access,
+                                               &walk_path, adm_access, 
                                                ctx, pool));
 
           /* If TARGET_WCPATH inherited no mergeinfo from the WC and we are
@@ -848,10 +848,10 @@ svn_client_get_mergeinfo(apr_hash_t **mergeinfo,
                                      pool));
       SVN_ERR(svn_wc__entry_versioned(&entry, path_or_url, adm_access, FALSE,
                                       pool));
-      SVN_ERR(svn_client__get_wc_or_repos_mergeinfo(mergeinfo, entry,
+      SVN_ERR(svn_client__get_wc_or_repos_mergeinfo(mergeinfo, entry, 
                                                     &indirect, FALSE,
-                                                    svn_mergeinfo_inherited,
-                                                    NULL, path_or_url,
+                                                    svn_mergeinfo_inherited, 
+                                                    NULL, path_or_url, 
                                                     adm_access, ctx, pool));
       SVN_ERR(svn_wc_adm_close(adm_access));
     }
