@@ -2533,7 +2533,7 @@ svn_client_merge_peg(const char *source,
 
 /**
  * Set @a mergeinfo to a hash mapping <tt>const char *</tt> source
- * URLs (relative to the repository root) to an <tt>apr_array_header_t *</tt>
+ * URLs (relative to the repository root) to an <tt>apr_array_header_t *</tt> 
  * list of <tt>svn_merge_range_t *</tt> revision ranges
  * representing merge sources and corresponding revision ranges which
  * have been merged into @a path_or_url as of @a peg_revision, or @c

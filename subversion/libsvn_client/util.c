@@ -202,10 +202,10 @@ svn_client__path_relative_to_root(const char **rel_path,
 }
 
 svn_error_t *
-svn_client__get_repos_root(const char **repos_root,
+svn_client__get_repos_root(const char **repos_root, 
                            const char *path_or_url,
                            const svn_opt_revision_t *peg_revision,
-                           svn_client_ctx_t *ctx,
+                           svn_client_ctx_t *ctx, 
                            apr_pool_t *pool)
 {
   svn_revnum_t rev;
