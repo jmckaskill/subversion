@@ -324,7 +324,7 @@ static void ra_svn_get_reporter(svn_ra_svn__session_baton_t *sess_baton,
      transmit the right stuff anyway. */
   if ((depth != svn_depth_files) && (depth != svn_depth_infinity))
     {
-      svn_error_clear(svn_delta_depth_filter_editor(&filter_editor,
+      svn_error_clear(svn_delta_depth_filter_editor(&filter_editor, 
                                                     &filter_baton,
                                                     editor, edit_baton, depth,
                                                     *target ? TRUE : FALSE,
