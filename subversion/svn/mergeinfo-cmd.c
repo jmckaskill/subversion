@@ -112,7 +112,7 @@ svn_cl__mergeinfo(apr_getopt_t *os,
           svn_pool_clear(iterpool);
           apr_hash_this(hi, &key, NULL, &val);
           merge_source = key;
-
+              
           printf(_("  Merge source: %s\n"), merge_source);
           printf(_("    Merged ranges: "));
           merge_ranges = val;
@@ -120,10 +120,10 @@ svn_cl__mergeinfo(apr_getopt_t *os,
 
           /* Now fetch the available merges for this source. */
           printf(_("    Eligible ranges: "));
-          SVN_ERR(svn_client_mergeinfo_get_available(&merge_ranges,
-                                                     truepath,
-                                                     &peg_revision,
-                                                     merge_source,
+          SVN_ERR(svn_client_mergeinfo_get_available(&merge_ranges, 
+                                                     truepath, 
+                                                     &peg_revision, 
+                                                     merge_source, 
                                                      ctx,
                                                      subpool));
           print_merge_ranges(merge_ranges);
