@@ -906,7 +906,7 @@ def diff_in_depthy_wc(sbox):
                                      'propset', 'foo', 'foo-val', wc)
   svntest.main.file_write(iota_path, "new text\n")
   svntest.actions.run_and_verify_svn(None, None, [],
-                                     'propset', 'bar', 'bar-val', A_path)
+                                     'propset', 'bar', 'bar-val', A_path)  
   svntest.main.file_write(mu_path, "new text\n")
   svntest.main.file_write(gamma_path, "new text\n")
   svntest.actions.run_and_verify_svn(None, None, [], 'commit', '-m', '', wc)
@@ -1011,7 +1011,7 @@ def commit_depth_immediates(sbox):
   #    M      A/mu
   #    M      A/D/G/rho
   #    M      iota
-  #
+  # 
   # Then commit some of them using --depth=immediates:
   #
   #    svn ci -m "log msg" --depth=immediates wc_dir wc_dir/A/D/G/rho
