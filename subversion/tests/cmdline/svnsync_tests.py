@@ -647,7 +647,7 @@ def no_author(sbox):
 def move_parent_modify_file(sbox):
   "move parent and modify a file"
   run_test(sbox, "move-parent-modify-file.dump")
-
+  
 
 ########################################################################
 # Run the tests
