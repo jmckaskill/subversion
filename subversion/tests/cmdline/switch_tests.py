@@ -1689,7 +1689,7 @@ def mergeinfo_switch_elision(sbox):
                                         expected_status,
                                         None, None, None, None, None, 1)
 
-#----------------------------------------------------------------------
+#----------------------------------------------------------------------  
 
 def switch_with_depth(sbox):
   "basic tests to verify switch along with depth"
@@ -1702,7 +1702,7 @@ def switch_with_depth(sbox):
   AD_url = repo_url + '/A/D'
   AB_url = repo_url + '/A/B'
   AB_path = os.path.join(wc_dir, 'A', 'B')
-
+  
   # Set up expected results of 'switch --depth=empty'
   expected_output = svntest.wc.State(wc_dir, {})
   expected_disk = svntest.main.greek_state.copy()
@@ -1803,7 +1803,7 @@ def switch_with_depth(sbox):
         'A/B/H'       : Item(status='  ', wc_rev=1)
         })
     expected_status.tweak('A/B', switched='S')
-
+    
     # Do 'switch --depth=immediates' and check the results in three ways.
     svntest.actions.run_and_verify_switch(wc_dir, AB_path, AD_url,
                                           expected_output,
@@ -1813,7 +1813,7 @@ def switch_with_depth(sbox):
                                           '--depth', 'immediates')
 
   sw_depth_imm()
-
+    
   # Set up expected results for reverting 'switch --depth=immediates'.
   # (Reverting with default [infinite] depth, so that the result is a
   # standard Greek Tree working copy again.)
@@ -1847,7 +1847,7 @@ def switch_with_depth(sbox):
     'A/B/lambda'  : Item(status='A '),
     'A/B/E'       : Item(status='A '),
     'A/B/E/alpha' : Item(status='A '),
-    'A/B/E/beta'  : Item(status='A '),
+    'A/B/E/beta'  : Item(status='A '),    
     'A/B/F'       : Item(status='A '),
     })
   expected_disk = svntest.main.greek_state.copy()
