@@ -241,21 +241,21 @@ svn_client_suggest_merge_sources(apr_array_header_t **suggestions,
   */
 
   /* ### TODO: Share ra_session batons to improve efficiency? */
-  SVN_ERR(svn_client__get_repos_root(&repos_root, path_or_url, peg_revision,
+  SVN_ERR(svn_client__get_repos_root(&repos_root, path_or_url, peg_revision, 
                                      NULL, ctx, pool));
-  SVN_ERR(svn_client__get_copy_source(path_or_url, peg_revision,
-                                      &copyfrom_path, &copyfrom_rev,
+  SVN_ERR(svn_client__get_copy_source(path_or_url, peg_revision, 
+                                      &copyfrom_path, &copyfrom_rev, 
                                       ctx, pool));
   if (copyfrom_path)
     {
-      copyfrom_path = svn_path_join(repos_root,
-                                    svn_path_uri_encode(copyfrom_path + 1,
+      copyfrom_path = svn_path_join(repos_root, 
+                                    svn_path_uri_encode(copyfrom_path + 1, 
                                                         pool),
                                     pool);
       APR_ARRAY_PUSH(list, const char *) = copyfrom_path;
     }
 
-  SVN_ERR(svn_client_mergeinfo_get_merged(&mergeinfo, path_or_url,
+  SVN_ERR(svn_client_mergeinfo_get_merged(&mergeinfo, path_or_url, 
                                           peg_revision, ctx, pool));
   if (mergeinfo)
     {
