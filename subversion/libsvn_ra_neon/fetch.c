@@ -2043,12 +2043,12 @@ start_element(int *elem, void *userdata, int parent, const char *nspace,
           if ((rb->depth != svn_depth_files)
               && (rb->depth != svn_depth_infinity))
             {
-              SVN_ERR(svn_delta_depth_filter_editor(&filter_editor,
+              SVN_ERR(svn_delta_depth_filter_editor(&filter_editor, 
                                                     &filter_baton,
-                                                    rb->editor,
+                                                    rb->editor, 
                                                     rb->edit_baton,
-                                                    rb->depth,
-                                                    has_target,
+                                                    rb->depth, 
+                                                    has_target, 
                                                     rb->pool));
               rb->editor = filter_editor;
               rb->edit_baton = filter_baton;
