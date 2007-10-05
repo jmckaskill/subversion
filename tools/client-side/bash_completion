@@ -67,18 +67,18 @@ function _svn_lls()
 #   SVN_BASH_MIME_TYPE: mime types to be suggested
 #   SVN_BASH_KEYWORDS: "svn:keywords" substitutions to be suggested
 #   SVN_BASH_COMPL_EXT: completion extensions for file arguments, based on the
-#      current subcommand, so that for instance only modified files are
+#      current subcommand, so that for instance only modified files are 
 #      suggested for 'revert', only not svn-managed files for 'add', and so on.
 #      Possible values are:
 #      - svnstatus: use 'svn status' for completion
 #      - recurse: allow recursion
 #      - externals: recurse into externals
-#     The former option is reasonable, but beware that both later options
+#     The former option is reasonable, but beware that both later options 
 #     may be unadvisable if used on large working copies.
 #     Note of these costly completions are activated by default.
 #     Argument completion outside a working copy results in an error message.
 #     Filenames with spaces are not completed properly.
-#
+#     
 # - to do: other options? SVN_BASH_USERNAME?
 #   obsolete options could be removed from auto-comp? (e.g. -N)
 _svn()
@@ -324,7 +324,7 @@ _svn()
 	    [[ $previous = '--username' ]] && beep=1
 	    [[ $previous = '--password' ]] && beep=1
 
-	    # TODO: provide help about other options such as:
+	    # TODO: provide help about other options such as: 
 	    # --old --new --with-revprop
 
 	    # if the previous option required a parameter, do something
@@ -493,7 +493,7 @@ _svn()
 
 		[[ $SVN_BASH_COMPL_EXT == *recurse* ]] || \
 		    status="$status --non-recursive"
-
+		
     	        # I'm not sure that it can work with externals in call cases
 	        # the output contains translatable sentences (even with quiet)
 		[[ $SVN_BASH_COMPL_EXT == *externals* ]] || \
@@ -530,12 +530,12 @@ _svn()
 			    files=$( _svn_lls dir . $cur* )
 			else
 			    # ??? added directories appear twice: foo foo/
-			    files="$( _svn_lls all $cur* )
+			    files="$( _svn_lls all $cur* ) 
                                    $($status $cs | _svn_grcut 'A*' )"
 			fi
 			;;
 		    info) # information on any file
-			files="$( _svn_lls all $cur* )
+			files="$( _svn_lls all $cur* ) 
                                $($status $cs | _svn_grcut 'A*' )"
 			;;
 		    remove|rm|del*|move|mv|rename) # changing existing files
@@ -561,7 +561,7 @@ _svn()
 		# when not recursive, some relevant files may exist
 		# within subdirectories, so they are added here.
 	        # should it be restricted to svn-managed subdirs? no??
-		if [[ $SVN_BASH_COMPL_EXT != *recurse* ]] ; then
+		if [[ $SVN_BASH_COMPL_EXT != *recurse* ]] ; then 
 		    files="$files $( _svn_lls dir $cur* )"
 		fi
 
@@ -639,7 +639,7 @@ _svn()
 	import)
 		cmdOpts="--auto-props --no-auto-props $mOpts $qOpts $nOpts \
 		         --no-ignore --editor-cmd $pOpts"
-		;;
+		;; 
 	info)
 		cmdOpts="$pOpts $rOpts --targets -R --recursive \
                          --incremental --xml --changelist"
@@ -759,7 +759,7 @@ _svn()
 		--auto-props)    cmdOpts=${cmdOpts/ --no-auto-props / } ;;
 		--no-auto-props) cmdOpts=${cmdOpts/ --auto-props / } ;;
 		-g)              cmdOpts=${cmdOpts/ --use-merge-history / } ;;
-		--use-merge-history)
+		--use-merge-history) 
                                  cmdOpts=${cmdOpts/ -g / } ;;
 		-m|--message|-F|--file)
 			cmdOpts=${cmdOpts/ --message / }
