@@ -1565,7 +1565,7 @@ close_directory(void *dir_baton,
                     /* something changed, record the change */
                     {
                       const char *d_path = apr_pstrdup(ti->pool, db->path);
-
+                      
                       apr_hash_set(ti->depths, d_path, APR_HASH_KEY_STRING,
                                    svn_depth_to_word(db->depth));
 
@@ -1852,7 +1852,7 @@ open_file(const char *path,
      aren't actually doing any "work" or fetching any persistent data. */
 
   SVN_ERR(svn_io_check_path(fb->path, &kind, subpool));
-  SVN_ERR(svn_wc_adm_retrieve(&adm_access, eb->adm_access,
+  SVN_ERR(svn_wc_adm_retrieve(&adm_access, eb->adm_access, 
                               pb->path, subpool));
   SVN_ERR(svn_wc_entry(&entry, fb->path, adm_access, FALSE, subpool));
 
@@ -2572,7 +2572,7 @@ close_file(void *file_baton,
 
   if (((content_state != svn_wc_notify_state_unchanged) ||
        (prop_state != svn_wc_notify_state_unchanged) ||
-       (lock_state != svn_wc_notify_lock_state_unchanged))
+       (lock_state != svn_wc_notify_lock_state_unchanged)) 
       && eb->notify_func
       && fb->send_notification)
     {
