@@ -12,7 +12,7 @@
 # checkout          检出
 # default           默认
 # HEAD revision     最新版本
-# overlay           重载
+# overlay           重载 
 # remove            删除
 # rename            改名
 # repository        版本库
