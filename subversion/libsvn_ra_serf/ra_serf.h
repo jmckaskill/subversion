@@ -594,7 +594,7 @@ svn_ra_serf__handle_server_error(serf_request_t *request,
  * the @a RESPONSE body associated with a @a REQUEST. *DONE is set to TRUE.
  *
  * The @a BATON should be of type svn_ra_serf__simple_request_context_t.
- *
+ * 
  * All temporary allocations will be made in a @a pool.
  */
 apr_status_t
