@@ -129,7 +129,7 @@ svnlook_binary = os.path.abspath('../../svnlook/svnlook' + _exe)
 svnsync_binary = os.path.abspath('../../svnsync/svnsync' + _exe)
 svnversion_binary = os.path.abspath('../../svnversion/svnversion' + _exe)
 
-# Global variable indicating if we want verbose output, that is,
+# Global variable indicating if we want verbose output, that is, 
 # details of what commands each test does as it does them.  This is
 # incompatible with quiet_mode.
 verbose_mode = False
