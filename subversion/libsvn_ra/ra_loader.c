@@ -927,14 +927,14 @@ svn_error_t *svn_ra_get_locations(svn_ra_session_t *session,
                                   apr_pool_t *pool)
 {
   svn_error_t *err = session->vtable->get_locations(session, locations, path,
-                                                    peg_revision,
+                                                    peg_revision, 
                                                     location_revisions,
                                                     pool);
   if (err && (err->apr_err == SVN_ERR_RA_NOT_IMPLEMENTED))
     {
       svn_error_clear(err);
       err = SVN_NO_ERROR;
-
+      
       /* Do it the slow way, using get-logs, for older servers. */
       SVN_ERR(svn_ra__locations_from_log(session, locations, path, peg_revision,
                                          location_revisions, pool));
