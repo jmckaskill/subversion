@@ -934,7 +934,7 @@ public class SVNClient implements SVNClientInterface
     /**
      * @see SVNClientInterface#suggestMergeSources(String, Revision)
      */
-    public native String[] suggestMergeSources(String path,
+    public native String[] suggestMergeSources(String path, 
                                                Revision pegRevision)
             throws SubversionException;
 
