@@ -1785,7 +1785,7 @@ svn_fs_fs__rev_get_root(svn_fs_id_t **root_id_p,
     svn_pool_clear(ffd->rev_root_id_cache_pool[hid]);
   else
     ffd->rev_root_id_cache_pool[hid] = svn_pool_create(fs->pool);
-  ffd->rev_root_id_cache[hid]
+  ffd->rev_root_id_cache[hid] 
       = svn_fs_fs__id_copy(root_id, ffd->rev_root_id_cache_pool[hid]);
 
   *root_id_p = root_id;
