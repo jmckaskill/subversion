@@ -244,7 +244,7 @@ def depth_empty_commit(sbox):
   # Bring iota into a depth-empty working copy, then commit a change to it.
   wc_empty, ign_a, ign_b, ign_c = set_up_depthy_working_copies(sbox,
                                                                empty=True)
-
+ 
   # Form the working path of iota
   wc_empty_iota = os.path.join(wc_empty, 'iota')
 
@@ -471,7 +471,7 @@ def depth_immediates_bring_in_file(sbox):
                        'A/D/H/psi', 'A/D/H/omega', 'A/D/H', 'A/D')
   expected_status = svntest.actions.get_virginal_state(wc_imm, 1)
   expected_status.remove('A/C', 'A/B/lambda', 'A/B/E', 'A/B/E/alpha',
-                       'A/B/E/beta', 'A/B/F', 'A/B', 'A/D/gamma', 'A/D/G',
+                       'A/B/E/beta', 'A/B/F', 'A/B', 'A/D/gamma', 'A/D/G', 
                        'A/D/G/pi', 'A/D/G/rho', 'A/D/G/tau', 'A/D/H/chi',
                        'A/D/H/psi', 'A/D/H/omega', 'A/D/H', 'A/D')
   svntest.actions.run_and_verify_update(wc_imm,
@@ -1139,7 +1139,7 @@ def commit_depth_immediates(sbox):
   #    M      A/mu
   #    M      A/D/G/rho
   #    M      iota
-  #
+  # 
   # Then commit some of them using --depth=immediates:
   #
   #    svn ci -m "log msg" --depth=immediates wc_dir wc_dir/A/D/G/rho
