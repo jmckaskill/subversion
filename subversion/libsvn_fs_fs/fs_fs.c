@@ -120,8 +120,7 @@ static txn_vtable_t txn_vtable = {
   svn_fs_fs__txn_prop,
   svn_fs_fs__txn_proplist,
   svn_fs_fs__change_txn_prop,
-  svn_fs_fs__txn_root,
-  svn_fs_fs__txn_mergeinfo
+  svn_fs_fs__txn_root
 };
 
 /* Pathname helper functions */
@@ -1809,6 +1808,7 @@ svn_fs_fs__revision_proplist(apr_hash_t **proplist_p,
   int i;
   apr_pool_t *iterpool;
 
+  proplist = apr_hash_make(pool);
   iterpool = svn_pool_create(pool);
   for (i = 0; i < SVN_ESTALE_RETRY_COUNT; i++)
     {
@@ -1836,9 +1836,12 @@ svn_fs_fs__revision_proplist(apr_hash_t **proplist_p,
           return err;
         }
 
-      proplist = apr_hash_make(pool);
-
-      SVN_RETRY_ESTALE(err, svn_hash_read(proplist, revprop_file, pool));
+      SVN_ERR(svn_hash__clear(proplist));
+      SVN_RETRY_ESTALE(err,
+                       svn_hash_read2(proplist,
+                                      svn_stream_from_aprfile(revprop_file,
+                                                              iterpool),
+                                      SVN_HASH_TERMINATOR, pool));
 
       SVN_IGNORE_ESTALE(err, svn_io_file_close(revprop_file, iterpool));
 
@@ -3184,6 +3187,8 @@ get_and_increment_txn_key_body(void *baton, apr_pool_t *pool)
 
       break;
     }
+  if (err)
+    return err;
 
   svn_pool_destroy(iterpool);
 
@@ -3353,11 +3358,13 @@ get_txn_proplist(apr_hash_t *proplist,
 
   /* Open the transaction properties file. */
   SVN_ERR(svn_io_file_open(&txn_prop_file, path_txn_props(fs, txn_id, pool),
-                           APR_READ | APR_CREATE | APR_BUFFERED,
+                           APR_READ | APR_BUFFERED,
                            APR_OS_DEFAULT, pool));
 
   /* Read in the property list. */
-  SVN_ERR(svn_hash_read(proplist, txn_prop_file, pool));
+  SVN_ERR(svn_hash_read2(proplist,
+                         svn_stream_from_aprfile(txn_prop_file, pool),
+                         SVN_HASH_TERMINATOR, pool));
 
   SVN_ERR(svn_io_file_close(txn_prop_file, pool));
 
@@ -3372,8 +3379,17 @@ svn_fs_fs__change_txn_prop(svn_fs_txn_t *txn,
 {
   apr_file_t *txn_prop_file;
   apr_hash_t *txn_prop = apr_hash_make(pool);
+  svn_error_t *err;
 
-  SVN_ERR(get_txn_proplist(txn_prop, txn->fs, txn->id, pool));
+  err = get_txn_proplist(txn_prop, txn->fs, txn->id, pool);
+  /* Here - and here only - we need to deal with the possibility that the
+     transaction property file doesn't yet exist.  The rest of the
+     implementation assumes that the file exists, but we're called to set the
+     initial transaction properties as the transaction is being created. */
+  if (err && (APR_STATUS_IS_ENOENT(err->apr_err)))
+    svn_error_clear(err);
+  else if (err)
+    return err;
 
   apr_hash_set(txn_prop, name, APR_HASH_KEY_STRING, value);
 
@@ -3405,11 +3421,13 @@ get_txn_mergeinfo(apr_hash_t *minfo,
   /* Open the transaction mergeinfo file. */
   SVN_ERR(svn_io_file_open(&txn_minfo_file,
                            path_txn_mergeinfo(fs, txn_id, pool),
-                           APR_READ | APR_CREATE | APR_BUFFERED,
+                           APR_READ | APR_BUFFERED,
                            APR_OS_DEFAULT, pool));
 
   /* Read in the property list. */
-  SVN_ERR(svn_hash_read(minfo, txn_minfo_file, pool));
+  SVN_ERR(svn_hash_read2(minfo,
+                         svn_stream_from_aprfile(txn_minfo_file, pool),
+                         SVN_HASH_TERMINATOR, pool));
 
   SVN_ERR(svn_io_file_close(txn_minfo_file, pool));
 
@@ -3426,8 +3444,13 @@ svn_fs_fs__change_txn_mergeinfo(svn_fs_txn_t *txn,
 {
   apr_file_t *txn_minfo_file;
   apr_hash_t *txn_minfo = apr_hash_make(pool);
+  svn_error_t *err;
 
-  SVN_ERR(get_txn_mergeinfo(txn_minfo, txn->fs, txn->id, pool));
+  err = get_txn_mergeinfo(txn_minfo, txn->fs, txn->id, pool);
+  if (err && (APR_STATUS_IS_ENOENT(err->apr_err))) /* doesn't exist yet */
+    svn_error_clear(err);
+  else if (err)
+    return err;
 
   apr_hash_set(txn_minfo, name, APR_HASH_KEY_STRING, value);
 
@@ -3602,7 +3625,8 @@ svn_fs_fs__purge_txn(svn_fs_t *fs,
   /* Remove the shared transaction object associated with this transaction. */
   SVN_ERR(purge_shared_txn(fs, txn_id, pool));
   /* Remove the directory associated with this transaction. */
-  return svn_io_remove_dir2(path_txn_dir(fs, txn_id, pool), FALSE, pool);
+  return svn_io_remove_dir2(path_txn_dir(fs, txn_id, pool), FALSE,
+                            NULL, NULL, pool);
 }
 
 
@@ -4842,7 +4866,9 @@ commit_body(void *baton, apr_pool_t *pool)
       if (apr_hash_get(txnprops, SVN_FS_PROP_TXN_CONTAINS_MERGEINFO,
                        APR_HASH_KEY_STRING))
         {
-          SVN_ERR(svn_fs_fs__txn_mergeinfo(&target_mergeinfo, cb->txn, pool));
+          target_mergeinfo = apr_hash_make(pool);
+          SVN_ERR(get_txn_mergeinfo(target_mergeinfo, cb->txn->fs, cb->txn->id,
+                                    pool));
           SVN_ERR(svn_fs_fs__change_txn_prop
                   (cb->txn, SVN_FS_PROP_TXN_CONTAINS_MERGEINFO,
                    NULL, pool));
@@ -5375,6 +5401,9 @@ svn_fs_fs__set_uuid(svn_fs_t *fs,
   SVN_ERR(svn_io_open_unique_file2(&uuid_file, &tmp_path, uuid_path,
                                     ".tmp", svn_io_file_del_none, pool));
 
+  if (! uuid)
+    uuid = svn_uuid_generate(pool);
+
   SVN_ERR(svn_io_file_write_full(uuid_file, uuid, strlen(uuid), NULL,
                                  pool));
   SVN_ERR(svn_io_file_write_full(uuid_file, "\n", 1, NULL, pool));
@@ -5477,18 +5506,6 @@ svn_fs_fs__txn_proplist(apr_hash_t **table_p,
   apr_hash_t *proplist = apr_hash_make(pool);
   SVN_ERR(get_txn_proplist(proplist, txn->fs, txn->id, pool));
   *table_p = proplist;
-
-  return SVN_NO_ERROR;
-}
-
-svn_error_t *
-svn_fs_fs__txn_mergeinfo(apr_hash_t **table_p,
-                         svn_fs_txn_t *txn,
-                         apr_pool_t *pool)
-{
-  apr_hash_t *mergeinfo = apr_hash_make(pool);
-  SVN_ERR(get_txn_mergeinfo(mergeinfo, txn->fs, txn->id, pool));
-  *table_p = mergeinfo;
 
   return SVN_NO_ERROR;
 }

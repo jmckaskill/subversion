@@ -25,7 +25,6 @@
 #include "svn_pools.h"
 #include "svn_md5.h"
 #include "svn_props.h"
-#include "private/svn_repos_private.h"
 #include "repos.h"
 #include "svn_private_config.h"
 
@@ -97,6 +96,7 @@ typedef struct report_baton_t
   svn_depth_t requested_depth;
 
   svn_boolean_t ignore_ancestry;
+  svn_boolean_t send_copyfrom_args;
   svn_boolean_t is_switch;
   const svn_delta_editor_t *editor;
   void *edit_baton;
@@ -609,6 +609,74 @@ is_depth_upgrade(svn_depth_t wc_depth,
 }
 
 
+/* Call the B->editor's add_file() function to create PATH as a child
+   of PARENT_BATON, returning a new baton in *NEW_FILE_BATON.
+   However, make an attempt to send 'copyfrom' arguments if they're
+   available, by examining the closest copy of the original file
+   O_PATH within B->t_root.  If any copyfrom args are discovered,
+   return those in *COPYFROM_PATH and *COPYFROM_REV;  otherwise leave
+   those return args untouched. */
+static svn_error_t *
+add_file_smartly(report_baton_t *b,
+                 const char *path,
+                 void *parent_baton,
+                 const char *o_path,
+                 void **new_file_baton,
+                 const char **copyfrom_path,
+                 svn_revnum_t *copyfrom_rev,
+                 apr_pool_t *pool)
+{
+  /* ### TODO:  use a subpool to do this work, clear it at the end? */
+  svn_fs_t *fs = svn_repos_fs(b->repos);
+  svn_fs_root_t *closest_copy_root = NULL;
+  const char *closest_copy_path = NULL;
+
+  /* Pre-emptively assume no copyfrom args exist. */
+  *copyfrom_path = NULL;
+  *copyfrom_rev = SVN_INVALID_REVNUM;
+
+  if (b->send_copyfrom_args)
+    {
+      /* Find the destination of the nearest 'copy event' which may have
+         caused o_path@t_root to exist.  */
+      SVN_ERR(svn_fs_closest_copy(&closest_copy_root, &closest_copy_path,
+                                  b->t_root, o_path, pool));
+      if (closest_copy_root != NULL)
+        {
+          /* If the destination of the copy event is the same path as
+             o_path, then we've found something interesting that should
+             have 'copyfrom' history. */
+          if (strcmp(closest_copy_path + 1, o_path) == 0)
+            {
+              SVN_ERR(svn_fs_copied_from(copyfrom_rev, copyfrom_path,
+                                         closest_copy_root, closest_copy_path,
+                                         pool));
+              if (b->authz_read_func)
+                {
+                  svn_boolean_t allowed;
+                  svn_fs_root_t *copyfrom_root;
+                  SVN_ERR(svn_fs_revision_root(&copyfrom_root, fs,
+                                               *copyfrom_rev, pool));
+                  SVN_ERR(b->authz_read_func(&allowed, copyfrom_root,
+                                             *copyfrom_path, b->authz_read_baton,
+                                             pool));
+                  if (! allowed)
+                    {
+                      *copyfrom_path = NULL;
+                      *copyfrom_rev = SVN_INVALID_REVNUM;
+                    }
+                }
+            }
+        }
+    }
+
+  SVN_ERR(b->editor->add_file(path, parent_baton,
+                              *copyfrom_path, *copyfrom_rev,
+                              pool, new_file_baton));
+  return SVN_NO_ERROR;
+}
+
+
 /* Emit a series of editing operations to transform a source entry to
    a target entry.
 
@@ -691,7 +759,7 @@ update_entry(report_baton_t *b, svn_revnum_t s_rev, const char *s_path,
       distance = svn_fs_compare_ids(s_entry->id, t_entry->id);
       if (distance == 0 && !any_path_info(b, e_path)
           && (!info || (!info->start_empty && !info->lock_token))
-          && !is_depth_upgrade(wc_depth, requested_depth, t_entry->kind))
+          && (requested_depth <= wc_depth || t_entry->kind == svn_node_file))
         return SVN_NO_ERROR;
       else if (distance != -1 || b->ignore_ancestry)
         related = TRUE;
@@ -743,13 +811,30 @@ update_entry(report_baton_t *b, svn_revnum_t s_rev, const char *s_path,
   else
     {
       if (related)
-        SVN_ERR(b->editor->open_file(e_path, dir_baton, s_rev, pool,
-                                     &new_baton));
+        {
+          SVN_ERR(b->editor->open_file(e_path, dir_baton, s_rev, pool,
+                                       &new_baton));
+          SVN_ERR(delta_files(b, new_baton, s_rev, s_path, t_path,
+                              info ? info->lock_token : NULL, pool));
+        }
       else
-        SVN_ERR(b->editor->add_file(e_path, dir_baton, NULL,
-                                    SVN_INVALID_REVNUM, pool, &new_baton));
-      SVN_ERR(delta_files(b, new_baton, s_rev, s_path, t_path,
-                          info ? info->lock_token : NULL, pool));
+        {
+          svn_revnum_t copyfrom_rev = SVN_INVALID_REVNUM;
+          const char *copyfrom_path = NULL;
+          SVN_ERR(add_file_smartly(b, e_path, dir_baton, t_path, &new_baton,
+                                   &copyfrom_path, &copyfrom_rev, pool));
+          if (! copyfrom_path)
+            /* Send txdelta between empty file (s_path@s_rev doesn't
+               exist) and added file (t_path@t_root). */
+            SVN_ERR(delta_files(b, new_baton, s_rev, s_path, t_path,
+                                info ? info->lock_token : NULL, pool));
+          else
+            /* Send txdelta between copied file (copyfrom_path@copyfrom_rev)
+               and added file (tpath@t_root). */
+            SVN_ERR(delta_files(b, new_baton, copyfrom_rev, copyfrom_path,
+                                t_path, info ? info->lock_token : NULL, pool));
+        }
+
       SVN_ERR(svn_fs_file_md5_checksum(digest, b->t_root, t_path, pool));
       hex_digest = svn_md5_digest_to_cstring(digest, pool);
       return b->editor->close_file(new_baton, hex_digest, pool);
@@ -1247,7 +1332,7 @@ svn_repos_abort_report(void *baton, apr_pool_t *pool)
 
 
 svn_error_t *
-svn_repos__begin_report(void **report_baton,
+svn_repos_begin_report2(void **report_baton,
                         svn_revnum_t revnum,
                         svn_repos_t *repos,
                         const char *fs_base,
@@ -1256,6 +1341,7 @@ svn_repos__begin_report(void **report_baton,
                         svn_boolean_t text_deltas,
                         svn_depth_t depth,
                         svn_boolean_t ignore_ancestry,
+                        svn_boolean_t send_copyfrom_args,
                         const svn_delta_editor_t *editor,
                         void *edit_baton,
                         svn_repos_authz_func_t authz_read_func,
@@ -1277,6 +1363,7 @@ svn_repos__begin_report(void **report_baton,
   b->text_deltas = text_deltas;
   b->requested_depth = depth;
   b->ignore_ancestry = ignore_ancestry;
+  b->send_copyfrom_args = send_copyfrom_args;
   b->is_switch = (switch_path != NULL);
   b->editor = editor;
   b->edit_baton = edit_baton;
@@ -1291,37 +1378,6 @@ svn_repos__begin_report(void **report_baton,
   /* Hand reporter back to client. */
   *report_baton = b;
   return SVN_NO_ERROR;
-}
-
-svn_error_t *
-svn_repos_begin_report2(void **report_baton,
-                        svn_revnum_t revnum,
-                        svn_repos_t *repos,
-                        const char *fs_base,
-                        const char *s_operand,
-                        const char *switch_path,
-                        svn_boolean_t text_deltas,
-                        svn_boolean_t ignore_ancestry,
-                        const svn_delta_editor_t *editor,
-                        void *edit_baton,
-                        svn_repos_authz_func_t authz_read_func,
-                        void *authz_read_baton,
-                        apr_pool_t *pool)
-{
-  return svn_repos__begin_report(report_baton,
-                                 revnum,
-                                 repos,
-                                 fs_base,
-                                 s_operand,
-                                 switch_path,
-                                 text_deltas,
-                                 svn_depth_unknown,
-                                 ignore_ancestry,
-                                 editor,
-                                 edit_baton,
-                                 authz_read_func,
-                                 authz_read_baton,
-                                 pool);
 }
 
 
@@ -1342,15 +1398,16 @@ svn_repos_begin_report(void **report_baton,
                        void *authz_read_baton,
                        apr_pool_t *pool)
 {
-  return svn_repos__begin_report(report_baton,
+  return svn_repos_begin_report2(report_baton,
                                  revnum,
                                  repos,
                                  fs_base,
                                  s_operand,
                                  switch_path,
                                  text_deltas,
-                                 SVN_DEPTH_FROM_RECURSE(recurse),
+                                 SVN_DEPTH_INFINITY_OR_FILES(recurse),
                                  ignore_ancestry,
+                                 FALSE, /* don't send copyfrom args */
                                  editor,
                                  edit_baton,
                                  authz_read_func,

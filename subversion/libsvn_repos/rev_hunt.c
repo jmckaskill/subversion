@@ -820,11 +820,12 @@ get_merged_path_revisions(apr_array_header_t *path_revisions,
                                         old_path_rev->path,
                                         old_path_rev->revnum, subpool));
   SVN_ERR(svn_repos__get_path_mergeinfo(&prev_mergeinfo, repos->fs,
-                                        old_path_rev->path - 1,
-                                        old_path_rev->revnum, subpool));
+                                        old_path_rev->path,
+                                        old_path_rev->revnum - 1, subpool));
   SVN_ERR(svn_mergeinfo_diff(&deleted, &changed, prev_mergeinfo, curr_mergeinfo,
-                             subpool));
-  SVN_ERR(svn_mergeinfo_merge(&changed, deleted, subpool));
+                             svn_rangelist_ignore_inheritance, subpool));
+  SVN_ERR(svn_mergeinfo_merge(&changed, deleted,
+                              svn_rangelist_equal_inheritance, subpool));
   if (apr_hash_count(changed) == 0)
     {
       svn_pool_destroy(subpool);

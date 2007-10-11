@@ -114,14 +114,10 @@ svn_cl__import(apr_getopt_t *os,
 
   SVN_ERR(svn_cl__cleanup_log_msg
           (ctx->log_msg_baton3,
-           /* ### TODO(sd): take a real depth?  But I'm not sure how
-              ### useful that would be for an import.  I could see
-              ### svn_depth_files being useful for import, but we
-              ### don't have that (yet). */
            svn_client_import3(&commit_info,
                               path,
                               url,
-                              (! SVN_DEPTH_TO_RECURSE(opt_state->depth)),
+                              opt_state->depth,
                               opt_state->no_ignore,
                               opt_state->force,
                               ctx,

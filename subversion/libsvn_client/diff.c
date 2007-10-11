@@ -117,7 +117,8 @@ display_mergeinfo_diff(const char *old_mergeinfo_val,
     new_mergeinfo_hash = NULL;
 
   SVN_ERR(svn_mergeinfo_diff(&deleted, &added, old_mergeinfo_hash,
-                             new_mergeinfo_hash, pool));
+                             new_mergeinfo_hash,
+                             svn_rangelist_equal_inheritance, pool));
 
   for (hi = apr_hash_first(pool, deleted);
        hi; hi = apr_hash_next(hi))
@@ -1029,17 +1030,17 @@ unsupported_diff_error(svn_error_t *child_err)
 
 /* For a given DEPTH, return the value that should be passed as the
    depth parameter to svn_wc_adm_open() and friends. */
-static int adm_depth_from_depth(svn_depth_t depth)
+static int levels_to_lock_from_depth(svn_depth_t depth)
 {
-  int adm_depth;
+  int levels_to_lock;
 
   if (depth == svn_depth_immediates)
-    adm_depth = 1;
+    levels_to_lock = 1;
   else if (depth == svn_depth_empty || depth == svn_depth_files)
-    adm_depth = 0;
+    levels_to_lock = 0;
   else
-    adm_depth = -1;
-  return adm_depth;
+    levels_to_lock = -1;
+  return levels_to_lock;
 }
 
 
@@ -1064,7 +1065,7 @@ diff_wc_wc(const apr_array_header_t *options,
 {
   svn_wc_adm_access_t *adm_access, *target_access;
   const char *target;
-  int adm_depth = adm_depth_from_depth(depth);
+  int levels_to_lock = levels_to_lock_from_depth(depth);
 
   /* Assert that we have valid input. */
   assert(! svn_path_is_url(path1));
@@ -1082,7 +1083,7 @@ diff_wc_wc(const apr_array_header_t *options,
           "and its working files are supported at this time")));
 
   SVN_ERR(svn_wc_adm_open_anchor(&adm_access, &target_access, &target,
-                                 path1, FALSE, adm_depth,
+                                 path1, FALSE, levels_to_lock,
                                  ctx->cancel_func, ctx->cancel_baton,
                                  pool));
 
@@ -1160,7 +1161,6 @@ diff_repos_repos(const struct diff_parameters *diff_param,
 
   /* Drive the reporter; do the diff. */
   SVN_ERR(reporter->set_path(report_baton, "", drr.rev1,
-                             /* ### TODO(sd): dynamic depth here */
                              svn_depth_infinity,
                              FALSE, NULL,
                              pool));
@@ -1205,7 +1205,7 @@ diff_repos_wc(const apr_array_header_t *options,
   const svn_delta_editor_t *diff_editor;
   void *diff_edit_baton;
   svn_boolean_t rev2_is_base = (revision2->kind == svn_opt_revision_base);
-  int adm_depth = adm_depth_from_depth(depth);
+  int levels_to_lock = levels_to_lock_from_depth(depth);
 
   /* Assert that we have valid input. */
   assert(! svn_path_is_url(path2));
@@ -1214,7 +1214,7 @@ diff_repos_wc(const apr_array_header_t *options,
   SVN_ERR(convert_to_url(&url1, path1, pool));
 
   SVN_ERR(svn_wc_adm_open_anchor(&adm_access, &dir_access, &target,
-                                 path2, FALSE, adm_depth,
+                                 path2, FALSE, levels_to_lock,
                                  ctx->cancel_func, ctx->cancel_baton,
                                  pool));
   anchor = svn_wc_adm_access_path(adm_access);
@@ -1403,7 +1403,6 @@ diff_summarize_repos_repos(const struct diff_parameters *diff_param,
 
   /* Drive the reporter; do the diff. */
   SVN_ERR(reporter->set_path(report_baton, "", drr.rev1,
-                             /* ### TODO(sd): dynamic depth here */
                              svn_depth_infinity,
                              FALSE, NULL, pool));
   SVN_ERR(reporter->finish_report(report_baton, pool));
@@ -1554,7 +1553,7 @@ svn_client_diff3(const apr_array_header_t *options,
                  apr_pool_t *pool)
 {
   return svn_client_diff4(options, path1, revision1, path2,
-                          revision2, SVN_DEPTH_FROM_RECURSE(recurse),
+                          revision2, SVN_DEPTH_INFINITY_OR_FILES(recurse),
                           ignore_ancestry, no_diff_deleted,
                           ignore_content_type, header_encoding,
                           outfile, errfile, ctx, pool);
@@ -1680,7 +1679,7 @@ svn_client_diff_peg3(const apr_array_header_t *options,
                               peg_revision,
                               start_revision,
                               end_revision,
-                              SVN_DEPTH_FROM_RECURSE(recurse),
+                              SVN_DEPTH_INFINITY_OR_FILES(recurse),
                               ignore_ancestry,
                               no_diff_deleted,
                               ignore_content_type,
@@ -1707,7 +1706,8 @@ svn_client_diff_peg2(const apr_array_header_t *options,
                      apr_pool_t *pool)
 {
   return svn_client_diff_peg3(options, path, peg_revision, start_revision,
-                              end_revision, SVN_DEPTH_FROM_RECURSE(recurse),
+                              end_revision,
+                              SVN_DEPTH_INFINITY_OR_FILES(recurse),
                               ignore_ancestry, no_diff_deleted,
                               ignore_content_type, SVN_APR_LOCALE_CHARSET,
                               outfile, errfile, ctx, pool);
@@ -1779,7 +1779,8 @@ svn_client_diff_summarize(const char *path1,
                           apr_pool_t *pool)
 {
   return svn_client_diff_summarize2(path1, revision1, path2,
-                                    revision2, SVN_DEPTH_FROM_RECURSE(recurse),
+                                    revision2,
+                                    SVN_DEPTH_INFINITY_OR_FILES(recurse),
                                     ignore_ancestry, summarize_func,
                                     summarize_baton, ctx, pool);
 }
@@ -1828,7 +1829,7 @@ svn_client_diff_summarize_peg(const char *path,
 {
   return svn_client_diff_summarize_peg2(path, peg_revision,
                                         start_revision, end_revision,
-                                        SVN_DEPTH_FROM_RECURSE(recurse),
+                                        SVN_DEPTH_INFINITY_OR_FILES(recurse),
                                         ignore_ancestry,
                                         summarize_func, summarize_baton,
                                         ctx, pool);

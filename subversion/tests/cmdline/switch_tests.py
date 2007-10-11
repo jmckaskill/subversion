@@ -154,7 +154,10 @@ def do_routine_switching(wc_dir, repo_url, verify):
                                           expected_disk,
                                           expected_status)
   else:
-    svntest.main.run_svn(None, 'switch', ADG_url, AB_path)
+    svntest.main.run_svn(None,
+                         '--username', svntest.main.wc_author,
+                         '--password', svntest.main.wc_passwd,
+                         'switch', ADG_url, AB_path)
 
 
 #----------------------------------------------------------------------
@@ -215,7 +218,10 @@ def commit_routine_switching(wc_dir, verify):
                                           None, None, None, None, None,
                                           wc_dir)
   else:
-    svntest.main.run_svn(None, 'ci', '-m', 'log msg', wc_dir)
+    svntest.main.run_svn(None,
+                         '--username', svntest.main.wc_author,
+                         '--password', svntest.main.wc_passwd,
+                         'ci', '-m', 'log msg', wc_dir)
 
 
 ######################################################################
@@ -500,7 +506,10 @@ def log_switched_file(sbox):
   # edit and commit switched file 'iota'
   iota_path = os.path.join(wc_dir, 'iota')
   svntest.main.run_svn(None, 'ps', 'x', 'x', iota_path)
-  svntest.main.run_svn(None, 'ci', '-m',
+  svntest.main.run_svn(None,
+                       '--username', svntest.main.wc_author,
+                       '--password', svntest.main.wc_passwd,
+                       'ci', '-m',
                        'set prop on switched iota',
                        iota_path)
 
@@ -554,7 +563,7 @@ def relocate_deleted_missing_copied(sbox):
   repo_dir = sbox.repo_dir
   repo_url = sbox.repo_url
   other_repo_dir, other_repo_url = sbox.add_repo_path('other')
-  svntest.main.copy_repos(repo_dir, other_repo_dir, 2)
+  svntest.main.copy_repos(repo_dir, other_repo_dir, 2, 0)
   svntest.main.safe_rmtree(repo_dir, 1)
   svntest.actions.run_and_verify_svn(None, None, [], 'switch', '--relocate',
                                      repo_url, other_repo_url, wc_dir)
@@ -609,10 +618,14 @@ def delete_subdir(sbox):
 
   svntest.actions.run_and_verify_svn(None,
                                      ['\n', 'Committed revision 2.\n'], [],
+                                     '--username', svntest.main.wc_author,
+                                     '--password', svntest.main.wc_passwd,
                                      'cp', '-m', 'make copy', A_url, A2_url)
 
   svntest.actions.run_and_verify_svn(None,
                                      ['\n', 'Committed revision 3.\n'], [],
+                                     '--username', svntest.main.wc_author,
+                                     '--password', svntest.main.wc_passwd,
                                      'rm', '-m', 'delete subdir', A2_B_F_url)
 
   expected_output = svntest.wc.State(wc_dir, {
@@ -645,9 +658,13 @@ def file_dir_file(sbox):
   dir_url = sbox.repo_url + '/A/C'
 
   svntest.actions.run_and_verify_svn(None, None, [],
+                                     '--username', svntest.main.wc_author,
+                                     '--password', svntest.main.wc_passwd,
                                      'switch', dir_url, file_path)
 
   svntest.actions.run_and_verify_svn(None, None, [],
+                                     '--username', svntest.main.wc_author,
+                                     '--password', svntest.main.wc_passwd,
                                      'switch', file_url, file_path)
 
 #----------------------------------------------------------------------
@@ -679,15 +696,26 @@ def nonrecursive_switching(sbox):
   svntest.main.run_svn(None, 'co', trunk_url, wc2_dir)
 
   # Make a branch, and add a new file, in "wc_dir" and repository
-  svntest.main.run_svn(None, 'mkdir', '-m', '', branch_url)
-  svntest.main.run_svn(None, 'cp', '-m', '', trunk_url, version1_url)
-  svntest.main.run_svn(None, 'up', wc1_dir)
+  svntest.main.run_svn(None,
+                       '--username', svntest.main.wc_author,
+                       '--password', svntest.main.wc_passwd,
+                       'mkdir', '-m', '', branch_url)
+  svntest.main.run_svn(None,
+                       '--username', svntest.main.wc_author,
+                       '--password', svntest.main.wc_passwd,
+                       'cp', '-m', '', trunk_url, version1_url)
+  svntest.main.run_svn(None,
+                       '--username', svntest.main.wc_author,
+                       '--password', svntest.main.wc_passwd,
+                       'up', wc1_dir)
   svntest.main.file_append(wc1_new_file, "This is the file 'newfile'.\n")
   svntest.main.run_svn(None, 'add', wc1_new_file)
   svntest.main.run_svn(None, 'ci', '-m', '', wc1_dir)
 
   # Try to switch "wc2" to the branch (non-recursively)
   svntest.actions.run_and_verify_svn(None, None, [],
+                                     '--username', svntest.main.wc_author,
+                                     '--password', svntest.main.wc_passwd,
                                      'switch', '-N', version1_url, wc2_dir)
 
   # Check the URLs of the (not switched) directories.
@@ -736,6 +764,8 @@ def failed_anchor_is_target(sbox):
   G_psi_url = G_url + '/psi'
   svntest.actions.run_and_verify_svn(None,
                                      ['\n', 'Committed revision 2.\n'], [],
+                                     '--username', svntest.main.wc_author,
+                                     '--password', svntest.main.wc_passwd,
                                      'mkdir', '-m', 'log msg', G_psi_url)
 
   H_path = os.path.join(wc_dir, 'A', 'D', 'H')
@@ -808,6 +838,8 @@ def bad_intermediate_urls(sbox):
   C_A_Z_url = sbox.repo_url + '/A/C/A/Z'
   svntest.actions.run_and_verify_svn(None,
                                      ['\n', 'Committed revision 2.\n'], [],
+                                     '--username', svntest.main.wc_author,
+                                     '--password', svntest.main.wc_passwd,
                                      'mkdir', '-m', 'log msg',
                                      C_A_url, C_A_Z_url)
 
@@ -845,6 +877,8 @@ def obstructed_switch(sbox):
   E_url2     = sbox.repo_url + '/A/B/Esave'
   svntest.actions.run_and_verify_svn(None,
                                      ['\n', 'Committed revision 2.\n'], [],
+                                     '--username', svntest.main.wc_author,
+                                     '--password', svntest.main.wc_passwd,
                                      'cp', '-m', 'msgcopy', E_url, E_url2)
 
   E_path     = os.path.join(wc_dir, 'A', 'B', 'E')
@@ -861,7 +895,10 @@ def obstructed_switch(sbox):
                                         wc_dir)
 
   svntest.main.file_append(alpha_path, "hello")
-  out, err = svntest.main.run_svn(1, 'sw', E_url2, E_path)
+  out, err = svntest.main.run_svn(1,
+                                  '--username', svntest.main.wc_author,
+                                  '--password', svntest.main.wc_passwd,
+                                  'sw', E_url2, E_path)
   for line in err:
     if line.find("object of the same name already exists") != -1:
       break
@@ -942,7 +979,7 @@ def relocate_beyond_repos_root(sbox):
   repo_dir = sbox.repo_dir
   repo_url = sbox.repo_url
   other_repo_dir, other_repo_url = sbox.add_repo_path('other')
-  svntest.main.copy_repos(repo_dir, other_repo_dir, 1)
+  svntest.main.copy_repos(repo_dir, other_repo_dir, 1, 0)
   svntest.main.safe_rmtree(repo_dir, 1)
 
   A_url = repo_url + "/A"
@@ -995,6 +1032,8 @@ def refresh_read_only_attribute(sbox):
   branch_url = sbox.repo_url + '/A-branch'
   svntest.actions.run_and_verify_svn(None,
                                      ['\n', 'Committed revision 2.\n'], [],
+                                     '--username', svntest.main.wc_author,
+                                     '--password', svntest.main.wc_passwd,
                                      'cp', '-m', 'svn:needs-lock not set',
                                      url, branch_url)
 
@@ -1064,6 +1103,8 @@ def switch_change_repos_root(sbox):
   svntest.actions.run_and_verify_svn(None, None,
                                      ".*not the same repository.*",
                                      'switch',
+                                     '--username', svntest.main.wc_author,
+                                     '--password', svntest.main.wc_passwd,
                                      other_A_url, A_wc_dir)
 
   # Make sure we didn't break the WC.
@@ -1101,7 +1142,7 @@ def relocate_and_propset(sbox):
 
   # Relocate
   other_repo_dir, other_repo_url = sbox.add_repo_path('other')
-  svntest.main.copy_repos(repo_dir, other_repo_dir, 1)
+  svntest.main.copy_repos(repo_dir, other_repo_dir, 1, 0)
   svntest.main.safe_rmtree(repo_dir, 1)
   svntest.actions.run_and_verify_svn(None, None, [], 'switch', '--relocate',
                                      repo_url, other_repo_url, wc_dir)
@@ -1266,7 +1307,12 @@ def forced_switch_failures(sbox):
   I_url = sbox.repo_url + "/A/D/H/I"
   so, se = svntest.actions.run_and_verify_svn("Unexpected error during mkdir",
                                               ['\n', 'Committed revision 2.\n'],
-                                              [], "mkdir", I_url,
+                                              [],
+                                              '--username',
+                                              svntest.main.wc_author,
+                                              '--password',
+                                              svntest.main.wc_passwd,
+                                              "mkdir", I_url,
                                               "-m", "Log Message")
 
   # Make A/D/G/I and co A/D/H/I into it.
@@ -1274,7 +1320,12 @@ def forced_switch_failures(sbox):
   os.mkdir(I_path)
   so, se = svntest.actions.run_and_verify_svn("Unexpected error during co",
                                               ['Checked out revision 2.\n'],
-                                              [], "co", I_url, I_path)
+                                              [],
+                                              '--username',
+                                              svntest.main.wc_author,
+                                              '--password',
+                                              svntest.main.wc_passwd,
+                                              "co", I_url, I_path)
 
   # Try the forced switch.  A/D/G/I obstructs the dir A/D/G/I coming
   # from the repos.  Normally this isn't a problem, but A/D/G/I is already
@@ -1401,6 +1452,8 @@ def switch_scheduled_add(sbox):
   svntest.actions.run_and_verify_svn(None, None, [],
                                      'add', file_path)
   svntest.actions.run_and_verify_svn(None, None, [],
+                                     '--username', svntest.main.wc_author,
+                                     '--password', svntest.main.wc_passwd,
                                      'switch', switch_url, file_path)
 
 #----------------------------------------------------------------------
@@ -1442,6 +1495,8 @@ def mergeinfo_switch_elision(sbox):
      "Checked out revision 1.\n",
      "A         " + B_COPY_1_path + "\n"],
     [],
+    '--username', svntest.main.wc_author,
+    '--password', svntest.main.wc_passwd,
     'copy',
     sbox.repo_url + "/A/B",
     B_COPY_1_path)
@@ -1456,6 +1511,8 @@ def mergeinfo_switch_elision(sbox):
      "Checked out revision 1.\n",
      "A         " + B_COPY_2_path + "\n"],
     [],
+    '--username', svntest.main.wc_author,
+    '--password', svntest.main.wc_passwd,
     'copy',
     sbox.repo_url + "/A/B",
     B_COPY_2_path)
@@ -1689,6 +1746,178 @@ def mergeinfo_switch_elision(sbox):
                                         expected_status,
                                         None, None, None, None, None, 1)
 
+#----------------------------------------------------------------------
+
+def switch_with_depth(sbox):
+  "basic tests to verify switch along with depth"
+
+  sbox.build()
+
+  # Form some paths and URLs required
+  wc_dir = sbox.wc_dir
+  repo_url = sbox.repo_url
+  AD_url = repo_url + '/A/D'
+  AB_url = repo_url + '/A/B'
+  AB_path = os.path.join(wc_dir, 'A', 'B')
+
+  # Set up expected results of 'switch --depth=empty'
+  expected_output = svntest.wc.State(wc_dir, {})
+  expected_disk = svntest.main.greek_state.copy()
+  expected_status = svntest.actions.get_virginal_state(wc_dir, 1)
+  expected_status.tweak('A/B', switched='S')
+  expected_status.tweak('A/B/lambda', switched='S')
+  expected_status.tweak('A/B/E', switched='S')
+  expected_status.tweak('A/B/F', switched='S')
+
+  # Do 'switch --depth=empty' and check the results in three ways.
+  svntest.actions.run_and_verify_switch(wc_dir, AB_path, AD_url,
+                                        expected_output,
+                                        expected_disk,
+                                        expected_status, None,
+                                        None, None, None, None, 0,
+                                        '--depth', 'empty')
+
+  # Set up expected results for reverting 'switch --depth=empty'
+  expected_output = svntest.wc.State(wc_dir, {})
+  expected_disk = svntest.main.greek_state.copy()
+  expected_status = svntest.actions.get_virginal_state(wc_dir, 1)
+
+  svntest.actions.run_and_verify_switch(wc_dir, AB_path, AB_url,
+                                        expected_output,
+                                        expected_disk,
+                                        expected_status, None,
+                                        None, None, None, None, 0,
+                                        '--depth', 'empty')
+
+  # Set up expected results of 'switch --depth=files'
+  expected_output = svntest.wc.State(wc_dir, {
+    'A/B/lambda'  : Item(status='D '),
+    'A/B/gamma'   : Item(status='A '),
+    })
+  expected_disk = svntest.main.greek_state.copy()
+  expected_disk.remove('A/B/lambda')
+  expected_disk.add({
+    'A/B/gamma'   : Item("This is the file 'gamma'.\n")
+    })
+  expected_status = svntest.actions.get_virginal_state(wc_dir, 1)
+  expected_status.remove('A/B/lambda')
+  expected_status.add({
+    'A/B/gamma'   : Item(status='  ', wc_rev=1)
+    })
+  expected_status.tweak('A/B', switched='S')
+  expected_status.tweak('A/B/E', switched='S')
+  expected_status.tweak('A/B/F', switched='S')
+
+  # Do 'switch --depth=files' and check the results in three ways.
+  svntest.actions.run_and_verify_switch(wc_dir, AB_path, AD_url,
+                                        expected_output,
+                                        expected_disk,
+                                        expected_status, None,
+                                        None, None, None, None, 0,
+                                        '--depth', 'files')
+
+  # Set up expected results for reverting 'switch --depth=files'
+  expected_output = svntest.wc.State(wc_dir, {
+    'A/B/gamma'   : Item(status='D '),
+    'A/B/lambda'  : Item(status='A '),
+    })
+  expected_disk = svntest.main.greek_state.copy()
+  expected_status = svntest.actions.get_virginal_state(wc_dir, 1)
+
+  svntest.actions.run_and_verify_switch(wc_dir, AB_path, AB_url,
+                                        expected_output,
+                                        expected_disk,
+                                        expected_status, None,
+                                        None, None, None, None, 0,
+                                        '--depth', 'files')
+
+  # Putting the depth=immediates stuff in a subroutine, because we're
+  # going to run it at least twice.
+  def sw_depth_imm():
+    # Set up expected results of 'switch --depth=immediates'
+    expected_output = svntest.wc.State(wc_dir, {
+        'A/B/lambda'  : Item(status='D '),
+        'A/B/E'       : Item(status='D '),
+        'A/B/F'       : Item(status='D '),
+        'A/B/gamma'   : Item(status='A '),
+        'A/B/G'       : Item(status='A '),
+        'A/B/H'       : Item(status='A '),
+        })
+    expected_disk = svntest.main.greek_state.copy()
+    expected_disk.remove('A/B/lambda', 'A/B/E/beta', 'A/B/E/alpha',
+                         'A/B/E', 'A/B/F')
+    expected_disk.add({
+        'A/B/gamma'   : Item("This is the file 'gamma'.\n"),
+        'A/B/G'       : Item(),
+        'A/B/H'       : Item(),
+        })
+    expected_status = svntest.actions.get_virginal_state(wc_dir, 1)
+    expected_status.remove('A/B/lambda', 'A/B/E/beta', 'A/B/E/alpha',
+                           'A/B/E', 'A/B/F')
+    expected_status.add({
+        'A/B/gamma'   : Item(status='  ', wc_rev=1),
+        'A/B/G'       : Item(status='  ', wc_rev=1),
+        'A/B/H'       : Item(status='  ', wc_rev=1)
+        })
+    expected_status.tweak('A/B', switched='S')
+
+    # Do 'switch --depth=immediates' and check the results in three ways.
+    svntest.actions.run_and_verify_switch(wc_dir, AB_path, AD_url,
+                                          expected_output,
+                                          expected_disk,
+                                          expected_status, None,
+                                          None, None, None, None, 0,
+                                          '--depth', 'immediates')
+
+  sw_depth_imm()
+
+  # Set up expected results for reverting 'switch --depth=immediates'.
+  # (Reverting with default [infinite] depth, so that the result is a
+  # standard Greek Tree working copy again.)
+  expected_output = svntest.wc.State(wc_dir, {
+      'A/B/gamma'   : Item(status='D '),
+      'A/B/G'       : Item(status='D '),
+      'A/B/H'       : Item(status='D '),
+      'A/B/lambda'  : Item(status='A '),
+      'A/B/E'       : Item(status='A '),
+      'A/B/E/alpha' : Item(status='A '),
+      'A/B/E/beta'  : Item(status='A '),
+      'A/B/F'       : Item(status='A '),
+      })
+  expected_disk = svntest.main.greek_state.copy()
+  expected_status = svntest.actions.get_virginal_state(wc_dir, 1)
+  svntest.actions.run_and_verify_switch(wc_dir, AB_path, AB_url,
+                                        expected_output,
+                                        expected_disk,
+                                        expected_status, None,
+                                        None, None, None, None, 0)
+
+  # Okay, repeat 'switch --depth=immediates'.  (Afterwards we'll
+  # 'switch --depth=infinity', to test going all the way.)
+  sw_depth_imm()
+
+  # Set up expected results of 'switch --depth=infinity'
+  expected_output = svntest.wc.State(wc_dir, {
+    'A/B/gamma'   : Item(status='D '),
+    'A/B/G'       : Item(status='D '),
+    'A/B/H'       : Item(status='D '),
+    'A/B/lambda'  : Item(status='A '),
+    'A/B/E'       : Item(status='A '),
+    'A/B/E/alpha' : Item(status='A '),
+    'A/B/E/beta'  : Item(status='A '),
+    'A/B/F'       : Item(status='A '),
+    })
+  expected_disk = svntest.main.greek_state.copy()
+  expected_status = svntest.actions.get_virginal_state(wc_dir, 1)
+
+  # Do the 'switch --depth=infinity' and check the results in three ways.
+  svntest.actions.run_and_verify_switch(wc_dir, AB_path, AB_url,
+                                        expected_output,
+                                        expected_disk,
+                                        expected_status, None,
+                                        None, None, None, None, 0,
+                                        '--depth', 'infinity')
+
 ########################################################################
 # Run the tests
 
@@ -1718,6 +1947,7 @@ test_list = [ None,
               switch_scheduled_add,
               mergeinfo_switch_elision,
               switch_with_obstructing_local_adds,
+              switch_with_depth,
              ]
 
 if __name__ == '__main__':

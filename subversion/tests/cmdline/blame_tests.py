@@ -29,18 +29,25 @@ XFail = svntest.testcase.XFail
 Item = svntest.wc.StateItem
 
 # Helper function to validate the output of a particular run of blame.
-def parse_and_verify_blame(output, expected_blame):
+def parse_and_verify_blame(output, expected_blame, with_merged=0):
   "tokenize and validate the output of blame"
 
   max_split = 2
   keys = ['revision', 'author', 'text']
+  if with_merged:
+    keys.append('merged')
 
   results = []
 
   # Tokenize and parse each line
   for line_str in output:
-    tokens = line_str.split(None, max_split)
     this_line = {}
+
+    if with_merged:
+      this_line['merged'] = (line_str[0] == 'G')
+      line_str = line_str[2:]
+
+    tokens = line_str.split(None, max_split)
 
     if tokens[0] == '-':
       this_line['revision'] = None
@@ -466,13 +473,15 @@ def blame_merge_info(sbox):
       { 'revision' : 2,
         'author' : 'jrandom',
         'text' : "This is the file 'iota'.\n",
+        'merged' : 0,
       },
       { 'revision' : 11,
         'author' : 'jrandom',
         'text' : "'A' has changed a bit, with 'upsilon', and 'xi'.\n",
+        'merged' : 1,
       },
     ]
-  parse_and_verify_blame(output, expected_blame)
+  parse_and_verify_blame(output, expected_blame, 1)
 
 
 def blame_merge_out_of_range(sbox):
@@ -492,13 +501,59 @@ def blame_merge_out_of_range(sbox):
       { 'revision' : 4,
         'author' : 'jrandom',
         'text' : "This is the file 'upsilon'.\n",
+        'merged' : 1,
       },
       { 'revision' : 11,
         'author': 'jrandom',
         'text' : "There is also the file 'xi'.\n",
+        'merged' : 1,
       },
     ]
-  parse_and_verify_blame(output, expected_blame)
+  parse_and_verify_blame(output, expected_blame, 1)
+
+# test for issue #2888: 'svn blame' aborts over ra_serf
+def blame_peg_rev_file_not_in_head(sbox):
+  "blame target not in HEAD with peg-revisions"
+
+  sbox.build()
+
+  expected_output_r1 = [
+    "     1    jrandom This is the file 'iota'.\n" ]
+
+  os.chdir(sbox.wc_dir)
+
+  # Modify iota and commit it (r2).
+  svntest.main.file_write('iota', "This is no longer the file 'iota'.\n")
+  expected_output = svntest.wc.State('.', {
+    'iota' : Item(verb='Sending'),
+    })
+  svntest.actions.run_and_verify_commit('.', expected_output, None)
+
+  # Delete iota so that it doesn't exist in HEAD
+  svntest.main.run_svn(None, 'rm', sbox.repo_url + '/iota',
+                       '-m', 'log message')
+
+  # Check that we get a blame of r1 when we specify a peg revision of r1
+  # and no explicit revision.
+  svntest.actions.run_and_verify_svn(None, expected_output_r1, [],
+                                     'blame', 'iota@1')
+
+  # Check that an explicit revision overrides the default provided by
+  # the peg revision.
+  svntest.actions.run_and_verify_svn(None, expected_output_r1, [],
+                                     'blame', 'iota@2', '-r1')
+
+def blame_file_not_in_head(sbox):
+  "blame target not in HEAD"
+
+  sbox.build(create_wc = False)
+  notexisting_url = sbox.repo_url + '/notexisting'
+
+  # Check that a correct error message is printed when blaming a target that
+  # doesn't exist (in HEAD).
+  expected_err = ".*notexisting' (is not a file in.*|path not found)"
+  svntest.actions.run_and_verify_svn(None, [], expected_err,
+                                     'blame', notexisting_url)
 
 
 ########################################################################
@@ -518,6 +573,8 @@ test_list = [ None,
               blame_ignore_eolstyle,
               blame_merge_info,
               blame_merge_out_of_range,
+              blame_peg_rev_file_not_in_head,
+              blame_file_not_in_head,
              ]
 
 if __name__ == '__main__':

@@ -205,8 +205,7 @@ svn_client__switch_internal(svn_revnum_t *result_rev,
   /* We handle externals after the switch is complete, so that
      handling external items (and any errors therefrom) doesn't delay
      the primary operation. */
-  if ((depth == svn_depth_infinity || depth == svn_depth_unknown)
-      && (! ignore_externals))
+  if (SVN_DEPTH_IS_RECURSIVE(depth) && (! ignore_externals))
     err = svn_client__handle_externals(traversal_info, FALSE,
                                        use_sleep, ctx, pool);
 
@@ -220,8 +219,8 @@ svn_client__switch_internal(svn_revnum_t *result_rev,
                                         pool));
       err = svn_client__get_prop_from_wc(children_with_mergeinfo,
                                          SVN_PROP_MERGE_INFO, path, FALSE,
-                                         entry, path_adm_access, TRUE, ctx,
-                                         pool);
+                                         entry, path_adm_access,
+                                         depth, ctx, pool);
       if (err)
         {
           if (err->apr_err == SVN_ERR_UNVERSIONED_RESOURCE)
@@ -295,6 +294,6 @@ svn_client_switch(svn_revnum_t *result_rev,
                   apr_pool_t *pool)
 {
   return svn_client__switch_internal(result_rev, path, switch_url, revision,
-                                     SVN_DEPTH_FROM_RECURSE(recurse),
+                                     SVN_DEPTH_INFINITY_OR_FILES(recurse),
                                      NULL, FALSE, FALSE, ctx, pool);
 }

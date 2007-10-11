@@ -27,6 +27,7 @@
 
 #include "svn_path.h"
 #include "svn_private_config.h"
+#include "svn_xml.h"
 #include "private/svn_compat.h"
 
 #include "ra_serf.h"
@@ -376,7 +377,7 @@ start_error(svn_ra_serf__xml_parser_t *parser,
     {
       const char *err_code;
 
-      err_code = svn_ra_serf__find_attr(attrs, "errcode");
+      err_code = svn_xml_get_attr_value("errcode", attrs);
       if (err_code)
         {
           ctx->error->apr_err = apr_atoi64(err_code);
@@ -385,7 +386,10 @@ start_error(svn_ra_serf__xml_parser_t *parser,
         {
           ctx->error->apr_err = APR_EGENERAL;
         }
-      ctx->collect_message = TRUE;
+
+      /* Start collecting cdata. */
+      svn_stringbuf_setempty(ctx->cdata);
+      ctx->collect_cdata = TRUE;
     }
 
   return SVN_NO_ERROR;
@@ -409,7 +413,19 @@ end_error(svn_ra_serf__xml_parser_t *parser,
     }
   if (ctx->in_error && strcmp(name.name, "human-readable") == 0)
     {
-      ctx->collect_message = FALSE;
+      /* On the server dav_error_response_tag() will add a leading
+         and trailing newline if DEBUG_CR is defined in mod_dav.h,
+         so remove any such characters here. */
+      apr_size_t len;
+      const char *cd = ctx->cdata->data;
+      if (*cd == '\n')
+        ++cd;
+      len = strlen(cd);
+      if (len > 0 && cd[len-1] == '\n')
+        --len;
+
+      ctx->error->message = apr_pstrmemdup(ctx->error->pool, cd, len);
+      ctx->collect_cdata = FALSE;
     }
 
   return SVN_NO_ERROR;
@@ -428,11 +444,9 @@ cdata_error(svn_ra_serf__xml_parser_t *parser,
 {
   svn_ra_serf__server_error_t *ctx = userData;
 
-  /* Skip blank lines in the human-readable error responses. */
-  if (ctx->collect_message && (len != 1 || data[0] != '\n'))
+  if (ctx->collect_cdata)
     {
-      svn_ra_serf__expand_string(&ctx->error->message, &ctx->message_len,
-                                 data, len, ctx->error->pool);
+      svn_stringbuf_appendbytes(ctx->cdata, data, len);
     }
 
   return SVN_NO_ERROR;
@@ -461,6 +475,8 @@ svn_ra_serf__handle_discard_body(serf_request_t *request,
             {
               server_err->error = svn_error_create(APR_SUCCESS, NULL, NULL);
               server_err->has_xml_response = TRUE;
+              server_err->cdata = svn_stringbuf_create("", pool);
+              server_err->collect_cdata = FALSE;
               server_err->parser.pool = server_err->error->pool;
               server_err->parser.user_data = server_err;
               server_err->parser.start = start_error;
@@ -807,11 +823,7 @@ svn_ra_serf__handle_xml_parser(serf_request_t *request,
       if (ctx->error && ctx->ignore_errors == FALSE)
         {
           XML_ParserFree(ctx->xmlp);
-          status = ctx->error->apr_err;
-
-          svn_error_clear(ctx->error);
-
-          return status;
+          return ctx->error->apr_err;
         }
 
       if (APR_STATUS_IS_EAGAIN(status))
@@ -1121,7 +1133,10 @@ svn_ra_serf__discover_root(const char **vcc_url,
 
   if (!*vcc_url)
     {
-      abort();
+      return svn_error_create(SVN_ERR_RA_DAV_OPTIONS_REQ_FAILED, NULL,
+                              _("The OPTIONS response did not include the "
+                                "requested version-controlled-configuration "
+                                "value."));
     }
 
   /* Store our VCC in our cache. */

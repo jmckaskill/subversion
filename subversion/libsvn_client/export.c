@@ -335,7 +335,7 @@ copy_versioned_files(const char *from,
 
               SVN_ERR(svn_wc_parse_externals_description3(&ext_items, from,
                                                           prop_val->data,
-                                                          pool));
+                                                          TRUE, pool));
               for (i = 0; i < ext_items->nelts; ++i)
                 {
                   svn_wc_external_item2_t *ext_item;
@@ -899,10 +899,12 @@ svn_client_export4(svn_revnum_t *result_rev,
                                     revnum,
                                     "", /* no sub-target */
                                     depth,
+                                    FALSE, /* don't want copyfrom-args */
                                     export_editor, edit_baton, pool));
 
           SVN_ERR(reporter->set_path(report_baton, "", revnum,
-                                     /* ### TODO(sd): dynamic depth here */
+                                     /* Depth is irrelevant, as we're
+                                        passing start_empty=TRUE anyway. */
                                      svn_depth_infinity,
                                      TRUE, /* "help, my dir is empty!" */
                                      NULL, pool));
@@ -984,7 +986,7 @@ svn_client_export3(svn_revnum_t *result_rev,
 {
   return svn_client_export4(result_rev, from, to, peg_revision, revision,
                             overwrite, ignore_externals,
-                            SVN_DEPTH_FROM_RECURSE(recurse),
+                            SVN_DEPTH_INFINITY_OR_FILES(recurse),
                             native_eol, ctx, pool);
 }
 

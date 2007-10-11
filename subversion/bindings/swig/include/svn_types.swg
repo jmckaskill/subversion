@@ -716,6 +716,21 @@ svn_ ## TYPE ## _swig_rb_closed(VALUE self)
 #endif
 
 /* -----------------------------------------------------------------------
+   Callback: svn_log_entry_receiver_t
+   svn_client_log4()
+   svn_ra_get_log2()
+   svn_repos_get_logs4()
+*/
+
+#ifdef SWIGPYTHON
+%typemap(in) (svn_log_entry_receiver_t receiver,
+                      void *receiver_baton) {
+    $1 = svn_swig_py_log_entry_receiver;
+    $2 = (void *)$input;
+}
+#endif
+
+/* -----------------------------------------------------------------------
    Callback: svn_commit_callback_t
    svn_ra get_commit_editor()
    svn_repos_get_commit_editor()
@@ -809,6 +824,23 @@ svn_ ## TYPE ## _swig_rb_closed(VALUE self)
 }
 
 %typemap(argout) (svn_wc_conflict_resolver_func_t conflict_func, void *conflict_baton)
+{
+  svn_swig_rb_set_baton($result, (VALUE)$2);
+};
+#endif
+
+#ifdef SWIGRUBY
+%typemap(in) (svn_wc_get_file_t fetch_func, void *fetch_baton)
+{
+  /* ### TODO(rb support fetch_fun): implement
+  $1 = svn_swig_rb_fetch_func;
+  $2 = (void *)svn_swig_rb_make_baton($input, _global_svn_swig_rb_pool);
+  */
+  $1 = NULL;
+  $2 = NULL;
+}
+
+%typemap(argout) (svn_wc_get_file_t fetch_func, void *fetch_baton)
 {
   svn_swig_rb_set_baton($result, (VALUE)$2);
 };
@@ -1161,6 +1193,17 @@ svn_ ## TYPE ## _swig_rb_closed(VALUE self)
 #ifdef SWIGRUBY
 %typemap(in) svn_mergeinfo_inheritance_t {
   $1 = svn_swig_rb_to_mergeinfo_inheritance($input);
+}
+#endif
+
+
+/* -----------------------------------------------------------------------
+   useful convertors for svn_merge_range_inheritance_t
+*/
+
+#ifdef SWIGRUBY
+%typemap(in) svn_merge_range_inheritance_t {
+  $1 = svn_swig_rb_to_merge_range_inheritance($input);
 }
 #endif
 

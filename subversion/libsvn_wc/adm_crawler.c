@@ -87,8 +87,9 @@ restore_file(const char *file_path,
   SVN_ERR(svn_wc__maybe_set_executable(NULL, file_path, adm_access, pool));
 
   /* Remove any text conflict */
-  SVN_ERR(svn_wc_resolved_conflict2(file_path, adm_access, TRUE, FALSE,
-                                    FALSE, NULL, NULL, NULL, NULL, pool));
+  SVN_ERR(svn_wc_resolved_conflict3(file_path, adm_access, TRUE, FALSE,
+                                    svn_depth_empty, svn_accept_left,
+                                    NULL, NULL, NULL, NULL, pool));
 
   if (use_commit_times)
     {
@@ -250,8 +251,7 @@ report_revisions_and_depths(svn_wc_adm_access_t *adm_access,
         continue;
 
       /* Compute the paths and URLs we need. */
-      this_url = svn_path_join(dot_entry->url,
-                               svn_path_uri_encode(key, iterpool), iterpool);
+      this_url = svn_path_url_add_component(dot_entry->url, key, iterpool);
       this_path = svn_path_join(dir_path, key, iterpool);
       this_full_path = svn_path_join(full_path, key, iterpool);
 
@@ -433,7 +433,7 @@ report_revisions_and_depths(svn_wc_adm_access_t *adm_access,
                                        subdir_entry->lock_token,
                                        iterpool));
 
-          if (depth == svn_depth_infinity || depth == svn_depth_unknown)
+          if (SVN_DEPTH_IS_RECURSIVE(depth))
             SVN_ERR(report_revisions_and_depths(adm_access, this_path,
                                                 subdir_entry->revision,
                                                 reporter, report_baton,
@@ -746,7 +746,7 @@ svn_wc_crawl_revisions2(const char *path,
                                  adm_access,
                                  &wrap_3to2_reporter, &wrb,
                                  restore_files,
-                                 SVN_DEPTH_FROM_RECURSE(recurse),
+                                 SVN_DEPTH_INFINITY_OR_FILES(recurse),
                                  use_commit_times,
                                  notify_func,
                                  notify_baton,
@@ -948,32 +948,35 @@ svn_wc_transmit_text_deltas2(const char **tempfile,
      commit. */
   SVN_ERR(svn_io_file_affected_time(&wf_time, path, pool));
 
-  /* Make an untranslated copy of the working file in the
-     administrative tmp area because a) we need to detranslate eol
-     and keywords anyway, and b) after the commit, we're going to
-     copy the tmp file to become the new text base anyway. */
-
-  tmp_base = svn_wc__text_base_path(path, TRUE, pool);
-  /* Alert the caller that we have created a temporary file that might
-     need to be cleaned up. */
-  if (tempfile)
-    *tempfile = tmp_base;
-
   /* Translated input */
   SVN_ERR(svn_wc_translated_stream(&local_stream, path, path,
                                    adm_access, SVN_WC_TRANSLATE_TO_NF, pool));
 
-  /* Translation output: the new text base */
-  SVN_ERR(svn_io_file_open(&tempbasefile, tmp_base,
-                           APR_WRITE | APR_CREATE, APR_OS_DEFAULT, pool));
 
-  /* Wrap the translated stream with a new stream that writes the
-     translated contents into the new text base file as we read from it.
-     Note that the new text base file will be closed when the new stream
-     is closed. */
-  local_stream
-    = copying_stream(local_stream,
-                     svn_stream_from_aprfile2(tempbasefile, FALSE, pool), pool);
+
+  tmp_base = svn_wc__text_base_path(path, TRUE, pool);
+  /* Alert the caller that we have created a temporary file that might
+     need to be cleaned up, if he asked for one. */
+  if (tempfile)
+    {
+      *tempfile = tmp_base;
+
+      /* Make an untranslated copy of the working file in the
+         administrative tmp area because a) we need to detranslate eol
+         and keywords anyway, and b) after the commit, we're going to
+         copy the tmp file to become the new text base anyway. */
+      SVN_ERR(svn_io_file_open(&tempbasefile, tmp_base,
+                               APR_WRITE | APR_CREATE, APR_OS_DEFAULT, pool));
+
+      /* Wrap the translated stream with a new stream that writes the
+         translated contents into the new text base file as we read from it.
+         Note that the new text base file will be closed when the new stream
+         is closed. */
+      local_stream
+        = copying_stream(local_stream,
+                         svn_stream_from_aprfile2(tempbasefile, FALSE, pool),
+                         pool);
+    }
 
   if (! fulltext)
     {
@@ -1052,9 +1055,6 @@ svn_wc_transmit_text_deltas2(const char **tempfile,
           svn_error_clear(err);
           svn_error_clear(svn_io_remove_file(tmp_base, pool));
 
-          if (tempfile)
-            *tempfile = NULL;
-
           return svn_error_createf
             (SVN_ERR_WC_CORRUPT_TEXT_BASE, NULL,
              _("Checksum mismatch for '%s'; "
@@ -1098,6 +1098,7 @@ svn_wc_transmit_text_deltas(const char *path,
                                       fulltext, editor, file_baton, pool);
 }
 
+
 svn_error_t *
 svn_wc_transmit_prop_deltas(const char *path,
                             svn_wc_adm_access_t *adm_access,
@@ -1108,55 +1109,14 @@ svn_wc_transmit_prop_deltas(const char *path,
                             apr_pool_t *pool)
 {
   int i;
-  const char *props, *props_base, *props_tmp;
   apr_array_header_t *propmods;
-  apr_hash_t *localprops = apr_hash_make(pool);
-  apr_hash_t *baseprops = apr_hash_make(pool);
 
-  /* Get the right access baton for the job. */
-  SVN_ERR(svn_wc_adm_probe_retrieve(&adm_access, adm_access, path, pool));
-
-  /* For an enough recent WC, we can have a really easy out. */
-  if (svn_wc__adm_wc_format(adm_access) > SVN_WC__NO_PROPCACHING_VERSION
-      && ! entry->has_prop_mods)
-    {
-      if (tempfile)
-        *tempfile = NULL;
-      return SVN_NO_ERROR;
-    }
-
-  /* First, get the prop_path from the original path */
-  SVN_ERR(svn_wc__prop_path(&props, path, entry->kind, FALSE, pool));
-
-  /* Get the full path of the prop-base `pristine' file */
-  if (entry->schedule == svn_wc_schedule_replace)
-    {
-      /* do nothing: baseprop hash should be -empty- for comparison
-         purposes.  if they already exist on disk, they're "leftover"
-         from the old file that was replaced. */
-      props_base = NULL;
-    }
-  else
-    /* the real prop-base hash */
-    SVN_ERR(svn_wc__prop_base_path(&props_base, path, entry->kind, FALSE,
-                                   pool));
-
-  /* Copy the local prop file to the administrative temp area */
-  SVN_ERR(svn_wc__prop_path(&props_tmp, path, entry->kind, TRUE, pool));
-  SVN_ERR(svn_io_copy_file(props, props_tmp, FALSE, pool));
-
-  /* Alert the caller that we have created a temporary file that might
-     need to be cleaned up. */
   if (tempfile)
-    *tempfile = props_tmp;
-
-  /* Load all properties into hashes */
-  SVN_ERR(svn_wc__load_prop_file(props_tmp, localprops, pool));
-  if (props_base)
-    SVN_ERR(svn_wc__load_prop_file(props_base, baseprops, pool));
+    *tempfile = NULL;
 
   /* Get an array of local changes by comparing the hashes. */
-  SVN_ERR(svn_prop_diffs(&propmods, localprops, baseprops, pool));
+  SVN_ERR(svn_wc_get_prop_diffs(&propmods, NULL,
+                                path, adm_access, pool));
 
   /* Apply each local change to the baton */
   for (i = 0; i < propmods->nelts; i++)

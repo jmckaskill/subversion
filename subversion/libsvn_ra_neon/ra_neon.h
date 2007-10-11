@@ -34,6 +34,8 @@
 #include "svn_delta.h"
 #include "svn_ra.h"
 #include "svn_dav.h"
+
+#include "private/svn_dav_protocol.h"
 #include "svn_private_config.h"
 
 #ifdef __cplusplus
@@ -95,6 +97,9 @@ typedef struct {
 
   svn_boolean_t compression;            /* should we use http compression? */
   const char *uuid;                     /* repository UUID */
+
+  svn_ra_progress_notify_func_t progress_func;
+  void *progress_baton;
 } svn_ra_neon__session_t;
 
 
@@ -254,6 +259,7 @@ svn_error_t * svn_ra_neon__do_update(svn_ra_session_t *session,
                                      svn_revnum_t revision_to_update_to,
                                      const char *update_target,
                                      svn_depth_t depth,
+                                     svn_boolean_t send_copyfrom_args,
                                      const svn_delta_editor_t *wc_update,
                                      void *wc_update_baton,
                                      apr_pool_t *pool);
@@ -300,8 +306,8 @@ svn_error_t * svn_ra_neon__get_log(svn_ra_session_t *session,
                                    svn_boolean_t discover_changed_paths,
                                    svn_boolean_t strict_node_history,
                                    svn_boolean_t include_merged_revisions,
-                                   svn_boolean_t omit_log_text,
-                                   svn_log_message_receiver2_t receiver,
+                                   apr_array_header_t *revprops,
+                                   svn_log_entry_receiver_t receiver,
                                    void *receiver_baton,
                                    apr_pool_t *pool);
 
@@ -353,7 +359,7 @@ svn_error_t *svn_ra_neon__get_file_revs(svn_ra_session_t *session,
 #define SVN_RA_NEON__PROP_BASELINE_COLLECTION    "DAV:baseline-collection"
 #define SVN_RA_NEON__PROP_CHECKED_IN     "DAV:checked-in"
 #define SVN_RA_NEON__PROP_VCC            "DAV:version-controlled-configuration"
-#define SVN_RA_NEON__PROP_VERSION_NAME   "DAV:version-name"
+#define SVN_RA_NEON__PROP_VERSION_NAME   "DAV:" SVN_DAV__VERSION_NAME
 #define SVN_RA_NEON__PROP_CREATIONDATE   "DAV:creationdate"
 #define SVN_RA_NEON__PROP_CREATOR_DISPLAYNAME "DAV:creator-displayname"
 #define SVN_RA_NEON__PROP_GETCONTENTLENGTH "DAV:getcontentlength"
@@ -692,6 +698,8 @@ enum {
   ELEM_checked_in,
   ELEM_collection,
   ELEM_comment,
+  ELEM_no_custom_revprops,
+  ELEM_revprop,
   ELEM_creationdate,
   ELEM_creator_displayname,
   ELEM_ignored_set,
@@ -771,7 +779,7 @@ enum {
   ELEM_mergeinfo_item,
   ELEM_mergeinfo_path,
   ELEM_mergeinfo_info,
-  ELEM_nbr_children,
+  ELEM_has_children,
   ELEM_merged_revision
 };
 

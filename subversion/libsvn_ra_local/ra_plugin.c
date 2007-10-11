@@ -28,7 +28,6 @@
 #include "svn_path.h"
 
 #include "svn_private_config.h"
-#include "private/svn_repos_private.h"
 #include "../libsvn_ra/ra_loader.h"
 
 #define APR_WANT_STRFUNC
@@ -568,6 +567,7 @@ make_reporter(svn_ra_session_t *session,
               const char *other_url,
               svn_boolean_t text_deltas,
               svn_depth_t depth,
+              svn_boolean_t send_copyfrom_args,
               svn_boolean_t ignore_ancestry,
               const svn_delta_editor_t *editor,
               void *edit_baton,
@@ -618,7 +618,7 @@ make_reporter(svn_ra_session_t *session,
                                               pool));
 
   /* Build a reporter baton. */
-  SVN_ERR(svn_repos__begin_report(&rbaton,
+  SVN_ERR(svn_repos_begin_report2(&rbaton,
                                   revision,
                                   sbaton->repos,
                                   sbaton->fs_path->data,
@@ -627,6 +627,7 @@ make_reporter(svn_ra_session_t *session,
                                   text_deltas,
                                   depth,
                                   ignore_ancestry,
+                                  send_copyfrom_args,
                                   editor,
                                   edit_baton,
                                   NULL,
@@ -689,6 +690,7 @@ svn_ra_local__do_update(svn_ra_session_t *session,
                         svn_revnum_t update_revision,
                         const char *update_target,
                         svn_depth_t depth,
+                        svn_boolean_t send_copyfrom_args,
                         const svn_delta_editor_t *update_editor,
                         void *update_baton,
                         apr_pool_t *pool)
@@ -701,6 +703,7 @@ svn_ra_local__do_update(svn_ra_session_t *session,
                        NULL,
                        TRUE,
                        depth,
+                       send_copyfrom_args,
                        FALSE,
                        update_editor,
                        update_baton,
@@ -728,6 +731,7 @@ svn_ra_local__do_switch(svn_ra_session_t *session,
                        switch_url,
                        TRUE,
                        depth,
+                       FALSE,   /* ### TODO(sussman): take new arg */
                        TRUE,
                        update_editor,
                        update_baton,
@@ -754,6 +758,7 @@ svn_ra_local__do_status(svn_ra_session_t *session,
                        NULL,
                        FALSE,
                        depth,
+                       FALSE,
                        FALSE,
                        status_editor,
                        status_baton,
@@ -783,6 +788,7 @@ svn_ra_local__do_diff(svn_ra_session_t *session,
                        switch_url,
                        text_deltas,
                        depth,
+                       FALSE,
                        ignore_ancestry,
                        update_editor,
                        update_baton,
@@ -793,7 +799,7 @@ svn_ra_local__do_diff(svn_ra_session_t *session,
 struct log_baton
 {
   svn_ra_local__session_baton_t *session;
-  svn_log_message_receiver2_t real_cb;
+  svn_log_entry_receiver_t real_cb;
   void *real_baton;
 };
 
@@ -820,8 +826,8 @@ svn_ra_local__get_log(svn_ra_session_t *session,
                       svn_boolean_t discover_changed_paths,
                       svn_boolean_t strict_node_history,
                       svn_boolean_t include_merged_revisions,
-                      svn_boolean_t omit_log_text,
-                      svn_log_message_receiver2_t receiver,
+                      apr_array_header_t *revprops,
+                      svn_log_entry_receiver_t receiver,
                       void *receiver_baton,
                       apr_pool_t *pool)
 {
@@ -865,7 +871,7 @@ svn_ra_local__get_log(svn_ra_session_t *session,
                              discover_changed_paths,
                              strict_node_history,
                              include_merged_revisions,
-                             omit_log_text,
+                             revprops,
                              NULL, NULL,
                              receiver,
                              receiver_baton,

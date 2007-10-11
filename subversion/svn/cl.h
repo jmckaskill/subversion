@@ -84,6 +84,7 @@ typedef enum {
   svn_cl__xml_opt,
   svn_cl__keep_local_opt,
   svn_cl__with_revprop_opt,
+  svn_cl__with_all_revprops_opt,
   svn_cl__parents_opt,
   svn_cl__accept_opt
 } svn_cl__longopt_t;
@@ -156,7 +157,8 @@ typedef struct svn_cl__opt_state_t
   const char *changelist;        /* operate on this changelist */
   svn_boolean_t keep_changelist; /* don't remove changelist after commit */
   svn_boolean_t keep_local;      /* delete path only from repository */
-  apr_hash_t *revprop_table;     /* table with revision properties to set */
+  svn_boolean_t all_revprops;    /* retrieve all props */
+  apr_hash_t *revprop_table;     /* table of revision properties to get/set */
   svn_boolean_t parents;         /* create intermediate directories */
   svn_boolean_t use_merge_history; /* use/display extra merge information */
   svn_accept_t accept_which;     /* automatically resolve conflict */
@@ -175,6 +177,7 @@ typedef struct
 svn_opt_subcommand_t
   svn_cl__add,
   svn_cl__blame,
+  svn_cl__cat,
   svn_cl__changelist,
   svn_cl__checkout,
   svn_cl__cleanup,
@@ -190,6 +193,7 @@ svn_opt_subcommand_t
   svn_cl__log,
   svn_cl__list,
   svn_cl__merge,
+  svn_cl__mergeinfo,
   svn_cl__mkdir,
   svn_cl__move,
   svn_cl__propdel,
@@ -202,8 +206,7 @@ svn_opt_subcommand_t
   svn_cl__status,
   svn_cl__switch,
   svn_cl__unlock,
-  svn_cl__update,
-  svn_cl__cat;
+  svn_cl__update;
 
 
 /* See definition in main.c for documentation. */
@@ -247,20 +250,20 @@ svn_error_t *svn_cl__check_cancel(void *baton);
 
 /* A mindless implementation of svn_wc_conflict_resolver_func_t that
  * does absolutely nothing to resolve conflicts. */
-svn_error_t *svn_cl__ignore_conflicts(
-    svn_wc_conflict_result_t *result,
-    const svn_wc_conflict_description_t *description,
-    void *baton,
-    apr_pool_t *pool);
+svn_error_t *
+svn_cl__ignore_conflicts(svn_wc_conflict_result_t *result,
+                         const svn_wc_conflict_description_t *description,
+                         void *baton,
+                         apr_pool_t *pool);
 
 /* A conflict-resolution callback which prompts the user to choose
    one of the 3 fulltexts, edit the merged file on the spot, or just
    skip the conflict (to be resolved later). */
-svn_error_t *svn_cl__interactive_conflict_handler(
-                          svn_wc_conflict_result_t *result,
-                          const svn_wc_conflict_description_t *desc,
-                          void *baton,
-                          apr_pool_t *pool);
+svn_error_t *
+svn_cl__interactive_conflict_handler(svn_wc_conflict_result_t *result,
+                                     const svn_wc_conflict_description_t *desc,
+                                     void *baton,
+                                     apr_pool_t *pool);
 
 
 

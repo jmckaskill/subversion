@@ -31,6 +31,7 @@
 #include "svn_io.h"
 #include "svn_path.h"
 #include "svn_time.h"
+#include "svn_iter.h"
 
 #include "wc.h"
 #include "log.h"
@@ -805,36 +806,11 @@ log_do_modify_entry(struct log_runner *loggy,
   if ((modify_flags & SVN_WC__ENTRY_MODIFY_PROP_TIME)
       && (! strcmp(valuestr, SVN_WC__TIMESTAMP_WC)))
     {
-      const char *pfile;
       apr_time_t prop_time;
-      const svn_wc_entry_t *tfile_entry;
 
-      err = svn_wc_entry(&tfile_entry, tfile, loggy->adm_access,
-                         FALSE, loggy->pool);
-
-      if (err)
-        SIGNAL_ERROR(loggy, err);
-
-      if (! tfile_entry)
-        return SVN_NO_ERROR;
-
-      err = svn_wc__prop_path(&pfile, tfile, tfile_entry->kind, FALSE,
-                              loggy->pool);
-      if (err)
-        SIGNAL_ERROR(loggy, err);
-
-      err = svn_io_file_affected_time(&prop_time, pfile, loggy->pool);
-      if (err && APR_STATUS_IS_ENOENT(err->apr_err))
-        {
-          svn_error_clear(err);
-          prop_time = 0;
-        }
-      else if (err)
-        return svn_error_createf
-          (pick_error_code(loggy), NULL,
-            _("Error getting 'affected time' on '%s'"),
-            svn_path_local_style(pfile, loggy->pool));
-
+      SVN_ERR(svn_wc__props_last_modified(&prop_time,
+                                          tfile, svn_wc__props_working,
+                                          loggy->adm_access, loggy->pool));
       entry->prop_time = prop_time;
     }
 
@@ -1027,6 +1003,48 @@ log_do_delete_entry(struct log_runner *loggy, const char *name)
         return err;
 }
 
+static svn_error_t *
+remove_deleted_entry(void *baton, const void *key,
+                     apr_ssize_t klen, void *val, apr_pool_t *pool)
+{
+  struct log_runner *loggy = baton;
+  const char *base_name;
+  const char *pdir;
+  const svn_wc_entry_t *cur_entry = val;
+  svn_wc_adm_access_t *entry_access;
+
+  /* Skip each entry that isn't scheduled for deletion. */
+  if (cur_entry->schedule != svn_wc_schedule_delete)
+    return SVN_NO_ERROR;
+
+  /* Determine what arguments to hand to our removal function,
+     and let BASE_NAME double as an "ok" flag to run that function. */
+  base_name = NULL;
+  if (cur_entry->kind == svn_node_file)
+    {
+      pdir = svn_wc_adm_access_path(loggy->adm_access);
+      base_name = apr_pstrdup(pool, key);
+      entry_access = loggy->adm_access;
+    }
+  else if (cur_entry->kind == svn_node_dir)
+    {
+      pdir = svn_path_join(svn_wc_adm_access_path(loggy->adm_access),
+                           key, pool);
+      base_name = SVN_WC_ENTRY_THIS_DIR;
+      SVN_ERR(svn_wc_adm_retrieve(&entry_access, loggy->adm_access,
+                                  pdir, pool));
+    }
+
+  /* ### We pass NULL, NULL for cancel_func and cancel_baton below.
+     ### If they were available, it would be nice to use them. */
+  if (base_name)
+    SVN_ERR(svn_wc_remove_from_revision_control
+            (entry_access, base_name, FALSE, FALSE,
+             NULL, NULL, pool));
+
+  return SVN_NO_ERROR;
+}
+
 /* Note:  assuming that svn_wc__log_commit() is what created all of
    the <committed...> commands, the `name' attribute will either be a
    file or SVN_WC_ENTRY_THIS_DIR. */
@@ -1047,10 +1065,9 @@ log_do_committed(struct log_runner *loggy,
   const svn_wc_entry_t *orig_entry;
   svn_wc_entry_t *entry;
   apr_time_t text_time = 0; /* By default, don't override old stamp. */
-  svn_node_kind_t kind;
   svn_wc_adm_access_t *adm_access;
   apr_finfo_t finfo;
-
+  svn_boolean_t prop_mods;
 
   /* Determine the actual full path of the affected item. */
   if (! is_this_dir)
@@ -1197,143 +1214,49 @@ log_do_committed(struct log_runner *loggy,
      however, need to be outright removed from revision control.  */
   if ((entry->schedule == svn_wc_schedule_replace) && is_this_dir)
     {
-      apr_hash_index_t *hi;
-
       /* Loop over all children entries, look for items scheduled for
          deletion. */
       SVN_ERR(svn_wc_entries_read(&entries, loggy->adm_access, TRUE, pool));
-      for (hi = apr_hash_first(pool, entries); hi; hi = apr_hash_next(hi))
-        {
-          const void *key;
-          void *val;
-          const svn_wc_entry_t *cur_entry;
-          svn_wc_adm_access_t *entry_access;
-
-          /* Get the next entry */
-          apr_hash_this(hi, &key, NULL, &val);
-          cur_entry = (svn_wc_entry_t *) val;
-
-          /* Skip each entry that isn't scheduled for deletion. */
-          if (cur_entry->schedule != svn_wc_schedule_delete)
-            continue;
-
-          /* Determine what arguments to hand to our removal function,
-             and let BASE_NAME double as an "ok" flag to run that function. */
-          base_name = NULL;
-          if (cur_entry->kind == svn_node_file)
-            {
-              pdir = svn_wc_adm_access_path(loggy->adm_access);
-              base_name = apr_pstrdup(pool, key);
-              entry_access = loggy->adm_access;
-            }
-          else if (cur_entry->kind == svn_node_dir)
-            {
-              pdir = svn_path_join(svn_wc_adm_access_path(loggy->adm_access),
-                                   key, pool);
-              base_name = SVN_WC_ENTRY_THIS_DIR;
-              SVN_ERR(svn_wc_adm_retrieve(&entry_access, loggy->adm_access,
-                                          pdir, pool));
-            }
-
-          /* ### We pass NULL, NULL for cancel_func and cancel_baton below.
-             ### If they were available, it would be nice to use them. */
-          if (base_name)
-            SVN_ERR(svn_wc_remove_from_revision_control
-                    (entry_access, base_name, FALSE, FALSE,
-                     NULL, NULL, pool));
-        }
+      SVN_ERR(svn_iter_apr_hash(NULL, entries,
+                                remove_deleted_entry, loggy, pool));
     }
 
+  SVN_ERR(svn_wc__has_prop_mods(&prop_mods,
+                                full_path, loggy->adm_access, pool));
+  if (prop_mods)
+    {
+      if (entry->kind == svn_node_file)
+        {
+          /* Examine propchanges here before installing the new
+             propbase.  If the executable prop was -deleted-, then
+             tell install_committed_file() so.
 
-  /* Now check for property commits.  If a property commit occurred, a
-     copy of the "working" property file should have been dumped in
-     the admistrative `tmp' area.  We'll let that tmpfile's existence
-     be a signal that we need to do post-commit property processing.
-     Also, we have to again decide which timestamp to use (see the
-     text-time case above).  */
-  {
-    const char *tmpf, *basef;
+             The same applies to the needs-lock property. */
+          int i;
+          apr_array_header_t *propchanges;
 
-    /* Get property file pathnames (not from the `tmp' area) depending
-       on whether we're examining a file or THIS_DIR */
 
-    /* ### Logic check: if is_this_dir, then full_path is the same
-       as loggy->adm_access->path, I think.  In which case we don't need the
-       inline conditionals below... */
+          SVN_ERR(svn_wc_get_prop_diffs(&propchanges, NULL,
+                                        full_path, loggy->adm_access, pool));
+          for (i = 0; i < propchanges->nelts; i++)
+            {
+              svn_prop_t *propchange
+                = &APR_ARRAY_IDX(propchanges, i, svn_prop_t);
 
-    SVN_ERR(svn_wc__prop_base_path
-            (&basef,
-             is_this_dir
-             ? svn_wc_adm_access_path(loggy->adm_access) : full_path,
-             entry->kind, FALSE, pool));
+              if ((! strcmp(propchange->name, SVN_PROP_EXECUTABLE))
+                  && (propchange->value == NULL))
+                remove_executable = TRUE;
+              else if ((! strcmp(propchange->name, SVN_PROP_NEEDS_LOCK))
+                       && (propchange->value == NULL))
+                set_read_write = TRUE;
+            }
+        }
 
-    /* If this file was replaced in the commit, then we definitely
-       need to begin by removing any old residual prop-base file.  */
-    if (entry->schedule == svn_wc_schedule_replace)
-      {
-        svn_node_kind_t kinder;
-        SVN_ERR(svn_io_check_path(basef, &kinder, pool));
-        if (kinder == svn_node_file)
-          SVN_ERR(svn_io_remove_file(basef, pool));
-      }
-
-    SVN_ERR(svn_wc__prop_path
-            (&tmpf,
-             is_this_dir
-             ? svn_wc_adm_access_path(loggy->adm_access) : full_path,
-             entry->kind, TRUE, pool));
-    if ((err = svn_io_check_path(tmpf, &kind, pool)))
-      return svn_error_createf(pick_error_code(loggy), err,
-                               _("Error checking existence of '%s'"),
-                               svn_path_local_style(tmpf, pool));
-    if (kind == svn_node_file)
-      {
-        /* Examine propchanges here before installing the new
-           propbase.  If the executable prop was -deleted-, then
-           tell install_committed_file() so.
-
-           The same applies to the needs-lock property. */
-        if (! is_this_dir)
-          {
-            int i;
-            apr_array_header_t *propchanges;
-            SVN_ERR(svn_wc_get_prop_diffs(&propchanges, NULL,
-                                          full_path, loggy->adm_access,
-                                          pool));
-            for (i = 0; i < propchanges->nelts; i++)
-              {
-                svn_prop_t *propchange
-                  = &APR_ARRAY_IDX(propchanges, i, svn_prop_t);
-
-                if ((! strcmp(propchange->name, SVN_PROP_EXECUTABLE))
-                    && (propchange->value == NULL))
-                  {
-                    remove_executable = TRUE;
-                    break;
-                  }
-              }
-
-            for (i = 0; i < propchanges->nelts; i++)
-              {
-                svn_prop_t *propchange
-                  = &APR_ARRAY_IDX(propchanges, i, svn_prop_t);
-
-                if ((! strcmp(propchange->name, SVN_PROP_NEEDS_LOCK))
-                    && (propchange->value == NULL))
-                  {
-                    set_read_write = TRUE;
-                    break;
-                  }
-              }
-          }
-
-        /* Make the tmp prop file the new pristine one. */
-        SVN_ERR(svn_io_file_rename(tmpf, basef, pool));
-        SVN_ERR(svn_io_set_file_read_only(basef, FALSE, pool));
-      }
+      SVN_ERR(svn_wc__working_props_committed(full_path, loggy->adm_access,
+                                              FALSE, pool));
   }
 
-  if (! is_this_dir)
+  if (entry->kind == svn_node_file)
     {
       /* Install the new file, which may involve expanding keywords.
          A copy of this file should have been dropped into our `tmp/text-base'
@@ -1449,24 +1372,6 @@ log_do_committed(struct log_runner *loggy,
       (pick_error_code(loggy), err,
        _("Error modifying entry of '%s'"), name);
   loggy->entries_modified = TRUE;
-
-  /* Remove the working props file if it exists.
-     This is done here, after resetting the has_prop_mods flag, since
-     the text-base install stuff above will need this file if
-     props_mod was set. */
-  {
-    const char *wf;
-    SVN_ERR(svn_wc__prop_path
-            (&wf,
-             is_this_dir
-             ? svn_wc_adm_access_path(loggy->adm_access) : full_path,
-             entry->kind, FALSE, pool));
-    if ((err = svn_io_remove_file(wf, pool))
-        && APR_STATUS_IS_ENOENT(err->apr_err))
-      svn_error_clear(err);
-    else if (err)
-      return err;
-  }
 
   /* If we aren't looking at "this dir" (meaning we are looking at a
      file), we are finished.  From here on out, it's all about a
@@ -1914,7 +1819,8 @@ run_log(svn_wc_adm_access_t *adm_access,
       SVN_ERR(svn_wc__entries_write(entries, loggy->adm_access, pool));
     }
   if (loggy->wcprops_modified)
-    SVN_ERR(svn_wc__wcprops_write(loggy->adm_access, pool));
+    SVN_ERR(svn_wc__props_flush(svn_wc_adm_access_path(adm_access),
+                                svn_wc__props_wcprop, loggy->adm_access, pool));
 
   /* Check for a 'killme' file in the administrative area. */
   SVN_ERR(svn_wc__check_killme(adm_access, &killme, &kill_adm_only, pool));
@@ -1984,6 +1890,8 @@ loggy_move_copy_internal(svn_stringbuf_t **log_accum,
   svn_node_kind_t kind;
   const char *full_src = svn_path_join(svn_wc_adm_access_path(adm_access),
                                        src_path, pool);
+  const char *full_dst = svn_path_join(svn_wc_adm_access_path(adm_access),
+                                       dst_path, pool);
 
   SVN_ERR(svn_io_check_path(full_src, &kind, pool));
 
@@ -2009,7 +1917,7 @@ loggy_move_copy_internal(svn_stringbuf_t **log_accum,
   /* File doesn't exists, the caller wants dst_path to be removed. */
   else if (kind == svn_node_none && remove_dst_if_no_src)
     {
-      SVN_ERR(svn_wc__loggy_remove(log_accum, adm_access, dst_path, pool));
+      SVN_ERR(svn_wc__loggy_remove(log_accum, adm_access, full_dst, pool));
 
       if (dst_modified)
         *dst_modified = TRUE;
@@ -2021,6 +1929,19 @@ loggy_move_copy_internal(svn_stringbuf_t **log_accum,
 
 
 
+static const char *
+loggy_path(const char *path,
+           svn_wc_adm_access_t *adm_access)
+{
+  const char *adm_path = svn_wc_adm_access_path(adm_access);
+  const char *local_path = svn_path_is_child(adm_path, path, NULL);
+
+  if (! local_path && strcmp(path, adm_path) == 0)
+    local_path = SVN_WC_ENTRY_THIS_DIR;
+
+  return local_path;
+}
+
 svn_error_t *
 svn_wc__loggy_append(svn_stringbuf_t **log_accum,
                      svn_wc_adm_access_t *adm_access,
@@ -2032,9 +1953,9 @@ svn_wc__loggy_append(svn_stringbuf_t **log_accum,
                         svn_xml_self_closing,
                         SVN_WC__LOG_APPEND,
                         SVN_WC__LOG_ATTR_NAME,
-                        src,
+                        loggy_path(src, adm_access),
                         SVN_WC__LOG_ATTR_DEST,
-                        dst,
+                        loggy_path(dst, adm_access),
                         NULL);
 
   return SVN_NO_ERROR;
@@ -2049,14 +1970,13 @@ svn_wc__loggy_committed(svn_stringbuf_t **log_accum,
 {
   svn_xml_make_open_tag(log_accum, pool, svn_xml_self_closing,
                         SVN_WC__LOG_COMMITTED,
-                        SVN_WC__LOG_ATTR_NAME, path,
+                        SVN_WC__LOG_ATTR_NAME, loggy_path(path, adm_access),
                         SVN_WC__LOG_ATTR_REVISION,
                         apr_psprintf(pool, "%ld", revnum),
                         NULL);
 
   return SVN_NO_ERROR;
 }
-
 
 svn_error_t *
 svn_wc__loggy_copy(svn_stringbuf_t **log_accum,
@@ -2078,7 +1998,9 @@ svn_wc__loggy_copy(svn_stringbuf_t **log_accum,
   return loggy_move_copy_internal
     (log_accum, dst_modified,
      copy_op[copy_type], copy_type == svn_wc__copy_translate_special_only,
-     adm_access, src_path, dst_path, remove_dst_if_no_src, pool);
+     adm_access,
+     loggy_path(src_path, adm_access),
+     loggy_path(dst_path, adm_access), remove_dst_if_no_src, pool);
 }
 
 svn_error_t *
@@ -2089,12 +2011,13 @@ svn_wc__loggy_translated_file(svn_stringbuf_t **log_accum,
                               const char *versioned,
                               apr_pool_t *pool)
 {
-  svn_xml_make_open_tag(log_accum, pool, svn_xml_self_closing,
-                        SVN_WC__LOG_CP_AND_TRANSLATE,
-                        SVN_WC__LOG_ATTR_NAME, src,
-                        SVN_WC__LOG_ATTR_DEST, dst,
-                        SVN_WC__LOG_ATTR_ARG_2, versioned,
-                        NULL);
+  svn_xml_make_open_tag
+    (log_accum, pool, svn_xml_self_closing,
+     SVN_WC__LOG_CP_AND_TRANSLATE,
+     SVN_WC__LOG_ATTR_NAME, loggy_path(src, adm_access),
+     SVN_WC__LOG_ATTR_DEST, loggy_path(dst, adm_access),
+     SVN_WC__LOG_ATTR_ARG_2, loggy_path(versioned, adm_access),
+     NULL);
 
   return SVN_NO_ERROR;
 }
@@ -2107,12 +2030,11 @@ svn_wc__loggy_delete_entry(svn_stringbuf_t **log_accum,
 {
   svn_xml_make_open_tag(log_accum, pool, svn_xml_self_closing,
                         SVN_WC__LOG_DELETE_ENTRY,
-                        SVN_WC__LOG_ATTR_NAME, path,
+                        SVN_WC__LOG_ATTR_NAME, loggy_path(path, adm_access),
                         NULL);
 
   return SVN_NO_ERROR;
 }
-
 
 svn_error_t *
 svn_wc__loggy_delete_lock(svn_stringbuf_t **log_accum,
@@ -2122,12 +2044,11 @@ svn_wc__loggy_delete_lock(svn_stringbuf_t **log_accum,
 {
   svn_xml_make_open_tag(log_accum, pool, svn_xml_self_closing,
                         SVN_WC__LOG_DELETE_LOCK,
-                        SVN_WC__LOG_ATTR_NAME, path,
+                        SVN_WC__LOG_ATTR_NAME, loggy_path(path, adm_access),
                         NULL);
 
   return SVN_NO_ERROR;
 }
-
 
 svn_error_t *
 svn_wc__loggy_delete_changelist(svn_stringbuf_t **log_accum,
@@ -2137,12 +2058,11 @@ svn_wc__loggy_delete_changelist(svn_stringbuf_t **log_accum,
 {
   svn_xml_make_open_tag(log_accum, pool, svn_xml_self_closing,
                         SVN_WC__LOG_DELETE_CHANGELIST,
-                        SVN_WC__LOG_ATTR_NAME, path,
+                        SVN_WC__LOG_ATTR_NAME, loggy_path(path, adm_access),
                         NULL);
 
   return SVN_NO_ERROR;
 }
-
 
 svn_error_t *
 svn_wc__loggy_entry_modify(svn_stringbuf_t **log_accum,
@@ -2308,7 +2228,8 @@ svn_wc__loggy_entry_modify(svn_stringbuf_t **log_accum,
   if (apr_hash_count(prop_hash) == 0)
     return SVN_NO_ERROR;
 
-  apr_hash_set(prop_hash, SVN_WC__LOG_ATTR_NAME, APR_HASH_KEY_STRING, name);
+  apr_hash_set(prop_hash, SVN_WC__LOG_ATTR_NAME,
+               APR_HASH_KEY_STRING, loggy_path(name, adm_access));
 
   svn_xml_make_open_tag_hash(log_accum, pool,
                              svn_xml_self_closing,
@@ -2330,7 +2251,7 @@ svn_wc__loggy_modify_wcprop(svn_stringbuf_t **log_accum,
   svn_xml_make_open_tag(log_accum, pool, svn_xml_self_closing,
                         SVN_WC__LOG_MODIFY_WCPROP,
                         SVN_WC__LOG_ATTR_NAME,
-                        path,
+                        loggy_path(path, adm_access),
                         SVN_WC__LOG_ATTR_PROPNAME,
                         propname,
                         SVN_WC__LOG_ATTR_PROPVAL,
@@ -2339,7 +2260,6 @@ svn_wc__loggy_modify_wcprop(svn_stringbuf_t **log_accum,
 
   return SVN_NO_ERROR;
 }
-
 
 svn_error_t *
 svn_wc__loggy_move(svn_stringbuf_t **log_accum,
@@ -2351,10 +2271,10 @@ svn_wc__loggy_move(svn_stringbuf_t **log_accum,
 {
   return loggy_move_copy_internal(log_accum, dst_modified,
                                   SVN_WC__LOG_MV, FALSE, adm_access,
-                                  src_path, dst_path, remove_dst_if_no_src,
-                                  pool);
+                                  loggy_path(src_path, adm_access),
+                                  loggy_path(dst_path, adm_access),
+                                  remove_dst_if_no_src, pool);
 }
-
 
 svn_error_t *
 svn_wc__loggy_maybe_set_executable(svn_stringbuf_t **log_accum,
@@ -2366,12 +2286,11 @@ svn_wc__loggy_maybe_set_executable(svn_stringbuf_t **log_accum,
                         pool,
                         svn_xml_self_closing,
                         SVN_WC__LOG_MAYBE_EXECUTABLE,
-                        SVN_WC__LOG_ATTR_NAME, path,
+                        SVN_WC__LOG_ATTR_NAME, loggy_path(path, adm_access),
                         NULL);
 
   return SVN_NO_ERROR;
 }
-
 
 svn_error_t *
 svn_wc__loggy_maybe_set_readonly(svn_stringbuf_t **log_accum,
@@ -2384,12 +2303,11 @@ svn_wc__loggy_maybe_set_readonly(svn_stringbuf_t **log_accum,
                         svn_xml_self_closing,
                         SVN_WC__LOG_MAYBE_READONLY,
                         SVN_WC__LOG_ATTR_NAME,
-                        path,
+                        loggy_path(path, adm_access),
                         NULL);
 
   return SVN_NO_ERROR;
 }
-
 
 svn_error_t *
 svn_wc__loggy_set_entry_timestamp_from_wc(svn_stringbuf_t **log_accum,
@@ -2403,14 +2321,13 @@ svn_wc__loggy_set_entry_timestamp_from_wc(svn_stringbuf_t **log_accum,
                         svn_xml_self_closing,
                         SVN_WC__LOG_MODIFY_ENTRY,
                         SVN_WC__LOG_ATTR_NAME,
-                        path,
+                        loggy_path(path, adm_access),
                         time_prop,
                         SVN_WC__TIMESTAMP_WC,
                         NULL);
 
   return SVN_NO_ERROR;
 }
-
 
 svn_error_t *
 svn_wc__loggy_set_entry_working_size_from_wc(svn_stringbuf_t **log_accum,
@@ -2423,14 +2340,13 @@ svn_wc__loggy_set_entry_working_size_from_wc(svn_stringbuf_t **log_accum,
                         svn_xml_self_closing,
                         SVN_WC__LOG_MODIFY_ENTRY,
                         SVN_WC__LOG_ATTR_NAME,
-                        path,
+                        loggy_path(path, adm_access),
                         SVN_WC__ENTRY_ATTR_WORKING_SIZE,
                         SVN_WC__TIMESTAMP_WC,
                         NULL);
 
   return SVN_NO_ERROR;
 }
-
 
 svn_error_t *
 svn_wc__loggy_set_readonly(svn_stringbuf_t **log_accum,
@@ -2443,7 +2359,7 @@ svn_wc__loggy_set_readonly(svn_stringbuf_t **log_accum,
                         svn_xml_self_closing,
                         SVN_WC__LOG_READONLY,
                         SVN_WC__LOG_ATTR_NAME,
-                        path,
+                        loggy_path(path, adm_access),
                         NULL);
 
   return SVN_NO_ERROR;
@@ -2461,7 +2377,7 @@ svn_wc__loggy_set_timestamp(svn_stringbuf_t **log_accum,
                         svn_xml_self_closing,
                         SVN_WC__LOG_SET_TIMESTAMP,
                         SVN_WC__LOG_ATTR_NAME,
-                        path,
+                        loggy_path(path, adm_access),
                         SVN_WC__LOG_ATTR_TIMESTAMP,
                         timestr,
                         NULL);
@@ -2472,7 +2388,7 @@ svn_wc__loggy_set_timestamp(svn_stringbuf_t **log_accum,
 svn_error_t *
 svn_wc__loggy_remove(svn_stringbuf_t **log_accum,
                      svn_wc_adm_access_t *adm_access,
-                     const char *base_name,
+                     const char *path,
                      apr_pool_t *pool)
 {
   /* No need to check whether BASE_NAME exists: ENOENT is ignored
@@ -2481,7 +2397,7 @@ svn_wc__loggy_remove(svn_stringbuf_t **log_accum,
                         svn_xml_self_closing,
                         SVN_WC__LOG_RM,
                         SVN_WC__LOG_ATTR_NAME,
-                        base_name,
+                        loggy_path(path, adm_access),
                         NULL);
 
   return SVN_NO_ERROR;

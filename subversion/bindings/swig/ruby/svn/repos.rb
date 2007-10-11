@@ -99,11 +99,13 @@ module Svn
       end
 
       def report2(rev, fs_base, target, tgt_path, editor, text_deltas=true,
-                  ignore_ancestry=false, depth=nil, authz_read_func=nil)
+                  ignore_ancestry=false, depth=nil, authz_read_func=nil,
+                  send_copyfrom_args=nil)
         authz_read_func ||= @authz_read_func
         args = [
           rev, self, fs_base, target, tgt_path, text_deltas,
-          ignore_ancestry, editor, authz_read_func,
+          depth, ignore_ancestry, send_copyfrom_args, editor,
+          authz_read_func,
         ]
         report_baton = Repos.begin_report2(*args)
         setup_report_baton(report_baton)
@@ -359,7 +361,7 @@ module Svn
         editor.baton.node
       end
 
-      def merge_info(paths, revision=nil, inherit=nil, &authz_read_func)
+      def mergeinfo(paths, revision=nil, inherit=nil, &authz_read_func)
         path = nil
         unless paths.is_a?(Array)
           path = paths
@@ -371,7 +373,6 @@ module Svn
         results = results[path] if path
         results
       end
-      alias_method :mergeinfo, :merge_info
 
       private
       def setup_report_baton(baton)

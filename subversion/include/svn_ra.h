@@ -826,7 +826,10 @@ svn_error_t *svn_ra_get_mergeinfo(svn_ra_session_t *session,
  *
  * Update the target only as deeply as @a depth indicates.
  *
- * ### TODO(sd): Make sure the behavior described above is what happens.
+ * If @a send_copyfrom_args is true, then ask the server to send
+ * copyfrom arguments to add_file() and add_directory() when possible.
+ * (Note: this means that any subsequent txdeltas coming from the
+ * server are presumed to apply against the copied file!)
  *
  * The working copy will be updated to @a revision_to_update_to, or the
  * "latest" revision if this arg is invalid.
@@ -852,13 +855,15 @@ svn_error_t *svn_ra_do_update2(svn_ra_session_t *session,
                                svn_revnum_t revision_to_update_to,
                                const char *update_target,
                                svn_depth_t depth,
+                               svn_boolean_t send_copyfrom_args,
                                const svn_delta_editor_t *update_editor,
                                void *update_baton,
                                apr_pool_t *pool);
 
 /**
  * Similar to svn_ra_do_update2(), but taking @c svn_ra_reporter2_t
- * instead of @c svn_ra_reporter3_t.
+ * instead of @c svn_ra_reporter3_t.  If @a recurse is true, pass
+ * @c svn_depth_infinity for @a depth, else pass @c svn_depth_files.
  *
  * @deprecated Provided for compatibility with the 1.4 API.
  */
@@ -896,8 +901,6 @@ svn_error_t *svn_ra_do_update(svn_ra_session_t *session,
  *
  * Switch the target only as deeply as @a depth indicates.
  *
- * ### TODO(sd): Make sure the behavior described above is what happens.
- *
  * The working copy will be switched to @a revision_to_switch_to, or the
  * "latest" revision if this arg is invalid.
  *
@@ -931,7 +934,9 @@ svn_error_t *svn_ra_do_switch2(svn_ra_session_t *session,
 /**
  * Similar to svn_ra_do_switch2(), but taking @c svn_ra_reporter2_t
  * instead of @c svn_ra_reporter3_t, and therefore only able to report
- * @c svn_depth_infinity for depths.
+ * @c svn_depth_infinity for depths.  The switch itself is performed
+ * according to @a recurse: if true, then use @c svn_depth_infinity
+ * for @a depth, else use @c svn_depth_files.
  *
  * @deprecated Provided for compatibility with the 1.4 API.
  */
@@ -969,8 +974,6 @@ svn_error_t *svn_ra_do_switch(svn_ra_session_t *session,
  *
  * Get status only as deeply as @a depth indicates.
  *
- * ### TODO(sd): Make sure the behavior described above is what happens.
- *
  * The caller may not perform any RA operations using @a session
  * before finishing the report, and may not perform any RA operations
  * using @a session from within the editing operations of @a status_editor.
@@ -1000,7 +1003,9 @@ svn_error_t *svn_ra_do_status2(svn_ra_session_t *session,
 /**
  * Similar to svn_ra_do_status2(), but taking @c svn_ra_reporter2_t
  * instead of @c svn_ra_reporter3_t, and therefore only able to report
- * @c svn_depth_infinity for depths.
+ * @c svn_depth_infinity for depths.  The status operation itself is
+ * performed according to @a recurse: if true, then @a depth is
+ * @c svn_depth_infinity, else it is @c svn_depth_immediates.
  *
  * @deprecated Provided for compatibility with the 1.4 API.
  */
@@ -1051,8 +1056,6 @@ svn_error_t *svn_ra_do_status(svn_ra_session_t *session,
  *
  * Diff only as deeply as @a depth indicates.
  *
- * ### TODO(sd): Make sure the behavior described above is what happens.
- *
  * The caller may not perform any RA operations using @a session before
  * finishing the report, and may not perform any RA operations using
  * @a session from within the editing operations of @a diff_editor.
@@ -1089,7 +1092,9 @@ svn_error_t *svn_ra_do_diff3(svn_ra_session_t *session,
 /**
  * Similar to svn_ra_do_diff3(), but taking @c svn_ra_reporter2_t
  * instead of @c svn_ra_reporter3_t, and therefore only able to report
- * @c svn_depth_infinity for depths.
+ * @c svn_depth_infinity for depths.  Perform the diff according to
+ * @a recurse: if true, then @a depth is @c svn_depth_infinity, else
+ * it is @c svn_depth_files.
  *
  * @deprecated Provided for compatibility with the 1.4 API.
  */
@@ -1152,8 +1157,8 @@ svn_error_t *svn_ra_do_diff(svn_ra_session_t *session,
  * If @a include_merged_revisions is set, log information for revisions
  * which have been merged to @a targets will also be returned.
  *
- * If @a omit_log_text is set, the contents of the log message will not
- * be returned.
+ * If @a revprops is NULL, retrieve all revprops; else, retrieve only the
+ * revprops named in the array (i.e. retrieve none if the array is empty).
  *
  * If any invocation of @a receiver returns error, return that error
  * immediately and without wrapping it.
@@ -1168,6 +1173,10 @@ svn_error_t *svn_ra_do_diff(svn_ra_session_t *session,
  *
  * Use @a pool for memory allocation.
  *
+ * @note Pre-1.5 servers do not support custom revprop retrieval; if @a
+ * revprops is NULL or contains a revprop other than svn:author, svn:date,
+ * or svn:log, an @c SVN_ERR_RA_NOT_IMPLEMENTED error is returned.
+ *
  * @since New in 1.5.
  */
 
@@ -1179,15 +1188,16 @@ svn_error_t *svn_ra_get_log2(svn_ra_session_t *session,
                              svn_boolean_t discover_changed_paths,
                              svn_boolean_t strict_node_history,
                              svn_boolean_t include_merged_revisions,
-                             svn_boolean_t omit_log_text,
-                             svn_log_message_receiver2_t receiver,
+                             apr_array_header_t *revprops,
+                             svn_log_entry_receiver_t receiver,
                              void *receiver_baton,
                              apr_pool_t *pool);
 
 /**
  * Similar to svn_ra_get_log2(), but uses @c svn_log_message_receiver_t
- * instead of @c svn_log_message_recevier2_t.  Also @a omit_log_text is
- * always set to @c FALSE.
+ * instead of @c svn_log_entry_receiver_t.  Also, @a
+ * include_merged_revisions is set to @c FALSE and @a revprops is
+ * svn:author, svn:date, and svn:log.
  *
  * @since New in 1.2.
  * @deprecated Provided for backward compatibility with the 1.4 API.

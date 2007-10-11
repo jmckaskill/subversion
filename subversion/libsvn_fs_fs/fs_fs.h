@@ -307,8 +307,9 @@ svn_error_t *svn_fs_fs__get_uuid(svn_fs_t *fs,
                                  const char **uuid,
                                  apr_pool_t *pool);
 
-/* Set the uuid of repository FS to UUID.  Perform temporary
-   allocations in POOL. */
+/* Set the uuid of repository FS to UUID, if UUID is not NULL;
+   otherwise, set the uuid of FS to a newly generated UUID.  Perform
+   temporary allocations in POOL. */
 svn_error_t *svn_fs_fs__set_uuid(svn_fs_t *fs,
                                  const char *uuid,
                                  apr_pool_t *pool);
@@ -333,13 +334,6 @@ svn_error_t *svn_fs_fs__open_txn(svn_fs_txn_t **txn_p,
 svn_error_t *svn_fs_fs__txn_proplist(apr_hash_t **proplist,
                                      svn_fs_txn_t *txn,
                                      apr_pool_t *pool);
-
-/* Return the changed mergeinfo list from transaction TXN and store it
-   in *MINFOLIST (never NULL), allocating the mergeinfo list from
-   POOL.  */
-svn_error_t *svn_fs_fs__txn_mergeinfo(apr_hash_t **minfolist,
-                                      svn_fs_txn_t *txn,
-                                      apr_pool_t *pool);
 
 /* Delete the mutable node-revision referenced by ID, along with any
    mutable props or directory contents associated with it.  Perform

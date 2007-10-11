@@ -262,56 +262,10 @@ output_diff_modified(void *baton,
   return SVN_NO_ERROR;
 }
 
-/* Used only by the old code. */
-/* The baton used for RA->get_log */
-struct log_message_baton {
-  const char *path;        /* The path to be processed */
-  struct rev *eldest;      /* The eldest revision processed */
-  char action;             /* The action associated with the eldest */
-  svn_revnum_t copyrev;    /* The revision the eldest was copied from */
-  svn_cancel_func_t cancel_func; /* cancellation callback */
-  void *cancel_baton;            /* cancellation baton */
-  apr_pool_t *pool;
-};
-
 static const svn_diff_output_fns_t output_fns = {
         NULL,
         output_diff_modified
 };
-
-
-/* Callback for log messages: accumulates revision metadata into
-   a chronologically ordered list stored in the baton. */
-static svn_error_t *
-log_message_receiver(void *baton,
-                     apr_hash_t *changed_paths,
-                     svn_revnum_t revision,
-                     const char *author,
-                     const char *date,
-                     const char *message,
-                     apr_pool_t *pool)
-{
-  struct log_message_baton *lmb = baton;
-  struct rev *rev;
-
-  if (lmb->cancel_func)
-    SVN_ERR(lmb->cancel_func(lmb->cancel_baton));
-
-  rev = apr_palloc(lmb->pool, sizeof(*rev));
-  rev->revision = revision;
-  rev->author = apr_pstrdup(lmb->pool, author);
-  rev->date = apr_pstrdup(lmb->pool, date);
-  rev->path = lmb->path;
-  rev->next = lmb->eldest;
-  lmb->eldest = rev;
-
-  SVN_ERR(svn_client__prev_log_path(&lmb->path, &lmb->action,
-                                    &lmb->copyrev, changed_paths,
-                                    lmb->path, svn_node_file, revision,
-                                    lmb->pool));
-
-  return SVN_NO_ERROR;
-}
 
 /* Add the blame for the diffs between LAST_FILE and CUR_FILE with the rev
    specified in FRB.  LAST_FILE may be NULL in which
@@ -368,40 +322,39 @@ window_handler(svn_txdelta_window_t *window, void *baton)
     SVN_ERR(svn_io_file_close(dbaton->source_file, frb->currpool));
   SVN_ERR(svn_io_file_close(dbaton->file, frb->currpool));
 
+  /* If we are including merged revisions, we need to add each rev to the
+     merged chain. */
   if (frb->include_merged_revisions)
-    {
-      chain = frb->merged_chain;
-
-      /* If the current revision is not a merged one, we need to add its
-         blame info to the chain for the original line of history. */
-      if (! frb->merged_revision)
-        {
-          apr_pool_t *tmppool;
-
-          SVN_ERR(add_file_blame(frb->last_original_filename,
-                                 dbaton->filename, frb->chain, frb->rev,
-                                 frb->diff_options, frb->currpool));
-
-          /* This filename could be around for a while, potentially, so
-             use the longer lifetime pool, and switch it with the previous one*/
-          svn_pool_clear(frb->prevfilepool);
-          tmppool = frb->filepool;
-          frb->filepool = frb->prevfilepool;
-          frb->prevfilepool = tmppool;
-
-          frb->last_original_filename = apr_pstrdup(frb->filepool,
-                                                    dbaton->filename);
-        }
-    }
+    chain = frb->merged_chain;
   else
-    {
-      chain = frb->chain;
-    }
+    chain = frb->chain;
 
   /* Process this file. */
   SVN_ERR(add_file_blame(frb->last_filename,
                          dbaton->filename, chain, frb->rev,
                          frb->diff_options, frb->currpool));
+
+  /* If we are including merged revisions, and the current revision is not a
+     merged one, we need to add its blame info to the chain for the original
+     line of history. */
+  if (frb->include_merged_revisions && ! frb->merged_revision)
+    {
+      apr_pool_t *tmppool;
+
+      SVN_ERR(add_file_blame(frb->last_original_filename,
+                             dbaton->filename, frb->chain, frb->rev,
+                             frb->diff_options, frb->currpool));
+
+      /* This filename could be around for a while, potentially, so
+         use the longer lifetime pool, and switch it with the previous one*/
+      svn_pool_clear(frb->prevfilepool);
+      tmppool = frb->filepool;
+      frb->filepool = frb->prevfilepool;
+      frb->prevfilepool = tmppool;
+
+      frb->last_original_filename = apr_pstrdup(frb->filepool,
+                                                dbaton->filename);
+    }
 
   /* Prepare for next revision. */
 
@@ -757,6 +710,15 @@ svn_client_blame4(const char *target,
   /* Perform optional merged chain normalization. */
   if (include_merged_revisions)
     {
+      /* If we never created any blame for the original chain, create it now,
+         with the most recent changed revision.  This could occur if a file
+         was created on a branch and them merged to another branch.  This is
+         semanticly a copy, and we want to use the revision on the branch as
+         the most recently changed revision.  ### Is this really what we want
+         to do here?  Do the sematics of copy change? */
+      if (!frb.chain->blame)
+        frb.chain->blame = blame_create(frb.chain, frb.rev, 0);
+
       normalize_blames(frb.chain, frb.merged_chain, pool);
       walk_merged = frb.merged_chain->blame;
     }
@@ -972,6 +934,52 @@ svn_client_blame(const char *target,
                            receiver, receiver_baton, ctx, pool);
 }
 
+
+
+/* Used only by the old code. */
+/* The baton used for RA->get_log */
+struct log_message_baton {
+  const char *path;        /* The path to be processed */
+  struct rev *eldest;      /* The eldest revision processed */
+  char action;             /* The action associated with the eldest */
+  svn_revnum_t copyrev;    /* The revision the eldest was copied from */
+  svn_cancel_func_t cancel_func; /* cancellation callback */
+  void *cancel_baton;            /* cancellation baton */
+  apr_pool_t *pool;
+};
+
+/* Callback for log messages: accumulates revision metadata into
+   a chronologically ordered list stored in the baton. */
+static svn_error_t *
+log_message_receiver(void *baton,
+                     apr_hash_t *changed_paths,
+                     svn_revnum_t revision,
+                     const char *author,
+                     const char *date,
+                     const char *message,
+                     apr_pool_t *pool)
+{
+  struct log_message_baton *lmb = baton;
+  struct rev *rev;
+
+  if (lmb->cancel_func)
+    SVN_ERR(lmb->cancel_func(lmb->cancel_baton));
+
+  rev = apr_palloc(lmb->pool, sizeof(*rev));
+  rev->revision = revision;
+  rev->author = apr_pstrdup(lmb->pool, author);
+  rev->date = apr_pstrdup(lmb->pool, date);
+  rev->path = lmb->path;
+  rev->next = lmb->eldest;
+  lmb->eldest = rev;
+
+  SVN_ERR(svn_client__prev_log_path(&lmb->path, &lmb->action,
+                                    &lmb->copyrev, changed_paths,
+                                    lmb->path, svn_node_file, revision,
+                                    lmb->pool));
+
+  return SVN_NO_ERROR;
+}
 
 /* This is used when there is no get_file_revs available. */
 static svn_error_t *

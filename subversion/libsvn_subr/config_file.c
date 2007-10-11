@@ -574,13 +574,10 @@ svn_config_ensure(const char *config_dir, apr_pool_t *pool)
           return SVN_NO_ERROR;
         }
     }
-  else
+  else if (kind == svn_node_file)
     {
-      /* ### config directory already exists, but for the sake of
-         smooth upgrades, try to ensure that the auth/ subdirs exist
-         as well.  we can remove this check someday in the future. */
-      ensure_auth_dirs(path, pool);
-
+      /* Somebody put a file where the config directory should be.
+         Wacky.  Let's bail. */
       return SVN_NO_ERROR;
     }
 
@@ -964,6 +961,7 @@ svn_config_ensure(const char *config_dir, apr_pool_t *pool)
         "### Set global-ignores to a set of whitespace-delimited globs"      NL
         "### which Subversion will ignore in its 'status' output, and"       NL
         "### while importing or adding files and directories."               NL
+        "### '*' matches leading dots, e.g. '*.rej' matches '.foo.rej'."     NL
         "# global-ignores = " SVN_CONFIG_DEFAULT_GLOBAL_IGNORES ""           NL
         "### Set log-encoding to the default encoding for log messages"      NL
         "# log-encoding = latin1"                                            NL

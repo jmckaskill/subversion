@@ -35,8 +35,6 @@
 #include "svn_dav.h"
 #include "svn_props.h"
 
-#include "private/svn_repos_private.h"
-
 #include "../dav_svn.h"
 
 
@@ -925,6 +923,7 @@ dav_svn__update_report(const dav_resource *resource,
   svn_boolean_t saw_recursive = FALSE;
   svn_boolean_t resource_walk = FALSE;
   svn_boolean_t ignore_ancestry = FALSE;
+  svn_boolean_t send_copyfrom_args = FALSE;
   dav_svn__authz_read_baton arb;
   apr_pool_t *subpool = svn_pool_create(resource->pool);
 
@@ -1063,6 +1062,14 @@ dav_svn__update_report(const dav_resource *resource,
           if (strcmp(cdata, "no") != 0)
             ignore_ancestry = TRUE;
         }
+      if (child->ns == ns && strcmp(child->name, "send-copyfrom-args") == 0)
+        {
+          cdata = dav_xml_get_cdata(child, resource->pool, 1);
+          if (! *cdata)
+            return malformed_element_error(child->name, resource->pool);
+          if (strcmp(cdata, "no") != 0)
+            send_copyfrom_args = TRUE;
+        }
       if (child->ns == ns && strcmp(child->name, "resource-walk") == 0)
         {
           cdata = dav_xml_get_cdata(child, resource->pool, 1);
@@ -1178,13 +1185,14 @@ dav_svn__update_report(const dav_resource *resource,
   editor->close_file = upd_close_file;
   editor->absent_file = upd_absent_file;
   editor->close_edit = upd_close_edit;
-  if ((serr = svn_repos__begin_report(&rbaton, revnum,
+  if ((serr = svn_repos_begin_report2(&rbaton, revnum,
                                       repos->repos,
                                       src_path, target,
                                       dst_path,
                                       text_deltas,
                                       requested_depth,
                                       ignore_ancestry,
+                                      send_copyfrom_args,
                                       editor, &uc,
                                       dav_svn__authz_read_func(&arb),
                                       &arb,
@@ -1211,7 +1219,8 @@ dav_svn__update_report(const dav_resource *resource,
             const char *locktoken = NULL;
             svn_boolean_t start_empty = FALSE;
             apr_xml_attr *this_attr = child->attr;
-            svn_depth_t depth = svn_depth_unknown;
+            /* Default to infinity, for old clients that don't send depth. */
+            svn_depth_t depth = svn_depth_infinity;
 
             entry_counter++;
 
