@@ -817,7 +817,7 @@ svn_repos_node_location_segments(svn_repos_t *repos,
   /* Are the revision properly ordered?  They better be -- the API
      demands it. */
   assert(end_rev <= start_rev);
-
+  
   /* Okay, let's get searching! */
   current_rev = start_rev;
   while (current_rev >= end_rev)
