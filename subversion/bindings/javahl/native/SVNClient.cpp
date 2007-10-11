@@ -688,7 +688,7 @@ SVNClient::getMergeInfo(const char *target, Revision &pegRevision)
     apr_hash_t *mergeinfo;
     Path intLocalTarget(target);
     SVN_JNI_ERR(intLocalTarget.error_occured(), NULL);
-    SVN_JNI_ERR(svn_client_mergeinfo_get_merged(&mergeinfo,
+    SVN_JNI_ERR(svn_client_mergeinfo_get_merged(&mergeinfo, 
                                                 intLocalTarget.c_str(),
                                                 pegRevision.revision(), ctx,
                                                 requestPool.pool()),
@@ -812,7 +812,7 @@ SVNClient::getAvailableMerges(const char *target, Revision &pegRevision,
     jclass clazz = env->FindClass(JAVA_PACKAGE "/RevisionRange");
     if (JNIUtil::isJavaExceptionThrown())
         return NULL;
-
+ 
     jobjectArray jranges = env->NewObjectArray(ranges->nelts, clazz, NULL);
 
     for (int i = 0; i < ranges->nelts; ++i)
