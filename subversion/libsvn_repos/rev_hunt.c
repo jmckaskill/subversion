@@ -642,7 +642,7 @@ prev_location(svn_revnum_t *appeared_rev,
   SVN_ERR(svn_fs_revision_root(&root, fs, revision, pool));
   SVN_ERR(svn_fs_closest_copy(&copy_root, &copy_path, root, path, pool));
   if (! copy_root)
-    return SVN_NO_ERROR;
+    return SVN_NO_ERROR;    
 
   /* Ultimately, it's not the path of the closest copy's source that
      we care about -- it's our own path's location in the copy source
@@ -657,7 +657,7 @@ prev_location(svn_revnum_t *appeared_rev,
      path tells us that our path was located at "/trunk/foo/bar"
      before the copy.
   */
-  SVN_ERR(svn_fs_copied_from(&copy_src_rev, &copy_src_path,
+  SVN_ERR(svn_fs_copied_from(&copy_src_rev, &copy_src_path, 
                              copy_root, copy_path, pool));
   if (! strcmp(copy_path, path) == 0)
     remainder = svn_path_is_child(copy_path, path, pool);
@@ -750,7 +750,7 @@ svn_repos_trace_node_locations(svn_fs_t *fs,
 
       /* Find the target of the innermost copy relevant to path@revision.
          The copy may be of path itself, or of a parent directory. */
-      SVN_ERR(prev_location(&appeared_rev, &prev_path, &prev_rev, fs,
+      SVN_ERR(prev_location(&appeared_rev, &prev_path, &prev_rev, fs, 
                             revision, path, currpool));
       if (! prev_path)
         break;
@@ -771,7 +771,7 @@ svn_repos_trace_node_locations(svn_fs_t *fs,
 
       /* Assign the current path to all younger revisions until we reach
          the copy target rev. */
-      while ((revision_ptr < revision_ptr_end)
+      while ((revision_ptr < revision_ptr_end) 
              && (*revision_ptr >= appeared_rev))
         {
           /* *revision_ptr is allocated out of pool, so we can point
@@ -783,7 +783,7 @@ svn_repos_trace_node_locations(svn_fs_t *fs,
 
       /* Ignore all revs between the copy target rev and the copy
          source rev (non-inclusive). */
-      while ((revision_ptr < revision_ptr_end)
+      while ((revision_ptr < revision_ptr_end) 
              && (*revision_ptr > prev_rev))
         revision_ptr++;
 
@@ -859,7 +859,7 @@ svn_repos_node_location_segments(svn_repos_t *repos,
   /* Are the revision properly ordered?  They better be -- the API
      demands it. */
   assert(end_rev <= start_rev);
-
+  
   /* Okay, let's get searching! */
   current_rev = start_rev;
   while (current_rev >= end_rev)
