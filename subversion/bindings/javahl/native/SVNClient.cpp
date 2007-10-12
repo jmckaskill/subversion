@@ -670,7 +670,7 @@ void SVNClient::merge(const char *path, Revision &pegRevision,
     apr_array_header_t *ranges_to_merge =
         apr_array_make(requestPool.pool(), 1,
                        sizeof(svn_opt_revision_range_t *) );
-    svn_opt_revision_range_t range =
+    svn_opt_revision_range_t range = 
         { *revision1.revision(), *revision2.revision() };
     APR_ARRAY_PUSH(ranges_to_merge, svn_opt_revision_range_t *) = &range;
 
@@ -695,7 +695,7 @@ SVNClient::getMergeInfo(const char *target, Revision &pegRevision)
     apr_hash_t *mergeinfo;
     Path intLocalTarget(target);
     SVN_JNI_ERR(intLocalTarget.error_occured(), NULL);
-    SVN_JNI_ERR(svn_client_mergeinfo_get_merged(&mergeinfo,
+    SVN_JNI_ERR(svn_client_mergeinfo_get_merged(&mergeinfo, 
                                                 intLocalTarget.c_str(),
                                                 pegRevision.revision(), ctx,
                                                 requestPool.pool()),
@@ -2155,7 +2155,7 @@ jobjectArray SVNClient::makeJRevisionRangeArray(apr_array_header_t *ranges)
     jclass clazz = env->FindClass(JAVA_PACKAGE "/RevisionRange");
     if (JNIUtil::isJavaExceptionThrown())
         return NULL;
-
+ 
     jobjectArray jranges = env->NewObjectArray(ranges->nelts, clazz, NULL);
 
     for (int i = 0; i < ranges->nelts; ++i)
