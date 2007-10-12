@@ -1,5 +1,5 @@
 /*
- * getlocationsegments.c :  entry point for get_location_segments
+ * getlocationsegments.c :  entry point for get_location_segments 
  *                          RA functions for ra_serf
  *
  * ====================================================================
