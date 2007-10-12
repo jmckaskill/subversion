@@ -613,7 +613,7 @@ svn_ra_serf__handle_server_error(serf_request_t *request,
  * the @a RESPONSE body associated with a @a REQUEST. *DONE is set to TRUE.
  *
  * The @a BATON should be of type svn_ra_serf__simple_request_context_t.
- *
+ * 
  * All temporary allocations will be made in a @a pool.
  */
 apr_status_t
@@ -1148,7 +1148,7 @@ typedef svn_error_t *
 
 /**
  * For each authentication protocol we need an initialization function of type
- * svn_serf__init_conn_func_t. This function will be called when a new
+ * svn_serf__init_conn_func_t. This function will be called when a new 
  * connection is opened.
  */
 typedef svn_error_t *
@@ -1158,7 +1158,7 @@ typedef svn_error_t *
 
 /**
  * For each authentication protocol we need a setup_request function of type
- * svn_serf__setup_request_func_t. This function will be called when a
+ * svn_serf__setup_request_func_t. This function will be called when a 
  * new serf_request_t object is created and should fill in the correct
  * authentication headers (if needed).
  */
@@ -1170,7 +1170,7 @@ typedef svn_error_t *
  * svn_ra_serf__auth_protocol_t: vtable for an authn protocol provider.
  */
 struct svn_ra_serf__auth_protocol_t {
-  /* The name of this authentication protocol. This should be a case
+  /* The name of this authentication protocol. This should be a case 
      sensitive match of the string sent in the HTTP authentication header. */
   const char *auth_name;
 
