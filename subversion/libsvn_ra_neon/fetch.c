@@ -3063,12 +3063,12 @@ make_reporter(svn_ra_session_t *session,
       && (depth != svn_depth_infinity)
       && ! new_server)
     {
-      SVN_ERR(svn_delta_depth_filter_editor(&filter_editor,
+      SVN_ERR(svn_delta_depth_filter_editor(&filter_editor, 
                                             &filter_baton,
-                                            editor,
+                                            editor, 
                                             edit_baton,
-                                            depth,
-                                            has_target,
+                                            depth, 
+                                            has_target, 
                                             pool));
       editor = filter_editor;
       edit_baton = filter_baton;
