@@ -37,7 +37,7 @@
 #include "../dav_svn.h"
 
 
-struct location_segment_baton
+struct location_segment_baton 
 {
   ap_filter_t *output;
   apr_bucket_brigade *bb;
@@ -58,7 +58,7 @@ location_segment_receiver(svn_location_segment_t *segment,
   if (segment->path)
     {
       const char *path_quoted = apr_xml_quote_string(pool, segment->path, 1);
-      apr_err = ap_fprintf(b->output, b->bb,
+      apr_err = ap_fprintf(b->output, b->bb, 
                            "<S:location-segment path=\"%s\" "
                            "range-start=\"%ld\" range-end=\"%ld\"/>" DEBUG_CR,
                            path_quoted,
@@ -66,7 +66,7 @@ location_segment_receiver(svn_location_segment_t *segment,
     }
   else
     {
-      apr_err = ap_fprintf(b->output, b->bb,
+      apr_err = ap_fprintf(b->output, b->bb, 
                            "<S:location-segment "
                            "range-start=\"%ld\" range-end=\"%ld\"/>" DEBUG_CR,
                            segment->range_start, segment->range_end);
@@ -94,8 +94,8 @@ send_get_location_segments_report(ap_filter_t *output,
   struct location_segment_baton location_segment_baton;
 
   if ((apr_err = ap_fprintf(output, bb, DAV_XML_HEADER DEBUG_CR
-                            "<S:get-location-segments-report xmlns:S=\""
-                            SVN_XML_NAMESPACE "\" xmlns:D=\"DAV:\">"
+                            "<S:get-location-segments-report xmlns:S=\"" 
+                            SVN_XML_NAMESPACE "\" xmlns:D=\"DAV:\">" 
                             DEBUG_CR)))
     return svn_error_create(apr_err, 0, NULL);
 
@@ -113,7 +113,7 @@ send_get_location_segments_report(ap_filter_t *output,
                                            dav_svn__authz_read_func(&arb),
                                            &arb, resource->pool));
 
-  if ((apr_err = ap_fprintf(output, bb,
+  if ((apr_err = ap_fprintf(output, bb, 
                             "</S:get-location-segments-report>" DEBUG_CR)))
     return svn_error_create(apr_err, 0, NULL);
 
@@ -156,12 +156,12 @@ dav_svn__get_location_segments_report(const dav_resource *resource,
 
       if (strcmp(child->name, "start-revision") == 0)
         {
-          start_rev = SVN_STR_TO_REV(dav_xml_get_cdata(child,
+          start_rev = SVN_STR_TO_REV(dav_xml_get_cdata(child, 
                                                        resource->pool, 1));
         }
       else if (strcmp(child->name, "end-revision") == 0)
         {
-          end_rev = SVN_STR_TO_REV(dav_xml_get_cdata(child,
+          end_rev = SVN_STR_TO_REV(dav_xml_get_cdata(child, 
                                                      resource->pool, 1));
         }
       else if (strcmp(child->name, "path") == 0)
@@ -169,7 +169,7 @@ dav_svn__get_location_segments_report(const dav_resource *resource,
           path = dav_xml_get_cdata(child, resource->pool, 0);
           if ((derr = dav_svn__test_canonical(path, resource->pool)))
             return derr;
-          path = svn_path_join(resource->info->repos_path, path,
+          path = svn_path_join(resource->info->repos_path, path, 
                                resource->pool);
         }
     }
@@ -180,7 +180,7 @@ dav_svn__get_location_segments_report(const dav_resource *resource,
                                   "Not all parameters passed.",
                                   SVN_DAV_ERROR_NAMESPACE,
                                   SVN_DAV_ERROR_TAG);
-  if (SVN_IS_VALID_REVNUM(start_rev)
+  if (SVN_IS_VALID_REVNUM(start_rev) 
       && SVN_IS_VALID_REVNUM(end_rev)
       && (end_rev > start_rev))
     return dav_svn__new_error_tag(resource->pool, HTTP_BAD_REQUEST, 0,
