@@ -877,7 +877,7 @@ def authz_switch_to_directory(sbox):
   G_path = os.path.join(wc_dir, 'A', 'D', 'G')
 
   # Switch /A/B/E to /A/B/F.
-  svntest.main.run_svn(None, 'switch', sbox.repo_url + "/A/B/E", G_path,
+  svntest.main.run_svn(None, 'switch', sbox.repo_url + "/A/B/E", G_path, 
                        '--username', svntest.main.wc_author,
                        '--password', svntest.main.wc_passwd)
 
@@ -902,7 +902,7 @@ test_list = [ None,
               Skip(authz_locking, svntest.main.is_ra_type_file),
               SkipUnless(authz_svnserve_anon_access_read,
                          svntest.main.is_ra_type_svn),
-              XFail(Skip(authz_switch_to_directory,
+              XFail(Skip(authz_switch_to_directory, 
                          svntest.main.is_ra_type_file)),
              ]
 
