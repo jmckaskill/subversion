@@ -1115,7 +1115,7 @@ svn_repos_trace_node_locations(svn_fs_t *fs,
  * to trace the history of the object beginning in the HEAD revision.
  * Otherwise, @a start_rev must be younger than @a end_rev (unless @a
  * end_rev is @c SVN_INVALID_REVNUM).
- *
+ * 
  * If optional @a authz_read_func is not @c NULL, then use it (and @a
  * authz_read_baton) to verify that the peg-object is readable.  If
  * not, return @c SVN_ERR_AUTHZ_UNREADABLE.  Also use the @a
