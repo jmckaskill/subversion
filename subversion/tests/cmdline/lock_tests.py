@@ -181,7 +181,7 @@ def commit_propchange(sbox):
 
   # make a property change and commit it, allowing lock to be released
   svntest.main.run_svn(None, 'propset', 'blue', 'azul', file_path)
-  svntest.main.run_svn(None, 'commit',
+  svntest.main.run_svn(None, 'commit', 
                              '--username', svntest.main.wc_author,
                              '--password', svntest.main.wc_passwd,
                              '-m', '', file_path)
