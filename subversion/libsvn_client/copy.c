@@ -240,7 +240,7 @@ propagate_mergeinfo_within_wc(svn_client__copy_pair_t *pair,
                   pool));
 
           return extend_wc_mergeinfo(pair->dst, entry, mergeinfo, dst_access,
-                                     ctx, pool);
+                                     ctx, pool);  
         }
     }
 
