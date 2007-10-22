@@ -1152,7 +1152,7 @@ main(int argc, const char *argv[])
                 -c N  -> -r N-1:N
                 -c -N -> -r N:N-1 */
           {
-            svn_opt_revision_range_t *range = apr_palloc(pool, sizeof(*range));
+            svn_opt_revision_range_t *range = apr_palloc(pool, sizeof(*range));            
           if (changeno > 0)
             {
                 range->start.value.number = changeno - 1;
