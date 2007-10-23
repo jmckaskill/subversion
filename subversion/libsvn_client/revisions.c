@@ -64,7 +64,7 @@ svn_client__get_revision_number(svn_revnum_t *revnum,
 
         /* Sanity check. */
         if (path == NULL)
-          return svn_error_create(SVN_ERR_CLIENT_VERSIONED_PATH_REQUIRED,
+          return svn_error_create(SVN_ERR_CLIENT_VERSIONED_PATH_REQUIRED, 
                                   NULL, NULL);
 
         SVN_ERR(svn_wc_adm_probe_open3(&adm_access, NULL, path, FALSE,
@@ -112,7 +112,7 @@ svn_client__get_revision_number(svn_revnum_t *revnum,
                                  "'%s'"),
                                svn_path_local_style(path, pool));
     }
-
+    
   return SVN_NO_ERROR;
 }
 
