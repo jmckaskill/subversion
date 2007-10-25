@@ -19,7 +19,7 @@ import junit.framework.*;
 import org.tigris.subversion.lib.Nodekind;
 
 /**
- * Testcases for the native functions with prefix "nodekind"
+ * Testcases for the native functions with prefix "nodekind" 
  * in the class NativeWrapper
  *
  * @see NativeWrapper
@@ -35,7 +35,7 @@ public class NodekindTests extends TestCase
     public void testNodekindCreate()
 	{
 	    Nodekind nodekind = NativeWrapper.nodekindCreate(0);
-
+	    
 	    assertNotNull( nodekind );
 	}
 
