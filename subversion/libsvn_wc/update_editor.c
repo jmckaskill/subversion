@@ -747,7 +747,7 @@ struct file_baton
   /* If this file was added with history, this is the path to a copy
      of the text base of the copyfrom file (in the temporary area). */
   const char *copied_text_base;
-
+  
   /* If this file was added with history, and the copyfrom had local
      mods, this is the path to a copy of the user's version with local
      mods (in the temporary area). */
@@ -760,7 +760,7 @@ struct file_baton
   /* If this file was added with history, this hash contains the working
      properties of the copied file. */
   apr_hash_t *copied_working_props;
-
+  
   /* Set if we've received an apply_textdelta for this file. */
   svn_boolean_t received_textdelta;
 
@@ -828,7 +828,7 @@ make_file_baton(struct file_baton **f_p,
          depth==empty.  So if the parent doesn't already have an entry
          for the file, then the parent doesn't want to hear about the
          file at all, thus we should initialize it at svn_depth_exclude. */
-      SVN_ERR(svn_wc_entry(&entry, f->path, pb->edit_baton->adm_access,
+      SVN_ERR(svn_wc_entry(&entry, f->path, pb->edit_baton->adm_access, 
                            FALSE, pool));
       if (! entry)
         {
@@ -2134,12 +2134,12 @@ choose_base_paths(const char **checksum_p,
       *checksum_p = NULL;
       if (ent)
         *checksum_p = ent->checksum;
-    }
+    } 
   if (replaced_p)
     *replaced_p = replaced;
   if (use_revert_base_p)
     *use_revert_base_p = use_revert_base;
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -2317,7 +2317,7 @@ change_file_prop(void *file_baton,
    properties as well as entryprops and wcprops.  Update *PROP_STATE
    to reflect the result of the regular prop merge.  Make *LOCK_STATE
    reflect the possible removal of a lock token from FILE_PATH's
-   entryprops.  BASE_PROPS and WORKING_PROPS are hashes of the base and
+   entryprops.  BASE_PROPS and WORKING_PROPS are hashes of the base and 
    working props of the file; if NULL they are read from the wc.
 
    CONFICT_FUNC/BATON is a callback which allows the client to
@@ -2604,7 +2604,7 @@ merge_file(svn_wc_notify_state_t *content_state,
           SVN_ERR(svn_io_check_path(fb->path, &wfile_kind, pool));
           if (wfile_kind == svn_node_none && ! fb->added_with_history)
             {
-              /* working file is missing?!
+              /* working file is missing?! 
                  Just copy the new text-base to the file. */
               SVN_ERR(svn_wc__loggy_copy(&log_accum, NULL, adm_access,
                                          svn_wc__copy_translate,
@@ -2647,7 +2647,7 @@ merge_file(svn_wc_notify_state_t *content_state,
                                           entry->revision,
                                           *path_ext ? "." : "",
                                           *path_ext ? path_ext : "");
-
+                                          
               newrev_str = apr_psprintf(pool, ".r%ld%s%s",
                                         *eb->target_revision,
                                         *path_ext ? "." : "",
@@ -2837,7 +2837,7 @@ close_file(void *file_baton,
   /* Was this an add-with-history, with no apply_textdelta? */
   if (fb->added_with_history && ! fb->received_textdelta)
     {
-      assert(! fb->text_base_path && ! fb->new_text_base_path
+      assert(! fb->text_base_path && ! fb->new_text_base_path 
              && fb->copied_text_base);
 
       /* Set up the base paths like apply_textdelta does. */
@@ -3232,7 +3232,7 @@ add_file_with_history(const char *path,
                                           svn_io_file_del_none,
                                           pool));
 
-          SVN_ERR(svn_io_copy_file(src_path, tfb->copied_working_text, TRUE,
+          SVN_ERR(svn_io_copy_file(src_path, tfb->copied_working_text, TRUE, 
                                    pool));
         }
     }
