@@ -2604,7 +2604,7 @@ def no_such_changelist(sbox):
                                      None, ".*Unknown changelist 'not-found'",
                                      "commit", "--changelist=not-found",
                                      "-m", "msg", wc_dir)
-
+                                        
 def commit_out_of_date_file(sbox):
   "try to commit a file that is out-of-date"
 
