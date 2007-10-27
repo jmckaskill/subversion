@@ -307,7 +307,7 @@ svn_client_switch(svn_revnum_t *result_rev,
 {
   svn_opt_revision_t peg_revision;
   peg_revision.kind = svn_opt_revision_unspecified;
-  return svn_client__switch_internal(result_rev, path, switch_url,
+  return svn_client__switch_internal(result_rev, path, switch_url, 
                                      &peg_revision, revision,
                                      SVN_DEPTH_INFINITY_OR_FILES(recurse),
                                      NULL, FALSE, FALSE, ctx, pool);
