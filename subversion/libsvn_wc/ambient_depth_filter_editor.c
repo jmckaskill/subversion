@@ -153,7 +153,7 @@ make_dir_baton(struct dir_baton **d_p,
   /* We'll initialize this differently in add_directory and
      open_directory. */
   d->ambient_depth = svn_depth_unknown;
-
+  
   *d_p = d;
   return SVN_NO_ERROR;
 }
@@ -184,7 +184,7 @@ make_file_baton(struct file_baton **f_p,
          doesn't want to hear about the file at all. */
       const svn_wc_entry_t *entry;
 
-      SVN_ERR(svn_wc_entry(&entry,
+      SVN_ERR(svn_wc_entry(&entry, 
                            svn_path_join(pb->edit_baton->anchor, path, pool),
                            pb->edit_baton->adm_access, FALSE, pool));
       if (! entry)
@@ -227,7 +227,7 @@ open_root(void *edit_baton,
 
   SVN_ERR(make_dir_baton(&b, NULL, eb, NULL, pool));
   *root_baton = b;
-
+  
   if (b->ambient_depth == svn_depth_exclude)
     return SVN_NO_ERROR;
 
@@ -295,7 +295,7 @@ add_directory(const char *path,
 
   if (b->ambient_depth == svn_depth_exclude)
     return SVN_NO_ERROR;
-
+  
   /* It's not excluded, so what should we treat the ambient depth as
      being? */
   if (strcmp(eb->target, path) == 0)
@@ -365,14 +365,14 @@ add_file(const char *path,
 
   SVN_ERR(make_file_baton(&b, pb, path, pool));
   *child_baton = b;
-
+ 
   if (b->ambiently_excluded)
     return SVN_NO_ERROR;
-
+  
   SVN_ERR(eb->wrapped_editor->add_file(path, pb->wrapped_baton,
                                        copyfrom_path, copyfrom_revision,
                                        pool, &b->wrapped_baton));
-
+  
   return SVN_NO_ERROR;
 }
 
