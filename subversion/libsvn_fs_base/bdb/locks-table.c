@@ -102,7 +102,7 @@ svn_fs_bdb__lock_delete(svn_fs_t *fs,
   svn_fs_base__str_to_dbt(&key, lock_token);
   svn_fs_base__trail_debug(trail, "locks", "del");
   db_err = bfd->locks->del(bfd->locks, trail->db_txn, &key, 0);
-
+  
   if (db_err == DB_NOTFOUND)
     return svn_fs_base__err_bad_lock_token(fs, lock_token);
   SVN_ERR(BDB_WRAP(fs, "deleting lock from 'locks' table", db_err));
@@ -148,7 +148,7 @@ svn_fs_bdb__lock_get(svn_lock_t **lock_p,
   if (lock->expiration_date && (apr_time_now() > lock->expiration_date))
     {
       SVN_ERR(svn_fs_bdb__lock_delete(fs, lock_token, trail, pool));
-      return svn_fs_base__err_lock_expired(fs, lock_token);
+      return svn_fs_base__err_lock_expired(fs, lock_token); 
     }
 
   *lock_p = lock;
@@ -227,7 +227,7 @@ svn_fs_bdb__locks_get(svn_fs_t *fs,
 
   svn_fs_base__trail_debug(trail, "lock-tokens", "cursor");
   db_err = bfd->lock_tokens->cursor(bfd->lock_tokens, trail->db_txn,
-                                    &cursor, 0);
+                                    &cursor, 0);  
   SVN_ERR(BDB_WRAP(fs, "creating cursor for reading lock tokens", db_err));
 
   /* Since the key is going to be returned as well as the value make
@@ -242,14 +242,14 @@ svn_fs_bdb__locks_get(svn_fs_t *fs,
 
   /* As long as the prefix of the returned KEY matches LOOKUP_PATH we
      know it is either LOOKUP_PATH or a decendant thereof.  */
-  while ((! db_err)
+  while ((! db_err) 
          && strncmp(lookup_path, key.data, strlen(lookup_path)) == 0)
     {
       const char *child_path;
 
       svn_pool_clear(subpool);
 
-      svn_fs_base__track_dbt(&key, subpool);
+      svn_fs_base__track_dbt(&key, subpool);      
       svn_fs_base__track_dbt(&value, subpool);
 
       /* Create a usable path and token in temporary memory. */
@@ -283,7 +283,7 @@ svn_fs_bdb__locks_get(svn_fs_t *fs,
   svn_pool_destroy(subpool);
   cursor->c_close(cursor);
 
-  if (db_err && (db_err != DB_NOTFOUND))
+  if (db_err && (db_err != DB_NOTFOUND)) 
     SVN_ERR(BDB_WRAP(fs, "fetching lock tokens", db_err));
 
   return SVN_NO_ERROR;
