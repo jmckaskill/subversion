@@ -128,7 +128,7 @@ reporter_abort_report(void *reporter_baton,
 }
 
 
-static const svn_ra_reporter2_t ra_local_reporter =
+static const svn_ra_reporter2_t ra_local_reporter = 
 {
   reporter_set_path,
   reporter_delete_path,
@@ -198,7 +198,7 @@ get_username(svn_ra_session_t *session,
                                              baton->uuid, /* realmstring */
                                              baton->callbacks->auth_baton,
                                              pool));
-
+          
           /* No point in calling next_creds(), since that assumes that the
              first_creds() somehow failed to authenticate.  But there's no
              challenge going on, so we use whatever creds we get back on
@@ -268,12 +268,12 @@ svn_ra_local__open(svn_ra_session_t *session,
 {
   svn_ra_local__session_baton_t *baton;
   const char *fs_path;
-
+  
   /* Allocate and stash the session_baton args we have already. */
   baton = apr_pcalloc(pool, sizeof(*baton));
   baton->callbacks = callbacks;
   baton->callback_baton = callback_baton;
-
+  
   /* Look through the URL, figure out which part points to the
      repository, and which part is the path *within* the
      repository. */
@@ -429,7 +429,7 @@ struct deltify_etc_baton
    (wrapped) callback, but also does deltification on the new revision and
    possibly unlocks committed paths.
    BATON is 'struct deltify_etc_baton *'. */
-static svn_error_t *
+static svn_error_t * 
 deltify_etc(const svn_commit_info_t *commit_info,
             void *baton, apr_pool_t *pool)
 {
@@ -519,7 +519,7 @@ svn_ra_local__get_commit_editor(svn_ra_session_t *session,
       SVN_ERR(svn_fs_get_access(&fs_access, sess_baton->fs));
 
       /* If there is no access context, the filesystem will scream if a
-         lock is needed. */
+         lock is needed. */      
       if (fs_access)
         {
           for (hi = apr_hash_first(pool, lock_tokens); hi;
@@ -534,8 +534,8 @@ svn_ra_local__get_commit_editor(svn_ra_session_t *session,
             }
         }
     }
-
-  /* Get the repos commit-editor */
+              
+  /* Get the repos commit-editor */     
   SVN_ERR(svn_repos_get_commit_editor4
           (editor, edit_baton, sess_baton->repos, NULL,
            svn_path_uri_decode(sess_baton->repos_url, pool),
@@ -578,11 +578,11 @@ make_reporter(svn_ra_session_t *session,
       other_url = svn_path_uri_decode(other_url, pool);
       repos_url_decoded = svn_path_uri_decode(sbaton->repos_url, pool);
       repos_url_len = strlen(repos_url_decoded);
-
+      
       /* Sanity check:  the other_url better be in the same repository as
          the original session url! */
       if (strncmp(other_url, repos_url_decoded, repos_url_len) != 0)
-        return svn_error_createf
+        return svn_error_createf 
           (SVN_ERR_RA_ILLEGAL_URL, NULL,
            _("'%s'\n"
              "is not the same repository as\n"
@@ -595,24 +595,24 @@ make_reporter(svn_ra_session_t *session,
   *reporter = &ra_local_reporter;
 
   SVN_ERR(get_username(session, pool));
-
+  
   /* Build a reporter baton. */
   SVN_ERR(svn_repos_begin_report(&rbaton,
                                  revision,
                                  sbaton->username,
-                                 sbaton->repos,
+                                 sbaton->repos, 
                                  sbaton->fs_path->data,
-                                 target,
+                                 target, 
                                  other_fs_path,
                                  text_deltas,
                                  recurse,
                                  ignore_ancestry,
-                                 editor,
+                                 editor, 
                                  edit_baton,
                                  NULL,
                                  NULL,
                                  pool));
-
+  
   /* Wrap the report baton given us by the repos layer with our own
      reporter baton. */
   *report_baton = make_reporter_baton(sbaton, rbaton, pool);
@@ -752,7 +752,7 @@ svn_ra_local__get_log(svn_ra_session_t *session,
         {
           const char *abs_path = "";
           const char *relative_path = (((const char **)(paths)->elts)[i]);
-
+          
           /* Append the relative paths to the base FS path to get an
              absolute repository path. */
           abs_path = svn_path_join(sbaton->fs_path->data, relative_path,
@@ -817,7 +817,7 @@ svn_ra_local__stat(svn_ra_session_t *session,
   svn_ra_local__session_baton_t *sbaton = session->priv;
   svn_fs_root_t *root;
   const char *abs_path = sbaton->fs_path->data;
-
+  
   /* ### see note above in __do_check_path() */
   if (abs_path[0] == '\0')
     abs_path = "/";
@@ -849,32 +849,32 @@ get_node_props(apr_hash_t **props,
 
   /* Create a hash with props attached to the fs node. */
   SVN_ERR(svn_fs_node_proplist(props, root, path, pool));
-
+      
   /* Now add some non-tweakable metadata to the hash as well... */
-
+    
   /* The so-called 'entryprops' with info about CR & friends. */
   SVN_ERR(svn_repos_get_committed_info(&cmt_rev, &cmt_date,
                                        &cmt_author, root, path, pool));
 
-  apr_hash_set(*props,
-               SVN_PROP_ENTRY_COMMITTED_REV,
-               APR_HASH_KEY_STRING,
+  apr_hash_set(*props, 
+               SVN_PROP_ENTRY_COMMITTED_REV, 
+               APR_HASH_KEY_STRING, 
                svn_string_createf(pool, "%ld", cmt_rev));
-  apr_hash_set(*props,
-               SVN_PROP_ENTRY_COMMITTED_DATE,
-               APR_HASH_KEY_STRING,
+  apr_hash_set(*props, 
+               SVN_PROP_ENTRY_COMMITTED_DATE, 
+               APR_HASH_KEY_STRING, 
                cmt_date ? svn_string_create(cmt_date, pool) : NULL);
-  apr_hash_set(*props,
-               SVN_PROP_ENTRY_LAST_AUTHOR,
-               APR_HASH_KEY_STRING,
+  apr_hash_set(*props, 
+               SVN_PROP_ENTRY_LAST_AUTHOR, 
+               APR_HASH_KEY_STRING, 
                cmt_author ? svn_string_create(cmt_author, pool) : NULL);
-  apr_hash_set(*props,
+  apr_hash_set(*props, 
                SVN_PROP_ENTRY_UUID,
-               APR_HASH_KEY_STRING,
+               APR_HASH_KEY_STRING, 
                svn_string_create(sbaton->uuid, pool));
 
   /* We have no 'wcprops' in ra_local, but might someday. */
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -923,7 +923,7 @@ svn_ra_local__get_file(svn_ra_session_t *session,
     {
       /* Get a stream representing the file's contents. */
       SVN_ERR(svn_fs_file_contents(&contents, root, abs_path, pool));
-
+      
       /* Now push data from the fs stream back at the caller's stream.
          Note that this particular RA layer does not computing a
          checksum as we go, and confirming it against the repository's
@@ -992,7 +992,7 @@ svn_ra_local__get_dir(svn_ra_session_t *session,
     {
       /* Get the dir's entries. */
       SVN_ERR(svn_fs_dir_entries(&entries, root, abs_path, pool));
-
+      
       /* Loop over the fs dirents, and build a hash of general
          svn_dirent_t's. */
       *dirents = apr_hash_make(pool);
@@ -1013,15 +1013,15 @@ svn_ra_local__get_dir(svn_ra_session_t *session,
           fs_entry = (svn_fs_dirent_t *) val;
 
           fullpath = svn_path_join(abs_path, entryname, subpool);
-
+        
           if (dirent_fields & SVN_DIRENT_KIND)
-            {
+            {  
               /* node kind */
               entry->kind = fs_entry->kind;
             }
 
           if (dirent_fields & SVN_DIRENT_SIZE)
-            {
+            {          
               /* size  */
               if (entry->kind == svn_node_dir)
                 entry->size = 0;
@@ -1031,7 +1031,7 @@ svn_ra_local__get_dir(svn_ra_session_t *session,
             }
 
           if (dirent_fields & SVN_DIRENT_HAS_PROPS)
-            {
+            { 
               /* has_props? */
               SVN_ERR(svn_fs_node_proplist(&prophash, root, fullpath,
                                            subpool));
@@ -1041,7 +1041,7 @@ svn_ra_local__get_dir(svn_ra_session_t *session,
           if ((dirent_fields & SVN_DIRENT_TIME)
               || (dirent_fields & SVN_DIRENT_LAST_AUTHOR)
               || (dirent_fields & SVN_DIRENT_CREATED_REV))
-            {
+            { 
               /* created_rev & friends */
               SVN_ERR(svn_repos_get_committed_info(&(entry->created_rev),
                                                    &datestring,
@@ -1053,7 +1053,7 @@ svn_ra_local__get_dir(svn_ra_session_t *session,
               if (entry->last_author)
                 entry->last_author = apr_pstrdup(pool, entry->last_author);
             }
-
+ 
           /* Store. */
           apr_hash_set(*dirents, entryname, APR_HASH_KEY_STRING, entry);
         }
@@ -1096,7 +1096,7 @@ svn_ra_local__lock(svn_ra_session_t *session,
                    apr_hash_t *path_revs,
                    const char *comment,
                    svn_boolean_t force,
-                   svn_ra_lock_callback_t lock_func,
+                   svn_ra_lock_callback_t lock_func, 
                    void *lock_baton,
                    apr_pool_t *pool)
 {
@@ -1116,7 +1116,7 @@ svn_ra_local__lock(svn_ra_session_t *session,
       svn_revnum_t *revnum;
       const char *abs_path;
       svn_error_t *err, *callback_err = NULL;
-
+ 
       svn_pool_clear(iterpool);
       apr_hash_this(hi, &key, NULL, &val);
       path = key;
@@ -1127,7 +1127,7 @@ svn_ra_local__lock(svn_ra_session_t *session,
       /* This wrapper will call pre- and post-lock hooks. */
       err = svn_repos_fs_lock(&lock, sess->repos, abs_path, NULL, comment,
                               FALSE /* not DAV comment */,
-                              0 /* no expiration */, *revnum, force,
+                              0 /* no expiration */, *revnum, force, 
                               iterpool);
 
       if (err && !SVN_ERR_IS_LOCK_ERROR(err))
@@ -1153,7 +1153,7 @@ static svn_error_t *
 svn_ra_local__unlock(svn_ra_session_t *session,
                      apr_hash_t *path_tokens,
                      svn_boolean_t force,
-                     svn_ra_lock_callback_t lock_func,
+                     svn_ra_lock_callback_t lock_func, 
                      void *lock_baton,
                      apr_pool_t *pool)
 {
@@ -1171,7 +1171,7 @@ svn_ra_local__unlock(svn_ra_session_t *session,
       void *val;
       const char *abs_path, *token;
       svn_error_t *err, *callback_err = NULL;
-
+ 
       svn_pool_clear(iterpool);
       apr_hash_this(hi, &key, NULL, &val);
       path = key;
@@ -1332,7 +1332,7 @@ svn_ra_local__init(const svn_version_t *loader_version,
       { NULL, NULL }
     };
 
-
+  
   /* Simplified version check to make sure we can safely use the
      VTABLE parameter. The RA loader does a more exhaustive check. */
   if (loader_version->major != SVN_VER_MAJOR)
