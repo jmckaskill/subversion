@@ -25,7 +25,7 @@ The basic set of tests
 8. Delete a folder  (DELETE)
 9. Open remote file directly  (LOCK)
 10. Copy/drag remote file to local disk (GET)
-11. Copy/drag local file back on top of remote file.
+11. Copy/drag local file back on top of remote file. 
                             (PUT, or DELETE/PUT, or LOCK, PUT, UNLOCK)
 
 
@@ -82,7 +82,7 @@ Nautilus 2.X  (tested by sussman and ttimo)
 
    Check.
 
-11. Copy/drag local file back on top of remote file.
+11. Copy/drag local file back on top of remote file. 
                             (PUT, or DELETE/PUT, or LOCK, PUT, UNLOCK)
 
    DELETEs old file, PUTs twice.  Yucky.
@@ -108,7 +108,7 @@ This works pretty well:  the details needs to be filled in below.
 LOCK is not supported by WebFolders.
 
 10. Copy/drag remote file to local disk (GET)
-11. Copy/drag local file back on top of remote file.
+11. Copy/drag local file back on top of remote file. 
                             (PUT, or DELETE/PUT, or LOCK, PUT, UNLOCK)
 
 
@@ -144,7 +144,7 @@ probably isn't optimal on Apple's part.  It does wonders for the file
 history.
 
 Note: It seems to try to create ._<file> as well.  Implications of this
-are not yet understood (fitz hinted at AppleDouble as the reason).
+are not yet understood (fitz hinted at AppleDouble as the reason). 
 
 Note: If you see a problem mounting the repository, you may need to enable
 the default BrowserMatch directive in httpd-std.conf for WebDAVFS.
@@ -158,7 +158,7 @@ Linux davfs2   (hadaka)
 ============
 
 Apparently this doesn't work at all.  This client always attempts to
-LOCK before any kind of write operation (PUT, PROPPATCH, etc.).
+LOCK before any kind of write operation (PUT, PROPPATCH, etc.).  
 Talk about paranoid!
 
 
