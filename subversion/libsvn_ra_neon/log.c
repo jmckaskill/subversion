@@ -161,7 +161,7 @@ log_start_element(int *elem, void *baton, int parent,
       if (elm->id == ELEM_revprop)
         {
           lb->seen_revprop_element = TRUE;
-          lb->revprop_name = apr_pstrdup(lb->subpool,
+          lb->revprop_name = apr_pstrdup(lb->subpool, 
                                          svn_xml_get_attr_value("name",
                                                                 atts));
           if (lb->revprop_name == NULL)
