@@ -159,8 +159,8 @@ start_replay(svn_ra_serf__xml_parser_t *parser,
   if (state == NONE &&
       strcmp(name.name, "editor-report") == 0)
     {
-      SVN_ERR(ctx->revstart_func(ctx->revision, ctx->replay_baton,
-                                 &ctx->editor, &ctx->editor_baton,
+      SVN_ERR(ctx->revstart_func(ctx->revision, ctx->replay_baton, 
+                                 &ctx->editor, &ctx->editor_baton, 
                                  ctx->pool));
       push_state(parser, ctx, REPORT);
     }
@@ -429,7 +429,7 @@ end_replay(svn_ra_serf__xml_parser_t *parser,
       strcmp(name.name, "editor-report") == 0)
     {
       svn_ra_serf__xml_pop_state(parser);
-      SVN_ERR(ctx->revfinish_func(ctx->revision, ctx->replay_baton,
+      SVN_ERR(ctx->revfinish_func(ctx->revision, ctx->replay_baton, 
                                   ctx->editor, ctx->editor_baton,
                                   ctx->pool));
     }
@@ -682,7 +682,7 @@ svn_ra_serf__replay_range(svn_ra_session_t *ra_session,
           rev++;
         }
 
-      /* Run the serf loop, send outgoing and process incoming requests.
+      /* Run the serf loop, send outgoing and process incoming requests. 
          Continue doing this if there are enough requests sent or there are no
          more pending requests. */
       status = serf_context_run(session->context, SERF_DURATION_FOREVER, pool);
@@ -694,7 +694,7 @@ svn_ra_serf__replay_range(svn_ra_session_t *ra_session,
         {
           SVN_ERR(session->pending_error);
 
-          return svn_error_wrap_apr(status,
+          return svn_error_wrap_apr(status, 
                                     _("Error retrieving replay REPORT (%d)"),
                                     status);
         }
