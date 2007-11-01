@@ -448,7 +448,7 @@ checkout_dir(dir_context_t *dir)
  */
 static svn_error_t *
 get_version_url(const char **checked_in_url,
-                svn_ra_serf__session_t *session,
+                svn_ra_serf__session_t *session, 
                 svn_ra_serf__connection_t *conn,
                 const char *relpath,
                 svn_revnum_t base_revision,
@@ -526,7 +526,7 @@ checkout_file(file_context_t *file)
 
   SVN_ERR(get_version_url(&(file->checkout->checkout_url),
                           file->commit->session, file->commit->conn,
-                          file->name, file->base_revision,
+                          file->name, file->base_revision, 
                           NULL, file->pool));
 
   handler->body_delegate = create_checkout_body;
@@ -1137,7 +1137,7 @@ open_root(void *edit_baton,
 
   SVN_ERR(get_version_url(&dir->checked_in_url,
                           dir->commit->session, dir->commit->conn,
-                          dir->name, dir->base_revision,
+                          dir->name, dir->base_revision, 
                           dir->commit->checked_in_url, dir->pool));
   ctx->checked_in_url = dir->checked_in_url;
 
@@ -1412,7 +1412,7 @@ open_directory(const char *path,
 
   SVN_ERR(get_version_url(&dir->checked_in_url,
                           dir->commit->session, dir->commit->conn,
-                          dir->name, dir->base_revision,
+                          dir->name, dir->base_revision, 
                           dir->commit->checked_in_url, dir->pool));
   *child_baton = dir;
 
