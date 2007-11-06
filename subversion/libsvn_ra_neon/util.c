@@ -1397,7 +1397,7 @@ svn_ra_neon__request_dispatch(int *code_p,
   const ne_status *statstruct;
 
   /*
-    ### TODO:
+    ### TODO: 
     ###
     ### I think http://tools.ietf.org/html/rfc2774#section-3 probably
     ### says how to define a new header with which the client can
@@ -1405,7 +1405,7 @@ svn_ra_neon__request_dispatch(int *code_p,
     ### and in the meantime I'd like to get this code working, so I'm
     ### just going with...
     ###
-    ###    X-SVN-Capabilities:
+    ###    X-SVN-Capabilities: 
     ###
     ### ...for now, despite having no reason to believe the namespace
     ### constraints for HTTP are anything like those of RFC 822 4.1,
