@@ -534,8 +534,8 @@ append_component_to_paths(apr_hash_t **output,
 }
 
 /* A helper for svn_fs_mergeinfo__get_mergeinfo() that retrieves
-   mergeinfo recursively (when INHERIT is svn_mergeinfo_inherited or
-   svn_mergeinfo_nearest_ancestor) for a single path.  Pass NULL for RESULT
+   mergeinfo recursively (when INHERIT is svn_mergeinfo_inherited or 
+   svn_mergeinfo_nearest_ancestor) for a single path.  Pass NULL for RESULT 
    if you only want CACHE to be updated.  Otherwise, both RESULT and CACHE
    are updated with the appropriate mergeinfo for PATH. */
 static svn_error_t *
