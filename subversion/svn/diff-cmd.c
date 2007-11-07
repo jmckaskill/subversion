@@ -325,7 +325,7 @@ svn_cl__diff(apr_getopt_t *os,
   svn_opt_push_implicit_dot_target(targets, pool);
 
   iterpool = svn_pool_create(pool);
-  const svn_client_diff_summarize_func_t summarize_func =
+  const svn_client_diff_summarize_func_t summarize_func = 
     (opt_state->xml ? summarize_xml : summarize_regular);
 
   for (i = 0; i < targets->nelts; ++i)
