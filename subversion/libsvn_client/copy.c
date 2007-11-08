@@ -134,7 +134,7 @@ calculate_target_mergeinfo(svn_ra_session_t *ra_session,
 
       /* Find src path relative to the repository root. */
       SVN_ERR(svn_client__path_relative_to_root(&src_path, src_path_or_url,
-                                                NULL, TRUE, ra_session,
+                                                NULL, TRUE, ra_session, 
                                                 adm_access, pool));
 
       /* Obtain any implied and/or existing (explicit) mergeinfo. */
@@ -218,7 +218,7 @@ propagate_mergeinfo_within_wc(svn_client__copy_pair_t *pair,
 
           SVN_ERR(svn_client__path_relative_to_root(&pair->src_rel, pair->src,
                                                     entry->repos, TRUE,
-                                                    ra_session, src_access,
+                                                    ra_session, src_access, 
                                                     pool));
 
           /* ASSUMPTION: Non-numeric operative and peg revisions --
@@ -1162,7 +1162,7 @@ wc_to_repos_copy(svn_commit_info_t **commit_info_p,
 
       svn_pool_clear(iterpool);
       SVN_ERR(svn_client__path_relative_to_root(&pair->src_rel, pair->src,
-                                                NULL, TRUE, ra_session,
+                                                NULL, TRUE, ra_session, 
                                                 adm_access, pool));
       SVN_ERR(svn_wc_entry(&entry, pair->src, adm_access, FALSE, iterpool));
       pair->src_revnum = entry->revision;
