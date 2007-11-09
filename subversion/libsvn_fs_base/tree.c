@@ -4466,9 +4466,9 @@ txn_body_id_created_rev(void *baton, trail_t *trail)
   struct id_created_rev_args *args = baton;
   dag_node_t *node;
 
-  SVN_ERR(svn_fs_base__dag_get_node(&node, trail->fs, args->id,
+  SVN_ERR(svn_fs_base__dag_get_node(&node, trail->fs, args->id, 
                                     trail, trail->pool));
-  SVN_ERR(svn_fs_base__dag_get_revision(&(args->revision), node,
+  SVN_ERR(svn_fs_base__dag_get_revision(&(args->revision), node, 
                                         trail, trail->pool));
   return SVN_NO_ERROR;
 }
@@ -4483,7 +4483,7 @@ base_node_origin_rev(svn_revnum_t *revision,
   svn_fs_t *fs = svn_fs_root_fs(root);
   svn_fs_root_t *curroot = root;
   apr_pool_t *subpool = svn_pool_create(pool);
-  svn_stringbuf_t *lastpath =
+  svn_stringbuf_t *lastpath = 
     svn_stringbuf_create(svn_fs__canonicalize_abspath(path, pool), pool);
   svn_revnum_t lastrev = SVN_INVALID_REVNUM;
   const svn_fs_id_t *pred_id;
@@ -4534,7 +4534,7 @@ base_node_origin_rev(svn_revnum_t *revision,
         break;
       pred_id = args.pred_id;
     }
-
+  
   /* When we get here, PRED_ID should be the node-revision-id of first
      node-revision in our chain.  Let's get the  */
   icr_args.id = pred_id;
