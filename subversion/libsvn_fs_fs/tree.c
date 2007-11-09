@@ -2931,12 +2931,12 @@ fs_node_origin_rev(svn_revnum_t *revision,
   svn_fs_root_t *curroot = root;
   apr_pool_t *subpool = svn_pool_create(pool);
   apr_pool_t *predidpool = svn_pool_create(pool);
-  svn_stringbuf_t *lastpath =
+  svn_stringbuf_t *lastpath = 
     svn_stringbuf_create(svn_fs__canonicalize_abspath(path, pool), pool);
   svn_revnum_t lastrev = SVN_INVALID_REVNUM;
   dag_node_t *node;
   const svn_fs_id_t *pred_id;
-
+                              
   /* Walk the closest-copy chain back to the first copy in our history.
 
      NOTE: We merely *assume* that this is faster than walking the
@@ -2976,7 +2976,7 @@ fs_node_origin_rev(svn_revnum_t *revision,
       svn_pool_clear(predidpool);
       SVN_ERR(svn_fs_fs__dag_get_predecessor_id(&pred_id, node, predidpool));
     }
-
+  
   /* When we get here, NODE should be the first node-revision in our chain. */
   SVN_ERR(svn_fs_fs__dag_get_revision(revision, node, pool));
 
