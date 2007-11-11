@@ -30,8 +30,8 @@ AC_DEFUN(SVN_LIB_SASL,
     AC_MSG_RESULT([yes])
     saved_LDFLAGS="$LDFLAGS"
     saved_CPPFLAGS="$CPPFLAGS"
-
-    dnl If the user doesn't specify a (valid) directory
+    
+    dnl If the user doesn't specify a (valid) directory 
     dnl (or he doesn't supply a --with-sasl option at all), we
     dnl want to look in the default directories: /usr and /usr/local.
     dnl However, the compiler always looks in /usr/{lib,include} anyway,
@@ -45,14 +45,14 @@ AC_DEFUN(SVN_LIB_SASL,
     SVN_SASL_INCLUDES="-I${with_sasl}/include"
     CPPFLAGS="$CPPFLAGS $SVN_SASL_INCLUDES"
     LDFLAGS="$LDFLAGS -L${with_sasl}/lib"
-
+  
     AC_CHECK_HEADER(sasl/sasl.h,
       [AC_CHECK_HEADER(sasl/saslutil.h,
-        [AC_CHECK_LIB(sasl2, prop_get,
+        [AC_CHECK_LIB(sasl2, prop_get, 
                      svn_lib_sasl=yes,
                      svn_lib_sasl=no)],
                      svn_lib_sasl=no)], svn_lib_sasl=no)
-
+  
     AC_MSG_CHECKING([for availability of Cyrus SASL v2])
     if test "$svn_lib_sasl" = "yes"; then
       SVN_SASL_LIBS="-lsasl2"
@@ -65,14 +65,14 @@ AC_DEFUN(SVN_LIB_SASL,
         dnl Exit with an error message.
         AC_MSG_ERROR([Could not find Cyrus SASL v2])
       fi
-
+      
       SVN_SASL_INCLUDES=""
       LDFLAGS="$saved_LDFLAGS"
     fi
 
     CPPFLAGS="$saved_CPPFLAGS"
   fi
-
+    
   AC_SUBST(SVN_SASL_INCLUDES)
   AC_SUBST(SVN_SASL_LIBS)
 ])
