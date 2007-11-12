@@ -441,7 +441,7 @@ svn_client__get_implicit_mergeinfo(apr_hash_t **mergeinfo_p,
           SVN_ERR(svn_wc_adm_close(adm_access));
         }
 
-      if (entry->copyfrom_url
+      if (entry->copyfrom_url 
           && peg_revision->kind == svn_opt_revision_working)
         {
           url = entry->copyfrom_url;
@@ -474,7 +474,7 @@ svn_client__get_implicit_mergeinfo(apr_hash_t **mergeinfo_p,
 
   /* If we haven't resolved for ourselves a numeric peg revision, do so. */
   if (! SVN_IS_VALID_REVNUM(peg_revnum))
-    SVN_ERR(svn_client__get_revision_number(&peg_revnum, NULL, session,
+    SVN_ERR(svn_client__get_revision_number(&peg_revnum, NULL, session, 
                                             peg_revision, NULL, pool));
 
   /* Fetch the location segments for our URL@PEG_REVNUM. */
@@ -485,7 +485,7 @@ svn_client__get_implicit_mergeinfo(apr_hash_t **mergeinfo_p,
   /* Translate location segments into merge sources and ranges. */
   for (i = 0; i < segments->nelts; i++)
     {
-      svn_location_segment_t *segment =
+      svn_location_segment_t *segment = 
         APR_ARRAY_IDX(segments, i, svn_location_segment_t *);
       apr_array_header_t *path_ranges;
       svn_merge_range_t *range;
@@ -963,7 +963,7 @@ svn_client_mergeinfo_get_merged(apr_hash_t **mergeinfo,
                                               peg_revision, "", pool));
       SVN_ERR(svn_ra_get_repos_root(ra_session, &repos_root, pool));
       SVN_ERR(svn_client__path_relative_to_root(&repos_rel_path, path_or_url,
-                                                repos_root, TRUE, NULL,
+                                                repos_root, TRUE, NULL, 
                                                 NULL, pool));
       SVN_ERR(svn_client__get_repos_mergeinfo(ra_session, mergeinfo,
                                               repos_rel_path, rev,
