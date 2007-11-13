@@ -2559,7 +2559,7 @@ svn_error_t *serve(svn_ra_svn_conn_t *conn, serve_params_t *params,
      new interface to re-retrieve them from conn and convert the
      result to a list, it's simpler to just convert caplist by hand
      here, since we already have it and turning 'svn_ra_svn_item_t's
-     into 'const char *'s is pretty easy.
+     into 'const char *'s is pretty easy. 
 
      We only record capabilities we care about.  The client may report
      more (because it doesn't know what the server cares about). */
