@@ -185,12 +185,12 @@ typedef void (*svn_ra_progress_notify_func_t)(apr_off_t progress,
 
 /**
  * Callback function type for replay_range actions.
- *
- * This callback function should provide replay_range with an editor which
+ * 
+ * This callback function should provide replay_range with an editor which 
  * will be driven with the received replay reports from the master repository.
  *
  * @a revision is the target revision number of the received replay report.
- *
+ * 
  * @a editor and @a edit_baton should provided by the callback implementation.
  *
  * @a replay_baton is the baton as originally passed to replay_range.
@@ -210,11 +210,11 @@ typedef svn_error_t *(*svn_ra_replay_revstart_callback_t)
 
 /**
  * Callback function type for replay_range actions.
- *
+ * 
  * This callback function should close the editor.
- *
+ * 
  * @a revision is the target revision number of the received replay report.
- *
+ * 
  * @a editor and @a edit_baton should provided by the callback implementation.
  *
  * @a replay_baton is the baton as originally passed to replay_range.
