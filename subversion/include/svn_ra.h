@@ -185,12 +185,12 @@ typedef void (*svn_ra_progress_notify_func_t)(apr_off_t progress,
 
 /**
  * Callback function type for replay_range actions.
- *
- * This callback function should provide replay_range with an editor which
+ * 
+ * This callback function should provide replay_range with an editor which 
  * will be driven with the received replay reports from the master repository.
  *
  * @a revision is the target revision number of the received replay report.
- *
+ * 
  * @a editor and @a edit_baton should provided by the callback implementation.
  *
  * @a replay_baton is the baton as originally passed to replay_range.
@@ -210,11 +210,11 @@ typedef svn_error_t *(*svn_ra_replay_revstart_callback_t)
 
 /**
  * Callback function type for replay_range actions.
- *
+ * 
  * This callback function should close the editor.
- *
+ * 
  * @a revision is the target revision number of the received replay report.
- *
+ * 
  * @a editor and @a edit_baton should provided by the callback implementation.
  *
  * @a replay_baton is the baton as originally passed to replay_range.
@@ -1538,15 +1538,15 @@ svn_error_t *svn_ra_get_locks(svn_ra_session_t *session,
 
 
 /**
- * Replay the changes from a range of revisions between @a start_revision
+ * Replay the changes from a range of revisions between @a start_revision 
  * and @a end_revision.
  *
  * When receiving information for one revision, a callback @a revstart_func is
  * called; this callback will provide an editor and baton through which the
  * revision will be replayed.
- * When replaying the revision is finished, callback @a fevfinish_func will be
+ * When replaying the revision is finished, callback @a fevfinish_func will be 
  * called so the editor can be closed.
- *
+ * 
  * Changes will be limited to those that occur under @a session's URL, and
  * the server will assume that the client has no knowledge of revisions
  * prior to @a low_water_mark.  These two limiting factors define the portion
