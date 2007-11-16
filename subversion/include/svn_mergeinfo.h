@@ -48,7 +48,7 @@ extern "C" {
  * merge, switch, or update.  If a path's parent does not have any
  * @c SVN_PROP_MERGE_INFO set, the path's mergeinfo can elide to its nearest
  * grand-parent, great-grand-parent, etc. that has equivalent
- * @c SVN_PROP_MERGE_INFO set on it.
+ * @c SVN_PROP_MERGE_INFO set on it.  
  *
  * If a path has no @c SVN_PROP_MERGE_INFO of its own, it inherits mergeinfo
  * from its nearest parent that has @c SVN_PROP_MERGE_INFO set.  The
