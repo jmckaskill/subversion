@@ -9,20 +9,20 @@ www: all
 	cp -f ./svn-design.ps ../../www
 	cp -f ./svn-design.pdf ../../www
 
-txt:
+txt: 
 	makeinfo --no-headers --no-validate svn-design.texi > svn-design.txt
 
-info:
+info: 
 	makeinfo --no-validate svn-design.texi
 
-html:
+html: 
 	makeinfo --no-headers --no-validate --html svn-design.texi \
                  > svn-design.html
 
 html-web: html
 	cp ./svn-design.html ../../www/
 
-dvi:
+dvi: 
 	tex svn-design.texi
 	tex svn-design.texi
 
@@ -35,7 +35,7 @@ pdf: dvi
 log:
 	cvs2cl.pl -r -t
 
-texclean:
+texclean: 
 	rm -f *~ *.aux *.cp *.cps *.dvi *.fn *.ky *.log *.pg *.toc *.tp *.vr
 
 clean: texclean
