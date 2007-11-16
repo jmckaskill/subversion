@@ -1205,7 +1205,7 @@ filter_merged_revisions(apr_array_header_t **remaining_ranges,
           /* Return only those revs not already represented by this WC. */
           SVN_ERR(svn_rangelist_remove(remaining_ranges, target_rangelist,
                                        requested_merge,
-                                       FALSE,
+                                       FALSE, 
                                        pool));
         }
     }
@@ -1913,7 +1913,7 @@ drive_merge_report_editor(const char *target_wcpath,
 
   SVN_ERR(svn_ra_do_diff3(merge_b->ra_session1,
                           &reporter, &report_baton, revision2,
-                          "", depth, merge_b->ignore_ancestry,
+                          "", depth, merge_b->ignore_ancestry, 
                           TRUE,  /* text_deltas */
                           url2, diff_editor, diff_edit_baton, pool));
 
@@ -2420,7 +2420,7 @@ do_merge(const char *url1,
 
   SVN_ERR(drive_merge_report_editor(target_wcpath,
                                     url1, revision1, url2, revision2,
-                                    children_with_mergeinfo, is_rollback,
+                                    children_with_mergeinfo, is_rollback, 
                                     depth, notify_b, adm_access,
                                     callbacks, merge_b, pool));
 
