@@ -162,7 +162,7 @@ typedef struct merge_cmd_baton_t {
   svn_boolean_t force;
   svn_boolean_t dry_run;
   svn_boolean_t record_only;          /* Whether to only record mergeinfo. */
-  svn_boolean_t sources_related;      /* Whether the left and right sides of
+  svn_boolean_t sources_related;      /* Whether the left and right sides of 
                                          the merge source are ancestrally
                                          related, history-wise. */
   svn_boolean_t same_repos;           /* Whether the merge source repository
@@ -1210,7 +1210,7 @@ filter_merged_revisions(apr_array_header_t **remaining_ranges,
           /* Return only those revs not already represented by this WC. */
           SVN_ERR(svn_rangelist_remove(remaining_ranges, target_rangelist,
                                        requested_merge,
-                                       FALSE,
+                                       FALSE, 
                                        pool));
         }
     }
@@ -1922,7 +1922,7 @@ drive_merge_report_editor(const char *target_wcpath,
 
   SVN_ERR(svn_ra_do_diff3(merge_b->ra_session1,
                           &reporter, &report_baton, revision2,
-                          "", depth, merge_b->ignore_ancestry,
+                          "", depth, merge_b->ignore_ancestry, 
                           TRUE,  /* text_deltas */
                           url2, diff_editor, diff_edit_baton, pool));
 
@@ -3544,8 +3544,8 @@ do_directory_merge(const char *url1,
       const char *target_wcpath = svn_wc_adm_access_path(adm_access);
       return drive_merge_report_editor(target_wcpath,
                                        url1, revision1, url2, revision2,
-                                       NULL, is_rollback, depth, notify_b,
-                                       adm_access, &merge_callbacks,
+                                       NULL, is_rollback, depth, notify_b, 
+                                       adm_access, &merge_callbacks, 
                                        merge_b, pool);
     }
 
@@ -3618,8 +3618,8 @@ do_directory_merge(const char *url1,
       notify_b->cur_ancestor_index = -1;
       SVN_ERR(drive_merge_report_editor(merge_b->target,
                                         url1, start_rev, url2, end_rev,
-                                        children_with_mergeinfo, is_rollback,
-                                        depth, notify_b, adm_access,
+                                        children_with_mergeinfo, is_rollback, 
+                                        depth, notify_b, adm_access, 
                                         &merge_callbacks, merge_b, iterpool));
 
       remove_first_range_from_remaining_ranges(children_with_mergeinfo, pool);
@@ -4093,9 +4093,9 @@ svn_client_merge3(const char *source1,
   enum merge_type merge_type;
   svn_boolean_t is_rollback;
   svn_opt_revision_t working_rev;
-  notification_receiver_baton_t notify_b = {ctx->notify_func2,
-                                            ctx->notify_baton2,
-                                            0, 0, NULL, NULL, FALSE,
+  notification_receiver_baton_t notify_b = {ctx->notify_func2, 
+                                            ctx->notify_baton2, 
+                                            0, 0, NULL, NULL, FALSE, 
                                             NULL, -1, NULL, pool};
 
   /* ### FIXME: This function really ought to do a history check on
@@ -4164,7 +4164,7 @@ svn_client_merge3(const char *source1,
   merge_cmd_baton.sources_related = (strcmp(URL1, URL2) == 0);
   merge_cmd_baton.ra_session1 = ra_session;
   merge_cmd_baton.ra_session2 = NULL;
-  merge_cmd_baton.same_repos =
+  merge_cmd_baton.same_repos = 
     (strcmp(wc_repos_root, source_repos_root) == 0);
 
   /* Open an RA session to our second URL. */
@@ -4210,9 +4210,9 @@ svn_client_merge3(const char *source1,
      sources are files as well, and do a single-file merge. */
   if (entry->kind == svn_node_file)
     {
-      SVN_ERR(do_file_merge(URL1,
+      SVN_ERR(do_file_merge(URL1, 
                             range.start,
-                            URL2,
+                            URL2, 
                             range.end,
                             target_wcpath,
                             adm_access,
@@ -4225,9 +4225,9 @@ svn_client_merge3(const char *source1,
   else if (entry->kind == svn_node_dir)
     {
       /* Merge children with differing mergeinfo. */
-      SVN_ERR(do_directory_merge(URL1,
+      SVN_ERR(do_directory_merge(URL1, 
                                  range.start,
-                                 URL2,
+                                 URL2, 
                                  range.end,
                                  entry,
                                  adm_access,
@@ -4313,9 +4313,9 @@ svn_client_merge_peg3(const char *source,
   int i;
   svn_ra_session_t *ra_session;
   apr_pool_t *subpool = svn_pool_create(pool);
-  notification_receiver_baton_t notify_b = {ctx->notify_func2,
-                                            ctx->notify_baton2,
-                                            0, 0, NULL, NULL, FALSE,
+  notification_receiver_baton_t notify_b = {ctx->notify_func2, 
+                                            ctx->notify_baton2, 
+                                            0, 0, NULL, NULL, FALSE, 
                                             NULL, -1, NULL, pool};
 
   SVN_ERR(svn_wc_adm_probe_open3(&adm_access, NULL, target_wcpath,
@@ -4450,9 +4450,9 @@ svn_client_merge_peg3(const char *source,
          sources are files as well, and do a single-file merge. */
       if (entry->kind == svn_node_file)
         {
-          SVN_ERR(do_file_merge(URL1,
+          SVN_ERR(do_file_merge(URL1, 
                                 rev1,
-                                URL2,
+                                URL2, 
                                 rev2,
                                 target_wcpath,
                                 adm_access,
