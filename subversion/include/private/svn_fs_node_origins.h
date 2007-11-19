@@ -59,7 +59,7 @@ svn_fs__set_node_origin(svn_fs_t *fs,
    by a look in the index.  ORIGIN_ID needs to be parsed in an
    FS-backend-specific way.  Use POOL for allocations.
 
-   If there is no entry for NODE_ID in the cache, return NULL
+   If there is no entry for NODE_ID in the cache, return NULL 
    in *ORIGIN_ID.
    SVN_ERR_FS_NO_SUCH_NODE_ORIGIN. */
 svn_error_t *
