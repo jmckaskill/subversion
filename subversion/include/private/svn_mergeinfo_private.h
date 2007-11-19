@@ -42,7 +42,7 @@ svn_mergeinfo__to_string(svn_string_t **output, apr_hash_t *mergeinput,
  * hashes are compared for equality.  If @a consider_inheritance is FALSE,
  * then the start and end revisions of the @c svn_merge_range_t's being
  * compared are the only factors considered when determining equality.
- *
+ * 
  *  e.g. '/trunk: 1,3-4*,5' == '/trunk: 1,3-5'
  *
  * If @a consider_inheritance is TRUE, then the inheritability of the
