@@ -142,7 +142,7 @@ check_format(sqlite3 *db, apr_pool_t *pool)
 {
   sqlite3_stmt *stmt;
 
-  SVN_FS__SQLITE_ERR(sqlite3_prepare(db, "PRAGMA user_version;", -1, &stmt,
+  SVN_FS__SQLITE_ERR(sqlite3_prepare(db, "PRAGMA user_version;", -1, &stmt, 
                                      NULL), db);
   if (sqlite3_step(stmt) == SQLITE_ROW)
     {
@@ -156,7 +156,7 @@ check_format(sqlite3 *db, apr_pool_t *pool)
         return SVN_NO_ERROR;
       else if (schema_format < latest_schema_format)
         return upgrade_format(db, schema_format, pool);
-      else
+      else 
         return svn_error_createf(SVN_ERR_FS_UNSUPPORTED_FORMAT, NULL,
                                  _("Index schema format %d not "
                                    "recognized"), schema_format);
