@@ -163,7 +163,7 @@ typedef struct merge_cmd_baton_t {
   svn_boolean_t force;
   svn_boolean_t dry_run;
   svn_boolean_t record_only;          /* Whether to only record mergeinfo. */
-  svn_boolean_t sources_related;      /* Whether the left and right sides of
+  svn_boolean_t sources_related;      /* Whether the left and right sides of 
                                          the merge source are ancestrally
                                          related, history-wise. */
   svn_boolean_t same_repos;           /* Whether the merge source repository
@@ -1212,7 +1212,7 @@ filter_merged_revisions(apr_array_header_t **remaining_ranges,
           /* Return only those revs not already represented by this WC. */
           SVN_ERR(svn_rangelist_remove(remaining_ranges, target_rangelist,
                                        requested_merge,
-                                       FALSE,
+                                       FALSE, 
                                        pool));
         }
     }
@@ -1856,7 +1856,7 @@ drive_merge_report_editor(const char *target_wcpath,
 
   SVN_ERR(svn_ra_do_diff3(merge_b->ra_session1,
                           &reporter, &report_baton, revision2,
-                          "", depth, merge_b->ignore_ancestry,
+                          "", depth, merge_b->ignore_ancestry, 
                           TRUE,  /* text_deltas */
                           url2, diff_editor, diff_edit_baton, pool));
 
@@ -3230,11 +3230,11 @@ combine_range_with_segments(apr_array_header_t **merge_source_ts_p,
 
       /* Build our merge source structure. */
       merge_source = apr_pcalloc(pool, sizeof(*merge_source));
-      merge_source->url1 = svn_path_join(source_root_url,
-                                         svn_path_uri_encode(path1,
+      merge_source->url1 = svn_path_join(source_root_url, 
+                                         svn_path_uri_encode(path1, 
                                                              pool), pool);
-      merge_source->url2 = svn_path_join(source_root_url,
-                                         svn_path_uri_encode(segment->path,
+      merge_source->url2 = svn_path_join(source_root_url, 
+                                         svn_path_uri_encode(segment->path, 
                                                              pool), pool);
       merge_source->rev1 = rev1;
       merge_source->rev2 = MIN(segment->range_end, maxrev);
@@ -3778,8 +3778,8 @@ do_directory_merge(const char *url1,
       const char *target_wcpath = svn_wc_adm_access_path(adm_access);
       return drive_merge_report_editor(target_wcpath,
                                        url1, revision1, url2, revision2,
-                                       NULL, is_rollback, depth, notify_b,
-                                       adm_access, &merge_callbacks,
+                                       NULL, is_rollback, depth, notify_b, 
+                                       adm_access, &merge_callbacks, 
                                        merge_b, pool);
     }
 
@@ -3854,8 +3854,8 @@ do_directory_merge(const char *url1,
       notify_b->cur_ancestor_index = -1;
       SVN_ERR(drive_merge_report_editor(merge_b->target,
                                         url1, start_rev, url2, end_rev,
-                                        children_with_mergeinfo, is_rollback,
-                                        depth, notify_b, adm_access,
+                                        children_with_mergeinfo, is_rollback, 
+                                        depth, notify_b, adm_access, 
                                         &merge_callbacks, merge_b, iterpool));
 
       remove_first_range_from_remaining_ranges(children_with_mergeinfo, pool);
@@ -4006,7 +4006,7 @@ do_directory_merge(const char *url1,
 
 
 /* Drive a merge of MERGE_SOURCES into working copy path TARGET (with
-   associated TARGET_ENTRY and ADM_ACCESS baton).
+   associated TARGET_ENTRY and ADM_ACCESS baton).  
 
    If SOURCES_RELATED is set, then for every merge source in
    MERGE_SOURCES, the "left" and "right" side of the merge source are
@@ -4096,7 +4096,7 @@ do_merge(apr_array_header_t *merge_sources,
 
   for (i = 0; i < merge_sources->nelts; i++)
     {
-      merge_source_t *merge_source =
+      merge_source_t *merge_source = 
         APR_ARRAY_IDX(merge_sources, i, merge_source_t *);
       const char *url1, *url2;
       svn_revnum_t rev1, rev2;
@@ -4117,10 +4117,10 @@ do_merge(apr_array_header_t *merge_sources,
 
       /* Establish RA sessions to our URLs. */
       SVN_ERR(svn_client__open_ra_session_internal(&ra_session1, url1,
-                                                   NULL, NULL, NULL,
+                                                   NULL, NULL, NULL, 
                                                    FALSE, TRUE, ctx, pool));
       SVN_ERR(svn_client__open_ra_session_internal(&ra_session2, url2,
-                                                   NULL, NULL, NULL,
+                                                   NULL, NULL, NULL, 
                                                    FALSE, TRUE, ctx, pool));
 
       /* Populate the portions of the merge context baton that need to
@@ -4128,7 +4128,7 @@ do_merge(apr_array_header_t *merge_sources,
       merge_cmd_baton.url = url2;
       merge_cmd_baton.added_path = NULL;
       merge_cmd_baton.add_necessitated_merge = FALSE;
-      merge_cmd_baton.dry_run_deletions =
+      merge_cmd_baton.dry_run_deletions = 
         dry_run ? apr_hash_make(subpool) : NULL;
       merge_cmd_baton.conflicted_paths = NULL;
       merge_cmd_baton.operative_merge = FALSE;
@@ -4148,7 +4148,7 @@ do_merge(apr_array_header_t *merge_sources,
           range.inheritable = TRUE;
           SVN_ERR(record_mergeinfo_for_record_only_merge(merge_source_url,
                                                          &range,
-                                                         target_entry,
+                                                         target_entry, 
                                                          adm_access,
                                                          &merge_cmd_baton,
                                                          subpool));
@@ -4158,12 +4158,12 @@ do_merge(apr_array_header_t *merge_sources,
       /* Call our merge helpers based on entry kind. */
       if (target_entry->kind == svn_node_file)
         {
-          SVN_ERR(do_file_merge(url1, rev1, url2, rev2, target, adm_access,
+          SVN_ERR(do_file_merge(url1, rev1, url2, rev2, target, adm_access, 
                                 &notify_baton, &merge_cmd_baton, subpool));
         }
       else if (target_entry->kind == svn_node_dir)
         {
-          SVN_ERR(do_directory_merge(url1, rev1, url2, rev2, target_entry,
+          SVN_ERR(do_directory_merge(url1, rev1, url2, rev2, target_entry, 
                                      adm_access, depth, &notify_baton,
                                      &merge_cmd_baton, subpool));
         }
@@ -4243,7 +4243,7 @@ svn_client_merge3(const char *source1,
                                  ctx->cancel_baton, pool));
 
   /* Fetch the target's entry. */
-  SVN_ERR(svn_wc__entry_versioned(&entry, target_wcpath, adm_access,
+  SVN_ERR(svn_wc__entry_versioned(&entry, target_wcpath, adm_access, 
                                   FALSE, pool));
 
   /* Determine the working copy target's repository root URL. */
@@ -4275,7 +4275,7 @@ svn_client_merge3(const char *source1,
 
   /* Do the merge! */
   SVN_ERR(do_merge(merge_sources, target_wcpath, entry, adm_access,
-                   (strcmp(URL1, URL2) == 0),
+                   (strcmp(URL1, URL2) == 0), 
                    (strcmp(wc_repos_root, source_repos_root) == 0),
                    ignore_ancestry, force, dry_run, record_only, depth,
                    merge_options, ctx, pool));
@@ -4354,7 +4354,7 @@ svn_client_merge_peg3(const char *source,
                                  ctx->cancel_baton, pool));
 
   /* Fetch the target's entry. */
-  SVN_ERR(svn_wc__entry_versioned(&entry, target_wcpath, adm_access,
+  SVN_ERR(svn_wc__entry_versioned(&entry, target_wcpath, adm_access, 
                                   FALSE, pool));
 
   /* Make sure we're dealing with a real URL. */
@@ -4394,8 +4394,8 @@ svn_client_merge_peg3(const char *source,
     }
 
   /* Normalize our merge sources. */
-  SVN_ERR(normalize_merge_sources(&merge_sources, source, URL,
-                                  source_repos_root, peg_revision,
+  SVN_ERR(normalize_merge_sources(&merge_sources, source, URL, 
+                                  source_repos_root, peg_revision, 
                                   ranges_to_merge, ra_session, ctx, pool));
 
   /* Do the real merge! */
