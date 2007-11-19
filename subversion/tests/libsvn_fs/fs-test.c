@@ -4835,7 +4835,7 @@ node_origin_rev(const char **msg,
   svn_fs_root_t *txn_root, *root;
   svn_revnum_t youngest_rev = 0;
   int i;
-  const char *repo_name = read_only
+  const char *repo_name = read_only 
     ? "test-repo-node-origin-rev-ro"
     : "test-repo-node-origin-rev-rw";
 
@@ -4858,7 +4858,7 @@ node_origin_rev(const char **msg,
      is somewhat abstraction-breaking (eg, assumes that none of the
      commits need to modify mergeinfo), but it works for now. */
   if (read_only)
-    SVN_ERR(svn_io_set_file_read_only(apr_pstrcat(pool, repo_name,
+    SVN_ERR(svn_io_set_file_read_only(apr_pstrcat(pool, repo_name, 
                                                   "/indexes.sqlite", NULL),
                                       TRUE, pool));
 
