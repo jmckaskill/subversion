@@ -102,7 +102,7 @@ parse_pathname(const char **input, const char *end,
 
      e.g.  *LASTRANGE: '4-10*' merged with MRANGE: '6'________
                   |                           |               |
-             Update end field               Push       Account for trimmed
+             Update end field               Push       Account for trimmed 
                   |                           |        range from *LASTRANGE.
                   |                           |        Push it last to
                   |                           |        maintain sort order.
@@ -132,7 +132,7 @@ combine_with_lastrange(svn_merge_range_t** lastrange,
   svn_merge_range_t *pushed_mrange_2 = NULL;
   svn_boolean_t ranges_intersect = FALSE;
   svn_boolean_t ranges_have_same_inheritance = FALSE;
-
+  
   if (*lastrange)
     {
       if ((*lastrange)->start <= mrange->end
@@ -154,7 +154,7 @@ combine_with_lastrange(svn_merge_range_t** lastrange,
          LASTRANGE and MRANGE "intersect" but have different
          inheritability and we are considering inheritance so
          can't combined them...
-
+         
          ...In all these cases just push MRANGE onto *LASTRANGE. */
       if (dup_mrange)
         pushed_mrange_1 = svn_merge_range_dup(mrange, pool);
@@ -198,7 +198,7 @@ combine_with_lastrange(svn_merge_range_t** lastrange,
                       pushed_mrange_1->start = pushed_mrange_1->start;
                       pushed_mrange_1->end = tmp_revnum;
                       *lastrange = pushed_mrange_1;
-                    }
+                    } 
                 }
               else /* (*lastrange)->end < mrange->end) */
                 {

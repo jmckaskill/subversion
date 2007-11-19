@@ -81,7 +81,7 @@ set_origin(sqlite3 *db,
 
   /* First figure out if it's already there.  (Don't worry, we're in a
      transaction.) */
-  SVN_ERR(get_origin(&old_node_rev_id, db, node_id));
+  SVN_ERR(get_origin(&old_node_rev_id, db, node_id));  
   if (old_node_rev_id != NULL)
     {
       if (!strcmp(node_rev_id->data, old_node_rev_id))
@@ -178,9 +178,9 @@ svn_fs__set_node_origin(svn_fs_t *fs,
                         apr_pool_t *pool)
 {
   apr_hash_t *origins = apr_hash_make(pool);
-
+  
   apr_hash_set(origins, node_id, APR_HASH_KEY_STRING, node_rev_id);
-
+  
   return svn_fs__set_node_origins(fs, origins, pool);
 }
 

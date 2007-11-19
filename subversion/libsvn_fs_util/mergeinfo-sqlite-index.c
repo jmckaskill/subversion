@@ -124,10 +124,10 @@ index_path_mergeinfo(svn_revnum_t new_rev,
                               "inheritable) VALUES (?, ?, ?, ?, ?, ?);",
                               -1, &stmt, NULL), db);
           SVN_FS__SQLITE_ERR(sqlite3_bind_int64(stmt, 1, new_rev), db);
-          SVN_FS__SQLITE_ERR(sqlite3_bind_text(stmt, 2, from, -1,
+          SVN_FS__SQLITE_ERR(sqlite3_bind_text(stmt, 2, from, -1, 
                                                SQLITE_TRANSIENT),
                              db);
-          SVN_FS__SQLITE_ERR(sqlite3_bind_text(stmt, 3, path, -1,
+          SVN_FS__SQLITE_ERR(sqlite3_bind_text(stmt, 3, path, -1, 
                                                SQLITE_TRANSIENT),
                              db);
 
@@ -152,7 +152,7 @@ index_path_mergeinfo(svn_revnum_t new_rev,
                                  db);
               SVN_FS__SQLITE_ERR(sqlite3_bind_int64(stmt, 5, range->end),
                                  db);
-              SVN_FS__SQLITE_ERR(sqlite3_bind_int64(stmt, 6,
+              SVN_FS__SQLITE_ERR(sqlite3_bind_int64(stmt, 6, 
                                                     range->inheritable), db);
               SVN_FS__SQLITE_STEP_DONE(stmt);
 
@@ -274,7 +274,7 @@ parse_mergeinfo_from_db(sqlite3 *db,
                                      "WHERE mergedto = ? AND revision = ? "
                                      "ORDER BY mergedfrom, mergedrevstart;",
                                      -1, &stmt, NULL), db);
-  SVN_FS__SQLITE_ERR(sqlite3_bind_text(stmt, 1, path, -1, SQLITE_TRANSIENT),
+  SVN_FS__SQLITE_ERR(sqlite3_bind_text(stmt, 1, path, -1, SQLITE_TRANSIENT), 
                      db);
   SVN_FS__SQLITE_ERR(sqlite3_bind_int64(stmt, 2, lastmerged_rev), db);
   sqlite_result = sqlite3_step(stmt);
@@ -379,8 +379,8 @@ append_component_to_paths(apr_hash_t **output,
 }
 
 /* A helper for svn_fs_mergeinfo__get_mergeinfo() that retrieves
-   mergeinfo recursively (when INHERIT is svn_mergeinfo_inherited or
-   svn_mergeinfo_nearest_ancestor) for a single path.  Pass NULL for RESULT
+   mergeinfo recursively (when INHERIT is svn_mergeinfo_inherited or 
+   svn_mergeinfo_nearest_ancestor) for a single path.  Pass NULL for RESULT 
    if you only want CACHE to be updated.  Otherwise, both RESULT and CACHE
    are updated with the appropriate mergeinfo for PATH. */
 static svn_error_t *
@@ -532,7 +532,7 @@ get_mergeinfo_for_children(sqlite3 *db,
 
   like_path = apr_psprintf(subpool, "%s/%%", path);
 
-  SVN_FS__SQLITE_ERR(sqlite3_bind_text(stmt, 1, like_path, -1,
+  SVN_FS__SQLITE_ERR(sqlite3_bind_text(stmt, 1, like_path, -1, 
                                        SQLITE_TRANSIENT), db);
   SVN_FS__SQLITE_ERR(sqlite3_bind_int64(stmt, 2, rev), db);
 

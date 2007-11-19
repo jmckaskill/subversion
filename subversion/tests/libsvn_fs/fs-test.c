@@ -4837,7 +4837,7 @@ node_origin_rev(const char **msg,
   svn_fs_root_t *txn_root, *root;
   svn_revnum_t youngest_rev = 0;
   int i;
-  const char *repo_name = read_only
+  const char *repo_name = read_only 
     ? "test-repo-node-origin-rev-ro"
     : "test-repo-node-origin-rev-rw";
 
@@ -4925,7 +4925,7 @@ node_origin_rev(const char **msg,
       SVN_ERR(svn_fs__sqlite_open(&db, repo_name, pool));
       err = svn_fs__sqlite_exec(db, "DELETE from node_origins;");
       SVN_ERR(svn_fs__sqlite_close(db, err));
-      SVN_ERR(svn_io_set_file_read_only(apr_pstrcat(pool, repo_name,
+      SVN_ERR(svn_io_set_file_read_only(apr_pstrcat(pool, repo_name, 
                                                     "/indexes.sqlite", NULL),
                                         TRUE, pool));
     }
