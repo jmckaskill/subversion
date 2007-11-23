@@ -64,7 +64,7 @@ enable-auto-props = %s
 *.jpg = jpgfile=ja
 fubar* = tarfile=si
 foobar.lha = lhafile=da;lzhfile=niet
-spacetest = abc = def ; ghi = ; = j
+spacetest = abc = def ; ghi = ; = j 
 * = auto=oui
 ''' % (enable_flag and 'yes' or 'no')
 
@@ -110,7 +110,7 @@ def autoprops_test(sbox, cmd, cfgenable, clienable, subdir):
   else:
     parameters = ['add']
     files_dir = wc_dir
-
+  
   parameters = parameters + ['--config-dir', config_dir]
 
   create_config(config_dir, cfgenable)
