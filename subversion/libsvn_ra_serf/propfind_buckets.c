@@ -147,7 +147,7 @@ static void become_request(serf_bucket_t *bucket)
   if (ctx->conn->session->using_proxy)
     {
       char *url = apr_uri_unparse(ctx->conn->session->pool,
-                                  &ctx->conn->session->repos_url,
+                                  &ctx->conn->session->repos_url, 
                                   APR_URI_UNP_OMITPATHINFO);
       serf_bucket_request_set_root(bucket, url);
     }
