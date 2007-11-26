@@ -316,7 +316,7 @@ end_propfind(svn_ra_serf__xml_parser_t *parser,
               info->val_len = 0;
             }
         }
-
+   
       if (parser->state->prev->current_state == RESPONSE &&
           strcmp(name.name, "href") == 0)
         {
@@ -520,7 +520,7 @@ svn_ra_serf__deliver_props(svn_ra_serf__propfind_context_t **prop_ctx,
 
           cache_satisfy = check_cache(ret_props, sess, path, rev, find_props,
                                       pool);
-
+          
           if (cache_satisfy)
             {
               *prop_ctx = NULL;
