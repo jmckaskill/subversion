@@ -2003,7 +2003,7 @@ reporter_depth_exclude(const char **msg,
   svn_revnum_t youngest_rev;
   const svn_delta_editor_t *editor;
   void *edit_baton, *report_baton;
-
+  
   *msg = "test reporter and svn_depth_exclude";
 
   if (msg_only)

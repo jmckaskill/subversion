@@ -1190,7 +1190,7 @@ def run_tests(test_list, serial_only = False):
     opts, args = my_getopt(sys.argv[1:], 'vqhpc',
                            ['url=', 'fs-type=', 'verbose', 'quiet', 'cleanup',
                             'list', 'enable-sasl', 'help', 'parallel',
-                            'bin=', 'http-library=', 'server-minor-version=',
+                            'bin=', 'http-library=', 'server-minor-version=', 
                             'use-jsvn'])
   except getopt.GetoptError, e:
     print "ERROR: %s\n" % e
@@ -1271,7 +1271,7 @@ def run_tests(test_list, serial_only = False):
     pristine_url = pristine_url.replace('\\', '/')
 
   if use_jsvn:
-    if svn_bin is None:
+    if svn_bin is None: 
       svn_bin = ''
     svn_binary = os.path.join(svn_bin, 'jsvn' + _bat)
     svnadmin_binary = os.path.join(svn_bin, 'jsvnadmin' + _bat)
