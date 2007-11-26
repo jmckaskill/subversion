@@ -9392,7 +9392,7 @@ def ignore_ancestry_and_mergeinfo(sbox):
                                        expected_skip,
                                        None, None, None, None, None, 1, 1,
                                        '--ignore-ancestry')
-
+  
   os.chdir(saved_cwd)
 
 ########################################################################
