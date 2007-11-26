@@ -1234,7 +1234,7 @@ typedef svn_error_t *
 
 /**
  * svn_ra_serf__auth_protocol_t: vtable for an authn protocol provider.
- *
+ * 
  */
 struct svn_ra_serf__auth_protocol_t {
   /* The http status code that's handled by this authentication protocol.
@@ -1270,12 +1270,12 @@ svn_ra_serf__handle_auth(int code,
                          apr_pool_t *pool);
 
 /**
- * encode_auth_header: base64 encodes the authentication data and builds an
+ * encode_auth_header: base64 encodes the authentication data and builds an 
  * authentication header in this format:
  * [PROTOCOL] [BASE64 AUTH DATA]
  */
 void
-encode_auth_header(const char * protocol, char **header, const char * data,
+encode_auth_header(const char * protocol, char **header, const char * data, 
                    apr_size_t data_len, apr_pool_t *pool);
 
 #endif /* SVN_LIBSVN_RA_SERF_RA_SERF_H */
