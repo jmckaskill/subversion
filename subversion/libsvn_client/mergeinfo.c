@@ -279,7 +279,7 @@ svn_client__get_repos_mergeinfo(svn_ra_session_t *ra_session,
   /* Temporarily point the session at the root of the repository. */
   SVN_ERR(svn_client__ensure_ra_session_url(&old_session_url, ra_session,
                                             NULL, pool));
-
+  
   /* Fetch the mergeinfo. */
   SVN_ERR(svn_ra_get_mergeinfo(ra_session, &repos_mergeinfo, rel_paths, rev,
                                inherit, pool));
@@ -357,9 +357,9 @@ svn_client__get_wc_or_repos_mergeinfo(apr_hash_t **target_mergeinfo,
                                                              FALSE, TRUE, ctx,
                                                              pool));
 
-              SVN_ERR(svn_client__path_relative_to_root(&repos_rel_path, url,
-                                                        entry->repos, TRUE,
-                                                        ra_session, NULL,
+              SVN_ERR(svn_client__path_relative_to_root(&repos_rel_path, url, 
+                                                        entry->repos, TRUE, 
+                                                        ra_session, NULL, 
                                                         pool));
               SVN_ERR(svn_client__get_repos_mergeinfo(ra_session,
                                                       &repos_mergeinfo,
@@ -420,14 +420,14 @@ svn_client__get_implicit_mergeinfo(apr_hash_t **mergeinfo_p,
     range_youngest = peg_revnum;
   if (! SVN_IS_VALID_REVNUM(range_oldest))
     range_oldest = 0;
-  SVN_ERR(svn_client__repos_location_segments(&segments, session, "",
-                                              peg_revnum, range_youngest,
+  SVN_ERR(svn_client__repos_location_segments(&segments, session, "", 
+                                              peg_revnum, range_youngest, 
                                               range_oldest, ctx, pool));
 
   /* Translate location segments into merge sources and ranges. */
   for (i = 0; i < segments->nelts; i++)
     {
-      svn_location_segment_t *segment =
+      svn_location_segment_t *segment = 
         APR_ARRAY_IDX(segments, i, svn_location_segment_t *);
       apr_array_header_t *path_ranges;
       svn_merge_range_t *range;
@@ -905,7 +905,7 @@ svn_client_mergeinfo_get_merged(apr_hash_t **mergeinfo,
                                               peg_revision, "", pool));
       SVN_ERR(svn_ra_get_repos_root(ra_session, &repos_root, pool));
       SVN_ERR(svn_client__path_relative_to_root(&repos_rel_path, path_or_url,
-                                                repos_root, TRUE, NULL,
+                                                repos_root, TRUE, NULL, 
                                                 NULL, pool));
       SVN_ERR(svn_client__get_repos_mergeinfo(ra_session, mergeinfo,
                                               repos_rel_path, rev,
