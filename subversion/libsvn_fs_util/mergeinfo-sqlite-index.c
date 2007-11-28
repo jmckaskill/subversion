@@ -136,10 +136,10 @@ index_path_mergeinfo(svn_revnum_t new_rev,
                               "inheritable) VALUES (?, ?, ?, ?, ?, ?);",
                               -1, &stmt, NULL), db);
           SVN_FS__SQLITE_ERR(sqlite3_bind_int64(stmt, 1, new_rev), db);
-          SVN_FS__SQLITE_ERR(sqlite3_bind_text(stmt, 2, from, -1,
+          SVN_FS__SQLITE_ERR(sqlite3_bind_text(stmt, 2, from, -1, 
                                                SQLITE_TRANSIENT),
                              db);
-          SVN_FS__SQLITE_ERR(sqlite3_bind_text(stmt, 3, path, -1,
+          SVN_FS__SQLITE_ERR(sqlite3_bind_text(stmt, 3, path, -1, 
                                                SQLITE_TRANSIENT),
                              db);
 
@@ -164,7 +164,7 @@ index_path_mergeinfo(svn_revnum_t new_rev,
                                  db);
               SVN_FS__SQLITE_ERR(sqlite3_bind_int64(stmt, 5, range->end),
                                  db);
-              SVN_FS__SQLITE_ERR(sqlite3_bind_int64(stmt, 6,
+              SVN_FS__SQLITE_ERR(sqlite3_bind_int64(stmt, 6, 
                                                     range->inheritable), db);
               SVN_ERR(svn_fs__sqlite_step_done(stmt));
 
@@ -196,11 +196,11 @@ index_path_mergeinfo(svn_revnum_t new_rev,
                                     NULL), db);
 
           SVN_FS__SQLITE_ERR(sqlite3_bind_int64(stmt, 1, new_rev), db);
-          SVN_FS__SQLITE_ERR(sqlite3_bind_text(stmt, 2, mergedfrom, -1,
+          SVN_FS__SQLITE_ERR(sqlite3_bind_text(stmt, 2, mergedfrom, -1, 
                                                SQLITE_TRANSIENT),
                              db);
           SVN_FS__SQLITE_ERR(sqlite3_bind_text(stmt, 3, path, -1,
-                                               SQLITE_TRANSIENT),
+                                               SQLITE_TRANSIENT), 
                              db);
           for (i = 0; i < rangelist->nelts; i++)
             {
@@ -209,8 +209,8 @@ index_path_mergeinfo(svn_revnum_t new_rev,
               SVN_FS__SQLITE_ERR(sqlite3_bind_int64(stmt, 4, range->start),
                                  db);
               SVN_FS__SQLITE_ERR(sqlite3_bind_int64(stmt, 5, range->end), db);
-              SVN_FS__SQLITE_ERR(sqlite3_bind_int64(stmt, 6,
-                                                    range->inheritable),
+              SVN_FS__SQLITE_ERR(sqlite3_bind_int64(stmt, 6, 
+                                                    range->inheritable), 
                                  db);
               SVN_ERR(svn_fs__sqlite_step_done(stmt));
               SVN_FS__SQLITE_ERR(sqlite3_reset(stmt), db);
@@ -342,7 +342,7 @@ parse_mergeinfo_from_db(sqlite3 *db,
                                      "WHERE mergedto = ? AND revision = ? "
                                      "ORDER BY mergedfrom, mergedrevstart;",
                                      -1, &stmt, NULL), db);
-  SVN_FS__SQLITE_ERR(sqlite3_bind_text(stmt, 1, path, -1, SQLITE_TRANSIENT),
+  SVN_FS__SQLITE_ERR(sqlite3_bind_text(stmt, 1, path, -1, SQLITE_TRANSIENT), 
                      db);
   SVN_FS__SQLITE_ERR(sqlite3_bind_int64(stmt, 2, lastmerged_rev), db);
   sqlite_result = sqlite3_step(stmt);
@@ -407,7 +407,7 @@ parse_mergeinfo_from_db(sqlite3 *db,
 
       if (sqlite_result != SQLITE_DONE)
         return svn_fs__sqlite_stmt_error(stmt);
-
+      
       SVN_FS__SQLITE_ERR(sqlite3_finalize(stmt), db);
       return SVN_NO_ERROR;
     }
@@ -446,7 +446,7 @@ append_component_to_paths(apr_hash_t **output,
 /* A helper for svn_fs_mergeinfo__get_mergeinfo() that retrieves
    mergeinfo on PATH at REV from DB by taking care of elided mergeinfo
    if INHERIT is svn_mergeinfo_inherited or svn_mergeinfo_nearest_ancestor.
-   Pass NULL for RESULT if you only want CACHE to be
+   Pass NULL for RESULT if you only want CACHE to be 
    updated.  Otherwise, both RESULT and CACHE are updated with the appropriate
    mergeinfo for PATH.
 
@@ -603,7 +603,7 @@ get_mergeinfo_for_children(sqlite3 *db,
 
   like_path = apr_psprintf(subpool, "%s/%%", path);
 
-  SVN_FS__SQLITE_ERR(sqlite3_bind_text(stmt, 1, like_path, -1,
+  SVN_FS__SQLITE_ERR(sqlite3_bind_text(stmt, 1, like_path, -1, 
                                        SQLITE_TRANSIENT), db);
   SVN_FS__SQLITE_ERR(sqlite3_bind_int64(stmt, 2, rev), db);
 
@@ -806,7 +806,7 @@ svn_fs_mergeinfo__get_mergeinfo_for_tree(apr_hash_t **mergeinfo,
 
 /* Helper function for 'get_commit_revs_for_merge_ranges', to identify the
    correct PARENT_WITH_MERGEINFO where the mergeinfo of 'MERGE_TARGET'
-   has been elided to. DB is used to retrieve this data within the
+   has been elided to. DB is used to retrieve this data within the 
    commits 'MIN_COMMIT_REV(exclusive):MAX_COMMIT_REV(inclusive)'.
    Perform all allocations in POOL.
 */
@@ -825,7 +825,7 @@ get_parent_target_path_having_mergeinfo(const char** parent_with_mergeinfo,
                              "SELECT revision FROM mergeinfo_changed WHERE"
                              " mergedto = ? AND revision between ? AND ?;",
                              -1, &stmt, NULL), db);
-  SVN_FS__SQLITE_ERR(sqlite3_bind_text(stmt, 1, merge_target,
+  SVN_FS__SQLITE_ERR(sqlite3_bind_text(stmt, 1, merge_target, 
                                        -1, SQLITE_TRANSIENT),
                      db);
   SVN_FS__SQLITE_ERR(sqlite3_bind_int64(stmt, 2, min_commit_rev+1), db);
@@ -883,11 +883,11 @@ get_parent_target_path_having_mergeinfo(const char** parent_with_mergeinfo,
 
 /* Helper function for 'svn_fs_mergeinfo__get_commit_revs_for_merge_ranges'.
    Retrieves the commit revisions for each merge range from MERGE_RANGELIST,
-   for the merge from MERGE_SOURCE to MERGE_TARGET within the time
+   for the merge from MERGE_SOURCE to MERGE_TARGET within the time 
    > MIN_COMMIT_REV and <=MAX_COMMIT_REV.
    INHERIT decides whether to get the commit rev from parent paths or not.
-   It uses DB for retrieving this data. Commit revisions identified are
-   populated in *COMMIT_REV_RANGELIST as each in its own
+   It uses DB for retrieving this data. Commit revisions identified are 
+   populated in *COMMIT_REV_RANGELIST as each in its own 
    single rev *svn_merge_range_t.
 */
 static svn_error_t *
@@ -967,7 +967,7 @@ get_commit_revs_for_merge_ranges(apr_array_header_t **commit_rev_rangelist,
       SVN_FS__SQLITE_ERR(sqlite3_reset(stmt), db);
     }
   SVN_FS__SQLITE_ERR(sqlite3_finalize(stmt), db);
-  qsort((*commit_rev_rangelist)->elts, (*commit_rev_rangelist)->nelts,
+  qsort((*commit_rev_rangelist)->elts, (*commit_rev_rangelist)->nelts, 
         (*commit_rev_rangelist)->elt_size, svn_sort_compare_ranges);
   return SVN_NO_ERROR;
 }
