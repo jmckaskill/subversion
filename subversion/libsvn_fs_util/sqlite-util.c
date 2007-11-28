@@ -66,7 +66,7 @@ svn_fs__sqlite_exec(sqlite3 *db, const char *sql)
   int sqlite_err = sqlite3_exec(db, sql, NULL, NULL, &err_msg);
   if (sqlite_err != SQLITE_OK)
     {
-      err = svn_error_create(SVN_FS__SQLITE_ERROR_CODE(sqlite_err), NULL,
+      err = svn_error_create(SVN_FS__SQLITE_ERROR_CODE(sqlite_err), NULL, 
                              err_msg);
       sqlite3_free(err_msg);
       return err;
@@ -75,7 +75,7 @@ svn_fs__sqlite_exec(sqlite3 *db, const char *sql)
 }
 
 static svn_error_t *
-step_with_expectation(sqlite3_stmt* stmt,
+step_with_expectation(sqlite3_stmt* stmt, 
                       svn_boolean_t expecting_row)
 {
   svn_boolean_t got_row;
@@ -192,8 +192,8 @@ check_format(sqlite3 *db, apr_pool_t *pool)
 {
   sqlite3_stmt *stmt;
   int schema_format;
-
-  SVN_FS__SQLITE_ERR(sqlite3_prepare(db, "PRAGMA user_version;", -1, &stmt,
+  
+  SVN_FS__SQLITE_ERR(sqlite3_prepare(db, "PRAGMA user_version;", -1, &stmt, 
                                      NULL), db);
   SVN_ERR(svn_fs__sqlite_step_row(stmt));
 
@@ -207,7 +207,7 @@ check_format(sqlite3 *db, apr_pool_t *pool)
     return SVN_NO_ERROR;
   else if (schema_format < latest_schema_format)
     return upgrade_format(db, schema_format, pool);
-  else
+  else 
     return svn_error_createf(SVN_ERR_FS_UNSUPPORTED_FORMAT, NULL,
                              _("Index schema format %d not "
                                "recognized"), schema_format);

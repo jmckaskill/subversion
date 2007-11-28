@@ -146,10 +146,10 @@ index_path_mergeinfo(svn_revnum_t new_rev,
                               "inheritable) VALUES (?, ?, ?, ?, ?, ?);",
                               -1, &stmt, NULL), db);
           SVN_FS__SQLITE_ERR(sqlite3_bind_int64(stmt, 1, new_rev), db);
-          SVN_FS__SQLITE_ERR(sqlite3_bind_text(stmt, 2, from, -1,
+          SVN_FS__SQLITE_ERR(sqlite3_bind_text(stmt, 2, from, -1, 
                                                SQLITE_TRANSIENT),
                              db);
-          SVN_FS__SQLITE_ERR(sqlite3_bind_text(stmt, 3, path, -1,
+          SVN_FS__SQLITE_ERR(sqlite3_bind_text(stmt, 3, path, -1, 
                                                SQLITE_TRANSIENT),
                              db);
 
@@ -174,7 +174,7 @@ index_path_mergeinfo(svn_revnum_t new_rev,
                                  db);
               SVN_FS__SQLITE_ERR(sqlite3_bind_int64(stmt, 5, range->end),
                                  db);
-              SVN_FS__SQLITE_ERR(sqlite3_bind_int64(stmt, 6,
+              SVN_FS__SQLITE_ERR(sqlite3_bind_int64(stmt, 6, 
                                                     range->inheritable), db);
               SVN_ERR(svn_fs__sqlite_step_done(stmt));
 
@@ -243,7 +243,7 @@ table_has_any_rows_with_rev(svn_boolean_t *has_any,
   SVN_FS__SQLITE_ERR(sqlite3_prepare(db, selection, -1, &stmt, NULL), db);
   SVN_ERR(svn_fs__sqlite_step(has_any, stmt));
   SVN_FS__SQLITE_ERR(sqlite3_finalize(stmt), db);
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -254,7 +254,7 @@ table_has_any_rows_with_rev(svn_boolean_t *has_any,
    definitely data there to delete.
  */
 static svn_error_t *
-clean_tables(sqlite3 *db,
+clean_tables(sqlite3 *db, 
              svn_revnum_t new_rev,
              svn_boolean_t avoid_noop_delete,
              apr_pool_t *pool)
@@ -285,7 +285,7 @@ clean_tables(sqlite3 *db,
                               "DELETE FROM mergeinfo WHERE revision = %ld;",
                               new_rev);
   SVN_ERR(svn_fs__sqlite_exec(db, deletestring));
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -307,9 +307,9 @@ svn_fs_mergeinfo__update_index(svn_fs_txn_t *txn, svn_revnum_t new_rev,
 
   /* Clean up old data.  (If we're going to write to the DB anyway,
      there's no reason to do extra checks to avoid no-op DELETEs.) */
-  err = clean_tables(db,
-                     new_rev,
-                     mergeinfo_for_paths == NULL,
+  err = clean_tables(db, 
+                     new_rev, 
+                     mergeinfo_for_paths == NULL, 
                      subpool);
   MAYBE_CLEANUP;
 
@@ -354,7 +354,7 @@ parse_mergeinfo_from_db(sqlite3 *db,
                                      "WHERE mergedto = ? AND revision = ? "
                                      "ORDER BY mergedfrom, mergedrevstart;",
                                      -1, &stmt, NULL), db);
-  SVN_FS__SQLITE_ERR(sqlite3_bind_text(stmt, 1, path, -1, SQLITE_TRANSIENT),
+  SVN_FS__SQLITE_ERR(sqlite3_bind_text(stmt, 1, path, -1, SQLITE_TRANSIENT), 
                      db);
   SVN_FS__SQLITE_ERR(sqlite3_bind_int64(stmt, 2, lastmerged_rev), db);
   SVN_ERR(svn_fs__sqlite_step(&got_row, stmt));
@@ -610,7 +610,7 @@ get_mergeinfo_for_children(sqlite3 *db,
 
   like_path = apr_psprintf(subpool, "%s/%%", path);
 
-  SVN_FS__SQLITE_ERR(sqlite3_bind_text(stmt, 1, like_path, -1,
+  SVN_FS__SQLITE_ERR(sqlite3_bind_text(stmt, 1, like_path, -1, 
                                        SQLITE_TRANSIENT), db);
   SVN_FS__SQLITE_ERR(sqlite3_bind_int64(stmt, 2, rev), db);
 
