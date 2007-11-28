@@ -262,7 +262,7 @@ svn_client__get_repos_root(const char **repos_root,
    The remaining parameters are used to procure the repository root.
    Either REPOS_ROOT or RA_SESSION -- but not both -- may be NULL.
    REPOS_ROOT or ADM_ACCESS (which may also be NULL) should be passed
-   when available as an optimization (in that order of preference).
+   when available as an optimization (in that order of preference). 
 
    CAUTION:  While having a leading slash on a so-called relative path
    might work out well for functionality that interacts with
