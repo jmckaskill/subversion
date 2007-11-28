@@ -57,8 +57,8 @@ get_origin(const char **node_rev_id,
   SVN_FS__SQLITE_ERR(sqlite3_bind_text(stmt, 1, node_id, -1,
                                        SQLITE_TRANSIENT), db);
   SVN_ERR(svn_fs__sqlite_step(&got_row, stmt));
-
-  *node_rev_id = got_row
+  
+  *node_rev_id = got_row 
     ? apr_pstrdup(pool, (const char *) sqlite3_column_text(stmt, 0))
     : NULL;
 
@@ -174,9 +174,9 @@ svn_fs__set_node_origin(svn_fs_t *fs,
                         apr_pool_t *pool)
 {
   apr_hash_t *origins = apr_hash_make(pool);
-
+  
   apr_hash_set(origins, node_id, APR_HASH_KEY_STRING, node_rev_id);
-
+  
   return svn_fs__set_node_origins(fs, origins, pool);
 }
 
