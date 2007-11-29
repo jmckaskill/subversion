@@ -909,11 +909,11 @@ get_parent_target_path_having_mergeinfo(const char** parent_with_mergeinfo,
 
 /* Helper function for 'svn_fs_mergeinfo__get_commit_revs_for_merge_ranges'.
    Retrieves the commit revisions for each merge range from MERGE_RANGELIST,
-   for the merge from MERGE_SOURCE to MERGE_TARGET within the time
+   for the merge from MERGE_SOURCE to MERGE_TARGET within the time 
    > MIN_COMMIT_REV and <=MAX_COMMIT_REV.
    INHERIT decides whether to get the commit rev from parent paths or not.
-   It uses DB for retrieving this data. Commit revisions identified are
-   populated in *COMMIT_REV_RANGELIST as each in its own
+   It uses DB for retrieving this data. Commit revisions identified are 
+   populated in *COMMIT_REV_RANGELIST as each in its own 
    single rev *svn_merge_range_t.
 */
 static svn_error_t *
@@ -988,7 +988,7 @@ get_commit_revs_for_merge_ranges(apr_array_header_t **commit_rev_rangelist,
       SVN_ERR(svn_fs__sqlite_reset(stmt));
     }
   SVN_ERR(svn_fs__sqlite_finalize(stmt));
-  qsort((*commit_rev_rangelist)->elts, (*commit_rev_rangelist)->nelts,
+  qsort((*commit_rev_rangelist)->elts, (*commit_rev_rangelist)->nelts, 
         (*commit_rev_rangelist)->elt_size, svn_sort_compare_ranges);
   return SVN_NO_ERROR;
 }

@@ -1554,7 +1554,7 @@ static svn_error_t *get_commit_revs_for_merge_ranges(svn_ra_svn_conn_t *conn,
   merge_target = svn_path_canonicalize(merge_target, pool);
   merge_source = svn_path_canonicalize(merge_source, pool);
   {
-    /* We lack svn_rangelist_parse, so creating a dummy mergeinfo
+    /* We lack svn_rangelist_parse, so creating a dummy mergeinfo 
        and parse with the help of svn_mergeinfo_parse. */
     apr_hash_t *dummy_mergeinfo;
     char *dummy_mergeinfo_str = apr_pstrcat(pool, merge_source, ":",
@@ -2355,7 +2355,7 @@ static svn_error_t *get_locks(svn_ra_svn_conn_t *conn, apr_pool_t *pool,
 static svn_error_t *replay_one_revision(svn_ra_svn_conn_t *conn,
                                         server_baton_t *b,
                                         svn_revnum_t rev,
-                                        svn_revnum_t low_water_mark,
+                                        svn_revnum_t low_water_mark, 
                                         svn_boolean_t send_deltas,
                                         apr_pool_t *pool)
 {
@@ -2682,7 +2682,7 @@ svn_error_t *serve(svn_ra_svn_conn_t *conn, serve_params_t *params,
      new interface to re-retrieve them from conn and convert the
      result to a list, it's simpler to just convert caplist by hand
      here, since we already have it and turning 'svn_ra_svn_item_t's
-     into 'const char *'s is pretty easy.
+     into 'const char *'s is pretty easy. 
 
      We only record capabilities we care about.  The client may report
      more (because it doesn't know what the server cares about). */
