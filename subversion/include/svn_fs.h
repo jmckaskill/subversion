@@ -1262,8 +1262,8 @@ svn_error_t *svn_fs_get_mergeinfo(apr_hash_t **minfohash,
                                   apr_pool_t *pool);
 
 /** Retrieve @a commit_rev_rangelist for a @a merge_rangelist from a given
- * @a merge_source to a @a merge_target
- * where each commit_rev in @a commit_rev_rangelist > @a min_commit_rev and
+ * @a merge_source to a @a merge_target 
+ * where each commit_rev in @a commit_rev_rangelist > @a min_commit_rev and 
  * <= @a max_commit_rev.
  *
  * @a commit_rev_rangelist will never be @c NULL, but may be empty.
