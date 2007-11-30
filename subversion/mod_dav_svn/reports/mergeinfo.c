@@ -253,11 +253,11 @@ dav_svn__get_commit_revs_for_merge_ranges_report(const dav_resource *resource,
 
       if (strcmp(child->name, SVN_DAV__MAX_COMMIT_REVISION) == 0)
         /* ### Check for boundary cases, errors?  -Karl */
-        max_commit_rev = SVN_STR_TO_REV(dav_xml_get_cdata(child,
+        max_commit_rev = SVN_STR_TO_REV(dav_xml_get_cdata(child, 
                                                           resource->pool, 1));
       else if (strcmp(child->name, SVN_DAV__MIN_COMMIT_REVISION) == 0)
         /* ### Check for boundary cases, errors?  -Karl */
-        min_commit_rev = SVN_STR_TO_REV(dav_xml_get_cdata(child,
+        min_commit_rev = SVN_STR_TO_REV(dav_xml_get_cdata(child, 
                                                           resource->pool, 1));
       else if (strcmp(child->name, SVN_DAV__INHERIT) == 0)
         /* ### Check for boundary cases, errors?  -Karl */
@@ -288,7 +288,7 @@ dav_svn__get_commit_revs_for_merge_ranges_report(const dav_resource *resource,
       /* else unknown element; skip it */
     }
   {
-    /* We lack svn_rangelist_parse(), so create a dummy mergeinfo
+    /* We lack svn_rangelist_parse(), so create a dummy mergeinfo 
        and parse it with the help of svn_mergeinfo_parse().
 
        ### Might be better to write svn_rangelist_parse()?  Could
@@ -326,7 +326,7 @@ dav_svn__get_commit_revs_for_merge_ranges_report(const dav_resource *resource,
                                                 min_commit_rev,
                                                 max_commit_rev,
                                                 merge_rangelist,
-                                                inherit,
+                                                inherit, 
                                                 dav_svn__authz_read_func(&arb),
                                                 &arb,
                                                 resource->pool);
@@ -351,7 +351,7 @@ dav_svn__get_commit_revs_for_merge_ranges_report(const dav_resource *resource,
       goto cleanup;
     }
 
-  apr_hash_set(mergeinfo, merge_source, APR_HASH_KEY_STRING,
+  apr_hash_set(mergeinfo, merge_source, APR_HASH_KEY_STRING, 
                commit_rev_range_list);
   serr = svn_mergeinfo_to_stringbuf(&commit_rev_mergeinfo, mergeinfo,
                                     resource->pool);

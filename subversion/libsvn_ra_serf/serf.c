@@ -344,12 +344,12 @@ load_config(svn_ra_serf__session_t *session,
   else
     proxy_port = 80;
 
-  if (proxy_host)
+  if (proxy_host) 
     {
       apr_sockaddr_t *proxy_addr;
       apr_status_t status;
 
-      status = apr_sockaddr_info_get(&proxy_addr, proxy_host,
+      status = apr_sockaddr_info_get(&proxy_addr, proxy_host, 
                                      APR_INET, proxy_port, 0,
                                      session->pool);
       session->using_proxy = TRUE;
