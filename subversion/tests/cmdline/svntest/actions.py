@@ -500,8 +500,8 @@ def verify_disk(wc_dir_name,
                  singleton_handler_a, a_baton,
                  singleton_handler_b, b_baton,
                  check_props)
-
-
+                 
+  
 
 def run_and_verify_update(wc_dir_name,
                           output_tree, disk_tree, status_tree,
@@ -1000,7 +1000,7 @@ def run_and_verify_diff_summarize_xml(error_re_string = [],
     actual_item = path.getAttribute('item')
     actual_kind = path.getAttribute('kind')
     actual_prop = path.getAttribute('props')
-
+  
     if expected_item != actual_item:
       print "ERROR: expected:", expected_item, "actual:", actual_item
       raise Failure
