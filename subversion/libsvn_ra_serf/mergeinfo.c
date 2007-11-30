@@ -60,7 +60,7 @@ typedef struct {
   /* Needed by only mergeinfo-report. */
   const apr_array_header_t *paths;
   svn_revnum_t revision;
-
+  
   /* Needed by only commit-revs-for-merge-ranges-report. */
   const char *merge_target;
   const char *merge_source;
@@ -79,8 +79,8 @@ start_element(svn_ra_serf__xml_parser_t *parser,
   mergeinfo_state_e state;
 
   state = parser->state->current_state;
-  if (state == NONE &&
-      (strcmp(name.name, SVN_DAV__MERGEINFO_REPORT) == 0
+  if (state == NONE && 
+      (strcmp(name.name, SVN_DAV__MERGEINFO_REPORT) == 0 
        || strcmp(name.name, SVN_DAV__COMMIT_REVS_FOR_MERGE_RANGES_REPORT) == 0)
       )
     {
@@ -203,13 +203,13 @@ create_commit_revs_for_merge_ranges_body(void *baton,
                                           strlen(minfo_report_head), alloc);
   serf_bucket_aggregate_append(body_bkt, tmp_bkt);
   svn_ra_serf__add_tag_buckets(body_bkt, "S:" SVN_DAV__MERGE_TARGET,
-                              apr_xml_quote_string(pool,
+                              apr_xml_quote_string(pool, 
                                                    mergeinfo_ctx->merge_target,
                                                    0),
                               alloc);
 
   svn_ra_serf__add_tag_buckets(body_bkt, "S:" SVN_DAV__MERGE_SOURCE,
-                              apr_xml_quote_string(pool,
+                              apr_xml_quote_string(pool, 
                                                    mergeinfo_ctx->merge_source,
                                                    0),
                               alloc);
