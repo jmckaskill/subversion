@@ -2660,7 +2660,7 @@ svn_wc_canonicalize_svn_prop(const svn_string_t **propval_p,
          their mergeinfo to follow the newly enforced rules?  Sure, they
          could, *if* they could see their mergeinfo...which they won't be
          able to, since svn pl/pg will call svn_mergeinfo_parse() resulting
-         in an error.
+         in an error. 
 
          For now we will do the check here. */
       if (mergeinfo)
@@ -2673,7 +2673,7 @@ svn_wc_canonicalize_svn_prop(const svn_string_t **propval_p,
               void *value;
               const char *path;
               apr_array_header_t *rangelist;
-
+              
               apr_hash_this(hi, &key, NULL, &value);
               path = key;
               rangelist = value;
