@@ -679,7 +679,7 @@ def inappropriate_props(sbox):
                                       "parsing 'one'\n"],
                                      'propset', SVN_PROP_MERGE_INFO,
                                      '/trunk:one', path)
-
+  
 # ...contain overlapping revision ranges
   svntest.actions.run_and_verify_svn('overlapping ranges', None,
                                      ["svn: Parsing of overlapping revision "
@@ -700,7 +700,7 @@ def inappropriate_props(sbox):
                                       "revision ranges '5' and '2-3'\n"],
                                      'propset', SVN_PROP_MERGE_INFO,
                                      '/featureX:5,2-3,9', path)
-
+  
 # ...contain revision ranges with start revisions greater than or
 #    equal to end revisions.
   svntest.actions.run_and_verify_svn('range start >= range end', None,
