@@ -1003,7 +1003,7 @@ get_commit_revs_for_merge_ranges(apr_array_header_t **commit_rev_rangelist,
       SVN_ERR(svn_fs__sqlite_reset(stmt));
     }
   SVN_ERR(svn_fs__sqlite_finalize(stmt));
-  qsort((*commit_rev_rangelist)->elts, (*commit_rev_rangelist)->nelts,
+  qsort((*commit_rev_rangelist)->elts, (*commit_rev_rangelist)->nelts, 
         (*commit_rev_rangelist)->elt_size, svn_sort_compare_ranges);
   return SVN_NO_ERROR;
 }
