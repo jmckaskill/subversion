@@ -1562,7 +1562,7 @@ static svn_error_t *get_commit_revs_for_merge_ranges(svn_ra_svn_conn_t *conn,
   SVN_ERR(trivial_auth_request(conn, pool, b));
   SVN_CMD_ERR(svn_repos_get_commit_revs_for_merge_ranges(
                                                 &commit_rev_range_list,
-                                                b->repos,
+                                                b->repos, 
                                                 merge_target_abs_path,
                                                 merge_source_abs_path,
                                                 min_commit_rev,
@@ -1571,7 +1571,7 @@ static svn_error_t *get_commit_revs_for_merge_ranges(svn_ra_svn_conn_t *conn,
                                                 inherit,
                                                 authz_check_access_cb_func(b),
                                                 b, pool));
-  /* When we hand back the stuff to client we should give back the
+  /* When we hand back the stuff to client we should give back the 
    * mergeinfo hash with path being relative to ra_session.
    * ### TODO If at all svn_rangelist_parse exists we can remove this kludge.
    */
@@ -2355,7 +2355,7 @@ static svn_error_t *get_locks(svn_ra_svn_conn_t *conn, apr_pool_t *pool,
 static svn_error_t *replay_one_revision(svn_ra_svn_conn_t *conn,
                                         server_baton_t *b,
                                         svn_revnum_t rev,
-                                        svn_revnum_t low_water_mark,
+                                        svn_revnum_t low_water_mark, 
                                         svn_boolean_t send_deltas,
                                         apr_pool_t *pool)
 {
@@ -2682,7 +2682,7 @@ svn_error_t *serve(svn_ra_svn_conn_t *conn, serve_params_t *params,
      new interface to re-retrieve them from conn and convert the
      result to a list, it's simpler to just convert caplist by hand
      here, since we already have it and turning 'svn_ra_svn_item_t's
-     into 'const char *'s is pretty easy.
+     into 'const char *'s is pretty easy. 
 
      We only record capabilities we care about.  The client may report
      more (because it doesn't know what the server cares about). */
