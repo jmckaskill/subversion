@@ -10,7 +10,7 @@
 
 <refsynopsisdiv>
 <src:fragment id='section.level1.properties.frag'>
-<xsl:attribute-set name="section.level1.properties"
+<xsl:attribute-set name="section.level1.properties" 
                    use-attribute-sets="section.properties">
 </xsl:attribute-set>
 </src:fragment>
