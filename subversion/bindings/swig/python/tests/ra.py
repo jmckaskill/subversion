@@ -230,7 +230,7 @@ class SubversionRepositoryAccessTestCase(unittest.TestCase):
         reporter.finish_report(reporter_baton)
     finally:
         ra.reparent(self.ra_ctx, sess_url)
-
+      
     self.assertEqual("A test.\n", editor.textdeltas[0].new_data)
     self.assertEqual(1, len(editor.textdeltas))
 
@@ -242,7 +242,7 @@ class SubversionRepositoryAccessTestCase(unittest.TestCase):
         4: '/trunk/README.txt'})
 
   def test_has_capability(self):
-      self.assertEqual(True, ra.has_capability(self.ra_ctx,
+      self.assertEqual(True, ra.has_capability(self.ra_ctx, 
                              ra.SVN_RA_CAPABILITY_DEPTH))
 
   def test_get_file_revs(self):
