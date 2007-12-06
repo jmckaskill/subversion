@@ -243,7 +243,7 @@ class SubversionRepositoryAccessTestCase(unittest.TestCase):
 
   def test_has_capability(self):
       self.assertEqual(True, ra.has_capability(self.ra_ctx,
-                             ra.SVN_RA_CAPABILITY_DEPTH))
+                                               ra.SVN_RA_CAPABILITY_DEPTH))
 
   def test_get_file_revs(self):
     def rev_handler(path, rev, rev_props, prop_diffs, pool):
