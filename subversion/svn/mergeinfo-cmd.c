@@ -178,11 +178,11 @@ svn_cl__mergeinfo(apr_getopt_t *os,
 
       if (opt_state->from_source)
         {
-          apr_array_header_t *merged_ranges =
+          apr_array_header_t *merged_ranges = 
             apr_hash_get(mergeinfo, opt_state->from_source, APR_HASH_KEY_STRING);
           if (! merged_ranges)
             merged_ranges = apr_array_make(pool, 1, sizeof(svn_merge_range_t *));
-          SVN_ERR(show_mergeinfo_for_source(opt_state->from_source, merged_ranges,
+          SVN_ERR(show_mergeinfo_for_source(opt_state->from_source, merged_ranges, 
                                             truepath, &peg_revision,
                                             root_url, ctx, subpool));
         }
@@ -193,7 +193,7 @@ svn_cl__mergeinfo(apr_getopt_t *os,
             {
               const void *key;
               void *val;
-
+              
               svn_pool_clear(iterpool);
               apr_hash_this(hi, &key, NULL, &val);
               SVN_ERR(show_mergeinfo_for_source(key, val, truepath, &peg_revision,
