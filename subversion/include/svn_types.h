@@ -859,7 +859,7 @@ typedef enum
 
   /* Explicit mergeinfo, or if that doesn't exist, the inherited
      mergeinfo from a target's nearest (path-wise, not history-wise)
-     ancestor. */
+     ancestor. */ 
   svn_mergeinfo_inherited,
 
   /* Mergeinfo on target's nearest (path-wise, not history-wise)
