@@ -186,7 +186,7 @@ typedef struct
   const char *uuid;
 
   /* Caches of immutable data.
-
+     
      Both of these could be moved to fs_fs_shared_data_t to make them
      last longer; on the other hand, this would require adding mutexes
      for threaded builds.
