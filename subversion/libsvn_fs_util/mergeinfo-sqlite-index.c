@@ -968,7 +968,7 @@ get_commit_and_merge_ranges(apr_array_header_t **merge_rangelist,
                                  "mergedrevend, inheritable "
                                  "FROM mergeinfo_changed "
                                  "WHERE mergedfrom = ? AND mergedto = ? "
-                                 "AND revision between ? AND ? "
+                                 "AND revision between ? AND ? " 
                                  "ORDER BY revision ASC ;"));
   SVN_ERR(svn_fs__sqlite_bind_text(stmt, 1, real_merge_source));
   SVN_ERR(svn_fs__sqlite_bind_text(stmt, 2, real_mergeinfo_target));

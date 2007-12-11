@@ -10,6 +10,6 @@
                                      svn_revnum_t max_commit_rev,
 -                                     const apr_array_header_t *merge_rangelist,
                                      svn_mergeinfo_inheritance_t inherit,
-                                     apr_pool_t *pool);
+                                     apr_pool_t *pool); 
 * Implement the non-reflective merge editor to grok the local mods from
   a commit which has 'merge + conflict resolution + some other changes'.
