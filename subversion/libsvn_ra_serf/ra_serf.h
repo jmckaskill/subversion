@@ -1188,7 +1188,7 @@ svn_error_t * svn_ra_serf__get_mergeinfo(svn_ra_session_t *ra_session,
                                          svn_mergeinfo_inheritance_t inherit,
                                          apr_pool_t *pool);
 
-svn_error_t *
+svn_error_t * 
 svn_ra_serf__get_commit_and_merge_ranges(svn_ra_session_t *session,
                                          apr_array_header_t **merge_rangelist,
                                          apr_array_header_t **commit_rangelist,
@@ -1245,7 +1245,7 @@ typedef svn_error_t *
 
 /**
  * svn_ra_serf__auth_protocol_t: vtable for an authn protocol provider.
- *
+ * 
  */
 struct svn_ra_serf__auth_protocol_t {
   /* The http status code that's handled by this authentication protocol.
@@ -1281,7 +1281,7 @@ svn_ra_serf__handle_auth(int code,
                          apr_pool_t *pool);
 
 /**
- * encode_auth_header: base64 encodes the authentication data and builds an
+ * encode_auth_header: base64 encodes the authentication data and builds an 
  * authentication header in this format:
  * [PROTOCOL] [BASE64 AUTH DATA]
  */
