@@ -4773,7 +4773,7 @@ node_origin_rev(const char **msg,
     return SVN_NO_ERROR;
 
   /* Create the repository. */
-  SVN_ERR(svn_test__create_fs(&fs, "test-repo-node-origin-rev",
+  SVN_ERR(svn_test__create_fs(&fs, "test-repo-node-origin-rev", 
                               opts->fs_type, pool));
 
   /* Revision 1: Create the Greek tree.  */
