@@ -4105,7 +4105,7 @@ def create_deep_trees(wc_dir):
   svntest.main.run_svn(None, 'mv', A_B_E_path, A_B_F_path)
 
   # A/B/F/E now has empty mergeinfo
-
+  
   expected_output = wc.State(wc_dir, {
     'A/B/E'   : Item(verb='Deleting'),
     'A/B/F/E' : Item(verb='Adding')
@@ -4200,7 +4200,7 @@ def create_deep_trees(wc_dir):
 
   svntest.actions.verify_disk(wc_dir, expected_disk,
                               None, None, None, None, 1)
-
+  
   expected_status.tweak(wc_rev=4)
   expected_disk.tweak('A/copy-of-B/F/E', 'A/copy-of-B/F/E1', status=' M')
   return expected_status
@@ -6301,7 +6301,7 @@ def empty_mergeinfo(sbox):
   # Check that A_COPY's mergeinfo is gone.
   svntest.actions.run_and_verify_svn(None, [], [], 'pg', 'svn:mergeinfo',
                                     A_COPY_path)
-
+  
 def prop_add_to_child_with_mergeinfo(sbox):
   "merge adding prop to child of merge target works"
 
@@ -9053,7 +9053,7 @@ def ignore_ancestry_and_mergeinfo(sbox):
                                        expected_skip,
                                        None, None, None, None, None, 1, 1,
                                        '--ignore-ancestry')
-
+  
   os.chdir(saved_cwd)
 
 def merge_from_renamed_branch_fails_while_avoiding_repeat_merge(sbox):
@@ -9198,7 +9198,7 @@ def merge_source_normalization_and_subtree_merges(sbox):
   # Update the WC
   svntest.actions.run_and_verify_svn(None, None, [],
                                      'update', wc_dir)
-
+  
   # r8 - Make a text mod to 'A_MOVED/D/G/tau'
   svntest.main.file_write(os.path.join(wc_dir, "A_MOVED", "D", "G", "tau"),
                           "New content")
