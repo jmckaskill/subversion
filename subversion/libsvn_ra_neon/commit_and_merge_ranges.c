@@ -1,5 +1,5 @@
 /*
- * commit_and_merge_ranges.c :  routines for requesting and parsing
+ * commit_and_merge_ranges.c :  routines for requesting and parsing 
  * commit-and-merge-ranges-report.
  *
  * ====================================================================
@@ -54,7 +54,7 @@ static const svn_ra_neon__xml_elm_t commit_and_merge_ranges_report_elements[] =
       ELEM_commit_and_merge_ranges_report, 0 },
     { SVN_XML_NAMESPACE, SVN_DAV__MERGE_RANGES, ELEM_merge_ranges,
       SVN_RA_NEON__XML_CDATA},
-    { SVN_XML_NAMESPACE, SVN_DAV__COMMIT_RANGES, ELEM_commit_ranges,
+    { SVN_XML_NAMESPACE, SVN_DAV__COMMIT_RANGES, ELEM_commit_ranges, 
       SVN_RA_NEON__XML_CDATA},
     { NULL }
   };

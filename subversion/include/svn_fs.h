@@ -1247,10 +1247,10 @@ svn_error_t *svn_fs_get_mergeinfo(apr_hash_t **minfohash,
 
 /** Retrieve @a commit_rangelist and a @a merge_ranges_list from a given
  * @a merge_source to a @a merge_target
- * where each commit_rev in @a commit_rangelist > @a min_commit_rev and
+ * where each commit_rev in @a commit_rangelist > @a min_commit_rev and 
  * <= @a max_commit_rev.
  *
- * @a commit_rangelist and @a merge_ranges_list will never be @c NULL,
+ * @a commit_rangelist and @a merge_ranges_list will never be @c NULL, 
  * but may be empty.
  *
  * @a commit_rangelist and @a merge_ranges_list are having

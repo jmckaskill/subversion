@@ -69,7 +69,7 @@ start_element(svn_ra_serf__xml_parser_t *parser,
   mergeinfo_state_e state;
 
   state = parser->state->current_state;
-  if (state == NONE &&
+  if (state == NONE && 
       strcmp(name.name, SVN_DAV__COMMIT_AND_MERGE_RANGES_REPORT) == 0)
     {
       svn_ra_serf__xml_push_state(parser, MERGEINFO_REPORT);
@@ -108,14 +108,14 @@ cdata_handler(svn_ra_serf__xml_parser_t *parser, void *userData,
   switch (state)
     {
     case MERGE_RANGES:
-      SVN_ERR(svn_rangelist__parse(mergeinfo_ctx->merge_ranges_list,
+      SVN_ERR(svn_rangelist__parse(mergeinfo_ctx->merge_ranges_list, 
                                    cdata_local, FALSE, FALSE,
                                    mergeinfo_ctx->pool));
       break;
 
     case COMMIT_RANGES:
       SVN_ERR(svn_rangelist__parse(mergeinfo_ctx->commit_rangelist,
-                                   cdata_local, FALSE, FALSE,
+                                   cdata_local, FALSE, FALSE, 
                                    mergeinfo_ctx->pool));
       break;
 
@@ -146,13 +146,13 @@ create_commit_and_merge_ranges_body(void *baton,
                                           strlen(minfo_report_head), alloc);
   serf_bucket_aggregate_append(body_bkt, tmp_bkt);
   svn_ra_serf__add_tag_buckets(body_bkt, "S:" SVN_DAV__MERGE_TARGET,
-                              apr_xml_quote_string(pool,
+                              apr_xml_quote_string(pool, 
                                                    mergeinfo_ctx->merge_target,
                                                    0),
                               alloc);
 
   svn_ra_serf__add_tag_buckets(body_bkt, "S:" SVN_DAV__MERGE_SOURCE,
-                              apr_xml_quote_string(pool,
+                              apr_xml_quote_string(pool, 
                                                    mergeinfo_ctx->merge_source,
                                                    0),
                               alloc);
