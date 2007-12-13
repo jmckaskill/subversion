@@ -1141,7 +1141,7 @@ ra_svn_get_commit_and_merge_ranges(svn_ra_session_t *session,
                                          &merge_rangelist_str, &commit_rev));
           SVN_ERR(svn_rangelist__parse(&merge_rangelist, merge_rangelist_str,
                                        FALSE, FALSE, pool));
-          APR_ARRAY_PUSH(*merge_ranges_list, apr_array_header_t *)
+          APR_ARRAY_PUSH(*merge_ranges_list, apr_array_header_t *) 
                                                              = merge_rangelist;
           range = apr_pcalloc(pool, sizeof(*range));
           range->start = commit_rev - 1;
@@ -2220,7 +2220,7 @@ ra_svn_replay_range(svn_ra_session_t *session,
   svn_ra_svn__session_baton_t *sess = session->priv;
   apr_pool_t *iterpool;
   svn_revnum_t rev;
-
+  
   SVN_ERR(svn_ra_svn_write_cmd(sess->conn, pool, "replay-range", "rrrb",
                                start_revision, end_revision,
                                low_water_mark, send_deltas));
@@ -2236,7 +2236,7 @@ ra_svn_replay_range(svn_ra_session_t *session,
       void *edit_baton;
       apr_hash_t *rev_props;
       svn_ra_svn_item_t *item;
-
+      
       svn_pool_clear(iterpool);
 
       SVN_ERR(svn_ra_svn_read_item(sess->conn, iterpool, &item));

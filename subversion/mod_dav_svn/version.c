@@ -968,7 +968,7 @@ deliver_report(request_rec *r,
         {
           return dav_svn__get_mergeinfo_report(resource, doc, output);
         }
-      else if (strcmp(doc->root->name,
+      else if (strcmp(doc->root->name, 
                       SVN_DAV__COMMIT_AND_MERGE_RANGES_REPORT) == 0)
         {
           return dav_svn__get_commit_and_merge_ranges_report(resource,
