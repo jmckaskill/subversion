@@ -1103,7 +1103,7 @@ section title as the cross-reference text. Is this a good idea?</para>
 </listitem>
 
 <listitem>
-<para>Added
+<para>Added 
 <parameter>make.graphic.viewport</parameter>,
 <parameter>nominal.image.depth</parameter>,
 <parameter>nominal.image.width</parameter>, and
