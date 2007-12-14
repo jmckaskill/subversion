@@ -85,10 +85,10 @@ In the example below, we copy `A' to `Y'.  Node keys for `A', `Y', and
 `bar' are given in parentheses:
 
             BEFORE THE COPY               AFTER THE COPY
-               <root>                         <root>
-              /  |                           /  |  \
-            /    |                         /    |    \
-          /      |                       /      |      \
+               <root>                         <root>     
+              /  |                           /  |  \     
+            /    |                         /    |    \   
+          /      |                       /      |      \ 
         A(3.0.m) B                     A(3.0.m) B       Y(3.jfb.p)
         / \      |                     / \      |      / \
      foo  bar   qux                 foo  bar   qux   foo  bar
@@ -98,10 +98,10 @@ Let's flesh out the example with some commits under A and Y.  To save
 space, the colons represent time flow, not directory hierarchy --
 imagine they're the Z axis coming out of the screen or something :-).
 
-                         <root>
-                        /  |  \
-                      /    |    \
-                    /      |      \
+                         <root>     
+                        /  |  \     
+                      /    |    \   
+                    /      |      \ 
                  A(3.0.m)  B       Y(3.jfb.p)
                   / \      |      / \
                foo  bar   qux   foo  bar
