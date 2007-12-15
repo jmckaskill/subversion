@@ -6,7 +6,7 @@
 <!-- ********************************************************************
      $Id: passivetex.xsl,v 1.3 2002/03/14 18:43:34 nwalsh Exp $
      ********************************************************************
-      This extension stops PassiveTeX from merging subsequent '-' to
+      This extension stops PassiveTeX from merging subsequent '-' to 
       dashes. You must set passivetex.extensions to '1' if you want get
       this functionality.
      ******************************************************************** -->
