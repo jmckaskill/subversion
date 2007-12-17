@@ -12,16 +12,16 @@ from svn import fs, core, repos
 CHUNK_SIZE = 100000
 
 def blame(path, filename, rev=None):
-
+  
   annotresult = {}
   path = core.svn_path_canonicalize(path)
 
   repos_ptr = repos.open(path)
   fsob = repos.fs(repos_ptr)
-
+ 
   if rev is None:
     rev = fs.youngest_rev(fsob)
-  filedata = ''
+  filedata = '' 
   for i in xrange(0, rev+1):
     root = fs.revision_root(fsob, i)
     if fs.check_path(root, filename) != core.svn_node_none:
@@ -35,7 +35,7 @@ def blame(path, filename, rev=None):
     if i != first:
       if not fs.contents_changed(root, filename, previousroot, filename):
         continue
-
+      
     file = fs.file_contents(root, filename)
     previousdata = filedata
     filedata = ''
@@ -49,7 +49,7 @@ def blame(path, filename, rev=None):
     diffresult = difflib.ndiff(previousdata.splitlines(1),
                                filedata.splitlines(1))
     #    print ''.join(diffresult)
-    k = 0
+    k = 0    
     for j in diffresult:
       if j[0] == ' ':
         if annotresult.has_key (k):
@@ -65,7 +65,7 @@ def blame(path, filename, rev=None):
       if j[0] != '-':
         k = k + 1
 #    print ''.join(diffresult)
-#  print annotresult
+#  print annotresult 
   for x in xrange(len(annotresult.keys())):
      sys.stdout.write("Line %d (rev %d):%s" % (x,
                                                annotresult[x][0],
