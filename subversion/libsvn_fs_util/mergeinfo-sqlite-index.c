@@ -913,7 +913,7 @@ get_parent_target_path_having_mergeinfo(const char **parent_with_mergeinfo,
    is set in *MERGE_RANGES_LIST.
 
    *COMMIT_RANGELIST has elements of type 'svn_merge_range_t *'.
-   *MERGE_RANGES_LIST has elements of type 'apr_array_header_t *' which
+   *MERGE_RANGES_LIST has elements of type 'apr_array_header_t *' which 
    contains 'svn_merge_range_t *'.
 
    Retrieve the necessary records from DB; allocate the results in POOL.
@@ -974,7 +974,7 @@ get_commit_and_merge_ranges(apr_array_header_t **merge_ranges_list,
                                  "mergedrevend, inheritable "
                                  "FROM mergeinfo_changed "
                                  "WHERE mergedfrom = ? AND mergedto = ? "
-                                 "AND revision between ? AND ? "
+                                 "AND revision between ? AND ? " 
                                  "ORDER BY revision ASC ;", pool));
   SVN_ERR(svn_fs__sqlite_bind_text(stmt, 1, real_merge_source));
   SVN_ERR(svn_fs__sqlite_bind_text(stmt, 2, real_mergeinfo_target));
@@ -1004,7 +1004,7 @@ get_commit_and_merge_ranges(apr_array_header_t **merge_ranges_list,
                          svn_merge_range_t *) = commit_rev_range;
           APR_ARRAY_PUSH(*merge_ranges_list,
                          apr_array_header_t *) = merge_rangelist;
-          merge_rangelist = apr_array_make(pool, 0,
+          merge_rangelist = apr_array_make(pool, 0, 
                                            sizeof(svn_merge_range_t *));
         }
       merge_range->start = start_rev;
