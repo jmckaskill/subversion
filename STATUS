@@ -25,8 +25,8 @@ Candidate changes:
 
   * r28578
     Fix incorrect raise of cleared error.  If this code path is reached
-    (which happens if you symlink db/transactions/ to another filesystem,
-    say), the server will try to handle an error which is a dangling
+    (which happens if you symlink db/transactions/ to another filesystem, 
+    say), the server will try to handle an error which is a dangling 
     pointer.  Madness (and even segfaults) ensues.
     Justification:
       Dangling pointers and crashes are bad.  Obvious fix.
@@ -57,7 +57,7 @@ Candidate changes:
       next svnmerge.py will ignore it the second time around.
     Votes:
       +1: blair, cmpilato
-      -0: glasser (while backporting mucc is a reasonable idea, it has changed
+      -0: glasser (while backporting mucc is a reasonable idea, it has changed 
            a lot since this was proposed, including changing its name; either
            don't backport at all or backport even more)
 
