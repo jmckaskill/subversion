@@ -1030,7 +1030,7 @@ svn_cl__get_changelist(apr_array_header_t **paths_p,
 {
   apr_array_header_t *paths = apr_array_make(pool, 8, sizeof(const char *));
   SVN_ERR(svn_client_get_changelist_streamy(changelist_receiver, (void *)paths,
-                                            changelist_name, root_path,
+                                            changelist_name, root_path, 
                                             ctx, pool));
   *paths_p = paths;
   return SVN_NO_ERROR;
