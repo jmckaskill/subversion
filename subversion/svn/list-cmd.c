@@ -56,7 +56,7 @@ print_dirent(void *baton,
 
   if (pb->ctx->cancel_func)
     SVN_ERR(pb->ctx->cancel_func(pb->ctx->cancel_baton));
-
+     
   if (strcmp(path, "") == 0)
     {
       if (dirent->kind == svn_node_file)
@@ -129,10 +129,10 @@ print_header_xml(apr_pool_t *pool)
 
   /* <?xml version="1.0" encoding="utf-8"?> */
   svn_xml_make_header(&sb, pool);
-
+  
   /* "<lists>" */
   svn_xml_make_open_tag(&sb, pool, svn_xml_normal, "lists", NULL);
-
+  
   return svn_cl__error_checked_fputs(sb->data, stdout);
 }
 
@@ -163,7 +163,7 @@ print_dirent_xml(void *baton,
 
   if (pb->ctx->cancel_func)
     SVN_ERR(pb->ctx->cancel_func(pb->ctx->cancel_baton));
-
+     
   sb = svn_stringbuf_create("", pool);
 
   svn_xml_make_open_tag(&sb, pool, svn_xml_normal, "entry",
@@ -233,11 +233,11 @@ svn_cl__list(apr_getopt_t *os,
   svn_client_ctx_t *ctx = ((svn_cl__cmd_baton_t *) baton)->ctx;
   apr_array_header_t *targets;
   int i;
-  apr_pool_t *subpool = svn_pool_create(pool);
+  apr_pool_t *subpool = svn_pool_create(pool); 
   apr_uint32_t dirent_fields;
   struct print_baton pb;
 
-  SVN_ERR(svn_opt_args_to_target_array2(&targets, os,
+  SVN_ERR(svn_opt_args_to_target_array2(&targets, os, 
                                         opt_state->targets, pool));
 
   /* Add "." if user passed 0 arguments */
@@ -281,7 +281,7 @@ svn_cl__list(apr_getopt_t *os,
       svn_opt_revision_t peg_revision;
 
       svn_pool_clear(subpool);
-
+     
       SVN_ERR(svn_cl__check_cancel(ctx->cancel_baton));
 
       /* Get peg revisions. */
@@ -313,7 +313,7 @@ svn_cl__list(apr_getopt_t *os,
     }
 
   svn_pool_destroy(subpool);
-
+  
   if (opt_state->xml && ! opt_state->incremental)
     SVN_ERR(print_footer_xml(pool));
 
