@@ -1582,7 +1582,7 @@ void SVNClient::getChangelists(const char *rootPath,
     Pool requestPool;
     svn_client_ctx_t *ctx = getContext(NULL);
 
-    apr_array_header_t *cl_changelists
+    apr_array_header_t *cl_changelists 
       = apr_array_make(requestPool.pool(), changelists.size(), sizeof(char *));
 
     std::vector<std::string>::const_iterator it;
