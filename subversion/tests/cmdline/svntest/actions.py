@@ -520,8 +520,8 @@ def verify_disk(wc_dir_name,
                  singleton_handler_a, a_baton,
                  singleton_handler_b, b_baton,
                  check_props)
-
-
+                 
+  
 
 def run_and_verify_update(wc_dir_name,
                           output_tree, disk_tree, status_tree,
@@ -761,7 +761,7 @@ def run_and_verify_mergeinfo(error_re_string = None,
     for src_path in actual_src_paths.keys():
       (actual_merged, actual_eligible) = actual_src_paths[src_path]
       (expected_merged, expected_eligible) = expected_src_paths[src_path]
-
+      
       if actual_merged != expected_merged:
         raise Exception("Unexpected merged ranges for target path '%s' and "
                         "source path '%s': Expected '%s', got '%s'" %
@@ -1035,7 +1035,7 @@ def run_and_verify_diff_summarize_xml(error_re_string = [],
     actual_item = path.getAttribute('item')
     actual_kind = path.getAttribute('kind')
     actual_prop = path.getAttribute('props')
-
+  
     if expected_item != actual_item:
       print "ERROR: expected:", expected_item, "actual:", actual_item
       raise Failure
@@ -1128,7 +1128,7 @@ def run_and_validate_lock(path, username):
 def make_repo_and_wc(sbox, create_wc = True, read_only = False):
   """Create a fresh repository and checkout a wc from it.
 
-  If read_only is False, a dedicated repository will be created, named
+  If read_only is False, a dedicated repository will be created, named 
   TEST_NAME. The repository will live in the global dir 'general_repo_dir'.
   If read_only is True the pristine repository will be used.
 
@@ -1136,7 +1136,7 @@ def make_repo_and_wc(sbox, create_wc = True, read_only = False):
   the repository, named TEST_NAME. The wc directory will live in the global
   dir 'general_wc_dir'.
 
-  Both variables 'general_repo_dir' and 'general_wc_dir' are defined at the
+  Both variables 'general_repo_dir' and 'general_wc_dir' are defined at the 
   top of this test suite.)  Returns on success, raises on failure."""
 
   # Create (or copy afresh) a new repos with a greek tree in it.
