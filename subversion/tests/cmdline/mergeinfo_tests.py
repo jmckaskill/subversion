@@ -78,7 +78,7 @@ def explicit_mergeinfo_source(sbox):
   B_url = sbox.repo_url + '/A/B'
   G_url = sbox.repo_url + '/A/D/G'
   H2_url = sbox.repo_url + '/A/D/H2'
-
+  
   # Make a copy, and dummy up some mergeinfo.
   mergeinfo = '/A/B:1\n/A/D/G:1\n'
   propval_path = os.path.join(wc_dir, 'propval.tmp')
@@ -102,7 +102,7 @@ def explicit_mergeinfo_source(sbox):
                                            {H_path : {'/A/D/H2' : (None,
                                                                    "r1:2")}},
                                            H_path, '--from-source', H2_url)
-
+  
 
 ########################################################################
 # Run the tests
