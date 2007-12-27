@@ -25,10 +25,10 @@
  * Modified by the GLib Team and others 1997-1999.  See the AUTHORS
  * file for a list of people on the GLib Team.  See the ChangeLog
  * files for a list of changes.  These files are distributed with
- * GLib at ftp://ftp.gtk.org/pub/gtk/.
+ * GLib at ftp://ftp.gtk.org/pub/gtk/. 
  */
 
-/*
+/* 
  * MT safe
  */
 
@@ -65,7 +65,7 @@ GThreadFunctions g_thread_functions_for_glib_use = {
   (GPrivate*(*)(GDestroyNotify))g_thread_fail, /* private_new */
   NULL,                                        /* private_get */
   NULL,                                        /* private_set */
-};
+}; 
 
 /* Local data */
 
@@ -89,7 +89,7 @@ g_mutex_init (void)
   /* we can not use g_private_set here, as g_threads_got_initialized is not
    * yet set TRUE, whereas the private_set function is already set.
    */
-  g_thread_functions_for_glib_use.private_set (g_thread_specific_private,
+  g_thread_functions_for_glib_use.private_set (g_thread_specific_private, 
 					       private_old);
 
   g_mutex_protect_static_mutex_allocation = g_mutex_new();
@@ -106,11 +106,11 @@ g_static_mutex_get_mutex_impl (GMutex** mutex)
 
   g_mutex_lock (g_mutex_protect_static_mutex_allocation);
 
-  if (!(*mutex))
-    *mutex = g_mutex_new();
+  if (!(*mutex)) 
+    *mutex = g_mutex_new(); 
 
   g_mutex_unlock (g_mutex_protect_static_mutex_allocation);
-
+  
   return *mutex;
 }
 
@@ -132,14 +132,14 @@ g_static_private_get (GStaticPrivate *private_key)
 }
 
 void
-g_static_private_set (GStaticPrivate *private_key,
+g_static_private_set (GStaticPrivate *private_key, 
 		      gpointer        data,
 		      GDestroyNotify  notify)
 {
   GArray *array;
   static guint next_index = 0;
   GStaticPrivateNode *node;
-
+  
   array = g_private_get (g_thread_specific_private);
   if (!array)
     {
@@ -185,7 +185,7 @@ g_static_private_free_data (gpointer data)
     {
       GArray* array = data;
       guint i;
-
+      
       for (i = 0; i < array->len; i++ )
 	{
 	  GStaticPrivateNode *node = &g_array_index (array, GStaticPrivateNode, i);
