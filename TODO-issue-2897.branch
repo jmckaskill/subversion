@@ -1,5 +1,5 @@
 * Optimize the sql query to retrieve the 'get-commit-and-merge-ranges' by
-  applying a where clause like
+  applying a where clause like 
   "mergedto in ('/a, '/a/b', '/a/b/c', '/a/b/c/d')"
 
 * Write a testcase for merge_target(a.k.a merge_source in reflective sense)
