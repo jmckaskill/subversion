@@ -114,7 +114,7 @@ tree_test_LDADD = $(top_builddir)/libglib.la
 type_test_LDADD = $(top_builddir)/libglib.la
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
 CONFIG_HEADER = ../config.h
-CONFIG_CLEAN_FILES =
+CONFIG_CLEAN_FILES = 
 PROGRAMS =  $(noinst_PROGRAMS)
 
 
@@ -125,47 +125,47 @@ LIBS = @LIBS@
 array_test_SOURCES = array-test.c
 array_test_OBJECTS =  array-test.o
 array_test_DEPENDENCIES =  $(top_builddir)/libglib.la
-array_test_LDFLAGS =
+array_test_LDFLAGS = 
 dirname_test_SOURCES = dirname-test.c
 dirname_test_OBJECTS =  dirname-test.o
 dirname_test_DEPENDENCIES =  $(top_builddir)/libglib.la
-dirname_test_LDFLAGS =
+dirname_test_LDFLAGS = 
 hash_test_SOURCES = hash-test.c
 hash_test_OBJECTS =  hash-test.o
 hash_test_DEPENDENCIES =  $(top_builddir)/libglib.la
-hash_test_LDFLAGS =
+hash_test_LDFLAGS = 
 list_test_SOURCES = list-test.c
 list_test_OBJECTS =  list-test.o
 list_test_DEPENDENCIES =  $(top_builddir)/libglib.la
-list_test_LDFLAGS =
+list_test_LDFLAGS = 
 node_test_SOURCES = node-test.c
 node_test_OBJECTS =  node-test.o
 node_test_DEPENDENCIES =  $(top_builddir)/libglib.la
-node_test_LDFLAGS =
+node_test_LDFLAGS = 
 relation_test_SOURCES = relation-test.c
 relation_test_OBJECTS =  relation-test.o
 relation_test_DEPENDENCIES =  $(top_builddir)/libglib.la
-relation_test_LDFLAGS =
+relation_test_LDFLAGS = 
 slist_test_SOURCES = slist-test.c
 slist_test_OBJECTS =  slist-test.o
 slist_test_DEPENDENCIES =  $(top_builddir)/libglib.la
-slist_test_LDFLAGS =
+slist_test_LDFLAGS = 
 string_test_SOURCES = string-test.c
 string_test_OBJECTS =  string-test.o
 string_test_DEPENDENCIES =  $(top_builddir)/libglib.la
-string_test_LDFLAGS =
+string_test_LDFLAGS = 
 strfunc_test_SOURCES = strfunc-test.c
 strfunc_test_OBJECTS =  strfunc-test.o
 strfunc_test_DEPENDENCIES =  $(top_builddir)/libglib.la
-strfunc_test_LDFLAGS =
+strfunc_test_LDFLAGS = 
 tree_test_SOURCES = tree-test.c
 tree_test_OBJECTS =  tree-test.o
 tree_test_DEPENDENCIES =  $(top_builddir)/libglib.la
-tree_test_LDFLAGS =
+tree_test_LDFLAGS = 
 type_test_SOURCES = type-test.c
 type_test_OBJECTS =  type-test.o
 type_test_DEPENDENCIES =  $(top_builddir)/libglib.la
-type_test_LDFLAGS =
+type_test_LDFLAGS = 
 CFLAGS = @CFLAGS@
 COMPILE = $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
 LTCOMPILE = $(LIBTOOL) --mode=compile $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
@@ -184,7 +184,7 @@ OBJECTS = array-test.o dirname-test.o hash-test.o list-test.o node-test.o relati
 all: all-redirect
 .SUFFIXES:
 .SUFFIXES: .S .c .lo .o .s
-$(srcdir)/Makefile.in: @MAINTAINER_MODE_TRUE@ Makefile.am $(top_srcdir)/configure.in $(ACLOCAL_M4)
+$(srcdir)/Makefile.in: @MAINTAINER_MODE_TRUE@ Makefile.am $(top_srcdir)/configure.in $(ACLOCAL_M4) 
 	cd $(top_srcdir) && $(AUTOMAKE) --gnu --include-deps tests/Makefile
 
 Makefile: $(srcdir)/Makefile.in  $(top_builddir)/config.status
