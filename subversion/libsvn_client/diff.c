@@ -204,7 +204,7 @@ display_prop_diffs(const apr_array_header_t *propchanges,
     {
       const char *header_fmt;
       const svn_string_t *original_value;
-      const svn_prop_t *propchange =
+      const svn_prop_t *propchange = 
         &APR_ARRAY_IDX(propchanges, i, svn_prop_t);
 
       if (original_props)
