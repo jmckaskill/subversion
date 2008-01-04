@@ -4115,7 +4115,7 @@ def create_deep_trees(wc_dir):
   svntest.main.run_svn(None, 'mv', A_B_E_path, A_B_F_path)
 
   # A/B/F/E now has empty mergeinfo
-
+  
   expected_output = wc.State(wc_dir, {
     'A/B/E'   : Item(verb='Deleting'),
     'A/B/F/E' : Item(verb='Adding')
@@ -4210,7 +4210,7 @@ def create_deep_trees(wc_dir):
 
   svntest.actions.verify_disk(wc_dir, expected_disk,
                               None, None, None, None, 1)
-
+  
   expected_status.tweak(wc_rev=4)
   expected_disk.tweak('A/copy-of-B/F/E', 'A/copy-of-B/F/E1', status=' M')
   return expected_status
@@ -6319,7 +6319,7 @@ def empty_mergeinfo(sbox):
   # Check that A_COPY's mergeinfo is gone.
   svntest.actions.run_and_verify_svn(None, [], [], 'pg', 'svn:mergeinfo',
                                      A_COPY_path)
-
+  
 def prop_add_to_child_with_mergeinfo(sbox):
   "merge adding prop to child of merge target works"
 
@@ -9070,7 +9070,7 @@ def ignore_ancestry_and_mergeinfo(sbox):
                                        expected_skip,
                                        None, None, None, None, None, 1, 1,
                                        '--ignore-ancestry')
-
+  
   os.chdir(saved_cwd)
 
 def merge_from_renamed_branch_fails_while_avoiding_repeat_merge(sbox):
@@ -9215,7 +9215,7 @@ def merge_source_normalization_and_subtree_merges(sbox):
   # Update the WC
   svntest.actions.run_and_verify_svn(None, None, [],
                                      'update', wc_dir)
-
+  
   # r8 - Make a text mod to 'A_MOVED/D/G/tau'
   svntest.main.file_write(os.path.join(wc_dir, "A_MOVED", "D", "G", "tau"),
                           "New content")
@@ -9313,7 +9313,7 @@ def merge_source_normalization_and_subtree_merges(sbox):
 
 def merge_non_reflective_changes_from_reflective_rev(sbox):
   "allow non-reflective changes from reflective rev"
-  #Add file A/C/adhoc.txt, A/C/tfile0.txt
+  #Add file A/C/adhoc.txt, A/C/tfile0.txt 
   #A/C/adhocdir and A/C/tdir1, commit, results in r2.
   #Copy A/C to A/FB1 results in r3.
   #Copy A/C to A/FB2 results in r4.
@@ -9332,7 +9332,7 @@ def merge_non_reflective_changes_from_reflective_rev(sbox):
   #Merge r3:15 from A/FB1 to A/C. Here r11,r12, r13 are reflective of '/A/C'.
   #Merge should extract changes that are not from merge of
   #'/A/C'(non-reflective-of-/A/C) and merge.
-  #i.e This should extract '+/A/FB1/bfile2.txt, '-/A/FB1/adhoc.txt'
+  #i.e This should extract '+/A/FB1/bfile2.txt, '-/A/FB1/adhoc.txt' 
   #and '-/A/FB1/adhocdir' from /A/FB1 of r13.
 
   # Create a WC with a single branch
@@ -9757,7 +9757,7 @@ def merge_non_reflective_changes_from_reflective_rev(sbox):
     'bdir3'         : Item(status='A '),
     })
   expected_disk = wc.State('', {
-    ''            : Item(props={SVN_PROP_MERGE_INFO :
+    ''            : Item(props={SVN_PROP_MERGE_INFO : 
                                    '/A/C:5-6,10\n/A/FB1:4-15\n/A/FB2:4-12\n'}),
     'bfile1.txt'  : Item("This is the bfile1.\n"),
     'bdir1'       : Item(),
@@ -10013,7 +10013,7 @@ def merge_non_reflective_text_and_prop_change(sbox):
                                        None, None, None, None, None, 1,
                                        dry_run = False)
   os.chdir(saved_cwd)
-  # Revert
+  # Revert 
   svntest.actions.run_and_verify_svn(None, None, [], 'revert', '-R', wc_dir)
   #Redo the above merge with current working directory being a implicit
   #target
@@ -10049,7 +10049,7 @@ def merge_non_reflective_with_conflict(sbox):
   ## In this test case we do merge of 3 different ranges from trunk to
   ## feature branch in which the second merge gives rise to a conflict.
   ## Once the conflict is resolved we do the third merge. When all these
-  ## 3 merges are done successfully and committed, we do a merge from
+  ## 3 merges are done successfully and committed, we do a merge from 
   ## feature branch to trunk.
 
   # Create a WC
@@ -10310,7 +10310,7 @@ def merge_non_reflective_with_conflict(sbox):
                                        expected_disk,
                                        expected_status,
                                        expected_skip,
-                                       expected_error,
+                                       expected_error, 
                                        svntest.tree.detect_conflict_files,
                                        list(alpha_conflict_support_files),
                                        check_props=True)
@@ -10342,7 +10342,7 @@ def merge_non_reflective_with_conflict(sbox):
                                        expected_disk,
                                        expected_status,
                                        expected_skip,
-                                       None,
+                                       None, 
                                        svntest.tree.detect_conflict_files,
                                        list(alpha_conflict_support_files),
                                        check_props=True)
@@ -10360,18 +10360,18 @@ def merge_non_reflective_with_complex_conflict(sbox):
   ## the trunk uptil $REFLECTIVE_REV-1 here we will get one conflict
   ## equivalent of the above one.
   ## Now we merge -r$REFLECTIVE_REV-1:HEAD from feature branch to trunk.
-  ## As reflective merge works by upgrading(merging) 'left' by applying the
+  ## As reflective merge works by upgrading(merging) 'left' by applying the 
   ## changes corresponding to reflected_ranges in order to avoid the repeat
   ## merge.
   ## In this particular merge r10 reflects r3-4, r7, r9, applying r3-4 would
-  ## be harmless, r7 causes a conflict which is resolved by overwriting with
+  ## be harmless, r7 causes a conflict which is resolved by overwriting with 
   ## '.mine', r9 is a smooth merge.
   ## Here '.left' is /feature_branch@r9, we apply r3-4 merges with no
   ## conflicts, applying r7 it merges with conflicts. This conflicted change
   ## can cause further conflicts if subsequent ranges have a change to adjacent
   ## lines.
   ## So we should not upgrade(merge) '.left' if the range causes a conflict,
-  ## so that we can make effective use of '.right' which has a conflict
+  ## so that we can make effective use of '.right' which has a conflict 
   ## resolved already.
 
   # Create a WC
@@ -10670,7 +10670,7 @@ def merge_non_reflective_with_complex_conflict(sbox):
   expected_status.tweak('alpha', status='M ')
   new_content = new_content.replace("line8.", "FBLINE8.")
   expected_disk.tweak('alpha', contents=new_content)
-  expected_disk.tweak('', props={SVN_PROP_MERGE_INFO :
+  expected_disk.tweak('', props={SVN_PROP_MERGE_INFO : 
                                  '/A/B/E:3-4,7,9\n/A/B/E_COPY:3-11\n'})
   svntest.actions.run_and_verify_merge(short_ABE, 9, 11,
                                        sbox.repo_url + '/A/B/E_COPY',
@@ -10947,7 +10947,7 @@ def reflective_merge_on_reincarnated_target(sbox):
     'unrelated.txt'  : Item(status='A '),
     })
   expected_disk = wc.State('', {
-    ''               : Item(props={SVN_PROP_MERGE_INFO :
+    ''               : Item(props={SVN_PROP_MERGE_INFO : 
                             '/A/C:2-3,7,14\n/A/C1:11\n/A/FB:2-15\n'}),
     'unrelated.txt'  : Item("This is the unrelated file.\n"),
     'file1.txt'      : Item("This is the file1.\n"),
