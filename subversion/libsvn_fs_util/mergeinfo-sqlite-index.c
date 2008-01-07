@@ -235,7 +235,7 @@ table_has_any_rows_with_rev(svn_boolean_t *has_any,
   SVN_ERR(svn_fs__sqlite_prepare(&stmt, db, selection, pool));
   SVN_ERR(svn_fs__sqlite_step(has_any, stmt));
   SVN_ERR(svn_fs__sqlite_finalize(stmt));
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -246,7 +246,7 @@ table_has_any_rows_with_rev(svn_boolean_t *has_any,
    definitely data there to delete.
  */
 static svn_error_t *
-clean_tables(sqlite3 *db,
+clean_tables(sqlite3 *db, 
              svn_revnum_t new_rev,
              svn_boolean_t avoid_noop_delete,
              apr_pool_t *pool)
@@ -277,7 +277,7 @@ clean_tables(sqlite3 *db,
                               "DELETE FROM mergeinfo WHERE revision = %ld;",
                               new_rev);
   SVN_ERR(svn_fs__sqlite_exec(db, deletestring));
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -299,8 +299,8 @@ svn_fs_mergeinfo__update_index(svn_fs_txn_t *txn, svn_revnum_t new_rev,
 
   /* Clean up old data.  (If we're going to write to the DB anyway,
      there's no reason to do extra checks to avoid no-op DELETEs.) */
-  err = clean_tables(db,
-                     new_rev,
+  err = clean_tables(db, 
+                     new_rev, 
                      (mergeinfo_for_paths == NULL),
                      subpool);
   MAYBE_CLEANUP;
