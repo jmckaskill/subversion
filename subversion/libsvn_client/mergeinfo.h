@@ -30,7 +30,7 @@ typedef struct svn_client__remaining_range_info_t {
      reflective range of it. It contains individual elements of
      type 'svn_merge_range_t *'. */
   apr_array_header_t *reflected_ranges;
-  /* reflected_target_segment is of value 'target url absolute repository
+  /* reflected_target_segment is of value 'target url absolute repository 
      path segment' at refective merge. */
   const char *reflected_target_segment;
 } svn_client__remaining_range_info_t;
@@ -59,7 +59,7 @@ typedef struct svn_client__merge_path_t
                                         due to authz restrictions. */
   const svn_string_t *propval;       /* Working mergeinfo for PATH at start
                                         of merge.  May be NULL. */
-  apr_array_header_t *remaining_ranges; /* Per path remaining
+  apr_array_header_t *remaining_ranges; /* Per path remaining 
                                            svn_client__remaining_range_info_t*
                                            list. */
   apr_hash_t *pre_merge_mergeinfo;      /* mergeinfo on a path prior to a
@@ -248,7 +248,7 @@ svn_client__elide_mergeinfo_for_tree(apr_hash_t *children_with_mergeinfo,
  * MERGE_SOURCE@MERGE_SOURCE_PEG_REV to a MERGE_TARGET@MAX_COMMIT_REV.
  * where each commit_rev in @a commit_rangelist > @a min_commit_rev and
  * <= @a max_commit_rev.
- *
+ * 
  * COMMIT_RANGELIST, MERGE_RANGES_LIST and MERGE_SOURCE_PATH_SEGMENTS will
  * never be NULL, but may be empty.
  *
