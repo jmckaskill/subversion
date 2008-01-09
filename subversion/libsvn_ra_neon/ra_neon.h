@@ -262,7 +262,7 @@ svn_error_t * svn_ra_neon__get_mergeinfo(svn_ra_session_t *session,
                                          svn_mergeinfo_inheritance_t inherit,
                                          apr_pool_t *pool);
 
-svn_error_t *
+svn_error_t * 
 svn_ra_neon__get_commit_and_merge_ranges(svn_ra_session_t *session,
                                         apr_array_header_t **merge_ranges_list,
                                         apr_array_header_t **commit_rangelist,
