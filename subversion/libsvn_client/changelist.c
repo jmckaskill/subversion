@@ -97,14 +97,14 @@ found_an_entry(const char *path,
      looking for (or we aren't looking for any in particular)... */
   if (entry->changelist
       && ((! b->changelists)
-          || apr_hash_get(b->changelists, entry->changelist,
+          || apr_hash_get(b->changelists, entry->changelist, 
                           APR_HASH_KEY_STRING))
       && ((entry->kind == svn_node_file)
           || ((entry->kind == svn_node_dir)
               && (strcmp(entry->name, SVN_WC_ENTRY_THIS_DIR) == 0))))
     {
       /* ...then call the callback function. */
-      SVN_ERR(b->callback_func(b->callback_baton, path,
+      SVN_ERR(b->callback_func(b->callback_baton, path, 
                                entry->changelist, pool));
     }
 
