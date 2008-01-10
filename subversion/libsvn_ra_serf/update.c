@@ -1765,9 +1765,9 @@ end_report(svn_ra_serf__xml_parser_t *parser,
            * version resource root path.
            *
            * Example:
-           * path:
+           * path: 
            *  /svn-test-work/repositories/log_tests-17/!svn/ver/4/branches/a
-           * repos_root:
+           * repos_root: 
            *  http://localhost/repositories/log_tests-17
            * destination:
            *  http://localhost/repositories/log_tests-17/branches/a
@@ -1793,13 +1793,13 @@ end_report(svn_ra_serf__xml_parser_t *parser,
 
           svn_path_add_component(path, apr_ltoa(info->pool, info->base_rev));
 
-          /* Similar as above, we now have to add the relative path between
-           * source and root path.
+          /* Similar as above, we now have to add the relative path between 
+           * source and root path. 
            *
            * Example:
-           * path:
+           * path: 
            *  /svn-test-work/repositories/log_tests-17/!svn/ver/2
-           * repos_root path:
+           * repos_root path: 
            *  /svn-test-work/repositories/log_tests-17
            * source:
            *  /svn-test-work/repositories/log_tests-17/trunk
