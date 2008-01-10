@@ -786,7 +786,7 @@ svn_client_propget4(apr_hash_t **props,
                                      FALSE, adm_lock_level,
                                      ctx->cancel_func, ctx->cancel_baton,
                                      pool));
-      SVN_ERR(svn_wc__entry_versioned(&node, path_or_url, adm_access,
+      SVN_ERR(svn_wc__entry_versioned(&node, path_or_url, adm_access, 
                                       FALSE, pool));
 
       SVN_ERR(svn_client__get_revision_number
@@ -796,8 +796,8 @@ svn_client_propget4(apr_hash_t **props,
       pristine = (revision->kind == svn_opt_revision_committed
                   || revision->kind == svn_opt_revision_base);
 
-      SVN_ERR(svn_client__get_prop_from_wc(*props, propname, path_or_url,
-                                           pristine, node, adm_access,
+      SVN_ERR(svn_client__get_prop_from_wc(*props, propname, path_or_url, 
+                                           pristine, node, adm_access, 
                                            depth, ctx, pool));
 
       SVN_ERR(svn_wc_adm_close(adm_access));
@@ -1143,10 +1143,10 @@ svn_client_proplist3(const char *path_or_url,
                                      FALSE, levels_to_lock,
                                      ctx->cancel_func, ctx->cancel_baton,
                                      pool));
-      SVN_ERR(svn_wc__entry_versioned(&node, path_or_url, adm_access,
+      SVN_ERR(svn_wc__entry_versioned(&node, path_or_url, adm_access, 
                                       FALSE, pool));
 
-      SVN_ERR(svn_client__get_revision_number(&revnum, NULL, NULL,
+      SVN_ERR(svn_client__get_revision_number(&revnum, NULL, NULL, 
                                               revision, path_or_url, pool));
 
       if ((revision->kind == svn_opt_revision_committed)
@@ -1182,7 +1182,7 @@ svn_client_proplist3(const char *path_or_url,
 
           SVN_ERR(pristine_or_working_props(&hash, path_or_url, adm_access,
                                             pristine, pool));
-          SVN_ERR(call_receiver(path_or_url, hash,
+          SVN_ERR(call_receiver(path_or_url, hash, 
                                 receiver, receiver_baton, pool));
 
           /* If DEPTH is at least svn_depth_files and PATH_OR_URL is a
@@ -1195,8 +1195,8 @@ svn_client_proplist3(const char *path_or_url,
 
               SVN_ERR(svn_wc_entries_read(&entries, adm_access, FALSE, pool));
 
-              for (hi = apr_hash_first(pool, entries);
-                   hi;
+              for (hi = apr_hash_first(pool, entries); 
+                   hi; 
                    hi = apr_hash_next(hi))
                 {
                   const void *key;
@@ -1225,7 +1225,7 @@ svn_client_proplist3(const char *path_or_url,
                                        : svn_wc_schedule_delete))
                         continue;
 
-                      SVN_ERR(pristine_or_working_props(&hash, path,
+                      SVN_ERR(pristine_or_working_props(&hash, path, 
                                                         adm_access,
                                                         pristine, iterpool));
                       SVN_ERR(call_receiver(path, hash, receiver,
@@ -1252,7 +1252,7 @@ svn_client_proplist3(const char *path_or_url,
 
       SVN_ERR(svn_ra_check_path(ra_session, "", revnum, &kind, pool));
 
-      SVN_ERR(remote_proplist(url, "", kind, revnum, ra_session, depth,
+      SVN_ERR(remote_proplist(url, "", kind, revnum, ra_session, depth, 
                               receiver, receiver_baton, pool, subpool));
       svn_pool_destroy(subpool);
     }
