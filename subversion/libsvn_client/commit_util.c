@@ -193,7 +193,7 @@ considered_committable(apr_hash_t *changelists,
 {
   return ((changelists == NULL)
           || (entry->changelist &&
-              apr_hash_get(changelists, entry->changelist,
+              apr_hash_get(changelists, entry->changelist, 
                            APR_HASH_KEY_STRING))) ? TRUE : FALSE;
 }
 
