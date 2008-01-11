@@ -35,7 +35,7 @@ Item = svntest.wc.StateItem
 def mod_all_files(wc_dir, new_text):
   """Walk over working copy WC_DIR, appending NEW_TEXT to all the
   files in that tree (but not inside the .svn areas of that tree)."""
-
+  
   def tweak_files(new_text, dirname, names):
     if os.path.basename(dirname) == ".svn":
       del names[:]
@@ -44,7 +44,7 @@ def mod_all_files(wc_dir, new_text):
         full_path = os.path.join(dirname, name)
         if os.path.isfile(full_path):
           svntest.main.file_append(full_path, new_text)
-
+        
   os.path.walk(wc_dir, tweak_files, new_text)
 
 def changelist_all_files(wc_dir, name_func):
@@ -52,7 +52,7 @@ def changelist_all_files(wc_dir, name_func):
   changelists named by invoking NAME_FUNC(full-path-of-file) and
   noting its string return value (or None, if we wish to remove the
   file from a changelist)."""
-
+  
   def do_changelist(name_func, dirname, names):
     if os.path.basename(dirname) == ".svn":
       del names[:]
@@ -65,7 +65,7 @@ def changelist_all_files(wc_dir, name_func):
             svntest.main.run_svn(None, "changelist", "--remove", full_path)
           else:
             svntest.main.run_svn(None, "changelist", clname, full_path)
-
+        
   os.path.walk(wc_dir, do_changelist, name_func)
 
 def clname_from_lastchar_cb(full_path):
@@ -73,7 +73,7 @@ def clname_from_lastchar_cb(full_path):
   name matching the last character in the file's name.  For example,
   after running this on a greek tree where every file has some text
   modification, 'svn status' shows:
-
+  
     --- Changelist 'a':
     M      A/B/lambda
     M      A/B/E/alpha
@@ -81,16 +81,16 @@ def clname_from_lastchar_cb(full_path):
     M      A/D/gamma
     M      A/D/H/omega
     M      iota
-
+    
     --- Changelist 'u':
     M      A/mu
     M      A/D/G/tau
-
+    
     --- Changelist 'i':
     M      A/D/G/pi
     M      A/D/H/chi
     M      A/D/H/psi
-
+    
     --- Changelist 'o':
     M      A/D/G/rho
     """
@@ -115,7 +115,7 @@ def commit_one_changelist(sbox):
 
   # Add files to changelists based on their last names.
   changelist_all_files(wc_dir, clname_from_lastchar_cb)
-
+  
   # Now, test a commit that uses a single changelist filter (--changelist a).
   expected_output = svntest.wc.State(wc_dir, {
     'A/B/lambda' : Item(verb='Sending'),
@@ -137,7 +137,7 @@ def commit_one_changelist(sbox):
                                         wc_dir,
                                         "--changelist",
                                         "a")
-
+  
 
 def commit_multiple_changelists(sbox):
   "commit with multiple --changelist's"
@@ -150,7 +150,7 @@ def commit_multiple_changelists(sbox):
 
   # Add files to changelists based on their last names.
   changelist_all_files(wc_dir, clname_from_lastchar_cb)
-
+  
   # Now, test a commit that uses multiple changelist filters
   # (--changelist=a --changelist=i).
   expected_output = svntest.wc.State(wc_dir, {
