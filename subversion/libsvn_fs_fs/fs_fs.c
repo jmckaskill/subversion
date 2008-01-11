@@ -271,7 +271,7 @@ path_txn_proto_rev_lock(svn_fs_t *fs, const char *txn_id, apr_pool_t *pool)
   fs_fs_data_t *ffd = fs->fsap_data;
   if (ffd->format >= SVN_FS_FS__MIN_PROTOREVS_DIR_FORMAT)
     return svn_path_join_many(pool, fs->path, PATH_TXN_PROTOS_DIR,
-                              apr_pstrcat(pool, txn_id, PATH_EXT_REV_LOCK,
+                              apr_pstrcat(pool, txn_id, PATH_EXT_REV_LOCK, 
                                           NULL),
                               NULL);
   else
@@ -467,7 +467,7 @@ with_some_lock(svn_error_t *(*body)(void *baton,
      within the process. */
   status = apr_thread_mutex_lock(lock_mutex);
   if (status)
-    return svn_error_wrap_apr(status,
+    return svn_error_wrap_apr(status, 
                               _("Can't grab FSFS mutex for '%s'"),
                               lock_filename);
 #endif
@@ -3550,11 +3550,11 @@ svn_fs_fs__change_txn_prop(svn_fs_txn_t *txn,
 {
   apr_array_header_t *props = apr_array_make(pool, 1, sizeof(svn_prop_t));
   svn_prop_t prop;
-
+  
   prop.name = name;
   prop.value = value;
   APR_ARRAY_PUSH(props, svn_prop_t) = prop;
-
+  
   return svn_fs_fs__change_txn_props(txn, props, pool);
 }
 
@@ -3837,7 +3837,7 @@ svn_fs_fs__purge_txn(svn_fs_t *fs,
       if (err)
         return err;
 
-      err = svn_io_remove_file(path_txn_proto_rev_lock(fs, txn_id, pool),
+      err = svn_io_remove_file(path_txn_proto_rev_lock(fs, txn_id, pool), 
                                pool);
       if (err && APR_STATUS_IS_ENOENT(err->apr_err))
         {
@@ -4578,7 +4578,7 @@ write_final_rev(const svn_fs_id_t **new_id_p,
           apr_hash_this(hi, NULL, NULL, &val);
           dirent = val;
           SVN_ERR(write_final_rev(&new_id, file, rev, fs, dirent->id,
-                                  start_node_id, start_copy_id,
+                                  start_node_id, start_copy_id, 
                                   node_origins, subpool));
           if (new_id && (svn_fs_fs__id_rev(new_id) == rev))
             dirent->id = svn_fs_fs__id_copy(new_id, pool);
@@ -5007,7 +5007,7 @@ commit_body(void *baton, apr_pool_t *pool)
   /* Write out all the node-revisions and directory contents. */
   root_id = svn_fs_fs__id_txn_create("0", "0", cb->txn->id, pool);
   SVN_ERR(write_final_rev(&new_root_id, proto_file, new_rev, cb->fs, root_id,
-                          start_node_id, start_copy_id, cb->node_origins,
+                          start_node_id, start_copy_id, cb->node_origins, 
                           pool));
 
   /* Write the changed-path information. */
@@ -5041,13 +5041,13 @@ commit_body(void *baton, apr_pool_t *pool)
           prop.name = SVN_FS__PROP_TXN_CHECK_OOD;
           APR_ARRAY_PUSH(props, svn_prop_t) = prop;
         }
-
+      
       if (apr_hash_get(txnprops, SVN_FS__PROP_TXN_CHECK_LOCKS,
                        APR_HASH_KEY_STRING))
         {
           prop.name = SVN_FS__PROP_TXN_CHECK_LOCKS;
           APR_ARRAY_PUSH(props, svn_prop_t) = prop;
-        }
+        }          
 
       if (apr_hash_get(txnprops, SVN_FS__PROP_TXN_CONTAINS_MERGEINFO,
                        APR_HASH_KEY_STRING))
@@ -5058,7 +5058,7 @@ commit_body(void *baton, apr_pool_t *pool)
           prop.name = SVN_FS__PROP_TXN_CONTAINS_MERGEINFO;
           APR_ARRAY_PUSH(props, svn_prop_t) = prop;
         }
-
+      
       if (! apr_is_empty_array(props))
         SVN_ERR(svn_fs_fs__change_txn_props(cb->txn, props, pool));
     }
@@ -5139,7 +5139,7 @@ svn_fs_fs__commit(svn_revnum_t *new_rev_p,
   cb.txn = txn;
   cb.node_origins = node_origins;
   SVN_ERR(svn_fs_fs__with_write_lock(fs, commit_body, &cb, pool));
-
+  
   /* Now that we're no longer locked, we can update the node-origins
      cache without blocking writers. */
   if (apr_hash_count(node_origins) > 0)
