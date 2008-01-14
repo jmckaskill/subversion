@@ -2950,8 +2950,8 @@ svn_wc_set_changelist(const apr_array_header_t *paths,
          trying to assign, or if we're trying to remove a changelist
          assignment from a path that has none, there's nothing to
          do. */
-      if (entry->changelist
-          && changelist
+      if (entry->changelist 
+          && changelist 
           && strcmp(entry->changelist, changelist) == 0)
         continue;
       if (! (entry->changelist || changelist))
@@ -2959,7 +2959,7 @@ svn_wc_set_changelist(const apr_array_header_t *paths,
 
       /* Possibly enforce matching with an existing changelist. */
       if (matching_changelist
-          && entry->changelist
+          && entry->changelist 
           && strcmp(entry->changelist, matching_changelist) != 0)
         {
           if (notify_func)

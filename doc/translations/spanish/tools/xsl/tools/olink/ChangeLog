@@ -8,6 +8,6 @@
 
 2001-08-01  Norman Walsh <nwalsh@users.sourceforge.net>
 
-	* olink-common.xsl, olink.xsl, olinkchunk.xsl, olinksum.dtd:
+	* olink-common.xsl, olink.xsl, olinkchunk.xsl, olinksum.dtd: 
 	New file.
 
