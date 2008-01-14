@@ -1,5 +1,5 @@
 /*
- * commit_and_merge_ranges.c :  routines for requesting and parsing
+ * commit_and_merge_ranges.c :  routines for requesting and parsing 
  * commit-and-merge-ranges-report.
  *
  * ====================================================================
@@ -66,7 +66,7 @@ start_element(int *elem, void *baton, int parent_state, const char *nspace,
 {
   struct mergeinfo_baton *mb = baton;
 
-  const svn_ra_neon__xml_elm_t *elm =
+  const svn_ra_neon__xml_elm_t *elm = 
     svn_ra_neon__lookup_xml_elem(commit_and_merge_ranges_report_elements,
                                  nspace, elt_name);
   if (! elm)
@@ -117,7 +117,7 @@ cdata_handler(void *baton, int state, const char *cdata, size_t len)
     case ELEM_merge_ranges:
       SVN_ERR(svn_rangelist__parse(&merge_rangelist, cdata_local,
                                    FALSE, FALSE, mb->pool));
-      APR_ARRAY_PUSH(mb->merge_ranges_list,
+      APR_ARRAY_PUSH(mb->merge_ranges_list, 
                      apr_array_header_t *) = merge_rangelist;
       break;
 
