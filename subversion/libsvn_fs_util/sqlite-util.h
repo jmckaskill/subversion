@@ -38,7 +38,7 @@ svn_error_t *
 svn_fs__sqlite_step_row(svn_fs__sqlite_stmt_t *stmt);
 
 /* Steps the given statement; raises an SVN error (and finalizes the
-   statement) if it doesn't return SQLITE_DONE or SQLITE_ROW.  Sets
+   statement) if it doesn't return SQLITE_DONE or SQLITE_ROW.  Sets 
    *GOT_ROW to true iff it got SQLITE_ROW.
 */
 svn_error_t *
@@ -58,18 +58,18 @@ svn_fs__sqlite_open(sqlite3 **db, const char *repos_path, apr_pool_t *pool);
 
 /* Prepares TEXT as a statement in DB, returning a statement in *STMT. */
 svn_error_t *
-svn_fs__sqlite_prepare(svn_fs__sqlite_stmt_t **stmt, sqlite3 *db,
+svn_fs__sqlite_prepare(svn_fs__sqlite_stmt_t **stmt, sqlite3 *db, 
                        const char *text, apr_pool_t *pool);
 
 /* Error-handling wrapper around sqlite3_bind_int64. */
 svn_error_t *
-svn_fs__sqlite_bind_int64(svn_fs__sqlite_stmt_t *stmt, int slot,
+svn_fs__sqlite_bind_int64(svn_fs__sqlite_stmt_t *stmt, int slot, 
                           sqlite_int64 val);
 
 /* Error-handling wrapper around sqlite3_bind_text. VAL cannot contain
    zero bytes; we always pass SQLITE_TRANSIENT. */
 svn_error_t *
-svn_fs__sqlite_bind_text(svn_fs__sqlite_stmt_t *stmt, int slot,
+svn_fs__sqlite_bind_text(svn_fs__sqlite_stmt_t *stmt, int slot, 
                          const char *val);
 
 /* Wrapper around sqlite3_column_text. */
