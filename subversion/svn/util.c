@@ -1031,7 +1031,7 @@ svn_cl__get_changelist(apr_array_header_t **paths_p,
                        apr_pool_t *pool)
 {
   apr_array_header_t *paths = apr_array_make(pool, 8, sizeof(const char *));
-  apr_array_header_t *changelists = apr_array_make(pool, 1,
+  apr_array_header_t *changelists = apr_array_make(pool, 1, 
                                                    sizeof(const char *));
   APR_ARRAY_PUSH(changelists, const char *) = changelist_name;
   SVN_ERR(svn_client_get_changelists(path, changelists, svn_depth_infinity,
