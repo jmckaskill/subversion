@@ -499,7 +499,7 @@ svn_cl__log(apr_getopt_t *os,
   /* Determine if they really want a two-revision range. */
   if (opt_state->used_change_arg)
     {
-      if (opt_state->start_revision.value.number <
+      if (opt_state->start_revision.value.number < 
           opt_state->end_revision.value.number)
         opt_state->start_revision = opt_state->end_revision;
       else
