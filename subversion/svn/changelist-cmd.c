@@ -46,13 +46,13 @@ svn_cl__changelist(apr_getopt_t *os,
   apr_array_header_t *paths;
   int i;
 
-  SVN_ERR(svn_opt_args_to_target_array2(&targets, os,
+  SVN_ERR(svn_opt_args_to_target_array2(&targets, os, 
                                         opt_state->targets, pool));
 
   /* If using changelists, convert targets into a set of paths that
      match the specified changelist(s). */
   if (opt_state->changelists)
-    SVN_ERR(svn_cl__changelist_paths(&targets,
+    SVN_ERR(svn_cl__changelist_paths(&targets, 
                                      opt_state->changelists, targets,
                                      svn_depth_infinity, ctx, pool));
 

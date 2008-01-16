@@ -102,7 +102,7 @@ found_an_entry(const char *path,
               && (strcmp(entry->name, SVN_WC_ENTRY_THIS_DIR) == 0))))
     {
       /* ...then call the callback function. */
-      SVN_ERR(b->callback_func(b->callback_baton, path,
+      SVN_ERR(b->callback_func(b->callback_baton, path, 
                                entry->changelist, pool));
     }
 
