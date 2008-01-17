@@ -2901,8 +2901,8 @@ svn_wc_set_changelist(const char *path,
 
   /* If the path is already assigned to the changelist we're
      trying to assign, skip it. */
-  if (entry->changelist
-      && changelist
+  if (entry->changelist 
+      && changelist 
       && strcmp(entry->changelist, changelist) == 0)
     return SVN_NO_ERROR;
 
@@ -2914,22 +2914,22 @@ svn_wc_set_changelist(const char *path,
         svn_error_createf(SVN_ERR_WC_CHANGELIST_MOVE, NULL,
                           _("Removing '%s' from changelist '%s'."),
                           path, entry->changelist);
-      notify = svn_wc_create_notify(path, svn_wc_notify_changelist_moved,
+      notify = svn_wc_create_notify(path, svn_wc_notify_changelist_moved, 
                                     pool);
       notify->err = unversioned_err;
       notify_func(notify_baton, notify, pool);
     }
-
+  
   /* Tweak the entry. */
   newentry.changelist = changelist;
   SVN_ERR(svn_wc__entry_modify(adm_access, entry->name, &newentry,
                                SVN_WC__ENTRY_MODIFY_CHANGELIST, TRUE, pool));
-
+  
   /* And tell someone what we've done. */
   if (notify_func)
     {
-      notify = svn_wc_create_notify(path,
-                                    changelist
+      notify = svn_wc_create_notify(path, 
+                                    changelist 
                                     ? svn_wc_notify_changelist_set
                                     : svn_wc_notify_changelist_clear,
                                     pool);
