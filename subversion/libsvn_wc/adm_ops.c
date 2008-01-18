@@ -1784,7 +1784,7 @@ revert_admin_things(svn_wc_adm_access_t *adm_access,
      if we're reverting a replacement.  This is just an optimization. */
   if (baseprops)
     {
-      SVN_ERR(svn_wc__install_props(&log_accum, adm_access, fullpath,
+      SVN_ERR(svn_wc__install_props(&log_accum, adm_access, fullpath, 
                                     baseprops, baseprops, revert_base, pool));
       *reverted = TRUE;
     }
@@ -1990,7 +1990,7 @@ svn_wc_revert3(const char *path,
              make this happen.  For now, send notification of the failure. */
           if (notify_func != NULL)
             {
-              svn_wc_notify_t *notify =
+              svn_wc_notify_t *notify = 
                 svn_wc_create_notify(path, svn_wc_notify_failed_revert, pool);
               notify_func(notify_baton, notify, pool);
             }
@@ -2901,8 +2901,8 @@ svn_wc_set_changelist(const char *path,
 
   /* If the path is already assigned to the changelist we're
      trying to assign, skip it. */
-  if (entry->changelist
-      && changelist
+  if (entry->changelist 
+      && changelist 
       && strcmp(entry->changelist, changelist) == 0)
     return SVN_NO_ERROR;
 
@@ -2914,22 +2914,22 @@ svn_wc_set_changelist(const char *path,
         svn_error_createf(SVN_ERR_WC_CHANGELIST_MOVE, NULL,
                           _("Removing '%s' from changelist '%s'."),
                           path, entry->changelist);
-      notify = svn_wc_create_notify(path, svn_wc_notify_changelist_moved,
+      notify = svn_wc_create_notify(path, svn_wc_notify_changelist_moved, 
                                     pool);
       notify->err = unversioned_err;
       notify_func(notify_baton, notify, pool);
     }
-
+  
   /* Tweak the entry. */
   newentry.changelist = changelist;
   SVN_ERR(svn_wc__entry_modify(adm_access, entry->name, &newentry,
                                SVN_WC__ENTRY_MODIFY_CHANGELIST, TRUE, pool));
-
+  
   /* And tell someone what we've done. */
   if (notify_func)
     {
-      notify = svn_wc_create_notify(path,
-                                    changelist
+      notify = svn_wc_create_notify(path, 
+                                    changelist 
                                     ? svn_wc_notify_changelist_set
                                     : svn_wc_notify_changelist_clear,
                                     pool);
