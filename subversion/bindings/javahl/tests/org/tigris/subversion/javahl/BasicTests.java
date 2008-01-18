@@ -2462,7 +2462,7 @@ public class BasicTests extends SVNTests
             "\\ No newline at end of file" + NL +
             "+This is the file 'mu'." + NL +
             "\\ No newline at end of file" + NL;
-
+        
         final String iotaPath = thisTest.getWCPath().replace('\\', '/') + "/iota";
         final String wcPath = fileToSVNPath(new File(thisTest.getWCPath()),
                 false);
@@ -2472,7 +2472,7 @@ public class BasicTests extends SVNTests
         writer.print("This is the file 'mu'.");
         writer.flush();
         writer.close();
-
+        
         /*
          * This test does tests with and without svn:eol-style set to native
          * We will first run all of the tests where this does not matter so
@@ -2552,8 +2552,8 @@ public class BasicTests extends SVNTests
         assertFileContentsEquals("Unexpected diff output in file '" +
                                  diffOutput.getPath() + '\'',
                                  expectedDiffOutput, diffOutput);
-
-
+        
+        
         /*
          * The rest of these tests are run twice.  The first time
          * without svn:eol-style set and the second time with the
@@ -2562,14 +2562,14 @@ public class BasicTests extends SVNTests
          * commit which sets the property
          */
 
-        for (int operativeRevision = 1; operativeRevision < 3; operativeRevision++)
+        for (int operativeRevision = 1; operativeRevision < 3; operativeRevision++) 
          {
                 String revisionPrefix = "While processing operativeRevison=" + operativeRevision + ". ";
                 String assertPrefix = revisionPrefix + "Unexpected diff output in file '";
-
+                
                 // Undo previous edits to working copy
                 client.revert(wcPath, true);
-
+                
                 if (operativeRevision == 2) {
                     // Set svn:eol-style=native on iota
                     client.propertyCreate(iotaPath, "svn:eol-style", "native", false);
@@ -2590,7 +2590,7 @@ public class BasicTests extends SVNTests
                     "+++ " + iotaPath + "\t(working copy)" + NL +
                     expectedDiffBody;
 
-                try
+                try 
                 {
                     // Two-path diff of WC paths.
                     client.diff(iotaPath, Revision.BASE,
@@ -2600,13 +2600,13 @@ public class BasicTests extends SVNTests
                                              diffOutput.getPath() + '\'',
                                              expectedDiffOutput, diffOutput);
                     diffOutput.delete();
-                }
-                catch (ClientException e)
+                } 
+                catch (ClientException e) 
                 {
                     fail(revisionPrefix + e.getMessage());
                 }
-
-                try
+                
+                try 
                 {
                     // Peg revision diff of a single file.
                     client.diff(thisTest.getUrl() + "/iota", Revision.HEAD,
@@ -2615,20 +2615,20 @@ public class BasicTests extends SVNTests
                     assertFileContentsEquals(assertPrefix +
                                              diffOutput.getPath() + '\'',
                                              "", diffOutput);
-
+    
                     diffOutput.delete();
-                }
-                catch (ClientException e)
+                } 
+                catch (ClientException e) 
                 {
                     fail(revisionPrefix + e.getMessage());
                 }
-
+    
                // Test svn diff with a relative path.
                 expectedDiffOutput = "Index: iota" + NL + sepLine +
                     "--- iota\t(revision " + operativeRevision + ")" + NL +
                     "+++ iota\t(working copy)" + NL +
                     expectedDiffBody;
-                try
+                try 
                 {
                     client.diff(iotaPath, Revision.BASE, iotaPath,
                                 Revision.WORKING, wcPath, diffOutput.getPath(),
@@ -2637,13 +2637,13 @@ public class BasicTests extends SVNTests
                                              diffOutput.getPath() + '\'',
                                              expectedDiffOutput, diffOutput);
                     diffOutput.delete();
-                }
-                catch (ClientException e)
+                } 
+                catch (ClientException e) 
                 {
                     fail(revisionPrefix + e.getMessage());
                 }
-
-                try
+    
+                try 
                 {
                     // Test svn diff with a relative path and trailing slash.
                     client.diff(iotaPath, Revision.BASE, iotaPath,
@@ -2654,12 +2654,12 @@ public class BasicTests extends SVNTests
                                              diffOutput.getPath() + '\'',
                                              expectedDiffOutput, diffOutput);
                     diffOutput.delete();
-                }
-                catch (ClientException e)
+                } 
+                catch (ClientException e) 
                 {
                     fail(revisionPrefix + e.getMessage());
                 }
-
+                
             }
 
     }
