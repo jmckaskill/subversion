@@ -189,7 +189,7 @@ svn_cl__propget(apr_getopt_t *os,
   /* If using changelists, convert targets into a set of paths that
      match the specified changelist(s). */
   if (opt_state->changelists)
-    SVN_ERR(svn_cl__changelist_paths(&targets,
+    SVN_ERR(svn_cl__changelist_paths(&targets, 
                                      opt_state->changelists, targets,
                                      svn_depth_infinity, ctx, pool));
 
