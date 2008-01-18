@@ -186,13 +186,6 @@ svn_cl__propget(apr_getopt_t *os,
   /* Add "." if user passed 0 file arguments */
   svn_opt_push_implicit_dot_target(targets, pool);
 
-  /* If using changelists, convert targets into a set of paths that
-     match the specified changelist(s). */
-  if (opt_state->changelists)
-    SVN_ERR(svn_cl__changelist_paths(&targets,
-                                     opt_state->changelists, targets,
-                                     svn_depth_infinity, ctx, pool));
-
   /* Open a stream to stdout. */
   SVN_ERR(svn_stream_for_stdout(&out, pool));
 
@@ -277,13 +270,13 @@ svn_cl__propget(apr_getopt_t *os,
                                       &peg_revision,
                                       &(opt_state->start_revision),
                                       NULL, opt_state->depth,
-                                      ctx, subpool));
+                                      opt_state->changelists, ctx, subpool));
 
           /* Any time there is more than one thing to print, or where
              the path associated with a printed thing is not obvious,
              we'll print filenames.  That is, unless we've been told
              not to do so with the --strict option. */
-          print_filenames = ((SVN_DEPTH_IS_RECURSIVE(opt_state->depth)
+          print_filenames = ((opt_state->depth > svn_depth_empty
                               || targets->nelts > 1
                               || apr_hash_count(props) > 1)
                              && (! opt_state->strict));
