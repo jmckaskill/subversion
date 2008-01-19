@@ -48,7 +48,7 @@ extern "C" {
  * merge, switch, or update.  If a path's parent does not have any
  * @c SVN_PROP_MERGEINFO set, the path's mergeinfo can elide to its nearest
  * grand-parent, great-grand-parent, etc. that has equivalent
- * @c SVN_PROP_MERGEINFO set on it.
+ * @c SVN_PROP_MERGEINFO set on it.  
  *
  * If a path has no @c SVN_PROP_MERGEINFO of its own, it inherits mergeinfo
  * from its nearest parent that has @c SVN_PROP_MERGEINFO set.  The
@@ -125,7 +125,7 @@ svn_mergeinfo_parse(apr_hash_t **mergeinfo, const char *input,
  * hashes are compared for equality.  If @a consider_inheritance is FALSE,
  * then the start and end revisions of the @c svn_merge_range_t's being
  * compared are the only factors considered when determining equality.
- *
+ * 
  *  e.g. '/trunk: 1,3-4*,5' == '/trunk: 1,3-5'
  *
  * If @a consider_inheritance is TRUE, then the inheritability of the
