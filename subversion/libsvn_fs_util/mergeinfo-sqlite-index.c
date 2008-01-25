@@ -80,7 +80,7 @@ static svn_merge_range_t no_mergeinfo = { SVN_INVALID_REVNUM,
 
 /* Insert the necessary indexing data into the DB for all the merges
    on PATH as of NEW_REV, which is provided (unparsed) in
-   MERGEINFO_STR.  OLD_ROOT should be a revision root for rev NEW_REV-1.
+   MERGEINFO_STR.  OLD_ROOT should be a revision root for rev NEW_REV-1.  
    Use POOL for temporary allocations.*/
 static svn_error_t *
 index_path_mergeinfo(svn_revnum_t new_rev,
@@ -242,7 +242,7 @@ table_has_any_rows_with_rev(svn_boolean_t *has_any,
   SVN_ERR(svn_fs__sqlite_prepare(&stmt, db, selection, pool));
   SVN_ERR(svn_fs__sqlite_step(has_any, stmt));
   SVN_ERR(svn_fs__sqlite_finalize(stmt));
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -253,7 +253,7 @@ table_has_any_rows_with_rev(svn_boolean_t *has_any,
    definitely data there to delete.
  */
 static svn_error_t *
-clean_tables(sqlite3 *db,
+clean_tables(sqlite3 *db, 
              svn_revnum_t new_rev,
              svn_boolean_t avoid_noop_delete,
              apr_pool_t *pool)
@@ -284,7 +284,7 @@ clean_tables(sqlite3 *db,
                               "DELETE FROM mergeinfo WHERE revision = %ld;",
                               new_rev);
   SVN_ERR(svn_fs__sqlite_exec(db, deletestring));
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -306,8 +306,8 @@ svn_fs_mergeinfo__update_index(svn_fs_txn_t *txn, svn_revnum_t new_rev,
 
   /* Clean up old data.  (If we're going to write to the DB anyway,
      there's no reason to do extra checks to avoid no-op DELETEs.) */
-  err = clean_tables(db,
-                     new_rev,
+  err = clean_tables(db, 
+                     new_rev, 
                      (mergeinfo_for_paths == NULL),
                      subpool);
   MAYBE_CLEANUP;
@@ -315,7 +315,7 @@ svn_fs_mergeinfo__update_index(svn_fs_txn_t *txn, svn_revnum_t new_rev,
   /* Record any mergeinfo from the current transaction. */
   if (mergeinfo_for_paths)
     {
-      err = index_txn_mergeinfo(db, new_rev, mergeinfo_for_paths, txn->fs,
+      err = index_txn_mergeinfo(db, new_rev, mergeinfo_for_paths, txn->fs, 
                                 subpool);
       MAYBE_CLEANUP;
     }
@@ -419,7 +419,7 @@ get_mergeinfo_for_path(svn_fs_root_t *rev_root,
                              pool);
       if (err && err->apr_err == SVN_ERR_FS_NOT_FOUND)
         {
-          /* XXXdsg:
+          /* XXXdsg: 
              I believe this behavior is incorrect: this API really
              should error if it is asked about paths that don't exist!
              However, there is definitely code that expects this to be
@@ -465,7 +465,7 @@ get_mergeinfo_for_path(svn_fs_root_t *rev_root,
   /* Either we haven't found mergeinfo yet and are allowed to inherit,
      or we were ignoring PATH's mergeinfo all along, so recurse up the
      tree. */
-
+  
   /* It is possible we are already at the root.  */
   if (!*path)
     return SVN_NO_ERROR;
@@ -486,17 +486,17 @@ get_mergeinfo_for_path(svn_fs_root_t *rev_root,
       const char *my_basename = svn_path_basename(path, pool);
 
       /* But first remove all non-inheritable revision ranges. */
-      SVN_ERR(svn_mergeinfo_inheritable(&parent_mergeinfo_hash,
+      SVN_ERR(svn_mergeinfo_inheritable(&parent_mergeinfo_hash, 
                                         parent_mergeinfo_hash,
                                         NULL, SVN_INVALID_REVNUM,
                                         SVN_INVALID_REVNUM, pool));
-      append_component_to_paths(&translated_mergeinfo_hash,
+      append_component_to_paths(&translated_mergeinfo_hash, 
                                 parent_mergeinfo_hash,
                                 my_basename,
                                 pool);
       apr_hash_set(cache, path, APR_HASH_KEY_STRING, translated_mergeinfo_hash);
       if (result)
-        apr_hash_set(result, path, APR_HASH_KEY_STRING,
+        apr_hash_set(result, path, APR_HASH_KEY_STRING, 
                      translated_mergeinfo_hash);
     }
   return SVN_NO_ERROR;
