@@ -269,7 +269,7 @@ svn_cl__propget(apr_getopt_t *os,
           SVN_ERR(svn_client_propget4(&props, pname_utf8, truepath,
                                       &peg_revision,
                                       &(opt_state->start_revision),
-                                      NULL, opt_state->depth,
+                                      NULL, opt_state->depth, 
                                       opt_state->changelists, ctx, subpool));
 
           /* Any time there is more than one thing to print, or where
