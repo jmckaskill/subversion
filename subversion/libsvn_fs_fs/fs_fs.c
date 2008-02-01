@@ -263,7 +263,7 @@ path_txn_proto_rev_lock(svn_fs_t *fs, const char *txn_id, apr_pool_t *pool)
   fs_fs_data_t *ffd = fs->fsap_data;
   if (ffd->format >= SVN_FS_FS__MIN_PROTOREVS_DIR_FORMAT)
     return svn_path_join_many(pool, fs->path, PATH_TXN_PROTOS_DIR,
-                              apr_pstrcat(pool, txn_id, PATH_EXT_REV_LOCK,
+                              apr_pstrcat(pool, txn_id, PATH_EXT_REV_LOCK, 
                                           NULL),
                               NULL);
   else
@@ -300,7 +300,7 @@ static APR_INLINE const char *
 path_node_origin(svn_fs_t *fs, const char *node_id, apr_pool_t *pool)
 {
   int len = strlen(node_id);
-  const char *node_id_minus_last_char =
+  const char *node_id_minus_last_char = 
     (len == 1) ? "0" : apr_pstrmemdup(pool, node_id, len - 1);
   return svn_path_join_many(pool, fs->path, PATH_NODE_ORIGINS_DIR,
                             node_id_minus_last_char, NULL);
@@ -468,7 +468,7 @@ with_some_lock(svn_error_t *(*body)(void *baton,
      within the process. */
   status = apr_thread_mutex_lock(lock_mutex);
   if (status)
-    return svn_error_wrap_apr(status,
+    return svn_error_wrap_apr(status, 
                               _("Can't grab FSFS mutex for '%s'"),
                               lock_filename);
 #endif
@@ -932,7 +932,7 @@ write_format(const char *path, int format, int max_files_per_dir,
     {
       apr_file_t *format_file;
       const char *path_tmp;
-
+      
       /* Create a temporary file to write the data to */
       SVN_ERR(svn_io_open_unique_file2(&format_file, &path_tmp, path, ".tmp",
                                        svn_io_file_del_none, pool));
@@ -1048,7 +1048,7 @@ upgrade_body(void *baton, apr_pool_t *pool)
 
   /* Bump the format file.  We pass 0 for the max_files_per_dir here
      so we don't have to fuss with sharding directories ourselves. */
-  SVN_ERR(write_format(format_path, SVN_FS_FS__FORMAT_NUMBER, 0,
+  SVN_ERR(write_format(format_path, SVN_FS_FS__FORMAT_NUMBER, 0, 
                        TRUE, pool));
 
   return SVN_NO_ERROR;
@@ -1809,7 +1809,7 @@ write_noderev_txn(apr_file_t *file,
 
   if (noderev->mergeinfo_count > 0)
     SVN_ERR(svn_stream_printf(outfile, pool, HEADER_MINFO_CNT ": %"
-                              APR_INT64_T_FMT "\n",
+                              APR_INT64_T_FMT "\n", 
                               noderev->mergeinfo_count));
 
   if (noderev->has_mergeinfo)
@@ -3717,11 +3717,11 @@ svn_fs_fs__change_txn_prop(svn_fs_txn_t *txn,
 {
   apr_array_header_t *props = apr_array_make(pool, 1, sizeof(svn_prop_t));
   svn_prop_t prop;
-
+  
   prop.name = name;
   prop.value = value;
   APR_ARRAY_PUSH(props, svn_prop_t) = prop;
-
+  
   return svn_fs_fs__change_txn_props(txn, props, pool);
 }
 
@@ -3943,7 +3943,7 @@ svn_fs_fs__purge_txn(svn_fs_t *fs,
       if (err)
         return err;
 
-      err = svn_io_remove_file(path_txn_proto_rev_lock(fs, txn_id, pool),
+      err = svn_io_remove_file(path_txn_proto_rev_lock(fs, txn_id, pool), 
                                pool);
       if (err && APR_STATUS_IS_ENOENT(err->apr_err))
         {
@@ -4664,7 +4664,7 @@ write_final_rev(const svn_fs_id_t **new_id_p,
           apr_hash_this(hi, NULL, NULL, &val);
           dirent = val;
           SVN_ERR(write_final_rev(&new_id, file, rev, fs, dirent->id,
-                                  start_node_id, start_copy_id,
+                                  start_node_id, start_copy_id, 
                                   node_origins, subpool));
           if (new_id && (svn_fs_fs__id_rev(new_id) == rev))
             dirent->id = svn_fs_fs__id_copy(new_id, pool);
@@ -5092,7 +5092,7 @@ commit_body(void *baton, apr_pool_t *pool)
   /* Write out all the node-revisions and directory contents. */
   root_id = svn_fs_fs__id_txn_create("0", "0", cb->txn->id, pool);
   SVN_ERR(write_final_rev(&new_root_id, proto_file, new_rev, cb->fs, root_id,
-                          start_node_id, start_copy_id, cb->node_origins,
+                          start_node_id, start_copy_id, cb->node_origins, 
                           pool));
 
   /* Write the changed-path information. */
@@ -5126,18 +5126,18 @@ commit_body(void *baton, apr_pool_t *pool)
           prop.name = SVN_FS__PROP_TXN_CHECK_OOD;
           APR_ARRAY_PUSH(props, svn_prop_t) = prop;
         }
-
+      
       if (apr_hash_get(txnprops, SVN_FS__PROP_TXN_CHECK_LOCKS,
                        APR_HASH_KEY_STRING))
         {
           prop.name = SVN_FS__PROP_TXN_CHECK_LOCKS;
           APR_ARRAY_PUSH(props, svn_prop_t) = prop;
-        }
-
+        }          
+      
       if (! apr_is_empty_array(props))
         SVN_ERR(svn_fs_fs__change_txn_props(cb->txn, props, pool));
     }
-
+  
   /* Create the shard for the rev and revprop file, if we're sharding and
      this is the first revision of a new shard.  We don't care if this
      fails because the shard already existed for some reason. */
@@ -5211,7 +5211,7 @@ svn_fs_fs__commit(svn_revnum_t *new_rev_p,
   cb.txn = txn;
   cb.node_origins = node_origins;
   SVN_ERR(svn_fs_fs__with_write_lock(fs, commit_body, &cb, pool));
-
+  
   /* Now that we're no longer locked, we can update the node-origins
      cache without blocking writers. */
   if (apr_hash_count(node_origins) > 0)
@@ -5734,7 +5734,7 @@ get_node_origins_from_file(svn_fs_t *fs,
   svn_stream_t *stream;
 
   *node_origins = NULL;
-  err = svn_io_file_open(&fd, node_origins_file,
+  err = svn_io_file_open(&fd, node_origins_file, 
                          APR_READ, APR_OS_DEFAULT, pool);
   if (err && APR_STATUS_IS_ENOENT(err->apr_err))
     {
@@ -5758,8 +5758,8 @@ svn_fs_fs__get_node_origin(const svn_fs_id_t **origin_id,
   apr_hash_t *node_origins;
 
   *origin_id = NULL;
-  SVN_ERR(get_node_origins_from_file(fs, &node_origins,
-                                     path_node_origin(fs, node_id, pool),
+  SVN_ERR(get_node_origins_from_file(fs, &node_origins, 
+                                     path_node_origin(fs, node_id, pool), 
                                      pool));
   if (node_origins)
     {
@@ -5772,7 +5772,7 @@ svn_fs_fs__get_node_origin(const svn_fs_id_t **origin_id,
   return SVN_NO_ERROR;
 }
 
-
+                      
 /* Helper for svn_fs_fs__set_node_origin[s].  Takes a hash of
    NODE_ORIGINS records -- all destined for the same NODE_ORIGINS_PATH
    file -- and merges them with any records already present in that
@@ -5795,20 +5795,20 @@ set_node_origins_for_file(svn_fs_t *fs,
 
   /* Read the previously existing origins (if any), and merge our
      updates with it. */
-  SVN_ERR(get_node_origins_from_file(fs, &old_origins,
+  SVN_ERR(get_node_origins_from_file(fs, &old_origins, 
                                      node_origins_path, pool));
   if (old_origins)
     node_origins = apr_hash_overlay(pool, old_origins, node_origins);
 
 
-  /* ###
-   * ### LA DEE DAH -- Did anybody else spot the race condition here?
+  /* ### 
+   * ### LA DEE DAH -- Did anybody else spot the race condition here? 
    * ###
    */
 
 
   /* Create a temporary file, write out our hash, and close the file. */
-  SVN_ERR(svn_io_open_unique_file2(&fd, &path_tmp, node_origins_path, ".tmp",
+  SVN_ERR(svn_io_open_unique_file2(&fd, &path_tmp, node_origins_path, ".tmp", 
                                    svn_io_file_del_none, pool));
   stream = svn_stream_from_aprfile2(fd, FALSE, pool);
   SVN_ERR(svn_hash_write2(node_origins, stream, SVN_HASH_TERMINATOR, pool));
@@ -5852,13 +5852,13 @@ svn_fs_fs__set_node_origins(svn_fs_t *fs,
       if (! file_hash)
         {
           file_hash = apr_hash_make(pool);
-          apr_hash_set(hash_of_hashes, filename, APR_HASH_KEY_STRING,
+          apr_hash_set(hash_of_hashes, filename, APR_HASH_KEY_STRING, 
                        file_hash);
         }
       apr_hash_set(file_hash, node_id, APR_HASH_KEY_STRING, node_rev_id_str);
     }
 
-  /* Now, iterate over the hash of hashes, calling
+  /* Now, iterate over the hash of hashes, calling 
      set_node_origins_for_file on each set.  */
   for (hi = apr_hash_first(pool, hash_of_hashes);
        hi != NULL;
@@ -5894,7 +5894,7 @@ svn_fs_fs__set_node_origin(svn_fs_t *fs,
   apr_hash_t *file_hash = apr_hash_make(pool);
   const char *filename = path_node_origin(fs, node_id, pool);
 
-  apr_hash_set(file_hash, node_id, APR_HASH_KEY_STRING,
+  apr_hash_set(file_hash, node_id, APR_HASH_KEY_STRING, 
                svn_fs_fs__id_unparse(node_rev_id, pool));
 
   err = set_node_origins_for_file(fs, filename, file_hash, pool);
