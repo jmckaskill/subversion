@@ -294,7 +294,7 @@ def compare_and_display_lines(message, label, expected, actual,
 def verify_outputs(message, actual_stdout, actual_stderr,
                    expected_stdout, expected_stderr, all_stdout=True):
   """Compare and display expected vs. actual stderr and stdout lines:
-  if they don't match, print the difference (preceded by MESSAGE iff
+  if they don't match, print the difference (preceded by MESSAGE iff 
   not None) and raise an exception.
 
   If EXPECTED_STDERR or EXPECTED_STDOUT is a string the string is
