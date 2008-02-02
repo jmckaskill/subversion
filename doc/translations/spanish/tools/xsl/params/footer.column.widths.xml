@@ -38,7 +38,7 @@ In the FO output, this looks like:
 </para>
 
 <programlisting>
-&lt;fo:table-column column-number="1"
+&lt;fo:table-column column-number="1" 
     column-width="proportional-column-width(1)"/&gt;
 </programlisting>
 
