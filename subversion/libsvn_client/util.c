@@ -219,7 +219,7 @@ svn_client__path_relative_to_root(const char **rel_path,
           goto cleanup;
         }
       rel_url = svn_path_uri_decode(rel_url, pool);
-      *rel_path = include_leading_slash
+      *rel_path = include_leading_slash 
                     ? apr_pstrcat(pool, "/", rel_url, NULL) : rel_url;
     }
 
