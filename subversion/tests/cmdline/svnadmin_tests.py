@@ -586,7 +586,7 @@ def fsfs_recover_handle_missing_revs_or_revprops_file(sbox):
 
   # Remove the revs file for revision 1
   os.remove(os.path.join(sbox.repo_dir, 'db','revs','0', '1'));
-
+  
   # Verify 'svnadmin recover' fails when youngest has a revprops
   # file but no revs file
   output, errput = svntest.main.run_svnadmin("recover", sbox.repo_dir)
