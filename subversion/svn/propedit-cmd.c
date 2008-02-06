@@ -179,7 +179,7 @@ svn_cl__propedit(apr_getopt_t *os,
           SVN_ERR(svn_client_propget4(&props, pname_utf8, target,
                                       &peg_revision,
                                       &(opt_state->start_revision),
-                                      &base_rev, svn_depth_empty,
+                                      &base_rev, svn_depth_empty, 
                                       NULL, ctx, subpool));
 
           /* Get the property value. */
