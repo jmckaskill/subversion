@@ -261,10 +261,10 @@ index_txn_mergeinfo(sqlite3 *db,
       apr_hash_this(hi, &path, NULL, &mergeinfo);
       orig_mergeinfo_for_path = apr_hash_get(orig_mergeinfo_for_paths, path,
                                              APR_HASH_KEY_STRING);
-      SVN_ERR(svn_mergeinfo_parse(&curr_mergeinfo,
+      SVN_ERR(svn_mergeinfo_parse(&curr_mergeinfo, 
                                   ((svn_string_t *)mergeinfo)->data,pool));
-      SVN_ERR(svn_mergeinfo_diff(&deleted_mergeinfo_for_path,
-                                 &added_mergeinfo_for_path,
+      SVN_ERR(svn_mergeinfo_diff(&deleted_mergeinfo_for_path, 
+                                 &added_mergeinfo_for_path, 
                                  orig_mergeinfo_for_path, curr_mergeinfo, TRUE,
                                  pool));
       SVN_ERR(index_path_mergeinfo(new_rev, db, (const char *) path,
@@ -364,7 +364,7 @@ svn_fs_mergeinfo__update_index(svn_fs_txn_t *txn, svn_revnum_t new_rev,
   /* Record any mergeinfo from the current transaction. */
   if (mergeinfo_for_paths)
     {
-      err = index_txn_mergeinfo(db, new_rev, mergeinfo_for_paths, txn->fs,
+      err = index_txn_mergeinfo(db, new_rev, mergeinfo_for_paths, txn->fs, 
                                 subpool);
       MAYBE_CLEANUP;
     }
@@ -549,7 +549,7 @@ get_mergeinfo_for_path(svn_fs_root_t *rev_root,
                              pool);
       if (err && err->apr_err == SVN_ERR_FS_NOT_FOUND)
         {
-          /* XXXdsg:
+          /* XXXdsg: 
              I believe this behavior is incorrect: this API really
              should error if it is asked about paths that don't exist!
              However, there is definitely code that expects this to be
@@ -595,7 +595,7 @@ get_mergeinfo_for_path(svn_fs_root_t *rev_root,
   /* Either we haven't found mergeinfo yet and are allowed to inherit,
      or we were ignoring PATH's mergeinfo all along, so recurse up the
      tree. */
-
+  
   /* It is possible we are already at the root.  */
   if (!*path)
     return SVN_NO_ERROR;
@@ -616,17 +616,17 @@ get_mergeinfo_for_path(svn_fs_root_t *rev_root,
       const char *my_basename = svn_path_basename(path, pool);
 
       /* But first remove all non-inheritable revision ranges. */
-      SVN_ERR(svn_mergeinfo_inheritable(&parent_mergeinfo_hash,
+      SVN_ERR(svn_mergeinfo_inheritable(&parent_mergeinfo_hash, 
                                         parent_mergeinfo_hash,
                                         NULL, SVN_INVALID_REVNUM,
                                         SVN_INVALID_REVNUM, pool));
-      append_component_to_paths(&translated_mergeinfo_hash,
+      append_component_to_paths(&translated_mergeinfo_hash, 
                                 parent_mergeinfo_hash,
                                 my_basename,
                                 pool);
       apr_hash_set(cache, path, APR_HASH_KEY_STRING, translated_mergeinfo_hash);
       if (result)
-        apr_hash_set(result, path, APR_HASH_KEY_STRING,
+        apr_hash_set(result, path, APR_HASH_KEY_STRING, 
                      translated_mergeinfo_hash);
     }
   return SVN_NO_ERROR;
@@ -838,7 +838,7 @@ svn_fs_mergeinfo__get_mergeinfo_for_tree(apr_hash_t **mergeinfo,
  * If INHERIT == svn_mergeinfo_nearest_ancestor,
  * ('/a/b/c', '/a/b', '/a', '/').
  * Based on the number of paths added it generates corresponding
- * number of "?" in the sqlite prepared statement string enclosed in
+ * number of "?" in the sqlite prepared statement string enclosed in 
  * "(" and ")" and stores it in *STUFFED_QUESTION_MARKS.
  */
 static void
@@ -889,7 +889,7 @@ get_rooted_path_segments(apr_array_header_t **rooted_path_segments,
    is set in *MERGE_RANGES_LIST.
 
    *COMMIT_RANGELIST has elements of type 'svn_merge_range_t *'.
-   *MERGE_RANGES_LIST has elements of type 'apr_array_header_t *' which
+   *MERGE_RANGES_LIST has elements of type 'apr_array_header_t *' which 
    contains 'svn_merge_range_t *'.
 
    Retrieve the necessary records from DB; allocate the results in POOL.
@@ -917,7 +917,7 @@ get_commit_and_merge_ranges(apr_array_header_t **merge_ranges_list,
   svn_fs__sqlite_stmt_t *stmt;
   svn_boolean_t got_row;
   apr_array_header_t *merge_rangelist;
-  apr_array_header_t *merge_source_rooted_path_segments,
+  apr_array_header_t *merge_source_rooted_path_segments, 
                      *merge_target_rooted_path_segments;
   svn_stringbuf_t *merge_source_where_clause, *merge_target_where_clause;
   const char *query;
@@ -1021,7 +1021,7 @@ get_commit_and_merge_ranges(apr_array_header_t **merge_ranges_list,
                          svn_merge_range_t *) = commit_rev_range;
           APR_ARRAY_PUSH(*merge_ranges_list,
                          apr_array_header_t *) = merge_rangelist;
-          merge_rangelist = apr_array_make(pool, 0,
+          merge_rangelist = apr_array_make(pool, 0, 
                                            sizeof(svn_merge_range_t *));
         }
       merge_range->start = start_rev;
