@@ -985,7 +985,7 @@ svn_fs_fs__check_path(svn_node_kind_t *kind_p,
                       apr_pool_t *pool)
 {
   svn_error_t *err = node_kind(kind_p, root, path, pool);
-  if (err &&
+  if (err && 
       ((err->apr_err == SVN_ERR_FS_NOT_FOUND)
        || (err->apr_err == SVN_ERR_FS_NOT_DIRECTORY)))
     {
@@ -3479,7 +3479,7 @@ append_to_merged_froms(apr_hash_t **output,
 
       apr_hash_this(hi, &key, NULL, &val);
       newpath = svn_path_join((const char *) key, path_piece, pool);
-      apr_hash_set(*output, newpath, APR_HASH_KEY_STRING,
+      apr_hash_set(*output, newpath, APR_HASH_KEY_STRING, 
                    svn_rangelist_dup((apr_array_header_t *) val, pool));
     }
 
@@ -3507,7 +3507,7 @@ get_mergeinfo_hash_for_path(apr_hash_t **mergeinfo_hash,
   *mergeinfo_hash = NULL;
 
   path = svn_fs__canonicalize_abspath(path, pool);
-
+  
   SVN_ERR(open_path(&parent_path, rev_root, path, 0, NULL, pool));
 
   if (inherit == svn_mergeinfo_nearest_ancestor && ! parent_path->parent)
@@ -3524,7 +3524,7 @@ get_mergeinfo_hash_for_path(apr_hash_t **mergeinfo_hash,
 
       svn_pool_clear(iterpool);
 
-      SVN_ERR(svn_fs_fs__dag_has_mergeinfo(&has_mergeinfo,
+      SVN_ERR(svn_fs_fs__dag_has_mergeinfo(&has_mergeinfo, 
                                            nearest_ancestor->node, iterpool));
       if (has_mergeinfo)
         break;
@@ -3535,7 +3535,7 @@ get_mergeinfo_hash_for_path(apr_hash_t **mergeinfo_hash,
           svn_pool_destroy(iterpool);
           return SVN_NO_ERROR;
         }
-
+      
       nearest_ancestor = nearest_ancestor->parent;
 
       /* Run out?  There's no mergeinfo. */
@@ -3646,7 +3646,7 @@ get_mergeinfo_hashes_for_paths(svn_fs_root_t *root,
       SVN_ERR(get_mergeinfo_hash_for_path(&path_mergeinfo_hash, root, path,
                                           inherit, iterpool, pool));
       if (path_mergeinfo_hash)
-        apr_hash_set(result_hash, path, APR_HASH_KEY_STRING,
+        apr_hash_set(result_hash, path, APR_HASH_KEY_STRING, 
                      path_mergeinfo_hash);
       if (include_descendants)
         SVN_ERR(add_descendant_mergeinfo(result_hash, root, path, iterpool,
@@ -3680,8 +3680,8 @@ fs_get_mergeinfo(apr_hash_t **mergeinfo,
   iterpool = svn_pool_create(subpool);
 
   /* Retrieve a path -> mergeinfo hash mapping. */
-  SVN_ERR(get_mergeinfo_hashes_for_paths(root, &mergeinfo_as_hashes, paths,
-                                         inherit, include_descendants,
+  SVN_ERR(get_mergeinfo_hashes_for_paths(root, &mergeinfo_as_hashes, paths, 
+                                         inherit, include_descendants, 
                                          subpool));
 
   *mergeinfo = apr_hash_make(pool);
@@ -3695,7 +3695,7 @@ fs_get_mergeinfo(apr_hash_t **mergeinfo,
 
       svn_pool_clear(iterpool);
 
-      path_mergeinfo = apr_hash_get(mergeinfo_as_hashes, path,
+      path_mergeinfo = apr_hash_get(mergeinfo_as_hashes, path, 
                                     APR_HASH_KEY_STRING);
       if (path_mergeinfo)
         {
