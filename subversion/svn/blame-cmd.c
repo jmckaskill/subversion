@@ -175,7 +175,7 @@ blame_receiver(void *baton,
       else
         svn_stream_printf(out, pool, "  ");
     }
-
+ 
   if (use_merged)
     SVN_ERR(print_line_info(out, merged_revision, merged_author, merged_date,
                             merged_path, opt_state->verbose, pool));
