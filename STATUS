@@ -19,7 +19,7 @@ Candidate changes:
    Votes:
      +1: kfogel (r29127, r29163, r29164)
      -1: glasser (The docstring for the new public API has some problems
-         (mentioned on dev@); I'll be happy to remove this vote once that's
+         (mentioned on dev@); I'll be happy to remove this vote once that's 
          fixed.  [r29163 and r29164 might address these concerns. -kfogel])
 
  * r29155
