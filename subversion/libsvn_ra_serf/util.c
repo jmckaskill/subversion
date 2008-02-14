@@ -310,7 +310,7 @@ svn_ra_serf__setup_serf_req(serf_request_t *request,
   if (conn->session->using_proxy)
     {
       char *root = apr_uri_unparse(conn->session->pool,
-                                   &conn->session->repos_url,
+                                   &conn->session->repos_url, 
                                    APR_URI_UNP_OMITPATHINFO);
       serf_bucket_request_set_root(*req_bkt, root);
     }
@@ -1216,7 +1216,7 @@ svn_ra_serf__discover_root(const char **vcc_url,
       /* Now recreate the root_url. */
       session->repos_root = session->repos_url;
       session->repos_root.path = apr_pstrdup(session->pool, url_buf->data);
-      session->repos_root_str =
+      session->repos_root_str = 
         svn_path_canonicalize(apr_uri_unparse(session->pool,
                                               &session->repos_root, 0),
                               session->pool);
