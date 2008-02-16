@@ -205,7 +205,7 @@ display_prop_diffs(const apr_array_header_t *propchanges,
     {
       const char *header_fmt;
       const svn_string_t *original_value;
-      const svn_prop_t *propchange =
+      const svn_prop_t *propchange = 
         &APR_ARRAY_IDX(propchanges, i, svn_prop_t);
 
       if (original_props)
@@ -1687,8 +1687,8 @@ svn_client_diff_peg4(const apr_array_header_t *options,
   struct diff_cmd_baton diff_cmd_baton;
   svn_wc_diff_callbacks2_t diff_callbacks;
 
-  if (svn_path_is_url(path) &&
-        (start_revision->kind == svn_opt_revision_base
+  if (svn_path_is_url(path) && 
+        (start_revision->kind == svn_opt_revision_base 
          || end_revision->kind == svn_opt_revision_base) )
     return svn_error_create(SVN_ERR_CLIENT_BAD_REVISION, NULL,
                             _("Revision type requires a working copy "
