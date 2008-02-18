@@ -695,7 +695,7 @@ parse_capabilities(ne_request *req,
           apr_hash_set(ras->capabilities, SVN_RA_CAPABILITY_LOG_REVPROPS,
                        APR_HASH_KEY_STRING, capability_yes);
 
-        if (svn_cstring_match_glob_list(SVN_DAV_NS_DAV_SVN_PARTIAL_REPLAY,
+        if (svn_cstring_match_glob_list(SVN_DAV_NS_DAV_SVN_PARTIAL_REPLAY, 
                                         vals))
           apr_hash_set(ras->capabilities, SVN_RA_CAPABILITY_PARTIAL_REPLAY,
                        APR_HASH_KEY_STRING, capability_yes);
@@ -789,10 +789,10 @@ svn_ra_neon__has_capability(svn_ra_session_t *session,
           apr_array_header_t *paths = apr_array_make(pool, 1,
                                                      sizeof(char *));
           APR_ARRAY_PUSH(paths, const char *) = "";
-
+          
           err = svn_ra_neon__get_mergeinfo(session, &ignored, paths, 0,
                                            FALSE, FALSE, pool);
-
+          
           if (err)
             {
               if (err->apr_err == SVN_ERR_UNSUPPORTED_FEATURE)
@@ -815,7 +815,7 @@ svn_ra_neon__has_capability(svn_ra_session_t *session,
             }
           else
             cap_result = capability_yes;
-
+          
           apr_hash_set(ras->capabilities,
                        SVN_RA_CAPABILITY_MERGEINFO, APR_HASH_KEY_STRING,
                        cap_result);
