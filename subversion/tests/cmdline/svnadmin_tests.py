@@ -775,7 +775,7 @@ def fsfs_recover_handle_missing_revs_or_revprops_file(sbox):
   # Move aside the revs file for r3.
   os.rename(os.path.join(sbox.repo_dir, 'db','revs','0', '3'),
             os.path.join(sbox.repo_dir, 'db','revs','0', 'was_3'));
-
+  
   # Verify 'svnadmin recover' fails when youngest has a revprops
   # file but no revs file.
   output, errput = svntest.main.run_svnadmin("recover", sbox.repo_dir)
@@ -788,7 +788,7 @@ def fsfs_recover_handle_missing_revs_or_revprops_file(sbox):
   # Restore the r3 revs file, thus repairing the repository.
   os.rename(os.path.join(sbox.repo_dir, 'db','revs','0', 'was_3'),
             os.path.join(sbox.repo_dir, 'db','revs','0', '3'));
-
+  
   # Move aside the revprops file for r3.
   os.rename(os.path.join(sbox.repo_dir, 'db','revprops','0', '3'),
             os.path.join(sbox.repo_dir, 'db','revprops','0', 'was_3'));
