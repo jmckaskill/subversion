@@ -315,19 +315,19 @@ client_ssl_pkcs11_pin_entry(void *userdata,
   svn_error_t *err;
   void *creds;
   svn_auth_cred_ssl_client_cert_pw_t *pw_creds;
-
+  
   /* Always prevent PIN caching. */
   svn_auth_set_parameter
     (ras->callbacks->auth_baton, SVN_AUTH_PARAM_NO_AUTH_CACHE, "");
-
+  
   if (attempt == 0)
     {
       const char *realmstring;
-
-      realmstring = apr_psprintf(ras->pool,
+      
+      realmstring = apr_psprintf(ras->pool, 
                                  _("PIN for token \"%s\" in slot \"%s\""),
                                  token_label, slot_descr);
-
+      
       err = svn_auth_first_credentials(&creds,
                                        &(ras->auth_iterstate),
                                        SVN_AUTH_CRED_SSL_CLIENT_CERT_PW,
@@ -336,20 +336,20 @@ client_ssl_pkcs11_pin_entry(void *userdata,
                                        ras->pool);
     }
   else
-     err = svn_auth_next_credentials(&creds,
+     err = svn_auth_next_credentials(&creds, 
                                      ras->auth_iterstate,
                                      ras->pool);
-
+  
   if (err || ! creds)
     {
       svn_error_clear(err);
       return -1;
     }
-
+  
   pw_creds = creds;
-
+  
   apr_cpystrn(pin, pw_creds->password, NE_SSL_P11PINLEN);
-
+  
   return 0;
 }
 #endif
@@ -768,7 +768,7 @@ parse_capabilities(ne_request *req,
           apr_hash_set(ras->capabilities, SVN_RA_CAPABILITY_LOG_REVPROPS,
                        APR_HASH_KEY_STRING, capability_yes);
 
-        if (svn_cstring_match_glob_list(SVN_DAV_NS_DAV_SVN_PARTIAL_REPLAY,
+        if (svn_cstring_match_glob_list(SVN_DAV_NS_DAV_SVN_PARTIAL_REPLAY, 
                                         vals))
           apr_hash_set(ras->capabilities, SVN_RA_CAPABILITY_PARTIAL_REPLAY,
                        APR_HASH_KEY_STRING, capability_yes);
@@ -862,10 +862,10 @@ svn_ra_neon__has_capability(svn_ra_session_t *session,
           apr_array_header_t *paths = apr_array_make(pool, 1,
                                                      sizeof(char *));
           APR_ARRAY_PUSH(paths, const char *) = "";
-
+          
           err = svn_ra_neon__get_mergeinfo(session, &ignored, paths, 0,
                                            FALSE, FALSE, pool);
-
+          
           if (err)
             {
               if (err->apr_err == SVN_ERR_UNSUPPORTED_FEATURE)
@@ -888,7 +888,7 @@ svn_ra_neon__has_capability(svn_ra_session_t *session,
             }
           else
             cap_result = capability_yes;
-
+          
           apr_hash_set(ras->capabilities,
                        SVN_RA_CAPABILITY_MERGEINFO, APR_HASH_KEY_STRING,
                        cap_result);
@@ -1185,11 +1185,11 @@ svn_ra_neon__open(svn_ra_session_t *session,
          wants to authenticate the client via client certificate. */
 
 #ifdef SVN_NEON_0_28
-      if (pkcs11_provider)
+      if (pkcs11_provider) 
         {
           ne_ssl_pkcs11_provider *provider;
           int rv;
-
+          
           /* Initialize the PKCS#11 provider. */
           rv = ne_ssl_pkcs11_provider_init(&provider, pkcs11_provider);
           if (rv != NE_PK11_OK)
@@ -1199,15 +1199,15 @@ svn_ra_neon__open(svn_ra_session_t *session,
                  _("Invalid config: unable to load PKCS#11 provider '%s'"),
                  pkcs11_provider);
             }
-
+          
           /* Share the provider between the two sessions. */
           ne_ssl_set_pkcs11_provider(sess, provider);
           ne_ssl_set_pkcs11_provider(sess2, provider);
-
+          
           ne_ssl_pkcs11_provider_pin(provider, client_ssl_pkcs11_pin_entry,
                                      ras);
-
-          apr_pool_cleanup_register(pool, provider, cleanup_p11provider,
+          
+          apr_pool_cleanup_register(pool, provider, cleanup_p11provider, 
                                     apr_pool_cleanup_null);
         }
       /* Note the "else"; if a PKCS#11 provider is set up, a client
