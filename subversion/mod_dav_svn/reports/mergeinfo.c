@@ -232,7 +232,7 @@ dav_svn__get_mergeinfo_report(const dav_resource *resource,
   apr_err = 0;
   if (sent_anything)
     apr_err = ap_fflush(output, bb);
-
+      
   if (apr_err && !derr)
     derr = dav_svn__convert_err(svn_error_create(apr_err, 0, NULL),
                                 HTTP_INTERNAL_SERVER_ERROR,
