@@ -68,7 +68,7 @@ Candidate changes:
      +1: glasser
 
  * r29288, r29348
-   Fix issue #2996: Catch improper argument to diff against base revision.
+   Fix issue #2996: Catch improper argument to diff against base revision.  
    This fixes a couple of potential aborts farther down the call stack.
    Justification:
      Aborting on invalid user input is Bad.
@@ -89,7 +89,7 @@ Candidate changes:
 
  * r29422, r29423, r29426, r29429:
    Various ra_neon configuration handling fixes.
-   Notes:
+   Notes:        
      Conflicts if applied before r29421+r29425 (nominated above)
    Votes:
      +1: joe
