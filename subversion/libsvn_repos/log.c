@@ -1020,16 +1020,16 @@ combine_mergeinfo_path_lists(apr_array_header_t **combined_list,
    in youngest->oldest order.
 
    FOUND_REVISIONS is a list of revisions that have already been located,
-   and which should not be sent again.  It should only be NULL on the
+   and which should not be sent again.  It should only be NULL on the 
    initial invocation, not on subsequent recursive calls.
 
    Unlike do_logs(), below, this function includes merged revisions in the
    list of revisions sent back.  Other parameters are the same as
    svn_repos_get_logs4().
 
-   In order to prevent log message overload, we always do merged logs in a
+   In order to prevent log message overload, we always do merged logs in a 
    non-streamy sort of way, using this algorithm:
-     1) Get all mainline revisions for PATHS (regardless of LIMIT), marking
+     1) Get all mainline revisions for PATHS (regardless of LIMIT), marking 
         branching revisions as such.
         - Stop if we encounter a revision which has already been retrieved,
           such as when a branch hits the mainline of history.
