@@ -9,7 +9,7 @@
       communicating with a server to one of a selection of back-end modules (the
       <literal>libsvn_ra_*</literal> libraries).  Therefore, there is not just
       one Subversion protocol - in fact, at present, there are two:</para>
-
+    
     <itemizedlist mark="bullet">
       <listitem><para>The HTTP/WebDAV/DeltaV based protocol, implemented by the
           <literal>mod_dav_svn</literal> Apache 2 server module, and by two
