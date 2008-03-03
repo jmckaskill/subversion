@@ -136,11 +136,11 @@ authenticate against all 1.x servers that do not have Cyrus SASL enabled.
 Note that the <tt>CRAM-MD5</tt> and <tt>ANONYMOUS</tt> mechanisms are
 actually built into Subversion, so you'll be able to use them even if the
 corresponding Cyrus SASL plugins are missing.</p>
-
+  
 <p>1.x clients without Cyrus SASL support will be able to authenticate
 against 1.5+ servers with SASL enabled, provided the server allows the
 <tt>CRAM-MD5</tt> and/or <tt>ANONYMOUS</tt> mechanisms.</p>
-
+  
 <p>1.5+ clients with Cyrus SASL support will be able to authenticate against
 1.5+ servers with SASL enabled, provided at least one of the mechanisms
 supported by the server is also supported by the client.</p>
@@ -298,7 +298,7 @@ same thing (XXX: we should probably answer this question more confidently).</p>
 <p>Additionally, if locks are permitted on the master repository, lock databases
 need to kept in sync via post-lock and post-unlock hooks on the master pushing
 the lock state to the slaves.  (Username preservation is left as an exercise to
-the reader.)(XXX: Same as above.)  If the lock database is not propogated, users
+the reader.)(XXX: Same as above.)  If the lock database is not propogated, users 
 will not be able to accurately determine whether a lock is held - but locking
 will still work.</p>
 
@@ -336,14 +336,14 @@ Wikipedia</a>: SASL is a framework for authentication and data security in
 Internet protocols.  It decouples authentication mechanisms from application
 protocols, in theory allowing any authentication mechanism supported by SASL to
 be used in any application protocol that uses SASL."</p>
-
+  
 <p>In practice, the server sends a list of authentication mechanisms that it
 supports.  The client then selects one of these mechanisms based on what the
 client supports, and informs the server of its decision.  After that, a
 number of messages are exchanged until either authentication succeeds or an
 error occurs.  In the latter case, the client is allowed to restart
 authentication.</p>
-
+  
 <p>The <tt>svn://</tt> protocol has always supported this type of negotiation.
 However, only the <tt>CRAM-MD5</tt> and <tt>ANONYMOUS</tt> mechanisms were
 implemented.  <a href="http://asg.web.cmu.edu/sasl/">Cyrus SASL</a> supports
@@ -358,7 +358,7 @@ mechanisms separately from the core library.</p>
 
 <p>Please see the <a href="#sasl-compatibility">compatibility section</a> for
 information regarding using a 1.5 SASL-enabled server with pre-1.5 clients.
-More information about Subversion's SASL support can be found <a
+More information about Subversion's SASL support can be found <a 
 href="http://svn.collab.net/repos/svn/trunk/notes/sasl.txt">in the
 repository</a>.</p>
 
@@ -520,7 +520,7 @@ href="http://svn.collab.net/repos/svn/trunk/notes/changelist-design.txt"
 <p>XXX: Useful for file systems which don't perform well with a large
 number of files in a directory -- see blog entry <a
 href="http://www.farside.org.uk/200704/tree_structured_fsfs">here</a>.
-<!-- ### Reshard script is not quite finished and currently
+<!-- ### Reshard script is not quite finished and currently 
      ### aborts if you try to run it.
  <a
  href="http://svn.collab.net/repos/svn/trunk/tools/server-side/fsfs-reshard.py"
@@ -596,7 +596,7 @@ svn mv path2 path3
 <div class="h4" id="multi-src-copy" title="multi-src-copy">
 <h4>Improved handling multiple copy/move sources (<em>client</em>)</h4>
 
-<p>Clients now accept multiple sources for copy and move operations, with
+<p>Clients now accept multiple sources for copy and move operations, with 
 the ability to copy/move each of the sources to the specified directory.
 This mirrors the behavior of standard command-line copy and move tools,
 such as <code>cp</code> and <code>mv</code>.  In practice, this means
