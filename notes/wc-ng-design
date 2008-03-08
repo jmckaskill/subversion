@@ -19,7 +19,7 @@ Content
    - transactional manipulation API proposal
    - delta-application algorithm
       (in light of meta data, tree and textual conflicts)
-   -
+   - 
 
 
 Context
@@ -156,7 +156,7 @@ Problems in wc-1.0
    URLs of the parent and the child, but copied nodes also have
    non-parent-child source URLs... (confusing)
  * Duplication of data: a 'copied' boolean and a 'copy_source' URL field
- *
+ * 
 
 Possible solutions
 ==================
@@ -250,7 +250,7 @@ For now, these modules can be separated:
  - delta-application (required for update/switch/merge updating
     BASE, WORKING and ACTUAL), meaning all of tree changes, file
     changes and metadata changes
- -
+ - 
 
 
 Implementation proposals
