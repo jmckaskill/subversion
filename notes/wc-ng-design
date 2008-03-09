@@ -19,7 +19,7 @@ Content
    - transactional manipulation API proposal
    - delta-application algorithm
       (in light of meta data, tree and textual conflicts)
-   -
+   - 
 
 
 Context
@@ -136,7 +136,7 @@ Requirements
  * Last-modified recording as a preparation for solving issue #1256 and
    as defined in this mail, also linked from the issue:
    http://svn.haxx.se/dev/archive-2006-10/0193.shtml
- *
+ * 
 
 
 Non-goals
@@ -368,7 +368,7 @@ For now, these modules can be separated:
  - delta-application (required for update/switch/merge updating
     BASE, WORKING and ACTUAL), meaning all of tree changes, file
     changes and metadata changes
- -
+ - 
 
 
 Implementation proposals
