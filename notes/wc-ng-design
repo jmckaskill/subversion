@@ -19,7 +19,7 @@ Content
    - transactional manipulation API proposal
    - delta-application algorithm
       (in light of meta data, tree and textual conflicts)
-   -
+   - 
 
 
 Context
@@ -315,7 +315,7 @@ For now, these modules can be separated:
  - delta-application (required for update/switch/merge updating
     BASE, WORKING and ACTUAL), meaning all of tree changes, file
     changes and metadata changes
- -
+ - 
 
 
 Implementation proposals
