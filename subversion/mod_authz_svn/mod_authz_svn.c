@@ -173,7 +173,7 @@ static char* get_username_to_authorize(request_rec *r,
     char *username_to_authorize = r->user;
     if (conf->force_username_case) {
         username_to_authorize = apr_pstrdup(r->pool, r->user);
-        convert_case(username_to_authorize,
+        convert_case(username_to_authorize, 
                      (strcasecmp(conf->force_username_case, "upper") == 0));
     }
     return username_to_authorize;
