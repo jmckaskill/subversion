@@ -47,7 +47,7 @@ Candidate changes:
 Approved changes:
 
   * r29900
-    ra_serf: Fix segfault during commits when svn asks for new credentials with
+    ra_serf: Fix segfault during commits when svn asks for new credentials with 
     the required write access.
     Votes:
       +1: lgo, dlr
