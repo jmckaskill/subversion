@@ -119,7 +119,7 @@ get_access_conf(request_rec *r, authz_svn_config_rec *conf)
                           conf->access_file, NULL);
   apr_pool_userdata_get(&user_data, cache_key, r->connection->pool);
   access_conf = user_data;
-  if (access_conf == NULL)
+  if (access_conf == NULL) 
     {
       svn_err = svn_repos_authz_read(&access_conf, conf->access_file,
                                      TRUE, r->connection->pool);
@@ -137,7 +137,7 @@ get_access_conf(request_rec *r, authz_svn_config_rec *conf)
                         svn_err_best_message(svn_err, errbuf, sizeof(errbuf)));
           svn_error_clear(svn_err);
           access_conf = NULL;
-        }
+        } 
       else
         {
           /* Cache the open repos for the next request on this connection */
@@ -168,7 +168,7 @@ convert_case(char *str_to_convert, svn_boolean_t upper)
   char *c = str_to_convert;
   int (*convert_func)(int);
   convert_func=upper?makeupper:makelower;
-  while (*c)
+  while (*c) 
     {
       *c = convert_func(*c);
       ++c;
@@ -179,10 +179,10 @@ static char *
 get_username_to_authorize(request_rec *r, authz_svn_config_rec *conf)
 {
   char *username_to_authorize = r->user;
-  if (conf->force_username_case)
+  if (conf->force_username_case) 
     {
       username_to_authorize = apr_pstrdup(r->pool, r->user);
-      convert_case(username_to_authorize,
+      convert_case(username_to_authorize, 
                    (strcasecmp(conf->force_username_case, "upper") == 0));
     }
   return username_to_authorize;
@@ -263,7 +263,7 @@ req_check_access(request_rec *r,
                               &repos_name,
                               &relative_path,
                               &repos_path);
-  if (dav_err)
+  if (dav_err) 
     {
       ap_log_rerror(APLOG_MARK, APLOG_ERR, 0, r,
                     "%s  [%d, #%d]",
@@ -278,7 +278,7 @@ req_check_access(request_rec *r,
    * XXX: When we start accepting a broader range of DeltaV MERGE
    * XXX: requests, this should be revisited.
    */
-  if (r->method_number == M_MERGE)
+  if (r->method_number == M_MERGE) 
     repos_path = NULL;
 
   if (repos_path)
@@ -369,7 +369,7 @@ req_check_access(request_rec *r,
                                              authz_svn_type,
                                              &authz_access_granted,
                                              r->pool);
-      if (svn_err)
+      if (svn_err) 
         {
           ap_log_rerror(APLOG_MARK, APLOG_ERR,
                         /* If it is an error code that APR can make
@@ -381,7 +381,7 @@ req_check_access(request_rec *r,
                           svn_err->apr_err < APR_OS_START_CANONERR) ?
                           0 : svn_err->apr_err),
                          r, "Failed to perform access control: %s",
-                         svn_err_best_message(svn_err, errbuf,
+                         svn_err_best_message(svn_err, errbuf, 
                                               sizeof(errbuf)));
           svn_error_clear(svn_err);
 
@@ -416,7 +416,7 @@ req_check_access(request_rec *r,
                                              |svn_authz_recursive,
                                              &authz_access_granted,
                                              r->pool);
-      if (svn_err)
+      if (svn_err) 
         {
           ap_log_rerror(APLOG_MARK, APLOG_ERR,
                         /* If it is an error code that APR can make sense
@@ -455,13 +455,13 @@ log_access_verdict(const char *file, int line,
   int level = allowed ? APLOG_INFO : APLOG_ERR;
   const char *verdict = allowed ? "granted" : "denied";
 
-  if (r->user)
+  if (r->user) 
     {
-      if (dest_repos_path)
+      if (dest_repos_path) 
         ap_log_rerror(file, line, level, 0, r,
                       "Access %s: '%s' %s %s %s", verdict, r->user,
                       r->method, repos_path, dest_repos_path);
-      else
+      else 
         ap_log_rerror(file, line, level, 0, r,
                       "Access %s: '%s' %s %s", verdict, r->user,
                       r->method, repos_path);
@@ -501,7 +501,7 @@ subreq_bypass(request_rec *r,
   username_to_authorize = get_username_to_authorize(r, conf);
 
   /* If configured properly, this should never be true, but just in case. */
-  if (!conf->anonymous || !conf->access_file)
+  if (!conf->anonymous || !conf->access_file) 
     {
       log_access_verdict(APLOG_MARK, r, 0, repos_path, NULL);
       return HTTP_FORBIDDEN;
@@ -515,7 +515,7 @@ subreq_bypass(request_rec *r,
   /* Perform authz access control.
    * See similarly labeled comment in req_check_access.
    */
-  if (repos_path)
+  if (repos_path) 
     {
       svn_err = svn_repos_authz_check_access(access_conf, repos_name,
                                              repos_path,
@@ -523,7 +523,7 @@ subreq_bypass(request_rec *r,
                                              svn_authz_none|svn_authz_read,
                                              &authz_access_granted,
                                              r->pool);
-      if (svn_err)
+      if (svn_err) 
         {
           ap_log_rerror(APLOG_MARK, APLOG_ERR,
                         /* If it is an error code that APR can make
@@ -539,7 +539,7 @@ subreq_bypass(request_rec *r,
           svn_error_clear(svn_err);
           return HTTP_FORBIDDEN;
         }
-      if (!authz_access_granted)
+      if (!authz_access_granted) 
         {
           log_access_verdict(APLOG_MARK, r, 0, repos_path, NULL);
           return HTTP_FORBIDDEN;
@@ -593,7 +593,7 @@ access_checker(request_rec *r)
 
   /* If anon access is allowed, return OK */
   status = req_check_access(r, conf, &repos_path, &dest_repos_path);
-  if (status == DECLINED)
+  if (status == DECLINED) 
     {
       if (!conf->authoritative)
         return DECLINED;
@@ -630,7 +630,7 @@ check_user_id(request_rec *r)
    * from issuing an HTTP_UNAUTHORIZED.  Also pass a note to our
    * auth_checker hook that access has already been checked. */
   status = req_check_access(r, conf, &repos_path, &dest_repos_path);
-  if (status == OK)
+  if (status == OK) 
     {
       apr_table_setn(r->notes, "authz_svn-anon-ok", (const char*)1);
       log_access_verdict(APLOG_MARK, r, 1, repos_path, dest_repos_path);
@@ -661,7 +661,7 @@ auth_checker(request_rec *r)
   status = req_check_access(r, conf, &repos_path, &dest_repos_path);
   if (status == DECLINED)
     {
-      if (conf->authoritative)
+      if (conf->authoritative) 
         {
           log_access_verdict(APLOG_MARK, r, 0, repos_path, dest_repos_path);
           ap_note_auth_failure(r);
