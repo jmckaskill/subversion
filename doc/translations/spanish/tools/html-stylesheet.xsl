@@ -10,7 +10,7 @@
     <xsl:param name="toc-context" select="."/>
     <xsl:call-template name="subtoc">
       <xsl:with-param name="toc-context" select="$toc-context"/>
-      <xsl:with-param name="nodes"
+      <xsl:with-param name="nodes" 
         select="sect2|refentry|bridgehead[$bridgehead.in.toc != 0]"/>
     </xsl:call-template>
   </xsl:template>
@@ -20,7 +20,7 @@
 
     <xsl:call-template name="subtoc">
       <xsl:with-param name="toc-context" select="$toc-context"/>
-      <xsl:with-param name="nodes"
+      <xsl:with-param name="nodes" 
         select="sect3|refentry|bridgehead[$bridgehead.in.toc != 0]"/>
     </xsl:call-template>
   </xsl:template>
