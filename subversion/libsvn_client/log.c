@@ -329,7 +329,7 @@ svn_client_log4(const apr_array_header_t *targets,
       if (SVN_CLIENT_IS_WC_DEPENDENT_REVKIND(peg_revision->kind) ||
           SVN_CLIENT_IS_WC_DEPENDENT_REVKIND(start->kind) ||
           SVN_CLIENT_IS_WC_DEPENDENT_REVKIND(end->kind))
-
+          
         return svn_error_create
           (SVN_ERR_CLIENT_BAD_REVISION, NULL,
            _("Revision type requires a working copy path, not a URL"));
