@@ -19,7 +19,7 @@ Candidate changes:
     Notes:
       Should be in 1.5, because 'svn merge' with no arguments won't
       error otherwise, yet such an invocation is not (currently)
-      meaningful, and therefore should error.
+      meaningful, and therefore should error. 
     Votes:
       +1: kfogel
 
@@ -54,7 +54,7 @@ Approved changes:
     Notes:
       Testing this is ... interesting, because current code avoids this
       codepath or works around the problem.  Test ra_serf by forcing
-      libsvn_ra_serf/update.c:check_lock() to do nothing; test ra_neon by
+      libsvn_ra_serf/update.c:check_lock() to do nothing; test ra_neon by 
       forcing libsvn_ra_neon/fetch.c:make_reporter()'s 'send_all' parameter
       to be FALSE.  ra_neon will hopefully soon grow the same workaround for
       this bug that ra_serf uses, so backport of this fix isn't super-
