@@ -30,7 +30,7 @@ Candidate changes:
      versions.
    Votes:
       +1: lgo
-
+  
  * r30004
    Fix the client-side problem described in issue #2382
    Justification: Without this fix, clients cannot connect reliably
