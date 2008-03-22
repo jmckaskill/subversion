@@ -20,7 +20,7 @@ Content
    - transactional manipulation API proposal
    - delta-application algorithm
       (in light of metadata, tree and textual conflicts)
-   -
+   - 
 
 
 Context
@@ -139,7 +139,7 @@ Requirements
  * Last-modified recording as a preparation for solving issue #1256 and
    as defined in this mail, also linked from the issue:
    http://svn.haxx.se/dev/archive-2006-10/0193.shtml
- *
+ * 
 
 
 Would-be-very-nice-to-have's
