@@ -35,7 +35,7 @@ Candidate changes:
      versions.
    Votes:
       +1: lgo
-
+  
  * r30030
    Always pass --tag=CC / --tag=CXX option to libtool.
    Justification: Checking if libtool supports these options gives false
@@ -59,7 +59,7 @@ Approved changes:
 
  * r30070
    Remove the confusing conflict resolution support from 'svn
-   resolved' (which still claimed it didn't do exactly that),
+   resolved' (which still claimed it didn't do exactly that), 
    and add instead a new 'svn resolve' subcommand.  'svn resolved'
    is now deprecated in favor of 'svn resolve --accept working'.
    Votes:
