@@ -35,7 +35,7 @@ Candidate changes:
      versions.
    Votes:
       +1: lgo
-
+  
  * r30030
    Always pass --tag=CC / --tag=CXX option to libtool.
    Justification: Checking if libtool supports these options gives false
