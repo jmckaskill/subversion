@@ -129,7 +129,7 @@ Semantically, a tree conflict occurs if 'svn merge' either tries to apply
 the "delete" half of a "move" onto a file that was simply deleted in the
 target branch's history, or tries to apply a simple "delete" onto a file
 that has been moved in the target branch, or tries to move a file that
-has already been moved to a different name in the target branch.
+has already been moved to a different name in the target branch. 
 
 Notes on Resolution
 -------------------
