@@ -46,7 +46,7 @@ print_log_rev(void *baton,
   svn_cmdline_printf(pool, "%ld\n", log_entry->revision);
   return SVN_NO_ERROR;
 }
-
+ 
 
 /* This implements the `svn_opt_subcommand_t' interface. */
 svn_error_t *
@@ -61,7 +61,7 @@ svn_cl__mergeinfo(apr_getopt_t *os,
   svn_opt_revision_t peg_revision;
 
   SVN_ERR(svn_cl__args_to_target_array_print_reserved(&targets, os,
-                                                      opt_state->targets,
+                                                      opt_state->targets, 
                                                       pool));
 
   /* We expect a single source URL followed by a single target --
@@ -74,18 +74,18 @@ svn_cl__mergeinfo(apr_getopt_t *os,
                             _("Too many arguments given"));
   if (targets->nelts == 2)
     {
-      source_url = APR_ARRAY_IDX(targets, 0, const char *);
-      target = APR_ARRAY_IDX(targets, 1, const char *);
+      source_url = APR_ARRAY_IDX(targets, 0, const char *);      
+      target = APR_ARRAY_IDX(targets, 1, const char *);      
     }
   else
     {
-      source_url = APR_ARRAY_IDX(targets, 0, const char *);
+      source_url = APR_ARRAY_IDX(targets, 0, const char *);      
       target = "";
     }
   if (! svn_path_is_url(source_url))
     return svn_error_createf(SVN_ERR_CL_ARG_PARSING_ERROR, NULL,
                              _("Path '%s' is not a URL"), source_url);
-
+    
   /* Parse the path into a path and peg revision. */
   SVN_ERR(svn_opt_parse_path(&peg_revision, &truepath, target, pool));
 
@@ -102,7 +102,7 @@ svn_cl__mergeinfo(apr_getopt_t *os,
   if (opt_state->show_revs == svn_cl__show_revs_merged)
     {
       /* Get the already-merged information. */
-      SVN_ERR(svn_client_mergeinfo_log_merged(truepath, &peg_revision,
+      SVN_ERR(svn_client_mergeinfo_log_merged(truepath, &peg_revision, 
                                               source_url, print_log_rev,
                                               NULL, FALSE, ctx, pool));
     }
