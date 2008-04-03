@@ -50,6 +50,6 @@ Approved changes:
 
    -expected_status.tweak('A/B/lambda', status='!M')
    +expected_status.tweak('A/B/lambda', status='! ')
-
+   
    Let me first merge r30145, r30185 and commit and apply the diff in the
    subsequent commit.
