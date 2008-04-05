@@ -465,7 +465,7 @@ const svn_opt_subcommand_desc2_t svn_cl__cmd_table[] =
      "\n"
      "  Use just 'svn diff' to display local modifications in a working copy.\n"),
     {'r', 'c', opt_old_cmd, opt_new_cmd, 'N', opt_depth, opt_diff_cmd, 'x',
-     opt_no_diff_deleted, opt_notice_ancestry, opt_summarize, opt_changelist,
+     opt_no_diff_deleted, opt_notice_ancestry, opt_summarize, opt_changelist, 
      opt_force, opt_xml} },
 
   { "export", svn_cl__export, {0}, N_
@@ -770,7 +770,7 @@ const svn_opt_subcommand_desc2_t svn_cl__cmd_table[] =
      "  svn:needs-lock properties cannot be set on a directory.  A non-recursive\n"
      "  attempt will fail, and a recursive attempt will set the property\n"
      "  only on the file children of the directory.\n"),
-    {'F', opt_encoding, 'q', 'r', opt_targets, 'R', opt_depth, opt_revprop,
+    {'F', opt_encoding, 'q', 'r', opt_targets, 'R', opt_depth, opt_revprop, 
      opt_force, opt_changelist },
     {{'F', N_("read property value from file ARG")}} },
 
@@ -916,7 +916,7 @@ const svn_opt_subcommand_desc2_t svn_cl__cmd_table[] =
      "     This is used when repository's root URL changes (such as a scheme\n"
      "     or hostname change) but your working copy still reflects the same\n"
     "     directory within the same repository.\n"),
-    { 'r', 'N', opt_depth, opt_set_depth, 'q', opt_merge_cmd, opt_relocate,
+    { 'r', 'N', opt_depth, opt_set_depth, 'q', opt_merge_cmd, opt_relocate, 
       opt_ignore_externals, opt_force, opt_accept} },
 
   { "unlock", svn_cl__unlock, {0}, N_
@@ -964,7 +964,7 @@ const svn_opt_subcommand_desc2_t svn_cl__cmd_table[] =
      "  targets of this operation.  Currently, the depth of a working copy\n"
      "  directory can only be increased (telescoped more deeply); you cannot\n"
      "  make a directory more shallow.\n"),
-    {'r', 'N', opt_depth, opt_set_depth, 'q', opt_merge_cmd, opt_force,
+    {'r', 'N', opt_depth, opt_set_depth, 'q', opt_merge_cmd, opt_force, 
      opt_ignore_externals, opt_changelist, opt_editor_cmd, opt_accept} },
 
   { NULL, NULL, {0}, NULL, {0} }
