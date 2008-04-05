@@ -18,7 +18,7 @@ Candidate changes:
    Allow NULL log messages in svn_ra_get_commit_editor2, for backwards
    compatibility with Subversion 1.4.
    Votes:
-     +1: djames
+     +1: djames 
 
  * r30340
    Fix linking issues on cygwin by removing a trivial circular dependency
