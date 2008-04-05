@@ -76,7 +76,7 @@ def explicit_mergeinfo_source(sbox):
   B_url = sbox.repo_url + '/A/B'
   G_url = sbox.repo_url + '/A/D/G'
   H2_url = sbox.repo_url + '/A/D/H2'
-
+  
   # Make a copy, and dummy up some mergeinfo.
   mergeinfo = '/A/B:1\n/A/D/G:1\n'
   propval_path = os.path.join(wc_dir, 'propval.tmp')
@@ -94,7 +94,7 @@ def explicit_mergeinfo_source(sbox):
   # Now check on a source we haven't "merged" from.
   svntest.actions.run_and_verify_mergeinfo(adjust_error_for_server_version(""),
                                            [2], H2_url, H_path)
-
+  
 
 ########################################################################
 # Run the tests
