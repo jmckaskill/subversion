@@ -33,7 +33,7 @@ Candidate changes:
     +1: pburba
 
 Approved changes:
-
+ 
  * r30362
    Skip leading 'r's on rev numbers passed to -c and -r.
    Votes:
