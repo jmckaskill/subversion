@@ -34,11 +34,6 @@ Candidate changes:
 
 Approved changes:
 
- * r30053, r30101
-   Fix an intermittent problem with diff_tests 47.
-   Votes:
-    +1: hwright, pburba
-
 Status of 1.5.1:
 ================
 
