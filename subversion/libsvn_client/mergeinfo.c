@@ -1388,11 +1388,8 @@ svn_client_suggest_merge_sources(apr_array_header_t **suggestions,
                                       ctx, pool));
   if (copyfrom_path)
     {
-      copyfrom_path = svn_path_join(repos_root,
-                                    svn_path_uri_encode(copyfrom_path + 1,
-                                                        pool),
-                                    pool);
-      APR_ARRAY_PUSH(list, const char *) = copyfrom_path;
+      APR_ARRAY_PUSH(list, const char *) =
+        svn_path_url_add_component(repos_root, copyfrom_path + 1, pool);
     }
 
   if (mergeinfo)
