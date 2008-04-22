@@ -21,10 +21,10 @@
  * Modified by the GLib Team and others 1997-1999.  See the AUTHORS
  * file for a list of people on the GLib Team.  See the ChangeLog
  * files for a list of changes.  These files are distributed with
- * GLib at ftp://ftp.gtk.org/pub/gtk/.
+ * GLib at ftp://ftp.gtk.org/pub/gtk/. 
  */
 
-/*
+/* 
  * MT safe
  */
 
@@ -85,11 +85,11 @@ _g_module_open (const gchar *file_name,
 		gboolean     bind_lazy)
 {
   gpointer handle;
-
+  
   handle = dlopen (file_name, RTLD_GLOBAL | (bind_lazy ? RTLD_LAZY : RTLD_NOW));
   if (!handle)
     g_module_set_error (fetch_dlerror ());
-
+  
   return handle;
 }
 
@@ -97,15 +97,15 @@ static gpointer
 _g_module_self (void)
 {
   gpointer handle;
-
+  
   /* to query symbols from the program itself, special link options
    * are required on some systems.
    */
-
+  
   handle = dlopen (NULL, RTLD_GLOBAL | RTLD_LAZY);
   if (!handle)
     g_module_set_error (fetch_dlerror ());
-
+  
   return handle;
 }
 
@@ -117,7 +117,7 @@ _g_module_close (gpointer handle,
    * without a reference count implementation?
    */
   is_unref |= 1;
-
+  
   if (is_unref)
     {
       if (dlclose (handle) != 0)
@@ -130,11 +130,11 @@ _g_module_symbol (gpointer     handle,
 		  const gchar *symbol_name)
 {
   gpointer p;
-
+  
   p = dlsym (handle, symbol_name);
   if (!p)
     g_module_set_error (fetch_dlerror ());
-
+  
   return p;
 }
 
