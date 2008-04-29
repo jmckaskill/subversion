@@ -264,7 +264,7 @@
         <xsl:with-param name="context" select="$toc-context"/>
       </xsl:call-template>
     </xsl:attribute>
-
+    
     <xsl:variable name="label">
       <xsl:apply-templates select="." mode="label.markup"/>
     </xsl:variable>
