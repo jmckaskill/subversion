@@ -58,6 +58,12 @@ Candidate changes:
    Votes:
      +1: kameshj
 
+ * r30931
+   Remove 'blind deletion of argument to mkdir --parents', delete
+   only if this invocation has created it.
+   Votes:
+     +1: kameshj
+
 Status of 1.5.1:
 ================
 
