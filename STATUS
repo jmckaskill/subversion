@@ -25,7 +25,7 @@ Candidate changes:
 
  * r29191, r29398, r29833, r30663, r30963, r30964
    Improve the responsiveness and accuracy of 'svn log -g'.
-   Backport branch:
+   Backport branch: 
      r30963-1.5.x
    Notes:
      r29191, and r29398 are super-trivial "obvious" tweaks.
