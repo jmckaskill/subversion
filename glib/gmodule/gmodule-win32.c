@@ -24,10 +24,10 @@
  * Modified by the GLib Team and others 1997-1999.  See the AUTHORS
  * file for a list of people on the GLib Team.  See the ChangeLog
  * files for a list of changes.  These files are distributed with
- * GLib at ftp://ftp.gtk.org/pub/gtk/.
+ * GLib at ftp://ftp.gtk.org/pub/gtk/. 
  */
 
-/*
+/* 
  * MT safe
  */
 
@@ -40,7 +40,7 @@ _g_module_open (const gchar *file_name,
 		gboolean     bind_lazy)
 {
   HINSTANCE handle;
-
+  
   handle = LoadLibrary (file_name);
   if (!handle)
     {
@@ -49,7 +49,7 @@ _g_module_open (const gchar *file_name,
       sprintf (error, "Error code %d", GetLastError ());
       g_module_set_error (error);
     }
-
+  
   return handle;
 }
 
@@ -57,7 +57,7 @@ static gpointer
 _g_module_self (void)
 {
   HMODULE handle;
-
+  
   handle = GetModuleHandle (NULL);
   if (!handle)
     {
@@ -66,7 +66,7 @@ _g_module_self (void)
       sprintf (error, "Error code %d", GetLastError ());
       g_module_set_error (error);
     }
-
+  
   return handle;
 }
 
@@ -88,7 +88,7 @@ _g_module_symbol (gpointer     handle,
 		  const gchar *symbol_name)
 {
   gpointer p;
-
+  
   p = GetProcAddress (handle, symbol_name);
   if (!p)
     {
@@ -97,7 +97,7 @@ _g_module_symbol (gpointer     handle,
       sprintf (error, "Error code %d", GetLastError ());
       g_module_set_error (error);
     }
-
+  
   return p;
 }
 
@@ -106,7 +106,7 @@ _g_module_build_path (const gchar *directory,
 		      const gchar *module_name)
 {
   gint k;
-
+  
   k = strlen (module_name);
   if (directory && *directory)
     if (k > 4 && g_strcasecmp (module_name + k - 4, ".dll") == 0)
