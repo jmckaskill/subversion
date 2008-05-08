@@ -93,7 +93,7 @@ class Migrator:
     if only_when_verbose and not self.verbose:
       return
     print message
-
+    
   def run(self):
     self.fs = svn.repos.fs(svn.repos.open(self.repos_path))
 
@@ -140,14 +140,14 @@ class Migrator:
     if mergeinfo_prop_val is not None:
       self.log("Discovered pre-existing Subversion mergeinfo of '%s'" \
                % (mergeinfo_prop_val))
-
+      
     # Retrieve svnmerge.py's merge history meta data, and roll it into
     # Subversion 1.5 mergeinfo.
     integrated_prop_val = svn.fs.node_prop(root, path, "svnmerge-integrated")
     if integrated_prop_val is not None:
       self.log("Discovered svnmerge.py mergeinfo of '%s'" \
                % (integrated_prop_val))
-
+      
     ### LATER: We handle svnmerge-blocked by converting it into
     ### svn:mergeinfo, until revision blocking becomes available in
     ### Subversion's core.
