@@ -391,7 +391,7 @@ svn_cmdline_auth_plaintext_prompt(svn_boolean_t *may_save_plaintext,
   const char *prompt_string = _("Store password unencrypted (yes/no)? ");
   svn_cmdline_prompt_baton2_t *pb = baton;
   const char *config_path;
-
+  
   SVN_ERR(svn_config_get_user_config_path(&config_path, pb->config_dir,
                                           SVN_CONFIG_CATEGORY_SERVERS, pool));
 
@@ -438,7 +438,7 @@ svn_cmdline_auth_plaintext_prompt(svn_boolean_t *may_save_plaintext,
       else
           prompt_string = _("Please type 'yes' or 'no': ");
     }
-  while (! answered);
+  while (! answered); 
 
   return SVN_NO_ERROR;
 }
