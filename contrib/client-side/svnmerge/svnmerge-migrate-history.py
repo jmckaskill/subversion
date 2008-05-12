@@ -103,7 +103,7 @@ class Migrator:
     if only_when_verbose and not self.verbose:
       return
     print message
-
+    
   def run(self):
     self.repos = svn.repos.open(self.repos_path)
     self.fs = svn.repos.fs(self.repos)
@@ -151,14 +151,14 @@ class Migrator:
     if mergeinfo_prop_val is not None:
       self.log("Discovered pre-existing Subversion mergeinfo of '%s'" \
                % (mergeinfo_prop_val))
-
+      
     # Retrieve svnmerge.py's merge history meta data, and roll it into
     # Subversion 1.5 mergeinfo.
     integrated_prop_val = svn.fs.node_prop(root, path, "svnmerge-integrated")
     if integrated_prop_val is not None:
       self.log("Discovered svnmerge.py mergeinfo of '%s'" \
                % (integrated_prop_val))
-
+      
     ### LATER: We handle svnmerge-blocked by converting it into
     ### svn:mergeinfo, until revision blocking becomes available in
     ### Subversion's core.
@@ -201,13 +201,13 @@ class Migrator:
       ### after subtracting the natural history.
       ###
       ### Not really sure how to handle this correctly...
-
+        
 
     # Turn our to-be-written mergeinfo back into a property value.
     new_mergeinfo_prop_val = None
     if new_mergeinfo is not None:
       new_mergeinfo_prop_val = svn.core.svn_mergeinfo_to_string(new_mergeinfo)
-
+      
     # If we need to change the value of the svn:mergeinfo property or
     # delete any svnmerge-* properties, let's do so.
     if (new_mergeinfo_prop_val != mergeinfo_prop_val) \
@@ -260,7 +260,7 @@ class Migrator:
 
     if svnmerge_prop_val is None:
       return None
-
+    
     # First we convert the svnmerge prop value into an svn:mergeinfo
     # prop value, then we parse it into mergeinfo.
     sources = svnmerge_prop_val.split()
@@ -311,7 +311,7 @@ class Migrator:
       path_ranges.append(range)
       mergeinfo[source_path] = path_ranges
     return mergeinfo
-
+    
   def set_path_prefixes(self, prefixes):
     "Decompose path prefixes into something meaningful for comparision."
     self.path_prefixes = []
