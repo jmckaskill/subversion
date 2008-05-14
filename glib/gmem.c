@@ -21,10 +21,10 @@
  * Modified by the GLib Team and others 1997-1999.  See the AUTHORS
  * file for a list of people on the GLib Team.  See the ChangeLog
  * files for a list of changes.  These files are distributed with
- * GLib at ftp://ftp.gtk.org/pub/gtk/.
+ * GLib at ftp://ftp.gtk.org/pub/gtk/. 
  */
 
-/*
+/* 
  * MT safe
  */
 
@@ -64,7 +64,7 @@
 		g_private_get (allocating_for_mem_chunk) + 1)
 #define LEAVE_MEM_CHUNK_ROUTINE() \
   g_private_set (allocating_for_mem_chunk, \
-		g_private_get (allocating_for_mem_chunk) - 1)
+		g_private_get (allocating_for_mem_chunk) - 1) 
 #else
 #define ENTER_MEM_CHUNK_ROUTINE()
 #define LEAVE_MEM_CHUNK_ROUTINE()
@@ -154,46 +154,46 @@ gpointer
 g_malloc (gulong size)
 {
   gpointer p;
-
-
+  
+  
 #if defined(ENABLE_MEM_PROFILE) || defined(ENABLE_MEM_CHECK)
   gulong *t;
 #endif /* ENABLE_MEM_PROFILE || ENABLE_MEM_CHECK */
-
-
+  
+  
   if (size == 0)
     return NULL;
-
-
+  
+  
 #if defined(ENABLE_MEM_PROFILE) || defined(ENABLE_MEM_CHECK)
   size += SIZEOF_LONG;
 #endif /* ENABLE_MEM_PROFILE || ENABLE_MEM_CHECK */
-
+  
 #ifdef ENABLE_MEM_CHECK
   size += SIZEOF_LONG;
 #endif /* ENABLE_MEM_CHECK */
-
-
+  
+  
   p = (gpointer) malloc (size);
   if (!p)
     g_error ("could not allocate %ld bytes", size);
-
-
+  
+  
 #ifdef ENABLE_MEM_CHECK
   size -= SIZEOF_LONG;
-
+  
   t = p;
   p = ((guchar*) p + SIZEOF_LONG);
   *t = 0;
 #endif /* ENABLE_MEM_CHECK */
-
+  
 #if defined(ENABLE_MEM_PROFILE) || defined(ENABLE_MEM_CHECK)
   size -= SIZEOF_LONG;
-
+  
   t = p;
   p = ((guchar*) p + SIZEOF_LONG);
   *t = size;
-
+  
 #ifdef ENABLE_MEM_PROFILE
   g_mutex_lock (mem_profile_lock);
 #  ifdef ENABLE_MEM_PROFILE_EXCLUDES_MEM_CHUNKS
@@ -210,8 +210,8 @@ g_malloc (gulong size)
   g_mutex_unlock (mem_profile_lock);
 #endif /* ENABLE_MEM_PROFILE */
 #endif /* ENABLE_MEM_PROFILE || ENABLE_MEM_CHECK */
-
-
+  
+  
   return p;
 }
 
@@ -219,46 +219,46 @@ gpointer
 g_malloc0 (gulong size)
 {
   gpointer p;
-
-
+  
+  
 #if defined(ENABLE_MEM_PROFILE) || defined(ENABLE_MEM_CHECK)
   gulong *t;
 #endif /* ENABLE_MEM_PROFILE || ENABLE_MEM_CHECK */
-
-
+  
+  
   if (size == 0)
     return NULL;
-
-
+  
+  
 #if defined (ENABLE_MEM_PROFILE) || defined (ENABLE_MEM_CHECK)
   size += SIZEOF_LONG;
 #endif /* ENABLE_MEM_PROFILE || ENABLE_MEM_CHECK */
-
+  
 #ifdef ENABLE_MEM_CHECK
   size += SIZEOF_LONG;
 #endif /* ENABLE_MEM_CHECK */
-
-
+  
+  
   p = (gpointer) calloc (size, 1);
   if (!p)
     g_error ("could not allocate %ld bytes", size);
-
-
+  
+  
 #ifdef ENABLE_MEM_CHECK
   size -= SIZEOF_LONG;
-
+  
   t = p;
   p = ((guchar*) p + SIZEOF_LONG);
   *t = 0;
 #endif /* ENABLE_MEM_CHECK */
-
+  
 #if defined(ENABLE_MEM_PROFILE) || defined(ENABLE_MEM_CHECK)
   size -= SIZEOF_LONG;
-
+  
   t = p;
   p = ((guchar*) p + SIZEOF_LONG);
   *t = size;
-
+  
 #  ifdef ENABLE_MEM_PROFILE
   g_mutex_lock (mem_profile_lock);
 #    ifdef ENABLE_MEM_PROFILE_EXCLUDES_MEM_CHUNKS
@@ -275,8 +275,8 @@ g_malloc0 (gulong size)
   g_mutex_unlock (mem_profile_lock);
 #  endif /* ENABLE_MEM_PROFILE */
 #endif /* ENABLE_MEM_PROFILE || ENABLE_MEM_CHECK */
-
-
+  
+  
   return p;
 }
 
@@ -285,29 +285,29 @@ g_realloc (gpointer mem,
 	   gulong   size)
 {
   gpointer p;
-
+  
 #if defined(ENABLE_MEM_PROFILE) || defined(ENABLE_MEM_CHECK)
   gulong *t;
 #endif /* ENABLE_MEM_PROFILE || ENABLE_MEM_CHECK */
-
-
+  
+  
   if (size == 0)
     {
       g_free (mem);
-
+    
       return NULL;
     }
-
-
+  
+  
 #if defined(ENABLE_MEM_PROFILE) || defined(ENABLE_MEM_CHECK)
   size += SIZEOF_LONG;
 #endif /* ENABLE_MEM_PROFILE || ENABLE_MEM_CHECK */
-
+  
 #ifdef ENABLE_MEM_CHECK
   size += SIZEOF_LONG;
 #endif /* ENABLE_MEM_CHECK */
-
-
+  
+  
   if (!mem)
     {
 #ifdef REALLOC_0_WORKS
@@ -327,36 +327,36 @@ g_realloc (gpointer mem,
 #endif /* ENABLE_MEM_PROFILE */
       mem = t;
 #endif /* ENABLE_MEM_PROFILE || ENABLE_MEM_CHECK */
-
+      
 #ifdef ENABLE_MEM_CHECK
       t = (gulong*) ((guchar*) mem - SIZEOF_LONG);
       if (*t >= 1)
 	g_warning ("trying to realloc freed memory\n");
       mem = t;
 #endif /* ENABLE_MEM_CHECK */
-
+      
       p = (gpointer) realloc (mem, size);
     }
-
+  
   if (!p)
     g_error ("could not reallocate %lu bytes", (gulong) size);
-
-
+  
+  
 #ifdef ENABLE_MEM_CHECK
   size -= SIZEOF_LONG;
-
+  
   t = p;
   p = ((guchar*) p + SIZEOF_LONG);
   *t = 0;
 #endif /* ENABLE_MEM_CHECK */
-
+  
 #if defined(ENABLE_MEM_PROFILE) || defined(ENABLE_MEM_CHECK)
   size -= SIZEOF_LONG;
-
+  
   t = p;
   p = ((guchar*) p + SIZEOF_LONG);
   *t = size;
-
+  
 #ifdef ENABLE_MEM_PROFILE
   g_mutex_lock (mem_profile_lock);
 #ifdef ENABLE_MEM_PROFILE_EXCLUDES_MEM_CHUNKS
@@ -373,8 +373,8 @@ g_realloc (gpointer mem,
   g_mutex_unlock (mem_profile_lock);
 #endif /* ENABLE_MEM_PROFILE */
 #endif /* ENABLE_MEM_PROFILE || ENABLE_MEM_CHECK */
-
-
+  
+  
   return p;
 }
 
@@ -387,25 +387,25 @@ g_free (gpointer mem)
       gulong *t;
       gulong size;
 #endif /* ENABLE_MEM_PROFILE || ENABLE_MEM_CHECK */
-
+      
 #if defined(ENABLE_MEM_PROFILE) || defined(ENABLE_MEM_CHECK)
       t = (gulong*) ((guchar*) mem - SIZEOF_LONG);
       size = *t;
-#ifdef ENABLE_MEM_PROFILE
+#ifdef ENABLE_MEM_PROFILE     
       g_mutex_lock (mem_profile_lock);
       freed_mem += size;
       g_mutex_unlock (mem_profile_lock);
 #endif /* ENABLE_MEM_PROFILE */
       mem = t;
 #endif /* ENABLE_MEM_PROFILE || ENABLE_MEM_CHECK */
-
+      
 #ifdef ENABLE_MEM_CHECK
       t = (gulong*) ((guchar*) mem - SIZEOF_LONG);
       if (*t >= 1)
 	g_warning ("freeing previously freed (%lu times) memory\n", *t);
       *t += 1;
       mem = t;
-
+      
       memset ((guchar*) mem + 2 * SIZEOF_LONG, 0, size);
 #else /* ENABLE_MEM_CHECK */
       free (mem);
@@ -423,7 +423,7 @@ g_mem_profile (void)
   gint i;
   gulong local_allocations[MEM_PROFILE_TABLE_SIZE];
   gulong local_allocated_mem;
-  gulong local_freed_mem;
+  gulong local_freed_mem;  
 
   g_mutex_lock (mem_profile_lock);
   for (i = 0; i < MEM_PROFILE_TABLE_SIZE; i++)
@@ -436,7 +436,7 @@ g_mem_profile (void)
     if (local_allocations[i] > 0)
       g_log (g_log_domain_glib, G_LOG_LEVEL_INFO,
 	     "%lu allocations of %d bytes", local_allocations[i], i + 1);
-
+  
   if (local_allocations[MEM_PROFILE_TABLE_SIZE - 1] > 0)
     g_log (g_log_domain_glib, G_LOG_LEVEL_INFO,
 	   "%lu allocations of greater than %d bytes",
@@ -452,9 +452,9 @@ g_mem_check (gpointer mem)
 {
 #ifdef ENABLE_MEM_CHECK
   gulong *t;
-
+  
   t = (gulong*) ((guchar*) mem - SIZEOF_LONG - SIZEOF_LONG);
-
+  
   if (*t >= 1)
     g_warning ("mem: 0x%08lx has been freed %lu times\n", (gulong) mem, *t);
 #endif /* ENABLE_MEM_CHECK */
@@ -488,10 +488,10 @@ g_mem_chunk_new (gchar  *name,
   mem_chunk->mem_tree = NULL;
   mem_chunk->mem_areas = NULL;
   mem_chunk->atom_size = atom_size;
-
+  
   if (mem_chunk->type == G_ALLOC_AND_FREE)
     mem_chunk->mem_tree = g_tree_new ((GCompareFunc) g_mem_chunk_area_compare);
-
+  
   if (mem_chunk->atom_size % MEM_ALIGN)
     mem_chunk->atom_size += MEM_ALIGN - (mem_chunk->atom_size % MEM_ALIGN);
 
@@ -518,13 +518,13 @@ g_mem_chunk_destroy (GMemChunk *mem_chunk)
   GRealMemChunk *rmem_chunk;
   GMemArea *mem_areas;
   GMemArea *temp_area;
-
+  
   g_return_if_fail (mem_chunk != NULL);
 
   ENTER_MEM_CHUNK_ROUTINE();
 
   rmem_chunk = (GRealMemChunk*) mem_chunk;
-
+  
   mem_areas = rmem_chunk->mem_areas;
   while (mem_areas)
     {
@@ -532,20 +532,20 @@ g_mem_chunk_destroy (GMemChunk *mem_chunk)
       mem_areas = mem_areas->next;
       g_free (temp_area);
     }
-
+  
   if (rmem_chunk->next)
     rmem_chunk->next->prev = rmem_chunk->prev;
   if (rmem_chunk->prev)
     rmem_chunk->prev->next = rmem_chunk->next;
-
+  
   g_mutex_lock (mem_chunks_lock);
   if (rmem_chunk == mem_chunks)
     mem_chunks = mem_chunks->next;
   g_mutex_unlock (mem_chunks_lock);
-
+  
   if (rmem_chunk->type == G_ALLOC_AND_FREE)
     g_tree_destroy (rmem_chunk->mem_tree);
-
+  
   g_free (rmem_chunk);
 
   LEAVE_MEM_CHUNK_ROUTINE();
@@ -561,9 +561,9 @@ g_mem_chunk_alloc (GMemChunk *mem_chunk)
   ENTER_MEM_CHUNK_ROUTINE();
 
   g_return_val_if_fail (mem_chunk != NULL, NULL);
-
+  
   rmem_chunk = (GRealMemChunk*) mem_chunk;
-
+  
   while (rmem_chunk->free_atoms)
     {
       /* Get the first piece of memory on the "free_atoms" list.
@@ -573,12 +573,12 @@ g_mem_chunk_alloc (GMemChunk *mem_chunk)
        */
       mem = rmem_chunk->free_atoms;
       rmem_chunk->free_atoms = rmem_chunk->free_atoms->next;
-
+      
       /* Determine which area this piece of memory is allocated from */
       temp_area = g_tree_search (rmem_chunk->mem_tree,
 				 (GSearchFunc) g_mem_chunk_area_search,
 				 mem);
-
+      
       /* If the area has been marked, then it is being destroyed.
        *  (ie marked to be destroyed).
        * We check to see if all of the segments on the free list that
@@ -595,30 +595,30 @@ g_mem_chunk_alloc (GMemChunk *mem_chunk)
         {
           /* Update the "free" memory available in that area */
           temp_area->free += rmem_chunk->atom_size;
-
+	  
           if (temp_area->free == rmem_chunk->area_size)
             {
               if (temp_area == rmem_chunk->mem_area)
                 rmem_chunk->mem_area = NULL;
-
+	      
               if (rmem_chunk->free_mem_area)
                 {
                   rmem_chunk->num_mem_areas -= 1;
-
+		  
                   if (temp_area->next)
                     temp_area->next->prev = temp_area->prev;
                   if (temp_area->prev)
                     temp_area->prev->next = temp_area->next;
                   if (temp_area == rmem_chunk->mem_areas)
                     rmem_chunk->mem_areas = rmem_chunk->mem_areas->next;
-
+		  
 		  if (rmem_chunk->type == G_ALLOC_AND_FREE)
 		    g_tree_remove (rmem_chunk->mem_tree, temp_area);
                   g_free (temp_area);
                 }
               else
                 rmem_chunk->free_mem_area = temp_area;
-
+	      
 	      rmem_chunk->num_marked_areas -= 1;
 	    }
 	}
@@ -627,13 +627,13 @@ g_mem_chunk_alloc (GMemChunk *mem_chunk)
           /* Update the number of allocated atoms count.
 	   */
           temp_area->allocated += 1;
-
+	  
           /* The area wasn't marked...return the memory
 	   */
 	  goto outa_here;
         }
     }
-
+  
   /* If there isn't a current mem area or the current mem area is out of space
    *  then allocate a new mem area. We'll first check and see if we can use
    *  the "free_mem_area". Otherwise we'll just malloc the mem area.
@@ -651,25 +651,25 @@ g_mem_chunk_alloc (GMemChunk *mem_chunk)
 	  rmem_chunk->mem_area = (GMemArea*) g_malloc (sizeof (GMemArea) -
 						       MEM_AREA_SIZE +
 						       rmem_chunk->area_size);
-
+	  
 	  rmem_chunk->num_mem_areas += 1;
 	  rmem_chunk->mem_area->next = rmem_chunk->mem_areas;
 	  rmem_chunk->mem_area->prev = NULL;
-
+	  
 	  if (rmem_chunk->mem_areas)
 	    rmem_chunk->mem_areas->prev = rmem_chunk->mem_area;
 	  rmem_chunk->mem_areas = rmem_chunk->mem_area;
-
+	  
 	  if (rmem_chunk->type == G_ALLOC_AND_FREE)
 	    g_tree_insert (rmem_chunk->mem_tree, rmem_chunk->mem_area, rmem_chunk->mem_area);
         }
-
+      
       rmem_chunk->mem_area->index = 0;
       rmem_chunk->mem_area->free = rmem_chunk->area_size;
       rmem_chunk->mem_area->allocated = 0;
       rmem_chunk->mem_area->mark = 0;
     }
-
+  
   /* Get the memory and modify the state variables appropriately.
    */
   mem = (gpointer) &rmem_chunk->mem_area->mem[rmem_chunk->mem_area->index];
@@ -707,14 +707,14 @@ g_mem_chunk_free (GMemChunk *mem_chunk,
   GRealMemChunk *rmem_chunk;
   GMemArea *temp_area;
   GFreeAtom *free_atom;
-
+  
   g_return_if_fail (mem_chunk != NULL);
   g_return_if_fail (mem != NULL);
 
   ENTER_MEM_CHUNK_ROUTINE();
 
   rmem_chunk = (GRealMemChunk*) mem_chunk;
-
+  
   /* Don't do anything if this is an ALLOC_ONLY chunk
    */
   if (rmem_chunk->type == G_ALLOC_AND_FREE)
@@ -724,13 +724,13 @@ g_mem_chunk_free (GMemChunk *mem_chunk,
       free_atom = (GFreeAtom*) mem;
       free_atom->next = rmem_chunk->free_atoms;
       rmem_chunk->free_atoms = free_atom;
-
+      
       temp_area = g_tree_search (rmem_chunk->mem_tree,
 				 (GSearchFunc) g_mem_chunk_area_search,
 				 mem);
-
+      
       temp_area->allocated -= 1;
-
+      
       if (temp_area->allocated == 0)
 	{
 	  temp_area->mark = 1;
@@ -750,24 +750,24 @@ g_mem_chunk_clean (GMemChunk *mem_chunk)
   GFreeAtom *prev_free_atom;
   GFreeAtom *temp_free_atom;
   gpointer mem;
-
+  
   g_return_if_fail (mem_chunk != NULL);
-
+  
   rmem_chunk = (GRealMemChunk*) mem_chunk;
-
+  
   if (rmem_chunk->type == G_ALLOC_AND_FREE)
     {
       prev_free_atom = NULL;
       temp_free_atom = rmem_chunk->free_atoms;
-
+      
       while (temp_free_atom)
 	{
 	  mem = (gpointer) temp_free_atom;
-
+	  
 	  mem_area = g_tree_search (rmem_chunk->mem_tree,
 				    (GSearchFunc) g_mem_chunk_area_search,
 				    mem);
-
+	  
           /* If this mem area is marked for destruction then delete the
 	   *  area and list node and decrement the free mem.
            */
@@ -778,13 +778,13 @@ g_mem_chunk_clean (GMemChunk *mem_chunk)
 	      else
 		rmem_chunk->free_atoms = temp_free_atom->next;
 	      temp_free_atom = temp_free_atom->next;
-
+	      
 	      mem_area->free += rmem_chunk->atom_size;
 	      if (mem_area->free == rmem_chunk->area_size)
 		{
 		  rmem_chunk->num_mem_areas -= 1;
 		  rmem_chunk->num_marked_areas -= 1;
-
+		  
 		  if (mem_area->next)
 		    mem_area->next->prev = mem_area->prev;
 		  if (mem_area->prev)
@@ -793,7 +793,7 @@ g_mem_chunk_clean (GMemChunk *mem_chunk)
 		    rmem_chunk->mem_areas = rmem_chunk->mem_areas->next;
 		  if (mem_area == rmem_chunk->mem_area)
 		    rmem_chunk->mem_area = NULL;
-
+		  
 		  if (rmem_chunk->type == G_ALLOC_AND_FREE)
 		    g_tree_remove (rmem_chunk->mem_tree, mem_area);
 		  g_free (mem_area);
@@ -814,25 +814,25 @@ g_mem_chunk_reset (GMemChunk *mem_chunk)
   GRealMemChunk *rmem_chunk;
   GMemArea *mem_areas;
   GMemArea *temp_area;
-
+  
   g_return_if_fail (mem_chunk != NULL);
-
+  
   rmem_chunk = (GRealMemChunk*) mem_chunk;
-
+  
   mem_areas = rmem_chunk->mem_areas;
   rmem_chunk->num_mem_areas = 0;
   rmem_chunk->mem_areas = NULL;
   rmem_chunk->mem_area = NULL;
-
+  
   while (mem_areas)
     {
       temp_area = mem_areas;
       mem_areas = mem_areas->next;
       g_free (temp_area);
     }
-
+  
   rmem_chunk->free_atoms = NULL;
-
+  
   if (rmem_chunk->mem_tree)
     g_tree_destroy (rmem_chunk->mem_tree);
   rmem_chunk->mem_tree = g_tree_new ((GCompareFunc) g_mem_chunk_area_compare);
@@ -844,19 +844,19 @@ g_mem_chunk_print (GMemChunk *mem_chunk)
   GRealMemChunk *rmem_chunk;
   GMemArea *mem_areas;
   gulong mem;
-
+  
   g_return_if_fail (mem_chunk != NULL);
-
+  
   rmem_chunk = (GRealMemChunk*) mem_chunk;
   mem_areas = rmem_chunk->mem_areas;
   mem = 0;
-
+  
   while (mem_areas)
     {
       mem += rmem_chunk->area_size - mem_areas->free;
       mem_areas = mem_areas->next;
     }
-
+  
   g_log (g_log_domain_glib, G_LOG_LEVEL_INFO,
 	 "%s: %ld bytes using %d mem areas",
 	 rmem_chunk->name, mem, rmem_chunk->num_mem_areas);
@@ -867,7 +867,7 @@ g_mem_chunk_info (void)
 {
   GRealMemChunk *mem_chunk;
   gint count;
-
+  
   count = 0;
   g_mutex_lock (mem_chunks_lock);
   mem_chunk = mem_chunks;
@@ -877,9 +877,9 @@ g_mem_chunk_info (void)
       mem_chunk = mem_chunk->next;
     }
   g_mutex_unlock (mem_chunks_lock);
-
+  
   g_log (g_log_domain_glib, G_LOG_LEVEL_INFO, "%d mem chunks", count);
-
+  
   g_mutex_lock (mem_chunks_lock);
   mem_chunk = mem_chunks;
   g_mutex_unlock (mem_chunks_lock);
@@ -888,14 +888,14 @@ g_mem_chunk_info (void)
     {
       g_mem_chunk_print ((GMemChunk*) mem_chunk);
       mem_chunk = mem_chunk->next;
-    }
+    }  
 }
 
 void
 g_blow_chunks (void)
 {
   GRealMemChunk *mem_chunk;
-
+  
   g_mutex_lock (mem_chunks_lock);
   mem_chunk = mem_chunks;
   g_mutex_unlock (mem_chunks_lock);
@@ -913,14 +913,14 @@ g_mem_chunk_compute_size (gulong size,
 {
   gulong power_of_2;
   gulong lower, upper;
-
+  
   power_of_2 = 16;
   while (power_of_2 < size)
     power_of_2 <<= 1;
-
+  
   lower = power_of_2 >> 1;
   upper = power_of_2;
-
+  
   if (size - lower < upper - size && lower >= min_size)
     return lower;
   else
