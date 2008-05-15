@@ -150,7 +150,7 @@ def copy_replace_with_props(sbox, wc_copy):
               'phony-prop' : '*'}
   else:
     props = { 'phony-prop' : '*'}
-
+    
   expected_disk.tweak('A/D/G/rho',
                       contents="This is the file 'pi'.\n",
                       props=props)
@@ -3767,7 +3767,7 @@ def replaced_local_source_for_incoming_copy(sbox):
   # Make the duplicate working copy.
   svntest.main.safe_rmtree(other_wc_dir)
   shutil.copytree(wc_dir, other_wc_dir)
-
+  
   try:
     ## Test properties. ##
 
