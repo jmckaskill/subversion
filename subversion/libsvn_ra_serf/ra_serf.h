@@ -107,7 +107,7 @@ typedef struct {
 
   /* Current authorization value used for the proxy server; may be NULL */
   char *proxy_auth_value;
-
+  
   /* user agent string */
   const char *useragent;
 
@@ -1227,7 +1227,7 @@ typedef svn_error_t *
 
 /**
  * svn_ra_serf__auth_protocol_t: vtable for an authn protocol provider.
- *
+ * 
  */
 struct svn_ra_serf__auth_protocol_t {
   /* The http status code that's handled by this authentication protocol.
@@ -1263,7 +1263,7 @@ svn_ra_serf__handle_auth(int code,
                          apr_pool_t *pool);
 
 /**
- * encode_auth_header: base64 encodes the authentication data and builds an
+ * encode_auth_header: base64 encodes the authentication data and builds an 
  * authentication header in this format:
  * [PROTOCOL] [BASE64 AUTH DATA]
  */
@@ -1279,7 +1279,7 @@ svn_ra_serf__encode_auth_header(const char * protocol,
 
 /**
  * Convert an HTTP status code resulting from a WebDAV request to the relevant
- * error code.
+ * error code. 
  */
 svn_error_t *
 svn_ra_serf__error_on_status(int status_code, const char *path);
