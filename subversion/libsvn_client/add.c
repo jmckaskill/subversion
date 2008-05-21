@@ -707,7 +707,7 @@ mkdir_urls(svn_commit_info_t **commit_info_p,
             }
         }
     }
-  qsort(targets->elts, targets->nelts, targets->elt_size,
+  qsort(targets->elts, targets->nelts, targets->elt_size, 
         svn_sort_compare_paths);
 
   /* Create new commit items and add them to the array. */

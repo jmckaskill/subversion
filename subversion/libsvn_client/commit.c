@@ -1759,7 +1759,7 @@ svn_client_commit4(svn_commit_info_t **commit_info_p,
         cleanup_err = remove_tmpfiles(tempfiles, pool);
     }
 
-  /* As per our promise, if *commit_info_p isn't set, provide a default where
+  /* As per our promise, if *commit_info_p isn't set, provide a default where 
      rev = SVN_INVALID_REVNUM. */
   if (! *commit_info_p)
     *commit_info_p = svn_create_commit_info(pool);
