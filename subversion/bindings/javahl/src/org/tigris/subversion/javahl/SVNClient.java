@@ -1384,7 +1384,7 @@ public class SVNClient implements SVNClientInterface
                 cal.setTime(date);
                 timeMicros = cal.getTimeInMillis();
 
-                timeMicros = timeMicros * 1000
+                timeMicros = timeMicros * 1000 
                                  + Integer.parseInt(datestr.substring(23, 26));
             } catch (ParseException ex) {
                 timeMicros = 0;
