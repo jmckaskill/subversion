@@ -41,7 +41,7 @@ public class LogDate implements java.io.Serializable
     private final long timeMicros;
     private final String cachedString;
     private final Calendar cachedDate;
-
+    
     public LogDate(String datestr) throws ParseException
     {
         if (datestr == null || datestr.length() < 27) {
@@ -51,7 +51,7 @@ public class LogDate implements java.io.Serializable
         this.cachedString = datestr;
         cachedDate = Calendar.getInstance(UTC);
         cachedDate.setTime(date);
-        timeMicros = cachedDate.getTimeInMillis() * 1000
+        timeMicros = cachedDate.getTimeInMillis() * 1000 
                         + Integer.parseInt(datestr.substring(23, 26));
     }
 
@@ -93,12 +93,12 @@ public class LogDate implements java.io.Serializable
         return cachedDate.getTime();
     }
 
-    public String toString()
+    public String toString() 
     {
          return cachedString;
     }
 
-    public int hashCode()
+    public int hashCode() 
     {
         final int prime = 31;
         int result = 1;
@@ -106,7 +106,7 @@ public class LogDate implements java.io.Serializable
         return result;
     }
 
-    public boolean equals(Object obj)
+    public boolean equals(Object obj) 
     {
         if (this == obj)
             return true;
