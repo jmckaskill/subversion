@@ -7001,7 +7001,7 @@ msgid ""
 msgstr ""
 "Die Änderung stammt von Revision PAR (wie\n"
 "                             -r PAR-1:PAR). Falls PAR negativ ist,\n"
-"                             gleichbedeutend zu -r PAR:PAR-1"
+"                             gleichbedeutend zu -r PAR:PAR-1" 
 
 #: ../svn/main.c:127
 msgid ""
