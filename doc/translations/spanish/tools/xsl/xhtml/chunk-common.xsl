@@ -474,7 +474,7 @@
       <xsl:with-param name="object" select="$context"/>
     </xsl:call-template>
   </xsl:variable>
-
+  
   <!--
   <xsl:message>href.to.uri: <xsl:value-of select="$href.to.uri"/></xsl:message>
   <xsl:message>href.from.uri: <xsl:value-of select="$href.from.uri"/></xsl:message>
