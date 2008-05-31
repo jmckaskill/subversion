@@ -117,7 +117,7 @@ III. Current solution
 
     3. Disadvantages of current solution
 
-       + svndumpfilter has a series of issues (8 right now, see the issue
+       + svndumpfilter has a series of issues (8 right now, see the issue 
          tracker).
        + Its filtering options are limited to include or exclude paths, no
          wildcard support...
@@ -346,7 +346,7 @@ IV. Detailed functional requirements
           is:
 
           + Added: This is the creation point of the file. Remove the Add
-            operation and the content and properties delta.
+            operation and the content and properties delta. 
           + Deleted: Remove the Delete operation.
           + Replaced by TARGET: see Deleted. Will become Copy operation of the
             TARGET.
@@ -402,11 +402,11 @@ IV. Detailed functional requirements
             that content and properties and use the result to recreate the
             file.
 
-          Note: only the first change after the obliterated revision of the
-          file should be handled, except for copies of the now obliterated
+          Note: only the first change after the obliterated revision of the 
+          file should be handled, except for copies of the now obliterated 
           revision.
 
-          Example:
+          Example: 
             r1: A  iota   "original content\n"
             r2: M  iota   "original content\nextra line\n"
             r3: D  iota
@@ -415,8 +415,8 @@ IV. Detailed functional requirements
             Here we obliterate iota, range -r 1:1, exclude descendants.
 
             Result:
-            So, r1 will be obliterated, r2 will be rewritten, r3 should be
-            ignored. Since r4 is based on the now obliterated r1, it should be
+            So, r1 will be obliterated, r2 will be rewritten, r3 should be 
+            ignored. Since r4 is based on the now obliterated r1, it should be 
             rewritten as 'A  cp-iota' with the content and properties of iota@1.
 
             r1: [obliterated]
