@@ -130,7 +130,7 @@ Approved changes (1.5.1 and later):
    Fix "file not found" error when a merge target is a broken symbolic link.
    Notes:
      r31179 just makes sure the new test is skipped on Windows.
-     r31193 from 1.5.x-r31159-r31179 branch has r31159 and r31179
+     r31193 from 1.5.x-r31159-r31179 branch has r31159 and r31179 
      merged to it with a conflict resolution.
    Notes:
      This was merged to branch in r31218 and later reverse-merged so that
