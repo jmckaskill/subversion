@@ -7,7 +7,7 @@ is using this file to avoid sudden cranial expansion (www.splode.com).
 Takers of SVN_CL_NOTIFY(opt_state), svn_cl__make_notify_baton(pool):
 
    - svn_client_revert
-   - svn_client_move
+   - svn_client_move 
    - svn_client_mkdir
    - svn_client_resolve
    - svn_client_add
@@ -25,7 +25,7 @@ Things that take before and after trace editors:
    - svn_client_commit
    - svn_client_copy
 
-Takers of the new svn_cl__get_checkout_notifier
+Takers of the new svn_cl__get_checkout_notifier 
                    (svn_wc_notify_func_t *notify_func_p,
                     void **notify_baton_p,
                     svn_boolean_t is_checkout,
