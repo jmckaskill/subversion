@@ -4234,7 +4234,7 @@ do_file_merge(const char *url1,
               else if (is_rollback && r->end != revision2)
                 ra_session2 = ra_session1; /* Use URL1's RA session. */
             }
-
+ 
           /* While we currently don't allow it, in theory we could be
              fetching two fulltexts from two different repositories here. */
           SVN_ERR(single_file_merge_get_file(&tmpfile1, ra_session1,
