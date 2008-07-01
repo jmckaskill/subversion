@@ -96,7 +96,7 @@ Candidate changes for 1.5.1:
    merge sources, too (instead of only URLs).
    Notes:
      r31873 is just a test reorg.  If it isn't approved, just ignore the
-     test changes portion of r31874.
+     test changes portion of r31874.   
    Votes:
      +1: cmpilato, hwright
 
