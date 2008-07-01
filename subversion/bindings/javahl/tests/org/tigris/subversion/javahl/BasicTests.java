@@ -2137,7 +2137,7 @@ public class BasicTests extends SVNTests
         removeDirOrFile(new File(secondWC));
 
         client.checkout(thisTest.getUrl(), secondWC, null, null, Depth.empty,
-        		false, true);
+                        false, true);
 
         infos = client.info2(secondWC, null, null, false);
 
