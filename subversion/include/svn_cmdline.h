@@ -305,9 +305,9 @@ svn_cmdline_set_up_auth_baton(svn_auth_baton_t **ab,
                               void *cancel_baton,
                               apr_pool_t *pool);
 
-/** Similar to svn_cmdline_set_up_auth_baton(), but with
+/** Similar to svn_cmdline_set_up_auth_baton(), but with 
  * @a trust_server_cert always set to false.
- *
+ * 
  * @since New in 1.4.
  * @deprecated Provided for backward compatibility with the 1.5 API.
  *
