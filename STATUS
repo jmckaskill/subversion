@@ -11,7 +11,7 @@ Candidate changes for 1.5.1:
  * r32023
    Follow up (r31884) to fix issue #2242 which checks for a NULL username.
    Votes:
-    +1: stylesen
+    +1: stylesen 
 
  * r31313
    Make all ra layers return a consistent error when a path is not found in the
@@ -84,7 +84,7 @@ Candidate changes for 1.5.1:
    merge sources, too (instead of only URLs).
    Notes:
      r31873 is just a test reorg.  If it isn't approved, just ignore the
-     test changes portion of r31874.
+     test changes portion of r31874.   
    Votes:
      +1: cmpilato, hwright
 
