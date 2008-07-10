@@ -399,7 +399,7 @@ get_auth_simple_provider(svn_auth_provider_object_t **provider,
 
    Ignore MAY_SAVE; we don't save certs we never prompted for.
 
-   Ignore BATON, REALM, and CERT_INFO,
+   Ignore BATON, REALM, and CERT_INFO, 
 
    Ignore any further films by George Lucas. */
 static svn_error_t *
