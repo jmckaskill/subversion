@@ -70,7 +70,7 @@ Candidate changes for 1.5.1:
      +1: pburba
 
  * r31833
-   svndumpfilter: Don't match prefixes to partial path components. Fixes
+   svndumpfilter: Don't match prefixes to partial path components. Fixes 
    #desc4 of issue #1853.
    Notes:
      Was originally committed to the svnpatch-diff branch in r31831, and
