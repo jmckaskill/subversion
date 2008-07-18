@@ -125,7 +125,7 @@
     <xsl:choose>
       <xsl:when test="local-name(.) = 'graphic'
                       or local-name(.) = 'inlinegraphic'">
-        <!-- handle legacy graphic and inlinegraphic by new template -->
+        <!-- handle legacy graphic and inlinegraphic by new template --> 
         <xsl:call-template name="mediaobject.filename">
           <xsl:with-param name="object" select="."/>
         </xsl:call-template>
