@@ -579,8 +579,8 @@
 
   <fo:block id='{$id}'>
     <xsl:if test="$passivetex.extensions != 0">
-      <fotex:bookmark xmlns:fotex="http://www.tug.org/fotex"
-                      fotex-bookmark-level="{count(ancestor::*)+2}"
+      <fotex:bookmark xmlns:fotex="http://www.tug.org/fotex" 
+                      fotex-bookmark-level="{count(ancestor::*)+2}" 
                       fotex-bookmark-label="{$id}">
         <xsl:value-of select="$titleabbrev"/>
       </fotex:bookmark>
