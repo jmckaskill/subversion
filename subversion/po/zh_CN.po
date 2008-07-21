@@ -6350,7 +6350,7 @@ msgstr
 msgid ""
 ",\n"
 "        (mf) mine-full, (tf) theirs-full"
-msgstr
+msgstr 
 ",\n"
 "        (mf) 全用我的, (tf) 全用他人的"
 
