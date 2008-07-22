@@ -6769,8 +6769,8 @@ msgstr ""
 "%s:  (Ikke en gyldig URL)\n"
 "\n"
 
-# Use "YYYY-MM-DD HH:MM" for both. It’s consistent, the list can be
-# sorted by date, and it’s default in the Norwegian locale of many Linux
+# Use "YYYY-MM-DD HH:MM" for both. It’s consistent, the list can be 
+# sorted by date, and it’s default in the Norwegian locale of many Linux 
 # distros.
 #: ../svn/list-cmd.c:90
 msgid "%b %d %H:%M"
