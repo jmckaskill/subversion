@@ -32,7 +32,7 @@ Candidate changes for 1.5.1:
    r31630 fixes copy test 22.
    r31629 fixes blame test 16.
    Justification:
-     With current HEAD of 1.5.x about 10 tests are failing, so that's quite a
+     With current HEAD of 1.5.x about 10 tests are failing, so that's quite a 
      regression. Changes nominated here touch code in ra_serf only and are low
      impact.
    Notes:
