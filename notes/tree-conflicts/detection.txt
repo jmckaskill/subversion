@@ -32,7 +32,7 @@ Directories:
 If 'svn update' modifies any item (including adding or deleting a file
 or directory) in a directory that has been scheduled for deletion in
 the working copy, each item modified by the update is a tree conflict
-victim.
+victim.  
 
 Our tree conflict detection will be part of the update's crawl of the
 working copy.
@@ -53,7 +53,7 @@ Directories:
 
 If 'svn update' deletes a directory that has local modifications
 (including items scheduled to be added or deleted), each locally
-modified item is a tree conflict victim.
+modified item is a tree conflict victim. 
 
 The update crawls the to-be-deleted directory tree before actually
 deleting it.  Subversion metadata and unmodified files are deleted,
@@ -177,7 +177,7 @@ Semantically, a tree conflict occurs if 'svn merge' either tries to apply
 the "delete" half of a "move" onto a file that was simply deleted in the
 target branch's history, or tries to apply a simple "delete" onto a file
 that has been moved in the target branch, or tries to move a file that
-has already been moved to a different name in the target branch.
+has already been moved to a different name in the target branch. 
 
 Notes on Resolution
 -------------------
