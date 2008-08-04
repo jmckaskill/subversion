@@ -32,7 +32,7 @@ Candidate changes for 1.5.2:
    r31630 fixes copy test 22.
    r31232 fixes blame test 16.
    Justification:
-     With current HEAD of 1.5.x about 10 tests are failing, so that's quite a
+     With current HEAD of 1.5.x about 10 tests are failing, so that's quite a 
      regression. Changes nominated here touch code in ra_serf only and are low
      impact.
    Notes:
@@ -69,8 +69,8 @@ Approved changes:
    Notes:
      Small change, but API consistency is always a good thing.
      Does not merge cleanly!
-
-     A backport branch 1.5.x-ra_serf-backports has been created to see which
+     
+     A backport branch 1.5.x-ra_serf-backports has been created to see which 
      revisions are needed to fix the tests that fail after r31313 is
      backported. The group r31234 as nominated above is needed so I propose
      to merge r31313 from the branch iff the r31234 group is approved too.
