@@ -20,7 +20,7 @@ Content
    - transactional manipulation API proposal
    - delta-application algorithm
       (in light of metadata, tree and textual conflicts)
-   -
+   - 
 
 
 Context
