@@ -3867,7 +3867,7 @@ def restarted_update_should_delete_dir_prop(sbox):
   "restarted update should delete dir prop"
   sbox.build()
   wc_dir = sbox.wc_dir
-
+  
   A_path = os.path.join(wc_dir, 'A')
   zeta_path = os.path.join(A_path, 'zeta')
 
