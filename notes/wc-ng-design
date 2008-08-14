@@ -20,7 +20,7 @@ Content
    - transactional manipulation API proposal
    - delta-application algorithm
       (in light of metadata, tree and textual conflicts)
-   -
+   - 
 
 
 Context
@@ -738,7 +738,7 @@ Note that 'children' applies only to kind==DIRECTORY
 
     note: could be very handy, as I'm thinking abspath for all names,
     which gets to be pretty wordy for large working copies.
-
+    
     note: with handles, a file entry could have "parent dir" cheaply,
     and from that, we could derive repos_url/uuid from some dir table.
 
