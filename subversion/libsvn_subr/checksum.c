@@ -141,7 +141,7 @@ svn_checksum_parse_hex(svn_checksum_t *checksum,
     return svn_error_create(SVN_ERR_BAD_CHECKSUM_KIND, NULL, NULL);
 
   for (i = 0; i < len; i++)
-    checksum->digest[i] =
+    checksum->digest[i] = 
       (( isalpha(hex[i*2]) ? hex[i*2] - 'a' + 10 : hex[i*2] - '0') << 4) |
       ( isalpha(hex[i*2+1]) ? hex[i*2+1] - 'a' + 10 : hex[i*2+1] - '0');
 
@@ -154,7 +154,7 @@ svn_checksum_dup(svn_checksum_t *src,
 {
   apr_size_t size;
   svn_checksum_t *dest;
-
+  
   /* The duplicate of a NULL checksum is a NULL... */
   if (src == NULL)
     return NULL;
