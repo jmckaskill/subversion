@@ -1413,8 +1413,8 @@ svn_fs_base__dag_deltify(dag_node_t *target,
 
 
 svn_error_t *
-svn_fs_base__dag_index_checksums(dag_node_t *node,
-                                 trail_t *trail,
+svn_fs_base__dag_index_checksums(dag_node_t *node, 
+                                 trail_t *trail, 
                                  apr_pool_t *pool)
 {
   node_revision_t *node_rev;
