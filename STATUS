@@ -124,7 +124,7 @@ Approved changes:
    r31550 fixes the 'check repo uuid on repo access' feature
    r31630 fixes copy test 22.
    Justification:
-     With current HEAD of 1.5.x about 10 tests are failing, so that's quite a
+     With current HEAD of 1.5.x about 10 tests are failing, so that's quite a 
      regression. Changes nominated here touch code in ra_serf only and are low
      impact.
    Notes:
