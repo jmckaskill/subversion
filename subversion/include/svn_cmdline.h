@@ -238,6 +238,8 @@ svn_cmdline_auth_ssl_server_trust_prompt
  * prompts the user for the filename of their SSL client certificate via
  * the command line.
  *
+ * Records absolute path of the SSL client certificate file.
+ *
  * @since New in 1.4.
  *
  * Expects a @c svn_cmdline_prompt_baton_t to be passed as @a baton.
