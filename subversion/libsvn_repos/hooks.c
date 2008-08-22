@@ -371,7 +371,7 @@ svn_repos__hooks_start_commit(svn_repos_t *repos,
 /* Set *HANDLE to an open filehandle for a temporary file (i.e.,
    automatically deleted when closed), into which the LOCK_TOKENS have
    been written out in the format described in the pre-commit hook
-   template.
+   template.  
 
    LOCK_TOKENS is as returned by svn_fs__access_get_lock_tokens().
 
@@ -388,7 +388,7 @@ lock_token_content(apr_file_t **handle, apr_hash_t *lock_tokens,
     {
       void *val;
       const char *path, *token;
-
+        
       apr_hash_this(hi, (void *)&token, NULL, &val);
       path = val;
       svn_stringbuf_appendstr(lock_str,
