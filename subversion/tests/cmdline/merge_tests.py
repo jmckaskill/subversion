@@ -12194,7 +12194,7 @@ def subtree_merges_dont_cause_spurious_conflicts(sbox):
   # affect parts of the merge target other than the subtree.  An actual case
   # where our own epository encountered this problem is described here:
   # http://subversion.tigris.org/servlets/ReadMsg?listName=dev&msgNo=141832
-
+  
   sbox.build()
   wc_dir = sbox.wc_dir
 
@@ -12408,7 +12408,7 @@ def merge_target_and_subtrees_need_nonintersecting_ranges(sbox):
   rho_COPY_path    = os.path.join(wc_dir, "A_COPY", "D", "G", "rho")
   omega_COPY_path  = os.path.join(wc_dir, "A_COPY", "D", "H", "omega")
   psi_COPY_path    = os.path.join(wc_dir, "A_COPY", "D", "H", "psi")
-
+  
   # Make a branch to merge to.
   wc_disk, wc_status = set_up_branch(sbox, False, 1)
 
@@ -12420,7 +12420,7 @@ def merge_target_and_subtrees_need_nonintersecting_ranges(sbox):
   svntest.actions.run_and_verify_commit(wc_dir, expected_output,
                                         wc_status, None, wc_dir)
 
-  # Make a text mod to A/D/G/nu in r8.
+  # Make a text mod to A/D/G/nu in r8.  
   svntest.main.file_write(nu_path, "New content")
   expected_output = wc.State(wc_dir, {'A/D/G/nu' : Item(verb='Sending')})
   wc_status.tweak('A/D/G/nu', wc_rev=8)
