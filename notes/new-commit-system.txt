@@ -2,7 +2,7 @@
                    ** Proposed new commit system **
 
 
-Purpose:
+Purpose:  
 
   1.  [speed] Detect conflicts early: without ever seeing a bit of
       svndiff data
@@ -35,11 +35,11 @@ Status Quo:
         containing dirs whose revision numbers are incorrect.
 
 
-Another TODO:
+Another TODO:      
 
   We would like to get rid of the ghudson-scenario 'deleted' existence
   flag in the working copy.  It makes the commit-crawler insanely
-  complex.
+  complex.  
 
    Here's how:
 
@@ -145,7 +145,7 @@ new system: look up the path in the transaction (HEAD).
               get CR of path, by examining path's NRID.
               if (REV < CR), return out-of-date error.
               if (CR <= REV <= HEAD), remove the object from the transaction.
-
+             
 --
 
 Editor:     apply_textdelta ()
