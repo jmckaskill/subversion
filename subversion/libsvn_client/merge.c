@@ -3031,7 +3031,7 @@ drive_merge_report_editor(const char *target_wcpath,
 
    If IS_ROLLBACK is true the youngest revision is considered the "most
    inclusive" otherwise the oldest revision is.
-
+   
    If none of CHILDREN_WITH_MERGEINFO's elements have any remaining ranges
    return SVN_INVALID_REVNUM. */
 static svn_revnum_t
@@ -3068,7 +3068,7 @@ get_most_inclusive_start_rev(apr_array_header_t *children_with_mergeinfo,
 
    If IS_ROLLBACK is true the oldest revision is considered the "most
    inclusive" otherwise the youngest revision is.
-
+   
    If none of CHILDREN_WITH_MERGEINFO's elements have any remaining ranges
    return SVN_INVALID_REVNUM. */
 static svn_revnum_t
@@ -4960,7 +4960,7 @@ do_directory_merge(const char *url1,
 
   mergeinfo_behavior(&honor_mergeinfo, &record_mergeinfo, merge_b);
 
-  /* Initialize NOTIFY_B->CHILDREN_WITH_MERGEINFO. See the comment
+  /* Initialize NOTIFY_B->CHILDREN_WITH_MERGEINFO. See the comment 
      'THE CHILDREN_WITH_MERGEINFO ARRAY' at the start of this file. */
   notify_b->children_with_mergeinfo =
     apr_array_make(pool, 0, sizeof(svn_client__merge_path_t *));
