@@ -13,7 +13,7 @@
   <subtitle>(compiled from &svn.version;)</subtitle>
 
   <!-- External entity refs -->
-  &quick_walkthrough;
+  &quick_walkthrough; 
   &best_practices;
   &directory_versioning;
 
