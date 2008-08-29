@@ -116,7 +116,7 @@ svn_wc__db_open(svn_wc__db_t **db,
 /* ### base_add_* can also replace. should be okay? */
 
 /* ### props optional.  can children be optional? don't think so.
- *
+ * 
  * ### KFF: IOW, the question is whether children is required to be a
  * ### valid array, even if zero-length in the case of no children?  I
  * ### dunno.  That's consistent, but inconvenient for callers who
@@ -189,7 +189,7 @@ svn_wc__db_base_get_writable_contents(svn_stream_t **contents,
  * ### symlinks, and even modify the link and check it back in.  It's
  * ### a great solution; but then the question for wc-ng is:
  * ###
- * ### Suppose you check out a symlink on platform X and platform Y.
+ * ### Suppose you check out a symlink on platform X and platform Y. 
  * ### X supports symlinks; Y does not.  Should the wc-ng storage for
  * ### those two be the same?  I mean, on platform Y, the file is just
  * ### going to look and behave like a regular file.  It would be sort
@@ -212,7 +212,7 @@ svn_wc__db_base_add_symlink(svn_wc__db_t *db,
 
 /* ### keep the revision?
  *
- * ### KFF: What are the possible reasons for absence?
+ * ### KFF: What are the possible reasons for absence?  
  *
  *   - excluded (as in 'svn_depth_exclude')
  *   - ...?  I know there's more, but I can't think of it now.
@@ -509,7 +509,7 @@ svn_wc__db_read_props(apr_hash_t **props,
  * ### however: _read_get_info can say "not interested", which isn't the
  * ###   case with a struct. thus, a struct requires fetching and/or
  * ###   computing all info.
- *
+ * 
  * ### KFF: see earlier comment on svn_wc__db_base_get_children().
  */
 svn_error_t *
