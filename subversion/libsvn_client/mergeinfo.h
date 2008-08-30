@@ -59,7 +59,7 @@ typedef struct svn_client__merge_path_t
      reverse merge cases the ranges should never overlap.  This rangelist
      may be empty. */
   apr_array_header_t *remaining_ranges;
-
+  
   svn_mergeinfo_t pre_merge_mergeinfo;  /* Mergeinfo on PATH prior to a
                                            merge.*/
   svn_mergeinfo_t implicit_mergeinfo;   /* Implicit mergeinfo on PATH prior
