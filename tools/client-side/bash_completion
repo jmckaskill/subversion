@@ -17,14 +17,14 @@ shopt -s extglob
 function _svn_read_hashfile()
 {
   local tkey=$1 key= val=
-  while true; do
+  while true; do  
     read tag len
     [ $tag = 'END' ] && break
     [ $tag != 'K' ] && {
       #echo "unexpected tag '$tag' instead of 'K'" >&2
       return
     }
-    read -r -n $len key ; read
+    read -r -n $len key ; read 
     read tag len
     [ $tag != 'V' ] && {
       #echo "unexpected tag '$tag' instead of 'V'" >&2
@@ -35,7 +35,7 @@ function _svn_read_hashfile()
       echo "$val"
       return
     fi
-  done
+  done 
   #echo "target key '$tkey' not found" >&2
 }
 
@@ -74,7 +74,7 @@ function _svn_lls()
 # This completion guides the command/option order along the one suggested
 # by "svn help", although other syntaxes are allowed.
 #
-# - there is a "real" parser to check for what is available and deduce what
+# - there is a "real" parser to check for what is available and deduce what 
 #   can be suggested further.
 # - the syntax should be coherent with subversion/svn/{cl.h,main.c}
 # - although it is not a good practice, mixed options and arguments
@@ -96,21 +96,21 @@ function _svn_lls()
 #   SVN_BASH_KEYWORDS: "svn:keywords" substitutions to be suggested
 #   SVN_BASH_USERNAME: usernames suggested for --username
 #   SVN_BASH_COMPL_EXT: completion extensions for file arguments, based on the
-#      current subcommand, so that for instance only modified files are
+#      current subcommand, so that for instance only modified files are 
 #      suggested for 'revert', only not svn-managed files for 'add', and so on.
 #      Possible values are:
 #      - username: guess usernames from ~/.subversion/auth/...
 #      - svnstatus: use 'svn status' for completion
 #      - recurse: allow recursion (expensive)
 #      - externals: recurse into externals (very expensive)
-#     Both former options are reasonable, but beware that both later options
+#     Both former options are reasonable, but beware that both later options 
 #     may be unadvisable if used on large working copies.
 #     None of these costly completions are activated by default.
 #     Argument completion outside a working copy results in an error message.
 #     Filenames with spaces are not completed properly.
-#
-# TODO
-# - other options?
+#     
+# TODO 
+# - other options? 
 # - obsolete options could be removed from auto-comp? (e.g. -N)
 # - obsolete commands could be removed? (e.g. resolved)
 _svn()
@@ -391,7 +391,7 @@ _svn()
 	    # hmmm... this option should not exist
 	    [[ $previous = '--password' ]] && beep=1
 
-	    # TODO: provide help about other options such as:
+	    # TODO: provide help about other options such as: 
 	    # --old --new --with-revprop
 
 	    # if the previous option required a parameter, do something
@@ -568,7 +568,7 @@ _svn()
 
 		[[ $SVN_BASH_COMPL_EXT == *recurse* ]] || \
 		    status="$status --non-recursive"
-
+		
     	        # I'm not sure that it can work with externals in call cases
 	        # the output contains translatable sentences (even with quiet)
 		[[ $SVN_BASH_COMPL_EXT == *externals* ]] || \
@@ -605,12 +605,12 @@ _svn()
 			    files=$( _svn_lls dir . $cur* )
 			else
 			    # ??? added directories appear twice: foo foo/
-			    files="$( _svn_lls all $cur* )
+			    files="$( _svn_lls all $cur* ) 
                                    $($status $cs | _svn_grcut 'A*' )"
 			fi
 			;;
 		    info) # information on any file
-			files="$( _svn_lls all $cur* )
+			files="$( _svn_lls all $cur* ) 
                                $($status $cs | _svn_grcut 'A*' )"
 			;;
 		    remove|rm|del*|move|mv|rename) # changing existing files
@@ -636,7 +636,7 @@ _svn()
 		# when not recursive, some relevant files may exist
 		# within subdirectories, so they are added here.
 	        # should it be restricted to svn-managed subdirs? no??
-		if [[ $SVN_BASH_COMPL_EXT != *recurse* ]] ; then
+		if [[ $SVN_BASH_COMPL_EXT != *recurse* ]] ; then 
 		    files="$files $( _svn_lls dir $cur* )"
 		fi
 
@@ -716,7 +716,7 @@ _svn()
 	import)
 		cmdOpts="--auto-props --no-auto-props $mOpts $qOpts $nOpts \
 		         --no-ignore --editor-cmd $pOpts --force"
-		;;
+		;; 
 	info)
 		cmdOpts="$pOpts $rOpts --targets -R --recursive --depth \
                          --incremental --xml --changelist"
@@ -830,7 +830,7 @@ _svn()
 
 		cmdOpts=" $cmdOpts "
 		cmdOpts=${cmdOpts/ ${optBase} / }
-
+		
 		# take out alternatives and mutually exclusives
 		case $optBase in
 		-v)              cmdOpts=${cmdOpts/ --verbose / } ;;
@@ -854,7 +854,7 @@ _svn()
 		--auto-props)    cmdOpts=${cmdOpts/ --no-auto-props / } ;;
 		--no-auto-props) cmdOpts=${cmdOpts/ --auto-props / } ;;
 		-g)              cmdOpts=${cmdOpts/ --use-merge-history / } ;;
-		--use-merge-history)
+		--use-merge-history) 
                                  cmdOpts=${cmdOpts/ -g / } ;;
 		-m|--message|-F|--file)
 			cmdOpts=${cmdOpts/ --message / }
