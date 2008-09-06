@@ -5344,10 +5344,10 @@ msgstr "Filnavn for klientsertifikat: "
 msgid "Passphrase for '%s': "
 msgstr "Adgangsfrase/-setning for «%s»: "
 
-# ### FIXME: Det må leses i kildekoden for å se om dette med «ja» og
-# «nei» er konsekvent oppførsel. I mellomtiden lar vi tvilen komme
-# tiltalte til gode, og bruker ja/nei-mulighetene her, selv om det er en
-# liten sjanse for at det vil bli ustandard oppførsel i forhold til
+# ### FIXME: Det må leses i kildekoden for å se om dette med «ja» og 
+# «nei» er konsekvent oppførsel. I mellomtiden lar vi tvilen komme 
+# tiltalte til gode, og bruker ja/nei-mulighetene her, selv om det er en 
+# liten sjanse for at det vil bli ustandard oppførsel i forhold til 
 # andre steder.
 #: ../libsvn_subr/prompt.c:415
 msgid "yes"
@@ -6913,8 +6913,8 @@ msgstr ""
 "%s:  (Ikke en gyldig URL)\n"
 "\n"
 
-# Use "YYYY-MM-DD HH:MM" for both. It’s consistent, the list can be
-# sorted by date, and it’s default in the Norwegian locale of many Linux
+# Use "YYYY-MM-DD HH:MM" for both. It’s consistent, the list can be 
+# sorted by date, and it’s default in the Norwegian locale of many Linux 
 # distros.
 #: ../svn/list-cmd.c:90
 msgid "%b %d %H:%M"
