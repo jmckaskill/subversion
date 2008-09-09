@@ -2407,7 +2407,7 @@ get_full_mergeinfo(svn_mergeinfo_t *recorded_mergeinfo,
 
    Note that if REVISION1 > REVISION2, then each child's remaining_ranges
    member does not adhere to the API rules for rangelists described in
-   svn_mergeinfo.h -- See svn_client__merge_path_t.
+   svn_mergeinfo.h -- See svn_client__merge_path_t. 
 
    See `MERGEINFO MERGE SOURCE NORMALIZATION' for more requirements
    around the values of URL1, REVISION1, URL2, and REVISION2.
@@ -2825,7 +2825,7 @@ remove_absent_children(const char *target_wcpath,
    describing TARGET_WCPATH and its subtrees to the reporter in such as way as
    to avoid repeating merges already performed per the mergeinfo and natural
    history of TARGET_WCPATH and its subtrees.
-
+   
    The ranges that still need to be merged to the TARGET_WCPATH and its
    subtrees are described in CHILDREN_WITH_MERGEINFO, an array of
    svn_client__merge_path_t * -- see 'THE CHILDREN_WITH_MERGEINFO ARRAY'
@@ -2839,7 +2839,7 @@ remove_absent_children(const char *target_wcpath,
    fields in CHILDREN_WITH_MERGEINFO's elements, specifically:
 
    For forward merges (REVISION1 < REVISION2):
-
+   
      1) The first svn_merge_range_t * element of each child's remaining_ranges
         array must meet one of the following conditions:
 
@@ -2851,7 +2851,7 @@ remove_absent_children(const char *target_wcpath,
         revision must equal REVISION1.
 
    For reverse merges (REVISION1 > REVISION2):
-
+   
      1) The first svn_merge_range_t * element of each child's remaining_ranges
         array must meet one of the following conditions:
 
@@ -3090,7 +3090,7 @@ drive_merge_report_editor(const char *target_wcpath,
 
    If IS_ROLLBACK is true the youngest revision is considered the "most
    inclusive" otherwise the oldest revision is.
-
+   
    If none of CHILDREN_WITH_MERGEINFO's elements have any remaining ranges
    return SVN_INVALID_REVNUM. */
 static svn_revnum_t
@@ -3127,7 +3127,7 @@ get_most_inclusive_start_rev(apr_array_header_t *children_with_mergeinfo,
 
    If IS_ROLLBACK is true the oldest revision is considered the "most
    inclusive" otherwise the youngest revision is.
-
+   
    If none of CHILDREN_WITH_MERGEINFO's elements have any remaining ranges
    return SVN_INVALID_REVNUM. */
 static svn_revnum_t
@@ -3740,7 +3740,7 @@ find_child_or_parent(apr_array_header_t *children_with_mergeinfo,
 /* CHILDREN_WITH_MERGEINFO is a depth first sorted array filled with
    svn_client__merge_path_t *.  See the meta comment
    'THE CHILDREN_WITH_MERGEINFO ARRAY' at the top of this file.
-
+   
    Search CHILDREN_WITH_MERGEINFO for the svn_client_merge_path_t *
    with a path element equal to PATH.  If it is found then set *MERGE_PATH
    to this element and return the index at which it was found.  If it
@@ -5014,13 +5014,13 @@ do_file_merge(const char *url1,
    For each path (if any) in MERGE_B->PATHS_WITH_NEW_MERGEINFO merge that
    path's inherited mergeinfo (if any) with its working explicit mergeinfo
    and set that as the path's new explicit mergeinfo.  Then add an
-   svn_client__merge_path_t * element representing the path to
+   svn_client__merge_path_t * element representing the path to   
    NOTIFY_B->CHILDREN_WITH_MERGEINFO if it isn't already present.  All fields
    in any elements added to NOTIFY_B->CHILDREN_WITH_MERGEINFO are initialized
    to FALSE/NULL with the exception of 'path' and 'remaining_ranges'.  The
    latter is set to a rangelist equal to the remaining_ranges of the path's
    nearest path-wise ancestor in NOTIFY_B->CHILDREN_WITH_MERGEINFO.
-
+   
    POOL is used only for temporary allocations, any elements added to
    NOTIFY_B->CHILDREN_WITH_MERGEINFO are allocated in
    NOTIFY_B->CHILDREN_WITH_MERGEINFO->POOL.
@@ -5206,7 +5206,7 @@ do_directory_merge(const char *url1,
 
   mergeinfo_behavior(&honor_mergeinfo, &record_mergeinfo, merge_b);
 
-  /* Initialize NOTIFY_B->CHILDREN_WITH_MERGEINFO. See the comment
+  /* Initialize NOTIFY_B->CHILDREN_WITH_MERGEINFO. See the comment 
      'THE CHILDREN_WITH_MERGEINFO ARRAY' at the start of this file. */
   notify_b->children_with_mergeinfo =
     apr_array_make(pool, 0, sizeof(svn_client__merge_path_t *));
