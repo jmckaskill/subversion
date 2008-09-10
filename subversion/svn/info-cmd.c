@@ -268,35 +268,35 @@ print_info(const char *target,
   if (info->kind != svn_node_dir)
     SVN_ERR(svn_cmdline_printf(pool, _("Name: %s\n"),
                                svn_path_basename(target, pool)));
-
-  if (info->URL)
+ 
+  if (info->URL) 
     SVN_ERR(svn_cmdline_printf(pool, _("URL: %s\n"), info->URL));
-
-  if (info->repos_root_URL)
+           
+  if (info->repos_root_URL) 
     SVN_ERR(svn_cmdline_printf(pool, _("Repository Root: %s\n"),
                                info->repos_root_URL));
-
-  if (info->repos_UUID)
+ 
+  if (info->repos_UUID) 
     SVN_ERR(svn_cmdline_printf(pool, _("Repository UUID: %s\n"),
                                info->repos_UUID));
-
+ 
   if (SVN_IS_VALID_REVNUM(info->rev))
     SVN_ERR(svn_cmdline_printf(pool, _("Revision: %ld\n"), info->rev));
 
-  switch (info->kind)
+  switch (info->kind) 
     {
     case svn_node_file:
       SVN_ERR(svn_cmdline_printf(pool, _("Node Kind: file\n")));
       break;
-
+          
     case svn_node_dir:
       SVN_ERR(svn_cmdline_printf(pool, _("Node Kind: directory\n")));
       break;
-
+          
     case svn_node_none:
       SVN_ERR(svn_cmdline_printf(pool, _("Node Kind: none\n")));
       break;
-
+          
     case svn_node_unknown:
     default:
       SVN_ERR(svn_cmdline_printf(pool, _("Node Kind: unknown\n")));
@@ -305,85 +305,85 @@ print_info(const char *target,
 
   if (info->has_wc_info)
     {
-      switch (info->schedule)
+      switch (info->schedule) 
         {
         case svn_wc_schedule_normal:
           SVN_ERR(svn_cmdline_printf(pool, _("Schedule: normal\n")));
           break;
-
+          
         case svn_wc_schedule_add:
           SVN_ERR(svn_cmdline_printf(pool, _("Schedule: add\n")));
           break;
-
+          
         case svn_wc_schedule_delete:
           SVN_ERR(svn_cmdline_printf(pool, _("Schedule: delete\n")));
           break;
-
+          
         case svn_wc_schedule_replace:
           SVN_ERR(svn_cmdline_printf(pool, _("Schedule: replace\n")));
           break;
-
+          
         default:
           break;
         }
-
-      if (info->copyfrom_url)
+      
+      if (info->copyfrom_url) 
         SVN_ERR(svn_cmdline_printf(pool, _("Copied From URL: %s\n"),
                                    info->copyfrom_url));
-
+      
       if (SVN_IS_VALID_REVNUM(info->copyfrom_rev))
         SVN_ERR(svn_cmdline_printf(pool, _("Copied From Rev: %ld\n"),
                                    info->copyfrom_rev));
     }
-
-  if (info->last_changed_author)
+      
+  if (info->last_changed_author) 
     SVN_ERR(svn_cmdline_printf(pool, _("Last Changed Author: %s\n"),
                                info->last_changed_author));
-
+  
   if (SVN_IS_VALID_REVNUM(info->last_changed_rev))
     SVN_ERR(svn_cmdline_printf(pool, _("Last Changed Rev: %ld\n"),
                                info->last_changed_rev));
-
+  
   if (info->last_changed_date)
-    SVN_ERR(svn_cl__info_print_time(info->last_changed_date,
+    SVN_ERR(svn_cl__info_print_time(info->last_changed_date, 
                                     _("Last Changed Date"), pool));
-
+  
   if (info->has_wc_info)
     {
       if (info->text_time)
-        SVN_ERR(svn_cl__info_print_time(info->text_time,
+        SVN_ERR(svn_cl__info_print_time(info->text_time, 
                                         _("Text Last Updated"), pool));
-
+      
       if (info->prop_time)
-        SVN_ERR(svn_cl__info_print_time(info->prop_time,
+        SVN_ERR(svn_cl__info_print_time(info->prop_time, 
                                         _("Properties Last Updated"), pool));
-
-      if (info->checksum)
+      
+      if (info->checksum) 
         SVN_ERR(svn_cmdline_printf(pool, _("Checksum: %s\n"),
                                    info->checksum));
-
-      if (info->conflict_old)
+      
+      if (info->conflict_old) 
         SVN_ERR(svn_cmdline_printf(pool,
                                    _("Conflict Previous Base File: %s\n"),
                                    svn_path_local_style(info->conflict_old,
                                                         pool)));
-
-      if (info->conflict_wrk)
+ 
+      if (info->conflict_wrk) 
         SVN_ERR(svn_cmdline_printf
                 (pool, _("Conflict Previous Working File: %s\n"),
                  svn_path_local_style(info->conflict_wrk, pool)));
-
-      if (info->conflict_new)
+      
+      if (info->conflict_new) 
         SVN_ERR(svn_cmdline_printf(pool,
                                    _("Conflict Current Base File: %s\n"),
                                    svn_path_local_style(info->conflict_new,
                                                         pool)));
-
-      if (info->prejfile)
+ 
+      if (info->prejfile) 
         SVN_ERR(svn_cmdline_printf(pool, _("Conflict Properties File: %s\n"),
                                    svn_path_local_style(info->prejfile,
                                                         pool)));
-    }
+    }      
 
   if (info->lock)
     {
@@ -402,7 +402,7 @@ print_info(const char *target,
       if (info->lock->expiration_date)
         SVN_ERR(svn_cl__info_print_time(info->lock->expiration_date,
                                         _("Lock Expires"), pool));
-
+      
       if (info->lock->comment)
         {
           int comment_lines;
@@ -412,7 +412,7 @@ print_info(const char *target,
                                      (comment_lines != 1)
                                      ? _("Lock Comment (%i lines):\n%s\n")
                                      : _("Lock Comment (%i line):\n%s\n"),
-                                     comment_lines,
+                                     comment_lines, 
                                      info->lock->comment));
         }
     }
@@ -452,7 +452,7 @@ svn_cl__info(apr_getopt_t *os,
   svn_error_t *err;
   svn_opt_revision_t peg_revision;
 
-  SVN_ERR(svn_opt_args_to_target_array2(&targets, os,
+  SVN_ERR(svn_opt_args_to_target_array2(&targets, os, 
                                         opt_state->targets, pool));
 
   /* Add "." if user passed 0 arguments. */
@@ -473,12 +473,12 @@ svn_cl__info(apr_getopt_t *os,
                                 _("'incremental' option only valid in XML "
                                   "mode"));
     }
-
+  
   for (i = 0; i < targets->nelts; i++)
     {
       const char *truepath;
       const char *target = ((const char **) (targets->elts))[i];
-
+      
       svn_pool_clear(subpool);
       SVN_ERR(svn_cl__check_cancel(ctx->cancel_baton));
 

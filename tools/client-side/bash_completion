@@ -477,7 +477,7 @@ _svn()
 	import)
 		cmdOpts="--auto-props --no-auto-props $mOpts $qOpts $nOpts \
 		         --no-ignore --editor-cmd $pOpts"
-		;;
+		;; 
 	info)
 		cmdOpts="$pOpts $rOpts --targets -R --recursive \
                          --incremental --xml"

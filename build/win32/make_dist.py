@@ -120,8 +120,8 @@ class InstallIconv(Action):
     source = os.path.abspath(self._expand(cfg, self.source))
     build_mode = self._expand(cfg, self.build_mode)
     print 'make_dist: Installing apr-iconv modules'
-    install = ('"%s" -nologo -f Makefile.win install'
-               + ' INSTALL_DIR="%s"'
+    install = ('"%s" -nologo -f Makefile.win install' 
+               + ' INSTALL_DIR="%s"' 
                + ' BUILD_MODE=%s BIND_MODE=%s') \
                % (cfg.get('tools', 'nmake'),
                   os.path.abspath(dir),

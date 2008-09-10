@@ -61,7 +61,7 @@ svn_cl__merge(apr_getopt_t *os,
       using_alternate_syntax = TRUE;
     }
 
-  SVN_ERR(svn_opt_args_to_target_array2(&targets, os,
+  SVN_ERR(svn_opt_args_to_target_array2(&targets, os, 
                                         opt_state->targets, pool));
 
   if (using_alternate_syntax)
@@ -102,7 +102,7 @@ svn_cl__merge(apr_getopt_t *os,
       SVN_ERR(svn_opt_parse_path(&opt_state->end_revision, &sourcepath2,
                                  ((const char **) (targets->elts))[1],
                                  pool));
-
+      
       /* Catch 'svn merge wc_path1 wc_path2 [target]' without explicit
          revisions--since it ignores local modifications it may not do what
          the user expects.  Forcing the user to specify a repository
@@ -136,7 +136,7 @@ svn_cl__merge(apr_getopt_t *os,
           svn_node_kind_t kind;
           const char *decoded_path = svn_path_uri_decode(sp1_basename, pool);
           SVN_ERR(svn_io_check_path(decoded_path, &kind, pool));
-          if (kind == svn_node_file)
+          if (kind == svn_node_file) 
             {
               targetpath = decoded_path;
             }

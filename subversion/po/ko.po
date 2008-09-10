@@ -8502,7 +8502,7 @@ msgstr ""
 "'svnsync help %s' 로 사용법을 보십시오.\n"
 
 #: svnsync/main.c:1519
-#,
+#, 
 msgid "Not enough arguments provided; try 'svnsync help' for more info"
 msgstr "인자가 충분히 주어지지 않았습니다. 'svnsync help'를 참조하세요."
 
