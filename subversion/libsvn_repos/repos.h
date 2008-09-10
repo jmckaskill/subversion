@@ -106,7 +106,7 @@ svn_repos__hooks_start_commit (svn_repos_t *repos,
                                apr_pool_t *pool);
 
 /* Run the pre-commit hook for REPOS.  Use POOL for any temporary
-   allocations.  If the hook fails, return SVN_ERR_REPOS_HOOK_FAILURE.
+   allocations.  If the hook fails, return SVN_ERR_REPOS_HOOK_FAILURE.  
 
    TXN_NAME is the name of the transaction that is being committed.  */
 svn_error_t *
@@ -125,11 +125,11 @@ svn_repos__hooks_post_commit (svn_repos_t *repos,
 
 /* Run the pre-revprop-change hook for REPOS.  Use POOL for any
    temporary allocations.  If the hook fails, return
-   SVN_ERR_REPOS_HOOK_FAILURE.
+   SVN_ERR_REPOS_HOOK_FAILURE.  
 
    REV is the revision whose property is being changed.
    AUTHOR is the authenticated name of the user changing the prop.
-   NAME is the name of the property being changed.
+   NAME is the name of the property being changed.  
    VALUE is the new value of the property.
 
    The pre-revprop-change hook will have the new property value
@@ -145,7 +145,7 @@ svn_repos__hooks_pre_revprop_change (svn_repos_t *repos,
 
 /* Run the pre-revprop-change hook for REPOS.  Use POOL for any
    temporary allocations.  If the hook fails, return
-   SVN_ERR_REPOS_HOOK_FAILURE.
+   SVN_ERR_REPOS_HOOK_FAILURE. 
 
    REV is the revision whose property was changed.
    AUTHOR is the authenticated name of the user who changed the prop.

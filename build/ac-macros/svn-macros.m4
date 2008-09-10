@@ -27,7 +27,7 @@ EOF
 dnl
 dnl SVN_SUBDIR_CONFIG(dir [, sub-package-cmdline-args])
 dnl
-dnl Note that this code is a direct copy of that which is found in
+dnl Note that this code is a direct copy of that which is found in 
 dnl the apr project's build/apr_common.m4.
 AC_DEFUN(SVN_SUBDIR_CONFIG, [
   if test "$do_subdir_config" = "yes" ; then
@@ -91,7 +91,7 @@ dnl bar='${foo}/2'
 dnl baz='${bar}/3'
 dnl SVN_EXPAND_VAR(fraz, $baz)
 dnl   $fraz is now "1/2/3"
-dnl
+dnl 
 AC_DEFUN(SVN_EXPAND_VAR,[
 svn_last=
 svn_cur="$2"

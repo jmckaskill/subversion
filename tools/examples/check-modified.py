@@ -25,7 +25,7 @@ def run(files):
     dirpath = fullpath = os.path.abspath(f)
     if not os.path.isdir(dirpath):
       dirpath = os.path.dirname(dirpath)
-
+  
     adm_baton = svn.wc.svn_wc_adm_open(None, dirpath, False, True, pool)
 
     try:
@@ -41,8 +41,8 @@ def run(files):
     svn.wc.svn_wc_adm_close(adm_baton)
 
   svn.util.svn_pool_destroy(pool)
-  svn.util.apr_terminate()
+  svn.util.apr_terminate()        
 
 if __name__ == '__main__':
   run(sys.argv[1:])
-
+    

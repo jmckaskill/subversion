@@ -138,7 +138,7 @@ Vorwort.
 </preface>
 
 <!--
-local variables:
+local variables: 
 sgml-parent-document: ("book.xml" "foreword")
 end:
 -->

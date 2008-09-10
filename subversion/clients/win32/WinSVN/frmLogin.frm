@@ -1,5 +1,5 @@
 VERSION 5.00
-Begin VB.Form frmLogin
+Begin VB.Form frmLogin 
    BorderStyle     =   3  'Fixed Dialog
    Caption         =   "Login"
    ClientHeight    =   1608
@@ -14,7 +14,7 @@ Begin VB.Form frmLogin
    ShowInTaskbar   =   0   'False
    StartUpPosition =   2  'CenterScreen
    Tag             =   "1054 - Login"
-   Begin VB.CommandButton cmdCancel
+   Begin VB.CommandButton cmdCancel 
       Cancel          =   -1  'True
       Caption         =   "Cancel"
       Height          =   360
@@ -24,7 +24,7 @@ Begin VB.Form frmLogin
       Top             =   1020
       Width           =   1140
    End
-   Begin VB.CommandButton cmdOK
+   Begin VB.CommandButton cmdOK 
       Caption         =   "OK"
       Default         =   -1  'True
       Height          =   360
@@ -34,7 +34,7 @@ Begin VB.Form frmLogin
       Top             =   1020
       Width           =   1140
    End
-   Begin VB.TextBox txtPassword
+   Begin VB.TextBox txtPassword 
       Height          =   288
       IMEMode         =   3  'DISABLE
       Left            =   1305
@@ -43,14 +43,14 @@ Begin VB.Form frmLogin
       Top             =   525
       Width           =   2325
    End
-   Begin VB.TextBox txtUserName
+   Begin VB.TextBox txtUserName 
       Height          =   288
       Left            =   1305
       TabIndex        =   3
       Top             =   135
       Width           =   2325
    End
-   Begin VB.Label lblLabels
+   Begin VB.Label lblLabels 
       Caption         =   "&Password:"
       Height          =   248
       Index           =   1
@@ -60,7 +60,7 @@ Begin VB.Form frmLogin
       Top             =   540
       Width           =   1080
    End
-   Begin VB.Label lblLabels
+   Begin VB.Label lblLabels 
       Caption         =   "&User Name:"
       Height          =   248
       Index           =   0

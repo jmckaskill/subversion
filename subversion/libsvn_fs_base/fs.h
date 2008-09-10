@@ -37,8 +37,8 @@ extern "C" {
 typedef struct
 {
   /* Berkeley DB returns extended error info by callback before returning
-     an error code from the failing function.  The callback baton type is a
-     string, not an arbitrary struct, so we prefix our struct with a valid
+     an error code from the failing function.  The callback baton type is a 
+     string, not an arbitrary struct, so we prefix our struct with a valid 
      string, to avoid problems should BDB ever try to interpret our baton as
      a string.  Initializers of this structure must strcpy the value of
      BDB_ERRCALL_BATON_ERRPFX_STRING into this array.  */
@@ -49,7 +49,7 @@ typedef struct
      additional errors stored here.  */
   svn_error_t *pending_errors;
 
-  /* We permitted clients of our library to install a Berkeley BDB errcall.
+  /* We permitted clients of our library to install a Berkeley BDB errcall.  
      Since we now use the errcall ourselves, we must store and invoke a user
      errcall, to maintain our API guarantees. */
   void (*user_callback) (const char *errpfx, char *msg);

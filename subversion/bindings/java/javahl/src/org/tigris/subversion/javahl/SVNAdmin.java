@@ -83,7 +83,7 @@ public class SVNAdmin
 
     /**
      * create a subversion repository.
-     * @param path                  the path where the repository will been
+     * @param path                  the path where the repository will been 
      *                              created.
      * @param disableFsyncCommit    disable to fsync at the commit (BDB).
      * @param keepLog               keep the log files (BDB).
@@ -91,7 +91,7 @@ public class SVNAdmin
      * @param fstype                the type of the filesystem (BDB or FSFS)
      * @throws ClientException  throw in case of problem
      */
-    public native void create(String path, boolean disableFsyncCommit,
+    public native void create(String path, boolean disableFsyncCommit, 
                               boolean keepLog, String configPath,
                               String fstype) throws ClientException;
     /**

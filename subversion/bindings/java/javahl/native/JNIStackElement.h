@@ -31,12 +31,12 @@
 /**
  * JNIEntry create a stack element on the stack, which will be used to track
  * the entry and exit of methods
- */
+ */ 
 #define JNIEntry(c,m) JNIStackElement se(env, #c, #m, jthis);
 /**
  * JNIEntry create a stack element on the stack, which will be used to track
  * the entry and exit of static methods
- */
+ */ 
 #define JNIEntryStatic(c,m) JNIStackElement se(env, #c, #m, jclazz);
 
 /**
@@ -66,4 +66,4 @@ private:
     char m_objectID[JNIUtil::formatBufferSize];
 };
 // !defined(AFX_JNISTACKELEMENT_H__81945F80_D56F_4782_B8E7_6A82483E6463__INCLUDED_)
-#endif
+#endif 

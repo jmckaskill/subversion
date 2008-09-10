@@ -77,7 +77,7 @@ svn_error_t *svn_hash_read2 (apr_hash_t *hash,
  * values.  If @a terminator is not NULL, terminate the hash with a
  * line containing @a terminator.
  */
-svn_error_t *svn_hash_write2 (apr_hash_t *hash,
+svn_error_t *svn_hash_write2 (apr_hash_t *hash, 
                               svn_stream_t *stream,
                               const char *terminator,
                               apr_pool_t *pool);
@@ -114,14 +114,14 @@ svn_error_t *svn_hash_write_incremental (apr_hash_t *hash,
  * expected to be terminated with a line containing "END" or
  * "PROPS-END".
  */
-svn_error_t *svn_hash_read (apr_hash_t *hash,
+svn_error_t *svn_hash_read (apr_hash_t *hash, 
                             apr_file_t *srcfile,
                             apr_pool_t *pool);
 
 /** @deprecated Provided for backward compatibility with the 1.0.0
  * API.  This function behaves like svn_hash_write2, but it only works
  * on an apr_file_t output, and the terminator is always "END". */
-svn_error_t *svn_hash_write (apr_hash_t *hash,
+svn_error_t *svn_hash_write (apr_hash_t *hash, 
                              apr_file_t *destfile,
                              apr_pool_t *pool);
 
@@ -162,7 +162,7 @@ typedef svn_error_t *(*svn_hash_diff_func_t)
  * @c svn_hash_diff_key_status indicating which table(s) the key appears
  * in, and @a diff_func_baton.
  *
- * Process all keys of @a hash_a first, then all remaining keys of @a hash_b.
+ * Process all keys of @a hash_a first, then all remaining keys of @a hash_b. 
  *
  * If @a diff_func returns error, return that error immediately, without
  * applying @a diff_func to anything else.

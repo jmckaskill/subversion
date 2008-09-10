@@ -44,7 +44,7 @@ svn_client_cleanup (const char *dir,
   svn_node_kind_t kind;
   const char *diff3_cmd;
   svn_config_t *cfg = ctx->config
-    ? apr_hash_get (ctx->config, SVN_CONFIG_CATEGORY_CONFIG,
+    ? apr_hash_get (ctx->config, SVN_CONFIG_CATEGORY_CONFIG,  
                     APR_HASH_KEY_STRING)
     : NULL;
 

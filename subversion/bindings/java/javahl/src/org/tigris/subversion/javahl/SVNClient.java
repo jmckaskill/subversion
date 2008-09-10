@@ -164,7 +164,7 @@ public class SVNClient implements SVNClientInterface
      * @param stopOnCopy    do not continue on copy operations
      * @return array of LogMessages
      */
-    public LogMessage[] logMessages(String path, Revision revisionStart,
+    public LogMessage[] logMessages(String path, Revision revisionStart, 
                                     Revision revisionEnd, boolean stopOnCopy)
             throws ClientException
     {

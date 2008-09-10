@@ -7,7 +7,7 @@ AC_DEFUN(SVN_CHECK_JDK,
   AC_ARG_WITH(jdk,
               AC_HELP_STRING([--with-jdk=PATH],
                              [Try to use 'PATH/include' to find the JNI
-                              headers.  If PATH is not specified, look
+                              headers.  If PATH is not specified, look 
                               for a Java Development Kit at JAVA_HOME.]),
   [
     case "$withval" in
