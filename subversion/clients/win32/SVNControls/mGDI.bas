@@ -211,7 +211,7 @@ Private Declare Function ImageList_Draw Lib "COMCTL32.DLL" ( _
 Private Declare Function ImageList_GetBkColor Lib "COMCTL32.DLL" ( _
         ByVal hIml As Long _
     ) As Long
-
+        
 ' Draw an item in an ImageList with more control over positioning
 ' and colour:
 Private Declare Function ImageList_DrawEx Lib "COMCTL32.DLL" ( _
@@ -304,28 +304,28 @@ Public Sub DrawDragImage( _
    )
 Static rcCurrent As RECT
 Dim hdc As Long
-
+   
    ' First get the Desktop DC:
    hdc = CreateDCAsNull("DISPLAY", ByVal 0&, ByVal 0&, ByVal 0&)
    ' Set the draw mode to XOR:
    SetROP2 hdc, R2_NOTXORPEN
-
+   
    '// Draw over and erase the old rectangle
    If Not (bFirst) Then
       Rectangle hdc, rcCurrent.Left, rcCurrent.Top, rcCurrent.Right, rcCurrent.Bottom
    End If
-
+   
    If Not (bLast) Then
       '// Draw the new rectangle
       Rectangle hdc, rcNew.Left, rcNew.Top, rcNew.Right, rcNew.Bottom
    End If
-
+   
    ' Store this position so we can erase it next time:
    LSet rcCurrent = rcNew
-
+   
    ' Free the reference to the Desktop DC we got (make sure you do this!)
    DeleteDC hdc
-
+    
 End Sub
 
 Public Sub DrawImage( _
@@ -352,7 +352,7 @@ Dim iImgIndex As Long
    ' on the hDC at xPixels,yPixels with the supplied options.
    ' You can even draw an ImageList from another ImageList control
    ' if you supply the handle to hExternalIml with this function.
-
+   
    iImgIndex = iIndex
    If (iImgIndex > -1) Then
       If (hExternalIml <> 0) Then
@@ -360,12 +360,12 @@ Dim iImgIndex As Long
       Else
           lhIml = hIml
       End If
-
+      
       lFlags = ILD_TRANSPARENT
       If (bSelected) Or (bCut) Then
           lFlags = lFlags Or ILD_SELECTED
       End If
-
+      
       If (bCut) Then
         ' Draw dithered:
         lColor = TranslateColor(oCutDitherColour)
@@ -384,7 +384,7 @@ Dim iImgIndex As Long
         DrawState hdc, 0, 0, hIcon, 0, xPixels, yPixels, lIconSizeX, lIconSizeY, DST_ICON Or DSS_DISABLED
         ' Clear up the icon:
         DestroyIcon hIcon
-
+              
       Else
         ' Standard draw:
         ImageList_DrawEx _
@@ -465,10 +465,10 @@ Dim lDstHeight As Long
     lSrcStartHeight = (lBitmapH - lSrcStartY)
     lSrcX = lSrcStartX
     lSrcY = lSrcStartY
-
+    
     lDstY = y
     lDstHeight = lSrcStartHeight
-
+    
     Do While lDstY < (y + Height)
         If (lDstY + lDstHeight) > (y + Height) Then
             lDstHeight = y + Height - lDstY

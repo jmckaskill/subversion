@@ -43,8 +43,8 @@ UPDATE_REBUILD_FLAG () {
     $GREP -v "$REGEXP_1" "$UP_LOGFILE" \
         | $GREP -q "$REGEXP_2" > /dev/null 2>&1
     UP_STATUS="$?"
-
-    if test ! -f "$RB_FILE"
+    
+    if test ! -f "$RB_FILE" 
     then
         echo "0" > "$RB_FILE"
     else

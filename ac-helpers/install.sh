@@ -13,7 +13,7 @@
 
 
 #
-#   put in absolute paths if you don't have them in your path;
+#   put in absolute paths if you don't have them in your path; 
 #   or use env. vars.
 #
 mvprog="${MVPROG-mv}"
