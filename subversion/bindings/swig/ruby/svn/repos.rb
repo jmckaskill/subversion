@@ -17,7 +17,7 @@ module Svn
     end
     alias_method :_create, :create
     alias_method :_open, :open
-
+    
     module_function
     def open(path, pool)
       Util.set_pool(pool) do
@@ -44,7 +44,7 @@ module Svn
           end
         end
       end
-
+      
       attr_accessor :pool
 
       def_simple_delegate :path, :db_env, :conf_dir
@@ -52,8 +52,8 @@ module Svn
       def_simple_delegate :start_commit_hook
       def_simple_delegate :pre_commit_hook, :post_commit_hook
       def_simple_delegate :pre_revprop_change_hook, :post_revprop_change_hook
-
-
+      
+      
       def fs
         @fs ||= Util.set_pool(@pool) do
           Repos.fs(self)
@@ -74,7 +74,7 @@ module Svn
         Util.set_pool(@pool) do
           txn = Repos.fs_begin_txn_for_commit(*args)
         end
-
+        
         if block_given?
           yield(txn)
           commit(txn) if fs.transactions.include?(txn.name)
@@ -109,7 +109,7 @@ module Svn
 
       alias text_mod? text_mod
       alias prop_mod? prop_mod
-
+      
       def copy?
         Util.copy?(copyfrom_path, copyfrom_rev)
       end
@@ -141,7 +141,7 @@ module Svn
       def unknown?
         kind == Core::NODE_UNKNOWN
       end
-
+      
     end
   end
 end

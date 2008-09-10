@@ -54,7 +54,7 @@ print_status (void *baton,
 {
   struct status_baton *sb = baton;
   svn_error_t *err;
-
+  
   err = svn_cl__print_status (path, status, sb->detailed,
                               sb->show_last_committed,
                               sb->skip_unrecognized, sb->repos_locks,
@@ -87,14 +87,14 @@ svn_cl__status (apr_getopt_t *os,
   svn_opt_revision_t rev;
   struct status_baton sb;
 
-  SVN_ERR (svn_opt_args_to_target_array2 (&targets, os,
+  SVN_ERR (svn_opt_args_to_target_array2 (&targets, os, 
                                           opt_state->targets, pool));
 
   /* We want our -u statuses to be against HEAD. */
   rev.kind = svn_opt_revision_head;
 
   /* The notification callback. */
-  svn_cl__get_notifier (&ctx->notify_func2, &ctx->notify_baton2, FALSE, FALSE,
+  svn_cl__get_notifier (&ctx->notify_func2, &ctx->notify_baton2, FALSE, FALSE, 
                         FALSE, pool);
 
   /* Add "." if user passed 0 arguments */
@@ -130,6 +130,6 @@ svn_cl__status (apr_getopt_t *os,
     }
 
   svn_pool_destroy (subpool);
-
+  
   return SVN_NO_ERROR;
 }

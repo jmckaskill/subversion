@@ -6,7 +6,7 @@ use strict;
 # shut up about variables that are only used once.
 # these come from constants and variables used
 # by the bindings but not elsewhere in perl space.
-no warnings 'once';
+no warnings 'once'; 
 
 use_ok('SVN::Core');
 use_ok('SVN::Repos');
@@ -54,7 +54,7 @@ ok(SVN::Client::uuid_from_url($reposurl,$ctx),
 ok(SVN::Client::uuid_from_url($reposurl,$ctx->{'ctx'}),
    'Valid return from uuid_from_url function form with _p_svn_client_ctx object');
 
-
+             
 my ($ci_dir1) = $ctx->mkdir(["$reposurl/dir1"]);
 isa_ok($ci_dir1,'_p_svn_client_commit_info_t');
 $current_rev++;
@@ -113,8 +113,8 @@ is($ctx->add("$wcpath/dir1/new",0),undef,
    'Returned undef from add schedule operation');
 
 # test the log_msg callback
-$ctx->log_msg(
-    sub
+$ctx->log_msg( 
+    sub 
     {
         my ($log_msg,$tmp_file,$commit_items,$pool) = @_;
         isa_ok($log_msg,'SCALAR','log_msg param to callback is a SCALAR');
@@ -144,7 +144,7 @@ $ctx->log_msg(
         my $wcprop_changes = $commit_item->wcprop_changes();
         isa_ok($wcprop_changes,'ARRAY','wcprop_changes returns an ARRAY');
         is(scalar(@$wcprop_changes),0,
-           'No elements in the wcprop_changes array because '.
+           'No elements in the wcprop_changes array because '. 
            ' we did not make any');
         $$log_msg = 'Add new';
         return 0;
@@ -164,7 +164,7 @@ is($ctx->log_msg(undef),undef,
 
 # test getting the log
 is($ctx->log("$reposurl/dir1/new",$current_rev,$current_rev,1,0,
-             sub
+             sub 
              {
                  my ($changed_paths,$revision,
                      $author,$date,$message,$pool) = @_;
@@ -197,7 +197,7 @@ is($ctx->update($wcpath,'HEAD',1),$current_rev,
    'Return from update is the current rev');
 
 # no return so we should get undef as the result
-# we will get a _p_svn_error_t if there is an error.
+# we will get a _p_svn_error_t if there is an error. 
 is($ctx->propset('perl-test','test-val',"$wcpath/dir1",0),undef,
    'propset on a working copy path returns undef');
 
@@ -206,7 +206,7 @@ isa_ok($ph,'HASH','propget returns a hash');
 is($ph->{"$wcpath/dir1"},'test-val','perl-test property has the correct value');
 
 # No revnum for the working copy so we should get INVALID_REVNUM
-is($ctx->status($wcpath, undef, sub {
+is($ctx->status($wcpath, undef, sub { 
                                       my ($path,$wc_status) = @_;
                                       is($path,"$wcpath/dir1",
                                          'path param to status callback is' .
@@ -348,21 +348,21 @@ SKIP: {
     # one command to run to test it.  If you want to use this you need
     # to change the usernames, passwords, and paths to the client cert.
     # It assumes that there is a repo running on localhost port 443 at
-    # via SSL.  The repo cert should trip a client trust issue.  The
+    # via SSL.  The repo cert should trip a client trust issue.  The 
     # client cert should be encrypted and require a pass to use it.
     # Finally uncomment the skip line below.
 
-    # Before shipping make sure the following line is uncommented.
+    # Before shipping make sure the following line is uncommented. 
     skip 'Impossible to test without external effort to setup https', 7;
-
+ 
     sub simple_prompt {
         my $cred = shift;
         my $realm = shift;
         my $username_passed = shift;
-        my $may_save = shift;
+        my $may_save = shift; 
         my $pool = shift;
-
-        ok(1,'simple_prompt called');
+ 
+        ok(1,'simple_prompt called'); 
         $cred->username('breser');
         $cred->password('foo');
     }
@@ -374,7 +374,7 @@ SKIP: {
         my $cert_info = shift;
         my $may_save = shift;
         my $pool = shift;
-
+  
         ok(1,'ssl_server_trust_prompt called');
         $cred->may_save(0);
         $cred->accepted_failures($failures);
@@ -394,10 +394,10 @@ SKIP: {
         my $cred = shift;
         my $may_save = shift;
         my $pool = shift;
-
+    
         ok(1,'ssl_client_cert_pw_prompt called');
         $cred->password('test');
-    }
+    } 
 
     my $oldauthbaton = $ctx->auth();
 
@@ -411,9 +411,9 @@ SKIP: {
                                 \&ssl_client_cert_pw_prompt,2)
               ),'_p_svn_auth_baton_t',
               'auth() accessor returns _p_svn_auth_baton');
-
-    # if this doesn't work we will get an svn_error_t so by
-    # getting a hash we know it worked.
+     
+    # if this doesn't work we will get an svn_error_t so by 
+    # getting a hash we know it worked. 
     my ($dirents) = $ctx->ls('https://localhost/svn/test','HEAD',1);
     isa_ok($dirents,'HASH','ls returns a HASH');
 
