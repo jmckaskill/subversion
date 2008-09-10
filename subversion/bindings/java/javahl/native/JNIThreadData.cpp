@@ -48,12 +48,12 @@ JNIThreadData::~JNIThreadData()
 
 bool JNIThreadData::initThreadData()
 {
-	if(g_key != NULL)
+	if(g_key != NULL) 
 	{
 		return false;
 	}
 
-	apr_status_t apr_err = apr_threadkey_private_create  ( &g_key, del, JNIUtil::getPool());
+	apr_status_t apr_err = apr_threadkey_private_create  ( &g_key, del, JNIUtil::getPool()); 
 	if(apr_err)
 	{
 		JNIUtil::handleAPRError(apr_err, "apr_threadkey_private_create");
@@ -65,7 +65,7 @@ bool JNIThreadData::initThreadData()
 
 JNIThreadData * JNIThreadData::getThreadData()
 {
-	if(g_key == NULL)
+	if(g_key == NULL) 
 	{
 		return NULL;
 	}

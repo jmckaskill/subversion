@@ -212,7 +212,7 @@ analogous to CVS/ subdirs:
 
   Same as `dir-props', except this is the pristine copy;  analogous to
   the "text-base" revisions of files.  The last up-to-date copy of the
-  directory's properties live here.
+  directory's properties live here. 
 
 `lock'
 
@@ -259,7 +259,7 @@ analogous to CVS/ subdirs:
 
    To recover from a crash:
 
-      1. Look for a log file.
+      1. Look for a log file.  
 
            A. If none, just "rm -r tmp/*".
 
@@ -273,11 +273,11 @@ analogous to CVS/ subdirs:
 
    Note that foo/.svn/log always uses paths relative to foo/, for
    example, this:
-
+   
        <!-- THIS IS GOOD -->
        <mv name=".svn/tmp/prop-base/name"
            dest=".svn/prop-base/name">
-
+           
    rather than this:
 
        <!-- THIS WOULD BE BAD -->
@@ -292,7 +292,7 @@ analogous to CVS/ subdirs:
 
    The problem with the second way is that is violates the
    separability of .svn subdirectories -- a subdir should be operable
-   independent of its location in the local filesystem.
+   independent of its location in the local filesystem.  
 
    The problem with the third way is that it can't conveniently refer
    to the user's actual working files, only to files inside .svn/.
@@ -355,7 +355,7 @@ analogous to CVS/ subdirs:
    networking layer (DAV right now) and need to be secretly saved and
    retrieved, much like a web browser stores "cookies".  Special wc
    library routines allow the networking layer to get and set these
-   properties.
+   properties.  
 
    Note that because these properties aren't being versioned, we don't
    bother to keep pristine forms of them in a 'base' area.  Nor do we
@@ -369,7 +369,7 @@ analogous to CVS/ subdirs:
 todo: some loose ends
 
    1. filename escaping in .svn/entries
-   2.
+   2. 
 
 
 

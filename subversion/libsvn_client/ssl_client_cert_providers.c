@@ -44,7 +44,7 @@ ssl_client_cert_file_first_credentials (void **credentials_p,
                                         const char *realmstring,
                                         apr_pool_t *pool)
 {
-  svn_config_t *cfg = apr_hash_get (parameters,
+  svn_config_t *cfg = apr_hash_get (parameters, 
                                     SVN_AUTH_PARAM_CONFIG,
                                     APR_HASH_KEY_STRING);
   const char *server_group = apr_hash_get (parameters,
@@ -61,7 +61,7 @@ ssl_client_cert_file_first_credentials (void **credentials_p,
     {
       svn_auth_cred_ssl_client_cert_t *cred =
         apr_palloc (pool, sizeof (*cred));
-
+      
       cred->cert_file = cert_file;
       cred->may_save = FALSE;
       *credentials_p = cred;
@@ -86,7 +86,7 @@ static const svn_auth_provider_t ssl_client_cert_file_provider =
 
 
 /*** Public API to SSL file providers. ***/
-void
+void 
 svn_client_get_ssl_client_cert_file_provider (
   svn_auth_provider_object_t **provider,
   apr_pool_t *pool)
@@ -137,7 +137,7 @@ ssl_client_cert_prompt_first_cred (void **credentials_p,
   ssl_client_cert_prompt_provider_baton_t *pb = provider_baton;
   ssl_client_cert_prompt_iter_baton_t *ib =
     apr_pcalloc (pool, sizeof (*ib));
-  const char *no_auth_cache = apr_hash_get (parameters,
+  const char *no_auth_cache = apr_hash_get (parameters, 
                                             SVN_AUTH_PARAM_NO_AUTH_CACHE,
                                             APR_HASH_KEY_STRING);
 
@@ -163,7 +163,7 @@ ssl_client_cert_prompt_next_cred (void **credentials_p,
                                   apr_pool_t *pool)
 {
   ssl_client_cert_prompt_iter_baton_t *ib = iter_baton;
-  const char *no_auth_cache = apr_hash_get (parameters,
+  const char *no_auth_cache = apr_hash_get (parameters, 
                                             SVN_AUTH_PARAM_NO_AUTH_CACHE,
                                             APR_HASH_KEY_STRING);
 

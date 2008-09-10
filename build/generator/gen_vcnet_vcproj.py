@@ -123,7 +123,7 @@ class Generator(gen_win.WinGeneratorBase):
     for target in install_targets:
       # These aren't working yet
       if isinstance(target, gen_base.TargetProject) and target.cmd:
-        continue
+        continue    
       guids[target.name] = self.makeguid(target.name)
 
     self.gen_proj_names(install_targets)

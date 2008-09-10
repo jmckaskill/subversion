@@ -26,7 +26,7 @@
 #pragma once
 #endif // _MSC_VER > 1000
 
-class JNIStringHolder
+class JNIStringHolder  
 {
 public:
 	JNIStringHolder(jstring jtext);

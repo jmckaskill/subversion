@@ -36,13 +36,13 @@ blame_receiver (void *baton,
                 apr_pool_t *pool)
 {
   svn_stream_t *out = baton;
-  const char *rev_str = SVN_IS_VALID_REVNUM (revision)
+  const char *rev_str = SVN_IS_VALID_REVNUM (revision) 
                         ? apr_psprintf (pool, "%6" SVN_REVNUM_T_FMT, revision)
                         : "     -";
-  return svn_stream_printf (out, pool, "%s %10s %s\n", rev_str,
+  return svn_stream_printf (out, pool, "%s %10s %s\n", rev_str, 
                             author ? author : "         -", line);
 }
-
+ 
 
 /* This implements the `svn_opt_subcommand_t' interface. */
 svn_error_t *
@@ -57,7 +57,7 @@ svn_cl__blame (apr_getopt_t *os,
   svn_stream_t *out;
   int i;
 
-  SVN_ERR (svn_opt_args_to_target_array (&targets, os,
+  SVN_ERR (svn_opt_args_to_target_array (&targets, os, 
                                          opt_state->targets,
                                          &opt_state->start_revision,
                                          &opt_state->end_revision,

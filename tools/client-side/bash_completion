@@ -94,7 +94,7 @@ _svn()
 	import)
 		cmdOpts="--auto-props --no-auto-props $mOpts $qOpts $nOpts \
 		         --editor-cmd $pOpts"
-		;;
+		;; 
 	info)
 		cmdOpts="--targets -R --recursive"
 		;;

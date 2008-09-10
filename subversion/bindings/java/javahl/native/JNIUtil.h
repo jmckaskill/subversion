@@ -39,7 +39,7 @@ struct svn_error_t;
 
 #define JAVA_PACKAGE "org/tigris/subversion/javahl"
 
-class JNIUtil
+class JNIUtil  
 {
 public:
 	static void throwNullPointerException(const char *message);

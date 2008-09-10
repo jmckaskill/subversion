@@ -26,7 +26,7 @@
 #pragma once
 #endif // _MSC_VER > 1000
 class JNIMutex;
-class JNICriticalSection
+class JNICriticalSection  
 {
 public:
 	JNICriticalSection(JNIMutex &mutex);

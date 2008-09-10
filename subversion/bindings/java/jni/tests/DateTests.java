@@ -19,7 +19,7 @@ import junit.framework.*;
 import java.util.Date;
 
 /**
- * Testcases for the native functions with prefix "date"
+ * Testcases for the native functions with prefix "date" 
  * in the class NativeWrapper
  *
  * @see NativeWrapper
@@ -63,7 +63,7 @@ public class DateTests extends TestCase
 	    //Now lets see. Do the dates match?
 	    assertEquals( time, date.getTime() );
 	}
-
+    
     /**
      * test case to ensure the method creates a valid date
      */
@@ -84,7 +84,7 @@ public class DateTests extends TestCase
 	    long milliseconds = now.getTime();
 	    long microseconds = milliseconds * 1000;
 	    Date date = NativeWrapper.dateCreateFromAprTimeT(microseconds);
-
+	
 	    assertEquals(milliseconds, date.getTime());
 	}
 }

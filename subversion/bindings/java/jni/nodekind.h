@@ -31,13 +31,13 @@ extern "C" {
 /* functions */
 
 /**
- * create a new org.tigris.subversion.lib.Nodekind instance
+ * create a new org.tigris.subversion.lib.Nodekind instance 
  *
  * @param JNIEnv JNI Environment
  * @param hasException
  * @param nodekind integer representation of the appropriate constants
  */
-jobject
+jobject 
 nodekind__create(JNIEnv *env, jboolean *hasException, jint nodekind);
 
 /**

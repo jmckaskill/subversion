@@ -1,10 +1,10 @@
 #!/usr/bin/perl -w
 
-# a script to munge the output of 'svn log' into something approaching the
+# a script to munge the output of 'svn log' into something approaching the 
 # style of a GNU ChangeLog.
 #
-# to use this, just fill in the 'hackers' hash with the usernames and
-# name/emails of the people who work on your project, go to the top level
+# to use this, just fill in the 'hackers' hash with the usernames and 
+# name/emails of the people who work on your project, go to the top level 
 # of your working copy, and run:
 #
 # $ svn log | /path/to/gnuify-changelog.pl > ChangeLog
@@ -38,7 +38,7 @@
 $parse_next_line = 0;
 
 while (<>) {
-  # axe windows style line endings, since we should try to be consistent, and
+  # axe windows style line endings, since we should try to be consistent, and 
   # the repos has both styles in it's log entries.
   $_ =~ s/\r\n$/\n/;
 

@@ -704,7 +704,7 @@ svn_diff__file_output_unified_flush_hunk(svn_diff__file_output_baton_t *baton)
 
   /* Output the hunk header.  If the hunk length is 1, the file is a one line
      file.  In this case, surpress the number of lines in the hunk (it is
-     1 implicitly)
+     1 implicitly) 
    */
   SVN_ERR(svn_stream_printf(baton->output_stream, baton->pool,
                             "@@ -%" APR_OFF_T_FMT,
