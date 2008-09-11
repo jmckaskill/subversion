@@ -1705,7 +1705,7 @@ svn_wc_text_modified_p(svn_boolean_t *modified_p,
  * @a adm_access must be an access baton for @a path.
  *
  * If @a which_props is not @c NULL, and there are property modifications,
- * then @a *which_props will be allocated in @a pool and filled
+ * then @a *which_props will be allocated in @a pool and filled 
  * <tt>const char *</tt> -> <tt>const svn_string_t *</tt> key-value
  * mappings of the modified properties.
  *
