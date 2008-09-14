@@ -1741,10 +1741,10 @@ svn_wc_add(const char *path,
 
 */
 
-/* Revert ENTRY for NAME in directory represented by ADM_ACCESS.
+/* Revert ENTRY for NAME in directory represented by ADM_ACCESS. 
 
    Set *REVERTED to TRUE if something (text or props or both) is
-   reverted, FALSE otherwise.
+   reverted, FALSE otherwise.  
 
    If something is reverted and USE_COMMIT_TIMES is true, then update
    the entry's timestamp to the last-committed-time; otherwise don't
