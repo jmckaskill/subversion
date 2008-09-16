@@ -422,7 +422,7 @@ svn_stringbuf_appendchar(svn_stringbuf_t *targetstr,
                          char c)
 {
   char s[2];
-
+  
   s[0] = c;
   s[1] = '\0';
   svn_stringbuf_appendbytes(targetstr, s, 1);
