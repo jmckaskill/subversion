@@ -1213,7 +1213,7 @@ check_tree_conflict(svn_stringbuf_t *log_accum,
             reason = svn_wc_conflict_reason_missing;
           else
             {
-
+             
 
               /* If we are about to delete a path that has local mods,
                * mark the containing directory as tree conflicted.
@@ -1503,7 +1503,7 @@ add_directory(const char *path,
             {
               svn_wc_adm_access_t *parent_adm_access;
               const char *repos;
-              /* Use the repository root of the anchor, but only if it
+              /* Use the repository root of the anchor, but only if it 
                  actually is an ancestor of the URL of this directory. */
               if (eb->repos && svn_path_is_ancestor(eb->repos, db->new_URL))
                 repos = eb->repos;
@@ -1963,7 +1963,7 @@ close_directory(void *dir_baton,
 
   /* Check for tree conflicts in this directory. */
   SVN_ERR(svn_wc_entry(&entry, db->path, adm_access, TRUE, db->pool));
-  SVN_ERR(svn_wc_conflicted_p2(&text_conflicted, &prop_conflicted,
+  SVN_ERR(svn_wc_conflicted_p2(&text_conflicted, &prop_conflicted, 
                                &tree_conflicted, db->path, entry, db->pool));
 
   /* Notify of any prop changes on this directory -- but do nothing
