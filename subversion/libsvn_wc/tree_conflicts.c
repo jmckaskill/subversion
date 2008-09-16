@@ -334,7 +334,7 @@ stringbuf_appendchar(svn_stringbuf_t *targetstr,
                      char c)
 {
   char s[2];
-
+  
   s[0] = c;
   s[1] = '\0';
   svn_stringbuf_appendbytes(targetstr, s, 1);
@@ -474,7 +474,7 @@ svn_wc__tree_conflict_exists(apr_array_header_t *conflicts,
 
   for (i = 0; i < conflicts->nelts; i++)
     {
-      conflict = APR_ARRAY_IDX(conflicts, i,
+      conflict = APR_ARRAY_IDX(conflicts, i, 
                                svn_wc_conflict_description_t *);
       if (strcmp(svn_path_basename(conflict->path, pool), victim_path) == 0)
         return TRUE;
