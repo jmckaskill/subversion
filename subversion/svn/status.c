@@ -94,7 +94,7 @@ print_status(const char *path,
 
   /* To signal that a directory contains tree conflicts, we "hijack"
    * the text status column if it is blank. */
-  if (status->entry
+  if (status->entry 
       && (status->entry->kind == svn_node_dir)
       && (status->text_status == svn_wc_status_normal)
       && (status->tree_conflicted))
