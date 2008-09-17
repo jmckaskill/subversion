@@ -72,11 +72,11 @@ IV.   QUICKSTART GUIDE
       compiling your client binary.)
 
 
-     1.  svnadmin create /path/to/repos
-
+     1.  svnadmin create /path/to/repos    
+  
           - this creates a new directory, 'repos'.  Make sure that
             /path/to/repos/ is on local disk, NOT a network share.
-
+ 
           - make SURE you have complete recursive read/write access to
             the newly created 'repos' directory.
 

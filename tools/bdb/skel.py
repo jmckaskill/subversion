@@ -171,7 +171,7 @@ class SvnDiffWindow:
     self.size = skelstructure[1][1]
     self.vs_rep = skelstructure[1][2]
     #self.rep_offset = skelstructure[1][3]
-
+    
 
 class Rep:
   def __init__(self, skelstring="((fulltext 0  (md5 16 \0\0\0\0\0\0\0\0" \

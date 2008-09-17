@@ -24,9 +24,9 @@ XSL_HTML_CHUNK = $(DOC_TOP)/tools/chunk-stylesheet.xsl
 RUN_FOP = ${DOC_TOP}/tools/bin/run-fop.sh
 
 # Book xsltproc options for HTML output
-# Note: --stringparam arguments no longer go here;
+# Note: --stringparam arguments no longer go here; 
 # see tools/html-stylesheet.xsl and tools/chunk-stylesheet.xsl
-DOC_HTML_XSLTPROC_OPTS =
+DOC_HTML_XSLTPROC_OPTS = 
 
 # Book xsltproc options for PDF and PostScript output
 # DOC_PDF_XSLTPROC_OPTS = --stringparam page.height 9in --stringparam page.width 6.4in

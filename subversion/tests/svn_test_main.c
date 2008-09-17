@@ -127,8 +127,8 @@ get_array_size (void)
 /* Execute a test number TEST_NUM.  Pretty-print test name and dots
    according to our test-suite spec, and return the result code. */
 static int
-do_test_num (const char *progname,
-             int test_num,
+do_test_num (const char *progname, 
+             int test_num, 
              svn_boolean_t msg_only,
              svn_test_opts_t *opts,
              apr_pool_t *pool)
@@ -171,12 +171,12 @@ do_test_num (const char *progname,
     }
   else
     {
-      printf ("%s %s %d: %s\n",
+      printf ("%s %s %d: %s\n", 
               (err
                ? (xfail ? "XFAIL:" : "FAIL: ")
                : (xfail ? "XPASS:" : (skip ? "SKIP: " : "PASS: "))),
               progname,
-              test_num,
+              test_num, 
               msg ? msg : "(test did not provide name)");
     }
 
@@ -190,7 +190,7 @@ do_test_num (const char *progname,
       if (apr_isupper(msg[0]))
         printf ("WARNING: Test docstring is capitalized\n");
     }
-
+    
   /* Fail on unexpected result -- FAIL or XPASS. */
   skip_cleanup = ((err != SVN_NO_ERROR) != (xfail != 0));
   return skip_cleanup;
@@ -210,7 +210,7 @@ main (int argc, char *argv[])
   char **arg;
   /* How many tests are there? */
   int array_size = get_array_size();
-
+  
   svn_test_opts_t opts = { NULL };
 
   opts.fs_type = DEFAULT_FS_TYPE;

@@ -4,7 +4,7 @@ require "svn/ra"
 
 class SvnRaTest < Test::Unit::TestCase
   include SvnTestUtil
-
+  
   def setup
     setup_basic
   end
@@ -47,7 +47,7 @@ class SvnRaTest < Test::Unit::TestCase
                    Svn::Core::PROP_ENTRY_COMMITTED_REV,
                  ].sort,
                  props.keys.sort)
-
+    
     entries, props = session.dir("/", info.revision)
     assert_equal([file], entries.keys)
     assert(entries[file].file?)
@@ -59,7 +59,7 @@ class SvnRaTest < Test::Unit::TestCase
                  ].sort,
                  props.keys.sort)
 
-
+    
     ctx = make_context(log2)
     File.open(path, "w") {|f| f.print(src * 2)}
     info = ctx.ci(@wc_path)
@@ -75,7 +75,7 @@ class SvnRaTest < Test::Unit::TestCase
                    [rev2, log2],
                  ].sort_by {|rev, log| rev},
                  logs.sort_by {|rev, log| rev})
-
+    
     assert_equal(Svn::Core::NODE_FILE, session.check_path(file))
     assert_equal(Svn::Core::NODE_FILE, session.stat(file).kind)
 
