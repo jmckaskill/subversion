@@ -6,7 +6,7 @@ library to generate WebDAV DeltaV requests and sends them to a
 "Subversion-aware" Apache server.
 
 This Apache server is running @emph{mod_dav} and @emph{mod_dav_svn},
-which translates the requests into Subversion filesystem calls.
+which translates the requests into Subversion filesystem calls.  
 
 For more info, @xref{Network Layer}.
 

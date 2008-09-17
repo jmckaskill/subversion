@@ -56,7 +56,7 @@ public class Revision
         if (!(target instanceof Revision))
             return false;
 
-        return ((Revision)target).revKind == revKind;
+        return ((Revision)target).revKind == revKind;        
     }
 
     public static final Revision HEAD = new Revision(Kind.head);
@@ -85,12 +85,12 @@ public class Revision
         public String toString() {
             return Long.toString(revNumber);
         }
-
+        
         public boolean equals(Object target) {
             if (!super.equals(target))
                 return false;
 
-            return ((Revision.Number)target).revNumber == revNumber;
+            return ((Revision.Number)target).revNumber == revNumber;        
         }
     }
 
@@ -108,8 +108,8 @@ public class Revision
         }
 
         public String toString() {
-
-            SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss Z", Locale.US);
+            
+            SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss Z", Locale.US); 
             return '{'+dateFormat.format(revDate)+'}';
         }
 
@@ -117,9 +117,9 @@ public class Revision
             if (!super.equals(target))
                 return false;
 
-            return ((Revision.DateSpec)target).revDate.equals(revDate);
+            return ((Revision.DateSpec)target).revDate.equals(revDate);        
         }
-
+        
     }
 
     /** Various ways of specifying revisions.

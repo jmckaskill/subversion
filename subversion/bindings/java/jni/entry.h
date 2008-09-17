@@ -36,7 +36,7 @@ jobject
 entry__create_from_svn_wc_entry_t(JNIEnv *env, jboolean *hasException,
                                   svn_wc_entry_t *entry);
 
-void
+void 
 entry__set_url(JNIEnv *env, jboolean *hasException,
                jobject jentry, jstring jurl);
 
@@ -68,7 +68,7 @@ jobject
 entry__get_schedule(JNIEnv *env, jboolean *hasException,
                     jobject jentry);
 
-void
+void 
 entry__set_conflicted(JNIEnv *env, jboolean *hasException,
                       jobject jentry, jboolean jconflicted);
 
@@ -84,7 +84,7 @@ jboolean
 entry__get_copied(JNIEnv *env, jboolean *hasException,
                   jobject jentry);
 
-void
+void 
 entry__set_texttime(JNIEnv *env, jboolean *hasException,
                     jobject jentry, jobject jtexttime);
 
@@ -92,7 +92,7 @@ jobject
 entry__get_texttime(JNIEnv *env, jboolean *hasException,
                     jobject jentry);
 
-void
+void 
 entry__set_proptime(JNIEnv *env, jboolean *hasException,
                     jobject jentry, jobject jproptime);
 
@@ -100,7 +100,7 @@ jobject
 entry__get_proptime(JNIEnv *env, jboolean *hasException,
                     jobject jentry);
 
-void
+void 
 entry__set_attributes(JNIEnv *env, jboolean *hasException,
                       jobject jentry, jobject jattributes);
 

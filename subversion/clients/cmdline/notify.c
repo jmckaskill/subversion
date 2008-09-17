@@ -132,7 +132,7 @@ notify (void *baton,
                    || (prop_state == svn_wc_notify_state_unchanged))))
           {
             nb->received_some_change = TRUE;
-
+            
             if (kind == svn_node_file)
               {
                 if (content_state == svn_wc_notify_state_conflicted)
@@ -142,7 +142,7 @@ notify (void *baton,
                 else if (content_state == svn_wc_notify_state_changed)
                   statchar_buf[0] = 'U';
               }
-
+            
             if (prop_state == svn_wc_notify_state_conflicted)
               statchar_buf[1] = 'C';
             else if (prop_state == svn_wc_notify_state_merged)
@@ -203,7 +203,7 @@ notify (void *baton,
                   printf ("%sheckout complete.\n",
                           nb->in_external ? "External c" : "C");
                 else
-                  printf ("%spdate complete.\n",
+                  printf ("%spdate complete.\n", 
                           nb->in_external ? "External u" : "U");
               }
           }

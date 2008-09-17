@@ -38,7 +38,7 @@ const char svn_cl__help_header[] =
     "\n"
     "Most subcommands take file and/or directory arguments, recursing\n"
     "on the directories.  If no arguments are supplied to such a\n"
-    "command, it will recurse on the current directory (inclusive) by\n"
+    "command, it will recurse on the current directory (inclusive) by\n" 
     "default.\n"
     "\n"
     "Available subcommands:\n";

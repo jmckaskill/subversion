@@ -36,7 +36,7 @@ DATA_FILE = "http://subversion.tigris.org/iz-data/query-set-1.tsv"
 
 def main():
     """Run find-fix.py with arguments du jour for drawing pretty
-manager-speak pictures."""
+manager-speak pictures.""" 
 
     global verbose
 
@@ -115,7 +115,7 @@ manager-speak pictures."""
                    or matches.group(3) != "0" \
                    or matches.group(4) != "0" \
                    or matches.group(5) != "0":
-
+                    
                     outfile.write("%s-%s-%s,%s,%s,%s,%s,%s,%s\n"
                                   % (year, month, dayrange[1],
                                      matches.group(1),
@@ -129,8 +129,8 @@ manager-speak pictures."""
                     # quit at first nothing-done week
                     # allows slop in loop controls
                     break
-    outfile.close()
-
+    outfile.close()            
+    
 
 def shortusage():
   "Print one-line usage summary."

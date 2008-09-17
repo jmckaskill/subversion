@@ -70,13 +70,13 @@
 
    2. Out-range deleted line: increment the line numbers in every hunk in P
       that comes after the deletion. This undoes the effect of the deletion,
-      since the deletion never happened in D.
+      since the deletion never happened in D. 
 
-   3. Out-range edited line: do nothing. Out-range edits are irrelevant to P.
+   3. Out-range edited line: do nothing. Out-range edits are irrelevant to P. 
 
    4. Added line in context range in P: remove the corresponding line from
       the context, optionally replacing it with new context based on that
-      region in M, and adjust line numbers and mappings appropriately.
+      region in M, and adjust line numbers and mappings appropriately. 
 
    5. Added line in affected text range in P: this is a dependency problem
       -- part of the change T:18-T:19 depends on changes introduced to T after
@@ -90,14 +90,14 @@
       isn't sounding a lot like a directory merge algorithm, try drinking more of
       the Kool-Aid.) A third option is to include it as an insertion, but with
       metadata (such as CVS-style conflict markers) indicating that the line
-      attempting to be patched does not exist in B.
+      attempting to be patched does not exist in B. 
 
    6. Deleted line that is in-range in P: request another universe -- this
-      situation can't happen in ours.
+      situation can't happen in ours. 
 
    7. In-range edited line: reverse that edit in the "before" version of the
       corresponding line in the appropriate hunk in P, to obtain the version of
-      the line that will be found in B when P is applied.
+      the line that will be found in B when P is applied. 
 */
 
 

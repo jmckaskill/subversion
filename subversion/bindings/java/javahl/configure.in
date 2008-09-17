@@ -59,7 +59,7 @@ SVN_CHECK_JDK
 
 CXXFLAGS="$CXXFLAGS $JAVA_INCLUDES"
 CFLAGS="$CFLAGS $JAVA_INCLUDES"
-
+ 
 AC_SUBST(SVN_LIBS)
 
 AC_CONFIG_FILES(Makefile src/Makefile native/Makefile cls/Makefile doc/Makefile)
