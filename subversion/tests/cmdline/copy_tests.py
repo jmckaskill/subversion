@@ -3945,12 +3945,12 @@ def find_copyfrom_information_upstairs(sbox):
   "renaming inside a copied subtree shouldn't hang"
 
   # The final command in this series would cause the client to hang...
-  #
+  # 
   #    ${SVN} cp A A2
   #    cd A2/B
   #    ${SVN} mkdir blah
   #    ${SVN} mv lambda blah
-  #
+  # 
   # ...because it wouldn't walk up past "" to find copyfrom information
   # (which would be in A2/.svn/entries, not on A2/B/.svn/entries).
   # Instead, it would keep thinking the parent of "" is "", and so
