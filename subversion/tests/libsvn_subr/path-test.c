@@ -1327,7 +1327,7 @@ test_is_canonical(const char **msg,
     { "http://HST/FOO/BaR",    FALSE },
     { "svn+ssh://j.raNDom@HST/BaR", FALSE },
     { "svn+SSH://j.random:jRaY@HST/BaR", FALSE },
-    { "SVN+ssh://j.raNDom:jray@HST/BaR", FALSE },
+    { "SVN+ssh://j.raNDom:jray@HST/BaR", FALSE },    
     { "svn+ssh://j.raNDom:jray@hst/BaR", TRUE },
     { "fILe:///Users/jrandom/wc", FALSE },
 #if defined(WIN32) || defined(__CYGWIN__)
