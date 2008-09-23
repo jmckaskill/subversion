@@ -408,7 +408,7 @@ switch_file_external(const char *path,
 
       /* Switching a newly added file causes a conflict on the anchor
          directory, so resolve it. */
-      err = svn_wc_resolved_conflict4(anchor,
+      err = svn_wc_resolved_conflict4(anchor, 
                                       target_adm_access,
                                       FALSE, FALSE, TRUE,
                                       svn_depth_empty,
@@ -735,14 +735,14 @@ handle_external_item_change(const void *key, apr_ssize_t klen,
 
       if (svn_node_none == kind)
         return svn_error_createf(SVN_ERR_RA_ILLEGAL_URL, NULL,
-                                 _("URL '%s' at revision %ld doesn't exist"),
+                                 _("URL '%s' at revision %ld doesn't exist"), 
                                  ra_cache.ra_session_url,
                                  ra_cache.ra_revnum);
 
       if (svn_node_dir != kind && svn_node_file != kind)
         return svn_error_createf(SVN_ERR_RA_ILLEGAL_URL, NULL,
                                  _("URL '%s' at revision %ld is not a file "
-                                   "or a directory"),
+                                   "or a directory"), 
                                  ra_cache.ra_session_url,
                                  ra_cache.ra_revnum);
 
