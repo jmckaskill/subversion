@@ -490,7 +490,7 @@ svn_ra_serf__setup_serf_req(serf_request_t *request,
 
   /* These headers need to be sent with every request; see issue #3255
      ("mod_dav_svn does not pass client capabilities to start-commit
-     hooks") for why.
+     hooks") for why. 
 
      ### NOTE ###  If you add more headers here, make the same change
      in propfind_buckets.c:become_request(). */
@@ -1137,7 +1137,7 @@ svn_ra_serf__handle_server_error(serf_request_t *request,
    carry out operation-specific processing.  Afterwards, check for
    connection close.
 
-   If during the setup of the request we set a snapshot on the body buckets,
+   If during the setup of the request we set a snapshot on the body buckets, 
    handle_response has to make sure these buckets get destroyed iff the
    request doesn't have to be resent.
    */
@@ -1279,7 +1279,7 @@ handle_response(serf_request_t *request,
 #endif
 
 cleanup:
-  /* If a snapshot was set on the body bucket, it wasn't destroyed when the
+  /* If a snapshot was set on the body bucket, it wasn't destroyed when the 
      request was sent, we have to destroy it now upon successful handling of
      the response. */
   if (ctx->body_snapshot_set && ctx->body_buckets)
@@ -1354,7 +1354,7 @@ setup_request(serf_request_t *request,
                (req_bkt) including this barrier bucket, but this way our
                body_buckets bucket will not be destroyed and we can reuse it
                later.
-               This does put ownership of body_buckets in our own hands though,
+               This does put ownership of body_buckets in our own hands though, 
                so we have to make sure it gets destroyed when handling the
                response. */
             /* TODO: for now we assume restoring a snapshot on a bucket that
