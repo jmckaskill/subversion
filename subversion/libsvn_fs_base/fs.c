@@ -827,7 +827,7 @@ base_upgrade(svn_fs_t *fs, const char *path, apr_pool_t *pool,
 {
   const char *version_file_path;
   int old_format_number;
-
+  
   version_file_path = svn_path_join(path, FORMAT_FILE, pool);
 
   /* Read the old number so we've got it on hand later on. */
