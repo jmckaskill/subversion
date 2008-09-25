@@ -1696,7 +1696,7 @@ deltify_mutable(svn_fs_t *fs,
   /* Finally, deltify nodes appropriately. */
   {
     /* Prior to 1.6, we use the following algorithm to deltify nodes:
-
+    
        Redeltify predecessor node-revisions of the one we added.  The
        idea is to require at most 2*lg(N) deltas to be applied to get
        to any node-revision in a chain of N predecessors.  We do this
@@ -1722,7 +1722,7 @@ deltify_mutable(svn_fs_t *fs,
        expensive and doesn't help retrieve any other revision.
        (Retrieving the oldest node-revision will still be fast, just
        not as blindingly so.)
-
+       
        For 1.6 and beyond, we just deltify the current node against its
        predecessors, using skip deltas similar to the was FSFS does.*/
 
@@ -1758,7 +1758,7 @@ deltify_mutable(svn_fs_t *fs,
            the node has ten predecessors and we want the eighth node, walk back
            two predecessors. */
         pred_id = id;
-
+          
         /* We need to use two alternating pools because the id used in the
            call to txn_body_pred_id is allocated by the previous inner
            loop iteration.  If we would clear the pool each iteration we

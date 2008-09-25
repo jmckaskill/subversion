@@ -658,7 +658,7 @@ svn_cl__get_log_message(const char **log_msg,
 
       /* Trim incoming messages of the EOF marker text and the junk
          that follows it.  */
-      truncate_buffer_at_prefix(&(log_msg_buf->len), log_msg_buf->data,
+      truncate_buffer_at_prefix(&(log_msg_buf->len), log_msg_buf->data, 
                                 EDITOR_EOF_PREFIX);
 
       /* Make a string from a stringbuf, sharing the data allocation. */
