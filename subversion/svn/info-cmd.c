@@ -232,7 +232,7 @@ print_info_xml(void *baton,
 
       for (i = 0; i < info->tree_conflicts->nelts; i++)
         {
-          conflict = APR_ARRAY_IDX(info->tree_conflicts, i,
+          conflict = APR_ARRAY_IDX(info->tree_conflicts, i, 
                                    svn_wc_conflict_description_t *);
           SVN_ERR(svn_cl__append_tree_conflict_info_xml(sb, conflict, pool));
         }
