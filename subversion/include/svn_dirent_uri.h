@@ -25,15 +25,15 @@
  *  - a URI is a path in a repository or a URL
  *    examples: "/trunk/README", "http://hostname/svn/repos"
  *
- * This distiniction is needed because on Windows we have to handle some
- * dirents and URIs differently. Since it's not possible to determine from
- * the path string if it's a dirent or a URI, it's up to the API user to
+ * This distiniction is needed because on Windows we have to handle some 
+ * dirents and URIs differently. Since it's not possible to determine from 
+ * the path string if it's a dirent or a URI, it's up to the API user to 
  * make this choice. See also issue #2028.
  *
  * ###TODO: add description in line with svn_path.h, once more functions
  * are moved.
  * ###END TODO
- *
+ * 
  */
 
 #ifndef SVN_DIRENT_URI_H
@@ -146,7 +146,7 @@ void svn_dirent_split(const char *dirent,
                       const char **base_name,
                       apr_pool_t *pool);
 
-/** Return TRUE if @a dirent is considered absolute on the platform at
+/** Return TRUE if @a dirent is considered absolute on the platform at 
  * hand, amongst which '/foo' on all platforms or 'X:/foo', '\\\\?\\X:/foo',
  * '\\\\server\\share\\foo' on Windows.
  *
