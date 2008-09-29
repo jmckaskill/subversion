@@ -89,7 +89,7 @@ test_dirent_is_absolute(const char **msg,
   apr_size_t i;
 
   /* Paths to test and their expected results. */
-  struct {
+  struct { 
     const char *path;
     svn_boolean_t result;
   } tests[] = {
@@ -130,7 +130,7 @@ test_dirent_is_absolute(const char **msg,
         return svn_error_createf
           (SVN_ERR_TEST_FAILED, NULL,
            "svn_dirent_is_absolute (%s) returned %s instead of %s",
-           tests[i].path, retval ? "TRUE" : "FALSE",
+           tests[i].path, retval ? "TRUE" : "FALSE", 
            tests[i].result ? "TRUE" : "FALSE");
     }
 
@@ -583,7 +583,7 @@ test_dirent_split(const char **msg,
 {
   apr_size_t i;
 
-  static const char * const paths[][3] = {
+  static const char * const paths[][3] = { 
     { "/foo/bar",        "/foo",          "bar" },
     { "/foo/bar/ ",       "/foo/bar",      " " },
     { "/foo",            "/",             "foo" },
@@ -610,7 +610,7 @@ test_dirent_split(const char **msg,
     { "X:foo",           SVN_EMPTY_PATH,  "X:foo" },
 #endif /* non-WIN32 */
   };
-
+  
   *msg = "test svn_dirent_split";
 
   if (msg_only)
