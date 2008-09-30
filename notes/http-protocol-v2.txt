@@ -41,7 +41,7 @@ Write a new HTTP protocol for svn;  map RA requests directly to HTTP
 requests.
 
   * svn over HTTP would be much faster (eliminate turnarounds)
-
+ 
   * svn over HTTP would be almost as easy to extend as svnserve.
 
   * svn over HTTP would be comprehensible to devs and users both
@@ -185,10 +185,10 @@ to be in response bodies.
 
   reparent
     params:   &rev=number
-    response:
+    response: 
 
   get-latest-rev
-    params:
+    params:   
     response: number
 
   get-dated-rev
@@ -197,7 +197,7 @@ to be in response bodies.
 
   change-rev-prop
     params:   &rev=number&name=string[&val=string]
-    response:
+    response: 
     If value is not specified, the rev-prop is removed.
 
   rev-proplist
@@ -219,7 +219,7 @@ to be in response bodies.
 
   get-file
     params:   &path=string&[want-props=bool&want-contents=bool&rev=number]
-    response:
+    response: 
               revnum
               optional checksum
               optional props
