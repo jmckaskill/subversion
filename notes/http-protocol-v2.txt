@@ -61,7 +61,7 @@ requests.
   * svn over HTTP would be much faster (eliminate turnarounds)
 
 ### GJS: again: pipelining.
-
+ 
   * svn over HTTP would be almost as easy to extend as svnserve.
 
 ### GJS: have we had an issue with extending our current HTTP use?
@@ -164,7 +164,7 @@ DESIGN
 
      [body contains complete 'update report' describing working copy's
      revisions;  response is a complete editor-drive.]
-
+     
 ### GJS: no. I've never seen a GET request with a body. You want to
     avoid that, or you could end up being incompatible with many
     proxies. If you need input data, then make it a POST, or use one
@@ -229,10 +229,10 @@ to be in response bodies.
 
   reparent
     params:   &rev=number
-    response:
+    response: 
 
   get-latest-rev
-    params:
+    params:   
     response: number
 
   get-dated-rev
@@ -241,7 +241,7 @@ to be in response bodies.
 
   change-rev-prop
     params:   &rev=number&name=string[&val=string]
-    response:
+    response: 
     If value is not specified, the rev-prop is removed.
 
   rev-proplist
@@ -263,7 +263,7 @@ to be in response bodies.
 
   get-file
     params:   &path=string&[want-props=bool&want-contents=bool&rev=number]
-    response:
+    response: 
               revnum
               optional checksum
               optional props
