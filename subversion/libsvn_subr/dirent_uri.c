@@ -261,9 +261,9 @@ canonicalize(svn_boolean_t uri, const char *path, apr_pool_t *pool)
         return canon + 1;
       else
         {
-          /* Now we're sure this is a valid UNC path, convert the server name
+          /* Now we're sure this is a valid UNC path, convert the server name 
              (the first path segment) to lowercase as Windows treats it as case
-             insensitive.
+             insensitive. 
              Note: normally the share name is treated as case insensitive too,
              but it seems to be possible to configure Samba to treat those as
              case sensitive, so better leave that alone. */
@@ -604,7 +604,7 @@ char *svn_dirent_join_many(apr_pool_t *pool, const char *base, ...)
 
   /* if last character of base is already a separator, don't add a '/' */
   add_separator = 1;
-  if (total_len == 0
+  if (total_len == 0 
        || base[total_len - 1] == '/'
 #if defined(WIN32) || defined(__CYGWIN__)
        || base[total_len - 1] == ':'
@@ -864,8 +864,8 @@ svn_dirent_is_absolute(const char *dirent)
   /* dirent is absolute if it starts with '/' */
   if (dirent[0] == '/')
     return TRUE;
-
-  /* On Windows, dirent is also absolute when it starts with 'H:' or 'H:/'
+ 
+  /* On Windows, dirent is also absolute when it starts with 'H:' or 'H:/' 
      where 'H' is any letter. */
 #if defined(WIN32) || defined(__CYGWIN__)
   if (((dirent[0] >= 'A' && dirent[0] <= 'Z') ||
@@ -873,7 +873,7 @@ svn_dirent_is_absolute(const char *dirent)
       (dirent[1] == ':'))
      return TRUE;
 #endif /* WIN32 or Cygwin */
-
+ 
   return FALSE;
 }
 
@@ -927,7 +927,7 @@ svn_dirent_canonicalize(const char *dirent, apr_pool_t *pool)
   const char *dst = canonicalize(DIRENT, dirent, pool);;
 
 #if defined(WIN32) || defined(__CYGWIN__)
-  /* Handle a specific case on Windows where path == "X:/". Here we have to
+  /* Handle a specific case on Windows where path == "X:/". Here we have to 
      append the final '/', as svn_path_canonicalize will chop this of. */
   if (((dirent[0] >= 'A' && dirent[0] <= 'Z') ||
         (dirent[0] >= 'a' && dirent[0] <= 'z')) &&
