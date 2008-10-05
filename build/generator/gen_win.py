@@ -848,7 +848,7 @@ class WinGeneratorBase(GeneratorBase):
         fakeincludes.extend(self.ruby_includes)
 
     fakeincludes.append(self.apath(self.zlib_path))
-
+    
     if self.sqlite_path:
       fakeincludes.append(self.apath(self.sqlite_path, 'inc'))
 
