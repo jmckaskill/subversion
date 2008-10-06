@@ -18,7 +18,7 @@ Candidate changes for 1.5.3:
    Fix bug which occurs when a merge adds explicit mergeinfo to a subtree that
    had no explicit mergeinfo prior to the merge.  This new mergeinfo could
    obstruct any mergeinfo the path previously inherited and the new path
-   was not getting mergeinfo set that described the merge itself -- See
+   was not getting mergeinfo set that described the merge itself -- See 
    http://subversion.tigris.org/servlets/ReadMsg?listName=dev&msgNo=142460.
    Notes:
      r32968 is a new test for this problem and r32975 is the fix.
@@ -53,7 +53,7 @@ Candidate changes for 1.5.3:
      http://subversion.tigris.org/servlets/ReadMsg?list=dev&&msgNo=142849,
      but probably more important is the performance improvement. A while
      back glasser pointed out that the code to filter self-referential
-     mergeinfo was a performance hog, see
+     mergeinfo was a performance hog, see 
      http://svn.haxx.se/dev/archive-2008-02/0206.shtml, and made some
      suggestions to improve performance.  r33112 implements glasser's
      suggestions, which speeds up merge significantly in some cases,
@@ -90,7 +90,7 @@ Candidate changes for 1.5.3:
    Notes:
      Small followup on the r33112 group
    Justification:
-     Warnings are bad. Especially if they show us an unused but assigned
+     Warnings are bad. Especially if they show us an unused but assigned 
      variable.
    Votes:
      +1: rhuijben
