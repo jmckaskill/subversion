@@ -516,7 +516,7 @@ class WinGeneratorBase(GeneratorBase):
       cbuild = "python $(InputPath) %s > %s" \
                % (" ".join(deps), def_file)
 
-      sources.append(ProjectItem(path=gsrc, reldir=None, custom_build=cbuild,
+      sources.append(ProjectItem(path=gsrc, reldir=None, custom_build=cbuild,                                 
                                  user_deps=deps, custom_target=def_file,
                                  extension=''))
 
@@ -853,7 +853,7 @@ class WinGeneratorBase(GeneratorBase):
         fakeincludes.extend(self.ruby_includes)
 
     fakeincludes.append(self.apath(self.zlib_path))
-
+    
     if self.sqlite_path:
       fakeincludes.append(self.apath(self.sqlite_path, 'inc'))
 
