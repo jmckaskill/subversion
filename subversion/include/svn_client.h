@@ -4362,7 +4362,7 @@ typedef struct svn_info_t
 
   /**
    * For a directory only, all tree-conflicted children, stored
-   * in an array of @c svn_wc_conflict_description_t,
+   * in an array of @c svn_wc_conflict_description_t, 
    * @since New in 1.6.
    * @name Working-copy path fields
    * @{
