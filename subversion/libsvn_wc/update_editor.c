@@ -1179,7 +1179,7 @@ check_tree_conflict(svn_stringbuf_t *log_accum,
             reason = svn_wc_conflict_reason_missing;
           else
             {
-
+             
 
               /* If we are about to delete a path that has local mods,
                * mark the containing directory as tree conflicted.
@@ -1469,7 +1469,7 @@ add_directory(const char *path,
             {
               svn_wc_adm_access_t *parent_adm_access;
               const char *repos;
-              /* Use the repository root of the anchor, but only if it
+              /* Use the repository root of the anchor, but only if it 
                  actually is an ancestor of the URL of this directory. */
               if (eb->repos && svn_path_is_ancestor(eb->repos, db->new_URL))
                 repos = eb->repos;
@@ -3384,7 +3384,7 @@ close_file(void *file_baton,
     {
       svn_checksum_t *checksum;
       const char *real_sum;
-
+      
       checksum = svn_checksum_create(svn_checksum_md5, pool);
       checksum->digest = fb->digest;
       real_sum = svn_checksum_to_cstring(checksum, pool);
