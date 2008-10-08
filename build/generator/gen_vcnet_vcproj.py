@@ -183,9 +183,9 @@ class Generator(gen_win.WinGeneratorBase):
         deplist.append(gen_win.ProjectItem(guid=guids[depends[i].name],
                                            index=i,
                                            ))
-
+                                           
       groupname = ''
-
+      
       if target.name.startswith('__'):
         groupname = 'root'
       elif isinstance(target, gen_base.TargetLib):
@@ -209,7 +209,7 @@ class Generator(gen_win.WinGeneratorBase):
           groupname = 'test'
         else:
           groupname = 'exe'
-
+      
       targets.append(
         gen_win.ProjectItem(name=target.name,
                             path=fname.replace(os.sep, '\\'),
