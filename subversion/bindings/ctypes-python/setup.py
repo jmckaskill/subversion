@@ -122,7 +122,7 @@ class build(_build):
     library_path = []
     ferr = None
     apr_include_dir = None
-
+    
     fout = self.run_cmd("%s --includes --cppflags" % self.apr_config)
     if fout:
       flags = fout.split()
@@ -138,7 +138,7 @@ class build(_build):
         log.error(ferr)
         raise DistutilsExecError("Problem running '%s'.  Check the output " \
                                  "for details" % self.apr_config)
-
+          
       fout = self.run_cmd("%s --includes" % self.apu_config)
       if fout:
         flags += fout.split()
@@ -149,19 +149,19 @@ class build(_build):
           log.error(ferr)
           raise DistutilsExecError("Problem running '%s'.  Check the output " \
                                    "for details" % self.apr_config)
-
+          
         subversion_prefixes = [
           self.subversion,
           "/usr/local",
           "/usr"
           ]
-
+        
         if self.subversion != "/usr":
           ldflags.append("-L%s/lib" % self.subversion)
         flags.append("-I%s" % self.svn_include_dir)
 
         # List the libraries in the order they should be loaded
-        libraries = [
+        libraries = [ 
           "svn_subr-1",
           "svn_diff-1",
           "svn_delta-1",
@@ -171,10 +171,10 @@ class build(_build):
           "svn_ra-1",
           "svn_client-1",
           ]
-
+          
         for lib in libraries:
           ldflags.append("-l%s" % lib)
-
+          
         if apr_prefix != '/usr':
           library_path.append("%s/lib" % apr_prefix)
           if self.subversion != '/usr' and self.subversion != apr_prefix:
@@ -183,7 +183,7 @@ class build(_build):
         return (apr_prefix, apr_include_dir, cpp + " " + self.cppflags,
                 " ".join(ldflags) + " " + self.ldflags, " ".join(flags),
                 ":".join(library_path))
-
+  
   # get_apr_config()
 
   ##############################################################################
@@ -215,7 +215,7 @@ class build(_build):
         f = os.popen(cmd, 'r')
         f.read() # Required to avoide the 'Broken pipe' error.
         status = f.close() # None is returned for the usual 0 return code
-
+      
       if os.name == "posix" and status and status != 0:
         if os.WIFEXITED(status):
           status = os.WEXITSTATUS(status)
@@ -255,7 +255,7 @@ class build(_build):
 
   def run_cmd(self, cmd):
     return os.popen(cmd).read()
-
+  
   # run_cmd()
 
   def validate_options(self):
