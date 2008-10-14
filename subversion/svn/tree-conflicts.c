@@ -184,7 +184,7 @@ select_our_phrase(const svn_wc_conflict_description_t *conflict,
             return phrases->does_not_exist_merge;
           }
         break;
-
+      
       case svn_wc_conflict_reason_unversioned:
         return phrases->unversioned;
     }
