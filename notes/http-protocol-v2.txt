@@ -32,7 +32,7 @@ where the client keeps asking for the same information over and over
 again, all for the sake of following DeltaV.  And then once the client
 has "discovered" the information it needs, it often ends up making a
 custom REPORT request anyway.  Most svn operations are at least twice
-as slow over HTTP than over the custom svnserve protocol.
+as slow over HTTP than over the custom svnserve protocol.  
 
 The existing HTTP protocol is also devilishly hard to comprehend or
 extend, since it requires understanding of the DeltaV spec, and
@@ -46,7 +46,7 @@ Write a new HTTP protocol for svn ("HTTP v2").  Map RA requests
 directly to HTTP requests.
 
   * svn over HTTP should be much faster (eliminate extra turnarounds)
-
+ 
   * svn over HTTP should be almost as easy to extend as svnserve.
 
   * svn over HTTP should be comprehensible to devs and users both
@@ -215,7 +215,7 @@ bodies;  if a request needs a body, we use POST instead.
     Note: The [/path] portion is tolerated but ignored by the server,
     since the revision being fetched is part of repository's general
     history.
-
+    
 
  * change-rev-prop
 
