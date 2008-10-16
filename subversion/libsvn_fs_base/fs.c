@@ -811,7 +811,7 @@ base_upgrade(svn_fs_t *fs, const char *path, apr_pool_t *pool,
 {
   const char *version_file_path;
   int old_format_number;
-
+  
   version_file_path = svn_path_join(path, FORMAT_FILE, pool);
 
   /* Read the old number so we've got it on hand later on. */
@@ -843,7 +843,7 @@ base_upgrade(svn_fs_t *fs, const char *path, apr_pool_t *pool,
       SVN_ERR(svn_fs_base__youngest_rev(&youngest_rev, fs, subpool));
       value = apr_psprintf(subpool, "%ld", youngest_rev);
       SVN_ERR(svn_fs_base__miscellaneous_set
-              (fs, SVN_FS_BASE__MISCELLANEOUS_FORWARD_DELTA_UPGRADE,
+              (fs, SVN_FS_BASE__MISCELLANEOUS_FORWARD_DELTA_UPGRADE, 
                value, subpool));
       svn_pool_destroy(subpool);
     }
