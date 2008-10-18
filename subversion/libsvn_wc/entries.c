@@ -1372,7 +1372,7 @@ read_entries(svn_wc_adm_access_t *adm_access,
       const char *val;
 
       /* Read the format line from the entries file. In case we're in the middle
-         of upgrading a working copy, this line will contain the original format
+         of upgrading a working copy, this line will contain the original format 
          pre-upgrade. */
       SVN_ERR(read_val(&val, &curp, endp));
       if (val)
