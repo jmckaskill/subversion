@@ -36,22 +36,22 @@ int svn_fs_bdb__open_checksum_reps_table(DB **checksum_reps_p,
   const u_int32_t open_flags = (create ? (DB_CREATE | DB_EXCL) : 0);
   DB *checksum_reps;
   int error;
-
+  
   BDB_ERR(svn_fs_bdb__check_version());
   BDB_ERR(db_create(&checksum_reps, env, 0));
   error = (checksum_reps->open)(SVN_BDB_OPEN_PARAMS(checksum_reps, NULL),
                                 "checksum-reps", 0, DB_BTREE,
                                 open_flags, 0666);
-
+  
   /* Create the checksum-reps table if it doesn't exist. */
   if (error == ENOENT && (! create))
     {
       BDB_ERR(checksum_reps->close(checksum_reps, 0));
       return svn_fs_bdb__open_checksum_reps_table(checksum_reps_p, env, TRUE);
     }
-
+  
   BDB_ERR(error);
-
+  
   *checksum_reps_p = checksum_reps;
   return 0;
 }
@@ -65,22 +65,22 @@ svn_error_t *svn_fs_bdb__get_checksum_rep(const char **rep_key,
   base_fs_data_t *bfd = fs->fsap_data;
   DBT key, value;
   int db_err;
-
+  
   /* We only allow SHA1 checksums in this table. */
   if (checksum->kind != svn_checksum_sha1)
     return svn_error_create(SVN_ERR_BAD_CHECKSUM_KIND, NULL,
                             _("Only SHA1 checksums can be used as keys in the "
                               "checksum-reps table.\n"));
-
+  
   svn_fs_base__trail_debug(trail, "checksum-reps", "get");
   db_err = bfd->checksum_reps->get(bfd->checksum_reps, trail->db_txn,
                                    svn_fs_base__checksum_to_dbt(&key, checksum),
                                    svn_fs_base__result_dbt(&value), 0);
   svn_fs_base__track_dbt(&value, pool);
-
+  
   if (db_err == DB_NOTFOUND)
     return svn_fs_base__err_no_such_checksum_rep(fs, checksum);
-
+  
   *rep_key = apr_pstrmemdup(pool, value.data, value.size);
   return SVN_NO_ERROR;
 }
@@ -100,7 +100,7 @@ svn_error_t *svn_fs_bdb__set_checksum_rep(svn_fs_t *fs,
     return svn_error_create(SVN_ERR_BAD_CHECKSUM_KIND, NULL,
                             _("Only SHA1 checksums can be used as keys in the "
                               "checksum-reps table.\n"));
-
+  
   /* Create a key from our CHECKSUM. */
   svn_fs_base__checksum_to_dbt(&key, checksum);
 
@@ -120,7 +120,7 @@ svn_error_t *svn_fs_bdb__set_checksum_rep(svn_fs_t *fs,
          _("Representation key for checksum '%s' exists in filesystem '%s'."),
          sum_str, fs->path);
     }
-
+  
   /* Create a value from our REP_KEY, and add this record to the table. */
   svn_fs_base__str_to_dbt(&value, rep_key);
   svn_fs_base__trail_debug(trail, "checksum-reps", "put");
@@ -143,7 +143,7 @@ svn_error_t *svn_fs_bdb__delete_checksum_rep(svn_fs_t *fs,
     return svn_error_create(SVN_ERR_BAD_CHECKSUM_KIND, NULL,
                             _("Only SHA1 checksums can be used as keys in the "
                               "checksum-reps table.\n"));
-
+  
   svn_fs_base__checksum_to_dbt(&key, checksum);
   svn_fs_base__trail_debug(trail, "checksum-reps", "del");
   SVN_ERR(BDB_WRAP(fs, "deleting entry from 'checksum-reps' table",
