@@ -215,16 +215,16 @@ def info_with_tree_conflicts(sbox):
 
 def info_on_added_file(sbox):
   """info on added file"""
-
+  
   svntest.actions.make_repo_and_wc(sbox)
   wc_dir = sbox.wc_dir
-
+  
   # create new file
   new_file = os.path.join(wc_dir, 'new_file')
   svntest.main.file_append(new_file, '')
 
   svntest.main.run_svn(None, 'add', new_file)
-
+  
   exit_code, output, error = svntest.actions.run_and_verify_svn(None, None,
                                                                 [], 'info',
                                                                 new_file)
@@ -242,7 +242,7 @@ def info_on_added_file(sbox):
               'Repository UUID: %s' % uuid_regex]
 
   verify_lines(output, expected)
-
+  
   # check XML info
   exit_code, output, error = svntest.actions.run_and_verify_svn(None, None,
                                                                 [], 'info',
@@ -263,11 +263,11 @@ def info_on_mkdir(sbox):
   """info on new dir with mkdir"""
   svntest.actions.make_repo_and_wc(sbox)
   wc_dir = sbox.wc_dir
-
+  
   # create a new directory using svn mkdir
   new_dir = os.path.join(wc_dir, 'new_dir')
   svntest.main.run_svn(None, 'mkdir', new_dir)
-
+  
   exit_code, output, error = svntest.actions.run_and_verify_svn(None, None,
                                                                 [], 'info',
                                                                 new_dir)
@@ -284,7 +284,7 @@ def info_on_mkdir(sbox):
               'Repository UUID: %s' % uuid_regex]
 
   verify_lines(output, expected)
-
+  
   # check XML info
   exit_code, output, error = svntest.actions.run_and_verify_svn(None, None,
                                                                 [], 'info',
