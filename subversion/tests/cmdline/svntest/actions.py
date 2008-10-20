@@ -1773,7 +1773,7 @@ deep_trees_after_tree_del = wc.State('', {
 class DeepTreesTestCase:
   """Describes one tree-conflicts test case.
   See deep_trees_run_tests_scheme_for_update(), ..._switch(), ..._merge().
-
+  
   The name field is the subdirectory name in which the test should be run.
 
   The local_action and incoming_action are the functions to run
@@ -1867,7 +1867,7 @@ def deep_trees_run_tests_scheme_for_update(sbox, greater_scheme):
 
   main.run_svn(None, 'commit', '-m', 'initial state', wc_dir)
 
-
+  
   # 3) apply incoming changes
 
   for test_case in greater_scheme:
@@ -1914,7 +1914,7 @@ def deep_trees_run_tests_scheme_for_update(sbox, greater_scheme):
         x_out.wc_dir = base
 
       x_disk = test_case.expected_disk
-
+      
       x_status = test_case.expected_status
       if x_status != None:
         x_status.copy()
@@ -1972,7 +1972,7 @@ def deep_trees_run_tests_scheme_for_switch(sbox, greater_scheme):
   sbox.build()
   wc_dir = sbox.wc_dir
 
-
+  
   # 1) Create directories.
 
   for test_case in greater_scheme:
@@ -1992,7 +1992,7 @@ def deep_trees_run_tests_scheme_for_switch(sbox, greater_scheme):
 
   main.run_svn(None, 'commit', '-m', 'initial state', wc_dir)
 
-
+  
   # 3) Apply incoming changes
 
   for test_case in greater_scheme:
@@ -2035,7 +2035,7 @@ def deep_trees_run_tests_scheme_for_switch(sbox, greater_scheme):
         x_out.wc_dir = local
 
       x_disk = test_case.expected_disk
-
+      
       x_status = test_case.expected_status
       if x_status != None:
         x_status.copy()
@@ -2120,7 +2120,7 @@ def deep_trees_run_tests_scheme_for_merge(sbox, greater_scheme,
 
   main.run_svn(None, 'commit', '-m', 'pre-initial state', wc_dir)
 
-
+  
   # 3) Copy "incoming" to "local".
 
   for test_case in greater_scheme:
@@ -2146,7 +2146,7 @@ def deep_trees_run_tests_scheme_for_merge(sbox, greater_scheme,
 
 
   # 5) Perform incoming actions
-
+  
   for test_case in greater_scheme:
     try:
       test_case.incoming_action(j(sbox.wc_dir, test_case.name, "incoming"))
@@ -2169,7 +2169,7 @@ def deep_trees_run_tests_scheme_for_merge(sbox, greater_scheme,
 
 
   # 7) or 6) Perform all local actions.
-
+  
   for test_case in greater_scheme:
     try:
       test_case.local_action(j(sbox.wc_dir, test_case.name, "local"))
@@ -2177,13 +2177,13 @@ def deep_trees_run_tests_scheme_for_merge(sbox, greater_scheme,
       print "ERROR IN: Tests scheme for merge: " \
           + "while performing local action in '%s'" % test_case.name
       raise
-
+  
 
   # 6) or 7) Commit all incoming actions
 
   if do_commit_local_changes:
     try:
-      main.run_svn(None, 'ci', '-m', 'Committing incoming and local actions',
+      main.run_svn(None, 'ci', '-m', 'Committing incoming and local actions', 
                    sbox.wc_dir)
     except:
       print "ERROR IN: Tests scheme for merge: " \
@@ -2206,7 +2206,7 @@ def deep_trees_run_tests_scheme_for_merge(sbox, greater_scheme,
         x_out.wc_dir = local
 
       x_disk = test_case.expected_disk
-
+      
       x_status = test_case.expected_status
       if x_status != None:
         x_status.copy()
