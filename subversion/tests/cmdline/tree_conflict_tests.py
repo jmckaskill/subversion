@@ -66,7 +66,7 @@ def verbose_printlines(lines):
 #   - interactive conflict resolution
 
 # A "tree conflict on file P/F" means:
-#   - the operation reports action code "C" on path P
+#   - the operation reports action code "C" on path P 
 #   - "svn status" reports status code "C" on path P
 #   - "svn info P" reports details of the conflict on F
 #   - "svn commit" fails if the user-requested targets include path F
