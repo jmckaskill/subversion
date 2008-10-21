@@ -50,14 +50,14 @@ cleanup_db_apr(void *data)
   fs_fs_data_t *ffd = fs->fsap_data;
   svn_error_t *err;
 
-  if (ffd->rep_cache.get_rep_stmt)
+  if (ffd->rep_cache.get_rep_stmt) 
     {
       err = svn_sqlite__finalize(ffd->rep_cache.get_rep_stmt);
       if (err)
         goto err_cleanup;
     }
 
-  if (ffd->rep_cache.set_rep_stmt)
+  if (ffd->rep_cache.set_rep_stmt) 
     {
       err = svn_sqlite__finalize(ffd->rep_cache.set_rep_stmt);
       if (err)
@@ -184,7 +184,7 @@ svn_fs_fs__set_rep_reference(svn_fs_t *fs,
       else
         return SVN_NO_ERROR;
     }
-
+    
   if (!ffd->rep_cache.set_rep_stmt)
     SVN_ERR(svn_sqlite__prepare(&ffd->rep_cache.set_rep_stmt, ffd->rep_cache.db,
                   "insert into rep_cache (hash, revision, offset, size, "
