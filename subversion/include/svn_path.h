@@ -478,7 +478,7 @@ const char *svn_path_uri_decode(const char *path, apr_pool_t *pool);
  * @a url need not be a canonical path; it may have a trailing '/'.
  *
  * @note gstein suggests this for when @a component begins with '/':
- *
+ * 
  *       "replace the path entirely
  *        https://example.com:4444/base/path joined with /leading/slash,
  *        should return: https://example.com:4444/leading/slash
