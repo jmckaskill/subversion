@@ -30,7 +30,7 @@ extern "C" {
    careful not to pass a NULL TRAIL if the code stack is really
    inside a Berkeley DB transaction).  */
 svn_error_t *
-svn_fs_base__reserve_fsguid(svn_fs_t *fs,
+svn_fs_base__reserve_fsguid(svn_fs_t *fs, 
                             const char **fsguid,
                             trail_t *trail,
                             apr_pool_t *pool);
