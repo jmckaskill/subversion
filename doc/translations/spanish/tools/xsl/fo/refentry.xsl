@@ -153,8 +153,8 @@
   </xsl:variable>
 
   <xsl:choose>
-    <xsl:when test="not(parent::*) or
-                    parent::reference or
+    <xsl:when test="not(parent::*) or 
+                    parent::reference or 
                     parent::part">
       <!-- make a page sequence -->
       <fo:page-sequence hyphenate="{$hyphenate}"
@@ -442,8 +442,8 @@
     </xsl:variable>
 
     <xsl:if test="$passivetex.extensions != 0">
-      <fotex:bookmark xmlns:fotex="http://www.tug.org/fotex"
-                      fotex-bookmark-level="{$level + 2}"
+      <fotex:bookmark xmlns:fotex="http://www.tug.org/fotex" 
+                      fotex-bookmark-level="{$level + 2}" 
                       fotex-bookmark-label="{$id}">
         <xsl:value-of select="$title"/>
       </fotex:bookmark>
