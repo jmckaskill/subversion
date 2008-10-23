@@ -1551,7 +1551,7 @@ add_directory(const char *path,
             {
               svn_wc_adm_access_t *parent_adm_access;
               const char *repos;
-              /* Use the repository root of the anchor, but only if it
+              /* Use the repository root of the anchor, but only if it 
                  actually is an ancestor of the URL of this directory. */
               if (eb->repos && svn_path_is_ancestor(eb->repos, db->new_URL))
                 repos = eb->repos;
