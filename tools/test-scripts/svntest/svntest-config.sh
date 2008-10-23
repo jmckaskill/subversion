@@ -10,7 +10,7 @@ TEST_ROOT="${HOME}/svn"
 INST_DIR="${TEST_ROOT}/inst"
 
 # Paths to sources (usually working copies) for Subversion and its
-# dependencies, e.g., APR, APR-UTIL, HTTPD.
+# dependencies, e.g., APR, APR-UTIL, HTTPD.  
 #
 # For example, $SVN_SOURCE might point to a working copy checked out
 # from http://svn.collab.net/repos/svn/trunk/, or from
@@ -92,7 +92,7 @@ RA_DAV_CHECK_ARGS="BASE_URL=http://localhost:52080"
 SVNSERVE_PORT=52069
 RA_SVN_CHECK_ARGS="BASE_URL=svn://localhost:$SVNSERVE_PORT"
 
-# Root of test area for ra_svn, path is relative to the current
+# Root of test area for ra_svn, path is relative to the current 
 # object (build) directory.
 RA_SVN_REPO_ROOT=${RA_SVN_REPO_ROOT:="subversion/tests/cmdline"}
 
