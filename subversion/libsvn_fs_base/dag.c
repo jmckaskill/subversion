@@ -613,7 +613,7 @@ svn_fs_base__dag_set_proplist(dag_node_t *node,
   /* If the resulting property list is exactly the same as another
      string in the database, just use the previously existing string
      and get outta here. */
-  err = svn_fs_bdb__get_checksum_rep(&dup_rep_key, fs, checksum,
+  err = svn_fs_bdb__get_checksum_rep(&dup_rep_key, fs, checksum, 
                                      trail, pool);
   if (! err)
     {
@@ -1263,7 +1263,7 @@ svn_fs_base__dag_finalize_edits(dag_node_t *file,
   /* Now, we want to delete the old representation and replace it with
      the new.  Of course, we don't actually delete anything until
      everything is being properly referred to by the node-revision
-     skel.
+     skel.  
 
      Now, if the result of all this editing is that we've created a
      representation that describes content already represented
@@ -1274,12 +1274,12 @@ svn_fs_base__dag_finalize_edits(dag_node_t *file,
      between "the contents weren't touched" and "the contents were
      touched but still look the same" (to state it oversimply).  */
   old_data_key = noderev->data_key;
-  err = svn_fs_bdb__get_checksum_rep(&new_data_key, fs, rep_checksum,
+  err = svn_fs_bdb__get_checksum_rep(&new_data_key, fs, rep_checksum, 
                                      trail, pool);
   if (! err)
     {
       useless_data_key = noderev->edit_key;
-      err = svn_fs_base__reserve_fsguid(trail->fs, &data_key_uniquifier,
+      err = svn_fs_base__reserve_fsguid(trail->fs, &data_key_uniquifier, 
                                         trail, pool);
     }
   else if (err)
@@ -1448,7 +1448,7 @@ maybe_deltify_mutable_rep(const char *target_rep_key,
                           trail_t *trail,
                           apr_pool_t *pool)
 {
-  if (! (target_rep_key && source_rep_key
+  if (! (target_rep_key && source_rep_key 
          && (strcmp(target_rep_key, source_rep_key) != 0)))
     return SVN_NO_ERROR;
 
@@ -1460,7 +1460,7 @@ maybe_deltify_mutable_rep(const char *target_rep_key,
       if (strcmp(target_rep->txn_id, txn_id) != 0)
         return SVN_NO_ERROR;
     }
-
+  
   return svn_fs_base__rep_deltify(trail->fs, target_rep_key, source_rep_key,
                                   trail, pool);
 }
@@ -1510,7 +1510,7 @@ maybe_store_checksum_rep(const char *rep,
   svn_error_t *err;
   svn_fs_t *fs = trail->fs;
   svn_checksum_t *checksum;
-
+  
   SVN_ERR(svn_fs_base__rep_contents_checksum(&checksum, fs, rep, trail, pool));
   err = svn_fs_bdb__set_checksum_rep(fs, checksum, rep, trail, pool);
   if (err && (err->apr_err == SVN_ERR_FS_ALREADY_EXISTS))
@@ -1522,8 +1522,8 @@ maybe_store_checksum_rep(const char *rep,
 }
 
 svn_error_t *
-svn_fs_base__dag_index_checksums(dag_node_t *node,
-                                 trail_t *trail,
+svn_fs_base__dag_index_checksums(dag_node_t *node, 
+                                 trail_t *trail, 
                                  apr_pool_t *pool)
 {
   node_revision_t *node_rev;
@@ -1616,7 +1616,7 @@ svn_fs_base__things_different(svn_boolean_t *props_changed,
 
   /* Compare contents keys and their (optional) uniquifiers. */
   if (contents_changed != NULL)
-    *contents_changed =
+    *contents_changed = 
       (! (svn_fs_base__same_keys(noderev1->data_key,
                                  noderev2->data_key)
           /* Technically, these uniquifiers aren't used and "keys",
