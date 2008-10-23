@@ -3853,7 +3853,7 @@ def update_uuid_changed(sbox):
 
   # read_only=False, since we don't want to run setuuid on the (shared)
   # pristine repository.
-  sbox.build(read_only = False)
+  sbox.build(read_only = False) 
 
   wc_dir = sbox.wc_dir
   repo_dir = sbox.repo_dir
@@ -3884,7 +3884,7 @@ def restarted_update_should_delete_dir_prop(sbox):
   "restarted update should delete dir prop"
   sbox.build()
   wc_dir = sbox.wc_dir
-
+  
   A_path = os.path.join(wc_dir, 'A')
   zeta_path = os.path.join(A_path, 'zeta')
 
