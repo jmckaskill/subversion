@@ -2298,7 +2298,7 @@ def tree_conflicts_on_switch_2_1(sbox):
   #       own.
 
   greater_scheme = []
-
+  
   # Separate action functions for each subdir:
 
   def leaf_edit_F(base):
