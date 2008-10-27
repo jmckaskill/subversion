@@ -172,7 +172,7 @@ svn_fs_fs__set_rep_reference(svn_fs_t *fs,
       else
         return SVN_NO_ERROR;
     }
-
+    
   if (!ffd->rep_cache.set_rep_stmt)
     SVN_ERR(svn_sqlite__prepare(&ffd->rep_cache.set_rep_stmt, ffd->rep_cache.db,
                   "insert into rep_cache (hash, revision, offset, size, "
