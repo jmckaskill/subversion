@@ -36,7 +36,7 @@ txn_body_reserve_fsguid(void *baton, trail_t *trail)
   const char *next_fsguid;
   const char *new_fsguid;
 
-  SVN_ERR(svn_fs_bdb__miscellaneous_get(&next_fsguid, trail->fs,
+  SVN_ERR(svn_fs_bdb__miscellaneous_get(&next_fsguid, trail->fs, 
                                         SVN_FS_BASE__MISC_NEXT_FSGUID,
                                         trail, trail->pool));
 
@@ -61,7 +61,7 @@ txn_body_reserve_fsguid(void *baton, trail_t *trail)
                                 "next-fsguid is not a base-36 value");
       new_fsguid = apr_pstrmemdup(trail->pool, next_next_fsguid, len);
     }
-  SVN_ERR(svn_fs_bdb__miscellaneous_set(trail->fs,
+  SVN_ERR(svn_fs_bdb__miscellaneous_set(trail->fs, 
                                         SVN_FS_BASE__MISC_NEXT_FSGUID,
                                         new_fsguid, trail, trail->pool));
   *fsguid_p = next_fsguid;
@@ -83,7 +83,7 @@ svn_fs_base__reserve_fsguid(svn_fs_t *fs,
   /* Have no trail?  We'll make a one-off, do the work, and get outta here. */
   if (! trail)
     return svn_fs_base__retry_txn(fs, txn_body_reserve_fsguid, fsguid, pool);
-
+    
   SVN_ERR(txn_body_reserve_fsguid((void *)fsguid, trail));
   *fsguid = apr_pstrdup(pool, *fsguid);
   return SVN_NO_ERROR;
