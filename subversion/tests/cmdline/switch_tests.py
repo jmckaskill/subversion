@@ -1246,7 +1246,7 @@ def forced_switch_failures(sbox):
     'A/C/G/rho'         : Item("This is the file 'rho'.\n"),
     'A/C/G/pi'          : Item("This is the file 'pi'.\n"),
     'A/C/G/tau'         : Item("This is the file 'tau'.\n"),
-    })
+    })  
   expected_status = svntest.actions.get_virginal_state(sbox.wc_dir, 1)
   expected_status.add({
     'A/C'               : Item(status='! ', wc_rev='1', switched='S'),
@@ -1334,7 +1334,7 @@ def forced_switch_failures(sbox):
                                         sbox.repo_url + "/A/D/H",
                                         expected_output,
                                         expected_disk,
-                                        expected_status,
+                                        expected_status, 
                                         None, None, None, None, None, False,
                                         '--force')
 
@@ -2394,7 +2394,7 @@ def tree_conflicts_on_switch_2_2(sbox):
     'DDD/D1'            : Item(status='D '),
     'DDF/D1'            : Item(status='D '),
     })
-
+        
   expected_disk = state_after_tree_del.copy()
   expected_disk.add({ 'D/D1' : Item() })
 

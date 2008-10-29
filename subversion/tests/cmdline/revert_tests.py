@@ -859,7 +859,7 @@ def revert_replaced_with_history_file_2(sbox):
 
 def revert_tree_conflicts_in_updated_files(sbox):
   "revert tree conflicts in updated files"
-
+  
   # See use cases 1-3 in notes/tree-conflicts/use-cases.txt for background.
 
   svntest.actions.build_greek_tree_conflicts(sbox)
@@ -868,7 +868,7 @@ def revert_tree_conflicts_in_updated_files(sbox):
 
   # Duplicate wc for tests
   wc_dir_2 =  sbox.add_wc_path('2')
-  svntest.actions.duplicate_dir(wc_dir, wc_dir_2)
+  svntest.actions.duplicate_dir(wc_dir, wc_dir_2)  
   G2 = os.path.join(wc_dir_2, 'A', 'D', 'G')
 
   # Revert recursively in wc
@@ -878,7 +878,7 @@ def revert_tree_conflicts_in_updated_files(sbox):
     "Reverted '%s'\n" % os.path.join(G, 'rho'),
     "Reverted '%s'\n" % os.path.join(G, 'tau'),
     ])
-  svntest.actions.run_and_verify_svn(None, expected_output, [],
+  svntest.actions.run_and_verify_svn(None, expected_output, [], 
                                      'revert', '-R', G)
 
   expected_status = svntest.actions.get_virginal_state(wc_dir, 2)
@@ -886,7 +886,7 @@ def revert_tree_conflicts_in_updated_files(sbox):
   expected_status.tweak('A/D/G/pi',  status='  ', wc_rev='1')
 
   svntest.actions.run_and_verify_status(wc_dir, expected_status)
-
+  
   expected_disk = svntest.main.greek_state.copy()
   expected_disk.tweak('A/D/G/pi',
                       contents="This is the file 'pi'.\n")
@@ -896,12 +896,12 @@ def revert_tree_conflicts_in_updated_files(sbox):
   expected_disk.tweak('A/D/G/tau',
                       contents="This is the file 'tau'.\n")
   svntest.actions.verify_disk(wc_dir, expected_disk)
-
+  
   # Revert only G in wc 2
   expected_output = svntest.verify.UnorderedOutput(
    ["Reverted '%s'\n" % G2,
     ])
-  svntest.actions.run_and_verify_svn(None, expected_output, [],
+  svntest.actions.run_and_verify_svn(None, expected_output, [], 
                                      'revert', G2)
 
   expected_status.wc_dir = wc_dir_2
@@ -909,8 +909,8 @@ def revert_tree_conflicts_in_updated_files(sbox):
   expected_status.tweak('A/D/G/rho',  status='M ') # not a recursive revert
   expected_status.tweak('A/D/G/tau',  status='D ') # not a recursive revert
   svntest.actions.run_and_verify_status(wc_dir_2, expected_status)
-
-
+  
+  
 ########################################################################
 # Run the tests
 
