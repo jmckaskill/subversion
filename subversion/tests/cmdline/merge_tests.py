@@ -10457,7 +10457,7 @@ def foreign_repos_uuid(sbox):
 
   svntest.main.run_svn(None, 'merge', '-c2', sbox.repo_url, wc_dir2)
   svntest.main.run_svn(None, 'ci', '-m', 'Merge from foreign repos', wc_dir2)
-
+  
   # Run info to check the copied rev to make sure it's right
   zeta2_path = os.path.join(wc_dir2, 'A', 'D', 'G', 'zeta')
   expected_info = {"Path" : re.escape(zeta2_path), # escape backslashes

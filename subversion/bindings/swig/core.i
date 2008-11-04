@@ -442,7 +442,7 @@ PLATFORM_SPECIFIC_WRAPPER(svn_auth_get_kwallet_ssl_client_cert_pw_provider, SVN_
 
 /* set */
 #ifdef SWIGPYTHON
-%typemap(in) const void *value
+%typemap(in) const void *value 
   (apr_pool_t *_global_pool = NULL, PyObject *_global_py_pool = NULL)
 {
     if (_global_pool == NULL)
