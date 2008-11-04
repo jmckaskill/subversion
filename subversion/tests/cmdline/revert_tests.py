@@ -6,7 +6,7 @@
 #  See http://subversion.tigris.org for more information.
 #
 # ====================================================================
-# Copyright (c) 2000-2007 CollabNet.  All rights reserved.
+# Copyright (c) 2000-2008 CollabNet.  All rights reserved.
 #
 # This software is licensed as described in the file COPYING, which
 # you should have received as part of this distribution.  The terms
@@ -454,7 +454,7 @@ def revert_file_merge_replace_with_history(sbox):
                                                               'info', rho_path)
   for line in output:
     if line.find("Copied") != -1:
-      print "Error: Revert didn't get rid of copy from information"
+      print("Error: Revert didn't get rid of copy from information")
       raise svntest.Failure
 
 def revert_wc_to_wc_replace_with_props(sbox):
@@ -881,14 +881,14 @@ def revert_tree_conflicts_in_updated_files(sbox):
 
   expected_status = svntest.actions.get_virginal_state(wc_dir, 2)
   expected_status.tweak('A/D/G',     status='  ')
-  expected_status.tweak('A/D/G/pi',  status='  ')
-  expected_status.remove('A/D/G/rho',
-                         'A/D/G/tau')
+  expected_status.tweak('A/D/G/pi',  status='  ', wc_rev='1')
+  expected_status.remove('A/D/G/rho', 'A/D/G/tau')
+
   svntest.actions.run_and_verify_status(wc_dir, expected_status)
 
   expected_disk = svntest.main.greek_state.copy()
   expected_disk.tweak('A/D/G/pi',
-                      contents="This is the file 'pi'.\nIncoming edit.\n")
+                      contents="This is the file 'pi'.\n")
   expected_disk.tweak('A/D/G/rho',
                       contents="This is the file 'rho'.\nLocal edit.\n")
   expected_disk.remove('A/D/G/tau')

@@ -1697,12 +1697,12 @@ def commit_out_of_date_deletions(sbox):
   # A commit of any one of these files or dirs should fail
   error_re = "out of date"
   commit(wc_backup, None, None, error_re, C_path)
-  commit(wc_backup, None, None, "File not found: transaction", I_path)
+  commit(wc_backup, None, None, error_re, I_path)
   commit(wc_backup, None, None, error_re, F_path)
   commit(wc_backup, None, None, error_re, omega_path)
   commit(wc_backup, None, None, error_re, alpha_path)
-  commit(wc_backup, None, None, "File not found: transaction", chi_path)
-  commit(wc_backup, None, None, "File not found: transaction", beta_path)
+  commit(wc_backup, None, None, error_re, chi_path)
+  commit(wc_backup, None, None, error_re, beta_path)
   commit(wc_backup, None, None, error_re, psi_path)
 
 def commit_with_bad_log_message(sbox):
@@ -1819,7 +1819,7 @@ def from_wc_top_with_bad_editor(sbox):
   err = " ".join(map(str.strip, err))
   if not (re.match(".*no_such-editor.*", err)
           and re.match(".*Commit failed.*", err)):
-    print "Commit failed, but not in the way expected."
+    print("Commit failed, but not in the way expected.")
     raise svntest.Failure
 
 
@@ -2653,9 +2653,8 @@ def tree_conflicts_resolved(sbox):
   svntest.actions.run_and_verify_svn(None, None, [], 'resolved', G)
 
   expected_status = svntest.actions.get_virginal_state(wc_dir, 2)
-  expected_status.tweak('A/D/G/pi',  status='D ')
-  expected_status.remove('A/D/G/rho',
-                         'A/D/G/tau')
+  expected_status.tweak('A/D/G/pi',  status='D ', wc_rev='1')
+  expected_status.remove('A/D/G/rho', 'A/D/G/tau')
 
   svntest.actions.run_and_verify_status(wc_dir, expected_status)
 
