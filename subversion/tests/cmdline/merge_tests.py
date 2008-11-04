@@ -10429,13 +10429,13 @@ def foreign_repos_uuid(sbox):
   # Convenience variables for working copy paths.
   zeta_path = os.path.join(wc_dir, 'A', 'D', 'G', 'zeta')
   Z_path = os.path.join(wc_dir, 'A', 'Z')
-
+  
   # Add new file and directory.
   zeta_contents = "This is the file 'zeta'.\n"
   svntest.main.file_append(zeta_path, zeta_contents)
   os.mkdir(Z_path)
   svntest.main.run_svn(None, 'add', zeta_path, Z_path)
-
+  
   # Commit up these changes.
   expected_output = wc.State(wc_dir, {
     'A/D/G/zeta' : Item(verb='Adding'),
@@ -10461,7 +10461,7 @@ def foreign_repos_uuid(sbox):
 
   svntest.main.run_svn(None, 'merge', '-c2', sbox.repo_url, wc_dir2)
   svntest.main.run_svn(None, 'ci', '-m', 'Merge from foreign repos', wc_dir2)
-
+  
   # Run info to check the copied rev to make sure it's right
   zeta2_path = os.path.join(wc_dir2, 'A', 'D', 'G', 'zeta')
   expected_info = {"Path" : re.escape(zeta2_path), # escape backslashes
