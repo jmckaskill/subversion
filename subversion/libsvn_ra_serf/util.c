@@ -490,7 +490,7 @@ svn_ra_serf__setup_serf_req(serf_request_t *request,
 
   /* These headers need to be sent with every request; see issue #3255
      ("mod_dav_svn does not pass client capabilities to start-commit
-     hooks") for why.
+     hooks") for why. 
 
      ### NOTE ###  If you add more headers here, make the same change
      in propfind_buckets.c:become_request(). */

@@ -9,7 +9,7 @@ info = element info { entry* }
 
 entry =
   element entry {
-    attlist.entry, url?, repository?, wc-info?, commit?, conflict?, lock?,
+    attlist.entry, url?, repository?, wc-info?, commit?, conflict?, lock?, 
     tree-conflicts?
   }
 attlist.entry &=
