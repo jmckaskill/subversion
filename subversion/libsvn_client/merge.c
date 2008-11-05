@@ -1021,7 +1021,7 @@ merge_file_changed(svn_wc_adm_access_t *adm_access,
 
       SVN_ERR(merge_props_changed(adm_access, prop_state, &tree_conflicted2,
                                   mine, prop_changes, original_props, baton));
-
+      
       /* If the prop change caused a tree-conflict, just bail. */
       if (tree_conflicted2)
         {
@@ -1165,7 +1165,7 @@ merge_file_added(svn_wc_adm_access_t *adm_access,
 
       /* And in the foreign repository merge case, we only want
          regular properties. */
-      if ((! merge_b->same_repos)
+      if ((! merge_b->same_repos) 
           && (svn_property_kind(NULL, prop->name) != svn_prop_regular_kind))
         continue;
 
@@ -2181,7 +2181,7 @@ init_rangelist(svn_revnum_t start,
    which PRIMARY_URL doesn't exist.  As mentioned above this means that
    drive_merge_report_editor() won't attempt to describe these non-existent
    subtree path/ranges to the reporter (which would break the merge).
-
+   
    If the preceeding paragraph wasn't terribly clear then what follows spells
    out this function's behavior a bit more explicitly:
 
@@ -2200,7 +2200,7 @@ init_rangelist(svn_revnum_t start,
      (M - 1):REVISION2 as-is and set the subset of CHILD->REMAINING_RANGES
      that intersects with REVISION1:(M - 1) equal to PARENT->REMAINING_RANGES'
      intersection with REVISION1:(M - 1).
-
+   
    For reverse merges (REVISION1 > REVISION2)
 
      If PRIMARY_URL@REVISION1 exists but PRIMARY_URL@REVISION2 doesn't, then
@@ -2273,7 +2273,7 @@ adjust_deleted_subtree_ranges(svn_client__merge_path_t *child,
              exists, if neither exist then the editor can simply ignore this
              subtree. */
           svn_node_kind_t kind;
-
+          
           svn_error_clear(err);
           err = NULL;
           SVN_ERR(svn_ra_check_path(ra_session, rel_source_path,
@@ -2443,7 +2443,7 @@ adjust_deleted_subtree_ranges(svn_client__merge_path_t *child,
    target's subtrees - see 'THE CHILDREN_WITH_MERGEINFO ARRAY'.
 
    MERGEINFO_PATH is the merge source relative to the repository root.
-
+ 
    REVISION1 and REVISION2 describe the merge range requested from
    MERGEINFO_PATH.
 
@@ -2489,7 +2489,7 @@ filter_merged_revisions(svn_client__merge_path_t *child,
         {
           /* Convert REVISION1 and REVISION2 to a rangelist.
 
-             Note: Talking about a requested merge range's inheritability
+             Note: Talking about a requested merge range's inheritability 
              doesn't make much sense, but as we are using svn_merge_range_t
              to describe it we need to pick *something*.  Since all the
              rangelist manipulations in this function either don't consider
