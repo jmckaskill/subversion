@@ -152,7 +152,7 @@ def output_info(path, info, window):
 
 class _item:
   pass
-
+  
 class SvnCLBrowse(wx.App):
   def __init__(self, wc_dir):
     svn.core.svn_config_ensure(None)
@@ -191,11 +191,11 @@ class SvnCLBrowse(wx.App):
     self.resources.CLBOutput = self.resources.CLBFrame.FindWindowById(
       self.xrc.GetXRCID('CLBOutput'))
     self.resources.CLBStatusBar = self.resources.CLBFrame.CreateStatusBar(2)
-
+    
     # Glue some of our extra stuff onto the main frame.
     self.resources.CLBFrame.SetMenuBar(self.resources.CLBMenuBar)
     self.resources.CLBStatusBar.SetStatusWidths([-1, 100])
-
+    
     # Event handlers.  They are the key to the world.
     wx.EVT_CLOSE(self.resources.CLBFrame, self._FrameClosure)
     wx.EVT_MENU(self, self.resources.CLBMenuFileQuit, self._FileQuitMenu)
@@ -207,7 +207,7 @@ class SvnCLBrowse(wx.App):
 
     # Reset our working directory
     self._SetWorkingDirectory(self.wc_dir)
-
+    
     # Resize and display our frame.
     self.resources.CLBFrame.SetSize(wx.Size(600, 400))
     self.resources.CLBFrame.Center()
@@ -236,11 +236,11 @@ class SvnCLBrowse(wx.App):
     self.resources.CLBFrame.SetStatusText("Checking '%s' for status..." \
                                          % (self.wc_dir))
     wx.BeginBusyCursor()
-
+    
     def _status_callback(path, status, clists=changelists):
       if status.entry and status.entry.changelist:
         clists[status.entry.changelist] = None
-
+        
     # Do the status crawl, using _status_callback() as our callback function.
     revision = svn.core.svn_opt_revision_t()
     revision.type = svn.core.svn_opt_revision_head
@@ -261,7 +261,7 @@ class SvnCLBrowse(wx.App):
 
   def _Destroy(self):
     self.resources.CLBFrame.Destroy()
-
+    
   def _DirNavSelChanged(self, event):
     self._SetWorkingDirectory(self.resources.CLBDirNav.GetPath())
 
@@ -289,7 +289,7 @@ class SvnCLBrowse(wx.App):
                        _info_receiver, svn.core.svn_depth_infinity,
                        [changelist], self.svn_ctx)
       self.resources.CLBOutput.AppendText("\n")
-
+  
   def _OpsInfoMenu(self, event):
     self.resources.CLBOutput.Clear()
     changelists = self._GetSelectedChangelists()
@@ -298,19 +298,19 @@ class SvnCLBrowse(wx.App):
 
     def _info_receiver(path, info, pool):
       output_info(path, info, self.resources.CLBOutput)
-
+    
     revision = svn.core.svn_opt_revision_t()
     revision.type = svn.core.svn_opt_revision_working
     svn.client.info2(self.wc_dir, revision, revision,
                      _info_receiver, svn.core.svn_depth_infinity,
                      changelists, self.svn_ctx)
-
+    
   def _FrameClosure(self, event):
     self._Destroy()
 
   def _FileQuitMenu(self, event):
     self._Destroy()
-
+    
   def _HelpAboutMenu(self, event):
     wx.MessageBox("SvnCLBrowse"
                   " -- graphical Subversion changelist browser.\n\n",
@@ -452,7 +452,7 @@ def usage_and_exit(errmsg=None):
   stream = errmsg and sys.stderr or sys.stdout
   progname = os.path.basename(sys.argv[0])
   stream.write("""%s -- graphical Subversion changelist browser
-
+  
 Usage: %s [DIRECTORY]
 
 Launch the SvnCLBrowse graphical changelist browser, using DIRECTORY
@@ -463,7 +463,7 @@ the initial browse location.
   if errmsg:
     stream.write("ERROR: %s\n" % (errmsg))
   sys.exit(errmsg and 1 or 0)
-
+  
 def main():
   opts, args = getopt.gnu_getopt(sys.argv[1:], 'h?', ['help'])
   for name, value in opts:
