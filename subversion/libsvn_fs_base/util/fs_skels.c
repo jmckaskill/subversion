@@ -1167,7 +1167,7 @@ svn_fs_base__unparse_representation_skel(skel_t **skel_p,
                                                  APR_MD5_DIGESTSIZE, pool),
                            checksum_skel);
       svn_fs_base__prepend(svn_fs_base__str_atom("md5", pool), checksum_skel);
-
+      
       svn_fs_base__prepend(checksum_skel, header_skel);
     }
 
