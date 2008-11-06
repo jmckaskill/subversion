@@ -62,6 +62,7 @@ svn_auth__simple_password_get(const char **password,
                               apr_hash_t *creds,
                               const char *realmstring,
                               const char *username,
+                              apr_hash_t *parameters,
                               svn_boolean_t non_interactive,
                               apr_pool_t *pool)
 {
@@ -86,6 +87,7 @@ svn_auth__simple_password_set(apr_hash_t *creds,
                               const char *realmstring,
                               const char *username,
                               const char *password,
+                              apr_hash_t *parameters,
                               svn_boolean_t non_interactive,
                               apr_pool_t *pool)
 {
@@ -204,7 +206,7 @@ svn_auth__simple_first_creds_helper(void **credentials,
           if (have_passtype)
             {
               if (!password_get(&default_password, creds_hash, realmstring,
-                                username, non_interactive, pool))
+                                username, parameters, non_interactive, pool))
                 {
                   need_to_save = TRUE;
                 }
@@ -234,7 +236,8 @@ svn_auth__simple_first_creds_helper(void **credentials,
               else
                 {
                   if (!password_get(&password, creds_hash, realmstring,
-                                    username, non_interactive, pool))
+                                    username, parameters, non_interactive,
+                                    pool))
                     password = NULL;
 
                   /* If the auth data didn't contain a password type,
@@ -377,6 +380,8 @@ svn_auth__simple_save_creds_helper(svn_boolean_t *saved,
                     may_save_password = *cached_answer;
                   else
                     {
+                      apr_pool_t *cached_answer_pool;
+
                       /* Nothing cached for this realm, prompt the user. */
                       SVN_ERR((*b->plaintext_prompt_func)(&may_save_password,
                                                           realmstring,
@@ -386,18 +391,15 @@ svn_auth__simple_save_creds_helper(svn_boolean_t *saved,
                       /* Cache the user's answer in case we're called again
                        * for the same realm.
                        *
-                       * XXX: Hopefully, our caller has passed us
-                       * a pool that survives across RA sessions!
-                       * We use that pool to cache user answers, and
-                       * we may be called again for the same realm when the
-                       * current RA session is reparented, or when a different
-                       * RA session using the same realm is opened.
-                       * If the pool does not survive until then, caching
-                       * won't work, and for some reason the call to
-                       * apr_hash_set() below may even end up crashing in
-                       * apr_palloc().
+                       * We allocate the answer cache in the hash table's pool
+                       * to make sure that is has the same life time as the
+                       * hash table itself. This means that the answer will
+                       * survive across RA sessions -- which is important,
+                       * because otherwise we'd prompt users once per RA session.
                        */
-                      cached_answer = apr_palloc(pool, sizeof(svn_boolean_t));
+                      cached_answer_pool = apr_hash_pool_get(b->plaintext_answers);
+                      cached_answer = apr_palloc(cached_answer_pool,
+                                                 sizeof(svn_boolean_t));
                       *cached_answer = may_save_password;
                       apr_hash_set(b->plaintext_answers, realmstring,
                                    APR_HASH_KEY_STRING, cached_answer);
@@ -446,7 +448,7 @@ svn_auth__simple_save_creds_helper(svn_boolean_t *saved,
         {
           *saved = password_set(creds_hash, realmstring,
                                 creds->username, creds->password,
-                                non_interactive, pool);
+                                parameters, non_interactive, pool);
           if (*saved && passtype)
             /* Store the password type with the auth data, so that we
                know which provider owns the password. */
