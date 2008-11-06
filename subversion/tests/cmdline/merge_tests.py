@@ -10430,13 +10430,13 @@ def foreign_repos_uuid(sbox):
   # Convenience variables for working copy paths.
   zeta_path = os.path.join(wc_dir, 'A', 'D', 'G', 'zeta')
   Z_path = os.path.join(wc_dir, 'A', 'Z')
-
+  
   # Add new file and directory.
   zeta_contents = "This is the file 'zeta'.\n"
   svntest.main.file_append(zeta_path, zeta_contents)
   os.mkdir(Z_path)
   svntest.main.run_svn(None, 'add', zeta_path, Z_path)
-
+  
   # Commit up these changes.
   expected_output = wc.State(wc_dir, {
     'A/D/G/zeta' : Item(verb='Adding'),
@@ -10462,7 +10462,7 @@ def foreign_repos_uuid(sbox):
 
   svntest.main.run_svn(None, 'merge', '-c2', sbox.repo_url, wc_dir2)
   svntest.main.run_svn(None, 'ci', '-m', 'Merge from foreign repos', wc_dir2)
-
+  
   # Run info to check the copied rev to make sure it's right
   zeta2_path = os.path.join(wc_dir2, 'A', 'D', 'G', 'zeta')
   expected_info = {"Path" : re.escape(zeta2_path), # escape backslashes
@@ -14232,7 +14232,7 @@ def merge_range_prior_to_rename_source_existence(sbox):
   omega_COPY_path = os.path.join(wc_dir, "A_COPY", "D", "H", "omega")
   psi_COPY_path   = os.path.join(wc_dir, "A_COPY", "D", "H", "psi")
   nu_COPY_path    = os.path.join(wc_dir, "A_COPY", "D", "H", "nu")
-
+  
   # Setup our basic 'trunk' and 'branch':
   # r2 - Copy A to A_COPY
   # r3 - Text change to A/D/H/psi
@@ -14248,7 +14248,7 @@ def merge_range_prior_to_rename_source_existence(sbox):
   wc_status.add({'A/D/H/nu' : Item(status='  ', wc_rev=7)})
   svntest.actions.run_and_verify_commit(wc_dir, expected_output,
                                         wc_status, None, wc_dir)
-
+  
   # r8 - Merge all available revisions (i.e. -r1:7) from A to A_COPY.
   svntest.actions.run_and_verify_svn(None, ["At revision 7.\n"], [], 'up',
                                      wc_dir)
