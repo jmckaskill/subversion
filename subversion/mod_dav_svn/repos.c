@@ -1460,7 +1460,7 @@ capabilities_as_list(apr_hash_t *capabilities, apr_pool_t *pool)
 }
 
 
-/* Given a non-NULL QUERY string of the form "key1=val1&key2=val2&...",
+/* Given a non-NULL QUERY string of the form "key1=val1&key2=val2&...",  
  * parse the keys and values into an apr table.  Allocate the table in
  * POOL;  dup all keys and values into POOL as well.
  *
