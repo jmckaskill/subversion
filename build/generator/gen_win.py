@@ -515,7 +515,7 @@ class WinGeneratorBase(GeneratorBase):
       cbuild = "python $(InputPath) %s > %s" \
                % (" ".join(deps), def_file)
 
-      sources.append(ProjectItem(path=gsrc, reldir=None, custom_build=cbuild,
+      sources.append(ProjectItem(path=gsrc, reldir=None, custom_build=cbuild,                                 
                                  user_deps=deps, custom_target=def_file,
                                  extension=''))
 
