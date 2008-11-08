@@ -2407,7 +2407,7 @@ def tree_conflicts_on_switch_2_2(sbox):
                         expected_disk,
                         expected_status) ] )
 
-
+ 
 def tree_conflicts_on_switch_3(sbox):
   "tree conflicts on switch 3"
 
