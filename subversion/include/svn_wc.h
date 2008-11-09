@@ -5317,7 +5317,7 @@ svn_wc_set_changelist(const char *path,
                       void *notify_baton,
                       apr_pool_t *pool);
 
-/** Crop @a target according to @a depth.
+/** Crop @a target according to @a depth. 
  *
  * Remove any item that exceeds the boundary of @a depth (relative to
  * @a target) from revision control.  Leave modified items behind
