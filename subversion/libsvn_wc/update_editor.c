@@ -588,7 +588,7 @@ complete_directory(struct edit_baton *eb,
       if (eb->depth_is_sticky || *eb->target)
         {
           svn_wc_adm_access_t *target_access;
-          SVN_ERR(svn_wc_adm_retrieve(&adm_access,
+          SVN_ERR(svn_wc_adm_retrieve(&adm_access, 
                                       eb->adm_access, path, pool));
           SVN_ERR(svn_wc_entries_read(&entries, adm_access, TRUE, pool));
           entry = apr_hash_get(entries, eb->target, APR_HASH_KEY_STRING);
@@ -686,7 +686,7 @@ complete_directory(struct edit_baton *eb,
           if (current_entry->depth == svn_depth_exclude)
             {
               /* Clear the exclude flag if it is pulled in again. */
-              if (eb->depth_is_sticky
+              if (eb->depth_is_sticky 
                   && eb->requested_depth >= svn_depth_immediates)
                 current_entry->depth = svn_depth_infinity;
             } else if ((svn_wc__adm_missing(adm_access, child_path))
@@ -3952,11 +3952,11 @@ make_editor(svn_revnum_t *target_revision,
 
   /* We need to limit the scope of our operation to the ambient depths
      present in the working copy already, but only if the requested
-     depth is not sticky. If a depth was explicitly requested,
-     libsvn_delta/depth_filter_editor.c will ensure that we never see
+     depth is not sticky. If a depth was explicitly requested, 
+     libsvn_delta/depth_filter_editor.c will ensure that we never see 
      editor calls that extend beyond the scope of the requested depth.
-     But even what we do so might extend beyond the scope of our
-     ambient depth.  So we use another filtering editor to avoid
+     But even what we do so might extend beyond the scope of our 
+     ambient depth.  So we use another filtering editor to avoid 
      modifying the ambient working copy depth when not asked to do so.
      (This can also be skipped if the server understands depth; consider
      letting the depth RA capability percolate down to this level.) */
