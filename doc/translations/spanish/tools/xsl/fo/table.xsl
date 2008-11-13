@@ -985,7 +985,7 @@ proportional-column-width() function.</para>
   <xsl:if test="contains($colwidth, '*')">
     <xsl:text>proportional-column-width(</xsl:text>
     <xsl:choose>
-      <xsl:when test="substring-before($colwidth, '*') != ''">
+      <xsl:when test="substring-before($colwidth, '*') != ''"> 
         <xsl:value-of select="substring-before($colwidth, '*')"/>
       </xsl:when>
       <xsl:otherwise>
