@@ -1563,7 +1563,7 @@ svn_subst_copy_and_translate3(const char *src,
       svn_error_clear(svn_io_remove_file(dst_tmp, pool));
       return err;
     }
-
+    
   /* Now that dst_tmp contains the translated data, do the atomic rename. */
   return svn_io_file_rename(dst_tmp, dst, pool);
 }

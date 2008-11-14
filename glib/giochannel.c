@@ -24,10 +24,10 @@
  * Modified by the GLib Team and others 1997-1999.  See the AUTHORS
  * file for a list of people on the GLib Team.  See the ChangeLog
  * files for a list of changes.  These files are distributed with
- * GLib at ftp://ftp.gtk.org/pub/gtk/.
+ * GLib at ftp://ftp.gtk.org/pub/gtk/. 
  */
 
-/*
+/* 
  * MT safe
  */
 
@@ -46,7 +46,7 @@ g_io_channel_init (GIOChannel *channel)
 }
 
 
-void
+void 
 g_io_channel_ref (GIOChannel *channel)
 {
   g_return_if_fail (channel != NULL);
@@ -54,7 +54,7 @@ g_io_channel_ref (GIOChannel *channel)
   channel->ref_count++;
 }
 
-void
+void 
 g_io_channel_unref (GIOChannel *channel)
 {
   g_return_if_fail (channel != NULL);
@@ -64,9 +64,9 @@ g_io_channel_unref (GIOChannel *channel)
     channel->funcs->io_free (channel);
 }
 
-GIOError
-g_io_channel_read (GIOChannel *channel,
-		   gchar      *buf,
+GIOError 
+g_io_channel_read (GIOChannel *channel, 
+		   gchar      *buf, 
 		   guint       count,
 		   guint      *bytes_read)
 {
@@ -75,9 +75,9 @@ g_io_channel_read (GIOChannel *channel,
   return channel->funcs->io_read (channel, buf, count, bytes_read);
 }
 
-GIOError
-g_io_channel_write (GIOChannel *channel,
-		    gchar      *buf,
+GIOError 
+g_io_channel_write (GIOChannel *channel, 
+		    gchar      *buf, 
 		    guint       count,
 		    guint      *bytes_written)
 {
@@ -86,16 +86,16 @@ g_io_channel_write (GIOChannel *channel,
   return channel->funcs->io_write (channel, buf, count, bytes_written);
 }
 
-GIOError
+GIOError 
 g_io_channel_seek  (GIOChannel   *channel,
-		    gint        offset,
+		    gint        offset, 
 		    GSeekType   type)
 {
   g_return_val_if_fail (channel != NULL, G_IO_ERROR_UNKNOWN);
 
   return channel->funcs->io_seek (channel, offset, type);
 }
-
+     
 void
 g_io_channel_close (GIOChannel *channel)
 {
@@ -104,7 +104,7 @@ g_io_channel_close (GIOChannel *channel)
   channel->funcs->io_close (channel);
 }
 
-guint
+guint 
 g_io_add_watch_full (GIOChannel    *channel,
 		     gint           priority,
 		     GIOCondition   condition,
@@ -118,7 +118,7 @@ g_io_add_watch_full (GIOChannel    *channel,
 				       func, user_data, notify);
 }
 
-guint
+guint 
 g_io_add_watch (GIOChannel    *channel,
 		GIOCondition   condition,
 		GIOFunc        func,
