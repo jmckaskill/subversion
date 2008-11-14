@@ -45,7 +45,7 @@ AC_DEFUN(SVN_LIB_SQLITE,
     if test -x "$pkg_config"; then
       AC_MSG_CHECKING([sqlite library version (via pkg-config)])
       sqlite_version=`$pkg_config $SQLITE_PKGNAME --modversion --silence-errors`
-
+      
       if $ECHO $sqlite_version | $EGREP -q $SQLITE_ALLOWED_PATTERN; then
         AC_MSG_RESULT([$sqlite_version])
         svn_lib_sqlite="yes"
