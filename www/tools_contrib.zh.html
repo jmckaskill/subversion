@@ -2,6 +2,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 <style type="text/css"> /* <![CDATA[ */
   @import "branding/css/tigris.css";
   @import "branding/css/inst.css";
@@ -15,24 +16,27 @@
 <body>
 <div class="app">
 
-<h1>Subversion Tools and Contrib</h1>
-
-<p>Translations: <a href="tools_contrib.zh.html">&#31616;&#20307;&#20013;&#25991;</a></p>
-
-<p>The directories 'tools' and 'contrib' in the Subversion repository
-   contain code that works with Subversion but that Subversion doesn't
-   depend on for normal operations.
-</p>
-<p>The files in 'tools' are maintained collectively by the Subversion
-   project, and are under the same open source copyright as Subversion itself.
-</p>
-<p>Code in contrib/ is open source, but may have a different license or
-   copyright holder than Subversion itself.  The Subversion project does
-   not maintain these programs, but merely distributes them for our
-   users' convenience.
+<p>
+<a href="http://subversion.tigris.org/tools_contrib.html">English</a>
 </p>
 
-<p>The code is grouped into the following subdirectories:</p>
+<p>本文根据原文r31819，由<a href="http://www.subversion.org.cn">Subversion中文站</a>的中文化翻译小组翻译，欢迎各位参与翻译工作，加入地址：<a href="http://code.google.com/p/svncndoc/">http://code.google.com/p/svncndoc/</a>。参与翻译的志愿者包括<a href="http://rocksun.cn">rocksun</a>、akeybupt2004和luowei1983。
+</p>
+
+
+<h1>Subversion工具和贡献</h1>
+
+
+
+<p>在subverion仓库目录包含有tools和contrib两个子目录，
+其中的代码都是与subversion的功能实现相关，但是subversion的常规操作并不依赖于它们。
+</p>
+<p>在tools子目录下面的文件都是由subversion项目共同维护的，和subversion使用相同的开源版权。
+</p>
+<p>在contrib/子目录下的代码都是开源代码，但是可能持有和subversion本身不同的许可证或版权。subversion项目本身并不维护这些程序代码，仅仅只是为了用户使用方便而发布它们。
+</p>
+
+<p>代码按照以下子目录分组：</p>
 
 <ul>
   <li><a href="#backup">backup</a></li>
@@ -48,7 +52,7 @@
 </ul>
 
 
-<h2>Index by keyword</h2>
+<h2>关键字索引</h2>
 
 <ul>
   <li><strong>apache</strong><ul>
@@ -214,8 +218,8 @@
   <h3><a name="hot_backup_py"
     href="http://svn.collab.net/repos/svn/trunk/tools/backup/hot-backup.py.in">hot-backup.py</a>
     (<a href="http://svn.collab.net/repos/svn/trunk/tools/backup">tools/backup</a>)</h3>
-  <p>Perform a "hot" backup of a Berkeley DB repository.
-     (and clean old logfiles after backup completes.)
+  <p>对BDB版本库进行热备份。
+     (同时在备份结束后清除掉所有旧的日志文件。)
   </p>
 </div>
 
@@ -226,8 +230,8 @@
   <h3><a name="erase_all_text_data_py"
     href="http://svn.collab.net/repos/svn/trunk/tools/bdb/erase-all-text-data.py">erase-all-text-data.py</a>
     (<a href="http://svn.collab.net/repos/svn/trunk/tools/bdb">tools/bdb</a>)</h3>
-  <p>Erases the text of every file in a BDB repository.</p>
-  <p>Related files:
+  <p>删除一个BDB版本库中所有文件的内容。</p>
+  <p>相关文件：
     <a href="http://svn.collab.net/repos/svn/trunk/tools/bdb/skel.py">skel.py</a>
     <a href="http://svn.collab.net/repos/svn/trunk/tools/bdb/svnfs.py">svnfs.py</a>
   </p>
@@ -236,8 +240,8 @@
   <h3><a name="svn_bdb_view_py"
     href="http://svn.collab.net/repos/svn/trunk/tools/bdb/svn-bdb-view.py">svn-bdb-view.py</a>
     (<a href="http://svn.collab.net/repos/svn/trunk/tools/bdb">tools/bdb</a>)</h3>
-  <p>A pretty-printer for Subversion BDB repository databases.</p>
-  <p>Related files:
+  <p>一个输出美观的查看器，用来查看BDB版本库的数据库内容。</p>
+  <p>相关文件：
     <a href="http://svn.collab.net/repos/svn/trunk/tools/bdb/skel.py">skel.py</a>
     <a href="http://svn.collab.net/repos/svn/trunk/tools/bdb/svnfs.py">svnfs.py</a>
   </p>
@@ -246,12 +250,9 @@
   <h3><a name="whatis_rep_py"
     href="http://svn.collab.net/repos/svn/trunk/tools/bdb/whatis-rep.py">whatis-rep.py</a>
     (<a href="http://svn.collab.net/repos/svn/trunk/tools/bdb">tools/bdb</a>)</h3>
-  <p>Print a description (including data, path, and revision) of the
-     specified node reps in a Subversion filesystem.  Walks as much of
-     the reps table as necessary to locate the data (e.g. does a table
-     scan).
+  <p>打印Subversion文件系统中某个节点变化的描述信息（包含数据，路经和修订版本），会根据定位数据（例如做一个表扫描）的需要尽可能多的扫描变更数据库表。
   </p>
-  <p>Related files:
+  <p>相关文件：
     <a href="http://svn.collab.net/repos/svn/trunk/tools/bdb/skel.py">skel.py</a>
     <a href="http://svn.collab.net/repos/svn/trunk/tools/bdb/svnfs.py">svnfs.py</a>
   </p>
@@ -265,21 +266,15 @@
   <h3><a name="mirror_dir_through_svn_cgi"
     href="http://svn.collab.net/repos/svn/trunk/contrib/cgi/mirror_dir_through_svn.cgi">mirror_dir_through_svn.cgi</a>
     (<a href="http://svn.collab.net/repos/svn/trunk/contrib/cgi">contrib/cgi</a>)</h3>
-  <p>This CGI script mirrors a source directory to a target directory using
-     a Subversion repository as an intermediary.  It's written as a CGI
-     script so that remote users making changes to a WebDAV folder can tell
-     the server to mirror the WebDAV folder contents to another directory
-     on the system.  See the example usage story below.
+  <p>这个CGI脚本通过一个SVN的版本库作为中介，把一个源目录镜像到一个目标目录。它以CGI的脚本写成，这样当远程用户在对一个WebDAV文件夹作了修改的时候，服务器能够将相应的WebDAV文件夹的内容镜像到系统的另外一个子目录。请看下文的用例示范。
   </p>
-  <p>See also <a href="http://svn.collab.net/repos/svn/trunk/contrib/cgi/mirror_dir_through_svn.README">mirror_dir_through_svn.README</a></p>
+  <p>同时请看 <a href="http://svn.collab.net/repos/svn/trunk/contrib/cgi/mirror_dir_through_svn.README">mirror_dir_through_svn.README</a></p>
 
 
   <h3><a name="tweak_log_cgi"
     href="http://svn.collab.net/repos/svn/trunk/contrib/cgi/tweak-log.cgi">tweak-log.cgi</a>
     (<a href="http://svn.collab.net/repos/svn/trunk/contrib/cgi">contrib/cgi</a>)</h3>
-  <p>It sure would be nice to be able to change the log messages on
-     committed revisions of the Subversion repository via the web.  This
-     is a quick attempt at making that happen.
+  <p>直接通过web访问来修改SVN版本库中已提交的日志信息。
   </p>
 </div>
 
@@ -291,17 +286,15 @@
   <h3><a name="asvn"
     href="http://svn.collab.net/repos/svn/trunk/contrib/client-side/asvn">asvn</a>
     (<a href="http://svn.collab.net/repos/svn/trunk/contrib/client-side">contrib/client-side</a>)</h3>
-  <p>Archive SVN (asvn) will allow the recording of file types not
-     normally handled by svn. Currently this includes devices,
-     symlinks and file ownership/permissions.
+  <p>Archive SVN可以记录一些通常svn不能处理的文件类型信息，目前这些记录信息包括设备，符号链接和文件所有权和访问权限。
   </p>
 
 
   <h3><a name="bash_completion"
     href="http://svn.collab.net/repos/svn/trunk/tools/client-side/bash_completion">bash_completion</a>
     (<a href="http://svn.collab.net/repos/svn/trunk/tools/client-side">tools/client-side</a>)</h3>
-  <p>Programmable completion for the Subversion svn command under bash.</p>
-  <p>Related files:
+  <p>针对SVN在bash环境下的命令行可编程自动补齐功能。</p>
+  <p>相关文件：
     <a href="http://svn.collab.net/repos/svn/trunk/tools/client-side/bash_completion_test">bash_completion_test</a>
   </p>
 
@@ -309,37 +302,35 @@
   <h3><a name="diff_to_logmsg_vim"
     href="http://svn.collab.net/repos/svn/trunk/contrib/client-side/vim/diff-to-logmsg.vim">diff-to-logmsg.vim</a>
     (<a href="http://svn.collab.net/repos/svn/trunk/contrib/client-side/vim">contrib/client-side/vim</a>)</h3>
-  <p>Converts a 'diff -urp' to a log message skeleton.</p>
+  <p>将'diff -urp'命令输出的内容转换成日志信息结构。</p>
 
 
   <h3><a name="diff3wrap_bat"
     href="http://svn.collab.net/repos/svn/trunk/contrib/client-side/diff3wrap.bat">diff3wrap.bat</a>
     (<a href="http://svn.collab.net/repos/svn/trunk/contrib/client-side">contrib/client-side</a>)</h3>
-  <p>Wrapper for running a diff3/merge program.</p>
+  <p>对diff3/merge程序做了简单的封装.</p>
 
 
   <h3><a name="diffwrap_bat"
     href="http://svn.collab.net/repos/svn/trunk/contrib/client-side/diffwrap.bat">diffwrap.bat</a>
     (<a href="http://svn.collab.net/repos/svn/trunk/contrib/client-side">contrib/client-side</a>)</h3>
-  <p>Wrapper for running a diff program.</p>
+  <p>对diff程序进行了简单的封装.</p>
 
 
   <h3><a name="dsvn_el"
     href="http://svn.collab.net/repos/svn/trunk/contrib/client-side/emacs/dsvn.el">dsvn.el</a>
     (<a href="http://svn.collab.net/repos/svn/trunk/contrib/client-side/emacs/dsvn.el">contrib/client-side/emacs/dsvn.el</a>)</h3>
-  <p>A Subversion interface for Emacs, providing a similar interface as
-     pcl-cvs for CVS.
+  <p>提供给Emacs的SVN接口，类似于CVS提供的pcl-cvs接口。
   </p>
-  <p>See also <a href="#psvn_el">psvn.el</a>.</p>
+  <p>同时参看 <a href="#psvn_el">psvn.el</a>.</p>
 
 
   <h3><a name="svnmucc_c"
     href="http://svn.collab.net/repos/svn/trunk/contrib/client-side/svnmucc/svnmucc.c">svnmucc.c</a>
     (<a href="http://svn.collab.net/repos/svn/trunk/contrib/client-side/svnmucc">contrib/client-side/svnmucc</a>)</h3>
-  <p>Multiple URL Command Client: Combine a list of mv, cp and rm commands
-     on URLs into a single commit.
+  <p>多个URL命令的客户端（Multiple URL Command Client）：可以将通过URL方式提交的一系列mv、cp和rm命令合并成一个提交命令。
   </p>
-  <p>Related files:
+  <p>相关文件:
     <a href="http://svn.collab.net/repos/svn/trunk/contrib/client-side/svnmucc/svnmucc-test.py">svnmucc-test.py</a>
   </p>
 
@@ -347,91 +338,86 @@
   <h3><a name="psvn_el"
     href="http://svn.collab.net/repos/svn/trunk/contrib/client-side/emacs/psvn.el">psvn.el</a>
     (<a href="http://svn.collab.net/repos/svn/trunk/contrib/client-side/emacs/psvn.el">contrib/client-side/emacs/psvn.el</a>)</h3>
-  <p>A Subversion interface for Emacs, providing a similar interface as
-     pcl-cvs for CVS.
+  <p>提供给Emacs的SVN接口，类似于CVS提供的pcl-cvs接口。
   </p>
-  <p>See also <a href="#dsvn_el">dsvn.el</a>.</p>
+  <p>同时参看 <a href="#dsvn_el">dsvn.el</a>.</p>
 
 
   <h3><a name="search_svnlog_pl"
     href="http://svn.collab.net/repos/svn/trunk/contrib/client-side/search-svnlog.pl">search-svnlog.pl</a>
     (<a href="http://svn.collab.net/repos/svn/trunk/contrib/client-side">contrib/client-side</a>)</h3>
-  <p>Show log messages matching a certain pattern.</p>
+  <p>根据匹配字符串检索特定的日志信息</p>
 
 
   <h3><a name="server_version_py"
     href="http://svn.collab.net/repos/svn/trunk/tools/client-side/server-version.py">server-version.py</a>
     (<a href="http://svn.collab.net/repos/svn/trunk/tools/client-side">tools/client-side</a>)</h3>
-  <p>Print a Subversion server's version number.</p>
+  <p>显示Subersion服务器的版本号。</p>
 
-  <p><a name="server_vsn_py">server-version.py was formerly known as server-vsn.py</a></p>
+  <p><a name="server_vsn_py">server-version.py 的前身为server-vsn.py</a></p>
 
   <h3><a name="showchange_pl"
     href="http://svn.collab.net/repos/svn/trunk/tools/client-side/showchange.pl">showchange.pl</a>
     (<a href="http://svn.collab.net/repos/svn/trunk/tools/client-side">tools/client-side</a>)</h3>
-  <p>Show the log message and diff for a revision.</p>
+  <p>显示一个修订版本的日志信息和精确修改内容。</p>
 
 
   <h3><a name="svn_clean"
     href="http://svn.collab.net/repos/svn/trunk/contrib/client-side/svn-clean">svn-clean</a>
     (<a href="http://svn.collab.net/repos/svn/trunk/contrib/client-side">contrib/client-side</a>)</h3>
-  <p>Wipes out unversioned files from SVN working copy.</p>
+  <p>从本地工作拷贝中删除所有未被版本控制的文件。</p>
 
 
   <h3><a name="svn_graph_pl"
     href="http://svn.collab.net/repos/svn/trunk/tools/client-side/svn-graph.pl">svn-graph.pl</a>
     (<a href="http://svn.collab.net/repos/svn/trunk/tools/client-side">tools/client-side</a>)</h3>
-  <p>Produce a GraphViz .dot graph for the branch history of a node.</p>
+  <p>为某一个节点的分支修订历史生成一个名为GraphViz .dot的统计图。</p>
 
 
   <h3><a name="svn_log_pl"
     href="http://svn.collab.net/repos/svn/trunk/contrib/client-side/svn-log.pl">svn-log.pl</a>
     (<a href="http://svn.collab.net/repos/svn/trunk/contrib/client-side">contrib/client-side</a>)</h3>
-  <p>Generate a nice log format for the Subversion repository.</p>
+  <p>为Subersion的版本库生成一个美观的日志格式。</p>
 
 
   <h3><a name="svn_push_c"
     href="http://svn.collab.net/repos/svn/trunk/contrib/client-side/svn-push/svn-push.c">svn-push.c</a>
     (<a href="http://svn.collab.net/repos/svn/trunk/contrib/client-side/svn-push">contrib/client-side/svn-push</a>)</h3>
-  <p>Propagate changesets from one (networked) repository to a different
-     (networked) repository.
+  <p>将一个可连接到的版本库的修改集提交到另外一个可连接到的版本库（通过网络）。
   </p>
 
 
   <h3><a name="svn_resolve"
     href="http://svn.collab.net/repos/svn/trunk/contrib/client-side/svn-resolve">svn-resolve</a>
     (<a href="http://svn.collab.net/repos/svn/trunk/contrib/client-side">contrib/client-side</a>)</h3>
-  <p>Resolve Subversion conflicts using FileMerge.
+  <p>用Filemerge来解决Subersion的修订冲突。
   </p>
-  <p>(FileMerge is a graphical diff tool in the Mac OS X
-     Developer Tools.)
+  <p>（FileMerge是Mac OS中X开发工具软件包中的一个图形化的比较工具。）
   </p>
 
 
   <h3><a name="svn_viewdiff"
     href="http://svn.collab.net/repos/svn/trunk/contrib/client-side/svn-viewdiff">svn-viewdiff</a>
     (<a href="http://svn.collab.net/repos/svn/trunk/contrib/client-side">contrib/client-side</a>)</h3>
-  <p>GNU diff wrapper for FileMerge.
+  <p>FileMerge的diff接口封装,该脚本基于GNU协议。（译者注：该脚本的接口和diff工具一致，输出的内容则会通过FileMerge的接口传给FileMerge程序。）
   </p>
-  <p>(FileMerge is a graphical diff tool in the Mac OS X
-     Developer Tools.)
+  <p>（FileMerge是Mac OS中X开发工具软件包中的一个优秀的图形化的比较工具。）
   </p>
 
 
   <h3><a name="svn_vim"
     href="http://svn.collab.net/repos/svn/trunk/contrib/client-side/vim/svn.vim">svn.vim</a>
     (<a href="http://svn.collab.net/repos/svn/trunk/contrib/client-side/vim">contrib/client-side/vim</a>)</h3>
-  <p>Vim syntax hilighting for SVN commit log message template.</p>
+  <p>使Vim能够高亮显示SVN提交日志模板语法的VIM插件。</p>
 
 
   <h3><a name="svn2cl_sh"
     href="http://svn.collab.net/repos/svn/trunk/contrib/client-side/svn2cl/svn2cl.sh">svn2cl.sh</a>
     (<a href="http://svn.collab.net/repos/svn/trunk/contrib/client-side/svn2cl">contrib/client-side/svn2cl</a>)</h3>
-  <p>Front end shell script for svn2cl.xsl, calls xsltproc with the
-     correct parameters.
+  <p>针对svn2cl.xsl的前端shell脚本，以正确的参数调用xsltproc。
   </p>
-  <p>See also <a href="http://svn.collab.net/repos/svn/trunk/contrib/client-side/svn2cl/README">README</a>.</p>
-  <p>Related files:
+  <p>同时参看<a href="http://svn.collab.net/repos/svn/trunk/contrib/client-side/svn2cl/README">README</a>。</p>
+  <p>相关文件：
     <a href="http://svn.collab.net/repos/svn/trunk/contrib/client-side/svn2cl/svn2cl.1">svn2cl.1</a>
     <a href="http://svn.collab.net/repos/svn/trunk/contrib/client-side/svn2cl/svn2cl.xsl">svn2cl.xsl</a>
     <a href="http://svn.collab.net/repos/svn/trunk/contrib/client-side/svn2cl/svn2html.css">svn2html.css</a>
@@ -442,45 +428,31 @@
   <h3><a name="svn_all_diffs_pl"
     href="http://svn.collab.net/repos/svn/trunk/contrib/client-side/svn_all_diffs.pl">svn_all_diffs.pl</a>
     (<a href="http://svn.collab.net/repos/svn/trunk/contrib/client-side">contrib/client-side</a>)</h3>
-  <p>Perl script that gets the revisions that modified a specified
-     file or directory and prints the output of `svn diff' on between
-     all revisions that modified the file or directory.  Good for
-     seeing what changed over time and for tracking down when a
-     particular line in a file changed.
+  <p>一个perl脚本，用来获取修改了某个特定文件或者子目录的所有修订版本，并且显示用'svn diff'命令输出的所有这些修订版本的修改内容。非常适用于追踪和观察一个文件中特定某一行的改变。
   </p>
 
 
   <h3><a name="svn_apply_autoprops_py"
     href="http://svn.collab.net/repos/svn/trunk/contrib/client-side/svn_apply_autoprops.py">svn_apply_autoprops.py</a>
     (<a href="http://svn.collab.net/repos/svn/trunk/contrib/client-side">contrib/client-side</a>)</h3>
-  <p>This script reads the auto-properties defined in the
-     $HOME/.subversion/config file and applies them recursively to all
-     the files and directories in the current working copy.
+  <p>这个脚本会从$HOME/.subversion/config中读取预定义的自动属性(auto-property)(译者注：自动属性是SVN根据不同文件类型自动添加在每个新增的文件/文件夹上的属性)，然后将其递归应用到当前工作拷贝中的所有文件/文件夹。
   </p>
 
 
   <h3><a name="svn_export_empty_files_py"
     href="http://svn.collab.net/repos/svn/trunk/contrib/client-side/svn_export_empty_files.py">svn_export_empty_files.py</a>
     (<a href="http://svn.collab.net/repos/svn/trunk/contrib/client-side">contrib/client-side</a>)</h3>
-  <p>Script to "export" from a Subversion repository a clean directory
-     tree of empty files instead of the content contained in those
-     files in the repository. The directory tree will also omit the
-     .svn directories.  This script was written to create a non-working
-     working copy that can be crawled with find or find's locate utility
-     to make it easier to find files.
+  <p>这个脚本用来从subversion版本库中导出目录文件结构，但是不包含原始文件上的内容，也就是说每个文件都是0字节文件。同时.svn目录也不会被导出，这个主要用于快速检索文件，而不是作为实际开发使用的工作拷贝。
   </p>
 
 
   <h3><a name="svn_load_dirs_pl"
     href="http://svn.collab.net/repos/svn/trunk/contrib/client-side/svn_load_dirs/svn_load_dirs.pl.in">svn_load_dirs.pl</a>
     (<a href="http://svn.collab.net/repos/svn/trunk/contrib/client-side/svn_load_dirs">contrib/client-side/svn_load_dirs</a>)</h3>
-  <p>This Perl script is designed to load a number of directories into
-     Subversion.  This is useful if you have a number of .zip's or
-     tar.{Z,gz,bz2}'s for a particular package and want to load them into
-     Subversion.
+  <p>这个perl脚本是设计用来向subversion服务器中导入若干个子目录。当用户有一个包含有大量.zip文件或者tar.{Z,gz,bz2}文件的文件包想要导入到subversion服务器中时，这个脚本尤其有用。
   </p>
-  <p>See also <a href="http://svn.collab.net/repos/svn/trunk/contrib/client-side/svn_load_dirs/svn_load_dirs.README">svn_load_dirs.README</a>.</p>
-  <p>Related files:
+  <p>同时参看 <a href="http://svn.collab.net/repos/svn/trunk/contrib/client-side/svn_load_dirs/svn_load_dirs.README">svn_load_dirs.README</a>.</p>
+  <p>相关文件：
     <a href="http://svn.collab.net/repos/svn/trunk/contrib/client-side/svn_load_dirs/svn_load_dirs_property_table.example">svn_load_dirs_property_table.example</a>
   </p>
 
@@ -488,58 +460,52 @@
   <h3><a name="svn_update_pl"
     href="http://svn.collab.net/repos/svn/trunk/contrib/client-side/svn_update.pl">svn_update.pl</a>
     (<a href="http://svn.collab.net/repos/svn/trunk/contrib/client-side">contrib/client-side</a>)</h3>
-  <p>Run svn update and force it to produce conflicts for all
-     files which would be merged using diff3.
+  <p>运行svn update，并把那些原本将会被diff3进行合并的文件视为冲突处理。
   </p>
-  <p>This is a workaround for <a
+  <p>工作区<a
        href="http://subversion.tigris.org/issues/show_bug.cgi?id=2048"
-     >issue 2048</a> which was fixed in r13383 and released in
-     svn 1.2.0.
+     >issue 2048</a>在r13383中得到解决并且在svn 1.2.0中发布。
   </p>
 
 
   <h3><a name="svncopy_pl"
     href="http://svn.collab.net/repos/svn/trunk/contrib/client-side/svncopy/svncopy.pl.in">svncopy.pl</a>
     (<a href="http://svn.collab.net/repos/svn/trunk/contrib/client-side/svncopy">contrib/client-side/svncopy</a>)</h3>
-  <p>Utility script for copying with branching/tagging.</p>
-  <p>See also <a href="http://svn.collab.net/repos/svn/trunk/contrib/client-side/svncopy/svncopy.README">svncopy.README</a>.</p>
-  <p>Related files:
-    <a href="http://svn.collab.net/repos/svn/trunk/contrib/client-side/svncopy/testsvncopy.pl.in">testsvncopy.pl</a>
+  <p>用于分支和标记拷贝的实用脚本。</p>
+  <p>参看<a href="http://svn.collab.net/repos/svn/trunk/contrib/client-side/svncopy/svncopy.README">svncopy.README</a>。</p>
+  <p>相关文件：
+    <a href="http://svn.collab.net/repos/svn/trunk/contrib/client-side/svncopy/testsvncopy.pl.in">testsvncopy.pl</a>。
   </p>
 
 
   <h3><a name="svnmerge_py"
     href="http://svn.collab.net/repos/svn/trunk/contrib/client-side/svnmerge/svnmerge.py">svnmerge.py</a>
     (<a href="http://svn.collab.net/repos/svn/trunk/contrib/client-side/svnmerge">contrib/client-side/svnmerge</a>)</h3>
-  <p>Merge tracking script.</p>
-  <p>See also <a href="http://svn.collab.net/repos/svn/trunk/contrib/client-side/svnmerge/svnmerge.README">svnmerge.README</a>.</p>
+  <p>用于跟踪合并过程的脚本。</p>
+  <p>同时参看 <a href="http://svn.collab.net/repos/svn/trunk/contrib/client-side/svnmerge/svnmerge.README">svnmerge.README</a>。</p>
 
 
   <h3><a name="svnmerge_sh"
     href="http://svn.collab.net/repos/svn/trunk/contrib/client-side/svnmerge/svnmerge.sh">svnmerge.sh</a>
     (<a href="http://svn.collab.net/repos/svn/trunk/contrib/client-side/svnmerge">contrib/client-side/svnmerge</a>)</h3>
-  <p>Merge tracking script, predecessor of svnmerge.py.</p>
+  <p>用于跟踪合并过程的脚本,是svnmerge.py的前身。</p>
 
 
   <h3><a name="vc_svn_el"
     href="http://svn.collab.net/repos/svn/trunk/contrib/client-side/emacs/vc-svn.el">vc-svn.el</a>
     (<a href="http://svn.collab.net/repos/svn/trunk/contrib/client-side">contrib/client-side/emacs</a>)</h3>
-  <p>A VC backend for Subversion.
+  <p>Subversion的Emacs接口，使Subversion能够集成到Emacs的VC中。(译者注：vc是emacs的版本控制模式。)
   </p>
-  <p>Note that this one included in the Subversion tree is not the master
-     version.  The canonical vc-svn.el now lives in the FSF Emacs tree, at
-     <a href="http://savannah.gnu.org/cgi-bin/viewcvs/emacs/emacs/lisp/vc-svn.el">http://savannah.gnu.org/cgi-bin/viewcvs/emacs/emacs/lisp/vc-svn.el</a>.
-     The version here is maintained only because it is compatible with
-     older releases of Emacs, since the one in the FSF tree hasn't made it
-     into an official release of Emacs yet.
+  <p>需要注意的是,在SVN的版本目录下的vc_svn_el并不是主开发版本，最新的版本是放置在FSF Emacs版本目录下，可以通过<a
+  href="http://savannah.gnu.org/cgi-bin/viewcvs/emacs/emacs/lisp/vc-svn.el">http://savannah.gnu.org/cgi-bin/viewcvs/emacs/emacs/lisp/vc-svn.el</a>
+  来访问。这里的版本只是为了兼容以前旧版本的Emacs而维护的，因为FSF版本库中还没有将此文件打包到任何一个Emacs官方发行包中。
   </p>
 
 
   <h3><a name="wcgrep"
     href="http://svn.collab.net/repos/svn/trunk/contrib/client-side/wcgrep">wcgrep</a>
     (<a href="http://svn.collab.net/repos/svn/trunk/contrib/client-side">contrib/client-side</a>)</h3>
-  <p>Useful for greping in a Subversion working copy.
-     Essentially it behaves the same way your grep command does.
+  <p>在一个在Subersion的工作目录中进行字符串查找的很有用工具，在本质上和grep命令的功能是一样的。
   </p>
 </div>
 
@@ -551,200 +517,169 @@
   <h3><a name="check_license_py"
     href="http://svn.collab.net/repos/svn/trunk/tools/dev/check-license.py">check-license.py</a>
     (<a href="http://svn.collab.net/repos/svn/trunk/tools/dev">tools/dev</a>)</h3>
-  <p>Check if a file has the proper license in it.</p>
+  <p>检查一个文件中是否有正确的许可证。</p>
 
 
   <h3><a name="contribulyze_py"
     href="http://svn.collab.net/repos/svn/trunk/tools/dev/contribulyze.py">contribulyze.py</a>
     (<a href="http://svn.collab.net/repos/svn/trunk/tools/dev">tools/dev</a>)</h3>
-  <p>Some Subversion project log messages include parseable data to help
-     track who's contributing what. This script collects that data.
+  <p>一些subversion项目的日志信息里面包含某些元数据，可以解析跟踪出哪些用户对该项目做出过修改。这个脚本就是用来收集这些数据的。
   </p>
 
 
   <h3><a name="datecheck_py"
     href="http://svn.collab.net/repos/svn/trunk/tools/dev/datecheck.py">datecheck.py</a>
     (<a href="http://svn.collab.net/repos/svn/trunk/tools/dev">tools/dev</a>)</h3>
-  <p>This is a debugging script to test date-ordering in an SVN repository.</p>
+  <p>这个一个调试脚本用来测试一个SVN版本库的时间排序。</p>
 
 
   <h3><a name="gcov_patch"
     href="http://svn.collab.net/repos/svn/trunk/tools/dev/gcov.patch">gcov.patch</a>
     (<a href="http://svn.collab.net/repos/svn/trunk/tools/dev">tools/dev</a>)</h3>
-  <p>This patch can be used to generate a report showing what C source
-     lines are executed when the testsuite is run.
+  <p>这个补丁是用来生成一个报告文件，显示测试组件运行时覆盖到的C代码。
   </p>
 
 
   <h3><a name="getsigs_pl"
     href="http://svn.collab.net/repos/svn/trunk/tools/dist/getsigs.pl">getsigs.pl</a>
     (<a href="http://svn.collab.net/repos/svn/trunk/tools/dist">tools/dist</a>)</h3>
-  <p>Terribly ugly hack of a script to verify the signatures on the release
-     tarballs and produce the list of who signed them in the format we use for
-     the announcements.
+  <p>这个脚本用来验证并获取发行的tar文件的签名，我们在声明中会使用这些内容。
   </p>
 
 
   <h3><a name="gnuify_changelog_pl"
     href="http://svn.collab.net/repos/svn/trunk/tools/dev/gnuify-changelog.pl">gnuify-changelog.pl</a>
     (<a href="http://svn.collab.net/repos/svn/trunk/tools/dev">tools/dev</a>)</h3>
-  <p>A script to munge the output of 'svn log' into something approaching the
-     style of a GNU ChangeLog.
+  <p>一个用来将svn的日志输出转换成GNU ChangeLog风格的脚本。
   </p>
 
 
   <h3><a name="graph_dav_servers_py"
     href="http://svn.collab.net/repos/svn/trunk/tools/dev/graph-dav-servers.py">graph-dav-servers.py</a>
     (<a href="http://svn.collab.net/repos/svn/trunk/tools/dev">tools/dev</a>)</h3>
-  <p>This was originally a quick hack to make a pretty picture of svn
-     DAV servers.
+  <p>这原先是用来在svn的DAV服务器上生成一副不错的图片用的。
   </p>
 
 
   <h3><a name="ff2csv_py"
     href="http://svn.collab.net/repos/svn/trunk/tools/dev/iz/ff2csv.py">ff2csv.py</a>
     (<a href="http://svn.collab.net/repos/svn/trunk/tools/dev/iz">tools/dev/iz</a>)</h3>
-  <p>Transform find-fix.py output into Excellable csv.</p>
+  <p>把find-fix.py的输出转换成excel可以处理的csv文件格式。</p>
 
 
   <h3><a name="find_fix_py"
     href="http://svn.collab.net/repos/svn/trunk/tools/dev/iz/find-fix.py">find-fix.py</a>
     (<a href="http://svn.collab.net/repos/svn/trunk/tools/dev/iz">tools/dev/iz</a>)</h3>
-  <p>Produce a find/fix report for Subversion's IZ database.</p>
+  <p>为subversion的IZ数据库生成一个查找/修复报告文件。</p>
 
 
   <h3><a name="run_queries_sh"
     href="http://svn.collab.net/repos/svn/trunk/tools/dev/iz/run-queries.sh">run-queries.sh</a>
     (<a href="http://svn.collab.net/repos/svn/trunk/tools/dev/iz">tools/dev/iz</a>)</h3>
-  <p>Run some IssueZilla queries.</p>
+  <p>运行某些IssueZilla查询命令。</p>
 
 
   <h3><a name="lock_check_py"
     href="http://svn.collab.net/repos/svn/trunk/tools/dev/lock-check.py">lock-check.py</a>
     (<a href="http://svn.collab.net/repos/svn/trunk/tools/dev">tools/dev</a>)</h3>
-  <p>Repository lock checker.  Gets an exclusive lock on the provided
-     repository, then runs db_stat to see if the lock counts have been
-     reset to 0.  If not, prints the timestamp of the run and a message
-     about accumulation.
+  <p>版本库锁定检查器。对给定的版本库进行最高级的锁定，然后运行db_stat检查看锁定
+     计数器是否已经被置位为0。如果没有，则打印出本次运行查看的时间戳和累加计数的信息。
   </p>
 
 
   <h3><a name="mlpatch_py"
     href="http://svn.collab.net/repos/svn/trunk/tools/dev/mlpatch.py">mlpatch.py</a>
     (<a href="http://svn.collab.net/repos/svn/trunk/tools/dev">tools/dev</a>)</h3>
-  <p>Very annoyingly, the http://svn.haxx.se/ Subversion mailing list archives
-     mangle inline patches, and provide no raw message download facility
-     (other than for an entire month's email as an mbox).
-     So, I wrote this script, to demangle them. It's not perfect, as it has to
-     guess about whitespace, but it does an acceptable job.
+  <p>非常令人讨厌的是,http://svn.haxx.se/的Subversion邮件列表存档把内嵌的补丁弄得一团糟，
+  	并且不提供下载（除了存储整个月的邮件信息的mbox）。因此我写了这个脚本，来把他们重新归整，这个脚本并不是很完美，它还得对一些空格进行猜测，但至少能够正常工作。
   </p>
 
 
   <h3><a name="normalize_dump_py"
     href="http://svn.collab.net/repos/svn/trunk/tools/dev/normalize-dump.py">normalize-dump.py</a>
     (<a href="http://svn.collab.net/repos/svn/trunk/tools/dev">tools/dev</a>)</h3>
-  <p>Reads a Subversion dumpfile from DUMPFILE (or, if not provided,
-     from stdin) and normalizes the metadata contained therein,
-     printing summarized and sorted information.  This is useful for
-     generating data about dumpfiles in a diffable fashion.
+  <p>读取Subversion的转储文件(Dumpfile)(如果没有指定文件，则从标准输入设备中读取)，然后格式化其中包含的所有元信息，并输出经过统计的，已排序的信息。这在生成不同样式的转储文件方面比较有用。
   </p>
 
 
   <h3><a name="po_merge_py"
     href="http://svn.collab.net/repos/svn/trunk/tools/dev/po-merge.py">po-merge.py</a>
     (<a href="http://svn.collab.net/repos/svn/trunk/tools/dev">tools/dev</a>)</h3>
-  <p>This script will replace the translations and flags in a po file with
-     the translations and flags in the source po file read from standard
-     input.  Strings that are not found in the source file are left untouched.
+  <p>这个脚本将用从标准输入读入的一个po源文件中的翻译和标志位去替换目标po文件中的翻译和标志位。在源文件中没有被找到的字符串将会保留不处理。
   </p>
 
 
   <h3><a name="prebuild_cleanup_sh"
     href="http://svn.collab.net/repos/svn/trunk/tools/dev/prebuild-cleanup.sh">prebuild-cleanup.sh</a>
     (<a href="http://svn.collab.net/repos/svn/trunk/tools/dev">tools/dev</a>)</h3>
-  <p>Purify a system, to simulate building Subversion on a "clean" box.</p>
+  <p>模拟在一个纯净的盒子里面构建一个subversion系统，用来净化一个系统。</p>
 
 
   <h3><a name="random_commits_py"
     href="http://svn.collab.net/repos/svn/trunk/tools/dev/random-commits.py">random-commits.py</a>
     (<a href="http://svn.collab.net/repos/svn/trunk/tools/dev">tools/dev</a>)</h3>
-  <p>Using the FILELIST (see config below), a series of COUNT commits will be
-     constructed, each changing up to MAXFILES files per commit. The commands
-     will be sent to stdout (formatted as a shell script).
+  <p>用FILELIST（配置请看下文），组成一系列的
+     COUNT提交命令，每一次提交都会修改MAXFILES文件。这些命令结果通过标准输出端口输出（以shell脚本的格式）。
   </p>
 
 
   <h3><a name="scramble_tree_py"
     href="http://svn.collab.net/repos/svn/trunk/tools/dev/scramble-tree.py">scramble-tree.py</a>
     (<a href="http://svn.collab.net/repos/svn/trunk/tools/dev">tools/dev</a>)</h3>
-  <p>Makes multiple random file changes to a directory tree, for testing.</p>
+  <p>用于测试，对一个目录树进行随机的多个文件的修改。</p>
 
 
   <h3><a name="stress_pl"
     href="http://svn.collab.net/repos/svn/trunk/tools/dev/stress.pl">stress.pl</a>
     (<a href="http://svn.collab.net/repos/svn/trunk/tools/dev">tools/dev</a>)</h3>
-  <p>A script that allows some simple testing of Subversion, in
-     particular concurrent read, write and read-write access by the 'svn'
-     client. It can also create working copy trees containing a large
-     number of files and directories. All repository access is via the
-     'svnadmin' and 'svn' commands.
+  <p>一个用来对subversion服务器进行简单测试的脚本，主要是模拟多个svn客户端同时进行读、写或者又读又写访问的情况。它还可以产生一个包含有大量文件和目录的工作拷贝树。所有的版本库访问都是通过svnadmin和svn命令实现。
   </p>
 
 
   <h3><a name="svn_dev_el"
     href="http://svn.collab.net/repos/svn/trunk/tools/dev/svn-dev.el">svn-dev.el</a>
     (<a href="http://svn.collab.net/repos/svn/trunk/tools/dev">tools/dev</a>)</h3>
-  <p>Emacs Lisp help for writing Subversion code. This file contains
-     some elisp functions which could be helpful to employ while working
-     on Subversion.
+  <p>代码时候用的Emacs Lisp的辅助文件，它包含有一些在使用subversion时候很有用的elisp函数。
   </p>
 
 
   <h3><a name="svn_dev_vim"
     href="http://svn.collab.net/repos/svn/trunk/tools/dev/svn-dev.vim">svn-dev.vim</a>
     (<a href="http://svn.collab.net/repos/svn/trunk/tools/dev">tools/dev</a>)</h3>
-  <p>This file sets vim up to use subversion's coding style. It can be
-     applied on a per buffer basis with :source svn-dev.vim, or can be
-     source from ~/.vimrc to apply settings to all files vim uses. For
-     other variation try :help autocmd.
+  <p>这个文件是用来在vim中装入subversion的编码风格，它可以在每一个vim程序底部的命令行中用:source svn-dev.vim打开，也可以在~/.vimrc设置，作用于今后vim处理的所有文件。其他用法请参看:help autocmd。
   </p>
 
 
   <h3><a name="svn_merge_revs_py"
     href="http://svn.collab.net/repos/svn/trunk/tools/dev/svn-merge-revs.py">svn-merge-revs.py</a>
     (<a href="http://svn.collab.net/repos/svn/trunk/tools/dev">tools/dev</a>)</h3>
-  <p>This script is meant to ease the pain of merging and
-     reviewing revision(s) on a release branch (although it can be used to
-     merge and review revisions from any line of development to another).
+  <p>这个脚本用来帮助一个发行版本分支的合并和版本查看（尽管它也可以用在任意的开发分支之间）。
   </p>
 
 
   <h3><a name="trails_py"
     href="http://svn.collab.net/repos/svn/trunk/tools/dev/trails.py">trails.py</a>
     (<a href="http://svn.collab.net/repos/svn/trunk/tools/dev">tools/dev</a>)</h3>
-  <p>A program for analyzing Subversion trail usage statistics.</p>
+  <p>一个用来分析subversion的跟踪命令使用情况统计结果的程序。</p>
 
 
   <h3><a name="verify_history_py"
     href="http://svn.collab.net/repos/svn/trunk/tools/dev/verify-history.py">verify-history.py</a>
     (<a href="http://svn.collab.net/repos/svn/trunk/tools/dev">tools/dev</a>)</h3>
-  <p>This program is used to verify the FS history code.</p>
+  <p>这个程序是用来校验FS的历史代码。</p>
 
 
   <h3><a name="warn_ignored_err_sh"
     href="http://svn.collab.net/repos/svn/trunk/tools/dev/warn-ignored-err.sh">warn-ignored-err.sh</a>
     (<a href="http://svn.collab.net/repos/svn/trunk/tools/dev">tools/dev</a>)</h3>
-  <p>Insert or remove the GCC attribute "warn_unused_result" on each function
-     that returns a Subversion error, in the specified files or, by default,
-     *.h and *.c in the ./subversion and ./tools trees.
+  <p>从每一个返回subversion错误值的函数中插入或者移除GCC的“warn_unused_result”属性，通常作用于指定的文件，默认是./subversion和./tools目录树中所有扩展名为*.h和*.c的文件。
   </p>
 
 
   <h3><a name="which_error_py"
     href="http://svn.collab.net/repos/svn/trunk/tools/dev/which-error.py">which-error.py</a>
     (<a href="http://svn.collab.net/repos/svn/trunk/tools/dev">tools/dev</a>)</h3>
-  <p>Print semantic Subversion error code names mapped from their numeric
-     error code values.
+  <p>根据错误代码编号值打印出与之对应的subversion错误代码名称。
   </p>
 </div>
 
@@ -756,30 +691,30 @@
   <h3><a name="diff_c"
     href="http://svn.collab.net/repos/svn/trunk/tools/diff/diff.c">diff.c</a>
     (<a href="http://svn.collab.net/repos/svn/trunk/tools/diff">tools/diff</a>)</h3>
-  <p>A diff program using Subversion's diff functions.</p>
+  <p>一个使用了subversion比较函数实现的diff比较程序。</p>
 
 
   <h3><a name="diff3_c"
     href="http://svn.collab.net/repos/svn/trunk/tools/diff/diff3.c">diff3.c</a>
     (<a href="http://svn.collab.net/repos/svn/trunk/tools/diff">tools/diff</a>)</h3>
-  <p>A diff3 program using Subversion's diff functions.</p>
+  <p>一个使用了subversion比较函数实现的diff3比较程序。</p>
 
 
   <h3><a name="diff4_c"
     href="http://svn.collab.net/repos/svn/trunk/tools/diff/diff4.c">diff4.c</a>
     (<a href="http://svn.collab.net/repos/svn/trunk/tools/diff">tools/diff</a>)</h3>
-  <p>A diff4 program using Subversion's diff functions.</p>
+  <p>一个使用了subversionh比较函数实现的diff4比较程序。</p>
 </div>
 
 
 <div class="h2">
-  <h2><a name="hook_scripts">hook-scripts</a></h2>
+  <h2><a name="hook_scripts">hook-scripts挂钩脚本</a></h2>
 
 
   <h3><a name="case_insensitive_py"
     href="http://svn.collab.net/repos/svn/trunk/contrib/hook-scripts/case-insensitive.py">case-insensitive.py</a>
     (<a href="http://svn.collab.net/repos/svn/trunk/contrib/hook-scripts">contrib/hook-scripts</a>)</h3>
-  <p>A pre-commit hook to detect case-insensitive filename clashes.
+  <p>一个预提交的钩子程序，用来检查大小写敏感的文件名冲突。
   </p>
 
 
@@ -787,23 +722,16 @@
   <h3><a name="check_mime_type_pl"
     href="http://svn.collab.net/repos/svn/trunk/contrib/hook-scripts/check-mime-type.pl">check-mime-type.pl</a>
     (<a href="http://svn.collab.net/repos/svn/trunk/contrib/hook-scripts">contrib/hook-scripts</a>)</h3>
-  <p>Check that every added file has the svn:mime-type property set
-     and every added file with a mime-type matching text/* also has
-     svn:eol-style set. If any file fails this test the user is sent
-     a verbose error message suggesting solutions and the commit is
-     aborted.
+  <p>检查每个新增加的文件是否都设置了svn:mime-type属性，如果文件的svn:mime-type属性值匹配"text/*"模式的话，那么该文件必须同时设置svn:eol-style属性。如果任一文件没有通过检查，则返回详细的错误信息给用户，并给出建议的解决方案，并且中止当前提交动作。
   </p>
 
 
   <h3><a name="commit_access_control_pl"
     href="http://svn.collab.net/repos/svn/trunk/tools/hook-scripts/commit-access-control.pl.in">commit-access-control.pl</a>
     (<a href="http://svn.collab.net/repos/svn/trunk/tools/hook-scripts">tools/hook-scripts</a>)</h3>
-  <p>Uses the `svnlook' program to check if the user who submitted
-     the commit has appropriate rights to perform the commit on all
-     the modified files and directories using the permissions
-     specified in the configuration file.
+  <p>用svnlook程序通过配置文件中权限规定项来检查提交修改的用户是否对有权限对所有修改的目录和文件进行提交。
   </p>
-  <p>Related files:
+  <p>相关文件：
     <a href="http://svn.collab.net/repos/svn/trunk/tools/hook-scripts/commit-access-control.cfg.example">commit-access-control.cfg.example</a>
   </p>
 
@@ -811,47 +739,40 @@
   <h3><a name="commit_block_joke_py"
     href="http://svn.collab.net/repos/svn/trunk/contrib/hook-scripts/commit-block-joke.py">commit-block-joke.py</a>
     (<a href="http://svn.collab.net/repos/svn/trunk/contrib/hook-scripts">contrib/hook-scripts</a>)</h3>
-  <p>A funny pre-commit hook example.</p>
+  <p>一个有趣的预提交挂钩示例程序。</p>
 
 
   <h3><a name="commit_email_pl"
     href="http://svn.collab.net/repos/svn/trunk/contrib/hook-scripts/commit-email.pl.in">commit-email.pl</a>
     (<a href="http://svn.collab.net/repos/svn/trunk/contrib/hook-scripts">tools/hook-scripts</a>)</h3>
-  <p>Send a notification email describing either a commit or a
-     revprop-change action on a Subversion repository.
+  <p>发送一封电子邮件描述对一个subversion版本库的提交或者revprop-change。
   </p>
-  <p>Uses the `svnlook' program to send commit emails.  Invoke it
-     from `repository/hooks/post-commit'.  Run the script with no
-     arguments for usage.
+  <p>用svnlook程序发送关于提交修改的电子邮件。通过repository/hooks/post-commit来调用它。
+     使用的时候不添加任何参数运行这个脚本。
   </p>
 
 
   <h3><a name="commit_email_rb"
     href="http://svn.collab.net/repos/svn/trunk/tools/hook-scripts/commit-email.rb">commit-email.rb</a>
     (<a href="http://svn.collab.net/repos/svn/trunk/tools/hook-scripts">tools/hook-scripts</a>)</h3>
-  <p>Uses the Ruby/SWIG client bindings to query the repository about
-     the changes made by a particular revision, and send
-     corresponding change emails.  The program takes command-line
-     options for basic setup and to fine-tune its behavior.
+  <p>用Ruby/SWIG绑定的方法直接查询一个版本库的特定版本号的修改信息，然后通过电子邮件发送出相应的修改。
+     这个程序可以通过命令行选项来进行基本和设置和功能的微调。
   </p>
 
 
   <h3><a name="detect_merge_conflicts_sh"
     href="http://svn.collab.net/repos/svn/trunk/contrib/hook-scripts/detect-merge-conflicts.sh">detect-merge-conflicts.sh</a>
     (<a href="http://svn.collab.net/repos/svn/trunk/contrib/hook-scripts">contrib/hook-scripts</a>)</h3>
-  <p>A pre-commit hook to detect changes that look like forgotten
-     conflict markers.
+  <p>一个预提交的挂钩脚本用来检测可能是遗忘的冲突标记的修改。
   </p>
 
 
   <h3><a name="enforcer"
     href="http://svn.collab.net/repos/svn/trunk/contrib/hook-scripts/enforcer/enforcer">enforcer</a>
     (<a href="http://svn.collab.net/repos/svn/trunk/contrib/hook-scripts/enforcer">contrib/hook-scripts/enforcer</a>)</h3>
-  <p>This is a pre-commit hook that allows you to more easily specify
-     a variety of rules that govern what may be committed to your
-     repository.
+  <p>这是一个预提交的挂钩脚本可以让你更方便的制定多样化规则来确定允许上传到版本库中的不同内容。
   </p>
-  <p>Related files:
+  <p>相关文件：
     <a href="http://svn.collab.net/repos/svn/trunk/contrib/hook-scripts/enforcer/enforcer.conf">enforcer.conf</a>
   </p>
 
@@ -859,24 +780,16 @@
   <h3><a name="log_police_py"
     href="http://svn.collab.net/repos/svn/trunk/tools/hook-scripts/log-police.py">log-police.py</a>
     (<a href="http://svn.collab.net/repos/svn/trunk/tools/hook-scripts">tools/hook-scripts</a>)</h3>
-  <p>Ensures that log messages end with exactly one newline.  Can
-     also be run as a standalone script to fix up old revisions.
+  <p>确保日志信息以一个新的空行结尾。也可以作为一个独立的脚本运行来修复旧的版本。
   </p>
 
 
   <h3><a name="mailer_py"
     href="http://svn.collab.net/repos/svn/trunk/tools/hook-scripts/mailer/mailer.py">mailer.py</a>
     (<a href="http://svn.collab.net/repos/svn/trunk/tools/hook-scripts/mailer">tools/hook-scripts/mailer</a>)</h3>
-  <p>Uses the Python/SWIG bindings to directly query the repository
-     about the changes made by a particular revision.  The program
-     uses a configuration file for basic setup and to fine-tune where
-     changes are delivered.  Compared to
-     <a href="#commit_email_pl">commit-email.pl</a>, the output
-     contains a bit more information about property changes, is
-     smarter with binary files, and it streams its output into the
-     mailer (to avoid in-memory buffering).
+  <p>用Python/SWIG绑定的方法直接查询一个版本库的特定版本号的修改信息。这个程序通过一个配置文件进行基本的配置和修改位置的微调。对比<a href="#commit_email_pl">commit-email.pl</a>，它的结果输出中包含有更多关于属性修改的信息，处理二进制文件更智能，而且将结果通过电子邮件输出（避免了缓存的占用）。
   </p>
-  <p>Related files:
+  <p>相关文件：
     <a href="http://svn.collab.net/repos/svn/trunk/tools//hook-scripts/mailer/mailer.conf.example">mailer.conf.example</a>
     <a href="http://svn.collab.net/repos/svn/trunk/tools//hook-scripts/mailer/tests">tests/</a>
   </p>
@@ -885,15 +798,13 @@
   <h3><a name="pre_commit_check_py"
     href="http://svn.collab.net/repos/svn/trunk/contrib/hook-scripts/pre-commit-check.py">pre-commit-check.py</a>
     (<a href="http://svn.collab.net/repos/svn/trunk/contrib/hook-scripts">contrib/hook-scripts</a>)</h3>
-  <p>A template for checks in a pre-commit hook.</p>
+  <p>一个用来检查预提交挂钩程序的模板。</p>
 
 
   <h3><a name="pre_lock_require_needs_lock_py"
     href="http://svn.collab.net/repos/svn/trunk/contrib/hook-scripts/pre-lock-require-needs-lock.py">pre-lock-require-needs-lock.py</a>
     (<a href="http://svn.collab.net/repos/svn/trunk/contrib/hook-scripts">contrib/hook-scripts</a>)</h3>
-  <p>This script, intended for use as a Subversion pre-lock hook, verifies that
-     the PATH that USER is attempting to lock has the svn:needs-lock property
-     set on it, returning success iff it does.
+  <p>这个脚本，是作为一个预锁定的挂钩脚本，通常被用户用来校验用户试图锁定的路径是否设置有svn:needs-lock属性。如果有设置，则返回成功的信息。
   </p>
 
 
@@ -901,18 +812,16 @@
     href="http://svn.collab.net/repos/svn/trunk/tools/hook-scripts/svn2feed.py">svn2feed.py</a>
     (<a href="http://svn.collab.net/repos/svn/trunk/tools/hook-scripts">tools/hook-scripts</a>)</h3>
 
-  <p>Generates an RSS 2.0 or Atom 1.0 file containing commit information.</p>
-  <p><a name="svn2rss_py">svn2feed.py was formerly known as svn2rss.py</a></p>
+  <p>用来生成包含有提交信息的RSS 2.0或者Atom 1.0文件。</p>
+  <p><a name="svn2rss_py">svn2feed.py的前身是svn2rss.py</a></p>
 
 
   <h3><a name="svnperms_py"
     href="http://svn.collab.net/repos/svn/trunk/tools/hook-scripts/svnperms.py">svnperms.py</a>
     (<a href="http://svn.collab.net/repos/svn/trunk/tools/hook-scripts">tools/hook-scripts</a>)</h3>
-  <p>Pre-commit hook that checks write permissions, similar to
-     <a href="#commit_access_control_pl">commit-access-control.pl</a>,
-     but uses a different syntax.  Run 'svnperms.py -h' for usage.
+  <p>一个用来检查写权限的预提交的挂钩脚本，类似于<a href="#commit_access_control_pl">commit-access-control.pl</a>，但是使用的不同的语法，可以通过运行'svnperms.py -h'来获得使用帮助。
   </p>
-  <p>Related files:
+  <p>相关文件：
     <a href="http://svn.collab.net/repos/svn/trunk/tools/hook-scripts/svnperms.conf.example">svnperms.conf.example</a>
   </p>
 
@@ -920,8 +829,7 @@
   <h3><a name="verify_po_py"
     href="http://svn.collab.net/repos/svn/trunk/tools/hook-scripts/verify-po.py">verify-po.py</a>
     (<a href="http://svn.collab.net/repos/svn/trunk/tools/hook-scripts">tools/hook-scripts</a>)</h3>
-  <p>This is a pre-commit hook that checks whether the contents of PO files
-     committed to the repository are encoded in UTF-8.
+  <p>这个预提交的钩子脚本(precommit hook)用来检查当前提交的PO文件是否是UTF-8编码的。
   </p>
 </div>
 
@@ -932,79 +840,70 @@
   <h3><a name="l10n_report"
     href="http://svn.collab.net/repos/svn/trunk/tools/po/l10n-report.py">l10n-report.py</a>
     (<a href="http://svn.collab.net/repos/svn/trunk/tools/po">tools/po</a>)</h3>
-  <p>Script for generating a report on po file translation status and
-  mail them to an email id. By default, the report is displayed in the
-  stdout.</p>
+  <p>这个脚本用来生成一个关于po文件转换状态的报告然后讲报告按照电子邮箱名通过邮件发送出去，报告内容将默认在标准输出上显示。</p>
 
   <h3><a name="po_update_sh"
     href="http://svn.collab.net/repos/svn/trunk/tools/po/po-update.sh">po-update.sh</a>
     (<a href="http://svn.collab.net/repos/svn/trunk/tools/po">tools/po</a>)</h3>
-  <p>Script to generate Subversion pot files and update locales.</p>
+  <p>该脚本用来生成subversion的pot文件，同时更新当前的语言资源包。</p>
 
 </div>
 
 <div class="h2">
-  <h2><a name="server_side">server-side</a></h2>
+  <h2><a name="server_side">server-side服务器端</a></h2>
 
 
   <h3><a name="authz_svn_group_py"
     href="http://svn.collab.net/repos/svn/trunk/contrib/server-side/authz_svn_group.py">authz_svn_group.py</a>
     (<a href="http://svn.collab.net/repos/svn/trunk/contrib/server-side">contrib/server-side</a>)</h3>
-  <p>mod_python authorization handler for mod_authz_svn groups.</p>
+  <p>mod_python权限管理程序，用来进行mod_authz_svn群组的权限管理</p>
 
 
   <h3><a name="backup_recipe_sh"
     href="http://svn.collab.net/repos/svn/trunk/contrib/server-side/backup-recipe.sh">backup-recipe.sh</a>
     (<a href="http://svn.collab.net/repos/svn/trunk/contrib/server-side">contrib/server-side</a>)</h3>
-  <p>This shell script demonstrates a backup/restore recipe for live
-     Subversion repositories, using a standard full+incrementals process.
+  <p>这个脚本通过一个标准的完全+增量的处理流程，展示了如何对一个在线的subversion版本库进行备份和恢复的方法。
   </p>
 
 
   <h3><a name="fsfs_reshard_py"
     href="http://svn.collab.net/repos/svn/trunk/tools/server-side/fsfs-reshard.py">fsfs-reshard.py</a>
     (<a href="http://svn.collab.net/repos/svn/trunk/tools/server-side">tools/server-side</a>)</h3>
-  <p>This script performs an offline conversion of an FSFS repository between
-     the linear format compatible with Subversion 1.4 or later and the sharded
-     format included with Subversion 1.5.
+  <p>这个脚本实现FSFS版本库在1.4极其以后版本兼容的线性格式和1.5版本包含的共享格式之间的离线格式转换。
   </p>
 
 
   <h3><a name="mod_dontdothat_c"
     href="http://svn.collab.net/repos/svn/trunk/contrib/server-side/mod_dontdothat/mod_dontdothat.c">mod_dontdothat.c</a>
     (<a href="http://svn.collab.net/repos/svn/trunk/contrib/server-side/mod_dontdothat">contrib/server-side/mod_dontdothat</a>)</h3>
-  <p>An Apache module that allows you to block expensive Subversion requests,
-     like checkouts of the root of a large repository.
+  <p>一个Apache的模块，允许你阻止大数据量的subversion请求,比如从根目录开始检出一个很大的版本库。
   </p>
-  <p>See also <a href="http://svn.collab.net/repos/svn/trunk/contrib/server-side/mod_dontdothat/README">README</a>.</p>
+  <p>同时参看<a href="http://svn.collab.net/repos/svn/trunk/contrib/server-side/mod_dontdothat/README">README</a>。</p>
 
 
   <h3><a name="svn_backup_dumps_py"
     href="http://svn.collab.net/repos/svn/trunk/tools/server-side/svn-backup-dumps.py">svn-backup-dumps.py</a>
     (<a href="http://svn.collab.net/repos/svn/trunk/tools/server-side">tools/server-side</a>)</h3>
-  <p>This script creates (incremental) dump files from a subversion
-     repository on *IX and Windows. It is intended for use in cron jobs and
-     post-commit hooks.
+  <p>这个脚本用于从Windows和类Unix系统上的SVN版本库中创建一些增量的转储文件，这个脚本主要用在执行一些定时的计划任务,还有post-commit钩子脚本中。
   </p>
 
 
   <h3><a name="svn_fast_backup"
     href="http://svn.collab.net/repos/svn/trunk/contrib/server-side/svn-fast-backup">svn-fast-backup</a>
     (<a href="http://svn.collab.net/repos/svn/trunk/contrib/server-side">contrib/server-side</a>)</h3>
-  <p>Use rsync snapshots for very fast FSFS repository backup.</p>
+  <p>用同步快照的方式为FSFS格式的版本库进行快速备份。</p>
 
 
   <h3><a name="svnauthz_validate_c"
     href="http://svn.collab.net/repos/svn/trunk/tools/server-side/svnauthz-validate.c">svnauthz-validate.c</a>
     (<a href="http://svn.collab.net/repos/svn/trunk/tools/server-side">tools/server-side</a>)</h3>
-  <p>Load and validate an authz file.</p>
+  <p>加载并且验证一个授权文件。</p>
 
 
   <h3><a name="svnmirror_sh"
     href="http://svn.collab.net/repos/svn/trunk/contrib/server-side/svnmirror.sh">svnmirror.sh</a>
     (<a href="http://svn.collab.net/repos/svn/trunk/contrib/server-side">contrib/server-side</a>)</h3>
-  <p>Mirror Subversion repositories. This script supports pushing or
-     pulling the changes via ssh and svn tools.
+  <p>为subversion版本库做一个镜像。这个脚本支持通过ssh和svn工具来发送修改到其他版本库或从其他版本库获取最新的修改。
   </p>
 </div>
 
@@ -1016,11 +915,9 @@
   <h3><a name="svnindex_xsl"
     href="http://svn.collab.net/repos/svn/trunk/tools/xslt/svnindex.xsl">svnindex.xsl</a>
     (<a href="http://svn.collab.net/repos/svn/trunk/tools/xslt">tools/xslt</a>)</h3>
-  <p>A sample XML transformation style sheet for displaying the Subversion
-     directory listing that is generated by mod_dav_svn when the
-     "SVNIndexXSLT" directive is used.
+  <p>当使用"SVNIndexXSLT"的时候，mod_dav_svn将会生成一张转换风格的XML表单，用来显示subversion的目录列表。
   </p>
-  <p>Related files:
+  <p>相关文件：
     <a href="http://svn.collab.net/repos/svn/trunk/tools/xslt/svnindex.css">svnindex.css</a>
   </p>
 </div>
