@@ -594,7 +594,7 @@ complete_directory(struct edit_baton *eb,
       if (eb->depth_is_sticky || *eb->target)
         {
           svn_wc_adm_access_t *target_access;
-          SVN_ERR(svn_wc_adm_retrieve(&adm_access,
+          SVN_ERR(svn_wc_adm_retrieve(&adm_access, 
                                       eb->adm_access, path, pool));
           SVN_ERR(svn_wc_entries_read(&entries, adm_access, TRUE, pool));
           entry = apr_hash_get(entries, eb->target, APR_HASH_KEY_STRING);
@@ -692,7 +692,7 @@ complete_directory(struct edit_baton *eb,
           if (current_entry->depth == svn_depth_exclude)
             {
               /* Clear the exclude flag if it is pulled in again. */
-              if (eb->depth_is_sticky
+              if (eb->depth_is_sticky 
                   && eb->requested_depth >= svn_depth_immediates)
                 current_entry->depth = svn_depth_infinity;
             } else if ((svn_wc__adm_missing(adm_access, child_path))
@@ -1377,7 +1377,7 @@ tree_has_local_mods(svn_boolean_t *modified,
  *
  * If PCONFLICT is not null, set *PCONFLICT to the conflict description if
  * there is one or else to null.
- *
+ * 
  * Tree conflict use cases are described in issue #2282 and in
  * notest/tree-conflicts/detection.txt.
  */
@@ -1427,7 +1427,7 @@ check_and_store_tree_conflict(svn_wc_conflict_description_t **pconflict,
 
           /* Use case 2: Deleting a locally-modified item. */
           if (entry->kind == svn_node_file)
-            SVN_ERR(entry_has_local_mods(&modified, parent_adm_access,
+            SVN_ERR(entry_has_local_mods(&modified, parent_adm_access, 
                                          entry->kind, full_path, pool));
 
           else if (entry->kind == svn_node_dir)
@@ -1505,7 +1505,7 @@ already_in_a_tree_conflict(char **victim_path,
   char *ancestor;
   apr_array_header_t *ancestors;
   svn_wc_adm_access_t *ancestor_access;
-  const svn_wc_entry_t *entry;
+  const svn_wc_entry_t *entry;      
   int i;
 
   *victim_path = NULL;
@@ -1620,17 +1620,17 @@ do_entry_deletion(struct edit_baton *eb,
   tree_conflict = NULL;
   if (victim_path == NULL)
     SVN_ERR(check_and_store_tree_conflict(&tree_conflict, eb, full_path,
-                                          entry, adm_access,
+                                          entry, adm_access, 
                                           svn_wc_conflict_action_delete,
                                           pool));
 
   if (victim_path != NULL || tree_conflict != NULL)
     {
       remember_skipped_path(eb, full_path);
-
+      
       /* ### TODO: Also print victim_path in the skip msg. */
       if (eb->notify_func)
-        (*eb->notify_func)(eb->notify_baton,
+        (*eb->notify_func)(eb->notify_baton, 
                            svn_wc_create_notify(full_path,
                                                 (tree_conflict != NULL)
                                                 ? svn_wc_notify_tree_conflict
@@ -1848,10 +1848,10 @@ add_directory(const char *path,
       /* Record this conflict so that its descendants are skipped silently. */
       eb->current_conflict = victim_path;
       remember_skipped_path(eb, full_path);
-
+      
       /* ### TODO: Also print victim_path in the skip msg. */
       if (eb->notify_func)
-        (*eb->notify_func)(eb->notify_baton,
+        (*eb->notify_func)(eb->notify_baton, 
                            svn_wc_create_notify(full_path,
                                                 svn_wc_notify_skip,
                                                 pool),
@@ -1949,7 +1949,7 @@ add_directory(const char *path,
 
                   /* ### TODO: Also print victim_path in the skip msg. */
                   if (eb->notify_func)
-                    (*eb->notify_func)(eb->notify_baton,
+                    (*eb->notify_func)(eb->notify_baton, 
                                        svn_wc_create_notify
                                        (full_path,
                                         svn_wc_notify_tree_conflict,
@@ -2130,7 +2130,7 @@ open_directory(const char *path,
       db->ambient_depth = entry->depth;
       db->was_incomplete = entry->incomplete;
     }
-
+ 
   /* Is an ancestor-dir (already visited by this edit) a tree conflict
      victim?  If so, skip the tree without notification. */
   if (eb->current_conflict)
@@ -2169,10 +2169,10 @@ open_directory(const char *path,
     eb->current_conflict = full_path;
 
   if (victim_path != NULL || tree_conflict != NULL || prop_conflicted)
-    {
+    {  
       db->bump_info->skipped = TRUE;
       remember_skipped_path(eb, full_path);
-
+      
       if (eb->notify_func)
         {
           svn_wc_notify_t *notify
@@ -2958,7 +2958,7 @@ add_file(const char *path,
   tree_conflict = NULL;
   if (victim_path == NULL)
     SVN_ERR(check_and_store_tree_conflict(&tree_conflict, eb, full_path,
-                                          entry, adm_access,
+                                          entry, adm_access, 
                                           svn_wc_conflict_action_add,
                                           subpool));
 
@@ -2966,10 +2966,10 @@ add_file(const char *path,
     {
       fb->skipped = TRUE;
       remember_skipped_path(eb, full_path);
-
+      
       /* ### TODO: Also print victim_path in the skip msg. */
       if (eb->notify_func)
-        (*eb->notify_func)(eb->notify_baton,
+        (*eb->notify_func)(eb->notify_baton, 
                            svn_wc_create_notify(full_path,
                                                 (tree_conflict != NULL)
                                                 ? svn_wc_notify_tree_conflict
@@ -3123,7 +3123,7 @@ open_file(const char *path,
   tree_conflict = NULL;
   if (victim_path == NULL)
     SVN_ERR(check_and_store_tree_conflict(&tree_conflict, eb, full_path,
-                                          entry, adm_access,
+                                          entry, adm_access, 
                                           svn_wc_conflict_action_edit, pool));
 
   /* Does the file already have text or property conflicts? */
@@ -3135,10 +3135,10 @@ open_file(const char *path,
     {
       fb->skipped = TRUE;
       remember_skipped_path(eb, full_path);
-
+      
       /* ### TODO: Also print victim_path in the t-c skip msg. */
       if (eb->notify_func)
-        (*eb->notify_func)(eb->notify_baton,
+        (*eb->notify_func)(eb->notify_baton, 
                            svn_wc_create_notify(full_path,
                                                 (tree_conflict != NULL)
                                                 ? svn_wc_notify_tree_conflict
@@ -4144,11 +4144,11 @@ make_editor(svn_revnum_t *target_revision,
 
   /* We need to limit the scope of our operation to the ambient depths
      present in the working copy already, but only if the requested
-     depth is not sticky. If a depth was explicitly requested,
-     libsvn_delta/depth_filter_editor.c will ensure that we never see
+     depth is not sticky. If a depth was explicitly requested, 
+     libsvn_delta/depth_filter_editor.c will ensure that we never see 
      editor calls that extend beyond the scope of the requested depth.
-     But even what we do so might extend beyond the scope of our
-     ambient depth.  So we use another filtering editor to avoid
+     But even what we do so might extend beyond the scope of our 
+     ambient depth.  So we use another filtering editor to avoid 
      modifying the ambient working copy depth when not asked to do so.
      (This can also be skipped if the server understands depth; consider
      letting the depth RA capability percolate down to this level.) */
