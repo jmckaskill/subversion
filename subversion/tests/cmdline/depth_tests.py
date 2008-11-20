@@ -1675,7 +1675,7 @@ def depth_folding_clean_trees_2(sbox):
   verify_depth(None, "immediates", A_path)
 
   # pull in directory D at infinity
-  svntest.actions.run_and_verify_svn(None, None, [],
+  svntest.actions.run_and_verify_svn(None, None, [], 
                                      'up', '--set-depth', 'infinity', D_path)
 
   # Run 'svn up --set-depth=immediates' to directory A/D.
@@ -1954,7 +1954,7 @@ def fold_tree_with_unversioned_modified_items(sbox):
 
   # Even though the directory B and D is not deleted because of local
   # modificatoin or unversioned items, there will be only one notification at
-  # B and D.
+  # B and D. 
   expected_output = svntest.wc.State(wc_dir, {
     'A/B'            : Item(status='D '),
     'A/C'            : Item(status='D '),
@@ -2168,7 +2168,7 @@ def excluded_path_misc_operation(sbox):
     'A/L/lambda' : Item(status='  ', wc_rev=2),
     'A/L/F'      : Item(status='  ', wc_rev=2),
     })
-  svntest.actions.run_and_verify_commit(wc_dir,
+  svntest.actions.run_and_verify_commit(wc_dir, 
                                         expected_output,
                                         expected_status,
 					None,
@@ -2222,10 +2222,10 @@ def excluded_receive_remote_removal(sbox):
                                         "--set-depth", "exclude", B_path)
 
   # Remove path B in the repos.
-  svntest.actions.run_and_verify_svn(None, None, [], "delete", "-m",
+  svntest.actions.run_and_verify_svn(None, None, [], "delete", "-m", 
                                      "Delete B.", sbox.repo_url + "/A/B")
 
-  # Update wc, should receive the removal of excluded path B
+  # Update wc, should receive the removal of excluded path B 
   # and handle it silently.
   expected_status = svntest.actions.get_virginal_state(wc, 2)
   expected_status.remove('A/B/lambda', 'A/B/E/alpha', 'A/B/E/beta',
@@ -2345,11 +2345,11 @@ def tree_conflicts_resolved_depth_empty(sbox):
   "tree conflicts resolved depth-empty"
 
   make_depth_tree_conflicts(sbox)
-
+  
   wc = sbox.wc_dir
   A = os.path.join(wc, 'A')
 
-  svntest.actions.run_and_verify_svn(None,
+  svntest.actions.run_and_verify_svn(None, 
     [],
     [],
     'resolved', '--depth=empty', A)
@@ -2359,14 +2359,14 @@ def tree_conflicts_resolved_depth_files(sbox):
   "tree conflicts resolved depth-files"
 
   make_depth_tree_conflicts(sbox)
-
+  
   wc = sbox.wc_dir
   j = os.path.join
   A = j(wc, 'A')
   m =    j(A, 'mu')
 
 
-  svntest.actions.run_and_verify_svn(None,
+  svntest.actions.run_and_verify_svn(None, 
     ["Resolved conflicted state of '%s'\n" % m],
     [],
     'resolved', '--depth=files', A)
@@ -2376,14 +2376,14 @@ def tree_conflicts_resolved_depth_immediates(sbox):
   "tree conflicts resolved depth-immediates"
 
   make_depth_tree_conflicts(sbox)
-
+  
   wc = sbox.wc_dir
   j = os.path.join
   A = j(wc, 'A')
   m =    j(A, 'mu')
   B =    j(A, 'B')
 
-  svntest.actions.run_and_verify_svn(None,
+  svntest.actions.run_and_verify_svn(None, 
     ["Resolved conflicted state of '%s'\n" % m,
      "Resolved conflicted state of '%s'\n" % B],
     [],
@@ -2394,7 +2394,7 @@ def tree_conflicts_resolved_depth_infinity(sbox):
   "tree conflicts resolved depth-infinity"
 
   make_depth_tree_conflicts(sbox)
-
+  
   wc = sbox.wc_dir
   j = os.path.join
   A = j(wc, 'A')
@@ -2403,7 +2403,7 @@ def tree_conflicts_resolved_depth_infinity(sbox):
   g =    j(A, 'D', 'gamma')
 
 
-  svntest.actions.run_and_verify_svn(None,
+  svntest.actions.run_and_verify_svn(None, 
     ["Resolved conflicted state of '%s'\n" % m,
      "Resolved conflicted state of '%s'\n" % B,
      "Resolved conflicted state of '%s'\n" % g],
