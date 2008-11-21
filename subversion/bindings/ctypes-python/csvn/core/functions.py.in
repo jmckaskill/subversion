@@ -18,7 +18,7 @@ class SubversionException(Exception):
 
         self._as_parameter_ = err
 
-        # Get a nice error message with line numbers and everything
+        # Get a nice error message with line numbers and everything 
         f = NamedTemporaryFile()
         svn_handle_error2(err, PyFile_AsFile(f.file), 0, "")
         f.seek(0)
@@ -40,7 +40,7 @@ class SubversionException(Exception):
         return self.value
 
 # If a error is returned from a Subversion function,
-# raise an exception
+# raise an exception 
 def SVN_ERR(ret):
     if ret:
         err = cast(ret, POINTER(svn_error_t))
