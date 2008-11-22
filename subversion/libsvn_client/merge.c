@@ -1021,7 +1021,7 @@ merge_file_changed(svn_wc_adm_access_t *adm_access,
 
       SVN_ERR(merge_props_changed(adm_access, prop_state, &tree_conflicted2,
                                   mine, prop_changes, original_props, baton));
-
+      
       /* If the prop change caused a tree-conflict, just bail. */
       if (tree_conflicted2)
         {
@@ -1165,7 +1165,7 @@ merge_file_added(svn_wc_adm_access_t *adm_access,
 
       /* And in the foreign repository merge case, we only want
          regular properties. */
-      if ((! merge_b->same_repos)
+      if ((! merge_b->same_repos) 
           && (svn_property_kind(NULL, prop->name) != svn_prop_regular_kind))
         continue;
 
@@ -2202,7 +2202,7 @@ init_rangelist(svn_revnum_t start,
    which PRIMARY_URL doesn't exist.  As mentioned above this means that
    drive_merge_report_editor() won't attempt to describe these non-existent
    subtree path/ranges to the reporter (which would break the merge).
-
+   
    If the preceeding paragraph wasn't terribly clear then what follows spells
    out this function's behavior a bit more explicitly:
 
@@ -2221,7 +2221,7 @@ init_rangelist(svn_revnum_t start,
      (M - 1):REVISION2 as-is and set the subset of CHILD->REMAINING_RANGES
      that intersects with REVISION1:(M - 1) equal to PARENT->REMAINING_RANGES'
      intersection with REVISION1:(M - 1).
-
+   
    For reverse merges (REVISION1 > REVISION2)
 
      If PRIMARY_URL@REVISION1 exists but PRIMARY_URL@REVISION2 doesn't, then
@@ -2294,7 +2294,7 @@ adjust_deleted_subtree_ranges(svn_client__merge_path_t *child,
              exists, if neither exist then the editor can simply ignore this
              subtree. */
           svn_node_kind_t kind;
-
+          
           svn_error_clear(err);
           err = NULL;
           SVN_ERR(svn_ra_check_path(ra_session, rel_source_path,
@@ -2464,7 +2464,7 @@ adjust_deleted_subtree_ranges(svn_client__merge_path_t *child,
    target's subtrees - see 'THE CHILDREN_WITH_MERGEINFO ARRAY'.
 
    MERGEINFO_PATH is the merge source relative to the repository root.
-
+ 
    REVISION1 and REVISION2 describe the merge range requested from
    MERGEINFO_PATH.
 
@@ -2510,7 +2510,7 @@ filter_merged_revisions(svn_client__merge_path_t *child,
         {
           /* Convert REVISION1 and REVISION2 to a rangelist.
 
-             Note: Talking about a requested merge range's inheritability
+             Note: Talking about a requested merge range's inheritability 
              doesn't make much sense, but as we are using svn_merge_range_t
              to describe it we need to pick *something*.  Since all the
              rangelist manipulations in this function either don't consider
@@ -6763,7 +6763,7 @@ ensure_all_missing_ranges_are_phantoms(svn_ra_session_t *ra_session,
       void *value;
       const char *catalog_path;
       svn_mergeinfo_t history_as_mergeinfo;
-
+      
       apr_hash_this(hi1, &key, NULL, &value);
       catalog_path = key;
       history_as_mergeinfo = value;
@@ -6851,7 +6851,7 @@ ensure_all_missing_ranges_are_phantoms(svn_ra_session_t *ra_session,
    reintegrate source.
 
    RA_SESSION is a session opened to the repository root.
-
+   
    For each path/segment in TARGET_SEGMENTS_HASH check that the history that
    segment represents is contained in either the explicit mergeinfo for the
    corresponding path in SOURCE_CATALOG, the corresponding path's inherited
@@ -6918,7 +6918,7 @@ find_unmerged_mergeinfo(svn_mergeinfo_catalog_t *unmerged_to_source_catalog,
         source_path++;
       source_path = svn_path_join(source_repos_rel_path, source_path,
         iterpool);
-
+      
       /* Convert this target path's natural history into mergeinfo. */
       SVN_ERR(svn_client__mergeinfo_from_segments(&target_history_as_mergeinfo,
                                                   segments,
@@ -7042,7 +7042,7 @@ find_unmerged_mergeinfo(svn_mergeinfo_catalog_t *unmerged_to_source_catalog,
       for (hi = apr_hash_first(subpool, source_catalog);
            hi;
            hi = apr_hash_next(hi))
-        {
+        {   
           const void *key;
           void *val;
           const char *source_path;
@@ -7050,12 +7050,12 @@ find_unmerged_mergeinfo(svn_mergeinfo_catalog_t *unmerged_to_source_catalog,
           const char *target_path;
           apr_array_header_t *segments;
           svn_error_t *err;
-
+ 
           svn_pool_clear(iterpool);
           apr_hash_this(hi, &key, NULL, &val);
           source_path = key;
           source_mergeinfo = val;
-
+          
           target_path = source_path + strlen(source_repos_rel_path);
           if (target_path[0] == '/') /* Remove leading '/' for svn_path_join */
             target_path++;
@@ -7187,7 +7187,7 @@ find_unmerged_mergeinfo(svn_mergeinfo_catalog_t *unmerged_to_source_catalog,
    SOURCE_REPOS_REL_PATH@SOURCE_REV, up to the youngest revision ever merged
    from the target to the source if such exists, see doc string for
    find_unmerged_mergeinfo().
-
+   
    RA_SESSION is a session opened to the repository root. */
 static svn_error_t *
 calculate_left_hand_side(const char **url_left,
@@ -7210,7 +7210,7 @@ calculate_left_hand_side(const char **url_left,
   apr_pool_t *subpool = svn_pool_create(pool);
   apr_hash_index_t *hi;
   /* hash of paths mapped to arrays of svn_location_segment_t *. */
-  apr_hash_t *segments_hash = apr_hash_make(pool);
+  apr_hash_t *segments_hash = apr_hash_make(pool); 
   svn_boolean_t never_synced;
   svn_revnum_t youngest_merged_rev;
 
@@ -7232,7 +7232,7 @@ calculate_left_hand_side(const char **url_left,
                                                   target_rev, target_rev,
                                                   SVN_INVALID_REVNUM,
                                                   ctx, subpool));
-      apr_hash_set(segments_hash,
+      apr_hash_set(segments_hash, 
                    apr_pstrdup(subpool, path),
                    APR_HASH_KEY_STRING, segments);
     }
@@ -7338,11 +7338,11 @@ struct get_subtree_mergeinfo_walk_baton
 
    Given the working copy path PATH, its corresponding ENTRY, and WALK_BATON,
    where WALK_BATON is of type get_subtree_mergeinfo_walk_baton *:
-
+   
    If PATH has explicit mergeinfo or is the same as WALK_BATON->TARGET_PATH,
    then store a copy of PATH in WALK_BATON->SUBTREES_WITH_MERGEINFO.  The copy
    is allocated in WALK_BATON->SUBTREES_WITH_MERGEINFO's pool.
-
+   
    POOL is used only for temporary allocations. */
 static svn_error_t *
 get_subtree_mergeinfo_walk_cb(const char *path,
@@ -7352,7 +7352,7 @@ get_subtree_mergeinfo_walk_cb(const char *path,
 {
   struct get_subtree_mergeinfo_walk_baton *wb = walk_baton;
   const svn_string_t *propval;
-
+  
   /* We're going to receive dirents twice;  we want to ignore the
      first one (where it's a child of a parent dir), and only use
      the second one (where we're looking at THIS_DIR).  The exception
