@@ -10469,13 +10469,13 @@ def foreign_repos_uuid(sbox):
   # Convenience variables for working copy paths.
   zeta_path = os.path.join(wc_dir, 'A', 'D', 'G', 'zeta')
   Z_path = os.path.join(wc_dir, 'A', 'Z')
-
+  
   # Add new file and directory.
   zeta_contents = "This is the file 'zeta'.\n"
   svntest.main.file_append(zeta_path, zeta_contents)
   os.mkdir(Z_path)
   svntest.main.run_svn(None, 'add', zeta_path, Z_path)
-
+  
   # Commit up these changes.
   expected_output = wc.State(wc_dir, {
     'A/D/G/zeta' : Item(verb='Adding'),
@@ -10501,7 +10501,7 @@ def foreign_repos_uuid(sbox):
 
   svntest.main.run_svn(None, 'merge', '-c2', sbox.repo_url, wc_dir2)
   svntest.main.run_svn(None, 'ci', '-m', 'Merge from foreign repos', wc_dir2)
-
+  
   # Run info to check the copied rev to make sure it's right
   zeta2_path = os.path.join(wc_dir2, 'A', 'D', 'G', 'zeta')
   expected_info = {"Path" : re.escape(zeta2_path), # escape backslashes
@@ -11012,7 +11012,7 @@ def set_up_renamed_subtree(sbox):
   # still work.
   svntest.actions.run_and_verify_svn(None, None, [], 'ps', SVN_PROP_MERGEINFO,
                                      "", psi_moved_path)
-
+  
   svntest.actions.run_and_verify_commit(wc_dir, expected_output,
                                         expected_status, None, wc_dir)
 
@@ -14280,7 +14280,7 @@ def merge_range_prior_to_rename_source_existence(sbox):
   omega_COPY_path = os.path.join(wc_dir, "A_COPY", "D", "H", "omega")
   psi_COPY_path   = os.path.join(wc_dir, "A_COPY", "D", "H", "psi")
   nu_COPY_path    = os.path.join(wc_dir, "A_COPY", "D", "H", "nu")
-
+  
   # Setup our basic 'trunk' and 'branch':
   # r2 - Copy A to A_COPY
   # r3 - Text change to A/D/H/psi
@@ -14296,7 +14296,7 @@ def merge_range_prior_to_rename_source_existence(sbox):
   wc_status.add({'A/D/H/nu' : Item(status='  ', wc_rev=7)})
   svntest.actions.run_and_verify_commit(wc_dir, expected_output,
                                         wc_status, None, wc_dir)
-
+  
   # r8 - Merge all available revisions (i.e. -r1:7) from A to A_COPY.
   svntest.actions.run_and_verify_svn(None, ["At revision 7.\n"], [], 'up',
                                      wc_dir)
@@ -14453,7 +14453,7 @@ def reintegrate_with_subtree_mergeinfo(sbox):
   D_COPY_path           = os.path.join(wc_dir, "A_COPY", "D")
   alpha_COPY_path       = os.path.join(wc_dir, "A_COPY", "B", "E", "alpha")
   A_path                = os.path.join(wc_dir, "A")
-
+  
   # Now set up a situation where we try to reintegrate A_COPY back to A but
   # both of these paths have subtree mergeinfo.  Iff the mergeinfo on A_COPY
   # reflects that the same revisions have been applied across all of A_COPY,
@@ -14495,7 +14495,7 @@ def reintegrate_with_subtree_mergeinfo(sbox):
   svntest.actions.run_and_verify_commit(wc_dir, expected_output,
                                         expected_status, None, wc_dir)
   expected_disk.tweak('A_COPY_2/mu', contents="New content")
-
+  
   # r12 - Merge r11 from A_COPY_2/mu to A_COPY/mu
   svntest.actions.run_and_verify_svn(None, ["At revision 11.\n"], [], 'up',
                                      wc_dir)
@@ -14567,7 +14567,7 @@ def reintegrate_with_subtree_mergeinfo(sbox):
                                         expected_status, None, wc_dir)
   expected_disk.tweak('A_COPY/B/E/alpha', contents="New content")
 
-  # Now, reintegrate A_COPY to A.  This should succeed.
+  # Now, reintegrate A_COPY to A.  This should succeed.  
   svntest.actions.run_and_verify_svn(None, ["At revision 14.\n"], [], 'up',
                                      wc_dir)
   expected_status.tweak(wc_rev=14)
@@ -14660,7 +14660,7 @@ def reintegrate_with_subtree_mergeinfo(sbox):
 
   # Now reintegrate A_COPY back to A.  Since A_COPY/D no longer has r8 merged
   # to it from A, the merge should fail.  Further we expect an error message
-  # that highlights the fact that A_COPY/D is the offending subtree.
+  # that highlights the fact that A_COPY/D is the offending subtree. 
   #
   # The actions.run_and_verify_* methods are happy if one line of the error
   # matches the regex, but we want to know that the error actually provides
