@@ -1523,7 +1523,7 @@ log_do_add_tree_conflict(struct log_runner *loggy,
   /* Copy the new conflict to to the result pool.  Add its pointer to
      the array of existing conflicts. */
   APR_ARRAY_PUSH(loggy->tree_conflicts,
-                 const svn_wc_conflict_description_t *) =
+                 const svn_wc_conflict_description_t *) = 
                     svn_wc__conflict_description_dup(new_conflict,
                                                      loggy->result_pool);
 
