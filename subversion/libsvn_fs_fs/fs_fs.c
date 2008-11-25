@@ -5520,7 +5520,7 @@ svn_fs_fs__commit(svn_revnum_t *new_rev_p,
   cb.txn = txn;
   return svn_fs_fs__with_write_lock(fs,
                                     ffd->rep_cache.db ? commit_body_rep_cache :
-                                                        commit_body,
+                                                        commit_body, 
                                     &cb, pool);
 }
 
