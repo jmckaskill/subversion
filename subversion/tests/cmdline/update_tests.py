@@ -2757,7 +2757,7 @@ def update_conflicted(sbox):
   expected_status.tweak(wc_rev=3)
   expected_status.tweak('iota', 'A/B/lambda', 'A/mu', 'A/D', wc_rev=2)
   # We no longer update descendants of a prop-conflicted dir.
-  expected_status.tweak('A/D/G',
+  expected_status.tweak('A/D/G', 
                         'A/D/G/pi',
                         'A/D/G/rho',
                         'A/D/G/tau',
