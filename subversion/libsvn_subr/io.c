@@ -2958,8 +2958,8 @@ dir_make(const char *path, apr_fileperms_t perm,
     }
 #endif
 
-/* Windows does not implement sgid. Skip here because retrieving
-   the file permissions via APR_FINFO_PROT | APR_FINFO_OWNER is documented
+/* Windows does not implement sgid. Skip here because retrieving 
+   the file permissions via APR_FINFO_PROT | APR_FINFO_OWNER is documented 
    to be 'incredibly expensive'. */
 #ifndef WIN32
   if (sgid)
