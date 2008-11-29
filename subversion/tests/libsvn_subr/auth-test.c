@@ -102,7 +102,7 @@ test_platform_specific_auth_providers(const char **msg,
        "should not return NULL");
 
 
-  svn_auth_get_platform_specific_provider(&provider, "windows",
+  svn_auth_get_platform_specific_provider(&provider, "windows", 
                                           "ssl_client_cert_pw",
                                           pool);
 
