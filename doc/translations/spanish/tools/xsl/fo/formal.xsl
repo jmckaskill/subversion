@@ -101,7 +101,7 @@
   </xsl:variable>
 
   <xsl:choose>
-    <xsl:when test="local-name(.) = 'equation' or
+    <xsl:when test="local-name(.) = 'equation' or 
                     local-name(.) = 'informalequation'">
       <fo:block id="{$id}"
                 xsl:use-attribute-sets="equation.properties">
