@@ -1199,7 +1199,7 @@ typedef struct svn_wc_conflict_version_t
   /* TODO: Add metadata about a local copy of the node, if and when
    * we store one. */
 
-  /* Remember to update svn_wc_conflict_version_create() and
+  /* Remember to update svn_wc_conflict_version_create() and 
    * svn_wc_conflict_version_dup() in case you add fields to this struct. */
 } svn_wc_conflict_version_t;
 
@@ -5421,7 +5421,7 @@ svn_wc_set_changelist(const char *path,
                       void *notify_baton,
                       apr_pool_t *pool);
 
-/** Crop @a target according to @a depth.
+/** Crop @a target according to @a depth. 
  *
  * Remove any item that exceeds the boundary of @a depth (relative to
  * @a target) from revision control.  Leave modified items behind

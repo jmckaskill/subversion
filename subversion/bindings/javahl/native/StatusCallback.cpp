@@ -171,7 +171,7 @@ StatusCallback::createJavaStatus(const char *path,
       jIsLocked = (status->locked == 1) ? JNI_TRUE: JNI_FALSE;
       jIsSwitched = (status->switched == 1) ? JNI_TRUE: JNI_FALSE;
           /* ## TODO: Map tree_conflict data */
-      jIsTreeConflicted = (status->tree_conflict != NULL)
+      jIsTreeConflicted = (status->tree_conflict != NULL) 
                              ? JNI_TRUE: JNI_FALSE;
       jLock = SVNClient::createJavaLock(status->repos_lock);
       if (JNIUtil::isJavaExceptionThrown())
