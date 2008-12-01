@@ -1050,7 +1050,7 @@ read_max_packed_rev(svn_revnum_t *max_packed_rev,
   char buf[80];
   apr_file_t *file;
   apr_size_t len;
-
+      
   SVN_ERR(svn_io_file_open(&file, path, APR_READ | APR_BUFFERED,
                            APR_OS_DEFAULT, pool));
   len = sizeof(buf);
@@ -5676,7 +5676,7 @@ svn_fs_fs__commit(svn_revnum_t *new_rev_p,
   cb.txn = txn;
   return svn_fs_fs__with_write_lock(fs,
                                     ffd->rep_cache.db ? commit_body_rep_cache :
-                                                        commit_body,
+                                                        commit_body, 
                                     &cb, pool);
 }
 
@@ -6692,11 +6692,11 @@ packer_func(void *baton,
     return SVN_NO_ERROR;
 
   /* Update the manifest. */
-  svn_stream_printf(pb->manifest_stream, pool,
+  svn_stream_printf(pb->manifest_stream, pool, 
                "%-" APR_STRINGIFY(PACK_MANIFEST_ENTRY_LEN) APR_OFF_T_FMT"\n",
                pb->next_offset);
   pb->next_offset += finfo->size;
-
+  
   /* Copy all the bits from the rev file to the end of the pack file. */
   SVN_ERR(svn_stream_open_readonly(&rev_stream, path, pool, pool));
   return svn_stream_copy3(rev_stream, svn_stream_disown(pb->pack_stream, pool),
