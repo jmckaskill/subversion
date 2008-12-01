@@ -58,7 +58,7 @@ Candidate changes for 1.5.5:
    Fix bug whereby 'svn cp --parents URL/TO/EXISTING/FILE URL/TO/EXISTING/DIR'
    would seg fault.
    Notes:
-     r31311 is the testcase and r31314 the fix.
+     r31311 is the testcase and r31314 the fix. 
      Backport branch available as ^/branches/1.5.x-r31314.
    Justification:
      I just lost a night tracking this issue for an AnkhSVN user and I saw a
@@ -101,6 +101,6 @@ Candidate changes for 1.5.5:
      --dry-run merge, r34432 fixes this.
    Votes:
      +1: pburba
-
+     
 Approved changes:
 =================
