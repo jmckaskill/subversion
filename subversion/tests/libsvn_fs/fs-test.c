@@ -391,7 +391,7 @@ txn_names_are_not_reused(const char **msg,
     return SVN_NO_ERROR;
 
   /* Bail (with success) on known-untestable scenarios */
-  if ((strcmp(opts->fs_type, "fsfs") == 0)
+  if ((strcmp(opts->fs_type, "fsfs") == 0) 
       && (opts->server_minor_version && (opts->server_minor_version < 5)))
     return SVN_NO_ERROR;
 
@@ -4799,7 +4799,7 @@ node_origin_rev(const char **msg,
     return SVN_NO_ERROR;
 
   /* Bail (with success) on known-untestable scenarios */
-  if ((strcmp(opts->fs_type, "bdb") == 0)
+  if ((strcmp(opts->fs_type, "bdb") == 0) 
       && (opts->server_minor_version && (opts->server_minor_version < 5)))
     return SVN_NO_ERROR;
 
