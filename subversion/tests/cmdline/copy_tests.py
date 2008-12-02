@@ -150,7 +150,7 @@ def copy_replace_with_props(sbox, wc_copy):
               'phony-prop' : '*'}
   else:
     props = { 'phony-prop' : '*'}
-
+    
   expected_disk.tweak('A/D/G/rho',
                       contents="This is the file 'pi'.\n",
                       props=props)
@@ -3767,7 +3767,7 @@ def replaced_local_source_for_incoming_copy(sbox):
   # Make the duplicate working copy.
   svntest.main.safe_rmtree(other_wc_dir)
   shutil.copytree(wc_dir, other_wc_dir)
-
+  
   try:
     ## Test properties. ##
 
@@ -3851,12 +3851,12 @@ def find_copyfrom_information_upstairs(sbox):
   "renaming inside a copied subtree shouldn't hang"
 
   # The final command in this series would cause the client to hang...
-  #
+  # 
   #    ${SVN} cp A A2
   #    cd A2/B
   #    ${SVN} mkdir blah
   #    ${SVN} mv lambda blah
-  #
+  # 
   # ...because it wouldn't walk up past "" to find copyfrom information
   # (which would be in A2/.svn/entries, not on A2/B/.svn/entries).
   # Instead, it would keep thinking the parent of "" is "", and so
@@ -3910,10 +3910,10 @@ def unneeded_parents(sbox):
   #
   #    SRC_FILE_URL - existing file
   #    DST_DIR_URL - existing directory
-  #
+  # 
   #    Omitting "--parents" option makes above copy operation work as
   #    expected.
-  #
+  # 
   #    Bug is in libsvn_client/copy.c:801, where "dir" should be
   #    checked for null before using it in svn_ra_check_path call.
   #
@@ -3924,7 +3924,7 @@ def unneeded_parents(sbox):
   #
   # In other words, if we had "/A/B" below instead of "/A" (adjusting
   # expected_* accordingly, of course), the bug wouldn't reproduce.
-
+  
   sbox.build()
   wc_dir = sbox.wc_dir
 
