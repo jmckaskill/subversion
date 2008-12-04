@@ -187,7 +187,7 @@ svn_dirent_split(const char *dirent,
                  apr_pool_t *pool);
 
 /** Return TRUE if @a dirent is considered absolute on the platform at
- * hand, amongst which '/foo' on all platforms or 'X:/foo',
+ * hand, amongst which '/foo' on all platforms or 'X:/foo', 
  * '//server/share/foo' on Windows.
  *
  * @since New in 1.6.

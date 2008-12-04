@@ -1,7 +1,7 @@
 Command-line Repository Root Relative URL Support
 =================================================
 
-Syntax Description
+Syntax Description 
 ------------------
 
 "^/[REL-URL][@PEG]"
@@ -27,7 +27,7 @@ Repository Root URL Determination Logic
       the root relative urls
 - ElseIf the current working directory is a Subversion working copy
   - Determine the repository root url for the current working copy
-    - If successful, use that repository root url in place of '^/' in all
+    - If successful, use that repository root url in place of '^/' in all 
       the root relative urls
     - Else issue an error
 - Else issue an error
@@ -46,4 +46,4 @@ ISSUE:      zsh with 'setopt extendedglob' enabled
 WORKAROUND: quote it in single quotes ('^')
 
 ISSUE:      cmd.exe
-WORKAROUND: Double it (^^)
+WORKAROUND: Double it (^^) 
