@@ -54,7 +54,7 @@ test_read_tree_conflict(const char **msg,
   exp_conflict->reason = svn_wc_conflict_reason_edited;
 
   conflicts = apr_array_make(pool, 1, sizeof(svn_wc_conflict_description_t *));
-  SVN_ERR(svn_wc__read_tree_conflicts(&conflicts, tree_conflict_data, "",
+  SVN_ERR(svn_wc__read_tree_conflicts(&conflicts, tree_conflict_data, "", 
                                       pool));
 
   conflict = APR_ARRAY_IDX(conflicts, 0,
@@ -105,7 +105,7 @@ test_read_2_tree_conflicts(const char **msg,
   exp_conflict2->reason = svn_wc_conflict_reason_deleted;
 
   conflicts = apr_array_make(pool, 1, sizeof(svn_wc_conflict_description_t *));
-  SVN_ERR(svn_wc__read_tree_conflicts(&conflicts, tree_conflict_data, "",
+  SVN_ERR(svn_wc__read_tree_conflicts(&conflicts, tree_conflict_data, "", 
                                       pool));
 
   conflict1 = APR_ARRAY_IDX(conflicts, 0, svn_wc_conflict_description_t *);
@@ -178,7 +178,7 @@ test_read_invalid_tree_conflicts(const char **msg,
   for (i = 0; broken_tree_conflict_test_data[i] != NULL; i++)
     {
       tree_conflict_data = broken_tree_conflict_test_data[i];
-      err = svn_wc__read_tree_conflicts(&conflicts, tree_conflict_data, "",
+      err = svn_wc__read_tree_conflicts(&conflicts, tree_conflict_data, "", 
                                         pool);
       if (err == SVN_NO_ERROR)
         return fail(pool,
