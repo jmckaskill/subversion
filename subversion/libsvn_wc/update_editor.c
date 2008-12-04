@@ -1748,26 +1748,6 @@ do_entry_deletion(struct edit_baton *eb,
       return SVN_NO_ERROR;
     }
 
-  SVN_ERR(svn_wc__write_log(adm_access, *log_number, log_item, pool));
-
-  /* If the thing being deleted is the *target* of this update, then
-     we may need to recreate an entry, so that the parent can give
-     accurate reports about itself in future. */
-  if (strcmp(path, eb->target) == 0)
-    {
-      svn_wc_entry_t tmp_entry;
-
-      tmp_entry.revision = *(eb->target_revision);
-      tmp_entry.kind =
-        (entry->kind == svn_node_file) ? svn_node_file : svn_node_dir;
-
-      SVN_ERR(svn_wc__loggy_entry_modify(&log_item, adm_access,
-                                         full_path, &tmp_entry,
-                                         SVN_WC__ENTRY_MODIFY_REVISION
-                                         | SVN_WC__ENTRY_MODIFY_KIND,
-                                         pool));
-    }
-
   SVN_ERR(svn_wc__loggy_delete_entry(&log_item, adm_access, full_path,
                                      pool));
 
