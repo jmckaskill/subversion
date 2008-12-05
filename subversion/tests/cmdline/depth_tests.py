@@ -1424,7 +1424,7 @@ def depthy_update_above_dir_to_be_deleted(sbox):
     "immediates" : (output_with_A, disk_with_only_iota, status_with_only_iota),
     "empty"      : (empty_output, initial_disk, status_with_dot),
     }
-
+    
   for depth in sbox_for_depth.keys():
     wc_dir = sbox_for_depth[depth].wc_dir
     (expected_output_func, expected_disk, expected_status_func) = \
