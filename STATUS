@@ -105,7 +105,7 @@ Candidate changes for 1.5.5:
      Rare bug, but it results in incorrect mergeinfo.
    Votes:
      +1: pburba
-
+     
  * r34184, r34585
    Don't create explicit mergeinfo on a WC-to-WC move/copy destination
    unless the source already had some.
