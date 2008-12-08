@@ -543,8 +543,8 @@ def verify_disk(wc_dir_name,
                  singleton_handler_a, a_baton,
                  singleton_handler_b, b_baton,
                  check_props)
-
-
+                 
+  
 
 def run_and_verify_update(wc_dir_name,
                           output_tree, disk_tree, status_tree,
@@ -642,19 +642,19 @@ def run_and_parse_info(*args):
         # it's a "Tree conflict:\n" line; value is in continuation lines
         iter_info[key] = ''
       prev_key = key
-
+  
   return all_infos
 
 def run_and_verify_info(expected_infos, *args):
   """Run 'svn info' with the arguments in *ARGS and verify the results
   against expected_infos.  The latter should be a list of dicts (in the
   same order as the targets).
-
+  
   In the dicts, each key is the before-the-colon part of the 'svn info' output,
   and each value is either None (meaning that the key should *not* appear in
   the 'svn info' output) or a regex matching the output value.  Output lines
   not matching a key in the dict are ignored.
-
+  
   Return if successful, raise on failure."""
 
   actual_infos = run_and_parse_info(*args)
@@ -890,7 +890,7 @@ def run_and_verify_switch(wc_dir_name,
   SINGLETON_HANDLER_B will be passed to tree.compare_trees -- see that
   function's doc string for more details.
 
-  If CHECK_PROPS is set, then disk comparison will examine props.
+  If CHECK_PROPS is set, then disk comparison will examine props. 
 
   Return if successful, raise on failure."""
 
@@ -1121,7 +1121,7 @@ def run_and_verify_diff_summarize_xml(error_re_string = [],
     actual_item = path.getAttribute('item')
     actual_kind = path.getAttribute('kind')
     actual_prop = path.getAttribute('props')
-
+  
     if expected_item != actual_item:
       print "ERROR: expected:", expected_item, "actual:", actual_item
       raise Failure
@@ -1214,7 +1214,7 @@ def run_and_validate_lock(path, username):
 def make_repo_and_wc(sbox, create_wc = True, read_only = False):
   """Create a fresh repository and checkout a wc from it.
 
-  If read_only is False, a dedicated repository will be created, named
+  If read_only is False, a dedicated repository will be created, named 
   TEST_NAME. The repository will live in the global dir 'general_repo_dir'.
   If read_only is True the pristine repository will be used.
 
@@ -1222,7 +1222,7 @@ def make_repo_and_wc(sbox, create_wc = True, read_only = False):
   the repository, named TEST_NAME. The wc directory will live in the global
   dir 'general_wc_dir'.
 
-  Both variables 'general_repo_dir' and 'general_wc_dir' are defined at the
+  Both variables 'general_repo_dir' and 'general_wc_dir' are defined at the 
   top of this test suite.)  Returns on success, raises on failure."""
 
   # Create (or copy afresh) a new repos with a greek tree in it.
