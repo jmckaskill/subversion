@@ -470,7 +470,7 @@ svn_wc__working_props_committed(const char *path,
 
 
   /* The path is ensured not an excluded path. */
-  /* TODO(#2843) It seems that there is no need to
+  /* TODO(#2843) It seems that there is no need to 
      reveal hidden entry here? */
   SVN_ERR(svn_wc__entry_versioned(&entry, path, adm_access, FALSE, pool));
 
