@@ -2287,7 +2287,7 @@ def tree_conflicts_on_switch_2_1(sbox):
   expected_status = deep_trees_status_local_leaf_edit
   expected_status.tweak('F/alpha', 'D/D1', 'DF/D1', 'DD/D1', 'DDF/D1',
                         'DDD/D1', switched='S')
-
+ 
   svntest.actions.deep_trees_run_tests_scheme_for_switch(sbox,
     [ DeepTreesTestCase("local_leaf_edit_incoming_tree_del",
                         leaf_edit,
@@ -2340,7 +2340,7 @@ def tree_conflicts_on_switch_2_2(sbox):
     'DDD/D1/D2/D3',
     'DDF/D1/D2/gamma',
     status='D ')
-
+ 
   svntest.actions.deep_trees_run_tests_scheme_for_switch(sbox,
     [ DeepTreesTestCase("local_leaf_del_incoming_tree_del",
                         leaf_del,
@@ -2349,7 +2349,7 @@ def tree_conflicts_on_switch_2_2(sbox):
                         expected_disk,
                         expected_status) ] )
 
-
+ 
 def tree_conflicts_on_switch_3(sbox):
   "tree conflicts on switch 3"
 
