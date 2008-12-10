@@ -102,10 +102,10 @@ static svn_error_t *make_connection(const char *hostname, unsigned short port,
   apr_sockaddr_t *sa;
   apr_status_t status;
   int family = APR_INET;
-
+  
   /* Make sure we have IPV6 support first before giving apr_sockaddr_info_get
      APR_UNSPEC, because it may give us back an IPV6 address even if we can't
-     create IPV6 sockets.  */
+     create IPV6 sockets.  */  
 
 #if APR_HAVE_IPV6
 #ifdef MAX_SECS_TO_LINGER
@@ -132,7 +132,7 @@ static svn_error_t *make_connection(const char *hostname, unsigned short port,
   /* ### old APR interface */
   status = apr_socket_create(sock, sa->family, SOCK_STREAM, pool);
 #else
-  status = apr_socket_create(sock, sa->family, SOCK_STREAM, APR_PROTO_TCP,
+  status = apr_socket_create(sock, sa->family, SOCK_STREAM, APR_PROTO_TCP, 
                              pool);
 #endif
   if (status)
@@ -440,7 +440,7 @@ static void ra_svn_get_reporter(ra_svn_session_baton_t *sess_baton,
 /* --- RA LAYER IMPLEMENTATION --- */
 
 /* (Note: *ARGV is an output parameter.) */
-static svn_error_t *find_tunnel_agent(const char *tunnel,
+static svn_error_t *find_tunnel_agent(const char *tunnel, 
                                       const char *hostinfo,
                                       const char ***argv,
                                       apr_hash_t *config, apr_pool_t *pool)
@@ -582,11 +582,11 @@ static svn_error_t *parse_url(const char *url, apr_uri_t *uri,
   apr_status_t apr_err;
 
   apr_err = apr_uri_parse(pool, url, uri);
-
+  
   if (apr_err != 0)
     return svn_error_createf(SVN_ERR_RA_ILLEGAL_URL, NULL,
                              _("Illegal svn repository URL '%s'"), url);
-
+  
   if (! uri->port)
     uri->port = SVN_RA_SVN_PORT;
 
@@ -609,7 +609,7 @@ static svn_error_t *open_session(ra_svn_session_baton_t **sess_p,
   apr_socket_t *sock;
   apr_uint64_t minver, maxver;
   apr_array_header_t *mechlist, *caplist;
-
+  
   if (tunnel_argv)
     SVN_ERR(make_tunnel(tunnel_argv, &conn, pool));
   else
@@ -717,7 +717,7 @@ static svn_error_t *ra_svn_open(svn_ra_session_t *session, const char *url,
   ra_svn_session_baton_t *sess;
   const char *tunnel, **tunnel_argv;
   apr_uri_t uri;
-
+  
   SVN_ERR(parse_url(url, &uri, sess_pool));
 
   parse_tunnel(url, &tunnel, pool);
@@ -754,7 +754,7 @@ static svn_error_t *ra_svn_reparent(svn_ra_session_t *ra_session,
     return svn_ra_svn_read_cmd_response(conn, pool, "");
   else if (err->apr_err != SVN_ERR_RA_SVN_UNKNOWN_CMD)
     return err;
-
+  
   /* Servers before 1.4 doesn't support this command; try to reconnect
      instead. */
   svn_error_clear(err);
@@ -916,7 +916,7 @@ static svn_error_t *ra_svn_commit(svn_ra_session_t *session,
           svn_pool_clear(iterpool);
           apr_hash_this(hi, &key, NULL, &val);
           path = key;
-          token = val;
+          token = val;          
           SVN_ERR(svn_ra_svn_write_tuple(conn, iterpool, "cc", path, token));
         }
       svn_pool_destroy(iterpool);
@@ -1343,7 +1343,7 @@ static svn_error_t *ra_svn_stat(svn_ra_session_t *session,
       SVN_ERR(svn_ra_svn_parse_tuple(list, pool, "wnbr(?c)(?c)",
                                      &kind, &size, &has_props,
                                      &crev, &cdate, &cauthor));
-
+      
       the_dirent = apr_palloc(pool, sizeof(*the_dirent));
       SVN_ERR(interpret_kind(kind, pool, &the_dirent->kind));
       the_dirent->size = size;/* FIXME: svn_filesize_t */
@@ -1506,7 +1506,7 @@ static svn_error_t *ra_svn_get_file_revs(svn_ra_session_t *session,
             SVN_ERR(svn_stream_close(stream));
         }
     }
-
+ 
   SVN_ERR(svn_ra_svn_read_cmd_response(sess_baton->conn, pool, ""));
 
   /* Return error if we didn't get any revisions. */
@@ -1554,7 +1554,7 @@ static svn_error_t *ra_svn_lock_compat(svn_ra_session_t *session,
       path = key;
       revnum = val;
 
-      SVN_ERR(svn_ra_svn_write_cmd(conn, iterpool, "lock", "c(?c)b(?r)",
+      SVN_ERR(svn_ra_svn_write_cmd(conn, iterpool, "lock", "c(?c)b(?r)", 
                                    path, comment,
                                    steal_lock, *revnum));
 
@@ -1593,7 +1593,7 @@ static svn_error_t *ra_svn_lock_compat(svn_ra_session_t *session,
 static svn_error_t *ra_svn_unlock_compat(svn_ra_session_t *session,
                                          apr_hash_t *path_tokens,
                                          svn_boolean_t break_lock,
-                                         svn_ra_lock_callback_t lock_func,
+                                         svn_ra_lock_callback_t lock_func, 
                                          void *lock_baton,
                                          apr_pool_t *pool)
 {
@@ -1652,7 +1652,7 @@ static svn_error_t *ra_svn_lock(svn_ra_session_t *session,
                                 apr_hash_t *path_revs,
                                 const char *comment,
                                 svn_boolean_t steal_lock,
-                                svn_ra_lock_callback_t lock_func,
+                                svn_ra_lock_callback_t lock_func, 
                                 void *lock_baton,
                                 apr_pool_t *pool)
 {
@@ -1773,7 +1773,7 @@ static svn_error_t *ra_svn_lock(svn_ra_session_t *session,
 static svn_error_t *ra_svn_unlock(svn_ra_session_t *session,
                                   apr_hash_t *path_tokens,
                                   svn_boolean_t break_lock,
-                                  svn_ra_lock_callback_t lock_func,
+                                  svn_ra_lock_callback_t lock_func, 
                                   void *lock_baton,
                                   apr_pool_t *pool)
 {
@@ -1805,7 +1805,7 @@ static svn_error_t *ra_svn_unlock(svn_ra_session_t *session,
       else
         token = NULL;
 
-      SVN_ERR(svn_ra_svn_write_tuple(conn, subpool, "c(?c)", path, token));
+      SVN_ERR(svn_ra_svn_write_tuple(conn, subpool, "c(?c)", path, token)); 
     }
 
   SVN_ERR(svn_ra_svn_write_tuple(conn, pool, "!))"));
@@ -2022,7 +2022,7 @@ svn_ra_svn__init(const svn_version_t *loader_version,
       { "svn_delta", svn_delta_version },
       { NULL, NULL }
     };
-
+  
   SVN_ERR(svn_ver_check_list(svn_ra_svn_version(), checklist));
 
   /* Simplified version check to make sure we can safely use the

@@ -51,7 +51,7 @@ CommitMessage::~CommitMessage()
  */
 CommitMessage * CommitMessage::makeCCommitMessage(jobject jcommitMessage)
 {
-    // if there is no object passed into this method, there is no need for a
+    // if there is no object passed into this method, there is no need for a 
     // C++ holding object
     if(jcommitMessage == NULL)
     {
@@ -76,8 +76,8 @@ CommitMessage * CommitMessage::makeCCommitMessage(jobject jcommitMessage)
         return NULL;
     }
 
-    // Since the reference is longer needed then the duration of the
-    // SVNClient.commtMessage, the local reference has to be converted to a
+    // Since the reference is longer needed then the duration of the 
+    // SVNClient.commtMessage, the local reference has to be converted to a 
     // global reference
     jobject myCommitMessage = env->NewGlobalRef(jcommitMessage);
     if(JNIUtil::isJavaExceptionThrown())
@@ -109,8 +109,8 @@ jstring CommitMessage::getCommitMessage(apr_array_header_t *commit_items)
         return NULL;
     }
 
-    // java method ids will not change during the time this library is loaded,
-    // so they can be cached.
+    // java method ids will not change during the time this library is loaded, 
+    // so they can be cached. 
 
     // get the method id for the CommitItem constructor
     static jmethodID midConstructor = 0;

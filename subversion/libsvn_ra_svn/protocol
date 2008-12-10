@@ -479,7 +479,7 @@ call).  Errors resulting from an abort-report call are ignored.
     params: ( path:string )
 
   link-path:
-    params: ( path:string url:string rev:number start-empty:bool
+    params: ( path:string url:string rev:number start-empty:bool 
               ? [ lock-token:string ] )
 
   finish-report:

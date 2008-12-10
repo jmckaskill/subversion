@@ -75,11 +75,11 @@ svn_client__switch_internal(svn_revnum_t *result_rev,
   const svn_delta_editor_t *switch_editor;
   void *switch_edit_baton;
   svn_wc_traversal_info_t *traversal_info = svn_wc_init_traversal_info(pool);
-  svn_config_t *cfg = ctx->config ? apr_hash_get(ctx->config,
-                                                 SVN_CONFIG_CATEGORY_CONFIG,
+  svn_config_t *cfg = ctx->config ? apr_hash_get(ctx->config, 
+                                                 SVN_CONFIG_CATEGORY_CONFIG,  
                                                  APR_HASH_KEY_STRING)
                                   : NULL;
-
+  
   /* Get the external diff3, if any. */
   svn_config_get(cfg, &diff3_cmd, SVN_CONFIG_SECTION_HELPERS,
                  SVN_CONFIG_OPTION_DIFF3_CMD, NULL);
@@ -102,7 +102,7 @@ svn_client__switch_internal(svn_revnum_t *result_rev,
 
   SVN_ERR(svn_wc_entry(&entry, anchor, adm_access, FALSE, pool));
   if (! entry)
-    return svn_error_createf(SVN_ERR_UNVERSIONED_RESOURCE, NULL,
+    return svn_error_createf(SVN_ERR_UNVERSIONED_RESOURCE, NULL, 
                              _("'%s' is not under version control"),
                              svn_path_local_style(anchor, pool));
   if (! entry->url)
@@ -120,7 +120,7 @@ svn_client__switch_internal(svn_revnum_t *result_rev,
     revnum = SVN_INVALID_REVNUM; /* no matter, do real conversion later */
 
   /* Open an RA session to 'source' URL */
-  SVN_ERR(svn_client__open_ra_session_internal(&ra_session, URL, anchor,
+  SVN_ERR(svn_client__open_ra_session_internal(&ra_session, URL, anchor, 
                                                adm_access, NULL, TRUE, FALSE,
                                                ctx, pool));
   SVN_ERR(svn_client__get_revision_number
@@ -148,13 +148,13 @@ svn_client__switch_internal(svn_revnum_t *result_rev,
 
      We pass NULL for traversal_info because this is a switch, not an
      update, and therefore we don't want to handle any externals
-     except the ones directly affected by the switch. */
+     except the ones directly affected by the switch. */ 
   err = svn_wc_crawl_revisions2(path, dir_access, reporter, report_baton,
                                 TRUE, recurse, use_commit_times,
                                 ctx->notify_func2, ctx->notify_baton2,
                                 NULL, /* no traversal info */
                                 pool);
-
+    
   if (err)
     {
       /* Don't rely on the error handling to handle the sleep later, do
@@ -197,7 +197,7 @@ svn_client__switch_internal(svn_revnum_t *result_rev,
   /* If the caller wants the result revision, give it to them. */
   if (result_rev)
     *result_rev = revnum;
-
+  
   return SVN_NO_ERROR;
 }
 

@@ -335,23 +335,23 @@ fetch_path_props(svn_ra_serf__propfind_context_t **ret_prop_ctx,
       SVN_ERR(svn_ra_serf__discover_root(&vcc_url, &relative_url,
                                          session, session->conns[0],
                                          path, pool));
-
+      
       SVN_ERR(svn_ra_serf__retrieve_props(props, session, session->conns[0],
                                           vcc_url, revision,
                                           "0", baseline_props, pool));
-
+      
       basecoll_url = svn_ra_serf__get_ver_prop(props, vcc_url, revision,
                                                "DAV:", "baseline-collection");
-
+      
       if (!basecoll_url)
         {
           abort();
         }
-
-      /* We will try again with our new path; however, we're now
+    
+      /* We will try again with our new path; however, we're now 
        * technically an unversioned resource because we are accessing
        * the revision's baseline-collection.
-       */
+       */  
       prop_ctx = NULL;
       path = svn_path_url_add_component(basecoll_url, relative_url, pool);
       revision = SVN_INVALID_REVNUM;
@@ -568,10 +568,10 @@ svn_ra_serf__get_dir(svn_ra_session_t *ra_session,
       SVN_ERR(svn_ra_serf__retrieve_props(props, session, session->conns[0],
                                           vcc_url, revision,
                                           "0", baseline_props, pool));
-
+      
       basecoll_url = svn_ra_serf__get_ver_prop(props, vcc_url, revision,
                                                "DAV:", "baseline-collection");
-
+      
       if (!basecoll_url)
         {
           abort();
@@ -596,7 +596,7 @@ svn_ra_serf__get_dir(svn_ra_session_t *ra_session,
       svn_ra_serf__deliver_props(&prop_ctx, props, session, session->conns[0],
                                  path, revision, "1", all_props, TRUE,
                                  NULL, session->pool);
-
+      
       SVN_ERR(svn_ra_serf__wait_for_props(prop_ctx, session, pool));
 
       /* We're going to create two hashes to help the walker along.
