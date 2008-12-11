@@ -343,7 +343,7 @@ svn_error_t *
 svn_client_ls(apr_hash_t **dirents,
               const char *path_or_url,
               svn_opt_revision_t *revision,
-              svn_boolean_t recurse,
+              svn_boolean_t recurse,               
               svn_client_ctx_t *ctx,
               apr_pool_t *pool)
 {

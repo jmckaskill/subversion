@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 
 # See usage() for details, or run with --help option.
-#
+# 
 #          .-------------------------------------------------.
 #          |  "An ad hoc format deserves an ad hoc parser."  |
 #          `-------------------------------------------------'
-#
+# 
 # Some Subversion project log messages include parseable data to help
 # track who's contributing what.  The exact syntax is described in
 # hacking.html#crediting, but here's an example, indented by three
@@ -83,7 +83,7 @@ def spam_guard_in_html_block(str):
   """Take a block of HTML data, and run html_spam_guard() on parts of it."""
   return _spam_guard_in_html_block_re.subn(_spam_guard_in_html_block_func,
                                            str)[0]
-
+  
 def html_header(title):
   """Write HTML file header.
   TITLE parameter is expected to already by HTML-escaped if needed."""
@@ -284,7 +284,7 @@ class Contributor:
       except ValueError:
         retval = self.email
     elif self.real_name:
-      # Last resort: construct canonical name based on real name.
+      # Last resort: construct canonical name based on real name.  
       retval = ''.join(self.real_name.lower().split(' '))
     if retval is None:
       complain('Unable to construct a canonical name for Contributor.', True)
@@ -445,7 +445,7 @@ class LogMessage:
     if a > b: return -1
     if a < b: return 1
     else:     return 0
-
+    
   def __hash__(self):
     """I don't really understand why defining __cmp__() but not
     __hash__() renders an object type unfit to be a dictionary key,
@@ -485,7 +485,7 @@ parenthetical_aside_re = re.compile('^\(.*\)\s*$')
 
 def graze(input):
   just_saw_separator = False
-
+  
   while True:
     line = input.readline()
     if line == '': break
