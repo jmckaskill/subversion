@@ -271,7 +271,7 @@ typedef struct
 
      If checksum is NULL, then for compatibility behave as though this
      checksum matches the expected checksum.
-
+  
      The md5 checksum is always filled, unless this is rep which was
      retrieved from the rep-cache.  The sha1 checksum is only computed on
      a write, for use with rep-sharing; it may be read from an existing
