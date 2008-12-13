@@ -331,7 +331,7 @@ install_props_file(svn_stringbuf_t **log_accum,
                             node_kind, wc_prop_kind, FALSE, pool));
 
   /* Write the property hash into a temporary file. */
-  SVN_ERR(save_prop_tmp_file(&propfile_tmp_path, props,
+  SVN_ERR(save_prop_tmp_file(&propfile_tmp_path, props, 
                              svn_path_dirname(propfile_path, pool),
                              FALSE, pool));
 
@@ -446,7 +446,7 @@ svn_wc__working_props_committed(const char *path,
 
 
   /* The path is ensured not an excluded path. */
-  /* TODO(#2843) It seems that there is no need to
+  /* TODO(#2843) It seems that there is no need to 
      reveal hidden entry here? */
   SVN_ERR(svn_wc__entry_versioned(&entry, path, adm_access, FALSE, pool));
 
