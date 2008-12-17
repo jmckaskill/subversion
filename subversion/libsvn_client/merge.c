@@ -7087,7 +7087,7 @@ ensure_all_missing_ranges_are_phantoms(svn_ra_session_t *ra_session,
           apr_array_header_t *rangelist;
           int i;
 
-              apr_hash_this(hi2, &key, NULL, &value);
+          apr_hash_this(hi2, &key, NULL, &value);
           path = key;
           rangelist = value;
 
@@ -7336,13 +7336,13 @@ find_unmerged_mergeinfo(svn_mergeinfo_catalog_t *unmerged_to_source_catalog,
                                    target_history_as_mergeinfo,
                                    subpool));
 
-          /* As with svn_mergeinfo_intersect above, we need to use subpool
-             rather than iterpool. */
-          apr_hash_set(new_catalog,
-                       apr_pstrdup(subpool, source_path),
-                       APR_HASH_KEY_STRING,
-                       filtered_mergeinfo);
-        }
+      /* As with svn_mergeinfo_intersect above, we need to use subpool
+         rather than iterpool. */
+      apr_hash_set(new_catalog,
+                   apr_pstrdup(subpool, source_path),
+                   APR_HASH_KEY_STRING,
+                    filtered_mergeinfo);
+    }
 
   /* Are there any subtrees with explicit mergeinfo still left in the merge
      source where there was no explicit mergeinfo for the corresponding path
@@ -7400,7 +7400,7 @@ find_unmerged_mergeinfo(svn_mergeinfo_catalog_t *unmerged_to_source_catalog,
               svn_mergeinfo_t explicit_source_target_history_intersection;
 
               SVN_ERR(svn_client__mergeinfo_from_segments(
-              &target_history_as_mergeinfo,  segments, iterpool));
+                &target_history_as_mergeinfo, segments, iterpool));
 
               /* If there is an intersection between the *explicit* mergeinfo
                  on this source path and the corresponding target's history
