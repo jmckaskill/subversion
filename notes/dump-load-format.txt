@@ -1,5 +1,5 @@
 This file describes the format produced by 'svnadmin dump' and
-consumed by 'svnadmin load'.
+consumed by 'svnadmin load'.  
 
 The format has undergone revisions over time.  They are presented in
 reverse chronological order here.  You may wish to start with the
@@ -102,25 +102,25 @@ Content-length: Y (3)
 Notes:
 
    (1) if the node represents a deletion, this field is optional.
-
+   
    (2) this is a checksum of the source of the copy.  a loader process
        can use this checksum to determine that the copyfrom path/rev
        already present in a filesystem is really the *correct* one to
        use.
-
+   
    (3) the Content-length header is technically unnecessary, since the
        information it holds (and more) can be found in the
        Prop-content-length and Text-content-length fields.  Though
        Subversion itself does not make use of the header when reading
        a dumpfile, we include it for compatibility with generic RFC822
        parsers.
-
+   
    (4) There are actually 2 types of version 1 dump streams. The
        regular ones are generated since r2634 (svn 0.14.0). Older ones
        also claim to be version 1, but miss the Props-content-length
        and Text-content-length fields in the block header. In those
        days there *always* was a properties block.
-
+   
 EXAMPLE:
 
 Here's an example of revision 1422, whereby I added a new directory
@@ -183,7 +183,7 @@ Notice that this file has no properties.
 
 -*- -*- -*- -*- -*- -*- -*- -*- -*- -*- -*- -*- -*- -*- -*- -*- -*- -*- -*-
 
-Old discussion:
+Old discussion: 
 
 (This file started as a proposal, preserved here for posterity.)
 
@@ -226,11 +226,11 @@ would be stored in our dump format.
   - A revision has a tree of "nodes" hanging off of it.
     Actually, the nodes in the filesystem form a DAG.  A revision
     always points to an initial node that represents the 'root' of some tree.
-
+ 
   - The majority of a tree's nodes are hard-links (references) to
     nodes that were created in earlier trees.
 
-  - A node contains
+  - A node contains 
 
         - versioned text
         - versioned properties
