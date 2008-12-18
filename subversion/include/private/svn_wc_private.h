@@ -217,7 +217,7 @@ svn_wc__read_tree_conflicts(apr_array_header_t **conflicts,
                             const char *conflict_data,
                             const char *dir_path,
                             apr_pool_t *pool);
-
+ 
 /** Return a duplicate of @a conflict, allocated in @a pool.
  * A deep copy of all members, except the adm_access member, will be made.
  *
@@ -229,7 +229,7 @@ svn_wc__conflict_description_dup(const svn_wc_conflict_description_t *conflict,
 
 /** Like svn_wc_is_wc_root(), but it doesn't consider switched subdirs or
  * deleted entries as working copy roots.
- *
+ * 
  * @since New in 1.6.*/
 svn_error_t *
 svn_wc__strictly_is_wc_root(svn_boolean_t *wc_root,
