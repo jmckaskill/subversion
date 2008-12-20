@@ -1271,6 +1271,8 @@ def upgrade_from_above(sbox):
   #   Date: Wed, 19 Sep 2007 23:15:24 +0700
   #   Message-ID: <46F14B1C.8010406@svnkit.com>
 
+  sbox2 = sbox.clone_dependent()
+
   wc, ign_a, ign_b, ign_c = set_up_depthy_working_copies(sbox, empty=True)
 
   # First verify that upgrading from within works.
@@ -1297,9 +1299,8 @@ def upgrade_from_above(sbox):
   finally:
     os.chdir(saved_cwd)
 
-  # Reset and do it again, this time from above the working copy.
-  svntest.main.safe_rmtree(wc)
-  wc, ign_a, ign_b, ign_c = set_up_depthy_working_copies(sbox, empty=True)
+  # Do it again, this time from above the working copy.
+  wc, ign_a, ign_b, ign_c = set_up_depthy_working_copies(sbox2, empty=True)
   expected_output = svntest.wc.State(wc, {
       'iota'    : Item(status='A '),
       })
