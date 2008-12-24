@@ -300,10 +300,10 @@ read_one_tree_conflict(svn_wc_conflict_description_t **conflict,
   SVN_ERR(read_field_separator(start, end));
 
   /* Construct the description object */
-  src_left_version = svn_wc_conflict_version_create(NULL, NULL,
+  src_left_version = svn_wc_conflict_version_create(NULL, NULL, 
                                                     SVN_INVALID_REVNUM,
                                                     svn_node_none, pool);
-  src_right_version = svn_wc_conflict_version_create(NULL, NULL,
+  src_right_version = svn_wc_conflict_version_create(NULL, NULL, 
                                                      SVN_INVALID_REVNUM,
                                                      svn_node_none, pool);
   *conflict = svn_wc_conflict_description_create_tree(
