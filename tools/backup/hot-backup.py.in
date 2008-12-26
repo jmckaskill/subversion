@@ -6,9 +6,9 @@
 #                 backup completes, if the repository backend is
 #                 Berkeley DB.
 #
-#  Subversion is a tool for revision control.
+#  Subversion is a tool for revision control. 
 #  See http://subversion.tigris.org for more information.
-#
+#    
 # ====================================================================
 # Copyright (c) 2000-2008 CollabNet.  All rights reserved.
 #
@@ -268,10 +268,10 @@ if young_list:
 
 print("Backing up repository to '" + backup_subdir + "'...")
 if have_subprocess:
-  err_code = subprocess.call([svnadmin, "hotcopy", repo_dir,
+  err_code = subprocess.call([svnadmin, "hotcopy", repo_dir, 
                               backup_subdir, "--clean-logs"])
 else:
-  err_code = os.spawnl(os.P_WAIT, svnadmin, "svnadmin", "hotcopy", repo_dir,
+  err_code = os.spawnl(os.P_WAIT, svnadmin, "svnadmin", "hotcopy", repo_dir, 
                        backup_subdir, "--clean-logs")
 if err_code != 0:
   sys.stderr.write("Unable to backup the repository.\n")
@@ -303,18 +303,18 @@ if archive_type:
   elif archive_type == 'zip':
     try:
       import zipfile
-
+      
       def add_to_zip(baton, dirname, names):
         zp = baton[0]
         root = os.path.join(baton[1], '')
-
+        
         for file in names:
           path = os.path.join(dirname, file)
           if os.path.isfile(path):
             zp.write(path, path[len(root):])
           elif os.path.isdir(path) and os.path.islink(path):
             os.path.walk(path, add_to_zip, (zp, path))
-
+            
       zp = zipfile.ZipFile(archive_path, 'w', zipfile.ZIP_DEFLATED)
       os.path.walk(backup_subdir, add_to_zip, (zp, backup_dir))
       zp.close()
