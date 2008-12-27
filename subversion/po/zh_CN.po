@@ -1,17 +1,17 @@
-#
+# 
 # Simplified Chinese translation for subversion package
 # This file is distributed under the same license as the subversion package.
-#
+# 
 # Update to new pot:
 #    msgmerge --update zh_CN.po subversion.pot
-#
+# 
 # Check translation:
 #    msgfmt --statistics -c -o zh_CN.mo zh_CN.po
-#
+# 
 # Please format your translation before commit:
 #    msgcat --sort-by-file --width=84 -o zh_CN_new.po zh_CN.po
 #    mv -f zh_CN_new.po zh_CN.po
-#
+# 
 # Dictionary:
 # BASE revision     基础版本
 # blame             追溯
@@ -31,7 +31,7 @@
 # unversioned       未版本控制
 # versioned         已版本控制
 # working copy      工作副本
-#
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: subversion 1.6\n"
