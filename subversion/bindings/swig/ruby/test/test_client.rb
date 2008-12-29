@@ -2114,7 +2114,7 @@ class SvnClientTest < Test::Unit::TestCase
                         repos_uri, info_revision)
       end
     end
-
+    
     Svn::Client::Context.new do |ctx|
       setup_auth_baton(ctx.auth_baton)
       ctx.auth_baton[Svn::Core::AUTH_PARAM_DEFAULT_USERNAME] = nil
