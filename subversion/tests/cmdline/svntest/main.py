@@ -775,7 +775,7 @@ def create_repos(path):
     # Note that some tests (currently only commit_tests) create their own
     # post-commit hooks, which would override this one. :-(
     if fsfs_packing:
-      create_python_hook_script(get_post_commit_hook_path(path),
+      create_python_hook_script(get_post_commit_hook_path(path), 
           "import subprocess\n"
           "import sys\n"
           "command = %s\n"
