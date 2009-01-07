@@ -1551,7 +1551,7 @@ log_entry_receiver(void *baton,
           /* Take this log_entry->revision as merged_rev
              from LB->MERGE_TARGET */
           /* Take LB->MERGE_STACK[0] and add it to LB->COMMIT_RANGELIST
-             as only the first(bottom most) item in the LB->MERGE_STACK
+             as only the first(bottom most) item in the LB->MERGE_STACK 
              correspond to LB->MERGE_TARGET rest are all indirect ones. */
           if (lb->commit_rangelist->nelts)
             {
