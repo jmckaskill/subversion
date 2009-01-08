@@ -147,7 +147,7 @@ CREATE TABLE PRISTINE (
 
 /* ### add/delete nodes */
 CREATE TABLE NODE_CHANGES (
-  id  INTEGER PRIMARY KEY AUTOINCREMENT,
+  id  INTEGER PRIMARY KEY AUTOINCREMENT, 
 
   /* Basic information about the node.  filename=="" for "this directory". */
   dir_id  INTEGER NOT NULL,
