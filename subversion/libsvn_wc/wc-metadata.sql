@@ -107,7 +107,7 @@ CREATE TABLE PRISTINE (
 
 /* ### add/delete nodes */
 CREATE TABLE WORKING_NODE (
-  id  INTEGER PRIMARY KEY AUTOINCREMENT,
+  id  INTEGER PRIMARY KEY AUTOINCREMENT, 
 
   /* specifies the location of this node in the local filesystem */
   wc_id  INTEGER,
@@ -131,7 +131,7 @@ CREATE TABLE WORKING_NODE (
   /* If this node was moved (rather than just deleted), this specifies
      where the node was moved to. */
   moved_to  TEXT,
-
+                 
   checksum  TEXT,
   changed_rev  INTEGER,
   changed_date  INTEGER,  /* an APR date/time (usec since 1970) */
