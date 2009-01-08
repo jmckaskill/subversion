@@ -417,7 +417,7 @@ def open_pipe(command, mode):
     # work if the command itself is quoted.
     args = command[1:]
     args = ' '.join([_quote_arg(x) for x in args])
-    command = command[0] + ' ' + args
+    command = command[0] + ' ' + args    
     if platform_with_popen3_class:
       kid = Popen3(command, True)
       return kid.tochild, kid.fromchild, kid.childerr, (kid, command)
@@ -779,7 +779,7 @@ def create_repos(path):
     # Note that some tests (currently only commit_tests) create their own
     # post-commit hooks, which would override this one. :-(
     if fsfs_packing:
-      create_python_hook_script(get_post_commit_hook_path(path),
+      create_python_hook_script(get_post_commit_hook_path(path), 
           "import subprocess\n"
           "import sys\n"
           "command = %s\n"
