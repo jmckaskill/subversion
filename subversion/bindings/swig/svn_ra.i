@@ -72,7 +72,7 @@
    handle svn_ra_get_locations()
 */
 %typemap(python,in) apr_array_header_t *location_revisions {
-    $1 = (apr_array_header_t *) svn_swig_py_revnums_to_array($input,
+    $1 = (apr_array_header_t *) svn_swig_py_revnums_to_array($input, 
                                                              _global_pool);
     if ($1 == NULL)
         SWIG_fail;

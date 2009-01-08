@@ -165,7 +165,7 @@ authz_group_contains_user(svn_config_t *cfg,
  * authz_baton accordingly.
  */
 static svn_boolean_t
-authz_parse_line(const char *name, const char *value,
+authz_parse_line(const char *name, const char *value, 
                  void *baton, apr_pool_t *pool)
 {
   struct authz_lookup_baton *b = baton;

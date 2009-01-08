@@ -64,7 +64,7 @@ typedef enum normalize_state_t
   /* The previous character was CR. */
   state_cr
 } normalize_state_t;
-
+  
 
 typedef struct svn_diff__file_baton_t
 {
@@ -102,7 +102,7 @@ find_eol_start(char *buf, apr_size_t len)
     }
   return NULL;
 }
-
+      
 static int
 svn_diff__file_datasource_to_index(svn_diff_datasource_e datasource)
 {
@@ -233,7 +233,7 @@ svn_diff__file_datasource_open(void *baton,
   SVN_ERR(svn_io_file_open(&file_baton->file[idx], file_baton->path[idx],
                            APR_READ, APR_OS_DEFAULT, file_baton->pool));
 
-  SVN_ERR(svn_io_file_info_get(&finfo, APR_FINFO_SIZE,
+  SVN_ERR(svn_io_file_info_get(&finfo, APR_FINFO_SIZE, 
                                file_baton->file[idx], file_baton->pool));
 
   file_baton->size[idx] = finfo.size;
@@ -365,7 +365,7 @@ normalize(char *buf, apr_off_t *lengthp, normalize_state_t *statep,
           break;
         }
     }
-
+                  
   /* If we're not in whitespace, flush the last chunk of data.
    * Note that this will work correctly when this is the last chunk of the
    * file:
@@ -466,13 +466,13 @@ svn_diff__file_datasource_get_next_token(apr_uint32_t *hash, void **token,
 
       curp = endp = file_baton->buffer[idx];
       file_baton->chunk[idx]++;
-      length = file_baton->chunk[idx] == last_chunk ?
+      length = file_baton->chunk[idx] == last_chunk ? 
         offset_in_chunk(file_baton->size[idx]) : CHUNK_SIZE;
       endp += length;
       file_baton->endp[idx] = endp;
 
       SVN_ERR(read_chunk(file_baton->file[idx], file_baton->path[idx],
-                         curp, length,
+                         curp, length, 
                          chunk_to_offset(file_baton->chunk[idx]),
                          file_baton->pool));
 
@@ -566,7 +566,7 @@ svn_diff__file_token_compare(void *baton,
            */
           bufp[i] = file_baton->buffer[idx[i]];
           bufp[i] += offset_in_chunk(offset[i]);
-
+          
           length[i] = total_length;
           raw_length[i] = 0;
         }
@@ -596,7 +596,7 @@ svn_diff__file_token_compare(void *baton,
 
               /* Read a chunk from disk into a buffer */
               bufp[i] = buffer[i];
-              length[i] = raw_length[i] > COMPARE_CHUNK_SIZE ?
+              length[i] = raw_length[i] > COMPARE_CHUNK_SIZE ? 
                 COMPARE_CHUNK_SIZE : raw_length[i];
 
               SVN_ERR(read_chunk(file_baton->file[idx[i]],
@@ -698,7 +698,7 @@ svn_diff_file_options_parse(svn_diff_file_options_t *options,
   argv[0] = "";
   memcpy(argv + 1, args->elts, sizeof(char*) * args->nelts);
   argv[args->nelts + 1] = NULL;
-
+  
   apr_getopt_init(&os, pool, args->nelts + 1, argv);
   /* No printing of error messages, please! */
   os->errfn = NULL;
@@ -956,7 +956,7 @@ svn_diff__file_output_unified_line(svn_diff__file_output_baton_t *baton,
                     {
                       svn_stringbuf_appendbytes(baton->hunk, curp, len);
                     }
-
+                  
                   baton->curp[idx] = eol;
                   baton->length[idx] = length;
 
@@ -1062,7 +1062,7 @@ svn_diff__file_output_unified_flush_hunk(svn_diff__file_output_baton_t *baton)
 
   /* Output the hunk header.  If the hunk length is 1, the file is a one line
      file.  In this case, surpress the number of lines in the hunk (it is
-     1 implicitly)
+     1 implicitly) 
    */
   SVN_ERR(svn_stream_printf_from_utf8(baton->output_stream,
                                       baton->header_encoding,
@@ -1237,7 +1237,7 @@ svn_diff_file_output_unified2(svn_stream_t *output_stream,
                                             header_encoding, pool));
       SVN_ERR(svn_utf_cstring_from_utf8_ex2(&baton.insert_str, "+",
                                             header_encoding, pool));
-
+      
       for (i = 0; i < 2; i++)
         {
           SVN_ERR(svn_io_file_open(&baton.file[i], baton.path[i],
