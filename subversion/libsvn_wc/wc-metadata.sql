@@ -125,7 +125,7 @@ CREATE TABLE PRISTINE (
 
 /* ### add/delete nodes */
 CREATE TABLE WORKING_NODE (
-  id  INTEGER PRIMARY KEY AUTOINCREMENT,
+  id  INTEGER PRIMARY KEY AUTOINCREMENT, 
 
   /* specifies the location of this node in the local filesystem */
   wc_id  INTEGER,
