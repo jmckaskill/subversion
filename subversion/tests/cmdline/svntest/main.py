@@ -405,7 +405,7 @@ def open_pipe(command, mode):
   # work if the command itself is quoted.
   args = command[1:]
   args = ' '.join([_quote_arg(x) for x in args])
-  command = command[0] + ' ' + args
+  command = command[0] + ' ' + args    
   if platform_with_popen3_class:
     kid = Popen3(command, True)
     return kid.tochild, kid.fromchild, kid.childerr, (kid, command)
@@ -432,7 +432,7 @@ def open_pipe2(command, stdin=None, stdout=None, stderr=None):
     stdout = subprocess.PIPE
   if not stderr:
     stderr = subprocess.PIPE
-
+    
   p = subprocess.Popen(command,
                        stdin=stdin,
                        stdout=stdout,
@@ -447,7 +447,7 @@ def wait_on_pipe(waiter, stdout_lines, stderr_lines):
   if waiter is None:
     return
 
-  kid, command = waiter
+  kid, command = waiter    
   wait_code = kid.wait()
 
   if os.WIFSIGNALED(wait_code):
@@ -476,18 +476,18 @@ def wait_on_pipe2(waiter, binary_mode, stdin=None):
   For use with Python > 2.4 only."""
   if waiter is None:
     return
-
+  
   kid, command = waiter
   stdout, stderr = kid.communicate(stdin)
   exit_code = kid.returncode
-
+  
   # Normalize Windows line endings if in text mode.
   if windows and not binary_mode:
     stdout = stdout.replace('\r\n', '\n')
     stderr = stderr.replace('\r\n', '\n')
 
-  # Convert output strings to lists.
-  stdout_lines = stdout.splitlines(True)
+  # Convert output strings to lists.  
+  stdout_lines = stdout.splitlines(True) 
   stderr_lines = stderr.splitlines(True)
 
   if exit_code < 0:
@@ -802,7 +802,7 @@ def create_repos(path):
     # Note that some tests (currently only commit_tests) create their own
     # post-commit hooks, which would override this one. :-(
     if fsfs_packing:
-      create_python_hook_script(get_post_commit_hook_path(path),
+      create_python_hook_script(get_post_commit_hook_path(path), 
           "import subprocess\n"
           "import sys\n"
           "command = %s\n"
@@ -845,7 +845,7 @@ def copy_repos(src_path, dst_path, head_revision, ignore_uuid = 1):
 
     load_stdout, load_stderr, load_exit_code = wait_on_pipe2(load_kid, 'b')
     dump_stdout, dump_stderr, dump_exit_code = wait_on_pipe2(dump_kid, 'b')
-
+    
     dump_in.close()
     dump_out.close()
     dump_err.close()
@@ -876,7 +876,7 @@ def copy_repos(src_path, dst_path, head_revision, ignore_uuid = 1):
     dump_err.close()
     load_out.close()
     load_err.close()
-
+    
     # Wait on the pipes; ignore return code.
     wait_on_pipe(dump_kid, None, dump_stderr)
     wait_on_pipe(load_kid, load_stdout, None)
