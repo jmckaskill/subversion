@@ -154,7 +154,7 @@ items in a directory containing tree conflict victims.
 
 ==================
 SKIPPING DETECTION
-==================
+================== 
 
 During an update or switch, we skip tree conflict detection if the
 user has provided the '--force' option.  This allows an interrupted
