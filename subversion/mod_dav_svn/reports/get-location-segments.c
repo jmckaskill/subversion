@@ -72,7 +72,7 @@ location_segment_receiver(svn_location_segment_t *segment,
 {
   struct location_segment_baton *b = baton;
   apr_status_t apr_err;
-
+  
   SVN_ERR(maybe_send_opener(b));
 
   if (segment->path)
@@ -119,7 +119,7 @@ send_get_location_segments_report(ap_filter_t *output,
   /* Build an authz read baton. */
   arb.r = resource->info->r;
   arb.repos = resource->info->repos;
-
+  
   /* Do what we came here for. */
   location_segment_baton.sent_opener = FALSE;
   location_segment_baton.output = output;
@@ -144,7 +144,7 @@ send_get_location_segments_report(ap_filter_t *output,
                                   resource->pool);
       goto cleanup;
     }
-
+    
   if ((serr = dav_svn__send_xml(bb, output,
                                 "</S:get-location-segments-report>" DEBUG_CR)))
     {
@@ -168,7 +168,7 @@ send_get_location_segments_report(ap_filter_t *output,
                                       resource->pool);
         }
     }
-
+  
   return derr;
 }
 
