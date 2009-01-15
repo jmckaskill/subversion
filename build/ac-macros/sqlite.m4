@@ -61,7 +61,7 @@ AC_DEFUN(SVN_LIB_SQLITE,
     fi
 
     if test -z "$svn_lib_sqlite"; then
-      dnl finally, see if the sqlite amalgamation
+      dnl finally, see if the sqlite amalgamation 
       SVN_SQLITE_FILE_CONFIG(build/sqlite3.c)
     fi
 
@@ -84,7 +84,7 @@ AC_DEFUN(SVN_SQLITE_PKG_CONFIG,
       AC_MSG_CHECKING([sqlite library version (via pkg-config)])
       sqlite_version=`$pkg_config $SQLITE_PKGNAME --modversion --silence-errors`
       SVN_SQLITE_VERNUM_PARSE(sqlite_version)
-
+     
       if test "$sqlite_ver_num" -ge "$sqlite_min_ver_num"; then
         AC_MSG_RESULT([$sqlite_version])
         svn_lib_sqlite="yes"
@@ -120,7 +120,7 @@ AC_DEFUN(SVN_SQLITE_DIR_CONFIG,
       AC_MSG_CHECKING([sqlite library version (via header)])
       sqlite_version=`python build/getversion.py SQLITE $sqlite_header`
       SVN_SQLITE_VERNUM_PARSE(sqlite_version)
-
+     
       if test "$sqlite_ver_num" -ge "$sqlite_min_ver_num"; then
         AC_MSG_RESULT([$sqlite_version])
         AC_CHECK_LIB(sqlite3, sqlite3_close,
