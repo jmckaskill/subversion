@@ -582,7 +582,7 @@ svn_wc__merge_internal(svn_stringbuf_t **log_accum,
                     {
                       /* Assume conflict remains, fall through to code below. */
 
-                      /* TODO: Issue #3354: And what if the conflicted file
+                      /* TODO: Issue #3354: And what if the conflicted file 
                        * does not yet exist on disk (i.e. in ACTUAL)?
                        *
                        * It looks like this code was written with the
