@@ -541,7 +541,7 @@ eval_conflict_func_result(enum svn_wc_merge_outcome_t *merge_outcome,
           /* Assume conflict remains. */
           return SVN_NO_ERROR;
 
-          /* TODO: Issue #3354: And what if the conflicted file
+          /* TODO: Issue #3354: And what if the conflicted file 
            * does not yet exist on disk (i.e. in ACTUAL)?
            *
            * It looks like this code was written with the
