@@ -88,7 +88,7 @@ AC_DEFUN(SVN_SQLITE_PKG_CONFIG,
 
       if test -n "$sqlite_version"; then
         SVN_SQLITE_VERNUM_PARSE(sqlite_version)
-
+     
         if test "$sqlite_ver_num" -ge "$sqlite_min_ver_num"; then
           AC_MSG_RESULT([$sqlite_version])
           svn_lib_sqlite="yes"
