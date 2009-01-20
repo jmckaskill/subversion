@@ -1220,7 +1220,7 @@ typedef struct svn_wc_conflict_version_t
   svn_revnum_t peg_rev;
 
   /** path within repos; must not start with '/' */
-  const char *path_in_repos;
+  const char *path_in_repos; 
   /* @todo We may decide to add the repository UUID, to handle conflicts
    * properly during a repository move. */
   /** @} */
@@ -1231,7 +1231,7 @@ typedef struct svn_wc_conflict_version_t
   /* @todo Add metadata about a local copy of the node, if and when
    * we store one. */
 
-  /* Remember to update svn_wc_conflict_version_create() and
+  /* Remember to update svn_wc_conflict_version_create() and 
    * svn_wc_conflict_version_dup() in case you add fields to this struct. */
 } svn_wc_conflict_version_t;
 
@@ -2750,11 +2750,11 @@ typedef struct svn_wc_status2_t
 
   /** If the item is a file that was added to the working copy with an
    * svn:externals; if file_external is TRUE, then switched is always
-   * FALSE.
+   * FALSE. 
    * @since New in 1.6
    */
   svn_boolean_t file_external;
-
+  
   /** The actual status of the text compared to the pristine base of the
    * file. This value isn't masked by other working copy statuses.
    * @c pristine_text_status is @c svn_wc_status_none if this value was
@@ -2762,8 +2762,8 @@ typedef struct svn_wc_status2_t
    * @since New in 1.6
    */
   enum svn_wc_status_kind pristine_text_status;
-
-  /** The actual status of the properties compared to the pristine base of
+  
+  /** The actual status of the properties compared to the pristine base of 
    * the node. This value isn't masked by other working copy statuses.
    * @c pristine_prop_status is @c svn_wc_status_none if this value was
    * not calculated during the status walk.
@@ -5513,7 +5513,7 @@ svn_wc_set_changelist(const char *path,
                       void *notify_baton,
                       apr_pool_t *pool);
 
-/** Crop @a target according to @a depth.
+/** Crop @a target according to @a depth. 
  *
  * Remove any item that exceeds the boundary of @a depth (relative to
  * @a target) from revision control.  Leave modified items behind
