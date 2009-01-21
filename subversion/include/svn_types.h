@@ -597,7 +597,7 @@ typedef struct svn_log_changed_path2_t
   svn_node_kind_t node_kind;
 
   /* NOTE: Add new fields at the end to preserve binary compatibility.
-     Also, if you add fields here, you have to update
+     Also, if you add fields here, you have to update 
      svn_log_changed_path2_dup(). */
 } svn_log_changed_path2_t;
 
@@ -606,7 +606,7 @@ typedef struct svn_log_changed_path2_t
  * initialized to NULL, None or empty values.
  *
  * @note To allow for extending the @c svn_log_changed_path2_t structure in
- * future releases, this function should always be used to allocate the
+ * future releases, this function should always be used to allocate the 
  * structure.
  *
  * @since New in 1.6.
