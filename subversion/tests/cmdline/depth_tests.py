@@ -1271,6 +1271,8 @@ def upgrade_from_above(sbox):
   #   Date: Wed, 19 Sep 2007 23:15:24 +0700
   #   Message-ID: <46F14B1C.8010406@svnkit.com>
 
+  sbox2 = sbox.clone_dependent()
+
   wc, ign_a, ign_b, ign_c = set_up_depthy_working_copies(sbox, empty=True)
 
   # First verify that upgrading from within works.
@@ -1297,9 +1299,8 @@ def upgrade_from_above(sbox):
   finally:
     os.chdir(saved_cwd)
 
-  # Reset and do it again, this time from above the working copy.
-  svntest.main.safe_rmtree(wc)
-  wc, ign_a, ign_b, ign_c = set_up_depthy_working_copies(sbox, empty=True)
+  # Do it again, this time from above the working copy.
+  wc, ign_a, ign_b, ign_c = set_up_depthy_working_copies(sbox2, empty=True)
   expected_output = svntest.wc.State(wc, {
       'iota'    : Item(status='A '),
       })
@@ -2363,10 +2364,7 @@ def tree_conflicts_resolved_depth_empty(sbox):
   wc = sbox.wc_dir
   A = os.path.join(wc, 'A')
 
-  svntest.actions.run_and_verify_svn(None,
-    [],
-    [],
-    'resolved', '--depth=empty', A)
+  svntest.actions.run_and_verify_resolved([], '--depth=empty', A)
 
 
 def tree_conflicts_resolved_depth_files(sbox):
@@ -2379,11 +2377,7 @@ def tree_conflicts_resolved_depth_files(sbox):
   A = j(wc, 'A')
   m =    j(A, 'mu')
 
-
-  svntest.actions.run_and_verify_svn(None,
-    ["Resolved conflicted state of '%s'\n" % m],
-    [],
-    'resolved', '--depth=files', A)
+  svntest.actions.run_and_verify_resolved([m], '--depth=files', A)
 
 
 def tree_conflicts_resolved_depth_immediates(sbox):
@@ -2397,12 +2391,7 @@ def tree_conflicts_resolved_depth_immediates(sbox):
   m =    j(A, 'mu')
   B =    j(A, 'B')
 
-  svntest.actions.run_and_verify_svn(None,
-    svntest.verify.UnorderedOutput(
-      ["Resolved conflicted state of '%s'\n" % m,
-       "Resolved conflicted state of '%s'\n" % B]),
-    [],
-    'resolved', '--depth=immediates', A)
+  svntest.actions.run_and_verify_resolved([m, B], '--depth=immediates', A)
 
 
 def tree_conflicts_resolved_depth_infinity(sbox):
@@ -2417,14 +2406,7 @@ def tree_conflicts_resolved_depth_infinity(sbox):
   B =    j(A, 'B')
   g =    j(A, 'D', 'gamma')
 
-
-  svntest.actions.run_and_verify_svn(None,
-    svntest.verify.UnorderedOutput(
-      ["Resolved conflicted state of '%s'\n" % m,
-       "Resolved conflicted state of '%s'\n" % B,
-       "Resolved conflicted state of '%s'\n" % g]),
-    [],
-    'resolved', '--depth=infinity', A)
+  svntest.actions.run_and_verify_resolved([m, B, g], '--depth=infinity', A)
 
 
 #----------------------------------------------------------------------
