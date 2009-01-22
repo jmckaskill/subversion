@@ -2965,7 +2965,7 @@ def diff_ignore_mergeinfo(sbox):
   # Set some completely bogus mergeinfo
   svntest.main.run_svn(None, 'propset', 'svn:mergeinfo', 'bar:1-2', beta_path,
                        H_path, C_path, gamma_path, rho_path)
-  svntest.main.run_svn(None, 'propset', 'svn:bar', 'foo', iota_path, chi_path,
+  svntest.main.run_svn(None, 'propset', 'svn:bar', 'foo', iota_path, chi_path, 
                        rho_path)
 
   # Run and check vanilla diff
