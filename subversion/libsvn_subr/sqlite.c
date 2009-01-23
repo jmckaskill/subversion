@@ -579,7 +579,7 @@ svn_sqlite__close(svn_sqlite__db_t *db, svn_error_t *err)
         err = svn_error_compose_create(
                         svn_sqlite__finalize(db->prepared_stmts[i]), err);
     }
-
+  
   result = sqlite3_close(db->db3);
   /* If there's a pre-existing error, return it. */
   /* ### If the connection close also fails, say something about it as well? */
