@@ -400,14 +400,14 @@ def open_pipe(command, stdin=None, stdout=None, stderr=None):
     args = command[1:]
     args = ' '.join([_quote_arg(x) for x in args])
     command = command[0] + ' ' + args
-
+ 
   if not stdin:
     stdin = subprocess.PIPE
   if not stdout:
     stdout = subprocess.PIPE
   if not stderr:
     stderr = subprocess.PIPE
-
+    
   p = subprocess.Popen(command,
                        stdin=stdin,
                        stdout=stdout,
@@ -422,18 +422,18 @@ def wait_on_pipe(waiter, binary_mode, stdin=None):
   stdout and stderr (the latter two as lists)."""
   if waiter is None:
     return
-
+  
   kid, command = waiter
   stdout, stderr = kid.communicate(stdin)
   exit_code = kid.returncode
-
+  
   # Normalize Windows line endings if in text mode.
   if windows and not binary_mode:
     stdout = stdout.replace('\r\n', '\n')
     stderr = stderr.replace('\r\n', '\n')
 
-  # Convert output strings to lists.
-  stdout_lines = stdout.splitlines(True)
+  # Convert output strings to lists.  
+  stdout_lines = stdout.splitlines(True) 
   stderr_lines = stderr.splitlines(True)
 
   if exit_code < 0:
@@ -735,7 +735,7 @@ def create_repos(path):
     # Note that some tests (currently only commit_tests) create their own
     # post-commit hooks, which would override this one. :-(
     if fsfs_packing:
-      create_python_hook_script(get_post_commit_hook_path(path),
+      create_python_hook_script(get_post_commit_hook_path(path), 
           "import subprocess\n"
           "import sys\n"
           "command = %s\n"
