@@ -2075,7 +2075,7 @@ def forced_update_failures(sbox):
                                      'up', wc_backup)
   svntest.actions.run_and_verify_svn(None, svntest.verify.AnyOutput, [],
                                      'up', '-r', '1', C_Path)
-
+  
   # Prior to the introduction of tree conflict handling, a forced update
   # that tried to add a directory when a versioned directory of the same
   # name already exists failed with an error:
@@ -2776,7 +2776,7 @@ def update_conflicted(sbox):
   expected_status.tweak(wc_rev=3)
   expected_status.tweak('iota', 'A/B/lambda', 'A/mu', 'A/D', wc_rev=2)
   # We no longer update descendants of a prop-conflicted dir.
-  expected_status.tweak('A/D/G',
+  expected_status.tweak('A/D/G', 
                         'A/D/G/pi',
                         'A/D/G/rho',
                         'A/D/G/tau',
@@ -4191,7 +4191,7 @@ def update_moves_and_modifies_an_edited_file(sbox):
   alpha_moved_path = os.path.join(wc_dir, "A", "B", "E", "alpha.moved")
   other_alpha_path = os.path.join(other_wc, "A", "B", "E", "alpha")
   other_E_path     = os.path.join(other_wc, "A", "B", "E")
-
+  
   # r2: Move A/B/E/alpha to A/B/E/alpha.moved in the first WC.
   svntest.actions.run_and_verify_svn(None, None, [], 'move',
                                      alpha_path, alpha_moved_path)
@@ -4203,7 +4203,7 @@ def update_moves_and_modifies_an_edited_file(sbox):
   expected_status.remove('A/B/E/alpha')
   svntest.actions.run_and_verify_commit(wc_dir, expected_output,
                                         expected_status, None, wc_dir)
-
+    
   # r3: Make a text mod to A/B/E/alpha.moved in the first WC.
   new_content_for_alpha = 'alpha, modified after move\n'
   svntest.main.file_write(alpha_moved_path, new_content_for_alpha)
@@ -4214,7 +4214,7 @@ def update_moves_and_modifies_an_edited_file(sbox):
   svntest.actions.run_and_verify_commit(wc_dir, expected_output,
                                         expected_status, None,
                                         wc_dir)
-
+  
   # Make a text mod to A/B/E/alpha in the second WC then
   # update the second WC.
   new_content_for_other_alpha = 'alpha, modified\n'
