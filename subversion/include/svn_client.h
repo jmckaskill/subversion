@@ -1793,7 +1793,7 @@ svn_client_commit(svn_client_commit_info_t **commit_info_p,
  */
 typedef struct svn_client_status_args_t
 {
-  /** If set, retrieve all entries; otherwise, retrieve only
+  /** If set, retrieve all entries; otherwise, retrieve only 
     "interesting" entries (local mods and/or out of date). */
   svn_boolean_t get_all;
 
@@ -1803,7 +1803,7 @@ typedef struct svn_client_status_args_t
   /** If not set, then recurse into externals definitions (if any exist)
     after handling the main target.  This calls the client notification
     function (in @a ctx) with the @c svn_wc_notify_status_external action
-    before handling each externals definition, and with
+    before handling each externals definition, and with 
     @c svn_wc_notify_status_completed after each */
   svn_boolean_t ignore_externals;
 
@@ -1811,7 +1811,7 @@ typedef struct svn_client_status_args_t
 } svn_client_status_args_t;
 
 /**
- * Create a @c svn_client_status_args_t structure, for use with
+ * Create a @c svn_client_status_args_t structure, for use with 
  * svn_client_status4().
  * Values of structure members are as follows:
  *   @c get_all: FALSE
