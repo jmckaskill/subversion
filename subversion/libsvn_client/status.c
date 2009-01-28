@@ -270,8 +270,8 @@ svn_client_status4(svn_revnum_t *result_rev,
   SVN_ERR(svn_wc_get_status_editor4(&editor, &edit_baton, &set_locks_baton,
                                     &edit_revision, anchor_access, target,
                                     depth, args->get_all, args->no_ignore,
-                                    ignores, tweak_status, &sb,
-                                    ctx->cancel_func, ctx->cancel_baton,
+                                    ignores, tweak_status, &sb, 
+                                    ctx->cancel_func, ctx->cancel_baton, 
                                     traversal_info, pool));
 
   /* If we want to know about out-of-dateness, we crawl the working copy and
