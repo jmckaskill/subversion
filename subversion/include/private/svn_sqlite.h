@@ -71,7 +71,7 @@ svn_sqlite__exec(svn_sqlite__db_t *db, const char *sql);
    creating/upgrading to LATEST_SCHEMA if needed using the instructions
    in UPGRADE_SQL. The resulting DB is allocated in RESULT_POOL, and any
    temporary allocations are made in SCRATCH_POOL.
-
+   
    STATEMENTS is an array of strings which may eventually be executed, the
    last element of which should be NULL.  These strings are not duplicated
    internally, and should have a lifetime at least as long as RESULT_POOL.
