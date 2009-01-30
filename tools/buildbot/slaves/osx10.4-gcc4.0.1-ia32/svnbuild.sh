@@ -12,7 +12,7 @@ export PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin
 
 export PKGCONFIG_M4=/usr/local/share/aclocal/pkg.m4
 export PKG_CONFIG=/usr/local/bin/pkg-config
-
+        
 echo "========= autogen.sh"
 ./autogen.sh || exit $?
 
