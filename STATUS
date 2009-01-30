@@ -26,18 +26,18 @@ Candidate changes for 1.5.6:
      +1: rhuijben
 
  * r34919, r34924
-   Make svn client to use the 'LFS' capability of 'neon' to allow commits
+   Make svn client to use the 'LFS' capability of 'neon' to allow commits 
    of new file(post-compression) beyond > 2GB in size.
    Note that Neon currently doesn't support > 2GB on Windows, so this only
    fixes this issue on Linux, *BSD and probably MacOS.
    Justification:
-     A simple cast limits our maximum upload file size on systems where neon
+     A simple cast limits our maximum upload file size on systems where neon 
      supports larger uploads.
    Votes:
      +1: rhuijben, kameshj
 
  * r35143, r35145
-   Make it impossible to add .svn (and children) to your working copy via
+   Make it impossible to add .svn (and children) to your working copy via 
      svn add --parents .svn/file
      svn mkdir --parents .svn/dir/dir
      svn cp --parents file .svn/dir/file
