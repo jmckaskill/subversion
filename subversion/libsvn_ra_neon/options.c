@@ -236,7 +236,7 @@ parse_capabilities(ne_request *req,
    RAS->capabilities with the server's capabilities as read from the
    response headers.  Use POOL only for temporary allocation. */
 svn_error_t *
-svn_ra_neon__exchange_capabilities(svn_ra_neon__session_t *ras,
+svn_ra_neon__exchange_capabilities(svn_ra_neon__session_t *ras, 
                                    apr_pool_t *pool)
 {
   int http_ret_code;
