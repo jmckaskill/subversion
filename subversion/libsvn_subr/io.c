@@ -615,7 +615,7 @@ svn_io_temp_dir(const char **dir,
 
   if (apr_err)
     return svn_error_wrap_apr(apr_err, _("Can't find a temporary directory"));
-
+    
   SVN_ERR(cstring_to_utf8(dir, *dir, pool));
 
   *dir = svn_path_canonicalize(*dir, pool);
