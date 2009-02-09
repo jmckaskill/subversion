@@ -78,13 +78,13 @@ svn_sqlite__get_schema_version(int *version,
    creating/upgrading to LATEST_SCHEMA if needed using the instructions
    in UPGRADE_SQL. The resulting DB is allocated in RESULT_POOL, and any
    temporary allocations are made in SCRATCH_POOL.
-
+   
    STATEMENTS is an array of strings which may eventually be executed, the
    last element of which should be NULL.  These strings are not duplicated
    internally, and should have a lifetime at least as long as RESULT_POOL.
    STATEMENTS itself may be NULL, in which case it has no impact.
    See svn_sqlite__get_statement() for how these strings are used.
-
+   
    The statements will be finalized and the SQLite database will be closed
    when RESULT_POOL is cleaned up. */
 svn_error_t *
