@@ -534,7 +534,7 @@ close_apr(void *data)
       if (result == SQLITE_OK)
         result = tmp_result;
     }
-
+  
   tmp_result = sqlite3_close(db->db3);
 
   /* If there's a pre-existing error, return it. */
