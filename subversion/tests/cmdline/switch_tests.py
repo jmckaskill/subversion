@@ -2235,7 +2235,7 @@ def tree_conflicts_on_switch_1_1(sbox):
     'DD/D1/D2/epsilon'  : Item(status='D '),
     'DDD/D1/D2/D3/zeta' : Item(status='D '),
     })
-
+  
   # Update to the target rev.
   expected_status.tweak(wc_rev=3)
 
@@ -2277,7 +2277,7 @@ def tree_conflicts_on_switch_1_2(sbox):
                          'DDD/D1/D2/D3',
                          'DDF/D1/D2/gamma',
                          'DF/D1/beta')
-  ### Why does the deep trees state not include files?
+  ### Why does the deep trees state not include files? 
   expected_disk.remove('D/D1',
                        'DD/D1/D2',
                        'DDD/D1/D2/D3')
@@ -2324,7 +2324,7 @@ def tree_conflicts_on_switch_2_1(sbox):
                         status='A ', copied='+', wc_rev='-')
   # See the status of all the paths *under* the above six subtrees.  Only the
   # roots of the added subtrees show as schedule 'A', these childs paths show
-  # only that history is scheduled with the commit.
+  # only that history is scheduled with the commit. 
   expected_status.tweak(
     'DD/D1/D2',
     'DDD/D1/D2',
@@ -2394,7 +2394,7 @@ def tree_conflicts_on_switch_2_2(sbox):
                         expected_disk,
                         expected_status) ] )
 
-
+ 
 def tree_conflicts_on_switch_3(sbox):
   "tree conflicts 3: tree del, tree del on switch"
 
