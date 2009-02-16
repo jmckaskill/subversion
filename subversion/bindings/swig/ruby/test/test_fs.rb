@@ -9,7 +9,7 @@ require "svn/client"
 
 class SvnFsTest < Test::Unit::TestCase
   include SvnTestUtil
-
+  
   def setup
     setup_basic
   end
@@ -45,14 +45,14 @@ class SvnFsTest < Test::Unit::TestCase
     file = "hello.txt"
     path = File.join(@wc_path, file)
     FileUtils.touch(path)
-
+    
     ctx = make_context(log)
     ctx.add(path)
     commit_info = ctx.commit(@wc_path)
     rev = commit_info.revision
-
+    
     assert_equal(log, ctx.log_message(path, rev))
-
+    
     dest_path = File.join(@tmp_path, "dest")
     backup_path = File.join(@tmp_path, "back")
     config = {}
@@ -76,9 +76,9 @@ class SvnFsTest < Test::Unit::TestCase
     src = "sample source"
     path_in_repos = "/#{file}"
     path = File.join(@wc_path, file)
-
+    
     assert_nil(@fs.root.name)
-
+    
     ctx = make_context(log)
     FileUtils.touch(path)
     ctx.add(path)
@@ -89,12 +89,12 @@ class SvnFsTest < Test::Unit::TestCase
     assert_equal(Svn::Core::NODE_FILE, @fs.root.check_path(path_in_repos))
     assert(@fs.root.file?(path_in_repos))
     assert(!@fs.root.dir?(path_in_repos))
-
+    
     assert_equal([path_in_repos], @fs.root.paths_changed.keys)
     info = @fs.root.paths_changed[path_in_repos]
     assert(info.text_mod?)
     assert(info.add?)
-
+    
     File.open(path, "w") {|f| f.print(src)}
     rev2 = ctx.commit(@wc_path).revision
     file_id2 = @fs.root.node_id(path_in_repos)
@@ -122,7 +122,7 @@ class SvnFsTest < Test::Unit::TestCase
     assert(file_id1.related?(file_id2))
     assert_equal(1, file_id1.compare(file_id2))
     assert_equal(1, file_id2.compare(file_id1))
-
+    
     assert_equal(rev2, @fs.root.node_created_rev(path_in_repos))
     assert_equal(path_in_repos, @fs.root.node_created_path(path_in_repos))
 
@@ -144,11 +144,11 @@ class SvnFsTest < Test::Unit::TestCase
     File.open(path, "w") {|f| f.print(src)}
     ctx.add(path)
     ctx.commit(@wc_path)
-
+    
     assert_raises(Svn::Error::FS_NO_SUCH_TRANSACTION) do
       @fs.open_txn("NOT-EXIST")
     end
-
+    
     txn1 = @fs.transaction
     assert_equal([Svn::Core::PROP_REVISION_DATE], txn1.proplist.keys)
     assert_instance_of(Time, txn1.proplist[Svn::Core::PROP_REVISION_DATE])
@@ -161,20 +161,20 @@ class SvnFsTest < Test::Unit::TestCase
     assert(txn1.root.txn_root?)
     assert(!txn1.root.revision_root?)
     assert_equal(txn1.name, txn1.root.name)
-
+    
     @fs.transaction do |txn|
       assert_nothing_raised do
         @fs.open_txn(txn.name)
       end
       txn2 = txn
     end
-
+    
     txn3 = @fs.transaction
-
+    
     assert_equal([txn1.name, txn3.name].sort, @fs.transactions.sort)
     @fs.purge_txn(txn3.name)
     assert_equal([txn1.name].sort, @fs.transactions.sort)
-
+    
     @fs.transaction do |txn|
       assert(@fs.transactions.include?(txn.name))
       txn.abort
@@ -229,7 +229,7 @@ class SvnFsTest < Test::Unit::TestCase
     ctx.up(@wc_path)
     assert(File.exist?(path))
     assert(!File.exist?(path2))
-
+    
     @fs.transaction do |txn|
       txn.root.copy(file2, @fs.root, file)
       txn.root.delete(file)
@@ -243,7 +243,7 @@ class SvnFsTest < Test::Unit::TestCase
     File.open(path2, "w") {|f| f.print(src)}
     ctx.ci(@wc_path)
     assert(prev_root.contents_changed?(file, @fs.root, file2))
-
+    
     txn1 = @fs.transaction
     access = Svn::Fs::Access.new(@author)
     @fs.access = access
@@ -283,9 +283,9 @@ class SvnFsTest < Test::Unit::TestCase
     expected = "A\n\n\n\nE\n"
     path_in_repos = "/#{file}"
     path = File.join(@wc_path, file)
-
+    
     ctx = make_context(log)
-
+    
     File.open(path, "w") {|f| f.print(src)}
     ctx.add(path)
     rev1 = ctx.ci(@wc_path).revision
@@ -310,7 +310,7 @@ class SvnFsTest < Test::Unit::TestCase
 
     File.open(path, "w") {|f| f.print(src)}
     rev3 = ctx.ci(@wc_path).revision
-
+    
     File.open(path, "w") {|f| f.print(modified)}
     @fs.transaction do |txn|
       base_checksum = MD5.new(src).hexdigest

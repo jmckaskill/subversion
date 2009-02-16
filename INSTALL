@@ -192,7 +192,7 @@ I.    BUILD REQUIREMENTS
       single instance of the Neon library for all instances.  To do
       this, just unzip/untar Neon, and build and install it according
       to its own standard installation instructions.  Then follow the
-      steps below to use the installed Neon when building
+      steps below to use the installed Neon when building 
 
       Subversion's configuration mechanism should auto-detect the
       installed Neon.  If it does not, you may need to set the LDFLAGS
@@ -317,9 +317,9 @@ I.    BUILD REQUIREMENTS
       --with-serf and --without-neon. (The latter isn't required if
       you don't actually have Neon.)  If serf is installed in a
       non-standard place, you should use
-
+      
           --with-serf=/path/to/serf/install
-
+      
       instead.
 
       For more information on serf and Subversion's ra_serf, see the
@@ -384,7 +384,7 @@ I.    BUILD REQUIREMENTS
 
       Windows users should get the source for ZLib version 1.2 or later:
 
-          http://www.zlib.net/zlib123.zip
+          http://www.zlib.net/zlib123.zip 
 
       The Windows build scripts will compile the ZLib sources.
 
@@ -394,7 +394,7 @@ I.    BUILD REQUIREMENTS
       The primary documentation for Subversion is the free book
       "Version Control with Subversion", a.k.a. "The Subversion Book",
       obtainable from http://svnbook.red-bean.com/.
-
+      
       Various additional documentation exists in the doc/ subdirectory of
       the Subversion source.  See the file doc/README for more information.
 
@@ -1296,8 +1296,8 @@ IV.   PLATFORM-SPECIFIC ISSUES
 
 V.    PROGRAMMING LANGUAGE BINDINGS (PYTHON, PERL, RUBY, JAVA)
       ========================================================
-
-      For Python, Perl and Ruby bindings, see the file
+  
+      For Python, Perl and Ruby bindings, see the file     
 
           ./subversion/bindings/swig/INSTALL
 
