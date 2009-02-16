@@ -74,7 +74,7 @@ static svn_error_t *
 maybe_close_textdelta(dav_svn_edit_baton_t *eb)
 {
   if (eb->sending_textdelta)
-    {
+    { 
       SVN_ERR(dav_svn__send_xml(eb->bb, eb->output,
                                 "</S:apply-textdelta>" DEBUG_CR));
       eb->sending_textdelta = FALSE;
@@ -347,7 +347,7 @@ static svn_error_t *close_file(void *file_baton,
   SVN_ERR(maybe_close_textdelta(eb));
 
   SVN_ERR(dav_svn__send_xml(eb->bb, eb->output, "<S:close-file"));
-
+  
   if (text_checksum)
     SVN_ERR(dav_svn__send_xml(eb->bb, eb->output, " checksum=\"%s\"/>" DEBUG_CR,
                               text_checksum));

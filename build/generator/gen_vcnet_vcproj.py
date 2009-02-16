@@ -93,7 +93,7 @@ class Generator(gen_win.WinGeneratorBase):
                                               myhash[12:16], myhash[16:20],
                                               myhash[20:32]))
     return guid
-
+  
   def getguid(self, path):
     "Try to a project's guid from it's project file"
     try:
