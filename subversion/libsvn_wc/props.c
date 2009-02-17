@@ -240,28 +240,23 @@ get_existing_prop_reject_file(const char **reject_file,
 static const char *
 build_present_props(apr_hash_t *props, apr_pool_t *pool)
 {
-  apr_array_header_t *cachable;
-  svn_stringbuf_t *present_props = svn_stringbuf_create("", pool);
-  int i;
+  svn_stringbuf_t *present_props;
 
   if (apr_hash_count(props) == 0)
-    return present_props->data;
+    return "";
 
-  cachable = svn_cstring_split(SVN_WC__CACHABLE_PROPS, " ", TRUE, pool);
-  for (i = 0; i < cachable->nelts; i++)
-    {
-      const char *proptolookfor = APR_ARRAY_IDX(cachable, i,
-                                                const char *);
+  present_props = svn_stringbuf_create("", pool);
 
-      if (apr_hash_get(props, proptolookfor, APR_HASH_KEY_STRING) != NULL)
-        {
-          svn_stringbuf_appendcstr(present_props, proptolookfor);
-          svn_stringbuf_appendcstr(present_props, " ");
-        }
-    }
+  if (apr_hash_get(props, SVN_PROP_SPECIAL, APR_HASH_KEY_STRING) != NULL)
+    svn_stringbuf_appendcstr(present_props, SVN_PROP_SPECIAL " ");
+  if (apr_hash_get(props, SVN_PROP_EXTERNALS, APR_HASH_KEY_STRING) != NULL)
+    svn_stringbuf_appendcstr(present_props, SVN_PROP_EXTERNALS " ");
+  if (apr_hash_get(props, SVN_PROP_NEEDS_LOCK, APR_HASH_KEY_STRING) != NULL)
+    svn_stringbuf_appendcstr(present_props, SVN_PROP_NEEDS_LOCK " ");
 
   /* Avoid returning a string with a trailing space. */
   svn_stringbuf_chop(present_props, 1);
+
   return present_props->data;
 }
 
@@ -399,14 +394,12 @@ svn_wc__install_props(svn_stringbuf_t **log_accum,
   SVN_ERR(svn_prop_diffs(&prop_diffs, working_props, base_props, pool));
   tmp_entry.has_prop_mods = (prop_diffs->nelts > 0);
   tmp_entry.has_props = (apr_hash_count(working_props) > 0);
-  tmp_entry.cachable_props = SVN_WC__CACHABLE_PROPS;
   tmp_entry.present_props = build_present_props(working_props, pool);
 
   SVN_ERR(svn_wc__loggy_entry_modify(log_accum, adm_access,
                                      path, &tmp_entry,
                                      SVN_WC__ENTRY_MODIFY_HAS_PROPS
                                      | SVN_WC__ENTRY_MODIFY_HAS_PROP_MODS
-                                     | SVN_WC__ENTRY_MODIFY_CACHABLE_PROPS
                                      | SVN_WC__ENTRY_MODIFY_PRESENT_PROPS,
                                      pool));
 

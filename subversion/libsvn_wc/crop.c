@@ -199,14 +199,18 @@ svn_wc_crop_tree(svn_wc_adm_access_t *anchor,
   svn_wc_adm_access_t *dir_access;
 
   /* Only makes sense when the depth is restrictive. */
+  if (depth == svn_depth_infinity)
+    return SVN_NO_ERROR; /* Nothing to crop */
   if (!(depth >= svn_depth_exclude && depth < svn_depth_infinity))
-    return SVN_NO_ERROR;
+    return svn_error_create(SVN_ERR_UNSUPPORTED_FEATURE, NULL,
+      _("Can only crop a working copy with a restrictive depth"));
 
   /* Only makes sense to crop a dir target. */
   full_path = svn_path_join(svn_wc_adm_access_path(anchor), target, pool);
   SVN_ERR(svn_wc_entry(&entry, full_path, anchor, FALSE, pool));
   if (!entry || entry->kind != svn_node_dir)
-    return SVN_NO_ERROR;
+    return svn_error_create(SVN_ERR_UNSUPPORTED_FEATURE, NULL,
+      _("Can only crop directories"));
 
   /* Don't bother to crop if the target is scheduled delete. */
   if (entry->schedule == svn_wc_schedule_delete)
@@ -253,7 +257,7 @@ svn_wc_crop_tree(svn_wc_adm_access_t *anchor,
 
           switched
             = parent_entry && strcmp(entry->url,
-                                     svn_path_url_add_component
+                                     svn_path_url_add_component2
                                      (parent_entry->url, bname, pool));
 
           /* The server simply do not accept excluded link_path and thus

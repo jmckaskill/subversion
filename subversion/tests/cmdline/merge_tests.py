@@ -1983,12 +1983,11 @@ def merge_into_missing(sbox):
   svntest.main.safe_rmtree(Q_path)
 
   expected_output = wc.State(F_path, {
-    ''      : Item(status='C ')
     })
   expected_disk = wc.State('', {
     })
   expected_status = wc.State(F_path, {
-    ''      : Item(status='C ', wc_rev=1),
+    ''      : Item(status='  ', wc_rev=1),
     'foo'   : Item(status='! ', wc_rev=2),
     'Q'     : Item(status='! ', wc_rev='?'),
     })
@@ -2007,9 +2006,11 @@ def merge_into_missing(sbox):
                                        None, None, None, None, None,
                                        0, 0, '--dry-run')
 
-  expected_status.tweak('', status='C ')
-  expected_status.tweak('foo', status='!M')
-  expected_status.tweak('', status='CM')
+  expected_status = wc.State(F_path, {
+    ''      : Item(status=' M', wc_rev=1),
+    'foo'   : Item(status='!M', wc_rev=2),
+    'Q'     : Item(status='! ', wc_rev='?'),
+    })
   svntest.actions.run_and_verify_merge(F_path, '1', '2', F_url,
                                        expected_output,
                                        expected_disk,
@@ -13515,7 +13516,7 @@ alpha_beta_gamma = svntest.wc.State('', {
 
 
 def tree_conflicts_on_merge_local_ci_4_1(sbox):
-  "tree conflicts on merge, local commit 4.1"
+  "tree conflicts 4.1: tree del, leaf edit"
 
   # use case 4, as in notes/tree-conflicts/use-cases.txt
   # 4.1) local tree delete, incoming leaf edit
@@ -13554,7 +13555,7 @@ def tree_conflicts_on_merge_local_ci_4_1(sbox):
 
 
 def tree_conflicts_on_merge_local_ci_4_2(sbox):
-  "tree conflicts on merge, local commit 4.2"
+  "tree conflicts 4.2: tree del, leaf del"
 
   # 4.2) local tree delete, incoming leaf delete
 
@@ -13594,7 +13595,7 @@ def tree_conflicts_on_merge_local_ci_4_2(sbox):
 
 
 def tree_conflicts_on_merge_local_ci_5_1(sbox):
-  "tree conflicts on merge, local commit 5.1"
+  "tree conflicts 5.1: leaf edit, tree del"
 
   # use case 5, as in notes/tree-conflicts/use-cases.txt
   # 5.1) local leaf edit, incoming tree delete
@@ -13646,7 +13647,7 @@ def tree_conflicts_on_merge_local_ci_5_1(sbox):
 
 
 def tree_conflicts_on_merge_local_ci_5_2(sbox):
-  "tree conflicts on merge, local commit 5.2"
+  "tree conflicts 5.2: leaf del, tree del"
 
   # 5.2) local leaf del, incoming tree delete
 
@@ -13693,7 +13694,7 @@ def tree_conflicts_on_merge_local_ci_5_2(sbox):
 
 
 def tree_conflicts_on_merge_local_ci_6(sbox):
-  "tree conflicts on merge, local commit 6"
+  "tree conflicts 6: tree del, tree del"
 
   # use case 6, as in notes/tree-conflicts/use-cases.txt
   # local tree delete, incoming tree delete
@@ -13734,7 +13735,7 @@ def tree_conflicts_on_merge_local_ci_6(sbox):
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 def tree_conflicts_on_merge_no_local_ci_4_1(sbox):
-  "tree conflicts on merge, NO local commit 4.1"
+  "tree conflicts 4.1: tree del (no ci), leaf edit"
 
   # use case 4, as in notes/tree-conflicts/use-cases.txt
   # 4.1) local tree delete, incoming leaf edit
@@ -13788,7 +13789,7 @@ def tree_conflicts_on_merge_no_local_ci_4_1(sbox):
 
 
 def tree_conflicts_on_merge_no_local_ci_4_2(sbox):
-  "tree conflicts on merge, NO local commit 4.2"
+  "tree conflicts 4.2: tree del (no ci), leaf del"
 
   # 4.2) local tree delete, incoming leaf delete
 
@@ -13843,7 +13844,7 @@ def tree_conflicts_on_merge_no_local_ci_4_2(sbox):
 
 
 def tree_conflicts_on_merge_no_local_ci_5_1(sbox):
-  "tree conflicts on merge, NO local commit 5.1"
+  "tree conflicts 5.1: leaf edit (no ci), tree del"
 
 
   # use case 5, as in notes/tree-conflicts/use-cases.txt
@@ -13895,7 +13896,7 @@ def tree_conflicts_on_merge_no_local_ci_5_1(sbox):
 
 
 def tree_conflicts_on_merge_no_local_ci_5_2(sbox):
-  "tree conflicts on merge, NO local commit 5.2"
+  "tree conflicts 5.2: leaf del (no ci), tree del"
 
   # 5.2) local leaf del, incoming tree delete
 
@@ -13948,7 +13949,7 @@ def tree_conflicts_on_merge_no_local_ci_5_2(sbox):
 
 
 def tree_conflicts_on_merge_no_local_ci_6(sbox):
-  "tree conflicts on merge, NO local commit 6"
+  "tree conflicts 6: tree del (no ci), tree del"
 
   # use case 6, as in notes/tree-conflicts/use-cases.txt
   # local tree delete, incoming tree delete
@@ -15112,6 +15113,114 @@ def mergeinfo_deleted_by_a_merge_should_disappear(sbox):
                                        None, None, None, None,
                                        None, 1)
 
+def tree_conflicts_merge_edit_onto_missing(sbox):
+  "tree conflicts: tree missing, leaf edit"
+
+  # local tree missing (via shell delete), incoming leaf edit
+
+  expected_output = wc.State('', {
+#  'F/alpha'           : Item(status='  ', treeconflict='C'),
+  'D/D1'              : Item(status='  ', treeconflict='C'),
+  'DF/D1'             : Item(status='  ', treeconflict='C'),
+  'DD/D1'             : Item(status='  ', treeconflict='C'),
+  'DDF/D1'            : Item(status='  ', treeconflict='C'),
+  'DDD/D1'            : Item(status='  ', treeconflict='C'),
+  })
+
+  expected_disk = state_after_tree_del
+
+  expected_status = svntest.wc.State('', {
+    ''                  : Item(status=' M', wc_rev=3),
+    'F'                 : Item(status='  ', wc_rev=3),
+    'F/alpha'           : Item(status='!M', wc_rev=3),
+    'D'                 : Item(status='  ', wc_rev=3),
+    'D/D1'              : Item(status='! ', wc_rev='?', treeconflict='C'),
+    'DF'                : Item(status='  ', wc_rev=3),
+    'DF/D1'             : Item(status='! ', wc_rev='?', treeconflict='C'),
+    'DF/D1/beta'        : Item(status='  '),
+    'DD'                : Item(status='  ', wc_rev=3),
+    'DD/D1'             : Item(status='! ', wc_rev='?', treeconflict='C'),
+    'DD/D1/D2'          : Item(status='  '),
+    'DDF'               : Item(status='  ', wc_rev=3),
+    'DDF/D1'            : Item(status='! ', wc_rev='?', treeconflict='C'),
+    'DDF/D1/D2'         : Item(status='  '),
+    'DDF/D1/D2/gamma'   : Item(status='  '),
+    'DDD'               : Item(status='  ', wc_rev=3),
+    'DDD/D1'            : Item(status='! ', wc_rev='?', treeconflict='C'),
+    'DDD/D1/D2'         : Item(status='  '),
+    'DDD/D1/D2/D3'      : Item(status='  '),
+    })
+
+  expected_skip = svntest.wc.State('', {
+    'F/alpha'           : Item(),
+    })
+
+  svntest.actions.deep_trees_run_tests_scheme_for_merge(sbox,
+    [ DeepTreesTestCase(
+               "local_tree_missing_incoming_leaf_edit",
+               svntest.actions.deep_trees_rmtree,
+               leaf_edit,
+               expected_output,
+               expected_disk,
+               expected_status,
+               expected_skip,
+             ) ], False)
+
+def tree_conflicts_merge_del_onto_missing(sbox):
+  "tree conflicts: tree missing, leaf del"
+
+  # local tree missing (via shell delete), incoming leaf edit
+
+  expected_output = wc.State('', {
+#  'F/alpha'           : Item(status='  ', treeconflict='C'),
+#  'D/D1'              : Item(status='  ', treeconflict='C'),
+  'DF/D1'             : Item(status='  ', treeconflict='C'),
+  'DD/D1'             : Item(status='  ', treeconflict='C'),
+  'DDF/D1'            : Item(status='  ', treeconflict='C'),
+  'DDD/D1'            : Item(status='  ', treeconflict='C'),
+  })
+
+  expected_disk = state_after_tree_del
+
+  expected_status = svntest.wc.State('', {
+    ''                  : Item(status=' M', wc_rev=3),
+    'F'                 : Item(status='  ', wc_rev=3),
+    'F/alpha'           : Item(status='!M', wc_rev=3),
+    'D'                 : Item(status='  ', wc_rev=3),
+    'D/D1'              : Item(status='! ', wc_rev='?'),
+    'DF'                : Item(status='  ', wc_rev=3),
+    'DF/D1'             : Item(status='! ', wc_rev='?', treeconflict='C'),
+    'DF/D1/beta'        : Item(status='  '),
+    'DD'                : Item(status='  ', wc_rev=3),
+    'DD/D1'             : Item(status='! ', wc_rev='?', treeconflict='C'),
+    'DD/D1/D2'          : Item(status='  '),
+    'DDF'               : Item(status='  ', wc_rev=3),
+    'DDF/D1'            : Item(status='! ', wc_rev='?', treeconflict='C'),
+    'DDF/D1/D2'         : Item(status='  '),
+    'DDF/D1/D2/gamma'   : Item(status='  '),
+    'DDD'               : Item(status='  ', wc_rev=3),
+    'DDD/D1'            : Item(status='! ', wc_rev='?', treeconflict='C'),
+    'DDD/D1/D2'         : Item(status='  '),
+    'DDD/D1/D2/D3'      : Item(status='  '),
+    })
+
+  expected_skip = svntest.wc.State('', {
+    'F/alpha'           : Item(),
+    'D/D1'              : Item(),
+    })
+
+  svntest.actions.deep_trees_run_tests_scheme_for_merge(sbox,
+    [ DeepTreesTestCase(
+               "local_tree_missing_incoming_leaf_edit",
+               svntest.actions.deep_trees_rmtree,
+               leaf_del,
+               expected_output,
+               expected_disk,
+               expected_status,
+               expected_skip,
+             ) ], False)
+
+
 ########################################################################
 # Run the tests
 
@@ -15151,8 +15260,8 @@ test_list = [ None,
                          server_has_mergeinfo),
               SkipUnless(merge_skips_obstructions,
                          server_has_mergeinfo),
-              XFail(SkipUnless(merge_into_missing,
-                               server_has_mergeinfo)),
+              SkipUnless(merge_into_missing,
+                         server_has_mergeinfo),
               SkipUnless(dry_run_adds_file_with_prop,
                          server_has_mergeinfo),
               merge_binary_with_common_ancestry,
@@ -15324,6 +15433,8 @@ test_list = [ None,
                          server_has_mergeinfo),
               SkipUnless(mergeinfo_deleted_by_a_merge_should_disappear,
                          server_has_mergeinfo),
+              tree_conflicts_merge_edit_onto_missing,
+              tree_conflicts_merge_del_onto_missing,
              ]
 
 if __name__ == '__main__':

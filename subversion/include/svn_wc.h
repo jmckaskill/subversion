@@ -1185,12 +1185,18 @@ typedef enum svn_wc_conflict_action_t
  */
 typedef enum svn_wc_conflict_reason_t
 {
-  svn_wc_conflict_reason_edited,     /* local edits are already present */
-  svn_wc_conflict_reason_obstructed, /* another object is in the way */
-  svn_wc_conflict_reason_deleted,    /* object is already schedule-delete */
-  svn_wc_conflict_reason_added,      /* object is already added or schedule-add */
-  svn_wc_conflict_reason_missing,    /* object is unknown or missing */
-  svn_wc_conflict_reason_unversioned /* object is unversioned */
+  /** Local edits are already present */
+  svn_wc_conflict_reason_edited,
+  /** Another object is in the way */
+  svn_wc_conflict_reason_obstructed,
+  /** Object is already schedule-delete */
+  svn_wc_conflict_reason_deleted,
+  /** Object is unknown or missing */
+  svn_wc_conflict_reason_missing,
+  /** Object is unversioned */
+  svn_wc_conflict_reason_unversioned,
+  /** Object is already added or schedule-add. @since New in 1.6. */
+  svn_wc_conflict_reason_added
 
 } svn_wc_conflict_reason_t;
 
@@ -2161,7 +2167,8 @@ typedef struct svn_wc_entry_t
    *
    * @see @c present_props.
    *
-   * @since New in 1.4. */
+   * @since New in 1.4.
+   * @deprecated This value will always be "" in version 1.7 and later. */
   const char *cachable_props;
 
   /** Cached property existence for this entry.
@@ -2170,7 +2177,8 @@ typedef struct svn_wc_entry_t
    * property.  If a name exists in both lists, the property is present on this
    * entry.
    *
-   * @since New in 1.4. */
+   * @since New in 1.4.
+   * @deprecated This value will always be "" in version 1.7 and later. */
   const char *present_props;
 
   /** which changelist this item is part of, or NULL if not part of any.
