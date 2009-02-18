@@ -41,7 +41,7 @@ Candidate changes:
    Make fsfs implementation of svn_fs_commit_txn adhere to API promises.
     Votes:
      +1: pburba
-
+     
 Approved changes (all releases):
 ================================
 
