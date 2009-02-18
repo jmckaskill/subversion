@@ -1023,7 +1023,7 @@ read_entries(svn_wc_adm_access_t *adm_access,
   apr_hash_t *entries = apr_hash_make(result_pool);
   const char *wc_db_path = db_path(svn_wc_adm_access_path(adm_access),
                                    scratch_pool);
-
+  
   /* Open the wc.db sqlite database. */
   SVN_ERR(svn_sqlite__open(&wc_db, wc_db_path, svn_sqlite__mode_readwrite,
                            statements, SVN_WC__VERSION, upgrade_sql,
