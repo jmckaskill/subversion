@@ -1013,7 +1013,7 @@ read_entries(svn_wc_adm_access_t *adm_access,
   apr_pool_t *result_pool;
   apr_hash_t *entries;
   const char *wc_db_path;
-
+  
   if (svn_wc__adm_wc_format(adm_access) < SVN_WC__WC_NG_VERSION)
     return svn_wc__read_entries_old(adm_access, scratch_pool);
 
