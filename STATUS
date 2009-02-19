@@ -14,7 +14,7 @@ Status of 1.6.0:
 ================
 
 Candidate changes:
-
+ 
  * r35945, r35948
    Mark fs-tests 18 as XFAIL.
    Justification:
@@ -31,7 +31,7 @@ Candidate changes:
      See http://subversion.tigris.org/ds/viewMessage.do?dsForumId=462&dsMessageId=1191733
    Votes:
      +1: rhuijben, gstein
-
+ 
 Status of 1.6.1:
 ================
 
