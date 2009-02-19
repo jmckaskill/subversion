@@ -148,7 +148,7 @@ CREATE TABLE PRISTINE (
 /* ------------------------------------------------------------------------- */
 
 CREATE TABLE WORKING_NODE (
-  id  INTEGER PRIMARY KEY AUTOINCREMENT,
+  id  INTEGER PRIMARY KEY AUTOINCREMENT, 
 
   /* specifies the location of this node in the local filesystem */
   wc_id  INTEGER,
@@ -230,7 +230,7 @@ CREATE TABLE ACTUAL_NODE (
 
   /* if not NULL, this node is part of a changelist. */
   changelist  TEXT,
-
+  
   /* ### need to determine values. "unknown" (no info), "admin" (they
      ### used something like 'svn edit'), "noticed" (saw a mod while
      ### scanning the filesystem). */
@@ -257,7 +257,7 @@ CREATE TABLE LOCK (
   lock_owner  TEXT,
   lock_comment  TEXT,
   lock_date  INTEGER,   /* an APR date/time (usec since 1970) */
-
+  
   PRIMARY KEY (repos_id, repos_relpath)
   );
 
