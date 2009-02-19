@@ -14,7 +14,7 @@ Status of 1.6.0:
 ================
 
 Candidate changes:
-
+ 
  * r35945, r35948
    Mark fs-tests 18 as XFAIL.
    Justification:
