@@ -321,7 +321,7 @@ parse_me_resource_uri(dav_resource_combined *comb,
 
   comb->res.type = DAV_RESOURCE_TYPE_PRIVATE;
   comb->priv.restype = DAV_SVN_RESTYPE_ME;
-
+  
   /* We're keeping these the same as the VCC resource, to make things
      smoother for our report requests. */
   comb->res.exists = TRUE;
@@ -682,7 +682,7 @@ parse_uri(dav_resource_combined *comb,
                     }
                   else if (uri[len3] == '\0')
                     {
-                      if ((defn->numcomponents == 0)
+                      if ((defn->numcomponents == 0) 
                           && (! defn->has_repos_path))
                         {
                           if ((*defn->parse)(comb, "", label, use_checked_in))
@@ -693,7 +693,7 @@ parse_uri(dav_resource_combined *comb,
                           /* URI was "/root/!svn/XXX". The location
                              exists, but has restricted usage. */
                           comb->res.type = DAV_RESOURCE_TYPE_PRIVATE;
-
+                          
                           /* Store the resource type so that we can
                              PROPFIND on this collection. */
                           comb->priv.restype = defn->restype;
@@ -3577,7 +3577,7 @@ remove_resource(dav_resource *resource, dav_response **response)
                                       resource->info->root.activity_id);
     }
 
-  /* Handle deletions of transaction collections (early exit) */
+  /* Handle deletions of transaction collections (early exit) */    
   if (resource->type == DAV_RESOURCE_TYPE_PRIVATE
       && resource->info->restype == DAV_SVN_RESTYPE_TXN_COLLECTION)
     {
@@ -4113,7 +4113,7 @@ int dav_svn__method_post(request_rec *r)
                       "ignored", 0, &resource);
   if (derr != NULL)
     return derr->status;
-
+  
   if (resource->info->restype != DAV_SVN_RESTYPE_ME)
     return HTTP_BAD_REQUEST;
 
@@ -4124,9 +4124,9 @@ int dav_svn__method_post(request_rec *r)
 
   /* Build a "201 Created" response with header that tells the client
      our new transaction's name. */
-  repos_root_uri = dav_svn__build_uri(resource->info->repos,
+  repos_root_uri = dav_svn__build_uri(resource->info->repos, 
                                       DAV_SVN__BUILD_URI_PUBLIC,
-                                      SVN_IGNORED_REVNUM, "", 0,
+                                      SVN_IGNORED_REVNUM, "", 0, 
                                       resource->pool);
   apr_table_set(resource->info->r->headers_out, SVN_DAV_TXN_NAME_HEADER,
                 txn_name);
