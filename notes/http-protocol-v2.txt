@@ -36,7 +36,7 @@ Write a new HTTP protocol for svn ("HTTP v2").  Map RA requests
 directly to HTTP requests.
 
   * svn over HTTP should be much faster (eliminate extra turnarounds)
-
+ 
   * svn over HTTP should be almost as easy to extend as svnserve.
 
   * svn over HTTP should be comprehensible to devs and users both
@@ -309,9 +309,9 @@ need.
            'If-match' header with an Etag value?  Why not use a custom
            'SVN-Base-Revision' header that carries the value given us
            via the commit editor?
-
+           
        A:  Because If-Match is standard HTTP, and proxies can/should
            know about etags to improve the overall performance.
-
+           
            Just jam that base-revision into the etag. In fact, I think
            when mod_dav_svn makes up an etag, it uses that mechanism. ]
