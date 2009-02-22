@@ -14,7 +14,7 @@ Status of 1.6.0:
 ================
 
 Candidate changes:
-
+ 
  * r36009
    Bump recommended and shipped SQLite version.
    Justification:
@@ -54,10 +54,10 @@ Candidate changes:
      r36027 addes the proper API, and r36035 uses it.
    Votes:
      +1: hwright, rhuijben
-
+     
  * <needs-branch> (1.6.0 only)
    I would like to pull svn_dirent_basename and svn_dirent_split from the
-   public api to allow redefining its behavior for 1.7.
+   public api to allow redefining its behavior for 1.7. 
    (Currently only subversion/libsvn_client/add.c uses one of these functions,
     this caller can use svn_path_basename; or it can use this function as
     internal function)
