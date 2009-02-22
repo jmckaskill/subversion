@@ -151,8 +151,8 @@ char *
 svn_dirent_basename(const char *dirent,
                     apr_pool_t *pool);
 
-/** Gets the name of the specified canonicalized @a dirent as it is known
- * within its parent directory. If the @a dirent is root, return "". The
+/** Gets the name of the specified canonicalized @a dirent as it is known 
+ * within its parent directory. If the @a dirent is root, return "". The 
  * returned value will not have slashes in it.
  *
  * Where @a dirent doesn't specify a root, it's value is identical to that
