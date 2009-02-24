@@ -26,12 +26,12 @@ Candidate changes for 1.5.6:
      +1: rhuijben, pburba
 
  * r34919, r34924
-   Make svn client to use the 'LFS' capability of 'neon' to allow commits
+   Make svn client to use the 'LFS' capability of 'neon' to allow commits 
    of new file(post-compression) beyond > 2GB in size.
    Note that Neon currently doesn't support > 2GB on Windows, so this only
    fixes this issue on Linux, *BSD and probably MacOS.
    Justification:
-     A simple cast limits our maximum upload file size on systems where neon
+     A simple cast limits our maximum upload file size on systems where neon 
      supports larger uploads.
    Votes:
      +1: rhuijben, kameshj
@@ -84,7 +84,7 @@ Candidate changes for 1.5.6:
      See http://subversion.tigris.org/ds/viewMessage.do?dsForumId=462&dsMessageId=1191733
    Votes:
      +1: rhuijben, pburba
-
+     
  * r31393
    Follow-up to r25651, actually add the --server-minor-version option.
    Justification:
@@ -94,9 +94,9 @@ Candidate changes for 1.5.6:
      There is a minor text conflict when merging this change, but it is
      so minor there is no need for a backport branch, just --accept
      theirs-conflict on the merge and remove the 'config-file=' option
-     from the my_getopt() call in win-tests.py.
+     from the my_getopt() call in win-tests.py. 
    Votes:
      +1: pburba
-
+     
 Approved changes:
 =================
