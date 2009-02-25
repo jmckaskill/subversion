@@ -1704,7 +1704,7 @@ test_dirent_condense_targets(const char **msg,
   };
 
   *msg = "test svn_dirent_condense_targets";
-
+  
   for (i = 0; i < sizeof(tests) / sizeof(tests[0]); i++)
     {
       int j;
@@ -1720,7 +1720,7 @@ test_dirent_condense_targets(const char **msg,
             break;
         }
 
-      SVN_ERR(svn_dirent_condense_targets(&common, &condensed, hdr,
+      SVN_ERR(svn_dirent_condense_targets(&common, &condensed, hdr, 
                                           FALSE, pool, pool));
 
       if (strcmp(common, tests[i].common))
@@ -1734,7 +1734,7 @@ test_dirent_condense_targets(const char **msg,
           if (tests[i].paths[j] == NULL || tests[i].results[j] == NULL)
             break;
 
-          if (strcmp(APR_ARRAY_IDX(condensed, j, const char*),
+          if (strcmp(APR_ARRAY_IDX(condensed, j, const char*), 
                      tests[i].results[j]))
             return svn_error_createf(SVN_ERR_TEST_FAILED, NULL,
                            "svn_dirent_condense_targets returned first"
@@ -1744,7 +1744,7 @@ test_dirent_condense_targets(const char **msg,
         }
     }
 
-
+  
   return SVN_NO_ERROR;
 }
 
