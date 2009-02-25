@@ -962,7 +962,7 @@ read_entries(svn_wc_adm_access_t *adm_access,
   const char *local_abspath;
   const apr_array_header_t *children;
   int i;
-
+  
   if (svn_wc__adm_wc_format(adm_access) < SVN_WC__WC_NG_VERSION)
     return svn_wc__read_entries_old(adm_access, scratch_pool);
 
