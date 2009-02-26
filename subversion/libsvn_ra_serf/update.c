@@ -2601,7 +2601,7 @@ svn_ra_serf__get_file(svn_ra_session_t *ra_session,
   if (SVN_IS_VALID_REVNUM(revision))
     {
       const char *baseline_url, *rel_path;
-
+      
       SVN_ERR(svn_ra_serf__get_baseline_info(&baseline_url, &rel_path,
                                              session, conn, fetch_url,
                                              revision, NULL, pool));
