@@ -166,7 +166,7 @@ for opt, val in opts:
     parallel = 1
   elif opt in ('--config-file'):
     config_file = val
-
+    
 print (opts)
 
 # Calculate the source and test directory names
