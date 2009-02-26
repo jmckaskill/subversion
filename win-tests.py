@@ -167,6 +167,8 @@ for opt, val in opts:
   elif opt in ('--config-file'):
     config_file = val
 
+print (opts)
+
 # Calculate the source and test directory names
 abs_srcdir = os.path.abspath("")
 abs_objdir = os.path.join(abs_srcdir, objdir)
@@ -524,8 +526,9 @@ class Httpd:
     try:
       import win32process
       import win32con
+      args = ' '.join([self._quote(x) for x in args])
       self.proc_handle = (
-        win32process.CreateProcess(self._quote(self.path), self.httpd_args,
+        win32process.CreateProcess(self._quote(self.path), args,
                                    None, None, 0,
                                    win32con.CREATE_NEW_CONSOLE,
                                    None, None, win32process.STARTUPINFO()))[0]
