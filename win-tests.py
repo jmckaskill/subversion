@@ -167,8 +167,6 @@ for opt, val in opts:
   elif opt in ('--config-file'):
     config_file = val
 
-print (opts)
-
 # Calculate the source and test directory names
 abs_srcdir = os.path.abspath("")
 abs_objdir = os.path.join(abs_srcdir, objdir)
