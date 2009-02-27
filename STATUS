@@ -14,8 +14,8 @@ Status of 1.6.0:
 ================
 
 Candidate changes:
-
-
+ 
+     
 Candidate if a new tarball is constructed (otherwise for 1.6.1):
 
  * r35985, r36017
@@ -37,7 +37,7 @@ Candidate if a new tarball is constructed (otherwise for 1.6.1):
    Votes:
      +1: rhuijben, cmpilato
      +1: gstein (for 1.6.1)
-
+     
  * r36049-r36051, r36131
    Resolve the SVN_ERR_MALFUNCTION() reproducable on Windows with
      svn ci "C:/Program FIles" C:/Windows
@@ -49,7 +49,7 @@ Candidate if a new tarball is constructed (otherwise for 1.6.1):
      (This doesn't fix this testcase; it just handles this part of the problem)
    Votes:
      +1: rhuijben
-     -0: gstein (replied with feedback on this rev.) (r36049 only)
+     -0: gstein (replied with feedback on this rev.) (r36049 only) 
 
  * r36159
    Fix proxying of LOCK and UNLOCK requests via WebDAV proxies.
@@ -105,11 +105,11 @@ Approved changes:
    Votes:
      +1: hwright, rhuijben, cmpilato
      +0: gstein (ie. only if a new *code* tarball is constructed)
-
+     
  * ^/branches/1.6.x-dirent-basename
    Drop svn_dirent_basename, svn_dirent_split, svn_uri_basename, svn_uri_split
-   from the public api to allow redefining its behavior for 1.7.
-   The branch updates the single caller of this new api to use the 1.5 api.
+   from the public api to allow redefining its behavior for 1.7. 
+   The branch updates the single caller of this new api to use the 1.5 api.   
    Justification:
      The current dirent_basename api design makes it very hard to resolve
      issues like #2556 ('cd e:\; svn update e:\' fails).
