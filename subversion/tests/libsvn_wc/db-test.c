@@ -727,7 +727,7 @@ test_pdh(const char **msg,
             "sub/A/B/C/D", ROOT_ONE, UUID_ONE, 1,
             svn_wc__db_kind_file, svn_wc__db_status_absent,
             pool));
-
+  
   return SVN_NO_ERROR;
 }
 
