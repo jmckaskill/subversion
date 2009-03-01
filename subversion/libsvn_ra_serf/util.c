@@ -1466,7 +1466,7 @@ svn_ra_serf__get_relative_path(const char **rel_path,
                                apr_pool_t *pool)
 {
   const char *decoded_root, *decoded_orig;
-
+    
   if (! session->repos_root.path)
     {
       const char *vcc_url;
@@ -1478,8 +1478,8 @@ svn_ra_serf__get_relative_path(const char **rel_path,
       /* We don't actually care about the VCC_URL, but this API
          promises to populate the session's root-url cache, and that's
          what we really want. */
-      SVN_ERR(svn_ra_serf__discover_vcc(&vcc_url, session,
-                                        conn ? conn : session->conns[0],
+      SVN_ERR(svn_ra_serf__discover_vcc(&vcc_url, session, 
+                                        conn ? conn : session->conns[0], 
                                         pool));
     }
 
