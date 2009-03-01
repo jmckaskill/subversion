@@ -685,7 +685,7 @@ svn_client_blame5(const char *target,
 
           SVN_ERR(svn_wc_prop_list(&props, target, adm_access, pool));
           SVN_ERR(svn_stream_open_readonly(&wcfile, target, pool, pool));
-
+          
           keywords = apr_hash_get(props, SVN_PROP_KEYWORDS, APR_HASH_KEY_STRING);
 
           if (keywords)
