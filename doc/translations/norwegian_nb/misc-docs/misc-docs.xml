@@ -23,7 +23,7 @@
   <title>Subversion: Diverse dokumentasjon</title>
 
   <!-- External entity refs -->
-  &quick_walkthrough;
+  &quick_walkthrough; 
   &best_practices;
   &directory_versioning;
 
