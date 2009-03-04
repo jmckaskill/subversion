@@ -140,7 +140,7 @@ canonicalize_to_upper(char c)
 }
 #endif
 
-/* Calculates the length of the dirent absolute or non absolute root in
+/* Calculates the length of the dirent absolute or non absolute root in 
    DIRENT, return 0 if dirent is not rooted  */
 static apr_size_t
 dirent_root_length(const char *dirent, apr_size_t len)
@@ -173,7 +173,7 @@ dirent_root_length(const char *dirent, apr_size_t len)
 #endif
   if (len >= 1 && dirent[0] == '/')
     return 1;
-
+  
   return 0;
 }
 
@@ -935,7 +935,7 @@ char *svn_dirent_join_many(apr_pool_t *pool, const char *base, ...)
             {
               base = ""; /* Don't add base */
               saved_lengths[0] = 0;
-            }
+            }  
 
           add_separator = 1;
           if (s[len - 1] == '/'
