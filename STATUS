@@ -36,8 +36,8 @@ Candidate changes:
             or the "svn_" prefixes inside the file should be dropped.
     Votes:
       +1: rhuijben, gstein
-
-
+ 
+     
 Candidate if a new tarball is constructed (otherwise for 1.6.1):
 
  * r36049-r36051, r36131
@@ -80,7 +80,7 @@ Candidate if a new tarball is constructed (otherwise for 1.6.1):
     Votes:
       +1: philip, rhuijben, stsp
       +1: gstein (for a new CODE tarball, not a doc tarball)
-
+      
   * r36302
     Fix a small problem in the loggy upgrade process. Some v10 working copies
     have .svn/format, and some don't. The *intent* is to remove the file if
