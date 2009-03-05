@@ -121,7 +121,7 @@ init_sspi_connection(svn_ra_serf__session_t *session,
 
   SVN_ERR(svn_atomic__init_once(&sspi_initialized, initialize_sspi, pool));
 
-  sspi_context =
+  sspi_context = 
       (serf_sspi_context_t *)apr_palloc(pool, sizeof(serf_sspi_context_t));
   sspi_context->ctx.dwLower = 0;
   sspi_context->ctx.dwUpper = 0;
@@ -305,7 +305,7 @@ init_proxy_sspi_connection(svn_ra_serf__session_t *session,
 
   SVN_ERR(svn_atomic__init_once(&sspi_initialized, initialize_sspi, pool));
 
-  sspi_context =
+  sspi_context = 
       (serf_sspi_context_t *)apr_palloc(pool, sizeof(serf_sspi_context_t));
   sspi_context->ctx.dwLower = 0;
   sspi_context->ctx.dwUpper = 0;
