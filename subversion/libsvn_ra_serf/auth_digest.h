@@ -21,7 +21,7 @@
 #include "svn_error.h"
 #include "ra_serf.h"
 
-/* Stores the context information related to Digest authentication.
+/* Stores the context information related to Digest authentication. 
    The context is per connection. */
 typedef struct
 {
