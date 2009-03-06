@@ -252,7 +252,7 @@ handle_auth_header(void *baton,
 	}
     }
 
-  /* If a matching protocol handler was found, we can stop iterating
+  /* If a matching protocol handler was found, we can stop iterating 
      over the response headers - so return a non-0 value. */
   return proto_found;
 }
@@ -305,7 +305,7 @@ svn_ra_serf__handle_auth(int code,
      handler. */
   serf_bucket_headers_do(hdrs,
 			 handle_auth_header,
-			 ab);
+			 ab);                         
   SVN_ERR(ab->err);
 
   if (!ab->prot || ab->prot->auth_name == NULL)
