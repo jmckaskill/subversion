@@ -117,7 +117,7 @@ build_auth_header(serf_digest_context_t *context,
 		  const char *method,
 		  apr_pool_t *pool)
 {
-  unsigned char response_hdr[APR_MD5_DIGESTSIZE];
+  unsigned char response_hdr[APR_MD5_DIGESTSIZE]; 
   apr_status_t status;
   char *hdr, *tmp, *response_hdr_hex, *ha2, *nc_str;
 
@@ -182,7 +182,7 @@ build_auth_header(serf_digest_context_t *context,
                       ", algorithm=", context->algorithm, "",
                       NULL);
   }
-
+  
   return hdr;
 }
 
@@ -204,23 +204,23 @@ handle_digest_auth(svn_ra_serf__handler_t *ctx,
   serf_digest_context_t *context = (serf_digest_context_t *)conn->auth_context;
   char *kv, *key, *val;
 
-  /* We're expecting a list of key=value pairs, separated by a comma.
+  /* We're expecting a list of key=value pairs, separated by a comma. 
      Ex. realm="SVN Digest",
-         nonce="f+zTl/leBAA=e371bd3070adfb47b21f5fc64ad8cc21adc371a5",
+         nonce="f+zTl/leBAA=e371bd3070adfb47b21f5fc64ad8cc21adc371a5", 
          algorithm=MD5, qop="auth" */
   while ((kv = apr_strtok(auth_attr, ",", &nextkv)))
     {
       key = apr_strtok(kv, "=", &val);
       /* skip leading spaces */
       while (*key && *key == ' ') key++;
-
+      
       if (strcasecmp(key, "realm") == 0)
 	{
 	  realm_name = apr_strtok(NULL, "=", &val);
 	  if (realm_name[0] == '\"')
 	    {
 	      apr_size_t realm_len;
-
+              
 	      realm_len = strlen(realm_name);
 	      if (realm_name[realm_len - 1] == '\"')
 		{
@@ -235,7 +235,7 @@ handle_digest_auth(svn_ra_serf__handler_t *ctx,
 	  if (nonce[0] == '\"')
 	    {
 	      apr_size_t nonce_len;
-
+              
 	      nonce_len = strlen(nonce);
 	      if (nonce[nonce_len - 1] == '\"')
 		{
@@ -254,7 +254,7 @@ handle_digest_auth(svn_ra_serf__handler_t *ctx,
 	  if (qop[0] == '\"')
 	    {
 	      apr_size_t qop_len;
-
+              
 	      qop_len = strlen(qop);
 	      if (qop[qop_len - 1] == '\"')
 		{
@@ -262,15 +262,15 @@ handle_digest_auth(svn_ra_serf__handler_t *ctx,
 		  qop++;
 		}
 	    }
-
+	  
 	}
       if (strcmp(key, "opaque") == 0)
 	{
 	  opaque = apr_pstrdup(session->pool, val);
 	}
-
+      
       /* Ignore all unsupported attributes. */
-
+      
       auth_attr = NULL;
     }
   if (!realm_name)
@@ -279,7 +279,7 @@ handle_digest_auth(svn_ra_serf__handler_t *ctx,
 	(SVN_ERR_RA_DAV_MALFORMED_DATA, NULL,
 	 _("Missing 'realm' attribute in Authorization header"));
     }
-
+  
   if (session->repos_url.port_str)
     {
       port = session->repos_url.port;
@@ -288,7 +288,7 @@ handle_digest_auth(svn_ra_serf__handler_t *ctx,
     {
       port = apr_uri_port_of_scheme(session->repos_url.scheme);
     }
-
+  
   session->realm = apr_psprintf(session->pool, "<%s://%s:%d> %s",
 				session->repos_url.scheme,
 				session->repos_url.hostname,
@@ -328,13 +328,13 @@ handle_digest_auth(svn_ra_serf__handler_t *ctx,
   simple_creds = creds;
 
   /* Store the digest authentication parameters in the context relative
-     to this connection, so we can use it to create the Authorization header
+     to this connection, so we can use it to create the Authorization header 
      when setting up requests. */
   if (conn->auth_context)
     context = conn->auth_context;
   else
-    context =
-      (serf_digest_context_t *)apr_pcalloc(session->pool,
+    context = 
+      (serf_digest_context_t *)apr_pcalloc(session->pool, 
 					   sizeof(serf_digest_context_t));
 
   context->pool = session->pool;
@@ -384,7 +384,7 @@ setup_request_digest_auth(svn_ra_serf__connection_t *conn,
     {
       /* Build a new Authorization header. */
       conn->auth_header = "Authorization";
-      conn->auth_value = build_auth_header(context, uri, method,
+      conn->auth_value = build_auth_header(context, uri, method, 
 					   context->pool);
 
       serf_bucket_headers_setn(hdrs_bkt, conn->auth_header, conn->auth_value);
@@ -409,8 +409,8 @@ validate_response_digest_auth(svn_ra_serf__handler_t *ctx,
   hdrs = serf_bucket_response_get_headers(response);
   auth_attr = (char*)serf_bucket_headers_get(hdrs, "Authentication-Info");
 
-  /* We're expecting a list of key=value pairs, separated by a comma.
-     Ex. rspauth="8a4b8451084b082be6b105e2b7975087",
+  /* We're expecting a list of key=value pairs, separated by a comma. 
+     Ex. rspauth="8a4b8451084b082be6b105e2b7975087", 
          cnonce="346531653132652d303033392d3435", nc=00000007,
          qop=auth */
   while ((kv = apr_strtok(auth_attr, ",", &nextkv)))
@@ -418,14 +418,14 @@ validate_response_digest_auth(svn_ra_serf__handler_t *ctx,
       key = apr_strtok(kv, "=", &val);
       /* skip leading spaces */
       while (*key && *key == ' ') key++;
-
+      
       if (strcmp(key, "rspauth") == 0)
 	{
 	  rspauth = apr_strtok(NULL, "=", &val);
 	  if (rspauth[0] == '\"')
 	    {
 	      apr_size_t str_len;
-
+              
 	      str_len = strlen(rspauth);
 	      if (rspauth[str_len - 1] == '\"')
 		{
@@ -440,7 +440,7 @@ validate_response_digest_auth(svn_ra_serf__handler_t *ctx,
 	  if (qop[0] == '\"')
 	    {
 	      apr_size_t qop_len;
-
+              
 	      qop_len = strlen(qop);
 	      if (qop[qop_len - 1] == '\"')
 		{
@@ -455,7 +455,7 @@ validate_response_digest_auth(svn_ra_serf__handler_t *ctx,
 	  if (nc_str[0] == '\"')
 	    {
 	      apr_size_t nc_len;
-
+              
 	      nc_len = strlen(nc_str);
 	      if (nc_str[nc_len - 1] == '\"')
 		{
@@ -468,7 +468,7 @@ validate_response_digest_auth(svn_ra_serf__handler_t *ctx,
       auth_attr = NULL;
     }
 
-  if (rspauth)
+  if (rspauth) 
     {
       char *ha2, *tmp, *resp_hdr_hex;
       unsigned char resp_hdr[APR_MD5_DIGESTSIZE];
