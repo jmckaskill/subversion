@@ -448,7 +448,7 @@ svn_wc_apply_unidiff(const char *patch_path,
   const char *patch_cmd_tmp = NULL;
   int exitcode = 0;
   apr_exit_why_e exitwhy = 0;
-  svn_boolean_t patch_bin_guess = TRUE;
+  svn_boolean_t patch_bin_guess = TRUE; 
   apr_file_t *patchfile;
   int nargs = 3; /* the command, the prefix arg and NULL at least */
   int i = 0;
