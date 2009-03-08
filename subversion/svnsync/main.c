@@ -2028,7 +2028,7 @@ main(int argc, const char *argv[])
             break;
           case svnsync_opt_config_options:
             if (!config_options)
-              config_options =
+              config_options = 
                     apr_array_make(pool, 1,
                                    sizeof(svn_cmdline__config_argument_t*));
 
