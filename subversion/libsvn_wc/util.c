@@ -448,7 +448,7 @@ svn_wc_conflict_version_dup(const svn_wc_conflict_version_t *version,
 #define svn_iswhitespace(c) ((c) == ' ' || (c) == '\n')
 
 /* --- WRITING DATA ITEMS --- */
-
+ 
 svn_error_t *
 svn_wc_write_number(svn_stream_t *target,
                     apr_pool_t *pool,
@@ -512,7 +512,7 @@ svn_wc_write_proplist(svn_stream_t *target,
           svn_pool_clear(iterpool);
           apr_hash_this(hi, &key, NULL, &val);
           propname = key;
-          propval = val;
+          propval = val;          
           SVN_ERR(svn_wc_write_tuple(target, iterpool, "cs", propname,
                                      propval));
         }
@@ -667,7 +667,7 @@ read_string(svn_stream_t *from,
 
   /* We can't store strings longer than the maximum size of apr_size_t,
    * so check for wrapping */
-  if (((apr_size_t) len) < len)
+  if (((apr_size_t) len) < len) 
     return svn_error_create(SVN_ERR_RA_SVN_MALFORMED_DATA, NULL,
                             _("String length larger than maximum"));
 
@@ -682,13 +682,13 @@ read_string(svn_stream_t *from,
       svn_stringbuf_appendbytes(stringbuf, readbuf, readbuf_len);
       len -= readbuf_len;
     }
-
+  
   item->kind = SVN_RA_SVN_STRING;
   item->u.string = apr_palloc(pool, sizeof(*item->u.string));
   item->u.string->data = stringbuf->data;
   item->u.string->len = stringbuf->len;
 
-  return SVN_NO_ERROR;
+  return SVN_NO_ERROR; 
 }
 
 
@@ -708,8 +708,8 @@ read_item(svn_stream_t *from,
   if (++level >= 64)
     return svn_error_create(SVN_ERR_RA_SVN_MALFORMED_DATA, NULL,
                             _("Too many nested items"));
-
-
+  
+  
   /* Determine the item type and read it in.  Make sure that c is the
    * first character at the end of the item so we can test to make
    * sure it's whitespace. */
