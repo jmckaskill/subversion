@@ -1033,7 +1033,7 @@ transmit_prop_deltas(apr_array_header_t *propchanges,
         = &APR_ARRAY_IDX(props, i, svn_prop_t);
 
       if (originalprops)
-        original_value = apr_hash_get(originalprops,
+        original_value = apr_hash_get(originalprops, 
             propchange->name, APR_HASH_KEY_STRING);
       else
         original_value = NULL;
@@ -1140,7 +1140,7 @@ report_wc_file_as_added(struct dir_baton *dir_baton,
       /* There can't be any copy-path here since we're actually dealing with
        * a file that's already deleted in the future (yes Subversion is also
        * known as The Oracle).  This was reversed here into a file-addition
-       * as we're ... returning from the future. */
+       * as we're ... returning from the future. */ 
       SVN_ERR(eb->diff_editor->add_file(path, dir_baton, NULL,
                                         SVN_INVALID_REVNUM, pool, &fb));
       if (propchanges->nelts > 0)
@@ -1156,7 +1156,7 @@ report_wc_file_as_added(struct dir_baton *dir_baton,
                    path, adm_access, TRUE,
                    eb->diff_editor, fb, pool));
           /* svn_wc_transmit_text_deltas2() does the close itself. */
-          file_need_close = FALSE;
+          file_need_close = FALSE; 
         }
 
       if (file_need_close)
@@ -1289,7 +1289,7 @@ report_wc_directory_as_added(struct dir_baton *dir_baton,
           break;
         }
     }
-
+  
   svn_pool_destroy(subpool);
 
   if (eb->svnpatch_stream)
@@ -1497,7 +1497,7 @@ svndiff_close_handler(void *baton)
   SVN_ERR(svn_wc_write_cmd(eb->svnpatch_stream, eb->pool,
                            "textdelta-end", "c", f->token));
   return SVN_NO_ERROR;
-
+  
 }
 static svn_error_t *
 svnpatch_apply_textdelta(void *file_baton,
@@ -1525,7 +1525,7 @@ svnpatch_close_edit(void *edit_baton,
                     apr_pool_t *pool)
 {
   struct edit_baton *eb = edit_baton;
-
+  
   SVN_ERR_ASSERT(eb->root_opened);
   SVN_ERR(svn_wc_write_cmd(eb->svnpatch_stream, eb->pool,
                            "close-edit", ""));
@@ -1712,7 +1712,7 @@ path_driver_cb_func(void **dir_baton,
                        path, adm_access, TRUE,
                        editor, fb, pool));
             /* svn_wc_transmit_text_deltas2() does the close itself. */
-            file_need_close = FALSE;
+            file_need_close = FALSE; 
           }
 
         /* A non-binary file may need to be closed. */
