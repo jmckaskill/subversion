@@ -478,12 +478,12 @@ svn_ra_serf__setup_serf_req(serf_request_t *request,
 
   /* Setup server authorization headers */
   if (conn->session->auth_protocol)
-    conn->session->auth_protocol->setup_request_func(conn, method, url,
+    conn->session->auth_protocol->setup_request_func(conn, method, url, 
 						     hdrs_bkt);
 
   /* Setup proxy authorization headers */
   if (conn->session->proxy_auth_protocol)
-    conn->session->proxy_auth_protocol->setup_request_func(conn, method,
+    conn->session->proxy_auth_protocol->setup_request_func(conn, method, 
 							   url, hdrs_bkt);
 
   /* Set up SSL if we need to */
@@ -1166,12 +1166,12 @@ handle_response(serf_request_t *request,
 
       if (ctx->session->auth_protocol)
 	{
-	  err = ctx->session->auth_protocol->validate_response_func(ctx,
+	  err = ctx->session->auth_protocol->validate_response_func(ctx, 
 		   request, response, pool);
 	}
       else
 	{
-	  err = ctx->session->proxy_auth_protocol->validate_response_func(ctx,
+	  err = ctx->session->proxy_auth_protocol->validate_response_func(ctx, 
 		   request, response, pool);
 	}
 
@@ -1503,7 +1503,7 @@ svn_ra_serf__get_relative_path(const char **rel_path,
                                apr_pool_t *pool)
 {
   const char *decoded_root, *decoded_orig;
-
+    
   if (! session->repos_root.path)
     {
       const char *vcc_url;
@@ -1515,8 +1515,8 @@ svn_ra_serf__get_relative_path(const char **rel_path,
       /* We don't actually care about the VCC_URL, but this API
          promises to populate the session's root-url cache, and that's
          what we really want. */
-      SVN_ERR(svn_ra_serf__discover_vcc(&vcc_url, session,
-                                        conn ? conn : session->conns[0],
+      SVN_ERR(svn_ra_serf__discover_vcc(&vcc_url, session, 
+                                        conn ? conn : session->conns[0], 
                                         pool));
     }
 
