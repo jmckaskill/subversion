@@ -708,7 +708,7 @@ GlossEntry ::=
   </xsl:variable>
 
   <fo:block xsl:use-attribute-sets="list.item.spacing"
- 	  keep-with-next.within-column="always"
+ 	  keep-with-next.within-column="always" 
  	  keep-together.within-column="always">
     <xsl:call-template name="anchor">
       <xsl:with-param name="conditional">
