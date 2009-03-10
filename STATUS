@@ -32,7 +32,7 @@ Candidate changes:
     Votes:
       +1: arfrever
       +1: gstein, rhuijben (for 1.6.1; this can wait)
-
+     
 Candidate if a new tarball is constructed (otherwise for 1.6.1):
 
  * r36049-r36051, r36131
@@ -75,7 +75,7 @@ Candidate if a new tarball is constructed (otherwise for 1.6.1):
     Votes:
       +1: philip, rhuijben, stsp, arfrever
       +1: gstein (for a new CODE tarball, not a doc tarball)
-
+      
   * r36302
     Fix a small problem in the loggy upgrade process. Some v10 working copies
     have .svn/format, and some don't. The *intent* is to remove the file if
@@ -158,7 +158,7 @@ Approved changes:
    Notes:
      Most of the changes in this branch are tests on the behavior of path
      functions. The real changes are in path.c and reroute unc paths to
-     svn_dirent_*() functions.
+     svn_dirent_*() functions. 
      The tests are there to make sure we don't regress again on the 1.6.x
      branch and to allow future merges in this part of the code.
    Votes:
