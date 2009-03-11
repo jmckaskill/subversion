@@ -46,7 +46,7 @@ the filesystem's problem.)
 3. In svn_fs.h, define an enumerated list of "actions", something like
    this:
 
-       {
+       { 
          /* Create a new transaction */
          SVN_FS_ACTION_BEGIN_TXN,
 
@@ -101,7 +101,7 @@ the filesystem's problem.)
 
      Each of the routines *must* begin by calling the AUTH_HOOK
      routine stashed in the fs object:
-
+          
      /* Decide if USERNAME is allowed to perform ACTION on
         REVISION:PATH.  Return TRUE or FALSE.  */
 
@@ -115,10 +115,10 @@ the filesystem's problem.)
 
      This mechanism probably needs to be a table of some sort that
      lives *within* the txn_root object.  Every time the transaction
-     is modified my svn_fs_copy, the table will need to be updated.
+     is modified my svn_fs_copy, the table will need to be updated. 
 
 
-5.  Write any old auth_hook you want:
+5.  Write any old auth_hook you want:  
 
       * it might always return TRUE
 
