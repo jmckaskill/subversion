@@ -710,7 +710,7 @@ test_pdh(apr_pool_t *pool)
             "sub/A/B/C/D", ROOT_ONE, UUID_ONE, 1,
             svn_wc__db_kind_file, svn_wc__db_status_absent,
             pool));
-
+  
   return SVN_NO_ERROR;
 }
 
