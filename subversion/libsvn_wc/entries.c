@@ -900,7 +900,7 @@ read_entries(svn_wc_adm_access_t *adm_access,
   const apr_array_header_t *children;
   apr_pool_t *iterpool = svn_pool_create(scratch_pool);
   int i;
-
+  
   if (svn_wc__adm_wc_format(adm_access) < SVN_WC__WC_NG_VERSION)
     return svn_wc__read_entries_old(adm_access, scratch_pool);
 
@@ -3047,7 +3047,7 @@ walker_helper(const char *dirpath,
 
           err = svn_wc_adm_retrieve(&entry_access, adm_access, entrypath,
                                     subpool);
-
+          
           if (err)
             SVN_ERR(walk_callbacks->handle_error(entrypath, err,
                                                  walk_baton, pool));
