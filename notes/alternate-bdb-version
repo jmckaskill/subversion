@@ -16,7 +16,7 @@ the one that _is_ linked to APR-util, in two ways:
     under /usr, you must delete or rename several things after running
     'make install', but before your packaging system gathers the files into
     the final package:
-
+    
     lib: Delete libdb.a, libdb.so and libdb-4.so, which should leave you with
       only files containing the full 4.X version of Berkeley DB in
       their names.
@@ -29,7 +29,7 @@ the one that _is_ linked to APR-util, in two ways:
       subdirectory called "db4", pointing to ".".  This is because APR-util
       may well be attempting to include <db4/db.h>.  See the file apu_want.h
       to know whether this symlink is actually required on your system.
-
+    
     docs: Put the installed Berkeley DB documentation for this version
       whereever seems appropriate for your distribution.
 
