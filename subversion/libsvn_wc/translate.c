@@ -56,7 +56,7 @@ svn_wc_translated_file (const char **xlated_p,
   svn_subst_eol_style_t style;
   const char *eol;
   svn_subst_keywords_t *keywords;
-
+  
   SVN_ERR (svn_wc__get_eol_style (&style, &eol, vfile, pool));
   SVN_ERR (svn_wc__get_keywords (&keywords, vfile, adm_access, NULL, pool));
 
@@ -74,17 +74,17 @@ svn_wc_translated_file (const char **xlated_p,
       /* First, reserve a tmp file name. */
 
       svn_path_split (vfile, &tmp_dir, &tmp_vfile, pool);
-
+      
       tmp_vfile = svn_wc__adm_path (tmp_dir, 1, pool,
                                     tmp_vfile, NULL);
-
+      
       SVN_ERR (svn_io_open_unique_file (&ignored,
                                         &tmp_vfile,
                                         tmp_vfile,
                                         SVN_WC__TMP_EXT,
                                         FALSE,
                                         pool));
-
+      
       /* We were just reserving the name and don't actually need the
          filehandle, so close immediately. */
       apr_err = apr_file_close (ignored);
@@ -92,7 +92,7 @@ svn_wc_translated_file (const char **xlated_p,
         return svn_error_createf
           (0, NULL,
            "svn_wc_translated_file: unable to close %s", tmp_vfile);
-
+      
       if (style == svn_subst_eol_style_fixed)
         {
           SVN_ERR (svn_subst_copy_and_translate (vfile,
@@ -209,7 +209,7 @@ time_to_keyword_time (apr_time_t t, apr_pool_t *pool)
 
 
 /* Helper for svn_wc__get_keywords().
-
+   
    If KEYWORD is a valid keyword, look up its value in ENTRY, fill in
    the appropriate field in KEYWORDS with that value (allocated in
    POOL), and set *IS_VALID_P to TRUE.  If the value is not available,
@@ -295,7 +295,7 @@ expand_keyword (svn_subst_keywords_t *keywords,
     }
   else
     *is_valid_p = FALSE;
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -324,7 +324,7 @@ svn_wc__get_keywords (svn_subst_keywords_t **keywords,
       const svn_string_t *propval;
 
       SVN_ERR (svn_wc_prop_get (&propval, SVN_PROP_KEYWORDS, path, pool));
-
+      
       list = propval ? propval->data : NULL;
     }
   else
@@ -338,34 +338,34 @@ svn_wc__get_keywords (svn_subst_keywords_t **keywords,
   if (list == NULL)
     return SVN_NO_ERROR;
 
-  do
+  do 
     {
       /* Find the start of a word by skipping past whitespace. */
       while ((list[offset] != '\0') && (apr_isspace (list[offset])))
         offset++;
-
+    
       /* Hit either a non-whitespace or NULL char. */
 
       if (list[offset] != '\0') /* found non-whitespace char */
         {
           svn_boolean_t is_valid;
           int word_start, word_end;
-
+          
           word_start = offset;
-
+          
           /* Find the end of the word by skipping non-whitespace chars */
           while ((list[offset] != '\0') && (! apr_isspace (list[offset])))
             offset++;
-
+          
           /* Hit either a whitespace or NULL char.  Either way, it's the
              end of the word. */
           word_end = offset;
-
+          
           /* Make a temporary copy of the word */
           found_word = svn_stringbuf_ncreate (list + word_start,
                                               (word_end - word_start),
                                               pool);
-
+          
           /* If we haven't already read the entry in, do so now. */
           if (! entry)
              SVN_ERR (svn_wc_entry (&entry, path, adm_access, FALSE, pool));
@@ -376,14 +376,14 @@ svn_wc__get_keywords (svn_subst_keywords_t **keywords,
           if (is_valid)
             got_one = TRUE;
         }
-
+      
     } while (list[offset] != '\0');
 
   if (got_one)
     {
       *keywords = apr_pmemdup (pool, &tmp_keywords, sizeof (tmp_keywords));
     }
-
+      
   return SVN_NO_ERROR;
 }
 

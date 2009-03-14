@@ -2,7 +2,7 @@ Alexander Mueller <Alexander.Mueller@littleblue.de> is working on JNI
 bindings for the Subversion libraries here; please mail
 dev at subversion dot tigris org if you'd like to help out.
 
-Some notes from me (Alexander) for people who
+Some notes from me (Alexander) for people who 
 want to play a bit with the stuff:
 - take a look at the required tools list below
 - try to build the java classes with "build-java.sh"

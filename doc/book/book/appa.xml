@@ -67,9 +67,9 @@
       directory, except that it also stores <quote>pristine</quote>
       copies of files.  This allows you to do many things
       off-line:</para>
-
+    
     <variablelist>
-
+      
       <varlistentry>
         <term><command>svn status</command></term>
         <listitem>
@@ -146,14 +146,14 @@
       <title><command>svn status</command> prints all files that have
         local modifications; the network is not accessed by
         default.</title>
-
+      
       <varlistentry>
         <term><option>-u</option> switch</term>
         <listitem>
           <para>Add out-of-dateness information from repository.</para>
         </listitem>
       </varlistentry>
-
+      
       <varlistentry>
         <term><option>-v</option> switch</term>
         <listitem>
@@ -242,7 +242,7 @@ C    Conflict
       <firstterm>properties</firstterm>, and they can be thought of as
       collections of name/value pairs (hashtables) attached to each
       item in your working copy.</para>
-
+  
     <para>To set or get a property name, use the <command>svn
         propset</command> and <command>svn propget</command>
         subcommands.  To list all properties on an object, use
@@ -257,7 +257,7 @@ C    Conflict
   <!-- ================================================================= -->
   <sect1 id="svn-app-a-sect-5">
     <title>Directory versions</title>
-
+    
     <para>Subversion tracks tree structures, not just file contents.
       It's one of the biggest reasons Subversion was written to
       replace CVS.</para>
@@ -302,7 +302,7 @@ C    Conflict
       that would be a lie too; there may be other changes to
       <filename>foo</filename> we haven't yet received, because we
       haven't updated yet.</para>
-
+    
     <para>Subversion deals with this problem by quietly tracking
       committed adds and deletes in the <filename>.svn</filename>
       area.  When you eventually run <command>svn update</command>,
@@ -312,7 +312,7 @@ C    Conflict
         say that you have a <quote>perfect</quote> revision of a
         directory.</emphasis> Most of the time, your working copy will
       contain <quote>imperfect</quote> directory revisions.</para>
-
+    
     <para>Similarly, a problem arises if you attempt to commit
       property changes on a directory.  Normally, the commit would
       bump the working directory's local revision number.  But again,
@@ -352,7 +352,7 @@ C    Conflict
   <!-- ================================================================= -->
   <sect1 id="svn-app-a-sect-7">
     <title>Binary files</title>
-
+    
     <para>CVS users have to mark binary files with
       <option>-kb</option> flags, to prevent data from being munged
       (due to keyword expansion and line-ending translations).  They
@@ -434,7 +434,7 @@ C    Conflict
 </appendix>
 
 <!--
-local variables:
+local variables: 
 sgml-parent-document: ("book.xml" "appendix")
 end:
 -->

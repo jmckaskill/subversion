@@ -336,7 +336,7 @@ svn_base64_from_md5 (unsigned char digest[], apr_pool_t *pool)
 
   md5str = svn_stringbuf_ncreate (digest, MD5_DIGESTSIZE, pool);
   md5str = svn_base64_encode_string (md5str, pool);
-
+  
   /* Our base64-encoding routines append a final newline if any data
      was created at all, so let's hack that off. */
   if ((md5str)->len)

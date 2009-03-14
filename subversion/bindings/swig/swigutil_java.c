@@ -494,7 +494,7 @@ static svn_error_t * thunk_window_handler(svn_txdelta_window_t *window,
 }
 
 static svn_error_t * thunk_apply_textdelta(
-    void *file_baton,
+    void *file_baton, 
     svn_txdelta_window_handler_t *handler,
     void **h_baton)
 {
