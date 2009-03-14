@@ -50,7 +50,7 @@ relocate_error (const char *url,
                 const char *actual_uuid,
                 const char *expected_uuid)
 {
-  return svn_error_createf
+  return svn_error_createf 
     (SVN_ERR_CLIENT_INVALID_RELOCATION, NULL,
      "The repository at %s has uuid '%s', but the WC has '%s'",
      url, actual_uuid, expected_uuid);
@@ -58,8 +58,8 @@ relocate_error (const char *url,
 
 
 static svn_error_t *
-validator_func (void *baton,
-                const char *uuid,
+validator_func (void *baton, 
+                const char *uuid, 
                 const char *url)
 {
   svn_ra_plugin_t *ra_lib;
@@ -100,7 +100,7 @@ validator_func (void *baton,
   /* We use an RA session in a subpool to get the UUID of the
      repository at the new URL so we can force the RA session to close
      by destroying the subpool. */
-  subpool = svn_pool_create (pool);
+  subpool = svn_pool_create (pool); 
   SVN_ERR (svn_ra_get_ra_library (&ra_lib, b->ra_baton, url, subpool));
   SVN_ERR (svn_client__default_auth_dir (&auth_dir, b->path, subpool));
   SVN_ERR (svn_client__open_ra_session (&sess, ra_lib, url, auth_dir,
@@ -118,7 +118,7 @@ validator_func (void *baton,
 
   return SVN_NO_ERROR;
 }
-
+              
 svn_error_t *
 svn_client_relocate (const char *path,
                      const char *from,

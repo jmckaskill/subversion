@@ -69,7 +69,7 @@ struct svn_wc_traversal_info_t
 
   /* The before and after values of the SVN_PROP_EXTERNALS property,
    * for each directory on which that property changed.  These have
-   * the same layout as those returned by svn_wc_edited_externals().
+   * the same layout as those returned by svn_wc_edited_externals(). 
    *
    * The hashes, their keys, and their values are allocated in the
    * above pool.
@@ -84,7 +84,7 @@ struct svn_wc_traversal_info_t
 
 /* A special timestamp value which means "use the timestamp from the
    working copy".  This is sometimes used in a log entry like:
-
+   
    <modify-entry name="foo.c" revision="5" timestamp="working"/>
  */
 #define SVN_WC_TIMESTAMP_WC   "working"
@@ -133,7 +133,7 @@ svn_error_t *svn_wc__ensure_directory (const char *path, apr_pool_t *pool);
    and creating a lock. The cleanup code uses this function, but stealing
    locks is not a good idea because the code cannot determine whether a
    lock is still in use. Try not to write any more code that requires this
-   feature.
+   feature. 
 
    PATH is the directory to lock, and the lock is returned in
    *ADM_ACCESS.  ASSOCIATED can be another lock in which case the locks

@@ -42,7 +42,7 @@ svn_error_t *svn_fs__revision_root (svn_fs_id_t **id,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:

@@ -1009,7 +1009,7 @@ JNIEXPORT void JNICALL Java_org_tigris_subversion_javahl_SVNClient_diff
 	if(JNIUtil::isExceptionThrown())
 	{
 		return;
-	}
+	}	
 	Revision revision2(jrevision2);
 	if(JNIUtil::isExceptionThrown())
 	{
@@ -1019,7 +1019,7 @@ JNIEXPORT void JNICALL Java_org_tigris_subversion_javahl_SVNClient_diff
 	if(JNIUtil::isExceptionThrown())
 	{
 		return;
-	}
+	}	
 	cl->diff(target1, revision1, target2, revision2, outfileName,jrecurse ? true:false);
 }
 
@@ -1103,7 +1103,7 @@ JNIEXPORT jint JNICALL Java_org_tigris_subversion_javahl_SVNClient_versionMajor
 	JNIEntryStatic(SVNClient, versionMajor);
 	return JNI_VER_MAJOR;
 }
-
+	
 /*
  * Class:     org_tigris_subversion_javahl_SVNClient
  * Method:    versionMinor

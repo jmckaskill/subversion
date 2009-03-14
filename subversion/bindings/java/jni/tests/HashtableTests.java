@@ -19,7 +19,7 @@ import junit.framework.*;
 import java.util.Hashtable;
 
 /**
- * Testcases for the native functions with prefix "hashtable"
+ * Testcases for the native functions with prefix "hashtable" 
  * in the class NativeWrapper
  *
  * @see NativeWrapper
@@ -82,7 +82,7 @@ public class HashtableTests extends TestCase
 	    {
 		// try to add an invalid key
 		NativeWrapper.hashtablePut(hashtable, null, "value");
-
+		
 		// still there? cant be
 		assertTrue(false);
 	    }

@@ -63,7 +63,7 @@ find_undeletables (void *baton,
   else if (! status->entry)
     sb->err = svn_error_createf (SVN_ERR_CLIENT_UNVERSIONED, NULL,
                                  "'%s' is not under revision control", path);
-
+  
   else if ((status->text_status != svn_wc_status_normal
             && status->text_status != svn_wc_status_deleted
             && status->text_status != svn_wc_status_absent)
@@ -135,9 +135,9 @@ delete_urls (svn_client_commit_info_t **commit_info,
     {
       svn_client_commit_item_t *item;
       const char *tmp_file;
-      apr_array_header_t *commit_items
+      apr_array_header_t *commit_items 
         = apr_array_make (pool, targets->nelts, sizeof (item));
-
+          
       for (i = 0; i < targets->nelts; i++)
         {
           const char *path = APR_ARRAY_IDX (targets, i, const char *);
@@ -146,7 +146,7 @@ delete_urls (svn_client_commit_info_t **commit_info,
           item->state_flags = SVN_CLIENT_COMMIT_ITEM_DELETE;
           APR_ARRAY_PUSH (commit_items, svn_client_commit_item_t *) = item;
         }
-      SVN_ERR ((*ctx->log_msg_func) (&log_msg, &tmp_file, commit_items,
+      SVN_ERR ((*ctx->log_msg_func) (&log_msg, &tmp_file, commit_items, 
                                      ctx->log_msg_baton, pool));
       if (! log_msg)
         return SVN_NO_ERROR;
@@ -189,8 +189,8 @@ delete_urls (svn_client_commit_info_t **commit_info,
                                       commit_baton, pool));
 
   /* Call the path-based editor driver. */
-  SVN_ERR (svn_delta_path_driver (editor, edit_baton, SVN_INVALID_REVNUM,
-                                  targets, path_driver_cb_func,
+  SVN_ERR (svn_delta_path_driver (editor, edit_baton, SVN_INVALID_REVNUM, 
+                                  targets, path_driver_cb_func, 
                                   (void *)editor, pool));
 
   /* Close the edit. */
@@ -202,8 +202,8 @@ delete_urls (svn_client_commit_info_t **commit_info,
 svn_error_t *
 svn_client__wc_delete (const char *path,
                        svn_wc_adm_access_t *adm_access,
-                       svn_boolean_t force,
-                       svn_boolean_t dry_run,
+                       svn_boolean_t force, 
+                       svn_boolean_t dry_run, 
                        svn_client_ctx_t *ctx,
                        apr_pool_t *pool)
 {
@@ -224,7 +224,7 @@ svn_client__wc_delete (const char *path,
 svn_error_t *
 svn_client_delete (svn_client_commit_info_t **commit_info,
                    const apr_array_header_t *paths,
-                   svn_boolean_t force,
+                   svn_boolean_t force, 
                    svn_client_ctx_t *ctx,
                    apr_pool_t *pool)
 {
@@ -249,9 +249,9 @@ svn_client_delete (svn_client_commit_info_t **commit_info,
           svn_pool_clear (subpool);
           parent_path = svn_path_dirname (path, subpool);
           /* Let the working copy library handle the PATH. */
-          SVN_ERR (svn_wc_adm_open (&adm_access, NULL, parent_path,
+          SVN_ERR (svn_wc_adm_open (&adm_access, NULL, parent_path, 
                                     TRUE, FALSE, subpool));
-          SVN_ERR (svn_client__wc_delete (path, adm_access, force,
+          SVN_ERR (svn_client__wc_delete (path, adm_access, force, 
                                           FALSE, ctx, subpool));
           SVN_ERR (svn_wc_adm_close (adm_access));
 

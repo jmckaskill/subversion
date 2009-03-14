@@ -31,7 +31,7 @@ class Pool;
 #include "Path.h"
 #include <vector>
 
-class Targets
+class Targets  
 {
 private:
     std::vector<Path> m_targets;

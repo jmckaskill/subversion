@@ -57,7 +57,7 @@
   <!-- ================================================================= -->
   <sect1 id="svn-app-a-sect-2">
     <title>Directory Versions</title>
-
+    
     <para>Subversion tracks tree structures, not just file contents.
       It's one of the biggest reasons Subversion was written to
       replace CVS.</para>
@@ -103,7 +103,7 @@
       that would be a lie too; there may be other changes to
       <filename>foo</filename> we haven't yet received, because we
       haven't updated yet.</para>
-
+    
     <para>Subversion deals with this problem by quietly tracking
       committed adds and deletes in the <filename>.svn</filename>
       area.  When you eventually run <command>svn update</command>,
@@ -113,7 +113,7 @@
         say that you have a <quote>perfect</quote> revision of a
         directory.</emphasis> Most of the time, your working copy will
       contain <quote>imperfect</quote> directory revisions.</para>
-
+    
     <para>Similarly, a problem arises if you attempt to commit
       property changes on a directory.  Normally, the commit would
       bump the working directory's local revision number.  But again,
@@ -145,9 +145,9 @@
       directory, except that it also stores read-only,
       <quote>pristine</quote> copies of your files.  This allows you
       to do many things off-line:</para>
-
+    
     <variablelist>
-
+      
       <varlistentry>
         <term><command>svn status</command></term>
         <listitem>
@@ -221,14 +221,14 @@
       <title><command>svn status</command> Prints All Files That Have
         Local Modifications: The Network is not Accessed by
         Default</title>
-
+      
       <varlistentry>
         <term><option>-u</option> switch</term>
         <listitem>
           <para>Add out-of-dateness information from repository.</para>
         </listitem>
       </varlistentry>
-
+      
       <varlistentry>
         <term><option>-v</option> switch</term>
         <listitem>
@@ -342,7 +342,7 @@ X    Resource is external to this working copy (comes from another
       <firstterm>properties</firstterm>, and they can be thought of as
       collections of arbitrary name/value pairs attached to each item
       in your working copy.</para>
-
+    
     <para>To set or get a property name, use the <command>svn
       propset</command> and <command>svn propget</command>
       subcommands.  To list all properties on an object, use
@@ -388,7 +388,7 @@ X    Resource is external to this working copy (comes from another
       contain textual or binary data.  That means that all files are
       stored differentially (compressed) in the repository, and small
       differences are always sent over the network.</para>
-
+    
     <para>CVS users have to mark binary files with
       <option>-kb</option> flags, to prevent data from being garbled
       (due to keyword expansion and line-ending translations).  They
@@ -445,7 +445,7 @@ X    Resource is external to this working copy (comes from another
 </appendix>
 
 <!--
-local variables:
+local variables: 
 sgml-parent-document: ("book.xml" "appendix")
 end:
 -->
