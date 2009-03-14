@@ -51,7 +51,7 @@ svn_cl__switch (apr_getopt_t *os,
   /* This command should discover (or derive) exactly two cmdline
      arguments: a local path to update ("target"), and a new url to
      switch to ("switch_url"). */
-  SVN_ERR (svn_opt_args_to_target_array (&targets, os,
+  SVN_ERR (svn_opt_args_to_target_array (&targets, os, 
                                          opt_state->targets,
                                          &(opt_state->start_revision),
                                          &(opt_state->end_revision),
@@ -74,8 +74,8 @@ svn_cl__switch (apr_getopt_t *os,
 
   /* Validate the switch_url */
   if (! svn_path_is_url (switch_url))
-    return svn_error_createf
-      (SVN_ERR_BAD_URL, NULL,
+    return svn_error_createf 
+      (SVN_ERR_BAD_URL, NULL, 
        "`%s' does not appear to be a URL", switch_url);
 
   /* Canonicalize the URL. */
@@ -86,10 +86,10 @@ svn_cl__switch (apr_getopt_t *os,
                                   pool));
   SVN_ERR (svn_wc_entry (&entry, target, adm_access, FALSE, pool));
   if (! entry)
-    return svn_error_createf
-      (SVN_ERR_ENTRY_NOT_FOUND, NULL,
+    return svn_error_createf 
+      (SVN_ERR_ENTRY_NOT_FOUND, NULL, 
        "`%s' does not appear to be a working copy path", target);
-
+  
   /* We want the switch to print the same letters as a regular update. */
   if (entry->kind == svn_node_file)
     SVN_ERR (svn_wc_get_actual_target (target, &parent_dir, &base_tgt, pool));

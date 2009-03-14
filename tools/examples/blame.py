@@ -12,17 +12,17 @@ from svn import fs, util
 CHUNK_SIZE = 100000
 
 def getfile(pool, path, rev=None, home='.'):
-
+  
   db_path = os.path.join(home, 'db')
   if not os.path.exists(db_path):
     db_path = home
   annotresult = {}
   fsob = fs.new(pool)
   fs.open_berkeley(fsob, db_path)
-
+  
   if rev is None:
     rev = fs.youngest_rev(fsob, pool)
-  filedata = ''
+  filedata = '' 
   for i in xrange(0, rev+1):
     root = fs.revision_root(fsob, i, pool)
     if fs.check_path(root, path, pool) != util.svn_node_none:
@@ -36,7 +36,7 @@ def getfile(pool, path, rev=None, home='.'):
     if i != first:
       if not fs.contents_changed(root, path, previousroot, path, pool):
         continue
-
+      
     file = fs.file_contents(root, path, pool)
     previousdata = filedata
     filedata = ''
@@ -50,7 +50,7 @@ def getfile(pool, path, rev=None, home='.'):
     diffresult = difflib.ndiff(previousdata.splitlines(1),
                                filedata.splitlines(1))
     #    print ''.join(diffresult)
-    k = 0
+    k = 0    
     for j in diffresult:
       if j[0] == ' ':
         if annotresult.has_key (k):
@@ -66,7 +66,7 @@ def getfile(pool, path, rev=None, home='.'):
       if j[0] != '-':
         k = k + 1
 #    print ''.join(diffresult)
-#  print annotresult
+#  print annotresult 
   for x in xrange(len(annotresult.keys())):
      sys.stdout.write("Line %d (rev %d):%s" % (x,
                                                annotresult[x][0],

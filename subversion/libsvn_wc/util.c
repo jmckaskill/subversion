@@ -60,7 +60,7 @@ svn_wc__ensure_directory (const char *path, apr_pool_t *pool)
           /* Tried to create the dir, and encountered some problem
              other than non-existence of intermediate dirs.  We can't
              ensure the desired directory's existence, so just return
-             the error. */
+             the error. */ 
           return err;
         }
       else if (err && APR_STATUS_IS_ENOENT(err->apr_err))
@@ -80,7 +80,7 @@ svn_wc__ensure_directory (const char *path, apr_pool_t *pool)
           else  /* We have a valid path, so recursively ensure it. */
             {
               err = svn_wc__ensure_directory (shorter, pool);
-
+          
               if (err)
                 return (err);
               else

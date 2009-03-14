@@ -123,8 +123,8 @@ svn_client__checkout_internal (const char *URL,
           return err;
         }
       *use_sleep = TRUE;
-    }
-
+    }      
+  
   /* We handle externals after the initial checkout is complete, so
      that fetching external items (and any errors therefrom) doesn't
      delay the primary checkout.

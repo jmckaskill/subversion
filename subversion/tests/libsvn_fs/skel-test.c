@@ -108,7 +108,7 @@ init_char_types (void)
     skel_char_map[i] = type_name;
   for (i = 'a'; i <= 'z'; i++)
     skel_char_map[i] = type_name;
-
+  
   skel_char_map_initialized = 1;
 }
 
@@ -253,7 +253,7 @@ check_implicit_length_all_chars (skel_t *skel)
 /* Test parsing of implicit-length atoms.  */
 
 static svn_error_t *
-parse_implicit_length (const char **msg,
+parse_implicit_length (const char **msg, 
                        svn_boolean_t msg_only,
                        apr_pool_t *pool)
 {
@@ -314,7 +314,7 @@ put_explicit_length (svn_stringbuf_t *str, const char *data, apr_size_t len, cha
   /* Generate the length and separator character.  */
   sprintf (buf, "%"APR_SIZE_T_FMT"%c", len, sep);
   length_len = strlen(buf);
-
+  
   /* Copy in the real data (which may contain nulls).  */
   memcpy (buf + length_len, data, len);
 
@@ -350,7 +350,7 @@ try_explicit_length (const char *data, apr_size_t len, apr_size_t check_len,
 	put_explicit_length (str, data, len,  (apr_byte_t)i);
 	skel = parse_str (str, pool);
 	if (! check_explicit_length (skel, data, check_len))
-	  return fail (pool, "failed to reparse explicit-length atom");
+	  return fail (pool, "failed to reparse explicit-length atom"); 
       }
 
   return SVN_NO_ERROR;
@@ -358,7 +358,7 @@ try_explicit_length (const char *data, apr_size_t len, apr_size_t check_len,
 
 
 static svn_error_t *
-parse_explicit_length (const char **msg,
+parse_explicit_length (const char **msg, 
                        svn_boolean_t msg_only,
                        apr_pool_t *pool)
 {
@@ -377,7 +377,7 @@ parse_explicit_length (const char **msg,
     for (i = 0; i < 256; i++)
       {
 	char buf[1];
-
+	
 	buf[0] = i;
 	SVN_ERR (try_explicit_length (buf, 1, 1, pool));
       }
@@ -420,7 +420,7 @@ static struct invalid_atoms
                       { 7,  0, NULL } };
 
 static svn_error_t *
-parse_invalid_atoms (const char **msg,
+parse_invalid_atoms (const char **msg, 
                      svn_boolean_t msg_only,
                      apr_pool_t *pool)
 {
@@ -437,7 +437,7 @@ parse_invalid_atoms (const char **msg,
         {
           skel_t *skel = parse_cstr ((char *) ia->data, pool);
           if (check_atom (skel, ia->data, ia->len))
-            return fail (pool,
+            return fail (pool, 
                          "failed to detect parsing error in `%s'", ia->data);
         }
       else
@@ -510,7 +510,7 @@ check_list (skel_t *skel, int desired_len)
 /* Parse lists.  */
 
 static svn_error_t *
-parse_list (const char **msg,
+parse_list (const char **msg, 
             svn_boolean_t msg_only,
             apr_pool_t *pool)
 {
@@ -653,7 +653,7 @@ parse_list (const char **msg,
   {
     int sep;
 
-    /* Try different separators.  */
+    /* Try different separators.  */ 
     for (sep = 0; sep < 256; sep++)
       if (skel_is_space ( (apr_byte_t)sep))
 	{
@@ -689,7 +689,7 @@ parse_list (const char **msg,
 	    }
 	}
   }
-
+	      
   return SVN_NO_ERROR;
 }
 
@@ -765,7 +765,7 @@ skel_equal (skel_t *a, skel_t *b)
 /* Unparsing implicit-length atoms.  */
 
 static svn_error_t *
-unparse_implicit_length (const char **msg,
+unparse_implicit_length (const char **msg, 
                          svn_boolean_t msg_only,
                          apr_pool_t *pool)
 {
@@ -786,7 +786,7 @@ unparse_implicit_length (const char **msg,
 	  skel_t *skel = build_atom (1, &buf, pool);
 
 	  str = svn_fs__unparse_skel (skel, pool);
-
+	  
 	  if (! (str
 		 && str->len == 1
 		 && str->data[0] == (char)byte))
@@ -803,7 +803,7 @@ unparse_implicit_length (const char **msg,
 /* Unparse some lists.  */
 
 static svn_error_t *
-unparse_list (const char **msg,
+unparse_list (const char **msg, 
               svn_boolean_t msg_only,
               apr_pool_t *pool)
 {
