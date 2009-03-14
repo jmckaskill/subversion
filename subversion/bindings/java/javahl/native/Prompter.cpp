@@ -297,7 +297,7 @@ int Prompter::askTrust(const char *question, bool allow_permanent)
 		{
 			q += "(R)eject or accept (t)emporarily?";
 		}
-		const char *answer = askQuestion(NULL, q.c_str(), true);
+		const char *answer = askQuestion(NULL, q.c_str(), true); 
 		if(*answer == 't' || *answer == 'T')
 		{
 			return org_tigris_subversion_javahl_PromptUserPassword2_AccecptTemporary;
@@ -380,7 +380,7 @@ svn_auth_provider_object_t *Prompter::getProviderUsername()
 	svn_auth_provider_object_t *provider;
     svn_client_get_username_prompt_provider (&provider,
                                              username_prompt,
-                                             this,
+                                             this, 
                                              2, /* retry limit */
                                              pool);
 
@@ -413,7 +413,7 @@ svn_auth_provider_object_t *Prompter::getProviderClientSSLPassword()
 
 	return provider;
 }
-svn_error_t *Prompter::simple_prompt(svn_auth_cred_simple_t **cred_p, void *baton,
+svn_error_t *Prompter::simple_prompt(svn_auth_cred_simple_t **cred_p, void *baton, 
 										const char *realm, const char *username, apr_pool_t *pool)
 {
 	Prompter *that = (Prompter*)baton;
@@ -451,17 +451,17 @@ svn_error_t *Prompter::username_prompt(svn_auth_cred_username_t **cred_p, void *
 	return SVN_NO_ERROR;
 }
 svn_error_t *Prompter::ssl_server_trust_prompt(svn_auth_cred_ssl_server_trust_t **cred_p,
-										void *baton,int failures,
+										void *baton,int failures, 
 										const svn_auth_ssl_server_cert_info_t *cert_info,
 										apr_pool_t *pool)
 {
 	Prompter *that = (Prompter*)baton;
 	svn_auth_cred_ssl_server_trust_t *ret = (svn_auth_cred_ssl_server_trust_t*)apr_pcalloc(pool, sizeof(*ret));
-
+	
 	bool allow_perm_accept = (failures & SVN_AUTH_SSL_UNKNOWNCA) ? true : false;
 
 	std::string question = "Error validating server certificate:\n";
-
+	
 	if(failures & SVN_AUTH_SSL_UNKNOWNCA)
 	{
 		question += " - Unknown certificate issuer\n";

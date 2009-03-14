@@ -69,7 +69,7 @@ blame_create (struct diff_baton *baton, struct rev *rev, apr_off_t start)
   else
     blame = apr_palloc (baton->pool, sizeof (*blame));
   blame->rev = rev;
-  blame->start = start;
+  blame->start = start;       
   blame->next = NULL;
   return blame;
 }
@@ -210,9 +210,9 @@ output_diff_modified (void *baton,
 struct log_message_baton {
   const char *path;        /* The path to be processed */
   struct rev *eldest;      /* The eldest revision processed */
-  svn_cancel_func_t cancel_func; /* cancellation callback */
+  svn_cancel_func_t cancel_func; /* cancellation callback */ 
   void *cancel_baton;            /* cancellation baton */
-  apr_pool_t *pool;
+  apr_pool_t *pool; 
 };
 
 const svn_diff_output_fns_t output_fns = {
@@ -221,7 +221,7 @@ const svn_diff_output_fns_t output_fns = {
 };
 
 
-static int
+static int 
 compare_items_as_paths (const void *a, const void *b)
 {
   const char *item1 = a;
@@ -230,7 +230,7 @@ compare_items_as_paths (const void *a, const void *b)
 }
 
 
-
+                     
 /* Callback for log messages: accumulates revision metadata into
    a chronologically ordered list stored in the baton. */
 static svn_error_t *
@@ -277,19 +277,19 @@ log_message_receiver (void *baton,
          that directory's copyfrom_path. */
       int i;
       apr_hash_index_t *hi;
-      apr_array_header_t *paths =
-        apr_array_make (pool, apr_hash_count (changed_paths),
+      apr_array_header_t *paths = 
+        apr_array_make (pool, apr_hash_count (changed_paths), 
                         sizeof (const char *));
 
       /* Build a sorted list of the changed paths. */
-      for (hi = apr_hash_first (pool, changed_paths); hi;
+      for (hi = apr_hash_first (pool, changed_paths); hi; 
            hi = apr_hash_next (hi))
         {
           const void *key;
           apr_hash_this (hi, &key, NULL, NULL);
           APR_ARRAY_PUSH (paths, const char *) = key;
         }
-      qsort (paths->elts, paths->nelts, paths->elt_size,
+      qsort (paths->elts, paths->nelts, paths->elt_size, 
              compare_items_as_paths);
 
       /* Now, walk the list of paths backwards, looking a parent of
@@ -311,12 +311,12 @@ log_message_receiver (void *baton,
                   /* Yes!  This change was copied, so we just need to
                      apply the portion of our path that is relative to
                      this change's path, to the change's copyfrom path.  */
-                  lmb->path = svn_path_join (change->copyfrom_path,
+                  lmb->path = svn_path_join (change->copyfrom_path, 
                                              lmb->path + len + 1,
                                              lmb->pool);
                   return SVN_NO_ERROR;
                 }
-
+              
               /* Nope.  No copyfrom data.  That's okay, we'll keep
                  looking. */
             }
@@ -343,7 +343,7 @@ svn_client_blame (const char *target,
   const char *reposURL;
   struct log_message_baton lmb;
   apr_array_header_t *condensed_targets;
-  svn_ra_plugin_t *ra_lib;
+  svn_ra_plugin_t *ra_lib; 
   void *ra_baton, *session;
   const char *url;
   const char *auth_dir;
@@ -438,7 +438,7 @@ svn_client_blame (const char *target,
     {
       const char *tmp;
       const char *temp_dir;
-
+      
       apr_pool_clear (iterpool);
       SVN_ERR (svn_io_temp_dir (&temp_dir, pool));
       SVN_ERR (svn_io_open_unique_file (&file, &tmp,
@@ -458,7 +458,7 @@ svn_client_blame (const char *target,
           SVN_ERR (svn_diff_output (diff, &db, &output_fns));
           apr_err = apr_file_remove (last, iterpool);
           if (apr_err != APR_SUCCESS)
-            return svn_error_createf (apr_err, NULL, "error removing %s",
+            return svn_error_createf (apr_err, NULL, "error removing %s", 
                                       last);
         }
       else

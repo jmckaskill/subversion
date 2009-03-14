@@ -59,7 +59,7 @@ svn_wc_relocate (const char *path,
 
       entry = apr_hash_get (entries, base, APR_HASH_KEY_STRING);
       if (! entry)
-        return svn_error_create (SVN_ERR_ENTRY_NOT_FOUND, NULL,
+        return svn_error_create (SVN_ERR_ENTRY_NOT_FOUND, NULL, 
                                  "missing entry");
       if (! entry->url)
         return svn_error_createf (SVN_ERR_ENTRY_MISSING_URL, NULL,
@@ -83,7 +83,7 @@ svn_wc_relocate (const char *path,
      significantly cuts down on the number of expensive validations the
      validator has to do. */
   entry = apr_hash_get (entries, SVN_WC_ENTRY_THIS_DIR, APR_HASH_KEY_STRING);
-  if (entry->url && (strncmp (entry->url, from, from_len) == 0))
+  if (entry->url && (strncmp (entry->url, from, from_len) == 0)) 
     {
       const char *url = apr_psprintf (svn_wc_adm_access_pool (adm_access),
                                       "%s%s", to, entry->url + from_len);
@@ -109,14 +109,14 @@ svn_wc_relocate (const char *path,
           const char *subdir = svn_path_join (path, key, pool);
           if (svn_wc__adm_missing (adm_access, subdir))
             continue;
-          SVN_ERR (svn_wc_adm_retrieve (&subdir_access, adm_access,
+          SVN_ERR (svn_wc_adm_retrieve (&subdir_access, adm_access, 
                                         subdir, pool));
           SVN_ERR (svn_wc_relocate (subdir, subdir_access, from, to,
-                                    recurse, validator,
+                                    recurse, validator, 
                                     validator_baton, pool));
         }
 
-      if (entry->url && (strncmp (entry->url, from, from_len) == 0))
+      if (entry->url && (strncmp (entry->url, from, from_len) == 0)) 
         {
           char *url = apr_psprintf (svn_wc_adm_access_pool (adm_access),
                                     "%s%s", to, entry->url + from_len);
