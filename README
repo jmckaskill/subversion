@@ -113,7 +113,7 @@ IV.   QUICKSTART GUIDE
       After the repository is created, you can initially import data
       into it, using libsvn_ra_local (invoked by using a 'file' URL):
 
-        $ svn import -m "log msg" some/local/dir/ file:///usr/local/svn/repos1
+        $ svn import -m "log msg" some/local/dir/ file:///usr/local/svn/repos1 
 
       The above example imports the contents of some/local/dir/ right
       into the root of the repository.  If you want to put these

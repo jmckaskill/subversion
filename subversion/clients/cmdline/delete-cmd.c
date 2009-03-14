@@ -63,7 +63,7 @@ svn_cl__delete (apr_getopt_t *os,
   svn_client_commit_info_t *commit_info = NULL;
   svn_error_t *err;
 
-  SVN_ERR (svn_opt_args_to_target_array (&targets, os,
+  SVN_ERR (svn_opt_args_to_target_array (&targets, os, 
                                          opt_state->targets,
                                          &(opt_state->start_revision),
                                          &(opt_state->end_revision),
@@ -76,7 +76,7 @@ svn_cl__delete (apr_getopt_t *os,
     svn_cl__get_notifier (&ctx->notify_func, &ctx->notify_baton, FALSE, FALSE,
                           FALSE, pool);
 
-  SVN_ERR (svn_cl__make_log_msg_baton (&(ctx->log_msg_baton), opt_state,
+  SVN_ERR (svn_cl__make_log_msg_baton (&(ctx->log_msg_baton), opt_state, 
                                        NULL, ctx->config, pool));
   err = svn_client_delete (&commit_info, targets, opt_state->force, ctx, pool);
   if (err)
@@ -85,6 +85,6 @@ svn_cl__delete (apr_getopt_t *os,
 
   if (commit_info && ! opt_state->quiet)
     svn_cl__print_commit_info (commit_info);
-
+      
   return SVN_NO_ERROR;
 }

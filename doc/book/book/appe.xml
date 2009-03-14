@@ -37,7 +37,7 @@
            ships with Subversion, though it may become an independent
            project soon.  For now, you should always run the most
            recent version you can, by checking out this subdirectory
-           of the Subversion repository:
+           of the Subversion repository: 
            <systemitem class="url"
            >http://svn.collab.net/repos/svn/trunk/tools/cvs2svn/</systemitem>.
            For more information about <command>cvs2svn.py</command>,
@@ -51,13 +51,13 @@
            you read this, the situation may have changed; check the
            <filename>README</filename> for
            updates.</para></listitem></varlistentry>
-
+        
         <varlistentry>
            <term>Subversion plugin for VCP</term>
            <listitem><para>Chia-liang Kao has written a converter
            based on <literal>VCP</literal>.  The converter doesn't
            seem to have its own name, it's just "the Subversion plugin
-           to VCP", but it can be checked out from <systemitem class="url"
+           to VCP", but it can be checked out from <systemitem class="url" 
            >http://svn.clkao.org/revml/branches/svn-perl/</systemitem>,
            with documentation at <systemitem class="url"
 >http://svn.clkao.org/revml/branches/svn-perl/lib/VCP/Dest/svn.pm</systemitem>.
@@ -139,7 +139,7 @@
 </appendix>
 
 <!--
-local variables:
+local variables: 
 sgml-parent-document: ("book.xml" "appendix")
 end:
 -->

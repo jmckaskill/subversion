@@ -203,7 +203,7 @@ will live on in the original location, but part of it now thrives in
 its new "/trunk/README" location.  The copy operation assigned a brand
 new copy ID to the new node-revision for "/trunk/README", which is
 necessarily different from the copy ID assigned to the node-revision
-for "/trunk".
+for "/trunk".  
 
 Now, later, you decide to copy "/trunk" to "/branches/mine".  So the new
 "/branches/mine" also gets a brand new copy ID, since it is now a

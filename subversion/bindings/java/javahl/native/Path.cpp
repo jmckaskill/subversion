@@ -29,12 +29,12 @@ Path::Path (const char * path)
 init (path);
 }
 
-Path::Path (const std::string & path)
+Path::Path (const std::string & path) 
 {
 init (path.c_str ());
 }
 
-Path::Path (const Path & path)
+Path::Path (const Path & path) 
 {
 init (path.c_str ());
 }
@@ -60,13 +60,13 @@ Path::path () const
 return m_path;
 }
 
-const char *
+const char * 
 Path::c_str() const
 {
 return m_path.c_str ();
 }
 
-Path&
+Path& 
 Path::operator=(const Path & path)
 {
 init (path.c_str ());

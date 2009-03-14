@@ -43,7 +43,7 @@
 #include "svn_subst.h"
 #include "svn_pools.h"
 
-void
+void 
 svn_subst_eol_style_from_value (svn_subst_eol_style_t *style,
                                 const char **eol,
                                 const char *value)
@@ -87,8 +87,8 @@ svn_subst_eol_style_from_value (svn_subst_eol_style_t *style,
     }
 }
 
-/* A helper function to convert the date property to something suitable for
-   printing out.  If LONG_P is TRUE, use the long format, otherwise use a
+/* A helper function to convert the date property to something suitable for 
+   printing out.  If LONG_P is TRUE, use the long format, otherwise use a 
    shorter one.  Returns a UTF8 encoded cstring. */
 static svn_error_t *
 date_prop_to_human (const char **human, svn_boolean_t long_p, apr_time_t when,
@@ -137,7 +137,7 @@ svn_subst_build_keywords (svn_subst_keywords_t *kw,
           || (! strcasecmp (keyword, SVN_KEYWORD_REVISION_SHORT)))
         {
           kw->revision = svn_string_create (rev, pool);
-        }
+        }      
       else if ((! strcmp (keyword, SVN_KEYWORD_DATE_LONG))
                || (! strcasecmp (keyword, SVN_KEYWORD_DATE_SHORT)))
         {
@@ -231,7 +231,7 @@ translate_keyword_subst (char *buf,
 
   /* Check for unexpanded keyword. */
   if ((buf_ptr[0] == '$')          /* "$keyword$" */
-      || ((buf_ptr[0] == ':')
+      || ((buf_ptr[0] == ':') 
           && (buf_ptr[1] == '$'))) /* "$keyword:$" */
     {
       /* unexpanded... */
@@ -305,9 +305,9 @@ translate_keyword_subst (char *buf,
         }
       return TRUE;
     }
-
+  
   return FALSE;
-}
+}                         
 
 /* Parse BUF (whose length is *LEN) for Subversion keywords.  If a
    keyword is found, optionally perform the substitution on it in
@@ -420,7 +420,7 @@ translate_keyword (char *buf,
 
 /* Translate NEWLINE_BUF (length of NEWLINE_LEN) to the newline format
    specified in EOL_STR (length of EOL_STR_LEN), and write the
-   translated thing to FILE (whose path is DST_PATH).
+   translated thing to FILE (whose path is DST_PATH).  
 
    SRC_FORMAT (length *SRC_FORMAT_LEN) is a cache of the first newline
    found while processing SRC_PATH.  If the current newline is not the
@@ -428,7 +428,7 @@ translate_keyword (char *buf,
    REPAIR is TRUE, ignore the inconsistency, else return an
    SVN_ERR_IO_INCONSISTENT_EOL error.  If we are examining the first
    newline in the file, copy it to {SRC_FORMAT, *SRC_FORMAT_LEN} to
-   use for later consistency checks.
+   use for later consistency checks.  
 
    Use POOL to allocate errors that may occur. */
 static svn_error_t *
@@ -450,7 +450,7 @@ translate_newline (const char *eol_str,
          we are NOT repairing the file, generate an error! */
       if ((! repair) &&
           ((*src_format_len != newline_len) ||
-           (strncmp (src_format, newline_buf, newline_len))))
+           (strncmp (src_format, newline_buf, newline_len)))) 
         return svn_error_create
           (SVN_ERR_IO_INCONSISTENT_EOL, NULL,
            "Inconsistent line-endings in source stream");
@@ -477,7 +477,7 @@ svn_subst_keywords_differ (const svn_subst_keywords_t *a,
 {
   if (((a == NULL) && (b == NULL)) /* no A or B */
       /* no A, and B has no contents */
-      || ((a == NULL)
+      || ((a == NULL) 
           && (b->revision == NULL)
           && (b->date == NULL)
           && (b->author == NULL)
@@ -488,7 +488,7 @@ svn_subst_keywords_differ (const svn_subst_keywords_t *a,
           && (a->author == NULL)
           && (a->url == NULL))
       /* neither A nor B has any contents */
-      || ((a != NULL) && (b != NULL)
+      || ((a != NULL) && (b != NULL) 
           && (b->revision == NULL)
           && (b->date == NULL)
           && (b->author == NULL)
@@ -502,35 +502,35 @@ svn_subst_keywords_differ (const svn_subst_keywords_t *a,
     }
   else if ((a == NULL) || (b == NULL))
     return TRUE;
-
+  
   /* Else both A and B have some keywords. */
-
+  
   if ((! a->revision) != (! b->revision))
     return TRUE;
   else if ((compare_values && (a->revision != NULL))
            && (strcmp (a->revision->data, b->revision->data) != 0))
     return TRUE;
-
+    
   if ((! a->date) != (! b->date))
     return TRUE;
   else if ((compare_values && (a->date != NULL))
            && (strcmp (a->date->data, b->date->data) != 0))
     return TRUE;
-
+    
   if ((! a->author) != (! b->author))
     return TRUE;
   else if ((compare_values && (a->author != NULL))
            && (strcmp (a->author->data, b->author->data) != 0))
     return TRUE;
-
+  
   if ((! a->url) != (! b->url))
     return TRUE;
   else if ((compare_values && (a->url != NULL))
            && (strcmp (a->url->data, b->url->data) != 0))
     return TRUE;
-
-  /* Else we never found a difference, so they must be the same. */
-
+  
+  /* Else we never found a difference, so they must be the same. */  
+  
   return FALSE;
 }
 
@@ -666,7 +666,7 @@ svn_subst_translate_cstring (const char *src,
   svn_error_t *err;
 
   src_stringbuf = svn_stringbuf_create (src, pool);
-
+  
   /* The easy way out:  no translation needed, just copy. */
   if (! (eol_str || keywords))
     {
@@ -685,7 +685,7 @@ svn_subst_translate_cstring (const char *src,
   if (err)
     {
       svn_stream_close (src_stream);
-      svn_stream_close (dst_stream);
+      svn_stream_close (dst_stream);      
       return err;
     }
 
@@ -815,7 +815,7 @@ svn_subst_translate_string (svn_string_t **new_value,
                                         NULL,  /* no keywords */
                                         FALSE, /* no expansion */
                                         pool));
-
+  
   *new_value = svn_string_create (val_utf8_lf, pool);
 
   return SVN_NO_ERROR;

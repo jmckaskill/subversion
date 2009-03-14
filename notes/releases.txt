@@ -19,7 +19,7 @@
       http://svn.collab.net/repos/svn/tags/X.YY.Z
 
    b) Bump the version numbers in svn_version.h and CHANGES.
-
+   
    c) Commit.
 
 3. Create a working copy (wc) from the release branch:
@@ -151,7 +151,7 @@
                         http://svn.collab.net/repos/svn/trunk
 
 9. Upload the tarball to /usr/www/docroot/tarballs/ on svn.collab.net,
-   then link to it from subversion.tigris.org.
+   then link to it from subversion.tigris.org.  
 
    The ability to upload a public, automatically approved tarball
    requires the "Project Document - Approve" permission, which is a
@@ -190,7 +190,7 @@
 
    a) Edit the www/project_status.html file appropriately in /trunk *NOT*
       in the release branch and commit. Remember edit a search term at the
-      end of release's issue link.
+      end of release's issue link. 
 
       If you used 'svn switch' in 3b above, you can simply 'switch' back
       to /trunk using:

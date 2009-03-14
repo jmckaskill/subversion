@@ -155,9 +155,9 @@ I.    BUILD REQUIREMENTS
       4.  Neon library 0.24.4 (http://www.webdav.org/neon/)
 
       The Neon library allows a Subversion client to interact with remote
-      repositories over the Internet via a WebDAV based protocol.  If you
-      want to use Subversion to connect to a server over ra_dav (via a
-      http:// or https:// url), you will require Neon.
+      repositories over the Internet via a WebDAV based protocol.  If you 
+      want to use Subversion to connect to a server over ra_dav (via a 
+      http:// or https:// url), you will require Neon.  
 
       The Neon library source code can be installed in "./neon" if you
       want Subversion to build it. The source code is included with the
@@ -597,8 +597,8 @@ II.   INSTALLATION
 
       If you want to build the (local) server components, you'll also
       need a copy of Berkeley DB, version 4.0.14 or newer (version 4.2.52
-      is preferred).  Details are in Section I.6. For your convenience,
-      there is also a binary distribution on the Subversion downloads
+      is preferred).  Details are in Section I.6. For your convenience, 
+      there is also a binary distribution on the Subversion downloads 
       page
 
           http://subversion.tigris.org/servlets/ProjectDocumentList
@@ -992,5 +992,5 @@ IV.   PLATFORM-SPECIFIC ISSUES
 
   B.  Mac OS X
       --------
-
+      
       [TBD: Describe BDB 4.0.x problem]
