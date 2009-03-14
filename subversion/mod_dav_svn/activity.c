@@ -44,7 +44,7 @@ const char *dav_svn_get_txn(const dav_svn_repos *repos,
   const char *txn_name = NULL;
 
   pathname = svn_path_join(repos->fs_path, ACTIVITY_DB, repos->pool);
-  status = apr_dbm_open(&dbm, pathname, APR_DBM_READONLY,
+  status = apr_dbm_open(&dbm, pathname, APR_DBM_READONLY, 
                         APR_OS_DEFAULT, repos->pool);
   if (status != APR_SUCCESS)
     {
@@ -93,7 +93,7 @@ dav_error *dav_svn_delete_activity(const dav_svn_repos *repos,
 
   /* Open the activities database. */
   pathname = svn_path_join(repos->fs_path, ACTIVITY_DB, repos->pool);
-  status = apr_dbm_open(&dbm, pathname, APR_DBM_READWRITE,
+  status = apr_dbm_open(&dbm, pathname, APR_DBM_READWRITE, 
                         APR_OS_DEFAULT, repos->pool);
   if (status != APR_SUCCESS)
     return dav_new_error(repos->pool, HTTP_NOT_FOUND, 0,
@@ -141,7 +141,7 @@ dav_error *dav_svn_delete_activity(const dav_svn_repos *repos,
           goto cleanup;
         }
     }
-
+  
   /* Finally, we remove the activity from the activities database. */
   status = apr_dbm_delete(dbm, key);
   if (status)
@@ -170,7 +170,7 @@ dav_error *dav_svn_store_activity(const dav_svn_repos *repos,
   apr_datum_t value;
 
   pathname = svn_path_join(repos->fs_path, ACTIVITY_DB, repos->pool);
-  status = apr_dbm_open(&dbm, pathname, APR_DBM_RWCREATE,
+  status = apr_dbm_open(&dbm, pathname, APR_DBM_RWCREATE, 
                         APR_OS_DEFAULT, repos->pool);
   if (status != APR_SUCCESS)
     {

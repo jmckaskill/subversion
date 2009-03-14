@@ -38,7 +38,7 @@ class Pool;
 
 #define JAVA_PACKAGE "org/tigris/subversion/javahl"
 
-class JNIUtil
+class JNIUtil  
 {
 public:
 	static jbyteArray makeJByteArray(const signed char *data, int length);

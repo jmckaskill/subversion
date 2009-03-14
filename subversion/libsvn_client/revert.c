@@ -84,7 +84,7 @@ svn_client_revert (const char *path,
   /* Look for run-time config variables that affect behavior. */
   {
     svn_config_t *cfg = ctx->config
-      ? apr_hash_get (ctx->config, SVN_CONFIG_CATEGORY_CONFIG,
+      ? apr_hash_get (ctx->config, SVN_CONFIG_CATEGORY_CONFIG,  
                       APR_HASH_KEY_STRING)
       : NULL;
 
