@@ -2,7 +2,7 @@ dnl check to see if SWIG is current enough.
 dnl
 dnl if it is, then check to see if we have the correct version of python.
 dnl
-dnl if we do, then set up the appropriate SWIG_ variables to build the
+dnl if we do, then set up the appropriate SWIG_ variables to build the 
 dnl python bindings.
 
 AC_DEFUN(SVN_CHECK_SWIG,

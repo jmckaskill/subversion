@@ -79,20 +79,20 @@ svn_client_cat (svn_stream_t* out,
     return svn_error_createf(SVN_ERR_CLIENT_IS_DIRECTORY, NULL,
                              "URL \"%s\" refers to directory", url);
 
-  /* Grab some properties we need to know in order to figure out if anything
+  /* Grab some properties we need to know in order to figure out if anything 
      special needs to be done with this file. */
   SVN_ERR (ra_lib->get_file (session, "", rev, NULL, NULL, &props));
 
   mime_type = apr_hash_get (props, SVN_PROP_MIME_TYPE, APR_HASH_KEY_STRING);
   eol_style = apr_hash_get (props, SVN_PROP_EOL_STYLE, APR_HASH_KEY_STRING);
 
-  /* FIXME: Someday we should also check the keywords property and if it's
+  /* FIXME: Someday we should also check the keywords property and if it's 
    * set do keyword expansion, but that's a fair amount of work. */
 
   if ((mime_type && svn_mime_type_is_binary (mime_type->data))
       || (! eol_style))
     {
-      /* Either it's a binary file, or it's a text file with no special eol
+      /* Either it's a binary file, or it's a text file with no special eol 
          style. */
       SVN_ERR (ra_lib->get_file(session, "", rev, out, NULL, NULL));
     }
@@ -108,7 +108,7 @@ svn_client_cat (svn_stream_t* out,
       const char *eol;
 
       /* grab a temporary file to write the target to. */
-      SVN_ERR (svn_io_open_unique_file (&tmp_file, &tmp_filename, "", ".tmp",
+      SVN_ERR (svn_io_open_unique_file (&tmp_file, &tmp_filename, "", ".tmp", 
                                         TRUE, pool));
 
       tmp_stream = svn_stream_from_aprfile (tmp_file, pool);
@@ -121,7 +121,7 @@ svn_client_cat (svn_stream_t* out,
         return svn_error_createf (apr_err, NULL, "seek failed on '%s'.",
                                   tmp_filename);
 
-      /* FIXME: set the kw to the appropriate value as found in the keywords
+      /* FIXME: set the kw to the appropriate value as found in the keywords 
          property before translating it. */
 
       svn_subst_eol_style_from_value (&style, &eol, eol_style->data);

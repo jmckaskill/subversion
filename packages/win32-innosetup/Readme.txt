@@ -24,7 +24,7 @@ Introduction
   This document describes the packages\win32-innosetup directory of the
   Subversion repository and tells you how you can roll out your own
   Windows installer for Subversion.
-
+  
   If you haven't done it already:  -Please, Check out the subversion
   sources to a place you like and download the programs and packages
   from the links below. Reading the "Directory structure" part should
@@ -101,7 +101,7 @@ Directory structure
              the repository). All the paths here are determined by the file
              paths_inno_src.iss wich is variables that is proccessed by Inno
              Setup Pre Proccessor (ISPP) during the compiling of the setup.
-             A template of this file can be found in the
+             A template of this file can be found in the 
              packages\win32-innosetup\templates directory. Copy this file to
              the packages\win32-innosetup directory and edit it according to
              the documentation inside it. This file is not under version
@@ -109,13 +109,13 @@ Directory structure
              to user.
 
   Visible folders looks like this: [ ] and hidden folders like this: [h].
-
+  
   Do you think that is looks complicated? -Dont worry! The programs in the
-  tools folder takes care of copying and preparing files when your
+  tools folder takes care of copying and preparing files when your 
   paths_inno_src.iss file are edited and set correctly.
 
   Static paths (in the Subversion repository):
-  -------------
+  -------------  
   [ ] win32-innosetup                     (svn.iss, main folder for Inno Setup)
    +->[ ] images                             (Various images used by the setup)
    +->[h] in    (you can set your path_setup_in here if you want to, see below)
@@ -129,7 +129,7 @@ Directory structure
 
   This paths are detemined by values in the file paths_inno_src.iss. The value
   names of this path variabless is:
-
+  
   Path variables:     Setup files:
   ---------------     ---------------------------------------------------------
   path_setup_out      Where svn-X.XX.X-rXXXX-setup.exe is to find after
@@ -178,7 +178,7 @@ Programs used for the Subversion Windows installer
   usually very complicated and requires good script editing software.
   The program used for this is ISTool and it's syntax high-lightning
   makes it the perfect companion to IS and friends.
-
+  
   The author - Bjørnar Henden are doing a great job by updating his
   program each time Inno Setup are updated.
   It's also includes full support for "My Inno Setup Extentions" (see
@@ -206,28 +206,28 @@ Programs used for the Subversion Windows installer
   Subversion.
   You can find the sources for this program in the Subversion source
   tree under packages\win32-innosetup\tools\svnpath
-
+  
   Have a look in the file main.c for info on how to compile the
   program.
-
+ 
   libxml, libxslt and iconv
   -------------------------
   We need to include some documentation and this tools will help us to convert
   the XML files in the doc directory in the repository to a Windows HTML help
   file.
-
+  
   Installation notes:
     Unpack the zip-files and place the contents of the 'lib' and 'util' folders
     from each unzipped packages in a folder which is mentioned in your PATH
     environment variable.
-
+    
   docbook-xsl
   -----------
   This package is needed for making documentation.
-
+  
   Unzip the files inside docbook-xsl-*.**.*.zip to a folder named xsl which
   resides under doc\book\tools in your working copy of the subversion
-  repository. The result should be like this:
+  repository. The result should be like this: 
     doc\book\tools\xsl
 
   Perl
@@ -261,7 +261,7 @@ Making a distro
         your working Subversion repository and run the following command and
         follow the instructions:
             mk_distro
-
+         
      B. You may want to make a automatic setup (nightly build, anything else),
         just run the packages\win32-innosetup\tools\mk_distro file as:
             path\to\packages\win32-innosetup\tools\mk_distro -a

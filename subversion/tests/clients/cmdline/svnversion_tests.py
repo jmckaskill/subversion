@@ -2,9 +2,9 @@
 #
 #  svnversion_tests.py:  testing the 'svnversion' tool.
 #
-#  Subversion is a tool for revision control.
+#  Subversion is a tool for revision control. 
 #  See http://subversion.tigris.org for more information.
-#
+#    
 # ====================================================================
 # Copyright (c) 2003 CollabNet.  All rights reserved.
 #
@@ -63,7 +63,7 @@ def svnversion_test(sbox):
                                             None, None, None, None, None,
                                             wc_dir):
     return 1
-
+  
   # Unmodified, mixed
   output, errput = svntest.main.run_svnversion(wc_dir, repo_url)
   if errput or output != [ "1:2\n" ]:

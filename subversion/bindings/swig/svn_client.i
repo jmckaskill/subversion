@@ -114,14 +114,14 @@
    handle svn_client_get_commit_log_t/baton pairs
 */
 
-%typemap(python,in) (svn_client_get_commit_log_t log_msg_func,
+%typemap(python,in) (svn_client_get_commit_log_t log_msg_func, 
                      void *log_msg_baton) {
 
   $1 = svn_swig_py_get_commit_log_func;
   $2 = $input; /* our function is the baton. */
 }
 
-%typemap(java,in) (svn_client_get_commit_log_t log_msg_func,
+%typemap(java,in) (svn_client_get_commit_log_t log_msg_func, 
                    void *log_msg_baton) {
 
   $1 = svn_swig_java_get_commit_log_func;
@@ -167,7 +167,7 @@
 }
 
 /* -----------------------------------------------------------------------
-   fix up the return hash for svn_client_ls()
+   fix up the return hash for svn_client_ls() 
 */
 
 %typemap(python,in,numinputs=0) apr_hash_t **dirents = apr_hash_t **OUTPUT;
