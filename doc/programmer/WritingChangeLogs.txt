@@ -1,5 +1,5 @@
 This is an essay by Jim Blandy <jimb@redhat.com> on maintaining
-ChangeLog entries.
+ChangeLog entries.  
 
 Although Subversion generates its ChangeLogs from cvs log data,
 instead of keeping independent ChangeLog files, most of the advice
@@ -155,7 +155,7 @@ However, the CVS log is no substitute for the ChangeLog files.
 * CVS provides no easy way to see the changes made to a set of files
   in chronological order.  They're sorted first by filename, not by date.
 
-* Unless you put full ChangeLog paragraphs in your CVS log entries, it's
+* Unless you put full ChangeLog paragraphs in your CVS log entries, it's 
   difficult to pull together changes that cross several files.
 
 * CVS doesn't segregate log entries for branches from those for the
@@ -166,7 +166,7 @@ ChangeLog, so we maintain both.  When you commit a change, you should
 provide appropriate text in both the ChangeLog and the CVS log.
 
 It is not necessary to provide CVS log entries for ChangeLog changes,
-since it would simply duplicate the contents of the file itself.
+since it would simply duplicate the contents of the file itself.  
 
 
 Writing ChangeLog entries for merges
@@ -200,7 +200,7 @@ change and the merged change.  That is:
   In this case, "Jim Blandy" is doing the merge on March 26; "Keith
   Seitz" is the original author of the change, who committed it to
   `foobar_20010401_branch' on March 16.
-
+  
   As shown here, the entry for the merge should be like any other
   change --- inserted at the top of the ChangeLog, and stamped with
   the date the merge was committed.  It should indicate the origin of

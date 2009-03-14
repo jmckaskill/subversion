@@ -59,7 +59,7 @@ This package contains the common files required by subversion clients and
 servers.
 
 #####################################
-###### Sub-Package Definitions ######
+###### Sub-Package Definitions ###### 
 #####################################
 %package base
 Provides: %{name} = %{version}-%{release}
@@ -157,7 +157,7 @@ scripts, including `cvs2svn', a CVS repository converter for subversion.
 %endif
 
 ###########################
-########## Files ##########
+########## Files ########## 
 ###########################
 %files base
 %defattr(-,root,root)
@@ -225,7 +225,7 @@ scripts, including `cvs2svn', a CVS repository converter for subversion.
 /etc/httpd/2.0/modules/mod_dav_svn.so
 
 ################################
-######### Build Stages #########
+######### Build Stages ######### 
 ################################
 %prep
 %setup -q
@@ -249,7 +249,7 @@ LDFLAGS="-L$RPM_BUILD_DIR/subversion-%{version}/subversion/libsvn_client/.libs \
 	--with-apr-util=/usr/bin/apu-config \
 	--with-neon=/usr \
 	--with-apxs=/usr/sbin/apxs2
-%patch0 -p1
+%patch0 -p1 
 %patch1 -p1
 %if %{build_python}
 %patch2 -p1
@@ -263,7 +263,7 @@ cd subversion/bindings/swig/python
 %endif
 
 ################################
-######### Installation #########
+######### Installation ######### 
 ################################
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -280,7 +280,7 @@ make install \
 	fs_bindir=$RPM_BUILD_ROOT/usr/bin \
 	base_libdir=$RPM_BUILD_ROOT/usr/lib \
 	swig_py_libdir=$RPM_BUILD_ROOT/usr/lib
-
+	
 mkdir -p $RPM_BUILD_ROOT/etc/httpd/conf.d
 cp %{SOURCE1} $RPM_BUILD_ROOT/etc/httpd/conf.d
 
@@ -301,7 +301,7 @@ cp %{SOURCE2} $RPM_BUILD_ROOT/usr/lib/python2.2/site-packages/svn
 rm -rf $RPM_BUILD_ROOT
 
 ##################################
-###### Post and Pre Scripts ######
+###### Post and Pre Scripts ###### 
 ##################################
 %post base
 /sbin/ldconfig
@@ -349,7 +349,7 @@ fi
 %endif
 
 ############################
-######## Change Log ########
+######## Change Log ######## 
 ############################
 %changelog
 * Wed Apr  2 2003 Michael Ballbach <ballbach@rten.net> 0.20.1-5467.1mdk

@@ -20,7 +20,7 @@ conversation autour des tâches les plus communes que vous rencontrerez.
 Dans le doute, recourez à l'aide fournie par @samp{svn help}.
 
 @menu
-* descente::
+* descente::                    
 * Cycle de Travail Classique::
 * Historique::
 * Branche et Etiquetage::
@@ -73,7 +73,7 @@ fichiers descendu est votre @dfn{copie de travail}. Vous pouvez aussi
 supprimer toute votre copie de travail sans conséquence (sauf si vous
 étiez sur le point de @dfn{remonter} des modifications, un nouveau fichier
 voir un répertoire). La suppression d'une copie de travail ne nécessite
-pas d'en informer le serveur Subversion.
+pas d'en informer le serveur Subversion. 
 
 Tout les répertoire de la copie de travail ont un @dfn{espace
 d'administration}, un sous-répertoire nommé @file{.svn}. La @command{ls}
@@ -137,7 +137,7 @@ U  ./bar.c
 Updated to revision 2.
 @end example
 
-Dans cet exemple, une autre personne a remonté des modifications de
+Dans cet exemple, une autre personne a remonté des modifications de 
 @file{foo.c} et @file{bar.c} depuis la dernière fois que vous
 avez mise à jour, Subversion à mise à jour vour copie de travail
 pour inclure ces modifications.
@@ -169,7 +169,7 @@ n'intéragissent pas entre elles cependant, donc Subversion a pu fusionner
 @item C  @file{foo}
 Le fichier a reçu des modifications conflictuelles du serveur. les
 modifications du server recouvre vous propres modifications du fichier.
-Inutile de paniquer cependant. Ce recouvrement doit est résolu par un
+Inutile de paniquer cependant. Ce recouvrement doit est résolu par un 
 humain (peut-être vous); nous aborderons cette situation plus loin.
 @end table
 
@@ -178,7 +178,7 @@ humain (peut-être vous); nous aborderons cette situation plus loin.
 Maintenant vous pouvez travailler et réaliser quelques modifications dans
 votre copie de travail.
 
-Nous vérons quel type de modification vous pouvez faire dans à votre
+Nous vérons quel type de modification vous pouvez faire dans à votre 
 copie de travai.
 
 @table @b
@@ -189,7 +189,7 @@ Subversion que vous avez l'intention de modifier un fichier; faites le.
 Plus tard, Subversion est capable de détecter automatiquement quel fichier
 a été modifié.
 @item Modification d'arborescence
-Vous pouvez demander à Subversion de ``marquer'' des fichiers et des
+Vous pouvez demander à Subversion de ``marquer'' des fichiers et des 
 répertoire pour la suppresion ou d'addition dans le dépôt. Evidament,
 aucun ajout ou suppresion n'est réalisé dans le dépôt sans une remontée
 explite de votre part.
@@ -245,7 +245,7 @@ pour plus de détails.)
 Donc maintenant que vous avez fini vos modification@dots{} vous vous dites:
 Quelle sont les modifications que j'ai fait ? Comment les consulter?
 
-Subversion a été optimisé pour vous aider dans cette tâche, et il est
+Subversion a été optimisé pour vous aider dans cette tâche, et il est 
 capable de faire plein de choses sans accéder au dépôt ou utiliser le
 réseau. Votre copie de travail possède une copie de référence caché de
 chaque fichier et répertoire dans l'espace @file{.svn}. Cette copie de
@@ -285,7 +285,7 @@ et/ou de son contenu. Les code utilisé sont
 
 @table @b
 @item _      @file{fichier_ou_répertoire}
-Le fichier ou répertoire n'a pas été ajouté ou supprimé. Si
+Le fichier ou répertoire n'a pas été ajouté ou supprimé. Si 
 @file{fichier_ou_répertoire} est un fichier, son contenu n'a pas été
 modifié.
 @item A      @file{fichier_ou_répertoire}
@@ -364,7 +364,7 @@ $ svn status stuff/fish.c
 D      stuff/fish.c
 @end example
 
-Cette commande a aussi un mode verbeux, @option{--verbose} (@option{-v}),
+Cette commande a aussi un mode verbeux, @option{--verbose} (@option{-v}), 
 qui montrera l'état de @emph{tous} les éléments dans votre copie de
 travail:
 
@@ -423,7 +423,7 @@ Index: ./bar.c
 +#include <unistd.h>
 +
 +#include <stdio.h>
-
+  
  int main(void) @{
 -  printf("Sixty-four slices of American Cheese...\n");
 +  printf("Sixty-five slices of American Cheese...\n");
@@ -434,7 +434,7 @@ Index: ./README
 ===================================================================
 --- ./README
 +++ ./README	Mon Jul 15 17:58:18 2002
-@@ -193,3 +193,4 @@
+@@ -193,3 +193,4 @@ 
 +Note to self:  pick up laundry.
 
 Index: ./stuff/fish.c
@@ -526,7 +526,7 @@ marqueurs de conflit dans le fichier), (2) copier un des fichiers tmp*
 en haut de votre fichier de travail, ou (3) exécuter @samp{svn revert}
 pour perdre tous vos modifications.
 
-Une fois que vous avez résolu les conflits, vous devez en informer
+Une fois que vous avez résolu les conflits, vous devez en informer 
 Subversion en supprimant les trois fichiers tmp*.  La commande
 @samp{svn resolve} est un racourçi qui ne fait rien sinon supprimer les
 trois fichiers tmp* pour vous. Lorsque les fichiers tmp* sont supprimés
@@ -577,7 +577,7 @@ cette section.
 @node Historique
 @section Historique
 
-Le dépôt trace toutes les remontées et vous permet d'explorer cet
+Le dépôt trace toutes les remontées et vous permet d'explorer cet 
 historique.
 
 Il y a deux commandes qui extraient les informations relatives à
@@ -731,7 +731,7 @@ $ svn diff -r 23:24 http://foo.com/some/project
 @node Branche et Etiquetage
 @section Branche et Etiquetage
 
-@subsection Branchement avec @command{svn cp}
+@subsection Branchement avec @command{svn cp} 
 
 Les branches et les étiquettess sont des concepts généraux commnun à la
 plupart des systèmes de contrôle de révision. Si vous n'êtes pas familier
@@ -808,7 +808,7 @@ Par exemple, voici une bonne organisation possible de votre dépôt:
    /
    /projectA
    /projectA/trunk/
-   /projectA/branches/
+   /projectA/branches/	
    /projectA/tags/
    /projectB
    /projectB/trunk/
@@ -849,7 +849,7 @@ et que je veux travailler sur un sous-système tel qu'il apparait dans
 un sous-répertoire de @file{mooIRC-beta}. En même temps, je veux que
 le reste de ma copie de travail reste sur sa branche d'origine
 @file{mooIRC}.  Pour le faire, je bascule le sous-répertoire approprié
-vers le point de la nouvelle branche.
+vers le point de la nouvelle branche. 
 
 @example
 $ svn switch http://foo.com/repos/mooIRC-beta/subsystems/renderer \
@@ -1172,10 +1172,10 @@ des modifications est requise (@samp{-m}).
 @section Propriétés
 
 Subversion vous permet d'attacher n'importe quelle ``Méta-donnée'' à un
-fichier ou un répertoire. Nous appèlerons ces données des @dfn{propriétés}
+fichier ou un répertoire. Nous appèlerons ces données des @dfn{propriétés} 
 et elles peuvent être vues comme un ensemble de paire nom/valeur attaché à
 chaque élément dans votre copie de travail.
-
+  
 Pour mettre ou récupérer une propriété d'un fichier ou d'un répertoire,
 utilisez les commandes @samp{svn propset} et @samp{svn propget}.
 Pour lister tous les propriétés d'un élément, utilisez @samp{svn
@@ -1339,10 +1339,10 @@ $LastChangedDate$
 Les comulus sont plus nombreux à l'approche de l'été.
 @end example
 
-Subversion est capable de substituer la chaine @samp{$LastChangedDate$}
+Subversion est capable de substituer la chaine @samp{$LastChangedDate$} 
 avec l'actuelle date de dernière modification du fichier.  Le mot clé
 n'est pas supprimé durant la substitution, Il n'y a que l'information
-spécifique qui est placé après le mot clé qui est substitué.
+spécifique qui est placé après le mot clé qui est substitué. 
 
 @example
 Ceci est le dernier rapport de la ligne de front.
@@ -1408,7 +1408,7 @@ révisions du dépôt. Ceci rend l'examen ou la fusion des différences très
 difficile, car @emph{chaques} lignes apparaissent avoir changé pour chaque
 version du fichier.
 
-La solution ici est de mettre la propriété @samp{svn:eol-style} à
+La solution ici est de mettre la propriété @samp{svn:eol-style} à 
 ``native''. Celà permet au fichier d'apparaitre avec les fins de ligne
 ``native'' dans chaqu'un des systèmes d'exploitation des développeurs.
 Remarquez, néanmoins, que le fichier est toujours avec des fins de
@@ -1478,7 +1478,7 @@ approprié.
 @c ### Karl, anything else to add here?  I'm suspicious that this
 @c feature doesn't work as I expect just yet;  when I run svn @samp{up} at
 @c the top of the wc, nothing happens in the external directory at
-@c all, because (I guess) it's not linked to the parent.
+@c all, because (I guess) it's not linked to the parent. 
 
 
 @c ------------------------------------------------------------------
@@ -1558,7 +1558,7 @@ des éléments verrouillés.
 @example
 $ svn st
   L    ./somedir
-M      ./somedir/foo.c
+M      ./somedir/foo.c 
 
 $ svn cleanup
 $ svn st
@@ -1680,13 +1680,13 @@ Les colonnes vous disent si le fichier a des propriétés (``P'' s'il en a,
 ``_'' s'il n'en a pas), la révision de la dernière mise à jour,
 l'utilisateur qui a fait la dernière mise à jour, sa taille, la date de
 dernière mise à jour et le nom du fichier.
-
+ 
 
 @subheading @samp{svn mkdir}
 
 C'est un autre commande partique et qui a deux usages.
 
-Premièrement, elle peut être utilisée pour simultanément créer un nouveau
+Premièrement, elle peut être utilisée pour simultanément créer un nouveau 
 répertoire dans la copie de travail et le programmé pour l'ajout:
 
 @example
