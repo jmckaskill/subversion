@@ -243,7 +243,7 @@ print_error (svn_error_t *err, FILE *stream, svn_boolean_t print_strerror)
 
   fprintf (stream, ": (apr_err=%d)\n", err->apr_err);
 #endif /* SVN_DEBUG */
-
+  
   /* Only print the same APR error string once. */
   if (print_strerror)
     {

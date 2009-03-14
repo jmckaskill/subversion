@@ -73,14 +73,14 @@ svn_cl__propget (apr_getopt_t *os,
   SVN_ERR (svn_opt_parse_num_args (&args, os, 1, pool));
   pname = ((const char **) (args->elts))[0];
   SVN_ERR (svn_utf_cstring_to_utf8 (&pname_utf8, pname, pool));
-
+  
   /* suck up all the remaining arguments into a targets array */
   SVN_ERR (svn_opt_args_to_target_array (&targets, os,
                                          opt_state->targets,
                                          &(opt_state->start_revision),
                                          &(opt_state->end_revision),
                                          FALSE, pool));
-
+  
   /* Add "." if user passed 0 file arguments */
   svn_opt_push_implicit_dot_target (targets, pool);
 
@@ -106,28 +106,28 @@ svn_cl__propget (apr_getopt_t *os,
         return svn_error_create(SVN_ERR_CL_INSUFFICIENT_ARGS, NULL,
                                 "No URL target available.");
       target = ((const char **) (targets->elts))[0];
-      SVN_ERR (svn_client_url_from_path (&URL, target, pool));
+      SVN_ERR (svn_client_url_from_path (&URL, target, pool));  
       if (URL == NULL)
         return svn_error_create(SVN_ERR_UNVERSIONED_RESOURCE, NULL,
                                 "Either a URL or versioned item is required.");
-
+      
       /* Let libsvn_client do the real work. */
       SVN_ERR (svn_client_revprop_get (pname_utf8, &propval,
                                        URL, &(opt_state->start_revision),
                                        &rev, ctx, pool));
-
+      
       if (propval != NULL)
         {
           svn_string_t *printable_val = propval;
-
+          
           /* If this is a special Subversion property, it is stored as
              UTF8 and LF, so convert to the native locale and eol-style. */
-
+          
           if (svn_prop_needs_translation (pname_utf8))
             SVN_ERR (svn_subst_detranslate_string (&printable_val, propval,
                                                    TRUE, pool));
-
-          SVN_ERR (stream_write (out, printable_val->data,
+          
+          SVN_ERR (stream_write (out, printable_val->data, 
                                  printable_val->len));
           SVN_ERR (stream_write (out, "\n", 1));
         }
@@ -147,7 +147,7 @@ svn_cl__propget (apr_getopt_t *os,
           SVN_ERR (svn_client_propget (&props, pname_utf8, target,
                                        &(opt_state->start_revision),
                                        opt_state->recursive, ctx, subpool));
-
+          
           /* Any time there is more than one thing to print, or where
              the path associated with a printed thing is not obvious,
              we'll print filenames.  That is, unless we've been told
@@ -155,33 +155,33 @@ svn_cl__propget (apr_getopt_t *os,
           print_filenames = ((opt_state->recursive || targets->nelts > 1
                               || apr_hash_count (props) > 1)
                              && (! opt_state->strict));
-
+            
           for (hi = apr_hash_first (pool, props); hi; hi = apr_hash_next (hi))
             {
               const void *key;
               void *val;
-              const char *filename;
+              const char *filename; 
               svn_string_t *propval;
               const char *filename_stdout;
-
+              
               apr_hash_this (hi, &key, NULL, &val);
               filename = key;
               propval = val;
-
+              
               /* If this is a special Subversion property, it is stored as
                  UTF8, so convert to the native format. */
               if (svn_prop_needs_translation (pname_utf8))
                 SVN_ERR (svn_subst_detranslate_string (&propval, propval,
                                                        TRUE, subpool));
-
-              if (print_filenames)
+              
+              if (print_filenames) 
                 {
                   SVN_ERR (svn_cmdline_cstring_from_utf8 (&filename_stdout,
                                                           filename, subpool));
                   SVN_ERR (stream_write (out, filename_stdout,
                                          strlen (filename_stdout)));
                   SVN_ERR (stream_write (out, " - ", 3));
-                }
+                } 
               SVN_ERR (stream_write (out, propval->data, propval->len));
               if (! opt_state->strict)
                 SVN_ERR (stream_write (out, "\n", 1));

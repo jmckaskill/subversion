@@ -9,7 +9,7 @@
 **
 **  This code is in the public domain and has no copyright.
 **
-**    July 3rd, 2001:  added to Subversion project and slightly
+**    July 3rd, 2001:  added to Subversion project and slightly 
 **                     tweaked by Ben Collins-Sussman <sussman@collab.net>
 */
 /* SUPPRESS 287 on yaccpar_sccsid *//* Unused static variable */
@@ -746,7 +746,7 @@ LookupWord(char *buff)
 	    return tp->type;
 	}
 
-    if (strcmp(buff, "dst") == 0)
+    if (strcmp(buff, "dst") == 0) 
 	return tDST;
 
     for (tp = UnitsTable; tp->name; tp++)

@@ -35,9 +35,9 @@ svn_client__dir_if_wc (const char **dir_p,
                        apr_pool_t *pool)
 {
   int wc_format;
-
+  
   SVN_ERR (svn_wc_check_wc (dir, &wc_format, pool));
-
+  
   if (wc_format == 0)
     *dir_p = NULL;
   else
@@ -75,6 +75,6 @@ svn_client__default_auth_dir (const char **auth_dir_p,
         (SVN_ERR_NODE_UNKNOWN_KIND, NULL,
          "unknown node kind for '%s'", path);
     }
-
+  
   return SVN_NO_ERROR;
 }

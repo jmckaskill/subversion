@@ -50,19 +50,19 @@ svn_cl__resolved (apr_getopt_t *os,
   int i;
   apr_pool_t *subpool;
 
-  SVN_ERR (svn_opt_args_to_target_array (&targets, os,
+  SVN_ERR (svn_opt_args_to_target_array (&targets, os, 
                                          opt_state->targets,
                                          &(opt_state->start_revision),
                                          &(opt_state->end_revision),
                                          FALSE, pool));
   if (! targets->nelts)
     return svn_error_create (SVN_ERR_CL_ARG_PARSING_ERROR, 0, "");
-
+    
   subpool = svn_pool_create (pool);
   if (! opt_state->quiet)
     svn_cl__get_notifier (&ctx->notify_func, &ctx->notify_baton, FALSE, FALSE,
                           FALSE, pool);
-
+  
   for (i = 0; i < targets->nelts; i++)
     {
       const char *target = ((const char **) (targets->elts))[i];
@@ -76,10 +76,10 @@ svn_cl__resolved (apr_getopt_t *os,
           svn_error_clear (err);
         }
 
-      SVN_ERR (svn_cl__check_cancel (ctx->cancel_baton));
+      SVN_ERR (svn_cl__check_cancel (ctx->cancel_baton));    
       svn_pool_clear (subpool);
     }
-
+  
   svn_pool_destroy (subpool);
   return SVN_NO_ERROR;
 }
