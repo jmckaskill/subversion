@@ -87,7 +87,7 @@ _svn()
 		;;
 	import)
 		cmdOpts="$mOpts $qOpts $nOpts --editor-cmd $pOpts"
-		;;
+		;; 
 	info)
 		cmdOpts="--targets -R --recursive"
 		;;

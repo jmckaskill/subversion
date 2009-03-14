@@ -87,7 +87,7 @@ text
 
 /* --- Operating System Compatibility --- */
 
-/*
+/* 
   OpenBSD systems with a.out binaries require dlsym()ed symbols to be
   prepended with an underscore, so we need the following nasty #ifdef
   hack.
@@ -97,11 +97,11 @@ text
 #endif
 
 /* RTLD_NOW is the preferred symbol resolution behavior, but
- * some platforms do not support it.
+ * some platforms do not support it. 
  *
  * ALSA requires RTLD_GLOBAL.
  */
-#if defined(__OpenBSD__)
+#if defined(__OpenBSD__)	
 #define DLOPEN_FLAG (RTLD_LAZY)
 #else
 #define DLOPEN_FLAG (RTLD_NOW | RTLD_GLOBAL)
@@ -256,7 +256,7 @@ text
 @a28 19
 /* --- Operating System Compatibility --- */
 
-/*
+/* 
   OpenBSD systems with a.out binaries require dlsym()ed symbols to be
   prepended with an underscore, so we need the following nasty #ifdef
   hack.
@@ -267,7 +267,7 @@ text
 
 /* RTLD_NOW is the preferred symbol resolution behavior, but
    some platforms do not support it. */
-#if defined(__OpenBSD__)
+#if defined(__OpenBSD__)	
 #define DLOPEN_FLAG RTLD_LAZY
 #else
 #define DLOPEN_FLAG RTLD_NOW

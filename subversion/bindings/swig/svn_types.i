@@ -65,7 +65,7 @@
 /* ### FIXME-perl: I need to figure out what is going on with the above typemap
 */
 
-%typemap(java, in) const char *MAY_BE_NULL {
+%typemap(java, in) const char *MAY_BE_NULL { 
   /* ### WHEN IS THIS USED? */
   $1 = 0;
   if ($input) {
@@ -128,7 +128,7 @@
 
 /* -----------------------------------------------------------------------
    Define an OUTPUT typemap for 'svn_filesize_t *'.  For now, we'll
-   treat it as a 'long' even if that isn't entirely correct...
+   treat it as a 'long' even if that isn't entirely correct...  
 */
 %typemap(python,in,numinputs=0) svn_filesize_t * (svn_filesize_t temp)
     "$1 = &temp;";

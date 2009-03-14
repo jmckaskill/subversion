@@ -1,15 +1,15 @@
-This Software should compile and run under win32 and linux. The next step will be
+This Software should compile and run under win32 and linux. The next step will be 
 the integration into the subversion build system.
 
 
 
 
 ./autogen.sh
-./configure --with-jdk=<path to jdk>
+./configure --with-jdk=<path to jdk> 
 
 	# For the various other parameters to configure please see the documentation of configure.
 	# Requires jdk 1.2 or newer. It must bei either in the path or passed with the --with-jdk switch.
-	# This version of svn-up has been built with svn-revision 6062. Other may work, but
+	# This version of svn-up has been built with svn-revision 6062. Other may work, but 
 	# we can not guarantee it.
 
 make

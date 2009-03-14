@@ -374,7 +374,7 @@ new_node_record (void **node_baton,
     {
       *((const char **) apr_array_push (pb->dropped_nodes))
         = apr_pstrdup (pb->dropped_nodes->pool, node_path);
-
+      
       nb->rb->had_dropped_nodes = TRUE;
       pb->node_drop_count ++;
     }

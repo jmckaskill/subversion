@@ -3,7 +3,7 @@
  *              (This code doesn't know where any adm information is
  *              located.  The caller always passes in a path obtained
  *              by using the adm_files.h API.)
- *
+ *        
  *
  * ====================================================================
  * Copyright (c) 2000-2003 CollabNet.  All rights reserved.
@@ -50,8 +50,8 @@ extern "C" {
    or replacement.)  Likewise, if BASE_URL is non-null, then rewrite
    all urls to be "telescoping" children of the base_url.
 
-   If REMOVE_MISSING_DIRS is TRUE, then delete the entries for any
-   missing directories.  If NOTIFY_FUNC is non-null, invoke it with
+   If REMOVE_MISSING_DIRS is TRUE, then delete the entries for any 
+   missing directories.  If NOTIFY_FUNC is non-null, invoke it with 
    NOTIFY_BATON for each missing entry deleted.
 */
 svn_error_t *svn_wc__do_update_cleanup (const char *path,

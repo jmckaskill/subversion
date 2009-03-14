@@ -1,6 +1,6 @@
-/*
+/* 
  * text-delta.c -- Internal text delta representation
- *
+ * 
  * ====================================================================
  * Copyright (c) 2000-2003 CollabNet.  All rights reserved.
  *
@@ -47,7 +47,7 @@ struct svn_txdelta_stream_t {
   /* Calculated digest from MD5 operations.
      NOTE:  This is only valid after this stream has returned the NULL
      (final) window.  */
-  unsigned char digest[MD5_DIGESTSIZE];
+  unsigned char digest[MD5_DIGESTSIZE]; 
 };
 
 
@@ -217,7 +217,7 @@ svn_txdelta (svn_txdelta_stream_t **stream,
              apr_pool_t *pool)
 {
   *stream = apr_palloc (pool, sizeof (**stream));
-  (*stream)->source = source;
+  (*stream)->source = source; 
   (*stream)->target = target;
   (*stream)->more = TRUE;
   (*stream)->pos = 0;
@@ -259,10 +259,10 @@ svn_txdelta_next_window (svn_txdelta_window_t **window,
   apr_size_t source_len = SVN_STREAM_CHUNK_SIZE;
   apr_size_t target_len = SVN_STREAM_CHUNK_SIZE;
   svn_txdelta__ops_baton_t build_baton = { 0 };
-
+  
   /* Read the source stream. */
   err = svn_stream_read (stream->source, stream->buf, &source_len);
-
+  
   /* Read the target stream. */
   if (err == SVN_NO_ERROR)
     err = svn_stream_read (stream->target, stream->buf + source_len,
@@ -270,7 +270,7 @@ svn_txdelta_next_window (svn_txdelta_window_t **window,
   if (err != SVN_NO_ERROR)
     return err;
   stream->pos += source_len;
-
+  
   /* ### The apr_md5 functions always return APR_SUCCESS.  At one
      point, we proposed to APR folks that the interfaces change to
      return void, but for some people that was apparently not a good
@@ -289,19 +289,19 @@ svn_txdelta_next_window (svn_txdelta_window_t **window,
       apr_md5_update (&(stream->context), stream->buf + source_len,
                       target_len);
     }
-
+  
   /* Compute the delta operations. */
   build_baton.new_data = svn_stringbuf_create ("", pool);
   svn_txdelta__vdelta (&build_baton, stream->buf,
                        source_len, target_len,
                        pool);
-
+  
   /* Create the delta window. */
   *window = svn_txdelta__make_window (&build_baton, pool);
   (*window)->sview_offset = stream->pos - source_len;
   (*window)->sview_len = source_len;
   (*window)->tview_len = target_len;
-
+  
   /* That's it. */
   return SVN_NO_ERROR;
 }
@@ -527,7 +527,7 @@ svn_txdelta_apply (svn_stream_t *source,
 
 /* Convenience routines */
 
-svn_error_t *
+svn_error_t * 
 svn_txdelta_send_string (const svn_string_t *string,
                          svn_txdelta_window_handler_t handler,
                          void *handler_baton,
@@ -549,10 +549,10 @@ svn_txdelta_send_string (const svn_string_t *string,
 
   /* Push the one window at the handler. */
   SVN_ERR ((*handler) (&window, handler_baton));
-
+  
   /* Push a NULL at the handler, because we're done. */
   SVN_ERR ((*handler) (NULL, handler_baton));
-
+  
   return SVN_NO_ERROR;
 }
 
