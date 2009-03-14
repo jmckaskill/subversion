@@ -2,9 +2,9 @@
 #
 #  export_tests.py:  testing export cases.
 #
-#  Subversion is a tool for revision control.
+#  Subversion is a tool for revision control. 
 #  See http://subversion.tigris.org for more information.
-#
+#    
 # ====================================================================
 # Copyright (c) 2000-2004 CollabNet.  All rights reserved.
 #
@@ -28,7 +28,7 @@ Skip = svntest.testcase.Skip
 XFail = svntest.testcase.XFail
 Item = svntest.wc.StateItem
 
-
+ 
 ######################################################################
 # Tests
 #
@@ -40,7 +40,7 @@ Item = svntest.wc.StateItem
 def export_empty_directory(sbox):
   "export an empty directory"
   sbox.build()
-
+  
   svntest.main.safe_rmtree(sbox.wc_dir)
   export_target = sbox.wc_dir
   empty_dir_url = svntest.main.current_repo_url + '/A/C'
@@ -132,7 +132,7 @@ def export_keyword_translation(sbox):
   # the export operation
   mu_path = os.path.join(wc_dir, 'A', 'mu')
   svntest.main.file_append(mu_path, '$LastChangedRevision$')
-  svntest.main.run_svn(None, 'ps', 'svn:keywords',
+  svntest.main.run_svn(None, 'ps', 'svn:keywords', 
                        'LastChangedRevision', mu_path)
   svntest.main.run_svn(None, 'ci',
                        '--username', svntest.main.wc_author,
@@ -141,7 +141,7 @@ def export_keyword_translation(sbox):
 
   expected_disk = svntest.main.greek_state.copy()
   expected_disk.tweak('A/mu',
-                      contents=expected_disk.desc['A/mu'].contents +
+                      contents=expected_disk.desc['A/mu'].contents + 
                       '$LastChangedRevision: 2 $')
 
   export_target = sbox.add_wc_path('export')
@@ -166,7 +166,7 @@ def export_eol_translation(sbox):
   # to see if it's applied correctly in the export operation
   mu_path = os.path.join(wc_dir, 'A', 'mu')
   svntest.main.file_append(mu_path, '\n')
-  svntest.main.run_svn(None, 'ps', 'svn:eol-style',
+  svntest.main.run_svn(None, 'ps', 'svn:eol-style', 
                        'CR', mu_path)
   svntest.main.run_svn(None, 'ci',
                        '--username', svntest.main.wc_author,
@@ -175,7 +175,7 @@ def export_eol_translation(sbox):
 
   expected_disk = svntest.main.greek_state.copy()
   expected_disk.tweak('A/mu',
-                      contents=expected_disk.desc['A/mu'].contents +
+                      contents=expected_disk.desc['A/mu'].contents + 
                       '\r')
 
   export_target = sbox.add_wc_path('export')
@@ -201,12 +201,12 @@ def export_working_copy_with_keyword_translation(sbox):
   # the export operation
   mu_path = os.path.join(wc_dir, 'A', 'mu')
   svntest.main.file_append(mu_path, '$LastChangedRevision$')
-  svntest.main.run_svn(None, 'ps', 'svn:keywords',
+  svntest.main.run_svn(None, 'ps', 'svn:keywords', 
                        'LastChangedRevision', mu_path)
 
   expected_disk = svntest.main.greek_state.copy()
   expected_disk.tweak('A/mu',
-                      contents=expected_disk.desc['A/mu'].contents +
+                      contents=expected_disk.desc['A/mu'].contents + 
                       '$LastChangedRevision: 1M $')
 
   export_target = sbox.add_wc_path('export')

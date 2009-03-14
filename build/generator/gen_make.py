@@ -190,7 +190,7 @@ class Generator(gen_base.GeneratorBase):
     self.ofile.write('\n')
 
     # get target directories
-    target_dirs = self.graph.get_sources(gen_base.DT_LIST,
+    target_dirs = self.graph.get_sources(gen_base.DT_LIST, 
                                          gen_base.LT_TARGET_DIRS)
 
     # get all the test scripts' directories

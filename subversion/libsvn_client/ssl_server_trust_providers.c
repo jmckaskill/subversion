@@ -170,7 +170,7 @@ static const svn_auth_provider_t ssl_server_trust_file_provider = {
 
 
 /*** Public API to SSL file providers. ***/
-void
+void 
 svn_client_get_ssl_server_trust_file_provider (
   svn_auth_provider_object_t **provider,
   apr_pool_t *pool)
@@ -186,7 +186,7 @@ svn_client_get_ssl_server_trust_file_provider (
 /* Prompt provider                                                       */
 /*-----------------------------------------------------------------------*/
 
-/* Baton type for prompting to verify server ssl creds.
+/* Baton type for prompting to verify server ssl creds. 
    There is no iteration baton type. */
 typedef struct
 {
@@ -207,7 +207,7 @@ ssl_server_trust_prompt_first_cred (void **credentials_p,
   apr_uint32_t *failures = apr_hash_get (parameters,
                                          SVN_AUTH_PARAM_SSL_SERVER_FAILURES,
                                          APR_HASH_KEY_STRING);
-  const char *no_auth_cache = apr_hash_get (parameters,
+  const char *no_auth_cache = apr_hash_get (parameters, 
                                             SVN_AUTH_PARAM_NO_AUTH_CACHE,
                                             APR_HASH_KEY_STRING);
   const svn_auth_ssl_server_cert_info_t *cert_info =
@@ -229,7 +229,7 @@ static const svn_auth_provider_t ssl_server_trust_prompt_provider = {
   SVN_AUTH_CRED_SSL_SERVER_TRUST,
   ssl_server_trust_prompt_first_cred,
   NULL,
-  NULL
+  NULL  
 };
 
 

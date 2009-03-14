@@ -316,7 +316,7 @@ svn_fs_set_warning_func (svn_fs_t *fs,
 
 
 svn_error_t *
-svn_fs_set_berkeley_errcall (svn_fs_t *fs,
+svn_fs_set_berkeley_errcall (svn_fs_t *fs, 
                              void (*db_errcall_fcn) (const char *errpfx,
                                                      char *msg))
 {
@@ -535,7 +535,7 @@ svn_fs_create_berkeley (svn_fs_t *fs, const char *path)
   svn_err = BDB_WRAP (fs, "creating environment",
                      fs->env->open (fs->env, path_native,
                                     (DB_CREATE
-                                     | DB_INIT_LOCK
+                                     | DB_INIT_LOCK 
                                      | DB_INIT_LOG
                                      | DB_INIT_MPOOL
                                      | DB_INIT_TXN),
@@ -619,7 +619,7 @@ svn_fs_open_berkeley (svn_fs_t *fs, const char *path)
 
   /* Open the various databases.  */
   svn_err = BDB_WRAP (fs, "opening 'nodes' table",
-                     svn_fs__bdb_open_nodes_table (&fs->nodes,
+                     svn_fs__bdb_open_nodes_table (&fs->nodes, 
                                                    fs->env, FALSE));
   if (svn_err) goto error;
   svn_err = BDB_WRAP (fs, "opening 'revisions' table",
@@ -652,7 +652,7 @@ svn_fs_open_berkeley (svn_fs_t *fs, const char *path)
   if (svn_err) goto error;
 
   return SVN_NO_ERROR;
-
+  
  error:
   cleanup_fs (fs);
   return svn_err;
@@ -662,13 +662,13 @@ svn_fs_open_berkeley (svn_fs_t *fs, const char *path)
 /* Copying a live Berkeley DB-base filesystem.  */
 
 /**
- * Delete all unused log files from DBD enviroment at @a live_path that exist
+ * Delete all unused log files from DBD enviroment at @a live_path that exist 
  * in @a backup_path.
  */
 static svn_error_t *
-svn_fs__clean_logs(const char *live_path,
-                   const char *backup_path,
-                   apr_pool_t *pool)
+svn_fs__clean_logs(const char *live_path, 
+                   const char *backup_path, 
+                   apr_pool_t *pool) 
 {
   apr_array_header_t *logfiles;
 
@@ -692,23 +692,23 @@ svn_fs__clean_logs(const char *live_path,
         live_log_path = svn_path_join (live_path, log_file, sub_pool);
         backup_log_path = svn_path_join (backup_path, log_file, sub_pool);
 
-        { /* Compare files. No point in using MD5 and wasting CPU cycles as we
+        { /* Compare files. No point in using MD5 and wasting CPU cycles as we 
              got full copies of both logs */
-
+          
           svn_boolean_t files_match = FALSE;
           svn_node_kind_t kind;
 
-          /* Check to see if there is a corresponding log file in the backup
+          /* Check to see if there is a corresponding log file in the backup 
              directory */
           SVN_ERR (svn_io_check_path (backup_log_path, &kind, pool));
-
+          
           /* If the copy of the log exists, compare them */
           if (kind == svn_node_file)
-            SVN_ERR (svn_io_files_contents_same_p (&files_match,
-                                                   live_log_path,
-                                                   backup_log_path,
+            SVN_ERR (svn_io_files_contents_same_p (&files_match, 
+                                                   live_log_path, 
+                                                   backup_log_path, 
                                                    sub_pool));
-
+                                                   
           /* If log files do not match, go to the next log filr. */
           if (files_match == FALSE)
             continue;
@@ -724,9 +724,9 @@ svn_fs__clean_logs(const char *live_path,
 }
 
 svn_error_t *
-svn_fs_hotcopy_berkeley (const char *src_path,
-                         const char *dest_path,
-                         svn_boolean_t clean_logs,
+svn_fs_hotcopy_berkeley (const char *src_path, 
+                         const char *dest_path, 
+                         svn_boolean_t clean_logs, 
                          apr_pool_t *pool)
 {
   /* Check DBD version, just in case */
@@ -734,14 +734,14 @@ svn_fs_hotcopy_berkeley (const char *src_path,
 
   /* Copy the DB_CONFIG file. */
   SVN_ERR (svn_io_dir_file_copy (src_path, dest_path, "DB_CONFIG", pool));
-
+  
   /* Copy the databases.  */
   SVN_ERR (svn_io_dir_file_copy (src_path, dest_path, "nodes", pool));
   SVN_ERR (svn_io_dir_file_copy (src_path, dest_path, "revisions", pool));
   SVN_ERR (svn_io_dir_file_copy (src_path, dest_path, "transactions", pool));
   SVN_ERR (svn_io_dir_file_copy (src_path, dest_path, "copies", pool));
   SVN_ERR (svn_io_dir_file_copy (src_path, dest_path, "changes", pool));
-  SVN_ERR (svn_io_dir_file_copy (src_path, dest_path, "representations",
+  SVN_ERR (svn_io_dir_file_copy (src_path, dest_path, "representations", 
                                  pool));
   SVN_ERR (svn_io_dir_file_copy (src_path, dest_path, "strings", pool));
   SVN_ERR (svn_io_dir_file_copy (src_path, dest_path, "uuids", pool));
@@ -758,7 +758,7 @@ svn_fs_hotcopy_berkeley (const char *src_path,
     /* Process log files. */
     for (idx = 0; idx < logfiles->nelts; idx++)
       {
-        SVN_ERR (svn_io_dir_file_copy (src_path, dest_path,
+        SVN_ERR (svn_io_dir_file_copy (src_path, dest_path, 
                                        APR_ARRAY_IDX (logfiles, idx,
                                                       const char *),
                                        pool));
@@ -788,10 +788,10 @@ svn_fs_berkeley_recover (const char *path,
   SVN_BDB_ERR (db_env_create (&env, 0));
 
   /* Here's the comment copied from db_recover.c:
-
+   
      Initialize the environment -- we don't actually do anything
      else, that all that's needed to run recovery.
-
+   
      Note that we specify a private environment, as we're about to
      create a region, and we don't want to leave it around.  If we
      leave the region around, the application that should create it
@@ -852,7 +852,7 @@ svn_error_t *svn_fs_berkeley_logfiles (apr_array_header_t **logfiles,
     }
 
   free (filelist);
-
+  
   SVN_BDB_ERR (env->close (env, 0));
 
   return SVN_NO_ERROR;
@@ -898,7 +898,7 @@ svn_fs__canonicalize_abspath (const char *path, apr_pool_t *pool)
   /* No PATH?  No problem. */
   if (! path)
     return NULL;
-
+  
   /* Empty PATH?  That's just "/". */
   if (! *path)
     return apr_pstrdup (pool, "/");
@@ -913,7 +913,7 @@ svn_fs__canonicalize_abspath (const char *path, apr_pool_t *pool)
     {
       newpath[newpath_i++] = '/';
     }
-
+  
   for (path_i = 0; path_i < path_len; path_i++)
     {
       if (path[path_i] == '/')
@@ -936,7 +936,7 @@ svn_fs__canonicalize_abspath (const char *path, apr_pool_t *pool)
       /* Copy the current character into our new buffer. */
       newpath[newpath_i++] = path[path_i];
     }
-
+  
   /* Did we leave a '/' attached to the end of NEWPATH (other than in
      the root directory case)? */
   if ((newpath[newpath_i - 1] == '/') && (newpath_i > 1))
