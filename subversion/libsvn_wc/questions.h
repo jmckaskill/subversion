@@ -54,7 +54,7 @@ svn_wc__timestamps_equal_p (svn_boolean_t *equal_p,
 
 
 /* Set *SAME to non-zero if file1 and file2 have the same contents,
-   else set it to zero.
+   else set it to zero. 
 
    Note: This probably belongs in the svn_io library, however, it
    shares some private helper functions with other wc-specific
@@ -73,9 +73,9 @@ svn_error_t *svn_wc__files_contents_same_p (svn_boolean_t *same,
  * it usually is, only sometimes we're calling this on incoming
  * temporary text-bases).  ADM_ACCESS must be an access baton for
  * VERSIONED_FILE.
- *
+ * 
  * If an error is returned, the effect on *MODIFIED_P is undefined.
- *
+ * 
  * Use POOL for temporary allocation.
  */
 svn_error_t *svn_wc__versioned_file_modcheck (svn_boolean_t *modified_p,
