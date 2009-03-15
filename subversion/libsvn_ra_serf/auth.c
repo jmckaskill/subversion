@@ -258,7 +258,7 @@ handle_auth_header(void *baton,
         }
     }
 
-  /* If a matching protocol handler was found, we can stop iterating
+  /* If a matching protocol handler was found, we can stop iterating 
      over the response headers - so return a non-0 value. */
   return proto_found;
 }
