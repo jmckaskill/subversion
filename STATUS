@@ -50,7 +50,7 @@ Candidate changes:
       if this revision is not merged into 1.6.0)
     Votes:
       +1: rhuijben
-
+     
 Candidate if a new tarball is constructed (otherwise for 1.6.1):
 
  * r36049-r36051, r36131
@@ -93,7 +93,7 @@ Candidate if a new tarball is constructed (otherwise for 1.6.1):
     Votes:
       +1: philip, rhuijben, stsp, arfrever
       +1: gstein (for a new CODE tarball, not a doc tarball)
-
+      
   * r36302
     Fix a small problem in the loggy upgrade process. Some v10 working copies
     have .svn/format, and some don't. The *intent* is to remove the file if
@@ -162,7 +162,7 @@ Candidate changes:
      http://svn.haxx.se/dev/archive-2009-03/0198.shtml.
    Votes:
      +1: pburba, rhuijben
-
+     
  * r36149-r36151, r36156
    Fix starting apache httpd in daemon mode from python versions with
    win32process support. (Found after upgrading my python to 2.6.1)
