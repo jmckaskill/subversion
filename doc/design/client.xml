@@ -86,11 +86,11 @@
           <listitem><para>A <filename>format</filename> file, which indicates
               which version of the working copy adm format this is (so future
               clients can be backwards compatibleeasily).</para></listitem>
-
+          
           <listitem><para>A <filename>text-base</filename> directory,
               containing the pristine repository revisions of the files in the
               corresponding working directory</para></listitem>
-
+          
           <listitem><para>An <filename>entries</filename> file, which holds
               revision numbers and other information for this directory and its
               files, and records the presence of subdirs.  It also contains the
@@ -134,12 +134,12 @@
       <title>The working copy management library</title>
 
       <itemizedlist mark="bullet">
-        <listitem><para><emphasis role="bold">Requires:</emphasis>
+        <listitem><para><emphasis role="bold">Requires:</emphasis>  
           <itemizedlist mark="minus">
             <listitem><para>a working copy</para></listitem>
           </itemizedlist>
         </para></listitem>
-        <listitem><para><emphasis role="bold">Provides:</emphasis>
+        <listitem><para><emphasis role="bold">Provides:</emphasis>  
           <itemizedlist mark="minus">
             <listitem><para>ability to manipulate the working copy's versioned
                 data</para></listitem>
@@ -162,13 +162,13 @@
     <title>The repository access library</title>
 
     <itemizedlist mark="bullet">
-      <listitem><para><emphasis role="bold">Requires:</emphasis>
+      <listitem><para><emphasis role="bold">Requires:</emphasis>  
         <itemizedlist mark="minus">
           <listitem><para>network access to a Subversion
               server</para></listitem>
         </itemizedlist>
       </para></listitem>
-      <listitem><para><emphasis role="bold">Provides:</emphasis>
+      <listitem><para><emphasis role="bold">Provides:</emphasis>  
         <itemizedlist mark="minus">
           <listitem><para>the ability to interact with a
               repository</para></listitem>
@@ -192,15 +192,15 @@
 
   <sect1 id="client.libsvn_client">
     <title>The client operation library</title>
-
+    
     <itemizedlist mark="bullet">
-      <listitem><para><emphasis role="bold">Requires:</emphasis>
+      <listitem><para><emphasis role="bold">Requires:</emphasis>  
         <itemizedlist mark="minus">
           <listitem><para>the working copy management library</para></listitem>
           <listitem><para>a repository access library</para></listitem>
         </itemizedlist>
       </para></listitem>
-      <listitem><para><emphasis role="bold">Provides:</emphasis>
+      <listitem><para><emphasis role="bold">Provides:</emphasis>  
         <itemizedlist mark="minus">
           <listitem><para>all client-side Subversion commands</para></listitem>
         </itemizedlist>
