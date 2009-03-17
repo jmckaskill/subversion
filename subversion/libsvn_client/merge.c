@@ -2861,7 +2861,7 @@ filter_merged_revisions(svn_client__merge_path_t *child,
                                         mergeinfo_path, APR_HASH_KEY_STRING);
       else
         target_rangelist = NULL;
-
+          
       if (target_rangelist)
         {
           /* Return the intersection of the revs which are both already
