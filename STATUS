@@ -39,7 +39,7 @@ Candidate changes:
       +1: arfrever, steveking (already using neon 0.28.4 in TSVN)
       +1: gstein, rhuijben (for 1.6.1; this can wait)
 
-
+     
 Candidate if a new tarball is constructed (otherwise for 1.6.1):
 
  * r36049-r36051, r36131
@@ -82,7 +82,7 @@ Candidate if a new tarball is constructed (otherwise for 1.6.1):
     Votes:
       +1: philip, rhuijben, stsp, arfrever
       +1: gstein (for a new CODE tarball, not a doc tarball)
-
+      
   * r36302
     Fix a small problem in the loggy upgrade process. Some v10 working copies
     have .svn/format, and some don't. The *intent* is to remove the file if
@@ -122,7 +122,7 @@ Candidate if a new tarball is constructed (otherwise for 1.6.1):
       While segfaults are serious, this one is not sufficient by itself to
       hold up 1.6.0 given that it is not a regression from 1.5.x, no one has
       been able to produce a reproduction recipe, and only one user has
-      reported it (and they were able to work around it).
+      reported it (and they were able to work around it). 
     Votes:
       +1: pburba
 
@@ -165,7 +165,7 @@ Candidate changes:
      http://svn.haxx.se/dev/archive-2009-03/0198.shtml.
    Votes:
      +1: pburba, rhuijben, arfrever
-
+     
  * r36149-r36151, r36156
    Fix starting apache httpd in daemon mode from python versions with
    win32process support. (Found after upgrading my python to 2.6.1)
