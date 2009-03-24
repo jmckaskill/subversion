@@ -103,6 +103,15 @@ Candidate changes:
    Votes:
      +1: arfrever
 
+ * r36747
+   Fix broken svn_subst_translate_cstring2 function: Close the destination
+   stream to flush unwritten data.
+   Justification:
+     Without this fix svn_subst_translate_cstring2() function does not work as
+     expected in most sutuations.
+   Votes:
+     +1: ivan
+
 
 Approved changes:
 =================
