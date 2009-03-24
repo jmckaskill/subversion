@@ -3041,7 +3041,7 @@ def diff_svnpatch(sbox):
       i = i - 1
     ll = l[i+1:]
     return ll
-
+  
   def svnpatch_encode(l):
     return [x + "\n" for x in textwrap.wrap(base64.encodestring(zlib.compress("".join(l))), 76)]
 
@@ -3087,13 +3087,13 @@ def diff_svnpatch(sbox):
   # turn iota into a modified binary file
   svntest.main.file_append_binary('iota', "\nSome more bytes.\n")
   svntest.main.run_svn(None, 'propset', 'svn:mime-type',
-                       'application/octet-stream', 'iota')
+                       'application/octet-stream', 'iota')  
 
   # update A/B/E/alpha and set a property
   alpha_path = os.path.join('A', 'B', 'E', 'alpha')
   svntest.main.file_append(alpha_path, "\nSome more bytes.\n")
   svntest.main.run_svn(None, 'propset', 'newprop',
-                       'new val', alpha_path)
+                       'new val', alpha_path)  
 
   # add dir
   a_t_path = os.path.join('A', 'T')
@@ -3103,12 +3103,12 @@ def diff_svnpatch(sbox):
   # set dir prop
   a_d_g_path = os.path.join('A', 'D', 'G')
   svntest.main.run_svn(None, 'propset', 'dirprop',
-                       'prop val', a_d_g_path)
+                       'prop val', a_d_g_path)  
 
   # copy file
   mu_path = os.path.join('A', 'mu')
   mumu_path = os.path.join('A', 'T', 'mumu')
-  svntest.main.run_svn(None, 'cp', mu_path, mumu_path)
+  svntest.main.run_svn(None, 'cp', mu_path, mumu_path)  
 
   # remove a file
   lambda_path = os.path.join('A', 'B', 'lambda')
@@ -3415,7 +3415,7 @@ def diff_svnpatch(sbox):
   ]
 
   expected_svnpatch_head_r2 = svnpatch_encode(svnpatch_output_head_r2)
-
+  
   exit_code, diff_output, err = svntest.actions.run_and_verify_svn(
                                   None, None, [],
                                   'diff', '--svnpatch',
