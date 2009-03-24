@@ -6271,13 +6271,13 @@ def foreign_repos_does_not_update_mergeinfo(sbox):
   # Set up for test of issue #3383.
   svntest.actions.run_and_verify_svn(None, None, [], 'revert', '-R', wc_dir)
 
-  # Get a working copy for the foreign repos.
+  # Get a working copy for the foreign repos.  
   svntest.actions.run_and_verify_svn(None, None, [], 'co', other_repo_url,
                                      other_wc_dir)
   # Do a merge on the foreign repos so it creates some mergeinfo and
   # commit it as r7.  And no, we aren't checking these intermediate
   # steps very thoroughly, but we test these simple merges to *death*
-  # elsewhere.
+  # elsewhere. 
   svntest.actions.run_and_verify_svn(None, None, [], 'merge',
                                      other_repo_url + '/A',
                                      os.path.join(other_wc_dir, 'A_COPY'),
@@ -6302,7 +6302,7 @@ def foreign_repos_does_not_update_mergeinfo(sbox):
   svntest.actions.run_and_verify_svn(None, [], [], 'pg',
                                      SVN_PROP_MERGEINFO, '-vR',
                                      wc_dir)
-
+  
 # This test involves tree conflicts.
 def avoid_reflected_revs(sbox):
   "avoid repeated merges for cyclic merging"
