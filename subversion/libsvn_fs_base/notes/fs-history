@@ -203,7 +203,7 @@ will live on in the original location, but part of it now thrives in
 its new "/trunk/README" location.  The copy operation assigned a brand
 new copy ID to the new node-revision for "/trunk/README", which is
 necessarily different from the copy ID assigned to the node-revision
-for "/trunk".
+for "/trunk".  
 
 Later, you decide to copy "/trunk" to "/branches/mine".  So the new
 "/branches/mine" also gets a brand new copy ID, since it is now a
@@ -235,7 +235,7 @@ first cloned.
       cloning, it will remain on the same branch as its parent after
       cloning.  A node revision can be said to be on the same branch
       as its parent if:
-
+       
         a) their copy IDs are the same, or
 
         b) the node revision is not a branch point (meaning, it was
