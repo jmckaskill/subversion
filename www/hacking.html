@@ -101,7 +101,7 @@ repository.  To participate:</p>
        <br />
        New development always takes place on trunk.  Bugfixes,
        enhancements, and new features are backported from there to the
-       various release branches.</p></li>
+       various release branches.</p></li> 
 </ul>
 
 <p>There are many ways to join the project, either by writing code, or
@@ -199,7 +199,7 @@ href="http://svn.collab.net/repos/svn/trunk/subversion/libsvn_ra_svn/protocol"
 <li><p>System notes</p>
 
      <p>A lot of the design ideas for particular aspects of the system
-     have been documented in individual files in the
+     have been documented in individual files in the 
      <a href="http://svn.collab.net/repos/svn/trunk/notes/">notes/</a>
      directory.</p>
 </li>
@@ -575,7 +575,7 @@ comments should help understanding of the code, not hinder it.</p>
 </pre>
 
 <p>Read over the Subversion code to get an overview of how documentation looks
-in practice; in particular, see
+in practice; in particular, see 
 <a href="http://svn.collab.net/repos/svn/trunk/subversion/include/">
 subversion/include/*.h</a> for doxygen examples.
 </p>
@@ -602,7 +602,7 @@ following conventions apply:</p>
   <li>Use <code>&lt;tt&gt;...&lt;/tt&gt;</code> to display multiple words
   and <code>@p</code> to display only one word in typewriter font.</li>
 
-  <li>Constant values, such as <code>TRUE</code>, <code>FALSE</code> and
+  <li>Constant values, such as <code>TRUE</code>, <code>FALSE</code> and 
   <code>NULL</code> should be in all caps.</li>
 
   <li>When several functions are related, define a group name, and group them
@@ -640,8 +640,8 @@ as you might think, and if you'd like to become one of them, then add
 
 <ul>
 
-<li><p>Provide specific error messages only when there is information
-     to add to the general error message found in
+<li><p>Provide specific error messages only when there is information 
+     to add to the general error message found in 
      subversion/include/svn_error_codes.h.</p></li>
 
 <li><p>Messages start with a capital letter.</p></li>
@@ -680,7 +680,7 @@ as you might think, and if you'd like to become one of them, then add
        "target involves '.' or '..'".
      </pre></li>
 
-<li><p>Suggestions or other additions can be added after a semi-colon,
+<li><p>Suggestions or other additions can be added after a semi-colon, 
      like this:</p>
      <pre>
        "Can't write to '%s': object of same name already exists; remove "
@@ -688,7 +688,7 @@ as you might think, and if you'd like to become one of them, then add
      </pre></li>
 
 <li><p>Try to stay within the boundaries of these conventions, so please avoid
-     separating different parts of error messages by other separators such
+     separating different parts of error messages by other separators such 
      as '--' and others.</p></li>
 
 </ul>
@@ -711,7 +711,7 @@ conventions:</p>
      using the <a href="http://svn.collab.net/svn-doxygen/svn__path_8h.html#a0"
      ><tt>svn_path_internal_style()</tt></a> API.  Alternately, when
      receiving a path or file name as output from a Subversion API,
-     convert them into the expected form for your platform using the
+     convert them into the expected form for your platform using the 
      <a href="http://svn.collab.net/svn-doxygen/svn__path_8h.html#a1"
      ><tt>svn_path_local_style()</tt></a> API.</p></li>
 
@@ -740,20 +740,20 @@ conventions:</p>
       header file in the <tt>include/private/</tt> directory, and use
       the double underscore notation.  Such symbols may be used by
       Subversion core code only.</p>
-
+      
       <p>To recap:</p>
       <pre>
          /* Part of published API: subversion/include/svn_wc.h */
-         svn_wc_adm_open()
+         svn_wc_adm_open()            
          #define SVN_WC_ADM_DIR_NAME ...
          typedef enum svn_wc_schedule_t ...
 
          /* For use within one library only: subversion/libsvn_wc/wc.h */
-         svn_wc__ensure_directory()
-         #define SVN_WC__BASE_EXT ...
+         svn_wc__ensure_directory()   
+         #define SVN_WC__BASE_EXT ... 
          typedef struct svn_wc__compat_notify_baton_t ...
 
-         /* For use within one file: subversion/libsvn_wc/update_editor.c */
+         /* For use within one file: subversion/libsvn_wc/update_editor.c */ 
          get_entry_url()
          struct handler_baton {
 
@@ -812,7 +812,7 @@ conventions:</p>
       example, one developer says:</p>
       <pre>
       &gt; Here's the regexp I'm using:
-      &gt;
+      &gt; 
       &gt;     "src/svn/[^/]*/\\(subversion\\|tools\\|build\\)/"
       &gt;
       &gt; Two things to notice there: (1) I sometimes have several
@@ -866,8 +866,8 @@ principles:</p>
        destroy that pool.</p>
 </li>
 <li><p>When iterating an unbounded number of times, create a subpool
-       before entering the iteration, use it inside the loop and clear
-       it at the start of each iteration, then destroy it after the loop
+       before entering the iteration, use it inside the loop and clear 
+       it at the start of each iteration, then destroy it after the loop 
        is done, like so:</p>
        <pre>
          apr_pool_t *subpool = svn_pool_create(pool);
@@ -907,7 +907,7 @@ code:</p>
       {
         const char *intermediate_result;
         const char *key, *val;
-
+        
         svn_pool_clear(subpool);
         SVN_ERR(do_something(&amp;intermediate_result, ..., subpool));
         SVN_ERR(get_result(intermediate_result, &amp;key, &amp;val, ..., pool));
@@ -1046,7 +1046,7 @@ typedef struct svn_error_t
        something like this:</p>
 
     <pre>
-return svn_error_create(SVN_ERR_FOO, NULL,
+return svn_error_create(SVN_ERR_FOO, NULL, 
                         "User not permitted to write file");
     </pre>
 
@@ -1112,7 +1112,7 @@ return svn_error_create(SVN_ERR_FOO, NULL,
         error = some_routine(foo);
         if (error)
           {
-           return svn_error_quick_wrap(error,
+           return svn_error_quick_wrap(error, 
                                        "Authorization failed");
           }
         </pre>
@@ -1150,12 +1150,12 @@ return svn_error_create(SVN_ERR_FOO, NULL,
         removed on pool cleanup:</p>
 
         <ul>
-        <li><p>apr_file_open and svn_io_file_open (when passed the
+        <li><p>apr_file_open and svn_io_file_open (when passed the 
                APR_DELONCLOSE flag)</p></li>
         <li><p>svn_io_open_unique_file (when passed TRUE in its
                delete_on_close)</p></li>
         </ul>
-
+   
         <p>Locked files are unlocked if they were locked using
         svn_io_file_lock.</p>
     </li>
@@ -1183,9 +1183,9 @@ the svn-breakage@subversion.tigris.org mailing list.  The more
 different platforms the tests run on, the more quickly we can detect
 portability bugs in Subversion.  If you'd like to send svn-breakage
 messages too, use the <a
-href="http://svn.collab.net/repos/svn/trunk/tools/test-scripts/svntest/"
+href="http://svn.collab.net/repos/svn/trunk/tools/test-scripts/svntest/" 
 >svntest</a> framework (start at the <a
-href="http://svn.collab.net/repos/svn/trunk/tools/test-scripts/svntest/README"
+href="http://svn.collab.net/repos/svn/trunk/tools/test-scripts/svntest/README" 
 >README</a>).</p>
 
 <p>Lieven Govaerts has set up a
@@ -1302,7 +1302,7 @@ following cryptic error messages:</p>
 </pre>
 
 <p>(The first message can also mean the data stream was corrupted in
-tunnel mode by user dotfiles or hook scripts; see
+tunnel mode by user dotfiles or hook scripts; see 
 <a href="http://subversion.tigris.org/issues/show_bug.cgi?id=1145"
 >issue&nbsp;#1145</a>.)  The first message generally means you to have
 to debug the client; the second message generally means you have to
@@ -1321,7 +1321,7 @@ and run the offending command:</p>
   % gdb svn
   (gdb) break marshal.c:NNN
   (gdb) run ARGS
-  Breakpoint 1, vparse_tuple (list=___, pool=___, fmt=___,
+  Breakpoint 1, vparse_tuple (list=___, pool=___, fmt=___, 
     ap=___) at subversion/libsvn_ra_svn/marshal.c:NNN
   NNN                                 "Malformed network data");
 </pre>
@@ -1394,7 +1394,7 @@ capture). </p>
     <p>If debugging the svn:// (ra_svn) protocol, then choose <i>New</i>,
     give the new filter a name (say, "ra_svn"), and type
     "<code>tcp&nbsp;port&nbsp;3690</code>" into the filter string box.</p>
-    <p>When done, click OK.</p></li>
+    <p>When done, click OK.</p></li> 
 <li><p>Again go to the <i>Capture</i> menu, this time choose
     <i>Interfaces</i>, and click <i>Options</i> next to the
     appropriate interface (probably you want interface "lo", for
@@ -1525,7 +1525,7 @@ that with a descriptive paragraph if necessary.  This not only helps
 put developers in the right frame of mind for reading the rest of the
 log message, but also plays well with the "CIA" bot that echoes the
 first line of each commit to realtime forums like IRC.  (For details,
-see <a href="http://cia.vc/">http://cia.vc/</a>.)  However, if the
+see <a href="http://cia.vc/">http://cia.vc/</a>.)  However, if the 
 commit is just one simple change to one file, then you can dispense
 with the general description and simply go straight to the detailed
 description, in the standard filename-then-symbol format shown
@@ -1561,9 +1561,9 @@ For example, this is bad:</p>
 <pre>
    * subversion/libsvn_ra_pigeons/twirl.c
      (twirling_baton_fast, twirling_baton_slow): Removed these
-      obsolete structures.
+      obsolete structures. 
      (handle_parser_warning): Pass data directly to callees, instead
-      of storing in twirling_baton_*.
+      of storing in twirling_baton_*. 
 
    * subversion/libsvn_ra_pigeons/twirl.h: Fix indentation.
 </pre>
@@ -1998,44 +1998,44 @@ software is optional, but recommended :-).</p>
    Subject: Please ask on the list before filing a new issue.
    To: dev@subversion.tigris.org
    Date: Tue, 30 Jul 2002 10:51:24 (CDT)
-
+   
    Folks, we're getting tons of new issues, which is a Good Thing in
    general, but some of them don't really belong in the issue tracker.
    They're things that would be better solved by a quick conversation
    here on the dev list.  Compilation problems, behavior questions,
    feature ideas that have been discussed before, that sort of thing.
-
+   
    *Please* be more conservative about filing issues.  The issues
    database is physically much more cumbersome than email.  It wastes
    people's time to have conversations in the issues database that should
    be had in email.  (This is not a libel against the issue tracker, it's
    just a result of the fact that the issues database is for permanent
    storage and flow annotation, not for real-time conversation.)
-
+   
    If you encounter a situation where Subversion is clearly behaving
    wrongly, or behaving opposite to what the documentation says, then
    it's okay to file the issue right away (after searching to make sure
    it isn't already filed, of course!).  But if you're
-
+   
       a) Requesting a new feature, or
       b) Having build problems, or
       c) Not sure what the behavior should be, or
       d) Disagreeing with current intended behavior, or
       e) Not TOTALLY sure that others would agree this is a bug, or
       f) For any reason at all not sure this should be filed,
-
+   
    ...then please post to the dev list first.  You'll get a faster
    response, and others won't be forced to use the issues database to
    have the initial real-time conversations.
-
+   
    Nothing is lost this way.  If we eventually conclude that it should be
    in the issue tracker, then we can still file it later, after the
    description and reproduction recipe have been honed on the dev list.
-
+   
    Thank you,
    -Karl
 </pre>
-
+   
 </div>
 
 <div class="h2" id="issue-triage" title="issue-triage">
@@ -2602,28 +2602,28 @@ compatibility questions:</p>
            does not let you put number or boolean values in the
            optional part of a tuple, but changing that will not affect
            the protocol.)</p>
-
+   
         <p>We can use this mechanism when information is added to an
            API call.</p>
     </li>
-
+   
     <li><p>At connection establishment time, clients and servers exchange
            a list of capability keywords.</p>
-
+   
          <p>We can use this mechanism for more complicated changes,
            like introducing pipelining or removing information from
            API calls.</p>
     </li>
-
+   
     <li><p>New commands can be added; trying to use an unsupported
            command will result in an error which can be checked and dealt
            with.</p>
     </li>
-
+   
     <li><p>The protocol version number can be bumped to allow graceful
            refusal of old clients or servers, or to allow a client or
            server to detect when it has to do things the old way.</p>
-
+ 
         <p>This mechanism is a last resort, to be used when capability
            keywords would be too hard to manage.</p>
     </li>
@@ -2770,7 +2770,7 @@ fix that: we give the new API a totally new name, mark the old API as
 deprecated, point to the new API; then at the major version change, we
 remove the old API, but don't rename the new one to the old name,
 because its new name is fine.</p>
-
+   
 </div>
 
 </div>
