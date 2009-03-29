@@ -290,7 +290,7 @@ class State:
       path = _shortest_path(unique_other)
       default_singleton_handler('expected ' + label, path,
                                 norm_other.desc[path])
-
+    
     raise svntest.tree.SVNTreeUnequal
 
   def old_tree(self):
@@ -465,7 +465,7 @@ class State:
             "'%s' is not a prefix of '%s'" % (parent, p)
         return to_relpath(p[l:])
       else:
-        # Special paths formats:
+        # Special paths formats: 
         # Windows:
         #  'C:/' Is a valid root which includes its separator ('C:/file')
         #  'C:'  is a valid root which isn't followed by a separator ('C:file')
