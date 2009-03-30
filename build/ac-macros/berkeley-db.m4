@@ -28,7 +28,7 @@ AC_DEFUN(SVN_LIB_BERKELEY_DB,
 
   AC_ARG_WITH(berkeley-db, [AS_HELP_STRING(
                                            [[--with-berkeley-db[=HEADER:INCLUDES:LIB_SEARCH_DIRS:LIBS]]], [
-                          The Subversion Berkeley DB based filesystem library
+                          The Subversion Berkeley DB based filesystem library 
                           requires Berkeley DB $db_version or newer.  If you
                           specify `--without-berkeley-db', that library will
                           not be built.  If you omit the argument of this option
@@ -50,7 +50,7 @@ AC_DEFUN(SVN_LIB_BERKELEY_DB,
                         while the fs component is required.  Reinstall
                         APR-UTIL with the appropiate options.])
         fi
-
+        
         status=required
 
       elif test "$apu_found" != "reconfig"; then
@@ -163,7 +163,7 @@ AC_DEFUN(SVN_LIB_BERKELEY_DB_TRY,
     #
     SVN_DB_LIBS=["${SVN_DB_LIBS-`$apu_config --libs | sed -e 's/.*\(-ldb[^[:space:]]*\).*/\1/' | $EGREP -- '-ldb[^[:space:]]*'`}"]
 
-    CPPFLAGS="$SVN_DB_INCLUDES $SVN_APRUTIL_INCLUDES $CPPFLAGS"
+    CPPFLAGS="$SVN_DB_INCLUDES $SVN_APRUTIL_INCLUDES $CPPFLAGS" 
     LIBS="`$apu_config --ldflags` $SVN_DB_LIBS $LIBS"
 
     if test -n "$svn_berkeley_db_header"; then
