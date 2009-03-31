@@ -45,7 +45,7 @@ Candidate changes:
      +1: stsp (I'd say it's a fix for a feature we already support (merge
                under control of external non-interactive tool), albeit
                the feature is currently so buggy that you can't use it.)
-
+     
  * r36149-r36151, r36156
    Fix starting apache httpd in daemon mode from python versions with
    win32process support. (Found after upgrading my python to 2.6.1)
@@ -70,7 +70,7 @@ Candidate changes:
      +1: pburba
 
  * r36389-r36390, r36412, r36421, r36423
-   Instead of verifying the pristine copy of a file before updating it,
+   Instead of verifying the pristine copy of a file before updating it, 
    calculate and verify the used text base (base/revert/copied) stream while
    applying the delta using the new stream checksum api. It also enables the
    verification of files where the workingcopy has no recorded checksum.
