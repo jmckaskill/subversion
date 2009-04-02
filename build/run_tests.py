@@ -74,7 +74,7 @@ class TestHarness:
 
     # Open the log in binary mode because it can contain binary data
     # from svn diff --svnpatch and this may cause readlines to
-    # prematurely
+    # prematurely 
     self._open_log('rb')
     log_lines = self.log.readlines()
 
