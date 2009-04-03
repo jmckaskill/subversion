@@ -40,7 +40,7 @@ attribute is used.
 <varlistentry>
 <term>maybe</term>
 <listitem><para>Page number references will not be generated
-for an <sgmltag>xref</sgmltag> element unless
+for an <sgmltag>xref</sgmltag> element unless 
 it has an
 <sgmltag class="attribute">xrefstyle</sgmltag>
 attribute whose value specifies a page reference.
