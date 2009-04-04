@@ -153,8 +153,8 @@ svn_uri_join(const char *base,
              apr_pool_t *pool);
 
 
-/** Gets the name of the specified canonicalized @a dirent as it is known
- * within its parent directory. If the @a dirent is root, return "". The
+/** Gets the name of the specified canonicalized @a dirent as it is known 
+ * within its parent directory. If the @a dirent is root, return "". The 
  * returned value will not have slashes in it.
  *
  * Example: svn_dirent_basename("/foo/bar") -> "bar"
@@ -289,9 +289,9 @@ svn_boolean_t
 svn_uri_is_absolute(const char *uri);
 
 /** Return TRUE if @a dirent is considered a root directory on the platform
- * at hand.
+ * at hand. 
  * E.g.:
- *  On Posix:   '/'
+ *  On Posix:   '/' 
  *  On Windows: '/', 'X:/', '//server/share', 'X:'
  *
  * Note that on Windows '/' and 'X:' are roots, but paths starting with this
@@ -474,7 +474,7 @@ svn_uri_is_ancestor(const char *path1,
  * remove_redundancies is TRUE.
  *
  *   - Set @a *pcommon to the absolute dirent of the dirent common to
- *     all of the targets.  If the targets have no common prefix (e.g.
+ *     all of the targets.  If the targets have no common prefix (e.g. 
  *     "C:/file" and "D:/file" on Windows), set @a *pcommon to the empty
  *     string.
  *
