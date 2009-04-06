@@ -6285,7 +6285,7 @@ def foreign_repos_does_not_update_mergeinfo(sbox):
   # Set up for test of issue #3383.
   svntest.actions.run_and_verify_svn(None, None, [], 'revert', '-R', wc_dir)
 
-  # Get a working copy for the foreign repos.
+  # Get a working copy for the foreign repos.  
   svntest.actions.run_and_verify_svn(None, None, [], 'co', other_repo_url,
                                      other_wc_dir)
 
@@ -6343,7 +6343,7 @@ def foreign_repos_does_not_update_mergeinfo(sbox):
   svntest.actions.run_and_verify_svn(None, [], [], 'pg',
                                      SVN_PROP_MERGEINFO, '-vR',
                                      wc_dir)
-
+  
 # This test involves tree conflicts.
 def avoid_reflected_revs(sbox):
   "avoid repeated merges for cyclic merging"
@@ -7137,7 +7137,7 @@ def merge_away_subtrees_noninheritable_ranges(sbox):
   nu_path     = os.path.join(wc_dir, "A", "nu")
   mu_path     = os.path.join(wc_dir, "A", "mu")
   mu_2_path   = os.path.join(wc_dir, "A_COPY_2", "mu")
-
+  
   # Make a change to directory A/D/H and commit as r8.
   svntest.actions.run_and_verify_svn(None, ['At revision 7.\n'], [],
                                      'update', wc_dir)
@@ -7308,7 +7308,7 @@ def merge_away_subtrees_noninheritable_ranges(sbox):
   # mergeinfo changes to that child (i.e. as part of the diff) properly
   # records mergeinfo on the child that includes both the incoming mergeinfo
   # *and* the mergeinfo inherited from it's parent.
-  #
+  #   
   # First revert all local changes and remove A_COPY/C/nu from disk.
   svntest.actions.run_and_verify_svn(None, None, [], 'revert', '-R', wc_dir)
   os.remove(os.path.join(wc_dir, "A_COPY", "nu"))
@@ -12992,7 +12992,7 @@ def merge_two_edits_to_same_prop(sbox):
   A_COPY_path      = "A_COPY"
   mu_path          = os.path.join(A_path, "mu")
   mu_COPY_path     = os.path.join(A_COPY_path, "mu")
-
+  
   # In the source, make two successive changes to the same property
   svn_propset('p', 'new-val-1', mu_path)
   rev1 = svn_commit('A/mu')
