@@ -24,7 +24,7 @@ sont déposés dans un @dfn{dépôt} central. Le dépôt peut-être vu comme un
 serveur de fichier classique, si ce n'est qu'il conserve tous les
 modifications réalisées à vos fichiers. Ceci vous permet de récuperer
 d'anciennes versions de vos fichiers, ou de consulter l'historique des
-modifications de vos fichiers.
+modifications de vos fichiers. 
 
 Certaines systèmes de contrôle de version sont aussi des systèmes
 @dfn{gestion de configuration}. Ces systèmes sont spécifiquement conçus
@@ -79,7 +79,7 @@ petit liste qui vous mettra en appétit:
 
 @itemize @bullet
 
-@item
+@item 
 @b{Versionnement des répertoires} Le dépôt de Subversion n'utilise pas les
 fichiers RCS contrairement à CVS; au-lieu de celà, il implémente un
 système de fichier versionné ``virtuel'' qui trace les arborescences dans le
@@ -87,12 +87,12 @@ temps. Les fichiers @emph{et} les répertoires sont versionnés. Ainsi, on
 trouve de réels commands ``move'' (déplacer) et ``copy'' (copier) du coté
 client.
 
-@item
+@item 
 @b{Requête de changement atomique} Une requête de changement du dépôt
 (central) est totalement réalisée ou pas du tout. Elle n'est jamais
 partiellement réalisée.
 
-@item
+@item 
 @b{Interface réseau évoluée} Le serveur réseau de Subversion est Apache,
 le client et le serveur communiquent ensemble en utilisant le protocole
 WebDav. (voir @ref{Architecture})
@@ -187,7 +187,7 @@ Subversion. Le dépôt s'appuit sur une base de données -- actuellement
 Berkeley DB -- qui est un ensemble de fichiers .db . Cependant, une seule
 librairie accède à ces fichiers et exporte une API (interface) C qui
 simule un système de fichier -- plus spécifiquement un système de
-fichier versionné.
+fichier versionné. 
 
 Ceci signifie qu'écrire un programme qui accède au dépôt est comme écrire
 un programme qui utilise une autre API de système de fichier: vous pouvez
@@ -248,7 +248,7 @@ de CVS qu'on trouve dans la copie de travail de CVS.
 
 Un coup d'oeil à l'intérieur d'un répertoire .svn typique en montre un
 peu plus cependant. Le fichier ``entries'' contient de l'XML qui décrit
-l'état actuel du répertoire de copie de travail (et qui sert
+l'état actuel du répertoire de copie de travail (et qui sert 
 essentiellement à la même chose que les fichiers Entries, Root de CVS,
 ``and Repository files combined'' (comme traduire ?) ). Mais d'autres
 élements (et que l'on ne trouve pas dans CVS) fournissent un lieu de
@@ -348,7 +348,7 @@ En particulier, ces fichiers aident Subversion à reconnaitre quel fichier
 contient des modifications non publiées et quels fichiers ne sont plus à
 jour par rapport au travail des autres.
 
-Alors que votre répertoire de travail vous est uniquement dédié, le
+Alors que votre répertoire de travail vous est uniquement dédié, le 
 @dfn{dépôt} est le lieu publique commun que vous partagez avec ceux
 travaillant sur le projet. Pour publier vos modifications, vous utilisez
 Subversion pour les mettre dans le dépôt. (La signification exacte de
@@ -473,9 +473,9 @@ fait des modifications au même fichier.
 
 Une opération @samp{commit} (remontée) de Subversion peut publier des
 modifications de plusieurs fichiers et répertoires dans une unique et
-atomique transaction. Dans votre répertoire de travail, vous pouvez
+atomique transaction. Dans votre répertoire de travail, vous pouvez 
 modifier le contenu des fichiers, créer, supprimer, renommer, copier des
-fichiers et des répertoires, puis remonter l'ensemble complet des
+fichiers et des répertoires, puis remonter l'ensemble complet des 
 modifications comme un tout.
 
 Dans le dépôt, chaque remontée est traitée comme une transaction atomique:
@@ -576,7 +576,7 @@ doit éventuellement être mise à jour pour le rendre actuel avec la
 révision publique.
 @item
 @b{Localement modifié et dépassé}. Le fichier a été modifié dans le
-répertoire de travail et dans le dépôt. Le fichier doit être mise à
+répertoire de travail et dans le dépôt. Le fichier doit être mise à 
 jour; Subversion tentera de fusionner les modifications publiques avec
 les modifications locales. S'il ne peut faire la fusion automatiquement
 de façon convaincante, Subversion laisse à l'utilisateur la tâche de
@@ -590,7 +590,7 @@ particulier la sous-section ``Examiner vos modifications''.
 @node Subversion ne verrouille pas les fichiers
 @subsubsection Subversion ne verrouille pas les fichiers
 
-Subversion ne prévient pas de la modification en même temps du même
+Subversion ne prévient pas de la modification en même temps du même 
 fichier par deux (ou plus) utilisateurs. Par exemple, si vous et Felix
 avez descendu une copie de travail de @file{/trunk/write}, Subversion vous
 autorise tous les deux à modifier @file{write/search.c} dans vos
@@ -610,13 +610,13 @@ Lorsque vous mettez à jour @file{search.c}, Subversion essaie de fusionner
 les modifications de Felix présentent dans le dépôt avec vos modifications
 locales. Par défaut, Subversion fait la fusion comme s'il appliquait un
 patch: si vos modifications locales ne recouvrent pas textuellement celles
-de Felix, alors tout va pour le mieux; sinon, Subversion vous laisse la
+de Felix, alors tout va pour le mieux; sinon, Subversion vous laisse la 
 tâche de résoudre les recouvrements de modifications.  Quoiqu'il en soit,
 Subversion préserve soigneusement une copie de l'original.
 @item
 Une fois que vous avez vérifié que les modifications de Felix et vos
 modifications peuvent-être fusionnées correctement, vous pouvez remonter
-une nouvelle révision de @file{search.c} qui maintenant contient les
+une nouvelle révision de @file{search.c} qui maintenant contient les 
 modifications de tout le monde.
 @end itemize
 
@@ -649,7 +649,7 @@ fichiers au format strict, Subversion vous demandera lequel des deux
 contenus originaux prendre (le contenu du dépôt ou celui de votre copie de
 travail).  Voir @xref{Cycle de Travail Classique}, et plus
 particuliairement la sous-section ``Fusionner les modifications des
-autres''.
+autres''.  
 
 
 
@@ -721,12 +721,12 @@ données en utilisant la méthode d'accès ra_local (invoqué en utilisant une
 URL ``file:'') et la commande @samp{import} du client Subversion.
 
 @example
-$ svn import file:///usr/local/svn/repos1 someproject myproj
+$ svn import file:///usr/local/svn/repos1 someproject myproj    
 @dots{}
 Committed revision 1.
 @end example
 
-L'exemple ci-dessus crée un nouveau répertoire @file{myproj} à la racine
+L'exemple ci-dessus crée un nouveau répertoire @file{myproj} à la racine 
 du système de fichier du dépôt et y copie tous le contenu de
 @file{someproject} .
 
