@@ -114,11 +114,11 @@ _depth_names = {
   DEPTH_IMMEDIATES : 'immediates',
   DEPTH_INFINITY   : 'infinity',
   }
-
+    
 class TreeNode:
     """A representation of a single node in a Subversion sparse
     checkout tree."""
-
+    
     def __init__(self, name, depth):
         self.name = name
         self.depth = depth
@@ -129,7 +129,7 @@ class TreeNode:
 
     def get_depth(self):
         return self.depth
-
+    
     def add_child(self, child_node):
         child_name = child_node.get_name()
         assert not self.children.has_key(child_node)
@@ -142,7 +142,7 @@ class TreeNode:
         child_names = self.children.keys()
         child_names.sort(svn_path_compare_paths)
         return child_names
-
+    
     def dump(self, recurse=False, indent=0):
         sys.stderr.write(" " * indent)
         sys.stderr.write("Path: %s (depth=%s)\n"
@@ -154,7 +154,7 @@ class TreeNode:
 
 class SubversionViewspec:
     """A representation of a Subversion sparse checkout specification."""
-
+    
     def __init__(self, base_url, revision, tree):
         self.base_url = base_url
         self.revision = revision
@@ -171,10 +171,10 @@ class SubversionViewspec:
 
 def svn_path_compare_paths(path1, path2):
     """Compare PATH1 and PATH2 as paths, sorting depth-first-ily.
-
+    
     NOTE: Stolen unapologetically from Subversion's Python bindings
     module svn.core."""
-
+    
     path1_len = len(path1);
     path2_len = len(path2);
     min_len = min(path1_len, path2_len)
@@ -213,7 +213,7 @@ def svn_path_compare_paths(path1, path2):
 def parse_viewspec_headers(viewspec_fp):
     """Parse the headers from the viewspec file, return them as a
     dictionary mapping header names to values."""
-
+    
     headers = {}
     while 1:
         line = viewspec_fp.readline()
@@ -226,7 +226,7 @@ def parse_viewspec_headers(viewspec_fp):
 def parse_viewspec(viewspec_fp):
     """Parse the viewspec file, returning a SubversionViewspec object
     that represents the specification."""
-
+    
     headers = parse_viewspec_headers(viewspec_fp)
     format = headers['Format']
     assert format == '1'
@@ -268,7 +268,7 @@ def parse_viewspec(viewspec_fp):
         # Add our rule to the set thereof.
         assert not rules.has_key(path)
         rules[path] = depth
-
+        
     tree = TreeNode('', root_depth)
     paths = rules.keys()
     paths.sort(svn_path_compare_paths)
@@ -290,7 +290,7 @@ def checkout_tree(base_url, revision, tree_node, target_dir, is_top=True):
     sparse checkout item.  IS_TOP is set iff this node represents the
     root of the checkout tree.  REVISION is the revision to checkout,
     or -1 if checking out HEAD."""
-
+    
     depth = tree_node.get_depth()
     revision_str = ''
     if revision != -1:
@@ -310,7 +310,7 @@ def checkout_tree(base_url, revision, tree_node, target_dir, is_top=True):
 
 def checkout_spec(viewspec, target_dir):
     """Checkout the view specification VIEWSPEC into TARGET_DIR."""
-
+    
     checkout_tree(viewspec.get_base_url(),
                   viewspec.get_revision(),
                   viewspec.get_tree(),
@@ -329,7 +329,7 @@ def main():
         target_dir = None
     else:
         target_dir = sys.argv[2]
-
+    
     viewspec = parse_viewspec(fp)
     if target_dir is None:
         sys.stderr.write("Url: %s\n" % (viewspec.get_base_url()))
@@ -342,6 +342,6 @@ def main():
         viewspec.get_tree().dump(True)
     else:
         checkout_spec(viewspec, target_dir)
-
+    
 if __name__ == "__main__":
     main()
