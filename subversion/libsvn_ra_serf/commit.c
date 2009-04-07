@@ -648,7 +648,7 @@ setup_proppatch_headers(serf_bucket_t *headers,
   if (SVN_IS_VALID_REVNUM(proppatch->base_revision))
     {
       serf_bucket_headers_set(headers, SVN_DAV_VERSION_NAME_HEADER,
-                              apr_psprintf(pool, "%ld",
+                              apr_psprintf(pool, "%ld", 
                                            proppatch->base_revision));
     }
 
@@ -1068,7 +1068,7 @@ open_root(void *edit_baton,
 
       handler->response_handler = post_response_handler;
       handler->response_baton = prc;
-
+    
       svn_ra_serf__request_create(handler);
 
       SVN_ERR(svn_ra_serf__context_run_wait(&post_ctx->done, ctx->session,
@@ -1140,7 +1140,7 @@ open_root(void *edit_baton,
                                 _("The OPTIONS response did not include the "
                                   "requested activity-collection-set value"));
 
-      ctx->activity_url =
+      ctx->activity_url = 
         svn_path_url_add_component2(activity_str, svn_uuid_generate(ctx->pool),
                                     ctx->pool);
       ctx->activity_url_len = strlen(ctx->activity_url);
@@ -1156,7 +1156,7 @@ open_root(void *edit_baton,
 
       handler->response_handler = svn_ra_serf__handle_status_only;
       handler->response_baton = mkact_ctx;
-
+    
       svn_ra_serf__request_create(handler);
 
       SVN_ERR(svn_ra_serf__context_run_wait(&mkact_ctx->done, ctx->session,
@@ -1173,7 +1173,7 @@ open_root(void *edit_baton,
         }
 
       /* Now go fetch our VCC and baseline so we can do a CHECKOUT. */
-      SVN_ERR(svn_ra_serf__discover_vcc(&vcc_url, ctx->session,
+      SVN_ERR(svn_ra_serf__discover_vcc(&vcc_url, ctx->session, 
                                         ctx->conn, ctx->pool));
 
       props = apr_hash_make(ctx->pool);
@@ -1205,8 +1205,8 @@ open_root(void *edit_baton,
       dir->changed_props = apr_hash_make(dir->pool);
       dir->removed_props = apr_hash_make(dir->pool);
 
-      SVN_ERR(get_version_url(&dir->url, dir->commit->session,
-                              dir->commit->conn, dir->name,
+      SVN_ERR(get_version_url(&dir->url, dir->commit->session, 
+                              dir->commit->conn, dir->name, 
                               dir->base_revision, ctx->checked_in_url,
                               dir->pool));
       ctx->checked_in_url = dir->url;
@@ -1275,7 +1275,7 @@ delete_entry(const char *path,
 
   if (USING_HTTPV2_COMMIT_SUPPORT(dir->commit))
     {
-      delete_target = svn_path_url_add_component2(dir->commit->txn_root_url,
+      delete_target = svn_path_url_add_component2(dir->commit->txn_root_url, 
                                                   path, dir->pool);
     }
   else
@@ -1385,7 +1385,7 @@ add_directory(const char *path,
     }
   else
     {
-      /* Ensure our parent is checked out. */
+      /* Ensure our parent is checked out. */ 
       SVN_ERR(checkout_dir(parent));
 
       dir->url = svn_path_url_add_component2(parent->commit->checked_in_url,
@@ -1649,7 +1649,7 @@ add_file(const char *path,
 
   while (deleted_parent && deleted_parent[0] != '\0')
     {
-      if (apr_hash_get(dir->commit->deleted_entries,
+      if (apr_hash_get(dir->commit->deleted_entries, 
                        deleted_parent, APR_HASH_KEY_STRING))
         {
           break;
