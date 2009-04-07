@@ -60,7 +60,7 @@ def basic_upgrade(sbox):
 
   # TODO: Actually check the sanity of the upgraded working copy
 
-
+  
 
 ########################################################################
 # Run the tests
