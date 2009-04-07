@@ -885,7 +885,7 @@ parse_local_abspath(svn_wc__db_pdh_t **pdh,
      to that directory is what we need to return. At this point, we've
      determined that it is NOT in the DB's hash table of wcdirs. Let's create
      it, and begin to populate it.  */
-
+     
   *pdh = apr_pcalloc(db->state_pool, sizeof(**pdh));
   (*pdh)->db = db;
   (*pdh)->local_abspath = apr_pstrdup(db->state_pool, local_abspath);
@@ -1000,7 +1000,7 @@ parse_local_abspath(svn_wc__db_pdh_t **pdh,
 
   /* Check to see if this (versioned) directory is obstructing what should
      be a file in the parent directory.
-
+     
      ### obstruction is only possible with per-dir wc.db databases.  */
   if (obstruction_possible)
     {
@@ -1141,7 +1141,7 @@ parse_local_abspath(svn_wc__db_pdh_t **pdh,
 /* Get the statement given by STMT_IDX, and bind the appropriate wc_id and
    local_relpath based upon LOCAL_ABSPATH.  Store it in *STMT, and use
    SCRATCH_POOL for temporary allocations.
-
+   
    Note: WC_ID and LOCAL_RELPATH must be arguments 1 and 2 in the statement. */
 static svn_error_t *
 get_statement_for_path(svn_sqlite__stmt_t **stmt,
@@ -1529,7 +1529,7 @@ svn_wc__db_init(const char *local_abspath,
   ibb.children = NULL;
   ibb.incomplete_children = initial_rev > 0;
   ibb.depth = depth;
-
+  
   ibb.scratch_pool = scratch_pool;
 
   SVN_ERR(insert_base_node(&ibb, sdb));
