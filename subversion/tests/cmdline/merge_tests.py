@@ -7060,7 +7060,7 @@ def merge_away_subtrees_noninheritable_ranges(sbox):
   nu_path     = os.path.join(wc_dir, "A", "nu")
   mu_path     = os.path.join(wc_dir, "A", "mu")
   mu_2_path   = os.path.join(wc_dir, "A_COPY_2", "mu")
-
+  
   # Make a change to directory A/D/H and commit as r8.
   svntest.actions.run_and_verify_svn(None, ['At revision 7.\n'], [],
                                      'update', wc_dir)
@@ -7231,7 +7231,7 @@ def merge_away_subtrees_noninheritable_ranges(sbox):
   # mergeinfo changes to that child (i.e. as part of the diff) properly
   # records mergeinfo on the child that includes both the incoming mergeinfo
   # *and* the mergeinfo inherited from it's parent.
-  #
+  #   
   # First revert all local changes and remove A_COPY/C/nu from disk.
   svntest.actions.run_and_verify_svn(None, None, [], 'revert', '-R', wc_dir)
   os.remove(os.path.join(wc_dir, "A_COPY", "nu"))
