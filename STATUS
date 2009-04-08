@@ -45,7 +45,7 @@ Candidate changes:
      +1: stsp (I'd say it's a fix for a feature we already support (merge
                under control of external non-interactive tool), albeit
                the feature is currently so buggy that you can't use it.)
-
+     
  * r36509
    Don't contact the server asking about implicit mergeinfo when the
    explicit mergeinfo tells us all we need to know about what to merge
@@ -85,6 +85,6 @@ Candidate changes:
      word 'merge' in the title!
    Votes:
      +1: pburba
-
+      
 Approved changes:
 =================
