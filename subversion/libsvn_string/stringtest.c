@@ -55,10 +55,10 @@ main ()
   /* Set a bytestring to NULL, and query this fact. */
   svn_string_setempty (c);
   svn_string_print (c, stdout, TRUE, TRUE);
-
+  
   printf ("is C empty? : %d\n", svn_string_isempty (c));
   printf ("is A empty? : %d\n", svn_string_isempty (a));
-
+  
   /* Fill a bytestring with hash marks */
   svn_string_fillchar (a, '#');
   svn_string_print (a, stdout, TRUE, TRUE);
@@ -68,11 +68,11 @@ main ()
   printf ("The C string returned is: %s\n", msg);
 
   /* Compare the C string to the original bytestring */
-  printf ("comparison of b and msg is: %d\n",
+  printf ("comparison of b and msg is: %d\n", 
           svn_string_compare_2cstring (b, msg));
-  printf ("comparison of b and `foogle' is: %d\n",
+  printf ("comparison of b and `foogle' is: %d\n", 
           svn_string_compare_2cstring (b, "foogle"));
-  printf ("comparison of b and `a longish phrase' is: %d\n",
+  printf ("comparison of b and `a longish phrase' is: %d\n", 
           svn_string_compare_2cstring (b, "a longish phrase"));
 
   /* Free our entire memory pool when done. */
