@@ -247,7 +247,7 @@ def deletion_details(sbox):
 
   validate(entries['alpha'], schedule=SCHEDULE_DELETE)
   validate(entries['chi'], schedule=SCHEDULE_NORMAL, copied=True)
-
+  
 
 
 ########################################################################
