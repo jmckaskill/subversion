@@ -712,7 +712,7 @@ do_open(svn_wc_adm_access_t **adm_access,
 
               /* It's missing or obstructed, so store a placeholder */
               svn_error_clear(err);
-
+              
               SVN_ERR(svn_dirent_get_absolute(&abspath, entry_path, subpool));
               mark_missing(lock->shared, abspath, subpool);
             }
