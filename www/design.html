@@ -114,32 +114,32 @@
 <!--
   ================================================================
   Copyright (c) 1999-2004 CollabNet.  All rights reserved.
-
+  
   Redistribution and use in source and binary forms, with or without
   modification, are permitted provided that the following conditions are
   met:
-
+  
   1. Redistributions of source code must retain the above copyright
   notice, this list of conditions and the following disclaimer.
-
+  
   2. Redistributions in binary form must reproduce the above copyright
   notice, this list of conditions and the following disclaimer in the
   documentation and/or other materials provided with the distribution.
-
+  
   3. The end-user documentation included with the redistribution, if
   any, must include the following acknowledgment: "This product includes
   software developed by CollabNet (http://www.Collab.Net/)."
   Alternately, this acknowledgment may appear in the software itself, if
   and wherever such third-party acknowledgments normally appear.
-
+  
   4. The hosted project names must not be used to endorse or promote
   products derived from this software without prior written
   permission. For written permission, please contact info@collab.net.
-
+  
   5. Products derived from this software may not use the "Tigris" name
   nor may "Tigris" appear in their names without prior written
   permission of CollabNet.
-
+  
   THIS SOFTWARE IS PROVIDED ``AS IS'' AND ANY EXPRESSED OR IMPLIED
   WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
   MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
@@ -151,27 +151,27 @@
   IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
   OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
   ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-
+ 
   ====================================================================
-
+  
   This software consists of voluntary contributions made by many
   individuals on behalf of CollabNet.
 -->
+  
+  
+  
+  
 
-
-
-
-
-
+  
 
   <div class="h2" id="goals" title="#goals">
   <h2>Goals &mdash; The goals of the Subversion project</h2>
+  
 
-
-
+  
     <p>The goal of the Subversion project is to write a version control
       system that takes over CVS's current and future user base
-
+      
     (If you're not familiar with CVS or its shortcomings, then
           skip to <a href="#model">Model &mdash; The versioning model used by Subversion</a>)
   . The first release
@@ -223,11 +223,11 @@
     <p>Some of these advantages are clear and require no further discussion.
       Others are not so obvious, and are explained in greater detail
       below.</p>
-
+  
 
   <div class="h3" id="goals.rename-remove-resurrect" title="#goals.rename-remove-resurrect">
     <h3>Rename/removal/resurrection support</h3>
-
+    
 
     <p>Full rename support means you can trace through ancestry by name
       <em>or</em> by entity.  For example, if you say "Give me
@@ -244,7 +244,7 @@
 
   <div class="h3" id="goals.textbinary" title="#goals.textbinary">
     <h3>Text vs binary issues</h3>
-
+    
 
     <p>Historically, binary files have been problematic in CVS for two
       unrelated reasons: keyword expansion, and line-end conversion.</p>
@@ -290,7 +290,7 @@
 
   <div class="h3" id="goals.i18n" title="#goals.i18n">
     <h3>I18N/Multilingual support</h3>
-
+    
 
     <p>Subversion is internationalized &ndash; commands, user messages, and
       errors can be customized to the appropriate human language at build-time
@@ -304,8 +304,8 @@
 
   <div class="h3" id="goals.branching-and-tagging" title="#goals.branching-and-tagging">
     <h3>Branching and tagging</h3>
-
-
+    
+  
     <p>Subversion supports branching and tagging with one efficient
       operation: `clone'.  To clone a tree is to copy it, to create another
       tree exactly like it (except that the new tree knows its ancestry
@@ -321,11 +321,11 @@
 
   <div class="h3" id="goals.misc" title="#goals.misc">
     <h3>Miscellaneous new behaviors</h3>
-
+    
 
     <div class="h4" id="goals.misc.logmsgs" title="#goals.misc.logmsgs">
       <h4>Log messages</h4>
-
+      
 
       <p>Subversion has a flexible log message policy (a small matter, but
         one dear to our hearts).</p>
@@ -340,7 +340,7 @@
 
     <div class="h4" id="goals.misc.diffplugins" title="#goals.misc.diffplugins">
       <h4>Client side diff plug-ins</h4>
-
+      
 
       <p>Subversion supports client-side plug-in diff programs.</p>
 
@@ -354,7 +354,7 @@
 
     <div class="h4" id="goals.misc.merging" title="#goals.misc.merging">
       <h4>Better merging</h4>
-
+      
 
       <p>Subversion remembers what has already been merged in and what
         hasn't, thereby avoiding the problem, familiar to CVS users, of
@@ -370,7 +370,7 @@
 
     <div class="h4" id="goals.misc.conflicts" title="#goals.misc.conflicts">
       <h4>Conflicts resolution</h4>
-
+      
 
       <p>For text files, Subversion resolves conflicts similarly to CVS, by
         folding repository changes into the working files with conflict
@@ -408,17 +408,17 @@
 
   <div class="h2" id="model" title="#model">
   <h2>Model &mdash; The versioning model used by Subversion</h2>
+  
 
-
-
+  
     <p>This chapter explains the user's view of Subversion &mdash; what
       &ldquo;objects&rdquo; you interact with, how they behave, and how they
       relate to each other.</p>
-
+  
 
   <div class="h3" id="model.wc-and-repos" title="#model.wc-and-repos">
     <h3>Working Directories and Repositories</h3>
-
+    
 
     <p>Suppose you are using Subversion to manage a software project.  There
       are two things you will interact with: your working directory, and the
@@ -554,7 +554,7 @@ $
 
   <div class="h3" id="model.txns-and-revnums" title="#model.txns-and-revnums">
     <h3>Transactions and Revision Numbers</h3>
-
+    
 
     <p>A Subversion &lsquo;<tt class="literal">commit</tt>&rsquo; operation can
       publish changes to any number of files and directories as a single atomic
@@ -633,7 +633,7 @@ write/Makefile:6
 
   <div class="h3" id="model.how-wc" title="#model.how-wc">
     <h3>How Working Directories Track the Repository</h3>
-
+    
 
     <p>For each file in a working directory, Subversion records two
       essential pieces of information:</p>
@@ -677,7 +677,7 @@ write/Makefile:6
   <div class="h3" id="model.lock-merge" title="#model.lock-merge">
     <h3>Locking vs. Merging - Two Paradigms of Co-operative
      Developments</h3>
-
+    
 
     <p>By default, Subversion prefers the &ldquo;merging&rdquo; method of
       handling simultaneous editing by multiple users.  This means that
@@ -742,7 +742,7 @@ write/Makefile:6
 
   <div class="h3" id="model.props" title="#model.props">
     <h3>Properties</h3>
-
+    
 
     <p>Files generally have interesting attributes beyond their contents:
       mime-types, executable permissions, EOL styles, and so on.  Subversion
@@ -794,7 +794,7 @@ write/Makefile:6
 
   <div class="h3" id="model.merging-and-ancestry" title="#model.merging-and-ancestry">
     <h3>Merging and Ancestry</h3>
-
+    
 
     <p>[WARNING:  this section was written in May 2000, at the very
       beginning of the Subversion project.  This functionality probably will
@@ -1013,15 +1013,15 @@ write/Makefile:6
 </pre>
 
 <!--
-  Heh, what about this:
+  Heh, what about this: 
 
-    B:3 adds line 3, with the text "foo".
-    B:5 deletes line 3.
-    B:7 adds line 3, with the text "foo".
-    B:9 deletes line 3.
+    B:3 adds line 3, with the text "foo". 
+    B:5 deletes line 3. 
+    B:7 adds line 3, with the text "foo". 
+    B:9 deletes line 3. 
 
   The user first merges B:5 and B:9 into A.  If A had that line, it goes away
-  now, nothing more.
+  now, nothing more. 
 
   Next, user merges B:3 and B:7 into A.  The second merge must conflict.
 
@@ -1037,9 +1037,9 @@ write/Makefile:6
 
   <div class="h2" id="archi" title="#archi">
   <h2>Architecture &mdash; How Subversion's components work together</h2>
+  
 
-
-
+  
     <p>Subversion is conceptually divided into a number of separable
       layers.</p>
 
@@ -1086,11 +1086,11 @@ write/Makefile:6
  +--------------------------------------------------+
 
 </pre>
-
+  
 
   <div class="h3" id="archi.client" title="#archi.client">
     <h3>Client Layer</h3>
-
+    
 
     <p>The Subversion client, which may be either
       command-line or GUI, draws on three libraries.</p>
@@ -1122,7 +1122,7 @@ write/Makefile:6
 
   <div class="h3" id="archi.network" title="#archi.network">
     <h3>Network Layer</h3>
-
+    
 
     <p> The network layer's job is to move the repository API requests
       over a wire.</p>
@@ -1159,7 +1159,7 @@ write/Makefile:6
 
   <div class="h3" id="archi.fs" title="#archi.fs">
     <h3>Filesystem Layer</h3>
-
+    
 
     <p>When the requests reach a particular repository, they are
       interpreted by the <strong class="firstterm">Subversion Filesystem
@@ -1175,9 +1175,9 @@ write/Makefile:6
 
   <div class="h2" id="deltas" title="#deltas">
   <h2>Deltas &mdash; How to describe changes</h2>
+  
 
-
-
+  
     <p>Subversion uses three kinds of deltas:</p>
 
     <ul>
@@ -1187,7 +1187,7 @@ write/Makefile:6
           arbitrary directory trees, the way a traditional patch describes the
           difference between two files.  For example, the delta between
           directories A and B could be applied to A, to produce B.</p>
-
+        
         <p>Tree deltas can also carry ancestry information, indicating how
           the files in one tree are related to files in the other tree.  And
           deltas can describe changes to file meta-information, like permission
@@ -1219,11 +1219,11 @@ write/Makefile:6
       representation, used for repository storage.  The various representations
       of a given delta are (in theory, anyway) perfectly isomorphic to one
       another, since they describe the same underlying structure.</p>
-
+  
 
   <div class="h3" id="deltas.text" title="#deltas.text">
     <h3>Text Deltas</h3>
-
+    
 
     <p>A text delta describes the difference between two strings of bytes,
       the <strong class="firstterm">source</strong> string and the
@@ -1268,8 +1268,8 @@ write/Makefile:6
 
   <div class="h3" id="deltas.prop" title="#deltas.prop">
     <h3>Property Deltas</h3>
-
-
+    
+    
     <p>A property delta describes changes to a property list, of the sort
       associated with files, directories, and directory entries, and revision
       numbers (see <a href="#model.props">Properties</a>).  A property delta can record
@@ -1287,11 +1287,11 @@ write/Makefile:6
             string <em class="replaceable">value</em>. If there is no property
             with the given name, one is added to the property
             list.</p></dd>
-
+      
       <dt>delete</dt>
         <dd><p>Remove the named property from the property
             list.</p></dd>
-
+      
     </dl>
 
     <p>At the moment, the <tt class="literal">set</tt> command can either create
@@ -1339,7 +1339,7 @@ write/Makefile:6
 
   <div class="h3" id="deltas.tree" title="#deltas.tree">
     <h3>Tree Deltas</h3>
-
+    
 
     <p>A tree delta describes changes between two directory trees, the
       <strong class="firstterm">source tree</strong> and the <strong class="firstterm">target
@@ -1393,14 +1393,14 @@ write/Makefile:6
       changes:</p>
 
     <dl>
-
+      
         <dt>&lt;delete
           name='<em class="replaceable">name</em>'/&gt;</dt>
         <dd><p><em class="replaceable">Source-dir</em> has an entry
             named <em class="replaceable">name</em>, which is not present
             in <em class="replaceable">target-dir</em>.</p></dd>
-
-
+      
+      
         <dt>&lt;add
           name='<em class="replaceable">name</em>'&gt;<em class="replaceable">content</em>&lt;/add&gt;</dt>
         <dd><p><em class="replaceable">target-dir</em> has an entry
@@ -1408,8 +1408,8 @@ write/Makefile:6
             in <em class="replaceable">source-dir</em>;
             <em class="replaceable">content</em> describes the file or directory
             to which the new directory entry refers.</p></dd>
-
-
+      
+      
         <dt>&lt;open
           name='<em class="replaceable">name</em>'&gt;<em class="replaceable">content</em>&lt;/open&gt;</dt>
         <dd><p>Both <em class="replaceable">source-dir</em> and
@@ -1417,7 +1417,7 @@ write/Makefile:6
             named <em class="replaceable">name</em>, which has changed;
             <em class="replaceable">content</em> describes the new file
             or directory.</p></dd>
-
+      
     </dl>
 
     <p>Any entries in <em class="replaceable">source-dir</em> whose names
@@ -1432,7 +1432,7 @@ write/Makefile:6
       forms:</p>
 
     <dl>
-
+      
         <dt>&lt;file
           <em class="replaceable">ancestor</em>&gt;<em class="replaceable">prop-delta</em>
           <em class="replaceable">text-delta</em>&lt;/file&gt;</dt>
@@ -1447,24 +1447,24 @@ write/Makefile:6
             describing how <em class="replaceable">f</em>'s properties differ
             from that ancestor; it may be omitted, indicating that the
             properties are unchanged.</p>
-
+          
           <p><em class="replaceable">Text-delta</em> is a text delta
             describing how to construct <em class="replaceable">f</em> from that
             ancestor; it may also be omitted, indicating that
             <em class="replaceable">f</em>'s text is identical to its
             ancestor's.</p></dd>
+      
 
-
-
+      
         <dt>&lt;file <em class="replaceable">ancestor</em>/&gt;</dt>
 
         <dd><p>An abbreviation for <tt class="literal">&lt;file
               <em class="replaceable">ancestor</em>&gt;&lt;/file&gt;</tt>
             &mdash; a fileelement with no property or text delta, thus
             describing a file identicalto its ancestor.</p></dd>
+      
 
-
-
+      
         <dt>&lt;directory
           <em class="replaceable">ancestor</em>&gt;<em class="replaceable">prop-delta</em>
           <em class="replaceable">tree-delta</em>&lt;/directory&gt;</dt>
@@ -1474,12 +1474,12 @@ write/Makefile:6
             <em class="replaceable">Ancestor</em> indicates which directory in
             the source tree <em class="replaceable">sub</em> is derived from, if
             any.</p>
-
+            
           <p><em class="replaceable">Prop-delta</em> is a property delta
             describing how <em class="replaceable">sub</em>'sproperties differ
             from that ancestor; it may be omitted, indicating thatthe
             properties are unchanged.</p>
-
+            
           <p><em class="replaceable">Tree-delta</em>
             describes how to construct <em class="replaceable">sub</em> from
             that ancestor; it may be omitted, indicating that the directory is
@@ -1487,13 +1487,13 @@ write/Makefile:6
             should be interpreted with a new
             <em class="replaceable">target-dir</em> of
             <tt class="filename"><em class="replaceable">target-dir</em>/<em class="replaceable">name</em></tt>.</p>
-
+            
           <p>Since <em class="replaceable">tree-delta</em> is itself a
             complete tree delta structure, tree deltas are themselves trees,
             whose structure is a subgraph of the target tree.</p></dd>
+      
 
-
-
+      
         <dt>&lt;directory
           <em class="replaceable">ancestor</em>/&gt;</dt>
 
@@ -1501,7 +1501,7 @@ write/Makefile:6
               <em class="replaceable">ancestor</em>&gt;&lt;/directory&gt;</tt>
             &mdash; a directory element with no property or tree delta, thus
             describing a directory identical to its ancestor.</p></dd>
-
+      
     </dl>
 
     <p>The <em class="replaceable">content</em> of a <tt class="literal">add</tt> or
@@ -1514,7 +1514,7 @@ write/Makefile:6
       one of the following forms:</p>
 
     <dl>
-
+      
         <dt>ancestor='<em class="replaceable">path</em>'</dt>
 
         <dd><p>The ancestor of the new or changed file or directory is
@@ -1528,9 +1528,9 @@ write/Makefile:6
             <tt class="filename"><em class="replaceable">source-root</em>/<em class="replaceable">path</em></tt>
             should be the new <em class="replaceable">source-dir</em> for
             interpreting that element's tree delta.</p></dd>
+      
 
-
-
+      
         <dt>new='true'</dt>
 
         <dd><p>This indicates that the file or directory has no
@@ -1540,9 +1540,9 @@ write/Makefile:6
             <em class="replaceable">tree-delta</em>, that delta should be
             evaluated as if <em class="replaceable">source-dir</em> were an
             imaginary empty directory.</p></dd>
+      
 
-
-
+      
         <dt><em class="replaceable">nothing</em></dt>
 
         <dd><p>If neither an <tt class="literal">ancestor</tt> nor a
@@ -1552,7 +1552,7 @@ write/Makefile:6
             with the same revision number.  This makes the common case &mdash;
             files or directories modified in place &mdash; more
             compact.</p></dd>
-
+      
     </dl>
 
     <p>If the <em class="replaceable">ancestor</em> spec is not
@@ -1729,9 +1729,9 @@ write/Makefile:6
       <li><p>the new directory <tt class="filename">/dir1/dir4</tt> is
           derived from the old <tt class="filename">/dir1/dir2</tt>, except that its
           entry for <tt class="filename">file3</tt> is now gone.</p></li>
-
+    
     </ul>
-
+    
     <p>Some more possible maneuvers, left as exercises for the
       reader:</p>
 
@@ -1751,7 +1751,7 @@ write/Makefile:6
 
   <div class="h3" id="deltas.postfix-text" title="#deltas.postfix-text">
     <h3>Postfix Text Deltas</h3>
-
+    
 
     <p>It is sometimes useful to represent a set of changes to a tree
       without providing text deltas in the middle of the stream.  Text deltas
@@ -1794,7 +1794,7 @@ write/Makefile:6
 
   <div class="h3" id="deltas.serializing-via-editor" title="#deltas.serializing-via-editor">
     <h3>Serializing Deltas via the "Editor" Interface</h3>
-
+    
 
     <p>The static XML forms above are useful as an import/export format, and
       as a visualization aid, but we also need a way to express a delta as a
@@ -1984,7 +1984,7 @@ write/Makefile:6
           <tt class="literal">editor-&gt;close_dir(root_baton);</tt></p></li>
 
     </ol>
-
+    
     <p>Of course, at any point above, the repository may reject an edit.  If
       this is the case, the client aborts the transmission and the repository
       hasn't changed a bit.  (Thank goodness for transactions!)</p>
@@ -2022,9 +2022,9 @@ write/Makefile:6
 
   <div class="h2" id="client" title="#client">
   <h2>Client &mdash; How the client works</h2>
+  
 
-
-
+  
     <p>The Subversion client is built on three libraries.  One operates
       strictly on the working copy and does not talk to the repository.
       Another talks to the repository but never changes the working copy.  The
@@ -2040,11 +2040,11 @@ write/Makefile:6
 
     <p>This chapter describes the libraries, and the physical layout of
       working copies.</p>
-
+  
 
   <div class="h3" id="client.wc" title="#client.wc">
     <h3>Working copies and the working copy library</h3>
-
+    
 
     <p>Working copies are client-side directory trees containing both
       versioned data and Subversion administrative files.  The functions in the
@@ -2053,7 +2053,7 @@ write/Makefile:6
 
     <div class="h4" id="client.wc.layout" title="#client.wc.layout">
       <h4>The layout of working copies</h4>
-
+      
 
       <p>This section gives an overview of how
         working copies are arranged physically, but is not a full specification
@@ -2157,15 +2157,15 @@ write/Makefile:6
 
     <div class="h4" id="client.wc.library" title="#client.wc.library">
       <h4>The working copy management library</h4>
-
+      
 
       <ul>
-        <li><p><strong>Requires:</strong>
+        <li><p><strong>Requires:</strong>  
           </p><ul>
             <li><p>a working copy</p></li>
           </ul><p>
         </p></li>
-        <li><p><strong>Provides:</strong>
+        <li><p><strong>Provides:</strong>  
           </p><ul>
             <li><p>ability to manipulate the working copy's versioned
                 data</p></li>
@@ -2186,16 +2186,16 @@ write/Makefile:6
 
   <div class="h3" id="client.libsvn_ra" title="#client.libsvn_ra">
     <h3>The repository access library</h3>
-
+    
 
     <ul>
-      <li><p><strong>Requires:</strong>
+      <li><p><strong>Requires:</strong>  
         </p><ul>
           <li><p>network access to a Subversion
               server</p></li>
         </ul><p>
       </p></li>
-      <li><p><strong>Provides:</strong>
+      <li><p><strong>Provides:</strong>  
         </p><ul>
           <li><p>the ability to interact with a
               repository</p></li>
@@ -2219,16 +2219,16 @@ write/Makefile:6
 
   <div class="h3" id="client.libsvn_client" title="#client.libsvn_client">
     <h3>The client operation library</h3>
-
-
+    
+    
     <ul>
-      <li><p><strong>Requires:</strong>
+      <li><p><strong>Requires:</strong>  
         </p><ul>
           <li><p>the working copy management library</p></li>
           <li><p>a repository access library</p></li>
         </ul><p>
       </p></li>
-      <li><p><strong>Provides:</strong>
+      <li><p><strong>Provides:</strong>  
         </p><ul>
           <li><p>all client-side Subversion commands</p></li>
         </ul><p>
@@ -2247,9 +2247,9 @@ write/Makefile:6
 
   <div class="h2" id="protocol" title="#protocol">
   <h2>Protocol &mdash; How the client and server communicate</h2>
+  
 
-
-
+  
     <p>The wire protocol is the connection between the servers, and the
       client-side <em>Repository Access (RA) API</em>, provided by
       <tt class="literal">libsvn_ra</tt>.  Note that <tt class="literal">libsvn_ra</tt> is
@@ -2257,7 +2257,7 @@ write/Makefile:6
       communicating with a server to one of a selection of back-end modules (the
       <tt class="literal">libsvn_ra_*</tt> libraries).  Therefore, there is not just
       one Subversion protocol - in fact, at present, there are two:</p>
-
+    
     <ul>
       <li><p>The HTTP/WebDAV/DeltaV based protocol, implemented by the
           <tt class="literal">mod_dav_svn</tt> Apache 2 server module, and by two
@@ -2268,11 +2268,11 @@ write/Makefile:6
           implemented by the <tt class="literal">svnserve</tt> server, and the
           <tt class="literal">libsvn_ra_svn</tt> RA module.</p></li>
     </ul>
-
+  
 
   <div class="h3" id="protocol.webdav" title="#protocol.webdav">
     <h3>The HTTP/WebDAV/DeltaV based protocol</h3>
-
+    
 
     <p>The Subversion client library <tt class="literal">libsvn_ra_dav</tt> uses
       the <em>Neon</em> library to generate WebDAV DeltaV requests
@@ -2300,7 +2300,7 @@ write/Makefile:6
 
   <div class="h3" id="protocol.svn" title="#protocol.svn">
     <h3>The custom protocol</h3>
-
+    
 
     <p>The client library <tt class="literal">libsvn_ra_svn</tt> and standalone
       server program <tt class="literal">svnserve</tt> implement a custom protocol
@@ -2310,9 +2310,9 @@ write/Makefile:6
 
   <div class="h2" id="server" title="#server">
   <h2>Server &mdash; How the server works</h2>
+  
 
-
-
+  
     <p>The term &ldquo;server&rdquo; is ambiguous, because it has at least
       two different meanings: it can refer to a powerful computer which offers
       services to users on a network, or it can refer to a CPU process designed
@@ -2326,23 +2326,23 @@ write/Makefile:6
     <p>There are two main libraries: the <strong class="firstterm">Subversion
         Filesystem</strong> library, and the <strong class="firstterm">Subversion
         Repository</strong> library.</p>
-
+  
 
   <div class="h3" id="server.fs" title="#server.fs">
     <h3>Filesystem</h3>
-
+    
 
     <div class="h4" id="server.fs.overview" title="#server.fs.overview">
       <h4>Filesystem Overview</h4>
-
+      
       <ul>
-        <li><p><strong>Requires:</strong>
+        <li><p><strong>Requires:</strong>  
           </p><ul>
             <li><p>some writable disk space</p></li>
             <li><p>(for now) Berkeley DB library</p></li>
           </ul><p>
         </p></li>
-        <li><p><strong>Provides:</strong>
+        <li><p><strong>Provides:</strong>  
           </p><ul>
             <li><p>a repository for storing files</p></li>
             <li><p>concurrent client transactions</p></li>
@@ -2360,7 +2360,7 @@ write/Makefile:6
 
     <div class="h4" id="server.fs.api" title="#server.fs.api">
       <h4>API</h4>
-
+      
 
       <p> There are two main files that describe the Subversion
         filesystem.</p>
@@ -2379,11 +2379,11 @@ write/Makefile:6
 
     <div class="h4" id="server.fs.struct" title="#server.fs.struct">
       <h4>Repository Structure</h4>
-
+      
 
       <div class="h5" id="server.fs.struct.schema">
         <h5>Schema</h5>
-
+        
 
         <p>
           To begin, please be sure that you're already casually familiar with
@@ -2500,7 +2500,7 @@ A <strong class="firstterm">repository</strong> consists of node table and a his
 
       <div class="h5" id="server.fs.struct.bubble-up">
         <h5>Bubble-Up Method</h5>
-
+        
 
         <p>This section provides a conversational explanation of how the
           repository actually stores and revisions file trees.  It's not
@@ -2955,8 +2955,8 @@ prompt$
 
       <div class="h5" id="server.fs.struct.diffy-storage">
         <h5>Diffy Storage</h5>
-
-
+        
+          
         <p>You may have been thinking, &ldquo;Gee, this bubble up method
           seems nice, but it sure wastes a lot of space.  Every commit to the
           repository creates an entire line of new directory
@@ -2974,7 +2974,7 @@ prompt$
 
     <div class="h4" id="server.fs.implementation" title="#server.fs.implementation">
       <h4>Implementation</h4>
-
+      
 
       <p>For the initial release of Subversion,</p>
 
@@ -2984,7 +2984,7 @@ prompt$
 
         <li><p>The filesystem's data will probably be stored in a
             collection of .db files, using the Berkeley Database library.
-
+            
     (In the future, of course, contributors are free
                 modify the Subversion filesystem to operate with more powerful
                 SQL database.)
@@ -2996,7 +2996,7 @@ prompt$
 
   <div class="h3" id="server.libsvn_repos" title="#server.libsvn_repos">
     <h3>Repository Library</h3>
-
+    
 
     <!-- Jimb, Karl:  Maybe we should turn this into a discussion about how the
     filesystem will use non-historical properties for internal ACLs, and how
@@ -3036,9 +3036,9 @@ prompt$
 
   <div class="h2" id="license" title="#license">
   <h2>License &mdash; Copyright</h2>
+  
 
-
-
+  
     <p>Copyright &copy; 2000-2008 Collab.Net.  All rights reserved.</p>
 
     <p>This software is licensed as described in the file
@@ -3047,7 +3047,7 @@ prompt$
       <a href="http://subversion.tigris.org/license-1.html">http://subversion.tigris.org/license-1.html</a>.  If newer
       versions of this license are posted there, you may use a newer version
       instead, at your option.</p>
-
+  
 </div> <!-- license (h2) -->
 
 
