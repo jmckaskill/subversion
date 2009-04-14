@@ -848,7 +848,7 @@ read_entries(svn_wc_adm_access_t *adm_access,
   apr_pool_t *iterpool = svn_pool_create(scratch_pool);
   int i;
   svn_boolean_t parent_copied = FALSE;
-
+  
   result_pool = svn_wc_adm_access_pool(adm_access);
 
   SVN_ERR(svn_wc__db_temp_get_format(&wc_format, db, local_abspath,
@@ -2217,7 +2217,7 @@ write_entry(svn_wc__db_t *db,
                                                   &entry->file_external_peg_rev,
                                                   &entry->file_external_rev,
                                                   scratch_pool));
-
+       
           SVN_ERR(svn_sqlite__get_statement(&stmt, wc_db,
                                             STMT_UPDATE_FILE_EXTERNAL));
           SVN_ERR(svn_sqlite__bindf(stmt, "iss",
@@ -3271,7 +3271,7 @@ walker_helper(const char *dirpath,
 
           err = svn_wc_adm_retrieve(&entry_access, adm_access, entrypath,
                                     subpool);
-
+          
           if (err)
             SVN_ERR(walk_callbacks->handle_error(entrypath, err,
                                                  walk_baton, pool));
