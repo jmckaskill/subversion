@@ -1024,7 +1024,7 @@ window_handler(svn_txdelta_window_t *window, void *baton)
                     svn_checksum_to_cstring(hb->actual_source_checksum,
                                             hb->pool));
         }
-
+  
       err = svn_error_compose_create(err, err2);
     }
 
