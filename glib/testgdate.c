@@ -26,15 +26,15 @@ else \
 void g_date_debug_print(GDate* d)
 {
   if (!d) g_print("NULL!\n");
-  else
+  else 
     g_print("julian: %u (%s) DMY: %u %u %u (%s)\n",
-	    d->julian_days,
+	    d->julian_days, 
 	    d->julian ? "valid" : "invalid",
 	    d->day,
 	    d->month,
 	    d->year,
 	    d->dmy ? "valid" : "invalid");
-
+  
   fflush(stdout);
 }
 
@@ -48,17 +48,17 @@ int main(int argc, char** argv)
   gchar buf[101];
   gchar* loc;
   /* Try to get all the leap year cases. */
-  GDateYear check_years[] = {
+  GDateYear check_years[] = { 
     1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
-    11, 12, 13, 14, 98, 99, 100, 101, 102, 103, 397,
+    11, 12, 13, 14, 98, 99, 100, 101, 102, 103, 397, 
     398, 399, 400, 401, 402, 403, 404, 405, 406,
     1598, 1599, 1600, 1601, 1602, 1650, 1651,
-    1897, 1898, 1899, 1900, 1901, 1902, 1903,
+    1897, 1898, 1899, 1900, 1901, 1902, 1903, 
     1961, 1962, 1963, 1964, 1965, 1967,
     1968, 1969, 1970, 1971, 1972, 1973, 1974, 1975, 1976,
-    1977, 1978, 1979, 1980, 1981, 1982, 1983, 1984, 1985,
-    1986, 1987, 1988, 1989, 1990, 1991, 1992, 1993, 1994,
-    1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003,
+    1977, 1978, 1979, 1980, 1981, 1982, 1983, 1984, 1985, 
+    1986, 1987, 1988, 1989, 1990, 1991, 1992, 1993, 1994, 
+    1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 
     2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012,
     3000, 3001, 3002, 3998, 3999, 4000, 4001, 4002, 4003
   };
@@ -67,7 +67,7 @@ int main(int argc, char** argv)
   gboolean discontinuity;
 
   g_print("checking GDate...");
-
+  
   TEST("sizeof(GDate) is not more than 8 bytes on this platform", sizeof(GDate) < 9);
 
   d = g_date_new();
@@ -81,7 +81,7 @@ int main(int argc, char** argv)
   TEST("January 1, Year 1 created and valid", g_date_valid(d));
 
   j = g_date_julian(d);
-
+  
   TEST("January 1, Year 1 is Julian date 1", j == 1);
 
   TEST("Returned month is January", g_date_month(d) == G_DATE_JANUARY);
@@ -103,11 +103,11 @@ int main(int argc, char** argv)
   TEST("Year 1800 is not a leap year", !g_date_is_leap_year(1800));
 
   g_date_free(d);
-
+  
   loc = setlocale(LC_ALL,"");
-  if (loc)
+  if (loc) 
     g_print("\nLocale set to %s\n", loc);
-  else
+  else 
     g_print("\nLocale unchanged\n");
 
   d = g_date_new();
@@ -136,14 +136,14 @@ int main(int argc, char** argv)
 
   g_date_set_parse(d, buf);
   /* Note: this test will hopefully work, but no promises. */
-  TEST("Successfully parsed a %x-formatted string",
-       g_date_valid(d) &&
-       g_date_month(d) == 1 &&
-       g_date_day(d) == 10 &&
+  TEST("Successfully parsed a %x-formatted string", 
+       g_date_valid(d) && 
+       g_date_month(d) == 1 && 
+       g_date_day(d) == 10 && 
        g_date_year(d) == 2000);
   if (failed)
     g_date_debug_print(d);
-
+  
   g_date_free(d);
 
   j = G_DATE_BAD_JULIAN;
@@ -152,7 +152,7 @@ int main(int argc, char** argv)
   discontinuity = TRUE;
   y      = check_years[0];
   prev_y = G_DATE_BAD_YEAR;
-  while (i < n_check_years)
+  while (i < n_check_years) 
     {
       guint32 first_day_of_year = G_DATE_BAD_JULIAN;
       guint16 days_in_year = g_date_is_leap_year(y) ? 366 : 365;
@@ -168,14 +168,14 @@ int main(int argc, char** argv)
 
       TEST("Year is valid", g_date_valid_year(y));
 
-      TEST("Number of Sunday weeks in year is 52 or 53",
+      TEST("Number of Sunday weeks in year is 52 or 53", 
 	   sunday_weeks_in_year == 52 || sunday_weeks_in_year == 53);
-
-      TEST("Number of Monday weeks in year is 52 or 53",
+      
+      TEST("Number of Monday weeks in year is 52 or 53", 
 	   monday_weeks_in_year == 52 || monday_weeks_in_year == 53);
-
+	   
       m = 1;
-      while (m < 13)
+      while (m < 13) 
 	{
 	  guint8 dim = g_date_days_in_month(m,y);
 	  GDate days[31];         /* This is the fast way, no allocation */
@@ -188,7 +188,7 @@ int main(int argc, char** argv)
 
 	  g_date_clear(days, 31);
 
-	  while (day <= dim)
+	  while (day <= dim) 
 	    {
 	      guint i;
               GDate tmp;
@@ -196,7 +196,7 @@ int main(int argc, char** argv)
 	      TEST("DMY triplet is valid", g_date_valid_dmy(day,m,y));
 
 	      /* Create GDate with triplet */
-
+	      
 	      d = &days[day-1];
 
 	      TEST("Cleared day is invalid", !g_date_valid(d));
@@ -205,7 +205,7 @@ int main(int argc, char** argv)
 
 	      TEST("Set day is valid", g_date_valid(d));
 
-	      if (m == G_DATE_JANUARY && day == 1)
+	      if (m == G_DATE_JANUARY && day == 1) 
 		{
 		  first_day_of_year = g_date_julian(d);
 		}
@@ -221,21 +221,21 @@ int main(int argc, char** argv)
 		   ((g_date_julian(d) + 1 - first_day_of_year) ==
 		    (g_date_day_of_year(d))));
 
-	      if (failed)
+	      if (failed) 
 		{
-		  g_print("first day: %u this day: %u day of year: %u\n",
-			  first_day_of_year,
+		  g_print("first day: %u this day: %u day of year: %u\n", 
+			  first_day_of_year, 
 			  g_date_julian(d),
 			  g_date_day_of_year(d));
 		}
-
-	      if (m == G_DATE_DECEMBER && day == 31)
+	      
+	      if (m == G_DATE_DECEMBER && day == 31) 
 		{
-		  TEST("Last day of year equals number of days in year",
+		  TEST("Last day of year equals number of days in year", 
 		       g_date_day_of_year(d) == days_in_year);
-		  if (failed)
+		  if (failed) 
 		    {
-		      g_print("last day: %u days in year: %u\n",
+		      g_print("last day: %u days in year: %u\n", 
 			      g_date_day_of_year(d), days_in_year);
 		    }
 		}
@@ -253,13 +253,13 @@ int main(int argc, char** argv)
 	      TEST("Monday week of year is >= than last week of year",
 		   g_date_monday_week_of_year(d) >= monday_week_of_year);
 
-	      if (g_date_weekday(d) == G_DATE_MONDAY)
+	      if (g_date_weekday(d) == G_DATE_MONDAY) 
 		{
-
+		  
 		  TEST("Monday week of year on Monday 1 more than previous day's week of year",
 		       (g_date_monday_week_of_year(d) - monday_week_of_year) == 1);
 		}
-	      else
+	      else 
 		{
 		  TEST("Monday week of year on non-Monday 0 more than previous day's week of year",
 		       (g_date_monday_week_of_year(d) - monday_week_of_year) == 0);
@@ -278,12 +278,12 @@ int main(int argc, char** argv)
 	      TEST("Sunday week of year is >= than last week of year",
 		   g_date_sunday_week_of_year(d) >= sunday_week_of_year);
 
-	      if (g_date_weekday(d) == G_DATE_SUNDAY)
+	      if (g_date_weekday(d) == G_DATE_SUNDAY) 
 		{
 		  TEST("Sunday week of year on Sunday 1 more than previous day's week of year",
 		       (g_date_sunday_week_of_year(d) - sunday_week_of_year) == 1);
 		}
-	      else
+	      else 
 		{
 		  TEST("Sunday week of year on non-Sunday 0 more than previous day's week of year",
 		       (g_date_sunday_week_of_year(d) - sunday_week_of_year) == 0);
@@ -298,9 +298,9 @@ int main(int argc, char** argv)
 	      /*************** Increments ***********/
 
               i = 1;
-              while (i < 402) /* Need to get 400 year increments in */
+              while (i < 402) /* Need to get 400 year increments in */ 
                 {
-
+	      
                   /***** Days ******/
                   tmp = *d;
                   g_date_add_days(d, i);
@@ -312,7 +312,7 @@ int main(int argc, char** argv)
                   TEST("Forward days then backward days returns us to current day",
                        g_date_day(d) == day);
 
-                  if (failed)
+                  if (failed) 
                     {
                       g_print("  (increment %u, dmy %u %u %u) ", i, day, m, y);
                       g_date_debug_print(d);
@@ -321,7 +321,7 @@ int main(int argc, char** argv)
                   TEST("Forward days then backward days returns us to current month",
                        g_date_month(d) == m);
 
-                  if (failed)
+                  if (failed) 
                     {
                       g_print("  (increment %u, dmy %u %u %u) ", i, day, m, y);
                       g_date_debug_print(d);
@@ -330,7 +330,7 @@ int main(int argc, char** argv)
                   TEST("Forward days then backward days returns us to current year",
                        g_date_year(d) == y);
 
-                  if (failed)
+                  if (failed) 
                     {
                       g_print("  (increment %u, dmy %u %u %u) ", i, day, m, y);
                       g_date_debug_print(d);
@@ -347,7 +347,7 @@ int main(int argc, char** argv)
                   TEST("Forward months then backward months returns us to current month",
                        g_date_month(d) == m);
 
-                  if (failed)
+                  if (failed) 
                     {
                       g_print("  (increment %u, dmy %u %u %u) ", i, day, m, y);
                       g_date_debug_print(d);
@@ -356,27 +356,27 @@ int main(int argc, char** argv)
                   TEST("Forward months then backward months returns us to current year",
                        g_date_year(d) == y);
 
-                  if (failed)
+                  if (failed) 
                     {
                       g_print("  (increment %u, dmy %u %u %u) ", i, day, m, y);
                       g_date_debug_print(d);
                     }
 
-
-                  if (day < 29)
+		  
+                  if (day < 29) 
                     {
                       /* Day should be unchanged */
-
+		      
                       TEST("Forward months then backward months returns us to current day",
                            g_date_day(d) == day);
-
-                      if (failed)
+		      
+                      if (failed) 
                         {
                           g_print("  (increment %u, dmy %u %u %u) ", i, day, m, y);
                           g_date_debug_print(d);
                         }
                     }
-                  else
+                  else 
                     {
                       /* reset the day for later tests */
                       g_date_set_day(d, day);
@@ -389,13 +389,13 @@ int main(int argc, char** argv)
 
                   TEST("Adding years gives a larger value",
                        g_date_compare(d,&tmp) > 0);
-
+		      
                   g_date_subtract_years(d, i);
 
                   TEST("Forward years then backward years returns us to current month",
                        g_date_month(d) == m);
 
-                  if (failed)
+                  if (failed) 
                     {
                       g_print("  (increment %u, dmy %u %u %u) ", i, day, m, y);
                       g_date_debug_print(d);
@@ -404,24 +404,24 @@ int main(int argc, char** argv)
                   TEST("Forward years then backward years returns us to current year",
                        g_date_year(d) == y);
 
-                  if (failed)
+                  if (failed) 
                     {
                       g_print("  (increment %u, dmy %u %u %u) ", i, day, m, y);
                       g_date_debug_print(d);
                     }
 
-                  if (m != 2 && day != 29)
+                  if (m != 2 && day != 29) 
                     {
                       TEST("Forward years then backward years returns us to current day",
                            g_date_day(d) == day);
-
-                      if (failed)
+		      
+                      if (failed) 
                         {
                           g_print("  (increment %u, dmy %u %u %u) ", i, day, m, y);
                           g_date_debug_print(d);
                         }
                     }
-                  else
+                  else 
                     {
                       g_date_set_day(d, day); /* reset */
                     }
@@ -434,10 +434,10 @@ int main(int argc, char** argv)
               if (!discontinuity) {
 
                 /* We can only run sequence tests between sequential years */
-
+                
                 TEST("Julians are sequential with increment 1",
                      j+1 == g_date_julian(d));
-                if (failed)
+                if (failed) 
                   {
                     g_print("Out of sequence, prev: %u expected: %u got: %u\n",
                             j, j+1, g_date_julian(d));
@@ -447,18 +447,18 @@ int main(int argc, char** argv)
                 TEST("Next day has julian 1 higher",
                      g_date_julian(d) == j + 2);
                 g_date_subtract_days(d, 1);
-
-                if (j != G_DATE_BAD_JULIAN)
+                
+                if (j != G_DATE_BAD_JULIAN) 
                   {
                     g_date_subtract_days(d, 1);
-
+                    
                     TEST("Previous day has julian 1 lower",
                          g_date_julian(d) == j);
-
+                    
                     g_date_add_days(d, 1); /* back to original */
                   }
-              }
-              discontinuity = FALSE; /* goes away now */
+              }    
+              discontinuity = FALSE; /* goes away now */            
 
               fflush(stdout);
               fflush(stderr);
@@ -466,18 +466,18 @@ int main(int argc, char** argv)
 	      j = g_date_julian(d); /* inc current julian */
 
 	      ++day;
-	    }
+	    } 
 	  ++m;
 	}
       g_print(" done\n");
       ++i;
       prev_y = y;
       y = check_years[i];
-      if (prev_y == G_DATE_BAD_YEAR ||
+      if (prev_y == G_DATE_BAD_YEAR || 
           (prev_y + 1) != y) discontinuity = TRUE;
     }
-
-
+  
+  
   g_print("\n%u tests passed, %u failed\n",passed, notpassed);
 
   return 0;
