@@ -563,7 +563,7 @@ svn_patch__get_next_patch(svn_patch_t **patch,
   *patch = apr_pcalloc(result_pool, sizeof(**patch));
   (*patch)->patch_file = patch_file;
   (*patch)->eol_str = eol_str;
-
+  
   /* Get a stream to read lines from the patch file.
    * The file should not be closed when we close the stream so
    * make sure it is disowned. */
@@ -629,7 +629,7 @@ static svn_boolean_t
 parse_offset_t(svn_filesize_t *offset, const char *number)
 {
   apr_int64_t parsed_offset;
-
+  
   errno = 0; /* clear errno for safety */
   parsed_offset = apr_atoi64(number);
   if (errno == ERANGE)
@@ -783,7 +783,7 @@ svn_patch__get_next_hunk(svn_hunk_t **hunk,
           /* Looks like we have a hunk header, let's try to rip it apart. */
           char *p;
           svn_stringbuf_t *range;
-
+          
           p = line->data + strlen(atat);
           if (*p != ' ')
             /* No. */
