@@ -59,7 +59,7 @@ svn_diff__parse_next_patch(svn_patch_t **patch,
   *patch = apr_pcalloc(result_pool, sizeof(**patch));
   (*patch)->patch_file = patch_file;
   (*patch)->eol_str = eol_str;
-
+  
   /* Get a stream to read lines from the patch file.
    * The file should not be closed when we close the stream so
    * make sure it is disowned. */
@@ -133,7 +133,7 @@ static svn_boolean_t
 parse_offset(svn_filesize_t *offset, const char *number)
 {
   apr_int64_t parsed_offset;
-
+  
   errno = 0; /* clear errno for safety */
   parsed_offset = apr_atoi64(number);
   if (errno == ERANGE || parsed_offset < 0)
@@ -192,7 +192,7 @@ parse_hunk_header(const char *header, svn_hunk_t *hunk, apr_pool_t *pool)
   static const char * const atat = "@@";
   const char *p;
   svn_stringbuf_t *range;
-
+  
   p = header + strlen(atat);
   if (*p != ' ')
     /* No. */
