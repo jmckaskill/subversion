@@ -690,7 +690,7 @@ svn_client__switch_internal(svn_revnum_t *result_rev,
    file and directory operated on during the edit.
 
    EDITOR/EDIT_BATON return the newly created editor and baton/
-
+  
    SVNPATCH_FILE is the temporary file to which the library dumps
    serialized ra_svn protocol Editor Commands.  It somehow determines
    whether or not to utilize svnpatch format in the diff output when
