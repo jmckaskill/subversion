@@ -3,9 +3,9 @@
 #
 #  patch_tests.py:  some basic patch tests
 #
-#  Subversion is a tool for revision control.
+#  Subversion is a tool for revision control. 
 #  See http://subversion.tigris.org for more information.
-#
+#    
 # ====================================================================
 # Copyright (c) 2007, 2009 CollabNet.  All rights reserved.
 #
@@ -393,7 +393,7 @@ def patch_unidiff_absolute_paths(sbox):
   ]
 
   svntest.main.file_write(patch_file_path, ''.join(unidiff_patch))
-
+  
   lambda_path = os.path.join(os.path.sep, 'A', 'B', 'lambda')
   expected_output = [
     'U    %s\n' % os.path.join('A', 'B', 'E', 'alpha'),
