@@ -285,7 +285,7 @@ svn_handle_warning(FILE *stream,
 
 /**
  * A statement macro for returning error values, very similar to @c SVN_ERR.
- *
+ * 
  * This macro can be used in place of directly returning an error to ensure
  * that the call stack is recorded correctly.
  */
