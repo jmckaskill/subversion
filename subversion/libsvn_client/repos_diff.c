@@ -498,7 +498,7 @@ svndiff_close_handler(void *baton)
   SVN_ERR(svn_patch__write_cmd(eb->svnpatch_stream, eb->pool,
                                "textdelta-end", "c", f->token));
   return SVN_NO_ERROR;
-
+  
 }
 
 static svn_error_t *
@@ -527,7 +527,7 @@ svnpatch_close_edit(void *edit_baton,
                     apr_pool_t *pool)
 {
   struct edit_baton *eb = edit_baton;
-
+  
   if (eb->savepoint == SAVEPOINT_RELEASED)
     SVN_ERR(svn_patch__write_cmd(eb->svnpatch_stream, eb->pool,
                                  "close-edit", ""));
@@ -1573,7 +1573,7 @@ absent_file(const char *path,
 /* Create an svnpatch-specific editor.  As svnpatch is revisionless, no
  * need for @c set_target_revision callback.  A few other functions are
  * missing too as we replace them with inline code in the real editor's
- * functions (see svn_client__get_diff_editor).
+ * functions (see svn_client__get_diff_editor). 
  * Note: although we're creating a true delta editor, we're indeed not
  * using @a *editor as it ought to be, in a sense that we will not drive
  * it as expected.  We're just using the delta editor interface that
