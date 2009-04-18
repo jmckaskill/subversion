@@ -126,7 +126,7 @@ A: makes add_directory() an "atomic" operation. if it returns, then
    the directory is added (no multi-step change). you will have a
    bunch of incomplete *children* but the directory will be
    fine. makes it easier to resume.
-
+   
    the alternative is a directory that stays "incomplete" until all
    children have been added. and that isn't known without some kind of
    "close_directory" call, or possibly a counter passed to the add. in
