@@ -253,7 +253,7 @@ report_revisions_and_depths(svn_wc_adm_access_t *adm_access,
   SVN_ERR(svn_dirent_get_absolute(&abspath, full_path, pool));
   SVN_ERR(svn_wc__db_read_children(&children, db, abspath,
                                    subpool, subpool));
-
+  
   SVN_ERR(svn_wc_adm_retrieve(&dir_access, adm_access, full_path, subpool));
   SVN_ERR(svn_io_get_dir_filenames(&dirents, full_path, subpool));
 
