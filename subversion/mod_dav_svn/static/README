@@ -16,5 +16,5 @@ mod_dav_svn as a static module, linked directly into Apache.
 During "installation", these files will be copied into the Apache 2.0
 source tree.
 
-When Apache's APXS is used to build a dynamically-loaded module, these
+When Apache's APXS is used to build a dynamically-loaded module, these 
 files will be ignored.
