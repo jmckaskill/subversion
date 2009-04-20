@@ -433,7 +433,7 @@ svn_ra_serf__rev_proplist(svn_ra_session_t *ra_session,
   svn_ra_serf__session_t *session = ra_session->priv;
   apr_hash_t *props;
   const char *propfind_path;
-
+  
   props = apr_hash_make(pool);
   *ret_props = apr_hash_make(pool);
 
