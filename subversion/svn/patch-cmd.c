@@ -89,7 +89,7 @@ svn_cl__patch(apr_getopt_t *os,
     svn_cl__get_notifier(&ctx->notify_func2, &ctx->notify_baton2, FALSE,
                          FALSE, FALSE, pool);
 
-
+  
   /* stdout and stderr pipes we'll link upon call to the external program
    * (e.g. GNU patch) used to apply the unidiff. */
   if ((status = apr_file_open_stdout(&outfile, pool)))
