@@ -16,9 +16,6 @@
  * ====================================================================
  */
 
-/* ==================================================================== */
-
-/*** Includes. ***/
 #include <apr_pools.h>
 
 #include "svn_error.h"
@@ -28,6 +25,8 @@
 #include "svn_ra.h"
 #include "svn_io.h"
 #include "svn_compat.h"
+#include "svn_props.h"
+
 #include "ra_loader.h"
 #include "svn_private_config.h"
 
@@ -796,6 +795,10 @@ log_path_del_receiver(void *baton,
                       apr_pool_t *pool)
 {
   apr_hash_index_t *hi;
+
+  /* No paths were changed in this revision.  Nothing to do. */
+  if (! log_entry->changed_paths2)
+    return SVN_NO_ERROR;
 
   for (hi = apr_hash_first(pool, log_entry->changed_paths2);
        hi != NULL;

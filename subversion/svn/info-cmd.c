@@ -28,6 +28,7 @@
 #include "svn_pools.h"
 #include "svn_error_codes.h"
 #include "svn_error.h"
+#include "svn_dirent_uri.h"
 #include "svn_path.h"
 #include "svn_time.h"
 #include "svn_xml.h"
@@ -139,11 +140,6 @@ print_info_xml(void *baton,
         svn_cl__xml_tagged_cdata(&sb, pool, "text-updated",
                                  svn_time_to_cstring(info->text_time, pool));
 
-      /* "<prop-updated> xx </prop-updated>" */
-      if (info->prop_time)
-        svn_cl__xml_tagged_cdata(&sb, pool, "prop-updated",
-                                 svn_time_to_cstring(info->prop_time, pool));
-
       /* "<checksum> xx </checksum>" */
       svn_cl__xml_tagged_cdata(&sb, pool, "checksum", info->checksum);
 
@@ -244,7 +240,7 @@ print_info(void *baton,
      compatibility with svn 1.1 and older.  */
   if (info->kind != svn_node_dir)
     SVN_ERR(svn_cmdline_printf(pool, _("Name: %s\n"),
-                               svn_path_basename(target, pool)));
+                               svn_dirent_basename(target, pool)));
 
   if (info->URL)
     SVN_ERR(svn_cmdline_printf(pool, _("URL: %s\n"), info->URL));
@@ -361,10 +357,6 @@ print_info(void *baton,
       if (info->text_time)
         SVN_ERR(svn_cl__info_print_time(info->text_time,
                                         _("Text Last Updated"), pool));
-
-      if (info->prop_time)
-        SVN_ERR(svn_cl__info_print_time(info->prop_time,
-                                        _("Properties Last Updated"), pool));
 
       if (info->checksum)
         SVN_ERR(svn_cmdline_printf(pool, _("Checksum: %s\n"),
@@ -554,7 +546,7 @@ svn_cl__info(apr_getopt_t *os,
             }
           else
             {
-              return err;
+              return svn_error_return(err);
             }
 
           svn_error_clear(err);
