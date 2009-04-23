@@ -226,18 +226,18 @@ svn_error_t *svn_stream_copy3(svn_stream_t *from, svn_stream_t *to,
           if (err)
              break;
         }
-
+               
       err = svn_stream_read(from, buf, &len);
       if (err)
       	 break;
-
+      	 
       if (len > 0)
         err = svn_stream_write(to, buf, &len);
 
       if (err || (len != SVN__STREAM_CHUNK_SIZE))
           break;
     }
-
+    
   err2 = svn_error_compose_create(svn_stream_close(from),
                                   svn_stream_close(to));
 
