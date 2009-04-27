@@ -825,7 +825,7 @@ do_open(svn_wc_adm_access_t **adm_access,
 
               /* It's missing or obstructed, so store a placeholder */
               svn_error_clear(err);
-
+              
               SVN_ERR(svn_dirent_get_absolute(&abspath, entry_path, subpool));
               svn_wc__db_temp_set_access(lock->db, abspath,
                                          (svn_wc_adm_access_t *)&missing,
