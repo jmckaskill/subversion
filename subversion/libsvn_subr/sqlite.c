@@ -784,7 +784,7 @@ svn_sqlite__open(svn_sqlite__db_t **db, const char *path,
   sqlite3_trace((*db)->db3, sqlite_tracer, (*db)->db3);
 #endif
 
-  SVN_ERR(svn_sqlite__exec(*db,
+  SVN_ERR(svn_sqlite__exec(*db, 
               "PRAGMA case_sensitive_like=1;"
               /* Disable synchronization to disable the explicit disk flushes
                  that make Sqlite up to 50 times slower; especially on small
