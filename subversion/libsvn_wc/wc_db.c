@@ -654,7 +654,7 @@ get_old_version(int *version,
 
   /* This must be a really old working copy!  Fall back to reading the
      format file.
-
+     
      Note that the format file might not exist in newer working copies
      (format 7 and higher), but in that case, the entries file should
      have contained the format number. */
@@ -1027,7 +1027,7 @@ parse_local_abspath(svn_wc__db_pdh_t **pdh,
 
   /* Check to see if this (versioned) directory is obstructing what should
      be a file in the parent directory.
-
+     
      ### obstruction is only possible with per-dir wc.db databases.  */
   if (obstruction_possible)
     {
@@ -1183,7 +1183,7 @@ parse_local_abspath(svn_wc__db_pdh_t **pdh,
 /* Get the statement given by STMT_IDX, and bind the appropriate wc_id and
    local_relpath based upon LOCAL_ABSPATH.  Store it in *STMT, and use
    SCRATCH_POOL for temporary allocations.
-
+   
    Note: WC_ID and LOCAL_RELPATH must be arguments 1 and 2 in the statement. */
 static svn_error_t *
 get_statement_for_path(svn_sqlite__stmt_t **stmt,
@@ -1527,7 +1527,7 @@ svn_wc__db_init(const char *local_abspath,
 
   ibb.children = NULL;
   ibb.depth = depth;
-
+  
   ibb.scratch_pool = scratch_pool;
 
   SVN_ERR(insert_base_node(&ibb, sdb));
