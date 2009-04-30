@@ -625,7 +625,7 @@ split_mergeinfo_on_revision(svn_mergeinfo_t *younger_mergeinfo,
    nothing.  If MERGE_B->SAME_REPOS is false then filter out all mergeinfo
    property additions (Issue #3383) from *PROPS.  If MERGE_B->SAME_REPOS is
    true then filter out mergeinfo property additions to PATH when those
-   additions refer to the same line of history as PATH as described below.
+   additions refer to the same line of history as PATH as described below.  
 
    If mergeinfo is being honored and MERGE_B->SAME_REPOS is true
    then examine the added mergeinfo, looking at each range (or single rev)
@@ -2944,7 +2944,7 @@ filter_merged_revisions(svn_client__merge_path_t *parent,
                                         mergeinfo_path, APR_HASH_KEY_STRING);
       else
         target_rangelist = NULL;
-
+          
       if (target_rangelist)
         {
           /* Return the intersection of the revs which are both already
@@ -4007,7 +4007,7 @@ drive_merge_report_editor(const char *target_wcpath,
       SVN_ERR(svn_client__ensure_ra_session_url(&old_sess2_url,
                                                 merge_b->ra_session2,
                                                 url1, pool));
-
+    
   /* Get the diff editor and a reporter with which to, ultimately,
      drive it. */
   SVN_ERR(svn_client__get_diff_editor(target_wcpath, adm_access, callbacks,
