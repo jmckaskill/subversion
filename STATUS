@@ -121,7 +121,7 @@ Candidate changes:
      Not always destroying a subpool when processing subtrees wtih mergeinfo.
    Votes:
      +1: pburba
-
+     
  * r37491
      Another merge performance improvement: Reduce contacts with server when
      a subtree with mergeinfo has non-inheritable mergeinfo and the subtree's
