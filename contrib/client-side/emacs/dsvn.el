@@ -25,7 +25,7 @@
 ;; USA
 
 ;;; Commentary:
-;;
+;; 
 ;; This is an interface for managing Subversion working copies.  It
 ;; can show you an up-to-date view of the current status, and commit
 ;; changes. If also helps you do other tasks such as updating,
@@ -60,18 +60,18 @@
 ;; under point, or on a group of files that have been marked.  The
 ;; commands used for marking a file are the following:
 ;;
-;;   m      mark and go down
-;;   DEL    unmark and go up
+;;   m      mark and go down  
+;;   DEL    unmark and go up  
 ;;   u      unmark and go down
-;;   SPC    toggle mark
-;;   M-DEL  unmark all
+;;   SPC    toggle mark       
+;;   M-DEL  unmark all       
 ;;
 ;; The commands that operate on files are:
 ;;
 ;;   f      Visit the file under point (does not use marks)
 ;;   o      Visit the file under point in another window (does not use marks)
 ;;   =      Show diff of uncommitted changes.  This does not use marks
-;;            unless you give a prefix argument (C-u)
+;;            unless you give a prefix argument (C-u) 
 ;;   c      Commit files
 ;;   a      Add files
 ;;   r      Remove files
@@ -101,7 +101,7 @@
 ;; To view the Subversion log, type "M-x svn-log".
 ;;
 ;; Bugs and missing features:
-;;
+;; 
 ;; - Annotate (blame).
 ;; - Log, with a useful log mode where the user can easily view any revision
 ;;   as a diff or visit a revision of a file in a buffer.
@@ -123,7 +123,7 @@
 (defcustom svn-program "svn"
   "*The svn program to run"
   :type 'string
-  :group 'dsvn)
+  :group 'dsvn)  
 
 (defcustom svn-restore-windows nil
   "*Non-nil means that the window configuration is restored after commit"
@@ -231,7 +231,7 @@ Argument STR is the output string."
   '(add revert resolved)
   "Subversion commands that don't accept the --non-interactive option.
 This is only important for svn 1.4, as 1.5 accepts this option for all
-commands.")
+commands.") 
 
 (defun svn-run (command args &optional description)
   "Run subversion command COMMAND with ARGS.
@@ -241,7 +241,7 @@ buffer to describe what is going on."
   ;; Clean up old output
   (let ((inhibit-read-only t))
     (delete-region svn-output-marker (point-max)))
-
+  
   (let* ((command-s (symbol-name command))
          (filter-func (intern (concat "svn-" command-s "-filter")))
          (sentinel-func (intern (concat "svn-" command-s "-sentinel")))
@@ -1323,7 +1323,7 @@ been modified."
            nil)
           (t
            (string< fn1 fn2)))))
-
+          
 (defun svn-insert-file (filename status &optional info)
   (save-excursion
     (save-restriction
@@ -1418,7 +1418,7 @@ been modified."
                 (not (string= filename (get-text-property pos 'svn-file))))
       (setq pos (next-single-property-change pos 'svn-file)))
     pos))
-
+  
 (defun svn-update-file-status (filename status-char)
   (let ((inhibit-read-only t))
     (save-excursion
@@ -1489,7 +1489,7 @@ been modified."
 \\{svn-status-mode-map}"
   (interactive)
   (kill-all-local-variables)
-
+  
   (make-local-variable 'svn-files-start)
   (make-local-variable 'svn-files-stop)
   (make-local-variable 'svn-last-inserted-marker)
@@ -1805,7 +1805,7 @@ argument."
                file)
            (forward-line 1)
            (setq file (svn-getprop (point) 'file))
-           (while (and file
+           (while (and file 
                        (svn-in-dir-p dir file))
              (svn-set-mark (point) mark)
              (forward-line 1)
