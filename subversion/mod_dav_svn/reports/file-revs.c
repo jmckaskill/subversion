@@ -145,7 +145,7 @@ file_rev_handler(void *baton,
   SVN_ERR(maybe_send_header(frb));
 
   SVN_ERR(dav_svn__brigade_printf(frb->bb, frb->output,
-                                  "<S:file-rev path=\"%s\" rev=\"%ld\">"
+                                  "<S:file-rev path=\"%s\" rev=\"%ld\">" 
                                   DEBUG_CR,
                                   apr_xml_quote_string(pool, path, 1),
                                   revnum));
@@ -211,7 +211,7 @@ file_rev_handler(void *baton,
     }
   else
     /* No txdelta, so terminate the element here. */
-    SVN_ERR(dav_svn__brigade_printf(frb->bb, frb->output,
+    SVN_ERR(dav_svn__brigade_printf(frb->bb, frb->output, 
                                     "</S:file-rev>" DEBUG_CR));
 
   svn_pool_destroy(subpool);
