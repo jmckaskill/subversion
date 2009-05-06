@@ -1515,7 +1515,7 @@ svn_client_commit4(svn_commit_info_t **commit_info_p,
 
                   if (strcmp(parent_dir, target) == 0)
                     break; /* Reached root directory */
-
+                  
                   target = parent_dir;
                 }
             }
