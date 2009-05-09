@@ -61,7 +61,7 @@ build_error_chain(apr_pool_t *pool, svn_error_t *err, int status)
 #ifdef SVN_ERR__TRACING
   /* If we're generated full error tracing chains, we need to trim
      the placeholder chain items out of the mix here -- our Subversion
-     client wants predictable output from its server.
+     client wants predictable output from its server.  
 
      ### A strcmp()?  Really?  I think it's the best we can do unless
      ### we add a boolean field to svn_error_t that's set only for
@@ -73,7 +73,7 @@ build_error_chain(apr_pool_t *pool, svn_error_t *err, int status)
     serr = serr->child;
 #endif
 
-  derr = dav_svn__new_error_tag(pool, status, serr->apr_err,
+  derr = dav_svn__new_error_tag(pool, status, serr->apr_err, 
                                 serr->message ? apr_pstrdup(pool,
                                                             serr->message)
                                               : NULL,
@@ -611,7 +611,7 @@ dav_svn__error_response_tag(request_rec *r,
                apr_xml_quote_string(r->pool, err->desc, 0));
 
   ap_rputs("</D:error>" DEBUG_CR, r);
-
+  
   /* the response has been sent. */
   /*
    * ### Use of DONE obviates logging..!
