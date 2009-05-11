@@ -6919,8 +6919,8 @@ msgstr ""
 "%s:  (Ikke en gyldig URL)\n"
 "\n"
 
-# Use "YYYY-MM-DD HH:MM" for both. It’s consistent, the list can be
-# sorted by date, and it’s default in the Norwegian locale of many Linux
+# Use "YYYY-MM-DD HH:MM" for both. It’s consistent, the list can be 
+# sorted by date, and it’s default in the Norwegian locale of many Linux 
 # distros.
 #: ../svn/list-cmd.c:90
 msgid "%b %d %H:%M"
@@ -10894,8 +10894,8 @@ msgstr "Prøv «svnsync help» for mer informasjon"
 msgid "Type 'svnversion --help' for usage.\n"
 msgstr "Skriv «svnversion --help» for bruksanvisning.\n"
 
-# ### FIXME: Finn på en fornuftig oversettelse av «sparse». Foreløpig
-# brukes «glissen», og det er litt ... vel, uvant, for å si det på en
+# ### FIXME: Finn på en fornuftig oversettelse av «sparse». Foreløpig 
+# brukes «glissen», og det er litt ... vel, uvant, for å si det på en 
 # diplomatisk måte.
 #: ../svnversion/main.c:51
 #, c-format
