@@ -153,7 +153,7 @@ typedef struct svn_wc_context_t svn_wc_context_t;
  * The context will be allocated in @a result_pool, and will use @a
  * result_pool for any internal allocations requiring the same longevity as
  * the context.  The context will be automatically destroyed, and its
- * resources released, when @a result_pool is cleared, or it may be manually
+ * resources released, when @a result_pool is cleared, or it may be manually 
  * destroyed by invoking svn_wc_context_destroy().
  *
  * Use @a scratch_pool for temporary allocations.  It may be cleared
@@ -1081,7 +1081,7 @@ typedef struct svn_wc_notify_t {
   const char *prop_name;
 
   /** If @c action is @c svn_wc_notify_blame_revision, contains a list of
-   * revision properties for the specified revision
+   * revision properties for the specified revision 
    * @since New in 1.6 */
   apr_hash_t *rev_props;
 
