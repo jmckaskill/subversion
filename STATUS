@@ -160,7 +160,7 @@ Candidate changes:
      What part of "user" and "friendly" did you not catch?
    Votes:
      +1: cmpilato, arfrever
-
+ 
  * r37795
    Fix Issue 3404: svnsync fails when source has ^M in svn:* properties
    (eol-style).
