@@ -391,7 +391,7 @@ class SvnBackup:
                     # determine the latest revision dumped
                     highest_rev = rev_end
 
-        return highest_rev
+        return highest_rev    
 
     def transfer_ftp(self, absfilename, filename):
         rc = False
