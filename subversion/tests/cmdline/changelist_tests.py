@@ -951,7 +951,7 @@ def tree_conflicts_and_changelists_on_commit2(sbox):
                                         expected_error,
                                         wc_dir)
 
-  # Now try to commit with a changelist, not letting the
+  # Now try to commit with a changelist, not letting the 
   # tree-conflict get in the way.
   svntest.main.file_append(iota, "More stuff in iota")
   svntest.main.run_svn(None, "changelist", "list", iota)
@@ -961,7 +961,7 @@ def tree_conflicts_and_changelists_on_commit2(sbox):
     })
 
   expected_status.tweak('iota', wc_rev=3, status='  ')
-
+  
   svntest.actions.run_and_verify_commit(wc_dir,
                                         expected_output,
                                         expected_status,
@@ -1032,7 +1032,7 @@ def tree_conflicts_and_changelists_on_commit3(sbox):
                                         expected_error,
                                         wc_dir)
 
-  # Now try to commit with a changelist, not letting the
+  # Now try to commit with a changelist, not letting the 
   # tree-conflict get in the way.
   svntest.main.file_append(iota, "More stuff in iota")
   svntest.main.run_svn(None, "changelist", "list", iota)
@@ -1042,7 +1042,7 @@ def tree_conflicts_and_changelists_on_commit3(sbox):
     })
 
   expected_status.tweak('iota', wc_rev=3, status='  ')
-
+  
   svntest.actions.run_and_verify_commit(wc_dir,
                                         expected_output,
                                         expected_status,
