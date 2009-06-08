@@ -60,7 +60,7 @@ Approved changes:
      an svn_string_t.data is NULL instead of ignoring it.
    Votes:
      +1: neels, arfrever, pburba
-
+     
  * r37941
    Bump apr and apr-util versions included in deps to latest.
    Justification:
