@@ -266,7 +266,7 @@ test_stream_range(const char **msg,
   for (j = 0; j < 3; j++)
     {
       len = strlen(file_data[j]);
-      status = apr_file_write(f, file_data[j], &len);
+      status = apr_file_write(f, file_data[j], &len); 
       if (status || len != strlen(file_data[j]))
         return svn_error_createf(SVN_ERR_TEST_FAILED, NULL,
                                  "Cannot write to '%s'", fname);
