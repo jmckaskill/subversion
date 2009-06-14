@@ -2,7 +2,7 @@
  * stream-test.c -- test the stream functions
  *
  * ====================================================================
- * Copyright (c) 2000-2004 CollabNet.  All rights reserved.
+ * Copyright (c) 2002-2003, 2005-2006, 2009 CollabNet.  All rights reserved.
  *
  * This software is licensed as described in the file COPYING, which
  * you should have received as part of this distribution.  The terms
@@ -248,7 +248,8 @@ test_stream_range(const char **msg,
   apr_off_t start, end;
   apr_file_t *f;
   apr_status_t status;
-  unsigned int i, j, len;
+  unsigned int i, j;
+  apr_size_t len;
   svn_stream_t *stream;
 
   *msg = "test streams reading from range of file";
