@@ -1742,7 +1742,7 @@ stringbuf_from_aprfile(svn_stringbuf_t **result,
         }
     }
 
-
+    
   /* XXX: We should check the incoming data for being of type binary. */
 
   res = svn_stringbuf_create_ensure(res_initial_len, pool);
