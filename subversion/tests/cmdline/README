@@ -68,7 +68,7 @@ paths adjusted appropriately:
      AuthUserFile /usr/local/apache2/conf/users
      Require valid-user
    </Location>
-
+     
    <Location /svn-test-work/local_tmp/repos>
      DAV svn
      SVNPath /home/yourusernamehere/projects/svn/subversion/tests/cmdline/svn-test-work/local_tmp/repos
@@ -103,7 +103,7 @@ You can run a test script over DAV:
    $ ./basic_tests.py --url http://localhost
    $ ./basic_tests.py --url http://localhost 3
 
-or
+or 
 
    $ ./basic_tests.py --url=http://localhost
    $ ./basic_tests.py --url=http://localhost 3
@@ -202,7 +202,7 @@ Directory Contents
                             copy, and converting to/from trees.
 
           /actions.py:      Main API for driving subversion client and
-                            using trees to verify results.
+                            using trees to verify results. 
 
           /verify.py:       Verifies output from Subversion.
 
@@ -312,12 +312,12 @@ the Subversion servers.  This mail fragment introduces the ability:
    From: "David Glasser" <glasser@davidglasser.net>
    To: "Subversion Developers" <dev@subversion.tigris.org>
    Subject:  backwards-compatibility testing!
-
+   
    I've updated the expectations on trunk so that you can cleanly run the
    test suite against 1.4.x svnserve or DAV.  You do this by adding
    SERVER_MINOR_VERSION=4 with make check, or --server-minor-version 4 to
    run_tests.py or a specific Python test.
-
+   
    [...]
 
 We expect that post-1.5, this support will expand in the obvious ways
