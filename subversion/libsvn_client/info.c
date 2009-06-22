@@ -407,7 +407,7 @@ same_resource_in_head(svn_boolean_t *same_p,
       *same_p = FALSE;
       return SVN_NO_ERROR;
     }
-  else
+  else 
     SVN_ERR(err);
 
   /* ### Currently, the URLs should always be equal, since we can't
