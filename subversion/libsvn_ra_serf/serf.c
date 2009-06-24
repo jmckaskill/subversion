@@ -81,7 +81,7 @@ static svn_error_t *
 load_http_auth_types(apr_pool_t *pool, svn_config_t *config,
                      const char *server_group,
                      svn_ra_serf__authn_types *authn_types)
-{
+{                   
   const char *http_auth_types = NULL;
   *authn_types = svn_ra_serf__authn_none;
 
@@ -504,7 +504,7 @@ svn_ra_serf__rev_proplist(svn_ra_session_t *ra_session,
   svn_ra_serf__session_t *session = ra_session->priv;
   apr_hash_t *props;
   const char *propfind_path;
-
+  
   props = apr_hash_make(pool);
   *ret_props = apr_hash_make(pool);
 
