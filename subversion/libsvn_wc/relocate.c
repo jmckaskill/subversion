@@ -197,7 +197,7 @@ svn_wc_relocate3(const char *path,
                  apr_pool_t *pool)
 {
   const svn_wc_entry_t *entry;
-
+  
   SVN_ERR(svn_wc_entry(&entry, path, adm_access, TRUE, pool));
   if (! entry)
     return svn_error_create(SVN_ERR_ENTRY_NOT_FOUND, NULL, NULL);
