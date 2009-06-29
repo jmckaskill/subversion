@@ -110,7 +110,7 @@ Candidate changes:
    Branch:
      ^/branches/1.6.x-r38222
    Notes:
-     Merging r38221:r38223 from trunk conflicts in
+     Merging r38221:r38223 from trunk conflicts in 
      subversion/libsvn_auth_gnome_keyring/gnome_keyring.c.
    Votes:
      +1: stylesen
