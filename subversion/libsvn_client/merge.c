@@ -722,7 +722,7 @@ split_mergeinfo_on_revision(svn_mergeinfo_t *younger_mergeinfo,
    MERGE_B->SAME_REPOS is false, then filter out all mergeinfo
    property additions (Issue #3383) from *PROPS.  If MERGE_B->SAME_REPOS is
    true then filter out mergeinfo property additions to PATH when those
-   additions refer to the same line of history as PATH as described below.
+   additions refer to the same line of history as PATH as described below.  
 
    If mergeinfo is being honored and MERGE_B->SAME_REPOS is true
    then examine the added mergeinfo, looking at each range (or single rev)
@@ -3106,7 +3106,7 @@ filter_merged_revisions(svn_client__merge_path_t *parent,
                                         mergeinfo_path, APR_HASH_KEY_STRING);
       else
         target_rangelist = NULL;
-
+          
       if (target_rangelist)
         {
           /* Return the intersection of the revs which are both already
@@ -3637,7 +3637,7 @@ populate_remaining_ranges(apr_array_header_t *children_with_mergeinfo,
    Adjust, in place, the inheritability of the ranges in RANGELIST to
    describe a merge of RANGELIST into WC_WCPATH at depth DEPTH.  ENTRY
    is the entry for WC_PATH.
-
+   
    WC_PATH_IS_MERGE_TARGET is true if WC_PATH is the target of the merge,
    otherwise WC_PATH is a subtree.
 
@@ -3674,7 +3674,7 @@ calculate_merge_inheritance(apr_array_header_t *rangelist,
               || depth == svn_depth_immediates)
             svn_rangelist__set_inheritance(rangelist, FALSE);
           else /* depth == infinity */
-            svn_rangelist__set_inheritance(rangelist, TRUE);
+            svn_rangelist__set_inheritance(rangelist, TRUE);  
         }
     }
   return SVN_NO_ERROR;
@@ -3867,7 +3867,7 @@ record_skips(const char *mergeinfo_path,
              ### missing as long as the file's parent directory is present.
              ### But missing directory paths skipped are not handled yet,
              ### see issue #2915.
-
+             
              ### TODO: An empty range is fine if the skipped path doesn't
              ### inherit any mergeinfo from a parent, but if it does
              ### we need to account for that.  See issue #3440
@@ -4150,7 +4150,7 @@ drive_merge_report_editor(const char *target_wcpath,
       SVN_ERR(svn_client__ensure_ra_session_url(&old_sess2_url,
                                                 merge_b->ra_session2,
                                                 url1, pool));
-
+    
   /* Get the diff editor and a reporter with which to, ultimately,
      drive it. */
   SVN_ERR(svn_client__get_diff_editor(target_wcpath, adm_access, callbacks,
