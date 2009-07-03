@@ -1372,7 +1372,7 @@ do_item_commit(void **dir_baton,
                                        SVN_PROP_MIME_TYPE, pool, pool));
               if (!ctx->wc_ctx)
                 SVN_ERR(svn_wc_context_destroy(wc_ctx));
-
+            
               if (propval)
                 notify->mime_type = propval->data;
             }
