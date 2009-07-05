@@ -665,7 +665,7 @@ svn_client__switch_internal(svn_revnum_t *result_rev,
    file and directory operated on during the edit.
 
    EDITOR/EDIT_BATON return the newly created editor and baton/
-
+  
    SVNPATCH_FILE is the temporary file to which the library dumps
    serialized ra_svn protocol Editor Commands.  It somehow determines
    whether or not to utilize svnpatch format in the diff output when
@@ -867,7 +867,7 @@ typedef struct
    If CTX->CANCEL_FUNC is non-null, it will be called with
    CTX->CANCEL_BATON while harvesting to determine if the client has
    cancelled the operation.
-
+   
    WC_CTX is a working copy context used to access the working copy. */
 svn_error_t *
 svn_client__harvest_committables(apr_hash_t **committables,
@@ -892,7 +892,7 @@ svn_client__harvest_committables(apr_hash_t **committables,
    If CTX->CANCEL_FUNC is non-null, it will be called with
    CTX->CANCEL_BATON while harvesting to determine if the client has
    cancelled the operation.
-
+   
    WC_CTX is a working copy context used to access the working copy. */
 svn_error_t *
 svn_client__get_copy_committables(apr_hash_t **committables,
