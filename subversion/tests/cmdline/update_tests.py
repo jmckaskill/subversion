@@ -4778,7 +4778,7 @@ def update_wc_of_dir_to_rev_not_containing_this_dir(sbox):
   A_url = sbox.repo_url + "/A"
   other_wc_dir = sbox.add_wc_path("other")
   svntest.actions.run_and_verify_svn(None, None, [], "co", A_url, other_wc_dir)
-
+  
   # Delete 'A' directory from repository
   svntest.actions.run_and_verify_svn(None, None, [], "rm", A_url, "-m", "")
 
