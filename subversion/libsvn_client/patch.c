@@ -82,10 +82,10 @@ struct patch_cmd_baton {
   const char *added_path;
 
   /* Working copy target path. */
-  const char *target;
+  const char *target;          
 
   /* Client context for callbacks, etc. */
-  svn_client_ctx_t *ctx;
+  svn_client_ctx_t *ctx;       
 
   /* The list of paths for entries we've deleted, used only when in
    * dry_run mode. */
@@ -194,7 +194,7 @@ merge_file_changed(svn_wc_adm_access_t *adm_access,
       svn_pool_destroy(subpool);
       return SVN_NO_ERROR;
     }
-
+  
   /* Other easy outs:  if the merge target isn't under version
      control, or is just missing from disk, fogettaboutit.  There's no
      way svn_wc_merge3() can do the merge. */
@@ -579,7 +579,7 @@ merge_file_deleted(svn_wc_adm_access_t *adm_access,
         *state = svn_wc_notify_state_unknown;
       break;
     }
-
+    
   svn_pool_destroy(subpool);
   return SVN_NO_ERROR;
 }
@@ -726,13 +726,13 @@ merge_delete_notify_func(void *baton,
   svn_wc_notify_t *new_notify;
 
   /* Skip the notification for the path we called svn_client__wc_delete() with,
-   * because it will be outputed by repos_diff.c:delete_item */
+   * because it will be outputed by repos_diff.c:delete_item */  
   if (strcmp(notify->path, mdb->path_skip) == 0)
     return;
-
+  
   /* svn_client__wc_delete() is written primarily for scheduling operations not
    * update operations.  Since merges are update operations we need to alter
-   * the delete notification to show as an update not a schedule so alter
+   * the delete notification to show as an update not a schedule so alter 
    * the action. */
   if (notify->action == svn_wc_notify_delete)
     {
@@ -772,7 +772,7 @@ merge_dir_deleted(svn_wc_adm_access_t *adm_access,
       svn_pool_destroy(subpool);
       return SVN_NO_ERROR;
     }
-
+  
   SVN_ERR(svn_io_check_path(path, &kind, subpool));
   switch (kind)
     {
@@ -819,7 +819,7 @@ merge_dir_deleted(svn_wc_adm_access_t *adm_access,
   svn_pool_destroy(subpool);
   return SVN_NO_ERROR;
 }
-
+  
 /* The main callback table for 'svn patch'.  We leave merge callback
  * names as (a) they are pretty much merge operations (b) even if
  * tweaked them to meet 'svn patch' needs, they do pretty much what
@@ -843,7 +843,7 @@ struct edit_baton {
   svn_wc_adm_access_t *adm_access;
 
   /* Is it a dry-run patch application? */
-  svn_boolean_t dry_run;
+  svn_boolean_t dry_run; 
 
   /* Empty hash used for adds. */
   apr_hash_t *empty_hash;
@@ -998,7 +998,7 @@ make_file_baton(const char *path,
    EMPTY_FILE_PATH.  If ADM_ACCESS is not NULL and a lock is held,
    create the file in the adm tmp/ area, otherwise use a system temp
    directory.
-
+ 
    If FILE is non-NULL, an open file is returned in *FILE. */
 static svn_error_t *
 create_empty_file(apr_file_t **file,
@@ -1045,7 +1045,7 @@ get_path_access(svn_wc_adm_access_t **path_access,
 
   return SVN_NO_ERROR;
 }
-
+                  
 /* Like get_path_access except the returned access baton, in
    *PARENT_ACCESS, is for the parent of PATH rather than for PATH
    itself. */
@@ -1145,21 +1145,21 @@ delete_entry(const char *path,
         case svn_node_file:
           {
             struct file_baton *b;
-
+            
             /* Compare a file being deleted against an empty file */
             b = make_file_baton(path, FALSE, eb, pb, NULL,
                                 SVN_IGNORED_REVNUM, pool);
-
-            SVN_ERR(eb->diff_callbacks->file_deleted
+            
+            SVN_ERR(eb->diff_callbacks->file_deleted 
                     (adm_access, &state, NULL, b->wcpath,
                      NULL, NULL, NULL, NULL, NULL, /* useless for del */
                      b->edit_baton->diff_cmd_baton));
-
+            
             break;
           }
         case svn_node_dir:
           {
-            SVN_ERR(eb->diff_callbacks->dir_deleted
+            SVN_ERR(eb->diff_callbacks->dir_deleted 
                     (adm_access, &state, NULL,
                      svn_dirent_join(eb->target, path, pool),
                      eb->diff_cmd_baton));
@@ -1223,7 +1223,7 @@ add_directory(const char *path,
   SVN_ERR(get_path_access(&adm_access, eb->adm_access, pb->wcpath, TRUE,
                           pool));
 
-  SVN_ERR(eb->diff_callbacks->dir_added
+  SVN_ERR(eb->diff_callbacks->dir_added 
           (adm_access, &state, NULL, b->wcpath, SVN_IGNORED_REVNUM,
            copyfrom_path, copyfrom_revision,
            eb->diff_cmd_baton));
@@ -1388,12 +1388,12 @@ close_file(void *file_baton,
     content_state = svn_wc_notify_state_unknown,
     prop_state = svn_wc_notify_state_unknown;
 
-  err = get_parent_access(&adm_access, eb->adm_access,
+  err = get_parent_access(&adm_access, eb->adm_access, 
                           b->wcpath, eb->dry_run, b->pool);
 
   if (err && err->apr_err == SVN_ERR_WC_NOT_LOCKED)
     {
-      /* ### maybe try to stat the local b->wcpath? */
+      /* ### maybe try to stat the local b->wcpath? */      
       /* If the file path doesn't exist, then send a 'skipped' notification. */
       if (eb->notify_func)
         {
@@ -1405,7 +1405,7 @@ close_file(void *file_baton,
           notify->prop_state = prop_state;
           (*eb->notify_func)(eb->notify_baton, notify, pool);
         }
-
+      
       svn_error_clear(err);
       return SVN_NO_ERROR;
     }
@@ -1488,7 +1488,7 @@ close_directory(void *dir_baton,
 
       if (err && err->apr_err == SVN_ERR_WC_NOT_LOCKED)
         {
-          /* ### maybe try to stat the local b->wcpath? */
+          /* ### maybe try to stat the local b->wcpath? */          
           /* If the path doesn't exist, then send a 'skipped' notification. */
           if (eb->notify_func)
             {
@@ -1499,7 +1499,7 @@ close_directory(void *dir_baton,
                 = svn_wc_notify_state_missing;
               (*eb->notify_func)(eb->notify_baton, notify, pool);
             }
-          svn_error_clear(err);
+          svn_error_clear(err);      
           return SVN_NO_ERROR;
         }
       else if (err)
@@ -1618,7 +1618,7 @@ make_editor_baton(const char *target,
   tree_editor->close_edit = close_edit;
 
   *editor = tree_editor;
-
+  
   /* subpool is destroyed upon close_edit() */
   return eb;
 }
@@ -1635,7 +1635,7 @@ extract_svnpatch(const char *original_patch_path,
                  apr_pool_t *pool)
 {
   svn_stream_t *original_patch_stream;
-  svn_stream_t *compressed_stream; /* base64-decoded, gzip-compressed */
+  svn_stream_t *compressed_stream; /* base64-decoded, gzip-compressed */  
   apr_pool_t *subpool = svn_pool_create(pool);
 
   SVN_ERR(svn_stream_open_readonly(&original_patch_stream,
@@ -1656,7 +1656,7 @@ extract_svnpatch(const char *original_patch_path,
                                          equal_string,
                                          SVN_CLIENT_SVNPATCH_VERSION,
                                          equal_string);
-
+      
     while (!eof)
       {
         svn_stringbuf_t *patch_line;
@@ -1704,7 +1704,7 @@ extract_svnpatch(const char *original_patch_path,
 
   SVN_ERR(svn_stream_reset(compressed_stream));
 
-  SVN_ERR(svn_stream_copy3(svn_stream_compressed(compressed_stream, subpool),
+  SVN_ERR(svn_stream_copy3(svn_stream_compressed(compressed_stream, subpool), 
                            svn_stream_disown(*svnpatch_stream, subpool),
                            cancel_func, cancel_baton, subpool));
 
@@ -2134,7 +2134,7 @@ match_hunk(svn_boolean_t *matched, patch_target_t *target,
     *matched = lines_matched;
   else if (target->eof)
     *matched = FALSE;
-
+  
   svn_stream_reset(hunk->original_text);
   SVN_ERR(svn_io_file_seek(target->file, APR_SET, &pos, pool));
   target->eof = FALSE;
@@ -2218,7 +2218,7 @@ determine_hunk_line(svn_linenum_t *line, patch_target_t *target,
   hunk_start = hunk->original_start == 0 ? 1 : hunk->original_start;
 
   /* Scan forward towards the hunk's line and look for a line where the
-   * hunk matches, in case there are local changes in the target which
+   * hunk matches, in case there are local changes in the target which 
    * cause the hunk to match early. */
   SVN_ERR(scan_for_match(&early_match, &early_matched_line, target, hunk,
                          FALSE, hunk_start, pool));
@@ -2706,7 +2706,7 @@ apply_one_patch(svn_patch_t *patch, const char *wc_path,
                * creating an empty file manually is not exactly hard either. */
               target->deleted = (target->kind != svn_node_none);
             }
-
+          
           if (target->deleted)
             {
               if (! dry_run)
@@ -2753,7 +2753,7 @@ apply_one_patch(svn_patch_t *patch, const char *wc_path,
                     }
                   else
                     {
-                      /* Install patched temporary file over working file.
+                      /* Install patched temporary file over working file. 
                        * ### Should this rather be done in a loggy fashion? */
                       SVN_ERR(svn_io_file_rename(target->result_path,
                                                target->abs_path, pool));
