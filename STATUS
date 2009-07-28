@@ -102,7 +102,7 @@ Candidate changes:
    Branch:
      ^/branches/1.6.x-r38222
    Notes:
-     Merging r38221:r38223 from trunk conflicts in
+     Merging r38221:r38223 from trunk conflicts in 
      subversion/libsvn_auth_gnome_keyring/gnome_keyring.c.
      r38261 is also merged to the backport branch.
    Votes:
@@ -129,7 +129,7 @@ Candidate changes:
    Votes:
      +1: blair, hwright
 
-  * r38290, r38293, r38294
+  * r38290, r38293, r38294 
     Fix detection of Apache <2.0.56.
     AP_SERVER_MINORVERSION_NUMBER does not exist in earlier versions.
     But AP_SERVER_MINORVERSION (which is a string) does exist, so use that.
