@@ -118,7 +118,7 @@ $ cd wc
 $ echo "new text" &gt;&gt; bar     # change bar's text
 $ svn propset color green foo      # add a metadata property to foo
 $ svn delete baz                   # schedule baz directory for deletion
-$ touch newfile
+$ touch newfile    
 $ svn add newfile                  # schedule newfile for addition
 </screen>
 
@@ -217,7 +217,7 @@ D   ./baz
 </chapter>
 
 <!--
-local variables:
+local variables: 
 sgml-parent-document: ("misc-docs.xml" "chapter")
 end:
 -->
