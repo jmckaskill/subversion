@@ -1348,7 +1348,7 @@ do_item_commit(void **dir_baton,
                                               pool));
               SVN_ERR(svn_wc_prop_get2(&propval, ctx->wc_ctx, local_abspath,
                                        SVN_PROP_MIME_TYPE, pool, pool));
-
+            
               if (propval)
                 notify->mime_type = propval->data;
             }
