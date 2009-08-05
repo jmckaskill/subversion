@@ -158,7 +158,7 @@ typedef struct svn_wc_context_t svn_wc_context_t;
  * The context will be allocated in @a result_pool, and will use @a
  * result_pool for any internal allocations requiring the same longevity as
  * the context.  The context will be automatically destroyed, and its
- * resources released, when @a result_pool is cleared, or it may be manually
+ * resources released, when @a result_pool is cleared, or it may be manually 
  * destroyed by invoking svn_wc_context_destroy().
  *
  * Use @a scratch_pool for temporary allocations.  It may be cleared
@@ -1098,7 +1098,7 @@ typedef struct svn_wc_notify_t {
   const char *prop_name;
 
   /** If @c action is @c svn_wc_notify_blame_revision, contains a list of
-   * revision properties for the specified revision
+   * revision properties for the specified revision 
    * @since New in 1.6 */
   apr_hash_t *rev_props;
 
@@ -1798,7 +1798,7 @@ typedef svn_error_t *(*svn_wc_conflict_resolver_func2_t)
 
 
 /** Similar to @c svn_wc_conflict_resolver_func2_t, but using
- * @c svn_wc_conflict_description_t instead of
+ * @c svn_wc_conflict_description_t instead of 
  * @c svn_wc_conflict_description2_t
  *
  * @since New in 1.5.
@@ -6010,8 +6010,8 @@ svn_wc_transmit_text_deltas(const char *path,
                             apr_pool_t *pool);
 
 
-/** Given a @a local_abspath, transmit all local property
- * modifications using the appropriate @a editor method (in conjunction
+/** Given a @a local_abspath, transmit all local property 
+ * modifications using the appropriate @a editor method (in conjunction 
  * with @a baton). Use @a scratch_pool for any temporary allocation.
  *
  * @since New in 1.7.
@@ -6111,7 +6111,7 @@ svn_wc_add_lock2(svn_wc_context_t *wc_ctx,
 /**
  * Similar to svn_wc_add_lock2(), but with a @c svn_wc_adm_access_t /
  * relative path parameter pair.
- *
+ * 
  * @deprecated Provided for backward compatibility with the 1.6 API.
  * @since New in 1.2.
  */
