@@ -1415,7 +1415,7 @@ def merge_sensitive_log_target_with_bogus_mergeinfo(sbox):
   svntest.main.run_svn(None, 'ps', SVN_PROP_MERGEINFO, '/A/B:0', D_path)
   #commit at r2
   svntest.main.run_svn(None, 'ci', '-m', 'setting bogus mergeinfo', D_path)
-  output, err = svntest.actions.run_and_verify_svn(None, None, [], 'log',
+  output, err = svntest.actions.run_and_verify_svn(None, None, [], 'log', 
                                                    '-g', D_path)
   if len(err):
     raise svntest.Failure("svn log -g target_with_bogus_mergeinfo fails")
@@ -1603,7 +1603,7 @@ def merge_sensitive_log_propmod_merge_inheriting_path(sbox):
   svntest.main.run_svn(None, 'ci', '-m',
                        'Set property "foo" to "bar" on A_COPY/D/H/psi', wc_dir)
   svntest.main.run_svn(None, 'up', wc_dir)
-
+  
   # Check that log -g -r7 on wc_dir/A_COPY and parents show merges of r3-r6.
   def run_log_g_r7(log_target):
     expected_merges = {
