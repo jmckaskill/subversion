@@ -97,7 +97,7 @@ Candidate changes:
    Branch:
      ^/branches/1.6.x-r38222
    Notes:
-     Merging r38221:r38223 from trunk conflicts in
+     Merging r38221:r38223 from trunk conflicts in 
      subversion/libsvn_auth_gnome_keyring/gnome_keyring.c.
      r38261 is also merged to the backport branch.
    Votes:
@@ -114,7 +114,7 @@ Candidate changes:
    Votes:
      +1: blair, hwright
 
-  * r38290, r38293, r38294
+  * r38290, r38293, r38294 
     Fix detection of Apache <2.0.56.
     AP_SERVER_MINORVERSION_NUMBER does not exist in earlier versions.
     But AP_SERVER_MINORVERSION (which is a string) does exist, so use that.
@@ -136,7 +136,7 @@ Candidate changes:
      with explicit mergeinfo, then this change can result in dramatic
      performance improvements, see example described in
      http://subversion.tigris.org/issues/show_bug.cgi?id=3443#desc1
-   Notes:
+   Notes:     
      Also see http://svn.haxx.se/dev/archive-2009-07/0149.shtml for
      discussion of this change.
    Branch:
@@ -150,7 +150,7 @@ Candidate changes:
    Justification:
      Gaps in merge sources can lead to the creation of invalid mergeinfo
      or the removal of valid mergeinfo.
-   Notes:
+   Notes:     
      The fix itself in r38325 is relatively simple, but recent refactoring
      of the merge code on trunk makes it look a lot worse than it is.
      Unless otherwise noted, all of the following are nominated simply to
@@ -169,7 +169,7 @@ Candidate changes:
      ^/branches/1.6.x-issue3432
    Votes:
      +1: pburba
-
+     
  * r38585
    Fix r37827, which has already been backported and released in 1.6.3.
    Justification:
