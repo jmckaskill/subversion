@@ -16,12 +16,12 @@ Copyright (C) 1998 Gregory A McLean
 
 Permission is granted to make and distributed verbatim copies of this
 manual, provided the copyright notice and this permission notice are
-preserved on all copies.
+preserved on all copies. 
 
 @ignore
-Permission is granted to process this file throught TeX and print the
-results, provided the printed document carries copying permission notice
-identical to this one except for the removal of this paragraph (this
+Permission is granted to process this file throught TeX and print the 
+results, provided the printed document carries copying permission notice 
+identical to this one except for the removal of this paragraph (this 
 paragraph not being relevant to the printed manual).
 
 @end ignore
@@ -37,7 +37,7 @@ approved by Gregory McLean.
 @end ifinfo
 
 @titlepage
-@title GLIB, Useful routines for C programming
+@title GLIB, Useful routines for C programming 
 @subtitle Version 1.0
 @subtitle @value{update-month}
 @author by Gregory McLean
@@ -362,7 +362,7 @@ This is edition @value{edition} of the GLIB documentation,
 @end deftypefun
 
 @deftypefun void g_blow_chunks (void)
-Not what you might be thinking, @code{g_blow_chunks()} simply compresses all
+Not what you might be thinking, @code{g_blow_chunks()} simply compresses all 
 the chunks. This operation consists of freeing every memory area that should
 be freed (but which we haven't gotten around to doing yet).
 @end deftypefun
@@ -450,6 +450,6 @@ be freed (but which we haven't gotten around to doing yet).
 @printindex cp
 
 @summarycontents
-@contents
+@contents 
 @bye
 
