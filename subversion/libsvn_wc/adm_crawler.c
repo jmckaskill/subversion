@@ -260,7 +260,7 @@ report_revisions_and_depths(svn_wc_adm_access_t *adm_access,
   SVN_ERR(svn_dirent_get_absolute(&abspath, full_path, pool));
   SVN_ERR(svn_wc__db_read_children(&children, db, abspath,
                                    subpool, subpool));
-
+  
   SVN_ERR(svn_wc_adm_retrieve(&dir_access, adm_access, full_path, subpool));
   SVN_ERR(svn_io_get_dir_filenames(&dirents, full_path, subpool));
 
@@ -1095,10 +1095,10 @@ svn_wc__internal_transmit_prop_deltas(svn_wc__db_t *db,
     {
       const svn_prop_t *p = &APR_ARRAY_IDX(propmods, i, svn_prop_t);
       if (kind == svn_wc__db_kind_file)
-        SVN_ERR(editor->change_file_prop(baton, p->name, p->value,
+        SVN_ERR(editor->change_file_prop(baton, p->name, p->value, 
                                          scratch_pool));
       else
-        SVN_ERR(editor->change_dir_prop(baton, p->name, p->value,
+        SVN_ERR(editor->change_dir_prop(baton, p->name, p->value, 
                                         scratch_pool));
     }
 
