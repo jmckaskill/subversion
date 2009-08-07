@@ -664,7 +664,7 @@ do_open(svn_wc_adm_access_t **adm_access,
 
               /* It's missing or obstructed, so store a placeholder */
               svn_error_clear(err);
-
+              
               SVN_ERR(svn_dirent_get_absolute(&abspath, entry_path, subpool));
               svn_wc__db_temp_set_access(lock->db, abspath,
                                          (svn_wc_adm_access_t *)&missing,
@@ -1720,7 +1720,7 @@ svn_wc__adm_probe_in_context(svn_wc_adm_access_t **adm_access,
      that we don't end up trying to lock more than we need.  */
   if (dir != path)
     levels_to_lock = 0;
-
+    
   err = svn_wc__adm_open_in_context(adm_access, wc_ctx, dir, write_lock,
                                     levels_to_lock, cancel_func, cancel_baton,
                                     pool);
