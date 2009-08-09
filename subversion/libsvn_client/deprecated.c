@@ -169,7 +169,7 @@ svn_client_blame4(const char *target,
                   apr_pool_t *pool)
 {
   struct blame_receiver_wrapper_baton2 baton;
-
+  
   baton.receiver = receiver;
   baton.baton = receiver_baton;
 
