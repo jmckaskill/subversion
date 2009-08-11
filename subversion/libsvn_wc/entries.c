@@ -2111,7 +2111,7 @@ write_entry(svn_wc__db_t *db,
                                                   &entry->file_external_peg_rev,
                                                   &entry->file_external_rev,
                                                   scratch_pool));
-
+       
           SVN_ERR(svn_sqlite__get_statement(&stmt, wc_db,
                                             STMT_UPDATE_FILE_EXTERNAL));
           SVN_ERR(svn_sqlite__bindf(stmt, "iss",
@@ -2966,7 +2966,7 @@ svn_wc__tweak_entry(svn_wc__db_t *db,
   const char *name;
   svn_wc_adm_access_t *adm_access;
   apr_pool_t *state_pool;
-
+ 
   if (this_dir)
     {
       name = SVN_WC_ENTRY_THIS_DIR;
@@ -3214,7 +3214,7 @@ walker_helper(const char *dirpath,
 
           err = svn_wc_adm_retrieve(&entry_access, adm_access, entrypath,
                                     subpool);
-
+          
           if (err)
             SVN_ERR(walk_callbacks->handle_error(entrypath, err,
                                                  walk_baton, pool));
