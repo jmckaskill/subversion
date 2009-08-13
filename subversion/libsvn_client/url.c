@@ -47,7 +47,7 @@ svn_client_url_from_path(const char **url,
 {
   svn_opt_revision_t revision;
   svn_client_ctx_t *ctx;
-
+  
   SVN_ERR(svn_client_create_context(&ctx, pool));
 
   if (!svn_path_is_url(path_or_url))
