@@ -1840,7 +1840,7 @@ svn_wc__internal_propget(const svn_string_t **value,
   if (err)
     {
       /* For compatibility with wc-1 behavior, disregard some of the
-         various "reason why I can't get an entry" errors here.
+         various "reason why I can't get an entry" errors here. 
          ### should SVN_ERR_WC_NOT_WORKING_COPY be here too?  */
       if (err->apr_err == SVN_ERR_WC_MISSING)
         {
