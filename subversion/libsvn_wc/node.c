@@ -94,7 +94,7 @@ svn_wc__node_get_repos_root(const char **repos_root_url,
                             apr_pool_t *scratch_pool)
 {
   svn_error_t *err;
-
+  
   err = svn_wc__db_read_info(NULL, NULL, NULL, NULL,
                              repos_root_url,
                              NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
