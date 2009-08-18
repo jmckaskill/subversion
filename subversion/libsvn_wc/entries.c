@@ -1566,7 +1566,7 @@ svn_wc__set_depth(svn_wc__db_t *db,
   /* ### This check assumes the baton for parent_abspath must be cached. Which
           is not the case in depth_tests 32. This breaks setting the entry to
           excluded in the parent directory.
-
+          
           This whole function should be rewritten to look at wc-db, instead
           of the adm_access cache that is going to be empty in most codepaths.
           */
@@ -2122,7 +2122,7 @@ write_entry(svn_wc__db_t *db,
                                                   &entry->file_external_peg_rev,
                                                   &entry->file_external_rev,
                                                   scratch_pool));
-
+       
           SVN_ERR(svn_sqlite__get_statement(&stmt, sdb,
                                             STMT_UPDATE_FILE_EXTERNAL));
           SVN_ERR(svn_sqlite__bindf(stmt, "iss",
@@ -2982,7 +2982,7 @@ svn_wc__tweak_entry(svn_wc__db_t *db,
   svn_wc_adm_access_t *adm_access;
   apr_pool_t *state_pool;
   const char *parent_dir;
-
+ 
   svn_dirent_split(local_abspath, &parent_dir, &name, scratch_pool);
 
   if (this_dir)
@@ -3231,7 +3231,7 @@ walker_helper(const char *dirpath,
 
           err = svn_wc_adm_retrieve(&entry_access, adm_access, entrypath,
                                     subpool);
-
+          
           if (err)
             SVN_ERR(walk_callbacks->handle_error(entrypath, err,
                                                  walk_baton, pool));
