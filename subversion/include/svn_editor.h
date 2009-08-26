@@ -104,7 +104,7 @@ extern "C" {
  *    svn_editor_t's callback baton and scratch pool that the callback
  *    functions receive, as well as a cancellation callback and baton
  *    (see "Cancellation" below).
- *
+ * 
  * 2. Set callbacks: The consumer calls svn_editor_setcb_many() or a
  *    succession of the other svn_editor_setcb_*() functions to tell @c
  *    svn_editor_t which functions to call when receiving the various delta
@@ -163,7 +163,7 @@ extern "C" {
  *       implementation to store information across all callbacks.
  *    -  @a scratch_pool: This temporary pool is cleared directly after
  *       each callback returns.  See "Pool Usage".
- *
+ *    
  *    If the consumer encounters an error within a callback, it returns an
  *    @c svn_error_t*. The producer receives this and aborts transmission.
  *
@@ -263,7 +263,7 @@ extern "C" {
  * live only until @c svn_editor_create() returns.
  *
  *
- * <h3>Cancellation</h3>
+ * <h3>Cancellation</h3> 
  * To allow graceful interruption by external events (like a user abort),
  * @c svn_editor_create() can be passed an @c svn_cancel_func_t that is
  * polled every time the producer drives a callback, just before the
@@ -281,7 +281,7 @@ extern "C" {
  * The cancellation function and baton are typically provided by the client
  * context.
  *
- *
+ * 
  * ### TODO: anything missing?
  * @since New in 1.7.
  */

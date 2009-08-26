@@ -72,7 +72,7 @@ public abstract class FormatCallout {
     }
   }
 
-  public void endSpan(DOMBuilder rtf)
+  public void endSpan(DOMBuilder rtf) 
     throws SAXException {
     // no point in doing this for FO, right?
     if (!stylesheetFO) {
