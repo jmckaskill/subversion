@@ -491,7 +491,7 @@ svn_opt_resolve_revisions(svn_opt_revision_t *peg_rev,
 /**
  * Return a human-readable description of @a revision.  The result
  * will be allocated statically or from @a result_pool.
- *
+ * 
  * @since New in 1.7.
  */
 const char *
