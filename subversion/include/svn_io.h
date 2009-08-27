@@ -717,7 +717,7 @@ typedef svn_error_t *(*svn_io_line_filter_cb_t)(svn_boolean_t *filtered,
  * It is a fatal error if an implementation returns @a *buf as NULL.
  *
  * @see svn_stream_t, svn_io_line_filter_cb_t and svn_stream_readline().
- *
+ * 
  * @since New in 1.7. */
 typedef svn_error_t *(*svn_io_line_transformer_cb_t)(svn_stringbuf_t **buf,
                                                      const char *line,
@@ -766,7 +766,7 @@ svn_stream_set_line_filter_callback(svn_stream_t *stream,
  * @since New in 1.7. */
 void
 svn_stream_set_line_transformer_callback(svn_stream_t *stream,
-                                         svn_io_line_transformer_cb_t
+                                         svn_io_line_transformer_cb_t 
                                          line_transformer_cb);
 
 /** Create a stream that is empty for reading and infinite for writing. */
@@ -1008,7 +1008,7 @@ svn_error_t *
 svn_stream_close(svn_stream_t *stream);
 
 /** Reset a generic stream back to its origin. E.g. On a file this would be
- * implemented as a seek to position 0).  This function returns a
+ * implemented as a seek to position 0).  This function returns a 
  * @a SVN_ERR_STREAM_RESET_NOT_SUPPORTED error when the stream doesn't
  * implement resetting.
  *
