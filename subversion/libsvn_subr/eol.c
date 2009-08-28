@@ -44,7 +44,7 @@ const char *
 svn_eol_detect_eol(char *buf, char *endp)
 {
   const char *eol;
-
+  
   SVN_ERR_ASSERT_NO_RETURN(buf <= endp);
   eol = svn_eol_find_eol_start(buf, endp - buf);
   if (eol)
