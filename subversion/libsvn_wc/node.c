@@ -109,7 +109,7 @@ svn_wc__node_get_repos_root(const char **repos_root_url,
                             apr_pool_t *scratch_pool)
 {
   svn_error_t *err;
-
+  
   err = svn_wc__db_read_info(NULL, NULL, NULL, NULL,
                              repos_root_url,
                              NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
@@ -197,7 +197,7 @@ walker_helper(svn_wc__db_t *db,
     {
       const char *child_abspath;
       svn_wc__db_kind_t child_kind;
-
+      
       svn_pool_clear(iterpool);
 
       /* See if someone wants to cancel this operation. */

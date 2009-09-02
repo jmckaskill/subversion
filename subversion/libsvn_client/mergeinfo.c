@@ -987,7 +987,7 @@ filter_log_entry_with_rangelist(void *baton,
                                   this_rangelist, FALSE, pool));
   if (! (intersection && intersection->nelts))
     return SVN_NO_ERROR;
-
+  
   SVN_ERR_ASSERT(intersection->nelts == 1);
 
   /* Ok, we know LOG_ENTRY->REVISION is represented in BATON->RANGELIST,
