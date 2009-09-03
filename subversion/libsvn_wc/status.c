@@ -618,7 +618,7 @@ send_status_structure(struct edit_baton *eb,
 {
   svn_wc_status2_t *statstruct;
   const char *path;
-
+  
   path = svn_dirent_join(eb->anchor,
                          svn_dirent_skip_ancestor(eb->anchor_abspath,
                                                   local_abspath),
@@ -751,7 +751,7 @@ send_unversioned_item(struct edit_baton *eb,
   svn_boolean_t ignore, is_external;
   const char *path;
   svn_wc_status2_t *status;
-
+  
   path = svn_dirent_join(eb->anchor,
                          svn_dirent_skip_ancestor(eb->anchor_abspath,
                                                   local_abspath),
@@ -800,7 +800,7 @@ get_dir_status(struct edit_baton *eb,
                apr_pool_t *pool);
 
 /* Handle LOCAL_ABSPATH (whose entry is ENTRY) as a directory entry
-   of the directory whose entry is DIR_ENTRY.  All other arguments
+   of the directory whose entry is DIR_ENTRY.  All other arguments 
    are the same as those passed to get_dir_status(), the function
    for which this one is a helper.  */
 static svn_error_t *
@@ -902,13 +902,13 @@ handle_externals(struct edit_baton *eb,
       apr_array_header_t *ext_items;
       int i;
 
-      if (eb->traversal_info &&
+      if (eb->traversal_info && 
           svn_dirent_is_ancestor(eb->target_abspath, local_abspath))
         {
-          apr_pool_t *dup_pool = eb->traversal_info->pool;
+          apr_pool_t *dup_pool = eb->traversal_info->pool;          
           const char *dup_val = apr_pstrmemdup(dup_pool, prop_val->data,
                                                prop_val->len);
-          const char *dup_path =
+          const char *dup_path = 
                   svn_dirent_join(eb->anchor,
                                   svn_dirent_skip_ancestor(eb->anchor_abspath,
                                                            local_abspath),
