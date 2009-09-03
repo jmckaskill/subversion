@@ -619,7 +619,7 @@ send_status_structure(struct edit_baton *eb,
 {
   svn_wc_status2_t *statstruct;
   const char *path;
-
+  
   path = svn_dirent_join(eb->anchor,
                          svn_dirent_skip_ancestor(eb->anchor_abspath,
                                                   local_abspath),
@@ -752,7 +752,7 @@ send_unversioned_item(struct edit_baton *eb,
   svn_boolean_t ignore, is_external;
   const char *path;
   svn_wc_status2_t *status;
-
+  
   path = svn_dirent_join(eb->anchor,
                          svn_dirent_skip_ancestor(eb->anchor_abspath,
                                                   local_abspath),
@@ -997,7 +997,7 @@ get_dir_status(struct edit_baton *eb,
       /* If ENTRY is versioned, send its versioned status. */
       if (entry_entry)
         {
-          SVN_ERR(handle_dir_entry(eb,
+          SVN_ERR(handle_dir_entry(eb, 
                                    adm_access, entry, dir_entry,
                                    entry_entry,
                                    dirent_p ? dirent_p->kind : svn_node_none,
