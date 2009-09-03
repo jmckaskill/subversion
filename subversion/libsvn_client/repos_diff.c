@@ -602,7 +602,7 @@ add_directory(const char *path,
           /* ### Which combinations of action states constitute a replace?
            * ### Are there more than the ones we are checking for here? */
           if (dpn->action == svn_wc_notify_update_delete &&
-              action == svn_wc_notify_update_add)
+              action == svn_wc_notify_update_add) 
             action = svn_wc_notify_update_replace;
           else
             action = dpn->action;
@@ -959,7 +959,7 @@ close_directory(void *dir_baton,
   if (err && err->apr_err == SVN_ERR_WC_NOT_LOCKED)
     {
       /* ### maybe try to stat the local b->wcpath? */
-      /* If the path doesn't exist, then send a 'skipped' notification.
+      /* If the path doesn't exist, then send a 'skipped' notification. 
          Don't notify added directories as they triggered notification
          in add_directory. */
       if (! b->added && eb->notify_func)
