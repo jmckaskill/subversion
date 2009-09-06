@@ -622,7 +622,7 @@ send_status_structure(struct edit_baton *eb,
 {
   svn_wc_status2_t *statstruct;
   const char *path;
-
+  
   path = svn_dirent_join(eb->anchor,
                          svn_dirent_skip_ancestor(eb->anchor_abspath,
                                                   local_abspath),
@@ -755,7 +755,7 @@ send_unversioned_item(struct edit_baton *eb,
   svn_boolean_t ignore, is_external;
   const char *path;
   svn_wc_status2_t *status;
-
+  
   path = svn_dirent_join(eb->anchor,
                          svn_dirent_skip_ancestor(eb->anchor_abspath,
                                                   local_abspath),
@@ -804,7 +804,7 @@ get_dir_status(struct edit_baton *eb,
                apr_pool_t *pool);
 
 /* Handle LOCAL_ABSPATH (whose entry is ENTRY) as a directory entry
-   of the directory whose entry is DIR_ENTRY.  All other arguments
+   of the directory whose entry is DIR_ENTRY.  All other arguments 
    are the same as those passed to get_dir_status(), the function
    for which this one is a helper.  */
 static svn_error_t *
@@ -880,7 +880,7 @@ handle_externals(struct edit_baton *eb,
       apr_array_header_t *ext_items;
       int i;
 
-      if (eb->external_func &&
+      if (eb->external_func && 
           svn_dirent_is_ancestor(eb->target_abspath, local_abspath))
         {
           SVN_ERR((eb->external_func)(eb->external_baton, local_abspath,
@@ -991,7 +991,7 @@ get_dir_status(struct edit_baton *eb,
       const char *selected_abspath ;
       tree_conflicts = apr_hash_make(subpool);
       all_children = apr_hash_make(subpool);
-
+      
       apr_hash_set(all_children, selected, APR_HASH_KEY_STRING, selected);
 
       selected_abspath = svn_dirent_join(local_abspath, selected, subpool);
@@ -1073,7 +1073,7 @@ get_dir_status(struct edit_baton *eb,
                     {
                       svn_error_clear(err);
 
-                      /* Most likely the parent refers to a missing child;
+                      /* Most likely the parent refers to a missing child; 
                        * retrieve the stub stored in the parent */
 
                       err = svn_wc__get_entry(&entry, eb->db, node_abspath,
@@ -1101,7 +1101,7 @@ get_dir_status(struct edit_baton *eb,
                                                 : svn_node_none,
                                        dirent_p ? dirent_p->special : FALSE,
                                        ignore_patterns,
-                                       depth == svn_depth_infinity
+                                       depth == svn_depth_infinity 
                                                            ? depth
                                                            : svn_depth_empty,
                                        get_all,
@@ -1111,7 +1111,7 @@ get_dir_status(struct edit_baton *eb,
               continue;
             }
         }
-
+      
       if (apr_hash_get(tree_conflicts, key, klen))
         { /* Tree conflict */
           if (ignore_patterns && ! patterns)
