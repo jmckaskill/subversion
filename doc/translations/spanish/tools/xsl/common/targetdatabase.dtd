@@ -29,8 +29,8 @@
         href      CDATA   #IMPLIED
         lang      CDATA   #IMPLIED
 >
-
-
+        
+        
 <!ELEMENT ttl (#PCDATA)>
 <!ELEMENT objttl (#PCDATA)>
 <!ELEMENT xreftext (#PCDATA)>
