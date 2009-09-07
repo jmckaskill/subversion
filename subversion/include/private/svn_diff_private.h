@@ -97,7 +97,7 @@ svn_diff__parse_next_hunk(svn_hunk_t **hunk,
                           apr_pool_t *result_pool,
                           apr_pool_t *scratch_pool);
 
-/*
+/* 
  * This function should be called before clearing or destroying the pool
  * HUNK was allocated in (i.e. the result pool passed to
  * svn_diff__parse_next_hunk()).
