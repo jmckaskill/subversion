@@ -123,7 +123,7 @@ svn_wc_revision_status2(svn_wc_revision_status_t **result_p,
   SVN_ERR(svn_wc_get_actual_target2(&anchor_abspath, &target_basename, wc_ctx,
                                     local_abspath, scratch_pool,
                                     scratch_pool));
-
+  
   SVN_ERR(svn_wc_get_status_editor5(&editor, &edit_baton, NULL,
                                     &edit_revision, wc_ctx,
                                     anchor_abspath, target_basename,
