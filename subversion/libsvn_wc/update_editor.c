@@ -442,7 +442,7 @@ struct handler_baton
 };
 
 
-/* Return the url for LOCAL_ABSPATH of type KIND which can be unknown,
+/* Return the url for LOCAL_ABSPATH of type KIND which can be unknown, 
  * allocated in RESULT_POOL, or null if unable to obtain a url.
  *
  * Use ASSOCIATED_ACCESS to retrieve an access baton for PATH, and do
@@ -1064,7 +1064,7 @@ window_handler(svn_txdelta_window_t *window, void *baton)
                     svn_checksum_to_cstring(hb->actual_source_checksum,
                                             hb->pool));
         }
-
+  
       err = svn_error_compose_create(err, err2);
     }
 
@@ -2339,7 +2339,7 @@ add_directory(const char *path,
             {
               if (eb->notify_func)
                 {
-                  svn_wc_notify_t *notify =
+                  svn_wc_notify_t *notify = 
                         svn_wc_create_notify(db->path,
                                              svn_wc_notify_update_obstruction,
                                              pool);
@@ -3551,7 +3551,7 @@ add_file(const char *path,
         {
           if (eb->notify_func)
             {
-              svn_wc_notify_t *notify =
+              svn_wc_notify_t *notify = 
                       svn_wc_create_notify(full_path,
                                            svn_wc_notify_update_obstruction,
                                            pool);
@@ -5402,7 +5402,7 @@ svn_wc_add_repos_file4(svn_wc_context_t *wc_ctx,
   const svn_wc_entry_t *ent;
   const svn_wc_entry_t *dst_entry;
   svn_stringbuf_t *log_accum;
-  svn_wc_adm_access_t *adm_access =
+  svn_wc_adm_access_t *adm_access = 
       svn_wc__adm_retrieve_internal2(wc_ctx->db, dir_abspath, pool);
 
   /* Calculate a valid relative path for the loggy code below */
