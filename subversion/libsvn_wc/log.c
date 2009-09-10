@@ -1350,7 +1350,7 @@ log_do_add_tree_conflict(struct log_runner *loggy,
 
   /* Ignore any attempt to re-add an existing tree conflict, as loggy
      operations are idempotent. */
-  if (apr_hash_get(loggy->tree_conflicts,
+  if (apr_hash_get(loggy->tree_conflicts, 
                    svn_dirent_basename(new_conflict->path, loggy->pool),
                    APR_HASH_KEY_STRING) == NULL)
     {
@@ -1623,7 +1623,7 @@ run_log(svn_wc_adm_access_t *adm_access,
           svn_error_t *err;
           const char *conflict_path = svn_apr_hash_index_key(hi);
           const char *conflict_abspath;
-          const svn_wc_conflict_description_t *conflict =
+          const svn_wc_conflict_description_t *conflict = 
                                                  svn_apr_hash_index_val(hi);
 
           SVN_ERR(svn_dirent_get_absolute(&conflict_abspath, conflict_path,
@@ -1633,7 +1633,7 @@ run_log(svn_wc_adm_access_t *adm_access,
                                                 svn_wc__cd_to_cd2(conflict,
                                                                   iterpool),
                                                 iterpool);
-
+         
           if (err)
             return svn_error_createf(pick_error_code(loggy), err,
                                  _("Error recording tree conflict on '%s'"),
@@ -2416,14 +2416,14 @@ svn_wc_cleanup3(svn_wc_context_t *wc_ctx,
 
   SVN_ERR_ASSERT(svn_dirent_is_absolute(local_abspath));
 
-  SVN_ERR(svn_wc__internal_check_wc(&wc_format_version, wc_ctx->db,
+  SVN_ERR(svn_wc__internal_check_wc(&wc_format_version, wc_ctx->db, 
                                     local_abspath, scratch_pool));
 
   /* a "version" of 0 means a non-wc directory */
   if (wc_format_version == 0)
     return svn_error_createf(SVN_ERR_WC_NOT_WORKING_COPY, NULL,
                              _("'%s' is not a working copy directory"),
-                             svn_dirent_local_style(local_abspath,
+                             svn_dirent_local_style(local_abspath, 
                                                     scratch_pool));
 
   if (wc_format_version < SVN_WC__VERSION)
@@ -2431,7 +2431,7 @@ svn_wc_cleanup3(svn_wc_context_t *wc_ctx,
                             _("Log format too old, please use "
                               "Subversion 1.6 or earlier"));
 
-  return svn_error_return(cleanup_internal(wc_ctx->db, local_abspath,
-                                           cancel_func, cancel_baton,
+  return svn_error_return(cleanup_internal(wc_ctx->db, local_abspath, 
+                                           cancel_func, cancel_baton, 
                                            scratch_pool));
 }
