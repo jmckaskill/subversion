@@ -939,7 +939,7 @@ handle_external_item_change(const void *key, apr_ssize_t klen,
 
       if (ib->ctx->notify_func2)
         {
-          svn_wc_notify_t *notify =
+          svn_wc_notify_t *notify = 
               svn_wc_create_notify(
                         svn_dirent_join(svn_wc_adm_access_path(adm_access),
                                         what_to_remove, ib->iter_pool),
