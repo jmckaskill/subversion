@@ -739,7 +739,7 @@ svn_ra_serf__handle_discard_body(serf_request_t *request,
 
   if (status)
     return svn_error_wrap_apr(status, NULL);
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -1260,7 +1260,7 @@ handle_response(serf_request_t *request,
       ctx->session->pending_error = svn_error_compose_create(
                  svn_ra_serf__handle_server_error(request, response, pool),
                  ctx->session->pending_error);
-
+          
       if (!ctx->session->pending_error)
         {
           ctx->session->pending_error =
@@ -1303,7 +1303,7 @@ handle_response(serf_request_t *request,
           status = err->apr_err;
           if (!SERF_BUCKET_READ_ERROR(err->apr_err))
             {
-              /* These errors are special cased in serf
+              /* These errors are special cased in serf 
                  ### We hope no handler returns these by accident. */
               svn_error_clear(err);
             }
@@ -1579,7 +1579,7 @@ svn_ra_serf__get_relative_path(const char **rel_path,
                                apr_pool_t *pool)
 {
   const char *decoded_root, *decoded_orig;
-
+    
   if (! session->repos_root.path)
     {
       const char *vcc_url;
@@ -1591,8 +1591,8 @@ svn_ra_serf__get_relative_path(const char **rel_path,
       /* We don't actually care about the VCC_URL, but this API
          promises to populate the session's root-url cache, and that's
          what we really want. */
-      SVN_ERR(svn_ra_serf__discover_vcc(&vcc_url, session,
-                                        conn ? conn : session->conns[0],
+      SVN_ERR(svn_ra_serf__discover_vcc(&vcc_url, session, 
+                                        conn ? conn : session->conns[0], 
                                         pool));
     }
 
