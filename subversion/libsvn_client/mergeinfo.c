@@ -417,7 +417,7 @@ svn_client__get_wc_mergeinfo_catalog(svn_mergeinfo_catalog_t *mergeinfo_cat,
   if (kind == svn_node_dir && include_descendants)
     {
       svn_opt_revision_t working_rev;
-
+      
       working_rev.kind = svn_opt_revision_working;
       SVN_ERR(svn_client__get_repos_root(&repos_root, local_abspath,
                                          &working_rev, ctx,
@@ -460,7 +460,7 @@ svn_client__get_repos_mergeinfo(svn_ra_session_t *ra_session,
          mergeinfo for REL_PATH. */
       *target_mergeinfo =
         svn_apr_hash_index_val(apr_hash_first(pool, tgt_mergeinfo_cat));
-
+      
     }
   else
     {
@@ -555,7 +555,7 @@ svn_client__get_wc_or_repos_mergeinfo(svn_mergeinfo_t *target_mergeinfo,
          mergeinfo for TARGET_WCPATH. */
       *target_mergeinfo =
         svn_apr_hash_index_val(apr_hash_first(pool, tgt_mergeinfo_cat));
-
+      
     }
   else
     {
@@ -604,7 +604,7 @@ svn_client__get_wc_or_repos_mergeinfo_catalog(
     SVN_ERR(svn_client__get_wc_mergeinfo_catalog(target_mergeinfo_catalog,
                                                  indirect,
                                                  include_descendants,
-                                                 inherit,
+                                                 inherit, 
                                                  local_abspath,
                                                  NULL, NULL, ctx,
                                                  result_pool, scratch_pool));
@@ -1204,7 +1204,7 @@ filter_log_entry_with_rangelist(void *baton,
                                   this_rangelist, FALSE, pool));
   if (! (intersection && intersection->nelts))
     return SVN_NO_ERROR;
-
+  
   SVN_ERR_ASSERT(intersection->nelts == 1);
 
   /* Ok, we know LOG_ENTRY->REVISION is represented in BATON->RANGELIST,
@@ -1352,7 +1352,7 @@ svn_client_mergeinfo_log_merged(const char *path_or_url,
   svn_opt_revision_t *real_src_peg_revision;
   apr_hash_index_t *hi;
   svn_revnum_t youngest_rev = SVN_INVALID_REVNUM;
-
+  
   /* Step 1: Ensure that we have a merge source URL to work with. */
   SVN_ERR(location_from_path_and_rev(&merge_source_url, &real_src_peg_revision,
                                      merge_source_path_or_url,
