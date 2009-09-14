@@ -299,7 +299,7 @@ in_deleted_tree(struct edit_baton *eb,
   if (!include_root)
     local_abspath = svn_dirent_dirname(local_abspath, scratch_pool);
 
-  while (!svn_path_is_empty(local_abspath) &&
+  while (!svn_path_is_empty(local_abspath) && 
          !svn_dirent_is_root(local_abspath, strlen(local_abspath)))
     {
       if (apr_hash_get(eb->deleted_trees, local_abspath, APR_HASH_KEY_STRING))
@@ -323,7 +323,7 @@ in_skipped_tree(struct edit_baton *eb,
   if (apr_hash_count(eb->skipped_trees) == 0)
     return FALSE;
 
-  while (!svn_path_is_empty(local_abspath) &&
+  while (!svn_path_is_empty(local_abspath) && 
          !svn_dirent_is_root(local_abspath, strlen(local_abspath)))
     {
       if (apr_hash_get(eb->skipped_trees, local_abspath, APR_HASH_KEY_STRING))
@@ -454,7 +454,7 @@ struct handler_baton
 };
 
 
-/* Return the url for LOCAL_ABSPATH of type KIND which can be unknown,
+/* Return the url for LOCAL_ABSPATH of type KIND which can be unknown, 
  * allocated in RESULT_POOL, or null if unable to obtain a url.
  *
  * Use ASSOCIATED_ACCESS to retrieve an access baton for PATH, and do
@@ -1071,7 +1071,7 @@ window_handler(svn_txdelta_window_t *window, void *baton)
                     svn_checksum_to_cstring(hb->actual_source_checksum,
                                             hb->pool));
         }
-
+  
       err = svn_error_compose_create(err, err2);
     }
 
@@ -2324,7 +2324,7 @@ add_directory(const char *path,
             {
               if (eb->notify_func)
                 {
-                  svn_wc_notify_t *notify =
+                  svn_wc_notify_t *notify = 
                         svn_wc_create_notify(db->path,
                                              svn_wc_notify_update_obstruction,
                                              pool);
@@ -2340,7 +2340,7 @@ add_directory(const char *path,
                  svn_dirent_local_style(db->path, pool));
             }
         }
-      else if ((entry != NULL) &&
+      else if ((entry != NULL) && 
                ((err == NULL) ||
                 (err->apr_err == SVN_ERR_NODE_UNEXPECTED_KIND)))
         {
@@ -3543,7 +3543,7 @@ add_file(const char *path,
         {
           if (eb->notify_func)
             {
-              svn_wc_notify_t *notify =
+              svn_wc_notify_t *notify = 
                       svn_wc_create_notify(full_path,
                                            svn_wc_notify_update_obstruction,
                                            pool);
@@ -5409,7 +5409,7 @@ svn_wc_add_repos_file4(svn_wc_context_t *wc_ctx,
   const svn_wc_entry_t *ent;
   const svn_wc_entry_t *dst_entry;
   svn_stringbuf_t *log_accum;
-  svn_wc_adm_access_t *adm_access =
+  svn_wc_adm_access_t *adm_access = 
       svn_wc__adm_retrieve_internal2(wc_ctx->db, dir_abspath, pool);
 
   SVN_ERR(svn_wc__text_base_path(&text_base_path, wc_ctx->db, local_abspath,
