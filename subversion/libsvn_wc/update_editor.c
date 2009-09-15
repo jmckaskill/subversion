@@ -3198,10 +3198,9 @@ locate_copyfrom(svn_wc__db_t *db,
                                      db, file_abspath,
                                      scratch_pool, scratch_pool);
 
-    if (err && ((err->apr_err == SVN_ERR_WC_NOT_WORKING_COPY ||
-              (err->apr_err == SVN_ERR_WC_PATH_NOT_FOUND))))
+    if (err && ((err->apr_err == SVN_ERR_WC_NOT_WORKING_COPY) ||
+                (err->apr_err == SVN_ERR_WC_PATH_NOT_FOUND)))
       {
-        svn_revnum_t rev;
         svn_error_clear(err);
 
         /* ### Our entries handling made us handle the following
