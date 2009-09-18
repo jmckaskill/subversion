@@ -2093,7 +2093,7 @@ write_entry(svn_wc__db_t *db,
                                                   &entry->file_external_peg_rev,
                                                   &entry->file_external_rev,
                                                   scratch_pool));
-
+       
           SVN_ERR(svn_sqlite__get_statement(&stmt, sdb,
                                             STMT_UPDATE_FILE_EXTERNAL));
           SVN_ERR(svn_sqlite__bindf(stmt, "iss",
@@ -2141,7 +2141,7 @@ write_entry(svn_wc__db_t *db,
               /* If the entry is part of a COPIED (not REPLACED) subtree,
                  then the deletion is referring to the WORKING node, not
                  the BASE node. */
-              if (entry->copied
+              if (entry->copied 
                   || (this_dir->copied
                       && this_dir->schedule == svn_wc_schedule_add))
                 working_node->presence = svn_wc__db_status_not_present;
@@ -3041,7 +3041,7 @@ svn_wc__tweak_entry(svn_wc__db_t *db,
   svn_wc_adm_access_t *adm_access;
   apr_pool_t *state_pool;
   const char *parent_dir;
-
+ 
   svn_dirent_split(local_abspath, &parent_dir, &name, scratch_pool);
 
   if (this_dir)
@@ -3293,7 +3293,7 @@ walker_helper(const char *dirpath,
 
           entry_access = svn_wc__adm_retrieve_internal2(db, entry_abspath,
                                                         subpool);
-
+          
           if (entry_access)
             SVN_ERR(walker_helper(entrypath, entry_access,
                                   walk_callbacks, walk_baton,
