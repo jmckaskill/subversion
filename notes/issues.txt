@@ -7,7 +7,7 @@ Here's a summary of my understanding of the status quo.
 
 * Editor Changes
 
-  * Description: replace_file() and replace_dir() no longer
+  * Description: replace_file() and replace_dir() no longer 
                  need ancestry paths.
 
     Status:      RESOLVED.
@@ -54,7 +54,7 @@ Here's a summary of my understanding of the status quo.
 
       (This issue might be filed under "editor changes" above.)
 
-
+  
   * Description:  Need to decide how revision numbers are requested
                   within the svn_ra_plugin_t vtable.
 
@@ -63,7 +63,7 @@ Here's a summary of my understanding of the status quo.
       How do we check out a particular revision of a tree, or update
       to a particular version of resource?  We need to hash out these
       details in the arguments to RA functions.  Karl and Greg never
-      resolved this, I believe.
+      resolved this, I believe.  
 
 
 * WC Issues
