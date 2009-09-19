@@ -410,7 +410,7 @@ match_hunk(svn_boolean_t *matched, patch_target_t *target,
     *matched = lines_matched;
   else if (target->eof)
     *matched = FALSE;
-
+  
   svn_stream_reset(hunk->original_text);
   SVN_ERR(svn_io_file_seek(target->file, APR_SET, &pos, pool));
   target->eof = FALSE;
@@ -494,7 +494,7 @@ determine_hunk_line(svn_linenum_t *line, patch_target_t *target,
   hunk_start = hunk->original_start == 0 ? 1 : hunk->original_start;
 
   /* Scan forward towards the hunk's line and look for a line where the
-   * hunk matches, in case there are local changes in the target which
+   * hunk matches, in case there are local changes in the target which 
    * cause the hunk to match early. */
   SVN_ERR(scan_for_match(&early_match, &early_matched_line, target, hunk,
                          FALSE, hunk_start, pool));
@@ -886,7 +886,7 @@ apply_one_patch(svn_patch_t *patch, const char *wc_path,
            * creating an empty file manually is not exactly hard either. */
           target->deleted = (target->kind != svn_node_none);
         }
-
+      
       if (target->deleted)
         {
           if (! dry_run)
@@ -931,7 +931,7 @@ apply_one_patch(svn_patch_t *patch, const char *wc_path,
                        * Suppress notification, we'll do that later.
                        * Also suppress cancellation. */
                       SVN_ERR(svn_io_copy_file(target->patched_path,
-                                               target->abs_path, FALSE, pool));
+                                               target->abs_path, FALSE, pool)); 
                       SVN_ERR(svn_wc_add3(target->abs_path, adm_access,
                                           svn_depth_infinity,
                                           NULL, SVN_INVALID_REVNUM,
@@ -1031,7 +1031,7 @@ apply_textdiffs(const char *patch_path, const char *wc_path,
       SVN_ERR(svn_diff__parse_next_patch(&patch, patch_file, patch_eol_str,
                                          iterpool, iterpool));
       if (patch)
-        SVN_ERR(apply_one_patch(patch, wc_path, adm_access, dry_run, ctx,
+        SVN_ERR(apply_one_patch(patch, wc_path, adm_access, dry_run, ctx, 
                                 iterpool));
     }
   while (patch);
