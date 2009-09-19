@@ -151,7 +151,7 @@ static svn_boolean_t
 parse_offset(svn_linenum_t *offset, const char *number)
 {
   apr_int64_t parsed_offset;
-
+  
   errno = 0; /* clear errno for safety */
   parsed_offset = apr_atoi64(number);
   if (errno == ERANGE || parsed_offset < 0)
@@ -215,7 +215,7 @@ parse_hunk_header(const char *header, svn_hunk_t *hunk, apr_pool_t *pool)
   static const char * const atat = "@@";
   const char *p;
   svn_stringbuf_t *range;
-
+  
   p = header + strlen(atat);
   if (*p != ' ')
     /* No. */
@@ -371,7 +371,7 @@ svn_diff__parse_next_hunk(svn_hunk_t **hunk,
                * of the line just read is the hunk text's byte offset. */
               start = last_line;
             }
-
+          
           c = line->data[0];
           if (original_lines > 0 && (c == ' ' || c == '-'))
             {
@@ -400,7 +400,7 @@ svn_diff__parse_next_hunk(svn_hunk_t **hunk,
             }
         }
       else
-        {
+        { 
           if (starts_with(line->data, atat))
             {
               /* Looks like we have a hunk header, let's try to rip it apart. */
@@ -436,7 +436,7 @@ svn_diff__parse_next_hunk(svn_hunk_t **hunk,
                                                              start, end,
                                                              result_pool);
       svn_stream_set_line_filter_callback(original_text, original_line_filter);
-      svn_stream_set_line_transformer_callback(original_text,
+      svn_stream_set_line_transformer_callback(original_text, 
                                                remove_leading_char_transformer);
 
       /* Create a stream which returns the modified hunk text. */
@@ -446,7 +446,7 @@ svn_diff__parse_next_hunk(svn_hunk_t **hunk,
                                                              start, end,
                                                              result_pool);
       svn_stream_set_line_filter_callback(modified_text, modified_line_filter);
-      svn_stream_set_line_transformer_callback(modified_text,
+      svn_stream_set_line_transformer_callback(modified_text, 
                                                remove_leading_char_transformer);
       /* Set the hunk's texts. */
       (*hunk)->original_text = original_text;
