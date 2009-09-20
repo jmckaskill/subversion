@@ -9,7 +9,7 @@
 
 
 (jde-set-project-name "saxon")
-(jde-set-variables
+(jde-set-variables 
  '(jde-gen-session-bean-template (quote ("(jde-import-insert-imports-into-buffer (list \"javax.ejb.*\"
 \"java.rmi.RemoteException\"))" "(jde-wiz-update-implements-clause \"SessionBean\")" "'> \"public void ejbActivate() throws RemoteException {\"'>'n \"}\"'>'n
 '>'n" "'> \"public void ejbPassivate() throws RemoteException {\"'>'n \"}\"'>'n
