@@ -12,10 +12,10 @@
 
 2003-03-05  Michael Smith <xmldoc@users.sourceforge.net>
 
-	* Makefile:
-
+	* Makefile: 
+	
 	Wrong filename was breaking build, fixed.
-
+	
 	  Had ../../litprog/wdocbook.xsl but needed ../../litprog/w2docbook.xsl
 
 2002-09-15  Norman Walsh <nwalsh@users.sourceforge.net>
