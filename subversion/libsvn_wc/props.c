@@ -713,7 +713,7 @@ svn_wc_merge_props3(svn_wc_notify_state_t *state,
 
   /* Note that while this routine does the "real" work, it's only
      prepping tempfiles and writing log commands.  */
-  SVN_ERR(svn_wc__merge_props(&log_accum, state,
+  SVN_ERR(svn_wc__merge_props(&log_accum, state, 
                               wc_ctx->db, adm_access, path,
                               NULL, NULL,
                               baseprops, NULL, NULL,
@@ -1655,7 +1655,7 @@ svn_wc__merge_props(svn_stringbuf_t **entry_accum,
 
       else if (! to_val) /* delete an existing property */
         SVN_ERR(apply_single_prop_delete(is_normal ? state : NULL, &conflict,
-                                         db, local_abspath,
+                                         db, local_abspath, 
                                          left_version, right_version,
                                          is_dir,
                                          working_props,
@@ -1876,7 +1876,7 @@ svn_wc__internal_propget(const svn_string_t **value,
   if (err)
     {
       /* For compatibility with wc-1 behavior, disregard some of the
-         various "reason why I can't get an entry" errors here.
+         various "reason why I can't get an entry" errors here. 
          ### should SVN_ERR_WC_NOT_WORKING_COPY be here too?  */
       if (err->apr_err == SVN_ERR_WC_MISSING)
         {
