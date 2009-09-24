@@ -130,7 +130,7 @@
   <xsl:value-of select="'0'"/>
 </xsl:template>
 
-<xsl:template match="section|sect1|sect2|sect3|sect4|sect5"
+<xsl:template match="section|sect1|sect2|sect3|sect4|sect5" 
               mode="is.autonumber">
   <xsl:value-of select="$section.autolabel"/>
 </xsl:template>
@@ -205,12 +205,12 @@
 
   <xsl:variable name="context">
     <xsl:choose>
-      <xsl:when test="$autonumber != 0
+      <xsl:when test="$autonumber != 0 
                       and $number-and-title-template != 0
                       and $xref.with.number.and.title != 0">
          <xsl:value-of select="'xref-number-and-title'"/>
       </xsl:when>
-      <xsl:when test="$autonumber != 0
+      <xsl:when test="$autonumber != 0 
                       and $number-template != 0">
          <xsl:value-of select="'xref-number'"/>
       </xsl:when>
@@ -316,7 +316,7 @@
     </xsl:choose>
   </xsl:variable>
 
-<!--
+<!-- 
   <xsl:message>
     <xsl:text>object.xref.markup: </xsl:text>
     <xsl:value-of select="local-name(.)"/>
@@ -673,12 +673,12 @@
       </xsl:when>
     </xsl:choose>
   </xsl:if>
-
+  
   <xsl:if test="$pagetype != ''">
     <xsl:choose>
       <!-- special case: use regular xref template -->
-      <xsl:when test="$pagetype = 'nopage'
-                      and $labeltype = ''
+      <xsl:when test="$pagetype = 'nopage' 
+                      and $labeltype = '' 
                       and $titletype = ''">
         <xsl:apply-templates select="." mode="object.xref.template">
           <xsl:with-param name="purpose" select="$purpose"/>
