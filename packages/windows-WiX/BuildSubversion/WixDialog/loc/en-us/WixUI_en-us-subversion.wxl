@@ -53,7 +53,7 @@
 
 	<String Id="PreText" Overridable="no">.\loc\en-us\pre.rtf</String>
 	<String Id="PostText" Overridable="no">.\loc\en-us\post.rtf</String>
-
+	
     <!-- overrides -->
     <String Id="WelcomeDlgDescription" Overridable="no">This will install [ProductName] [ProductVersion]-[ProductRevision] on your computer.&#xa;&#xa;It is recommended that you close all other applications before continuing.&#xa;&#xa;Click Next to continue or Cancel to exit Setup.</String>
 </WixLocalization>
