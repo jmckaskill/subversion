@@ -611,7 +611,7 @@ read_entries_new(apr_hash_t **result_entries,
               const apr_array_header_t *child_conflicts;
               const char *child_name;
               const char *child_abspath;
-
+              
               child_name = APR_ARRAY_IDX(conflict_victims, k, const char *);
               child_abspath = svn_dirent_join(local_abspath, child_name,
                                                              iterpool);
@@ -1387,7 +1387,7 @@ svn_wc_entry(const svn_wc_entry_t **entry,
       /* We got the parent stub instead of the real entry. Fine.  */
       svn_error_clear(err);
     }
-
+  
   if (!show_hidden && *entry != NULL)
     {
       svn_boolean_t hidden;
@@ -2162,7 +2162,7 @@ write_entry(svn_wc__db_t *db,
                                                   &entry->file_external_peg_rev,
                                                   &entry->file_external_rev,
                                                   scratch_pool));
-
+       
           SVN_ERR(svn_sqlite__get_statement(&stmt, sdb,
                                             STMT_UPDATE_FILE_EXTERNAL));
           SVN_ERR(svn_sqlite__bindf(stmt, "iss",
@@ -2207,7 +2207,7 @@ write_entry(svn_wc__db_t *db,
               /* If the entry is part of a COPIED (not REPLACED) subtree,
                  then the deletion is referring to the WORKING node, not
                  the BASE node. */
-              if (entry->copied
+              if (entry->copied 
                   || (this_dir->copied
                       && this_dir->schedule == svn_wc_schedule_add))
                 working_node->presence = svn_wc__db_status_not_present;
@@ -3011,7 +3011,7 @@ svn_wc__tweak_entry(svn_wc__db_t *db,
   const svn_wc_entry_t *entry;
   svn_wc_entry_t tmp_entry;
   apr_uint64_t modify_flags = 0;
-
+ 
   SVN_ERR(svn_wc__get_entry(&entry, db, local_abspath, FALSE, kind,
                             parent_stub, scratch_pool, scratch_pool));
 
@@ -3212,7 +3212,7 @@ walker_helper(const char *dirpath,
 
           entry_access = svn_wc__adm_retrieve_internal2(db, entry_abspath,
                                                         subpool);
-
+          
           if (entry_access)
             SVN_ERR(walker_helper(entrypath, entry_access,
                                   walk_callbacks, walk_baton,
