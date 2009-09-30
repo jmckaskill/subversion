@@ -933,7 +933,7 @@ handle_external_item_change(const void *key, apr_ssize_t klen,
 
       if (ib->ctx->notify_func2)
         {
-          svn_wc_notify_t *notify =
+          svn_wc_notify_t *notify = 
               svn_wc_create_notify(remove_target_abspath,
                                    svn_wc_notify_update_external_removed,
                                    ib->iter_pool);
