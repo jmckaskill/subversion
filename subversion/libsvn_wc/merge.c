@@ -1158,7 +1158,7 @@ svn_wc__merge_internal(svn_stringbuf_t **log_accum,
   SVN_ERR(svn_dirent_get_absolute(&merge_abspath, merge_target, pool));
   SVN_ERR(svn_dirent_get_absolute(&left_abspath, left, pool));
 
-  adm_access =
+  adm_access = 
       svn_wc__adm_retrieve_internal2(db,
                                      svn_dirent_dirname(merge_abspath, pool),
                                      pool);
