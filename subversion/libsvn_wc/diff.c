@@ -306,7 +306,7 @@ make_edit_baton(struct edit_baton **edit_baton,
   eb->reverse_order = reverse_order;
   eb->changelist_hash = changelist_hash;
   eb->cancel_func = cancel_func;
-  eb->cancel_baton = cancel_baton;
+  eb->cancel_baton = cancel_baton;  
   eb->pool = pool;
 
   *edit_baton = eb;
@@ -1080,7 +1080,7 @@ report_wc_directory_as_added(struct dir_baton *db,
           break;
         }
     }
-
+  
   svn_pool_destroy(iterpool);
 
   return SVN_NO_ERROR;
@@ -1802,7 +1802,7 @@ svn_wc_diff6(svn_wc_context_t *wc_ctx,
   SVN_ERR(make_edit_baton(&eb,
                           wc_ctx->db,
                           anchor_path,
-                          target,
+                          target, 
                           callbacks, callback_baton,
                           depth, ignore_ancestry, FALSE, FALSE,
                           changelists,
