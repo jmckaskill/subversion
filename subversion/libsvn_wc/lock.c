@@ -357,7 +357,7 @@ svn_wc__adm_steal_write_lock(svn_wc_adm_access_t **adm_access,
 {
   SVN_ERR(adm_access_alloc(adm_access, path, db, TRUE, TRUE, TRUE,
                            result_pool, scratch_pool));
-
+  
   /* We used to attempt to upgrade the working copy here, but now we let
      it slide.  Our sole caller is svn_wc_cleanup3(), which will itself
      worry about upgrading.  */
@@ -999,7 +999,7 @@ child_is_disjoint(svn_boolean_t *disjoint,
   err = svn_wc__get_entry(&t_entry_in_p, db, local_abspath, FALSE,
                           svn_node_dir, TRUE, scratch_pool, scratch_pool);
 
-  if (err && (err->apr_err == SVN_ERR_WC_MISSING ||
+  if (err && (err->apr_err == SVN_ERR_WC_MISSING || 
               (err->apr_err == SVN_ERR_WC_PATH_NOT_FOUND)))
     {
       /* Parent doesn't know about the child.  */
@@ -1260,8 +1260,8 @@ svn_wc__adm_retrieve_from_context(svn_wc_adm_access_t **adm_access,
 {
   SVN_ERR_ASSERT(svn_dirent_is_absolute(local_abspath));
 
-  *adm_access = svn_wc__adm_retrieve_internal2(wc_ctx->db,
-                                               local_abspath,
+  *adm_access = svn_wc__adm_retrieve_internal2(wc_ctx->db, 
+                                               local_abspath, 
                                                pool);
 
   return SVN_NO_ERROR;
@@ -1480,7 +1480,7 @@ svn_wc__adm_missing(svn_wc__db_t *db,
 
   /* When we switch to a single database an access baton can't be
      missing, but until then it can. But if there are no access batons we
-     would always return FALSE.
+     would always return FALSE. 
      For this case we check if an access baton could be opened
 
 */
@@ -1584,7 +1584,7 @@ svn_wc__adm_probe_in_context(svn_wc_adm_access_t **adm_access,
      that we don't end up trying to lock more than we need.  */
   if (dir != path)
     levels_to_lock = 0;
-
+    
   err = svn_wc__adm_open_in_context(adm_access, wc_ctx, dir, write_lock,
                                     levels_to_lock, cancel_func, cancel_baton,
                                     pool);
