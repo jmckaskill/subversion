@@ -806,7 +806,7 @@ log_do_delete_entry(struct log_runner *loggy, const char *name)
         {
           /* Removing a missing wcroot is easy, just remove its parent entry
              ### BH: I can't tell why we don't use this for adds.
-                     We might want to remove WC obstructions?
+                     We might want to remove WC obstructions? 
 
              We don't have a missing status in the final version of WC-NG,
              so why bother researching its history.
@@ -1309,7 +1309,7 @@ log_do_add_tree_conflict(struct log_runner *loggy,
 
   /* Ignore any attempt to re-add an existing tree conflict, as loggy
      operations are idempotent. */
-  if (apr_hash_get(loggy->tree_conflicts,
+  if (apr_hash_get(loggy->tree_conflicts, 
                    svn_dirent_basename(new_conflict->local_abspath,
                                        loggy->pool),
                    APR_HASH_KEY_STRING) == NULL)
@@ -1595,7 +1595,7 @@ run_log(svn_wc_adm_access_t *adm_access,
             hi = apr_hash_next(hi))
         {
           svn_error_t *err;
-          const svn_wc_conflict_description2_t *conflict =
+          const svn_wc_conflict_description2_t *conflict = 
                                                  svn_apr_hash_index_val(hi);
 
           svn_pool_clear(iterpool);
@@ -1603,7 +1603,7 @@ run_log(svn_wc_adm_access_t *adm_access,
           err = svn_wc__db_op_set_tree_conflict(db,
                                                 conflict->local_abspath,
                                                 conflict, iterpool);
-
+         
           if (err)
             return svn_error_createf(pick_error_code(loggy), err,
                                  _("Error recording tree conflict on '%s'"),
@@ -2426,14 +2426,14 @@ svn_wc_cleanup3(svn_wc_context_t *wc_ctx,
                           NULL /* ### config */, TRUE, FALSE,
                           scratch_pool, scratch_pool));
 
-  SVN_ERR(svn_wc__internal_check_wc(&wc_format_version, db,
+  SVN_ERR(svn_wc__internal_check_wc(&wc_format_version, db, 
                                     local_abspath, scratch_pool));
 
   /* a "version" of 0 means a non-wc directory */
   if (wc_format_version == 0)
     return svn_error_createf(SVN_ERR_WC_NOT_WORKING_COPY, NULL,
                              _("'%s' is not a working copy directory"),
-                             svn_dirent_local_style(local_abspath,
+                             svn_dirent_local_style(local_abspath, 
                                                     scratch_pool));
 
   if (wc_format_version < SVN_WC__WC_NG_VERSION)
@@ -2452,7 +2452,7 @@ svn_wc_cleanup3(svn_wc_context_t *wc_ctx,
      WC_CTX for the old-style log processing.  */
   SVN_ERR(svn_wc__db_close(db));
 
-  return svn_error_return(cleanup_internal(wc_ctx->db, local_abspath,
-                                           cancel_func, cancel_baton,
+  return svn_error_return(cleanup_internal(wc_ctx->db, local_abspath, 
+                                           cancel_func, cancel_baton, 
                                            scratch_pool));
 }
