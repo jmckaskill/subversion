@@ -9,11 +9,11 @@ diff -rbuN subversion-0.29.0/build/generator/gen_make.py subversion-0.29.0-patch
 +        '\t@echo LINK %s\n'
 +        '\t@(cd %s && %s -o %s $(%s_OBJECTS) %s $(LIBS))\n\n'
          % (targ_varname, string.join(objects + deps), target_ob.add_deps,
-
+ 
             targ_varname, objnames,
-
+ 
             target_ob.filename, targ_varname,
-
+ 
 +	   target_ob.filename,
 +
             path, target_ob.link_cmd, os.path.basename(target_ob.filename),
@@ -34,7 +34,7 @@ diff -rbuN subversion-0.29.0/build/generator/gen_make.py subversion-0.29.0-patch
 +                           % (fname, dirname, name, fname))
            if ext == '.la':
              la_tweaked[file + '-a'] = None
-
+ 
 @@ -132,15 +136,19 @@
          # Construct a .libs directory within the Apache area and populate it
          # with the appropriate files. Also drop the .la file in the target dir.
@@ -67,11 +67,11 @@ diff -rbuN subversion-0.29.0/build/generator/gen_make.py subversion-0.29.0-patch
 -                           % (file, os.path.join('$(APACHE_TARGET)',
 +          self.ofile.write('\t@echo INSTALL %s\n'
 +                           '\t@($(INSTALL_MOD_STATIC) %s $(DESTDIR)%s)\n'
-+                           % (file,
++                           % (file, 
 +                              file, os.path.join('$(APACHE_TARGET)',
                                                   os.path.basename(file))))
          self.ofile.write('\n')
-
+ 
 @@ -158,13 +168,16 @@
          area_var = string.replace(area, '-', '_')
          upper_var = string.upper(area_var)
@@ -109,10 +109,10 @@ diff -rbuN subversion-0.29.0/build/generator/gen_make.py subversion-0.29.0-patch
 +                       '\t@($(INSTALL_INCLUDE) %s $(DESTDIR)%s)\n'
 +                       % (file, os.path.join('$(top_srcdir)', file),
                            os.path.join(includedir, os.path.basename(file))))
-
+ 
      self.ofile.write('\n# handy shortcut targets\n')
 @@ -204,8 +219,10 @@
-
+ 
      for objname, sources in self.graph.get_deps(gen_base.DT_SWIG_C):
        deps = string.join(map(str, sources))
 -      self.ofile.write('%s: %s\n\t$(RUN_SWIG_%s) %s\n'
@@ -122,7 +122,7 @@ diff -rbuN subversion-0.29.0/build/generator/gen_make.py subversion-0.29.0-patch
 +                       '\t@($(RUN_SWIG_%s) %s)\n'
 +                       % (objname, deps, objname, string.upper(objname.lang_abbrev),
                            os.path.join('$(top_srcdir)', str(sources[0]))))
-
+ 
      for objname, sources in self.graph.get_deps(gen_base.DT_OBJECT):
 @@ -214,10 +231,10 @@
        cmd = getattr(objname, 'build_cmd', '')
@@ -134,15 +134,15 @@ diff -rbuN subversion-0.29.0/build/generator/gen_make.py subversion-0.29.0-patch
          else:
 -          self.ofile.write('\t%s %s\n' % (cmd, sources[0]))
 +          self.ofile.write('\t@echo SWIGCC %s\n\t@(%s %s)\n' % (sources[0],cmd, sources[0]))
-
+ 
    def write_symbols(self):
      wrappers = { }
 diff -rbuN subversion-0.29.0/Makefile.in subversion-0.29.0-patch/Makefile.in
 --- subversion-0.29.0/Makefile.in	2003-09-17 19:33:51.000000000 -0400
 +++ subversion-0.29.0-patch/Makefile.in	2003-09-17 21:22:24.000000000 -0400
 @@ -159,11 +159,11 @@
-
-
+ 
+ 
  INSTALL = @INSTALL@
 -INSTALL_LIB = $(LIBTOOL) --mode=install $(INSTALL)
 +INSTALL_LIB = $(LIBTOOL) $(LTFLAGS) --mode=install $(INSTALL)
@@ -167,14 +167,14 @@ diff -rbuN subversion-0.29.0/Makefile.in subversion-0.29.0-patch/Makefile.in
 -	rm -f $(CLEAN_FILES)
 +        done)
 +	@rm -f $(CLEAN_FILES)
-
+ 
  # clean all but bulky test output, returning to before './configure' was run.
  fast-distclean: fast-clean
 -	rm -f Makefile config.cache config.log config.status libtool \
 +	@echo Quick distribution clean
 +	@rm -f Makefile config.cache config.log config.status libtool \
                svn_private_config.h svn-config
-
+ 
  # clean everything out, returning to before './autogen.sh' was run.
  local-extraclean: local-distclean
 -	rm -f build-outputs.mk svn_private_config.h.in configure \
@@ -184,15 +184,15 @@ diff -rbuN subversion-0.29.0/Makefile.in subversion-0.29.0-patch/Makefile.in
                ac-helpers/libtool.m4 ac-helpers/ltconfig          \
                ac-helpers/ltmain.sh
 @@ -240,7 +243,8 @@
-
+ 
  ### HACK!! Find a better way to do this
  revision-install:
 -	subversion/svnversion/svnversion $(top_srcdir) /repos/svn/trunk > $(DESTDIR)$(includedir)/subversion-1/svn-revision.txt
 +	@echo Recording current revision
 +	@subversion/svnversion/svnversion $(top_srcdir) /repos/svn/trunk > $(DESTDIR)$(includedir)/subversion-1/svn-revision.txt
-
+ 
  install-static: @INSTALL_STATIC_RULES@
-
+ 
 @@ -248,7 +252,8 @@
  # "make check TESTS=subversion/tests/clients/cmdline/basic_tests.py"
  #  will perform only basic tests (likewise for other tests).
@@ -209,12 +209,12 @@ diff -rbuN subversion-0.29.0/Makefile.in subversion-0.29.0-patch/Makefile.in
  		  '$(abs_srcdir)' '$(abs_builddir)' '$(PYTHON)' '$(SHELL)' \
 -		  $(TESTS)
 +		  $(TESTS))
-
+ 
  # First, set up Apache as documented in
  # subversion/tests/clients/cmdline/README.
 @@ -277,7 +282,8 @@
  	  BASE_URL=svn+ssh://localhost`pwd`/subversion/tests/clients/cmdline
-
+ 
  check-clean:
 -	rm -rf subversion/tests/clients/cmdline/repositories   \
 +	@echo Cleaning checks
@@ -224,7 +224,7 @@ diff -rbuN subversion-0.29.0/Makefile.in subversion-0.29.0-patch/Makefile.in
                 subversion/tests/libsvn_fs/test-repo-*          \
 @@ -286,26 +292,26 @@
                 tests.log
-
+ 
  mkdir-init:
 -	@list='$(BUILD_DIRS) $(DOC_DIRS) $(SWIG_DIRS)'; \
 +	@(list='$(BUILD_DIRS) $(DOC_DIRS) $(SWIG_DIRS)'; \
@@ -233,7 +233,7 @@ diff -rbuN subversion-0.29.0/Makefile.in subversion-0.29.0-patch/Makefile.in
              $(MKDIR) $$i ;                              \
 -        done
 +        done)
-
+ 
  # recursive targets to handle external projects (e.g. APR, Neon)
  external-all external-install:
 -	@target=`echo $@ | sed s/external-//`;          \
@@ -245,7 +245,7 @@ diff -rbuN subversion-0.29.0/Makefile.in subversion-0.29.0-patch/Makefile.in
              echo "------ completed $$target in $$i";    \
 -        done;
 +        done;)
-
+ 
  ### apr-util relies on generated files in apr, so reverse the
  ### list so that it is cleaned before apr.
  external-clean external-distclean:
@@ -260,7 +260,7 @@ diff -rbuN subversion-0.29.0/Makefile.in subversion-0.29.0-patch/Makefile.in
              echo "------ completed $$target in $$i";    \
 -        done;
 +        done;)
-
+ 
  ### temporary hack. Neon does not have an "extraclean" and neither does db
  ### If we don't have extraclean -- do the next best thing.
  external-extraclean:
@@ -275,8 +275,8 @@ diff -rbuN subversion-0.29.0/Makefile.in subversion-0.29.0-patch/Makefile.in
              fi;                                                          \
 -        done;
 +        done;)
-
-
+ 
+ 
  # DOCUMENTATION RULES
 @@ -364,31 +370,38 @@
  # Different outputs for the main Subversion 'book', written in docbook.
@@ -293,7 +293,7 @@ diff -rbuN subversion-0.29.0/Makefile.in subversion-0.29.0-patch/Makefile.in
 -	cd ${BOOK_TOP} && $(MAKE) book-ps
 +	@echo Make postscript book
 +	@cd ${BOOK_TOP} && $(MAKE) book-ps
-
+ 
  # Different outputs for the misc docs.
  # Assumes you have {xsltproc, fop, stylesheets} installed.
  doc-misc-docs-html:
@@ -308,8 +308,8 @@ diff -rbuN subversion-0.29.0/Makefile.in subversion-0.29.0-patch/Makefile.in
 -	cd ${BOOK_TOP} && $(MAKE) misc-docs-ps
 +	@echo Make postscripts docs
 +	@cd ${BOOK_TOP} && $(MAKE) misc-docs-ps
-
-
+ 
+ 
  doc-clean:
 -	for d in $(DOC_DIRS);                               \
 +	@echo Clean docs
@@ -322,60 +322,60 @@ diff -rbuN subversion-0.29.0/Makefile.in subversion-0.29.0-patch/Makefile.in
                     *.dvi *.txt *.html *.ps *.pdf *.fo);     \
 -        done
 +        done)
-
+ 
  java-api:
  	@$(MAKE) -C $(abs_srcdir)/subversion/bindings/java "JAVAC=$(JAVAC)"
 @@ -401,38 +414,48 @@
  .SUFFIXES: .c .lo .o .la-a .la .texi .info .dvi .txt .html .ps .pdf
-
+ 
  .c.o:
 -	$(COMPILE) -o $@ -c $<
 +	@echo CC $<
 +	@$(COMPILE) -o $@ -c $<
-
+ 
  .c.lo:
 -	$(LT_COMPILE) -o $@ -c $<
 +	@echo LCC $<
 +	@$(LT_COMPILE) -o $@ -c $<
-
+ 
  .la.la-a:
 -	sed "/library_names/s/'.*'/''/" $< > $@
 +	@echo SED $<
 +	@sed "/library_names/s/'.*'/''/" $< > $@
-
-
+ 
+ 
  .texi.info:
--	$(MAKEINFO) -I `dirname $<` -o $@ $<
+-	$(MAKEINFO) -I `dirname $<` -o $@ $< 
 +	@echo INFO $<
-+	@$(MAKEINFO) -I `dirname $<` -o $@ $<
-
++	@$(MAKEINFO) -I `dirname $<` -o $@ $< 
+ 
  .texi.dvi:
 -	wd=`pwd` ; cd `dirname $@` ; $(TEXI2DVI) $$wd/$<
 +	@echo DVI $<
 +	@wd=`pwd` ; cd `dirname $@` ; $(TEXI2DVI) $$wd/$<
-
+ 
  .texi.txt:
 -	$(MAKEINFO) -I `dirname $<` --no-headers -o $@ $<
 +	@echo TXT $<
 +	@$(MAKEINFO) -I `dirname $<` --no-headers -o $@ $<
-
+ 
  .texi.html:
 -	$(MAKEINFO) -I `dirname $<` --no-split --html -o $@ $<
 +	@echo HTML $<
 +	@$(MAKEINFO) -I `dirname $<` --no-split --html -o $@ $<
-
+ 
  .dvi.ps:
 -	$(DVIPS) $< -o $@
 +	@echo PS $<
 +	@$(DVIPS) $< -o $@
-
+ 
  .dvi.pdf:
 -	$(DVIPDF) $< $@
 +	@echo PDF $<
 +	@$(DVIPDF) $< $@
-
+ 
  install-docs: install-man @INSTALL_INFO@
-
+ 
  manroot = $(mandir)/man
  install-man:
 -	@list='$(MANPAGES)';                                               \
@@ -390,7 +390,7 @@ diff -rbuN subversion-0.29.0/Makefile.in subversion-0.29.0-patch/Makefile.in
            $(INSTALL_DATA) $$file $(DESTDIR)$(manroot)$$ext/$$inst;         \
 -        done
 +        done)
-
+ 
  install-info: doc-all-info
 -	$(MKDIR) $(DESTDIR)$(infodir)
 -	@list='$(INFOPAGES)';                                         \
