@@ -220,7 +220,7 @@ remove_for_exclude(svn_wc__db_t *db,
 
       svn_pool_clear(iterpool);
       child_abspath = svn_dirent_join(local_abspath, name, iterpool);
-
+      
       IGNORE_LOCAL_MOD(svn_wc__internal_remove_from_revision_control(
                                        db,
                                        child_abspath,
