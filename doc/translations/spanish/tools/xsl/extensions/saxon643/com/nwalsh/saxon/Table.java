@@ -183,7 +183,7 @@ public class Table {
    *
    * @return The string value of the variable
    */
-  protected static String getVariable(Context context, String varName)
+  protected static String getVariable(Context context, String varName) 
     throws TransformerException {
     Value variable = null;
     String varString = null;

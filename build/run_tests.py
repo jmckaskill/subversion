@@ -257,7 +257,7 @@ class TestHarness:
       print(TextColors.FAILURE + 'FAILURE' + TextColors.ENDC)
     else:
       print(TextColors.SUCCESS + 'success' + TextColors.ENDC)
-    elapsed_time = time.strftime('%H:%M:%S',
+    elapsed_time = time.strftime('%H:%M:%S', 
                    time.gmtime(time.time() - start_time))
     if self.log:
       self.log.write('END: %s\n' % progbase)
