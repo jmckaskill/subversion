@@ -34,7 +34,7 @@
 
 2003-11-30  Robert Stayton <bobstayton@users.sourceforge.net>
 
-	* gentext.xsl, labels.xsl, subtitles.xsl, table.xsl, targets.xsl, titles.xsl:
+	* gentext.xsl, labels.xsl, subtitles.xsl, table.xsl, targets.xsl, titles.xsl: 
 	Added CVS $Id$ comment.
 
 2003-11-17  Robert Stayton <bobstayton@users.sourceforge.net>
@@ -360,10 +360,10 @@
 
 	* common.xsl: Handle revisionflag a little better on copyrights
 
-	* common.xsl, gentext.xsl, l10n.xsl, labels.xsl, subtitles.xsl, table.xsl, titles.xsl:
+	* common.xsl, gentext.xsl, l10n.xsl, labels.xsl, subtitles.xsl, table.xsl, titles.xsl: 
 	Whitespace only: change CR/LF back to LF. Norm was a total moron.
 
-	* common.xsl, gentext.xsl, l10n.xsl, labels.xsl, subtitles.xsl, table.xsl, titles.xsl:
+	* common.xsl, gentext.xsl, l10n.xsl, labels.xsl, subtitles.xsl, table.xsl, titles.xsl: 
 	Whitespace changes only: use PC-style CR/LF because Unix clients choke on this far less often than PC clients choke on the reverse. Grrr.
 
 2002-03-07  Robert Stayton <bobstayton@users.sourceforge.net>
@@ -516,12 +516,12 @@
 	does not have a <lang>.xml localization file.
 	And it falls back to the default lang if it can't
 	find that either.
-
+	
 	Also fixed a bug for finding the lang attribute.
 	It was using the last() function, but in an
 	ancestor-or-self node set you want the first ancestor
 	(closest) with a lang value.
-
+	
 	49c49
 	<                                |ancestor-or-self::*/@xml:lang)[last()]"/>
 	---
@@ -615,7 +615,7 @@
 
 	* .cvsignore, Makefile: New file.
 
-	* common.xsl, gentext.xsl, l10n.xml, l10n.xsl, labels.xsl, subtitles.xsl, titles.xsl:
+	* common.xsl, gentext.xsl, l10n.xml, l10n.xsl, labels.xsl, subtitles.xsl, titles.xsl: 
 	New file.
 
 	* gentext.xsl: Commented out debugging messages
