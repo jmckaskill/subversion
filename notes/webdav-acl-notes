@@ -50,7 +50,7 @@ Wilfredo: DAV does not require any specific privileges, but does define a few
           they can not be set/unset independently, and a privilege may aggregate
           others.  Here's the full set defined by DAV, in the hierarchy I used
           in Twisted:
-
+          
           - DAV:all
             - DAV:read
             - DAV:write
@@ -139,7 +139,7 @@ Wilfredo: Note also that DAV principals must be exposed as HTTP resources as
           that important, though.
 
 * Given Subversion does not know about users, what sorts of ACLs could be
-  placed on other non-DAV access to the repository (say ra_local)?
+  placed on other non-DAV access to the repository (say ra_local)? 
 Justin: Greg hints that ra_local doesn't use ACLs as it would be possible
         to just bypass SVN and edit the BDB backend directly.  ACLs are
         therefore only desired for ra_dav access.
@@ -257,7 +257,7 @@ ACE properties:
     - Any attempt to remove this MUST fail
   - DAV:inherited-acl-set
     - This ACE comes from resource in href
-
+ 
 ACE ordering:
 - DAV:deny-before-grant
 
@@ -293,7 +293,7 @@ Access control methods:
 Reporting:
 - REPORT
   - Must support DAV:expand-property
-- DAV:acl-principal-prop-set
+- DAV:acl-principal-prop-set 
   - Required
   - Returns property requested for all principals
     - Client access?
