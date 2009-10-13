@@ -257,7 +257,7 @@ class TestHarness:
         print('FAIL:  %s: Unknown test failure.\n' % progbase)
 
     # Log the elapsed time.
-    elapsed_time = time.strftime('%H:%M:%S',
+    elapsed_time = time.strftime('%H:%M:%S', 
                    time.gmtime(time.time() - start_time))
     if self.log:
       self.log.write('END: %s\n' % progbase)
