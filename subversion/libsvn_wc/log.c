@@ -775,7 +775,7 @@ log_do_delete_entry(struct log_runner *loggy, const char *name)
         {
           /* Removing a missing wcroot is easy, just remove its parent entry
              ### BH: I can't tell why we don't use this for adds.
-                     We might want to remove WC obstructions?
+                     We might want to remove WC obstructions? 
 
              We don't have a missing status in the final version of WC-NG,
              so why bother researching its history.
@@ -1214,7 +1214,7 @@ log_do_committed(struct log_runner *loggy,
         is_root = FALSE;
         is_switched = FALSE;
       }
-
+    
     if (is_root || is_switched)
       return SVN_NO_ERROR;
   }
@@ -2028,7 +2028,7 @@ svn_wc__loggy_add_tree_conflict(svn_stringbuf_t **log_accum,
   victim_basename = svn_dirent_basename(conflict->local_abspath, pool);
   SVN_ERR(svn_wc__serialize_conflict(&skel, conflict, pool, pool));
   conflict_data = svn_skel__unparse(skel, pool)->data,
-
+ 
   svn_xml_make_open_tag(log_accum, pool, svn_xml_self_closing,
                         SVN_WC__LOG_ADD_TREE_CONFLICT,
                         SVN_WC__LOG_ATTR_NAME,
@@ -2133,14 +2133,14 @@ svn_wc_cleanup3(svn_wc_context_t *wc_ctx,
                           NULL /* ### config */, TRUE, FALSE,
                           scratch_pool, scratch_pool));
 
-  SVN_ERR(svn_wc__internal_check_wc(&wc_format_version, db,
+  SVN_ERR(svn_wc__internal_check_wc(&wc_format_version, db, 
                                     local_abspath, scratch_pool));
 
   /* a "version" of 0 means a non-wc directory */
   if (wc_format_version == 0)
     return svn_error_createf(SVN_ERR_WC_NOT_WORKING_COPY, NULL,
                              _("'%s' is not a working copy directory"),
-                             svn_dirent_local_style(local_abspath,
+                             svn_dirent_local_style(local_abspath, 
                                                     scratch_pool));
 
   if (wc_format_version < SVN_WC__WC_NG_VERSION)
@@ -2159,7 +2159,7 @@ svn_wc_cleanup3(svn_wc_context_t *wc_ctx,
      WC_CTX for the old-style log processing.  */
   SVN_ERR(svn_wc__db_close(db));
 
-  return svn_error_return(cleanup_internal(wc_ctx->db, local_abspath,
-                                           cancel_func, cancel_baton,
+  return svn_error_return(cleanup_internal(wc_ctx->db, local_abspath, 
+                                           cancel_func, cancel_baton, 
                                            scratch_pool));
 }
