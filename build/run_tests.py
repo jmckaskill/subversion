@@ -270,7 +270,7 @@ class TestHarness:
         log.write('FAIL:  %s: Unknown test failure.\n' % progbase)
 
     # Log the elapsed time.
-    elapsed_time = time.strftime('%H:%M:%S',
+    elapsed_time = time.strftime('%H:%M:%S', 
                    time.gmtime(time.time() - start_time))
     log.write('END: %s\n' % progbase)
     log.write('ELAPSED: %s %s\n' % (progbase, elapsed_time))
