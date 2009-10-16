@@ -311,7 +311,7 @@ make_edit_baton(struct edit_baton **edit_baton,
   eb->reverse_order = reverse_order;
   eb->changelist_hash = changelist_hash;
   eb->cancel_func = cancel_func;
-  eb->cancel_baton = cancel_baton;
+  eb->cancel_baton = cancel_baton;  
   eb->pool = pool;
 
   *edit_baton = eb;
@@ -1082,7 +1082,7 @@ report_wc_directory_as_added(struct dir_baton *db,
           break;
         }
     }
-
+  
   svn_pool_destroy(iterpool);
 
   return SVN_NO_ERROR;
@@ -1577,7 +1577,7 @@ close_file(void *file_baton,
                                      apr_hash_make(pool),
                                      eb->callback_baton,
                                      pool);
-
+    
   /* If we didn't see any content changes between the BASE and repository
      versions (i.e. we only saw property changes), then, if we're diffing
      against WORKING, we also need to check whether there are any local
@@ -1822,7 +1822,7 @@ svn_wc_diff6(svn_wc_context_t *wc_ctx,
   SVN_ERR(make_edit_baton(&eb,
                           wc_ctx->db,
                           anchor_path,
-                          target,
+                          target, 
                           callbacks, callback_baton,
                           depth, ignore_ancestry, show_copies_as_adds,
                           FALSE, FALSE, changelists,
