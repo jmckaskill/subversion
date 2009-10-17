@@ -891,10 +891,10 @@ svn_wc__wq_run(svn_wc__db_t *db,
       svn_pool_clear(iterpool);
 
       /* ### hmm. maybe we need a better way to handle this. or just leave
-         ### it for now, since I think it disappears in single-db.
-
+         ### it for now, since I think it disappears in single-db.  
+         
          ### Does this work for updating base-deleted and excluded items?
-         ### A WRI_ABSPATH can point to 'any related path'.
+         ### A WRI_ABSPATH can point to 'any related path'. 
 
          ### Maybe this check can be removed after the wq_abspath
          ### introduction? */
