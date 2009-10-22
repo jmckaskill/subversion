@@ -1747,7 +1747,7 @@ stringbuf_from_aprfile(svn_stringbuf_t **result,
         }
     }
 
-
+    
   /* XXX: We should check the incoming data for being of type binary. */
 
   res = svn_stringbuf_create_ensure(res_initial_len, pool);
@@ -3639,7 +3639,7 @@ svn_io_mktemp(apr_file_t **file,
     template = apr_pstrdup(scratch_pool, x);
   else
     template = apr_pstrcat(scratch_pool, filename, "-", x, NULL);
-
+    
   path = svn_dirent_join(dirpath, template, scratch_pool);
 
   switch (delete_when)
@@ -3672,6 +3672,6 @@ svn_io_mktemp(apr_file_t **file,
     *file = tempfile;
   if (unique_path)
     SVN_ERR(svn_io_file_name_get(unique_path, tempfile, result_pool));
-
+    
   return SVN_NO_ERROR;
 }
