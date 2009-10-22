@@ -335,7 +335,7 @@ svn_wc_transmit_prop_deltas(const char *path,
                                          svn_wc__adm_get_db(adm_access),
                                          pool));
 
-  SVN_ERR(svn_wc_transmit_prop_deltas2(wc_ctx, local_abspath, editor, baton,
+  SVN_ERR(svn_wc_transmit_prop_deltas2(wc_ctx, local_abspath, editor, baton, 
                                        pool));
 
   return svn_error_return(svn_wc_context_destroy(wc_ctx));
@@ -2144,7 +2144,7 @@ svn_wc_translated_file2(const char **xlated_path,
                                          svn_wc__adm_get_db(adm_access),
                                          pool));
 
-  SVN_ERR(svn_wc_translated_file3(xlated_path, src, wc_ctx, versioned_abspath,
+  SVN_ERR(svn_wc_translated_file3(xlated_path, src, wc_ctx, versioned_abspath, 
                                   flags, pool, pool));
   if (! svn_dirent_is_absolute(versioned_file))
     {

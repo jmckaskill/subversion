@@ -742,7 +742,7 @@ split_mergeinfo_on_revision(svn_mergeinfo_t *younger_mergeinfo,
    MERGE_B->SAME_REPOS is false, then filter out all mergeinfo
    property additions (Issue #3383) from *PROPS.  If MERGE_B->SAME_REPOS is
    true then filter out mergeinfo property additions to PATH when those
-   additions refer to the same line of history as PATH as described below.
+   additions refer to the same line of history as PATH as described below.  
 
    If mergeinfo is being honored and MERGE_B->SAME_REPOS is true
    then examine the added mergeinfo, looking at each range (or single rev)
@@ -3282,7 +3282,7 @@ filter_merged_revisions(svn_client__merge_path_t *parent,
                                         mergeinfo_path, APR_HASH_KEY_STRING);
       else
         target_rangelist = NULL;
-
+          
       if (target_rangelist)
         {
           /* Return the intersection of the revs which are both already
@@ -3535,7 +3535,7 @@ calculate_remaining_ranges(svn_client__merge_path_t *parent,
       if (explicit_mergeinfo_gap_ranges)
         {
           svn_mergeinfo_t gap_mergeinfo = apr_hash_make(pool);
-
+          
           apr_hash_set(gap_mergeinfo, mergeinfo_path, APR_HASH_KEY_STRING,
                        implicit_src_gap);
           SVN_ERR(svn_mergeinfo_remove2(&adjusted_target_mergeinfo,
@@ -3687,14 +3687,14 @@ find_gaps_in_merge_source_history(svn_revnum_t *gap_start,
       /* A gap in natural history can result from either a copy or
          a rename.  If from a copy then history as mergeinfo will look
          something like this:
-
+         
            '/trunk:X,Y-Z'
-
+         
          If from a rename it will look like this:
 
            '/trunk_old_name:X'
            '/trunk_new_name:Y-Z'
-
+      
         In both cases the gap, if it exists, is M-N, where M = X + 1 and
         N = Y - 1.
 
@@ -3925,7 +3925,7 @@ populate_remaining_ranges(apr_array_header_t *children_with_mergeinfo,
 
          If the gap is a proper subset of CHILD->REMAINING_RANGES then we can
          safely ignore it since we won't describe this path/rev pair.
-
+         
          If the gap exactly matches or is a superset of a range in
          CHILD->REMAINING_RANGES then we must remove that range so we don't
          attempt to describe non-existent paths via the reporter, this will
@@ -4006,7 +4006,7 @@ populate_remaining_ranges(apr_array_header_t *children_with_mergeinfo,
    Adjust, in place, the inheritability of the ranges in RANGELIST to
    describe a merge of RANGELIST into WC_WCPATH at depth DEPTH.  ENTRY
    is the entry for WC_PATH.
-
+   
    WC_PATH_IS_MERGE_TARGET is true if WC_PATH is the target of the merge,
    otherwise WC_PATH is a subtree.
 
@@ -4043,7 +4043,7 @@ calculate_merge_inheritance(apr_array_header_t *rangelist,
               || depth == svn_depth_immediates)
             svn_rangelist__set_inheritance(rangelist, FALSE);
           else /* depth == infinity */
-            svn_rangelist__set_inheritance(rangelist, TRUE);
+            svn_rangelist__set_inheritance(rangelist, TRUE);  
         }
     }
   return SVN_NO_ERROR;
@@ -4241,7 +4241,7 @@ record_skips(const char *mergeinfo_path,
              ### missing as long as the file's parent directory is present.
              ### But missing directory paths skipped are not handled yet,
              ### see issue #2915.
-
+             
              ### TODO: An empty range is fine if the skipped path doesn't
              ### inherit any mergeinfo from a parent, but if it does
              ### we need to account for that.  See issue #3440
@@ -4520,7 +4520,7 @@ drive_merge_report_editor(const char *target_wcpath,
       SVN_ERR(svn_client__ensure_ra_session_url(&old_sess2_url,
                                                 merge_b->ra_session2,
                                                 url1, pool));
-
+    
   /* Get the diff editor and a reporter with which to, ultimately,
      drive it. */
   SVN_ERR(svn_client__get_diff_editor(target_wcpath, adm_access, callbacks,
@@ -6997,7 +6997,7 @@ record_mergeinfo_for_added_subtrees(svn_merge_range_t *merged_range,
 typedef struct log_noop_baton_t
 {
   merge_cmd_baton_t *merge_b;
-
+  
   /* See the comment 'THE CHILDREN_WITH_MERGEINFO ARRAY' at the start
      of this file.*/
   apr_array_header_t *children_with_mergeinfo;
@@ -7008,7 +7008,7 @@ typedef struct log_noop_baton_t
   /* Initially empty rangelists allocated in POOL. */
   apr_array_header_t *operative_ranges;
   apr_array_header_t *merged_ranges;
-
+  
   apr_pool_t *pool;
 } log_noop_baton_t;
 
@@ -7069,7 +7069,7 @@ log_noop_revs(void *baton,
 
       if (rel_path[0] == '/') /* Remove any leading '/'. */
         rel_path++;
-
+      
       cwmi_path = svn_dirent_join(log_gap_baton->merge_b->target,
                                   rel_path, pool);
 
@@ -7077,7 +7077,7 @@ log_noop_revs(void *baton,
          can disregard it altogether. */
       if (!svn_dirent_is_ancestor(log_gap_baton->merge_b->target, cwmi_path))
         continue;
-
+      
       /* Find any explicit or inherited mergeinfo for PATH. */
       while (!log_entry_rev_required)
         {
@@ -7100,7 +7100,7 @@ log_noop_revs(void *baton,
                                         cwmi_path) == 0)
             {
               /* Can't crawl any higher. */
-              break;
+              break;              
             }
 
           /* Didn't find anything so crawl up to the parent. */
@@ -7143,7 +7143,7 @@ log_noop_revs(void *baton,
 }
 
 /* Helper for do_directory_merge().
-
+  
    URL1, REVISION1, URL2, REVISION2, TARGET_ENTRY, NOTIFY_B, and MERGE_B are
    cascaded from the arguments of the same name in do_directory_merge().
    RA_SESSION is the session for the younger of URL1@REVISION1 and
@@ -7296,7 +7296,7 @@ remove_noop_subtree_ranges(const char *url1,
                   svn_client__merge_path_t *child =
                     APR_ARRAY_IDX(notify_b->children_with_mergeinfo, i,
                                   svn_client__merge_path_t *);
-
+                  
                   /* CHILD->REMAINING_RANGES will be NULL if child is absent. */
                   if (child->remaining_ranges && child->remaining_ranges->nelts)
                     {

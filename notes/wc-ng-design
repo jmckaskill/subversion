@@ -20,7 +20,7 @@ Content
    - transactional manipulation API proposal
    - delta-application algorithm
       (in light of metadata, tree and textual conflicts)
-   -
+   - 
  * Upgrading old working copies
  * Implementation plan
 
@@ -276,7 +276,7 @@ Problems in wc-1.0
    APIs also used internally, growing arguments which *should* only
    matter for internal use
  * The lock strategy requires writing a file in every directory of a working,
-   which severely reduces our performance in several environments. (Windows,
+   which severely reduces our performance in several environments. (Windows, 
    NFS). Testing showed that in some cases we used more than 50 seconds on
    writing 8000 lockfiles before we even started looking what to update. A new
    lock strategy should reduce the number of writes necessary for locking with
@@ -363,7 +363,7 @@ rewritten on most wc-transformations anyway.
    information. I think performance will primarily derive from
    omitting the .svn/ location/walks and opening of multiple files
    therein, in favor of a single SQLite database open.
-
+   
    of course, we'll analyze the situation, but I suspect that we will
    be in great shape as a natural fallout of our new storage system.
 
@@ -931,7 +931,7 @@ not-present    base-deleted   Not allowed. There is nothing to
 
 
 "<none>" means there is no row in the given table (so no presence value)
-"<any>" means "any value"
+"<any>" means "any value" 
 "*" means "<none> or <any>"
 
 Note 1: this implies you cannot copy/move a working copy tree that has
@@ -968,10 +968,10 @@ libsvn_wc/wc_db.h  (symbols: svn_wc__db_*)
         Storage subsystem for the WC metadata/base-text information.
         This is a private API, and the rest of the WC will be rebuilt
         on top of this.
-
+        
         This code deals with storage, and transactional modifications
         of the data.
-
+        
         Note: this is a random-access, low-level API. Editors will be
         built on top of this layer.
 
