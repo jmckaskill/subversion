@@ -249,7 +249,7 @@ absent_helper(svn_boolean_t is_dir,
               (uc->bb, uc->output,
                "<S:absent-%s name=\"%s\"/>" DEBUG_CR,
                DIR_OR_FILE(is_dir),
-               apr_xml_quote_string(pool,
+               apr_xml_quote_string(pool, 
                                     svn_uri_basename(path, pool),
                                     1)));
     }

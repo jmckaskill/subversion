@@ -1356,7 +1356,7 @@ log_do_add_tree_conflict(struct log_runner *loggy,
 
   /* Ignore any attempt to re-add an existing tree conflict, as loggy
      operations are idempotent. */
-  if (apr_hash_get(loggy->tree_conflicts,
+  if (apr_hash_get(loggy->tree_conflicts, 
                    svn_dirent_basename(new_conflict->path, loggy->pool),
                    APR_HASH_KEY_STRING) == NULL)
     {

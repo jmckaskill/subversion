@@ -335,7 +335,7 @@ svn_wc_transmit_prop_deltas(const char *path,
                                          svn_wc__adm_get_db(adm_access),
                                          pool));
 
-  SVN_ERR(svn_wc_transmit_prop_deltas2(wc_ctx, local_abspath, editor, baton,
+  SVN_ERR(svn_wc_transmit_prop_deltas2(wc_ctx, local_abspath, editor, baton, 
                                        pool));
 
   return svn_error_return(svn_wc_context_destroy(wc_ctx));

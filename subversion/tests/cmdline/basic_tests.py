@@ -1849,17 +1849,17 @@ def delete_keep_local(sbox):
 
 def delete_keep_local_twice(sbox):
   'delete file and directory with --keep-local twice'
-
+  
   sbox.build()
   wc_dir = sbox.wc_dir
-
+  
   dir = os.path.join(wc_dir, 'dir')
-
+  
   svntest.actions.run_and_verify_svn(None, None, [], 'mkdir', dir)
-
+  
   svntest.actions.run_and_verify_svn(None, None, [], 'rm', '--keep-local', dir)
   svntest.actions.run_and_verify_svn(None, None, [], 'rm', '--keep-local', dir)
-
+  
   if not os.path.isdir(dir):
     print('Directory was really deleted')
     raise svntest.Failure

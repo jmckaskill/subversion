@@ -708,7 +708,7 @@ svn_wc__db_upgrade_func(void *baton,
                         int current_schema,
                         apr_pool_t *scratch_pool)
 {
-  static const char * const upgrade_statements[] =
+  static const char * const upgrade_statements[] = 
     {
       "select wc_id, local_relpath, tree_conflict_data "
       "from actual_node "
@@ -1104,7 +1104,7 @@ get_old_version(int *version,
 
   /* This must be a really old working copy!  Fall back to reading the
      format file.
-
+     
      Note that the format file might not exist in newer working copies
      (format 7 and higher), but in that case, the entries file should
      have contained the format number. */
@@ -1478,7 +1478,7 @@ parse_local_abspath(svn_wc__db_pdh_t **pdh,
 
   /* Check to see if this (versioned) directory is obstructing what should
      be a file in the parent directory.
-
+     
      ### obstruction is only possible with per-dir wc.db databases.  */
   if (obstruction_possible)
     {
@@ -1635,7 +1635,7 @@ parse_local_abspath(svn_wc__db_pdh_t **pdh,
 /* Get the statement given by STMT_IDX, and bind the appropriate wc_id and
    local_relpath based upon LOCAL_ABSPATH.  Store it in *STMT, and use
    SCRATCH_POOL for temporary allocations.
-
+   
    Note: WC_ID and LOCAL_RELPATH must be arguments 1 and 2 in the statement. */
 static svn_error_t *
 get_statement_for_path(svn_sqlite__stmt_t **stmt,
@@ -2025,7 +2025,7 @@ svn_wc__db_init(const char *local_abspath,
 
   ibb.children = NULL;
   ibb.depth = depth;
-
+  
   ibb.scratch_pool = scratch_pool;
 
   SVN_ERR(insert_base_node(&ibb, sdb));
@@ -3121,7 +3121,7 @@ svn_wc__db_op_get_tree_conflict(svn_wc_conflict_description_t **tree_conflict,
      ### all this parsing, unparsing garbage. */
 
   /* Get the conflict information for the parent of LOCAL_ABSPATH. */
-  SVN_ERR(svn_sqlite__get_statement(&stmt, pdh->wcroot->sdb,
+  SVN_ERR(svn_sqlite__get_statement(&stmt, pdh->wcroot->sdb, 
                                     STMT_SELECT_ACTUAL_NODE));
   SVN_ERR(svn_sqlite__bindf(stmt, "is", pdh->wcroot->wc_id, local_relpath));
   SVN_ERR(svn_sqlite__step(&have_row, stmt));
