@@ -320,8 +320,8 @@ STATUS
     - use POST to 'me' resource to get txn name           [DONE]
     - set revprops using PROPPATCH on the txn resource    [DONE]
     - abort edit with DELETE against the txn resource     [DONE]
-    - send write requests against txn and txn root URLs   [STARTED]
-    - send X-SVN-Version-Name for out-of-dateness checks  [STARTED]
+    - send write requests against txn and txn root URLs   [DONE]
+    - send X-SVN-Version-Name for out-of-dateness checks  [DONE]
     - enable pipelined PUTs                               [OUT-OF-SCOPE]
 
  * Optional:  Do some of this stuff for ra_neon, too:
