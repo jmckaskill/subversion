@@ -684,7 +684,7 @@ typedef svn_error_t *(*svn_client_get_commit_log_t)(
  *
  * If svn_client_blame4() was called with @a include_merged_revisions set to
  * TRUE, @a merged_revision, @a merged_rev_props and @a merged_path will be
- * set, otherwise they will be NULL. @a merged_path will be set to the
+ * set, otherwise they will be NULL. @a merged_path will be set to the 
  * absolute repository path.
  *
  * All allocations should be performed in @a pool.
@@ -2194,7 +2194,7 @@ svn_client_blame5(const char *path_or_url,
 
 
 /**
- * Similar to svn_client_blame5(), but with @c svn_client_blame_receiver3_t
+ * Similar to svn_client_blame5(), but with @c svn_client_blame_receiver3_t 
  * as the receiver.
  *
  * @deprecated Provided for backwards compatibility with the 1.6 API.
@@ -4834,7 +4834,7 @@ svn_client_patch(const char *patch_path,
  * path_or_url's entry URL.  If @a path_or_url is unversioned (has
  * no entry), set @a *url to NULL.
  *
- * Use @a ctx->wc_ctx to retrieve the information. Use
+ * Use @a ctx->wc_ctx to retrieve the information. Use 
  ** @a scratch_pool for temporary allocations.
  *
  * @since New in 1.7.

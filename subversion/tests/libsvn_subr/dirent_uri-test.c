@@ -141,7 +141,7 @@ test_dirent_is_absolute(apr_pool_t *pool)
   struct {
     const char *path;
     svn_boolean_t result;
-  } tests[] = {
+  } tests[] = {    
     { "foo/bar",       FALSE },
     { "foo",           FALSE },
     { "",              FALSE },
@@ -367,7 +367,7 @@ test_dirent_join(apr_pool_t *pool)
 
   TEST_MANY((pool, "abcd", "/dir", "A:", "file", NULL), "A:file");
   TEST_MANY((pool, "abcd", "A:", "/dir", "file", NULL), "A:/dir/file");
-
+  
 #else /* WIN32 or Cygwin */
   TEST_MANY((pool, "X:", "def", "ghi", NULL), "X:/def/ghi");
   TEST_MANY((pool, "X:", SVN_EMPTY_PATH, "ghi", NULL), "X:/ghi");
@@ -1658,7 +1658,7 @@ test_dirent_condense_targets(apr_pool_t *pool)
             break;
         }
 
-      SVN_ERR(svn_dirent_condense_targets(&common, &condensed, hdr,
+      SVN_ERR(svn_dirent_condense_targets(&common, &condensed, hdr, 
                                           FALSE, pool, pool));
 
       if (strcmp(common, tests[i].common))
@@ -1672,7 +1672,7 @@ test_dirent_condense_targets(apr_pool_t *pool)
           if (tests[i].paths[j] == NULL || tests[i].results[j] == NULL)
             break;
 
-          if (strcmp(APR_ARRAY_IDX(condensed, j, const char*),
+          if (strcmp(APR_ARRAY_IDX(condensed, j, const char*), 
                      tests[i].results[j]))
             return svn_error_createf(SVN_ERR_TEST_FAILED, NULL,
                            "svn_dirent_condense_targets returned first"
@@ -1682,7 +1682,7 @@ test_dirent_condense_targets(apr_pool_t *pool)
         }
     }
 
-
+  
   return SVN_NO_ERROR;
 }
 

@@ -835,7 +835,7 @@ svn_wc__db_repos_ensure(apr_int64_t *repos_id,
                         const char *repos_root_url,
                         const char *repos_uuid,
                         apr_pool_t *scratch_pool);
-
+                        
 
 /** @} */
 
@@ -1162,7 +1162,7 @@ svn_wc__db_read_info(svn_wc__db_status_t *status,  /* ### derived */
 
                      svn_wc__db_lock_t **lock,
 
-                     /* ### this should eventually turn into a
+                     /* ### this should eventually turn into a 
                         ### svn_wc_conflict_description2_t, but for the time
                         ### being, we're just going to return the raw text
                         ### and let the caller deal with it. */
@@ -1194,7 +1194,7 @@ svn_wc__db_read_prop(const svn_string_t **propval,
    the ACTUAL node, then the WORKING node, and finally the BASE node for
    properties.  PROPS maps property names of type "const char *" to values
    of type "const svn_string_t *".
-
+   
    Allocate PROPS in RESULT_POOL and do temporary allocations
    in SCRATCH_POOL. */
 svn_error_t *
@@ -1209,7 +1209,7 @@ svn_wc__db_read_props(apr_hash_t **props,
    the WORKING node, and then the BASE node for properties.  PROPS maps
    property names of type "const char *" to values of type
    "const svn_string_t *".
-
+   
    Allocate PROPS in RESULT_POOL and do temporary allocations
    in SCRATCH_POOL. */
 svn_error_t *
@@ -1557,7 +1557,7 @@ svn_wc__db_scan_deletion(const char **base_del_abspath,
                          const char *local_abspath,
                          apr_pool_t *result_pool,
                          apr_pool_t *scratch_pool);
-
+                         
 
 /** @} */
 
@@ -1610,7 +1610,7 @@ svn_wc__db_upgrade_func(void *baton,
                         svn_sqlite__db_t *sdb,
                         int current_schema,
                         apr_pool_t *scratch_pool);
-
+                         
 
 /** @} */
 
