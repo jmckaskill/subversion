@@ -138,7 +138,7 @@ analogous to CVS/ subdirs.  See the separate sections below for more details.
 `dir-prop-base':
    Same as `dir-props', except this is the pristine copy;  analogous to
    the "text-base" revisions of files.  The last up-to-date copy of the
-   directory's properties live here.
+   directory's properties live here. 
 
 `dir-prop-revert':
    In a schedule-replace situation for this directory, this holds the
@@ -194,7 +194,7 @@ analogous to CVS/ subdirs.  See the separate sections below for more details.
 
    To recover from a crash:
 
-      1. Look for a log file.
+      1. Look for a log file.  
 
            A. If none, just "rm -r tmp/*".
 
@@ -206,11 +206,11 @@ analogous to CVS/ subdirs.  See the separate sections below for more details.
 
    Note that foo/.svn/log always uses paths relative to foo/, for
    example, this:
-
+   
        <!-- THIS IS GOOD -->
        <mv name=".svn/tmp/prop-base/name"
            dest=".svn/prop-base/name">
-
+           
    rather than this:
 
        <!-- THIS WOULD BE BAD -->
@@ -225,7 +225,7 @@ analogous to CVS/ subdirs.  See the separate sections below for more details.
 
    The problem with the second way is that is violates the
    separability of .svn subdirectories -- a subdir should be operable
-   independent of its location in the local filesystem.
+   independent of its location in the local filesystem.  
 
    The problem with the third way is that it can't conveniently refer
    to the user's actual working files, only to files inside .svn/.
@@ -260,7 +260,7 @@ analogous to CVS/ subdirs.  See the separate sections below for more details.
    For an entry scheduled for replacement, the prop-base of the deleted
    entry may be stored in `foo.c.svn-revert'.
 
-
+   
 `props/':
    The non-pristine (working copy) of each file's properties.  These
    are where local modifications to properties live.  The files in this
@@ -306,7 +306,7 @@ analogous to CVS/ subdirs.  See the separate sections below for more details.
    This file was removed in format 5.  It used to contain a short text
    saying what this directory is for and warning users not to alter
    its contents.
-
+   
 The entries file
 ----------------
 
@@ -354,7 +354,7 @@ name:
    entry.  Required for all entries.
 
 kind:
-   The kind of this entry: `file' or `dir'.  Required for all entries.
+   The kind of this entry: `file' or `dir'.  Required for all entries. 
 
 revision:
    The revision that the pristine text and properties of this entry
@@ -404,7 +404,7 @@ has-prop-mods:
 cachable-props:
    A space-separated list of property names whose presence is cached
    in present-props.  Defaults to the value of the this_dir entry.
-   For the this_dir entry, defaults to the empty list.
+   For the this_dir entry, defaults to the empty list. 
 
 present-props:
    A space-separated list of property names.  If a property name n is
@@ -509,7 +509,7 @@ depth:
    parent directory is infinity or immediates. The directory in
    question will not physically exist on the disk. In other words, we
    can only store the `exclude' value in the corresponding entry of
-   the entries file in parent directory.
+   the entries file in parent directory. 
 
 tree-conflicts:
    A list of details of the tree conflicts that children are currently
@@ -551,7 +551,7 @@ non-XML format.  Inheritence of values from the this_dir entry works
 in the same way as in the non-XML format.
 
 Fields added in format 7 and later are not allowed in the XML-based
-format.  The attributes `has-props', `has-prop-mods', `cachable-props',
+format.  The attributes `has-props', `has-prop-mods', `cachable-props', 
 and `present-props' are only valid in format 6.
 
 In addition, the following attribute is allowed, which has no
