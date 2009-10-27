@@ -620,7 +620,7 @@ static svn_error_t *
 migrate_tree_conflicts(svn_sqlite__db_t *sdb,
                        apr_pool_t *scratch_pool)
 {
-  static const char * const upgrade_statements[] =
+  static const char * const upgrade_statements[] = 
     {
       "select wc_id, local_relpath, tree_conflict_data "
       "from actual_node "

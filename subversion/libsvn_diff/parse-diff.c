@@ -151,7 +151,7 @@ static svn_boolean_t
 parse_offset(svn_linenum_t *offset, const char *number)
 {
   apr_int64_t parsed_offset;
-
+  
   errno = 0; /* clear errno for safety */
   parsed_offset = apr_atoi64(number);
   if (errno == ERANGE || parsed_offset < 0)
@@ -215,7 +215,7 @@ parse_hunk_header(const char *header, svn_hunk_t *hunk, apr_pool_t *pool)
   static const char * const atat = "@@";
   const char *p;
   svn_stringbuf_t *range;
-
+  
   p = header + strlen(atat);
   if (*p != ' ')
     /* No. */
@@ -356,7 +356,7 @@ svn_diff__parse_next_hunk(svn_hunk_t **hunk,
                * of the line just read is the hunk text's byte offset. */
               start = last_line;
             }
-
+          
           c = line->data[0];
           if (c == ' ' || c == '-' || c == '+')
             hunk_seen = TRUE;
@@ -372,7 +372,7 @@ svn_diff__parse_next_hunk(svn_hunk_t **hunk,
             }
         }
       else
-        {
+        { 
           if (starts_with(line->data, atat))
             /* Looks like we have a hunk header, let's try to rip it apart. */
             in_hunk = parse_hunk_header(line->data, *hunk, iterpool);

@@ -321,7 +321,7 @@ svn_wc__node_get_children(const apr_array_header_t **children,
                           apr_pool_t *scratch_pool);
 
 
-/**
+/** 
  * Fetch the repository root URL of the given @a local_abspath into
  * @a repos_root_url. Use @wc_ctx to access the working copy at
  * @a local_abspath, @a scratch_pool for all temporary allocations,
