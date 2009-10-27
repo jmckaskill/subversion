@@ -1049,7 +1049,7 @@ report_wc_directory_as_added(struct dir_baton *dir_baton,
           break;
         }
     }
-
+  
   svn_pool_destroy(subpool);
 
   return SVN_NO_ERROR;
@@ -1221,7 +1221,7 @@ open_directory(const char *path,
   /* Allocate path from the parent pool since the memory is used in the
      parent's compared hash */
   full_path = svn_dirent_join(pb->edit_baton->anchor_path, path, pb->pool);
-  b = make_dir_baton(full_path, pb, pb->edit_baton, FALSE, subdir_depth,
+  b = make_dir_baton(full_path, pb, pb->edit_baton, FALSE, subdir_depth, 
                      dir_pool);
   *child_baton = b;
 

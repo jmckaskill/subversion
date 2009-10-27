@@ -156,7 +156,7 @@ tweak_entries(svn_wc__db_t *db,
 
       /* If a file, or deleted, excluded or absent dir, then tweak the
          entry but don't recurse.
-
+         
          ### how does this translate into wc_db land? */
       if (kind == svn_wc__db_kind_file
             || status == svn_wc__db_status_not_present
@@ -897,7 +897,7 @@ mark_tree(svn_wc__db_t *db,
       /* If setting the COPIED flag, skip deleted items. */
       if (copied && entry->schedule == svn_wc_schedule_delete)
         continue;
-
+  
       /* If this is a directory, recurse. */
       if (entry->kind == svn_node_dir)
         {
@@ -1275,7 +1275,7 @@ svn_wc_delete4(svn_wc_context_t *wc_ctx,
         }
       /* else
          ### Handle added directory that is deleted in parent_access
-             (was_deleted=TRUE). The current behavior is to just delete the
+             (was_deleted=TRUE). The current behavior is to just delete the 
              directory with its administrative area inside, which is OK for WC-1.0,
              but when we move to a single database per working copy something
              must unversion the directory. */
@@ -1342,8 +1342,8 @@ svn_wc_delete4(svn_wc_context_t *wc_ctx,
       svn_path_is_empty(entry->name))
     {
       /* We have to release the WC-DB handles, to allow removing
-         the directory on windows.
-
+         the directory on windows. 
+         
          A better solution would probably be to call svn_wc__adm_destroy()
          in the right place, but we can't do that without breaking the API. */
 
@@ -2552,7 +2552,7 @@ svn_wc__get_pristine_contents(svn_stream_t **contents,
                               apr_pool_t *scratch_pool)
 {
   const char *text_base;
-
+  
   SVN_ERR(svn_wc__text_base_path(&text_base, db, local_abspath, FALSE,
                                  scratch_pool));
 

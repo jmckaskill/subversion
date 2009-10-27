@@ -125,7 +125,7 @@ crop_children(svn_wc__db_t *db,
           svn_wc_adm_access_t *dir_access = svn_wc__adm_retrieve_internal2(
                                                   db, local_dir_abspath, pool);
           SVN_ERR_ASSERT(dir_access != NULL);
-
+             
           if (depth == svn_depth_empty)
             IGNORE_LOCAL_MOD
               (svn_wc_remove_from_revision_control(dir_access, child_name,

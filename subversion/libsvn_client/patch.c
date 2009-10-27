@@ -386,7 +386,7 @@ match_hunk(svn_boolean_t *matched, patch_target_t *target,
     *matched = lines_matched;
   else if (target->eof)
     *matched = FALSE;
-
+  
   svn_stream_reset(hunk->original_text);
   SVN_ERR(svn_io_file_seek(target->file, APR_SET, &pos, pool));
   target->eof = FALSE;
@@ -470,7 +470,7 @@ determine_hunk_line(svn_linenum_t *line, patch_target_t *target,
   hunk_start = hunk->original_start == 0 ? 1 : hunk->original_start;
 
   /* Scan forward towards the hunk's line and look for a line where the
-   * hunk matches, in case there are local changes in the target which
+   * hunk matches, in case there are local changes in the target which 
    * cause the hunk to match early. */
   SVN_ERR(scan_for_match(&early_match, &early_matched_line, target, hunk,
                          FALSE, hunk_start, pool));
@@ -958,7 +958,7 @@ apply_one_patch(svn_patch_t *patch, const char *wc_path,
                * creating an empty file manually is not exactly hard either. */
               target->deleted = (target->kind != svn_node_none);
             }
-
+          
           if (target->deleted)
             {
               if (! dry_run)
@@ -1005,7 +1005,7 @@ apply_one_patch(svn_patch_t *patch, const char *wc_path,
                     }
                   else
                     {
-                      /* Install patched temporary file over working file.
+                      /* Install patched temporary file over working file. 
                        * ### Should this rather be done in a loggy fashion? */
                       SVN_ERR(svn_io_file_rename(target->result_path,
                                                target->abs_path, pool));
