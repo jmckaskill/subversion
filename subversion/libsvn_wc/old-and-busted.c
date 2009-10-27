@@ -159,7 +159,7 @@ read_str(const char **result,
 
 /* This is wrapper around read_str() (which see for details); it
    simply asks svn_path_is_canonical() of the string it reads,
-   returning an error if the test fails.
+   returning an error if the test fails. 
    ### It seems this is only called for entrynames now
    */
 static svn_error_t *

@@ -1,7 +1,7 @@
 /*
  * conflicts.c: routines for managing conflict data.
  *            NOTE: this code doesn't know where the conflict is
- *            actually stored.
+ *            actually stored. 
  *
  * ====================================================================
  *    Licensed to the Subversion Corporation (SVN Corp.) under one
@@ -63,7 +63,7 @@ struct svn_wc_conflict_t
   svn_wc_conflict_kind_t kind;
 
   /* When describing a property conflict the property name
-     or "" when no property name is available. (Upgrade from old WC or
+     or "" when no property name is available. (Upgrade from old WC or 
      raised via compatibility apis). */
   const char *property_name;
 
@@ -95,7 +95,7 @@ svn_wc_conflict_dup(svn_wc_conflict_t** duplicate,
       *duplicate = base;
       return SVN_NO_ERROR;
     }
-
+  
   SVN_ERR(conflict_alloc(&c, result_pool));
 
   c->kind = base->kind;

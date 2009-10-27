@@ -36,7 +36,7 @@
  * make this choice. See also issue #2028.
  *
  * Nearly all the @c svn_dirent_xxx, @c svn_relpath_xxx and @c svn_uri_xxx
- * functions expect paths passed into them to be in canonical form.  The only
+ * functions expect paths passed into them to be in canonical form.  The only 
  * functions which do *not* have such expectations are:
  *
  *    - @c svn_dirent_canonicalize()
@@ -192,8 +192,8 @@ svn_uri_join(const char *base,
              apr_pool_t *pool);
 
 
-/** Gets the name of the specified canonicalized @a dirent as it is known
- * within its parent directory. If the @a dirent is root, return "". The
+/** Gets the name of the specified canonicalized @a dirent as it is known 
+ * within its parent directory. If the @a dirent is root, return "". The 
  * returned value will not have slashes in it.
  *
  * Example: svn_dirent_basename("/foo/bar") -> "bar"
@@ -385,9 +385,9 @@ svn_boolean_t
 svn_uri_is_absolute(const char *uri);
 
 /** Return TRUE if @a dirent is considered a root directory on the platform
- * at hand.
+ * at hand. 
  * E.g.:
- *  On Posix:   '/'
+ *  On Posix:   '/' 
  *  On Windows: '/', 'X:/', '//server/share', 'X:'
  *
  * Note that on Windows '/' and 'X:' are roots, but paths starting with this
@@ -670,7 +670,7 @@ svn_uri_skip_ancestor(const char *uri1,
  * remove_redundancies is TRUE.
  *
  *   - Set @a *pcommon to the absolute dirent of the dirent common to
- *     all of the targets.  If the targets have no common prefix (e.g.
+ *     all of the targets.  If the targets have no common prefix (e.g. 
  *     "C:/file" and "D:/file" on Windows), set @a *pcommon to the empty
  *     string.
  *
@@ -710,15 +710,15 @@ svn_dirent_condense_targets(const char **pcommon,
  * (an array of <tt>const char *</tt>'s), and remove redundant uris if @a
  * remove_redundancies is TRUE.
  *
- *   - Set @a *pcommon to the common base uri of all of the targets.
- *     If the targets have no common prefix (e.g. "http://srv1/file"
+ *   - Set @a *pcommon to the common base uri of all of the targets. 
+ *     If the targets have no common prefix (e.g. "http://srv1/file" 
  *     and "http://srv2/file"), set @a *pcommon to the empty
  *     string.
  *
  *   - If @a pcondensed_targets is non-NULL, set @a *pcondensed_targets
  *     to an array of targets relative to @a *pcommon, and if @a
- *     remove_redundancies is TRUE, omit any uris that are descendants of
- *     another uri in @a targets.  If *pcommon is empty, @a
+ *     remove_redundancies is TRUE, omit any uris that are descendants of 
+ *     another uri in @a targets.  If *pcommon is empty, @a 
  *     *pcondensed_targets will contain absolute dirents; redundancies
  *     can still be removed.  If @a pcondensed_targets is NULL, leave it
  *     alone.

@@ -504,7 +504,7 @@ copy_file_administratively(svn_wc_context_t *wc_ctx,
           svn_subst_eol_style_t eol_style;
           const char *eol_str;
           apr_hash_t *keywords;
-
+          
           SVN_ERR(svn_wc__get_keywords(&keywords, db, src_abspath, NULL,
                                        pool, pool));
           SVN_ERR(svn_wc__get_eol_style(&eol_style, &eol_str, db,

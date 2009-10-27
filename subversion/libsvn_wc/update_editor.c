@@ -397,7 +397,7 @@ struct handler_baton
 };
 
 
-/* Return the url for LOCAL_ABSPATH of type KIND which can be unknown,
+/* Return the url for LOCAL_ABSPATH of type KIND which can be unknown, 
  * allocated in RESULT_POOL, or null if unable to obtain a url.
  *
  * Use WC_CTX to retrieve information on LOCAL_ABSPATH, and do
@@ -1029,7 +1029,7 @@ window_handler(svn_txdelta_window_t *window, void *baton)
                     svn_checksum_to_cstring(hb->actual_source_checksum,
                                             hb->pool));
         }
-
+  
       err = svn_error_compose_create(err, err2);
     }
 
@@ -1917,7 +1917,7 @@ set_copied_callback(const char *local_abspath,
 
 /* Schedule the WC item LOCAL_ABSPATH, whose entry is ENTRY, for re-addition.
  * If MODIFY_COPYFROM is TRUE, re-add the item as a copy with history
- * of (ENTRY->url)@(ENTRY->rev).
+ * of (ENTRY->url)@(ENTRY->rev). 
  * Assume that the item exists locally and is scheduled as still existing with
  * some local modifications relative to its (old) base, but does not exist in
  * the repository at the target revision.
@@ -2264,7 +2264,7 @@ delete_entry(const char *path,
   const char *their_url;
 
   local_abspath = svn_dirent_join(pb->local_abspath, base, pool);
-
+  
   if (pb->skip_descendants)
     {
       if (!pb->skip_this)
@@ -2404,7 +2404,7 @@ add_directory(const char *path,
               db->already_notified = TRUE;
               if (eb->notify_func)
                 {
-                  svn_wc_notify_t *notify =
+                  svn_wc_notify_t *notify = 
                         svn_wc_create_notify(db->local_abspath,
                                              svn_wc_notify_update_obstruction,
                                              pool);
@@ -2420,7 +2420,7 @@ add_directory(const char *path,
                  svn_dirent_local_style(db->path, pool));
             }
         }
-      else if ((entry != NULL) &&
+      else if ((entry != NULL) && 
                ((err == NULL) ||
                 (err->apr_err == SVN_ERR_NODE_UNEXPECTED_KIND)))
         {
@@ -2750,13 +2750,13 @@ open_directory(const char *path,
 
       return SVN_NO_ERROR;
     }
-
+  
   /* Is this path a fresh tree conflict victim?  If so, skip the tree
      with one notification. */
   SVN_ERR(check_tree_conflict(&tree_conflict, eb, db->local_abspath,
                               pb->log_accum,
                               svn_wc_conflict_action_edit,
-                              svn_node_dir, db->new_URL,
+                              svn_node_dir, db->new_URL, 
                               db->inside_deleted_subtree, pool));
 
   /* Remember the roots of any locally deleted trees. */
@@ -3325,7 +3325,7 @@ locate_copyfrom(svn_wc__db_t *db,
 
     if (!SVN_IS_VALID_REVNUM(wc_rev) || !SVN_IS_VALID_REVNUM(change_rev))
       return SVN_NO_ERROR;
-
+  
     /* Do we have the the right *version* of the file? */
     if (! ((change_rev <= copyfrom_rev) && (copyfrom_rev <= wc_rev)))
       return SVN_NO_ERROR;
@@ -3628,7 +3628,7 @@ add_file(const char *path,
         {
           if (eb->notify_func)
             {
-              svn_wc_notify_t *notify =
+              svn_wc_notify_t *notify = 
                       svn_wc_create_notify(fb->local_abspath,
                                            svn_wc_notify_update_obstruction,
                                            pool);
@@ -3812,7 +3812,7 @@ open_file(const char *path,
   SVN_ERR(check_tree_conflict(&tree_conflict, eb, fb->local_abspath,
                               pb->log_accum,
                               svn_wc_conflict_action_edit,
-                              svn_node_file, fb->new_URL,
+                              svn_node_file, fb->new_URL, 
                               pb->inside_deleted_subtree, pool));
 
   if (tree_conflict)
@@ -5455,7 +5455,7 @@ svn_wc_add_repos_file4(svn_wc_context_t *wc_ctx,
   const svn_wc_entry_t *ent;
   const svn_wc_entry_t *dst_entry;
   svn_stringbuf_t *log_accum;
-  svn_wc_adm_access_t *adm_access =
+  svn_wc_adm_access_t *adm_access = 
       svn_wc__adm_retrieve_internal2(wc_ctx->db, dir_abspath, pool);
 
   SVN_ERR_ASSERT(strcmp(dir_abspath,
