@@ -1504,12 +1504,12 @@ def diff_renamed_file(sbox):
   # Repos->WC of the directory ignoring copyfrom
   exit_code, diff_output, err_output = svntest.main.run_svn(
     None, 'diff', '-r', '1', '--show-copies-as-adds', os.path.join('A', 'D'))
-
+  
   if check_diff_output(diff_output,
                        pi_path,
                        'D') :
     raise svntest.Failure
-
+  
   if check_diff_output(diff_output,
                        pi2_path,
                        'A') :
@@ -3029,7 +3029,7 @@ def diff_ignore_mergeinfo(sbox):
   # Set some completely bogus mergeinfo
   svntest.main.run_svn(None, 'propset', 'svn:mergeinfo', 'bar:1-2', beta_path,
                        H_path, C_path, gamma_path, rho_path)
-  svntest.main.run_svn(None, 'propset', 'svn:bar', 'foo', iota_path, chi_path,
+  svntest.main.run_svn(None, 'propset', 'svn:bar', 'foo', iota_path, chi_path, 
                        rho_path)
 
   # Run and check vanilla diff
