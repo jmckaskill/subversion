@@ -4125,7 +4125,7 @@ def path_copy_in_repo_2475(sbox):
 def commit_copy_depth_empty(sbox):
   "copy a wcdir, then commit it with --depth empty"
   sbox.build()
-
+  
   a = os.path.join(sbox.wc_dir, 'A')
   new_a = os.path.join(sbox.wc_dir, 'new_A')
 
@@ -4135,7 +4135,7 @@ def commit_copy_depth_empty(sbox):
   ### svn: Commit succeeded, but other errors follow:
   ### svn: Error bumping revisions post-commit (details follow):
   ### svn: Unable to lock '<snip>\new_A\B'
-
+  
   # Then the working copy is locked and can't be unlocked with svn cleanup.
   svntest.actions.run_and_verify_svn(None, None, [], 'ci',
                                      new_a, '--depth', 'empty',
