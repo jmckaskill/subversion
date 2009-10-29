@@ -424,7 +424,7 @@ get_empty_tmp_file(const char **tmp_filename,
 }
 
 
-/* Return the url for LOCAL_ABSPATH of type KIND which can be unknown,
+/* Return the url for LOCAL_ABSPATH of type KIND which can be unknown, 
  * allocated in RESULT_POOL, or null if unable to obtain a url.
  *
  * Use WC_CTX to retrieve information on LOCAL_ABSPATH, and do
@@ -1053,7 +1053,7 @@ window_handler(svn_txdelta_window_t *window, void *baton)
                     svn_checksum_to_cstring(hb->actual_source_checksum,
                                             hb->pool));
         }
-
+  
       err = svn_error_compose_create(err, err2);
     }
 
@@ -1831,7 +1831,7 @@ node_already_conflicted(svn_boolean_t *conflicted,
                                                 db, local_abspath,
                                                 scratch_pool));
 
-          *conflicted = (text_conflicted || prop_conflicted
+          *conflicted = (text_conflicted || prop_conflicted 
                             || tree_conflicted);
           return SVN_NO_ERROR;
         }
@@ -1923,7 +1923,7 @@ set_copied_callback(const char *local_abspath,
 
 /* Schedule the WC item LOCAL_ABSPATH, whose entry is ENTRY, for re-addition.
  * If MODIFY_COPYFROM is TRUE, re-add the item as a copy with history
- * of (ENTRY->url)@(ENTRY->rev).
+ * of (ENTRY->url)@(ENTRY->rev). 
  * Assume that the item exists locally and is scheduled as still existing with
  * some local modifications relative to its (old) base, but does not exist in
  * the repository at the target revision.
@@ -2261,7 +2261,7 @@ delete_entry(const char *path,
   const char *their_url;
 
   local_abspath = svn_dirent_join(pb->local_abspath, base, pool);
-
+  
   if (pb->skip_descendants)
     {
       if (!pb->skip_this)
@@ -2402,7 +2402,7 @@ add_directory(const char *path,
       db->already_notified = TRUE;
       if (eb->notify_func)
         {
-          svn_wc_notify_t *notify =
+          svn_wc_notify_t *notify = 
                 svn_wc_create_notify(db->local_abspath,
                                      svn_wc_notify_update_obstruction,
                                      pool);
@@ -2429,7 +2429,7 @@ add_directory(const char *path,
           db->already_notified = TRUE;
           if (eb->notify_func)
             {
-              svn_wc_notify_t *notify =
+              svn_wc_notify_t *notify = 
                     svn_wc_create_notify(db->local_abspath,
                                          svn_wc_notify_update_obstruction,
                                          pool);
@@ -2486,7 +2486,7 @@ add_directory(const char *path,
           db->already_notified = TRUE;
           if (eb->notify_func)
             {
-              svn_wc_notify_t *notify =
+              svn_wc_notify_t *notify = 
                     svn_wc_create_notify(db->local_abspath,
                                          svn_wc_notify_update_obstruction,
                                          pool);
@@ -2794,12 +2794,12 @@ open_directory(const char *path,
 
       return SVN_NO_ERROR;
     }
-
+  
   /* Is this path a fresh tree conflict victim?  If so, skip the tree
      with one notification. */
   SVN_ERR(check_tree_conflict(&tree_conflict, eb, db->local_abspath,
                               svn_wc_conflict_action_edit,
-                              svn_node_dir, db->new_URL,
+                              svn_node_dir, db->new_URL, 
                               db->inside_deleted_subtree, pool));
 
   /* Remember the roots of any locally deleted trees. */
@@ -3381,7 +3381,7 @@ locate_copyfrom(svn_wc__db_t *db,
 
     if (!SVN_IS_VALID_REVNUM(wc_rev) || !SVN_IS_VALID_REVNUM(change_rev))
       return SVN_NO_ERROR;
-
+  
     /* Do we have the the right *version* of the file? */
     if (! ((change_rev <= copyfrom_rev) && (copyfrom_rev <= wc_rev)))
       return SVN_NO_ERROR;
@@ -3677,7 +3677,7 @@ add_file(const char *path,
       fb->already_notified = TRUE;
       if (eb->notify_func)
         {
-          svn_wc_notify_t *notify =
+          svn_wc_notify_t *notify = 
                 svn_wc_create_notify(fb->local_abspath,
                                      svn_wc_notify_update_obstruction,
                                      pool);
@@ -3694,7 +3694,7 @@ add_file(const char *path,
     }
 
   /* An unversioned, obstructing file may be OK. */
-  if (kind == svn_node_file &&
+  if (kind == svn_node_file && 
       (wc_kind == svn_wc__db_kind_unknown || !IS_NODE_PRESENT(status)))
     {
       fb->existed = TRUE;
@@ -3703,7 +3703,7 @@ add_file(const char *path,
         {
           if (eb->notify_func)
             {
-              svn_wc_notify_t *notify =
+              svn_wc_notify_t *notify = 
                       svn_wc_create_notify(fb->local_abspath,
                                            svn_wc_notify_update_obstruction,
                                            pool);
@@ -3757,7 +3757,7 @@ add_file(const char *path,
               fb->already_notified = TRUE;
               if (eb->notify_func)
                 {
-                  svn_wc_notify_t *notify =
+                  svn_wc_notify_t *notify = 
                         svn_wc_create_notify(fb->local_abspath,
                                              svn_wc_notify_update_obstruction,
                                              pool);
@@ -3800,7 +3800,7 @@ add_file(const char *path,
             /* Ignore these hidden states. Allow pulling them (back) in. */
             break;
           case svn_wc__db_status_not_present:
-            break;
+            break; 
           case svn_wc__db_status_added:
             /* ### BH: I think this case should be conditional with something
                        like allow_unver_obstructions, as this changes the
@@ -3931,7 +3931,7 @@ open_file(const char *path,
   /* Is this path the victim of a newly-discovered tree conflict? */
   SVN_ERR(check_tree_conflict(&tree_conflict, eb, fb->local_abspath,
                               svn_wc_conflict_action_edit,
-                              svn_node_file, fb->new_URL,
+                              svn_node_file, fb->new_URL, 
                               pb->inside_deleted_subtree, pool));
 
   if (tree_conflict)
