@@ -898,7 +898,7 @@ test_pdh(apr_pool_t *pool)
             "sub/A/B/C/D", ROOT_ONE, UUID_ONE, 1,
             svn_wc__db_kind_file, svn_wc__db_status_absent,
             pool));
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -1230,7 +1230,7 @@ test_global_relocate(apr_pool_t *pool)
   const char *repos_relpath;
   const char *repos_root_url;
   const char *repos_uuid;
-
+  
   SVN_ERR(create_open(&db, &local_abspath,
                       "test_global_relocate", SVN_WC__VERSION,
                       svn_wc__db_openmode_readonly, pool));
