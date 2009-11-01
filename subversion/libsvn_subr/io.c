@@ -801,7 +801,7 @@ svn_io_copy_perms(const char *src,
          in the platform-specific path encoding; not necessary UTF-8.
          We need a platform-specific implementation to get the
          permissions right. */
-
+         
 #ifndef WIN32
   {
     apr_file_t *src_file;
@@ -1749,7 +1749,7 @@ stringbuf_from_aprfile(svn_stringbuf_t **result,
         }
     }
 
-
+    
   /* XXX: We should check the incoming data for being of type binary. */
 
   res = svn_stringbuf_create_ensure(res_initial_len, pool);
@@ -3718,6 +3718,6 @@ svn_io_open_unique_file3(apr_file_t **file,
 
   if (!file)
     SVN_ERR(svn_io_file_close(tempfile, scratch_pool));
-
+    
   return SVN_NO_ERROR;
 }
