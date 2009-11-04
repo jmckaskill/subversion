@@ -14,13 +14,13 @@ replacement that was under 30 characters long. :) -Fitz
 
 They're now macros, and since they're shared across 3 different
 libraries, I think they should stay. -Fitz
-
+ 
 > SVN_ERR_FS_PATH_LOCKED
 > SVN_ERR_FS_NO_LOCK_TOKEN
 >    Need to clarify the difference between these, or merge them.
 
 Not sure what to do about that. -Fitz
-
+ 
 > SVN_ERR_REPOS_UNSUPPORTED_VERSION
 > SVN_ERR_FS_UNSUPPORTED_FORMAT
 >    Why has the error number changed?  Isn't that an ABI violation if
