@@ -17,7 +17,7 @@ EXIT 3
 
 :ra_local
 time /T
-python win-tests.py %TEST_DIR%\%FS_TYPE% -f %FS_TYPE% -c -r
+python win-tests.py %TEST_DIR%\%FS_TYPE% -f %FS_TYPE% -c -r 
 if ERRORLEVEL 1 set ERR=1
 time /T
 echo.
