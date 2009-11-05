@@ -235,10 +235,10 @@ svn_ra_serf__has_capability(svn_ra_session_t *ra_session,
           apr_array_header_t *paths = apr_array_make(pool, 1,
                                                      sizeof(char *));
           APR_ARRAY_PUSH(paths, const char *) = "";
-
+          
           err = svn_ra_serf__get_mergeinfo(ra_session, &ignored, paths, 0,
                                            FALSE, FALSE, pool);
-
+          
           if (err)
             {
               if (err->apr_err == SVN_ERR_UNSUPPORTED_FEATURE)
@@ -259,7 +259,7 @@ svn_ra_serf__has_capability(svn_ra_session_t *ra_session,
             }
           else
             cap_result = capability_yes;
-
+          
           apr_hash_set(serf_sess->capabilities,
                        SVN_RA_CAPABILITY_MERGEINFO, APR_HASH_KEY_STRING,
                        cap_result);
@@ -430,12 +430,12 @@ load_config(svn_ra_serf__session_t *session,
   else
     proxy_port = 80;
 
-  if (proxy_host)
+  if (proxy_host) 
     {
       apr_sockaddr_t *proxy_addr;
       apr_status_t status;
 
-      status = apr_sockaddr_info_get(&proxy_addr, proxy_host,
+      status = apr_sockaddr_info_get(&proxy_addr, proxy_host, 
                                      APR_INET, proxy_port, 0,
                                      session->pool);
       session->using_proxy = TRUE;
@@ -1158,7 +1158,7 @@ svn_ra_serf__get_uuid(svn_ra_session_t *ra_session,
                                     "resource or any of its parents"));
         }
     }
-
+  
   *uuid = session->uuid;
 
   return SVN_NO_ERROR;
