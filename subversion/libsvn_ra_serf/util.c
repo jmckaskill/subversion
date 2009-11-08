@@ -267,7 +267,6 @@ svn_ra_serf__conn_setup(apr_socket_t *sock,
                         void *baton,
                         apr_pool_t *pool)
 {
-  serf_bucket_t *wb = NULL;
 #else
 /* This is the old API, for compatibility with serf
    versions <= 0.3. */
@@ -288,11 +287,6 @@ svn_ra_serf__conn_setup(apr_socket_t *sock,
       /* input stream */
       rb = serf_bucket_ssl_decrypt_create(rb, conn->ssl_context,
                                           conn->bkt_alloc);
-#if SERF_VERSION_AT_LEAST(0, 4, 0)
-      /* output stream */
-      *write_bkt = serf_bucket_ssl_encrypt_create(*write_bkt, conn->ssl_context,
-                                                  conn->bkt_alloc);
-#endif
       if (!conn->ssl_context)
         {
           conn->ssl_context = serf_bucket_ssl_encrypt_context_get(rb);
@@ -326,6 +320,12 @@ svn_ra_serf__conn_setup(apr_socket_t *sock,
                 }
             }
         }
+#if SERF_VERSION_AT_LEAST(0, 4, 0)
+      /* output stream */
+      *write_bkt = serf_bucket_ssl_encrypt_create(*write_bkt, conn->ssl_context,
+                                                  conn->bkt_alloc);
+#endif
+
     }
 
 #if SERF_VERSION_AT_LEAST(0, 4, 0)
@@ -1058,6 +1058,7 @@ svn_ra_serf__handle_xml_parser(serf_request_t *request,
   apr_status_t status;
   int xml_status;
   svn_ra_serf__xml_parser_t *ctx = baton;
+  svn_error_t *err;
 
   serf_bucket_response_status(response, &sl);
 
@@ -1083,10 +1084,11 @@ svn_ra_serf__handle_xml_parser(serf_request_t *request,
             }
         }
 
-      SVN_ERR(svn_error_compose_create(
-          svn_ra_serf__handle_server_error(request, response, pool),
-          svn_ra_serf__handle_discard_body(request, response, NULL, pool)));
+      err = svn_ra_serf__handle_server_error(request, response, pool);
 
+      SVN_ERR(svn_error_compose_create(
+        svn_ra_serf__handle_discard_body(request, response, NULL, pool),
+        err));
       return SVN_NO_ERROR;
     }
 
@@ -1245,8 +1247,11 @@ handle_response(serf_request_t *request,
         {
           ctx->session->pending_error =
               svn_error_createf(SVN_ERR_RA_DAV_MALFORMED_DATA,
-                                ctx->session->pending_error,
-                               _("Premature EOF seen from server"));
+                                svn_error_compose_create(
+                                           ctx->session->pending_error,
+                                           svn_error_wrap_apr(status, NULL)),
+                                _("Premature EOF seen from server "
+                                  "(http status=%d)"), sl.code);
           /* This discard may be no-op, but let's preserve the algorithm
              used elsewhere in this function for clarity's sake. */
           svn_ra_serf__response_discard_handler(request, response, NULL, pool);
