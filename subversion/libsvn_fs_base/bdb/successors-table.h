@@ -42,7 +42,7 @@ int svn_fs_bdb__open_successors_table(DB **successors_p,
 /* Add SUCC_ID as a record to the `successors' table in FS as part of
    TRAIL, keyed on NODE_ID.
 
-   NODE_ID and SUCC_ID are unparsed node-revision-ID strings.
+   NODE_ID and SUCC_ID are unparsed node-revision-ID strings. 
 
    Note that because the `successors' table uses duplicate keys, this
    function will not overwrite prior additions that have the NODE_ID

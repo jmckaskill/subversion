@@ -132,7 +132,7 @@ svn_fs_base__delete_node_revision(svn_fs_t *fs,
     {
       node_id_str = svn_fs_unparse_id(pred_id, pool);
       succ_id_str = svn_fs_unparse_id(id, pool);
-      SVN_ERR(svn_fs_bdb__successors_delete(fs, node_id_str->data,
+      SVN_ERR(svn_fs_bdb__successors_delete(fs, node_id_str->data, 
                                             succ_id_str->data, trail, pool));
     }
   else
@@ -165,13 +165,13 @@ svn_fs_base__get_node_successors(apr_array_header_t **successors_p,
 
   SVN_ERR(svn_fs_bdb__successors_fetch(&all_successors, fs, node_id_str->data,
                                        trail, pool));
-  successors = apr_array_make(pool, all_successors->nelts,
+  successors = apr_array_make(pool, all_successors->nelts, 
                               sizeof(const svn_fs_id_t *));
   for (i = 0; i < all_successors->nelts; i++)
     {
       svn_revnum_t revision;
       const char *succ_id_str = APR_ARRAY_IDX(all_successors, i, const char *);
-      const svn_fs_id_t *succ_id = svn_fs_parse_id(succ_id_str,
+      const svn_fs_id_t *succ_id = svn_fs_parse_id(succ_id_str, 
                                                    strlen(succ_id_str), pool);
 
       svn_pool_clear(subpool);
@@ -182,12 +182,12 @@ svn_fs_base__get_node_successors(apr_array_header_t **successors_p,
       if (committed_only)
         {
           SVN_ERR(svn_fs_base__txn_get_revision
-                  (&revision, fs, svn_fs_base__id_txn_id(succ_id),
+                  (&revision, fs, svn_fs_base__id_txn_id(succ_id), 
                    trail, subpool));
           if (! SVN_IS_VALID_REVNUM(revision))
             continue;
         }
-
+            
       APR_ARRAY_PUSH(successors, const svn_fs_id_t *) = succ_id;
     }
   svn_pool_destroy(subpool);
