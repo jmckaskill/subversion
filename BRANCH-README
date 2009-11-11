@@ -1,80 +1,64 @@
-This branch exists to play with ideas around shared storage of
-repository data strings and such.  See also this issue:
+This branch exists for the tracking of node-revision successor IDs in
+the FS backends.  It is being managed as a reintegrate-able branch,
+with regular catch-up merges from the trunk.
 
-   http://subversion.tigris.org/issues/show_bug.cgi?id=2286
-   ("Identical files should share storage space in repository")
+THE IDEA
+========
 
-::: CURRENT PROBLEMS :::
+Currently the Subversion filesystem backends track the direct
+predecessor of every node-revision that has one.  (Only those
+node-revisions which are the first in a line of history for a given
+versioned object don't have predecessors.)  It is this pred-ID
+tracking that allows us to efficiently walk backwards through history
+to find the previous versions of modified files and directories and
+such.
 
-The libsvn_fs_base implementation suffers from a major problem:
-representation delta chain cycles.  The problem is simple to trigger.
-Simply add a file to version control and commit; add some text to the
-end of the file and commit; revert the file to the previous state and
-commit.  Under the hood, we see the following happen:
+But what we canNOT do is walk *forward*.  We cannot today efficiently
+answer these questions for a given node-revision:
 
-  1. the first commit adds the file, with rep key X for its data.
+   Q: In what revision was /path/to/foo.c@r15 next changed?
+   Q: To what locations has this /some/fixed/file.c@r45 been copied?
 
-  2. the second commit adds a new fulltext with rep key Y for its
-     data; X is deltafied against Y.
+By also storing for each node-revision a list of its successors (the
+exact opposite of the predessor mapping), we provide a basis for
+answering those questions:
 
-  3. the third (reverting) commit sees that the file's contents
-     already have representation, so it uses rep key X for its data; Y
-     is deltafied against X -- OOPS!
+   Q: In what revision was /path/to/foo.c@r15 next changed?
+   A: Lookup the node-revision-ID for /path/to/foo.c@r15.  Lookup the
+      successor IDs for that node-revision-IDs.  Sort successors by
+      the revisions in which they appeared, and choose the first of
+      them.
 
-Here's a script to reproduce the problem.
 
-   #!/bin/sh
+   Q: To what locations has this /some/fixed/file.c@r45 been copied?
+   A: Lookup the node-revision-ID for /some/fixed/file.c@r45.  Lookup
+      the successor IDs for that node-revision-IDs.  For each
+      successor, check for a corresponding copy record.  If you find
+      one, the destination of that copy is one of the places that this
+      node revision was copied; if you don't, this was a normal
+      in-place modification of the file or directory, not a copy.
 
-   SVNADMIN=/home/cmpilato/projects/fs-rep-sharing/subversion/svnadmin/svnadmin
-   SVNSYNC=/home/cmpilato/projects/fs-rep-sharing/subversion/svnsync/svnsync
-   SVN=/home/cmpilato/projects/fs-rep-sharing/subversion/svn/svn
-   REPOS=fs-rep-sharing-test2
+And, of course, this could lead to expansion of the svn_fs_history_*
+API set, allowing for the likes of svn_fs_history_next() or
+svn_fs_history_copies() or somesuch.  From there we could perhaps
+improve our peg-and-operative-revision resolution algorithm to favor
+one or another flavor of successor (copy or not).
 
-   # Cleanup old test data.
-   rm -rf ${REPOS}
 
-   # Create a new repository.
-   ${SVNADMIN} create --fs-type bdb ${REPOS}
+STATUS
+======
 
-   # Get the repository full path with some shell trickery.
-   OLDDIR=`pwd`
-   cd ${REPOS}
-   REPOS=`pwd`
-   cd ${OLDDIR}
+Only the BDB backend has been tweaked so far.  The code is believed to
+cover the basic maintenance of the successor ID mapping, adding map
+items when new nodes are created, removing them when nodes are
+deleted.  The code assumes that the only node revisions every removed
+from the filesystem are those which have no successors (which might
+not hold up if an obliteration feature is added, depending on the
+implementation).
 
-   # Set some limitations
-   ulimit -v 100000
-   ulimit -m 100000
-   ulimit -c unlimited
+Currently the branch does not have any FS format version changes
+present.  That would need to be added for the code is released.
 
-   # Checkout, and generate some commits
-   ${SVN} co -q file://${REPOS} ${REPOS}/wc
-   cat > ${REPOS}/wc/some-file <<EOF
-   012345678901234567890123456789012345678901234567890123456789
-   abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz
-   012345678901234567890123456789012345678901234567890123456789
-   abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz
-   012345678901234567890123456789012345678901234567890123456789
-   abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz
-   012345678901234567890123456789012345678901234567890123456789
-   abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz
-   012345678901234567890123456789012345678901234567890123456789
-   abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz
-   EOF
+Lacking also are C unit tests for this functionality.
 
-   ${SVN} add -q ${REPOS}/wc/some-file
-   ${SVN} ci -q ${REPOS}/wc -m 'Add file'
-   db4.6_dump -kp ${REPOS}/db/representations
-
-   echo 'looloo' >> ${REPOS}/wc/some-file
-   ${SVN} ci -q ${REPOS}/wc -m 'Change file'
-   db4.6_dump -kp ${REPOS}/db/representations
-
-   head -10 ${REPOS}/wc/some-file > /tmp/tmpfile
-   mv /tmp/tmpfile ${REPOS}/wc/some-file
-   ${SVN} ci -q ${REPOS}/wc -m 'Revert file'
-   db4.6_dump -kp ${REPOS}/db/representations
-
-   echo 'foofoo' >> ${REPOS}/wc/some-file
-   ${SVN} ci ${REPOS}/wc -m 'Change file again'
-
+And, of course, the FSFS support for this enhancement is non-existent.
