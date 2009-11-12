@@ -24,7 +24,7 @@
  * Modified by the GLib Team and others 1997-1999.  See the AUTHORS
  * file for a list of people on the GLib Team.  See the ChangeLog
  * files for a list of changes.  These files are distributed with
- * GLib at ftp://ftp.gtk.org/pub/gtk/.
+ * GLib at ftp://ftp.gtk.org/pub/gtk/. 
  */
 
 
@@ -78,7 +78,7 @@ struct _GIOWin32Watch {
   GIOFunc       callback;
 };
 
-static gboolean g_io_win32_msg_prepare  (gpointer  source_data,
+static gboolean g_io_win32_msg_prepare  (gpointer  source_data, 
 					 GTimeVal *current_time,
 					 gint     *timeout);
 static gboolean g_io_win32_msg_check    (gpointer  source_data,
@@ -87,7 +87,7 @@ static gboolean g_io_win32_msg_dispatch (gpointer  source_data,
 					 GTimeVal *current_time,
 					 gpointer  user_data);
 
-static gboolean g_io_win32_fd_prepare  (gpointer  source_data,
+static gboolean g_io_win32_fd_prepare  (gpointer  source_data, 
 					GTimeVal *current_time,
 					gint     *timeout);
 static gboolean g_io_win32_fd_check    (gpointer  source_data,
@@ -96,7 +96,7 @@ static gboolean g_io_win32_fd_dispatch (gpointer  source_data,
 					GTimeVal *current_time,
 					gpointer  user_data);
 
-static gboolean g_io_win32_pipe_prepare  (gpointer  source_data,
+static gboolean g_io_win32_pipe_prepare  (gpointer  source_data, 
 					  GTimeVal *current_time,
 					  gint     *timeout);
 static gboolean g_io_win32_pipe_check    (gpointer  source_data,
@@ -106,7 +106,7 @@ static gboolean g_io_win32_pipe_dispatch (gpointer  source_data,
 					  gpointer  user_data);
 static void g_io_win32_pipe_destroy	 (gpointer source_data);
 
-static gboolean g_io_win32_sock_prepare  (gpointer  source_data,
+static gboolean g_io_win32_sock_prepare  (gpointer  source_data, 
 					  GTimeVal *current_time,
 					  gint     *timeout);
 static gboolean g_io_win32_sock_check    (gpointer  source_data,
@@ -117,17 +117,17 @@ static gboolean g_io_win32_sock_dispatch (gpointer  source_data,
 
 static void g_io_win32_destroy (gpointer source_data);
 
-static GIOError g_io_win32_msg_read (GIOChannel *channel,
-				     gchar      *buf,
+static GIOError g_io_win32_msg_read (GIOChannel *channel, 
+				     gchar      *buf, 
 				     guint       count,
 				     guint      *bytes_written);
 
-static GIOError g_io_win32_msg_write(GIOChannel *channel,
-				     gchar      *buf,
+static GIOError g_io_win32_msg_write(GIOChannel *channel, 
+				     gchar      *buf, 
 				     guint       count,
 				     guint      *bytes_written);
 static GIOError g_io_win32_msg_seek (GIOChannel *channel,
-				     gint        offset,
+				     gint        offset, 
 				     GSeekType   type);
 static void g_io_win32_msg_close    (GIOChannel *channel);
 static guint g_io_win32_msg_add_watch (GIOChannel      *channel,
@@ -137,16 +137,16 @@ static guint g_io_win32_msg_add_watch (GIOChannel      *channel,
 				       gpointer         user_data,
 				       GDestroyNotify   notify);
 
-static GIOError g_io_win32_fd_read (GIOChannel *channel,
-				    gchar      *buf,
+static GIOError g_io_win32_fd_read (GIOChannel *channel, 
+				    gchar      *buf, 
 				    guint       count,
 				    guint      *bytes_written);
-static GIOError g_io_win32_fd_write(GIOChannel *channel,
-				    gchar      *buf,
+static GIOError g_io_win32_fd_write(GIOChannel *channel, 
+				    gchar      *buf, 
 				    guint       count,
 				    guint      *bytes_written);
 static GIOError g_io_win32_fd_seek (GIOChannel *channel,
-				    gint        offset,
+				    gint        offset, 
 				    GSeekType   type);
 static void g_io_win32_fd_close (GIOChannel *channel);
 
@@ -160,15 +160,15 @@ static guint g_io_win32_fd_add_watch (GIOChannel      *channel,
 				      GDestroyNotify   notify);
 
 static GIOError g_io_win32_no_seek (GIOChannel *channel,
-				    gint        offset,
+				    gint        offset, 
 				    GSeekType   type);
 
-static GIOError g_io_win32_pipe_read (GIOChannel *channel,
-				      gchar      *buf,
+static GIOError g_io_win32_pipe_read (GIOChannel *channel, 
+				      gchar      *buf, 
 				      guint       count,
 				      guint      *bytes_written);
-static GIOError g_io_win32_pipe_write (GIOChannel *channel,
-				       gchar      *buf,
+static GIOError g_io_win32_pipe_write (GIOChannel *channel, 
+				       gchar      *buf, 
 				       guint       count,
 				       guint      *bytes_written);
 static void g_io_win32_pipe_close    (GIOChannel *channel);
@@ -180,12 +180,12 @@ static guint g_io_win32_pipe_add_watch (GIOChannel      *channel,
 					GDestroyNotify   notify);
 static void g_io_win32_pipe_free (GIOChannel *channel);
 
-static GIOError g_io_win32_sock_read (GIOChannel *channel,
-				      gchar      *buf,
+static GIOError g_io_win32_sock_read (GIOChannel *channel, 
+				      gchar      *buf, 
 				      guint       count,
 				      guint      *bytes_written);
-static GIOError g_io_win32_sock_write(GIOChannel *channel,
-				      gchar      *buf,
+static GIOError g_io_win32_sock_write(GIOChannel *channel, 
+				      gchar      *buf, 
 				      guint       count,
 				      guint      *bytes_written);
 static void g_io_win32_sock_close    (GIOChannel *channel);
@@ -272,7 +272,7 @@ static struct {
 static gint n_watched_pipes = 0;
 
 static gboolean
-g_io_win32_msg_prepare  (gpointer source_data,
+g_io_win32_msg_prepare  (gpointer source_data, 
 			 GTimeVal *current_time,
 			 gint    *timeout)
 {
@@ -285,7 +285,7 @@ g_io_win32_msg_prepare  (gpointer source_data,
   return PeekMessage (&msg, win32_channel->hwnd, 0, 0, PM_NOREMOVE) == TRUE;
 }
 
-static gboolean
+static gboolean 
 g_io_win32_msg_check    (gpointer source_data,
 			 GTimeVal *current_time)
 {
@@ -297,7 +297,7 @@ g_io_win32_msg_check    (gpointer source_data,
 }
 
 static gboolean
-g_io_win32_msg_dispatch (gpointer source_data,
+g_io_win32_msg_dispatch (gpointer source_data, 
 			 GTimeVal *current_time,
 			 gpointer user_data)
 
@@ -320,7 +320,7 @@ g_io_win32_destroy (gpointer source_data)
 }
 
 static gboolean
-g_io_win32_fd_prepare  (gpointer source_data,
+g_io_win32_fd_prepare  (gpointer source_data, 
 			GTimeVal *current_time,
 			gint    *timeout)
 {
@@ -329,7 +329,7 @@ g_io_win32_fd_prepare  (gpointer source_data,
   return FALSE;
 }
 
-static gboolean
+static gboolean 
 g_io_win32_fd_check    (gpointer source_data,
 			GTimeVal *current_time)
 {
@@ -339,7 +339,7 @@ g_io_win32_fd_check    (gpointer source_data,
 }
 
 static gboolean
-g_io_win32_fd_dispatch (gpointer source_data,
+g_io_win32_fd_dispatch (gpointer source_data, 
 			GTimeVal *current_time,
 			gpointer user_data)
 
@@ -352,8 +352,8 @@ g_io_win32_fd_dispatch (gpointer source_data,
 }
 
 static GIOError
-g_io_win32_msg_read (GIOChannel *channel,
-		     gchar     *buf,
+g_io_win32_msg_read (GIOChannel *channel, 
+		     gchar     *buf, 
 		     guint      count,
 		     guint     *bytes_read)
 {
@@ -362,7 +362,7 @@ g_io_win32_msg_read (GIOChannel *channel,
 
   if (count < sizeof (MSG))
     return G_IO_ERROR_INVAL;
-
+  
   if (!PeekMessage (&msg, win32_channel->hwnd, 0, 0, PM_REMOVE))
     return G_IO_ERROR_AGAIN;
 
@@ -370,10 +370,10 @@ g_io_win32_msg_read (GIOChannel *channel,
   *bytes_read = sizeof (MSG);
   return G_IO_ERROR_NONE;
 }
-
-static GIOError
-g_io_win32_msg_write(GIOChannel *channel,
-		     gchar     *buf,
+		       
+static GIOError 
+g_io_win32_msg_write(GIOChannel *channel, 
+		     gchar     *buf, 
 		     guint      count,
 		     guint     *bytes_written)
 {
@@ -390,12 +390,12 @@ g_io_win32_msg_write(GIOChannel *channel,
     return G_IO_ERROR_UNKNOWN;
 
   *bytes_written = sizeof (MSG);
-  return G_IO_ERROR_NONE;
+  return G_IO_ERROR_NONE; 
 }
 
-static GIOError
+static GIOError 
 g_io_win32_no_seek (GIOChannel *channel,
-		    gint      offset,
+		    gint      offset, 
 		    GSeekType type)
 {
   g_warning ("g_io_win32_no_seek: unseekable IO channel type");
@@ -403,13 +403,13 @@ g_io_win32_no_seek (GIOChannel *channel,
 }
 
 
-static void
+static void 
 g_io_win32_msg_close (GIOChannel *channel)
 {
   /* Nothing to be done. Or should we set hwnd to some invalid value? */
 }
 
-static void
+static void 
 g_io_win32_free (GIOChannel *channel)
 {
   GIOWin32Channel *win32_channel = (GIOWin32Channel *) channel;
@@ -417,7 +417,7 @@ g_io_win32_free (GIOChannel *channel)
   g_free (win32_channel);
 }
 
-static guint
+static guint 
 g_io_win32_msg_add_watch (GIOChannel    *channel,
 			  gint           priority,
 			  GIOCondition   condition,
@@ -427,7 +427,7 @@ g_io_win32_msg_add_watch (GIOChannel    *channel,
 {
   GIOWin32Watch *watch = g_new (GIOWin32Watch, 1);
   GIOWin32Channel *win32_channel = (GIOWin32Channel *) channel;
-
+  
   watch->channel = channel;
   g_io_channel_ref (channel);
 
@@ -444,7 +444,7 @@ g_io_win32_msg_add_watch (GIOChannel    *channel,
 }
 
 static gboolean
-g_io_win32_pipe_prepare  (gpointer source_data,
+g_io_win32_pipe_prepare  (gpointer source_data, 
 			  GTimeVal *current_time,
 			  gint    *timeout)
 {
@@ -453,7 +453,7 @@ g_io_win32_pipe_prepare  (gpointer source_data,
   return FALSE;
 }
 
-static gboolean
+static gboolean 
 g_io_win32_pipe_check    (gpointer source_data,
 			  GTimeVal *current_time)
 {
@@ -462,7 +462,7 @@ g_io_win32_pipe_check    (gpointer source_data,
 }
 
 static gboolean
-g_io_win32_pipe_dispatch (gpointer source_data,
+g_io_win32_pipe_dispatch (gpointer source_data, 
 			  GTimeVal *current_time,
 			  gpointer user_data)
 
@@ -484,7 +484,7 @@ g_io_win32_pipe_destroy (gpointer source_data)
 }
 
 static gboolean
-g_io_win32_sock_prepare  (gpointer source_data,
+g_io_win32_sock_prepare  (gpointer source_data, 
 			GTimeVal *current_time,
 			gint    *timeout)
 {
@@ -493,7 +493,7 @@ g_io_win32_sock_prepare  (gpointer source_data,
   return FALSE;
 }
 
-static gboolean
+static gboolean 
 g_io_win32_sock_check    (gpointer source_data,
 			GTimeVal *current_time)
 {
@@ -503,7 +503,7 @@ g_io_win32_sock_check    (gpointer source_data,
 }
 
 static gboolean
-g_io_win32_sock_dispatch (gpointer source_data,
+g_io_win32_sock_dispatch (gpointer source_data, 
 			GTimeVal *current_time,
 			gpointer user_data)
 
@@ -516,8 +516,8 @@ g_io_win32_sock_dispatch (gpointer source_data,
 }
 
 static GIOError
-g_io_win32_fd_read (GIOChannel *channel,
-		    gchar     *buf,
+g_io_win32_fd_read (GIOChannel *channel, 
+		    gchar     *buf, 
 		    guint      count,
 		    guint     *bytes_read)
 {
@@ -544,10 +544,10 @@ g_io_win32_fd_read (GIOChannel *channel,
       return G_IO_ERROR_NONE;
     }
 }
-
-static GIOError
-g_io_win32_fd_write(GIOChannel *channel,
-		    gchar     *buf,
+		       
+static GIOError 
+g_io_win32_fd_write(GIOChannel *channel, 
+		    gchar     *buf, 
 		    guint      count,
 		    guint     *bytes_written)
 {
@@ -555,7 +555,7 @@ g_io_win32_fd_write(GIOChannel *channel,
   gint result;
 
   result = write (win32_channel->fd, buf, count);
-
+      
   if (result < 0)
     {
       *bytes_written = 0;
@@ -576,9 +576,9 @@ g_io_win32_fd_write(GIOChannel *channel,
     }
 }
 
-static GIOError
+static GIOError 
 g_io_win32_fd_seek (GIOChannel *channel,
-		    gint      offset,
+		    gint      offset, 
 		    GSeekType type)
 {
   GIOWin32Channel *win32_channel = (GIOWin32Channel *) channel;
@@ -600,9 +600,9 @@ g_io_win32_fd_seek (GIOChannel *channel,
       g_warning ("g_io_win32_fd_seek: unknown seek type");
       return G_IO_ERROR_UNKNOWN;
     }
-
+  
   result = lseek (win32_channel->fd, offset, whence);
-
+  
   if (result < 0)
     {
       switch (errno)
@@ -617,7 +617,7 @@ g_io_win32_fd_seek (GIOChannel *channel,
     return G_IO_ERROR_NONE;
 }
 
-static void
+static void 
 g_io_win32_fd_close (GIOChannel *channel)
 {
   GIOWin32Channel *win32_channel = (GIOWin32Channel *) channel;
@@ -626,7 +626,7 @@ g_io_win32_fd_close (GIOChannel *channel)
   return;
 }
 
-static guint
+static guint 
 g_io_win32_fd_add_watch (GIOChannel    *channel,
 			 gint           priority,
 			 GIOCondition   condition,
@@ -636,7 +636,7 @@ g_io_win32_fd_add_watch (GIOChannel    *channel,
 {
   GIOWin32Watch *watch = g_new (GIOWin32Watch, 1);
   GIOWin32Channel *win32_channel = (GIOWin32Channel *) channel;
-
+  
   watch->channel = channel;
   g_io_channel_ref (channel);
 
@@ -654,8 +654,8 @@ g_io_win32_fd_add_watch (GIOChannel    *channel,
 }
 
 static GIOError
-g_io_win32_pipe_read (GIOChannel *channel,
-		      gchar     *buf,
+g_io_win32_pipe_read (GIOChannel *channel, 
+		      gchar     *buf, 
 		      guint      count,
 		      guint     *bytes_read)
 {
@@ -701,10 +701,10 @@ g_io_win32_pipe_read (GIOChannel *channel,
       return G_IO_ERROR_NONE;
     }
 }
-
-static GIOError
-g_io_win32_pipe_write(GIOChannel *channel,
-		      gchar     *buf,
+		       
+static GIOError 
+g_io_win32_pipe_write(GIOChannel *channel, 
+		      gchar     *buf, 
 		      guint      count,
 		      guint     *bytes_written)
 {
@@ -746,7 +746,7 @@ g_io_win32_pipe_write(GIOChannel *channel,
     }
 }
 
-static void
+static void 
 g_io_win32_pipe_close (GIOChannel *channel)
 {
   GIOWin32Channel *win32_channel = (GIOWin32Channel *) channel;
@@ -757,7 +757,7 @@ g_io_win32_pipe_close (GIOChannel *channel)
   return;
 }
 
-static guint
+static guint 
 g_io_win32_pipe_add_watch (GIOChannel    *channel,
 			   gint           priority,
 			   GIOCondition   condition,
@@ -768,7 +768,7 @@ g_io_win32_pipe_add_watch (GIOChannel    *channel,
   GIOWin32Watch *watch = g_new (GIOWin32Watch, 1);
   GIOWin32Channel *win32_channel = (GIOWin32Channel *) channel;
   gint i;
-
+  
   /* g_print ("g_io_win32_pipe_add_watch: %d\n", win32_channel->fd); */
 
   watch->channel = channel;
@@ -813,9 +813,9 @@ g_io_win32_pipe_free (GIOChannel *channel)
   g_io_win32_free (channel);
 }
 
-static GIOError
-g_io_win32_sock_read (GIOChannel *channel,
-		      gchar      *buf,
+static GIOError 
+g_io_win32_sock_read (GIOChannel *channel, 
+		      gchar      *buf, 
 		      guint       count,
 		      guint      *bytes_read)
 {
@@ -843,10 +843,10 @@ g_io_win32_sock_read (GIOChannel *channel,
       return G_IO_ERROR_NONE;
     }
 }
-
-static GIOError
-g_io_win32_sock_write(GIOChannel *channel,
-		      gchar      *buf,
+		       
+static GIOError 
+g_io_win32_sock_write(GIOChannel *channel, 
+		      gchar      *buf, 
 		      guint       count,
 		      guint      *bytes_written)
 {
@@ -854,7 +854,7 @@ g_io_win32_sock_write(GIOChannel *channel,
   gint result;
 
   result = send (win32_channel->fd, buf, count, 0);
-
+      
   if (result == SOCKET_ERROR)
     {
       *bytes_written = 0;
@@ -876,7 +876,7 @@ g_io_win32_sock_write(GIOChannel *channel,
     }
 }
 
-static void
+static void 
 g_io_win32_sock_close (GIOChannel *channel)
 {
   GIOWin32Channel *win32_channel = (GIOWin32Channel *) channel;
@@ -885,7 +885,7 @@ g_io_win32_sock_close (GIOChannel *channel)
   return;
 }
 
-static guint
+static guint 
 g_io_win32_sock_add_watch (GIOChannel    *channel,
 			   gint           priority,
 			   GIOCondition   condition,
@@ -895,7 +895,7 @@ g_io_win32_sock_add_watch (GIOChannel    *channel,
 {
   GIOWin32Watch *watch = g_new (GIOWin32Watch, 1);
   GIOWin32Channel *win32_channel = (GIOWin32Channel *) channel;
-
+  
   watch->channel = channel;
   g_io_channel_ref (channel);
 
