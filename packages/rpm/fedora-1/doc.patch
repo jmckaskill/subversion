@@ -2,7 +2,7 @@
 +++ ./doc/book/Makefile	2004-07-07 18:58:59.000000000 -0500
 @@ -68,16 +68,7 @@
  $(BOOK_VERSION_SOURCE): book-version
-
+ 
  book-version:
 -	@if $(SVNVERSION) . > /dev/null; then \
 -	echo '<!ENTITY svn.version "Revision '`$(SVNVERSION) .`'">' > $(BOOK_VERSION_SOURCE).tmp; \
@@ -15,6 +15,6 @@
 -	mv $(BOOK_VERSION_SOURCE).tmp $(BOOK_VERSION_SOURCE); \
 -	fi
 +	echo '<!ENTITY svn.version "Version '`cat book/package.version`'">' > $(BOOK_VERSION_SOURCE);
-
+ 
  book-html: $(BOOK_HTML_TARGET)
-
+ 
