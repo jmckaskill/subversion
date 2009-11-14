@@ -29,7 +29,7 @@ answering those questions:
       the revisions in which they appeared, and choose the first of
       them.
 
-
+  
    Q: To what locations has this /some/fixed/file.c@r45 been copied?
    A: Lookup the node-revision-ID for /some/fixed/file.c@r45.  Lookup
       the successor IDs for that node-revision-IDs.  For each

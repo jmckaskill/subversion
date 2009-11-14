@@ -129,13 +129,13 @@ svn_fs_bdb__successors_delete(svn_fs_t *fs,
     {
       /* VALUE now contains a successor ID.  Is it the one we're
          looking to delete?  */
-      if ((value.size == strlen(succ_id))
+      if ((value.size == strlen(succ_id)) 
           && (memcmp(succ_id, value.data, value.size) == 0))
         {
           db_err = svn_bdb_dbc_del(cursor, 0);
           break;
         }
-
+      
       /* Advance the cursor to the next record with this same KEY, and
          fetch that record. */
       svn_fs_base__result_dbt(&value);
@@ -173,7 +173,7 @@ svn_fs_bdb__successors_delete_all(svn_fs_t *fs,
   int db_err;
   DBT query;
   base_fs_data_t *bfd = fs->fsap_data;
-
+  
   svn_fs_base__trail_debug(trail, "successors", "del");
   db_err = bfd->successors->del(bfd->successors, trail->db_txn,
                                 svn_fs_base__str_to_dbt(&query, node_id), 0);
@@ -219,7 +219,7 @@ svn_fs_bdb__successors_fetch(apr_array_header_t **successors_p,
 
   while (! db_err)
     {
-      APR_ARRAY_PUSH(successors, const char *) =
+      APR_ARRAY_PUSH(successors, const char *) = 
         apr_pstrmemdup(pool, value.data, value.size);
 
       /* Advance the cursor to the next record with this same NODE_ID,

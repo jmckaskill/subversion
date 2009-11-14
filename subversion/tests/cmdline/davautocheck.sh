@@ -42,7 +42,7 @@
 # one version's client against another version's server) specify both APXS
 # *and* MODULE_PATH for the other server:
 #
-#   APXS=/opt/svn/1.4.x/bin/apxs MODULE_PATH=/opt/svn/1.4.x/modules \
+#   APXS=/opt/svn/1.4.x/bin/apxs MODULE_PATH=/opt/svn/1.4.x/modules \ 
 #     subversion/tests/cmdline/davautocheck.sh
 
 SCRIPTDIR=$(dirname $0)
