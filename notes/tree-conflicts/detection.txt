@@ -76,15 +76,15 @@ Then we could do something like this in the editor callbacks:
             if file has common ancestor with added_file:
               /* user ran "svn move file added_file" */
               use case 1 has happened!
-
+          
       delete_file(file):
 
-        if file is locally modified:
+        if file is locally modified: 
           for each added_file in files_added_with_history_by_update:
             if file has common ancestor with added_file:
               use case 2 has happened!
 
-        else if file is locally deleted:
+        else if file is locally deleted: 
           for each added_file in files_added_with_history_by_update:
             if file has common ancestor with added_file:
               use case 3 has happened!
