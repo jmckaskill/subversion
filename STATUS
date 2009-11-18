@@ -61,7 +61,7 @@ Candidate changes:
    Justification:
      Gaps in merge sources can lead to the creation of invalid mergeinfo
      or the removal of valid mergeinfo.
-   Notes:
+   Notes:     
      The fix itself in r38325 is relatively simple, but recent refactoring
      of the merge code on trunk makes it look a lot worse than it is.
      Unless otherwise noted, all of the following are nominated simply to
@@ -139,7 +139,7 @@ Candidate changes:
    Disables file synchronization mutexes in fsfs on Windows. These mutexes
    were added to make POSIX systems lock files that were in use by other
    threads in the same process.
-
+   
    Windows implements per filehandle locking, so it doesn't need these
    locks. We usually see the opposite problem in Subversion.
    Justification:
@@ -237,7 +237,7 @@ Candidate changes:
      the fix is easy, and there is an included test.
    Votes:
      +1: hwright
-
+ 
   * r881905
     Fix a segmentation fault in libsvn_fs_fs/fs_fs.c.
     Justification:
