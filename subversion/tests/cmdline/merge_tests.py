@@ -6279,7 +6279,7 @@ def foreign_repos_does_not_update_mergeinfo(sbox):
   # Set up for test of issue #3383.
   svntest.actions.run_and_verify_svn(None, None, [], 'revert', '-R', wc_dir)
 
-  # Get a working copy for the foreign repos.
+  # Get a working copy for the foreign repos.  
   svntest.actions.run_and_verify_svn(None, None, [], 'co', other_repo_url,
                                      other_wc_dir)
 
@@ -6337,7 +6337,7 @@ def foreign_repos_does_not_update_mergeinfo(sbox):
   svntest.actions.run_and_verify_svn(None, [], [], 'pg',
                                      SVN_PROP_MERGEINFO, '-vR',
                                      wc_dir)
-
+  
 # This test involves tree conflicts.
 def avoid_reflected_revs(sbox):
   "avoid repeated merges for cyclic merging"
@@ -7324,7 +7324,7 @@ def merge_away_subtrees_noninheritable_ranges(sbox):
   # mergeinfo changes to that child (i.e. as part of the diff) properly
   # records mergeinfo on the child that includes both the incoming mergeinfo
   # *and* the mergeinfo inherited from it's parent.
-  #
+  #   
   # First revert all local changes and remove A_COPY/C/nu from disk.
   svntest.actions.run_and_verify_svn(None, None, [], 'revert', '-R', wc_dir)
   os.remove(os.path.join(wc_dir, "A_COPY", "nu"))
@@ -7755,7 +7755,7 @@ def merge_to_sparse_directories(sbox):
     'D/H'       : Item(),
     'D/H/chi'   : Item("This is the file 'chi'.\n"),
     'D/H/psi'   : Item("This is the file 'psi'.\n"),
-    'D/H/omega' : Item("New content"),
+    'D/H/omega' : Item("New content"), 
     })
   expected_skip = wc.State(immediates_dir, {})
   svntest.actions.run_and_verify_merge(immediates_dir, '5', '6',
@@ -13171,7 +13171,7 @@ def merge_two_edits_to_same_prop(sbox):
   A_COPY_path      = "A_COPY"
   mu_path          = os.path.join(A_path, "mu")
   mu_COPY_path     = os.path.join(A_COPY_path, "mu")
-
+  
   # In the source, make two successive changes to the same property
   svn_propset('p', 'new-val-1', mu_path)
   rev1 = svn_commit('A/mu')
@@ -15679,7 +15679,7 @@ def multiple_reintegrates_from_the_same_branch(sbox):
   # the reintegrate target.
   #
   # r7 - Create the feature branch.
-  svntest.actions.run_and_verify_svn(None, None, [], 'up', wc_dir)
+  svntest.actions.run_and_verify_svn(None, None, [], 'up', wc_dir)  
   svntest.actions.run_and_verify_svn(None, None, [],
                                      'copy', A_path, Feature_branch_path)
   svntest.actions.run_and_verify_svn(None, None, [],
@@ -15692,7 +15692,7 @@ def multiple_reintegrates_from_the_same_branch(sbox):
                                      "A text change under 'A'",
                                      wc_dir)
 
-  # r9 - Make a change on the feature branch.
+  # r9 - Make a change on the feature branch.  
   svntest.main.file_write(Feature_beta_path, "New branch content.\n")
   svntest.actions.run_and_verify_svn(None, None, [], 'ci', '-m',
                                      "A text change on the feature branch",
@@ -15727,7 +15727,7 @@ def multiple_reintegrates_from_the_same_branch(sbox):
                                      "Sync merge 'A' to feature branch",
                                      wc_dir)
 
-  # r13 - Make another change on the feature branch.
+  # r13 - Make another change on the feature branch.  
   svntest.main.file_write(Feature_beta_path, "Even newer branch content.\n")
   svntest.actions.run_and_verify_svn(None, None, [], 'ci', '-m',
                                      "Different text on the feature branch",
@@ -15859,7 +15859,7 @@ def merge_replace_causes_tree_conflict(sbox):
   #     echo "replacement for H" > branch/D/H
   #     svn add branch/D/H
   #     svn ci
-  #
+  #    
   #     # ACTIONS ON THE MERGE TARGET (A)
   #     # local mods to conflict with merge source
   #     echo modified > A/mu
