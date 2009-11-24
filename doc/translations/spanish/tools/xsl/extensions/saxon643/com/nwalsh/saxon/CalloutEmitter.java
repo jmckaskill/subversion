@@ -108,7 +108,7 @@ public class CalloutEmitter extends CopyEmitter {
   }
 
   /**
-   * <p>Examine the areaspec and determine the number and position of
+   * <p>Examine the areaspec and determine the number and position of 
    * callouts.</p>
    *
    * <p>The <code><a href="http://docbook.org/tdg/html/areaspec.html">areaspecNodeSet</a></code>
