@@ -85,16 +85,16 @@ a
 {
     color: blue;
     text-decoration: underline;
-}
+}    
 
-a:hover
+a:hover 
 {
     background: rgb(75%,75%,100%);
     color: blue;
     text-decoration: underline;
 }
 
-a:visited
+a:visited 
 {
     color: purple;
     text-decoration: underline;
@@ -150,7 +150,7 @@ img
     color: black;
 }
 
-.sidebar
+.sidebar 
 {
     border-top: dotted 1px black;
     border-left: dotted 1px black;
@@ -161,9 +161,9 @@ img
     margin: 0.5in;
 }
 
-.note .programlisting, .note .screen,
-.tip .programlisting, .tip .screen,
-.warning .programlisting, .warning .screen,
+.note .programlisting, .note .screen, 
+.tip .programlisting, .tip .screen, 
+.warning .programlisting, .warning .screen, 
 .sidebar .programlisting, .sidebar .screen
 {
     border: none;
