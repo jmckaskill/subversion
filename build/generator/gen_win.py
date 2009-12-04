@@ -390,7 +390,7 @@ class WinGeneratorBase(GeneratorBase):
           else:
             dll_targets.append(self.create_dll_target(target))
     install_targets.extend(dll_targets)
-
+    
     for target in install_targets:
       target.project_guid = self.makeguid(target.name)
 
