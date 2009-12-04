@@ -97,10 +97,10 @@
   </xsl:choose>
 
   <!-- Add standard page reference? -->
-  <xsl:if test="not(starts-with(normalize-space(@xrefstyle), 'select:') != ''
+  <xsl:if test="not(starts-with(normalize-space(@xrefstyle), 'select:') != '' 
                 and (contains(@xrefstyle, 'page')
                      or contains(@xrefstyle, 'Page')))
-                and ( $insert.xref.page.number = 'yes'
+                and ( $insert.xref.page.number = 'yes' 
 		   or $insert.xref.page.number = '1')
                 or local-name($target) = 'para'">
     <fo:basic-link internal-destination="{@linkend}"
