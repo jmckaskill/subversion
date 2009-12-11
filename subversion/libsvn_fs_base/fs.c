@@ -822,7 +822,7 @@ base_open_for_recovery(svn_fs_t *fs, const char *path, apr_pool_t *pool,
   return SVN_NO_ERROR;
 }
 
-/* Trail body function for initializing the `changes' table's 'next-key'
+/* Trail body function for initializing the `changes' table's 'next-key' 
    row from the value of the same row in the `transaction' table. */
 static svn_error_t *
 txn_body_init_next_changes_key(void *baton, trail_t *trail)
@@ -830,14 +830,14 @@ txn_body_init_next_changes_key(void *baton, trail_t *trail)
   const char *next_txn_id;
   SVN_ERR(svn_fs_bdb__get_next_txn_id(&next_txn_id, trail->fs,
                                       trail, trail->pool));
-  return svn_fs_bdb__changes_init_next_key(trail->fs, next_txn_id,
+  return svn_fs_bdb__changes_init_next_key(trail->fs, next_txn_id, 
                                            trail, trail->pool);
 }
 
 /* Open FS with COMMON_POOL and a subpool of POOL, and set *FS_POOL to
    to that subpool, iff *FS_POOL is NULL (which indicates the the FS
    hasn't already been opened).  Otherwise, do nothing.
-
+   
    NOTE: By using base_open() here instead of open_databases(), we
    will end up re-reading the already-updated format file.  For now,
    though, it's better to use the existing encapsulation of "opening
@@ -857,7 +857,7 @@ open_unopened_fs_for_upgrade(apr_pool_t **fs_pool,
     }
   return SVN_NO_ERROR;
 }
-
+  
 
 static svn_error_t *
 base_upgrade(svn_fs_t *fs, const char *path, apr_pool_t *pool,
@@ -890,7 +890,7 @@ base_upgrade(svn_fs_t *fs, const char *path, apr_pool_t *pool,
     {
       svn_revnum_t youngest_rev;
       const char *value;
-
+      
       /* Open the FS if it isn't already open. */
       SVN_ERR(open_unopened_fs_for_upgrade(&fs_pool, fs, path, pool,
                                            common_pool));
@@ -913,7 +913,7 @@ base_upgrade(svn_fs_t *fs, const char *path, apr_pool_t *pool,
 
       /* Init the next changes key. */
       SVN_ERR(svn_fs_base__retry_txn(fs, txn_body_init_next_changes_key,
-                                     NULL, TRUE, pool));
+                                     NULL, TRUE, pool)); 
    }
 
   /* If we opened the FS somewhere above, close the pool that holds it. */

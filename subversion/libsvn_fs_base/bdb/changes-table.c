@@ -109,7 +109,7 @@ svn_fs_bdb__changes_init_next_key(svn_fs_t *fs,
 
   /* If there was some other error, though, we'll propogate that up. */
   SVN_ERR(BDB_WRAP(fs, "fetching next changes key", db_err));
-
+  
   /* If there wasn't an error above, that, too, is a problem. */
   return svn_error_create(SVN_ERR_FS_CORRUPT, 0,
                           _("Found unexpected 'next-key' in changes table"));
