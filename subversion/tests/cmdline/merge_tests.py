@@ -17078,7 +17078,7 @@ def merge_into_wc_for_deleted_branch(sbox):
   # Some paths we'll care about
   A_COPY_path = os.path.join(wc_dir, "A_COPY")
   gamma_path  = os.path.join(wc_dir, "A", "D", "gamma")
-
+  
   # r7 - Delete the branch on the repository, obviously it still
   # exists in our WC.
   svntest.actions.run_and_verify_svn(None, None, [],
@@ -17163,8 +17163,8 @@ def merge_into_wc_for_deleted_branch(sbox):
                                        expected_status,
                                        expected_skip,
                                        None, None, None, None,
-                                       None, 1, 0)
-
+                                       None, 1, 0)  
+  
 ########################################################################
 # Run the tests
 
