@@ -88,7 +88,7 @@ is_valid_transaction_skel(svn_skel_t *skel,
                           transaction_kind_t *kind)
 {
   int len = svn_skel__list_length(skel);
-
+  
   /* As of SVN_FS_BASE__MIN_CHANGES_INFO_FORMAT version, the
      transaction record can have a CHANGES_INFO list at the end. */
   if (format >= SVN_FS_BASE__MIN_CHANGES_INFO_FORMAT)
@@ -501,7 +501,7 @@ svn_fs_base__parse_transaction_skel(transaction_t **transaction_p,
   /* [CHANGES_INFO] */
   if (skel_len > 5)
     {
-      svn_skel_t *changes_info = skel->children->next->next->next->next->next;
+      svn_skel_t *changes_info = skel->children->next->next->next->next->next; 
       const char *state;
 
       /* CHANGES_STATE */
@@ -516,11 +516,11 @@ svn_fs_base__parse_transaction_skel(transaction_t **transaction_p,
         return skel_err("transaction");
 
       /* CHNG */
-      transaction->changes_id =
+      transaction->changes_id = 
         apr_pstrmemdup(pool,
                        changes_info->children->next->data,
                        changes_info->children->next->len);
-
+        
       /* [NUM_CHANGES] */
       if (svn_skel__list_length(changes_info) > 2)
         transaction->num_changes =
@@ -1025,16 +1025,16 @@ svn_fs_base__unparse_transaction_skel(svn_skel_t **skel_p,
       && (transaction->changes_id))
     {
       changes_info_skel = svn_skel__make_empty_list(pool);
-
+      
       /* [NUM_CHANGES] */
       if (transaction->num_changes > 0)
         {
-          const char *num_str =
+          const char *num_str = 
             apr_psprintf(pool, "%d", transaction->num_changes);
           svn_skel__prepend(svn_skel__str_atom(num_str, pool),
                             changes_info_skel);
         }
-
+      
       /* CHNG */
       if (transaction->changes_id)
         svn_skel__prepend(svn_skel__str_atom(transaction->changes_id, pool),

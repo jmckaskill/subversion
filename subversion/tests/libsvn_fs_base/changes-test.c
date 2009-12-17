@@ -199,7 +199,7 @@ changes_reserve_id(const svn_test_opts_t *opts,
   /* Create a new fs and repos */
   SVN_ERR(svn_test__create_bdb_fs(&fs, "test-repo-changes-reserve-id",
                                   opts, pool));
-
+  
   /* Run the real test, which is all trail-y. */
   SVN_ERR(svn_fs_base__retry_txn(fs, txn_body_changes_reserve_id,
                                  (void *)"1", FALSE, pool));

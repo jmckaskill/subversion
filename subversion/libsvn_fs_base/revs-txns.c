@@ -353,7 +353,7 @@ svn_fs_base__txn_get_changes_id(const char **changes_id,
 {
   transaction_t *txn;
   SVN_ERR(get_txn(&txn, fs, txn_name, FALSE, trail, pool));
-  *changes_id = txn->changes_id ? txn->changes_id
+  *changes_id = txn->changes_id ? txn->changes_id 
                                 : apr_pstrdup(pool, txn_name);
   return SVN_NO_ERROR;
 }
@@ -775,7 +775,7 @@ txn_body_begin_txn(void *baton, trail_t *trail)
                                            trail, trail->pool));
   else
     changes_id = NULL;
-
+  
   SVN_ERR(svn_fs_bdb__create_txn(&txn_id, trail->fs, root_id, changes_id,
                                  trail, trail->pool));
 
