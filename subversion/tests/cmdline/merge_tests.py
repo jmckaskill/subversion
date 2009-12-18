@@ -17078,7 +17078,7 @@ def merge_into_wc_for_deleted_branch(sbox):
   # Some paths we'll care about
   A_COPY_path = os.path.join(wc_dir, "A_COPY")
   gamma_path  = os.path.join(wc_dir, "A", "D", "gamma")
-
+  
   # r7 - Delete the branch on the repository, obviously it still
   # exists in our WC.
   svntest.actions.run_and_verify_svn(None, None, [],
@@ -17163,7 +17163,7 @@ def merge_into_wc_for_deleted_branch(sbox):
                                        expected_status,
                                        expected_skip,
                                        None, None, None, None,
-                                       None, 1, 0)
+                                       None, 1, 0)  
 
 def reintegrate_with_self_referential_mergeinfo(sbox):
   "source has target's history as explicit mergeinfo"
@@ -17180,7 +17180,7 @@ def reintegrate_with_self_referential_mergeinfo(sbox):
   A2_B_path    = os.path.join(wc_dir, "A2", "B")
   A2_1_path    = os.path.join(wc_dir, "A2.1")
   A2_1_mu_path = os.path.join(wc_dir, "A2.1", "mu")
-
+  
   # r6 Copy A to A2 and then manually set some self-referential mergeinfo on
   # A2/B and A2.
   svntest.actions.run_and_verify_svn(None, ["At revision 5.\n"], [],
@@ -17210,7 +17210,7 @@ def reintegrate_with_self_referential_mergeinfo(sbox):
   svntest.actions.run_and_verify_svn(None, None, [], 'ci',
                                      '-m', 'Work done on the A2.1 branch.',
                                      wc_dir)
-
+  
   # Update to uniform revision and reintegrated A2.1 back to A2.
   svntest.actions.run_and_verify_svn(None, ["At revision 8.\n"], [],
                                      'up', wc_dir)
@@ -17284,7 +17284,7 @@ def reintegrate_with_self_referential_mergeinfo(sbox):
                                        expected_skip,
                                        None, None, None, None,
                                        None, 1, 0, '--reintegrate')
-
+  
 ########################################################################
 # Run the tests
 
