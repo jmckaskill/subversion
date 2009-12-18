@@ -774,7 +774,7 @@ txn_body_begin_txn(void *baton, trail_t *trail)
                                            trail, trail->pool));
   else
     changes_id = NULL;
-
+  
   SVN_ERR(svn_fs_bdb__create_txn(&txn_id, trail->fs, root_id, changes_id,
                                  trail, trail->pool));
 
