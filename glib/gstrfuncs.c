@@ -21,7 +21,7 @@
  * Modified by the GLib Team and others 1997-1999.  See the AUTHORS
  * file for a list of people on the GLib Team.  See the ChangeLog
  * files for a list of changes.  These files are distributed with
- * GLib at ftp://ftp.gtk.org/pub/gtk/.
+ * GLib at ftp://ftp.gtk.org/pub/gtk/. 
  */
 
 /*
@@ -1127,7 +1127,7 @@ g_strchomp (gchar *string)
   if (!*string)
     return string;
 
-  for (s = string + strlen (string) - 1; s >= string && isspace ((guchar)*s);
+  for (s = string + strlen (string) - 1; s >= string && isspace ((guchar)*s); 
        s--)
     *s = '\0';
 
@@ -1260,7 +1260,7 @@ g_strjoin (const gchar  *separator,
   if (s)
     {
       len = strlen (s);
-
+      
       s = va_arg (args, gchar*);
       while (s)
 	{
@@ -1268,15 +1268,15 @@ g_strjoin (const gchar  *separator,
 	  s = va_arg (args, gchar*);
 	}
       va_end (args);
-
+      
       string = g_new (gchar, len + 1);
       *string = 0;
-
+      
       va_start (args, separator);
-
+      
       s = va_arg (args, gchar*);
       strcat (string, s);
-
+      
       s = va_arg (args, gchar*);
       while (s)
 	{
@@ -1287,7 +1287,7 @@ g_strjoin (const gchar  *separator,
     }
   else
     string = g_strdup ("");
-
+  
   va_end (args);
 
   return string;
