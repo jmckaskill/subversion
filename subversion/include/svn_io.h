@@ -777,7 +777,7 @@ void
 svn_stream_set_reset(svn_stream_t *stream,
                      svn_io_reset_fn_t reset_fn);
 
-/** Set @a stream's mark function to @a mark_fn
+/** Set @a stream's mark function to @a mark_fn 
  *
  * @since New in 1.7.
  */
