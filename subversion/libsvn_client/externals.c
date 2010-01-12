@@ -895,7 +895,7 @@ handle_external_item_change(const void *key, apr_ssize_t klen,
 
       svn_error_t *err;
       const char *remove_target_abspath;
-      svn_boolean_t lock_existed;
+      svn_boolean_t lock_existed; 
 
       SVN_ERR(svn_dirent_get_absolute(&remove_target_abspath,
                                       path,
@@ -907,7 +907,7 @@ handle_external_item_change(const void *key, apr_ssize_t klen,
       if (! lock_existed)
         {
           SVN_ERR(svn_wc__acquire_write_lock(NULL, ib->ctx->wc_ctx,
-                                             remove_target_abspath,
+                                             remove_target_abspath, 
                                              ib->iter_pool,
                                              ib->iter_pool));
         }
@@ -939,7 +939,7 @@ handle_external_item_change(const void *key, apr_ssize_t klen,
       if (! lock_existed
           && (! err || err->apr_err == SVN_ERR_WC_LEFT_LOCAL_MOD))
         {
-          svn_error_t *err2 = svn_wc__release_write_lock(ib->ctx->wc_ctx,
+          svn_error_t *err2 = svn_wc__release_write_lock(ib->ctx->wc_ctx, 
                                                          remove_target_abspath,
                                                          ib->iter_pool);
           if (err2)
