@@ -32,7 +32,7 @@ Candidate changes:
    Justification:
      Gaps in merge sources can lead to the creation of invalid mergeinfo
      or the removal of valid mergeinfo.
-   Notes:
+   Notes:     
      The fix itself in r878399 is relatively simple, but recent refactoring
      of the merge code on trunk makes it look a lot worse than it is.
      Unless otherwise noted, all of the following are nominated simply to
@@ -93,7 +93,7 @@ Candidate changes:
    Disables file synchronization mutexes in fsfs on Windows. These mutexes
    were added to make POSIX systems lock files that were in use by other
    threads in the same process.
-
+   
    Windows implements per filehandle locking, so it doesn't need these
    locks. We usually see the opposite problem in Subversion on Windows.
    Justification:
@@ -132,7 +132,7 @@ Candidate changes:
      This defect affects 'subversive' client users in 1.6.x.
    Notes:
      The backport branch exists in order to make the patch compatible with
-     1.6.x tests. r876917 introduces 'switched' to wc status which is not
+     1.6.x tests. r876917 introduces 'switched' to wc status which is not 
      available in 1.6.x.
    Branch:
      ^/subversion/branches/1.6.x-r891672
@@ -141,7 +141,7 @@ Candidate changes:
 
  * r896915
    On Windows, stop retrying a move operation without looking to the
-   initial error code.
+   initial error code. 
    Justification:
      Without this patch the initial move error is lost, which makes it
      impossible to diagnose the real error.
@@ -177,7 +177,7 @@ Candidate changes:
      We see this ourself after moving to ASF often on european mirror.
    Votes:
      +1: kameshj
-
+     
  * ^/subversion/branches/1.6.x-1.6.8-serfassertion
    Fix the assertion as seen while running the tests over svn_ra_serf by
    canonicalizing the basecoll_url before returning it.
