@@ -2375,7 +2375,7 @@ internal_status(svn_wc_status2_t **status,
 
       if (hidden)
         entry = NULL;
-    }
+    }  
 
   if (entry)
     {
