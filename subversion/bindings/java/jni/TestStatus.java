@@ -8,13 +8,13 @@ public class TestStatus extends Object
   {
     Client client;
 
-    try
+    try 
       {
 	  Hashtable hashtable;
 
 	  System.out.println("trying to get Client...");
 	  client = Factory.getClient();
-
+ 	
 	  System.out.println("sucess\nrun status...");
 	  hashtable = client.status(".", true, false, false);
 

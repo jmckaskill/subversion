@@ -36,7 +36,7 @@ static svn_error_t *
 txn_body_get_uuid(void *baton, trail_t *trail)
 {
   struct get_uuid_args *args = baton;
-  return svn_fs_bdb__get_uuid(trail->fs, args->idx, args->uuid,
+  return svn_fs_bdb__get_uuid(trail->fs, args->idx, args->uuid, 
                               trail, trail->pool);
 }
 
@@ -83,7 +83,7 @@ static svn_error_t *
 txn_body_set_uuid(void *baton, trail_t *trail)
 {
   struct set_uuid_args *args = baton;
-  return svn_fs_bdb__set_uuid(trail->fs, args->idx, args->uuid,
+  return svn_fs_bdb__set_uuid(trail->fs, args->idx, args->uuid, 
                               trail, trail->pool);
 }
 

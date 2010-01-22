@@ -62,7 +62,7 @@ svn_wc__ensure_directory(const char *path, apr_pool_t *pool)
           /* Tried to create the dir, and encountered some problem
              other than non-existence of intermediate dirs.  We can't
              ensure the desired directory's existence, so just return
-             the error. */
+             the error. */ 
           return err;
         }
       else if (err && APR_STATUS_IS_ENOENT(err->apr_err))
@@ -85,7 +85,7 @@ svn_wc__ensure_directory(const char *path, apr_pool_t *pool)
           else  /* We have a valid path, so recursively ensure it. */
             {
               err = svn_wc__ensure_directory(shorter, pool);
-
+          
               if (err)
                 return (err);
               else
@@ -157,7 +157,7 @@ svn_wc_dup_notify(const svn_wc_notify_t *notify, apr_pool_t *pool)
 
   return ret;
 }
-
+ 
 svn_wc_external_item_t *
 svn_wc_external_item_dup(const svn_wc_external_item_t *item, apr_pool_t *pool)
 {

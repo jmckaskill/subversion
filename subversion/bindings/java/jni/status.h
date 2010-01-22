@@ -33,7 +33,7 @@ jobject
 status__create(JNIEnv *env, jboolean *hasException);
 
 jobject
-status__create_from_svn_wc_status_t(JNIEnv *env,
+status__create_from_svn_wc_status_t(JNIEnv *env, 
                                     jboolean *hasException,
                                     svn_wc_status_t *status);
 
@@ -45,7 +45,7 @@ void
 status__set_text_status(JNIEnv *env, jboolean *hasException,
                         jobject jstatus, jobject jtext_status);
 
-void
+void 
 status__set_prop_status(JNIEnv *env, jboolean *hasException,
                         jobject jstatus, jobject jprop_status);
 
@@ -57,9 +57,9 @@ void
 status__set_locked(JNIEnv *env, jboolean *hasException,
                    jobject jstatus, jboolean jlocked);
 
-void
+void 
 status__set_repos_text_status(JNIEnv *env, jboolean *hasException,
-                              jobject jstatus,
+                              jobject jstatus, 
                               jobject jrepos_text_status);
 
 void

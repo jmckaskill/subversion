@@ -17,7 +17,7 @@ package org.tigris.subversion.lib;
  *
  */
 
-public final class StatusKind
+public final class StatusKind 
 {
     /**
      * IMPORTANT: REMEMBER TO KEEP THIS
@@ -37,7 +37,7 @@ public final class StatusKind
 
     private final int kind;
 
-    public StatusKind(int _kind)
+    public StatusKind(int _kind) 
 	{
 	    super();
 	    kind = _kind;
