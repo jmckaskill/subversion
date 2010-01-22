@@ -15,7 +15,7 @@ class SubversionAuthTestCase(unittest.TestCase):
 
   def test_invalid_cred_kind(self):
     baton = core.svn_auth_open([])
-    self.assertRaises(core.SubversionException,
+    self.assertRaises(core.SubversionException, 
             lambda: core.svn_auth_first_credentials(
                 "unknown", "somerealm", baton))
 

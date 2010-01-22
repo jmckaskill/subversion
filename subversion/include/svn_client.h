@@ -1200,7 +1200,7 @@ svn_client_switch2(svn_revnum_t *result_rev,
 
 
 /**
- * Similar to svn_client_switch2() but with @a allow_unver_obstructions,
+ * Similar to svn_client_switch2() but with @a allow_unver_obstructions, 
  * @a ignore_externals, and @a depth_is_sticky always set to FALSE,
  * and @a depth set according to @a recurse: if @a recurse is TRUE,
  * set @a depth to @c svn_depth_infinity, if @a recurse is FALSE, set
@@ -2690,7 +2690,7 @@ svn_client_mergeinfo_get_merged(apr_hash_t **mergeinfo,
  * revisions merged from @a merge_source_path_or_url (as of @a
  * src_peg_revision) into @a path_or_url (as of @a peg_revision).  @a
  * ctx is a context used for authentication.
- *
+ * 
  * @a discover_changed_paths and @a revprops are the same as for
  * svn_client_log4().  Use @a pool for all necessary allocations.
  *
@@ -4342,7 +4342,7 @@ svn_client_uuid_from_url(const char **uuid,
 /** Return the repository @a uuid for working-copy @a path, allocated
  * in @a pool.  Use @a adm_access to retrieve the uuid from @a path's
  * entry; if not present in the entry, then look in its parents. If not
- * present in the workingcopy call svn_client_uuid_from_url() to
+ * present in the workingcopy call svn_client_uuid_from_url() to 
  * retrieve, using the entry's URL.  @a ctx is required for possible
  * repository authentication.
  *
