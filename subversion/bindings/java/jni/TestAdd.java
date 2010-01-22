@@ -6,11 +6,11 @@ public class TestAdd extends Object
   {
     ClientImpl client;
 
-    try
+    try 
       {
         System.out.println("trying to create ClientImpl");
         client = new ClientImpl();
-
+ 	
         System.out.println("sucess\nnow for the Test");
         client.add("Test", true);
 

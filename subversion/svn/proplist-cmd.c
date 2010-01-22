@@ -46,7 +46,7 @@ svn_cl__proplist(apr_getopt_t *os,
   int i;
 
   /* Suck up all remaining args in the target array. */
-  SVN_ERR(svn_opt_args_to_target_array2(&targets, os,
+  SVN_ERR(svn_opt_args_to_target_array2(&targets, os, 
                                         opt_state->targets, pool));
 
   /* Add "." if user passed 0 arguments */
@@ -62,10 +62,10 @@ svn_cl__proplist(apr_getopt_t *os,
                                       &URL, pool));
 
       /* Let libsvn_client do the real work. */
-      SVN_ERR(svn_client_revprop_list(&proplist,
+      SVN_ERR(svn_client_revprop_list(&proplist, 
                                       URL, &(opt_state->start_revision),
                                       &rev, ctx, pool));
-
+      
       SVN_ERR
         (svn_cmdline_printf(pool,
                             _("Unversioned properties on revision %ld:\n"),
@@ -93,7 +93,7 @@ svn_cl__proplist(apr_getopt_t *os,
           /* Check for a peg revision. */
           SVN_ERR(svn_opt_parse_path(&peg_revision, &truepath, target,
                                      subpool));
-
+          
           SVN_ERR(svn_cl__try
                   (svn_client_proplist2(&props, truepath, &peg_revision,
                                         &(opt_state->start_revision),
@@ -106,7 +106,7 @@ svn_cl__proplist(apr_getopt_t *os,
 
           for (j = 0; j < props->nelts; ++j)
             {
-              svn_client_proplist_item_t *item
+              svn_client_proplist_item_t *item 
                 = ((svn_client_proplist_item_t **)props->elts)[j];
               const char *name_local;
 

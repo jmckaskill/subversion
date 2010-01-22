@@ -360,7 +360,7 @@ svn_ra_serf__request_create(svn_ra_serf__handler_t *handler);
 typedef struct svn_ra_serf__xml_state_t {
   /* A numeric value that represents the current state in parsing.
    *
-   * Value 0 is reserved for use as the default state.
+   * Value 0 is reserved for use as the default state. 
    */
   int current_state;
 
@@ -506,7 +506,7 @@ typedef struct {
 typedef struct {
   /* The HTTP status code of the response */
   int status;
-
+  
   /* The HTTP status line of the response */
   const char *reason;
 

@@ -2,7 +2,7 @@
 #
 # this is a pretty stupid script to build
 # all of the java stuff included in the subdirs.
-# will be replaced soon with some real makefile
+# will be replaced soon with some real makefile 
 # thing...
 
 CLASSPATH=$CLASSPATH:.:tests

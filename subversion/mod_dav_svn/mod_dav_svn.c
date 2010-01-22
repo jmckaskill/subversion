@@ -298,13 +298,13 @@ const char *dav_svn_get_fs_parent_path(request_rec *r)
     return conf->fs_parent_path;
 }
 
-AP_MODULE_DECLARE(dav_error *) dav_svn_get_repos_path(request_rec *r,
+AP_MODULE_DECLARE(dav_error *) dav_svn_get_repos_path(request_rec *r, 
                                                       const char *root_path,
                                                       const char **repos_path)
 {
 
-    const char *fs_path;
-    const char *fs_parent_path;
+    const char *fs_path;        
+    const char *fs_parent_path; 
     const char *repos_name;
     const char *ignored_path_in_repos;
     const char *ignored_cleaned_uri;
@@ -493,7 +493,7 @@ static apr_status_t merge_xml_in_filter(ap_filter_t *f,
           if (rv != APR_SUCCESS) {
             return rv;
           }
-
+            
         }
     }
 

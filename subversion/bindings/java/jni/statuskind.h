@@ -31,13 +31,13 @@ extern "C" {
 /* functions */
 
 /**
- * create a new org.tigris.subversion.lib.StatusKind instance
+ * create a new org.tigris.subversion.lib.StatusKind instance 
  *
  * @param JNIEnv JNI Environment
  * @param hasException
  * @param statuskind integer representation of the appropriate constants
  */
-jobject
+jobject 
 statuskind__create(JNIEnv *env, jboolean *hasException, jint statuskind);
 
 /**

@@ -22,7 +22,7 @@ import org.tigris.subversion.lib.*;
 /**
  * This classed is used for the unit tests. All of the C helper
  * functions for the Java Subversion binding should be reached
- * with this class.
+ * with this class. 
  *
  * Sometimes this is not possible, because
  * the class needs non-trivial native parameters. In this case
@@ -95,7 +95,7 @@ public class NativeWrapper
      * wrapper for "entry__get_revision" (entry.h)
      */
     public static native Revision entryGetRevision(Entry entry);
-
+    
     /**
      * wrapper for "entry__set_kind" (entry.h)
      */
@@ -115,7 +115,7 @@ public class NativeWrapper
      * wrapper for "entry__get_schedule" (entry.h)
      */
     public static native Schedule entryGetSchedule(Entry entry);
-
+    
     /**
      * wrapper for "entry__set_conflicted" (entry.h)
      */
@@ -125,7 +125,7 @@ public class NativeWrapper
      * wrapper for "entry__get_conflicted" (entry.h)
      */
     public static native boolean entryGetConflicted(Entry entry);
-
+     
     /**
      * wrapper for "entry__set_copied" (entry.h)
      */
@@ -140,7 +140,7 @@ public class NativeWrapper
      * wrapper for "entry__set_texttime" (entry.h)
      */
     public static native void entrySetTexttime(Entry entry, Date texttime);
-
+    
     /**
      * wrapper for "entry__get_texttime" (entry.h)
      */
@@ -165,7 +165,7 @@ public class NativeWrapper
      * wrapper for "entry__get_attributes" (entry.h)
      */
     public static native Hashtable entryGetAttributes(Entry entry);
-
+    
     /**
      * wrapper for function "hashtable__create" (hashtable.h)
      */
@@ -180,7 +180,7 @@ public class NativeWrapper
      * wrapper for function "misc__throw_exception_by_name" (misc.h)
      */
     public static native void miscThrowExceptionByName(String name, String msg);
-
+    
     /**
      * wrapper for function "status__create" (status.h)
      */
@@ -210,7 +210,7 @@ public class NativeWrapper
      * wrapper for function "status__set_locked" (status.h)
      */
     public static native void statusSetLocked(Status status, boolean locked);
-
+    
     /**
      * wrapper for function "status__set_repos_text_status" (status.h)
      */
@@ -231,12 +231,12 @@ public class NativeWrapper
      */
     public static native Revision revisionCreate(long rev);
 
-  /**
+  /** 
    * wrapper for function "statuskind__create" (statuskind.h)
    */
   public static native StatusKind statuskindCreate(int kind);
 
-
+  
 }
 
 

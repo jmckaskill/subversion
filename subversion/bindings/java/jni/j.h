@@ -28,15 +28,15 @@ extern "C" {
 
 /* functions */
 
-/* returns a JNI class reference matching
- * className.
+/* returns a JNI class reference matching 
+ * className. 
  *
  * Remark: you have to ensure that there
  * is enough space for the class reference
  * (needs 1 reference)
  */
 jclass
-j__get_class(JNIEnv *env, jboolean *hasException,
+j__get_class(JNIEnv *env, jboolean *hasException, 
              char *className);
 
 /* return a JNI method reference matching the
@@ -51,33 +51,33 @@ j__get_method(JNIEnv *env, jboolean *hasException,
               jclass class,
               char *methodName, char *methodSignature);
 
-void
+void 
 j__set_boolean(JNIEnv *env, jboolean *hasException,
                char *className, char *methodName,
                jobject obj, jboolean value);
 
-jboolean
+jboolean 
 j__get_boolean(JNIEnv *env, jboolean *hasException,
                char *className, char *methodName,
                jobject obj);
 
-void
+void 
 j__set_int(JNIEnv *env, jboolean *hasException,
            char *className, char *methodName,
            jobject obj, jint value);
 
-void
+void 
 j__set_long(JNIEnv *env, jboolean *hasException,
             char *className, char *methodName,
             jobject obj, jlong value);
 
-void
+void 
 j__set_object(JNIEnv *env, jboolean *hasException,
               char *className, char *methodName,
               char *methodSig,
               jobject obj, jobject value);
 
-jobject
+jobject 
 j__get_object(JNIEnv *env, jboolean *hasException,
               char *className, char *methodName,
               char *methodSig,

@@ -25,7 +25,7 @@ import java.util.Vector;
  * @see NativeWrapper
  * @see java.util.Vector
  */
-public class VectorTests extends TestCase
+public class VectorTests extends TestCase 
 {
     public VectorTests(String name)
 	{
@@ -71,7 +71,7 @@ public class VectorTests extends TestCase
     public void testVectorAddNull()
 	{
 	    Vector vector=NativeWrapper.vectorCreate();
-
+	    
 	    NativeWrapper.vectorAdd(vector, null);
 	    assertTrue(true);
 	}
@@ -91,7 +91,7 @@ public class VectorTests extends TestCase
 
 	    for( index=0; index<count; index++ )
 	    {
-		String value =
+		String value = 
 		    new String(
 			"String " + Integer.toString(count)) ;
 
@@ -113,7 +113,7 @@ public class VectorTests extends TestCase
 	    {
 		// this is an invalid call
 		NativeWrapper.vectorAdd(null, null);
-
+		
 		// shouldnt be reached
 		assertTrue(false);
 	    }
