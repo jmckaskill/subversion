@@ -612,7 +612,7 @@ scan_for_match(svn_linenum_t *matched_line, patch_target_t *target,
           for (i = 0; i < target->matched_hunks->nelts; i++)
             {
               const hunk_info_t *hi;
-
+              
               hi = APR_ARRAY_IDX(target->matched_hunks, i, hunk_info_t *);
               taken = (target->current_line >= hi->matched_line &&
                        target->current_line < hi->matched_line +
@@ -1103,7 +1103,7 @@ apply_one_patch(svn_patch_t *patch, const char *abs_wc_path,
                   notify_func = ctx->notify_func2;
                   ctx->notify_func2 = NULL;
                   err = svn_client__make_local_parents(dir_abspath,
-                                                       TRUE, ctx,
+                                                       TRUE, ctx, 
                                                        pool);
                   ctx->notify_func2 = notify_func;
                   /* ### wc-ng should eventually be able to replace
@@ -1194,7 +1194,7 @@ apply_patches(void *baton,
   const char *patch_eol_str;
   apr_file_t *patch_file;
   apply_patches_baton_t *btn;
-
+  
   btn = (apply_patches_baton_t *)baton;
 
   /* Try to open the patch file. */
