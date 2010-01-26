@@ -1143,7 +1143,7 @@ svn_swig_py_unwrap_string(PyObject *source,
 {
     const char **ptr_dest = destination;
     *ptr_dest = PyString_AsString(source);
-
+    
     if (*ptr_dest != NULL)
         return 0;
     else
@@ -1236,7 +1236,7 @@ svn_swig_py_seq_to_array(PyObject *seq,
 
         if (o == NULL)
             return NULL;
-
+        
         elt_ptr = apr_array_push(temp);
         status = unwrap_func(o, elt_ptr, unwrap_baton);
         Py_DECREF(o);
