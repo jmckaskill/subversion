@@ -83,18 +83,18 @@ INCLUDES = -I../include -I../../apr/include -I../../expat-lite
 SUBDIRS = . tests
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
 CONFIG_HEADER = ../../config.h
-CONFIG_CLEAN_FILES =
+CONFIG_CLEAN_FILES = 
 LTLIBRARIES =  $(lib_LTLIBRARIES)
 
 
 DEFS = -DHAVE_CONFIG_H -I. -I$(srcdir) -I../..
-CPPFLAGS =
-LDFLAGS =
-LIBS =
-libsvn_wc_la_LDFLAGS =
-libsvn_wc_la_LIBADD =
+CPPFLAGS = 
+LDFLAGS = 
+LIBS = 
+libsvn_wc_la_LDFLAGS = 
+libsvn_wc_la_LIBADD = 
 libsvn_wc_la_OBJECTS =  apply_delta.lo wc_adm.lo
-CFLAGS = -g -Wall -Wmissing-prototypes -Wpointer-arith
+CFLAGS = -g -Wall -Wmissing-prototypes -Wpointer-arith 
 COMPILE = $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
 LTCOMPILE = $(LIBTOOL) --mode=compile $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
 CCLD = $(CC)
@@ -113,7 +113,7 @@ OBJECTS = $(libsvn_wc_la_OBJECTS)
 all: all-redirect
 .SUFFIXES:
 .SUFFIXES: .S .c .lo .o .s
-$(srcdir)/Makefile.in: Makefile.am $(top_srcdir)/configure.in $(ACLOCAL_M4)
+$(srcdir)/Makefile.in: Makefile.am $(top_srcdir)/configure.in $(ACLOCAL_M4) 
 	cd $(top_srcdir) && $(AUTOMAKE) --gnu subversion/libsvn_wc/Makefile
 
 Makefile: $(srcdir)/Makefile.in  $(top_builddir)/config.status $(BUILT_SOURCES)
