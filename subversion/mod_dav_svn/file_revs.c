@@ -67,7 +67,7 @@ static svn_error_t *maybe_send_header(struct file_rev_baton *frb)
   return SVN_NO_ERROR;
 }
 
-/* Send a property named NAME with value VAL in an element named ELEM_NAME.
+/* Send a property named NAME with value VAL in an element named ELEM_NAME. 
    Quote NAME and base64-encode VAL if necessary. */
 static svn_error_t *
 send_prop(struct file_rev_baton *frb, const char *elem_name,
@@ -209,7 +209,7 @@ dav_svn__file_revs_report(const dav_resource *resource,
   struct file_rev_baton frb;
   dav_svn_authz_read_baton arb;
   const char *path = NULL;
-
+  
   /* These get determined from the request document. */
   svn_revnum_t start = SVN_INVALID_REVNUM;
   svn_revnum_t end = SVN_INVALID_REVNUM;
@@ -248,7 +248,7 @@ dav_svn__file_revs_report(const dav_resource *resource,
           const char *rel_path = dav_xml_get_cdata(child, resource->pool, 0);
           if ((derr = dav_svn__test_canonical(rel_path, resource->pool)))
             return derr;
-          path = svn_path_join(resource->info->repos_path, rel_path,
+          path = svn_path_join(resource->info->repos_path, rel_path, 
                                resource->pool);
         }
       /* else unknown element; skip it */
@@ -279,7 +279,7 @@ dav_svn__file_revs_report(const dav_resource *resource,
       return (dav_svn_convert_err(serr, HTTP_INTERNAL_SERVER_ERROR,
                                   serr->message, resource->pool));
     }
-
+  
   if ((serr = maybe_send_header(&frb)))
     {
       derr = dav_svn_convert_err(serr, HTTP_INTERNAL_SERVER_ERROR,
@@ -287,7 +287,7 @@ dav_svn__file_revs_report(const dav_resource *resource,
                                  resource->pool);
       goto cleanup;
     }
-
+    
   if ((serr = dav_svn__send_xml(frb.bb, frb.output,
                                 "</S:file-revs-report>" DEBUG_CR)))
     {

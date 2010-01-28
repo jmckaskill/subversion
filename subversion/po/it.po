@@ -8,7 +8,7 @@
 # Translation dictionary:
 # Nota: Il criterio per le traduzioni proposte tiene conto del fatto che
 # Subversion è uno strumento principalmente per sviluppatori e che una
-# serie di vocaboli sono spessopresi direttamente dall'inglese,
+# serie di vocaboli sono spessopresi direttamente dall'inglese, 
 # sia che esistano o meno vocaboli altrettanto efficaci in italiano.
 #
 # PROPNAME: NOMEPROP

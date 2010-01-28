@@ -17,7 +17,7 @@ package org.tigris.subversion.lib;
  *
  */
 
-public final class Nodekind
+public final class Nodekind 
 {
     /**
      * IMPORTANT: KEEP THIS IN SYNC WITH THE
@@ -30,7 +30,7 @@ public final class Nodekind
 
     private final int kind;
 
-    public Nodekind(int _kind)
+    public Nodekind(int _kind) 
 	{
 	    super();
 	    kind = _kind;
