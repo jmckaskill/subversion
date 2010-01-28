@@ -28,7 +28,7 @@ mechanism also with a "mingw32" configuration. I.e. building GLib for
 Win32 would use the cygwin tools (and runtime), but the produced
 libraries would not depend on the cygwin runtime being present.
 
-The following preprocessor macros are used for conditional compilation
+The following preprocessor macros are used for conditional compilation 
 related to Win32:
 
 - WIN32 is defined when compiling for the Win32 platform, regardless
