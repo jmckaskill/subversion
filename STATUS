@@ -187,6 +187,14 @@ Candidate changes:
    Votes:
      +1: pburba
 
+ * r904301
+   Update every occurence of the Subversion repository URL to apache.org,
+   except in CHANGES (for sentimental reasons, I guess).
+   Justification:
+     Tools and doc references should point at the new locations.
+   Votes:
+     +1: neels
+
 Veto-blocked changes:
 =====================
 
