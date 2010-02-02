@@ -554,7 +554,7 @@
         PyErr_SetString(PyExc_TypeError, "not a sequence");
         SWIG_fail;
     }
-
+    
     targlen = PySequence_Length($input);
     if (targlen < 0)
         return NULL;
@@ -805,7 +805,7 @@
     svn_swig_py_unwrap_struct_ptr,
     $descriptor(svn_merge_range_t *),
     _global_pool);
-
+      
   if (PyErr_Occurred()) {
     SWIG_fail;
   }
