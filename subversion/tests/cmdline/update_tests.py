@@ -4922,7 +4922,7 @@ def update_empty_hides_entries(sbox):
                                         wc_dir)
 
   # Now update the rest back to head
-
+  
   # This operation is currently a NO-OP, because the WC-Crawler
   # tells the repository that it contains a full tree of the HEAD
   # revision.
