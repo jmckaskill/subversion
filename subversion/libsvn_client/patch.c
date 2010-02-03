@@ -388,7 +388,7 @@ init_patch_target(patch_target_t **target,
 
       if (new_target->kind == svn_node_file)
         {
-          /* Open the file. */
+          /* Open the file. */ 
           SVN_ERR(svn_io_file_open(&new_target->file, new_target->abs_path,
                                    APR_READ | APR_BINARY | APR_BUFFERED,
                                    APR_OS_DEFAULT, result_pool));
@@ -696,7 +696,7 @@ scan_for_match(svn_linenum_t *matched_line, patch_target_t *target,
           for (i = 0; i < target->hunks->nelts; i++)
             {
               const hunk_info_t *hi;
-
+              
               hi = APR_ARRAY_IDX(target->hunks, i, const hunk_info_t *);
               taken = (! hi->rejected &&
                        target->current_line >= hi->matched_line &&
@@ -1064,7 +1064,7 @@ apply_one_patch(patch_target_t **target, svn_patch_t *patch,
 
       /* Determine the line the hunk should be applied at.
        * If no match is found initially, try with fuzz. */
-      do
+      do 
         {
           SVN_ERR(get_hunk_info(&hi, *target, hunk, fuzz,
                                 result_pool, iterpool));
@@ -1257,7 +1257,7 @@ install_patched_target(patch_target_t *target, const char *abs_wc_path,
                         {
                           if (ctx->notify_func2)
                             {
-                              /* Just do notification. */
+                              /* Just do notification. */ 
                               svn_wc_notify_t *notify;
                               notify = svn_wc_create_notify(abs_path,
                                                             svn_wc_notify_add,
@@ -1357,7 +1357,7 @@ apply_patches(void *baton,
   apr_array_header_t *targets;
   int i;
   apply_patches_baton_t *btn;
-
+  
   btn = (apply_patches_baton_t *)baton;
 
   /* Try to open the patch file. */
