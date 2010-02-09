@@ -28,11 +28,11 @@
  *       that lets us gracefully handle objects that are allocated from
  *       a pool that's been cleared or destroyed.
  */
-
+ 
 %pythoncode %{
   def _copy_metadata(value, old_value):
     if value is None or old_value is None or value is old_value: return
-
+    
     if isinstance(value, dict):
       for (k, v) in value:
         _copy_metadata(v, old_value[k])
@@ -74,7 +74,7 @@
     members = self.__dict__.get("_members")
     if members is not None:
         _copy_metadata(value, members.get(name))
-
+        
     # Verify that the new object is good
     if hasattr(value, "assert_valid"):
       value.assert_valid()
