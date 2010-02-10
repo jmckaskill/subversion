@@ -414,7 +414,7 @@ public class SVNClient implements SVNClientInterface
                     long revision, Map revprops, boolean hasChildren)
             {
                 ChangePath[] changedPaths;
-
+                
                 if (aChangedPaths != null)
                 {
                     changedPaths = new ChangePath[aChangedPaths.length];
@@ -436,7 +436,7 @@ public class SVNClient implements SVNClientInterface
 
         try
         {
-            org.apache.subversion.javahl.RevisionRange[] aRevisions =
+            org.apache.subversion.javahl.RevisionRange[] aRevisions = 
               new org.apache.subversion.javahl.RevisionRange[revisionRanges.length];
 
             for (int i = 0; i < revisionRanges.length; i++)
@@ -1229,7 +1229,7 @@ public class SVNClient implements SVNClientInterface
     {
         try
         {
-            org.apache.subversion.javahl.RevisionRange[] aRevisions =
+            org.apache.subversion.javahl.RevisionRange[] aRevisions = 
               new org.apache.subversion.javahl.RevisionRange[revisions.length];
 
             for (int i = 0; i < revisions.length; i++)
@@ -1275,7 +1275,7 @@ public class SVNClient implements SVNClientInterface
     {
         try
         {
-            org.apache.subversion.javahl.Mergeinfo aMergeinfo =
+            org.apache.subversion.javahl.Mergeinfo aMergeinfo = 
                          aSVNClient.getMergeinfo(path,
                          pegRevision == null ? null : pegRevision.toApache());
 
