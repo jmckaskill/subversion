@@ -2343,7 +2343,7 @@ public class BasicTests extends SVNTests
     private long[] getMergeinfoRevisions(int kind, String pathOrUrl,
                                          Revision pegRevision,
                                          String mergeSourceUrl,
-                                         Revision srcPegRevision)
+                                         Revision srcPegRevision) 
         throws SubversionException
     {
         class Callback implements LogMessageCallback {
@@ -3606,7 +3606,7 @@ public class BasicTests extends SVNTests
         {
             return (Map) propMap.get(path);
         }
-    }
+    } 
 
     private class MyStatusCallback implements StatusCallback
     {
