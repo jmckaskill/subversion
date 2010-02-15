@@ -1740,7 +1740,7 @@ run_delete(svn_wc__db_t *db,
                                 svn_wc__props_base, scratch_pool));
       SVN_ERR(svn_wc__prop_path(&props_working, local_abspath, kind,
                                 svn_wc__props_working, scratch_pool));
-
+      
       err = svn_io_remove_file2(props_base, TRUE, scratch_pool);
       if (err && !APR_STATUS_IS_ENOENT(err->apr_err))
         return svn_error_quick_wrap(err, _("Can't move source to dest"));
