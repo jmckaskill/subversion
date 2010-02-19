@@ -717,8 +717,8 @@ svn_cl__node_description(const svn_wc_conflict_version_t *node,
  * if BASE is an uri, dirent or relative.
  */
 const char *
-svn_cl__path_join(const char *base,
-                  const char *component,
+svn_cl__path_join(const char *base, 
+                  const char *component, 
                   apr_pool_t *pool);
 
 #ifdef __cplusplus
