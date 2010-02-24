@@ -424,7 +424,7 @@ public class SVNAdmin
                        Revision start, Revision end)
             throws ClientException
     {
-        try
+        try 
         {
             aSVNAdmin.verify(path, messageOut,
                              start == null ? null : start.toApache(),
@@ -450,7 +450,7 @@ public class SVNAdmin
             org.apache.subversion.javahl.Lock[] aLocks =
                                                     aSVNAdmin.lslocks(path);
             Lock[] locks = new Lock[aLocks.length];
-
+            
             for (int i = 0; i < aLocks.length; i++)
             {
                 locks[i] = new Lock(aLocks[i]);
