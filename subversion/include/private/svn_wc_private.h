@@ -561,7 +561,7 @@ svn_wc__call_with_write_lock(svn_wc__with_write_lock_func_t func,
                              const char *local_abspath,
                              apr_pool_t *result_pool,
                              apr_pool_t *scratch_pool);
-
+                      
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */
