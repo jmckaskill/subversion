@@ -18722,8 +18722,8 @@ def reintegrate_with_subtree_merges(sbox):
 
   # Now update the WC and try to reintegrate.  Currently this fails because
   # while we really have merged everything from A to A_COPY, the naive
-  # interpretation of the mergeinfo on A_COPY doesn't reflect this and thus
-  # this test currently fails with this error:
+  # interpretation of the mergeinfo on A_COPY doesn't reflect this which
+  # previously caused the test to fail with this error:
   #
   #    svn merge ^/A_COPY A --reintegrate
   #    ..\..\..\subversion\svn\merge-cmd.c:358: (apr_err=195016)
@@ -19034,7 +19034,7 @@ test_list = [ None,
                     is_fs_case_insensitive),
               merge_into_wc_for_deleted_branch,
               reintegrate_with_self_referential_mergeinfo,
-              XFail(reintegrate_with_subtree_merges),
+              reintegrate_with_subtree_merges,
              ]
 
 if __name__ == '__main__':
