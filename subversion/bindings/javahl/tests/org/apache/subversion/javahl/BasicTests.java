@@ -41,7 +41,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.Map;
 import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+import java.text.SimpleDateFormat; 
 
 
 /**
@@ -2342,7 +2342,7 @@ public class BasicTests extends SVNTests
     private long[] getMergeinfoRevisions(int kind, String pathOrUrl,
                                          Revision pegRevision,
                                          String mergeSourceUrl,
-                                         Revision srcPegRevision)
+                                         Revision srcPegRevision) 
         throws SubversionException
     {
         class Callback implements LogMessageCallback {
@@ -3606,7 +3606,7 @@ public class BasicTests extends SVNTests
         {
             return propMap.get(path);
         }
-    }
+    } 
 
     private class MyStatusCallback implements StatusCallback
     {
@@ -4027,5 +4027,5 @@ public class BasicTests extends SVNTests
                 sb.append(val);
             }
         }
-    }
+    }    
 }
