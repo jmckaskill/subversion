@@ -420,7 +420,7 @@ CreateJ::StringSet(apr_array_header_t *strings)
       jstring jstr = JNIUtil::makeJString(str);
       if (JNIUtil::isJavaExceptionThrown())
         return NULL;
-
+        
       env->CallObjectMethod(set, add_mid, jstr);
       if (JNIUtil::isJavaExceptionThrown())
         return NULL;
