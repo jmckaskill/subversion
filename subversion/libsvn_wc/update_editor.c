@@ -1770,8 +1770,8 @@ check_tree_conflict(svn_wc_conflict_description2_t **pconflict,
     svn_node_kind_t conflict_node_kind;
     svn_wc_conflict_version_t *src_left_version;
     svn_wc_conflict_version_t *src_right_version;
-
-    /* Get the source-left information, i.e. the local state of the node
+    
+    /* Get the source-left information, i.e. the local state of the node 
      * before any changes were made to the working copy, i.e. the state the
      * node would have if it was reverted. */
     if (reason == svn_wc_conflict_reason_added)
@@ -1900,7 +1900,7 @@ check_tree_conflict(svn_wc_conflict_description2_t **pconflict,
                                                         left_revision,
                                                         left_kind,
                                                         pool);
-
+    
     src_right_version = svn_wc_conflict_version_create(repos_root_url,
                                                        right_repos_relpath,
                                                        *eb->target_revision,
