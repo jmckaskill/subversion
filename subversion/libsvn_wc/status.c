@@ -2375,7 +2375,7 @@ internal_status(svn_wc_status2_t **status,
 
       if (hidden)
         entry = NULL;
-    }
+    }  
 
   if (entry && !svn_dirent_is_root(local_abspath, strlen(local_abspath)))
     {
