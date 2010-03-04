@@ -210,7 +210,7 @@ def upgrade_wcprops(sbox):
     '(svn:wc:ra_dav:version-url 46 /svn-test-work/local_tmp/repos/!svn/ver/1/iota)',
   }
   check_dav_cache(sbox.wc_dir, 1, expected_dav_caches)
-
+  
 def basic_upgrade_1_0(sbox):
   "test upgrading a working copy created with 1.0.0"
   replace_sbox_with_tarfile(sbox, 'upgrade_1_0.tar.bz2')
