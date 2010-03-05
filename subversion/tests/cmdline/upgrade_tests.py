@@ -262,8 +262,8 @@ def basic_upgrade_1_0(sbox):
   # Now check the contents of the working copy
   # #### This working copy is not just a basic tree,
   #      fix with the right data once we get here
-  expected_status = svntest.wc.State(sbox.wc_dir,
-    {
+  expected_status = svntest.wc.State(sbox.wc_dir, 
+    { 
       '' : Item(status='  ', wc_rev=7),
       'B'                 : Item(status='  ', wc_rev='7'),
       'B/mu'              : Item(status='  ', wc_rev='7'),
