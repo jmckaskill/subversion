@@ -42,7 +42,7 @@ Array::~Array()
           if (JNIUtil::isExceptionThrown())
             return;
         }
-
+      
       JNIUtil::getEnv()->DeleteLocalRef(m_objectArray);
     }
 }
