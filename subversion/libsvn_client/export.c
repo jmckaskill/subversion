@@ -145,7 +145,7 @@ copy_one_versioned_file(const char *from_abspath,
     return SVN_NO_ERROR;
 
   /* ### TODO: Handle replaced nodes properly.
-     ###       svn_opt_revision_base refers to the "new"
+     ###       svn_opt_revision_base refers to the "new" 
      ###       base of the node. That means, if a node is locally
      ###       replaced, export skips this node, as if it was locally
      ###       added, because svn_opt_revision_base refers to the base
