@@ -1264,7 +1264,7 @@ mark_item_copied(svn_wc__db_t *db,
 {
   apr_hash_t *props;
   svn_wc_entry_t tmp_entry;
-  svn_node_kind_t kind =
+  svn_node_kind_t kind = 
     local_kind == svn_wc__db_kind_dir ? svn_node_dir : svn_node_unknown;
 
   /* Squirrel away the pristine properties to install them on
@@ -1278,7 +1278,7 @@ mark_item_copied(svn_wc__db_t *db,
   /* Reinstall the pristine properties on working */
   SVN_ERR(svn_wc__db_temp_op_set_pristine_props(db, local_abspath, props,
                                                 TRUE, pool));
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -1335,7 +1335,7 @@ mark_tree_copied(svn_wc__db_t *db,
       /* If this is a directory, recurse; otherwise, do real work. */
       if (child_kind == svn_wc__db_kind_dir)
         {
-          SVN_ERR(mark_tree_copied(db, child_abspath, child_status,
+          SVN_ERR(mark_tree_copied(db, child_abspath, child_status, 
                                    cancel_func, cancel_baton, iterpool));
         }
       else
