@@ -93,7 +93,7 @@ Build the Subversion Release
 
 2. Build the solution.  Until this is resolved, build AGAIN.  Files are not correctly referenced until the second time.
 
-3. Enter
+3. Enter 
 
 If the build fails from any pre-build events, try running prepare-distro.bat from the Tools folder on a command prompt
 to ascertain whether the perl scripts are producing errors.
