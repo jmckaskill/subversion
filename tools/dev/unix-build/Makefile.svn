@@ -162,7 +162,7 @@ dirs-create: $(PWD)/.dirs-created
 dirs-reset:
 	rm -f $(PWD)/.dirs-created
 
-$(PWD)/.dirs-created:
+$(PWD)/.dirs-created: 
 	$(foreach d, $(PREFIX) $(DISTDIR) $(SRCDIR) $(OBJDIR), \
 		[ -d $(d) ] || mkdir -p $(d);)
 		touch $@
@@ -482,7 +482,7 @@ serf-clean:
 
 
 # retrieve serf if not present yet
-# r1221 fixes apr/apr-util detection in serfmake
+# r1221 fixes apr/apr-util detection in serfmake 
 $(SERF_OBJDIR)/.retrieved:
 	[ -d $(SERF_OBJDIR) ] || mkdir -p $(SERF_OBJDIR)
 	if [ ! -d $(SERF_SRCDIR) ]; then \
