@@ -21,7 +21,7 @@ Candidate changes:
    Justification:
      Gaps in merge sources can lead to the creation of invalid mergeinfo
      or the removal of valid mergeinfo.
-   Notes:
+   Notes:     
      The fix itself in r878399 is relatively simple, but recent refactoring
      of the merge code on trunk makes it look a lot worse than it is.
      Unless otherwise noted, all of the following are nominated simply to
@@ -82,7 +82,7 @@ Candidate changes:
    Disables file synchronization mutexes in fsfs on Windows. These mutexes
    were added to make POSIX systems lock files that were in use by other
    threads in the same process.
-
+   
    Windows implements per filehandle locking, so it doesn't need these
    locks. We usually see the opposite problem in Subversion on Windows.
    Justification:
@@ -95,7 +95,7 @@ Candidate changes:
 
  * r896915
    On Windows, stop retrying a move operation without looking to the
-   initial error code.
+   initial error code. 
    Justification:
      Without this patch the initial move error is lost, which makes it
      impossible to diagnose the real error.
@@ -130,7 +130,7 @@ Candidate changes:
    r878590 is just a change that adds FIXME marker to code comment. We take it
    to avoid spurious conflicts with other revisions.
    r878607 Special cases no-op find and replace.
-   "r878625, r878626, r878627" are follow-up to r878607 and the other long
+   "r878625, r878626, r878627" are follow-up to r878607 and the other long 
    pending Master info leak to the clients.
    Justification:
      1. This group has the most common 'optimization' fix of *not* groking the
@@ -221,7 +221,7 @@ Approved changes:
      This defect affects 'subversive' client users in 1.6.x.
    Notes:
      The backport branch exists in order to make the patch compatible with
-     1.6.x tests. r876917 introduces 'switched' to wc status which is not
+     1.6.x tests. r876917 introduces 'switched' to wc status which is not 
      available in 1.6.x.
    Branch:
      ^/subversion/branches/1.6.x-r891672
