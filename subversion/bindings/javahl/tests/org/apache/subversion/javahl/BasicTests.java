@@ -3652,13 +3652,13 @@ public class BasicTests extends SVNTests
                                              Collection<String> changelists)
         throws ClientException
     {
-       final Map<String, Map<String, byte[]>> propMap =
+       final Map<String, Map<String, byte[]>> propMap = 
             new HashMap<String, Map<String, byte[]>>();
-
+       
         client.properties(path, revision, revision, depth, changelists,
                 new ProplistCallback () {
             public void singlePath(String path, Map<String, byte[]> props)
-            { propMap.put(path, props); }
+            { propMap.put(path, props); }          
         });
 
         return propMap.get(path);
@@ -3719,11 +3719,11 @@ public class BasicTests extends SVNTests
         throws ClientException
     {
        final List<Info2> infos = new ArrayList<Info2>();
-
+       
         client.info2(pathOrUrl, revision, pegRevision, depth, changelists,
                      new InfoCallback () {
             public void singleInfo(Info2 info)
-            { infos.add(info); }
+            { infos.add(info); }           
         });
         return infos.toArray(new Info2[infos.size()]);
     }
