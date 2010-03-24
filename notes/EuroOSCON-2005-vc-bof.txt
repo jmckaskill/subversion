@@ -20,7 +20,7 @@ Subversion Complaints:
   so one could just type "svn merge SRC" and it'd know the DST?
 
   Note that SVK does all this.
-
+  
   [gstein: shouldn't that be "svn merge DST"? you're merging *into*
   the destination using a known SRC. and DST might just be "."
 
@@ -48,7 +48,7 @@ Subversion Complaints:
 
 * Someone mentioned it would be nice to be able to commit from a trunk
   working copy directly into a branch.
-
+  
   [gstein: isn't this just "svn cp . http://.../branches/newbranch" ?]
 
   [kfogel: Ah, yes, right, in fact we even said so at the meeting.
@@ -77,7 +77,7 @@ Subversion Complaints:
   automatically when you modify something).
 
   This is apparently similar to p4 "views".  Can someone confirm this?
-
+  
   [gstein: p4 client specs can assemble a wc from many locations, much
   like you can have a multi-source wc in svn. I'm not familiar with a
   "view", but I'm guessing the implication is something that many
@@ -118,9 +118,9 @@ Subversion Complaints:
 
   Gervase demonstrated Bonsai doing this, a CVS tree viewing tool
   which, as he says, "is very cool but not well documented and only
-  mozilla.org seems to use".  Since  it views CVS, this sort of
+  mozilla.org seems to use".  Since  it views CVS, this sort of 
   calculation is easy for it.
-
+  
   It was pointed out by Axel Hecht that due to the requirements of
   l10n work, Mozilla actually uses this feature "at least once per
   week".
@@ -152,7 +152,7 @@ Comments from projects that switched from CVS to SVN:
 * The w.c. space penalty is a real issue for large projects.  Disk
   space is not as cheap as we thought, those .svn/text-base/* files
   hurt.  See http://subversion.tigris.org/issues/show_bug.cgi?id=525.
-
+  
   [gerv: Random thought - if you can't easily do copy-on-write, could
   you perhaps share text-base files by hard-linking between multiple
   checkouts of the same tree (which is where this problem normally
@@ -232,7 +232,7 @@ Attendees:
 ----------
 
 * Gervase Markham <gerv {_at_} mozilla.org>
-  Large CVS repository (mozilla), small SVN (personal)
+  Large CVS repository (mozilla), small SVN (personal)  
 
 * Chia-Liang Gao <clkao {_at_} clkao.org>
   SVK, SVN, p4, CVS
