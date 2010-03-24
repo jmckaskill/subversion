@@ -1207,7 +1207,7 @@ mark_item_copied(svn_wc__db_t *db,
 {
   apr_hash_t *props;
   svn_wc_entry_t tmp_entry;
-  svn_node_kind_t kind =
+  svn_node_kind_t kind = 
     local_kind == svn_wc__db_kind_dir ? svn_node_dir : svn_node_unknown;
 
   /* Squirrel away the pristine properties to install them on
@@ -1221,7 +1221,7 @@ mark_item_copied(svn_wc__db_t *db,
   /* Reinstall the pristine properties on WORKING */
   SVN_ERR(svn_wc__db_temp_working_set_props(db, local_abspath, props,
                                             scratch_pool));
-
+  
   return SVN_NO_ERROR;
 }
 
