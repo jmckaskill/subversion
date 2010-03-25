@@ -853,7 +853,7 @@ typedef struct svn_patch_t {
  * If @a reverse is TRUE, invert the patch while parsing it.
  * Allocate results in @a result_pool.
  * Use @a scratch_pool for all other allocations.
- *
+ * 
  * @since New in 1.7. */
 svn_error_t *
 svn_diff_parse_next_patch(svn_patch_t **patch,
