@@ -2740,7 +2740,7 @@ set_headers(request_rec *r, const dav_resource *resource)
          bytes"), but many browsers have grown to expect "text/plain"
          to mean "*shrug*", and kick off their own MIME type detection
          routines when they see it.  So we'll use "text/plain".
-
+      
          ### Why not just avoid sending a Content-type at all?  Is
          ### that just bad form for HTTP?  */
       if (! mimetype)
