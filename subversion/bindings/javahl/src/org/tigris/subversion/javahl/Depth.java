@@ -121,7 +121,7 @@ public final class Depth
     {
         return (recurse ? unknown : immediates);
     }
-
+    
     public static org.apache.subversion.javahl.Depth toADepth(int depth)
     {
        switch(depth)
