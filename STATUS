@@ -56,7 +56,7 @@ Candidate changes:
    Disables file synchronization mutexes in fsfs on Windows. These mutexes
    were added to make POSIX systems lock files that were in use by other
    threads in the same process.
-
+   
    Windows implements per filehandle locking, so it doesn't need these
    locks. We usually see the opposite problem in Subversion on Windows.
    Justification:
@@ -83,7 +83,7 @@ Candidate changes:
    r878590 is just a change that adds FIXME marker to code comment. We take it
    to avoid spurious conflicts with other revisions.
    r878607 Special cases no-op find and replace.
-   "r878625, r878626, r878627" are follow-up to r878607 and the other long
+   "r878625, r878626, r878627" are follow-up to r878607 and the other long 
    pending Master info leak to the clients.
    Justification:
      1. This group has the most common 'optimization' fix of *not* groking the
@@ -93,7 +93,7 @@ Candidate changes:
         without conflict.
    Votes:
      +1: kameshj
-
+     
  * r908980, r908981
    This followup on r896915, makes sure that the Windows specific remove
    readonly attribute code still works on FAT32 filesystems. (The FAT32
@@ -136,7 +136,7 @@ Candidate changes:
    Branch:
      r876470 has not been backported to 1.6.x, so the test added in r926151
      must use the old-style SVN_TEST_PASS macro rather than the
-     SVN_TEST_OPTS_PASS macro in the
+     SVN_TEST_OPTS_PASS macro in the 
      ^/subversion/branches/1.6.x-r926151
    Votes:
      +1: cmpilato
