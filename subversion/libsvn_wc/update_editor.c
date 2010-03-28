@@ -3536,7 +3536,7 @@ add_file_with_history(const char *path,
           /* If this has no base, should we use an empty stream?
            * This assert wants to verify that there are no such callers. */
           SVN_ERR_ASSERT(source_text_base != NULL);
-
+          
           SVN_ERR(svn_wc__load_props(&base_props, &working_props, db,
                                      src_local_abspath, pool, subpool));
         }
@@ -5985,7 +5985,7 @@ svn_wc_add_repos_file4(svn_wc_context_t *wc_ctx,
         SVN_ERR(svn_wc__db_wq_add(db, local_abspath, work_item, pool));
       }
     }
-
+  
   /* ### /HACK */
 
   /* If a working file was not provided by the caller, then install one
