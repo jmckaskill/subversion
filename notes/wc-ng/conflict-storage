@@ -94,7 +94,7 @@ an item exists in the list, storing the following information:
   (incoming_change local_change)
   (property_name)
   (left_value right_value mine_value) )
-
+   
 'operation' see text conflicts
 '{left,right}_rev' see text conflicts
 
