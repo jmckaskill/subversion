@@ -1014,7 +1014,7 @@ def drop_mergeinfo_outside_of_dump_stream(sbox):
   #                  r4                                            |     |
   #                   |                                            V     V
   #                  branches/B1/B/E------------------------------r14---r15->
-  #
+  #                  
   #
   # The mergeinfo on the complete repos in the preceeding repos looks like:
   #
