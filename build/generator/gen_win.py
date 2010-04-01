@@ -583,8 +583,13 @@ class WinGeneratorBase(GeneratorBase):
       cbuild = "python $(InputPath) %s > %s" \
                % (" ".join(deps), def_file)
 
-      sources.append(ProjectItem(path=gsrc, reldir=None, custom_build=cbuild,
-                                 user_deps=deps, custom_target=def_file,
+      cdesc = 'Generating %s ' % def_file
+
+      sources.append(ProjectItem(path=gsrc, reldir=None,
+                                 custom_build=cbuild,
+                                 custom_target=def_file,
+                                 custom_desc=cdesc,
+                                 user_deps=deps,
                                  extension=''))
 
       sources.append(ProjectItem(path=def_file, reldir=None,
