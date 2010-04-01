@@ -562,7 +562,7 @@ class WinGeneratorBase(GeneratorBase):
 
                 cbuild = '%s %s -o %s $(InputPath)' \
                          % (self.swig_exe, " ".join(swig_options), cout)
-
+                         
                 cdesc = 'Generating %s' % cout
 
                 sources.append(ProjectItem(path=isrc, reldir=None,
