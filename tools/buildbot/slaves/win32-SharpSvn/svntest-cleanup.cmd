@@ -19,7 +19,7 @@ IF NOT EXIST build\imports.done (
 )
 
 POPD
-
+    
 IF EXIST subversion_vcnet.sln (
   msbuild subversion_vcnet.sln /p:Configuration=Debug /p:Platform=Win32 /t:clean
 )
