@@ -31,13 +31,13 @@ II.   DOCUMENTATION
 
       The main documentation is the Subversion Book - an on-line version
       can be found at:
-
+      
          http://svnbook.red-bean.com/
 
       It is written in DocBook XML, and the sources can be found at:
 
          http://svn.red-bean.com/svnbook/
-
+         
       If you wish to build the documentation from source, read the
       src/en/README file within the book source.
 
