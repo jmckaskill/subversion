@@ -6745,7 +6745,7 @@ make_copy_txn(void *baton,
       svn_wc__db_status_t base_status;
 
       SVN_ERR(svn_sqlite__get_statement(&stmt, sdb, STMT_SELECT_BASE_NODE));
-      SVN_ERR(svn_sqlite__bindf(stmt, "is", mcb->pdh->wcroot->wc_id,
+      SVN_ERR(svn_sqlite__bindf(stmt, "is", mcb->pdh->wcroot->wc_id, 
                                 mcb->local_relpath));
 
       SVN_ERR(svn_sqlite__step(&have_row, stmt));
