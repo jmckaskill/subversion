@@ -41,12 +41,12 @@ In the mail include:
 
   And anything else you think is relevant.
 
-* How to reproduce the bug.
+* How to reproduce the bug. 
 
-  If you can reproduce it with the testglib program that is built
-  in the glib/ directory, that will be most convenient.  Otherwise,
-  please include a short test program that exhibits the behavior.
-  As a last resort, you can also provide a pointer to a larger piece
+  If you can reproduce it with the testglib program that is built 
+  in the glib/ directory, that will be most convenient.  Otherwise, 
+  please include a short test program that exhibits the behavior. 
+  As a last resort, you can also provide a pointer to a larger piece 
   of software that can be downloaded.
 
 * If the bug was a crash, the exact text that was printed out

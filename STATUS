@@ -56,7 +56,7 @@ Candidate changes:
    Disables file synchronization mutexes in fsfs on Windows. These mutexes
    were added to make POSIX systems lock files that were in use by other
    threads in the same process.
-
+   
    Windows implements per filehandle locking, so it doesn't need these
    locks. We usually see the opposite problem in Subversion on Windows.
    Justification:
@@ -83,7 +83,7 @@ Candidate changes:
    r878590 is just a change that adds FIXME marker to code comment. We take it
    to avoid spurious conflicts with other revisions.
    r878607 Special cases no-op find and replace.
-   "r878625, r878626, r878627" are follow-up to r878607 and the other long
+   "r878625, r878626, r878627" are follow-up to r878607 and the other long 
    pending Master info leak to the clients.
    Justification:
      1. This group has the most common 'optimization' fix of *not* groking the
@@ -95,7 +95,7 @@ Candidate changes:
      +1: kameshj
 
  * r880461
-   Fix an obscure bug in ra_serf mergeinfo report handling which causes
+   Fix an obscure bug in ra_serf mergeinfo report handling which causes 
    valid mergeinfo in the response to be ignored.
    Justification:
      Without this fix, the ra_serf implementation of svn_ra_get_mergeinfo()
@@ -119,7 +119,7 @@ Candidate changes:
      is not happening rather commit happens in slave itself.
    Votes:
      +1: kameshj
-
+ 
  * r877014
    On Windows, treat a path containing invalid characters as a non-existing
    path (svn_node_none) rather than raising an error.
