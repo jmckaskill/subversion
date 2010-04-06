@@ -127,6 +127,6 @@ ProgressListener::onProgress(apr_off_t progressVal, apr_off_t total,
     POP_AND_RETURN_NOTHING();
 
   env->CallVoidMethod(m_progressListener, mid, jevent);
-
+  
   POP_AND_RETURN_NOTHING();
 }
