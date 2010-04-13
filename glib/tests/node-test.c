@@ -21,7 +21,7 @@
  * Modified by the GLib Team and others 1997-1999.  See the AUTHORS
  * file for a list of people on the GLib Team.  See the ChangeLog
  * files for a list of changes.  These files are distributed with
- * GLib at ftp://ftp.gtk.org/pub/gtk/.
+ * GLib at ftp://ftp.gtk.org/pub/gtk/. 
  */
 
 #undef G_LOG_DOMAIN
@@ -135,7 +135,7 @@ g_node_test (void)
       node = g_node_nth_child (node_B, i);
       TEST (NULL, P2C (node->data) == ('C' + i));
     }
-
+  
   for (i = 0; i < g_node_n_children (node_G); i++)
     TEST (NULL, g_node_child_position (node_G, g_node_nth_child (node_G, i)) == i);
 
@@ -164,7 +164,7 @@ g_node_test (void)
   g_node_traverse (root, G_LEVEL_ORDER, G_TRAVERSE_ALL, -1, node_build_string, &tstring);
   TEST (tstring, strcmp (tstring, "ABFCDEGHIJK") == 0);
   g_free (tstring); tstring = NULL;
-
+  
   g_node_traverse (root, G_LEVEL_ORDER, G_TRAVERSE_LEAFS, -1, node_build_string, &tstring);
   TEST (tstring, strcmp (tstring, "CDEHIJK") == 0);
   g_free (tstring); tstring = NULL;
@@ -178,7 +178,7 @@ g_node_test (void)
   g_node_traverse (root, G_LEVEL_ORDER, G_TRAVERSE_ALL, -1, node_build_string, &tstring);
   TEST (tstring, strcmp (tstring, "ABFEDCGKJIH") == 0);
   g_free (tstring); tstring = NULL;
-
+  
   g_node_destroy (root);
 
   /* allocation tests */
@@ -196,7 +196,7 @@ g_node_test (void)
   TEST (NULL, g_node_n_nodes (root, G_TRAVERSE_ALL) == 1 + 2048);
 
   g_node_destroy (root);
-
+  
   if (failed)
     exit(1);
 }
