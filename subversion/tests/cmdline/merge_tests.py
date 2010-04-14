@@ -18722,7 +18722,7 @@ def reintegrate_with_subtree_merges(sbox):
   # Now update the WC and try to reintegrate.  Since we really have merged
   # everything from A to A_COPY, even though it was done via subtree merges,
   # the reintegrate should succeed.  Previously it failed because the naive
-  # interpretation of the mergeinfo on A_COPY didn't reflect that it was
+  # interpretation of the mergeinfo on A_COPY didn't reflect that it was 
   # fully synced with A, resulting in this error:
   #
   #    svn merge ^/A_COPY A --reintegrate
@@ -18810,7 +18810,7 @@ def foreign_repos_del_and_props(sbox):
   sbox.build()
   wc_dir = sbox.wc_dir
   wc2_dir = sbox.add_wc_path('wc2')
-
+  
   (r2_path, r2_url) = sbox.add_repo_path('fgn');
   svntest.main.create_repos(r2_path)
 
@@ -18832,7 +18832,7 @@ def foreign_repos_del_and_props(sbox):
   new_file = os.path.join(wc_dir, 'new-file')
   svntest.main.file_write(new_file, 'new-file')
   svntest.actions.run_and_verify_svn(None, None, [], 'add', new_file)
-
+  
   svntest.actions.run_and_verify_svn(None, None, [], 'propset',
                                       'svn:eol-style', 'native', new_file)
 
@@ -18866,7 +18866,7 @@ def foreign_repos_del_and_props(sbox):
   expected_status.tweak(wc_rev='1')
   expected_status.tweak('', wc_rev='0')
   expected_status.tweak('iota', status=' M')
-
+  
   expected_status.add(
      {
         'new-file'          : Item(status='A ', wc_rev='0'),
@@ -18877,7 +18877,7 @@ def foreign_repos_del_and_props(sbox):
         'D/H/chi'           : Item(status='A ', wc_rev='0'),
         'D/gamma'           : Item(status='A ', wc_rev='0'),
      })
-
+  
   svntest.actions.run_and_verify_status(wc2_dir, expected_status)
 
   expected_output = ["Properties on '%s':\n" % (os.path.join(wc2_dir, 'iota')),
