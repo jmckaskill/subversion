@@ -356,7 +356,7 @@ parse_next_hunk(svn_hunk_t **hunk,
 
           c = line->data[0];
           /* Tolerate chopped leading spaces on empty lines. */
-          if (original_lines > 0 && modified_lines > 0
+          if (original_lines > 0 && modified_lines > 0 
               && ((c == ' ')
               || (! eof && line->len == 0)
               || (ignore_whitespaces && c != del && c != add)))
