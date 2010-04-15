@@ -630,7 +630,7 @@ seek_to_line(patch_target_t *target, svn_linenum_t line,
  * POOL. */
 static svn_error_t *
 match_hunk(svn_boolean_t *matched, patch_target_t *target,
-           const svn_hunk_t *hunk, int fuzz,
+           const svn_hunk_t *hunk, int fuzz, 
            svn_boolean_t ignore_whitespaces, apr_pool_t *pool)
 {
   svn_stringbuf_t *hunk_line;
@@ -689,7 +689,7 @@ match_hunk(svn_boolean_t *matched, patch_target_t *target,
                   lines_matched = ! strcmp(stripped_hunk_line,
                                            stripped_target_line);
                 }
-              else
+              else 
                 lines_matched = ! strcmp(hunk_line_translated, target_line);
             }
         }
@@ -731,7 +731,7 @@ match_hunk(svn_boolean_t *matched, patch_target_t *target,
 static svn_error_t *
 scan_for_match(svn_linenum_t *matched_line, patch_target_t *target,
                const svn_hunk_t *hunk, svn_boolean_t match_first,
-               svn_linenum_t upper_line, int fuzz,
+               svn_linenum_t upper_line, int fuzz, 
                svn_boolean_t ignore_whitespaces,
                svn_cancel_func_t cancel_func, void *cancel_baton,
                apr_pool_t *pool)
@@ -798,7 +798,7 @@ scan_for_match(svn_linenum_t *matched_line, patch_target_t *target,
  * Do temporary allocations in POOL. */
 static svn_error_t *
 get_hunk_info(hunk_info_t **hi, patch_target_t *target,
-              const svn_hunk_t *hunk, int fuzz,
+              const svn_hunk_t *hunk, int fuzz, 
               svn_boolean_t ignore_whitespaces,
               svn_cancel_func_t cancel_func, void *cancel_baton,
               apr_pool_t *result_pool, apr_pool_t *scratch_pool)
@@ -1494,7 +1494,7 @@ find_existing_children(void *baton,
       && status->text_status != svn_wc_status_deleted
       && strcmp(abspath, btn->parent_path))
     {
-      APR_ARRAY_PUSH(btn->existing_targets,
+      APR_ARRAY_PUSH(btn->existing_targets, 
                      const char *) = apr_pstrdup(btn->result_pool,
                                                  abspath);
     }
@@ -1509,7 +1509,7 @@ find_existing_children(void *baton,
  * Do temporary allocations in SCRATCH_POOL. */
 static svn_error_t *
 check_dir_empty(svn_boolean_t *empty, const char *local_abspath,
-                svn_wc_context_t *wc_ctx,
+                svn_wc_context_t *wc_ctx, 
                 apr_array_header_t *deleted_targets,
                 apr_array_header_t *deleted_abspath_list,
                 apr_pool_t *scratch_pool)
@@ -1519,7 +1519,7 @@ check_dir_empty(svn_boolean_t *empty, const char *local_abspath,
   svn_error_t *err;
   int i;
 
-  btn.existing_targets = apr_array_make(scratch_pool, 0,
+  btn.existing_targets = apr_array_make(scratch_pool, 0, 
                                         sizeof(patch_target_t *));
   btn.parent_path = local_abspath;
   btn.result_pool = scratch_pool;
