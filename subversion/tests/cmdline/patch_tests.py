@@ -2297,7 +2297,7 @@ def patch_with_ignore_whitespaces(sbox):
   svntest.actions.run_and_verify_commit(wc_dir, expected_output,
                                         expected_status, None, wc_dir)
 
-  # Apply patch with leading and trailing spaces removed and tabs transformed
+  # Apply patch with leading and trailing spaces removed and tabs transformed 
   # to spaces. The patch should match and the hunks should be written to the
   # target as-is.
 
