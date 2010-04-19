@@ -484,7 +484,7 @@ copy_file_administratively(svn_wc_context_t *wc_ctx,
                                         err, NULL);
               else if (err)
                 return svn_error_return(err);
-
+              
               /* Above add/replace condition should have caught this already
                * (-> error "Cannot copy..."). */
               SVN_ERR_ASSERT(contents != NULL);
