@@ -5717,7 +5717,7 @@ svn_wc_get_pristine_props(apr_hash_t **props,
                           const char *local_abspath,
                           apr_pool_t *result_pool,
                           apr_pool_t *scratch_pool);
-
+                          
 
 /** Set @a *value to the value of property @a name for @a path, allocating
  * @a *value in @a pool.  If no such prop, set @a *value to @c NULL.
