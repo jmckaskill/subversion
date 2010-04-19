@@ -1014,7 +1014,7 @@ def drop_mergeinfo_outside_of_dump_stream(sbox):
   #                  r4                                            |     |
   #                   |                                            V     V
   #                  branches/B1/B/E------------------------------r14---r15->
-  #
+  #                  
   #
   # The mergeinfo on the complete repos in the preceeding repos looks like:
   #
@@ -1144,7 +1144,7 @@ def dont_drop_valid_mergeinfo_during_incremental_loads(sbox):
     "/trunk/B/E:5-6,8-9\n"])
   svntest.actions.run_and_verify_svn(None, expected_output, [],
                                      'propget', 'svn:mergeinfo', '-R',
-                                     sbox.repo_url)
+                                     sbox.repo_url)  
 
   # Now incrementally dump that repository into three dump files:
   dump_file_r1_10 = svntest.main.temp_dir + "-r1-10.dump"
