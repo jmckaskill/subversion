@@ -57,7 +57,7 @@ typedef enum {
   type_relpath
 } path_type_t;
 
-
+ 
 /**** Internal implementation functions *****/
 
 /* Return an internal-style new path based on PATH, allocated in POOL.
@@ -1897,10 +1897,10 @@ svn_uri_is_canonical(const char *uri, apr_pool_t *pool)
 
               /* Can't use apr_isxdigit() because lower case letters are
                  not in our canonical format */
-              if (((*(ptr+1) < '0' || (*ptr+1) > '9'))
+              if (((*(ptr+1) < '0' || (*ptr+1) > '9')) 
                   && (*(ptr+1) < 'A' || (*ptr+1) > 'F'))
                 return FALSE;
-              else if (((*(ptr+2) < '0' || (*ptr+2) > '9'))
+              else if (((*(ptr+2) < '0' || (*ptr+2) > '9')) 
                   && (*(ptr+2) < 'A' || (*ptr+2) > 'F'))
                 return FALSE;
 
