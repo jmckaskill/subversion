@@ -249,7 +249,7 @@ svn_wc__cd_to_cd2(const svn_wc_conflict_description_t *conflict,
  * Allocate the result in RESULT_POOL.
  */
 svn_wc_status2_t *
-svn_wc__status2_from_3(const svn_wc_status3_t *status,
+svn_wc__status2_from_3(const svn_wc_status3_t *status, 
                        apr_pool_t *result_pool);
 
 
