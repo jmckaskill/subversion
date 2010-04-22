@@ -1218,7 +1218,7 @@ translated_stream_mark(void *baton, svn_stream_mark_t **mark, apr_pool_t *pool)
   mark_translated_t *mark_translated;
   struct translated_stream_baton *b = baton;
   struct translated_stream_baton *sb;
-
+  
   mark_translated = apr_palloc(pool, sizeof(*mark_translated));
   SVN_ERR(svn_stream_mark(b->stream, &mark_translated->mark, pool));
 
