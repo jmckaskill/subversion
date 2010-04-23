@@ -1175,7 +1175,7 @@ translated_stream_mark(void *baton, svn_stream_mark_t **mark, apr_pool_t *pool)
 {
   mark_translated_t *mt;
   struct translated_stream_baton *b = baton;
-
+  
   mt = apr_palloc(pool, sizeof(*mt));
   SVN_ERR(svn_stream_mark(b->stream, &mt->mark, pool));
 
@@ -1214,7 +1214,7 @@ translated_stream_seek(void *baton, svn_stream_mark_t *mark)
   *b->out_baton = *mt->saved_baton.out_baton;
   b->written = mt->saved_baton.written;
   svn_stringbuf_setempty(b->readbuf);
-  svn_stringbuf_appendbytes(b->readbuf, mt->saved_baton.readbuf->data,
+  svn_stringbuf_appendbytes(b->readbuf, mt->saved_baton.readbuf->data, 
                             mt->saved_baton.readbuf->len);
   b->readbuf_off = mt->saved_baton.readbuf_off;
   memcpy(b->buf, mt->saved_baton.buf, SVN__TRANSLATION_BUF_SIZE);
