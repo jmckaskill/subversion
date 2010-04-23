@@ -249,7 +249,7 @@ svn_wc__cd_to_cd2(const svn_wc_conflict_description_t *conflict,
  * Allocate the result in RESULT_POOL.
  */
 svn_wc_status2_t *
-svn_wc__status2_from_3(const svn_wc_status3_t *status,
+svn_wc__status2_from_3(const svn_wc_status3_t *status, 
                        apr_pool_t *result_pool);
 
 
@@ -490,7 +490,7 @@ svn_wc__node_get_base_rev(svn_revnum_t *base_revision,
 
 /* Get the working revision of @a local_abspath using @a wc_ctx. If @a
  * local_abspath is not in the working copy, return @c
- * SVN_ERR_WC_PATH_NOT_FOUND.
+ * SVN_ERR_WC_PATH_NOT_FOUND.  
  *
  * This function is meant as a temporary solution for using the old-style
  * semantics of entries. It will handle any uncommitted changes (delete,
@@ -500,24 +500,24 @@ svn_wc__node_get_base_rev(svn_revnum_t *base_revision,
  * the path that was deleted. But if the delete is  below an add, the
  * revision is set to SVN_INVALID_REVNUM. For an add, copy or move we return
  * SVN_INVALID_REVNUM. In case of a replacement, we return the BASE
- * revision.
+ * revision. 
  *
  * The @changed_rev is set to the latest committed change to @a
  * local_abspath before or equal to @a revision, unless the node is
  * copied-here or moved-here. Then it is the revision of the latest committed
  * change before or equal to the copyfrom_rev.  NOTE, that we use
- * SVN_INVALID_REVNUM for a scheduled copy or move.
+ * SVN_INVALID_REVNUM for a scheduled copy or move. 
  *
  * The @a changed_date and @a changed_author are the ones associated with @a
- * changed_rev.
+ * changed_rev.  
  */
 svn_error_t *
 svn_wc__node_get_working_rev_info(svn_revnum_t *revision,
-                                  svn_revnum_t *changed_rev,
-                                  apr_time_t *changed_date,
+                                  svn_revnum_t *changed_rev, 
+                                  apr_time_t *changed_date, 
                                   const char **changed_author,
-                                  svn_wc_context_t *wc_ctx,
-                                  const char *local_abspath,
+                                  svn_wc_context_t *wc_ctx, 
+                                  const char *local_abspath, 
                                   apr_pool_t *scratch_pool,
                                   apr_pool_t *result_pool);
 
