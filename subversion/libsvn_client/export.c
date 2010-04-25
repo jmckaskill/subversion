@@ -131,10 +131,10 @@ copy_one_versioned_file(const char *from_abspath,
       /* Only export 'added' files when the revision is WORKING. This is not
          WORKING, so skip the 'added' files, since they didn't exist
          in the BASE revision and don't have an associated text-base.
-
+         
          'replaced' files are technically the same as 'added' files.
          ### TODO: Handle replaced nodes properly.
-         ###       svn_opt_revision_base refers to the "new"
+         ###       svn_opt_revision_base refers to the "new" 
          ###       base of the node. That means, if a node is locally
          ###       replaced, export skips this node, as if it was locally
          ###       added, because svn_opt_revision_base refers to the base
@@ -238,7 +238,7 @@ copy_one_versioned_file(const char *from_abspath,
           suffix = "";
         }
 
-      SVN_ERR(svn_wc__node_get_url(&url, wc_ctx, from_abspath,
+      SVN_ERR(svn_wc__node_get_url(&url, wc_ctx, from_abspath, 
                                    scratch_pool, scratch_pool));
 
       SVN_ERR(svn_subst_build_keywords2
