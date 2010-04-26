@@ -862,7 +862,7 @@ typedef struct svn_patch_t {
  * whitespaces to be parsed.
  * Allocate results in @a result_pool.
  * Use @a scratch_pool for all other allocations.
- *
+ * 
  * @since New in 1.7. */
 svn_error_t *
 svn_diff_parse_next_patch(svn_patch_t **patch,
