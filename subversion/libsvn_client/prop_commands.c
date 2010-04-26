@@ -649,7 +649,7 @@ propget_walk_cb(const char *local_abspath,
     {
       svn_boolean_t is_deleted;
       svn_error_t *err;
-
+      
       err = svn_wc__node_is_status_deleted(&is_deleted, wb->wc_ctx,
                                            local_abspath, pool);
       if (err && err->apr_err == SVN_ERR_WC_PATH_NOT_FOUND)
