@@ -1,7 +1,7 @@
-The official FreeBSD port of Subversion is now maintained in the FreeBSD ports
+The official FreeBSD port of Subversion is now maintained in the FreeBSD ports 
 tree, in the devel/subversion directory.
 
-For the latest version, see
+For the latest version, see 
 
       http://www.freebsd.org/cgi/cvsweb.cgi/ports/devel/subversion/
 
