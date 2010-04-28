@@ -92,7 +92,7 @@ def reflect_dropped_renumbered_revs(sbox):
   svntest.actions.run_and_verify_svn(None, expected_output, [],
                                      'propget', 'svn:mergeinfo', '-R',
                                      sbox.repo_url)
-
+  
 
   # Test svndumpfilter with exclude option
   test_create(sbox)
