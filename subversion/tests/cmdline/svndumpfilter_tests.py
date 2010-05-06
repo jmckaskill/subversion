@@ -69,6 +69,11 @@ def filter_and_return_output(dump, bufsize=0, *varargs):
     svntest.main.svndumpfilter_binary, expected_errput, bufsize, 1,
     dump, *varargs)
 
+  # Since we call svntest.main.run_command_stdin() in binary mode,
+  # normalize the stderr line endings on Windows ourselves.
+  if sys.platform == 'win32':
+      errput = map(lambda x : x.replace('\r\n', '\n'), errput)
+
   return output, errput
 
 
