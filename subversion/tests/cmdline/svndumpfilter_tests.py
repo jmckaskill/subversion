@@ -68,7 +68,7 @@ def filter_and_return_output(dump, bufsize=0, *varargs):
   exit_code, output, errput = svntest.main.run_command_stdin(
     svntest.main.svndumpfilter_binary, expected_errput, bufsize, 1,
     dump, *varargs)
-
+  
   return output, errput
 
 
@@ -106,7 +106,7 @@ def reflect_dropped_renumbered_revs(sbox):
   svntest.actions.run_and_verify_svn(None, expected_output, [],
                                      'propget', 'svn:mergeinfo', '-R',
                                      sbox.repo_url)
-
+  
 
   # Test svndumpfilter with exclude option
   test_create(sbox)
@@ -290,7 +290,7 @@ def filter_mergeinfo_revs_outside_of_dump_stream(sbox):
   #                  r4                                            |     |
   #                   |                                            V     V
   #                  branches/B1/B/E------------------------------r14---r15->
-  #
+  #                  
   #
   # The mergeinfo on the complete repos would look like this:
   #
@@ -348,7 +348,7 @@ def filter_mergeinfo_revs_outside_of_dump_stream(sbox):
   svntest.actions.run_and_verify_svn(None, expected_output, [],
                                      'propget', 'svn:mergeinfo', '-R',
                                      sbox.repo_url)
-
+ 
 ########################################################################
 # Run the tests
 
