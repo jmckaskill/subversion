@@ -73,7 +73,7 @@ def filter_and_return_output(dump, bufsize=0, *varargs):
   # normalize the stderr line endings on Windows ourselves.
   if sys.platform == 'win32':
       errput = map(lambda x : x.replace('\r\n', '\n'), errput)
-
+      
   return output, errput
 
 
@@ -111,7 +111,7 @@ def reflect_dropped_renumbered_revs(sbox):
   svntest.actions.run_and_verify_svn(None, expected_output, [],
                                      'propget', 'svn:mergeinfo', '-R',
                                      sbox.repo_url)
-
+  
 
   # Test svndumpfilter with exclude option
   test_create(sbox)
@@ -295,7 +295,7 @@ def filter_mergeinfo_revs_outside_of_dump_stream(sbox):
   #                  r4                                            |     |
   #                   |                                            V     V
   #                  branches/B1/B/E------------------------------r14---r15->
-  #
+  #                  
   #
   # The mergeinfo on the complete repos would look like this:
   #
@@ -403,7 +403,7 @@ def filter_mergeinfo_revs_outside_of_dump_stream(sbox):
   #
   # ...But /branches/B2 has been filtered out, so all references to
   # that branch should be gone, leaving:
-  #
+  # 
   #   Properties on 'branches/B1':
   #     svn:mergeinfo
   #       /trunk:10
@@ -427,7 +427,7 @@ def filter_mergeinfo_revs_outside_of_dump_stream(sbox):
   #
   # This test currently fails with this mergeinfo:
   #
-  #
+  # 
   #
   #
   # Check that all the blather above really happens.  First does
@@ -482,7 +482,7 @@ def filter_mergeinfo_revs_outside_of_dump_stream(sbox):
   svntest.actions.run_and_verify_svn(None, expected_output, [],
                                      'propget', 'svn:mergeinfo', '-R',
                                      sbox.repo_url)
-
+   
 ########################################################################
 # Run the tests
 
