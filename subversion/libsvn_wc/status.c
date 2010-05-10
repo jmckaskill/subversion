@@ -604,7 +604,7 @@ assemble_status(svn_wc_status3_t **status,
       /* ### We can do this db_kind to node_kind translation since the cases
        * where db_kind would have been unknown are treated as unversioned
        * paths and thus have already returned. */
-      else if (path_kind != (db_kind == svn_wc__db_kind_dir ?
+      else if (path_kind != (db_kind == svn_wc__db_kind_dir ?  
                                         svn_node_dir : svn_node_file))
         final_text_status = svn_wc_status_obstructed;
 #ifdef HAVE_SYMLINK
