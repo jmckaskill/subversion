@@ -3621,7 +3621,7 @@ add_file_with_history(const char *path,
           /* If this has no base, should we use an empty stream?
            * This assert wants to verify that there are no such callers. */
           SVN_ERR_ASSERT(source_text_base != NULL);
-
+          
           SVN_ERR(svn_wc__get_pristine_props(&base_props,
                                              db, src_local_abspath,
                                              pool, subpool));
