@@ -424,7 +424,7 @@ perform metadata operations on a whole set of files.
 
 * make --cl the same as --changelist, for convenience?
 
-* questions about commits:
+* questions about commits:  
 
     - how does 'svn ci --changelist' interact with nonrecursive commits?
     - how does it interact with a list of specific targets?
@@ -489,16 +489,16 @@ This means that the UI use-cases listed above change slightly:
 
 
    4. undefine a CL all at once (by removing all members)
-
+   
         svn cl TARGET --remove --changelist CLNAME
-
+   
         (TARGET might be implicit '.' or not, and depth is empty by
         default; use --depth to override.)
-
+   
    5. rename a CL
-
+   
         svn cl NEWNAME TARGET --changelist OLDNAME
-
+   
         (TARGET might be implicit '.' or not, and depth is empty by
         default; use --depth to override.)
 
@@ -563,3 +563,4 @@ Problem Subcommands:
   and so on.  [RESOLUTION: Let the command-line client do the
   changelist path expansion.]
 
+  

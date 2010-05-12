@@ -3639,7 +3639,7 @@ typedef struct svn_wc_status3_t
   /** The locally present lock creation date.
    */
   apr_time_t lock_creation_date;
-
+  
   /** Set to TRUE if the item is the victim of a conflict. */
   svn_boolean_t conflicted;
 
@@ -5779,7 +5779,7 @@ svn_wc_get_pristine_props(apr_hash_t **props,
                           const char *local_abspath,
                           apr_pool_t *result_pool,
                           apr_pool_t *scratch_pool);
-
+                          
 
 /** Set @a *value to the value of property @a name for @a path, allocating
  * @a *value in @a pool.  If no such prop, set @a *value to @c NULL.
