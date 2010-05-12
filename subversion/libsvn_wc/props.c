@@ -868,7 +868,7 @@ generate_conflict_message(const char *propname,
                                 "added with value '%s'."),
                               propname, incoming_base->data, incoming->data,
                               mine->data);
-
+  
   return svn_string_createf(result_pool,
                             _("Trying to change property '%s' from '%s' to "
                               "'%s',\nbut the property does not exist."),
