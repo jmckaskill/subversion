@@ -134,7 +134,7 @@
     </xsl:apply-templates>
 
     <fo:flow flow-name="xsl-region-body">
-      <fo:block id="{$id}"
+      <fo:block id="{$id}" 
             xsl:use-attribute-sets="section.level1.properties">
         <xsl:call-template name="section.titlepage"/>
       </fo:block>
@@ -204,8 +204,8 @@
     </xsl:variable>
 
     <xsl:if test="$passivetex.extensions != 0">
-      <fotex:bookmark xmlns:fotex="http://www.tug.org/fotex"
-                      fotex-bookmark-level="{$level + 2}"
+      <fotex:bookmark xmlns:fotex="http://www.tug.org/fotex" 
+                      fotex-bookmark-level="{$level + 2}" 
                       fotex-bookmark-label="{$id}">
         <xsl:value-of select="$titleabbrev"/>
       </fotex:bookmark>
@@ -235,7 +235,7 @@
     <xsl:call-template name="object.id"/>
   </xsl:variable>
 
-  <fo:block id="{$id}"
+  <fo:block id="{$id}" 
             xsl:use-attribute-sets="section.level1.properties">
     <xsl:call-template name="sect1.titlepage"/>
 
@@ -301,7 +301,7 @@
     </xsl:apply-templates>
 
     <fo:flow flow-name="xsl-region-body">
-      <fo:block id="{$id}"
+      <fo:block id="{$id}" 
                 xsl:use-attribute-sets="section.level1.properties">
         <xsl:call-template name="sect1.titlepage"/>
       </fo:block>
@@ -328,7 +328,7 @@
     <xsl:call-template name="object.id"/>
   </xsl:variable>
 
-  <fo:block id="{$id}"
+  <fo:block id="{$id}" 
             xsl:use-attribute-sets="section.level2.properties">
     <xsl:call-template name="sect2.titlepage"/>
 
@@ -353,7 +353,7 @@
     <xsl:call-template name="object.id"/>
   </xsl:variable>
 
-  <fo:block id="{$id}"
+  <fo:block id="{$id}" 
             xsl:use-attribute-sets="section.level3.properties">
     <xsl:call-template name="sect3.titlepage"/>
 
@@ -378,7 +378,7 @@
     <xsl:call-template name="object.id"/>
   </xsl:variable>
 
-  <fo:block id="{$id}"
+  <fo:block id="{$id}" 
             xsl:use-attribute-sets="section.level4.properties">
     <xsl:call-template name="sect4.titlepage"/>
 
@@ -403,7 +403,7 @@
     <xsl:call-template name="object.id"/>
   </xsl:variable>
 
-  <fo:block id="{$id}"
+  <fo:block id="{$id}" 
             xsl:use-attribute-sets="section.level5.properties">
     <xsl:call-template name="sect5.titlepage"/>
 
