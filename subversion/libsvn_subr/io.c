@@ -3547,7 +3547,7 @@ file_mktemp(apr_file_t **new_file, const char *directory,
 
   /* ### svn_path_cstring_from_utf8() guarantees to make a copy of the
          data available in POOL and we need a non-const pointer here,
-         as apr changes the template to return the new filename.
+         as apr changes the template to return the new filename. 
 
          But we can't provide the filename to our caller as that might need
          more bytes then there are XXXXs after converting it back to utf-8. */
@@ -3569,7 +3569,7 @@ file_mktemp(apr_file_t **new_file, const char *directory,
 
   /* Offset by some time value and a unique request nr to make the number
      +- unique for both this process and on the computer */
-  int baseNr = (GetTickCount() << 11) + 7 * svn_atomic_inc(&tempname_counter)
+  int baseNr = (GetTickCount() << 11) + 7 * svn_atomic_inc(&tempname_counter) 
                + GetCurrentProcessId();
   int i;
 
