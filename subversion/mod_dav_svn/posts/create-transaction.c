@@ -66,6 +66,6 @@ dav_svn__create_transaction_post(const dav_resource *resource,
                                 HTTP_INTERNAL_SERVER_ERROR,
                                 "Error writing POST response.",
                                 resource->pool);
-
+      
   return dav_svn__final_flush_or_error(r, bb, output, derr, resource->pool);
 }
