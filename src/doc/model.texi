@@ -590,7 +590,7 @@ the other two changes, resulting in a final ancestry set of:
 @c
 @c The user first merges B:5 and B:9 into A.  If A had that line, it
 @c goes away now, nothing more.
-@c
+@c 
 @c Next, user merges B:3 and B:7 into A.  The second merge must
 @c conflict.
 @c
