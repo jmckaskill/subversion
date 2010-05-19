@@ -2490,7 +2490,7 @@ merge_dir_opened(const char *local_dir_abspath,
       svn_pool_destroy(subpool);
       return SVN_NO_ERROR;
     }
-
+   
   /* Find out if this path is deleted. */
   err = svn_wc__node_is_status_deleted(&is_deleted, merge_b->ctx->wc_ctx,
                                        local_abspath, subpool);
