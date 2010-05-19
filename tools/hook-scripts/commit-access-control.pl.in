@@ -12,7 +12,7 @@
 # $LastChangedRevision$
 #
 # Usage: commit-access-control.pl REPOS TXN-NAME CONF_FILE
-#
+#    
 # ====================================================================
 #    Licensed to the Apache Software Foundation (ASF) under one
 #    or more contributor license agreements.  See the NOTICE file
@@ -35,10 +35,10 @@
 # Turn on warnings the best way depending on the Perl version.
 BEGIN {
   if ( $] >= 5.006_000)
-    { require warnings; import warnings; }
-  else
-    { $^W = 1; }
-}
+    { require warnings; import warnings; }                      
+  else  
+    { $^W = 1; }               
+}           
 
 use strict;
 use Carp;
@@ -328,7 +328,7 @@ if (@failed_paths)
   {
     warn "$0: user `$author' does not have permission to commit to ",
          @failed_paths > 1 ? "these paths:\n  " : "this path:\n  ",
-         join("\n  ", @failed_paths), "\n";
+         join("\n  ", @failed_paths), "\n"; 
     exit 1;
   }
 else
