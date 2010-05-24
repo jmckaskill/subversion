@@ -10,7 +10,7 @@
 # You should try the `check_release' target before you make all to make
 # sure all the version numbers were groked correctly.
 #
-# This makefile doesn't copy the source tree to make a tarball, it
+# This makefile doesn't copy the source tree to make a tarball, it 
 # will create a symlink in your $TMPDIR and tar up your source tree
 # in place. This makefile uses the output tarball name as a dependancy,
 # so it wont constantly regenerate it unless your repository version
@@ -36,7 +36,7 @@
 # NODEPS := 1
 
 # Docs only please
-# DOCS_ONLY := 1
+# DOCS_ONLY := 1 
 
 # Javahl bindings if desired - must define JDK as well
 # JAVAHL := 1
@@ -262,9 +262,9 @@ NOT_JUST_DOCS:= \%define not_just_docs 1
 MAKE_DOC     := \%undefine docbook
 FOP_PATH     := \%undefine fop
 FOP_OPTS     := \%undefine fop_opts
-BOOKPATCH    :=
+BOOKPATCH    := 
 else
-BOOKPATCH    := svn-book.patch svn-book-fop$(GE_30_EXT).patch
+BOOKPATCH    := svn-book.patch svn-book-fop$(GE_30_EXT).patch 
 ORG_DOCBOOK := $(DOCBOOK_PATH)
 DOCBOOK_PATH :=$(shell echo $(DOCBOOK_PATH)| sed 's/\//\\\//g')
 MAKE_DOC:=$(if $(DOCBOOK_PATH),\%define docbook $(DOCBOOK_PATH),\%undefine docbook)
@@ -412,7 +412,7 @@ check_release : $(RPMBITS)
 	@if [ "$(RELEASE)"x = "x" ] ; then \
 	  echo "Subversion not installed or this is not a blessed version." ; \
 	  echo "Try 'RELEASE=XXXX make' instead"; exit 1 ; \
-	fi
+	fi 
 	@if [ "$(JAVAHL)" == "1" ] && [ "$(JDK)" == "" ] ; then \
 	  echo "JDK not defined." ; \
 	  echo "Try 'JAVAHL=1 JDK=path_to_java make' instead." ; \
@@ -428,14 +428,14 @@ check_release : $(RPMBITS)
 	  fi ; \
 	  echo "Try 'NEON=$$EXPLAIN make' instead" ; \
 	  exit 1; \
-	fi
+	fi 
 	@echo "Making $(SHORTNAME)mdk (S)RPM..."
 
 build_rpm_files : build_sources $(BUILDROOT)
 	@echo Building RPM
 	cd $(SPECS_RPM_DIR); rpm --rmspec --clean --rcfile $(RCFILES) -ba $(SPECFILE)-$(NAMEVER) $(NODEPS)
 
-build_sources: $(TARBALL) $(RPMBITS)
+build_sources: $(TARBALL) $(RPMBITS) 
 	@echo Preparing sources and specfile for RPM
 	cp -f $(SOURCES) $(SOURCE_RPM_DIR)
 	cp -f $(RCFILE) $(SOURCE_RPM_DIR)/$(RCFILE)-$(NAMEVER)
