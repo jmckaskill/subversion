@@ -2490,7 +2490,7 @@ merge_dir_opened(const char *local_dir_abspath,
       svn_pool_destroy(subpool);
       return SVN_NO_ERROR;
     }
-
+   
   /* Find out if this path is deleted. */
   err = svn_wc__node_is_status_deleted(&is_deleted, merge_b->ctx->wc_ctx,
                                        local_abspath, subpool);
@@ -9685,7 +9685,7 @@ calculate_left_hand_side(const char **url_left,
 
       youngest_rev.kind = svn_opt_revision_number;
       youngest_rev.value.number = youngest_merged_rev;
-
+      
       unspecified_rev.kind = svn_opt_revision_unspecified;
 
       *rev_left = youngest_rev.value.number;
