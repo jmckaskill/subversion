@@ -71,7 +71,7 @@ file_fetcher(void *baton,
   const char *dirpath, *base_name, *session_url, *old_session_url;
 
   svn_relpath_split(path, &dirpath, &base_name, pool);
-  session_url = svn_path_url_add_component2(ffb->repos_root,
+  session_url = svn_path_url_add_component2(ffb->repos_root, 
                                             dirpath, pool);
 
   if (ffb->session)
