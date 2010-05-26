@@ -1606,7 +1606,7 @@ svn_client_update(svn_revnum_t *result_rev,
 {
   apr_array_header_t *paths = apr_array_make(pool, 1, sizeof(const char *));
   apr_array_header_t *result_revs;
-
+  
   APR_ARRAY_PUSH(paths, const char *) = path;
 
   SVN_ERR(svn_client_update2(&result_revs, paths, revision, recurse, FALSE,
