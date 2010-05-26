@@ -577,7 +577,7 @@ assemble_status(svn_wc_status3_t **status,
       /* ### We can do this db_kind to node_kind translation since the cases
        * where db_kind would have been unknown are treated as unversioned
        * paths and thus have already returned. */
-      else if (path_kind != (db_kind == svn_wc__db_kind_dir ?
+      else if (path_kind != (db_kind == svn_wc__db_kind_dir ?  
                                         svn_node_dir : svn_node_file))
         final_text_status = svn_wc_status_obstructed;
 #ifdef HAVE_SYMLINK
@@ -601,7 +601,7 @@ assemble_status(svn_wc_status3_t **status,
         && (! locked_p)
         && (! switched_p)
         && (! file_external_p)
-        && (! lock)
+        && (! lock) 
         && (! repos_lock)
         && (! changelist)
         && (! tree_conflict))
@@ -760,7 +760,7 @@ send_status_structure(const struct walk_status_baton *wb,
     }
 
   SVN_ERR(assemble_status(&statstruct, wb->db, local_abspath, entry,
-                          parent_repos_root_url, parent_repos_relpath,
+                          parent_repos_root_url, parent_repos_relpath, 
                           path_kind, path_special, get_all, is_ignored,
                           repos_lock, pool, pool));
 
@@ -997,7 +997,7 @@ handle_dir_entry(const struct walk_status_baton *wb,
       SVN_ERR(send_status_structure(wb, local_abspath, entry,
                                     dir_repos_root_url,
                                     dir_repos_relpath, path_kind,
-                                    path_special, get_all,
+                                    path_special, get_all, 
                                     FALSE /* is_ignored */,
                                     status_func, status_baton, pool));
     }
@@ -2072,7 +2072,7 @@ close_directory(void *dir_baton,
                   && tgt_status->entry->kind == svn_node_dir)
                 {
                   SVN_ERR(get_dir_status(&eb->wb, eb->target_abspath,
-                                         NULL, NULL, NULL, eb->ignores,
+                                         NULL, NULL, NULL, eb->ignores, 
                                          eb->default_depth,
                                          eb->get_all, eb->no_ignore, TRUE,
                                          FALSE,
