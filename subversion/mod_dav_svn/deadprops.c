@@ -687,7 +687,7 @@ db_apply_rollback(dav_db *db, dav_deadprop_rollback *rollback)
 
   if (! db->resource->info->revprop_error)
     return NULL;
-
+  
   /* Returning the original revprop change error here will cause this
      detailed error to get returned to the client in preference to the
      more generic error created by mod_dav. */
