@@ -2402,7 +2402,7 @@ svn_wc__db_op_copy(svn_wc__db_t *db,
   SVN_ERR(svn_wc__db_temp_elide_copyfrom(db, dst_abspath, scratch_pool));
 
   SVN_ERR(add_work_items(dst_pdh->wcroot->sdb, work_items, scratch_pool));
-
+ 
   return SVN_NO_ERROR;
 }
 
@@ -7048,7 +7048,7 @@ make_copy_txn(void *baton,
       svn_wc__db_status_t base_status;
 
       SVN_ERR(svn_sqlite__get_statement(&stmt, sdb, STMT_SELECT_BASE_NODE));
-      SVN_ERR(svn_sqlite__bindf(stmt, "is", mcb->pdh->wcroot->wc_id,
+      SVN_ERR(svn_sqlite__bindf(stmt, "is", mcb->pdh->wcroot->wc_id, 
                                 mcb->local_relpath));
 
       SVN_ERR(svn_sqlite__step(&have_row, stmt));
@@ -7498,7 +7498,7 @@ svn_wc__db_temp_remove_subdir_record(svn_wc__db_t *db,
                               local_abspath, svn_sqlite__mode_readwrite,
                               scratch_pool, scratch_pool));
   VERIFY_USABLE_PDH(pdh);
-
+  
   SVN_ERR_ASSERT(*local_relpath == '\0');
 
   /* Delete the NAME row from BASE_NODE.  */
