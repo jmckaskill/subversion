@@ -398,7 +398,7 @@ log_do_delete_entry(struct log_runner *loggy,
                                               repos_root_url,
                                               repos_uuid,
                                               revision,
-                                              kind == svn_node_dir
+                                              kind == svn_node_dir 
                                                    ? svn_wc__db_kind_dir
                                                    : svn_wc__db_kind_file,
                                               svn_wc__db_status_not_present,
