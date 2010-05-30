@@ -1603,7 +1603,7 @@ set_up_diff_cmd_and_options(struct diff_cmd_baton *diff_cmd_baton,
                             apr_hash_t *config, apr_pool_t *pool)
 {
   const char *diff_cmd = NULL;
-
+ 
   /* See if there is a command. */
   if (config)
     {
@@ -1612,7 +1612,7 @@ set_up_diff_cmd_and_options(struct diff_cmd_baton *diff_cmd_baton,
       svn_config_get(cfg, &diff_cmd, SVN_CONFIG_SECTION_HELPERS,
                      SVN_CONFIG_OPTION_DIFF_CMD, NULL);
     }
-
+ 
   if (diff_cmd)
     SVN_ERR(svn_path_cstring_to_utf8(&diff_cmd_baton->diff_cmd, diff_cmd,
                                      pool));
@@ -1802,7 +1802,7 @@ svn_client_diff_peg5(const apr_array_header_t *options,
   diff_cmd_baton.orig_path_1 = path;
   diff_cmd_baton.orig_path_2 = path;
 
-  SVN_ERR(set_up_diff_cmd_and_options(&diff_cmd_baton, options,
+  SVN_ERR(set_up_diff_cmd_and_options(&diff_cmd_baton, options, 
                                       ctx->config, pool));
   diff_cmd_baton.pool = pool;
   diff_cmd_baton.outfile = outfile;
