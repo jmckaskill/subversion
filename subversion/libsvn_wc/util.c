@@ -564,9 +564,10 @@ svn_wc__status2_from_3(svn_wc_status2_t **status,
 
   *status = apr_pcalloc(result_pool, sizeof(**status));
 
-  SVN_ERR(svn_wc__get_entry(&entry, wc_ctx->db, local_abspath, TRUE,
-                            svn_node_unknown, FALSE, result_pool,
-                            scratch_pool));
+  if (old_status->versioned)
+    SVN_ERR(svn_wc__get_entry(&entry, wc_ctx->db, local_abspath, TRUE,
+                              svn_node_unknown, FALSE, result_pool,
+                              scratch_pool));
 
   SVN_ERR(svn_wc__db_op_read_tree_conflict(&tree_conflict, wc_ctx->db,
                                            local_abspath, scratch_pool,
