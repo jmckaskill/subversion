@@ -2684,7 +2684,7 @@ fold_entry(svn_wc_entry_t *cur_entry,
      subdir entry. */
   if (cur_entry->kind != svn_node_dir && parent_entry != NULL)
     {
-      if ((cur_entry->revision == SVN_INVALID_REVNUM)
+      if ((cur_entry->revision == SVN_INVALID_REVNUM) 
           && (cur_entry->kind != svn_node_dir))
         cur_entry->revision = parent_entry->revision;
     }
