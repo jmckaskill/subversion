@@ -1153,7 +1153,7 @@ migrate_text_bases(const char *wcroot_abspath,
              see if a pristine row exists before attempting to insert one;
              we could check and see if a pristine file exists before
              attempting to copy a new one over it.
-
+             
              However, I think simplicity is the big win here, especially since
              this is code that runs exactly once on a user's machine: when
              doing the upgrade.  If you disagree, feel free to add the
