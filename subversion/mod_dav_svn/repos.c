@@ -4264,7 +4264,7 @@ dav_svn__create_version_resource(dav_resource **version_res,
 
 
 /* POST handler for HTTP protocol v2.
-
+ 
    Currently we allow POSTs only against the "me resource", which may
    in the future act as a dispatcher of sorts for handling potentially
    many different kinds of operations as specified by the body of the
