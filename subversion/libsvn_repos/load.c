@@ -1373,7 +1373,7 @@ close_node(void *baton)
     {
       svn_repos_notify_t *notify = svn_repos_notify_create(
                              svn_repos_notify_load_node_done, rb->pool);
-
+      
       pb->notify_func(pb->notify_baton, notify, rb->pool);
     }
 
@@ -1482,7 +1482,7 @@ close_revision(void *baton)
     {
       svn_repos_notify_t *notify = svn_repos_notify_create(
                              svn_repos_notify_load_txn_committed, rb->pool);
-
+    
       notify->new_revision = *new_rev;
       notify->old_revision = ((*new_rev == rb->rev)
                                 ? SVN_INVALID_REVNUM
