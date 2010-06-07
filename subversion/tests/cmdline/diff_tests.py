@@ -3163,20 +3163,20 @@ def diff_git_format(sbox):
 
   exit_code, diff_output, err = svntest.actions.run_and_verify_svn(
     None, None, [], 'diff', wc_dir)
-  expected_output_lines = make_git_diff_header(mu_path, "revision 1", "working copy",
+  expected_output_lines = make_git_diff_header(mu_path, "revision 1", "working copy", 
                            delete=True) + [
     "@@ -1 +0,0 @@\n",
     "-This is the file 'mu'.\n",
-  ] +  make_git_diff_header(iota_path, "revision 1",
+  ] +  make_git_diff_header(iota_path, "revision 1", 
                             "working copy") + [
     "@@ -1 +1,2 @@\n",
     " This is the file 'iota'.\n",
     "+Changed 'iota'.\n",
-  ] + make_git_diff_header(new_path, "revision 0", "working copy",
+  ] + make_git_diff_header(new_path, "revision 0", "working copy", 
                            add=True) + [
     "@@ -0,0 +1 @@\n",
     "+This is the file 'new'.\n",
-  ]
+  ] 
 
   # Makes diff output look the same on all platforms.
   def strip_eols(lines):
