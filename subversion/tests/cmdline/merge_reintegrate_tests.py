@@ -211,7 +211,7 @@ def basic_reintegrate(sbox):
                                        '--reintegrate')
 
   # Test issue #3640:
-  #
+  # 
   # Revert the merge then move A to A_MOVED in r9.  Repeat the merge, but
   # targeting A_MOVED this time.  This should work with almost the same
   # results.  The only differences being the inclusion of r9 in the
@@ -1783,7 +1783,7 @@ def reintegrate_with_subtree_merges(sbox):
   # Now update the WC and try to reintegrate.  Since we really have merged
   # everything from A to A_COPY, even though it was done via subtree merges,
   # the reintegrate should succeed.  Previously it failed because the naive
-  # interpretation of the mergeinfo on A_COPY didn't reflect that it was
+  # interpretation of the mergeinfo on A_COPY didn't reflect that it was 
   # fully synced with A, resulting in this error:
   #
   #    svn merge ^/A_COPY A --reintegrate
