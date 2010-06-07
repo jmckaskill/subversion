@@ -316,8 +316,8 @@ display_prop_diffs(const apr_array_header_t *propchanges,
 static svn_error_t *
 print_git_diff_header(svn_stream_t *os, const char *copyfrom_path,
                       svn_boolean_t deleted, svn_boolean_t copied,
-                      svn_boolean_t moved, svn_boolean_t added,
-                      const char *header_encoding, const char *path,
+                      svn_boolean_t moved, svn_boolean_t added, 
+                      const char *header_encoding, const char *path, 
                       apr_pool_t *result_pool)
 {
   if (copied)
@@ -328,7 +328,7 @@ print_git_diff_header(svn_stream_t *os, const char *copyfrom_path,
       SVN_ERR(svn_stream_printf_from_utf8(os, header_encoding, result_pool,
                                           "copy from %s%s", path, APR_EOL_STR));
       SVN_ERR(svn_stream_printf_from_utf8(os, header_encoding, result_pool,
-                                          "copy to %s%s", copyfrom_path,
+                                          "copy to %s%s", copyfrom_path, 
                                           APR_EOL_STR));
     }
   else if (moved)
@@ -337,10 +337,10 @@ print_git_diff_header(svn_stream_t *os, const char *copyfrom_path,
                                           "diff --git a/%s b/%s%s",
                                           copyfrom_path, path, APR_EOL_STR));
       SVN_ERR(svn_stream_printf_from_utf8(os, header_encoding, result_pool,
-                                          "rename from %s%s", path,
+                                          "rename from %s%s", path, 
                                           APR_EOL_STR));
       SVN_ERR(svn_stream_printf_from_utf8(os, header_encoding, result_pool,
-                                          "rename to %s%s", copyfrom_path,
+                                          "rename to %s%s", copyfrom_path, 
                                           APR_EOL_STR));
     }
   else if (deleted)
@@ -431,7 +431,7 @@ struct diff_cmd_baton {
   const char *relative_to_dir;
 
   /* ### Add moved and copied fields when we can detect those
-   * ### properly.
+   * ### properly. 
    *
    * ### Should we pass these fields as parameters to the affected funcs
    * ### instead of in the baton? */
@@ -706,7 +706,7 @@ diff_content_changed(const char *path,
               label2 = diff_label(apr_psprintf(subpool, "b/%s", path2), rev2,
                                   subpool);
             }
-
+          
           /* ### Passing FALSE for added, copied and moved and NULL for
            * ### copyfrom_path since we're only dealing with deleted paths for
            * ### git headers at this early point. */
@@ -1728,7 +1728,7 @@ set_up_diff_cmd_and_options(struct diff_cmd_baton *diff_cmd_baton,
                             apr_hash_t *config, apr_pool_t *pool)
 {
   const char *diff_cmd = NULL;
-
+ 
   /* See if there is a command. */
   if (config)
     {
@@ -1737,7 +1737,7 @@ set_up_diff_cmd_and_options(struct diff_cmd_baton *diff_cmd_baton,
       svn_config_get(cfg, &diff_cmd, SVN_CONFIG_SECTION_HELPERS,
                      SVN_CONFIG_OPTION_DIFF_CMD, NULL);
     }
-
+ 
   if (diff_cmd)
     SVN_ERR(svn_path_cstring_to_utf8(&diff_cmd_baton->diff_cmd, diff_cmd,
                                      pool));
@@ -1929,7 +1929,7 @@ svn_client_diff_peg5(const apr_array_header_t *options,
   diff_cmd_baton.orig_path_1 = path;
   diff_cmd_baton.orig_path_2 = path;
 
-  SVN_ERR(set_up_diff_cmd_and_options(&diff_cmd_baton, options,
+  SVN_ERR(set_up_diff_cmd_and_options(&diff_cmd_baton, options, 
                                       ctx->config, pool));
   diff_cmd_baton.pool = pool;
   diff_cmd_baton.outfile = outfile;
