@@ -168,7 +168,7 @@ svn_mergeinfo__remove2(svn_mergeinfo_t *mergeinfo,
                        apr_pool_t *result_pool,
                        apr_pool_t *scratch_pool);
 
-/* Find the intersection of two mergeinfos, MERGEINFO1 and
+/* Find the intersection of two mergeinfos, MERGEINFO1 and 
    MERGEINFO2, and place the result in *MERGEINFO, which is (deeply)
    allocated in RESULT_POOL.  Temporary allocations will be performed
    in SCRATCH_POOL.
