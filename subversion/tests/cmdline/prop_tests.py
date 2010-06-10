@@ -1896,7 +1896,7 @@ def prop_reject_grind(sbox):
    "Trying to add new property 'add.edit' with value 'repos',\n"
    "but property already exists with value 'local.changed'.\n",
 
-   "\n"
+   "\n"  
    ])
 
   # Get the contents of mu.prej.  The error messages in the prej file are
@@ -1912,7 +1912,7 @@ def prop_reject_grind(sbox):
   for line in raw_prej:
       repaired_line = line.replace(' but', '\nbut')
       actual_prej.append(repaired_line + '\n')
-
+  
   svntest.verify.verify_outputs("Expected mu.prej doesn't match actual mu.prej",
                                 actual_prej, None, expected_prej, None)
 
