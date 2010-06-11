@@ -965,12 +965,12 @@ def revert_add_over_not_present_dir(sbox):
   expected_status = svntest.actions.get_virginal_state(wc_dir, 1)
   expected_status.remove('A/C')
   svntest.actions.run_and_verify_status(wc_dir, expected_status)
-
+  
   main.run_svn(None, 'mkdir', os.path.join(wc_dir, 'A/C'))
-
+  
   # This fails in the current WC-NG state (r927318).
   main.run_svn(None, 'revert', os.path.join(wc_dir, 'A/C'))
-
+  
   svntest.actions.run_and_verify_status(wc_dir, expected_status)
 
 
