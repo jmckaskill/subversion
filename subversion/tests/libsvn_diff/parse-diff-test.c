@@ -59,7 +59,7 @@ static const char *unidiff =
 /* ### We need to add plenty of more cases to this patch:
  * ### copy with modifications
  * ### rename
- * ### rename with modications
+ * ### rename with modications 
  * ### add with modifications
  * ### delete with modifications*/
 static const char *git_unidiff =
@@ -133,7 +133,7 @@ test_parse_unidiff(apr_pool_t *pool)
       /* We have two patches with one hunk each.
        * Parse the first patch. */
       SVN_ERR(svn_diff_parse_next_patch(&patch, patch_file, reverse,
-                                        ignore_whitespace, iterpool,
+                                        ignore_whitespace, iterpool, 
                                         iterpool));
       SVN_ERR_ASSERT(patch);
       SVN_ERR_ASSERT(! strcmp(patch->old_filename, "A/C/gamma"));
@@ -176,7 +176,7 @@ test_parse_unidiff(apr_pool_t *pool)
       SVN_ERR_ASSERT(buf->len == 0);
 
       /* Parse the second patch. */
-      SVN_ERR(svn_diff_parse_next_patch(&patch, patch_file, reverse,
+      SVN_ERR(svn_diff_parse_next_patch(&patch, patch_file, reverse, 
                                         ignore_whitespace, pool, pool));
       SVN_ERR_ASSERT(patch);
       if (reverse)
@@ -263,9 +263,9 @@ test_parse_git_diff(apr_pool_t *pool)
                              "Cannot write to '%s'", fname);
 
   /* Parse a deleted empty file */
-  SVN_ERR(svn_diff_parse_next_patch(&patch, patch_file,
+  SVN_ERR(svn_diff_parse_next_patch(&patch, patch_file, 
                                     FALSE, /* reverse */
-                                    FALSE, /* ignore_whitespace */
+                                    FALSE, /* ignore_whitespace */ 
                                     pool, pool));
   SVN_TEST_ASSERT(patch);
   SVN_TEST_ASSERT(! strcmp(patch->old_filename, "A/mu"));
@@ -274,16 +274,16 @@ test_parse_git_diff(apr_pool_t *pool)
   SVN_TEST_ASSERT(patch->hunks->nelts == 0);
 
   /* Parse a modified file. */
-  SVN_ERR(svn_diff_parse_next_patch(&patch, patch_file,
+  SVN_ERR(svn_diff_parse_next_patch(&patch, patch_file, 
                                     FALSE, /* reverse */
-                                    FALSE, /* ignore_whitespace */
+                                    FALSE, /* ignore_whitespace */ 
                                     pool, pool));
   SVN_TEST_ASSERT(patch);
   SVN_TEST_ASSERT(! strcmp(patch->old_filename, "A/C/gamma"));
   SVN_TEST_ASSERT(! strcmp(patch->new_filename, "A/C/gamma"));
   SVN_TEST_ASSERT(patch->operation == svn_diff_op_modified);
   SVN_TEST_ASSERT(patch->hunks->nelts == 1);
-
+  
   hunk = APR_ARRAY_IDX(patch->hunks, 0, svn_hunk_t *);
   original_text = hunk->original_text;
   modified_text = hunk->modified_text;
@@ -310,9 +310,9 @@ test_parse_git_diff(apr_pool_t *pool)
   SVN_TEST_ASSERT(buf->len == 0);
 
   /* Parse a copied empty file */
-  SVN_ERR(svn_diff_parse_next_patch(&patch, patch_file,
+  SVN_ERR(svn_diff_parse_next_patch(&patch, patch_file, 
                                     FALSE, /* reverse */
-                                    FALSE, /* ignore_whitespace */
+                                    FALSE, /* ignore_whitespace */ 
                                     pool, pool));
 
   SVN_TEST_ASSERT(patch);
@@ -322,9 +322,9 @@ test_parse_git_diff(apr_pool_t *pool)
   SVN_TEST_ASSERT(patch->hunks->nelts == 0);
 
   /* Parse an added empty file */
-  SVN_ERR(svn_diff_parse_next_patch(&patch, patch_file,
+  SVN_ERR(svn_diff_parse_next_patch(&patch, patch_file, 
                                     FALSE, /* reverse */
-                                    FALSE, /* ignore_whitespace */
+                                    FALSE, /* ignore_whitespace */ 
                                     pool, pool));
 
   SVN_TEST_ASSERT(patch);
