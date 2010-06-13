@@ -191,7 +191,7 @@ tweak_node(svn_wc__db_t *db,
 
   if (SVN_IS_VALID_REVNUM(new_rev) || set_repos_relpath)
     {
-      svn_boolean_t update_stub =
+      svn_boolean_t update_stub = 
             (db_kind == svn_wc__db_kind_dir && parent_stub);
 
       SVN_ERR(svn_wc__db_temp_op_set_rev_and_repos_relpath(db, local_abspath,
@@ -1356,7 +1356,7 @@ mark_item_copied(svn_wc__db_t *db,
 {
   apr_hash_t *props;
   svn_wc_entry_t tmp_entry;
-  svn_node_kind_t kind =
+  svn_node_kind_t kind = 
     local_kind == svn_wc__db_kind_dir ? svn_node_dir : svn_node_unknown;
 
   /* Squirrel away the pristine properties to install them on
@@ -1381,7 +1381,7 @@ mark_item_copied(svn_wc__db_t *db,
   /* Remove now obsolete dav cache values.  */
   SVN_ERR(svn_wc__db_base_set_dav_cache(db, local_abspath, NULL,
                                         scratch_pool));
-
+  
   return SVN_NO_ERROR;
 }
 
