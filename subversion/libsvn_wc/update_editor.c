@@ -2593,7 +2593,7 @@ add_directory(const char *path,
           /* Immediately tweak the schedule for "this dir" so it too
              is no longer scheduled for addition.  Change rev from 0
              to the target revision allowing prep_directory() to do
-             its thing without error.
+             its thing without error. 
 
              ### In the future this should probably become a proper
              ### tree conflict and just handled by putting a base
