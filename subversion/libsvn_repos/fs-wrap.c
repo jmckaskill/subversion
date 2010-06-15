@@ -672,7 +672,7 @@ svn_repos_fs_pack2(svn_repos_t *repos,
                    apr_pool_t *pool)
 {
   struct pack_notify_baton pnb;
-
+  
   pnb.notify_func = notify_func;
   pnb.notify_baton = notify_baton;
 
