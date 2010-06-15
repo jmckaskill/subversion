@@ -1752,7 +1752,7 @@ merge_file_added(const char *local_dir_abspath,
           SVN_ERR(svn_wc_read_kind(&wc_kind, merge_b->ctx->wc_ctx,
                                    mine_abspath, FALSE, subpool));
 
-          if ((wc_kind != svn_node_none)
+          if ((wc_kind != svn_node_none) 
               && dry_run_deleted_p(merge_b, mine_abspath))
             *content_state = svn_wc_notify_state_changed;
           else
@@ -2469,7 +2469,7 @@ merge_dir_opened(const char *local_dir_abspath,
       svn_pool_destroy(subpool);
       return SVN_NO_ERROR;
     }
-
+   
   /* Find out if this path is deleted. */
   err = svn_wc__node_is_status_deleted(&is_deleted, merge_b->ctx->wc_ctx,
                                        local_abspath, subpool);
@@ -4138,7 +4138,7 @@ populate_remaining_ranges(apr_array_header_t *children_with_mergeinfo,
                  CHILDREN_WITH_MERGEINFO, see the global comment
                  'THE CHILDREN_WITH_MERGEINFO ARRAY'. */
               SVN_ERR_ASSERT(parent);
-
+ 
               child_inherits_implicit = (parent && !child->switched);
               SVN_ERR(ensure_implicit_mergeinfo(parent, child,
                                                 child_inherits_implicit,
@@ -9710,7 +9710,7 @@ calculate_left_hand_side(const char **url_left,
 
       youngest_rev.kind = svn_opt_revision_number;
       youngest_rev.value.number = youngest_merged_rev;
-
+      
       unspecified_rev.kind = svn_opt_revision_unspecified;
 
       *rev_left = youngest_rev.value.number;
