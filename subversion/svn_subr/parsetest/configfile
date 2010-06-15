@@ -17,7 +17,7 @@ Chocolate : $1.59 a dozen
 
 # BaDlY FoRMatTed paRT
 
-    [foosection]
+    [foosection]    
                 giraffe         : 17
   elephant:   green
 
@@ -28,7 +28,7 @@ Chocolate : $1.59 a dozen
 
  [barsection   ]
   3.14159  :pi
- eee : 2.71
+ eee : 2.71 
         ghoti   :       phish
 
 # Really important section!
@@ -36,5 +36,5 @@ Chocolate : $1.59 a dozen
 syntaxerror
 
    [    bazsection ]
-airplane:    bahamas
+airplane:    bahamas   
 
