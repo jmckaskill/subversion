@@ -586,7 +586,7 @@ public class SVNAdmin
             }
 
             if (val != null)
-                try
+                try 
                 {
                     outputer.write(val.getBytes());
                 }
