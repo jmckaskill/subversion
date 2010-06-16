@@ -211,7 +211,7 @@ def basic_reintegrate(sbox):
                                        '--reintegrate')
 
   # Test issue #3640:
-  #
+  # 
   # Revert the merge then move A to A_MOVED in r9.  Repeat the merge, but
   # targeting A_MOVED this time.  This should work with almost the same
   # results.  The only differences being the inclusion of r9 in the
@@ -1783,7 +1783,7 @@ def reintegrate_with_subtree_merges(sbox):
   # Now update the WC and try to reintegrate.  Since we really have merged
   # everything from A to A_COPY, even though it was done via subtree merges,
   # the reintegrate should succeed.  Previously it failed because the naive
-  # interpretation of the mergeinfo on A_COPY didn't reflect that it was
+  # interpretation of the mergeinfo on A_COPY didn't reflect that it was 
   # fully synced with A, resulting in this error:
   #
   #    svn merge ^/A_COPY A --reintegrate
@@ -1881,7 +1881,7 @@ def added_subtrees_with_mergeinfo_break_reintegrate(sbox):
   lambda_COPY_path = os.path.join(wc_dir, "A_COPY", "B", "lambda")
   A_COPY_2_path    = os.path.join(wc_dir, "A_COPY_2")
   nu_COPY_2_path   = os.path.join(wc_dir, "A_COPY_2", "C", "nu")
-
+  
   # Branch A@1 to A_COPY and A_COPY_2 in r2 and r3 respectively.
   # Make some changes under 'A' in r4-7.
   wc_disk, wc_status = set_up_branch(sbox, nbr_of_branches=2)
@@ -1893,7 +1893,7 @@ def added_subtrees_with_mergeinfo_break_reintegrate(sbox):
                                      '-m', 'Add new file in A_COPY_2 branch',
                                      wc_dir)
 
-
+  
   # r9 - Cyclic cherry pick merge r8 from A_COPY_2 back to A.
   svntest.actions.run_and_verify_svn(None, None, [], 'up', wc_dir)
   svntest.actions.run_and_verify_svn(None, svntest.verify.AnyOutput, [],
@@ -1958,7 +1958,7 @@ def added_subtrees_with_mergeinfo_break_reintegrate(sbox):
   svntest.actions.run_and_verify_svn(None, None, [], 'ci', '-m',
                                      'Create new A_COPY branch from A', wc_dir)
 
-  # r17 - Unrelated edits under both A and A_COPY.
+  # r17 - Unrelated edits under both A and A_COPY.  
   svntest.main.file_write(nu_path, "Trunk work on nu.\n")
   svntest.main.file_write(lambda_COPY_path, "lambda edit on A_COPY.\n")
   svntest.actions.run_and_verify_svn(None, None, [], 'ci', '-m',
@@ -2070,7 +2070,7 @@ def added_subtrees_with_mergeinfo_break_reintegrate(sbox):
                                        expected_skip,
                                        None, None, None, None,
                                        None, 1, 1, "--reintegrate")
-
+  
 ########################################################################
 # Run the tests
 
