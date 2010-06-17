@@ -1908,7 +1908,7 @@ typedef struct svn_client_status_t
   /** The URL of the repository */
   const char *repos_root_url;
 
-  /** The in-repository path relative to the repository root.
+  /** The in-repository path relative to the repository root. 
    * Use svn_path_url_component2() to join this value to the
    * repos_root_url to get the full URL.
    */
