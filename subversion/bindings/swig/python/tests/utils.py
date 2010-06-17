@@ -58,7 +58,7 @@ class Temper(object):
     handle = repos.create(repo_path, None, None, None, None)
     self._cleanup_list.append((repo_path, repos.svn_repos_delete))
     return (handle, repo_path, repo_uri)
-
+    
   @classmethod
   def _file_uri_for_path(cls, path):
     uri_path = urllib.pathname2url(path)
