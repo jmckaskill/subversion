@@ -114,7 +114,7 @@ calculate_target_mergeinfo(svn_ra_session_t *ra_session,
           /* Fetch any existing (explicit) mergeinfo.  We'll temporarily
              reparent to the target URL here, just to keep the code simple.
              We could, as an alternative, first see if the target URL was a
-             child of the session URL and use the relative "remainder",
+             child of the session URL and use the relative "remainder", 
              falling back to this reparenting as necessary.  */
           const char *old_session_url = NULL;
           SVN_ERR(svn_client__ensure_ra_session_url(&old_session_url,
