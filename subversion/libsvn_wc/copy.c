@@ -111,7 +111,7 @@ copy_to_tmpdir(const char **dst_abspath,
                              scratch_pool));
   else
     SVN_ERR(svn_io_copy_link(src_abspath, *dst_abspath, scratch_pool));
-
+    
 
   return SVN_NO_ERROR;
 }
@@ -139,7 +139,7 @@ copy_versioned_file(svn_wc_context_t *wc_ctx,
   const char *tmpdir_abspath;
 #ifndef SVN_EXPERIMENTAL_PRISTINE
   svn_stream_t *src_pristine;
-  svn_wc__db_status_t src_status;
+  svn_wc__db_status_t src_status; 
 #endif
   const char *tmp_dst_abspath;
   svn_node_kind_t kind;
@@ -148,10 +148,10 @@ copy_versioned_file(svn_wc_context_t *wc_ctx,
                                          dst_abspath,
                                          scratch_pool, scratch_pool));
 
-
+  
   /* This goes away when we stop using revert bases. */
   {
-    svn_wc__db_status_t dst_status;
+    svn_wc__db_status_t dst_status; 
     svn_boolean_t will_replace;
     svn_error_t *err;
 
@@ -223,7 +223,7 @@ copy_versioned_file(svn_wc_context_t *wc_ctx,
         svn_skel_t *work_item;
         const char *props_abspath;
 
-        SVN_ERR(svn_wc__prop_path(&props_abspath, dst_abspath,
+        SVN_ERR(svn_wc__prop_path(&props_abspath, dst_abspath, 
                                   svn_wc__db_kind_file, svn_wc__props_base,
                                   scratch_pool));
         SVN_ERR(svn_wc__wq_build_write_old_props(&work_item, props_abspath,
@@ -238,7 +238,7 @@ copy_versioned_file(svn_wc_context_t *wc_ctx,
         svn_skel_t *work_item;
         const char *props_abspath;
 
-        SVN_ERR(svn_wc__prop_path(&props_abspath, dst_abspath,
+        SVN_ERR(svn_wc__prop_path(&props_abspath, dst_abspath, 
                                   svn_wc__db_kind_file, svn_wc__props_working,
                                   scratch_pool));
         SVN_ERR(svn_wc__wq_build_write_old_props(&work_item, props_abspath,
@@ -357,7 +357,7 @@ copy_versioned_dir(svn_wc_context_t *wc_ctx,
                                        NULL, /* lock */
                                        wc_ctx->db, src_abspath,
                                        scratch_pool, scratch_pool));
-
+          
           if (status == svn_wc__db_status_added)
             SVN_ERR(svn_wc__db_scan_addition(NULL /* status */,
                                              NULL /* op_root_abspath */,
@@ -400,7 +400,7 @@ copy_versioned_dir(svn_wc_context_t *wc_ctx,
         svn_skel_t *work_item;
         const char *props_abspath;
 
-        SVN_ERR(svn_wc__prop_path(&props_abspath, dst_abspath,
+        SVN_ERR(svn_wc__prop_path(&props_abspath, dst_abspath, 
                                   svn_wc__db_kind_dir, svn_wc__props_base,
                                   scratch_pool));
         SVN_ERR(svn_wc__wq_build_write_old_props(&work_item, props_abspath,
@@ -415,7 +415,7 @@ copy_versioned_dir(svn_wc_context_t *wc_ctx,
         svn_skel_t *work_item;
         const char *props_abspath;
 
-        SVN_ERR(svn_wc__prop_path(&props_abspath, dst_abspath,
+        SVN_ERR(svn_wc__prop_path(&props_abspath, dst_abspath, 
                                   svn_wc__db_kind_dir, svn_wc__props_working,
                                   scratch_pool));
         SVN_ERR(svn_wc__wq_build_write_old_props(&work_item, props_abspath,
