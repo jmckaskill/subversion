@@ -538,7 +538,7 @@ CreateJ::Status(svn_wc_context_t *wc_ctx, const char *local_abspath,
       if (status->versioned)
         {
           /* ### This call returns SVN_ERR_ENTRY_NOT_FOUND for all not found
-             ### cases including the (for status) ignored
+             ### cases including the (for status) ignored 
              ### SVN_ERR_NODE_UNEXPECTED_KIND!. Needs a workaround for 100%
              ### compatibility with <= 1.6 */
           svn_error_t *err = svn_wc__get_entry_versioned(&entry, wc_ctx, local_abspath,
