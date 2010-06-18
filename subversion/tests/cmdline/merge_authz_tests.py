@@ -593,7 +593,7 @@ def reintegrate_fails_if_no_root_access(sbox):
   rho_COPY_path   = os.path.join(wc_dir, 'A_COPY', 'D', 'G', 'rho')
   omega_COPY_path = os.path.join(wc_dir, 'A_COPY', 'D', 'H', 'omega')
   psi_COPY_path   = os.path.join(wc_dir, 'A_COPY', 'D', 'H', 'psi')
-
+      
   # Copy A@1 to A_COPY in r2, and then make some changes to A in r3-6.
   sbox.build()
   wc_dir = sbox.wc_dir
@@ -627,7 +627,7 @@ def reintegrate_fails_if_no_root_access(sbox):
   # Update so we are ready for reintegrate.
   svntest.main.run_svn(None, 'up', wc_dir)
 
-  # Change authz file so everybody has access to everything but the root.
+  # Change authz file so everybody has access to everything but the root.  
   if is_ra_type_svn() or is_ra_type_dav():
     write_restrictive_svnserve_conf(sbox.repo_dir)
     write_authz_file(sbox, {"/"       : "* =",
@@ -699,7 +699,7 @@ def reintegrate_fails_if_no_root_access(sbox):
                                        None, None, None, None,
                                        None, True, True,
                                        '--reintegrate')
-
+  
 ########################################################################
 # Run the tests
 
