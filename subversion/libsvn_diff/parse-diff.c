@@ -269,7 +269,7 @@ reverse_diff_transformer(svn_stringbuf_t **buf,
 
 /* Parse PROP_NAME from HEADER as the part after the INDICATOR line. */
 static svn_error_t *
-parse_prop_name(const char **prop_name, const char *header,
+parse_prop_name(const char **prop_name, const char *header, 
                 const char *indicator, apr_pool_t *result_pool)
 {
   SVN_ERR(svn_utf_cstring_to_utf8(prop_name,
@@ -316,7 +316,7 @@ parse_next_hunk(svn_hunk_t **hunk,
   svn_boolean_t changed_line_seen;
   apr_pool_t *iterpool;
 
-  /* We only set this if we have a property hunk.
+  /* We only set this if we have a property hunk. 
    * ### prop_name acts as both a state flag inside this function and a
    * ### qualifier to discriminate between props and text hunks. Is that
    * ### kind of overloading ok? */
@@ -390,7 +390,7 @@ parse_next_hunk(svn_hunk_t **hunk,
 
           c = line->data[0];
           /* Tolerate chopped leading spaces on empty lines. */
-          if (original_lines > 0 && modified_lines > 0
+          if (original_lines > 0 && modified_lines > 0 
               && ((c == ' ')
               || (! eof && line->len == 0)
               || (ignore_whitespace && c != del && c != add)))
@@ -703,7 +703,7 @@ svn_diff_parse_next_patch(svn_patch_t **patch,
                                     APR_HASH_KEY_STRING);
               if (! hunks)
                 {
-                  hunks = apr_array_make(result_pool, 1,
+                  hunks = apr_array_make(result_pool, 1, 
                                           sizeof(svn_hunk_t *));
                   apr_hash_set((*patch)->property_hunks, prop_name,
                                        APR_HASH_KEY_STRING, hunks);
