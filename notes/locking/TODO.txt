@@ -19,7 +19,7 @@ NICE TO HAVE
    * Should propedit and propset reject to set a property on a file with
      svn:needs-lock set?
 
-   * how do locks relate to dump/load?  file as an enhancement?
+   * how do locks relate to dump/load?  file as an enhancement? 
 
 
 * Stuff to document in book:
