@@ -18,7 +18,7 @@ Index: Makefile.in
 @@ -443,6 +443,36 @@
  	@$(MAKE) check \
  	  BASE_URL=svn+ssh://localhost`pwd`/subversion/tests/cmdline
-
+ 
 +gcov:
 +	@echo -n "Collecting source files ..." ;                         \
 +	FILES=`find subversion/ -path '*/tests/*' -prune -o              \
@@ -51,7 +51,7 @@ Index: Makefile.in
 +
  bdbcheck:
  	@$(MAKE) check FS_TYPE=bdb
-
+ 
 Index: configure.ac
 ===================================================================
 --- configure.ac	(revision 32484)
@@ -59,7 +59,7 @@ Index: configure.ac
 @@ -684,6 +684,14 @@
  #   # do nothing
  fi
-
+ 
 +AC_ARG_ENABLE(gcov,
 +AC_HELP_STRING([--enable-gcov],
 +         [Turn on coverage testing (GCC only).]),
@@ -68,6 +68,6 @@ Index: configure.ac
 +      CFLAGS="$CFLAGS -fprofile-arcs -ftest-coverage"
 +    fi
 +])
-
+ 
  AC_ARG_WITH(editor,
  AS_HELP_STRING([--with-editor=PATH],
