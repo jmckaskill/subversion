@@ -2358,7 +2358,7 @@ test_dirent_get_absolute_from_lc_drive(apr_pool_t *pool)
     }
 
   if (!some_dir_on_C)
-    return svn_error_create(SVN_ERR_BASE, NULL,
+    return svn_error_create(SVN_ERR_BASE, NULL, 
                             "No usable test directory found in C:\\");
 
   /* Use the test path, but now with a lower case driveletter */
@@ -2697,7 +2697,7 @@ test_dirent_from_file_url(apr_pool_t *pool)
   for (i = 0; i < COUNT_OF(tests); i++)
     {
       const char *result;
-
+      
       SVN_ERR(svn_uri_get_dirent_from_file_url(&result, tests[i].url, pool));
 
       if (strcmp(result, tests[i].result))
