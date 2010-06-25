@@ -6,7 +6,7 @@ General Guide to Textdeltas.... basic use of interfaces.
 
 To SEND textdeltas
 ------------------
-
+ 
  1. txdelta_stream = svn_txdelta (source_stream, target_stream);
 
  2. Get window handler to do something with delta.  If using an
