@@ -3559,7 +3559,7 @@ temp_file_create(apr_file_t **new_file,
   if (status)
     return svn_error_wrap_apr(status, _("Can't create temporary file from "
                               "template '%s'"), templ);
-
+  
   /* Translate the returned path back to utf-8 before returning it */
   return svn_error_return(svn_path_cstring_to_utf8(new_file_name,
                                                    templ_apr,
@@ -3575,7 +3575,7 @@ temp_file_create(apr_file_t **new_file,
 
   /* Offset by some time value and a unique request nr to make the number
      +- unique for both this process and on the computer */
-  int baseNr = (GetTickCount() << 11) + 7 * svn_atomic_inc(&tempname_counter)
+  int baseNr = (GetTickCount() << 11) + 7 * svn_atomic_inc(&tempname_counter) 
                + GetCurrentProcessId();
   int i;
 
