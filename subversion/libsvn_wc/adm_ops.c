@@ -995,7 +995,7 @@ mark_item_copied(svn_wc__db_t *db,
 {
   apr_hash_t *props;
   svn_wc_entry_t tmp_entry;
-  svn_node_kind_t kind =
+  svn_node_kind_t kind = 
     local_kind == svn_wc__db_kind_dir ? svn_node_dir : svn_node_unknown;
 
   /* Squirrel away the pristine properties to install them on
@@ -1020,7 +1020,7 @@ mark_item_copied(svn_wc__db_t *db,
   /* Remove now obsolete dav cache values.  */
   SVN_ERR(svn_wc__db_base_set_dav_cache(db, local_abspath, NULL,
                                         scratch_pool));
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -1206,7 +1206,7 @@ svn_wc_add4(svn_wc_context_t *wc_ctx,
     } /* err */
 
 #ifndef SINGLE_DB
-    if (exists
+    if (exists 
         && ((kind == svn_node_dir && db_kind != svn_wc__db_kind_dir)
             || (kind == svn_node_file && db_kind != svn_wc__db_kind_file)))
       return svn_error_createf(
@@ -1374,7 +1374,7 @@ svn_wc_add4(svn_wc_context_t *wc_ctx,
         {
           /* This code should never be used, as it doesn't install proper
              pristine and/or properties. But it was not an error in the old
-             version of this function.
+             version of this function. 
 
              ===> Use svn_wc_add_repos_file4() directly! */
           svn_stream_t *content = svn_stream_empty(scratch_pool);
