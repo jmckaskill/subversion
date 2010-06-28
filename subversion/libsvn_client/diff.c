@@ -310,7 +310,7 @@ display_prop_diffs(const apr_array_header_t *propchanges,
  * Print a git diff header for PATH to the stream OS using HEADER_ENCODING.
  * All allocations are done in RESULT_POOL. */
 static svn_error_t *
-print_git_diff_header_added(svn_stream_t *os, const char *header_encoding,
+print_git_diff_header_added(svn_stream_t *os, const char *header_encoding, 
                             const char *path, apr_pool_t *result_pool)
 {
   SVN_ERR(svn_stream_printf_from_utf8(os, header_encoding, result_pool,
@@ -325,7 +325,7 @@ print_git_diff_header_added(svn_stream_t *os, const char *header_encoding,
  * Print a git diff header for PATH to the stream OS using HEADER_ENCODING.
  * All allocations are done in RESULT_POOL. */
 static svn_error_t *
-print_git_diff_header_deleted(svn_stream_t *os, const char *header_encoding,
+print_git_diff_header_deleted(svn_stream_t *os, const char *header_encoding, 
                               const char *path, apr_pool_t *result_pool)
 {
   SVN_ERR(svn_stream_printf_from_utf8(os, header_encoding, result_pool,
@@ -342,7 +342,7 @@ print_git_diff_header_deleted(svn_stream_t *os, const char *header_encoding,
  * COPYFROM_PATH is the origin of the operation.  All allocations are done
  * in RESULT_POOL. */
 static svn_error_t *
-print_git_diff_header_copied(svn_stream_t *os, const char *header_encoding,
+print_git_diff_header_copied(svn_stream_t *os, const char *header_encoding, 
                              const char *path, const char *copyfrom_path,
                              apr_pool_t *result_pool)
 {
@@ -370,7 +370,7 @@ print_git_diff_header_moved(svn_stream_t *os, const char *header_encoding,
                                       "diff --git a/%s b/%s%s",
                                       copyfrom_path, path, APR_EOL_STR));
   SVN_ERR(svn_stream_printf_from_utf8(os, header_encoding, result_pool,
-                                      "rename from %s%s", copyfrom_path,
+                                      "rename from %s%s", copyfrom_path, 
                                       APR_EOL_STR));
   SVN_ERR(svn_stream_printf_from_utf8(os, header_encoding, result_pool,
                                       "rename to %s%s", path, APR_EOL_STR));
@@ -381,7 +381,7 @@ print_git_diff_header_moved(svn_stream_t *os, const char *header_encoding,
  * Print a git diff header for PATH to the stream OS using HEADER_ENCODING.
  * All allocations are done in RESULT_POOL. */
 static svn_error_t *
-print_git_diff_header_modified(svn_stream_t *os, const char *header_encoding,
+print_git_diff_header_modified(svn_stream_t *os, const char *header_encoding, 
                                const char *path, apr_pool_t *result_pool)
 {
   SVN_ERR(svn_stream_printf_from_utf8(os, header_encoding, result_pool,
@@ -694,13 +694,13 @@ diff_content_changed(const char *path,
           if (diff_cmd_baton->options.for_internal->use_git_format)
             {
 
-              /* Add git headers and adjust the labels.
+              /* Add git headers and adjust the labels. 
                * ### Once we're using the git format everywhere, we can create
                * ### one func that sets the correct labels in one place. */
               if (operation == svn_diff_op_deleted)
                 {
                   SVN_ERR(print_git_diff_header_deleted(
-                                              os,
+                                              os, 
                                               diff_cmd_baton->header_encoding,
                                               path, subpool));
                   svn_pool_destroy(subpool);
@@ -712,17 +712,17 @@ diff_content_changed(const char *path,
               else if (operation == svn_diff_op_added)
                 {
                   SVN_ERR(print_git_diff_header_added(
-                                                os,
+                                                os, 
                                                 diff_cmd_baton->header_encoding,
                                                 path, subpool));
                   label1 = diff_label("/dev/null", rev1, subpool);
-                  label2 = diff_label(apr_psprintf(subpool, "b/%s", path2),
+                  label2 = diff_label(apr_psprintf(subpool, "b/%s", path2), 
                                       rev2, subpool);
                 }
               else if (operation == svn_diff_op_modified)
                 {
                   SVN_ERR(print_git_diff_header_modified(
-                                                os,
+                                                os, 
                                                 diff_cmd_baton->header_encoding,
                                                 path, subpool));
                   label1 = diff_label(apr_psprintf(subpool, "a/%s", path1), rev1,
@@ -860,7 +860,7 @@ diff_file_deleted_with_diff(const char *local_dir_abspath,
 
   if (tmpfile1)
     SVN_ERR(diff_content_changed(path,
-                                 tmpfile1, tmpfile2, diff_cmd_baton->revnum1,
+                                 tmpfile1, tmpfile2, diff_cmd_baton->revnum1, 
                                  diff_cmd_baton->revnum2,
                                  mimetype1, mimetype2,
                                  svn_diff_op_deleted, diff_baton));
@@ -1751,7 +1751,7 @@ set_up_diff_cmd_and_options(struct diff_cmd_baton *diff_cmd_baton,
                             apr_hash_t *config, apr_pool_t *pool)
 {
   const char *diff_cmd = NULL;
-
+ 
   /* See if there is a diff command and/or diff arguments. */
   if (config)
     {
@@ -1771,7 +1771,7 @@ set_up_diff_cmd_and_options(struct diff_cmd_baton *diff_cmd_baton,
 
   if (options == NULL)
     options = apr_array_make(pool, 0, sizeof(const char *));
-
+ 
   if (diff_cmd)
     SVN_ERR(svn_path_cstring_to_utf8(&diff_cmd_baton->diff_cmd, diff_cmd,
                                      pool));
@@ -1961,7 +1961,7 @@ svn_client_diff_peg5(const apr_array_header_t *options,
   diff_cmd_baton.orig_path_1 = path;
   diff_cmd_baton.orig_path_2 = path;
 
-  SVN_ERR(set_up_diff_cmd_and_options(&diff_cmd_baton, options,
+  SVN_ERR(set_up_diff_cmd_and_options(&diff_cmd_baton, options, 
                                       ctx->config, pool));
   diff_cmd_baton.pool = pool;
   diff_cmd_baton.outfile = outfile;
