@@ -809,7 +809,7 @@ read_one_entry(const svn_wc_entry_t **new_entry,
                                            entry_abspath,
                                            result_pool, scratch_pool));
 
-          /* In wc.db we want to keep the valid revision of the not-present
+          /* In wc.db we want to keep the valid revision of the not-present 
              BASE_REV, but when we used entries we set the revision to 0
              when adding a new node over a not present base node. */
           if (work_status == svn_wc__db_status_added
