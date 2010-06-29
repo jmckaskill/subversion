@@ -553,7 +553,7 @@ CreateJ::Status(svn_wc_context_t *wc_ctx, const char *local_abspath,
              cases, which we can just ignore here as hidden nodes
              are not in text or property conflict. */
           svn_error_t *err = svn_wc__node_get_info_bits(NULL,
-                                                        NULL,
+                                                        NULL, 
                                                         &conflict_old,
                                                         &conflict_new,
                                                         &conflict_wrk,
