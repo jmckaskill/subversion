@@ -20,9 +20,9 @@ class Permutations:
 
     self.row = [ self.tokens[n][self.counter[n]]
                    for n in range(len(self.tokens)) ]
-
+    
     self.inc()
-
+    
     if isinstance(self.skip, types.FunctionType) and self.skip(self.row):
       return self.next()
     return True
