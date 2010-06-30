@@ -1399,7 +1399,7 @@ struct stringbuf_stream_baton
 
 /* svn_stream_mark_t for streams backed by stringbufs. */
 struct stringbuf_stream_mark {
-    apr_size_t pos;
+    apr_size_t pos; 
 };
 
 static svn_error_t *
