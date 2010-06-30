@@ -198,7 +198,7 @@ def prepare(ctx, action, kind):
     prepare_cp(ctx, kind, '1')
   elif action == cp2:
     prepare_cp(ctx, kind, '2')
-
+    
 
 
 def up(name, local_action, local_kind, incoming_action, incoming_kind):
@@ -221,7 +221,7 @@ def up(name, local_action, local_kind, incoming_action, incoming_kind):
   svn('update', '-r', str(head), ctx.WC)
 
   local_action(ctx, target, local_kind, 'local')
-
+  
   # get conflicts
   o1,e1 = svn('update', '--accept=postpone', ctx.WC)
   o2,e2 = svn('status', ctx.WC)
@@ -231,7 +231,7 @@ def up(name, local_action, local_kind, incoming_action, incoming_kind):
                    +'select local_relpath,properties from actual_node; '
                    ])
   return o1, e1, o2, e2, o3, e3
-
+  
 
 def sw(name, local_action, local_kind, incoming_action, incoming_kind):
   ctx = TestContext()
@@ -251,7 +251,7 @@ def sw(name, local_action, local_kind, incoming_action, incoming_kind):
 
   target = ctx.wc('trunk', name)
   local_action(ctx, target, local_kind, 'local')
-
+  
   # get conflicts
   o1,e1 = svn('switch', '--accept=postpone', ctx.url('branch'), ctx.wc('trunk'))
   o2,e2 = svn('status', ctx.WC)
@@ -263,7 +263,7 @@ def sw(name, local_action, local_kind, incoming_action, incoming_kind):
 
 
 # This controls which tests are run. All possible combinations are tested.
-# The elements are functions for up,sw and add,cp1,cp2,unver, and they are
+# The elements are functions for up,sw and add,cp1,cp2,unver, and they are 
 # simple strings for f (file), l (symlink), d (directory).
 #
 #                cmd      local action and kind     incoming action and kind
