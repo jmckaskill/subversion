@@ -2672,7 +2672,7 @@ add_directory(const char *path,
           /* Immediately tweak the schedule for "this dir" so it too
              is no longer scheduled for addition.  Change rev from 0
              to the target revision allowing prep_directory() to do
-             its thing without error.
+             its thing without error. 
 
              ### In the future this should probably become a proper
              ### tree conflict and just handled by putting a base
@@ -3927,7 +3927,7 @@ add_file(const char *path,
 
       /* Is there something that is a file? */
       local_is_file = ((wc_kind == svn_wc__db_kind_file
-                        || wc_kind == svn_wc__db_kind_symlink)
+                        || wc_kind == svn_wc__db_kind_symlink) 
                        && status != svn_wc__db_status_deleted);
 
       /* Is there *something* that is not a file? */
@@ -4030,7 +4030,7 @@ add_file(const char *path,
           && ! is_file_external
           && (eb->switch_relpath != NULL
               || local_is_non_file
-              || ((copyfrom_path != NULL
+              || ((copyfrom_path != NULL 
                    || local_copyfrom_repos_relpath != NULL)
                   &&
                   ! (copyfrom_path != NULL
@@ -5528,7 +5528,7 @@ tweak_node(svn_wc__db_t *db,
 
   if (SVN_IS_VALID_REVNUM(new_rev) || set_repos_relpath)
     {
-      svn_boolean_t update_stub =
+      svn_boolean_t update_stub = 
             (db_kind == svn_wc__db_kind_dir && parent_stub);
 
       SVN_ERR(svn_wc__db_temp_op_set_rev_and_repos_relpath(db, local_abspath,
