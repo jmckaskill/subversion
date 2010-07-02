@@ -269,7 +269,7 @@ reverse_diff_transformer(svn_stringbuf_t **buf,
 
 /* Parse PROP_NAME from HEADER as the part after the INDICATOR line. */
 static svn_error_t *
-parse_prop_name(const char **prop_name, const char *header,
+parse_prop_name(const char **prop_name, const char *header, 
                 const char *indicator, apr_pool_t *result_pool)
 {
   SVN_ERR(svn_utf_cstring_to_utf8(prop_name,
@@ -316,7 +316,7 @@ parse_next_hunk(svn_hunk_t **hunk,
   svn_boolean_t changed_line_seen;
   apr_pool_t *iterpool;
 
-  /* We only set this if we have a property hunk.
+  /* We only set this if we have a property hunk. 
    * ### prop_name acts as both a state flag inside this function and a
    * ### qualifier to discriminate between props and text hunks. Is that
    * ### kind of overloading ok? */
@@ -390,7 +390,7 @@ parse_next_hunk(svn_hunk_t **hunk,
 
           c = line->data[0];
           /* Tolerate chopped leading spaces on empty lines. */
-          if (original_lines > 0 && modified_lines > 0
+          if (original_lines > 0 && modified_lines > 0 
               && ((c == ' ')
               || (! eof && line->len == 0)
               || (ignore_whitespace && c != del && c != add)))
@@ -584,7 +584,7 @@ enum parse_state
    state_start,
    state_git_diff_seen,
   /* if we have an add || del || cp src+dst || mv src+dst */
-   state_git_tree_seen,
+   state_git_tree_seen, 
    state_git_minus_seen,
    state_git_plus_seen,
    state_move_from_seen,
@@ -600,7 +600,7 @@ struct transition
 {
   const char *line;
   enum parse_state state;
-  svn_error_t *(*fn)(enum parse_state *state, const char *line,
+  svn_error_t *(*fn)(enum parse_state *state, const char *line, 
                      svn_patch_t *patch, apr_pool_t *result_pool,
                      apr_pool_t *scratch_pool);
 };
@@ -677,14 +677,14 @@ git_start(enum parse_state *state, const char *line, svn_patch_t *patch,
   char *slash;
 
   /* ### Add handling of escaped paths
-   * http://www.kernel.org/pub/software/scm/git/docs/git-diff.html:
+   * http://www.kernel.org/pub/software/scm/git/docs/git-diff.html: 
    *
    * TAB, LF, double quote and backslash characters in pathnames are
    * represented as \t, \n, \" and \\, respectively. If there is need for
    * such substitution then the whole pathname is put in double quotes.
    */
 
-  /* Our line should look like this: 'git --diff a/path b/path'.
+  /* Our line should look like this: 'git --diff a/path b/path'. 
    * If we find any deviations from that format, we return with state reset
    * to start.
    *
@@ -801,7 +801,7 @@ git_copy_from(enum parse_state *state, const char *line, svn_patch_t *patch,
 {
   /* ### Check that the path is consistent with the 'git --diff ' line. */
 
-  *state = state_copy_from_seen;
+  *state = state_copy_from_seen; 
   return SVN_NO_ERROR;
 }
 
@@ -866,7 +866,7 @@ svn_diff_parse_next_patch(svn_patch_t **patch,
 
   /* Our table consisting of:
    * Input             Required state           function to call */
-  struct transition transitions[] =
+  struct transition transitions[] = 
     {
       {"--- ",          state_start,            diff_minus},
       {"+++ ",          state_minus_seen,       diff_plus},
@@ -931,7 +931,7 @@ svn_diff_parse_next_patch(svn_patch_t **patch,
       /* Run the state machine. */
       for (i = 0; i < sizeof(transitions)/sizeof(transitions[0]); i++)
         {
-          if (line->len > strlen(transitions[i].line)
+          if (line->len > strlen(transitions[i].line) 
               && starts_with(line->data, transitions[i].line)
               && state == transitions[i].state)
             {
@@ -945,9 +945,9 @@ svn_diff_parse_next_patch(svn_patch_t **patch,
           || state == state_git_header_found)
         {
           /* We have a valid diff header, yay! */
-          break;
+          break; 
         }
-      else if (state == state_git_tree_seen
+      else if (state == state_git_tree_seen 
                && line_after_tree_header_read)
         {
           /* We have a valid diff header for a patch with only tree changes.
@@ -999,7 +999,7 @@ svn_diff_parse_next_patch(svn_patch_t **patch,
                                     APR_HASH_KEY_STRING);
               if (! hunks)
                 {
-                  hunks = apr_array_make(result_pool, 1,
+                  hunks = apr_array_make(result_pool, 1, 
                                           sizeof(svn_hunk_t *));
                   apr_hash_set((*patch)->property_hunks, prop_name,
                                        APR_HASH_KEY_STRING, hunks);
