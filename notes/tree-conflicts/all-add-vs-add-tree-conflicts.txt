@@ -39,7 +39,7 @@ IDENTICAL    file |                             |RC*Ex*RC*|         |         |
 COPY of   symlink |         (see above)         |         |RC*Ex*RC*|         |
 a (1)     (3) dir |                             |         |         |AC AC AC |
 
-
+           
 "*" The cases most recently changed are marked with a * on their right.
 
 (1) Where both local and incoming are copies and both copies are from the
