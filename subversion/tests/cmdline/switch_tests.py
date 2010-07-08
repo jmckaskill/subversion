@@ -1426,9 +1426,9 @@ def forced_switch_failures(sbox):
     'A/D/G/I'           : Item(),
   })
 
-  exit_code, so, se = svntest.actions.run_and_verify_svn(
-    "Unexpected error during co",
-    ['Checked out revision 2.\n'], [],
+  exit_code, so, se = svntest.actions.run_and_verify_svn( 
+    "Unexpected error during co", 
+    ['Checked out revision 2.\n'], [], 
     "co", url_A_D_H_I, A_D_G_I)
 
   # Try the forced switch.  A/D/G/I obstructs the dir A/D/G/I coming
