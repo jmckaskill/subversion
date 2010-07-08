@@ -53,7 +53,7 @@ def make_diff_header(path, old_tag, new_tag):
     ]
 
 def make_git_diff_header(path, old_tag, new_tag, add=False, src_label=None,
-                         dst_label=None, delete=False, cp=False, mv=False,
+                         dst_label=None, delete=False, cp=False, mv=False, 
                          copyfrom=None):
   """ Generate the expected 'git diff' header for file PATH, with its old
   and new versions described in parentheses by OLD_TAG and NEW_TAG.
@@ -3173,23 +3173,23 @@ def diff_git_format_wc_wc(sbox):
 
   ### We're not testing copied or moved paths
 
-  expected_output = make_git_diff_header(mu_path, "revision 1",
-                                         "working copy",
+  expected_output = make_git_diff_header(mu_path, "revision 1", 
+                                         "working copy", 
                                          delete=True) + [
     "@@ -1 +0,0 @@\n",
     "-This is the file 'mu'.\n",
-  ] + make_git_diff_header(new_path, "revision 0", "working copy",
+  ] + make_git_diff_header(new_path, "revision 0", "working copy", 
                            add=True) + [
     "@@ -0,0 +1 @@\n",
     "+This is the file 'new'.\n",
-  ] +  make_git_diff_header(iota_path, "revision 1",
+  ] +  make_git_diff_header(iota_path, "revision 1", 
                             "working copy") + [
     "@@ -1 +1,2 @@\n",
     " This is the file 'iota'.\n",
     "+Changed 'iota'.\n",
   ]
 
-  svntest.actions.run_and_verify_svn(None, expected_output, [], 'diff',
+  svntest.actions.run_and_verify_svn(None, expected_output, [], 'diff', 
                                      '--git-diff', wc_dir)
 
 def diff_git_format_url_wc(sbox):
@@ -3210,17 +3210,17 @@ def diff_git_format_url_wc(sbox):
   svntest.main.run_svn(None, 'commit', '-m', 'Committing changes', wc_dir)
   svntest.main.run_svn(None, 'up', wc_dir)
 
-  expected_output = make_git_diff_header(new_path, "revision 0", "revision 2",
+  expected_output = make_git_diff_header(new_path, "revision 0", "revision 2", 
                                          dst_label=wc_dir, add=True) + [
     "@@ -0,0 +1 @@\n",
     "+This is the file 'new'.\n",
-  ] + make_git_diff_header(mu_path, "revision 1",
-                           "working copy",
+  ] + make_git_diff_header(mu_path, "revision 1", 
+                           "working copy", 
                            src_label=repo_url,
                            delete=True) + [
     "@@ -1 +0,0 @@\n",
     "-This is the file 'mu'.\n",
-  ] +  make_git_diff_header(iota_path, "revision 1",
+  ] +  make_git_diff_header(iota_path, "revision 1", 
                             "working copy", src_label=repo_url,
                             dst_label=wc_dir) + [
     "@@ -1 +1,2 @@\n",
@@ -3228,7 +3228,7 @@ def diff_git_format_url_wc(sbox):
     "+Changed 'iota'.\n",
   ]
 
-  svntest.actions.run_and_verify_svn(None, expected_output, [], 'diff',
+  svntest.actions.run_and_verify_svn(None, expected_output, [], 'diff', 
                                      '--git-diff',
                                      '--old', repo_url + '@1', '--new',
                                      wc_dir)
@@ -3252,24 +3252,24 @@ def diff_git_format_url_url(sbox):
   svntest.main.run_svn(None, 'commit', '-m', 'Committing changes', wc_dir)
   svntest.main.run_svn(None, 'up', wc_dir)
 
-  expected_output = make_git_diff_header("A/mu", "revision 1",
-                                         "revision 2",
+  expected_output = make_git_diff_header("A/mu", "revision 1", 
+                                         "revision 2", 
                                          delete=True) + [
     "@@ -1 +0,0 @@\n",
     "-This is the file 'mu'.\n",
-    ] + make_git_diff_header("new", "revision 0", "revision 2",
+    ] + make_git_diff_header("new", "revision 0", "revision 2", 
                               add=True) + [
     "@@ -0,0 +1 @@\n",
     "+This is the file 'new'.\n",
-  ] +  make_git_diff_header("iota", "revision 1",
+  ] +  make_git_diff_header("iota", "revision 1", 
                             "revision 2") + [
     "@@ -1 +1,2 @@\n",
     " This is the file 'iota'.\n",
     "+Changed 'iota'.\n",
   ]
 
-  svntest.actions.run_and_verify_svn(None, expected_output, [], 'diff',
-                                     '--git-diff',
+  svntest.actions.run_and_verify_svn(None, expected_output, [], 'diff', 
+                                     '--git-diff', 
                                      '--old', repo_url + '@1', '--new',
                                      repo_url + '@2')
 
