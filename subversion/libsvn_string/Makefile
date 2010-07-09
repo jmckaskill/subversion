@@ -15,7 +15,7 @@ clean:
 svn_string.o:  svn_string.c $(SVN_INCLUDE)/svn_string.h
 	cc -c svn_string.c -g -Wall \
                            -shared -fPIC \
-                           -I$(SVN_INCLUDE) -I$(APR_INCLUDE)
+                           -I$(SVN_INCLUDE) -I$(APR_INCLUDE) 
 
 # Create our shared library, dynamically dependent on libapr
 
