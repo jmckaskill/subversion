@@ -277,7 +277,7 @@ def test_print_property_diffs(sbox):
   if expected_output[3].split()[1] != output[3].split()[1]:
     raise svntest.Failure
 
-  svntest.verify.compare_and_display_lines('', '',
+  svntest.verify.compare_and_display_lines('', '', 
                                            expected_output[4:],
                                            output[4:])
 
@@ -538,7 +538,7 @@ def diff_ignore_eolstyle(sbox):
     if expected_output[3].split()[1] != output[3].split()[1]:
       raise svntest.Failure
 
-    svntest.verify.compare_and_display_lines('', '',
+    svntest.verify.compare_and_display_lines('', '', 
                                              expected_output[4:],
                                              output[4:])
 
