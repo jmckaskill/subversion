@@ -1428,9 +1428,9 @@ def forced_switch_failures(sbox):
     'A/D/G/I'           : Item(),
   })
 
-  exit_code, so, se = svntest.actions.run_and_verify_svn(
-    "Unexpected error during co",
-    ['Checked out revision 2.\n'], [],
+  exit_code, so, se = svntest.actions.run_and_verify_svn( 
+    "Unexpected error during co", 
+    ['Checked out revision 2.\n'], [], 
     "co", url_A_D_H_I, A_D_G_I)
 
   # Try the forced switch.  A/D/G/I obstructs the dir A/D/G/I coming
@@ -3009,14 +3009,14 @@ def copy_with_switched_subdir(sbox):
 ### regression test for issue #3597
 def relocate_with_relative_externals(sbox):
   "relocate a directory containing relative externals"
-
+  
   sbox.build()
   wc_dir = sbox.wc_dir
 
   # Add a relative external.
   change_external(os.path.join(wc_dir, 'A', 'B'), "^/A/D/G G-ext", commit=True)
   svntest.actions.run_and_verify_svn(None, None, [], 'update', wc_dir)
-
+  
   # Move our repository to another location.
   repo_dir = sbox.repo_dir
   repo_url = sbox.repo_url
