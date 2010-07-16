@@ -19,7 +19,7 @@ You may have access control, but what if the code implementing this
 access control was written poorly, and contains a buffer overflow?  2
 hours ago you worried about who could read or write to a document in
 your repository. Now you discover that an attacker can execute arbitary
-code as the userid your service is running as. This is not ideal.
+code as the userid your service is running as. This is not ideal. 
 
 Hence, we distinquish between "security features" and assurance. Brian
 Snow, a technical director at the NSA, defines assurance as follows:
@@ -42,7 +42,7 @@ which is available as a RealPlayer stream from Blackhat.com:
 The two most important steps that Subversion can take are:
 
         Establish secure coding guidelines that are communicated to all
-        developers and enforced by the project leads.
+        developers and enforced by the project leads. 
 
         Improve the documentation: A diagram much like qmail's Big
         Picture which shows how code and data flows within the program.
@@ -55,7 +55,7 @@ the Subversion code.
 Additional steps include:
 
        Establish a QA section on the website containing documentation
-       about the tests that are run against Subversion.
+       about the tests that are run against Subversion. 
 
        Document how new tests for both server and client can be written
        and encourage users who are in need of assurance to participate
