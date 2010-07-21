@@ -675,9 +675,9 @@ typedef svn_error_t *(*svn_client_get_commit_log_t)(
  * which has the revision properties @a rev_props, and that the contents were
  * @a line.
  *
- * @a start_revnum and @a end_revnum contain the start and end revision
+ * @a start_revnum and @a end_revnum contain the start and end revision 
  * number of the entire blame operation, as determined from the repository
- * inside svn_client_blame5(). This can be useful for the blame receiver
+ * inside svn_client_blame5(). This can be useful for the blame receiver 
  * to format the blame output.
  *
  * If svn_client_blame5() was called with @a include_merged_revisions set to
@@ -950,7 +950,7 @@ typedef struct svn_client_ctx_t
   /** A commit callback to call when a commit succeeds.
    * @note There is no @a commit_callback member; this is named
    * @a commit_callback2 to reflect its type.
-   *
+   * 
    * @since New in 1.7.
    */
   svn_commit_callback2_t commit_callback2;
@@ -1956,7 +1956,7 @@ typedef struct svn_client_status_t
   /** The URL of the repository */
   const char *repos_root_url;
 
-  /** The in-repository path relative to the repository root.
+  /** The in-repository path relative to the repository root. 
    * Use svn_path_url_component2() to join this value to the
    * repos_root_url to get the full URL.
    */
