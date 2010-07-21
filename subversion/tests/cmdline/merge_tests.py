@@ -3223,7 +3223,7 @@ def merge_file_replace(sbox):
                                         expected_status,
                                         None,
                                         wc_dir)
-
+  
 #----------------------------------------------------------------------
 # Test for issue 2522
 # Same as merge_file_replace, but without update before merge.
@@ -10379,13 +10379,13 @@ def foreign_repos(sbox):
   svntest.main.file_append(fred_path, fred_contents)
   svntest.main.run_svn(None, 'add', zeta_path, fred_path)
   svntest.main.run_svn(None, 'pset', 'foo', 'bar', fred_path)
-
+  
   # Modify existing files and directories.
   added_contents = "This is another line of text.\n"
   svntest.main.file_append(iota_path, added_contents)
   svntest.main.file_append(beta_path, added_contents)
   svntest.main.run_svn(None, 'pset', 'foo', 'bar', iota_path, B_path)
-
+  
   # Delete some stuff
   svntest.main.run_svn(None, 'delete', alpha_path, H_path)
 
@@ -15385,7 +15385,7 @@ def foreign_repos_del_and_props(sbox):
   sbox.build()
   wc_dir = sbox.wc_dir
   wc2_dir = sbox.add_wc_path('wc2')
-
+  
   (r2_path, r2_url) = sbox.add_repo_path('fgn');
   svntest.main.create_repos(r2_path)
 
@@ -15407,7 +15407,7 @@ def foreign_repos_del_and_props(sbox):
   new_file = os.path.join(wc_dir, 'new-file')
   svntest.main.file_write(new_file, 'new-file')
   svntest.actions.run_and_verify_svn(None, None, [], 'add', new_file)
-
+  
   svntest.actions.run_and_verify_svn(None, None, [], 'propset',
                                       'svn:eol-style', 'native', new_file)
 
@@ -15441,7 +15441,7 @@ def foreign_repos_del_and_props(sbox):
   expected_status.tweak(wc_rev='1')
   expected_status.tweak('', wc_rev='0')
   expected_status.tweak('iota', status=' M')
-
+  
   expected_status.add(
      {
         'new-file'          : Item(status='A ', wc_rev='0'),
@@ -15452,7 +15452,7 @@ def foreign_repos_del_and_props(sbox):
         'D/H/chi'           : Item(status='A ', wc_rev='0'),
         'D/gamma'           : Item(status='A ', wc_rev='0'),
      })
-
+  
   svntest.actions.run_and_verify_status(wc2_dir, expected_status)
 
   expected_output = ["Properties on '%s':\n" % (os.path.join(wc2_dir, 'iota')),
@@ -15478,7 +15478,7 @@ def immediate_depth_merge_creates_minimal_subtree_mergeinfo(sbox):
 
 
   svntest.actions.run_and_verify_svn(None, None, [], 'up', wc_dir)
-
+  
   # Merge -c5 from A/B to A_COPY/B at --depth immediates.
   # This should create only the minimum subtree mergeinfo
   # required to describe the merge.  This means that A_COPY/B/E gets
@@ -15638,7 +15638,7 @@ def copy_causes_phantom_eol_conflict(sbox):
   mu_path                = os.path.join(wc_dir, "A", "mu")
   mu2_path               = os.path.join(wc_dir, "A", "mu2")
   mu_backport_path       = os.path.join(wc_dir, "A-branch-backport", "mu")
-
+  
   # r2 - Set the 'native' svn:eol-style on A/mu:
   svntest.actions.run_and_verify_svn(None, None, [],
                                      'ps', 'svn:eol-style', 'native',
@@ -15646,7 +15646,7 @@ def copy_causes_phantom_eol_conflict(sbox):
   svntest.actions.run_and_verify_svn(None, None, [],
                                      'ci', '-m', 'Set native eol-style',
                                      wc_dir)
-
+    
   # r3 - Branch 'A' to 'A-branch':
   svntest.actions.run_and_verify_svn(None, None, [],
                                      'copy', A_path, A_branch_path)
@@ -15666,7 +15666,7 @@ def copy_causes_phantom_eol_conflict(sbox):
   svntest.actions.run_and_verify_svn(None, None, [],
                                      'ci', '-m', 'Edit a copied file',
                                      wc_dir)
-
+  
   # r6 - Create a backport branch 'A-branch-backport for r5:
   svntest.actions.run_and_verify_svn(None, None, [], 'copy',
                                      A_branch_path, A_branch_backport_path)
@@ -15681,7 +15681,7 @@ def copy_causes_phantom_eol_conflict(sbox):
   svntest.actions.run_and_verify_svn(
       None, None, [], 'ci',
       '-m', 'Merge r5 from ^/A/mu2 to A-branch-backport/mu', wc_dir)
-
+  
   # Now merge r7 from 'A-branch-backport' to 'A-branch'.
   #
   # This fails over ra_neon and ra_serf on Windows:
@@ -15769,7 +15769,7 @@ def copy_causes_phantom_eol_conflict(sbox):
                                        expected_status,
                                        expected_skip,
                                        None, None, None, None, None, 1, 1)
-
+  
 ########################################################################
 # Run the tests
 
