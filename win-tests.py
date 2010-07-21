@@ -676,31 +676,31 @@ else:
           '-Dtest.rooturl=',
           '-Dtest.fstype=' + fs_type ,
           '-Dtest.tests=',
-
-          '-Djava.library.path='
+          
+          '-Djava.library.path=' 
                     + os.path.join(abs_objdir,
                                    'subversion/bindings/javahl/native'),
-          '-classpath',
+          '-classpath', 
           os.path.join(abs_srcdir, 'subversion/bindings/javahl/classes') +';' +
             gen_obj.junit_path
          )
-
-  sys.stderr.flush()
+  
+  sys.stderr.flush()        
   print('Running org.apache.subversion tests:')
   sys.stdout.flush()
-
+  
   r = subprocess.call(args + tuple(['org.apache.subversion.javahl.RunTests']))
   sys.stdout.flush()
   if (r != 0):
     failed = True
-
+  
   print('Running org.tigris.subversion tests:')
   sys.stdout.flush()
   r = subprocess.call(args + tuple(['org.tigris.subversion.javahl.RunTests']))
   sys.stdout.flush()
   if (r != 0):
     failed = True
-
+  
 # Stop service daemon, if any
 if daemon:
   del daemon
