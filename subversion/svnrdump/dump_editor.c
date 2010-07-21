@@ -109,7 +109,7 @@ dump_node(struct dump_edit_baton *eb,
   /* Remove leading slashes from path and copyfrom_path */
   if (path && strcmp(path, "/"))
     path = ((*path == '/') ? path + 1 : path);
-
+  
   if (copyfrom_path && strcmp(copyfrom_path, "/"))
     copyfrom_path = ((*copyfrom_path == '/') ?
                       copyfrom_path + 1 : copyfrom_path);
