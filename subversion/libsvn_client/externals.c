@@ -276,7 +276,7 @@ switch_dir_external(const char *path,
       /* Buh-bye, old and busted ... */
       SVN_ERR(svn_wc__acquire_write_lock(NULL, ctx->wc_ctx, local_abspath,
                                          FALSE, pool, pool));
-
+      
       SVN_ERR(relegate_dir_external(&baton, pool, pool));
     }
   else
