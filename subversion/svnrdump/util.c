@@ -42,7 +42,7 @@ dump_props(struct dump_edit_baton *eb,
   SVN_ERR(svn_hash_write_incremental(eb->properties, eb->del_properties,
                                      propstream, "PROPS-END", pool));
   SVN_ERR(svn_stream_close(propstream));
-
+  
   /* Prop-delta: true */
   SVN_ERR(svn_stream_printf(eb->stream, pool,
           SVN_REPOS_DUMPFILE_PROP_DELTA
