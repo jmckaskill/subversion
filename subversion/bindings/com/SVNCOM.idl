@@ -48,7 +48,7 @@ library SVNCOMLib
 	typedef enum EWCStatus
 	{
 		eWCStatus_NotInWC = 0,
-	    eWCStatus_None = 1,
+	    eWCStatus_None = 1,  
 	    eWCStatus_Added,
 	    eWCStatus_Deleted,
 	    eWCStatus_Modified,
@@ -65,9 +65,9 @@ library SVNCOMLib
 	]
 	interface ISVNStatus : IDispatch
 	{
-		[propget, id(1), helpstring("property text_status")]
+		[propget, id(1), helpstring("property text_status")] 
 		HRESULT text_status([out, retval] EWCStatus *pVal);
-		[propget, id(2), helpstring("property prop_status")]
+		[propget, id(2), helpstring("property prop_status")] 
 		HRESULT prop_status([out, retval] EWCStatus *pVal);
 		[propget, id(3), helpstring("property name")] HRESULT name([out, retval] BSTR *pVal);
 		[propget, id(4), helpstring("property is_directory")] HRESULT is_directory([out, retval] VARIANT_BOOL *pVal);
@@ -82,11 +82,11 @@ library SVNCOMLib
 	]
 	interface ISVNWorkingCopy : IDispatch
 	{
-		[id(1), helpstring("method check_wc")]
+		[id(1), helpstring("method check_wc")] 
 		HRESULT check_wc([in] BSTR bstrDir, [out, retval] VARIANT_BOOL *pfIsValid);
-		[id(2), helpstring("method watch_dir")]
+		[id(2), helpstring("method watch_dir")] 
 		HRESULT watch_dir([in] BSTR bstrDir);
-		[id(3), helpstring("method wc_statuses")]
+		[id(3), helpstring("method wc_statuses")] 
 		HRESULT wc_statuses([in] BSTR bstrPath, [in] VARIANT_BOOL getAll, [out] SAFEARRAY(ISVNStatus) *ppsa);
 	};
 
