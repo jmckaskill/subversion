@@ -2,7 +2,7 @@
 
 If you are looking at this file in Emacs, it will be displayed in
 Outline Mode:
-
+  
    C-c C-t       compress entire buffer into headings only
    C-c C-a       decompress entire buffer
    C-c C-d       compress subtree
@@ -53,7 +53,7 @@ subdirs, or hide them under a cvs-like interface?
 
    We are purposely ignoring:  history, edit, watch, editors.
 
-  Notes:
+  Notes:  
 
    - 'merge' will probably need to use delta_dirs()
 
@@ -121,17 +121,17 @@ subdirs, or hide them under a cvs-like interface?
                 delete    |---- Change
                 change   /
                 traverse
-
+        
         ACL := ENTRY
-
+        
         ENTRY := USER|GROUP ":" ACTION
-
+        
         ACTION := add_hist_prop|read_hist_prop|list hist_prop
                   |delete hist_prop|add non-hist_prop|read non-hist_prop
                   |list non-hist_prop|delete non-hist_prop
                   |read|write|change_regexp
                   |add|del|list|traverse
-
+        
         Now that you've read through all that, this is where we say that the
         above is all post-1.0 chattering. For now we will use authorization
         schemes provided by Apache. ACLs are post-1.0. Repeat after me: ACLs...
@@ -168,8 +168,8 @@ subdirs, or hide them under a cvs-like interface?
                   glibc-2.1 (I think), that's currently being used on
                   Linux, HP-UX and Win32.                          --xbc ]
 
-
+  
 ** read-only repos mirrors
 
-** modules --- (still discussing)
+** modules --- (still discussing) 
 
