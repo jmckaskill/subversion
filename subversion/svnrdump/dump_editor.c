@@ -107,7 +107,7 @@ dump_props(struct dump_edit_baton *eb,
   SVN_ERR(svn_hash_write_incremental(eb->properties, eb->del_properties,
                                      propstream, "PROPS-END", pool));
   SVN_ERR(svn_stream_close(propstream));
-
+  
   /* Prop-delta: true */
   SVN_ERR(svn_stream_printf(eb->stream, pool,
           SVN_REPOS_DUMPFILE_PROP_DELTA
@@ -164,7 +164,7 @@ dump_node(struct dump_edit_baton *eb,
   /* Remove leading slashes from path and copyfrom_path */
   if (path && strcmp(path, "/"))
     path = ((*path == '/') ? path + 1 : path);
-
+  
   if (copyfrom_path && strcmp(copyfrom_path, "/"))
     copyfrom_path = ((*copyfrom_path == '/') ?
                       copyfrom_path + 1 : copyfrom_path);
