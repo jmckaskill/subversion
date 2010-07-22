@@ -3575,7 +3575,7 @@ typedef struct svn_wc_status3_t
   /** The URL of the repository */
   const char *repos_root_url;
 
-  /** The in-repository path relative to the repository root.
+  /** The in-repository path relative to the repository root. 
    * Use svn_path_url_component2() to join this value to the
    * repos_root_url to get the full URL.
    */
@@ -5723,7 +5723,7 @@ svn_wc_get_pristine_props(apr_hash_t **props,
                           const char *local_abspath,
                           apr_pool_t *result_pool,
                           apr_pool_t *scratch_pool);
-
+                          
 
 /** Set @a *value to the value of property @a name for @a path, allocating
  * @a *value in @a pool.  If no such prop, set @a *value to @c NULL.
