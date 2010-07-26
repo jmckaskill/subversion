@@ -106,7 +106,7 @@ def copy_and_modify(sbox):
 def copy_from_previous_version_and_modify(sbox):
   "copy from previous version and modify"
   run_test(sbox, "copy-from-previous-version-and-modify.dump")
-
+  
 ########################################################################
 # Run the tests
 
