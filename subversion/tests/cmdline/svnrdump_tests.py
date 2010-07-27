@@ -98,7 +98,7 @@ def basic_svnrdump(sbox):
 def revision0(sbox):
   "dump revision zero"
   run_test(sbox, dumpfile_name = "revision0.dump")
-
+  
 ########################################################################
 # Run the tests
 
