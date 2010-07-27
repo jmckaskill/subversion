@@ -2598,7 +2598,7 @@ get_root_changes_offset(apr_off_t *root_offset,
    directory to its final location NEW_FILENAME in the repository.  On
    Unix, match the permissions of the new file to the permissions of
    PERMS_REFERENCE.  Temporary allocations are from POOL.
-
+   
    This function almost duplicates svn_io_file_move(), but it tries to
    guarantee a flush. */
 static svn_error_t *
