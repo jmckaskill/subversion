@@ -113,7 +113,7 @@ public class ClientNotifyInformation extends EventObject
     long oldRevision;
 
     long hunkOriginalStart;
-
+    
     long hunkOriginalLength;
 
     long hunkModifiedStart;
