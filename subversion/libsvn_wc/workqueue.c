@@ -774,7 +774,7 @@ run_deletion_postcommit(svn_wc__db_t *db,
                 db, local_abspath,
                 FALSE, FALSE, cancel_func, cancel_baton, scratch_pool));
 
-      /* If the parent entry's working rev 'lags' behind new_rev...
+      /* If the parent entry's working rev 'lags' behind new_rev... 
          ### Maybe we should also add a not-present node if the
          ### deleted node was switched? */
       if (new_revision > parent_revision)
@@ -1770,7 +1770,7 @@ run_file_move(svn_wc__db_t *db,
   err = svn_io_file_move(src_abspath, dst_abspath, scratch_pool);
 
   /* If the source is not found, we assume the wq op is already handled */
-  if (err && (APR_STATUS_IS_ENOENT(err->apr_err)
+  if (err && (APR_STATUS_IS_ENOENT(err->apr_err) 
               || APR_STATUS_IS_ENODIR(err->apr_err)))
     svn_error_clear(err);
   else
