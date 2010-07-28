@@ -427,7 +427,7 @@ report_revisions_and_depths(svn_wc__db_t *db,
               && wrk_status != svn_wc__db_status_obstructed_delete
 #endif
               && wrk_status != svn_wc__db_status_deleted)
-
+              
             {
               svn_node_kind_t dirent_kind;
 
