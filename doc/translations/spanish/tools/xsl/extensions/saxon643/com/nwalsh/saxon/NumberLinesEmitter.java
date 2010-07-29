@@ -201,7 +201,7 @@ public class NumberLinesEmitter extends CopyEmitter {
    *
    * @param lineNumber The number of the current line.
    */
-  protected void formatLineNumber(int lineNumber)
+  protected void formatLineNumber(int lineNumber) 
     throws TransformerException {
 
     char ch = 160; // &nbsp;
