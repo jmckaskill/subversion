@@ -48,7 +48,7 @@
 <xsl:param name="citerefentry.link" select="'0'"/>
 <xsl:param name="collect.xref.targets" select="'no'"/>
 <xsl:param name="css.decoration" select="1"/>
-<xsl:param name="current.docid" select="''"/>
+<xsl:param name="current.docid" select="''"/> 
 <xsl:param name="default.float.class" select="'before'"/>
 <xsl:param name="default.image.width" select="''"/>
 <xsl:param name="default.table.width" select="''"/>
@@ -203,8 +203,8 @@ set       toc,title
 <xsl:param name="nominal.image.depth" select="4 * $pixels.per.inch"/>
 <xsl:param name="nominal.image.width" select="6 * $pixels.per.inch"/>
 <xsl:param name="nominal.table.width" select="'6in'"/>
-<xsl:param name="olink.base.uri" select="''"/>
-<xsl:param name="olink.doctitle" select="0"/>
+<xsl:param name="olink.base.uri" select="''"/> 
+<xsl:param name="olink.doctitle" select="0"/> 
 <xsl:param name="olink.fragid" select="'fragid='"/>
 <xsl:param name="olink.outline.ext" select="'.olink'"/>
 <xsl:param name="olink.pubid" select="'pubid='"/>
@@ -285,7 +285,7 @@ set       toc,title
 <xsl:param name="use.embed.for.svg" select="0"/>
 <xsl:param name="use.extensions" select="'0'"/>
 <xsl:param name="use.id.as.filename" select="'0'"/>
-<xsl:param name="use.local.olink.style" select="0"/>
+<xsl:param name="use.local.olink.style" select="0"/> 
 <xsl:param name="use.role.as.xrefstyle" select="1"/>
 <xsl:param name="use.role.for.mediaobject" select="1"/>
 <xsl:param name="use.svg" select="1"/>
