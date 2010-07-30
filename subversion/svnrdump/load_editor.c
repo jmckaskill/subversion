@@ -72,7 +72,7 @@ get_load_editor(const svn_delta_editor_t **editor,
   void *delta_edit_baton;
 
   revprop_table = apr_hash_make(pool);
-
+ 
   /* Call the commit editor and get back a delta_editor and delta_editor_baton */
   SVN_ERR(svn_ra_get_commit_editor3(session, &delta_editor, &delta_edit_baton,
                                     revprop_table, commit_callback,

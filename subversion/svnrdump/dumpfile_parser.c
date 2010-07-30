@@ -177,7 +177,7 @@ static svn_error_t *
 close_node(void *baton)
 {
   struct node_baton *nb;
-  const struct svn_delta_editor_t *commit_editor;
+  const struct svn_delta_editor_t *commit_editor;  
   nb = baton;
   commit_editor = nb->rb->pb->commit_editor;
   if (nb->kind == svn_node_file)
@@ -192,7 +192,7 @@ static svn_error_t *
 close_revision(void *baton)
 {
   struct revision_baton *rb;
-  const struct svn_delta_editor_t *commit_editor;
+  const struct svn_delta_editor_t *commit_editor;    
   rb = baton;
   commit_editor = rb->pb->commit_editor;
   commit_editor->close_edit(rb->pb->commit_edit_baton, rb->pb->pool);
