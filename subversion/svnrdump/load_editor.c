@@ -80,7 +80,7 @@ get_load_editor(const svn_delta_editor_t **editor,
   revprop_table = apr_hash_make(pool);
 
   SVN_ERR(svn_ra_get_latest_revnum(session, &(root->revision), pool));
-
+ 
   /* Call the commit editor and get back a delta_editor and
      commit_baton to use for performing the actual commit */
   SVN_ERR(svn_ra_get_commit_editor3(session, &de, &cb, revprop_table,
