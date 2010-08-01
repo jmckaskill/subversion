@@ -73,7 +73,7 @@ new_revision_record(void **revision_baton,
     }
   /* Set the commit_editor/ commit_edit_baton to NULL and wait for
      them to be created in new_node_record */
-
+  
   rb->pb->commit_editor = NULL;
   rb->pb->commit_edit_baton = NULL;
   rb->revprop_table = apr_hash_make(pb->pool);
