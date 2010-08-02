@@ -165,7 +165,7 @@ def copy_and_modify_dump(sbox):
 def copy_and_modify_load(sbox):
   "copy and modify"
   run_load_test(sbox, "copy-and-modify.dump")
-
+  
 ########################################################################
 # Run the tests
 
