@@ -20,7 +20,7 @@
   <!-- ================================================================= -->
   <sect1 id="misc-docs-directory_versioning-sect-1">
     <title>Directory Revisions</title>
-
+    
     <para>To begin, recall that the Subversion repository is an array
       of trees.  Each tree represents the application of a new atomic
       commit, and is called a @dfn{revision}.  This is very different
@@ -129,7 +129,7 @@
 
     <sect2 id="misc-docs-directory_versioning-sect-2.2">
       <title>The Solution</title>
-
+      
       <para>After deleting <filename>foo</filename> and committing,
         the file is <emphasis>not</emphasis> totally forgotten by the
         <filename>.svn</filename> directory.  While the file is no
@@ -148,7 +148,7 @@
 
         <para>How the <quote>deleted</quote>
           flag works under the hood.</para>
-
+        
         <itemizedlist>
 
           <listitem>
@@ -182,7 +182,7 @@
               the same name as a <quote>deleted</quote> entry, then
               entry will have both flags simultaneously.  This is
               perfectly fine:</para>
-
+            
             <orderedlist>
               <listitem>
                 <para>The commit-crawler will notice both flags and
@@ -213,13 +213,13 @@
   <!-- ================================================================= -->
   <sect1 id="misc-docs-directory_versioning-sect-3">
     <title>The Overeager Directory</title>
-
+    
     <para><emphasis>This is the 2nd part of the <quote>Greg
           Hudson</quote> problem.</emphasis></para>
-
+    
     <sect2 id="misc-docs-directory_versioning-sect-3.1">
       <title>The Problem</title>
-
+      
       <para>Again, suppose our working copy has directory
         <filename>DIR:1</filename> containing file
         <filename>foo:1</filename>, along with some other files.
@@ -251,7 +251,7 @@
 
     <sect2 id="misc-docs-directory_versioning-sect-3.2">
       <title>The Solution</title>
-
+      
       <para>Let's enumerate exactly those times when a directory's
         local revision number changes:</para>
 
@@ -280,7 +280,7 @@
         </varlistentry>
 
       </variablelist>
-
+      
       <para>In this light, it's clear that our <quote>overeager
         directory</quote> problem only happens in the second
         situation&mdash;those times when we're committing directory
@@ -344,7 +344,7 @@
 </chapter>
 
 <!--
-local variables:
+local variables: 
 sgml-parent-document: ("misc-docs.xml" "chapter")
 end:
 -->
