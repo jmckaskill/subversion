@@ -1555,7 +1555,7 @@ setup_request(serf_request_t *request,
 
   if (err)
     {
-      ctx->session->pending_error
+      ctx->session->pending_error 
                 = svn_error_compose_create(ctx->session->pending_error,
                                            err);
 
