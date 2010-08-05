@@ -43,7 +43,7 @@ just wants to make a "cheap" copy of something (svn_fs_link).
    run 'svn_fs_copy' when it sees the editor's "copyfrom" args on bar?
    We want 'svn_fs_rename' to run instead, which means that the editor
    somehow needs to realize that the deletion and addition are
-   connected.
+   connected. 
 
    Cmpilato sez:  svn_fs_rename exists only to "fill out" the
    filesystem API.  But we never expect an svn client to call it;  our
@@ -64,7 +64,7 @@ just wants to make a "cheap" copy of something (svn_fs_link).
    people to refer to paths in their working copy.  As with 'svn log',
    the wc paths are just converted to repository URLs anyway.)
 
-   So a user might type
+   So a user might type 
 
     % svn tag http://svn.collab.net/repos/svn/trunk \
               http://svn.collab.net/repos/svn/branches/one
