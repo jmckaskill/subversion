@@ -223,7 +223,7 @@ new_node_record(void **node_baton,
           SVN_ERR(commit_editor->close_directory(rb->db->baton, rb->pool));
           rb->db = rb->db->parent;
         }
-
+        
       for (i = 0; i < residual_path->nelts; i ++)
         {
           SVN_ERR(commit_editor->open_directory(residual_path->elts + i,
@@ -411,7 +411,7 @@ apply_textdelta(svn_txdelta_window_handler_t *handler,
   nb = node_baton;
   commit_editor = nb->rb->pb->commit_editor;
   pool = nb->rb->pool;
-  SVN_ERR(commit_editor->apply_textdelta(nb->file_baton, NULL /* base_checksum */,
+  SVN_ERR(commit_editor->apply_textdelta(nb->file_baton, NULL /* base_checksum */, 
                                          pool, handler, handler_baton));
   LDR_DBG(("Applying textdelta to %p\n", nb->file_baton));
 
