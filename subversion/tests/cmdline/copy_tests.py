@@ -4407,11 +4407,11 @@ def nonrecursive_commit_of_copy(sbox):
 
 
   svntest.actions.run_and_verify_status(wc_dir, expected_status)
-
+  
   expected_output = svntest.wc.State(wc_dir, {
     'A_new': Item(verb='Adding'),
     })
-
+  
   # These nodes are added by the commit
   expected_status.tweak('A_new', 'A_new/D', 'A_new/D/G', 'A_new/D/G/pi',
                         'A_new/D/G/rho', 'A_new/D/G/tau', 'A_new/D/H',
@@ -4814,7 +4814,7 @@ def locate_wrong_origin(sbox):
   # to locate in the local working copy. It finds a '/D1/iota' in the expected
   # place, with a last-changed revision of 2 and a local revision of HEAD-1
   #
-  # locate_copyfrom identifies this file as correct because
+  # locate_copyfrom identifies this file as correct because 
   #     * last-mod <= 2 and
   #     * 2 <= REV
   #
