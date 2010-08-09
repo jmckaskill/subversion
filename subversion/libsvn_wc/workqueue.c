@@ -956,7 +956,7 @@ run_deletion_postcommit(svn_wc__db_t *db,
                 db, local_abspath,
                 FALSE, FALSE, cancel_func, cancel_baton, scratch_pool));
 
-      /* If the parent entry's working rev 'lags' behind new_rev...
+      /* If the parent entry's working rev 'lags' behind new_rev... 
          ### Maybe we should also add a not-present node if the
          ### deleted node was switched? */
       if (new_revision > parent_revision)
