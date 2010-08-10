@@ -445,7 +445,7 @@ svn_diff_hunk_readline_diff_text(const svn_hunk_t *hunk,
 
   SVN_ERR(svn_stream_readline_detect_eol(hunk->diff_text, &line, eol, eof,
                                          result_pool));
-
+  
   if (hunk->reverse)
     {
       if (parse_hunk_header(line->data, &dummy, "@@", FALSE, scratch_pool))
@@ -486,7 +486,7 @@ svn_diff_hunk_readline_diff_text(const svn_hunk_t *hunk,
 
 /* Parse PROP_NAME from HEADER as the part after the INDICATOR line. */
 static svn_error_t *
-parse_prop_name(const char **prop_name, const char *header,
+parse_prop_name(const char **prop_name, const char *header, 
                 const char *indicator, apr_pool_t *result_pool)
 {
   SVN_ERR(svn_utf_cstring_to_utf8(prop_name,
@@ -611,7 +611,7 @@ parse_next_hunk(svn_hunk_t **hunk,
 
           c = line->data[0];
           /* Tolerate chopped leading spaces on empty lines. */
-          if (original_lines > 0 && modified_lines > 0
+          if (original_lines > 0 && modified_lines > 0 
               && ((c == ' ')
               || (! eof && line->len == 0)
               || (ignore_whitespace && c != del && c != add)))
@@ -794,7 +794,7 @@ enum parse_state
    state_start,
    state_git_diff_seen,
   /* if we have an add || del || cp src+dst || mv src+dst */
-   state_git_tree_seen,
+   state_git_tree_seen, 
    state_git_minus_seen,
    state_git_plus_seen,
    state_move_from_seen,
@@ -810,7 +810,7 @@ struct transition
 {
   const char *expected_input;
   enum parse_state required_state;
-  svn_error_t *(*fn)(enum parse_state *new_state, const char *input,
+  svn_error_t *(*fn)(enum parse_state *new_state, const char *input, 
                      svn_patch_t *patch, apr_pool_t *result_pool,
                      apr_pool_t *scratch_pool);
 };
@@ -889,14 +889,14 @@ git_start(enum parse_state *new_state, const char *line, svn_patch_t *patch,
   const char *old_path_marker;
 
   /* ### Add handling of escaped paths
-   * http://www.kernel.org/pub/software/scm/git/docs/git-diff.html:
+   * http://www.kernel.org/pub/software/scm/git/docs/git-diff.html: 
    *
    * TAB, LF, double quote and backslash characters in pathnames are
    * represented as \t, \n, \" and \\, respectively. If there is need for
    * such substitution then the whole pathname is put in double quotes.
    */
 
-  /* Our line should look like this: 'git --diff a/path b/path'.
+  /* Our line should look like this: 'git --diff a/path b/path'. 
    * If we find any deviations from that format, we return with state reset
    * to start.
    */
@@ -932,7 +932,7 @@ git_start(enum parse_state *new_state, const char *line, svn_patch_t *patch,
    * We only need the filenames when we have deleted or added empty
    * files. In those cases the old_path and new_path is identical on the
    * '--git diff' line.  For all other cases we fetch the filenames from
-   * other header lines. */
+   * other header lines. */ 
   old_path_start = line + strlen("--git diff a/");
   new_path_end = line + strlen(line);
   new_path_start = old_path_start;
@@ -1058,7 +1058,7 @@ git_copy_from(enum parse_state *new_state, const char *line, svn_patch_t *patch,
   SVN_ERR(grab_filename(&patch->old_filename, line + strlen("copy from "),
                         result_pool, scratch_pool));
 
-  *new_state = state_copy_from_seen;
+  *new_state = state_copy_from_seen; 
   return SVN_NO_ERROR;
 }
 
@@ -1100,7 +1100,7 @@ git_deleted_file(enum parse_state *new_state, const char *line, svn_patch_t *pat
 
 /* Add a HUNK associated with the property PROP_NAME to PATCH. */
 static svn_error_t *
-add_property_hunk(svn_patch_t *patch, const char *prop_name,
+add_property_hunk(svn_patch_t *patch, const char *prop_name, 
                   svn_hunk_t *hunk, svn_diff_operation_kind_t operation,
                   apr_pool_t *result_pool)
 {
@@ -1145,7 +1145,7 @@ svn_diff_parse_next_patch(svn_patch_t **patch,
 
   /* Our table consisting of:
    * Expected Input     Required state          Function to call */
-  struct transition transitions[] =
+  struct transition transitions[] = 
     {
       {"--- ",          state_start,            diff_minus},
       {"+++ ",          state_minus_seen,       diff_plus},
@@ -1212,7 +1212,7 @@ svn_diff_parse_next_patch(svn_patch_t **patch,
       /* Run the state machine. */
       for (i = 0; i < (sizeof(transitions) / sizeof(transitions[0])); i++)
         {
-          if (line->len > strlen(transitions[i].expected_input)
+          if (line->len > strlen(transitions[i].expected_input) 
               && starts_with(line->data, transitions[i].expected_input)
               && state == transitions[i].required_state)
             {
@@ -1226,9 +1226,9 @@ svn_diff_parse_next_patch(svn_patch_t **patch,
           || state == state_git_header_found)
         {
           /* We have a valid diff header, yay! */
-          break;
+          break; 
         }
-      else if (state == state_git_tree_seen
+      else if (state == state_git_tree_seen 
                && line_after_tree_header_read)
         {
           /* We have a valid diff header for a patch with only tree changes.
