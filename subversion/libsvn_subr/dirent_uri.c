@@ -2,10 +2,10 @@
  * dirent_uri.c:   a library to manipulate URIs and directory entries.
  *
  * ====================================================================
- *    Licensed to the Subversion Corporation (SVN Corp.) under one
+ *    Licensed to the Apache Software Foundation (ASF) under one
  *    or more contributor license agreements.  See the NOTICE file
  *    distributed with this work for additional information
- *    regarding copyright ownership.  The SVN Corp. licenses this file
+ *    regarding copyright ownership.  The ASF licenses this file
  *    to you under the Apache License, Version 2.0 (the
  *    "License"); you may not use this file except in compliance
  *    with the License.  You may obtain a copy of the License at
@@ -1540,6 +1540,8 @@ svn_dirent_get_absolute(const char **pabsolute,
   apr_status_t apr_err;
   const char *path_apr;
 
+  SVN_ERR_ASSERT(! svn_path_is_url(relative));
+
   /* Merge the current working directory with the relative dirent. */
   SVN_ERR(svn_path_cstring_from_utf8(&path_apr, relative, pool));
 
@@ -1561,19 +1563,19 @@ svn_dirent_get_absolute(const char **pabsolute,
 const char *
 svn_uri_canonicalize(const char *uri, apr_pool_t *pool)
 {
-  return canonicalize(type_uri, uri, pool);;
+  return canonicalize(type_uri, uri, pool);
 }
 
 const char *
 svn_relpath_canonicalize(const char *relpath, apr_pool_t *pool)
 {
-  return canonicalize(type_relpath, relpath, pool);;
+  return canonicalize(type_relpath, relpath, pool);
 }
 
 const char *
 svn_dirent_canonicalize(const char *dirent, apr_pool_t *pool)
 {
-  const char *dst = canonicalize(type_dirent, dirent, pool);;
+  const char *dst = canonicalize(type_dirent, dirent, pool);
 
 #if defined(WIN32) || defined(__CYGWIN__)
   /* Handle a specific case on Windows where path == "X:/". Here we have to

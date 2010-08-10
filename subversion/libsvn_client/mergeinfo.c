@@ -2,10 +2,10 @@
  * mergeinfo.c :  merge history functions for the libsvn_client library
  *
  * ====================================================================
- *    Licensed to the Subversion Corporation (SVN Corp.) under one
+ *    Licensed to the Apache Software Foundation (ASF) under one
  *    or more contributor license agreements.  See the NOTICE file
  *    distributed with this work for additional information
- *    regarding copyright ownership.  The SVN Corp. licenses this file
+ *    regarding copyright ownership.  The ASF licenses this file
  *    to you under the Apache License, Version 2.0 (the
  *    "License"); you may not use this file except in compliance
  *    with the License.  You may obtain a copy of the License at
@@ -145,7 +145,7 @@ svn_client__adjust_mergeinfo_source_paths(svn_mergeinfo_t adjusted_mergeinfo,
 
       /* Copy inherited mergeinfo into our output hash, adjusting the
          merge source as appropriate. */
-      path = svn_path_join(merge_source, rel_path, pool);
+      path = svn_uri_join(merge_source, rel_path, pool);
       copied_rangelist = svn_rangelist_dup(rangelist, pool);
       apr_hash_set(adjusted_mergeinfo, path, APR_HASH_KEY_STRING,
                    copied_rangelist);
@@ -222,9 +222,9 @@ svn_client__get_wc_mergeinfo(svn_mergeinfo_t *mergeinfo,
 
           /* No explicit mergeinfo on this path.  Look higher up the
              directory tree while keeping track of what we've walked. */
-          walk_relpath = svn_path_join(svn_dirent_basename(local_abspath,
-                                                           iterpool),
-                                       walk_relpath, result_pool);
+          walk_relpath = svn_relpath_join(svn_dirent_basename(local_abspath,
+                                                              iterpool),
+                                          walk_relpath, result_pool);
           local_abspath = svn_dirent_dirname(local_abspath, scratch_pool);
 
           SVN_ERR(svn_wc__node_get_base_rev(&parent_base_rev,
@@ -457,35 +457,22 @@ svn_client__get_repos_mergeinfo(svn_ra_session_t *ra_session,
 }
 
 svn_error_t *
-svn_client__get_repos_mergeinfo_catalog(
-  svn_mergeinfo_catalog_t *target_mergeinfo_cat,
-  svn_ra_session_t *ra_session,
-  const char *rel_path,
-  svn_revnum_t rev,
-  svn_mergeinfo_inheritance_t inherit,
-  svn_boolean_t squelch_incapable,
-  svn_boolean_t include_descendants,
-  apr_pool_t *result_pool,
-  apr_pool_t *scratch_pool)
+svn_client__get_repos_mergeinfo_catalog(svn_mergeinfo_catalog_t *mergeinfo_cat,
+                                        svn_ra_session_t *ra_session,
+                                        const char *rel_path,
+                                        svn_revnum_t rev,
+                                        svn_mergeinfo_inheritance_t inherit,
+                                        svn_boolean_t squelch_incapable,
+                                        svn_boolean_t include_descendants,
+                                        apr_pool_t *result_pool,
+                                        apr_pool_t *scratch_pool)
 {
   svn_error_t *err;
   svn_mergeinfo_t repos_mergeinfo;
-  const char *old_session_url;
   apr_array_header_t *rel_paths = apr_array_make(scratch_pool, 1,
                                                  sizeof(rel_path));
 
   APR_ARRAY_PUSH(rel_paths, const char *) = rel_path;
-
-  /* Temporarily point the session at the root of the repository.
-
-     ### BH: This is called from 'svn cp URL1 [URL2..] TOURL' and causes issue
-             #3242. As far as I can tell this is the only place in this
-             scenario that really needs access to the repository root instead
-             of the common parent. If there is any way to handle this via the
-             common parent, we should implement this here and we reduce the
-             problems caused by issue #3242. */
-  SVN_ERR(svn_client__ensure_ra_session_url(&old_session_url, ra_session,
-                                            NULL, scratch_pool));
 
   /* Fetch the mergeinfo. */
   err = svn_ra_get_mergeinfo(ra_session, &repos_mergeinfo, rel_paths, rev,
@@ -501,16 +488,7 @@ svn_client__get_repos_mergeinfo_catalog(
         return svn_error_return(err);
     }
 
-  /* If we reparented the session, put it back where our caller had it. */
-  if (old_session_url)
-    SVN_ERR(svn_ra_reparent(ra_session, old_session_url, scratch_pool));
-
-  /* Grab only the mergeinfo provided for REL_PATH. */
-  if (repos_mergeinfo)
-    *target_mergeinfo_cat = repos_mergeinfo;
-  else
-    *target_mergeinfo_cat = NULL;
-
+  *mergeinfo_cat = repos_mergeinfo;
   return SVN_NO_ERROR;
 }
 
@@ -615,29 +593,47 @@ svn_client__get_wc_or_repos_mergeinfo_catalog(
           if (!apr_hash_get(original_props, SVN_PROP_MERGEINFO,
                             APR_HASH_KEY_STRING))
             {
-              const char *repos_rel_path;
+              const char *session_url = NULL;
+              apr_pool_t *sesspool = NULL;
 
-              if (ra_session == NULL)
-                SVN_ERR(svn_client__open_ra_session_internal(&ra_session, url,
-                                                             NULL, NULL,
-                                                             FALSE, TRUE, ctx,
-                                                             scratch_pool));
+              if (ra_session)
+                {
+                  SVN_ERR(svn_client__ensure_ra_session_url(&session_url,
+                                                            ra_session,
+                                                            url, result_pool));
+                }
+              else
+                {
+                  sesspool = svn_pool_create(scratch_pool);
+                  SVN_ERR(svn_client__open_ra_session_internal(&ra_session,
+                                                               url, NULL, NULL,
+                                                               FALSE, TRUE,
+                                                               ctx,
+                                                               sesspool));
+                }
 
-              SVN_ERR(svn_client__path_relative_to_root(&repos_rel_path,
-                                                        ctx->wc_ctx, url,
-                                                        repos_root, FALSE,
-                                                        ra_session,
-                                                        result_pool,
-                                                        scratch_pool));
               SVN_ERR(svn_client__get_repos_mergeinfo_catalog(
-                target_mergeinfo_catalog, ra_session,
-                repos_rel_path, target_rev, inherit,
-                TRUE, FALSE, result_pool, scratch_pool));
+                        target_mergeinfo_catalog, ra_session,
+                        "", target_rev, inherit,
+                        TRUE, FALSE, result_pool, scratch_pool));
 
               if (*target_mergeinfo_catalog
-                  && apr_hash_get(*target_mergeinfo_catalog, repos_rel_path,
+                  && apr_hash_get(*target_mergeinfo_catalog, "",
                                   APR_HASH_KEY_STRING))
                 *indirect = TRUE;
+
+              /* If we created an RA_SESSION above, destroy it.
+                 Otherwise, if reparented an existing session, point
+                 it back where it was when we were called. */
+              if (sesspool)
+                {
+                  svn_pool_destroy(sesspool);
+                }
+              else if (session_url)
+                {
+                  SVN_ERR(svn_ra_reparent(ra_session, session_url,
+                                          result_pool));
+                }
             }
         }
     }
@@ -958,11 +954,64 @@ get_mergeinfo(svn_mergeinfo_catalog_t *mergeinfo_catalog,
 {
   svn_ra_session_t *ra_session;
   svn_revnum_t rev;
+  const char *local_abspath;
+  const char *url;
+  svn_boolean_t is_url = svn_path_is_url(path_or_url);
+  svn_opt_revision_t peg_rev;
 
-  if (svn_path_is_url(path_or_url))
+  peg_rev.kind = peg_revision->kind;
+  peg_rev.value = peg_revision->value;
+
+  /* If PATH_OR_URL is as working copy path determine if we will need to
+     contact the repository for the requested PEG_REVISION. */
+  if (!is_url)
+    {
+      SVN_ERR(svn_dirent_get_absolute(&local_abspath, path_or_url,
+                                      scratch_pool));
+
+      if (peg_rev.kind == svn_opt_revision_date
+          || peg_rev.kind == svn_opt_revision_head)
+        {
+          /* If a working copy path is pegged at head or a date then
+             we know we must contact the repository for the revision.
+             So get only the url for PATH_OR_URL... */
+          SVN_ERR(svn_client__entry_location(&url, NULL, ctx->wc_ctx,
+                                             local_abspath,
+                                             svn_opt_revision_working,
+                                             result_pool, scratch_pool));
+        }
+      else
+        {
+          /* ...Otherwise get the revision too. */
+          SVN_ERR(svn_client__entry_location(&url, &rev, ctx->wc_ctx,
+                                             local_abspath,
+                                             peg_rev.kind,
+                                             result_pool, scratch_pool));
+        }
+
+
+      if (peg_rev.kind == svn_opt_revision_date
+          || peg_rev.kind == svn_opt_revision_head
+          || peg_rev.kind == svn_opt_revision_previous
+          || (peg_rev.kind == svn_opt_revision_number
+              && peg_rev.value.number != rev))
+        {
+          /* This working copy path PATH_OR_URL is pegged at a value
+             which requires we contact the repository. */
+          path_or_url = url;
+          is_url = TRUE;
+          if (peg_rev.kind == svn_opt_revision_previous)
+            {
+              peg_rev.kind = svn_opt_revision_number;
+              peg_rev.value.number = rev;
+            }
+        }
+    }
+
+  if (is_url)
     {
       const char *repos_rel_path;
-      const char *local_abspath;
+      const char *old_session_url;
 
       SVN_ERR(svn_dirent_get_absolute(&local_abspath, "", scratch_pool));
       SVN_ERR(svn_client__open_ra_session_internal(&ra_session, path_or_url,
@@ -970,13 +1019,15 @@ get_mergeinfo(svn_mergeinfo_catalog_t *mergeinfo_catalog,
                                                    TRUE, ctx, scratch_pool));
       SVN_ERR(svn_client__get_revision_number(&rev, NULL, ctx->wc_ctx,
                                               local_abspath, ra_session,
-                                              peg_revision, scratch_pool));
+                                              &peg_rev, scratch_pool));
       SVN_ERR(svn_ra_get_repos_root2(ra_session, repos_root, scratch_pool));
       SVN_ERR(svn_client__path_relative_to_root(&repos_rel_path, ctx->wc_ctx,
                                                 path_or_url, *repos_root,
                                                 FALSE, NULL,
                                                 scratch_pool,
                                                 scratch_pool));
+      SVN_ERR(svn_client__ensure_ra_session_url(&old_session_url, ra_session,
+                                                *repos_root, scratch_pool));
       SVN_ERR(svn_client__get_repos_mergeinfo_catalog(mergeinfo_catalog,
                                                       ra_session,
                                                       repos_rel_path, rev,
@@ -988,19 +1039,9 @@ get_mergeinfo(svn_mergeinfo_catalog_t *mergeinfo_catalog,
     }
   else /* ! svn_path_is_url() */
     {
-      const char *url;
       svn_boolean_t indirect;
-      const char *local_abspath;
-
-      SVN_ERR(svn_dirent_get_absolute(&local_abspath, path_or_url,
-                                      scratch_pool));
 
       /* Check server Merge Tracking capability. */
-      SVN_ERR(svn_client__entry_location(&url, &rev, ctx->wc_ctx,
-                                         local_abspath,
-                                         svn_opt_revision_working,
-                                         result_pool, scratch_pool));
-
       SVN_ERR(svn_client__open_ra_session_internal(&ra_session, url,
                                                    NULL, NULL, FALSE,
                                                    TRUE, ctx, scratch_pool));
@@ -1009,7 +1050,7 @@ get_mergeinfo(svn_mergeinfo_catalog_t *mergeinfo_catalog,
 
       /* Acquire return values. */
       SVN_ERR(svn_client__get_repos_root(repos_root, local_abspath,
-                                         peg_revision, ctx, result_pool,
+                                         &peg_rev, ctx, result_pool,
                                          scratch_pool));
       SVN_ERR(svn_client__get_wc_or_repos_mergeinfo_catalog(
         mergeinfo_catalog, &indirect, include_descendants, FALSE,
@@ -1199,7 +1240,7 @@ find_nearest_ancestor(apr_array_header_t *depth_first_catalog_index,
   else
     return (APR_ARRAY_IDX(depth_first_catalog_index,
                           ancestor_index,
-                          svn_sort__item_t)).value;;
+                          svn_sort__item_t)).value;
 }
 
 /* Baton for use with the filter_log_entry_with_rangelist()
@@ -1587,7 +1628,7 @@ svn_client_mergeinfo_get_merged(apr_hash_t **mergeinfo_p,
           const char *source_url;
 
           source_url = svn_path_uri_encode(key, pool);
-          source_url = svn_path_join(repos_root, source_url + 1, pool);
+          source_url = svn_uri_join(repos_root, source_url + 1, pool);
           apr_hash_set(full_path_mergeinfo, source_url,
                        APR_HASH_KEY_STRING, val);
         }

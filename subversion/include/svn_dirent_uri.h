@@ -1,10 +1,10 @@
 /**
  * @copyright
  * ====================================================================
- *    Licensed to the Subversion Corporation (SVN Corp.) under one
+ *    Licensed to the Apache Software Foundation (ASF) under one
  *    or more contributor license agreements.  See the NOTICE file
  *    distributed with this work for additional information
- *    regarding copyright ownership.  The SVN Corp. licenses this file
+ *    regarding copyright ownership.  The ASF licenses this file
  *    to you under the Apache License, Version 2.0 (the
  *    "License"); you may not use this file except in compliance
  *    with the License.  You may obtain a copy of the License at
@@ -180,11 +180,11 @@ svn_relpath_join(const char *base,
                  apr_pool_t *pool);
 
 /** Join a valid base uri (@a base) with a relative path or uri
- * (@a component), allocating the result in @a pool. @a relpath need
+ * (@a component), allocating the result in @a pool. @a component need
  * not be a single component: it can be a relative path or a '/'
  * prefixed relative path to join component to the root path of @a base.
  *
- * If @a relpath is the empty path, then @a base will be copied and
+ * If @a component is the empty path, then @a base will be copied and
  * returned.
  *
  * If the @a component is an absolute uri, then it is copied and returned.

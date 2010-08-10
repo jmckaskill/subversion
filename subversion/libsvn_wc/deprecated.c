@@ -3,10 +3,10 @@
  *                "we can't lose 'em, but we can shun 'em!"
  *
  * ====================================================================
- *    Licensed to the Subversion Corporation (SVN Corp.) under one
+ *    Licensed to the Apache Software Foundation (ASF) under one
  *    or more contributor license agreements.  See the NOTICE file
  *    distributed with this work for additional information
- *    regarding copyright ownership.  The SVN Corp. licenses this file
+ *    regarding copyright ownership.  The ASF licenses this file
  *    to you under the Apache License, Version 2.0 (the
  *    "License"); you may not use this file except in compliance
  *    with the License.  You may obtain a copy of the License at
@@ -462,10 +462,15 @@ svn_wc_ensure_adm3(const char *path,
   const char *local_abspath;
   svn_wc_context_t *wc_ctx;
 
+  if (uuid == NULL)
+    return svn_error_create(SVN_ERR_BAD_UUID, NULL, NULL);
+  if (repos == NULL)
+    return svn_error_create(SVN_ERR_BAD_URL, NULL, NULL);
+
   SVN_ERR(svn_dirent_get_absolute(&local_abspath, path, pool));
   SVN_ERR(svn_wc_context_create(&wc_ctx, NULL /* config */, pool, pool));
 
-  SVN_ERR(svn_wc_ensure_adm4(wc_ctx, local_abspath, uuid, url, repos, revision,
+  SVN_ERR(svn_wc_ensure_adm4(wc_ctx, local_abspath, url, repos, uuid, revision,
                              depth, pool));
 
   return svn_error_return(svn_wc_context_destroy(wc_ctx));

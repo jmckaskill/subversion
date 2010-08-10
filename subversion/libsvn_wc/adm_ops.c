@@ -7,10 +7,10 @@
  *            file in the working copy).
  *
  * ====================================================================
- *    Licensed to the Subversion Corporation (SVN Corp.) under one
+ *    Licensed to the Apache Software Foundation (ASF) under one
  *    or more contributor license agreements.  See the NOTICE file
  *    distributed with this work for additional information
- *    regarding copyright ownership.  The SVN Corp. licenses this file
+ *    regarding copyright ownership.  The ASF licenses this file
  *    to you under the Apache License, Version 2.0 (the
  *    "License"); you may not use this file except in compliance
  *    with the License.  You may obtain a copy of the License at
@@ -1388,6 +1388,7 @@ mark_tree_copied(svn_wc__db_t *db,
     {
       const char *child_basename = APR_ARRAY_IDX(children, i, const char *);
       const char *child_abspath;
+      apr_hash_t *props;
       svn_boolean_t hidden;
 
       /* Clear our per-iteration pool. */
@@ -1415,15 +1416,25 @@ mark_tree_copied(svn_wc__db_t *db,
                             iterpool));
         }
 
+      /* Store the pristine properties to install them on working, because
+         we might delete the base table */
+      if (entry->kind != svn_node_dir)
+        SVN_ERR(svn_wc__db_read_pristine_props(&props, db, child_abspath,
+                                               iterpool, iterpool));
       tmp_entry.copied = TRUE;
       SVN_ERR(svn_wc__entry_modify2(db, child_abspath, svn_node_unknown,
                             TRUE, &tmp_entry,
                             SVN_WC__ENTRY_MODIFY_COPIED,
                             iterpool));
 
-       /* Remove now obsolete dav cache values.  */
-       SVN_ERR(svn_wc__db_base_set_dav_cache(db, child_abspath, NULL,
-                                             iterpool));
+      /* Reinstall the pristine properties on working */
+      if (entry->kind != svn_node_dir)
+        SVN_ERR(svn_wc__db_temp_op_set_pristine_props(db, child_abspath, props,
+                                                      TRUE, iterpool));
+
+      /* Remove now obsolete dav cache values.  */
+      SVN_ERR(svn_wc__db_base_set_dav_cache(db, child_abspath, NULL,
+                                            iterpool));
     }
 
   /* Handle "this dir" for states that need it done post-recursion. */
@@ -1433,11 +1444,21 @@ mark_tree_copied(svn_wc__db_t *db,
   /* If setting the COPIED flag, skip deleted items. */
   if (entry->schedule != svn_wc_schedule_delete)
     {
+      apr_hash_t *props;
       tmp_entry.copied = TRUE;
+
+      /* Store the pristine properties to install them on working, because
+         we might delete the base table */
+      SVN_ERR(svn_wc__db_read_pristine_props(&props, db, dir_abspath,
+                                               iterpool, iterpool));
 
       SVN_ERR(svn_wc__entry_modify2(db, dir_abspath, svn_node_dir, FALSE,
                                   &tmp_entry, SVN_WC__ENTRY_MODIFY_COPIED,
                                   iterpool));
+
+      /* Reinstall the pristine properties on working */
+      SVN_ERR(svn_wc__db_temp_op_set_pristine_props(db, dir_abspath, props,
+                                                    TRUE, iterpool));
     }
 
   /* Destroy our per-iteration pool. */
@@ -1468,6 +1489,7 @@ svn_wc_add4(svn_wc_context_t *wc_ctx,
   svn_wc__db_status_t status;
   svn_wc__db_kind_t db_kind;
   svn_boolean_t exists;
+  apr_hash_t *props;
 
   svn_dirent_split(local_abspath, &parent_abspath, &base_name, pool);
   if (svn_wc_is_adm_dir(base_name, pool))
@@ -1608,6 +1630,14 @@ svn_wc_add4(svn_wc_context_t *wc_ctx,
   tmp_entry.kind = kind;
   tmp_entry.schedule = svn_wc_schedule_add;
 
+
+  /* Store the pristine properties to install them on working, because
+     we might delete the base table */
+  if ((exists && status != svn_wc__db_status_not_present)
+      && !is_replace && copyfrom_url != NULL)
+    SVN_ERR(svn_wc__db_read_pristine_props(&props, db, local_abspath,
+                                           pool, pool));
+
   /* Now, add the entry for this item to the parent_dir's
      entries file, marking it for addition. */
   SVN_ERR(svn_wc__entry_modify2(db, local_abspath, kind,
@@ -1620,7 +1650,8 @@ svn_wc_add4(svn_wc_context_t *wc_ctx,
   /* ### this is totally bogus. we clear these cuz turds might have been
      ### left around. thankfully, this will be properly managed during the
      ### wc-ng upgrade process. for now, we try to compensate... */
-  if ((exists || is_replace) && copyfrom_url == NULL)
+  if (((exists && status != svn_wc__db_status_not_present) || is_replace)
+      && copyfrom_url == NULL)
     SVN_ERR(svn_wc__props_delete(db, local_abspath, svn_wc__props_working,
                                  pool));
 
@@ -1656,8 +1687,8 @@ svn_wc_add4(svn_wc_context_t *wc_ctx,
           /* Make sure this new directory has an admistrative subdirectory
              created inside of it */
           SVN_ERR(svn_wc__internal_ensure_adm(db, local_abspath,
-                                              parent_entry->uuid,
-                                              new_url, parent_entry->repos, 0,
+                                              new_url, parent_entry->repos,
+                                              parent_entry->uuid, 0,
                                               depth, pool));
         }
       else
@@ -1667,8 +1698,9 @@ svn_wc_add4(svn_wc_context_t *wc_ctx,
              contain the copyfrom settings.  So we need to pass the
              copyfrom arguments to the ensure call. */
           SVN_ERR(svn_wc__internal_ensure_adm(db, local_abspath,
-                                              parent_entry->uuid, copyfrom_url,
+                                              copyfrom_url,
                                               parent_entry->repos,
+                                              parent_entry->uuid,
                                               copyfrom_rev, depth, pool));
         }
 
@@ -1747,6 +1779,20 @@ svn_wc_add4(svn_wc_context_t *wc_ctx,
           SVN_ERR(svn_wc__db_base_set_dav_cache(db, local_abspath, NULL,
                                                 pool));
         }
+    }
+
+  /* Set the pristine properties in WORKING_NODE, by copying them from the
+     deleted BASE_NODE record. Or set them to empty to make sure we don't
+     inherit wrong properties from BASE */
+  if (exists && status != svn_wc__db_status_not_present)
+    {
+      if (!is_replace && copyfrom_url != NULL)
+        SVN_ERR(svn_wc__db_temp_op_set_pristine_props(db, local_abspath, props,
+                                                      TRUE, pool));
+      else
+        SVN_ERR(svn_wc__db_temp_op_set_pristine_props(db, local_abspath,
+                                                      apr_hash_make(pool),
+                                                      TRUE, pool));
     }
 
   /* Report the addition to the caller. */
@@ -2389,7 +2435,7 @@ svn_wc__internal_remove_from_revision_control(svn_wc__db_t *db,
       if (destroy_wf)
         {
           /* Don't kill local mods. */
-          if (text_modified_p || (! wc_special && local_special))
+          if ((! wc_special && local_special) || text_modified_p)
             return svn_error_create(SVN_ERR_WC_LEFT_LOCAL_MOD, NULL, NULL);
           else  /* The working file is still present; remove it. */
             SVN_ERR(svn_io_remove_file2(local_abspath, TRUE, scratch_pool));
@@ -2482,12 +2528,7 @@ svn_wc__internal_remove_from_revision_control(svn_wc__db_t *db,
 
       /* Remove the entire administrative .svn area, thereby removing
          _this_ dir from revision control too.  */
-      {
-        svn_wc_adm_access_t *adm_access =
-            svn_wc__adm_retrieve_internal2(db, local_abspath, iterpool);
-
-        SVN_ERR(svn_wc__adm_destroy(adm_access, iterpool));
-      }
+      SVN_ERR(svn_wc__adm_destroy(db, local_abspath, iterpool));
 
       /* If caller wants us to recursively nuke everything on disk, go
          ahead, provided that there are no dangling local-mod files

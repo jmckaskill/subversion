@@ -1,10 +1,10 @@
 /**
  * @copyright
  * ====================================================================
- *    Licensed to the Subversion Corporation (SVN Corp.) under one
+ *    Licensed to the Apache Software Foundation (ASF) under one
  *    or more contributor license agreements.  See the NOTICE file
  *    distributed with this work for additional information
- *    regarding copyright ownership.  The SVN Corp. licenses this file
+ *    regarding copyright ownership.  The ASF licenses this file
  *    to you under the Apache License, Version 2.0 (the
  *    "License"); you may not use this file except in compliance
  *    with the License.  You may obtain a copy of the License at
@@ -779,7 +779,7 @@ typedef enum svn_client_diff_summarize_kind_t
 
 
 /** A struct that describes the diff of an item. Passed to
- * #svn_diff_summarize_func_t.
+ * #svn_client_diff_summarize_func_t.
  *
  * @note Fields may be added to the end of this structure in future
  * versions.  Therefore, users shouldn't allocate structures of this
@@ -1370,7 +1370,7 @@ svn_client_switch(svn_revnum_t *result_rev,
  *
  * If @a add_parents is TRUE, recurse up @a path's directory and look for
  * a versioned directory.  If found, add all intermediate paths between it
- * and @a path.  If not found, return #SVN_ERR_CLIENT_NO_VERSIONED_PARENTS.
+ * and @a path.  If not found, return #SVN_ERR_CLIENT_NO_VERSIONED_PARENTS. (### What?)
  *
  * @par Important:
  * This is a *scheduling* operation.  No changes will
@@ -4095,6 +4095,9 @@ svn_client_revprop_list(apr_hash_t **props,
  * If @a ignore_externals is set, don't process externals definitions
  * as part of this operation.
  *
+ * If @a ignore_keywords is set, don't expand keywords as part of this
+ * operation.
+ *
  * @a native_eol allows you to override the standard eol marker on the platform
  * you are running on.  Can be either "LF", "CR" or "CRLF" or NULL.  If NULL
  * will use the standard eol marker.  Any other value will cause the
@@ -4108,6 +4111,28 @@ svn_client_revprop_list(apr_hash_t **props,
  * #svn_depth_empty, then export exactly @a from and none of its children.
  *
  * All allocations are done in @a pool.
+ *
+ * @since New in 1.7.
+ */
+svn_error_t *
+svn_client_export5(svn_revnum_t *result_rev,
+                   const char *from,
+                   const char *to,
+                   const svn_opt_revision_t *peg_revision,
+                   const svn_opt_revision_t *revision,
+                   svn_boolean_t overwrite,
+                   svn_boolean_t ignore_externals,
+                   svn_boolean_t ignore_keywords,
+                   svn_depth_t depth,
+                   const char *native_eol,
+                   svn_client_ctx_t *ctx,
+                   apr_pool_t *pool);
+
+/**
+ * Similar to svn_client_export5(), but with @a ignore_keywords set
+ * to FALSE.
+ *
+ * @deprecated Provided for backward compatibility with the 1.5 API.
  *
  * @since New in 1.5.
  */
@@ -4528,7 +4553,7 @@ svn_client_get_changelists(const char *path,
  * be stored in the working copy if the targets are WC paths.
  *
  * For each target @a ctx->notify_func2/notify_baton2 will be used to indicate
- * whether it was locked.  An action of #svn_wc_notify_state_locked
+ * whether it was locked.  An action of #svn_wc_notify_state_locked (### what?)
  * means that the path was locked.  If the path was not locked because
  * it was out of date or there was already a lock in the repository,
  * the notification function will be called with @c

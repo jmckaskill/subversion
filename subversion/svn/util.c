@@ -4,10 +4,10 @@
  * in here.
  *
  * ====================================================================
- *    Licensed to the Subversion Corporation (SVN Corp.) under one
+ *    Licensed to the Apache Software Foundation (ASF) under one
  *    or more contributor license agreements.  See the NOTICE file
  *    distributed with this work for additional information
- *    regarding copyright ownership.  The SVN Corp. licenses this file
+ *    regarding copyright ownership.  The ASF licenses this file
  *    to you under the Apache License, Version 2.0 (the
  *    "License"); you may not use this file except in compliance
  *    with the License.  You may obtain a copy of the License at
@@ -1283,3 +1283,10 @@ svn_cl__node_description(const svn_wc_conflict_version_t *node,
                       node->peg_rev);
 }
 
+const char *
+svn_cl__path_join(const char *base,
+                  const char *component,
+                  apr_pool_t *pool)
+{
+  return svn_path_join(base, component, pool);
+}

@@ -2,10 +2,10 @@
  * adm_crawler.c:  report local WC mods to an Editor.
  *
  * ====================================================================
- *    Licensed to the Subversion Corporation (SVN Corp.) under one
+ *    Licensed to the Apache Software Foundation (ASF) under one
  *    or more contributor license agreements.  See the NOTICE file
  *    distributed with this work for additional information
- *    regarding copyright ownership.  The SVN Corp. licenses this file
+ *    regarding copyright ownership.  The ASF licenses this file
  *    to you under the Apache License, Version 2.0 (the
  *    "License"); you may not use this file except in compliance
  *    with the License.  You may obtain a copy of the License at
@@ -49,7 +49,6 @@
 #include "lock.h"
 
 #include "svn_private_config.h"
-#include "private/svn_debug.h"
 
 
 /* Helper for report_revisions_and_depths().
@@ -397,7 +396,7 @@ report_revisions_and_depths(svn_wc__db_t *db,
             {
               /* Report the excluded path, no matter whether report_everything
                  flag is set.  Because the report_everything flag indicates
-                 that the server will treate the wc as empty and thus push
+                 that the server will treat the wc as empty and thus push
                  full content of the files/subdirs. But we want to prevent the
                  server from pushing the full content of this_path at us. */
 

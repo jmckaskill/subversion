@@ -2,10 +2,10 @@
  * version.c: mod_dav_svn versioning provider functions for Subversion
  *
  * ====================================================================
- *    Licensed to the Subversion Corporation (SVN Corp.) under one
+ *    Licensed to the Apache Software Foundation (ASF) under one
  *    or more contributor license agreements.  See the NOTICE file
  *    distributed with this work for additional information
- *    regarding copyright ownership.  The SVN Corp. licenses this file
+ *    regarding copyright ownership.  The ASF licenses this file
  *    to you under the Apache License, Version 2.0 (the
  *    "License"); you may not use this file except in compliance
  *    with the License.  You may obtain a copy of the License at
@@ -1203,7 +1203,7 @@ dav_svn__build_lock_hash(apr_hash_t **locks,
                 return derr;
 
               /* Create an absolute fs-path */
-              lockpath = svn_dirent_join(path_prefix, cdata, pool);
+              lockpath = svn_uri_join(path_prefix, cdata, pool);
               if (lockpath && locktoken)
                 {
                   apr_hash_set(hash, lockpath, APR_HASH_KEY_STRING, locktoken);
