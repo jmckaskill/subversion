@@ -956,7 +956,7 @@ post_process_commit_item(void *baton, void *this_item, apr_pool_t *pool)
   svn_boolean_t remove_lock;
 
   /* Is it a missing, deleted directory?
-
+ 
      ### Temporary: once we centralise this sort of node is just a
      normal delete and will get handled by the post-commit queue. */
   if (item->kind == svn_node_dir
