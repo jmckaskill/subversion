@@ -18,16 +18,18 @@
     under the License.
 -->
 <project>
-  <actions/>
-  <description>Build Subversion javadoc from &quot;trunk&quot; branch</description>
+  <actions />
+  <description>Build Subversion javadoc from "trunk" branch</description>
   <logRotator>
     <daysToKeep>-1</daysToKeep>
     <numToKeep>40</numToKeep>
+    <artifactDaysToKeep>-1</artifactDaysToKeep>
+    <artifactNumToKeep>-1</artifactNumToKeep>
   </logRotator>
   <keepDependencies>false</keepDependencies>
   <properties>
-    <hudson.plugins.disk__usage.DiskUsageProperty/>
-    <hudson.plugins.descriptionsetter.JobByDescription/>
+    <hudson.plugins.descriptionsetter.JobByDescription />
+    <hudson.plugins.disk__usage.DiskUsageProperty />
     <hudson.plugins.jira.JiraProjectProperty>
       <siteName>https://issues.apache.org/jira/</siteName>
     </hudson.plugins.jira.JiraProjectProperty>
@@ -39,13 +41,16 @@
         <local>subversion-trunk</local>
       </hudson.scm.SubversionSCM_-ModuleLocation>
     </locations>
-    <useUpdate>true</useUpdate>
+    <useUpdate>false</useUpdate>
+    <doRevert>false</doRevert>
     <browser class="hudson.scm.browsers.ViewSVN">
       <url>http://svn.apache.org/viewcvs.cgi/?root=Apache-SVN</url>
     </browser>
-    <excludedRegions></excludedRegions>
-    <excludedUsers></excludedUsers>
-    <excludedRevprop></excludedRevprop>
+    <excludedRegions />
+    <includedRegions />
+    <excludedUsers />
+    <excludedRevprop />
+    <excludedCommitMessages />
   </scm>
   <assignedNode>minerva.apache.org (Ubuntu)</assignedNode>
   <canRoam>false</canRoam>
@@ -60,23 +65,25 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-      <command>cd subversion-trunk
-
-./autogen.sh
-
-./configure --enable-maintainer-mode --disable-shared --with-apr=../../subversion-trunk-ubuntu/subversion-trunk/apr --with-apr-util=../../subversion-trunk-ubuntu/subversion-trunk/apr-util --with-jdk=/home/hudson/tools/java/jdk1.6.0_17-64/
-
-make
-</command>
+      <command>
+        cd subversion-trunk
+        ./autogen.sh
+        ./configure
+          --enable-maintainer-mode
+          --disable-shared
+          --with-apr=/usr/local/apr/apr-1.4.2
+          --with-apr-util=/usr/local/apr/apr-util-1.3.9
+          --with-jdk=/home/hudson/tools/java/jdk1.6.0_17-64/
+        make
+      </command>
     </hudson.tasks.Shell>
     <hudson.tasks.Shell>
-      <command>#!/bin/bash
-
-cd subversion-trunk
-
-export PATH=doxygen-1.6.1/bin:$PATH
-
-make doc-javahl</command>
+      <command>
+        #!/bin/bash
+        cd subversion-trunk
+        export PATH=doxygen-1.6.1/bin:$PATH
+        make doc-javahl
+      </command>
     </hudson.tasks.Shell>
   </builders>
   <publishers>
@@ -84,6 +91,12 @@ make doc-javahl</command>
       <javadocDir>subversion-trunk/doc/javadoc/</javadocDir>
       <keepAll>false</keepAll>
     </hudson.tasks.JavadocArchiver>
+    <hudson.tasks.Mailer>
+      <recipients>notifications@subversion.apache.org</recipients>
+      <dontNotifyEveryUnstableBuild>true</dontNotifyEveryUnstableBuild>
+      <sendToIndividuals>false</sendToIndividuals>
+    </hudson.tasks.Mailer>
   </publishers>
-  <buildWrappers/>
+  <buildWrappers />
 </project>
+
