@@ -989,7 +989,7 @@ get_mergeinfo(svn_mergeinfo_catalog_t *mergeinfo_catalog,
                                              result_pool, scratch_pool));
         }
 
-
+      
       if (peg_rev.kind == svn_opt_revision_date
           || peg_rev.kind == svn_opt_revision_head
           || peg_rev.kind == svn_opt_revision_previous

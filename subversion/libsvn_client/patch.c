@@ -615,7 +615,7 @@ scan_for_match(svn_linenum_t *matched_line, patch_target_t *target,
           for (i = 0; i < target->matched_hunks->nelts; i++)
             {
               const hunk_info_t *hi;
-
+              
               hi = APR_ARRAY_IDX(target->matched_hunks, i, hunk_info_t *);
               taken = (target->current_line >= hi->matched_line &&
                        target->current_line < hi->matched_line +
