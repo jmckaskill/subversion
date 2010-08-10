@@ -156,7 +156,7 @@ Modules:
 
 Notes
 =====
-[1] http://rapidsvn.tigris.org/ is one example.  Others are maintained
+[1] http://rapidsvn.tigris.org/ is one example.  Others are maintained 
     independently by TortioseSVN (http://tortoisesvn.tigris.org/), and
     probably others.
 [2] http://www.softec.st/en/OpenSource/ClrProjects/SubversionSharp/SubversionSharp.html
