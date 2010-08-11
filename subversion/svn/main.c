@@ -370,7 +370,7 @@ const apr_getopt_option_t svn_cl__options[] =
                        "[alias: --idiff]")},
   {"git-diff", opt_use_git_diff_format, 0,
                        N_("use git's extended diff format\n")},
-
+                  
   /* Long-opt Aliases
    *
    * These have NULL desriptions, but an option code that matches some
