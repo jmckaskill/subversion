@@ -176,7 +176,7 @@ class Sandbox:
     return '%s/REDIRECT-%s-%s' % (parts[0],
                                   temporary and 'TEMP' or 'PERM',
                                   parts[1])
-
+    
   def simple_commit(self, target=None):
     assert not self.read_only
     if target is None:
