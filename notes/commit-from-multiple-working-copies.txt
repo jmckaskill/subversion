@@ -1,11 +1,11 @@
 Commit from Multiple Working Copies
-
-1) Expected behavior
+ 
+1) Expected behavior 
 
 When committing files, listing their paths, no matter whether they belong to
-the same work copy or not, if they all live in the same repository, they
+the same work copy or not, if they all live in the same repository, they 
 should be committed successfully.
-
+ 
 2) Actual behavior
 
 Currently, the code "condenses" all target paths, which means it
@@ -40,8 +40,8 @@ C  Start working on WC-NG instead of doing this in wc-1. A lot of
    things are still left to do before svn commit will even start using
    WC-NG code. So the goal will change from "allow commit from multiple
    working copies" to "help get WC-NG ready so that, one day, we can have
-   truly atomic commits from multiple working copies".
-
+   truly atomic commits from multiple working copies". 
+ 
 Since this problem is being worked on as part of Summer of Code,
 and the student has no prior experience with the Subversion code
 base, it is reasonable to solve the problem in multiple steps,
@@ -60,7 +60,7 @@ gets implemented, or in case solution A gets discarded before release.
 
 1. We receive a list of targets to commit.
 
-  In subversion\svn\commit-cmd.c the function
+  In subversion\svn\commit-cmd.c the function 
     svn_error_t *
     svn_cl__commit(apr_getopt_t *os,
                    void *baton,
@@ -79,8 +79,8 @@ gets implemented, or in case solution A gets discarded before release.
                        svn_client_ctx_t *ctx,
                        apr_pool_t *pool)
   uses the targest list to do a commit.
-
-2. If targets are not from the same working copy, we do the following
+ 
+2. If targets are not from the same working copy, we do the following 
    instead of aborting the commit:
 
    If locking the common root failed:
@@ -100,7 +100,7 @@ gets implemented, or in case solution A gets discarded before release.
       If locking succeeds, we have found a new WC root!
       Store its access baton in the set of known working copy roots.
       Put the current target path into the group of the root we just found.
-
+      
       Here we use a struct to store each "commit packet":
         typedef struct
         {
@@ -112,8 +112,8 @@ gets implemented, or in case solution A gets discarded before release.
 
             svn_wc_adm_access_t *base_dir_access;
 
-        } commit_packet_t;
-      It would be a local variable of the function svn_client_commit5(),
+        } commit_packet_t; 
+      It would be a local variable of the function svn_client_commit5(), 
       because it is used only in the function. And it is allocated from pool.
 
   Now run a commit for each working copy root we found.
