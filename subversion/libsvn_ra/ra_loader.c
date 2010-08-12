@@ -493,7 +493,7 @@ svn_error_t *svn_ra_open4(svn_ra_session_t **session_p,
                                  callbacks, callback_baton, config, sesspool),
             apr_psprintf(pool, "Unable to connect to a repository at URL '%s'",
                          repos_URL));
-
+  
   /* If the session open stuff detected a server-provided URL
      correction (a 301 or 302 redirect response during the initial
      OPTIONS request), then kill the session so the caller can decide
@@ -504,7 +504,7 @@ svn_error_t *svn_ra_open4(svn_ra_session_t **session_p,
       svn_pool_destroy(sesspool);
       return SVN_NO_ERROR;
     }
-
+  
   /* Check the UUID. */
   if (uuid)
     {
