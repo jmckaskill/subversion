@@ -5,7 +5,7 @@
 
    Usage: bump-to-19.py WC_ROOT_DIR
    where WC_ROOT_DIR is the path to the WC root directory.
-
+   
    WARNING: Currently it merges ALL sub-dir WC dirs into the root, including
    'external' WCs and unrelated WCs, which will break those."""
 
