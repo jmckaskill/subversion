@@ -655,7 +655,7 @@ svn_error_t *svn_ra_get_mergeinfo(svn_ra_session_t *session,
   SVN_ERR(session->vtable->get_mergeinfo(session, &tmp_catalog, paths,
                                          revision, inherit,
                                          include_descendants, pool));
-
+  
   if (tmp_catalog == NULL)
     {
       *catalog = NULL;
