@@ -8,7 +8,7 @@
 # Translation dictionary:
 # Nota: Il criterio per le traduzioni proposte tiene conto del fatto che
 # Subversion è uno strumento principalmente per sviluppatori e che una
-# serie di vocaboli sono spessopresi direttamente dall'inglese,
+# serie di vocaboli sono spessopresi direttamente dall'inglese, 
 # sia che esistano o meno vocaboli altrettanto efficaci in italiano.
 #
 # PROPNAME: NOMEPROP
@@ -7017,7 +7017,7 @@ msgstr ""
 "Rilevato conflitto all'aggiunta del file '%s'.\n"
 "Un oggetto con lo stesso nome esiste già.\n"
 
-# Non uso lo stile del testo originale perché
+# Non uso lo stile del testo originale perché 
 # le iniziali non corrispondono.
 #: ../svn/conflict-callbacks.c:681
 #, fuzzy
