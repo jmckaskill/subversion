@@ -1021,7 +1021,7 @@ struct file_baton
 
   /* The last-changed-date of the file.  This is actually a property
      that comes through as an 'entry prop', and will be used to set
-     the working file's timestamp if it's added.
+     the working file's timestamp if it's added. 
 
      Will be NULL unless eb->use_commit_times is TRUE. */
   const char *last_changed_date;
@@ -2162,7 +2162,7 @@ do_entry_deletion(struct edit_baton *eb,
           /* The item was locally replaced with something else. We should
            * remove the BASE node below the new working node, which turns
            * the replacement in an addition. */
-
+           
            /* Fall through to the normal "delete" code path. */
         }
       else
@@ -2645,7 +2645,7 @@ add_directory(const char *path,
           /* Immediately tweak the schedule for "this dir" so it too
              is no longer scheduled for addition.  Change rev from 0
              to the target revision allowing prep_directory() to do
-             its thing without error.
+             its thing without error. 
 
              ### In the future this should probably become a proper
              ### tree conflict and just handled by putting a base
@@ -3291,7 +3291,7 @@ absent_directory(const char *path,
    If the new base information is found and the db_status of the node is normal,
    then set NEW_CONTENTS and NEW_PROPS with the found values.
 
-   If data is not found, its values will be set to NULL.
+   If data is not found, its values will be set to NULL. 
 
    Allocate the return values in RESULT_POOL, but perform all temporary allocations
    in SCRATCH_POOL.
@@ -3409,7 +3409,7 @@ locate_copyfrom(svn_stream_t **new_base_contents,
 
     /* Check if we have an added node with the right copyfrom information, as
        this is what you would see on a file move. */
-
+       
     if (status == svn_wc__db_status_added)
       {
         const char *op_root_abspath;
@@ -3906,7 +3906,7 @@ add_file(const char *path,
 
 #ifndef SVN_WC__SINGLE_DB
       /* Is there *something* that is not a file? */
-      if (status != svn_wc__db_status_deleted
+      if (status != svn_wc__db_status_deleted 
           && wc_kind == svn_wc__db_kind_dir)
         {
           return svn_error_createf(
@@ -5440,7 +5440,7 @@ tweak_node(svn_wc__db_t *db,
 
   if (SVN_IS_VALID_REVNUM(new_rev) || set_repos_relpath)
     {
-      svn_boolean_t update_stub =
+      svn_boolean_t update_stub = 
             (db_kind == svn_wc__db_kind_dir && parent_stub);
 
       SVN_ERR(svn_wc__db_temp_op_set_rev_and_repos_relpath(db, local_abspath,
@@ -5534,7 +5534,7 @@ tweak_entries(svn_wc__db_t *db,
             || status == svn_wc__db_status_absent
             || status == svn_wc__db_status_excluded)
         {
-
+          
 
           if (kind == svn_wc__db_kind_dir)
             SVN_ERR(tweak_node(db, child_abspath, svn_wc__db_kind_dir, TRUE,

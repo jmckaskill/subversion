@@ -181,26 +181,26 @@ svn_txdelta_window_t_ops_get(PyObject *window_ob)
   void *window;
   PyObject *ops_list, *window_pool;
   int status;
-
+  
   /* Kludge alert!
      Normally, these kinds of conversions would belong in a typemap.
      However, typemaps won't allow us to change the result type to an array,
      so we have to make this custom accessor function.
-     A cleaner approach would be to use something like:
-
+     A cleaner approach would be to use something like: 
+     
      %extend svn_txdelta_window_t { void get_ops(apr_array_header_t ** ops); }
-
+     
      But that means unnecessary copying, plus more hacks to get the pool for the
      array and for wrapping the individual op objects. So we just don't bother.
   */
-
+  
   /* Note: the standard svn-python typemap releases the GIL while calling the
      wrapped function, but this function does Python stuff, so we have to
      reacquire it again. */
   svn_swig_py_acquire_py_lock();
   status = svn_swig_ConvertPtr(window_ob, &window,
     SWIG_TypeQuery("svn_txdelta_window_t *"));
-
+    
   if (status != 0)
     {
       PyErr_SetString(PyExc_TypeError,
@@ -208,7 +208,7 @@ svn_txdelta_window_t_ops_get(PyObject *window_ob)
       svn_swig_py_release_py_lock();
       return NULL;
     }
-
+    
   window_pool = PyObject_GetAttrString(window_ob, "_parent_pool");
 
   if (window_pool == NULL)
@@ -216,12 +216,12 @@ svn_txdelta_window_t_ops_get(PyObject *window_ob)
       svn_swig_py_release_py_lock();
       return NULL;
     }
-
+    
   ops_list = svn_swig_py_txdelta_window_t_ops_get(window,
     SWIG_TypeQuery("svn_txdelta_op_t *"), window_pool);
-
+    
   svn_swig_py_release_py_lock();
-
+  
   return ops_list;
 }
 %}
