@@ -1599,7 +1599,7 @@ repos_to_wc_copy_locked(const apr_array_header_t *copy_pairs,
          ### simplify the conditions? */
 
       /* Hidden by client exclusion */
-      SVN_ERR(svn_wc__node_get_depth(&node_depth, ctx->wc_ctx,
+      SVN_ERR(svn_wc__node_get_depth(&node_depth, ctx->wc_ctx, 
                                      pair->dst_abspath_or_url, iterpool));
       if (node_depth == svn_depth_exclude)
         {
@@ -1631,7 +1631,7 @@ repos_to_wc_copy_locked(const apr_array_header_t *copy_pairs,
           SVN_ERR(svn_wc__node_is_status_deleted(&is_deleted, ctx->wc_ctx,
                                                  pair->dst_abspath_or_url,
                                                  iterpool));
-          SVN_ERR(svn_wc__node_is_status_present(&is_present,
+          SVN_ERR(svn_wc__node_is_status_present(&is_present, 
                                                  ctx->wc_ctx,
                                                  pair->dst_abspath_or_url,
                                                  iterpool));
