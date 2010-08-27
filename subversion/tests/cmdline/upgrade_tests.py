@@ -582,7 +582,7 @@ def missing_dirs(sbox):
   if svntest.main.wc_is_singledb(sbox.wc_dir):
     expected_status.tweak('A/D', 'A/B_new/F', status='! ')
   run_and_verify_status_no_server(sbox.wc_dir, expected_status)
-
+  
 def missing_dirs2(sbox):
   "missing directories and obstructing dirs"
 
