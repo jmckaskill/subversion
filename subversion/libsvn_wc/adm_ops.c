@@ -789,7 +789,13 @@ svn_wc_delete4(svn_wc_context_t *wc_ctx,
 
   if (kind == svn_wc__db_kind_dir)
     {
-
+      /* ### NODE_DATA We recurse into the subtree here, which is fine,
+         except that we also need to record the op_depth to pass to
+         svn_wc__db_temp_op_delete(), which is determined by the original
+         path for which svn_wc_delete4() was called. We need a helper
+         function which receives the op_depth as an argument to apply to
+         the entire subtree.
+       */
       apr_pool_t *iterpool = svn_pool_create(pool);
       const apr_array_header_t *children;
       int i;
