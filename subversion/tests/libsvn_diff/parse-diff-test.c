@@ -285,7 +285,7 @@ check_content(svn_diff_hunk_t *hunk, svn_boolean_t original,
   svn_boolean_t exp_eof;
   svn_boolean_t hunk_eof;
 
-  exp = svn_stream_from_string(svn_string_create(expected, pool),
+  exp = svn_stream_from_string(svn_string_create(expected, pool), 
                                pool);
 
   while (TRUE)
@@ -297,7 +297,7 @@ check_content(svn_diff_hunk_t *hunk, svn_boolean_t original,
     else
       SVN_ERR(svn_diff_hunk_readline_modified_text(hunk, &hunk_buf, NULL,
                                                    &hunk_eof, pool, pool));
-
+       
     SVN_TEST_ASSERT(exp_eof == hunk_eof);
     if (exp_eof)
       break;
@@ -342,7 +342,7 @@ test_parse_unidiff(apr_pool_t *pool)
       /* We have two patches with one hunk each.
        * Parse the first patch. */
       SVN_ERR(svn_diff_parse_next_patch(&patch, patch_file, reverse,
-                                        ignore_whitespace, iterpool,
+                                        ignore_whitespace, iterpool, 
                                         iterpool));
       SVN_TEST_ASSERT(patch);
       SVN_TEST_ASSERT(! strcmp(patch->old_filename, "A/C/gamma"));
@@ -360,7 +360,7 @@ test_parse_unidiff(apr_pool_t *pool)
                             pool));
 
       /* Parse the second patch. */
-      SVN_ERR(svn_diff_parse_next_patch(&patch, patch_file, reverse,
+      SVN_ERR(svn_diff_parse_next_patch(&patch, patch_file, reverse, 
                                         ignore_whitespace, pool, pool));
       SVN_TEST_ASSERT(patch);
       if (reverse)
@@ -404,9 +404,9 @@ test_parse_git_diff(apr_pool_t *pool)
   SVN_ERR(create_patch_file(&patch_file, fname, git_unidiff, pool));
 
   /* Parse a deleted empty file */
-  SVN_ERR(svn_diff_parse_next_patch(&patch, patch_file,
+  SVN_ERR(svn_diff_parse_next_patch(&patch, patch_file, 
                                     FALSE, /* reverse */
-                                    FALSE, /* ignore_whitespace */
+                                    FALSE, /* ignore_whitespace */ 
                                     pool, pool));
   SVN_TEST_ASSERT(patch);
   SVN_TEST_ASSERT(! strcmp(patch->old_filename, "A/mu"));
@@ -415,16 +415,16 @@ test_parse_git_diff(apr_pool_t *pool)
   SVN_TEST_ASSERT(patch->hunks->nelts == 0);
 
   /* Parse a modified file. */
-  SVN_ERR(svn_diff_parse_next_patch(&patch, patch_file,
+  SVN_ERR(svn_diff_parse_next_patch(&patch, patch_file, 
                                     FALSE, /* reverse */
-                                    FALSE, /* ignore_whitespace */
+                                    FALSE, /* ignore_whitespace */ 
                                     pool, pool));
   SVN_TEST_ASSERT(patch);
   SVN_TEST_ASSERT(! strcmp(patch->old_filename, "A/C/gamma"));
   SVN_TEST_ASSERT(! strcmp(patch->new_filename, "A/C/gamma"));
   SVN_TEST_ASSERT(patch->operation == svn_diff_op_modified);
   SVN_TEST_ASSERT(patch->hunks->nelts == 1);
-
+  
   hunk = APR_ARRAY_IDX(patch->hunks, 0, svn_diff_hunk_t *);
 
   SVN_ERR(check_content(hunk, TRUE,
@@ -437,9 +437,9 @@ test_parse_git_diff(apr_pool_t *pool)
                         pool));
 
   /* Parse a copied empty file */
-  SVN_ERR(svn_diff_parse_next_patch(&patch, patch_file,
+  SVN_ERR(svn_diff_parse_next_patch(&patch, patch_file, 
                                     FALSE, /* reverse */
-                                    FALSE, /* ignore_whitespace */
+                                    FALSE, /* ignore_whitespace */ 
                                     pool, pool));
 
   SVN_TEST_ASSERT(patch);
@@ -449,9 +449,9 @@ test_parse_git_diff(apr_pool_t *pool)
   SVN_TEST_ASSERT(patch->hunks->nelts == 0);
 
   /* Parse an added empty file */
-  SVN_ERR(svn_diff_parse_next_patch(&patch, patch_file,
+  SVN_ERR(svn_diff_parse_next_patch(&patch, patch_file, 
                                     FALSE, /* reverse */
-                                    FALSE, /* ignore_whitespace */
+                                    FALSE, /* ignore_whitespace */ 
                                     pool, pool));
 
   SVN_TEST_ASSERT(patch);
@@ -477,16 +477,16 @@ test_parse_git_tree_and_text_diff(apr_pool_t *pool)
                             pool));
 
   /* Parse a copied file with text modifications. */
-  SVN_ERR(svn_diff_parse_next_patch(&patch, patch_file,
+  SVN_ERR(svn_diff_parse_next_patch(&patch, patch_file, 
                                     FALSE, /* reverse */
-                                    FALSE, /* ignore_whitespace */
+                                    FALSE, /* ignore_whitespace */ 
                                     pool, pool));
   SVN_TEST_ASSERT(patch);
   SVN_TEST_ASSERT(! strcmp(patch->old_filename, "iota"));
   SVN_TEST_ASSERT(! strcmp(patch->new_filename, "iota.copied"));
   SVN_TEST_ASSERT(patch->operation == svn_diff_op_copied);
   SVN_TEST_ASSERT(patch->hunks->nelts == 1);
-
+  
   hunk = APR_ARRAY_IDX(patch->hunks, 0, svn_diff_hunk_t *);
 
   SVN_ERR(check_content(hunk, TRUE,
@@ -499,16 +499,16 @@ test_parse_git_tree_and_text_diff(apr_pool_t *pool)
                         pool));
 
   /* Parse a moved file with text modifications. */
-  SVN_ERR(svn_diff_parse_next_patch(&patch, patch_file,
+  SVN_ERR(svn_diff_parse_next_patch(&patch, patch_file, 
                                     FALSE, /* reverse */
-                                    FALSE, /* ignore_whitespace */
+                                    FALSE, /* ignore_whitespace */ 
                                     pool, pool));
   SVN_TEST_ASSERT(patch);
   SVN_TEST_ASSERT(! strcmp(patch->old_filename, "A/mu"));
   SVN_TEST_ASSERT(! strcmp(patch->new_filename, "A/mu.moved"));
   SVN_TEST_ASSERT(patch->operation == svn_diff_op_moved);
   SVN_TEST_ASSERT(patch->hunks->nelts == 1);
-
+  
   hunk = APR_ARRAY_IDX(patch->hunks, 0, svn_diff_hunk_t *);
 
   SVN_ERR(check_content(hunk, TRUE,
@@ -520,16 +520,16 @@ test_parse_git_tree_and_text_diff(apr_pool_t *pool)
                         "some more bytes to 'mu'" NL,
                         pool));
 
-  SVN_ERR(svn_diff_parse_next_patch(&patch, patch_file,
+  SVN_ERR(svn_diff_parse_next_patch(&patch, patch_file, 
                                     FALSE, /* reverse */
-                                    FALSE, /* ignore_whitespace */
+                                    FALSE, /* ignore_whitespace */ 
                                     pool, pool));
   SVN_TEST_ASSERT(patch);
   SVN_TEST_ASSERT(! strcmp(patch->old_filename, "/dev/null"));
   SVN_TEST_ASSERT(! strcmp(patch->new_filename, "new"));
   SVN_TEST_ASSERT(patch->operation == svn_diff_op_added);
   SVN_TEST_ASSERT(patch->hunks->nelts == 1);
-
+  
   hunk = APR_ARRAY_IDX(patch->hunks, 0, svn_diff_hunk_t *);
 
   SVN_ERR(check_content(hunk, TRUE,
@@ -540,16 +540,16 @@ test_parse_git_tree_and_text_diff(apr_pool_t *pool)
                         "This is the file 'new'." NL,
                         pool));
 
-  SVN_ERR(svn_diff_parse_next_patch(&patch, patch_file,
+  SVN_ERR(svn_diff_parse_next_patch(&patch, patch_file, 
                                     FALSE, /* reverse */
-                                    FALSE, /* ignore_whitespace */
+                                    FALSE, /* ignore_whitespace */ 
                                     pool, pool));
   SVN_TEST_ASSERT(patch);
   SVN_TEST_ASSERT(! strcmp(patch->old_filename, "A/B/lambda"));
   SVN_TEST_ASSERT(! strcmp(patch->new_filename, "/dev/null"));
   SVN_TEST_ASSERT(patch->operation == svn_diff_op_deleted);
   SVN_TEST_ASSERT(patch->hunks->nelts == 1);
-
+  
   hunk = APR_ARRAY_IDX(patch->hunks, 0, svn_diff_hunk_t *);
 
   SVN_ERR(check_content(hunk, TRUE,
@@ -574,16 +574,16 @@ test_bad_git_diff_headers(apr_pool_t *pool)
   SVN_ERR(create_patch_file(&patch_file, fname, bad_git_diff_header,
                             pool));
 
-  SVN_ERR(svn_diff_parse_next_patch(&patch, patch_file,
+  SVN_ERR(svn_diff_parse_next_patch(&patch, patch_file, 
                                     FALSE, /* reverse */
-                                    FALSE, /* ignore_whitespace */
+                                    FALSE, /* ignore_whitespace */ 
                                     pool, pool));
   SVN_TEST_ASSERT(patch);
   SVN_TEST_ASSERT(! strcmp(patch->old_filename, "iota"));
   SVN_TEST_ASSERT(! strcmp(patch->new_filename, "iota.copied"));
   SVN_TEST_ASSERT(patch->operation == svn_diff_op_copied);
   SVN_TEST_ASSERT(patch->hunks->nelts == 1);
-
+  
   hunk = APR_ARRAY_IDX(patch->hunks, 0, svn_diff_hunk_t *);
 
   SVN_ERR(check_content(hunk, TRUE,
@@ -612,9 +612,9 @@ test_parse_property_diff(apr_pool_t *pool)
 
   SVN_ERR(create_patch_file(&patch_file, fname, property_unidiff, pool));
 
-  SVN_ERR(svn_diff_parse_next_patch(&patch, patch_file,
+  SVN_ERR(svn_diff_parse_next_patch(&patch, patch_file, 
                                     FALSE, /* reverse */
-                                    FALSE, /* ignore_whitespace */
+                                    FALSE, /* ignore_whitespace */ 
                                     pool, pool));
   SVN_TEST_ASSERT(patch);
   SVN_TEST_ASSERT(! strcmp(patch->old_filename, "iota"));
@@ -715,9 +715,9 @@ test_parse_property_and_text_diff(apr_pool_t *pool)
   SVN_ERR(create_patch_file(&patch_file, fname, property_and_text_unidiff,
                             pool));
 
-  SVN_ERR(svn_diff_parse_next_patch(&patch, patch_file,
+  SVN_ERR(svn_diff_parse_next_patch(&patch, patch_file, 
                                     FALSE, /* reverse */
-                                    FALSE, /* ignore_whitespace */
+                                    FALSE, /* ignore_whitespace */ 
                                     pool, pool));
   SVN_TEST_ASSERT(patch);
   SVN_TEST_ASSERT(! strcmp(patch->old_filename, "iota"));
@@ -770,9 +770,9 @@ test_parse_diff_symbols_in_prop_unidiff(apr_pool_t *pool)
   SVN_ERR(create_patch_file(&patch_file, fname, diff_symbols_in_prop_unidiff,
                             pool));
 
-  SVN_ERR(svn_diff_parse_next_patch(&patch, patch_file,
+  SVN_ERR(svn_diff_parse_next_patch(&patch, patch_file, 
                                     FALSE, /* reverse */
-                                    FALSE, /* ignore_whitespace */
+                                    FALSE, /* ignore_whitespace */ 
                                     pool, pool));
   SVN_TEST_ASSERT(patch);
   SVN_TEST_ASSERT(! strcmp(patch->old_filename, "iota"));
@@ -868,19 +868,19 @@ test_git_diffs_with_spaces_diff(apr_pool_t *pool)
   SVN_ERR(create_patch_file(&patch_file, fname, path_with_spaces_unidiff,
                             pool));
 
-  SVN_ERR(svn_diff_parse_next_patch(&patch, patch_file,
+  SVN_ERR(svn_diff_parse_next_patch(&patch, patch_file, 
                                     FALSE, /* reverse */
-                                    FALSE, /* ignore_whitespace */
+                                    FALSE, /* ignore_whitespace */ 
                                     pool, pool));
   SVN_TEST_ASSERT(patch);
   SVN_TEST_ASSERT(! strcmp(patch->old_filename, "path 1"));
   SVN_TEST_ASSERT(! strcmp(patch->new_filename, "path 1"));
   SVN_TEST_ASSERT(patch->operation == svn_diff_op_added);
   SVN_TEST_ASSERT(patch->hunks->nelts == 0);
-
-  SVN_ERR(svn_diff_parse_next_patch(&patch, patch_file,
+  
+  SVN_ERR(svn_diff_parse_next_patch(&patch, patch_file, 
                                     FALSE, /* reverse */
-                                    FALSE, /* ignore_whitespace */
+                                    FALSE, /* ignore_whitespace */ 
                                     pool, pool));
   SVN_TEST_ASSERT(patch);
   SVN_TEST_ASSERT(! strcmp(patch->old_filename, "path one 1"));
@@ -888,9 +888,9 @@ test_git_diffs_with_spaces_diff(apr_pool_t *pool)
   SVN_TEST_ASSERT(patch->operation == svn_diff_op_added);
   SVN_TEST_ASSERT(patch->hunks->nelts == 0);
 
-  SVN_ERR(svn_diff_parse_next_patch(&patch, patch_file,
+  SVN_ERR(svn_diff_parse_next_patch(&patch, patch_file, 
                                     FALSE, /* reverse */
-                                    FALSE, /* ignore_whitespace */
+                                    FALSE, /* ignore_whitespace */ 
                                     pool, pool));
   SVN_TEST_ASSERT(patch);
   SVN_TEST_ASSERT(! strcmp(patch->old_filename, "dir/ b/path"));
@@ -898,9 +898,9 @@ test_git_diffs_with_spaces_diff(apr_pool_t *pool)
   SVN_TEST_ASSERT(patch->operation == svn_diff_op_added);
   SVN_TEST_ASSERT(patch->hunks->nelts == 0);
 
-  SVN_ERR(svn_diff_parse_next_patch(&patch, patch_file,
+  SVN_ERR(svn_diff_parse_next_patch(&patch, patch_file, 
                                     FALSE, /* reverse */
-                                    FALSE, /* ignore_whitespace */
+                                    FALSE, /* ignore_whitespace */ 
                                     pool, pool));
   SVN_TEST_ASSERT(patch);
   SVN_TEST_ASSERT(! strcmp(patch->old_filename, " b/path 1"));
