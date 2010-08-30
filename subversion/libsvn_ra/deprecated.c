@@ -257,8 +257,8 @@ svn_error_t *svn_ra_do_diff3(svn_ra_session_t *session,
   return session->vtable->do_diff(session,
                                   reporter, report_baton,
                                   revision, diff_target,
-                                  depth, FALSE /* send_copyfrom_args */,
-                                  ignore_ancestry, text_deltas, versus_url,
+                                  depth, FALSE /* send_copyfrom_args */, 
+                                  ignore_ancestry, text_deltas, versus_url, 
                                   diff_editor, diff_baton, pool);
 }
 
