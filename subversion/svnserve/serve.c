@@ -1687,7 +1687,7 @@ static svn_error_t *diff(svn_ra_svn_conn_t *conn, apr_pool_t *pool,
       SVN_ERR(svn_ra_svn_parse_tuple(params, pool, "(?r)cbbcb?w?B",
                                      &rev, &target, &recurse,
                                      &ignore_ancestry, &versus_url,
-                                     &text_deltas, &depth_word,
+                                     &text_deltas, &depth_word, 
                                      &send_copyfrom_param));
     }
   target = svn_uri_canonicalize(target, pool);
@@ -1714,7 +1714,7 @@ static svn_error_t *diff(svn_ra_svn_conn_t *conn, apr_pool_t *pool,
     svn_revnum_t from_rev;
     SVN_ERR(accept_report(NULL, &from_rev,
                           conn, pool, b, rev, target, versus_path,
-                          text_deltas, depth, send_copyfrom_args,
+                          text_deltas, depth, send_copyfrom_args, 
                           ignore_ancestry));
     SVN_ERR(log_command(b, conn, pool, "%s",
                         svn_log__diff(full_path, from_rev, versus_path,
