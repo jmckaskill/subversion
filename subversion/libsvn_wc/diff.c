@@ -1437,7 +1437,7 @@ add_file(const char *path,
   struct file_baton *fb;
   const char *full_path;
 
-  /* ### TODO: We have copyfrom info, now start recording it!
+  /* ### TODO: We have copyfrom info, now start recording it! 
    * ### Note that we need to check that copyfrom_revision is within span of
    * ### the diff operation. */
 
