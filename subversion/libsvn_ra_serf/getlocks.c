@@ -77,7 +77,7 @@ typedef struct {
   apr_pool_t *pool;
 
   /* target and requested depth of the operation. */
-  const char *path;
+  const char *path; 
   svn_depth_t requested_depth;
 
   /* return hash */
