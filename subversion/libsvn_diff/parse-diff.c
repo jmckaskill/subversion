@@ -1331,15 +1331,33 @@ svn_diff_parse_next_patch(svn_patch_t **patch,
 }
 
 svn_error_t *
-svn_diff_close_patch(const svn_patch_t *patch)
+svn_diff_close_patch(const svn_patch_t *patch, apr_pool_t *scratch_pool)
 {
   int i;
+  apr_hash_index_t *hi;
 
   for (i = 0; i < patch->hunks->nelts; i++)
     {
       const svn_diff_hunk_t *hunk = APR_ARRAY_IDX(patch->hunks, i,
                                                   svn_diff_hunk_t *);
       SVN_ERR(close_hunk(hunk));
+    }
+
+  for (hi = apr_hash_first(scratch_pool, patch->prop_patches);
+       hi;
+       hi = apr_hash_next(hi))
+    {
+          svn_prop_patch_t *prop_patch;
+
+          prop_patch = svn__apr_hash_index_val(hi);
+
+          for (i = 0; i < prop_patch->hunks->nelts; i++)
+            {
+              const svn_diff_hunk_t *hunk;
+
+              hunk = APR_ARRAY_IDX(prop_patch->hunks, i, svn_diff_hunk_t *);
+              SVN_ERR(close_hunk(hunk));
+            }
     }
 
   return SVN_NO_ERROR;
