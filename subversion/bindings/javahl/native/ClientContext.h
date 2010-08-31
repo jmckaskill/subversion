@@ -71,7 +71,7 @@ class ClientContext
    * Produce a baton for the getCommitMessage() callback.
    */
   void *getCommitMessageBaton(const char *message);
-
+ 
  protected:
   static void notify(void *baton, const svn_wc_notify_t *notify,
                      apr_pool_t *pool);

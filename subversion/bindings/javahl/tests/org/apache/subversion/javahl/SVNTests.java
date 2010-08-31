@@ -284,7 +284,7 @@ class SVNTests extends TestCase
     private static class DefaultPromptUserPassword implements UserPasswordCallback
     {
 
-        public int askTrustSSLServer(String info, boolean allowPermanently)
+        public int askTrustSSLServer(String info, boolean allowPermanently) 
         {
             return UserPasswordCallback.AcceptTemporary;
         }
@@ -320,25 +320,25 @@ class SVNTests extends TestCase
         }
 
         public String askQuestion(String realm, String question,
-                boolean showAnswer, boolean maySave)
+                boolean showAnswer, boolean maySave) 
         {
             return "";
         }
 
-        public boolean userAllowedSave()
+        public boolean userAllowedSave() 
         {
             return false;
         }
     }
 
-    private static class DefaultProgressListener implements ProgressCallback
+    private static class DefaultProgressListener implements ProgressCallback 
     {
 
-        public void onProgress(ProgressEvent event)
+        public void onProgress(ProgressEvent event) 
         {
             // Do nothing, just receive the event
         }
-
+        
     }
     /**
      * build a sample directory with test files to be used as import for
