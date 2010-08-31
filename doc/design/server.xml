@@ -23,13 +23,13 @@
     <sect2 id="server.fs.overview">
       <title>Filesystem Overview</title>
       <itemizedlist mark="bullet">
-        <listitem><para><emphasis role="bold">Requires:</emphasis>
+        <listitem><para><emphasis role="bold">Requires:</emphasis>  
           <itemizedlist mark="minus">
             <listitem><para>some writable disk space</para></listitem>
             <listitem><para>(for now) Berkeley DB library</para></listitem>
           </itemizedlist>
         </para></listitem>
-        <listitem><para><emphasis role="bold">Provides:</emphasis>
+        <listitem><para><emphasis role="bold">Provides:</emphasis>  
           <itemizedlist mark="minus">
             <listitem><para>a repository for storing files</para></listitem>
             <listitem><para>concurrent client transactions</para></listitem>
@@ -639,7 +639,7 @@ prompt$
 
       <sect3 id="server.fs.struct.diffy-storage">
         <title>Diffy Storage</title>
-
+          
         <para>You may have been thinking, &ldquo;Gee, this bubble up method
           seems nice, but it sure wastes a lot of space.  Every commit to the
           repository creates an entire line of new directory
