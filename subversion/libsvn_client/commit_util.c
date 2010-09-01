@@ -886,7 +886,7 @@ harvest_committables(apr_hash_t *committables,
                             {
                               SVN_ERR(add_committable(
                                             committables, this_abspath,
-                                            this_kind,
+                                            this_kind, 
                                             repos_root_url, this_repos_relpath,
                                             SVN_INVALID_REVNUM,
                                             NULL,
