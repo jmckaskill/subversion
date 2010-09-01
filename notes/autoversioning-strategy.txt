@@ -50,7 +50,7 @@ Phase 2 is more complicated:
 
       - If client #1 LOCKS a file, then when client #2 does a GET,
         they should see the latest version that client #1 has PUT, not
-        some older version.
+        some older version. 
 
         [gstein sez he doesn't believe that the GET sans locktoken has
         to reflect the latest PUT-with-locktoken.  I disagree. See
@@ -105,7 +105,7 @@ associated txn instead of HEAD.]
 [ gstein: note that list is cross-txn; we probably want a new dbm in
   the REPOS/dav/ subdir. map the repos path (derived from the URL) to
   the txn-name containing the most recent copy.
-
+  
   my hope was to avoid additional state like this, and encode that
   state in something like the locktoken. ]
 
@@ -196,7 +196,7 @@ PHASE 1 STRATEGY:
 Analysis of dav_svn_put()
 =========================
 
-At the moment, ra_dav is only attempting to PUT WR's.
+At the moment, ra_dav is only attempting to PUT WR's.  
 
 mod_dav, however, already has an autoversioning infrastructure, and it
 currently attempts to bookend the stream-writing with an auto-checkout
@@ -213,7 +213,7 @@ auto_checkout:
     resource doesn't exist, or if explicit parent checkout was
     requested by caller:
 
-      - vsn_hooks->auto_versionable()
+      - vsn_hooks->auto_versionable() 
 
         We should *always* return DAV_AUTO_VERSION_ALWAYS for now.
         The other values require that locks exist or not, and we're
@@ -283,7 +283,7 @@ auto_checkin:
        Furthermore, it needs to possibly return the new VR that was
        created, and convert the WR resource back into a VCR that
        points to the new VR.
-
+       
        (Do our VCR's point to VR's right now?
 
         [ gstein: VCRs never "point"; semantically, they just get
