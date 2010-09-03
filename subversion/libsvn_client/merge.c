@@ -447,13 +447,13 @@ obstructed_or_missing(svn_wc_notify_state_t *obstr_state,
               if (kind_on_disk == svn_node_none)
                 {
                   svn_boolean_t is_obstructed;
-
+                  
                   SVN_ERR(svn_wc__node_is_status_obstructed(&is_obstructed,
                                                             merge_b->ctx->wc_ctx,
                                                             local_abspath,
                                                             pool));
                   if (!is_obstructed)
-                    kind_expected = svn_node_none;
+                    kind_expected = svn_node_none; 
                 }
             }
           else
@@ -1780,7 +1780,7 @@ merge_file_added(const char *local_dir_abspath,
           SVN_ERR(svn_wc_read_kind(&wc_kind, merge_b->ctx->wc_ctx,
                                    mine_abspath, FALSE, subpool));
 
-          if ((wc_kind != svn_node_none)
+          if ((wc_kind != svn_node_none) 
               && dry_run_deleted_p(merge_b, mine_abspath))
             *content_state = svn_wc_notify_state_changed;
           else
@@ -2513,7 +2513,7 @@ merge_dir_opened(const char *local_dir_abspath,
       svn_pool_destroy(subpool);
       return SVN_NO_ERROR;
     }
-
+   
   /* Find out if this path is deleted. */
   err = svn_wc__node_is_status_deleted(&is_deleted, merge_b->ctx->wc_ctx,
                                        local_abspath, subpool);
@@ -4200,7 +4200,7 @@ populate_remaining_ranges(apr_array_header_t *children_with_mergeinfo,
                  CHILDREN_WITH_MERGEINFO, see the global comment
                  'THE CHILDREN_WITH_MERGEINFO ARRAY'. */
               SVN_ERR_ASSERT(parent);
-
+ 
               child_inherits_implicit = (parent && !child->switched);
               SVN_ERR(ensure_implicit_mergeinfo(parent, child,
                                                 child_inherits_implicit,
@@ -5374,7 +5374,7 @@ record_missing_subtree_roots(const char *local_abspath,
   if (kind == svn_node_dir)
     {
       /* If SUBTREE_DIRENTS is empty LOCAL_ABSPATH is merge target. */
-      if (apr_hash_count(subtree_dirents) == 0
+      if (apr_hash_count(subtree_dirents) == 0 
           || apr_hash_get(subtree_dirents,
                           svn_dirent_dirname(local_abspath,
                                              scratch_pool),
@@ -5404,7 +5404,7 @@ record_missing_subtree_roots(const char *local_abspath,
               apr_hash_set(subtree_dirents,
                            apr_pstrdup(result_pool, local_abspath),
                            APR_HASH_KEY_STRING, dirents);
-            }
+            }      
         }
     }
   else /* kind != svn_node_dir */
@@ -5854,7 +5854,7 @@ get_mergeinfo_paths(apr_array_header_t *children_with_mergeinfo,
       apr_hash_index_t *hi;
       apr_pool_t *iterpool = svn_pool_create(scratch_pool);
       const char *missing_subtree_err_str = NULL;
-
+      
       for (hi = apr_hash_first(iterpool, wb.missing_subtrees);
            hi;
            hi = apr_hash_next(hi))
@@ -8790,7 +8790,7 @@ merge_cousins_and_supplement_mergeinfo(const char *target_abspath,
      calculated.  (We know that each tong in our fork of our merge
      source history tree has an ancestral relationship with the common
      ancestral, so we force ancestral=TRUE here.)
-
+     
      Issue #3648: We don't actually perform these two record-only merges
      on the WC at first, but rather see what each would do and store that
      in two mergeinfo catalogs.  We then merge the catalogs together and
@@ -10073,7 +10073,7 @@ calculate_left_hand_side(const char **url_left,
 
       youngest_rev.kind = svn_opt_revision_number;
       youngest_rev.value.number = youngest_merged_rev;
-
+      
       unspecified_rev.kind = svn_opt_revision_unspecified;
 
       *rev_left = youngest_rev.value.number;
@@ -10446,7 +10446,7 @@ merge_peg_locked(const char *source,
   svn_node_kind_t target_kind;
 
   SVN_ERR_ASSERT(svn_dirent_is_absolute(target_abspath));
-
+  
   /* Make sure the target is really there. */
   SVN_ERR(svn_io_check_path(target_abspath, &target_kind, scratch_pool));
   if (target_kind == svn_node_none)
