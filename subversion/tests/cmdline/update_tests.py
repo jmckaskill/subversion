@@ -5738,15 +5738,15 @@ def update_with_file_lock_and_keywords_property_set(sbox):
   svntest.main.run_svn(None, 'ps', 'svn:keywords', 'Id', mu_path)
   svntest.main.run_svn(None, 'lock', mu_path)
   mu_ts_before_update = os.path.getmtime(mu_path)
-
-  # Issue #3471 manifests itself here; The timestamp of 'mu' gets updated
+  
+  # Issue #3471 manifests itself here; The timestamp of 'mu' gets updated 
   # to the time of the last "svn up".
   sbox.simple_update()
   mu_ts_after_update = os.path.getmtime(mu_path)
   if (mu_ts_before_update != mu_ts_after_update):
     print("The timestamp of 'mu' before and after update does not match.")
     raise svntest.Failure
-
+  
 
 #######################################################################
 # Run the tests
