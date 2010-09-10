@@ -1,6 +1,6 @@
 ## Makefile.in is generated from this by automake.
 
-## automake's "default" target is just "info".
+## automake's "default" target is just "info".  
 ## However, it also knows how to make "dvi".
 
 ## The main design document
@@ -34,10 +34,10 @@ txt:  svn-design.txt
 html:  svn-design.html
 pdf:  svn-design.pdf
 
-svn-design.txt:
+svn-design.txt: 
 	makeinfo --no-headers svn-design.texi > svn-design.txt
 
-svn-design.html:
+svn-design.html: 
 	makeinfo --no-headers --html svn-design.texi > svn-design.html
 
 svn-design.pdf: svn-design.dvi
