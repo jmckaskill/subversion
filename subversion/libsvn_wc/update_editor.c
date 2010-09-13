@@ -962,7 +962,7 @@ struct file_baton
 
   /* The last-changed-date of the file.  This is actually a property
      that comes through as an 'entry prop', and will be used to set
-     the working file's timestamp if it's added.
+     the working file's timestamp if it's added. 
 
      Will be NULL unless eb->use_commit_times is TRUE. */
   const char *last_changed_date;
@@ -2067,7 +2067,7 @@ do_entry_deletion(struct edit_baton *eb,
           /* The item was locally replaced with something else. We should
            * remove the BASE node below the new working node, which turns
            * the replacement in an addition. */
-
+           
            /* Fall through to the normal "delete" code path. */
         }
       else
@@ -3136,7 +3136,7 @@ absent_directory(const char *path,
    If the new base information is found and the db_status of the node is normal,
    then set NEW_CONTENTS and NEW_PROPS with the found values.
 
-   If data is not found, its values will be set to NULL.
+   If data is not found, its values will be set to NULL. 
 
    Allocate the return values in RESULT_POOL, but perform all temporary allocations
    in SCRATCH_POOL.
@@ -3254,7 +3254,7 @@ locate_copyfrom(svn_stream_t **new_base_contents,
 
     /* Check if we have an added node with the right copyfrom information, as
        this is what you would see on a file move. */
-
+       
     if (status == svn_wc__db_status_added)
       {
         const char *op_root_abspath;
