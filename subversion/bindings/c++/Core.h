@@ -38,7 +38,7 @@ namespace Private
   /** A private class to manage low-level resources.
       Just like anything in the Private namespace, consumers should not need
       to interact with this manually.
-
+      
       This class uses the C types or standard types, and thus should not
       depend on any other class within the C++ bindings. */
   class Core
