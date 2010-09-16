@@ -112,7 +112,7 @@ def prop_conflict_resolution(sbox):
   # Some paths we'll care about
   iota_path = os.path.join(wc_dir, "iota")
   mu_path   = os.path.join(wc_dir, "A", "mu")
-
+  
   # r2 - Set property 'propname:propval' on iota and A/mu.
   svntest.actions.run_and_verify_svn(None, None, [],
                                      'ps', 'propname', 'propval',
