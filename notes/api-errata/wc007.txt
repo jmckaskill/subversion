@@ -1,6 +1,6 @@
 API ERRATA -- $Id: wc006.txt 943050 2010-05-11 08:56:25Z julianfoad $
 
-Root Cause of Errata:
+Root Cause of Errata: 
  Library(s) Affected: libsvn_wc
 Function(s) Affected: svn_wc_get_pristine_copy_path
      New Behavior in: 1.7
