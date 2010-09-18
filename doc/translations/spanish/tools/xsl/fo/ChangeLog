@@ -264,7 +264,7 @@
 
 2003-08-28  Robert Stayton <bobstayton@users.sourceforge.net>
 
-	* callout.xsl, footnote.xsl, formal.xsl, index.xsl, pagesetup.xsl, param.ent, param.xweb, titlepage.templates.xml, titlepage.xsl, xref.xsl:
+	* callout.xsl, footnote.xsl, formal.xsl, index.xsl, pagesetup.xsl, param.ent, param.xweb, titlepage.templates.xml, titlepage.xsl, xref.xsl: 
 	Changed body.font.family to body.fontset and
 	title.font.family to title.fontset in font-family property
 	attributes, in order to append symbol.font.family parameter value.
@@ -415,7 +415,7 @@
 
 2003-05-15  Jirka Kosek <kosek@users.sourceforge.net>
 
-	* autoidx.xsl, autotoc.xsl, component.xsl, division.xsl, docbook.xsl, index.xsl, param.ent, param.xweb, refentry.xsl, sections.xsl:
+	* autoidx.xsl, autotoc.xsl, component.xsl, division.xsl, docbook.xsl, index.xsl, param.ent, param.xweb, refentry.xsl, sections.xsl: 
 	Added support for AntennaHouse XSL Formatter. You can use axf.extensions=1 setting to generate bookmarks, document info and to merge duplicate page numbers in index.
 
 2003-05-14  Jirka Kosek <kosek@users.sourceforge.net>
@@ -450,7 +450,7 @@
 
 	* callout.xsl: Added support for coref
 
-	* component.xsl, division.xsl, glossary.xsl, index.xsl, refentry.xsl, sections.xsl, toc.xsl:
+	* component.xsl, division.xsl, glossary.xsl, index.xsl, refentry.xsl, sections.xsl, toc.xsl: 
 	Added support for hyphenation-character, hyphenation-push-character-count, and hyphenation-remain-character-count
 
 	* docbook.xsl: Use root.properties
@@ -525,7 +525,7 @@
 
 2003-01-31  Norman Walsh <nwalsh@users.sourceforge.net>
 
-	* biblio.xsl, component.xsl, division.xsl, glossary.xsl, index.xsl, refentry.xsl, sections.xsl:
+	* biblio.xsl, component.xsl, division.xsl, glossary.xsl, index.xsl, refentry.xsl, sections.xsl: 
 	Move IDs from page-sequences down to titlepage blocks
 
 	* block.xsl, lists.xsl, titlepage.xsl: Use proportional-column-width(1) on more tables
@@ -634,7 +634,7 @@
 
 	* autoidx.xsl, index.xsl: Make index elements always index the book that contains them (if there is one, otherwise the whole document); setindex always indexes the whole document
 
-	* autotoc.xsl, division.xsl, titlepage.templates.xml, titlepage.xsl:
+	* autotoc.xsl, division.xsl, titlepage.templates.xml, titlepage.xsl: 
 	Support List of Procedures
 
 	* formal.xsl: Support separate property sets for figures, examples, equations, tables, and procedures. This way, they can have different border and other formatting properties.
@@ -956,7 +956,7 @@
 
 2002-07-16  Norman Walsh <nwalsh@users.sourceforge.net>
 
-	* biblio.xsl, component.xsl, division.xsl, glossary.xsl, index.xsl, refentry.xsl, sections.xsl, toc.xsl:
+	* biblio.xsl, component.xsl, division.xsl, glossary.xsl, index.xsl, refentry.xsl, sections.xsl, toc.xsl: 
 	Use basic initial-page-number property instead of extended force-page-count property to get components to start on odd pages in double.sided mode; call format.page.number to set the page number format for all page sequences
 
 	* division.xsl: Don't include equations w/o titles in the LOT for equations
@@ -1024,7 +1024,7 @@
 
 2002-07-03  Norman Walsh <nwalsh@users.sourceforge.net>
 
-	* division.xsl, index.xsl, pagesetup.xsl, param.ent, param.xweb:
+	* division.xsl, index.xsl, pagesetup.xsl, param.ent, param.xweb: 
 	More hacking on page headers and footers: added toggles for rules and headers on blank pages
 
 	* docbook.xsl: Feature Req #502932: added root.messages template for user defined messages
@@ -1035,7 +1035,7 @@
 
 2002-07-02  Norman Walsh <nwalsh@users.sourceforge.net>
 
-	* component.xsl, division.xsl, index.xsl, pagesetup.xsl, param.ent, param.xweb, sections.xsl:
+	* component.xsl, division.xsl, index.xsl, pagesetup.xsl, param.ent, param.xweb, sections.xsl: 
 	Completely rewrote pagesetup.xsl: more page models, more logical page margin setup
 
 2002-06-29  Norman Walsh <nwalsh@users.sourceforge.net>
@@ -1054,7 +1054,7 @@
 
 2002-06-11  Norman Walsh <nwalsh@users.sourceforge.net>
 
-	* autoidx.xsl, fo-patch-for-fop.xsl, fo-rtf.xsl, pagesetup.xsl, titlepage.templates.xml:
+	* autoidx.xsl, fo-patch-for-fop.xsl, fo-rtf.xsl, pagesetup.xsl, titlepage.templates.xml: 
 	Add CVS Ids
 
 	* biblio.xsl: Add spacing before bibliodivs
@@ -1185,7 +1185,7 @@
 
 2002-03-18  Norman Walsh <nwalsh@users.sourceforge.net>
 
-	* Makefile, component.xsl, division.xsl, fop.xsl, param.ent, param.xweb, xep.xsl:
+	* Makefile, component.xsl, division.xsl, fop.xsl, param.ent, param.xweb, xep.xsl: 
 	Replace generate.*.toc and generate.*.lot with single generate.toc parameter.
 
 	* block.xsl: Support RevHistory in content; support AckNo in article
@@ -1200,10 +1200,10 @@
 
 	* .cvsignore: Ignore profiling stylesheets
 
-	* admon.xsl, autoidx.xsl, autotoc.xsl, biblio.xsl, block.xsl, callout.xsl, component.xsl, division.xsl, docbook.xsl, ebnf.xsl, fo-patch-for-fop.xsl, fo-rtf.xsl, fo.xsl, footnote.xsl, fop.xsl, formal.xsl, glossary.xsl, graphics.xsl, index.xsl, info.xsl, inline.xsl, keywords.xsl, lists.xsl, math.xsl, pagesetup.xsl, param.ent, param.xweb, passivetex.xsl, pi.xsl, qandaset.xsl, refentry.xsl, sections.xsl, synop.xsl, table.xsl, titlepage.templates.xml, titlepage.xsl, toc.xsl, verbatim.xsl, xep.xsl, xref.xsl:
+	* admon.xsl, autoidx.xsl, autotoc.xsl, biblio.xsl, block.xsl, callout.xsl, component.xsl, division.xsl, docbook.xsl, ebnf.xsl, fo-patch-for-fop.xsl, fo-rtf.xsl, fo.xsl, footnote.xsl, fop.xsl, formal.xsl, glossary.xsl, graphics.xsl, index.xsl, info.xsl, inline.xsl, keywords.xsl, lists.xsl, math.xsl, pagesetup.xsl, param.ent, param.xweb, passivetex.xsl, pi.xsl, qandaset.xsl, refentry.xsl, sections.xsl, synop.xsl, table.xsl, titlepage.templates.xml, titlepage.xsl, toc.xsl, verbatim.xsl, xep.xsl, xref.xsl: 
 	Whitespace only: change CR/LF back to LF. Norm was a total moron.
 
-	* admon.xsl, autoidx.xsl, autotoc.xsl, biblio.xsl, block.xsl, callout.xsl, component.xsl, division.xsl, docbook.xsl, ebnf.xsl, fo-patch-for-fop.xsl, fo-rtf.xsl, fo.xsl, footnote.xsl, fop.xsl, formal.xsl, glossary.xsl, graphics.xsl, index.xsl, info.xsl, inline.xsl, keywords.xsl, lists.xsl, math.xsl, pagesetup.xsl, param.ent, param.xweb, passivetex.xsl, pi.xsl, qandaset.xsl, refentry.xsl, sections.xsl, synop.xsl, table.xsl, titlepage.templates.xml, titlepage.xsl, toc.xsl, verbatim.xsl, xep.xsl, xref.xsl:
+	* admon.xsl, autoidx.xsl, autotoc.xsl, biblio.xsl, block.xsl, callout.xsl, component.xsl, division.xsl, docbook.xsl, ebnf.xsl, fo-patch-for-fop.xsl, fo-rtf.xsl, fo.xsl, footnote.xsl, fop.xsl, formal.xsl, glossary.xsl, graphics.xsl, index.xsl, info.xsl, inline.xsl, keywords.xsl, lists.xsl, math.xsl, pagesetup.xsl, param.ent, param.xweb, passivetex.xsl, pi.xsl, qandaset.xsl, refentry.xsl, sections.xsl, synop.xsl, table.xsl, titlepage.templates.xml, titlepage.xsl, toc.xsl, verbatim.xsl, xep.xsl, xref.xsl: 
 	Whitespace changes only: use PC-style CR/LF because Unix clients choke on this far less often than PC clients choke on the reverse. Grrr.
 
 	* docbook.xsl, fo-rtf.xsl, footnote.xsl, formal.xsl: Improve formatting of table footnotes and fix numeration of table/non-table footnotes
@@ -1264,7 +1264,7 @@
 
 2002-02-11  Norman Walsh <nwalsh@users.sourceforge.net>
 
-	* component.xsl, index.xsl, pagesetup.xsl, param.ent, param.xweb, titlepage.templates.xml:
+	* component.xsl, index.xsl, pagesetup.xsl, param.ent, param.xweb, titlepage.templates.xml: 
 	Patch #510996: add support for two-colum indexes
 
 	* inline.xsl: Patch #514007: prevent hyphenation of email addresses
@@ -1417,7 +1417,7 @@
 
 2001-11-21  Norman Walsh <nwalsh@users.sourceforge.net>
 
-	* biblio.xsl, component.xsl, division.xsl, glossary.xsl, index.xsl, pagesetup.xsl, refentry.xsl, sections.xsl, toc.xsl:
+	* biblio.xsl, component.xsl, division.xsl, glossary.xsl, index.xsl, pagesetup.xsl, refentry.xsl, sections.xsl, toc.xsl: 
 	Updated master-name/master-reference per the XSL 1.0 Recommendation
 
 2001-11-15  Jirka Kosek <kosek@users.sourceforge.net>
@@ -1426,7 +1426,7 @@
 
 2001-11-12  Norman Walsh <nwalsh@users.sourceforge.net>
 
-	* docbook.xsl, ebnf.xsl, footnote.xsl, lists.xsl, synop.xsl, xref.xsl:
+	* docbook.xsl, ebnf.xsl, footnote.xsl, lists.xsl, synop.xsl, xref.xsl: 
 	Support well-formed documents, use key() instead of id()
 
 2001-11-10  Norman Walsh <nwalsh@users.sourceforge.net>
@@ -1483,7 +1483,7 @@
 
 2001-10-08  Norman Walsh <nwalsh@users.sourceforge.net>
 
-	* .cvsignore, Makefile, param.ent, param.xsl, param.xweb:
+	* .cvsignore, Makefile, param.ent, param.xsl, param.xweb: 
 	Removed param.xsl; it's now generated from param.xweb
 
 	* fo.xsl: Added an anchor named template
@@ -1524,7 +1524,7 @@
 
 2001-08-09  Norman Walsh <nwalsh@users.sourceforge.net>
 
-	* component.xsl, titlepage.templates.xml, titlepage.xsl:
+	* component.xsl, titlepage.templates.xml, titlepage.xsl: 
 	Support colophon
 
 	* graphics.xsl: Forgot curly braces in AVT for height/width
@@ -1539,10 +1539,10 @@
 
 	* xref.xsl: Changed <xref> with endterm to process the children nodes
 	and not just the text by calling a new mode="endterm" template.
-
+	
 	Also changed <link> to process its endterm if the element content
 	is empty.
-
+	
 	Also changed the first use of name() to local-name() to
 	match the others in the file and in html/xref.xsl.
 
@@ -1674,7 +1674,7 @@
 
 	* titlepage.templates.xml: Reworked titlepage template processing to support use of more interesting
 	predicates.
-
+	
 	Note: in previous versions, at most one title, subtitle, or titleabbrev
 	element would be processed for each title page. In the new design, if you
 	have multiple title, subtitle, or titleabbrev elements inside an info
@@ -1761,7 +1761,7 @@
 
 2001-04-02  Norman Walsh <nwalsh@users.sourceforge.net>
 
-	* .cvsignore, Makefile, admon.xsl, autoidx.xsl, autotoc.xsl, biblio.xsl, block.xsl, callout.xsl, component.xsl, division.xsl, docbook.xsl, fo.xsl, footnote.xsl, fop.xsl, formal.xsl, glossary.xsl, graphics.xsl, index.xsl, info.xsl, inline.xsl, keywords.xsl, lists.xsl, math.xsl, pagesetup.xsl, param.xsl, pi.xsl, qandaset.xsl, refentry.xsl, sections.xsl, synop.xsl, table.xsl, titlepage.templates.xml, titlepage.xsl, toc.xsl, verbatim.xsl, xref.xsl:
+	* .cvsignore, Makefile, admon.xsl, autoidx.xsl, autotoc.xsl, biblio.xsl, block.xsl, callout.xsl, component.xsl, division.xsl, docbook.xsl, fo.xsl, footnote.xsl, fop.xsl, formal.xsl, glossary.xsl, graphics.xsl, index.xsl, info.xsl, inline.xsl, keywords.xsl, lists.xsl, math.xsl, pagesetup.xsl, param.xsl, pi.xsl, qandaset.xsl, refentry.xsl, sections.xsl, synop.xsl, table.xsl, titlepage.templates.xml, titlepage.xsl, toc.xsl, verbatim.xsl, xref.xsl: 
 	New file.
 
 	* Makefile: Use the cvstools version of saxon
