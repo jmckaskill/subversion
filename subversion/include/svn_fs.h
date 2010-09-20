@@ -1918,7 +1918,7 @@ svn_fs_change_rev_prop2(svn_fs_t *fs,
                         apr_pool_t *pool);
 
 
-/**
+/** 
  * Similar to svn_fs_change_rev_prop2(), but with @a old_value_p passed as
  * @c NULL.
  *
@@ -2153,7 +2153,7 @@ svn_fs_get_locks2(svn_fs_t *fs,
                   void *get_locks_baton,
                   apr_pool_t *pool);
 
-/**
+/** 
  * Similar to svn_fs_get_locks2(), but with @a depth always passed as
  * svn_depth_infinity.
  *
