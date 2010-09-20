@@ -23,7 +23,7 @@ New HTTP client request headers:  {Depth, Destination, If, ...}
 New HTTP server response headers: {DAV, ...}
 
 
-* Property:    a meta-data name/value.  every property exists in
+* Property:    a meta-data name/value.  every property exists in 
                some unique "namespace", defined using xml namespaces.
 
   - a "live" property is one that is controlled by the server, like a
@@ -41,7 +41,7 @@ New HTTP server response headers: {DAV, ...}
 
   - each child is called a 'member' URI.  each internal member URI
     must be relative to parent collection.
-
+                  
   - collection URIs are supposed to end with trailing slashes.
     servers should auto-append them if not present.
 
@@ -67,7 +67,7 @@ New HTTP server response headers: {DAV, ...}
       * type:    "write".  [other types may exist someday]
       * depth:   for a collection, either 0 or infinity.
       * timeout: some value in seconds
-
+      
        - exclusive locks behave how you think -- only one per resource
          allowed.  shared locks, on the other hand, are just for
          communication -- any number of them can be attached.
@@ -211,7 +211,7 @@ deltaV features the server supports.
 
      - CHECKIN the WR.  A new VR is created in the VCR's history, and
        the VCR's 'DAV:checked-in' property points to it.  And
-       normally, the temporary WR is deleted.
+       normally, the temporary WR is deleted.      
 
 See?  Not such a big deal.  Ahem.
 
@@ -220,7 +220,7 @@ Auto-Versioning
 ===============
 
 What if some regular WebDAV client tries to use a deltaV server?  Or
-an even dumber HTTP 1.1 client?
+an even dumber HTTP 1.1 client?  
 
 If the server supports the 'auto-versioning' feature, then all
 resources gain a new live property called 'DAV:auto-version'.  The
@@ -256,7 +256,7 @@ features".  Here are the basic features, in a nutshell.
 
 
 * Checkout-in-place feature
-
+ 
     * new CHECKOUT, CHECKIN, UNCHECKOUT methods, which are able to
       modify VCRs in-place.
 
@@ -303,7 +303,7 @@ features".  Here are the basic features, in a nutshell.
 * Label feature
 
     * LABEL method allows you to attach a human-readable name to a
-      particular VR.
+      particular VR.  
 
     * Each VR can have many names.  They're listed in a
       'DAV:label-name-set' property.
@@ -361,7 +361,7 @@ another object via a specific property.]
   the configuration should point to.  Just like a VR is a 'snapshot'
   of a VCR, a baseline is a 'snapshot' of the configuration.  And just
   like a VR, a baseline can have a human label too.
-
+  
 * Another kind of resource is a "version controlled configuration", or
   VCC.  This resource floats out in space;  its sole purpose is to
   magically connect a configuration to a baseline.   Specifically,
@@ -400,11 +400,11 @@ The "in-place" method:
    VCC.  Poof, a new baseline is created which captures your new
    configuration state.  And the VCC now points to that new baseline.
 
-The "working resource" method:
+The "working resource" method:   
 
    Okay, so a baseline is a special kind of VR.  Fine, so we do a
    CHECKOUT of it, and get a "working baseline", which a special kind
-   of WR.
+   of WR.  
 
    Now, assuming you're using this method all around, you checkout the
    configuration's various VRs as WRs, modify the WRs, and check them
