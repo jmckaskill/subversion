@@ -58,7 +58,7 @@ struct dump_edit_baton {
   /* Temporary buffer to write property hashes to in human-readable
    * form. ### Is this really needed? */
   svn_stringbuf_t *propstring;
-
+   
   /* Temporary file to write delta to along with its checksum. */
   char *delta_abspath;
 
@@ -142,7 +142,7 @@ dump_props(struct dump_edit_baton *eb,
   SVN_ERR(svn_hash_write_incremental(eb->props, eb->deleted_props,
                                      propstream, "PROPS-END", pool));
   SVN_ERR(svn_stream_close(propstream));
-
+  
   /* Prop-delta: true */
   SVN_ERR(svn_stream_printf(eb->stream, pool,
                             SVN_REPOS_DUMPFILE_PROP_DELTA
@@ -203,7 +203,7 @@ dump_node(struct dump_edit_baton *eb,
   /* Remove leading slashes from path and copyfrom_path */
   if (path)
     path = ((*path == '/') ? path + 1 : path);
-
+  
   if (copyfrom_path)
     copyfrom_path = ((*copyfrom_path == '/') ?
                      copyfrom_path + 1 : copyfrom_path);
@@ -706,7 +706,7 @@ close_file(void *file_baton,
                                 ": %lu\n",
                                 (unsigned long)info->size));
 
-      /* Text-content-md5: 82705804337e04dcd0e586bfa2389a7f */
+      /* Text-content-md5: 82705804337e04dcd0e586bfa2389a7f */      
       SVN_ERR(svn_stream_printf(eb->stream, pool,
                                 SVN_REPOS_DUMPFILE_TEXT_CONTENT_MD5
                                 ": %s\n",
