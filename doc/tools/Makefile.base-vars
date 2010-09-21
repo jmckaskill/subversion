@@ -40,7 +40,7 @@ OUTNAME = $(NAME)
 
 HTML_CHUNK_DIR = $(DIR)/html-chunk
 HTML_TARGET = $(DIR)/$(OUTNAME).html
-# In the HTML chunk build, index.html is created last, so serves as an
+# In the HTML chunk build, index.html is created last, so serves as an 
 # acceptable timestamp file for the entire multi-file output.
 HTML_CHUNK_TARGET = $(HTML_CHUNK_DIR)/index.html
 ARCH_CMD = tar -jcvf
@@ -64,13 +64,13 @@ IFIMAGES = if test -n "$(IMAGES)"; then
 ENDIF = ; fi
 
 # Customization hooks for xsltproc options
-HTML_XSLTPROC_OPTS =
+HTML_XSLTPROC_OPTS = 
 FO_XSLTPROC_OPTS =
 # FO example: --stringparam page.height 9in --stringparam page.width 6.4in
 
 # Uncomment the following line if you'd like to print on A4 paper
 # FO_XSLTPROC_OPTS = --stringparam paper.type A4
 
-# Override in locale-specific Makefile to localize the word in the
+# Override in locale-specific Makefile to localize the word in the 
 # auto-generated version file.
 L10N_REVISION = Revision

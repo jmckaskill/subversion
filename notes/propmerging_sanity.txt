@@ -80,9 +80,9 @@ unrelated set of baseprops, no common ancestor.
 
 
      old-baseprops                    target-baseprops
-          |                                 |
+          |                                 |         
           |  (server-propsets)              |  (localedit-propsets)
-          |                                 |
+          |                                 |                      
           v                                 v
      new-baseprops                      workingprops
 
@@ -115,7 +115,7 @@ simply represents the value of target-baseprops.
                if (value of PROPNAME in workingprops) == TO:
                   do nothing, it's a 'clean merge'
                else:
-                  conflict: "property already exists with different value"
+                  conflict: "property already exists with different value" 
 
             else:  /* PROPNAME doesn't exist in workingprops */
                set property as a new local mod
@@ -134,7 +134,7 @@ simply represents the value of target-baseprops.
                   apply the propchange.
 
                else if (value of PROPNAME in workingprops) == TO:
-                  do nothing, it's a 'clean merge'
+                  do nothing, it's a 'clean merge'  
 
                else:  /* has some other  value */
                   conflict:  "property has conflicting value"
