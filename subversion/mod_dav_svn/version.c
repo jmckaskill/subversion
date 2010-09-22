@@ -1025,7 +1025,7 @@ deliver_report(request_rec *r,
 
           err = dav_svn_split_uri(r, r->uri, dav_svn__get_root_dir(r),
                                   &cleaned_uri, &trailing_slash,
-                                  &(resource->info->repos->repo_name),
+                                  &(resource->info->repos->repo_name), 
                                   &relative_path, &repos_path);
           if (err)
             return err;
