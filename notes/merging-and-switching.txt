@@ -89,7 +89,7 @@ copy.
 
 Thus, what distinguishes a merge from an update is that P != Q (is
 there a symbol for "need not equal"?  Maybe "P ?= Q"...)  For that
-matter, X ?= Y.
+matter, X ?= Y.  
 
 X:P and Y:Q are two distinct trees, but in practice, they share a
 common ancestor, so using the difference between them is not a
@@ -99,7 +99,7 @@ not.
 
 It is possible, indeed likely, that neither P:X nor Q:Y are an exact
 reflection of the working copy bases, therefore context diffs are used
-to facilitate merging.
+to facilitate merging.  
 
 *** Implementation details ***
 
@@ -192,7 +192,7 @@ revision.  The user specifies the new path.
 The result of the operation is to effectively morph the working copy
 into representing a different location in the tree.  In theory, there
 should be no way to tell the difference between a fresh checkout of
-PATH2 and a working copy that was "switched" to PATH2.
+PATH2 and a working copy that was "switched" to PATH2. 
 
 *** Implementation details  ***
 
@@ -206,7 +206,7 @@ uniform value, it needs to rewrite all of the metadata URL ancestry as
 well.
 
 -----------------------------------------------------------------------
-
+               
 
 Interactions:  A Brave New World
 ================================
@@ -226,7 +226,7 @@ subdir's entry name in the parent.  For example:
    $ cd svn/subversion/libsvn_fs
    $ svn switch http://svn.collab.net/repos/branches/blue/subversion/libsvn_fs
    [...]
-   $
+   $ 
 
 While svn/subversion/.svn/entries still has an entry for "libsvn_fs",
 if you go into libsvn_fs and look at its own directory url, it is not
@@ -313,7 +313,7 @@ The switch process still needs to build a working-copy reflection that
 contains possible "disjointed" subtrees.  However, the second
 target-transaction isn't needed at all.  The server can send a delta
 between the reflection and a "pure" path in some revision (presumably
-the path that we're switching to.)
+the path that we're switching to.)  
 
 If the disjointed subtree and the target path both happen to be part
 of the same branch, then svn_repos_dir_delta() won't notice any
