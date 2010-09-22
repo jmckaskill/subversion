@@ -302,7 +302,7 @@ new_node_record(void **node_baton,
           SVN_ERR(commit_editor->close_directory(rb->db->baton, rb->pool));
           rb->db = rb->db->parent;
         }
-
+        
       for (i = 0; i < residual_open_path->nelts; i ++)
         {
           relpath_compose =
