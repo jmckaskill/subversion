@@ -23,9 +23,9 @@
 
 #ifdef _MERGE_PROXYSTUB
 
-extern "C"
+extern "C" 
 {
-BOOL WINAPI PrxDllMain(HINSTANCE hInstance, DWORD dwReason,
+BOOL WINAPI PrxDllMain(HINSTANCE hInstance, DWORD dwReason, 
                        LPVOID lpReserved);
 STDAPI PrxDllCanUnloadNow(void);
 STDAPI PrxDllGetClassObject(REFCLSID rclsid, REFIID riid, LPVOID* ppv);
@@ -39,5 +39,5 @@ STDAPI PrxDllUnregisterServer(void);
 // Microsoft Visual C++ will insert additional declarations
 // immediately before the previous line.
 
-#endif
+#endif 
 // !defined(AFX_DLLDATAX_H__281C69AC_6B7B_4FA8_9B5A_84546EFB391A__INCLUDED_)
