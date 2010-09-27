@@ -24,10 +24,10 @@
  * Modified by the GLib Team and others 1997-1999.  See the AUTHORS
  * file for a list of people on the GLib Team.  See the ChangeLog
  * files for a list of changes.  These files are distributed with
- * GLib at ftp://ftp.gtk.org/pub/gtk/.
+ * GLib at ftp://ftp.gtk.org/pub/gtk/. 
  */
 
-/*
+/* 
  * MT safe
  */
 
@@ -45,7 +45,7 @@ g_hook_list_init (GHookList *hook_list,
 {
   g_return_if_fail (hook_list != NULL);
   g_return_if_fail (hook_size >= sizeof (GHook));
-
+  
   hook_list->seq_id = 1;
   hook_list->hook_size = hook_size;
   hook_list->is_setup = TRUE;
@@ -62,13 +62,13 @@ void
 g_hook_list_clear (GHookList *hook_list)
 {
   g_return_if_fail (hook_list != NULL);
-
+  
   if (hook_list->is_setup)
     {
       GHook *hook;
-
+      
       hook_list->is_setup = FALSE;
-
+      
       hook = hook_list->hooks;
       if (!hook)
 	{
@@ -79,7 +79,7 @@ g_hook_list_clear (GHookList *hook_list)
 	do
 	  {
 	    GHook *tmp;
-
+	    
 	    g_hook_ref (hook_list, hook);
 	    g_hook_destroy_link (hook_list, hook);
 	    tmp = hook->next;
@@ -94,10 +94,10 @@ GHook*
 g_hook_alloc (GHookList *hook_list)
 {
   GHook *hook;
-
+  
   g_return_val_if_fail (hook_list != NULL, NULL);
   g_return_val_if_fail (hook_list->is_setup, NULL);
-
+  
   hook = g_chunk_new0 (GHook, hook_list->hook_memchunk);
   hook->data = NULL;
   hook->next = NULL;
@@ -107,7 +107,7 @@ g_hook_alloc (GHookList *hook_list)
   hook->hook_id = 0;
   hook->func = NULL;
   hook->destroy = NULL;
-
+  
   return hook;
 }
 
@@ -122,7 +122,7 @@ g_hook_free (GHookList *hook_list,
 
   if (hook_list->hook_free)
     hook_list->hook_free (hook_list, hook);
-
+  
   g_chunk_free (hook, hook_list->hook_memchunk);
 }
 
@@ -132,7 +132,7 @@ g_hook_destroy_link (GHookList *hook_list,
 {
   g_return_if_fail (hook_list != NULL);
   g_return_if_fail (hook != NULL);
-
+  
   if (hook->hook_id)
     {
       hook->hook_id = 0;
@@ -158,17 +158,17 @@ g_hook_destroy (GHookList   *hook_list,
 		guint	     hook_id)
 {
   GHook *hook;
-
+  
   g_return_val_if_fail (hook_list != NULL, FALSE);
   g_return_val_if_fail (hook_id > 0, FALSE);
-
+  
   hook = g_hook_get (hook_list, hook_id);
   if (hook)
     {
       g_hook_destroy_link (hook_list, hook);
       return TRUE;
     }
-
+  
   return FALSE;
 }
 
@@ -180,13 +180,13 @@ g_hook_unref (GHookList *hook_list,
   g_return_if_fail (hook_list->hook_memchunk != NULL);
   g_return_if_fail (hook != NULL);
   g_return_if_fail (hook->ref_count > 0);
-
+  
   hook->ref_count--;
   if (!hook->ref_count)
     {
       g_return_if_fail (hook->hook_id == 0);
       g_return_if_fail (!G_HOOK_IN_CALL (hook));
-
+      
       if (hook->prev)
 	hook->prev->next = hook->next;
       else
@@ -203,7 +203,7 @@ g_hook_unref (GHookList *hook_list,
 	  hook_list->is_setup = TRUE;
 	  g_hook_free (hook_list, hook);
 	  hook_list->is_setup = FALSE;
-
+      
 	  if (!hook_list->hooks)
 	    {
 	      g_mem_chunk_destroy (hook_list->hook_memchunk);
@@ -222,7 +222,7 @@ g_hook_ref (GHookList *hook_list,
   g_return_if_fail (hook_list != NULL);
   g_return_if_fail (hook != NULL);
   g_return_if_fail (hook->ref_count > 0);
-
+  
   hook->ref_count++;
 }
 
@@ -231,7 +231,7 @@ g_hook_prepend (GHookList *hook_list,
 		GHook	  *hook)
 {
   g_return_if_fail (hook_list != NULL);
-
+  
   g_hook_insert_before (hook_list, hook_list->hooks, hook);
 }
 
@@ -245,10 +245,10 @@ g_hook_insert_before (GHookList *hook_list,
   g_return_if_fail (hook != NULL);
   g_return_if_fail (G_HOOK_IS_UNLINKED (hook));
   g_return_if_fail (hook->func != NULL);
-
+  
   hook->hook_id = hook_list->seq_id++;
   hook->ref_count = 1; /* counterpart to g_hook_destroy_link */
-
+  
   if (sibling)
     {
       if (sibling->prev)
@@ -285,7 +285,7 @@ g_hook_list_invoke (GHookList *hook_list,
 		    gboolean   may_recurse)
 {
   GHook *hook;
-
+  
   g_return_if_fail (hook_list != NULL);
   g_return_if_fail (hook_list->is_setup);
 
@@ -294,15 +294,15 @@ g_hook_list_invoke (GHookList *hook_list,
     {
       GHookFunc func;
       gboolean was_in_call;
-
+      
       func = (GHookFunc) hook->func;
-
+      
       was_in_call = G_HOOK_IN_CALL (hook);
       hook->flags |= G_HOOK_FLAG_IN_CALL;
       func (hook->data);
       if (!was_in_call)
 	hook->flags &= ~G_HOOK_FLAG_IN_CALL;
-
+      
       hook = g_hook_next_valid (hook_list, hook, may_recurse);
     }
 }
@@ -312,19 +312,19 @@ g_hook_list_invoke_check (GHookList *hook_list,
 			  gboolean   may_recurse)
 {
   GHook *hook;
-
+  
   g_return_if_fail (hook_list != NULL);
   g_return_if_fail (hook_list->is_setup);
-
+  
   hook = g_hook_first_valid (hook_list, may_recurse);
   while (hook)
     {
       GHookCheckFunc func;
       gboolean was_in_call;
       gboolean need_destroy;
-
+      
       func = (GHookCheckFunc) hook->func;
-
+      
       was_in_call = G_HOOK_IN_CALL (hook);
       hook->flags |= G_HOOK_FLAG_IN_CALL;
       need_destroy = !func (hook->data);
@@ -332,7 +332,7 @@ g_hook_list_invoke_check (GHookList *hook_list,
 	hook->flags &= ~G_HOOK_FLAG_IN_CALL;
       if (need_destroy)
 	g_hook_destroy_link (hook_list, hook);
-
+      
       hook = g_hook_next_valid (hook_list, hook, may_recurse);
     }
 }
@@ -344,17 +344,17 @@ g_hook_list_marshal_check (GHookList	       *hook_list,
 			   gpointer		data)
 {
   GHook *hook;
-
+  
   g_return_if_fail (hook_list != NULL);
   g_return_if_fail (hook_list->is_setup);
   g_return_if_fail (marshaller != NULL);
-
+  
   hook = g_hook_first_valid (hook_list, may_recurse);
   while (hook)
     {
       gboolean was_in_call;
       gboolean need_destroy;
-
+      
       was_in_call = G_HOOK_IN_CALL (hook);
       hook->flags |= G_HOOK_FLAG_IN_CALL;
       need_destroy = !marshaller (hook, data);
@@ -362,7 +362,7 @@ g_hook_list_marshal_check (GHookList	       *hook_list,
 	hook->flags &= ~G_HOOK_FLAG_IN_CALL;
       if (need_destroy)
 	g_hook_destroy_link (hook_list, hook);
-
+      
       hook = g_hook_next_valid (hook_list, hook, may_recurse);
     }
 }
@@ -374,22 +374,22 @@ g_hook_list_marshal (GHookList		     *hook_list,
 		     gpointer		      data)
 {
   GHook *hook;
-
+  
   g_return_if_fail (hook_list != NULL);
   g_return_if_fail (hook_list->is_setup);
   g_return_if_fail (marshaller != NULL);
-
+  
   hook = g_hook_first_valid (hook_list, may_recurse);
   while (hook)
     {
       gboolean was_in_call;
-
+      
       was_in_call = G_HOOK_IN_CALL (hook);
       hook->flags |= G_HOOK_FLAG_IN_CALL;
       marshaller (hook, data);
       if (!was_in_call)
 	hook->flags &= ~G_HOOK_FLAG_IN_CALL;
-
+      
       hook = g_hook_next_valid (hook_list, hook, may_recurse);
     }
 }
@@ -399,11 +399,11 @@ g_hook_first_valid (GHookList *hook_list,
 		    gboolean   may_be_in_call)
 {
   g_return_val_if_fail (hook_list != NULL, NULL);
-
+  
   if (hook_list->is_setup)
     {
       GHook *hook;
-
+      
       hook = hook_list->hooks;
       if (hook)
 	{
@@ -414,7 +414,7 @@ g_hook_first_valid (GHookList *hook_list,
 	    return g_hook_next_valid (hook_list, hook, may_be_in_call);
 	}
     }
-
+  
   return NULL;
 }
 
@@ -429,7 +429,7 @@ g_hook_next_valid (GHookList *hook_list,
 
   if (!hook)
     return NULL;
-
+  
   hook = hook->next;
   while (hook)
     {
@@ -437,7 +437,7 @@ g_hook_next_valid (GHookList *hook_list,
 	{
 	  g_hook_ref (hook_list, hook);
 	  g_hook_unref (hook_list, ohook);
-
+	  
 	  return hook;
 	}
       hook = hook->next;
@@ -452,10 +452,10 @@ g_hook_get (GHookList *hook_list,
 	    guint      hook_id)
 {
   GHook *hook;
-
+  
   g_return_val_if_fail (hook_list != NULL, NULL);
   g_return_val_if_fail (hook_id > 0, NULL);
-
+  
   hook = hook_list->hooks;
   while (hook)
     {
@@ -463,7 +463,7 @@ g_hook_get (GHookList *hook_list,
 	return hook;
       hook = hook->next;
     }
-
+  
   return NULL;
 }
 
@@ -474,10 +474,10 @@ g_hook_find (GHookList	  *hook_list,
 	     gpointer	   data)
 {
   GHook *hook;
-
+  
   g_return_val_if_fail (hook_list != NULL, NULL);
   g_return_val_if_fail (func != NULL, NULL);
-
+  
   hook = hook_list->hooks;
   while (hook)
     {
@@ -489,13 +489,13 @@ g_hook_find (GHookList	  *hook_list,
 	  hook = hook->next;
 	  continue;
 	}
-
+      
       g_hook_ref (hook_list, hook);
-
+      
       if (func (hook, data) && hook->hook_id && (!need_valids || G_HOOK_ACTIVE (hook)))
 	{
 	  g_hook_unref (hook_list, hook);
-
+	  
 	  return hook;
 	}
 
@@ -503,7 +503,7 @@ g_hook_find (GHookList	  *hook_list,
       g_hook_unref (hook_list, hook);
       hook = tmp;
     }
-
+  
   return NULL;
 }
 
@@ -513,9 +513,9 @@ g_hook_find_data (GHookList *hook_list,
 		  gpointer   data)
 {
   GHook *hook;
-
+  
   g_return_val_if_fail (hook_list != NULL, NULL);
-
+  
   hook = hook_list->hooks;
   while (hook)
     {
@@ -527,7 +527,7 @@ g_hook_find_data (GHookList *hook_list,
 
       hook = hook->next;
     }
-
+  
   return NULL;
 }
 
@@ -537,10 +537,10 @@ g_hook_find_func (GHookList *hook_list,
 		  gpointer   func)
 {
   GHook *hook;
-
+  
   g_return_val_if_fail (hook_list != NULL, NULL);
   g_return_val_if_fail (func != NULL, NULL);
-
+  
   hook = hook_list->hooks;
   while (hook)
     {
@@ -552,7 +552,7 @@ g_hook_find_func (GHookList *hook_list,
 
       hook = hook->next;
     }
-
+  
   return NULL;
 }
 
@@ -563,10 +563,10 @@ g_hook_find_func_data (GHookList *hook_list,
 		       gpointer	  data)
 {
   GHook *hook;
-
+  
   g_return_val_if_fail (hook_list != NULL, NULL);
   g_return_val_if_fail (func != NULL, NULL);
-
+  
   hook = hook_list->hooks;
   while (hook)
     {
@@ -579,7 +579,7 @@ g_hook_find_func_data (GHookList *hook_list,
 
       hook = hook->next;
     }
-
+  
   return NULL;
 }
 
@@ -589,7 +589,7 @@ g_hook_insert_sorted (GHookList	      *hook_list,
 		      GHookCompareFunc func)
 {
   GHook *sibling;
-
+  
   g_return_if_fail (hook_list != NULL);
   g_return_if_fail (hook_list->is_setup);
   g_return_if_fail (hook != NULL);
@@ -601,11 +601,11 @@ g_hook_insert_sorted (GHookList	      *hook_list,
   sibling = hook_list->hooks;
   while (sibling && !sibling->hook_id)
     sibling = sibling->next;
-
+  
   while (sibling)
     {
       GHook *tmp;
-
+      
       g_hook_ref (hook_list, sibling);
       if (func (hook, sibling) <= 0 && sibling->hook_id)
 	{
@@ -621,7 +621,7 @@ g_hook_insert_sorted (GHookList	      *hook_list,
       g_hook_unref (hook_list, sibling);
       sibling = tmp;
     }
-
+  
   g_hook_insert_before (hook_list, sibling, hook);
 }
 

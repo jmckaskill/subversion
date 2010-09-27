@@ -141,8 +141,8 @@ rather than in some revision-independent place, might suggest that
 it's possible for a node change kinds from revision to revision, but
 Subversion does not allow this.
 
-PROP-KEY is a key into the `representations' table (see REPRESENTATIONS
-below), whose value is a representation pointing to a string
+PROP-KEY is a key into the `representations' table (see REPRESENTATIONS 
+below), whose value is a representation pointing to a string 
 (see `strings' table) that is a PROPLIST skel.
 
 The KIND-SPECIFIC portions are discussed below.
@@ -436,7 +436,7 @@ Transactions
 
 Every transaction ends when it is either successfully committed, or
 aborted.  We call a transaction which has been either committed or
-aborted "finished", and one which hasn't "unfinished".
+aborted "finished", and one which hasn't "unfinished".  
 
 Transactions are identified by unique numbers, called transaction
 ID's.  Currently, transaction ID's are never reused, though this is
@@ -505,7 +505,7 @@ Changes
 As modifications are made (files and dirs added or removed, text and
 properties changed, etc.) on Subversion transaction trees, the
 filesystem tracks the basic change made in the Berkeley DB `changes'
-table.
+table.  
 
 The `changes' table is a btree with Berkeley's "duplicate keys"
 functionality (and with no particular sort order), and maps the
@@ -550,14 +550,14 @@ where:
 In order to fully describe the changes made to any given path as part
 of a single transaction, one must read all the change items associated
 with the transaction's ID, and "collapse" multiple entries that refer
-to that path.
+to that path. 
 
 
 
 Copies
 
 Each time a filesystem copy operation is performed, Subversion records
-meta-data about that copy.
+meta-data about that copy.  
 
 Copies are identified by unique numbers called copy ID's.  Currently,
 copy ID's are never reused, though this is not mandated by the schema.
@@ -662,48 +662,48 @@ Merging rules:
 Merging algorithm:
 
    For each entry NAME in the directory ANCESTOR:
-
+  
      Let ANCESTOR-ENTRY, SOURCE-ENTRY, and TARGET-ENTRY be the IDs of
      the name within ANCESTOR, SOURCE, and TARGET respectively.
      (Possibly null if NAME does not exist in SOURCE or TARGET.)
-
+  
      If ANCESTOR-ENTRY == SOURCE-ENTRY, then:
        No changes were made to this entry while the transaction was in
        progress, so do nothing to the target.
-
+  
      Else if ANCESTOR-ENTRY == TARGET-ENTRY, then:
        A change was made to this entry while the transaction was in
        process, but the transaction did not touch this entry.  Replace
        TARGET-ENTRY with SOURCE-ENTRY.
-
+  
      Else:
        Changes were made to this entry both within the transaction and
        to the repository while the transaction was in progress.  They
        must be merged or declared to be in conflict.
-
+  
        If SOURCE-ENTRY and TARGET-ENTRY are both null, that's a
        double delete; flag a conflict.
-
+  
        If any of the three entries is of type file, declare a conflict.
-
+  
        If either SOURCE-ENTRY or TARGET-ENTRY is not a direct
        modification of ANCESTOR-ENTRY (determine by comparing the
        node-id fields), declare a conflict.  A replacement is
        incompatible with a modification or other replacement--even
        an identical replacement.
-
+  
        Direct modifications were made to the directory ANCESTOR-ENTRY
        in both SOURCE and TARGET.  Recursively merge these
        modifications.
-
+  
    For each leftover entry NAME in the directory SOURCE:
-
+  
      If NAME exists in TARGET, declare a conflict.  Even if SOURCE and
      TARGET are adding exactly the same thing, two additions are not
      auto-mergeable with each other.
-
+  
      Add NAME to TARGET with the entry from SOURCE.
-
+  
    Now that we are done merging the changes from SOURCE into the
    directory TARGET, update TARGET's predecessor to be SOURCE.
 
@@ -713,7 +713,7 @@ performant algorithm above:
 
    Merging two nodes, A and B, with respect to a common ancestor
    ANCESTOR:
-
+   
    - First, the merge fails unless A, B, and ANCESTOR are all the same
      kind of node.
    - If A and B are text files:
@@ -731,12 +731,12 @@ performant algorithm above:
            - but refers to different nodes.
            - but refers to different revisions of the same node.
            - and refers to the same node revision.
-
+   
        The same set of possible relationships with ANCESTOR holds for B,
        so there are thirty-six combinations.  The matrix is symmetrical
        with A and B reversed, so we only have to describe one triangular
        half, including the diagonal --- 21 combinations.
-
+   
        - (6) E exists in neither ANCESTOR nor A:
          - (1) E exists in neither ANCESTOR nor B.  Can't occur, by
            assumption that E exists in either A, B, or ancestor.
@@ -783,7 +783,7 @@ performant algorithm above:
          - (1) E exists in both ANCESTOR and B, and refers to the same
            node revision.  Nothing has happened to ANCESTOR/E, so no
            change is necessary.
-
+   
    *** == something actually happens
 
 
@@ -926,9 +926,9 @@ Node revisions:
 
           NODE-REVISION ::= FILE | DIR ;
                    FILE ::= (HEADER PROP-KEY DATA-KEY [EDIT-DATA-KEY]) ;
-                    DIR ::= (HEADER PROP-KEY ENTRIES-KEY) ;
-                 HEADER ::= (KIND CREATED-PATH
-                             [PRED-ID [PRED-COUNT
+                    DIR ::= (HEADER PROP-KEY ENTRIES-KEY) ; 
+                 HEADER ::= (KIND CREATED-PATH 
+                             [PRED-ID [PRED-COUNT 
                               [HAS-MERGEINFO MERGEINFO-COUNT]]]) ;
                    KIND ::= "file" | "dir" ;
                 PRED-ID ::= NODE-REV-ID | "";
@@ -956,7 +956,7 @@ Representations:
 
                  HEADER ::= (KIND TXN [CHECKSUM]) ;
                    KIND ::= "fulltext" | "delta" ;
-
+             
                    SIZE ::= number ;
                CHECKSUM ::= ("md5" BYTES) ;
                   BYTES ::= atom ;
@@ -981,7 +981,7 @@ UUIDs:
 
 Locks:
 
-                   LOCK ::= ("lock" PATH TOKEN OWNER
+                   LOCK ::= ("lock" PATH TOKEN OWNER 
                                     COMMENT XML-P CR-DATE [X-DATE]);
                    PATH ::= atom ;
                   OWNER ::= atom ;
@@ -999,7 +999,7 @@ Node origins:
 
                 NODE-ID ::= NODE-REV-ID ;
 
-
+        
 Lexical elements
 ----------------
 
@@ -1007,7 +1007,7 @@ UUIDs:
 
                    uuid ::= hexits-32 '-' hexits-16 '-' hexits-16 '-'
                             hexits-16 '-' hexits-48 ;
-
+ 
 Numbers:
 
                  number ::= /{digit.class}+/ ;
