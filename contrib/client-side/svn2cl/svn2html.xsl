@@ -13,7 +13,7 @@
                 ++stringparam groupbyday yes \
                 ++stringparam authorsfile FILE \
                 ++stringparam title NAME \
-                ++stringparam revision-link NAME \
+                ++stringparam revision-link NAME \ 
                 svn2html.xsl - > ChangeLog.html
 
    This file is partially based on (and includes) svn2cl.xsl.
@@ -159,7 +159,7 @@
      <xsl:when test="contains($revision-link,'##')">
       <xsl:value-of select="concat(substring-before($revision-link,'##'),@revision,substring-after($revision-link,'##'))" />
      </xsl:when>
-     <xsl:otherwise>
+     <xsl:otherwise>   
       <xsl:value-of select="concat($revision-link,@revision)" />
      </xsl:otherwise>
     </xsl:choose>

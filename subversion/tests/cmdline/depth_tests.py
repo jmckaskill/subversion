@@ -1235,7 +1235,7 @@ def add_tree_with_depth_files(sbox):
 
 def upgrade_from_above(sbox):
   "upgrade a depth=empty wc from above"
-
+  
   # The bug was that 'svn up --set-depth=files' worked from within the
   # working copy, but not from without with working copy top given
   # as an argument.  Both ways would correctly cause 'iota' to
@@ -1249,7 +1249,7 @@ def upgrade_from_above(sbox):
   #   Date: Wed, 19 Sep 2007 23:15:24 +0700
   #   Message-ID: <46F14B1C.8010406@svnkit.com>
 
-  sbox2 = sbox.clone_dependent()
+  sbox2 = sbox.clone_dependent() 
 
   wc, ign_a, ign_b, ign_c = set_up_depthy_working_copies(sbox, empty=True)
 
@@ -1425,7 +1425,7 @@ def depthy_update_above_dir_to_be_deleted(sbox):
     "immediates" : (output_with_A, disk_with_only_iota, status_with_only_iota),
     "empty"      : (empty_output, initial_disk, status_with_dot),
     }
-
+    
   for depth in sbox_for_depth.keys():
     wc_dir = sbox_for_depth[depth].wc_dir
     (expected_output_func, expected_disk, expected_status_func) = \

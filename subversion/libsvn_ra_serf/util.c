@@ -93,7 +93,7 @@ convert_organisation_to_str(apr_hash_t *org, apr_pool_t *pool)
 }
 
 static apr_status_t
-ssl_server_cert(void *baton, int failures,
+ssl_server_cert(void *baton, int failures, 
                 const serf_ssl_certificate_t *cert)
 {
   svn_ra_serf__connection_t *conn = baton;
@@ -111,7 +111,7 @@ ssl_server_cert(void *baton, int failures,
 
   /* Construct the realmstring, e.g. https://svn.collab.net:443 */
   realmstring = apr_uri_unparse(subpool,
-                                &conn->session->repos_url,
+                                &conn->session->repos_url, 
                                 APR_URI_UNP_OMITPATHINFO);
 
   /* Extract the info from the certificate */
@@ -219,7 +219,7 @@ svn_ra_serf__conn_setup(apr_socket_t *sock,
   svn_ra_serf__connection_t *conn = baton;
 
 #if SERF_VERSION_AT_LEAST(0,1,3)
-  bucket = serf_context_bucket_socket_create(conn->session->context,
+  bucket = serf_context_bucket_socket_create(conn->session->context, 
                                              sock, conn->bkt_alloc);
 #else
   bucket = serf_bucket_socket_create(sock, conn->bkt_alloc);
@@ -255,9 +255,9 @@ svn_ra_serf__conn_setup(apr_socket_t *sock,
               svn_error_t *err;
               err = load_authorities(conn, conn->session->ssl_authorities,
                                      conn->session->pool);
-              if (err)
+              if (err) 
                 {
-                  /* TODO: we need a way to pass this error back to the
+                  /* TODO: we need a way to pass this error back to the 
                      caller */
                   svn_error_clear(err);
                 }
@@ -515,7 +515,7 @@ svn_ra_serf__setup_serf_req(serf_request_t *request,
   if (conn->session->using_proxy)
     {
       char *root = apr_uri_unparse(conn->session->pool,
-                                   &conn->session->repos_url,
+                                   &conn->session->repos_url, 
                                    APR_URI_UNP_OMITPATHINFO);
       serf_bucket_request_set_root(*req_bkt, root);
     }
@@ -1436,7 +1436,7 @@ svn_ra_serf__discover_root(const char **vcc_url,
       /* Now recreate the root_url. */
       session->repos_root = session->repos_url;
       session->repos_root.path = apr_pstrdup(session->pool, url_buf->data);
-      session->repos_root_str =
+      session->repos_root_str = 
         svn_path_canonicalize(apr_uri_unparse(session->pool,
                                               &session->repos_root, 0),
                               session->pool);
@@ -1470,7 +1470,7 @@ svn_ra_serf__discover_root(const char **vcc_url,
 svn_error_t *
 svn_ra_serf__error_on_status(int status_code, const char *path)
 {
-  switch(status_code)
+  switch(status_code) 
     {
       case 404:
         return svn_error_createf(SVN_ERR_FS_NOT_FOUND, NULL,
