@@ -1896,7 +1896,7 @@ def prop_reject_grind(sbox):
    "Trying to add new property 'add.edit' with value 'repos',\n"
    "but property already exists with value 'local.changed'.\n",
 
-   "\n"
+   "\n"  
    ])
 
   # Get the contents of mu.prej.  The error messages in the prej file are
@@ -1912,7 +1912,7 @@ def prop_reject_grind(sbox):
   for line in raw_prej:
       repaired_line = line.replace(' but', '\nbut')
       actual_prej.append(repaired_line + '\n')
-
+  
   svntest.verify.verify_outputs("Expected mu.prej doesn't match actual mu.prej",
                                 actual_prej, None, expected_prej, None)
 
@@ -1969,7 +1969,7 @@ def obstructed_subdirs(sbox):
   svntest.tree.compare_trees("disk", actual_disk_tree,
                              expected_disk.old_tree())
 
-
+  
   svntest.actions.run_and_verify_status(wc_dir, expected_status)
 
 
@@ -1994,7 +1994,7 @@ def atomic_over_ra(sbox):
                                      'flower', s1, repo_url)
 
   # Helpers.
-
+  
   def expect_old_server_fail(old_value, proposed_value):
     # We are setting a (possibly "not present") expectation for the old value,
     # so we should fail.
@@ -2181,7 +2181,7 @@ def propget_redirection(sbox):
   "874909,874912,874996,875051,875069,875129,875132,875134,875137,"    + \
   "875151-875153,875186-875188,875190,875235-875237,875242-875243,"    + \
   "875249,875388,875393,875406,875411\n"
-
+  
   # Set the 'big' mergeinfo prop on A/B, A/C, and A/D.
   svntest.main.file_write(prop_val_file, big_prop_val)
 
