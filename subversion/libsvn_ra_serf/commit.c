@@ -83,7 +83,7 @@ typedef struct {
   const char *checked_in_url;
 
   /* vcc url */
-  const char *vcc_url;
+  const char *vcc_url;  
 
   /* Deleted files - so we can detect delete+add (replace) ops. */
   apr_hash_t *deleted_entries;
@@ -478,7 +478,7 @@ get_version_url(const char **checked_in_url,
       if (SVN_IS_VALID_REVNUM(base_revision))
         {
           const char *bc_url, *bc_relpath;
-
+          
           /* mod_dav_svn can't handle the "Label:" header that
              svn_ra_serf__deliver_props() is going to try to use for
              this lookup, so we'll do things the hard(er) way, by
