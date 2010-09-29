@@ -27,7 +27,7 @@
 		UpgradeCode="$(var.UpgradeCode)"
 		Manufacturer="CollabNet"
 	  	Version="$(var.ProductVersion)">
-
+		
 		<Package Description="!(loc.PackageDescription)"
 		    Id="$(var.PackageCode)"
 			Comments="!(loc.ProductName) $(var.ProductVersion)-$(var.RevisionNumber)"
@@ -50,14 +50,14 @@
  		</Upgrade>
 
 		<!--
-			Source media for the installation.
- 			Specifies a single cab file to be embedded in the installer's .msi.
+			Source media for the installation. 
+ 			Specifies a single cab file to be embedded in the installer's .msi. 
 		-->
 		<Media Id="1" Cabinet="contents.cab" EmbedCab="yes" CompressionLevel="high"/>
-
+		
 		<!-- Installation directory and files are defined in Files.wxs -->
 		<Directory Id="TARGETDIR" Name="SourceDir"/>
-
+		
 		<Feature Id="Complete"
 		         Title="Subversion"
 		         Description="Subversion for win32"
@@ -76,31 +76,31 @@
 				<?include LicensesFeature22x.wxi ?>
 
 				<ComponentRef Id="svnbookchm"/>
-
+			
 			<!-- Program Files Folder -->
 				<ComponentRef Id='IDSubvProgGroup' />
 				<ComponentRef Id='IDSubvLicGroup' />
 		</Feature>
-
+		
 		<Property Id="WIXUI_INSTALLDIR">INSTALLDIR</Property>
-
+ 		
 		<!-- note to self: properties populated from controls
 		     must be in uppercase and have the secure option set -->
 		<Property Id="APACHEVERSION" Secure="yes">Apache20</Property>
 
 		<Property Id="ProductRevision">$(var.RevisionNumber)</Property>
-
-		<!--
+		
+		<!-- 
  			Use custom Subversion Fragment
 		-->
 		<UIRef Id="WixUI_Subversion"/>
-		<WixVariable Id="WixUIDialogBmp" Value="dlgbmp.bmp"/>
-		<WixVariable Id="WixUIBannerBmp" Value="wiz-55x55x24.bmp"/>
+		<WixVariable Id="WixUIDialogBmp" Value="dlgbmp.bmp"/>	
+		<WixVariable Id="WixUIBannerBmp" Value="wiz-55x55x24.bmp"/>	
 
 		<!-- Prevent downgrading -->
 		<CustomAction Id="PreventDowngrading"
               Error="!(loc.NoDowngrade)" />
-
+	
 		<InstallExecuteSequence>
 		  <Custom Action="PreventDowngrading"
 		          After="FindRelatedProducts">NEWPRODUCTFOUND</Custom>
