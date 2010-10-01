@@ -26,11 +26,11 @@
 							<!-- setup path -->
 							<RegistryValue Root="HKCU" Key="SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\svn.exe" Type="string" Value="[INSTALLDIR]bin\svn.exe" KeyPath="no" />
 							<RegistryValue Root="HKCU" Key="SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\svn.exe" Type="string" Name="Path" Value="[INSTALLDIR]bin" KeyPath="no" />
-
+	
 							<!-- setup version -->
 							<RegistryValue Root="HKCU" Key="SOFTWARE\Tigris.org\Subversion" Type="string" Name="Version" Value="1234" KeyPath="no" />
 							<RegistryValue Root="HKCU" Key="SOFTWARE\Tigris.org\Subversion" Type="string" Name="Revision" Value="4321" KeyPath="no" />
-
+						
 							<!-- iconv -->
 							<RegistryValue Root="HKCU" Key="Environment" Type="string" Name="APR_ICONV_PATH" Value="[INSTALLDIR]iconv" KeyPath="no" />
 					</Component>
@@ -41,11 +41,11 @@
 								<!-- setup path -->
 								<RegistryValue Root="HKCU" Key="SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\svn.exe" Type="string" Value="[INSTALLDIR]bin\svn.exe" KeyPath="no" />
 								<RegistryValue Root="HKCU" Key="SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\svn.exe" Type="string" Name="Path" Value="[INSTALLDIR]bin" KeyPath="no" />
-
+		
 								<!-- setup version -->
 								<RegistryValue Root="HKCU" Key="SOFTWARE\Tigris.org\Subversion" Type="string" Name="Version" Value="[ProductVersion]" KeyPath="no" />
 								<RegistryValue Root="HKCU" Key="SOFTWARE\Tigris.org\Subversion" Type="string" Name="Revision" Value="[RevisionNumber]" KeyPath="no" />
-
+							
 								<!-- iconv -->
 								<RegistryValue Root="HKCU" Key="Environment" Type="string" Name="APR_ICONV_PATH" Value="[INSTALLDIR]iconv" KeyPath="no" />
 						</Component>
