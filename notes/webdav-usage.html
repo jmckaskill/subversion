@@ -95,7 +95,7 @@
 	The basic issue here is that a <code>COPY</code> will
 	construct a new version history. We want to retain the fact
 	that the new copy's was derived from elsewhere, and to be able
-	to see the history prior to the copy. This implies sharing the
+	to see the history prior to the copy. This implies sharing the 
 	version history between the copies.
       </p>
     </blockquote>
@@ -146,7 +146,7 @@
       the <code>DAV:activity-collection-set</code> property for each
       collection. This property lists all of the locations on the
       server where an activity may be created. The first of these
-      locations will be stored on the client for use during the commit
+      locations will be stored on the client for use during the commit 
       process.
     </p>
     <p>
@@ -177,11 +177,11 @@
       </dd>
     </dl>
     <p>
-      The (advanced) <code>CHECKOUT</code> method has a way to specify
+      The (advanced) <code>CHECKOUT</code> method has a way to specify 
       an activity upon checkout. This feature will be used to
       associate all items with the newly-created activity.
     </p>
-
+    
     <h3>Mapping changes to WebDAV</h3>
     <p>
       A change set in Subversion is specified with a "tree delta" (see
@@ -231,7 +231,7 @@
 	  property referring to the ancestor's version resource.
 	</p>
 	<blockquote>
-	  <strong>Note:</strong> this might not be possible because it
+	  <strong>Note:</strong> this might not be possible because it 
 	  would appear that VCRs are not allowed to be children of
 	  working collections.
 	  <br>
@@ -273,11 +273,11 @@
 
       <dt>Replace directory</dt>
       <dd>
-	In Subversion terms, "replace directory" means that additions,
+	In Subversion terms, "replace directory" means that additions, 
 	deletions, and other changes will occur <em>within</em> the
-	directory. Each of these changes are modeled individually, and
+	directory. Each of these changes are modeled individually, and 
 	the change to the directory is performed
-	implicitly. Therefore, this "change" has no particular mapping
+	implicitly. Therefore, this "change" has no particular mapping 
 	into WebDAV.
 
 	<blockquote>
@@ -367,7 +367,7 @@
     <ol>
       <li>
 	The <code>&lt;directory ancestor="/dir1/dir3"&gt;</code>
-	specifies that we are overwriting <code>/dir1/dir2</code> with
+	specifies that we are overwriting <code>/dir1/dir2</code> with 
 	<code>/dir1/dir3</code>.
 	<p>
 	  <code>CHECKOUT&nbsp;/dir1/dir2/</code><br>
@@ -383,7 +383,7 @@
 	<code>/dir1/dir2/file3</code> is new (since we just overwrote
 	the original <code>dir2</code> directory), and originates from
 	<code>/dir1/dir2/file3</code>. Thus, we simply
-	<code>COPY</code> the file into the target directory's working
+	<code>COPY</code> the file into the target directory's working 
 	resource:
 	<p>
 	  <code>COPY&nbsp;/dir1/dir2/file3</code><br>
@@ -433,7 +433,7 @@
       also requires a number of other resources to be exposed for
       proper operation. These additional resources will be associated
       with each repository in a location under the main repository
-      URL. By default, this location is "<code>$svn</code>". It may be
+      URL. By default, this location is "<code>$svn</code>". It may be 
       changed by using the <code>SVNSpecialURI</code> directive:
       </p>
     <blockquote>
@@ -454,14 +454,14 @@
       <dd>
 	This area is where activity resources are created. The client
 	will pick a unique name within this collection and issue a
-	<code>MKACTIVITY</code> for that URL. The client will then use
+	<code>MKACTIVITY</code> for that URL. The client will then use 
 	the activity in further interactions.
 	<p>
 	  No methods are allowed on the <code>$svn/act/</code> URL.
 	</p>
 	<blockquote>
-	  Note: actually, we may want to allow a <code>PROPFIND</code>
-	  with a <code>Depth:&nbsp;1</code> header to allow clients to
+	  Note: actually, we may want to allow a <code>PROPFIND</code> 
+	  with a <code>Depth:&nbsp;1</code> header to allow clients to 
 	  enumerate the current activities.
 	</blockquote>
 	<p>
@@ -475,12 +475,12 @@
 	  <code>DAV:activity</code>.
 	</p>
       </dd>
-
+      
       <dt><code>$svn/his/</code></dt>
       <dd>
 	This collection contains the version history resources for
 	files and directories in a project. Its internal layout is
-	completely server-defined. Clients will receive URLs into this
+	completely server-defined. Clients will receive URLs into this 
 	collection (or a subcollection) from various responses.
 	<p>
 	  No methods are allowed on the <code>$svn/his/</code> URL.
@@ -496,7 +496,7 @@
 	  The <var>node-id</var> is an internal value
 	  that Subversion uses to reference individual files and
 	  directories. This <var>node-id</var> is a single integer
-	  defined by the Subversion repository. Note that this is a an
+	  defined by the Subversion repository. Note that this is a an 
 	  undotted node id, which is the base for the entire history
 	  of a given node in the repository.
 	</p>
@@ -526,7 +526,7 @@
 	  No methods are allowed on the <code>/$svn/ver/</code> URL.
 	</p>
 	<p>
-	  The layout of this collection is internal to the server. For
+	  The layout of this collection is internal to the server. For 
 	  reference purposes here (and to describe the
 	  implementation), it is laid out as:
 	</p>
@@ -534,7 +534,7 @@
 	  <code>$svn/ver/<var>project-id</var>/<var>revision</var></code>
 	</blockquote>
 	<p>
-	  <code>PROPFIND</code> and <code>PROPPATCH</code> are allowed
+	  <code>PROPFIND</code> and <code>PROPPATCH</code> are allowed 
 	  against these URLs, but all other methods are illegal.
 	</p>
 	<p>
@@ -590,7 +590,7 @@
     <h2>Property Management (and History/Log Reporting)</h2>
     <p>
       As mentioned before, Subversion properties map onto WebDAV
-      properties. There are particular properties that the WebDAV code
+      properties. There are particular properties that the WebDAV code 
       wants to take particular care of:
     </p>
     <dl>
@@ -612,7 +612,7 @@
       <dt><code>DAV:checkin-date</code></dt>
       <dd>
 	This is a read-only live property maintained by the server on
-	version resources. Strictly speaking, it is only maintained on
+	version resources. Strictly speaking, it is only maintained on 
 	the project-revision resources, but the Delta-V specification
 	states that it is exposed on every version resource.
       </dd>
@@ -625,17 +625,17 @@
       the file/directory.
     </p>
     <p>
-      Based on the client design, it may be important to specify other
+      Based on the client design, it may be important to specify other 
       read-only live properties for information about versions. For
       examply, how many lines were added/removed in a particular
-      checkin for a file? Creating these live properties will be quite
+      checkin for a file? Creating these live properties will be quite 
       straight-forward, and driven by the client design over time.
     </p>
     <blockquote>
       Note: if we do this, however, then we'd end up tying the client
-      to the server. Of course, if the client were run against another
+      to the server. Of course, if the client were run against another 
       DeltaV server which didn't report these properties, then we'd
-      simply not display them in the UI. (e.g. graceful degradation of
+      simply not display them in the UI. (e.g. graceful degradation of 
       functionality)
     </blockquote>
 
@@ -669,7 +669,7 @@
       <code>GET</code> operations to fetch the new files.
     </p>
     <p>
-      <code>GET</code> (and <code>PUT</code>) operations will transfer
+      <code>GET</code> (and <code>PUT</code>) operations will transfer 
       content in a "diff" format when possible. The mechanics of this
       will follow the Internet Draft, titled
       <a href="http://www.ietf.org/internet-drafts/draft-mogul-http-delta-07.txt">Delta Encoding in HTTP</a>.
@@ -720,7 +720,7 @@
     <p>
       The current Subversion design specification is not entirely
       clear on how tagging and branching will be performed. For the
-      most part, all branching will be handled by copying source trees
+      most part, all branching will be handled by copying source trees 
       to another location in the repository.
     </p>
     <p>
@@ -739,7 +739,7 @@
     </p>
     <p>
       <i>Note: we may be able to simplify all of this by simply
-	assuming that <code>DAV:auto-version</code> is set and doing a
+	assuming that <code>DAV:auto-version</code> is set and doing a 
 	single <code>COPY</code> operation to the target area. Some
 	investigation/thought is needed here.</i>
     </p>
@@ -874,7 +874,7 @@
     </ul>
     <p>
       The <code>REPORT</code> method and
-      <code>DAV:available-report</code> report will signal support for
+      <code>DAV:available-report</code> report will signal support for 
       the following reports:
       <code>DAV:available-report</code>,
       <code>DAV:repository-report</code>,
