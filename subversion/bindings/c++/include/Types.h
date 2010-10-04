@@ -96,7 +96,7 @@ class CStructWrapper
       // Self assignment
       if (&that == this)
         return *this;
-
+      
       m_data->dec_ref();
       if (m_data->refs() == 0)
         delete m_data;
