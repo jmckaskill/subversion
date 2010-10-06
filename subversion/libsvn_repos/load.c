@@ -505,7 +505,7 @@ parse_property_block(svn_stream_t *stream,
 
                       if (pb->notify_func)
                         {
-                          pb->notify->action =
+                          pb->notify->action = 
                             svn_repos_notify_load_normalized_mergeinfo;
                           pb->notify_func(pb->notify_baton, pb->notify,
                                           proppool);
