@@ -377,7 +377,7 @@ const apr_getopt_option_t svn_cl__options[] =
                        "[alias: --idiff]")},
   {"git", opt_use_git_diff_format, 0,
                        N_("use git's extended diff format\n")},
-
+                  
   {"old-patch-target-names", opt_old_patch_target_names, 0,
                        N_("use target names from the old side of a patch.\n"
                        "                             "
