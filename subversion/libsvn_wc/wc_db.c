@@ -2987,7 +2987,7 @@ svn_wc__db_op_copy(svn_wc__db_t *db,
   SVN_ERR(svn_wc__db_temp_elide_copyfrom(db, dst_abspath, scratch_pool));
 
   SVN_ERR(add_work_items(dst_pdh->wcroot->sdb, work_items, scratch_pool));
-
+ 
   return SVN_NO_ERROR;
 }
 
@@ -4362,7 +4362,7 @@ svn_wc__db_read_info(svn_wc__db_status_t *status,
     have_base = &local_have_base;
   if (!have_work)
     have_work = &local_have_work;
-
+    
   SVN_ERR(svn_sqlite__get_statement(&stmt_act, pdh->wcroot->sdb,
                                     STMT_SELECT_ACTUAL_NODE));
   SVN_ERR(svn_sqlite__bindf(stmt_act, "is",
@@ -5351,7 +5351,7 @@ svn_wc__db_global_commit(svn_wc__db_t *db,
 
   cb.new_revision = new_revision;
 
-  cb.changed_rev = changed_revision;
+  cb.changed_rev = changed_revision; 
   cb.changed_date = changed_date;
   cb.changed_author = changed_author;
   cb.new_checksum = new_checksum;
@@ -7683,7 +7683,7 @@ make_copy_txn(void *baton,
 
       SVN_ERR(svn_sqlite__get_statement(&stmt_nodes, sdb,
                                         STMT_SELECT_BASE_NODE_1));
-      SVN_ERR(svn_sqlite__bindf(stmt_nodes, "is", mcb->pdh->wcroot->wc_id,
+      SVN_ERR(svn_sqlite__bindf(stmt_nodes, "is", mcb->pdh->wcroot->wc_id, 
                                 mcb->local_relpath));
       SVN_ERR(svn_sqlite__step(&have_nodes_row, stmt_nodes));
       stmt = stmt_nodes;
@@ -8077,7 +8077,7 @@ svn_wc__db_temp_op_set_file_external(svn_wc__db_t *db,
   svn_boolean_t got_nodes_row;
 
   SVN_ERR_ASSERT(svn_dirent_is_absolute(local_abspath));
-  SVN_ERR_ASSERT(!repos_relpath
+  SVN_ERR_ASSERT(!repos_relpath 
                  || svn_relpath_is_canonical(repos_relpath, scratch_pool));
 
   SVN_ERR(svn_wc__db_pdh_parse_local_abspath(&pdh, &local_relpath, db,
