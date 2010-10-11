@@ -187,7 +187,7 @@ struct dir_baton
   /* out-of-date info corresponding to ood_* fields in svn_wc_status3_t. */
   svn_node_kind_t ood_kind;
   svn_revnum_t ood_changed_rev;
-  apr_time_t ood_changed_date;
+  apr_time_t ood_changed_date;  
   const char *ood_changed_author;
 };
 
@@ -422,7 +422,7 @@ assemble_status(svn_wc_status3_t **status,
       else
         {
           apr_hash_t *props;
-
+        
           SVN_ERR(svn_wc__db_read_pristine_props(&props, db, local_abspath,
                                                  scratch_pool, scratch_pool));
 
@@ -507,7 +507,7 @@ assemble_status(svn_wc_status3_t **status,
                                             db, local_abspath, scratch_pool));
 
       if (!text_conflicted && !prop_conflicted && !tree_conflicted)
-        conflicted = FALSE;
+        conflicted = FALSE; 
     }
 
   if (node_status == svn_wc_status_normal)
@@ -533,7 +533,7 @@ assemble_status(svn_wc_status3_t **status,
 
   if (node_status == svn_wc_status_normal)
     node_status = text_status;
-
+  
   if (node_status == svn_wc_status_normal
       && prop_status != svn_wc_status_none)
     node_status = prop_status;
@@ -546,7 +546,7 @@ assemble_status(svn_wc_status3_t **status,
          || (node_status == svn_wc_status_normal))
 
         && (! switched_p)
-        && (! lock)
+        && (! lock) 
         && (! repos_lock)
         && (! changelist)
         && (! conflicted))
@@ -718,7 +718,7 @@ send_status_structure(const struct walk_status_baton *wb,
       SVN_ERR(svn_wc__db_read_info(&status, NULL, NULL, &repos_relpath, NULL,
                                    NULL, NULL, NULL, NULL, NULL, NULL, NULL,
                                    NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-                                   NULL, &have_base, NULL, NULL, NULL,
+                                   NULL, &have_base, NULL, NULL, NULL, 
                                    wb->db, local_abspath,
                                    scratch_pool, scratch_pool));
 
@@ -2535,8 +2535,8 @@ internal_status(svn_wc_status3_t **status,
       else if (err)
         return svn_error_return(err);
 
-      if (!err
-          && parent_repos_relpath == NULL
+      if (!err 
+          && parent_repos_relpath == NULL 
           && parent_status != svn_wc__db_status_added
           && parent_status != svn_wc__db_status_deleted)
         SVN_ERR(svn_wc__db_scan_base_repos(&parent_repos_relpath,
