@@ -8,7 +8,7 @@ BASE_NODE.presence and WORKING_NODE.presence, and only
 WORKING_NODE.presence changes (except when a new WORKING_NODE is
 created).
 
-There are 5 possible BASE_NODE.presence values:
+There are 5 possible BASE_NODE.presence values: 
   normal, incomplete, absent, excluded, not-present
 in addition to <none> when the BASE_NODE does not exist.
 
