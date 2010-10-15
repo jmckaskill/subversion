@@ -254,11 +254,11 @@
      a safety net. */
   apr_pool_t *parent_pool;
   PyObject *parent_py_pool;
-
+  
   if (svn_swig_py_get_parent_pool(args, $descriptor(apr_pool_t *),
                                   &parent_py_pool, &parent_pool))
     SWIG_fail;
-
+  
   %append_output(svn_swig_py_convert_hash($1, $descriptor(svn_config_t *),
     parent_py_pool));
 }
@@ -840,7 +840,7 @@
     svn_swig_py_unwrap_struct_ptr,
     $descriptor(svn_merge_range_t *),
     _global_pool);
-
+      
   if (PyErr_Occurred()) {
     SWIG_fail;
   }
