@@ -499,7 +499,7 @@ db_store(dav_db *db,
   if (absent && ! elem->first_child)
     /* ### better error check */
     return dav_new_error(pool, HTTP_INTERNAL_SERVER_ERROR, 0,
-                         apr_psprintf(pool,
+                         apr_psprintf(pool, 
                                       "'%s' cannot be specified on the value "
                                       "without specifying an expectation",
                                       SVN_DAV__OLD_VALUE__ABSENT));
@@ -757,7 +757,7 @@ db_apply_rollback(dav_db *db, dav_deadprop_rollback *rollback)
 
   if (! db->resource->info->revprop_error)
     return NULL;
-
+  
   /* Returning the original revprop change error here will cause this
      detailed error to get returned to the client in preference to the
      more generic error created by mod_dav. */
