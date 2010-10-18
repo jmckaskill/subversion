@@ -114,7 +114,7 @@ copy_to_tmpdir(const char **dst_abspath,
                              scratch_pool));
   else
     SVN_ERR(svn_io_copy_link(src_abspath, *dst_abspath, scratch_pool));
-
+    
 
   return SVN_NO_ERROR;
 }
@@ -455,10 +455,10 @@ svn_wc_copy3(svn_wc_context_t *wc_ctx,
   svn_wc__db_t *db = wc_ctx->db;
   svn_wc__db_kind_t src_db_kind;
   const char *dstdir_abspath;
-
+  
   SVN_ERR_ASSERT(svn_dirent_is_absolute(src_abspath));
   SVN_ERR_ASSERT(svn_dirent_is_absolute(dst_abspath));
-
+  
   dstdir_abspath = svn_dirent_dirname(dst_abspath, scratch_pool);
 
   /* Ensure DSTDIR_ABSPATH belongs to the same repository as SRC_ABSPATH;
