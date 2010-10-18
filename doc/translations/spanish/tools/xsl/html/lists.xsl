@@ -22,7 +22,7 @@
     </xsl:if>
 
     <!-- Preserve order of PIs and comments -->
-    <xsl:apply-templates
+    <xsl:apply-templates 
         select="*[not(self::listitem
                   or self::title
                   or self::titleabbrev)]
@@ -41,7 +41,7 @@
           <xsl:value-of select="@spacing"/>
         </xsl:attribute>
       </xsl:if>
-      <xsl:apply-templates
+      <xsl:apply-templates 
             select="listitem
                     |comment()[preceding-sibling::listitem]
                     |processing-instruction()[preceding-sibling::listitem]"/>
@@ -159,7 +159,7 @@
     </xsl:if>
 
     <!-- Preserve order of PIs and comments -->
-    <xsl:apply-templates
+    <xsl:apply-templates 
         select="*[not(self::listitem
                   or self::title
                   or self::titleabbrev)]
@@ -182,7 +182,7 @@
           <xsl:value-of select="@spacing"/>
         </xsl:attribute>
       </xsl:if>
-      <xsl:apply-templates
+      <xsl:apply-templates 
             select="listitem
                     |comment()[preceding-sibling::listitem]
                     |processing-instruction()[preceding-sibling::listitem]"/>
@@ -279,7 +279,7 @@
     <xsl:choose>
       <xsl:when test="$presentation = 'table'">
         <!-- Preserve order of PIs and comments -->
-        <xsl:apply-templates
+        <xsl:apply-templates 
           select="*[not(self::varlistentry
                     or self::title
                     or self::titleabbrev)]
@@ -313,14 +313,14 @@
       </xsl:when>
       <xsl:otherwise>
         <!-- Preserve order of PIs and comments -->
-        <xsl:apply-templates
+        <xsl:apply-templates 
           select="*[not(self::varlistentry
                     or self::title
                     or self::titleabbrev)]
                   |comment()[not(preceding-sibling::varlistentry)]
                   |processing-instruction()[not(preceding-sibling::varlistentry)]"/>
         <dl>
-          <xsl:apply-templates
+          <xsl:apply-templates 
               select="varlistentry
                       |comment()[preceding-sibling::varlistentry]
                       |processing-instruction()[preceding-sibling::varlistentry]"/>
@@ -689,7 +689,7 @@
     <xsl:choose>
       <xsl:when test="count(step) = 1">
         <ul>
-          <xsl:apply-templates
+          <xsl:apply-templates 
             select="step
                     |comment()[preceding-sibling::step]
                     |processing-instruction()[preceding-sibling::step]"/>
@@ -700,7 +700,7 @@
           <xsl:attribute name="type">
             <xsl:value-of select="substring($procedure.step.numeration.formats,1,1)"/>
           </xsl:attribute>
-          <xsl:apply-templates
+          <xsl:apply-templates 
             select="step
                     |comment()[preceding-sibling::step]
                     |processing-instruction()[preceding-sibling::step]"/>
