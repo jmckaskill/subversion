@@ -59,7 +59,7 @@ class OutputStreamBuf : public std::streambuf
 class OutputStream
 {
  friend class OutputStreamBuf;
-
+ 
  private:
   /**
    * A local reference to the Java object.
