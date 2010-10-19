@@ -98,7 +98,7 @@ namespace SVN
     private:
       Pool m_pool;
       svn_client_ctx_t *m_ctx;
-
+      
       std::set<Callback::ClientNotifier *> m_notifiers;
 
       static void notify_func2(void *baton,
