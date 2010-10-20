@@ -54,11 +54,11 @@
 						</Component>
 						<Component Guid="B0AE7BE9-AE5D-4505-AA0B-DABD81077E00" Id="SvnExe" DiskId="1">
 							<File Source="..\..\..\work\svn-win32-ap20x\bin\svn.exe" Name="svn.exe" Id="svn.exe" />
-							<Environment
-								Action="set"
-								Id="SVNPath20x"
-								Name="PATH"
-								Part="last"
+							<Environment 
+								Action="set" 
+								Id="SVNPath20x" 
+								Name="PATH" 
+								Part="last" 
 								System="yes"
 								Permanent="no"
 								Value="[INSTALLDIR]bin"
