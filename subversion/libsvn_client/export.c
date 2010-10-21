@@ -131,10 +131,10 @@ copy_one_versioned_file(const char *from_abspath,
       /* Only export 'added' files when the revision is WORKING. This is not
          WORKING, so skip the 'added' files, since they didn't exist
          in the BASE revision and don't have an associated text-base.
-
+         
          'replaced' files are technically the same as 'added' files.
          ### TODO: Handle replaced nodes properly.
-         ###       svn_opt_revision_base refers to the "new"
+         ###       svn_opt_revision_base refers to the "new" 
          ###       base of the node. That means, if a node is locally
          ###       replaced, export skips this node, as if it was locally
          ###       added, because svn_opt_revision_base refers to the base
@@ -238,7 +238,7 @@ copy_one_versioned_file(const char *from_abspath,
           suffix = "";
         }
 
-      SVN_ERR(svn_wc__node_get_url(&url, wc_ctx, from_abspath,
+      SVN_ERR(svn_wc__node_get_url(&url, wc_ctx, from_abspath, 
                                    scratch_pool, scratch_pool));
 
       SVN_ERR(svn_subst_build_keywords2
@@ -300,7 +300,7 @@ copy_versioned_files(const char *from,
   const char *to_abspath;
   svn_node_kind_t from_kind;
   svn_depth_t node_depth;
-
+  
   SVN_ERR(svn_dirent_get_absolute(&from_abspath, from, pool));
   SVN_ERR(svn_dirent_get_absolute(&to_abspath, to, pool));
 
@@ -951,7 +951,7 @@ svn_client_export5(svn_revnum_t *result_rev,
     return svn_error_return(svn_error_createf(SVN_ERR_ILLEGAL_TARGET, NULL,
                                               _("'%s' is not a local path"),
                                               to));
-
+    
   peg_revision = svn_cl__rev_default_to_head_or_working(peg_revision, from);
   revision = svn_cl__rev_default_to_peg(revision, peg_revision);
 
