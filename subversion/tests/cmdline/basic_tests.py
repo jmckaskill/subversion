@@ -2498,7 +2498,7 @@ def basic_mkdir_mix_targets(sbox):
 
 def delete_from_url_with_spaces(sbox):
   "delete a directory with ' ' using its url"
-
+  
   sbox.build()
   sbox.simple_mkdir(os.path.join(sbox.wc_dir, 'Dir With Spaces'))
   sbox.simple_mkdir(os.path.join(sbox.wc_dir, 'Dir With'))
@@ -2506,7 +2506,7 @@ def delete_from_url_with_spaces(sbox):
 
   svntest.actions.run_and_verify_svn(None, None, [],
                                       'ci', sbox.wc_dir, '-m', 'Added dir')
-
+  
   # This fails on 1.6.11 with an escaping error.
   svntest.actions.run_and_verify_svn(None, None, [],
                                       'rm', sbox.repo_url + '/Dir%20With%20Spaces',
@@ -2627,7 +2627,7 @@ def basic_relocate(sbox):
   svntest.actions.run_and_verify_svn(None, None, [], 'switch', '--relocate',
                                      substring, substring, wc_dir)
   _verify_url(wc_dir, repo_url)
-
+  
   # Real relocation to OTHER_REPO_URL.
   svntest.actions.run_and_verify_svn(None, None, [], 'switch', '--relocate',
                                      repo_url, other_repo_url, wc_dir)
