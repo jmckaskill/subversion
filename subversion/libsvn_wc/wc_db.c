@@ -6044,7 +6044,7 @@ svn_wc__db_global_commit(svn_wc__db_t *db,
 
   cb.new_revision = new_revision;
 
-  cb.changed_rev = changed_revision;
+  cb.changed_rev = changed_revision; 
   cb.changed_date = changed_date;
   cb.changed_author = changed_author;
   cb.new_checksum = new_checksum;
@@ -8402,7 +8402,7 @@ make_copy_txn(void *baton,
 
       SVN_ERR(svn_sqlite__get_statement(&stmt, sdb,
                                         STMT_SELECT_BASE_NODE));
-      SVN_ERR(svn_sqlite__bindf(stmt, "is", mcb->pdh->wcroot->wc_id,
+      SVN_ERR(svn_sqlite__bindf(stmt, "is", mcb->pdh->wcroot->wc_id, 
                                 mcb->local_relpath));
       SVN_ERR(svn_sqlite__step(&have_row, stmt));
 
@@ -8781,7 +8781,7 @@ svn_wc__db_temp_op_set_file_external(svn_wc__db_t *db,
   svn_boolean_t got_row;
 
   SVN_ERR_ASSERT(svn_dirent_is_absolute(local_abspath));
-  SVN_ERR_ASSERT(!repos_relpath
+  SVN_ERR_ASSERT(!repos_relpath 
                  || svn_relpath_is_canonical(repos_relpath, scratch_pool));
 
   SVN_ERR(svn_wc__db_pdh_parse_local_abspath(&pdh, &local_relpath, db,
