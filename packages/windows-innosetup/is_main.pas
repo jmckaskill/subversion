@@ -290,7 +290,7 @@ begin
     iStatusModDav := STATUS_NONE;
     iStatusModDavSvn := STATUS_NONE;
     iStatusModAuthzSvn := STATUS_NONE;
-
+    
     sConfFileName:= g_sApachePathConf + '\httpd.conf';
 
     //Load the httpd.conf to the aHttpdConf array  and init vars
