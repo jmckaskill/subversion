@@ -4300,7 +4300,7 @@ read_all_tree_conflicts(apr_hash_t **tree_conflicts,
       const char *child_abspath;
       const char *conflict_data;
       apr_hash_t *conflict_hash;
-
+      
       svn_pool_clear(iterpool);
 
       child_relpath = svn_sqlite__column_text(stmt, 0, NULL);
@@ -4851,7 +4851,7 @@ svn_wc__db_temp_op_delete(svn_wc__db_t *db,
   VERIFY_USABLE_PDH(b.pdh);
 
   /* These two for svn_wc__db_temp_forget_directory */
-  b.db = db;
+  b.db = db; 
   b.local_abspath = local_abspath;
 
   SVN_ERR(svn_sqlite__with_transaction(b.pdh->wcroot->sdb, temp_op_delete_txn,
@@ -6167,7 +6167,7 @@ svn_wc__db_global_commit(svn_wc__db_t *db,
 
   cb.new_revision = new_revision;
 
-  cb.changed_rev = changed_revision;
+  cb.changed_rev = changed_revision; 
   cb.changed_date = changed_date;
   cb.changed_author = changed_author;
   cb.new_checksum = new_checksum;
@@ -8697,7 +8697,7 @@ make_copy_txn(void *baton,
 
       SVN_ERR(svn_sqlite__get_statement(&stmt, sdb,
                                         STMT_SELECT_BASE_NODE));
-      SVN_ERR(svn_sqlite__bindf(stmt, "is", mcb->pdh->wcroot->wc_id,
+      SVN_ERR(svn_sqlite__bindf(stmt, "is", mcb->pdh->wcroot->wc_id, 
                                 mcb->local_relpath));
       SVN_ERR(svn_sqlite__step(&have_row, stmt));
 
@@ -9082,7 +9082,7 @@ svn_wc__db_temp_op_set_file_external(svn_wc__db_t *db,
   svn_boolean_t got_row;
 
   SVN_ERR_ASSERT(svn_dirent_is_absolute(local_abspath));
-  SVN_ERR_ASSERT(!repos_relpath
+  SVN_ERR_ASSERT(!repos_relpath 
                  || svn_relpath_is_canonical(repos_relpath, scratch_pool));
 
   SVN_ERR(svn_wc__db_pdh_parse_local_abspath(&pdh, &local_relpath, db,
