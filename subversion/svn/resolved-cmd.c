@@ -76,7 +76,7 @@ svn_cl__resolved(apr_getopt_t *os,
                                                   _("'%s' is not a local path"),
                                                   target));
     }
-
+  
   iterpool = svn_pool_create(scratch_pool);
   for (i = 0; i < targets->nelts; i++)
     {
