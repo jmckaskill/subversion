@@ -5,7 +5,7 @@
 # under the prevailing license of their project.
 
 """
-svncutter - clique-squash, range-selection, and property mutations on SVN dump files
+svncutter - clique-squash, range-selection, and property mutations on SVN dump files 
 general usage: svncutter [-q] [-r SELECTION] SUBCOMMAND
 
 In all commands, the -r (or --range) option limits the selection of revisions
@@ -233,10 +233,10 @@ class DumpfileSource(LineBufferedSource):
             (propkeys, properties) = property_hook(propkeys, properties, revision)
         for key in propkeys:
             if key in properties:
-                stash += "K %d%s" % (len(key), os.linesep)
-                stash += "%s%s" % (key, os.linesep)
-                stash += "V %d%s" % (len(properties[key]), os.linesep)
-                stash += "%s%s" % (properties[key], os.linesep)
+                stash += "K %d%s" % (len(key), os.linesep) 
+                stash += "%s%s" % (key, os.linesep) 
+                stash += "V %d%s" % (len(properties[key]), os.linesep) 
+                stash += "%s%s" % (properties[key], os.linesep) 
         stash += self.flush()
         if self.baton:
             self.baton.twirl()
@@ -259,7 +259,7 @@ class DumpfileSource(LineBufferedSource):
                 # in its nodes!
                 if revmap and line.startswith("Node-copyfrom-rev:"):
                     oldrev = line.split()[1]
-                    line = line.replace(oldrev, `revmap[int(oldrev)]`)
+                    line = line.replace(oldrev, `revmap[int(oldrev)]`) 
                 stash += line
     def apply_property_hook(self, selection, hook):
         "Apply a property transformation on a specified range."
@@ -270,7 +270,7 @@ class DumpfileSource(LineBufferedSource):
                 return (keyprops, propdict)
         while True:
             sys.stdout.write(self.read_until_next("Revision-number:"))
-            if not self.has_line_buffered():
+            if not self.has_line_buffered():    
                 return
             else:
                 (revision,stash,properties) = self.read_revision_header(innerhook)
@@ -352,7 +352,7 @@ class Logfile:
                         (rev, author, date, linecount) = map(lambda x: x.strip(), fields)
                         rev = rev[1:]	# strip off leaing 'r'
                         state = 'in_logentry'
-
+                        
     def __contains__(self, key):
         return str(key) in self.comments
     def __getitem__(self, key):
@@ -368,7 +368,7 @@ def isotime(s):
     else:
         date = s
         msec = "0"
-    # Note: no leap-second correction!
+    # Note: no leap-second correction! 
     return calendar.timegm(time.strptime(date, "%Y-%m-%dT%H:%M:%S")) + float("0." + msec)
 
 def reference_mapper(value, mutator, flagrefs=False):
@@ -411,7 +411,7 @@ def squash(source, timefuzz,
         stash = source.read_until_next("Revision-number:", clique_map)
         if not omit:
             sys.stdout.write(stash)
-        if not source.has_line_buffered():
+        if not source.has_line_buffered():    
             if excise is not None and dupes and dupes[0] in excise:
                 outmap.append((None, dupes))
             elif numbered >= 1:
@@ -500,7 +500,7 @@ def squash(source, timefuzz,
                             compressed[-1] = [None, oldrevs]
                         elif type(lowerbound) == type(0):
                             compressed[-1] = [[lowerbound, n], oldrevs]
-                        else:
+                        else:                            
                             compressed[-1] = [lowerbound[:1] + [n], oldrevs]
                     force_new_range = False
                     last_n = n
@@ -534,7 +534,7 @@ def select(source, selection):
         stash = source.read_until_next("Revision-number:")
         if emit:
             sys.stdout.write(stash)
-        if not source.has_line_buffered():
+        if not source.has_line_buffered():    
             return
         else:
             revision = int(source.linebuffer.split()[1])
@@ -580,7 +580,7 @@ def log(source, selection):
     "Extract log entries."
     while True:
         source.read_until_next("Revision-number:")
-        if not source.has_line_buffered():
+        if not source.has_line_buffered():    
             return
         else:
             (revision, stash, props) = source.read_revision_header()
