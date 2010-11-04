@@ -135,7 +135,7 @@ svn_client_revert2(const apr_array_header_t *paths,
                                                   _("'%s' is not a local path"),
                                                   path));
     }
-
+  
   cfg = ctx->config ? apr_hash_get(ctx->config, SVN_CONFIG_CATEGORY_CONFIG,
                                    APR_HASH_KEY_STRING) : NULL;
 
