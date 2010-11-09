@@ -31,7 +31,7 @@
  * make this choice. See also issue #2028.
  *
  * Nearly all the @c svn_dirent_xxx functions expect paths passed into them
- * to be in canonical form.  The only functions which do *not* have such
+ * to be in canonical form.  The only functions which do *not* have such 
  * expectations are:
  *
  *    - @c svn_dirent_canonicalize()
@@ -127,7 +127,7 @@ svn_dirent_dirname(const char *dirent,
                    apr_pool_t *pool);
 
 /** Return TRUE if @a dirent is considered absolute on the platform at
- * hand. E.g. '/foo' on posix or 'X:/foo', '//server/share/foo'
+ * hand. E.g. '/foo' on posix or 'X:/foo', '//server/share/foo' 
  * on Windows.
  *
  * @since New in 1.6.
