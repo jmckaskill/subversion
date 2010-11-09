@@ -156,7 +156,7 @@ static const apr_getopt_option_t svnsync_options[] =
   {
     {"quiet",          'q', 0,
                        N_("print as little as possible") },
-    {"revision",       'r', 1,
+    {"revision",       'r', 1, 
                        N_("operate on revision ARG (or range ARG1:ARG2)\n"
                           "                             "
                           "A revision argument can be one of:\n"
@@ -308,7 +308,7 @@ maybe_unlock(svn_ra_session_t *session,
   SVN_ERR(svn_ra_rev_prop(session, 0, SVNSYNC_PROP_LOCK, &reposlocktoken,
                           scratch_pool));
   if (reposlocktoken && strcmp(reposlocktoken->data, mylocktoken->data) == 0)
-    SVN_ERR(svn_ra_change_rev_prop2(session, 0, SVNSYNC_PROP_LOCK,
+    SVN_ERR(svn_ra_change_rev_prop2(session, 0, SVNSYNC_PROP_LOCK, 
                                     be_atomic ? &mylocktoken : NULL, NULL,
                                     scratch_pool));
 
@@ -413,7 +413,7 @@ get_lock(const svn_string_t **lock_string_p,
             /* Someone else has the lock.  Let's loop. */
             svn_error_clear(err);
           else if (be_atomic && err == SVN_NO_ERROR)
-            /* We have the lock.
+            /* We have the lock. 
 
                However, for compatibility with concurrent svnsync's that don't
                support atomicity, loop anyway to double-check that they haven't
@@ -1564,7 +1564,7 @@ resolve_revnums(svn_revnum_t *start_revnum,
                                  _("Invalid revision number (%ld)"),
                                  end_rev);
     }
-
+  
   *start_revnum = start_rev;
   *end_revnum = end_rev;
   return SVN_NO_ERROR;
@@ -1634,7 +1634,7 @@ copy_revprops_cmd(apr_getopt_t *os, void *b, apr_pool_t *pool)
           from_url = NULL;
         }
     }
-
+  
   if (! to_url)
     {
       /* This is the "... TO_URL SOURCE_URL" syntax.  Revisions
@@ -1662,7 +1662,7 @@ copy_revprops_cmd(apr_getopt_t *os, void *b, apr_pool_t *pool)
   if (from_url && (! svn_path_is_url(from_url)))
     return svn_error_createf(SVN_ERR_CL_ARG_PARSING_ERROR, NULL,
                              _("Path '%s' is not a URL"), from_url);
-
+      
   baton = make_subcommand_baton(opt_baton, to_url, from_url,
                                 start_rev, end_rev, pool);
   SVN_ERR(open_target_session(&to_session, baton, pool));
