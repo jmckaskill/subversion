@@ -43,9 +43,9 @@ AC_DEFUN(SVN_LIB_APR,
     SVN_EXTERNAL_PROJECT([apr])
   fi
 
-  dnl check APR version number against regex
+  dnl check APR version number against regex  
 
-  AC_MSG_CHECKING([APR version])
+  AC_MSG_CHECKING([APR version])    
   apr_version="`$apr_config --version`"
   if test $? -ne 0; then
     AC_MSG_ERROR([apr-config --version failed])
@@ -59,7 +59,7 @@ AC_DEFUN(SVN_LIB_APR,
       break
     fi
   done
-
+      
   if test $APR_WANTED_REGEX_MATCH -eq 0; then
     echo "wanted regexes are $APR_WANTED_REGEXES"
     AC_MSG_ERROR([invalid apr version found])
