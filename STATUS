@@ -38,7 +38,7 @@ Candidate changes:
    r878590 is just a change that adds FIXME marker to code comment. We take it
    to avoid spurious conflicts with other revisions.
    r878607 Special cases no-op find and replace.
-   "r878625, r878626, r878627" are follow-up to r878607 and the other long
+   "r878625, r878626, r878627" are follow-up to r878607 and the other long 
    pending Master info leak to the clients.
    Justification:
      1. This group has the most common 'optimization' fix of *not* groking the
@@ -91,7 +91,7 @@ Candidate changes:
      This backport depends on the r878590 and r916286 groups only for the
      conflict free port.
    Justification:
-     With this commit we avoid accidental commit to the slave and hence
+     With this commit we avoid accidental commit to the slave and hence 
      making it unusable as a proxy anymore.
    Votes:
      +1: kameshj
@@ -153,7 +153,7 @@ Candidate changes:
      +1: cmpilato
 
  * r1031165, r1031186
-   Fix issue #3666 ("Assertion frb->last_filename == NULL fails in
+   Fix issue #3666 ("Assertion frb->last_filename == NULL fails in 
    libsvn_client/blame.c").
    Justification:
      Aborting code?  Yep.  Uncool.
@@ -272,7 +272,7 @@ Approved changes:
    Justification:
      Mergeinfo can contain bogus paths, either because Subversion
      recorded it that way (issue issue #3271) or because it was
-     hand-edited that way.  But one bogus location in mergeinfo
+     hand-edited that way.  But one bogus location in mergeinfo 
      is not a good reason to ignore the other non-bogus ones.
    Votes:
      +1: cmpilato, hwright, stsp
