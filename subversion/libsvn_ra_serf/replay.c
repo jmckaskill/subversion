@@ -175,7 +175,7 @@ start_replay(svn_ra_serf__xml_parser_t *parser,
       push_state(parser, ctx, REPORT);
       ctx->props = apr_hash_make(ctx->pool);
 
-      svn_ra_serf__walk_all_props(ctx->revs_props, ctx->vcc_url, ctx->revision,
+      svn_ra_serf__walk_all_props(ctx->revs_props, ctx->vcc_url, ctx->revision, 
                                   svn_ra_serf__set_bare_props,
                                   ctx->props, ctx->pool);
       if (ctx->revstart_func)
@@ -679,12 +679,12 @@ svn_ra_serf__replay(svn_ra_session_t *ra_session,
  *
  * Some observations about serf which lead us to the current value.
  * ----------------------------------------------------------------
- * We aim to keep serf's outgoing queue filled with enough requests so the
+ * We aim to keep serf's outgoing queue filled with enough requests so the 
  * network bandwidth and server capacity is used optimally. Originally we used
  * 5 as the max. number of outstanding requests, but this turned out to be too
- * low.
- * Serf doesn't exit out of the serf_context_run loop as long as it has
- * data to send or receive. With small responses (revs of a few kB), serf
+ * low. 
+ * Serf doesn't exit out of the serf_context_run loop as long as it has 
+ * data to send or receive. With small responses (revs of a few kB), serf 
  * doesn't come out of this loop at all. So with MAX_OUTSTANDING_REQUESTS set
  * to a low number, there's a big chance that serf handles those requests
  * completely in its internal loop, and only then gives us a chance to create
@@ -694,8 +694,8 @@ svn_ra_serf__replay(svn_ra_session_t *ra_session,
  * that serf can come out of its internal loop so we can replenish the outgoing
  * request queue.
  * There's no real disadvantage of using a large number here, besides the memory
- * used to store the message, parser and handler objects (approx. 250 bytes).
- *
+ * used to store the message, parser and handler objects (approx. 250 bytes). 
+ * 
  * In my test setup peak performance was reached at max. 30-35 requests. So I
  * added a small margin and choose 50.
  */
@@ -729,7 +729,7 @@ svn_ra_serf__replay_range(svn_ra_session_t *ra_session,
       replay_context_t *replay_ctx;
       int status_code;
 
-      /* Send pending requests, if any. Limit the number of outstanding
+      /* Send pending requests, if any. Limit the number of outstanding 
          requests to MAX_OUTSTANDING_REQUESTS. */
       if (rev <= end_revision  && active_reports < MAX_OUTSTANDING_REQUESTS)
         {
@@ -751,7 +751,7 @@ svn_ra_serf__replay_range(svn_ra_session_t *ra_session,
           /* Request all properties of a certain revision. */
           replay_ctx->vcc_url = vcc_url;
           replay_ctx->revs_props = apr_hash_make(replay_ctx->pool);
-          SVN_ERR(svn_ra_serf__deliver_props(&prop_ctx,
+          SVN_ERR(svn_ra_serf__deliver_props(&prop_ctx, 
                                              replay_ctx->revs_props, session,
                                              session->conns[0], vcc_url,
                                              rev,  "0", all_props,
@@ -771,10 +771,10 @@ svn_ra_serf__replay_range(svn_ra_session_t *ra_session,
 
           /* Setup the XML parser context.
              Because we have not one but a list of requests, the 'done' property
-             on the replay_ctx is not of much use. Instead, use 'done_list'.
+             on the replay_ctx is not of much use. Instead, use 'done_list'. 
              On each handled response (succesfully or not), the parser will add
-             done_item to done_list, so by keeping track of the state of
-             done_list we know how many requests have been handled completely.
+             done_item to done_list, so by keeping track of the state of 
+             done_list we know how many requests have been handled completely. 
           */
           parser_ctx->pool = replay_ctx->pool;
           parser_ctx->user_data = replay_ctx;
@@ -797,13 +797,13 @@ svn_ra_serf__replay_range(svn_ra_session_t *ra_session,
           active_reports++;
         }
 
-      /* Run the serf loop, send outgoing and process incoming requests.
-         This request will block when there are no more requests to send or
+      /* Run the serf loop, send outgoing and process incoming requests. 
+         This request will block when there are no more requests to send or 
          responses to receive, so we have to be careful on our bookkeeping. */
-      status = serf_context_run(session->context, SERF_DURATION_FOREVER,
+      status = serf_context_run(session->context, SERF_DURATION_FOREVER, 
                                 pool);
 
-      /* Substract the number of completely handled responses from our
+      /* Substract the number of completely handled responses from our 
          total nr. of open requests', so we'll know when to stop this loop.
          Since the message is completely handled, we can destroy its pool. */
       done_list = done_reports;
@@ -827,7 +827,7 @@ svn_ra_serf__replay_range(svn_ra_session_t *ra_session,
         {
           SVN_ERR(session->pending_error);
 
-          return svn_error_wrap_apr(status,
+          return svn_error_wrap_apr(status, 
                                     _("Error retrieving replay REPORT (%d)"),
                                     status);
         }
