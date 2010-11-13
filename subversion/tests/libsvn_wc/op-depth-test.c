@@ -1476,6 +1476,74 @@ test_base_dir_insert_remove(const svn_test_opts_t *opts, apr_pool_t *pool)
     };
     SVN_ERR(base_dir_insert_remove(&b, "A/B/C", 2, before, added));
   }
+  {
+    /*  /      norm                       /
+        A      norm  norm                 A      norm  norm
+        A/B    norm  not-p  norm          A/B    norm  not-p  norm
+        A/B/C                     norm    A/B/C  norm  b-del        norm
+     */
+    nodes_row_t before[] = {
+      { 0, "",      "normal",      2, "" },
+      { 0, "A",     "normal",      2, "A" },
+      { 0, "A/B",   "normal",      2, "A/B" },
+      { 1, "A",     "normal",      1, "X" },
+      { 1, "A/B",   "not-present", NO_COPY_FROM },
+      { 2, "A/B",   "normal",      1, "Y" },
+      { 3, "A/B/C", "normal",      NO_COPY_FROM },
+      { 0 }
+    };
+    nodes_row_t added[] = {
+      { 0, "A/B/C", "normal",       2, "A/B/C" },
+      { 1, "A/B/C", "base-deleted", NO_COPY_FROM },
+      { 0 }
+    };
+    SVN_ERR(base_dir_insert_remove(&b, "A/B/C", 2, before, added));
+  }
+  {
+    /* /      norm                     /        norm
+       A      norm                     A        norm
+       A/B    norm                     A/B      norm
+       A/B/C  norm  -  -  norm         A/B/C    norm   -  -  norm
+                                       A/B/C/D  norm   -  -  b-del
+    */
+    nodes_row_t before[] = {
+      { 0, "",      "normal", 2, "" },
+      { 0, "A",     "normal", 2, "A" },
+      { 0, "A/B",   "normal", 2, "A/B" },
+      { 0, "A/B/C", "normal", 2, "A/B/C" },
+      { 3, "A/B/C", "normal", NO_COPY_FROM },
+      { 0 }
+    };
+    nodes_row_t added[] = {
+      { 0, "A/B/C/D", "normal",       2, "A/B/C/D" },
+      { 3, "A/B/C/D", "base-deleted", NO_COPY_FROM },
+      { 0 }
+    };
+    SVN_ERR(base_dir_insert_remove(&b, "A/B/C/D", 2, before, added));
+  }
+  {
+    /* /      norm                     /        norm
+       A      norm                     A        norm
+       A/B    norm                     A/B      norm
+       A/B/C  norm  -  -  norm         A/B/C    norm   -  -  norm
+       A/B/C/D                  norm   A/B/C/D  norm   -  -  b-del  norm
+    */
+    nodes_row_t before[] = {
+      { 0, "",        "normal", 2, "" },
+      { 0, "A",       "normal", 2, "A" },
+      { 0, "A/B",     "normal", 2, "A/B" },
+      { 0, "A/B/C",   "normal", 2, "A/B/C" },
+      { 3, "A/B/C",   "normal", NO_COPY_FROM },
+      { 4, "A/B/C/D", "normal", NO_COPY_FROM },
+      { 0 }
+    };
+    nodes_row_t added[] = {
+      { 0, "A/B/C/D", "normal",       2, "A/B/C/D" },
+      { 3, "A/B/C/D", "base-deleted", NO_COPY_FROM },
+      { 0 }
+    };
+    SVN_ERR(base_dir_insert_remove(&b, "A/B/C/D", 2, before, added));
+  }
 
   return SVN_NO_ERROR;
 }
