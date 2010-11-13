@@ -1177,7 +1177,7 @@ insert_dirs(wc_baton_t *b,
     NULL,
   };
 
-  SVN_ERR(svn_sqlite__open(&sdb, dbpath, svn_sqlite__mode_readwrite,
+  SVN_ERR(svn_sqlite__open(&sdb, dbpath, svn_sqlite__mode_readwrite, 
                            statements, 0, NULL,
                            b->pool, b->pool));
 
@@ -1237,7 +1237,7 @@ base_dir_insert_remove(wc_baton_t *b,
   for (i = 0; i < num_added; ++i)
     after[num_before+i] = added[i];
   after[num_before+num_added].local_relpath = NULL;
-
+  
   SVN_ERR(check_db_rows(b, "", after));
 
   SVN_ERR(svn_wc__db_base_remove(b->wc_ctx->db, dir_abspath, b->pool));
