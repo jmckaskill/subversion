@@ -130,7 +130,7 @@ get_lock(const svn_string_t **lock_string_p,
                   (pool, _("Failed to get lock on destination "
                            "repos, currently held by '%s'\n"),
                    reposlocktoken->data));
-
+          
           apr_sleep(apr_time_from_sec(1));
         }
       else if (i < LOCK_RETRIES - 1)
@@ -353,7 +353,7 @@ new_node_record(void **node_baton,
           SVN_ERR(commit_editor->close_directory(rb->db->baton, rb->pool));
           rb->db = rb->db->parent;
         }
-
+        
       for (i = 0; i < residual_open_path->nelts; i ++)
         {
           relpath_compose =
