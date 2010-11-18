@@ -38,7 +38,7 @@ Candidate changes:
    r878590 is just a change that adds FIXME marker to code comment. We take it
    to avoid spurious conflicts with other revisions.
    r878607 Special cases no-op find and replace.
-   "r878625, r878626, r878627" are follow-up to r878607 and the other long
+   "r878625, r878626, r878627" are follow-up to r878607 and the other long 
    pending Master info leak to the clients.
    Justification:
      1. This group has the most common 'optimization' fix of *not* groking the
@@ -92,7 +92,7 @@ Candidate changes:
      conflict free port.  Alternatively, the back-port branch '1.6.x-r917523'
      attempts to represent a dependency-free version of the same change.
    Justification:
-     With this commit we avoid accidental commit to the slave and hence
+     With this commit we avoid accidental commit to the slave and hence 
      making it unusable as a proxy anymore.
    Branch:
      ^/subversion/branches/1.6.x-r917523
@@ -217,13 +217,13 @@ Approved changes:
      On most linux variants, os.rename(src,dst) will tolerate an existing
      dst, but Windows will not.  The change to use os.rename() was made in
      the backport of r991534.
-   Justification:
+   Justification:  
      With r991534 backported, we can no longer run the dav tests on Windows
      without this change.
    Branch:
      No branch is required, however r991972 was made in sandbox.py, which
      doesn't exist on 1.6.x.  A file merge from sandbox.py to main.py on
-     the 1.6.x branch will cleanly apply the one line change, i.e.:
+     the 1.6.x branch will cleanly apply the one line change, i.e.:     
      svn merge ^/subversion/trunk/subversion/tests/cmdline/svntest/sandbox.py
      subversion\tests\cmdline\svntest\main.py -c991972
    Votes:
