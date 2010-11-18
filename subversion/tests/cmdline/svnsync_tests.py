@@ -184,7 +184,7 @@ def verify_mirror(dest_sbox, exp_dump_file_contents):
 
   svntest.verify.compare_and_display_lines(
     "Dump files", "DUMP", exp_dump_file_contents, dest_dump)
-
+  
 def run_test(sbox, dump_file_name, subdir=None, exp_dump_file_name=None):
   """Load a dump file, sync repositories, and compare contents with the original
 or another dump file."""
@@ -210,7 +210,7 @@ or another dump file."""
     exp_master_dumpfile_contents = master_dumpfile_contents
 
   verify_mirror(dest_sbox, exp_master_dumpfile_contents)
-
+  
 
 
 ######################################################################
