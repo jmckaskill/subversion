@@ -15,7 +15,7 @@ echo Unknown ra method '%RA_TYPE%'
 EXIT 3
 
 :ra_local
-python win-tests.py %TEST_DIR% -f %FS_TYPE% -c -r
+python win-tests.py %TEST_DIR% -f %FS_TYPE% -c -r 
 if ERRORLEVEL 1 set ERR=1
 EXIT %ERR%
 
