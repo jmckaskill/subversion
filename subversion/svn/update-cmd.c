@@ -56,7 +56,7 @@ print_update_summary(apr_array_header_t *targets,
   for (i = 0; i < targets->nelts; i++)
     {
       const char *path = APR_ARRAY_IDX(targets, i, const char *);
-
+      
       if (i < result_revs->nelts)
         {
           svn_revnum_t rev = APR_ARRAY_IDX(result_revs, i, const char *);
@@ -128,7 +128,7 @@ svn_cl__update(apr_getopt_t *os,
   nwb.had_externals_error = FALSE;
   ctx->notify_func2 = svn_cl__check_externals_failed_notify_wrapper;
   ctx->notify_baton2 = &nwb;
-
+  
   SVN_ERR(svn_client_update4(&result_revs, targets,
                              &(opt_state->start_revision),
                              depth, depth_is_sticky,
