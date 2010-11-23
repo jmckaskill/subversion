@@ -88,7 +88,7 @@ To record an "update" operation, the skel has the form:
   TARGET_REV is the revision being updated to.
 
 ### sbutler: What about mixed-revision working copies?  Let's record
-### the equivalent of svn_wc_revision_status_t, plus the target rev:
+### the equivalent of svn_wc_revision_status_t, plus the target rev: 
 ###
 ###   ("update" MIN_REV MAX_REV SWITCHED MODIFIED TARGET_REV)
 ###
