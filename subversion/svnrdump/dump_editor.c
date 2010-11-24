@@ -105,8 +105,8 @@ normalize_props(apr_hash_t *props,
   return SVN_NO_ERROR;
 }
 
-/* Make a directory baton to represent the directory at path (relative
- * to the edit_baton).
+/* Make a directory baton to represent the directory at PATH (relative
+ * to the EDIT_BATON).
  *
  * COPYFROM_PATH/COPYFROM_REV are the path/revision against which this
  * directory should be compared for changes. If the copyfrom
