@@ -129,9 +129,9 @@ svn_path_join(const char *base, const char *component, apr_pool_t *pool);
  * This function does not support URLs.
  *
  * See svn_path_join() for further notes about joining paths.
- *
+ * 
  * New code should use svn_dirent_join_many() instead.
- *
+ * 
  * @deprecated Provided for backward compatibility with the 1.6 API.
  */
 SVN_DEPRECATED
@@ -280,7 +280,7 @@ svn_dirent_is_root(const char *dirent, apr_size_t len);
  * allocated from @a pool.
  *
  * New code should use either svn_dirent_canonicalize() (for local paths) or
- * svn_uri_canonicalize() (for urls) or svn_relpath_canonicalize() (for
+ * svn_uri_canonicalize() (for urls) or svn_relpath_canonicalize() (for 
  * relative paths).
  *
  * @deprecated Provided for backward compatibility with the 1.6 API.
@@ -321,8 +321,8 @@ svn_path_compare_paths(const char *path1, const char *path2);
  * different resources), and (b) share a common ancestor in their path
  * component, i.e. 'protocol://' is not a sufficient ancestor.
  *
- * New code should use either svn_dirent_get_longest_ancestor()
- * (for local paths) or svn_uri_get_longest_ancestor() (for urls)
+ * New code should use either svn_dirent_get_longest_ancestor() 
+ * (for local paths) or svn_uri_get_longest_ancestor() (for urls) 
  * or svn_relpath_get_longest_ancestor() (for relative paths).
  *
  * @deprecated Provided for backward compatibility with the 1.6 API.
@@ -520,7 +520,7 @@ svn_path_is_dotpath_present(const char *path);
  *       identify the remainder path.
  *
  * New code should use either svn_dirent_is_child() (for local paths) or
- * svn_uri_is_child() (for urls) or svn_relpath_is_child()
+ * svn_uri_is_child() (for urls) or svn_relpath_is_child() 
  * (for relative paths).
  *
  * @deprecated Provided for backward compatibility with the 1.6 API.
@@ -535,7 +535,7 @@ svn_path_is_child(const char *path1, const char *path2, apr_pool_t *pool);
  * @since New in 1.3.
  *
  * New code should use either svn_dirent_is_ancestor() (for local paths) or
- * svn_uri_is_ancestor() (for urls) or svn_relpath_is_ancestor() (for relative
+ * svn_uri_is_ancestor() (for urls) or svn_relpath_is_ancestor() (for relative 
  * paths).
  *
  * @deprecated Provided for backward compatibility with the 1.6 API.
