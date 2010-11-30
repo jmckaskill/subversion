@@ -154,7 +154,7 @@ and <tt>END PGP SIGNATURE</tt> lines will be ignored.</p>
 </form>
 <hr/>
 ''' % os.getenv('SCRIPT_NAME')
-
+ 
 
 
 def split(sigs):
