@@ -8,7 +8,7 @@ This new version uses different names of parameters. Please use e.g.
 "profile.os" instead of simply "os". You can now also perform
 profiling in a single step as an integral part of transformation. Check
 new stylesheets profile-docbook.xsl and profile-chunk.xsl.
-  </xsl:message>
+  </xsl:message>  
 </xsl:template>
 
 </xsl:stylesheet>
