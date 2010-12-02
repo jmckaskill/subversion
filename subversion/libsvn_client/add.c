@@ -477,7 +477,7 @@ add_parent_dirs(const char *path,
         {
           return svn_error_createf
             (SVN_ERR_RESERVED_FILENAME_SPECIFIED, NULL,
-             _("'%s' ends in a reserved name"),
+             _("'%s' ends in a reserved name"), 
              svn_path_local_style(path, pool));
         }
       else
@@ -713,7 +713,7 @@ mkdir_urls(svn_commit_info_t **commit_info_p,
             }
         }
     }
-  qsort(targets->elts, targets->nelts, targets->elt_size,
+  qsort(targets->elts, targets->nelts, targets->elt_size, 
         svn_sort_compare_paths);
 
   /* Create new commit items and add them to the array. */
@@ -834,7 +834,7 @@ svn_client_mkdir3(svn_commit_info_t **commit_info_p,
 
   if (svn_path_is_url(APR_ARRAY_IDX(paths, 0, const char *)))
     {
-      SVN_ERR(mkdir_urls(commit_info_p, paths, make_parents,
+      SVN_ERR(mkdir_urls(commit_info_p, paths, make_parents, 
                          revprop_table, ctx, pool));
     }
   else
