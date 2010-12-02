@@ -8,7 +8,7 @@
 
 2002-09-19  Norman Walsh <nwalsh@users.sourceforge.net>
 
-	* .cvsignore, Makefile, doc-link-docbook.xsl, docbook-elements.xsl, make-xsl-params.pl, tdg-link.xsl, xsl-param-link.xsl:
+	* .cvsignore, Makefile, doc-link-docbook.xsl, docbook-elements.xsl, make-xsl-params.pl, tdg-link.xsl, xsl-param-link.xsl: 
 	Stylesheets to allow sgmltag and parameter to link automatically to documentation
 
 2002-07-19  Norman Walsh <nwalsh@users.sourceforge.net>
@@ -117,6 +117,6 @@
 
 2001-04-02  Norman Walsh <nwalsh@users.sourceforge.net>
 
-	* Makefile, copyright.xml, documentation.xml, extensions.xml, jrefhtml.xsl, legalnotice.xml, publishing.xml, reference.xml, template-example.xml, template-example.xsl, templates.xml, warranty.xml, xsl2jref.xsl:
+	* Makefile, copyright.xml, documentation.xml, extensions.xml, jrefhtml.xsl, legalnotice.xml, publishing.xml, reference.xml, template-example.xml, template-example.xsl, templates.xml, warranty.xml, xsl2jref.xsl: 
 	New file.
 
