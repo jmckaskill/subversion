@@ -110,7 +110,7 @@ static const svn_opt_subcommand_desc2_t svnrdump__cmd_table[] =
 
 static const apr_getopt_option_t svnrdump__options[] =
   {
-    {"revision",     'r', 1,
+    {"revision",     'r', 1, 
                       N_("specify revision number ARG (or X:Y range)")},
     {"quiet",         'q', 0,
                       N_("no progress (only errors) to stderr")},
@@ -299,7 +299,7 @@ replay_revisions(svn_ra_session_t *session,
 
   SVN_ERR(svn_stream_for_stdout(&stdout_stream, pool));
 
-  SVN_ERR(get_dump_editor(&dump_editor, &dump_baton, stdout_stream,
+  SVN_ERR(get_dump_editor(&dump_editor, &dump_baton, stdout_stream, 
                           check_cancel, NULL, pool));
 
   replay_baton = apr_pcalloc(pool, sizeof(*replay_baton));
@@ -419,7 +419,7 @@ static svn_error_t *
 version(const char *progname,
         apr_pool_t *pool)
 {
-  svn_stringbuf_t *version_footer =
+  svn_stringbuf_t *version_footer = 
     svn_stringbuf_create(_("The following repository access (RA) modules "
                            "are available:\n\n"),
                          pool);
@@ -560,7 +560,7 @@ validate_and_resolve_revisions(opt_baton_t *opt_baton,
 
   /* Finally, make sure that the end revision is younger than the
      start revision.  We don't do "backwards" 'round here.  */
-  if (opt_baton->end_revision.value.number <
+  if (opt_baton->end_revision.value.number < 
       opt_baton->start_revision.value.number)
     {
       return svn_error_create(SVN_ERR_CL_ARG_PARSING_ERROR, NULL,
@@ -808,7 +808,7 @@ main(int argc, const char **argv)
                                         &latest_revision, pool));
 
   /* Make sure any provided revisions make sense. */
-  SVNRDUMP_ERR(validate_and_resolve_revisions(opt_baton,
+  SVNRDUMP_ERR(validate_and_resolve_revisions(opt_baton, 
                                               latest_revision, pool));
 
   /* Dispatch the subcommand */
