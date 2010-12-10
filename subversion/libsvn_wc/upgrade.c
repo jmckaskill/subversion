@@ -1065,7 +1065,7 @@ migrate_text_bases(const char *dir_abspath,
              see if a pristine row exists before attempting to insert one;
              we could check and see if a pristine file exists before
              attempting to copy a new one over it.
-
+             
              However, I think simplicity is the big win here, especially since
              this is code that runs exactly once on a user's machine: when
              doing the upgrade.  If you disagree, feel free to add the
@@ -1339,7 +1339,7 @@ upgrade_to_wcng(void **dir_baton,
       SVN_ERR(svn_wc__db_wclock_obtain(db, data->root_abspath, 0, FALSE,
                                        scratch_pool));
     }
-
+ 
   SVN_ERR(svn_wc__write_upgraded_entries(dir_baton, parent_baton, db, data->sdb,
                                          data->repos_id, data->wc_id,
                                          dir_abspath, data->root_abspath,
