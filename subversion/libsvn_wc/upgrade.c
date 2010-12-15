@@ -1249,7 +1249,7 @@ upgrade_to_wcng(void **dir_baton,
       SVN_ERR(svn_wc__db_wclock_obtain(db, data->root_abspath, 0, FALSE,
                                        scratch_pool));
     }
-
+ 
   SVN_ERR(svn_wc__write_upgraded_entries(dir_baton, parent_baton, db, data->sdb,
                                          data->repos_id, data->wc_id,
                                          dir_abspath, data->root_abspath,
