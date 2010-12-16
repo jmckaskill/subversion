@@ -741,25 +741,25 @@ repos_notify_handler(void *baton,
                                   _("     * editing path : %s ..."),
                                   notify->path));
             break;
-
+          
           case svn_node_action_delete:
             svn_error_clear(svn_stream_printf(feedback_stream, scratch_pool,
                                   _("     * deleting path : %s ..."),
                                   notify->path));
             break;
-
+          
           case svn_node_action_add:
             svn_error_clear(svn_stream_printf(feedback_stream, scratch_pool,
                                   _("     * adding path : %s ..."),
                                   notify->path));
             break;
-
+          
           case svn_node_action_replace:
             svn_error_clear(svn_stream_printf(feedback_stream, scratch_pool,
                                   _("     * replacing path : %s ..."),
                                   notify->path));
             break;
-
+          
         }
       }
       return;
@@ -961,7 +961,7 @@ subcommand_load(apr_getopt_t *os, void *baton, apr_pool_t *pool)
                            opt_state->quiet ? NULL : repos_notify_handler,
                            stdout_stream, check_cancel, NULL, pool);
   if (err && err->apr_err == SVN_ERR_BAD_PROPERTY_VALUE)
-    return svn_error_quick_wrap(err,
+    return svn_error_quick_wrap(err, 
                                 "Invalid property value found in dumpstream; "
                                 "consider repairing the source or using "
                                 "--bypass-prop-validation while loading.");
