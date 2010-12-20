@@ -962,9 +962,10 @@ subcommand_load(apr_getopt_t *os, void *baton, apr_pool_t *pool)
                            stdout_stream, check_cancel, NULL, pool);
   if (err && err->apr_err == SVN_ERR_BAD_PROPERTY_VALUE)
     return svn_error_quick_wrap(err,
-                                "Invalid property value found in dumpstream; "
-                                "consider repairing the source or using "
-                                "--bypass-prop-validation while loading.");
+                                _("Invalid property value found in "
+                                  "dumpstream; consider repairing the source "
+                                  "or using --bypass-prop-validation while "
+                                  "loading."));
   return err;
 }
 
