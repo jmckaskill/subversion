@@ -44,7 +44,7 @@
 
 /* This is the baton that we pass svn_ra_open3(), and is associated with
    the callback table we provide to RA. */
-typedef struct
+typedef struct callback_baton_t
 {
   /* Holds the directory that corresponds to the REPOS_URL at svn_ra_open3()
      time. When callbacks specify a relative path, they are joined with
@@ -215,6 +215,7 @@ struct invalidate_wcprop_walk_baton
    `svn_wc_entry_callbacks_t'. */
 static svn_error_t *
 invalidate_wcprop_for_node(const char *local_abspath,
+                           svn_node_kind_t kind,
                            void *walk_baton,
                            apr_pool_t *pool)
 {

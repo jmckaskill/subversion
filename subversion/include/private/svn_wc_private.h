@@ -159,6 +159,7 @@ svn_wc__strictly_is_wc_root(svn_boolean_t *wc_root,
 
 /** A callback invoked by the generic node-walker function.  */
 typedef svn_error_t *(*svn_wc__node_found_func_t)(const char *local_abspath,
+                                                  svn_node_kind_t kind,
                                                   void *walk_baton,
                                                   apr_pool_t *scratch_pool);
 
@@ -712,6 +713,15 @@ svn_wc__get_mergeinfo_walk_info(svn_boolean_t *is_present,
                                 const char *local_abspath,
                                 apr_pool_t *scratch_pool);
 
+
+/**
+ * For use by entries.c and entries-dump.c to read old-format working copies.
+ */
+svn_error_t *
+svn_wc__read_entries_old(apr_hash_t **entries,
+                         const char *dir_abspath,
+                         apr_pool_t *result_pool,
+                         apr_pool_t *scratch_pool);
 
 #ifdef __cplusplus
 }
