@@ -6,7 +6,7 @@
 # to the slave.  The test should be able to throw all kinds
 # of svn operations at one or the other, and master/slave
 # verified as identical in the end.
-#
+# 
 # Master / slave setup is achieved in a single httpd process
 # using virtual hosts bound to different addresses on the
 # loopback network (127.0.0.1, 127.0.0.2) for slave and
@@ -17,7 +17,7 @@
 # http://subversion.tigris.org/issues/show_bug.cgi?id=2939
 # But of course, any svn traffic liable to break over
 # mirroring would be a good addition.
-#
+# 
 # Most of the httpd setup was lifted from davautocheck.sh.
 # The common boilerplate snippets to setup/start/stop httpd
 # between the two could be factored out and shared.
@@ -74,7 +74,7 @@ function get_prog_name() {
   return 1
 }
 
-# splat out httpd config
+# splat out httpd config 
 function setup_config() {
 
   say "setting up config: " $1
@@ -131,7 +131,7 @@ CustomLog           "${HTTPD_ROOT}/ops" "%t %u %{SVN-REPOS-NAME}e %{SVN-ACTION}e
   ServerName ${SLAVE_HOST}
   CustomLog           "${HTTPD_ROOT}/slave_access_log" common
   ErrorLog            "${HTTPD_ROOT}/slave_error_log"
-# slave 'normal' location
+# slave 'normal' location  
   <Location "/${SLAVE_LOCATION}">
     DAV               svn
     SVNPath           "${SLAVE_REPOS}"
@@ -175,7 +175,7 @@ function usage() {
   echo
   echo " " '<test-work-directory>' must not exist, \
     I will not clobber it for you 1>&2
-  exit 1
+  exit 1  
 }
 ### Start execution here ###
 
@@ -382,7 +382,7 @@ $SVNSYNC initialize --non-interactive "$SYNC_URL" "$MASTER_URL" \
 #
 # reproducible test case from:
 # http://subversion.tigris.org/issues/show_bug.cgi?id=2939
-#
+# 
 BASE_URL="$SLAVE_URL"
 say running svnmucc test to $BASE_URL
 svnmucc="$SVNMUCC --non-interactive --username jrandom --password rayjandom -mm"
