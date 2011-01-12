@@ -801,7 +801,7 @@ main(int argc, const char **argv)
             }
 
           else
-            {
+            { 
               SVNRDUMP_ERR(help_cmd(NULL, NULL, pool));
               svn_pool_destroy(pool);
               exit(EXIT_FAILURE);
