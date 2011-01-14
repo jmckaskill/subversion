@@ -34,7 +34,7 @@ II. COMPILING THE DOCS
    The "DocBook Open Repository" on Sourceforge has a large collection
    of XSL stylesheets that specifically operate on DocBook.  Download
    and install the latest 'docbook-xsl' package from this page:
-
+  
       http://sourceforge.net/project/showfiles.php?group_id=21935
 
    Download the latest version of docbook-xsl, unpack it, then rename
@@ -68,7 +68,7 @@ II. COMPILING THE DOCS
      Find it at ftp://archive.progeny.com/GNOME/sources/libxml2/)
 
      If you don't want to compile libxslt, you can just fetch the
-     appropriate OS binary package.
+     appropriate OS binary package.  
 
    * From this directory, do
 
@@ -77,7 +77,7 @@ II. COMPILING THE DOCS
      This produces an HTML version for the Subversion DocBook docs in
      misc-docs/svn-misc-docs.html.
 
-
+         
 3. Make a PDF file.
 
    Formatting Objects (FO) is a layout language, kind of like
@@ -92,7 +92,7 @@ II. COMPILING THE DOCS
      installed FOP some other way, that's fine, then you can ignore
      the following recipe:
 
-        1. Download the latest version from
+        1. Download the latest version from 
            http://www.apache.org/dyn/closer.cgi/xml/fop, for example,
            fop-0.20.5-bin.tar.gz.  Just get a binary distribution,
            there's no need for the Java source.
@@ -171,7 +171,7 @@ In addition to everything in section II:
 
    The makefile is preconfigured with a suitable invocation of it,
    so simply run:
-
+   
       $ make valid
 
 
