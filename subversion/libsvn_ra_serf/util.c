@@ -1958,11 +1958,11 @@ svn_ra_serf__uri_canonicalize(const char *uri,
     return svn_uri_canonicalize(uri, result_pool);
 
   if (uri[0] == '/')
-    return apr_pstrcat(result_pool, "/",
+    return apr_pstrcat(result_pool, "/", 
                        relative_uri_normalize(uri + 1,
                                               scratch_pool,
                                               scratch_pool),
                        NULL);
-
+  
   return relative_uri_normalize(uri, scratch_pool, result_pool);
 }
