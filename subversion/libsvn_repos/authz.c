@@ -434,11 +434,11 @@ authz_get_any_access(svn_config_t *cfg, const char *repos_name,
   baton.required_access = required_access;
   baton.access = FALSE; /* Deny access by default. */
   baton.repos_path = apr_pstrcat(pool, repos_name, ":/", (char *)NULL);
-
+  
   /* We could have used svn_config_enumerate2 for "repos_name:/".
    * However, this requires access for root explicitly (which the user
-   * may not always have). So we end up enumerating the sections in
-   * the authz CFG and stop on the first match with some access for
+   * may not always have). So we end up enumerating the sections in 
+   * the authz CFG and stop on the first match with some access for 
    * this user. */
   svn_config_enumerate_sections2(cfg, authz_get_any_access_parser_cb,
                                  &baton, pool);
