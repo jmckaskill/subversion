@@ -645,7 +645,7 @@ def file_dir_file(sbox):
                                      'switch', dir_url, file_path)
   if not os.path.isdir(file_path):
     raise svntest.Failure
-
+  
   svntest.actions.run_and_verify_svn(None, None, [],
                                      'switch', file_url, file_path)
   if not os.path.isfile(file_path):
