@@ -71,7 +71,7 @@ uri_canonicalize(const char *uri, apr_pool_t *pool)
   return apr_pstrcat(pool, (uri[0] == '/') ? "/" : "",
                      svn_relpath_canonicalize(uri, pool), NULL);
 }
-
+               
 /* Implements the #create_dir_config method of Apache's #module vtable. */
 static void *
 create_authz_svn_dir_config(apr_pool_t *p, char *d)
