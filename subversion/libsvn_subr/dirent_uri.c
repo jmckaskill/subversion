@@ -378,7 +378,7 @@ canonicalize(path_type_t type, const char *path, apr_pool_t *pool)
   if (type == type_uri)
     {
       assert(*src != '/');
-
+        
       while (*src && (*src != '/') && (*src != ':'))
         src++;
 
@@ -1868,7 +1868,7 @@ svn_uri_is_canonical(const char *uri, apr_pool_t *pool)
           else if (((*(ptr+2) < '0' || *(ptr+2) > '9'))
                    && (*(ptr+2) < 'A' || *(ptr+2) > 'F'))
             return FALSE;
-
+          
           digitz[0] = *(++ptr);
           digitz[1] = *(++ptr);
           digitz[2] = '\0';
