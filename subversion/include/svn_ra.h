@@ -1482,7 +1482,7 @@ svn_ra_get_log3(svn_ra_session_t *session,
 
 /**
  * Similar to svn_ra_get_log3(), but with @a ignore_mergeinfo always @c FALSE.
- *
+ * 
  * @since New in 1.5.
  * @deprecated Provided for backward compatibility with the 1.6 API.
  */
