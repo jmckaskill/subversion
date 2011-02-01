@@ -51,7 +51,7 @@ Wimp = svntest.testcase.Wimp
 # the logic for differentiating between these two cases.
 
 mismatched_headers_re = re.compile(
-    "Prop-delta: .*|Text-content-sha1: .*|Text-copy-source-md5: .*|"
+    "Prop-delta: .*|Text-content-sha1: .*|Text-copy-source-md5: .*|" 
     "Text-copy-source-sha1: .*|Text-delta-base-sha1: .*"
 )
 
