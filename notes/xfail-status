@@ -277,6 +277,13 @@ Test #  Mode   Test Description
   Log: N/A
   Point Person: pburba
 
+ 116    XFAIL  (Posix only) executable flag is maintained during binary merge
+  Issue #: 3686
+  Target Milestone: ---
+  Thread: N/A
+  Log: N/A
+  Point Person: Unassigned
+
 LISTING: merge_tree_conflict_tests.py
 
 Test #  Mode   Test Description
