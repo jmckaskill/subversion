@@ -1316,7 +1316,7 @@ def _internal_run_tests(test_list, testnums, parallel, srcdir, progress_func):
 
   if not parallel:
     for i, testnum in enumerate(testnums):
-
+      
       if run_one_test(testnum, test_list) == 1:
           exit_code = 1
       # signal progress

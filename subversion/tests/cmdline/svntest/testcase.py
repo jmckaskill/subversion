@@ -196,7 +196,7 @@ class XFail(TestCase):
     that we're running over a particular RA layer).
 
     WIP is ...
-
+    
     ISSUES is an issue number (or a list of issue numbers) tracking this."""
 
     TestCase.__init__(self, create_test_case(test_case), cond_func, wip=wip,
