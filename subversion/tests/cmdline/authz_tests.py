@@ -173,7 +173,7 @@ def authz_read_access(sbox):
   # create some folders with spaces in their names
   svntest.actions.run_and_verify_svn(None, None, [], 'mkdir', '-m', 'logmsg',
                                      fws_url, fws_empty_folder_url)
-
+  
   write_restrictive_svnserve_conf(sbox.repo_dir)
 
   write_authz_file(sbox, { "/": "* = r",
