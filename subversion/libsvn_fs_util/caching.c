@@ -85,7 +85,7 @@ svn_fs__get_global_membuffer_cache(void)
   return cache;
 }
 
-void
+void 
 svn_fs_set_cache_config(const svn_fs_cache_config_t *settings)
 {
   cache_settings = *settings;
