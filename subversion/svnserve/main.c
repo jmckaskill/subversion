@@ -189,7 +189,7 @@ static const apr_getopt_option_t svnserve__options[] =
         "at the same time is not supported in daemon mode.\n"
         "                             "
         "Use inetd mode or tunnel mode if you need this.]")},
-    {"memory-cache-size", 'M', 1,
+    {"memory-cache-size", 'M', 1, 
      N_("size of the extra in-memory cache in MB used to\n"
         "                             "
         "minimize redundant operations.\n"
@@ -817,7 +817,7 @@ int main(int argc, const char *argv[])
     winservice_running();
 #endif
 
-  /* Configure FS caches for maximum efficiency with svnserve.
+  /* Configure FS caches for maximum efficiency with svnserve. 
    * For pre-forked (i.e. multi-processed) mode of operation,
    * keep the per-process caches smaller than the default.
    * Also, apply the respective command line parameters, if given. */
