@@ -543,7 +543,7 @@ create_log_body(serf_bucket_t **body_bkt,
       for (i = 0; i < log_ctx->ignored_prop_mods->nelts; i++)
         {
           char *name = APR_ARRAY_IDX(log_ctx->revprops, i, char *);
-
+         
           svn_ra_serf__add_tag_buckets(buckets,
                                        "S:ignored-prop", name,
                                        alloc);
