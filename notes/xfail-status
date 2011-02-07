@@ -20,11 +20,11 @@ Test #  Mode   Test Description
   18    XFAIL  (WIP) merging commit [[needs to be written to match new
                merge() algorithm expectations]]
   Issue #: N/A
-  Target Milestone: N/A
+  Target Milestone: N/A 
   Thread: N/A
   Log: r875421
   Point Person: cmpilato
-
+  
   36    XFAIL(WIP) obliterate 1 [[obliterate is in development]]
   Issue #: 516
   Target Milestone: Unscheduled
@@ -42,25 +42,25 @@ Test #  Mode   Test Description
   Thread: N/A
   Log: http://svn.apache.org/viewvc?view=revision&revision=853631
   Point Person: cmpilato
-
+  
   10    XFAIL  directory locks (kinda)
   Issue #: None
-  Target Milestone: None
+  Target Milestone: None 
   Thread: N/A
   Log: http://svn.apache.org/viewvc?view=revision&revision=853631
   Point Person: cmpilato
-
+  
 LISTING: parse-diff-test.exe
 
 Test #  Mode   Test Description
 ------  -----  ----------------
    4    XFAIL  test badly formatted git diff headers
   Issue #: None
-  Target Milestone: None
+  Target Milestone: None 
   Thread: N/A
   Log: r960833
   Point Person: dannas
-
+  
 LISTING: authz_tests.py
 
 Test #  Mode   Test Description
@@ -75,10 +75,10 @@ Test #  Mode   Test Description
   14    XFAIL  (DAV and ra_svn only) switched to directory, no read access
                on parents
   Issue #: None
-  Target Milestone: None
+  Target Milestone: None 
   Thread: N/A
   Log: r867298
-  Point Person: lgo
+  Point Person: lgo 
 
 LISTING: basic_tests.py
 
@@ -97,18 +97,18 @@ Test #  Mode   Test Description
 ------  -----  ----------------
   25    XFAIL  commit from two nested working copies
   Issue #: 2381
-  Target Milestone: 1.8-consider
+  Target Milestone: 1.8-consider 
   Thread: http://svn.haxx.se/dev/archive-2009-05/0509.shtml
   Log: r878104
   Point Person: stsp (Issue was assigned to GSoC student Hui Huang).
 
   26    XFAIL  commit from two working copies
   Issue #: 2381
-  Target Milestone: 1.8-consider
+  Target Milestone: 1.8-consider 
   Thread: http://svn.haxx.se/dev/archive-2009-05/0509.shtml
   Log: r878104
   Point Person: stsp (Issue was assigned to GSoC student Hui Huang).
-
+  
 LISTING: copy_tests.py
 
 Test #  Mode   Test Description
@@ -119,45 +119,45 @@ Test #  Mode   Test Description
   Thread: N/A
   Log: r879708, r959450
   Point Person: philip, gstein
-
+  
   80    XFAIL  commit only top of copy; check child behavior
   Issue #: 3699
   Target Milestone: 1.7-consider
   Thread: None
   Log: r927469
-  Point Person: rhuijben
-
+  Point Person: rhuijben 
+  
   86    XFAIL  changed dir after commit should match checkout
   Issue #: 3676
   Target Milestone: ---
   Thread: N/A
   Log: r961831
   Point Person: rhuijben
-
+  
   89    XFAIL  copy mixed-rev and delete children
   Issue #: 3314
-  Target Milestone: N/A
+  Target Milestone: N/A 
   Thread: N/A
   Log: r1004629
-  Point Person: philip
-
+  Point Person: philip 
+  
   91    XFAIL  copy, delete child, revert copy
   Issue #: None
   Target Milestone: N/A
   Thread: N/A
   Log: r1027031
   Point Person: philip
-
+  
 LISTING: depth_tests.py
 
 Test #  Mode   Test Description
 ------  -----  ----------------
   36    XFAIL  'info' should treat excluded item as versioned
   Issue #: 3792
-  Target Milestone: N/A
+  Target Milestone: N/A 
   Thread: N/A
   Log: r876772
-  Point Person: danielsh
+  Point Person: danielsh 
 
 LISTING: diff_tests.py
 
@@ -194,14 +194,14 @@ Test #  Mode   Test Description
   Thread: N/A
   Log: r1037998
   Point Person: danielsh
-
+  
   24    XFAIL  export working copy with different depths
   Issue #: None
   Target Milestone: N/A
   Thread: N/A
   Log: r980497
   Point Person: julianfoad
-
+  
 LISTING: externals_tests.py
 
 Test #  Mode   Test Description
@@ -226,17 +226,17 @@ Test #  Mode   Test Description
 
   34    XFAIL  unlock file locked by other user
   Issue #: None
-  Target Milestone: N/A
+  Target Milestone: N/A 
   Thread: None
   Log: r865614
   Point Person: lgo
-
+  
   39    XFAIL  test replace + propset of locked file
   Issue #: 3674
-  Target Milestone: ---
+  Target Milestone: --- 
   Thread: N/A
   Log: r961442
-  Point Person: cmpilato
+  Point Person: cmpilato 
 
 LISTING: merge_tests.py
 
@@ -258,25 +258,25 @@ Test #  Mode   Test Description
 
   75    XFAIL  merge added subtree
   Issue #: 1962
-  Target Milestone: 1.7-consider
+  Target Milestone: 1.7-consider 
   Thread: N/A
   Log: r876983
   Point Person: Unassigned
-
+  
  115    XFAIL  don't inherit bogus working mergeinfo
   Issue #: 3756
-  Target Milestone: 1.8.0
+  Target Milestone: 1.8.0 
   Thread: N/A
-  Log: N/A
+  Log: N/A 
   Point Person: pburba
 
  116    XFAIL  (Posix only) executable flag is maintained during binary merge
   Issue #: 3686
   Target Milestone: Unscheduled
   Thread: N/A
-  Log: N/A
+  Log: N/A 
   Point Person: Unassigned
-
+  
 LISTING: merge_tree_conflict_tests.py
 
 Test #  Mode   Test Description
@@ -294,21 +294,21 @@ Test #  Mode   Test Description
   Thread: N/A
   Log: N/A
   Point Person: Unassigned
-
+  
   18    XFAIL  tree conflicts 5.2: leaf del (no ci), tree del
   Issue #: 2282
   Target Milestone: 1.8-consider
   Thread: N/A
   Log: N/A
   Point Person: Unassigned
-
+  
   22    XFAIL  replace vs. edit tree-conflicts
   Issue #: None
-  Target Milestone: N/A
+  Target Milestone: N/A 
   Thread: N/A
   Log: r879723
   Point Person: julianfoad
-
+  
   23    XFAIL  replace vs. delete tree-conflicts
   Issue #: None
   Target Milestone: N/A
@@ -321,8 +321,8 @@ LISTING: patch_tests.py
 Test #  Mode   Test Description
 ------  -----  ----------------
   29    XFAIL  patch doesn't append newline to properties
-  Issue #: None
-  Target Milestone: N/A
+  Issue #: None 
+  Target Milestone: N/A 
   Thread: N/A
   Log: r1033709
   Point Person: danielsh
@@ -337,13 +337,13 @@ Test #  Mode   Test Description
   Thread: N/A
   Log: N/A
   Point Person: Unassigned
-
+  
   26    XFAIL  test handling invalid svn:* property values
   Issue #: None
-  Target Milestone: N/A
+  Target Milestone: N/A 
   Thread: N/A
   Log: r871212
-  Point Person: danielsh
+  Point Person: danielsh 
 
 LISTING: resolve_tests.py
 
@@ -354,7 +354,7 @@ Test #  Mode   Test Description
   Target Milestone: 1.8.0
   Thread: N/A
   Log: r995848
-  Point Person: pburba
+  Point Person: pburba 
 
 LISTING: revert_tests.py
 
@@ -373,7 +373,7 @@ Test #  Mode   Test Description
 ------  -----  ----------------
   32    XFAIL  status on wc with nested old-format wc
   Issue #: 3742
-  Target Milestone: 1.7.0
+  Target Milestone: 1.7.0 
   Thread: N/A
   Log: r1027732
   Point Person: Unassigned
@@ -384,18 +384,18 @@ Test #  Mode   Test Description
 ------  -----  ----------------
   10    XFAIL  switch a file to a dir and back to the file
   Issue #: 1532
-  Target Milestone: 1.7-consider
+  Target Milestone: 1.7-consider 
   Thread: N/A
   Log: r847437
-  Point Person: Unassigned
-
+  Point Person: Unassigned 
+  
   38    XFAIL  copy directory with switched subdir
   Issue #: None
-  Target Milestone: N/A
+  Target Milestone: N/A 
   Thread: N/A
   Log: r879627
   Point Person: rhuijben
-
+  
 LISTING: tree_conflict_tests.py
 
 Test #  Mode   Test Description
@@ -409,21 +409,21 @@ Test #  Mode   Test Description
 
   14    XFAIL  merge dir: del/rpl/mv onto not-same
   Issue #: 3150
-  Target Milestone: 1.7.0
+  Target Milestone: 1.7.0 
   Thread: N/A
   Log: http://svn.apache.org/viewvc?view=revision&revision=871446
   Point Person: Unassigned
 
   17    XFAIL  --force del on dir with TCs inside
   Issue #: None
-  Target Milestone: N/A
+  Target Milestone: N/A 
   Thread: N/A
   Log: r878027
   Point Person: neels
 
   18    XFAIL  --force del on tree-conflicted targets
   Issue #: None
-  Target Milestone: N/A
+  Target Milestone: N/A 
   Thread: N/A
   Log: r878028
   Point Person: neels
@@ -472,11 +472,11 @@ Test #  Mode   Test Description
   Target Milestone: Unscheduled
   Thread: N/A
   Log: N/A
-  Point Person: Unassigned
+  Point Person: Unassigned 
 
   57    XFAIL  update with file lock & keywords property set
-  Issue #: 3471
-  Target Milestone:
+  Issue #: 3471 
+  Target Milestone: 
   Thread: http://subversion.tigris.org/ds/viewMessage.do?
     dsForumId=1065&dsMessageId=2385406
   Log: r995388
@@ -484,7 +484,7 @@ Test #  Mode   Test Description
 
   58    XFAIL  update a nonexistent child of a copied dir
   Issue #: None
-  Target Milestone: N/A
+  Target Milestone: N/A 
   Thread: None
   Log: r1035347
   Point Person: julianfoad
