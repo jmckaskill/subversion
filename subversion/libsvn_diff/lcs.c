@@ -172,7 +172,7 @@ prepend_prefix_lcs(svn_diff__lcs_t *lcs,
   SVN_ERR_ASSERT_NO_RETURN(prefix_lines > 0);
 
   prefix_lcs = apr_palloc(pool, sizeof(*prefix_lcs));
-  prefix_lcs->position[0] = apr_pcalloc(pool,
+  prefix_lcs->position[0] = apr_pcalloc(pool, 
                                         sizeof(*prefix_lcs->position[0]));
   prefix_lcs->position[0]->offset = 1;
   prefix_lcs->position[1] = apr_pcalloc(pool,
@@ -207,7 +207,7 @@ svn_diff__lcs(svn_diff__position_t *position_list1, /* pointer to tail (ring) */
    */
   lcs = apr_palloc(pool, sizeof(*lcs));
   lcs->position[0] = apr_pcalloc(pool, sizeof(*lcs->position[0]));
-  lcs->position[0]->offset = position_list1 ?
+  lcs->position[0]->offset = position_list1 ? 
     position_list1->offset + 1 : prefix_lines + 1;
   lcs->position[1] = apr_pcalloc(pool, sizeof(*lcs->position[1]));
   lcs->position[1]->offset = position_list2 ?
