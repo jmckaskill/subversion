@@ -3609,7 +3609,7 @@ op_revert_txn(void *baton, svn_sqlite__db_t *sdb, apr_pool_t *scratch_pool)
              direct children into roots of deletes. */
           const char *like_arg = construct_like_arg(b->local_relpath,
                                                     scratch_pool);
-
+          
           SVN_ERR(svn_sqlite__get_statement(&stmt, b->pdh->wcroot->sdb,
                                       STMT_UPDATE_OP_DEPTH_INCREASE_RECURSIVE));
           SVN_ERR(svn_sqlite__bindf(stmt, "isi", b->pdh->wcroot->wc_id,
