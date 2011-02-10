@@ -3611,7 +3611,7 @@ op_revert_txn(void *baton, svn_sqlite__db_t *sdb, apr_pool_t *scratch_pool)
 
       /* Rewrite the op-depth of all deleted children making the
          direct children into roots of deletes. */
-
+          
       SVN_ERR(svn_sqlite__get_statement(&stmt, b->wcroot->sdb,
                                      STMT_UPDATE_OP_DEPTH_INCREASE_RECURSIVE));
       SVN_ERR(svn_sqlite__bindf(stmt, "isi", b->wcroot->wc_id,
