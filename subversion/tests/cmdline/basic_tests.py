@@ -2736,7 +2736,7 @@ def ls_multiple_wc_targets(sbox):
       "don't exist\n"
   expected_err_re = re.compile(expected_err)
 
-  exit_code, output, error = svntest.main.run_svn(1, 'ls', alpha,
+  exit_code, output, error = svntest.main.run_svn(1, 'ls', alpha, 
                                                   non_existent_path, beta)
 
   # Verify error
@@ -2763,7 +2763,7 @@ def ls_multiple_url_targets(sbox):
       "don't exist\n"
   expected_err_re = re.compile(expected_err)
 
-  exit_code, output, error = svntest.main.run_svn(1, 'ls', alpha,
+  exit_code, output, error = svntest.main.run_svn(1, 'ls', alpha, 
                                                   non_existent_url, beta)
 
   # Verify error
@@ -2797,7 +2797,7 @@ def add_multiple_targets(sbox):
       'file2' : Item(verb='Adding'),
     })
 
-  exit_code, output, error = svntest.main.run_svn(1, 'add', file1,
+  exit_code, output, error = svntest.main.run_svn(1, 'add', file1, 
                                                   non_existent_path, file2)
 
   # Verify error
