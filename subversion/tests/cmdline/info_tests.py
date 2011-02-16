@@ -360,7 +360,7 @@ def info_multiple_wc_targets(sbox):
       "some targets don't exist\n"
   expected_err_re = re.compile(expected_err)
 
-  exit_code, output, error = svntest.main.run_svn(1, 'info', alpha,
+  exit_code, output, error = svntest.main.run_svn(1, 'info', alpha, 
                                                   non_existent_path, beta)
 
   # Verify error
@@ -387,7 +387,7 @@ def info_multiple_url_targets(sbox):
       "some targets don't exist\n"
   expected_err_re = re.compile(expected_err)
 
-  exit_code, output, error = svntest.main.run_svn(1, 'info', alpha,
+  exit_code, output, error = svntest.main.run_svn(1, 'info', alpha, 
                                                   non_existent_url, beta)
 
   # Verify error
