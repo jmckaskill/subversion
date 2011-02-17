@@ -733,7 +733,7 @@ def blame_non_existent_wc_target(sbox):
       "because some targets don't exist\n"
   expected_err_re = re.compile(expected_err)
 
-  exit_code, output, error = svntest.main.run_svn(1, 'blame',
+  exit_code, output, error = svntest.main.run_svn(1, 'blame', 
                                                   non_existent, iota)
 
   # Verify error
@@ -764,7 +764,7 @@ def blame_non_existent_url_target(sbox):
       "because some targets don't exist\n"
   expected_err_re = re.compile(expected_err)
 
-  exit_code, output, error = svntest.main.run_svn(1, 'blame',
+  exit_code, output, error = svntest.main.run_svn(1, 'blame', 
                                                   non_existent, iota_url)
 
   # Verify error
