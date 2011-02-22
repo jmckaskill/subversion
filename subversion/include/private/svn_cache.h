@@ -194,7 +194,7 @@ svn_cache__make_memcache_from_config(svn_memcache_t **memcache_p,
 
 /**
  * Creates a new membuffer cache object in @a *cache. It will contain
- * up to @a total_size bytes of data, using @a directory_size bytes
+ * up to @a total_size bytes of data, using @a directory_size bytes 
  * for index information and the remainder for serialized objects.
  *
  * Since each index entry is about 50 bytes long, 1 to 10 percent of
@@ -222,7 +222,7 @@ svn_cache__membuffer_cache_create(svn_membuffer_t **cache,
  * are strings.  Values will be serialized for the memcache using @a
  * serialize_func and deserialized using @a deserialize_func.  Because
  * the same memcache object may cache many different kinds of values
- * form multiple caches, @a prefix should be specified to differentiate
+ * form multiple caches, @a prefix should be specified to differentiate 
  * this cache from other caches.  @a *cache_p will be allocated in @a pool.
  *
  * If @a deserialize_func is NULL, then the data is returned as an
