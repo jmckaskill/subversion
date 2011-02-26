@@ -96,7 +96,7 @@
  * their hash key.
  */
 
-/* A 4-way associative cache seems to be the best compromise between
+/* A 4-way associative cache seems to be the best compromise between 
  * performance (worst-case lookups) and efficiency-loss due to collisions.
  *
  * This value may be changed to any positive integer.
@@ -126,10 +126,10 @@
 
 /* Invalid buffer offset reference value. Equivalent to APR_UINT32_T(-1)
  */
-#define NO_OFFSET APR_UINT64_MAX
+#define NO_OFFSET APR_UINT64_MAX 
 
 /* A single dictionary entry. Since they are allocated statically, these
- * entries can either be in use or in used state. An entry is unused, iff
+ * entries can either be in use or in used state. An entry is unused, iff 
  * the offset member is NO_OFFSET. In that case, it must not be linked in
  * the list of used entries.
  */
@@ -187,7 +187,7 @@ struct svn_membuffer_t
   apr_uint32_t group_count;
 
   /* Reference to the first (defined by the order content in the data
-   * buffer) dictionary entry used by any data item.
+   * buffer) dictionary entry used by any data item. 
    * NO_INDEX for an empty cache.
    */
   apr_uint32_t first;
@@ -199,7 +199,7 @@ struct svn_membuffer_t
   apr_uint32_t last;
 
   /* Reference to the first (defined by the order content in the data
-   * buffer) used dictionary entry behind the insertion position
+   * buffer) used dictionary entry behind the insertion position 
    * (current_data). If NO_INDEX, the data buffer is free starting at the
    * current_data offset.
    */
@@ -254,7 +254,7 @@ struct svn_membuffer_t
 #if APR_HAS_THREADS
   /* A lock for intra-process synchronization to the cache, or NULL if
    * the cache's creator doesn't feel the cache needs to be
-   * thread-safe.
+   * thread-safe. 
    */
   apr_thread_mutex_t *mutex;
 #endif
@@ -262,7 +262,7 @@ struct svn_membuffer_t
 
 /* Align integer VALUE to the next ITEM_ALIGNMENT boundary.
  */
-#define ALIGN_VALUE(value) ((value + ITEM_ALIGNMENT-1) & -ITEM_ALIGNMENT)
+#define ALIGN_VALUE(value) ((value + ITEM_ALIGNMENT-1) & -ITEM_ALIGNMENT) 
 
 /* Align POINTER value to the next ITEM_ALIGNMENT boundary.
  */
@@ -344,7 +344,7 @@ drop_entry(svn_membuffer_t *cache, entry_t *entry)
    */
   if (idx == cache->next)
     cache->next = entry->next;
-  else
+  else 
     if (entry->next == cache->next)
       {
         /* insertion window starts right behind the entry to remove
@@ -358,7 +358,7 @@ drop_entry(svn_membuffer_t *cache, entry_t *entry)
           {
             /* insertion may start right behind the previous entry */
             entry_t *previous = get_entry(cache, entry->previous);
-            cache->current_data = ALIGN_VALUE(  previous->offset
+            cache->current_data = ALIGN_VALUE(  previous->offset 
                                               + previous->size);
           }
       }
@@ -426,7 +426,7 @@ insert_entry(svn_membuffer_t *cache, entry_t *entry)
   else
     {
       /* insert either at the start of a non-empty list or
-       * somewhere in the middle
+       * somewhere in the middle 
        */
       entry->previous = next->previous;
       next->previous = idx;
@@ -467,7 +467,7 @@ get_group_index(svn_membuffer_t **cache,
   /* select the cache segment to use */
   *cache = &(*cache)[to_find[0] % CACHE_SEGMENTS];
 
-  /* Get the group that *must* contain the entry. Fold the hash value
+  /* Get the group that *must* contain the entry. Fold the hash value 
    * just to be sure (it should not be necessary for perfect hashes).
    */
   for (i = 0; i < sizeof(to_find) / sizeof(apr_uint32_t); ++i)
@@ -489,7 +489,7 @@ let_entry_age(svn_membuffer_t *cache, entry_t *entry)
 }
 
 /* Given the GROUP_INDEX that shall contain an entry with the hash key
- * TO_FIND, find that entry in the specified group.
+ * TO_FIND, find that entry in the specified group. 
  *
  * If FIND_EMPTY is not set, this function will return the one used entry
  * that actually matches the hash or NULL, if no such entry exists.
@@ -514,10 +514,10 @@ find_entry(svn_membuffer_t *cache,
    */
   group = &cache->directory[group_index][0];
 
-  /* try to find the matching entry
+  /* try to find the matching entry 
    */
   for (i = 0; i < GROUP_SIZE; ++i)
-    if (group[i].offset != NO_OFFSET &&
+    if (group[i].offset != NO_OFFSET && 
         !memcmp(to_find, group[i].key, KEY_SIZE))
       {
         /* found it
@@ -583,11 +583,11 @@ move_entry(svn_membuffer_t *cache, entry_t *entry)
    */
   let_entry_age(cache, entry);
 
-  /* Move the entry to the start of the empty / insertion section
+  /* Move the entry to the start of the empty / insertion section 
    * (if it isn't there already). Size-aligned moves are legal
    * since all offsets and block sizes share this same aligment.
    * Size-aligned moves tend to be faster than non-aligned ones
-   * because no "odd" bytes at the end need to special treatment.
+   * because no "odd" bytes at the end need to special treatment. 
    */
   if (entry->offset != cache->current_data)
     {
@@ -1038,7 +1038,7 @@ membuffer_cache_get_partial(svn_membuffer_t *cache,
  *
  * To accomodate items from multiple resources, the individual keys must be
  * unique over all sources. This is achived by simply adding a prefix key
- * that unambigously identifies the item's context (e.g. path to the
+ * that unambigously identifies the item's context (e.g. path to the 
  * respective repository). The prefix will be set upon construction of the
  * svn_cache__t instance.
  */
@@ -1072,7 +1072,7 @@ typedef struct svn_membuffer_cache_t
    */
   apr_ssize_t key_len;
 
-  /* a pool for temporary allocations during get() and set()
+  /* a pool for temporary allocations during get() and set() 
    */
   apr_pool_t *pool;
 
