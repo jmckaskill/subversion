@@ -308,12 +308,12 @@ wclock_owns_lock(svn_boolean_t *own_lock,
 
 
 
-/* Some helpful transaction helpers.
+/* Some helpful transaction helpers. 
 
    Instead of directly using SQLite transactions, these wrappers take care of
    simple cases by allowing consumers to worry about wrapping the wcroot and
    local_relpath, which are almost always used within the transaction.
-
+   
    This also means if we later want to implement some wc_db-specific txn
    handling, we have a convenient place to do it.
    */
@@ -5388,7 +5388,7 @@ cache_props_recursive(void *cb_baton,
 
   if (baton->cancel_func)
     SVN_ERR(baton->cancel_func(baton->cancel_baton));
-
+ 
   if (baton->immediates_only)
     {
       SVN_ERR(svn_sqlite__get_statement(&stmt, db,
