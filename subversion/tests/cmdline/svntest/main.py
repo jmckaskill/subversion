@@ -1355,7 +1355,7 @@ def _internal_run_tests(test_list, testnums, parallel, srcdir, progress_func):
 
   if not parallel:
     for i, testnum in enumerate(testnums):
-
+      
       if run_one_test(testnum, test_list) == 1:
           exit_code = 1
       # signal progress
@@ -1538,7 +1538,7 @@ def get_target_milestones_for_issues(issue_numbers):
   try:
     xmldoc = xml.dom.minidom.parse(issue_xml_f)
     issue_xml_f.close()
-
+  
     # Get the target milestone for each issue.
     issue_element = xmldoc.getElementsByTagName('issue')
     for i in issue_element:
