@@ -1566,7 +1566,7 @@ def forced_switch_failures(sbox):
   # expect those two paths to appear in the output of the final update.
   if svntest.main.is_ra_type_dav_serf():
     expected_output.remove('A/D/G/omega', 'A/D/G/psi')
-
+    
   expected_disk.remove('A/D/G/tau', 'A/D/G/rho', 'A/D/G/pi')
   expected_disk.add({
     'A/D/H/I'           : Item(),
