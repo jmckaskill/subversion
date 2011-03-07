@@ -17,7 +17,7 @@ value means that you are not using TeX math at all.</p><p>Preferred way for incl
 &lt;/inlineequation&gt;</pre><p>If you are using <a href="http://docbook.org/tdg/en/html/graphic.html"><tt class="sgmltag-element">graphic</tt></a> element, you can
 store TeX inside <a href="http://docbook.org/tdg/en/html/alt.html"><tt class="sgmltag-element">alt</tt></a> element:</p><pre class="programlisting">&lt;inlineequation&gt;
 &lt;alt role="tex"&gt;a^2+b^2=c^2&lt;/alt&gt;
-&lt;graphic fileref="a2b2c2.gif"/&gt;
+&lt;graphic fileref="a2b2c2.gif"/&gt;  
 &lt;/inlineequation&gt;</pre><p>If you want use this feature, you should process your FO with
 PassiveTeX, which only supports TeX math notation. When calling
 stylsheet, don't forget to specify also
