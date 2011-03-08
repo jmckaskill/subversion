@@ -3773,7 +3773,7 @@ def diff_abs_localpath_from_wc_folder(sbox):
   os.chdir(os.path.abspath(A_path))
   svntest.actions.run_and_verify_svn(None, None, [], 'diff',
                                      os.path.abspath(B_path))
-
+  
 ########################################################################
 #Run the tests
 
