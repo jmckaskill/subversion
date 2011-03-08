@@ -2174,7 +2174,7 @@ get_noderev_cache_key(const svn_fs_id_t *id, apr_pool_t *pool)
   return id_unparsed->data;
 }
 
-/* Look up the NODEREV_P for ID in FS' node revsion cache. If noderev
+/* Look up the NODEREV_P for ID in FS' node revsion cache. If noderev 
  * caching has been enabled and the data can be found, IS_CACHED will
  * be set to TRUE. The noderev will be allocated from POOL.
  *
@@ -3319,7 +3319,7 @@ get_window_key(struct rep_state *rs, apr_off_t offset, apr_pool_t *pool)
   const char *name_last;
 
   /* the rev file name containing the txdelta window.
-   * If this fails we are in serious trouble anyways.
+   * If this fails we are in serious trouble anyways. 
    * And if nobody else detects the problems, the file content checksum
    * comparison _will_ find them.
    */
@@ -3339,7 +3339,7 @@ get_window_key(struct rep_state *rs, apr_off_t offset, apr_pool_t *pool)
   /* We must differentiate between packed files (as of today, the number
    * is being followed by a dot) and non-packed files (followed by \0).
    * Otherwise, there might be overlaps in the numbering range if the
-   * repo is getting packed in the background.
+   * repo is getting packed in the background. 
    * => add the first non-digit char to the packed number. */
   if (last_part[1] != '\0')
     ++last_part;
@@ -3352,14 +3352,14 @@ get_window_key(struct rep_state *rs, apr_off_t offset, apr_pool_t *pool)
   return svn_fs_fs__combine_number_and_string(offset, name, pool);
 }
 
-/* Read the WINDOW_P for the rep state RS from the current FSFS session's
+/* Read the WINDOW_P for the rep state RS from the current FSFS session's 
  * cache. This will be a no-op and IS_CACHED will be set to FALSE if no
  * cache has been given. If a cache is available IS_CACHED will inform
  * the caller about the success of the lookup. Allocations (of the window
- * in particualar) will be made from POOL.
+ * in particualar) will be made from POOL. 
  *
- * If the information could be found, put RS and the position within the
- * rev file into the same state as if the data had just been read from it.
+ * If the information could be found, put RS and the position within the 
+ * rev file into the same state as if the data had just been read from it.  
  */
 static svn_error_t *
 get_cached_window(svn_txdelta_window_t **window_p,
@@ -3400,7 +3400,7 @@ get_cached_window(svn_txdelta_window_t **window_p,
 }
 
 /* Store the WINDOW read at OFFSET for the rep state RS in the current
- * FSFS session's cache. This will be a no-op if no cache has been given.
+ * FSFS session's cache. This will be a no-op if no cache has been given. 
  * Temporary allocations will be made from SCRATCH_POOL. */
 static svn_error_t *
 set_cached_window(svn_txdelta_window_t *window,
