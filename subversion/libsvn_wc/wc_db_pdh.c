@@ -87,7 +87,7 @@ get_old_version(int *version,
 
 /* A helper function to parse_local_abspath() which returns the on-disk KIND
    of LOCAL_ABSPATH, using DB and SCRATCH_POOL as needed.
-
+   
    This function may do strange things, but at long as it comes up with the
    Right Answer, we should be happy.  */
 static svn_error_t *
@@ -102,7 +102,7 @@ get_path_kind(svn_wc__db_t *db,
   /* This implements a *really* simple LRU cache, where "simple" is defined
      as "only one element".  In other words, we remember the most recently
      queried path, and nothing else.  This gives >80% cache hits.
-
+     
      Using malloc()/free() divorces us from the db->state_pool, and a set
      of possible memory leaks associated with using it.  */
 

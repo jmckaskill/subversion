@@ -1,6 +1,6 @@
 SUBVERSION'S COPY AND MOVE FUNCTIONALITY
 
-Please direct all comments and suggestions to
+Please direct all comments and suggestions to 
 C. Michael Pilato <cmpilato@collab.net>.
 
 --
@@ -11,7 +11,7 @@ We have four use cases for 'svn cp' now.
 
        This duplicates a path in the working copy, and schedules it
        for addition with history.  (This is partially implemented in
-       0.6 already.)
+       0.6 already.)  
 
     B. svn cp URL [-r rev]  wc_path
 
@@ -72,7 +72,7 @@ Second, we have a new command:  'svn switch URL [-r rev]'
 
 This command performs an update on your working copy, making it
 reflect a new URL.  This is how you "move" your working copy to a
-branch or tag.
+branch or tag. 
 
 Really, 'svn up' is just a special case of 'svn switch', where the URL
 is assumed to be the one you already have.
@@ -86,7 +86,7 @@ your working copy from a trunk to a branch, it discovers that 80% of
 your files are already correct, then it won't send them.  (However, if
 you ask to switch your working copy to a completely unrelated URL,
 then dir_delta probably *will* do something as extreme as removing and
-re-checking out a new working copy.)
+re-checking out a new working copy.)  
 
 Also -- if the user has local mods that conflict with the switch, one
 may very well get an 'obstructed update' error.  An update is an
