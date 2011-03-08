@@ -2502,7 +2502,7 @@ svn_wc__db_temp_below_work(svn_boolean_t *have_work,
 
 
 /* Gather revision status information about a working copy using DB.
- *
+ * 
  * Set *MIN_REVISION and *MAX_REVISION to the lowest and highest revision
  * numbers found within LOCAL_ABSPATH.
  * Only nodes with op_depth zero and presence 'normal' or 'incomplete'
