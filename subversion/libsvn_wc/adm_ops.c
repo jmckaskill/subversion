@@ -211,7 +211,7 @@ process_committed_leaf(svn_wc__db_t *db,
     }
 
   /* The new text base will be found in the pristine store by its checksum. */
-  SVN_ERR(svn_wc__wq_add_postcommit(db, local_abspath,
+  SVN_ERR(svn_wc__wq_add_postcommit(db, local_abspath, 
                                     new_revnum,
                                     new_changed_rev, new_changed_date,
                                     new_changed_author, checksum,
