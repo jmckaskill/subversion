@@ -4566,7 +4566,7 @@ make_editor(svn_revnum_t *target_revision,
                                NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
                                NULL, NULL, wc_ctx->db, anchor_abspath,
                                result_pool, scratch_pool));
-
+  
   /* ### For adds, REPOS_ROOT and REPOS_UUID would be NULL now. */
   if (status == svn_wc__db_status_added)
     SVN_ERR(svn_wc__db_scan_addition(NULL, NULL, NULL,
