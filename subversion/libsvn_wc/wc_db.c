@@ -5412,7 +5412,7 @@ cache_props_recursive(void *cb_baton,
 
   if (baton->cancel_func)
     SVN_ERR(baton->cancel_func(baton->cancel_baton));
-
+ 
   if (baton->immediates_only)
     {
       SVN_ERR(svn_sqlite__get_statement(&stmt, db,
@@ -6330,7 +6330,7 @@ db_op_set_rev_and_repos_relpath(svn_wc__db_wcroot_t *wcroot,
 
   VERIFY_USABLE_WCROOT(wcroot);
 
-  SVN_ERR(flush_entries(NULL /* db */, wcroot,
+  SVN_ERR(flush_entries(NULL /* db */, wcroot, 
                         svn_dirent_join(wcroot->abspath, local_relpath,
                                         scratch_pool),
                         scratch_pool));
