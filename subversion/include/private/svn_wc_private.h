@@ -792,7 +792,7 @@ svn_wc__read_entries_old(apr_hash_t **entries,
                          apr_pool_t *scratch_pool);
 
 /**
- * Find whether @a local_abspath is set with depth exclude using @a wc_ctx.
+ * Find whether @a local_abspath is set with depth exclude using @a wc_ctx. 
  */
 svn_error_t *
 svn_wc__node_depth_is_exclude(svn_boolean_t *exclude,
@@ -805,7 +805,7 @@ svn_wc__node_depth_is_exclude(svn_boolean_t *exclude,
  * If @ committed is TRUE, set @a *min_revision and @a *max_revision
  * to the lowest and highest comitted (i.e. "last changed") revision numbers,
  * respectively. Use @a scratch_pool for temporary allocations.
- *
+ * 
  * This function provides a subset of the functionality of
  * svn_wc_revision_status2() and is more efficient if the caller
  * doesn't need all information returned by svn_wc_revision_status2(). */
@@ -820,7 +820,7 @@ svn_wc__min_max_revisions(svn_revnum_t *min_revision,
 /* Indicate in @a *is_sparse_checkout whether any of the nodes within
  * @a local_abspath is sparse, using context @a wc_ctx.
  * Use @a scratch_pool for temporary allocations.
- *
+ * 
  * This function provides a subset of the functionality of
  * svn_wc_revision_status2() and is more efficient if the caller
  * doesn't need all information returned by svn_wc_revision_status2(). */
@@ -831,7 +831,7 @@ svn_wc__is_sparse_checkout(svn_boolean_t *is_sparse_checkout,
                            apr_pool_t *scratch_pool);
 
 /* Indicate in @a is_switched whether any node beneath @a local_abspath
- * is switched, using context @a wc_ctx.
+ * is switched, using context @a wc_ctx. 
  * Use @a scratch_pool for temporary allocations.
  *
  * If @a trail_url is non-NULL, use it to determine if @a local_abspath itself
@@ -853,7 +853,7 @@ svn_wc__has_switched_subtrees(svn_boolean_t *is_switched,
 /* Indicate in @a *is_modified whether the working copy has local
  * modifications, using context @a wc_ctx.
  * Use @a scratch_pool for temporary allocations.
- *
+ * 
  * This function provides a subset of the functionality of
  * svn_wc_revision_status2() and is more efficient if the caller
  * doesn't need all information returned by svn_wc_revision_status2(). */
