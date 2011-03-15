@@ -211,7 +211,7 @@ process_committed_leaf(svn_wc__db_t *db,
     }
 
   /* The new text base will be found in the pristine store by its checksum. */
-  SVN_ERR(svn_wc__wq_add_postcommit(db, local_abspath,
+  SVN_ERR(svn_wc__wq_add_postcommit(db, local_abspath, 
                                     new_revnum,
                                     new_changed_rev, new_changed_date,
                                     new_changed_author, checksum,
@@ -1088,7 +1088,7 @@ svn_wc_add4(svn_wc_context_t *wc_ctx,
 
   if (!copyfrom_url)  /* Case 2a: It's a simple add */
     {
-      SVN_ERR(add_from_disk(wc_ctx, local_abspath, kind,
+      SVN_ERR(add_from_disk(wc_ctx, local_abspath, kind, 
                             notify_func, notify_baton,
                             scratch_pool));
       if (kind == svn_node_dir && !db_row_exists)
@@ -1174,7 +1174,7 @@ svn_wc_add_from_disk(svn_wc_context_t *wc_ctx,
                              NULL, SVN_INVALID_REVNUM, scratch_pool));
   SVN_ERR(check_can_add_to_parent(NULL, NULL, wc_ctx, local_abspath,
                                   scratch_pool, scratch_pool));
-  SVN_ERR(add_from_disk(wc_ctx, local_abspath, kind,
+  SVN_ERR(add_from_disk(wc_ctx, local_abspath, kind, 
                         notify_func, notify_baton,
                         scratch_pool));
 
