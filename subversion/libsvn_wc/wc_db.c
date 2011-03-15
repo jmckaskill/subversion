@@ -5412,7 +5412,7 @@ cache_props_recursive(void *cb_baton,
 
   if (baton->cancel_func)
     SVN_ERR(baton->cancel_func(baton->cancel_baton));
-
+ 
   if (baton->immediates_only)
     {
       SVN_ERR(svn_sqlite__get_statement(&stmt, db,
@@ -6335,7 +6335,7 @@ bump_node(svn_wc__db_wcroot_t *wcroot,
 
   SVN_ERR(base_get_info(&status, &db_kind, &revision, &repos_relpath,
                         &repos_id, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-                        NULL, NULL,
+                        NULL, NULL, 
                         wcroot, local_relpath,
                         scratch_pool, scratch_pool));
 
@@ -6458,7 +6458,7 @@ bump_nodes(svn_wc__db_wcroot_t *wcroot,
             || status == svn_wc__db_status_excluded)
         {
           const char *child_abspath;
-          child_abspath = svn_dirent_join(wcroot->abspath, child_local_relpath,
+          child_abspath = svn_dirent_join(wcroot->abspath, child_local_relpath, 
                                           iterpool);
 
           /* Skip stuff we've identified as file externals.  (If we're
@@ -6544,7 +6544,7 @@ bump_revisions_post_commit(void *baton,
     }
 
   if (brb->new_repos_root_url != NULL)
-    SVN_ERR(create_repos_id(&new_repos_id, brb->new_repos_root_url,
+    SVN_ERR(create_repos_id(&new_repos_id, brb->new_repos_root_url, 
                             brb->new_repos_uuid,
                             wcroot->sdb, scratch_pool));
 
