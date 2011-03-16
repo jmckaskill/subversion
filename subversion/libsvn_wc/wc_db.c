@@ -5456,7 +5456,7 @@ cache_props_recursive(void *cb_baton,
 
   if (baton->cancel_func)
     SVN_ERR(baton->cancel_func(baton->cancel_baton));
-
+ 
   if (baton->immediates_only)
     {
       SVN_ERR(svn_sqlite__get_statement(&stmt, db,
@@ -6578,7 +6578,7 @@ bump_revisions_post_commit(void *baton,
     }
 
   if (brb->new_repos_root_url != NULL)
-    SVN_ERR(create_repos_id(&new_repos_id, brb->new_repos_root_url,
+    SVN_ERR(create_repos_id(&new_repos_id, brb->new_repos_root_url, 
                             brb->new_repos_uuid,
                             wcroot->sdb, scratch_pool));
 
