@@ -221,7 +221,7 @@ svn_diff__lcs(svn_diff__position_t *position_list1, /* pointer to tail (ring) */
   if (position_list1 == NULL || position_list2 == NULL)
     {
       if (suffix_lines)
-        lcs = prepend_lcs(lcs, suffix_lines,
+        lcs = prepend_lcs(lcs, suffix_lines, 
                           lcs->position[0]->offset - suffix_lines,
                           lcs->position[1]->offset - suffix_lines,
                           pool);
@@ -291,7 +291,7 @@ svn_diff__lcs(svn_diff__position_t *position_list1, /* pointer to tail (ring) */
                             pool);
   else
     lcs->next = fp[d].lcs;
-
+  
   lcs = svn_diff__lcs_reverse(lcs);
 
   position_list1->next = sentinel_position[idx].next;
