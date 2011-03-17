@@ -327,7 +327,7 @@ report_revisions_and_depths(svn_wc__db_t *db,
                                 external_baton, dir_depth, iterpool));
 
   /* Looping over current directory's BASE children: */
-  for (hi = apr_hash_first(scratch_pool, base_children);
+  for (hi = apr_hash_first(scratch_pool, base_children); 
        hi != NULL;
        hi = apr_hash_next(hi))
     {
