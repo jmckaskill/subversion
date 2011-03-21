@@ -1508,7 +1508,7 @@ svn_wc__node_depth_is_exclude(svn_boolean_t *exclude,
 {
   svn_wc__db_status_t status;
   svn_error_t *err;
-
+  
   *exclude = FALSE;
 
   err = svn_wc__db_read_info(&status, NULL, NULL, NULL, NULL, NULL, NULL,
