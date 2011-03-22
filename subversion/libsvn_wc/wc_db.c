@@ -1944,7 +1944,7 @@ svn_wc__db_base_get_children_info(apr_hash_t **nodes,
 
   *nodes = apr_hash_make(result_pool);
 
-  SVN_ERR(svn_sqlite__get_statement(&stmt, wcroot->sdb,
+  SVN_ERR(svn_sqlite__get_statement(&stmt, wcroot->sdb, 
                                     STMT_SELECT_BASE_CHILDREN_INFO));
   SVN_ERR(svn_sqlite__bindf(stmt, "is", wcroot->wc_id, local_relpath));
 
@@ -1982,7 +1982,7 @@ svn_wc__db_base_get_children_info(apr_hash_t **nodes,
         return svn_error_return(
                  svn_error_compose_create(err,
                                           svn_sqlite__reset(stmt)));
-
+                           
 
       apr_hash_set(*nodes, name, APR_HASH_KEY_STRING, info);
 
@@ -4953,7 +4953,7 @@ read_children_info(void *baton,
   SVN_ERR(svn_sqlite__bindf(stmt, "is", wcroot->wc_id, dir_relpath));
   SVN_ERR(svn_sqlite__step(&have_row, stmt));
 
-
+  
   while (have_row)
     {
       /* CHILD points to memory that holds a svn_wc__db_info_t followed
@@ -5487,7 +5487,7 @@ cache_props_recursive(void *cb_baton,
 
   if (baton->cancel_func)
     SVN_ERR(baton->cancel_func(baton->cancel_baton));
-
+ 
   if (baton->immediates_only)
     {
       SVN_ERR(svn_sqlite__get_statement(&stmt, wcroot->sdb,
@@ -6620,7 +6620,7 @@ bump_revisions_post_commit(void *baton,
     }
 
   if (brb->new_repos_root_url != NULL)
-    SVN_ERR(create_repos_id(&new_repos_id, brb->new_repos_root_url,
+    SVN_ERR(create_repos_id(&new_repos_id, brb->new_repos_root_url, 
                             brb->new_repos_uuid,
                             wcroot->sdb, scratch_pool));
 
@@ -9895,7 +9895,7 @@ svn_wc__db_base_get_lock_tokens_recursive(apr_hash_t **lock_tokens,
                                           apr_pool_t *scratch_pool)
 {
   svn_wc__db_wcroot_t *wcroot;
-  const char *local_relpath;
+  const char *local_relpath; 
   const char *like_arg;
   svn_sqlite__stmt_t *stmt;
   svn_boolean_t have_row;
