@@ -747,7 +747,7 @@ harvest_committables(apr_hash_t *committables,
           const char *this_abspath = APR_ARRAY_IDX(children, i, const char *);
           const char *name = svn_dirent_basename(this_abspath, NULL);
           const char *this_repos_relpath;
-
+          
           svn_node_kind_t this_kind;
 
           svn_pool_clear(iterpool);
