@@ -558,7 +558,7 @@ harvest_committables(svn_wc_context_t *wc_ctx,
     if (copy_mode && !(state_flags & SVN_CLIENT_COMMIT_ITEM_DELETE))
       {
         svn_revnum_t dir_rev;
-
+  
         if (!copy_mode_root)
           SVN_ERR(svn_wc__node_get_base_rev(&dir_rev, wc_ctx,
                                             svn_dirent_dirname(local_abspath,
@@ -955,7 +955,7 @@ svn_client__harvest_committables(apr_hash_t **committables,
                                                iterpool));
 
       SVN_ERR(harvest_committables(ctx->wc_ctx, target_abspath,
-                                   *committables, *lock_tokens,
+                                   *committables, *lock_tokens, 
                                    repos_root_url, NULL,
                                    FALSE, /* COPY_MODE */
                                    FALSE, /* COPY_MODE_ROOT */
