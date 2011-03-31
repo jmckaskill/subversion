@@ -954,7 +954,7 @@ svn_client__harvest_committables(apr_hash_t **committables,
                                                iterpool));
 
       SVN_ERR(harvest_committables(ctx->wc_ctx, target_abspath,
-                                   *committables, *lock_tokens,
+                                   *committables, *lock_tokens, 
                                    repos_root_url, NULL,
                                    FALSE, /* COPY_MODE */
                                    FALSE, /* COPY_MODE_ROOT */
