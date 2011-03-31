@@ -2699,7 +2699,7 @@ def ls_multiple_and_non_existent_targets(sbox):
 
   sbox.build(read_only = True)
   wc_dir = sbox.wc_dir
-
+  
   def non_existent_wc_target():
     "non-existent wc target"
     non_existent_path = os.path.join(wc_dir, 'non-existent')
@@ -2712,7 +2712,7 @@ def ls_multiple_and_non_existent_targets(sbox):
     "non-existent url target"
     non_existent_url = sbox.repo_url + '/non-existent'
     expected_err = ".*W160013.*"
-
+    
     svntest.actions.run_and_verify_svn2(None, None, expected_err,
                                         1, 'ls', non_existent_url)
   def multiple_wc_targets():
@@ -2730,7 +2730,7 @@ def ls_multiple_and_non_existent_targets(sbox):
     expected_err = ".*W155010.*\n.*\n.*E200009.*"
     expected_err_re = re.compile(expected_err)
 
-    exit_code, output, error = svntest.main.run_svn(1, 'ls', alpha,
+    exit_code, output, error = svntest.main.run_svn(1, 'ls', alpha, 
                                                     non_existent_path, beta)
 
     # Verify error
@@ -2753,7 +2753,7 @@ def ls_multiple_and_non_existent_targets(sbox):
     expected_err = ".*W160013.*\n.*\n.*E200009.*"
     expected_err_re = re.compile(expected_err)
 
-    exit_code, output, error = svntest.main.run_svn(1, 'ls', alpha,
+    exit_code, output, error = svntest.main.run_svn(1, 'ls', alpha, 
                                                     non_existent_url, beta)
 
     # Verify error
@@ -2789,7 +2789,7 @@ def add_multiple_targets(sbox):
       'file2' : Item(verb='Adding'),
     })
 
-  exit_code, output, error = svntest.main.run_svn(1, 'add', file1,
+  exit_code, output, error = svntest.main.run_svn(1, 'add', file1, 
                                                   non_existent_path, file2)
 
   # Verify error
@@ -2825,7 +2825,7 @@ def info_multiple_targets(sbox):
     expected_err = ".*W155010.*\n\n.*\n.*E200009.*"
     expected_err_re = re.compile(expected_err)
 
-    exit_code, output, error = svntest.main.run_svn(1, 'info', alpha,
+    exit_code, output, error = svntest.main.run_svn(1, 'info', alpha, 
                                                     non_existent_path, beta)
 
     # Verify error
@@ -2848,7 +2848,7 @@ def info_multiple_targets(sbox):
     expected_err = ".*W170000.*\n\n.*\n.*E200009.*"
     expected_err_re = re.compile(expected_err)
 
-    exit_code, output, error = svntest.main.run_svn(1, 'info', alpha,
+    exit_code, output, error = svntest.main.run_svn(1, 'info', alpha, 
                                                     non_existent_url, beta)
 
     # Verify error
@@ -2866,7 +2866,7 @@ def blame_multiple_targets(sbox):
 
   def multiple_wc_targets():
     "multiple wc targets"
-
+    
     # First, make a new revision of iota.
     iota = os.path.join(sbox.wc_dir, 'iota')
     non_existent = os.path.join(sbox.wc_dir, 'non-existent')
@@ -2882,7 +2882,7 @@ def blame_multiple_targets(sbox):
     expected_err = ".*W155010.*\n.*\n.*E200009.*"
     expected_err_re = re.compile(expected_err)
 
-    exit_code, output, error = svntest.main.run_svn(1, 'blame',
+    exit_code, output, error = svntest.main.run_svn(1, 'blame', 
                                                     non_existent, iota)
 
     # Verify error
@@ -2909,7 +2909,7 @@ def blame_multiple_targets(sbox):
     expected_err = ".*(W160017|W160013).*\n.*\n.*E200009.*"
     expected_err_re = re.compile(expected_err)
 
-    exit_code, output, error = svntest.main.run_svn(1, 'blame',
+    exit_code, output, error = svntest.main.run_svn(1, 'blame', 
                                                     non_existent, iota_url)
 
     # Verify error
@@ -2920,7 +2920,7 @@ def blame_multiple_targets(sbox):
   # Test one by one
   multiple_wc_targets()
   multiple_url_targets()
-
+  
 ########################################################################
 # Run the tests
 
