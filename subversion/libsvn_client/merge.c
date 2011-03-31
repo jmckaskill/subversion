@@ -5581,7 +5581,7 @@ get_mergeinfo_walk_cb(const char *local_abspath,
                                SVN_PROP_MERGEINFO, scratch_pool, scratch_pool));
       if (propval)
         has_mergeinfo = TRUE;
-
+      
       /* Make sure what the WC thinks is present on disk really is. */
       SVN_ERR(record_missing_subtree_roots(local_abspath, kind,
                                            wb->subtree_dirents,
