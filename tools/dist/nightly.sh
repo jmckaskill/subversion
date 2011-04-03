@@ -49,7 +49,7 @@ echo "Will place results in: $target"
 
 # Get the latest versions of the rolling scripts
 for i in construct-rolling-environment.sh roll.sh dist.sh gen_nightly_ann.py
-do
+do 
   $svn export $repo/trunk/tools/dist/$i $dir/$i
 done
 
