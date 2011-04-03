@@ -2222,7 +2222,6 @@ set_cached_node_revision_body(node_revision_t *noderev_p,
   return SVN_NO_ERROR;
 }
 
-
 /* Get the node-revision for the node ID in FS.
    Set *NODEREV_P to the new node-revision structure, allocated in POOL.
    See svn_fs_fs__get_node_revision, which wraps this and adds another
@@ -3524,43 +3523,12 @@ fulltext_size_is_cachable(fs_fs_data_t *ffd, svn_filesize_t size)
       && svn_cache__is_cachable(ffd->fulltext_cache, (apr_size_t)size);
 }
 
-/* Store fulltext in RB in the fulltext cache used by said RB. Items that
- * are too large to be cached won't. Also, this will be a no-op if no
- * fulltext cache has been enabled in RB.
- */
-static svn_error_t *
-cache_rep(struct rep_read_baton *rb)
-{
-  fs_fs_data_t *ffd = rb->fs->fsap_data;
-  if (rb->current_fulltext &&
-      fulltext_size_is_cachable(ffd, rb->current_fulltext->len))
-    {
-      SVN_ERR(svn_cache__set(ffd->fulltext_cache, rb->fulltext_cache_key,
-                             rb->current_fulltext, rb->pool));
-    }
-
-  /* prevent duplicate caching (this is only to aid performance) */
-  rb->current_fulltext = NULL;
-
-  return SVN_NO_ERROR;
-}
-
 /* Close method used on streams returned by read_representation().
  */
 static svn_error_t *
 rep_read_contents_close(void *baton)
 {
   struct rep_read_baton *rb = baton;
-
-  /* If the item size was not known in advance or is empty,
-   * we didn't attempt to add it to the fulltext cache, yet.
-   * Now, the data should be in.
-   *
-   * If the fulltext has already been cached, calling this
-   * function will be a no-op as it reset the current_fulltext
-   * member during the first call.
-   */
-  cache_rep(rb);
 
   svn_pool_destroy(rb->pool);
   svn_pool_destroy(rb->filehandle_pool);
@@ -3753,11 +3721,13 @@ rep_read_contents(void *baton,
         }
     }
 
-  /* If we read the whole content, cache it.
-   * Otherwise, the closing function the read stream will take care of that.
-   * Duplicate caching attemps will be handled / prevented by cache_rep. */
-  if (rb->off == rb->len && rb->len)
-    cache_rep(rb);
+  if (rb->off == rb->len && rb->current_fulltext)
+    {
+      fs_fs_data_t *ffd = rb->fs->fsap_data;
+      SVN_ERR(svn_cache__set(ffd->fulltext_cache, rb->fulltext_cache_key,
+                             rb->current_fulltext, rb->pool));
+      rb->current_fulltext = NULL;
+    }
 
   return SVN_NO_ERROR;
 }
