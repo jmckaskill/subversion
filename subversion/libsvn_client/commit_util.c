@@ -523,7 +523,7 @@ harvest_committables(svn_wc_context_t *wc_ctx,
           /* While we still have some pre-WC-NG like processing we have
              to check if the child has the same revision as the parent.
 
-             ### Should we also check for switched?
+             ### Should we also check for switched? 
 
              ### This could be handled inside WC-NG, by recording a new
              ### op-depth for this condition.
@@ -984,7 +984,7 @@ svn_client__harvest_committables(apr_hash_t **committables,
                                                iterpool));
 
       SVN_ERR(harvest_committables(ctx->wc_ctx, target_abspath,
-                                   *committables, *lock_tokens,
+                                   *committables, *lock_tokens, 
                                    repos_root_url, NULL,
                                    FALSE, /* COPY_MODE */
                                    FALSE, /* COPY_MODE_ROOT */
