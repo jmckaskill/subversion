@@ -11,7 +11,7 @@
           arbitrary directory trees, the way a traditional patch describes the
           difference between two files.  For example, the delta between
           directories A and B could be applied to A, to produce B.</para>
-
+        
         <para>Tree deltas can also carry ancestry information, indicating how
           the files in one tree are related to files in the other tree.  And
           deltas can describe changes to file meta-information, like permission
@@ -91,7 +91,7 @@
 
   <sect1 id="deltas.prop">
     <title>Property Deltas</title>
-
+    
     <para>A property delta describes changes to a property list, of the sort
       associated with files, directories, and directory entries, and revision
       numbers (see <xref linkend="model.props"/>).  A property delta can record
@@ -268,7 +268,7 @@
             describing how <replaceable>f</replaceable>'s properties differ
             from that ancestor; it may be omitted, indicating that the
             properties are unchanged.</para>
-
+          
           <para><replaceable>Text-delta</replaceable> is a text delta
             describing how to construct <replaceable>f</replaceable> from that
             ancestor; it may also be omitted, indicating that
@@ -295,12 +295,12 @@
             <replaceable>Ancestor</replaceable> indicates which directory in
             the source tree <replaceable>sub</replaceable> is derived from, if
             any.</para>
-
+            
           <para><replaceable>Prop-delta</replaceable> is a property delta
             describing how <replaceable>sub</replaceable>'sproperties differ
             from that ancestor; it may be omitted, indicating thatthe
             properties are unchanged.</para>
-
+            
           <para><replaceable>Tree-delta</replaceable>
             describes how to construct <replaceable>sub</replaceable> from
             that ancestor; it may be omitted, indicating that the directory is
@@ -308,7 +308,7 @@
             should be interpreted with a new
             <replaceable>target-dir</replaceable> of
             <filename><replaceable>target-dir</replaceable>/<replaceable>name</replaceable></filename>.</para>
-
+            
           <para>Since <replaceable>tree-delta</replaceable> is itself a
             complete tree delta structure, tree deltas are themselves trees,
             whose structure is a subgraph of the target tree.</para></listitem>
@@ -550,9 +550,9 @@
       <listitem><para>the new directory <filename>/dir1/dir4</filename> is
           derived from the old <filename>/dir1/dir2</filename>, except that its
           entry for <filename>file3</filename> is now gone.</para></listitem>
-
+    
     </itemizedlist>
-
+    
     <para>Some more possible maneuvers, left as exercises for the
       reader:</para>
 
@@ -803,7 +803,7 @@
           <literal>editor-&gt;close_dir(root_baton);</literal></para></listitem>
 
     </orderedlist>
-
+    
     <para>Of course, at any point above, the repository may reject an edit.  If
       this is the case, the client aborts the transmission and the repository
       hasn't changed a bit.  (Thank goodness for transactions!)</para>
