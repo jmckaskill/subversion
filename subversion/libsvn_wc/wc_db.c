@@ -966,8 +966,8 @@ insert_working_node(void *baton,
          a child of the parent node was not copied. */
       SVN_ERR(svn_sqlite__get_statement(&stmt, wcroot->sdb,
                                         STMT_INSERT_NODE));
-
-      SVN_ERR(svn_sqlite__bindf(stmt, "isisisrtnt",
+          
+      SVN_ERR(svn_sqlite__bindf(stmt, "isisisrtnt", 
                                 wcroot->wc_id, local_relpath,
                                 piwb->not_present_op_depth, parent_relpath,
                                 piwb->original_repos_id,
@@ -1984,7 +1984,7 @@ svn_wc__db_base_get_children_info(apr_hash_t **nodes,
 
   *nodes = apr_hash_make(result_pool);
 
-  SVN_ERR(svn_sqlite__get_statement(&stmt, wcroot->sdb,
+  SVN_ERR(svn_sqlite__get_statement(&stmt, wcroot->sdb, 
                                     STMT_SELECT_BASE_CHILDREN_INFO));
   SVN_ERR(svn_sqlite__bindf(stmt, "is", wcroot->wc_id, local_relpath));
 
@@ -2022,7 +2022,7 @@ svn_wc__db_base_get_children_info(apr_hash_t **nodes,
         return svn_error_return(
                  svn_error_compose_create(err,
                                           svn_sqlite__reset(stmt)));
-
+                           
 
       apr_hash_set(*nodes, name, APR_HASH_KEY_STRING, info);
 
@@ -2552,7 +2552,7 @@ db_op_copy(svn_wc__db_wcroot_t *src_wcroot,
 
           SVN_ERR(svn_sqlite__get_statement(&stmt, dst_wcroot->sdb,
                                             STMT_INSERT_NODE));
-          SVN_ERR(svn_sqlite__bindf(stmt, "isisisrtnt",
+          SVN_ERR(svn_sqlite__bindf(stmt, "isisisrtnt", 
                                     src_wcroot->wc_id, dst_relpath,
                                     dst_np_op_depth, dst_parent_relpath,
                                     copyfrom_id, copyfrom_relpath,
@@ -5251,7 +5251,7 @@ read_children_info(void *baton,
   SVN_ERR(svn_sqlite__bindf(stmt, "is", wcroot->wc_id, dir_relpath));
   SVN_ERR(svn_sqlite__step(&have_row, stmt));
 
-
+  
   while (have_row)
     {
       /* CHILD points to memory that holds a svn_wc__db_info_t followed
@@ -5844,7 +5844,7 @@ cache_props_recursive(void *cb_baton,
 
   if (baton->cancel_func)
     SVN_ERR(baton->cancel_func(baton->cancel_baton));
-
+ 
   if (baton->immediates_only)
     {
       SVN_ERR(svn_sqlite__get_statement(&stmt, wcroot->sdb,
@@ -6239,7 +6239,7 @@ check_replace_txn(void *baton,
           svn_wc__db_status_t base_status;
 
           base_status = svn_sqlite__column_token(stmt, 3, presence_map);
-
+                                           
           *crb->base_replace = (base_status != svn_wc__db_status_not_present);
         }
     }
@@ -6252,17 +6252,17 @@ check_replace_txn(void *baton,
   if (replaced_status != svn_wc__db_status_base_deleted)
     {
       apr_int64_t parent_op_depth;
-
+    
       /* Check the current op-depth of the parent to see if we are a replacement
          root */
       SVN_ERR(svn_sqlite__bindf(stmt, "is", wcroot->wc_id,
                                 svn_relpath_dirname(local_relpath,
                                                     scratch_pool)));
-
+    
       SVN_ERR(svn_sqlite__step_row(stmt)); /* Parent must exist as 'normal' */
-
+    
       parent_op_depth = svn_sqlite__column_int64(stmt, 0);
-
+    
       if (parent_op_depth >= replaced_op_depth)
         {
           /* Did we replace inside our directory? */
@@ -6271,14 +6271,14 @@ check_replace_txn(void *baton,
           SVN_ERR(svn_sqlite__reset(stmt));
           return SVN_NO_ERROR;
         }
-
+    
       SVN_ERR(svn_sqlite__step(&have_row, stmt));
-
+    
       if (have_row)
         parent_op_depth = svn_sqlite__column_int64(stmt, 0);
-
+    
       SVN_ERR(svn_sqlite__reset(stmt));
-
+    
       if (!have_row)
         *crb->is_replace_root = TRUE; /* Parent is no replacement */
       else if (parent_op_depth < replaced_op_depth)
@@ -7205,7 +7205,7 @@ bump_revisions_post_commit(void *baton,
     }
 
   if (brb->new_repos_root_url != NULL)
-    SVN_ERR(create_repos_id(&new_repos_id, brb->new_repos_root_url,
+    SVN_ERR(create_repos_id(&new_repos_id, brb->new_repos_root_url, 
                             brb->new_repos_uuid,
                             wcroot->sdb, scratch_pool));
 
@@ -10520,7 +10520,7 @@ svn_wc__db_base_get_lock_tokens_recursive(apr_hash_t **lock_tokens,
                                           apr_pool_t *scratch_pool)
 {
   svn_wc__db_wcroot_t *wcroot;
-  const char *local_relpath;
+  const char *local_relpath; 
   const char *like_arg;
   svn_sqlite__stmt_t *stmt;
   svn_boolean_t have_row;
