@@ -30,7 +30,7 @@ directory.
 To fetch and build trunk, simply don't pass anything.
 Pass the branch you want to build in BRANCH, e.g.
 	$ make BRANCH="1.5.x"
-You can also pass a tag to build:
+You can also pass a tag to build: 
 	$ make TAG="1.6.6"
 And you can specify a working copy to use, in case you need more
 than one working copy of the same branch:
