@@ -1591,7 +1591,7 @@ def forced_switch_failures(sbox):
   # expect those two paths to appear in the output of the final update.
   if svntest.main.is_ra_type_dav_serf():
     expected_output.remove('A/D/G/omega', 'A/D/G/psi')
-
+    
   expected_disk.remove('A/D/G/tau', 'A/D/G/rho', 'A/D/G/pi')
   expected_disk.add({
     'A/D/H/I'           : Item(),
@@ -3173,7 +3173,7 @@ def relocate_with_relative_externals(sbox):
   svntest.actions.run_and_verify_svn(None, None, [], 'switch', '--relocate',
                                      '--ignore-ancestry',
                                      repo_url, other_repo_url, wc_dir)
-
+  
   # Check the URLs of the externals -- were they updated to point to the
   # .other repository URL?
   svntest.actions.run_and_verify_info([{ 'URL' : '.*.other/A/D/G$' }],
