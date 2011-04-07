@@ -1155,7 +1155,7 @@ typedef enum svn_wc_notify_action_t
   svn_wc_notify_commit_copied,
 
   /** Committing an overwriting (replace) copy (path is the target of
-   * the copy, not the source).
+   * the copy, not the source). 
    * @since New in 1.7. */
   svn_wc_notify_commit_copied_replaced,
 
