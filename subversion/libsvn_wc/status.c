@@ -703,9 +703,9 @@ assemble_unversioned(svn_wc_status3_t **status,
   err = svn_wc__db_op_read_tree_conflict(&tree_conflict,
                                          db, local_abspath,
                                          scratch_pool, scratch_pool);
-
-  if (path_kind == svn_node_dir &&
-      err &&
+  
+  if (path_kind == svn_node_dir && 
+      err && 
       err->apr_err == SVN_ERR_WC_UPGRADE_REQUIRED)
     svn_error_clear(err);
   else
