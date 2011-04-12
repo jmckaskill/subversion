@@ -854,7 +854,7 @@ class WinGeneratorBase(GeneratorBase):
       fakedefines.extend(["_DEBUG","SVN_DEBUG"])
     elif cfg == 'Release':
       fakedefines.append("NDEBUG")
-
+      
     if self.static_apr:
       fakedefines.extend(["APR_DECLARE_STATIC", "APU_DECLARE_STATIC"])
 
@@ -1494,11 +1494,11 @@ class WinGeneratorBase(GeneratorBase):
     vermatch = re.search(r'^\s*#define\s+APR_MAJOR_VERSION\s+(\d+)', txt, re.M)
 
     major_ver = int(vermatch.group(1))
-
+    
     suffix = ''
     if major_ver > 0:
         suffix = '-%d' % major_ver
-
+    
     if self.static_apr:
       self.apr_lib = 'apr%s.lib' % suffix
     else:
