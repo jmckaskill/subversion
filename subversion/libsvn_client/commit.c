@@ -1063,7 +1063,7 @@ determine_lock_targets(apr_array_header_t **lock_targets,
       if (! wc_targets)
         {
           wc_targets = apr_array_make(scratch_pool, 4, sizeof(const char *));
-          apr_hash_set(wc_items, apr_pstrdup(scratch_pool, wcroot_abspath),
+          apr_hash_set(wc_items, apr_pstrdup(scratch_pool, wcroot_abspath), 
                        APR_HASH_KEY_STRING, wc_targets);
         }
 
@@ -1098,7 +1098,7 @@ determine_lock_targets(apr_array_header_t **lock_targets,
             {
               /* The old code did an ancestor check; lock the parent
                  just to be sure */
-              APR_ARRAY_PUSH(*lock_targets, const char *)
+              APR_ARRAY_PUSH(*lock_targets, const char *) 
                       = svn_dirent_dirname(target_abspath, result_pool);
             }
         }
