@@ -1568,7 +1568,7 @@ merge_file_added(const char *local_dir_abspath,
        file), and we know that internally libsvn_wc queries are faster for
        directories (this is an implementation detail).  Therefore, query for
        the wcroot of the containing directory of MINE_ABSPATH.
-
+       
        (We rely on the implementation detail only for performance, not for
        correctness; under any implementation it would be valid to query for
        the parent's wcroot.)
@@ -5660,12 +5660,12 @@ pre_merge_status_cb(void *baton,
            hi = apr_hash_next(hi))
         {
           const char *missing_root_path = svn__apr_hash_index_key(hi);
-
+          
           if (svn_dirent_is_ancestor(missing_root_path,
                                      dup_abspath))
             {
               new_missing_root = FALSE;
-              break;
+              break;          
             }
         }
 
@@ -5760,7 +5760,7 @@ get_mergeinfo_paths(apr_array_header_t *children_with_mergeinfo,
                               merge_cmd_baton->target_abspath, &working_revision,
                               &working_revision, NULL, depth, NULL,
                               merge_cmd_baton->ctx, scratch_pool));
-
+  
   if (subtrees_with_mergeinfo)
     {
       apr_hash_index_t *hi;
@@ -5880,7 +5880,7 @@ get_mergeinfo_paths(apr_array_header_t *children_with_mergeinfo,
              }
         }
     }
-
+  
   if (apr_hash_count(shallow_subtrees))
     {
       apr_hash_index_t *hi;
@@ -5982,7 +5982,7 @@ get_mergeinfo_paths(apr_array_header_t *children_with_mergeinfo,
 
   /* Case 8: Path is an immediate *directory* child of
      MERGE_CMD_BATON->TARGET_ABSPATH and DEPTH is svn_depth_immediates.
-
+     
      Case 9: Path is an immediate *file* child of
      MERGE_CMD_BATON->TARGET_ABSPATH and DEPTH is svn_depth_files. */
   if (depth == svn_depth_immediates || depth == svn_depth_files)
@@ -5993,7 +5993,7 @@ get_mergeinfo_paths(apr_array_header_t *children_with_mergeinfo,
       SVN_ERR(svn_wc__node_get_children_of_working_node(
         &immediate_children, merge_cmd_baton->ctx->wc_ctx,
         merge_cmd_baton->target_abspath, FALSE, scratch_pool, scratch_pool));
-
+      
       if (!iterpool)
         iterpool = svn_pool_create(scratch_pool);
 
