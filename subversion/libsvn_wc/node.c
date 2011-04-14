@@ -1482,7 +1482,7 @@ svn_wc__node_depth_is_exclude(svn_boolean_t *exclude,
 {
   svn_wc__db_status_t status;
   svn_error_t *err;
-
+  
   *exclude = FALSE;
 
   err = svn_wc__db_read_info(&status, NULL, NULL, NULL, NULL, NULL, NULL,
@@ -1607,7 +1607,7 @@ svn_wc__node_get_origin(svn_boolean_t *is_copy,
     if (scan_working)
       {
         const char *op_root_abspath;
-
+      
         SVN_ERR(svn_wc__db_scan_addition(&status, &op_root_abspath, NULL,
                                          NULL, NULL, &original_repos_relpath,
                                          repos_root_url,
