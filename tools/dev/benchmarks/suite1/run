@@ -46,7 +46,7 @@ batch(){
   "$benchmark" run ${pre}1.6 $levels $spread $N
   use trunk
   "$benchmark" run ${pre}trunk $levels $spread $N
-  echo
+  echo 
   echo "Results for dir levels: $levels  spread: $spread"
   "$benchmark" compare ${pre}1.6 ${pre}trunk
 }
@@ -73,7 +73,7 @@ cs=100
 {
 started="$(date)"
 echo "Started at $started"
-echo
+echo 
 
 batch $al $as $N
 batch $bl $bs $N
