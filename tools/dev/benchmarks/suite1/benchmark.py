@@ -95,7 +95,7 @@ class Timings:
   def toc(self):
     if self.current_name and self.tic_at:
       toc_at = datetime.now()
-      self.submit_timing(self.current_name,
+      self.submit_timing(self.current_name, 
                          timedelta_to_seconds(toc_at - self.tic_at))
     self.current_name = None
     self.tic_at = None
@@ -235,7 +235,7 @@ def svn(*args):
   cmd.extend(args)
   if VERBOSE:
     print 'svn cmd: ' + ' '.join(cmd)
-
+ 
   stdin = None
   if stdin:
     stdin_arg = PIPE
@@ -328,7 +328,7 @@ def _del(path):
   svn('delete', path)
 
 _mod_funcs = (_mod, _add, _propmod, _propadd, )#_copy,) # _move, _del)
-
+  
 def modify_tree(in_dir, fraction):
   child_names = os.listdir(in_dir)
   for child_name in child_names:
@@ -343,7 +343,7 @@ def modify_tree(in_dir, fraction):
     path = j(in_dir, child_name)
     if os.path.isdir(path):
       modify_tree(path, fraction)
-
+  
 def propadd_tree(in_dir, fraction):
   for child_name in os.listdir(in_dir):
     if child_name[0] == '.': continue
@@ -496,7 +496,7 @@ if __name__ == '__main__':
     if len(sys.argv) < 4:
       usage()
       exit(1)
-
+    
     p1,p2 = sys.argv[2:4]
 
     t1 = read_from_file(p1)
@@ -512,7 +512,7 @@ if __name__ == '__main__':
     if len(sys.argv) < 5:
       usage()
       exit(1)
-
+    
     dest = sys.argv[-1]
     paths = sys.argv[2:-1]
 
@@ -541,7 +541,7 @@ if __name__ == '__main__':
       usage()
       raise
 
-
+      
     print '\n\nHi, going to run a Subversion benchmark series of %d runs...' % N
 
     if os.path.isfile(timings_path):
@@ -560,7 +560,7 @@ if __name__ == '__main__':
     if len(sys.argv) < 2:
       usage()
       exit(1)
-
+      
     for timings_path in sys.argv[2:]:
       timings = read_from_file(timings_path)
       print '---\n%s' % timings_path
