@@ -448,7 +448,7 @@ load_revisions(svn_ra_session_t *session,
   apr_file_open_stdin(&stdin_file, pool);
   stdin_stream = svn_stream_from_aprfile2(stdin_file, FALSE, pool);
 
-  SVN_ERR(load_dumpstream(stdin_stream, session, aux_session,
+  SVN_ERR(load_dumpstream(stdin_stream, session, aux_session, 
                           check_cancel, NULL, pool));
 
   SVN_ERR(svn_stream_close(stdin_stream));
@@ -537,7 +537,7 @@ load_cmd(apr_getopt_t *os,
 {
   opt_baton_t *opt_baton = baton;
   svn_ra_session_t *aux_session;
-
+  
   SVN_ERR(svn_client_open_ra_session(&aux_session, opt_baton->url,
                                      opt_baton->ctx, pool));
   return load_revisions(opt_baton->session, aux_session, opt_baton->url,
@@ -807,7 +807,7 @@ main(int argc, const char **argv)
             }
 
           else
-            {
+            { 
               SVNRDUMP_ERR(help_cmd(NULL, NULL, pool));
               svn_pool_destroy(pool);
               exit(EXIT_FAILURE);
@@ -897,7 +897,7 @@ main(int argc, const char **argv)
       if (! svn_path_is_url(repos_url))
         {
           err = svn_error_createf(SVN_ERR_CL_ARG_PARSING_ERROR, 0,
-                                  "Target '%s' is not a URL",
+                                  "Target '%s' is not a URL", 
                                   repos_url);
           SVNRDUMP_ERR(err);
           svn_pool_destroy(pool);
