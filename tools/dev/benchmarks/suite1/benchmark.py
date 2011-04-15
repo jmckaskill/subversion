@@ -95,7 +95,7 @@ class Timings:
   def toc(self):
     if self.current_name and self.tic_at:
       toc_at = datetime.now()
-      self.submit_timing(self.current_name,
+      self.submit_timing(self.current_name, 
                          timedelta_to_seconds(toc_at - self.tic_at))
     self.current_name = None
     self.tic_at = None
@@ -235,7 +235,7 @@ def svn(*args):
   cmd.extend(args)
   if VERBOSE:
     print 'svn cmd: ' + ' '.join(cmd)
-
+ 
   stdin = None
   if stdin:
     stdin_arg = PIPE
@@ -328,7 +328,7 @@ def _del(path):
   svn('delete', path)
 
 _mod_funcs = (_mod, _add, _propmod, _propadd, )#_copy,) # _move, _del)
-
+  
 def modify_tree(in_dir, fraction):
   child_names = os.listdir(in_dir)
   for child_name in child_names:
@@ -343,7 +343,7 @@ def modify_tree(in_dir, fraction):
     path = j(in_dir, child_name)
     if os.path.isdir(path):
       modify_tree(path, fraction)
-
+  
 def propadd_tree(in_dir, fraction):
   for child_name in os.listdir(in_dir):
     if child_name[0] == '.': continue
@@ -512,7 +512,7 @@ def cmd_run(timings_path, levels, spread, N=1):
   levels = int(levels)
   spread = int(spread)
   N = int(N)
-
+      
   print '\n\nHi, going to run a Subversion benchmark series of %d runs...' % N
 
   ### UGH! should pass to run()
