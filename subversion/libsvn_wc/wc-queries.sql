@@ -168,7 +168,7 @@ WHERE wc_id = ?1 AND (local_relpath = ?2 OR local_relpath LIKE ?3 ESCAPE '#')
   AND (op_depth < ?4
        OR (presence = 'base-deleted'
            AND op_depth = (SELECT MIN(op_depth) FROM nodes f
-                           WHERE f.wc_id = nodes.wc_id
+                           WHERE f.wc_id = nodes.wc_id 
                              AND f.local_relpath = nodes.local_relpath
                              AND f.op_depth >= ?4)))
 
