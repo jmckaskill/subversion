@@ -36,7 +36,7 @@ batch(){
   pre="${levels}x${spread}_"
   "$benchmark" "--svn=${SVN_1_6}" run ${pre}1.6 $levels $spread $N
   "$benchmark" "--svn=${SVN_trunk}" run ${pre}trunk $levels $spread $N
-  echo
+  echo 
   echo "Results for dir levels: $levels  spread: $spread"
   "$benchmark" compare ${pre}1.6 ${pre}trunk
 }
