@@ -334,7 +334,7 @@ report_revisions_and_depths(svn_wc__db_t *db,
                                 external_baton, dir_depth, iterpool));
 
   /* Looping over current directory's BASE children: */
-  for (hi = apr_hash_first(scratch_pool, base_children);
+  for (hi = apr_hash_first(scratch_pool, base_children); 
        hi != NULL;
        hi = apr_hash_next(hi))
     {
@@ -871,7 +871,7 @@ svn_wc_crawl_revisions5(svn_wc_context_t *wc_ctx,
   {
     svn_depth_t anchor_depth = target_depth;
 
-    if (honor_depth_exclude
+    if (honor_depth_exclude 
         && depth != svn_depth_unknown
         && depth < target_depth)
       anchor_depth = depth;
