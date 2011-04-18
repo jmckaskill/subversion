@@ -594,7 +594,7 @@ process_commit_file_install(svn_wc__db_t *db,
      involves recording the textual timestamp for this entry.  We'd like
      to just use the timestamp of the working file, but it is possible
      that at some point during the commit, the real working file might
-     have changed again.
+     have changed again. 
    */
 
   SVN_ERR(install_committed_file(&overwrote_working, db,
