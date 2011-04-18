@@ -1572,7 +1572,7 @@ check_tree_conflict(svn_wc_conflict_description2_t **pconflict,
         /* Do a deep tree detection of local changes. The update editor will
          * not visit the subdirectories of a directory that it wants to delete.
          * Therefore, we need to start a separate crawl here. */
-
+              
         SVN_ERR(node_has_local_mods(&modified, &all_mods_are_deletes,
                                     eb->db, local_abspath,
                                     eb->cancel_func, eb->cancel_baton,
@@ -2205,7 +2205,7 @@ add_directory(const char *path,
     /* If there is no conflict we take over any added directory */
     SVN_ERR(svn_wc__db_temp_op_remove_working(eb->db, db->local_abspath, pool));
 
-  /* ### We can't record an unversioned obstruction yet, so
+  /* ### We can't record an unversioned obstruction yet, so 
      ### we record a delete instead, which will allow resolving the conflict
      ### to theirs with 'svn revert'. */
   if (db->shadowed && db->obstruction_found)
@@ -3402,7 +3402,7 @@ merge_file(svn_skel_t **work_items,
     }
   else
     {
-      /* The working file is not an obstruction.
+      /* The working file is not an obstruction. 
          So: is the file modified, relative to its ORIGINAL pristine?
 
          This function sets is_locally_modified to FALSE for
@@ -3448,7 +3448,7 @@ merge_file(svn_skel_t **work_items,
     }
   else if (fb->new_text_base_sha1_checksum)
     {
-      /* Working file exists and has local mods:
+      /* Working file exists and has local mods: 
            Now we need to let loose svn_wc__merge_internal() to merge
            the textual changes into the working file. */
       const char *oldrev_str, *newrev_str, *mine_str;
@@ -3918,7 +3918,7 @@ close_file(void *file_baton,
         {
           /* If a lock was removed and we didn't update the text contents, we
              might need to set the file read-only.
-
+      
              Note: this will also update the executable flag, but ... meh.  */
           SVN_ERR(svn_wc__wq_build_sync_file_flags(&work_item, eb->db,
                                                    fb->local_abspath,
@@ -4021,7 +4021,7 @@ close_file(void *file_baton,
                                      all_work_items,
                                      scratch_pool));
 
-  /* ### We can't record an unversioned obstruction yet, so
+  /* ### We can't record an unversioned obstruction yet, so 
      ### we record a delete instead, which will allow resolving the conflict
      ### to theirs with 'svn revert'. */
   if (fb->shadowed && fb->obstruction_found)
@@ -4052,7 +4052,7 @@ close_file(void *file_baton,
   /* Deal with the WORKING tree, based on updates to the BASE tree.  */
 
   /* If this file was locally-added and is now being added by the update, we
-     can toss the local-add, turning this into a local-edit.
+     can toss the local-add, turning this into a local-edit. 
      If the local file is replaced, we don't want to touch ACTUAL. */
   if (fb->add_existed && fb->adding_file)
     {
@@ -4082,7 +4082,7 @@ close_file(void *file_baton,
       svn_wc_notify_action_t action = svn_wc_notify_update_update;
 
       if (fb->shadowed)
-        action = fb->adding_file
+        action = fb->adding_file 
                         ? svn_wc_notify_update_shadowed_add
                         : svn_wc_notify_update_shadowed_update;
       else if (fb->obstruction_found || fb->add_existed)
@@ -4229,7 +4229,7 @@ make_editor(svn_revnum_t *target_revision,
                                NULL, NULL, NULL, NULL, NULL,
                                wc_ctx->db, anchor_abspath,
                                result_pool, scratch_pool));
-
+  
   /* ### For adds, REPOS_ROOT and REPOS_UUID would be NULL now. */
   if (status == svn_wc__db_status_added)
     SVN_ERR(svn_wc__db_scan_addition(NULL, NULL, NULL,
