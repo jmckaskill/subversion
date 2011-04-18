@@ -156,7 +156,7 @@ process_committed_leaf(svn_wc__db_t *db,
     {
       return svn_error_return(
                 svn_wc__db_op_remove_node(
-                                db, local_abspath,
+                                db, local_abspath, 
                                 have_base ? new_revnum : SVN_INVALID_REVNUM,
                                 kind,
                                 scratch_pool));
@@ -1139,7 +1139,7 @@ svn_wc_add_from_disk(svn_wc_context_t *wc_ctx,
                              NULL, SVN_INVALID_REVNUM, scratch_pool));
   SVN_ERR(check_can_add_to_parent(NULL, NULL, wc_ctx->db, local_abspath,
                                   scratch_pool, scratch_pool));
-  SVN_ERR(add_from_disk(wc_ctx->db, local_abspath, kind,
+  SVN_ERR(add_from_disk(wc_ctx->db, local_abspath, kind, 
                         notify_func, notify_baton,
                         scratch_pool));
 
@@ -1286,7 +1286,7 @@ revert_restore(svn_wc__db_t *db,
 
   err = svn_wc__db_read_info(&status, &kind,
                              NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-                             NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+                             NULL, NULL, NULL, NULL, NULL, NULL, NULL, 
                              NULL, NULL, NULL, NULL, NULL, NULL, NULL,
                              NULL, NULL, NULL,
                              db, local_abspath, scratch_pool, scratch_pool);
@@ -1850,7 +1850,7 @@ svn_wc__internal_remove_from_revision_control(svn_wc__db_t *db,
       /* Find the checksum(s) of the node's one or two pristine texts.  Note
          that read_info() may give us the one from BASE_NODE again. */
       err = svn_wc__db_base_get_info(NULL, NULL, NULL, NULL, NULL, NULL,
-                                     NULL, NULL, NULL, NULL,
+                                     NULL, NULL, NULL, NULL, 
                                      &base_sha1_checksum, NULL, NULL, NULL,
                                      NULL, NULL, NULL, NULL,
                                      db, local_abspath,
