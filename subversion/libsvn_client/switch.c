@@ -375,6 +375,6 @@ svn_client_switch3(svn_revnum_t *result_rev,
   return svn_client__switch_internal(result_rev, path, switch_url,
                                      peg_revision, revision, depth,
                                      depth_is_sticky, NULL, ignore_externals,
-                                     allow_unver_obstructions, FALSE,
+                                     allow_unver_obstructions, FALSE, 
                                      ignore_ancestry, ctx, pool);
 }
