@@ -266,7 +266,7 @@ switch_internal(svn_revnum_t *result_rev,
     {
       err = svn_client__handle_externals(efb.externals_old,
                                          efb.externals_new, efb.ambient_depths,
-                                         svn_dirent_join(anchor_abspath,
+                                         svn_dirent_join(anchor_abspath, 
                                                          target, pool),
                                          source_root,
                                          depth, FALSE, use_sleep, ctx, pool);
@@ -373,6 +373,6 @@ svn_client_switch3(svn_revnum_t *result_rev,
   return svn_client__switch_internal(result_rev, path, switch_url,
                                      peg_revision, revision, depth,
                                      depth_is_sticky, NULL, ignore_externals,
-                                     allow_unver_obstructions, FALSE,
+                                     allow_unver_obstructions, FALSE, 
                                      ignore_ancestry, ctx, pool);
 }
