@@ -10,7 +10,7 @@
 # You should try the `check_release' target before you make all to make
 # sure all the version numbers were groked correctly.
 #
-# This makefile doesn't copy the source tree to make a tarball, it
+# This makefile doesn't copy the source tree to make a tarball, it 
 # will create a symlink in your $TMPDIR and tar up your source tree
 # in place. This makefile uses the output tarball name as a dependancy,
 # so it wont constantly regenerate it unless your repository version
@@ -36,7 +36,7 @@
 # NODEPS := 1
 
 # Docs only please
-# DOCS_ONLY := 1
+# DOCS_ONLY := 1 
 
 # No documentation please
 # NO_DOCS := 1
@@ -400,7 +400,7 @@ build_rpm_files : build_sources $(BUILDROOT)
 	@echo Building RPM
 	cd $(SPECS_RPM_DIR); rpm --rmspec --clean --rcfile $(RCFILES) -ba $(SPECFILE)-$(NAMEVER) $(NODEPS)
 
-build_sources: $(TARBALL) $(RPMBITS)
+build_sources: $(TARBALL) $(RPMBITS) 
 	@echo Preparing sources and specfile for RPM
 	cp -f $(SOURCES) $(SOURCE_RPM_DIR)
 	cp -f $(RCFILE) $(SOURCE_RPM_DIR)/$(RCFILE)-$(NAMEVER)
