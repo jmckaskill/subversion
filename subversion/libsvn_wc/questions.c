@@ -85,7 +85,7 @@
  * PRISTINE_SIZE bytes), else to FALSE if not.
  *
  * If VERIFY_CHECKSUM is not NULL, also verify that PRISTINE_STREAM matches
- * this checksum (which should be the stored checksum for
+ * this checksum (which should be the stored checksum for 
  * VERSIONED_FILE_ABSPATH). If the checksum does not match, return the error
  * SVN_ERR_WC_CORRUPT_TEXT_BASE.
  *
