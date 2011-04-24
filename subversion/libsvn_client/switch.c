@@ -275,7 +275,7 @@ switch_internal(svn_revnum_t *result_rev,
 
       err = svn_client__handle_externals(efb.externals_old,
                                          efb.externals_new, efb.ambient_depths,
-                                         svn_dirent_join(anchor_abspath,
+                                         svn_dirent_join(anchor_abspath, 
                                                          target, pool),
                                          source_root,
                                          depth, FALSE, use_sleep, ctx, pool);
