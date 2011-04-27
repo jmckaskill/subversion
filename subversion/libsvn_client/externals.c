@@ -922,7 +922,7 @@ handle_external_item_change(const void *key, apr_ssize_t klen,
           if (err2 && err2->apr_err == SVN_ERR_WC_NOT_LOCKED)
             {
               /* We removed the lock by removing the node, how nice! */
-              svn_error_clear(err2);
+              svn_error_clear(err2); 
             }
           else
             err = svn_error_compose_create(err, err2);
