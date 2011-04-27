@@ -640,7 +640,7 @@ svn_cl__info(apr_getopt_t *os,
 
   if (seen_nonexistent_target)
     return svn_error_create(
-      SVN_ERR_ILLEGAL_TARGET, NULL,
+      SVN_ERR_ILLEGAL_TARGET, NULL, 
       _("Could not display info for all targets because some "
         "targets don't exist"));
   else
