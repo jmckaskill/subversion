@@ -1299,7 +1299,7 @@ svn_client_update(svn_revnum_t *result_rev,
  * @{
  */
 
-/**
+/** 
  * Switch an existing working copy directory to a different repository
  * location.
  *
