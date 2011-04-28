@@ -46,7 +46,7 @@ extern "C" {
 typedef struct svn_cache_config_t
 {
   /* total cache size in bytes. Please note that this is only soft limit
-     to the total application memory usage and will be exceeded due to
+     to the total application memory usage and will be exceeded due to 
      temporary objects and other program state.
      May be 0, resulting in default caching code being used. */
   apr_uint64_t cache_size;
