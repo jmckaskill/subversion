@@ -116,7 +116,7 @@ get_pristine_file(const char **result_abspath,
 
 
 /* The diff baton */
-struct diff_baton
+struct diff_baton 
 {
   /* A wc db. */
   svn_wc__db_t *db;
