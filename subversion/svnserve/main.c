@@ -195,7 +195,7 @@ static const apr_getopt_option_t svnserve__options[] =
         "[0 .. no compression, 5 .. default, \n"
         "                             "
         " 9 .. maximum compression]")},
-    {"memory-cache-size", 'M', 1,
+    {"memory-cache-size", 'M', 1, 
      N_("size of the extra in-memory cache in MB used to\n"
         "                             "
         "minimize redundant operations.\n"
@@ -677,7 +677,7 @@ int main(int argc, const char *argv[])
           return svn_cmdline_handle_exit_error(err, pool, "svnserve: ");
         }
 
-      conn = svn_ra_svn_create_conn2(NULL, in_file, out_file,
+      conn = svn_ra_svn_create_conn2(NULL, in_file, out_file, 
                                      params.compression_level, pool);
       svn_error_clear(serve(conn, &params, pool));
       exit(0);
@@ -833,7 +833,7 @@ int main(int argc, const char *argv[])
     winservice_running();
 #endif
 
-  /* Configure FS caches for maximum efficiency with svnserve.
+  /* Configure FS caches for maximum efficiency with svnserve. 
    * For pre-forked (i.e. multi-processed) mode of operation,
    * keep the per-process caches smaller than the default.
    * Also, apply the respective command line parameters, if given. */
