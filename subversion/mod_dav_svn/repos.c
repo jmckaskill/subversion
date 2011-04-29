@@ -2346,7 +2346,7 @@ get_parent_path(const char *path,
       /* Remove any trailing slash; else svn_path_dirname() asserts. */
       if (tmp[len-1] == '/')
         tmp[len-1] = '\0';
-
+     
       if (is_urlpath)
         return svn_urlpath__dirname(tmp, pool);
       else
