@@ -831,7 +831,7 @@ svn_wc__node_get_base_rev(svn_revnum_t *base_revision,
   svn_error_t *err;
 
   err = svn_wc__db_base_get_info(NULL, NULL, base_revision, NULL,
-                                 NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+                                 NULL, NULL, NULL, NULL, NULL, NULL, NULL, 
                                  NULL, NULL, NULL, NULL, NULL, NULL, NULL,
                                  wc_ctx->db, local_abspath,
                                  scratch_pool, scratch_pool);
@@ -1416,7 +1416,7 @@ svn_wc__node_get_origin(svn_boolean_t *is_copy,
     if (scan_working)
       {
         const char *op_root_abspath;
-
+      
         SVN_ERR(svn_wc__db_scan_addition(&status, &op_root_abspath, NULL,
                                          NULL, NULL, &original_repos_relpath,
                                          repos_root_url,
@@ -1711,7 +1711,7 @@ svn_wc__check_for_obstructions(svn_wc_notify_state_t *obstruction_state,
 
             SVN_ERR(convert_db_kind_to_node_kind(&expected_kind, db_kind,
                                                  status, FALSE));
-
+                                         
             if (disk_kind != expected_kind)
               *obstruction_state = svn_wc_notify_state_obstructed;
           }
