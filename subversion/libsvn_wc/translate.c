@@ -170,7 +170,7 @@ svn_wc__internal_translated_file(const char **xlated_abspath,
   SVN_ERR(svn_wc__get_translate_info(&style, &eol,
                                      &keywords,
                                      &special,
-                                     db, versioned_abspath, NULL,
+                                     db, versioned_abspath, NULL, 
                                      scratch_pool, scratch_pool));
 
   if (! svn_subst_translation_required(style, eol, keywords, special, TRUE)
