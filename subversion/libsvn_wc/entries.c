@@ -2060,7 +2060,7 @@ write_entry(struct write_baton **entry_node,
           /* text_base_info is NULL for files scheduled to be added. */
           if (text_base_info)
             working_node->checksum = text_base_info->normal_base.sha1_checksum;
-
+         
 
           /* If an MD5 checksum is present in the entry, we can verify that
            * it matches the MD5 of the base file we found earlier. */
