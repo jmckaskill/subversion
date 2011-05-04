@@ -174,7 +174,7 @@ WHERE wc_id = ?1
 UPDATE NODES SET op_depth = 0, repos_id = ?4, repos_path = ?5, revision = ?6,
   moved_here = NULL, moved_to = NULL, dav_cache = NULL,
   presence = CASE WHEN presence IN ('not-present', 'excluded')
-                       AND EXISTS(SELECT 1 FROM NODES WHERE wc_id = ?1
+                       AND EXISTS(SELECT 1 FROM NODES WHERE wc_id = ?1 
                                    AND local_relpath = ?2 AND op_depth > ?3)
                   THEN 'excluded' ELSE presence END
 WHERE wc_id = ?1 AND local_relpath = ?2 and op_depth = ?3
@@ -761,7 +761,7 @@ SELECT wc_id, local_relpath, ?4 /*op_depth*/, parent_relpath, 'base-deleted',
 FROM nodes_current
 WHERE wc_id = ?1 AND (local_relpath = ?2 OR local_relpath LIKE ?3 ESCAPE '#')
   AND presence NOT IN ('base-deleted', 'not-present')
-
+      
 
 -- STMT_INSERT_WORKING_NODE_FROM_BASE_COPY
 INSERT INTO nodes (
