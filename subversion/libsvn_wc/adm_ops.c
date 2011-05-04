@@ -155,7 +155,7 @@ process_committed_leaf(svn_wc__db_t *db,
     {
       return svn_error_return(
                 svn_wc__db_op_remove_node(
-                                db, local_abspath,
+                                db, local_abspath, 
                                 (have_base && !via_recurse)
                                     ? new_revnum : SVN_INVALID_REVNUM,
                                 kind,
@@ -604,9 +604,9 @@ svn_wc_process_committed_queue2(svn_wc_committed_queue_t *queue,
            SVN_ERR(external_func(external_baton, local_abspath,
                                  old_val, new_val, svn_depth_unknown,
                                  iterpool));
-
+                                 
         }
-    }
+    } 
 
   for (hi = apr_hash_first(scratch_pool, run_wqs);
        hi;
@@ -1216,7 +1216,7 @@ svn_wc_add_from_disk(svn_wc_context_t *wc_ctx,
                              NULL, SVN_INVALID_REVNUM, scratch_pool));
   SVN_ERR(check_can_add_to_parent(NULL, NULL, wc_ctx->db, local_abspath,
                                   scratch_pool, scratch_pool));
-  SVN_ERR(add_from_disk(wc_ctx->db, local_abspath, kind,
+  SVN_ERR(add_from_disk(wc_ctx->db, local_abspath, kind, 
                         notify_func, notify_baton,
                         scratch_pool));
 
@@ -1369,7 +1369,7 @@ revert_restore(svn_wc__db_t *db,
 
   err = svn_wc__db_read_info(&status, &kind,
                              NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL,
-                             NULL, NULL, NULL, NULL, NULL, NULL, NULL,
+                             NULL, NULL, NULL, NULL, NULL, NULL, NULL, 
                              NULL, NULL, NULL, NULL, NULL, NULL, NULL,
                              NULL, NULL, NULL,
                              db, local_abspath, scratch_pool, scratch_pool);
