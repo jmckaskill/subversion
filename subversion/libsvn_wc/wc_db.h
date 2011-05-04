@@ -2715,7 +2715,7 @@ svn_wc__db_get_not_present_descendants(const apr_array_header_t **descendants,
                                        apr_pool_t *scratch_pool);
 
 /* Gather revision status information about a working copy using DB.
- *
+ * 
  * Set *MIN_REVISION and *MAX_REVISION to the lowest and highest revision
  * numbers found within LOCAL_ABSPATH.
  * Only nodes with op_depth zero and presence 'normal' or 'incomplete'
@@ -2758,7 +2758,7 @@ svn_wc__db_revision_status(svn_revnum_t *min_revision,
  * the result.  If COMMITTED is TRUE, set *MIN_REVISION and *MAX_REVISION
  * to the lowest and highest comitted (i.e. "last changed") revision numbers,
  * respectively. Use SCRATCH_POOL for temporary allocations.
- *
+ * 
  * This function provides a subset of the functionality of
  * svn_wc__db_revision_status() and is more efficient if the caller
  * doesn't need all information returned by svn_wc__db_revision_status(). */
@@ -2773,7 +2773,7 @@ svn_wc__db_min_max_revisions(svn_revnum_t *min_revision,
 /* Indicate in *IS_SPARSE_CHECKOUT whether any of the nodes within
  * LOCAL_ABSPATH is sparse, using DB.
  * Use SCRATCH_POOL for temporary allocations.
- *
+ * 
  * This function provides a subset of the functionality of
  * svn_wc__db_revision_status() and is more efficient if the caller
  * doesn't need all information returned by svn_wc__db_revision_status(). */
@@ -2791,7 +2791,7 @@ svn_wc__db_is_sparse_checkout(svn_boolean_t *is_sparse_checkout,
  * expected URL, long enough to include any parts that the caller considers
  * might be changed by a switch.  If it does not match the end of WC_PATH's
  * actual URL, then report a "switched" status.
- *
+ * 
  * This function provides a subset of the functionality of
  * svn_wc__db_revision_status() and is more efficient if the caller
  * doesn't need all information returned by svn_wc__db_revision_status(). */
@@ -2817,7 +2817,7 @@ svn_wc__db_get_absent_subtrees(apr_hash_t **absent_subtrees,
 
 /* Indicate in *IS_MODIFIED whether the working copy has local modifications,
  * using DB. Use SCRATCH_POOL for temporary allocations.
- *
+ * 
  * This function provides a subset of the functionality of
  * svn_wc__db_revision_status() and is more efficient if the caller
  * doesn't need all information returned by svn_wc__db_revision_status(). */
