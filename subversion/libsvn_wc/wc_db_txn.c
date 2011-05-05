@@ -38,12 +38,12 @@
 #include "private/svn_sqlite.h"
 
 
-/* Some helpful transaction helpers.
+/* Some helpful transaction helpers. 
 
    Instead of directly using SQLite transactions, these wrappers take care of
    simple cases by allowing consumers to worry about wrapping the wcroot and
    local_relpath, which are almost always used within the transaction.
-
+   
    This also means if we later want to implement some wc_db-specific txn
    handling, we have a convenient place to do it.
    */
