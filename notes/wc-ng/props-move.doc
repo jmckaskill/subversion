@@ -69,8 +69,8 @@ Index: subversion/libsvn_wc/wc_db.h
 +++ subversion/libsvn_wc/wc_db.h	(working copy)
 @@ -646,14 +646,9 @@
                           apr_pool_t *scratch_pool);
-
-
+ 
+ 
 -/** Return a property's value from a node in the BASE tree.
 - *
 - * This is a convenience function to return a single property from the
@@ -87,8 +87,8 @@ Index: subversion/libsvn_wc/wc_db.h
  svn_wc__db_base_get_prop(const svn_string_t **propval,
 @@ -664,14 +659,9 @@
                           apr_pool_t *scratch_pool);
-
-
+ 
+ 
 -/** Return all properties of the given BASE tree node.
 - *
 - * All of the properties for the node indicated by LOCAL_ABSPATH will be
@@ -105,8 +105,8 @@ Index: subversion/libsvn_wc/wc_db.h
  svn_wc__db_base_get_props(apr_hash_t **props,
 @@ -952,21 +942,23 @@
                            apr_pool_t *scratch_pool);
-
-
+ 
+ 
 -/* ### note: there is no db_op_set_prop() function. callers must read
 -   ### all the properties, change one, and write all the properties.  */
 -
@@ -126,7 +126,7 @@ Index: subversion/libsvn_wc/wc_db.h
                          const char *local_abspath,
                          apr_hash_t *props,
                          apr_pool_t *scratch_pool);
-
+ 
 -/* Sets the pristine props of LOCAL_ABSPATH on BASE, or when ON_WORKING is
 -   TRUE on WORKING */
 +/** Set the properties of LOCAL_ABSPATH in BASE (if ON_WORKING is FALSE) or
@@ -138,8 +138,8 @@ Index: subversion/libsvn_wc/wc_db.h
                                        const char *local_abspath,
 @@ -1268,12 +1260,9 @@
                       apr_pool_t *scratch_pool);
-
-
+ 
+ 
 -/** Return a property's value for a node, first using ACTUAL, then
 - * WORKING, then BASE.  The property's name is given in PROPNAME, and
 - * the value returned in PROPVAL.
@@ -154,8 +154,8 @@ Index: subversion/libsvn_wc/wc_db.h
  svn_wc__db_read_prop(const svn_string_t **propval,
 @@ -1284,13 +1273,11 @@
                       apr_pool_t *scratch_pool);
-
-
+ 
+ 
 -/* Read into PROPS the properties for LOCAL_ABSPATH in DB.  This first check
 -   the ACTUAL node, then the WORKING node, and finally the BASE node for
 -   properties.  PROPS maps property names of type "const char *" to values
@@ -173,8 +173,8 @@ Index: subversion/libsvn_wc/wc_db.h
                        svn_wc__db_t *db,
 @@ -1299,13 +1286,10 @@
                        apr_pool_t *scratch_pool);
-
-
+ 
+ 
 -/* Read into PROPS the properties for LOCAL_ABSPATH in DB.  This first check
 -   the WORKING node, and then the BASE node for properties.  PROPS maps
 -   property names of type "const char *" to values of type
