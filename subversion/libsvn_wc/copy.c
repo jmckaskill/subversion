@@ -459,7 +459,7 @@ copy_versioned_dir(svn_wc__db_t *db,
       else
         {
           /* Absent nodes should have been handled before we reach this */
-           SVN_ERR_MALFUNCTION();
+           SVN_ERR_MALFUNCTION(); 
         }
 
       if (disk_children
