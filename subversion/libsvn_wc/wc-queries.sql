@@ -710,7 +710,7 @@ SELECT wc_id, local_relpath, ?4 /*op_depth*/, parent_relpath, 'base-deleted',
 FROM nodes_current
 WHERE wc_id = ?1 AND (local_relpath = ?2 OR local_relpath LIKE ?3 ESCAPE '#')
   AND presence NOT IN ('base-deleted', 'not-present')
-
+      
 
 -- STMT_INSERT_WORKING_NODE_FROM_BASE_COPY
 INSERT INTO nodes (
