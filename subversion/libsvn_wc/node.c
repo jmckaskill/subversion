@@ -1429,7 +1429,7 @@ svn_wc__internal_get_origin(svn_boolean_t *is_copy,
     if (scan_working)
       {
         const char *op_root_abspath;
-
+      
         SVN_ERR(svn_wc__db_scan_addition(&status, &op_root_abspath, NULL,
                                          NULL, NULL, &original_repos_relpath,
                                          repos_root_url,
@@ -1755,7 +1755,7 @@ svn_wc__check_for_obstructions(svn_wc_notify_state_t *obstruction_state,
 
             SVN_ERR(convert_db_kind_to_node_kind(&expected_kind, db_kind,
                                                  status, FALSE));
-
+                                         
             if (disk_kind != expected_kind)
               *obstruction_state = svn_wc_notify_state_obstructed;
           }
