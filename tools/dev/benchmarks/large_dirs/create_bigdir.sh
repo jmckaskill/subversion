@@ -29,7 +29,7 @@ SVNPATH="$('pwd')/subversion"
 # Comment the SVNSERVE line to use file:// instead of svn://.
 
 SVN=${SVNPATH}/svn/svn
-SVNADMIN=${SVNPATH}/svnadmin/svnadmin
+SVNADMIN=${SVNPATH}/svnadmin/svnadmin   
 SVNSERVE=${SVNPATH}/svnserve/svnserve
 # VALGRIND="valgrind --tool=callgrind"
 
@@ -45,7 +45,7 @@ REPOROOT=/dev/shm
 FILECOUNT=1
 MAXCOUNT=20000
 
-# only 1.7 supports server-side caching and uncompressed data transfer
+# only 1.7 supports server-side caching and uncompressed data transfer 
 
 SERVEROPTS="-c 0 -M 400"
 
@@ -141,7 +141,7 @@ run_svn_get() {
   fi
 }
 
-# main loop
+# main loop 
 
 while [ $FILECOUNT -lt $MAXCOUNT ]; do
   echo "Processing $FILECOUNT files in the same folder"
@@ -150,7 +150,7 @@ while [ $FILECOUNT -lt $MAXCOUNT ]; do
   mkdir $WC/$FILECOUNT
   for i in `seq 1 ${FILECOUNT}`; do
     echo "File number $i" > $WC/$FILECOUNT/$i
-  done
+  done    
 
   printf "\tAdding files ...   \t"
   run_svn add $FILECOUNT -q
@@ -160,7 +160,7 @@ while [ $FILECOUNT -lt $MAXCOUNT ]; do
 
   printf "\tCommit files ...   \t"
   run_svn_ci $FILECOUNT add
-
+  
   printf "\tListing files ...  \t"
   run_svn ls $FILECOUNT
 
