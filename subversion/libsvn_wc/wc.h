@@ -731,7 +731,7 @@ svn_wc__write_check(svn_wc__db_t *db,
 /* Perform the actual merge of file changes between an original file,
    identified by ORIGINAL_CHECKSUM (an empty file if NULL) to a new file
    identified by NEW_CHECKSUM.
-
+   
    Merge the result into LOCAL_ABSPATH, which is part of the working copy
    identified by WRI_ABSPATH. Use OLD_REVISION and TARGET_REVISION for naming
    the intermediate files.
