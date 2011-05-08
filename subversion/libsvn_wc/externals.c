@@ -736,7 +736,7 @@ close_file(void *file_baton,
             SVN_ERR(svn_wc__internal_file_modified_p(&is_mod, NULL, NULL,
                                                      eb->db, eb->local_abspath,
                                                      FALSE, FALSE, pool));
-
+      
             if (!is_mod)
               {
                 install_pristine = TRUE;
@@ -763,10 +763,10 @@ close_file(void *file_baton,
                                                    eb->cancel_func,
                                                    eb->cancel_baton,
                                                    pool, pool));
-
+      
                 all_work_items = svn_wc__wq_merge(all_work_items, work_item,
                                                   pool);
-
+      
                 if (merge_outcome == svn_wc_merge_conflict)
                   content_state = svn_wc_notify_state_conflicted;
                 else
@@ -780,7 +780,7 @@ close_file(void *file_baton,
                                             install_from,
                                             eb->use_commit_times, TRUE,
                                             pool, pool));
-
+      
             all_work_items = svn_wc__wq_merge(all_work_items, work_item, pool);
           }
       }
@@ -846,7 +846,7 @@ close_file(void *file_baton,
 
       eb->notify_func(eb->notify_baton, notify, pool);
     }
-
+  
 
   return SVN_NO_ERROR;
 }
@@ -1030,7 +1030,7 @@ svn_wc__crawl_file_external(svn_wc_context_t *wc_ctx,
          the target as switched.
 
          ### We can probably report a parent url and unswitched later */
-      SVN_ERR(reporter->link_path(report_baton, "",
+      SVN_ERR(reporter->link_path(report_baton, "", 
                                   svn_path_url_add_component2(repos_root_url,
                                                               repos_relpath,
                                                               scratch_pool),
