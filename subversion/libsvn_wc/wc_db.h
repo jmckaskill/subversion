@@ -1015,9 +1015,187 @@ svn_wc__db_pristine_check(svn_boolean_t *present,
                           const svn_checksum_t *sha1_checksum,
                           apr_pool_t *scratch_pool);
 
+/* @defgroup svn_wc__db_external  External management
+   @{ */
+
+/* Adds (or overwrites) a file external LOCAL_ABSPATH to the working copy
+   identified by WRI_ABSPATH.
+ */
+svn_error_t *
+svn_wc__db_external_add_file(svn_wc__db_t *db,
+                             const char *local_abspath,
+                             const char *wri_abspath,
+
+                             const char *repos_relpath,
+                             const char *repos_root_url,
+                             const char *repos_uuid,
+                             svn_revnum_t revision,
+
+                             const apr_hash_t *props,
+
+                             svn_revnum_t changed_rev,
+                             apr_time_t changed_date,
+                             const char *changed_author,
+
+                             const svn_checksum_t *checksum,
+
+                             const apr_hash_t *dav_cache,
+
+                             const char *recorded_repos_relpath,
+                             svn_revnum_t recorded_peg_revision,
+                             svn_revnum_t recorded_revision,
+
+                             svn_boolean_t update_actual_props,
+                             apr_hash_t *new_actual_props,
+
+                             svn_boolean_t keep_recorded_info,
+                             const svn_skel_t *work_items,
+                             apr_pool_t *scratch_pool);
+
+/* Adds (or overwrites) a symlink external LOCAL_ABSPATH to the working copy
+   identified by WRI_ABSPATH.
+ */
+svn_error_t *
+svn_wc__db_external_add_symlink(svn_wc__db_t *db,
+                                const char *local_abspath,
+                                const char *wri_abspath,
+
+                                const char *repos_relpath,
+                                const char *repos_root_url,
+                                const char *repos_uuid,
+                                svn_revnum_t revision,
+
+                                const apr_hash_t *props,
+
+                                svn_revnum_t changed_rev,
+                                apr_time_t changed_date,
+                                const char *changed_author,
+
+                                const char *target,
+
+                                const apr_hash_t *dav_cache,
+
+                                const char *recorded_repos_relpath,
+                                svn_revnum_t recorded_peg_revision,
+                                svn_revnum_t recorded_revision,
+
+                                svn_boolean_t update_actual_props,
+                                apr_hash_t *new_actual_props,
+
+                                svn_boolean_t keep_recorded_info,
+                                const svn_skel_t *work_items,
+                                apr_pool_t *scratch_pool);
+
+/* Adds (or overwrites) a directory external LOCAL_ABSPATH to the working copy
+   identified by WRI_ABSPATH.
+
+  Directory externals are stored in their own working copy, so one should use
+  the normal svn_wc__db functions to access the normal working copy
+  information.
+ */
+svn_error_t *
+svn_wc__db_external_add_dir(svn_wc__db_t *db,
+                            const char *local_abspath,
+                            const char *wri_abspath,
+
+                            const char *recorded_repos_relpath,
+                            svn_revnum_t recorded_peg_revision,
+                            svn_revnum_t recorded_revision,
+
+                            const svn_skel_t *work_items,
+                            apr_pool_t *scratch_pool);
+
+/* Remove a registered external LOCAL_ABSPATH from the working copy identified
+   by WRI_ABSPATH.
+ */
+svn_error_t *
+svn_wc__db_external_remove(svn_wc__db_t *db,
+                           const char *local_abspath,
+                           const char *wri_abspath,
+
+                           const svn_skel_t *work_items,
+                           apr_pool_t *scratch_pool);
+
+
+/* Reads information on the external LOCAL_ABSPATH as stored in the working
+   copy identified with WRI_ABSPATH (If NULL the parent directory of
+   LOCAL_ABSPATH).
+
+   Return SVN_ERR_WC_PATH_NOT_FOUND if LOCAL_ABSPATH is not an external in
+   this working copy
+ */
+svn_error_t *
+svn_wc__db_external_read(svn_wc__db_kind_t *kind,
+                         svn_revnum_t *revision,
+                         const char **repos_relpath,
+                         const char **repos_root_url,
+                         const char **repos_uuid,
+                         svn_revnum_t *changed_rev,
+                         apr_time_t *changed_date,
+                         const char **changed_author,
+
+                         const svn_checksum_t **checksum, /* files only */
+                         const char **target, /* symlinks only */
+
+                         /* For files and symlinks */
+                         svn_wc__db_lock_t **lock,
+
+                         /* Recorded for files present in the working copy */
+                         svn_filesize_t *recorded_size,
+                         apr_time_t *recorded_mod_time,
+
+                         /* following fields are stored as copy from the
+                            property which defined the external.
+                            (Currently only for file externals) */
+                         const char **recorded_repos_relpath,
+                         svn_revnum_t *recorded_peg_revision,
+                         svn_revnum_t *recorded_revision,
+
+                         /* From ACTUAL */
+                         svn_boolean_t *conflicted,
+
+                         /* Derived (only for files) */
+                         svn_boolean_t had_props,
+                         svn_boolean_t *props_mod,
+
+                         svn_wc__db_t *db,
+                         const char *local_abspath,
+                         const char *wri_abspath,
+                         apr_pool_t *result_pool,
+                         apr_pool_t *scratch_pool);
+
+/* For file and symlink externals reads the pristine properties of
+   LOCAL_ABSPATH as stored in the working copy identified by WRI_ABSPATH
+   (If NULL the parent directory of LOCAL_ABSPATH).
+
+   Return SVN_ERR_WC_PATH_NOT_FOUND if LOCAL_ABSPATH is not an external in
+   this working copy.
+ */
+svn_error_t *
+svn_wc__db_external_read_pristine_props(apr_hash_t **props,
+                                        svn_wc__db_t *db,
+                                        const char *local_abspath,
+                                        const char *wri_abspath,
+                                        apr_pool_t *result_pool,
+                                        apr_pool_t *scratch_pool);
+
+/* For file and symlink externals reads the actual properties of
+   LOCAL_ABSPATH as stored in the working copy identified by WRI_ABSPATH
+   (If NULL the parent directory of LOCAL_ABSPATH).
+
+   Return SVN_ERR_WC_PATH_NOT_FOUND if LOCAL_ABSPATH is not an external in
+   this working copy.
+ */
+svn_error_t *
+svn_wc__db_external_read_props(apr_hash_t **props,
+                               svn_wc__db_t *db,
+                               const char *local_abspath,
+                               const char *wri_abspath,
+                               apr_pool_t *result_pool,
+                               apr_pool_t *scratch_pool);
+
 
 /* @} */
-
 
 /* @defgroup svn_wc__db_op  Operations on WORKING tree
    @{
