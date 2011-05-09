@@ -84,7 +84,7 @@ typedef struct commit_ctx_t
 
   /* A hash of revision properties (log messages, etc.) we need to set
      on the commit transaction. */
-  apr_hash_t *revprop_table;
+  apr_hash_t *revprop_table; 
 
   /* A hash mapping svn_string_t * paths (those which are valid as
      target in the MERGE response) to svn_node_kind_t kinds. */
@@ -576,7 +576,7 @@ static svn_error_t * copy_resource(svn_ra_neon__session_t *ras,
                                    apr_pool_t *scratch_pool)
 {
   const char *baseline_coll_url, *baseline_relpath, *copy_src_url;
-
+  
   if (SVN_RA_NEON__HAVE_HTTPV2_SUPPORT(ras))
     {
       baseline_coll_url = apr_psprintf(scratch_pool, "%s/%ld",
@@ -599,7 +599,7 @@ static svn_error_t * copy_resource(svn_ra_neon__session_t *ras,
       baseline_coll_url = bc_url.data;
       baseline_relpath = bc_relative.data;
     }
-
+     
   /* Combine the BC-URL and relative path; this is the main
      "source" argument to the COPY request.  The "Destination:"
      header given to COPY is simply the wr_url that is already
@@ -611,7 +611,7 @@ static svn_error_t * copy_resource(svn_ra_neon__session_t *ras,
   /* Have neon do the COPY. */
   SVN_ERR(svn_ra_neon__copy(ras, 1 /* overwrite */, SVN_RA_NEON__DEPTH_INFINITE,
                             copy_src_url, copy_dst_url, scratch_pool));
-
+  
   return SVN_NO_ERROR;
 }
 
