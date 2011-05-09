@@ -17,9 +17,9 @@ Compile-time:
 
 * PACK_AFTER_EVERY_COMMIT
   Scope: libsvn_fs (only affects libsvn_fs_fs)
-  Purpose: stress test
+  Purpose: stress test 
   Range: boolean
-
+  
 * SVN_DEPRECATED
   Scope: (everywhere)
   Purpose: disable "deprecated function calls" warnings
