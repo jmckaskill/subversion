@@ -88,10 +88,10 @@ SVN_I_LIKE_LATENCY_SO_IGNORE_HTTPV2
 3.2 MAX_SECS_TO_LINGER
 
   Scope:     svn protocol
-  Purpose:
-  Range:
+  Purpose:   
+  Range:     
   Default:   30
-  Suggested:
+  Suggested: 
 
 3.3 SUFFIX_LINES_TO_KEEP
 
@@ -117,7 +117,7 @@ SVN_I_LIKE_LATENCY_SO_IGNORE_HTTPV2
              If your target CPU supports unaligned memory access without
              significant performance penalties, you should enable this
              optimization as it allows for processing 4 or 8 bytes at
-             once instead of just one byte at a time.
+             once instead of just one byte at a time. 
   Range:     0 1
   Default:   platform dependant (see svn_types.h)
   Suggested: 0
@@ -129,7 +129,7 @@ SVN_I_LIKE_LATENCY_SO_IGNORE_HTTPV2
 4.1 CHECK_FOR_SAME_FILE
 
   Scope:     libsvn_subr (file copy)
-  Purpose:
+  Purpose:   
   Range:     definedness
   Default:   not defined
   Suggested: not defined
@@ -137,7 +137,7 @@ SVN_I_LIKE_LATENCY_SO_IGNORE_HTTPV2
 4.2 SVN_DIFF3_HAS_DIFF_PROGRAM_ARG
 
   Scope:     libsvn_subr
-  Purpose:
+  Purpose:   
   Range:     definedness
   Default:   not defined
   Suggested: defined, not defined
@@ -145,7 +145,7 @@ SVN_I_LIKE_LATENCY_SO_IGNORE_HTTPV2
 4.3 SVN_DISABLE_ENTRY_CACHE
 
   Scope:     libsvn_wc
-  Purpose:
+  Purpose:   
   Range:     definedness
   Default:   not defined
   Suggested: defined, not defined
@@ -153,7 +153,7 @@ SVN_I_LIKE_LATENCY_SO_IGNORE_HTTPV2
 4.4 SVN_MERGE__ALLOW_ALL_FORWARD_MERGES_FROM_SELF
 
   Scope:     libsvn_client
-  Purpose:
+  Purpose:   
   Range:     definedness
   Default:   not defined
   Suggested: not defined
@@ -161,7 +161,7 @@ SVN_I_LIKE_LATENCY_SO_IGNORE_HTTPV2
 4.5 SVN_USE_WIN32_CRASHHANDLER
 
   Scope:     libsvn_subr
-  Purpose:
+  Purpose:   
   Range:     definedness
   Default:   defined (Windows only), not defined (elsewhere)
   Suggested: defined (Windows only), not defined
@@ -169,7 +169,7 @@ SVN_I_LIKE_LATENCY_SO_IGNORE_HTTPV2
 4.6 SVN_SERF_SEND_VTXN_NAME
 
   Scope:     serf
-  Purpose:
+  Purpose:   
   Range:     definedness
   Default:   not defined
   Suggested: defined, not defined
@@ -183,8 +183,8 @@ SVN_I_LIKE_LATENCY_SO_IGNORE_HTTPV2
   Scope:     (global)
   Purpose:   Reduce noise created by SVN_DBG() statements.
              Defining this symbol in the source file, before including
-             svn_debug.h, will switch off the debug output issued by
-             SVN_DBG. Calls will still be made to svn_dbg__preamble()
+             svn_debug.h, will switch off the debug output issued by 
+             SVN_DBG. Calls will still be made to svn_dbg__preamble() 
              for breakpoints.
   Range:     definedness
   Default:   not defined
@@ -193,7 +193,7 @@ SVN_I_LIKE_LATENCY_SO_IGNORE_HTTPV2
 5.2 SVN_DEBUG
 
   Scope:     (global)
-  Purpose:
+  Purpose:   
   Range:     definedness
   Default:   not defined
   Suggested: defined, not defined
@@ -201,7 +201,7 @@ SVN_I_LIKE_LATENCY_SO_IGNORE_HTTPV2
 5.3 SVN_CLIENT_COMMIT_DEBUG
 
   Scope:     libsvn_client
-  Purpose:
+  Purpose:   
   Range:     definedness
   Default:   not defined
   Suggested: defined, not defined
@@ -222,8 +222,8 @@ SVN_I_LIKE_LATENCY_SO_IGNORE_HTTPV2
   Purpose:   Detecting logic issues like key collisions etc. within
              the membuffer_cache.
              If you define this macro, the getter functions of the
-             membuffer_cache will performed expensive checks on the
-             cached items, requested keys and entry types. If any
+             membuffer_cache will performed expensive checks on the 
+             cached items, requested keys and entry types. If any 
              mismatch is detected, therespective getter will return
              an error.
   Range:     definedness
@@ -241,7 +241,7 @@ SVN_I_LIKE_LATENCY_SO_IGNORE_HTTPV2
 5.8 PACK_AFTER_EVERY_COMMIT
 
   Scope:     libsvn_fs (only affects libsvn_fs_fs)
-  Purpose:   stress test
+  Purpose:   stress test 
   Range:     definedness
   Default:   not defined
   Suggested: defined, not defined
@@ -281,7 +281,7 @@ SVN_I_LIKE_LATENCY_SO_IGNORE_HTTPV2
 5.12 SVN_FS__TRAIL_DEBUG
 
   Scope:     libsvn_fs_base
-  Purpose:
+  Purpose:   
   Range:     definedness
   Default:   not defined
   Suggested: defined, not defined
@@ -292,7 +292,7 @@ SVN_I_LIKE_LATENCY_SO_IGNORE_HTTPV2
 6.1 QUOPRINT_SVNDIFFS
 
   Scope:     svndiff-test
-  Purpose:
+  Purpose:   
   Range:     definedness
   Default:   not defined
   Suggested: defined, not defined
@@ -300,7 +300,7 @@ SVN_I_LIKE_LATENCY_SO_IGNORE_HTTPV2
 6.2 SVN_ENABLE_DEPRECATION_WARNINGS_IN_TESTS
 
   Scope:     (all tests)
-  Purpose:
+  Purpose:   
   Range:     definedness
   Default:   not defined
   Suggested: defined, not defined
@@ -322,28 +322,28 @@ SVN_I_LIKE_LATENCY_SO_IGNORE_HTTPV2
 
 7.1 SVNSYNC_UNSUPPORTED_STRIP_MERGEINFO
 
-  Scope:
-  Purpose:
+  Scope:     
+  Purpose:   
 
 7.2 SVNSYNC_UNSUPPORTED_MIGRATE_SVNMERGE
 
-  Scope:
-  Purpose:
+  Scope:     
+  Purpose:   
 
 7.3 SVN_I_LOVE_CORRUPTED_WORKING_COPIES_SO_DISABLE_RELOCATE_VALIDATION
 
-  Scope:
-  Purpose:
+  Scope:     
+  Purpose:   
 
 7.4 SVN_I_LOVE_CORRUPTED_WORKING_COPIES_SO_DISABLE_SLEEP_FOR_TIMESTAMPS
 
-  Scope:
-  Purpose:
+  Scope:     
+  Purpose:   
 
 7.5 SVN_I_LOVE_PANGALACTIC_GARGLE_BLASTERS
 
-  Scope:
-  Purpose:
+  Scope:     
+  Purpose:   
 
 7.6 SVN_I_LIKE_LATENCY_SO_IGNORE_HTTPV2
 
