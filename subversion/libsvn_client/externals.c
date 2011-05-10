@@ -324,7 +324,7 @@ switch_file_external(const char *local_abspath,
                               SVN_CONFIG_SECTION_MISCELLANY,
                               SVN_CONFIG_OPTION_USE_COMMIT_TIMES, FALSE));
 
-
+  
 
   /* Get the external diff3, if any. */
   svn_config_get(cfg, &diff3_cmd, SVN_CONFIG_SECTION_HELPERS,
@@ -448,7 +448,7 @@ switch_file_external(const char *local_abspath,
     SVN_ERR(svn_wc__get_file_external_editor(&switch_editor, &switch_baton,
                                              &revnum, ctx->wc_ctx,
                                              local_abspath,
-                                             definition_abspath /* wri */,
+                                             definition_abspath /* wri */, 
                                              switch_rev_url,
                                              repos_root_url,
                                              repos_uuid,
@@ -947,7 +947,7 @@ handle_external_item_change(const void *key, apr_ssize_t klen,
           if (err2 && err2->apr_err == SVN_ERR_WC_NOT_LOCKED)
             {
               /* We removed the lock by removing the node, how nice! */
-              svn_error_clear(err2);
+              svn_error_clear(err2); 
             }
           else
             err = svn_error_compose_create(err, err2);
