@@ -295,7 +295,7 @@ def svnversion_with_structural_changes(sbox):
                                             [ "1:2M\n" ], [])
 
 def committed_revisions(sbox):
-  "test 'svnversion --committed'"
+  "test 'svnversion --committed'" 
   sbox.build()
   wc_dir = sbox.wc_dir
   repo_url = sbox.repo_url
