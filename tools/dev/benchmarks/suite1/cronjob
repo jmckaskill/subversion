@@ -46,7 +46,7 @@ else
       echo "$subject"
     else
 
-
+      
       # updating and building succeeded!
       # run the benchmark:
 
