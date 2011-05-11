@@ -1324,7 +1324,7 @@ def revert_empty_actual(sbox):
 
   expected_status.remove('alpha')
   svntest.actions.run_and_verify_status(wc_dir, expected_status)
-
+                                     
 
 ########################################################################
 # Run the tests
