@@ -5108,7 +5108,7 @@ def copy_url_shortcut(sbox):
   # Can use ^/A/D/G even though X/pi is a delete within a copy.
   svntest.actions.run_and_verify_svn(None, None, [], 'copy',
                                      '^/A/D/G/pi', sbox.ospath('X/pi'))
-
+  
   expected_status = svntest.actions.get_virginal_state(wc_dir, 1)
   expected_status.add({
     'X'     : Item(status='A ', copied='+', wc_rev='-'),
