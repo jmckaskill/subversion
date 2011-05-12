@@ -2711,7 +2711,7 @@ def ls_multiple_and_non_existent_targets(sbox):
 
   sbox.build(read_only = True)
   wc_dir = sbox.wc_dir
-
+  
   def non_existent_wc_target():
     "non-existent wc target"
     non_existent_path = os.path.join(wc_dir, 'non-existent')
@@ -2724,7 +2724,7 @@ def ls_multiple_and_non_existent_targets(sbox):
     "non-existent url target"
     non_existent_url = sbox.repo_url + '/non-existent'
     expected_err = ".*W160013.*"
-
+    
     svntest.actions.run_and_verify_svn2(None, None, expected_err,
                                         1, 'ls', non_existent_url)
   def multiple_wc_targets():
@@ -2742,7 +2742,7 @@ def ls_multiple_and_non_existent_targets(sbox):
     expected_err = ".*W155010.*\n.*E200009.*"
     expected_err_re = re.compile(expected_err, re.DOTALL)
 
-    exit_code, output, error = svntest.main.run_svn(1, 'ls', alpha,
+    exit_code, output, error = svntest.main.run_svn(1, 'ls', alpha, 
                                                     non_existent_path, beta)
 
     # Verify error
@@ -2765,7 +2765,7 @@ def ls_multiple_and_non_existent_targets(sbox):
     expected_err = ".*W160013.*\n.*E200009.*"
     expected_err_re = re.compile(expected_err, re.DOTALL)
 
-    exit_code, output, error = svntest.main.run_svn(1, 'ls', alpha,
+    exit_code, output, error = svntest.main.run_svn(1, 'ls', alpha, 
                                                     non_existent_url, beta)
 
     # Verify error
@@ -2801,7 +2801,7 @@ def add_multiple_targets(sbox):
       'file2' : Item(verb='Adding'),
     })
 
-  exit_code, output, error = svntest.main.run_svn(1, 'add', file1,
+  exit_code, output, error = svntest.main.run_svn(1, 'add', file1, 
                                                   non_existent_path, file2)
 
   # Verify error
@@ -2817,7 +2817,7 @@ def add_multiple_targets(sbox):
                                      'status', wc_dir)
 
 
-
+  
 ########################################################################
 # Run the tests
 
