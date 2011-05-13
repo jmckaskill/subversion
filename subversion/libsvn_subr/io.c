@@ -1981,7 +1981,7 @@ stringbuf_from_aprfile(svn_stringbuf_t **result,
         }
     }
 
-
+    
   /* XXX: We should check the incoming data for being of type binary. */
 
   res = svn_stringbuf_create_ensure(res_initial_len, pool);
@@ -2097,11 +2097,11 @@ svn_io_remove_file(const char *path, apr_pool_t *pool)
         {
           apr_finfo_t finfo;
 
-          if (apr_stat(&finfo, path_apr, APR_FINFO_TYPE, pool) == APR_SUCCESS
+          if (apr_stat(&finfo, path_apr, APR_FINFO_TYPE, pool) == APR_SUCCESS 
               && finfo.filetype == APR_REG)
             {
               WIN32_RETRY_LOOP(apr_err, apr_file_remove(path_apr, pool));
-            }
+            }		  
         }
 
       /* Just return the delete error */
