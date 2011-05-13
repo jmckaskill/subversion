@@ -56,28 +56,28 @@ only have access to the last version and probably some older version, but not
 to the previous version.
 
 [[
-> If you do
+> If you do 
 > Assuming you committed
 > $ svn propset svn:externals A .
 > $ svn up .
 > (updates externals to match definition nothing->A)
->
+> 
 > $ svn ci -m""
 > $ svn propset svn:externals B .
 > $ svn update .
->
+> 
 > Then currently this updates the directory to the definition A (just to be
 > safe), while you (and many others) would like it to go to B.
->
+> 
 > So assume the preferred scenario this would do the update A->B
->
+> 
 > But then you have the even likely case
 > $ svn propset svn:externals C
 > $ svn update .
->
+> 
 > This would then apply A->C, so this could potentially break your working
 > copy, by leaving traces of B.
->
+> 
 > We really need the step B->C here, but there is no way to access B, because
 > it wasn't committed. It just lived in a local property change.
 ]]
@@ -160,7 +160,7 @@ After holding back several changes to more file externals corner cases on
 three questions got me thinking:
 
     "We really need some store with old (applied) svn:externals definitions, so
-     we would only have to update externals from that to the latest definition"
+     we would only have to update externals from that to the latest definition"    
 
     "Why can't file externals be more like 'normal' externals?"
 
@@ -174,14 +174,14 @@ which we couldn't store before.
 - Handling externals changes -
 
 For every applied external we would like to have:
-  * Where it was defined
+  * Where it was defined 
   * What is its definition
   * If it has a fixed revision or not.
 This allows applying svn:externals changes from any previous state to the last
 state by just comparing the actual propery values against what is stored.
-
+ 
 - Moving file externals into their own storage -
-
+  
 If we want to make file externals like 'normal externals, we should remove
 their presence from their parent working copy and just handle them as
 independent filesystem objects.
@@ -195,7 +195,7 @@ would have in the past'.
   * Checksum
   * Changed date, author, revision
   * Recorded size and mod time
-
+  
 - Excluding externals -
 
 To allow excluding externals we need some kind of presence flag containing
