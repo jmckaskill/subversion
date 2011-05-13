@@ -407,7 +407,7 @@ switch_file_external(const char *local_abspath,
     const char *repos_uuid;
     svn_revnum_t revnum;
     /* ### TODO: Provide the real definition path (now available in
-       ### def_dir_abspath) after switching to the new externals store.
+       ### def_dir_abspath) after switching to the new externals store. 
        ### We can't enable this now, because that would move the external
        ### information into the wrong working copy */
     const char *definition_abspath = svn_dirent_dirname(local_abspath,subpool);
@@ -425,7 +425,7 @@ switch_file_external(const char *local_abspath,
     SVN_ERR(svn_wc__get_file_external_editor(&switch_editor, &switch_baton,
                                              &revnum, ctx->wc_ctx,
                                              local_abspath,
-                                             definition_abspath /* wri */,
+                                             definition_abspath /* wri */, 
                                              switch_rev_url,
                                              repos_root_url,
                                              repos_uuid,
@@ -943,7 +943,7 @@ handle_external_item_change(const struct item_change_baton_t *ib,
           if (err2 && err2->apr_err == SVN_ERR_WC_NOT_LOCKED)
             {
               /* We removed the lock by removing the node, how nice! */
-              svn_error_clear(err2);
+              svn_error_clear(err2); 
             }
           else
             err = svn_error_compose_create(err, err2);
