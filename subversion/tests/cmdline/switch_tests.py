@@ -3181,7 +3181,7 @@ def relocate_with_relative_externals(sbox):
   svntest.actions.run_and_verify_svn(None, None, [], 'switch', '--relocate',
                                      '--ignore-ancestry',
                                      repo_url, other_repo_url, wc_dir)
-
+  
   # Check the URLs of the externals -- were they updated to point to the
   # .other repository URL?
   svntest.actions.run_and_verify_info([{ 'URL' : '.*.other/A/D/G$' }],
