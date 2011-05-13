@@ -1049,7 +1049,7 @@ svn_wc__crawl_file_external(svn_wc_context_t *wc_ctx,
          the target as switched.
 
          ### We can probably report a parent url and unswitched later */
-      SVN_ERR(reporter->link_path(report_baton, "",
+      SVN_ERR(reporter->link_path(report_baton, "", 
                                   svn_path_url_add_component2(repos_root_url,
                                                               repos_relpath,
                                                               scratch_pool),
@@ -1207,7 +1207,7 @@ svn_wc__external_status(const svn_wc_status3_t **stat,
       st->kind = svn_node_file;
       st->node_status = svn_wc_status_external;
       st->text_status = svn_wc_status_normal;
-
+    
       if (props_mod)
         st->prop_status = svn_wc_status_modified;
       else if (had_props)
