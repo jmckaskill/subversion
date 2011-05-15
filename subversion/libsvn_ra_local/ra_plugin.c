@@ -200,9 +200,9 @@ reporter_link_path(void *reporter_baton,
   /* Skip the repos_url, but keep the last '/' to create an fspath */
   fs_path = svn_uri_skip_ancestor(repos_url, url);
   if (fs_path[0] == '\0')
-    fs_path = "/";
+    fs_path = "/";  
   else
-    fs_path = svn_path_uri_decode(--fs_path, pool);
+    fs_path = svn_path_uri_decode(--fs_path, pool);  
 
   return svn_repos_link_path3(rbaton->report_baton, path, fs_path, revision,
                               depth, start_empty, lock_token, pool);
