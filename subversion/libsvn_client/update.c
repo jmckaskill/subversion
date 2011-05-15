@@ -545,7 +545,7 @@ svn_client_update4(apr_array_header_t **result_revs,
           svn_error_clear(err);
 
           /* SVN_ERR_WC_NOT_WORKING_COPY: it's not versioned */
-
+          
           result_rev = SVN_INVALID_REVNUM;
           if (ctx->notify_func2)
             {
