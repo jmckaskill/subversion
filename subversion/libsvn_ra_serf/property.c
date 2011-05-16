@@ -911,7 +911,7 @@ retrieve_baseline_info(svn_revnum_t *actual_revision,
                        svn_ra_serf__session_t *session,
                        svn_ra_serf__connection_t *conn,
                        const char *baseline_url,
-                       svn_revnum_t revision,
+                       svn_revnum_t revision,                       
                        apr_pool_t *pool)
 {
   apr_hash_t *props = apr_hash_make(pool);
@@ -947,7 +947,7 @@ retrieve_baseline_info(svn_revnum_t *actual_revision,
     {
       *actual_revision = SVN_STR_TO_REV(version_name);
     }
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -1089,7 +1089,7 @@ svn_ra_serf__get_resource_type(svn_node_kind_t *kind,
                                svn_revnum_t revision)
 {
   const char *res_type;
-
+  
   res_type = svn_ra_serf__get_ver_prop(props, url, revision,
                                        "DAV:", "resourcetype");
   if (!res_type)
@@ -1099,7 +1099,7 @@ svn_ra_serf__get_resource_type(svn_node_kind_t *kind,
                               _("The PROPFIND response did not include the "
                               "requested resourcetype value"));
     }
-
+  
   if (strcmp(res_type, "collection") == 0)
     {
       *kind = svn_node_dir;
