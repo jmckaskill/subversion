@@ -87,7 +87,7 @@ get_old_version(int *version,
 
 /* A helper function to parse_local_abspath() which returns the on-disk KIND
    of LOCAL_ABSPATH, using DB and SCRATCH_POOL as needed.
-
+   
    This function may do strange things, but at long as it comes up with the
    Right Answer, we should be happy.  */
 static svn_error_t *
@@ -388,7 +388,7 @@ svn_wc__db_wcroot_parse_local_abspath(svn_wc__db_wcroot_t **wcroot,
          ### get an early-exit in the hash lookup just above.  */
       SVN_ERR(get_path_kind(db, local_abspath, &kind, scratch_pool));
     }
-
+    
   if (kind != svn_node_dir)
     {
       /* If the node specified by the path is NOT present, then it cannot

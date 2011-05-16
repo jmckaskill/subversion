@@ -127,7 +127,7 @@ svn_wc__db_pdh_create_wcroot(svn_wc__db_wcroot_t **wcroot,
 /* For a given LOCAL_ABSPATH, figure out what sqlite database (WCROOT) to
    use and the RELPATH within that wcroot. KIND serves to prevent unnecessary
    stat calls and may be set to svn_node_file, if LOCAL_ABSPATH is known to
-   refer to a file. Similarly, svn_node_dir may be used for directories.
+   refer to a file. Similarly, svn_node_dir may be used for directories. 
    Otherwise, it must be svn_node_unknown.
 
    *LOCAL_RELPATH will be allocated within RESULT_POOL. Temporary allocations
