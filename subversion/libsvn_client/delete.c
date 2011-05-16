@@ -60,7 +60,7 @@ find_undeletables(void *baton,
                              _("'%s' is in the way of the resource "
                                "actually under version control"),
                              svn_dirent_local_style(path, pool));
-  else if (! status->versioned
+  else if (! status->versioned 
            || status->node_status == svn_wc_status_external)
     return svn_error_createf(SVN_ERR_UNVERSIONED_RESOURCE, NULL,
                              _("'%s' is not under version control"),
@@ -223,7 +223,7 @@ delete_urls(const apr_array_header_t *paths,
       if (kind == svn_node_none)
         {
           return svn_error_createf(SVN_ERR_FS_NOT_FOUND, NULL,
-                                   _("URL '%s' does not exist"),
+                                   _("URL '%s' does not exist"), 
                                    svn_path_url_add_component2(common_url,
                                                                relpath, pool));
         }
