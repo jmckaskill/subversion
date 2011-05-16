@@ -226,7 +226,7 @@ typedef struct insert_external_baton_t {
   /* common to all insertions into EXTERNALS */
   svn_wc__db_kind_t kind;
   svn_wc__db_status_t presence;
-
+  
   /* The repository of the external */
   apr_int64_t repos_id;
   /* for file and symlink externals */
@@ -774,7 +774,7 @@ insert_base_node(void *baton,
   svn_sqlite__stmt_t *stmt;
   svn_filesize_t recorded_size = SVN_INVALID_FILESIZE;
   apr_int64_t recorded_mod_time;
-
+  
   /* The directory at the WCROOT has a NULL parent_relpath. Otherwise,
      bind the appropriate parent_relpath. */
   const char *parent_relpath =
@@ -1062,8 +1062,8 @@ insert_working_node(void *baton,
          a child of the parent node was not copied. */
       SVN_ERR(svn_sqlite__get_statement(&stmt, wcroot->sdb,
                                         STMT_INSERT_NODE));
-
-      SVN_ERR(svn_sqlite__bindf(stmt, "isisisrtnt",
+          
+      SVN_ERR(svn_sqlite__bindf(stmt, "isisisrtnt", 
                                 wcroot->wc_id, local_relpath,
                                 piwb->not_present_op_depth, parent_relpath,
                                 piwb->original_repos_id,
@@ -2100,7 +2100,7 @@ svn_wc__db_base_get_children_info(apr_hash_t **nodes,
 
   *nodes = apr_hash_make(result_pool);
 
-  SVN_ERR(svn_sqlite__get_statement(&stmt, wcroot->sdb,
+  SVN_ERR(svn_sqlite__get_statement(&stmt, wcroot->sdb, 
                                     STMT_SELECT_BASE_CHILDREN_INFO));
   SVN_ERR(svn_sqlite__bindf(stmt, "is", wcroot->wc_id, local_relpath));
 
@@ -2140,7 +2140,7 @@ svn_wc__db_base_get_children_info(apr_hash_t **nodes,
         return svn_error_return(
                  svn_error_compose_create(err,
                                           svn_sqlite__reset(stmt)));
-
+                           
 
       apr_hash_set(*nodes, name, APR_HASH_KEY_STRING, info);
 
@@ -3789,7 +3789,7 @@ db_op_copy(svn_wc__db_wcroot_t *src_wcroot,
 
           SVN_ERR(svn_sqlite__get_statement(&stmt, dst_wcroot->sdb,
                                             STMT_INSERT_NODE));
-          SVN_ERR(svn_sqlite__bindf(stmt, "isisisrtnt",
+          SVN_ERR(svn_sqlite__bindf(stmt, "isisisrtnt", 
                                     src_wcroot->wc_id, dst_relpath,
                                     dst_np_op_depth, dst_parent_relpath,
                                     copyfrom_id, copyfrom_relpath,
@@ -4044,20 +4044,20 @@ db_op_copy_shadowed_layer(svn_wc__db_wcroot_t *src_wcroot,
 
       if (src_op_depth > 0)
         SVN_ERR(svn_sqlite__bind_int64(stmt, 7, src_op_depth));
-
+      
       SVN_ERR(svn_sqlite__step_done(stmt));
 
       {
         /* And mark it deleted to allow proper shadowing */
         struct insert_working_baton_t iwb;
-
+    
         blank_iwb(&iwb);
-
+    
         iwb.op_depth = del_op_depth;
         iwb.presence = svn_wc__db_status_base_deleted;
-
+    
         iwb.kind = kind;
-
+    
         SVN_ERR(insert_working_node(&iwb, dst_wcroot, dst_relpath,
                                     scratch_pool));
       }
@@ -6160,7 +6160,7 @@ info_below_working(svn_boolean_t *have_base,
 
   if (below_op_depth >= 0)
     {
-      while (have_row &&
+      while (have_row && 
              (svn_sqlite__column_int64(stmt, 0) > below_op_depth))
         {
           SVN_ERR(svn_sqlite__step(&have_row, stmt));
@@ -6258,7 +6258,7 @@ op_delete_txn(void *baton,
                             b->delete_depth));
   SVN_ERR(svn_sqlite__step_done(stmt));
 
-  /* Delete ACTUAL_NODE rows, but leave those that have changelist
+  /* Delete ACTUAL_NODE rows, but leave those that have changelist 
      and a NODES row. */
   SVN_ERR(svn_sqlite__get_statement(&stmt, wcroot->sdb,
                          STMT_DELETE_ACTUAL_NODE_LEAVING_CHANGELIST_RECURSIVE));
@@ -6277,7 +6277,7 @@ op_delete_txn(void *baton,
   SVN_ERR(svn_sqlite__bindf(stmt, "iss", wcroot->wc_id,
                             local_relpath, like_arg));
   SVN_ERR(svn_sqlite__step_done(stmt));
-
+    
   if (add_work)
     {
       SVN_ERR(svn_sqlite__get_statement(&stmt, wcroot->sdb,
@@ -6819,7 +6819,7 @@ read_children_info(void *baton,
   SVN_ERR(svn_sqlite__bindf(stmt, "is", wcroot->wc_id, dir_relpath));
   SVN_ERR(svn_sqlite__step(&have_row, stmt));
 
-
+  
   while (have_row)
     {
       /* CHILD item points to what we have about the node. We only provide
@@ -7360,7 +7360,7 @@ svn_wc__db_read_node_install_info(const char **wcroot_abspath,
       if (*is_file_external)
         {
           svn_wc__db_kind_t external_kind;
-
+          
           external_kind = svn_sqlite__column_token(stmt, 0, kind_map);
 
           if (external_kind == svn_wc__db_kind_file
@@ -7665,7 +7665,7 @@ cache_props_recursive(void *cb_baton,
 
   if (baton->cancel_func)
     SVN_ERR(baton->cancel_func(baton->cancel_baton));
-
+ 
   if (baton->immediates_only)
     {
       SVN_ERR(svn_sqlite__get_statement(&stmt, wcroot->sdb,
@@ -8007,7 +8007,7 @@ check_replace_txn(void *baton,
           svn_wc__db_status_t base_status;
 
           base_status = svn_sqlite__column_token(stmt, 3, presence_map);
-
+                                           
           *crb->base_replace = (base_status != svn_wc__db_status_not_present);
         }
     }
@@ -8020,17 +8020,17 @@ check_replace_txn(void *baton,
   if (replaced_status != svn_wc__db_status_base_deleted)
     {
       apr_int64_t parent_op_depth;
-
+    
       /* Check the current op-depth of the parent to see if we are a replacement
          root */
       SVN_ERR(svn_sqlite__bindf(stmt, "is", wcroot->wc_id,
                                 svn_relpath_dirname(local_relpath,
                                                     scratch_pool)));
-
+    
       SVN_ERR(svn_sqlite__step_row(stmt)); /* Parent must exist as 'normal' */
-
+    
       parent_op_depth = svn_sqlite__column_int64(stmt, 0);
-
+    
       if (parent_op_depth >= replaced_op_depth)
         {
           /* Did we replace inside our directory? */
@@ -8039,14 +8039,14 @@ check_replace_txn(void *baton,
           SVN_ERR(svn_sqlite__reset(stmt));
           return SVN_NO_ERROR;
         }
-
+    
       SVN_ERR(svn_sqlite__step(&have_row, stmt));
-
+    
       if (have_row)
         parent_op_depth = svn_sqlite__column_int64(stmt, 0);
-
+    
       SVN_ERR(svn_sqlite__reset(stmt));
-
+    
       if (!have_row)
         *crb->is_replace_root = TRUE; /* Parent is no replacement */
       else if (parent_op_depth < replaced_op_depth)
@@ -8370,7 +8370,7 @@ descendant_commit(svn_wc__db_wcroot_t *wcroot,
   SVN_ERR(svn_sqlite__get_statement(&stmt, wcroot->sdb,
                                     STMT_COMMIT_DESCENDANT_TO_BASE));
 
-  SVN_ERR(gather_repo_children(&children, wcroot, parent_local_relpath,
+  SVN_ERR(gather_repo_children(&children, wcroot, parent_local_relpath, 
                                op_depth, scratch_pool, iterpool));
 
   for (i = 0; i < children->nelts; i++)
@@ -8986,7 +8986,7 @@ bump_revisions_post_update(void *baton,
     }
 
   if (brb->new_repos_root_url != NULL)
-    SVN_ERR(create_repos_id(&new_repos_id, brb->new_repos_root_url,
+    SVN_ERR(create_repos_id(&new_repos_id, brb->new_repos_root_url, 
                             brb->new_repos_uuid,
                             wcroot->sdb, scratch_pool));
 
@@ -12199,7 +12199,7 @@ svn_wc__db_base_get_lock_tokens_recursive(apr_hash_t **lock_tokens,
                                           apr_pool_t *scratch_pool)
 {
   svn_wc__db_wcroot_t *wcroot;
-  const char *local_relpath;
+  const char *local_relpath; 
   svn_sqlite__stmt_t *stmt;
   svn_boolean_t have_row;
   apr_int64_t last_repos_id = INVALID_REPOS_ID;
