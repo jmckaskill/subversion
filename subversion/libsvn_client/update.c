@@ -95,12 +95,12 @@ svn_client__dirent_fetcher(void *baton,
 /* Set *CLEAN_CHECKOUT to FALSE only if LOCAL_ABSPATH is a non-empty
    folder. ANCHOR_ABSPATH is the w/c root and LOCAL_ABSPATH will still
    be considered empty, if it is equal to ANCHOR_ABSPATH and only
-   contains the admin sub-folder.
+   contains the admin sub-folder. 
  */
 static svn_error_t *
-is_empty_wc(const char *local_abspath,
-            const char *anchor_abspath,
-            svn_boolean_t *clean_checkout,
+is_empty_wc(const char *local_abspath, 
+            const char *anchor_abspath, 
+            svn_boolean_t *clean_checkout, 
             apr_pool_t *pool)
 {
   apr_dir_t *dir;
@@ -109,7 +109,7 @@ is_empty_wc(const char *local_abspath,
 
   /* "clean" until found dirty */
   *clean_checkout = TRUE;
-
+  
   /* open directory. If it does not exist, yet, a clean one will
      be created by the caller. If it cannot be openend for other
      reasons, the caller will detect and report those as well. */
@@ -119,7 +119,7 @@ is_empty_wc(const char *local_abspath,
       svn_error_clear(err);
       return SVN_NO_ERROR;
     }
-
+  
   for (err = svn_io_dir_read(&finfo, APR_FINFO_NAME, dir, pool);
        err == SVN_NO_ERROR;
        err = svn_io_dir_read(&finfo, APR_FINFO_NAME, dir, pool))
@@ -140,7 +140,7 @@ is_empty_wc(const char *local_abspath,
             }
         }
     }
-
+  
   svn_error_clear(err);
   return svn_io_dir_close(dir);
 }
@@ -603,7 +603,7 @@ svn_client_update4(apr_array_header_t **result_revs,
           svn_error_clear(err);
 
           /* SVN_ERR_WC_NOT_WORKING_COPY: it's not versioned */
-
+          
           result_rev = SVN_INVALID_REVNUM;
           if (ctx->notify_func2)
             {
