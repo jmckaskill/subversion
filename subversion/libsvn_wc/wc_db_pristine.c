@@ -113,7 +113,7 @@ svn_wc__db_pristine_get_path(const char **pristine_abspath,
   SVN_ERR_ASSERT(sha1_checksum->kind == svn_checksum_sha1);
 
   SVN_ERR(svn_wc__db_wcroot_parse_local_abspath(&wcroot, &local_relpath,
-                                             db, wri_abspath,
+                                             db, wri_abspath, 
                                              svn_node_unknown,
                                              scratch_pool, scratch_pool));
   VERIFY_USABLE_WCROOT(wcroot);
@@ -230,7 +230,7 @@ svn_wc__db_pristine_read(svn_stream_t **contents,
   SVN_ERR_ASSERT(sha1_checksum->kind == svn_checksum_sha1);
 
   SVN_ERR(svn_wc__db_wcroot_parse_local_abspath(&wcroot, &local_relpath, db,
-                              wri_abspath, svn_node_unknown,
+                              wri_abspath, svn_node_unknown, 
                               scratch_pool, scratch_pool));
   VERIFY_USABLE_WCROOT(wcroot);
 
@@ -303,7 +303,7 @@ typedef struct pristine_install_baton_t
  *
  * This function expects to be executed inside a SQLite txn that has already
  * acquired a 'RESERVED' lock.
- *
+ * 
  * Implements 'notes/wc-ng/pristine-store' section A-3(a).
  * Implements svn_sqlite__transaction_callback_t. */
 static svn_error_t *
@@ -419,7 +419,7 @@ svn_wc__db_pristine_install(svn_wc__db_t *db,
                                    scratch_pool);
 
   SVN_ERR(svn_wc__db_wcroot_parse_local_abspath(&wcroot, &local_relpath, db,
-                              wri_abspath, svn_node_unknown,
+                              wri_abspath, svn_node_unknown, 
                               scratch_pool, scratch_pool));
   VERIFY_USABLE_WCROOT(wcroot);
 
@@ -459,7 +459,7 @@ svn_wc__db_pristine_get_md5(const svn_checksum_t **md5_checksum,
   SVN_ERR_ASSERT(sha1_checksum->kind == svn_checksum_sha1);
 
   SVN_ERR(svn_wc__db_wcroot_parse_local_abspath(&wcroot, &local_relpath, db,
-                              wri_abspath, svn_node_unknown,
+                              wri_abspath, svn_node_unknown, 
                               scratch_pool, scratch_pool));
   VERIFY_USABLE_WCROOT(wcroot);
 
@@ -498,7 +498,7 @@ svn_wc__db_pristine_get_sha1(const svn_checksum_t **sha1_checksum,
   SVN_ERR_ASSERT(md5_checksum->kind == svn_checksum_md5);
 
   SVN_ERR(svn_wc__db_wcroot_parse_local_abspath(&wcroot, &local_relpath, db,
-                              wri_abspath, svn_node_unknown,
+                              wri_abspath, svn_node_unknown, 
                               scratch_pool, scratch_pool));
   VERIFY_USABLE_WCROOT(wcroot);
 
@@ -652,7 +652,7 @@ svn_wc__db_pristine_remove(svn_wc__db_t *db,
   SVN_ERR_ASSERT(sha1_checksum->kind == svn_checksum_sha1);
 
   SVN_ERR(svn_wc__db_wcroot_parse_local_abspath(&wcroot, &local_relpath, db,
-                              wri_abspath, svn_node_unknown,
+                              wri_abspath, svn_node_unknown, 
                               scratch_pool, scratch_pool));
   VERIFY_USABLE_WCROOT(wcroot);
 
@@ -717,7 +717,7 @@ svn_wc__db_pristine_cleanup(svn_wc__db_t *db,
   SVN_ERR_ASSERT(svn_dirent_is_absolute(wri_abspath));
 
   SVN_ERR(svn_wc__db_wcroot_parse_local_abspath(&wcroot, &local_relpath, db,
-                              wri_abspath, svn_node_unknown,
+                              wri_abspath, svn_node_unknown, 
                               scratch_pool, scratch_pool));
   VERIFY_USABLE_WCROOT(wcroot);
 
@@ -751,7 +751,7 @@ svn_wc__db_pristine_check(svn_boolean_t *present,
   SVN_ERR_ASSERT(sha1_checksum->kind == svn_checksum_sha1);
 
   SVN_ERR(svn_wc__db_wcroot_parse_local_abspath(&wcroot, &local_relpath, db,
-                              wri_abspath, svn_node_unknown,
+                              wri_abspath, svn_node_unknown, 
                               scratch_pool, scratch_pool));
   VERIFY_USABLE_WCROOT(wcroot);
 
