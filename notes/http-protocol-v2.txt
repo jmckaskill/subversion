@@ -35,7 +35,7 @@ Write a new HTTP protocol for svn ("HTTP v2").  Map RA requests
 directly to HTTP requests.
 
   * svn over HTTP should be much faster (eliminate extra turnarounds)
-
+ 
   * svn over HTTP should be almost as easy to extend as svnserve.
 
   * svn over HTTP should be comprehensible to devs and users both
