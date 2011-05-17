@@ -210,7 +210,7 @@ get_xlate_handle_node(xlate_handle_node_t **ret,
               *ret = old_node;
               return SVN_NO_ERROR;
             }
-
+          
           /* 2nd level: hash lookup */
 #if APR_HAS_THREADS
           apr_err = apr_thread_mutex_lock(xlate_handle_mutex);
