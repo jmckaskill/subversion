@@ -227,7 +227,7 @@ load_authorities(svn_ra_serf__connection_t *conn, const char *authorities,
 /* This ugly ifdef construction can be cleaned up as soon as serf >= 0.4
    gets the minimum supported serf version! */
 
-/* svn_ra_serf__conn_setup is a callback for serf. This function
+/* svn_ra_serf__conn_setup is a callback for serf. This function 
    creates a read bucket and will wrap the write bucket if SSL
    is needed. */
 apr_status_t
@@ -249,10 +249,10 @@ svn_ra_serf__conn_setup(apr_socket_t *sock,
 #endif
   serf_bucket_t *rb = NULL;
   svn_ra_serf__connection_t *conn = baton;
-
+  
   rb = serf_context_bucket_socket_create(conn->session->context,
                                          sock, conn->bkt_alloc);
-
+  
   if (conn->using_ssl)
     {
       /* input stream */
@@ -261,7 +261,7 @@ svn_ra_serf__conn_setup(apr_socket_t *sock,
       if (!conn->ssl_context)
         {
           conn->ssl_context = serf_bucket_ssl_encrypt_context_get(rb);
-
+  
           serf_ssl_client_cert_provider_set(conn->ssl_context,
                                             svn_ra_serf__handle_client_cert,
                                             conn, conn->session->pool);
@@ -303,7 +303,7 @@ svn_ra_serf__conn_setup(apr_socket_t *sock,
 
   return APR_SUCCESS;
 }
-#else
+#else  
   return rb;
 }
 #endif
