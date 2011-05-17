@@ -313,7 +313,7 @@ report_revisions_and_depths(svn_wc__db_t *db,
     {
       err = svn_io_get_dirents3(&dirents, dir_abspath, TRUE,
                                 scratch_pool, scratch_pool);
-
+      
       if (err && (APR_STATUS_IS_ENOENT(err->apr_err)
                   || SVN__APR_STATUS_IS_ENOTDIR(err->apr_err)))
         {
@@ -335,7 +335,7 @@ report_revisions_and_depths(svn_wc__db_t *db,
                                 external_baton, dir_depth, iterpool));
 
   /* Looping over current directory's BASE children: */
-  for (hi = apr_hash_first(scratch_pool, base_children);
+  for (hi = apr_hash_first(scratch_pool, base_children); 
        hi != NULL;
        hi = apr_hash_next(hi))
     {
@@ -793,7 +793,7 @@ svn_wc_crawl_revisions5(svn_wc_context_t *wc_ctx,
   {
     report_depth = target_depth;
 
-    if (honor_depth_exclude
+    if (honor_depth_exclude 
         && depth != svn_depth_unknown
         && depth < target_depth)
       report_depth = depth;
