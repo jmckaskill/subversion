@@ -1171,7 +1171,7 @@ WHERE wc_id = ?1
   AND op_depth >= ?3
   AND presence NOT IN ('base-deleted', 'not-present', 'excluded', 'absent')
   AND op_depth = (SELECT MAX(op_depth) FROM nodes s
-                  WHERE s.wc_id = n.wc_id
+                  WHERE s.wc_id = n.wc_id 
                     AND s.local_relpath = n.local_relpath)
 
 -- STMT_SELECT_DELETE_LIST
