@@ -235,7 +235,7 @@ words_match(apr_time_exp_t *expt, svn_boolean_t *localtz,
   const char *unit_str;
 
   words = svn_cstring_split(text, " ", TRUE /* chop_whitespace */, pool);
-
+  
   if (words->nelts != 3)
     return FALSE;
 
@@ -254,7 +254,7 @@ words_match(apr_time_exp_t *expt, svn_boolean_t *localtz,
 
   if (n < 0)
     {
-      svn_error_t *err;
+      svn_error_t *err; 
 
       /* Try to parse a digit. */
       err = svn_cstring_atoi(&n, word);
