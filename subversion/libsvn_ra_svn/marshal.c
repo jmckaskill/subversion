@@ -98,7 +98,7 @@ svn_ra_svn_conn_t *svn_ra_svn_create_conn(apr_socket_t *sock,
                                           apr_file_t *out_file,
                                           apr_pool_t *pool)
 {
-  return svn_ra_svn_create_conn2(sock, in_file, out_file,
+  return svn_ra_svn_create_conn2(sock, in_file, out_file, 
                                  SVN_DEFAULT_COMPRESSION_LEVEL, pool);
 }
 
@@ -639,7 +639,7 @@ static svn_error_t *read_string(svn_ra_svn_conn_t *conn, apr_pool_t *pool,
 
   /* Return the string properly wrapped into an RA_SVN item.
    * Note that the svn_string_t structure is identical to the
-   * data and len members in stringbuf.
+   * data and len members in stringbuf. 
    */
   item->kind = SVN_RA_SVN_STRING;
   item->u.string = (svn_string_t *)(&stringbuf->data);
