@@ -790,7 +790,7 @@ def merge_foreign_symlink(sbox):
   #   expected_status.add({
   #     'A/zeta' : Item(status='A ', wc_rev='-', props={'svn:special': '*'}),
   #     })
-
+  
 ########################################################################
 # Run the tests
 
