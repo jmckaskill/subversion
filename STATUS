@@ -123,10 +123,10 @@ Veto-blocked changes:
          testing purposes, see subversion\libsvn_subr\private_uri.h and
          http://svn.apache.org/viewvc?view=revision&revision=876419
          So problem #1: This won't build.
-
+         
          Problem #2: Since I first made this veto, further changes were
          backported which prevent a clean merge.
-
+         
          Problem #3: I tried to create a backport branch to address the
          conflicts and makes use of svn_path_canonicalize instead of
          svn_uri_canonicalize.  Unfortunately I cannot replicate the error
