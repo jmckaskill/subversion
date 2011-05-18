@@ -58,7 +58,7 @@
   (add-hook 'window-configuration-change-hook
             'svn-entries-after-config nil t))
 
-(defconst svn-entries-labels
+(defconst svn-entries-labels 
   ["name"
    "kind"
    "revision"
@@ -127,7 +127,7 @@
     (overlay-put ov 'before-string left-label)))
 
 (defun svn-entries-after-config ()
-  (walk-windows (lambda (w) (svn-entries-set-margins-if-overlaid (window-buffer)))
+  (walk-windows (lambda (w) (svn-entries-set-margins-if-overlaid (window-buffer))) 
                 nil 'visible))
 
 (defun svn-entries-set-margins-if-overlaid (b)
