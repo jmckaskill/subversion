@@ -857,7 +857,7 @@ get_prop_from_wc(apr_hash_t *props,
           apr_hash_set(target_props, target_abspath, APR_HASH_KEY_STRING,
                        propval);
           SVN_ERR(recursive_propget_receiver(&rb, target_abspath, target_props,
-                                             scratch_pool));
+                                             scratch_pool));      
         }
     }
 
