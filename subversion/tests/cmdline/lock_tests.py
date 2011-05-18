@@ -1653,10 +1653,10 @@ def cp_isnt_ro(sbox):
 @Issue(3525)
 def update_locked_deleted(sbox):
   "updating locked scheduled-for-delete file"
-
+  
   sbox.build()
   wc_dir = sbox.wc_dir
-
+  
   iota_path = os.path.join(wc_dir, 'iota')
   mu_path = os.path.join(wc_dir, 'A', 'mu')
 
@@ -1667,11 +1667,11 @@ def update_locked_deleted(sbox):
   # Create expected output tree for an update.
   expected_output = svntest.wc.State(wc_dir, {
   })
-
+  
   # Create expected status tree for the update.
   expected_status = svntest.actions.get_virginal_state(wc_dir, 1)
   expected_status.tweak('iota', 'A/mu', status='D ', writelocked='K')
-
+    
   svntest.actions.run_and_verify_update(wc_dir,
                                         expected_output,
                                         None,
@@ -1679,8 +1679,8 @@ def update_locked_deleted(sbox):
                                         None, None, None,
                                         None, None)
 
-
-
+  
+  
 ########################################################################
 # Run the tests
 
