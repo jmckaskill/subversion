@@ -5108,7 +5108,7 @@ def copy_url_shortcut(sbox):
   # Can use ^/A/D/G even though X/pi is a delete within a copy.
   svntest.actions.run_and_verify_svn(None, None, [], 'copy',
                                      '^/A/D/G/pi', sbox.ospath('X/pi'))
-
+  
   expected_status = svntest.actions.get_virginal_state(wc_dir, 1)
   expected_status.add({
     'X'     : Item(status='A ', copied='+', wc_rev='-'),
@@ -5129,15 +5129,15 @@ def deleted_file_with_case_clash(sbox):
 
   sbox.build()
   wc_dir = sbox.wc_dir
-
+  
   iota_path = os.path.join(wc_dir, 'iota')
   iota2_path = os.path.join(wc_dir, 'iota2')
   IOTA_path = os.path.join(wc_dir, 'IOTA')
-
+  
   # Perform a case-only rename in two steps.
   svntest.main.run_svn(None, 'move', iota_path, iota2_path)
   svntest.main.run_svn(None, 'move', iota2_path, IOTA_path)
-
+  
   expected_status = svntest.actions.get_virginal_state(wc_dir, 1)
   expected_status.add({
     'iota' : Item(status='D ', wc_rev=1),
@@ -5146,12 +5146,12 @@ def deleted_file_with_case_clash(sbox):
 
   svntest.actions.run_and_verify_status(wc_dir, expected_status)
 
-  # Perform an 'info' call, where we expect to be able to see the
+  # Perform an 'info' call, where we expect to be able to see the 
   # deleted file (which is hidden by the on-disk case-clashing file).
   expected_info = {'Path' : re.escape(iota_path),
                    'Schedule' : 'delete',
                   }
-
+                  
   svntest.actions.run_and_verify_info([expected_info], iota_path)
 
 
