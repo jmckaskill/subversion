@@ -605,7 +605,7 @@ def replace_symlink_with_dir(sbox):
   os.chdir(was_cwd)
   expected_output = svntest.wc.State(wc_dir, {
   })
-  svntest.actions.run_and_verify_commit(wc_dir, expected_output,
+  svntest.actions.run_and_verify_commit(wc_dir, expected_output, 
                                         None, None, wc_dir)
 
 # test for issue #1808: svn up deletes local symlink that obstructs
@@ -789,7 +789,7 @@ def merge_foreign_symlink(sbox):
   #   expected_status.add({
   #     'A/zeta' : Item(status='A ', wc_rev='-', props={'svn:special': '*'}),
   #     })
-
+  
 ########################################################################
 # Run the tests
 
