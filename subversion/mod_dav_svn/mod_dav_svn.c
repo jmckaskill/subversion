@@ -251,7 +251,7 @@ SVNMasterURI_cmd(cmd_parms *cmd, void *config, const char *arg1)
                         cmd->pool);
   if (! *uri_base_name)
     return "SVNMasterURI value must not be a server root";
-
+  
   conf->master_uri = apr_pstrdup(cmd->pool, arg1);
 
   return NULL;
