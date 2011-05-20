@@ -100,7 +100,7 @@ dump_cache_statistics(void *baton_void)
     {
       text_stats = svn_cache__format_info(&info, baton->pool);
       lines = svn_cstring_split(text_stats->data, "\n", FALSE, baton->pool);
-
+      
       for (i = 0; i < lines->nelts; ++i)
         {
           const char *line = APR_ARRAY_IDX(lines, i, const char *);
@@ -278,7 +278,7 @@ svn_fs_fs__initialize_caches(svn_fs_t *fs,
                                                      (char *)NULL),
                                          fs->pool));
     }
-  else if (svn_cache__get_global_membuffer_cache() &&
+  else if (svn_cache__get_global_membuffer_cache() && 
            svn_get_cache_config()->cache_fulltexts)
     {
       SVN_ERR(svn_cache__create_membuffer_cache(&(ffd->fulltext_cache),
