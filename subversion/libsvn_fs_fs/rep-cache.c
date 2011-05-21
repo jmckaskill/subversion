@@ -119,7 +119,7 @@ svn_fs_fs__get_rep_reference(representation_t **rep,
   if (*rep)
     {
       svn_revnum_t youngest;
-
+      
       youngest = ffd->youngest_rev_cache;
       if (youngest < (*rep)->revision)
       {
