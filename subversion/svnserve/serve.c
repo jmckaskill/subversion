@@ -2369,7 +2369,7 @@ static svn_error_t *file_rev_handler(void *baton, const char *path,
       svn_stream_set_close(stream, svndiff_close_handler);
 
       /* If the connection does not support SVNDIFF1 or if we don't want to use
-       * compression, use the non-compressing "version 0" implementation */
+       * compression, use the non-compressing "version 0" implementation */ 
       if (   svn_ra_svn_compression_level(frb->conn) > 0
           && svn_ra_svn_has_capability(frb->conn, SVN_RA_SVN_CAP_SVNDIFF1))
         svn_txdelta_to_svndiff3(d_handler, d_baton, stream, 1,
