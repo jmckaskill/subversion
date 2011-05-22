@@ -52,12 +52,12 @@ read_config(svn_memcache_t **memcache_p,
 
   SVN_ERR(svn_cache__make_memcache_from_config(memcache_p, ffd->config,
                                               fs->pool));
-
-  *cache_txdeltas
-    = svn_hash_get_bool(fs->config,
+    
+  *cache_txdeltas 
+    = svn_hash_get_bool(fs->config, 
                         SVN_FS_CONFIG_FSFS_CACHE_DELTAS,
                         svn_get_cache_config()->cache_txdeltas);
-  *cache_fulltexts
+  *cache_fulltexts 
     = svn_hash_get_bool(fs->config,
                         SVN_FS_CONFIG_FSFS_CACHE_FULLTEXTS,
                         svn_get_cache_config()->cache_fulltexts);
@@ -113,7 +113,7 @@ dump_cache_statistics(void *baton_void)
     {
       text_stats = svn_cache__format_info(&info, baton->pool);
       lines = svn_cstring_split(text_stats->data, "\n", FALSE, baton->pool);
-
+      
       for (i = 0; i < lines->nelts; ++i)
         {
           const char *line = APR_ARRAY_IDX(lines, i, const char *);
@@ -135,9 +135,9 @@ dump_cache_statistics(void *baton_void)
 #endif /* DEBUG_CACHE_DUMP_STATS */
 
 /* This function sets / registers the required callbacks for a given
- * not transaction-specific CACHE object in FS.
- *
- * All these svn_cache__t instances shall be handled uniformly. That
+ * not transaction-specific CACHE object in FS. 
+ * 
+ * All these svn_cache__t instances shall be handled uniformly. That 
  * applies to the NO_HANDLER flag as well which controls whether the
  * error handler will be sets for the cache.
  */
@@ -179,7 +179,7 @@ init_callbacks(svn_cache__t *cache,
 
 /* Initialize all session-local caches in FS according to the global
  * cache settings. Use POOL for allocations.
- *
+ * 
  * Please note that it is permissible for this function to set some
  * or all of these caches to NULL, regardless of any setting.
  */
@@ -196,13 +196,13 @@ svn_fs_fs__initialize_caches(svn_fs_t *fs,
   svn_boolean_t no_handler;
   svn_boolean_t cache_txdeltas;
   svn_boolean_t cache_fulltexts;
-
+  
   /* Evaluating the cache configuration. */
-  SVN_ERR(read_config(&memcache,
-                      &no_handler,
+  SVN_ERR(read_config(&memcache, 
+                      &no_handler, 
                       &cache_txdeltas,
                       &cache_fulltexts,
-                      fs,
+                      fs, 
                       pool));
 
   /* Make the cache for revision roots.  For the vast majority of
@@ -428,7 +428,7 @@ init_txn_callbacks(svn_cache__t **cache,
 /* Initialize all transaction-local caches in FS according to the global
  * cache settings and make TXN_ID part of their key space. Use POOL for
  * allocations.
- *
+ * 
  * Please note that it is permissible for this function to set some or all
  * of these caches to NULL, regardless of any setting.
  */
