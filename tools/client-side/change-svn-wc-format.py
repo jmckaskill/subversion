@@ -104,7 +104,7 @@ class WCFormatConverter:
     else:
       if self.verbosity:
         print("Skipping file '%s'" % format.path)
-
+        
     if self.verbosity:
       print("Checking whether WC format can be converted")
     try:
