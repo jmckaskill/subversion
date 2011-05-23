@@ -5343,7 +5343,7 @@ def revive_children_of_copy(sbox):
     raise svntest.Failure('chi unexpectedly non-existent')
   if not os.path.exists(psi2_path):
     raise svntest.Failure('psi unexpectedly non-existent')
-
+  
 
 #######################################################################
 # Run the tests
