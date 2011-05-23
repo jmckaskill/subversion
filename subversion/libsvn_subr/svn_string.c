@@ -246,13 +246,13 @@ svn_string_from_stringbuf(const svn_stringbuf_t *strbuf)
    * to the (data, len) sub-set of svn_stringbuf_t. There is also no
    * difference in alignment and padding. So, we can just re-interpret
    * that part of STRBUF as a svn_string_t.
-   *
+   * 
    * However, since svn_string_t does not know about the blocksize
    * member in svn_stringbuf_t, the returned svn_string_t must not
    * try to re-allocate its data member. It would possibly be inconsistent
    * with STRBUF's blocksize member. Hence, the result is a const
    * structure.
-   *
+   * 
    * Modifying the string character content is fine, though.
    */
   return (const svn_string_t *)&strbuf->data;
@@ -291,7 +291,7 @@ svn_stringbuf_create_ensure(apr_size_t blocksize, apr_pool_t *pool)
 
   ++blocksize; /* + space for '\0' */
   blocksize = APR_ALIGN_DEFAULT(blocksize);
-
+  
   /* Allocate memory for svn_string_t and data in one chunk. */
   mem = apr_palloc(pool, sizeof(*new_string) + blocksize);
 
