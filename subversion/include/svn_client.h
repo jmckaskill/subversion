@@ -1312,7 +1312,7 @@ svn_client_update(svn_revnum_t *result_rev,
  * @{
  */
 
-/**
+/** 
  * Switch an existing working copy directory to a different repository
  * location.
  *
@@ -4426,7 +4426,7 @@ svn_client_propget4(apr_hash_t **props,
                     apr_pool_t *result_pool,
                     apr_pool_t *scratch_pool);
 
-/**
+/** 
  * Similar to svn_client_propget4(), but with the following change to the
  * output hash keys:  keys are `<tt>char *</tt>' paths, prefixed by
  * @a target, which is a working copy path or a URL.
