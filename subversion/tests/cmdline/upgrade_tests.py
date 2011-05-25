@@ -859,7 +859,7 @@ def replaced_files(sbox):
 
 def upgrade_with_scheduled_change(sbox):
   "upgrade 1.6.x wc with a scheduled change"
-
+  
   sbox.build(create_wc = False)
   replace_sbox_with_tarfile(sbox, 'upgrade_with_scheduled_change.tar.bz2')
 
@@ -972,7 +972,7 @@ def upgrade_from_format_28(sbox):
 @Issue(3901)
 def depth_exclude(sbox):
   "upgrade 1.6.x wc that has depth=exclude"
-
+  
   sbox.build(create_wc = False)
   replace_sbox_with_tarfile(sbox, 'depth_exclude.tar.bz2')
 
