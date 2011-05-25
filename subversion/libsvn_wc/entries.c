@@ -246,7 +246,7 @@ get_info_for_deleted(svn_wc_entry_t *entry,
                                             result_pool,
                                             scratch_pool));
       /* working_size and text_time unavailable */
-
+ 
      SVN_ERR(svn_wc__db_scan_deletion(NULL,
                                       NULL,
                                       &work_del_abspath,
@@ -1664,7 +1664,7 @@ write_entry(struct write_baton **entry_node,
                    _("Cannot upgrade with copied/replaced directory '%s'"),
                    svn_dirent_local_style(parent_node->base->local_relpath,
                                           scratch_pool));
-
+                                   
         SVN_ERR_ASSERT((parent_node->base && !parent_node->work)
                        || (parent_node->work && !parent_node->base));
         working_node = MAYBE_ALLOC(working_node, result_pool);
@@ -2021,7 +2021,7 @@ write_entry(struct write_baton **entry_node,
           /* text_base_info is NULL for files scheduled to be added. */
           if (text_base_info)
             working_node->checksum = text_base_info->normal_base.sha1_checksum;
-
+         
 
           /* If an MD5 checksum is present in the entry, we can verify that
            * it matches the MD5 of the base file we found earlier. */
