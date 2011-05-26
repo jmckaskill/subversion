@@ -153,7 +153,7 @@ add_revision_mapping(apr_hash_t *rev_map,
   apr_hash_set(rev_map, mapped_revs,
                sizeof(svn_revnum_t), mapped_revs + 1);
 }
-
+                     
 
 /* Prepend the mergeinfo source paths in MERGEINFO_ORIG with
    PARENT_DIR, and return it in *MERGEINFO_VAL. */
@@ -353,7 +353,7 @@ commit_callback(const svn_commit_info_t *commit_info,
 
   /* Update our "last revision mapped". */
   pb->last_rev_mapped = rb->rev;
-
+  
   return SVN_NO_ERROR;
 }
 
