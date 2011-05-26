@@ -655,7 +655,7 @@ svn_io_file_create2(const char *file,
 
 /** Like svn_io_file_create2(), but with a C string instead
  * of an #svn_string_t.
- *
+ * 
  * @deprecated Provided for backward compatibility with the 1.6 API.
  */
 SVN_DEPRECATED
@@ -802,7 +802,7 @@ typedef svn_error_t *(*svn_io_mark_fn_t)(void *baton,
 typedef svn_error_t *(*svn_io_seek_fn_t)(void *baton,
                                          const svn_stream_mark_t *mark);
 
-/** Buffer test handler function for a generic stream. @see svn_stream_t
+/** Buffer test handler function for a generic stream. @see svn_stream_t 
  * and svn_stream_buffered().
  *
  * @since New in 1.7.
@@ -1155,7 +1155,7 @@ svn_stream_seek(svn_stream_t *stream, const svn_stream_mark_t *mark);
  *
  * @since New in 1.7.
  */
-svn_boolean_t
+svn_boolean_t 
 svn_stream_buffered(svn_stream_t *stream);
 
 /** Return a writable stream which, when written to, writes to both of the
@@ -1858,7 +1858,7 @@ svn_io_file_getc(char *ch,
                  apr_pool_t *pool);
 
 
-/** Wrapper for apr_file_putc().
+/** Wrapper for apr_file_putc(). 
   * @since New in 1.7
   */
 svn_error_t *
