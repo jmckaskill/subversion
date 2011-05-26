@@ -54,7 +54,7 @@ Item = svntest.wc.StateItem
 # the logic for differentiating between these two cases.
 
 mismatched_headers_re = re.compile(
-    "Prop-delta: .*|Text-content-sha1: .*|Text-copy-source-md5: .*|"
+    "Prop-delta: .*|Text-content-sha1: .*|Text-copy-source-md5: .*|" 
     "Text-copy-source-sha1: .*|Text-delta-base-sha1: .*"
 )
 
@@ -564,7 +564,7 @@ def dont_drop_valid_mergeinfo_during_incremental_svnrdump_loads(sbox):
                                                    '--incremental', '-r14:15',
                                                    sbox.repo_url)
 
-
+  
   dump_fp = open(dump_file_r14_15, 'wb')
   dump_fp.writelines(output)
   dump_fp.close()
@@ -634,7 +634,7 @@ def dont_drop_valid_mergeinfo_during_incremental_svnrdump_loads(sbox):
                                           svntest.verify.AnyOutput,
                                           [], 0, '-q', 'load',
                                           sbox.repo_url)
-
+  
   # Load 'svnadmin_tests_data/mergeinfo_included_full.dump' in one shot:
   #
   # This currently fails with this error:
