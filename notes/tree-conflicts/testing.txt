@@ -6,7 +6,7 @@
 This document describes how we are testing the code that detects,
 reports and resolves tree conflicts.  We'd like to make the testing,
 and the tree conflicts feature itself, more transparent and open to
-contributions.
+contributions. 
 
 For tree conflicts, there already exist cmdline tests for the update,
 switch, merge, commit, status, info and revert commands.  We've added
@@ -30,7 +30,7 @@ modify the working copy prior to an update or switch operation.
 
 An advantage of this abstraction is that it allows us to create
 additional tests easily through code reuse.  It also helps us to see
-beyond our 6 original use cases.
+beyond our 6 original use cases.  
 
 A disadvantage is that test failures are rather opaque, but that could
 probably be fixed with some Python wizardry.
@@ -61,7 +61,7 @@ operation.
   _d  Delete the item
 
 For safety, each action, except for _A and _a, first asserts that the
-item (F or D) exists.
+item (F or D) exists.  
 
 Some actions operate on 2 items.  _C copies F1 to F (or D1 to D) and
 _M moves F to F2 (or D to D2).  The items F, F1, D and D1 are created,
@@ -91,7 +91,7 @@ running many of them in parallel.  Currently, we run the scenarios
 one-by-one, each in a fresh working copy.
 
 The second value in a scenario tuple is the main list of actions for
-running the scenario.
+running the scenario.  
 
 The third value is a list of lists of actions that could cause the
 working copy to become obstructed if run after the main list.  This
