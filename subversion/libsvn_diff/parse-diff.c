@@ -407,7 +407,7 @@ readline(apr_file_t *file,
  * Any lines commencing with the VERBOTEN character are discarded.
  * VERBOTEN should be '+' or '-', depending on which form of hunk text
  * is being read.
- *
+ * 
  * All other parameters are as in svn_diff_hunk_readline_original_text()
  * and svn_diff_hunk_readline_modified_text().
  */
@@ -541,7 +541,7 @@ svn_diff_hunk_readline_diff_text(svn_diff_hunk_t *hunk,
   SVN_ERR(svn_io_file_seek(hunk->apr_file, APR_CUR,
                            &hunk->diff_text_range.current, scratch_pool));
   SVN_ERR(svn_io_file_seek(hunk->apr_file, APR_SET, &pos, scratch_pool));
-
+  
   if (hunk->patch->reverse)
     {
       if (parse_hunk_header(line->data, &dummy, "@@", scratch_pool))
@@ -1376,7 +1376,7 @@ svn_diff_parse_next_patch(svn_patch_t **patch,
         }
       else if (! valid_header_line && state != state_start)
         {
-          /* We've encountered an invalid diff header.
+          /* We've encountered an invalid diff header. 
            *
            * Rewind to the start of the line just read - it may be a new
            * header that begins there. */
