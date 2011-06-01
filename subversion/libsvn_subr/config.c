@@ -91,7 +91,7 @@ svn_config_create(svn_config_t **cfgp,
   cfg->tmp_key = svn_stringbuf_create("", result_pool);
   cfg->tmp_value = svn_stringbuf_create("", result_pool);
   cfg->section_names_case_sensitive = section_names_case_sensitive;
-
+  
   *cfgp = cfg;
   return SVN_NO_ERROR;
 }
@@ -652,7 +652,7 @@ get_bool(svn_boolean_t *boolp, const char *input, svn_boolean_t default_value,
          const char *section, const char *option)
 {
   svn_tristate_t value = svn_tristate_from_word(input);
-
+  
   if (value == svn_tristate_true)
     *boolp = TRUE;
   else if (value == svn_tristate_false)
