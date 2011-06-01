@@ -183,7 +183,7 @@ svn_stream_seek(svn_stream_t *stream, const svn_stream_mark_t *mark)
   return stream->seek_fn(stream->baton, mark);
 }
 
-svn_boolean_t
+svn_boolean_t 
 svn_stream_buffered(svn_stream_t *stream)
 {
   if (stream->buffered_fn == NULL)

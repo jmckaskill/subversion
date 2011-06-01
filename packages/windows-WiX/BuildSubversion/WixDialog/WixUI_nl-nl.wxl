@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<!--
+<!-- 
     Copyright (c) Microsoft Corporation.  All rights reserved.
 
     The use and distribution terms for this software are covered by the
@@ -21,7 +21,7 @@
   <String Id="WixUINo" Overridable="yes">&amp;Nee</String>
   <String Id="WixUIOK" Overridable="yes">OK</String>
   <String Id="WixUIPrint" Overridable="yes">&amp;Afdrukken</String>
-
+  
   <String Id="BrowseDlg_Title" Overridable="yes">[ProductName] Setup</String>
   <String Id="BrowseDlgComboLabel" Overridable="yes">&amp;Map:</String>
   <String Id="BrowseDlgWixUI_Bmp_Up" Overridable="yes">WixUI_Bmp_Up</String>
@@ -88,7 +88,7 @@
   <String Id="InstallDirDlgDescription" Overridable="yes">Klik op Volgende om [ProductName] in de standaardmap te installeren of klik op Wijzigen om een andere map te selecteren.</String>
   <String Id="InstallDirDlgBannerBitmap" Overridable="yes">WixUI_Bmp_Banner</String>
   <String Id="InstallDirDlgFolderLabel" Overridable="yes">[ProductName] in de volgende map installeren:</String>
-
+  
   <String Id="LicenseAgreementDlg_Title" Overridable="yes">[ProductName] Setup</String>
   <String Id="LicenseAgreementDlgLicenseAcceptedCheckBox" Overridable="yes">Ik &amp;ga akkoord met de bepalingen van de gebruiksrechtovereenkomst</String>
   <String Id="LicenseAgreementDlgBannerBitmap" Overridable="yes">WixUI_Bmp_Banner</String>
