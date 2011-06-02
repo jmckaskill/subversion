@@ -804,7 +804,7 @@ typedef svn_error_t *(*svn_io_mark_fn_t)(void *baton,
 typedef svn_error_t *(*svn_io_seek_fn_t)(void *baton,
                                          const svn_stream_mark_t *mark);
 
-/** Buffer test handler function for a generic stream. @see svn_stream_t
+/** Buffer test handler function for a generic stream. @see svn_stream_t 
  * and svn_stream_is_buffered().
  *
  * @since New in 1.7.
@@ -1862,7 +1862,7 @@ svn_io_file_getc(char *ch,
                  apr_pool_t *pool);
 
 
-/** Wrapper for apr_file_putc().
+/** Wrapper for apr_file_putc(). 
   * @since New in 1.7
   */
 svn_error_t *
