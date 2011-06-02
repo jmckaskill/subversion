@@ -635,7 +635,7 @@ svn_io_file_create(const char *file,
                    apr_pool_t *pool)
 {
   if (contents && *contents)
-    {
+    { 
       svn_string_t contents_string;
       contents_string.data = contents;
       contents_string.len = strlen(contents);
