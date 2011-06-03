@@ -362,7 +362,7 @@ class SvnClientTest < Test::Unit::TestCase
     FileUtils.mkdir_p(tmp_deep_dir_path)
     File.open(tmp_path, "w") {|f| f.print(src)}
 
-    new_rev = ctx.import(@tmp_path, @repos_uri, true, false,
+    new_rev = ctx.import(@tmp_path, @repos_uri, true, false, 
                          {"custom-prop" => "some-value"}).revision
     assert_equal(["some-value", new_rev],
                  ctx.revprop_get("custom-prop", @repos_uri, new_rev))

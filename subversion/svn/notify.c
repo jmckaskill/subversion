@@ -453,7 +453,7 @@ notify(void *baton, const svn_wc_notify_t *n, apr_pool_t *pool)
                                  path_local);
       else if (n->merge_range->start == n->merge_range->end - 1
           || n->merge_range->start == n->merge_range->end)
-        err = svn_cmdline_printf(pool,
+        err = svn_cmdline_printf(pool, 
                                  _("--- Merging (from foreign repository) "
                                    "r%ld into '%s':\n"),
                                  n->merge_range->end, path_local);
