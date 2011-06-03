@@ -162,9 +162,9 @@ def non_inheritable_mergeinfo(sbox):
   A_COPY_path   = os.path.join(wc_dir, "A_COPY")
   D_COPY_path   = os.path.join(wc_dir, "A_COPY", "D")
   rho_COPY_path = os.path.join(wc_dir, "A_COPY", "D", "G", "rho")
-
+  
   # Update the WC, then merge r4 from A to A_COPY and r6 from A to A_COPY
-  # at --depth empty and commit the merges as r7.
+  # at --depth empty and commit the merges as r7.  
   svntest.actions.run_and_verify_svn(None, ["At revision 6.\n"], [], 'up',
                                      wc_dir)
   expected_status.tweak(wc_rev=6)
