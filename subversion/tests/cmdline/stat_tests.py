@@ -1895,7 +1895,7 @@ def copy_with_mixed_revisions(sbox):
   wc = sbox.ospath
 
   # Make a change in a tree and commit.
-  svntest.main.file_append(wc('A/D/G/rho'), "Local edit\n")
+  svntest.main.file_append(wc('A/D/G/rho'), "Local edit\n") 
   sbox.simple_commit() # r2
   sbox.simple_update()
 
