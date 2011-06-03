@@ -869,7 +869,7 @@ def replaced_files(sbox):
 
 def upgrade_with_scheduled_change(sbox):
   "upgrade 1.6.x wc with a scheduled change"
-
+  
   replace_sbox_with_tarfile(sbox, 'upgrade_with_scheduled_change.tar.bz2')
 
   svntest.actions.run_and_verify_svn(None, None, [],
@@ -952,7 +952,7 @@ def upgrade_from_format_28(sbox):
 @Issue(3901)
 def depth_exclude(sbox):
   "upgrade 1.6.x wc that has depth=exclude"
-
+  
   replace_sbox_with_tarfile(sbox, 'depth_exclude.tar.bz2')
 
   svntest.actions.run_and_verify_svn(None, None, [], 'upgrade', sbox.wc_dir)
@@ -967,7 +967,7 @@ def depth_exclude(sbox):
 @Issue(3901)
 def depth_exclude_2(sbox):
   "1.6.x wc that has depth=exclude inside a delete"
-
+  
   replace_sbox_with_tarfile(sbox, 'depth_exclude_2.tar.bz2')
 
   svntest.actions.run_and_verify_svn(None, None, [], 'upgrade', sbox.wc_dir)
