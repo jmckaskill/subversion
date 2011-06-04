@@ -585,7 +585,7 @@ I.    INTRODUCTION
 
       If libmagic is installed but support for it should not be compiled
       in, then use:
-
+      
         --with-libmagic=no
 
   D. Documentation
