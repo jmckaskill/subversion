@@ -32,7 +32,7 @@ create table revprop (revision integer UNIQUE not null,
    CREATE INDEX i_revision ON revprop (revision);
 
    This was removed since the UNIQUE statement already constructs
-   its own index.
+   its own index.  
  */
 
 
