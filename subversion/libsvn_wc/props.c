@@ -1827,7 +1827,7 @@ propname_filter_receiver(void *baton,
       SVN_ERR(pfb->receiver_func(pfb->receiver_baton, local_abspath, props,
                                  scratch_pool));
     }
-
+    
   return SVN_NO_ERROR;
 }
 
