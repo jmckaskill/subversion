@@ -237,7 +237,7 @@ def roll_tarballs(base_dir, args):
         branch = args.branch
     else:
         branch = version_base[:-1] + 'x'
-
+        
     logging.info('Rolling release %s from branch %s@%d' % (args.version,
                                                            branch, args.revnum))
 
