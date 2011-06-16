@@ -314,7 +314,7 @@ bail_on_tree_conflicted_ancestor(svn_wc_context_t *wc_ctx,
    non-NULL.  JUST_LOCKED indicates whether to treat non-modified items with
    lock tokens as commit candidates.
 
-   If COMMIT_RELPATH is not NULL, treat not-added nodes as if it is destined to
+   If COMMIT_RELPATH is not NULL, treat not-added nodes as if it is destined to 
    be added as COMMIT_RELPATH, and add 'deleted' entries to COMMITTABLES as
    items to delete in the copy destination.  COPY_MODE_ROOT should be set TRUE
    for the first call for which COPY_MODE is TRUE, i.e. not for for the
@@ -1043,7 +1043,7 @@ svn_client__harvest_committables(svn_client__committables_t **committables,
                                                iterpool));
 
       SVN_ERR(harvest_committables(ctx->wc_ctx, target_abspath,
-                                   *committables, *lock_tokens,
+                                   *committables, *lock_tokens, 
                                    repos_root_url,
                                    NULL /* COMMIT_RELPATH */,
                                    FALSE /* COPY_MODE_ROOT */,
