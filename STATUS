@@ -25,7 +25,7 @@ Candidate changes:
      a specific jdk.
      (Which then fixes building 1.6.x on the Windows buildbots)
    Votes:
-     +1: rhuijben
+     +1: rhuijben     
 
  * r1134734
    Fix sqlite-amalgamation location and archive format.
@@ -102,7 +102,7 @@ Veto-blocked changes:
    Fixes failing commmits (with vague error messages) seen on client
    side for WebDAV proxy configurations such as the following (note
    the trailing slash at the end of '/svn/'):
-
+   
       <Location /svn/>
          DAV svn
          SVNParentPath /repositories
@@ -110,14 +110,14 @@ Veto-blocked changes:
          SVNMasterURI http://master/svn/
          SVNAdvertiseV2Protocol Off
       </Location>
-
+   
    Error message shows up like so:
-
+   
       svn: Commit failed (details follow):
       svn: MKACTIVITY of '/svn/demujin/!svn/act/4b6d547c-018d-4e02-9d3f-2b28\
       3076cc06': Could not read status line: connection was closed by server\
        (http://localhost)
-
+   
    Notes:
      Depends on the r878590 group for a conflict-free backport.
    Justification:
@@ -129,7 +129,7 @@ Veto-blocked changes:
          testing purposes, see subversion\libsvn_subr\private_uri.h and
          http://svn.apache.org/viewvc?view=revision&revision=876419
          So problem #1: This won't build.
-
+         
          Problem #2: Since I first made this veto, further changes were
          backported which prevent a clean merge.)
 
