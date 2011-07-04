@@ -55,7 +55,7 @@ copy to the revision before "svn bisect start" was run.
 svn bisect run [my_script [args]]
 
 Start the bisection. If no script is given, start the bisect in
-interactive mode. i.e after updating to a specific revision, wait
+interactive mode. i.e after updating to a specific revision, wait 
 for the user to manually run tests and mark the revision as good,
 bad or skip.
 
