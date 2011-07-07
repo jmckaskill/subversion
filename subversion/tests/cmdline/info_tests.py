@@ -423,7 +423,7 @@ def info_show_exclude(sbox):
   iota = os.path.join(wc_dir, 'iota')
   svntest.main.run_svn(None, 'up', '--set-depth', 'exclude', A_path)
   wc_uuid = svntest.actions.get_wc_uuid(wc_dir)
-
+  
   expected_info = []
   expected_info = [{
       'Path' : '.',
