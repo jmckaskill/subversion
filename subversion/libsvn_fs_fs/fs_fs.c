@@ -3001,7 +3001,7 @@ svn_fs_fs__rev_get_root(svn_fs_id_t **root_id_p,
    sought to the manifest record) into *OFFSET.  If not NULL, copy
    the raw record into the provided BUF, which must have room for
    REVPROP_MANIFEST_FIELD_WIDTH+1 bytes.  REV is only used for error
-   messages. */
+   messages. */   
 static svn_error_t *
 read_revprop_manifest_record(apr_off_t *offset,
                              char *outbuf,
