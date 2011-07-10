@@ -2178,6 +2178,7 @@ svn_wc_get_status_editor5(const svn_delta_editor_t **editor,
                           svn_depth_t depth,
                           svn_boolean_t get_all,
                           svn_boolean_t no_ignore,
+                          svn_boolean_t depth_as_sticky,
                           svn_boolean_t server_performs_filtering,
                           const apr_array_header_t *ignore_patterns,
                           svn_wc_status_func4_t status_func,
@@ -2259,7 +2260,7 @@ svn_wc_get_status_editor5(const svn_delta_editor_t **editor,
   inner_baton = eb;
 
   if (!server_performs_filtering
-      && depth == svn_depth_unknown)
+      && !depth_as_sticky)
     SVN_ERR(svn_wc__ambient_depth_filter_editor(&inner_editor,
                                                 &inner_baton,
                                                 wc_ctx->db,
