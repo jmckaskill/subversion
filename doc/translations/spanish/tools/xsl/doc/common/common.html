@@ -1,7 +1,7 @@
 <html>
    <head>
       <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-
+   
       <title></title>
       <link rel="stylesheet" href="../reference.css" type="text/css">
       <meta name="generator" content="DocBook XSL Stylesheets V1.62.4">
@@ -21,7 +21,7 @@
                <div>
                   <p class="releaseinfo">
                      $Id: common.xsl,v 1.39 2003/12/06 00:07:51 bobstayton Exp $
-
+                     
                   </p>
                </div>
                <div>
@@ -101,17 +101,17 @@
   ...
 &lt;/xsl:template&gt;</pre></div>
             <div class="refdescription"><a name="d0e48"></a>
-
-
+               
+               
                <p>This template returns '1' if the specified node is a component
                   (Chapter, Appendix, etc.), and '0' otherwise.
                </p>
-
-
+               
+               
             </div>
             <div class="refparameter"><b><a name="d0e53"></a>Parameters</b>
-
-
+               
+               
                <div class="variablelist">
                   <dl>
                      <dt><span class="term">node</span></dt>
@@ -120,17 +120,17 @@
                      </dd>
                   </dl>
                </div>
-
-
+               
+               
             </div>
             <div class="refreturn"><b><a name="d0e63"></a>Returns</b>
-
-
+               
+               
                <p>This template returns '1' if the specified node is a component
                   (Chapter, Appendix, etc.), and '0' otherwise.
                </p>
-
-
+               
+               
             </div>
          </div>
          <div class="refentry" lang="en">
@@ -150,17 +150,17 @@
   ...
 &lt;/xsl:template&gt;</pre></div>
             <div class="refdescription"><a name="d0e77"></a>
-
-
+               
+               
                <p>This template returns '1' if the specified node is a section
                   (Section, Sect1, Sect2, etc.), and '0' otherwise.
                </p>
-
-
+               
+               
             </div>
             <div class="refparameter"><b><a name="d0e82"></a>Parameters</b>
-
-
+               
+               
                <div class="variablelist">
                   <dl>
                      <dt><span class="term">node</span></dt>
@@ -169,17 +169,17 @@
                      </dd>
                   </dl>
                </div>
-
-
+               
+               
             </div>
             <div class="refreturn"><b><a name="d0e92"></a>Returns</b>
-
-
+               
+               
                <p>This template returns '1' if the specified node is a section
                   (Section, Sect1, Sect2, etc.), and '0' otherwise.
                </p>
-
-
+               
+               
             </div>
          </div>
          <div class="refentry" lang="en">
@@ -199,23 +199,23 @@
   ...
 &lt;/xsl:template&gt;</pre></div>
             <div class="refdescription"><a name="d0e106"></a>
-
-
+               
+               
                <p>This template calculates the hierarchical level of a section.
                   The element <tt class="sgmltag-element">sect1</tt> is at level 1, <tt class="sgmltag-element">sect2</tt> is
                   at level 2, etc.
                </p>
-
-
-
-
+               
+               
+               
+               
                <p>Recursive sections are calculated down to the fifth level.</p>
-
-
+               
+               
             </div>
             <div class="refparameter"><b><a name="d0e120"></a>Parameters</b>
-
-
+               
+               
                <div class="variablelist">
                   <dl>
                      <dt><span class="term">node</span></dt>
@@ -226,17 +226,17 @@
                      </dd>
                   </dl>
                </div>
-
-
+               
+               
             </div>
             <div class="refreturn"><b><a name="d0e130"></a>Returns</b>
-
-
+               
+               
                <p>The section level, <span class="quote">1</span>, <span class="quote">2</span>, etc.
-
+                  
                </p>
-
-
+               
+               
             </div>
          </div>
          <div class="refentry" lang="en">
@@ -253,22 +253,22 @@
             <div class="refsynopsisdiv">
                <h2></h2><pre class="synopsis">&lt;xsl:template name="qanda.section.level"/&gt;</pre></div>
             <div class="refdescription"><a name="d0e150"></a>
-
-
+               
+               
                <p>This template calculates the hierarchical level of a QandASet.
-
+                  
                </p>
-
-
+               
+               
             </div>
             <div class="refreturn"><b><a name="d0e155"></a>Returns</b>
-
-
+               
+               
                <p>The level, <span class="quote">1</span>, <span class="quote">2</span>, etc.
-
+                  
                </p>
-
-
+               
+               
             </div>
          </div>
          <div class="refentry" lang="en">
@@ -288,31 +288,31 @@
   ...
 &lt;/xsl:template&gt;</pre></div>
             <div class="refdescription"><a name="d0e175"></a>
-
-
+               
+               
                <p>This template takes a list of media objects (usually the
                   children of a mediaobject or inlinemediaobject) and processes
                   the "right" object.
                </p>
-
-
-
-
-               <p>This template relies on a template named
+               
+               
+               
+               
+               <p>This template relies on a template named 
                   "select.mediaobject.index" to determine which object
                   in the list is appropriate.
                </p>
-
-
-
-
+               
+               
+               
+               
                <p>If no acceptable object is located, nothing happens.</p>
-
-
+               
+               
             </div>
             <div class="refparameter"><b><a name="d0e186"></a>Parameters</b>
-
-
+               
+               
                <div class="variablelist">
                   <dl>
                      <dt><span class="term">olist</span></dt>
@@ -321,15 +321,15 @@
                      </dd>
                   </dl>
                </div>
-
-
+               
+               
             </div>
             <div class="refreturn"><b><a name="d0e196"></a>Returns</b>
-
-
+               
+               
                <p>Calls &lt;xsl:apply-templates&gt; on the selected object.</p>
-
-
+               
+               
             </div>
          </div>
          <div class="refentry" lang="en">
@@ -350,43 +350,43 @@
   ...
 &lt;/xsl:template&gt;</pre></div>
             <div class="refdescription"><a name="d0e210"></a>
-
-
+               
+               
                <p>This template takes a list of media objects (usually the
                   children of a mediaobject or inlinemediaobject) and determines
                   the "right" object. It returns the position of that object
                   to be used by the calling template.
                </p>
-
-
-
-
+               
+               
+               
+               
                <p>If the parameter <i class="parameter"><tt>use.role.for.mediaobject</tt></i>
                   is nonzero, then it first checks for an object with
                   a role attribute of the appropriate value.  It takes the first
                   of those.  Otherwise, it takes the first acceptable object
                   through a recursive pass through the list.
                </p>
-
-
-
-
+               
+               
+               
+               
                <p>This template relies on a template named "is.acceptable.mediaobject"
                   to determine if a given object is an acceptable graphic. The semantics
                   of media objects is that the first acceptable graphic should be used.
-
+                  
                </p>
-
-
-
-
+               
+               
+               
+               
                <p>If no acceptable object is located, no index is returned.</p>
-
-
+               
+               
             </div>
             <div class="refparameter"><b><a name="d0e227"></a>Parameters</b>
-
-
+               
+               
                <div class="variablelist">
                   <dl>
                      <dt><span class="term">olist</span></dt>
@@ -395,21 +395,21 @@
                      </dd>
                      <dt><span class="term">count</span></dt>
                      <dd>
-                        <p>The position in the list currently being considered by the
+                        <p>The position in the list currently being considered by the 
                            recursive process.
                         </p>
                      </dd>
                   </dl>
                </div>
-
-
+               
+               
             </div>
             <div class="refreturn"><b><a name="d0e243"></a>Returns</b>
-
-
+               
+               
                <p>Returns the position in the original list of the selected object.</p>
-
-
+               
+               
             </div>
          </div>
          <div class="refentry" lang="en">
@@ -429,17 +429,17 @@
   ...
 &lt;/xsl:template&gt;</pre></div>
             <div class="refdescription"><a name="d0e257"></a>
-
-
+               
+               
                <p>This template examines a media object and returns '1' if the
                   object is recognized as a graphic.
                </p>
-
-
+               
+               
             </div>
             <div class="refparameter"><b><a name="d0e262"></a>Parameters</b>
-
-
+               
+               
                <div class="variablelist">
                   <dl>
                      <dt><span class="term">object</span></dt>
@@ -448,15 +448,15 @@
                      </dd>
                   </dl>
                </div>
-
-
+               
+               
             </div>
             <div class="refreturn"><b><a name="d0e272"></a>Returns</b>
-
-
+               
+               
                <p>0 or 1</p>
-
-
+               
+               
             </div>
          </div>
          <div class="refentry" lang="en">
@@ -476,15 +476,15 @@
   ...
 &lt;/xsl:template&gt;</pre></div>
             <div class="refdescription"><a name="d0e286"></a>
-
-
+               
+               
                <p>If passed an ID in <tt class="varname">linkend</tt>,
                   <tt class="function">check.id.unique</tt> prints
                   a warning message to the user if either the ID does not exist or
                   the ID is not unique.
                </p>
-
-
+               
+               
             </div>
          </div>
          <div class="refentry" lang="en">
@@ -505,15 +505,15 @@
   ...
 &lt;/xsl:template&gt;</pre></div>
             <div class="refdescription"><a name="d0e306"></a>
-
-
+               
+               
                <p>If passed an ID in <tt class="varname">linkend</tt>,
                   <tt class="function">check.idref.targets</tt> makes sure that the element
                   pointed to by the link is one of the elements listed in
                   <tt class="varname">element-list</tt> and warns the user otherwise.
                </p>
-
-
+               
+               
             </div>
          </div>
          <div class="refentry" lang="en">
@@ -537,44 +537,44 @@
   ...
 &lt;/xsl:template&gt;</pre></div>
             <div class="refdescription"><a name="d0e329"></a>
-
-
+               
+               
                <p>This template prints a list of year elements with consecutive
                   years printed as a range. In other words:
                </p>
-
-
+               
+               
                <pre class="screen">&lt;year&gt;1992&lt;/year&gt;
 &lt;year&gt;1993&lt;/year&gt;
 &lt;year&gt;1994&lt;/year&gt;</pre>
-
-
+               
+               
                <p>is printed <span class="quote">1992-1994</span>, whereas:
                </p>
-
-
+               
+               
                <pre class="screen">&lt;year&gt;1992&lt;/year&gt;
 &lt;year&gt;1994&lt;/year&gt;</pre>
-
-
+               
+               
                <p>is printed <span class="quote">1992, 1994</span>.
                </p>
-
-
-
-
+               
+               
+               
+               
                <p>This template assumes that all the year elements contain only
                   decimal year numbers, that the elements are sorted in increasing
                   numerical order, that there are no duplicates, and that all the years
                   are expressed in full <span class="quote">century+year</span>
                   (<span class="quote">1999</span> not <span class="quote">99</span>) notation.
                </p>
-
-
+               
+               
             </div>
             <div class="refparameter"><b><a name="d0e364"></a>Parameters</b>
-
-
+               
+               
                <div class="variablelist">
                   <dl>
                      <dt><span class="term">years</span></dt>
@@ -597,15 +597,15 @@
                      </dd>
                   </dl>
                </div>
-
-
+               
+               
             </div>
             <div class="refreturn"><b><a name="d0e392"></a>Returns</b>
-
-
+               
+               
                <p>This template returns the formatted list of years.</p>
-
-
+               
+               
             </div>
          </div>
          <div class="refentry" lang="en">
@@ -631,14 +631,14 @@
   ...
 &lt;/xsl:template&gt;</pre></div>
             <div class="refdescription"><a name="d0e406"></a>
-
-
+               
+               
                <p>This template searches in a table for the value that most-closely
                   (in the typical best-match sense of XSLT) matches the current (element)
                   node location.
                </p>
-
-
+               
+               
             </div>
          </div>
       </div>
