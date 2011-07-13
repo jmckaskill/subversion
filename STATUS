@@ -23,7 +23,7 @@ Candidate changes:
      Improves general usability of the svn client and the libsvn_client api
      and would have to wait for 1.8.0 if it doesn't get in 1.7.0.
    Votes:
-     +1: rhuijben
+     +1: rhuijben     
 
 Approved changes:
 ==================
