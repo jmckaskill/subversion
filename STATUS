@@ -37,7 +37,7 @@ Candidate changes:
      +1: danielsh
      -0: cmpilato, rhuijben, gstein (problem is with callers,
                                      not implementation)
-
+     
 
 Candidate changes for 1.7.x (can be backported post-1.7.0 too):
 ===========================
