@@ -37,7 +37,7 @@ Candidate changes:
      +1: danielsh
      -0: cmpilato, rhuijben, gstein (problem is with callers,
                                      not implementation)
-
+     
  * r1146274
    Make svn_client_infoX() return proper results for tree conflicts. Without
    this patch the structure is just memcleared instead of properly set to
