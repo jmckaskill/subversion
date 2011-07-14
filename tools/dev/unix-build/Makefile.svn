@@ -213,7 +213,7 @@ dirs-create: $(PWD)/.dirs-created
 dirs-reset:
 	rm -f $(PWD)/.dirs-created
 
-$(PWD)/.dirs-created:
+$(PWD)/.dirs-created: 
 	$(foreach d, $(PREFIX) $(DISTDIR) $(SRCDIR) $(OBJDIR), \
 		[ -d $(d) ] || mkdir -p $(d);)
 		touch $@
