@@ -32,7 +32,7 @@ Candidate changes:
      This change also marks the doc string for Doxygen, an 'obvious fix'.
    Votes:
      +1: julianfoad, rhuijben
-
+     
  * r1146684
    Report the right wcroot in an 'svn upgrade' error message.
    Justification:
@@ -52,7 +52,7 @@ Candidate changes:
      is still a moving target.
    Votes:
      +0: danielsh
-
+     
 Approved changes:
 =================
 
