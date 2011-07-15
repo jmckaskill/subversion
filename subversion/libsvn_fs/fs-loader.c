@@ -465,7 +465,7 @@ svn_fs_verify(const char *path,
               void *progress_baton,
               svn_cancel_func_t cancel_func,
               void *cancel_baton,
-              apr_pool_t *pool)
+              apr_pool_t *pool) 
 {
   svn_error_t *err;
   svn_error_t *err2;

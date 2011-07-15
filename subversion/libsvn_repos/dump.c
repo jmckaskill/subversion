@@ -1329,7 +1329,7 @@ svn_repos_verify_fs2(svn_repos_t *repos,
         }
 
       /* Do the work. */
-      SVN_ERR(svn_fs_verify(svn_fs_path(fs, iterpool),
+      SVN_ERR(svn_fs_verify(svn_fs_path(fs, iterpool), 
                             (notify_func ? progress_to_notify : NULL), &ptnb,
                             cancel_func, cancel_baton,
                             iterpool));
