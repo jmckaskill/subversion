@@ -49,7 +49,7 @@ Candidate changes:
      multiple are available.
    Votes:
      +1: arfrever (with r1146904), danielsh
-
+ 
  * r1146904
    Fix the 'extraclean' target of the Makefile.
    Votes:
