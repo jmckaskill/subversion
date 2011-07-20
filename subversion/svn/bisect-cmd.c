@@ -50,7 +50,7 @@ svn_cl__bisect(apr_getopt_t *os,
   apr_pool_t *subpool;
   apr_array_header_t *targets;
   const char *target;
-  const char *option;
+  const char *option;  
 
   SVN_ERR(svn_cl__args_to_target_array_print_reserved(&targets, os,
                                                       opt_state->targets,
