@@ -464,7 +464,7 @@ svn_error_t *
 svn_fs_verify(const char *path,
               svn_cancel_func_t cancel_func,
               void *cancel_baton,
-              apr_pool_t *pool)
+              apr_pool_t *pool) 
 {
   svn_error_t *err;
   svn_error_t *err2;
@@ -1324,7 +1324,7 @@ svn_fs_lock(svn_lock_t **lock, svn_fs_t *fs, const char *path,
                                  _("Lock token URI '%s' has bad scheme; "
                                    "expected '%s'"),
                                  token, "opaquelocktoken");
-
+                                   
       if (! svn_xml_is_xml_safe(token, strlen(token)))
         return svn_error_create(
            SVN_ERR_FS_BAD_LOCK_TOKEN, NULL,
