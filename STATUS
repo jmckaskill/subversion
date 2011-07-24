@@ -126,7 +126,7 @@ Candidate changes:
      Hitting the io retry loop on windows is very painfull.
    Votes:
      +1: rhuijben
-
+     
  * r1150302
    Avoid closing fs txns multiple times.
    Justification:
@@ -145,7 +145,7 @@ Candidate changes:
    Votes:
      +1: rhuijben
      +0: danielsh
-
+     
  * r1150254, r1150260, r1150261, r1150266
    Return errors by composing instead of ignoring them.
    Justification:
@@ -160,7 +160,7 @@ Candidate changes:
    Votes:
      +1: rhuijben (after r1150302 and r1150327 are backported)
      +1: danielsh
-
+     
  * r1150368
    Resolve an obscure locked file problem when aborting a commit.
    Justification:
