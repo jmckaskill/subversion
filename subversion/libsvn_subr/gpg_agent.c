@@ -136,7 +136,7 @@ password_get_gpg_agent(const char **password,
   const char *p = NULL;
   char *ep = NULL;
   char *buffer;
-
+  
   apr_array_header_t *socket_details;
   const char *request = NULL;
   const char *cache_id = NULL;
@@ -169,7 +169,7 @@ password_get_gpg_agent(const char **password,
       sd = socket(AF_UNIX, SOCK_STREAM, 0);
       if (sd == -1)
         return FALSE;
-
+    
       if (connect(sd, (struct sockaddr *)&addr, sizeof(addr)) == -1)
         {
           close(sd);
@@ -333,7 +333,7 @@ password_get_gpg_agent(const char **password,
 
   if (strncmp(buffer, "ERR", 3) == 0)
     return FALSE;
-
+  
   p = NULL;
   if (strncmp(buffer, "D", 1) == 0)
     p = &buffer[2];
