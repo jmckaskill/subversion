@@ -6263,7 +6263,7 @@ svn_wc__db_op_delete(svn_wc__db_t *db,
                                                 db, local_abspath,
                                                 scratch_pool, scratch_pool));
   VERIFY_USABLE_WCROOT(wcroot);
-
+  
   if (moved_to_abspath)
     {
       SVN_ERR(svn_wc__db_wcroot_parse_local_abspath(&moved_to_wcroot,
