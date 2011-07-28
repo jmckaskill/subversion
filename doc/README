@@ -13,7 +13,7 @@ A rough guide:
                              experts alike.  Written in DocBook Lite,
                              and now maintained in a separate repository
                              of its own.
-
+                             
   programmer/                Documents for Subversion programmers.
 
   programmer/WritingChangeLogs.txt
