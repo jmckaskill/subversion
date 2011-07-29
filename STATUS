@@ -105,7 +105,7 @@ Candidate changes:
      Hitting the io retry loop on windows is very painfull.
    Votes:
      +1: rhuijben, philip
-
+     
  * r1150327
    Report not finding txn roots produce a 404 error in mod_dav_svn.
    Justification:
@@ -115,7 +115,7 @@ Candidate changes:
    Votes:
      +1: rhuijben
      +0: danielsh
-
+     
  * r1150254, r1150260, r1150261, r1150266
    Return errors by composing instead of ignoring them.
    Justification:
@@ -130,7 +130,7 @@ Candidate changes:
    Votes:
      +1: rhuijben (after r1150302 and r1150327 are backported)
      +1: danielsh
-
+     
  * r1150368
    Resolve an obscure locked file problem when aborting a commit.
    Justification:
@@ -157,7 +157,7 @@ Candidate changes:
    Fix two bugs in ra_serf when connecting to HTTPS repository hosted on
    non-standard port.
    1. ra_serf complains that server certificate doesn't match hostname.
-   2. XML parsing failed: (400 Bad Request) error when working with SNI
+   2. XML parsing failed: (400 Bad Request) error when working with SNI 
       enabled server.
       http://svn.haxx.se/users/archive-2011-07/0404.shtml
     Justification:
@@ -182,7 +182,7 @@ Candidate changes:
    Fix description of svndumpfilter's --targets option.
    Votes:
      +1: cmpilato
-
+     
  * r1152189, r1152190
    Fix an assertion on copying nodes that are not presence normal.
    Justification:
