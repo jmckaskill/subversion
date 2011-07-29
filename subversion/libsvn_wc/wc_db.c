@@ -6342,7 +6342,7 @@ svn_wc__db_op_delete(svn_wc__db_t *db,
                                                 db, local_abspath,
                                                 scratch_pool, scratch_pool));
   VERIFY_USABLE_WCROOT(wcroot);
-
+  
   if (moved_to_abspath)
     {
       SVN_ERR(svn_wc__db_wcroot_parse_local_abspath(&moved_to_wcroot,
@@ -9731,7 +9731,7 @@ scan_deletion_txn(void *baton,
               moved_to_relpath = svn_relpath_join(copy_op_root_relpath,
                                                   moved_child_relpath,
                                                   scratch_pool);
-
+              
               /* Figure out what happened to the child after it was moved
                * along. Maybe the child was moved-away further, either by
                * itself, or along with some intermediate parent node. */
