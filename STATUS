@@ -183,6 +183,13 @@ Candidate changes:
    Votes:
      +1: cmpilato
 
+ * r1152189, r1152190
+   Fix an assertion on copying nodes that are not presence normal.
+   Justification:
+     Easy to trigger problem in tree conflict situations.
+   Votes:
+     +1: rhuijben
+
 Veto-blocked changes:
 =====================
 
