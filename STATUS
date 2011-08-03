@@ -91,7 +91,7 @@ Candidate changes:
    Votes:
      +1: philip, danielsh
      +0: cmpilato
-
+     
  * r1150327
    Report not finding txn roots produce a 404 error in mod_dav_svn.
    Justification:
@@ -101,7 +101,7 @@ Candidate changes:
    Votes:
      +1: rhuijben
      +0: danielsh
-
+     
  * r1150254, r1150260, r1150261, r1150266
    Return errors by composing instead of ignoring them.
    Justification:
@@ -116,7 +116,7 @@ Candidate changes:
    Votes:
      +1: rhuijben (after r1150302 and r1150327 are backported)
      +1: danielsh
-
+     
  * r1150368
    Resolve an obscure locked file problem when aborting a commit.
    Justification:
@@ -185,7 +185,7 @@ Veto-blocked changes:
      requests, resulting in undesirable server log bloat.
 
      Further, the promise of performance has not been realized:
-     https://ctf.open.collab.net/sf/wiki/do/viewPage/projects.csvn/wiki/HTTPv2
+     https://ctf.open.collab.net/sf/wiki/do/viewPage/projects.csvn/wiki/HTTPv2 
 
      (As an aside, Serf's potential as a platform for future
      improvement remains unproven and doubtful.  For example, HTTPv2
@@ -218,9 +218,9 @@ Approved changes:
    Justification:
      A repository root at / can cause ra_neon to assert.
    Votes:
-     +1: philip, cmpilato, rhuijben
+     +1: philip, cmpilato, rhuijben 
 
- * r1153416
+ * r1153416  
    Fix access to uninitialized variable in svn_wc_status3().
    Justification:
      Unpredicitable behavior on error condition.
