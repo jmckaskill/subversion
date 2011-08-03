@@ -1385,7 +1385,7 @@ svn_client_commit5(const apr_array_header_t *targets,
               svn_boolean_t found_delete_half =
                 (apr_hash_get(committables->by_path, delete_op_root_abspath,
                                APR_HASH_KEY_STRING) != NULL);
-
+              
               if (!found_delete_half)
                 {
                   const char *delete_half_parent_abspath;
