@@ -125,7 +125,7 @@ Veto-blocked changes:
      requests, resulting in undesirable server log bloat.
 
      Further, the promise of performance has not been realized:
-     https://ctf.open.collab.net/sf/wiki/do/viewPage/projects.csvn/wiki/HTTPv2
+     https://ctf.open.collab.net/sf/wiki/do/viewPage/projects.csvn/wiki/HTTPv2 
 
      (As an aside, Serf's potential as a platform for future
      improvement remains unproven and doubtful.  For example, HTTPv2
@@ -178,7 +178,7 @@ Approved changes:
      this revision depends for a clean merge).
    Votes:
      +1: rhuijben, danielsh, cmpilato
-
+     
  * r1150327
    Report not finding txn roots produce a 404 error in mod_dav_svn.
    Justification:
@@ -188,7 +188,7 @@ Approved changes:
    Votes:
      +1: rhuijben, gstein, hwright
      +0: danielsh
-
+     
  * r1150368
    Resolve an obscure locked file problem when aborting a commit.
    Justification:
