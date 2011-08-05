@@ -98,7 +98,7 @@ create_py_stack(PyObject *p_exception,
         err = svn_error_quick_wrap(err, SVN_ERR__TRACED);
         err->file = apr_pstrdup(err->pool, PyString_AsString(p_filename));
         err->line = PyInt_AsLong(p_lineno);
-
+        
         Py_DECREF(p_filename);
         Py_DECREF(p_lineno);
       }
@@ -189,7 +189,7 @@ svn_fs_py__init_python(apr_pool_t *pool)
                             apr_pool_cleanup_null);
 
   SVN_ERR(load_module(&p_root_module, ROOT_MODULE_NAME));
-
+  
   if (PyErr_Occurred())
     {
       PyErr_Clear();
