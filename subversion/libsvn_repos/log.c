@@ -1733,7 +1733,7 @@ store_search(svn_mergeinfo_t processed,
                                                   sizeof(svn_merge_range_t*));
       svn_merge_range_t *range = apr_palloc(processed_pool,
                                             sizeof(svn_merge_range_t));
-
+      
       range->start = start;
       range->end = end;
       range->inheritable = TRUE;
