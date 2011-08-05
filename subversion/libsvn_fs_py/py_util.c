@@ -113,7 +113,7 @@ svn_fs_py__init_python(apr_pool_t *pool)
                             apr_pool_cleanup_null);
 
   SVN_ERR(load_module(&p_root_module, ROOT_MODULE_NAME));
-
+  
   p_exception_type = PyObject_GetAttrString(p_root_module,
                                             "SubversionException");
   if (PyErr_Occurred())
