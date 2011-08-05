@@ -90,6 +90,7 @@ Candidate changes:
    Justification:
      Usually svn allows case differences, but in this case it doesn't.
      (Triggerable in other scenarios)
+     http://svn.haxx.se/users/archive-2011-08/0142.shtml
    Votes:
      +1: rhuijben
 
