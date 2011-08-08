@@ -336,7 +336,7 @@
   </fo:inline>
 </xsl:template>
 
-<xsl:template match="biblioset/title|biblioset/citetitle"
+<xsl:template match="biblioset/title|biblioset/citetitle" 
               mode="bibliography.mode">
   <xsl:variable name="relation" select="../@relation"/>
   <xsl:choose>
@@ -825,7 +825,7 @@
   </fo:inline>
 </xsl:template>
 
-<xsl:template match="bibliomset/title|bibliomset/citetitle"
+<xsl:template match="bibliomset/title|bibliomset/citetitle" 
               mode="bibliomixed.mode">
   <xsl:variable name="relation" select="../@relation"/>
   <xsl:choose>
