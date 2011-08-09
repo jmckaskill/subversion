@@ -92,7 +92,7 @@ create_py_stack(PyObject *p_exception,
         err = svn_error_quick_wrap(err, SVN_ERR__TRACED);
         err->file = apr_pstrdup(err->pool, PyString_AsString(p_filename));
         err->line = PyInt_AsLong(p_lineno);
-
+        
         Py_DECREF(p_filename);
         Py_DECREF(p_lineno);
       }
@@ -128,7 +128,7 @@ typedef void (*py_exc_func_t)(void *baton, va_list argp);
    interpreter has a pending exception.  If it does, convert that exception
    to an svn_error_t and return it (or SVN_NO_ERROR if no error), resetting
    the interpreter state and releasing the exception.
-
+   
    Note: This function assumes whatever locking we need for the interpreter
    has already happened and will be released after it is done. */
 static svn_error_t *
@@ -236,7 +236,7 @@ svn_fs_py__init_python(apr_pool_t *pool)
                             apr_pool_cleanup_null);
 
   SVN_ERR(load_module(&p_root_module, ROOT_MODULE_NAME));
-
+  
   if (PyErr_Occurred())
     {
       PyErr_Clear();
