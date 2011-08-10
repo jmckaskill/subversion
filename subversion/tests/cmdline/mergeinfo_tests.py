@@ -537,7 +537,7 @@ def wc_target_inherits_mergeinfo_from_repos(sbox):
   # Check the merged and eligible revisions both recursively and
   # non-recursively.
 
-  # Eligible : Non-recursive
+  # Eligible : Non-recursive  
   svntest.actions.run_and_verify_mergeinfo(
     adjust_error_for_server_version(''),
     ['3','4'], sbox.repo_url + '/A/D', subtree_wc,
