@@ -2544,7 +2544,7 @@ svn_wc__db_scan_addition(svn_wc__db_status_t *status,
    if the node has moved-away.
 
    If the node was moved-away, COPY_OP_ROOT_ABSPATH will specify the root
-   of the copy operation that created the copy-half of the move.
+   of the copy operation that created the copy-half of the move. 
    If LOCAL_ABSPATH itself is the root of the copy, COPY_OP_ROOT_ABSPATH
    equals MOVED_TO_ABSPATH.
 
