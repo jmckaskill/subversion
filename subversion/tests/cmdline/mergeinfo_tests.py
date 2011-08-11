@@ -507,7 +507,7 @@ def wc_target_inherits_mergeinfo_from_repos(sbox):
   gamma_2_path  = os.path.join(wc_dir, 'A_COPY_2', 'D', 'gamma')
   tau_path      = os.path.join(wc_dir, 'A', 'D', 'G', 'tau')
   D_COPY_path   = os.path.join(wc_dir, 'A_COPY', 'D')
-
+  
   # Merge -c5 ^/A/D/G/rho A_COPY\D\G\rho
   # Merge -c7 ^/A A_COPY
   # Commit as r8
@@ -540,7 +540,7 @@ def wc_target_inherits_mergeinfo_from_repos(sbox):
   # Check the merged and eligible revisions both recursively and
   # non-recursively.
 
-  # Eligible : Non-recursive
+  # Eligible : Non-recursive  
   svntest.actions.run_and_verify_mergeinfo(
     adjust_error_for_server_version(''),
     ['4','5'], sbox.repo_url + '/A/D', subtree_wc,
@@ -593,7 +593,7 @@ def wc_target_inherits_mergeinfo_from_repos(sbox):
   svntest.actions.run_and_verify_svn(None, None, [], 'ci', '-m',
                                      'Merge r8 from A_COPY_2 to A_COPY',
                                      wc_dir)
-
+ 
   def test_svn_mergeinfo_4_way(wc_target):
     # Eligible : Non-recursive
     svntest.actions.run_and_verify_mergeinfo(
