@@ -475,7 +475,7 @@ SELECT wc_id, local_relpath, parent_relpath, kind
 FROM nodes_current
 WHERE wc_id = ?1
        AND (?2 = ''
-            OR local_relpath = ?2
+            OR local_relpath = ?2 
             OR (local_relpath > ?2 || '/' AND local_relpath < ?2 || '0'))
 
 -- STMT_INSERT_TARGET_WITH_CHANGELIST
@@ -508,7 +508,7 @@ SELECT N.wc_id, N.local_relpath, N.parent_relpath, N.kind
     ON A.wc_id = N.wc_id AND A.local_relpath = N.local_relpath
  WHERE N.wc_id = ?1
        AND (?2 = ''
-            OR N.local_relpath = ?2
+            OR N.local_relpath = ?2 
             OR (N.local_relpath > ?2 || '/' AND N.local_relpath < ?2 || '0'))
        AND A.changelist = ?3
 
@@ -961,7 +961,7 @@ FROM externals WHERE wc_id = ?1 AND parent_relpath = ?2
 -- STMT_SELECT_EXTERNALS_DEFINED
 SELECT local_relpath, def_local_relpath
 FROM externals
-WHERE wc_id = ?1
+WHERE wc_id = ?1 
   AND (?2 = ''
        OR def_local_relpath = ?2
        OR (def_local_relpath > ?2 || '/' AND def_local_relpath < ?2 || '0'))
@@ -1063,7 +1063,7 @@ INSERT INTO temp__node_props_cache(local_relpath, kind, properties)
     AND presence IN ('normal', 'incomplete')
 
 -- STMT_CACHE_ACTUAL_PROPS
-UPDATE temp__node_props_cache
+UPDATE temp__node_props_cache 
    SET properties=
         IFNULL((SELECT properties FROM actual_node a
                  WHERE a.wc_id = ?1
@@ -1079,7 +1079,7 @@ INSERT INTO temp__node_props_cache (local_relpath, kind, properties)
 
 -- STMT_CACHE_NODE_PRISTINE_PROPS
 INSERT INTO temp__node_props_cache(local_relpath, kind, properties)
- SELECT local_relpath, kind,
+ SELECT local_relpath, kind, 
         IFNULL((SELECT properties FROM nodes nn
                  WHERE n.presence = 'base-deleted'
                    AND nn.wc_id = n.wc_id
@@ -1195,7 +1195,7 @@ WHERE wc_id = ?1
   AND op_depth >= ?3
   AND presence NOT IN ('base-deleted', 'not-present', 'excluded', 'absent')
   AND op_depth = (SELECT MAX(op_depth) FROM nodes s
-                  WHERE s.wc_id = n.wc_id
+                  WHERE s.wc_id = n.wc_id 
                     AND s.local_relpath = n.local_relpath)
 
 -- STMT_SELECT_DELETE_LIST
