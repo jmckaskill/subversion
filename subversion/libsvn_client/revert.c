@@ -167,7 +167,7 @@ check_moves(const char *local_abspath,
 
   if (moved_to_abspath && copy_op_root_abspath &&
       strcmp(moved_to_abspath, copy_op_root_abspath) == 0)
-    {
+    {  
       svn_boolean_t is_in_target_list;
 
       SVN_ERR(path_is_in_target_list(&is_in_target_list,
@@ -205,7 +205,7 @@ check_moves(const char *local_abspath,
 
   if (moved_from_abspath && delete_op_root_abspath &&
       strcmp(moved_from_abspath, delete_op_root_abspath) == 0)
-    {
+    {  
       svn_boolean_t is_in_target_list;
 
       SVN_ERR(path_is_in_target_list(&is_in_target_list,
