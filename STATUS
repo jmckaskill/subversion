@@ -199,7 +199,7 @@ Candidate changes:
      Help texts should document the current behaviour, not past behaviour.
    Votes:
      +1: stsp, rhuijben
-
+     
  * r1154115, r1154119, r1154144, r1154155, r1154159, r1154215, r1154225
    Cleanup JavaHL pool handling. This to improve thread safety, concurrency and
    memory usage.
