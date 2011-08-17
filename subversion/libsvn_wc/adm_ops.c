@@ -1587,7 +1587,7 @@ revert_restore(svn_wc__db_t *db,
                                                   scratch_pool));
       else if (reverted_kind == svn_wc__db_kind_dir && on_disk == svn_node_dir)
         SVN_ERR(revert_restore_handle_copied_dirs(&on_disk, db, local_abspath,
-                                                  TRUE,
+                                                  TRUE, 
                                                   cancel_func, cancel_baton,
                                                   scratch_pool));
     }
