@@ -147,10 +147,10 @@ public class BasicTests extends SVNTests
                               CommitItemStateFlags.Add);
         Set<String> urls = new HashSet<String>(1);
         urls.add(thisTest.getUrl() + "/Y");
-        try
+        try 
         {
             tempclient.mkdir(urls, false, null, new ConstMsg("log_msg"), null);
-        }
+        } 
         catch(JNIError e)
         {
 	        return; // Test passes!
