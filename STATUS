@@ -116,12 +116,12 @@ Candidate changes:
    Justifications:
      Bad errors are bad.
    Notes:
-     r1159132 is a nonfunctional rename to make the code clearer.
+     r1159132 is a nonfunctional rename to make the code clearer. 
      r1159136 is the real fix.
      r1159148 is a further cleanup (Not required, but makes patching easier)
    Votes:
      +1: rhuijben
-
+   
  * r1159230
    Don't let committers set arbitrary HTTP headers on files.
    Votes:
