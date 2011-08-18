@@ -93,7 +93,7 @@ V 47
 Add `svn:ignore` using CRLF to terminate lines.
 PROPS-END
 
-Node-path:
+Node-path: 
 Node-kind: dir
 Node-action: change
 Prop-content-length: 47
