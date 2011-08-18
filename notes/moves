@@ -84,7 +84,7 @@ More API changes might be needed (TBD).
 
 We might require a working copy upgrade when going from 1.7 to 1.8,
 and only allow new move functionality to be used with 1.8 working copies.
-
+ 
 
 == libsvn_client ==
 
@@ -139,7 +139,7 @@ what degree the APIs need to stay compatible.)
 
 == svn ==
 
-The svn client presents moves similar to but distinct from copy operations.
+The svn client presents moves similar to but distinct from copy operations. 
 
 svn status shows move roots:
 
