@@ -3140,7 +3140,7 @@ create_rep_state(struct rep_state **rep_state,
          ### going to jump straight to this comment anyway! */
       return svn_error_createf(SVN_ERR_FS_CORRUPT, err,
                                "Corrupt representation '%s'",
-                               rep
+                               rep 
                                ? representation_string(rep, ffd->format, TRUE,
                                                        TRUE, pool)
                                : "(null)");
