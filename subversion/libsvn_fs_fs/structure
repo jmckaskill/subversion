@@ -66,7 +66,7 @@ repository) is:
   rep-cache.db        SQLite database mapping rep checksums to locations
 
 Non-packed files in the revprops directory are in the hash dump format used by
-svn_hash_write.
+svn_hash_write.  
 
 The format of the "current" file is:
 
@@ -233,7 +233,7 @@ character.
 
 Packing revision properties (format 5: SQLite)
 ---------------------------
-
+ 
 This was supported by 1.7-dev builds but never included in a blessed release.
 
 See r1143829 of this file:
