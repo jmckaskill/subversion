@@ -856,7 +856,7 @@ get_writable_proto_rev_body(svn_fs_t *fs, const void *baton, apr_pool_t *pool)
       err = svn_error_compose_create(
               err,
               unlock_proto_rev_list_locked(fs, txn_id, *lockcookie, pool));
-
+      
       *lockcookie = NULL;
     }
 
@@ -3028,7 +3028,7 @@ svn_fs_fs__rev_get_root(svn_fs_id_t **root_id_p,
    sought to the manifest record) into *OFFSET.  If not NULL, copy
    the raw record into the provided BUF, which must have room for
    REVPROP_MANIFEST_FIELD_WIDTH+1 bytes.  REV is only used for error
-   messages. */
+   messages. */   
 static svn_error_t *
 read_revprop_manifest_record(apr_off_t *offset,
                              char *outbuf,
@@ -3155,7 +3155,7 @@ set_revision_proplist(svn_fs_t *fs,
       /* Copy manifest info up to the new prop's offset value. */
       SVN_ERR(svn_stream_bounded_copy(svn_stream_disown(source_stream, pool),
                                       svn_stream_disown(target_stream, pool),
-                                      shard_pos *
+                                      shard_pos * 
                                       (REVPROP_MANIFEST_FIELD_WIDTH + 1),
                                       NULL, NULL, pool));
 
@@ -3443,7 +3443,7 @@ create_rep_state(struct rep_state **rep_state,
          ### going to jump straight to this comment anyway! */
       return svn_error_createf(SVN_ERR_FS_CORRUPT, err,
                                "Corrupt representation '%s'",
-                               rep
+                               rep 
                                ? representation_string(rep, ffd->format, TRUE,
                                                        pool)
                                : "(null)");
