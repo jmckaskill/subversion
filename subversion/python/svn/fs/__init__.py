@@ -199,7 +199,7 @@ class FS(object):
             return os.path.join(self.__path_revprops_shard(rev), str(rev))
         else:
             return os.path.join(self.path, PATH_REVPROPS_DIR, str(rev))
-
+            
     def __path_rev_absolute(self, rev):
         if self.format < MIN_PACKED_FORMAT or not self.__is_packed_rev(rev):
             return self.__path_rev(rev)
@@ -465,7 +465,7 @@ class FS(object):
                                               "FSFS format (%d) too old to " +
                                               "pack; please upgrade the " +
                                               "filesystem." % format)
-
+           
             # If we aren't using sharding, we can't do any packing, so quit.
             if not max_files_per_dir:
                 return
