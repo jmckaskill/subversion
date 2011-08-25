@@ -1,7 +1,7 @@
 Feature Outline: Issue #2858 / svn:hold
 =======================================
 
-This text describes plans and concerns about creating an svn:hold property that
+This text describes plans and concerns about creating an svn:hold property that 
 automatically omits paths from commits that have this property set. WIP.
 $Date$
 
@@ -168,7 +168,7 @@ the user experience with that feature and avoids pitfalls arising from it.
     as if there have only been merges, only intentional changes account for
     the local modifications. The proposed warning is for the specific case
     where the user merges into a WC that had private changes to held-back
-    files which should not be committed. (This point is very debatable.)
+    files which should not be committed. (This point is very debatable.) 
 
     (173) Say a 'merge' brings in an intentional change on a held-back file,
     and assuming there were no local mods before the 'merge'. The next commit
