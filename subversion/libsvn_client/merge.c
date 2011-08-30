@@ -1366,7 +1366,7 @@ check_moved_away(svn_boolean_t *moved_away,
 {
   const char *moved_to_abspath;
   svn_error_t *err;
-
+  
   *moved_away = FALSE;
 
   err = svn_wc__node_was_moved_away(&moved_to_abspath, NULL,
@@ -1396,7 +1396,7 @@ check_moved_here(svn_boolean_t *moved_here,
 {
   const char *moved_from_abspath;
   svn_error_t *err;
-
+  
   *moved_here = FALSE;
 
   err = svn_wc__node_was_moved_here(&moved_from_abspath, NULL,
