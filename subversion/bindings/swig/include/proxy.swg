@@ -28,13 +28,13 @@
  *       that lets us gracefully handle objects that are allocated from
  *       a pool that's been cleared or destroyed.
  */
-
+ 
 %pythoncode %{
   def _copy_metadata_deep(value, old_value):
     """Copy all attributes of old_value into value, recursively traversing
     lists and dicts if needed."""
     if value is None or old_value is None or value is old_value: return
-
+    
     if isinstance(value, dict):
       for k, v in value.iteritems():
         _copy_metadata_deep(v, old_value[k])
@@ -46,7 +46,7 @@
         value.__dict__.update(old_value.__dict__)
       except AttributeError:
         pass
-
+        
   def _assert_valid_deep(value):
     """Assert value's validity, recursively traversing lists and dicts."""
     if isinstance(value, dict):
@@ -88,7 +88,7 @@
     members = self.__dict__.get("_members")
     if members is not None:
       _copy_metadata_deep(value, members.get(name))
-
+        
     # Verify that the new object is good
     _assert_valid_deep(value)
 
