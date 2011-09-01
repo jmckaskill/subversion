@@ -109,7 +109,7 @@ Candidate changes:
      for RC2.
    Votes:
      +1: pburba, stsp
-
+     
  * r1163953
    Make the ra_serf delta editor report absent paths correctly.
    Justification:
