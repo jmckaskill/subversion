@@ -109,7 +109,7 @@ Candidate changes:
      for RC2.
    Votes:
      +1: pburba, stsp
-
+     
  * r1163953
    Make the ra_serf delta editor report absent paths correctly.
    Justification:
@@ -119,7 +119,7 @@ Candidate changes:
      (The other editors just ignore absent paths)
    Votes:
      +1: rhuijben
-
+     
  * r1164386
    Avoid an expensive database operation in 'svn info'.
    Justification:
@@ -129,7 +129,7 @@ Candidate changes:
      +1: rhuijben
 
  * r1164517, r1164580
-   Fix issue #4003 ("'svn patch' seems unable to delete properties").
+   Fix issue #4003 ("'svn patch' seems unable to delete properties"). 
    Justification:
      This fixes a lack of consistency with how emptied file contents
      are handled.
