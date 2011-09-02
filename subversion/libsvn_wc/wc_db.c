@@ -6546,7 +6546,7 @@ svn_wc__db_op_delete(svn_wc__db_t *db,
                                                 db, local_abspath,
                                                 scratch_pool, scratch_pool));
   VERIFY_USABLE_WCROOT(wcroot);
-
+  
   if (moved_to_abspath)
     {
       SVN_ERR(svn_wc__db_wcroot_parse_local_abspath(&moved_to_wcroot,
@@ -7170,7 +7170,7 @@ read_children_info(void *baton,
                                                     result_pool);
 
           /* Moved-to is only stored at op_depth 0. */
-          moved_to_relpath = svn_sqlite__column_text(stmt, 21, NULL);
+          moved_to_relpath = svn_sqlite__column_text(stmt, 21, NULL); 
           if (moved_to_relpath)
             child_item->info.moved_to_abspath =
               svn_dirent_join(wcroot->abspath, moved_to_relpath, result_pool);
@@ -9985,7 +9985,7 @@ scan_deletion_txn(void *baton,
               moved_to_relpath = svn_relpath_join(moved_to_op_root_relpath,
                                                   moved_child_relpath,
                                                   scratch_pool);
-
+              
               /* Figure out what happened to the child after it was moved
                * along. Maybe the child was moved-away further, either by
                * itself, or along with some intermediate parent node.
@@ -10004,7 +10004,7 @@ scan_deletion_txn(void *baton,
                       /* Tolerate missing children. A likely cause is that
                        * the moved-to information in BASE is incorrect.
                        * Just treat this as a normal deletion. */
-                      svn_error_clear(err);
+                      svn_error_clear(err); 
                       moved_to_relpath = NULL;
                       moved_to_op_root_relpath = NULL;
                       found_child = FALSE;
@@ -10027,7 +10027,7 @@ scan_deletion_txn(void *baton,
                                                    svn_sqlite__reset(stmt));
                 }
               if (sd_baton->moved_to_relpath)
-                *sd_baton->moved_to_relpath = moved_to_relpath ?
+                *sd_baton->moved_to_relpath = moved_to_relpath ? 
                   apr_pstrdup(sd_baton->result_pool, moved_to_relpath) : NULL;
             }
 
