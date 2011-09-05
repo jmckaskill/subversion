@@ -85,7 +85,7 @@ prov1_save_creds (svn_boolean_t *saved,
   return SVN_NO_ERROR;
 }
 
-const svn_auth_provider_t provider1 =
+const svn_auth_provider_t provider1 = 
   {
     SVN_AUTH_CRED_SIMPLE,  /* username/passwd creds */
     prov1_first_creds,
@@ -120,7 +120,7 @@ prov2_next_creds (void **credentials,
   return SVN_NO_ERROR;
 }
 
-const svn_auth_provider_t provider2 =
+const svn_auth_provider_t provider2 = 
   {
     SVN_AUTH_CRED_SIMPLE,  /* username/passwd creds */
     prov1_first_creds,
@@ -162,15 +162,15 @@ main (int argc, const char * const *argv)
   if (err)
     svn_handle_error (err, stderr, TRUE);
 
-
+  
   /* Query the baton for "simple" creds. */
   err = svn_auth_first_credentials ((void **) &creds,
                                     &state, SVN_AUTH_CRED_SIMPLE,
                                     auth_baton, pool);
   if (err)
     svn_handle_error (err, stderr, TRUE);
-
-  printf ("First creds back are %s, %s.\n", creds->username, creds->password);
+  
+  printf ("First creds back are %s, %s.\n", creds->username, creds->password); 
 
   /* Keep querying until there are no more creds left. */
   while (creds != NULL)
@@ -178,10 +178,10 @@ main (int argc, const char * const *argv)
       err = svn_auth_next_credentials ((void **) &creds, state, pool);
       if (err)
         svn_handle_error (err, stderr, TRUE);
-
+      
       if (creds)
         printf ("Next creds back are %s, %s.\n",
-                creds->username, creds->password);
+                creds->username, creds->password); 
     }
 
   return 0;
