@@ -94,7 +94,7 @@ Candidate changes:
      1.7.x-r1163557
    Votes:
      +1: philip
-
+     
  * r1164386
    Avoid an expensive database operation in 'svn info'.
    Justification:
