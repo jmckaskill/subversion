@@ -110,7 +110,7 @@ Candidate changes:
      for RC2.
    Votes:
      +1: pburba, stsp
-
+     
  * r1164386
    Avoid an expensive database operation in 'svn info'.
    Justification:
@@ -121,7 +121,7 @@ Candidate changes:
      +1: gstein (for 1.7.1)
 
  * r1164517, r1164580
-   Fix issue #4003 ("'svn patch' seems unable to delete properties").
+   Fix issue #4003 ("'svn patch' seems unable to delete properties"). 
    Justification:
      This fixes a lack of consistency with how emptied file contents
      are handled.
@@ -214,7 +214,7 @@ Approved changes:
      ^/subversion/branches/1.7.x-issue3976
    Votes:
      +1: pburba, stsp, philip
-
+     
  * r1163953
    Make the ra_serf delta editor report absent paths correctly.
    Justification:
