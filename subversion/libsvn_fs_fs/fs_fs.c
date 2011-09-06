@@ -278,7 +278,7 @@ path_successor_node_revs(svn_fs_t *fs, const char *node_rev_id,
   svn_fs_id_t *id;
   svn_revnum_t rev;
   long shard;
-
+  
   id = svn_fs_fs__id_parse(node_rev_id, strlen(node_rev_id), pool);
   rev = svn_fs_fs__id_rev(id);
   shard = rev / FSFS_SUCCESSORS_MAX_FILES_PER_DIR;
@@ -5871,7 +5871,7 @@ update_successor_ids_file(const char **successor_ids_temp_abspath,
       SVN_ERR_ASSERT(new_rev >= 1);
       offset = FSFS_SUCCESSORS_REV_OFFSET(new_rev - 1);
       SVN_ERR(svn_io_file_seek(revs_file, APR_SET, &offset, pool));
-
+      
       /* Read a 64 bit big endian integer in two passes.
        * The most significant 4 bytes come first. */
       size = 4;
@@ -5948,7 +5948,7 @@ update_successor_ids_file(const char **successor_ids_temp_abspath,
       const char *pred = svn_apr_hash_index_key(hi);
       apr_array_header_t *successors = svn_apr_hash_index_val(hi);
       int i;
-
+      
       for (i = 0; i < successors->nelts; i++)
         {
           const char *succ = APR_ARRAY_IDX(successors, i, const char *);
@@ -6047,7 +6047,7 @@ update_successor_node_revs_files(apr_hash_t **node_revs_tempfiles,
       const char *node_revs_file_abspath;
 
       svn_pool_clear(iterpool);
-
+      
       node_revs_file_abspath = path_successor_node_revs(fs, pred, iterpool);
       if (apr_hash_get(tempfiles, node_revs_file_abspath,
                        APR_HASH_KEY_STRING) == NULL)
@@ -6095,7 +6095,7 @@ update_successor_node_revs_files(apr_hash_t **node_revs_tempfiles,
       const char *new_line;
 
       svn_pool_clear(iterpool);
-
+      
       node_revs_file_abspath = path_successor_node_revs(fs, pred, iterpool);
       tempfile = apr_hash_get(tempfiles, node_revs_file_abspath,
                               APR_HASH_KEY_STRING);
@@ -6114,7 +6114,7 @@ update_successor_node_revs_files(apr_hash_t **node_revs_tempfiles,
       const char *tempfile_abspath;
 
       svn_pool_clear(iterpool);
-
+      
       SVN_ERR(svn_io_file_name_get(&tempfile_abspath, tempfile, pool));
       apr_hash_set(*node_revs_tempfiles, node_revs_file_abspath,
                    APR_HASH_KEY_STRING, tempfile_abspath);
