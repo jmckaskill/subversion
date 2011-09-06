@@ -42,7 +42,7 @@
 	<?define PackageCode="*" ?>
 
 	<Product Id="$(var.ProductCode)" Name="!(loc.ProductName)" Language="1033" UpgradeCode="$(var.UpgradeCode)" Manufacturer="CollabNet" Version="$(var.ProductVersion)">
-
+		
 		<Package Description="!(loc.PackageDescription)" Id="$(var.PackageCode)" Comments="!(loc.ProductName) $(var.ProductVersion)-$(var.RevisionNumber)" InstallerVersion="200" Keywords="!(loc.Keywords)" Compressed="yes" />
 
 		<Upgrade Id="$(var.UpgradeCode)">
@@ -51,14 +51,14 @@
  		</Upgrade>
 
 		<!--
-			Source media for the installation.
- 			Specifies a single cab file to be embedded in the installer's .msi.
+			Source media for the installation. 
+ 			Specifies a single cab file to be embedded in the installer's .msi. 
 		-->
 		<Media Id="1" Cabinet="contents.cab" EmbedCab="yes" CompressionLevel="high" />
-
+		
 		<!-- Installation directory and files are defined in Files.wxs -->
 		<Directory Id="TARGETDIR" Name="SourceDir" />
-
+		
 		<Feature Id="Complete" Title="Subversion" Description="Subversion for win32" Level="1">
 
 				<?include ApacheFeature22x.wxi ?>
@@ -71,30 +71,30 @@
 				<?include LicensesFeature22x.wxi ?>
 
 				<ComponentRef Id="svnbookchm" />
-
+			
 			<!-- Program Files Folder -->
 				<ComponentRef Id="IDSubvProgGroup" />
 				<ComponentRef Id="IDSubvLicGroup" />
 		</Feature>
-
+		
 		<Property Id="WIXUI_INSTALLDIR">INSTALLDIR</Property>
-
+ 		
 		<!-- note to self: properties populated from controls
 		     must be in uppercase and have the secure option set -->
 		<Property Id="APACHEVERSION" Secure="yes">Apache22</Property>
 
 		<Property Id="ProductRevision">$(var.RevisionNumber)</Property>
-
-		<!--
+		
+		<!-- 
  			Use custom Subversion Fragment
 		-->
 		<UIRef Id="WixUI_Subversion" />
-		<WixVariable Id="WixUIDialogBmp" Value="..\Bitmaps\dlgbmp.bmp" />
-		<WixVariable Id="WixUIBannerBmp" Value="..\Bitmaps\wiz-55x55x24.bmp" />
+		<WixVariable Id="WixUIDialogBmp" Value="..\Bitmaps\dlgbmp.bmp" />	
+		<WixVariable Id="WixUIBannerBmp" Value="..\Bitmaps\wiz-55x55x24.bmp" />	
 
 		<!-- Prevent downgrading -->
 		<CustomAction Id="PreventDowngrading" Error="!(loc.NoDowngrade)" />
-
+	
 		<InstallExecuteSequence>
 		  <Custom Action="PreventDowngrading" After="FindRelatedProducts">NEWPRODUCTFOUND</Custom>
 		  <RemoveExistingProducts After="InstallFinalize" />
