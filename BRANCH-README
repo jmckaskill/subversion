@@ -29,7 +29,7 @@ answering those questions:
       the revisions in which they appeared, and choose the first of
       them.
 
-
+  
    Q: To what locations has this /some/fixed/file.c@r45 been copied?
    A: Lookup the node-revision-ID for /some/fixed/file.c@r45.  Lookup
       the successor IDs for that node-revision-IDs.  For each
@@ -94,4 +94,4 @@ to them.  Keys may be appended.)
 
    - store 'modification' successors separately as there is O(1) of them
 
-3. (append your FSFS design scheme to here):
+3. (append your FSFS design scheme to here): 
