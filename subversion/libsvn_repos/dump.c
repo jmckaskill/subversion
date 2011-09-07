@@ -1102,7 +1102,7 @@ svn_repos_dump_fs3(svn_repos_t *repos,
       use_deltas_for_rev = use_deltas && (incremental || i != start_rev);
       SVN_ERR(get_dump_editor(&dump_editor, &dump_edit_baton, fs, to_rev,
                               "", stream, notify_func, notify_baton,
-                              start_rev, use_deltas_for_rev, FALSE,
+                              start_rev, use_deltas_for_rev, FALSE, 
                               &found_old_reference, &found_old_mergeinfo,
                               subpool));
 
