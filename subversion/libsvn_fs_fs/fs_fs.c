@@ -302,7 +302,7 @@ path_successor_node_revs(svn_fs_t *fs, const char *node_rev_id,
   svn_fs_id_t *id;
   svn_revnum_t rev;
   long filenum;
-
+  
   /* ### TODO(sid): danielsh: is there a need to guard for ID == NULL here? */
   id = svn_fs_fs__id_parse(node_rev_id, strlen(node_rev_id), pool);
   rev = svn_fs_fs__id_rev(id);
@@ -5599,7 +5599,7 @@ write_final_rev(const svn_fs_id_t **new_id_p,
       svn_string_t *unparsed_pred;
       svn_string_t *unparsed_succ;
       apr_array_header_t *successors;
-
+      
       unparsed_pred = svn_fs_fs__id_unparse(noderev->predecessor_id,
                                             result_pool);
       unparsed_succ = svn_fs_fs__id_unparse(noderev->id, result_pool);
@@ -5921,7 +5921,7 @@ read_successor_index_entry(apr_uint64_t *revision_offset,
                            APR_OS_DEFAULT, pool));
   offset = FSFS_SUCCESSORS_INDEX_REV_OFFSET(revision);
   SVN_ERR(svn_io_file_seek(file, APR_SET, &offset, pool));
-
+  
   /* Read a 64 bit big endian integer in two passes.
    * The most significant 4 bytes come first. */
   size = 4;
@@ -6033,7 +6033,7 @@ update_successor_ids_file(const char **successor_ids_temp_abspath,
       const char *pred = svn_apr_hash_index_key(hi);
       apr_array_header_t *successors = svn_apr_hash_index_val(hi);
       int i;
-
+      
       for (i = 0; i < successors->nelts; i++)
         {
           const char *succ = APR_ARRAY_IDX(successors, i, const char *);
@@ -6095,7 +6095,7 @@ update_successor_node_revs_files(apr_hash_t **node_revs_tempfiles,
       const char *node_revs_file_abspath;
 
       svn_pool_clear(iterpool);
-
+      
       /* This string will be obtained by the caller when iterating over
        * the NODE_REV_TEMPILES hash so we allocate it in the result pool. */
       node_revs_file_abspath = path_successor_node_revs(fs, pred, pool);
@@ -6148,7 +6148,7 @@ update_successor_node_revs_files(apr_hash_t **node_revs_tempfiles,
       const char *new_line;
 
       svn_pool_clear(iterpool);
-
+      
       node_revs_file_abspath = path_successor_node_revs(fs, pred, iterpool);
       tempfile = apr_hash_get(tempfiles, node_revs_file_abspath,
                               APR_HASH_KEY_STRING);
@@ -6167,7 +6167,7 @@ update_successor_node_revs_files(apr_hash_t **node_revs_tempfiles,
       const char *tempfile_abspath;
 
       svn_pool_clear(iterpool);
-
+      
       SVN_ERR(svn_io_file_name_get(&tempfile_abspath, tempfile, pool));
       apr_hash_set(*node_revs_tempfiles, node_revs_file_abspath,
                    APR_HASH_KEY_STRING, tempfile_abspath);
