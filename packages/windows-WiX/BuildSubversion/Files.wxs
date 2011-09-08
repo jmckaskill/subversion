@@ -20,7 +20,7 @@
 						<?include LicensesCommon.wxi ?>
 						<?include Licenses20x.wxi ?>
 						<?include Licenses22x.wxi ?>
-					</Directory>
+					</Directory>					
 				</Directory>
 			</Directory>
 			<?include ProgramMenu.wxi ?>
