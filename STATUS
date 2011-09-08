@@ -97,7 +97,7 @@ Candidate changes:
      +0: neels (Much other code still dismally fails at file externals in
                 unversioned dirs, e.g. 'status', 'commit'. This apparently
                 only fixes maintainer-mode 'svn cleanup', IMHO low prio.)
-
+    
  * r1164386
    Avoid an expensive database operation in 'svn info'.
    Justification:
@@ -127,7 +127,7 @@ Candidate changes:
    Justification:
      The missing FILE_EXTERNAL flag in the NODES table is an inconsistency
      that affects these wc-queries: STMT_SELECT_BASE_*,
-     STMT_SELECT_MIN_MAX_REVISIONS, STMT_HAS_SPARSE_NODES, STMT_HAS_SWITCHED*.
+     STMT_SELECT_MIN_MAX_REVISIONS, STMT_HAS_SPARSE_NODES, STMT_HAS_SWITCHED*. 
    Notes:
      Issue #4002 doesn't actually break 'update', just shows an extraneous
      error message. I haven't actually tested for failing use cases beyond
