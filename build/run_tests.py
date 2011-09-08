@@ -221,7 +221,7 @@ class TestHarness:
       print('FAILURE')
     else:
       print('success')
-    elapsed_time = time.strftime('%H:%M:%S',
+    elapsed_time = time.strftime('%H:%M:%S', 
                    time.gmtime(time.time() - start_time))
     if self.log:
       self.log.write('END: %s\n' % progbase)
