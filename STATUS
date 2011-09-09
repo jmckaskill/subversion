@@ -97,7 +97,7 @@ Candidate changes:
      +0: neels (Much other code still dismally fails at file externals in
                 unversioned dirs, e.g. 'status', 'commit'. This apparently
                 only fixes maintainer-mode 'svn cleanup', IMHO low prio.)
-
+    
  * r1164386
    Avoid an expensive database operation in 'svn info'.
    Justification:
