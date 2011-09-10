@@ -157,7 +157,7 @@ svn_fs_bdb__successors_delete_all(svn_fs_t *fs,
   int db_err;
   DBT query;
   base_fs_data_t *bfd = fs->fsap_data;
-
+  
   svn_fs_base__trail_debug(trail, "successors", "del");
   db_err = bfd->successors->del(bfd->successors, trail->db_txn,
                                 svn_fs_base__str_to_dbt(&query, node_id), 0);
@@ -203,7 +203,7 @@ svn_fs_bdb__successors_fetch(apr_array_header_t **successors_p,
 
   while (! db_err)
     {
-      APR_ARRAY_PUSH(successors, const char *) =
+      APR_ARRAY_PUSH(successors, const char *) = 
         apr_pstrmemdup(pool, value.data, value.size);
 
       /* Advance the cursor to the next record with this same NODE_ID,
