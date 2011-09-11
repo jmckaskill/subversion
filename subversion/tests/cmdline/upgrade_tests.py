@@ -1153,7 +1153,7 @@ def upgrade_file_externals(sbox):
   #try: svntest.main.safe_rmtree(sbox.wc_dir)
   #except OSError, e: pass
   #svntest.main.run_svn(None, 'checkout', '-r', '3', sbox.repo_url, sbox.wc_dir)
-
+  
   expected_output = svntest.wc.State(sbox.wc_dir, {
       'A/mu'            : Item(status=' U'),
       'A/B/lambda'      : Item(status=' U'),
