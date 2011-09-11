@@ -35,7 +35,7 @@
 					<Directory Id="licenses" Name="licenses">
 						<?include LicensesCommon.wxi ?>
 						<?include Licenses22x.wxi ?>
-					</Directory>
+					</Directory>					
 				</Directory>
 			</Directory>
 			<?include ProgramMenu.wxi ?>
