@@ -286,7 +286,7 @@ CREATE TABLE WORKING_NODE (
 
   /* should the node on disk be kept after a schedule delete?
 
-     ### Bert points out that this can disappear once we get centralized
+     ### Bert points out that this can disappear once we get centralized 
      ### with our metadata.  The entire reason for this flag to exist is
      ### so that the admin area can exist for the commit of a the delete,
      ### and so the post-commit cleanup knows not to actually delete the dir
@@ -318,7 +318,7 @@ CREATE TABLE ACTUAL_NODE (
   properties  BLOB,
 
   /* basenames of the conflict files. */
-  /* ### do we want to record the revnums which caused this?
+  /* ### do we want to record the revnums which caused this?  
      ### BH: Yes, probably urls too if it is caused by a merge. Preferably
      ###     the same info as currently passed to the interactive conflict
      ###     handler. I would like url@rev for left, right and original, but
@@ -339,7 +339,7 @@ CREATE TABLE ACTUAL_NODE (
 
   /* if not NULL, this node is part of a changelist. */
   changelist  TEXT,
-
+  
   /* ### need to determine values. "unknown" (no info), "admin" (they
      ### used something like 'svn edit'), "noticed" (saw a mod while
      ### scanning the filesystem). */
@@ -375,7 +375,7 @@ CREATE TABLE LOCK (
   lock_owner  TEXT,
   lock_comment  TEXT,
   lock_date  INTEGER,   /* an APR date/time (usec since 1970) */
-
+  
   PRIMARY KEY (repos_id, repos_relpath)
   );
 
@@ -408,7 +408,7 @@ CREATE TABLE WC_LOCK (
   /* specifies the location of this node in the local filesystem */
   wc_id  INTEGER NOT NULL  REFERENCES WCROOT (id),
   local_dir_relpath  TEXT NOT NULL,
-
+ 
   PRIMARY KEY (wc_id, local_dir_relpath)
  );
 
