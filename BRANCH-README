@@ -29,7 +29,7 @@ answering those questions:
       the revisions in which they appeared, and choose the first of
       them.
 
-
+  
    Q: To what locations has this /some/fixed/file.c@r45 been copied?
    A: Lookup the node-revision-ID for /some/fixed/file.c@r45.  Lookup
       the successor IDs for that node-revision-IDs.  For each
@@ -117,7 +117,7 @@ The different kinds of files refer to each other as shown below:
                  node_rev_id map     revision map      successor data
                    +-------+          +--------+       +-----------+
                    |  ...  |          |  ...   |       | ...       |
-              +------>rN---------+    | offset |  +----->successor |
+              +------>rN---------+    | offset |  +----->successor | 
               |    |  ...  |     |    | offset |  |    | successor |
               |    |  ...  |     +----->offset----+    | END       |
 node_rev_id --+    |  rQ   |          |  ...   |       | successor |
@@ -271,7 +271,7 @@ file, the writer looks up the offset of revision N-1 in the corresponding
 revision map file. It copies content from the corresponding successor data
 file to a temporary file up to this offset, and copies any data that follows
 until a line containing "END" has been copied. (Note that this step discards
-data left behind by any previous attempt at committing rN).
+data left behind by any previous attempt at committing rN).  
 
 The writer appends any new successor data to the temporary file (note
 that there may be no successor data in case the revision is empty).
