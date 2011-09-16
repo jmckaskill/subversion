@@ -288,7 +288,7 @@ read_info(const struct svn_wc__db_info_t **info,
         {
           const char *moved_to_abspath;
           const char *moved_to_op_root_abspath;
-
+          
           /* NOTE: we can't use op-root-ness as a condition here since a base
            * node can be the root of a move and still not be an explicit
            * op-root (having a working node with op_depth == pathelements).
@@ -297,7 +297,7 @@ read_info(const struct svn_wc__db_info_t **info,
            *   svn mv a/b bb
            *   svn del a
            * and
-           *   svn mv a aa
+           *   svn mv a aa  
            *   svn mv aa/b bb
            * In both, 'bb' is moved from 'a/b', but 'a/b' has no op_depth>0
            * node at all, as its parent 'a' is locally deleted. */
