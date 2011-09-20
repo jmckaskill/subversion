@@ -370,7 +370,7 @@ svn_spillbuf_process(svn_boolean_t *exhausted,
       err = read_func(&stop, read_baton, mem->data, mem->size);
 
       return_buffer(buf, mem);
-
+      
       if (err)
         return svn_error_trace(err);
 
