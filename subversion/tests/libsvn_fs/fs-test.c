@@ -4904,7 +4904,7 @@ node_history(const svn_test_opts_t *opts,
   {
     svn_fs_history_t *history;
     svn_fs_root_t *rev_root;
-
+    
     SVN_ERR(svn_fs_revision_root(&rev_root, fs, 1, pool));
 
     /* Fetch another history object, and walk forward. */
@@ -4936,7 +4936,7 @@ node_history(const svn_test_opts_t *opts,
   {
     svn_fs_history_t *history;
     svn_fs_root_t *rev_root;
-
+    
     SVN_ERR(svn_fs_revision_root(&rev_root, fs, 2, pool));
 
     /* Fetch another history object, and walk forward. */
@@ -4968,7 +4968,7 @@ node_history(const svn_test_opts_t *opts,
   {
     svn_fs_history_t *history;
     svn_fs_root_t *rev_root;
-
+    
     SVN_ERR(svn_fs_revision_root(&rev_root, fs, 3, pool));
 
     /* Fetch another history object, and walk forward. */
