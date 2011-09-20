@@ -278,7 +278,7 @@ path_successor_ids_shard(svn_fs_t *fs, svn_revnum_t rev, apr_pool_t *pool)
 {
   fs_fs_data_t *ffd = fs->fsap_data;
   long shard;
-
+  
   shard = rev / FSFS_SUCCESSORS_REVISIONS_PER_SHARD(ffd);
 
   return svn_dirent_join_many(pool, fs->path, PATH_SUCCESSORS_TOP_DIR,
@@ -292,7 +292,7 @@ path_successor_ids(svn_fs_t *fs, svn_revnum_t rev, apr_pool_t *pool)
 {
   fs_fs_data_t *ffd = fs->fsap_data;
   long filenum;
-
+  
   filenum = (rev % FSFS_SUCCESSORS_REVISIONS_PER_SHARD(ffd)) / FSFS_SUCCESSORS_MAX_REVS_PER_FILE;
 
   return svn_dirent_join_many(pool, path_successor_ids_shard(fs, rev, pool),
@@ -319,7 +319,7 @@ path_successor_node_revs(svn_fs_t *fs, const svn_fs_id_t *id, apr_pool_t *pool)
   fs_fs_data_t *ffd = fs->fsap_data;
   svn_revnum_t rev;
   long filenum;
-
+  
   /* ### TODO(sid): danielsh: is there a need to guard for ID == NULL here? */
   rev = svn_fs_fs__id_rev(id);
   filenum = (rev % FSFS_SUCCESSORS_REVISIONS_PER_SHARD(ffd)) / FSFS_SUCCESSORS_MAX_REVS_PER_FILE;
@@ -502,7 +502,7 @@ static svn_error_t *
 make_shard_dir(const char *new_dir, apr_pool_t *pool)
 {
   svn_error_t *err;
-
+  
   err = svn_io_dir_make(new_dir, APR_OS_DEFAULT, pool);
   if (err && !APR_STATUS_IS_EEXIST(err->apr_err))
     SVN_ERR(err);
@@ -5640,7 +5640,7 @@ write_final_rev(const svn_fs_id_t **new_id_p,
       svn_string_t *unparsed_pred;
       svn_string_t *unparsed_succ;
       apr_array_header_t *successors;
-
+      
       unparsed_pred = svn_fs_fs__id_unparse(noderev->predecessor_id,
                                             result_pool);
       unparsed_succ = svn_fs_fs__id_unparse(noderev->id, result_pool);
@@ -5940,7 +5940,7 @@ copy_file_partially(apr_file_t *source_file,
  *
  * FILE_P is an optional in-out parameter: if FILE_P is not NULL, then
  * if *FILE_P is not NULL then that handle is used, and if it is NULL
- * then *FILE_P is set to an open file handle for the sucessors index
+ * then *FILE_P is set to an open file handle for the sucessors index 
  * (and data) file.  The caller is responsible for closing that returned
  * handle, which is allocated in RESULT_POOL.
  */
@@ -5978,7 +5978,7 @@ read_successor_index_entry(apr_off_t *revision_offset,
 
   offset = FSFS_SUCCESSORS_INDEX_REV_OFFSET(revision);
   SVN_ERR(svn_io_file_seek(file, APR_SET, &offset, scratch_pool));
-
+  
   /* Read a 64 bit big endian integer in two passes.
    * The most significant 4 bytes come first. */
   size = 4;
@@ -6107,7 +6107,7 @@ update_successor_ids_file(const char **successor_ids_temp_abspath,
       const char *pred = svn_apr_hash_index_key(hi);
       apr_array_header_t *successors = svn_apr_hash_index_val(hi);
       int i;
-
+      
       for (i = 0; i < successors->nelts; i++)
         {
           const char *succ = APR_ARRAY_IDX(successors, i, const char *);
@@ -6174,7 +6174,7 @@ update_successor_node_revs_files(apr_hash_t **node_revs_tempfiles,
       const char *node_revs_file_abspath;
 
       svn_pool_clear(iterpool);
-
+      
       /* This string will be obtained by the caller when iterating over
        * the NODE_REV_TEMPILES hash so we allocate it in the result pool. */
 
@@ -6229,7 +6229,7 @@ update_successor_node_revs_files(apr_hash_t **node_revs_tempfiles,
       const char *new_line;
 
       svn_pool_clear(iterpool);
-
+      
       pred_id = svn_fs_fs__id_parse(pred, strlen(pred), iterpool);
       node_revs_file_abspath = path_successor_node_revs(fs, pred_id, iterpool);
       tempfile = apr_hash_get(tempfiles, node_revs_file_abspath,
@@ -6249,7 +6249,7 @@ update_successor_node_revs_files(apr_hash_t **node_revs_tempfiles,
       const char *tempfile_abspath;
 
       svn_pool_clear(iterpool);
-
+      
       SVN_ERR(svn_io_file_name_get(&tempfile_abspath, tempfile, pool));
       apr_hash_set(*node_revs_tempfiles, node_revs_file_abspath,
                    APR_HASH_KEY_STRING, tempfile_abspath);
@@ -6263,7 +6263,7 @@ update_successor_node_revs_files(apr_hash_t **node_revs_tempfiles,
 }
 
 /* In commit finalization, flush the new successors/ entries (in SUCCESSOR_IDS)
- * to disk and move them into their final places.  NEW_REV is the revision
+ * to disk and move them into their final places.  NEW_REV is the revision 
  * being committed.  Use POOL for temporary allocations. */
 static svn_error_t *
 update_successor_map(svn_fs_t *fs,
@@ -8158,7 +8158,7 @@ svn_fs_fs__get_node_successors(apr_array_header_t **successors,
   SVN_ERR(read_successor_candidate_revisions(&revisions, fs, id, youngest,
                                              scratch_pool, scratch_pool));
 
-  SVN_ERR(read_successors_from_candidates(successors, fs, id,
+  SVN_ERR(read_successors_from_candidates(successors, fs, id, 
                                           revisions,
                                           result_pool, scratch_pool));
 
