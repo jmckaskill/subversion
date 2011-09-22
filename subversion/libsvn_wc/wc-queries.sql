@@ -127,7 +127,7 @@ WHERE wc_id = ?1 AND local_relpath = ?2 AND changelist IS NOT NULL
 SELECT op_depth, nodes.repos_id, nodes.repos_path, presence, kind, revision,
   checksum, translated_size, changed_revision, changed_date, changed_author,
   depth, symlink_target, last_mod_time, properties, lock_token, lock_owner,
-  lock_comment, lock_date, local_relpath, moved_here, moved_to,
+  lock_comment, lock_date, local_relpath, moved_here, moved_to, 
   file_external IS NOT NULL
 FROM nodes
 LEFT OUTER JOIN lock ON nodes.repos_id = lock.repos_id
@@ -481,7 +481,7 @@ SELECT wc_id, local_relpath, parent_relpath, kind
 FROM nodes_current
 WHERE wc_id = ?1
        AND (?2 = ''
-            OR local_relpath = ?2
+            OR local_relpath = ?2 
             OR IS_STRICT_DESCENDANT_OF(local_relpath, ?2))
 
 -- STMT_INSERT_TARGET_WITH_CHANGELIST
@@ -514,7 +514,7 @@ SELECT N.wc_id, N.local_relpath, N.parent_relpath, N.kind
     ON A.wc_id = N.wc_id AND A.local_relpath = N.local_relpath
  WHERE N.wc_id = ?1
        AND (?2 = ''
-            OR N.local_relpath = ?2
+            OR N.local_relpath = ?2 
             OR IS_STRICT_DESCENDANT_OF(N.local_relpath, ?2))
        AND A.changelist = ?3
 
@@ -620,7 +620,7 @@ WHERE wc_id = ?1
        OR IS_STRICT_DESCENDANT_OF(local_relpath, ?2))
   AND (changelist IS NULL
        OR NOT EXISTS (SELECT 1 FROM nodes_current c
-                      WHERE c.wc_id = ?1
+                      WHERE c.wc_id = ?1 
                         AND c.local_relpath = actual_node.local_relpath
                         AND c.kind = 'file'))
 
@@ -969,7 +969,7 @@ LIMIT 1
 -- STMT_SELECT_EXTERNALS_DEFINED
 SELECT local_relpath, def_local_relpath
 FROM externals
-WHERE wc_id = ?1
+WHERE wc_id = ?1 
   AND (?2 = ''
        OR def_local_relpath = ?2
        OR IS_STRICT_DESCENDANT_OF(def_local_relpath, ?2))
@@ -1071,7 +1071,7 @@ INSERT INTO temp__node_props_cache(local_relpath, kind, properties)
     AND presence IN ('normal', 'incomplete')
 
 -- STMT_CACHE_ACTUAL_PROPS
-UPDATE temp__node_props_cache
+UPDATE temp__node_props_cache 
    SET properties=
         IFNULL((SELECT properties FROM actual_node a
                  WHERE a.wc_id = ?1
@@ -1087,7 +1087,7 @@ INSERT INTO temp__node_props_cache (local_relpath, kind, properties)
 
 -- STMT_CACHE_NODE_PRISTINE_PROPS
 INSERT INTO temp__node_props_cache(local_relpath, kind, properties)
- SELECT local_relpath, kind,
+ SELECT local_relpath, kind, 
         IFNULL((SELECT properties FROM nodes nn
                  WHERE n.presence = 'base-deleted'
                    AND nn.wc_id = n.wc_id
@@ -1216,7 +1216,7 @@ WHERE wc_id = ?1
   AND op_depth >= ?3
   AND presence NOT IN ('base-deleted', 'not-present', 'excluded', 'absent')
   AND op_depth = (SELECT MAX(op_depth) FROM nodes s
-                  WHERE s.wc_id = n.wc_id
+                  WHERE s.wc_id = n.wc_id 
                     AND s.local_relpath = n.local_relpath)
 
 -- STMT_SELECT_DELETE_LIST
