@@ -733,7 +733,7 @@ split_mergeinfo_on_revision(svn_mergeinfo_t *younger_mergeinfo,
    MERGE_B->SAME_REPOS is false, then filter out all mergeinfo
    property additions (Issue #3383) from *PROPS.  If MERGE_B->SAME_REPOS is
    true then filter out mergeinfo property additions to PATH when those
-   additions refer to the same line of history as PATH as described below.
+   additions refer to the same line of history as PATH as described below.  
 
    If mergeinfo is being honored and MERGE_B->SAME_REPOS is true
    then examine the added mergeinfo, looking at each range (or single rev)
@@ -3173,7 +3173,7 @@ filter_merged_revisions(svn_client__merge_path_t *parent,
                                         mergeinfo_path, APR_HASH_KEY_STRING);
       else
         target_rangelist = NULL;
-
+          
       if (target_rangelist)
         {
           /* Return the intersection of the revs which are both already
@@ -3434,7 +3434,7 @@ calculate_remaining_ranges(svn_client__merge_path_t *parent,
       if (explicit_mergeinfo_gap_ranges)
         {
           svn_mergeinfo_t gap_mergeinfo = apr_hash_make(pool);
-
+          
           apr_hash_set(gap_mergeinfo, mergeinfo_path, APR_HASH_KEY_STRING,
                        implicit_src_gap);
           SVN_ERR(svn_mergeinfo__remove2(&adjusted_target_mergeinfo,
@@ -3639,14 +3639,14 @@ find_gaps_in_merge_source_history(svn_revnum_t *gap_start,
       /* A gap in natural history can result from either a copy or
          a rename.  If from a copy then history as mergeinfo will look
          something like this:
-
+         
            '/trunk:X,Y-Z'
-
+         
          If from a rename it will look like this:
 
            '/trunk_old_name:X'
            '/trunk_new_name:Y-Z'
-
+      
         In both cases the gap, if it exists, is M-N, where M = X + 1 and
         N = Y - 1.
 
@@ -3792,7 +3792,7 @@ populate_remaining_ranges(apr_array_header_t *children_with_mergeinfo,
           else
             {
               const svn_wc_entry_t *entry;
-
+            
               /* Issue #3443 - Subtrees of the merge target can inherit
                  their parent's implicit mergeinfo in most cases. */
               parent_index = find_nearest_ancestor(children_with_mergeinfo,
@@ -3803,7 +3803,7 @@ populate_remaining_ranges(apr_array_header_t *children_with_mergeinfo,
                  CHILDREN_WITH_MERGEINFO, see the global comment
                  'THE CHILDREN_WITH_MERGEINFO ARRAY'. */
               SVN_ERR_ASSERT(parent);
-
+ 
               child_inherits_implicit = (parent && !child->switched);
               SVN_ERR(svn_wc_entry(&entry, child->path, adm_access, TRUE, pool));
               SVN_ERR(ensure_implicit_mergeinfo(parent, child,
@@ -3923,7 +3923,7 @@ populate_remaining_ranges(apr_array_header_t *children_with_mergeinfo,
 
          If the gap is a proper subset of CHILD->REMAINING_RANGES then we can
          safely ignore it since we won't describe this path/rev pair.
-
+         
          If the gap exactly matches or is a superset of a range in
          CHILD->REMAINING_RANGES then we must remove that range so we don't
          attempt to describe non-existent paths via the reporter, this will
@@ -4004,7 +4004,7 @@ populate_remaining_ranges(apr_array_header_t *children_with_mergeinfo,
    Adjust, in place, the inheritability of the ranges in RANGELIST to
    describe a merge of RANGELIST into WC_WCPATH at depth DEPTH.  ENTRY
    is the entry for WC_PATH.
-
+   
    WC_PATH_IS_MERGE_TARGET is true if WC_PATH is the target of the merge,
    otherwise WC_PATH is a subtree.
 
@@ -4041,7 +4041,7 @@ calculate_merge_inheritance(apr_array_header_t *rangelist,
               || depth == svn_depth_immediates)
             svn_rangelist__set_inheritance(rangelist, FALSE);
           else /* depth == infinity */
-            svn_rangelist__set_inheritance(rangelist, TRUE);
+            svn_rangelist__set_inheritance(rangelist, TRUE);  
         }
     }
   return SVN_NO_ERROR;
@@ -4260,7 +4260,7 @@ record_skips(const char *mergeinfo_path,
              ### missing as long as the file's parent directory is present.
              ### But missing directory paths skipped are not handled yet,
              ### see issue #2915.
-
+             
              ### TODO: An empty range is fine if the skipped path doesn't
              ### inherit any mergeinfo from a parent, but if it does
              ### we need to account for that.  See issue #3440
@@ -4543,7 +4543,7 @@ drive_merge_report_editor(const char *target_wcpath,
       SVN_ERR(svn_client__ensure_ra_session_url(&old_sess2_url,
                                                 merge_b->ra_session2,
                                                 url1, pool));
-
+    
   /* Get the diff editor and a reporter with which to, ultimately,
      drive it. */
   SVN_ERR(svn_client__get_diff_editor(target_wcpath, adm_access, callbacks,
