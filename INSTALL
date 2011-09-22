@@ -598,7 +598,7 @@ I.    INTRODUCTION
 
       If libmagic is installed but support for it should not be compiled
       in, then use:
-
+      
         --with-libmagic=no
 
       If configure should fail when libmagic is not present, but only
