@@ -103,7 +103,7 @@ Candidate changes:
 
  * r1173425, r1173639, r1174797
    Fix issue #4013 'merge performance regression in 1.7 when target has no
-   explicit mergeinfo' by reverting the fixes for issue #3669 'inheritance
+   explicit mergeinfo' by reverting the fixes for issue #3669 'inheritance 
    an result in mergeinfo describing nonexistent sources'.
    Justification:
      The issue #3669 fixes reverted in r1173425 imposed an unacceptable
@@ -131,7 +131,7 @@ Candidate changes:
                API and client/server protocol)
      +0: danielsh (I didn't review merge_tests.py.
                    All changes in merge.c look good, but I can't tell if
-                   additional changes that should have been included are
+                   additional changes that should have been included are 
                    missing, so not upgrading the vote to +1.)
 
  * r1174111
