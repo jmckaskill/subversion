@@ -21,7 +21,7 @@ The solution's approach is as follows:
      old versions to error out on redirections/relocations as they do
      today.  [DONE]
 
-  3. Teach some subcommands to deal with corrected URLs from the
+  3. Teach some subcommands to deal with corrected URLs from the 
      RA layer, relocating their targets as necessary.
 
        - checkout  [DONE]
