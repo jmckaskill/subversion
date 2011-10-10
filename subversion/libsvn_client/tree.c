@@ -294,7 +294,7 @@ ra_tree_get_file(svn_client_tree_t *tree,
 {
   ra_tree_baton_t *baton = tree->priv;
   svn_stream_t *holding_stream;
-
+  
   SVN_ERR(svn_stream_open_unique(&holding_stream, NULL, NULL,
                                  svn_io_file_del_on_close,
                                  scratch_pool, scratch_pool));
