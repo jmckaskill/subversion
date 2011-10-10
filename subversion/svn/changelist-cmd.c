@@ -61,8 +61,8 @@ svn_cl__changelist(apr_getopt_t *os,
     }
 
   /* Parse the remaining arguments as paths. */
-  SVN_ERR(svn_cl__args_to_target_array_print_reserved(&targets, os,
-                                                      opt_state->targets,
+  SVN_ERR(svn_cl__args_to_target_array_print_reserved(&targets, os, 
+                                                      opt_state->targets, 
                                                       pool));
 
   /* Changelist has no implicit dot-target `.', so don't you put that
@@ -79,7 +79,7 @@ svn_cl__changelist(apr_getopt_t *os,
        which calls ctx->notify_func() if it isn't NULL.  In other
        words, typically, ctx->notify_func2 is never NULL.  This isn't
        usually a problem, but the changelist logic generates
-       svn_error_t's as part of its notification.
+       svn_error_t's as part of its notification.  
 
        So, svn_wc_set_changelist() checks its notify_func (our
        ctx->notify_func2) for NULL-ness, and seeing non-NULL-ness,
@@ -88,7 +88,7 @@ svn_cl__changelist(apr_getopt_t *os,
        ctx->notify_func2) which drops the notification on the floor
        (because it wraps a NULL ctx->notify_func).  But svn_error_t's
        dropped on the floor cause SEGFAULTs at pool cleanup time --
-       they need instead to be cleared.
+       they need instead to be cleared. 
 
        SOOOooo... we set our ctx->notify_func2 to NULL so the WC code
        doesn't even generate the errors.  */
@@ -111,7 +111,7 @@ svn_cl__changelist(apr_getopt_t *os,
   else
     {
       SVN_ERR(svn_cl__try
-              (svn_client_remove_from_changelists(targets, depth,
+              (svn_client_remove_from_changelists(targets, depth, 
                                                   opt_state->changelists,
                                                   ctx, pool),
                NULL, opt_state->quiet,

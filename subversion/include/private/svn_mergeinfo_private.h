@@ -33,17 +33,17 @@ extern "C" {
    hashes are compared for equality.  If CONSIDER_INERITANCE is FALSE,
    then the start and end revisions of the svn_merge_range_t's being
    compared are the only factors considered when determining equality.
-
+  
      e.g. '/trunk: 1,3-4*,5' == '/trunk: 1,3-5'
-
+ 
    If CONSIDER_INERITANCE is TRUE, then the inheritability of the
    svn_merge_range_t's is also considered and must be the same for two
    otherwise identical ranges to be judged equal.
-
+ 
      e.g. '/trunk: 1,3-4*,5' != '/trunk: 1,3-5'
           '/trunk: 1,3-4*,5' == '/trunk: 1,3-4*,5'
           '/trunk: 1,3-4,5'  == '/trunk: 1,3-4,5'
-
+ 
    Use POOL for temporary allocations. */
 svn_error_t *
 svn_mergeinfo__equals(svn_boolean_t *is_equal,
@@ -111,7 +111,7 @@ svn_mergeinfo__get_range_endpoints(svn_revnum_t *youngest_rev,
 /* Set *FILTERED_MERGEINFO to a deep copy of MERGEINFO, allocated in POOL, less
    any rangelists that fall outside of the range OLDEST_REV:YOUGEST_REV
    (inclusive).  If all the rangelists mapped to a given path are filtered
-   then filter that path as well.  If all paths are filtered or MERGEINFO is
+   then filter that path as well.  If all paths are filtered or MERGEINFO is 
    empty or NULL then *FILTERED_MERGEINFO is set to an empty hash. */
 svn_error_t *
 svn_mergeinfo__filter_mergeinfo_by_ranges(svn_mergeinfo_t *filtered_mergeinfo,
