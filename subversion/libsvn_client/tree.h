@@ -1,4 +1,4 @@
-/*
+/* 
  * File:   tree.h
  * Author: julianfoad
  *
@@ -26,7 +26,7 @@ extern "C" {
  *   a WC base tree
  *   a WC working tree
  *   a repository tree
- *
+ * 
  * The consumer "pulls" parts of the tree and can omit unwanted parts.
  * Consumer can pull any subtree "recursively" for efficient streaming.
  */
