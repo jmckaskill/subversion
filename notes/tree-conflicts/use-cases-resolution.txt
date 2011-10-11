@@ -35,7 +35,7 @@ $ svn status alpha
 ### alpha is now at r2 again:
 $ svn info alpha | grep Revision
 Revision: 2
-$ cat alpha
+$ cat alpha   
 alpha
 $ svn diff -c3 ^/trunk/alpha
 Index: alpha
@@ -45,10 +45,10 @@ Index: alpha
 @@ -1 +1 @@
 -alpha
 +alpha, modified
-$ svn update
+$ svn update 
 U    alpha
 Updated to revision 3.
-$ cat alpha
+$ cat alpha 
 alpha, modified
 
 --- Resolution 2)
@@ -67,7 +67,7 @@ Conflict reported:
 $ svn status
 D     C gamma
 D       gamma/delta
-$ svn info gamma
+$ svn info gamma 
 [...]
 Tree conflict:
   The update attempted to edit 'gamma'.
@@ -86,11 +86,11 @@ Possible resolutions:
 $ svn revert gamma/delta
 Reverted 'gamma/delta'
 $ svn status
-$ cat gamma/delta
+$ cat gamma/delta 
 delta
 $ svn info gamma/delta | grep Revision
 Revision: 2
-$ svn update
+$ svn update   
 U    gamma/delta
 Updated to revision 3.
 
@@ -109,7 +109,7 @@ D       gamma/delta
 Conflict reported:
 $ svn status
 M     C alpha
-$ svn info alpha
+$ svn info alpha 
 [...]
 Tree conflict:
   The update attempted to delete 'alpha',
@@ -203,7 +203,7 @@ Resolved conflicted state of 'alpha'
 $ svn status
 D       alpha
 ### Additional steps may be needed here in case alpha was renamed, see above.
-
+ 
 
 === Use case 3, directories
 
