@@ -119,7 +119,7 @@ static int check_result(svn_error_t *err)
       svn_error_clear(err);
       return 0;
     }
-
+    
   return -1;
 }
 
@@ -165,9 +165,9 @@ svn_ra_svn__sasl_common_init(apr_pool_t *pool)
                  sasl_mutex_free_cb);
   free_mutexes = apr_array_make(sasl_pool, 0, sizeof(svn_mutex__t *));
   return svn_mutex__init(&array_mutex, TRUE, sasl_pool);
-
+    
 #endif /* APR_HAS_THREADS */
-
+  
   return SVN_NO_ERROR;
 }
 
