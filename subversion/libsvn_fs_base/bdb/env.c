@@ -377,7 +377,7 @@ bdb_init_cb(void *baton, apr_pool_t *pool)
 {
   bdb_cache_pool = svn_pool_create(pool);
   bdb_cache = apr_hash_make(bdb_cache_pool);
-
+  
   SVN_ERR(svn_mutex__init(&bdb_cache_lock, APR_HAS_THREADS, bdb_cache_pool));
   apr_pool_cleanup_register(bdb_cache_pool, NULL, clear_cache,
                             apr_pool_cleanup_null);
@@ -492,7 +492,7 @@ static svn_error_t *
 svn_fs_bdb__close_internal(bdb_env_t *bdb)
 {
   svn_error_t *err = SVN_NO_ERROR;
-
+  
   if (--bdb->refcount != 0)
     {
       /* If the environment is panicked and automatic recovery is not
@@ -541,7 +541,7 @@ svn_fs_bdb__close(bdb_env_baton_t *bdb_baton)
     }
 
   SVN_MUTEX__WITH_LOCK(bdb_cache_lock, svn_fs_bdb__close_internal(bdb));
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -585,7 +585,7 @@ cleanup_env_baton(void *data)
 
 
 static svn_error_t *
-svn_fs_bdb__open_internal(bdb_env_baton_t **bdb_batonp,
+svn_fs_bdb__open_internal(bdb_env_baton_t **bdb_batonp, 
                           const char *path,
                           u_int32_t flags, int mode,
                           apr_pool_t *pool)
@@ -641,7 +641,7 @@ svn_fs_bdb__open_internal(bdb_env_baton_t **bdb_batonp,
           svn_error_clear(bdb_close(bdb));
           return svn_error_trace(err);
         }
-
+        
       apr_hash_set(bdb_cache, &bdb->key, sizeof bdb->key, bdb);
       bdb->flags = flags;
       bdb->refcount = 1;
@@ -667,11 +667,11 @@ svn_fs_bdb__open(bdb_env_baton_t **bdb_batonp, const char *path,
                  u_int32_t flags, int mode,
                  apr_pool_t *pool)
 {
-  SVN_MUTEX__WITH_LOCK(bdb_cache_lock,
-                       svn_fs_bdb__open_internal(bdb_batonp,
-                                                 path,
-                                                 flags,
-                                                 mode,
+  SVN_MUTEX__WITH_LOCK(bdb_cache_lock, 
+                       svn_fs_bdb__open_internal(bdb_batonp, 
+                                                 path, 
+                                                 flags, 
+                                                 mode, 
                                                  pool));
 
   return SVN_NO_ERROR;
