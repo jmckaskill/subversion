@@ -103,7 +103,7 @@ Candidate changes:
    Votes:
      +1: rhuijben, philip
 
- * r1178942, r1182527
+ * r1178942, r1182527 
    Fix issue #4009, "Big trivial text files merged MUCH slower than binary"
    Justification:
      Much improved merge performance for, well, trivial text file merges!
@@ -133,10 +133,10 @@ Candidate changes:
      r1149103 is a non-functional change which avoids a merge conflict.
    Votes:
      +1: stsp, julianfoad
-
+     
  * r1185222
    Make 'svn add --parents D/file' work if D is deleted.
-   'svn add D; svn add D/file' would work.
+   'svn add D; svn add D/file' would work. 
    Justification:
      Makes it easier to use 'svn add --parents'.
      Reported on the AnkhSVN error list a few times. It's better to apply this
