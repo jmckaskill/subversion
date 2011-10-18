@@ -31,7 +31,7 @@ blah
 
 PROPS-END
 
-Node-path:
+Node-path: 
 Node-kind: dir
 Node-action: change
 Prop-delta: true
