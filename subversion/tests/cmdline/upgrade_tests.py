@@ -83,7 +83,7 @@ def replace_sbox_repo_with_tarfile(sbox, tar_filename, dir=None):
 
   if not dir:
     dir = tar_filename.split('.')[0]
-
+    
   tarpath = os.path.join(os.path.dirname(sys.argv[0]), 'upgrade_tests_data',
                          tar_filename)
   t = tarfile.open(tarpath, 'r:bz2')
@@ -1163,7 +1163,7 @@ def upgrade_file_externals(sbox):
   svntest.actions.run_and_verify_svn(None, None, [], 'relocate',
                                      'file:///tmp/repo', sbox.repo_url,
                                      sbox.wc_dir)
-
+  
   expected_output = svntest.wc.State(sbox.wc_dir, {
       'A/mu'            : Item(status=' U'),
       'A/B/lambda'      : Item(status=' U'),
@@ -1202,15 +1202,15 @@ def upgrade_file_externals(sbox):
 @XFail()
 def upgrade_absent(sbox):
   "upgrade absent nodes"
-
+  
   # Install wc and repos
   replace_sbox_with_tarfile(sbox, 'upgrade_absent.tar.bz2')
   replace_sbox_repo_with_tarfile(sbox, 'upgrade_absent_repos.tar.bz2')
-
+  
   # Update config for authz
   write_restrictive_svnserve_conf(sbox.repo_dir)
   write_authz_file(sbox, {"/": "*=rw", "/A/B": "*=", "/A/B/E": "jrandom = rw"})
-
+  
   # Attempt to use the working copy, this should give an error
   expected_stderr = wc_is_too_old_regex
   svntest.actions.run_and_verify_svn(None, None, expected_stderr,
@@ -1219,14 +1219,14 @@ def upgrade_absent(sbox):
   svntest.actions.run_and_verify_svn(None, None, [],
                                      'upgrade', sbox.wc_dir)
 
-  #
+  # 
   svntest.actions.run_and_verify_svn(None, None, [], 'relocate',
                                      'svn://127.0.0.1/authz_tests-2',
-                                     sbox.repo_url, sbox.wc_dir)
+                                     sbox.repo_url, sbox.wc_dir)  
 
   # This currently fails because the absent node is incorrectly upgraded
   sbox.simple_update()
-
+  
 ########################################################################
 # Run the tests
 
