@@ -1807,10 +1807,9 @@ svn_client_mergeinfo_log(svn_boolean_t finding_merged,
   if (!finding_merged)
     {
       svn_revnum_t target_peg_revnum;
-      const char *url;
 
       SVN_ERR(svn_client__ra_session_from_path(&target_session,
-                                               &target_peg_revnum, &url,
+                                               &target_peg_revnum, NULL,
                                                target_path_or_url, NULL,
                                                target_peg_revision,
                                                target_peg_revision,
@@ -1826,10 +1825,9 @@ svn_client_mergeinfo_log(svn_boolean_t finding_merged,
 
   {
     svn_revnum_t source_peg_revnum;
-    const char *url;
 
     SVN_ERR(svn_client__ra_session_from_path(&source_session,
-                                             &source_peg_revnum, &url,
+                                             &source_peg_revnum, NULL,
                                              source_path_or_url, NULL,
                                              source_peg_revision,
                                              source_peg_revision,
