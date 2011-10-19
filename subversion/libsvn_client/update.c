@@ -283,7 +283,7 @@ scan_for_server_side_moves(apr_hash_t **server_side_moves,
     {
       /* We're updating to HEAD for some other revision newer than
        * the local max. */
-      start = local_min_rev;
+      start = local_min_rev; 
       end = target_rev;
     }
   else if (target_rev < local_min_rev)
