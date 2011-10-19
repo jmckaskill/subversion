@@ -41,7 +41,7 @@ Candidate changes:
    Notes:
      r1180154 is the primary fix with some new tests.  r1181090 and r1181215
      is a minor optimization along with more new tests.  r1181110 is just
-     a doc string typo fix.
+     a doc string typo fix.  
    Votes:
      +1: pburba, rhuijben
 
