@@ -16983,7 +16983,7 @@ def merged_deletion_causes_tree_conflict(sbox):
                                      '-m', 'Copy ^/A to ^/branch')
   svntest.actions.run_and_verify_svn(None, None, [], 'up', wc_dir)
 
-  # r4 - Delete A/D/H/psi
+  # r4 - Delete A/D/H/psi 
   svntest.actions.run_and_verify_svn(None, None, [], 'delete', psi_path)
   svntest.actions.run_and_verify_svn(None, None, [], 'ci', '-m',
                                      'Delete a a path with native eol-style',
