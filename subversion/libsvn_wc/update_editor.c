@@ -4286,7 +4286,7 @@ close_file(void *file_baton,
           }
 
         if (!seen_special_prop)
-          incoming_is_link = local_is_link;
+          incoming_is_link = local_is_link; 
       }
 
 
@@ -4589,7 +4589,7 @@ close_file(void *file_baton,
 
       /* If the file was moved-away, notify for the moved-away node.
        * The original location only had its BASE info changed and
-       * we don't usually notify about such changes. */
+       * we don't usually notify about such changes. */ 
       notify = svn_wc_create_notify(working_abspath, action, scratch_pool);
       notify->kind = svn_node_file;
       notify->content_state = content_state;
@@ -4772,7 +4772,7 @@ fetch_kind_func(svn_kind_t *kind,
 
   SVN_ERR(svn_wc__db_read_kind(kind, fpb->db, local_abspath, FALSE,
                                scratch_pool));
-
+  
   return SVN_NO_ERROR;
 }
 
