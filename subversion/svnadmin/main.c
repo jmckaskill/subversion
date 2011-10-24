@@ -1008,7 +1008,7 @@ subcommand_load(apr_getopt_t *os, void *baton, apr_pool_t *pool)
     {
       lower = upper;
     }
-
+  
   /* Ensure correct range ordering. */
   if (lower > upper)
     {
