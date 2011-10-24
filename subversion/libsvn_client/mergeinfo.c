@@ -1306,7 +1306,7 @@ struct filter_log_entry_baton_t
 
    Call the wrapped log receiver BATON->log_receiver (with
    BATON->log_receiver_baton) if:
-
+   
    BATON->FILTERING_MERGED is FALSE and the changes represented by LOG_ENTRY
    have been fully merged from BATON->MERGE_SOURCE_PATHS to the WC target
    based on the mergeinfo for the WC contained in BATON->TARGET_MERGEINFO_CATALOG.
