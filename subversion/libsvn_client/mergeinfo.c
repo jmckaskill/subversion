@@ -80,7 +80,7 @@ print_mergeinfo_cat(svn_mergeinfo_catalog_t mergeinfo_catalog,
       apr_hash_index_t *hi;
 
       printf("===== %s ========================================\n", msg);
-
+      
       for (hi = apr_hash_first(pool, mergeinfo_catalog);
            hi;
            hi = apr_hash_next(hi))
@@ -1426,7 +1426,7 @@ struct filter_log_entry_baton_t
 
    Call the wrapped log receiver BATON->log_receiver (with
    BATON->log_receiver_baton) if:
-
+   
    BATON->FILTERING_MERGED is FALSE and the changes represented by LOG_ENTRY
    have been fully merged from BATON->MERGE_SOURCE_PATHS to the WC target
    based on the mergeinfo for the WC contained in BATON->TARGET_MERGEINFO_CATALOG.
