@@ -251,7 +251,7 @@ svn_client_list2(const char *path_or_url,
      * from the semantics svn <= 1.7 which always looked at the repository. */
     if (peg_revision->kind == svn_opt_revision_unspecified)
       peg_revision = svn_path_is_url(path_or_url) ? &head_rev : &work_rev;
-
+    
     /* Operative revision defaults to peg. */
     if (revision->kind == svn_opt_revision_unspecified)
       revision = peg_revision;
