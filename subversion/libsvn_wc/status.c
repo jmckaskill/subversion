@@ -1369,9 +1369,9 @@ tweak_statushash(void *baton,
           else
             statstruct->repos_relpath = apr_pstrdup(pool, b->repos_relpath);
 
-          statstruct->repos_root_url =
+          statstruct->repos_root_url = 
                               b->edit_baton->anchor_status->repos_root_url;
-          statstruct->repos_uuid =
+          statstruct->repos_uuid = 
                               b->edit_baton->anchor_status->repos_uuid;
         }
 
