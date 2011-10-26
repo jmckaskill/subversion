@@ -220,7 +220,7 @@ dirs-create: $(PWD)/.dirs-created
 dirs-reset:
 	rm -f $(PWD)/.dirs-created
 
-$(PWD)/.dirs-created:
+$(PWD)/.dirs-created: 
 	$(foreach d, $(PREFIX) $(DISTDIR) $(SRCDIR) $(OBJDIR), \
 		[ -d $(d) ] || mkdir -p $(d);)
 		touch $@
@@ -1524,7 +1524,7 @@ endif
 	@echo "Signatures:"
 	@echo
 	@echo "subversion-$(TAG).tar.gz"
-	@echo "`cat subversion-$(TAG).tar.gz.asc`"
+	@echo "`cat subversion-$(TAG).tar.gz.asc`" 
 	@echo
 	@echo "subversion-$(TAG).tar.bz2"
-	@echo "`cat subversion-$(TAG).tar.bz2.asc`"
+	@echo "`cat subversion-$(TAG).tar.bz2.asc`" 
