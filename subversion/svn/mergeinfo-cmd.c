@@ -144,7 +144,7 @@ print_recorded_ranges(svn_client_target_t *target,
       svn_mergeinfo_t mergeinfo = item->value;
       const char *tgt_relpath
         = svn_relpath_skip_ancestor(target->repos_relpath, tgt_path);
-
+      
       if (apr_hash_count(mergeinfo))
         {
           apr_hash_index_t *hi;
