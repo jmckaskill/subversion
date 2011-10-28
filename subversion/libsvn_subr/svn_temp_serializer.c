@@ -185,7 +185,7 @@ store_current_end_pointer(svn__temp_serializer__context_t *context,
   apr_size_t *target_ptr;
 
   /* use the serialized pointer as a storage for the offset */
-  apr_size_t *target_string_ptr =
+  apr_size_t *target_string_ptr = 
     (apr_size_t*)(context->buffer->data + offset);
 
   /* position of the serialized pointer relative to the begin of the buffer */
