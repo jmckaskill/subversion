@@ -61,7 +61,7 @@ svn_file_handle_cache__open(svn_file_handle_cache__handle_t **f,
                             apr_pool_t *pool);
 
 /**
- * Efficiently check whether the file handle cache @a cache holds an open
+ * Efficiently check whether the file handle cache @a cache holds an open 
  * handle to the file named @a fname. This is basically an efficient way
  * to check that a file exists. However, a @c FALSE result does not mean
  * that the respective file does not exist.
@@ -102,7 +102,7 @@ svn_file_handle_cache__flush(svn_file_handle_cache_t *cache);
 
 /**
  * Creates a new file handle cache in @a cache. Up to @a max_handles
- * file handles will be kept open. All cache-internal memory allocations
+ * file handles will be kept open. All cache-internal memory allocations 
  * during the caches lifetime will be done from @a pool.
  *
  * If the caller ensures that there are no concurrent accesses to the
