@@ -132,7 +132,7 @@
 
   <sect1 id="goals.branching-and-tagging">
     <title>Branching and tagging</title>
-
+  
     <para>Subversion supports branching and tagging with one efficient
       operation: `clone'.  To clone a tree is to copy it, to create another
       tree exactly like it (except that the new tree knows its ancestry
