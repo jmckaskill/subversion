@@ -59,7 +59,7 @@ Candidate changes:
      obstructing future updates which re-add the directory.
    Votes:
      +1: stsp
-     -0: rhuijben (r1188774 checks if the defining directory must be removed
+     -0: rhuijben (r1188774 checks if the defining directory must be removed 
                    instead of the parent directory of the external)
 
  * r1189261
