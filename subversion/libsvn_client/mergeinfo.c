@@ -2265,7 +2265,7 @@ svn_client_mergeinfo_log(svn_boolean_t finding_merged,
                          apr_pool_t *scratch_pool)
 {
   svn_client_peg_t *target, *source;
-
+  
   target = svn_client_peg_create(target_path_or_url, target_peg_revision,
                                  scratch_pool);
   source = svn_client_peg_create(source_path_or_url, source_peg_revision,
