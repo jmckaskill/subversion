@@ -35,7 +35,7 @@
 /* This is kind of unorthodox, but since we're doing some fairly deep testing
    of the various delta editor/Ev2 compat pieces, we need to just include the
    compat code directly here.
-
+   
    These tests are not static, and may evolve as the implementation of the
    various shims does. */
 #include "../../libsvn_delta/compat.c"
