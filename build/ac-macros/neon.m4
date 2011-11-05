@@ -33,7 +33,7 @@ dnl   If a --with-neon=PREFIX option is passed search for a suitable
 dnl   neon installed on the system whose configuration can be found in
 dnl   PREFIX/bin/neon-config.
 dnl
-dnl   If the search for neon fails, set svn_lib_neon to no, otherwise set
+dnl   If the search for neon fails, set svn_lib_neon to no, otherwise set 
 dnl   it to yes.
 
 AC_DEFUN(SVN_LIB_NEON,
@@ -45,8 +45,8 @@ AC_DEFUN(SVN_LIB_NEON,
   AC_MSG_NOTICE([checking neon library])
 
   AC_ARG_WITH(neon,
-              AS_HELP_STRING([--with-neon=PREFIX],
-              [Determine neon library configuration based on
+              AS_HELP_STRING([--with-neon=PREFIX], 
+              [Determine neon library configuration based on 
               'PREFIX/bin/neon-config'. Default is to search for
               neon-config in $PATH.]),
   [
@@ -66,7 +66,7 @@ AC_DEFUN(SVN_LIB_NEON,
     AC_PATH_PROG(neon_config, neon-config)
     SVN_NEON_CONFIG()
   ])
-
+  
   AC_SUBST(SVN_NEON_INCLUDES)
   AC_SUBST(NEON_LIBS)
 ])
