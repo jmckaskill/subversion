@@ -199,7 +199,7 @@ print_recorded_ranges(svn_client_target_t *target,
       svn_mergeinfo_t mergeinfo = item->value;
       const char *tgt_relpath
         = svn_relpath_skip_ancestor(target->repos_relpath, tgt_path);
-
+      
       if (apr_hash_count(mergeinfo))
         {
           apr_hash_index_t *hi;
@@ -363,7 +363,7 @@ svn_cl__mergeinfo(apr_getopt_t *os,
       printf("Assuming source branch is copy-source of target branch.\n");
       SVN_ERR(svn_cl__find_merge_source_branch(&source_peg, target_peg, ctx, pool));
     }
-
+  
   SVN_ERR(svn_client__peg_resolve(&source, NULL, source_peg,
                                   ctx, pool, pool));
 
