@@ -342,7 +342,7 @@ svn_cl__merge(apr_getopt_t *os,
                                          targetpath,
                                          opt_state->dry_run,
                                          options, ctx, pool);
-
+      
       /* Tell the user how to keep the source branch alive. */
       {
         const char *tgt_repos_relpath;
