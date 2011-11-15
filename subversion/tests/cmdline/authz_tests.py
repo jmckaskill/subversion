@@ -839,8 +839,8 @@ def authz_access_required_at_repo_root2(sbox):
                        '-m', 'rename file in readable writable space',
                        root_url + '/A/B/E/alpha',
                        root_url + '/A/B/E/alpha-renamed')
-
-  # Check out original greek sub tree below /A/B/E
+  
+  # Check out original greek sub tree below /A/B/E 
   # and update it to the above rename.
   wc_dir = sbox.add_wc_path('ABE')
   os.mkdir(wc_dir)
@@ -852,7 +852,7 @@ def authz_access_required_at_repo_root2(sbox):
                        '-m', 'rename diretory in readable writable space',
                        root_url + '/A/D/H',
                        root_url + '/A/D/a g e')
-
+  
   # Check out original greek sub tree below /A/D
   # and update it to the above rename.
   wc_dir = sbox.add_wc_path('AD')
