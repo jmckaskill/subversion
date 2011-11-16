@@ -276,7 +276,7 @@ scan_moves_log_receiver(void *baton,
             {
               apr_array_header_t *moves;
               svn_wc_repos_move_info_t *new_info;
-
+              
               moves = apr_array_make(result_pool,  1,
                                      sizeof(svn_wc_repos_move_info_t *));
               new_info = apr_palloc(result_pool, sizeof(*new_info));
@@ -356,11 +356,11 @@ get_repos_moves(void *baton,
         const char *moved_from = svn__apr_hash_index_key(hi);
         apr_array_header_t *moves_for_node =  svn__apr_hash_index_val(hi);
         int i;
-
+        
         for (i = 0; i < moves_for_node->nelts; i++)
           {
             svn_wc_repos_move_info_t *move_info;
-
+            
             move_info = APR_ARRAY_IDX(moves_for_node, i,
                                       svn_wc_repos_move_info_t *);
             SVN_DBG(("found server-side move in r%ld: '%s' -> '%s'\n",
