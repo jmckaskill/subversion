@@ -217,7 +217,7 @@ scan_moves_log_receiver(void *baton,
       if (data->action == 'A' && data->copyfrom_path)
         {
           svn_log_changed_path2_t *copy;
-
+          
           if (apr_hash_get(copies, data->copyfrom_path, APR_HASH_KEY_STRING))
             {
               /* The same copyfrom path appears multiple times. In this
@@ -256,7 +256,7 @@ scan_moves_log_receiver(void *baton,
       const char *relpath;
       svn_log_changed_path2_t *copy;
       svn_ra_session_t *ra_session2;
-
+      
       deleted_path = APR_ARRAY_IDX(deleted_paths, i, const char *);
       copy = apr_hash_get(copies, deleted_path, APR_HASH_KEY_STRING);
       if (copy == NULL)
@@ -365,7 +365,7 @@ scan_moves_log_receiver(void *baton,
         {
           apr_array_header_t *moves;
           svn_wc_repos_move_info_t *new_info;
-
+          
           moves = apr_array_make(result_pool,  1,
                                  sizeof(svn_wc_repos_move_info_t *));
           new_info = apr_palloc(result_pool, sizeof(*new_info));
@@ -447,11 +447,11 @@ get_repos_moves(void *baton,
         const char *moved_from = svn__apr_hash_index_key(hi);
         apr_array_header_t *moves_for_node =  svn__apr_hash_index_val(hi);
         int i;
-
+        
         for (i = 0; i < moves_for_node->nelts; i++)
           {
             svn_wc_repos_move_info_t *move_info;
-
+            
             move_info = APR_ARRAY_IDX(moves_for_node, i,
                                       svn_wc_repos_move_info_t *);
             SVN_DBG(("found server-side move in r%ld: '%s' -> '%s'\n",
