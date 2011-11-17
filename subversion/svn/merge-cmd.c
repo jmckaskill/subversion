@@ -344,12 +344,13 @@ svn_cl__merge(apr_getopt_t *os,
                                          options, ctx, pool);
 
       /* Tell the user how to keep the source branch alive. */
-      {
-        const char *tgt_repos_relpath;
+      if (! err)
+        {
+          const char *tgt_repos_relpath;
 
-        SVN_ERR(get_repos_relpath(&tgt_repos_relpath, targetpath, ctx, pool));
-        printf(_(keep_alive_message), tgt_repos_relpath);
-      }
+          SVN_ERR(get_repos_relpath(&tgt_repos_relpath, targetpath, ctx, pool));
+          printf(_(keep_alive_message), tgt_repos_relpath);
+        }
     }
   else if (! two_sources_specified)
     {
