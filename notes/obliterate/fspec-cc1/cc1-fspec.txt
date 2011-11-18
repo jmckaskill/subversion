@@ -257,17 +257,17 @@ OPEN ISSUES
 
       Operation: Ob(BIGFILE@1, BIGFILE@2, ..., BIGFILE@HEAD-1)
 
-      Result:
+      Result: 
 
-      Comments:
+      Comments: 
 
     4. Obliterate one intermediate revision of a file.
 
       Operation: Ob(SECRET@50)
 
-      Result:
+      Result: 
 
-      Comments:
+      Comments: 
 
 
 3. LOG MESSAGES, WORKING COPIES AND SURROUNDING ISSUES
