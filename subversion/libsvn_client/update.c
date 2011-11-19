@@ -301,7 +301,7 @@ scan_moves_log_receiver(void *baton,
       if (data->action == 'A' && data->copyfrom_path)
         {
           struct copy_info *copy;
-
+          
           if (data->copyfrom_path[0] == '/')
             data->copyfrom_path++;
 
@@ -342,7 +342,7 @@ scan_moves_log_receiver(void *baton,
       svn_wc_repos_move_info_t *new_move;
       svn_wc_repos_move_info_t *prior_move;
       svn_boolean_t related;
-
+      
       deleted_path = APR_ARRAY_IDX(deleted_paths, i, const char *);
       copy = apr_hash_get(copies, deleted_path, APR_HASH_KEY_STRING);
       if (copy == NULL)
@@ -491,11 +491,11 @@ get_repos_moves(void *baton,
       {
         apr_array_header_t *moves_in_rev = svn__apr_hash_index_val(hi);
         int i;
-
+        
         for (i = 0; i < moves_in_rev->nelts; i++)
           {
             svn_wc_repos_move_info_t *move_info;
-
+            
             move_info = APR_ARRAY_IDX(moves_in_rev, i,
                                       svn_wc_repos_move_info_t *);
             SVN_DBG(("found server-side move in r%ld: '%s' -> '%s'\n",
