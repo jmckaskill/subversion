@@ -488,7 +488,7 @@ ev2_absent_directory(const char *path,
 {
   struct ev2_dir_baton *pb = parent_baton;
   svn_kind_t *kind = apr_palloc(pb->eb->edit_pool, sizeof(*kind));
-
+  
   *kind = svn_kind_dir;
   SVN_ERR(add_action(pb->eb, path, ACTION_ADD_ABSENT, kind));
 
@@ -595,7 +595,7 @@ ev2_absent_file(const char *path,
 {
   struct ev2_dir_baton *pb = parent_baton;
   svn_kind_t *kind = apr_palloc(pb->eb->edit_pool, sizeof(*kind));
-
+  
   *kind = svn_kind_file;
   SVN_ERR(add_action(pb->eb, path, ACTION_ADD_ABSENT, kind));
 
