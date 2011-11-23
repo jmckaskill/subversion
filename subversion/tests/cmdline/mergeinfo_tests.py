@@ -683,7 +683,6 @@ def natural_history_is_not_eligible_nor_merged(sbox):
 # A test for issue 4050 "'svn mergeinfo' always considers non-inheritable
 # ranges as partially merged".
 @Issue(4050)
-@XFail()
 @SkipUnless(server_has_mergeinfo)
 def noninheritabled_mergeinfo_not_always_eligible(sbox):
   "noninheritabled mergeinfo not always eligible"
@@ -709,11 +708,15 @@ def noninheritabled_mergeinfo_not_always_eligible(sbox):
                                      '-c3', '--depth=empty')
   svntest.main.run_svn(None, 'commit', '-m', 'shallow merge', wc_dir)
 
+  # A sanity check that we really have non-inheritable mergeinfo.
+  # If issue #4057 is ever fixed then the above merge will record
+  # inheritable mergeinfo and this test will spuriously pass.
+  svntest.actions.run_and_verify_svn(None, ["/A:3*\n"], [],
+                                     'propget', SVN_PROP_MERGEINFO,
+                                     branch_path)
+
   # Now check that r3 is reported as fully merged from ^/A to ^/branch
   # and does not show up all when asking for eligible revs.
-  #
-  # Currently this fails because r3 shows up as partially merged, even
-  # though it is fully merged to ^/branch.
   svntest.actions.run_and_verify_mergeinfo(
     adjust_error_for_server_version(''),
     ['3'], sbox.repo_url + '/A', sbox.repo_url + '/branch',
