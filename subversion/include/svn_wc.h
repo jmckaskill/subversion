@@ -3078,7 +3078,7 @@ svn_wc_entry_dup(const svn_wc_entry_t *entry,
  */
 typedef struct svn_wc_info_t
 {
-  /** The schedule of this item
+  /** The schedule of this item 
    * ### Do we still need schedule? */
   svn_wc_schedule_t schedule;
 
@@ -3676,7 +3676,7 @@ typedef struct svn_wc_status3_t
    * This will be NULL for moved-here nodes that are just part of a subtree
    * that was moved along (and are not themselves a root of a different move
    * operation).
-   *
+   * 
    * @since New in 1.8. */
   const char *moved_from_abspath;
 
@@ -5514,7 +5514,7 @@ typedef struct svn_wc_repos_move_info_t {
 
   /* The repository relpath the node was moved to. */
   const char *moved_to_repos_relpath;
-
+ 
   /* The revision in which the move happened. */
   svn_revnum_t revision;
 

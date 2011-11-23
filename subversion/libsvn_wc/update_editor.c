@@ -1778,14 +1778,14 @@ get_repos_moves(struct edit_baton *eb, apr_pool_t *scratch_pool)
   SVN_ERR(svn_wc__db_min_max_revisions(&local_min_rev, &local_max_rev,
                                        eb->db, eb->anchor_abspath, FALSE,
                                        scratch_pool));
-
+ 
   /* Determine the range of revisions we'll have to scan for moves. */
   if (*eb->target_revision == SVN_INVALID_REVNUM ||
       *eb->target_revision > local_max_rev)
     {
       /* We're updating to HEAD or some other revision newer than
        * the local max. */
-      start = local_min_rev;
+      start = local_min_rev; 
       end = *eb->target_revision;
     }
   else if (*eb->target_revision < local_min_rev)
@@ -4630,7 +4630,7 @@ close_file(void *file_baton,
 
       /* If the file was moved-away, notify for the moved-away node.
        * The original location only had its BASE info changed and
-       * we don't usually notify about such changes. */
+       * we don't usually notify about such changes. */ 
       notify = svn_wc_create_notify(working_abspath, action, scratch_pool);
       notify->kind = svn_node_file;
       notify->content_state = content_state;
