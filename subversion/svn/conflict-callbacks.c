@@ -276,7 +276,7 @@ pick_move(svn_wc_repos_move_info_t **move,
                 _("  [r%ld] %s@%ld -> %s\n"),
                 this_move->revision, this_move->moved_from_repos_relpath,
                 this_move->copyfrom_rev, this_move->moved_to_repos_relpath));
-
+      
       *move = this_move;
       return SVN_NO_ERROR;
     }

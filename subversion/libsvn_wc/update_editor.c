@@ -1465,7 +1465,7 @@ create_tree_conflict(svn_wc_conflict_description2_t **pconflict,
                    src_left_version, src_right_version, result_pool);
   (*pconflict)->action = action;
   (*pconflict)->reason = reason;
-
+  
   /* Until we have editor-v2 or some other way of sending moves from the
    * server to the client, this must always be set. */
   (*pconflict)->server_sends_moves_as_copy_plus_delete = TRUE;
@@ -1764,14 +1764,14 @@ get_repos_moves(struct edit_baton *eb, apr_pool_t *scratch_pool)
   SVN_ERR(svn_wc__db_min_max_revisions(&local_min_rev, &local_max_rev,
                                        eb->db, eb->anchor_abspath, FALSE,
                                        scratch_pool));
-
+ 
   /* Determine the range of revisions we'll have to scan for moves. */
   if (*eb->target_revision == SVN_INVALID_REVNUM ||
       *eb->target_revision > local_max_rev)
     {
       /* We're updating to HEAD or some other revision newer than
        * the local max. */
-      start = local_min_rev;
+      start = local_min_rev; 
       end = *eb->target_revision;
     }
   else if (*eb->target_revision < local_min_rev)
@@ -1823,7 +1823,7 @@ find_applicable_moves(apr_array_header_t **moves,
 
   if (! eb->repos_moves || apr_hash_count(eb->repos_moves) == 0)
     return SVN_NO_ERROR;
-
+    
   SVN_ERR(svn_wc__db_base_get_info(NULL, NULL, &base_revision,
                                    &repos_relpath, NULL, NULL,
                                    NULL, NULL, NULL, NULL, NULL,
@@ -1836,7 +1836,7 @@ find_applicable_moves(apr_array_header_t **moves,
    * conflict victim. ### Should not happen. */
   if (base_revision == *eb->target_revision)
     return SVN_NO_ERROR;
-
+  
   update_into_past = (base_revision > *eb->target_revision);
 
   /* Make sure moves are sorted by revisions in the right order. */
@@ -2139,7 +2139,7 @@ delete_entry(const char *path,
             {
               /* Scan revision log for server-side moves */
               SVN_ERR(get_repos_moves(eb, scratch_pool));
-
+              
               /* Find a server-side move which applies to the deleted node. */
               if (apr_hash_count(eb->repos_moves) > 0)
                 {
@@ -4877,7 +4877,7 @@ close_file(void *file_baton,
 
       /* If the file was moved-away, notify for the moved-away node.
        * The original location only had its BASE info changed and
-       * we don't usually notify about such changes. */
+       * we don't usually notify about such changes. */ 
       notify = svn_wc_create_notify(working_abspath, action, scratch_pool);
       notify->kind = svn_node_file;
       notify->content_state = content_state;
