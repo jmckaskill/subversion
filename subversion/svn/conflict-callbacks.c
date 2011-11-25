@@ -282,7 +282,7 @@ format_move_chain_for_display(svn_wc_repos_move_info_t *first_move,
                        indent, first_move->moved_from_repos_relpath,
                        first_move->copyfrom_rev,
                        last_move->moved_to_repos_relpath, indent);
-
+      
       this_move = first_move;
       do
         {
