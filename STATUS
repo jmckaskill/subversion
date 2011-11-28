@@ -31,7 +31,7 @@ Candidate changes:
    Votes:
      +1: philip, rhuijben
 
- * r1201072, r1205188, r1205209
+ * r1201072, r1205188, r1205209     
    Fix issue #4050 "'svn mergeinfo' always considers non-inheritable ranges
    as partially merged".
    Justification:
@@ -49,8 +49,8 @@ Candidate changes:
      Undefined behaviour. http://svn.haxx.se/dev/archive-2011-11/0350.shtml
    Votes:
      +1: philip, cmpilato
-
- * r1166267, r1206576, r1206718, r1206719
+   
+ * r1166267, r1206576, r1206718, r1206719 
    Fix issue #3814.
    Justification:
      svn patch is broken for property values not terminated with EOL.
