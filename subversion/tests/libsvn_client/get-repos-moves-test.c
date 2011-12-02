@@ -72,7 +72,7 @@ commit_moves(svn_test__sandbox_t *b,
   va_start(va, ctx);
   while((src_relpath = va_arg(va, const char *))
         && (dst_relpath = va_arg(va, const char *)))
-
+    
     {
       const char *src_abspath = svn_dirent_join(b->wc_abspath, src_relpath,
                                                 b->pool);
