@@ -39,7 +39,7 @@ IDENTICAL    file |                             |RC*Ex*RC*|         |         |
 COPY of   symlink |         (see above)         |         |RC*Ex*RC*|         |
 a (1)     (2) dir |                             |         |         |AC AC AC |
 
-
+           
 "*" The cases changed in r959735 marked with a * on their right.
 "+" The cases most recently changed are marked with a + on their right.
 
