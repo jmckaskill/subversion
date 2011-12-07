@@ -1707,7 +1707,7 @@ typedef struct svn_wc_repos_move_info_t {
 
   /* The repository relpath the node was moved to. */
   const char *moved_to_repos_relpath;
-
+ 
   /* The revision in which the move happened. */
   svn_revnum_t revision;
 
@@ -2119,7 +2119,7 @@ typedef enum svn_wc_conflict_choice_t
   svn_wc_conflict_choose_delete_is_delete,
 
   /** The user has determined that an incoming copy event is not part
-   * of a server-side move, but really a copy event.
+   * of a server-side move, but really a copy event. 
    * @since New in 1.8. */
   svn_wc_conflict_choose_copy_is_copy,
 
@@ -2133,7 +2133,7 @@ typedef enum svn_wc_conflict_choice_t
   svn_wc_conflict_choose_incoming_move,
 
   /** The user has chosen a new target for an incoming move to resolve an
-   * "incoming move vs. local move" tree conflict.
+   * "incoming move vs. local move" tree conflict. 
    * This allows users to divert incoming moves to a different target
    * location during "incoming move vs. local move" tree conflicts.
    * @see svn_wc_conflict_result_t
@@ -3218,7 +3218,7 @@ svn_wc_entry_dup(const svn_wc_entry_t *entry,
  */
 typedef struct svn_wc_info_t
 {
-  /** The schedule of this item
+  /** The schedule of this item 
    * ### Do we still need schedule? */
   svn_wc_schedule_t schedule;
 
@@ -3816,7 +3816,7 @@ typedef struct svn_wc_status3_t
    * This will be NULL for moved-here nodes that are just part of a subtree
    * that was moved along (and are not themselves a root of a different move
    * operation).
-   *
+   * 
    * @since New in 1.8. */
   const char *moved_from_abspath;
 
