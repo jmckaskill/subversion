@@ -1290,7 +1290,7 @@ svn_client__elide_mergeinfo_catalog(svn_mergeinfo_catalog_t mergeinfo_catalog,
           const char *top;
           const char *path_suffix;
           svn_boolean_t elides = FALSE;
-
+          
           svn_pool_clear(iterpool);
 
           /* Pop off any paths which are not ancestors of PATH. */
@@ -2212,7 +2212,7 @@ svn_client_mergeinfo_log2(svn_boolean_t finding_merged,
                           apr_pool_t *scratch_pool)
 {
   struct baton b;
-
+  
   b.receiver_func = receiver;
   b.receiver_baton = receiver_baton;
 
@@ -2248,7 +2248,7 @@ svn_client_mergeinfo_log(svn_boolean_t finding_merged,
                          apr_pool_t *scratch_pool)
 {
   svn_client_peg_t *target, *source;
-
+  
   SVN_ERR(svn_client_peg_create(&target, target_path_or_url,
                                 target_peg_revision, scratch_pool));
   SVN_ERR(svn_client_peg_create(&source, source_path_or_url,
