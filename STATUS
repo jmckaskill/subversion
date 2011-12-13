@@ -118,7 +118,7 @@ Candidate changes:
      +1 (without r1213711): stsp, philip
 
  * r1213716
-   Make 'svnadmin recover' prune the rep-cache also when it's disabled
+   Make 'svnadmin recover' prune the rep-cache also when it's disabled 
    in fsfs.conf.
    Notes:
      Depends on the r1213331 group.
