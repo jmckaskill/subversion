@@ -786,7 +786,7 @@ get_writable_proto_rev_body(svn_fs_t *fs, const void *baton, apr_pool_t *pool)
       err = svn_error_compose_create(
               err,
               unlock_proto_rev_list_locked(fs, txn_id, *lockcookie, pool));
-
+      
       *lockcookie = NULL;
     }
 
@@ -2864,7 +2864,7 @@ create_rep_state(struct rep_state **rep_state,
          ### going to jump straight to this comment anyway! */
       return svn_error_createf(SVN_ERR_FS_CORRUPT, err,
                                "Corrupt representation '%s'",
-                               rep
+                               rep 
                                ? representation_string(rep, ffd->format, TRUE,
                                                        TRUE, pool)
                                : "(null)");
@@ -7981,7 +7981,7 @@ hotcopy_remove_rev_files(svn_fs_t *dst_fs,
   for (rev = start_rev; rev < end_rev; rev++)
     {
       const char *rev_path;
-
+      
       svn_pool_clear(iterpool);
 
       /* If necessary, update paths for shard. */
