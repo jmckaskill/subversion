@@ -274,7 +274,7 @@ maybe_decode_log_cdata(const svn_string_t **decoded_cdata,
   return SVN_NO_ERROR;
 }
 
-
+                       
 
 /*
  * This implements the `svn_ra_neon__xml_endelm_cb' prototype.
