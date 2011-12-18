@@ -87,7 +87,7 @@ svn_file_handle_cache__get_name(svn_file_handle_cache__handle_t *f);
  * in which case closing the stream will also return the file handle to
  * the respective cache object.
  *
- * If @a disown is TRUE, the stream will disown the file handle, meaning
+ * If @a disown is TRUE, the stream will disown the file handle, meaning 
  * that svn_stream_close() will not close the cached file handle.
  */
 svn_stream_t *
@@ -109,12 +109,12 @@ svn_file_handle_cache__close(svn_file_handle_cache__handle_t *f);
  * from CACHE.
  */
 svn_error_t *
-svn_file_handle_cache__flush(svn_file_handle_cache_t *cache,
+svn_file_handle_cache__flush(svn_file_handle_cache_t *cache, 
                              const char *file_name);
 
 /**
  * Creates a new file handle cache in @a cache. Up to @a max_handles
- * file handles will be kept open. All cache-internal memory allocations
+ * file handles will be kept open. All cache-internal memory allocations 
  * during the caches lifetime will be done from @a pool.
  *
  * If the caller ensures that there are no concurrent accesses to the
