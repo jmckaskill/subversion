@@ -186,7 +186,7 @@ svn_file_handle_cache__get_global_cache(void)
       /* APR files are relatively large objects. Make sure we return
        * memory back to OS after a spike in allocation.
        */
-      apr_allocator_max_free_set(allocator,
+      apr_allocator_max_free_set(allocator, 
                                  SVN_ALLOCATOR_RECOMMENDED_MAX_FREE);
 
       /* ordinary root pool for using that allocator
