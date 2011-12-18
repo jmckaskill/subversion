@@ -151,7 +151,7 @@ struct cache_entry_t
   /* link to other used entries for the same file */
   entry_link_t sibling_link;
 
-  /* link to the global LRU list of idle entries.
+  /* link to the global LRU list of idle entries. 
    * Valid only for idle entries. */
   entry_link_t idle_link;
 };
@@ -207,7 +207,7 @@ struct svn_file_handle_cache__handle_t
 
 /* Initialize LIST as empty.
  */
-static void
+static void 
 init_list(entry_list_t *list)
 {
   list->first = NULL;
@@ -217,7 +217,7 @@ init_list(entry_list_t *list)
 
 /* Initialize a list element LINK and connect it to the data item ENTRY.
  */
-static void
+static void 
 init_link(entry_link_t *link, cache_entry_t *entry)
 {
   link->item = entry;
@@ -228,7 +228,7 @@ init_link(entry_link_t *link, cache_entry_t *entry)
 /* Insert element LINK into the a list just after PREVIOUS.
  * None may be NULL. This function does *not* update the link header.
  */
-static void
+static void 
 link_link(entry_link_t *link, entry_link_t *previous)
 {
   /* link with next item, if that exists
@@ -248,7 +248,7 @@ link_link(entry_link_t *link, entry_link_t *previous)
 /* Drop the element LINK from the list.
  * This function does *not* update the link header.
  */
-static void
+static void 
 unlink_link(entry_link_t *link)
 {
   if (link->previous)
@@ -281,7 +281,7 @@ get_next_entry(entry_link_t *link)
 /* Append list element LINK to the LIST.
  * LINK must not already be an element of any list.
  */
-static void
+static void 
 append_to_list(entry_list_t *list, entry_link_t *link)
 {
   if (list->last)
@@ -296,7 +296,7 @@ append_to_list(entry_list_t *list, entry_link_t *link)
 /* Remove list element LINK from the LIST.
  * LINK must actually be an element of LIST.
  */
-static void
+static void 
 remove_from_list(entry_list_t *list, entry_link_t *link)
 {
   list->count--;
@@ -330,7 +330,7 @@ find_first(svn_file_handle_cache_t *cache, const char *name)
  * It ensures that cached file handles currently held by the application
  * will be invalidated properly when the cache is destroyed, for instance.
  */
-static apr_status_t
+static apr_status_t 
 auto_close_cached_handle(void *entry_void)
 {
   cache_entry_t *entry = entry_void;
@@ -362,7 +362,7 @@ internal_file_open(cache_entry_t **result,
    */
   if (cache->unused_entries.first)
     {
-      /* yes, extract it from the "unused" list
+      /* yes, extract it from the "unused" list 
        */
       entry = cache->unused_entries.first->item;
       remove_from_list(&cache->unused_entries, &entry->global_link);
@@ -382,7 +382,7 @@ internal_file_open(cache_entry_t **result,
     }
 
   /* (try to) open the requested file */
-  SVN_ERR(svn_io_file_open(&entry->file, name, APR_READ | APR_BUFFERED,
+  SVN_ERR(svn_io_file_open(&entry->file, name, APR_READ | APR_BUFFERED, 
                            APR_OS_DEFAULT, entry->pool));
   assert(entry->file);
 
@@ -432,7 +432,7 @@ internal_close_file(svn_file_handle_cache_t *cache, cache_entry_t *entry)
     {
       entry->open_handle->cache = NULL;
       entry->open_handle->entry = NULL;
-
+      
       entry->open_handle = NULL;
       entry->file = NULL;
     }
@@ -468,7 +468,7 @@ internal_close_file(svn_file_handle_cache_t *cache, cache_entry_t *entry)
   /* actually close the file handle. */
   if (entry->file)
     SVN_ERR(svn_io_file_close(entry->file, entry->pool));
-
+  
   entry->file = NULL;
   entry->name = NULL;
   svn_pool_clear(entry->pool);
@@ -490,8 +490,8 @@ close_handle_before_cleanup(void *handle_void)
   svn_error_t *err = SVN_NO_ERROR;
   apr_status_t result = APR_SUCCESS;
 
-  /* if this hasn't been done before:
-   * "close" the handle, i.e. return it to the cache
+  /* if this hasn't been done before: 
+   * "close" the handle, i.e. return it to the cache 
    */
   if (f->entry)
     err = svn_file_handle_cache__close(f);
@@ -574,7 +574,7 @@ pointer_is_closer(const cache_entry_t *entry,
 {
   apr_off_t old_delta;
   apr_off_t new_delta;
-
+  
   /* if the offset is unspecified, no entry will be considered a good
    * match based on the file pointer's current position.
    */
@@ -592,10 +592,10 @@ pointer_is_closer(const cache_entry_t *entry,
     return TRUE;
 
   /* is it a better match? */
-  old_delta = offset > closest_entry->position
+  old_delta = offset > closest_entry->position 
             ? offset - closest_entry->position
             : closest_entry->position - offset;
-  new_delta = offset > entry->position
+  new_delta = offset > entry->position 
             ? offset - entry->position
             : entry->position - offset;
 
@@ -623,12 +623,12 @@ aligned_seek(cache_entry_t *entry, apr_off_t offset)
    * like this, repeated accesses will use the same alignment. As a result,
    * "close-by" access will lie within the same pre-fetched block */
   apr_off_t aligned_offset = offset & (-(FILE_BUFFER_SIZE / 4));
-
+  
   /* do the seek and force data to be prefetched. Ignore the results as
    * this is merely meant to help APR make the right decissions later on. */
   apr_file_seek(entry->file, APR_SET, &aligned_offset);
   apr_file_getc(&dummy, entry->file);
-
+  
   /* the actual seek that was requested */
   return svn_io_file_seek(entry->file, APR_SET, &offset, entry->pool);
 }
@@ -652,7 +652,7 @@ svn_file_handle_cache__open_internal
   cache_entry_t *any_entry = NULL;
   cache_entry_t *last_entry = NULL;
   cache_entry_t *entry_found = NULL;
-
+ 
   int idle_entry_count = 0;
 
   /* look through all idle entries for this filename and find suitable ones */
@@ -663,11 +663,11 @@ svn_file_handle_cache__open_internal
     {
       last_entry = entry;
       assert(entry->file != NULL);
-
+      
       if (! entry->open_handle)
         {
           idle_entry_count++;
-
+          
           if (! any_entry)
             any_entry = entry;
 
@@ -687,12 +687,12 @@ svn_file_handle_cache__open_internal
   else if (any_entry)
     {
       /* Re-using an open file is also a good idea.
-       *
+       * 
        * However, it may be better to open packed files a few more times
        * since later we are likely to read data later close to the current
        * location. Keep the number open handles / file reasonably low.
-       */
-      if (   (idle_entry_count >= 4)
+       */      
+      if (   (idle_entry_count >= 4) 
           || (   (cache->unused_entries.count == 0)
               /* auto-closing a suitable file doesn't make sense */
               && (are_siblings(cache->idle_entries.first->item, any_entry))))
@@ -704,7 +704,7 @@ svn_file_handle_cache__open_internal
           if (last_entry != any_entry)
             {
               if (any_entry == first_entry)
-                {
+                { 
                   first_entry = get_next_entry(&any_entry->sibling_link);
                   assert(first_entry->file != NULL);
                   apr_hash_set(cache->first_by_name,
@@ -716,7 +716,7 @@ svn_file_handle_cache__open_internal
                                APR_HASH_KEY_STRING,
                                first_entry);
                 }
-
+                
               unlink_link(&any_entry->sibling_link);
               link_link(&any_entry->sibling_link, &last_entry->sibling_link);
             }
@@ -724,7 +724,7 @@ svn_file_handle_cache__open_internal
            entry_found = any_entry;
         }
     }
-
+    
   if (entry_found)
     {
       /* we can use an idle entry */
@@ -749,7 +749,7 @@ svn_file_handle_cache__open_internal
 
   assert(entry->file);
 
-  /* pass the cached file handle to the application
+  /* pass the cached file handle to the application 
    * (if there was no previous error).
    */
   return open_entry(f, cache, entry, pool);
@@ -809,7 +809,7 @@ svn_file_handle_cache__close_internal(svn_file_handle_cache_t *cache,
   append_to_list(&cache->idle_entries, &entry->idle_link);
 
   /* remember the current file pointer so we can prefer this entry for
-   * accesses in the vicinity of this position.
+   * accesses in the vicinity of this position. 
    */
   entry->position = 0;
   SVN_ERR(svn_io_file_seek(entry->file,
@@ -840,7 +840,7 @@ svn_file_handle_cache__close(svn_file_handle_cache__handle_t *f)
 
   /* now, mark the entry as again available */
   SVN_MUTEX__WITH_LOCK(cache->mutex,
-                       svn_file_handle_cache__close_internal(cache,
+                       svn_file_handle_cache__close_internal(cache, 
                                                              entry));
 
   return SVN_NO_ERROR;
@@ -849,12 +849,12 @@ svn_file_handle_cache__close(svn_file_handle_cache__handle_t *f)
 /* Close all cached file handles pertaining to FILE_NAME.
  */
 static svn_error_t *
-svn_file_handle_cache__flush_internal(svn_file_handle_cache_t *cache,
+svn_file_handle_cache__flush_internal(svn_file_handle_cache_t *cache, 
                                       const char *file_name)
 {
   cache_entry_t *next;
   cache_entry_t *entry = find_first(cache, file_name);
-
+  
   if (entry)
     {
       while (get_previous_entry(&entry->sibling_link))
@@ -862,7 +862,7 @@ svn_file_handle_cache__flush_internal(svn_file_handle_cache_t *cache,
 
       for (next = get_next_entry (&entry->sibling_link); entry; entry = next)
         {
-          next = get_next_entry (&entry->sibling_link);
+          next = get_next_entry (&entry->sibling_link); 
 
           /* Handles still held by the application will simply be
            * disconnected from the cache but the underlying file
@@ -881,7 +881,7 @@ svn_error_t *
 svn_file_handle_cache__flush(svn_file_handle_cache_t *cache,
                              const char *file_name)
 {
-  SVN_MUTEX__WITH_LOCK(cache->mutex,
+  SVN_MUTEX__WITH_LOCK(cache->mutex, 
                        svn_file_handle_cache__flush_internal(cache,
                                                              file_name));
   return SVN_NO_ERROR;
