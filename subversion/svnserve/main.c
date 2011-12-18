@@ -221,7 +221,7 @@ static const apr_getopt_option_t svnserve__options[] =
         "Default is yes.\n"
         "                             "
         "[used for FSFS repositories only]")},
-    {"open-file-count", 'F', 1,
+    {"open-file-count", 'F', 1, 
      N_("maximum number of files kept open after usage\n"
         "                             "
         "to reduce OS and I/O overhead.\n"
