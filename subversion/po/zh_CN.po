@@ -7137,7 +7137,7 @@ msgstr "位于 '%s' 的工作副本是有 WORKING 节点的格式 22；请先使
 msgid "The working copy at '%s' is format 26 with conflicts; use a format 26 client to resolve before using this client"
 msgstr "位于 '%s' 的工作副本是有冲突的格式 26；请先使用支持格式 26 的客户端解决冲突"
 "后，再使用此客户端"
-
+ 
 #: ../libsvn_wc/upgrade.c:1415
 msgid "Cannot upgrade with existing logs; run a cleanup operation on this working copy using a client version which is compatible with this working copy's format (such as the version you are upgrading from), then retry the upgrade with the current version"
 msgstr "不能在有日志文件时升级；请先使用与此工作副本格式兼容的客户端(例如生成此工作副本的客户端)执行清理操作，再升级"
