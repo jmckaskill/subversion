@@ -33,7 +33,7 @@
 							    	<Icon Id="doc.chm" SourceFile="..\..\..\SubversionTagSource\packages\windows-innosetup\in\doc\svn-book.chm" />
 							    </Shortcut>
 							</File>
-
+	
 							<RemoveFolder Id="Removesvnbook" On="uninstall" />
 						</Component>
 </Include>
