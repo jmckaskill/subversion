@@ -22,7 +22,7 @@ SVNADMIN=`which svnadmin`
 # Select an access method.  If svn://, the svnserve setup is
 # handled automagically by this script; but if http://, then
 # you'll have to configure it yourself first.
-#
+# 
 # URL=http://localhost/SOMETHING/repos
 # URL=svn://localhost/repos
 URL=file:///`pwd`/repos
