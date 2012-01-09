@@ -21,7 +21,7 @@ dnl check to see if SWIG is current enough.
 dnl
 dnl if it is, then check to see if we have the correct version of python.
 dnl
-dnl if we do, then set up the appropriate SWIG_ variables to build the
+dnl if we do, then set up the appropriate SWIG_ variables to build the 
 dnl python bindings.
 
 AC_DEFUN(SVN_CHECK_SWIG,
@@ -66,7 +66,7 @@ AC_DEFUN(SVN_FIND_SWIG,
     fi
     if test ! -f "$SWIG" || test ! -x "$SWIG"; then
       AC_MSG_ERROR([Could not find swig binary at $SWIG])
-    fi
+    fi 
   fi
 
   if test "$SWIG" != "none"; then
@@ -75,7 +75,7 @@ AC_DEFUN(SVN_FIND_SWIG,
                        $SED -ne 's/^.*Version \(.*\)$/\1/p'`"
     # We want the version as an integer so we can test against
     # which version we're using.  SWIG doesn't provide this
-    # to us so we have to come up with it on our own.
+    # to us so we have to come up with it on our own. 
     # The major is passed straight through,
     # the minor is zero padded to two places,
     # and the patch level is zero padded to three places.
@@ -100,7 +100,7 @@ AC_DEFUN(SVN_FIND_SWIG,
       AC_MSG_WARN([Subversion requires SWIG 1.3.24 or later])
     fi
   fi
-
+ 
   SWIG_PY_COMPILE="none"
   SWIG_PY_LINK="none"
   if test "$PYTHON" != "none"; then
