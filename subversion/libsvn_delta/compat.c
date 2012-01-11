@@ -547,7 +547,7 @@ ev2_absent_directory(const char *path,
 {
   struct ev2_dir_baton *pb = parent_baton;
   svn_kind_t *kind = apr_palloc(pb->eb->edit_pool, sizeof(*kind));
-
+  
   *kind = svn_kind_dir;
   SVN_ERR(add_action(pb->eb, path, ACTION_ADD_ABSENT, kind));
 
@@ -679,7 +679,7 @@ ev2_apply_textdelta(void *file_baton,
                     &hb->apply_handler, &hb->apply_baton);
 
   hb->pool = handler_pool;
-
+                    
   *handler_baton = hb;
   *handler = window_handler;
 
@@ -721,7 +721,7 @@ ev2_absent_file(const char *path,
 {
   struct ev2_dir_baton *pb = parent_baton;
   svn_kind_t *kind = apr_palloc(pb->eb->edit_pool, sizeof(*kind));
-
+  
   *kind = svn_kind_file;
   SVN_ERR(add_action(pb->eb, path, ACTION_ADD_ABSENT, kind));
 
@@ -949,7 +949,7 @@ build(struct editor_baton *eb,
              actual structures, not pointers to them. */
           svn_prop_t *prop = &APR_ARRAY_IDX(propdiffs, i, svn_prop_t);
           if (!prop->value)
-            APR_ARRAY_PUSH(operation->prop_dels, const char *) =
+            APR_ARRAY_PUSH(operation->prop_dels, const char *) = 
                                         apr_pstrdup(eb->edit_pool, prop->name);
           else
             apr_hash_set(operation->prop_mods, prop->name, APR_HASH_KEY_STRING,
@@ -1389,7 +1389,7 @@ drive_tree(struct operation *op,
          I don't know that that's a valid assumption... */
 
       void *file_baton = NULL;
-
+      
       /* Open or create our baton. */
       if (op->operation == OP_OPEN || op->operation == OP_PROPSET)
         SVN_ERR(editor->open_file(path, parent_op->baton,
@@ -1462,7 +1462,7 @@ drive_root(struct operation *root,
       svn_pool_clear(iterpool);
       SVN_ERR(drive_tree(child, root, editor, make_abs_paths, iterpool));
     }
-
+  
   /* We need to close the root directory, but leave it to our caller to call
      close_ or abort_edit(). */
   SVN_ERR(editor->close_directory(root->baton, scratch_pool));
