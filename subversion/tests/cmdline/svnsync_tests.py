@@ -251,7 +251,7 @@ or another dump file."""
   # file.
   if exp_dump_file_name:
     build_repos(sbox)
-    svntest.actions.run_and_verify_load(sbox.repo_dir,
+    svntest.actions.run_and_verify_load(sbox.repo_dir, 
                         open(os.path.join(svnsync_tests_dir,
                                           exp_dump_file_name)).readlines())
     src_sbox = sbox
