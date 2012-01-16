@@ -81,7 +81,7 @@ setlocale_post_config(apr_pool_t *pconf,apr_pool_t *plog,
   if (cfg == NULL)
     /* Perhaps because setlocale_merge_config() was called. Perhaps not. */
     {
-      ap_log_error(APLOG_MARK, APLOG_ERR, 0, s,
+      ap_log_error(APLOG_MARK, APLOG_ERR, 0, s, 
                    "%s", "Null config");
       return HTTP_INTERNAL_SERVER_ERROR;
     }
@@ -99,13 +99,13 @@ setlocale_post_config(apr_pool_t *pconf,apr_pool_t *plog,
   cfg->old_ctype = setlocale(LC_CTYPE, cfg->set_ctype);
   if (cfg->old_ctype)
     {
-      ap_log_error(APLOG_MARK, APLOG_DEBUG, 0, s,
+      ap_log_error(APLOG_MARK, APLOG_DEBUG, 0, s, 
                    "setlocale('%s') success: '%s'", cfg->set_ctype, cfg->old_ctype);
       return DECLINED;
     }
   else
     {
-      ap_log_error(APLOG_MARK, APLOG_ERR, 0, s,
+      ap_log_error(APLOG_MARK, APLOG_ERR, 0, s, 
                    "setlocale('%s') failed", cfg->set_ctype);
       return HTTP_INTERNAL_SERVER_ERROR;
     }
@@ -115,7 +115,7 @@ static void *
 setlocale_create_server_config(apr_pool_t *p, server_rec *s)
 {
   setlocale_config_rec *cfg = apr_pcalloc(p, sizeof(*cfg));
-  ap_log_error(APLOG_MARK, APLOG_EMERG, 0, s,
+  ap_log_error(APLOG_MARK, APLOG_EMERG, 0, s, 
                "create:  0x%08x", cfg);
   return cfg;
 }
