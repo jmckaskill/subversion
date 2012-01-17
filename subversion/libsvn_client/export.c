@@ -1097,7 +1097,7 @@ add_file_ev2(void *baton,
   /* Any keyword vals to be substituted */
   const char *revision = NULL;
   const char *author = NULL;
-  apr_time_t date = 0;
+  apr_time_t date = 0; 
 
   /* Create a temporary file in the same directory as the file. We're going
      to rename the thing into place when we're done. */
@@ -1119,7 +1119,7 @@ add_file_ev2(void *baton,
 
   if ( (val = apr_hash_get(props, SVN_PROP_EXECUTABLE, APR_HASH_KEY_STRING)) )
     executable_val = val;
-
+  
   /* Try to fill out the baton's keywords-structure too. */
   if ( (val = apr_hash_get(props, SVN_PROP_ENTRY_COMMITTED_REV,
                            APR_HASH_KEY_STRING)) )
@@ -1128,7 +1128,7 @@ add_file_ev2(void *baton,
   if ( (val = apr_hash_get(props, SVN_PROP_ENTRY_COMMITTED_DATE,
                            APR_HASH_KEY_STRING)) )
     SVN_ERR(svn_time_from_cstring(&date, val->data, scratch_pool));
-
+  
   if ( (val = apr_hash_get(props, SVN_PROP_ENTRY_LAST_AUTHOR,
                            APR_HASH_KEY_STRING)) )
     author = val->data;
@@ -1235,7 +1235,7 @@ add_directory_ev2(void *baton,
 
   if ( (val = apr_hash_get(props, SVN_PROP_EXTERNALS, APR_HASH_KEY_STRING)) )
     SVN_ERR(add_externals(eb->externals, full_path, val));
-
+  
   if (eb->notify_func)
     {
       svn_wc_notify_t *notify = svn_wc_create_notify(full_path,
