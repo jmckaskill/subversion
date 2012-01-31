@@ -34,6 +34,6 @@ Node-path: full
 Node-kind: dir
 Node-action: add
 Node-copyfrom-rev: 0
-Node-copyfrom-path:
+Node-copyfrom-path: 
 
 
