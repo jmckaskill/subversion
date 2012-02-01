@@ -8,7 +8,7 @@
 
 <!-- ********************************************************************
      $Id: htmlhelp.xsl,v 1.25 2002/06/12 13:21:54 kosek Exp $
-     ********************************************************************
+     ******************************************************************** 
 
      This file is used by htmlhelp.xsl if you want to generate source
      files for HTML Help.  It is based on the XSL DocBook Stylesheet
