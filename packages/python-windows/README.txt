@@ -55,7 +55,7 @@ didn't link to, if any.
     wc.py
 
   svn:
-    __init__.py
+    __init__.py 
     client.py
     core.py
     delta.py
