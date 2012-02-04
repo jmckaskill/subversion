@@ -1928,7 +1928,7 @@ env_from_env_hash(apr_hash_t *env_hash,
   apr_hash_index_t *hi;
   const char **env;
   const char **envp;
-
+  
   env = apr_palloc(result_pool,
                    sizeof(const char *) * (apr_hash_count(env_hash) + 1));
   envp = env;
@@ -2221,7 +2221,7 @@ get_resource(request_rec *r,
       if (hooks_env && apr_hash_count(hooks_env) > 0)
         {
           const char **env;
-
+          
           env = env_from_env_hash(hooks_env, r->connection->pool, r->pool);
           svn_repos_hooks_setenv(repos->repos, env);
         }
@@ -3300,7 +3300,7 @@ deliver(const dav_resource *resource, ap_filter_t *output)
               if (dirent->kind == svn_node_file && dirent->special)
                 {
                   svn_node_kind_t resolved_kind;
-                  const char *link_path =
+                  const char *link_path = 
                     svn_dirent_join(fs_parent_path, key, resource->pool);
 
                   serr = svn_io_check_resolved_path(link_path, &resolved_kind,
@@ -3313,7 +3313,7 @@ deliver(const dav_resource *resource, ap_filter_t *output)
                                                 resource->pool);
                   if (resolved_kind != svn_node_dir)
                     continue;
-
+                  
                   dirent->kind = svn_node_dir;
                 }
               else if (dirent->kind != svn_node_dir)
