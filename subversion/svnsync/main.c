@@ -1561,7 +1561,7 @@ replay_rev_started(svn_revnum_t revision,
      to filter those out for us.  */
   SVN_ERR(get_sync_editor(commit_editor, commit_baton, revision - 1,
                           rb->sb->to_url, rb->sb->quiet,
-                          &sync_editor, &sync_baton,
+                          &sync_editor, &sync_baton, 
                           &(rb->normalized_node_props_count), pool));
 
   SVN_ERR(svn_delta_get_cancellation_editor(check_cancel, NULL,
