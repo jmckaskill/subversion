@@ -1069,7 +1069,7 @@ send_log(svn_revnum_t rev,
             {
               const char *mergeinfo_path;
               apr_array_header_t *rangelist;
-
+          
               apr_hash_this(hi2, &key, NULL, &val);
               mergeinfo_path = key;
               rangelist = val;
@@ -1107,7 +1107,7 @@ send_log(svn_revnum_t rev,
         }
       svn_pool_destroy(subpool);
     }
-
+    
   /* If we only got changed paths the sake of detecting redundant merged
      revisions, then be sure we don't send that info to the receiver. */
   if (!discover_changed_paths && handling_merged_revision)
@@ -1857,7 +1857,7 @@ get_paths_history_as_mergeinfo(svn_mergeinfo_t *paths_history_mergeinfo,
     {
       const char *this_path = APR_ARRAY_IDX(paths, i, const char *);
       struct location_segment_baton loc_seg_baton;
-
+   
       svn_pool_clear(iterpool);
       loc_seg_baton.pool = scratch_pool;
       loc_seg_baton.history_segments =

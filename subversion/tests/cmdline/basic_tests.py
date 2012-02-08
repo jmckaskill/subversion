@@ -1860,17 +1860,17 @@ def delete_keep_local(sbox):
 
 def delete_keep_local_twice(sbox):
   'delete file and directory with --keep-local twice'
-
+  
   sbox.build()
   wc_dir = sbox.wc_dir
-
+  
   dir = os.path.join(wc_dir, 'dir')
-
+  
   svntest.actions.run_and_verify_svn(None, None, [], 'mkdir', dir)
-
+  
   svntest.actions.run_and_verify_svn(None, None, [], 'rm', '--keep-local', dir)
   svntest.actions.run_and_verify_svn(None, None, [], 'rm', '--keep-local', dir)
-
+  
   if not os.path.isdir(dir):
     print 'Directory was really deleted'
     raise svntest.Failure
@@ -2465,7 +2465,7 @@ def basic_add_svn_format_file(sbox):
 
 def delete_from_url_with_spaces(sbox):
   "delete a directory with ' ' using its url"
-
+  
   sbox.build()
   svntest.actions.run_and_verify_svn(None, None, [],
                                      'mkdir',
@@ -2478,7 +2478,7 @@ def delete_from_url_with_spaces(sbox):
 
   svntest.actions.run_and_verify_svn(None, None, [],
                                       'ci', sbox.wc_dir, '-m', 'Added dir')
-
+  
   # This fails on 1.6.11 with an escaping error.
   svntest.actions.run_and_verify_svn(None, None, [],
                                       'rm', sbox.repo_url + '/Dir%20With%20Spaces',
