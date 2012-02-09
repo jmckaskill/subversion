@@ -2824,7 +2824,7 @@ def commit_incomplete(sbox):
                                         expected_status,
                                         None,
                                         wc_dir)
-
+  
 
 ########################################################################
 # Run the tests
