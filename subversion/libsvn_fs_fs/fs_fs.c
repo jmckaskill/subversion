@@ -81,7 +81,7 @@
 /* Begin deltification after a node history exceeded this this limit.
    Useful values are 4 to 64 with 16 being a good compromise between
    computational overhead and pository size savings.
-   Should be a power of 2.
+   Should be a power of 2.  
    Values < 2 will result in standard skip-delta behavior. */
 #define SVN_FS_FS_MAX_LINEAR_DELTIFICATION 16
 
@@ -800,7 +800,7 @@ get_writable_proto_rev_body(svn_fs_t *fs, const void *baton, apr_pool_t *pool)
       err = svn_error_compose_create(
               err,
               unlock_proto_rev_list_locked(fs, txn_id, *lockcookie, pool));
-
+      
       *lockcookie = NULL;
     }
 
@@ -2879,7 +2879,7 @@ create_rep_state(struct rep_state **rep_state,
          ### going to jump straight to this comment anyway! */
       return svn_error_createf(SVN_ERR_FS_CORRUPT, err,
                                "Corrupt representation '%s'",
-                               rep
+                               rep 
                                ? representation_string(rep, ffd->format, TRUE,
                                                        TRUE, pool)
                                : "(null)");
@@ -2895,7 +2895,7 @@ struct rep_read_baton
 
   /* If not NULL, this is the base for the first delta window in rs_list */
   svn_stringbuf_t *base_window;
-
+  
   /* The state of all prior delta representations. */
   apr_array_header_t *rs_list;
 
@@ -3139,14 +3139,14 @@ build_rep_list(apr_array_header_t **list,
       SVN_ERR(get_cached_combined_window(window_p, rs, &is_cached, pool));
       if (is_cached)
         {
-          /* We already have a reconstructed window in our cache.
+          /* We already have a reconstructed window in our cache. 
              Write a pseudo rep_state with the full length. */
           rs->off = rs->start;
           rs->end = rs->start + (*window_p)->len;
           *src_state = rs;
           return SVN_NO_ERROR;
         }
-
+      
       if (rep_args->is_delta == FALSE)
         {
           /* This is a plaintext, so just return the current rep_state. */
@@ -3205,7 +3205,7 @@ rep_read_get_baton(struct rep_read_baton **rb_p,
   else
     b->current_fulltext = NULL;
 
-  SVN_ERR(build_rep_list(&b->rs_list, &b->base_window,
+  SVN_ERR(build_rep_list(&b->rs_list, &b->base_window, 
                          &b->src_state, fs, rep,
                          b->filehandle_pool));
 
@@ -3286,7 +3286,7 @@ get_combined_window(svn_stringbuf_t **result,
     {
       rs = APR_ARRAY_IDX(rb->rs_list, i, struct rep_state *);
       SVN_ERR(read_window(&window, rb->chunk_index, rs, window_pool));
-
+      
       APR_ARRAY_PUSH(windows, svn_txdelta_window_t *) = window;
       if (window->src_ops == 0)
         {
@@ -3294,7 +3294,7 @@ get_combined_window(svn_stringbuf_t **result,
           break;
         }
     }
-
+    
   /* Combine in the windows from the other delta reps. */
   pool = svn_pool_create(rb->pool);
   for (--i; i >= 0; --i)
@@ -3307,7 +3307,7 @@ get_combined_window(svn_stringbuf_t **result,
       new_pool = svn_pool_create(rb->pool);
       buf = svn_stringbuf_create_ensure(window->tview_len, new_pool);
       buf->len = window->tview_len;
-
+      
       svn_txdelta_apply_instructions(window, source ? source->data : NULL,
                                      buf->data, &buf->len);
       if (buf->len != window->tview_len)
@@ -3327,7 +3327,7 @@ get_combined_window(svn_stringbuf_t **result,
     }
 
   svn_pool_destroy(window_pool);
-
+  
   *result = buf;
   return SVN_NO_ERROR;
 }
@@ -5268,7 +5268,7 @@ choose_delta_base(representation_t **rep,
   count = noderev->predecessor_count;
   count = count & (count - 1);
 
-  /* We use skip delta for limiting the number of delta operations
+  /* We use skip delta for limiting the number of delta operations 
      along very long node histories.  Close to HEAD however, we create
      a linear history to minimize delta size.  */
   walk = noderev->predecessor_count - count;
@@ -5693,15 +5693,15 @@ write_hash_delta_rep(representation_t *rep,
 {
   svn_txdelta_window_handler_t diff_wh;
   void *diff_whb;
-
+  
   svn_stream_t *file_stream;
   svn_stream_t *stream;
   representation_t *base_rep;
   svn_stream_t *source;
   const char *header;
 
-  apr_off_t rep_end = 0;
-  apr_off_t delta_start = 0;
+  apr_off_t rep_end = 0; 
+  apr_off_t delta_start = 0; 
 
   struct write_hash_baton *whb;
   fs_fs_data_t *ffd = fs->fsap_data;
@@ -5730,7 +5730,7 @@ write_hash_delta_rep(representation_t *rep,
 
   SVN_ERR(get_file_offset(&delta_start, file, pool));
   file_stream = svn_stream_from_aprfile2(file, TRUE, pool);
-
+  
   /* Prepare to write the svndiff data. */
   svn_txdelta_to_svndiff3(&diff_wh,
                           &diff_whb,
@@ -7952,7 +7952,7 @@ hotcopy_io_copy_dir_recursively(const char *src,
           else if (this_entry.filetype == APR_DIR) /* recurse */
             {
               const char *src_target;
-
+              
               /* Prevent infinite recursion by filtering off our
                  newly created destination path. */
               if (strcmp(src, dst_parent) == 0
@@ -8157,7 +8157,7 @@ hotcopy_remove_rev_files(svn_fs_t *dst_fs,
   for (rev = start_rev; rev < end_rev; rev++)
     {
       const char *rev_path;
-
+      
       svn_pool_clear(iterpool);
 
       /* If necessary, update paths for shard. */
