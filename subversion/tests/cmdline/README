@@ -110,7 +110,7 @@ You can run a test script over DAV:
    $ ./basic_tests.py --url http://localhost
    $ ./basic_tests.py --url http://localhost 3
 
-or
+or 
 
    $ ./basic_tests.py --url=http://localhost
    $ ./basic_tests.py --url=http://localhost 3
@@ -210,7 +210,7 @@ the space requirements (as shown in the example configuration above),
 and thus your memory usage. Cleanup means more I/O, but since test
 data is in-memory, there will be no performance degradation. Example:
 
-  make check CLEANUP=true
+  make check CLEANUP=true 
 
 See http://svn.haxx.se/dev/archive-2003-02/0068.shtml for the original
 authoritative discussion on use of RAM disks.
@@ -237,7 +237,7 @@ Directory Contents
                             copy, and converting to/from trees.
 
           /actions.py:      Main API for driving subversion client and
-                            using trees to verify results.
+                            using trees to verify results. 
 
           /verify.py:       Verifies output from Subversion.
 
@@ -347,12 +347,12 @@ the Subversion servers.  This mail fragment introduces the ability:
    From: "David Glasser" <glasser@davidglasser.net>
    To: "Subversion Developers" <dev@subversion.tigris.org>
    Subject:  backwards-compatibility testing!
-
+   
    I've updated the expectations on trunk so that you can cleanly run the
    test suite against 1.4.x svnserve or DAV.  You do this by adding
    SERVER_MINOR_VERSION=4 with make check, or --server-minor-version 4 to
    run_tests.py or a specific Python test.
-
+   
    [...]
 
 We expect that post-1.5, this support will expand in the obvious ways
