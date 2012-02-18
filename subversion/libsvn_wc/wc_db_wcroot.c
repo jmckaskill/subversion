@@ -648,7 +648,7 @@ try_symlink_as_dir:
               goto try_symlink_as_dir;
             }
         }
-    }
+    } 
 
   /* We've found the appropriate WCROOT for the requested path. Stash
      it into that path's directory.  */
