@@ -1160,7 +1160,7 @@ class WinGeneratorBase(GeneratorBase):
                                               'contrib/masmx86/*.asm')))
     zlib_headers = map(lambda x : os.path.relpath(x, self.projfilesdir),
                        glob.glob(os.path.join(zlib_path, '*.h')))
-
+                       
     self.move_proj_file(self.projfilesdir, name,
                         (('zlib_path', zlib_path),
                          ('zlib_sources', zlib_sources),
@@ -1268,7 +1268,7 @@ class WinGeneratorBase(GeneratorBase):
              % (msg, self.perl_lib))
     finally:
       fp.close()
-
+      
     fp = os.popen('perl -e ' + escape_shell_arg(
                   '"print $Config{archlib}"'), 'r')
     try:
