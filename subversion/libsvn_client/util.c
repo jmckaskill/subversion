@@ -276,7 +276,7 @@ fetch_base_func(const char **filename,
 svn_delta_shim_callbacks_t *
 svn_client__get_shim_callbacks(apr_pool_t *result_pool)
 {
-  svn_delta_shim_callbacks_t *callbacks =
+  svn_delta_shim_callbacks_t *callbacks = 
                             svn_delta_shim_callbacks_default(result_pool);
 
   callbacks->fetch_props_func = fetch_props_func;
