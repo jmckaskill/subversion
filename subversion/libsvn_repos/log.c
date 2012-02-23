@@ -1808,7 +1808,7 @@ store_search(svn_mergeinfo_t processed,
                                                   sizeof(svn_merge_range_t*));
       svn_merge_range_t *range = apr_palloc(processed_pool,
                                             sizeof(svn_merge_range_t));
-
+      
       range->start = start;
       range->end = end;
       range->inheritable = TRUE;
@@ -2278,7 +2278,7 @@ svn_repos_get_logs4(svn_repos_t *repos,
           svn_boolean_t readable;
           svn_fs_root_t *rev_root;
 
-          SVN_ERR(svn_fs_revision_root(&rev_root, fs,
+          SVN_ERR(svn_fs_revision_root(&rev_root, fs, 
                                        descending_order ? end : start, pool));
           SVN_ERR(authz_read_func(&readable, rev_root, "",
                                   authz_read_baton, pool));
