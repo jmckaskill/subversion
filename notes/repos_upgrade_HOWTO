@@ -25,7 +25,7 @@ It should be noted that these changes are extremely rare.  Now that
 subversion has reached 1.0.0 our compatibility guarantees require
 forward and backward compatible repository formats for all patch
 releases and backward compatible for minor releases.  So until
-2.0.0 comes out there will be no change that should require a
+2.0.0 comes out there will be no change that should require a 
 dump for upgrading to newer versions.
 
 While Subversion does create version 5 repositories by default as of
@@ -51,7 +51,7 @@ to access an 'old' repository, you'll see an error like:
 
 Or if you use an 'old' libsvn_fs library to access a 'new' repository,
 you might see an error like:
-
+  
    Expected version '1' of repository; found version '2'
 
    or
@@ -121,6 +121,6 @@ used in Subversion 1.4 to support a new version of FSFS which
 compresses some of its data for better space usage.  However, we will
 continue to support schema version 3 throughout all of Subversion 1.x.
 
-In the future it may be necessary to make changes to support new
+In the future it may be necessary to make changes to support new 
 features.  But we will do so in a manner that is consistent with our
 compatibility guarantees.
