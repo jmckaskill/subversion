@@ -79,7 +79,7 @@ class SvnClient(object):
             if pipe.returncode:
                 raise subprocess.CalledProcessError(pipe.returncode, argv)
         return output
-
+  
     def _get_info(self, force=False):
         "run `svn info` and parse that info self.info"
         if force or not self.info:
@@ -131,7 +131,7 @@ class ProcSvnClient(SvnClient):
   def update(self):
     # removed since this breaks when the SSL certificate names are mismatched, even
     # if we marked them as trust worthy
-    # '--trust-server-cert',
+    # '--trust-server-cert', 
     cmd = [self.svnbin, '--config-dir', '/home/svnwc/.subversion', '--trust-server-cert', '--non-interactive', 'cleanup', self.path]
     output = yield getProcessOutput(cmd[0], args=cmd[1:], env=self.env)
     cmd = [self.svnbin, '--config-dir', '/home/svnwc/.subversion', '--trust-server-cert', '--non-interactive', 'update', '--ignore-externals', self.path]
@@ -190,7 +190,7 @@ class WorkingCopy(object):
         uuid = c.get_uuid()
         match  = url[len(repos):]
         return [match, url, repos, uuid]
-
+        
 
 class HTTPStream(HTTPClientFactory):
     protocol = HTTPPageDownloader
@@ -214,9 +214,9 @@ class Revision:
         self.rev = rev
         self.dirs_changed = []
 
-class StreamHandler(handler.ContentHandler):
+class StreamHandler(handler.ContentHandler):   
     def __init__(self, stream, bdec):
-        handler.ContentHandler.__init__(self)
+        handler.ContentHandler.__init__(self) 
         self.stream = stream
         self.bdec =  bdec
         self.rev = None
@@ -227,7 +227,7 @@ class StreamHandler(handler.ContentHandler):
         """
         <commit revision="7">
                         <dirs_changed><path>/</path></dirs_changed>
-                      </commit>
+                      </commit> 
         """
         if name == "commit":
             self.rev = Revision(attrs['repository'], int(attrs['revision']))
@@ -235,7 +235,7 @@ class StreamHandler(handler.ContentHandler):
             self.bdec.stillalive(self.stream)
     def characters(self, data):
         if self.text_value is not None:
-            self.text_value = self.text_value + data
+            self.text_value = self.text_value + data 
         else:
             self.text_value = data
 

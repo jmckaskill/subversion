@@ -26,7 +26,7 @@ There are seven states to the PENDING structure:
 
      This should only happen when some data has been placed into the
      pending membuf structure, then emptied.
-
+     
      The parser may be paused and no content has arrived (yet), or
      the parser is not in a paused state.
 
@@ -34,36 +34,36 @@ There are seven states to the PENDING structure:
 
      A pause occurred, and some content was placed into the
      membuf. Not enough to spill to a file, however.
-
+     
      The parser may be paused, or not-paused.
 
   4) pending->head != NULL && pending->spill != NULL. content in file
-
+  
      Enought content has orrived during a paused state that it was
      spilled into a file. Playback of the pending content *may*
      have occurred, but it has not (yet) emptied the memory buffer.
-
+     
      The parser may be paused, or not-paused.
 
   5) pending->head != NULL && pending->spill != NULL. no content in file
 
      THEORETICAL.
-
+     
      If a spill file gets created, then *some* content will be
      written into the file. The content will not be read/removed
      from the file until the memory buffer is exhausted. Thus, this
      state is not possible since the spill file could not be
      emptied since the membuf has not been emptied.
-
+     
      Also, once the spill file has been created, we will never
      write into the memory buffer (for ordering reasons). Thus, we
      cannot empty both membuf and spill file, and place more
      content into the memory buffer.
-
+     
      At some point in the future, we may decide to place arriving
      content back into the membuf after the spill file has been
      exhausted. The code does not do this today.
-
+     
      The parser may be paused, or not-paused.
 
   6) pending->head == NULL && pending->spill != NULL. content in file
@@ -71,7 +71,7 @@ There are seven states to the PENDING structure:
      At some point, enough content arrived to construct a spill
      file. Since that point, the memory buffer contents have been
      injected into the parser, emptying the membuf.
-
+     
      The parser may be paused, or not-paused.
 
   7) pending->head == NULL && pending->spill != NULL. no content in file
@@ -79,7 +79,7 @@ There are seven states to the PENDING structure:
      At some point, enough content arrived to construct a spill
      file. Since that point, all content (from memory and file) has
      been injected into the parser.
-
+     
      The parser may be paused, or not-paused.
 
 Note that all states are doubled, based on the PAUSED flag.
