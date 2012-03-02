@@ -27,7 +27,7 @@ docsrc/     documentation sources
 extensions/ Java extensions
 fo/         stylesheets that produce XSL FO
 html/	    stylesheets that produce HTML
-htmlhelp/   stylesheets that produce HTML Help
+htmlhelp/   stylesheets that produce HTML Help 
 images/     images
 javahelp/   stylesheets that produce Java Help
 lib/        contains schema-independent functions
