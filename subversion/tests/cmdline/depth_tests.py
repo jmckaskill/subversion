@@ -2882,7 +2882,7 @@ def commit_then_immediates_update(sbox):
                                         expected_status,
                                         None, None, None, None, None, False,
                                         "--depth=immediates", wc_dir)
-
+  
 
 
 #----------------------------------------------------------------------
