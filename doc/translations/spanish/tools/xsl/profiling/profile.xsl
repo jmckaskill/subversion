@@ -5,7 +5,7 @@
 <xsl:include href="profile-mode.xsl"/>
 
 <!-- Generate DocBook instance with correct DOCTYPE -->
-<xsl:output method="xml"
+<xsl:output method="xml" 
             doctype-public="-//OASIS//DTD DocBook XML V4.2//EN"
             doctype-system="http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd"/>
 
