@@ -155,7 +155,7 @@ svn_repos_get_committed_info(svn_revnum_t *committed_rev,
                              apr_pool_t *pool)
 {
   apr_hash_t *revprops;
-
+  
   svn_fs_t *fs = svn_fs_root_fs(root);
 
   /* ### It might be simpler just to declare that revision
@@ -170,11 +170,11 @@ svn_repos_get_committed_info(svn_revnum_t *committed_rev,
   SVN_ERR(svn_fs_revision_proplist(&revprops, fs, *committed_rev, pool));
 
   /* Extract date and author from these revprops. */
-  committed_date_s = apr_hash_get(revprops,
-                                  SVN_PROP_REVISION_DATE,
+  committed_date_s = apr_hash_get(revprops, 
+                                  SVN_PROP_REVISION_DATE, 
                                   8);
-  last_author_s = apr_hash_get(revprops,
-                               SVN_PROP_REVISION_AUTHOR,
+  last_author_s = apr_hash_get(revprops, 
+                               SVN_PROP_REVISION_AUTHOR, 
                                10);
 
   *committed_date = committed_date_s ? committed_date_s->data : NULL;
