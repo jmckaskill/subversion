@@ -2714,7 +2714,7 @@ read_revprop_generation(svn_fs_t *fs,
                         apr_pool_t *pool)
 {
   fs_fs_data_t *ffd = fs->fsap_data;
-
+  
   const char *path = path_revprop_generation(fs, pool);
   svn_error_t *err;
   char buf[80];
@@ -2729,7 +2729,7 @@ read_revprop_generation(svn_fs_t *fs,
     {
       apr_file_t *file;
       apr_size_t len = sizeof(buf);
-
+      
       svn_pool_clear(iterpool);
 
       err = svn_io_file_open(&file, path, APR_READ | APR_BUFFERED,
@@ -2758,7 +2758,7 @@ read_revprop_generation(svn_fs_t *fs,
   svn_pool_destroy(iterpool);
 
   /* Check that the first line contains only digits. */
-  SVN_ERR(check_file_buffer_numeric(buf, 0, path,
+  SVN_ERR(check_file_buffer_numeric(buf, 0, path, 
                                     "Revprop generations", pool));
   SVN_ERR(svn_cstring_atoi64(&ffd->revprop_generation, buf));
 
@@ -2774,7 +2774,7 @@ check_revprop_generation(svn_fs_t *fs,
                          apr_pool_t *pool)
 {
   fs_fs_data_t *ffd = fs->fsap_data;
-
+  
   return ffd->revprop_generation == 0
     ? read_revprop_generation(fs, pool)
     : SVN_NO_ERROR;
@@ -2785,7 +2785,7 @@ increment_revprop_generation(svn_fs_t *fs,
                              apr_pool_t *pool)
 {
   fs_fs_data_t *ffd = fs->fsap_data;
-
+  
   SVN_ERR(read_revprop_generation(fs, pool));
 
   const char *path = path_revprop_generation(fs, pool);
@@ -2801,7 +2801,7 @@ increment_revprop_generation(svn_fs_t *fs,
                               svn_dirent_dirname(path, pool),
                               generation->data, generation->len,
                               svn_io_file_del_none, pool));
-  return move_into_place(tmp_filename, path,
+  return move_into_place(tmp_filename, path, 
                          svn_fs_fs__path_current(fs, pool), pool);
 }
 
@@ -9032,7 +9032,7 @@ hotcopy_create_empty_dest(svn_fs_t *src_fs,
     SVN_ERR(svn_io_copy_file(path_revprop_generation(src_fs, pool),
                              path_revprop_generation(dst_fs, pool),
                              TRUE, pool));
-
+    
   dst_ffd->youngest_rev_cache = 0;
   return SVN_NO_ERROR;
 }
