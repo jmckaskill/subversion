@@ -73,7 +73,7 @@ class TextColors:
 
 def _get_term_width():
   '''Attempt to discern the width of the terminal
-
+  
   Consults:
     ../.width,
     TIOCGWINSZ ioctl on stdin/stdout/stderr,
