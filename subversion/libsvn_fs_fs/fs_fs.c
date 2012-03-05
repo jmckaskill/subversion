@@ -225,6 +225,12 @@ path_lock(svn_fs_t *fs, apr_pool_t *pool)
 }
 
 static const char *
+path_revprop_generation(svn_fs_t *fs, apr_pool_t *pool)
+{
+  return svn_dirent_join(fs->path, PATH_REVPROP_GEN, pool);
+}
+
+static const char *
 path_rev_packed(svn_fs_t *fs, svn_revnum_t rev, const char *kind,
                 apr_pool_t *pool)
 {
@@ -870,6 +876,28 @@ get_file_offset(apr_off_t *offset_p, apr_file_t *file, apr_pool_t *pool)
 }
 
 
+/* Check that BUF, a nul-terminated buffer of text from file PATH,
+   contains only digits at OFFSET and beyond, raising an error if not.
+   TITLE contains a user-visible description of the file, usually the
+   short file name.
+
+   Uses POOL for temporary allocation. */
+static svn_error_t *
+check_file_buffer_numeric(const char *buf, apr_off_t offset,
+                          const char *path, const char *title,
+                          apr_pool_t *pool)
+{
+  const char *p;
+
+  for (p = buf + offset; *p; p++)
+    if (!svn_ctype_isdigit(*p))
+      return svn_error_createf(SVN_ERR_BAD_VERSION_FILE_FORMAT, NULL,
+        _("%s file '%s' contains unexpected non-digit '%c' within '%s'"),
+        title, svn_dirent_local_style(path, pool), *p, buf);
+
+  return SVN_NO_ERROR;
+}
+
 /* Check that BUF, a nul-terminated buffer of text from format file PATH,
    contains only digits at OFFSET and beyond, raising an error if not.
 
@@ -878,15 +906,7 @@ static svn_error_t *
 check_format_file_buffer_numeric(const char *buf, apr_off_t offset,
                                  const char *path, apr_pool_t *pool)
 {
-  const char *p;
-
-  for (p = buf + offset; *p; p++)
-    if (!svn_ctype_isdigit(*p))
-      return svn_error_createf(SVN_ERR_BAD_VERSION_FILE_FORMAT, NULL,
-        _("Format file '%s' contains unexpected non-digit '%c' within '%s'"),
-        svn_dirent_local_style(path, pool), *p, buf);
-
-  return SVN_NO_ERROR;
+  return check_file_buffer_numeric(buf, offset, path, "Format", pool);
 }
 
 /* Read the format number and maximum number of files per directory
@@ -1546,6 +1566,16 @@ ensure_revision_exists(svn_fs_t *fs,
 
   return svn_error_createf(SVN_ERR_FS_NO_SUCH_REVISION, NULL,
                            _("No such revision %ld"), rev);
+}
+
+svn_error_t *
+svn_fs_fs__revision_exists(svn_revnum_t rev,
+                           svn_fs_t *fs,
+                           apr_pool_t *pool)
+{
+  /* Different order of parameters. */
+  SVN_ERR(ensure_revision_exists(fs, rev, pool));
+  return SVN_NO_ERROR;
 }
 
 /* Open the correct revision file for REV.  If the filesystem FS has
@@ -2677,6 +2707,105 @@ svn_fs_fs__rev_get_root(svn_fs_id_t **root_id_p,
   return SVN_NO_ERROR;
 }
 
+/* Reads the revprop_gen file and writes the content into the
+   REVPROP_GENERATION member of FS.  Use pool for allocations. */
+static svn_error_t *
+read_revprop_generation(svn_fs_t *fs,
+                        apr_pool_t *pool)
+{
+  fs_fs_data_t *ffd = fs->fsap_data;
+
+  const char *path = path_revprop_generation(fs, pool);
+  svn_error_t *err;
+  char buf[80];
+  int i;
+
+  /* Read the raw data from the file, if it exists. If it does
+     not, set the generation to "1" and return.
+     We don't want to have this function fail.  So, patiently
+     retry a couple of times the case the OS denied us access. */
+  apr_pool_t *iterpool = svn_pool_create(pool);
+  for (i = 0; i < RECOVERABLE_RETRY_COUNT; ++i)
+    {
+      apr_file_t *file;
+      apr_size_t len = sizeof(buf);
+
+      svn_pool_clear(iterpool);
+
+      err = svn_io_file_open(&file, path, APR_READ | APR_BUFFERED,
+                            APR_OS_DEFAULT, iterpool);
+      if (err && APR_STATUS_IS_ENOENT(err->apr_err))
+        {
+          /* No-one changed a revprop -> we are still at gen 1. */
+          ffd->revprop_generation = 1;
+          svn_error_clear(err);
+          return SVN_NO_ERROR;
+        }
+      svn_error_clear(err);
+
+      RETRY_RECOVERABLE(err, file,
+                        svn_io_read_length_line(file,
+                                                buf,
+                                                &len,
+                                                iterpool));
+      IGNORE_RECOVERABLE(err, svn_io_file_close(file,
+                                                iterpool));
+
+      break;
+    }
+  SVN_ERR(err);
+
+  svn_pool_destroy(iterpool);
+
+  /* Check that the first line contains only digits. */
+  SVN_ERR(check_file_buffer_numeric(buf, 0, path,
+                                    "Revprop generations", pool));
+  SVN_ERR(svn_cstring_atoi64(&ffd->revprop_generation, buf));
+
+  /* Graceful behavior in case someone put a "0" in the file. */
+  if (ffd->revprop_generation <= 0)
+    ffd->revprop_generation = 1;
+
+  return SVN_NO_ERROR;
+}
+
+static svn_error_t *
+check_revprop_generation(svn_fs_t *fs,
+                         apr_pool_t *pool)
+{
+  fs_fs_data_t *ffd = fs->fsap_data;
+
+  return ffd->revprop_generation == 0
+    ? read_revprop_generation(fs, pool)
+    : SVN_NO_ERROR;
+}
+
+static svn_error_t *
+increment_revprop_generation(svn_fs_t *fs,
+                             apr_pool_t *pool)
+{
+  fs_fs_data_t *ffd = fs->fsap_data;
+
+  const char *path = path_revprop_generation(fs, pool);
+  const char *tmp_filename;
+  svn_string_t *generation;
+
+  SVN_ERR(read_revprop_generation(fs, pool));
+
+  /* Increment the key and add a trailing \n to the string so the
+     txn-current file has a newline in it. */
+  ++ffd->revprop_generation;
+  generation = svn_string_createf(pool, "%" APR_INT64_T_FMT "\n",
+                                  ffd->revprop_generation);
+
+  SVN_ERR(svn_io_write_unique(&tmp_filename,
+                              svn_dirent_dirname(path, pool),
+                              generation->data, generation->len,
+                              svn_io_file_del_none, pool));
+  return move_into_place(tmp_filename, path,
+                         svn_fs_fs__path_current(fs, pool), pool);
+}
+
 /* Set the revision property list of revision REV in filesystem FS to
    PROPLIST.  Use POOL for temporary allocations. */
 static svn_error_t *
@@ -2693,6 +2822,10 @@ set_revision_proplist(svn_fs_t *fs,
       const char *tmp_path;
       const char *perms_reference;
       svn_stream_t *stream;
+      svn_node_kind_t kind;
+
+      /* test whether revprops already exist for this revision */
+      SVN_ERR(svn_io_check_path(final_path, &kind, pool));
 
       /* ### do we have a directory sitting around already? we really shouldn't
          ### have to get the dirname here. */
@@ -2709,6 +2842,12 @@ set_revision_proplist(svn_fs_t *fs,
       SVN_ERR(svn_fs_fs__path_rev_absolute(&perms_reference, fs, rev, pool));
       SVN_ERR(move_into_place(tmp_path, final_path, perms_reference, pool));
 
+      /* Invalidate all cached revprops for this FS and for all other
+         users that haven't read any revprops, YET.  Since writing revprops
+         implies a write lock, there can be no races. */
+      if (kind != svn_node_none)
+        SVN_ERR(increment_revprop_generation(fs, pool));
+
       return SVN_NO_ERROR;
     }
 
@@ -2722,8 +2861,22 @@ revision_proplist(apr_hash_t **proplist_p,
                   apr_pool_t *pool)
 {
   apr_hash_t *proplist;
+  fs_fs_data_t *ffd = fs->fsap_data;
+  const char *key;
 
   SVN_ERR(ensure_revision_exists(fs, rev, pool));
+  SVN_ERR(check_revprop_generation(fs, pool));
+
+  /* Try cache lookup first. */
+  key = svn_fs_fs__combine_two_numbers(rev, ffd->revprop_generation, pool);
+  if (ffd->revprop_cache)
+    {
+      svn_boolean_t is_cached;
+      SVN_ERR(svn_cache__get((void **) proplist_p, &is_cached,
+                              ffd->revprop_cache, key, pool));
+      if (is_cached)
+        return SVN_NO_ERROR;
+    }
 
   /* if (1); null condition for easier merging to revprop-packing */
     {
@@ -2778,6 +2931,10 @@ revision_proplist(apr_hash_t **proplist_p,
         return svn_error_trace(err);
       svn_pool_destroy(iterpool);
     }
+
+  /* Cache the result, if caching has been activated. */
+  if (ffd->revprop_cache)
+    SVN_ERR(svn_cache__set(ffd->revprop_cache, key, proplist, pool));
 
   *proplist_p = proplist;
 
@@ -3519,7 +3676,7 @@ read_representation(svn_stream_t **contents_p,
   else
     {
       fs_fs_data_t *ffd = fs->fsap_data;
-      const char *fulltext_key = NULL;
+      const char *fulltext_cache_key = NULL;
       svn_filesize_t len = rep->expanded_size ? rep->expanded_size : rep->size;
       struct rep_read_baton *rb;
 
@@ -3528,10 +3685,11 @@ read_representation(svn_stream_t **contents_p,
         {
           svn_stringbuf_t *fulltext;
           svn_boolean_t is_cached;
-          fulltext_key = apr_psprintf(pool, "%ld/%" APR_OFF_T_FMT,
+          fulltext_cache_key = apr_psprintf(pool, "%ld/%" APR_OFF_T_FMT,
                                       rep->revision, rep->offset);
           SVN_ERR(svn_cache__get((void **) &fulltext, &is_cached,
-                                 ffd->fulltext_cache, fulltext_key, pool));
+                                 ffd->fulltext_cache, fulltext_cache_key,
+                                 pool));
           if (is_cached)
             {
               *contents_p = svn_stream_from_stringbuf(fulltext, pool);
@@ -3539,7 +3697,7 @@ read_representation(svn_stream_t **contents_p,
             }
         }
 
-      SVN_ERR(rep_read_get_baton(&rb, fs, rep, fulltext_key, pool));
+      SVN_ERR(rep_read_get_baton(&rb, fs, rep, fulltext_cache_key, pool));
 
       *contents_p = svn_stream_create(rb, pool);
       svn_stream_set_read(*contents_p, rep_read_contents);
@@ -5865,6 +6023,8 @@ write_hash_delta_rep(representation_t *rep,
 /* Sanity check ROOT_NODEREV, a candidate for being the root node-revision
    of (not yet committed) revision REV in FS.  Use POOL for temporary
    allocations.
+
+   If you change this function, consider updating svn_fs_fs__verify() too.
  */
 static svn_error_t *
 validate_root_noderev(svn_fs_t *fs,
@@ -5911,8 +6071,11 @@ validate_root_noderev(svn_fs_t *fs,
       return svn_error_createf(SVN_ERR_FS_CORRUPT, NULL,
                                _("predecessor count for "
                                  "the root node-revision is wrong: "
-                                 "found %d, committing r%ld"),
-                                 root_noderev->predecessor_count, rev);
+                                 "found (%d+%ld != %d), committing r%ld"),
+                                 head_predecessor_count,
+                                 rev - head_revnum, /* This is equal to 1. */
+                                 root_noderev->predecessor_count,
+                                 rev);
     }
 
   return SVN_NO_ERROR;
@@ -6745,6 +6908,9 @@ svn_fs_fs__create(svn_fs_t *fs,
       SVN_ERR(svn_io_file_create(path_txn_current_lock(fs, pool),
                                  "", pool));
     }
+
+  /* Create the revprop generation tracking file. */
+  SVN_ERR(increment_revprop_generation(fs, pool));
 
   /* This filesystem is ready.  Stamp it with a format number. */
   SVN_ERR(write_format(path_format(fs, pool),
@@ -7878,7 +8044,7 @@ svn_fs_fs__pack(svn_fs_t *fs,
 
 /** Verifying. **/
 
-/* Body of svn_fs_fs__verify().
+/* Used by svn_fs_fs__verify().
    Implements svn_fs_fs__walk_rep_reference().walker.  */
 static svn_error_t *
 verify_walker(representation_t *rep,
@@ -7899,23 +8065,93 @@ svn_error_t *
 svn_fs_fs__verify(svn_fs_t *fs,
                   svn_cancel_func_t cancel_func,
                   void *cancel_baton,
+                  svn_revnum_t start,
+                  svn_revnum_t end,
                   apr_pool_t *pool)
 {
   fs_fs_data_t *ffd = fs->fsap_data;
   svn_boolean_t exists;
+  svn_revnum_t youngest = ffd->youngest_rev_cache; /* cache is current */
+  apr_pool_t *iterpool = svn_pool_create(pool);
 
   if (ffd->format < SVN_FS_FS__MIN_REP_SHARING_FORMAT)
     return SVN_NO_ERROR;
 
-  /* Do not attempt to walk the rep-cache database if its file does not exists,
-     since doing so would create it --- which may confuse the administrator. */
+  /* Input validation. */
+  if (! SVN_IS_VALID_REVNUM(start))
+    start = 0;
+  if (! SVN_IS_VALID_REVNUM(end))
+    end = youngest;
+  SVN_ERR(ensure_revision_exists(fs, start, iterpool));
+  SVN_ERR(ensure_revision_exists(fs, end, iterpool));
+
+  /* rep-cache verification. */
   SVN_ERR(svn_fs_fs__exists_rep_cache(&exists, fs, pool));
   if (exists)
-    /* Don't take any lock. */
+    /* Do not attempt to walk the rep-cache database if its file does not exist,
+       since doing so would create it --- which may confuse the administrator.
+       Don't take any lock. */
     SVN_ERR(svn_fs_fs__walk_rep_reference(fs, verify_walker, NULL,
                                           cancel_func, cancel_baton,
+                                          start, end,
                                           pool));
 
+  /* Issue #4129: bogus pred-counts on the root node-rev. */
+  {
+    svn_revnum_t i;
+    int predecessor_predecessor_count;
+
+    /* Compute PREDECESSOR_PREDECESSOR_COUNT. */
+    if (start == 0)
+      /* The value that passes the if() at the end of the loop. */
+      predecessor_predecessor_count = -1;
+    else
+      {
+        svn_fs_id_t *root_id;
+        node_revision_t *root_noderev;
+        SVN_ERR(svn_fs_fs__rev_get_root(&root_id, fs, start-1, iterpool));
+        SVN_ERR(svn_fs_fs__get_node_revision(&root_noderev, fs, root_id,
+                                             iterpool));
+        predecessor_predecessor_count = root_noderev->predecessor_count;
+      }
+
+    for (i = start; i <= end; i++)
+      {
+        /* ### Caching.
+
+           svn_fs_fs__rev_get_root() consults caches, which in verify we
+           don't want.  But we can't easily bypass that, as
+           svn_fs_revision_root()+svn_fs_node_id()'s implementation uses
+           svn_fs_fs__rev_get_root() too.
+
+           ### A future revision will make fs_verify() disable caches when it
+           ### opens ffd.
+         */
+        svn_fs_id_t *root_id;
+        node_revision_t *root_noderev;
+
+        if ((i % 128) == 0) /* uneducated guess */
+          svn_pool_clear(iterpool);
+
+        /* Fetch ROOT_NODEREV. */
+        SVN_ERR(svn_fs_fs__rev_get_root(&root_id, fs, i, iterpool));
+        SVN_ERR(svn_fs_fs__get_node_revision(&root_noderev, fs, root_id,
+                                             iterpool));
+
+        /* Check correctness. (Compare validate_root_noderev().) */
+        if (1+predecessor_predecessor_count != root_noderev->predecessor_count)
+          return svn_error_createf(SVN_ERR_FS_CORRUPT, NULL,
+                                   _("predecessor count for "
+                                     "the root node-revision is wrong: "
+                                     "r%ld has %d, but r%ld has %d"),
+                                   i, root_noderev->predecessor_count,
+                                   i-1, predecessor_predecessor_count);
+
+        predecessor_predecessor_count = root_noderev->predecessor_count;
+      }
+  }
+
+  svn_pool_destroy(iterpool);
   return SVN_NO_ERROR;
 }
 
@@ -8726,6 +8962,7 @@ hotcopy_create_empty_dest(svn_fs_t *src_fs,
 {
   fs_fs_data_t *src_ffd = src_fs->fsap_data;
   fs_fs_data_t *dst_ffd = dst_fs->fsap_data;
+  svn_node_kind_t kind;
 
   dst_fs->path = apr_pstrdup(pool, dst_path);
 
@@ -8788,6 +9025,14 @@ hotcopy_create_empty_dest(svn_fs_t *src_fs,
       SVN_ERR(svn_io_file_create(path_txn_current_lock(dst_fs, pool),
                                  "", pool));
     }
+
+  /* Copy the revprop generation file if it exists in SRC_FS. */
+  SVN_ERR(svn_io_check_path(path_revprop_generation(src_fs, pool),
+                            &kind, pool));
+  if (kind == svn_node_file)
+    SVN_ERR(svn_io_copy_file(path_revprop_generation(src_fs, pool),
+                             path_revprop_generation(dst_fs, pool),
+                             TRUE, pool));
 
   dst_ffd->youngest_rev_cache = 0;
   return SVN_NO_ERROR;

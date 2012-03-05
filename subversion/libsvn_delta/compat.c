@@ -108,7 +108,11 @@ svn_compat_wrap_file_rev_handler(svn_file_rev_handler_t *handler2,
 struct ev2_edit_baton
 {
   svn_editor_t *editor;
+
   apr_hash_t *paths;
+  apr_array_header_t *path_order;
+  int paths_processed;
+
   apr_pool_t *edit_pool;
   struct svn_delta__extra_baton *exb;
   svn_boolean_t closed;
@@ -200,10 +204,12 @@ add_action(struct ev2_edit_baton *eb,
 
   if (action_list == NULL)
     {
+      const char *path_dup = apr_pstrdup(eb->edit_pool, path);
+
       action_list = apr_array_make(eb->edit_pool, 1,
                                    sizeof(struct path_action *));
-      apr_hash_set(eb->paths, apr_pstrdup(eb->edit_pool, path),
-                   APR_HASH_KEY_STRING, action_list);
+      apr_hash_set(eb->paths, path_dup, APR_HASH_KEY_STRING, action_list);
+      APR_ARRAY_PUSH(eb->path_order, const char *) = path_dup;
     }
 
   APR_ARRAY_PUSH(action_list, struct path_action *) = p_action;
@@ -260,7 +266,7 @@ process_actions(void *edit_baton,
   svn_boolean_t need_copy = FALSE;
   const char *copyfrom_path;
   svn_revnum_t copyfrom_rev;
-  apr_array_header_t *children;
+  apr_array_header_t *children = NULL;
   svn_stream_t *contents = NULL;
   svn_checksum_t *checksum = NULL;
   svn_revnum_t delete_revnum = SVN_INVALID_REVNUM;
@@ -351,7 +357,7 @@ process_actions(void *edit_baton,
               struct path_checksum_args *pca = action->args;
 
               /* We can only set text on files. */
-              kind = svn_node_file;
+              kind = svn_kind_file;
 
               SVN_ERR(svn_io_file_checksum2(&checksum, pca->path,
                                             svn_checksum_sha1, scratch_pool));
@@ -463,29 +469,21 @@ run_ev2_actions(void *edit_baton,
                 apr_pool_t *scratch_pool)
 {
   struct ev2_edit_baton *eb = edit_baton;
-  apr_array_header_t *sorted_hash;
   apr_pool_t *iterpool;
-  int i;
-
-  /* Sort the paths touched by this edit.
-   * Ev2 doesn't really have any particular need for depth-first-ness, but
-   * we want to ensure all parent directories are handled before children in
-   * the case of adds (which does introduce an element of depth-first-ness). */
-  sorted_hash = svn_sort__hash(eb->paths, svn_sort_compare_items_as_paths,
-                               scratch_pool);
 
   iterpool = svn_pool_create(scratch_pool);
-  for (i = 0; i < sorted_hash->nelts; i++)
+
+  /* Possibly pick up where we left off. Ocassionally, we do some of these
+     as part of close_edit() and then some more as part of abort_edit()  */
+  for (; eb->paths_processed < eb->path_order->nelts; ++eb->paths_processed)
     {
-      svn_sort__item_t *item = &APR_ARRAY_IDX(sorted_hash, i, svn_sort__item_t);
-      apr_array_header_t *actions = item->value;
-      const char *path = item->key;
+      const char *path = APR_ARRAY_IDX(eb->path_order, eb->paths_processed,
+                                       const char *);
+      apr_array_header_t *actions = apr_hash_get(eb->paths, path,
+                                                 APR_HASH_KEY_STRING);
 
       svn_pool_clear(iterpool);
       SVN_ERR(process_actions(edit_baton, path, actions, iterpool));
-
-      /* Remove this item from the hash. */
-      apr_hash_set(eb->paths, path, APR_HASH_KEY_STRING, NULL);
     }
   svn_pool_destroy(iterpool);
 
@@ -942,6 +940,7 @@ svn_delta__delta_from_editor(const svn_delta_editor_t **deditor,
 
   eb->editor = editor;
   eb->paths = apr_hash_make(pool);
+  eb->path_order = apr_array_make(pool, 1, sizeof(const char *));
   eb->edit_pool = pool;
   eb->found_abs_paths = found_abs_paths;
   *eb->found_abs_paths = FALSE;
@@ -1551,7 +1550,8 @@ drive_tree(struct operation *op,
     {
       /* Open or create our baton. */
       if (op->operation == OP_OPEN || op->operation == OP_PROPSET)
-        SVN_ERR(editor->open_directory(path, parent_op->baton, op->base_revision,
+        SVN_ERR(editor->open_directory(path, parent_op->baton,
+                                       op->base_revision,
                                        scratch_pool, &op->baton));
 
       else if (op->operation == OP_ADD || op->operation == OP_REPLACE)
