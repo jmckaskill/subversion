@@ -17424,8 +17424,8 @@ def merge_source_with_replacement(sbox):
   psi_COPY_path   = os.path.join(sbox.wc_dir, 'A_COPY', 'D', 'H', 'psi')
   rho_COPY_path   = os.path.join(sbox.wc_dir, 'A_COPY', 'D', 'G', 'rho')
   omega_COPY_path = os.path.join(sbox.wc_dir, 'A_COPY', 'D', 'H', 'omega')
-
-  # branch A@1 to A_COPY in r2, then make a few edits under A in r3-6:
+  
+  # branch A@1 to A_COPY in r2, then make a few edits under A in r3-6:  
   wc_disk, wc_status = set_up_branch(sbox)
 
   # r7 Delete A, replace it with A@5, effectively reverting the change
