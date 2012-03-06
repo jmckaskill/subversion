@@ -122,7 +122,7 @@
                              IMPORT DOCBOOK 4.1
 
 -->
-<!ENTITY % db
+<!ENTITY % db 
                  PUBLIC "-//OASIS//DTD DocBook XML V4.1//EN"
                  "docbook41/docbookx.dtd"
 >
@@ -150,7 +150,7 @@
 
 <!-- allow paras after biblioentries -->
 <!ELEMENT bibliodiv            (
-                                 (%sect.title.content;)?,
+                                 (%sect.title.content;)?, 
                                  (
                                    %component.mix;
                                    | biblioentry
@@ -167,8 +167,8 @@
 
 <!-- simplify model -->
 <!ELEMENT book                 (
-                                 title,
-                                 subtitle*,
+                                 title, 
+                                 subtitle*, 
                                  bookinfo?,
                                  toc?,
                                  (
@@ -281,9 +281,9 @@
 
 <!-- make refpurpose optional -->
 <!ELEMENT refnamediv           (
-                                 refdescriptor?,
-                                 refname,
-                                 refpurpose?,
+                                 refdescriptor?, 
+                                 refname, 
+                                 refpurpose?, 
                                  refclass*,
                                  (
                                      remark
@@ -294,7 +294,7 @@
 
 <!-- make title optional, simplify -->
 <!ELEMENT refsect1             (
-                                 refsect1info?,
+                                 refsect1info?, 
                                  (
                                    %refsect.title.content;
                                  )*,
@@ -338,7 +338,7 @@
 <!ELEMENT simplesect           (
                                  (
                                    %sect.title.content;
-                                 )?,
+                                 )?, 
                                  (
                                      %divcomponent.mix;
                                    | glossentry
@@ -561,7 +561,7 @@
                                )*
 >
 
-<!ELEMENT funcparams
+<!ELEMENT funcparams 
                                (%para.char.mix;)*
 >
 
