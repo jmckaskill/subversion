@@ -2543,6 +2543,45 @@ def reintegrate_replaced_source(sbox):
                                        '--reintegrate', A_path)
 
 #----------------------------------------------------------------------
+@SkipUnless(svntest.main.is_posix_os)
+@Issue(4052)
+def reintegrate_symlink_deletion(sbox):
+  "reintegrate symlink deletion"
+
+  sbox.build()
+  wc_dir = sbox.wc_dir
+
+  ## path vars
+  A_path = sbox.ospath('A')
+  A_omicron_path = sbox.ospath('A/omicron')
+  mu_path = sbox.ospath('A/mu')
+  A_COPY_path = sbox.ospath('A_COPY')
+  A_COPY_omicron_path = sbox.ospath('A_COPY/omicron')
+  A_url = sbox.repo_url + "/A"
+  A_COPY_url = sbox.repo_url + "/A_COPY"
+
+  ## add symlink
+  os.symlink(mu_path, A_omicron_path)
+  sbox.simple_add('A/omicron')
+  sbox.simple_commit(message='add symlink')
+
+  ## branch
+  sbox.simple_repo_copy('A', 'A_COPY')
+  sbox.simple_update()
+
+  ## branch rm
+  sbox.simple_rm('A_COPY/omicron')
+  sbox.simple_commit(message='remove symlink on branch')
+
+  ## Note: running update at this point avoids the bug.
+
+  ## reintegrate
+  # ### TODO: verify something here
+  svntest.main.run_svn(None, 'merge', '--reintegrate',
+                       A_COPY_url, A_path)
+
+
+#----------------------------------------------------------------------
 
 def simple_reintegrate(sbox, source, target_wcpath):
   """"""
@@ -2787,6 +2826,7 @@ test_list = [ None,
               reintegrate_creates_bogus_mergeinfo,
               no_source_subtree_mergeinfo,
               reintegrate_replaced_source,
+              reintegrate_symlink_deletion,
               reintegrate_keep_alive1,
               reintegrate_keep_alive2,
               reintegrate_keep_alive3,
