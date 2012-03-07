@@ -245,7 +245,7 @@ typedef struct fs_fs_data_t
      Will be read upon first access.  0 means that the value has not
      been read from disk, yet. */
   apr_int64_t revprop_generation;
-
+  
   /* Revision property cache.  Maps from (rev,generation) to apr_hash_t. */
   svn_cache__t *revprop_cache;
 
