@@ -2374,7 +2374,7 @@ typedef struct svn_client_status_t
    * This will be NULL for moved-here nodes that are just part of a subtree
    * that was moved along (and are not themselves a root of a different move
    * operation).
-   *
+   * 
    * @since New in 1.8. */
   const char *moved_from_abspath;
 
@@ -3812,7 +3812,7 @@ typedef svn_error_t *
  * @a revprops is the same as for svn_client_log5().
  *
  * Use @a scratch_pool for all temporary allocations.
- *
+ * 
  * @a ctx is a context used for authentication.
  *
  * If the server doesn't support retrieval of mergeinfo, return an
@@ -6119,7 +6119,7 @@ svn_client_url_from_path(const char **url,
                          const char *path_or_url,
                          apr_pool_t *pool);
 
-
+                                 
 
 /* Fetching a repository's root URL and UUID. */
 
