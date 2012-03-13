@@ -82,7 +82,7 @@ class Client(asynchat.async_chat):
         self.event_callback('connect failed, reconnecting in %d seconds'
                             % (RECONNECT_DELAY))
         time.sleep(RECONNECT_DELAY)
-
+        
     ### should we allow for repository restrictions?
     self.push('GET /commits/xml HTTP/1.0\r\n\r\n')
 
