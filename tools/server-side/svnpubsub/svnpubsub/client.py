@@ -79,7 +79,7 @@ class Client(asynchat.async_chat):
     except:
       self.event_callback('error')
       return
-
+        
     ### should we allow for repository restrictions?
     self.push('GET /commits/xml HTTP/1.0\r\n\r\n')
 

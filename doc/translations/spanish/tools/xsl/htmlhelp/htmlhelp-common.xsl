@@ -299,7 +299,7 @@ Enhanced decompilation=</xsl:text>
   </xsl:choose>
 </xsl:if>
 
-<xsl:if test="($htmlhelp.force.map.and.alias != 0) or
+<xsl:if test="($htmlhelp.force.map.and.alias != 0) or 
               ($rootid = '' and //processing-instruction('dbhh')) or
               ($rootid != '' and key('id',$rootid)//processing-instruction('dbhh'))">
   <xsl:text>
@@ -321,7 +321,7 @@ Enhanced decompilation=</xsl:text>
     <xsl:with-param name="filename">
       <xsl:call-template name="mediaobject.filename.enumerate-images">
         <xsl:with-param name="object" select="."/>
-      </xsl:call-template>
+      </xsl:call-template>  
     </xsl:with-param>
   </xsl:call-template>
 </xsl:template>
@@ -840,19 +840,19 @@ Enhanced decompilation=</xsl:text>
 <!-- ==================================================================== -->
 
 <!-- no separate HTML page with index -->
-<xsl:template match="index"/>
-<xsl:template match="setindex"/>
+<xsl:template match="index"/>   
+<xsl:template match="setindex"/>   
 <xsl:template match="index" mode="toc"/>
 <xsl:template match="setindex" mode="toc"/>
 
 <xsl:template match="indexterm">
   <xsl:choose>
     <xsl:when test="$htmlhelp.use.hhk = 0">
-
+  
       <xsl:variable name="primary" select="normalize-space(primary)"/>
       <xsl:variable name="secondary" select="normalize-space(secondary)"/>
       <xsl:variable name="tertiary" select="normalize-space(tertiary)"/>
-
+      
       <xsl:variable name="text">
         <xsl:value-of select="$primary"/>
         <xsl:if test="secondary">
@@ -864,7 +864,7 @@ Enhanced decompilation=</xsl:text>
           <xsl:value-of select="$tertiary"/>
         </xsl:if>
       </xsl:variable>
-
+      
       <xsl:if test="secondary">
         <xsl:if test="not(//indexterm[normalize-space(primary)=$primary and not(secondary)])">
           <xsl:call-template name="write.indexterm">
@@ -872,11 +872,11 @@ Enhanced decompilation=</xsl:text>
           </xsl:call-template>
         </xsl:if>
       </xsl:if>
-
+      
       <xsl:call-template name="write.indexterm">
         <xsl:with-param name="text" select="$text"/>
       </xsl:call-template>
-
+      
     </xsl:when>
     <xsl:otherwise>
       <a>
@@ -885,7 +885,7 @@ Enhanced decompilation=</xsl:text>
         </xsl:attribute>
       </a>
     </xsl:otherwise>
-
+    
   </xsl:choose>
 </xsl:template>
 
@@ -950,7 +950,7 @@ Enhanced decompilation=</xsl:text>
   <xsl:if test="secondary">
     <xsl:if test="not(//indexterm[normalize-space(primary)=$primary and not(secondary)])">
       <xsl:call-template name="write.indexterm.hhk">
-        <!-- We must create fake entry when there is secondary without primary -->
+        <!-- We must create fake entry when there is secondary without primary --> 
         <xsl:with-param name="text" select="$primary"/>
         <xsl:with-param name="seealso" select="$primary"/>
       </xsl:call-template>
@@ -1151,7 +1151,7 @@ Enhanced decompilation=</xsl:text>
   </xsl:template>
 
 <!-- ==================================================================== -->
-<!-- Template for escaping <, & and " in attribute values.
+<!-- Template for escaping <, & and " in attribute values. 
      We aren't using HTML output method, so we must do this job ourselves -->
 
 <xsl:template name="escape-attr">
