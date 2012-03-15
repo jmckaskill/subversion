@@ -1,6 +1,6 @@
 2003-12-17  Norman Walsh <nwalsh@users.sourceforge.net>
 
-	* FormatCallout.java, FormatUnicodeCallout.java, Params.java, Verbatim.java:
+	* FormatCallout.java, FormatUnicodeCallout.java, Params.java, Verbatim.java: 
 	Support unicode.font in Xalan extensions
 
 2002-11-15  Norman Walsh <nwalsh@users.sourceforge.net>
@@ -23,7 +23,7 @@
 
 2001-07-07  Norman Walsh <nwalsh@users.sourceforge.net>
 
-	* FormatDingbatCallout.java, Table.java, Verbatim.java:
+	* FormatDingbatCallout.java, Table.java, Verbatim.java: 
 	Working towards Xalan 2.2 support (this code is BROKEN)
 
 2001-05-21  Norman Walsh <nwalsh@users.sourceforge.net>
@@ -32,6 +32,6 @@
 
 2001-04-02  Norman Walsh <nwalsh@users.sourceforge.net>
 
-	* CVS.java, Callout.java, FormatCallout.java, FormatGraphicCallout.java, FormatTextCallout.java, FormatUnicodeCallout.java, Func.java, Params.java, Table.java, Text.java, Verbatim.java, package.html:
+	* CVS.java, Callout.java, FormatCallout.java, FormatGraphicCallout.java, FormatTextCallout.java, FormatUnicodeCallout.java, Func.java, Params.java, Table.java, Text.java, Verbatim.java, package.html: 
 	New file.
 
