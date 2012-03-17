@@ -300,7 +300,7 @@ locate_change(struct ev2_edit_baton *eb,
   return change;
 }
 
-
+           
 /* Find all the paths which are immediate children of PATH and return their
    basenames in a list. */
 static apr_array_header_t *
