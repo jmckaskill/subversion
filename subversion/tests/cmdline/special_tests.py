@@ -935,7 +935,7 @@ def externals_as_symlink_targets(sbox):
   sbox.simple_add('sym_ext_E')
 
   sbox.simple_commit()
-
+    
 
 ########################################################################
 # Run the tests
