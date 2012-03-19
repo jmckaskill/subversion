@@ -35,7 +35,7 @@ AC_DEFUN(SVN_LIB_SASL,
       AC_MSG_NOTICE([Looking in default locations])
       AC_CHECK_HEADER(sasl/sasl.h,
         [AC_CHECK_HEADER(sasl/saslutil.h,
-         [AC_CHECK_LIB(sasl2, prop_get,
+         [AC_CHECK_LIB(sasl2, prop_get, 
                        svn_lib_sasl=yes,
                        svn_lib_sasl=no)],
                        svn_lib_sasl=no)], svn_lib_sasl=no)
@@ -53,7 +53,7 @@ AC_DEFUN(SVN_LIB_SASL,
 
       AC_CHECK_HEADER(sasl/sasl.h,
         [AC_CHECK_HEADER(sasl/saslutil.h,
-         [AC_CHECK_LIB(sasl2, prop_get,
+         [AC_CHECK_LIB(sasl2, prop_get, 
                        svn_lib_sasl=yes,
                        svn_lib_sasl=no)],
                        svn_lib_sasl=no)], svn_lib_sasl=no)
@@ -71,14 +71,14 @@ AC_DEFUN(SVN_LIB_SASL,
         dnl Exit with an error message.
         AC_MSG_ERROR([Could not find Cyrus SASL v2])
       fi
-
+      
       SVN_SASL_INCLUDES=""
       LDFLAGS="$saved_LDFLAGS"
     fi
 
     CPPFLAGS="$saved_CPPFLAGS"
   fi
-
+    
   AC_SUBST(SVN_SASL_INCLUDES)
   AC_SUBST(SVN_SASL_LIBS)
 ])
