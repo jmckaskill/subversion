@@ -168,7 +168,7 @@ svn_mergeinfo__filter_catalog_by_ranges(
 /* Combine one mergeinfo catalog, CHANGES_CATALOG, into another mergeinfo
   catalog MERGEINFO_CATALOG.  If both catalogs have mergeinfo for the same
   key, use svn_mergeinfo_merge() to combine the mergeinfos.
-
+ 
   Additions to MERGEINFO_CATALOG are deep copies allocated in
   RESULT_POOL.  Temporary allocations are made in SCRATCH_POOL. */
 svn_error_t *
@@ -176,7 +176,7 @@ svn_mergeinfo__catalog_merge(svn_mergeinfo_catalog_t mergeinfo_catalog,
                              svn_mergeinfo_catalog_t changes_catalog,
                              apr_pool_t *result_pool,
                              apr_pool_t *scratch_pool);
-
+                            
 /* Removes ERASER (the subtrahend) from WHITEBOARD (the
    minuend), and places the resulting difference in *MERGEINFO.
    Allocates *MERGEINFO in RESULT_POOL.  Temporary allocations
@@ -193,7 +193,7 @@ svn_mergeinfo__remove2(svn_mergeinfo_t *mergeinfo,
                        apr_pool_t *result_pool,
                        apr_pool_t *scratch_pool);
 
-/* Find the intersection of two mergeinfos, MERGEINFO1 and
+/* Find the intersection of two mergeinfos, MERGEINFO1 and 
    MERGEINFO2, and place the result in *MERGEINFO, which is (deeply)
    allocated in RESULT_POOL.  Temporary allocations will be performed
    in SCRATCH_POOL.
