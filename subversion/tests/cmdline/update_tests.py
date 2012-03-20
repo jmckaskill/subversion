@@ -4742,7 +4742,7 @@ def update_wc_of_dir_to_rev_not_containing_this_dir(sbox):
   A_url = sbox.repo_url + "/A"
   other_wc_dir = sbox.add_wc_path("other")
   svntest.actions.run_and_verify_svn(None, None, [], "co", A_url, other_wc_dir)
-
+  
   # Delete 'A' directory from repository
   svntest.actions.run_and_verify_svn(None, None, [], "rm", A_url, "-m", "")
 
@@ -4795,7 +4795,7 @@ def mergeinfo_updates_merge_with_local_mods(sbox):
                                      sbox.repo_url + '/A', A_COPY_path)
   svntest.actions.run_and_verify_svn(None, [A_COPY_path + " - /A:3\n"], [],
                                      'pg', SVN_PROP_MERGEINFO, '-R',
-                                     A_COPY_path)
+                                     A_COPY_path) 
 
   # Update the WC (to r8), the mergeinfo on A_COPY should now have both
   # the local mod from the uncommitted merge (/A:3* --> /A:3) and the change
