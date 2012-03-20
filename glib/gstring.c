@@ -21,10 +21,10 @@
  * Modified by the GLib Team and others 1997-1999.  See the AUTHORS
  * file for a list of people on the GLib Team.  See the ChangeLog
  * files for a list of changes.  These files are distributed with
- * GLib at ftp://ftp.gtk.org/pub/gtk/.
+ * GLib at ftp://ftp.gtk.org/pub/gtk/. 
  */
 
-/*
+/* 
  * MT safe
  */
 
@@ -73,11 +73,11 @@ g_str_hash (gconstpointer key)
 {
   const char *p = key;
   guint h = *p;
-
+  
   if (h)
     for (p += 1; *p != '\0'; p++)
       h = (h << 5) - h + *p;
-
+  
   return h;
 }
 
@@ -260,7 +260,7 @@ g_string_assign (GString *lval,
 {
   g_return_val_if_fail (lval != NULL, NULL);
   g_return_val_if_fail (rval != NULL, NULL);
-
+  
   g_string_truncate (lval, 0);
   g_string_append (lval, rval);
 
@@ -292,7 +292,7 @@ g_string_append (GString *fstring,
 
   g_return_val_if_fail (string != NULL, NULL);
   g_return_val_if_fail (val != NULL, fstring);
-
+  
   len = strlen (val);
   g_string_maybe_expand (string, len);
 
@@ -429,7 +429,7 @@ g_string_erase (GString *fstring,
     g_memmove (string->str + pos, string->str + pos + len, string->len - (pos + len));
 
   string->len -= len;
-
+  
   string->str[string->len] = 0;
 
   return fstring;
