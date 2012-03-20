@@ -1480,7 +1480,7 @@ svn_fs_fs__hotcopy(const char *src_path,
               err2 = svn_dirent_get_absolute(&dst_abspath, dst_path, pool);
               if (err2)
                 return svn_error_compose_create(err, err2);
-
+              
               /* ### hack: strip off the 'db/' directory from paths so
                * ### they make sense to the user */
               src_abspath = svn_dirent_dirname(src_abspath, pool);
