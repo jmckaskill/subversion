@@ -17,13 +17,13 @@
 <refsect1><title>Description</title>
 
 <para>In variablelists, the <sgmltag>listitem</sgmltag>
-is indented to leave room for the
+is indented to leave room for the 
 <sgmltag>term</sgmltag> elements. That indent may be computed
 if it is not specified with a <sgmltag class="attribute">termlength</sgmltag>
 attribute on the <sgmltag>variablelist</sgmltag> element.
 </para>
 <para>
-The computation counts characters in the
+The computation counts characters in the 
 <sgmltag>term</sgmltag> elements in the list
 to find the longest term.  However, some terms are very long
 and would produce extreme indents.  This parameter lets you
