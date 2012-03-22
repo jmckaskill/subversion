@@ -126,7 +126,7 @@ public class Text extends StyleElement {
       int i = 0;
       int carry = -1;
 
-      while ((len = is.read(chars)) > 0)
+      while ((len = is.read(chars)) > 0) 
       {
 	// various new lines are normalized to LF to prevent blank lines between lines
 	int nlen = 0;
