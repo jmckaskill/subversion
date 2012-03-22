@@ -450,7 +450,7 @@ def post_candidates(args):
     target_url = 'https://dist.apache.org/repos/dist/dev/subversion'
     logging.info('Importing tarballs to %s' % target_url)
     proc = subprocess.Popen(['svn', 'import', '-m',
-                             'Add %s candidate release artifacts'
+                             'Add %s candidate release artifacts' 
                                % args.version.base,
                             get_deploydir(args.base_dir), target_url])
     (stdout, stderr) = proc.communicate()
