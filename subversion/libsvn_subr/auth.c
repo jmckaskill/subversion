@@ -731,7 +731,7 @@ decrypt_text(const svn_string_t **text,
                              result_pool);
   return SVN_NO_ERROR;
 }
-
+             
 
 svn_error_t *
 svn_auth_master_passphrase_get(const char **passphrase,
