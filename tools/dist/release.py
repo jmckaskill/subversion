@@ -479,7 +479,7 @@ def post_candidates(args):
 
     logging.info('Importing tarballs to %s' % dist_dev_url)
     proc = subprocess.Popen(['svn', 'import', '-m',
-                             'Add %s candidate release artifacts'
+                             'Add %s candidate release artifacts' 
                                % args.version.base,
                             get_deploydir(args.base_dir), dist_dev_url])
     (stdout, stderr) = proc.communicate()
