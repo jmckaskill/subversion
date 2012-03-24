@@ -7956,7 +7956,7 @@ svn_fs_fs__verify(svn_fs_t *fs,
         svn_pool_clear(iterpool);
 
       	/* ### TODO: Make sure caches are disabled.
-
+      	   
       	   When this code is called in the library, we want to ensure we
       	   use the on-disk data --- rather than some data that was read
       	   in the possibly-distance past and cached since. */

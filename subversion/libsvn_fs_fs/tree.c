@@ -3825,7 +3825,7 @@ verify_node(dag_node_t *node,
         return svn_error_createf(SVN_ERR_FS_CORRUPT, NULL,
                                  "Predecessor count mismatch: "
                                  "%s has %d, but %s has %d",
-                                 stringify_node(node, iterpool), pred_count,
+                                 stringify_node(node, iterpool), pred_count, 
                                  stringify_node(pred, iterpool), pred_pred_count);
     }
 
