@@ -16,7 +16,7 @@ libsvn_client_la_SOURCES = checkout.c update.c apply_edits.c \
 
 ## Build flags ---------
 
-INCLUDES = @SVN_INCLUDES@ @SVN_APR_INCLUDES@ @SVN_EXPAT_INCLUDES@
+INCLUDES = @SVN_INCLUDES@ @SVN_APR_INCLUDES@ @SVN_EXPAT_INCLUDES@ 
 
 ## Make libtool be quiet
 LIBTOOL = @LIBTOOL@ --silent
