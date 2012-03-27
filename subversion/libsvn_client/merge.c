@@ -11108,7 +11108,7 @@ find_base_on_source(repo_location_t **base_p,
 
 /* Find a merge base location on the target branch, like in a reintegrate
  * merge.
- *
+ * 
  *                     MID    RIGHT
  *          o-----------o-------o---
  *         /    prev.  /         \
@@ -11120,7 +11120,7 @@ find_base_on_source(repo_location_t **base_p,
  * Set *BASE_P to the latest location on the history of S_T->target at
  * which all revisions up to *BASE_P are recorded as merged into RIGHT
  * (which is S_T->source).
- *
+ * 
  * ### TODO: Set *MID_P to the first location on the history of
  * S_T->source at which all revisions up to BASE_P are recorded as merged.
  */
