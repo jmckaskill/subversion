@@ -1541,12 +1541,12 @@ svn_cl__check_cancel(void *baton)
 }
 
 /* Initialize the APR cryptography subsystem (if available), using
-   POOL for the registration of cleanups, shutdowns, etc.
-
+   POOL for the registration of cleanups, shutdowns, etc. 
+   
    ### Maybe this should move to one of our library initialization routines
    ### or an atomic initializer from the new api, in order not to break
    ### backwards compatibility with older api users.
-
+   
    ### If not this should be duplicated in svnsync, svnmucc, javahl, the swig
    ### bindings, etc. etc. when we switch to the master password.
    */
