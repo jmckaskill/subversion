@@ -96,7 +96,7 @@ get_random_bytes(void **rand_bytes,
   apr_err = apr_random_secure_bytes(apr_rand, *rand_bytes, rand_len);
   if (apr_err != APR_SUCCESS)
     return svn_error_create(apr_err, NULL, _("Error obtaining random data"));
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -158,7 +158,7 @@ svn_crypto__encrypt_cstring(unsigned char **ciphertext,
   const unsigned char *prefix;
   apr_crypto_block_t *block_ctx = NULL;
   apr_size_t block_size = 0, encrypted_len = 0;
-
+ 
   SVN_ERR_ASSERT(ctx != NULL);
 
   /* Generate the salt. */
@@ -215,7 +215,7 @@ svn_crypto__encrypt_cstring(unsigned char **ciphertext,
                              _("Error finalizing block encryption"));
       goto cleanup;
     }
-
+  
  cleanup:
   apr_crypto_block_cleanup(block_ctx);
   return err;
