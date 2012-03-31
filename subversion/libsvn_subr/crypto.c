@@ -171,7 +171,7 @@ svn_crypto__encrypt_cstring(unsigned char **ciphertext,
   const unsigned char *prefix;
   apr_crypto_block_t *block_ctx = NULL;
   apr_size_t block_size = 0, encrypted_len = 0;
-
+ 
   SVN_ERR_ASSERT(ctx != NULL);
 
   /* Generate the salt. */
@@ -228,7 +228,7 @@ svn_crypto__encrypt_cstring(unsigned char **ciphertext,
                              _("Error finalizing block encryption"));
       goto cleanup;
     }
-
+  
  cleanup:
   apr_crypto_block_cleanup(block_ctx);
   return err;
