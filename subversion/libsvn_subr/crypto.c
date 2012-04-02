@@ -145,7 +145,7 @@ get_random_bytes(const unsigned char **rand_bytes,
 #if APR_HAS_RANDOM
   apr_status_t apr_err;
   unsigned char *bytes;
-
+  
   bytes = apr_palloc(result_pool, rand_len);
   apr_err = apr_generate_random_bytes(bytes, rand_len);
   if (apr_err != APR_SUCCESS)
@@ -303,10 +303,10 @@ svn_crypto__encrypt_password(const svn_string_t **ciphertext,
       memcpy(assembled + PREFIX_LEN, password, password_len);
       *(assembled + PREFIX_LEN + password_len) = '\0';
       memcpy(assembled + PREFIX_LEN + password_len + 1, padding, pad_len);
-    }
-
+    }      
+    
   /* Get the length that we need to allocate.  */
-  apr_err = apr_crypto_block_encrypt(NULL, &result_len, assembled,
+  apr_err = apr_crypto_block_encrypt(NULL, &result_len, assembled, 
                                      assembled_len, block_ctx);
   if (apr_err != APR_SUCCESS)
     {
@@ -378,7 +378,7 @@ svn_crypto__decrypt_password(const char **plaintext,
   if (apr_err != APR_SUCCESS)
     return svn_error_trace(crypto_error_create(
                                ctx, apr_err, _("Error creating derived key")));
-
+  
   apr_err = apr_crypto_block_decrypt_init(&block_ctx, &block_size,
                                           (unsigned char *)iv->data,
                                           key, scratch_pool);
