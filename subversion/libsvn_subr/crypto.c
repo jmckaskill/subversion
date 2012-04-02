@@ -145,7 +145,7 @@ get_random_bytes(const unsigned char **rand_bytes,
 #if APR_HAS_RANDOM
   apr_status_t apr_err;
   unsigned char *bytes;
-
+  
   bytes = apr_palloc(result_pool, rand_len);
   apr_err = apr_generate_random_bytes(bytes, rand_len);
   if (apr_err != APR_SUCCESS)
