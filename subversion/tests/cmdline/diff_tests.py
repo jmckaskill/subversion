@@ -3870,7 +3870,7 @@ def diff_two_working_copies(sbox):
                       "@@ -1 +0,0 @@\n",
                       "-This is the file 'psi'.\n",
                     ]
-
+                    
   svntest.actions.run_and_verify_svn(None, expected_output, [],
                                      'diff', '--old', wc_dir_old,
                                      '--new', wc_dir)
