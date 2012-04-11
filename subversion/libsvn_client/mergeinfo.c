@@ -1353,7 +1353,7 @@ struct filter_log_entry_baton_t
 
    Call the wrapped log receiver BATON->log_receiver (with
    BATON->log_receiver_baton) if:
-
+   
    BATON->FILTERING_MERGED is FALSE and the changes represented by LOG_ENTRY
    have been fully merged from BATON->MERGE_SOURCE_PATHS to the WC target
    based on the mergeinfo for the WC contained in BATON->TARGET_MERGEINFO_CATALOG.
@@ -1803,7 +1803,7 @@ svn_client_mergeinfo_log(svn_boolean_t finding_merged,
   /* Open RA sessions to the repository for the source and target.
    * ### TODO: As the source and target must be in the same repository, we
    * should share a single session, tracking the two URLs separately. */
-
+  
   if (!finding_merged)
     {
       svn_revnum_t target_peg_revnum;
@@ -1815,7 +1815,7 @@ svn_client_mergeinfo_log(svn_boolean_t finding_merged,
                                                target_peg_revision,
                                                target_peg_revision,
                                                ctx, scratch_pool));
-
+      
       SVN_ERR(svn_client__get_history_as_mergeinfo(&target_history, NULL,
                                                    target_peg_revnum,
                                                    SVN_INVALID_REVNUM,

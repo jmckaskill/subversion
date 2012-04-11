@@ -3043,7 +3043,7 @@ svn_wc_entry_dup(const svn_wc_entry_t *entry,
  */
 typedef struct svn_wc_info_t
 {
-  /** The schedule of this item
+  /** The schedule of this item 
    * ### Do we still need schedule? */
   svn_wc_schedule_t schedule;
 
@@ -3641,7 +3641,7 @@ typedef struct svn_wc_status3_t
    * This will be NULL for moved-here nodes that are just part of a subtree
    * that was moved along (and are not themselves a root of a different move
    * operation).
-   *
+   * 
    * @since New in 1.8. */
   const char *moved_from_abspath;
 
@@ -7861,7 +7861,7 @@ svn_wc_exclude(svn_wc_context_t *wc_ctx,
  * allocations.
  *
  * If @a abspath is not under version control, set @a kind to #svn_node_none.
- *
+ * 
  * Like svn_wc_read_kind2() except for the base rather than the working
  * version.
  *
@@ -7901,7 +7901,7 @@ svn_wc_read_kind2(svn_kind_t *kind,
 
 /* Like svn_wc_read_kind2() but using svn_node_kind_t and thus reporting
  * symlinks as files.
- *
+ * 
  * @deprecated Provided for backward compatibility with the 1.6 API.
  * @since New in 1.7.
  */
