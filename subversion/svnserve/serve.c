@@ -1457,7 +1457,7 @@ static svn_error_t *get_file(svn_ra_svn_conn_t *conn, apr_pool_t *pool,
           SVN_ERR(svn_ra_svn_write_proplist(conn, pool, iprop->prop_hash));
           SVN_ERR(svn_ra_svn_write_tuple(conn, pool, "!))!",
                                          iprop->path_or_url));
-        }
+        }  
     }
 
   SVN_ERR(svn_ra_svn_write_tuple(conn, pool, "!))"));
@@ -1636,7 +1636,7 @@ static svn_error_t *get_dir(svn_ra_svn_conn_t *conn, apr_pool_t *pool,
               /* created_rev, last_author, time */
               SVN_CMD_ERR(svn_repos_get_committed_info(&created_rev,
                                                        &cdate,
-                                                       &last_author,
+                                                       &last_author, 
                                                        root,
                                                        file_path,
                                                        subpool));
@@ -1672,7 +1672,7 @@ static svn_error_t *get_dir(svn_ra_svn_conn_t *conn, apr_pool_t *pool,
           SVN_ERR(svn_ra_svn_write_proplist(conn, pool, iprop->prop_hash));
           SVN_ERR(svn_ra_svn_write_tuple(conn, pool, "!))!",
                                          iprop->path_or_url));
-        }
+        }  
     }
 
   /* Finish response. */
@@ -2950,7 +2950,7 @@ get_inherited_props(svn_ra_svn_conn_t *conn,
       SVN_ERR(svn_ra_svn_write_proplist(conn, pool, iprop->prop_hash));
       SVN_ERR(svn_ra_svn_write_tuple(conn, pool, "!))!",
                                      iprop->path_or_url));
-    }
+    }  
 
   SVN_ERR(svn_ra_svn_write_tuple(conn, pool, "!))"));
   return SVN_NO_ERROR;
