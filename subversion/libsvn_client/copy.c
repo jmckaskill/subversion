@@ -667,7 +667,7 @@ drive_editor(svn_editor_t *editor,
       for (i = 0; i < new_dirs->nelts; i++)
         {
           const char *dir = APR_ARRAY_IDX(new_dirs, i, const char *);
-
+         
           /* ### The children param needs to be populated correctly. */
           SVN_ERR(svn_editor_add_directory(editor, dir, children, props,
                                            SVN_INVALID_REVNUM));
