@@ -69,7 +69,7 @@ init_test_shm(apr_pool_t *pool)
       name_namespace1 = apr_pstrcat(global_pool, name_namespace, "1", NULL);
       name_namespace2 = apr_pstrcat(global_pool, name_namespace, "2", NULL);
     }
-
+    
   /* get the two I/O atomics for this thread */
   SVN_ERR(svn_atomic_namespace__create(&ns, name_namespace, scratch));
   SVN_ERR(svn_named_atomic__get(&atomic, ns, ATOMIC_NAME, TRUE));
@@ -291,7 +291,7 @@ calibrate_iterations(apr_pool_t *pool, int count)
   double taken = 0.0;
 
   /* increase iterations until we pass the 100ms mark */
-
+  
   for (calib_iterations = 1000; taken < 100000.0; calib_iterations *= 2)
     {
       SVN_ERR(init_concurrency_test_shm(pool, count));
@@ -303,7 +303,7 @@ calibrate_iterations(apr_pool_t *pool, int count)
     }
 
   /* scale that to 1s */
-
+    
   suggested_iterations = (int)(1000000.0 / taken * calib_iterations);
 
   return SVN_NO_ERROR;
@@ -349,7 +349,7 @@ calibrate_concurrency(apr_pool_t *pool)
                 }
             }
         }
-
+        
       printf("using %d cores for %d iterations\n", hw_thread_count,
                                                    suggested_iterations);
   }
@@ -400,14 +400,14 @@ test_basics(apr_pool_t *pool)
     return SVN_NO_ERROR;
 
   SVN_ERR(init_test_shm(pool));
-
+  
   /* Use a separate namespace for our tests isolate them from production */
   SVN_ERR(svn_atomic_namespace__create(&ns, name_namespace, pool));
 
   /* Test a non-exisiting atomic */
   SVN_ERR(svn_named_atomic__get(&atomic, ns, ATOMIC_NAME "x", FALSE));
   SVN_TEST_ASSERT(atomic == NULL);
-
+  
   /* Now, we auto-create it */
   SVN_ERR(svn_named_atomic__get(&atomic, ns, ATOMIC_NAME, TRUE));
   SVN_TEST_ASSERT(atomic != NULL);
@@ -649,7 +649,7 @@ test_multithreaded(apr_pool_t *pool)
 
   SVN_ERR(init_concurrency_test_shm(pool, hw_thread_count));
   SVN_ERR(run_threads(pool, hw_thread_count, suggested_iterations, test_pipeline));
-
+  
   return SVN_NO_ERROR;
 }
 #endif
@@ -688,10 +688,10 @@ struct svn_test_descriptor_t test_funcs[] =
                    "basic r/w access to multiple atomics"),
     SVN_TEST_PASS2(test_namespaces,
                    "use different namespaces"),
-#ifdef APR_HAS_THREADS
+#ifdef APR_HAS_THREADS                
     SVN_TEST_PASS2(test_multithreaded,
                    "multithreaded access to atomics"),
-#endif
+#endif                   
     SVN_TEST_PASS2(test_multiprocess,
                    "multi-process access to atomics"),
     SVN_TEST_NULL
