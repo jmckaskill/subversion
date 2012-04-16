@@ -81,7 +81,7 @@ svn_atomic_namespace__create(svn_atomic_namespace__t **ns,
  * depends on @a auto_create.  If it is @c FALSE, @a *atomic will be set
  * to @c NULL. Otherwise, a new atomic will be created, its value set to 0
  * and the access structure be returned in @a *atomic.
- *
+ * 
  * Note that @a name must not exceed @ref SVN_NAMED_ATOMIC__MAX_NAME_LENGTH
  * characters and an error will be returned if the specified name is longer
  * than supported.
@@ -109,7 +109,7 @@ svn_named_atomic__read(apr_int64_t *value,
 
 /** Set the data in @a atomic to @a NEW_VALUE and return its old content
  * in @a OLD_VALUE.  @a OLD_VALUE may be NULL.
- *
+ * 
  * An error will be returned if @a atomic is @c NULL.
  */
 svn_error_t *
@@ -119,7 +119,7 @@ svn_named_atomic__write(apr_int64_t *old_value,
 
 /** Add @a delta to the data in @a atomic and return its new value in
  * @a NEW_VALUE.  @a NEW_VALUE may be NULL.
- *
+ * 
  * An error will be returned if @a atomic is @c NULL.
  */
 svn_error_t *
@@ -130,7 +130,7 @@ svn_named_atomic__add(apr_int64_t *new_value,
 /** If the current data in @a atomic equals @a comperand, set it to
  * @a NEW_VALUE.  Return the initial value in @a OLD_VALUE.
  * @a OLD_VALUE may be NULL.
- *
+ * 
  * An error will be returned if @a atomic is @c NULL.
  */
 svn_error_t *
