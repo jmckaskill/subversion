@@ -483,6 +483,8 @@ test_bignums(apr_pool_t *pool)
   if (!has_sufficient_privileges())
     return SVN_NO_ERROR;
 
+  SVN_ERR(init_test_shm(pool));
+
   /* Use a separate namespace for our tests isolate them from production */
   SVN_ERR(svn_atomic_namespace__create(&ns, name_namespace, pool));
 
@@ -536,6 +538,8 @@ test_multiple_atomics(apr_pool_t *pool)
   /* skip tests if the current user does not have the requried privileges */
   if (!has_sufficient_privileges())
     return SVN_NO_ERROR;
+
+  SVN_ERR(init_test_shm(pool));
 
   /* Use a separate namespace for our tests isolate them from production */
   SVN_ERR(svn_atomic_namespace__create(&ns, name_namespace, pool));
@@ -603,6 +607,8 @@ test_namespaces(apr_pool_t *pool)
   if (!has_sufficient_privileges())
     return SVN_NO_ERROR;
 
+  SVN_ERR(init_test_shm(pool));
+
   /* Use a separate namespace for our tests isolate them from production */
   SVN_ERR(svn_atomic_namespace__create(&test_namespace1, name_namespace1, pool));
   SVN_ERR(svn_atomic_namespace__create(&test_namespace1_alias, name_namespace1, pool));
@@ -645,6 +651,8 @@ test_multithreaded(apr_pool_t *pool)
   if (!has_sufficient_privileges())
     return SVN_NO_ERROR;
 
+  SVN_ERR(init_test_shm(pool));
+
   SVN_ERR(calibrate_concurrency(pool));
 
   SVN_ERR(init_concurrency_test_shm(pool, hw_thread_count));
@@ -660,6 +668,8 @@ test_multiprocess(apr_pool_t *pool)
   /* skip tests if the current user does not have the requried privileges */
   if (!has_sufficient_privileges())
     return SVN_NO_ERROR;
+
+  SVN_ERR(init_test_shm(pool));
 
   SVN_ERR(calibrate_concurrency(pool));
 
