@@ -10,15 +10,15 @@ actions required to (re)build a version history. from scratch.
 The goal of this document is that it be sufficient for people writing
 dumpfile interpreters to emulate the actions the dumpfile describes on
 a versioned filesystem-like store, such as another version-control
-system.  It derives from and incorporates some incomplete notes from
+system.  It derives from and incorporates some incomplete notes from 
 before r39883.
 
 1. In interpreting a Node record which has both a copyfrom source and
 a property section, it is possible that the copy source node itself
 has a property section.  How are they to be combined?
 
-Also note that the section on the semantics of kinds of operations
-documents a minor bug at r39883 in the behavior of "add", which
+Also note that the section on the semantics of kinds of operations 
+documents a minor bug at r39883 in the behavior of "add", which 
 should be fixed.
 
 == Syntax ==
@@ -51,12 +51,12 @@ looks like this:
 SVN-fs-dump-format-version: <N>\n
 -------------------------------------------------------------------
 
-where <N> is replaced by the dump format version. Except where
+where <N> is replaced by the dump format version. Except where 
 specified, the descriptions in this document aapply to all
 versions of the format.
 
 Versions 2 and later may have a UUID record following the version
-stamp. It is of the form
+stamp. It is of the form 
 
 -------------------------------------------------------------------
 UUID: <hex-string>
@@ -87,7 +87,7 @@ A revision record is followed by one or more Node records (see below).
 === Property sections ==
 
 A Revision record *must* have a property section, and a Node record *may*
-have a property section. Every record with a property section has
+have a property section. Every record with a property section has 
 a Prop-content-length header.
 
 A property section consists of pairs of key and value records and
@@ -112,7 +112,7 @@ PROPS-END
 
 The fixed trailer is "PROPS-END\n" and its length is included in the
 Prop-content-length. Before it, each K and V record consists of a
-header line giving the length of the key or value content in bytes.
+header line giving the length of the key or value content in bytes.  
 The content follows.  The content is itself always followed by \n.
 
 In version 3 of the format, a third type 'D' of property record is
@@ -141,15 +141,15 @@ Node-action: {change | add | delete | replace}
 Bracketing in [] indicates optional lines; { | } is an alternation group.
 
 Dump decoders should be prepared for the optional lines after
-Node-action to be in any order, except that Content-length is
+Node-action to be in any order, except that Content-length is 
 always last if it present.
 
 A Node record describes an action on a path relative to the repository
 root, and always begins with the Node-path specification.
 
 The Node-kind line indicates whether the path is a file or directory.
-The header value will be one of the strings "file" or "dir".
-This header may be (and usually is) absent if the node action is a delete.
+The header value will be one of the strings "file" or "dir". 
+This header may be (and usually is) absent if the node action is a delete.  
 
 The Node-action line is always present and specifies the type of
 operation for this node.  The header value is one of the strings
@@ -172,7 +172,7 @@ Zero is a legal value for this length, indicating an empty file.
 Prop-content-length will be present only when there is a properties section.
 
 Content-length will be present if there is either a text or a
-properties section.  This is not always the case.  In particular,
+properties section.  This is not always the case.  In particular, 
 a delete operation cannot have either.  Some other operations that use
 copyfrom sources may also not have either.
 
@@ -192,7 +192,7 @@ kinds of paths in a dumpfile; node paths and copy sources.
 
 Properties are key-value pairs associated with revisions or paths.
 Subversion interprets and reserves some properties, those beginning
-with "svn:". Others are not interpreted by Subversion; they may
+with "svn:". Others are not interpreted by Subversion; they may 
 may be set and read for the convenience of other applications, such
 as repository browsers or translators.
 
@@ -221,7 +221,7 @@ historically ambiguous.  Sometimes it refers to what this document
 calls a "flow", and sometimes it refers to the internal per-revision
 structure that a Node record represents (that is, just one action in a
 flow).  For clarity, most of this document avoids the term "node" in
-favor of the more specific "flow" and "Node record", but knowing
+favor of the more specific "flow" and "Node record", but knowing 
 about this issue will help if you read the Ancient History section.
 
 === The kinds of operations ===
@@ -232,8 +232,8 @@ about this issue will help if you read the Ancient History section.
 |Can have text section?     | optional |   no   | optional | optional |
 |Can have property section? | optional |   no   | optional | optional |
 |Can have copy source?      | optional |   no   | optional |    no    |
-|Fails on existent path     |   yes*   |   no   |    no    |    no    |
-|Fails on non-existent path |    no    |  yes   |   yes    |   yes    |
+|Fails on existent path     |   yes*   |   no   |    no    |    no    |   
+|Fails on non-existent path |    no    |  yes   |   yes    |   yes    |   
 |======================================================================
 
 * As of December 2011 there is a minor bug: Adding a file with history
@@ -245,8 +245,8 @@ twice _in two different revisions_ succeeds silently.
 |Can have text section?     |    no    |   no   |    no    |    no    |
 |Can have property section? | optional |   no   | optional | required |
 |Can have copy source?      | optional |   no   | optional |    no    |
-|Fails on existent path     |   yes    |   no   |    no    |    no    |
-|Fails on non-existent path |    no    |  yes   |   yes    |   yes    |
+|Fails on existent path     |   yes    |   no   |    no    |    no    |   
+|Fails on non-existent path |    no    |  yes   |   yes    |   yes    |   
 |======================================================================
 
 A Node record represents an operation that does one of four things: add,
@@ -289,7 +289,7 @@ actions on the same path.
 
 It is even possible to have a replace with a copyfrom source *and*
 text, such as would result from this on the client side:
-
+ 
 -------------------------------------------------------------------
 $ svn rm dir/file.txt
 $ svn cp otherdir/otherfile.txt dir/file.txt
@@ -329,7 +329,7 @@ the file a/b/c/d will have been be copied to x/y/z/d.
 
 A single revision may include multiple copyfrom Node records, even multiple
 copyfroms to the same directory, even mixed directory and file copies
-to the same directory.
+to the same directory. 
 
 === Properties and persistence ===
 
@@ -337,8 +337,8 @@ The properties section of a Revision record consists of some subset
 of the three reserved per-commit properties: svn:author, svn:date,
 and svn.log. These properties do not persist to later revisions.
 
-The key thing to know about Node properties is that they are
-persistent, once set, until modified by a future property
+The key thing to know about Node properties is that they are 
+persistent, once set, until modified by a future property 
 section on the same path.
 
 Normally, a dumpfile re-lists the entire property set for a directory
@@ -360,9 +360,9 @@ the paths in the file store it is manipulating, and update that map as
 it processes each Node record.
 
 On a repository with thousands of commits, the per-revision list of
-maps can become quite large. For space economy, the file map for each
+maps can become quite large. For space economy, the file map for each 
 revision can be discarded after it is processed *unless it is a source
-revision for a copyfrom*.
+revision for a copyfrom*. 
 
 == An example ==
 
@@ -430,13 +430,13 @@ Notice that this file has no properties.
 
 === Version 3 format ===
 
-Version 3 format is a delta dump; text changes are represented
+Version 3 format is a delta dump; text changes are represented 
 as diffs against the original file, and properties as incremental
 changes to a persistent set (that is, a property section does not
 necessarily implcitly clear the property set on a path before the
 new property settings are evaluated).
 
-This change is a space optimization. It requires additional
+This change is a space optimization. It requires additional 
 computing time to integrate the diff history.
 
 Version 3 is generated by SVN versions 1.1.0-present, if requested by the user.
@@ -498,7 +498,7 @@ unlikely that any Subversion instances that old remain in production.
 
 == Ancient history ==
 
-Old discussion:
+Old discussion: 
 
 (This file started as a proposal, preserved here for posterity.)
 
@@ -537,11 +537,11 @@ would be stored in our dump format.
   - A revision has a tree of "nodes" hanging off of it.
     Actually, the nodes in the filesystem form a DAG.  A revision
     always points to an initial node that represents the 'root' of some tree.
-
+ 
   - The majority of a tree's nodes are hard-links (references) to
     nodes that were created in earlier trees.
 
-  - A node contains
+  - A node contains 
 
         - versioned text
         - versioned properties
