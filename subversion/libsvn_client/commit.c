@@ -804,7 +804,7 @@ svn_client_import5(const char *path,
       APR_ARRAY_PUSH(new_entries, const char *) = dir;
       url = temp;
       SVN_ERR(svn_ra_reparent(ra_session, url, iterpool));
-
+  
       SVN_ERR(svn_ra_check_path(ra_session, "", SVN_INVALID_REVNUM, &kind,
                                 iterpool));
     }
