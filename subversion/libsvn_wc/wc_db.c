@@ -60,6 +60,7 @@
  * Some filename constants.
  */
 #define SDB_FILE  "wc.db"
+#define PDB_FILE  "pristine.db"
 
 #define WCROOT_TEMPDIR_RELPATH   "tmp"
 
@@ -1511,6 +1512,7 @@ svn_wc__db_init(svn_wc__db_t *db,
                 apr_pool_t *scratch_pool)
 {
   svn_sqlite__db_t *sdb;
+  svn_sqlite__db_t *pdb;
   apr_int64_t repos_id;
   apr_int64_t wc_id;
   svn_wc__db_wcroot_t *wcroot;
@@ -1528,6 +1530,10 @@ svn_wc__db_init(svn_wc__db_t *db,
   /* Create the SDB and insert the basic rows.  */
   SVN_ERR(create_db(&sdb, &repos_id, &wc_id, local_abspath, repos_root_url,
                     repos_uuid, SDB_FILE, db->state_pool, scratch_pool));
+
+  /* Create the PDB. */
+  SVN_ERR(create_pristine_db(&pdb, local_abspath, repos_root_url,
+                    PDB_FILE, db->state_pool, scratch_pool));
 
   /* Create the WCROOT for this directory.  */
   SVN_ERR(svn_wc__db_pdh_create_wcroot(&wcroot,
