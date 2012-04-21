@@ -1436,7 +1436,7 @@ create_pristine_db(svn_sqlite__db_t **pdb,
 
   /* TODO: Sqlite statements must be auto-generated from an SQL file. */
   /* Temporarily hardcoded here.
-
+  
   /* Allocate MY_STATEMENTS in RESULT_POOL because the PDB will continue to
    * refer to it over its lifetime. */
   my_statements = apr_palloc(result_pool, 6 * sizeof(const char *));
@@ -1445,7 +1445,7 @@ create_pristine_db(svn_sqlite__db_t **pdb,
   my_statements[i++] = "CREATE TABLE pristine (digest CHAR(40) PRIMARY KEY, data BLOB)";
   my_statements[i++] = "INSERT INTO pristine (digest, data) VALUES (?, ?)";
   my_statements[i] = NULL;
-
+  
   SVN_ERR(svn_wc__db_util_open_db(pdb, dir_abspath, pdb_fname,
                                   svn_sqlite__mode_rwcreate,
                                   my_statements,
@@ -6398,7 +6398,7 @@ struct op_delete_baton_t {
 };
 
 /* This structure is used while rewriting move information for nodes.
- *
+ * 
  * The most simple case of rewriting move information happens when
  * a moved-away subtree is moved again:  mv A B; mv B C
  * The second move requires rewriting moved-to info at or within A.
@@ -7596,7 +7596,7 @@ read_children_info(void *baton,
           child_item->info.have_more_work = (child_item->nr_layers > 1);
 
           /* Moved-to can only exist at op_depth > 0. */
-          moved_to_relpath = svn_sqlite__column_text(stmt, 21, NULL);
+          moved_to_relpath = svn_sqlite__column_text(stmt, 21, NULL); 
           if (moved_to_relpath)
             child_item->info.moved_to_abspath =
               svn_dirent_join(wcroot->abspath, moved_to_relpath, result_pool);
@@ -10238,7 +10238,7 @@ get_moved_to(struct scan_deletion_baton_t *b,
   if (moved_to_relpath)
     {
       const char *moved_to_op_root_relpath = moved_to_relpath;
-
+           
       if (strcmp(current_relpath, local_relpath))
         {
           /* LOCAL_RELPATH is a child inside the move op-root. */
@@ -10385,7 +10385,7 @@ scan_deletion_txn(void *baton,
       SVN_ERR(svn_sqlite__reset(stmt));
 
       /* Now CURRENT_RELPATH is an op-root, have a look at the parent. */
-
+ 
       SVN_ERR_ASSERT(current_relpath[0] != '\0'); /* Catch invalid data */
       parent_relpath = svn_relpath_dirname(current_relpath, scratch_pool);
       SVN_ERR(svn_sqlite__get_statement(&stmt, wcroot->sdb,
