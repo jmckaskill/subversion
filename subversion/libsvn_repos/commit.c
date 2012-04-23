@@ -813,7 +813,7 @@ kind_fetch_func(svn_kind_t *kind,
   *kind = svn__kind_from_node_kind(node_kind, FALSE);
 
   return SVN_NO_ERROR;
-}
+} 
 
 
 
