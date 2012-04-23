@@ -1,5 +1,5 @@
 /*
- *  util.c: A collection of utility functions for svnrdump.
+ *  util.c: A few utility functions.
  *
  * ====================================================================
  *    Licensed to the Apache Software Foundation (ASF) under one
@@ -21,7 +21,42 @@
  * ====================================================================
  */
 
-#include "svn_repos.h"
-#include "svn_hash.h"
+#include "svn_error.h"
+#include "svn_pools.h"
+#include "svn_string.h"
+#include "svn_props.h"
+#include "svn_subst.h"
 
 #include "svnrdump.h"
+
+
+svn_error_t *
+svn_rdump__normalize_props(apr_hash_t **normal_props,
+                           apr_hash_t *props,
+                           apr_pool_t *result_pool)
+{
+  apr_hash_index_t *hi;
+
+  *normal_props = apr_hash_make(result_pool);
+
+  for (hi = apr_hash_first(result_pool, props); hi;
+        hi = apr_hash_next(hi))
+    {
+      const char *key = svn__apr_hash_index_key(hi);
+      const svn_string_t *value = svn__apr_hash_index_val(hi);
+
+      if (svn_prop_needs_translation(key))
+        {
+          const char *cstring;
+
+          SVN_ERR(svn_subst_translate_cstring2(value->data, &cstring,
+                                               "\n", TRUE,
+                                               NULL, FALSE,
+                                               result_pool));
+          value = svn_string_create(cstring, result_pool);
+        }
+
+      apr_hash_set(*normal_props, key, APR_HASH_KEY_STRING, value);
+    }
+  return SVN_NO_ERROR;
+}

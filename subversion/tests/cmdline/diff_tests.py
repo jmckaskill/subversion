@@ -30,10 +30,15 @@ import sys, re, os, time
 
 # Our testing module
 import svntest
+from svntest import err
 
 # (abbreviation)
-Skip = svntest.testcase.Skip
-XFail = svntest.testcase.XFail
+Skip = svntest.testcase.Skip_deco
+SkipUnless = svntest.testcase.SkipUnless_deco
+XFail = svntest.testcase.XFail_deco
+Issues = svntest.testcase.Issues_deco
+Issue = svntest.testcase.Issue_deco
+Wimp = svntest.testcase.Wimp_deco
 Item = svntest.wc.StateItem
 
 
@@ -785,7 +790,7 @@ def diff_only_property_change(sbox):
 # Regression test for issue #1019: make sure we don't try to display
 # diffs when the file is marked as a binary type.  This tests all 3
 # uses of 'svn diff':  wc-wc, wc-repos, repos-repos.
-
+@Issue(1019)
 def dont_diff_binary_file(sbox):
   "don't diff file marked as binary type"
 
@@ -937,7 +942,7 @@ def diff_head_of_moved_file(sbox):
 # Regression test for issue #977: make 'svn diff -r BASE:N' compare a
 # repository tree against the wc's text-bases, rather than the wc's
 # working files.  This is a long test, which checks many variations.
-
+@Issue(977)
 def diff_base_to_repos(sbox):
   "diff text-bases against repository"
 
@@ -1135,7 +1140,7 @@ def diff_base_to_repos(sbox):
 #----------------------------------------------------------------------
 # This is a simple regression test for issue #891, whereby ra_neon's
 # REPORT request would fail, because the object no longer exists in HEAD.
-
+@Issue(891)
 def diff_deleted_in_head(sbox):
   "repos-repos diff on item deleted from HEAD"
 
@@ -1234,7 +1239,7 @@ def diff_targets(sbox):
                                                             update_path,
                                                             add_path)
 
-  regex = 'svn: Unable to find repository location for \'.*\''
+  regex = 'svn: E195012: Unable to find repository location for \'.*\''
   for line in err_output:
     if re.match(regex, line):
       break
@@ -1253,7 +1258,7 @@ def diff_targets(sbox):
   exit_code, diff_output, err_output = svntest.main.run_svn(
     1, 'diff', '-r1:2', '--old', parent_path, 'alpha', 'theta')
 
-  regex = 'svn: \'.*\' was not found in the repository'
+  regex = 'svn: E160013: \'.*\' was not found in the repository'
   for line in err_output:
     if re.match(regex, line):
       break
@@ -1384,8 +1389,9 @@ def diff_repos_and_wc(sbox):
   verify_expected_output(diff_output, "+zig")
 
 #----------------------------------------------------------------------
+@Issue(1311)
 def diff_file_urls(sbox):
-  "diff between two file URLs (issue #1311)"
+  "diff between two file URLs"
 
   sbox.build()
 
@@ -1540,6 +1546,7 @@ def check_for_omitted_prefix_in_path_component(sbox):
     raise svntest.Failure
 
 #----------------------------------------------------------------------
+@XFail()
 def diff_renamed_file(sbox):
   "diff a file that has been renamed"
 
@@ -1898,6 +1905,7 @@ def diff_force(sbox):
 #----------------------------------------------------------------------
 # Regression test for issue #2333: Renaming a directory should produce
 # deletion and addition diffs for each included file.
+@Issue(2333)
 def diff_renamed_dir(sbox):
   "diff a renamed directory"
 
@@ -2409,8 +2417,12 @@ def diff_repos_wc_add_with_props(sbox):
   diff_X_bar_base_r3 = make_diff_header("X/bar", "revision 0",
                                                  "revision 3") + diff_X_bar
 
-  expected_output_r1_base = diff_X_r1_base + diff_X_bar_r1_base + diff_foo_r1_base
-  expected_output_base_r3 = diff_foo_base_r3 + diff_X_bar_base_r3 + diff_X_base_r3
+  expected_output_r1_base = svntest.verify.UnorderedOutput(diff_X_r1_base +
+                                                           diff_X_bar_r1_base +
+                                                           diff_foo_r1_base)
+  expected_output_base_r3 = svntest.verify.UnorderedOutput(diff_foo_base_r3 +
+                                                           diff_X_bar_base_r3 +
+                                                           diff_X_base_r3)
 
   os.chdir(sbox.wc_dir)
 
@@ -2581,9 +2593,9 @@ def basic_diff_summarize(sbox):
 
   # Add props to some items that will be deleted, and commit.
   sbox.simple_propset('prop', 'val',
-                      p('A/C'),
-                      p('A/D/gamma'),
-                      p('A/D/H/chi'))
+                      'A/C',
+                      'A/D/gamma',
+                      'A/D/H/chi')
   sbox.simple_commit() # r2
   sbox.simple_update()
 
@@ -2591,37 +2603,37 @@ def basic_diff_summarize(sbox):
   svntest.main.file_append(p('A/mu'), 'new text\n')
 
   # Prop modification.
-  sbox.simple_propset('prop', 'val', p('iota'))
+  sbox.simple_propset('prop', 'val', 'iota')
 
   # Both content and prop mods.
   svntest.main.file_append(p('A/D/G/tau'), 'new text\n')
-  sbox.simple_propset('prop', 'val', p('A/D/G/tau'))
+  sbox.simple_propset('prop', 'val', 'A/D/G/tau')
 
   # File addition.
   svntest.main.file_append(p('newfile'), 'new text\n')
   svntest.main.file_append(p('newfile2'), 'new text\n')
-  sbox.simple_add(p('newfile'),
-                  p('newfile2'))
-  sbox.simple_propset('prop', 'val', p('newfile'))
+  sbox.simple_add('newfile',
+                  'newfile2')
+  sbox.simple_propset('prop', 'val', 'newfile')
 
   # File deletion.
-  sbox.simple_rm(p('A/B/lambda'),
-                 p('A/D/gamma'))
+  sbox.simple_rm('A/B/lambda',
+                 'A/D/gamma')
 
   # Directory addition.
   os.makedirs(p('P'))
   os.makedirs(p('Q/R'))
   svntest.main.file_append(p('Q/newfile'), 'new text\n')
   svntest.main.file_append(p('Q/R/newfile'), 'new text\n')
-  sbox.simple_add(p('P'),
-                  p('Q'))
+  sbox.simple_add('P',
+                  'Q')
   sbox.simple_propset('prop', 'val',
-                      p('P'),
-                      p('Q/newfile'))
+                      'P',
+                      'Q/newfile')
 
   # Directory deletion.
-  sbox.simple_rm(p('A/D/H'),
-                 p('A/C'))
+  sbox.simple_rm('A/D/H',
+                 'A/C')
 
   # Commit, because diff-summarize handles repos-repos only.
   #svntest.main.run_svn(False, 'st', wc_dir)
@@ -2723,6 +2735,7 @@ def diff_weird_author(sbox):
                                      'diff', '-r1:2', sbox.repo_url)
 
 # test for issue 2121, use -x -w option for ignoring whitespace during diff
+@Issue(2121)
 def diff_ignore_whitespace(sbox):
   "ignore whitespace when diffing"
 
@@ -2808,6 +2821,7 @@ def diff_ignore_eolstyle(sbox):
                                      file_path)
 
 # test for issue 2600, diff revision of a file in a renamed folder
+@Issue(2600)
 def diff_in_renamed_folder(sbox):
   "diff a revision of a file in a renamed folder"
 
@@ -3054,6 +3068,7 @@ def diff_with_depth(sbox):
                                      'diff', '-rHEAD', '--depth', 'infinity')
 
 # test for issue 2920: ignore eol-style on empty lines
+@Issue(2920)
 def diff_ignore_eolstyle_empty_lines(sbox):
   "ignore eol styles when diffing empty lines"
 
@@ -3076,7 +3091,7 @@ def diff_ignore_eolstyle_empty_lines(sbox):
                                         None, None, wc_dir)
 
   # sleep to guarantee timestamp change
-  time.sleep(1)
+  time.sleep(1.1)
 
   # commit only eol changes
   svntest.main.file_write(file_path,
@@ -3235,9 +3250,7 @@ def diff_wrong_extension_type(sbox):
   "'svn diff -x wc -r#' should return error"
 
   sbox.build(read_only = True)
-  expected_error = "(.*svn: Invalid argument .* in diff options.*)|" \
-                   "(svn: '.' is not a working copy)"
-  svntest.actions.run_and_verify_svn(None, [], expected_error,
+  svntest.actions.run_and_verify_svn(None, [], err.INVALID_DIFF_OPTION,
                                      'diff', '-x', sbox.wc_dir, '-r', '1')
 
 # Check the order of the arguments for an external diff tool
@@ -3298,6 +3311,8 @@ def make_file_edit_del_add(dir):
   svntest.main.run_svn(None, 'add', theta)
 
 
+@XFail()
+@Issue(3295)
 def diff_url_against_local_mods(sbox):
   "diff URL against working copy with local mods"
 
@@ -3335,7 +3350,8 @@ def diff_url_against_local_mods(sbox):
 #----------------------------------------------------------------------
 # Diff against old revision of the parent directory of a removed and
 # locally re-added file.
-
+@XFail()
+@Issue(3797)
 def diff_preexisting_rev_against_local_add(sbox):
   "diff -r1 of dir with removed-then-readded file"
   sbox.build()
@@ -3386,18 +3402,18 @@ def diff_git_format_wc_wc(sbox):
                                          "revision 1", "working copy",
                                          copyfrom_path="A/B/lambda", cp=True,
                                          text_changes=False) \
-  + make_git_diff_header(alpha_copied_path, "A/B/E/alpha_copied",
+  + make_git_diff_header(mu_path, "A/mu", "revision 1",
+                                         "working copy",
+                                         delete=True) + [
+    "@@ -1 +0,0 @@\n",
+    "-This is the file 'mu'.\n",
+  ] + make_git_diff_header(alpha_copied_path, "A/B/E/alpha_copied",
                          "revision 0", "working copy",
                          copyfrom_path="A/B/E/alpha", cp=True,
                          text_changes=True) + [
     "@@ -1 +1,2 @@\n",
     " This is the file 'alpha'.\n",
     "+This is a copy of 'alpha'.\n",
-  ] + make_git_diff_header(mu_path, "A/mu", "revision 1",
-                                         "working copy",
-                                         delete=True) + [
-    "@@ -1 +0,0 @@\n",
-    "-This is the file 'mu'.\n",
   ] + make_git_diff_header(new_path, "new", "revision 0",
                            "working copy", add=True) + [
     "@@ -0,0 +1 @@\n",
@@ -3709,6 +3725,54 @@ def diff_git_with_props(sbox):
 
   svntest.actions.run_and_verify_svn(None, expected_output, [], 'diff',
                                      '--git', wc_dir)
+
+def diff_git_with_props_on_dir(sbox):
+  "diff in git format showing prop changes on dir"
+  sbox.build()
+  wc_dir = sbox.wc_dir
+
+  # Now commit the local mod, creating rev 2.
+  expected_output = svntest.wc.State(wc_dir, {
+    '.' : Item(verb='Sending'),
+    })
+
+  expected_status = svntest.actions.get_virginal_state(wc_dir, 1)
+  expected_status.add({
+    '' : Item(status='  ', wc_rev=2),
+    })
+
+  svntest.main.run_svn(None, 'ps', 'a','b', wc_dir)
+  svntest.actions.run_and_verify_commit(wc_dir, expected_output,
+                                        expected_status, None, wc_dir)
+
+  was_cwd = os.getcwd()
+  os.chdir(wc_dir)
+  expected_output = make_git_diff_header(".", "", "revision 1",
+                                         "revision 2",
+                                         add=False, text_changes=False) + [
+      "\n",
+      "Property changes on: \n",
+      "___________________________________________________________________\n",
+      "Added: a\n",
+      "## -0,0 +1 ##\n",
+      "+b\n",
+  ]
+
+  svntest.actions.run_and_verify_svn(None, expected_output, [], 'diff',
+                                     '-c2', '--git')
+  os.chdir(was_cwd)
+
+@Issue(3826)
+def diff_abs_localpath_from_wc_folder(sbox):
+  "diff absolute localpath from wc folder"
+  sbox.build(read_only = True)
+  wc_dir = sbox.wc_dir
+
+  A_path = os.path.join(wc_dir, 'A')
+  B_abs_path = os.path.abspath(os.path.join(wc_dir, 'A', 'B'))
+  os.chdir(os.path.abspath(A_path))
+  svntest.actions.run_and_verify_svn(None, None, [], 'diff', B_abs_path)
+
 ########################################################################
 #Run the tests
 
@@ -3755,7 +3819,7 @@ test_list = [ None,
               diff_weird_author,
               diff_ignore_whitespace,
               diff_ignore_eolstyle,
-              XFail(diff_in_renamed_folder),
+              diff_in_renamed_folder,
               diff_with_depth,
               diff_ignore_eolstyle_empty_lines,
               diff_backward_repos_wc_copy,
@@ -3763,8 +3827,8 @@ test_list = [ None,
               diff_file_depth_empty,
               diff_wrong_extension_type,
               diff_external_diffcmd,
-              XFail(diff_url_against_local_mods),
-              XFail(diff_preexisting_rev_against_local_add),
+              diff_url_against_local_mods,
+              diff_preexisting_rev_against_local_add,
               diff_git_format_wc_wc,
               diff_git_format_url_wc,
               diff_git_format_url_url,
@@ -3772,6 +3836,8 @@ test_list = [ None,
               diff_prop_multiple_hunks,
               diff_git_empty_files,
               diff_git_with_props,
+              diff_git_with_props_on_dir,
+              diff_abs_localpath_from_wc_folder,
               ]
 
 if __name__ == '__main__':
