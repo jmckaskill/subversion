@@ -583,10 +583,10 @@ static svn_error_t *copy_resource(svn_ra_neon__session_t *ras,
 
   /* Have neon do the COPY. */
   SVN_ERR(svn_ra_neon__copy(ras, 1 /* overwrite */,
-                            is_dir ? SVN_RA_NEON__DEPTH_INFINITE
+                            is_dir ? SVN_RA_NEON__DEPTH_INFINITE 
                                    : SVN_RA_NEON__DEPTH_ZERO,
                             copy_src_url, copy_dst_url, scratch_pool));
-
+  
   return SVN_NO_ERROR;
 }
 

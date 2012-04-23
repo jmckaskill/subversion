@@ -1041,7 +1041,7 @@ migrate_text_bases(apr_hash_t **text_bases_info,
                                            iterpool, iterpool));
 
         read_stream = svn_stream_checksummed2(read_stream, &md5_checksum,
-                                              NULL, svn_checksum_md5,
+                                              NULL, svn_checksum_md5, 
                                               TRUE, iterpool);
 
         read_stream = svn_stream_checksummed2(read_stream, &sha1_checksum,

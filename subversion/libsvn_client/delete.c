@@ -216,7 +216,7 @@ delete_urls(const apr_array_header_t *paths,
       if (kind == svn_node_none)
         {
           return svn_error_createf(SVN_ERR_FS_NOT_FOUND, NULL,
-                                   _("URL '%s' does not exist"),
+                                   _("URL '%s' does not exist"), 
                                    svn_path_url_add_component2(common_url,
                                                                relpath, pool));
         }

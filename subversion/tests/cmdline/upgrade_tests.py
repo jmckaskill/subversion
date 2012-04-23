@@ -852,14 +852,14 @@ def replaced_files(sbox):
 
 def upgrade_with_scheduled_change(sbox):
   "upgrade 1.6.x wc with a scheduled change"
-
+  
   sbox.build(create_wc = False)
   replace_sbox_with_tarfile(sbox, 'upgrade_with_scheduled_change.tar.bz2')
 
   svntest.actions.run_and_verify_svn(None, None, [],
                                      'upgrade', sbox.wc_dir)
-
-
+  
+   
 ########################################################################
 # Run the tests
 
