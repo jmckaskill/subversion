@@ -385,6 +385,8 @@ find_identical_prefix(svn_boolean_t *reached_one_eof, apr_off_t *prefix_lines,
   apr_off_t lines = 0;
   apr_size_t i;
 
+  *reached_one_eof = FALSE;
+
   for (i = 1, is_match = TRUE; i < file_len; i++)
     is_match = is_match && *file[0].curp == *file[i].curp;
   while (is_match)
@@ -526,9 +528,11 @@ find_identical_suffix(apr_off_t *suffix_lines, struct file_info file[],
   apr_off_t suffix_min_offset0;
   apr_off_t min_file_size;
   int suffix_lines_to_keep = SUFFIX_LINES_TO_KEEP;
-  svn_boolean_t is_match, reached_prefix;
+  svn_boolean_t is_match;
+  svn_boolean_t reached_prefix;
   apr_off_t lines = 0;
-  svn_boolean_t had_cr, had_nl;
+  svn_boolean_t had_cr;
+  svn_boolean_t had_nl;
   apr_size_t i;
 
   /* Initialize file_for_suffix[].
@@ -584,11 +588,12 @@ find_identical_suffix(apr_off_t *suffix_lines, struct file_info file[],
     /* Count an extra line for the last line not ending in an eol. */
     lines++;
 
+  had_nl = FALSE;
   while (is_match)
     {
+#if SVN_UNALIGNED_ACCESS_IS_OK
       /* Initialize the minimum pointer positions. */
       const char *min_curp[4];
-#if SVN_UNALIGNED_ACCESS_IS_OK
       svn_boolean_t can_read_word;
 #endif /* SVN_UNALIGNED_ACCESS_IS_OK */
 
@@ -611,14 +616,13 @@ find_identical_suffix(apr_off_t *suffix_lines, struct file_info file[],
 
       DECREMENT_POINTERS(file_for_suffix, file_len, pool);
 
+#if SVN_UNALIGNED_ACCESS_IS_OK
 
       min_curp[0] = file_for_suffix[0].chunk == suffix_min_chunk0
                   ? file_for_suffix[0].buffer + suffix_min_offset0 + 1
                   : file_for_suffix[0].buffer + 1;
       for (i = 1; i < file_len; i++)
         min_curp[i] = file_for_suffix[i].buffer + 1;
-
-#if SVN_UNALIGNED_ACCESS_IS_OK
 
       /* Scan quickly by reading with machine-word granularity. */
       for (i = 0, can_read_word = TRUE; i < file_len; i++)
@@ -779,6 +783,8 @@ datasources_open(void *baton,
       /* There will not be any identical prefix/suffix, so we're done. */
       return SVN_NO_ERROR;
 
+#ifndef SVN_DISABLE_PREFIX_SUFFIX_SCANNING
+
   SVN_ERR(find_identical_prefix(&reached_one_eof, prefix_lines,
                                 files, datasources_len, file_baton->pool));
 
@@ -787,6 +793,8 @@ datasources_open(void *baton,
      * so there may be some identical suffix.  */
     SVN_ERR(find_identical_suffix(suffix_lines, files, datasources_len,
                                   file_baton->pool));
+
+#endif
 
   /* Copy local results back to baton. */
   for (i = 0; i < datasources_len; i++)
@@ -1627,7 +1635,7 @@ output_unified_diff_modified(void *baton,
 
       if (output_baton->show_c_function)
         {
-          int p;
+          apr_size_t p;
           const char *invalid_character;
 
           /* Save the extra context for later use.
@@ -1747,9 +1755,9 @@ svn_diff_file_output_unified3(svn_stream_t *output_stream,
       baton.header_encoding = header_encoding;
       baton.path[0] = original_path;
       baton.path[1] = modified_path;
-      baton.hunk = svn_stringbuf_create("", pool);
+      baton.hunk = svn_stringbuf_create_empty(pool);
       baton.show_c_function = show_c_function;
-      baton.extra_context = svn_stringbuf_create("", pool);
+      baton.extra_context = svn_stringbuf_create_empty(pool);
       baton.extra_skip_match = apr_array_make(pool, 3, sizeof(char **));
 
       c = apr_array_push(baton.extra_skip_match);
@@ -1911,7 +1919,7 @@ flush_context_saver(context_saver_t *cs,
   int i;
   for (i = 0; i < SVN_DIFF__UNIFIED_CONTEXT_SIZE; i++)
     {
-      int slot = (i + cs->next_slot) % SVN_DIFF__UNIFIED_CONTEXT_SIZE;
+      apr_size_t slot = (i + cs->next_slot) % SVN_DIFF__UNIFIED_CONTEXT_SIZE;
       if (cs->data[slot])
         {
           apr_size_t len = cs->len[slot];
@@ -2305,7 +2313,8 @@ svn_diff_file_output_merge2(svn_stream_t *output_stream,
   /* Check what eol marker we should use for conflict markers.
      We use the eol marker of the modified file and fall back on the
      platform's eol marker if that file doesn't contain any newlines. */
-  eol = svn_eol__detect_eol(baton.buffer[1], baton.endp[1]);
+  eol = svn_eol__detect_eol(baton.buffer[1], baton.endp[1] - baton.buffer[1],
+                            NULL);
   if (! eol)
     eol = APR_EOL_STR;
   baton.marker_eol = eol;
