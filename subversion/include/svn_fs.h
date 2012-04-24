@@ -1040,7 +1040,7 @@ svn_fs_change_txn_props(svn_fs_txn_t *txn,
  *
  * @a flags determines transaction enforcement behaviors, and is composed
  * from the constants SVN_FS_TXN_* (#SVN_FS_TXN_CHECK_OOD etc.).
- *
+ * 
  * @note If you're building a txn for committing, you probably
  * don't want to call this directly.  Instead, call
  * svn_repos_fs_begin_txn_for_commit(), which honors the
