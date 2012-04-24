@@ -1042,7 +1042,7 @@ svn_fs_change_txn_props(svn_fs_txn_t *txn,
  * from the constants SVN_FS_TXN_* (#SVN_FS_TXN_CHECK_OOD etc.).
  * It is a property of the transaction (even if it constructed over multiple
  * drives; see @a autocommit, below).
- *
+ * 
  * @note If you're building a txn for committing, you probably
  * don't want to call this directly.  Instead, call
  * svn_repos__get_commit_ev2(), which honors the
