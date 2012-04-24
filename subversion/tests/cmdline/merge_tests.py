@@ -16853,7 +16853,7 @@ def merged_deletion_causes_tree_conflict(sbox):
                                      '-m', 'Copy ^/A to ^/branch')
   svntest.actions.run_and_verify_svn(None, None, [], 'up', wc_dir)
 
-  # r4 - Delete A/D/H/psi
+  # r4 - Delete A/D/H/psi 
   svntest.actions.run_and_verify_svn(None, None, [], 'delete', psi_path)
   svntest.actions.run_and_verify_svn(None, None, [], 'ci', '-m',
                                      'Delete a a path with native eol-style',
@@ -17130,7 +17130,7 @@ def reverse_merge_with_rename(sbox):
   rho_COPY_path   = os.path.join(sbox.wc_dir, 'A_COPY', 'D', 'G', 'rho')
   omega_COPY_path = os.path.join(sbox.wc_dir, 'A_COPY', 'D', 'H', 'omega')
 
-  # branch A@1 to A_COPY in r2, then make a few edits under A in r3-6:
+  # branch A@1 to A_COPY in r2, then make a few edits under A in r3-6:  
   wc_disk, wc_status = set_up_branch(sbox)
 
   # r7 - Rename ^/A to ^/trunk.
