@@ -2758,7 +2758,7 @@ set_headers(request_rec *r, const dav_resource *resource)
          bytes"), but many browsers have grown to expect "text/plain"
          to mean "*shrug*", and kick off their own MIME type detection
          routines when they see it.  So we'll use "text/plain".
-
+      
          ### Why not just avoid sending a Content-type at all?  Is
          ### that just bad form for HTTP?  */
       if (! mimetype)
@@ -3772,7 +3772,7 @@ do_walk(walker_ctx_t *ctx, int depth)
       if (params->walk_type & DAV_WALKTYPE_AUTH)
         {
           const char *repos_relpath =
-            apr_pstrcat(iterpool,
+            apr_pstrcat(iterpool, 
                         apr_pstrmemdup(iterpool,
                                        ctx->repos_path->data,
                                        ctx->repos_path->len),
@@ -3821,7 +3821,7 @@ do_walk(walker_ctx_t *ctx, int depth)
       ctx->uri->len = uri_len;
       ctx->repos_path->len = repos_len;
     }
-
+  
   svn_pool_destroy(iterpool);
 
   return NULL;
