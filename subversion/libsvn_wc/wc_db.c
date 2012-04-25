@@ -396,7 +396,7 @@ wclock_owns_lock(svn_boolean_t *own_lock,
                  apr_pool_t *scratch_pool);
 
 
-
+ 
 /* Return the absolute path, in local path style, of LOCAL_RELPATH
    in WCROOT.  */
 static const char *
