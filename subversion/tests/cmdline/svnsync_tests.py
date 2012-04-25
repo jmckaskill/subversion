@@ -783,7 +783,7 @@ def commit_a_copy_of_root(sbox):
 #   svnsync: File not found: revision 4, path '/trunk/H/Z/B/lambda'
 #
 # See also http://svn.haxx.se/dev/archive-2010-11/0411.shtml and
-#
+# 
 #
 # Note: For those who may poke around this test in the future, r3 of
 # delete-revprops.dump was created with the following svnmucc command:
