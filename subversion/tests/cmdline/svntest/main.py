@@ -514,7 +514,7 @@ def run_command_stdin(command, error_expected, bufsize=0, binary_mode=0,
   def _line_contains_repos_diskpath(line):
     return \
          os.path.join('cmdline', 'svn-test-work', 'repositories') in line \
-      or os.path.join('cmdline', 'svn-test-work', 'local_tmp', 'repos') in line
+      or os.path.join('cmdline', 'svn-test-work', 'local_tmp', 'repos') in line 
 
   for lines, name in [[stdout_lines, "stdout"], [stderr_lines, "stderr"]]:
     if is_ra_type_file() or 'svnadmin' in command:
