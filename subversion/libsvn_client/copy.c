@@ -626,7 +626,7 @@ drive_editor(svn_editor_t *editor,
           const char *dir = APR_ARRAY_IDX(new_dirs, i, const char *);
           apr_array_header_t *children = apr_array_make(scratch_pool, 1,
                                                         sizeof(const char *));
-
+         
           if (i < new_dirs->nelts - 1)
             {
               /* The only child of this directory is the next one in the
