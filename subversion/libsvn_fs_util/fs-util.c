@@ -186,7 +186,7 @@ svn_fs__identifier(svn_fs_t *fs, apr_pool_t *result_pool)
       svn_error_clear(err);
       return NULL;
     }
-
+  
   return uuid;
 }
 
