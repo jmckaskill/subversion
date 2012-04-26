@@ -1664,7 +1664,7 @@ def log_of_local_copy(sbox):
                                      C_path, C_moved_path)
   svntest.actions.run_and_verify_svn(None, None, [], 'mv',
                                      psi_path, psi_moved_path)
-
+  
   # Get the logs for the move destinations.
   #
   # This was failing with:
@@ -1779,7 +1779,7 @@ def merge_sensitive_log_ignores_cyclic_merges(sbox):
     8  : [15,11,9],
     7  : [15,11],
     6  : [],
-    5  : [],
+    5  : [],    
     4  : [],
     3  : [],
     2  : [15,11],
