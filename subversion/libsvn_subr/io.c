@@ -1949,7 +1949,7 @@ svn_io_unlock_open_file(apr_file_t *lockfile_handle,
   apr_err = apr_file_unlock(lockfile_handle);
   if (apr_err)
     return svn_error_wrap_apr(apr_err, _("Can't unlock file '%s'"), fname);
-
+  
 /* On Windows and OS/2 file locks are automatically released when
    the file handle closes */
 #if !defined(WIN32) && !defined(__OS2__)
