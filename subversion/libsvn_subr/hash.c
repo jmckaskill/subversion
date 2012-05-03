@@ -614,12 +614,12 @@ hashfunc_compatible(const char *char_key, apr_ssize_t *klen)
     return hash;
 }
 
-/* Used to detect NUL chars
+/* Used to detect NUL chars 
  */
 #define LOWER_7BITS_SET 0x7f7f7f7f
 #define BIT_7_SET       0x80808080
 
-/* Read 4 bytes as little endian at P
+/* Read 4 bytes as little endian at P 
  */
 #if SVN_UNALIGNED_ACCESS_IS_OK
 #  define READ_CHUNK(p)\
