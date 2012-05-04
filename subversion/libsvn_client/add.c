@@ -936,7 +936,7 @@ mkdir_urls(const apr_array_header_t *urls,
       const char *parent;
       const char *base_name;
       apr_array_header_t *children;
-
+      
       svn_relpath_split(&parent, &base_name, path, pool);
 
       children = apr_hash_get(children_hash, parent, APR_HASH_KEY_STRING);
