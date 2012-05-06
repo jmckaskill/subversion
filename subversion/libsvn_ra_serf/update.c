@@ -1273,39 +1273,39 @@ local_fetch(report_info_t *info)
                                       info->editor_pool,
                                       &info->file_baton));
     }
-
+  
   SVN_ERR(update_editor->apply_textdelta(info->file_baton,
                                          info->base_checksum,
                                          info->editor_pool,
                                          &info->textdelta,
                                          &info->textdelta_baton));
-
+  
   while (1)
     {
       apr_size_t read_len = SVN__STREAM_CHUNK_SIZE;
-
+      
       SVN_ERR(svn_stream_read(info->cached_contents, read_buf, &read_len));
       if (read_len == 0)
         break;
-
+      
       window_data.data = read_buf;
       window_data.len = read_len;
-
+      
       delta_op.action_code = svn_txdelta_new;
       delta_op.offset = 0;
       delta_op.length = read_len;
-
+      
       delta_window.tview_len = read_len;
       delta_window.num_ops = 1;
       delta_window.ops = &delta_op;
       delta_window.new_data = &window_data;
-
+      
       SVN_ERR(info->textdelta(&delta_window, info->textdelta_baton));
-
+      
       if (read_len < SVN__STREAM_CHUNK_SIZE)
         break;
     }
-
+  
   SVN_ERR(info->textdelta(NULL, info->textdelta_baton));
 
   SVN_ERR(svn_stream_close(info->cached_contents));
@@ -1320,7 +1320,7 @@ local_fetch(report_info_t *info)
                                       info->base_rev,
                                       set_file_props, info,
                                       info->pool));
-
+  
   SVN_ERR(svn_ra_serf__walk_all_props(info->dir->removed_props,
                                       info->base_name,
                                       info->base_rev,
@@ -1334,11 +1334,11 @@ local_fetch(report_info_t *info)
                                           set_file_props, info,
                                           info->pool));
     }
-
+  
   SVN_ERR(info->dir->update_editor->close_file(info->file_baton,
                                                info->final_checksum,
                                                info->pool));
-
+  
   /* We're done with our pools. */
   svn_pool_destroy(info->editor_pool);
   svn_pool_destroy(info->pool);
@@ -1472,7 +1472,7 @@ fetch_file(report_context_t *ctx, report_info_t *info)
             {
               info->cached_contents = contents;
             }
-        }
+        }          
 
       /* If the working copy can provided cached contents for this
          file, we'll send a simple HEAD request (which I'll claim is
