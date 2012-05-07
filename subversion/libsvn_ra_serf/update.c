@@ -1269,13 +1269,13 @@ local_fetch(report_info_t *info)
                                       info->editor_pool,
                                       &info->file_baton));
     }
-
+  
   SVN_ERR(update_editor->apply_textdelta(info->file_baton,
                                          info->base_checksum,
                                          info->editor_pool,
                                          &info->textdelta,
                                          &info->textdelta_baton));
-
+  
   SVN_ERR(svn_txdelta_send_stream(info->cached_contents, info->textdelta,
                                   info->textdelta_baton, NULL, info->pool));
 
@@ -1291,7 +1291,7 @@ local_fetch(report_info_t *info)
                                       info->base_rev,
                                       set_file_props, info,
                                       info->pool));
-
+  
   SVN_ERR(svn_ra_serf__walk_all_props(info->dir->removed_props,
                                       info->base_name,
                                       info->base_rev,
@@ -1305,11 +1305,11 @@ local_fetch(report_info_t *info)
                                           set_file_props, info,
                                           info->pool));
     }
-
+  
   SVN_ERR(info->dir->update_editor->close_file(info->file_baton,
                                                info->final_checksum,
                                                info->pool));
-
+  
   /* We're done with our pools. */
   svn_pool_destroy(info->editor_pool);
   svn_pool_destroy(info->pool);
@@ -1443,7 +1443,7 @@ fetch_file(report_context_t *ctx, report_info_t *info)
             {
               info->cached_contents = contents;
             }
-        }
+        }          
 
       /* If the working copy can provided cached contents for this
          file, we'll send a simple HEAD request (which I'll claim is
