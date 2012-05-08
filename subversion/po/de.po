@@ -1188,7 +1188,7 @@ msgstr "Nicht unterstütztes Schema in SQLite-Datenbank gefunden"
 
 #: ../include/svn_error_codes.h:1340
 msgid "The SQLite db is busy"
-msgstr "Die SQLite-Datenbank ist beschäftigt"
+msgstr "Die SQLite-Datenbank ist beschäftigt" 
 
 #: ../include/svn_error_codes.h:1345
 msgid "SQLite busy at transaction rollback; resetting all busy SQLite statements to allow rollback"
