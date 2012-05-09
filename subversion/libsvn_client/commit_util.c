@@ -1774,7 +1774,7 @@ svn_client__do_commit(const char *repos_root,
 
   /* Special loop to look for children of newly-added directories which
      don't exist on the client, as in the case of 'cp --parents'.
-
+     
      ### This information is probably available earlier in the commit
      ### process, but we just don't capture it.  If/when we rework
      ### the commit item struct, we should include children as well. */
@@ -1797,7 +1797,7 @@ svn_client__do_commit(const char *repos_root,
                                             svn_client_commit_item3_t *);
       APR_ARRAY_PUSH(children, const char *) =
             svn_relpath_basename(next_item->session_relpath, scratch_pool);
-
+                        
       apr_hash_set(new_children, item->session_relpath, APR_HASH_KEY_STRING,
                    children);
     }
