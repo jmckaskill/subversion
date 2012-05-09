@@ -2284,7 +2284,7 @@ svn_wc__get_pristine_contents_by_checksum(svn_stream_t **contents,
                                           apr_pool_t *scratch_pool)
 {
   svn_boolean_t present;
-
+  
   *contents = NULL;
 
   SVN_ERR(svn_wc__db_pristine_check(&present, wc_ctx->db, wri_abspath,
@@ -2298,7 +2298,7 @@ svn_wc__get_pristine_contents_by_checksum(svn_stream_t **contents,
       gpl_baton->wc_ctx = wc_ctx;
       gpl_baton->wri_abspath = wri_abspath;
       gpl_baton->sha1_checksum = sha1_checksum;
-
+      
       *contents = svn_stream_lazyopen_create(get_pristine_lazyopen_func,
                                              gpl_baton, result_pool);
     }
