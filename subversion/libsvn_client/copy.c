@@ -1482,7 +1482,7 @@ repos_to_wc_copy_single(svn_client__copy_pair_t *pair,
        * code path with something else.) */
       SVN_ERR(svn_wc__get_tmpdir(&tmpdir_abspath, ctx->wc_ctx, dst_abspath,
                                  pool, pool));
-
+                                 
       SVN_ERR(svn_io_open_unique_file3(NULL, &tmp_abspath, tmpdir_abspath,
                                        svn_io_file_del_on_close, pool, pool));
 
