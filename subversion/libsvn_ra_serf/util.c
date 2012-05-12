@@ -1693,7 +1693,7 @@ svn_ra_serf__credentials_callback(char **username, char **password,
       if (!session->proxy_username || session->proxy_auth_attempts > 4)
         {
           /* No more credentials. */
-          (void) save_error(session,
+          (void) save_error(session, 
                             svn_error_create(
                               SVN_ERR_AUTHN_FAILED, NULL,
                               _("Proxy authentication failed")));
