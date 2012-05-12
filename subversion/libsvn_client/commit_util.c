@@ -453,7 +453,7 @@ harvest_not_present_for_copy(svn_wc_context_t *wc_ctx,
   SVN_ERR(svn_wc__node_get_children_of_working_node(
                                     &children, wc_ctx, local_abspath, TRUE,
                                     scratch_pool, iterpool));
-
+      
   for (i = 0; i < children->nelts; i++)
     {
       const char *this_abspath = APR_ARRAY_IDX(children, i, const char *);
@@ -549,7 +549,7 @@ harvest_status_callback(void *status_baton,
   svn_boolean_t copy_mode;
 
   struct harvest_baton *baton = status_baton;
-  svn_boolean_t is_harvest_root =
+  svn_boolean_t is_harvest_root = 
                 (strcmp(baton->root_abspath, local_abspath) == 0);
   svn_client__committables_t *committables = baton->committables;
   apr_hash_t *lock_tokens = baton->lock_tokens;
@@ -706,7 +706,7 @@ harvest_status_callback(void *status_baton,
                                               local_abspath);
       return SVN_NO_ERROR;
     }
-
+    
   /* Handle file externals.
    * (IS_UPDATE_ROOT is more generally defined, but at the moment this
    * condition matches only file externals.)
