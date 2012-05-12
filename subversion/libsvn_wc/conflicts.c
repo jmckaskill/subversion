@@ -377,7 +377,7 @@ resolve_one_conflict(svn_wc__db_t *db,
             return svn_error_create(SVN_ERR_WC_CONFLICT_RESOLVER_FAILURE, NULL,
                                     _("No conflict-callback and no "
                                       "pre-defined conflict-choice provided"));
-
+                                    
           SVN_ERR(conflict_func(&result, cd, conflict_baton, iterpool,
                                 iterpool));
 
