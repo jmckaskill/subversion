@@ -24,7 +24,7 @@
 /* ==================================================================== */
 
 
-
+ 
 /*** Includes. ***/
 
 #include <apr_uri.h>
@@ -41,7 +41,7 @@
 
 #include "svn_private_config.h"
 #include "private/svn_wc_private.h"
-
+ 
 /* Closure for handle_external_item_change. */
 struct external_change_baton_t
 {
