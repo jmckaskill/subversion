@@ -2375,7 +2375,7 @@ diff_repos_repos_added_or_deleted_file(const char *target,
                                                              scratch_pool),
                                     NULL, callback_baton, scratch_pool));
     }
-
+    
   return SVN_NO_ERROR;
 }
 
