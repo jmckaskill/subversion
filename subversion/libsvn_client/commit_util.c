@@ -457,7 +457,7 @@ harvest_not_present_for_copy(svn_wc_context_t *wc_ctx,
   SVN_ERR(svn_wc__node_get_children_of_working_node(
                                     &children, wc_ctx, local_abspath, TRUE,
                                     scratch_pool, iterpool));
-
+      
   for (i = 0; i < children->nelts; i++)
     {
       const char *this_abspath = APR_ARRAY_IDX(children, i, const char *);
@@ -550,7 +550,7 @@ harvest_status_callback(void *status_baton,
   svn_boolean_t copy_mode;
 
   struct harvest_baton *baton = status_baton;
-  svn_boolean_t is_harvest_root =
+  svn_boolean_t is_harvest_root = 
                 (strcmp(baton->root_abspath, local_abspath) == 0);
   svn_client__committables_t *committables = baton->committables;
   apr_hash_t *lock_tokens = baton->lock_tokens;
@@ -1762,7 +1762,7 @@ svn_client__do_commit(const char *repos_root,
 
   /* Special loop to look for children of newly-added directories which
      don't exist on the client, as in the case of 'cp --parents'.
-
+     
      ### This information is probably available earlier in the commit
      ### process, but we just don't capture it.  If/when we rework
      ### the commit item struct, we should include children as well. */
@@ -1785,7 +1785,7 @@ svn_client__do_commit(const char *repos_root,
                                             svn_client_commit_item3_t *);
       APR_ARRAY_PUSH(children, const char *) =
             svn_relpath_basename(next_item->session_relpath, scratch_pool);
-
+                        
       apr_hash_set(new_children, item->session_relpath, APR_HASH_KEY_STRING,
                    children);
     }
