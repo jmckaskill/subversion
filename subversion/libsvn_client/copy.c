@@ -626,7 +626,7 @@ drive_editor(svn_editor_t *editor,
           const char *dir = APR_ARRAY_IDX(new_dirs, i, const char *);
           apr_array_header_t *children = apr_array_make(scratch_pool, 1,
                                                         sizeof(const char *));
-
+         
           if (i < new_dirs->nelts - 1)
             {
               /* The only child of this directory is the next one in the
@@ -1360,7 +1360,7 @@ repos_to_wc_copy_single(svn_client__copy_pair_t *pair,
       /* Find a temporary location in which to check out the copy source. */
       SVN_ERR(svn_wc__get_tmpdir(&tmpdir_abspath, ctx->wc_ctx, dst_abspath,
                                  pool, pool));
-
+                                 
       SVN_ERR(svn_io_open_unique_file3(NULL, &tmp_abspath, tmpdir_abspath,
                                        svn_io_file_del_on_close, pool, pool));
 
