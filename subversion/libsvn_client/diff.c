@@ -696,7 +696,7 @@ display_prop_diffs(const apr_array_header_t *propchanges,
 
         /* The last character in a property is often not a newline.
            An eol character is appended to prevent the diff API to add a
-           ' \ No newline at end of file' line. We add
+           ' \ No newline at end of file' line. We add 
            ' \ No newline at end of property' manually if needed. */
         tmp = original_value ? original_value : svn_string_create("", pool);
         orig = maybe_append_eol(tmp, NULL, pool);
@@ -1898,7 +1898,7 @@ diff_repos_repos_added_or_deleted_file(const char *target,
                                                              scratch_pool),
                                     NULL, callback_baton, scratch_pool));
     }
-
+    
   SVN_ERR(svn_stream_close(content));
 
   return SVN_NO_ERROR;
