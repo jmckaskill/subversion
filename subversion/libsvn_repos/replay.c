@@ -511,7 +511,7 @@ path_driver_cb_func(void **dir_baton,
          handled and we should simply ignore it. */
       return SVN_NO_ERROR;
     }
-
+  
   switch (change->change_kind)
     {
     case svn_fs_path_change_add:
