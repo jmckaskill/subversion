@@ -187,7 +187,7 @@ single_repos_delete(svn_ra_session_t *ra_session,
   for (i = 0; i < relpaths->nelts; i++)
     {
       const char *relpath = APR_ARRAY_IDX(relpaths, i, const char *);
-
+      
       err = svn_editor_delete(editor, relpath, SVN_INVALID_REVNUM);
 
       if (err)
