@@ -1671,7 +1671,7 @@ svn_wc__get_diff_editor(const svn_delta_editor_t **editor,
 /**
  * Assuming @a local_abspath itself or any of its children are under version
  * control or a tree conflict victim and in a state of conflict, take these
- * nodes out of this state.
+ * nodes out of this state. 
  *
  * If @a resolve_text is TRUE then any text conflict is resolved,
  * if @a resolve_tree is TRUE then any tree conflicts are resolved.
