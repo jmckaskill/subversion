@@ -1254,7 +1254,7 @@ class WinGeneratorBase(GeneratorBase):
              % (msg, self.perl_lib))
     finally:
       fp.close()
-
+      
     fp = os.popen('perl -MConfig -e ' + escape_shell_arg(
                   'print $Config{archlib}'), 'r')
     try:
