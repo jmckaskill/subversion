@@ -615,7 +615,7 @@ harvest_status_callback(void *status_baton,
   apr_hash_t *lock_tokens = baton->lock_tokens;
   const char *repos_root_url = status->repos_root_url;
   const char *commit_relpath = NULL;
-  svn_boolean_t copy_mode_root =
+  svn_boolean_t copy_mode_root = 
                     (baton->copy_mode_root
                      && strcmp(baton->copy_mode_root, local_abspath) == 0);
   svn_depth_t depth = baton->depth;
@@ -1022,7 +1022,7 @@ harvest_status_callback(void *status_baton,
           /* Skip all descendants, like what the loop below would do */
           baton->skip_below_abspath = apr_pstrdup(baton->result_pool,
                                                   local_abspath);
-        }
+        } 
       return SVN_NO_ERROR;
     }
 
