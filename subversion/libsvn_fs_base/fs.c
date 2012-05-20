@@ -646,7 +646,7 @@ open_databases(svn_fs_t *fs,
 }
 
 
-/* Called by functions that initialize an svn_fs_t struct, after that
+/* Called by functions that initialize an svn_fs_t struct, after that 
    initialization is done, to populate svn_fs_t->uuid. */
 static svn_error_t *
 populate_opened_fs(svn_fs_t *fs, apr_pool_t *scratch_pool)
