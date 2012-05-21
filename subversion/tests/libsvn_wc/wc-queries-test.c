@@ -457,7 +457,7 @@ test_query_expectations(apr_pool_t *scratch_pool)
   /* Sqlite has an SQLITE_OMIT_EXPLAIN compilation flag. In this case the
      'EXPLAIN QUERY PLAN' option is currently just ignored and the query
      evaluated (status at Sqlite 3.7.12).
-
+     
      Detect this case, and skip this test */
   {
     sqlite3_stmt *stmt;
