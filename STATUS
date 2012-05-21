@@ -76,7 +76,7 @@ Candidate changes:
      Please read the branch and related trunk log messages for detailed notes
      about these changes.
    Branch:
-     ^/subversion/branches/1.7.x-issue4153
+     ^/subversion/branches/1.7.x-issue4153  
    Votes:
      +1: stsp
 
@@ -88,7 +88,7 @@ Candidate changes:
      boost.
    Votes:
      +1: rhuijben
-
+   
  * ^/subversion/branches/1.7.x-performance
    Use the working copy status walker as a first filter to find committable
    nodes.
