@@ -99,7 +99,7 @@ def iprops_basic_working(sbox):
     D_path, expected_iprops, expected_explicit_props)
 
   ### Propget Directory Targets
-
+  
   # Propget directory target with only explicit props.
   expected_iprops = {}
   expected_explicit_props = {'RootProp2' : 'Root-Prop-Val2'}
