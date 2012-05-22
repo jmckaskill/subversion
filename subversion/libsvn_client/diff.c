@@ -696,7 +696,7 @@ display_prop_diffs(const apr_array_header_t *propchanges,
 
         /* The last character in a property is often not a newline.
            An eol character is appended to prevent the diff API to add a
-           ' \ No newline at end of file' line. We add
+           ' \ No newline at end of file' line. We add 
            ' \ No newline at end of property' manually if needed. */
         tmp = original_value ? original_value : svn_string_create("", pool);
         orig = maybe_append_eol(tmp, NULL, pool);
@@ -1922,7 +1922,7 @@ diff_repos_repos_added_or_deleted_file(const char *target,
                                                              scratch_pool),
                                     NULL, callback_baton, scratch_pool));
     }
-
+    
   return SVN_NO_ERROR;
 }
 
@@ -2247,7 +2247,7 @@ diff_repos_wc_file_target(const char *target,
   if (kind1 == svn_node_file)
     {
       if (show_copies_as_adds)
-        SVN_ERR(svn_wc__node_get_origin(&is_copy,
+        SVN_ERR(svn_wc__node_get_origin(&is_copy, 
                                         NULL, NULL, NULL, NULL, NULL,
                                         ctx->wc_ctx, file2_abspath,
                                         FALSE, scratch_pool, scratch_pool));
@@ -2528,7 +2528,7 @@ diff_repos_wc(const char *path1,
   else
     diff_depth = svn_depth_unknown;
 
-  /* Tell the RA layer we want a delta to change our txn to URL1 */
+  /* Tell the RA layer we want a delta to change our txn to URL1 */ 
   SVN_ERR(svn_ra_do_diff3(ra_session,
                           &reporter, &reporter_baton,
                           rev,
