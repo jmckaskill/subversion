@@ -125,7 +125,7 @@ WHERE wc_id = ?1 AND local_relpath = ?2 AND changelist IS NOT NULL
 SELECT op_depth, nodes.repos_id, nodes.repos_path, presence, kind, revision,
   checksum, translated_size, changed_revision, changed_date, changed_author,
   depth, symlink_target, last_mod_time, properties, lock_token, lock_owner,
-  lock_comment, lock_date, local_relpath, moved_here, moved_to,
+  lock_comment, lock_date, local_relpath, moved_here, moved_to, 
   file_external IS NOT NULL
 FROM nodes
 LEFT OUTER JOIN lock ON nodes.repos_id = lock.repos_id
@@ -315,7 +315,7 @@ SELECT moved_here, presence, repos_path, revision
 FROM nodes
 WHERE wc_id = ?1 AND local_relpath = ?2 AND op_depth >= ?3
 ORDER BY op_depth
-
+                  
 -- STMT_DELETE_LOCK
 DELETE FROM lock
 WHERE repos_id = ?1 AND repos_relpath = ?2
@@ -642,7 +642,7 @@ WHERE wc_id = ?1
        OR IS_STRICT_DESCENDANT_OF(local_relpath, ?2))
   AND (changelist IS NULL
        OR NOT EXISTS (SELECT 1 FROM nodes_current c
-                      WHERE c.wc_id = ?1
+                      WHERE c.wc_id = ?1 
                         AND c.local_relpath = actual_node.local_relpath
                         AND c.kind = 'file'))
 
@@ -1006,7 +1006,7 @@ WHERE wc_id = ?1
 -- STMT_SELECT_EXTERNALS_DEFINED
 SELECT local_relpath, def_local_relpath
 FROM externals
-WHERE wc_id = ?1
+WHERE wc_id = ?1 
   AND (def_local_relpath = ?2
        OR IS_STRICT_DESCENDANT_OF(def_local_relpath, ?2))
 
@@ -1102,7 +1102,7 @@ INSERT INTO temp__node_props_cache(local_relpath, kind, properties)
     AND presence IN ('normal', 'incomplete')
 
 -- STMT_CACHE_ACTUAL_PROPS
-UPDATE temp__node_props_cache
+UPDATE temp__node_props_cache 
    SET properties=
         IFNULL((SELECT properties FROM actual_node a
                  WHERE a.wc_id = ?1
@@ -1111,7 +1111,7 @@ UPDATE temp__node_props_cache
 
 -- STMT_CACHE_NODE_PRISTINE_PROPS
 INSERT INTO temp__node_props_cache(local_relpath, kind, properties)
- SELECT local_relpath, kind,
+ SELECT local_relpath, kind, 
         IFNULL((SELECT properties FROM nodes nn
                  WHERE n.presence = 'base-deleted'
                    AND nn.wc_id = n.wc_id
