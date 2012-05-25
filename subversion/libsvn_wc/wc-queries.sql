@@ -314,7 +314,7 @@ SELECT moved_here, presence, repos_path, revision
 FROM nodes
 WHERE wc_id = ?1 AND local_relpath = ?2 AND op_depth >= ?3
 ORDER BY op_depth
-
+                  
 -- STMT_DELETE_LOCK
 DELETE FROM lock
 WHERE repos_id = ?1 AND repos_relpath = ?2
@@ -335,7 +335,7 @@ UPDATE nodes SET repos_id = ?4, dav_cache = NULL
 WHERE (wc_id = ?1 AND local_relpath = ?2 AND repos_id = ?3)
    OR (wc_id = ?1 AND IS_STRICT_DESCENDANT_OF(local_relpath, ?2)
        AND repos_id = ?3)
-
+ 
 
 -- STMT_UPDATE_LOCK_REPOS_ID
 UPDATE lock SET repos_id = ?2
@@ -631,7 +631,7 @@ WHERE wc_id = ?1
        OR IS_STRICT_DESCENDANT_OF(local_relpath, ?2))
   AND (changelist IS NULL
        OR NOT EXISTS (SELECT 1 FROM nodes_current c
-                      WHERE c.wc_id = ?1
+                      WHERE c.wc_id = ?1 
                         AND c.local_relpath = actual_node.local_relpath
                         AND c.kind = 'file'))
 
