@@ -213,7 +213,7 @@
           <xsl:with-param name="scope" select="$scope"/>
           <xsl:sort select="translate(seealso, &lowercase;, &uppercase;)"/>
         </xsl:apply-templates>
-        <xsl:apply-templates select="$refs[secondary and count(.|key('secondary', concat($key, &sep;, &secondary;))[&scope;][1]) = 1]"
+        <xsl:apply-templates select="$refs[secondary and count(.|key('secondary', concat($key, &sep;, &secondary;))[&scope;][1]) = 1]" 
                              mode="index-secondary">
           <xsl:with-param name="scope" select="$scope"/>
           <xsl:sort select="translate(&secondary;, &lowercase;, &uppercase;)"/>
@@ -252,7 +252,7 @@
           <xsl:with-param name="scope" select="$scope"/>
           <xsl:sort select="translate(seealso, &lowercase;, &uppercase;)"/>
         </xsl:apply-templates>
-        <xsl:apply-templates select="$refs[tertiary and count(.|key('tertiary', concat($key, &sep;, &tertiary;))[&scope;][1]) = 1]"
+        <xsl:apply-templates select="$refs[tertiary and count(.|key('tertiary', concat($key, &sep;, &tertiary;))[&scope;][1]) = 1]" 
                              mode="index-tertiary">
           <xsl:with-param name="scope" select="$scope"/>
           <xsl:sort select="translate(&tertiary;, &lowercase;, &uppercase;)"/>
