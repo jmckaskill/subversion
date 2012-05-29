@@ -2433,7 +2433,7 @@ diff_repos_repos_added_or_deleted_file(const char *target,
                                                              scratch_pool),
                                     NULL, callback_baton, scratch_pool));
     }
-
+    
   return SVN_NO_ERROR;
 }
 
@@ -2757,7 +2757,7 @@ diff_repos_wc_file_target(const char *target,
   if (kind1 == svn_node_file)
     {
       if (show_copies_as_adds)
-        SVN_ERR(svn_wc__node_get_origin(&is_copy,
+        SVN_ERR(svn_wc__node_get_origin(&is_copy, 
                                         NULL, NULL, NULL, NULL, NULL,
                                         ctx->wc_ctx, file2_abspath,
                                         FALSE, scratch_pool, scratch_pool));
@@ -3010,7 +3010,7 @@ diff_repos_wc(const char *path_or_url1,
     callback_baton->revnum2 = rev;
 
   /* Check if our diff target is a copied node. */
-  SVN_ERR(svn_wc__node_get_origin(&is_copy,
+  SVN_ERR(svn_wc__node_get_origin(&is_copy, 
                                   &copyfrom_rev,
                                   &copy_source_repos_relpath,
                                   &copy_source_repos_root_url,
@@ -3069,7 +3069,7 @@ diff_repos_wc(const char *path_or_url1,
       svn_depth_t copy_depth;
 
       callback_baton->repos_wc_diff_target_is_copy = TRUE;
-
+      
       /* We're diffing a locally copied/moved directory.
        * Describe the copy source to the reporter instead of the copy itself.
        * Doing the latter would generate a single add_directory() call to the
@@ -3082,7 +3082,7 @@ diff_repos_wc(const char *path_or_url1,
                     copyfrom_url, pool);
       SVN_ERR(svn_ra_reparent(ra_session, copyfrom_parent_url, pool));
 
-      /* Tell the RA layer we want a delta to change our txn to URL1 */
+      /* Tell the RA layer we want a delta to change our txn to URL1 */ 
       SVN_ERR(svn_ra_do_diff3(ra_session,
                               &reporter, &reporter_baton,
                               rev,
@@ -3098,13 +3098,13 @@ diff_repos_wc(const char *path_or_url1,
                                      pool));
       SVN_ERR(reporter->set_path(reporter_baton, "", copyfrom_rev,
                                  copy_depth, FALSE, NULL, pool));
-
+      
       /* Finish the report to generate the diff. */
       SVN_ERR(reporter->finish_report(reporter_baton, pool));
     }
   else
     {
-      /* Tell the RA layer we want a delta to change our txn to URL1 */
+      /* Tell the RA layer we want a delta to change our txn to URL1 */ 
       SVN_ERR(svn_ra_do_diff3(ra_session,
                               &reporter, &reporter_baton,
                               rev,
