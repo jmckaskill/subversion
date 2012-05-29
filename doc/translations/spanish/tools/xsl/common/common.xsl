@@ -379,24 +379,24 @@ Defaults to the context node.</para>
 
 	 (parsect  (ancestor-member node (section-element-list)))
 
-	 (defnum   (if (and %qanda-inherit-numeration%
+	 (defnum   (if (and %qanda-inherit-numeration% 
 			    %section-autolabel%)
 		       (if (node-list-empty? parsect)
 			   (section-autolabel-prefix node)
 			   (section-autolabel parsect))
 		       ""))
 
-	 (hnumber  (let loop ((numlist hnr) (number defnum)
+	 (hnumber  (let loop ((numlist hnr) (number defnum) 
 			      (sep (if (equal? defnum "") "" ".")))
 		     (if (null? numlist)
 			 number
-			 (loop (cdr numlist)
+			 (loop (cdr numlist) 
 			       (string-append number
 					      sep
 					      (number->string (car numlist)))
 			       "."))))
 	 (cnumber  (child-number (parent node)))
-	 (number   (string-append hnumber
+	 (number   (string-append hnumber 
 				  (if (equal? hnumber "")
 				      ""
 				      ".")
@@ -825,7 +825,7 @@ Defaults to the context node.</para>
 children of a mediaobject or inlinemediaobject) and processes
 the "right" object.</para>
 
-<para>This template relies on a template named
+<para>This template relies on a template named 
 "select.mediaobject.index" to determine which object
 in the list is appropriate.</para>
 
@@ -851,7 +851,7 @@ in the list is appropriate.</para>
   <xsl:param name="olist"
              select="imageobject|imageobjectco
                      |videoobject|audioobject|textobject"/>
-
+  
   <xsl:variable name="mediaobject.index">
     <xsl:call-template name="select.mediaobject.index">
       <xsl:with-param name="olist" select="$olist"/>
@@ -898,7 +898,7 @@ of media objects is that the first acceptable graphic should be used.
 </varlistentry>
 <varlistentry><term>count</term>
 <listitem>
-<para>The position in the list currently being considered by the
+<para>The position in the list currently being considered by the 
 recursive process.</para>
 </listitem>
 </varlistentry>
@@ -918,38 +918,38 @@ recursive process.</para>
 
   <xsl:choose>
     <!-- Test for objects preferred by role -->
-    <xsl:when test="$use.role.for.mediaobject != 0
+    <xsl:when test="$use.role.for.mediaobject != 0 
                and $preferred.mediaobject.role != ''
-               and $olist[@role = $preferred.mediaobject.role]">
-
+               and $olist[@role = $preferred.mediaobject.role]"> 
+      
       <!-- Get the first hit's position index -->
       <xsl:for-each select="$olist">
         <xsl:if test="@role = $preferred.mediaobject.role and
-             not(preceding-sibling::*[@role = $preferred.mediaobject.role])">
-          <xsl:value-of select="position()"/>
+             not(preceding-sibling::*[@role = $preferred.mediaobject.role])"> 
+          <xsl:value-of select="position()"/> 
         </xsl:if>
       </xsl:for-each>
     </xsl:when>
 
-    <xsl:when test="$use.role.for.mediaobject != 0
+    <xsl:when test="$use.role.for.mediaobject != 0 
                and $olist[@role = $stylesheet.result.type]">
       <!-- Get the first hit's position index -->
       <xsl:for-each select="$olist">
-        <xsl:if test="@role = $stylesheet.result.type and
-              not(preceding-sibling::*[@role = $stylesheet.result.type])">
-          <xsl:value-of select="position()"/>
+        <xsl:if test="@role = $stylesheet.result.type and 
+              not(preceding-sibling::*[@role = $stylesheet.result.type])"> 
+          <xsl:value-of select="position()"/> 
         </xsl:if>
       </xsl:for-each>
     </xsl:when>
     <!-- Accept 'html' for $stylesheet.result.type = 'xhtml' -->
-    <xsl:when test="$use.role.for.mediaobject != 0
+    <xsl:when test="$use.role.for.mediaobject != 0 
                and $stylesheet.result.type = 'xhtml'
                and $olist[@role = 'html']">
       <!-- Get the first hit's position index -->
       <xsl:for-each select="$olist">
-        <xsl:if test="@role = 'html' and
-              not(preceding-sibling::*[@role = 'html'])">
-          <xsl:value-of select="position()"/>
+        <xsl:if test="@role = 'html' and 
+              not(preceding-sibling::*[@role = 'html'])"> 
+          <xsl:value-of select="position()"/> 
         </xsl:if>
       </xsl:for-each>
     </xsl:when>
@@ -957,14 +957,14 @@ recursive process.</para>
       <!-- Otherwise select first acceptable object -->
       <xsl:if test="$count &lt;= count($olist)">
         <xsl:variable name="object" select="$olist[position()=$count]"/>
-
+    
         <xsl:variable name="useobject">
           <xsl:choose>
             <!-- The phrase is used only when contains TeX Math and output is FO -->
             <xsl:when test="name($object)='textobject' and $object/phrase
                             and $object/@role='tex' and $stylesheet.result.type = 'fo'
                             and $tex.math.in.alt != ''">
-              <xsl:text>1</xsl:text>
+              <xsl:text>1</xsl:text> 
             </xsl:when>
             <!-- The phrase is never used -->
             <xsl:when test="name($object)='textobject' and $object/phrase">
@@ -981,9 +981,9 @@ recursive process.</para>
                             and $object[not(@role) or @role!='tex']">
               <xsl:text>1</xsl:text>
             </xsl:when>
-            <!-- don't use graphic when output is FO, TeX Math is used
+            <!-- don't use graphic when output is FO, TeX Math is used 
                  and there is math in alt element -->
-            <xsl:when test="$object/ancestor::equation and
+            <xsl:when test="$object/ancestor::equation and 
                             $object/ancestor::equation/alt[@role='tex']
                             and $stylesheet.result.type = 'fo'
                             and $tex.math.in.alt != ''">
@@ -1011,7 +1011,7 @@ recursive process.</para>
             </xsl:otherwise>
           </xsl:choose>
         </xsl:variable>
-
+    
         <xsl:choose>
           <xsl:when test="$useobject='1'">
             <xsl:value-of select="$count"/>
