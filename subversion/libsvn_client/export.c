@@ -187,7 +187,7 @@ export_node(void *baton,
   svn_stream_t *dst_stream;
   const char *dst_tmp;
   svn_error_t *err;
-
+  
   const char *to_abspath = svn_dirent_join(
                                 eib->to_path,
                                 svn_dirent_skip_ancestor(eib->origin_abspath,
