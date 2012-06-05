@@ -1628,7 +1628,7 @@ svn_wc_merge5(enum svn_wc_merge_outcome_t *merge_content_outcome,
                              cancel_func, cancel_baton,
                              scratch_pool));
     }
-
+  
   return SVN_NO_ERROR;
 }
 
