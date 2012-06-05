@@ -185,7 +185,7 @@ end_element(void *baton,
          multiple properties on the current path. */
       svn_stringbuf_setempty(iprops_baton->curr_propname);
       svn_stringbuf_setempty(iprops_baton->curr_propval);
-    }
+    } 
   else if (elm->id == ELEM_iprop_item)
     {
       APR_ARRAY_PUSH(iprops_baton->iprops, svn_prop_inherited_item_t *) =
