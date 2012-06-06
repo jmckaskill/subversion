@@ -483,7 +483,7 @@ harvest_not_present_for_copy(svn_wc_context_t *wc_ctx,
   SVN_ERR(svn_wc__node_get_children_of_working_node(
                                     &children, wc_ctx, local_abspath, TRUE,
                                     scratch_pool, iterpool));
-
+      
   for (i = 0; i < children->nelts; i++)
     {
       const char *this_abspath = APR_ARRAY_IDX(children, i, const char *);
@@ -576,7 +576,7 @@ harvest_status_callback(void *status_baton,
   svn_boolean_t copy_mode;
 
   struct harvest_baton *baton = status_baton;
-  svn_boolean_t is_harvest_root =
+  svn_boolean_t is_harvest_root = 
                 (strcmp(baton->root_abspath, local_abspath) == 0);
   svn_client__committables_t *committables = baton->committables;
   const char *repos_root_url = status->repos_root_url;
@@ -888,7 +888,7 @@ harvest_status_callback(void *status_baton,
         }
     }
 
-  /* Make sure we check for dangling children on additions
+  /* Make sure we check for dangling children on additions 
 
      We perform this operation on the harvest root, and on roots caused by
      changelist filtering.
@@ -1759,7 +1759,7 @@ svn_client__do_commit(const char *repos_root,
   int i;
 
   /* Loop to look for children of newly-added directories.
-
+     
      ### This information is probably available earlier in the commit
      ### process, but we just don't capture it.  If/when we rework
      ### the commit item struct, we should include children as well. */
@@ -1779,7 +1779,7 @@ svn_client__do_commit(const char *repos_root,
           apr_hash_set(new_children, parent_relpath, APR_HASH_KEY_STRING,
                        children);
         }
-
+    
       APR_ARRAY_PUSH(children, const char *) =
             svn_relpath_basename(item->session_relpath, scratch_pool);
     }
