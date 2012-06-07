@@ -1174,7 +1174,7 @@ handle_propchange_only(report_info_t *info,
 {
   SVN_ERR(open_updated_file(info, FALSE, scratch_pool));
   SVN_ERR(close_updated_file(info, scratch_pool));
-
+  
   /* We're done with our pool. */
   svn_pool_destroy(info->pool);
 
@@ -1329,7 +1329,7 @@ fetch_file(report_context_t *ctx, report_info_t *info)
             {
               info->cached_contents = contents;
             }
-        }
+        }          
 
       /* If the working copy can provided cached contents for this
          file, we'll send a simple HEAD request (which I'll claim is
