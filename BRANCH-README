@@ -1,14 +1,14 @@
 This branch exists to prepare implementation of the repository access
-APIs with JavaHL. It is being managed as a reintegrate-able branch, with
+APIs with JavaHL. It is being managed as a reintegrate-able branch, with 
 catch-up merges from the trunk.
 
 TODO:
 
-   * Prepare existing code for merging of SVNRa editor       [TODO]
+   * Prepare existing code for merging of SVNRa editor       [TODO] 
    * Apply editor support patches                            [TODO]
    * Implement reading of state and content of repository    [TODO]
    * Review                                                  [TODO]
    * Incorporate feedback                                    [TODO]
    * Merge to trunk                                          [TODO]
-
+    
 
