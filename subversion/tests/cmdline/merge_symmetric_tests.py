@@ -841,7 +841,7 @@ def subtree_to_and_fro(sbox):
                                 "|(\n)"
                                 "|(.*apr_err.*)", # In case of debug build
                                 None,
-                                True) # Match *all* lines of stdout
+                                True) # Match *all* lines of stdout  
 
 #----------------------------------------------------------------------
 # Symmetric merges ignore subtree mergeinfo gaps older than the last rev
@@ -890,7 +890,7 @@ def merge_to_reverse_cherry_subtree_to_merge_to(sbox):
   # Try a symmetric sync merge from ^/A to A_COPY.  Revision 5 should be
   # merged to A_COPY/B as its subtree mergeinfo reveals that rev is missing,
   # like so:
-  #
+  # 
   #   >svn merge ^/A A_COPY
   #   --- Merging r5 into 'A_COPY\B':
   #   U    A_COPY\B\E\beta
