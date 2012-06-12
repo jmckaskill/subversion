@@ -108,10 +108,10 @@ typedef struct item_baton_t {
   const char *path3;   /* ... uc->dst_path, without dst_path prefix. */
 
   /* Base_checksum (from apply_textdelta). */
-  const char *base_checksum;
+  const char *base_checksum;   
 
   /* Did the file's contents change? */
-  svn_boolean_t text_changed;
+  svn_boolean_t text_changed; 
 
   /* File/dir added? (Implies text_changed for files.) */
   svn_boolean_t added;
