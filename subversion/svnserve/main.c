@@ -911,7 +911,7 @@ LRESULT CALLBACK ipc_window_proc(HWND hWnd, UINT message, WPARAM wParam, LPARAM 
     break;
     default:  return DefWindowProc(hWnd, message, wParam, lParam);
     break;
-
+    
   }
   return 0;
 }
