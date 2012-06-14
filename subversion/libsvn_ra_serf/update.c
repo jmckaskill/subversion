@@ -1174,7 +1174,7 @@ handle_propchange_only(report_info_t *info,
 {
   SVN_ERR(open_updated_file(info, FALSE, scratch_pool));
   SVN_ERR(close_updated_file(info, scratch_pool));
-
+  
   /* We're done with our pool. */
   svn_pool_destroy(info->pool);
 
@@ -1278,7 +1278,7 @@ fetch_file(report_context_t *ctx, report_info_t *info)
             {
               info->cached_contents = contents;
             }
-        }
+        }          
 
       /* If the working copy can provide cached contents for this
          file, we don't have to fetch them from the server. */
@@ -1286,7 +1286,7 @@ fetch_file(report_context_t *ctx, report_info_t *info)
         {
           /* If we'll be doing a PROPFIND for this file... */
           if (info->propfind_handler)
-            {
+            { 
               /* ... then we'll just leave ourselves a little "todo"
                  about that fact (and we'll deal with the file content
                  stuff later, after we've handled that PROPFIND
