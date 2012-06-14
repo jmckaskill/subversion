@@ -1802,6 +1802,6 @@ svn_stream_lazyopen_create(svn_stream_lazyopen_func_t open_func,
   svn_stream_set_close(stream, close_handler_lazyopen);
   svn_stream_set_mark(stream, mark_handler_lazyopen);
   svn_stream_set_seek(stream, seek_handler_lazyopen);
-
+  
   return stream;
 }
