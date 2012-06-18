@@ -1170,7 +1170,7 @@ handle_propchange_only(report_info_t *info,
 {
   SVN_ERR(open_updated_file(info, FALSE, scratch_pool));
   SVN_ERR(close_updated_file(info, scratch_pool));
-
+  
   /* We're done with our pool. */
   svn_pool_destroy(info->pool);
 
@@ -1274,7 +1274,7 @@ fetch_file(report_context_t *ctx, report_info_t *info)
             {
               info->cached_contents = contents;
             }
-        }
+        }          
 
       /* If the working copy can provide cached contents for this
          file, we don't have to fetch them from the server. */
@@ -1282,7 +1282,7 @@ fetch_file(report_context_t *ctx, report_info_t *info)
         {
           /* If we'll be doing a PROPFIND for this file... */
           if (info->propfind_handler)
-            {
+            { 
               /* ... then we'll just leave ourselves a little "todo"
                  about that fact (and we'll deal with the file content
                  stuff later, after we've handled that PROPFIND
@@ -2837,9 +2837,9 @@ svn_ra_serf__do_switch(svn_ra_session_t *ra_session,
 /* Helper svn_ra_serf__get_file(). Attempts to fetch file contents
  * using SESSION->wc_callbacks->get_wc_contents() if sha1 property is
  * present in PROPS.
- *
+ * 
  * Sets *FOUND_P to TRUE if file contents was successfuly fetched.
- *
+ * 
  * Performs all temporary allocations in POOL.
  */
 static svn_error_t *
@@ -2893,7 +2893,7 @@ try_get_wc_contents(svn_boolean_t *found_p,
       /* Ignore errors for now. */
       return SVN_NO_ERROR;
     }
-
+  
   if (wc_stream)
     {
       SVN_ERR(svn_stream_copy3(wc_stream, dst_stream, NULL, NULL, pool));
@@ -2954,7 +2954,7 @@ svn_ra_serf__get_file(svn_ra_session_t *ra_session,
     {
       which_props = check_path_props;
     }
-
+     
   SVN_ERR(svn_ra_serf__fetch_node_props(&fetch_props, conn, fetch_url,
                                         SVN_INVALID_REVNUM,
                                         which_props,
