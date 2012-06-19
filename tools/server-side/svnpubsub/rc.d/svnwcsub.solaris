@@ -19,7 +19,7 @@ SVNWCSUB_CMD="/usr/local/svnpubsub/svnwcsub.py \
               ${svnwcsub_config}"
 
 RETVAL=0
-
+ 
 start() {
     echo "Starting SvnWcSub Server: "
     $SVNWCSUB_CMD
@@ -27,7 +27,7 @@ start() {
     [ $RETVAL -eq 0 ] && echo "ok" || echo "failed"
     return $RETVAL
 }
-
+ 
 stop() {
     echo "Stopping SvnWcSub Server: "
     THE_PID=`cat ${pidfile}`
