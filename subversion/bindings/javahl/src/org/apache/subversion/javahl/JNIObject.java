@@ -24,15 +24,14 @@
 package org.apache.subversion.javahl;
 
 /**
- *  This class is used internally by the JavaHL implementation and not
- *  considered part part of the public API.
+ * This class is used internally by the JavaHL implementation and not considered
+ * part part of the public API.
  */
 public abstract class JNIObject
 {
     /**
-     * slot for the address of the native peer.
-     * The JNI code controls this field. If it is set to 0 then
-     * underlying JNI object has been freed
+     * slot for the address of the native peer. The JNI code controls this
+     * field. If it is set to 0 then underlying JNI object has been freed
      */
     protected long cppAddr;
 
