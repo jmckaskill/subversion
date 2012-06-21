@@ -44,7 +44,7 @@ public class SVNRa extends JNIObject implements ISVNRa
     /**
      * This constructor is called from JNI to get an instance call getRaSession
      * method of ISVNClient
-     *
+     * 
      * @param cppAddr
      */
     protected SVNRa(long cppAddr)

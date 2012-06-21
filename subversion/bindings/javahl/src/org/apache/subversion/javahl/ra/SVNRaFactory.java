@@ -47,8 +47,8 @@ public class SVNRaFactory
 
     /**
      * Crates RA session for a given url with provided context
-     *
-     * @param url
+     * 
+     * @param url 
      *            to connect to
      * @param uuid
      *            of the remote repository, can be null if uuid check is not
