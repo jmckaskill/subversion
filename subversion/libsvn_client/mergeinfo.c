@@ -1707,7 +1707,7 @@ svn_client_mergeinfo_log2(svn_boolean_t finding_merged,
 
       /* TARGET_REPOS_REL should be non-NULL, else get_mergeinfo
          should have failed.  */
-      SVN_ERR_ASSERT(target_repos_rel != NULL);
+      SVN_ERR_ASSERT(target_repos_rel != NULL); 
     }
 
   if (!target_mergeinfo_cat)
@@ -1740,7 +1740,7 @@ svn_client_mergeinfo_log2(svn_boolean_t finding_merged,
     svn_ra_session_t *source_session, *target_session;
     svn_client__pathrev_t *pathrev;
     svn_revnum_t start_rev, end_rev, youngest_rev = SVN_INVALID_REVNUM;
-
+    
     if (! finding_merged)
       {
         SVN_ERR(svn_client__ra_session_from_path2(&target_session, &pathrev,
@@ -1755,7 +1755,7 @@ svn_client_mergeinfo_log2(svn_boolean_t finding_merged,
                                                      target_session, ctx,
                                                      scratch_pool));
       }
-
+    
     SVN_ERR(svn_client__ra_session_from_path2(&source_session, &pathrev,
                                               source_path_or_url, NULL,
                                               source_peg_revision,
