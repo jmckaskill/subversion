@@ -47,7 +47,7 @@ public interface ISVNRa
      * @return latest revision
      */
     public long getLatestRevision();
-
+    
     /**
      * @param date      The date
      * @return          The latest revision at date

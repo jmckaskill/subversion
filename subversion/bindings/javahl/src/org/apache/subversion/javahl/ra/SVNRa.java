@@ -37,7 +37,7 @@ public class SVNRa extends JNIObject implements ISVNRa
 {
     @Override
     public native long getLatestRevision();
-
+    
     public native long getDatedRevision(Date date)
             throws SubversionException;
 
@@ -46,7 +46,7 @@ public class SVNRa extends JNIObject implements ISVNRa
 
     public native NodeKind checkPath(String path, Revision revision)
             throws SubversionException;
-
+        
     @Override
     public native void finalize() throws Throwable;
 
@@ -61,7 +61,7 @@ public class SVNRa extends JNIObject implements ISVNRa
     /**
      * This constructor is called from JNI to get an instance call getRaSession
      * method of ISVNClient
-     *
+     * 
      * @param cppAddr
      */
     protected SVNRa(long cppAddr)
