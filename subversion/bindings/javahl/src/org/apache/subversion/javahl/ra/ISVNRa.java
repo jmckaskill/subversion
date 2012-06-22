@@ -49,15 +49,15 @@ public interface ISVNRa
     public long getLatestRevision();
 
     /**
-     * @param date      The date
-     * @return          The latest revision at date
+     * @param date
+     *            The date
+     * @return The latest revision at date
      */
-    public long getDatedRevision(Date date)
-        throws SubversionException;
+    public long getDatedRevision(Date date) throws SubversionException;
 
     public Map<String, Lock> getLocks(String path, Depth depth)
-        throws SubversionException;
+            throws SubversionException;
 
     public NodeKind checkPath(String path, Revision revision)
-        throws SubversionException;
+            throws SubversionException;
 }
