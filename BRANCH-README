@@ -1,46 +1,46 @@
 This branch exists to prepare implementation of the repository access
-APIs with JavaHL. It is being managed as a reintegrate-able branch, with
+APIs with JavaHL. It is being managed as a reintegrate-able branch, with 
 catch-up merges from the trunk.
 
 TODO:
 
    * Prepare existing code for merging of SVNRa editor       [IN PROGRESS]
-
-      01. JavaHL: Changed return value from the
-          java svn_stream_t read function to be compatible
+   
+      01. JavaHL: Changed return value from the 
+          java svn_stream_t read function to be compatible 
           with the txdelta_next_window function              [trunk@1342720]
-
-      02. JavaHL: Explicitly pass jobject jthis when
+          
+      02. JavaHL: Explicitly pass jobject jthis when 
           processing dispose() call rather  than stashing a
-          reference in the SVNBase class where it can be
+          reference in the SVNBase class where it can be 
           misused later                                      [trunk@1342810]
-
+          
       03. JavaHL: Add SVN_JNI_STRING macro to reduce amount
           of code necessary to declare JNIStringHolder and
           check for exceptions                               [POSTPONED]
-
+          
       04. JavaHL: New method for creating java objects
-          linked to their C++ counterpart                    [br.@1352400]
-
+          linked to their C++ counterpart                    [br.@1352400]   
+          
       05. JavaHL: Factored out common context for later use
           by SVNRa class                                     [br.@1352403]
-
+          
       06. JavaHL: Minimal implementation of SVNRa:
           getLatestRevision()                                [br.@1352419]
-
+          
       07. JavaHL: Merge existing SVNRepoAccess into SVNRa    [br.@1352737]
 
       08. JavaHL: Move logic from JNI wrapper methods into
-          their C++ counterparts for consistency with the
+          their C++ counterparts for consistency with the 
           rest of the code                                   [IN PROGRESS]
 
       09. JavaHL: Switch getDatedRevision from Date to long
            to avoid issue #2359                              [IN PROGRESS]
 
-
+          
    * Implement other ra functions not requiring additional
      code refactoring                                        [TODO]
-
+      
       xx. JavaHL: Implement getUUID()                        [TODO]
 
       xx. JavaHL: Implement getUrl()                         [TODO]
@@ -50,27 +50,27 @@ TODO:
 
    * Apply editor support patches                            [TODO]
       xx. JavaHL: Support returning non const, empty rather
-          than NULL hash as required by
-          (svn_ra_get_commit_editor3)
+          than NULL hash as required by 
+          (svn_ra_get_commit_editor3) 
           apr_hash_t *revprop_table parameter                [br.@1343456 TBR]
-
+          
       xx. JavaHL: Support keeping global reference to the
           callback java object as required by the RA API due
           to callback being used across method calls         [TODO]
-
+          
       xx. JavaHL: Added support for creating of svn_string_t
           from JNIByteArray                                  [TODO]
-
+          
       xx. JavaHL: Added SVN_JNI_BYTE_ARRAY macro to reduce
           amount of duplicate code dealing with jbyteArray
           wrapper and checking for exceptions                [POSTPONED]
-
+      
       xx. JavaHL: Factor out common java string map
           processing into StringsTable class from
           svn_string_t specific processing in the
           RevpropTable class                                 [TODO]
 
-
+          
    * Commit RA editor implementation                         [TODO]
 
 
