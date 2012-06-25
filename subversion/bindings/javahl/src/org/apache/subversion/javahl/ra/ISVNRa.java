@@ -47,21 +47,21 @@ public interface ISVNRa
      * @return latest revision
      */
     public long getLatestRevision();
-
+    
     /**
      * @return repository UUID
      */
     public String getUUID();
-
+    
     /**
      * @param date
      *            The date
      * @return The latest revision at date
      */
     public long getDatedRevision(Date date) throws SubversionException;
-
+    
     /**
-     * @param timestamp (in nano seconds) used as a cutoff time
+     * @param timestamp (in nano seconds) used as a cutoff time 
      * @return the latest revision at that moment
      */
     public long getDatedRevision(long timestamp) throws SubversionException;
