@@ -660,7 +660,7 @@ def accepts_deltas(sbox):
                                                         "trunk", "--quiet")
   load_and_verify_dumpstream(sbox, [], [], None, False, filtered_out)
 
-
+  
 
 ########################################################################
 # Run the tests
