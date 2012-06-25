@@ -49,6 +49,11 @@ public interface ISVNRa
     public long getLatestRevision();
 
     /**
+     * @return repository UUID
+     */
+    public String getUUID();
+
+    /**
      * @param date
      *            The date
      * @return The latest revision at date
