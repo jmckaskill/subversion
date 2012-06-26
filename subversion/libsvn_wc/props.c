@@ -2811,8 +2811,8 @@ svn_wc__get_iprops(apr_array_header_t **inherited_props,
                                                     scratch_pool));
               if (cached_iprops)
                 {
-                  *cached_iprops_found = TRUE;
-                }
+                  *cached_iprops_found = TRUE;          
+                }          
             }
         }
 
