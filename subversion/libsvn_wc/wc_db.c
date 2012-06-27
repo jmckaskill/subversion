@@ -392,7 +392,7 @@ wclock_owns_lock(svn_boolean_t *own_lock,
                  apr_pool_t *scratch_pool);
 
 
-
+ 
 /* Return the absolute path, in local path style, of LOCAL_RELPATH
    in WCROOT.  */
 static const char *
@@ -1485,7 +1485,7 @@ svn_wc__db_init(svn_wc__db_t *db,
 
   /* Create the SDB and insert the basic rows.  */
   SVN_ERR(create_db(&sdb, &repos_id, &wc_id, local_abspath, repos_root_url,
-                    repos_uuid, SDB_FILE,
+                    repos_uuid, SDB_FILE, 
                     repos_relpath, initial_rev, depth,
                     db->state_pool, scratch_pool));
 
@@ -8662,12 +8662,12 @@ get_children_with_cached_iprops(apr_hash_t *iprop_paths,
       || depth == svn_depth_immediates)
     {
       SVN_ERR(svn_sqlite__get_statement(&stmt, wcroot->sdb,
-                                        STMT_SELECT_INODES));
+                                        STMT_SELECT_INODES));  
     }
   else /* Default to svn_depth_infinity. */
     {
       SVN_ERR(svn_sqlite__get_statement(&stmt, wcroot->sdb,
-                                        STMT_SELECT_INODES_RECURSIVE));
+                                        STMT_SELECT_INODES_RECURSIVE));  
     }
 
   SVN_ERR(svn_sqlite__bindf(stmt, "is", wcroot->wc_id, local_relpath));
@@ -8778,7 +8778,7 @@ svn_wc__db_remove_cached_iprops(svn_wc__db_t *db,
                                                 scratch_pool, scratch_pool));
   SVN_ERR(svn_sqlite__get_statement(&stmt, wcroot->sdb, STMT_DELETE_IPROPS));
   SVN_ERR(svn_sqlite__bindf(stmt, "is", wcroot->wc_id, local_relpath));
-  return svn_error_trace(svn_sqlite__step_done(stmt));
+  return svn_error_trace(svn_sqlite__step_done(stmt));  
 }
 
 svn_error_t *

@@ -149,7 +149,7 @@ CREATE TABLE ACTUAL_NODE (
 
   /* if not NULL, this node is part of a changelist. */
   changelist  TEXT,
-
+  
   /* ### need to determine values. "unknown" (no info), "admin" (they
      ### used something like 'svn edit'), "noticed" (saw a mod while
      ### scanning the filesystem). */
@@ -169,7 +169,7 @@ CREATE TABLE ACTUAL_NODE (
   /* stsp: This is meant for text conflicts, right? What about property
            conflicts? Why do we need these in a column to refer to the
            pristine store? Can't we just parse the checksums from
-           conflict_data as well?
+           conflict_data as well? 
      rhuijben: Because that won't allow triggers to handle refcounts.
                We would have to scan all conflict skels before cleaning up the
                a single file from the pristine stor */
@@ -199,7 +199,7 @@ CREATE TABLE LOCK (
   lock_owner  TEXT,
   lock_comment  TEXT,
   lock_date  INTEGER,   /* an APR date/time (usec since 1970) */
-
+  
   PRIMARY KEY (repos_id, repos_relpath)
   );
 
@@ -554,7 +554,7 @@ CREATE TABLE EXTERNALS (
   /* the kind of the external. */
   kind  TEXT NOT NULL,
 
-  /* The local relpath of the directory NODE defining this external
+  /* The local relpath of the directory NODE defining this external 
      (Defaults to the parent directory of the file external after upgrade) */
   def_local_relpath         TEXT NOT NULL,
 
@@ -578,7 +578,7 @@ CREATE UNIQUE INDEX I_EXTERNALS_DEFINED ON EXTERNALS (wc_id,
 
 /* The INHERITABLE_PROPS table describes the properties inherited by any
    base nodes in the WC which are WC roots (considering switched subtrees
-   as WC roots).
+   as WC roots). 
 
    Zero or more INHERITABLE_PROPS table rows exist for a given WC root
    node in the NODES table, one for each repository parent the node
@@ -757,7 +757,7 @@ LIMIT 1
 
 /* ------------------------------------------------------------------------- */
 
-/* Format 28 involves no schema changes, it only converts MD5 pristine
+/* Format 28 involves no schema changes, it only converts MD5 pristine 
    references to SHA1. */
 
 -- STMT_UPGRADE_TO_28

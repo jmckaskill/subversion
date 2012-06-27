@@ -2978,7 +2978,7 @@ get_inherited_props(svn_ra_svn_conn_t *conn,
       SVN_ERR(svn_ra_svn_write_proplist(conn, pool, iprop->prop_hash));
       SVN_ERR(svn_ra_svn_write_tuple(conn, pool, "!))!",
                                      iprop->path_or_url));
-    }
+    }  
 
   SVN_ERR(svn_ra_svn_write_tuple(conn, pool, "!))"));
   return SVN_NO_ERROR;
