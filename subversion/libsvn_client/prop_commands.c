@@ -1091,7 +1091,7 @@ call_receiver(const char *path,
  *
  * The 'path' and keys for 'prop_hash' and 'inherited_prop' arguments to
  * RECEIVER are all URLs.
- *
+ * 
  * RESULT_POOL is used to allocated the 'path', 'prop_hash', and
  * 'inherited_prop' arguments to RECEIVER.  SCRATCH_POOL is used for all
  * other (temporary) allocations.
@@ -1183,7 +1183,7 @@ remote_proplist(const char *target_prefix,
               value = svn_string_dup(value, result_pool);
               apr_hash_set(final_hash, name, klen, value);
             }
-        }
+        }  
     }
 
   if (get_target_inherited_props)
