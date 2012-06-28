@@ -21,7 +21,7 @@ We currently support three kinds of conflicts.
  * Property conflicts
  * Tree conflicts
 
-These conflicts all have their own storage model.
+These conflicts all have their own storage model. 
 
 Text conflicts are stored in the working copy in marker files. This allows
 resolving later using the --accept argument of 'svn resolve'.
@@ -137,7 +137,7 @@ is left out of this proposal and can be implemented independently.
 
 Property Conflicts
 ------------------
-
+  
 Property conflicts are initially described as
   ("prop" MARKERS (PROPS-OLD PROPS-NEW PROPS_WORKING) ...)
 
@@ -171,7 +171,7 @@ Tree Conflicts
 
 Tree conflicts are initially described as
   ("tree" () LOCAL-STATE INCOMING-ACTION ...)
-
+  
 Tree conflicts (currently) have no marker file, so this is described as ()
 instead of MARKERS.
 
