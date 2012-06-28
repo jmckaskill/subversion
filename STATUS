@@ -76,10 +76,10 @@ Candidate changes:
      Please read the branch and related trunk log messages for detailed notes
      about these changes.
    Branch:
-     ^/subversion/branches/1.7.x-issue4153
+     ^/subversion/branches/1.7.x-issue4153  
    Votes:
      +1: stsp
-
+   
  * ^/subversion/branches/1.7.x-performance
    Use the working copy status walker as a first filter to find committable
    nodes.
@@ -122,7 +122,7 @@ Candidate changes:
    Notes: Needs a backport branch, noted here for completeness.
    Votes:
      +0: stsp (pending a proper conflict-free backport)
-
+   
  * r1348822, r1349215
    Fix "svn status -u --depth empty FILE"
    Justification:
