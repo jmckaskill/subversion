@@ -24,7 +24,7 @@
 /* ==================================================================== */
 
 
-
+ 
 /*** Includes. ***/
 
 #include <apr_uri.h>
@@ -41,7 +41,7 @@
 
 #include "svn_private_config.h"
 #include "private/svn_wc_private.h"
-
+ 
 /* Closure for handle_external_item_change. */
 struct external_change_baton_t
 {
@@ -910,8 +910,8 @@ handle_external_item_change(const struct external_change_baton_t *eb,
             const char *local_repos_root_url;
             const char *local_repos_uuid;
             const char *ext_repos_relpath;
-
-            /*
+            
+            /* 
              * The working copy library currently requires that all files
              * in the working copy have the same repository root URL.
              * The URL from the file external's definition differs from the
