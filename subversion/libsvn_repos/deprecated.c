@@ -1022,7 +1022,7 @@ svn_repos_authz_check_access(svn_authz_t *authz, const char *repos_name,
     access = svn_repos_access_read;
   else if (required_access & svn_authz_write)
     access = svn_repos_access_readwrite;
-
+  
   if (required_access & svn_authz_recursive)
     depth = svn_depth_infinity;
 
