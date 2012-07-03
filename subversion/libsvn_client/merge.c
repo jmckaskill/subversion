@@ -3303,7 +3303,7 @@ adjust_deleted_subtree_ranges(svn_client__merge_path_t *child,
       http://subversion.tigris.org/issues/show_bug.cgi?id=3137 fixed some of
       the cases where different RA layers returned different error codes to
       signal the "path not found"...but it looks like there is more to do.
-
+      
       ### Do we still need to special case for ra_neon (since it no longer
           exists)? */
   if (err)
@@ -6245,7 +6245,7 @@ get_log(svn_ra_session_t *ra_session,
 {
   apr_array_header_t *log_targets;
   apr_array_header_t *revprops;
-
+  
   log_targets = apr_array_make(pool, 1, sizeof(const char *));
   APR_ARRAY_PUSH(log_targets, const char *) = target;
 
