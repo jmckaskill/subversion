@@ -341,7 +341,7 @@ typedef struct svn_auth_cred_ssl_server_trust_t
 
 
 /** Master passphrase credential type.
- *
+ * 
  * This is a special type of credential used locally only, not as part
  * of any server-related challenge.
  *
