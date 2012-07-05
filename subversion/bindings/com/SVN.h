@@ -25,12 +25,12 @@
 
 /////////////////////////////////////////////////////////////////////////////
 // CSVN
-class ATL_NO_VTABLE CSVNWorkingCopy :
+class ATL_NO_VTABLE CSVNWorkingCopy : 
         public CComObjectRootEx<CComMultiThreadModel>,
         public CComCoClass<CSVNWorkingCopy, &CLSID_SVNWorkingCopy>,
         public ISupportErrorInfo,
         public IConnectionPointContainerImpl<CSVNWorkingCopy>,
-        public IDispatchImpl<ISVNWorkingCopy, &IID_ISVNWorkingCopy,
+        public IDispatchImpl<ISVNWorkingCopy, &IID_ISVNWorkingCopy, 
                              &LIBID_SVNCOMLib>,
         public CProxy_ISVNEvents< CSVNWorkingCopy >
 {
@@ -97,12 +97,12 @@ END_CONNECTION_POINT_MAP()
 
 // ISVNWorkingCopy
 public:
-        STDMETHOD(wc_statuses)(/*[in]*/ BSTR bstrPath,
-                               /*[in]*/ VARIANT_BOOL getAll,
+        STDMETHOD(wc_statuses)(/*[in]*/ BSTR bstrPath, 
+                               /*[in]*/ VARIANT_BOOL getAll, 
                                /*[out]*/ SAFEARRAY **ppsa);
         STDMETHOD(watch_dir)(/*[in]*/ BSTR bstrDir);
-        STDMETHOD(check_wc)(/*[in]*/ BSTR bstrDir,
-                            /*[out, retval]*/ VARIANT_BOOL *pfIsValid);
+        STDMETHOD(check_wc)(/*[in]*/ BSTR bstrDir, 
+                            /*[out, retval]*/ VARIANT_BOOL *pfIsValid); 
 private:
         static void FileNotificationThreadProc(void *);
 };
