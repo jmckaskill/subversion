@@ -52,7 +52,7 @@ struct file_merge_baton {
   apr_file_t *original_file;
   apr_file_t *modified_file;
   apr_file_t *latest_file;
-
+  
   /* Counters to keep track of the current line in each file. */
   svn_linenum_t current_line_original;
   svn_linenum_t current_line_modified;
@@ -302,7 +302,7 @@ static int
 get_term_width(void)
 {
   char *columns_env;
-#ifdef TIOCGWINSZ
+#ifdef TIOCGWINSZ	
   int fd;
 
   fd = open("/dev/tty", O_RDONLY, 0);
@@ -354,7 +354,7 @@ prepare_line_for_display(const char *line, apr_pool_t *pool)
 
   /* Trim EOL. */
   if (buf->len >= 2 &&
-      buf->data[buf->len - 2] == '\r' &&
+      buf->data[buf->len - 2] == '\r' && 
       buf->data[buf->len - 1] == '\n')
     svn_stringbuf_chop(buf, 2);
   else if (buf->len >= 1 &&
@@ -573,7 +573,7 @@ merge_chunks(apr_array_header_t **merged_chunk,
                                                   : chunk2->nelts;
   *abort_merge = FALSE;
 
-  /*
+  /* 
    * Prepare the selection prompt.
    */
 
@@ -627,7 +627,7 @@ merge_chunks(apr_array_header_t **merged_chunk,
         }
       else
         line2 = prepare_line_for_display("", iterpool);
-
+        
       prompt_line = apr_psprintf(iterpool, "%s|%s\n", line1, line2);
 
       svn_stringbuf_appendcstr(prompt, prompt_line);
