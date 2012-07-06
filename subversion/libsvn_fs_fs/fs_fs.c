@@ -2812,7 +2812,7 @@ svn_fs_fs__rev_get_root(svn_fs_id_t **root_id_p,
  *
  * Mechanism:
  * ----------
- *
+ * 
  * Revprop caching needs to be activated and will be deactivated for the
  * respective FS instance if the necessary infrastructure could not be
  * initialized.  In deactivated mode, there is almost no runtime overhead
@@ -2948,7 +2948,7 @@ ensure_revprop_generation(svn_fs_t *fs, apr_pool_t *pool)
   if (ffd->revprop_generation == NULL)
     {
       apr_int64_t current = 0;
-
+      
       SVN_ERR(svn_named_atomic__get(&ffd->revprop_generation,
                                     ffd->revprop_namespace,
                                     ATOMIC_REVPROP_GENERATION,
