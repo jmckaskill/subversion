@@ -257,7 +257,7 @@ huge_log(svn_revnum_t rev, apr_pool_t *pool)
   svn_stringbuf_appendcstr(temp, "A ");
   for (i = 0; i < 15000; ++i)
     svn_stringbuf_appendcstr(temp, "very, ");
-
+  
   svn_stringbuf_appendcstr(temp,
     apr_psprintf(pool, "very long message for rev %ld, indeed", rev));
 
