@@ -2888,7 +2888,7 @@ def commit_danglers(sbox):
   A_copied = sbox.ospath('A_copied')
   mu_copied = sbox.ospath('A_copied/mu')
 
-  svntest.main.file_write(mu_copied, "xxxx")
+  svntest.main.file_write(mu_copied, "xxxx")  
 
   # We already test for this problem for some time
   expected_error = "svn: E200009: '.*A_copied' .*exist.*yet.* '.*mu'.*part"
