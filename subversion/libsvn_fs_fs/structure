@@ -250,7 +250,7 @@ revprops into a single file.  Since they are mutable data, we put an
 upper limit to the size of these files:  We will concatenate the data
 up to the limit and then use a new file for the following revisions.
 
-The limit can be set and changed at will in the configuration file.
+The limit can be set and changed at will in the configuration file. 
 It is 64kB by default.  Because a pack file must contain at least one
 complete property list, files containing just one revision may exceed
 that limit.
@@ -266,7 +266,7 @@ counter will be increased whenever we rewrite a pack file due to a
 revprop change.  The manifest file contains the list of pack file
 names, one line for each revision.
 
-Many tools track repository global data in revision properties at
+Many tools track repository global data in revision properties at 
 revision 0.  To minimize I/O overhead for those applications,  we
 will never pack that revision, i.e. its data is always being kept
 in revprops/0/0.
@@ -303,7 +303,7 @@ Writing to packed revprops
   When a pack file gets written, its counter is being increased
   creating a new file and leaving the old content in place and
   available for concurrent readers.  Only after the new manifest
-  file got moved into place, will the old pack files be deleted.
+  file got moved into place, will the old pack files be deleted. 
 
   Write access to revprops is being serialized by the global
   filesystem write lock.  We only need to build a few retries into
