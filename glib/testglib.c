@@ -21,7 +21,7 @@
  * Modified by the GLib Team and others 1997-1999.  See the AUTHORS
  * file for a list of people on the GLib Team.  See the ChangeLog
  * files for a list of changes.  These files are distributed with
- * GLib at ftp://ftp.gtk.org/pub/gtk/.
+ * GLib at ftp://ftp.gtk.org/pub/gtk/. 
  */
 
 #undef G_LOG_DOMAIN
@@ -122,7 +122,7 @@ g_node_test (void)
       node = g_node_nth_child (node_B, i);
       TEST (NULL, P2C (node->data) == ('C' + i));
     }
-
+  
   for (i = 0; i < g_node_n_children (node_G); i++)
     TEST (NULL, g_node_child_position (node_G, g_node_nth_child (node_G, i)) == i);
 
@@ -151,7 +151,7 @@ g_node_test (void)
   g_node_traverse (root, G_LEVEL_ORDER, G_TRAVERSE_ALL, -1, node_build_string, &tstring);
   TEST (tstring, strcmp (tstring, "ABFCDEGHIJK") == 0);
   g_free (tstring); tstring = NULL;
-
+  
   g_node_traverse (root, G_LEVEL_ORDER, G_TRAVERSE_LEAFS, -1, node_build_string, &tstring);
   TEST (tstring, strcmp (tstring, "CDEHIJK") == 0);
   g_free (tstring); tstring = NULL;
@@ -165,7 +165,7 @@ g_node_test (void)
   g_node_traverse (root, G_LEVEL_ORDER, G_TRAVERSE_ALL, -1, node_build_string, &tstring);
   TEST (tstring, strcmp (tstring, "ABFEDCGKJIH") == 0);
   g_free (tstring); tstring = NULL;
-
+  
   g_node_destroy (root);
 
   /* allocation tests */
@@ -183,7 +183,7 @@ g_node_test (void)
   TEST (NULL, g_node_n_nodes (root, G_TRAVERSE_ALL) == 1 + 2048);
 
   g_node_destroy (root);
-
+  
   if (!failed)
     g_print ("ok\n");
 }
@@ -774,13 +774,13 @@ main (int   argc,
   g_assert(string != NULL);
   g_assert(strcmp(string, GLIB_TEST_STRING) == 0);
   g_free(string);
-  string = g_strconcat(GLIB_TEST_STRING, GLIB_TEST_STRING,
+  string = g_strconcat(GLIB_TEST_STRING, GLIB_TEST_STRING, 
   		       GLIB_TEST_STRING, NULL);
   g_assert(string != NULL);
   g_assert(strcmp(string, GLIB_TEST_STRING GLIB_TEST_STRING
   			  GLIB_TEST_STRING) == 0);
   g_free(string);
-
+  
   g_print ("ok\n");
 
   g_print ("checking g_strdup_printf...");
@@ -909,10 +909,10 @@ main (int   argc,
 #else
   g_print ("little endian)...");
 #endif
-  g_assert (GUINT16_SWAP_LE_BE (gu16t1) == gu16t2);
-  g_assert (GUINT32_SWAP_LE_BE (gu32t1) == gu32t2);
+  g_assert (GUINT16_SWAP_LE_BE (gu16t1) == gu16t2);  
+  g_assert (GUINT32_SWAP_LE_BE (gu32t1) == gu32t2);  
 #ifdef G_HAVE_GINT64
-  g_assert (GUINT64_SWAP_LE_BE (gu64t1) == gu64t2);
+  g_assert (GUINT64_SWAP_LE_BE (gu64t1) == gu64t2);  
 #endif
   g_print ("ok\n");
 
