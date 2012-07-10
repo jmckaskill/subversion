@@ -57,7 +57,7 @@ typedef svn_error_t *(*svn_auth__store_cb_delete_t)(
    CRED_KIND and identified by REALMSTRING from an authentication
    store. */
 typedef svn_error_t *(*svn_auth__store_cb_fetch_t)(
-  const void **creds,
+  const void **creds, 
   void *baton,
   const char *cred_kind,
   const char *realmstring,
@@ -68,7 +68,7 @@ typedef svn_error_t *(*svn_auth__store_cb_fetch_t)(
    CRED_KIND and identified by REALMSTRING in an authentication store,
    setting *STORED to TRUE iff the storage occurs successfully. */
 typedef svn_error_t *(*svn_auth__store_cb_store_t)(
-  svn_boolean_t *stored,
+  svn_boolean_t *stored, 
   void *baton,
   const char *cred_kind,
   const char *realmstring,
@@ -118,7 +118,7 @@ svn_error_t *
 svn_auth__store_open(svn_auth__store_t *auth_store,
                      svn_boolean_t create,
                      apr_pool_t *scratch_pool);
-
+                     
 /* Close the auth store represented by AUTH_STORE. */
 svn_error_t *
 svn_auth__store_close(svn_auth__store_t *auth_store,
