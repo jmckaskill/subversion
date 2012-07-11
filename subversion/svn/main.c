@@ -381,7 +381,7 @@ const apr_getopt_option_t svn_cl__options[] =
                        N_("use ARG as search pattern (glob syntax)")},
 
   {"isearch", opt_isearch, 1,
-                       N_("like --search, but case-insensitive")},
+                       N_("like --search, but case-insensitive")}, 
 
   /* Long-opt Aliases
    *
