@@ -147,38 +147,38 @@ INSERT INTO noderev (id, nodeid, kind, branch, name, txnid, opcode)
 --#  ---STATEMENT INSERT_TXN
 --#  INSERT INTO txn (revnum, created, author)
 --#    VALUES (:revnum, :created, :author);
---#
+--#  
 --#  ---STATEMENT GET_TXN
 --#  SELECT * FROM txn WHERE id = :id;
---#
+--#  
 --#  ---STATEMENT FIND_TXN_BY_REVNUM
 --#  SELECT * FROM txn WHERE revnum = :revnum;
---#
+--#  
 --#  ---STATEMENT FIND_NEWEST_REVISION_TXN
 --#  SELECT * FROM txn WHERE revnum IS NOT NULL ORDER BY revnum DESC LIMIT 1;
---#
+--#  
 --#  ---STATEMENT SET_TXN_REVNUM
 --#  UPDATE txn SET revnum = :revnum WHERE id = :id;
---#
+--#  
 --#  ---STATEMENT INSERT_NODE
 --#  INSERT INTO node (kind, txnid) VALUES (:kind, :txnid);
---#
+--#  
 --#  ---STATEMENT GET_NODE
 --#  SELECT * FROM node WHERE id = :id;
---#
+--#  
 --#  ---STATEMENT INSERT_BRANCH
 --#  INSERT INTO branch (origin, node, txnid)
 --#    VALUES (:origin, :node, :txnid);
---#
+--#  
 --#  ---STATEMENT GET_BRANCH
 --#  SELECT * FROM branch WHERE id = :id;
---#
+--#  
 --#  ---STATEMENT INSERT_NODEREV
 --#  INSERT INTO noderev (origin, parent, branch,
 --#                       iname, oname, txnid, change)
 --#    VALUES (:origin, :parent, :branch,
 --#            :iname, :oname, :txnid, :change);
---#
+--#  
 --#  ---STATEMENT FIND_NODEREV_BY_NAME_FOR_TXN
 --#  SELECT
 --#    noderev.*,
@@ -192,7 +192,7 @@ INSERT INTO noderev (id, nodeid, kind, branch, name, txnid, opcode)
 --#    AND noderev.txnid <= :txnid
 --#  ORDER BY txnid DESC
 --#  LIMIT 1;
---#
+--#  
 --#  ---STATEMENT LIST_DIRECTORY_FOR_TXN
 --#  SELECT
 --#    noderev.*,
