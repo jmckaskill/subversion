@@ -48,7 +48,7 @@ config_store_open(void *baton,
 
 /* Implements pathetic_store_fetch_t. */
 static svn_error_t *
-config_store_fetch(const void **creds_p,
+config_store_fetch(const void **creds_p, 
                    void *baton,
                    const char *cred_kind,
                    const char *realmstring,
@@ -60,7 +60,7 @@ config_store_fetch(const void **creds_p,
 
   SVN_ERR(svn_config_read_auth_data(&cred_hash, cred_kind, realmstring,
                                     config_dir, scratch_pool));
-
+  
   if (strcmp(cred_kind, SVN_AUTH_CRED_USERNAME) == 0)
     {
       svn_auth_cred_username_t *creds =
@@ -130,7 +130,7 @@ config_store_store(svn_boolean_t *stored,
                                          config_dir, scratch_pool));
       *stored = TRUE;
     }
-
+    
   return SVN_NO_ERROR;
 }
 

@@ -31,7 +31,7 @@ to be incomplete. Don't forget to read the source, too :-)</p></div><div class="
 &nbsp;&nbsp;&nbsp;|   &lt;xsl:param name="count"
 &nbsp;&nbsp;5|              select="0"/&gt;
 &nbsp;&nbsp;&nbsp;|   &lt;xsl:param name="result"/&gt;
-&nbsp;&nbsp;&nbsp;|
+&nbsp;&nbsp;&nbsp;| 
 &nbsp;&nbsp;&nbsp;|   &lt;xsl:choose&gt;
 &nbsp;&nbsp;&nbsp;|     &lt;xsl:when test="$count&gt;0"&gt;
 &nbsp;10|       &lt;xsl:call-template name="copy-string"&gt;
@@ -56,7 +56,7 @@ with <i><tt>replacement</tt></i> and returns the result.
 &nbsp;&nbsp;&nbsp;|   &lt;xsl:param name="string"/&gt;
 &nbsp;&nbsp;&nbsp;|   &lt;xsl:param name="target"/&gt;
 &nbsp;&nbsp;&nbsp;|   &lt;xsl:param name="replacement"/&gt;
-&nbsp;&nbsp;5|
+&nbsp;&nbsp;5| 
 &nbsp;&nbsp;&nbsp;|   &lt;xsl:choose&gt;
 &nbsp;&nbsp;&nbsp;|     &lt;xsl:when test="contains($string, $target)"&gt;
 &nbsp;&nbsp;&nbsp;|       &lt;xsl:variable name="rest"&gt;
@@ -100,7 +100,7 @@ unqualified length ("20" for "20pt") from a dimension.
 </p><pre class="programlisting"><a name="length-magnitude.frag"></a><table border="1" width="100%"><tr><td><p><b>&sect;5</b>: <a href="#top">&sect;16</a></p></td></tr><tr><td><pre class="src:fragment">&nbsp;&nbsp;1| &lt;xsl:template name="length-magnitude"&gt;
 &nbsp;&nbsp;&nbsp;|   &lt;xsl:param name="length"
 &nbsp;&nbsp;&nbsp;|              select="'0pt'"/&gt;
-&nbsp;&nbsp;&nbsp;|
+&nbsp;&nbsp;&nbsp;| 
 &nbsp;&nbsp;5|   &lt;xsl:choose&gt;
 &nbsp;&nbsp;&nbsp;|     &lt;xsl:when test="string-length($length) = 0"/&gt;
 &nbsp;&nbsp;&nbsp;|     &lt;xsl:when test="substring($length,1,1) = '0'                     or substring($length,1,1) = '1'                     or substring($length,1,1) = '2'                     or substring($length,1,1) = '3'                     or substring($length,1,1) = '4'                     or substring($length,1,1) = '5'                     or substring($length,1,1) = '6'                     or substring($length,1,1) = '7'                     or substring($length,1,1) = '8'                     or substring($length,1,1) = '9'                     or substring($length,1,1) = '.'"&gt;
@@ -124,11 +124,11 @@ length, the <i><tt>defauilt.units</tt></i> are returned.</p><pre class="programl
 &nbsp;&nbsp;&nbsp;|                       select="$length"/&gt;
 &nbsp;10|     &lt;/xsl:call-template&gt;
 &nbsp;&nbsp;&nbsp;|   &lt;/xsl:variable&gt;
-&nbsp;&nbsp;&nbsp;|
+&nbsp;&nbsp;&nbsp;| 
 &nbsp;&nbsp;&nbsp;|   &lt;xsl:variable name="units"&gt;
 &nbsp;&nbsp;&nbsp;|     &lt;xsl:value-of select="substring($length, string-length($magnitude)+1)"/&gt;
 &nbsp;15|   &lt;/xsl:variable&gt;
-&nbsp;&nbsp;&nbsp;|
+&nbsp;&nbsp;&nbsp;| 
 &nbsp;&nbsp;&nbsp;|   &lt;xsl:choose&gt;
 &nbsp;&nbsp;&nbsp;|     &lt;xsl:when test="$units = ''"&gt;
 &nbsp;&nbsp;&nbsp;|       &lt;xsl:value-of select="$default.units"/&gt;
@@ -145,18 +145,18 @@ the <i><tt>default.units</tt></i> will be added to it.
 &nbsp;&nbsp;&nbsp;|              select="'0pt'"/&gt;
 &nbsp;&nbsp;&nbsp;|   &lt;xsl:param name="default.units"
 &nbsp;&nbsp;5|              select="'px'"/&gt;
-&nbsp;&nbsp;&nbsp;|
+&nbsp;&nbsp;&nbsp;| 
 &nbsp;&nbsp;&nbsp;|   &lt;xsl:variable name="magnitude"&gt;
 &nbsp;&nbsp;&nbsp;|     &lt;xsl:call-template name="length-magnitude"&gt;
 &nbsp;&nbsp;&nbsp;|       &lt;xsl:with-param name="length"
 &nbsp;10|                       select="$length"/&gt;
 &nbsp;&nbsp;&nbsp;|     &lt;/xsl:call-template&gt;
 &nbsp;&nbsp;&nbsp;|   &lt;/xsl:variable&gt;
-&nbsp;&nbsp;&nbsp;|
+&nbsp;&nbsp;&nbsp;| 
 &nbsp;&nbsp;&nbsp;|   &lt;xsl:variable name="units"&gt;
 &nbsp;15|     &lt;xsl:value-of select="substring($length, string-length($magnitude)+1)"/&gt;
 &nbsp;&nbsp;&nbsp;|   &lt;/xsl:variable&gt;
-&nbsp;&nbsp;&nbsp;|
+&nbsp;&nbsp;&nbsp;| 
 &nbsp;&nbsp;&nbsp;|   &lt;xsl:value-of select="$magnitude"/&gt;
 &nbsp;&nbsp;&nbsp;|   &lt;xsl:choose&gt;
 &nbsp;20|     &lt;xsl:when test="$units='cm'                     or $units='mm'                     or $units='in'                     or $units='pt'                     or $units='pc'                     or $units='px'                     or $units='em'"&gt;
@@ -188,18 +188,18 @@ which is initially <tt>10</tt> (for 10pt).</p><p>Similarly, converting pixesl to
 &nbsp;&nbsp;5|              select="10"/&gt;
 &nbsp;&nbsp;&nbsp;|   &lt;xsl:param name="pixels.per.inch"
 &nbsp;&nbsp;&nbsp;|              select="90"/&gt;
-&nbsp;&nbsp;&nbsp;|
+&nbsp;&nbsp;&nbsp;| 
 &nbsp;&nbsp;&nbsp;|   &lt;xsl:variable name="magnitude"&gt;
 &nbsp;10|     &lt;xsl:call-template name="length-magnitude"&gt;
 &nbsp;&nbsp;&nbsp;|       &lt;xsl:with-param name="length"
 &nbsp;&nbsp;&nbsp;|                       select="$length"/&gt;
 &nbsp;&nbsp;&nbsp;|     &lt;/xsl:call-template&gt;
 &nbsp;&nbsp;&nbsp;|   &lt;/xsl:variable&gt;
-&nbsp;15|
+&nbsp;15| 
 &nbsp;&nbsp;&nbsp;|   &lt;xsl:variable name="units"&gt;
 &nbsp;&nbsp;&nbsp;|     &lt;xsl:value-of select="substring($length, string-length($magnitude)+1)"/&gt;
 &nbsp;&nbsp;&nbsp;|   &lt;/xsl:variable&gt;
-&nbsp;&nbsp;&nbsp;|
+&nbsp;&nbsp;&nbsp;| 
 &nbsp;20|   &lt;xsl:choose&gt;
 &nbsp;&nbsp;&nbsp;|     &lt;xsl:when test="$units = 'pt'"&gt;
 &nbsp;&nbsp;&nbsp;|       &lt;xsl:value-of select="$magnitude"/&gt;
@@ -243,7 +243,7 @@ for example), the template may silently return erroneous results.</p><pre class=
 &nbsp;&nbsp;&nbsp;|              select="processing-instruction('')"/&gt;
 &nbsp;&nbsp;&nbsp;|   &lt;xsl:param name="attribute"&gt;filename&lt;/xsl:param&gt;
 &nbsp;&nbsp;5|   &lt;xsl:param name="count"&gt;1&lt;/xsl:param&gt;
-&nbsp;&nbsp;&nbsp;|
+&nbsp;&nbsp;&nbsp;| 
 &nbsp;&nbsp;&nbsp;|   &lt;xsl:choose&gt;
 &nbsp;&nbsp;&nbsp;|     &lt;xsl:when test="$count&gt;count($pis)"&gt;
 &nbsp;&nbsp;&nbsp;|       &lt;!-- not found --&gt;
@@ -280,7 +280,7 @@ with a particular key.</p><pre class="programlisting"><a name="lookup.key.frag">
 &nbsp;&nbsp;&nbsp;|              select="''"/&gt;
 &nbsp;&nbsp;&nbsp;|   &lt;xsl:param name="table"
 &nbsp;&nbsp;5|              select="''"/&gt;
-&nbsp;&nbsp;&nbsp;|
+&nbsp;&nbsp;&nbsp;| 
 &nbsp;&nbsp;&nbsp;|   &lt;xsl:if test="contains($table, ' ')"&gt;
 &nbsp;&nbsp;&nbsp;|     &lt;xsl:choose&gt;
 &nbsp;&nbsp;&nbsp;|       &lt;xsl:when test="substring-before($table, ' ') = $key"&gt;
@@ -312,13 +312,13 @@ absolute path from the root of the tree to the current element node.
 &nbsp;&nbsp;&nbsp;|              select="."/&gt;
 &nbsp;&nbsp;&nbsp;|   &lt;xsl:param name="path"
 &nbsp;&nbsp;5|              select="''"/&gt;
-&nbsp;&nbsp;&nbsp;|
+&nbsp;&nbsp;&nbsp;| 
 &nbsp;&nbsp;&nbsp;|   &lt;xsl:variable name="next.path"&gt;
 &nbsp;&nbsp;&nbsp;|     &lt;xsl:value-of select="local-name($node)"/&gt;
 &nbsp;&nbsp;&nbsp;|     &lt;xsl:if test="$path != ''"&gt;/&lt;/xsl:if&gt;
 &nbsp;10|     &lt;xsl:value-of select="$path"/&gt;
 &nbsp;&nbsp;&nbsp;|   &lt;/xsl:variable&gt;
-&nbsp;&nbsp;&nbsp;|
+&nbsp;&nbsp;&nbsp;| 
 &nbsp;&nbsp;&nbsp;|   &lt;xsl:choose&gt;
 &nbsp;&nbsp;&nbsp;|     &lt;xsl:when test="$node/parent::*"&gt;
 &nbsp;15|       &lt;xsl:call-template name="xpath.location"&gt;
@@ -339,16 +339,16 @@ Internal occurrences of "--" will be replaced with "- -" and a leading and/or
 trailing space will be added to the string, if necessary.</p><pre class="programlisting"><a name="comment-escape-string"></a><table border="1" width="100%"><tr><td><p><b>&sect;12</b>: <a href="#top">&sect;16</a></p></td></tr><tr><td><pre class="src:fragment">&nbsp;&nbsp;1| &lt;xsl:template name="comment-escape-string"&gt;
 &nbsp;&nbsp;&nbsp;|   &lt;xsl:param name="string"
 &nbsp;&nbsp;&nbsp;|              select="''"/&gt;
-&nbsp;&nbsp;&nbsp;|
+&nbsp;&nbsp;&nbsp;| 
 &nbsp;&nbsp;5|   &lt;xsl:if test="starts-with($string, '-')"&gt;
 &nbsp;&nbsp;&nbsp;|     &lt;xsl:text&gt; &lt;/xsl:text&gt;
 &nbsp;&nbsp;&nbsp;|   &lt;/xsl:if&gt;
-&nbsp;&nbsp;&nbsp;|
+&nbsp;&nbsp;&nbsp;| 
 &nbsp;&nbsp;&nbsp;|   &lt;xsl:call-template name="comment-escape-string.recursive"&gt;
 &nbsp;10|     &lt;xsl:with-param name="string"
 &nbsp;&nbsp;&nbsp;|                     select="$string"/&gt;
 &nbsp;&nbsp;&nbsp;|   &lt;/xsl:call-template&gt;
-&nbsp;&nbsp;&nbsp;|
+&nbsp;&nbsp;&nbsp;| 
 &nbsp;&nbsp;&nbsp;|   &lt;xsl:if test="substring($string, string-length($string), 1) = '-'"&gt;
 &nbsp;15|     &lt;xsl:text&gt; &lt;/xsl:text&gt;
 &nbsp;&nbsp;&nbsp;|   &lt;/xsl:if&gt;
@@ -375,7 +375,7 @@ which would effectively move &#8220;up&#8221; the hierarchy.</p></li></ol></div>
 &nbsp;&nbsp;&nbsp;|              select="''"/&gt;
 &nbsp;&nbsp;&nbsp;|   &lt;xsl:param name="count"
 &nbsp;&nbsp;5|              select="0"/&gt;
-&nbsp;&nbsp;&nbsp;|
+&nbsp;&nbsp;&nbsp;| 
 &nbsp;&nbsp;&nbsp;|   &lt;xsl:choose&gt;
 &nbsp;&nbsp;&nbsp;|     &lt;xsl:when test="contains($filename, '/')"&gt;
 &nbsp;&nbsp;&nbsp;|       &lt;xsl:call-template name="count.uri.path.depth"&gt;
@@ -396,7 +396,7 @@ which would effectively move &#8220;up&#8221; the hierarchy.</p></li></ol></div>
 &nbsp;&nbsp;5|              select="''"/&gt;
 &nbsp;&nbsp;&nbsp;|   &lt;xsl:param name="return"
 &nbsp;&nbsp;&nbsp;|              select="'A'"/&gt;
-&nbsp;&nbsp;&nbsp;|
+&nbsp;&nbsp;&nbsp;| 
 &nbsp;&nbsp;&nbsp;|   &lt;xsl:choose&gt;
 &nbsp;10|     &lt;xsl:when test="contains($uriA, '/') and contains($uriB, '/')                     and substring-before($uriA, '/') = substring-before($uriB, '/')"&gt;
 &nbsp;&nbsp;&nbsp;|       &lt;xsl:call-template name="trim.common.uri.paths"&gt;
@@ -420,23 +420,23 @@ which would effectively move &#8220;up&#8221; the hierarchy.</p></li></ol></div>
 &nbsp;&nbsp;&nbsp;|     &lt;/xsl:otherwise&gt;
 &nbsp;30|   &lt;/xsl:choose&gt;
 &nbsp;&nbsp;&nbsp;| &lt;/xsl:template&gt;</pre></td></tr></table></pre></div></div></div><div class="appendix"><div class="titlepage"><div><h2 class="title"><a name="d0e385"></a>Appendix&nbsp;A.&nbsp;The Stylesheet</h2></div></div><p>The <tt>lib.xsl</tt> stylesheet is just a wrapper
-around these functions.</p><a name="top"></a><table border="1" width="100%"><tr><td><p><b>&sect;16</b></p></td></tr><tr><td><pre class="src:fragment">&nbsp;&nbsp;1|
+around these functions.</p><a name="top"></a><table border="1" width="100%"><tr><td><p><b>&sect;16</b></p></td></tr><tr><td><pre class="src:fragment">&nbsp;&nbsp;1| 
 &nbsp;&nbsp;&nbsp;| &lt;!-- ********************************************************************
 &nbsp;&nbsp;&nbsp;|      $Id: lib.xweb,v 1.2 2002/05/12 11:11:08 nwalsh Exp $
 &nbsp;&nbsp;&nbsp;|      ********************************************************************
-&nbsp;&nbsp;5|
+&nbsp;&nbsp;5| 
 &nbsp;&nbsp;&nbsp;|      This file is part of the XSL DocBook Stylesheet distribution.
 &nbsp;&nbsp;&nbsp;|      See ../README or http://nwalsh.com/docbook/xsl/ for copyright
 &nbsp;&nbsp;&nbsp;|      and other information.
-&nbsp;&nbsp;&nbsp;|
+&nbsp;&nbsp;&nbsp;| 
 &nbsp;10|      This module implements DTD-independent functions
-&nbsp;&nbsp;&nbsp;|
+&nbsp;&nbsp;&nbsp;| 
 &nbsp;&nbsp;&nbsp;|      ******************************************************************** --&gt;
-&nbsp;&nbsp;&nbsp;|
+&nbsp;&nbsp;&nbsp;| 
 &nbsp;&nbsp;&nbsp;| &lt;xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 &nbsp;15|                 exclude-result-prefixes="src"
 &nbsp;&nbsp;&nbsp;|                 version="1.0"&gt;
-&nbsp;&nbsp;&nbsp;|
+&nbsp;&nbsp;&nbsp;| 
 &nbsp;&nbsp;&nbsp;| <a href="#dot.count.frag"><i>&sect;1. dot.count</i></a>
 &nbsp;&nbsp;&nbsp;| <a href="#copy-string.frag"><i>&sect;2. copy-string</i></a>
 &nbsp;20| <a href="#string.subst.frag"><i>&sect;3. string.subst</i></a>
@@ -452,5 +452,5 @@ around these functions.</p><a name="top"></a><table border="1" width="100%"><tr>
 &nbsp;30| <a href="#comment-escape-string.recursive" title="comment-escape-string.recursive">comment-escape-string.recursive</a>
 &nbsp;&nbsp;&nbsp;| <a href="#count.uri.path.depth.frag"><i>&sect;14. count.uri.path.depth</i></a>
 &nbsp;&nbsp;&nbsp;| <a href="#trim.common.uri.paths.frag"><i>&sect;15. trim.common.uri.paths</i></a>
-&nbsp;&nbsp;&nbsp;|
+&nbsp;&nbsp;&nbsp;| 
 &nbsp;&nbsp;&nbsp;| &lt;/xsl:stylesheet&gt;</pre></td></tr></table></div></div></body></html>
