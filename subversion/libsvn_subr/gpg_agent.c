@@ -502,7 +502,7 @@ gpg_agent_masterpass_fetch(const char **passphrase,
   svn_boolean_t done;
   const char *password;
   svn_checksum_t *digest;
-
+  
   SVN_ERR(password_get_gpg_agent_helper(&done, &password, cache_id,
                                         password_prompt, realm_prompt,
                                         non_interactive, pool));

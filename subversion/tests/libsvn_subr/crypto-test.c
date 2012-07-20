@@ -107,7 +107,7 @@ create_ephemeral_auth_store(svn_auth__store_t **auth_store_p,
                                      pool, pool));
   SVN_ERR(svn_io_remove_file2(*auth_store_path, TRUE, pool));
   SVN_ERR(svn_auth__pathetic_store_get(auth_store_p, *auth_store_path,
-                                       crypto_ctx, fetch_secret,
+                                       crypto_ctx, fetch_secret, 
                                        (void *)secret, pool, pool));
   SVN_ERR(svn_auth__store_open(*auth_store_p, TRUE, pool));
   return SVN_NO_ERROR;
