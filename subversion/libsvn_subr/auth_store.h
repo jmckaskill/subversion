@@ -74,7 +74,7 @@ typedef svn_error_t *(*svn_auth__store_cb_delete_t)(
    credential bits for the credentials of kind CRED_KIND and
    identified by REALMSTRING found in AUTH_STORE. */
 typedef svn_error_t *(*svn_auth__store_cb_get_cred_hash_t)(
-  apr_hash_t **cred_hash,
+  apr_hash_t **cred_hash, 
   void *baton,
   const char *cred_kind,
   const char *realmstring,
@@ -87,7 +87,7 @@ typedef svn_error_t *(*svn_auth__store_cb_get_cred_hash_t)(
    storage occurs successfully.  CRED_HASH may be NULL to indicate a
    desire to remove the relevant credentials from the store. */
 typedef svn_error_t *(*svn_auth__store_cb_set_cred_hash_t)(
-  svn_boolean_t *stored,
+  svn_boolean_t *stored, 
   void *baton,
   const char *cred_kind,
   const char *realmstring,
@@ -152,7 +152,7 @@ svn_error_t *
 svn_auth__store_open(svn_auth__store_t *auth_store,
                      svn_boolean_t create,
                      apr_pool_t *scratch_pool);
-
+                     
 /* Close the auth store represented by AUTH_STORE. */
 svn_error_t *
 svn_auth__store_close(svn_auth__store_t *auth_store,
@@ -204,7 +204,7 @@ svn_auth__store_iterate_creds(svn_auth__store_t *auth_store,
    encrypted auth store. */
 typedef svn_error_t *(*svn_auth__master_passphrase_fetch_t)(
   const svn_string_t **secret,
-  void *baton,
+  void *baton, 
   apr_pool_t *result_pool,
   apr_pool_t *scratch_pool);
 
