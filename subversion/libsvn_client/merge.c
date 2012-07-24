@@ -6258,12 +6258,12 @@ merge_range_find_extremes(svn_revnum_t *min_rev_p,
         *max_rev_p = range_max;
     }
 }
+
 /* Wrapper around svn_ra_get_log2(). Invoke RECEIVER with RECEIVER_BATON
  * on each commit from START to END on TARGET.
  * Important: Revision properties are not retrieved by this functions for
  * performance reasons.
  */
-
 static svn_error_t *
 get_log(svn_ra_session_t *ra_session,
         const char *target,
