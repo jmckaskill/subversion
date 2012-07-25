@@ -501,7 +501,7 @@ open_auth_store(svn_auth__store_t **auth_store_p,
 
   apr_pool_cleanup_register(pool, auth_store, cleanup_auth_store_close,
                             apr_pool_cleanup_null);
-
+  
   SVN_ERR(svn_auth__store_open(auth_store, TRUE, pool));
   *auth_store_p = auth_store;
   return SVN_NO_ERROR;
