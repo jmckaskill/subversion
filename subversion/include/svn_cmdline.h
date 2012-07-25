@@ -324,7 +324,7 @@ svn_cmdline_auth_plaintext_passphrase_prompt(svn_boolean_t *may_save_plaintext,
  */
 svn_error_t *
 svn_cmdline_auth_master_passphrase_prompt(const svn_string_t **secret,
-                                          void *baton,
+                                          void *baton, 
                                           apr_pool_t *result_pool,
                                           apr_pool_t *scratch_pool);
 
