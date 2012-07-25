@@ -2887,7 +2887,7 @@ def revert_depth_files(sbox):
   "depth immediate+files should revert deleted files"
 
   sbox.build(read_only = True)
-
+  
   expected_output = "Reverted '" + re.escape(sbox.ospath('A/mu')) + "'"
 
   sbox.simple_rm('A/mu')
