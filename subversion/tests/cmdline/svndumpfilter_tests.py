@@ -677,7 +677,7 @@ def accepts_deltas(sbox):
   load_and_verify_dumpstream(sbox, [], [], expected_revs, True, dump_out,
                              '--ignore-uuid')
 
-
+  
 
 ########################################################################
 # Run the tests
