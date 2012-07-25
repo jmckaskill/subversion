@@ -22,7 +22,7 @@ To: $ERROR_TO
 Wrong parameters for $0
 to: "$TO_ADDR"
 reply-to: "$REPLY_TO_ADDR"
-subject: "$SUBJECT"
+subject: "$SUBJECT" 
 body: "$BODY_FILE"
 payload: "$PAYLOAD_GZIP_FILE"
 EOF
