@@ -1380,7 +1380,7 @@ svn_wc__upgrade_conflict_skel_from_raw(svn_skel_t **conflicts,
                                        apr_pool_t *scratch_pool)
 {
   svn_skel_t *conflict_data = NULL;
-
+  
   if (conflict_old || conflict_new || conflict_wrk)
     {
       const char *old_abspath = NULL;
