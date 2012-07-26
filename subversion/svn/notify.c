@@ -1131,7 +1131,7 @@ svn_cl__notifier_get_conflicted_paths(void *baton, apr_pool_t *result_pool)
   for (i = 0; i < sorted_array->nelts; i++)
     {
       svn_sort__item_t item;
-
+      
       item = APR_ARRAY_IDX(sorted_array, i, svn_sort__item_t);
       APR_ARRAY_PUSH(result_array, const char *) = apr_pstrdup(result_pool,
                                                                item.key);
