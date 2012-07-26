@@ -16,7 +16,7 @@ TWSITD_CMD="/opt/local/bin//twistd -y /usr/local/svnpubsub/svnpubsub.tac \
             -r${svnpubsub_reactor}"
 
 RETVAL=0
-
+ 
 start() {
     echo "Starting SvnPubSub Server: "
     $TWSITD_CMD
@@ -24,7 +24,7 @@ start() {
     [ $RETVAL -eq 0 ] && echo "ok" || echo "failed"
     return $RETVAL
 }
-
+ 
 stop() {
     echo "Stopping SvnPubSub Server: "
     THE_PID=`cat ${pidfile}`
