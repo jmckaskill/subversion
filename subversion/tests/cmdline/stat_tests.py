@@ -936,7 +936,7 @@ def status_in_xml(sbox):
                                      'cp', '-m', 'repo-to-repo copy',
                                      sbox.repo_url + '/iota',
                                      sbox.repo_url + '/iota2')
-
+  
   file_path = sbox.ospath('iota2')
 
   expected_entries = {file_path : {'wcprops' : 'none',
@@ -1559,7 +1559,7 @@ def status_depth_update(sbox):
 #----------------------------------------------------------------------
 def status_depth_update_local_modifications(sbox):
   "run 'status --depth=X -u' with local changes"
-
+  
   sbox.build()
   wc_dir = sbox.wc_dir
   A_path = sbox.ospath('A')
@@ -1991,7 +1991,7 @@ def status_not_present(sbox):
   svntest.main.run_svn(None, 'up', '--set-depth', 'exclude',
                        sbox.ospath('A/mu'), sbox.ospath('A/B'))
   sbox.simple_commit()
-
+  
   svntest.actions.run_and_verify_svn(None, [], [],'status',
                                      sbox.ospath('iota'),
                                      sbox.ospath('A/B'),
