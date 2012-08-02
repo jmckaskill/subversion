@@ -164,7 +164,7 @@ svn_auth__simple_creds_cache_get(void **credentials,
   svn_error_t *err;
   svn_string_t *str;
   svn_auth__store_t *auth_store;
-
+ 
   /* Try to load credentials from the store, based on the
      realmstring.  Don't throw an error, though: if something went
      wrong reading the store, no big deal.  What really matters is that

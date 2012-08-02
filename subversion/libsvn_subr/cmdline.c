@@ -473,7 +473,7 @@ open_auth_store(svn_auth__store_t **auth_store_p,
 
       /* Build an authentication baton with the relevant master
          passphrase providers. */
-      mp_providers = apr_array_make(pool, 1,
+      mp_providers = apr_array_make(pool, 1, 
                                     sizeof(svn_auth_provider_object_t *));
       if (! non_interactive)
         {
@@ -501,7 +501,7 @@ open_auth_store(svn_auth__store_t **auth_store_p,
     {
       SVN_ERR(svn_auth__config_store_get(&auth_store, config_dir, pool, pool));
     }
-
+  
   SVN_ERR(svn_auth__store_open(auth_store, TRUE, pool));
   *auth_store_p = auth_store;
   return SVN_NO_ERROR;

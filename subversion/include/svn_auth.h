@@ -1328,7 +1328,7 @@ void svn_auth_get_master_passphrase_prompt_provider(
   int retry_limit,
   apr_pool_t *pool);
 
-
+  
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */

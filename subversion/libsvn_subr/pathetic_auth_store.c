@@ -49,7 +49,7 @@
  *
  * KIND is a provider type string ("svn.simple", "svn.username", ...).
  *
- * Oh, it ain't pretty.  It ain't supposed to be.
+ * Oh, it ain't pretty.  It ain't supposed to be. 
  */
 
 
@@ -134,13 +134,13 @@ read_auth_store(pathetic_auth_store_baton_t *auth_store,
       const void *key;
       apr_ssize_t klen;
       void *val;
-
+      
       apr_hash_this(hi, &key, &klen, &val);
       str = svn_base64_decode_string(val, scratch_pool);
       apr_hash_set(realmstring_skels, apr_pstrdup(auth_store->pool, key), klen,
                    svn_skel__parse(str->data, str->len, auth_store->pool));
     }
-
+  
   auth_store->checktext_skel = checktext_skel;
   auth_store->realmstring_skels = realmstring_skels;
 
@@ -185,7 +185,7 @@ write_auth_store(pathetic_auth_store_baton_t *auth_store,
       const void *key;
       apr_ssize_t klen;
       void *val;
-
+      
       apr_hash_this(hi, &key, &klen, &val);
       str = svn_base64_encode_string2(
                 svn_string_create_from_buf(svn_skel__unparse(val,
@@ -318,12 +318,12 @@ set_cred_hash(struct pathetic_auth_store_baton_t *auth_store,
                                                           skel_buf->len,
                                                           scratch_pool),
                                        FALSE, scratch_pool);
-
+                        
   SVN_ERR(svn_crypto__encrypt_password(&ciphertext, &iv, &salt,
                                        auth_store->crypto_ctx, skel_str->data,
                                        auth_store->secret, auth_store->pool,
                                        scratch_pool));
-
+  
   realmstring_skel = svn_skel__make_empty_list(auth_store->pool);
   svn_skel__prepend(svn_skel__mem_atom(salt->data, salt->len,
                                        auth_store->pool),
@@ -387,7 +387,7 @@ acquire_secret(pathetic_auth_store_baton_t *auth_store,
           iv_skel = auth_store->checktext_skel->children->next;
           salt_skel = auth_store->checktext_skel->children->next->next;
           check_skel = auth_store->checktext_skel->children->next->next->next;
-
+          
           SVN_ERR(svn_crypto__verify_secret(
                       &valid_secret, auth_store->crypto_ctx, passphrase,
                       svn_string_ncreate(cipher_skel->data,
@@ -461,7 +461,7 @@ pathetic_store_delete(void *baton,
   else if (kind != svn_node_file)
     return svn_error_create(SVN_ERR_NODE_UNEXPECTED_KIND, NULL,
                             _("Unexpected node kind for pathetic auth store"));
-
+  
   SVN_ERR(svn_io_remove_file2(auth_store->path, FALSE, scratch_pool));
 
   return SVN_NO_ERROR;
@@ -469,7 +469,7 @@ pathetic_store_delete(void *baton,
 
 /* Implements pathetic_store_get_cred_hash_t. */
 static svn_error_t *
-pathetic_store_get_cred_hash(apr_hash_t **cred_hash,
+pathetic_store_get_cred_hash(apr_hash_t **cred_hash, 
                              void *baton,
                              const char *cred_kind,
                              const char *realmstring,
@@ -497,7 +497,7 @@ pathetic_store_set_cred_hash(svn_boolean_t *stored,
   SVN_ERR(set_cred_hash(auth_store, cred_kind, realmstring,
                         cred_hash, scratch_pool));
   *stored = TRUE;
-
+    
   return SVN_NO_ERROR;
 }
 
@@ -560,7 +560,7 @@ svn_auth__pathetic_store_create(const char *auth_store_path,
   pathetic_store->path = apr_pstrdup(scratch_pool, auth_store_path);
   pathetic_store->crypto_ctx = crypto_ctx;
   pathetic_store->secret = secret;
-
+  
   SVN_ERR(create_auth_store(pathetic_store, scratch_pool));
 
   return SVN_NO_ERROR;
