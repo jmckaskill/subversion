@@ -180,11 +180,11 @@ get_provider(svn_auth_provider_object_t **provider,
       library_name = apr_psprintf(pool, "libsvn_auth_%s-%d.so.0",
                                   provider_name, SVN_VER_MAJOR);
       library_label = apr_psprintf(pool, "svn_%s", provider_name);
-      provider_func_name =
+      provider_func_name = 
         apr_psprintf(pool,
                      "svn_auth__get_%s_master_passphrase_provider",
                      provider_name);
-      version_func_name =
+      version_func_name = 
         apr_psprintf(pool, "svn_auth_%s_version", provider_name);
       SVN_ERR(svn_dso_load(&dso, library_name));
       if (dso)

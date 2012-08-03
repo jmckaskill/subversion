@@ -1373,7 +1373,7 @@ svn_auth_get_gpg_agent_master_passphrase_provider(
   svn_auth_provider_object_t **provider,
   apr_pool_t *pool);
 #endif /* !defined(WIN32) || defined(DOXYGEN) */
-
+  
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */
