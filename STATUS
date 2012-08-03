@@ -62,6 +62,15 @@ Candidate changes:
    Votes:
      +1: cmpilato
 
+ * r1368662
+   Add information about the build system to 'svn --version' output.
+   Justification:
+      Makes solving user problems a little bit easier since the
+      default 'svn --version' output contains the config.guess
+      identification of the build system.
+   Votes:
+     +1: brane
+
 Veto-blocked changes:
 =====================
 
