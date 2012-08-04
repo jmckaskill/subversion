@@ -1941,7 +1941,7 @@ def file_externals_different_url(sbox):
   for e in ['r1-e-1', 'r1-e-2', 'r2-e-1', 'r2-e-2', 'rr-e-1']:
     actions.run_and_verify_info([{'Repository Root' : r1_url}],
                                 os.path.join(sbox.wc_dir, e))
-
+    
 
   svntest.actions.run_and_verify_svn(None, None, [],
                                      'relocate', r1_url, r2_url, wc_dir)
@@ -2265,7 +2265,7 @@ def url_to_wc_copy_of_externals(sbox):
   # Previously this failed with:
   #   >svn copy ^^/A/C External-WC-to-URL-Copy
   #    U   External-WC-to-URL-Copy
-  #
+  #   
   #   Fetching external item into 'External-WC-to-URL-Copy\external':
   #   A    External-WC-to-URL-Copy\external\pi
   #   A    External-WC-to-URL-Copy\external\rho
