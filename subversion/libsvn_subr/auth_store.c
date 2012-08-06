@@ -142,7 +142,7 @@ svn_auth__store_open(svn_auth__store_t *auth_store,
     }
   return SVN_NO_ERROR;
 }
-
+                     
 
 svn_error_t *
 svn_auth__store_close(svn_auth__store_t *auth_store,
@@ -361,6 +361,6 @@ svn_auth__get_store_from_parameters(svn_auth__store_t **auth_store,
                    APR_HASH_KEY_STRING,
                    auth_store);
     }
-
+  
   return SVN_NO_ERROR;
 }
