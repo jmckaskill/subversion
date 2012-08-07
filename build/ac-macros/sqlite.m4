@@ -204,7 +204,7 @@ dnl Parse a x.y[.z] version string version_string into a number result_var.
 AC_DEFUN(SVN_SQLITE_VERNUM_PARSE,
 [
   version_string="$1"
-
+  
   major=`expr $version_string : '\([[0-9]]*\)'`
   minor=`expr $version_string : '[[0-9]]*\.\([[0-9]]*\)'`
   micro=`expr $version_string : '[[0-9]]*\.[[0-9]]*\.\([[0-9]]*\)'`
