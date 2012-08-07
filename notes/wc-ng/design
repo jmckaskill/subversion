@@ -61,7 +61,7 @@ When considering the wc-1.0 design, one finds that there are a lot of
 situations where the state of the versioned tree is poorly defined.
 To clarify the tree state, the wc-ng design splits it into several
 pieces.  A versioned item in the working copy is described by one or
-more nodes in the following schema.
+more nodes in the following schema. 
 
  * BASE: Nodes describing repository data in the WC.
 
@@ -247,7 +247,7 @@ Problems in wc-1.0
    APIs also used internally, growing arguments which *should* only
    matter for internal use
  * The lock strategy requires writing a file in every directory of a working copy,
-   which severely reduces our performance in several environments. (Windows,
+   which severely reduces our performance in several environments. (Windows, 
    NFS). Testing showed that in some cases we used more than 50 seconds on
    writing 8000 lockfiles before we even started looking what to update. A new
    lock strategy should reduce the number of writes necessary for locking with
@@ -334,7 +334,7 @@ rewritten on most wc-transformations anyway.
    information. I think performance will primarily derive from
    omitting the .svn/ location/walks and opening of multiple files
    therein, in favor of a single SQLite database open.
-
+   
    of course, we'll analyze the situation, but I suspect that we will
    be in great shape as a natural fallout of our new storage system.
 
@@ -800,7 +800,7 @@ not-present    base-deleted   Not allowed. There is nothing to
 
 
 "<none>" means there is no row in the given table (so no presence value)
-"<any>" means "any value"
+"<any>" means "any value" 
 "*" means "<none> or <any>"
 
 Note 1: this implies you cannot copy/move a working copy tree that has
@@ -872,7 +872,7 @@ base-presence: *
   removed. Any BASE_NODE rows which appear to be descendents of this
   (used-to-be-directory) node are removed. There should be no
   descendents in the WORKING_NODE table.
-
+  
   ### what information do we keep for excluded nodes?
   ### note: at this point, there is no user command to exclude
   ###   files/symlinks. but we will be able to at some point...
@@ -906,7 +906,7 @@ working-presence: <none>
 base-presence: normal
   ACTUAL_NODE.properties are folded into the BASE_NODE and the
   revision is bumped.
-
+  
   Note: there is no data in ACTUAL_NODE other than properties.
   Conflict information exists, but that must be cleared before
   committing is possible.
@@ -928,12 +928,12 @@ working-presence: normal
 base-presence: *
   The WORKING and ACTUAL data is collapsed down into BASE_NODE, with
   the new revision.
-
+  
   The depth status of the WORKING node is carried over to the BASE
   node. Children in the WORKING_NODE table should align with that
   depth value, and the commit will iterate over each available child
   row. Its status will be examined, and specific action taken:
-
+  
     normal
       An incomplete node should be added for this child. This node
       will become its own add/copy/move root, and will be handled as a
@@ -982,7 +982,7 @@ working-presence: <none>
 base-presence: normal
   ACTUAL_NODE.properties are folded into the BASE_NODE and the
   revision is bumped.
-
+  
   Note: there is no data in ACTUAL_NODE other than properties.
   Conflict information exists, but that must be cleared before
   committing is possible.
@@ -1010,10 +1010,10 @@ libsvn_wc/wc_db.h  (symbols: svn_wc__db_*)
         Storage subsystem for the WC metadata/base-text information.
         This is a private API, and the rest of the WC will be rebuilt
         on top of this.
-
+        
         This code deals with storage, and transactional modifications
         of the data.
-
+        
         Note: this is a random-access, low-level API. Editors will be
         built on top of this layer.
 
