@@ -732,7 +732,7 @@ test_externals_parse(const svn_test_opts_t *opts, apr_pool_t *pool)
       const char *local_path;
       svn_revnum_t peg_rev;
       svn_revnum_t rev;
-
+      
     } items[] = {
         {
             "dir http://server/svn/a",
@@ -759,13 +759,13 @@ test_externals_parse(const svn_test_opts_t *opts, apr_pool_t *pool)
             "u://svr/svn/cur/repB/tools/scripts",
             "scripts"
         },
-        {
+        { 
             "^/../repB/tools/README.txt scripts/README.txt",
             "u://svr/svn/cur/repB/tools/README.txt",
             "scripts/README.txt"
         },
     };
-
+  
 
   for (i = 0; i < sizeof(items) / sizeof(items[0]); i++)
     {
