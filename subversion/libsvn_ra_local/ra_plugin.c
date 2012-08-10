@@ -1090,7 +1090,7 @@ get_node_props(apr_hash_t **props,
                    APR_HASH_KEY_STRING,
                    svn_string_create(sess->uuid, pool));
 
-      /* We have no 'wcprops' in ra_local, but might someday. */
+      /* We have no 'wcprops' in ra_local, but might someday. */  
     }
 
   return SVN_NO_ERROR;
