@@ -484,7 +484,7 @@ kwallet_master_passphrase_first_creds(void **credentials,
     {
       svn_auth_cred_master_passphrase_t *creds;
       creds = apr_pcalloc(pool, sizeof(*creds));
-      creds->passphrase =
+      creds->passphrase = 
         svn_base64_decode_string(svn_string_create(passphrase, pool), pool);
       *credentials = creds;
     }
