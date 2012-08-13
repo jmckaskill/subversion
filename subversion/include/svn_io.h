@@ -662,8 +662,8 @@ svn_io_files_contents_same_p(svn_boolean_t *same,
                              apr_pool_t *pool);
 
 /** Set @a *same12 to TRUE if @a file1 and @a file2 have the same
- * contents, else set it to FALSE.  Do the similar for @a *same23
- * with @a file2 and @a file3, and @a *same13 for @a file1 and @a
+ * contents, else set it to FALSE.  Do the similar for @a *same23 
+ * with @a file2 and @a file3, and @a *same13 for @a file1 and @a 
  * file3.  Use @a pool for temporary allocations.
  */
 svn_error_t *
@@ -2202,7 +2202,7 @@ svn_io_write_version_file(const char *path,
 
 /* Read a line of text from a file, up to a specified length.
  *
- * Allocate @a *stringbuf in @a result_pool, and read into it one line
+ * Allocate @a *stringbuf in @a result_pool, and read into it one line 
  * from @a file. Reading stops either after a line-terminator was found
  * or after @a max_len bytes have been read.
  *
