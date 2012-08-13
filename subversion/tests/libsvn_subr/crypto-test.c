@@ -100,7 +100,7 @@ get_master_passphrase_auth_baton(svn_auth_baton_t **auth_baton,
 {
   svn_auth_provider_object_t *provider;
   apr_array_header_t *mp_providers = apr_array_make(pool, 1, sizeof(provider));
-
+  
   /* Build an authentication baton with a single master passphrase provider. */
   svn_auth_get_master_passphrase_prompt_provider(&provider, fetch_secret,
                                                  (void *)secret, 0, pool);
@@ -123,7 +123,7 @@ create_ephemeral_auth_store(svn_auth__store_t **auth_store_p,
                             apr_pool_t *pool)
 {
   svn_auth_baton_t *auth_baton;
-
+  
   SVN_ERR(svn_io_open_uniquely_named(NULL, auth_store_path, NULL,
                                      "auth_store", NULL,
                                      svn_io_file_del_on_pool_cleanup,
