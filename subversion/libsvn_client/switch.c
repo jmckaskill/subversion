@@ -221,7 +221,7 @@ switch_internal(svn_revnum_t *result_rev,
     }
 
   wcroot_iprops = apr_hash_make(pool);
-
+  
   /* Will the base of LOCAL_ABSPATH require an iprop cache post-switch?
      If we are switching LOCAL_ABSPATH to the root of the repository then
      we don't need to cache inherited properties.  In all other cases we
@@ -237,7 +237,7 @@ switch_internal(svn_revnum_t *result_rev,
                                           pool));
 
       /* Switching the WC root to anything but the repos root means
-         we need an iprop cache. */
+         we need an iprop cache. */ 
       if (!wc_root)
         {
           const char *switch_parent_url =
@@ -263,7 +263,7 @@ switch_internal(svn_revnum_t *result_rev,
           SVN_ERR(svn_ra_get_inherited_props(ra_session, &inherited_props,
                                              "", switch_loc->rev, pool));
           apr_hash_set(wcroot_iprops, local_abspath, APR_HASH_KEY_STRING,
-                       inherited_props);
+                       inherited_props);      
         }
     }
 
