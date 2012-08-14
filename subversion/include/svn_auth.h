@@ -1411,7 +1411,7 @@ svn_auth_get_kwallet_master_passphrase_provider(
   svn_auth_provider_object_t **provider,
   apr_pool_t *pool);
 
-
+  
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */
