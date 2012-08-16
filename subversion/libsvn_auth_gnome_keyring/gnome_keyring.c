@@ -547,7 +547,7 @@ master_passphrase_gnome_keyring_first_creds(void **credentials,
                                             apr_hash_t *parameters,
                                             const char *realmstring,
                                             apr_pool_t *pool)
-{
+{ 
   svn_boolean_t done;
   const char *passphrase;
   svn_boolean_t non_interactive = apr_hash_get(parameters,
@@ -562,7 +562,7 @@ master_passphrase_gnome_keyring_first_creds(void **credentials,
     {
       svn_auth_cred_master_passphrase_t *creds;
       creds = apr_pcalloc(pool, sizeof(*creds));
-      creds->passphrase =
+      creds->passphrase = 
         svn_base64_decode_string(svn_string_create(passphrase, pool), pool);
       *credentials = creds;
     }
