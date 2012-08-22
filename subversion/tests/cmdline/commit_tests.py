@@ -2888,7 +2888,7 @@ def commit_danglers(sbox):
   A_copied = sbox.ospath('A_copied')
   mu_copied = sbox.ospath('A_copied/mu')
 
-  svntest.main.file_write(mu_copied, "xxxx")
+  svntest.main.file_write(mu_copied, "xxxx")  
 
   # We already test for this problem for some time
   expected_error = "svn: E200009: '.*A_copied' .*exist.*yet.* '.*mu'.*part"
@@ -2932,8 +2932,8 @@ def commit_moved_dir_with_nested_mod_in_subdir(sbox):
   E_copied = sbox.ospath('A/B_copied/E')
   alpha_copied = sbox.ospath('A/B_copied/E/alpha')
 
-  svntest.main.file_write(alpha_copied, "xxxx")
-
+  svntest.main.file_write(alpha_copied, "xxxx") 
+  
   svntest.main.run_svn(None, 'commit', wc_dir, '-mm')
 
   expected = {'Revision'          : '2',
@@ -2981,7 +2981,7 @@ def init_commit_hook_test(sbox):
                                            'STDERR',
                                            expected_stderr, actual_stderr)
 
-
+  
 ########################################################################
 # Run the tests
 
