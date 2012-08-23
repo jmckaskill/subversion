@@ -2414,7 +2414,7 @@ svn_wc__get_iprops(apr_array_header_t **inherited_props,
               if (cached_iprops)
                 {
                   *cached_iprops_found = TRUE;
-                }
+                }          
             }
         }
 
