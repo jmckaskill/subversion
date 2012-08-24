@@ -57,7 +57,7 @@ text and property conflicts. As before, these files are removed
 when the conflict is marked resolved.
 
 Special keywords exists for reject conflicts flagged by 'svn patch':
-
+  
   svn cat foo.c@REJECT1
   svn cat foo.c@REJECT2
   svn cat foo.c@REJECT-2,5+10,4
