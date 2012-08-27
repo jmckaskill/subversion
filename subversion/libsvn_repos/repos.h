@@ -324,7 +324,7 @@ svn_repos__prev_location(svn_revnum_t *appeared_rev,
 
 /*** Compatibility Wrappers ***/
 
-typedef struct svn_repos__upgrade_authz_baton_t
+typedef struct svn_repos__upgrade_authz_baton_t 
 {
   svn_repos_authz_func_t authz_func;
   void *authz_func_baton;
