@@ -12,7 +12,7 @@
 				<ComponentRef Id="libsvnrepos"/>
 				<ComponentRef Id="libsvnsubr"/>
 				<ComponentRef Id="libsvnwc"/>
-
+	
 				<ComponentRef Id="Mod_authz_svnSo"/>
 				<ComponentRef Id="Mod_dav_svnSo"/>
 				<ComponentRef Id="SvnExe"/>
