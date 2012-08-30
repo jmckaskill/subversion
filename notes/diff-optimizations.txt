@@ -7,9 +7,9 @@ specifically for the diff algorithm in libsvn_diff, which is used in the
 
 There are two broad approaches:
 
-  - Speed up the existing algorithm, while maintaining a "minimal diff"
+  - Speed up the existing algorithm, while maintaining a "minimal diff" 
     (i.e. without heuristics).
-
+    
   - Introduce a "non-minimal diff" mode, either by adding heuristics in the
     existing algorithm, or by implementing another algorithm which doesn't
     guarantee that it will produce the "minimal diff" in all cases.
@@ -39,7 +39,7 @@ I. Speeding up "minimal" diff (no heuristics)
     directly compare (memcmp) the next line with the successor of the
     matched line. Only if it doesn't match, calculate the hash to insert
     it into the container.
-  - This approach probably conflicts with the "Merge hash calculation with
+  - This approach probably conflicts with the "Merge hash calculation with 
     EOL scanning" suggestion.
 
 5) Discarding non-matching lines before running the LCS (Longest Common
@@ -92,7 +92,7 @@ In some cases, heuristics can make a big difference (while not guaranteeing
 that you'll get a minimal diff).
 See also issue #1966 (libsvn_diff needs 'non-minimal-diff' mode) [3].
 
-1) Make prefix/suffix scanning able to skip 1 or a couple of
+1) Make prefix/suffix scanning able to skip 1 or a couple of 
    non-matching lines, if it is able to find strictly more matching lines
    after that, to keep the prefix/suffix scanning going.
 
@@ -104,13 +104,13 @@ See also issue #1966 (libsvn_diff needs 'non-minimal-diff' mode) [3].
      axxbxx
 
    instead of (longest common subsequence):
-
+	
      bxxaxxbxx
        //////
-      axxbxx
+      axxbxx 
 
 2) Add some heuristics-based shortcuts in the LCS algorithm.
-
+      
 3) Implement another diff algorithm, such as "Patience Diff" [5], which is
    already implemented in several other (D)VCS's. It has the potential to
    be much faster (reducing the problem to calculating several, much
