@@ -20,7 +20,7 @@ Candidate changes:
      It's a small change, and it allows applying patches that failed
      before.
    Votes:
-     +1: steveking
+     +1: steveking   
 
  * r1242759, r1242770, r1242794
    Fix various issues with GNOME and KDE keyring providers, especially
@@ -31,9 +31,9 @@ Candidate changes:
      Fixes user-reported problem which significantly limits
      usabilility in certain environments.
    Branch:
-     ^/subversion/branches/1.7.x-r1242759
+     ^/subversion/branches/1.7.x-r1242759  
    Votes:
-     +0: cmpilato
+     +0: cmpilato   
 
  * r1306275, and too many other revisions to list here
    New diff support code for added/deleted files and directories.
