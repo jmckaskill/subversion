@@ -108,21 +108,6 @@ Candidate changes:
 		   for the build.conf install=... attribute) for the stable
                    branch?)
 
- * r1375052
-   Don't complain about unknown password stores listed in the
-   password-stores runtime configuration area -- simply ignore them.
-   Justification:
-     The runtime configuration must necessarily be compatible -- that
-     is, at least functional -- across many versions of Subversion.
-     Prior to this change, though, adding "gpg-agent" to the
-     password-stores list so I can use that feature with my trunk
-     client would cause my 1.7.x client to choke.
-   Branch:
-     ^/subversion/branches/1.7.x-r1375052
-   Votes:
-     +1: cmpilato, danielsh
-     +0: rhuijben
-
  * r1378847
    Make GNOME keyring library work with very old glib.
    Justification:
@@ -154,15 +139,29 @@ Candidate changes:
    Votes:
      +1: rhuijben, philip
 
- * r1380697
-   Fix duplicated Index: lines in 'svn diff' output with external diff tool.
-   Justification:
-     Obvious bug. User complained and submitted patch.
-   Votes:
-     +1: stsp, philip
-
 Veto-blocked changes:
 =====================
 
 Approved changes:
 =================
+
+ * r1375052
+   Don't complain about unknown password stores listed in the
+   password-stores runtime configuration area -- simply ignore them.
+   Justification:
+     The runtime configuration must necessarily be compatible -- that
+     is, at least functional -- across many versions of Subversion.
+     Prior to this change, though, adding "gpg-agent" to the
+     password-stores list so I can use that feature with my trunk
+     client would cause my 1.7.x client to choke.
+   Branch:
+     ^/subversion/branches/1.7.x-r1375052
+   Votes:
+     +1: cmpilato, danielsh, rhuijben
+
+ * r1380697
+   Fix duplicated Index: lines in 'svn diff' output with external diff tool.
+   Justification:
+     Obvious bug. User complained and submitted patch.
+   Votes:
+     +1: stsp, philip, rhuijben
