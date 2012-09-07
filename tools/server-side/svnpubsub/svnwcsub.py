@@ -277,7 +277,7 @@ class BackgroundWorker(threading.Thread):
         logging.info("updated: %s now at r%s", wc.path, info['Revision'])
 
         ### update the .revision file
-        dotrevision = os.path.join(wc.path, '.revision')
+        dotrevision = os.path.join(wc.path, '.revision') 
         try:
             os.unlink(dotrevision)
         except OSError, e:
@@ -407,7 +407,7 @@ def prepare_logging(logfile):
     # Apply the handler to the root logger
     root = logging.getLogger()
     root.addHandler(handler)
-
+    
     ### use logging.INFO for now. switch to cmdline option or a config?
     root.setLevel(logging.INFO)
 
