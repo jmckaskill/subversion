@@ -2979,7 +2979,7 @@ svn_fs_fs__rev_get_root(svn_fs_id_t **root_id_p,
  *
  * Mechanism:
  * ----------
- *
+ * 
  * Revprop caching needs to be activated and will be deactivated for the
  * respective FS instance if the necessary infrastructure could not be
  * initialized.  In deactivated mode, there is almost no runtime overhead
@@ -3115,7 +3115,7 @@ ensure_revprop_generation(svn_fs_t *fs, apr_pool_t *pool)
   if (ffd->revprop_generation == NULL)
     {
       apr_int64_t current = 0;
-
+      
       SVN_ERR(svn_named_atomic__get(&ffd->revprop_generation,
                                     ffd->revprop_namespace,
                                     ATOMIC_REVPROP_GENERATION,
@@ -3333,7 +3333,7 @@ typedef struct packed_revprops_t
   apr_array_header_t *offsets;
 
 
-  /* concatenation of the serialized representation of all revprops
+  /* concatenation of the serialized representation of all revprops 
    * in the pack, i.e. the pack content without header and compression */
   svn_stringbuf_t *packed_revprops;
 
@@ -3347,7 +3347,7 @@ typedef struct packed_revprops_t
  * Three more parameters are being used to update the revprop cache: FS is
  * our file system, the revprops belong to REVISION and the global revprop
  * GENERATION is used as well.
- *
+ * 
  * The returned hash will be allocated in POOL, SCRATCH_POOL is being used
  * for temporary allocations.
  */
@@ -3722,7 +3722,7 @@ get_revision_proplist(apr_hash_t **proplist_p,
  * filesystem FS to a non-packed file.  Return the name of that temporary
  * file in *TMP_PATH and the file path that it must be moved to in
  * *FINAL_PATH.
- *
+ * 
  * Use POOL for allocations.
  */
 static svn_error_t *
@@ -3754,7 +3754,7 @@ write_non_packed_revprop(const char **final_path,
  * If indicated in BUMP_GENERATION, increase FS' revprop generation.
  * Finally, delete all the temporary files given in FILES_TO_DELETE.
  * The latter may be NULL.
- *
+ * 
  * Use POOL for temporary allocations.
  */
 static svn_error_t *
@@ -3782,7 +3782,7 @@ switch_to_new_revprop(svn_fs_t *fs,
     {
       apr_pool_t *iterpool = svn_pool_create(pool);
       int i;
-
+      
       for (i = 0; i < files_to_delete->nelts; ++i)
         {
           const char *path = APR_ARRAY_IDX(files_to_delete, i, const char*);
@@ -3832,7 +3832,7 @@ serialize_revprops_header(svn_stream_t *stream,
 
 /* Writes the a pack file to FILE_STREAM.  It copies the serialized data
  * from REVPROPS for the indexes [START,END) except for index CHANGED_INDEX.
- *
+ * 
  * The data for the latter is taken from NEW_SERIALIZED.  Note, that
  * CHANGED_INDEX may be outside the [START,END) range, i.e. no new data is
  * taken in that case but only a subset of the old data will be copied.
@@ -3876,9 +3876,9 @@ repack_revprops(svn_fs_t *fs,
       }
     else
       {
-        apr_size_t size
+        apr_size_t size 
             = (apr_size_t)APR_ARRAY_IDX(revprops->sizes, i, apr_off_t);
-        apr_size_t offset
+        apr_size_t offset 
             = (apr_size_t)APR_ARRAY_IDX(revprops->offsets, i, apr_off_t);
 
         SVN_ERR(svn_stream_write(stream,
@@ -3939,7 +3939,7 @@ repack_stream_open(svn_stream_t **stream,
     return svn_error_createf(SVN_ERR_FS_CORRUPT, NULL,
                              _("Packed file '%s' misses a tag"),
                              old_filename);
-
+    
   SVN_ERR(svn_cstring_atoi64(&tag, tag_string + 1));
   new_filename = svn_string_createf(pool, "%ld.%" APR_INT64_T_FMT,
                                     revprops->start_revision + start,
@@ -4023,7 +4023,7 @@ write_packed_revprop(const char **final_path,
     {
       /* split the pack file into two of roughly equal size */
       int right_count, left_count, i;
-
+          
       int left = 0;
       int right = revprops->sizes->nelts - 1;
       apr_off_t left_size = 2 * SVN_INT64_BUFFER_SIZE;
@@ -4108,7 +4108,7 @@ write_packed_revprop(const char **final_path,
 
       SVN_ERR(svn_stream_close(stream));
     }
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -4131,7 +4131,7 @@ set_revision_proplist(svn_fs_t *fs,
 
   /* this info will not change while we hold the global FS write lock */
   is_packed = is_packed_revprop(fs, rev);
-
+  
   /* Test whether revprops already exist for this revision.
    * Only then will we need to bump the revprop generation. */
   if (has_revprop_cache(fs, pool))
@@ -5848,7 +5848,7 @@ process_changes(apr_hash_t *changed_paths,
   for (i = 0; i < changes->nelts; ++i)
     {
       change_t *change = APR_ARRAY_IDX(changes, i, change_t *);
-
+      
       SVN_ERR(fold_change(changed_paths, change, copyfrom_cache));
 
       /* Now, if our change was a deletion or replacement, we have to
@@ -5922,7 +5922,7 @@ read_all_changes(apr_array_header_t **changes,
   /* pre-allocate enough room for most change lists
      (will be auto-expanded as necessary) */
   *changes = apr_array_make(pool, 30, sizeof(change_t *));
-
+  
   SVN_ERR(read_change(&change, file, pool));
   while (change)
     {
@@ -5983,7 +5983,7 @@ get_changes(apr_array_header_t **changes,
     }
 
   /* read changes from revision file */
-
+  
   SVN_ERR(ensure_revision_exists(fs, rev, pool));
 
   SVN_ERR(open_pack_or_rev_file(&revision_file, fs, rev, pool));
@@ -5993,11 +5993,11 @@ get_changes(apr_array_header_t **changes,
 
   SVN_ERR(svn_io_file_seek(revision_file, APR_SET, &changes_offset, pool));
   SVN_ERR(read_all_changes(changes, revision_file, pool));
-
+  
   SVN_ERR(svn_io_file_close(revision_file, pool));
 
   /* cache for future reference */
-
+  
   if (ffd->changes_cache)
     SVN_ERR(svn_cache__set(ffd->changes_cache, &rev, *changes, pool));
 
@@ -8559,7 +8559,7 @@ recover_find_max_ids(svn_fs_t *fs, svn_revnum_t rev,
 
 /* Return TRUE, if for REVISION in FS, we can find the revprop pack file.
  * Use POOL for temporary allocations.
- * Set *MISSING, if the reason is a missing manifest or pack file.
+ * Set *MISSING, if the reason is a missing manifest or pack file. 
  */
 static svn_boolean_t
 packed_revprop_available(svn_boolean_t *missing,
@@ -9632,7 +9632,7 @@ delete_revprops_shard(const char *shard_path,
  * for allocations.  REVPROPS_DIR will be NULL if revprop packing is not
  * supported.  COMPRESSION_LEVEL and MAX_PACK_SIZE will be ignored in that
  * case.
- *
+ * 
  * CANCEL_FUNC and CANCEL_BATON are what you think they are; similarly
  * NOTIFY_FUNC and NOTIFY_BATON.
  *
