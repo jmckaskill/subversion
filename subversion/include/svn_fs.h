@@ -417,7 +417,7 @@ svn_fs_freeze(svn_fs_t *fs,
               svn_error_t *(*freeze_body)(void *baton, apr_pool_t *pool),
               void *baton,
               apr_pool_t *pool);
-
+              
 
 
 /** Subversion filesystems based on Berkeley DB.
@@ -1068,7 +1068,7 @@ svn_fs_change_txn_props(svn_fs_txn_t *txn,
  * from the constants SVN_FS_TXN_* (#SVN_FS_TXN_CHECK_OOD etc.). It is a
  * property of the underlying transaction, and will not change if multiple
  * editors are used to refer to that transaction (see @a autocommit, below).
- *
+ * 
  * @note If you're building a txn for committing, you probably don't want
  * to call this directly.  Instead, call svn_repos__get_commit_ev2(), which
  * honors the repository's hook configurations.
