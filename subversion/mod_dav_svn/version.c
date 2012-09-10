@@ -1157,7 +1157,7 @@ make_activity(dav_resource *resource)
                                   SVN_DAV_ERROR_NAMESPACE,
                                   SVN_DAV_ERROR_TAG);
 
-  err = dav_svn__create_txn(resource->info->repos, &txn_name,
+  err = dav_svn__create_txn(resource->info->repos, &txn_name, 
                             NULL, resource->pool);
   if (err != NULL)
     return err;
