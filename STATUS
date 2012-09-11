@@ -32,7 +32,7 @@ Candidate changes:
      Fixes user-reported problem which significantly limits
      usabilility in certain environments.
    Branch:
-     ^/subversion/branches/1.7.x-r1242759
+     ^/subversion/branches/1.7.x-r1242759 
    Votes:
      +1: philip
      +0: cmpilato (not r1380175)
