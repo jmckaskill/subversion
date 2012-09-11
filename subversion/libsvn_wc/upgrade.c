@@ -1380,7 +1380,7 @@ svn_wc__upgrade_conflict_skel_from_raw(svn_skel_t **conflicts,
                                        apr_pool_t *scratch_pool)
 {
   svn_skel_t *conflict_data = NULL;
-
+  
   if (conflict_old || conflict_new || conflict_wrk)
     {
       const char *old_abspath = NULL;
@@ -1563,7 +1563,7 @@ bump_to_30(void *baton,
   SVN_ERR(svn_sqlite__reset(stmt));
 
   SVN_ERR(svn_sqlite__exec_statements(sdb, STMT_UPGRADE_TO_30));
-
+ 
   /* Set inherited_props to an empty array for the roots of all
      switched subtrees in the WC.  This allows subsequent updates
      to recognize these roots as needing an iprops cache. */

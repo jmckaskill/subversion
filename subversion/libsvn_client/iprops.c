@@ -129,7 +129,7 @@ svn_client__get_inheritable_props(apr_hash_t **wcroot_iprops,
             {
               const char *target_abspath = apr_pstrdup(scratch_pool,
                                                        local_abspath);
-              apr_hash_set(iprop_paths, target_abspath,
+              apr_hash_set(iprop_paths, target_abspath, 
                            APR_HASH_KEY_STRING, target_abspath);
             }
         }
