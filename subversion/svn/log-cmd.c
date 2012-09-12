@@ -230,7 +230,7 @@ match_search_patterns(apr_array_header_t *search_patterns,
           svn_cl__search_pattern_t p;
 
           svn_pool_clear(iterpool);
-
+          
           p = APR_ARRAY_IDX(pattern_group, j, svn_cl__search_pattern_t);
           match = match_search_pattern(p.pattern, author, date,
                                        message, changed_paths,
