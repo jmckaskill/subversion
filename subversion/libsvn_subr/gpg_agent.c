@@ -337,7 +337,7 @@ get_password_via_agent(svn_boolean_t *done,
                pool);
   cache_id = svn_checksum_to_cstring(digest, pool);
 
-  request = apr_psprintf(pool,
+  request = apr_psprintf(pool, 
                          "GET_PASSPHRASE --data %s--repeat=1 %s X %s %s\n",
                          non_interactive ? "--no-ask " : "",
                          cache_id,
