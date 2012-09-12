@@ -1,7 +1,7 @@
 
 Here are some random notes on tools we'd like to use:
 
-* glib : general C utility library, extremely portable.
+* glib : general C utility library, extremely portable.  
 
 	  Gives us tons of string routines, linked lists, trees,
 	  hashtables, standardized types, debugging & logging macros,
