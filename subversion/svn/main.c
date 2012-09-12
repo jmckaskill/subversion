@@ -382,7 +382,7 @@ const apr_getopt_option_t svn_cl__options[] =
                        "Multiple search patterns match independently.")},
 
   {"isearch", opt_isearch, 1,
-                       N_("like --search, but case-insensitive")},
+                       N_("like --search, but case-insensitive")}, 
 
   {"search-and", opt_search_and, 1,
                        N_("combine ARG with the previous search pattern\n"
@@ -390,7 +390,7 @@ const apr_getopt_option_t svn_cl__options[] =
                        "Combined search patterns match unitedly.")},
 
   {"isearch-and", opt_isearch_and, 1,
-                       N_("like --search-and, but case-insensitive")},
+                       N_("like --search-and, but case-insensitive")}, 
 
   /* Long-opt Aliases
    *
