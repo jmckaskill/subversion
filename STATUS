@@ -57,12 +57,12 @@ Candidate changes:
      log_tests.py 30: log -g should ignore cyclic merges
      Can fail because 1.6.x is missing r1293229, which fixed occasionally
      missing merged-via notifications.
-
+   
      diff_tests.py 32: repos-wc diff showing added entries with props
      Can fail because this test is missing various tweaks to account
      for random output order of 'svn diff' (this is independent of the
      APR 1.4.6 hash order problem).
-
+   
      ruby swig test 'test_dump'
      Can fail because 1.6.x is missing r966458, which sorted property
      listings in dump files in alphabetical order, and this test does
