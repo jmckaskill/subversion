@@ -2979,7 +2979,7 @@ get_inherited_props(svn_ra_svn_conn_t *conn,
       SVN_ERR(svn_ra_svn_write_proplist(conn, iterpool, iprop->prop_hash));
       SVN_ERR(svn_ra_svn_write_tuple(conn, iterpool, "!))!",
                                      iprop->path_or_url));
-    }
+    }  
 
   SVN_ERR(svn_ra_svn_write_tuple(conn, iterpool, "!))"));
   svn_pool_destroy(iterpool);
