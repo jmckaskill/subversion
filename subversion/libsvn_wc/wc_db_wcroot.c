@@ -178,7 +178,7 @@ close_wcroot(void *data)
       SVN_ERR_ASSERT_NO_RETURN(wcroot->pdb != NULL);
       err_pdb = svn_sqlite__close(wcroot->pdb);
       wcroot->pdb = NULL;
-
+ 
       if (err_pdb)
         {
           apr_status_t result = err_pdb->apr_err;
