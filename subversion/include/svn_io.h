@@ -2200,7 +2200,7 @@ svn_io_write_version_file(const char *path,
                           int version,
                           apr_pool_t *pool);
 
-/* Read a line of text from a file, up to a specified length.
+/** Read a line of text from a file, up to a specified length.
  *
  * Allocate @a *stringbuf in @a result_pool, and read into it one line
  * from @a file. Reading stops either after a line-terminator was found
