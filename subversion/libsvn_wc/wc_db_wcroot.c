@@ -182,7 +182,7 @@ close_wcroot(void *data)
       svn_error_clear(err_pdb);
       return result;
     }
-
+  
   if (err_sdb)
     {
       apr_status_t result = err_sdb->apr_err;
