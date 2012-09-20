@@ -906,7 +906,7 @@ svn_repos_begin_report3(void **report_baton,
  * to 0.
  *
  * @since New in 1.5.
- *
+ * 
  * @deprecated Provided for backward compatibility with the 1.8 API.
  */
 svn_error_t *
