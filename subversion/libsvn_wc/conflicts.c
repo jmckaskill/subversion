@@ -1926,7 +1926,7 @@ read_prop_conflicts(apr_array_header_t *conflicts,
   apr_hash_t *conflicted_props;
   apr_hash_index_t *hi;
   apr_pool_t *iterpool;
-
+  
   SVN_ERR(svn_wc__conflict_read_prop_conflict(&prop_reject_file,
                                               &my_props,
                                               &their_old_props,
