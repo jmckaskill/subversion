@@ -264,7 +264,7 @@ static svn_error_t *writebuf_write(svn_ra_svn_conn_t *conn, apr_pool_t *pool,
     {
       if (conn->write_pos > 0)
         SVN_ERR(writebuf_flush(conn, pool));
-
+      
       return writebuf_output(conn, pool, data, len);
     }
 
