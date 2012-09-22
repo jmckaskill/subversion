@@ -176,7 +176,7 @@ enum { BUCKET_COUNT = 256 };
    When the number of INSERTIONS (i.e. objects created form that pool)
    exceeds a certain threshold, the pool will be cleared and the cache
    with it.
-
+   
    To ensure that nodes returned from this structure remain valid, the
    cache will get locked for the lifetime of the _receiving_ pools (i.e.
    those in which we would allocate the node if there was no cache.).
@@ -222,7 +222,7 @@ unlock_cache(void *baton_void)
   fs_fs_dag_cache_t *cache = baton_void;
   cache->lock_count--;
   cache->last_registered = NULL;
-
+  
   return APR_SUCCESS;
 }
 
@@ -258,7 +258,7 @@ auto_clear_dag_cache(fs_fs_dag_cache_t** cache)
     {
       apr_pool_t *pool = (*cache)->pool;
       apr_pool_clear(pool);
-
+      
       *cache = svn_fs_fs__create_dag_cache(pool);
     }
 }
@@ -289,7 +289,7 @@ cache_lookup( fs_fs_dag_cache_t *cache
      (HASH_VALUE has been initialized to REVISION). */
   for (i = 0; i + 4 <= path_len; i += 4)
     hash_value = hash_value * 0xd1f3da69 + *(const apr_uint32_t*)(path + i);
-
+  
   for (; i < path_len; ++i)
     hash_value = hash_value * 33 + path[i];
 
@@ -367,7 +367,7 @@ dag_node_cache_get(dag_node_t **node_p,
   if (!root->is_txn_root)
     {
       /* immutable DAG node. use the global caches for it */
-
+      
       fs_fs_data_t *ffd = root->fs->fsap_data;
       cache_entry_t *bucket;
 
@@ -395,7 +395,7 @@ dag_node_cache_get(dag_node_t **node_p,
   else
     {
       /* DAG is mutable / may become invalid. Use the TXN-local cache */
-
+      
       locate_cache(&cache, &key, root, path, pool);
 
       SVN_ERR(svn_cache__get((void **) &node, &found, cache, key, pool));
