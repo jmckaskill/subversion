@@ -1175,7 +1175,7 @@ parse_hooks_env_option(const char *name, const char *value,
   struct parse_hooks_env_option_baton *bo = baton;
   apr_pool_t *result_pool = apr_hash_pool_get(bo->hooks_env);
   apr_hash_t *hook_env;
-
+  
   hook_env = apr_hash_get(bo->hooks_env, bo->section, APR_HASH_KEY_STRING);
   if (hook_env == NULL)
     {
