@@ -24,10 +24,10 @@
  * Modified by the GLib Team and others 1997-1999.  See the AUTHORS
  * file for a list of people on the GLib Team.  See the ChangeLog
  * files for a list of changes.  These files are distributed with
- * GLib at ftp://ftp.gtk.org/pub/gtk/.
+ * GLib at ftp://ftp.gtk.org/pub/gtk/. 
  */
 
-/*
+/* 
  * MT safe
  */
 
@@ -70,7 +70,7 @@ static void
 g_cond_wait_nspr_impl (GCond * cond,
 		       GMutex * entered_mutex)
 {
-  PRStatus status = PRP_NakedWait ((PRCondVar *) cond,
+  PRStatus status = PRP_NakedWait ((PRCondVar *) cond, 
 				   (PRLock *) entered_mutex,
 				   PR_INTERVAL_NO_TIMEOUT);
   g_assert (status == PR_SUCCESS);
