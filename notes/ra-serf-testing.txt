@@ -53,5 +53,5 @@ RAW NOTES (from some earlier thinking)
         d) partial in-mem consumption, new content lands in diskbuf
         e) partial diskbuf consumption, new content lands in diskbuf
 
-
+   
 */
