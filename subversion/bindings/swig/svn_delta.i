@@ -191,11 +191,11 @@ void _ops_get(int *num_ops, svn_txdelta_op_t **ops)
   apr_pool_t *parent_pool;
   PyObject *parent_py_pool;
   PyObject *ops_list;
-
+  
   if (svn_swig_py_get_parent_pool(args, $descriptor(apr_pool_t *),
                                   &parent_py_pool, &parent_pool))
     SWIG_fail;
-
+  
   ops_list = svn_swig_py_convert_txdelta_op_c_array(*$1, *$2,
     $descriptor(svn_txdelta_op_t *), parent_py_pool);
 
