@@ -71,7 +71,7 @@ typedef struct revision_location_t
   apr_off_t offset;
   apr_off_t changes;
   apr_off_t changes_len;
-  apr_off_t end;
+  apr_off_t end;  
 } revision_location_t;
 
 typedef struct location_t
@@ -154,7 +154,7 @@ typedef struct dir_cache_entry_t
 {
   svn_revnum_t revision;
   apr_off_t offset;
-
+  
   apr_hash_t *hash;
 } dir_cache_entry_t;
 
@@ -262,7 +262,7 @@ create_content_cache(apr_pool_t *pool,
   result->total_size = 0;
   result->insert_count = 0;
   result->data = apr_palloc(pool, limit);
-
+  
   return result;
 }
 
@@ -280,7 +280,7 @@ set_cached_content(content_cache_t *cache,
 {
   svn_string_t *content;
   svn_revnum_t *key;
-
+  
   assert(get_cached_content(cache, revision) == NULL);
 
   if (cache->total_size + data->len > cache->limit)
@@ -303,7 +303,7 @@ set_cached_content(content_cache_t *cache,
 
   memcpy(cache->data + cache->total_size, data->data, data->len);
   cache->total_size += data->len;
-
+    
   key = apr_palloc(cache->hash_pool, sizeof(*key));
   *key = revision;
 
@@ -320,7 +320,7 @@ get_content(svn_string_t **data,
   apr_file_t *file;
   revision_info_t *revision_info;
   svn_stringbuf_t *temp;
-
+  
   svn_string_t *result = get_cached_content(fs->cache, revision);
   if (result)
     {
@@ -389,7 +389,7 @@ get_cached_dir(fs_fs_t *fs,
 
   apr_size_t i = get_dir_cache_index(fs, revision, offset);
   dir_cache_entry_t *entry = &fs->dir_cache->entries[i];
-
+  
   return entry->offset == offset && entry->revision == revision
     ? entry->hash
     : NULL;
@@ -550,12 +550,12 @@ read_revision_header(apr_off_t *changes,
   const char *space;
   apr_int64_t val;
   apr_size_t len;
-
+  
   /* Read in this last block, from which we will identify the last line. */
   len = sizeof(buf);
   if (start + len > end)
     len = end - start;
-
+  
   memcpy(buf, file_content->data + end - len, len);
 
   /* The last byte should be a newline. */
@@ -577,7 +577,7 @@ read_revision_header(apr_off_t *changes,
                             _("Final line in revision file missing space"));
 
   *(char *)space = 0;
-
+  
   SVN_ERR(svn_cstring_atoi64(&val, line+1));
   *root_noderev = (apr_off_t)val;
   SVN_ERR(svn_cstring_atoi64(&val, space+1));
@@ -675,7 +675,7 @@ read_number(svn_revnum_t *result, const char *path, apr_pool_t *pool)
 {
   svn_stringbuf_t *content;
   apr_int64_t number;
-
+  
   SVN_ERR(svn_stringbuf_from_file2(&content, path, pool));
 
   content->data[content->len-1] = 0;
@@ -699,7 +699,7 @@ fs_open(fs_fs_t **fs, const char *path, apr_pool_t *pool)
                       pool));
   if (((*fs)->format != 4) && ((*fs)->format != 6))
     return svn_error_create(SVN_ERR_FS_UNSUPPORTED_FORMAT, NULL, NULL);
-
+    
   SVN_ERR(read_number(&(*fs)->min_unpacked_rev,
                       svn_dirent_join(path, "db/min-unpacked-rev", pool),
                       pool));
@@ -804,7 +804,7 @@ find_representation(int *idx,
 {
   revision_info_t *info;
   *idx = -1;
-
+  
   info = revision_info ? *revision_info : NULL;
   if (info == NULL || info->revision != revision)
     {
@@ -914,7 +914,7 @@ parse_representation(representation_t **representation,
 
       svn_sort__array_insert(&result, revision_info->representations, idx);
     }
-
+    
   *representation = result;
 
   return SVN_NO_ERROR;
@@ -1006,7 +1006,7 @@ get_combined_window(svn_stringbuf_t **content,
   *content = get_cached_window(fs, representation, pool);
   if (*content)
     return SVN_NO_ERROR;
-
+  
   SVN_ERR(read_windows(&windows, fs, representation, sub_pool));
   if (representation->delta_base && representation->delta_base->revision)
     SVN_ERR(get_combined_window(&base_content, fs,
@@ -1016,7 +1016,7 @@ get_combined_window(svn_stringbuf_t **content,
 
   result = svn_stringbuf_create_empty(pool);
   source = base_content->data;
-
+  
   for (i = 0; i < windows->nelts; ++i)
     {
       svn_txdelta_window_t *window
@@ -1036,7 +1036,7 @@ get_combined_window(svn_stringbuf_t **content,
 
   svn_pool_destroy(iter_pool);
   svn_pool_destroy(sub_pool);
-
+  
   set_cached_window(fs, representation, result);
   *content = result;
   return SVN_NO_ERROR;
@@ -1104,7 +1104,7 @@ read_dir(apr_hash_t **hash,
     }
 
   set_cached_dir(fs, representation, *hash);
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -1194,7 +1194,7 @@ read_noderev(noderev_t **noderev,
   svn_boolean_t is_dir = FALSE;
 
   scratch_pool = svn_pool_create(scratch_pool);
-
+  
   result->original.offset = offset;
   while (1)
     {
@@ -1209,7 +1209,7 @@ read_noderev(noderev_t **noderev,
       offset += end - start + 1;
       if (line->len == 0)
         break;
-
+      
       sep = strchr(line->data, ':');
       if (sep == NULL)
         continue;
@@ -1220,7 +1220,7 @@ read_noderev(noderev_t **noderev,
 
       if (key.len + 2 > line->len)
         continue;
-
+      
       value.data = sep + 2;
       value.len = line->len - (key.len + 2);
 
@@ -1294,7 +1294,7 @@ read_pack_file(fs_fs_t *fs,
     {
       apr_off_t root_node_offset;
       svn_string_t rev_content;
-
+  
       revision_info_t *info = apr_pcalloc(pool, sizeof(*info));
       info->node_revs = apr_array_make(iter_pool, 4, sizeof(noderev_t*));
       info->representations = apr_array_make(iter_pool, 4, sizeof(representation_t*));
@@ -1314,7 +1314,7 @@ read_pack_file(fs_fs_t *fs,
 
       APR_ARRAY_PUSH(revisions->info, revision_info_t*) = info;
       APR_ARRAY_PUSH(fs->revisions, revision_info_t*) = info;
-
+      
       rev_content.data = file_content->data + info->original.offset;
       rev_content.len = info->original.end - info->original.offset;
       set_cached_content(fs->cache, info->revision, &rev_content);
@@ -1324,7 +1324,7 @@ read_pack_file(fs_fs_t *fs,
 
       info->node_revs = apr_array_copy(pool, info->node_revs);
       info->representations = apr_array_copy(pool, info->representations);
-
+      
       svn_pool_clear(iter_pool);
     }
 
@@ -1401,11 +1401,11 @@ read_revisions(fs_fs_t **fs,
 
   if (memsize < 100)
     memsize = 100;
-
+  
   content_cache_size = memsize * 7 / 10 > 4000 ? 4000 : memsize * 7 / 10;
   window_cache_size = memsize * 2 / 10 * 1024 * 1024;
   dir_cache_size = (memsize / 10) * 16000;
-
+  
   SVN_ERR(fs_open(fs, path, pool));
 
   (*fs)->start_revision = start_revision
@@ -1435,7 +1435,7 @@ read_revisions(fs_fs_t **fs,
       ; revision < (*fs)->min_unpacked_rev
       ; revision += (*fs)->max_files_per_dir)
     SVN_ERR(read_pack_file(*fs, revision, pool));
-
+    
   for ( ; revision <= (*fs)->max_revision; ++revision)
     SVN_ERR(read_revision_file(*fs, revision, pool));
 
@@ -1488,7 +1488,7 @@ add_revisions_pack_heads(revision_pack_t *pack,
     {
       info = APR_ARRAY_IDX(pack->info, i, revision_info_t*);
       info->target.offset = pack->target_offset;
-
+      
       fragment.data = info;
       fragment.kind = header_fragment;
       fragment.position = pack->target_offset;
@@ -1499,7 +1499,7 @@ add_revisions_pack_heads(revision_pack_t *pack,
 
   info = APR_ARRAY_IDX(pack->info, pack->info->nelts - 1, revision_info_t*);
   info->target.offset = pack->target_offset;
-
+  
   /* followed by the changes list */
 
   for (i = 0; i < pack->info->nelts; ++i)
@@ -1561,7 +1561,7 @@ add_representation_recursively(fs_fs_t *fs,
   apr_size_t *current_pos;
   apr_array_header_t *fragments;
   fragment_t fragment;
-
+  
   if (   representation == NULL
       || representation->covered
       || (representation->dir && kind != dir_fragment)
@@ -1572,7 +1572,7 @@ add_representation_recursively(fs_fs_t *fs,
                             fs, representation->revision));
   representation->target.offset = *current_pos;
   representation->covered = TRUE;
-
+  
   fragment.data = representation;
   fragment.kind = kind;
   fragment.position = *current_pos;
@@ -1654,7 +1654,7 @@ add_noderev_recursively(fs_fs_t *fs,
   APR_ARRAY_PUSH(fragments, fragment_t) = fragment;
 
   *current_pos += node->original.size + 40;
-
+  
   if (node->text && node->text->dir)
     SVN_ERR(add_representation_recursively(fs, node->text, dir_fragment, pool));
   else
@@ -1790,7 +1790,7 @@ get_content_length(apr_size_t *length,
       }
   else
     *length = content->len;
-
+    
   return SVN_NO_ERROR;
 }
 
@@ -1801,8 +1801,8 @@ move_fragment(fragment_t *fragment,
   revision_info_t *info;
   representation_t *representation;
   noderev_t *node;
-
-  fragment->position = new_position;
+  
+  fragment->position = new_position; 
 
   switch (fragment->kind)
     {
@@ -1905,7 +1905,7 @@ pack_revisions(fs_fs_t *fs,
         }
     }
   while (needed_to_expand);
-
+  
   svn_pool_destroy(itempool);
 
   return SVN_NO_ERROR;
@@ -2038,7 +2038,7 @@ get_updated_dir(svn_string_t **content,
   int i;
   svn_stream_t *stream;
   svn_stringbuf_t *result;
-
+  
   SVN_ERR(read_dir(&hash, fs, representation, scratch_pool));
   hash = apr_hash_copy(hash_pool, hash);
   for (i = 0; i < dir->nelts; ++i)
@@ -2053,7 +2053,7 @@ get_updated_dir(svn_string_t **content,
                                  _("Dir entry '%s' not found"), entry->name);
 
       SVN_ERR_ASSERT(str_val->len < sizeof(buffer));
-
+      
       memcpy(buffer, str_val->data, str_val->len+1);
       pos = strchr(buffer, '/') - buffer + 1;
       pos += svn__ui64toa(buffer + pos, entry->node->target.offset - entry->node->revision->target.offset);
@@ -2068,7 +2068,7 @@ get_updated_dir(svn_string_t **content,
   svn_pool_destroy(hash_pool);
 
   *content = svn_stringbuf__morph_into_string(result);
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -2187,7 +2187,7 @@ update_text(svn_stringbuf_t *node_rev,
     {
       const char* temp;
       char *end_pos = strchr(val_pos, ' ');
-
+      
       val_pos = end_pos + 1;
       end_pos = strchr(strchr(val_pos, ' ') + 1, ' ');
       temp = apr_psprintf(scratch_pool, "%ld %ld",
@@ -2227,7 +2227,7 @@ get_fragment_content(svn_string_t **content,
       case changes_fragment:
         info = fragment->data;
         SVN_ERR(get_content(&revision_content, fs, info->revision, pool));
-
+        
         *content = svn_string_create_empty(pool);
         (*content)->data = revision_content->data + info->original.changes;
         (*content)->len = info->target.changes_len;
@@ -2352,11 +2352,11 @@ static svn_error_t *
 prepare_repo(const char *path, apr_pool_t *pool)
 {
   svn_node_kind_t kind;
-
+  
   const char *old_path = svn_dirent_join(path, "db/old", pool);
   const char *new_path = svn_dirent_join(path, "new", pool);
   const char *revs_path = svn_dirent_join(path, "db/revs", pool);
-
+  
   SVN_ERR(svn_io_check_path(old_path, &kind, pool));
   if (kind == svn_node_dir)
     {
@@ -2454,13 +2454,13 @@ int main(int argc, const char *argv[])
       printf("Reading revisions\n");
       svn_err = read_revisions(&fs, repo_path, start_revision, memsize, pool);
     }
-
+  
   if (!svn_err)
     {
       printf("\nReordering revision content\n");
       svn_err = reorder_revisions(fs, pool);
     }
-
+    
   if (!svn_err)
     {
       printf("\nPacking and writing revisions\n");
