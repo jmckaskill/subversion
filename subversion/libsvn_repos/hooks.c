@@ -245,7 +245,7 @@ run_hook_cmd(svn_string_t **result,
                                 SVN_REPOS__HOOKS_ENV_DEFAULT_SECTION,
                                 APR_HASH_KEY_STRING);
     }
-
+    
   err = svn_io_start_cmd3(&cmd_proc, ".", cmd, args,
                           env_from_env_hash(hook_env, pool, pool),
                           FALSE, FALSE, stdin_handle, result != NULL,
