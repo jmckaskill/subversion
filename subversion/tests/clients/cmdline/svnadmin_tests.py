@@ -2,9 +2,9 @@
 #
 #  svnadmin_tests.py:  testing the 'svnadmin' tool.
 #
-#  Subversion is a tool for revision control.
+#  Subversion is a tool for revision control. 
 #  See http://subversion.tigris.org for more information.
-#
+#    
 # ====================================================================
 # Copyright (c) 2000-2001 CollabNet.  All rights reserved.
 #
@@ -43,7 +43,7 @@ path_index = svntest.actions.path_index
 #                        root node has a proper created-revision,
 #                        because there was once a bug where it
 #                        didn't.
-#
+# 
 #                        Note also that "svnadmin create" is tested
 #                        implicitly every time we run a python test
 #                        script.  (An empty repository is always
@@ -87,7 +87,7 @@ def get_trees(repo_dir, revision_p = 0):
     match = rm.search(line)
     if match and match.groups():
       tree_names.append(match.group(1))
-
+      
   return tree_names
 
 
@@ -325,7 +325,7 @@ test_list = [ None,
              ]
 
 if __name__ == '__main__':
-
+  
   ## run the main test routine on them:
   err = svntest.main.run_tests(test_list)
 

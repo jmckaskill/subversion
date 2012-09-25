@@ -2,9 +2,9 @@
 #
 #  log_tests.py:  testing "svn log"
 #
-#  Subversion is a tool for revision control.
+#  Subversion is a tool for revision control. 
 #  See http://subversion.tigris.org for more information.
-#
+#    
 # ====================================================================
 # Copyright (c) 2000-2001 CollabNet.  All rights reserved.
 #
@@ -32,7 +32,7 @@ except SyntaxError:
 
 # (abbreviation)
 path_index = svntest.actions.path_index
-
+  
 
 ######################################################################
 #
@@ -132,7 +132,7 @@ def guarantee_repos_and_wc():
   svntest.main.run_svn (None, 'up')
 
   # Revision 6: prop change on A/B, edit A/D/H/psi
-  svntest.main.run_svn (None, 'ps', 'blue', 'azul', B_path)
+  svntest.main.run_svn (None, 'ps', 'blue', 'azul', B_path)  
   svntest.main.file_append (psi_path, "6")
   svntest.main.run_svn (None, 'ci', '-m', "Log message for revision 6")
   svntest.main.run_svn (None, 'up')
@@ -214,26 +214,26 @@ def parse_log_output(log_lines):
      """
 
   # Here's some log output to look at while writing this function:
-
+  
   # ------------------------------------------------------------------------
   # rev 5:  kfogel | Tue 6 Nov 2001 17:18:19 | 1 line
-  #
+  # 
   # Log message for revision 5.
   # ------------------------------------------------------------------------
   # rev 4:  kfogel | Tue 6 Nov 2001 17:18:18 | 1 line
-  #
+  # 
   # Log message for revision 4.
   # ------------------------------------------------------------------------
   # rev 3:  kfogel | Tue 6 Nov 2001 17:18:17 | 1 line
-  #
+  # 
   # Log message for revision 3.
   # ------------------------------------------------------------------------
   # rev 2:  kfogel | Tue 6 Nov 2001 17:18:16 | 1 line
-  #
+  # 
   # Log message for revision 2.
   # ------------------------------------------------------------------------
   # rev 1:  foo | Tue 6 Nov 2001 15:27:57 | 1 line
-  #
+  # 
   # Log message for revision 1.
   # ------------------------------------------------------------------------
 
@@ -304,7 +304,7 @@ def check_log_chain (chain, start, end):
     step = -1
   else:
     step = 1
-
+  
   for expect_rev in range (start, end + step, step):
     log_item = chain.pop (0)
     saw_rev = string.atoi (log_item['revision'])
@@ -367,7 +367,7 @@ def versioned_log_message():
   global wc_path
 
   sbox = "versioned_log_message"
-
+ 
   if svntest.actions.make_repo_and_wc (sbox): return 1
 
   wc_path    = os.path.join (svntest.main.general_wc_dir, sbox)
@@ -430,7 +430,7 @@ test_list = [ None,
              ]
 
 if __name__ == '__main__':
-
+  
   ## run the main test routine on them:
   err = svntest.main.run_tests(test_list)
 
