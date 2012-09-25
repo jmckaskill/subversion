@@ -18,7 +18,7 @@ module Svn
         TABLE[value] = const_get($1)
       end
     end
-
+    
     class << self
       def new_corresponding_error(code, message)
         if TABLE.has_key?(code)
