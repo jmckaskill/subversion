@@ -259,8 +259,8 @@ pre_15_receiver(void *baton, svn_log_entry_t *log_entry, apr_pool_t *pool)
             }
 
           if (rb->ra_session == NULL)
-            SVN_ERR(svn_client_open_ra_session(&rb->ra_session,
-                                                rb->ra_session_url,
+            SVN_ERR(svn_client_open_ra_session(&rb->ra_session, 
+                                                rb->ra_session_url, 
                                                rb->ctx, rb->ra_session_pool));
 
           SVN_ERR(svn_ra_rev_prop(rb->ra_session, log_entry->revision,
@@ -288,7 +288,7 @@ pre_15_receiver(void *baton, svn_log_entry_t *log_entry, apr_pool_t *pool)
   else
     {
       if (rb->ra_session == NULL)
-        SVN_ERR(svn_client_open_ra_session(&rb->ra_session,
+        SVN_ERR(svn_client_open_ra_session(&rb->ra_session, 
                                            rb->ra_session_url,
                                            rb->ctx, rb->ra_session_pool));
 
@@ -540,7 +540,7 @@ svn_client_log4(const apr_array_header_t *targets,
         rb.ctx = ctx;
         rb.ra_session_pool = pool;
         rb.ra_session_url = actual_url;
-
+    
         rb.revprops = revprops;
         rb.receiver = real_receiver;
         rb.baton = real_receiver_baton;
