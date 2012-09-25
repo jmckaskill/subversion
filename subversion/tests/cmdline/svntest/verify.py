@@ -132,7 +132,7 @@ class ExpectedOutput:
       else:
         all_lines_match_re = False
 
-      # If a regex was provided assume that we actually require
+      # If a regex was provided assume that we actually require 
       # some output. Fail if we don't.
       if len(actual) == 0:
         return False
