@@ -3,7 +3,7 @@ dnl
 dnl  Check configure options and assign variables related to
 dnl  the Apache Portable Runtime Utilities (APRUTIL) library.
 dnl
-dnl  If there is a apr-util/ subdir we assme we want to use it. In that
+dnl  If there is a apr-util/ subdir we assme we want to use it. In that 
 dnl  case an option telling us to use a locally installed apr-util
 dnl  triggers an error.
 dnl
@@ -13,9 +13,9 @@ dnl  TODO : check apr-util version, link a test program
 AC_DEFUN(SVN_LIB_APRUTIL,
 [
   AC_MSG_NOTICE([Apache Portable Runtime Utility (APRUTIL) library configuration])
-
+  
   AC_ARG_WITH(apr-util,
-              [AC_HELP_STRING([--with-apr-util=PREFIX],
+              [AC_HELP_STRING([--with-apr-util=PREFIX], 
 	      [Use APRUTIL at PREFIX])],
   [
     if test -d $abs_srcdir/apr-util ; then

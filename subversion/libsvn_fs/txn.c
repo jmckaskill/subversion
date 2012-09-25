@@ -84,7 +84,7 @@ make_txn (svn_fs_t *fs,
 
   return txn;
 }
-
+          
 
 struct begin_txn_args
 {
@@ -127,7 +127,7 @@ svn_fs_begin_txn (svn_fs_txn_t **txn_p,
   args.fs    = fs;
   args.rev   = rev;
   SVN_ERR (svn_fs__retry_txn (fs, txn_body_begin_txn, &args, pool));
-
+  
   *txn_p = txn;
 
   /* Put a datestamp on the newly created txn, so we always know
@@ -215,7 +215,7 @@ txn_body_abort_txn (void *baton, trail_t *trail)
   svn_fs_id_t *root_id, *ignored_id;
 
   SVN_ERR (svn_fs_txn_name (&txn_name, txn, txn->pool));
-  SVN_ERR (svn_fs__get_txn_ids (&root_id, &ignored_id, txn->fs,
+  SVN_ERR (svn_fs__get_txn_ids (&root_id, &ignored_id, txn->fs, 
                                 txn_name, trail));
   SVN_ERR (svn_fs__dag_delete_if_mutable (txn->fs, root_id, trail));
   SVN_ERR (svn_fs__delete_txn (txn->fs, txn->id, trail));
@@ -257,10 +257,10 @@ txn_body_open_txn (void *baton,
 
   SVN_ERR (svn_fs__get_txn_ids (&root_id, &base_root_id,
                                 args->fs, args->name, trail));
-  SVN_ERR (svn_fs__dag_get_node (&base_root_node, args->fs,
+  SVN_ERR (svn_fs__dag_get_node (&base_root_node, args->fs, 
                                  base_root_id, trail));
   SVN_ERR (svn_fs__dag_get_revision (&base_rev, base_root_node, trail));
-  *args->txn_p = make_txn (args->fs, args->name, base_rev, trail->pool);
+  *args->txn_p = make_txn (args->fs, args->name, base_rev, trail->pool); 
   return SVN_NO_ERROR;
 }
 
@@ -280,7 +280,7 @@ svn_fs_open_txn (svn_fs_txn_t **txn_p,
   args.fs = fs;
   args.name = name;
   SVN_ERR (svn_fs__retry_txn (fs, txn_body_open_txn, &args, pool));
-
+  
   *txn_p = txn;
   return SVN_NO_ERROR;
 }
@@ -347,7 +347,7 @@ apr_pool_t *svn_fs__txn_pool (svn_fs_txn_t *txn)
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
