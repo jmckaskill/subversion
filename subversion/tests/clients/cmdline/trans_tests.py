@@ -2,9 +2,9 @@
 #
 #  trans_tests.py:  testing eol conversion and keyword substitution
 #
-#  Subversion is a tool for revision control.
+#  Subversion is a tool for revision control. 
 #  See http://subversion.tigris.org for more information.
-#
+#    
 # ====================================================================
 # Copyright (c) 2000-2003 CollabNet.  All rights reserved.
 #
@@ -36,7 +36,7 @@ Item = svntest.wc.StateItem
 # status level 1:
 #    enable translation, status
 #    (now throw local text mods into the picture)
-#
+#   
 # commit level 1:
 #    enable translation, commit
 #    (now throw local text mods into the picture)
@@ -72,7 +72,7 @@ Item = svntest.wc.StateItem
 #      Create a greek tree, commit a keyword into one file,
 #      then commit a keyword property (i.e., turn on keywords), then
 #      try to check out head somewhere else.  See seg fault.
-#
+#    
 #   2. Mike encountered this:
 #      Add the keyword property to a file, svn revert the file, see
 #      error.
@@ -94,7 +94,7 @@ embd_bogus_keywords_path = ''
 def setup_working_copy(wc_dir):
   """Setup a standard test working copy, then create (but do not add)
   various files for testing translation."""
-
+  
   global author_rev_unexp_path
   global author_rev_exp_path
   global url_unexp_path
@@ -135,7 +135,7 @@ def setup_working_copy(wc_dir):
                             "blue $Author: blah $ fish$Rev: 0 $\nI fish")
   svntest.main.file_append (embd_bogus_keywords_path,
                             "you fish $Arthur$then\n we$Rev0$ \n\nchew fish")
-
+      
   return 0
 
 
@@ -294,7 +294,7 @@ def disable_translation():
   return 1
   # TODO: Disable translation on files which have had it enabled,
   # with and without local mods, check status, and commit.
-
+  
   return 0
 
 
@@ -345,7 +345,7 @@ def update_modified_with_translation(sbox):
   f.write("1\n2\n3\n4\n4.5\n5\n6\n7\n8\n9\n")
   f.close()
 
-  # Commit revision 3
+  # Commit revision 3 
   expected_status = svntest.actions.get_virginal_state(wc_dir, 3)
   expected_status.tweak(wc_rev=1)
   expected_status.tweak('A/D/G/rho', wc_rev=3, status='  ')
@@ -408,7 +408,7 @@ This is the file 'rho'.>>>>>>> .r1
 
 def eol_change_is_text_mod(sbox):
   "commit eol-style change which should force a text transmission"
-
+  
   if sbox.build():
     return 1
 
@@ -426,7 +426,7 @@ def eol_change_is_text_mod(sbox):
   # commit the file
   svntest.main.run_svn(None, 'add', foo_path)
   svntest.main.run_svn(None, 'ci', '-m', 'log msg', foo_path)
-
+  
   if svntest.main.windows:
     svntest.main.run_svn(None, 'propset', 'svn:eol-style', 'LF', foo_path)
   else:
@@ -456,7 +456,7 @@ def eol_change_is_text_mod(sbox):
   f.close()
   if contents != base_contents:
     return 1
-
+  
   return 0
 
 #----------------------------------------------------------------------
@@ -474,7 +474,7 @@ def keyword_expanded_on_checkout(sbox):
   Z_path = os.path.join(wc_dir, 'Z')
   output, errput = svntest.main.run_svn (None, 'mkdir', Z_path)
   if errput: return 1
-
+  
   # Add the file that has the keyword to be expanded
   url_path = os.path.join(Z_path, 'url')
   svntest.main.file_append (url_path, "$URL$")
