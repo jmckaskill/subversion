@@ -1,5 +1,5 @@
 VERSION 5.00
-Begin VB.PropertyPage ppgMain
+Begin VB.PropertyPage ppgMain 
    Caption         =   "Main"
    ClientHeight    =   4572
    ClientLeft      =   0
@@ -8,7 +8,7 @@ Begin VB.PropertyPage ppgMain
    PaletteMode     =   0  'Halftone
    ScaleHeight     =   4572
    ScaleWidth      =   5160
-   Begin VB.CheckBox chkHeaderHotTrack
+   Begin VB.CheckBox chkHeaderHotTrack 
       Caption         =   "HeaderHotTrack"
       Height          =   285
       Left            =   2160
@@ -16,7 +16,7 @@ Begin VB.PropertyPage ppgMain
       Top             =   480
       Width           =   2700
    End
-   Begin VB.CheckBox chkHeaderButtons
+   Begin VB.CheckBox chkHeaderButtons 
       Caption         =   "HeaderButtons"
       Height          =   285
       Left            =   2160
@@ -24,7 +24,7 @@ Begin VB.PropertyPage ppgMain
       Top             =   960
       Width           =   2700
    End
-   Begin VB.CheckBox chkHeaderFlat
+   Begin VB.CheckBox chkHeaderFlat 
       Caption         =   "HeaderFlat"
       Height          =   285
       Left            =   2160
@@ -32,7 +32,7 @@ Begin VB.PropertyPage ppgMain
       Top             =   720
       Width           =   2700
    End
-   Begin VB.CheckBox chkVirtual
+   Begin VB.CheckBox chkVirtual 
       Caption         =   "Virtual"
       Height          =   285
       Left            =   2160
@@ -40,7 +40,7 @@ Begin VB.PropertyPage ppgMain
       Top             =   3720
       Width           =   2700
    End
-   Begin VB.CheckBox chkGridLines
+   Begin VB.CheckBox chkGridLines 
       Caption         =   "GridLines"
       Height          =   285
       Left            =   2160
@@ -48,7 +48,7 @@ Begin VB.PropertyPage ppgMain
       Top             =   3000
       Width           =   2700
    End
-   Begin VB.CheckBox chkRowMode
+   Begin VB.CheckBox chkRowMode 
       Caption         =   "RowMode"
       Height          =   285
       Left            =   2160
@@ -56,7 +56,7 @@ Begin VB.PropertyPage ppgMain
       Top             =   1680
       Width           =   2700
    End
-   Begin VB.CheckBox chkMultiSelect
+   Begin VB.CheckBox chkMultiSelect 
       Caption         =   "MultiSelect"
       Height          =   285
       Left            =   2160
@@ -64,7 +64,7 @@ Begin VB.PropertyPage ppgMain
       Top             =   1440
       Width           =   2700
    End
-   Begin VB.CheckBox chkEditable
+   Begin VB.CheckBox chkEditable 
       Caption         =   "Editable"
       Height          =   285
       Left            =   2160
@@ -72,7 +72,7 @@ Begin VB.PropertyPage ppgMain
       Top             =   3240
       Width           =   2700
    End
-   Begin VB.CheckBox chkDisableIcons
+   Begin VB.CheckBox chkDisableIcons 
       Caption         =   "DisableIcons"
       Height          =   285
       Left            =   2160
@@ -80,7 +80,7 @@ Begin VB.PropertyPage ppgMain
       Top             =   2400
       Width           =   2700
    End
-   Begin VB.CheckBox chkDrawFocusRectangle
+   Begin VB.CheckBox chkDrawFocusRectangle 
       Caption         =   "DrawFocusRectangle"
       Height          =   285
       Left            =   2160
@@ -88,7 +88,7 @@ Begin VB.PropertyPage ppgMain
       Top             =   2760
       Width           =   2700
    End
-   Begin VB.CheckBox chkHighlightSelectedIcons
+   Begin VB.CheckBox chkHighlightSelectedIcons 
       Caption         =   "HighlightSelectedIcons"
       Height          =   285
       Left            =   2160

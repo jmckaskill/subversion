@@ -50,7 +50,7 @@
 
 
 /*** Code ***/
-JNIEXPORT jobject JNICALL
+JNIEXPORT jobject JNICALL 
 Java_org_tigris_subversion_lib_ClientImpl_status
   (JNIEnv *env, jobject jobj, jstring jtarget, jboolean jdescend,
    jboolean jget_all, jboolean jupdate)
@@ -80,7 +80,7 @@ Java_org_tigris_subversion_lib_ClientImpl_status
   /* HERE COMES SOME DEBUGGING CODE
      IF YOU DONT WANT TO USE IT, JUST LEAVE
      IT In COMMENTS
-  -->
+  --> 
   {
     int i=0;
     hashtable = hashtable__create(env, &hasException);
@@ -118,21 +118,21 @@ Java_org_tigris_subversion_lib_ClientImpl_status
   <-- */
 
   /* do all the type conversion stuff */
-  target_string = string__j_to_svn_string(env,
+  target_string = string__j_to_svn_string(env, 
                                    jtarget, &hasException,
                                    pool);
 
   if( !hasException )
     {
-      target_stringbuf =
-        svn_stringbuf_create_from_string(target_string,
+      target_stringbuf = 
+        svn_stringbuf_create_from_string(target_string, 
                                          pool);
 
       if( target_stringbuf == NULL )
         {
           /* seems like the conversion didnt succeed */
           hasException = JNI_TRUE;
-          misc__throw_exception_by_name(env,
+          misc__throw_exception_by_name(env, 
                                         SVN_JNI__SUBVERSION_EXCEPTION,
                                         SVN_JNI__ERROR_CREATE_STRINGBUF);
         }
@@ -158,10 +158,10 @@ Java_org_tigris_subversion_lib_ClientImpl_status
       SVN_JNI__DEBUG_PTR(pool);
       fprintf(stderr, ")\n");
 #endif
-
-      error = svn_client_status(&statushash, &youngest, target_stringbuf,
-                                auth_baton,descend,
-                                get_all, update,
+      
+      error = svn_client_status(&statushash, &youngest, target_stringbuf, 
+                                auth_baton,descend, 
+                                get_all, update, 
                                 pool);
 
       /* ### todo: `youngest' is tossed right now, need to propagate
@@ -174,7 +174,7 @@ Java_org_tigris_subversion_lib_ClientImpl_status
 #endif
           /* in the case of an error, throw a java exception */
           hasException = JNI_TRUE;
-          misc__throw_exception_by_name(env,
+          misc__throw_exception_by_name(env, 
                                         SVN_JNI__SUBVERSION_EXCEPTION,
                                         SVN_JNI__ERROR_CLIENT_STATUS);
         }
@@ -205,7 +205,7 @@ Java_org_tigris_subversion_lib_ClientImpl_status
               apr_array_header_t *statusarray;
 
               /* Convert the unordered hash to an ordered, sorted array */
-              statusarray =
+              statusarray = 
                 apr_hash_sorted_keys (statushash,
                                       svn_sort_compare_items_as_paths,
                                       pool);
@@ -231,7 +231,7 @@ Java_org_tigris_subversion_lib_ClientImpl_status
                   /* convert svn_wc_status_t to java class Status */
                   if( !hasException )
                     {
-                      jstatus = status__create(env, status,
+                      jstatus = status__create(env, status, 
                                                &hasException);
                       //jstatus = string__c_to_j(env, path, &hasException);
                     }
@@ -239,10 +239,10 @@ Java_org_tigris_subversion_lib_ClientImpl_status
                   /* put entry into java vector */
                   if( !hasException )
                     {
-                      jstring string =
+                      jstring string = 
                         string__c_to_j(env, "test", &hasException);
                       vector__add(env, vector, string, &hasException);
-                      //vector__add(env, vector, jstatus,
+                      //vector__add(env, vector, jstatus, 
                       //&hasException);
 
                     }
