@@ -121,7 +121,7 @@ svn_error_t *svn_ra_svn__do_auth(svn_ra_svn__session_baton_t *sess,
  * auth response.  If COMPAT is true, also write out a version number
  * and capability list.  MECH_ARG may be NULL for mechanisms with no
  * initial client response. */
-svn_error_t *svn_ra_svn__auth_response(svn_ra_svn_conn_t *conn,
+svn_error_t *svn_ra_svn__auth_response(svn_ra_svn_conn_t *conn, 
                                        apr_pool_t *pool,
                                        const char *mech, const char *mech_arg,
                                        svn_boolean_t compat);
