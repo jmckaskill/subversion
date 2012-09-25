@@ -56,7 +56,7 @@ END {
 
 Takes a reference to an array of authentication providers
 and returns an auth_baton.  If you use prompt providers
-you can not use this function, but need to use the
+you can not use this function, but need to use the 
 auth_open_helper.
 
 =item SVN::Core::auth_open_helper([auth provider array);
