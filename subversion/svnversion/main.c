@@ -46,7 +46,7 @@ analyze_status (void *baton,
                 svn_wc_status2_t *status)
 {
   struct status_baton *sb = baton;
-
+  
   if (! status->entry)
     return;
 
@@ -68,9 +68,9 @@ analyze_status (void *baton,
   sb->modified |= (status->text_status != svn_wc_status_normal);
   sb->modified |= (status->prop_status != svn_wc_status_normal
                    && status->prop_status != svn_wc_status_none);
-
-  if (sb->wc_path
-      && (! sb->wc_url)
+  
+  if (sb->wc_path 
+      && (! sb->wc_url) 
       && (strcmp (path, sb->wc_path) == 0)
       && (status->entry))
     sb->wc_url = apr_pstrdup (sb->pool, status->entry->url);
@@ -258,8 +258,8 @@ main(int argc, const char *argv[])
       return EXIT_FAILURE;
     }
 
-  SVN_INT_ERR (svn_utf_cstring_to_utf8 (&wc_path,
-			  (os->ind == argc) ? "." : os->argv[os->ind++],
+  SVN_INT_ERR (svn_utf_cstring_to_utf8 (&wc_path, 
+			  (os->ind == argc) ? "." : os->argv[os->ind++], 
 			  pool));
   wc_path = svn_path_internal_style (wc_path, pool);
   SVN_INT_ERR (svn_wc_check_wc (wc_path, &wc_format, pool));
@@ -269,7 +269,7 @@ main(int argc, const char *argv[])
       SVN_INT_ERR(svn_io_check_path (wc_path, &kind, pool));
       if (kind == svn_node_dir)
         {
-          SVN_INT_ERR (svn_cmdline_printf (pool, _("exported%s"),
+          SVN_INT_ERR (svn_cmdline_printf (pool, _("exported%s"), 
                                            no_newline ? "" : "\n"));
           svn_pool_destroy (pool);
           return EXIT_SUCCESS;
@@ -289,7 +289,7 @@ main(int argc, const char *argv[])
   rev.kind = svn_opt_revision_unspecified;
   ctx.config = apr_hash_make (pool);
 
-  err = svn_client_status2 (NULL, wc_path, &rev, analyze_status,
+  err = svn_client_status2 (NULL, wc_path, &rev, analyze_status, 
                             &sb, TRUE, TRUE, FALSE, FALSE, TRUE, &ctx, pool);
   if (err && (err->apr_err == SVN_ERR_CANCELLED))
     svn_error_clear (err);

@@ -63,7 +63,7 @@ static const char *LOCALE_PREFS[] = { "en_US", "en", "es_ES", NULL };
 
 
 static svn_error_t *
-test1 (const char **msg,
+test1 (const char **msg, 
        svn_boolean_t msg_only,
        svn_test_opts_t *opts,
        apr_pool_t *pool)

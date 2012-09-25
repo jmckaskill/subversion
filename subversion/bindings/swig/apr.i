@@ -133,7 +133,7 @@ typedef apr_int32_t time_t;
    create an OUTPUT argument defn for an apr_array_header_t ** which is
    storing svn_prop_t * property values
 */
-%typemap(python, in, numinputs=0)
+%typemap(python, in, numinputs=0) 
      apr_array_header_t **OUTPUT_OF_PROP (apr_array_header_t *temp)
 {
   $1 = &temp;

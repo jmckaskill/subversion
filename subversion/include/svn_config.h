@@ -1,4 +1,4 @@
-/**
+/** 
  * @copyright
  * ====================================================================
  * Copyright (c) 2000-2004 CollabNet.  All rights reserved.
@@ -129,7 +129,7 @@ typedef struct svn_config_t svn_config_t;
  * categories (@c SVN_CONFIG_CATEGORY_SERVERS,
  * @c SVN_CONFIG_CATEGORY_CONFIG, etc.) and whose values are the @c
  * svn_config_t * items representing the configuration values for that
- * category.
+ * category.  
  */
 svn_error_t *svn_config_get_config (apr_hash_t **cfg_hash,
                                     const char *config_dir,
@@ -158,7 +158,7 @@ svn_error_t *svn_config_merge (svn_config_t *cfg,
                                svn_boolean_t must_exist);
 
 
-/** Find the value of a (@a section, @a option) pair in @a cfg, set @a
+/** Find the value of a (@a section, @a option) pair in @a cfg, set @a 
  * *valuep to the value.
  *
  * If @a cfg is @c NULL, just sets @a *valuep to @a default_value. If
@@ -175,7 +175,7 @@ void svn_config_get (svn_config_t *cfg, const char **valuep,
                      const char *section, const char *option,
                      const char *default_value);
 
-/** Add or replace the value of a (@a section, @a option) pair in @a cfg with
+/** Add or replace the value of a (@a section, @a option) pair in @a cfg with 
  * @a value.
  *
  * This function invalidates all value expansions in @a cfg.
@@ -212,12 +212,12 @@ void svn_config_set_bool (svn_config_t *cfg,
 typedef svn_boolean_t (*svn_config_section_enumerator_t)
        (const char *name, void *baton);
 
-/** Similar to svn_config_enumerate_sections2(), but uses a memory pool of
+/** Similar to svn_config_enumerate_sections2(), but uses a memory pool of 
  * @a cfg instead of one that is explicitely provided.
  *
- * @deprecated Provided for backwards compatibility with the 1.2 API.
+ * @deprecated Provided for backwards compatibility with the 1.2 API. 
  */
-int svn_config_enumerate_sections (svn_config_t *cfg,
+int svn_config_enumerate_sections (svn_config_t *cfg, 
                                    svn_config_section_enumerator_t callback,
                                    void *baton);
 
@@ -232,7 +232,7 @@ typedef svn_boolean_t (*svn_config_section_enumerator2_t)
 
 /** Enumerate the sections, passing @a baton and the current section's name
  * to @a callback.  Continue the enumeration if @a callback returns @c TRUE.
- * Return the number of times @a callback was called.
+ * Return the number of times @a callback was called. 
  *
  * ### See kff's comment to svn_config_enumerate2().  It applies to this
  * function, too. ###
@@ -242,7 +242,7 @@ typedef svn_boolean_t (*svn_config_section_enumerator2_t)
  *
  * @since New in 1.3.
  */
-int svn_config_enumerate_sections2 (svn_config_t *cfg,
+int svn_config_enumerate_sections2 (svn_config_t *cfg, 
                                     svn_config_section_enumerator2_t callback,
                                     void *baton, apr_pool_t *pool);
 
@@ -250,15 +250,15 @@ int svn_config_enumerate_sections2 (svn_config_t *cfg,
  * provided with a memory pool argument.
  * See svn_config_enumerate() for the details of this type.
  *
- * @deprecated Provided for backwards compatibility with the 1.2 API.
+ * @deprecated Provided for backwards compatibility with the 1.2 API. 
  */
 typedef svn_boolean_t (*svn_config_enumerator_t)
        (const char *name, const char *value, void *baton);
 
-/** Similar to svn_config_enumerate2(), but uses a memory pool of
+/** Similar to svn_config_enumerate2(), but uses a memory pool of 
  * @a cfg instead of one that is explicitely provided.
  *
- * @deprecated Provided for backwards compatibility with the 1.2 API.
+ * @deprecated Provided for backwards compatibility with the 1.2 API. 
  */
 int svn_config_enumerate (svn_config_t *cfg, const char *section,
                           svn_config_enumerator_t callback, void *baton);
@@ -275,7 +275,7 @@ typedef svn_boolean_t (*svn_config_enumerator2_t)
 
 /** Enumerate the options in @a section, passing @a baton and the current
  * option's name and value to @a callback.  Continue the enumeration if
- * @a callback returns @c TRUE.  Return the number of times @a callback
+ * @a callback returns @c TRUE.  Return the number of times @a callback 
  * was called.
  *
  * ### kff asks: A more usual interface is to continue enumerating

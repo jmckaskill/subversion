@@ -45,7 +45,7 @@ module SvnTestUtil
   def teardown_tmp(path=@tmp_path)
     FileUtils.rm_rf(path)
   end
-
+  
   def setup_repository(path=@repos_path, config={}, fs_config={})
     FileUtils.rm_rf(path)
     FileUtils.mkdir_p(File.dirname(path))
@@ -102,7 +102,7 @@ module SvnTestUtil
   def teardown_wc
     FileUtils.rm_rf(@wc_path)
   end
-
+  
   def setup_config
     teardown_config
     Svn::Core.config_ensure(@config_path)
@@ -111,7 +111,7 @@ module SvnTestUtil
   def teardown_config
     FileUtils.rm_rf(@config_path)
   end
-
+  
   def add_authentication
     passwd_file = "passwd"
     File.open(@repos.svnserve_conf, "w") do |conf|
@@ -154,7 +154,7 @@ exit 1
     end
     FileUtils.chmod(0755, @repos.pre_revprop_change_hook)
   end
-
+  
   def youngest_rev
     @fs.youngest_rev
   end
@@ -184,5 +184,5 @@ exit 1
     auth_baton[Svn::Core::AUTH_PARAM_CONFIG_DIR] = @config_path
     auth_baton[Svn::Core::AUTH_PARAM_DEFAULT_USERNAME] = @author
   end
-
+  
 end
