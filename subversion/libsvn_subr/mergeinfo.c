@@ -138,12 +138,12 @@ get_type_of_intersection(svn_merge_range_t *r1,
 {
   SVN_ERR_ASSERT(r1);
   SVN_ERR_ASSERT(r2);
-
+  
   /* Why not use SVN_IS_VALID_REVNUM here?  Because revision 0
      is described START = -1, END = 0.  See svn_merge_range_t. */
   SVN_ERR_ASSERT(r1->start >= -1);
   SVN_ERR_ASSERT(r2->start >= -1);
-
+  
   SVN_ERR_ASSERT(SVN_IS_VALID_REVNUM(r1->end));
   SVN_ERR_ASSERT(SVN_IS_VALID_REVNUM(r2->end));
   SVN_ERR_ASSERT(r1->start < r1->end);
@@ -183,19 +183,19 @@ get_type_of_intersection(svn_merge_range_t *r1,
 
    If the ranges do intersect and have the same inheritability then combine
    the ranges.
-
+   
    If the ranges intersect but differ in inheritability, then merge the
    ranges as dictated below by CONSIDER_INHERITANCE.
 
    CONSIDER_INHERITANCE determines how to account for the inheritability of
    NEW_RANGE and *LASTRANGE when determining if they intersect.
-
+   
    If CONSIDER_INHERITANCE is false then any intersection between *LASTRANGE
    and NEW_RANGE is determined strictly on the ranges start and end revisions.
    If the ranges intersect then they are joined.  The inheritability of the
    resulting range is non-inheritable *only* if both ranges were
    non-inheritable, otherwise the combined range is inheritable, e.g.:
-
+     
      *LASTRANGE        NEW_RANGE        RESULTING RANGES
      ----------        ---------        ----------------
      4-10*             6-13             4-13
@@ -277,10 +277,10 @@ combine_with_lastrange(svn_merge_range_t** lastrange,
              intersect but have differing inheritability.  Check for the
              first case as that is easy to handle. */
           intersection_type_t intersection_type;
-
+          
           SVN_ERR(get_type_of_intersection(new_range, *lastrange,
                                            &intersection_type));
-
+              
               switch (intersection_type)
                 {
                   case svn__no_intersection:
@@ -336,7 +336,7 @@ combine_with_lastrange(svn_merge_range_t** lastrange,
                         r2->start = r1->end;
                       else
                         r1->end = r2->start;
-
+                      
                       /* Push everything back onto REVLIST. */
                       APR_ARRAY_PUSH(revlist, svn_merge_range_t *) = r1;
                       APR_ARRAY_PUSH(revlist, svn_merge_range_t *) = r2;
