@@ -260,8 +260,8 @@ svn_hash__clear(apr_hash_t *hash, apr_pool_t *pool);
 /** Find the value of a @a key in @a hash, return the value.
  *
  * If @a hash is @c NULL or if the @a key cannot be found, the
- * @a default_value will be returned.
- *
+ * @a default_value will be returned. 
+ * 
  * @since New in 1.7.
  */
 const char *
@@ -274,10 +274,10 @@ svn_hash_get_cstring(apr_hash_t *hash,
  * Parses the value as a boolean value. The recognized representations
  * are 'TRUE'/'FALSE', 'yes'/'no', 'on'/'off', '1'/'0'; case does not
  * matter.
- *
+ * 
  * @since New in 1.7.
  */
-svn_boolean_t
+svn_boolean_t 
 svn_hash_get_bool(apr_hash_t *hash,
                   const char *key,
                   svn_boolean_t default_value);
