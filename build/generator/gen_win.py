@@ -252,7 +252,7 @@ class WinGeneratorBase(gen_base.GeneratorBase):
     deps = { }
 
     sub = self.get_win_depends(target, 2)
-
+    
     for obj in self.graph.get_sources(gen_base.DT_LINK, target.name):
       if not isinstance(obj, gen_base.Target):
         continue
