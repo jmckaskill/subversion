@@ -115,7 +115,7 @@ add_dir_recursive (const char *dirname,
 
 
 svn_error_t *
-svn_client_add (const char *path,
+svn_client_add (const char *path, 
                 svn_boolean_t recursive,
                 svn_wc_notify_func_t notify_func,
                 void *notify_baton,
@@ -132,7 +132,7 @@ svn_client_add (const char *path,
                       notify_func, notify_baton, pool);
 
   if (err && (err->apr_err == SVN_ERR_ENTRY_EXISTS))
-    return svn_error_quick_wrap
+    return svn_error_quick_wrap 
       (err, "svn warning: Cannot add because entry already exists.");
 
   return err;
@@ -172,16 +172,16 @@ svn_client_mkdir (svn_client_commit_info_t **commit_info,
       if (log_msg_func)
         {
           svn_client_commit_item_t *item;
-          apr_array_header_t *commit_items
+          apr_array_header_t *commit_items 
             = apr_array_make (pool, 1, sizeof (item));
-
+          
           item = apr_pcalloc (pool, sizeof (*item));
           item->url = apr_pstrdup (pool, path);
           item->state_flags = SVN_CLIENT_COMMIT_ITEM_ADD;
-          (*((svn_client_commit_item_t **) apr_array_push (commit_items)))
+          (*((svn_client_commit_item_t **) apr_array_push (commit_items))) 
             = item;
-
-          SVN_ERR ((*log_msg_func) (&message, commit_items,
+          
+          SVN_ERR ((*log_msg_func) (&message, commit_items, 
                                     log_msg_baton, pool));
           if (! message)
             return SVN_NO_ERROR;
@@ -201,7 +201,7 @@ svn_client_mkdir (svn_client_commit_info_t **commit_info,
          base directory, do not want to store auth data, and do not
          (necessarily) have an admin area for temp files. */
       SVN_ERR (svn_client__open_ra_session (&session, ra_lib, anchor, NULL,
-                                            NULL, FALSE, FALSE, TRUE,
+                                            NULL, FALSE, FALSE, TRUE, 
                                             auth_baton, pool));
 
       /* Fetch RA commit editor */
@@ -214,7 +214,7 @@ svn_client_mkdir (svn_client_commit_info_t **commit_info,
       /* Drive the editor to create the TARGET. */
       SVN_ERR (editor->open_root (edit_baton, SVN_INVALID_REVNUM, pool,
                                   &root_baton));
-      SVN_ERR (editor->add_directory (target, root_baton, NULL,
+      SVN_ERR (editor->add_directory (target, root_baton, NULL, 
                                       SVN_INVALID_REVNUM, pool, &dir_baton));
       SVN_ERR (editor->close_directory (dir_baton));
       SVN_ERR (editor->close_directory (root_baton));
@@ -234,7 +234,7 @@ svn_client_mkdir (svn_client_commit_info_t **commit_info,
 
   /* This is a regular "mkdir" + "svn add" */
   SVN_ERR (svn_io_dir_make (path, APR_OS_DEFAULT, pool));
-
+  
   err = svn_wc_add (path, NULL, SVN_INVALID_REVNUM,
                     notify_func, notify_baton, pool);
 
@@ -249,7 +249,7 @@ svn_client_mkdir (svn_client_commit_info_t **commit_info,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end: */

@@ -2,9 +2,9 @@
 #
 #  svnadmin_tests.py:  testing the 'svnadmin' tool.
 #
-#  Subversion is a tool for revision control.
+#  Subversion is a tool for revision control. 
 #  See http://subversion.tigris.org for more information.
-#
+#    
 # ====================================================================
 # Copyright (c) 2000-2001 CollabNet.  All rights reserved.
 #
@@ -35,7 +35,7 @@ Item = svntest.wc.StateItem
 #                        root node has a proper created-revision,
 #                        because there was once a bug where it
 #                        didn't.
-#
+# 
 #                        Note also that "svnadmin create" is tested
 #                        implicitly every time we run a python test
 #                        script.  (An empty repository is always
@@ -315,7 +315,7 @@ def dump_copied_dir(sbox):
 
 def dump_move_dir_modify_child(sbox):
   "test 'svnadmin dump' after on modified child of copied directory"
-
+  
   if sbox.build(): return 1
   wc_dir = sbox.wc_dir
   repo_dir = sbox.repo_dir

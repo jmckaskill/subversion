@@ -45,7 +45,7 @@ svn_cl__update (apr_getopt_t *os,
   svn_wc_notify_func_t notify_func = NULL;
   void *notify_baton = NULL;
 
-  SVN_ERR (svn_cl__args_to_target_array (&targets, os, opt_state,
+  SVN_ERR (svn_cl__args_to_target_array (&targets, os, opt_state, 
                                          FALSE, pool));
 
   /* Build an authentication baton to give to libsvn_client. */
@@ -86,8 +86,8 @@ svn_cl__update (apr_getopt_t *os,
 }
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../tools/dev/svn-dev.el")
- * end:
+ * end: 
  */

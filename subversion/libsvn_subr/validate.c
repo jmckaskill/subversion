@@ -49,7 +49,7 @@ svn_validate_mime_type (const char *mime_type, apr_pool_t *pool)
        micro-optimization worth the extra interface noise?  Is it
        even worth this comment?? */
     char c = mime_type[strlen(mime_type) - 1];
-
+    
     /* Man page seems to claim that isalnum is always a function.
        But I don't trust it. */
     if (! apr_isalnum (c))
@@ -63,7 +63,7 @@ svn_validate_mime_type (const char *mime_type, apr_pool_t *pool)
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end: */

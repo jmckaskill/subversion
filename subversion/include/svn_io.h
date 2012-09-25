@@ -47,14 +47,14 @@ extern "C" {
 
 
 /* If utf8-encoded PATH exists, set *KIND to the appropriate kind,
- * else set it to svn_node_unknown.
+ * else set it to svn_node_unknown. 
  *
  * If PATH is a file, *KIND is set to svn_node_file.
  *
  * If PATH is a directory, *KIND is set to svn_node_dir.
  *
  * If PATH does not exist in its final component, *KIND is set to
- * svn_node_none.
+ * svn_node_none.  
  *
  * If intermediate directories on the way to PATH don't exist, an
  * error is returned, and *KIND's value is undefined.
@@ -92,14 +92,14 @@ svn_error_t *svn_io_check_path (const char *path,
  *
  * *UNIQUE_NAME will never be exactly the same as PATH, even if PATH does
  * not exist.
- *
+ * 
  * *F and *UNIQUE_NAME are allocated in POOL.
  *
  * If no unique name can be found, SVN_ERR_IO_UNIQUE_NAMES_EXHAUSTED is
  * the error returned.
  *
  * Claim of Historical Inevitability: this function was written
- * because
+ * because 
  *
  *    tmpnam() is not thread-safe.
  *    tempname() tries standard system tmp areas first.
@@ -132,7 +132,7 @@ svn_error_t *svn_io_copy_file (const char *src,
    DST_BASENAME.  If DST_BASENAME already exists in DST_PARENT, return
    error.  COPY_PERMS will be passed through to svn_io_copy_file when
    any files are copied.  SRC, DST_PARENT, and DST_BASENAME are all
-   utf8-encoded. */
+   utf8-encoded. */ 
 svn_error_t *svn_io_copy_dir_recursively (const char *src,
                                           const char *dst_parent,
                                           const char *dst_basename,
@@ -198,7 +198,7 @@ svn_error_t *svn_io_set_file_executable (const char *path,
  * Does not include newline, instead '\0' is put there.
  * Length (as in strlen) is returned in *LIMIT.
  * BUF should be pre-allocated.
- * FILE should be already opened.
+ * FILE should be already opened. 
  *
  * When the file is out of lines, APR_EOF will be returned.
  */
@@ -366,8 +366,8 @@ svn_stream_readline (svn_stream_t *stream,
 
 /* Sets *RESULT to a string containing the contents of FILENAME, a
    utf8-encoded path. */
-svn_error_t *svn_string_from_file (svn_stringbuf_t **result,
-                                   const char *filename,
+svn_error_t *svn_string_from_file (svn_stringbuf_t **result, 
+                                   const char *filename, 
                                    apr_pool_t *pool);
 
 /* Sets *RESULT to a string containing the contents of the already opened
@@ -428,7 +428,7 @@ svn_error_t *svn_io_run_cmd (const char *path,
    are not.
 
    Diff runs in utf8-encoded DIR, and its exit status is stored in
-   EXITCODE, if it is not NULL.
+   EXITCODE, if it is not NULL.  
 
    If LABEL is given, it will be passed in as the argument to the "-L"
    option.  LABEL is also in utf8, and will be converted to native
@@ -493,7 +493,7 @@ svn_error_t *svn_io_run_diff3 (const char *dir,
 svn_error_t *svn_io_detect_mimetype (const char **mimetype,
                                      const char *file,
                                      apr_pool_t *pool);
-
+                                      
 
 /* Wrapper for apr_file_open(), which see.  FNAME is utf8-encoded. */
 svn_error_t *

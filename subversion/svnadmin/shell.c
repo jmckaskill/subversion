@@ -38,7 +38,7 @@ path_stat (svn_boolean_t *exists,
      -parent- and doing a hash lookup! */
 
   svn_path_split (path, &parent, &base_name, pool);
-
+    
   err = svn_fs_dir_entries (&dirents, shcxt->root, parent->data, pool);
   if (err)
     {
@@ -91,7 +91,7 @@ compute_new_path (svn_stringbuf_t **new_path /* UTF-8! */,
       if (svn_stringbuf_isempty (final_path))
         svn_stringbuf_appendcstr (final_path, "/");
     }
-  else
+  else 
     {
       /* just append path to cwd */
       svn_path_add_component_nts (final_path, given_path);
@@ -185,7 +185,7 @@ cr (svn_revnum_t rev,
   /* else... */
 
   /* close the old root */
-  if (shcxt->root != NULL)
+  if (shcxt->root != NULL)    
     svn_fs_close_root (shcxt->root);
 
   /* and open the new root */
@@ -207,7 +207,7 @@ cr (svn_revnum_t rev,
       if (svn_stringbuf_isempty (shcxt->cwd))
         svn_stringbuf_appendcstr (shcxt->cwd, "/");
 
-      SVN_ERR (path_stat (&exists, shcxt->cwd, shcxt, pool));
+      SVN_ERR (path_stat (&exists, shcxt->cwd, shcxt, pool));        
     }
 
   /* ### if we bumped the user upwards, should we mention it? */
@@ -239,7 +239,7 @@ print_dirent (svn_stringbuf_t *abs_path /* UTF-8! */,
     size = 0;
   else
     SVN_ERR (svn_fs_file_length (&size, shcxt->root, abs_path->data, pool));
-
+  
   /* revision in which this file was created. */
   SVN_ERR (svn_fs_node_created_rev (&created_rev,
                                     shcxt->root, abs_path->data, pool));
@@ -247,7 +247,7 @@ print_dirent (svn_stringbuf_t *abs_path /* UTF-8! */,
   /* convert id to a stringbuf */
   id_str = svn_fs_unparse_id (entry->id, pool);
 
-  /* does this object have properties?
+  /* does this object have properties? 
      funny, there's no way to know but to see if we fetch a non-empty
      prophash. */
   SVN_ERR (svn_fs_node_proplist (&props, shcxt->root, abs_path->data, pool));
@@ -265,7 +265,7 @@ print_dirent (svn_stringbuf_t *abs_path /* UTF-8! */,
   if (is_dir)
     printf ("/");
   printf ("\n");
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -293,7 +293,7 @@ ls (shcxt_t *shcxt,
 
       SVN_ERR (compute_new_path (&new_path, shcxt->cwd, path_utf8,
                                  shcxt, pool));
-
+      
       if (new_path == NULL)
         {
           /* non-fatal error */
@@ -303,7 +303,7 @@ ls (shcxt_t *shcxt,
       else
         path_to_list = new_path;
     }
-
+  
   SVN_ERR (svn_fs_dir_entries (&dirents, shcxt->root,
                                path_to_list->data, pool));
   tmp_path = svn_stringbuf_dup (path_to_list, pool);
@@ -319,7 +319,7 @@ ls (shcxt_t *shcxt,
       entryname = (const char *) key;
       entry = (svn_fs_dirent_t *) val;
       svn_path_add_component_nts (tmp_path, entry->name);
-
+      
       SVN_ERR (print_dirent (tmp_path, entry, shcxt, pool));
 
       svn_path_remove_component (tmp_path);
@@ -366,7 +366,7 @@ get_input (svn_stringbuf_t **input,
   apr_file_t *fp;
   char c;
   svn_stringbuf_t *strbuf = svn_stringbuf_create ("", pool);
-
+  
   status = apr_file_open_stdin (&fp, pool);
   if (status)
     return
@@ -383,7 +383,7 @@ get_input (svn_stringbuf_t **input,
                                  "get_input(): error reading STDIN.");
       if ((c == '\n') || (c == '\r'))
         break;
-
+      
       svn_stringbuf_appendbytes (strbuf, &c, 1);
     }
 
@@ -415,7 +415,7 @@ parse_input (int *finished,
 
   else if (! strcmp(subcommand, "cd"))
     return cd (state, shcxt, pool);
-
+  
   else if (! strcmp(subcommand, "cr"))
     return cr (SVN_STR_TO_REV(state), shcxt, pool);
 
@@ -472,7 +472,7 @@ svnadmin_run_shell (svn_fs_t *fs, apr_pool_t *pool)
       /* lather, rinse, repeat. */
       svn_pool_destroy (subpool);
     }
-
+  
   printf ("\n");
   return SVN_NO_ERROR;
 }
@@ -481,7 +481,7 @@ svnadmin_run_shell (svn_fs_t *fs, apr_pool_t *pool)
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end:

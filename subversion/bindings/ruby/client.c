@@ -177,7 +177,7 @@ cl_checkout (int argc, VALUE *argv, VALUE self)
   revision = parse_revision (aRevOrTime);
   cl_get_parse_arg (rest, &before_editor, &before_edit_baton,
                     &after_editor, &after_edit_baton, &xml);
-
+  
   pool = svn_pool_create (NULL);
   Data_Get_Struct (self, svn_client_auth_baton_t, auth_baton);
   URL = svn_stringbuf_create (StringValuePtr (aURL), pool);
@@ -426,7 +426,7 @@ cl_import (int argc, VALUE *argv, VALUE self)
     Check_Type (aEntry, T_STRING);
   cl_put_parse_arg (rest, &before_editor, &before_edit_baton,
                     &after_editor, &after_edit_baton, &log, &xml, &revision);
-
+  
   pool = svn_pool_create (NULL);
   Data_Get_Struct (self, svn_client_auth_baton_t, auth_baton);
   URL = svn_stringbuf_create (StringValuePtr (aURL), pool);
@@ -487,7 +487,7 @@ cl_commit (int argc, VALUE *argv, VALUE self)
     Check_Type (RARRAY (aTargets)->ptr[i], T_STRING);
   cl_put_parse_arg (rest, &before_editor, &before_edit_baton,
                     &after_editor, &after_edit_baton, &log, &xml, &revision);
-
+  
   pool = svn_pool_create (NULL);
   Data_Get_Struct (self, svn_client_auth_baton_t, auth_baton);
   targets = apr_array_make (pool, RARRAY (aTargets)->len,

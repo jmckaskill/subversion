@@ -190,7 +190,7 @@ static svn_error_t * get_version_url(commit_ctx_t *cc,
                                                  rsrc->local_path,
                                                  &entry_committed_rev,
                                                  pool) );
-
+          
           SVN_ERR( (*cc->get_func)(cc->cb_baton,
                                    rsrc->local_path,
                                    SVN_RA_DAV__LP_VSN_URL_REV,
@@ -388,7 +388,7 @@ static svn_error_t * create_activity(commit_ctx_t *cc)
   /* get the URL where we'll create activities, construct the URL
      for the activity, and create the activity. */
   SVN_ERR( get_activity_collection(cc, &activity_collection, FALSE) );
-  url = svn_path_url_add_component(activity_collection->data,
+  url = svn_path_url_add_component(activity_collection->data, 
                                    uuid_buf, cc->ras->pool);
   SVN_ERR( simple_request(cc->ras, "MKACTIVITY", url, &code,
                           201 /* Created */,
@@ -400,7 +400,7 @@ static svn_error_t * create_activity(commit_ctx_t *cc)
   if (code == 404)
     {
       SVN_ERR( get_activity_collection(cc, &activity_collection, TRUE) );
-      url = svn_path_url_add_component(activity_collection->data,
+      url = svn_path_url_add_component(activity_collection->data, 
                                        uuid_buf, cc->ras->pool);
       SVN_ERR( simple_request(cc->ras, "MKACTIVITY", url, &code, 201, 0) );
     }
@@ -427,7 +427,7 @@ static svn_error_t * add_child(resource_t **child,
   /* ### todo:  This from Yoshiki Hayashi <yoshiki@xemacs.org>:
 
      Probably created flag in add_child can be removed because
-        revision is valid => created is false
+        revision is valid => created is false 
         revision is invalid => created is true
   */
 
@@ -489,7 +489,7 @@ static svn_error_t * do_checkout(commit_ctx_t *cc,
                       "</D:activity-set></D:checkout>", cc->activity_url);
   ne_set_request_body_buffer(req, body, strlen(body));
 
-  /*
+  /* 
    * We have different const qualifiers here. locn is const char **,
    * but the prototype is void * (as opposed to const void *).
    */
@@ -591,7 +591,7 @@ static void record_prop_change(apr_pool_t *pool,
 
       if (r->prop_deletes == NULL)
         r->prop_deletes = apr_array_make(pool, 5, sizeof(char *));
-
+  
       *(const char **)apr_array_push(r->prop_deletes) = name;
     }
 }
@@ -626,7 +626,7 @@ static svn_error_t * do_proppatch(svn_ra_session_t *ras,
       && (rb->prop_deletes == NULL || rb->prop_deletes->nelts == 0))
     return NULL;
 
-  /* easier to roll our own PROPPATCH here than use ne_proppatch(), which
+  /* easier to roll our own PROPPATCH here than use ne_proppatch(), which 
    * doesn't really do anything clever. */
   body = ne_buffer_create();
 
@@ -638,17 +638,17 @@ static svn_error_t * do_proppatch(svn_ra_session_t *ras,
   if (rb->prop_changes != NULL)
     {
       ne_buffer_zappend(body, "<D:set><D:prop>");
-      apr_table_do(do_setprop, body, rb->prop_changes, NULL);
+      apr_table_do(do_setprop, body, rb->prop_changes, NULL);      
       ne_buffer_zappend(body, "</D:prop></D:set>");
     }
-
+  
   if (rb->prop_deletes != NULL)
     {
       int n;
 
       ne_buffer_zappend(body, "<D:remove><D:prop>");
-
-      for (n = 0; n < rb->prop_deletes->nelts; n++)
+      
+      for (n = 0; n < rb->prop_deletes->nelts; n++) 
         {
           const char *name = APR_ARRAY_IDX(rb->prop_deletes, n, const char *);
 
@@ -756,7 +756,7 @@ static svn_error_t * commit_delete_entry(const char *path,
 
   /* Add this path to the valid targets hash. */
   add_valid_target (parent->cc, path, svn_nonrecursive);
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -797,7 +797,7 @@ static svn_error_t * commit_add_dir(const char *path,
       int status;
 
       /* This add has history, so we need to do a COPY. */
-
+      
       /* Convert the copyfrom_* url/rev "public" pair into a Baseline
          Collection (BC) URL that represents the revision -- and a
          relative path under that BC.  */
@@ -814,7 +814,7 @@ static svn_error_t * commit_add_dir(const char *path,
          header given to COPY is simply the wr_url that is already
          part of the child object. */
       copy_src = svn_path_url_add_component(bc_url.data,
-                                            bc_relative.data,
+                                            bc_relative.data, 
                                             dir_pool);
 
       /* Have neon do the COPY. */
@@ -833,7 +833,7 @@ static svn_error_t * commit_add_dir(const char *path,
     }
 
   /* Add this path to the valid targets hash. */
-  add_valid_target (parent->cc, path,
+  add_valid_target (parent->cc, path, 
                     copyfrom_path ? svn_recursive : svn_nonrecursive);
 
   *child_baton = child;
@@ -934,14 +934,14 @@ static svn_error_t * commit_add_file(const char *path,
      file with this URL already. We need to ensure such a file does not
      exist, which we do by attempting a PROPFIND.  Of course, a
      PROPFIND *should* succeed if this "add" is actually the second
-     half of a "replace".
+     half of a "replace".  
 
      ### For now, we'll assume that if this path has already been
      added to the valid targets hash, that addition occured during the
      "delete" phase (if that's not the case, this editor is being
      driven incorrectly, as we should never visit the same path twice
      except in a delete+add situation). */
-  if ((! parent->created)
+  if ((! parent->created) 
       && (! apr_hash_get(file->cc->valid_targets, path, APR_HASH_KEY_STRING)))
     {
       svn_ra_dav_resource_t *res;
@@ -986,7 +986,7 @@ static svn_error_t * commit_add_file(const char *path,
       int status;
 
       /* This add has history, so we need to do a COPY. */
-
+      
       /* Convert the copyfrom_* url/rev "public" pair into a Baseline
          Collection (BC) URL that represents the revision -- and a
          relative path under that BC.  */
@@ -1002,8 +1002,8 @@ static svn_error_t * commit_add_file(const char *path,
          "source" argument to the COPY request.  The "Destination:"
          header given to COPY is simply the wr_url that is already
          part of the file_baton. */
-      copy_src = svn_path_url_add_component(bc_url.data,
-                                            bc_relative.data,
+      copy_src = svn_path_url_add_component(bc_url.data, 
+                                            bc_relative.data, 
                                             file_pool);
 
       /* Have neon do the COPY. */
@@ -1084,7 +1084,7 @@ static svn_error_t * commit_stream_close(void *baton)
   apr_status_t status;
   svn_error_t *err;
   apr_off_t offset = 0;
-
+  
   /* create/prep the request */
   req = ne_request_create(cc->ras->sess, "PUT", url);
   if (req == NULL)
@@ -1137,8 +1137,8 @@ static svn_error_t * commit_stream_close(void *baton)
   return SVN_NO_ERROR;
 }
 
-static svn_error_t *
-commit_apply_txdelta(void *file_baton,
+static svn_error_t * 
+commit_apply_txdelta(void *file_baton, 
                      svn_txdelta_window_handler_t *handler,
                      void **handler_baton)
 {
@@ -1159,8 +1159,8 @@ commit_apply_txdelta(void *file_baton,
      ### for now. isn't that special? */
 
   /* Use the client callback to create a tmpfile. */
-  SVN_ERR(file->cc->ras->callbacks->open_tmp_file
-          (&baton->tmpfile,
+  SVN_ERR(file->cc->ras->callbacks->open_tmp_file 
+          (&baton->tmpfile, 
            file->cc->ras->callback_baton));
 
   /* ### register a cleanup on our subpool which closes the file. this
@@ -1245,14 +1245,14 @@ static svn_error_t * apply_log_message(commit_ctx_t *cc,
      ### REPORT when that is available on the server. */
 
   /* fetch the DAV:version-controlled-configuration from the session's URL */
-  SVN_ERR( svn_ra_dav__get_one_prop(&vcc, cc->ras->sess, cc->ras->root.path,
+  SVN_ERR( svn_ra_dav__get_one_prop(&vcc, cc->ras->sess, cc->ras->root.path, 
                                     NULL, &svn_ra_dav__vcc_prop, pool) );
 
   /* ### we should use DAV:apply-to-version on the CHECKOUT so we can skip
      ### retrieval of the baseline */
 
   /* Get the Baseline from the DAV:checked-in value */
-  SVN_ERR( svn_ra_dav__get_one_prop(&baseline_url, cc->ras->sess, vcc->data,
+  SVN_ERR( svn_ra_dav__get_one_prop(&baseline_url, cc->ras->sess, vcc->data, 
                                     NULL, &svn_ra_dav__checked_in_prop, pool));
 
   baseline_rsrc.vsn_url = baseline_url->data;
@@ -1349,7 +1349,7 @@ svn_error_t * svn_ra_dav__get_commit_editor(
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end:
