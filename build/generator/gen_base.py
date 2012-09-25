@@ -138,7 +138,7 @@ class GeneratorBase:
           self.graph.add(DT_LINK, name, lib)
         for nonlib in self._find_libs(parser.get(name, 'nonlibs')):
           self.graph.add(DT_NONLIB, name, nonlib)
-
+         
 
     # collect various files
     self.includes = _collect_paths(parser.get('options', 'includes'))
@@ -565,7 +565,7 @@ class TargetSWIGRuntime(TargetSWIG):
     self._libraries = {}
     for lang in self.cfg.swig_lang:
       if lang == 'java':
-        # java doesn't seem to have a separate runtime
+        # java doesn't seem to have a separate runtime  
         continue
 
       abbrev = lang_abbrev[lang]
