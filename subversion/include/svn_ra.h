@@ -63,7 +63,7 @@ typedef svn_error_t *(*svn_ra_close_commit_func_t) (void *close_baton,
                                                     svn_revnum_t new_rev);
 
 /* A function type for retrieving the youngest revision from a repos.   */
-typedef svn_error_t *(*svn_ra_get_latest_revnum_func_t)
+typedef svn_error_t *(*svn_ra_get_latest_revnum_func_t) 
        (void *session_baton,
         svn_revnum_t *latest_revnum);
 
@@ -75,7 +75,7 @@ typedef svn_error_t *(*svn_ra_get_latest_revnum_func_t)
 
 /* A vtable structure which allows a working copy to describe a
    subset (or possibly all) of its working-copy to an RA layer. */
-
+  
 typedef struct svn_ra_reporter_t
 {
   /* Describe a working copy PATH as being at a particular REVISION;
@@ -89,7 +89,7 @@ typedef struct svn_ra_reporter_t
   /* Describing a working copy PATH as missing. */
   svn_error_t *(*delete_path) (void *report_baton,
                                svn_stringbuf_t *path);
-
+    
   /* WC calls this when the state report is finished; any directories
      or files not explicitly `set' above are assumed to be at the
      baseline revision originally passed into do_update(). */
@@ -116,10 +116,10 @@ typedef struct svn_ra_reporter_t
 #define SVN_RA_AUTH_USERNAME                       0x0001
 #define SVN_RA_AUTH_SIMPLE_PASSWORD                0x0002
 /* ### someday add other protocols here: PRIVATE_KEY, CERT, etc. */
-
+  
 
 /* Authenticators: these are small "protocol" vtables that are
-   implemented by libsvn_client, but are driven by the RA layer.
+   implemented by libsvn_client, but are driven by the RA layer.  
 
    (Because they're related to authentication, we define them here in
    svn_ra.h)
@@ -154,7 +154,7 @@ typedef struct svn_ra_simple_password_authenticator_t
   /* Get a username and password from the client.  If FORCE_PROMPT is
      set, then a prompt will be displayed to the user automatically
      (rather than looking for cached info from command-line or file.)
-
+     
      *USERNAME and *PASSWORD will not only be returned to the RA
      layer, but libsvn_client will also cache them in the AUTH_BATON.  */
   svn_error_t *(*get_user_and_pass) (char **username,
@@ -178,7 +178,7 @@ typedef struct svn_ra_simple_password_authenticator_t
 /* A collection of callbacks implemented by libsvn_client which allows
    an RA layer to "pull" information from the client application, or
    possibly store information.  libsvn_client passes this vtable to
-   RA->open().
+   RA->open().  
 
    Each routine takes a CALLBACK_BATON originally provided with the
    vtable. */
@@ -188,7 +188,7 @@ typedef struct svn_ra_callbacks_t
      This file will be automatically deleted when FP is closed. */
   svn_error_t *(*open_tmp_file) (apr_file_t **fp,
                                  void *callback_baton);
-
+  
   /* Retrieve an AUTHENTICATOR/AUTH_BATON pair from the client,
      which represents the protocol METHOD.  */
   svn_error_t *(*get_authenticator) (void **authenticator,
@@ -219,13 +219,13 @@ typedef struct svn_ra_callbacks_t
 typedef struct svn_ra_plugin_t
 {
   /* The proper name of the ra library, (e.g. "ra_dav" or "ra_local") */
-  const char *name;
-
+  const char *name;         
+  
   /* Short doc string printed out by `svn -v` */
   const char *description;
 
   /* The vtable hooks */
-
+  
   /* Open a repository session to REPOS_URL.  Return an opaque object
      representing this session in *SESSION_BATON, allocated in POOL.
 
@@ -258,7 +258,7 @@ typedef struct svn_ra_plugin_t
   /* Begin a commit against `rev:path' using LOG_MSG as the log
      message.  `rev' is the argument that will be passed to
      open_root(), and `path' is built into the SESSION_BATON's URL.
-
+     
      RA returns an *EDITOR and *EDIT_BATON capable of transmitting a
      commit to the repository, which is then driven by the client.
 
@@ -275,7 +275,7 @@ typedef struct svn_ra_plugin_t
          revisions of each committed item, after the commit completes.
 
      Any of these functions may be null.
-
+          
   */
   svn_error_t *(*get_commit_editor) (void *session_baton,
                                      const svn_delta_edit_fns_t **editor,
@@ -433,7 +433,7 @@ typedef struct svn_ra_plugin_t
 
 
 /* svn_ra_init_func_t :
-
+   
    libsvn_client will be reponsible for loading each RA DSO it needs.
    However, all "ra_FOO" implementations *must* export a function named
    `svn_ra_FOO_init()' of type `svn_ra_init_func_t'.
@@ -495,12 +495,12 @@ svn_error_t * svn_ra_init_ra_libs (void **ra_baton, apr_pool_t *pool);
 
 /* Return an ra vtable-LIBRARY (already within RA_BATON) which can
    handle URL.  A number of svn_client_* routines will call this
-   internally, but client apps might use it too.
+   internally, but client apps might use it too.  
 
    For reference, note that according to W3 RFC 1738, a valid URL is
    of the following form:
 
-     scheme://<user>:<password>@<host>:<port>/<url-path>
+     scheme://<user>:<password>@<host>:<port>/<url-path> 
 
    Common URLs are as follows:
 
