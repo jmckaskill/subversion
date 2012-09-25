@@ -41,7 +41,7 @@
 
 /* ASCII hex escaped symbolic constants for commonly
  * used string and char literals */
-
+ 
 /* Whitespace */
 #define SVN_UTF8_CR              '\x0D' /* '\r' */
 #define SVN_UTF8_CR_STR          "\x0D" /* "\r" */
@@ -188,31 +188,31 @@
  */
   #define APR_IS_ASCII_ALPHA(x) \
     (((unsigned char)x >= SVN_UTF8_a && (unsigned char)x <= SVN_UTF8_z) || \
-     ((unsigned char)x >= SVN_UTF8_A && (unsigned char)x <= SVN_UTF8_Z))
-
+     ((unsigned char)x >= SVN_UTF8_A && (unsigned char)x <= SVN_UTF8_Z)) 
+      
   #define APR_IS_ASCII_DIGIT(x) ( (unsigned char)x >= SVN_UTF8_0 && \
                                   (unsigned char)x <= SVN_UTF8_9 )
-
+  
   #define APR_IS_ASCII_ALNUM(x) \
     (((unsigned char)x >= SVN_UTF8_0 && (unsigned char)x <= SVN_UTF8_9) ||  \
      ((unsigned char)x >= SVN_UTF8_a && (unsigned char)x <= SVN_UTF8_z) ||  \
      ((unsigned char)x >= SVN_UTF8_A && (unsigned char)x <= SVN_UTF8_Z))
-
+                               
   #define APR_IS_ASCII_SPACE(x) ( (unsigned char)x == SVN_UTF8_SPACE   || \
                                   (unsigned char)x == SVN_UTF8_TAB     || \
                                   (unsigned char)x == SVN_UTF8_VTAB    || \
                                   (unsigned char)x == SVN_UTF8_FF      || \
                                   (unsigned char)x == SVN_UTF8_NEWLINE || \
                                   (unsigned char)x == SVN_UTF8_CR )
-
+                                 
   #define APR_IS_ASCII_XDIGIT(x) \
     (((unsigned char)x >= SVN_UTF8_0 && (unsigned char)x <= SVN_UTF8_9) || \
      ((unsigned char)x >= SVN_UTF8_a && (unsigned char)x <= SVN_UTF8_f) || \
-     ((unsigned char)x >= SVN_UTF8_A && (unsigned char)x <= SVN_UTF8_F))
-
+     ((unsigned char)x >= SVN_UTF8_A && (unsigned char)x <= SVN_UTF8_F)) 
+     
   #define TO_ASCII_LOWER(x) ( ( (unsigned char)x < SVN_UTF8_A ||  \
                                 (unsigned char)x > SVN_UTF8_Z ) ? \
-                                 x : x + 32 )
+                                 x : x + 32 ) 
 #endif
 
 #ifdef __cplusplus
@@ -364,38 +364,38 @@ svn_error_t *svn_utf_cstring_from_utf8_string (const char **dest,
 svn_error_t *svn_utf_string_from_netccsid (const svn_string_t **dest,
                                            const svn_string_t *src,
                                            apr_pool_t *pool);
+                                           
 
-
-/** Set @a *dest to a utf-8-preserving ebcdic C string from utf8 encoded
+/** Set @a *dest to a utf-8-preserving ebcdic C string from utf8 encoded 
  *  C string @a src; allocate @a *dest in @a pool.
  */
 svn_error_t *svn_utf_cstring_from_netccsid (const char **dest,
                                             const char *src,
                                             apr_pool_t *pool);
-
-
+                                            
+                                              
 /** Set @a *dest to a utf-8 string from the utf-8-preserving ebcdic encoded
  *  string @a src; allocate @a *dest in @a pool.
  */
 svn_error_t *svn_utf_string_to_netccsid (const svn_string_t **dest,
                                          const svn_string_t *src,
-                                         apr_pool_t *pool);
+                                         apr_pool_t *pool);  
+                                           
 
-
-/** Set @a *dest to a utf-8 C string from the utf-8-preserving ebcdic encoded
+/** Set @a *dest to a utf-8 C string from the utf-8-preserving ebcdic encoded 
  *  C string @a src; allocate @a *dest in @a pool.
  */
 svn_error_t *svn_utf_cstring_to_netccsid (const char **dest,
                                           const char *src,
                                           apr_pool_t *pool);
-
+                                          
 /* Return TRUE if @a src of length @a len is a valid UTF-8 encoding
  * according to the rules laid down by the Unicode 4.0 standard, FALSE
  * otherwise.
  */
-svn_boolean_t svn_utf_is_valid_utf (const char *src, apr_size_t len);
+svn_boolean_t svn_utf_is_valid_utf (const char *src, apr_size_t len);                                          
 #endif /* APR_CHARSET_EBCDIC */
-
+                                          
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */

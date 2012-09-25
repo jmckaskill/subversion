@@ -814,19 +814,19 @@ def display_lines_as400(out_list):
       # If any line can't be decoded we assume it's ebcdic
       is_ebcdic = True
       break
-
+  
   # Let the log reader know what how this output was encoded...
   if is_ebcdic == False:
     print '[UTF-8 OUTPUT]:'
   else:
-    print '[EBCDIC OUTPUT]:'
+    print '[EBCDIC OUTPUT]:' 
 
   for line in out_list:
     #...But print it in ebcdic so they can read it.
     if is_ebcdic:
       print line,
     else:
-      print line.decode('utf-8').encode('cp037'),
+      print line.decode('utf-8').encode('cp037'),   
 
 
 def display_lines(message, label, expected, actual, expected_is_regexp=None):
@@ -838,7 +838,7 @@ def display_lines(message, label, expected, actual, expected_is_regexp=None):
   if expected is not None:
     print 'len(EXPECTED) = ' + str(len(expected))
   if actual is not None:
-    print 'len(ACTUAL) = ' + str(len(actual))
+    print 'len(ACTUAL) = ' + str(len(actual)) 
 
   if expected is not None:
     if expected_is_regexp:
@@ -851,14 +851,14 @@ def display_lines(message, label, expected, actual, expected_is_regexp=None):
     if sys.platform != 'AS/400':
       map(sys.stdout.write, expected)
     else:
-      display_lines_as400(expected)
+      display_lines_as400(expected)   
     if expected_is_regexp:
       map(sys.stdout.write, '\n')
   if actual is not None:
     if sys.platform != 'AS/400':
       print 'ACTUAL', label + ':'
       map(sys.stdout.write, actual)
-    else:
+    else: 
       print 'ACTUAL', label + ':',
       display_lines_as400(actual)
 
@@ -978,8 +978,8 @@ script which always reports errors."""
   if sys.platform != 'AS/400':
     main.create_python_hook_script (hook_path, 'import sys; '
       'sys.stderr.write("Post-commit hook failed"); '
-      'sys.exit(1)')
+      'sys.exit(1)') 
   else:
     main.create_python_hook_script (hook_path,
       'echo Post-commit hook failed >&2\nexit 1')
-### End of file.
+### End of file. 

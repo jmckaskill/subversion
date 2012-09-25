@@ -20,11 +20,11 @@ mklnk()
       if ln -s -f $PGM $DEST > /dev/null
         then
           echo Created link $DEST "-->" $PGM
-      else
+      else          
         echo Error creating link for $PGM in $DEST
       fi
   else
-    echo Can\'t find program $PGM
+    echo Can\'t find program $PGM 
   fi
 }
 

@@ -35,7 +35,7 @@
 #include "svn_ebcdic.h"
 
 
-/*
+/* 
  * The format of a dumped hash table is:
  *
  *   K <nlength>
@@ -63,7 +63,7 @@
  *   be pleased to note the familiar, subtle hints of mulberries and
  *   carburator fluid.  Its confident finish is marred only by a barely
  *   detectable suggestion of rancid squid ink.
- *   K 5
+ *   K 5 
  *   price
  *   V 8
  *   US $6.50
@@ -107,8 +107,8 @@ hash_read (apr_hash_t *hash, svn_stream_t *stream, const char *terminator,
           keylen = (size_t) strtoul (buf->data + 2, &end, 10);
 #else
           SVN_ERR (svn_utf_stringbuf_from_utf8 (&buf, buf, pool));
-          keylen = (size_t) strtoul (buf->data + 2, &end, 10);
-#endif
+          keylen = (size_t) strtoul (buf->data + 2, &end, 10);            
+#endif            
           if (keylen == (size_t) ULONG_MAX || *end != '\0')
             return svn_error_create (SVN_ERR_MALFORMED_FILE, NULL, NULL);
 
@@ -132,7 +132,7 @@ hash_read (apr_hash_t *hash, svn_stream_t *stream, const char *terminator,
               vallen = (size_t) strtoul (buf->data + 2, &end, 10);
 #else
               SVN_ERR (svn_utf_stringbuf_from_utf8 (&buf, buf, pool));
-              vallen = (size_t) strtoul (buf->data + 2, &end, 10);
+              vallen = (size_t) strtoul (buf->data + 2, &end, 10);                
 #endif
               if (vallen == (size_t) ULONG_MAX || *end != '\0')
                 return svn_error_create (SVN_ERR_MALFORMED_FILE, NULL, NULL);
@@ -162,7 +162,7 @@ hash_read (apr_hash_t *hash, svn_stream_t *stream, const char *terminator,
           keylen = (size_t) strtoul (buf->data + 2, &end, 10);
 #else
           SVN_ERR (svn_utf_stringbuf_from_utf8 (&buf, buf, pool));
-		  keylen = (size_t) strtoul (buf->data + 2, &end, 10);
+		  keylen = (size_t) strtoul (buf->data + 2, &end, 10);  
 #endif
           if (keylen == (size_t) ULONG_MAX || *end != '\0')
             return svn_error_create (SVN_ERR_MALFORMED_FILE, NULL, NULL);
@@ -216,7 +216,7 @@ hash_write (apr_hash_t *hash, apr_hash_t *oldhash, svn_stream_t *stream,
           if (oldstr && svn_string_compare (valstr, oldstr))
             continue;
         }
-
+ 
       /* Write it out. */
       klen_str = APR_PSPRINTF2 (subpool, "%" APR_SSIZE_T_FMT, item->klen);
       vlen_str = APR_PSPRINTF2 (subpool, "%" APR_SIZE_T_FMT, valstr->len);
@@ -305,7 +305,7 @@ svn_hash_write (apr_hash_t *hash, apr_file_t *destfile, apr_pool_t *pool)
 /* There are enough quirks in the deprecated svn_hash_read that we
    should just preserve its implementation. */
 svn_error_t *
-svn_hash_read (apr_hash_t *hash,
+svn_hash_read (apr_hash_t *hash, 
                apr_file_t *srcfile,
                apr_pool_t *pool)
 {
@@ -314,7 +314,7 @@ svn_hash_read (apr_hash_t *hash,
   apr_size_t num_read;
   char c;
   int first_time = 1;
-
+  
 
   while (1)
     {
@@ -325,7 +325,7 @@ svn_hash_read (apr_hash_t *hash,
       if (err && APR_STATUS_IS_EOF(err->apr_err) && first_time)
         {
           /* We got an EOF on our very first attempt to read, which
-             means it's a zero-byte file.  No problem, just go home. */
+             means it's a zero-byte file.  No problem, just go home. */        
           svn_error_clear (err);
           return SVN_NO_ERROR;
         }
@@ -352,7 +352,7 @@ svn_hash_read (apr_hash_t *hash,
         }
       else if ((buf[0] == SVN_UTF8_K) && (buf[1] == SVN_UTF8_SPACE))
         {
-          void *keybuf;
+          void *keybuf;          
           /* Get the length of the key */
 #if !APR_CHARSET_EBCDIC
           size_t keylen = (size_t) atoi (buf + 2);
@@ -361,23 +361,23 @@ svn_hash_read (apr_hash_t *hash,
           size_t keylen;
           const char *buf_native;
           /* Copy buf and append a null terminator.  Trying to treat buf[i] as a
-           * string and converting it fails since the buffer is not NULL
+           * string and converting it fails since the buffer is not NULL 
            * terminated. */
-          const char *buf_utf8 = apr_pstrmemdup (pool, &buf[2],
+          const char *buf_utf8 = apr_pstrmemdup (pool, &buf[2], 
                                                  SVN_KEYLINE_MAXLEN - 2);
           SVN_ERR (svn_utf_cstring_from_utf8 (&buf_native, buf_utf8, pool));
-          keylen = (size_t) atoi (buf_native);
-#endif
+          keylen = (size_t) atoi (buf_native); 
+#endif      
           /* Now read that much into a buffer, + 1 byte for null terminator */
           keybuf = apr_palloc (pool, keylen + 1);
-
-          SVN_ERR (svn_io_file_read_full (srcfile,
+          
+          SVN_ERR (svn_io_file_read_full (srcfile, 
                                           keybuf, keylen, &num_read, pool));
           ((char *) keybuf)[keylen] = '\0';
 
           /* Suck up extra newline after key data */
           SVN_ERR (svn_io_file_getc (&c, srcfile, pool));
-          if (c != SVN_UTF8_NEWLINE)
+          if (c != SVN_UTF8_NEWLINE) 
             return svn_error_create (SVN_ERR_MALFORMED_FILE, NULL, NULL);
 
           /* Read a val length line */
@@ -387,9 +387,9 @@ svn_hash_read (apr_hash_t *hash,
           if ((buf[0] == SVN_UTF8_V) && (buf[1] == SVN_UTF8_SPACE))
             {
               int vallen;
-              void *valbuf;
+              void *valbuf;            	
               svn_string_t *value = apr_palloc (pool, sizeof (*value));
-
+              
               /* Get the length of the value */
 #if !APR_CHARSET_EBCDIC
               vallen = atoi (buf + 2);
@@ -398,16 +398,16 @@ svn_hash_read (apr_hash_t *hash,
               /* Copy buf and append a null terminator.  Trying to treat buf[i]
                * as a string and converting it fails since the buffer is not
                * NULL terminated. */
-              const char *buf_utf8 = apr_pstrmemdup (pool, &buf[2],
+              const char *buf_utf8 = apr_pstrmemdup (pool, &buf[2], 
                                                      SVN_KEYLINE_MAXLEN - 2);
               SVN_ERR (svn_utf_cstring_from_utf8 (&buf_native, buf_utf8, pool));
               vallen = atoi (buf_native);
 #endif
-
+              
               /* Again, 1 extra byte for the null termination. */
               valbuf = apr_palloc (pool, vallen + 1);
-              SVN_ERR (svn_io_file_read_full (srcfile,
-                                              valbuf, vallen,
+              SVN_ERR (svn_io_file_read_full (srcfile, 
+                                              valbuf, vallen, 
                                               &num_read, pool));
               ((char *) valbuf)[vallen] = '\0';
 
@@ -452,9 +452,9 @@ svn_hash_diff (apr_hash_t *hash_a,
       {
         const void *key;
         apr_ssize_t klen;
-
+        
         apr_hash_this (hi, &key, &klen, NULL);
-
+        
         if (hash_b && (apr_hash_get (hash_b, key, klen)))
           SVN_ERR ((*diff_func) (key, klen, svn_hash_diff_key_both,
                                  diff_func_baton));
@@ -468,9 +468,9 @@ svn_hash_diff (apr_hash_t *hash_a,
       {
         const void *key;
         apr_ssize_t klen;
-
+        
         apr_hash_this (hi, &key, &klen, NULL);
-
+        
         if (! (hash_a && apr_hash_get (hash_a, key, klen)))
           SVN_ERR ((*diff_func) (key, klen, svn_hash_diff_key_b,
                                  diff_func_baton));

@@ -193,7 +193,7 @@ svn_error_wrap_apr (apr_status_t status,
       * encoded, svn_ebcdic_pvsprintf handles these and returns an ebcdic
       * string. */
      msg = svn_ebcdic_pvsprintf(err->pool, fmt, ap);
-#endif
+#endif      
       va_end (ap);
       err->message = apr_psprintf (err->pool, "%s%s%s", msg,
                                    (msg_apr) ? ": " : "",
@@ -295,7 +295,7 @@ print_error (svn_error_t *err, FILE *stream, svn_boolean_t print_strerror)
   svn_error_clear (svn_cmdline_fprintf (stream, err->pool,
                                         ": (apr_err=%d)\n", err->apr_err));
 #endif /* SVN_DEBUG */
-
+  
   /* Only print the same APR error string once. */
   if (err->message)
     svn_error_clear (svn_cmdline_fprintf (stream, err->pool, "svn: %s\n",
@@ -314,7 +314,7 @@ print_error (svn_error_t *err, FILE *stream, svn_boolean_t print_strerror)
           svn_error_clear (temp_err);
           err_string = _("Can't recode error string from APR");
         }
-
+      
       svn_error_clear (svn_cmdline_fprintf (stream, err->pool,
                                             "svn: %s\n", err_string));
     }

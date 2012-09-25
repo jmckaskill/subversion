@@ -63,7 +63,7 @@ static svn_error_t *init_params (apr_pool_t *pool)
           srcdir = opt_arg;
 #if APR_CHARSET_EBCDIC
           SVN_ERR(svn_utf_cstring_to_utf8(&srcdir, srcdir, pool));
-#endif
+#endif 
           break;
         }
     }
@@ -83,7 +83,7 @@ fail (apr_pool_t *pool, const char *fmt, ...)
   char *msg;
 #if APR_CHARSET_EBCDIC
   SVN_ERR(svn_utf_cstring_from_utf8(&fmt, fmt, pool));
-#endif
+#endif 
   va_start(ap, fmt);
   msg = APR_PVSPRINTF2(pool, fmt, ap);
   va_end(ap);
@@ -94,7 +94,7 @@ fail (apr_pool_t *pool, const char *fmt, ...)
 
 #if APR_CHARSET_EBCDIC
 #pragma convert(1208)
-#endif
+#endif 
 static const char *config_keys[] = { "foo", "a", "b", "c", "d", "e", "f", "g",
                                      "h", "i", NULL };
 static const char *config_values[] = { "bar", "Aa", "100", "bar",
@@ -104,7 +104,7 @@ static const char *config_values[] = { "bar", "Aa", "100", "bar",
                                        "Aa 100", NULL };
 
 static svn_error_t *
-test1 (const char **msg,
+test1 (const char **msg, 
        svn_boolean_t msg_only,
        svn_test_opts_t *opts,
        apr_pool_t *pool)
@@ -115,11 +115,11 @@ test1 (const char **msg,
 
 #if APR_CHARSET_EBCDIC
 #pragma convert(37)
-#endif
+#endif 
   *msg = "test svn_config";
 #if APR_CHARSET_EBCDIC
 #pragma convert(1208)
-#endif
+#endif 
 
   if (msg_only)
     return SVN_NO_ERROR;
@@ -135,7 +135,7 @@ test1 (const char **msg,
   for (i = 0; config_keys[i] != NULL; i++)
     {
       const char *key, *py_val, *c_val;
-
+      
       key = config_keys[i];
       py_val = config_values[i];
       svn_config_get(cfg, &c_val, "section1", key, "default value");
@@ -159,7 +159,7 @@ static const char *false_keys[] = {"false1", "false2", "false3", "false4",
                                    NULL};
 
 static svn_error_t *
-test2 (const char **msg,
+test2 (const char **msg, 
        svn_boolean_t msg_only,
        svn_test_opts_t *opts,
        apr_pool_t *pool)
@@ -170,11 +170,11 @@ test2 (const char **msg,
 
 #if APR_CHARSET_EBCDIC
 #pragma convert(37)
-#endif
+#endif 
   *msg = "test svn_config boolean conversion";
 #if APR_CHARSET_EBCDIC
 #pragma convert(1208)
-#endif
+#endif 
 
   if (msg_only)
     return SVN_NO_ERROR;

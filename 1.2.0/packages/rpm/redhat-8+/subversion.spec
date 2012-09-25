@@ -106,7 +106,7 @@ Tools for Subversion.
 * Sat Apr 30 2005 David Summers <david@summersoft.fay.ar.us> r14530
 - Make backend regression tests explicit and make sure we do them for both BDB
   and FSFS backends.
-
+ 
 * Thu Mar 31 2005 David Summers <david@summersoft.fay.ar.us> r13821
 - Greatly reduce disk usage by telling each test pass to cleanup after
   successful tests.
@@ -247,7 +247,7 @@ Tools for Subversion.
 
 * Sat May 10 2003 David Summers <david@summersoft.fay.ar.us> 0.22.1-5879
 - svn-config has been taken back out of the distribution.
-- cvs2svn no longer requires SWIG, so rename the subversion-cvs2svn package to
+- cvs2svn no longer requires SWIG, so rename the subversion-cvs2svn package to 
   subversion-python and move the cvs2svn and RCS parser into the subversion
   package.
 - Added cvs2svn man page.
@@ -332,7 +332,7 @@ Tools for Subversion.
 - Updated to apache-2.0.32-0.2. (Requires apache-libapr and apache-libapr-util).
 - Took out a (now non-existant) documentation file.
 - Moved SPEC file changelog to after all package definitions.
-
+  
 * Sun Feb 03 2002 David Summers <david@summersoft.fay.ar.us> 0.8.0-1153
 - Updated to neon-0.18.5.
 - Broke up apache and apache-devel into apache-apr, apache-apr-devel,

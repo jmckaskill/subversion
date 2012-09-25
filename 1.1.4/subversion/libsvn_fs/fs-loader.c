@@ -44,7 +44,7 @@
    */
   #ifndef DEFAULT_FS_TYPE
     #define DEFAULT_FS_TYPE "\x66\x73\x66\x73" /* "fsfs" */
-  #endif
+  #endif  
 #endif
 
 #define FS_TYPE_FILENAME "\x66\x73\x2D\x74\x79\x70\x65" /* "fs-type" */
@@ -838,7 +838,7 @@ svn_fs_check_related (const svn_fs_id_t *a, const svn_fs_id_t *b)
   return (a->vtable->compare (a, b) != -1);
 }
 
-int
+int 
 svn_fs_compare_ids (const svn_fs_id_t *a, const svn_fs_id_t *b)
 {
   return a->vtable->compare (a, b);

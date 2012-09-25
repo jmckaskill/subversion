@@ -137,7 +137,7 @@ svn_utf_initialize (apr_pool_t *pool)
       else
         return;
 #endif
-
+      
       xlate_handle_hash = apr_hash_make (subpool);
       apr_pool_cleanup_register (subpool, NULL, xlate_cleanup,
                                  apr_pool_cleanup_null);
@@ -293,7 +293,7 @@ get_xlate_handle_node (xlate_handle_node_t **ret,
 static svn_error_t *
 get_xlate_handle_node (xlate_handle_node_t **ret,
                        int topage, int frompage,
-                       const char *userdata_key, apr_pool_t *pool)
+                       const char *userdata_key, apr_pool_t *pool) 
 {
   xlate_handle_node_t **old_handle_p;
   xlate_handle_node_t *old_handle = NULL;
@@ -564,7 +564,7 @@ convert_to_stringbuf (xlate_handle_node_t *node,
   if (src_length == 0)
     return SVN_NO_ERROR;
 
-  do
+  do 
     {
       /* A 1:2 ratio of input characters to output characters should
          be enough for most translations, and conveniently enough, if
@@ -585,9 +585,9 @@ convert_to_stringbuf (xlate_handle_node_t *node,
 
       /* Attempt the conversion. */
       apr_err = apr_xlate_conv_buffer (node->handle,
-                                       src_data + (src_length - srclen),
+                                       src_data + (src_length - srclen), 
                                        &srclen,
-                                       destbuf,
+                                       destbuf, 
                                        &destlen);
 
       /* Now, update the *DEST->len to track the amount of output data
@@ -661,7 +661,7 @@ check_non_ascii (const char *data, apr_size_t len, apr_pool_t *pool)
              time tracking down the non-ASCII data, so we want to help
              as much as possible.  And yes, we just call the unsafe
              data "non-ASCII", even though the actual constraint is
-             somewhat more complex than that. */
+             somewhat more complex than that. */ 
 
           if (data - data_start)
             {
@@ -864,9 +864,9 @@ svn_utf_cstring_to_utf8_ex (const char **dest,
   SVN_ERR (get_xlate_handle_node (&node, "UTF-8", frompage, convset_key, pool));
 #else
   /* Treat frompage as string representation of a CCSID int and attempt to
-   * get a translation node for that CCSID.  Get node for conversion from
+   * get a translation node for that CCSID.  Get node for conversion from 
    * APR_LOCALE_CHARSET if frompage is NULL. */
-  SVN_ERR (get_xlate_handle_node (&node,
+  SVN_ERR (get_xlate_handle_node (&node, 
                                   OS400_UTF8_CCSID,
                                   frompage ? atoi (frompage)
                                            : APR_LOCALE_CHARSET,
@@ -976,7 +976,7 @@ svn_utf_cstring_from_utf8_ex (const char **dest,
   SVN_ERR (get_xlate_handle_node (&node, topage, "UTF-8", convset_key, pool));
 #else
   /* Treat topage as string representation of a CCSID int and attempt to
-   * get a translation node for that CCSID.  Get node for conversion to
+   * get a translation node for that CCSID.  Get node for conversion to 
    * APR_LOCALE_CHARSET if topage is NULL. */
   SVN_ERR (get_xlate_handle_node (&node,
                                   topage ? atoi (topage) : APR_LOCALE_CHARSET,
@@ -1090,7 +1090,7 @@ get_fstonet_xlate_handle_node (xlate_handle_node_t **ret, apr_pool_t *pool)
    * the iSeries port but that's another issue).  Otherwise converting from
    * utf-8 to ebcdic with svn_utf_cstring_from_utf8 is a one way trip;
    * mutlibyte utf-8 sequences in these cases get reduced to single ebcdic
-   * byte and there is no going back to the original utf-8 value. */
+   * byte and there is no going back to the original utf-8 value. */	
   return get_xlate_handle_node (ret,
                                 DefaultNetCCSID != -1 ? DefaultNetCCSID : 819,
                                 DefaultFsCCSID != -1
@@ -1104,7 +1104,7 @@ get_fstonet_xlate_handle_node (xlate_handle_node_t **ret, apr_pool_t *pool)
 static svn_error_t *
 get_nettofs_xlate_handle_node (xlate_handle_node_t **ret, apr_pool_t *pool)
 {
-  /* See note in get_fstonet_xlate_handle_node re DefaultFsCCSID and
+  /* See note in get_fstonet_xlate_handle_node re DefaultFsCCSID and 
    * DefaultNetCCSID */
   return get_xlate_handle_node (ret,
                                 DefaultFsCCSID != -1
@@ -1149,21 +1149,21 @@ svn_utf_cstring_from_netccsid (const char **dest,
 {
   char *src_utf8;
   const char *src_utf8_encoded;
-  char *src_ebcdic_encoded;
+  char *src_ebcdic_encoded;  
   svn_stringbuf_t *new_src_utf8 = svn_stringbuf_create ("", pool);
   svn_stringbuf_t *dest_buf = svn_stringbuf_create ("", pool);
   apr_size_t i, copied = 0;
   xlate_handle_node_t *node;
   int n,d;
-
+  
   if (!src)
     {
       *dest = NULL;
       return SVN_NO_ERROR;
     }
-
+    
   SVN_ERR (get_nettofs_xlate_handle_node (&node, pool));
-
+    
   src_utf8 = apr_pstrdup(pool, src);
 
   for (i = 0; src_utf8[i]; i++)
@@ -1173,39 +1173,39 @@ svn_utf_cstring_from_netccsid (const char **dest,
       /* If this is an ascii char keep looking. */
       if (src_utf8[i] < 128)
         continue;
-
-      /* Found a non-ascii char, convert any ascii characters found so far. */
+      
+      /* Found a non-ascii char, convert any ascii characters found so far. */  
       if (i - copied)
         {
           svn_stringbuf_set (new_src_utf8, "");
           svn_stringbuf_appendbytes (new_src_utf8, src_utf8 + copied,
                                      i - copied);
-
+          
           /* Now we have a strictly ascii encoded string, convert it to ebcdic. */
           SVN_ERR (svn_utf_cstring_from_utf8 (&src_ebcdic_encoded,
                                               new_src_utf8->data, pool));
-
+                                              
           svn_stringbuf_appendcstr (dest_buf, src_ebcdic_encoded);
-          copied = i + 1;
+          copied = i + 1;                                              
         }
-
-      /* Convert this single char */
+                  
+      /* Convert this single char */   
       ebcdic_char[0] = apr_xlate_conv_byte(node->handle, src_utf8[i]);
-
+     
       svn_stringbuf_appendcstr (dest_buf, ebcdic_char);
-      copied = i + 1;
+      copied = i + 1; 
     }
-
+  
     /* Convert any ascii bytes still left. */
       {
         svn_stringbuf_set (new_src_utf8, "");
-        svn_stringbuf_appendbytes (new_src_utf8, src_utf8 + copied,
+        svn_stringbuf_appendbytes (new_src_utf8, src_utf8 + copied, 
                                    i - copied);
-
+          
         /* Now we have a strictly ascii encoded string, convert it to ebcdic. */
         SVN_ERR (svn_utf_cstring_from_utf8 (&src_ebcdic_encoded,
                                             new_src_utf8->data, pool));
-
+                                              
         svn_stringbuf_appendcstr (dest_buf, src_ebcdic_encoded);
       }
 
@@ -1261,7 +1261,7 @@ svn_utf_cstring_to_netccsid (const char **dest,
       SVN_ERR (err);
       SVN_ERR (check_cstring_utf8 (*dest, pool));
     }
-  return SVN_NO_ERROR;
+  return SVN_NO_ERROR;	
 }
 
 svn_boolean_t

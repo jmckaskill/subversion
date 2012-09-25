@@ -20,7 +20,7 @@
  *
  * All incoming and outgoing paths are non-null and in UTF-8, unless
  * otherwise documented.
- *
+ * 
  * No result path ever ends with a separator, no matter whether the
  * path is a file or directory, because we always canonicalize() it.
  *
@@ -55,11 +55,11 @@ const char *svn_path_internal_style (const char *path, apr_pool_t *pool);
 const char *svn_path_local_style (const char *path, apr_pool_t *pool);
 
 
-/** Join a base path (@a base) with a component (@a component), allocated in
+/** Join a base path (@a base) with a component (@a component), allocated in 
  * @a pool.
  *
- * If either @a base or @a component is the empty path, then the other
- * argument will be copied and returned.  If both are the empty path the
+ * If either @a base or @a component is the empty path, then the other 
+ * argument will be copied and returned.  If both are the empty path the 
  * empty path is returned.
  *
  * If the @a component is an absolute path, then it is copied and returned.
@@ -159,7 +159,7 @@ svn_path_component_count (const char *path);
  *
  * If the result ends in a separator character, then remove the separator.
  */
-void svn_path_add_component (svn_stringbuf_t *path,
+void svn_path_add_component (svn_stringbuf_t *path, 
                              const char *component);
 
 /** Remove one component off the end of the canonicalized @a path. */
@@ -174,7 +174,7 @@ void svn_path_remove_components (svn_stringbuf_t *path, apr_size_t n);
  *
  * If @a dirpath or @a base_name is null, then don't set that one.
  *
- * Either @a dirpath or @a base_name may be @a path's own address, but they
+ * Either @a dirpath or @a base_name may be @a path's own address, but they 
  * may not both be the same address, or the results are undefined.
  *
  * If @a path has two or more components, the separator between @a dirpath
@@ -187,16 +187,16 @@ void svn_path_remove_components (svn_stringbuf_t *path, apr_size_t n);
  *             - <pre>"bar"           ==>  ""   and "bar"</pre>
  *             - <pre>""              ==>  ""   and ""</pre>
  */
-void svn_path_split (const char *path,
+void svn_path_split (const char *path, 
                      const char **dirpath,
                      const char **base_name,
                      apr_pool_t *pool);
 
 
 #if APR_CHARSET_EBCDIC
-/** Same as svn_path_split but operates on ebcdic encoded @a path.
+/** Same as svn_path_split but operates on ebcdic encoded @a path. 
  */
-void svn_path_split_ebcdic (const char *path,
+void svn_path_split_ebcdic (const char *path, 
                             const char **dirpath,
                             const char **base_name,
                             apr_pool_t *pool);
@@ -234,10 +234,10 @@ int svn_path_compare_paths (const char *path1, const char *path2);
  * @a path1 and @a path2.  If there's no common ancestor, return the
  * empty path.
  *
- * @a path1 and @a path2 may be URLs.  In order for two URLs to have
- * a common ancestor, they must (a) have the same protocol (since two URLs
- * with the same path but different protocols may point at completely
- * different resources), and (b) share a common ancestor in their path
+ * @a path1 and @a path2 may be URLs.  In order for two URLs to have 
+ * a common ancestor, they must (a) have the same protocol (since two URLs 
+ * with the same path but different protocols may point at completely 
+ * different resources), and (b) share a common ancestor in their path 
  * component, i.e. 'protocol://' is not a sufficient ancestor.
  */
 char *svn_path_get_longest_ancestor (const char *path1,
@@ -247,8 +247,8 @@ char *svn_path_get_longest_ancestor (const char *path1,
 /** Convert @a relative canonicalized path to an absolute path and
  * return the results in @a *pabsolute, allocated in @a pool.
  *
- * @a relative may be a URL, in which case no attempt is made to convert it,
- * and a copy of the URL is returned.
+ * @a relative may be a URL, in which case no attempt is made to convert it, 
+ * and a copy of the URL is returned. 
  */
 svn_error_t *
 svn_path_get_absolute (const char **pabsolute,
@@ -263,7 +263,7 @@ svn_path_get_absolute (const char **pabsolute,
  */
 svn_error_t *
 svn_path_split_if_file(const char *path,
-                       const char **pdirectory,
+                       const char **pdirectory, 
                        const char **pfile,
                        apr_pool_t *pool);
 
@@ -277,12 +277,12 @@ svn_path_split_if_file(const char *path,
  *     empty string.
  *
  *   - If @a pcondensed_targets is non-null, set @a *pcondensed_targets
- *     to an array of targets relative to @a *pcommon, and if
+ *     to an array of targets relative to @a *pcommon, and if 
  *     @a remove_redundancies is true, omit any paths/URLs that are
  *     descendants of another path/URL in @a targets.  If *pcommon
  *     is empty, @a *pcondensed_targets will contain full URLs and/or
- *     absolute paths; redundancies can still be removed (from both URLs
- *     and paths).  If @a pcondensed_targets is null, leave it alone.
+ *     absolute paths; redundancies can still be removed (from both URLs 
+ *     and paths).  If @a pcondensed_targets is null, leave it alone.  
  *
  * Else if there is exactly one target, then
  *
@@ -314,7 +314,7 @@ svn_path_condense_targets (const char **pcommon,
  * How does this differ in functionality from @c svn_path_condense_targets?
  *
  * Here's the short version:
- *
+ * 
  * 1.  Disclaimer: if you wish to debate the following, talk to Karl. :-)
  *     Order matters for updates because a multi-arg update is not
  *     atomic, and CVS users are used to, when doing 'cvs up targetA
@@ -325,7 +325,7 @@ svn_path_condense_targets (const char **pcommon,
  *     I can."  So that user will do 'svn up wc/A/D/G/tau wc', and if
  *     something dies in the middles of the 'wc' update, at least the
  *     user has 'tau' up-to-date.
- *
+ * 
  * 2.  Also, we have this notion of an anchor and a target for updates
  *     (the anchor is where the update editor is rooted, the target is
  *     the actual thing we want to update).  I needed a function that
@@ -360,7 +360,7 @@ apr_array_header_t *svn_path_decompose (const char *path,
 /** Test that @a name is a single path component, that is:
  *   - not @c NULL or empty.
  *   - not a `/'-separated directory path
- *   - not empty or `..'
+ *   - not empty or `..'  
  */
 svn_boolean_t svn_path_is_single_path_component (const char *name);
 
@@ -379,7 +379,7 @@ svn_boolean_t svn_path_is_backpath_present (const char *path);
  * If not, return @c NULL.
  * If so, return a copy of the remainder path, allocated in @a pool.
  * (The remainder is the component which, added to @a path1, yields
- * @a path2.  The remainder does not begin with a dir separator.)
+ * @a path2.  The remainder does not begin with a dir separator.)  
  *
  * Both paths must be in canonical form, and must either be absolute,
  * or contain no ".." components.
@@ -409,30 +409,30 @@ svn_boolean_t svn_path_is_uri_safe (const char *path);
 /** Return a URI-encoded copy of @a path, allocated in @a pool. */
 const char *svn_path_uri_encode (const char *path, apr_pool_t *pool);
 
-/** Return a URI-encoded copy of native (ebcdic) encoded @a path,
+/** Return a URI-encoded copy of native (ebcdic) encoded @a path, 
  *  allocated in @a pool.  IBM's utf-ebcdic-esque two-byte seqences in @a path
  *  are left as is.  One-byte characters in @path that need escaping are escaped
  *  with the utf-8 value.
- *
+ * 
  *  e.g. "Bj" "\x66" "\xB6" "rns Dir" --> "Bj" "\x66" "\xB6" "rns%20Dir"
  */
 const char *svn_path_uri_encode_native_partial (const char *path,
                                                 apr_pool_t *pool);
 
-/** Return a URI-encoded copy of native (ebcdic) encoded @a path,
+/** Return a URI-encoded copy of native (ebcdic) encoded @a path, 
  *  allocated in @a pool.  IBM's utf-ebcdic-esque two-byte seqences in @a path
  *  are left as is.  One-byte characters in @path that need escaping are escaped
  *  with the ebcdic value.
- *
+ * 
  *  e.g. "Bj" "\x66" "\xB6" "rns Dir" --> "Bj" "\x66" "\xB6" "rns%40Dir"
  */
 const char *svn_path_uri_encode_native_partial_2 (const char *path,
                                                   apr_pool_t *pool);
-
-/** Return a URI-encoded copy of native (ebcdic) encoded @a path,
+                                                
+/** Return a URI-encoded copy of native (ebcdic) encoded @a path, 
  *  allocated in @a pool. IBM's utf-ebcdic-esque two-byte seqences in @a path
  *  are escaped with their utf-8 equivalents.
- *
+ * 
  *  e.g. "Bj" "\x66" "\xB6" "rns Dir" --> "Bj%C3%B6rns%20Dir"
  */
 const char *svn_path_uri_encode_native_full (const char *path,

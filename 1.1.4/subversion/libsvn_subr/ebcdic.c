@@ -133,7 +133,7 @@ svn_ebcdic_pvsprintf(apr_pool_t *pool, const char *fmt, va_list arg_ptr)
             add_ch_to_sbuf(ptr++[0], temp_fmt);
         }
         /* Gather all precision digits, ok if there are none, the user must
-         * want the default precision for this type. */
+         * want the default precision for this type. */  
         while(apr_isdigit(*s))
           add_ch_to_sbuf(s++[0], temp_fmt);
       }
@@ -179,7 +179,7 @@ svn_ebcdic_pvsprintf(apr_pool_t *pool, const char *fmt, va_list arg_ptr)
                   svn_stringbuf_setempty(temp_fmt);
                   add_ch_to_sbuf(s++[0], temp_fmt);
                   svn_stringbuf_appendcstr(result, temp_fmt->data);
-                }
+                }                
               }
             }
             break;
@@ -212,13 +212,13 @@ svn_ebcdic_pvsprintf(apr_pool_t *pool, const char *fmt, va_list arg_ptr)
             add_ch_to_sbuf(s++[0], temp_fmt);
             if(svn_ebcdic_valid_uint_types(*s))
             {
-              unsigned int t;
+              unsigned int t;	
               /* SUCCESS unsigned short ints
                * %ho | %hu | %hx | %hX */
               add_ch_to_sbuf(s++[0], temp_fmt);
               /* iSeries needs unsigned int here, not unsigned short int */
               temp_usi = va_arg(arg_ptr, unsigned int);
-              temp_result = apr_psprintf(subpool_temp, temp_fmt->data,
+              temp_result = apr_psprintf(subpool_temp, temp_fmt->data, 
                                          temp_usi);
               svn_stringbuf_appendcstr(result, temp_result ? temp_result : "");
             }
@@ -229,7 +229,7 @@ svn_ebcdic_pvsprintf(apr_pool_t *pool, const char *fmt, va_list arg_ptr)
               add_ch_to_sbuf(s++[0], temp_fmt);
               /* iSeries needs signed int here, not unsigned short int */
               temp_ssi = va_arg(arg_ptr, signed int);
-              temp_result = apr_psprintf(subpool_temp, temp_fmt->data,
+              temp_result = apr_psprintf(subpool_temp, temp_fmt->data, 
                                          temp_ssi);
               svn_stringbuf_appendcstr(result, temp_result ? temp_result : "");
             }
@@ -260,7 +260,7 @@ svn_ebcdic_pvsprintf(apr_pool_t *pool, const char *fmt, va_list arg_ptr)
                 temp_ulli = va_arg(arg_ptr, unsigned long long int);
                 temp_result = apr_psprintf(subpool_temp, temp_fmt->data,
                                            temp_ulli);
-                svn_stringbuf_appendcstr(result, temp_result ?
+                svn_stringbuf_appendcstr(result, temp_result ? 
                                          temp_result : "");
               }
               else if(svn_ebcdic_valid_sint_types(*s))
@@ -285,7 +285,7 @@ svn_ebcdic_pvsprintf(apr_pool_t *pool, const char *fmt, va_list arg_ptr)
                 svn_stringbuf_setempty(temp_fmt);
                 add_ch_to_sbuf(s++[0], temp_fmt);
                 svn_stringbuf_appendcstr(result, temp_fmt->data);
-              }
+              }              
             }
             else if(svn_ebcdic_valid_uint_types(*s))
             {
@@ -329,7 +329,7 @@ svn_ebcdic_pvsprintf(apr_pool_t *pool, const char *fmt, va_list arg_ptr)
               add_ch_to_sbuf(s++[0], temp_fmt);
               svn_stringbuf_appendcstr(result, temp_fmt->data);
             }
-            break;
+            break;   
           case 'd' :
           case 'i' :
             /* SUCCESS signed int
@@ -360,7 +360,7 @@ svn_ebcdic_pvsprintf(apr_pool_t *pool, const char *fmt, va_list arg_ptr)
             temp_result = apr_psprintf(subpool_temp, temp_fmt->data, temp_ch);
             if(temp_result)
               svn_utf_cstring_from_utf8(&temp_result, temp_result,
-                                        subpool_temp);
+                                        subpool_temp);            
             svn_stringbuf_appendcstr(result, temp_result ? temp_result : "");
             break;
           case 'f' :
@@ -378,7 +378,7 @@ svn_ebcdic_pvsprintf(apr_pool_t *pool, const char *fmt, va_list arg_ptr)
             break;
           case 's' :
             temp_str = va_arg(arg_ptr, char*);
-            if(temp_str)
+            if(temp_str) 
               svn_utf_cstring_from_utf8(&temp_str, temp_str, subpool_temp);
             svn_stringbuf_appendcstr(result, temp_str ? temp_str : "");
             s++;
@@ -443,7 +443,7 @@ svn_ebcdic_psprintf(apr_pool_t *p,
   result = svn_ebcdic_pvsprintf(p, fmt, ap);
   va_end(ap);
   return result;
-}
+}  
 
 
 char *
@@ -457,7 +457,7 @@ svn_ebcdic_psprintf2(apr_pool_t *p,
   result = svn_ebcdic_pvsprintf2(p, fmt, ap);
   va_end(ap);
   return result;
-}
+}  
 
 
 #if AS400
@@ -475,10 +475,10 @@ svn_ebcdic_set_file_ccsid (const char *path,
     return svn_error_createf(SVN_ERR_EXTERNAL_PROGRAM, NULL,
                              "Attempt to set ccsid of '%s' to '%d' failed " \
                              "with exit code = '%d'",
-                             path, ccsid, exit_code);
+                             path, ccsid, exit_code);  
   return SVN_NO_ERROR;
 }
-
+                           
 
 svn_error_t *
 svn_ebcdic_run_unix_type_script (const char *path,
@@ -488,7 +488,7 @@ svn_ebcdic_run_unix_type_script (const char *path,
                                  apr_exit_why_e *exitwhy,
                                  svn_boolean_t check_exitcode,
                                  apr_pool_t *pool)
-{
+{                                    	
   /* Special handling of hook scripts on iSeries */
   apr_pool_t *temp_subpool = svn_pool_create_ex(pool, NULL);
   svn_stringbuf_t *native_cmd = svn_stringbuf_create("", temp_subpool);
@@ -514,11 +514,11 @@ svn_ebcdic_run_unix_type_script (const char *path,
       svn_stringbuf_appendcstr(native_cmd, "' ");
     }
   }
-
+  
   *exitcode = QzshSystem(native_cmd->data);
   svn_pool_destroy(temp_subpool);
   if (!check_exitcode)
-    return SVN_NO_ERROR;
+    return SVN_NO_ERROR;  
   else if (WIFEXITED(*exitcode))
   {
     /* WIFEXITED - Evaluates to a nonzero value if the status was returned
@@ -550,7 +550,7 @@ svn_ebcdic_run_unix_type_script (const char *path,
      */
     *exitwhy = APR_PROC_EXIT; /* Not sure what to set this to in this
                                  circumstance so this will have to do */
-
+    
     return svn_error_createf(SVN_ERR_EXTERNAL_PROGRAM, NULL,
       "Unable to run script '%s'.  Returned error number =  %d",
       cmd, errno);

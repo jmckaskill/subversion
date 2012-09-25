@@ -2,9 +2,9 @@
 #
 #  authz_tests.py:  testing authentication.
 #
-#  Subversion is a tool for revision control.
+#  Subversion is a tool for revision control. 
 #  See http://subversion.tigris.org for more information.
-#
+#    
 # ====================================================================
 # Copyright (c) 2000-2006 CollabNet.  All rights reserved.
 #
@@ -32,7 +32,7 @@ Item = svntest.wc.StateItem
 
 def write_restrictive_svnserve_conf(repo_dir):
   "Create a restrictive authz file ( no anynomous access )."
-
+  
   fp = open(svntest.main.get_svnserve_conf_file_path(repo_dir), 'wb')
   fp.write("[general]\nanon-access = none\nauth-access = write\n".encode("utf-8") + \
            "password-db = passwd\nauthz-db = authz\n".encode("utf-8"))
@@ -42,7 +42,7 @@ def skip_test_when_no_authz_available():
   "skip this test on local repository"
   if svntest.main.test_area_url.startswith('file://'):
     raise svntest.Skip
-
+    
 ######################################################################
 # Tests
 #
@@ -56,23 +56,23 @@ def skip_test_when_no_authz_available():
 def authz_open_root(sbox):
   "authz issue #2486 - open root"
   sbox.build()
-
+  
   skip_test_when_no_authz_available()
-
+  
   fp = open(svntest.main.get_authz_file_path(svntest.main.current_repo_dir),
             'wb')
   fp.write("[/]\n\n[/A]\njrandom = rw\n".encode("utf-8"))
   fp.close()
-
+  
   write_restrictive_svnserve_conf(svntest.main.current_repo_dir)
 
   # we have write access in folder /A, but not in root. Test on too
   # restrictive access needed in open_root by modifying a file in /A
   wc_dir = sbox.wc_dir
-
+  
   mu_path = os.path.join(wc_dir, 'A', 'mu')
   svntest.main.file_append(mu_path, "hi")
-
+  
   # Create expected output tree.
   expected_output = svntest.wc.State(wc_dir, {
     'A/mu' : Item(verb='Sending'),
@@ -94,32 +94,32 @@ def authz_open_root(sbox):
 def authz_open_directory(sbox):
   "authz issue #2486 - open directory"
   sbox.build()
-
+  
   skip_test_when_no_authz_available()
-
+  
   fp = open(svntest.main.get_authz_file_path(svntest.main.current_repo_dir),
             'wb')
   fp.write("[/]\n*=rw\n[/A/B]\n*=\n[/A/B/E]\njrandom = rw\n".encode("utf-8"))
   fp.close()
-
-  write_restrictive_svnserve_conf(svntest.main.current_repo_dir)
+  
+  write_restrictive_svnserve_conf(svntest.main.current_repo_dir) 
 
   # we have write access in folder /A/B/E, but not in /A/B. Test on too
   # restrictive access needed in open_directory by moving file /A/mu to
   # /A/B/E
   wc_dir = sbox.wc_dir
-
+  
   mu_path = os.path.join(wc_dir, 'A', 'mu')
   E_path = os.path.join(wc_dir, 'A', 'B', 'E')
-
+  
   svntest.main.run_svn(None, 'mv', mu_path, E_path)
-
+  
   # Create expected output tree.
   expected_output = svntest.wc.State(wc_dir, {
     'A/mu' : Item(verb='Deleting'),
     'A/B/E/mu' : Item(verb='Adding'),
     })
-
+  
   # Commit the working copy.
   svntest.actions.run_and_verify_commit(wc_dir,
                                         expected_output,

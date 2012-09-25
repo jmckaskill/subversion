@@ -101,7 +101,7 @@ svn_revnum_t dav_svn_get_safe_cr(svn_fs_root_t *root,
                                  const char *path,
                                  apr_pool_t *pool)
 {
-  svn_revnum_t revision = svn_fs_revision_root_revision(root);
+  svn_revnum_t revision = svn_fs_revision_root_revision(root);    
   svn_revnum_t history_rev;
   svn_fs_root_t *other_root;
   svn_fs_t *fs = svn_fs_root_fs(root);
@@ -109,15 +109,15 @@ svn_revnum_t dav_svn_get_safe_cr(svn_fs_root_t *root,
   svn_error_t *err;
 #if APR_CHARSET_EBCDIC
   /* Some callers to this function pass utf-8 paths:
-   *
+   * 
    *   DAV_UPDATE: add_helper()
    *   DAV_UPDATE: send_vsn_url()
    *   DAV_MERGE: send_response()
-   *
+   * 
    * While others send ebcdic paths:
-   *
+   * 
    *   LIVEPROPS:dav_svn_insert_prop()
-   *
+   * 
    * So we test the first character of the path, if it's an ebcdic '/' then
    * convert it to utf-8, otherwise do nothing.
    */
@@ -139,7 +139,7 @@ svn_revnum_t dav_svn_get_safe_cr(svn_fs_root_t *root,
       svn_error_clear(err);
       return revision;   /* couldn't find last history rev */
     }
-
+  
   if ((err = svn_fs_revision_root(&other_root, fs, history_rev, pool)))
     {
       svn_error_clear(err);
@@ -154,12 +154,12 @@ svn_revnum_t dav_svn_get_safe_cr(svn_fs_root_t *root,
 
   if (svn_fs_compare_ids(id, other_id) == 0)
     return history_rev;  /* the history rev is safe!  the same node
-                            exists at the same path in both revisions. */
+                            exists at the same path in both revisions. */    
 
   /* default */
   return revision;
 }
-
+                                   
 
 
 const char *dav_svn_build_uri(const dav_svn_repos *repos,
@@ -173,7 +173,7 @@ const char *dav_svn_build_uri(const dav_svn_repos *repos,
   const char *special_uri = repos->special_uri;
 #if !APR_CHARSET_EBCDIC
   const char *path_uri = path ? svn_path_uri_encode (path, pool) : NULL;
-#else
+#else  
   const char *path_uri = path ?
                          svn_path_uri_encode_native_full (path, pool) : NULL;
 #endif
@@ -325,7 +325,7 @@ svn_error_t *dav_svn_simple_parse_uri(dav_svn_uri_info *info,
       info->activity_id = path + 5;
     }
   else if (len2 == 4 && memcmp(path, "/ver/", 5) == 0)
-    {
+    {      
       /* a version resource */
       path += 5;
       len1 -= 5;
@@ -379,12 +379,12 @@ svn_error_t * dav_svn__send_xml(apr_bucket_brigade *bb, ap_filter_t *output,
 {
   apr_status_t apr_err;
   va_list ap;
-
+  
   char *test;                            //SL DEBUG ONLY
   va_start(ap, fmt);                     //SL DEBUG ONLY
   test = apr_pvsprintf(bb->p, fmt, ap);  //SL DEBUG ONLY
   va_end(ap);                            //SL DEBUG ONLY
-
+  
   va_start(ap, fmt);
   apr_err = apr_brigade_vprintf(bb, ap_filter_flush, output, fmt, ap);
   va_end(ap);
@@ -413,8 +413,8 @@ dav_error * dav_svn__test_canonical(const char *path, apr_pool_t *pool)
 
   /* Otherwise, generate a generic HTTP_BAD_REQUEST error. */
   return dav_new_error_tag
-    (pool, HTTP_BAD_REQUEST, 0,
-     apr_psprintf(pool,
+    (pool, HTTP_BAD_REQUEST, 0, 
+     apr_psprintf(pool, 
                   "Path '%s' is not canonicalized; "
                   "there is a problem with the client.", path),
      SVN_DAV_ERROR_NAMESPACE, SVN_DAV_ERROR_TAG);

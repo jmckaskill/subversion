@@ -73,7 +73,7 @@ svn_cl__propset (apr_getopt_t *os,
       propval = svn_string_create (((const char **) (args->elts))[1], pool);
       propval_came_from_cmdline = TRUE;
     }
-
+  
   /* We only want special Subversion property values to be in UTF-8
      and LF line endings.  All other propvals are taken literally. */
 #if !APR_CHARSET_EBCDIC
@@ -87,7 +87,7 @@ svn_cl__propset (apr_getopt_t *os,
    * To avoid problems and keep things relatively simple, the ebcdic port
    * currently requires that file data used to set svn:* property values be
    * encoded in utf-8 only.
-   *
+   * 
    * With -F args restricted to utf-8 there's nothing to translate re
    * encoding, but line endings may be inconsistent so translation is still
    * needed.  The problem is if opt_state->encoding is passed,
@@ -95,7 +95,7 @@ svn_cl__propset (apr_getopt_t *os,
    * native string to utf-8, corrupting it on the iSeries where
    * native == ebcdic != subset of utf-8.  So "1208" is passed causing no
    * encoding conversion, but producing uniform LF line endings.
-   *
+   * 
    * See svn_utf_cstring_to_utf8_ex for why a string representation of a
    * CCSID is used rather than "UTF-8". */
   if (opt_state->filedata && svn_prop_needs_translation (pname_utf8))
@@ -110,14 +110,14 @@ svn_cl__propset (apr_getopt_t *os,
      * literally; these too are converted to utf-8. */
     SVN_ERR (svn_utf_string_to_utf8 (&propval, propval, pool));
 #endif
-  else
+  else 
     if (opt_state->encoding)
-      return svn_error_create
+      return svn_error_create 
         (SVN_ERR_UNSUPPORTED_FEATURE, NULL,
          _("Bad encoding option: prop value not stored as UTF8"));
-
+  
   /* Suck up all the remaining arguments into a targets array */
-  SVN_ERR (svn_opt_args_to_target_array2 (&targets, os,
+  SVN_ERR (svn_opt_args_to_target_array2 (&targets, os, 
                                           opt_state->targets, pool));
 
   if (opt_state->revprop)  /* operate on a revprop */
@@ -136,13 +136,13 @@ svn_cl__propset (apr_getopt_t *os,
       SVN_ERR (svn_client_revprop_set (pname_utf8, propval,
                                        URL, &(opt_state->start_revision),
                                        &rev, opt_state->force, ctx, pool));
-      if (! opt_state->quiet)
+      if (! opt_state->quiet) 
         {
           SVN_ERR
             (SVN_CMDLINE_PRINTF2
              (pool, _("property '%s' set on repository revision %ld\n"),
               pname_utf8, rev));
-        }
+        }      
     }
   else if (opt_state->start_revision.kind != svn_opt_revision_unspecified)
     {
@@ -162,7 +162,7 @@ svn_cl__propset (apr_getopt_t *os,
 
       /* The customary implicit dot rule has been prone to user error
        * here.  People would do intuitive things like
-       *
+       * 
        *    $ svn propset svn:executable script
        *
        * and then be surprised to get an error like:
@@ -172,7 +172,7 @@ svn_cl__propset (apr_getopt_t *os,
        *
        * So we don't do the implicit dot thing anymore.  A * target
        * must always be explicitly provided when setting a versioned
-       * property.  See
+       * property.  See 
        *
        *    http://subversion.tigris.org/issues/show_bug.cgi?id=924
        *

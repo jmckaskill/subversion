@@ -374,8 +374,8 @@ def create_config_dir(cfgdir,
 
   if sys.platform == 'AS/400':
     config_contents = config_contents.encode("utf-8")
-    server_contents = server_contents.encode("utf-8")
-
+    server_contents = server_contents.encode("utf-8")    
+    
   # config file names
   cfgfile_cfg = os.path.join(cfgdir, 'config')
   cfgfile_srv = os.path.join(cfgdir, 'server')
@@ -474,7 +474,7 @@ def file_append(path, new_text):
   if sys.platform != 'AS/400':
     fp = open(path, 'a')  # open in (a)ppend mode
   else:
-    new_text = new_text.decode('cp037').encode('utf-8')
+    new_text = new_text.decode('cp037').encode('utf-8') 
     if not os.path.exists(path):
       fp = open(path, 'ab')  # open in (a)ppend mode
       fp.close()
@@ -587,7 +587,7 @@ def copy_repos(src_path, dst_path, head_revision, ignore_uuid = 0):
   else:
     dump_lines = dump_err
     load_lines = load_out
-
+  
   dump_re = re.compile(r'^\* Dumped revision (\d+)\.\r?$')
   expect_revision = 0
   for dump_line in dump_lines:
@@ -804,14 +804,14 @@ class TestRunner:
           if sys.platform != 'AS/400':
             print 'EXCEPTION: %s: %s' % (ex.__class__.__name__, ex_args)
           else:
-            exmsg = 'EXCEPTION: %s: %s' % (ex.__class__.__name__, ex_args)
+            exmsg = 'EXCEPTION: %s: %s' % (ex.__class__.__name__, ex_args) 
             ebcdic.os400_spool_print(exmsg)
         else:
           if sys.platform != 'AS/400':
             print 'EXCEPTION:', ex.__class__.__name__
           else:
-            exmsg = 'EXCEPTION:', ex.__class__.__name__
-            ebcdic.os400_spool_print(exmsg)
+            exmsg = 'EXCEPTION:', ex.__class__.__name__ 
+            ebcdic.os400_spool_print(exmsg)   
     except KeyboardInterrupt:
       print 'Interrupted'
       sys.exit(0)

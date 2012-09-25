@@ -65,7 +65,7 @@ function update_po()
   (cd $svn_base/subversion/po &&
   for i in $1.po; do
     echo "Updating $i..."
-    $MSGMERGE --sort-by-file --update $i subversion.pot
+    $MSGMERGE --sort-by-file --update $i subversion.pot 
   done )
 }
 

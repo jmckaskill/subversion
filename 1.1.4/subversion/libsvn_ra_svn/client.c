@@ -75,11 +75,11 @@ typedef struct {
 #define ANONYMOUS_STR \
         "\x41\x4e\x4f\x4e\x59\x4d\x4f\x55\x53"
         /* "ANONYMOUS" */
-
+        
 #define CHANGE_REV_PROP_STR \
         "\x63\x68\x61\x6e\x67\x65\x2d\x72\x65\x76\x2d\x70\x72\x6f\x70"
         /* "change-rev-prop" */
-
+        
 #define CHECK_PATH_STR \
         "\x63\x68\x65\x63\x6b\x2d\x70\x61\x74\x68"
         /* "check-path" */
@@ -91,7 +91,7 @@ typedef struct {
 #define CRAM_MD5_STR \
         "\x43\x52\x41\x4d\x2d\x4d\x44\x35"
         /* "CRAM_MD5" */
-
+        
 #define DELETE_PATH_STR \
         "\x64\x65\x6c\x65\x74\x65\x2d\x70\x61\x74\x68"
         /* "delete-path" */
@@ -111,8 +111,8 @@ typedef struct {
 #define EXTERNAL_STR \
         "\x45\x58\x54\x45\x52\x4e\x41\x4c"
         /* "EXTERNAL" */
-
-#define FAILURE_STR \
+        
+#define FAILURE_STR \ 
         "\x66\x61\x69\x6c\x75\x72\x65"
         /* "failure" */
 
@@ -151,10 +151,10 @@ typedef struct {
 #define LINK_PATH_STR \
         "\x6c\x69\x6e\x6b\x2d\x70\x61\x74\x68"
         /* "link-path" */
-
+        
 #define LOG_STR \
         "\x6C\x6F\x67"
-        /* "log" */
+        /* "log" */        
 
 #define NONE_STR \
         "\x6e\x6f\x6e\x65"
@@ -194,7 +194,7 @@ typedef struct {
 
 #define UPDATE_STR \
         "\x75\x70\x64\x61\x74\x65"
-        /* "update" */
+        /* "update" */        
 
 /* Parse an svn URL's authority section into tunnel, user, host, and
  * port components.  Return 0 on success, -1 on failure.  *tunnel
@@ -422,7 +422,7 @@ static svn_error_t *do_auth(ra_svn_session_baton_t *sess,
   void *creds;
   svn_boolean_t compat = (realm == NULL);
 
-  realmstring = realm ?
+  realmstring = realm ? 
     APR_PSPRINTF2(pool, "%s %s", sess->realm_prefix, realm)
     : sess->realm_prefix;
   if (sess->is_tunneled && find_mech(mechlist, EXTERNAL_STR))
@@ -1403,7 +1403,7 @@ static svn_error_t *ra_svn_get_file_revs(void *session_baton, const char *path,
             SVN_ERR(svn_stream_close(stream));
         }
     }
-
+ 
   SVN_ERR(svn_ra_svn_read_cmd_response(sess->conn, pool, ""));
 
   /* Return error if we didn't get any revisions. */

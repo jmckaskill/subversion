@@ -2,9 +2,9 @@
 #
 #  trans_tests.py:  testing eol conversion and keyword substitution
 #
-#  Subversion is a tool for revision control.
+#  Subversion is a tool for revision control. 
 #  See http://subversion.tigris.org for more information.
-#
+#    
 # ====================================================================
 # Copyright (c) 2000-2004 CollabNet.  All rights reserved.
 #
@@ -41,7 +41,7 @@ Item = svntest.wc.StateItem
 # status level 1:
 #    enable translation, status
 #    (now throw local text mods into the picture)
-#
+#   
 # commit level 1:
 #    enable translation, commit
 #    (now throw local text mods into the picture)
@@ -91,11 +91,11 @@ def check_keywords(actual_kw, expected_kw, name):
       print '%s item %s, Expected: %s' % (name, i, expected_kw[i][:-1])
       print '%s item %s, Got:      %s' % (name, i, actual_kw[i][:-1])
       raise svntest.Failure
-
+ 
 def setup_working_copy(wc_dir, value_len):
   """Setup a standard test working copy, then create (but do not add)
   various files for testing translation."""
-
+  
   global author_rev_unexp_path
   global author_rev_exp_path
   global url_unexp_path
@@ -165,7 +165,7 @@ def setup_working_copy(wc_dir, value_len):
     svntest.main.file_append (fixed_length_keywords_path, i)
 
   svntest.main.file_append (id_with_space_path, "$Id$")
-  svntest.main.file_append (id_exp_with_dollar_path,
+  svntest.main.file_append (id_exp_with_dollar_path, 
                    "$Id: id_exp with_$_sign 1 2006-06-10 11:10:00Z jrandom $")
 
 
@@ -206,7 +206,7 @@ def keywords_from_birth(sbox):
     url_expand_test_data = canonical_repo_url + '/fixed_length_keywords'
   else:
     url_expand_test_data = canonical_repo_url + 'fixed_length_keywords'
-
+  
   setup_working_copy (wc_dir, len(url_expand_test_data))
 
   # Add all the files
@@ -330,7 +330,7 @@ def keywords_from_birth(sbox):
     print "Id expansion failed for", id_exp_path
     raise svntest.Failure
   fp.close()
-
+  
   # Check fixed length keywords.
   kw_workingcopy = [
     '$URL::$\n',
@@ -370,7 +370,7 @@ def keywords_from_birth(sbox):
     '$URL:: %sx$\n' % (' ' * len(url_expand_test_data)),
     '$URL::x%sx$\n' % (' ' * len(url_expand_test_data))
     ]
-
+  
   fp = open(os.path.join(wc_dir, svntest.main.get_admin_name(),
                          'text-base', 'fixed_length_keywords.svn-base'), 'rb')
   actual_textbase_kw = fp.readlines()
@@ -402,13 +402,13 @@ def keywords_from_birth(sbox):
 
   if sys.platform == 'AS/400':
     lines = ebcdic.os400_split_utf8_lines(lines)
-    lines = ebcdic.os400_list_from_utf8(lines)
+    lines = ebcdic.os400_list_from_utf8(lines)   
 
   if not ((len(lines) == 1)
-          and (re.match("\$Id: .*id_exp with_dollar_sign [^$]* jrandom \$",
+          and (re.match("\$Id: .*id_exp with_dollar_sign [^$]* jrandom \$", 
                         lines[0]))):
     print "Id expansion failed for", id_exp_with_dollar_path
-
+    
     raise svntest.Failure
   fp.close()
 
@@ -483,7 +483,7 @@ def update_modified_with_translation(sbox):
   f.write("1\n2\n3\n4\n4.5\n5\n6\n7\n8\n9\n".encode('utf-8'))
   f.close()
 
-  # Commit revision 3
+  # Commit revision 3 
   expected_status = svntest.actions.get_virginal_state(wc_dir, 3)
   expected_status.tweak(wc_rev=1)
   expected_status.tweak('A/D/G/rho', wc_rev=3, status='  ')
@@ -546,7 +546,7 @@ This is the file 'rho'.
 
 def eol_change_is_text_mod(sbox):
   "committing eol-style change forces text send"
-
+  
   sbox.build()
 
   wc_dir = sbox.wc_dir
@@ -564,7 +564,7 @@ def eol_change_is_text_mod(sbox):
   svntest.actions.run_and_verify_svn(None, None, [], 'add', foo_path)
   svntest.actions.run_and_verify_svn(None, None, [], 'ci', '-m', 'log msg',
                                      foo_path)
-
+  
   if svntest.main.windows:
     svntest.actions.run_and_verify_svn(None, None, [], 'propset',
                                        'svn:eol-style', 'LF', foo_path)
@@ -595,7 +595,7 @@ def eol_change_is_text_mod(sbox):
   f.close()
   if contents != base_contents:
     raise svntest.Failure
-
+  
 #----------------------------------------------------------------------
 # Regression test for issue #1151.  A single file in a directory
 # didn't get keywords expanded on checkout.
@@ -610,7 +610,7 @@ def keyword_expanded_on_checkout(sbox):
   # directory, so setup an empty directory.
   Z_path = os.path.join(wc_dir, 'Z')
   svntest.actions.run_and_verify_svn (None, None, [], 'mkdir', Z_path)
-
+  
   # Add the file that has the keyword to be expanded
   url_path = os.path.join(Z_path, 'url')
   svntest.main.file_append (url_path, "$URL$")
@@ -672,7 +672,7 @@ def cat_keyword_expansion(sbox):
                                          wc_dir)
 
   # Change the author to value which will get truncated on expansion
-  full_author = "x" * 400
+  full_author = "x" * 400 
   key_author = "x" * 244
   svntest.actions.enable_revprop_changes(svntest.main.current_repo_dir)
   svntest.actions.run_and_verify_svn("", None, [],
@@ -704,7 +704,7 @@ def cat_keyword_expansion(sbox):
                                         "$Rev: 2 $\n",
                                         "$Author: " + key_author + " $"], [],
                                       'cat', '-r', 'HEAD', mu_path)
-
+  
 
 #----------------------------------------------------------------------
 def copy_propset_commit(sbox):
@@ -778,7 +778,7 @@ def propset_commit_checkout_nocrash(sbox):
   # Check out into another wc dir
   other_wc_dir = sbox.add_wc_path('other')
   mu_other_path = os.path.join(other_wc_dir, 'A', 'mu')
-
+  
   svntest.actions.run_and_verify_svn (None, None, [], 'checkout',
                                       '--username', svntest.main.wc_author,
                                       '--password', svntest.main.wc_passwd,
@@ -793,7 +793,7 @@ def propset_commit_checkout_nocrash(sbox):
     print "'%s' does not have the expected contents" % mu_other_path
     raise svntest.Failure
 
-
+  
 #----------------------------------------------------------------------
 #      Add the keyword property to a file, svn revert the file
 #      This should not display any error message
@@ -818,7 +818,7 @@ def propset_revert_noerror(sbox):
   expected_status = svntest.actions.get_virginal_state(wc_dir, 1)
   svntest.actions.run_and_verify_status(wc_dir, expected_status)
 
-
+  
 ########################################################################
 # Run the tests
 
@@ -835,7 +835,7 @@ test_list = [ None,
               cat_keyword_expansion,
               copy_propset_commit,
               propset_commit_checkout_nocrash,
-              propset_revert_noerror,
+              propset_revert_noerror, 
              ]
 
 if __name__ == '__main__':

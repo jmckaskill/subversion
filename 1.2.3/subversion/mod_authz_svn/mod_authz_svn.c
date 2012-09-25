@@ -33,7 +33,7 @@
 #include "svn_path.h"
 #include "svn_config.h"
 #include "svn_string.h"
-#include "svn_utf.h"
+#include "svn_utf.h" 
 
 extern module AP_MODULE_DECLARE_DATA authz_svn_module;
 
@@ -122,7 +122,7 @@ static int group_contains_user_internal(svn_config_t *cfg,
         return 0;
     if (svn_utf_cstring_to_netccsid(&user, user, pool))
         return 0;
-#endif
+#endif  
 
     svn_config_get(cfg, &value, GROUPS_STR, group, "");
     list = svn_cstring_split(value, SVN_UTF8_COMMA_STR, TRUE, pool);
@@ -137,7 +137,7 @@ static int group_contains_user_internal(svn_config_t *cfg,
            if (apr_hash_get(checked_groups, &group_user[1],
                             APR_HASH_KEY_STRING))
                continue;
-
+	   
            /* Add group to hash of checked groups. */
            apr_hash_set(checked_groups, &group_user[1],
                         APR_HASH_KEY_STRING, "");
@@ -170,7 +170,7 @@ static svn_boolean_t parse_authz_line(const char *name, const char *value,
     if (svn_utf_cstring_from_netccsid(&name, name, b->pool)) {
         return TRUE;
     }
-
+    
     if (svn_utf_cstring_from_netccsid(&value, value, b->pool)) {
         return TRUE;
     }
@@ -230,11 +230,11 @@ static int parse_authz_lines(svn_config_t *cfg,
     /* First try repos specific */
     qualified_repos_path = apr_pstrcat(pool, repos_name, ":", repos_path,
                                        NULL);
-
+                                       
 #if APR_CHARSET_EBCDIC
     if (svn_utf_cstring_to_netccsid(&qualified_repos_path, qualified_repos_path,
                                     pool))
-        return FALSE;
+        return FALSE;                                    
 #endif
     svn_config_enumerate(cfg, qualified_repos_path,
                          parse_authz_line, &baton);
@@ -247,7 +247,7 @@ static int parse_authz_lines(svn_config_t *cfg,
 
 #if APR_CHARSET_EBCDIC
     if (svn_utf_cstring_to_netccsid(&repos_path, repos_path, pool))
-        return FALSE;
+        return FALSE;                                    
 #endif
     svn_config_enumerate(cfg, repos_path,
                          parse_authz_line, &baton);
@@ -298,7 +298,7 @@ static svn_boolean_t parse_authz_section(const char *section_name,
   b->access = !(b->deny & b->required_access)
               || (b->allow & b->required_access)
               || !conclusive;
-
+  
   /* If access isn't denied, move on to check the next section. */
   return b->access;
 }
@@ -318,7 +318,7 @@ static int parse_authz_sections(svn_config_t *cfg,
     baton.repos_path = repos_path;
     baton.qualified_repos_path = apr_pstrcat(pool, repos_name, ":",
                                              repos_path, NULL);
-
+    
     baton.access = 1; /* Allow by default */
     svn_config_enumerate_sections(cfg, parse_authz_section, &baton);
 
@@ -354,7 +354,7 @@ static int check_access(svn_config_t *cfg, const char *repos_name,
         svn_path_split(repos_path, &repos_path, &base_name, pool);
 #else
         svn_path_split_ebcdic(repos_path, &repos_path, &base_name, pool);
-#endif
+#endif        
     }
 
     if (granted_access && (required_access & AUTHZ_SVN_RECURSIVE) != 0) {
@@ -459,7 +459,7 @@ static int req_check_access(request_rec *r,
     }
 
     if (repos_path)
-#if !APR_CHARSET_EBCDIC
+#if !APR_CHARSET_EBCDIC    
         repos_path = svn_path_join("/", repos_path, r->pool);
 #else
         repos_path = svn_path_join_ebcdic("/", repos_path, r->pool);
@@ -506,12 +506,12 @@ static int req_check_access(request_rec *r,
         }
 
         if (dest_repos_path)
-#if !APR_CHARSET_EBCDIC
+#if !APR_CHARSET_EBCDIC    
             dest_repos_path = svn_path_join("/", dest_repos_path, r->pool);
 #else
             dest_repos_path = svn_path_join_ebcdic("/", dest_repos_path,
                                                    r->pool);
-#endif
+#endif            
 
         *dest_repos_path_ref = apr_pstrcat(r->pool, dest_repos_name, ":",
                                            dest_repos_path, NULL);
@@ -526,8 +526,8 @@ static int req_check_access(request_rec *r,
 #if APR_CHARSET_EBCDIC
         svn_err = svn_utf_cstring_to_utf8(&access_file_utf8, access_file_utf8,
                                           r->connection->pool);
-#endif
-        if (!svn_err)
+#endif    	
+        if (!svn_err)                                          
             svn_err = svn_config_read(&access_conf, access_file_utf8, TRUE,
                                       r->connection->pool);
         if (svn_err) {

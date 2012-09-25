@@ -17,20 +17,20 @@
  *
  * @file svn_ebcdic.h
  * @brief Macros and functions used on EBCDIC platforms.
- *
- * The four printf style functions in this file,
- *
+ * 
+ * The four printf style functions in this file, 
+ * 
  *   svn_ebcdic_pvsprintf
  *   svn_ebcdic_pvsprintf2
  *   svn_ebcdic_psprintf
  *   svn_ebcdic_psprintf2
- *
+ * 
  * and their related substitution macros exist to make the impact of the
  * ebcdic port's impact on the subversion code base as non-intrusive as
  * possible (e.g. minimize the amount of APR_CHARSET_EBCDIC blocked code).
- *
+ * 
  * Note: Unlike apr_p(v)sprintf, these functions do not support the alternate
- *       format specification
+ *       format specification 
  *       __%__arg-number$__[flags]__[width]__[.precision]__[h|L|l|ll]__type
  */
 
@@ -139,7 +139,7 @@ svn_ebcdic_pvsprintf (apr_pool_t *p,
  * @param fmt The ebcdic encoded format of the string
  * @param ap The arguments to use while printing the data
  * @return The new utf-8 encoded string
- */
+ */       
 char *
 svn_ebcdic_pvsprintf2 (apr_pool_t *p,
                        const char *fmt,
@@ -154,12 +154,12 @@ svn_ebcdic_pvsprintf2 (apr_pool_t *p,
  * @param fmt The ebcdic encoded format of the string
  * @param ... The arguments to use while printing the data
  * @return The new ebcdic encoded string
- */
+ */   
 char *
 svn_ebcdic_psprintf(apr_pool_t *p,
                     const char *fmt,
                     ...);
-
+                    
 
 /**
  * printf-style style printing routine similar to svn_ebcdic_psprintf except
@@ -169,7 +169,7 @@ svn_ebcdic_psprintf(apr_pool_t *p,
  * @param fmt The ebcdic encoded format of the string
  * @param ... The arguments to use while printing the data
  * @return The new utf-8 encoded string
- */
+ */   
 char *
 svn_ebcdic_psprintf2(apr_pool_t *p,
                      const char *fmt,
@@ -178,8 +178,8 @@ svn_ebcdic_psprintf2(apr_pool_t *p,
 #endif /* APR_CHARSET_EBCDIC */
 
 #if AS400
-/**
- * Set the ccsid of file @a path to @a ccsid.
+/** 
+ * Set the ccsid of file @a path to @a ccsid.  
  * @a path The utf-8 encoded file path
  * @a pool The pool to use for conversion of @a path to an ebcdic path
  */
@@ -199,11 +199,11 @@ svn_ebcdic_set_file_ccsid (const char *path,
 apr_status_t
 svn_ebcdic_set_file_mtime(const char *fname,
                           apr_time_t mtime,
-                          apr_pool_t *pool);
+                          apr_pool_t *pool);  
 
 
 /** Copy @a from_path to @a to_path atomically.  Both @a from_path and
- * @a to_path are utf8-encoded filenames.  If @a to_perms is true, set
+ * @a to_path are utf8-encoded filenames.  If @a to_perms is true, set 
  * @a to_path's permissions to match those of @a from_path.
  * @a flags are the Or'ed value of @c apr_file_open() flags to use when
  * opening @a to_path.  @a from_path is always opened as binary.

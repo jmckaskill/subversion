@@ -74,7 +74,7 @@ get_comment (const char **comment, svn_client_ctx_t *ctx,
    * Windows Explorer has a 1252 CCSID).  To avoid problems and keep things
    * relatively simple, the ebcdic port currently requires that file data used
    * for a lock message be encoded in utf-8 only.
-   *
+   * 
    * With -F args restricted to utf-8 there's nothing to translate re
    * encoding, but line endings may be inconsistent so translation is still
    * needed.  The problem is if opt_state->encoding is passed,
@@ -82,7 +82,7 @@ get_comment (const char **comment, svn_client_ctx_t *ctx,
    * native string to utf-8, corrupting it on the iSeries where
    * native == ebcdic != subset of utf-8.  So "1208" is passed causing no
    * encoding conversion, but producing uniform LF line endings.
-   *
+   * 
    * See svn_utf_cstring_to_utf8_ex for why a string representation of a
    * CCSID is used rather than "UTF-8". */
   if (opt_state->filedata)
