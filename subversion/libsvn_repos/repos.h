@@ -143,7 +143,7 @@ struct svn_repos_t
 /* Run the start-commit hook for REPOS.  Use POOL for any temporary
    allocations.  If the hook fails, return SVN_ERR_REPOS_HOOK_FAILURE.
 
-   USER is the authenticated name of the user starting the commit.
+   USER is the authenticated name of the user starting the commit.  
    CAPABILITIES is a list of 'const char *' capability names (using
    SVN_RA_CAPABILITY_*) that the client has self-reported.  Note that
    there is no guarantee the client is telling the truth: the hook
@@ -282,7 +282,7 @@ svn_repos__compare_files(svn_boolean_t *changed_p,
 
    If there was no such copy operation in that portion
    of PATH's history, set *PREV_PATH to NULL, and set *PREV_REV and
-   *APPEARED_REV to SVN_INVALID_REVNUM.
+   *APPEARED_REV to SVN_INVALID_REVNUM.  
 
    NOTE: Any of PREV_PATH, PREV_REV, and APPEARED_REV may be NULL to
    if that information is of no interest to the caller.  */
