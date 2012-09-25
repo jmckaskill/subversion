@@ -6263,7 +6263,7 @@ op_delete_many_txn(void *baton,
       const char *target_relpath = APR_ARRAY_IDX(odmb->rel_targets, i,
                                                  const char *);
       struct op_delete_baton_t odb;
-
+      
       svn_pool_clear(iterpool);
       odb.delete_depth = relpath_depth(target_relpath);
       SVN_ERR(delete_node(&odb, wcroot, target_relpath, iterpool));
@@ -6406,7 +6406,7 @@ svn_wc__db_op_delete_many(svn_wc__db_t *db,
 
     }
   svn_pool_destroy(iterpool);
-
+  
   /* Perform the deletion operation (transactionally), perform any
      notifications necessary, and then clean out our temporary tables.  */
   return svn_error_trace(with_finalization(wcroot, wcroot->abspath,
@@ -6752,7 +6752,7 @@ read_info(svn_wc__db_status_t *status,
     err = svn_error_compose_create(err, svn_sqlite__reset(stmt_act));
 
   if (err && err->apr_err != SVN_ERR_WC_PATH_NOT_FOUND)
-    err = svn_error_quick_wrap(err,
+    err = svn_error_quick_wrap(err, 
                                apr_psprintf(scratch_pool,
                                             "Error reading node '%s'",
                                             local_relpath));
