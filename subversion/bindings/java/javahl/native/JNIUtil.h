@@ -39,7 +39,7 @@ struct svn_error_t;
 
 #define JAVA_PACKAGE "org/tigris/subversion/javahl"
 /**
- * class to hold a number of JNI relate utility methods. No Objects of this
+ * class to hold a number of JNI relate utility methods. No Objects of this 
  * class are ever created
  */
 class JNIUtil
@@ -73,9 +73,9 @@ private:
                                          apr_status_t parent_apr_err,
                                          std::string &buffer);
     static void setExceptionThrown();
-    /**
+    /** 
      * the log level of this module
-     */
+     */ 
     static int g_logLevel;
     /**
      * global master pool. All other pool are subpools of this pool
@@ -98,7 +98,7 @@ private:
      */
     static bool g_initException;
     /**
-     * flag, that one thread is in the init code. Cannot use mutex here since
+     * flag, that one thread is in the init code. Cannot use mutex here since 
      * apr is not initialized yes
      */
     static bool g_inInit;
