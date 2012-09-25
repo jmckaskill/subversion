@@ -3,7 +3,7 @@
  *              working copy administrative area (creating,
  *              deleting, opening, and closing).  This is the only
  *              code that actually knows where administrative
- *              information is kept.
+ *              information is kept.  
  *
  * ====================================================================
  * Copyright (c) 2000-2004 CollabNet.  All rights reserved.
@@ -44,7 +44,7 @@
 
 
 /* Return the path to something in PATH's administrative area.
- *
+ * 
  * First, the adm subdir is appended to PATH as a component, then the
  * "tmp" directory is added iff USE_TMP is set, then each of the
  * varargs in AP (char *'s) is appended as a path component.  The list
@@ -109,7 +109,7 @@ extend_with_adm_name (const char *path,
 const char *
 svn_wc__adm_path (const char *path,
                   svn_boolean_t tmp,
-                  apr_pool_t *pool,
+                  apr_pool_t *pool, 
                   ...)
 {
   va_list ap;
@@ -125,7 +125,7 @@ svn_wc__adm_path (const char *path,
 svn_boolean_t
 svn_wc__adm_path_exists (const char *path,
                          svn_boolean_t tmp,
-                         apr_pool_t *pool,
+                         apr_pool_t *pool, 
                          ...)
 {
   svn_node_kind_t kind;
@@ -150,7 +150,7 @@ svn_wc__adm_path_exists (const char *path,
 /*** Making and using files in the adm area. ***/
 
 
-/* Create an empty THING in the adm area with permissions set to PERMS.
+/* Create an empty THING in the adm area with permissions set to PERMS. 
  * If TMP is non-zero, then create THING in the tmp dir.
  *
  * Does not check if THING already exists, so be careful -- THING will
@@ -192,7 +192,7 @@ svn_wc__make_adm_thing (svn_wc_adm_access_t *adm_access,
       /* We're only capturing this here because there wouldn't be a
          segfault or other obvious indicator that something went
          wrong.  Even so, not sure if it's appropriate.  Thoughts? */
-      err = svn_error_create
+      err = svn_error_create 
         (0, NULL, _("Bad type indicator"));
     }
 
@@ -214,17 +214,17 @@ sync_adm_file (const char *path,
 
   const char *tmp_path;
   va_list ap;
-
+  
   /* Extend tmp name. */
   va_start (ap, pool);
   tmp_path = v_extend_with_adm_name (path, extension, 1, pool, ap);
   va_end (ap);
-
+  
   /* Extend real name. */
   va_start (ap, pool);
   path = v_extend_with_adm_name (path, extension, 0, pool, ap);
   va_end (ap);
-
+  
   /* Rename. */
   SVN_ERR (svn_wc__prep_file_for_replacement (path, TRUE, pool));
   SVN_ERR (svn_io_file_rename (tmp_path, path, pool));
@@ -486,12 +486,12 @@ close_adm_file (apr_file_t *fp,
       va_start (ap, pool);
       path = v_extend_with_adm_name (path, extension, 0, pool, ap);
       va_end (ap);
-
+      
       /* Rename. */
       SVN_ERR (svn_wc__prep_file_for_replacement (path, TRUE, pool));
       SVN_ERR (svn_io_file_rename (tmp_path, path, pool));
       SVN_ERR (svn_io_set_file_read_only (path, FALSE, pool));
-
+      
       return SVN_NO_ERROR;
     }
 
@@ -530,7 +530,7 @@ svn_wc__remove_adm_file (const char *path, apr_pool_t *pool, ...)
   va_start (ap, pool);
   path = v_extend_with_adm_name (path, NULL, 0, pool, ap);
   va_end (ap);
-
+      
   SVN_ERR(svn_io_remove_file (path, pool));
 
   return SVN_NO_ERROR;
@@ -612,7 +612,7 @@ svn_wc__open_props (apr_file_t **handle,
     parent_dir = path;
   else
     svn_path_split (path, &parent_dir, &base_name, pool);
-
+  
   /* At this point, we know we need to open a file in the admin area
      of parent_dir.  First check that parent_dir is a working copy: */
   SVN_ERR (svn_wc_check_wc (parent_dir, &wc_format_version, pool));
@@ -686,9 +686,9 @@ svn_wc__close_props (apr_file_t *fp,
   SVN_ERR (svn_io_check_path (path, &kind, pool));
   if (kind == svn_node_dir)
     parent_dir = path;
-  else
+  else    
     svn_path_split (path, &parent_dir, &base_name, pool);
-
+  
   /* At this point, we know we need to open a file in the admin area
      of parent_dir.  First check that parent_dir is a working copy: */
   SVN_ERR (svn_wc_check_wc (parent_dir, &wc_format_version, pool));
@@ -757,9 +757,9 @@ svn_wc__sync_props (const char *path,
   /* If file, split the path. */
   if (kind == svn_node_file)
     svn_path_split (path, &parent_dir, &base_name, pool);
-  else
+  else    
     parent_dir = path;
-
+  
   /* At this point, we know we need to open a file in the admin area
      of parent_dir.  Examine the flags to know -which- kind of prop
      file to get -- there are three types! */
@@ -930,7 +930,7 @@ make_empty_adm (const char *path, apr_pool_t *pool)
 }
 
 
-/* Init an adm file with some contents.
+/* Init an adm file with some contents. 
    Don't call this until a tmp area exists in adm. */
 static svn_error_t *
 init_adm_file (const char *path,
@@ -940,12 +940,12 @@ init_adm_file (const char *path,
 {
   apr_file_t *f = NULL;
 
-  SVN_ERR (svn_wc__open_adm_file (&f, path, thing,
+  SVN_ERR (svn_wc__open_adm_file (&f, path, thing, 
                                   APR_WRITE | APR_CREATE, pool));
-  SVN_ERR (svn_io_file_write_full (f, contents,
+  SVN_ERR (svn_io_file_write_full (f, contents, 
                                    strlen (contents), NULL, pool));
   SVN_ERR (svn_wc__close_adm_file (f, path, thing, 1, pool));
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -960,7 +960,7 @@ init_adm_tmp_area (svn_wc_adm_access_t *adm_access,
   /* SVN_WC__ADM_TMP */
   SVN_ERR (svn_wc__make_adm_thing (adm_access, SVN_WC__ADM_TMP,
                                    svn_node_dir, perms, 0, pool));
-
+  
   /* SVN_WC__ADM_TMP/SVN_WC__ADM_TEXT_BASE */
   SVN_ERR (svn_wc__make_adm_thing (adm_access, SVN_WC__ADM_TEXT_BASE,
                                    svn_node_dir, perms, 1, pool));
@@ -1032,7 +1032,7 @@ init_adm (const char *path,
 
   /** Init the tmp area. ***/
   SVN_ERR (init_adm_tmp_area (adm_access, pool));
-
+  
   /** Initialize each administrative file. */
 
   /* SVN_WC__ADM_ENTRIES */
@@ -1051,9 +1051,9 @@ init_adm (const char *path,
   /* SVN_WC__ADM_README */
   SVN_ERR (init_adm_file (path, SVN_WC__ADM_README, readme_contents, pool));
 
-  /* THIS FILE MUST BE CREATED LAST:
+  /* THIS FILE MUST BE CREATED LAST: 
      After this exists, the dir is considered complete. */
-  SVN_ERR (svn_io_write_version_file
+  SVN_ERR (svn_io_write_version_file 
            (extend_with_adm_name (path, NULL, FALSE, pool,
                                   SVN_WC__ADM_FORMAT, NULL),
             SVN_WC__VERSION, pool));
@@ -1083,7 +1083,7 @@ svn_wc_ensure_adm (const char *path,
 
 
 svn_error_t *
-svn_wc__adm_destroy (svn_wc_adm_access_t *adm_access,
+svn_wc__adm_destroy (svn_wc_adm_access_t *adm_access, 
                      apr_pool_t *pool)
 {
   const char *path;
@@ -1102,7 +1102,7 @@ svn_wc__adm_destroy (svn_wc_adm_access_t *adm_access,
 
 
 svn_error_t *
-svn_wc__adm_cleanup_tmp_area (svn_wc_adm_access_t *adm_access,
+svn_wc__adm_cleanup_tmp_area (svn_wc_adm_access_t *adm_access, 
                               apr_pool_t *pool)
 {
   const char *tmp_path;
@@ -1133,7 +1133,7 @@ svn_wc_create_tmp_file (apr_file_t **fp,
   /* Use a self-explanatory name for the file :-) . */
   path = svn_wc__adm_path (path, TRUE, pool, "tempfile", NULL);
 
-  /* Open a unique file;  use APR_DELONCLOSE. */
+  /* Open a unique file;  use APR_DELONCLOSE. */  
   SVN_ERR (svn_io_open_unique_file (fp, &ignored_filename,
                                     path, ".tmp", delete_on_close, pool));
 
@@ -1150,8 +1150,8 @@ svn_wc__prep_file_for_replacement (const char *path,
       this is really an edit of the parent directory, not of the file
       itself.  Windows apparently has different semantics, and so
       when the svn_io_set_file_read_write() call was temporarily
-      removed in revision 5663, Subversion stopped working on Windows.
-
+      removed in revision 5663, Subversion stopped working on Windows. 
+      
       However, the svn_io_set_file_read_write() call sets all write
       permissions on Unix, which is undesireable.  Since it is unnecessary
       to make the file writeable, do nothing to prep the file for replacement
