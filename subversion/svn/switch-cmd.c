@@ -173,7 +173,7 @@ svn_cl__switch(apr_getopt_t *os,
 
   /* Do the 'switch' update. */
   SVN_ERR(svn_client_switch2(NULL, target, switch_url, &peg_revision,
-                             &(opt_state->start_revision), depth,
+                             &(opt_state->start_revision), depth, 
                              depth_is_sticky, opt_state->ignore_externals,
                              opt_state->force, ctx, pool));
 

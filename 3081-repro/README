@@ -1,5 +1,5 @@
 This directory contains various scripts that attempt to reproduce the
-mergeinfo-authz case that r29051 is intended address.
+mergeinfo-authz case that r29051 is intended address.  
 
 None of the scripts are successful in reproducing it.  Note that
 r29051 passes 'make check'; the issue is merely that we don't know
@@ -212,7 +212,7 @@ problems trying to come up with a reproduction case:
 
 <kfogel>     8. merge --reintegrate
 
-<kfogel>
+<kfogel>   
 
 <glasser> yup
 

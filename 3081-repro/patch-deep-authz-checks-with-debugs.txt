@@ -25,7 +25,7 @@ Index: subversion/include/svn_mergeinfo.h
 @@ -399,6 +399,31 @@
  apr_array_header_t *
  svn_rangelist_dup(apr_array_header_t *rangelist, apr_pool_t *pool);
-
+ 
 +/** Set @a *paths to a list of all the unique paths mentioned in the
 + * block @a raw_pathranges, allocating @a *paths in @a pool.
 + * @a raw_pathranges is in the same format as a value in a mergeinfo
@@ -42,7 +42,7 @@ Index: subversion/include/svn_mergeinfo.h
 + *   "/branches/b2:8\n/branches/b3:9-15\n/branches/b4:10\n/branches/b5:11"
 + *
 + * If @a raw_pathranges is not in mergeinfo format, return the error
-+ * @c SVN_ERR_MERGEINFO_PARSE_ERROR, in which case the value of @a *paths
++ * @c SVN_ERR_MERGEINFO_PARSE_ERROR, in which case the value of @a *paths 
 + * is undefined.
 + */
 +svn_error_t *
@@ -60,8 +60,8 @@ Index: subversion/include/svn_string.h
 +++ subversion/include/svn_string.h	(working copy)
 @@ -352,6 +352,12 @@
  int svn_cstring_casecmp(const char *str1, const char *str2);
-
-
+ 
+ 
 +/** Return position of last occurrence of @a ch in @a str of length @a len,
 + * or return @a len if no occurrence.
 + */
@@ -69,7 +69,7 @@ Index: subversion/include/svn_string.h
 +svn_cstring_find_char_backward(const char *str, apr_size_t len, char ch);
 +
  /** @} */
-
+ 
  /** @} */
 Index: subversion/libsvn_subr/svn_string.c
 ===================================================================
@@ -97,8 +97,8 @@ Index: subversion/libsvn_subr/mergeinfo.c
 +++ subversion/libsvn_subr/mergeinfo.c	(working copy)
 @@ -593,6 +593,29 @@
  }
-
-
+ 
+ 
 +svn_error_t *
 +svn_pathranges_to_paths(apr_array_header_t **paths,
 +                        const char *raw_pathranges,
@@ -139,7 +139,7 @@ Index: subversion/libsvn_repos/fs-wrap.c
  #include "repos.h"
 +#include "svn_mergeinfo.h"
  #include "svn_private_config.h"
-
+ 
  
 @@ -595,10 +597,161 @@
       in *MERGEINFO, avoiding massive authz overhead which would allow
@@ -306,17 +306,17 @@ Index: subversion/libsvn_repos/fs-wrap.c
 +     }
    else
      *mergeinfo = NULL;
-
+ 
 Index: reintegrate-branch-TODO
 ===================================================================
 --- reintegrate-branch-TODO	(revision 28964)
 +++ reintegrate-branch-TODO	(working copy)
 @@ -20,8 +20,6 @@
-
+ 
    * "Is this the same line?" direct ancestor check (glasser)
-
+ 
 -  * authz check (glasser)
 -
    * remember there may be some TODO(reint) comments in .py tests; they
      won't show up in a tags-search.
-
+ 

@@ -17,7 +17,7 @@ Index: subversion/libsvn_repos/fs-wrap.c
 @@ -613,6 +613,25 @@
             apr_hash_index_t *hi;
             apr_hash_t *original_paths_hash, *readable_paths_hash;
-
+ 
 +#define KFF_DEBUG 1
 +
 +           if (KFF_DEBUG)
@@ -43,7 +43,7 @@ Index: subversion/libsvn_repos/fs-wrap.c
 @@ -639,9 +658,34 @@
                 path = key;
                 raw_mergeinfo_string = val;
-
+ 
 +               if (KFF_DEBUG)
 +                 {
 +                   FILE *fp = fopen("/tmp/kff.out", "a");
@@ -116,7 +116,7 @@ Index: subversion/svnserve/serve.c
 @@ -499,6 +499,14 @@
        ))
      SVN_ERR(auth_request(conn, pool, b, req, TRUE));
-
+ 
 +  if (1) /* kff */
 +    {
 +      FILE *fp = fopen("/tmp/kff.out", "a");

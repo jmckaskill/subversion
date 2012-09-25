@@ -690,7 +690,7 @@ parse_capabilities(ne_request *req,
           apr_hash_set(ras->capabilities, SVN_RA_CAPABILITY_LOG_REVPROPS,
                        APR_HASH_KEY_STRING, capability_yes);
 
-        if (svn_cstring_match_glob_list(SVN_DAV_NS_DAV_SVN_PARTIAL_REPLAY,
+        if (svn_cstring_match_glob_list(SVN_DAV_NS_DAV_SVN_PARTIAL_REPLAY, 
                                         vals))
           apr_hash_set(ras->capabilities, SVN_RA_CAPABILITY_PARTIAL_REPLAY,
                        APR_HASH_KEY_STRING, capability_yes);
