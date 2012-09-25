@@ -1010,9 +1010,9 @@ combine_mergeinfo_path_lists(apr_array_header_t **combined_list,
   return SVN_NO_ERROR;
 }
 
-/* In order to prevent log message overload, we always do merged logs in a
+/* In order to prevent log message overload, we always do merged logs in a 
    non-streamy sort of way, using this algorithm:
-     1) Get all mainline revisions for PATHS (regardless of LIMIT), marking
+     1) Get all mainline revisions for PATHS (regardless of LIMIT), marking 
         branching revisions as such.
         - Stop if we encounter a revision which has already been retrieved,
           such as when a branch hits the mainline of history.
