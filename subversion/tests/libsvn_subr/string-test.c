@@ -60,7 +60,7 @@ const char *phrase_2 = "a longish phrase of sorts, longer than 16 anyway";
 
 
 static svn_error_t *
-test1 (const char **msg,
+test1 (const char **msg, 
        svn_boolean_t msg_only,
        apr_pool_t *pool)
 {
@@ -70,7 +70,7 @@ test1 (const char **msg,
     return SVN_NO_ERROR;
 
   a = svn_stringbuf_create (phrase_1, pool);
-
+  
   /* Test that length, data, and null-termination are correct. */
   if ((a->len == strlen (phrase_1)) && ((strcmp (a->data, phrase_1)) == 0))
     return SVN_NO_ERROR;
@@ -80,7 +80,7 @@ test1 (const char **msg,
 
 
 static svn_error_t *
-test2 (const char **msg,
+test2 (const char **msg, 
        svn_boolean_t msg_only,
        apr_pool_t *pool)
 {
@@ -90,7 +90,7 @@ test2 (const char **msg,
     return SVN_NO_ERROR;
 
   b = svn_stringbuf_ncreate (phrase_2, 16, pool);
-
+  
   /* Test that length, data, and null-termination are correct. */
   if ((b->len == 16) && ((strncmp (b->data, phrase_2, 16)) == 0))
     return SVN_NO_ERROR;
@@ -100,13 +100,13 @@ test2 (const char **msg,
 
 
 static svn_error_t *
-test3 (const char **msg,
+test3 (const char **msg, 
        svn_boolean_t msg_only,
        apr_pool_t *pool)
 {
   char *tmp;
   size_t old_len;
-
+  
   *msg = "append svn_stringbuf_t to svn_stringbuf_t";
 
   if (msg_only)
@@ -120,7 +120,7 @@ test3 (const char **msg,
   strcat (tmp, b->data);
   old_len = a->len;
   svn_stringbuf_appendstr (a, b);
-
+  
   /* Test that length, data, and null-termination are correct. */
   if ((a->len == (old_len + b->len)) && ((strcmp (a->data, tmp)) == 0))
     return SVN_NO_ERROR;
@@ -130,7 +130,7 @@ test3 (const char **msg,
 
 
 static svn_error_t *
-test4 (const char **msg,
+test4 (const char **msg, 
        svn_boolean_t msg_only,
        apr_pool_t *pool)
 {
@@ -141,9 +141,9 @@ test4 (const char **msg,
 
   a = svn_stringbuf_create (phrase_1, pool);
   svn_stringbuf_appendcstr (a, "new bytes to append");
-
+  
   /* Test that length, data, and null-termination are correct. */
-  if (svn_stringbuf_compare
+  if (svn_stringbuf_compare 
       (a, svn_stringbuf_create ("hello, new bytes to append", pool)))
     return SVN_NO_ERROR;
   else
@@ -152,7 +152,7 @@ test4 (const char **msg,
 
 
 static svn_error_t *
-test5 (const char **msg,
+test5 (const char **msg, 
        svn_boolean_t msg_only,
        apr_pool_t *pool)
 {
@@ -165,7 +165,7 @@ test5 (const char **msg,
   svn_stringbuf_appendbytes (a, "new bytes to append", 9);
 
   /* Test that length, data, and null-termination are correct. */
-  if (svn_stringbuf_compare
+  if (svn_stringbuf_compare 
       (a, svn_stringbuf_create ("hello, new bytes", pool)))
     return SVN_NO_ERROR;
   else
@@ -174,7 +174,7 @@ test5 (const char **msg,
 
 
 static svn_error_t *
-test6 (const char **msg,
+test6 (const char **msg, 
        svn_boolean_t msg_only,
        apr_pool_t *pool)
 {
@@ -196,7 +196,7 @@ test6 (const char **msg,
 
 
 static svn_error_t *
-test7 (const char **msg,
+test7 (const char **msg, 
        svn_boolean_t msg_only,
        apr_pool_t *pool)
 {
@@ -215,7 +215,7 @@ test7 (const char **msg,
   strcpy (tmp, c->data);
 
   svn_stringbuf_chop (c, 11);
-
+  
   if ((c->len == (tmp_len - 11))
       && (strncmp (tmp, c->data, c->len) == 0)
       && (c->data[c->len] == '\0'))
@@ -226,7 +226,7 @@ test7 (const char **msg,
 
 
 static svn_error_t *
-test8 (const char **msg,
+test8 (const char **msg, 
        svn_boolean_t msg_only,
        apr_pool_t *pool)
 {
@@ -235,10 +235,10 @@ test8 (const char **msg,
   if (msg_only)
     return SVN_NO_ERROR;
 
-  c = svn_stringbuf_create (phrase_2, pool);
+  c = svn_stringbuf_create (phrase_2, pool);  
 
   svn_stringbuf_setempty (c);
-
+  
   if ((c->len == 0) && (c->data[0] == '\0'))
     return SVN_NO_ERROR;
   else
@@ -247,7 +247,7 @@ test8 (const char **msg,
 
 
 static svn_error_t *
-test9 (const char **msg,
+test9 (const char **msg, 
        svn_boolean_t msg_only,
        apr_pool_t *pool)
 {
@@ -272,7 +272,7 @@ test9 (const char **msg,
 
 
 static svn_error_t *
-test10 (const char **msg,
+test10 (const char **msg, 
         svn_boolean_t msg_only,
         apr_pool_t *pool)
 {
@@ -281,7 +281,7 @@ test10 (const char **msg,
   size_t len_2 = 0;
   size_t block_len_1 = 0;
   size_t block_len_2 = 0;
-
+  
   *msg = "block initialization and growth";
 
   if (msg_only)
@@ -290,12 +290,12 @@ test10 (const char **msg,
   s = svn_stringbuf_create ("a small string", pool);
   len_1       = (s->len);
   block_len_1 = (s->blocksize);
-
+  
   t = svn_stringbuf_create (", plus a string more than twice as long", pool);
   svn_stringbuf_appendstr (s, t);
   len_2       = (s->len);
   block_len_2 = (s->blocksize);
-
+  
   /* Test that:
    *   - The initial block was just the right fit.
    *   - The block more than doubled (because second string so long).
@@ -311,22 +311,22 @@ test10 (const char **msg,
 
 
 static svn_error_t *
-test11 (const char **msg,
+test11 (const char **msg, 
         svn_boolean_t msg_only,
         apr_pool_t *pool)
 {
   svn_stringbuf_t *s;
-
+  
   *msg = "formatting strings from varargs";
 
   if (msg_only)
     return SVN_NO_ERROR;
 
-  s = svn_stringbuf_createf (pool,
+  s = svn_stringbuf_createf (pool, 
                           "This %s is used in test %d.",
                           "string",
                           12);
-
+  
   if (strcmp (s->data, "This string is used in test 12.") == 0)
     return SVN_NO_ERROR;
   else
@@ -370,10 +370,10 @@ check_string_contents(svn_stringbuf_t *string,
 
   return SVN_NO_ERROR;
 }
-
+                      
 
 static svn_error_t *
-test12 (const char **msg,
+test12 (const char **msg, 
         svn_boolean_t msg_only,
         apr_pool_t *pool)
 {
