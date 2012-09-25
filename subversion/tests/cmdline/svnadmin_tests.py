@@ -529,7 +529,7 @@ def set_uuid(sbox):
   if new_uuid != orig_uuid:
     print "Error: new UUID doesn't match the original one"
     raise svntest.Failure
-
+  
 
 ########################################################################
 # Run the tests

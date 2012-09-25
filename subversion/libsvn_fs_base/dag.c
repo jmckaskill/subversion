@@ -962,8 +962,8 @@ svn_fs_base__dag_remove_node(svn_fs_t *fs,
                                                txn_id, trail, pool));
 
   /* Delete the node revision itself. */
-  SVN_ERR(svn_fs_base__delete_node_revision(fs, id,
-                                            noderev->predecessor_id
+  SVN_ERR(svn_fs_base__delete_node_revision(fs, id, 
+                                            noderev->predecessor_id 
                                               ? FALSE : TRUE,
                                             trail, pool));
 
@@ -1626,7 +1626,7 @@ svn_error_t *svn_fs_base__dag_adjust_mergeinfo_count(dag_node_t *node,
 
   SVN_ERR(svn_fs_bdb__get_node_revision(&node_rev, fs, id, trail, pool));
   node_rev->mergeinfo_count = node_rev->mergeinfo_count + count_delta;
-  if ((node_rev->mergeinfo_count < 0)
+  if ((node_rev->mergeinfo_count < 0) 
       || ((node->kind == svn_node_file) && (node_rev->mergeinfo_count > 1)))
     return svn_error_createf(SVN_ERR_FS_CORRUPT, NULL,
                              _("Invalid value (%" APR_INT64_T_FMT ") for "

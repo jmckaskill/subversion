@@ -85,7 +85,7 @@ svn_cl__lock(apr_getopt_t *os,
   apr_array_header_t *targets;
   const char *comment;
 
-  SVN_ERR(svn_opt_args_to_target_array2(&targets, os,
+  SVN_ERR(svn_opt_args_to_target_array2(&targets, os, 
                                         opt_state->targets, pool));
 
   /* We only support locking files, so '.' is not valid. */

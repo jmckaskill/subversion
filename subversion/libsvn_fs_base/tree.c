@@ -854,7 +854,7 @@ make_path_mutable(svn_fs_root_t *root,
 static svn_error_t *
 adjust_parent_mergeinfo_counts(parent_path_t *parent_path,
                                apr_int64_t count_delta,
-                               const char *txn_id,
+                               const char *txn_id, 
                                trail_t *trail,
                                apr_pool_t *pool)
 {
@@ -1124,7 +1124,7 @@ base_check_path(svn_node_kind_t *kind_p,
                 apr_pool_t *pool)
 {
   svn_error_t *err = node_kind(kind_p, root, path, pool);
-  if (err &&
+  if (err && 
       ((err->apr_err == SVN_ERR_FS_NOT_FOUND)
        || (err->apr_err == SVN_ERR_FS_NOT_DIRECTORY)))
     {
@@ -1302,12 +1302,12 @@ txn_body_change_node_prop(void *baton,
   if (strcmp(args->name, SVN_PROP_MERGEINFO) == 0)
     {
       svn_boolean_t had_mergeinfo, has_mergeinfo = args->value ? TRUE : FALSE;
-
+      
       /* First, note on our node that it has mergeinfo. */
       SVN_ERR(svn_fs_base__dag_set_has_mergeinfo(parent_path->node,
                                                  has_mergeinfo, &had_mergeinfo,
                                                  txn_id, trail, trail->pool));
-
+      
       /* If this is a change from the old state, we need to update our
          node's parents' mergeinfo counts by a factor of 1. */
       if (parent_path->parent && ((! had_mergeinfo) != (! has_mergeinfo)))
@@ -2161,7 +2161,7 @@ merge(svn_stringbuf_t *conflict_p,
                           pred_count, trail, pool));
   SVN_ERR(svn_fs_base__dag_adjust_mergeinfo_count(target, mergeinfo_increment,
                                                   txn_id, trail, pool));
-
+ 
   if (mergeinfo_increment_out)
     *mergeinfo_increment_out = mergeinfo_increment;
 
@@ -2241,7 +2241,7 @@ txn_body_merge(void *baton, trail_t *trail)
     {
       int pred_count;
 
-      SVN_ERR(merge(args->conflict, "/", txn_root_node, source_node,
+      SVN_ERR(merge(args->conflict, "/", txn_root_node, source_node, 
                     ancestor_node, txn_id, NULL, trail, trail->pool));
 
       SVN_ERR(svn_fs_base__dag_get_predecessor_count(&pred_count,
@@ -2798,7 +2798,7 @@ txn_body_delete(void *baton,
   /* Decrement mergeinfo counts on the parents of this node by the
      count it currently carried. */
   SVN_ERR(adjust_parent_mergeinfo_counts(parent_path->parent,
-                                         -mergeinfo_count, txn_id,
+                                         -mergeinfo_count, txn_id, 
                                          trail, trail->pool));
 
   /* Make a record of this modification in the changes table. */
@@ -2907,8 +2907,8 @@ txn_body_copy(void *baton,
                                     from_path, txn_id, trail, trail->pool));
 
       /* Adjust the mergeinfo counts of the destination's parents. */
-      SVN_ERR(svn_fs_base__dag_get_mergeinfo_stats(NULL, &mergeinfo_count,
-                                                   from_node, trail,
+      SVN_ERR(svn_fs_base__dag_get_mergeinfo_stats(NULL, &mergeinfo_count, 
+                                                   from_node, trail, 
                                                    trail->pool));
       SVN_ERR(adjust_parent_mergeinfo_counts
               (to_parent_path->parent, mergeinfo_count - old_mergeinfo_count,
@@ -4544,9 +4544,9 @@ txn_body_id_created_rev(void *baton, trail_t *trail)
   struct id_created_rev_args *args = baton;
   dag_node_t *node;
 
-  SVN_ERR(svn_fs_base__dag_get_node(&node, trail->fs, args->id,
+  SVN_ERR(svn_fs_base__dag_get_node(&node, trail->fs, args->id, 
                                     trail, trail->pool));
-  SVN_ERR(svn_fs_base__dag_get_revision(&(args->revision), node,
+  SVN_ERR(svn_fs_base__dag_get_revision(&(args->revision), node, 
                                         trail, trail->pool));
   return SVN_NO_ERROR;
 }
@@ -4562,7 +4562,7 @@ static svn_error_t *
 txn_body_get_node_origin(void *baton, trail_t *trail)
 {
   struct get_set_node_origin_args *args = baton;
-  return svn_fs_bdb__get_node_origin(&(args->origin_id), trail->fs,
+  return svn_fs_bdb__get_node_origin(&(args->origin_id), trail->fs, 
                                      args->node_id, trail, trail->pool);
 }
 
@@ -4570,7 +4570,7 @@ static svn_error_t *
 txn_body_set_node_origin(void *baton, trail_t *trail)
 {
   struct get_set_node_origin_args *args = baton;
-  return svn_fs_bdb__set_node_origin(trail->fs, args->node_id,
+  return svn_fs_bdb__set_node_origin(trail->fs, args->node_id, 
                                      args->origin_id, trail, trail->pool);
 }
 
@@ -4590,7 +4590,7 @@ base_node_origin_rev(svn_revnum_t *revision,
 
   SVN_ERR(base_node_id(&id, root, path, pool));
   args.node_id = svn_fs_base__id_node_id(id);
-  err = svn_fs_base__retry_txn(root->fs, txn_body_get_node_origin,
+  err = svn_fs_base__retry_txn(root->fs, txn_body_get_node_origin, 
                                &args, pool);
 
   /* If we got a value for the origin node-revision-ID, that's great.
@@ -4605,16 +4605,16 @@ base_node_origin_rev(svn_revnum_t *revision,
     {
       svn_fs_root_t *curroot = root;
       apr_pool_t *subpool = svn_pool_create(pool);
-      svn_stringbuf_t *lastpath =
+      svn_stringbuf_t *lastpath = 
         svn_stringbuf_create(path, pool);
       svn_revnum_t lastrev = SVN_INVALID_REVNUM;
       const svn_fs_id_t *pred_id;
-
+      
       svn_error_clear(err);
       err = SVN_NO_ERROR;
 
       /* Walk the closest-copy chain back to the first copy in our history.
-
+         
          NOTE: We merely *assume* that this is faster than walking the
          predecessor chain, because we *assume* that copies of parent
          directories happen less often than modifications to a given item. */
@@ -4622,21 +4622,21 @@ base_node_origin_rev(svn_revnum_t *revision,
         {
           svn_revnum_t currev;
           const char *curpath = lastpath->data;
-
+          
           /* Get a root pointing to LASTREV.  (The first time around,
              LASTREV is invalid, but that's cool because CURROOT is
              already initialized.)  */
           if (SVN_IS_VALID_REVNUM(lastrev))
-            SVN_ERR(svn_fs_base__revision_root(&curroot, fs,
+            SVN_ERR(svn_fs_base__revision_root(&curroot, fs, 
                                                lastrev, subpool));
 
           /* Find the previous location using the closest-copy shortcut. */
-          SVN_ERR(prev_location(&curpath, &currev, fs, curroot,
+          SVN_ERR(prev_location(&curpath, &currev, fs, curroot, 
                                 curpath, subpool));
           if (! curpath)
             break;
 
-          /* Update our LASTPATH and LASTREV variables (which survive
+          /* Update our LASTPATH and LASTREV variables (which survive 
              SUBPOOL). */
           svn_stringbuf_set(lastpath, curpath);
         }
@@ -4649,17 +4649,17 @@ base_node_origin_rev(svn_revnum_t *revision,
           svn_pool_clear(subpool);
           pid_args.id = pred_id;
           pid_args.pool = subpool;
-          SVN_ERR(svn_fs_base__retry_txn(fs, txn_body_pred_id,
+          SVN_ERR(svn_fs_base__retry_txn(fs, txn_body_pred_id, 
                                          &pid_args, subpool));
           if (! pid_args.pred_id)
             break;
           pred_id = pid_args.pred_id;
         }
-
+      
       /* Okay.  PRED_ID should hold our origin ID now.  Let's remember
          this value from now on, shall we?  */
       args.origin_id = origin_id = svn_fs_base__id_copy(pred_id, pool);
-      SVN_ERR(svn_fs_base__retry_txn(root->fs, txn_body_set_node_origin,
+      SVN_ERR(svn_fs_base__retry_txn(root->fs, txn_body_set_node_origin, 
                                       &args, subpool));
       svn_pool_destroy(subpool);
     }
@@ -4671,7 +4671,7 @@ base_node_origin_rev(svn_revnum_t *revision,
   /* Okay.  We have an origin node-revision-ID.  Let's get a created
      revision from it. */
   icr_args.id = origin_id;
-  SVN_ERR(svn_fs_base__retry_txn(root->fs, txn_body_id_created_rev,
+  SVN_ERR(svn_fs_base__retry_txn(root->fs, txn_body_id_created_rev, 
                                  &icr_args, pool));
   *revision = icr_args.revision;
   return SVN_NO_ERROR;
