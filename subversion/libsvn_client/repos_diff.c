@@ -344,7 +344,7 @@ static svn_error_t *
 set_target_revision (void *edit_baton, svn_revnum_t target_revision)
 {
   struct edit_baton *eb = edit_baton;
-
+  
   eb->target_revision = target_revision;
   return SVN_NO_ERROR;
 }
@@ -662,7 +662,7 @@ svn_client__get_diff_editor (svn_stringbuf_t *target,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end: */

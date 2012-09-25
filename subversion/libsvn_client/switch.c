@@ -86,7 +86,7 @@ svn_client_switch (const svn_delta_editor_t *before_editor,
   if (entry->kind == svn_node_file)
     {
       SVN_ERR (svn_wc_get_actual_target (path, &anchor, &target, pool));
-
+      
       /* get the parent entry */
       SVN_ERR (svn_wc_entry (&session_entry, anchor, pool));
       if (! entry)
@@ -123,7 +123,7 @@ svn_client_switch (const svn_delta_editor_t *before_editor,
   /* Get the RA vtable that matches working copy's current URL. */
   SVN_ERR (svn_ra_init_ra_libs (&ra_baton, pool));
   SVN_ERR (svn_ra_get_ra_library (&ra_lib, ra_baton, URL->data, pool));
-
+    
   if (entry->kind == svn_node_dir)
     {
       const svn_delta_editor_t *switch_editor;
@@ -135,7 +135,7 @@ svn_client_switch (const svn_delta_editor_t *before_editor,
 
       /* Open an RA session to 'source' URL */
       SVN_ERR (svn_client__open_ra_session (&session, ra_lib, URL, path,
-                                            TRUE, TRUE, TRUE,
+                                            TRUE, TRUE, TRUE, 
                                             auth_baton, pool));
       SVN_ERR (svn_client__get_revision_number
                (&revnum, ra_lib, session, revision, path->data, pool));
@@ -153,10 +153,10 @@ svn_client_switch (const svn_delta_editor_t *before_editor,
                              before_editor, before_edit_baton,
                              switch_editor, switch_edit_baton,
                              after_editor, after_edit_baton, pool);
-
+      
       /* ### todo:  This is a TEMPORARY wrapper around our editor so we
          can use it with an old driver. */
-      svn_delta_compat_wrap (&wrapped_old_editor, &wrapped_old_edit_baton,
+      svn_delta_compat_wrap (&wrapped_old_editor, &wrapped_old_edit_baton, 
                              wrap_editor, wrap_edit_baton, pool);
 
       /* Tell RA to do a update of URL+TARGET to REVISION; if we pass an
@@ -168,16 +168,16 @@ svn_client_switch (const svn_delta_editor_t *before_editor,
                                   recurse,
                                   switch_url,
                                   wrapped_old_editor, wrapped_old_edit_baton));
-
+      
       /* Drive the reporter structure, describing the revisions within
          PATH.  When we call reporter->finish_report, the
-         update_editor will be driven by svn_repos_dir_delta. */
+         update_editor will be driven by svn_repos_dir_delta. */ 
       err = svn_wc_crawl_revisions (path, reporter, report_baton,
                                     TRUE, recurse,
                                     notify_func, notify_baton,
                                     pool);
     }
-
+  
   else if (entry->kind == svn_node_file)
     {
       /* If switching a single file, just fetch the file directly and
@@ -232,7 +232,7 @@ svn_client_switch (const svn_delta_editor_t *before_editor,
           apr_ssize_t klen;
           void *val;
           svn_prop_t *prop;
-
+          
           apr_hash_this (hi, &key, &klen, &val);
 
           prop = apr_array_push (proparray);
@@ -246,12 +246,12 @@ svn_client_switch (const svn_delta_editor_t *before_editor,
                                     new_text_path->data,
                                     proparray, TRUE, /* is full proplist */
                                     switch_url->data, /* new url */
-                                    pool));
+                                    pool));     
       if (notify_func != NULL)
         (*notify_func) (notify_baton, svn_wc_notify_update, path->data);
 
-    }
-
+    }  
+  
   /* Sleep for one second to ensure timestamp integrity. */
   apr_sleep (APR_USEC_PER_SEC * 1);
 
@@ -266,7 +266,7 @@ svn_client_switch (const svn_delta_editor_t *before_editor,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end: */

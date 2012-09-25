@@ -55,7 +55,7 @@ svn_client_log (svn_client_auth_baton_t *auth_baton,
                 void *receiver_baton,
                 apr_pool_t *pool)
 {
-  svn_ra_plugin_t *ra_lib;
+  svn_ra_plugin_t *ra_lib;  
   void *ra_baton, *session;
   svn_stringbuf_t *URL;
   svn_stringbuf_t *basename = NULL;
@@ -103,7 +103,7 @@ svn_client_log (svn_client_auth_baton_t *auth_baton,
           /* If we have a single URL, then the session will be rooted at
              it, so just send an empty stringbuf for the paths we are
              interested in. */
-          (*((svn_stringbuf_t **)apr_array_push (condensed_targets))) =
+          (*((svn_stringbuf_t **)apr_array_push (condensed_targets))) = 
               svn_stringbuf_create ("", pool);
         }
     }
@@ -148,10 +148,10 @@ svn_client_log (svn_client_auth_baton_t *auth_baton,
 
   /* Get the revisions based on the users "hints".  */
   SVN_ERR (svn_client__get_revision_number
-           (&start_revnum, ra_lib, session, start,
+           (&start_revnum, ra_lib, session, start, 
             basename ? basename->data : NULL, pool));
   SVN_ERR (svn_client__get_revision_number
-           (&end_revnum, ra_lib, session, end,
+           (&end_revnum, ra_lib, session, end, 
             basename ? basename->data : NULL, pool));
 
   SVN_ERR (ra_lib->get_log (session,

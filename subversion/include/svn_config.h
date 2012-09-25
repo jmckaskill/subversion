@@ -57,7 +57,7 @@ typedef struct svn_config_t svn_config_t;
    is merged in.  System config information under Windows is found
    only in the registry.
 
-   If no proxy config information is available, return an empty *CFGP.
+   If no proxy config information is available, return an empty *CFGP.  
 
    ### Notes: This function, and future ones like it, rather obviates
    the need for svn_config_read() and svn_config_merge() as public
@@ -136,7 +136,7 @@ int svn_config_enumerate (svn_config_t *cfg, const char *section,
 
 /* Try to ensure that the user's ~/.subversion/ area exists, and create no-op
    template files for any absent config files.  Use POOL for any
-   temporary allocation.
+   temporary allocation.  
 
    Don't error if something exists but is the wrong kind (for example,
    ~/.subversion exists but is a file, or ~/.subversion/proxies exists

@@ -151,7 +151,7 @@ prop_list (VALUE class, VALUE aPath)
       apr_pool_destroy (pool);
       svn_ruby_raise (err);
     }
-
+  
   {
     VALUE obj;
     apr_hash_index_t *hi;
