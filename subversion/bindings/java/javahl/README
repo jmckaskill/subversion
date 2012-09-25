@@ -11,7 +11,7 @@ On Linux it needs automake 1.6. Earlier version do not work.
 Unix build tools:
 
 $ ./autogen.sh
-$ ./configure --with-jdk=<path to jdk>
+$ ./configure --with-jdk=<path to jdk> 
 
 For the various other parameters to configure please see the
 documentation of configure.  Requires jdk 1.2 or newer. It must be

@@ -143,7 +143,7 @@
       Name: subversion-X.YY.Z.tar.gz (replace X.YY.Z with the release number)
       Status: Stable
       Description: Subversion release X.YY.Z (MD5: <md5sum of tarball>)
-      Contents:  (select 'Link,
+      Contents:  (select 'Link, 
 		  enter http://svn.collab.net/repos/svn/tags/X.YY.Z)
 
     f. Click Submit
@@ -155,7 +155,7 @@
 
    There will be a single line of 2 fields returned looking something like:
 
-         $ md5sum subversion-0.25.tar.gz
+         $ md5sum subversion-0.25.tar.gz 
          a018220d5c790161bc712ccb7d0f1b38  subversion-0.25.tar.gz
 
    The 32 character alpha-numeric string on the left is the checksum.
@@ -177,7 +177,7 @@
 
    a. Edit the www/project_status.html file appropriately in /trunk *NOT*
       in the release branch and commit. Remember edit a search term at the
-      end of release's issue link.
+      end of release's issue link. 
 
       If you used 'svn switch' in 3b above, you can simply 'switch' back
       to /trunk using:
@@ -186,7 +186,7 @@
 
       then edit the www/project_status.html file appropriately.
 
-   b. Commit the modifications of www/project_status.html
+   b. Commit the modifications of www/project_status.html 
 
    c. Remind someone with an @collab.net address to update the live
       web site (we used to have a servlet for this, but at the moment
