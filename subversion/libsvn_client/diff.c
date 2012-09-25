@@ -1308,7 +1308,7 @@ static const svn_wc_diff_callbacks4_t diff_callbacks =
   diff_dir_opened,
   diff_dir_added,
   diff_dir_props_changed,
-  diff_dir_closed
+  diff_dir_closed    
 };
 
 /*-----------------------------------------------------------------*/
