@@ -1,13 +1,13 @@
 VERSION 5.00
 Object = "{396F7AC0-A0DD-11D3-93EC-00C0DFE7442A}#1.0#0"; "vbalIml6.ocx"
 Object = "*\ASGrid.vbp"
-Begin VB.Form frmOutlookDemo
+Begin VB.Form frmOutlookDemo 
    Caption         =   "Outlook Style Grid Demonstration"
    ClientHeight    =   3924
    ClientLeft      =   1476
    ClientTop       =   2172
    ClientWidth     =   7332
-   BeginProperty Font
+   BeginProperty Font 
       Name            =   "Tahoma"
       Size            =   8.4
       Charset         =   0
@@ -20,7 +20,7 @@ Begin VB.Form frmOutlookDemo
    LinkTopic       =   "Form2"
    ScaleHeight     =   3924
    ScaleWidth      =   7332
-   Begin SVNControls.SGrid grdOutlook
+   Begin SVNControls.SGrid grdOutlook 
       Height          =   3612
       Left            =   0
       TabIndex        =   0
@@ -30,7 +30,7 @@ Begin VB.Form frmOutlookDemo
       _ExtentY        =   6371
       BackgroundPictureHeight=   0
       BackgroundPictureWidth=   0
-      BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851}
+      BeginProperty Font {0BE35203-8F91-11CE-9DE3-00AA004BB851} 
          Name            =   "Tahoma"
          Size            =   8.4
          Charset         =   0
@@ -41,7 +41,7 @@ Begin VB.Form frmOutlookDemo
       EndProperty
       DisableIcons    =   -1  'True
    End
-   Begin vbalIml6.vbalImageList ilsIcons
+   Begin vbalIml6.vbalImageList ilsIcons 
       Left            =   6540
       Top             =   300
       _ExtentX        =   762
@@ -51,41 +51,41 @@ Begin VB.Form frmOutlookDemo
       KeyCount        =   19
       Keys            =   "ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ"
    End
-   Begin VB.Menu mnuFileTOP
+   Begin VB.Menu mnuFileTOP 
       Caption         =   "&File"
-      Begin VB.Menu mnuFile
+      Begin VB.Menu mnuFile 
          Caption         =   "&Close"
          Index           =   0
       End
    End
-   Begin VB.Menu mnuViewTOP
+   Begin VB.Menu mnuViewTOP 
       Caption         =   "&View"
-      Begin VB.Menu mnuView
+      Begin VB.Menu mnuView 
          Caption         =   "&Columns"
          Index           =   0
-         Begin VB.Menu mnuColumns
+         Begin VB.Menu mnuColumns 
             Caption         =   ""
             Index           =   0
          End
       End
-      Begin VB.Menu mnuView
+      Begin VB.Menu mnuView 
          Caption         =   "&Auto-Preview"
          Index           =   1
-         Begin VB.Menu mnuPreview
+         Begin VB.Menu mnuPreview 
             Caption         =   "&None"
             Index           =   0
          End
-         Begin VB.Menu mnuPreview
+         Begin VB.Menu mnuPreview 
             Caption         =   "&Unread Messages"
             Checked         =   -1  'True
             Index           =   1
          End
-         Begin VB.Menu mnuPreview
+         Begin VB.Menu mnuPreview 
             Caption         =   "&All Messages"
             Index           =   2
          End
       End
-      Begin VB.Menu mnuView
+      Begin VB.Menu mnuView 
          Caption         =   "&Grouping..."
          Index           =   2
       End
@@ -120,7 +120,7 @@ Static iRefCount As Long
       If (iRefCount = 1) Then
          grdOutlook.Redraw = False
       End If
-
+      
       If (iNumber < 0) Then
          m_bGroup = False
          ' Remove all existing group rows:
@@ -149,7 +149,7 @@ Static iRefCount As Long
                grdOutlook.ColumnVisible("group" & i + 1) = False
             End If
          Next i
-
+         
          ' Sort the grid according to the groupings:
          With grdOutlook.SortObject
             .Clear
@@ -164,7 +164,7 @@ Static iRefCount As Long
             Next i
          End With
          grdOutlook.Sort
-
+         
          ' Now add grouping rows:
          ReDim vLastItem(0 To iNumber) As Variant
          Set iFnt = grdOutlook.Font
@@ -202,7 +202,7 @@ Static iRefCount As Long
             End If
          Next iRow
       End If
-
+      
       ' Start redrawing again:
       If (iRefCount = 1) Then
          grdOutlook.Redraw = True
@@ -231,9 +231,9 @@ Dim iMenu As Long
    With grdOutlook
       ' Turn redraw off for speed:
       .Redraw = False
-
+   
       ' Set up the grid:
-
+      
       ' Source of icons.  This can be vbAccelerator ImageList control, class or
       ' a VB ImageList
       .ImageList = ilsIcons
@@ -246,7 +246,7 @@ Dim iMenu As Long
       ' Outlook style for the header control:
       .HeaderFlat = True
       .HighlightSelectedIcons = True
-
+      
       ' Add the columns:
       .AddColumn "group1", , , , 16, False, , , False
       .AddColumn "group2", , , , 16, False, , , False
@@ -278,24 +278,24 @@ Dim iMenu As Long
       ' grid will automatically start drawing rowtext at the position
       ' of the first column included in the select (bIncludeInSelect
       ' parameter of AddColumn)
-
-
+         
+      
       ' Once we have added the columns, we can set the headers up
       ' (if we are using headers)
       .SetHeaders
-
+      
       ' Add some demonstration rows:
-
+      
       ' Set up a bold font:
       Dim sFntUnread As New StdFont
       sFntUnread.Name = "Tahoma"
       sFntUnread.Size = 8
       sFntUnread.Bold = True
-
+      
       Set cS = .NewCellFormatObject
       Set cSUnread = .NewCellFormatObject
       Set cSUnread.Font = sFntUnread
-
+      
       ' Create some pretend text for From, Subject and Body
       Dim sFrom(1 To 10) As String
       sFrom(1) = "Carl Ridenhour"
@@ -308,7 +308,7 @@ Dim iMenu As Long
       sFrom(8) = "James Last"
       sFrom(9) = "Thurston Moore"
       sFrom(10) = "Beth Gibbons"
-
+      
       Dim sSubject(1 To 10) As String
       sSubject(1) = "Check out this demo"
       sSubject(2) = "RE: Sonic Bubblebath Remix"
@@ -320,7 +320,7 @@ Dim iMenu As Long
       sSubject(8) = "RE: What's the score?"
       sSubject(9) = "vbAccelerator: Excellent site!"
       sSubject(10) = "Pass the peas..."
-
+      
       Dim sBody(1 To 10) As String
       sBody(1) = "Impress passing airline passengers by painting a large blue rectangle in your back garden.  They will think that you have a swimming pool."
       sBody(2) = "Bus drivers: pretend to be an airline pilot by wedging the accelerator pedal down with a brick, tying the steering wheel to your seat with a rope and then walking up and down the aisle asking passengers if they are having a nice trip."
@@ -332,10 +332,10 @@ Dim iMenu As Long
       sBody(8) = "Jeffrey Archer Rhyming Slang Pt 2: Trouble and Strife: Prostitute"
       sBody(9) = "Small ad (inadvertently) printed in Birmingham Evening Mail: 'For Sale: Blow-up Doll.  Almost as new, needs cleaning.  Slightly stained.  Easy clean plastic maids outfit.  Offers around £100.'"
       sBody(10) = "Say goodbye to Millenium Bug Fears with the Trouser Press 2000." & vbCrLf & "Belgian scientists have been working around the clock to find a solution to the Millenium's most worrying problem - what happens if your trousers are trapped in their press at midnight on December 31st 1999." & vbCrLf & vbCrLf & "Rest assured that thanks to this miracle of bug-free microchip technology you will be wearing a crisply-creased pair of your favourite trousers to greet the new Millenium. (Batteries extra)."
-
+                           
       ' Now add the rows:
       For iRow = 1 To 200
-
+         
          ' set the urgency:
          iIconUrgent = Rnd * 3
          Select Case iIconUrgent
@@ -347,7 +347,7 @@ Dim iMenu As Long
             iIconUrgent = -1
          End Select
          .CellDetails iRow, 4, , , iIconUrgent
-
+         
          ' set the type:
          If (iRow < 16) Then
             iIconType = 1
@@ -355,7 +355,7 @@ Dim iMenu As Long
             iIconType = Rnd * 2 + 2
          End If
          .CellIcon(iRow, 5) = iIconType
-
+         
          ' set the attachment:
          If Rnd * 20 > 17 Then
             iIconAttach = 14
@@ -363,7 +363,7 @@ Dim iMenu As Long
             iIconAttach = -1
          End If
          .CellIcon(iRow, 6) = iIconAttach
-
+         
          ' set the Flag:
          If Rnd * 20 > 18 Then
             iIconFlag = 13
@@ -371,7 +371,7 @@ Dim iMenu As Long
             iIconFlag = -1
          End If
          .CellIcon(iRow, 7) = iIconFlag
-
+         
          ' mark as irrelevant ("junk mail"):
          iIdx = Int(Rnd * 9) + 1
          If iIdx = 7 Or iIdx = 8 Then
@@ -379,14 +379,14 @@ Dim iMenu As Long
          Else
             lCol = -1
          End If
-
+         
          ' from:
          If (iRow < 16) Then
             .CellDetails iRow, 8, sFrom(iIdx), , , , lCol, sFntUnread
          Else
             .CellDetails iRow, 8, sFrom(iIdx), , , , lCol
          End If
-
+         
          ' subject:
          iIdx = Int(Rnd * 9) + 1
          If (iRow < 16) Then
@@ -394,7 +394,7 @@ Dim iMenu As Long
          Else
             .CellDetails iRow, 9, sSubject(iIdx), , , , lCol
          End If
-
+         
          ' date:
          dDate = Now
          dDate = DateAdd("m", -Rnd * 12, dDate)
@@ -405,14 +405,14 @@ Dim iMenu As Long
          Else
             .CellDetails iRow, 10, dDate, , , , lCol
          End If
-
+         
          ' to:
          If (iRow < 16) Then
             .CellDetails iRow, 11, "Steve McMahon", , , , lCol, sFntUnread
          Else
             .CellDetails iRow, 11, "Steve McMahon", , , , lCol
          End If
-
+         
          iIdx = Int(Rnd * 9) + 1
          .CellDetails iRow, 14, sBody(iIdx), DT_WORDBREAK, , , RGB(0, 0, &H80)
          lHeight = .EvaluateTextHeight(iRow, 14) + .DefaultRowHeight + 2
@@ -424,14 +424,14 @@ Dim iMenu As Long
          Else
             .CellDetails iRow, 12, "READ"
          End If
-
+         
          ' ID marker:
          .CellDetails iRow, 13, iRow
-
-
+                  
+         
       Next iRow
-
-
+      
+      
       ' Add the columns to the menu:
       For iCol = 1 To .Columns
          If (.ColumnVisible(iCol)) And (iCol <> 14) Then
@@ -449,7 +449,7 @@ Dim iMenu As Long
             iMenu = iMenu + 1
          End If
       Next iCol
-
+      
       .Redraw = True
    End With
 End Sub
@@ -469,7 +469,7 @@ Dim sJunk() As String, eJunk() As cShellSortOrderCOnstants
          DoGroup 0, sJunk(), eJunk()
       End If
    End If
-
+      
    With grdOutlook.SortObject
       .Clear
       .SortColumn(1) = lCol
@@ -480,7 +480,7 @@ Dim sJunk() As String, eJunk() As cShellSortOrderCOnstants
       End If
       grdOutlook.ColumnSortOrder(lCol) = .SortOrder(1)
       .SortType(1) = grdOutlook.ColumnSortType(lCol)
-
+      
       ' Place ascending/descending icon:
       For iCol = 1 To grdOutlook.Columns
          If (iCol <> lCol) Then
@@ -496,13 +496,13 @@ Dim sJunk() As String, eJunk() As cShellSortOrderCOnstants
             End If
          End If
       Next iCol
-
+      
    End With
-
+   
    Screen.MousePointer = vbHourglass
    grdOutlook.Sort
    Screen.MousePointer = vbDefault
-
+   
 End Sub
 
 Private Sub grdOutlook_ColumnOrderChanged()
@@ -604,7 +604,7 @@ Dim lHeight As Long
    For i = 0 To 2
       mnuPreview(i).Checked = (i = Index)
    Next i
-
+   
    grdOutlook.Redraw = False
    If (Index = 0) Then
       ' No preview:
@@ -646,7 +646,7 @@ Private Sub mnuView_Click(Index As Integer)
       For j = mnuColumns.LBound To mnuColumns.UBound
          fC.AddField mnuColumns(j).Caption, mnuColumns(j).Tag
       Next j
-
+            
       fC.Show vbModal
       If Not fC.Cancelled Then
          Screen.MousePointer = vbHourglass
