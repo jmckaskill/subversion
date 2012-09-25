@@ -98,7 +98,7 @@ svn_cl__prompt_user (const char **result,
                    ever heard of such a thing? */
                 abort ();
             }
-
+          
           svn_stringbuf_appendbytes (strbuf, &c, 1);
         }
     }
@@ -110,7 +110,7 @@ svn_cl__prompt_user (const char **result,
       status = apr_password_get (prompt_native, strbuf->data, &bufsize);
       if (status)
         return svn_error_create (status, NULL,
-                                 "error from apr_password_get().");
+                                 "error from apr_password_get().");      
     }
 
   SVN_ERR (svn_utf_cstring_to_utf8 ((const char **)result, strbuf->data,
