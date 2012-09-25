@@ -174,7 +174,7 @@ void svn_wc__entry_remove (apr_hash_t *entries, const char *name);
  * make this the entry's new url.  If NEW_REV is valid, make this the
  * entry's working revision.  (This is purely an in-memory operation.)
  *
- * (Intended as a helper to svn_wc__do_update_cleanup, which see.)
+ * (Intended as a helper to svn_wc__do_update_cleanup, which see.) 
  */
 svn_error_t *
 svn_wc__tweak_entry (apr_hash_t *entries,
