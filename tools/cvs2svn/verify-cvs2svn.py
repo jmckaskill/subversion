@@ -213,7 +213,7 @@ def main():
     if (opt == '--help') or (opt == '-h'):
       usage()
       sys.exit(0)
-
+      
   # Consistency check for options and arguments.
   if len(args) != 2:
     usage()
