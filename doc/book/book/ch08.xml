@@ -3,7 +3,7 @@ are more than welcome, but patches are probably a bit premature at
 this point. -->
 <chapter id="svn-ch-8">
   <title>Subversion Complete Reference</title>
-
+  
   <simplesect>
     <para>This chapter is intended to be a complete reference to
       using Subversion. This includes the command line client
@@ -14,24 +14,24 @@ this point. -->
       configuration files, and working copy administrative areas.
     </para>
   </simplesect>
-
-
+  
+  
   <!-- ================================================================= -->
   <!-- ======================== SECTION 1 ============================== -->
   <!-- ================================================================= -->
   <sect1 id="svn-ch-8-sect-1">
     <title>The Subversion Command Line Client:
       <command>svn</command></title>
-
+    
     <para>###TODO Talk about the client, how commands are laid out,
       cover global switches, long form vs. short form, plus xrefs to
       the rest of the book for more info.</para>
-
+    
     <sect2 id="svn-ch-8-sect-1.1">
       <title></title>
       <para>###TODO Write this</para>
     </sect2>
-
+    
     <sect2 id="svn-ch-8-sect-1.2">
       <title><command>svn add</command></title>
       <para>###TODO Write this</para>
@@ -79,7 +79,7 @@ this point. -->
         tree of files from a repository directory&mdash;a tree that
         looks like a typical working copy, but doesn't contain the
         <filename>.svn</filename> directories:</para>
-
+      
       <screen>
 $ svn export file:///usr/local/svn/newrepos/fooproject
 A  fooproject/foo.c
@@ -88,7 +88,7 @@ A  fooproject/subdir
 A  fooproject/subdir/quux.h
 Checked out revision 3.
       </screen>
-
+      
       <para>The resulting directory will not contain any
         <filename>.svn</filename> administrative areas, and all
         property metadata will be lost.  (Hint: don't use this
@@ -96,7 +96,7 @@ Checked out revision 3.
         source distributions.)</para>
 
     </sect2>
-
+    
     <sect2 id="svn-ch-8-sect-1.11">
       <title><command>svn help</command></title>
       <para>###TODO Write this</para>
@@ -109,14 +109,14 @@ Checked out revision 3.
 
     <sect2 id="svn-ch-8-sect-1.13">
       <title><command>svn info</command></title>
-
+      
       <para>In general, we try to discourage you from directly
         reading the <filename>.svn/entries</filename> file used to
         track items in a Subversion working copy.  Instead, you can
         get tons of information about an item in your working copy
         by using the <command>svn info</command> command to display
         most of the tracked information:</para>
-
+      
       <screen>
 $ svn info rules.txt
 Path: rules.txt
@@ -132,9 +132,9 @@ Text Last Updated: 2002-11-16 08:48:04 -0500 (Sat, 16 Nov 2002)
 Properties Last Updated: 2002-11-16 08:48:03 -0500 (Sat, 16 Nov 2002)
 Checksum: 8sfaU+5dqyOgkhuSdyxGrQ==
       </screen>
-
+      
     </sect2>
-
+    
     <sect2 id="svn-ch-8-sect-1.14">
       <title><command>svn list</command></title>
       <para>###TODO Write this</para>
@@ -152,13 +152,13 @@ Checksum: 8sfaU+5dqyOgkhuSdyxGrQ==
 
     <sect2 id="svn-ch-8-sect-1.17">
       <title><command>svn mkdir</command></title>
-
+      
       <para>This is another convenience command, and it has two
         uses.</para>
-
+      
       <para>First, it can be used to simultaneously create a new
         working copy directory and schedule it for addition:</para>
-
+    
       <screen>
 $ svn mkdir new-dir
 A     new-dir
@@ -174,7 +174,7 @@ Committed revision 1123.
 
       <para>Again, this is a form of immediate commit, so some sort
         of log message is required.</para>
-
+      
     </sect2>
 
     <sect2 id="svn-ch-8-sect-1.18">
@@ -231,15 +231,15 @@ Committed revision 1123.
       <title><command>svn update</command></title>
       <para>###TODO Write this</para>
     </sect2>
-
+    
   </sect1>
-
+  
   <!-- ================================================================= -->
   <!-- ======================== SECTION 2 ============================== -->
   <!-- ================================================================= -->
   <sect1 id="svn-ch-8-sect-2">
     <title><command>svnadmin</command></title>
-
+    
     <para>
       ###TODO Write this
     </para>
@@ -300,17 +300,17 @@ Committed revision 1123.
     </sect2>
 
   </sect1>
-
+  
   <!-- ================================================================= -->
   <!-- ======================== SECTION 3 ============================== -->
   <!-- ================================================================= -->
   <sect1 id="svn-ch-8-sect-3">
     <title><command>svnlook</command></title>
-
+    
     <para>### TODO Talk about how svnlook works in general:
       std. command structure, revnums vs. tranny names, what the
       default action is, etc.</para>
-
+    
     <sect2 id="svn-ch-8-sect-3.1">
       <title>svn author</title>
       <para>###TODO Write this</para>
@@ -362,13 +362,13 @@ Committed revision 1123.
     </sect2>
 
   </sect1>
-
+  
   <!-- ================================================================= -->
   <!-- ======================== SECTION 4 ============================== -->
   <!-- ================================================================= -->
   <sect1 id="svn-ch-8-sect-4">
     <title>Repository Configuration Files</title>
-
+    
     <para>###TODO We should probably break out Apache stuff into its
       own section and talk about ra_local on its own. For ra_dav, go
       through all the relevant directives and what they do.  Once
@@ -380,7 +380,7 @@ Committed revision 1123.
   <!-- ================================================================= -->
   <sect1 id="svn-ch-8-sect-5">
     <title>Repository commit hooks</title>
-
+    
     <para>
       ###TODO pre-commit, post-commit, start-co
     </para>
@@ -393,9 +393,9 @@ Committed revision 1123.
   <sect1 id="svn-ch-8-sect-6">
     <title>Client configuration (Inside the
       <filename>.subversion</filename> directory)</title>
-
+    
     <para>###TODO Write this</para>
-
+    
   </sect1>
   <!-- ================================================================= -->
   <!-- ======================== SECTION 7 ============================== -->
@@ -413,7 +413,7 @@ Committed revision 1123.
       prop-base/, props/, text-base/, tmp/, and wcprops/</para>
 
   </sect1>
-
+  
 </chapter>
 
 

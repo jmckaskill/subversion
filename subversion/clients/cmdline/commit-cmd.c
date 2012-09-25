@@ -55,7 +55,7 @@ svn_cl__commit (apr_getopt_t *os,
   void *notify_baton = NULL;
   void *log_msg_baton;
 
-  SVN_ERR (svn_opt_args_to_target_array (&targets, os,
+  SVN_ERR (svn_opt_args_to_target_array (&targets, os, 
                                          opt_state->targets,
                                          &(opt_state->start_revision),
                                          &(opt_state->end_revision),
@@ -77,7 +77,7 @@ svn_cl__commit (apr_getopt_t *os,
     {
       const char *parent_dir, *base_name;
 
-      SVN_ERR (svn_wc_get_actual_target (base_dir, &parent_dir,
+      SVN_ERR (svn_wc_get_actual_target (base_dir, &parent_dir, 
                                          &base_name, pool));
       if (base_name)
         base_dir = apr_pstrdup (pool, parent_dir);
