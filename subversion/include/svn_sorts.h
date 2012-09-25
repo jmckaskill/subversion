@@ -53,11 +53,11 @@ typedef struct {
  * Compare two @c svn_item_t's, returning an integer greater than,
  * equal to, or less than 0, according as @a a is greater than, equal to,
  * or less than @a b.
- *
+ * 
  * This is useful for converting a hash into a sorted
  * @c apr_array_header_t.  For example, to convert hash @a hsh to a sorted
  * array, do this:
- *
+ * 
  *<pre>   apr_array_header_t *hdr;
  *   hdr = apr_hash_sorted_keys (hsh, @c svn_sort_compare_items_as_paths,
  *                               pool);</pre>

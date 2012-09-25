@@ -121,7 +121,7 @@ svn_stream_printf (svn_stream_t *stream,
   va_start (ap, fmt);
   message = apr_pvsprintf (pool, fmt, ap);
   va_end (ap);
-
+  
   len = strlen(message);
   return svn_stream_write (stream, message, &len);
 }
@@ -158,7 +158,7 @@ svn_stream_readline (svn_stream_t *stream,
 
       svn_stringbuf_appendbytes (str, &c, 1);
     }
-
+  
   *stringbuf = str;
   return SVN_NO_ERROR;
 }
