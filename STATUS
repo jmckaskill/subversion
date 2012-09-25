@@ -14,8 +14,8 @@ Status of 1.6.0:
 ================
 
 Candidate changes:
-
-
+ 
+     
 Candidate if a new tarball is constructed (otherwise for 1.6.1):
 
  * r36049-r36051, r36131
@@ -29,7 +29,7 @@ Candidate if a new tarball is constructed (otherwise for 1.6.1):
      (This doesn't fix this testcase; it just handles this part of the problem)
    Votes:
      +1: rhuijben, pburba
-     -0: gstein (replied with feedback on this rev.) (r36049 only)
+     -0: gstein (replied with feedback on this rev.) (r36049 only) 
 
  * r36159
    Fix proxying of LOCK and UNLOCK requests via WebDAV proxies.
