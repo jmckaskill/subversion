@@ -143,7 +143,7 @@ convert_to_stringbuf (apr_xlate_t *convset,
   if (src_length == 0)
     return SVN_NO_ERROR;
 
-  do
+  do 
     {
       /* A 1:2 ratio of input characters to output characters should
          be enough for most translations, and conveniently enough, if
@@ -163,10 +163,10 @@ convert_to_stringbuf (apr_xlate_t *convset,
       destlen = buflen - (*dest)->len;
 
       /* Attempt the conversion. */
-      apr_err = apr_xlate_conv_buffer (convset,
-                                       src_data + (src_length - srclen),
+      apr_err = apr_xlate_conv_buffer (convset, 
+                                       src_data + (src_length - srclen), 
                                        &srclen,
-                                       destbuf,
+                                       destbuf, 
                                        &destlen);
 
       /* Now, update the *DEST->len to track the amount of output data
@@ -180,7 +180,7 @@ convert_to_stringbuf (apr_xlate_t *convset,
     /* Can't use svn_error_wrap_apr here because it calls functions in
        this file, leading to infinite recursion. */
     return svn_error_create (apr_err, NULL, "Can't recode string");
-
+  
   /* Else, exited due to success.  Trim the result buffer down to the
      right length. */
   (*dest)->data[(*dest)->len] = '\0';
@@ -210,7 +210,7 @@ check_non_ascii (const char *data, apr_size_t len, apr_pool_t *pool)
              time tracking down the non-ASCII data, so we want to help
              as much as possible.  And yes, we just call the unsafe
              data "non-ASCII", even though the actual constraint is
-             somewhat more complex than that. */
+             somewhat more complex than that. */ 
 
           if (data - data_start)
             {
@@ -332,7 +332,7 @@ svn_utf_string_to_utf8 (const svn_string_t **dest,
 
   if (convset)
     {
-      SVN_ERR (convert_to_stringbuf (convset, src->data, src->len,
+      SVN_ERR (convert_to_stringbuf (convset, src->data, src->len, 
                                      &destbuf, pool));
       SVN_ERR (check_utf8 (destbuf->data, destbuf->len, pool));
       *dest = svn_string_create_from_buf (destbuf, pool);
