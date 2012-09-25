@@ -45,8 +45,8 @@ public class Entry {
     public final Date prop_time;
     public final Hashtable attributes;
 
-    public Entry( long _revision, String _url, int _nodeKind,
-                  int _schedule, int _existence, Date _text_time,
+    public Entry( long _revision, String _url, int _nodeKind, 
+                  int _schedule, int _existence, Date _text_time, 
                   Date _prop_time, Hashtable _attributes )
 	{
 	    url = _url;
@@ -60,10 +60,10 @@ public class Entry {
 	}
 }
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../../../../../svn-dev.el")
- * end:
+ * end: 
  */
 
 
