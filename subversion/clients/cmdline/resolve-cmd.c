@@ -53,7 +53,7 @@ svn_cl__resolve (apr_getopt_t *os,
       for (i = 0; i < targets->nelts; i++)
         {
           svn_stringbuf_t *target = ((svn_stringbuf_t **) (targets->elts))[i];
-          err = svn_client_resolve (target,
+          err = svn_client_resolve (target,                                    
                                     SVN_CL_NOTIFY(opt_state),
                                     svn_cl__make_notify_baton (subpool),
                                     subpool);
@@ -79,8 +79,8 @@ svn_cl__resolve (apr_getopt_t *os,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../tools/dev/svn-dev.el")
- * end:
+ * end: 
  */

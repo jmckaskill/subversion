@@ -58,7 +58,7 @@ svn_cl__update (apr_getopt_t *os,
 
   for (i = 0; i < condensed_targets->nelts; i++)
     {
-      svn_stringbuf_t *target =
+      svn_stringbuf_t *target = 
         ((svn_stringbuf_t **) (condensed_targets->elts))[i];
       const svn_delta_editor_t *trace_editor;
       void *trace_edit_baton;
@@ -81,7 +81,7 @@ svn_cl__update (apr_getopt_t *os,
                 opt_state->xml_file,
                 &(opt_state->start_revision),
                 opt_state->nonrecursive ? FALSE : TRUE,
-                SVN_CL_NOTIFY(opt_state),
+                SVN_CL_NOTIFY(opt_state), 
                 svn_cl__make_notify_baton (pool),
                 pool));
     }
@@ -90,8 +90,8 @@ svn_cl__update (apr_getopt_t *os,
 }
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../tools/dev/svn-dev.el")
- * end:
+ * end: 
  */

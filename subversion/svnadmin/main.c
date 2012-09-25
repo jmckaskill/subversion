@@ -52,7 +52,7 @@ print_tree (svn_fs_root_t *root,
 {
   apr_hash_t *entries;
   apr_hash_index_t *hi;
-
+  
   SVN_ERR (svn_fs_dir_entries (&entries, root, path, pool));
 
   for (hi = apr_hash_first (pool, entries); hi; hi = apr_hash_next (hi))
@@ -77,7 +77,7 @@ print_tree (svn_fs_root_t *root,
         printf (" ");
 
       printf ("%s", this_entry->name);
-
+      
       SVN_ERR (svn_fs_node_id (&id, root, this_full_path, pool));
       id_str = svn_fs_unparse_id (id, pool);
 
@@ -141,7 +141,7 @@ usage (const char *progname, int exit_code)
      "      Print all txn names and, if \"--long\" is specified, their\n"
      "      metadata and trees.\n"
      "\n"
-#if 0
+#if 0 
 /* see TODO below at next `#if 0' */
      "   recover   REPOS_PATH\n"
      "      Run the Berkeley DB recovery procedure on a repository.  Do\n"
@@ -179,7 +179,7 @@ usage (const char *progname, int exit_code)
 
 /*** Main. ***/
 
-static svnadmin_cmd_t
+static svnadmin_cmd_t 
 parse_command (const char *command)
 {
   if (! strcmp (command, "create"))
@@ -306,7 +306,7 @@ main (int argc, const char * const *argv)
         char *txn_name;
         svn_boolean_t show_extra = FALSE;
 
-        if (argc >= 4)
+        if (argc >= 4) 
           {
             if (strcmp (argv[2], "--long") != 0)
               {
@@ -320,7 +320,7 @@ main (int argc, const char * const *argv)
         INT_ERR (svn_repos_open (&repos, path, pool));
         fs = svn_repos_fs (repos);
         INT_ERR (svn_fs_list_transactions(&txns, fs, pool));
-
+        
         /* Loop, printing revisions. */
         while ((txn_name = *txns++))
           {
@@ -336,21 +336,21 @@ main (int argc, const char * const *argv)
                 INT_ERR (svn_fs_open_txn (&txn, fs, txn_name, this_pool));
                 INT_ERR (svn_fs_txn_root (&this_root, txn, this_pool));
                 INT_ERR (svn_fs_txn_prop (&datestamp, txn,
-                                          SVN_PROP_REVISION_DATE,
+                                          SVN_PROP_REVISION_DATE, 
                                           this_pool));
                 INT_ERR (svn_fs_txn_prop (&author, txn,
-                                          SVN_PROP_REVISION_AUTHOR,
+                                          SVN_PROP_REVISION_AUTHOR, 
                                           this_pool));
                 if ((! datestamp) || (! datestamp->data))
                   datestamp = svn_string_create ("", this_pool);
                 if ((! author) || (! author->data))
                   author = svn_string_create ("", this_pool);
                 INT_ERR (svn_fs_txn_prop (&log, txn,
-                                          SVN_PROP_REVISION_LOG,
+                                          SVN_PROP_REVISION_LOG, 
                                           this_pool));
                 if (! log)
                   log = svn_string_create ("", this_pool);
-
+                
                 printf ("Txn %s:\n", txn_name);
                 printf ("Created: %s\n", datestamp->data);
                 printf ("Author: %s\n", author->data);
@@ -384,7 +384,7 @@ main (int argc, const char * const *argv)
             if (argv[4])
               upper = SVN_STR_TO_REV (argv[4]);
           }
-
+        
         /* Fill in for implied args. */
         if (lower == SVN_INVALID_REVNUM)
           {
@@ -393,7 +393,7 @@ main (int argc, const char * const *argv)
           }
         else if (upper == SVN_INVALID_REVNUM)
           upper = lower;
-
+        
         /* Loop, printing revisions. */
         for (this = lower; this <= upper; this++)
           {
@@ -402,21 +402,21 @@ main (int argc, const char * const *argv)
             svn_string_t *author;
             svn_string_t *log;
             apr_pool_t *this_pool = svn_pool_create (pool);
-
+            
             INT_ERR (svn_fs_revision_root (&this_root, fs, this, this_pool));
-            INT_ERR (svn_fs_revision_prop (&datestamp, fs, this,
+            INT_ERR (svn_fs_revision_prop (&datestamp, fs, this, 
                                            SVN_PROP_REVISION_DATE, this_pool));
-            INT_ERR (svn_fs_revision_prop (&author, fs, this,
-                                           SVN_PROP_REVISION_AUTHOR,
+            INT_ERR (svn_fs_revision_prop (&author, fs, this, 
+                                           SVN_PROP_REVISION_AUTHOR, 
                                            this_pool));
             if (! author)
               author = svn_string_create ("", this_pool);
-
+            
             INT_ERR (svn_fs_revision_prop (&log, fs, this,
                                            SVN_PROP_REVISION_LOG, this_pool));
             if (! log)
               log = svn_string_create ("", this_pool);
-
+            
             printf ("Revision %ld\n", (long int) this);
             printf ("Created: %s\n", datestamp->data);
             printf ("Author: %s\n", author->data);
@@ -425,7 +425,7 @@ main (int argc, const char * const *argv)
             printf ("==========================================\n");
             print_tree (this_root, "", 1, this_pool);
             printf ("\n");
-
+            
             svn_pool_destroy (this_pool);
           }
       }
@@ -435,16 +435,16 @@ main (int argc, const char * const *argv)
       {
         svn_fs_txn_t *txn;
         int i;
-
+        
         if (! argv[3])
           {
             usage (argv[0], 1);
             /* NOTREACHED */
           }
-
+        
         INT_ERR (svn_repos_open (&repos, path, pool));
         fs = svn_repos_fs (repos);
-
+        
         /* All the rest of the arguments are transaction names. */
         for (i = 3; i < argc; i++)
           {
@@ -457,13 +457,13 @@ main (int argc, const char * const *argv)
     case svnadmin_cmd_createtxn:
       {
         svn_fs_txn_t *txn;
-
+        
         if (! argv[3])
           {
             usage (argv[0], 1);
             /* NOTREACHED */
           }
-
+        
         INT_ERR (svn_repos_open (&repos, path, pool));
         fs = svn_repos_fs (repos);
         INT_ERR (svn_fs_begin_txn (&txn, fs, SVN_STR_TO_REV (argv[3]), pool));
@@ -482,10 +482,10 @@ main (int argc, const char * const *argv)
             printf ("Error: `setlog' requires exactly 3 arguments.\n");
             exit(1);
           }
-
+      
         /* get revision and file from argv[] */
         the_rev = SVN_STR_TO_REV (argv[3]);
-        INT_ERR (svn_string_from_file (&file_contents, argv[4], pool));
+        INT_ERR (svn_string_from_file (&file_contents, argv[4], pool)); 
         log_contents.data = file_contents->data;
         log_contents.len = file_contents->len;
 
@@ -519,7 +519,7 @@ main (int argc, const char * const *argv)
         node = argv[4];
 
         /* open the filesystem */
-        INT_ERR (svn_repos_open (&repos, path, pool));
+        INT_ERR (svn_repos_open (&repos, path, pool));      
         fs = svn_repos_fs (repos);
 
         /* open the revision root */
@@ -530,7 +530,7 @@ main (int argc, const char * const *argv)
         INT_ERR (svn_fs_is_dir (&is_dir, rev_root, node, pool));
 
         /* do the (un-)deltification */
-        printf ("%seltifying `%s' in revision %ld...",
+        printf ("%seltifying `%s' in revision %ld...", 
                 is_deltify ? "D" : "Und", node, (long int)the_rev);
         if (is_deltify)
           {
@@ -586,7 +586,7 @@ main (int argc, const char * const *argv)
           }
 
         /* Run recovery on the Berkeley environment, using FS to get the
-           path to said environment. */
+           path to said environment. */ 
         env_path = svn_fs_db_env (fs, pool);
         /* ### todo: this usually seems to get an error -- namely, that
            the DB needs recovery!  Why would that be, when we just
@@ -641,7 +641,7 @@ main (int argc, const char * const *argv)
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end:

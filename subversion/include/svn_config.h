@@ -150,7 +150,7 @@ typedef struct svn_config_t svn_config_t;
    is merged in.  System config information under Windows is found
    only in the registry.
 
-   If no proxy config information is available, return an empty *CFGP.
+   If no proxy config information is available, return an empty *CFGP.  
 
    ### Notes: This function, and future ones like it, rather obviates
    the need for svn_config_read() and svn_config_merge() as public
