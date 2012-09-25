@@ -105,10 +105,10 @@ blame_receiver(void *baton,
   apr_time_t atime;
   const char *time_utf8;
   const char *time_stdout;
-  const char *rev_str = SVN_IS_VALID_REVNUM(revision)
+  const char *rev_str = SVN_IS_VALID_REVNUM(revision) 
     ? apr_psprintf(pool, "%6ld", revision)
                         : "     -";
-
+  
   if (opt_state->verbose)
     {
       if (date)
@@ -123,18 +123,18 @@ blame_receiver(void *baton,
              abbreviations for the month and weekday names.  Else, the
              line contents will be misaligned. */
           time_stdout = "                                           -";
-      return svn_stream_printf(out, pool, "%s %10s %s %s%s", rev_str,
-                               author ? author : "         -",
+      return svn_stream_printf(out, pool, "%s %10s %s %s%s", rev_str, 
+                               author ? author : "         -", 
                                time_stdout , line, APR_EOL_STR);
     }
   else
     {
-      return svn_stream_printf(out, pool, "%s %10s %s%s", rev_str,
+      return svn_stream_printf(out, pool, "%s %10s %s%s", rev_str, 
                                author ? author : "         -",
                                line, APR_EOL_STR);
     }
 }
-
+ 
 
 /* Prints XML header to standard out. */
 static svn_error_t *
