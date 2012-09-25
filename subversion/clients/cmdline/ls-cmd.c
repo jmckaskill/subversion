@@ -50,14 +50,14 @@ print_dirents (apr_hash_t *dirents,
   int i;
 
   array = apr_hash_sorted_keys (dirents, compare_items_as_paths, pool);
-
+  
   for (i = 0; i < array->nelts; ++i)
     {
       const char *utf8_entryname, *native_entryname;
       svn_dirent_t *dirent;
       svn_item_t *item;
       char timestr[20];
-
+     
       item = &APR_ARRAY_IDX (array, i, svn_item_t);
 
       utf8_entryname = item->key;
@@ -65,7 +65,7 @@ print_dirents (apr_hash_t *dirents,
       dirent = apr_hash_get (dirents, utf8_entryname, item->klen);
 
       SVN_ERR (svn_utf_cstring_from_utf8 (&native_entryname,
-                                          utf8_entryname, pool));
+                                          utf8_entryname, pool));      
       if (verbose)
         {
           const char *native_author;
@@ -90,7 +90,7 @@ print_dirents (apr_hash_t *dirents,
               timestr[0] = '\0';
           }
 
-          printf ("%c %7"SVN_REVNUM_T_FMT" %8.8s %8ld %12s %s%s\n",
+          printf ("%c %7"SVN_REVNUM_T_FMT" %8.8s %8ld %12s %s%s\n", 
                   dirent->has_props ? 'P' : '_',
                   dirent->created_rev,
                   native_author ? native_author : "      ? ",
@@ -101,7 +101,7 @@ print_dirents (apr_hash_t *dirents,
         }
       else
         {
-          printf ("%s%s\n", native_entryname,
+          printf ("%s%s\n", native_entryname, 
                   (dirent->kind == svn_node_dir) ? "/" : "");
         }
     }
@@ -120,9 +120,9 @@ svn_cl__ls (apr_getopt_t *os,
   svn_client_ctx_t *ctx = ((svn_cl__cmd_baton_t *) baton)->ctx;
   apr_array_header_t *targets;
   int i;
-  apr_pool_t *subpool = svn_pool_create (pool);
+  apr_pool_t *subpool = svn_pool_create (pool); 
 
-  SVN_ERR (svn_opt_args_to_target_array (&targets, os,
+  SVN_ERR (svn_opt_args_to_target_array (&targets, os, 
                                          opt_state->targets,
                                          &(opt_state->start_revision),
                                          &(opt_state->end_revision),
@@ -137,7 +137,7 @@ svn_cl__ls (apr_getopt_t *os,
     {
       apr_hash_t *dirents;
       const char *target = ((const char **) (targets->elts))[i];
-
+     
       SVN_ERR (svn_client_ls (&dirents, target, &(opt_state->start_revision),
                               opt_state->recursive, ctx, subpool));
 
