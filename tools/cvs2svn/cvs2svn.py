@@ -49,7 +49,7 @@ vendor_tag = re.compile('^[0-9]+\\.[0-9]+\\.[0-9]+$')
 # This really only matches standard '1.1.1.*'-style vendor revisions.
 # One could conceivably have a file whose default branch is 1.1.3 or
 # whatever, or was that at some point in time, with vendor revisions
-# 1.1.3.1, 1.1.3.2, etc.  But with the default branch gone now (which
+# 1.1.3.1, 1.1.3.2, etc.  But with the default branch gone now (which 
 # is the only time this regexp gets used), we'd have no basis for
 # assuming that the non-standard vendor branch had ever been the
 # default branch anyway, so we don't want this to match them anyway.
@@ -724,7 +724,7 @@ class RepositoryMirror:
       parent = this_entry_val
       previous_component = component
       i = i + 1
-
+  
     if debugging:
       print "  " * i,
       print "parent_key: %s, val:" % parent_key, parent
@@ -766,7 +766,7 @@ class RepositoryMirror:
     No action is taken for keys in EXPECTED_ENTRIES but not in the
     dst; it is assumed that the caller will compensate for these by
     calling change_path again with other arguments.
-
+    
     If ONLY_IF_ALREADY_EXISTS is set, then do a no-op, rather than an add,
     if the path does not exist. This is to allow pruning using EXPECTED_ENTRIES
     without risking erroneously adding a path."""
@@ -949,7 +949,7 @@ class RepositoryMirror:
     # We never prune our top-level directories (/trunk, /tags, /branches)
     if len(components) < 2:
       return None, [], []
-
+    
     for component in components[:-1]:
       if path_so_far:
         path_so_far = path_so_far + '/' + component
@@ -1059,7 +1059,7 @@ class Dumper:
     self.dump_only = ctx.dump_only
     self.dumpfile = None
     self.path_encoding = ctx.encoding
-
+    
     # If all we're doing here is dumping, we can go ahead and
     # initialize our single dumpfile.  Else, if we're suppose to
     # create the repository, do so.
@@ -1069,7 +1069,7 @@ class Dumper:
       print "creating repos '%s'" % (self.target)
       run_command('%s create %s' % (self.svnadmin, self.target))
 
-
+    
   def init_dumpfile(self):
     # Open the dumpfile for binary-mode write.
     self.dumpfile = open(self.dumpfile_path, 'wb')
@@ -1078,7 +1078,7 @@ class Dumper:
     #
     # The CVS repository doesn't have a UUID, and the Subversion
     # repository will be created with one anyway.  So when we load
-    # the dumpfile, we'll tell svnadmin to ignore the UUID below.
+    # the dumpfile, we'll tell svnadmin to ignore the UUID below. 
     self.dumpfile.write('SVN-fs-dump-format-version: 2\n'
                         '\n')
 
@@ -1090,7 +1090,7 @@ class Dumper:
     run_command('%s load -q %s < %s'
                 % (self.svnadmin, self.target, self.dumpfile_path))
     os.remove(self.dumpfile_path)
-
+  
   def start_revision(self, props):
     """Write the next revision, with properties, to the dumpfile.
     Return the newly started revision."""
@@ -1098,20 +1098,20 @@ class Dumper:
     # If this is not a --dump-only, we need to flush (load into the
     # repository) any dumpfile data we have already written and the
     # init a new dumpfile before starting this revision.
-
+    
     if not self.dump_only:
       if self.revision > 0:
         self.flush_and_remove_dumpfile()
       self.init_dumpfile()
-
+      
     self.revision = self.revision + 1
 
     # A revision typically looks like this:
-    #
+    # 
     #   Revision-number: 1
     #   Prop-content-length: 129
     #   Content-length: 129
-    #
+    #   
     #   K 7
     #   svn:log
     #   V 27
@@ -1135,7 +1135,7 @@ class Dumper:
     # everything.  That's the generic header form for any entity in a
     # dumpfile.  But since revisions only have props, the two lengths
     # are always the same for revisions.
-
+    
     # Calculate the total length of the props section.
     total_len = 10  # len('PROPS-END\n')
     for propname in props.keys():
@@ -1145,7 +1145,7 @@ class Dumper:
       vlen_len = len('V %d' % vlen)
       # + 4 for the four newlines within a given property's section
       total_len = total_len + klen + klen_len + vlen + vlen_len + 4
-
+        
     # Print the revision header and props
     self.dumpfile.write('Revision-number: %d\n'
                         'Prop-content-length: %d\n'
@@ -1154,9 +1154,9 @@ class Dumper:
                         % (self.revision, total_len, total_len))
 
     for propname in props.keys():
-      self.dumpfile.write('K %d\n'
-                          '%s\n'
-                          'V %d\n'
+      self.dumpfile.write('K %d\n' 
+                          '%s\n' 
+                          'V %d\n' 
                           '%s\n' % (len(propname),
                                     propname,
                                     len(props[propname]),
@@ -1169,7 +1169,7 @@ class Dumper:
     return self.revision
 
   def add_dir(self, path):
-    self.dumpfile.write("Node-path: %s\n"
+    self.dumpfile.write("Node-path: %s\n" 
                         "Node-kind: dir\n"
                         "Node-action: add\n"
                         "Prop-content-length: 10\n"
@@ -1186,7 +1186,7 @@ class Dumper:
       ### We can't afford that here.
       unicode_path = unicode(path, self.path_encoding, 'strict')
       return unicode_path.encode('utf-8')
-
+    
     except UnicodeError:
       print "Unable to convert a path '%s' to internal encoding." % path
       print "Consider rerunning with (for example) '--encoding=latin1'"
@@ -1226,7 +1226,7 @@ class Dumper:
                          "creating revision %d in dumpfile.\n"
                          % (error_prefix, change.copyfrom_rev, self.revision))
         sys.exit(1)
-
+        
       # We don't need to include "Node-kind:" for copies; the loader
       # ignores it anyway and just uses the source kind instead.
       self.dumpfile.write('Node-path: %s\n'
@@ -1244,7 +1244,7 @@ class Dumper:
                             '\n' % (self.utf8_path(svn_dst_path + '/' + ent)))
       return 1
     return None
-
+    
   def prune_entries(self, path, expected):
     """Delete any entries in PATH that are not in list EXPECTED.
     PATH need not be a directory, but of course nothing will happen if
@@ -1276,14 +1276,14 @@ class Dumper:
                       % (len(cvs_rev), cvs_rev)
     else:
       prop_contents = ''
-
+    
     # Check for executable-ness.
     if f_st[0] & stat.S_IXUSR:
       prop_contents = prop_contents + 'K 14\nsvn:executable\nV 1\n*\n'
 
     # Calculate the property length (+10 for "PROPS-END\n")
     props_len = len(prop_contents) + 10
-
+    
     ### FIXME: We ought to notice the -kb flag set on the RCS file and
     ### use it to set svn:mime-type.
 
@@ -1416,7 +1416,7 @@ def make_revision_props(ctx, symbolic_name, is_tag):
 
   log = "This commit was manufactured by cvs2svn to create %s%s'%s'." \
         % (type, space_or_newline, symbolic_name)
-
+  
   return { 'svn:author' : ctx.username,
            'svn:log' : log,
            'svn:date' : format_date(time.time())}
@@ -1431,42 +1431,42 @@ class SymbolicNameTracker:
   directories go one step farther: they record counts for the various
   revisions from which items under them could have been copied, and
   counts for the cutoff revisions.  For example:
-
-                               .----------.
-                               |  sub1    | [(2, 1), (3, 3)]
-                               |  /       | [(5, 1), (17, 2), (50, 1)]
-                               | /        |
-                               |/ sub2    |
-                               /    \     |
-                              /|_____\____|
-                             /        \
-                      ______/          \_________
-                     /                           \
-                    /                             \
-                   /                               \
-              .---------.                     .---------.
-              |  file1  |                     |  file3  |
-              |   /     | [(3, 2)]            |     \   | [(2, 1), (3, 1)]
+                                                                      
+                               .----------.                           
+                               |  sub1    | [(2, 1), (3, 3)]          
+                               |  /       | [(5, 1), (17, 2), (50, 1)]         
+                               | /        |                                    
+                               |/ sub2    |                           
+                               /    \     |                           
+                              /|_____\____|                           
+                             /        \                               
+                      ______/          \_________                     
+                     /                           \                    
+                    /                             \                   
+                   /                               \                  
+              .---------.                     .---------.             
+              |  file1  |                     |  file3  |             
+              |   /     | [(3, 2)]            |     \   | [(2, 1), (3, 1)] 
               |  /      | [(17, 1), (50, 1)]  |      \  | [(5, 1), (10, 1)]
-              | /       |                     |       \ |
-              |/ file2  |                     |  file4 \|
-              /    \    |                     |    /    \
-             /|_____\___|                     |___/_____|\
-            /        \                           /        \
-           /          \                         /          \
-          /            \                       /            \
-         /              +                     /              +
-    +======+            |                 +======+           |
-    |      | [(3, 1)]   |                 |      | [(2, 1)]  |
-    |      | [(17, 1)]  |                 |      | [(5, 1)]  |
-    |      |            |                 |      |           |
-    +======+            |                 +======+           |
-                    +======+                             +======+
+              | /       |                     |       \ |                  
+              |/ file2  |                     |  file4 \|                  
+              /    \    |                     |    /    \                 
+             /|_____\___|                     |___/_____|\                
+            /        \                           /        \               
+           /          \                         /          \              
+          /            \                       /            \             
+         /              +                     /              +            
+    +======+            |                 +======+           |            
+    |      | [(3, 1)]   |                 |      | [(2, 1)]  |            
+    |      | [(17, 1)]  |                 |      | [(5, 1)]  |            
+    |      |            |                 |      |           |            
+    +======+            |                 +======+           |            
+                    +======+                             +======+         
                     |      | [(3, 1)]                    |      | [(3, 1)]
                     |      | [(50, 1)]                   |      | [(17, 1)]
                     |      |                             |      |
                     +======+                             +======+
-
+  
   The two lists to the right of each node represent the 'opening' and
   'closing' revisions respectively.  Each tuple in a list is of the
   form (REV, COUNT).  For leaf nodes, COUNT is always 1, of course.
@@ -1511,7 +1511,7 @@ class SymbolicNameTracker:
       components = [symbolic_name] + string.split(path, '/')
     else:
       components = [symbolic_name]
-
+    
     if debugging:
       print "PROBING SYMBOLIC NAME:\n", components
 
@@ -1536,7 +1536,7 @@ class SymbolicNameTracker:
       parent = this_entry_val
       last_component = component
       i = i + 1
-
+  
     if debugging:
       print "  " * i,
       print "parent_key: %s, val:" % parent_key, parent
@@ -1571,7 +1571,7 @@ class SymbolicNameTracker:
     The list is sorted by ascending revision both before and after."""
 
     entry_val = self.db[item_key]
-
+    
     if not entry_val.has_key(revlist_key):
       entry_val[revlist_key] = [(rev, 1)]
     else:
@@ -1708,8 +1708,8 @@ class SymbolicNameTracker:
     # Must be able to call len(closings) below.
     if closings is None:
       closings = []
-
-    # No easy out, so wish for lexical closures and calculate the scores :-).
+      
+    # No easy out, so wish for lexical closures and calculate the scores :-). 
     scores = []
     opening_score_accum = 0
     for i in range(len(openings)):
@@ -1727,7 +1727,7 @@ class SymbolicNameTracker:
         else:
           min = j + 1
     return scores
-
+  
   def best_rev(self, scores, limit_rev):
     """Return the revision older than LIMIT_REV with the highest score
     from SCORES, a list returned by score_revisions()."""
@@ -1774,7 +1774,7 @@ class SymbolicNameTracker:
       if self.is_best_rev(scores, rev, limit_rev):
         new_entries[key] = entry
     return new_entries
-
+      
   # Helper for fill_branch().
   def copy_descend(self, dumper, ctx, name, parent, entry_name,
                    parent_rev, src_path, dst_path, is_tag, jit_new_rev=None):
@@ -1790,7 +1790,7 @@ class SymbolicNameTracker:
     DUMPER.start_revision() before the first copy, then set
     JIT_NEW_REV[0] to None, so no more new revisions are made for this
     symbolic name anywhere in this descent.
-
+    
     ('JIT' == 'Just In Time'.)"""
     ### Hmmm, is passing [1] instead of 1 an idiomatic way of passing
     ### a side-effectable boolean in Python?  That's how the
@@ -1869,7 +1869,7 @@ class SymbolicNameTracker:
     element is true, then if any copies are to be made, invoke
     DUMPER.start_revision() before the first copy.
 
-    ('JIT' == 'Just In Time'.)"""
+    ('JIT' == 'Just In Time'.)""" 
 
     # A source path looks like this in the symbolic name tree:
     #
@@ -1960,7 +1960,7 @@ class SymbolicNameTracker:
 
   def fill_tag(self, dumper, ctx, tag, jit_new_rev=None):
     """Use DUMPER to create all currently available parts of TAG that
-    have not been created already.  Use CTX.trunk_base, CTX.tags_base,
+    have not been created already.  Use CTX.trunk_base, CTX.tags_base, 
     and CTX.branches_base to determine the source and destination
     paths in the Subversion repository.
 
@@ -1968,12 +1968,12 @@ class SymbolicNameTracker:
     element is true, then if any copies are to be made, invoke
     DUMPER.start_revision() before the first copy.
 
-    ('JIT' == 'Just In Time'.)"""
+    ('JIT' == 'Just In Time'.)""" 
     self.fill_name(dumper, ctx, tag, 1, jit_new_rev)
 
   def fill_branch(self, dumper, ctx, branch, jit_new_rev=None):
     """Use DUMPER to create all currently available parts of BRANCH that
-    haven't been created already.  Use CTX.trunk_base, CTX.tags_base,
+    haven't been created already.  Use CTX.trunk_base, CTX.tags_base,  
     and CTX.branches_base to determine the source and destination
     paths in the Subversion repository.
 
@@ -1981,7 +1981,7 @@ class SymbolicNameTracker:
     element is true, then if any copies are to be made, invoke
     DUMPER.start_revision() before the first copy.
 
-    ('JIT' == 'Just In Time'.)"""
+    ('JIT' == 'Just In Time'.)""" 
     self.fill_name(dumper, ctx, branch, None, jit_new_rev)
 
   def finish(self, dumper, ctx):
@@ -2116,7 +2116,7 @@ class Commit:
     do_copies = [ ]
 
     # State for handling default branches.
-    #
+    # 
     # Here is a tempting, but ultimately nugatory, bit of logic, which
     # I share with you so you may appreciate the less attractive, but
     # refreshingly non-nugatory, logic which follows it:
@@ -2155,7 +2155,7 @@ class Commit:
 
     # we already have the date, so just format it
     date = format_date(self.t_max)
-    try:
+    try: 
       ### FIXME: The 'replace' behavior should be an option, like
       ### --encoding is.
       unicode_author = unicode(self.author, ctx.encoding, 'replace')
@@ -2175,7 +2175,7 @@ class Commit:
       props = { 'svn:author' : self.author,
                 'svn:log' : self.log,
                 'svn:date' : date }
-
+      
 
     # Tells whether we actually wrote anything to the dumpfile.
     svn_rev = SVN_INVALID_REVNUM
@@ -2479,7 +2479,7 @@ def pass4(ctx):
 
       # ### ISSUE: the has_file() check below is not optimal.
       # It does fix the dataloss bug where revisions would get lost
-      # if checked in too quickly, but it can also break apart the
+      # if checked in too quickly, but it can also break apart the 
       # commits. The correct fix would require tracking the dependencies
       # between change sets and committing them in proper order.
       if scan_c.t_max + COMMIT_THRESHOLD < timestamp or \
@@ -2538,7 +2538,7 @@ def pass5(ctx):
   # it before removing the file.
   ctx.default_branches_db = None
   os.unlink(DEFAULT_BRANCHES_DB)
-
+  
   # Remove our other data files
   for suffix in (REVS_SUFFIX, CLEAN_REVS_SUFFIX,
                  SORTED_REVS_SUFFIX, RESYNC_SUFFIX):
@@ -2605,7 +2605,7 @@ def usage(ctx):
         % ctx.skip_cleanup
   print '  --cvs-revnums    record CVS revision numbers as file properties (default: %s)' \
         % ctx.cvs_revnums
-
+        
 
 
 def main():
@@ -2689,7 +2689,7 @@ def main():
       ctx.skip_cleanup = 1
     elif opt == '--cvs-revnums':
       ctx.cvs_revnums = 1
-
+      
   if ctx.print_help:
     usage(ctx)
     sys.exit(0)
