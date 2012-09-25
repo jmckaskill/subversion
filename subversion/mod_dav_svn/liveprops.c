@@ -378,7 +378,7 @@ insert_prop_internal(const dav_resource *resource,
                                            scratch_pool);
             if (serr != NULL)
               {
-                ap_log_rerror(APLOG_MARK, APLOG_ERR, serr->apr_err,
+                ap_log_rerror(APLOG_MARK, APLOG_ERR, serr->apr_err, 
                               resource->info->r,
                               "Can't get created-rev of '%s': "
                               "%s",
@@ -401,7 +401,7 @@ insert_prop_internal(const dav_resource *resource,
                                 scratch_pool);
         if (serr)
           {
-            ap_log_rerror(APLOG_MARK, APLOG_ERR, serr->apr_err,
+            ap_log_rerror(APLOG_MARK, APLOG_ERR, serr->apr_err, 
                           resource->info->r,
                           "Can't get author of r%ld: "
                           "%s",
@@ -547,7 +547,7 @@ insert_prop_internal(const dav_resource *resource,
                                      scratch_pool);
           if (serr != NULL)
             {
-              ap_log_rerror(APLOG_MARK, APLOG_ERR, serr->apr_err,
+              ap_log_rerror(APLOG_MARK, APLOG_ERR, serr->apr_err, 
                             resource->info->r,
                             "Can't get youngest revision in '%s': "
                             "%s",
@@ -627,7 +627,7 @@ insert_prop_internal(const dav_resource *resource,
                                          scratch_pool);
           if (serr != NULL)
             {
-              ap_log_rerror(APLOG_MARK, APLOG_ERR, serr->apr_err,
+              ap_log_rerror(APLOG_MARK, APLOG_ERR, serr->apr_err, 
                             resource->info->r,
                             "Can't get created-rev of '%s': "
                             "%s",
@@ -675,7 +675,7 @@ insert_prop_internal(const dav_resource *resource,
                                         scratch_pool);
           if (serr != NULL)
             {
-              ap_log_rerror(APLOG_MARK, APLOG_ERR, serr->apr_err,
+              ap_log_rerror(APLOG_MARK, APLOG_ERR, serr->apr_err, 
                             resource->info->r,
                             "Can't fetch or compute MD5 checksum of '%s': "
                             "%s",
@@ -703,7 +703,7 @@ insert_prop_internal(const dav_resource *resource,
       serr = svn_fs_get_uuid(resource->info->repos->fs, &value, scratch_pool);
       if (serr != NULL)
         {
-          ap_log_rerror(APLOG_MARK, APLOG_ERR, serr->apr_err,
+          ap_log_rerror(APLOG_MARK, APLOG_ERR, serr->apr_err, 
                         resource->info->r,
                         "Can't fetch UUID of '%s': "
                         "%s",
@@ -728,7 +728,7 @@ insert_prop_internal(const dav_resource *resource,
                                     resource->info->repos_path, scratch_pool);
         if (serr != NULL)
           {
-            ap_log_rerror(APLOG_MARK, APLOG_ERR, serr->apr_err,
+            ap_log_rerror(APLOG_MARK, APLOG_ERR, serr->apr_err, 
                           resource->info->r,
                           "Can't fetch proplist of '%s': "
                           "%s",
