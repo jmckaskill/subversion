@@ -36,7 +36,7 @@ while (my $s = shift) {
 	} else {
 		@args = split(/\s*,\s*/, $args);
 	}
-
+	
 	print "$rv *${prefix}invoke_$func (\n";
 	print join(",\n", "    $s *\L$n\E", map "    $_", @args);
 	print "\n);\n\n";

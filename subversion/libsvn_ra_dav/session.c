@@ -74,7 +74,7 @@ static int request_auth(void *userdata, const char *realm, int attempt,
   svn_error_t *err;
   svn_ra_dav__session_t *ras = userdata;
   void *creds;
-  svn_auth_cred_simple_t *simple_creds;
+  svn_auth_cred_simple_t *simple_creds;  
 
   /* Start by clearing the cache of any previously-fetched username. */
   ras->auth_username = NULL;
@@ -93,7 +93,7 @@ static int request_auth(void *userdata, const char *realm, int attempt,
                                   ras->root.port, realm);
 
       err = svn_auth_first_credentials (&creds,
-                                        &(ras->auth_iterstate),
+                                        &(ras->auth_iterstate), 
                                         SVN_AUTH_CRED_SIMPLE,
                                         realmstring,
                                         ras->callbacks->auth_baton,
@@ -112,7 +112,7 @@ static int request_auth(void *userdata, const char *realm, int attempt,
       return -1;
     }
   simple_creds = creds;
-
+  
   /* ### silently truncates username/password to 256 chars. */
   apr_cpystrn(username, simple_creds->username, NE_ABUFSIZ);
   apr_cpystrn(password, simple_creds->password, NE_ABUFSIZ);
@@ -380,7 +380,7 @@ static svn_error_t *get_server_settings(const char **proxy_host,
 
   /* If there are defaults, use them, but only if the requested host
      is not one of the exceptions to the defaults. */
-  svn_config_get(cfg, &exceptions, SVN_CONFIG_SECTION_GLOBAL,
+  svn_config_get(cfg, &exceptions, SVN_CONFIG_SECTION_GLOBAL, 
                  SVN_CONFIG_OPTION_HTTP_PROXY_EXCEPTIONS, NULL);
   if (exceptions)
     {
@@ -389,44 +389,44 @@ static svn_error_t *get_server_settings(const char **proxy_host,
     }
   if (! is_exception)
     {
-      svn_config_get(cfg, proxy_host, SVN_CONFIG_SECTION_GLOBAL,
+      svn_config_get(cfg, proxy_host, SVN_CONFIG_SECTION_GLOBAL, 
                      SVN_CONFIG_OPTION_HTTP_PROXY_HOST, NULL);
-      svn_config_get(cfg, &port_str, SVN_CONFIG_SECTION_GLOBAL,
+      svn_config_get(cfg, &port_str, SVN_CONFIG_SECTION_GLOBAL, 
                      SVN_CONFIG_OPTION_HTTP_PROXY_PORT, NULL);
-      svn_config_get(cfg, proxy_username, SVN_CONFIG_SECTION_GLOBAL,
+      svn_config_get(cfg, proxy_username, SVN_CONFIG_SECTION_GLOBAL, 
                      SVN_CONFIG_OPTION_HTTP_PROXY_USERNAME, NULL);
-      svn_config_get(cfg, proxy_password, SVN_CONFIG_SECTION_GLOBAL,
+      svn_config_get(cfg, proxy_password, SVN_CONFIG_SECTION_GLOBAL, 
                      SVN_CONFIG_OPTION_HTTP_PROXY_PASSWORD, NULL);
-      svn_config_get(cfg, &timeout_str, SVN_CONFIG_SECTION_GLOBAL,
+      svn_config_get(cfg, &timeout_str, SVN_CONFIG_SECTION_GLOBAL, 
                      SVN_CONFIG_OPTION_HTTP_TIMEOUT, NULL);
       SVN_ERR(svn_config_get_bool(cfg, compression, SVN_CONFIG_SECTION_GLOBAL,
                                   SVN_CONFIG_OPTION_HTTP_COMPRESSION, TRUE));
-      svn_config_get(cfg, &debug_str, SVN_CONFIG_SECTION_GLOBAL,
+      svn_config_get(cfg, &debug_str, SVN_CONFIG_SECTION_GLOBAL, 
                      SVN_CONFIG_OPTION_NEON_DEBUG_MASK, NULL);
     }
 
   if (cfg)
-    server_group = svn_config_find_group(cfg, requested_host,
+    server_group = svn_config_find_group(cfg, requested_host, 
                                          SVN_CONFIG_SECTION_GROUPS, pool);
   else
     server_group = NULL;
 
   if (server_group)
     {
-      svn_config_get(cfg, proxy_host, server_group,
+      svn_config_get(cfg, proxy_host, server_group, 
                      SVN_CONFIG_OPTION_HTTP_PROXY_HOST, *proxy_host);
-      svn_config_get(cfg, &port_str, server_group,
+      svn_config_get(cfg, &port_str, server_group, 
                      SVN_CONFIG_OPTION_HTTP_PROXY_PORT, port_str);
-      svn_config_get(cfg, proxy_username, server_group,
+      svn_config_get(cfg, proxy_username, server_group, 
                      SVN_CONFIG_OPTION_HTTP_PROXY_USERNAME, *proxy_username);
-      svn_config_get(cfg, proxy_password, server_group,
+      svn_config_get(cfg, proxy_password, server_group, 
                      SVN_CONFIG_OPTION_HTTP_PROXY_PASSWORD, *proxy_password);
-      svn_config_get(cfg, &timeout_str, server_group,
+      svn_config_get(cfg, &timeout_str, server_group, 
                      SVN_CONFIG_OPTION_HTTP_TIMEOUT, timeout_str);
       SVN_ERR(svn_config_get_bool(cfg, compression, server_group,
                                   SVN_CONFIG_OPTION_HTTP_COMPRESSION,
                                   *compression));
-      svn_config_get(cfg, &debug_str, server_group,
+      svn_config_get(cfg, &debug_str, server_group, 
                      SVN_CONFIG_OPTION_NEON_DEBUG_MASK, debug_str);
     }
 
@@ -580,7 +580,7 @@ svn_ra_dav__open (svn_ra_session_t *session,
   const char *server_group;
 
   /* Sanity check the URI */
-  if (ne_uri_parse(repos_URL, &uri)
+  if (ne_uri_parse(repos_URL, &uri) 
       || uri.host == NULL || uri.path == NULL || uri.scheme == NULL)
     {
       ne_uri_free(&uri);
@@ -618,7 +618,7 @@ svn_ra_dav__open (svn_ra_session_t *session,
   sess = ne_session_create(uri.scheme, uri.host, uri.port);
   sess2 = ne_session_create(uri.scheme, uri.host, uri.port);
 
-  cfg = config ? apr_hash_get (config,
+  cfg = config ? apr_hash_get (config, 
                                SVN_CONFIG_CATEGORY_SERVERS,
                                APR_HASH_KEY_STRING) : NULL;
   if (cfg)
@@ -626,7 +626,7 @@ svn_ra_dav__open (svn_ra_session_t *session,
                                          SVN_CONFIG_SECTION_GROUPS, pool);
   else
     server_group = NULL;
-
+  
   /* If there's a timeout or proxy for this URL, use it. */
   {
     const char *proxy_host;
@@ -636,7 +636,7 @@ svn_ra_dav__open (svn_ra_session_t *session,
     int timeout;
     int debug;
     svn_error_t *err;
-
+    
     err = get_server_settings(&proxy_host,
                               &proxy_port,
                               &proxy_username,
@@ -669,7 +669,7 @@ svn_ra_dav__open (svn_ra_session_t *session,
 
             pab->username = proxy_username;
             pab->password = proxy_password ? proxy_password : "";
-
+        
             ne_set_proxy_auth(sess, proxy_auth, pab);
             ne_set_proxy_auth(sess2, proxy_auth, pab);
           }
@@ -700,9 +700,9 @@ svn_ra_dav__open (svn_ra_session_t *session,
   ras->pool = pool;
   ras->url = apr_pstrdup (pool, repos_URL);
   /* copies uri pointer members, they get free'd in __close. */
-  ras->root = uri;
+  ras->root = uri; 
   ras->sess = sess;
-  ras->sess2 = sess2;
+  ras->sess2 = sess2;  
   ras->callbacks = callbacks;
   ras->callback_baton = callback_baton;
   ras->compression = compression;
@@ -737,7 +737,7 @@ svn_ra_dav__open (svn_ra_session_t *session,
             cfg, server_group,
             SVN_CONFIG_OPTION_SSL_AUTHORITY_FILES,
             NULL);
-
+      
       if (authorities != NULL)
         {
           char *files, *file, *last;
@@ -814,7 +814,7 @@ static svn_error_t *svn_ra_dav__get_repos_root(svn_ra_session_t *session,
     }
 
   *url = ras->repos_root;
-  return SVN_NO_ERROR;
+  return SVN_NO_ERROR; 
 }
 
 
@@ -852,7 +852,7 @@ static svn_error_t *svn_ra_dav__do_get_uuid(svn_ra_session_t *session,
     }
 
   *uuid = ras->uuid;
-  return SVN_NO_ERROR;
+  return SVN_NO_ERROR; 
 }
 
 
@@ -872,7 +872,7 @@ handle_creationdate_header(void *userdata,
   if (err)
     {
       svn_error_clear(err);
-      lrb->creation_date = 0;
+      lrb->creation_date = 0;                      
     }
 }
 
@@ -896,7 +896,7 @@ handle_lock_owner_header(void *userdata,
 
 /* A callback of type ne_create_request_fn;  called whenever neon
    creates a request. */
-static void
+static void 
 create_request_hook(ne_request *req,
                     void *userdata,
                     const char *method,
@@ -908,7 +908,7 @@ create_request_hook(ne_request *req,
      http method. */
   if ((strcmp(method, "LOCK") == 0)
       || (strcmp(method, "UNLOCK") == 0)
-      || (strcmp(method, "PROPFIND") == 0))
+      || (strcmp(method, "PROPFIND") == 0))  
     lrb->method = apr_pstrdup(lrb->pool, method);
 }
 
@@ -1015,7 +1015,7 @@ shim_svn_ra_dav__lock(svn_ra_session_t *session,
   svn_lock_t *slock;
 
   /* To begin, we convert the incoming path into an absolute fs-path. */
-  url = svn_path_url_add_component(ras->url, path, pool);
+  url = svn_path_url_add_component(ras->url, path, pool);  
   SVN_ERR(svn_ra_dav__get_baseline_info(NULL, NULL, &fs_path, NULL, ras->sess,
                                         url, SVN_INVALID_REVNUM, pool));
 
@@ -1077,9 +1077,9 @@ shim_svn_ra_dav__lock(svn_ra_session_t *session,
   if (nlock->timeout == NE_TIMEOUT_INFINITE)
     slock->expiration_date = 0;
   else if (nlock->timeout > 0)
-    slock->expiration_date = slock->creation_date +
+    slock->expiration_date = slock->creation_date + 
                              apr_time_from_sec(nlock->timeout);
-
+  
   /* Free neon things. */
   ne_lock_destroy(nlock);
   if (ras->lrb->error_parser)
@@ -1095,7 +1095,7 @@ svn_ra_dav__lock(svn_ra_session_t *session,
                  apr_hash_t *path_revs,
                  const char *comment,
                  svn_boolean_t force,
-                 svn_ra_lock_callback_t lock_func,
+                 svn_ra_lock_callback_t lock_func, 
                  void *lock_baton,
                  apr_pool_t *pool)
 {
@@ -1121,7 +1121,7 @@ svn_ra_dav__lock(svn_ra_session_t *session,
       path = key;
       revnum = val;
 
-      err = shim_svn_ra_dav__lock(session, &lock, path, comment,
+      err = shim_svn_ra_dav__lock(session, &lock, path, comment, 
                                   force, *revnum, iterpool);
 
       if (err && !SVN_ERR_IS_LOCK_ERROR (err))
@@ -1159,7 +1159,7 @@ shim_svn_ra_dav__unlock(svn_ra_session_t *session,
 
   /* Make a neon lock structure containing token and full URL to unlock. */
   nlock = ne_lock_create();
-  url = svn_path_url_add_component (ras->url, path, pool);
+  url = svn_path_url_add_component (ras->url, path, pool);  
   if ((rv = ne_uri_parse(url, &(nlock->uri))))
     {
       ne_lock_destroy(nlock);
@@ -1180,7 +1180,7 @@ shim_svn_ra_dav__unlock(svn_ra_session_t *session,
         return svn_error_createf (SVN_ERR_RA_NOT_LOCKED, NULL,
                                   _("'%s' is not locked in the repository"),
                                   path);
-
+      
       nlock->token = ne_strdup(lock->token);
     }
   else
@@ -1216,7 +1216,7 @@ shim_svn_ra_dav__unlock(svn_ra_session_t *session,
         ne_xml_destroy(ras->lrb->error_parser);
       return svn_ra_dav__convert_error(ras->sess,
                                        _("Unlock request failed"), rv, pool);
-    }
+    }  
 
   /* Free neon things. */
   ne_lock_destroy(nlock);
@@ -1231,7 +1231,7 @@ static svn_error_t *
 svn_ra_dav__unlock(svn_ra_session_t *session,
                    apr_hash_t *path_tokens,
                    svn_boolean_t force,
-                   svn_ra_lock_callback_t lock_func,
+                   svn_ra_lock_callback_t lock_func, 
                    void *lock_baton,
                    apr_pool_t *pool)
 {
@@ -1248,7 +1248,7 @@ svn_ra_dav__unlock(svn_ra_session_t *session,
       const char *path;
       void *val;
       const char *token;
-      svn_error_t *err, *callback_err = NULL;
+      svn_error_t *err, *callback_err = NULL; 
 
       svn_pool_clear (iterpool);
 
@@ -1286,7 +1286,7 @@ struct receiver_baton
 {
   /* Set this if something goes wrong. */
   svn_error_t *err;
-
+  
   /* The thing being retrieved and assembled. */
   svn_lock_t *lock;
 
@@ -1295,7 +1295,7 @@ struct receiver_baton
 
   /* The baton used by the handle_creation_date() callback */
   struct lock_request_baton *lrb;
-
+  
   /* The absolute FS path that we're querying. */
   const char *fs_path;
 
@@ -1332,8 +1332,8 @@ lock_receiver(void *userdata,
       if (lock->timeout == NE_TIMEOUT_INFINITE)
         rb->lock->expiration_date = 0;
       else if (lock->timeout > 0)
-        rb->lock->expiration_date = rb->lock->creation_date +
-                                    apr_time_from_sec(lock->timeout);
+        rb->lock->expiration_date = rb->lock->creation_date + 
+                                    apr_time_from_sec(lock->timeout);      
     }
   else
     {
@@ -1359,7 +1359,7 @@ svn_ra_dav__get_lock(svn_ra_session_t *session,
   svn_string_t fs_path;
 
   /* To begin, we convert the incoming path into an absolute fs-path. */
-  url = svn_path_url_add_component (ras->url, path, pool);
+  url = svn_path_url_add_component (ras->url, path, pool);  
   SVN_ERR(svn_ra_dav__get_baseline_info(NULL, NULL, &fs_path, NULL, ras->sess,
                                         url, SVN_INVALID_REVNUM, pool));
 
@@ -1403,12 +1403,12 @@ svn_ra_dav__get_lock(svn_ra_session_t *session,
       return svn_ra_dav__convert_error(ras->sess,
                                        _("Failed to fetch lock information"),
                                        rv, pool);
-    }
+    }  
 
   /* Free neon things. */
   if (ras->lrb->error_parser)
     ne_xml_destroy(ras->lrb->error_parser);
-
+  
   *lock = rb->lock;
   return SVN_NO_ERROR;
 }
