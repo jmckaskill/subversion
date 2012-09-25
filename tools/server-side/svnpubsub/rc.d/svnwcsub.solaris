@@ -17,7 +17,7 @@ TWSITD_CMD="/opt/python/2.6.2/bin/twistd -y /usr/local/svnpubsub/svnwcsub.tac \
             -r${svnwcsub_reactor}"
 
 RETVAL=0
-
+ 
 start() {
     echo "Starting SvnWcSub Server: "
     $TWSITD_CMD
@@ -25,7 +25,7 @@ start() {
     [ $RETVAL -eq 0 ] && echo "ok" || echo "failed"
     return $RETVAL
 }
-
+ 
 stop() {
     echo "Stopping SvnWcSub Server: "
     THE_PID=`cat ${pidfile}`
