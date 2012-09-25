@@ -42,13 +42,13 @@ print_dirents (apr_hash_t *dirents,
   int i;
 
   array = svn_sort__hash (dirents, svn_sort_compare_items_as_paths, pool);
-
+  
   for (i = 0; i < array->nelts; ++i)
     {
       const char *utf8_entryname;
       svn_dirent_t *dirent;
       svn_sort__item_t *item;
-
+     
       item = &APR_ARRAY_IDX (array, i, svn_sort__item_t);
 
       utf8_entryname = item->key;
@@ -63,7 +63,7 @@ print_dirents (apr_hash_t *dirents,
           apr_size_t size;
           char timestr[20];
           const char *sizestr, *utf8_timestr;
-
+          
           /* svn_time_to_human_cstring gives us something *way* too long
              to use for this, so we have to roll our own.  We include
              the year if the entry's time is not within half a year. */
@@ -100,7 +100,7 @@ print_dirents (apr_hash_t *dirents,
         }
       else
         {
-          SVN_ERR (svn_cmdline_printf (pool, "%s%s\n", utf8_entryname,
+          SVN_ERR (svn_cmdline_printf (pool, "%s%s\n", utf8_entryname, 
                                        (dirent->kind == svn_node_dir)
                                        ? "/" : ""));
         }
@@ -120,9 +120,9 @@ svn_cl__ls (apr_getopt_t *os,
   svn_client_ctx_t *ctx = ((svn_cl__cmd_baton_t *) baton)->ctx;
   apr_array_header_t *targets;
   int i;
-  apr_pool_t *subpool = svn_pool_create (pool);
+  apr_pool_t *subpool = svn_pool_create (pool); 
 
-  SVN_ERR (svn_opt_args_to_target_array (&targets, os,
+  SVN_ERR (svn_opt_args_to_target_array (&targets, os, 
                                          opt_state->targets,
                                          &(opt_state->start_revision),
                                          &(opt_state->end_revision),
@@ -136,7 +136,7 @@ svn_cl__ls (apr_getopt_t *os,
     {
       apr_hash_t *dirents;
       const char *target = ((const char **) (targets->elts))[i];
-
+     
       SVN_ERR (svn_cl__check_cancel (ctx->cancel_baton));
       SVN_ERR (svn_client_ls (&dirents, target, &(opt_state->start_revision),
                               opt_state->recursive, ctx, subpool));

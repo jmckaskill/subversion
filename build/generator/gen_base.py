@@ -74,7 +74,7 @@ class GeneratorBase:
 
       for dt_type, deps_list in dep_types:
         if deps_list:
-          for dep_section in self.find_sections(deps_list):
+          for dep_section in self.find_sections(deps_list):            
             for target in section.get_targets():
               self.graph.bulk_add(dt_type, target.name,
                                   dep_section.get_dep_targets(target))
@@ -130,7 +130,7 @@ class GeneratorBase:
           if isinstance(ifile, SWIGSource):
             for short in _find_includes(native_path(ifile.filename),
                                         include_deps):
-              self.graph.add(DT_SWIG_C, sources[0],
+              self.graph.add(DT_SWIG_C, sources[0], 
                              build_path(include_deps[short][0]))
         continue
 
@@ -168,12 +168,12 @@ class DependencyGraph:
       self.deps[type][target].append(source)
     else:
       self.deps[type][target] = [ source ]
-
+      
   def bulk_add(self, type, target, sources):
     if self.deps[type].has_key(target):
       self.deps[type][target].extend(sources)
     else:
-      self.deps[type][target] = sources[:]
+      self.deps[type][target] = sources[:]  
 
   def get_sources(self, type, target, cls=None):
     sources = self.deps[type].get(target, [ ])
@@ -283,7 +283,7 @@ lang_utillib_suffix = {
   'tcl' : 'tcl',
   ### what others?
   }
-
+  
 class Target(DependencyNode):
   "A build target is a node in our dependency graph."
 
@@ -300,10 +300,10 @@ class Target(DependencyNode):
 
   class Section:
     """Represents an individual section of build.conf
-
+    
     The Section class is sort of a factory class which is responsible for
     creating and keeping track of Target instances associated with a section
-    of the configuration file. By default it only allows one Target per
+    of the configuration file. By default it only allows one Target per 
     section, but subclasses may create multiple Targets.
     """
 
@@ -373,7 +373,7 @@ class TargetLinked(Target):
     for pattern in string.split(self.sources):
       dirname = build_path_dirname(pattern)
       if dirname:
-        graph.add(DT_LIST, LT_TARGET_DIRS,
+        graph.add(DT_LIST, LT_TARGET_DIRS, 
                   build_path_join(self.path, dirname))
 
 class TargetExe(TargetLinked):
@@ -557,7 +557,7 @@ class TargetSWIGRuntime(TargetSWIG):
     oname = name + extmap['lib', 'object']
     libname = name + extmap['lib', 'target']
 
-    self.name = self.lang + '_runtime'
+    self.name = self.lang + '_runtime' 
     self.path = build_path_join(self.path, self.lang)
     self.filename = build_path_join(self.path, libname)
     self.external_lib = '-lswig' + abbrev
@@ -573,8 +573,8 @@ class TargetSWIGRuntime(TargetSWIG):
       self.targets = { }
       for lang in cfg.swig_lang:
         if lang == 'java':
-          # java doesn't seem to have a separate runtime
-          continue
+          # java doesn't seem to have a separate runtime  
+          continue      
         target = self.target_class(name, self.options, cfg, extmap, lang)
         target.add_dependencies(graph, cfg, extmap)
         self.targets[lang] = target
@@ -635,7 +635,7 @@ class TargetJavaHeaders(TargetJava):
       class_name = build_path_basename(src[:-5])
 
       class_header = build_path_join(self.headers, class_name + '.h')
-      class_header_win = build_path_join(self.headers,
+      class_header_win = build_path_join(self.headers, 
                                          string.replace(self.package,".", "_")
                                          + "_" + class_name + '.h')
       class_pkg_list = string.split(self.package, '.')
@@ -693,7 +693,7 @@ class TargetJavaClasses(TargetJava):
         while sourcedirs:
           if sourcedirs.pop() in self.packages:
             sourcepath = apply(build_path_join, sourcedirs)
-            objname = apply(build_path_join,
+            objname = apply(build_path_join, 
                             [self.classes] + dirs[len(sourcedirs):])
             break
         else:
@@ -831,12 +831,12 @@ def build_path_strip(path, files):
 
 def _collect_paths(pats, path=None):
   """Find files matching a space separated list of globs
-
+  
   pats (string) is the list of glob patterns
 
   path (string), if specified, is a path that will be prepended to each
     glob pattern before it is evaluated
-
+    
   If path is none the return value is a list of filenames, otherwise
   the return value is a list of 2-tuples. The first element in each tuple
   is a matching filename and the second element is the portion of the
@@ -870,22 +870,22 @@ def _find_includes(fname, include_deps):
 
 def _create_include_deps(includes, prev_deps={}):
   """Find files included by a list of files
-
+  
   includes (sequence of strings) is a list of files which should
     be scanned for includes
-
+    
   prev_deps (dictionary) is an optional parameter which may contain
     the return value of a previous call to _create_include_deps. All
     data inside will be included in the return value of the current
     call.
-
+    
   Return value is a dictionary with one entry for each file that
     was scanned (in addition the entries from prev_deps). The key
     for an entry is the short file name of the file that was scanned
     and the value is a 2-tuple containing the long file name and a
     dictionary of files included by that file.
   """
-
+  
   shorts = map(os.path.basename, includes)
 
   # limit intra-header dependencies to just these headers, and what we
@@ -914,13 +914,13 @@ def _create_include_deps(includes, prev_deps={}):
 
 def _include_closure(hdrs, deps):
   """Update a set of dependencies with dependencies of dependencies
-
+  
   hdrs (dictionary) is a set of dependencies. It is a dictionary with
     filenames as keys and None as values
-
+    
   deps (dictionary) is a big catalog of dependencies in the format
     returned by _create_include_deps.
-
+    
   Return value is a copy of the hdrs dictionary updated with new
     entries for files that the existing entries include, according
     to the information in deps.
@@ -934,13 +934,13 @@ def _include_closure(hdrs, deps):
 _re_include = re.compile(r'^#\s*include\s*[<"]([^<"]+)[>"]')
 def _scan_for_includes(fname, limit):
   """Find headers directly included by a C source file.
-
+  
   fname (string) is the name of the file to scan
-
+  
   limit (sequence or dictionary) is a collection of file names
     which may be included. Included files which aren't found
     in this collection will be ignored.
-
+  
   Return value is a dictionary with included file names as keys and
   None as values.
   """
