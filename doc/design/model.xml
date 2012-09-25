@@ -590,15 +590,15 @@ write/Makefile:6
 </programlisting>
 
 <!--
-  Heh, what about this:
+  Heh, what about this: 
 
-    B:3 adds line 3, with the text "foo".
-    B:5 deletes line 3.
-    B:7 adds line 3, with the text "foo".
-    B:9 deletes line 3.
+    B:3 adds line 3, with the text "foo". 
+    B:5 deletes line 3. 
+    B:7 adds line 3, with the text "foo". 
+    B:9 deletes line 3. 
 
   The user first merges B:5 and B:9 into A.  If A had that line, it goes away
-  now, nothing more.
+  now, nothing more. 
 
   Next, user merges B:3 and B:7 into A.  The second merge must conflict.
 
