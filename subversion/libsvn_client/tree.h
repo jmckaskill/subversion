@@ -139,7 +139,7 @@ typedef svn_error_t *(*svn_tree_walk_func_t)(svn_tree_t *tree,
                                              apr_pool_t *scratch_pool);
 
 /** Walk the generic @a tree, starting at @a relpath, recursing to @a depth.
- *
+ * 
  * Call @a callback_func for each node, passing @a callback_baton and the
  * node kind. If a node that is reached through recursion is unreadable due
  * to lack of authorization, pass #svn_kind_unknown for the kind.
