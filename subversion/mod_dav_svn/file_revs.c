@@ -44,14 +44,14 @@ struct file_rev_baton {
   void *window_baton;
 };
 
-static svn_error_t *send_xml(struct file_rev_baton *frb,
+static svn_error_t *send_xml(struct file_rev_baton *frb, 
                              const char *fmt, ...)
 {
   apr_status_t apr_err;
   va_list ap;
 
   va_start(ap, fmt);
-  apr_err = apr_brigade_vprintf(frb->bb, ap_filter_flush,
+  apr_err = apr_brigade_vprintf(frb->bb, ap_filter_flush, 
                                 frb->output, fmt, ap);
   va_end(ap);
   if (apr_err)
@@ -79,7 +79,7 @@ static svn_error_t *maybe_send_header(struct file_rev_baton *frb)
   return SVN_NO_ERROR;
 }
 
-/* Send a property named NAME with value VAL in an element named ELEM_NAME.
+/* Send a property named NAME with value VAL in an element named ELEM_NAME. 
    Quote NAME and base64-encode VAL if necessary. */
 static svn_error_t *
 send_prop(struct file_rev_baton *frb, const char *elem_name,
@@ -216,7 +216,7 @@ dav_svn__file_revs_report(const dav_resource *resource,
   struct file_rev_baton frb;
   dav_svn_authz_read_baton arb;
   const char *path = NULL;
-
+  
   /* Construct the authz read check baton. */
   arb.r = resource->info->r;
   arb.repos = resource->info->repos;
@@ -279,7 +279,7 @@ dav_svn__file_revs_report(const dav_resource *resource,
                                  resource->pool);
       goto cleanup;
     }
-
+  
   if ((serr = maybe_send_header(&frb)))
     {
       derr = dav_svn_convert_err(serr, HTTP_INTERNAL_SERVER_ERROR,
@@ -287,7 +287,7 @@ dav_svn__file_revs_report(const dav_resource *resource,
                                  resource->pool);
       goto cleanup;
     }
-
+    
   if ((serr = send_xml(&frb, "</S:file-revs-report>" DEBUG_CR)))
     {
       derr = dav_svn_convert_err(serr, HTTP_INTERNAL_SERVER_ERROR,
