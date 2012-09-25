@@ -83,7 +83,7 @@ parse_pathname(const char **input, const char *end,
         last_colon = curr;
       curr++;
     }
-
+  
   if (!last_colon)
     return svn_error_create(SVN_ERR_MERGEINFO_PARSE_ERROR, NULL,
                             _("Pathname not terminated by ':'"));
@@ -1492,7 +1492,7 @@ svn_mergeinfo__remove_prefix_from_catalog(svn_mergeinfo_catalog_t *out_catalog,
       SVN_ERR_ASSERT(klen >= prefix_len);
       SVN_ERR_ASSERT(strncmp(key, prefix, prefix_len) == 0);
 
-      apr_hash_set(*out_catalog, original_path + prefix_len,
+      apr_hash_set(*out_catalog, original_path + prefix_len, 
                    klen-prefix_len, value);
     }
 

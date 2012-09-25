@@ -76,7 +76,7 @@ AC_CHECK_PROG(HAVE_PKG_CONFIG, pkg-config, yes)
 NEON_ALLOWED_LIST="0\.25 0\.26 0\.27\.2 0\.28"
 NEON_RECOMMENDED_VER=0.28.3
 NEON_URL="http://www.webdav.org/neon/neon-${NEON_RECOMMENDED_VER}.tar.gz"
-dnl You can skip the neon version check only if you know what you are doing
+dnl You can skip the neon version check only if you know what you are doing 
 AC_ARG_ENABLE(neon-version-check,
   AS_HELP_STRING([--disable-neon-version-check],
                  [do not check the Neon version]),
@@ -280,7 +280,7 @@ fi
 dnl Mac OS KeyChain -------------------
 
 AC_ARG_ENABLE(keychain,
-  AS_HELP_STRING([--disable-keychain],
+  AS_HELP_STRING([--disable-keychain], 
   [Disable use of Mac OS KeyChain for auth credentials]),
   [enable_keychain=$enableval],[enable_keychain=yes])
 
@@ -371,7 +371,7 @@ fi
 dnl GNOME Keyring -------------------
 
 AC_ARG_WITH(gnome_keyring,
-  AS_HELP_STRING([--with-gnome-keyring],
+  AS_HELP_STRING([--with-gnome-keyring], 
                  [Enable use of GNOME Keyring for auth credentials]),
                  [with_gnome_keyring="$withval"],
                  [with_gnome_keyring=no])
@@ -393,7 +393,7 @@ if test "$with_gnome_keyring" != "no"; then
             AC_MSG_CHECKING([for GNOME Keyring])
             if test "$with_gnome_keyring" = "yes"; then
               AC_MSG_RESULT([yes])
-              AC_DEFINE([SVN_HAVE_GNOME_KEYRING], [1],
+              AC_DEFINE([SVN_HAVE_GNOME_KEYRING], [1], 
                         [Is GNOME Keyring support enabled?])
               CPPFLAGS="$old_CPPFLAGS"
               SVN_GNOME_KEYRING_LIBS="$DBUS_LIBS `pkg-config --libs glib-2.0 gnome-keyring-1`"
@@ -607,7 +607,7 @@ if test "$svn_lib_berkeley_db" = "yes"; then
   BDB_TEST_DEPS="\$(BDB_TEST_DEPS)"
   BDB_TEST_PROGRAMS="\$(BDB_TEST_PROGRAMS)"
 fi
-
+  
 if test "$svn_lib_neon" = "yes"; then
   BUILD_RULES="$BUILD_RULES neon-lib"
   INSTALL_RULES="`echo $INSTALL_RULES | sed 's/install-ramod-lib/install-ramod-lib install-neon-lib/'`"
@@ -900,7 +900,7 @@ AS_HELP_STRING([--enable-runtime-module-search],
 if test "$enable_shared" = "no" || test "$use_dso" != "yes"; then
   ### We want ra_local first to handle the following scenario:
   ### user has neon and db3 in /usr/local, and db4 in
-  ### /usr/local/BerkeleyDB.4.0.  If libsvn_ra_neon.la comes before
+  ### /usr/local/BerkeleyDB.4.0.  If libsvn_ra_neon.la comes before 
   ### libsvn_fs.la then libtool ends up linking libsvn_fs to the db3
   ### in /usr/local/lib
   AC_DEFINE(SVN_LIBSVN_CLIENT_LINKS_RA_LOCAL, 1,
@@ -980,15 +980,15 @@ LT_CXX_LIBADD=""
 if test "$do_javahl_build" = "yes"; then
   dnl Check for suitable JDK
   if test "$JDK_SUITABLE" = "no"; then
-    AC_MSG_ERROR([Cannot compile JavaHL without a suitable JDK.
+    AC_MSG_ERROR([Cannot compile JavaHL without a suitable JDK. 
                   Please specify a suitable JDK using the --with-jdk option.])
   fi
-
+  
   dnl The temporary directory where libtool compiles libsvnjavahl.
   dnl N.B. objdir is "the name of the directory that contains temporary
   dnl libtool files" and it is set by libtool.m4
   JAVAHL_OBJDIR='$(libsvnjavahl_PATH)'/$objdir
-
+  
   os_arch=`uname`
   if test "$os_arch" = "Darwin"; then
     dnl On Darwin, JNI libs must be installed as .jnilib
@@ -1047,7 +1047,7 @@ INCLUDE_OUTPUTS="include \$(top_srcdir)/build-outputs.mk"
 case "$host" in
   *bsdi*)
     # Check whether they've installed GNU make
-    if ! make --version > /dev/null 2>&1; then
+    if ! make --version > /dev/null 2>&1; then 
       # BSDi make
       INCLUDE_OUTPUTS=".include \"\$(top_srcdir)/build-outputs.mk\""
     fi
@@ -1076,7 +1076,7 @@ AC_OUTPUT
 # ==== Print final messages to user ==========================================
 
 dnl Configure is long - users tend to miss warnings printed during it.
-dnl Hence, print a warnings about what we did and didn't configure at the
+dnl Hence, print a warnings about what we did and didn't configure at the 
 dnl end, where people will actually see them.
 
 case "$svn_lib_berkeley_db" in

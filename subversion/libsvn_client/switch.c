@@ -174,7 +174,7 @@ svn_client__switch_internal(svn_revnum_t *result_rev,
   /* We may need to crop the tree if the depth is sticky */
   if (depth_is_sticky && depth < svn_depth_infinity)
     {
-      SVN_ERR(svn_wc_crop_tree(adm_access, target, depth,
+      SVN_ERR(svn_wc_crop_tree(adm_access, target, depth, 
                                ctx->notify_func2, ctx->notify_baton2,
                                ctx->cancel_func, ctx->cancel_baton,
                                pool));

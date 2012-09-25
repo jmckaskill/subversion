@@ -80,11 +80,11 @@ typedef struct
 {
   svn_boolean_t is_first;
   const char *path;
-  svn_revnum_t rev;
+  svn_revnum_t rev;  
   apr_pool_t *pool;
 } copyfrom_info_t;
 
-/* A location segment callback for obtaining the copy source of
+/* A location segment callback for obtaining the copy source of 
    a node at a path and storing it in *BATON (a struct copyfrom_info_t *).
    Implements svn_location_segment_receiver_t. */
 static svn_error_t *

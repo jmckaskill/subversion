@@ -130,7 +130,7 @@ svn_client__update_internal(svn_revnum_t *result_rev,
 
   /* We may have to crop the subtree if the depth is sticky, so lock the
      entire tree in such a situation*/
-  levels_to_lock = depth_is_sticky
+  levels_to_lock = depth_is_sticky 
     ? -1 : SVN_WC__LEVELS_TO_LOCK_FROM_DEPTH(depth);
 
   /* Sanity check.  Without this, the update is meaningless. */
@@ -158,7 +158,7 @@ svn_client__update_internal(svn_revnum_t *result_rev,
   /* We may need to crop the tree if the depth is sticky */
   if (depth_is_sticky && depth < svn_depth_infinity)
     {
-      SVN_ERR(svn_wc_crop_tree(adm_access, target, depth,
+      SVN_ERR(svn_wc_crop_tree(adm_access, target, depth, 
                                ctx->notify_func2, ctx->notify_baton2,
                                ctx->cancel_func, ctx->cancel_baton,
                                pool));
@@ -252,7 +252,7 @@ svn_client__update_internal(svn_revnum_t *result_rev,
      PATH.  When we call reporter->finish_report, the
      update_editor will be driven by svn_repos_dir_delta2. */
   err = svn_wc_crawl_revisions4(path, dir_access, reporter, report_baton,
-                                TRUE, depth, (! depth_is_sticky),
+                                TRUE, depth, (! depth_is_sticky), 
                                 (! server_supports_depth),
                                 use_commit_times,
                                 ctx->notify_func2, ctx->notify_baton2,

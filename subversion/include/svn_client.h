@@ -4394,7 +4394,7 @@ typedef struct svn_info_t
    * @deprecated Provided for backward compatibility with the 1.5 API.
    */
   apr_size_t size;
-
+  
   /**
    * The size of the file in the repository (untranslated,
    * e.g. without adjustment of line endings and keyword
@@ -4403,14 +4403,14 @@ typedef struct svn_info_t
    * @since New in 1.6.
    */
   apr_off_t size64;
-
+  
   /**
    * The size of the file after being translated into its local
    * representation, or @c SVN_FILE_SIZE_UNKNOWN if
    * unknown.  Not applicable for directories.
    * @since New in 1.6.
    * @name Working-copy path fields
-   * @{
+   * @{   
    */
   apr_off_t working_size64;
 
