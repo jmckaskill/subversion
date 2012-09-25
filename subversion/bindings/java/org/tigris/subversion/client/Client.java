@@ -32,7 +32,7 @@ public interface Client
      * and password.
      * @param prompt A delegate for prompting
      * @param retryLimit How often to re-prompt
-     * @return A <code>AuthProvider</code>
+     * @return A <code>AuthProvider</code> 
      */
     AuthProvider getSimplePromptProvider(ClientPrompt prompt, int retryLimit);
 
@@ -40,7 +40,7 @@ public interface Client
      * username.
      * @param prompt A delegate for prompting
      * @param retryLimit How often to re-prompt
-     * @return A <code>AuthProvider</code>
+     * @return A <code>AuthProvider</code> 
      */
     AuthProvider getUsernamePromptProvider(ClientPrompt prompt, int retryLimit);
 
