@@ -232,7 +232,7 @@ struct dir_baton
      The depth-filtering editor won't help us here.  It only filters
      based on the requested depth, it never looks in the working copy
      to get ambient depths.  So the update editor itself will have to
-     filter out the unwanted calls.
+     filter out the unwanted calls.  
 
      We do this at the moment of baton construction.  When a file or
      dir is opened, we create its baton with the appropriate ambient
@@ -249,7 +249,7 @@ struct dir_baton
      used anyway.)
 
      See issue #2842 for more.
-  */
+  */ 
   svn_depth_t ambient_depth;
 
   /* The pool in which this baton itself is allocated. */
@@ -445,7 +445,7 @@ make_dir_baton(struct dir_baton **d_p,
       svn_error_t *err;
       const svn_wc_entry_t *entry;
       svn_wc_adm_access_t *adm_access;
-
+      
       err = svn_wc_adm_retrieve(&adm_access, eb->adm_access, d->path, pool);
       if (err &&
           (err->apr_err == SVN_ERR_WC_PATH_NOT_FOUND
@@ -829,7 +829,7 @@ make_file_baton(struct file_baton **f_p,
       svn_error_t *err;
       const svn_wc_entry_t *entry;
       svn_wc_adm_access_t *adm_access;
-
+      
       err = svn_wc_adm_retrieve(&adm_access, pb->edit_baton->adm_access,
                                 f->path, pool);
       if (err &&
@@ -1751,7 +1751,7 @@ close_directory(void *dir_baton,
                     /* something changed, record the change */
                     {
                       const char *d_path = apr_pstrdup(ti->pool, db->path);
-
+                      
                       apr_hash_set(ti->depths, d_path, APR_HASH_KEY_STRING,
                                    svn_depth_to_word(db->ambient_depth));
 
@@ -2048,7 +2048,7 @@ open_file(const char *path,
      aren't actually doing any "work" or fetching any persistent data. */
 
   SVN_ERR(svn_io_check_path(fb->path, &kind, subpool));
-  SVN_ERR(svn_wc_adm_retrieve(&adm_access, eb->adm_access,
+  SVN_ERR(svn_wc_adm_retrieve(&adm_access, eb->adm_access, 
                               pb->path, subpool));
   SVN_ERR(svn_wc_entry(&entry, fb->path, adm_access, FALSE, subpool));
 
@@ -2770,7 +2770,7 @@ close_file(void *file_baton,
 
   if (((content_state != svn_wc_notify_state_unchanged) ||
        (prop_state != svn_wc_notify_state_unchanged) ||
-       (lock_state != svn_wc_notify_lock_state_unchanged))
+       (lock_state != svn_wc_notify_lock_state_unchanged)) 
       && eb->notify_func
       && fb->send_notification)
     {
@@ -3018,7 +3018,7 @@ add_file_with_history(const char *path,
       *file_baton = tfb;
       return SVN_NO_ERROR;
     }
-
+ 
   /* Initialize the text-bases for the new file baton, the same way
      apply_textdelta() does. */
   tfb->text_base_path = svn_wc__text_base_path(tfb->path, FALSE, tfb->pool);
@@ -3126,13 +3126,13 @@ add_file_with_history(const char *path,
      apply_textdelta(), which means re-opening the file. */
   SVN_ERR(open_file(path, parent_baton, SVN_INVALID_REVNUM, pool, &fb));
   tfb = (struct file_baton *)fb;
-
+  
   if (tfb->ambient_depth == svn_depth_exclude)
     {
       *file_baton = tfb;
       return SVN_NO_ERROR;
     }
-
+ 
   /* We don't want this trailing open_file()/close_file() combo to be
      signaled to the client's output, however.  The general policy is
      to call the notification callback only -once- per file. */

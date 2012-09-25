@@ -65,7 +65,7 @@ struct log_receiver_baton
 
    This is useful for tracking the various changes in location a
    particular resource has undergone when performing an RA->get_logs()
-   operation on that resource.
+   operation on that resource.  
 
    ### NOTE: This is a perfect duplicate of
    ### libsvn_client/blame.c:prev_log_path(), which should someday go
@@ -234,7 +234,7 @@ log_receiver(void *baton,
         {
           apr_hash_set(lrb->locations,
                        apr_pmemdup(hash_pool, &next, sizeof(next)),
-                       sizeof(next),
+                       sizeof(next), 
                        apr_pstrdup(hash_pool, current_path));
           apr_array_pop(lrb->location_revisions);
         }
@@ -309,10 +309,10 @@ svn_ra__locations_from_log(svn_ra_session_t *session,
   /* Figure out the youngest and oldest revs (amongst the set of
      requested revisions + the peg revision) so we can avoid
      unnecessary log parsing. */
-  qsort(location_revisions->elts, location_revisions->nelts,
+  qsort(location_revisions->elts, location_revisions->nelts, 
         location_revisions->elt_size, compare_revisions);
   oldest_requested = APR_ARRAY_IDX(location_revisions, 0, svn_revnum_t);
-  youngest_requested = APR_ARRAY_IDX(location_revisions,
+  youngest_requested = APR_ARRAY_IDX(location_revisions, 
                                      location_revisions->nelts - 1,
                                      svn_revnum_t);
   youngest = peg_revision;
@@ -339,7 +339,7 @@ svn_ra__locations_from_log(svn_ra_session_t *session,
   targets = apr_array_make(pool, 1, sizeof(const char *));
   APR_ARRAY_PUSH(targets, const char *) = path;
   SVN_ERR(svn_ra_get_log2(session, targets, youngest, oldest, 0,
-                          TRUE, FALSE, FALSE,
+                          TRUE, FALSE, FALSE, 
                           apr_array_make(pool, 0, sizeof(const char *)),
                           log_receiver, &lrb, pool));
 
@@ -355,7 +355,7 @@ svn_ra__locations_from_log(svn_ra_session_t *session,
       int i;
       for (i = 0; i < location_revisions->nelts; i++)
         {
-          svn_revnum_t rev = APR_ARRAY_IDX(location_revisions, i,
+          svn_revnum_t rev = APR_ARRAY_IDX(location_revisions, i, 
                                            svn_revnum_t);
           if (! apr_hash_get(locations, &rev, sizeof(rev)))
             apr_hash_set(locations, apr_pmemdup(pool, &rev, sizeof(rev)),
