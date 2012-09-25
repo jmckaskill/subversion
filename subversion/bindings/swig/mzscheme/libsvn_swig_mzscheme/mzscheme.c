@@ -135,5 +135,5 @@ void svn_swig_mzscm_setup_ra_callbacks(svn_ra_callbacks2_t **callbacks,
                                     void* rb_callbacks,
                                     apr_pool_t *pool)
 {
-
+  
 }

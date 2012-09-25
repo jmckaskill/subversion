@@ -9,7 +9,7 @@ svnalphaschemebindings.plt : shared-magic
 	@echo "creating plt bundle"
 	mzc --plt svnalphaschemebindings.plt -- `find ./`
 
-shared-magic: core.so svn_client.so svn_delta.so svn_fs.so svn_ra.so svn_repos.so svn_wc.so
+shared-magic: core.so svn_client.so svn_delta.so svn_fs.so svn_ra.so svn_repos.so svn_wc.so 
 	@echo "building magic"
 
 

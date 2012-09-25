@@ -4,7 +4,7 @@ use File::Slurp qw /slurp/;
 use Switch;
 #Auto-generates stalin scheme bindings
 #This is not particularly great code
-#One possible replacement is with an emacs lisp program
+#One possible replacement is with an emacs lisp program 
 #and use cedet's sementatic or similar
 
 
@@ -17,7 +17,7 @@ while ($_ = <STDIN>) {
   chomp ($_);
   #print "handling $_\n";
   $text = process($_);
-  if ($_ =~ /\/(.*)$/) {
+  if ($_ =~ /\/(.*)$/) { 
     print OUT ";$1\n";
   }
   print OUT "$text\n";
@@ -58,7 +58,7 @@ sub process {
       #re-defining list makes stalin scheme VERY angry ;)
       $text = "$text \n (define stalin_bindings_$name (foreign-procedure ( $takes ) $rt \"$name\"))";
     }
-
+    
   }
   print $ft;
   close (TIN);
@@ -84,23 +84,23 @@ sub givetakes {
       #See stalin README file
       switch ($myct) {
 	case /int/i {$s = "INT";}
-
+	
 	case /signed char/i {$s = "SIGNED-CHAR";}
-
+	
 	case /unsigned char/i {$s = "UNSIGNED-CHAR";}
 
 	case /char\s*\*/ {$s = "CHAR*";}
 
 	case /char/i {$s = "CHAR";}
-
+	
 	case /short/i {$s = "SHORT";}
-
+		
 	case /long double/i {$s = "LONG-DOUBLE";}
-
+	
 	case /long/i {$s = "LONG";}
-
+	
 	case /float/i {$s = "FLOAT";}
-
+			
 	  #Explicitly don't handle void*
 	  else {$s = "VOID*";}
       }

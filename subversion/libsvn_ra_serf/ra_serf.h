@@ -393,7 +393,7 @@ svn_ra_serf__request_create(svn_ra_serf__handler_t *handler);
 typedef struct svn_ra_serf__xml_state_t {
   /* A numeric value that represents the current state in parsing.
    *
-   * Value 0 is reserved for use as the default state.
+   * Value 0 is reserved for use as the default state. 
    */
   int current_state;
 
@@ -539,7 +539,7 @@ typedef struct {
 typedef struct {
   /* The HTTP status code of the response */
   int status;
-
+  
   /* The HTTP status line of the response */
   const char *reason;
 
@@ -704,7 +704,7 @@ svn_ra_serf__bucket_propfind_create(svn_ra_serf__connection_t *conn,
  *
  * This function will not block waiting for the response.  If the
  * request can be satisfied from a local cache, set PROP_CTX to NULL
- * as a signal to callers of that fact.  Otherwise, callers are
+ * as a signal to callers of that fact.  Otherwise, callers are 
  * expected to call svn_ra_serf__wait_for_props().
  */
 svn_error_t *

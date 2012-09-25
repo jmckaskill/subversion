@@ -29,7 +29,7 @@ AC_DEFUN(SVN_MZSCHEME,
     fi
   ],
   [
-    AC_CHECK_HEADER(plt/escheme.h,
+    AC_CHECK_HEADER(plt/escheme.h,  
     [mzscheme_found="yes"])
   ])
 
