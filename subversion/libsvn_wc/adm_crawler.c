@@ -48,7 +48,7 @@
 
 
 /* Helper for report_revisions().
-
+   
    Perform an atomic restoration of the file FILE_PATH; that is, copy
    the file's text-base to the administrative tmp area, and then move
    that file to FILE_PATH with possible translations/expansions.  If
@@ -90,7 +90,7 @@ restore_file(const char *file_path,
 
   if (use_commit_times)
     {
-      SVN_ERR(svn_wc__get_special(&special, file_path, adm_access, pool));
+      SVN_ERR(svn_wc__get_special(&special, file_path, adm_access, pool)); 
     }
 
   /* Possibly set timestamp to last-commit-time. */
@@ -169,16 +169,16 @@ report_revisions(svn_wc_adm_access_t *adm_access,
 
   /* Get both the SVN Entries and the actual on-disk entries.   Also
      notice that we're picking up hidden entries too. */
-  full_path = svn_path_join(svn_wc_adm_access_path(adm_access),
+  full_path = svn_path_join(svn_wc_adm_access_path(adm_access), 
                             dir_path, subpool);
   SVN_ERR(svn_wc_adm_retrieve(&dir_access, adm_access, full_path, subpool));
   SVN_ERR(svn_wc_entries_read(&entries, dir_access, TRUE, subpool));
   SVN_ERR(svn_io_get_dir_filenames(&dirents, full_path, subpool));
-
+  
   /*** Do the real reporting and recursing. ***/
-
+  
   /* First, look at "this dir" to see what its URL is. */
-  dot_entry = apr_hash_get(entries, SVN_WC_ENTRY_THIS_DIR,
+  dot_entry = apr_hash_get(entries, SVN_WC_ENTRY_THIS_DIR, 
                            APR_HASH_KEY_STRING);
 
   /* If "this dir" has "svn:externals" property set on it, store its name
@@ -208,7 +208,7 @@ report_revisions(svn_wc_adm_access_t *adm_access,
       const void *key;
       apr_ssize_t klen;
       void *val;
-      const svn_wc_entry_t *current_entry;
+      const svn_wc_entry_t *current_entry; 
       svn_io_dirent_t *dirent;
       svn_node_kind_t dirent_kind;
       svn_boolean_t missing = FALSE;
@@ -226,7 +226,7 @@ report_revisions(svn_wc_adm_access_t *adm_access,
         continue;
 
       /* Compute the paths and URLs we need. */
-      this_url = svn_path_join(dot_entry->url,
+      this_url = svn_path_join(dot_entry->url, 
                                svn_path_uri_encode(key, iterpool), iterpool);
       this_path = svn_path_join(dir_path, key, iterpool);
       this_full_path = svn_path_join(full_path, key, iterpool);
@@ -243,7 +243,7 @@ report_revisions(svn_wc_adm_access_t *adm_access,
             SVN_ERR(reporter->delete_path(report_baton, this_path, iterpool));
           continue;
         }
-
+      
       /* Is the entry on disk?  Set a flag if not. */
       dirent = apr_hash_get(dirents, key, klen);
       if (! dirent)
@@ -256,26 +256,26 @@ report_revisions(svn_wc_adm_access_t *adm_access,
           if (dirent_kind == svn_node_none)
             missing = TRUE;
         }
-
+      
       /* From here on out, ignore any entry scheduled for addition */
       if (current_entry->schedule == svn_wc_schedule_add)
         continue;
-
+      
       /*** Files ***/
-      if (current_entry->kind == svn_node_file)
+      if (current_entry->kind == svn_node_file) 
         {
           /* If the item is missing from disk, and we're supposed to
              restore missing things, and it isn't missing as a result
              of a scheduling operation, then ... */
-          if (missing
-              && restore_files
+          if (missing 
+              && restore_files 
               && (current_entry->schedule != svn_wc_schedule_delete)
               && (current_entry->schedule != svn_wc_schedule_replace))
             {
               /* ... recreate file from text-base, and ... */
               SVN_ERR(restore_file(this_full_path, dir_access,
                                    use_commit_times, iterpool));
-
+              
               /* ... report the restoration to the caller.  */
               if (notify_func != NULL)
                 {
@@ -300,7 +300,7 @@ report_revisions(svn_wc_adm_access_t *adm_access,
                 SVN_ERR(reporter->set_path(report_baton, this_path,
                                            current_entry->revision,
                                            FALSE, current_entry->lock_token,
-                                           iterpool));
+                                           iterpool));              
             }
 
           /* Possibly report a disjoint URL ... */
@@ -324,7 +324,7 @@ report_revisions(svn_wc_adm_access_t *adm_access,
                                        current_entry->lock_token,
                                        iterpool));
         } /* end file case */
-
+      
       /*** Directories (in recursive mode) ***/
       else if (current_entry->kind == svn_node_dir && recurse)
         {
@@ -365,7 +365,7 @@ report_revisions(svn_wc_adm_access_t *adm_access,
                                            subdir_entry->revision,
                                            subdir_entry->incomplete,
                                            subdir_entry->lock_token,
-                                           iterpool));
+                                           iterpool));              
             }
 
           /* Possibly report a disjoint URL ... */
@@ -449,9 +449,9 @@ svn_wc_crawl_revisions2(const char *path,
                            FALSE, pool));
       base_rev = parent_entry->revision;
       SVN_ERR(reporter->set_path(report_baton, "", base_rev,
-                                 entry ? entry->incomplete : TRUE,
+                                 entry ? entry->incomplete : TRUE, 
                                  NULL, pool));
-      SVN_ERR(reporter->delete_path(report_baton, "", pool));
+      SVN_ERR(reporter->delete_path(report_baton, "", pool)); 
 
       /* Finish the report, which causes the update editor to be
          driven. */
@@ -504,7 +504,7 @@ svn_wc_crawl_revisions2(const char *path,
           if (err)
             goto abort_report;
         }
-      else
+      else 
         {
           /* Recursively crawl ROOT_DIRECTORY and report differing
              revisions. */
@@ -543,7 +543,7 @@ svn_wc_crawl_revisions2(const char *path,
               (*notify_func)(notify_baton, notify, pool);
             }
         }
-
+      
       /* Split PATH into parent PDIR and basename BNAME. */
       svn_path_split(path, &pdir, &bname, pool);
       if (! parent_entry)
@@ -552,12 +552,12 @@ svn_wc_crawl_revisions2(const char *path,
           if (err)
             goto abort_report;
         }
-
-      if (parent_entry
-          && parent_entry->url
+      
+      if (parent_entry 
+          && parent_entry->url 
           && entry->url
-          && strcmp(entry->url,
-                    svn_path_url_add_component(parent_entry->url,
+          && strcmp(entry->url, 
+                    svn_path_url_add_component(parent_entry->url, 
                                                bname, pool)))
         {
           /* This file is disjoint with respect to its parent
@@ -630,7 +630,7 @@ static svn_error_t *wrap_delete_path(void *report_baton,
 
   return wrb->reporter->delete_path(wrb->baton, path, pool);
 }
-
+    
 static svn_error_t *wrap_link_path(void *report_baton,
                                    const char *path,
                                    const char *url,
@@ -684,7 +684,7 @@ svn_wc_crawl_revisions(const char *path,
 {
   struct wrap_report_baton wrb;
   svn_wc__compat_notify_baton_t nb;
-
+  
   wrb.reporter = reporter;
   wrb.baton = report_baton;
 
@@ -722,7 +722,7 @@ svn_wc_transmit_text_deltas2(const char **tempfile,
   svn_stream_t *local_stream;
   apr_time_t wf_time;
   svn_error_t *err, *err2;
-
+  
   /* Get timestamp of working file, to check for modifications during
      commit. */
   SVN_ERR(svn_io_file_affected_time(&wf_time, path, pool));
@@ -798,7 +798,7 @@ svn_wc_transmit_text_deltas2(const char **tempfile,
   /* Create a text-delta stream object that pulls data out of the two
      files. */
   svn_txdelta(&txdelta_stream, base_stream, local_stream, pool);
-
+  
   /* Pull windows from the delta stream and feed to the consumer.
      We don't handle a possible error right away, since it might be
      caused by a corrupt textbase, in which case we prefer a checksum
@@ -814,7 +814,7 @@ svn_wc_transmit_text_deltas2(const char **tempfile,
     }
   else if (err2)
     return err2;
-
+    
   /* And since we might want to remove the temporary local file below,
      make sure it is closed. */
   err2 = svn_stream_close(local_stream);
@@ -825,7 +825,7 @@ svn_wc_transmit_text_deltas2(const char **tempfile,
     }
   else if (err2)
     return err2;
-
+  
   /* Make sure the old text base still matches its checksum.
      Otherwise we could have sent corrupt data and never know it.
      For backwards compatibility, no checksum means assume a match. */
@@ -853,7 +853,7 @@ svn_wc_transmit_text_deltas2(const char **tempfile,
 
           if (tempfile)
             *tempfile = NULL;
-
+                  
           return svn_error_createf
             (SVN_ERR_WC_CORRUPT_TEXT_BASE, NULL,
              _("Checksum mismatch for '%s'; "
@@ -909,7 +909,7 @@ svn_wc_transmit_prop_deltas(const char *path,
   apr_array_header_t *propmods;
   apr_hash_t *localprops = apr_hash_make(pool);
   apr_hash_t *baseprops = apr_hash_make(pool);
-
+  
   /* Get the right access baton for the job. */
   SVN_ERR(svn_wc_adm_probe_retrieve(&adm_access, adm_access, path, pool));
 
@@ -924,7 +924,7 @@ svn_wc_transmit_prop_deltas(const char *path,
 
   /* First, get the prop_path from the original path */
   SVN_ERR(svn_wc__prop_path(&props, path, entry->kind, FALSE, pool));
-
+  
   /* Get the full path of the prop-base `pristine' file */
   if (entry->schedule == svn_wc_schedule_replace)
     {
@@ -951,7 +951,7 @@ svn_wc_transmit_prop_deltas(const char *path,
   SVN_ERR(svn_wc__load_prop_file(props_tmp, localprops, pool));
   if (props_base)
     SVN_ERR(svn_wc__load_prop_file(props_base, baseprops, pool));
-
+  
   /* Get an array of local changes by comparing the hashes. */
   SVN_ERR(svn_prop_diffs(&propmods, localprops, baseprops, pool));
 
