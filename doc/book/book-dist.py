@@ -7,12 +7,12 @@ import shutil
 def die(msg):
   sys.stderr.write('ERROR: ' + msg)
   sys.exit(1)
-
+  
 cwd = os.getcwd()
 if not os.path.exists('book') \
    or not os.path.exists('Makefile'):
   die('Please run this from the Subversion book source directory\n')
-
+  
 if not os.getenv('JAVA_HOME'):
   die('JAVA_HOME is not set correctly.\n')
 
@@ -33,7 +33,7 @@ try:
 finally:
   os.chdir(cwd)
   shutil.rmtree('./usr')
-
+  
 if not os.path.exists(tarball):
   die('Hrm.  It appears the tarball was not created.\n')
 

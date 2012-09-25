@@ -2034,7 +2034,7 @@ merge (svn_stringbuf_t *conflict_p,
   /* Possible early merge failure: if target and ancestor have
      different property lists, then the merge should fail.
      Propchanges can *only* be committed on an up-to-date directory.
-     ### TODO: see issue #418 about the inelegance of this.
+     ### TODO: see issue #418 about the inelegance of this. 
 
      Another possible, similar, early merge failure: if source and
      ancestor have different property lists (meaning someone else
