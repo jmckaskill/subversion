@@ -54,7 +54,7 @@ typedef enum svn_subst_eol_style
 
 } svn_subst_eol_style_t;
 
-/** Set @a *style to the appropriate @c svn_subst_eol_style_t and @a *eol to
+/** Set @a *style to the appropriate @c svn_subst_eol_style_t and @a *eol to 
  * the appropriate cstring for a given svn:eol-style property value.
  *
  * Set @a *eol to
@@ -63,7 +63,7 @@ typedef enum svn_subst_eol_style
  *
  *    - a null-terminated C string containing the native eol marker
  *      for this platform, for @c svn_subst_eol_style_native, or
- *
+ *            
  *    - a null-terminated C string containing the eol marker indicated
  *      by the property value, for @c svn_subst_eol_style_fixed.
  *
@@ -99,14 +99,14 @@ typedef struct svn_subst_keywords_t
 /**
  * Set @a *kw to a new keywords hash filled with the appropriate contents
  * given a @a keywords_string (the contents of the svn:keywords
- * property for the file in question), the revision @a rev, the @a url,
- * the @a date the file was committed on, and the @a author of the last
+ * property for the file in question), the revision @a rev, the @a url, 
+ * the @a date the file was committed on, and the @a author of the last 
  * commit.  Any of these can be @c NULL to indicate that the information is
  * not present, or @c 0 for @a date.
  *
  * Hash keys are of type <tt>const char *</tt>.
  * Hash values are of type <tt>svn_string_t *</tt>.
- *
+ * 
  * All memory is allocated out of @a pool.
  *
  * @since New in 1.3.
@@ -142,7 +142,7 @@ svn_subst_build_keywords (svn_subst_keywords_t *kw,
  *
  * @since New in 1.3.
  *
- * If @a compare_values is @c TRUE, "same" means that the @a a and @a b
+ * If @a compare_values is @c TRUE, "same" means that the @a a and @a b 
  * contain exactly the same set of keywords, and the values of corresponding
  * keywords match as well.  Else if @a compare_values is @c FALSE, then
  * "same" merely means that @a a and @a b hold the same set of keywords,
@@ -151,7 +151,7 @@ svn_subst_build_keywords (svn_subst_keywords_t *kw,
  * @a a and/or @a b may be @c NULL; for purposes of comparison, @c NULL is
  * equivalent to holding no keywords.
  */
-svn_boolean_t
+svn_boolean_t 
 svn_subst_keywords_differ2 (apr_hash_t *a,
                             apr_hash_t *b,
                             svn_boolean_t compare_values,
@@ -162,13 +162,13 @@ svn_subst_keywords_differ2 (apr_hash_t *a,
  *
  * @deprecated Provided for backward compatibility with the 1.2 API.
  */
-svn_boolean_t
+svn_boolean_t 
 svn_subst_keywords_differ (const svn_subst_keywords_t *a,
                            const svn_subst_keywords_t *b,
                            svn_boolean_t compare_values);
 
 
-/**
+/** 
  * Copy and translate the data in stream @a src into stream @a dst.  It is
  * assumed that @a src is a readable stream and @a dst is a writable stream.
  *
@@ -198,7 +198,7 @@ svn_subst_keywords_differ (const svn_subst_keywords_t *a,
  * keyword values, so use empty strings as non-null signifiers when you
  * build the keywords hash.
  *
- * Notes:
+ * Notes: 
  *
  * See svn_wc__get_keywords() and svn_wc__get_eol_style() for a
  * convenient way to get @a eol_str and @a keywords if in libsvn_wc.
@@ -344,9 +344,9 @@ svn_subst_translate_cstring (const char *src,
 /* EOL conversion and character encodings */
 
 /** Translate the data in @a value (assumed to be in encoded in charset
- * @a encoding) to UTF8 and LF line-endings.  If @a encoding is @c NULL,
+ * @a encoding) to UTF8 and LF line-endings.  If @a encoding is @c NULL, 
  * then assume that @a value is in the system-default language encoding.
- * Return the translated data in @a *new_value, allocated in @a pool.
+ * Return the translated data in @a *new_value, allocated in @a pool.  
  */
 svn_error_t *svn_subst_translate_string (svn_string_t **new_value,
                                          const svn_string_t *value,
