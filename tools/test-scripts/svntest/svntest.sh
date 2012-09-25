@@ -73,7 +73,7 @@ test $static = "PASS" && {
     test $? = 0 && static_ra_svn="PASS" || static_ra_svn="FAIL"
 
 # We have to figure out how the static build of mod_dav_svn should
-# be done, and if it is worth the trouble or not.
+# be done, and if it is worth the trouble or not.     
 #    $NICE $EXEC_PATH/svntest-run.sh "static" "ra_dav"
 #    test $? = 0 && static_ra_dav="PASS" || static_ra_dav="FAIL"
 }

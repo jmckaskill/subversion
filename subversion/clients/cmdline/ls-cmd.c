@@ -50,13 +50,13 @@ print_dirents (apr_hash_t *dirents,
   int i;
 
   array = apr_hash_sorted_keys (dirents, compare_items_as_paths, pool);
-
+  
   for (i = 0; i < array->nelts; ++i)
     {
       const char *utf8_entryname, *stdout_entryname;
       svn_dirent_t *dirent;
       svn_item_t *item;
-
+     
       item = &APR_ARRAY_IDX (array, i, svn_item_t);
 
       utf8_entryname = item->key;
@@ -74,7 +74,7 @@ print_dirents (apr_hash_t *dirents,
           const char *stdout_author = NULL;
           char timestr[20];
           char size_buf[21]; /* Enough for 2^64 in base 10 plus '\0' */
-
+          
           if (dirent->last_author)
             SVN_ERR (svn_cmdline_cstring_from_utf8 (&stdout_author,
                                                     dirent->last_author,
@@ -112,7 +112,7 @@ print_dirents (apr_hash_t *dirents,
         }
       else
         {
-          printf ("%s%s\n", stdout_entryname,
+          printf ("%s%s\n", stdout_entryname, 
                   (dirent->kind == svn_node_dir) ? "/" : "");
         }
     }
@@ -131,9 +131,9 @@ svn_cl__ls (apr_getopt_t *os,
   svn_client_ctx_t *ctx = ((svn_cl__cmd_baton_t *) baton)->ctx;
   apr_array_header_t *targets;
   int i;
-  apr_pool_t *subpool = svn_pool_create (pool);
+  apr_pool_t *subpool = svn_pool_create (pool); 
 
-  SVN_ERR (svn_opt_args_to_target_array (&targets, os,
+  SVN_ERR (svn_opt_args_to_target_array (&targets, os, 
                                          opt_state->targets,
                                          &(opt_state->start_revision),
                                          &(opt_state->end_revision),
@@ -147,7 +147,7 @@ svn_cl__ls (apr_getopt_t *os,
     {
       apr_hash_t *dirents;
       const char *target = ((const char **) (targets->elts))[i];
-
+     
       SVN_ERR (svn_client_ls (&dirents, target, &(opt_state->start_revision),
                               opt_state->recursive, ctx, subpool));
 

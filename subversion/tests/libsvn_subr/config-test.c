@@ -93,7 +93,7 @@ static const char *config_values[] = { "bar", "Aa", "100", "bar",
                                        "Aa 100", NULL };
 
 static svn_error_t *
-test1 (const char **msg,
+test1 (const char **msg, 
        svn_boolean_t msg_only,
        apr_pool_t *pool)
 {
@@ -140,7 +140,7 @@ static const char *true_keys[] = {"true1", "true2", "true3", NULL};
 static const char *false_keys[] = {"false1", "false2", "false3", NULL};
 
 static svn_error_t *
-test2 (const char **msg,
+test2 (const char **msg, 
        svn_boolean_t msg_only,
        apr_pool_t *pool)
 {
