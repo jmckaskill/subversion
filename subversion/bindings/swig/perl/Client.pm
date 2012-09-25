@@ -4,7 +4,7 @@ package SVN::Client;
 use SVN::Base(qw(Client svn_client_ checkout update switch add mkdir delete
                  commit status log blame diff merge cleanup relocate
                  revert resolved copy move revprop_set propset
-                 proplist revvprop_list export ls cat import));
+                 proplist revvprop_list export ls cat import)); 
 
 =head1 NAME
 
@@ -19,7 +19,7 @@ SVN::Client - Subversion client functions
               SVN::Client::get_username_provider()]
               );
 
-    $ctx->cat (\*STDOUT, 'http://svn.collab.net/repos/svn/trunk/README',
+    $ctx->cat (\*STDOUT, 'http://svn.collab.net/repos/svn/trunk/README', 
                'HEAD');
 
     sub simple_prompt {
@@ -81,7 +81,7 @@ methods described below:
 
     KEY                    DEFAULT
     ----------             ----------------------------------------
-    config                 Hash containing the config from the
+    config                 Hash containing the config from the 
                            default subversion config file location.
 
     auth                   auth_baton intiated to provide the
@@ -115,7 +115,7 @@ sub new
     {
         my $pool_type = ref($args{'pool'});
         if ($pool_type eq 'SVN::Pool' ||
-            $pool_type eq '_p_apr_pool_t')
+            $pool_type eq '_p_apr_pool_t') 
         {
             $self->{'pool'} = $args{'pool'};
         } else {
@@ -187,7 +187,7 @@ foreach my $function (qw(checkout update switch add mkdir delete commit
             {
                 push @args,$self->{'ctx'};
             }
-            if (defined($self->{'pool'}) &&
+            if (defined($self->{'pool'}) && 
                 ref($self->{'pool'}) eq '_p_apr_pool_t')
             {
                 # allow the pool entry in the SVN::Client
@@ -382,7 +382,7 @@ $SVN::_Core::SVN_AUTH_SSL_CNMISMATCH
 $SVN::_Core::SVN_AUTH_SSL_UNKNOWNCA
 $SVN::_Core::SVN_AUTH_SSL_OTHER
 
-You reply by setting the accepted_failures of the cred object with an integer
+You reply by setting the accepted_failures of the cred object with an integer 
 of the values for what you want to accept bitwise anded together.
 
 =item SVN::Client::get_ssl_cert_file_provider
@@ -432,7 +432,7 @@ use SVN::Base qw(Client svn_client_proplist_item_t_);
 
 =head1 TODO
 
-* Complete documentation
+* Complete documentation 
 
 * Support for the notify callback.
 

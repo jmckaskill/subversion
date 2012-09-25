@@ -130,7 +130,7 @@ svn_fs__err_corrupt_next_id (svn_fs_t *fs, const char *table)
   return
     svn_error_createf
     (SVN_ERR_FS_CORRUPT, 0,
-     "Corrupt value for 'next-id' key in '%s' table of filesystem '%s'",
+     "Corrupt value for 'next-id' key in '%s' table of filesystem '%s'", 
      table, fs->path);
 }
 
@@ -153,7 +153,7 @@ svn_fs__err_corrupt_copy (svn_fs_t *fs, const char *copy_id)
   return
     svn_error_createf
     (SVN_ERR_FS_CORRUPT, 0,
-     "Corrupt entry in 'copies' table for '%s' in filesystem '%s'",
+     "Corrupt entry in 'copies' table for '%s' in filesystem '%s'", 
      copy_id, fs->path);
 }
 

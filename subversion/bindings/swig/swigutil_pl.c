@@ -189,7 +189,7 @@ static SV *convert_hash (apr_hash_t *hash, element_converter_t converter_func,
 	hv_store(hv, (const char *)key, klen, obj, 0);
 	SvREFCNT_inc(obj);
     }
-
+    
     return newRV_inc((SV*)hv);
 }
 
@@ -275,7 +275,7 @@ static svn_error_t *perl_callback_thunk (perl_func_invoker_t caller_func,
 	case 'S': /* swig object */
 	    o = va_arg (ap, void *);
 	    t = va_arg (ap, swig_type_info *);
-
+  
 	    obj = sv_newmortal ();
 	    SWIG_MakePtr (obj, o, t, 0);
 	    XPUSHs(obj);
@@ -438,7 +438,7 @@ static svn_error_t * thunk_add_directory(const char *path,
     SVN_ERR (perl_callback_thunk (CALL_METHOD,
 				  (void *)"add_directory", &result,
 				  "OsOsiS", ib->editor, path, ib->baton,
-				  copyfrom_path, copyfrom_revision,
+				  copyfrom_path, copyfrom_revision, 
 				  dir_pool, poolinfo));
     *child_baton = make_baton(dir_pool, ib->editor, result);
     return SVN_NO_ERROR;
@@ -562,7 +562,7 @@ static svn_error_t * thunk_window_handler(svn_txdelta_window_t *window,
 }
 
 static svn_error_t *
-thunk_apply_textdelta(void *file_baton,
+thunk_apply_textdelta(void *file_baton, 
                       const char *base_checksum,
                       apr_pool_t *pool,
                       svn_txdelta_window_handler_t *handler,
@@ -616,7 +616,7 @@ static svn_error_t * thunk_change_file_prop(void *file_baton,
 				  "OOssS", ib->editor, ib->baton, name,
 				  value ? value->data : NULL,
 				  pool, poolinfo));
-
+  
     return SVN_NO_ERROR;
 }
 
@@ -675,7 +675,7 @@ void svn_delta_make_editor(svn_delta_editor_t **editor,
 			   apr_pool_t *pool)
 {
     svn_delta_editor_t *thunk_editor = svn_delta_default_editor (pool);
-
+  
     thunk_editor->set_target_revision = thunk_set_target_revision;
     thunk_editor->open_root = thunk_open_root;
     thunk_editor->delete_entry = thunk_delete_entry;
@@ -922,11 +922,11 @@ svn_error_t *svn_swig_pl_thunk_ssl_server_trust_prompt(
     perl_callback_thunk (CALL_SV,
                          baton, &result,
                          "SsiSiS", *cred, credinfo,
-                         realm, failures,
+                         realm, failures, 
                          cert_info, cert_info_info,
                          may_save, pool, poolinfo);
 
-    /* Allow the perl callback to indicate failure by setting all vars to 0
+    /* Allow the perl callback to indicate failure by setting all vars to 0 
      * or by simply doing nothing.  While still allowing them to indicate
      * failure by setting the cred strucutre's pointer to 0 via $$cred = 0 */
     if (*cred) {
@@ -949,7 +949,7 @@ svn_error_t *svn_swig_pl_thunk_ssl_client_cert_prompt(
     swig_type_info *poolinfo = SWIG_TypeQuery ("apr_pool_t *");
     swig_type_info *credinfo = SWIG_TypeQuery (
                                  "svn_auth_cred_ssl_client_cert_t *");
-
+    
     /* Be nice and allocate the memory for the cred structure before passing it
      * off to the perl space */
     *cred = apr_pcalloc (pool, sizeof (**cred));
