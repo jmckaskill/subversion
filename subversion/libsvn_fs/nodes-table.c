@@ -178,8 +178,8 @@ is_valid_option (skel_t *skel)
       && svn_fs__matches_atom (skel->children, "copy")
       && skel->children->next->is_atom
       && skel->children->next->next->is_atom)
-    {
-      return 1;
+    {      
+      return 1;      
     }
 
   return 0;
@@ -236,7 +236,7 @@ is_valid_node_revision (skel_t *skel)
               && header->next->is_atom
               && header->next->next->is_atom)
             return 1;
-
+          
           if (svn_fs__matches_atom (kind, "file")
               && len >= 3
               && header->next->is_atom
@@ -246,7 +246,7 @@ is_valid_node_revision (skel_t *skel)
                 return 1;
 
               /* edit-data-key can only exist on mutable file nodes. */
-              if ((len == 4)
+              if ((len == 4) 
                   && is_mutable_header (header)
                   && header->next->next->next->is_atom)
                 return 1;
@@ -296,7 +296,7 @@ svn_fs__new_node_id (svn_fs_id_t **id_p,
           (SVN_ERR_FS_CORRUPT, 0, 0, fs->pool,
            "root directory missing from `nodes' table, in filesystem `%s'",
            fs->path);
-
+      
       return DB_WRAP (fs, "choosing new node ID (finding last entry)", db_err);
     }
 
@@ -495,13 +495,13 @@ svn_fs__delete_nodes_entry (svn_fs_t *fs,
                             trail_t *trail)
 {
   DBT key;
-
+  
   SVN_ERR (DB_WRAP (fs, "deleting entry from `nodes' table",
                     fs->nodes->del (fs->nodes,
                                     trail->db_txn,
                                     svn_fs__id_to_dbt (&key, id, trail->pool),
                                     0)));
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -569,7 +569,7 @@ svn_fs__put_node_revision (svn_fs_t *fs,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end:

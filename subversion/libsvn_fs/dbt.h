@@ -44,7 +44,7 @@ DBT *svn_fs__set_dbt (DBT *dbt, void *data, u_int32_t size);
    requesting that Berkeley DB place the returned data in a freshly
    malloc'd block.  If the database operation succeeds, the caller
    then owns the data block, and is responsible for making sure it
-   gets freed.
+   gets freed.  
 
    You can use this with svn_fs__track_dbt:
 
@@ -100,7 +100,7 @@ DBT *svn_fs__str_to_dbt (DBT *dbt, char *str);
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end:

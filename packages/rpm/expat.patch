@@ -2,7 +2,7 @@
 +++ subversion-0.9.0/build.conf	Sun Feb 24 12:45:53 2002
 @@ -161,12 +161,12 @@
  install = apache-mod
-
+ 
  # Simple XML-parsing lib
 -[libexpat]
 -type = lib
@@ -15,7 +15,7 @@
  # there are some .c files included by others, so *.c isn't appropriate
 -sources = hashtable.c xmlparse.c xmlrole.c xmltok.c
 +#sources = hashtable.c xmlparse.c xmlrole.c xmltok.c
-
+ 
  # ----------------------------------------------------------------------------
  #
 --- subversion-M5/expat-lite/xmlparse.h	2001/11/01 01:25:42	1.1

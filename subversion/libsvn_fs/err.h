@@ -142,7 +142,7 @@ svn_error_t *svn_fs__err_not_directory (svn_fs_t *fs, const char *path);
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end:
