@@ -54,8 +54,8 @@
 typedef struct
 {
   /* ordered array of svn_auth_provider_object_t */
-  apr_array_header_t *providers;
-
+  apr_array_header_t *providers; 
+  
 } provider_set_t;
 
 
@@ -105,7 +105,7 @@ svn_auth_open (svn_auth_baton_t **auth_baton,
      credentials will be automatically sorted into different tables by
      register_provider(). */
   for (i = 0; i < providers->nelts; i++)
-    {
+    {      
       provider_set_t *table;
       provider = APR_ARRAY_IDX(providers, i, svn_auth_provider_object_t *);
 
@@ -115,14 +115,14 @@ svn_auth_open (svn_auth_baton_t **auth_baton,
       if (! table)
         {
           table = apr_pcalloc (pool, sizeof(*table));
-          table->providers
+          table->providers 
             = apr_array_make (pool, 1, sizeof (svn_auth_provider_object_t *));
 
           apr_hash_set (ab->tables,
                         provider->vtable->cred_kind, APR_HASH_KEY_STRING,
                         table);
-        }
-      *(svn_auth_provider_object_t **)apr_array_push (table->providers)
+        }  
+      *(svn_auth_provider_object_t **)apr_array_push (table->providers) 
         = provider;
     }
 
@@ -131,7 +131,7 @@ svn_auth_open (svn_auth_baton_t **auth_baton,
 
 
 
-void
+void 
 svn_auth_set_parameter (svn_auth_baton_t *auth_baton,
                         const char *name,
                         const void *value)
@@ -139,7 +139,7 @@ svn_auth_set_parameter (svn_auth_baton_t *auth_baton,
   apr_hash_set (auth_baton->parameters, name, APR_HASH_KEY_STRING, value);
 }
 
-const void *
+const void * 
 svn_auth_get_parameter (svn_auth_baton_t *auth_baton,
                         const char *name)
 {
@@ -174,7 +174,7 @@ svn_auth_first_credentials (void **credentials,
     {
       provider = APR_ARRAY_IDX(table->providers, i,
                                svn_auth_provider_object_t *);
-      SVN_ERR (provider->vtable->first_credentials
+      SVN_ERR (provider->vtable->first_credentials 
                (&creds, &iter_baton, provider->provider_baton,
                 auth_baton->parameters, pool));
 
@@ -222,7 +222,7 @@ svn_auth_next_credentials (void **credentials,
                                svn_auth_provider_object_t *);
       if (! state->got_first)
         {
-          SVN_ERR (provider->vtable->first_credentials
+          SVN_ERR (provider->vtable->first_credentials 
                    (&creds, &(state->provider_iter_baton),
                     provider->provider_baton, state->parameters, pool));
           state->got_first = TRUE;
@@ -230,7 +230,7 @@ svn_auth_next_credentials (void **credentials,
       else
         {
           if (provider->vtable->next_credentials)
-            SVN_ERR (provider->vtable->next_credentials
+            SVN_ERR (provider->vtable->next_credentials 
                      (&creds, state->provider_iter_baton,
                       state->parameters, pool));
         }
@@ -260,11 +260,11 @@ svn_auth_save_credentials (svn_auth_iterstate_t *state,
     return SVN_NO_ERROR;
 
   /* First, try to save the creds using the provider that produced them. */
-  provider = APR_ARRAY_IDX (state->table->providers,
-                            state->provider_idx,
+  provider = APR_ARRAY_IDX (state->table->providers, 
+                            state->provider_idx, 
                             svn_auth_provider_object_t *);
   if (provider->vtable->save_credentials)
-    SVN_ERR (provider->vtable->save_credentials (&save_succeeded,
+    SVN_ERR (provider->vtable->save_credentials (&save_succeeded, 
                                                  state->last_creds,
                                                  provider->provider_baton,
                                                  state->parameters,
@@ -280,7 +280,7 @@ svn_auth_save_credentials (svn_auth_iterstate_t *state,
       provider = APR_ARRAY_IDX(state->table->providers, i,
                                svn_auth_provider_object_t *);
       if (provider->vtable->save_credentials)
-        SVN_ERR (provider->vtable->save_credentials
+        SVN_ERR (provider->vtable->save_credentials 
                  (&save_succeeded, state->last_creds,
                   provider->provider_baton, state->parameters, pool));
 
