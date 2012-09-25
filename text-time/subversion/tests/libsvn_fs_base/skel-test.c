@@ -108,7 +108,7 @@ init_char_types (void)
     skel_char_map[i] = type_name;
   for (i = 'a'; i <= 'z'; i++)
     skel_char_map[i] = type_name;
-
+  
   skel_char_map_initialized = 1;
 }
 
@@ -253,7 +253,7 @@ check_implicit_length_all_chars (skel_t *skel)
 /* Test parsing of implicit-length atoms.  */
 
 static svn_error_t *
-parse_implicit_length (const char **msg,
+parse_implicit_length (const char **msg, 
                        svn_boolean_t msg_only,
                        apr_pool_t *pool)
 {
@@ -303,7 +303,7 @@ parse_implicit_length (const char **msg,
    bytes at DATA, in explicit-length form, using SEP as the separator
    between the length and the data.  */
 static void
-put_explicit_length (svn_stringbuf_t *str, const char *data, apr_size_t len,
+put_explicit_length (svn_stringbuf_t *str, const char *data, apr_size_t len, 
                      char sep)
 {
   char *buf = malloc (len + 100);
@@ -315,7 +315,7 @@ put_explicit_length (svn_stringbuf_t *str, const char *data, apr_size_t len,
   /* Generate the length and separator character.  */
   sprintf (buf, "%"APR_SIZE_T_FMT"%c", len, sep);
   length_len = strlen(buf);
-
+  
   /* Copy in the real data (which may contain nulls).  */
   memcpy (buf + length_len, data, len);
 
@@ -351,7 +351,7 @@ try_explicit_length (const char *data, apr_size_t len, apr_size_t check_len,
         put_explicit_length (str, data, len,  (apr_byte_t)i);
         skel = parse_str (str, pool);
         if (! check_explicit_length (skel, data, check_len))
-          return fail (pool, "failed to reparse explicit-length atom");
+          return fail (pool, "failed to reparse explicit-length atom"); 
       }
 
   return SVN_NO_ERROR;
@@ -359,7 +359,7 @@ try_explicit_length (const char *data, apr_size_t len, apr_size_t check_len,
 
 
 static svn_error_t *
-parse_explicit_length (const char **msg,
+parse_explicit_length (const char **msg, 
                        svn_boolean_t msg_only,
                        apr_pool_t *pool)
 {
@@ -421,7 +421,7 @@ static struct invalid_atoms
                       { 7,  0, NULL } };
 
 static svn_error_t *
-parse_invalid_atoms (const char **msg,
+parse_invalid_atoms (const char **msg, 
                      svn_boolean_t msg_only,
                      apr_pool_t *pool)
 {
@@ -438,7 +438,7 @@ parse_invalid_atoms (const char **msg,
         {
           skel_t *skel = parse_cstr (ia->data, pool);
           if (check_atom (skel, ia->data, ia->len))
-            return fail (pool,
+            return fail (pool, 
                          "failed to detect parsing error in '%s'", ia->data);
         }
       else
@@ -515,7 +515,7 @@ check_list (skel_t *skel, int desired_len)
 /* Parse lists.  */
 
 static svn_error_t *
-parse_list (const char **msg,
+parse_list (const char **msg, 
             svn_boolean_t msg_only,
             apr_pool_t *pool)
 {
@@ -571,9 +571,9 @@ parse_list (const char **msg,
                         for (child = skel->children;
                              child;
                              child = child->next)
-                          if (! check_implicit_length_byte
+                          if (! check_implicit_length_byte 
                                  (child, (apr_byte_t)atom_byte))
-                            return fail (pool,
+                            return fail (pool, 
                                          "list was reparsed incorrectly");
                       }
 
@@ -662,7 +662,7 @@ parse_list (const char **msg,
   {
     int sep;
 
-    /* Try different separators.  */
+    /* Try different separators.  */ 
     for (sep = 0; sep < 256; sep++)
       if (skel_is_space ( (apr_byte_t)sep))
         {
@@ -774,7 +774,7 @@ skel_equal (skel_t *a, skel_t *b)
 /* Unparsing implicit-length atoms.  */
 
 static svn_error_t *
-unparse_implicit_length (const char **msg,
+unparse_implicit_length (const char **msg, 
                          svn_boolean_t msg_only,
                          apr_pool_t *pool)
 {
@@ -812,7 +812,7 @@ unparse_implicit_length (const char **msg,
 /* Unparse some lists.  */
 
 static svn_error_t *
-unparse_list (const char **msg,
+unparse_list (const char **msg, 
               svn_boolean_t msg_only,
               apr_pool_t *pool)
 {

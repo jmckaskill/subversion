@@ -1295,6 +1295,6 @@ public class BasicTests extends SVNTests
         // create the working copy
         OneTest thisTest = new OneTest();
         assertEquals("wrong version info","1",
-                client.getVersionInfo(thisTest.getWCPath(), null, false));
+                client.getVersionInfo(thisTest.getWCPath(), null, false));        
     }
 }

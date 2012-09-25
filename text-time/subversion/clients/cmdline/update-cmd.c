@@ -41,14 +41,14 @@ svn_cl__update (apr_getopt_t *os,
   svn_client_ctx_t *ctx = ((svn_cl__cmd_baton_t *) baton)->ctx;
   apr_array_header_t *targets;
 
-  SVN_ERR (svn_opt_args_to_target_array2 (&targets, os,
+  SVN_ERR (svn_opt_args_to_target_array2 (&targets, os, 
                                           opt_state->targets, pool));
 
   /* Add "." if user passed 0 arguments */
   svn_opt_push_implicit_dot_target (targets, pool);
 
   if (! opt_state->quiet)
-    svn_cl__get_notifier (&ctx->notify_func, &ctx->notify_baton,
+    svn_cl__get_notifier (&ctx->notify_func, &ctx->notify_baton, 
                           FALSE, FALSE, FALSE, pool);
 
   SVN_ERR (svn_client_update2 (NULL, targets,

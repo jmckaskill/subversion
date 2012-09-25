@@ -445,7 +445,7 @@ public interface SVNClientInterface
      * @exception ClientException
      */
     void diff(String target1, Revision revision1, String target2,
-              Revision revision2, String outFileName, boolean recurse,
+              Revision revision2, String outFileName, boolean recurse, 
               boolean ignoreAncestry, boolean noDiffDeleted, boolean force)
             throws ClientException;
     /**
@@ -487,7 +487,7 @@ public interface SVNClientInterface
      * @param pegRevision the revision to interpret path
      * @return array of property objects
      */
-    PropertyData[] properties(String path, Revision revision,
+    PropertyData[] properties(String path, Revision revision, 
                               Revision pegRevision)
             throws ClientException;
     /**

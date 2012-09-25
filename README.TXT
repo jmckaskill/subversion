@@ -2,7 +2,7 @@ About this directory.
 
 
 This subdirectory has two branches.
-They are copies of /trunk:13253 and are merged from trunk from time
+They are copies of /trunk:13253 and are merged from trunk from time 
 to time.
 - text-time
   This branch is dedicated for the versioning of the text-time
@@ -22,7 +22,7 @@ Why meta-data versioning?
 
 There has been much discussion whether, and to a smaller extent, how
 meta-data should be versioned.
-Some argue that this is not a requirement of subversion itself, but
+Some argue that this is not a requirement of subversion itself, but 
 should be done by wrapper scripts; IMO it makes much sense to do that
 inside subversion, as only one run through a wc is required on commit.
 
@@ -51,13 +51,13 @@ Example of ~/.subversion/config:
 
 
 Known problems:
-- The functionality is incomplete/has bugs, the meta-data is not restored
+- The functionality is incomplete/has bugs, the meta-data is not restored 
   on every occasion.
   Whereas text-time is mostly complete, the other properties need work.
-- As mentioned by Philip Martin in
+- As mentioned by Philip Martin in 
   http://marc.theaimsgroup.com/?l=subversion-dev&m=110729651620515&w=2,
   the way conflicts are treated has to be specified.
-
+  
 
 Last updated: 04 Mar 2005.
 
@@ -73,7 +73,7 @@ References
    http://marc.theaimsgroup.com/?l=subversion-dev&m=110917936530930&w=2
 
 3. Feb. 2005 - Announce of first o-g-m patch on ml
-   [PATCH] svn now stores unix-owner, -group, and -mode too
+   [PATCH] svn now stores unix-owner, -group, and -mode too   
    http://marc.theaimsgroup.com/?l=subversion-dev&m=110724160930812&w=2
 
 4. May 2003 - Thread with first patches for mtime versioning on ml
@@ -83,7 +83,7 @@ References
 
 Notes
 
-[1] "Should". If they *would* be used in every case, the branches would
+[1] "Should". If they *would* be used in every case, the branches would 
 be finished (and not alpha or beta quality).
 
 

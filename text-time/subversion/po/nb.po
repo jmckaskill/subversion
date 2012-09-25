@@ -40,9 +40,9 @@
 # WC (“working copy”) - AK («arbeidskopi»)
 # working copy - arbeidskopi
 #
-# ¹: Er det et problem at de to betegnelsene på engelsk — «entry» og
-#    «record» — blir redusert til ett ord på norsk? Det er vel ikke så
-#    mange andre forståelige begreper for dem på norsk, og _er_ det
+# ¹: Er det et problem at de to betegnelsene på engelsk — «entry» og 
+#    «record» — blir redusert til ett ord på norsk? Det er vel ikke så 
+#    mange andre forståelige begreper for dem på norsk, og _er_ det 
 #    egentlig nevneverdig forskjell på en entry og record?
 #
 msgid ""

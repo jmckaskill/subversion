@@ -51,7 +51,7 @@ svn_wc_translated_file (const char **xlated_p,
   const char *eol;
   svn_subst_keywords_t *keywords;
   svn_boolean_t special;
-
+  
   SVN_ERR (svn_wc__get_eol_style (&style, &eol, vfile, adm_access, pool));
   SVN_ERR (svn_wc__get_keywords (&keywords, vfile, adm_access, NULL, pool));
   SVN_ERR (svn_wc__get_special (&special, vfile, adm_access, pool));
@@ -69,21 +69,21 @@ svn_wc_translated_file (const char **xlated_p,
       /* First, reserve a tmp file name. */
 
       svn_path_split (vfile, &tmp_dir, &tmp_vfile, pool);
-
+      
       tmp_vfile = svn_wc__adm_path (tmp_dir, 1, pool,
                                     tmp_vfile, NULL);
-
+      
       SVN_ERR (svn_io_open_unique_file (&ignored,
                                         &tmp_vfile,
                                         tmp_vfile,
                                         SVN_WC__TMP_EXT,
                                         FALSE,
                                         pool));
-
+      
       /* We were just reserving the name and don't actually need the
          filehandle, so close immediately. */
       SVN_ERR (svn_io_file_close (ignored, pool));
-
+      
       if (style == svn_subst_eol_style_fixed)
         {
           SVN_ERR (svn_subst_copy_and_translate2 (vfile,
@@ -190,7 +190,7 @@ svn_wc__get_keywords (svn_subst_keywords_t **keywords,
 
       SVN_ERR (svn_wc_prop_get (&propval, SVN_PROP_KEYWORDS, path, adm_access,
                                 pool));
-
+      
       list = propval ? propval->data : NULL;
     }
   else
@@ -212,7 +212,7 @@ svn_wc__get_keywords (svn_subst_keywords_t **keywords,
                                      pool));
 
   *keywords = apr_pmemdup (pool, &tmp_keywords, sizeof (tmp_keywords));
-
+      
   return SVN_NO_ERROR;
 }
 

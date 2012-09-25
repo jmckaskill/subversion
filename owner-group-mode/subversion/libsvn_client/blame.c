@@ -114,7 +114,7 @@ blame_create (struct file_rev_baton *baton, struct rev *rev, apr_off_t start)
   else
     blame = apr_palloc (baton->mainpool, sizeof (*blame));
   blame->rev = rev;
-  blame->start = start;
+  blame->start = start;       
   blame->next = NULL;
   return blame;
 }
@@ -252,11 +252,11 @@ output_diff_modified (void *baton,
 struct log_message_baton {
   const char *path;        /* The path to be processed */
   struct rev *eldest;      /* The eldest revision processed */
-  char action;             /* The action associated with the eldest */
+  char action;             /* The action associated with the eldest */ 
   svn_revnum_t copyrev;    /* The revision the eldest was copied from */
-  svn_cancel_func_t cancel_func; /* cancellation callback */
+  svn_cancel_func_t cancel_func; /* cancellation callback */ 
   void *cancel_baton;            /* cancellation baton */
-  apr_pool_t *pool;
+  apr_pool_t *pool; 
 };
 
 static const svn_diff_output_fns_t output_fns = {
@@ -377,7 +377,7 @@ check_mimetype (apr_array_header_t *prop_diffs, const char *target,
       if (strcmp (prop->name, SVN_PROP_MIME_TYPE) == 0
           && prop->value
           && svn_mime_type_is_binary (prop->value->data))
-        return svn_error_createf
+        return svn_error_createf 
           (SVN_ERR_CLIENT_IS_BINARY_FILE, 0,
            _("Cannot calculate blame information for binary file '%s'"),
            svn_path_local_style (target, pool));
@@ -562,7 +562,7 @@ svn_client_blame2 (const char *target,
                               start_revnum - (start_revnum > 0 ? 1 : 0),
                               end_revnum,
                               file_rev_handler, &frb, pool);
-
+  
   /* Fall back if it wasn't supported by the server.  Servers earlier
      than 1.1 need this. */
   if (err && err->apr_err == SVN_ERR_RA_NOT_IMPLEMENTED)
@@ -745,7 +745,7 @@ old_blame (const char *target, const char *url,
       const char *temp_dir;
       apr_hash_t *props;
       svn_string_t *mimetype;
-
+      
       apr_pool_clear (frb->currpool);
       SVN_ERR (svn_io_temp_dir (&temp_dir, frb->currpool));
       SVN_ERR (svn_io_open_unique_file (&file, &tmp,
@@ -762,12 +762,12 @@ old_blame (const char *target, const char *url,
       SVN_ERR (svn_io_file_close (file, frb->currpool));
 
       /* If this file has a non-textual mime-type, bail out. */
-      if (props &&
-          ((mimetype = apr_hash_get (props, SVN_PROP_MIME_TYPE,
+      if (props && 
+          ((mimetype = apr_hash_get (props, SVN_PROP_MIME_TYPE, 
                                      sizeof (SVN_PROP_MIME_TYPE) - 1))))
         {
           if (svn_mime_type_is_binary (mimetype->data))
-            return svn_error_createf
+            return svn_error_createf 
               (SVN_ERR_CLIENT_IS_BINARY_FILE, 0,
                _("Cannot calculate blame information for binary file '%s'"),
                svn_path_local_style (target, frb->currpool));

@@ -89,7 +89,7 @@ svn_repos_fs_begin_txn_for_commit (svn_fs_txn_t **txn_p,
       SVN_ERR (svn_fs_change_txn_prop (*txn_p, SVN_PROP_REVISION_AUTHOR,
                                        &val, pool));
     }
-
+    
   /* Log message. */
   if (log_msg)
     {
@@ -150,10 +150,10 @@ validate_prop (const char *name,
 {
   svn_prop_kind_t kind = svn_property_kind (NULL, name);
   if (kind != svn_prop_regular_kind)
-    return svn_error_createf
+    return svn_error_createf 
       (SVN_ERR_REPOS_BAD_ARGS, NULL,
        _("Storage of non-regular property '%s' is disallowed through the "
-         "repository interface, and could indicate a bug in your client"),
+         "repository interface, and could indicate a bug in your client"), 
        name);
   return SVN_NO_ERROR;
 }
@@ -270,7 +270,7 @@ svn_repos_fs_change_rev_prop2 (svn_repos_t *repos,
 
   if (authz_read_func)
     SVN_ERR (get_readability (&readability, repos->fs, rev,
-                              authz_read_func, authz_read_baton, pool));
+                              authz_read_func, authz_read_baton, pool));    
   if (readability == rev_readable)
     {
       SVN_ERR (validate_prop (name, pool));
@@ -281,7 +281,7 @@ svn_repos_fs_change_rev_prop2 (svn_repos_t *repos,
         action = 'A';
       else
         action = 'M';
-      SVN_ERR (svn_repos__hooks_pre_revprop_change (repos, rev, author, name,
+      SVN_ERR (svn_repos__hooks_pre_revprop_change (repos, rev, author, name, 
                                                     new_value, action, pool));
       SVN_ERR (svn_fs_change_rev_prop (repos->fs, rev, name, new_value, pool));
       SVN_ERR (svn_repos__hooks_post_revprop_change (repos, rev, author,  name,
@@ -289,7 +289,7 @@ svn_repos_fs_change_rev_prop2 (svn_repos_t *repos,
     }
   else  /* rev is either unreadable or only partially readable */
     {
-      return svn_error_createf
+      return svn_error_createf 
         (SVN_ERR_AUTHZ_UNREADABLE, NULL,
          _("Write denied:  not authorized to read all of revision %ld."), rev);
     }
@@ -308,8 +308,8 @@ svn_repos_fs_change_rev_prop (svn_repos_t *repos,
                               apr_pool_t *pool)
 {
   return svn_repos_fs_change_rev_prop2 (repos, rev, author, name, new_value,
-                                        NULL, NULL, pool);
-}
+                                        NULL, NULL, pool);  
+}     
 
 
 
@@ -326,7 +326,7 @@ svn_repos_fs_revision_prop (svn_string_t **value_p,
 
   if (authz_read_func)
     SVN_ERR (get_readability (&readability, repos->fs, rev,
-                              authz_read_func, authz_read_baton, pool));
+                              authz_read_func, authz_read_baton, pool));    
 
   if (readability == rev_unreadable)
     {
@@ -334,7 +334,7 @@ svn_repos_fs_revision_prop (svn_string_t **value_p,
       *value_p = NULL;
     }
   else if (readability == rev_partially_readable)
-    {
+    {      
       /* Only svn:author and svn:date are fetchable. */
       if ((strncmp (propname, SVN_PROP_REVISION_AUTHOR,
                     strlen(SVN_PROP_REVISION_AUTHOR)) != 0)
@@ -368,7 +368,7 @@ svn_repos_fs_revision_proplist (apr_hash_t **table_p,
 
   if (authz_read_func)
     SVN_ERR (get_readability (&readability, repos->fs, rev,
-                              authz_read_func, authz_read_baton, pool));
+                              authz_read_func, authz_read_baton, pool));    
 
   if (readability == rev_unreadable)
     {
@@ -376,7 +376,7 @@ svn_repos_fs_revision_proplist (apr_hash_t **table_p,
       *table_p = apr_hash_make (pool);
     }
   else if (readability == rev_partially_readable)
-    {
+    {      
       apr_hash_t *tmphash;
       svn_string_t *value;
 
@@ -408,8 +408,8 @@ svn_repos_fs_revision_proplist (apr_hash_t **table_p,
 
 
 
-/*
- * vim:ts=4:sw=4:expandtab:tw=80:fo=tcroq
- * vim:isk=a-z,A-Z,48-57,_,.,-,>
+/* 
+ * vim:ts=4:sw=4:expandtab:tw=80:fo=tcroq 
+ * vim:isk=a-z,A-Z,48-57,_,.,-,> 
  * vim:cino=>1s,e0,n0,f0,{.5s,}0,^-.5s,=.5s,t0,+1s,c3,(0,u0,\:0
  */
