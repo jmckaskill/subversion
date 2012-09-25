@@ -82,7 +82,7 @@ typedef struct svn_io_dirent_t {
  * If @a path does not exist in its final component, set @a *kind to
  * @c svn_node_none.
  *
- * If intermediate directories on the way to @a path don't exist, return
+ * If intermediate directories on the way to @a path don't exist, return 
  * an error, with @a *kind's value undefined.
  *
  * Otherwise, set @a *kind to @c svn_node_unknown.
