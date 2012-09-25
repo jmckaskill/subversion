@@ -1569,7 +1569,7 @@ def status_depth_update(sbox):
 #----------------------------------------------------------------------
 def status_depth_update_local_modifications(sbox):
   "run 'status --depth=X -u' with local changes"
-
+  
   sbox.build()
   wc_dir = sbox.wc_dir
   A_path = sbox.ospath('A')
