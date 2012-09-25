@@ -840,7 +840,7 @@ svn_client_propget4(apr_hash_t **props,
     {
       svn_boolean_t pristine;
       int adm_lock_level = -1;
-
+      
       if (depth == svn_depth_empty || depth == svn_depth_files)
         adm_lock_level = 0;
 

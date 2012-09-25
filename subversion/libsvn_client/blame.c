@@ -961,7 +961,7 @@ struct log_message_baton {
 
    This is useful for tracking the various changes in location a
    particular resource has undergone when performing an RA->get_logs()
-   operation on that resource.
+   operation on that resource. 
 
    ### NOTE: This is a perfect duplicate of
    ### libsvn_ra/compat.c:prev_log_path(), and should someday go away

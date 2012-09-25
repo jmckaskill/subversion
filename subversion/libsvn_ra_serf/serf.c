@@ -776,7 +776,7 @@ capabilities_headers_iterator_callback(void *baton,
          seek for it directly.  This could be rewritten as an
          iteration with a switch-case inside, or whatever, if we
          ever need to detect other capabilities, though. */
-
+      
       if (svn_cstring_match_glob_list(SVN_DAV_PROP_NS_DAV_SVN_DEPTH, vals))
         apr_hash_set(crb->capabilities, SVN_RA_CAPABILITY_DEPTH,
                      APR_HASH_KEY_STRING, capability_yes);
@@ -879,7 +879,7 @@ svn_ra_serf__has_capability(svn_ra_session_t *ra_session,
          _("attempt to fetch capability '%s' resulted in '%s'"),
          capability, cap_result);
     }
-
+  
   return SVN_NO_ERROR;
 }
 

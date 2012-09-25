@@ -211,7 +211,7 @@ svn_client__get_copy_source(const char *path_or_url,
 
 struct common_ancestor_baton {
   /* the last place our "path1" was known to live. */
-  svn_stringbuf_t *current_path1;
+  svn_stringbuf_t *current_path1;  
   svn_revnum_t current_rev1;
 
   /* the last place our "path2" was known to live. */
@@ -270,7 +270,7 @@ ensure_ra_session(svn_ra_session_t **new_ra_session,
   else
     {
       SVN_ERR(svn_client__open_ra_session_internal(new_ra_session, url,
-                                                   NULL, NULL, NULL, FALSE,
+                                                   NULL, NULL, NULL, FALSE, 
                                                    TRUE, ctx, pool));
     }
   return SVN_NO_ERROR;
@@ -311,7 +311,7 @@ svn_client__get_youngest_common_ancestor(const char **ancestor_path,
            mappings afterwards to see if there's a point of common
            ancestry.
 
-        2. We can use the svn_ra_get_log2() interface to effectively
+        2. We can use the svn_ra_get_log2() interface to effectively 
            crawl the locations simultaneously and do our comparison
            work as we're getting our history feed.
 
@@ -336,7 +336,7 @@ svn_client__get_youngest_common_ancestor(const char **ancestor_path,
     }
   else
     {
-      SVN_ERR(svn_client__get_revision_number(&revision1, NULL, peg_revision1,
+      SVN_ERR(svn_client__get_revision_number(&revision1, NULL, peg_revision1, 
                                               path_or_url1, pool));
     }
 
@@ -352,14 +352,14 @@ svn_client__get_youngest_common_ancestor(const char **ancestor_path,
     }
   else
     {
-      SVN_ERR(svn_client__get_revision_number(&revision2, NULL, peg_revision2,
+      SVN_ERR(svn_client__get_revision_number(&revision2, NULL, peg_revision2, 
                                               path_or_url2, pool));
     }
 
   /* At this point we have two numeric revisions and two paths or
      URLs.  We can use this information to normalize our input to two
      URLs in a single revision.  */
-  oldest.value.number = MIN(peg_revision1->value.number,
+  oldest.value.number = MIN(peg_revision1->value.number, 
                             peg_revision2->value.number);
   SVN_ERR(ensure_ra_session(&ra_session, &ra_session_url, path_or_url1,
                             ra_session, ra_session_url, ctx, pool));
@@ -388,10 +388,10 @@ svn_client__get_youngest_common_ancestor(const char **ancestor_path,
      to shake out any doubt that we're at least examining two inputs
      from the same repository. */
   SVN_ERR(svn_ra_get_repos_root(ra_session, &repos_root, pool));
-  SVN_ERR(svn_client__path_relative_to_root(&rel_loc_path1, loc_url1,
+  SVN_ERR(svn_client__path_relative_to_root(&rel_loc_path1, loc_url1, 
                                             repos_root, NULL, NULL, pool));
-  SVN_ERR(svn_client__path_relative_to_root(&rel_loc_path2, loc_url2,
-                                            repos_root, NULL, NULL, pool));
+  SVN_ERR(svn_client__path_relative_to_root(&rel_loc_path2, loc_url2, 
+                                            repos_root, NULL, NULL, pool)); 
 
   /* ### FIXME: svn_client__path_relative_to_root() returns paths with
      ### leading slashes, which is highly inconsistent with our APIs.
@@ -409,15 +409,15 @@ svn_client__get_youngest_common_ancestor(const char **ancestor_path,
   APR_ARRAY_PUSH(targets, const char *) = rel_loc_path2;
   SVN_ERR(ensure_ra_session(&ra_session, &ra_session_url, repos_root,
                             ra_session, ra_session_url, ctx, pool));
-  SVN_ERR(svn_ra_get_log2(ra_session, targets, oldest.value.number, 0, 0,
-                          TRUE, FALSE, FALSE,
+  SVN_ERR(svn_ra_get_log2(ra_session, targets, oldest.value.number, 0, 0, 
+                          TRUE, FALSE, FALSE, 
                           apr_array_make(pool, 0, sizeof(const char *)),
                           common_ancestor_cb, &b, pool));
   if (svn_stringbuf_compare(b.current_path1, b.current_path2)
       && (b.current_rev1 == b.current_rev2))
     {
-      *ancestor_path =
-        svn_path_join(repos_root,
+      *ancestor_path = 
+        svn_path_join(repos_root, 
                       svn_path_uri_encode((b.current_path1)->data, pool),
                       pool);
       *ancestor_revision = b.current_rev1;
