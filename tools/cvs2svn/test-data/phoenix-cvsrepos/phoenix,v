@@ -60,7 +60,7 @@ log
 @This file was supplied by Jack Moffitt <jack@@xiph.org> to help us
 reproduce a bug in which cvs2svn.py would throw an exception when it
 tried to create a file branch rooted in a 'dead' RCS revision.  See
-http://subversion.tigris.org/issues/show_bug.cgi?id=1417 for
+http://subversion.tigris.org/issues/show_bug.cgi?id=1417 for 
 more details.
 
 The original file was ao/doc/index.html,v, and the log message for
@@ -129,7 +129,7 @@ log
 @This file was supplied by Jack Moffitt <jack@@xiph.org> to help us
 reproduce a bug in which cvs2svn.py would throw an exception when it
 tried to create a file branch rooted in a 'dead' RCS revision.  See
-http://subversion.tigris.org/issues/show_bug.cgi?id=1417 for
+http://subversion.tigris.org/issues/show_bug.cgi?id=1417 for 
 more details.
 
 The original file was ao/doc/index.html,v, and the log message for
@@ -155,7 +155,7 @@ log
 @This file was supplied by Jack Moffitt <jack@@xiph.org> to help us
 reproduce a bug in which cvs2svn.py would throw an exception when it
 tried to create a file branch rooted in a 'dead' RCS revision.  See
-http://subversion.tigris.org/issues/show_bug.cgi?id=1417 for
+http://subversion.tigris.org/issues/show_bug.cgi?id=1417 for 
 more details.
 
 The original file was ao/doc/index.html,v, and the log message for
@@ -177,7 +177,7 @@ log
 @This file was supplied by Jack Moffitt <jack@@xiph.org> to help us
 reproduce a bug in which cvs2svn.py would throw an exception when it
 tried to create a file branch rooted in a 'dead' RCS revision.  See
-http://subversion.tigris.org/issues/show_bug.cgi?id=1417 for
+http://subversion.tigris.org/issues/show_bug.cgi?id=1417 for 
 more details.
 
 The original file was ao/doc/index.html,v, and the log message for
@@ -249,7 +249,7 @@ log
 @This file was supplied by Jack Moffitt <jack@@xiph.org> to help us
 reproduce a bug in which cvs2svn.py would throw an exception when it
 tried to create a file branch rooted in a 'dead' RCS revision.  See
-http://subversion.tigris.org/issues/show_bug.cgi?id=1417 for
+http://subversion.tigris.org/issues/show_bug.cgi?id=1417 for 
 more details.
 
 The original file was ao/doc/index.html,v, and the log message for
@@ -271,7 +271,7 @@ log
 @This file was supplied by Jack Moffitt <jack@@xiph.org> to help us
 reproduce a bug in which cvs2svn.py would throw an exception when it
 tried to create a file branch rooted in a 'dead' RCS revision.  See
-http://subversion.tigris.org/issues/show_bug.cgi?id=1417 for
+http://subversion.tigris.org/issues/show_bug.cgi?id=1417 for 
 more details.
 
 The original file was ao/doc/index.html,v, and the log message for
@@ -288,7 +288,7 @@ log
 @This file was supplied by Jack Moffitt <jack@@xiph.org> to help us
 reproduce a bug in which cvs2svn.py would throw an exception when it
 tried to create a file branch rooted in a 'dead' RCS revision.  See
-http://subversion.tigris.org/issues/show_bug.cgi?id=1417 for
+http://subversion.tigris.org/issues/show_bug.cgi?id=1417 for 
 more details.
 
 The original file was ao/doc/index.html,v, and the log message for
