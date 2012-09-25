@@ -32,32 +32,32 @@ Based on r32490
 <ul>
 <li><a href="#why">このプロジェクトの存在理由は?</a></li>
 <li><a href="#collab">Subversionって、プロプラエタリなの?
-    CollabNetが所有しているって聞いたんだけど...?</a></li>
+    CollabNetが所有しているって聞いたんだけど...?</a></li> 
 <li><a href="#stable">Subversionって、僕等のプロジェクトで使える位に安定している?</a></li>
 <li><a href="#interop">Subversionのクライアント/サーバ相互接続性に関するポリシーは?</a></li>
-<li><a href="#portability">SubversionはどのOS上で動作するの?</a></li>
-<li><a href="#filesystem">「新ファイルシステム」って、どういうこと? ext2 みたいのもの?</a></li>
+<li><a href="#portability">SubversionはどのOS上で動作するの?</a></li> 
+<li><a href="#filesystem">「新ファイルシステム」って、どういうこと? ext2 みたいのもの?</a></li> 
 <li><a href="#server-requirements">Subversionサーバを動作させるためには、どんなハードウェアが必要?</a></li>
-<li><a href="#apache-extension">Subversion って、Apacheのエクステンションって聞いたんだけど?サーバとして使うってこと?</a></li>
-<li><a href="#need-apache">ってことは、Subversion を使うには、Apacheを設定しなきゃいけないってこと?</a></li>
-<li><a href="#multiple-apachim">現在 Apache 1.x を使っていて、Subversionのリポジトリを提供するためだけに Apache 2.0へと移行することは出来ないんだ。これって、Subversion サーバを使うことが出来ないって、ことになるのかな?</a></li>
+<li><a href="#apache-extension">Subversion って、Apacheのエクステンションって聞いたんだけど?サーバとして使うってこと?</a></li> 
+<li><a href="#need-apache">ってことは、Subversion を使うには、Apacheを設定しなきゃいけないってこと?</a></li> 
+<li><a href="#multiple-apachim">現在 Apache 1.x を使っていて、Subversionのリポジトリを提供するためだけに Apache 2.0へと移行することは出来ないんだ。これって、Subversion サーバを使うことが出来ないって、ことになるのかな?</a></li>  
 <li><a href="#feature-x">えーと、SCM system Yがやってるみたいに X って機能を採用するってのはどう?</a></li>
 <li><a href="#globalrev">どうして、リポジトリ全体でリビジョン番号を共有するの?  僕は、個々のプロジェクト毎に、それぞれのリビジョン番号が欲しいんだけど。</a></li>
 <li><a href="#changesets">Subversion には「チェンジセット」って存在する?</a></li>
 <li><a href="#release">次のリリースは何時?</a></li>
 <li><a href="#symlinks">Subversion は、シンボリックリンクをサポートしてる?</a></li>
 <li><a href="#logo">高解像度の Subversion ロゴが欲しいんだけど、何処で手に入るかな?</a></li>
-<li><a href="#more-information">他にも質問があるんだけど、何処で情報が入手できるかな?</a></li>
+<li><a href="#more-information">他にも質問があるんだけど、何処で情報が入手できるかな?</a></li>  
 <li><a href="#moderation">なんで、メイリングリストへ投稿した私のメイルが流れないの?</a></li>
 </ul>
 
 <h4>How-to:</h4>
 <ul>
 <li><a href="#co-svn">Subversion のコードをチェックアウトするにはどうするの?</a></li>
-<li><a href="#repository">リポジトリを作るにはどうするの? その中にデータをインポートするには?</a></li>
+<li><a href="#repository">リポジトリを作るにはどうするの? その中にデータをインポートするには?</a></li> 
 <li><a href="#cvs2svn">既存のCVSリポジトリを Subversion リポジトリに変換するには?</a></li>
 <li><a href="#proxy">Proxyサーバに阻まれているんだけどどうしよう?</a></li>
-<li><a href="#paranoid">僕の管理者は、Subversion用のHTTPサーバを建てて欲しくないみたいなんだ。それでも僕はリモートから使いたいんだけど、どうしたらいいかな?</a></li>
+<li><a href="#paranoid">僕の管理者は、Subversion用のHTTPサーバを建てて欲しくないみたいなんだ。それでも僕はリモートから使いたいんだけど、どうしたらいいかな?</a></li> 
 <li><a href="#multi-proj">幾つかの異なるプロジェクトを Subversion で管理するにはどうすれば?</a></li>
 <li><a href="#multi-merge">完全に分離している二つのリポジトリをマージするにはどうすればよい?</a></li>
 <li><a href="#nfs">私のレポジトリや作業コピー、NFSサーバ上に置くべきでしょうか?</a></li>
@@ -67,8 +67,8 @@ Based on r32490
 <li><a href="#removal">リポジトリのヒストリーから、完全にファイルを消去するには、どうしたらよいの?</a></li>
 <li><a href="#change-log-msg">コミット済みリビジョンのログメッセージを変更するには?</a></li>
 <li><a href="#patch">Subversion のパッチ、どうやって送ればよいかな?</a></li>
-<li><a href="#in-place-import">その場 'import'ってどうやるの? つまり、オリジナルデータがそのまま作業コピーとなるように Subversion へツリーを追加したいんだけど。</a></li>
-<li><a href="#dumpload">Subversion サーバのアップグレードについて語るとき、時々話に出てくる「ダンプ/ロードサイクル」ってなんのこと?</a></li>
+<li><a href="#in-place-import">その場 'import'ってどうやるの? つまり、オリジナルデータがそのまま作業コピーとなるように Subversion へツリーを追加したいんだけど。</a></li> 
+<li><a href="#dumpload">Subversion サーバのアップグレードについて語るとき、時々話に出てくる「ダンプ/ロードサイクル」ってなんのこと?</a></li> 
 <li><a href="#sspi">SSPI認証を使って、Windows ドメインコントローラに対して認証を行い、クライアントへ許可を与えたいんだけど、どうすればよい?</a></li>
 <li><a href="#adm-dir">「.svn」っていうディレクトリの名前、好きじゃないんだ。「SVN」とかの方が嬉しいんだけど、どこ変えれば良いの?</a></li>
 <li><a href="#case-change">ファイル名の大文字小文字変換をするには?</a></li>
@@ -102,13 +102,13 @@ Based on r32490
 <li><a href="#wc-out-of-date">commit しようとしているんですが、Subversion が、僕の作業コピーは古い、って言ってくるんだけど?</a></li>
 <li><a href="#obstructed-add">あるプロジェクトへパッチを寄贈しました。そのパッチは新規ファイルを含んでいます。で、今、<tt>svn update</tt>が動作しないのですが...。</a></li>
 <li><a href="#unrecognized-url-error">ディストリビューションバイナリをビルドして、Subversion をチェックアウトしようとしたら、「UnrecognizedURL scheme」って、エラーが表示されたんだけど、これって、どうなったの?</a></li>
-<li><a href="#db-recover">リポジトリを見つけるとき、または開こうとするときにエラーが出るんだけど、リポジトリのURLが正しいことは分かってる。何が悪いの?</a></li>
+<li><a href="#db-recover">リポジトリを見つけるとき、または開こうとするときにエラーが出るんだけど、リポジトリのURLが正しいことは分かってる。何が悪いの?</a></li> 
 <li><a href="#configure-sed-error">'<tt>configure</tt>' を実行したら、<tt>subs-1.sed&nbsp;line&nbsp;38:&nbsp;Unterminated&nbsp;`s'&nbsp;command</tt>というエラーが出ました。何が問題?</a></li>
 <li><a href="#windows-msvc-build">Windows の上で、MSVC++ 6.0 を使ってSubversion を buildしているんだけど、上手く行かない。どうしたらよい?</a></li>
 <li><a href="#windows-drive-letter">Windowsのドライブレターを<tt>file: URL</tt>で使える?</a></li>
 <li><a href="#write-over-dav">ネットワーク越しに Subversion リポジトリへ書き込み操作を行うと問題が生じます。</a></li>
 <li><a href="#vs-asp-net">VS.NET/ASP.NET では .svn というディレクトリ名では問題があるように思えます。どうしたら良いでしょう?</a></li>
-<li><a href="#windows-xp-server">WindowsXP上で使っているんだけど、Subversion サーバが、たまに、壊れたデータを送出しているみたい。こんなことって、本当にあるの?</a></li>
+<li><a href="#windows-xp-server">WindowsXP上で使っているんだけど、Subversion サーバが、たまに、壊れたデータを送出しているみたい。こんなことって、本当にあるの?</a></li>  
 <li><a href="#net-trace">Subversion のクライアントとサーバの間を流れるネットワーク上のやり取りをトレースしたいのですが、どんな方法が最良でしょうか?</a></li>
 <li><a href="#revert">どうして<tt>svn revert</tt>では、明示的にターゲットを指定しなければならないの?  どうして、再帰処理がデフォルトじゃないの? こういった挙動は、他のほとんどのサブコマンドと異なっているよね。</a></li>
 <li><a href="#db3db4">Apache を起動したら、mod_dav_svn に「bad database version」と文句を言われた。どうも db-4.X ではなく、db-3.X を見つけたらしい。</a></li>
@@ -151,9 +151,9 @@ Based on r32490
 <h4>References:</h4>
 <ul>
 <li><a href="#http-methods">Subversionが使っている全ての HTTP メソッドは?</a></li>
-<li><a href="#bikeshed">「bikeshed」ってなに?</a></li>
-<li><a href="#pronounce">「Subvesion」ってどうやって発音するの?</a></li>
-<li><a href="#baton">「baton」ってなに?</a></li>
+<li><a href="#bikeshed">「bikeshed」ってなに?</a></li> 
+<li><a href="#pronounce">「Subvesion」ってどうやって発音するの?</a></li> 
+<li><a href="#baton">「baton」ってなに?</a></li> 
 <li><a href="#def-wedged-repository">リポジトリが「Wedged」になった、っていうけど、それってどういう意味?</a></li>
 </ul>
 
@@ -246,9 +246,9 @@ Subversionサーバも、APRが動作する全てのプラットフォームで�
 </div>
 
 
-<div class="h3" id="server-requirements" title="server-requirements">
-<h3>Subversionサーバを動作させるためには、どんなハードウェアが必要?</h3>
-
+<div class="h3" id="server-requirements" title="server-requirements">          
+<h3>Subversionサーバを動作させるためには、どんなハードウェアが必要?</h3>           
+                                                                               
 <p>サーバの要求は多くの要素が関係してくる。
 例えば、ユーザ数や、コミットを初めとするサーバ関連操作の頻度、リポジトリのサイズ、独自に設定したリポジトリフックの負荷などだ。
 もし、Apacheを使っているならば、Apache自体がメモリ使用量の最大要因となるだろう。より詳しい話は、メイリングリストの<a href="http://subversion.tigris.org/servlets/BrowseList?list=users&amp;by=thread&amp;from=330941">議論</a>を参照してほしい。</p>
@@ -315,7 +315,7 @@ httpd.conf の中にある <tt>Listen</tt> ディレクティブを、「<tt>Lis
 
 
 <div class="h3" id="globalrev" title="globalrev">
-<h3>どうして、リポジトリ全体でリビジョン番号を共有するの?
+<h3>どうして、リポジトリ全体でリビジョン番号を共有するの? 
 僕は、個々のプロジェクト毎に、それぞれのリビジョン番号が欲しいんだけど。</h3>
 <p>
 リポジトリ全体という単位で割当られるグローバルなバージョン番号は、ユーザの観点からは無意味だ。
@@ -623,7 +623,7 @@ Apacheのアクセスコントロールを使うことにより、(ユーザと�
 
 </div>
 
-
+  
 <div class="h3" id="multi-merge" title="multi-merge">
 <h3>完全に分離している二つのリポジトリをマージするにはどうすればよい?</h3>
 
@@ -651,7 +651,7 @@ Apacheのアクセスコントロールを使うことにより、(ユーザと�
 </div>
 
 
-
+  
 <div class="h3" id="nfs" title="nfs">
 <h3>私のレポジトリや作業コピー、NFSサーバ上に置くべきでしょうか?</h3>
 
@@ -668,7 +668,7 @@ subtree checking を無効化する方法については、<a href="http://nfs.s
 
 </div>
 
-
+  
 <div class="h3" id="bdblogs" title="bdblogs">
 <h3>なんで、私のリポジトリ、こんなにディスクスペース喰うの?</h3>
 
@@ -811,7 +811,7 @@ $ svnadmin setlog REPOS_PATH -r N FILE
 <div class="h3" id="patch" title="patch">
 <h3>Subversion のパッチ、どうやって送ればよいかな?</h3>
 
-<p>まず最初に、<a href="hacking.html">Hacker's Guide to Subversion</a>を読むこと。</p>
+<p>まず最初に、<a href="hacking.html">Hacker's Guide to Subversion</a>を読むこと。</p> 
 
 <p>熟読したら、[PATCH]という単語と1行説明をサブジェクトに記述し、(あなたの MUA がメイルをぐちゃぐちゃにしてしまわないことが前提で)パッチをメイル内へインラインで取り込んだ上で、そのメイルをdevリストへ送ろう。
 その後、コミッタはそれを拾い上げ、適用を行い(必要に応じてフォーマットや内容の変更が行われる)、チェックインすることになる。</p>
@@ -823,7 +823,7 @@ $ svnadmin setlog REPOS_PATH -r N FILE
         $ cd subversion/www
 
                 [ make changes to faq.html ]
-
+        
         $ svn diff faq.html &gt; /tmp/foo
 
         $ Mail -s "[PATCH] FAQ updates" &lt; /tmp/foo
@@ -836,7 +836,7 @@ $ svnadmin setlog REPOS_PATH -r N FILE
 
 
 <div class="h3" id="in-place-import" title="in-place-import">
-<h3>その場 'import'ってどうやるの? つまり、オリジナルデータがそのまま作業コピーとなるように Subversion へツリーを追加したいんだけど。</h3>
+<h3>その場 'import'ってどうやるの? つまり、オリジナルデータがそのまま作業コピーとなるように Subversion へツリーを追加したいんだけど。</h3> 
 
 <p>例えば、/etc 内の幾つかを、あなたのリポジトリ内で、バージョン管理下に置きたいのだと仮定してみよう。</p>
 
@@ -845,7 +845,7 @@ $ svnadmin setlog REPOS_PATH -r N FILE
          -m "リポジトリ内に/etcに対応するディレクトリを作る"
      # cd /etc
      # svn checkout file:///root/svn-repository/etc .
-     # svn add apache samba alsa X11
+     # svn add apache samba alsa X11 
      # svn commit -m "僕の設定ファイル群への最初のバージョン"
 </pre>
 
@@ -893,7 +893,7 @@ $ svnadmin setlog REPOS_PATH -r N FILE
 
 </div>
 
-
+ 
 <div class="h3" id="sspi" title="sspi">
 <h3>SSPI認証を使って、Windows ドメインコントローラに対して認証を行い、クライアントへ許可を与えたいんだけど、どうすればよい?</h3>
 
@@ -912,7 +912,7 @@ $ svnadmin setlog REPOS_PATH -r N FILE
 
 </div>
 
-
+  
 <div class="h3" id="adm-dir" title="adm-dir">
 <h3>「.svn」っていうディレクトリの名前、好きじゃないんだ。「SVN」とかの方が嬉しいんだけど、どこ変えれば良いの?</h3>
 
@@ -1024,7 +1024,7 @@ $ svn switch file:///home/repos/trunk
 $ svn merge file:///home/repos/tags/branch_traces/bar_last_merge \
             file:///home/repos/branches/bar_branch
 
-# ここで foo.txt の中身を確認してみよう。先の変更が取り込まれているはず。
+# ここで foo.txt の中身を確認してみよう。先の変更が取り込まれているはず。 
 
 # マージをcommit。
 $ svn commit -m "Merge change X from bar_branch."
@@ -1173,8 +1173,8 @@ OpenSSH の鍵をインポートする為には、<b><tt>PuTTYgen</tt></b> を�
 
       <p>注意: ここでは、あなたが OpenSSH を使っていると仮定している。
 世の中には、他のssh実装も存在していて、恐らく、それら実装でも同じようなことが出来るとは思うんだけど、詳細を把握していない。</p>
-
-      <p>あなたは、色々な login ファイル、例えば <tt>.bash_profile</tt>等と格闘して、でもどうにもならなかったんだね!
+      
+      <p>あなたは、色々な login ファイル、例えば <tt>.bash_profile</tt>等と格闘して、でもどうにもならなかったんだね! 
 これは、Subversion クライアントが ssh を起動するとき、ssh は、それらのファイルを無視する為だ。
 でも、<tt>PATH</tt>を変更する必要なんてないんだ。そのかわりに ssh へ直接<tt>svnserve</tt>コマンドのフルパスを教えてやれば良い。
 ここでは、その方法を説明しよう。</p>
@@ -1197,10 +1197,10 @@ OpenSSH の鍵をインポートする為には、<b><tt>PuTTYgen</tt></b> を�
       <p>当然、<tt>/opt/subversion/bin/svnserve</tt>は、あなたの環境に適した値へ置き換えること。
 また、Subversion リポジトリへのフルパスを、(<tt>-r</tt>オプションを使って)コマンドへ指定しても良いだろう。
 ユーザはタイピングする手間を少し省くことができる。</p>
-
+      
       <p>この<tt>command=</tt>マジックは、例えユーザが、他のコマンドを実行しようとした場合でも、リモートマシンの sshd に対し、svnserve を実行させるように仕向ける。
 詳細は sshd(8) のマニュアルページ(<tt>AUTHORIZED_KEYS FILE FORMAT</tt>セクション)を参照のこと。</p>
-
+      
       <p>さて、あなたのユーザが Subversion クライアントを実行する際には、彼らのキーペアの秘密鍵が「指示されている」<tt>SVN_SSH</tt>環境変数が設定されていることを確認しよう。
 (Bourne Again シェルでは)こんな感じになる。</p>
 
@@ -1211,7 +1211,7 @@ export SVN_SSH
 
       <p><a
       href="http://svn.collab.net/repos/svn/trunk/notes/ssh-tricks">このファイル</a>では、この問題をより深く解説しているよ。</p>
-
+      
 </div>
 
 
@@ -1221,7 +1221,7 @@ export SVN_SSH
 
 <p><a href="#ssh-svnserve-location">他の質問</a>への回答だけど、この中に書かれた<tt>~/.ssh/authorized_keys</tt>ファイルのハックに関するセクションを参照のこと。
 <tt>svnserve</tt>をPATHへ含める件に関しては、無視してよいよ。</p>
-</div>
+</div>      
 
 
 <div class="h3" id="auto-props" title="auto-props">
@@ -1460,7 +1460,7 @@ Subversionは透過となるようにはデザインされていない。
 <p>反対に FSFS から BDB へと移行させる場合には、<tt>svnadmin create</tt>コマンドで BDB を指定しよう。</p>
 
 </div>
-
+ 
 <div class="h3" id="binary-files" title="binary-files">
 <h3>Subversion は、どうやってバイナリファイルを取り扱うの?</h3>
 
@@ -1707,14 +1707,14 @@ Berkeley DB が予めインストールされたシステムでは、単純に <
 <blockquote>
 <pre>
 [Wed Apr 07 04:26:10 2004] [error] [client 212.151.130.227] (20014)
-Error string not specified yet: Berkeley DB error while opening
-'strings' table for filesystem /usr/local/svn/repositories/svn/db:
+Error string not specified yet: Berkeley DB error while opening 
+'strings' table for filesystem /usr/local/svn/repositories/svn/db: 
 Cannot allocate memory
-[Wed Apr 07 04:26:10 2004] [error] [client 212.151.130.227]
+[Wed Apr 07 04:26:10 2004] [error] [client 212.151.130.227] 
 Could not fetch resource information.  [500, #0]
-[Wed Apr 07 04:26:10 2004] [error] [client 212.151.130.227]
-Could not open the requested SVN filesystem  [500, #160029]
-[Wed Apr 07 04:26:10 2004] [error] [client 212.151.130.227] (17)
+[Wed Apr 07 04:26:10 2004] [error] [client 212.151.130.227] 
+Could not open the requested SVN filesystem  [500, #160029]     
+[Wed Apr 07 04:26:10 2004] [error] [client 212.151.130.227] (17) 
 File exists: Could not open the requested SVN filesystem  [500, #160029]
 </pre>
 </blockquote>
@@ -1808,7 +1808,7 @@ Linuxでは、リンカ/ローダにライブラリを見つけさせるため�
 
 
 <div class="h3" id="db-recover" title="db-recover">
-<h3>リポジトリを見つけるとき、または開こうとするときにエラーが出るんだけど、リポジトリのURLが正しいことは分かってる。何が悪いの?</h3>
+<h3>リポジトリを見つけるとき、または開こうとするときにエラーが出るんだけど、リポジトリのURLが正しいことは分かってる。何が悪いの?</h3> 
 
 <p><a href="#bdb-recovery">こちらのfaq</a>を参照。</p>
 
@@ -1826,7 +1826,7 @@ Linuxでは、リンカ/ローダにライブラリを見つけさせるため�
 
 </div>
 
-
+ 
 <div class="h3" id="windows-msvc-build" title="windows-msvc-build">
 <h3>Windows の上で、MSVC++ 6.0 を使って Subversion を buildしているんだけど、上手く行かない。どうしたらよい?</h3>
 
@@ -1850,7 +1850,7 @@ svn import file:///d:/some/path/to/repos/on/d/drive
 
 </div>
 
-
+  
 <div class="h3" id="vs-asp-net" title="vs-asp-net">
 <h3>VS.NET/ASP.NET では .svn というディレクトリ名では問題があるように思えます。どうしたら良いでしょう?</h3>
 
@@ -2061,7 +2061,7 @@ rev 24:&nbsp; (no author) | 2003-07-29 19:28:35 +0200 (Tue, 29 Jul 2003)
 詳細は、<a href="http://svn.haxx.se/dev/archive-2004-01/0922.shtml">http://svn.haxx.se/dev/archive-2004-01/0922.shtml</a>ならびに、関連スレッドを参照のこと。</p>
 
 </div>
-
+ 
 
 <div class="h3" id="nonrecursive-checkout" title="nonrecursive-checkout">
 <h3>あるディレクトリを(-N オプションをつけて)非再帰的にチェックアウトしましたが、今は、サブディレクトリにも「登場」して欲しいと思っています。
@@ -2334,7 +2334,7 @@ Subversion に於いては、この点に対して深く気にしている人は
 <h3>Debian GNU/Linux 上で、Subversion を作業コピーのソースから構築できません。
 最後のリンク段階で、エラーになってしまいます。
 何が悪い?</h3>
-
+    
 <p>もし、Subversion trunk ソースのビルド時、最後のリンク段階で次の様なエラーが表示されるなら、</p>
 
 <pre>
@@ -2357,7 +2357,7 @@ Subversion に於いては、この点に対して深く気にしている人は
 
 <div class="h3" id="freebsd-listen-host" title="freebsd-listen-host">
 <h3>FreeBSD を使っていて、suvserve を実行しているんだけど、3690番ポートで listen していないみたい。</h3>
-
+    
 <p>簡潔な答え: <tt>svnserver</tt>に<tt>--listen-host=0.0.0.0</tt>オプションをつけて実行しよう。</p>
 <p>ちょっとだけ長い答え: FreeBSD デーモンは、デフォルトでは tcp6 しか listen しない。このオプションは、tcp4 でも listen するように指示する。</p>
 </div>
@@ -2526,7 +2526,7 @@ Subversion reported an error while doing a cleanup!
 こんな感じだ。</p>
 <blockquote>
 <div><pre><code>
-wc/$ svn status
+wc/$ svn status 
 !      .
 !      &lt;dir&gt;
     S  &lt;switched_things&gt;

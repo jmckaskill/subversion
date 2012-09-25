@@ -14,7 +14,7 @@ Status of 1.6.0:
 ================
 
 Candidate changes:
-
+ 
  * r36009
    Bump recommended and shipped SQLite version.
    Justification:
