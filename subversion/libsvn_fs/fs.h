@@ -31,7 +31,7 @@ extern "C" {
 
 /*** The filesystem structure.  ***/
 
-struct svn_fs_t
+struct svn_fs_t 
 {
   /* A pool managing this filesystem.  Freeing this pool must
      completely clean up the filesystem, including any database
@@ -153,7 +153,7 @@ typedef enum
 
 
 /*** "Delta" Offset/Window Chunk ***/
-typedef struct
+typedef struct 
 {
   /* diff format version number ### at this point, "svndiff" is the
      only format used. */
@@ -163,7 +163,7 @@ typedef struct
   svn_filesize_t offset;
 
   /* string-key to which this representation points. */
-  const char *string_key;
+  const char *string_key; 
 
   /* size of the fulltext data represented by this delta window. */
   apr_size_t size;
@@ -194,14 +194,14 @@ typedef struct
   /* MD5 checksum for the contents produced by this representation.
      This checksum is for the contents the rep shows to consumers,
      regardless of how the rep stores the data under the hood.  It is
-     independent of the storage (fulltext, delta, whatever).
+     independent of the storage (fulltext, delta, whatever). 
 
      If all the bytes are 0, then for compatibility behave as though
      this checksum matches the expected checksum. */
   unsigned char checksum[MD5_DIGESTSIZE];
 
   /* kind-specific stuff */
-  union
+  union 
   {
     /* fulltext stuff */
     struct
