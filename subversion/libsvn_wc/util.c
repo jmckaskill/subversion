@@ -61,7 +61,7 @@ svn_wc__ensure_directory (svn_stringbuf_t *path, apr_pool_t *pool)
           /* Tried to create the dir, and encountered some problem
              other than non-existence of intermediate dirs.  We can't
              ensure the desired directory's existence, so just return
-             the error. */
+             the error. */ 
           return svn_error_create (apr_err, 0, NULL, pool, path->data);
         }
       else if (APR_STATUS_IS_ENOENT(apr_err))
@@ -82,7 +82,7 @@ svn_wc__ensure_directory (svn_stringbuf_t *path, apr_pool_t *pool)
           else  /* We have a valid path, so recursively ensure it. */
             {
               err = svn_wc__ensure_directory (shorter, pool);
-
+          
               if (err)
                 return (err);
               else
@@ -101,7 +101,7 @@ svn_wc__ensure_directory (svn_stringbuf_t *path, apr_pool_t *pool)
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end:

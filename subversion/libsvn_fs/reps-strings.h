@@ -40,7 +40,7 @@ extern "C" {
  * never actual representation objects.                                 *
  *                                                                      *
  ************************************************************************/
-
+   
 
 
 /* Get or create a mutable representation in FS, store the new rep's
@@ -60,7 +60,7 @@ extern "C" {
    returned.  */
 svn_error_t *svn_fs__get_mutable_rep (const char **new_rep,
                                       const char *rep,
-                                      svn_fs_t *fs,
+                                      svn_fs_t *fs, 
                                       trail_t *trail);
 
 
@@ -75,7 +75,7 @@ svn_error_t *svn_fs__make_rep_immutable (svn_fs_t *fs,
    nothing if REP is immutable.  If a mutable rep is deleted, the
    string it refers to is deleted as well.
 
-   If no such rep, return SVN_ERR_FS_NO_SUCH_REPRESENTATION.  */
+   If no such rep, return SVN_ERR_FS_NO_SUCH_REPRESENTATION.  */ 
 svn_error_t *svn_fs__delete_rep_if_mutable (svn_fs_t *fs,
                                             const char *rep,
                                             trail_t *trail);
@@ -111,7 +111,7 @@ svn_error_t *svn_fs__rep_contents (svn_string_t *str,
    in POOL, and start reading at OFFSET in the rep's contents.
 
    If TRAIL is non-null, the stream's reads are part of TRAIL;
-   otherwise, each read happens in an internal, one-off trail.
+   otherwise, each read happens in an internal, one-off trail. 
    POOL may be TRAIL->pool.  */
 svn_stream_t *svn_fs__rep_contents_read_stream (svn_fs_t *fs,
                                                 const char *rep,
@@ -119,7 +119,7 @@ svn_stream_t *svn_fs__rep_contents_read_stream (svn_fs_t *fs,
                                                 trail_t *trail,
                                                 apr_pool_t *pool);
 
-
+                                       
 /* Return a stream to write the contents of REP.  Allocate the stream
    in POOL.
 
@@ -140,7 +140,7 @@ svn_stream_t *svn_fs__rep_contents_write_stream (svn_fs_t *fs,
 
 /* Clear the contents of REP, so that it represents the empty string,
    as part of TRAIL.  If REP is not mutable, return the error
-   SVN_ERR_FS_REP_NOT_MUTABLE.  */
+   SVN_ERR_FS_REP_NOT_MUTABLE.  */  
 svn_error_t *svn_fs__rep_contents_clear (svn_fs_t *fs,
                                          const char *rep,
                                          trail_t *trail);
@@ -177,7 +177,7 @@ svn_error_t *svn_fs__rep_undeltify (svn_fs_t *fs,
 #endif /* SVN_LIBSVN_FS_REPS_STRINGS_H */
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end:

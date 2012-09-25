@@ -32,7 +32,7 @@ extern "C" {
 
 /* Newline and keyword translation properties */
 
-/* Valid states for 'svn:eol-style' property.
+/* Valid states for 'svn:eol-style' property.  
    Property nonexistence is equivalent to 'none'. */
 enum svn_wc__eol_style
 {
@@ -108,7 +108,7 @@ svn_error_t *svn_wc__get_keywords (svn_wc_keywords_t **keywords,
  * contain more information than humans want, for example
  *
  *   "Mon 28 Jan 2002 16:17:09.777994 (day 028, dst 0, gmt_off -21600)"
- *
+ *   
  * would be converted to
  *
  *   "Mon 28 Jan 2002 16:17:09"
@@ -123,7 +123,7 @@ svn_string_t *svn_wc__friendly_date (const char *date, apr_pool_t *pool);
 #endif /* SVN_LIBSVN_WC_TRANSLATE_H */
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end:

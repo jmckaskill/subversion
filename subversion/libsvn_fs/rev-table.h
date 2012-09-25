@@ -93,7 +93,7 @@ svn_error_t *svn_fs__set_rev_prop (svn_fs_t *fs,
 #endif /* SVN_LIBSVN_FS_REV_TABLE_H */
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end:

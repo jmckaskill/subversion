@@ -39,7 +39,7 @@ struct notify_baton
 };
 
 
-static void
+static void 
 notify_added (void *baton, const char *path)
 {
   struct notify_baton *nb = (struct notify_baton *) baton;
@@ -65,7 +65,7 @@ notify_added (void *baton, const char *path)
       printf ("WARNING: apparently failed to add %s\n", path);
       goto done;
     }
-
+           
   if (entry->kind == svn_node_file)
     {
       const svn_string_t *value;
@@ -97,21 +97,21 @@ notify_commit_postfix_txdelta (void *baton,
                                const char *path)
 {
   struct notify_baton *nb = (struct notify_baton *) baton;
-
+  
   if (! nb->sent_first_txdelta)
     {
       printf ("Transmitting file data ");
       nb->sent_first_txdelta = TRUE;
     }
-
+  
   printf (".");
   fflush (stdout);
 }
 
 
-void
-svn_cl__notify_func (void *baton,
-                     svn_wc_notify_action_t action,
+void 
+svn_cl__notify_func (void *baton, 
+                     svn_wc_notify_action_t action, 
                      const char *path)
 {
   switch (action)
@@ -178,8 +178,8 @@ svn_cl__make_notify_baton (apr_pool_t *pool)
 }
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../tools/dev/svn-dev.el")
- * end:
+ * end: 
  */

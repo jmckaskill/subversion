@@ -82,7 +82,7 @@ svn_error_t *svn_fs__delete_rep (svn_fs_t *fs,
 #endif /* SVN_LIBSVN_FS_REPS_TABLE_H */
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end:

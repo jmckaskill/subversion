@@ -41,7 +41,7 @@
 
 
 /* Helper for report_revisions().
-
+   
    Perform an atomic restoration of the file FILE_PATH; that is, copy
    the file's text-base to the administrative tmp area, and then move
    that file to FILE_PATH with possible translations/expansions.  */
@@ -64,7 +64,7 @@ restore_file (svn_stringbuf_t *file_path,
                                   file_path->data, pool));
   SVN_ERR (svn_wc__get_keywords (&keywords,
                                  file_path->data, NULL, pool));
-
+  
   /* When copying the tmp-text-base out to the working copy, make
      sure to do any eol translations or keyword substitutions,
      as dictated by the property values.  If these properties
@@ -75,7 +75,7 @@ restore_file (svn_stringbuf_t *file_path,
                                       keywords,
                                       TRUE, /* expand keywords */
                                       pool));
-
+  
   SVN_ERR (svn_io_remove_file (tmp_text_base_path->data, pool));
 
   return SVN_NO_ERROR;
@@ -88,7 +88,7 @@ restore_file (svn_stringbuf_t *file_path,
    This is a depth-first recursive walk of DIR_PATH under WC_PATH.
    Look at each entry and check if its revision is different than
    DIR_REV.  If so, report this fact to REPORTER.  If an entry is
-   missing from disk, report its absence to REPORTER.
+   missing from disk, report its absence to REPORTER.  
 
    If RESTORE_FILES is set, then unexpectedly missing working files
    will be restored from text-base and NOTIFY_FUNC/NOTIFY_BATON
@@ -116,7 +116,7 @@ report_revisions (svn_stringbuf_t *wc_path,
   /* Get both the SVN Entries and the actual on-disk entries. */
   SVN_ERR (svn_wc_entries_read (&entries, full_path, subpool));
   SVN_ERR (svn_io_get_dirents (&dirents, full_path, subpool));
-
+  
   /* Do the real reporting and recursing. */
 
   /* Looping over current directory's SVN entries: */
@@ -127,7 +127,7 @@ report_revisions (svn_stringbuf_t *wc_path,
       apr_ssize_t klen;
       void *val;
       svn_stringbuf_t *current_entry_name;
-      svn_wc_entry_t *current_entry;
+      svn_wc_entry_t *current_entry; 
       svn_stringbuf_t *full_entry_path;
       enum svn_node_kind *dirent_kind;
       svn_boolean_t missing = FALSE;
@@ -149,18 +149,18 @@ report_revisions (svn_stringbuf_t *wc_path,
         svn_path_add_component (full_entry_path, current_entry_name);
 
       /* The Big Tests: */
-
+      
       /* Is the entry on disk?  Set a flag if not. */
       dirent_kind = (enum svn_node_kind *) apr_hash_get (dirents, key, klen);
       if (! dirent_kind)
         missing = TRUE;
-
+      
       /* From here on out, ignore any entry scheduled for addition
          or deletion */
       if (current_entry->schedule == svn_wc_schedule_normal)
         /* The entry exists on disk, and isn't `deleted'. */
         {
-          if (current_entry->kind == svn_node_file)
+          if (current_entry->kind == svn_node_file) 
             {
               if (dirent_kind && (*dirent_kind != svn_node_file))
                 {
@@ -174,7 +174,7 @@ report_revisions (svn_stringbuf_t *wc_path,
 
               if (missing && restore_files)
                 {
-                  svn_stringbuf_t *long_file_path
+                  svn_stringbuf_t *long_file_path 
                     = svn_stringbuf_dup (full_path, pool);
                   svn_path_add_component (long_file_path, current_entry_name);
 
@@ -183,13 +183,13 @@ report_revisions (svn_stringbuf_t *wc_path,
 
                   /* Report the restoration to the caller. */
                   if (notify_func != NULL)
-                    (*notify_func) (notify_baton,
+                    (*notify_func) (notify_baton, 
                                     svn_wc_notify_restore,
                                     long_file_path->data);
                 }
 
               /* Possibly report a differing revision. */
-              if (current_entry->revision !=  dir_rev)
+              if (current_entry->revision !=  dir_rev)                
                 SVN_ERR (reporter->set_path (report_baton,
                                              full_entry_path->data,
                                              current_entry->revision));
@@ -201,7 +201,7 @@ report_revisions (svn_stringbuf_t *wc_path,
                 {
                   /* We can't recreate dirs locally, so report as missing. */
                   SVN_ERR (reporter->delete_path (report_baton,
-                                                  full_entry_path->data));
+                                                  full_entry_path->data));   
                   continue;  /* move on to next entry */
                 }
 
@@ -217,16 +217,16 @@ report_revisions (svn_stringbuf_t *wc_path,
                    "which prevents proper updates.\n"
                    "Please remove this entry and try updating again.",
                    full_entry_path->data);
-
+              
               /* Otherwise, possibly report a differing revision, and
                  recurse. */
               {
                 svn_wc_entry_t *subdir_entry;
-                svn_stringbuf_t *megalong_path =
+                svn_stringbuf_t *megalong_path = 
                   svn_stringbuf_dup (wc_path, subpool);
                 svn_path_add_component (megalong_path, full_entry_path);
                 SVN_ERR (svn_wc_entry (&subdir_entry, megalong_path, subpool));
-
+                
                 if (subdir_entry->revision != dir_rev)
                   SVN_ERR (reporter->set_path (report_baton,
                                                full_entry_path->data,
@@ -241,7 +241,7 @@ report_revisions (svn_stringbuf_t *wc_path,
                                            subpool));
               }
             } /* end directory case */
-        } /* end 'entry exists on disk' */
+        } /* end 'entry exists on disk' */   
     } /* end main entries loop */
 
   /* We're done examining this dir's entries, so free everything. */
@@ -319,7 +319,7 @@ svn_wc_crawl_revisions (svn_stringbuf_t *path,
             }
         }
 
-      else
+      else 
         {
           /* Recursively crawl ROOT_DIRECTORY and report differing
              revisions. */
@@ -407,7 +407,7 @@ svn_wc_transmit_text_deltas (svn_stringbuf_t *path,
   svn_txdelta_stream_t *txdelta_stream;
   apr_file_t *localfile = NULL;
   apr_file_t *basefile = NULL;
-
+  
   /* Tell the editor that we're about to apply a textdelta to the
      file baton; the editor returns to us a window consumer routine
      and baton.  If there is no handler provided, just close the file
@@ -439,9 +439,9 @@ svn_wc_transmit_text_deltas (svn_stringbuf_t *path,
      the old one. */
   if (tmpf != path)
     SVN_ERR (svn_io_remove_file (tmpf->data, pool));
-
+      
   /* Open a filehandle for tmp text-base. */
-  if ((status = apr_file_open (&localfile, tmp_base->data,
+  if ((status = apr_file_open (&localfile, tmp_base->data, 
                                APR_READ, APR_OS_DEFAULT, pool)))
     return svn_error_createf (status, 0, NULL, pool,
                               "do_apply_textdelta: error opening '%s'",
@@ -451,23 +451,23 @@ svn_wc_transmit_text_deltas (svn_stringbuf_t *path,
      text-base. */
   if (! fulltext)
     SVN_ERR (svn_wc__open_text_base (&basefile, path, APR_READ, pool));
-
+  
   /* Create a text-delta stream object that pulls data out of the two
      files. */
   svn_txdelta (&txdelta_stream,
                svn_stream_from_aprfile (basefile, pool),
                svn_stream_from_aprfile (localfile, pool),
                pool);
-
+  
   /* Pull windows from the delta stream and feed to the consumer. */
-  SVN_ERR (svn_txdelta_send_txstream (txdelta_stream, handler,
+  SVN_ERR (svn_txdelta_send_txstream (txdelta_stream, handler, 
                                       wh_baton, pool));
-
+    
   /* Close the two files */
   if ((status = apr_file_close (localfile)))
     return svn_error_create (status, 0, NULL, pool,
                              "error closing local file");
-
+  
   if (basefile)
     SVN_ERR (svn_wc__close_text_base (basefile, path, 0, pool));
 
@@ -489,10 +489,10 @@ svn_wc_transmit_prop_deltas (svn_stringbuf_t *path,
   apr_array_header_t *propmods;
   apr_hash_t *localprops = apr_hash_make (pool);
   apr_hash_t *baseprops = apr_hash_make (pool);
-
+  
   /* First, get the prop_path from the original path */
   SVN_ERR (svn_wc__prop_path (&props, path, 0, pool));
-
+  
   /* Get the full path of the prop-base `pristine' file */
   SVN_ERR (svn_wc__prop_base_path (&props_base, path, 0, pool));
 
@@ -508,9 +508,9 @@ svn_wc_transmit_prop_deltas (svn_stringbuf_t *path,
   /* Load all properties into hashes */
   SVN_ERR (svn_wc__load_prop_file (props_tmp->data, localprops, pool));
   SVN_ERR (svn_wc__load_prop_file (props_base->data, baseprops, pool));
-
+  
   /* Get an array of local changes by comparing the hashes. */
-  SVN_ERR (svn_wc_get_local_propchanges (&propmods, localprops,
+  SVN_ERR (svn_wc_get_local_propchanges (&propmods, localprops, 
                                          baseprops, pool));
 
   /* Apply each local change to the baton */
@@ -529,7 +529,7 @@ svn_wc_transmit_prop_deltas (svn_stringbuf_t *path,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end: */
