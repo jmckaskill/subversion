@@ -5,7 +5,7 @@
 #
 TEST_ROOT="/home/brane/svn"
 
-# Installation path, everything under that is considered
+# Installation path, everything under that is considered 
 # to be temporary
 INST_DIR="$TEST_ROOT/inst"
 
@@ -158,15 +158,15 @@ mount_ramdisk() {
     if test "xyes" == "x$RAMDISK";
     then
         test -z "$mount_dir" && return 1
-
+        
         test -f "$mount_dir/.ramdisk" && {
             echo "Warning: ramdisk exists"
             return 0
         }
-
+    
         $MOUNT "$mount_dir" || return 1
         $TOUCH "$mount_dir/.ramdisk" || return 1
-    fi
+    fi 
     return 0
 }
 
