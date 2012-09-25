@@ -535,7 +535,7 @@ static svn_error_t *open_session(svn_ra_svn__session_baton_t **sess_p,
   sess->callbacks_baton = callbacks_baton;
   sess->bytes_read = sess->bytes_written = 0;
   /* KFF: see comment in marshal.c:svn_ra_svn_create_conn() about what
-     to do here. */
+     to do here. */ 
   sess->server_capabilities = server_capabilities;
 
   if (tunnel_argv)
@@ -2172,7 +2172,7 @@ ra_svn_replay_range(svn_ra_session_t *session,
   svn_ra_svn__session_baton_t *sess = session->priv;
   apr_pool_t *iterpool;
   svn_revnum_t rev;
-
+  
   SVN_ERR(svn_ra_svn_write_cmd(sess->conn, pool, "replay-range", "rrrb",
                                start_revision, end_revision,
                                low_water_mark, send_deltas));
@@ -2188,7 +2188,7 @@ ra_svn_replay_range(svn_ra_session_t *session,
       void *edit_baton;
       apr_hash_t *rev_props;
       svn_ra_svn_item_t *item;
-
+      
       svn_pool_clear(iterpool);
 
       SVN_ERR(svn_ra_svn_read_item(sess->conn, iterpool, &item));

@@ -150,7 +150,7 @@ def copy_replace_with_props(sbox, wc_copy):
               'phony-prop' : '*'}
   else:
     props = { 'phony-prop' : '*'}
-
+    
   expected_disk.tweak('A/D/G/rho',
                       contents="This is the file 'pi'.\n",
                       props=props)

@@ -80,7 +80,7 @@ struct svn_ra_svn_conn_st {
   ra_svn_block_handler_t block_handler;
   void *block_baton;
   apr_hash_t *server_capabilities; /* KFF: See comment in
-                                      svn_ra_svn_create_conn. */
+                                      svn_ra_svn_create_conn. */ 
   apr_pool_t *pool;
 };
 

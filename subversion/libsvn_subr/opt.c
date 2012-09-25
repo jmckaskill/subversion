@@ -260,13 +260,13 @@ print_command_info2(const svn_opt_subcommand_desc2_t *cmd,
 
           for (i = 0; global_options[i]; i++)
             {
-
+              
               /* convert each option code into an option */
               option =
                 svn_opt_get_option_from_code2(global_options[i],
                                               options_table,
                                               cmd, pool);
-
+              
               /* print the option's docstring */
               if (option)
                 {
@@ -277,7 +277,7 @@ print_command_info2(const svn_opt_subcommand_desc2_t *cmd,
                 }
             }
         }
-
+          
       if (have_options)
         SVN_ERR(svn_cmdline_fprintf(stream, pool, "\n"));
     }
