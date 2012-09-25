@@ -88,7 +88,7 @@ svn_client__get_revision_number (svn_revnum_t *revnum,
         return svn_error_createf
         (SVN_ERR_UNVERSIONED_RESOURCE, 0, NULL, pool,
          "svn_client__get_revision: '%s' not under revision control", path);
-
+      
       if ((revision->kind == svn_client_revision_base)
           || (revision->kind == svn_client_revision_working))
         *revnum = ent->revision;
@@ -104,7 +104,7 @@ svn_client__get_revision_number (svn_revnum_t *revnum,
       (SVN_ERR_CLIENT_BAD_REVISION, 0, NULL, pool,
        "svn_client__get_revision_number: "
        "unrecognized revision type requested for '%s'", path);
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -126,7 +126,7 @@ svn_client__compare_revisions (svn_client_revision_t *revision1,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end: */

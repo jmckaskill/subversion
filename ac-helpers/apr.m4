@@ -43,7 +43,7 @@ AC_DEFUN(SVN_LIB_APR,
     AC_MSG_ERROR([apr-config --includes failed])
   fi
 
-  dnl When APR stores the dependent libs in the .la file, we don't need
+  dnl When APR stores the dependent libs in the .la file, we don't need 
   dnl --libs.
   SVN_APR_LIBS="`$apr_config --link-libtool --libs`"
   if test $? -ne 0; then

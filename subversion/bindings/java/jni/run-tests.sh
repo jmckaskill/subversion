@@ -1,7 +1,7 @@
 #/bin/sh
 # script to run the junit test cases for
 # the java subversion library
-#
+# 
 # make sure you compiled everything with:
 # - build-java.sh (all of the java classes)
 # - build.sh (native classes)
