@@ -39,7 +39,7 @@
  * The CHANGED hash set and the key are allocated in POOL;
  * the value is (void *) 'U', 'A', 'D', or 'R', for modified, added,
  * deleted, or replaced, respectively.
- *
+ * 
  */
 static svn_error_t *
 detect_changed (apr_hash_t **changed,
@@ -49,7 +49,7 @@ detect_changed (apr_hash_t **changed,
   apr_hash_t *changes;
   apr_hash_index_t *hi;
   apr_pool_t *subpool = svn_pool_create (pool);
-
+  
   *changed = apr_hash_make (pool);
   SVN_ERR (svn_fs_paths_changed (&changes, root, pool));
   for (hi = apr_hash_first (pool, changes); hi; hi = apr_hash_next (hi))
@@ -107,7 +107,7 @@ detect_changed (apr_hash_t **changed,
               item->copyfrom_rev = copyfrom_rev;
             }
         }
-      apr_hash_set (*changed, apr_pstrdup (pool, path),
+      apr_hash_set (*changed, apr_pstrdup (pool, path), 
                     APR_HASH_KEY_STRING, item);
     }
 
@@ -162,8 +162,8 @@ svn_repos_get_logs (svn_repos_t *repos,
      only about answering that question, and we already know the
      answer ... well, you get the picture.
   */
-  if (paths
-      && (((paths->nelts == 1)
+  if (paths 
+      && (((paths->nelts == 1) 
            && (! svn_path_is_empty (APR_ARRAY_IDX (paths, 0, const char *))))
           || (paths->nelts > 1)))
     {
@@ -174,7 +174,7 @@ svn_repos_get_logs (svn_repos_t *repos,
       if (paths->nelts == 1)
         {
           /* Get the changed revisions for this path. */
-          SVN_ERR (svn_repos_revisions_changed
+          SVN_ERR (svn_repos_revisions_changed 
                    (&revs, fs, APR_ARRAY_IDX (paths, 0, const char *),
                     start, end, strict_node_history ? 0 : 1, pool));
         }
@@ -193,16 +193,16 @@ svn_repos_get_logs (svn_repos_t *repos,
 
               /* Get the changed revisions for this path, and add them to
                  the hash (this will eliminate duplicates). */
-              SVN_ERR (svn_repos_revisions_changed
+              SVN_ERR (svn_repos_revisions_changed 
                        (&changed_revs, fs, this_path,
                         start, end, strict_node_history ? 0 : 1, pool));
               for (j = 0; j < changed_revs->nelts; j++)
                 {
                   /* We're re-using the memory allocated for the array
                      here in order to avoid more allocations.  */
-                  svn_revnum_t *chrev =
+                  svn_revnum_t *chrev = 
                     (((svn_revnum_t *)(changed_revs)->elts) + j);
-                  apr_hash_set (all_revs, (void *)chrev, sizeof (chrev),
+                  apr_hash_set (all_revs, (void *)chrev, sizeof (chrev), 
                                 (void *)1);
                 }
             }
@@ -210,22 +210,22 @@ svn_repos_get_logs (svn_repos_t *repos,
           /* Now that we have a hash of all the revisions in which any of
              our paths changed, we can convert that back into a sorted
              array. */
-          revs = apr_array_make (pool, apr_hash_count (all_revs),
+          revs = apr_array_make (pool, apr_hash_count (all_revs), 
                                  sizeof (svn_revnum_t));
-          for (hi = apr_hash_first (pool, all_revs);
-               hi;
+          for (hi = apr_hash_first (pool, all_revs); 
+               hi; 
                hi = apr_hash_next (hi))
             {
               const void *key;
               svn_revnum_t revision;
-
+              
               apr_hash_this (hi, &key, NULL, NULL);
               revision = *((const svn_revnum_t *)key);
               (*((svn_revnum_t *) apr_array_push (revs))) = revision;
             }
 
           /* Now sort the array */
-          qsort ((revs)->elts, (revs)->nelts, (revs)->elt_size,
+          qsort ((revs)->elts, (revs)->nelts, (revs)->elt_size, 
                  svn_sort_compare_revisions);
         }
 
@@ -282,7 +282,7 @@ svn_repos_get_logs (svn_repos_t *repos,
                             date ? date->data : NULL,
                             message ? message->data : NULL,
                             subpool));
-
+      
       svn_pool_clear (subpool);
     }
 

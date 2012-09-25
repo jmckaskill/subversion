@@ -20,7 +20,7 @@
  */
 
 /* What's going on here?
-
+ 
    In order to define error codes and their associated description
    strings in the same place, we overload the SVN_ERRDEF() macro with
    two definitions below.  Both take two arguments, an error code name
@@ -31,9 +31,9 @@
    definition creates a static table mapping the enum codes to their
    corresponding strings -- that definition is used by the C file that
    implements svn_strerror().
-
+ 
    The header and C files both include this file, using #defines to
-   control which version of the macro they get.
+   control which version of the macro they get.  
 */
 
 
@@ -341,7 +341,7 @@ SVN_ERROR_START
 
   SVN_ERRDEF (SVN_ERR_WC_INVALID_OP_ON_CWD,
               SVN_ERR_WC_CATEGORY_START + 19,
-              "Invalid operation on the current working directory")
+              "Invalid operation on the current working directory")  
 
   /* fs errors */
 
@@ -490,7 +490,7 @@ SVN_ERROR_START
   SVN_ERRDEF (SVN_ERR_REPOS_BAD_REVISION_REPORT,
               SVN_ERR_REPOS_CATEGORY_START + 4,
               "Bogus revision report")
-
+ 
   SVN_ERRDEF (SVN_ERR_REPOS_UNSUPPORTED_VERSION,
               SVN_ERR_REPOS_CATEGORY_START + 5,
               "Unsupported repository version")
@@ -524,7 +524,7 @@ SVN_ERROR_START
   SVN_ERRDEF (SVN_ERR_RA_NO_REPOS_UUID,
               SVN_ERR_RA_CATEGORY_START + 5,
               "Repository has no UUID.")
-
+      
   /* ra_dav errors */
 
   SVN_ERRDEF (SVN_ERR_RA_DAV_SOCK_INIT,
@@ -542,7 +542,7 @@ SVN_ERROR_START
   SVN_ERRDEF (SVN_ERR_RA_DAV_OPTIONS_REQ_FAILED,
               SVN_ERR_RA_DAV_CATEGORY_START + 3,
               "RA layer didn't receive requested OPTIONS info")
-
+    
   SVN_ERRDEF (SVN_ERR_RA_DAV_PROPS_NOT_FOUND,
               SVN_ERR_RA_DAV_CATEGORY_START + 4,
               "RA layer failed to fetch properties")
@@ -565,11 +565,11 @@ SVN_ERROR_START
 
 
   /* ra_local errors */
-
+  
   SVN_ERRDEF (SVN_ERR_RA_LOCAL_REPOS_NOT_FOUND,
               SVN_ERR_RA_LOCAL_CATEGORY_START + 0,
               "Couldn't find a repository.")
-
+       
   SVN_ERRDEF (SVN_ERR_RA_LOCAL_REPOS_OPEN_FAILED,
               SVN_ERR_RA_LOCAL_CATEGORY_START + 1,
               "Couldn't open a repository.")
@@ -738,7 +738,7 @@ SVN_ERROR_START
   SVN_ERRDEF (SVN_ERR_TEST_FAILED,
               SVN_ERR_MISC_CATEGORY_START + 6,
               "Test failed")
-
+       
   SVN_ERRDEF (SVN_ERR_UNSUPPORTED_FEATURE,
               SVN_ERR_MISC_CATEGORY_START + 7,
               "Trying to use an unsupported feature")
@@ -799,7 +799,7 @@ SVN_ERROR_START
 
   SVN_ERRDEF (SVN_ERR_CL_MUTUALLY_EXCLUSIVE_ARGS,
               SVN_ERR_CL_CATEGORY_START + 2,
-              "Mutually exclusive arguments specified.")
+              "Mutually exclusive arguments specified.")                   
 
   SVN_ERRDEF (SVN_ERR_CL_ADM_DIR_RESERVED,
               SVN_ERR_CL_CATEGORY_START + 3,
