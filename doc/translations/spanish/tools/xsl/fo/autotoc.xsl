@@ -202,7 +202,7 @@
                  leader-pattern-width="3pt"
                  leader-alignment="reference-area"
                  keep-with-next.within-line="always"/>
-      <xsl:text> </xsl:text>
+      <xsl:text> </xsl:text> 
       <fo:basic-link internal-destination="{$id}">
         <fo:page-number-citation ref-id="{$id}"/>
       </fo:basic-link>

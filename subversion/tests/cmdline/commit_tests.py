@@ -1629,13 +1629,13 @@ def commit_out_of_date_deletions(sbox):
 
   sbox.build()
   wc_dir = sbox.wc_dir
-
+  
   # Need another empty dir
   I_path = os.path.join(wc_dir, 'A', 'I')
   os.mkdir(I_path)
   svntest.main.run_svn(None, 'add', I_path)
   svntest.main.run_svn(None, 'ci', '-m', 'prep', wc_dir)
-  svntest.main.run_svn(None, 'up', wc_dir)
+  svntest.main.run_svn(None, 'up', wc_dir)  
 
   # Make a backup copy of the working copy
   wc_backup = sbox.add_wc_path('backup')
@@ -1683,7 +1683,7 @@ def commit_out_of_date_deletions(sbox):
   svntest.main.run_svn(None, 'propset', 'fooprop', 'foopropval', I_path)
   svntest.main.file_append(chi_path, 'appended chi text')
   svntest.main.run_svn(None, 'propset', 'fooprop', 'foopropval', beta_path)
-
+  
   # Deletions in wc backup
   C_path = os.path.join(wc_backup, 'A', 'C')
   F_path = os.path.join(wc_backup, 'A', 'B', 'F')
@@ -1703,7 +1703,7 @@ def commit_out_of_date_deletions(sbox):
   commit(wc_backup, None, None, "File not found: transaction", chi_path)
   commit(wc_backup, None, None, "File not found: transaction", beta_path)
   commit(wc_backup, None, None, error_re, psi_path)
-
+                                        
 def commit_with_bad_log_message(sbox):
   "commit with a log message containing bad data"
 

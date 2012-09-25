@@ -143,7 +143,7 @@ Semantically, a tree conflict occurs if 'svn merge' either tries to apply
 the "delete" half of a "move" onto a file that was simply deleted in the
 target branch's history, or tries to apply a simple "delete" onto a file
 that has been moved in the target branch, or tries to move a file that
-has already been moved to a different name in the target branch.
+has already been moved to a different name in the target branch. 
 
 Some users may want to skip the tree conflict and have the result automatically
 resolved if two rename operations have the same destination, or if a file is
@@ -160,7 +160,7 @@ directory containing the tree conflict victim.
 
 ==================
 SKIPPING DETECTION
-==================
+================== 
 
 During an update or switch, we skip tree conflict detection if the
 user has provided the '--force' option.  This allows an interrupted
