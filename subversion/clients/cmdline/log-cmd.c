@@ -41,7 +41,7 @@
 
 /*** Code. ***/
 
-/* Helper for log_message_receiver().
+/* Helper for log_message_receiver(). 
  *
  * Return the number of lines in MSG, allowing any kind of newline
  * termination (CR, CRLF, or LFCR), even inconsistent.  The minimum
@@ -87,20 +87,20 @@ num_lines (const char *msg)
  * $ svn log -r1847:1846
  * ------------------------------------------------------------------------
  * rev 1847:  cmpilato | Wed 1 May 2002 15:44:26 | 7 lines
- *
+ * 
  * Fix for Issue #694.
- *
+ * 
  * * subversion/libsvn_repos/delta.c
  *   (delta_files): Rework the logic in this function to only call
  * send_text_deltas if there are deltas to send, and within that case,
  * only use a real delta stream if the caller wants real text deltas.
- *
+ * 
  * ------------------------------------------------------------------------
  * rev 1846:  whoever | Wed 1 May 2002 15:23:41 | 1 line
- *
+ *   
  * imagine an example log message here
  * ------------------------------------------------------------------------
- *
+ * 
  * And so on.
  */
 static svn_error_t *
@@ -140,13 +140,13 @@ log_message_receiver (void *baton,
     {
       /* Convert date to a format for humans. */
       apr_time_t time_temp;
-
+      
       SVN_ERR (svn_time_from_nts (&time_temp, date, pool));
       date = svn_time_to_human_nts(time_temp, pool);
     }
   else
     date = "(no date)";
-
+  
   err = svn_utf_cstring_from_utf8 (&date_native, date, pool);
   if (err && (APR_STATUS_IS_EINVAL (err->apr_err)))   /* unlikely! */
     date_native = svn_utf_cstring_from_utf8_fuzzy (date, pool);
@@ -175,7 +175,7 @@ log_message_receiver (void *baton,
 
       /* Get an array of sorted hash keys. */
       sorted_paths = apr_hash_sorted_keys (changed_paths,
-                                           svn_sort_compare_items_as_paths,
+                                           svn_sort_compare_items_as_paths, 
                                            pool);
 
       /* Note: This is the only place we need a pool, and therefore
@@ -194,18 +194,18 @@ log_message_receiver (void *baton,
         {
           svn_item_t *item = &(APR_ARRAY_IDX (sorted_paths, i, svn_item_t));
           const char *path_native, *path = item->key;
-          svn_log_changed_path_t *log_item
+          svn_log_changed_path_t *log_item 
             = apr_hash_get (changed_paths, item->key, item->klen);
           const char *copy_data = "";
-
-          if (log_item->copyfrom_path
+          
+          if (log_item->copyfrom_path 
               && SVN_IS_VALID_REVNUM (log_item->copyfrom_rev))
             {
-              SVN_ERR (svn_utf_cstring_from_utf8 (&path_native,
-                                                  log_item->copyfrom_path,
+              SVN_ERR (svn_utf_cstring_from_utf8 (&path_native, 
+                                                  log_item->copyfrom_path, 
                                                   pool));
-              copy_data
-                = apr_psprintf (pool,
+              copy_data 
+                = apr_psprintf (pool, 
                                 " (from %s:%" SVN_REVNUM_T_FMT ")",
                                 path_native,
                                 log_item->copyfrom_rev);
@@ -226,7 +226,7 @@ log_message_receiver (void *baton,
  *
  * Here is an example of the output; note that the "<log>" and
  * "</log>" tags are not emitted by this function:
- *
+ * 
  * $ svn log --xml -r1648:1649
  * <log>
  * <logentry
@@ -242,13 +242,13 @@ log_message_receiver (void *baton,
  * <date>Sat 6 Apr 2002 17:01:28.185136 (day 096, dst 0, gmt_off -21600)</date>
  * <msg>Fix error handling when the $EDITOR is needed but unavailable.  Ah
  * ... now that&apos;s *much* nicer.
- *
+ * 
  * * subversion/clients/cmdline/util.c
  *   (svn_cl__edit_externally): Clean up the &quot;no external editor&quot;
  *   error message.
- *   (svn_cl__get_log_message): Wrap &quot;no external editor&quot;
+ *   (svn_cl__get_log_message): Wrap &quot;no external editor&quot; 
  *   errors with helpful hints about the -m and -F options.
- *
+ * 
  * * subversion/libsvn_client/commit.c
  *   (svn_client_commit): Actually capture and propogate &quot;no external
  *   editor&quot; errors.</msg>
@@ -304,7 +304,7 @@ log_message_receiver_xml (void *baton,
       /* <paths> */
       svn_xml_make_open_tag (&sb, pool, svn_xml_normal, "paths",
                              NULL);
-
+      
       for (hi = apr_hash_first (pool, changed_paths);
            hi != NULL;
            hi = apr_hash_next (hi))
@@ -312,7 +312,7 @@ log_message_receiver_xml (void *baton,
           void *val;
           char action[2];
           svn_log_changed_path_t *log_item;
-
+          
           apr_hash_this(hi, (void *) &path, NULL, &val);
           log_item = val;
 
@@ -324,7 +324,7 @@ log_message_receiver_xml (void *baton,
               /* <path action="X" copyfrom-path="aaa" copyfrom-rev="> */
               svn_stringbuf_t *escpath = svn_stringbuf_create ("", pool);
               svn_xml_escape_nts (&escpath, log_item->copyfrom_path, pool);
-              revstr = apr_psprintf (pool, "%" SVN_REVNUM_T_FMT,
+              revstr = apr_psprintf (pool, "%" SVN_REVNUM_T_FMT, 
                                      log_item->copyfrom_rev);
               svn_xml_make_open_tag (&sb, pool, svn_xml_protect_pcdata, "path",
                                      "action", action,
@@ -353,7 +353,7 @@ log_message_receiver_xml (void *baton,
   svn_xml_make_open_tag (&sb, pool, svn_xml_protect_pcdata, "msg", NULL);
   svn_xml_escape_nts (&sb, msg, pool);
   svn_xml_make_close_tag (&sb, pool, "msg");
-
+  
   /* </logentry> */
   svn_xml_make_close_tag (&sb, pool, "logentry");
 
@@ -373,7 +373,7 @@ svn_cl__log (apr_getopt_t *os,
   apr_array_header_t *targets;
   svn_client_auth_baton_t *auth_baton;
 
-  SVN_ERR (svn_opt_args_to_target_array (&targets, os,
+  SVN_ERR (svn_opt_args_to_target_array (&targets, os, 
                                          opt_state->targets,
                                          &(opt_state->start_revision),
                                          &(opt_state->end_revision),
@@ -429,13 +429,13 @@ svn_cl__log (apr_getopt_t *os,
 
           /* <?xml version="1.0" encoding="utf-8"?> */
           svn_xml_make_header (&sb, pool);
-
+          
           /* "<log>" */
           svn_xml_make_open_tag (&sb, pool, svn_xml_normal, "log", NULL);
 
-          printf ("%s", sb->data);
+          printf ("%s", sb->data);  
         }
-
+      
       SVN_ERR (svn_client_log (auth_baton,
                                targets,
                                &(opt_state->start_revision),
@@ -445,7 +445,7 @@ svn_cl__log (apr_getopt_t *os,
                                log_message_receiver_xml,
                                NULL,  /* no baton necessary */
                                pool));
-
+      
       if (! opt_state->incremental)
         {
           svn_stringbuf_t *sb = svn_stringbuf_create ("", pool);
@@ -476,8 +476,8 @@ svn_cl__log (apr_getopt_t *os,
 }
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../tools/dev/svn-dev.el")
- * end:
+ * end: 
  */

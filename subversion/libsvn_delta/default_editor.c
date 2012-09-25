@@ -1,6 +1,6 @@
-/*
+/* 
  * default_editor.c -- provide a basic svn_delta_editor_t
- *
+ * 
  * ====================================================================
  * Copyright (c) 2000-2002 CollabNet.  All rights reserved.
  *
@@ -129,7 +129,7 @@ svn_delta_default_editor (apr_pool_t *pool)
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end:
