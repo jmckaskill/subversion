@@ -2188,7 +2188,7 @@ def url_to_wc_copy_of_externals(sbox):
   # Previously this failed with:
   #   >svn copy ^^/A/C External-WC-to-URL-Copy
   #    U   External-WC-to-URL-Copy
-  #
+  #   
   #   Fetching external item into 'External-WC-to-URL-Copy\external':
   #   A    External-WC-to-URL-Copy\external\pi
   #   A    External-WC-to-URL-Copy\external\rho
