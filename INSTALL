@@ -43,7 +43,7 @@ I.    INTRODUCTION
 
       This document is written for people who intend to build
       Subversion from source code.  Normally, the only people who do
-      this are Subversion developers and package maintainers.
+      this are Subversion developers and package maintainers.  
 
       If neither of these labels fits you, we recommend you find an
       appropriate binary package of Subversion and install that.
@@ -205,8 +205,8 @@ I.    INTRODUCTION
         |     then upgrade your libapr to 1.X without rebuilding       |
         |     Subversion, things will break and segfault.              |
         |                                                              |
-        |   - if your Subversion server libraries are linked to one    |
-        |     version of APR, but your Apache server is linked to a    |
+        |   - if your Subversion server libraries are linked to one    | 
+        |     version of APR, but your Apache server is linked to a    | 
         |     different version, things will break and segfault.       |
         |                                                              |
         | Subversion distribution dependencies:                        |
@@ -559,7 +559,7 @@ I.    INTRODUCTION
         * Use an SQLite amalgamation file.
         * Specify an SQLite installation to use.
         * Let Subversion find an installed SQLite.
-
+      
       To use an SQLite-provided amalgamation, just drop sqlite3.c into
       Subversion's sqlite-amalgamation/ directory, or point to it with the
       --with-sqlite configure option.  This file also ships with the Subversion
@@ -1195,8 +1195,8 @@ III.  BUILDING A SUBVERSION SERVER
 
 
         ****************************************************************
-        **    IMPORTANT ISSUE ABOUT APACHE VERSIONS:  READ THIS.      **
-        **                                                            **
+        **    IMPORTANT ISSUE ABOUT APACHE VERSIONS:  READ THIS.      **     
+        **                                                            ** 
         ****************************************************************
         |                                                              |
         | First, be sure to read the APR version warning box, back in  |
@@ -1211,7 +1211,7 @@ III.  BUILDING A SUBVERSION SERVER
         | and Apache are using the same version of APR.  If you don't, |
         | things will segfault and break.                              |
         |______________________________________________________________|
-
+                                                                        
 
       If you have questions about the Apache httpd 2.0 build, please consult
       the httpd install documentation:
@@ -1485,8 +1485,8 @@ IV.   PLATFORM-SPECIFIC ISSUES
 
 V.    PROGRAMMING LANGUAGE BINDINGS (PYTHON, PERL, RUBY, JAVA)
       ========================================================
-
-      For Python, Perl and Ruby bindings, see the file
+  
+      For Python, Perl and Ruby bindings, see the file     
 
           ./subversion/bindings/swig/INSTALL
 
