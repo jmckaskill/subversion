@@ -173,8 +173,8 @@ void svn_swig_py_status_func(void *baton,
 svn_error_t *svn_swig_py_cancel_func(void *cancel_baton);
 
 /* thunked fs get_locks function */
-svn_error_t *svn_swig_py_fs_get_locks_func (void *baton,
-                                            svn_lock_t *lock,
+svn_error_t *svn_swig_py_fs_get_locks_func (void *baton, 
+                                            svn_lock_t *lock, 
                                             apr_pool_t *pool);
 
 /* thunked commit log fetcher */
