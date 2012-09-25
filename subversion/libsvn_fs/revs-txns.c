@@ -87,7 +87,7 @@ get_rev_txn (svn_fs__transaction_t **txn_p,
 {
   svn_fs__revision_t *revision;
   svn_fs__transaction_t *txn;
-
+  
   SVN_ERR (svn_fs__bdb_get_rev (&revision, fs, rev, trail));
   if (revision->txn_id == NULL)
     return svn_fs__err_corrupt_fs_revision (fs, rev);
@@ -111,7 +111,7 @@ svn_fs__rev_get_root (const svn_fs_id_t **root_id_p,
                       trail_t *trail)
 {
   svn_fs__transaction_t *txn;
-
+  
   SVN_ERR (get_rev_txn (&txn, NULL, fs, rev, trail));
   if (txn->root_id == NULL)
     return svn_fs__err_corrupt_fs_revision (fs, rev);
@@ -338,7 +338,7 @@ svn_fs__get_txn_ids (const svn_fs_id_t **root_id_p,
                      trail_t *trail)
 {
   svn_fs__transaction_t *txn;
-
+  
   SVN_ERR (get_txn (&txn, fs, txn_name, FALSE, trail));
   if (txn->kind != svn_fs__transaction_kind_normal)
     return svn_fs__err_txn_not_mutable (fs, txn_name);
@@ -436,7 +436,7 @@ txn_body_txn_proplist (void *baton, trail_t *trail)
   if (txn->kind != svn_fs__transaction_kind_normal)
     return svn_fs__err_txn_not_mutable (trail->fs, args->id);
 
-  *(args->table_p) = txn->proplist;
+  *(args->table_p) = txn->proplist; 
   return SVN_NO_ERROR;
 }
 
@@ -528,7 +528,7 @@ static svn_error_t *
 txn_body_change_txn_prop (void *baton, trail_t *trail)
 {
   struct change_txn_prop_args *args = baton;
-  return svn_fs__set_txn_prop (trail->fs, args->id, args->name,
+  return svn_fs__set_txn_prop (trail->fs, args->id, args->name, 
                                args->value, trail);
 }
 
@@ -569,7 +569,7 @@ make_txn (svn_fs_t *fs,
 
   return txn;
 }
-
+          
 
 struct begin_txn_args
 {
@@ -613,7 +613,7 @@ svn_fs_begin_txn (svn_fs_txn_t **txn_p,
   args.txn_p = &txn;
   args.rev   = rev;
   SVN_ERR (svn_fs__retry_txn (fs, txn_body_begin_txn, &args, pool));
-
+  
   *txn_p = txn;
 
   /* Put a datestamp on the newly created txn, so we always know
@@ -623,7 +623,7 @@ svn_fs_begin_txn (svn_fs_txn_t **txn_p,
      automatically overwritten with a revision datestamp. */
   date.data = svn_time_to_cstring (apr_time_now(), pool);
   date.len = strlen (date.data);
-  SVN_ERR (svn_fs_change_txn_prop (txn, SVN_PROP_REVISION_DATE,
+  SVN_ERR (svn_fs_change_txn_prop (txn, SVN_PROP_REVISION_DATE, 
                                    &date, pool));
 
   return SVN_NO_ERROR;
@@ -665,9 +665,9 @@ txn_body_open_txn (void *baton,
   SVN_ERR (get_txn (&fstxn, trail->fs, args->name, FALSE, trail));
   if (fstxn->kind != svn_fs__transaction_kind_committed)
     SVN_ERR (svn_fs__txn_get_revision (&base_rev, trail->fs,
-                                       svn_fs__id_txn_id (fstxn->base_id),
+                                       svn_fs__id_txn_id (fstxn->base_id), 
                                        trail));
-  *args->txn_p = make_txn (trail->fs, args->name, base_rev, trail->pool);
+  *args->txn_p = make_txn (trail->fs, args->name, base_rev, trail->pool); 
   return SVN_NO_ERROR;
 }
 
@@ -686,7 +686,7 @@ svn_fs_open_txn (svn_fs_txn_t **txn_p,
   args.txn_p = &txn;
   args.name = name;
   SVN_ERR (svn_fs__retry_txn (fs, txn_body_open_txn, &args, pool));
-
+  
   *txn_p = txn;
   return SVN_NO_ERROR;
 }
@@ -746,7 +746,7 @@ txn_body_get_dirents (void *baton, trail_t *trail)
 
   /* Get the node. */
   SVN_ERR (svn_fs__dag_get_node (&node, trail->fs, args->id, trail));
-
+        
   /* If immutable, do nothing and return. */
   if (! svn_fs__dag_check_mutable (node, args->txn_id))
     return SVN_NO_ERROR;
@@ -755,7 +755,7 @@ txn_body_get_dirents (void *baton, trail_t *trail)
   *(args->dirents) = NULL;
   if (svn_fs__dag_node_kind (node) != svn_node_dir)
     return SVN_NO_ERROR;
-
+  
   /* Else it's mutable.  Get it's dirents. */
   return svn_fs__dag_dir_entries (args->dirents, node, trail);
 }
@@ -854,7 +854,7 @@ svn_fs_purge_txn (svn_fs_t *fs,
   args.txn_p = &txn;
   args.name = txn_id;
   SVN_ERR (svn_fs__retry_txn (fs, txn_body_cleanup_txn, &args, pool));
-
+  
   /* Delete the mutable portion of the tree hanging from the
      transaction (which should gracefully recover if we've already
      done this). */
@@ -862,7 +862,7 @@ svn_fs_purge_txn (svn_fs_t *fs,
 
   /* Kill the transaction's changes (which should gracefully recover
      if...). */
-  SVN_ERR (svn_fs__retry_txn (fs, txn_body_cleanup_txn_changes,
+  SVN_ERR (svn_fs__retry_txn (fs, txn_body_cleanup_txn_changes, 
                               (void *)txn_id, pool));
 
   /* Kill the transaction's copies (which should gracefully...). */
@@ -870,13 +870,13 @@ svn_fs_purge_txn (svn_fs_t *fs,
     {
       for (i = 0; i < txn->copies->nelts; i++)
         {
-          SVN_ERR (svn_fs__retry_txn
+          SVN_ERR (svn_fs__retry_txn 
                    (fs, txn_body_cleanup_txn_copy,
-                    (void *)APR_ARRAY_IDX (txn->copies, i, const char *),
+                    (void *)APR_ARRAY_IDX (txn->copies, i, const char *), 
                     pool));
         }
     }
-
+      
   /* Kill the transaction itself (which ... just kidding -- this has
      no graceful failure mode). */
   return svn_fs__retry_txn (fs, txn_body_delete_txn, (void *)txn_id, pool);
@@ -908,7 +908,7 @@ svn_fs_abort_txn (svn_fs_txn_t *txn,
 
   /* Set the transaction to "dead". */
   SVN_ERR (svn_fs__retry_txn (txn->fs, txn_body_abort_txn, txn, pool));
-
+  
   /* Now, purge it. */
   SVN_ERR_W (svn_fs_purge_txn (txn->fs, txn->id, pool),
              "Transaction aborted, but cleanup failed");
@@ -928,7 +928,7 @@ txn_body_list_transactions (void* baton,
                             trail_t *trail)
 {
   struct list_transactions_args *args = baton;
-  SVN_ERR (svn_fs__bdb_get_txn_list (args->names_p, trail->fs,
+  SVN_ERR (svn_fs__bdb_get_txn_list (args->names_p, trail->fs, 
                                      args->pool, trail));
 
   return SVN_NO_ERROR;
