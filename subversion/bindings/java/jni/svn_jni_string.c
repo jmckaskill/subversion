@@ -21,8 +21,8 @@
 #include <svn_string.h>
 
 svn_string_t *
-svn_jni_string__j_to_svn(JNIEnv *env,
-                         jstring jstr,
+svn_jni_string__j_to_svn(JNIEnv *env, 
+                         jstring jstr, 
                          jboolean *hasException,
                          apr_pool_t *pool)
 {
@@ -32,11 +32,11 @@ svn_jni_string__j_to_svn(JNIEnv *env,
 #ifdef SVN_JNI__VERBOSE
   fprintf(stderr, "svn_jni_string__j_to_svn\n");
 #endif
-
-  /* make sure there is enough memory left for
+  
+  /* make sure there is enough memory left for 
    * the operation, also push the stack frame
    * we will need 2 local references:
-   * -
+   * - 
    */
   if( (*env)->PushLocalFrame(env, 2) >= 0)
     {
@@ -51,12 +51,12 @@ svn_jni_string__j_to_svn(JNIEnv *env,
 	  jsize len = (*env)->GetStringUTFLength(env, jstr);
 	  buffer = (char *)malloc(len + 1);
 
-	  /* did the memory allocation succeed?
+	  /* did the memory allocation succeed? 
 	   * otherwise throw an exception */
 	  if( buffer == NULL )
 	    {
-	      svn_jni__throw_exception_by_name(env,
-					       "java/lang/OutOfMemoryError",
+	      svn_jni__throw_exception_by_name(env, 
+					       "java/lang/OutOfMemoryError", 
 					       NULL);
 	      _hasException = JNI_TRUE;
 	    }
@@ -94,8 +94,8 @@ svn_jni_string__j_to_svn(JNIEnv *env,
 }
 
 jstring
-svn_jni_string__c_to_j(JNIEnv *env,
-                       char *string,
+svn_jni_string__c_to_j(JNIEnv *env, 
+                       char *string, 
                        jboolean *hasException)
 {
   jboolean _hasException = JNI_FALSE;
@@ -117,18 +117,18 @@ svn_jni_string__c_to_j(JNIEnv *env,
 }
 
 jstring
-svn_jni_string__svn_to_j(JNIEnv *env,
-                         svn_string_t *string,
+svn_jni_string__svn_to_j(JNIEnv *env, 
+                         svn_string_t *string, 
                          jboolean *hasException)
 {
-  return svn_jni_string__c_to_j(env, (char*)string->data,
+  return svn_jni_string__c_to_j(env, (char*)string->data, 
                                 hasException);
 }
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../svn-dev.el")
- * end:
+ * end: 
  */
 
 
