@@ -1,6 +1,6 @@
-/*
+/* 
  * text-delta.c -- Internal text delta representation
- *
+ * 
  * ====================================================================
  * Copyright (c) 2000-2003 CollabNet.  All rights reserved.
  *
@@ -47,7 +47,7 @@ struct svn_txdelta_stream_t {
   /* Calculated digest from MD5 operations.
      NOTE:  This is only valid after this stream has returned the NULL
      (final) window.  */
-  unsigned char digest[MD5_DIGESTSIZE];
+  unsigned char digest[MD5_DIGESTSIZE]; 
 };
 
 
@@ -215,7 +215,7 @@ svn_txdelta (svn_txdelta_stream_t **stream,
              apr_pool_t *pool)
 {
   *stream = apr_palloc (pool, sizeof (**stream));
-  (*stream)->source = source;
+  (*stream)->source = source; 
   (*stream)->target = target;
   (*stream)->more = TRUE;
   (*stream)->pos = 0;
@@ -264,7 +264,7 @@ svn_txdelta_next_window (svn_txdelta_window_t **window,
 
       apr_err = apr_md5_final (stream->digest, &(stream->context));
       if (apr_err)
-        return svn_error_create
+        return svn_error_create 
           (apr_err, NULL,
            "svn_txdelta_next_window: MD5 finalization failed");
 
@@ -430,10 +430,10 @@ apply_window (svn_txdelta_window_t *window, void *baton)
         {
           const char *actual_checksum;
           unsigned char digest[MD5_DIGESTSIZE];
-
+          
           apr_md5_final(digest, &(ab->md5_context));
           actual_checksum = svn_md5_digest_to_cstring (digest, ab->pool);
-
+          
           if (strcmp (ab->result_checksum, actual_checksum) != 0)
             err2 = svn_error_createf
               (SVN_ERR_CHECKSUM_MISMATCH, NULL,
@@ -566,7 +566,7 @@ svn_txdelta_apply (svn_stream_t *source,
 
 /* Convenience routines */
 
-svn_error_t *
+svn_error_t * 
 svn_txdelta_send_string (const svn_string_t *string,
                          svn_txdelta_window_handler_t handler,
                          void *handler_baton,
@@ -588,10 +588,10 @@ svn_txdelta_send_string (const svn_string_t *string,
 
   /* Push the one window at the handler. */
   SVN_ERR ((*handler) (&window, handler_baton));
-
+  
   /* Push a NULL at the handler, because we're done. */
   SVN_ERR ((*handler) (NULL, handler_baton));
-
+  
   return SVN_NO_ERROR;
 }
 

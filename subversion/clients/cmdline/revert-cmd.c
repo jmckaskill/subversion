@@ -47,7 +47,7 @@ svn_cl__revert (apr_getopt_t *os,
   void *notify_baton = NULL;
   apr_pool_t *subpool;
 
-  SVN_ERR (svn_opt_args_to_target_array (&targets, os,
+  SVN_ERR (svn_opt_args_to_target_array (&targets, os, 
                                          opt_state->targets,
                                          &(opt_state->start_revision),
                                          &(opt_state->end_revision),
@@ -65,12 +65,12 @@ svn_cl__revert (apr_getopt_t *os,
   for (i = 0; i < targets->nelts; i++)
     {
       const char *target = ((const char **) (targets->elts))[i];
-
-      SVN_ERR (svn_client_revert (target, recursive,
+      
+      SVN_ERR (svn_client_revert (target, recursive, 
                                   notify_func, notify_baton, subpool));
       svn_pool_clear (subpool);
     }
-
+  
   svn_pool_destroy (subpool);
   return SVN_NO_ERROR;
 }

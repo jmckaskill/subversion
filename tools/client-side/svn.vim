@@ -22,9 +22,9 @@ endif
 
 syn cluster svnChange contains=svnAdd,svnDel,svnMod
 syn match svnLine /^--This line, and those below, will be ignored--$/ skipwhite skipnl skipempty nextgroup=@svnChange
-syn match svnAdd /^A    .*$/ contained skipwhite skipnl skipempty nextgroup=@svnChange
-syn match svnDel /^D    .*$/ contained skipwhite skipnl skipempty nextgroup=@svnChange
-syn match svnMod /^M    .*$/ contained skipwhite skipnl skipempty nextgroup=@svnChange
+syn match svnAdd /^A    .*$/ contained skipwhite skipnl skipempty nextgroup=@svnChange 
+syn match svnDel /^D    .*$/ contained skipwhite skipnl skipempty nextgroup=@svnChange 
+syn match svnMod /^M    .*$/ contained skipwhite skipnl skipempty nextgroup=@svnChange 
 
 "The following is the old SVN template format markings
 "
