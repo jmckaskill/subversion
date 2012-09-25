@@ -41,7 +41,7 @@ def print_props(root, path, pool):
 
 def walk_tree(root, path, pool):
   subpool = core.svn_pool_create(pool)
-  try:
+  try: 
     for name in fs.dir_entries(root, path, subpool).keys():
       full = path + '/' + name
       print_props(root, full, subpool)

@@ -71,7 +71,7 @@ Path::init (const char * path)
     }
     else
     {
-        m_error_occured = JNIUtil::preprocessPath(path,
+        m_error_occured = JNIUtil::preprocessPath(path, 
             JNIUtil::getRequestPool()->pool() );
 
         m_path = path;
