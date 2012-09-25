@@ -63,7 +63,7 @@ static int request_auth(void *userdata, const char *realm, int attempt,
   svn_error_t *err;
   svn_ra_session_t *ras = userdata;
   void *creds;
-  svn_auth_cred_simple_t *simple_creds;
+  svn_auth_cred_simple_t *simple_creds;  
 
   /* No auth_baton?  Give up. */
   if (! ras->callbacks->auth_baton)
@@ -81,7 +81,7 @@ static int request_auth(void *userdata, const char *realm, int attempt,
                                 realm, NULL);
 
       err = svn_auth_first_credentials (&creds,
-                                        &(ras->auth_iterstate),
+                                        &(ras->auth_iterstate), 
                                         SVN_AUTH_CRED_SIMPLE,
                                         realmstring,
                                         ras->callbacks->auth_baton,
@@ -100,7 +100,7 @@ static int request_auth(void *userdata, const char *realm, int attempt,
       return -1;
     }
   simple_creds = creds;
-
+  
   /* ### silently truncates username/password to 256 chars. */
   apr_cpystrn(username, simple_creds->username, NE_ABUFSIZ);
   apr_cpystrn(password, simple_creds->password, NE_ABUFSIZ);
@@ -252,7 +252,7 @@ static svn_error_t *get_server_settings(const char **proxy_host,
 
   /* If there are defaults, use them, but only if the requested host
      is not one of the exceptions to the defaults. */
-  svn_config_get(cfg, &exceptions, SVN_CONFIG_SECTION_GLOBAL,
+  svn_config_get(cfg, &exceptions, SVN_CONFIG_SECTION_GLOBAL, 
                  SVN_CONFIG_OPTION_HTTP_PROXY_EXCEPTIONS, NULL);
   if (exceptions)
     {
@@ -261,43 +261,43 @@ static svn_error_t *get_server_settings(const char **proxy_host,
     }
   if (! is_exception)
     {
-      svn_config_get(cfg, proxy_host, SVN_CONFIG_SECTION_GLOBAL,
+      svn_config_get(cfg, proxy_host, SVN_CONFIG_SECTION_GLOBAL, 
                      SVN_CONFIG_OPTION_HTTP_PROXY_HOST, NULL);
-      svn_config_get(cfg, &port_str, SVN_CONFIG_SECTION_GLOBAL,
+      svn_config_get(cfg, &port_str, SVN_CONFIG_SECTION_GLOBAL, 
                      SVN_CONFIG_OPTION_HTTP_PROXY_PORT, NULL);
-      svn_config_get(cfg, proxy_username, SVN_CONFIG_SECTION_GLOBAL,
+      svn_config_get(cfg, proxy_username, SVN_CONFIG_SECTION_GLOBAL, 
                      SVN_CONFIG_OPTION_HTTP_PROXY_USERNAME, NULL);
-      svn_config_get(cfg, proxy_password, SVN_CONFIG_SECTION_GLOBAL,
+      svn_config_get(cfg, proxy_password, SVN_CONFIG_SECTION_GLOBAL, 
                      SVN_CONFIG_OPTION_HTTP_PROXY_PASSWORD, NULL);
-      svn_config_get(cfg, &timeout_str, SVN_CONFIG_SECTION_GLOBAL,
+      svn_config_get(cfg, &timeout_str, SVN_CONFIG_SECTION_GLOBAL, 
                      SVN_CONFIG_OPTION_HTTP_TIMEOUT, NULL);
-      svn_config_get(cfg, &compress_str, SVN_CONFIG_SECTION_GLOBAL,
+      svn_config_get(cfg, &compress_str, SVN_CONFIG_SECTION_GLOBAL, 
                      SVN_CONFIG_OPTION_HTTP_COMPRESSION, NULL);
-      svn_config_get(cfg, &debug_str, SVN_CONFIG_SECTION_GLOBAL,
+      svn_config_get(cfg, &debug_str, SVN_CONFIG_SECTION_GLOBAL, 
                      SVN_CONFIG_OPTION_NEON_DEBUG_MASK, NULL);
     }
 
   if (cfg)
-    server_group = svn_config_find_group(cfg, requested_host,
+    server_group = svn_config_find_group(cfg, requested_host, 
                                          SVN_CONFIG_SECTION_GROUPS, pool);
   else
     server_group = NULL;
 
   if (server_group)
     {
-      svn_config_get(cfg, proxy_host, server_group,
+      svn_config_get(cfg, proxy_host, server_group, 
                      SVN_CONFIG_OPTION_HTTP_PROXY_HOST, *proxy_host);
-      svn_config_get(cfg, &port_str, server_group,
+      svn_config_get(cfg, &port_str, server_group, 
                      SVN_CONFIG_OPTION_HTTP_PROXY_PORT, port_str);
-      svn_config_get(cfg, proxy_username, server_group,
+      svn_config_get(cfg, proxy_username, server_group, 
                      SVN_CONFIG_OPTION_HTTP_PROXY_USERNAME, *proxy_username);
-      svn_config_get(cfg, proxy_password, server_group,
+      svn_config_get(cfg, proxy_password, server_group, 
                      SVN_CONFIG_OPTION_HTTP_PROXY_PASSWORD, *proxy_password);
-      svn_config_get(cfg, &timeout_str, server_group,
+      svn_config_get(cfg, &timeout_str, server_group, 
                      SVN_CONFIG_OPTION_HTTP_TIMEOUT, timeout_str);
-      svn_config_get(cfg, &compress_str, server_group,
+      svn_config_get(cfg, &compress_str, server_group, 
                      SVN_CONFIG_OPTION_HTTP_COMPRESSION, compress_str);
-      svn_config_get(cfg, &debug_str, server_group,
+      svn_config_get(cfg, &debug_str, server_group, 
                      SVN_CONFIG_OPTION_NEON_DEBUG_MASK, debug_str);
     }
 
@@ -434,7 +434,7 @@ svn_ra_dav__open (void **session_baton,
   const char *server_group;
 
   /* Sanity check the URI */
-  if (ne_uri_parse(repos_URL, &uri)
+  if (ne_uri_parse(repos_URL, &uri) 
       || uri.host == NULL || uri.path == NULL || uri.scheme == NULL)
     {
       ne_uri_free(&uri);
@@ -481,7 +481,7 @@ svn_ra_dav__open (void **session_baton,
   sess = ne_session_create(uri.scheme, uri.host, uri.port);
   sess2 = ne_session_create(uri.scheme, uri.host, uri.port);
 
-  cfg = config ? apr_hash_get (config,
+  cfg = config ? apr_hash_get (config, 
                                SVN_CONFIG_CATEGORY_SERVERS,
                                APR_HASH_KEY_STRING) : NULL;
   if (cfg)
@@ -489,7 +489,7 @@ svn_ra_dav__open (void **session_baton,
                                          SVN_CONFIG_SECTION_GROUPS, pool);
   else
     server_group = NULL;
-
+  
   /* If there's a timeout or proxy for this URL, use it. */
   {
     const char *proxy_host;
@@ -499,7 +499,7 @@ svn_ra_dav__open (void **session_baton,
     int timeout;
     int debug;
     svn_error_t *err;
-
+    
     err = get_server_settings(&proxy_host,
                               &proxy_port,
                               &proxy_username,
@@ -532,7 +532,7 @@ svn_ra_dav__open (void **session_baton,
 
             pab->username = proxy_username;
             pab->password = proxy_password ? proxy_password : "";
-
+        
             ne_set_proxy_auth(sess, proxy_auth, pab);
             ne_set_proxy_auth(sess2, proxy_auth, pab);
           }
@@ -570,9 +570,9 @@ svn_ra_dav__open (void **session_baton,
   ras->pool = pool;
   ras->url = apr_pstrdup (pool, repos_URL);
   /* copies uri pointer members, they get free'd in __close. */
-  ras->root = uri;
+  ras->root = uri; 
   ras->sess = sess;
-  ras->sess2 = sess2;
+  ras->sess2 = sess2;  
   ras->callbacks = callbacks;
   ras->callback_baton = callback_baton;
   /* save config and server group in the auth parameter hash */
@@ -610,7 +610,7 @@ svn_ra_dav__open (void **session_baton,
             cfg, server_group,
             SVN_CONFIG_OPTION_SSL_AUTHORITIES_FILE,
             NULL);
-
+      
       if (authorities_file != NULL)
         {
           ne_ssl_load_ca(sess, authorities_file);
@@ -654,7 +654,7 @@ static svn_error_t *svn_ra_dav__do_get_uuid(void *session_baton,
 
       SVN_ERR( svn_ra_dav__get_one_prop(&value, ras->sess, ras->url, NULL,
                                         &uuid_propname, pool) );
-
+      
       if (value && (value->len > 0))
         ras->uuid = apr_pstrdup(ras->pool, value->data); /* cache UUID */
       else
@@ -663,7 +663,7 @@ static svn_error_t *svn_ra_dav__do_get_uuid(void *session_baton,
     }
 
   *uuid = ras->uuid;
-  return SVN_NO_ERROR;
+  return SVN_NO_ERROR; 
 }
 
 
