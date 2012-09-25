@@ -359,7 +359,7 @@ print_row(const nodes_row_t *row,
     file_external_str = ", file-external";
   else
     file_external_str = "";
-
+      
   if (row->repo_revnum == SVN_INVALID_REVNUM)
     return apr_psprintf(result_pool, "%d, %s, %s%s",
                         row->op_depth, row->local_relpath, row->presence,
