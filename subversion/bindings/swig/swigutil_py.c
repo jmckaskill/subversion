@@ -132,7 +132,7 @@ static PyObject *convert_svn_client_commit_item_t(void *value, void *ctx)
       url = Py_None;
       Py_INCREF(Py_None);
     }
-
+        
   if (item->copyfrom_url)
     cf_url = PyString_FromString(item->copyfrom_url);
   else
@@ -140,7 +140,7 @@ static PyObject *convert_svn_client_commit_item_t(void *value, void *ctx)
       cf_url = Py_None;
       Py_INCREF(Py_None);
     }
-
+        
   kind = PyInt_FromLong(item->kind);
   rev = PyInt_FromLong(item->revision);
   state = PyInt_FromLong(item->state_flags);
@@ -238,7 +238,7 @@ PyObject *svn_swig_py_array_to_list(const apr_array_header_t *array)
     int i;
 
     for (i = 0; i < array->nelts; ++i) {
-        PyObject *ob =
+        PyObject *ob = 
           PyString_FromString(APR_ARRAY_IDX(array, i, const char *));
         if (ob == NULL)
           goto error;
@@ -257,7 +257,7 @@ PyObject *svn_swig_py_revarray_to_list(const apr_array_header_t *array)
     int i;
 
     for (i = 0; i < array->nelts; ++i) {
-        PyObject *ob
+        PyObject *ob 
           = PyInt_FromLong(APR_ARRAY_IDX(array, i, svn_revnum_t));
         if (ob == NULL)
           goto error;
@@ -587,7 +587,7 @@ static svn_error_t * thunk_window_handler(svn_txdelta_window_t *window,
 }
 
 static svn_error_t *
-thunk_apply_textdelta(void *file_baton,
+thunk_apply_textdelta(void *file_baton, 
                       apr_pool_t *pool,
                       svn_txdelta_window_handler_t *handler,
                       void **h_baton)
@@ -719,8 +719,8 @@ apr_file_t *svn_swig_py_make_file (PyObject *py_file,
       fd = PyInt_AsLong (py_file);
     }
 
-  if (fd >= 0)
-    {
+  if (fd >= 0) 
+    {  
       status = apr_os_file_put (&apr_file, &fd, O_CREAT | O_WRONLY, pool);
     }
 
@@ -743,11 +743,11 @@ void svn_swig_py_notify_func(void *baton,
 
   if (function != NULL && function != Py_None)
     {
-      if ((result = PyObject_CallFunction(function,
-                                          (char *)"(siisiii)",
+      if ((result = PyObject_CallFunction(function, 
+                                          (char *)"(siisiii)", 
                                           path, action, kind,
                                           mime_type,
-                                          content_state, prop_state,
+                                          content_state, prop_state, 
                                           revision)) != NULL)
         {
           Py_XDECREF(result);
@@ -785,7 +785,7 @@ svn_swig_py_get_commit_log_func(const char **log_msg,
     }
 
   /* ### python doesn't have 'const' on the method name and format */
-  if ((result = PyObject_CallFunction(function,
+  if ((result = PyObject_CallFunction(function, 
                                       (char *)"OO&",
                                       cmt_items,
                                       make_ob_pool, pool)) == NULL)
@@ -802,13 +802,13 @@ svn_swig_py_get_commit_log_func(const char **log_msg,
       *log_msg = NULL;
       return SVN_NO_ERROR;
     }
-  else if (PyString_Check(result))
+  else if (PyString_Check(result)) 
     {
       *log_msg = apr_pstrdup(pool, PyString_AS_STRING(result));
       Py_DECREF(result);
       return SVN_NO_ERROR;
     }
-
+     
   Py_DECREF(result);
   PyErr_SetString(PyExc_TypeError, "not a string");
   return convert_python_error(pool);
@@ -830,7 +830,7 @@ svn_error_t * svn_swig_py_thunk_log_receiver(void *baton,
   PyObject *result;
   swig_type_info *tinfo = SWIG_TypeQuery("SWIGTYPE_p_svn_log_changed_path_t");
   PyObject *chpaths;
-
+ 
   if ((receiver == NULL) || (receiver == Py_None))
     return SVN_NO_ERROR;
 
@@ -845,9 +845,9 @@ svn_error_t * svn_swig_py_thunk_log_receiver(void *baton,
     }
 
   /* ### python doesn't have 'const' on the method name and format */
-  if ((result = PyObject_CallFunction(receiver,
-                                      (char *)"OlsssO&",
-                                      chpaths, rev, author, date, msg,
+  if ((result = PyObject_CallFunction(receiver, 
+                                      (char *)"OlsssO&", 
+                                      chpaths, rev, author, date, msg, 
                                       make_ob_pool, pool)) == NULL)
     {
       Py_DECREF(chpaths);
