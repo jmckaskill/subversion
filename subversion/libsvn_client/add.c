@@ -134,7 +134,7 @@ add_dir_recursive (const char *dirname,
    is that this function uses an existing access baton.
    (svn_client_add just generates an access baton and calls this func.) */
 static svn_error_t *
-add (const char *path,
+add (const char *path, 
      svn_boolean_t recursive,
      svn_wc_adm_access_t *adm_access,
      svn_client_ctx_t *ctx,
@@ -157,7 +157,7 @@ add (const char *path,
 
 
 svn_error_t *
-svn_client_add (const char *path,
+svn_client_add (const char *path, 
                 svn_boolean_t recursive,
                 svn_client_ctx_t *ctx,
                 apr_pool_t *pool)
@@ -170,7 +170,7 @@ svn_client_add (const char *path,
                             TRUE, FALSE, pool));
 
   err = add (path, recursive, adm_access, ctx, pool);
-
+  
   err2 = svn_wc_adm_close (adm_access);
   if (err2)
     {
@@ -256,9 +256,9 @@ mkdir_urls (svn_client_commit_info_t **commit_info,
     {
       svn_client_commit_item_t *item;
       const char *tmp_file;
-      apr_array_header_t *commit_items
+      apr_array_header_t *commit_items 
         = apr_array_make (pool, targets->nelts, sizeof (item));
-
+          
       for (i = 0; i < targets->nelts; i++)
         {
           const char *path = APR_ARRAY_IDX (targets, i, const char *);
@@ -267,7 +267,7 @@ mkdir_urls (svn_client_commit_info_t **commit_info,
           item->state_flags = SVN_CLIENT_COMMIT_ITEM_ADD;
           APR_ARRAY_PUSH (commit_items, svn_client_commit_item_t *) = item;
         }
-      SVN_ERR ((*ctx->log_msg_func) (&log_msg, &tmp_file, commit_items,
+      SVN_ERR ((*ctx->log_msg_func) (&log_msg, &tmp_file, commit_items, 
                                      ctx->log_msg_baton, pool));
       if (! log_msg)
         return SVN_NO_ERROR;
@@ -303,8 +303,8 @@ mkdir_urls (svn_client_commit_info_t **commit_info,
                                       commit_baton, pool));
 
   /* Call the path-based editor driver. */
-  SVN_ERR (svn_delta_path_driver (editor, edit_baton, SVN_INVALID_REVNUM,
-                                  targets, path_driver_cb_func,
+  SVN_ERR (svn_delta_path_driver (editor, edit_baton, SVN_INVALID_REVNUM, 
+                                  targets, path_driver_cb_func, 
                                   (void *)editor, pool));
 
   /* Close the edit. */
@@ -322,7 +322,7 @@ svn_client_mkdir (svn_client_commit_info_t **commit_info,
 {
   if (! paths->nelts)
     return SVN_NO_ERROR;
-
+  
   if (svn_path_is_url (APR_ARRAY_IDX (paths, 0, const char *)))
     {
       SVN_ERR (mkdir_urls (commit_info, paths, ctx, pool));

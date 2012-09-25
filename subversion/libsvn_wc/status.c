@@ -55,7 +55,7 @@ struct edit_baton
 
   /* Do we want all statuses (instead of just the interesting ones) ? */
   svn_boolean_t get_all;
-
+ 
   /* Ignore the svn:ignores. */
   svn_boolean_t no_ignore;
 
@@ -169,7 +169,7 @@ struct file_baton
 /** Code **/
 
 /* Fill in *STATUS for PATH, whose entry data is in ENTRY.  Allocate
-   *STATUS in POOL.
+   *STATUS in POOL. 
 
    ENTRY may be null, for non-versioned entities.  In this case, we
    will assemble a special status structure item which implies a
@@ -219,7 +219,7 @@ assemble_status (svn_wc_status_t **status,
   /* Check the path kind for PATH. */
   if (path_kind == svn_node_unknown)
     SVN_ERR (svn_io_check_path (path, &path_kind, pool));
-
+  
   if (! entry)
     {
       /* return a blank structure. */
@@ -405,8 +405,8 @@ assemble_status (svn_wc_status_t **status,
 
   stat = apr_pcalloc (pool, sizeof(**status));
   stat->entry = svn_wc_entry_dup (entry, pool);
-  stat->text_status = final_text_status;
-  stat->prop_status = final_prop_status;
+  stat->text_status = final_text_status;       
+  stat->prop_status = final_prop_status;    
   stat->repos_text_status = svn_wc_status_none;   /* default */
   stat->repos_prop_status = svn_wc_status_none;   /* default */
   stat->locked = locked_p;
@@ -435,29 +435,29 @@ send_status_structure (const char *path,
                        apr_pool_t *pool)
 {
   svn_wc_status_t *statstruct;
-
+  
   SVN_ERR (assemble_status (&statstruct, path, adm_access, entry, parent_entry,
                             path_kind, get_all, is_ignored, pool));
   if (statstruct && (status_func))
     (*status_func) (status_baton, path, statstruct);
-
+  
   return SVN_NO_ERROR;
 }
 
 
-/* Store in PATTERNS a list of all svn:ignore properties from
+/* Store in PATTERNS a list of all svn:ignore properties from 
    the working copy directory, including the default ignores
    passed in as IGNORES.
 
-   Upon return, *PATTERNS will contain zero or more (const char *)
-   patterns from the value of the SVN_PROP_IGNORE property set on
+   Upon return, *PATTERNS will contain zero or more (const char *) 
+   patterns from the value of the SVN_PROP_IGNORE property set on 
    the working directory path.
 
-   IGNORES is a list of patterns to include; typically this will
+   IGNORES is a list of patterns to include; typically this will 
    be the default ignores as, for example, specified in a config file.
 
-   ADM_ACCESS is an access baton for the working copy path.
-
+   ADM_ACCESS is an access baton for the working copy path. 
+   
    Allocate everything in POOL.
 
    None of the arguments may be NULL.
@@ -485,8 +485,8 @@ collect_ignore_patterns (apr_array_header_t *patterns,
   if (value != NULL)
     svn_cstring_split_append (patterns, value->data, "\n\r", FALSE, pool);
 
-  return SVN_NO_ERROR;
-}
+  return SVN_NO_ERROR;   
+} 
 
 
 /* Compare PATH with items in the EXTERNALS hash to see if PATH is the
@@ -536,9 +536,9 @@ is_external_path (apr_hash_t *externals,
    Allocate everything in POOL.
 */
 static svn_error_t *
-send_unversioned_item (const char *name,
-                       svn_node_kind_t path_kind,
-                       svn_wc_adm_access_t *adm_access,
+send_unversioned_item (const char *name, 
+                       svn_node_kind_t path_kind, 
+                       svn_wc_adm_access_t *adm_access, 
                        apr_array_header_t *patterns,
                        apr_hash_t *externals,
                        svn_boolean_t no_ignore,
@@ -547,7 +547,7 @@ send_unversioned_item (const char *name,
                        apr_pool_t *pool)
 {
   int ignore_me = svn_cstring_match_glob_list (name, patterns);
-  const char *path = svn_path_join (svn_wc_adm_access_path (adm_access),
+  const char *path = svn_path_join (svn_wc_adm_access_path (adm_access), 
                                     name, pool);
   int is_external = is_external_path (externals, path, pool);
   svn_wc_status_t *status;
@@ -556,7 +556,7 @@ send_unversioned_item (const char *name,
      status structure for this dirent. */
   if (no_ignore || (! ignore_me) || is_external)
     {
-      SVN_ERR (assemble_status (&status, path, adm_access, NULL, NULL,
+      SVN_ERR (assemble_status (&status, path, adm_access, NULL, NULL, 
                                 path_kind, FALSE, ignore_me, pool));
       if (is_external)
         status->text_status = svn_wc_status_external;
@@ -619,7 +619,7 @@ handle_dir_entry (struct edit_baton *eb,
          as a *directory* on disk), we don't want to reach down into
          that subdir to try to flesh out a "complete entry".  */
       const svn_wc_entry_t *full_entry = entry;
-
+          
       if (entry->kind == kind)
         SVN_ERR (svn_wc_entry (&full_entry, path, adm_access, FALSE, pool));
 
@@ -629,14 +629,14 @@ handle_dir_entry (struct edit_baton *eb,
         {
           svn_wc_adm_access_t *dir_access;
           SVN_ERR (svn_wc_adm_retrieve (&dir_access, adm_access, path, pool));
-          SVN_ERR (get_dir_status (eb, dir_entry, dir_access, NULL, ignores,
-                                   descend, get_all, no_ignore, FALSE,
+          SVN_ERR (get_dir_status (eb, dir_entry, dir_access, NULL, ignores, 
+                                   descend, get_all, no_ignore, FALSE, 
                                    status_func, status_baton, cancel_func,
                                    cancel_baton, pool));
         }
       else
         {
-          SVN_ERR (send_status_structure (path, adm_access, full_entry,
+          SVN_ERR (send_status_structure (path, adm_access, full_entry, 
                                           dir_entry, kind, get_all, FALSE,
                                           status_func, status_baton, pool));
         }
@@ -644,7 +644,7 @@ handle_dir_entry (struct edit_baton *eb,
   else
     {
       /* File entries are ... just fine! */
-      SVN_ERR (send_status_structure (path, adm_access, entry, dir_entry,
+      SVN_ERR (send_status_structure (path, adm_access, entry, dir_entry, 
                                       kind, get_all, FALSE,
                                       status_func, status_baton, pool));
     }
@@ -707,7 +707,7 @@ get_dir_status (struct edit_baton *eb,
   if (ignores)
     {
       patterns = apr_array_make (subpool, 1, sizeof (const char *));
-      SVN_ERR (collect_ignore_patterns (patterns, ignores,
+      SVN_ERR (collect_ignore_patterns (patterns, ignores, 
                                         adm_access, subpool));
     }
 
@@ -717,13 +717,13 @@ get_dir_status (struct edit_baton *eb,
   if (eb->traversal_info)
     {
       const svn_string_t *prop_val;
-      SVN_ERR (svn_wc_prop_get (&prop_val, SVN_PROP_EXTERNALS, path,
+      SVN_ERR (svn_wc_prop_get (&prop_val, SVN_PROP_EXTERNALS, path, 
                                 adm_access, subpool));
       if (prop_val)
         {
           apr_pool_t *dup_pool = eb->traversal_info->pool;
           const char *dup_path = apr_pstrdup (dup_pool, path);
-          const char *dup_val = apr_pstrmemdup (dup_pool, prop_val->data,
+          const char *dup_val = apr_pstrmemdup (dup_pool, prop_val->data, 
                                                 prop_val->len);
           apr_hash_t *ext_items;
 
@@ -738,8 +738,8 @@ get_dir_status (struct edit_baton *eb,
              our "global" externals hash. */
           SVN_ERR (svn_wc_parse_externals_description (&ext_items, path,
                                                        dup_val, dup_pool));
-          for (hi = apr_hash_first (dup_pool, ext_items);
-               hi;
+          for (hi = apr_hash_first (dup_pool, ext_items); 
+               hi; 
                hi = apr_hash_next (hi))
             {
               const void *key;
@@ -762,8 +762,8 @@ get_dir_status (struct edit_baton *eb,
           svn_node_kind_t kind;
           fullpath = svn_path_join (path, entry, subpool);
           SVN_ERR (svn_io_check_path (path, &kind, subpool));
-          SVN_ERR (send_unversioned_item (entry, kind, adm_access,
-                                          patterns, eb->externals, no_ignore,
+          SVN_ERR (send_unversioned_item (entry, kind, adm_access, 
+                                          patterns, eb->externals, no_ignore, 
                                           status_func, status_baton, subpool));
         }
       /* Otherwise, send its versioned status. */
@@ -771,9 +771,9 @@ get_dir_status (struct edit_baton *eb,
         {
           const svn_wc_entry_t *entry_entry;
           entry_entry = apr_hash_get (entries, entry, APR_HASH_KEY_STRING);
-          SVN_ERR (handle_dir_entry (eb, adm_access, entry, dir_entry,
-                                     entry_entry, ignores, descend, get_all,
-                                     no_ignore, status_func, status_baton,
+          SVN_ERR (handle_dir_entry (eb, adm_access, entry, dir_entry, 
+                                     entry_entry, ignores, descend, get_all, 
+                                     no_ignore, status_func, status_baton, 
                                      cancel_func, cancel_baton, subpool));
         }
 
@@ -796,10 +796,10 @@ get_dir_status (struct edit_baton *eb,
       svn_node_kind_t *path_kind;
 
       apr_hash_this (hi, &key, &klen, &val);
-
+        
       /* Skip versioned things, and skip the administrative
          directory. */
-      if ((apr_hash_get (entries, key, klen))
+      if ((apr_hash_get (entries, key, klen)) 
           || (strcmp (key, SVN_WC_ADM_DIR_NAME) == 0))
         continue;
 
@@ -809,16 +809,16 @@ get_dir_status (struct edit_baton *eb,
       /* Make an unversioned status item for KEY, and put it into our
          return hash. */
       path_kind = val;
-      SVN_ERR (send_unversioned_item (key, *path_kind, adm_access,
-                                      patterns, eb->externals, no_ignore,
+      SVN_ERR (send_unversioned_item (key, *path_kind, adm_access, 
+                                      patterns, eb->externals, no_ignore, 
                                       status_func, status_baton, iterpool));
     }
 
   /* Handle "this-dir" first. */
   if (! skip_this_dir)
-    SVN_ERR (send_status_structure (path, adm_access, dir_entry,
+    SVN_ERR (send_status_structure (path, adm_access, dir_entry, 
                                     parent_entry, svn_node_dir,
-                                    get_all, FALSE, status_func,
+                                    get_all, FALSE, status_func, 
                                     status_baton, subpool));
 
   /* Loop over entries hash */
@@ -831,7 +831,7 @@ get_dir_status (struct edit_baton *eb,
       apr_hash_this (hi, &key, NULL, &val);
 
       /* ### todo: What if the subdir is from another repository? */
-
+          
       /* Skip "this-dir". */
       if (strcmp (key, SVN_WC_ENTRY_THIS_DIR) == 0)
         continue;
@@ -840,12 +840,12 @@ get_dir_status (struct edit_baton *eb,
       svn_pool_clear (iterpool);
 
       /* Handle this directory entry (possibly recursing). */
-      SVN_ERR (handle_dir_entry (eb, adm_access, key, dir_entry, val, ignores,
-                                 descend, get_all, no_ignore,
-                                 status_func, status_baton, cancel_func,
+      SVN_ERR (handle_dir_entry (eb, adm_access, key, dir_entry, val, ignores, 
+                                 descend, get_all, no_ignore, 
+                                 status_func, status_baton, cancel_func, 
                                  cancel_baton, iterpool));
     }
-
+  
   /* Destroy our subpools. */
   svn_pool_destroy (subpool);
 
@@ -867,7 +867,7 @@ hash_stash (void *baton,
   apr_hash_t *stat_hash = baton;
   apr_pool_t *hash_pool = apr_hash_pool_get (stat_hash);
   assert (! apr_hash_get (stat_hash, path, APR_HASH_KEY_STRING));
-  apr_hash_set (stat_hash, apr_pstrdup (hash_pool, path),
+  apr_hash_set (stat_hash, apr_pstrdup (hash_pool, path), 
                 APR_HASH_KEY_STRING, svn_wc_dup_status (status, hash_pool));
 }
 
@@ -900,7 +900,7 @@ tweak_statushash (apr_hash_t *statushash,
 
       /* Use the public API to get a statstruct, and put it into the hash. */
       SVN_ERR (svn_wc_status (&statstruct, path, NULL, pool));
-      apr_hash_set (statushash, apr_pstrdup (pool, path),
+      apr_hash_set (statushash, apr_pstrdup (pool, path), 
                     APR_HASH_KEY_STRING, statstruct);
     }
 
@@ -914,7 +914,7 @@ tweak_statushash (apr_hash_t *statushash,
     statstruct->repos_text_status = repos_text_status;
   if (repos_prop_status)
     statstruct->repos_prop_status = repos_prop_status;
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -931,7 +931,7 @@ make_dir_baton (void **dir_baton,
   struct dir_baton *pb = parent_baton;
   struct edit_baton *eb = edit_baton;
   struct dir_baton *d = apr_pcalloc (pool, sizeof (*d));
-  const char *full_path;
+  const char *full_path; 
   svn_wc_status_t *parent_status;
 
   /* Don't do this.  Just do NOT do this to me. */
@@ -968,10 +968,10 @@ make_dir_baton (void **dir_baton,
     {
       svn_wc_adm_access_t *dir_access;
       apr_array_header_t *ignores = eb->ignores;
-      SVN_ERR (svn_wc_adm_retrieve (&dir_access, eb->adm_access,
+      SVN_ERR (svn_wc_adm_retrieve (&dir_access, eb->adm_access, 
                                     d->path, pool));
-      SVN_ERR (get_dir_status (eb, parent_status->entry, dir_access, NULL,
-                               ignores, FALSE, TRUE, TRUE, TRUE, hash_stash,
+      SVN_ERR (get_dir_status (eb, parent_status->entry, dir_access, NULL, 
+                               ignores, FALSE, TRUE, TRUE, TRUE, hash_stash, 
                                d->statii, NULL, NULL, pool));
     }
 
@@ -983,7 +983,7 @@ make_dir_baton (void **dir_baton,
 /* Make a file baton, using a new subpool of PARENT_DIR_BATON's pool.
    NAME is just one component, not a path. */
 static struct file_baton *
-make_file_baton (struct dir_baton *parent_dir_baton,
+make_file_baton (struct dir_baton *parent_dir_baton, 
                  const char *path,
                  apr_pool_t *pool)
 {
@@ -991,7 +991,7 @@ make_file_baton (struct dir_baton *parent_dir_baton,
   struct edit_baton *eb = pb->edit_baton;
   struct file_baton *f = apr_pcalloc (pool, sizeof (*f));
   const char *full_path;
-
+ 
   /* Construct the full path of this directory. */
   if (pb)
     full_path = svn_path_join (eb->anchor, path, pool);
@@ -1011,7 +1011,7 @@ make_file_baton (struct dir_baton *parent_dir_baton,
 
 /* Return a boolean answer to the question "Is STATUS something that
    should be reported?".  EB is the edit baton. */
-static svn_boolean_t
+static svn_boolean_t 
 is_sendable_status (svn_wc_status_t *status,
                     struct edit_baton *eb)
 {
@@ -1092,7 +1092,7 @@ handle_statii (struct edit_baton *eb,
                apr_pool_t *pool)
 {
   apr_array_header_t *ignores = eb->ignores;
-  apr_hash_index_t *hi;
+  apr_hash_index_t *hi; 
   apr_pool_t *subpool = svn_pool_create (pool);
   svn_wc_status_func_t status_func = eb->status_func;
   void *status_baton = eb->status_baton;
@@ -1126,9 +1126,9 @@ handle_statii (struct edit_baton *eb,
           SVN_ERR (svn_wc_adm_retrieve (&dir_access, eb->adm_access,
                                         key, subpool));
           SVN_ERR (get_dir_status (eb, dir_entry, dir_access, NULL,
-                                   ignores, TRUE, eb->get_all,
-                                   eb->no_ignore, TRUE, status_func,
-                                   status_baton, eb->cancel_func,
+                                   ignores, TRUE, eb->get_all, 
+                                   eb->no_ignore, TRUE, status_func, 
+                                   status_baton, eb->cancel_func, 
                                    eb->cancel_baton, subpool));
         }
       if (dir_was_deleted)
@@ -1136,7 +1136,7 @@ handle_statii (struct edit_baton *eb,
       if (is_sendable_status (status, eb))
         (eb->status_func)(eb->status_baton, key, status);
     }
-
+    
   /* Destroy the subpool. */
   svn_pool_destroy (subpool);
 
@@ -1149,7 +1149,7 @@ handle_statii (struct edit_baton *eb,
 /*** The callbacks we'll plug into an svn_delta_editor_t structure. ***/
 
 static svn_error_t *
-set_target_revision (void *edit_baton,
+set_target_revision (void *edit_baton, 
                      svn_revnum_t target_revision,
                      apr_pool_t *pool)
 {
@@ -1270,7 +1270,7 @@ change_dir_prop (void *dir_baton,
                  apr_pool_t *pool)
 {
   struct dir_baton *db = dir_baton;
-  if (svn_wc_is_normal_prop (name))
+  if (svn_wc_is_normal_prop (name))    
     db->prop_changed = TRUE;
   return SVN_NO_ERROR;
 }
@@ -1285,13 +1285,13 @@ close_directory (void *dir_baton,
   struct dir_baton *pb = db->parent_baton;
   struct edit_baton *eb = db->edit_baton;
   svn_wc_status_t *dir_status = NULL;
-
+  
   /* If nothing has changed, return. */
   if (db->added || db->prop_changed || db->text_changed)
     {
       enum svn_wc_status_kind repos_text_status;
       enum svn_wc_status_kind repos_prop_status;
-
+  
       /* If this is a new file, add it to the statushash. */
       if (db->added)
         {
@@ -1326,7 +1326,7 @@ close_directory (void *dir_baton,
         was_deleted = TRUE;
 
       /* Now do the status reporting. */
-      SVN_ERR (handle_statii (eb, dir_status ? dir_status->entry : NULL,
+      SVN_ERR (handle_statii (eb, dir_status ? dir_status->entry : NULL, 
                               db->path, db->statii, was_deleted, TRUE, pool));
       if (is_sendable_status (dir_status, eb))
         (eb->status_func) (eb->status_baton, db->path, dir_status);
@@ -1352,7 +1352,7 @@ close_directory (void *dir_baton,
           /* Otherwise, we report on all our children and ourself.
              Note that our directory couldn't have been deleted,
              because it is the root of the edit drive. */
-          SVN_ERR (handle_statii (eb, eb->anchor_status->entry, db->path,
+          SVN_ERR (handle_statii (eb, eb->anchor_status->entry, db->path, 
                                   db->statii, FALSE, eb->descend, pool));
           if (is_sendable_status (eb->anchor_status, eb))
             (eb->status_func) (eb->status_baton, db->path, eb->anchor_status);
@@ -1375,7 +1375,7 @@ add_file (const char *path,
   struct dir_baton *pb = parent_baton;
   struct file_baton *new_fb = make_file_baton (pb, path, pool);
 
-  /* Mark parent dir as changed */
+  /* Mark parent dir as changed */  
   pb->text_changed = TRUE;
 
   /* Make this file as added. */
@@ -1402,14 +1402,14 @@ open_file (const char *path,
 
 
 static svn_error_t *
-apply_textdelta (void *file_baton,
+apply_textdelta (void *file_baton, 
                  const char *base_checksum,
                  apr_pool_t *pool,
                  svn_txdelta_window_handler_t *handler,
                  void **handler_baton)
 {
   struct file_baton *fb = file_baton;
-
+  
   /* Mark file as having textual mods. */
   fb->text_changed = TRUE;
 
@@ -1442,7 +1442,7 @@ close_file (void *file_baton,
   struct file_baton *fb = file_baton;
   enum svn_wc_status_kind repos_text_status;
   enum svn_wc_status_kind repos_prop_status;
-
+  
   /* If nothing has changed, return. */
   if (! (fb->added || fb->prop_changed || fb->text_changed))
     return SVN_NO_ERROR;
@@ -1475,7 +1475,7 @@ close_edit (void *edit_baton,
 {
   struct edit_baton *eb = edit_baton;
   apr_array_header_t *ignores = eb->ignores;
-
+  
   /* If we get here and the root was not opened as part of the edit,
      we need to transmit statuses for everything.  Otherwise, we
      should be done. */
@@ -1496,11 +1496,11 @@ close_edit (void *edit_baton,
           svn_wc_adm_access_t *tgt_access;
           const svn_wc_entry_t *tgt_entry;
 
-          SVN_ERR (svn_wc_entry (&tgt_entry, full_path, eb->adm_access,
+          SVN_ERR (svn_wc_entry (&tgt_entry, full_path, eb->adm_access, 
                                  FALSE, pool));
           if (! tgt_entry)
             {
-              SVN_ERR (get_dir_status (eb, NULL, eb->adm_access, eb->target,
+              SVN_ERR (get_dir_status (eb, NULL, eb->adm_access, eb->target, 
                                        ignores, FALSE, eb->get_all, TRUE,
                                        TRUE, eb->status_func, eb->status_baton,
                                        eb->cancel_func, eb->cancel_baton,
@@ -1510,17 +1510,17 @@ close_edit (void *edit_baton,
             {
               SVN_ERR (svn_wc_adm_retrieve (&tgt_access, eb->adm_access,
                                             full_path, pool));
-              SVN_ERR (get_dir_status (eb, NULL, tgt_access, NULL, ignores,
-                                       eb->descend, eb->get_all,
-                                       eb->no_ignore, FALSE,
-                                       eb->status_func, eb->status_baton,
+              SVN_ERR (get_dir_status (eb, NULL, tgt_access, NULL, ignores, 
+                                       eb->descend, eb->get_all, 
+                                       eb->no_ignore, FALSE, 
+                                       eb->status_func, eb->status_baton, 
                                        eb->cancel_func, eb->cancel_baton,
                                        pool));
             }
         }
       else
         {
-          SVN_ERR (get_dir_status (eb, NULL, eb->adm_access, eb->target,
+          SVN_ERR (get_dir_status (eb, NULL, eb->adm_access, eb->target, 
                                    ignores, FALSE, eb->get_all, TRUE,
                                    TRUE, eb->status_func, eb->status_baton,
                                    eb->cancel_func, eb->cancel_baton, pool));
@@ -1528,12 +1528,12 @@ close_edit (void *edit_baton,
     }
   else
     {
-      SVN_ERR (get_dir_status (eb, NULL, eb->adm_access, NULL, ignores,
-                               eb->descend, eb->get_all, eb->no_ignore,
-                               FALSE, eb->status_func, eb->status_baton,
+      SVN_ERR (get_dir_status (eb, NULL, eb->adm_access, NULL, ignores, 
+                               eb->descend, eb->get_all, eb->no_ignore, 
+                               FALSE, eb->status_func, eb->status_baton, 
                                eb->cancel_func, eb->cancel_baton, pool));
     }
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -1574,7 +1574,7 @@ svn_wc_get_status_editor (const svn_delta_editor_t **editor,
   eb->cancel_func       = cancel_func;
   eb->cancel_baton      = cancel_baton;
   eb->traversal_info    = traversal_info;
-  eb->externals         = traversal_info
+  eb->externals         = traversal_info 
                           ? apr_hash_make (traversal_info->pool)
                           : NULL;
   eb->anchor            = svn_wc_adm_access_path (anchor);
@@ -1617,14 +1617,14 @@ svn_wc_get_default_ignores (apr_array_header_t **patterns,
                             apr_hash_t *config,
                             apr_pool_t *pool)
 {
-  svn_config_t *cfg = config ? apr_hash_get (config,
-                                             SVN_CONFIG_CATEGORY_CONFIG,
+  svn_config_t *cfg = config ? apr_hash_get (config, 
+                                             SVN_CONFIG_CATEGORY_CONFIG, 
                                              APR_HASH_KEY_STRING) : NULL;
   const char *val;
 
   /* Check the Subversion run-time configuration for global ignores.
      If no configuration value exists, we fall back to our defaults. */
-  svn_config_get (cfg, &val, SVN_CONFIG_SECTION_MISCELLANY,
+  svn_config_get (cfg, &val, SVN_CONFIG_SECTION_MISCELLANY, 
                   SVN_CONFIG_OPTION_GLOBAL_IGNORES,
                   SVN_CONFIG_DEFAULT_GLOBAL_IGNORES);
   *patterns = apr_array_make (pool, 16, sizeof (const char *));
@@ -1634,7 +1634,7 @@ svn_wc_get_default_ignores (apr_array_header_t **patterns,
   return SVN_NO_ERROR;
 }
 
-
+                        
 svn_error_t *
 svn_wc_status (svn_wc_status_t **status,
                const char *path,
@@ -1675,10 +1675,10 @@ svn_wc_dup_status (svn_wc_status_t *orig_stat,
                    apr_pool_t *pool)
 {
   svn_wc_status_t *new_stat = apr_palloc (pool, sizeof (*new_stat));
-
+  
   /* Shallow copy all members. */
   *new_stat = *orig_stat;
-
+  
   /* No go back and dup the deep item. */
   if (orig_stat->entry)
     new_stat->entry = svn_wc_entry_dup (orig_stat->entry, pool);

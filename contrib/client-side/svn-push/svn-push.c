@@ -1,4 +1,4 @@
-/* svn-push.c --- propagate changesets from one (networked) repository to
+/* svn-push.c --- propagate changesets from one (networked) repository to 
  * a different (networked) repository.
  *
  * ====================================================================

@@ -240,7 +240,7 @@ class WinGeneratorBase(gen_base.GeneratorBase):
     self.fake_projects = {}
     options = {'path': 'build/win32'}
     utility = gen_base.TargetUtility
-
+    
     for target in self.graph.get_all_sources(gen_base.DT_FAKE):
       # since get_all_sources may return duplicates
       if self.fake_projects.has_key(target):
@@ -272,7 +272,7 @@ class WinGeneratorBase(gen_base.GeneratorBase):
                     libs=self.get_win_libs(target, cfg),
                     ))
     return configs
-
+  
   def get_proj_sources(self, quote_path, target, rootpath):
     "Get the list of source files for each project"
     sources = [ ]
@@ -303,7 +303,7 @@ class WinGeneratorBase(gen_base.GeneratorBase):
               # classes) will be saved to the wrong directory
               cout = string.replace(os.path.join(rootpath, cobj.filename),
                                     os.sep, '/')
-
+                                    
               # included header files that the generated c file depends on
               user_deps = []
 
@@ -318,10 +318,10 @@ class WinGeneratorBase(gen_base.GeneratorBase):
                                            user_deps=user_deps,
                                            swig_language=target.lang,
                                            swig_target=csrc, swig_output=cout))
-
+        
     sources.sort(lambda x, y: cmp(x.path, y.path))
     return sources
-
+  
   def gen_proj_names(self, install_targets):
     "Generate project file names for the targets"
     # Generate project file names for the targets: replace dashes with
@@ -337,10 +337,10 @@ class WinGeneratorBase(gen_base.GeneratorBase):
       else:
         proj_name = string.replace(name, '-', '_')
       target.proj_name = proj_name
-
+  
   def adjust_win_depends(self, target, name):
     "Handle special dependencies if needed"
-
+    
     # For MSVC we need to hack around Apache modules &
     # libsvn_ra because dependencies implies linking
     # and there is no way around that
@@ -363,7 +363,7 @@ class WinGeneratorBase(gen_base.GeneratorBase):
       for lib in self.graph.get_sources(gen_base.DT_LINK, target.name):
         if hasattr(lib, 'proj_name'):
           depends.append(lib)
-          depends.extend(self.get_win_depends(lib, 0))
+          depends.extend(self.get_win_depends(lib, 0))        
       if not isinstance(target, gen_base.TargetSWIGRuntime):
         depends.extend(self.sections['swig_runtime'].get_dep_targets(target))
     elif isinstance(target, gen_base.Target):
@@ -372,9 +372,9 @@ class WinGeneratorBase(gen_base.GeneratorBase):
       assert 0
     depends.sort() ### temporary
     return depends
-
-
-  def get_win_depends(self, target, recurse=0, cls=gen_base.Target,
+    
+  
+  def get_win_depends(self, target, recurse=0, cls=gen_base.Target, 
                       ccls=gen_base.Target):
     """
     Return the list of dependencies for target
@@ -453,7 +453,7 @@ class WinGeneratorBase(gen_base.GeneratorBase):
     elif isinstance(target, gen_base.TargetSWIG):
       fakeincludes = self.map_rootpath(["subversion/bindings/swig",
                                         "subversion/include",
-                                        "apr/include"], rootpath)
+                                        "apr/include"], rootpath)  
     else:
       fakeincludes = self.map_rootpath(["subversion/include",
                                         "apr/include",
