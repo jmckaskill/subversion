@@ -80,7 +80,7 @@ clean:
 	rm -f $(VERSION_SOURCE)
 	rm -f $(HTML_TARGET) $(FO_TARGET)
 	rm -rf $(HTML_CHUNK_DIR)
-	rm -f $(PDF_TARGET) $(PS_TARGET)
+	rm -f $(PDF_TARGET) $(PS_TARGET) 
 
 # Utility targets
 valid: $(VERSION_SOURCE)
