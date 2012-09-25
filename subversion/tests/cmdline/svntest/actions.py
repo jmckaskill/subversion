@@ -500,8 +500,8 @@ def verify_disk(wc_dir_name,
                  singleton_handler_a, a_baton,
                  singleton_handler_b, b_baton,
                  check_props)
-
-
+                 
+  
 
 def run_and_verify_update(wc_dir_name,
                           output_tree, disk_tree, status_tree,
@@ -741,7 +741,7 @@ def run_and_verify_mergeinfo(error_re_string = None,
     for src_path in actual_src_paths.keys():
       (actual_merged, actual_eligible) = actual_src_paths[src_path]
       (expected_merged, expected_eligible) = expected_src_paths[src_path]
-
+      
       if actual_merged != expected_merged:
         raise Exception("Unexpected merged ranges for target path '%s' and "
                         "source path '%s': Expected '%s', got '%s'" %
@@ -1015,7 +1015,7 @@ def run_and_verify_diff_summarize_xml(error_re_string = [],
     actual_item = path.getAttribute('item')
     actual_kind = path.getAttribute('kind')
     actual_prop = path.getAttribute('props')
-
+  
     if expected_item != actual_item:
       print "ERROR: expected:", expected_item, "actual:", actual_item
       raise Failure

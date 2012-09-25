@@ -3249,7 +3249,7 @@ make_editor(svn_revnum_t *target_revision,
   /* Easy out: we only need an ambient filter if the caller has no
      particular depth request in mind -- because if a depth was
      explicitly requested, libsvn_delta/depth_filter_editor.c will
-     ensure that we never see editor calls we don't want anyway.
+     ensure that we never see editor calls we don't want anyway. 
   */
   /* ### (This can also be skipped if the server understands depth;
      ### consider letting the depth RA capability percolate down to

@@ -2922,7 +2922,7 @@ fs_node_origin_rev(svn_revnum_t *revision,
                                       pool));
       if (cached_origin_id_str != NULL)
         {
-          *revision =
+          *revision = 
             svn_fs_fs__id_rev(svn_fs_fs__id_parse(cached_origin_id_str,
                                                   strlen(cached_origin_id_str),
                                                   pool));
@@ -2942,7 +2942,7 @@ fs_node_origin_rev(svn_revnum_t *revision,
       const svn_fs_id_t *pred_id;
 
       /* Walk the closest-copy chain back to the first copy in our history.
-
+         
          NOTE: We merely *assume* that this is faster than walking the
          predecessor chain, because we *assume* that copies of parent
          directories happen less often than modifications to a given item. */
@@ -2978,10 +2978,10 @@ fs_node_origin_rev(svn_revnum_t *revision,
           svn_pool_clear(subpool);
           SVN_ERR(svn_fs_fs__dag_get_node(&node, fs, pred_id, subpool));
           svn_pool_clear(predidpool);
-          SVN_ERR(svn_fs_fs__dag_get_predecessor_id(&pred_id, node,
+          SVN_ERR(svn_fs_fs__dag_get_predecessor_id(&pred_id, node, 
                                                     predidpool));
         }
-
+  
       /* When we get here, NODE should be the first node-revision in our
          chain. */
       SVN_ERR(svn_fs_fs__dag_get_revision(revision, node, pool));
@@ -2989,7 +2989,7 @@ fs_node_origin_rev(svn_revnum_t *revision,
       /* Wow, I don't want to have to do all that again.  Let's cache
          the result. */
       if (node_id[0] != '_')
-        SVN_ERR(svn_fs__set_node_origin(fs, node_id,
+        SVN_ERR(svn_fs__set_node_origin(fs, node_id, 
                                         svn_fs_fs__dag_get_id(node), pool));
 
       svn_pool_destroy(subpool);

@@ -309,7 +309,7 @@ svn_ra_serf__setup_serf_req(serf_request_t *request,
   if (conn->session->using_proxy)
     {
       char *root = apr_uri_unparse(conn->session->pool,
-                                   &conn->session->repos_url,
+                                   &conn->session->repos_url, 
                                    APR_URI_UNP_OMITPATHINFO);
       serf_bucket_request_set_root(*req_bkt, root);
     }

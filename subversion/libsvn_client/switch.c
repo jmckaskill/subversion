@@ -124,7 +124,7 @@ svn_client__switch_internal(svn_revnum_t *result_rev,
   URL = apr_pstrdup(pool, entry->url);
 
   /* Open an RA session to 'source' URL */
-  SVN_ERR(svn_client__ra_session_from_path(&ra_session, &revnum,
+  SVN_ERR(svn_client__ra_session_from_path(&ra_session, &revnum, 
                                            &switch_rev_url,
                                            switch_url, adm_access,
                                            peg_revision, revision,
