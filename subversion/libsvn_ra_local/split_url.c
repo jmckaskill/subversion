@@ -41,11 +41,11 @@ svn_ra_local__split_URL (svn_repos_t **repos,
 
   /* First, check for the "file://" prefix. */
   if (strncmp (URL, "file://", 7) != 0)
-    return svn_error_createf
-      (SVN_ERR_RA_ILLEGAL_URL, NULL,
+    return svn_error_createf 
+      (SVN_ERR_RA_ILLEGAL_URL, NULL, 
        "svn_ra_local__split_URL: URL does not contain `file://' prefix\n"
        "   (%s)", URL);
-
+  
   /* Then, skip what's between the "file://" prefix and the next
      occurance of '/' -- this is the hostname, and we are considering
      everything from that '/' until the end of the URL to be the
@@ -53,8 +53,8 @@ svn_ra_local__split_URL (svn_repos_t **repos,
   hostname = URL + 7;
   path = strchr (hostname, '/');
   if (! path)
-    return svn_error_createf
-      (SVN_ERR_RA_ILLEGAL_URL, NULL,
+    return svn_error_createf 
+      (SVN_ERR_RA_ILLEGAL_URL, NULL, 
        "svn_ra_local__split_URL: URL contains only a hostname, no path\n"
        "   (%s)", URL);
 
@@ -62,7 +62,7 @@ svn_ra_local__split_URL (svn_repos_t **repos,
      string and 'localhost' */
   if ((hostname != path) && (strncmp (hostname, "localhost/", 10) != 0))
     return svn_error_createf
-      (SVN_ERR_RA_ILLEGAL_URL, NULL,
+      (SVN_ERR_RA_ILLEGAL_URL, NULL, 
        "svn_ra_local__split_URL: URL contains unsupported hostname\n"
        "   (%s)", URL);
 
@@ -108,14 +108,14 @@ svn_ra_local__split_URL (svn_repos_t **repos,
 
       /* Hey, cool, we were successful.  Stop looping. */
       if (err == SVN_NO_ERROR)
-        break;
+        break;   
 
       /* If we get an error -other- than the path or 'format' file not
          existing, then throw the error immediately.  For example, we
          want permissions errors to be seen right away. */
       if ((! APR_STATUS_IS_ENOENT(err->apr_err))
           && (err->apr_err != SVN_ERR_REPOS_UNSUPPORTED_VERSION))
-        return svn_error_createf
+        return svn_error_createf 
           (SVN_ERR_RA_LOCAL_REPOS_OPEN_FAILED, err,
            "Unable to open repository '%s'", URL);
 
@@ -150,8 +150,8 @@ svn_ra_local__split_URL (svn_repos_t **repos,
   /* If we are still sitting in an error-ful state, we must not have
      found the repository.  We give up. */
   if (err)
-    return svn_error_createf
-      (SVN_ERR_RA_LOCAL_REPOS_NOT_FOUND, NULL,
+    return svn_error_createf 
+      (SVN_ERR_RA_LOCAL_REPOS_NOT_FOUND, NULL, 
        "svn_ra_local__split_URL: Unable to find valid repository\n"
        "   (%s)", URL);
 

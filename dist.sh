@@ -29,13 +29,13 @@
 # script), the tarball will be based on the HEAD of the repository.
 #
 # It will *not* be based on whatever set of revisions are in your
-# working copy.  However, since
+# working copy.  However, since 
 #
-#   - the documentation will be produced by running "make doc"
+#   - the documentation will be produced by running "make doc" 
 #     on your working copy's revisions of the doc master files, and
 #
-#   - since the APR and APRUTIL trees are basically copied from your working
-#     copy,
+#   - since the APR and APRUTIL trees are basically copied from your working 
+#     copy, 
 #
 # it's probably simplest if you just make sure your working copy is at
 # the same revision as that of the distribution you are trying to
@@ -183,12 +183,12 @@ done
 
 ### Tell people where to find old information.
 cat > ${DIST_SANDBOX}/${DISTNAME}/ChangeLog.CVS <<EOF
-The old CVS ChangeLog is kept at
+The old CVS ChangeLog is kept at 
 
      http://subversion.tigris.org/
 
 If you want to see changes since Subversion went self-hosting,
-you probably want to use the "svn log" command -- and if it
+you probably want to use the "svn log" command -- and if it 
 does not do what you need, please send in a patch!
 EOF
 
