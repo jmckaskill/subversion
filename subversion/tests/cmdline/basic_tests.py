@@ -2898,17 +2898,17 @@ def rm_missing_with_case_clashing_ondisk_item(sbox):
 
   iota_path = os.path.join(wc_dir, 'iota')
   IOTA_path = os.path.join(wc_dir, 'IOTA')
-
+  
   # Out-of-svn move, to make iota missing, while IOTA appears as unversioned.
   os.rename(iota_path, IOTA_path)
-
+  
   expected_status = svntest.actions.get_virginal_state(wc_dir, 1)
   expected_status.add({
     'iota'              : Item(status='! ', wc_rev='1'),
     'IOTA'              : Item(status='? '),
     })
   svntest.actions.run_and_verify_unquiet_status(wc_dir, expected_status)
-
+    
   # 'svn rm' iota, should leave IOTA alone.
   svntest.actions.run_and_verify_svn(None, None, [],
                                      'rm', iota_path)

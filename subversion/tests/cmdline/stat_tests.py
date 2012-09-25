@@ -961,7 +961,7 @@ def status_in_xml(sbox):
                                      'cp', '-m', 'repo-to-repo copy',
                                      sbox.repo_url + '/iota',
                                      sbox.repo_url + '/iota2')
-
+  
   file_path = sbox.ospath('iota2')
 
   template = ['<?xml version="1.0" encoding="UTF-8"?>\n',

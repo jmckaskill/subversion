@@ -2824,7 +2824,7 @@ def commit_incomplete(sbox):
                                         expected_status,
                                         None,
                                         wc_dir)
-
+  
 #----------------------------------------------------------------------
 # Reported here:
 #   Message-ID: <4EBF0FC9.300@gmail.com>
