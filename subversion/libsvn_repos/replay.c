@@ -45,7 +45,7 @@
    trembling with a sort of momentarily stayed spring force,
    svn_repos_dir_delta was a timebomb poised for total annihilation of
    the American Midwest.
-
+   
    Subversion needed a change.
 
    Changes, in fact.  And not just in the literary segue sense.  What
@@ -93,7 +93,7 @@
    the filesystem events that occurred in that revision or transactions
    (though not necessarily in the same order in which they
    occurred). */
-
+   
 
 
 /*** Helper functions. ***/
@@ -196,8 +196,8 @@ add_subdir(svn_fs_root_t *source_root,
                                    *dir_baton, NULL, SVN_INVALID_REVNUM,
                                    pool, &file_baton));
 
-          SVN_ERR(editor->apply_textdelta(file_baton, NULL, pool,
-                                          &delta_handler,
+          SVN_ERR(editor->apply_textdelta(file_baton, NULL, pool, 
+                                          &delta_handler, 
                                           &delta_handler_baton));
 
           SVN_ERR(svn_fs_get_file_delta_stream
@@ -282,7 +282,7 @@ path_driver_cb_func(void **dir_baton,
 
   /* Handle any deletions. */
   if (do_delete)
-    SVN_ERR(editor->delete_entry(path, SVN_INVALID_REVNUM,
+    SVN_ERR(editor->delete_entry(path, SVN_INVALID_REVNUM, 
                                  parent_baton, pool));
 
   /* Fetch the node kind if it makes sense to do so. */
@@ -290,8 +290,8 @@ path_driver_cb_func(void **dir_baton,
     {
       SVN_ERR(svn_fs_check_path(&kind, root, path, pool));
       if ((kind != svn_node_dir) && (kind != svn_node_file))
-        return svn_error_createf
-          (SVN_ERR_FS_NOT_FOUND, NULL,
+        return svn_error_createf 
+          (SVN_ERR_FS_NOT_FOUND, NULL, 
            _("Filesystem path '%s' is neither a file nor a directory"), path);
     }
 
@@ -328,7 +328,7 @@ path_driver_cb_func(void **dir_baton,
              mark then we just do a recursive add of the source path contents.
            */
           if (copyfrom_path
-              && (! src_readable
+              && (! src_readable 
                   || ! is_within_base_path(copyfrom_path+1, base_path,
                                            base_path_len)
                   || cb->low_water_mark > copyfrom_rev))
@@ -373,13 +373,13 @@ path_driver_cb_func(void **dir_baton,
         {
           if (parent_baton)
             {
-              SVN_ERR(editor->open_directory(path, parent_baton,
+              SVN_ERR(editor->open_directory(path, parent_baton, 
                                              SVN_INVALID_REVNUM,
                                              pool, dir_baton));
             }
           else
             {
-              SVN_ERR(editor->open_root(edit_baton, SVN_INVALID_REVNUM,
+              SVN_ERR(editor->open_root(edit_baton, SVN_INVALID_REVNUM, 
                                         pool, dir_baton));
             }
         }
@@ -446,8 +446,8 @@ path_driver_cb_func(void **dir_baton,
         {
           svn_txdelta_window_handler_t delta_handler;
           void *delta_handler_baton;
-          SVN_ERR(editor->apply_textdelta(file_baton, NULL, pool,
-                                          &delta_handler,
+          SVN_ERR(editor->apply_textdelta(file_baton, NULL, pool, 
+                                          &delta_handler, 
                                           &delta_handler_baton));
           if (cb->compare_root)
             {
@@ -550,10 +550,10 @@ svn_repos_replay2(svn_fs_root_t *root,
     }
 
   /* If we were not give a low water mark, assume that everything is there,
-     all the way back to revision 0. */
+     all the way back to revision 0. */ 
   if (! SVN_IS_VALID_REVNUM(low_water_mark))
     low_water_mark = 0;
-
+ 
   /* Initialize our callback baton. */
   cb_baton.editor = editor;
   cb_baton.edit_baton = edit_baton;
@@ -582,10 +582,10 @@ svn_repos_replay2(svn_fs_root_t *root,
     }
 
   /* Call the path-based editor driver. */
-  SVN_ERR(svn_delta_path_driver(editor, edit_baton,
-                                SVN_INVALID_REVNUM, paths,
+  SVN_ERR(svn_delta_path_driver(editor, edit_baton, 
+                                SVN_INVALID_REVNUM, paths, 
                                 path_driver_cb_func, &cb_baton, pool));
-
+  
   return SVN_NO_ERROR;
 }
 
