@@ -40,7 +40,7 @@ svn_cl__export (apr_getopt_t *os,
   svn_wc_notify_func_t notify_func = NULL;
   void *notify_baton = NULL;
   const char *from, *to;
-
+ 
   SVN_ERR (svn_cl__parse_all_args (os, opt_state, "export", pool));
 
   /* Put commandline auth info into a baton for libsvn_client.  */
@@ -69,8 +69,8 @@ svn_cl__export (apr_getopt_t *os,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../tools/dev/svn-dev.el")
- * end:
+ * end: 
  */

@@ -2,12 +2,12 @@
 +++ subversion-0.11.1/build-outputs.mk	2002/04/13 04:45:31
 @@ -227,7 +227,9 @@
  	cd subversion/svnadmin ; $(INSTALL_FS_BIN) svnadmin $(fs_bindir)/svnadmin
-
+ 
  install-mods-shared: subversion/mod_dav_svn/mod_dav_svn.la
 -	cd subversion/mod_dav_svn ; $(INSTALL_MOD_SHARED) -n dav_svn mod_dav_svn.la
 +	cd subversion/mod_dav_svn ; mkdir -p $(RPM_BUILD_ROOT)/usr/local/apache2/modules; cp ./.libs/mod_dav_svn.so $(RPM_BUILD_ROOT)/usr/local/apache2/modules/mod_dav_svn.so; cp ./mod_dav_svn.la $(RPM_BUILD_ROOT)/usr/local/apache2/modules
 +#$(INSTALL_MOD_SHARED) -n dav_svn mod_dav_svn.la
 +
-
+ 
  install-mods-static: subversion/libsvn_delta/libsvn_delta.la-a subversion/mod_dav_svn/mod_dav_svn.la-a subversion/libsvn_fs/libsvn_fs.la-a subversion/libsvn_subr/libsvn_subr.la-a subversion/libsvn_repos/libsvn_repos.la-a subversion/mod_dav_svn/static/config.m4 subversion/mod_dav_svn/static/Makefile.in
  	$(MKDIR) $(APACHE_TARGET)/.libs

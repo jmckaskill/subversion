@@ -7,19 +7,19 @@
 CFG=mod_dav_svn - Win32 Debug
 !MESSAGE This is not a valid makefile. To build this project using NMAKE,
 !MESSAGE use the Export Makefile command and run
-!MESSAGE
+!MESSAGE 
 !MESSAGE NMAKE /f "mod_dav_svn.mak".
-!MESSAGE
+!MESSAGE 
 !MESSAGE You can specify a configuration when running NMAKE
 !MESSAGE by defining the macro CFG on the command line. For example:
-!MESSAGE
+!MESSAGE 
 !MESSAGE NMAKE /f "mod_dav_svn.mak" CFG="mod_dav_svn - Win32 Debug"
-!MESSAGE
+!MESSAGE 
 !MESSAGE Possible choices for configuration are:
-!MESSAGE
+!MESSAGE 
 !MESSAGE "mod_dav_svn - Win32 Release" (based on "Win32 (x86) Dynamic-Link Library")
 !MESSAGE "mod_dav_svn - Win32 Debug" (based on "Win32 (x86) Dynamic-Link Library")
-!MESSAGE
+!MESSAGE 
 
 # Begin Project
 # PROP AllowPerConfigDependencies 0
@@ -82,7 +82,7 @@ LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /dll /debug /machine:I386 /pdbtype:sept
 # ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib ..\..\..\httpd-2.0\Debug\libhttpd.lib ..\..\..\httpd-2.0\srclib\apr\Debug\libapr.lib ..\..\..\httpd-2.0\srclib\apr-util\Debug\libaprutil.lib ..\..\..\httpd-2.0\modules\dav\main\Debug\mod_dav.lib ..\..\db4-win32\lib\libdb40.lib ..\..\apr-util\xml\expat\lib\LibD\xml.lib ..\libsvn_delta\Debug\libsvn_delta.lib ..\libsvn_fs\Debug\libsvn_fs.lib ..\libsvn_repos\Debug\libsvn_repos.lib /nologo /dll /debug /machine:I386 /pdbtype:sept /out:"Debug/mod_dav_svn.so"
 
-!ENDIF
+!ENDIF 
 
 # Begin Target
 

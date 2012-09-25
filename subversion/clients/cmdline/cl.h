@@ -210,7 +210,7 @@ svn_cl__subcommand_help (const char *subcommand,
 
 /* Set OPT_STATE->start_revision and/or OPT_STATE->end_revision
  * according to ARG, where ARG is "N" or "N:M", like so:
- *
+ * 
  *    - If ARG is "N", set OPT_STATE->start_revision's kind to
  *      svn_client_revision_number and its value to the number N; and
  *      leave OPT_STATE->end_revision untouched.
@@ -218,7 +218,7 @@ svn_cl__subcommand_help (const char *subcommand,
  *    - If ARG is "N:M", set OPT_STATE->start_revision's and
  *      OPT_STATE->end_revision's kinds to svn_client_revision_number
  *      and values to N and M respectively.
- *
+ * 
  * N and/or M may be one of the special revision descriptors
  * recognized by revision_from_word().
  *
@@ -261,7 +261,7 @@ void svn_cl__print_status_list (apr_hash_t *statushash,
    (svn_stringbuf_t *). */
 void svn_cl__print_prop_hash (apr_hash_t *prop_hash, apr_pool_t *pool);
 
-/* Print out the property names in a hash that maps property names (char *)
+/* Print out the property names in a hash that maps property names (char *) 
    to property values (svn_stringbuf_t *). */
 void svn_cl__print_prop_names (apr_hash_t *prop_hash, apr_pool_t *pool);
 
@@ -269,7 +269,7 @@ void svn_cl__print_prop_names (apr_hash_t *prop_hash, apr_pool_t *pool);
 /* Returns an editor that prints out events in an update or checkout.
    The IS_CHECKOUT boolean tells the editor what kind of final
    revision line to print;  the SUPPRESS_FINAL_LINE flag indicates
-   whether to print the final revision line at all.
+   whether to print the final revision line at all. 
 
    ### OBSOLETE, please do not use.  Left only for merge-cmd.c, until
    ### svn_client_merge() changes to the new notification system.
@@ -287,7 +287,7 @@ svn_cl__get_trace_update_editor (const svn_delta_editor_t **editor,
    and invoke it to edit CONTENTS (using a temporary file created in
    directory BASE_DIR).  Return the new contents in *EDITED_CONTENTS,
    or set *EDITED_CONTENTS to NULL if no edit was performed.  Use POOL
-   for all allocations.
+   for all allocations. 
 
    If return error, *EDITED_CONTENTS is not touched. */
 svn_error_t *
@@ -297,7 +297,7 @@ svn_cl__edit_externally (const char **edited_contents,
                          apr_pool_t *pool);
 
 
-/* Our implementation of the 'auth info callback' routine,
+/* Our implementation of the 'auth info callback' routine, 
    as defined in svn_client.h.   This callback is passed to any
    libsvn_client routine that needs to authenticate against a
    repository. */
@@ -334,11 +334,11 @@ svn_cl__generate_status_codes (char *str_status,
 
 /* Set *NOTIFY_FUNC_P and *NOTIFY_BATON_P to a notifier/baton for all
  * operations, allocated in POOL.
- *
+ * 
  * If this is a checkout, set IS_CHECKOUT to true, so that the
  * notifier will print the appropriate summary line at the end of the
  * output.
- *
+ * 
  * If don't want a summary line at the end of notifications, set
  * SUPPRESS_FINAL_LINE.
  */
@@ -353,7 +353,7 @@ void svn_cl__get_notifier (svn_wc_notify_func_t *notify_func_p,
 
 /* Allocate in POOL a baton for use with svn_cl__get_log_message().
 
-   OPT_STATE is the set of command-line options given.
+   OPT_STATE is the set of command-line options given.  
 
    BASE_DIR is a directory in which to create temporary files if an
    external editor is used to edit the log message.  If BASE_DIR is
@@ -363,7 +363,7 @@ void svn_cl__get_notifier (svn_wc_notify_func_t *notify_func_p,
    we ask APR to tell us where a suitable tmp directory is (like, /tmp
    on Unix and C:\Windows\Temp on Win32 or something), and use it.
    But APR doesn't yet have that capability.
-
+   
    NOTE: While the baton itself will be allocated from POOL, the items
    add to it are added by reference, not duped into POOL!*/
 void *svn_cl__make_log_msg_baton (svn_cl__opt_state_t *opt_state,
@@ -386,9 +386,9 @@ svn_error_t *svn_cl__may_need_force (svn_error_t *err);
 #endif /* SVN_CL_H */
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../tools/dev/svn-dev.el")
- * end:
+ * end: 
  */
 

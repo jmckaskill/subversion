@@ -52,7 +52,7 @@ svn_cl__add (apr_getopt_t *os,
       apr_pool_t *subpool = svn_pool_create (pool);
       svn_wc_notify_func_t notify_func = NULL;
       void *notify_baton = NULL;
-
+      
       if (! opt_state->quiet)
         svn_cl__get_notifier (&notify_func, &notify_baton, FALSE, FALSE, pool);
 
@@ -88,8 +88,8 @@ svn_cl__add (apr_getopt_t *os,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../tools/dev/svn-dev.el")
- * end:
+ * end: 
  */

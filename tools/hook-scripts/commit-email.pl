@@ -11,7 +11,7 @@
 #    -l logfile        :  File to which mail contents should be appended
 #    -r email_address  :  Set email Reply-To header to this email address
 #    -s subject_prefix :  Subject line prefix
-#
+#    
 # ====================================================================
 # Copyright (c) 2000-2002 CollabNet.  All rights reserved.
 #
@@ -86,13 +86,13 @@ my @log = map { "$_\n" } @svnlooklines;
 my @dirschanged = &read_from_process($svnlook, $repos,
                                      'rev', $rev, 'dirs-changed');
 my $rootchanged = 0;
-grep
+grep 
 {
     # lose the trailing slash if one exists (except in the case of '/')
     $rootchanged = 1 if ($_ eq '/');
     $_ =~ s/(.+)[\/\\]$/$1/;
-}
-@dirschanged;
+} 
+@dirschanged; 
 
 # figure out what's changed (using svnlook)
 @svnlooklines = &read_from_process($svnlook, $repos, 'rev', $rev, 'changed');
@@ -166,7 +166,7 @@ if (($rootchanged == 0) and (scalar @commonpieces > 1))
 my $dirlist = join (' ', @dirschanged);
 
 
-my $userlist = join (' ', @email_addrs);
+my $userlist = join (' ', @email_addrs); 
 my $subject = '';
 if ($commondir ne '')
 {
@@ -225,7 +225,7 @@ push (@output, map { "$_\n" } @difflines);
 # dump output to logfile (if its name is not empty)
 if ($logfile =~ /\w/)
 {
-    open (LOGFILE, ">> $logfile")
+    open (LOGFILE, ">> $logfile") 
         or die ("Error opening '$logfile' for append");
     print LOGFILE @output;
     close LOGFILE;
@@ -234,7 +234,7 @@ if ($logfile =~ /\w/)
 # open a pipe to 'sendmail'
 if (($sendmail =~ /\w/) and ($userlist =~ /\w/))
 {
-    open (SENDMAIL, "| $sendmail $userlist")
+    open (SENDMAIL, "| $sendmail $userlist") 
         or die ("Error opening a pipe to sendmail");
     print SENDMAIL @output;
     close SENDMAIL;
