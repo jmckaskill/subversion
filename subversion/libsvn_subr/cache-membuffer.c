@@ -516,7 +516,7 @@ write_lock_cache(svn_membuffer_t *cache, svn_boolean_t *success)
               status = APR_SUCCESS;
             }
         }
-
+    
       if (status)
         return svn_error_wrap_apr(status,
                                   _("Can't write-lock cache mutex"));
@@ -1081,7 +1081,7 @@ svn_cache__membuffer_cache_create(svn_membuffer_t **cache,
     segment_count = MAX_SEGMENT_COUNT;
   if (segment_count * MIN_SEGMENT_SIZE > total_size)
     segment_count = total_size / MIN_SEGMENT_SIZE;
-
+    
   /* The segment count must be a power of two. Round it down as necessary.
    */
   while ((segment_count & (segment_count-1)) != 0)
