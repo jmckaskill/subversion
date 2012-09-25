@@ -526,7 +526,7 @@ checkout_file(file_context_t *file)
         {
           dir = dir->parent_dir;
         }
-
+          
 
       /* Is our parent a copy?  If so, we're already implicitly checked out. */
       if (dir)
