@@ -401,7 +401,7 @@ simple_gnome_keyring_first_creds(void **credentials,
         }
     }
   else
-    {
+    {  
       if (check_keyring_is_locked(default_keyring))
         {
           return svn_error_create(SVN_ERR_AUTHN_CREDS_UNAVAILABLE, NULL,
