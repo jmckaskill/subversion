@@ -49,7 +49,7 @@ typedef struct {
 
   ne_session *sess;                     /* HTTP session to server */
   ne_session *sess2;
-
+  
   const svn_ra_callbacks_t *callbacks;  /* callbacks to get auth data */
   void *callback_baton;
 
@@ -338,7 +338,7 @@ svn_error_t *svn_ra_dav__get_baseline_info(svn_boolean_t *is_dir,
                                            apr_pool_t *pool);
 
 /* Fetch a baseline resource populated with specific properties.
-
+   
    Given a Neon session SESS and a URL, set *BLN_RSRC to a baseline of
    REVISION, populated with whatever properties are specified by
    WHICH_PROPS.  To fetch all properties, pass NULL for WHICH_PROPS.
@@ -356,7 +356,7 @@ svn_error_t *svn_ra_dav__get_baseline_props(svn_string_t *bc_relative,
                                             apr_pool_t *pool);
 
 /* Fetch the repository's unique Version-Controlled-Configuration url.
-
+   
    Given a Neon session SESS and a URL, set *VCC to the url of the
    repository's version-controlled-configuration resource.
  */
@@ -424,14 +424,14 @@ svn_ra_dav__parsed_request(ne_session *sess,
                            apr_file_t *body_file,
                            void set_parser (ne_xml_parser *parser,
                                             void *baton),
-                           const struct ne_xml_elm *elements,
+                           const struct ne_xml_elm *elements, 
                            ne_xml_validate_cb validate_cb,
-                           ne_xml_startelm_cb startelm_cb,
+                           ne_xml_startelm_cb startelm_cb, 
                            ne_xml_endelm_cb endelm_cb,
                            void *baton,
                            apr_hash_t *extra_headers,
                            apr_pool_t *pool);
-
+  
 
 /* ### add SVN_RA_DAV_ to these to prefix conflicts with (sys) headers? */
 enum {
@@ -459,7 +459,7 @@ enum {
   /* SVN elements */
   ELEM_add_directory,
   ELEM_add_file,
-  ELEM_baseline_relpath,
+  ELEM_baseline_relpath, 
   ELEM_md5_checksum,
   ELEM_deleted_path,  /* used in log reports */
   ELEM_replaced_path,  /* used in log reports */
