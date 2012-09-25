@@ -69,7 +69,7 @@ IV. Branching and Merging
 
 V.  Repository Administration
 
-   A.  Repository creation and configuration
+   A.  Repository creation and configuration 
 
       1. creating a repository
       2. repository hooks
@@ -95,10 +95,10 @@ V.  Repository Administration
          - hand-editing the 'format' file
 
    D.  Adding Projects
-
+      
       1. repos layout
       2. import vs. add vs. mkdir
-
+      
 
 VI.  Advanced Topics
 
@@ -122,7 +122,7 @@ VII.  Developer Information
 
    A. Layered library design [1.2]
 
-   B. Using the APIs
+   B. Using the APIs  
         (C and python examples)
 
    C. Inside the working copy and repository   [3.0 ?]
@@ -146,10 +146,10 @@ IX.  Appendices
          (the appendix which CVS users can read in one sitting, to get
          a quick conceptual 'diff' between the two systems)
 
-   B.  CVS repository migration
+   B.  CVS repository migration 
          (cvs2svn.py)
 
-   C.  Troubleshooting
+   C.  Troubleshooting  
          (how to save your working copy, svn cleanup, etc.)
 
    D.  FAQ?
@@ -158,6 +158,6 @@ IX.  Appendices
          (description of GUIs?)
 
    F.  Third-party tools
-         (describe what exists)
+         (describe what exists)         
 
    G.  Index

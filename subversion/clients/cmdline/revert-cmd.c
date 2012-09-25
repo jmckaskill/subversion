@@ -46,7 +46,7 @@ svn_cl__revert (apr_getopt_t *os,
   svn_boolean_t recursive = opt_state->recursive;
   apr_pool_t *subpool;
 
-  SVN_ERR (svn_opt_args_to_target_array (&targets, os,
+  SVN_ERR (svn_opt_args_to_target_array (&targets, os, 
                                          opt_state->targets,
                                          &(opt_state->start_revision),
                                          &(opt_state->end_revision),
@@ -83,7 +83,7 @@ svn_cl__revert (apr_getopt_t *os,
 
       svn_pool_clear (subpool);
     }
-
+  
   svn_pool_destroy (subpool);
   return SVN_NO_ERROR;
 }
