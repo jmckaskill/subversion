@@ -108,7 +108,7 @@ bad_default_base (svn_fs_node_t *node)
   /* Make a copy of the file's contents.  */
   {
     skel_t *content_skel = nv->children->next->next;
-
+    
     file->contents = svn_string_ncreate (content_skel->data,
 					 content_skel->len,
 					 file->node.pool);
@@ -205,12 +205,12 @@ svn_fs_file_length (apr_off_t *length,
 {
   svn_fs_node_t *node = svn_fs_file_to_node (file);
   skel_t *skel, *data;
-
+  
   SVN_ERR (svn_fs__get_node_version (&skel, node, 0, pool));
   data = file_data (skel);
   if (! data)
     return corrupt_node_version (node);
-
+  
   *length = data->len;
 
   return 0;
