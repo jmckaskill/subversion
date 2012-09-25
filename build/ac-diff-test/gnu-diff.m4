@@ -2,7 +2,7 @@ dnl
 dnl SVN_LIB_DIFFUTILS(mergefiles_dir)
 dnl
 dnl Set of autoconf tests to detect the appropriate diff/diff3 combinations.
-dnl
+dnl 
 dnl Looks for a 'diff'/'gdiff' or 'diff3'/'gdiff3'
 dnl
 dnl This script assumes $1 is a directory that contains particular
@@ -82,7 +82,7 @@ AC_DEFUN(SVN_LIB_DIFFUTILS,
   dnl Don't ask my why, but somehow I think there's a chance we
   dnl might one day again need GNU diff on the client side.  If that
   dnl ever happens, remember to read this note. :-)
-
+            
   AC_DEFINE_UNQUOTED(SVN_CLIENT_DIFF, "$SVN_CLIENT_DIFF",
                      [Define to be the full path to diff])
 

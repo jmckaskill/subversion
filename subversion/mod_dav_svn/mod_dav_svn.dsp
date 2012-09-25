@@ -7,19 +7,19 @@
 CFG=mod_dav_svn - Win32 Debug
 !MESSAGE This is not a valid makefile. To build this project using NMAKE,
 !MESSAGE use the Export Makefile command and run
-!MESSAGE
+!MESSAGE 
 !MESSAGE NMAKE /f "mod_dav_svn.mak".
-!MESSAGE
+!MESSAGE 
 !MESSAGE You can specify a configuration when running NMAKE
 !MESSAGE by defining the macro CFG on the command line. For example:
-!MESSAGE
+!MESSAGE 
 !MESSAGE NMAKE /f "mod_dav_svn.mak" CFG="mod_dav_svn - Win32 Debug"
-!MESSAGE
+!MESSAGE 
 !MESSAGE Possible choices for configuration are:
-!MESSAGE
+!MESSAGE 
 !MESSAGE "mod_dav_svn - Win32 Release" (based on "Win32 (x86) Dynamic-Link Library")
 !MESSAGE "mod_dav_svn - Win32 Debug" (based on "Win32 (x86) Dynamic-Link Library")
-!MESSAGE
+!MESSAGE 
 
 # Begin Project
 # PROP AllowPerConfigDependencies 0
@@ -83,7 +83,7 @@ LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib advapi32.lib ws2_32.lib mswsock.lib ole32.lib rpcrt4.lib /nologo /dll /debug /machine:I386 /pdbtype:sept
 # ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib ..\..\..\httpd-2.0\Debug\libhttpd.lib ..\..\..\httpd-2.0\srclib\apr\Debug\libapr.lib ..\..\..\httpd-2.0\srclib\apr-util\Debug\libaprutil.lib ..\..\..\httpd-2.0\modules\dav\main\Debug\mod_dav.lib ..\..\db4-win32\lib\libdb40d.lib ..\..\apr-util\xml\expat\lib\LibD\xml.lib /nologo /dll /debug /machine:I386 /out:"Debug/mod_dav_svn.so" /pdbtype:sept
 
-!ENDIF
+!ENDIF 
 
 # Begin Target
 
@@ -168,7 +168,7 @@ SOURCE=..\libsvn_subr\cmdline.c
 # PROP Intermediate_Dir "Debug\obj\libsvn_subr"
 # ADD CPP /I "..\libsvn_subr" /I "..\..\..\httpd-2.0\srclib\apr\include" /I "..\..\..\httpd-2.0\srclib\apr-util\include" /I "..\..\..\httpd-2.0\srclib\apr-util\xml\expat\lib" /I "..\include" /I "..\.."
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -185,7 +185,7 @@ SOURCE=..\libsvn_subr\config.c
 # PROP Intermediate_Dir "Debug\obj\libsvn_subr"
 # ADD CPP /I "..\libsvn_subr" /I "..\..\..\httpd-2.0\srclib\apr\include" /I "..\..\..\httpd-2.0\srclib\apr-util\include" /I "..\..\..\httpd-2.0\srclib\apr-util\xml\expat\lib" /I "..\include" /I "..\.."
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -202,7 +202,7 @@ SOURCE=..\libsvn_subr\config_file.c
 # PROP Intermediate_Dir "Debug\obj\libsvn_subr"
 # ADD CPP /I "..\libsvn_subr" /I "..\..\..\httpd-2.0\srclib\apr\include" /I "..\..\..\httpd-2.0\srclib\apr-util\include" /I "..\..\..\httpd-2.0\srclib\apr-util\xml\expat\lib" /I "..\include" /I "..\.."
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -219,7 +219,7 @@ SOURCE=..\libsvn_subr\config_win.c
 # PROP Intermediate_Dir "Debug\obj\libsvn_subr"
 # ADD CPP /I "..\libsvn_subr" /I "..\..\..\httpd-2.0\srclib\apr\include" /I "..\..\..\httpd-2.0\srclib\apr-util\include" /I "..\..\..\httpd-2.0\srclib\apr-util\xml\expat\lib" /I "..\include" /I "..\.."
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -236,7 +236,7 @@ SOURCE=..\libsvn_subr\error.c
 # PROP Intermediate_Dir "Debug\obj\libsvn_subr"
 # ADD CPP /I "..\libsvn_subr" /I "..\..\..\httpd-2.0\srclib\apr\include" /I "..\..\..\httpd-2.0\srclib\apr-util\include" /I "..\..\..\httpd-2.0\srclib\apr-util\xml\expat\lib" /I "..\include" /I "..\.."
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -253,7 +253,7 @@ SOURCE=..\libsvn_subr\getdate.c
 # PROP Intermediate_Dir "Debug\obj\libsvn_subr"
 # ADD CPP /I "..\libsvn_subr" /I "..\..\..\httpd-2.0\srclib\apr\include" /I "..\..\..\httpd-2.0\srclib\apr-util\include" /I "..\..\..\httpd-2.0\srclib\apr-util\xml\expat\lib" /I "..\include" /I "..\.."
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -270,7 +270,7 @@ SOURCE=..\libsvn_subr\hash.c
 # PROP Intermediate_Dir "Debug\obj\libsvn_subr"
 # ADD CPP /I "..\libsvn_subr" /I "..\..\..\httpd-2.0\srclib\apr\include" /I "..\..\..\httpd-2.0\srclib\apr-util\include" /I "..\..\..\httpd-2.0\srclib\apr-util\xml\expat\lib" /I "..\include" /I "..\.."
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -287,7 +287,7 @@ SOURCE=..\libsvn_subr\io.c
 # PROP Intermediate_Dir "Debug\obj\libsvn_subr"
 # ADD CPP /I "..\libsvn_subr" /I "..\..\..\httpd-2.0\srclib\apr\include" /I "..\..\..\httpd-2.0\srclib\apr-util\include" /I "..\..\..\httpd-2.0\srclib\apr-util\xml\expat\lib" /I "..\include" /I "..\.."
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -304,7 +304,7 @@ SOURCE=..\libsvn_subr\md5.c
 # PROP Intermediate_Dir "Debug\obj\libsvn_subr"
 # ADD CPP /I "..\libsvn_subr" /I "..\..\..\httpd-2.0\srclib\apr\include" /I "..\..\..\httpd-2.0\srclib\apr-util\include" /I "..\..\..\httpd-2.0\srclib\apr-util\xml\expat\lib" /I "..\include" /I "..\.."
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -321,7 +321,7 @@ SOURCE=..\libsvn_subr\opt.c
 # PROP Intermediate_Dir "Debug\obj\libsvn_subr"
 # ADD CPP /I "..\libsvn_subr" /I "..\..\..\httpd-2.0\srclib\apr\include" /I "..\..\..\httpd-2.0\srclib\apr-util\include" /I "..\..\..\httpd-2.0\srclib\apr-util\xml\expat\lib" /I "..\include" /I "..\.."
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -338,7 +338,7 @@ SOURCE=..\libsvn_subr\path.c
 # PROP Intermediate_Dir "Debug\obj\libsvn_subr"
 # ADD CPP /I "..\libsvn_subr" /I "..\..\..\httpd-2.0\srclib\apr\include" /I "..\..\..\httpd-2.0\srclib\apr-util\include" /I "..\..\..\httpd-2.0\srclib\apr-util\xml\expat\lib" /I "..\include" /I "..\.."
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -355,7 +355,7 @@ SOURCE=..\libsvn_subr\pool.c
 # PROP Intermediate_Dir "Debug\obj\libsvn_subr"
 # ADD CPP /I "..\libsvn_subr" /I "..\..\..\httpd-2.0\srclib\apr\include" /I "..\..\..\httpd-2.0\srclib\apr-util\include" /I "..\..\..\httpd-2.0\srclib\apr-util\xml\expat\lib" /I "..\include" /I "..\.."
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -372,7 +372,7 @@ SOURCE=..\libsvn_subr\quoprint.c
 # PROP Intermediate_Dir "Debug\obj\libsvn_subr"
 # ADD CPP /I "..\libsvn_subr" /I "..\..\..\httpd-2.0\srclib\apr\include" /I "..\..\..\httpd-2.0\srclib\apr-util\include" /I "..\..\..\httpd-2.0\srclib\apr-util\xml\expat\lib" /I "..\include" /I "..\.."
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -389,7 +389,7 @@ SOURCE=..\libsvn_subr\sorts.c
 # PROP Intermediate_Dir "Debug\obj\libsvn_subr"
 # ADD CPP /I "..\libsvn_subr" /I "..\..\..\httpd-2.0\srclib\apr\include" /I "..\..\..\httpd-2.0\srclib\apr-util\include" /I "..\..\..\httpd-2.0\srclib\apr-util\xml\expat\lib" /I "..\include" /I "..\.."
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -406,7 +406,7 @@ SOURCE=..\libsvn_subr\stream.c
 # PROP Intermediate_Dir "Debug\obj\libsvn_subr"
 # ADD CPP /I "..\libsvn_subr" /I "..\..\..\httpd-2.0\srclib\apr\include" /I "..\..\..\httpd-2.0\srclib\apr-util\include" /I "..\..\..\httpd-2.0\srclib\apr-util\xml\expat\lib" /I "..\include" /I "..\.."
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -423,7 +423,7 @@ SOURCE=..\libsvn_subr\svn_base64.c
 # PROP Intermediate_Dir "Debug\obj\libsvn_subr"
 # ADD CPP /I "..\libsvn_subr" /I "..\..\..\httpd-2.0\srclib\apr\include" /I "..\..\..\httpd-2.0\srclib\apr-util\include" /I "..\..\..\httpd-2.0\srclib\apr-util\xml\expat\lib" /I "..\include" /I "..\.."
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -440,7 +440,7 @@ SOURCE=..\libsvn_subr\svn_string.c
 # PROP Intermediate_Dir "Debug\obj\libsvn_subr"
 # ADD CPP /I "..\libsvn_subr" /I "..\..\..\httpd-2.0\srclib\apr\include" /I "..\..\..\httpd-2.0\srclib\apr-util\include" /I "..\..\..\httpd-2.0\srclib\apr-util\xml\expat\lib" /I "..\include" /I "..\.."
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -457,7 +457,7 @@ SOURCE=..\libsvn_subr\target.c
 # PROP Intermediate_Dir "Debug\obj\libsvn_subr"
 # ADD CPP /I "..\libsvn_subr" /I "..\..\..\httpd-2.0\srclib\apr\include" /I "..\..\..\httpd-2.0\srclib\apr-util\include" /I "..\..\..\httpd-2.0\srclib\apr-util\xml\expat\lib" /I "..\include" /I "..\.."
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -474,7 +474,7 @@ SOURCE=..\libsvn_subr\time.c
 # PROP Intermediate_Dir "Debug\obj\libsvn_subr"
 # ADD CPP /I "..\libsvn_subr" /I "..\..\..\httpd-2.0\srclib\apr\include" /I "..\..\..\httpd-2.0\srclib\apr-util\include" /I "..\..\..\httpd-2.0\srclib\apr-util\xml\expat\lib" /I "..\include" /I "..\.."
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -491,7 +491,7 @@ SOURCE=..\libsvn_subr\utf.c
 # PROP Intermediate_Dir "Debug\obj\libsvn_subr"
 # ADD CPP /I "..\libsvn_subr" /I "..\..\..\httpd-2.0\srclib\apr\include" /I "..\..\..\httpd-2.0\srclib\apr-util\include" /I "..\..\..\httpd-2.0\srclib\apr-util\xml\expat\lib" /I "..\include" /I "..\.."
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -508,7 +508,7 @@ SOURCE=..\libsvn_subr\validate.c
 # PROP Intermediate_Dir "Debug\obj\libsvn_subr"
 # ADD CPP /I "..\libsvn_subr" /I "..\..\..\httpd-2.0\srclib\apr\include" /I "..\..\..\httpd-2.0\srclib\apr-util\include" /I "..\..\..\httpd-2.0\srclib\apr-util\xml\expat\lib" /I "..\include" /I "..\.."
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -525,7 +525,7 @@ SOURCE=..\libsvn_subr\xml.c
 # PROP Intermediate_Dir "Debug\obj\libsvn_subr"
 # ADD CPP /I "..\libsvn_subr" /I "..\..\..\httpd-2.0\srclib\apr\include" /I "..\..\..\httpd-2.0\srclib\apr-util\include" /I "..\..\..\httpd-2.0\srclib\apr-util\xml\expat\lib" /I "..\include" /I "..\.."
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # End Group
@@ -546,7 +546,7 @@ SOURCE=..\libsvn_delta\compose_delta.c
 # PROP Intermediate_Dir "Debug\obj\libsvn_delta"
 # ADD CPP /I "..\libsvn_delta" /I "..\..\..\httpd-2.0\srclib\apr\include" /I "..\..\..\httpd-2.0\srclib\apr-util\include" /I "..\..\..\httpd-2.0\srclib\apr-util\xml\expat\lib" /I "..\include" /I "..\.."
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -563,7 +563,7 @@ SOURCE=..\libsvn_delta\default_editor.c
 # PROP Intermediate_Dir "Debug\obj\libsvn_delta"
 # ADD CPP /I "..\libsvn_delta" /I "..\..\..\httpd-2.0\srclib\apr\include" /I "..\..\..\httpd-2.0\srclib\apr-util\include" /I "..\..\..\httpd-2.0\srclib\apr-util\xml\expat\lib" /I "..\include" /I "..\.."
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -580,7 +580,7 @@ SOURCE=..\libsvn_delta\diff.c
 # PROP Intermediate_Dir "Debug\obj\libsvn_delta"
 # ADD CPP /I "..\libsvn_delta" /I "..\..\..\httpd-2.0\srclib\apr\include" /I "..\..\..\httpd-2.0\srclib\apr-util\include" /I "..\..\..\httpd-2.0\srclib\apr-util\xml\expat\lib" /I "..\include" /I "..\.."
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -597,7 +597,7 @@ SOURCE=..\libsvn_delta\diff_file.c
 # PROP Intermediate_Dir "Debug\obj\libsvn_delta"
 # ADD CPP /I "..\libsvn_delta" /I "..\..\..\httpd-2.0\srclib\apr\include" /I "..\..\..\httpd-2.0\srclib\apr-util\include" /I "..\..\..\httpd-2.0\srclib\apr-util\xml\expat\lib" /I "..\include" /I "..\.."
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -614,7 +614,7 @@ SOURCE=..\libsvn_delta\svndiff.c
 # PROP Intermediate_Dir "Debug\obj\libsvn_delta"
 # ADD CPP /I "..\libsvn_delta" /I "..\..\..\httpd-2.0\srclib\apr\include" /I "..\..\..\httpd-2.0\srclib\apr-util\include" /I "..\..\..\httpd-2.0\srclib\apr-util\xml\expat\lib" /I "..\include" /I "..\.."
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -631,7 +631,7 @@ SOURCE=..\libsvn_delta\text_delta.c
 # PROP Intermediate_Dir "Debug\obj\libsvn_delta"
 # ADD CPP /I "..\libsvn_delta" /I "..\..\..\httpd-2.0\srclib\apr\include" /I "..\..\..\httpd-2.0\srclib\apr-util\include" /I "..\..\..\httpd-2.0\srclib\apr-util\xml\expat\lib" /I "..\include" /I "..\.."
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -648,7 +648,7 @@ SOURCE=..\libsvn_delta\vdelta.c
 # PROP Intermediate_Dir "Debug\obj\libsvn_delta"
 # ADD CPP /I "..\libsvn_delta" /I "..\..\..\httpd-2.0\srclib\apr\include" /I "..\..\..\httpd-2.0\srclib\apr-util\include" /I "..\..\..\httpd-2.0\srclib\apr-util\xml\expat\lib" /I "..\include" /I "..\.."
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # End Group
@@ -669,7 +669,7 @@ SOURCE=..\libsvn_repos\delta.c
 # PROP Intermediate_Dir "Debug\obj\libsvn_repos"
 # ADD CPP /I "..\libsvn_repos" /I "..\..\..\httpd-2.0\srclib\apr\include" /I "..\..\..\httpd-2.0\srclib\apr-util\include" /I "..\..\..\httpd-2.0\srclib\apr-util\xml\expat\lib" /I "..\include" /I "..\.."
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -686,7 +686,7 @@ SOURCE=..\libsvn_repos\dump.c
 # PROP Intermediate_Dir "Debug\obj\libsvn_repos"
 # ADD CPP /I "..\libsvn_repos" /I "..\..\..\httpd-2.0\srclib\apr\include" /I "..\..\..\httpd-2.0\srclib\apr-util\include" /I "..\..\..\httpd-2.0\srclib\apr-util\xml\expat\lib" /I "..\include" /I "..\.."
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -703,7 +703,7 @@ SOURCE=..\libsvn_repos\hooks.c
 # PROP Intermediate_Dir "Debug\obj\libsvn_repos"
 # ADD CPP /I "..\libsvn_repos" /I "..\..\..\httpd-2.0\srclib\apr\include" /I "..\..\..\httpd-2.0\srclib\apr-util\include" /I "..\..\..\httpd-2.0\srclib\apr-util\xml\expat\lib" /I "..\include" /I "..\.."
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -720,7 +720,7 @@ SOURCE="..\libsvn_repos\fs-wrap.c"
 # PROP Intermediate_Dir "Debug\obj\libsvn_repos"
 # ADD CPP /I "..\libsvn_repos" /I "..\..\..\httpd-2.0\srclib\apr\include" /I "..\..\..\httpd-2.0\srclib\apr-util\include" /I "..\..\..\httpd-2.0\srclib\apr-util\xml\expat\lib" /I "..\include" /I "..\.."
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -737,7 +737,7 @@ SOURCE=..\libsvn_repos\load.c
 # PROP Intermediate_Dir "Debug\obj\libsvn_repos"
 # ADD CPP /I "..\libsvn_repos" /I "..\..\..\httpd-2.0\srclib\apr\include" /I "..\..\..\httpd-2.0\srclib\apr-util\include" /I "..\..\..\httpd-2.0\srclib\apr-util\xml\expat\lib" /I "..\include" /I "..\.."
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -754,7 +754,7 @@ SOURCE=..\libsvn_repos\log.c
 # PROP Intermediate_Dir "Debug\obj\libsvn_repos"
 # ADD CPP /I "..\libsvn_repos" /I "..\..\..\httpd-2.0\srclib\apr\include" /I "..\..\..\httpd-2.0\srclib\apr-util\include" /I "..\..\..\httpd-2.0\srclib\apr-util\xml\expat\lib" /I "..\include" /I "..\.."
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -771,7 +771,7 @@ SOURCE=..\libsvn_repos\node_tree.c
 # PROP Intermediate_Dir "Debug\obj\libsvn_repos"
 # ADD CPP /I "..\libsvn_repos" /I "..\..\..\httpd-2.0\srclib\apr\include" /I "..\..\..\httpd-2.0\srclib\apr-util\include" /I "..\..\..\httpd-2.0\srclib\apr-util\xml\expat\lib" /I "..\include" /I "..\.."
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -788,7 +788,7 @@ SOURCE=..\libsvn_repos\reporter.c
 # PROP Intermediate_Dir "Debug\obj\libsvn_repos"
 # ADD CPP /I "..\libsvn_repos" /I "..\..\..\httpd-2.0\srclib\apr\include" /I "..\..\..\httpd-2.0\srclib\apr-util\include" /I "..\..\..\httpd-2.0\srclib\apr-util\xml\expat\lib" /I "..\include" /I "..\.."
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -805,7 +805,7 @@ SOURCE=..\libsvn_repos\repos.c
 # PROP Intermediate_Dir "Debug\obj\libsvn_repos"
 # ADD CPP /I "..\libsvn_repos" /I "..\..\..\httpd-2.0\srclib\apr\include" /I "..\..\..\httpd-2.0\srclib\apr-util\include" /I "..\..\..\httpd-2.0\srclib\apr-util\xml\expat\lib" /I "..\include" /I "..\.."
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -822,7 +822,7 @@ SOURCE=..\libsvn_repos\rev_hunt.c
 # PROP Intermediate_Dir "Debug\obj\libsvn_repos"
 # ADD CPP /I "..\libsvn_repos" /I "..\..\..\httpd-2.0\srclib\apr\include" /I "..\..\..\httpd-2.0\srclib\apr-util\include" /I "..\..\..\httpd-2.0\srclib\apr-util\xml\expat\lib" /I "..\include" /I "..\.."
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # End Group
@@ -846,7 +846,7 @@ SOURCE=..\libsvn_fs\util\fs_skels.c
 # PROP Intermediate_Dir "Debug\obj\libsvn_fs\util"
 # ADD CPP /I "..\libsvn_fs" /I "..\..\db4-win32\include" /I "..\..\..\httpd-2.0\srclib\apr\include" /I "..\..\..\httpd-2.0\srclib\apr-util\include" /I "..\..\..\httpd-2.0\srclib\apr-util\xml\expat\lib" /I "..\include" /I "..\.."
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -863,7 +863,7 @@ SOURCE=..\libsvn_fs\util\skel.c
 # PROP Intermediate_Dir "Debug\obj\libsvn_fs\util"
 # ADD CPP /I "..\libsvn_fs" /I "..\..\db4-win32\include" /I "..\..\..\httpd-2.0\srclib\apr\include" /I "..\..\..\httpd-2.0\srclib\apr-util\include" /I "..\..\..\httpd-2.0\srclib\apr-util\xml\expat\lib" /I "..\include" /I "..\.."
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # End Group
@@ -884,7 +884,7 @@ SOURCE="..\libsvn_fs\bdb\bdb_compat.c"
 # PROP Intermediate_Dir "Debug\obj\libsvn_fs\bdb"
 # ADD CPP /I "..\libsvn_fs" /I "..\..\db4-win32\include" /I "..\..\..\httpd-2.0\srclib\apr\include" /I "..\..\..\httpd-2.0\srclib\apr-util\include" /I "..\..\..\httpd-2.0\srclib\apr-util\xml\expat\lib" /I "..\include" /I "..\.."
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -901,7 +901,7 @@ SOURCE="..\libsvn_fs\bdb\bdb-err.c"
 # PROP Intermediate_Dir "Debug\obj\libsvn_fs\bdb"
 # ADD CPP /I "..\libsvn_fs" /I "..\..\db4-win32\include" /I "..\..\..\httpd-2.0\srclib\apr\include" /I "..\..\..\httpd-2.0\srclib\apr-util\include" /I "..\..\..\httpd-2.0\srclib\apr-util\xml\expat\lib" /I "..\include" /I "..\.."
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -918,7 +918,7 @@ SOURCE="..\libsvn_fs\bdb\changes-table.c"
 # PROP Intermediate_Dir "Debug\obj\libsvn_fs\bdb"
 # ADD CPP /I "..\libsvn_fs" /I "..\..\db4-win32\include" /I "..\..\..\httpd-2.0\srclib\apr\include" /I "..\..\..\httpd-2.0\srclib\apr-util\include" /I "..\..\..\httpd-2.0\srclib\apr-util\xml\expat\lib" /I "..\include" /I "..\.."
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -935,7 +935,7 @@ SOURCE="..\libsvn_fs\bdb\copies-table.c"
 # PROP Intermediate_Dir "Debug\obj\libsvn_fs\bdb"
 # ADD CPP /I "..\libsvn_fs" /I "..\..\db4-win32\include" /I "..\..\..\httpd-2.0\srclib\apr\include" /I "..\..\..\httpd-2.0\srclib\apr-util\include" /I "..\..\..\httpd-2.0\srclib\apr-util\xml\expat\lib" /I "..\include" /I "..\.."
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -952,7 +952,7 @@ SOURCE=..\libsvn_fs\bdb\dbt.c
 # PROP Intermediate_Dir "Debug\obj\libsvn_fs\bdb"
 # ADD CPP /I "..\libsvn_fs" /I "..\..\db4-win32\include" /I "..\..\..\httpd-2.0\srclib\apr\include" /I "..\..\..\httpd-2.0\srclib\apr-util\include" /I "..\..\..\httpd-2.0\srclib\apr-util\xml\expat\lib" /I "..\include" /I "..\.."
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -969,7 +969,7 @@ SOURCE="..\libsvn_fs\bdb\nodes-table.c"
 # PROP Intermediate_Dir "Debug\obj\libsvn_fs\bdb"
 # ADD CPP /I "..\libsvn_fs" /I "..\..\db4-win32\include" /I "..\..\..\httpd-2.0\srclib\apr\include" /I "..\..\..\httpd-2.0\srclib\apr-util\include" /I "..\..\..\httpd-2.0\srclib\apr-util\xml\expat\lib" /I "..\include" /I "..\.."
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -986,7 +986,7 @@ SOURCE="..\libsvn_fs\bdb\reps-table.c"
 # PROP Intermediate_Dir "Debug\obj\libsvn_fs\bdb"
 # ADD CPP /I "..\libsvn_fs" /I "..\..\db4-win32\include" /I "..\..\..\httpd-2.0\srclib\apr\include" /I "..\..\..\httpd-2.0\srclib\apr-util\include" /I "..\..\..\httpd-2.0\srclib\apr-util\xml\expat\lib" /I "..\include" /I "..\.."
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -1003,7 +1003,7 @@ SOURCE="..\libsvn_fs\bdb\rev-table.c"
 # PROP Intermediate_Dir "Debug\obj\libsvn_fs\bdb"
 # ADD CPP /I "..\libsvn_fs" /I "..\..\db4-win32\include" /I "..\..\..\httpd-2.0\srclib\apr\include" /I "..\..\..\httpd-2.0\srclib\apr-util\include" /I "..\..\..\httpd-2.0\srclib\apr-util\xml\expat\lib" /I "..\include" /I "..\.."
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -1020,7 +1020,7 @@ SOURCE="..\libsvn_fs\bdb\strings-table.c"
 # PROP Intermediate_Dir "Debug\obj\libsvn_fs\bdb"
 # ADD CPP /I "..\libsvn_fs" /I "..\..\db4-win32\include" /I "..\..\..\httpd-2.0\srclib\apr\include" /I "..\..\..\httpd-2.0\srclib\apr-util\include" /I "..\..\..\httpd-2.0\srclib\apr-util\xml\expat\lib" /I "..\include" /I "..\.."
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -1037,7 +1037,7 @@ SOURCE="..\libsvn_fs\bdb\txn-table.c"
 # PROP Intermediate_Dir "Debug\obj\libsvn_fs\bdb"
 # ADD CPP /I "..\libsvn_fs" /I "..\..\db4-win32\include" /I "..\..\..\httpd-2.0\srclib\apr\include" /I "..\..\..\httpd-2.0\srclib\apr-util\include" /I "..\..\..\httpd-2.0\srclib\apr-util\xml\expat\lib" /I "..\include" /I "..\.."
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -1054,7 +1054,7 @@ SOURCE="..\libsvn_fs\bdb\uuids-table.c"
 # PROP Intermediate_Dir "Debug\obj\libsvn_fs\bdb"
 # ADD CPP /I "..\libsvn_fs" /I "..\..\db4-win32\include" /I "..\..\..\httpd-2.0\srclib\apr\include" /I "..\..\..\httpd-2.0\srclib\apr-util\include" /I "..\..\..\httpd-2.0\srclib\apr-util\xml\expat\lib" /I "..\include" /I "..\.."
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # End Group
@@ -1071,7 +1071,7 @@ SOURCE=..\libsvn_fs\dag.c
 
 # ADD CPP /I "..\..\db4-win32\include" /I "..\libsvn_fs" /I "..\..\..\httpd-2.0\srclib\apr\include" /I "..\..\..\httpd-2.0\srclib\apr-util\include" /I "..\..\..\httpd-2.0\srclib\apr-util\xml\expat\lib" /I "..\include" /I "..\.."
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -1087,7 +1087,7 @@ SOURCE=..\libsvn_fs\deltify.c
 
 # ADD CPP /I "..\..\db4-win32\include" /I "..\libsvn_fs" /I "..\..\..\httpd-2.0\srclib\apr\include" /I "..\..\..\httpd-2.0\srclib\apr-util\include" /I "..\..\..\httpd-2.0\srclib\apr-util\xml\expat\lib" /I "..\include" /I "..\.."
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -1103,7 +1103,7 @@ SOURCE=..\libsvn_fs\err.c
 
 # ADD CPP /I "..\..\db4-win32\include" /I "..\libsvn_fs" /I "..\..\..\httpd-2.0\srclib\apr\include" /I "..\..\..\httpd-2.0\srclib\apr-util\include" /I "..\..\..\httpd-2.0\srclib\apr-util\xml\expat\lib" /I "..\include" /I "..\.."
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -1119,7 +1119,7 @@ SOURCE=..\libsvn_fs\fs.c
 
 # ADD CPP /I "..\..\db4-win32\include" /I "..\libsvn_fs" /I "..\..\..\httpd-2.0\srclib\apr\include" /I "..\..\..\httpd-2.0\srclib\apr-util\include" /I "..\..\..\httpd-2.0\srclib\apr-util\xml\expat\lib" /I "..\include" /I "..\.."
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -1135,7 +1135,7 @@ SOURCE=..\libsvn_fs\id.c
 
 # ADD CPP /I "..\..\db4-win32\include" /I "..\libsvn_fs" /I "..\..\..\httpd-2.0\srclib\apr\include" /I "..\..\..\httpd-2.0\srclib\apr-util\include" /I "..\..\..\httpd-2.0\srclib\apr-util\xml\expat\lib" /I "..\include" /I "..\.."
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -1151,7 +1151,7 @@ SOURCE="..\libsvn_fs\key-gen.c"
 
 # ADD CPP /I "..\..\db4-win32\include" /I "..\libsvn_fs" /I "..\..\..\httpd-2.0\srclib\apr\include" /I "..\..\..\httpd-2.0\srclib\apr-util\include" /I "..\..\..\httpd-2.0\srclib\apr-util\xml\expat\lib" /I "..\include" /I "..\.."
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -1167,7 +1167,7 @@ SOURCE="..\libsvn_fs\node-rev.c"
 
 # ADD CPP /I "..\..\db4-win32\include" /I "..\libsvn_fs" /I "..\..\..\httpd-2.0\srclib\apr\include" /I "..\..\..\httpd-2.0\srclib\apr-util\include" /I "..\..\..\httpd-2.0\srclib\apr-util\xml\expat\lib" /I "..\include" /I "..\.."
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -1183,7 +1183,7 @@ SOURCE="..\libsvn_fs\reps-strings.c"
 
 # ADD CPP /I "..\..\db4-win32\include" /I "..\libsvn_fs" /I "..\..\..\httpd-2.0\srclib\apr\include" /I "..\..\..\httpd-2.0\srclib\apr-util\include" /I "..\..\..\httpd-2.0\srclib\apr-util\xml\expat\lib" /I "..\include" /I "..\.."
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -1199,7 +1199,7 @@ SOURCE="..\libsvn_fs\revs-txns.c"
 
 # ADD CPP /I "..\..\db4-win32\include" /I "..\libsvn_fs" /I "..\..\..\httpd-2.0\srclib\apr\include" /I "..\..\..\httpd-2.0\srclib\apr-util\include" /I "..\..\..\httpd-2.0\srclib\apr-util\xml\expat\lib" /I "..\include" /I "..\.."
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -1215,7 +1215,7 @@ SOURCE=..\libsvn_fs\trail.c
 
 # ADD CPP /I "..\..\db4-win32\include" /I "..\libsvn_fs" /I "..\..\..\httpd-2.0\srclib\apr\include" /I "..\..\..\httpd-2.0\srclib\apr-util\include" /I "..\..\..\httpd-2.0\srclib\apr-util\xml\expat\lib" /I "..\include" /I "..\.."
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -1231,7 +1231,7 @@ SOURCE=..\libsvn_fs\tree.c
 
 # ADD CPP /I "..\..\db4-win32\include" /I "..\libsvn_fs" /I "..\..\..\httpd-2.0\srclib\apr\include" /I "..\..\..\httpd-2.0\srclib\apr-util\include" /I "..\..\..\httpd-2.0\srclib\apr-util\xml\expat\lib" /I "..\include" /I "..\.."
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -1247,7 +1247,7 @@ SOURCE=..\libsvn_fs\txn.c
 
 # ADD CPP /I "..\..\db4-win32\include" /I "..\libsvn_fs" /I "..\..\..\httpd-2.0\srclib\apr\include" /I "..\..\..\httpd-2.0\srclib\apr-util\include" /I "..\..\..\httpd-2.0\srclib\apr-util\xml\expat\lib" /I "..\include" /I "..\.."
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # Begin Source File
@@ -1263,7 +1263,7 @@ SOURCE=..\libsvn_fs\uuid.c
 
 # ADD CPP /I "..\..\db4-win32\include" /I "..\libsvn_fs" /I "..\..\..\httpd-2.0\srclib\apr\include" /I "..\..\..\httpd-2.0\srclib\apr-util\include" /I "..\..\..\httpd-2.0\srclib\apr-util\xml\expat\lib" /I "..\include" /I "..\.."
 
-!ENDIF
+!ENDIF 
 
 # End Source File
 # End Group
