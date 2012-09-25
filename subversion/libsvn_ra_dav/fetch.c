@@ -155,7 +155,7 @@ typedef struct {
   svn_boolean_t is_switch;
 
   /* Named target, or NULL if none.  For example, in 'svn up wc/foo',
-     this is "wc/foo", but in 'svn up' it is NULL.
+     this is "wc/foo", but in 'svn up' it is NULL.  
 
      The target helps us determine whether a response received from
      the server should be acted on.  Take 'svn up wc/foo': the server
@@ -183,7 +183,7 @@ static const struct ne_xml_elm report_elements[] =
   { SVN_XML_NAMESPACE, "target-revision", ELEM_target_revision, 0 },
   { SVN_XML_NAMESPACE, "open-directory", ELEM_open_directory, 0 },
   /* ### Sat 24 Nov 2001: after all clients have upgraded, change the
-     "replace-" elements here to "open-" and upgrade the server.  -kff */
+     "replace-" elements here to "open-" and upgrade the server.  -kff */  
   { SVN_XML_NAMESPACE, "replace-directory", ELEM_open_directory, 0 },
   { SVN_XML_NAMESPACE, "add-directory", ELEM_add_directory, 0 },
   { SVN_XML_NAMESPACE, "open-file", ELEM_open_file, 0 },
@@ -223,7 +223,7 @@ static svn_error_t *simple_store_vsn_url(const char *vsn_url,
                                          apr_pool_t *pool)
 {
   /* store the version URL as a property */
-  SVN_ERR_W( (*setter)(baton, SVN_RA_DAV__LP_VSN_URL,
+  SVN_ERR_W( (*setter)(baton, SVN_RA_DAV__LP_VSN_URL, 
                        svn_string_create(vsn_url, pool), pool),
              "could not save the URL of the version resource" );
 
@@ -258,7 +258,7 @@ static svn_error_t *set_special_wc_prop (const char *key,
                                          prop_setter_t setter,
                                          void *baton,
                                          apr_pool_t *pool)
-{
+{  
   const char *name = NULL;
 
   if (strcmp(key, SVN_RA_DAV__PROP_VERSION_NAME) == 0)
@@ -313,8 +313,8 @@ static void add_props(apr_hash_t *props,
           /* This property is an 'svn:' prop, recognized by client, or
              server, or both.  Convert the URI namespace into normal
              'svn:' prefix again before pushing it at the wc. */
-          (*setter)(baton,
-                    apr_pstrcat(pool, SVN_PROP_PREFIX, key + NSLEN, NULL),
+          (*setter)(baton, 
+                    apr_pstrcat(pool, SVN_PROP_PREFIX, key + NSLEN, NULL), 
                     val, pool);
         }
 #undef NSLEN
@@ -331,7 +331,7 @@ static void add_props(apr_hash_t *props,
         }
     }
 }
-
+                      
 
 static svn_error_t *custom_get_request(ne_session *sess,
                                        const char *url,
@@ -439,7 +439,7 @@ static svn_error_t *custom_get_request(ne_session *sess,
          svn_error_clear (err);
        err = svn_ra_dav__convert_error(sess, msg, decompress_rv);
     }
-
+  
   if (err)
     return err;
 
@@ -453,7 +453,7 @@ static void fetch_file_reader(void *userdata, const char *buf, size_t len)
 
   if (cgc->err)
     {
-      /* We must have gotten an error during the last read...
+      /* We must have gotten an error during the last read... 
 
          ### what we'd *really* like to do here (or actually, at the
          bottom of this function) is to somehow abort the read
@@ -474,7 +474,7 @@ static void fetch_file_reader(void *userdata, const char *buf, size_t len)
 
       if (cgc->ctype.type
           && cgc->ctype.subtype
-          && !strcmp(cgc->ctype.type, "application")
+          && !strcmp(cgc->ctype.type, "application") 
           && !strcmp(cgc->ctype.subtype, "vnd.svn-svndiff"))
         {
           /* we are receiving an svndiff. set things up. */
@@ -586,7 +586,7 @@ static void get_file_reader(void *userdata, const char *buf, size_t len)
   apr_size_t wlen;
 
   /* The stream we want to push data at. */
-  file_write_ctx_t *fwc = cgc->subctx;
+  file_write_ctx_t *fwc = cgc->subctx; 
   svn_stream_t *stream = fwc->stream;
 
   if (fwc->do_checksum)
@@ -603,17 +603,17 @@ static void get_file_reader(void *userdata, const char *buf, size_t len)
   if (wlen != len)
     {
       /* Uh oh, didn't write as many bytes as neon gave us. */
-      return
+      return 
         svn_error_create(SVN_ERR_STREAM_UNEXPECTED_EOF, NULL,
                          "Error writing to svn_stream.");
     }
 #endif
-
+      
 }
 
 
 /* minor helper for svn_ra_dav__get_file, of type prop_setter_t */
-static svn_error_t *
+static svn_error_t * 
 add_prop_to_hash (void *baton,
                   const char *name,
                   const svn_string_t *value,
@@ -629,7 +629,7 @@ add_prop_to_hash (void *baton,
    svn_ra_dav__rev_proplist().
 
    Loop over the properties in RSRC->propset, examining namespaces and
-   such to filter Subversion, custom, etc. properties.
+   such to filter Subversion, custom, etc. properties.  
 
    User-visible props get added to the PROPS hash (alloced in POOL).
 
@@ -644,7 +644,7 @@ filter_props (apr_hash_t *props,
 {
   apr_hash_index_t *hi;
 
-  for (hi = apr_hash_first(pool, rsrc->propset); hi; hi = apr_hash_next(hi))
+  for (hi = apr_hash_first(pool, rsrc->propset); hi; hi = apr_hash_next(hi)) 
     {
       const void *key;
       const char *name;
@@ -672,9 +672,9 @@ filter_props (apr_hash_t *props,
 #define NSLEN (sizeof(SVN_DAV_PROP_NS_SVN) - 1)
       if (strncmp(name, SVN_DAV_PROP_NS_SVN, NSLEN) == 0)
         {
-          apr_hash_set(props,
+          apr_hash_set(props, 
                        apr_pstrcat(pool, SVN_PROP_PREFIX, name + NSLEN, NULL),
-                       APR_HASH_KEY_STRING,
+                       APR_HASH_KEY_STRING, 
                        value);
           continue;
         }
@@ -691,7 +691,7 @@ filter_props (apr_hash_t *props,
              recognize the DAV: name & add it to the hash mapped to a
              new name recognized by libsvn_wc. */
           if (add_entry_props)
-            SVN_ERR(set_special_wc_prop (name, value, add_prop_to_hash,
+            SVN_ERR(set_special_wc_prop (name, value, add_prop_to_hash, 
                                          props, pool));
         }
     }
@@ -799,9 +799,9 @@ svn_error_t *svn_ra_dav__get_file(void *session_baton,
 
   if (props)
     {
-      SVN_ERR( svn_ra_dav__get_props_resource(&rsrc, ras->sess, final_url,
-                                              NULL, NULL /* all props */,
-                                              pool) );
+      SVN_ERR( svn_ra_dav__get_props_resource(&rsrc, ras->sess, final_url, 
+                                              NULL, NULL /* all props */, 
+                                              pool) ); 
       *props = apr_hash_make(pool);
       SVN_ERR (filter_props (*props, rsrc, TRUE, pool));
     }
@@ -858,14 +858,14 @@ svn_error_t *svn_ra_dav__get_dir(void *session_baton,
       SVN_ERR( svn_ra_dav__get_props(&resources, ras->sess,
                                      final_url, NE_DEPTH_ONE,
                                      NULL, NULL /* all props */, pool) );
-
+      
       /* Clean up any trailing slashes on final_url, creating
          stripped_final_url */
       stripped_final_url = apr_pstrdup(pool, final_url);
       len = strlen(final_url);
       if (len > 1 && final_url[len - 1] == '/')
         stripped_final_url[len - 1] = '\0';
-
+      
       /* Now we have a hash that maps a bunch of url children to resource
          objects.  Each resource object contains the properties of the
          child.   Parse these resources into svn_dirent_t structs. */
@@ -881,20 +881,20 @@ svn_error_t *svn_ra_dav__get_dir(void *session_baton,
           const svn_string_t *propval;
           apr_hash_index_t *h;
           svn_dirent_t *entry;
-
+          
           apr_hash_this (hi, &key, NULL, &val);
           childname =  key;
           resource = val;
-
+          
           /* Skip the effective '.' entry that comes back from NE_DEPTH_ONE */
           if (strcmp(resource->url, stripped_final_url) == 0)
             continue;
-
+          
           entry = apr_pcalloc (pool, sizeof(*entry));
-
+          
           /* node kind */
           entry->kind = resource->is_collection ? svn_node_dir : svn_node_file;
-
+          
           /* size */
           propval = apr_hash_get(resource->propset,
                                  SVN_RA_DAV__PROP_GETCONTENTLENGTH,
@@ -903,7 +903,7 @@ svn_error_t *svn_ra_dav__get_dir(void *session_baton,
             entry->size = 0;
           else
             entry->size = apr_atoui64(propval->data);
-
+          
           /* does this resource contain any 'svn' or 'custom' properties,
              i.e.  ones actually created and set by the user? */
           for (h = apr_hash_first (pool, resource->propset);
@@ -912,48 +912,48 @@ svn_error_t *svn_ra_dav__get_dir(void *session_baton,
               const void *kkey;
               void *vval;
               apr_hash_this (h, &kkey, NULL, &vval);
-
+              
               if (strncmp((const char *)kkey, SVN_DAV_PROP_NS_CUSTOM,
                           sizeof(SVN_DAV_PROP_NS_CUSTOM)) == 0)
                 entry->has_props = TRUE;
-
+              
               else if (strncmp((const char *)kkey, SVN_DAV_PROP_NS_SVN,
                                sizeof(SVN_DAV_PROP_NS_SVN)) == 0)
                 entry->has_props = TRUE;
             }
-
+          
           /* created_rev & friends */
           propval = apr_hash_get(resource->propset,
                                  SVN_RA_DAV__PROP_VERSION_NAME,
                                  APR_HASH_KEY_STRING);
           if (propval != NULL)
             entry->created_rev = SVN_STR_TO_REV(propval->data);
-
+          
           propval = apr_hash_get(resource->propset,
                                  SVN_RA_DAV__PROP_CREATIONDATE,
                                  APR_HASH_KEY_STRING);
           if (propval != NULL)
             SVN_ERR( svn_time_from_cstring(&(entry->time),
                                            propval->data, pool) );
-
+          
           propval = apr_hash_get(resource->propset,
                                  SVN_RA_DAV__PROP_CREATOR_DISPLAYNAME,
                                  APR_HASH_KEY_STRING);
           if (propval != NULL)
             entry->last_author = propval->data;
-
-          apr_hash_set(*dirents,
+          
+          apr_hash_set(*dirents, 
                        svn_path_uri_decode(svn_path_basename(childname, pool),
                                            pool),
                        APR_HASH_KEY_STRING, entry);
         }
     }
 
-  if (props)
+  if (props)                    
     {
-      SVN_ERR( svn_ra_dav__get_props_resource(&rsrc, ras->sess, final_url,
-                                              NULL, NULL /* all props */,
-                                              pool) );
+      SVN_ERR( svn_ra_dav__get_props_resource(&rsrc, ras->sess, final_url, 
+                                              NULL, NULL /* all props */, 
+                                              pool) ); 
 
       *props = apr_hash_make(pool);
       SVN_ERR (filter_props (*props, rsrc, TRUE, pool));
@@ -1098,7 +1098,7 @@ svn_error_t *svn_ra_dav__change_rev_prop (void *session_baton,
       { NULL }
     };
 
-  /* Main objective: do a PROPPATCH (allprops) on a baseline object */
+  /* Main objective: do a PROPPATCH (allprops) on a baseline object */  
 
   /* ### A Word From Our Sponsor:  see issue #916.
 
@@ -1116,7 +1116,7 @@ svn_error_t *svn_ra_dav__change_rev_prop (void *session_baton,
 
   /* Get the baseline resource. */
   SVN_ERR (svn_ra_dav__get_baseline_props(NULL, &baseline,
-                                          ras->sess,
+                                          ras->sess, 
                                           ras->url,
                                           rev,
                                           wanted_props, /* DAV:auto-version */
@@ -1153,9 +1153,9 @@ svn_error_t *svn_ra_dav__rev_proplist (void *session_baton,
 
   *props = apr_hash_make (pool);
 
-  /* Main objective: do a PROPFIND (allprops) on a baseline object */
+  /* Main objective: do a PROPFIND (allprops) on a baseline object */  
   SVN_ERR (svn_ra_dav__get_baseline_props(NULL, &baseline,
-                                          ras->sess,
+                                          ras->sess, 
                                           ras->url,
                                           rev,
                                           NULL, /* get ALL properties */
@@ -1191,9 +1191,9 @@ svn_error_t *svn_ra_dav__rev_prop (void *session_baton,
   /* Decide on the namespace and propname for XML marshalling. */
   make_ne_propname(&(wanted_props[0]), name);
 
-  /* Main objective: do a PROPFIND (allprops) on a baseline object */
+  /* Main objective: do a PROPFIND (allprops) on a baseline object */  
   SVN_ERR (svn_ra_dav__get_baseline_props(NULL, &baseline,
-                                          ras->sess,
+                                          ras->sess, 
                                           ras->url,
                                           rev,
                                           wanted_props,
@@ -1341,8 +1341,8 @@ static const char *get_attr(const char **atts, const char *which)
   return NULL;
 }
 
-static void push_dir(report_baton_t *rb,
-                     void *baton,
+static void push_dir(report_baton_t *rb, 
+                     void *baton, 
                      svn_stringbuf_t *pathbuf,
                      apr_pool_t *pool)
 {
@@ -1428,7 +1428,7 @@ static int start_element(void *userdata, const struct ne_xml_elm *elm,
 
           CHKERR( (*rb->editor->open_directory)(pathbuf->data,
                                                 parent_dir->baton, base,
-                                                subpool,
+                                                subpool, 
                                                 &new_dir_baton) );
 
           /* push the new baton onto the directory baton stack */
@@ -1462,7 +1462,7 @@ static int start_element(void *userdata, const struct ne_xml_elm *elm,
       svn_path_add_component(pathbuf, rb->namestr->data);
 
       CHKERR( (*rb->editor->add_directory)(pathbuf->data, parent_dir->baton,
-                                           cpath ? cpath->data : NULL,
+                                           cpath ? cpath->data : NULL, 
                                            crev, subpool,
                                            &new_dir_baton) );
 
@@ -1485,7 +1485,7 @@ static int start_element(void *userdata, const struct ne_xml_elm *elm,
                                         NE_DEPTH_ONE,
                                         NULL, NULL /* allprops */,
                                         TOP_DIR(rb).pool) );
-
+          
           /* re-index the results into a more usable hash.
              bc_children maps bc-url->resource_t, but we want the
              dir_item_t's hash to map vc-url->resource_t. */
@@ -1511,9 +1511,9 @@ static int start_element(void *userdata, const struct ne_xml_elm *elm,
                   if (vc_url)
                     apr_hash_set (TOP_DIR(rb).children,
                                   vc_url->data, vc_url->len,
-                                  rsrc->propset);
+                                  rsrc->propset);                  
                 }
-            }
+            }        
         }
 
       break;
@@ -1535,7 +1535,7 @@ static int start_element(void *userdata, const struct ne_xml_elm *elm,
          removed in end_element() */
       svn_path_add_component(parent_dir->pathbuf, rb->namestr->data);
 
-      CHKERR( (*rb->editor->open_file)(parent_dir->pathbuf->data,
+      CHKERR( (*rb->editor->open_file)(parent_dir->pathbuf->data, 
                                        parent_dir->baton, base,
                                        rb->file_pool,
                                        &rb->file_baton) );
@@ -1571,7 +1571,7 @@ static int start_element(void *userdata, const struct ne_xml_elm *elm,
 
       CHKERR( (*rb->editor->add_file)(parent_dir->pathbuf->data,
                                       parent_dir->baton,
-                                      cpath ? cpath->data : NULL,
+                                      cpath ? cpath->data : NULL, 
                                       crev, rb->file_pool,
                                       &rb->file_baton) );
 
@@ -1587,13 +1587,13 @@ static int start_element(void *userdata, const struct ne_xml_elm *elm,
 
       /* Removing a prop.  */
       if (rb->file_baton == NULL)
-        rb->editor->change_dir_prop(TOP_DIR(rb).baton, rb->namestr->data,
+        rb->editor->change_dir_prop(TOP_DIR(rb).baton, rb->namestr->data, 
                                     NULL, TOP_DIR(rb).pool);
       else
-        rb->editor->change_file_prop(rb->file_baton, rb->namestr->data,
+        rb->editor->change_file_prop(rb->file_baton, rb->namestr->data, 
                                      NULL, rb->file_pool);
       break;
-
+      
     case ELEM_fetch_props:
       if (!rb->fetch_content)
         {
@@ -1604,10 +1604,10 @@ static int start_element(void *userdata, const struct ne_xml_elm *elm,
           svn_stringbuf_set(rb->namestr, SVN_PROP_PREFIX "BOGOSITY");
 
           if (rb->file_baton == NULL)
-            rb->editor->change_dir_prop(TOP_DIR(rb).baton, rb->namestr->data,
+            rb->editor->change_dir_prop(TOP_DIR(rb).baton, rb->namestr->data, 
                                         NULL, TOP_DIR(rb).pool);
           else
-            rb->editor->change_file_prop(rb->file_baton, rb->namestr->data,
+            rb->editor->change_file_prop(rb->file_baton, rb->namestr->data, 
                                          NULL, rb->file_pool);
         }
       else
@@ -1625,7 +1625,7 @@ static int start_element(void *userdata, const struct ne_xml_elm *elm,
       rb->result_checksum = NULL;
 
       /* assert: rb->href->len > 0 */
-      CHKERR( simple_fetch_file(rb->ras->sess2,
+      CHKERR( simple_fetch_file(rb->ras->sess2, 
                                 rb->href->data,
                                 TOP_DIR(rb).pathbuf->data,
                                 rb->fetch_content,
@@ -1679,7 +1679,7 @@ add_node_props (report_baton_t *rb, apr_pool_t *pool)
 
       /* Check to see if your parent directory already has your props
          stored, possibly from a depth-1 propfind.   Otherwise just do
-         a propfind directly on the file url. */
+         a propfind directly on the file url. */     
       if ( ! ((TOP_DIR(rb).children)
               && (props = apr_hash_get(TOP_DIR(rb).children, rb->href->data,
                                        APR_HASH_KEY_STRING))) )
@@ -1693,8 +1693,8 @@ add_node_props (report_baton_t *rb, apr_pool_t *pool)
           props = rsrc->propset;
         }
 
-      add_props(props,
-                rb->editor->change_file_prop,
+      add_props(props, 
+                rb->editor->change_file_prop, 
                 rb->file_baton,
                 pool);
     }
@@ -1705,7 +1705,7 @@ add_node_props (report_baton_t *rb, apr_pool_t *pool)
 
       /* Check to see if your props are already stored, possibly from
          a depth-1 propfind.  Otherwise just do a propfind directly on
-         the directory url. */
+         the directory url. */     
       if ( ! ((TOP_DIR(rb).children)
               && (props = apr_hash_get(TOP_DIR(rb).children,
                                        TOP_DIR(rb).vsn_url,
@@ -1720,17 +1720,17 @@ add_node_props (report_baton_t *rb, apr_pool_t *pool)
           props = rsrc->propset;
         }
 
-      add_props(props,
-                rb->editor->change_dir_prop,
-                TOP_DIR(rb).baton,
+      add_props(props, 
+                rb->editor->change_dir_prop, 
+                TOP_DIR(rb).baton, 
                 pool);
     }
-
+    
   return SVN_NO_ERROR;
 }
 
 /* This implements the `ne_xml_endelm_cb' prototype. */
-static int end_element(void *userdata,
+static int end_element(void *userdata, 
                        const struct ne_xml_elm *elm,
                        const char *cdata)
 {
@@ -1760,7 +1760,7 @@ static int end_element(void *userdata,
       /* Close the directory on top of the stack, and pop it.  Also,
          destroy the subpool used exclusive by this directory and its
          children.  */
-      CHKERR( (*rb->editor->close_directory)(TOP_DIR(rb).baton,
+      CHKERR( (*rb->editor->close_directory)(TOP_DIR(rb).baton, 
                                              TOP_DIR(rb).pool) );
       svn_pool_destroy(TOP_DIR(rb).pool);
       apr_array_pop(rb->dirs);
@@ -1820,7 +1820,7 @@ static int end_element(void *userdata,
 
       /* record the href that we just found */
       svn_ra_dav__copy_href(rb->href, cdata);
-
+      
       /* if we're within a <resource> tag, then just call the generic
          RA set_wcprop_callback directly;  no need to use the
          update-editor.  */
@@ -1848,7 +1848,7 @@ static int end_element(void *userdata,
               CHKERR( simple_store_vsn_url(rb->href->data, TOP_DIR(rb).baton,
                                            rb->editor->change_dir_prop,
                                            TOP_DIR(rb).pool) );
-
+              
               /* save away the URL in case a fetch-props arrives after all of
                  the subdir processing. we will need this copy of the URL to
                  fetch the properties (i.e. rb->href will be toast by then). */
@@ -1876,7 +1876,7 @@ static int end_element(void *userdata,
     case ELEM_creator_displayname:
       {
         /* The name of the xml tag is the property that we want to set. */
-        apr_pool_t *pool =
+        apr_pool_t *pool = 
           rb->file_baton ? rb->file_pool : TOP_DIR(rb).pool;
         prop_setter_t setter =
           rb->file_baton ? editor->change_file_prop : editor->change_dir_prop;
@@ -1889,7 +1889,7 @@ static int end_element(void *userdata,
         CHKERR( set_special_wc_prop(name, &valstr, setter, baton, pool) );
       }
       break;
-
+  
     default:
       break;
     }
@@ -1956,8 +1956,8 @@ static svn_error_t * reporter_link_path(void *report_baton,
                                          rb->ras->sess,
                                          url, revision,
                                          pool));
-
-
+  
+  
   svn_xml_escape_cdata_cstring (&qpath, path, pool);
   svn_xml_escape_attr_cstring (&qlinkpath, bc_relative.data, pool);
   if (start_empty)
@@ -1971,7 +1971,7 @@ static svn_error_t * reporter_link_path(void *report_baton,
                          "<S:entry rev=\"%" SVN_REVNUM_T_FMT
                          "\" linkpath=\"/%s\">%s</S:entry>" DEBUG_CR,
                          revision, qlinkpath->data, qpath->data);
-
+    
   status = apr_file_write_full(rb->tmpfile, entry, strlen(entry), NULL);
   if (status)
     {
@@ -2093,7 +2093,7 @@ static svn_error_t * reporter_finish_report(void *report_baton)
      hasn't been. */
   if (rb->edit_baton)
     {
-      return svn_error_createf
+      return svn_error_createf 
         (SVN_ERR_RA_DAV_REQUEST_FAILED, NULL,
          "REPORT response handling failed to complete the editor drive");
     }
@@ -2189,7 +2189,7 @@ make_reporter (void *session_baton,
      element in that case. */
   if (SVN_IS_VALID_REVNUM(revision))
     {
-      s = apr_psprintf(pool,
+      s = apr_psprintf(pool, 
                        "<S:target-revision>%" SVN_REVNUM_T_FMT
                        "</S:target-revision>", revision);
       status = apr_file_write_full(rb->tmpfile, s, strlen(s), NULL);
@@ -2203,7 +2203,7 @@ make_reporter (void *session_baton,
   /* A NULL target is no problem.  */
   if (target)
     {
-      s = apr_psprintf(pool,
+      s = apr_psprintf(pool, 
                        "<S:update-target>%s</S:update-target>",
                        target);
       status = apr_file_write_full(rb->tmpfile, s, strlen(s), NULL);
@@ -2278,7 +2278,7 @@ make_reporter (void *session_baton,
  error:
   (void) apr_file_close(rb->tmpfile);
   return svn_error_create(status, NULL, msg);
-}
+}                      
 
 
 svn_error_t * svn_ra_dav__do_update(void *session_baton,

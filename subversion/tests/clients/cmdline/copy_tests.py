@@ -2,9 +2,9 @@
 #
 #  copy_tests.py:  testing the many uses of 'svn cp' and 'svn mv'
 #
-#  Subversion is a tool for revision control.
+#  Subversion is a tool for revision control. 
 #  See http://subversion.tigris.org for more information.
-#
+#    
 # ====================================================================
 # Copyright (c) 2000-2003 CollabNet.  All rights reserved.
 #
@@ -46,7 +46,7 @@ Item = svntest.wc.StateItem
 #
 #        This duplicates a path in the working copy, and schedules it
 #        for addition with history.  (This is partially implemented in
-#        0.6 already.)
+#        0.6 already.)  
 #
 #     B. svn cp URL [-r rev]  wc_path
 #
@@ -161,7 +161,7 @@ def basic_copy_and_move_files(sbox):
 
   # Create expected status tree; all local revisions should be at 1,
   # but several files should be at revision 2.  Also, two files should
-  # be missing.
+  # be missing.  
   expected_status = svntest.actions.get_virginal_state(wc_dir, 2)
   expected_status.tweak(wc_rev=1)
   expected_status.tweak('A/D/G/rho', 'A/mu', wc_rev=2)
@@ -210,19 +210,19 @@ def mv_unversioned_file(sbox):
   # Subject:  svn mv segfault
   # To: dev@subversion.tigris.org
   # Date: Tue, 29 Jan 2002 15:40:00 -0500
-  #
+  # 
   # Here's a new one.  And this one's reliable :).
-  #
+  # 
   # I tried performing the following operation:
-  #
+  # 
   #    $ svn mv src/config.h.in .
-  #
+  # 
   # But src/config.h.in wasn't in the repository.  This should have
   # generated an error, right around line 141 in libsvn_wc/copy.c.  But
   # instead it's segfaulting.
-  #
+  # 
   # This is in copy_file_administratively(), in the following section:
-  #
+  # 
   #    SVN_ERR (svn_wc_entry (&src_entry, src_path, pool));
   #    if ((src_entry->schedule == svn_wc_schedule_add)
   #        || (! src_entry->url))
@@ -232,27 +232,27 @@ def mv_unversioned_file(sbox):
   # repository yet.\n"
   #         "Try committing first.",
   #         src_path->data);
-  #
+  # 
   # The first thing svn_wc_entry() does is set src_entry to NULL, so upon
   # our return from svn_wc_entry(), when we try to look at
   # src_entry->schedule, we're attempting to dereference a NULL pointer.
   # Ouch!
-  #
+  # 
   # It looks like the real failure may be in svn_wc_entry(), here:
-  #
+  # 
   #        /* ### it would be nice to avoid reading all of these. or maybe read
   #           ### them into a subpool and copy the one that we need up to the
   #           ### specified pool. */
   #        SVN_ERR (svn_wc_entries_read (&entries, dir, pool));
-  #
+  # 
   #        *entry = apr_hash_get (entries, basename->data, basename->len);
-  #
+  # 
   # Since the file isn't under revision control, that hash lookup is
   # probably going to fail, so src_entry never gets set to anything but
   # NULL.
-  #
+  # 
   # Cheers,
-  #
+  # 
   # -- Lars
 
   sbox.build()
@@ -299,7 +299,7 @@ def receive_copy_in_update(sbox):
   b_newGrho_path = os.path.join(wc_backup, 'A', 'B', 'newG', 'rho')
   b_newGtau_path = os.path.join(wc_backup, 'A', 'B', 'newG', 'tau')
 
-  # Copy directory A/D to A/B/newG
+  # Copy directory A/D to A/B/newG  
   svntest.actions.run_and_verify_svn(None, None, [], 'cp', G_path, newG_path)
 
   # Created expected output tree for 'svn ci':
@@ -393,7 +393,7 @@ def resurrect_deleted_dir(sbox):
   expected_status.remove('A/D/G/pi')
   expected_status.remove('A/D/G/rho')
   expected_status.remove('A/D/G/tau')
-
+  
   svntest.actions.run_and_verify_commit (wc_dir,
                                          expected_output,
                                          expected_status,
@@ -403,7 +403,7 @@ def resurrect_deleted_dir(sbox):
                                          wc_dir)
 
   # Use 'svn cp -r 1 URL URL' to resurrect the deleted directory, where
-  # the two URLs are identical.  This used to trigger a failure.
+  # the two URLs are identical.  This used to trigger a failure.  
   url = svntest.main.test_area_url + '/' \
         + svntest.main.current_repo_dir + '/A/D/G'
   svntest.actions.run_and_verify_svn(None, None, [], 'cp',
@@ -425,7 +425,7 @@ def resurrect_deleted_dir(sbox):
   expected_disk = svntest.main.greek_state.copy()
 
   expected_status = svntest.actions.get_virginal_state(wc_dir, 3)
-
+  
   svntest.actions.run_and_verify_update(wc_dir,
                                         expected_output,
                                         expected_disk,
@@ -453,7 +453,7 @@ def no_copy_overwrites(sbox):
   dirURL1  =  svntest.main.current_repo_url + "/A/D/G"
   dirURL2  =  svntest.main.current_repo_url + "/A/D/H"
 
-  # Expect out-of-date failure if 'svn cp URL URL' tries to overwrite a file
+  # Expect out-of-date failure if 'svn cp URL URL' tries to overwrite a file  
   outlines, errlines = svntest.main.run_svn(1,
                                             'cp', fileURL1, fileURL2,
                                             '--username',
@@ -559,7 +559,7 @@ def copy_modify_commit(sbox):
   svntest.actions.run_and_verify_svn(None, None, [], 'cp',
                                      wc_dir + '/A/B', wc_dir + '/A/B2',
                                      '-m', 'fooogle')
-
+  
   alpha_path = os.path.join(wc_dir, 'A', 'B2', 'E', 'alpha')
   svntest.main.file_append(alpha_path, "modified alpha")
 
@@ -668,7 +668,7 @@ def copy_delete_commit(sbox):
   svntest.actions.run_and_verify_svn(None, None, [], 'cp',
                                      wc_dir + '/A/B', wc_dir + '/A/B2',
                                      '-m', 'fooogle')
-
+  
   # delete a file
   alpha_path = os.path.join(wc_dir, 'A', 'B2', 'E', 'alpha')
   svntest.actions.run_and_verify_svn(None, None, [], 'rm', alpha_path)
@@ -690,7 +690,7 @@ def copy_delete_commit(sbox):
   svntest.actions.run_and_verify_svn(None, None, [], 'cp',
                                      wc_dir + '/A/B', wc_dir + '/A/B3',
                                      '-m', 'fooogle')
-
+  
   # delete a directory
   E_path = os.path.join(wc_dir, 'A', 'B3', 'E')
   svntest.actions.run_and_verify_svn(None, None, [], 'rm', E_path)
@@ -757,7 +757,7 @@ def copy_preserve_executable_bit(sbox):
   svntest.actions.run_and_verify_svn(None, None, [], 'add', newpath1)
 
   mode1 = os.stat(newpath1)[stat.ST_MODE]
-
+  
   # Doing this to get the executable bit set on systems that support
   # that -- the property itself is not the point.
   svntest.actions.run_and_verify_svn(None, None, [], 'propset',
@@ -888,7 +888,7 @@ def repos_to_wc(sbox):
     'E/beta'  :  Item(status='  ', copied='+', wc_rev='-', repos_rev=1),
     })
   svntest.actions.run_and_verify_status (wc_dir, expected_output)
-
+  
   # Revert everything and verify.
   svntest.actions.run_and_verify_svn(None, None, [], 'revert', '-R', wc_dir)
 
@@ -905,7 +905,7 @@ def repos_to_wc(sbox):
   pi_url = other_repo_url + "/A/D/G/pi"
 
   # Expect an error in the directory case
-  output, errput = svntest.main.run_svn(1, 'copy', E_url, wc_dir)
+  output, errput = svntest.main.run_svn(1, 'copy', E_url, wc_dir)  
   if not errput:
     raise svntest.Failure
 
