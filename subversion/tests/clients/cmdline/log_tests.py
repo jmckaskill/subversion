@@ -2,9 +2,9 @@
 #
 #  log_tests.py:  testing "svn log"
 #
-#  Subversion is a tool for revision control.
+#  Subversion is a tool for revision control. 
 #  See http://subversion.tigris.org for more information.
-#
+#    
 # ====================================================================
 # Copyright (c) 2000-2003 CollabNet.  All rights reserved.
 #
@@ -117,7 +117,7 @@ def guarantee_repos_and_wc(sbox):
   svntest.main.run_svn (None, 'up')
 
   # Revision 6: prop change on A/B, edit A/D/H/psi
-  svntest.main.run_svn (None, 'ps', 'blue', 'azul', B_path)
+  svntest.main.run_svn (None, 'ps', 'blue', 'azul', B_path)  
   svntest.main.file_append (psi_path, "6")
   svntest.main.run_svn (None, 'ci', '-m', "Log message for revision 6")
   svntest.main.run_svn (None, 'up')
@@ -192,26 +192,26 @@ def parse_log_output(log_lines):
      """
 
   # Here's some log output to look at while writing this function:
-
+  
   # ------------------------------------------------------------------------
   # rev 5:  kfogel | Tue 6 Nov 2001 17:18:19 | 1 line
-  #
+  # 
   # Log message for revision 5.
   # ------------------------------------------------------------------------
   # rev 4:  kfogel | Tue 6 Nov 2001 17:18:18 | 1 line
-  #
+  # 
   # Log message for revision 4.
   # ------------------------------------------------------------------------
   # rev 3:  kfogel | Tue 6 Nov 2001 17:18:17 | 1 line
-  #
+  # 
   # Log message for revision 3.
   # ------------------------------------------------------------------------
   # rev 2:  kfogel | Tue 6 Nov 2001 17:18:16 | 1 line
-  #
+  # 
   # Log message for revision 2.
   # ------------------------------------------------------------------------
   # rev 1:  foo | Tue 6 Nov 2001 15:27:57 | 1 line
-  #
+  # 
   # Log message for revision 1.
   # ------------------------------------------------------------------------
 
@@ -324,7 +324,7 @@ def plain_log(sbox):
     log_chain = parse_log_output (output)
     if check_log_chain (log_chain, range(max_revision, 1 - 1, -1)):
       raise svntest.Failure
-
+    
   finally:
     os.chdir (was_cwd)
 
@@ -342,9 +342,9 @@ def versioned_log_message(sbox):
     iota_path = os.path.join ('iota')
     mu_path = os.path.join ('A', 'mu')
     log_path = os.path.join ('A', 'D', 'H', 'omega')
-
+    
     svntest.main.file_append (iota_path, "2")
-
+    
     # try to check in a change using a versioned file as your log entry.
     svntest.actions.run_and_verify_svn("", None, SVNAnyOutput,
                                        'ci', '-F', log_path)
@@ -416,7 +416,7 @@ def log_to_revision_zero(sbox):
   sbox.build()
 
   # This used to segfault the server.
-
+  
   svntest.actions.run_and_verify_svn(None, None, [],
                                      'log', '-v',
                                      '-r', '1:0', sbox.wc_dir)
@@ -449,7 +449,7 @@ def url_missing_in_head(sbox):
   guarantee_repos_and_wc(sbox)
 
   my_url = svntest.main.current_repo_url + "/A/B/E/alpha"
-
+  
   svntest.actions.run_and_verify_svn(None, None, [],
                                      'log', '-r', '8', my_url)
 
@@ -516,7 +516,7 @@ def log_through_copyfrom_history(sbox):
                                       'log', '-r', '2', mu2_path)
   svntest.actions.run_and_verify_svn (None, [], SVNAnyOutput,
                                       'log', '-r', '2', mu2_URL)
-
+  
 ########################################################################
 # Run the tests
 
