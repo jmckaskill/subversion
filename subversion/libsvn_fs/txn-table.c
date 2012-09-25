@@ -167,7 +167,7 @@ allocate_txn_id (char **id_p,
     SVN_ERR (DB_WRAP (fs, "allocating new transaction ID (setting `next-id')",
                       fs->transactions->put (fs->transactions, trail->db_txn,
                                              &key,
-                                             svn_fs__set_dbt (&value,
+                                             svn_fs__set_dbt (&value, 
                                                               buf, buf_len),
                                              0)));
   }
@@ -189,7 +189,7 @@ svn_fs__create_txn (char **txn_id_p,
   SVN_ERR (put_txn (fs, svn_txn, root_id, root_id,
                     svn_fs__make_empty_list (trail->pool), trail));
 
-  *txn_id_p = svn_txn;
+  *txn_id_p = svn_txn; 
   return SVN_NO_ERROR;
 }
 
@@ -309,7 +309,7 @@ svn_fs__set_txn_root (svn_fs_t *fs,
   SVN_ERR (get_ids_from_txn_skel (&old_root_id, &base_root_id,
                                   txn_skel, trail->pool));
   if (! svn_fs_id_eq (old_root_id, root_id))
-    SVN_ERR (put_txn (fs, svn_txn, root_id, base_root_id,
+    SVN_ERR (put_txn (fs, svn_txn, root_id, base_root_id, 
                       get_proplist_from_txn_skel (txn_skel), trail));
 
   return SVN_NO_ERROR;
@@ -329,7 +329,7 @@ svn_fs__set_txn_base (svn_fs_t *fs,
   SVN_ERR (get_ids_from_txn_skel (&root_id, &base_root_id,
                                   txn_skel, trail->pool));
   if (! svn_fs_id_eq (base_root_id, new_id))
-    SVN_ERR (put_txn (fs, svn_txn, root_id, new_id,
+    SVN_ERR (put_txn (fs, svn_txn, root_id, new_id, 
                       get_proplist_from_txn_skel (txn_skel), trail));
 
   return SVN_NO_ERROR;
@@ -428,7 +428,7 @@ txn_body_txn_prop (void *baton,
 
   skel_t *skel;
   skel_t *proplist;
-
+  
   SVN_ERR (svn_fs__get_txn (&skel, args->fs, args->id, trail));
   proplist = get_proplist_from_txn_skel (skel);
 
@@ -532,7 +532,7 @@ txn_body_change_txn_prop (void *baton, trail_t *trail)
 
   /* Call the generic property setting function. */
   SVN_ERR (svn_fs__set_prop (proplist, args->name, args->value, trail->pool));
-  SVN_ERR (put_txn (args->fs, args->id, root_id, base_root_id,
+  SVN_ERR (put_txn (args->fs, args->id, root_id, base_root_id, 
                     proplist, trail));
 
   return SVN_NO_ERROR;
@@ -560,7 +560,7 @@ svn_fs_change_txn_prop (svn_fs_txn_t *txn,
 }
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:

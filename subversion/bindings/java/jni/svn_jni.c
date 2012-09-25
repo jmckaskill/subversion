@@ -74,24 +74,24 @@ svn_jni__throw_exception_by_name(JNIENV *env,
 
   return;
 }
-
+   
 /*
  * utility function to convert a java string
  * to a native string in the current locale
- */
+ */   
 static svn_string_t *
-svn_jni__jstring_to_native_string(JNIEnv *env,
-				  jstring jstr,
+svn_jni__jstring_to_native_string(JNIEnv *env, 
+				  jstring jstr, 
 				  jboolean *hasException,
 				  apr_pool_t *pool)
 {
   svn_string_t *result = NULL;
   jboolean _hasException = JNI_FALSE;
-
-  /* make sure there is enough memory left for
+  
+  /* make sure there is enough memory left for 
    * the operation, also push the stack frame
    * we will need 2 local references:
-   * -
+   * - 
    */
   if( (*env)->PushLocalFrame(env, 2) >= 0)
     {
@@ -107,18 +107,18 @@ svn_jni__jstring_to_native_string(JNIEnv *env,
 	  jint len = (*env)->GetArrayLength(env, bytes);
 	  buffer = (char *)malloc(len + 1);
 
-	  /* did the memory allocation succeed?
+	  /* did the memory allocation succeed? 
 	   * otherwise throw an exception */
 	  if( buffer == NULL )
 	    {
-	      svn_jni__throw_exception_by_name(env,
-					       "java/lang/OutOfMemoryError",
+	      svn_jni__throw_exception_by_name(env, 
+					       "java/lang/OutOfMemoryError", 
 					       NULL);
 	      _hasException = JNI_TRUE;
 	    }
 	  else
 	    {
-	      (*env)GetByteArrayRegion(env, bytes, 0, len,
+	      (*env)GetByteArrayRegion(env, bytes, 0, len, 
 				       (jbyte *)buffer);
 	      buffer[len] = 0;
 
@@ -147,7 +147,7 @@ svn_jni__jstring_to_native_string(JNIEnv *env,
 
 /*
  * utility function to create a java hashtable
- *
+ * 
  * remark: return hashtable is created as local reference
  */
 static jobject
@@ -155,9 +155,9 @@ svn_jni__create_hashtable(JNIEnv *env, jboolean *hasException)
 {
   jobject hashtable = NULL;
   jboolean _hasException = JNI_FALSE;
-
+  
   /* is there enough memory to have twoadditional
-   * local references?
+   * local references? 
    * - class reference
    * - constructor method id
    */
@@ -166,14 +166,14 @@ svn_jni__create_hashtable(JNIEnv *env, jboolean *hasException)
       jclass hashtableClass = (*env)->FindClass(env,
 						"java/util/Hashtable");
       jmethodID hashtableConstructor = NULL;
-
+      
       if( hastableClass == NULL )
 	{
 	  _hasException = JNI_TRUE;
 	}
       else
 	{
-	  jmethodid hashtableConstructor =
+	  jmethodid hashtableConstructor = 
 	    (*env)->GetMethodID(env, hashtableClass,
 				"<init>", "()V");
 	}
@@ -232,8 +232,8 @@ svn_jni_hashtable_put(JNIEnv *env, jobject hashtable, jobject key,
 	}
       else
 	{
-	  hashtablePut =
-	    (*env)->GetMethodID(env, hashtableClass,
+	  hashtablePut = 
+	    (*env)->GetMethodID(env, hashtableClass, 
 				"put", SVN_JNI__HASHTABLE_PUT);
 	  if( hashtablePut == NULL )
 	    {
@@ -246,7 +246,7 @@ svn_jni_hashtable_put(JNIEnv *env, jobject hashtable, jobject key,
 	  /* the put method usually returns an object
 	   * but we dont care about this so we dont have
 	   * to take care for the otherweise created
-	   * local reference
+	   * local reference 
 	   */
 	  (*env)->CallVoidMethod(env, hashtable, hashtablePut,
 				   key, value);
@@ -262,18 +262,18 @@ svn_jni_hashtable_put(JNIEnv *env, jobject hashtable, jobject key,
     {
       (*hasException) = _hasException;
     }
-}
+} 
 
 static auth_baton_t *
 svn_jni__make_auth_baton(JNIEnv *env, jobject jobj)
 {
   /* the code here will build the auth_baton structure
    * right now, this doesnt work. now only NULL
-   * is being returned
+   * is being returned 
    */
 
   return NULL;
-}
+} 
 
 /*
  * JNI OnLoad Handler
@@ -286,7 +286,7 @@ JNI_OnLoad(JavaVM *jvm, void *reserved)
   svn_jni__pool = svn_pool_create(NULL);
 
   return JNI_VERSION_1_2;
-
+  
 }
 
 /*
@@ -298,23 +298,23 @@ JNIEXPORT OnUnload(JavaVM *jvm, void *reserved)
 
 }
 
-JNIEXPORT void JNICALL
+JNIEXPORT void JNICALL 
 Java_org_tigris_subversion_lib_ClientImpl_checkout
-  (JNIEnv *env, jobject beforeEditor, jobject obj,
-  jobject afterEditor, jstring url, jstring path, jobject revision,
+  (JNIEnv *env, jobject beforeEditor, jobject obj, 
+  jobject afterEditor, jstring url, jstring path, jobject revision, 
   jobject time, jstring xml_src)
 {
 }
 
-JNIEXPORT void JNICALL
+JNIEXPORT void JNICALL 
 Java_org_tigris_subversion_lib_ClientImpl_update
-  (JNIEnv *env, jobject obj, jobject beforeEditor,
-  jobject afterEditor, jstring path, jstring xml_src,
+  (JNIEnv *env, jobject obj, jobject beforeEditor, 
+  jobject afterEditor, jstring path, jstring xml_src, 
   jstring revision, jobject time)
 {
 }
 
-JNIEXPORT void JNICALL
+JNIEXPORT void JNICALL 
 Java_org_tigris_subversion_lib_ClientImpl_add
   (JNIEnv *env, jobject obj, jstring path, jboolean recursive)
 {
@@ -325,7 +325,7 @@ Java_org_tigris_subversion_lib_ClientImpl_add
     {
       c_recursive = " -r ";
     }
-
+ 
   printf("command: svn add%s%s\n", c_recursive, c_path);
   printf("doing nothing yet!\n");
 
@@ -335,29 +335,29 @@ Java_org_tigris_subversion_lib_ClientImpl_add
     }
 }
 
-JNIEXPORT void JNICALL
+JNIEXPORT void JNICALL 
 Java_org_tigris_subversion_lib_ClientImpl_delete
   (JNIEnv *env, jobject obj, jstring path, jboolean force)
 {
 }
 
-JNIEXPORT void JNICALL
+JNIEXPORT void JNICALL 
 Java_org_tigris_subversion_lib_ClientImpl_performImport
-  (JNIEnv *env, jobject obj, jobject beforeEditor,
-  jobject afterEditor, jstring path, jstring url,
+  (JNIEnv *env, jobject obj, jobject beforeEditor, 
+  jobject afterEditor, jstring path, jstring url, 
   jstring new_entry, jstring log_msg, jstring xml_dst, jstring revision)
 {
 }
 
-JNIEXPORT void JNICALL
+JNIEXPORT void JNICALL 
 Java_org_tigris_subversion_lib_ClientImpl_commit
-  (JNIEnv *env, jobject obj, jobject beforeEditor,
-  jobject afterEditor, jobjectArray targets,
+  (JNIEnv *env, jobject obj, jobject beforeEditor, 
+  jobject afterEditor, jobjectArray targets, 
   jstring log_msg, jstring xml_dst, jstring revision)
 {
 }
 
-JNIEXPORT jobject JNICALL
+JNIEXPORT jobject JNICALL 
 Java_org_tigris_subversion_lib_ClientImpl_status
   (JNIEnv *env, jobject jobj, jstring jtarget, jboolean jdescend,
    jboolean jget_all, jboolean jupdate)
@@ -365,8 +365,8 @@ Java_org_tigris_subversion_lib_ClientImpl_status
   jobject hashtable = NULL;
 
   /* do all the type conversion stuff */
-  svn_string_t *target = svn_jni__make_native_string(env,
-						     jtarget,
+  svn_string_t *target = svn_jni__make_native_string(env, 
+						     jtarget, 
 						     svn_jni__pool);
   svn_boolean_t descend = jdescend == JNI_TRUE;
   svn_boolean_t get_all = jget_all == JNI_TRUE;
@@ -392,7 +392,7 @@ Java_org_tigris_subversion_lib_ClientImpl_status
 	    {
 	      /* iterate through apr hashtable and
 	       * insert each item into java hashtable */
-	      apr_hash_index_t *index = apr_hash_first(svn_jni__pool,
+	      apr_hash_index_t *index = apr_hash_first(svn_jni__pool, 
 						       statushash);
 	      while( (index != NULL) && (!_hasException )
 		{
@@ -414,14 +414,14 @@ Java_org_tigris_subversion_lib_ClientImpl_status
 		      _hasException = TRUE;
 		    }
 
-
+		  
 
 		  /* now convert to the corresponding
 		   * java class
 		   */
 		  if( !_hasException )
 		    {
-		      jitem = svn_jni__create_item(env, jkey, jdata,
+		      jitem = svn_jni__create_item(env, jkey, jdata, 
 						   &_hasException,
 						   svn_jni__pool);
 		    }
@@ -429,10 +429,10 @@ Java_org_tigris_subversion_lib_ClientImpl_status
 		  /* put entry into java hashtable */
 		  if( !_hasException )
 		    {
-		      svn_jni__hashtable_put(env, hashtable, jkey, jitem,
+		      svn_jni__hashtable_put(env, hashtable, jkey, jitem, 
 					     &hasException);
 		    }
-
+		  
 		  if( !_hasException )
 		    {
 		      /* proceed to the next iteration */
@@ -448,14 +448,14 @@ Java_org_tigris_subversion_lib_ClientImpl_status
   return hashtable;
 }
 
-JNIEXPORT jstring JNICALL
+JNIEXPORT jstring JNICALL 
 Java_org_tigris_subversion_lib_ClientImpl_fileDiff
   (JNIEnv *env, jobject obj, jstring path)
 {
   printf("doing nothing at all\n");
 }
 
-JNIEXPORT void JNICALL
+JNIEXPORT void JNICALL 
 Java_org_tigris_subversion_lib_ClientImpl_cleanup
   (JNIEnv *env, jobject obj, jstring dir)
 {

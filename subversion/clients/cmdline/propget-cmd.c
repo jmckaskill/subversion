@@ -78,7 +78,7 @@ svn_cl__propget (apr_getopt_t *os,
 
       for (hi = apr_hash_first(pool, props); hi; hi = apr_hash_next(hi))
         {
-          const char * filename;
+          const char * filename; 
           const svn_string_t *propval;
           apr_hash_this(hi, (const void **)&filename, NULL, (void **)&propval);
           print_prop(&pname, filename, propval);
@@ -89,8 +89,8 @@ svn_cl__propget (apr_getopt_t *os,
 }
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../svn-dev.el")
- * end:
+ * end: 
  */

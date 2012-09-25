@@ -21,14 +21,14 @@ import org.tigris.subversion.SubversionException;
 import java.util.Hashtable;
 import java.util.Date;
 
-public class ClientImpl implements org.tigris.subversion.lib.Client
+public class ClientImpl implements org.tigris.subversion.lib.Client 
 {
   //Authentification information that has to be set explicitly
   //by stating the appropriate getter/setter methods
   private String username = null;
   private String password = null;
 
-  static
+  static 
   {
     System.loadLibrary("svn_jni");
   }
@@ -54,7 +54,7 @@ public class ClientImpl implements org.tigris.subversion.lib.Client
     TreeDeltaEditor afterEditor, String targets[], String log_msg,
     String xml_dst, String revision) throws SubversionException;
 
-  public native Hashtable status(String path, boolean descend,
+  public native Hashtable status(String path, boolean descend, 
     boolean get_all, boolean update)
     throws SubversionException;
 
@@ -81,5 +81,5 @@ public class ClientImpl implements org.tigris.subversion.lib.Client
   {
     return this.password;
   }
-
+  
 }

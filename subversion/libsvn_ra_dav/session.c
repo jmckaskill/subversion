@@ -60,12 +60,12 @@ static int request_auth(void *userdata, const char *realm,
      get_authenticator, get_username, get_password... */
 
   /* pull the username and password from the client */
-  ras->callbacks->get_authenticator (&a, &auth_baton,
-                                     SVN_RA_AUTH_SIMPLE_PASSWORD,
-                                     ras->callback_baton, ras->pool);
-  authenticator = (svn_ra_simple_password_authenticator_t *) a;
+  ras->callbacks->get_authenticator (&a, &auth_baton, 
+                                     SVN_RA_AUTH_SIMPLE_PASSWORD, 
+                                     ras->callback_baton, ras->pool);      
+  authenticator = (svn_ra_simple_password_authenticator_t *) a;      
   authenticator->get_user_and_pass (&uname, &pword,
-                                    auth_baton,
+                                    auth_baton, 
                                     /* possibly force a user-prompt: */
                                     ras->number_of_tries ? TRUE : FALSE,
                                     ras->pool);
@@ -74,7 +74,7 @@ static int request_auth(void *userdata, const char *realm,
   l = strlen(uname) + 1;
   *username = malloc(l);
   memcpy(*username, uname, l);
-
+  
   /* send a malloc'd copy of the password to neon */
   l = strlen(pword) + 1;
   *password = malloc(l);
@@ -82,7 +82,7 @@ static int request_auth(void *userdata, const char *realm,
 
   /* remember that we made another attempt to get auth info */
   ras->number_of_tries++;
-
+  
   return 0;
 }
 
@@ -105,7 +105,7 @@ svn_ra_dav__open (void **session_baton,
   svn_ra_session_t *ras;
 
   /* Sanity check the URI */
-  if (uri_parse(repository, &uri, NULL)
+  if (uri_parse(repository, &uri, NULL) 
       || uri.host == NULL || uri.path == NULL)
     {
       return svn_error_create(SVN_ERR_RA_ILLEGAL_URL, 0, NULL, pool,
@@ -189,7 +189,7 @@ svn_ra_dav__open (void **session_baton,
   ras->pool = pool;
   ras->root = uri;
   ras->sess = sess;
-  ras->sess2 = sess2;
+  ras->sess2 = sess2;  
   ras->callbacks = callbacks;
   ras->callback_baton = callback_baton;
 
@@ -251,7 +251,7 @@ svn_error_t *svn_ra_dav_init(int abi_version,
 }
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end:
