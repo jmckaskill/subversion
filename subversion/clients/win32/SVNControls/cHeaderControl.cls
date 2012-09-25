@@ -291,7 +291,7 @@ Private Type NMHEADER
    iButton As Long
    lPtrHDItem As Long '    HDITEM  FAR* pItem
 End Type
-
+    
 Private Type WINDOWPOS
     hwnd As Long
     hWndInsertAfter As Long
@@ -305,7 +305,7 @@ Private Type HD_LAYOUT
     prc As RECT
     pwpos As WINDOWPOS
 End Type
-
+    
 
 ' Messages:
 
@@ -357,7 +357,7 @@ Private m_bButtons As Boolean
 Private m_bFullDrag As Boolean
 ' Enable:
 Private m_bEnabled As Boolean
-
+            
 ' Column/width whilst column changing:
 Private m_lCol As Long
 Private m_lCXY As Long
@@ -765,7 +765,7 @@ Dim tHI As HD_ITEM
        ' Error
        Debug.Print "Set column header text error"
    End If
-
+   
 End Property
 Friend Property Get HotTrack() As Boolean
    HotTrack = m_bHotTrack
@@ -807,7 +807,7 @@ Dim iCol As Long
          Erase m_sTag
       End If
    End If
-
+   
 End Sub
 Private Sub pSetStyle(ByVal lStyleFlags As Long, ByVal bState As Boolean)
 Dim lStyle As Long
@@ -850,7 +850,7 @@ Dim lLen As Long
       tHI.mask = tHI.mask Or HDI_TEXT
       tHI.fmt = eTextAlign Or HDF_STRING
    End If
-
+   
    tHI.fmt = eTextAlign Or HDF_STRING
    If (m_hIml <> 0) Then
       If (pbValidImage(lImage)) Then
@@ -863,20 +863,20 @@ Dim lLen As Long
    tHI.lParam = lExtraData
    tHI.pszText = sText
    tHI.cchTextMax = Len(sText)
-
+   
    If (lInsertAfter < 0) Then
       wP = ColumnCount + 1
    Else
       wP = lInsertAfter
    End If
-
+   
    m_lR = SendMessage(m_hWnd, HDM_INSERTITEM, wP, tHI)
    'Debug.Print m_lR
-
+   
    If (ColumnCount > 0) Then
       ReDim Preserve m_sTag(0 To ColumnCount - 1) As String
    End If
-
+      
 End Function
 Friend Property Get ColumnCount() As Long
     m_lR = SendMessageByLong(m_hWnd, HDM_GETITEMCOUNT, 0, 0)
@@ -921,7 +921,7 @@ Dim lPtr As Long
    If (m_bFullDrag) Then
       wStyle = wStyle Or HDS_FULLDRAG
    End If
-
+    
     If Not m_bInitSize Then
       GetClientRect m_hWndParent, m_tR
       m_tR.Bottom = m_tR.Top + 20
@@ -936,14 +936,14 @@ Dim lPtr As Long
        pSubClass
        ' Set the image list
        pSetImageList
-
+       
         If Not (m_bUserMode) Then
            ' why does the text not appear in design time?
            AddColumn "Header Control", 128
         End If
-
+        
         Visible = m_bVisible
-
+       
        '// Retrieve the bounding rectangle of the parent window's
        '// client area, and then request size and position values
        '// from the header control.
@@ -959,7 +959,7 @@ Dim lPtr As Long
        '    '    wp.cx, wp.cy, wp.flags
        'End If
    End If
-
+    
 
 End Sub
 Private Sub pRecreateControl()
@@ -988,7 +988,7 @@ Dim hFnt As Long
    'End If
    ClearUp
    pCreateHeader
-
+   
    RaiseEvent RecreateControl
    'If (iCols > 0) Then
    '   For iCol = 0 To iCols - 1
@@ -1049,7 +1049,7 @@ Friend Sub ClearUp()
          DeleteObject m_hFnt
       End If
    End If
-
+   
 End Sub
 
 Private Sub Class_Initialize()
@@ -1058,12 +1058,12 @@ Private Sub Class_Initialize()
    '// Ensure that the common control DLL is loaded,
    InitCommonControls
    m_bEnabled = True
-
+   
    HotTrack = True
    DragReOrderColumns = True
    HasButtons = True
    FullDrag = False
-
+    
 End Sub
 
 Private Sub Class_Terminate()
