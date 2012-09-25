@@ -376,7 +376,7 @@ txdelta_stream_next_window (VALUE self)
       rb_window->window = window;
       rb_window->stream = self;
       rb_window->pool = pool;
-
+      
       return obj;
     }
 }
