@@ -136,7 +136,7 @@ svn_fs__write_new_rep (const char **key,
   int db_err;
   apr_size_t len;
   char next_key[SVN_FS__MAX_KEY_SIZE];
-
+  
   /* ### todo: see issue #409 for why bumping the key as part of this
      trail is problematic. */
 
@@ -194,7 +194,7 @@ svn_fs__delete_rep (svn_fs_t *fs, const char *key, trail_t *trail)
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../tools/dev/svn-dev.el")
  * end:

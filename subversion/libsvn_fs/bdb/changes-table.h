@@ -37,7 +37,7 @@ int svn_fs__open_changes_table (DB **changes_p,
 
 
 /* Add CHANGE as a record to the `changes' table in FS as part of
-   TRAIL, keyed on KEY.
+   TRAIL, keyed on KEY.  
 
    CHANGE->path is expected to be a canonicalized filesystem path (see
    svn_fs__canonicalize_abspath).
@@ -82,7 +82,7 @@ svn_error_t *svn_fs__changes_fetch_raw (apr_array_header_t **changes_p,
 #endif /* SVN_LIBSVN_FS_CHANGES_TABLE_H */
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../tools/dev/svn-dev.el")
  * end:
