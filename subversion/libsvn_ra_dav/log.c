@@ -157,10 +157,10 @@ log_end_element(void *userdata,
           action = 'D';
         else
           action = 'U';
-
+        
         if (lb->changed_paths == NULL)
           lb->changed_paths = apr_hash_make(lb->subpool);
-
+        
         apr_hash_set(lb->changed_paths, path, APR_HASH_KEY_STRING,
                      (void *) ((int) action));
       }
@@ -177,9 +177,9 @@ log_end_element(void *userdata,
                                              lb->date,
                                              lb->msg,
                                              lb->subpool);
-
+        
         reset_log_item (lb);
-
+        
         if (err)
           {
             lb->err = err;         /* ### Wrap an existing error, if any? */
@@ -275,7 +275,7 @@ svn_error_t * svn_ra_dav__get_log(void *session_baton,
     = "<S:log-report xmlns:S=\"" SVN_XML_NAMESPACE "\">" DEBUG_CR;
 
   static const char log_request_tail[] = "</S:log-report>" DEBUG_CR;
-
+  
   static const struct ne_xml_elm log_report_elements[] =
     {
       { SVN_XML_NAMESPACE, "log-report", ELEM_log_report, 0 },
@@ -290,7 +290,7 @@ svn_error_t * svn_ra_dav__get_log(void *session_baton,
       { "DAV:", "comment", ELEM_comment, NE_XML_CDATA },
       { NULL }
     };
-
+  
 
   /* Construct the request body. */
   svn_stringbuf_appendcstr(request_body, log_request_head);
@@ -308,7 +308,7 @@ svn_error_t * svn_ra_dav__get_log(void *session_baton,
                                apr_psprintf(ras->pool,
                                             "<S:discover-changed-paths/>"));
     }
-
+    
   for (i = 0; i < paths->nelts; i++)
     {
       const char *this_path = (((svn_stringbuf_t **)paths->elts)[i])->data;
@@ -332,13 +332,13 @@ svn_error_t * svn_ra_dav__get_log(void *session_baton,
                                       ras->root.path,
                                       request_body->data,
                                       0,  /* ignored */
-                                      log_report_elements,
+                                      log_report_elements, 
                                       log_validate,
                                       log_start_element,
                                       log_end_element,
                                       &lb,
                                       ras->pool) );
-
+  
   svn_pool_destroy (lb.subpool);
 
   return SVN_NO_ERROR;
@@ -346,7 +346,7 @@ svn_error_t * svn_ra_dav__get_log(void *session_baton,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end:

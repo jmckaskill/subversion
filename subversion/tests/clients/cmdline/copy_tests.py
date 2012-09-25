@@ -2,9 +2,9 @@
 #
 #  copy_tests.py:  testing the many uses of 'svn cp' and 'svn mv'
 #
-#  Subversion is a tool for revision control.
+#  Subversion is a tool for revision control. 
 #  See http://subversion.tigris.org for more information.
-#
+#    
 # ====================================================================
 # Copyright (c) 2000-2001 CollabNet.  All rights reserved.
 #
@@ -25,7 +25,7 @@ import svntest
 
 # (abbreviation)
 path_index = svntest.actions.path_index
-
+  
 
 ######################################################################
 # Utilities
@@ -44,7 +44,7 @@ path_index = svntest.actions.path_index
 #
 #        This duplicates a path in the working copy, and schedules it
 #        for addition with history.  (This is partially implemented in
-#        0.6 already.)
+#        0.6 already.)  
 #
 #     B. svn cp URL [-r rev]  wc_path
 #
@@ -157,7 +157,7 @@ def basic_copy_and_move_files(sbox):
 
   # Create expected status tree; all local revisions should be at 1,
   # but several files should be at revision 2.  Also, two files should
-  # be missing.
+  # be missing.  
   status_list = svntest.actions.get_virginal_status_list(wc_dir, '2')
   for item in status_list:
     item[3]['wc_rev'] = '1'
@@ -183,7 +183,7 @@ def basic_copy_and_move_files(sbox):
   # Items that are gone:
   status_list.pop(path_index(status_list, mu_path))
   status_list.pop(path_index(status_list, iota_path))
-
+      
   expected_status_tree = svntest.tree.build_generic_tree(status_list)
 
   return svntest.actions.run_and_verify_commit (wc_dir,
@@ -203,19 +203,19 @@ def mv_unversioned_file(sbox):
   # Subject:  svn mv segfault
   # To: dev@subversion.tigris.org
   # Date: Tue, 29 Jan 2002 15:40:00 -0500
-  #
+  # 
   # Here's a new one.  And this one's reliable :).
-  #
+  # 
   # I tried performing the following operation:
-  #
+  # 
   #    $ svn mv src/config.h.in .
-  #
+  # 
   # But src/config.h.in wasn't in the repository.  This should have
   # generated an error, right around line 141 in libsvn_wc/copy.c.  But
   # instead it's segfaulting.
-  #
+  # 
   # This is in copy_file_administratively(), in the following section:
-  #
+  # 
   #    SVN_ERR (svn_wc_entry (&src_entry, src_path, pool));
   #    if ((src_entry->schedule == svn_wc_schedule_add)
   #        || (! src_entry->url))
@@ -225,27 +225,27 @@ def mv_unversioned_file(sbox):
   # repository yet.\n"
   #         "Try committing first.",
   #         src_path->data);
-  #
+  # 
   # The first thing svn_wc_entry() does is set src_entry to NULL, so upon
   # our return from svn_wc_entry(), when we try to look at
   # src_entry->schedule, we're attempting to dereference a NULL pointer.
   # Ouch!
-  #
+  # 
   # It looks like the real failure may be in svn_wc_entry(), here:
-  #
+  # 
   #        /* ### it would be nice to avoid reading all of these. or maybe read
   #           ### them into a subpool and copy the one that we need up to the
   #           ### specified pool. */
   #        SVN_ERR (svn_wc_entries_read (&entries, dir, pool));
-  #
+  # 
   #        *entry = apr_hash_get (entries, basename->data, basename->len);
-  #
+  # 
   # Since the file isn't under revision control, that hash lookup is
   # probably going to fail, so src_entry never gets set to anything but
   # NULL.
-  #
+  # 
   # Cheers,
-  #
+  # 
   # -- Lars
 
   if sbox.build():

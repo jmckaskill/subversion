@@ -56,11 +56,11 @@ svn_cl__diff (apr_getopt_t *os,
     return svn_error_create (status, 0, NULL, pool, "can't open stdout");
   if ((status = apr_file_open_stderr (&errfile, pool)))
     return svn_error_create (status, 0, NULL, pool, "can't open stderr");
-
+  
   if ((opt_state->start_revision.kind == svn_client_revision_unspecified)
       && (opt_state->end_revision.kind == svn_client_revision_unspecified))
     {
-      /* No '-r' was supplied, so this is either the form
+      /* No '-r' was supplied, so this is either the form 
          'svn diff URL1@N URL2@M', or 'svn diff wcpath ...' */
 
       svn_string_t ts;
@@ -68,7 +68,7 @@ svn_cl__diff (apr_getopt_t *os,
 
       targets = svn_cl__args_to_target_array (os, opt_state,
                                               TRUE, /* extract @revs */
-                                              pool);
+                                              pool);      
       svn_cl__push_implicit_dot_target (targets, pool);
 
       target1 = ((svn_stringbuf_t **) (targets->elts))[0];
@@ -89,11 +89,11 @@ svn_cl__diff (apr_getopt_t *os,
 
           if (targets->nelts < 2)
             return svn_error_create (SVN_ERR_CL_ARG_PARSING_ERROR, 0,
-                                     NULL, pool,
+                                     NULL, pool, 
                                      "Second URL is required.");
-
+          
           target2 = ((svn_stringbuf_t **) (targets->elts))[1];
-
+          
           /* Notice that we're passing DIFFERENT paths to
              svn_client_diff.  This is the only use-case which does so! */
           SVN_ERR (svn_client_diff (options,
@@ -110,7 +110,7 @@ svn_cl__diff (apr_getopt_t *os,
       else
         {
           /* The form 'svn diff wcpath1 wcpath2 ...' */
-
+          
           opt_state->start_revision.kind = svn_client_revision_base;
           opt_state->end_revision.kind = svn_client_revision_working;
 
@@ -118,7 +118,7 @@ svn_cl__diff (apr_getopt_t *os,
             {
               svn_stringbuf_t *target
                 = ((svn_stringbuf_t **) (targets->elts))[i];
-
+              
               /* We're running diff on each TARGET independently;  also
                  notice that we pass TARGET twice, since we're always
                  comparing it to itself.  */
@@ -133,11 +133,11 @@ svn_cl__diff (apr_getopt_t *os,
                                         errfile,
                                         pool));
             }
-        }
+        }      
     }
   else
     {
-      /* This is the form 'svn diff -rN[:M] path1 path2 ...'
+      /* This is the form 'svn diff -rN[:M] path1 path2 ...' 
 
          The code in main.c has already parsed '-r' and filled in
          start_revision and (possibly) end_revision for us.
@@ -145,19 +145,19 @@ svn_cl__diff (apr_getopt_t *os,
 
       targets = svn_cl__args_to_target_array (os, opt_state,
                                               FALSE, /* don't extract @revs */
-                                              pool);
+                                              pool);      
       svn_cl__push_implicit_dot_target (targets, pool);
-
+      
       for (i = 0; i < targets->nelts; ++i)
         {
           svn_string_t ts;
           svn_stringbuf_t *target
             = ((svn_stringbuf_t **) (targets->elts))[i];
-
+  
           if (opt_state->end_revision.kind == svn_client_revision_unspecified)
             {
               /* The user specified only '-r N'.  Therefore, each path
-                 -must- be a working copy path.  No URLs allowed! */
+                 -must- be a working copy path.  No URLs allowed! */        
               ts.data = target->data;
               ts.len = target->len;
               if (svn_path_is_url (&ts))
@@ -172,7 +172,7 @@ svn_cl__diff (apr_getopt_t *os,
                  revision to their working files. */
               opt_state->end_revision.kind = svn_client_revision_working;
             }
-
+        
           /* We're running diff on each TARGET independently;  also
              notice that we pass TARGET twice, since we're always
              comparing it to itself.  */
@@ -188,13 +188,13 @@ svn_cl__diff (apr_getopt_t *os,
                                     pool));
         }
     }
-
+  
   return SVN_NO_ERROR;
 }
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../tools/dev/svn-dev.el")
- * end:
+ * end: 
  */

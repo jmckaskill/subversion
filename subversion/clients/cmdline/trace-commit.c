@@ -42,7 +42,7 @@
    would prefer to print only a single descriptive line of text for
    each item modified by the commit, and would like to preserve a sort
    of visual "feeling" of tree traversal in an ordered manner with
-   that output.
+   that output. 
 
    To accomplish these goals, we will limit the output process to
    places where we can know for certain that we are finished
@@ -53,14 +53,14 @@
 
    For directories, we are not finished until
 
-     - all the entries of the directory have also been finished, and
+     - all the entries of the directory have also been finished, and 
      - close_directory() has been called.
 
    Luckily, while not all of the entries of a directory are guaranteed
    to be finished prior to the close_directory() call, enough
    information can be gathered from other calls required to be made
    before the close_directory() call:
-
+ 
      - add_file() must be called before close_directory().
      - open_file() must be called before close_directory().
      - change_file_prop() must be called after add/open_file(), and
@@ -121,7 +121,7 @@ make_dir_baton (const char *path,
   struct edit_baton *eb = edit_baton;
   struct dir_baton *new_db = apr_pcalloc (pool, sizeof (*new_db));
   svn_stringbuf_t *full_path = svn_stringbuf_dup (eb->path, pool);
-
+  
   /* Don't give me a path without a parent baton! */
   if (path && (! pb))
     abort();
@@ -163,8 +163,8 @@ make_file_baton (const char *path,
 
 
 static svn_error_t *
-open_root (void *edit_baton,
-           svn_revnum_t base_revision,
+open_root (void *edit_baton, 
+           svn_revnum_t base_revision, 
            apr_pool_t *pool,
            void **root_baton)
 {
@@ -176,7 +176,7 @@ open_root (void *edit_baton,
 
 static svn_error_t *
 delete_entry (const char *path,
-              svn_revnum_t revision,
+              svn_revnum_t revision, 
               void *parent_baton,
               apr_pool_t *pool)
 {
@@ -215,7 +215,7 @@ add_directory (const char *path,
   struct dir_baton *new_db = make_dir_baton (path, pb, eb, pool);
   svn_stringbuf_t *full_path;
   void *vp;
-
+  
   /* Copy the path into the parent directorie's pool (where its hash
      lives) and let the parent know that this was added (or replaced) */
   full_path = svn_stringbuf_dup (new_db->path, pb->pool);
@@ -267,7 +267,7 @@ close_directory (void *dir_baton)
   if (vp == ITEM_ADDED)
     printf ("Adding          %s\n", db->path->data);
   else if (db->prop_changed)
-    printf ("Sending         %s\n", db->path->data);
+    printf ("Sending         %s\n", db->path->data); 
 
   /* Now remove this from the parent's hash. */
   if (vp)
@@ -275,16 +275,16 @@ close_directory (void *dir_baton)
 
   /* For each modified entry of this directory, print out a
      description of those mods. */
-  for (hi = apr_hash_first (db->pool, db->entrymods);
-       hi;
+  for (hi = apr_hash_first (db->pool, db->entrymods); 
+       hi; 
        hi = apr_hash_next (hi))
     {
       const char *pattern;
       const void *key;
       void *val;
-
+      
       apr_hash_this (hi, &key, NULL, &val);
-
+      
       if (val == ITEM_REPLACED)
         pattern = "Replacing       %s\n";
       else if (val == ITEM_REPLACED_BINARY)
@@ -299,7 +299,7 @@ close_directory (void *dir_baton)
         pattern = "Sending         %s\n";
       else
         abort(); /* this should never happen */
-
+      
       printf (pattern, (const char *)key);
     }
 
@@ -343,7 +343,7 @@ add_file (const char *path,
 
   /* Copy the path into the parent's pool (where its hash lives). */
   svn_stringbuf_t *full_path = svn_stringbuf_dup (new_fb->path, pb->pool);
-
+  
   /* Tell the parent directory that one of its children has been
      added (or replaced). */
   vp = apr_hash_get (pb->entrymods, full_path->data, full_path->len);
@@ -472,14 +472,14 @@ svn_cl__get_trace_commit_editor (const svn_delta_editor_t **editor,
 
   *edit_baton = eb;
   *editor = trace_editor;
-
+  
   return SVN_NO_ERROR;
 }
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../tools/dev/svn-dev.el")
- * end:
+ * end: 
  */

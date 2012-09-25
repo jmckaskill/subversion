@@ -105,11 +105,11 @@ static const char *get_from_path_map(apr_hash_t *hash,
 {
   const char *repos_path;
   svn_stringbuf_t *my_path;
-
+  
   /* no hash means no map.  that's easy enough. */
   if (! hash)
     return apr_pstrdup(pool, path);
-
+  
   if ((repos_path = apr_hash_get(hash, path, APR_HASH_KEY_STRING)))
     {
       /* what luck!  this path is a hash key!  if there is a linkpath,
@@ -121,7 +121,7 @@ static const char *get_from_path_map(apr_hash_t *hash,
      hacking off components and looking for a parent from which to
      derive a repos_path.  use a stringbuf for convenience. */
   my_path = svn_stringbuf_create(path, pool);
-  do
+  do 
     {
       svn_path_remove_component(my_path);
       if ((repos_path = apr_hash_get(hash, my_path->data, my_path->len)))
@@ -129,12 +129,12 @@ static const char *get_from_path_map(apr_hash_t *hash,
           /* we found a mapping ... but of one of PATH's parents.
              soooo, we get to re-append the chunks of PATH that we
              broke off to the REPOS_PATH we found. */
-          return apr_pstrcat(pool, repos_path, "/",
+          return apr_pstrcat(pool, repos_path, "/", 
                              path + my_path->len + 1, NULL);
         }
     }
   while (! svn_path_is_empty(my_path));
-
+  
   /* well, we simply never found anything worth mentioning the map.
      PATH is its own default finding, then. */
   return apr_pstrdup(pool, path);
@@ -193,7 +193,7 @@ static void send_vsn_url(item_baton_t *baton)
      to something else, we'll use the path that it points to. */
   path = get_from_path_map(baton->uc->pathmap, baton->path, baton->pool);
   path = strcmp(path, baton->path) ? path : baton->path2;
-
+    
   if ((serr = svn_fs_node_id(&id, baton->uc->rev_root, path, baton->pool)))
     {
       /* ### what to do? */
@@ -208,8 +208,8 @@ static void send_vsn_url(item_baton_t *baton)
 			   SVN_INVALID_REVNUM, stable_id->data,
 			   0 /* add_href */, baton->pool);
 
-  send_xml(baton->uc,
-           "<D:checked-in><D:href>%s</D:href></D:checked-in>" DEBUG_CR,
+  send_xml(baton->uc, 
+           "<D:checked-in><D:href>%s</D:href></D:checked-in>" DEBUG_CR, 
            apr_xml_quote_string (baton->pool, href, 1));
 }
 
@@ -275,7 +275,7 @@ static void open_helper(svn_boolean_t is_dir,
 static void close_helper(svn_boolean_t is_dir, item_baton_t *baton)
 {
   int i;
-
+  
   /* ### ack!  binary names won't float here! */
   if (baton->removed_props && (! baton->added))
     {
@@ -304,23 +304,23 @@ static void close_helper(svn_boolean_t is_dir, item_baton_t *baton)
        ra_dav.h, and statically defined in liveprops.c.  And now
        they're hardcoded here.  Isn't there some header file that both
        sides of the network can share?? */
-
+    
     send_xml(baton->uc, "<S:prop>");
-
+    
     /* ### special knowledge: svn_repos_dir_delta will never send
      *removals* of the commit-info "entry props". */
     if (baton->committed_rev)
       send_xml(baton->uc, "<D:version-name>%s</D:version-name>",
                baton->committed_rev);
-
+      
     if (baton->committed_date)
       send_xml(baton->uc, "<D:creationdate>%s</D:creationdate>",
                baton->committed_date);
-
+    
     if (baton->last_author)
       send_xml(baton->uc, "<D:creator-displayname>%s</D:creator-displayname>",
                baton->last_author);
-
+    
     send_xml(baton->uc, "</S:prop>\n");
   }
 
@@ -429,11 +429,11 @@ static svn_error_t * upd_change_xxx_prop(void *baton,
         b->committed_date = value ? apr_pstrdup(b->pool, value->data) : NULL;
       else if (! strcmp(name->data, SVN_PROP_ENTRY_LAST_AUTHOR))
         b->last_author = value ? apr_pstrdup(b->pool, value->data) : NULL;
-
+      
       return SVN_NO_ERROR;
     }
 #undef NSLEN
-
+                
   qname = svn_stringbuf_create (apr_xml_quote_string (b->pool, name->data, 1),
                                 b->pool);
   if (value)
@@ -490,7 +490,7 @@ static svn_error_t * noop_handler(svn_txdelta_window_t *window, void *baton)
   return NULL;
 }
 
-static svn_error_t * upd_apply_textdelta(void *file_baton,
+static svn_error_t * upd_apply_textdelta(void *file_baton, 
                                        svn_txdelta_window_handler_t *handler,
                                        void **handler_baton)
 {
@@ -553,7 +553,7 @@ dav_error * dav_svn__update_report(const dav_resource *resource,
                            "svn:target-revision element. That element "
                            "is required.");
     }
-
+  
   for (child = doc->root->first_child; child != NULL; child = child->next)
     {
       if (child->ns == ns && strcmp(child->name, "target-revision") == 0)
@@ -621,7 +621,7 @@ dav_error * dav_svn__update_report(const dav_resource *resource,
   uc.resource = resource;
   uc.output = output;
   uc.anchor = resource->info->repos_path;
-  uc.dst_path = dst_path ? dst_path
+  uc.dst_path = dst_path ? dst_path 
                          : svn_path_join_many(resource->pool,
                                               resource->info->repos_path,
                                               target ? target : NULL,
@@ -631,7 +631,7 @@ dav_error * dav_svn__update_report(const dav_resource *resource,
 
   /* Get the root of the revision we want to update to. This will be used
      to generated stable id values. */
-  if ((serr = svn_fs_revision_root(&uc.rev_root, repos->fs,
+  if ((serr = svn_fs_revision_root(&uc.rev_root, repos->fs, 
                                    revnum, resource->pool)))
     {
       return dav_svn_convert_err(serr, HTTP_INTERNAL_SERVER_ERROR,
@@ -642,8 +642,8 @@ dav_error * dav_svn__update_report(const dav_resource *resource,
      dir_delta() between REPOS_PATH/TARGET and TARGET_PATH.  In the
      case of an update or status, these paths should be identical.  In
      the case of a switch, they should be different. */
-  if ((serr = svn_repos_begin_report(&rbaton, revnum, repos->username,
-                                     repos->repos,
+  if ((serr = svn_repos_begin_report(&rbaton, revnum, repos->username, 
+                                     repos->repos, 
                                      resource->info->repos_path, target,
                                      dst_path,
                                      FALSE, /* don't send text-deltas */
@@ -675,13 +675,13 @@ dav_error * dav_svn__update_report(const dav_resource *resource,
 
                 this_attr = this_attr->next;
               }
-
+            
             /* we require the `rev' attribute for this to make sense */
             if (! SVN_IS_VALID_REVNUM (rev))
               {
                 /* ### This removes the fs txn.  todo: check error. */
                 svn_repos_abort_report(rbaton);
-                serr = svn_error_create (SVN_ERR_XML_ATTRIB_NOT_FOUND, 0,
+                serr = svn_error_create (SVN_ERR_XML_ATTRIB_NOT_FOUND, 0, 
                                          NULL, resource->pool, "rev");
                 return dav_svn_convert_err(serr, HTTP_INTERNAL_SERVER_ERROR,
                                            "A failure occurred while "
@@ -691,7 +691,7 @@ dav_error * dav_svn__update_report(const dav_resource *resource,
 
             /* get cdata, stipping whitespace */
             path = dav_xml_get_cdata(child, resource->pool, 1);
-
+            
             if (! linkpath)
               serr = svn_repos_set_path(rbaton, path, rev);
             else
@@ -763,7 +763,7 @@ dav_error * dav_svn__update_report(const dav_resource *resource,
 }
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end:

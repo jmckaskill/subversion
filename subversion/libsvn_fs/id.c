@@ -126,8 +126,8 @@ svn_fs_id_distance (const svn_fs_id_t *a, const svn_fs_id_t *b)
     return -1;
 
   /* Skip any common prefix.  */
-  for (i = 0; (a->digits[i] == b->digits[i]
-               && a->digits[i] != -1
+  for (i = 0; (a->digits[i] == b->digits[i] 
+               && a->digits[i] != -1 
                && a->digits[i+1] == b->digits[i+1]); i += 2)
     continue;
 
@@ -192,7 +192,7 @@ svn_fs_parse_id (const char *data,
 {
   svn_fs_id_t *id;
   int id_len;
-
+  
   /* Count the number of components in the ID, and check its syntax.  */
   id_len = svn_fs__count_id_components (data, data_len);
   if (id_len == 0)
@@ -274,7 +274,7 @@ svn_fs_id_t *
 svn_fs__id_copy (const svn_fs_id_t *id, apr_pool_t *pool)
 {
   svn_fs_id_t *new_id = apr_palloc (pool, sizeof (*new_id));
-  new_id->digits = apr_pmemdup
+  new_id->digits = apr_pmemdup 
     (pool, id->digits, (svn_fs__id_length (id) + 1) * sizeof (id->digits[0]));
   return new_id;
 }
@@ -289,14 +289,14 @@ svn_fs__precede_id (svn_fs_id_t *id)
   int len = svn_fs__id_length (id);
 
   id->digits[len - 1]--;
-
+  
   if (id->digits[len - 1] > 0)
     {
       /* Decrementing the last digit still resulted in a valid node
          revision number, so that must be the predecessor of ID. */
       return;
     }
-
+  
   /* Else decrementing the last digit still resulted in a branch
      number, so the predecessor is the node revision on which the
      branch itself is based. */
@@ -326,14 +326,14 @@ svn_fs__id_predecessor (const svn_fs_id_t *id, apr_pool_t *pool)
 
     - If B is a copy of directory A, B's children are id-related to the
       corresponding children of A.
-
+ 
     - Brand new nodes (like, resulting from adds and copies) have the
-      first component of their node id > older nodes.
+      first component of their node id > older nodes. 
 
     Also note:  it is acceptable for this function to call back into
     public FS API interfaces because it does not itself use trails.  */
 svn_error_t *
-svn_fs_check_related (int *related,
+svn_fs_check_related (int *related, 
                       svn_fs_t *fs,
                       const svn_fs_id_t *id1,
                       const svn_fs_id_t *id2,
@@ -351,7 +351,7 @@ svn_fs_check_related (int *related,
       *related = 1;
       return SVN_NO_ERROR;
     }
-
+  
   /* Figure out which id is youngest. */
   if (id1->digits[0] > id2->digits[0])
     {
@@ -399,7 +399,7 @@ svn_fs_check_related (int *related,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end:

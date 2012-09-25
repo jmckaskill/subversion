@@ -49,11 +49,11 @@ svn_error_t *svn_fs__delete_txn (svn_fs_t *fs,
                                  const char *txn_name,
                                  trail_t *trail);
 
-
+ 
 /* Retrieve the transaction *TXN_P for the Subversion transaction
    named TXN_NAME from the `transactions' table of FS, as part of
    TRAIL.  Perform all allocations in TRAIL->pool.
-
+   
    If there is no such transaction, SVN_ERR_FS_NO_SUCH_TRANSACTION is
    the error returned.  */
 svn_error_t *svn_fs__get_txn (svn_fs__transaction_t **txn_p,
@@ -121,7 +121,7 @@ svn_error_t *svn_fs__get_txn_list (char ***names_p,
 #endif /* SVN_LIBSVN_FS_TXN_TABLE_H */
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end:

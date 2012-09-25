@@ -47,7 +47,7 @@ numbers.
   node_id ::= number | node_revision_id "." number
   node_revision_id ::= node_id "." number
 
-So:
+So: 
 - "100" is a node id.
 - "100.10" is a node revision id, referring to revision 10 of node 100.
 - "100.10.3" is a node id, referring to the third branch based on
@@ -404,7 +404,7 @@ arrange the nodes for quick traversal, given our access patterns.
 Here's the sort order we use:
 
 - Nodes are sorted by their node number.
-- All the revisions of a given node come together, in order of
+- All the revisions of a given node come together, in order of 
   increasing revision number.
 - All branches off any revision of a node come immediately after that
   node, ordered by increasing revision number.
@@ -475,7 +475,7 @@ Transactions
 
 Every transaction ends when it is either successfully committed, or
 aborted.  We call a transaction which has been either committed or
-aborted "finished", and one which hasn't "unfinished".
+aborted "finished", and one which hasn't "unfinished".  
 
 Transactions are identified by positive decimal numbers, called
 transaction ID's.  To help clients detect when a transaction has been
@@ -712,7 +712,7 @@ Representations:
                  HEADER ::= (KIND FLAG ...)
                    KIND ::= "fulltext" | "delta" ;
                    FLAG ::= "mutable" | ;
-
+             
                    SIZE ::= number ;
                CHECKSUM ::= ("md5" BYTES) ;
                   BYTES ::= atom ;

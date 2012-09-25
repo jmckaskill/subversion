@@ -28,8 +28,8 @@ static svn_error_t *
 skel_err (const char *skel_type,
           apr_pool_t *pool)
 {
-  return svn_error_createf (SVN_ERR_FS_MALFORMED_SKEL, 0, NULL, pool,
-                            "Malformed%s%s skeleton",
+  return svn_error_createf (SVN_ERR_FS_MALFORMED_SKEL, 0, NULL, pool, 
+                            "Malformed%s%s skeleton", 
                             skel_type ? " " : "",
                             skel_type ? skel_type : "");
 }
@@ -38,7 +38,7 @@ skel_err (const char *skel_type,
 
 /*** Validity Checking ***/
 
-static int
+static int 
 is_valid_proplist_skel (skel_t *skel)
 {
   int len = svn_fs__list_length (skel);
@@ -97,7 +97,7 @@ is_valid_transaction_skel (skel_t *skel)
 }
 
 
-static int
+static int 
 is_valid_representation_skel (skel_t *skel)
 {
   int len = svn_fs__list_length (skel);
@@ -135,13 +135,13 @@ svn_fs__parse_proplist_skel (apr_hash_t **proplist_p,
   /* Validate the skel. */
   if (! is_valid_proplist_skel (skel))
     return skel_err ("proplist", pool);
-
+  
   /* Create the returned structure */
   if (skel->children)
     proplist = apr_hash_make (pool);
   for (elt = skel->children; elt; elt = elt->next->next)
     {
-      svn_string_t *value = svn_string_ncreate (elt->next->data,
+      svn_string_t *value = svn_string_ncreate (elt->next->data, 
                                                 elt->next->len, pool);
       apr_hash_set (proplist, elt->data, elt->len, (void *)value);
     }
@@ -153,7 +153,7 @@ svn_fs__parse_proplist_skel (apr_hash_t **proplist_p,
 
 
 svn_error_t *
-svn_fs__parse_revision_skel (svn_fs__revision_t **revision_p,
+svn_fs__parse_revision_skel (svn_fs__revision_t **revision_p, 
                              skel_t *skel,
                              apr_pool_t *pool)
 {
@@ -169,9 +169,9 @@ svn_fs__parse_revision_skel (svn_fs__revision_t **revision_p,
   /* Create the returned structure */
   revision = apr_pcalloc (pool, sizeof (*revision));
   revision->id = svn_fs_parse_id (id->data, id->len, pool);
-  SVN_ERR (svn_fs__parse_proplist_skel (&(revision->proplist),
+  SVN_ERR (svn_fs__parse_proplist_skel (&(revision->proplist), 
                                         proplist, pool));
-
+  
   /* Return the structure. */
   *revision_p = revision;
   return SVN_NO_ERROR;
@@ -179,13 +179,13 @@ svn_fs__parse_revision_skel (svn_fs__revision_t **revision_p,
 
 
 svn_error_t *
-svn_fs__parse_transaction_skel (svn_fs__transaction_t **transaction_p,
+svn_fs__parse_transaction_skel (svn_fs__transaction_t **transaction_p, 
                                 skel_t *skel,
                                 apr_pool_t *pool)
 {
   svn_fs__transaction_t *transaction;
   skel_t *root_id, *base_root_id, *proplist;
-
+  
   /* Validate the skel. */
   if (! is_valid_transaction_skel (skel))
     return skel_err ("transaction", pool);
@@ -198,9 +198,9 @@ svn_fs__parse_transaction_skel (svn_fs__transaction_t **transaction_p,
   transaction->root_id = svn_fs_parse_id (root_id->data, root_id->len, pool);
   transaction->base_root_id = svn_fs_parse_id (base_root_id->data,
                                                base_root_id->len, pool);
-  SVN_ERR (svn_fs__parse_proplist_skel (&(transaction->proplist),
+  SVN_ERR (svn_fs__parse_proplist_skel (&(transaction->proplist), 
                                         proplist, pool));
-
+  
   /* Return the structure. */
   *transaction_p = transaction;
   return SVN_NO_ERROR;
@@ -222,7 +222,7 @@ svn_fs__parse_representation_skel (svn_fs__representation_t **rep_p,
 
   /* Create the returned structure */
   rep = apr_pcalloc (pool, sizeof (*rep));
-
+  
   /* KIND */
   if (svn_fs__matches_atom (header_skel->children, "fulltext"))
     rep->kind = svn_fs__rep_kind_fulltext;
@@ -247,8 +247,8 @@ svn_fs__parse_representation_skel (svn_fs__representation_t **rep_p,
   if (rep->kind == svn_fs__rep_kind_fulltext)
     {
       /* "fulltext"-specific. */
-      rep->contents.fulltext.string_key
-        = apr_pstrndup (pool,
+      rep->contents.fulltext.string_key 
+        = apr_pstrndup (pool, 
                         skel->children->next->data,
                         skel->children->next->len);
     }
@@ -259,9 +259,9 @@ svn_fs__parse_representation_skel (svn_fs__representation_t **rep_p,
       svn_fs__rep_delta_chunk_t *chunk;
       svn_fs__rep_delta_window_t *window;
       apr_array_header_t *chunks;
-
+      
       /* Alloc the chunk array. */
-      chunks = apr_array_make (pool, svn_fs__list_length (skel) - 1,
+      chunks = apr_array_make (pool, svn_fs__list_length (skel) - 1, 
                                sizeof (chunk));
 
       /* Process the chunks. */
@@ -282,15 +282,15 @@ svn_fs__parse_representation_skel (svn_fs__representation_t **rep_p,
           window->size = atoi (apr_pstrndup (pool,
                                              diff_skel->next->data,
                                              diff_skel->next->len));
-          memcpy (&(window->checksum), checksum_skel->children->data,
+          memcpy (&(window->checksum), checksum_skel->children->data, 
                   MD5_DIGESTSIZE);
-          window->rep_key = apr_pstrndup (pool,
+          window->rep_key = apr_pstrndup (pool, 
                                           checksum_skel->next->data,
                                           checksum_skel->next->len);
 
           /* Add this chunk to the array. */
           chunk->window = window;
-          chunk->offset = atoi (apr_pstrndup (pool,
+          chunk->offset = atoi (apr_pstrndup (pool, 
                                               chunk_skel->children->data,
                                               chunk_skel->children->len));
           (*((svn_fs__rep_delta_chunk_t **)(apr_array_push (chunks)))) = chunk;
@@ -330,19 +330,19 @@ svn_fs__unparse_proplist_skel (skel_t **skel_p,
           void *val;
           apr_ssize_t klen;
           svn_string_t *value;
-
+          
           apr_hash_this (hi, &key, &klen, &val);
           value = val;
-
+          
           /* VALUE */
-          svn_fs__prepend (svn_fs__mem_atom (value->data, value->len, pool),
+          svn_fs__prepend (svn_fs__mem_atom (value->data, value->len, pool), 
                            skel);
-
+          
           /* NAME */
           svn_fs__prepend (svn_fs__mem_atom (key, klen, pool), skel);
         }
     }
-
+     
   /* Validate and return the skel. */
   if (! is_valid_proplist_skel (skel))
     return skel_err ("proplist", pool);
@@ -434,19 +434,19 @@ svn_fs__unparse_representation_skel (skel_t **skel_p,
 
       /* Create the header. */
       header_skel = svn_fs__make_empty_list (pool);
-
+      
       /* STRING-KEY */
-      if ((! rep->contents.fulltext.string_key)
+      if ((! rep->contents.fulltext.string_key) 
           || (! *rep->contents.fulltext.string_key))
         svn_fs__prepend (svn_fs__mem_atom (NULL, 0, pool), skel);
       else
-        svn_fs__prepend (svn_fs__str_atom
+        svn_fs__prepend (svn_fs__str_atom 
                          (rep->contents.fulltext.string_key, pool), skel);
-
+      
       /* "mutable" flag (optional) */
       if (rep->is_mutable)
         svn_fs__prepend (svn_fs__str_atom ("mutable", pool), header_skel);
-
+      
       /* "fulltext" */
       svn_fs__prepend (svn_fs__str_atom ("fulltext", pool), header_skel);
 
@@ -468,7 +468,7 @@ svn_fs__unparse_representation_skel (skel_t **skel_p,
           skel_t *checksum_skel = svn_fs__make_empty_list (pool);
           const char *size_str;
           const char *offset_str;
-          svn_fs__rep_delta_chunk_t *chunk =
+          svn_fs__rep_delta_chunk_t *chunk = 
             (((svn_fs__rep_delta_chunk_t **) chunks->elts)[i - 1]);
           svn_fs__rep_delta_window_t *window = chunk->window;
 
@@ -477,7 +477,7 @@ svn_fs__unparse_representation_skel (skel_t **skel_p,
                                      chunk->offset);
 
           /* SIZE */
-          size_str = apr_psprintf (pool, "%" APR_SIZE_T_FMT,
+          size_str = apr_psprintf (pool, "%" APR_SIZE_T_FMT, 
                                    chunk->window->size);
 
           /* DIFF */
@@ -487,39 +487,39 @@ svn_fs__unparse_representation_skel (skel_t **skel_p,
             svn_fs__prepend (svn_fs__str_atom (window->string_key,
                                                pool), diff_skel);
           svn_fs__prepend (svn_fs__str_atom ("svndiff", pool), diff_skel);
-
+        
           /* CHECKSUM */
           svn_fs__prepend (svn_fs__mem_atom (window->checksum,
-                                             MD5_DIGESTSIZE /
-                                             sizeof (*window->checksum),
+                                             MD5_DIGESTSIZE / 
+                                             sizeof (*window->checksum), 
                                              pool), checksum_skel);
           svn_fs__prepend (svn_fs__str_atom ("md5", pool), checksum_skel);
-
+          
           /* REP-KEY */
           if ((! window->rep_key) || (! *window->rep_key))
             svn_fs__prepend (svn_fs__mem_atom (NULL, 0, pool), window_skel);
           else
-            svn_fs__prepend (svn_fs__str_atom (window->rep_key,
+            svn_fs__prepend (svn_fs__str_atom (window->rep_key, 
                                                pool), window_skel);
           svn_fs__prepend (checksum_skel, window_skel);
           svn_fs__prepend (svn_fs__str_atom (size_str, pool), window_skel);
           svn_fs__prepend (diff_skel, window_skel);
-
+          
           /* window header. */
           svn_fs__prepend (window_skel, chunk_skel);
           svn_fs__prepend (svn_fs__str_atom (offset_str, pool), chunk_skel);
-
+          
           /* Add this window item to the main skel. */
           svn_fs__prepend (chunk_skel, skel);
         }
-
+      
       /* Create the header. */
       header_skel = svn_fs__make_empty_list (pool);
-
+      
       /* "mutable" flag (optional) */
       if (rep->is_mutable)
         svn_fs__prepend (svn_fs__str_atom ("mutable", pool), header_skel);
-
+      
       /* "delta" */
       svn_fs__prepend (svn_fs__str_atom ("delta", pool), header_skel);
 
@@ -537,7 +537,7 @@ svn_fs__unparse_representation_skel (skel_t **skel_p,
 }
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end:
