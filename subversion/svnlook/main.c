@@ -71,8 +71,8 @@ static svn_opt_subcommand_t
   subcommand_youngest;
 
 /* Option codes and descriptions. */
-enum
-  {
+enum 
+  { 
     svnlook__version = SVN_OPT_FIRST_LONGOPT_ID,
     svnlook__show_ids,
     svnlook__no_diff_deleted
@@ -80,7 +80,7 @@ enum
 
 /*
  * This must not have more than SVN_OPT_MAX_OPTIONS entries; if you
- * need more, increase that limit first.
+ * need more, increase that limit first. 
  *
  * The entire list must be terminated with an entry of nulls.
  */
@@ -123,17 +123,17 @@ static const svn_opt_subcommand_desc_t cmd_table[] =
      "usage: svnlook author REPOS_PATH\n\n"
      "Print the author.\n",
      {'r', 't'} },
-
+    
     {"cat", subcommand_cat, {0},
      "usage: svnlook cat REPOS_PATH FILE_PATH\n\n"
      "Print the contents of a file.  Leading '/' on FILE_PATH is optional.\n",
      {'r', 't'} },
-
+    
     {"changed", subcommand_changed, {0},
      "usage: svnlook changed REPOS_PATH\n\n"
      "Print the paths that were changed.\n",
      {'r', 't'} },
-
+    
     {"date", subcommand_date, {0},
      "usage: svnlook date REPOS_PATH\n\n"
      "Print the datestamp.\n",
@@ -149,7 +149,7 @@ static const svn_opt_subcommand_desc_t cmd_table[] =
      "Print the directories that were themselves changed (property edits)\n"
      "or whose file children were changed.\n",
      {'r', 't'} },
-
+    
     {"help", subcommand_help, {"?", "h"},
      "usage: svnlook help [SUBCOMMAND...]\n\n"
      "Display this usage message.\n",
@@ -230,7 +230,7 @@ typedef struct svnlook_ctxt_t
 /*** Helper functions. ***/
 static svn_error_t *
 get_property (svn_string_t **prop_value /* native */,
-              svnlook_ctxt_t *c,
+              svnlook_ctxt_t *c, 
               const char *prop_name /* UTF-8! */,
               apr_pool_t *pool)
 {
@@ -285,8 +285,8 @@ get_root (svn_fs_root_t **root,
 static svn_error_t *
 generate_delta_tree (svn_repos_node_t **tree,
                      svn_repos_t *repos,
-                     svn_fs_root_t *root,
-                     svn_revnum_t base_rev,
+                     svn_fs_root_t *root, 
+                     svn_revnum_t base_rev, 
                      svn_boolean_t use_copy_history,
                      apr_pool_t *pool)
 {
@@ -364,7 +364,7 @@ print_dirs_changed_tree (svn_repos_node_t *node,
             }
         }
     }
-
+  
   /* Print the node if it qualifies. */
   if (print_me)
     {
@@ -432,7 +432,7 @@ print_changed_tree (svn_repos_node_t *node,
               path_native,
               node->kind == svn_node_dir ? "/" : "");
     }
-
+  
   /* Return here if the node has no children. */
   node = node->child;
   if (! node)
@@ -453,17 +453,17 @@ print_changed_tree (svn_repos_node_t *node,
 
 
 static svn_error_t *
-open_writable_binary_file (apr_file_t **fh,
-                           const char *path /* UTF-8! */,
+open_writable_binary_file (apr_file_t **fh, 
+                           const char *path /* UTF-8! */, 
                            apr_pool_t *pool)
 {
   apr_array_header_t *path_pieces;
   svn_error_t *err;
   int i;
   const char *full_path, *dir;
-
+  
   /* Try the easy way to open the file. */
-  err = svn_io_file_open (fh, path,
+  err = svn_io_file_open (fh, path, 
                           APR_WRITE | APR_CREATE | APR_TRUNCATE | APR_BINARY,
                           APR_OS_DEFAULT, pool);
   if (! err)
@@ -498,20 +498,20 @@ open_writable_binary_file (apr_file_t **fh,
         {
           if (err)
             return svn_error_createf (err->apr_err, err,
-                                      "Error creating dir '%s' (path exists)",
+                                      "Error creating dir '%s' (path exists)", 
                                       full_path);
         }
     }
 
   /* Now that we are ensured that the parent path for this file
      exists, try once more to open it. */
-  err = svn_io_file_open (fh, path,
+  err = svn_io_file_open (fh, path, 
                           APR_WRITE | APR_CREATE | APR_TRUNCATE | APR_BINARY,
                           APR_OS_DEFAULT, pool);
   if (err)
     return svn_error_createf (err->apr_err, err,
                               "Error opening writable file '%s'", path);
-
+    
   return SVN_NO_ERROR;
 }
 
@@ -529,7 +529,7 @@ dump_contents (apr_file_t *fh,
 
   /* Get a stream to the current file's contents. */
   SVN_ERR (svn_fs_file_contents (&stream, root, path, pool));
-
+  
   /* Now, route that data into our temporary file. */
   while (1)
     {
@@ -538,7 +538,7 @@ dump_contents (apr_file_t *fh,
       len2 = len;
       apr_err = apr_file_write (fh, buffer, &len2);
       if ((apr_err) || (len2 != len))
-        return svn_error_createf
+        return svn_error_createf 
           (apr_err ? apr_err : SVN_ERR_INCOMPLETE_DATA, NULL,
            "Error writing contents of '%s'", path);
       if (len != sizeof (buffer))
@@ -587,7 +587,7 @@ prepare_tmpfiles (const char **tmpfile1,
      mimetype, get outta here.  */
   if (root1)
     {
-      SVN_ERR (svn_fs_node_prop (&mimetype, root1, path1,
+      SVN_ERR (svn_fs_node_prop (&mimetype, root1, path1, 
                                  SVN_PROP_MIME_TYPE, pool));
       if (mimetype && svn_mime_type_is_binary (mimetype->data))
         {
@@ -597,7 +597,7 @@ prepare_tmpfiles (const char **tmpfile1,
     }
   if (root2)
     {
-      SVN_ERR (svn_fs_node_prop (&mimetype, root2, path2,
+      SVN_ERR (svn_fs_node_prop (&mimetype, root2, path2, 
                                  SVN_PROP_MIME_TYPE, pool));
       if (mimetype && svn_mime_type_is_binary (mimetype->data))
         {
@@ -616,7 +616,7 @@ prepare_tmpfiles (const char **tmpfile1,
   apr_file_close (fh);
 
   /* The second file is constructed from the first one's path. */
-  SVN_ERR (svn_io_open_unique_file (&fh, tmpfile1, *tmpfile2,
+  SVN_ERR (svn_io_open_unique_file (&fh, tmpfile1, *tmpfile2, 
                                     NULL, FALSE, pool));
   if (root1)
     SVN_ERR (dump_contents (fh, root1, path1, pool));
@@ -642,17 +642,17 @@ generate_label (const char **label,
   if (svn_fs_is_revision_root (root))
     {
       rev = svn_fs_revision_root_revision (root);
-      SVN_ERR (svn_fs_revision_prop (&date, fs, rev,
+      SVN_ERR (svn_fs_revision_prop (&date, fs, rev, 
                                      SVN_PROP_REVISION_DATE, pool));
     }
-  else
+  else 
     {
       svn_fs_txn_t *txn;
       name = svn_fs_txn_root_name (root, pool);
       SVN_ERR (svn_fs_open_txn (&txn, fs, name, pool));
       SVN_ERR (svn_fs_txn_prop (&date, txn, SVN_PROP_REVISION_DATE, pool));
     }
-
+  
   if (date)
     {
       datestr = date->data;
@@ -665,8 +665,8 @@ generate_label (const char **label,
     }
 
   if (name)
-    *label = apr_psprintf (pool, "%s\t%s UTC (txn %s)",
-                           path, datestr, name);
+    *label = apr_psprintf (pool, "%s\t%s UTC (txn %s)", 
+                           path, datestr, name); 
   else
     *label = apr_psprintf (pool, "%s\t%s UTC (rev %" SVN_REVNUM_T_FMT ")",
                            path, datestr, rev);
@@ -677,7 +677,7 @@ generate_label (const char **label,
 /*
  * Constant diff output separator strings
  */
-static const char equal_string[] =
+static const char equal_string[] = 
   "===================================================================";
 static const char under_string[] =
   "___________________________________________________________________";
@@ -717,7 +717,7 @@ display_prop_diffs (const apr_array_header_t *prop_diffs,
         if (orig_value != NULL)
           {
             if (val_to_utf8)
-              SVN_ERR (svn_utf_cstring_from_utf8 (&printable_val,
+              SVN_ERR (svn_utf_cstring_from_utf8 (&printable_val, 
                                                   orig_value->data, pool));
             else
               printable_val = orig_value->data;
@@ -748,7 +748,7 @@ display_prop_diffs (const apr_array_header_t *prop_diffs,
 static svn_error_t *
 print_diff_tree (svn_fs_root_t *root,
                  svn_fs_root_t *base_root,
-                 svn_repos_node_t *node,
+                 svn_repos_node_t *node, 
                  const char *path /* UTF-8! */,
                  const char *base_path /* UTF-8! */,
                  svn_boolean_t no_diff_deleted,
@@ -801,7 +801,7 @@ print_diff_tree (svn_fs_root_t *root,
            and new files.  If either has such a property, and it
            represents a binary type, we won't actually be doing a real
            diff.
-
+           
          - First, dump the contents of the new version of the file
            into the svnlook temporary directory, building out the
            actual directories that need to be created in order to
@@ -816,7 +816,7 @@ print_diff_tree (svn_fs_root_t *root,
            identifiers).
 
          - Next, we run 'diff', passing the repository path as the
-           label.
+           label.  
 
          - Finally, we delete the temporary files (but leave the
            built-out directories in place until after all diff
@@ -844,8 +844,8 @@ print_diff_tree (svn_fs_root_t *root,
   if (do_diff)
     {
       if (! is_copy)
-        printf ("%s: %s\n",
-                ((node->action == 'A') ? "Added" :
+        printf ("%s: %s\n", 
+                ((node->action == 'A') ? "Added" : 
                  ((node->action == 'D') ? "Deleted" :
                   ((node->action == 'R') ? "Modified" : "Index"))),
                 path_native);
@@ -874,14 +874,14 @@ print_diff_tree (svn_fs_root_t *root,
                      we'll have the diff program print to. */
                   apr_err = apr_file_open_stdout (&outhandle, pool);
                   if (apr_err)
-                    return svn_error_create
+                    return svn_error_create 
                       (apr_err, NULL,
                        "print_diff_tree: can't open handle to stdout");
-
-                  SVN_ERR (generate_label (&orig_label, base_root,
+                  
+                  SVN_ERR (generate_label (&orig_label, base_root, 
                                            base_path, pool));
                   SVN_ERR (generate_label (&new_label, root, path, pool));
-                  SVN_ERR (svn_diff_file_output_unified (outhandle, diff,
+                  SVN_ERR (svn_diff_file_output_unified (outhandle, diff, 
                                                          orig_path, new_path,
                                                          orig_label, new_label,
                                                          pool));
@@ -914,9 +914,9 @@ print_diff_tree (svn_fs_root_t *root,
       if (node->action == 'A')
         base_proptable = apr_hash_make (pool);
       else
-        SVN_ERR (svn_fs_node_proplist (&base_proptable, base_root,
+        SVN_ERR (svn_fs_node_proplist (&base_proptable, base_root, 
                                        base_path, pool));
-      SVN_ERR (svn_prop_diffs (&propchanges, local_proptable,
+      SVN_ERR (svn_prop_diffs (&propchanges, local_proptable, 
                                base_proptable, pool));
       SVN_ERR (svn_categorize_props (propchanges, NULL, NULL, &props, pool));
       if (props->nelts > 0)
@@ -937,22 +937,22 @@ print_diff_tree (svn_fs_root_t *root,
              (root, base_root, node,
               svn_path_join (path, node->name, subpool),
               svn_path_join (base_path, node->name, subpool),
-              no_diff_deleted,
+              no_diff_deleted, 
               subpool));
 
     /* Recurse across siblings. */
     while (node->sibling)
       {
         node = node->sibling;
-
+       
         SVN_ERR (print_diff_tree
                  (root, base_root, node,
                   svn_path_join (path, node->name, subpool),
                   svn_path_join (base_path, node->name, subpool),
-                  no_diff_deleted,
+                  no_diff_deleted, 
                   pool));
       }
-
+    
     apr_pool_destroy (subpool);
   }
 
@@ -966,7 +966,7 @@ print_diff_tree (svn_fs_root_t *root,
    PATH and ID are the current path and node revision id being
    printed, and INDENTATION the number of spaces to prepent to that
    path's printed output.  ID may be NULL if SHOW_IDS is FALSE (in
-   which case, ids won't be printed at all).
+   which case, ids won't be printed at all).  
 
    Use POOL for all allocations.  */
 static svn_error_t *
@@ -991,8 +991,8 @@ print_tree (svn_fs_root_t *root,
     }
 
   /* Print the node. */
-  SVN_ERR (svn_utf_cstring_from_utf8 (&name_native,
-                                      svn_path_basename (path, pool),
+  SVN_ERR (svn_utf_cstring_from_utf8 (&name_native, 
+                                      svn_path_basename (path, pool), 
                                       pool));
   printf ("%s%s", name_native, is_dir ? "/" : "");
 
@@ -1008,7 +1008,7 @@ print_tree (svn_fs_root_t *root,
   /* Return here if PATH is not a directory. */
   if (! is_dir)
     return SVN_NO_ERROR;
-
+  
   /* Recursively handle the node's children. */
   SVN_ERR (svn_fs_dir_entries (&entries, root, path, pool));
   subpool = svn_pool_create (pool);
@@ -1047,7 +1047,7 @@ do_log (svnlook_ctxt_t *c, svn_boolean_t print_size, apr_pool_t *pool)
       printf ("%s\n", print_size ? "0" : "");
       return SVN_NO_ERROR;
     }
-
+  
   if (print_size)
     printf ("%" APR_SIZE_T_FMT "\n", prop_value->len);
 
@@ -1069,7 +1069,7 @@ do_date (svnlook_ctxt_t *c, apr_pool_t *pool)
     {
       /* Convert the date for humans. */
       apr_time_t aprtime;
-
+      
       SVN_ERR (svn_time_from_cstring (&aprtime, prop_value->data, pool));
       printf ("%s", svn_time_to_human_cstring (aprtime, pool));
     }
@@ -1086,9 +1086,9 @@ do_author (svnlook_ctxt_t *c, apr_pool_t *pool)
   svn_string_t *prop_value;
 
   SVN_ERR (get_property (&prop_value, c, SVN_PROP_REVISION_AUTHOR, pool));
-  if (prop_value && prop_value->data)
+  if (prop_value && prop_value->data) 
     printf ("%s", prop_value->data);
-
+  
   printf ("\n");
   return SVN_NO_ERROR;
 }
@@ -1098,7 +1098,7 @@ do_author (svnlook_ctxt_t *c, apr_pool_t *pool)
    properties, have been modified. */
 static svn_error_t *
 do_dirs_changed (svnlook_ctxt_t *c, apr_pool_t *pool)
-{
+{ 
   svn_fs_root_t *root;
   svn_revnum_t base_rev_id;
   svn_repos_node_t *tree;
@@ -1110,13 +1110,13 @@ do_dirs_changed (svnlook_ctxt_t *c, apr_pool_t *pool)
     base_rev_id = svn_fs_txn_base_revision (c->txn);
 
   if (! SVN_IS_VALID_REVNUM (base_rev_id))
-    return svn_error_createf
+    return svn_error_createf 
       (SVN_ERR_FS_NO_SUCH_REVISION, NULL,
        "Transaction '%s' is not based on a revision.  How odd.",
        c->txn_name);
-
-  SVN_ERR (generate_delta_tree (&tree, c->repos, root, base_rev_id,
-                                TRUE, pool));
+  
+  SVN_ERR (generate_delta_tree (&tree, c->repos, root, base_rev_id, 
+                                TRUE, pool)); 
   if (tree)
     SVN_ERR (print_dirs_changed_tree (tree, "", pool));
 
@@ -1144,7 +1144,7 @@ verify_path (svn_node_kind_t *kind,
           (SVN_ERR_FS_NOT_FOUND, NULL,
            "'%s' is a URL, probably should be a path.", path);
       else
-        return svn_error_createf
+        return svn_error_createf 
           (SVN_ERR_FS_NOT_FOUND, NULL, "Path '%s' does not exist.", path);
     }
 
@@ -1168,7 +1168,7 @@ do_cat (svnlook_ctxt_t *c, const char *path, apr_pool_t *pool)
   SVN_ERR (verify_path (&kind, root, path, pool));
 
   if (kind != svn_node_file)
-    return svn_error_createf
+    return svn_error_createf 
       (SVN_ERR_FS_NOT_FILE, NULL, "Path '%s' is not a file.", path);
 
   /* Else. */
@@ -1200,13 +1200,13 @@ do_changed (svnlook_ctxt_t *c, apr_pool_t *pool)
     base_rev_id = svn_fs_txn_base_revision (c->txn);
 
   if (! SVN_IS_VALID_REVNUM (base_rev_id))
-    return svn_error_createf
+    return svn_error_createf 
       (SVN_ERR_FS_NO_SUCH_REVISION, NULL,
        "Transaction '%s' is not based on a revision.  How odd.",
        c->txn_name);
-
-  SVN_ERR (generate_delta_tree (&tree, c->repos, root, base_rev_id,
-                                TRUE, pool));
+  
+  SVN_ERR (generate_delta_tree (&tree, c->repos, root, base_rev_id, 
+                                TRUE, pool)); 
   if (tree)
     SVN_ERR (print_changed_tree (tree, "", pool));
 
@@ -1229,13 +1229,13 @@ do_diff (svnlook_ctxt_t *c, apr_pool_t *pool)
     base_rev_id = svn_fs_txn_base_revision (c->txn);
 
   if (! SVN_IS_VALID_REVNUM (base_rev_id))
-    return svn_error_createf
+    return svn_error_createf 
       (SVN_ERR_FS_NO_SUCH_REVISION, NULL,
        "Transaction '%s' is not based on a revision.  How odd.",
        c->txn_name);
-
-  SVN_ERR (generate_delta_tree (&tree, c->repos, root, base_rev_id,
-                                TRUE, pool));
+  
+  SVN_ERR (generate_delta_tree (&tree, c->repos, root, base_rev_id, 
+                                TRUE, pool)); 
   if (tree)
     {
       svn_node_kind_t kind;
@@ -1265,7 +1265,7 @@ do_pget (svnlook_ctxt_t *c,
   svn_node_kind_t kind;
   svn_stream_t *stdout_stream;
   apr_size_t len;
-
+  
   SVN_ERR (get_root (&root, c, pool));
   SVN_ERR (verify_path (&kind, root, path, pool));
   SVN_ERR (svn_fs_node_prop (&prop, root, path, propname, pool));
@@ -1278,7 +1278,7 @@ do_pget (svnlook_ctxt_t *c,
   /* Else. */
 
   SVN_ERR (svn_stream_for_stdout (&stdout_stream, pool));
-
+  
   /* Unlike the command line client, we don't translate the property
      value or print a trailing newline here.  We just output the raw
      bytes of whatever's in the repository, as svnlook is more likely
@@ -1335,16 +1335,16 @@ do_plist (svnlook_ctxt_t *c,
       else
         printf ("  %s\n", pname);
     }
-
+  
   return SVN_NO_ERROR;
 }
 
 
 /* Print the diff between revision 0 and our root. */
 static svn_error_t *
-do_tree (svnlook_ctxt_t *c,
+do_tree (svnlook_ctxt_t *c, 
          const char *path,
-         svn_boolean_t show_ids,
+         svn_boolean_t show_ids, 
          apr_pool_t *pool)
 {
   svn_fs_root_t *root;
@@ -1375,7 +1375,7 @@ get_ctxt_baton (svnlook_ctxt_t **baton_p,
   baton->rev_id = opt_state->rev;
   baton->txn_name = apr_pstrdup (pool, opt_state->txn);
   if (baton->txn_name)
-    SVN_ERR (svn_fs_open_txn (&(baton->txn), baton->fs,
+    SVN_ERR (svn_fs_open_txn (&(baton->txn), baton->fs, 
                               baton->txn_name, pool));
   else if (baton->rev_id == SVN_INVALID_REVNUM)
     SVN_ERR (svn_fs_youngest_rev (&(baton->rev_id), baton->fs, pool));
@@ -1475,12 +1475,12 @@ subcommand_help (apr_getopt_t *os, void *baton, apr_pool_t *pool)
     "\n"
     "Available subcommands:\n";
 
-  SVN_ERR (svn_opt_print_help (os, "svnlook",
-                               opt_state ? opt_state->version : FALSE,
+  SVN_ERR (svn_opt_print_help (os, "svnlook", 
+                               opt_state ? opt_state->version : FALSE, 
                                FALSE, NULL,
                                header, cmd_table, options_table, NULL,
                                pool));
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -1560,7 +1560,7 @@ subcommand_tree (apr_getopt_t *os, void *baton, apr_pool_t *pool)
   svnlook_ctxt_t *c;
 
   SVN_ERR (get_ctxt_baton (&c, opt_state, pool));
-  SVN_ERR (do_tree (c, opt_state->arg1 ? opt_state->arg1 : "",
+  SVN_ERR (do_tree (c, opt_state->arg1 ? opt_state->arg1 : "", 
                     opt_state->show_ids, pool));
   return SVN_NO_ERROR;
 }
@@ -1605,7 +1605,7 @@ main (int argc, const char * const *argv)
 
   const svn_opt_subcommand_desc_t *subcommand = NULL;
   struct svnlook_opt_state opt_state;
-  apr_getopt_t *os;
+  apr_getopt_t *os;  
   int opt_id;
   int received_opts[SVN_OPT_MAX_OPTIONS];
   int i, num_opts = 0;
@@ -1658,7 +1658,7 @@ main (int argc, const char * const *argv)
       received_opts[num_opts] = opt_id;
       num_opts++;
 
-      switch (opt_id)
+      switch (opt_id) 
         {
         case 'r':
           opt_state.rev = atoi (opt_arg);
@@ -1704,7 +1704,7 @@ main (int argc, const char * const *argv)
 
   /* The --transaction and --revision options may not co-exist. */
   if ((opt_state.rev != SVN_INVALID_REVNUM) && opt_state.txn)
-    SVN_INT_ERR (svn_error_create
+    SVN_INT_ERR (svn_error_create 
                  (SVN_ERR_CL_MUTUALLY_EXCLUSIVE_ARGS, NULL,
                   "The '--transaction' (-t) and '--revision' (-r) arguments "
                   "may no co-exist."));
@@ -1746,7 +1746,7 @@ main (int argc, const char * const *argv)
      a path within the repository, or it's a propname and the one
      after that is the path.  Since we don't know, we just call them
      arg1 and arg2, meaning the first and second arguments following
-     the repository. */
+     the repository. */ 
   if (subcommand->cmd_func != subcommand_help)
     {
       const char *repos_path = NULL;
@@ -1777,7 +1777,7 @@ main (int argc, const char * const *argv)
           return EXIT_FAILURE;
         }
 
-      opt_state.repos_path = repos_path;
+      opt_state.repos_path = repos_path;      
 
       /* Get next arg (arg1), if any. */
       if (os->ind < os->argc)
@@ -1786,7 +1786,7 @@ main (int argc, const char * const *argv)
                        (&arg1, os->argv[os->ind++], NULL, pool));
           arg1 = svn_path_internal_style (arg1, pool);
         }
-      opt_state.arg1 = arg1;
+      opt_state.arg1 = arg1;      
 
       /* Get next arg (arg2), if any. */
       if (os->ind < os->argc)
@@ -1795,7 +1795,7 @@ main (int argc, const char * const *argv)
                        (&arg2, os->argv[os->ind++], NULL, pool));
           arg2 = svn_path_internal_style (arg2, pool);
         }
-      opt_state.arg2 = arg2;
+      opt_state.arg2 = arg2;      
     }
 
   /* Check that the subcommand wasn't passed any inappropriate options. */
@@ -1813,7 +1813,7 @@ main (int argc, const char * const *argv)
       if (! svn_opt_subcommand_takes_option (subcommand, opt_id))
         {
           const char *optstr;
-          const apr_getopt_option_t *badopt =
+          const apr_getopt_option_t *badopt = 
             svn_opt_get_option_from_code (opt_id, options_table);
           svn_opt_format_option (&optstr, badopt, FALSE, pool);
           fprintf (stderr,

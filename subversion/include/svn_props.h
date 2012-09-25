@@ -58,7 +58,7 @@ typedef struct svn_prop_t
  * particularly on the client-side.  There is no "unknown" kind; if
  * there's nothing special about a property name, the default category
  * is @c svn_prop_regular_kind.
- */
+ */ 
 typedef enum svn_prop_kind
 {
   /** In .svn/entries, i.e., author, date, etc. */
@@ -67,10 +67,10 @@ typedef enum svn_prop_kind
   /** Client-side only, stored by specific RA layer. */
   svn_prop_wc_kind,
 
-  /** Seen if user does "svn proplist"; note that this includes some "svn:"
+  /** Seen if user does "svn proplist"; note that this includes some "svn:" 
    * props and all user props, i.e. ones stored in the repository fs.
    */
-  svn_prop_regular_kind
+  svn_prop_regular_kind 
 } svn_prop_kind_t;
 
 /** Return the prop kind of a property named @a name, and (if @a prefix_len
@@ -91,7 +91,7 @@ svn_boolean_t svn_prop_is_svn_prop (const char *prop_name);
  * repository, then return @c TRUE.  Else return @c FALSE.  This is for
  * users of libsvn_client or libsvn_fs, since it their responsibility
  * to do this translation in both directions.  (See
- * @c svn_subst_translate_string/@c svn_subst_detranslate_string for
+ * @c svn_subst_translate_string/@c svn_subst_detranslate_string for 
  * help with this task.)
  */
 svn_boolean_t svn_prop_needs_translation (const char *propname);
@@ -111,7 +111,7 @@ svn_boolean_t svn_prop_needs_translation (const char *propname);
  * ### Hmmm, maybe a better future interface is to return an array of
  *     arrays, where the index into the array represents the index
  *     into @c svn_prop_kind_t.  That way we can add more prop kinds
- *     in the future without changing this interface...
+ *     in the future without changing this interface... 
  */
 svn_error_t *svn_categorize_props (const apr_array_header_t *proplist,
                                    apr_array_header_t **entry_props,
@@ -120,9 +120,9 @@ svn_error_t *svn_categorize_props (const apr_array_header_t *proplist,
                                    apr_pool_t *pool);
 
 
-/** Given two property hashes (<tt>const char *name</tt> -> <tt>const
- * svn_string_t *value</tt>), deduce the differences between them (from
- * @a source_props -> @c target_props).  Return these changes as a series of
+/** Given two property hashes (<tt>const char *name</tt> -> <tt>const 
+ * svn_string_t *value</tt>), deduce the differences between them (from 
+ * @a source_props -> @c target_props).  Return these changes as a series of 
  * @c svn_prop_t structures stored in @a propdiffs, allocated from @a pool.
  *
  * For note, here's a quick little table describing the logic of this
@@ -157,7 +157,7 @@ svn_error_t *svn_prop_diffs (apr_array_header_t **propdiffs,
  * LF line-endings.  It is the burden of svn library users to enforce
  * this.  Use @c svn_prop_needs_translation() above to discover if a
  * certain property needs translation, and you can use
- * @c svn_subst_translate_string()/@c svn_subst_[de]translate_string()
+ * @c svn_subst_translate_string()/@c svn_subst_[de]translate_string() 
  * to do the translation.
  *
  * @defgroup svn_prop_visible_props Visible properties
@@ -182,7 +182,7 @@ svn_error_t *svn_prop_diffs (apr_array_header_t **propdiffs,
 /** The value to force the executable property to when set */
 #define SVN_PROP_EXECUTABLE_VALUE "*"
 
-/** Describes external items to check out into this directory.
+/** Describes external items to check out into this directory. 
  *
  * The format is a series of lines, such as:
  *
@@ -207,7 +207,7 @@ svn_error_t *svn_prop_diffs (apr_array_header_t **propdiffs,
  * @{
  */
 
-/** The propname *prefix* that makes a propname a "WC property".
+/** The propname *prefix* that makes a propname a "WC property". 
  *
  * For example, ra_dav might store a versioned-resource url as a WC
  * prop like this:
@@ -222,7 +222,7 @@ svn_error_t *svn_prop_diffs (apr_array_header_t **propdiffs,
 #define SVN_PROP_WC_PREFIX     SVN_PROP_PREFIX "wc:"
 
 /** Another type of non-user-visible property.  "Entry properties" are
- * stored as fields with the administrative 'entries' file.
+ * stored as fields with the administrative 'entries' file.  
  */
 #define SVN_PROP_ENTRY_PREFIX  SVN_PROP_PREFIX "entry:"
 
