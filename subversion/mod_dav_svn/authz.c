@@ -223,6 +223,6 @@ dav_svn__allow_read_resource(const dav_resource *resource,
                              apr_pool_t *pool)
 {
   return dav_svn__allow_read(resource->info->r, resource->info->repos,
-                             resource->info->repos_path, rev,
+                             resource->info->repos_path, rev, 
                              required, svn_depth_empty, pool);
 }
