@@ -27,7 +27,7 @@ EOF
 dnl
 dnl SVN_SUBDIR_CONFIG(dir [, sub-package-cmdline-args])
 dnl
-dnl Note that this code is a direct copy of that which is found in
+dnl Note that this code is a direct copy of that which is found in 
 dnl the apr project's build/apr_common.m4.
 AC_DEFUN(SVN_SUBDIR_CONFIG, [
   if test "$do_subdir_config" = "yes" ; then
