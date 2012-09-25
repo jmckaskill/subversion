@@ -29,7 +29,7 @@ DESIGN_DIR = doc/programmer/design
 BOOK_TOP = doc/book
 BOOK_DIR = ${BOOK_TOP}/book
 MDOCS_DIR = ${BOOK_TOP}/misc-docs
-DOC_DIRS = $(DESIGN_DIR) $(BOOK_DIR) $(MDOCS_DIR)
+DOC_DIRS = $(DESIGN_DIR) $(BOOK_DIR) $(MDOCS_DIR) 
 
 SWIG_SRC_DIR = $(abs_srcdir)/subversion/bindings/swig
 SWIG_BUILD_DIR = $(abs_builddir)/subversion/bindings/swig
@@ -187,7 +187,7 @@ INSTALL_EXTRA_SWIG_PY=\
    fi
 INSTALL_EXTRA_SWIG_JAVA=:
 
-APXS = @APXS@
+APXS = @APXS@ 
 
 PYTHON = @PYTHON@
 
@@ -262,12 +262,12 @@ check: $(TEST_DEPS) @FS_TEST_DEPS@
 
 # First, set up Apache as documented in
 # subversion/tests/clients/cmdline/README.
-davcheck:
+davcheck: 
 	@$(MAKE) check BASE_URL=http://localhost
 
 # First, run:
 #   subversion/svnserve/svnserve -d -r `pwd`/subversion/tests/clients/cmdline
-svncheck:
+svncheck: 
 	@$(MAKE) check BASE_URL=svn://localhost
 
 # First make sure you can ssh to localhost and that "svnserve" is in
@@ -411,7 +411,7 @@ java-api:
 
 
 .texi.info:
-	$(MAKEINFO) -I `dirname $<` -o $@ $<
+	$(MAKEINFO) -I `dirname $<` -o $@ $< 
 
 .texi.dvi:
 	wd=`pwd` ; cd `dirname $@` ; $(TEXI2DVI) $$wd/$<

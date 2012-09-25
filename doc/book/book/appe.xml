@@ -1,6 +1,6 @@
   <appendix id="svn-ap-e">
     <title>Other Subversion Clients</title>
-
+    
   <!-- ================================================================= -->
   <!-- ======================== SECTION 1 ============================== -->
   <!-- ================================================================= -->
@@ -71,7 +71,7 @@
               <entry><systemitem
               class="url">http://svnup.tigris.org/</systemitem></entry>
             </row>
-
+      
             <row>
               <entry>jsvn</entry>
               <entry>Java, wrapping the svn command-line client</entry>
@@ -89,7 +89,7 @@
 </appendix>
 
 <!--
-local variables:
+local variables: 
 sgml-parent-document: ("book.xml" "appendix")
 end:
 -->

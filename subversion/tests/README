@@ -37,7 +37,7 @@ For example,
 
   [sussman@newton:~] ./frobtest 2
   PASS: frobtest 2: frobnicating fragile data
-  [sussman@newton:~]
+  [sussman@newton:~] 
 
 Note that no particular programming language is required to write a
 set of tests;  they just needs to export this user interface.
@@ -165,7 +165,7 @@ temporary test you forgot to remove.  As long as it's marked like
 this...
 
       /* Temporary test for debugging only: Test that the txn got id
-       * "0", since it's the first txn.
+       * "0", since it's the first txn. 
        * NOTE: If the test suite is failing because of this test, then
        * just remove the test.  It was written to help me debug an
        * implementation detail that might have changed by now, so its
@@ -182,7 +182,7 @@ this...
 What's here
 -----------
 
-   * svn_tests_main.c
+   * svn_tests_main.c 
      [shared library "libsvn_tests_main"]
      A standardized main() function to drive tests.  Link this into
      your automated test-programs.
@@ -199,7 +199,7 @@ What's here
 
    * clients/cmdline/
      A collection of python scripts to test the command-line client.
-
+   
 
 `make check`
 ------------

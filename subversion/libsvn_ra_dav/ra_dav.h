@@ -163,7 +163,7 @@ typedef struct {
 
   ne_session *sess;                     /* HTTP session to server */
   ne_session *sess2;
-
+  
   const svn_ra_callbacks_t *callbacks;  /* callbacks to get auth data */
   void *callback_baton;
 
@@ -398,12 +398,12 @@ svn_error_t * svn_ra_dav__get_starting_props(svn_ra_dav_resource_t **rsrc,
 /* Shared helper func: given a public URL which may not exist in HEAD,
    use SESS to search up parent directories until we can retrieve a
    *RSRC (allocated in POOL) containing a standard set of "starting"
-   props: {VCC, resourcetype, baseline-relative-path}.
+   props: {VCC, resourcetype, baseline-relative-path}.  
 
    Also return *MISSING_PATH (allocated in POOL), which is the
    trailing portion of the URL that did not exist.  If an error
    occurs, *MISSING_PATH isn't changed. */
-svn_error_t *
+svn_error_t * 
 svn_ra_dav__search_for_starting_props(svn_ra_dav_resource_t **rsrc,
                                       const char **missing_path,
                                       ne_session *sess,
@@ -456,7 +456,7 @@ svn_error_t *svn_ra_dav__get_baseline_info(svn_boolean_t *is_dir,
                                            apr_pool_t *pool);
 
 /* Fetch a baseline resource populated with specific properties.
-
+   
    Given a Neon session SESS and a URL, set *BLN_RSRC to a baseline of
    REVISION, populated with whatever properties are specified by
    WHICH_PROPS.  To fetch all properties, pass NULL for WHICH_PROPS.
@@ -474,7 +474,7 @@ svn_error_t *svn_ra_dav__get_baseline_props(svn_string_t *bc_relative,
                                             apr_pool_t *pool);
 
 /* Fetch the repository's unique Version-Controlled-Configuration url.
-
+   
    Given a Neon session SESS and a URL, set *VCC to the url of the
    repository's version-controlled-configuration resource.
  */
@@ -545,15 +545,15 @@ svn_ra_dav__parsed_request(ne_session *sess,
                            apr_file_t *body_file,
                            void set_parser (ne_xml_parser *parser,
                                             void *baton),
-                           const svn_ra_dav__xml_elm_t *elements,
+                           const svn_ra_dav__xml_elm_t *elements, 
                            svn_ra_dav__xml_validate_cb validate_cb,
-                           svn_ra_dav__xml_startelm_cb startelm_cb,
+                           svn_ra_dav__xml_startelm_cb startelm_cb, 
                            svn_ra_dav__xml_endelm_cb endelm_cb,
                            void *baton,
                            apr_hash_t *extra_headers,
                            int *status_code,
                            apr_pool_t *pool);
-
+  
 
 /* ### add SVN_RA_DAV_ to these to prefix conflicts with (sys) headers? */
 enum {
@@ -617,7 +617,7 @@ enum {
   /* SVN elements */
   ELEM_add_directory,
   ELEM_add_file,
-  ELEM_baseline_relpath,
+  ELEM_baseline_relpath, 
   ELEM_md5_checksum,
   ELEM_deleted_path,  /* used in log reports */
   ELEM_replaced_path,  /* used in log reports */
