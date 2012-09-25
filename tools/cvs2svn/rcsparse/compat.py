@@ -68,19 +68,19 @@ except AttributeError:
       makedirs(head, mode)
     os.mkdir(path, mode)
 
-#
-# calendar.timegm() is new to Python 2.x and
+# 
+# calendar.timegm() is new to Python 2.x and 
 # calendar.leapdays() was wrong in Python 1.5.2
 #
 try:
-  timegm = calendar.timegm
+  timegm = calendar.timegm 
 except AttributeError:
   def leapdays(year1, year2):
     """Return number of leap years in range [year1, year2).
        Assume year1 <= year2."""
     year1 = year1 - 1
     year2 = year2 - 1
-    return (year2/4 - year1/4) - (year2/100 -
+    return (year2/4 - year1/4) - (year2/100 - 
                                   year1/100) + (year2/400 - year1/400)
 
   EPOCH = 1970
@@ -101,7 +101,7 @@ except AttributeError:
     return seconds
 
 
-#
+# 
 # the following stuff is *ONLY* needed for standalone.py.
 # For that reason I've encapsulated it into a function.
 #

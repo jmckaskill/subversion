@@ -30,9 +30,9 @@ AC_DEFUN(SVN_LIB_APRUTIL,
     SVN_SUBDIRS="$SVN_SUBDIRS apr-util"
   fi
 
-  dnl check APRUTIL version number against regex
+  dnl check APRUTIL version number against regex  
 
-  AC_MSG_CHECKING([APR-UTIL version])
+  AC_MSG_CHECKING([APR-UTIL version])    
   apu_version="`$apu_config --version`"
   if test $? -ne 0; then
     # This is a hack as suggested by Ben Collins-Sussman.  It can be

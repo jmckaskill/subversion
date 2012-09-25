@@ -64,7 +64,7 @@ add_update_info_to_status_hash (apr_hash_t *statushash,
                                 svn_boolean_t descend,
                                 apr_pool_t *pool)
 {
-  svn_ra_plugin_t *ra_lib;
+  svn_ra_plugin_t *ra_lib;  
   void *ra_baton, *session, *report_baton;
   const svn_delta_editor_t *status_editor;
   void *status_edit_baton;
@@ -104,7 +104,7 @@ add_update_info_to_status_hash (apr_hash_t *statushash,
 
   /* Open a repository session to the URL. */
   SVN_ERR (svn_client__open_ra_session (&session, ra_lib, URL, anchor,
-                                        anchor_access, NULL, TRUE, TRUE,
+                                        anchor_access, NULL, TRUE, TRUE, 
                                         ctx, pool));
 
   /* Verify that URL exists in HEAD.  If it doesn't, this can save us
@@ -125,19 +125,19 @@ add_update_info_to_status_hash (apr_hash_t *statushash,
       if (! status_item)
         {
           SVN_ERR (svn_wc_status (&status_item, anchor, adm_access, pool));
-          apr_hash_set (statushash,
-                        apr_pstrdup (apr_hash_pool_get (statushash), anchor),
+          apr_hash_set (statushash, 
+                        apr_pstrdup (apr_hash_pool_get (statushash), anchor), 
                         APR_HASH_KEY_STRING, status_item);
         }
       status_item->repos_text_status = svn_wc_status_deleted;
       return SVN_NO_ERROR;
     }
-
+  
   /* Tell RA to drive a status-editor; this will fill in the
      repos_status_* fields in each status struct. */
   SVN_ERR (svn_wc_get_status_editor (&status_editor, &status_edit_baton,
                                      path, adm_access, descend, statushash,
-                                     youngest, ctx->cancel_func,
+                                     youngest, ctx->cancel_func, 
                                      ctx->cancel_baton, pool));
 
   SVN_ERR (ra_lib->do_status (session,
@@ -148,7 +148,7 @@ add_update_info_to_status_hash (apr_hash_t *statushash,
   /* Drive the reporter structure, describing the revisions within
      PATH.  When we call reporter->finish_report, the
      status_editor will be driven by svn_repos_dir_delta. */
-  SVN_ERR (svn_wc_crawl_revisions (path, adm_access, reporter, report_baton,
+  SVN_ERR (svn_wc_crawl_revisions (path, adm_access, reporter, report_baton, 
                                    FALSE, /* don't restore missing files */
                                    descend,
                                    NULL, NULL, /* notification is N/A */
@@ -201,7 +201,7 @@ svn_client_status (apr_hash_t **statushash,
      item altogether. */
   SVN_ERR (svn_client__recognize_externals (hash, traversal_info, pool));
 
-  if (update)
+  if (update)    
     {
       /* Add "dry-run" update information to our existing structures.
          (Pass the DESCEND flag here, since we may want to ignore update
