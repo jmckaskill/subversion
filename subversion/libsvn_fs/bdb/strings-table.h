@@ -38,7 +38,7 @@ extern "C" {
 
 
 /* Open a `strings' table in ENV.  If CREATE is non-zero, create
- * one if it doesn't exist.  Set *STRINGS_P to the new table.
+ * one if it doesn't exist.  Set *STRINGS_P to the new table.  
  * Return a Berkeley DB error code.
  */
 int svn_fs__bdb_open_strings_table (DB **strings_p,
@@ -48,7 +48,7 @@ int svn_fs__bdb_open_strings_table (DB **strings_p,
 
 /* Read *LEN bytes into BUF from OFFSET in string KEY in FS, as part
  * of TRAIL.
- *
+ * 
  * On return, *LEN is set to the number of bytes read.  If this value
  * is less than the number requested, the end of the string has been
  * reached (no error is returned on end-of-string).
@@ -57,7 +57,7 @@ int svn_fs__bdb_open_strings_table (DB **strings_p,
  * zero. Callers which are advancing OFFSET as they read portions of
  * the string can terminate their loop when *LEN is returned as zero
  * (which will occur when OFFSET == length(the string)).
- *
+ * 
  * If string KEY does not exist, the error SVN_ERR_FS_NO_SUCH_STRING
  * is returned.
  */
@@ -112,7 +112,7 @@ svn_error_t *svn_fs__bdb_string_clear (svn_fs_t *fs,
  *
  * WARNING: Deleting a string renders unusable any representations
  * that refer to it.  Be careful.
- */
+ */ 
 svn_error_t *svn_fs__bdb_string_delete (svn_fs_t *fs,
                                         const char *key,
                                         trail_t *trail);
