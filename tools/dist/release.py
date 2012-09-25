@@ -419,7 +419,7 @@ def write_announcement(args):
 
     data = { 'version'      : args.version,
              'sha1info'     : 'foo',
-             'siginfo'      : 'bar',
+             'siginfo'      : 'bar', 
              'major-minor'  : 'boo',
            }
 

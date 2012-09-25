@@ -229,7 +229,7 @@ a the oldest unpacked shard to the SQLite database "revprops/revprops.db".  The
 sequel documents the schema of FSFS format 5, which corresponds to schema
 version USER_VERSION=1:
 
-The database maps revision numbers to serialized "proplist" skels.  Every
+The database maps revision numbers to serialized "proplist" skels.  Every 
 packed revision must have a mapping entry (a table row), even if it maps the
 revnum to an empty skel.
 
