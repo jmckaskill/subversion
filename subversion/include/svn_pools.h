@@ -127,7 +127,7 @@ void svn_pool_clear_debug (apr_pool_t *p,
 #endif /* APR_POOL_DEBUG */
 
 
-/* Destroy a POOL and all of its children.
+/* Destroy a POOL and all of its children. 
  *
  * This define for svn_pool_destroy exists for symmatry (the
  * not-so-grand reason) and for the existence of a great memory usage

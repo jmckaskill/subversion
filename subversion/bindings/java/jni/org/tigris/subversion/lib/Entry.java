@@ -20,7 +20,7 @@ import java.util.Date;
 import java.util.Hashtable;
 
 public class Entry {
-
+    
     private Revision revision = null;
     private String url = null;
     private Nodekind kind = null;
@@ -110,10 +110,10 @@ public class Entry {
         }
 }
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../../../../../svn-dev.el")
- * end:
+ * end: 
  */
 
 

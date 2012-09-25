@@ -16,14 +16,14 @@ package org.tigris.subversion;
  * ====================================================================
  */
 
-public class SubversionException extends Exception
+public class SubversionException extends Exception 
 {
     public SubversionException(String message)
 	{
 	    super(message);
 	}
 
-    public SubversionException()
+    public SubversionException() 
 	{
 	    this(null);
 	}

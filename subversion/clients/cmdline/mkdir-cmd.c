@@ -48,21 +48,21 @@ svn_cl__mkdir (apr_getopt_t *os,
   targets = svn_cl__args_to_target_array (os, pool);
 
   /* Take our message from ARGV or a FILE */
-  if (opt_state->filedata)
+  if (opt_state->filedata) 
     message = opt_state->filedata;
   else
     message = opt_state->message;
-
+  
   /* Build an authentication object to give to libsvn_client. */
   auth_baton = svn_cl__make_auth_baton (opt_state, pool);
-
+            
   if (targets->nelts)
     for (i = 0; i < targets->nelts; i++)
       {
         svn_stringbuf_t *target = ((svn_stringbuf_t **) (targets->elts))[i];
         commit_info = NULL;
         SVN_ERR (svn_client_mkdir
-                 (&commit_info, target, auth_baton,
+                 (&commit_info, target, auth_baton, 
                   message,
                   SVN_CL_NOTIFY(opt_state),
                   svn_cl__make_notify_baton (pool),
@@ -81,8 +81,8 @@ svn_cl__mkdir (apr_getopt_t *os,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../tools/dev/svn-dev.el")
- * end:
+ * end: 
  */
