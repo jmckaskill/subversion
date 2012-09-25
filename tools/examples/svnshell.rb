@@ -19,7 +19,7 @@ class SvnShell
       end
     end
   end
-
+  
   def initialize(pool, path)
     @pool = pool
     @repos_path = path
@@ -60,7 +60,7 @@ class SvnShell
     end
     "<#{mode}: #{info} #{@path}>$ "
   end
-
+  
   def dispatch(cmd, *args)
     if respond_to?("do_#{cmd}", true)
       begin
@@ -97,7 +97,7 @@ class SvnShell
       puts "Path '#{new_path}' is not a valid filesystem directory."
     end
   end
-
+  
   def do_ls(*paths)
     paths << @path if paths.empty?
     paths.each do |path|
@@ -134,7 +134,7 @@ class SvnShell
           size = @root.file_length(fullpath).to_i.to_s
           name = entry
         end
-
+        
         node_id = entries[entry].id.to_s
         created_rev = @root.node_created_rev(fullpath)
         author = @fs.prop(Svn::Core::PROP_REVISION_AUTHOR, created_rev).to_s
@@ -162,7 +162,7 @@ class SvnShell
     end
     puts
   end
-
+  
   def do_pcat(path=nil)
     catpath = path || @path
     if @root.check_path(catpath) == Svn::Core::NODE_NONE
@@ -181,7 +181,7 @@ class SvnShell
     end
     puts 'PROPS-END'
   end
-
+      
   def do_setrev(rev)
     begin
       @fs.root(Integer(rev)).close
@@ -193,7 +193,7 @@ class SvnShell
     @in_rev_mode = true
     path_landing
   end
-
+  
   def do_settxn(name)
     new_root = nil
     begin
@@ -212,7 +212,7 @@ class SvnShell
     rev = @fs.youngest_rev
     puts rev
   end
-
+  
   def do_exit
     @exited = true
   end
@@ -225,13 +225,13 @@ class SvnShell
     normalized_parts = parts.reject{|part| part.empty?}
     "/#{normalized_parts.join('/')}"
   end
-
+  
   def parse_path(path)
     if path[0,1] != "/" and @path != "/"
       path = "#{@path}/#{path}"
     end
     parts = path_to_parts(path)
-
+    
     normalized_parts = []
     parts.each do |part|
       case part
@@ -245,7 +245,7 @@ class SvnShell
     end
     parts_to_path(normalized_parts)
   end
-
+  
   def path_landing
     found = false
     new_path = @path
@@ -266,7 +266,7 @@ class SvnShell
     date = Svn::Util.string_to_time(date_str, @taskpool)
     date.strftime("%b %d %H:%M(%Z)")
   end
-
+  
 end
 
 
