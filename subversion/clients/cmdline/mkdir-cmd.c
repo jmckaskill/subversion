@@ -46,7 +46,7 @@ svn_cl__mkdir (apr_getopt_t *os,
   int i;
   svn_client_commit_info_t *commit_info = NULL;
 
-  SVN_ERR (svn_opt_args_to_target_array (&targets, os,
+  SVN_ERR (svn_opt_args_to_target_array (&targets, os, 
                                          opt_state->targets,
                                          &(opt_state->start_revision),
                                          &(opt_state->end_revision),
@@ -65,7 +65,7 @@ svn_cl__mkdir (apr_getopt_t *os,
 
       commit_info = NULL;
       SVN_ERR (svn_cl__cleanup_log_msg
-               (ctx->log_msg_baton, svn_client_mkdir (&commit_info, target,
+               (ctx->log_msg_baton, svn_client_mkdir (&commit_info, target, 
                                                       ctx, pool)));
 
       if (commit_info && ! opt_state->quiet)

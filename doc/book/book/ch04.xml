@@ -25,7 +25,7 @@
   <!-- ======================== SECTION 1 ============================== -->
   <!-- ================================================================= -->
   <sect1 id="svn-ch-4-sect-1">
-    <title>What's a branch?</title>
+    <title>What's a branch?</title> 
 
     <para>Suppose it's your job to maintain a document for a division
       in your company, a handbook of some sort.  One day a different
@@ -67,12 +67,12 @@
       work.</para>
 
   </sect1>
-
+  
   <!-- ================================================================= -->
   <!-- ======================== SECTION 2 ============================== -->
   <!-- ================================================================= -->
   <sect1 id="svn-ch-4-sect-2">
-    <title>Using branches</title>
+    <title>Using branches</title> 
 
     <para>At this point, you should understand how each commit creates
       an entire new filesystem tree (called a "revision") in the
@@ -88,7 +88,7 @@
       <filename>trunk</filename> and <filename>branches</filename>.
       The projects themselves are subdirectories of
       <filename>trunk</filename>, which we'll explain later on.</para>
-
+    
       <figure id="svn-ch4-dia2">
         <title>Starting repository layout</title>
         <graphic fileref="images/ch04dia2.png"/>
@@ -131,8 +131,8 @@
       on.</para>
 
   <sect2 id="svn-ch-4-sect-2.1">
-    <title>Creating a branch</title>
-
+    <title>Creating a branch</title> 
+      
       <para>Creating a branch is very simple -- you make a copy of the
         project in the repository using the <command>svn
         copy</command> command.  Subversion is not only able to copy
@@ -222,15 +222,15 @@ Committed revision 341.
         you to check out a large mirror of the repository.  In fact,
         this technique doesn't even require you to have a working copy
         at all.</para>
-
+      
       <figure id="svn-ch4-dia3">
         <title>Repository with new copy</title>
         <graphic fileref="images/ch04dia3.png"/>
       </figure>
-
+      
       <sidebar>
         <title>Cheap copies</title>
-
+                
         <para>Subversion's repository has a clever design.  When you
           copy a directory, you don't need to worry about the
           repository growing huge -- Subversion doesn't actually
@@ -242,7 +242,7 @@ Committed revision 341.
           directory, then only that file changes -- the rest of the
           files continue to exist as links to the original files in
           the original directory.</para>
-
+      
         <para>This is why you'll often hear Subversion users talk
           about "cheap copies".  It doesn't matter how large the
           directory is -- it takes a very tiny, constant amount of
@@ -258,9 +258,9 @@ Committed revision 341.
       </sidebar>
 
     </sect2>
-
+    
     <sect2 id="svn-ch-4-sect-2.2">
-      <title>Working with your branch</title>
+      <title>Working with your branch</title> 
 
       <para>Now that you've created a new branch of the project, you
         can check out a new working copy to start using it:</para>
@@ -378,7 +378,7 @@ rev 98:  sally | 2002-02-22 15:35:29 -0600 (Fri, 22 Feb 2002) | 2 lines
     </sect2>
 
     <sect2 id="svn-ch-4-sect-2.3">
-      <title>The moral of the story</title>
+      <title>The moral of the story</title> 
 
       <para>There are two important lessons that you should remember
       from this section.</para>
@@ -410,7 +410,7 @@ rev 98:  sally | 2002-02-22 15:35:29 -0600 (Fri, 22 Feb 2002) | 2 lines
   <!-- ================================================================= -->
   <sect1 id="svn-ch-4-sect-3">
     <title>Copying changes between branches</title>
-
+      
     <para>Now you and Sally are working on parallel branches of the
       project.  The good news is that you're not interfering with each
       other.  The bad news is that it's very easy to drift
@@ -467,34 +467,34 @@ Index: integer.c
      high = high &lt;&lt; 8;  /* interpret MSB correctly */
 -    total = low + high; /* add them togethe for correct total */
 +    total = low + high; /* add them together for correct total */
-
+ 
      info->extra_header = (unsigned char *) my_malloc(total);
      fread(info->extra_header, total, 1, gzfile);
 @@ -241,7 +241,7 @@
       Store the offset with ftell() ! */
-
+ 
    if ((info->data_offset = ftell(gzfile))== -1) {
 -    printf("error: ftell() retturned -1.\n");
 +    printf("error: ftell() returned -1.\n");
      exit(1);
    }
-
+ 
 @@ -249,7 +249,7 @@
    printf("I believe start of compressed data is %u\n", info->data_offset);
    #endif
-
+   
 -  /* Set postion eight bytes from the end of the file. */
 +  /* Set position eight bytes from the end of the file. */
-
+ 
    if (fseek(gzfile, -8, SEEK_END)) {
      printf("error: fseek() returned non-zero\n");
 </screen>
-
+      
     <para>The <command>svn merge</command> is almost exactly the same.
       Instead of printing the differences to your terminal, however,
       it applies them directly to your working copy as <emphasis>local
       modifications</emphasis>:</para>
-
+    
 <screen>
 $ svn merge -r 343:344 http://svn.example.com/repos/trunk/calc
 U  integer.c
@@ -555,7 +555,7 @@ done
         directory, the output of <command>svn diff</command> wouldn't
         have mentioned it at all.  <command>svn diff</command> only
         outputs the limited patch-format, so there are some ideas it
-        simply can't express.
+        simply can't express. 
         <footnote> <para>In the future, the Subversion project plans
           to use (or invent) an expanded patch format that
           describes tree-changes.</para>
@@ -584,7 +584,7 @@ U   my-calc-branch/integer.c
 
       <!-- ### fix the damn left arrow quoting problem in both screen
       examples -->
-
+    
     <sect2 id="svn-ch4-sect-3.1">
       <title>The repeated merge problem</title>
 
@@ -662,7 +662,7 @@ Committed revision 350.
       change, we're asking <command>svn merge</command> to apply
       changeset #303 to our working copy
       <emphasis>backwards</emphasis>.</para>
-
+    
     <para>Keep in mind that rolling back a change like this is just
       like any other <command>svn merge</command> operation, so you
       should use <command>svn status</command> and <command>svn
@@ -691,11 +691,11 @@ Committed revision 350.
       upon one another.  Removing a revision from history would cause
       a domino effect, creating chaos in all subsequent revisions and
       possibly invalidating all working copies.
-      <footnote>
+      <footnote> 
         <para>The Subversion project has plans, however, to
         someday implement an <command>svnadmin obliterate</command>
         command that would accomplish the task of permanently deleting
-        information.</para>
+        information.</para> 
       </footnote>
     </para>
 
@@ -757,7 +757,7 @@ Url: http://svn.example.com/branches/calc/my-calc-branch
       whole new dimension to the concept of a "mixed working copy" &mdash;
       not only can working copies contain a mixture of working
       revisions, but a mixture of repository locations as well.</para>
-
+    
     <para>If your working copy contains a number of switched subtrees
       from different repository locations, it continues to function as
       normal.  When you update, you'll receive patches to each subtree
@@ -769,10 +769,10 @@ Url: http://svn.example.com/branches/calc/my-calc-branch
       within the <emphasis>same</emphasis> repository.  Subversion
       repositories aren't yet able to communicate with one another;
       that's a feature planned beyond Subversion 1.0.</para>
-
+    
     <sidebar>
       <title>Switches and updates</title>
-
+      
       <para>Have you noticed that the output of <command>svn
           switch</command> and <command>svn update</command> look the
         same?  The switch command is actually a superset of the
@@ -784,7 +784,7 @@ Url: http://svn.example.com/branches/calc/my-calc-branch
         client. The only difference between <command>svn
         switch</command> and <command>svn update</command> is that the
         update command always compares two identical paths.</para>
-
+      
        <para>That is, if your working copy is a mirror of
         <filename>/trunk/calc</filename>, then <command>svn
         update</command> will automatically compare your working copy
@@ -891,14 +891,14 @@ Committed revision 351.
         This is version control, after all.</para>
 
     </sect2>
-
+    
     <sect2 id="svn-ch-4-sect-6.2">
       <title>Creating a complex tag</title>
-
+      
       <para>Sometimes you may want your "snapshot" to be more
         complicated than a single directory at a single
         revision.</para>
-
+      
       <para>For example, pretend your project is much larger than our
         <filename>calc</filename> example: suppose it contains a
         number of subdirectories and many more files.  In the course
@@ -966,7 +966,7 @@ Committed revision 352.
 
     <sect2 id="svn-ch4-sect7.1">
       <title>Repository layout</title>
-
+      
       <para>There are some standard, recommended ways to organize a
         repository.  Most people create a <filename>trunk</filename>
         directory to hold the "main line" of development, a
@@ -1014,9 +1014,9 @@ Committed revision 352.
         a matter of issuing a series of server-side moves; if you don't
         like the way things are organized in the repository, just juggle
         the directories around.</para>
-
+      
     </sect2>
-
+    
     <sect2 id="svn-ch4-sect7.2">
       <title>Data lifetimes</title>
 
@@ -1119,7 +1119,7 @@ Committed revision 377.
 </chapter>
 
 <!--
-local variables:
+local variables: 
 sgml-parent-document: ("book.xml" "chapter")
 end:
 -->

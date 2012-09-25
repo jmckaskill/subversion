@@ -66,7 +66,7 @@ svn_error_t *svn_utf_cstring_to_utf8_stringbuf (svn_stringbuf_t **dest,
  * allocate @a *dest in @a pool.
  *
  * Set @a *dest to a utf8-encoded C string from native C string @a src;
- * allocate @a *dest in @a pool.  Use @a xlator to do the conversion; if
+ * allocate @a *dest in @a pool.  Use @a xlator to do the conversion; if 
  * @c NULL, then use the environment's default locale.
  */
 svn_error_t *svn_utf_cstring_to_utf8 (const char **dest,
