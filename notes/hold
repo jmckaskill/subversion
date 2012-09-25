@@ -1,7 +1,7 @@
 Feature Outline: Issue #2858 / svn:hold
 =======================================
 
-This text describes plans and concerns about creating an svn:hold property that
+This text describes plans and concerns about creating an svn:hold property that 
 automatically omits paths from commits that have this property set. WIP.
 $Date$
 

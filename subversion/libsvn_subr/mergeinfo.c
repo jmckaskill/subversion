@@ -716,7 +716,7 @@ svn_rangelist_merge2(apr_array_header_t *rangelist,
 {
   int i, j;
   apr_array_header_t *original_rangelist;
-
+  
   original_rangelist = apr_array_copy(scratch_pool, rangelist);
   apr_array_clear(rangelist);
 
