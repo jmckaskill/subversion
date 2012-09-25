@@ -73,7 +73,7 @@ svn_cl__import(apr_getopt_t *os,
    * ### kff todo: review above behaviors.
    */
 
-  SVN_ERR(svn_opt_args_to_target_array2(&targets, os,
+  SVN_ERR(svn_opt_args_to_target_array2(&targets, os, 
                                         opt_state->targets, pool));
 
   if (targets->nelts < 1)
@@ -86,7 +86,7 @@ svn_cl__import(apr_getopt_t *os,
        _("Too many arguments to import command"));
   else if (targets->nelts == 1)
     {
-      url = APR_ARRAY_IDX(targets, 0, const char *);
+      url = APR_ARRAY_IDX(targets, 0, const char *); 
       path = "";
     }
   else
@@ -106,7 +106,7 @@ svn_cl__import(apr_getopt_t *os,
 
   SVN_ERR(svn_cl__make_log_msg_baton(&(ctx->log_msg_baton3), opt_state,
                                      NULL, ctx->config, pool));
-  SVN_ERR(svn_cl__cleanup_log_msg
+  SVN_ERR(svn_cl__cleanup_log_msg 
           (ctx->log_msg_baton3, svn_client_import2(&commit_info,
                                                    path,
                                                    url,

@@ -110,7 +110,7 @@ dnl bar='${foo}/2'
 dnl baz='${bar}/3'
 dnl SVN_EXPAND_VAR(fraz, $baz)
 dnl   $fraz is now "1/2/3"
-dnl
+dnl 
 AC_DEFUN(SVN_EXPAND_VAR,[
 svn_last=
 svn_cur="$2"

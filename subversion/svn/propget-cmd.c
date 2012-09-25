@@ -67,7 +67,7 @@ print_properties_xml(const char *pname,
     {
       const void *key;
       void *val;
-      const char *filename;
+      const char *filename; 
       svn_string_t *propval;
       svn_stringbuf_t *sb = NULL;
 
@@ -106,14 +106,14 @@ print_properties(svn_stream_t *out,
     {
       const void *key;
       void *val;
-      const char *filename;
+      const char *filename; 
       svn_string_t *propval;
 
       svn_pool_clear(iterpool);
       apr_hash_this(hi, &key, NULL, &val);
       filename = key;
       propval = val;
-
+              
       /* If this is a special Subversion property, it is stored as
          UTF8, so convert to the native format. */
       if (svn_prop_needs_translation(pname_utf8))
@@ -121,8 +121,8 @@ print_properties(svn_stream_t *out,
           SVN_ERR(svn_subst_detranslate_string(&propval, propval,
                                                TRUE, iterpool));
         }
-
-      if (print_filenames)
+              
+      if (print_filenames) 
         {
           const char *filename_stdout;
 
@@ -172,11 +172,11 @@ svn_cl__propget(apr_getopt_t *os,
   SVN_ERR(svn_opt_parse_num_args(&args, os, 1, pool));
   pname = APR_ARRAY_IDX(args, 0, const char *);
   SVN_ERR(svn_utf_cstring_to_utf8(&pname_utf8, pname, pool));
-
+  
   /* suck up all the remaining arguments into a targets array */
   SVN_ERR(svn_opt_args_to_target_array2(&targets, os,
                                         opt_state->targets, pool));
-
+  
   /* Add "." if user passed 0 file arguments */
   svn_opt_push_implicit_dot_target(targets, pool);
 
@@ -196,7 +196,7 @@ svn_cl__propget(apr_getopt_t *os,
       SVN_ERR(svn_client_revprop_get(pname_utf8, &propval,
                                      URL, &(opt_state->start_revision),
                                      &rev, ctx, pool));
-
+      
       if (propval != NULL)
         {
           if (opt_state->xml)
@@ -220,15 +220,15 @@ svn_cl__propget(apr_getopt_t *os,
           else
             {
               svn_string_t *printable_val = propval;
-
+          
               /* If this is a special Subversion property, it is stored as
                  UTF8 and LF, so convert to the native locale and eol-style. */
 
               if (svn_prop_needs_translation(pname_utf8))
                 SVN_ERR(svn_subst_detranslate_string(&printable_val, propval,
                                                      TRUE, pool));
-
-              SVN_ERR(stream_write(out, printable_val->data,
+         
+              SVN_ERR(stream_write(out, printable_val->data, 
                                    printable_val->len));
               if (! opt_state->strict)
                 SVN_ERR(stream_write(out, APR_EOL_STR, strlen(APR_EOL_STR)));
@@ -256,12 +256,12 @@ svn_cl__propget(apr_getopt_t *os,
           /* Check for a peg revision. */
           SVN_ERR(svn_opt_parse_path(&peg_revision, &truepath, target,
                                      subpool));
-
+          
           SVN_ERR(svn_client_propget2(&props, pname_utf8, truepath,
                                       &peg_revision,
                                       &(opt_state->start_revision),
                                       opt_state->recursive, ctx, subpool));
-
+          
           /* Any time there is more than one thing to print, or where
              the path associated with a printed thing is not obvious,
              we'll print filenames.  That is, unless we've been told
@@ -269,14 +269,14 @@ svn_cl__propget(apr_getopt_t *os,
           print_filenames = ((opt_state->recursive || targets->nelts > 1
                               || apr_hash_count(props) > 1)
                              && (! opt_state->strict));
-
+          
           if (opt_state->xml)
             print_properties_xml(pname_utf8, props, subpool);
           else
             print_properties(out, svn_path_is_url(target), pname_utf8, props,
                              print_filenames, opt_state, subpool);
         }
-
+      
       if (opt_state->xml)
         SVN_ERR(svn_cl__xml_print_footer("properties", subpool));
 
