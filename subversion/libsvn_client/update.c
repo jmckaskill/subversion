@@ -177,7 +177,7 @@ struct scan_moves_log_receiver_baton {
    *   rB: mv b->c
    *   rC: mv c->d
    * we map each revision number to all moves which happened in the
-   * revision, which looks as follows:
+   * revision, which looks as follows: 
    *   rA : [(rA, x->z), (rA, a->b)]
    *   rB : [(rB, b->c)]
    *   rC : [(rC, c->d)]
@@ -411,7 +411,7 @@ scan_moves_log_receiver(void *baton,
       svn_wc_repos_move_info_t *prior_move;
       svn_boolean_t related;
       int j;
-
+      
       deleted_path = APR_ARRAY_IDX(deleted_paths, i, const char *);
       copies_with_same_source_path = apr_hash_get(copies, deleted_path,
                                                   APR_HASH_KEY_STRING);
@@ -423,7 +423,7 @@ scan_moves_log_receiver(void *baton,
       for (j = 0; j < copies_with_same_source_path->nelts; j++)
         {
           struct copy_info *copy;
-
+          
           copy = APR_ARRAY_IDX(copies_with_same_source_path, j,
                                struct copy_info *);
 

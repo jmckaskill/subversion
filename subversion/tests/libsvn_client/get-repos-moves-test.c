@@ -73,7 +73,7 @@ commit_moves(svn_test__sandbox_t *b,
   va_start(va, ctx);
   while((src_relpath = va_arg(va, const char *))
         && (dst_relpath = va_arg(va, const char *)))
-
+    
     {
       const char *src_abspath = svn_dirent_join(b->wc_abspath, src_relpath,
                                                 b->pool);
@@ -257,7 +257,7 @@ move_out_of_copy(const svn_test_opts_t *opts,
    A /B2 (from /A/B:1)
    D /B2/C
    A /C2 (from /A/B/C:1)
-
+  
    Not sure which, if any, moves should be detected. */
   SVN_ERR(verify_move(moves, 4, "A2/B", "B2", 1)); /* XFAIL */
 
@@ -293,7 +293,7 @@ move_within_copy(const svn_test_opts_t *opts,
    A /A2/B2 (from /A/B:1)
    D /A2/B2/C
    A /A2/B2/C2 (from /A/B/C:1)
-
+  
    Not sure which, if any, moves should be detected. */
   SVN_ERR(verify_move(moves, 4, "A2/B/C", "A2/B2/C2", 1)); /* XFAIL */
   SVN_ERR(verify_move(moves, 4, "A2/B", "A2/B2", 1));

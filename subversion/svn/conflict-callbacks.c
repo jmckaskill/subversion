@@ -282,7 +282,7 @@ format_move_chain_for_display(svn_wc_repos_move_info_t *first_move,
                        indent, first_move->moved_from_repos_relpath,
                        first_move->copyfrom_rev,
                        last_move->moved_to_repos_relpath, indent);
-
+      
       this_move = first_move;
       do
         {
@@ -1021,7 +1021,7 @@ svn_cl__conflict_handler(svn_wc_conflict_result_t **result,
                  "        (cl) change-local, (h) help: ");
       if (desc->reason == svn_wc_conflict_reason_moved_away ||
           desc->reason == svn_wc_conflict_reason_moved_here)
-        help_text =
+        help_text = 
           _("  (p)  postpone        - resolve the conflict later\n"
             "  (mc) mine-conflict   - use local move\n"
             "  (tc) theirs-conflict - use incoming move\n"
@@ -1029,7 +1029,7 @@ svn_cl__conflict_handler(svn_wc_conflict_result_t **result,
             "  (cl) change-local    - change local move target\n"
             "  (h)  help            - show this help\n\n");
       else if (desc->reason == svn_wc_conflict_reason_deleted)
-        help_text =
+        help_text = 
           _("  (p)  postpone        - resolve the conflict later\n"
             "  (mc) mine-conflict   - delete the item\n"
             "  (tc) theirs-conflict - move the item\n"
