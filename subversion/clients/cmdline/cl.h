@@ -206,7 +206,7 @@ svn_error_t *svn_cl__revprop_no_rev_error (apr_pool_t *pool);
 /* Search for a text editor command in standard environment variables,
    and invoke it to edit CONTENTS (using a temporary file created in
    directory BASE_DIR).  Return the new contents in *EDITED_CONTENTS,
-   or set *EDITED_CONTENTS to NULL if no edit was performed.
+   or set *EDITED_CONTENTS to NULL if no edit was performed.  
 
    If TMPFILE_LEFT is NULL, the temporary file will be destroyed.
    Else, the file will be left on disk, and its path returned in
@@ -229,7 +229,7 @@ svn_cl__edit_externally (const char **edited_contents,
                          apr_pool_t *pool);
 
 
-/* Our implementation of the 'auth info callback' routine,
+/* Our implementation of the 'auth info callback' routine, 
    as defined in svn_client.h.   This callback is passed to any
    libsvn_client routine that needs to authenticate against a
    repository. */
@@ -259,15 +259,15 @@ svn_cl__make_auth_baton (svn_cl__opt_state_t *opt_state,
 
 /* Set *NOTIFY_FUNC_P and *NOTIFY_BATON_P to a notifier/baton for all
  * operations, allocated in POOL.
- *
+ * 
  * If this is a checkout, set IS_CHECKOUT to true, so that the
  * notifier will print the appropriate summary line at the end of the
  * output.
- *
+ * 
  * If this is an export, set IS_EXPORT to true, so that the
  * notifier will print the appropriate summary line at the end of the
  * output.
- *
+ * 
  * If don't want a summary line at the end of notifications, set
  * SUPPRESS_FINAL_LINE.
  */
@@ -283,7 +283,7 @@ void svn_cl__get_notifier (svn_wc_notify_func_t *notify_func_p,
 
 /* Allocate in POOL a baton for use with svn_cl__get_log_message().
 
-   OPT_STATE is the set of command-line options given.
+   OPT_STATE is the set of command-line options given.  
 
    BASE_DIR is a directory in which to create temporary files if an
    external editor is used to edit the log message.  If BASE_DIR is
@@ -293,7 +293,7 @@ void svn_cl__get_notifier (svn_wc_notify_func_t *notify_func_p,
    we ask APR to tell us where a suitable tmp directory is (like, /tmp
    on Unix and C:\Windows\Temp on Win32 or something), and use it.
    But APR doesn't yet have that capability.
-
+   
    CONFIG is a client configuration hash of svn_config_t * items keyed
    on config categories, and may be NULL.
 
