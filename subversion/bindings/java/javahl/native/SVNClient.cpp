@@ -147,7 +147,7 @@ jobjectArray SVNClient::list(const char *url, Revision &revision, bool recurse)
 		apr_array_header_t *array =
 		 apr_hash_sorted_keys (dirents, svn_sort_compare_items_as_paths,
 							   subPool.pool());
-
+		
 		// create the array of DirEntry
 		JNIEnv *env = JNIUtil::getEnv();
 		jclass clazz = env->FindClass(JAVA_PACKAGE"/DirEntry");
@@ -212,14 +212,14 @@ struct status_baton
 };
 
 
-/**
+/** 
  * callback for svn_client_status (used by status and singleStatus)
  */
 void SVNClient::statusReceiver(void *baton, const char *path, svn_wc_status_t *status)
 {
 	if(JNIUtil::isJavaExceptionThrown())
 		return;
-
+	
 	// we don't create here java Status object as we don't want too many local references
 	status_baton *statusBaton = (status_baton*)baton;
 	status_entry statusEntry;
@@ -246,7 +246,7 @@ jobjectArray SVNClient::status(const char *path, bool descend, bool onServer, bo
 	statusBaton.pool = subPool.pool();
 
     svn_error_t *Err = svn_client_status (
-							 &youngest, path, &rev, statusReceiver, &statusBaton/*&statusVect*/,
+							 &youngest, path, &rev, statusReceiver, &statusBaton/*&statusVect*/, 
 							 descend ? TRUE : FALSE,
 							 getAll ? TRUE : FALSE,
 							 onServer ? TRUE : FALSE,     //update
@@ -316,7 +316,7 @@ jobject SVNClient::singleStatus(const char *path, bool onServer)
 	statusBaton.pool = subPool.pool();
 
     svn_error_t *Err = svn_client_status (&youngest, path, &rev, statusReceiver, &statusBaton,
-							 FALSE,
+							 FALSE, 
 							 TRUE,  // get_All
 							 onServer ? TRUE : FALSE,     //update
                              FALSE,     //no_ignore,
@@ -327,8 +327,8 @@ jobject SVNClient::singleStatus(const char *path, bool onServer)
 		int size = statusBaton.statusVect.size();
 		if (size == 0)
 			return NULL;
-
-		// when svn_client_status is used with a directory, the status of the directory itself and
+		
+		// when svn_client_status is used with a directory, the status of the directory itself and 
 		// the status of all its direct children are returned
 		// we just want the status of the directory (ie the status of the element with the shortest path)
 		int j = 0;
@@ -684,7 +684,7 @@ void SVNClient::doExport(const char *srcPath, const char *destPath, Revision &re
                                m_lastPath.c_str (),
                                const_cast<svn_opt_revision_t*>(
                                  revision.revision ()),
-							   force,
+							   force,	
 							   ctx,
                                apr_pool);
 
@@ -778,21 +778,21 @@ jobject SVNClient::propertyGet(jobject jthis, const char *path, const char *name
   Pool subPool;
   apr_pool_t * apr_pool = subPool.pool ();
   m_lastPath = path;
-
+	
   Revision rev(Revision::START);
   svn_client_ctx_t *ctx = getContext(NULL);
   if(ctx == NULL)
   {
 	return NULL;
   }
-
+  
   apr_hash_t *props;
-  svn_error_t *Err = svn_client_propget(&props,
+  svn_error_t *Err = svn_client_propget(&props, 
 	                name,
                     m_lastPath.c_str(),
                     rev.revision(),
-                    false,
-					ctx,
+                    false, 
+					ctx, 
 					apr_pool);
 
   if(Err != NULL)
@@ -806,7 +806,7 @@ jobject SVNClient::propertyGet(jobject jthis, const char *path, const char *name
   if (hi == NULL)
 	  return NULL; // no property with this name
 
-  const char *filename;
+  const char *filename; 
   svn_string_t *propval;
   apr_hash_this (hi, (const void **)&filename, NULL, (void**)&propval);
 
@@ -819,7 +819,7 @@ jobjectArray SVNClient::properties(jobject jthis, const char *path)
   Pool subPool;
   apr_pool_t * apr_pool = subPool.pool ();
   m_lastPath = path;
-
+	
   Revision rev(Revision::START);
   svn_client_ctx_t *ctx = getContext(NULL);
   if(ctx == NULL)
@@ -829,7 +829,7 @@ jobjectArray SVNClient::properties(jobject jthis, const char *path)
 
   svn_error_t *Err = svn_client_proplist (&props,
                                m_lastPath.c_str (),
-                               rev.revision(),
+                               rev.revision(), 
 							   false,
 							   ctx,
                                apr_pool);
@@ -928,7 +928,7 @@ void SVNClient::propertyCreate(const char *path, const char *name, JNIByteArray 
 }
 
 
-void SVNClient::diff(const char *target1, Revision &revision1,
+void SVNClient::diff(const char *target1, Revision &revision1, 
 					const char *target2, Revision &revision2,
 					const char *outfileName,bool recurse)
 {
@@ -945,7 +945,7 @@ void SVNClient::diff(const char *target1, Revision &revision1,
 	rv = apr_file_open(&outfile, outfileName,
                        APR_CREATE|APR_WRITE|APR_TRUNCATE , APR_OS_DEFAULT,
                        pool.pool());
-	if (rv != APR_SUCCESS)
+	if (rv != APR_SUCCESS) 
 	{
 		err = svn_error_create(rv, NULL,"Cannot open file.");
  		JNIUtil::handleSVNError(err);
@@ -970,7 +970,7 @@ void SVNClient::diff(const char *target1, Revision &revision1,
                             pool.pool());
 
 	rv = apr_file_close(outfile);
-	if (rv != APR_SUCCESS)
+	if (rv != APR_SUCCESS) 
 	{
 		err = svn_error_create(rv, NULL,"Cannot close file.");
  		JNIUtil::handleSVNError(err);
@@ -998,16 +998,16 @@ svn_client_ctx_t * SVNClient::getContext(const char *message)
 
     /* Fetch our two existing authentication providers, and order them
        in an array. */
-    svn_auth_provider_object_t *simple_wc_provider;
+    svn_auth_provider_object_t *simple_wc_provider; 
 
     svn_auth_provider_object_t *username_wc_provider;
 
     svn_client_get_simple_provider (&simple_wc_provider, pool);
-    *(svn_auth_provider_object_t **)apr_array_push (providers)
+    *(svn_auth_provider_object_t **)apr_array_push (providers) 
       = simple_wc_provider;
 
     svn_client_get_username_provider (&username_wc_provider, pool);
-    *(svn_auth_provider_object_t **)apr_array_push (providers)
+    *(svn_auth_provider_object_t **)apr_array_push (providers) 
       = username_wc_provider;
 
     *(svn_auth_provider_object_t **)apr_array_push (providers) = simple_wc_provider;
@@ -1037,7 +1037,7 @@ svn_client_ctx_t * SVNClient::getContext(const char *message)
 
 	svn_auth_provider_object_t *prompt_provider_server_ssl = Prompter::getProviderServerSSL(m_prompter);
     *(svn_auth_provider_object_t **)apr_array_push (providers) = prompt_provider_server_ssl;
-
+	
 	svn_auth_provider_object_t *prompt_provider_client_ssl = Prompter::getProviderClientSSL(m_prompter);
     *(svn_auth_provider_object_t **)apr_array_push (providers) = prompt_provider_client_ssl;
 
@@ -1116,7 +1116,7 @@ jobject SVNClient::createJavaStatus(const char *path, svn_wc_status_t *status)
 	static jmethodID mid = 0;
 	if(mid == 0)
 	{
-		mid = env->GetMethodID(clazz, "<init>",
+		mid = env->GetMethodID(clazz, "<init>", 
 			"(Ljava/lang/String;Ljava/lang/String;IJJJLjava/lang/String;IIIIZZLjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;J)V");
 		if(JNIUtil::isJavaExceptionThrown())
 		{
@@ -1459,7 +1459,7 @@ jbyteArray SVNClient::fileContent(const char *path, Revision &revision)
 	svn_stream_t *read_stream = NULL;
 	size_t size = 0;
 
-	if(revision.revision()->kind == svn_opt_revision_base)
+	if(revision.revision()->kind == svn_opt_revision_base) 
 	// we want the base of the current working copy. Bad hack to avoid going to the server
 	{
 
@@ -1490,8 +1490,8 @@ jbyteArray SVNClient::fileContent(const char *path, Revision &revision)
 		}
 		read_stream = svn_stream_from_aprfile(file, pool.pool());
 		size = finfo.size;
-	}
-	else
+	}	
+	else 
 	{
 		svn_client_ctx_t * ctx = getContext(NULL);
 		if(ctx == NULL)
@@ -1546,7 +1546,7 @@ jbyteArray SVNClient::fileContent(const char *path, Revision &revision)
 
 /**
  * create a DirEntry java object from svn_dirent_t structure
- */
+ */ 
 jobject SVNClient::createJavaDirEntry(const char *path, svn_dirent_t *dirent)
 {
 	JNIEnv *env = JNIUtil::getEnv();
@@ -1611,7 +1611,7 @@ jobject SVNClient::revProperty(jobject jthis, const char *path, const char *name
   Pool subPool;
   apr_pool_t * apr_pool = subPool.pool ();
   m_lastPath = path;
-
+	
   svn_client_ctx_t *ctx = getContext(NULL);
   if(ctx == NULL)
   {
@@ -1620,21 +1620,21 @@ jobject SVNClient::revProperty(jobject jthis, const char *path, const char *name
   const char *URL;
   svn_string_t *propval;
   svn_revnum_t set_rev;
-  svn_error_t * error = svn_client_url_from_path (&URL, path, apr_pool);
+  svn_error_t * error = svn_client_url_from_path (&URL, path, apr_pool);  
 
   if(error != SVN_NO_ERROR)
   {
  	JNIUtil::handleSVNError(error);
 	return NULL;
   }
-
+   
   if(URL == NULL)
   {
 	  JNIUtil::handleSVNError(svn_error_create(SVN_ERR_UNVERSIONED_RESOURCE, NULL,
                                 "Either a URL or versioned item is required."));
 	  return NULL;
   }
-
+      
   error = svn_client_revprop_get (name, &propval,
                                        URL, rev.revision(),
                                        &set_rev, ctx, apr_pool);

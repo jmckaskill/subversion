@@ -2,9 +2,9 @@
 #
 #  update_tests.py:  testing update cases.
 #
-#  Subversion is a tool for revision control.
+#  Subversion is a tool for revision control. 
 #  See http://subversion.tigris.org for more information.
-#
+#    
 # ====================================================================
 # Copyright (c) 2000-2003 CollabNet.  All rights reserved.
 #
@@ -29,7 +29,7 @@ Skip = svntest.testcase.Skip
 XFail = svntest.testcase.XFail
 Item = svntest.wc.StateItem
 
-
+ 
 ######################################################################
 # Tests
 #
@@ -84,8 +84,8 @@ def update_binary_file(sbox):
   fp = open(theta_path, 'w')
   fp.write(theta_contents)    # write png filedata into 'A/theta'
   fp.close()
-
-  svntest.main.run_svn(None, 'add', theta_path)
+  
+  svntest.main.run_svn(None, 'add', theta_path)  
 
   # Created expected output tree for 'svn ci'
   expected_output = svntest.wc.State(wc_dir, {
@@ -141,7 +141,7 @@ def update_binary_file(sbox):
     'A/theta' : Item(status='C '),
     })
 
-  # Create expected disk tree for the update --
+  # Create expected disk tree for the update -- 
   #    look!  binary contents, and a binary property!
   expected_disk = svntest.main.greek_state.copy()
   expected_disk.add({
@@ -162,7 +162,7 @@ def update_binary_file(sbox):
   #                                         [pattern, contents], ...]
   extra_files = [[wc_backup, 'theta.*\.r2', theta_contents],
                  [wc_backup, 'theta.*\.r3', theta_contents_r3]]
-
+  
   # Do the update and check the results in three ways.  Pass our
   # custom singleton handler to verify the .orig file; this handler
   # will verify the existence (and contents) of both binary files
@@ -191,7 +191,7 @@ def update_binary_file_2(sbox):
 
   # Suck up contents of a test .png file.
   fp = open(os.path.join(sys.path[0], "theta.bin"))
-  theta_contents = fp.read()
+  theta_contents = fp.read()  
   fp.close()
 
   # 102400 is svn_txdelta_window_size.  We're going to make sure we
@@ -207,7 +207,7 @@ def update_binary_file_2(sbox):
   # Write our two files' contents out to disk, in A/theta and A/zeta.
   theta_path = os.path.join(wc_dir, 'A', 'theta')
   fp = open(theta_path, 'w')
-  fp.write(theta_contents)
+  fp.write(theta_contents)    
   fp.close()
   zeta_path = os.path.join(wc_dir, 'A', 'zeta')
   fp = open(zeta_path, 'w')
@@ -215,7 +215,7 @@ def update_binary_file_2(sbox):
   fp.close()
 
   # Now, `svn add' those two files.
-  svntest.main.run_svn(None, 'add', theta_path, zeta_path)
+  svntest.main.run_svn(None, 'add', theta_path, zeta_path)  
 
   # Created expected output tree for 'svn ci'
   expected_output = svntest.wc.State(wc_dir, {
@@ -241,7 +241,7 @@ def update_binary_file_2(sbox):
   new_theta_contents = theta_contents + "foobar"
   svntest.main.file_append (zeta_path, "foobar")
   new_zeta_contents = zeta_contents + "foobar"
-
+  
   # Created expected output tree for 'svn ci'
   expected_output = svntest.wc.State(wc_dir, {
     'A/theta' : Item(verb='Sending'),
@@ -267,7 +267,7 @@ def update_binary_file_2(sbox):
     'A/zeta' : Item(status='U '),
     })
 
-  # Create expected disk tree for the update --
+  # Create expected disk tree for the update -- 
   #    look!  binary contents, and a binary property!
   expected_disk = svntest.main.greek_state.copy()
   expected_disk.add({
@@ -338,7 +338,7 @@ def update_missing(sbox):
 
   # Create expected status tree for the update.
   expected_status = svntest.actions.get_virginal_state(wc_dir, 1)
-
+  
   # Do the update and check the results in three ways.
   svntest.actions.run_and_verify_update(wc_dir,
                                         expected_output,
@@ -359,7 +359,7 @@ def update_ignores_added(sbox):
   # Commit something so there's actually a new revision to update to.
   rho_path = os.path.join(wc_dir, 'A', 'D', 'G', 'rho')
   svntest.main.file_append(rho_path, "\nMore stuff in rho.")
-  svntest.main.run_svn(None, 'ci', '-m', 'log msg', rho_path)
+  svntest.main.run_svn(None, 'ci', '-m', 'log msg', rho_path)  
 
   # Create a new file, 'zeta', and schedule it for addition.
   zeta_path = os.path.join(wc_dir, 'A', 'B', 'zeta')
@@ -371,7 +371,7 @@ def update_ignores_added(sbox):
   svntest.main.run_svn(None, 'delete', gamma_path)
   svntest.main.file_append(gamma_path, "This is a new 'gamma' now.")
   svntest.main.run_svn(None, 'add', gamma_path)
-
+  
   # Now update.  "zeta at revision 0" should *not* be reported at all,
   # so it should remain scheduled for addition at revision 0.  gamma
   # was scheduled for replacement, so it also should remain marked as
@@ -395,13 +395,13 @@ def update_ignores_added(sbox):
   expected_status.add({
     'A/B/zeta' : Item(status='A ', wc_rev=0, repos_rev=2),
     })
-
+  
   # Do the update and check the results in three ways.
   svntest.actions.run_and_verify_update(wc_dir,
                                         expected_output,
                                         expected_disk,
                                         expected_status)
-
+  
 
 #----------------------------------------------------------------------
 
@@ -422,7 +422,7 @@ def update_to_rev_zero(sbox):
 
   # Create expected disk tree for the update to rev 0
   expected_disk = svntest.wc.State(wc_dir, { })
-
+  
   # Do the update and check the results.
   svntest.actions.run_and_verify_update(wc_dir,
                                         expected_output,
@@ -443,13 +443,13 @@ def receive_overlapping_same_change(sbox):
   ### Create working copy foo, modify foo/iota.  Duplicate foo,
   ### complete with locally modified iota, to bar.  Now we should
   ### have:
-  ###
+  ### 
   ###    $ svn st foo
   ###    M    foo/iota
   ###    $ svn st bar
   ###    M    bar/iota
-  ###    $
-  ###
+  ###    $ 
+  ### 
   ### Commit the change from foo, then update bar.  The repository
   ### change should get folded into bar/iota with no conflict, since
   ### the two modifications are identical.
@@ -493,7 +493,7 @@ def receive_overlapping_same_change(sbox):
 
   # Expected status tree for the update.
   expected_status = svntest.actions.get_virginal_state(other_wc, 2)
-
+  
   # Do the update and check the results in three ways.
   svntest.actions.run_and_verify_update(other_wc,
                                         expected_output,
@@ -520,7 +520,7 @@ def detect_conflict_files(node, extra_files):
 
 def update_to_resolve_text_conflicts(sbox):
   "delete files and update to resolve text conflicts"
-
+  
   sbox.build()
   wc_dir = sbox.wc_dir
 
@@ -567,7 +567,7 @@ def update_to_resolve_text_conflicts(sbox):
     'A/mu' : Item(status='C '),
     'A/D/G/rho' : Item(status='CC'),
     })
-
+  
   # Create expected disk tree for the update.
   expected_disk = svntest.main.greek_state.copy()
   expected_disk.tweak('A/mu', contents= """<<<<<<< .mine
@@ -592,7 +592,7 @@ Original appended text for rho>>>>>>> .r2
   # These are expressed as list of regexps.  What a cool system!  :-)
   extra_files = ['mu.*\.r1', 'mu.*\.r2', 'mu.*\.mine',
                  'rho.*\.r1', 'rho.*\.r2', 'rho.*\.mine', 'rho.*\.prej']
-
+  
   # Do the update and check the results in three ways.
   # All "extra" files are passed to detect_conflict_files().
   svntest.actions.run_and_verify_update(wc_backup,
@@ -603,7 +603,7 @@ Original appended text for rho>>>>>>> .r2
                                         detect_conflict_files,
                                         extra_files)
 
-
+  
   # verify that the extra_files list is now empty.
   if len(extra_files) != 0:
     print "didn't get expected extra files"
@@ -616,7 +616,7 @@ Original appended text for rho>>>>>>> .r2
   # ### TODO: Can't get run_and_verify_update to work here :-( I get
   # the error "Unequal Types: one Node is a file, the other is a
   # directory". Use run_svn and then run_and_verify_status instead
-  stdout_lines, stdout_lines = svntest.main.run_svn(None, 'up', wc_backup)
+  stdout_lines, stdout_lines = svntest.main.run_svn(None, 'up', wc_backup)  
   if len (stdout_lines) > 0:
     print "update 2 failed"
     raise svntest.Failure
@@ -733,9 +733,9 @@ def update_after_add_rm_deleted(sbox):
     'A/B/F'       : Item(status='A ', wc_rev=0, repos_rev=2),
     })
   svntest.actions.run_and_verify_status(wc_dir, expected_status)
-
+  
   # Forced removal of new alpha and F must restore "deleted" state
-
+  
   svntest.actions.run_and_verify_svn(None, None, [], 'rm', '--force',
                                      alpha_path, F_path)
   if os.path.exists(alpha_path) or os.path.exists(F_path):
@@ -827,7 +827,7 @@ def update_replace_dir(sbox):
 
 def update_single_file(sbox):
   "update with explicit file target"
-
+  
   sbox.build()
   wc_dir = sbox.wc_dir
 
@@ -866,10 +866,10 @@ def update_single_file(sbox):
 #----------------------------------------------------------------------
 def prop_update_on_scheduled_delete(sbox):
   "receive prop update to file scheduled for deletion"
-
+  
   sbox.build()
   wc_dir = sbox.wc_dir
-
+  
   other_wc = sbox.add_wc_path('other')
 
   # Make the "other" working copy.
@@ -909,7 +909,7 @@ def prop_update_on_scheduled_delete(sbox):
   # Expected status tree for the update.
   expected_status = svntest.actions.get_virginal_state(other_wc, 2)
   expected_status.tweak('iota', status='D ')
-
+  
   # Do the update and check the results in three ways.
   svntest.actions.run_and_verify_update(other_wc,
                                         expected_output,
@@ -925,7 +925,7 @@ def update_receive_illegal_name(sbox):
   wc_dir = sbox.wc_dir
 
   # This tests the revision 4334 fix for issue #1068.
-
+  
   legal_url = svntest.main.current_repo_url + '/A/D/G/svn'
   illegal_url = svntest.main.current_repo_url + '/A/D/G/.svn'
   # Ha!  The client doesn't allow us to mkdir a '.svn' but it does
@@ -950,17 +950,17 @@ def update_deleted_missing_dir(sbox):
 
   sbox.build()
   wc_dir = sbox.wc_dir
-
+  
   E_path = os.path.join(wc_dir, 'A', 'B', 'E')
   H_path = os.path.join(wc_dir, 'A', 'D', 'H')
 
   # Create a new revision with directories deleted
-  svntest.main.run_svn(None, 'rm', E_path)
-  svntest.main.run_svn(None, 'rm', H_path)
-  svntest.main.run_svn(None, 'ci', '-m', 'log msg', E_path, H_path)
+  svntest.main.run_svn(None, 'rm', E_path)  
+  svntest.main.run_svn(None, 'rm', H_path)  
+  svntest.main.run_svn(None, 'ci', '-m', 'log msg', E_path, H_path)  
 
   # Update back to the old revision
-  svntest.main.run_svn(None, 'up', '-r', '1', wc_dir)
+  svntest.main.run_svn(None, 'up', '-r', '1', wc_dir)  
 
   # Delete the directories from disk
   svntest.main.safe_rmtree(E_path)
@@ -983,16 +983,16 @@ def update_deleted_missing_dir(sbox):
   expected_status.remove('A/D/H', 'A/D/H/chi', 'A/D/H/omega', 'A/D/H/psi')
   expected_status.tweak(wc_rev=1, repos_rev=2)
 
-  # Do the update, specifying the deleted paths explicitly.
+  # Do the update, specifying the deleted paths explicitly. 
   svntest.actions.run_and_verify_update(wc_dir,
                                         expected_output,
                                         expected_disk,
                                         expected_status,
-                                        None, None, None, None, None,
+                                        None, None, None, None, None, 
                                         0, "-r", "2", E_path, H_path)
 
   # Update back to the old revision again
-  svntest.main.run_svn(None, 'up', '-r', '1', wc_dir)
+  svntest.main.run_svn(None, 'up', '-r', '1', wc_dir)  
 
   # Delete the directories from disk
   svntest.main.safe_rmtree(E_path)
@@ -1006,7 +1006,7 @@ def update_deleted_missing_dir(sbox):
                                         expected_output,
                                         expected_disk,
                                         expected_status,
-                                        None, None, None, None, None,
+                                        None, None, None, None, None, 
                                         0, "-r", "2", wc_dir)
 
 #----------------------------------------------------------------------
@@ -1021,7 +1021,7 @@ def another_hudson_problem(sbox):
   wc_dir = sbox.wc_dir
 
   # Delete/commit gamma thus making it 'deleted'
-  gamma_path = os.path.join(wc_dir, 'A', 'D', 'gamma')
+  gamma_path = os.path.join(wc_dir, 'A', 'D', 'gamma') 
   svntest.main.run_svn(None, 'rm', gamma_path)
   expected_output = svntest.wc.State(wc_dir, {
     'A/D/gamma' : Item(verb='Deleting'),
@@ -1066,7 +1066,7 @@ def another_hudson_problem(sbox):
   svntest.actions.run_and_verify_update(wc_dir,
                                         expected_output,
                                         expected_disk,
-                                        expected_status)
+                                        expected_status)  
 
 #----------------------------------------------------------------------
 
@@ -1099,7 +1099,7 @@ def new_dir_with_spaces(sbox):
   svntest.actions.run_and_verify_update(wc_dir,
                                         expected_output,
                                         expected_disk,
-                                        expected_status)
+                                        expected_status)  
 
 #----------------------------------------------------------------------
 
@@ -1158,7 +1158,7 @@ def checkout_empty_dir(sbox):
   # incomplete ("!" in status).
   sbox.build()
   wc_dir = sbox.wc_dir
-
+  
   C_url = svntest.main.current_repo_url + '/A/C'
 
   svntest.main.safe_rmtree(wc_dir)
@@ -1207,7 +1207,7 @@ def update_to_deletion(sbox):
                                         None, None,
                                         None, None, None, None, 0,
                                         wc_dir)
-
+  
 
 ########################################################################
 # Run the tests

@@ -285,7 +285,7 @@ paranoid programmers make occasional mistakes.
 
 Input validation is the act of defining legal input and rejecting
 everything else. The code must perform input validation on all untrusted
-input.
+input. 
 
 
 Security boundaries
@@ -300,7 +300,7 @@ code that does access control or an application with the SUID bit set.
 Functions which make calls to a security boundary must include
 validation checks of the arguments passed. Functions which themselves
 are security boundaries should audit the input received and alarm when
-invoked with improper values.
+invoked with improper values. 
 
 [### todo: need some examples from Subversion here...]
 
@@ -397,7 +397,7 @@ In addition to the GNU standards, Subversion uses these conventions:
 
          $ svn revert foo
          svn: warning: svn_wc_is_wc_root: 'foo' is not a versioned resource
-         $
+         $ 
 
       There used to be a lot of strings that used a backtick for the
       first quote (`foo' instead of 'foo'), but that looked bad in
@@ -422,7 +422,7 @@ In addition to the GNU standards, Subversion uses these conventions:
       example, one developer says:
 
       > Here's the regexp I'm using:
-      >
+      > 
       >     "src/svn/[^/]*/\\(subversion\\|tools\\|build\\)/"
       >
       > Two things to notice there: (1) I sometimes have several
@@ -463,8 +463,8 @@ principles:
       destroy that pool.
 
    2. When iterating an unbounded number of times, create a subpool
-      before entering the iteration, use it inside the loop and clear
-      it at the start of each iteration, then destroy it after the loop
+      before entering the iteration, use it inside the loop and clear 
+      it at the start of each iteration, then destroy it after the loop 
       is done, like so:
 
          subpool = svn_pool_create(pool);
@@ -476,7 +476,7 @@ principles:
          }
 
          svn_pool_destroy(subpool);
-
+  
 Except for some legacy code, which was written before these principles
 were fully understood, virtually all pool usage in Subversion follows
 the above guidelines.
@@ -516,7 +516,7 @@ overall performance and lifetime groups.  Instead, foo_t generally
 should not have a `pool' field.  Just allocate as many foo objects as
 you need in the current pool -- when that pool gets cleared or
 destroyed, they will all go away simultaneously.
-
+   
 In summary:
 
    - Objects should not have their own pools.  An object is allocated
@@ -660,7 +660,7 @@ run the offending command:
   % gdb svn
   (gdb) break marshal.c:NNN
   (gdb) run ARGS
-  Breakpoint 1, vparse_tuple (list=___, pool=___, fmt=___,
+  Breakpoint 1, vparse_tuple (list=___, pool=___, fmt=___, 
     ap=___) at subversion/libsvn_ra_svn/marshal.c:NNN
   NNN                                 "Malformed network data");
 
@@ -733,11 +733,11 @@ Later on, when someone is trying to figure out what happened to
 `twirling_baton_fast', they may not find it if they just search for
 "_fast".  A better entry would be:
 
-   * twirl.c
+   * twirl.c 
      (twirling_baton_fast, twirling_baton_slow): Removed these
-     obsolete structures.
+     obsolete structures. 
      (handle_parser_warning): Pass data directly to callees, instead
-     of storing in twirling_baton_*.
+     of storing in twirling_baton_*. 
 
    * twirl.h: Fix indentation.
 
@@ -886,44 +886,44 @@ This pretty much says it all:
    Subject: Please ask on the list before filing a new issue.
    To: dev@subversion.tigris.org
    Date: Tue, 30 Jul 2002 10:51:24 (CDT)
-
+   
    Folks, we're getting tons of new issues, which is a Good Thing in
    general, but some of them don't really belong in the issue tracker.
    They're things that would be better solved by a quick conversation
    here on the dev list.  Compilation problems, behavior questions,
    feature ideas that have been discussed before, that sort of thing.
-
+   
    *Please* be more conservative about filing issues.  The issues
    database is physically much more cumbersome than email.  It wastes
    people's time to have conversations in the issues database that should
    be had in email.  (This is not a libel against the issue tracker, it's
    just a result of the fact that the issues database is for permanent
    storage and flow annotation, not for real-time conversation.)
-
+   
    If you encounter a situation where Subversion is clearly behaving
    wrongly, or behaving opposite to what the documentation says, then
    it's okay to file the issue right away (after searching to make sure
    it isn't already filed, of course!).  But if you're
-
+   
       a) Requesting a new feature, or
       b) Having build problems, or
       c) Not sure what the behavior should be, or
       d) Disagreeing with current intended behavior, or
       e) Not TOTALLY sure that others would agree this is a bug, or
       f) For any reason at all not sure this should be filed,
-
+   
    ...then please post to the dev list first.  You'll get a faster
    response, and others won't be forced to use the issues database to
    have the initial real-time conversations.
-
+   
    Nothing is lost this way.  If we eventually conclude that it should be
    in the issue tracker, then we can still file it later, after the
    description and reproduction recipe have been honed on the dev list.
-
+   
    Thank you,
    -Karl
 
-
+   
 
 Commit access
 =============
@@ -1193,22 +1193,22 @@ updating the ra_svn code:
      them.  (Right now, the marshalling implementation does not let
      you put number or boolean values in the optional part of a tuple,
      but changing that will not affect the protocol.)
-
+   
      We can use this mechanism when information is added to an API
      call.
-
+   
  (2) At connection establishment time, clients and servers exchange a
      list of capability keywords.
-
+   
      We can use this mechanism for more complicated changes, like
      introducing pipelining or removing information from API calls.
-
+   
  (3) New commands can be added; trying to use an unsupported command
      will result in an error which can be checked and dealt with.
-
+   
  (4) The protocol version number can be bumped to allow graceful
      refusal of old clients or servers, or to allow a client or
      server to detect when it has to do things the old way.
-
+ 
      This mechanism is a last resort, to be used when capability
      keywords would be too hard to manage.
