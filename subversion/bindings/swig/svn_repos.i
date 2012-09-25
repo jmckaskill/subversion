@@ -58,7 +58,7 @@
 }
 
 /* -----------------------------------------------------------------------
-   commit editor support
+   commit editor support	
 */
 %apply SWIGTYPE **OUTPARAM {
     const svn_delta_editor_t **editor,

@@ -145,7 +145,7 @@ def autoprops_test(sbox, cmd, cfgenable, clienable, subdir):
   else:
     parameters = ['add']
     files_dir = wc_dir
-
+  
   parameters = parameters + ['--config-dir', config_dir]
 
   create_config(config_dir, cfgenable)
