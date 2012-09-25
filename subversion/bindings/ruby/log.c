@@ -66,7 +66,7 @@ svn_ruby_log_receiver (void *baton,
     }
   else
     paths = Qnil;
-
+    
   args[2] = paths;
 
   rb_protect (svn_ruby_protect_call5, (VALUE) args, &error);

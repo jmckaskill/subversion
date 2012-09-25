@@ -561,9 +561,9 @@ static dav_error * dav_svn_prep_version(dav_resource_combined *comb)
   svn_error_t *serr;
 
   /* we are accessing the Version Resource by REV/PATH */
-
+  
   /* ### assert: .baselined = TRUE */
-
+  
   /* if we don't have a revision, then assume the youngest */
   if (!SVN_IS_VALID_REVNUM(comb->priv.root.rev))
     {
@@ -573,21 +573,21 @@ static dav_error * dav_svn_prep_version(dav_resource_combined *comb)
       if (serr != NULL)
         {
           /* ### might not be a baseline */
-
+          
           return dav_svn_convert_err(serr, HTTP_INTERNAL_SERVER_ERROR,
                                      "Could not fetch 'youngest' revision "
                                      "to enable accessing the latest "
                                      "baseline resource.");
         }
     }
-
+  
   /* ### baselines have no repos_path, and we don't need to open
      ### a root (yet). we just needed to ensure that we have the proper
      ### revision number. */
 
   if (!comb->priv.root.root)
     {
-      serr = svn_fs_revision_root(&comb->priv.root.root,
+      serr = svn_fs_revision_root(&comb->priv.root.root, 
                                   comb->priv.repos->fs,
                                   comb->priv.root.rev,
                                   comb->res.pool);
@@ -600,7 +600,7 @@ static dav_error * dav_svn_prep_version(dav_resource_combined *comb)
 
   /* ### we should probably check that the revision is valid */
   comb->res.exists = TRUE;
-
+  
   /* Set up the proper URI. Most likely, we arrived here via a VCC,
      so the URI will be incorrect. Set the canonical form. */
   /* ### assuming a baseline */
@@ -1068,7 +1068,7 @@ static int is_our_resource(const dav_resource *res1,
 
   /* coalesce the repository */
   if (res1->info->repos != res2->info->repos)
-    {
+    {      
       /* close the old, redundant filesystem */
       (void) svn_repos_close(res2->info->repos->repos);
 
@@ -1307,7 +1307,7 @@ const char * dav_svn_getetag(const dav_resource *resource)
       /* ### what to do? */
       return "";
     }
-
+  
   return apr_psprintf(resource->pool, "\"%" SVN_REVNUM_T_FMT "/%s\"",
                       created_rev, resource->info->repos_path);
 }
@@ -1717,15 +1717,15 @@ static dav_error * dav_svn_copy_resource(const dav_resource *src,
       apr_psprintf
       (src->pool, "Got a COPY request with src arg '%s' and dst arg '%s'",
       src->uri, dst->uri);
-
+      
       return dav_new_error(src->pool, HTTP_NOT_IMPLEMENTED, 0, msg);
   */
 
   svn_error_t *serr;
-
+  
   serr = svn_fs_copy (src->info->root.root,  /* the root object of src rev*/
                       src->info->repos_path, /* the relative path of src */
-                      dst->info->root.root,  /* the root object of dst txn*/
+                      dst->info->root.root,  /* the root object of dst txn*/ 
                       dst->info->repos_path, /* the relative path of dst */
                       src->pool);
   if (serr)
@@ -2002,7 +2002,7 @@ dav_resource *dav_svn_create_working_resource(const dav_resource *base,
     path = svn_stringbuf_createf(base->pool, "/%s/wrk/%s%s",
                               base->info->repos->special_uri,
                               activity_id, base->info->repos_path);
-
+  
 
   comb = apr_pcalloc(base->pool, sizeof(*comb));
 
@@ -2052,7 +2052,7 @@ const dav_hooks_repository dav_svn_hooks_repos =
 };
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end:

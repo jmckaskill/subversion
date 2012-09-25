@@ -82,7 +82,7 @@ svn_cl__propedit (apr_getopt_t *os,
         {
           svn_path_split_nts (target, &base_dir, NULL, pool);
         }
-
+      
       /* Run the editor on a temporary file which contains the
          original property value... */
       SVN_ERR (svn_cl__edit_externally (&new_propval,
@@ -115,8 +115,8 @@ svn_cl__propedit (apr_getopt_t *os,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../tools/dev/svn-dev.el")
- * end:
+ * end: 
  */

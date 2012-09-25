@@ -41,7 +41,7 @@ static const char * const timestamp_format =
 "%04d-%02d-%02dT%02d:%02d:%02d.%06dZ";
 
 /* Our old timestamp strings looked like this:
- *
+ * 
  *    "Tue 3 Oct 2000 HH:MM:SS.UUU (day 277, dst 1, gmt_off -18000)"
  *
  * The idea is that they are conventionally human-readable for the
@@ -185,7 +185,7 @@ svn_time_from_nts (const char *data)
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end: */

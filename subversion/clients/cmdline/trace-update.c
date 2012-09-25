@@ -113,8 +113,8 @@ make_file_baton (const char *path,
 }
 
 static svn_error_t *
-open_root (void *edit_baton,
-           svn_revnum_t base_revision,
+open_root (void *edit_baton, 
+           svn_revnum_t base_revision, 
            apr_pool_t *pool,
            void **root_baton)
 {
@@ -135,7 +135,7 @@ set_target_revision (void *edit_baton,
 
 static svn_error_t *
 delete_entry (const char *path,
-              svn_revnum_t revision,
+              svn_revnum_t revision, 
               void *parent_baton,
               apr_pool_t *pool)
 {
@@ -203,7 +203,7 @@ close_directory (void *dir_baton)
       SVN_ERR (svn_wc_conflicted_p (&tc, &pc, db->path, entry, subpool));
       if (! pc)
         SVN_ERR (svn_wc_props_modified_p (&merged, db->path, subpool));
-
+      
       if (pc)
         statchar_buf[1] = 'C';
       else if (merged)
@@ -216,7 +216,7 @@ close_directory (void *dir_baton)
       /* Destroy the subpool. */
       svn_pool_destroy (subpool);
     }
-
+    
   return SVN_NO_ERROR;
 }
 
@@ -240,7 +240,7 @@ close_file (void *file_baton)
     svn_boolean_t merged, tc, pc;
     apr_pool_t *subpool = svn_pool_create (eb->pool);
     const char *pdir = svn_path_remove_component_nts (fb->path, subpool);
-
+    
 
     SVN_ERR (svn_wc_entry (&entry, fb->path, FALSE, subpool));
     if (entry)
@@ -250,7 +250,7 @@ close_file (void *file_baton)
           {
             if (! tc)
               SVN_ERR (svn_wc_text_modified_p (&merged, fb->path, subpool));
-
+        
             if (tc)
               statchar_buf[0] = 'C';
             else if (merged)
@@ -262,7 +262,7 @@ close_file (void *file_baton)
           {
             if (! pc)
               SVN_ERR (svn_wc_props_modified_p (&merged, fb->path, subpool));
-
+        
             if (pc)
               statchar_buf[1] = 'C';
             else if (merged)
@@ -271,7 +271,7 @@ close_file (void *file_baton)
               statchar_buf[1] = 'U';
           }
       }
-
+ 
     /* Destroy the subpool. */
     svn_pool_destroy (subpool);
   }
@@ -425,14 +425,14 @@ svn_cl__get_trace_update_editor (const svn_delta_editor_t **editor,
 
   *edit_baton = eb;
   *editor = trace_editor;
-
+  
   return SVN_NO_ERROR;
 }
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../tools/dev/svn-dev.el")
- * end:
+ * end: 
  */

@@ -4,7 +4,7 @@ Bob Miller <kbob@jogger-egg.com> is working on it.
 -----
 
 Current status (October 1, 2000):
-
+	
 	cvs2svn.pl can read the whole CVS repository and generate a
 	sorted list of commits, using almost the same heuristic as
 	Karl's cvs2cl.pl.  See Commit::accepts_rev for the heuristic.

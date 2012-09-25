@@ -57,8 +57,8 @@ svn_error_t *svn_repos_open (svn_repos_t **repos_p,
    directory structure, creating the Berkeley DB filesystem
    environment, and so on.  Return the repository object in *REPOS_P,
    allocated in POOL. */
-svn_error_t *svn_repos_create (svn_repos_t **repos_p,
-                               const char *path,
+svn_error_t *svn_repos_create (svn_repos_t **repos_p, 
+                               const char *path, 
                                apr_pool_t *pool);
 
 /* Close the Subversion repository object REPOS. */
@@ -113,7 +113,7 @@ const char *svn_repos_write_sentinel_hook (svn_repos_t *repos, apr_pool_t *pool)
    svn_ra_reporter_t table.  The table and baton are used to build a
    transaction in the system;  when the report is finished,
    svn_repos_dir_delta is called on the transaction, driving
-   EDITOR/EDIT_BATON.
+   EDITOR/EDIT_BATON. 
 
    Specifically, the report will create a transaction made by
    USERNAME, relative to FS_BASE in the filesystem.  TARGET is a
@@ -180,10 +180,10 @@ svn_error_t *svn_repos_link_path (void *report_baton,
                                   svn_revnum_t revision);
 
 /* Given a REPORT_BATON constructed by svn_repos_begin_report(), this
-   routine will remove PATH from the current fs transaction.
+   routine will remove PATH from the current fs transaction. 
 
    (This allows the reporter's driver to describe missing pieces of a
-   working copy, so that 'svn up' can recreate them.) */
+   working copy, so that 'svn up' can recreate them.) */   
 svn_error_t *svn_repos_delete_path (void *report_baton,
                                     const char *path);
 
@@ -267,7 +267,7 @@ svn_repos_dated_revision (svn_revnum_t *revision,
                           svn_repos_t *repos,
                           apr_time_t tm,
                           apr_pool_t *pool);
-
+                          
 
 /*  Given a ROOT/PATH within some filesystem, return three pieces of
     information allocated in POOL:
@@ -275,7 +275,7 @@ svn_repos_dated_revision (svn_revnum_t *revision,
       - set *COMMITTED_REV to the revision in which the object was
         last modified.  (In fs parlance, this is the revision in which
         the particular node-rev-id was 'created'.)
-
+    
       - set *COMMITTED_DATE to the date of said revision, or NULL if
         not available.
 
@@ -295,7 +295,7 @@ svn_repos_get_committed_info (svn_revnum_t *committed_rev,
      * fetch the last revision created by <user>
          (once usernames become revision properties!)
      * fetch the last revision where <path> was modified
-
+     
 */
 
 
@@ -427,7 +427,7 @@ typedef struct svn_repos_node_t
   enum svn_node_kind kind;
 
   /* How this node entered the node tree: 'A'dd, 'D'elete, 'R'eplace */
-  char action;
+  char action; 
 
   /* Were there any textual mods? (files only) */
   svn_boolean_t text_mod;
@@ -454,7 +454,7 @@ typedef struct svn_repos_node_t
 /* Set *EDITOR and *EDIT_BATON to an editor that, when driven by
    svn_repos_dir_delta(), builds an `svn_repos_node_t *' tree
    representing the delta from BASE_ROOT to ROOT in REPOS's filesystem.
-
+   
    Invoke svn_repos_node_from_baton() on EDIT_BATON to obtain the root
    node afterwards.
 
@@ -497,7 +497,7 @@ svn_repos_node_t *svn_repos_node_from_baton (void *edit_baton);
     If you simply want to backup your filesystem, you're probably
     better off using the built-in facilities of the DB backend (using
     Berkeley DB's hot-backup feature, for example.)
-
+    
     For a description of the dumpfile format, see
     /trunk/notes/fs_dumprestore.txt.
 */
