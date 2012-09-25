@@ -161,9 +161,9 @@ I.    BUILD REQUIREMENTS
       4.  Neon library 0.24.7 (http://www.webdav.org/neon/)
 
       The Neon library allows a Subversion client to interact with remote
-      repositories over the Internet via a WebDAV based protocol.  If you
-      want to use Subversion to connect to a server over ra_dav (via a
-      http:// or https:// url), you will require Neon.
+      repositories over the Internet via a WebDAV based protocol.  If you 
+      want to use Subversion to connect to a server over ra_dav (via a 
+      http:// or https:// url), you will require Neon.  
 
       The Neon library source code can be installed in "./neon" if you
       want Subversion to build it. The source code is included with the
@@ -365,7 +365,7 @@ II.   INSTALLATION
           $ make
           # make install
 
-      You can also run the full test suite by running 'make check'.
+      You can also run the full test suite by running 'make check'.      
 
 
       2.  Building from an RPM
@@ -704,7 +704,7 @@ II.   INSTALLATION
     To build the binaries either follow the instructions here or use
     build\win32\vc6-build.bat.in after editing it's default paths to match
     yours and saving it as vc6-build.bat.  The vc6-build.bat does a full build
-    so it requires Apache 2 source and if the tests are to be run the
+    so it requires Apache 2 source and if the tests are to be run the 
     Apache 2 install.
 
     Start in the SVN directory you created.
@@ -1202,12 +1202,12 @@ IV.   PLATFORM-SPECIFIC ISSUES
 
   B.  Mac OS X
       --------
-
+      
       [TBD: Describe BDB 4.0.x problem]
 
 
 
 V.    SWIG LANGUAGE BINDINGS
       ======================
-
+      
       (See the file ./subversion/bindings/swig/INSTALL.)

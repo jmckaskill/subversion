@@ -162,7 +162,7 @@ utf_validate (const char **msg,
           (svn_utf__is_valid (tests[i].string, len) != tests[i].valid))
         return svn_error_createf
           (SVN_ERR_TEST_FAILED, NULL, "is_valid test %d failed", i);
-
+      
       if (!svn_utf__is_valid(tests[i].string, last - tests[i].string)
           ||
           (tests[i].valid && *last))
