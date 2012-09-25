@@ -600,8 +600,8 @@ display_prop_diffs(const apr_array_header_t *propchanges,
       /* ### Should we show the paths in platform specific format,
        * ### diff_content_changed() does not! */
       propdiff_header = svn_stringbuf_createf(pool,
-                                              "Index: %s" APR_EOL_STR
-                                              "%s" APR_EOL_STR,
+                                              "Index: %s" APR_EOL_STR 
+                                              "%s" APR_EOL_STR, 
                                               path, equal_string);
 
       if (use_git_diff_format)
