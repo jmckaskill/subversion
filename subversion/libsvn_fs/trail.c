@@ -74,7 +74,7 @@ abort_trail (trail_t *trail,
 
   SVN_ERR (DB_WRAP (fs, "aborting Berkeley DB transaction",
                     trail->db_txn->abort (trail->db_txn)));
-
+ 
   svn_pool_destroy (trail->pool);
 
   return SVN_NO_ERROR;
@@ -123,7 +123,7 @@ svn_fs__retry_txn (svn_fs_t *fs,
     {
       trail_t *trail;
       svn_error_t *svn_err;
-
+      
       SVN_ERR (begin_trail (&trail, fs, pool));
 
       /* Do the body of the transaction.  */
@@ -166,7 +166,7 @@ record_undo (trail_t *trail,
   undo->prev = trail->undo;
   trail->undo = undo;
 }
-
+             
 
 void
 svn_fs__record_undo (trail_t *trail,
@@ -187,7 +187,7 @@ svn_fs__record_completion (trail_t *trail,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end:

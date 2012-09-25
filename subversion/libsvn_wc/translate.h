@@ -32,7 +32,7 @@ extern "C" {
 
 /* Newline and keyword translation properties */
 
-/* Valid states for 'svn:eol-style' property.
+/* Valid states for 'svn:eol-style' property.  
    Property nonexistence is equivalent to 'none'. */
 enum svn_wc__eol_style
 {
@@ -118,7 +118,7 @@ svn_wc__maybe_set_executable (svn_boolean_t *did_set,
 #endif /* SVN_LIBSVN_WC_TRANSLATE_H */
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end:

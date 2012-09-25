@@ -11,14 +11,14 @@
   <title>Subversion: Miscellaneous Documentation</title>
 
   <!-- External entity refs -->
-  &quick_walkthrough;
+  &quick_walkthrough; 
   &best_practices;
   &directory_versioning;
 
   </book>
 
 <!--
-local variables:
+local variables: 
 eval: (load-file "../tools/svnbook.el")
 end:
 -->

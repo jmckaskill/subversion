@@ -48,7 +48,7 @@ svn_fs__dberrf (apr_pool_t *pool, int db_err, const char *fmt, ...)
   msg = apr_pvsprintf (pool, fmt, ap);
   va_end (ap);
 
-  return svn_error_createf (SVN_ERR_FS_BERKELEY_DB, db_err, 0, pool,
+  return svn_error_createf (SVN_ERR_FS_BERKELEY_DB, db_err, 0, pool, 
                             "%s%s", msg, db_strerror (db_err));
 }
 
@@ -170,7 +170,7 @@ svn_fs__err_corrupt_next_id (svn_fs_t *fs, const char *table)
   return
     svn_error_createf
     (SVN_ERR_FS_CORRUPT, 0, 0, fs->pool,
-     "corrupt value for `next-id' key in `%s' table of filesystem `%s'",
+     "corrupt value for `next-id' key in `%s' table of filesystem `%s'", 
      table, fs->path);
 }
 
@@ -193,7 +193,7 @@ svn_fs__err_corrupt_copy (svn_fs_t *fs, const char *copy_id)
   return
     svn_error_createf
     (SVN_ERR_FS_CORRUPT, 0, 0, fs->pool,
-     "corrupt entry in `copies' table for `%s' in filesystem `%s'",
+     "corrupt entry in `copies' table for `%s' in filesystem `%s'", 
      copy_id, fs->path);
 }
 
@@ -265,7 +265,7 @@ svn_fs__err_not_directory (svn_fs_t *fs, const char *path)
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end:
