@@ -20,7 +20,7 @@
 
 /*** Includes ***/
 
-/*
+/* 
  * Requires:  The working copy library and repository access library.
  * Provides:  Broad wrappers around working copy library functionality.
  * Used By:   Client programs.
@@ -80,16 +80,16 @@ typedef svn_error_t *(*svn_client_prompt_t)
 
 
 /* This is a baton that contains information from the calling
-   application, passed to libsvn_client to aid in authentication.
+   application, passed to libsvn_client to aid in authentication. 
 
    Applications must build and pass one of these to any routine that
    may require authentication.  */
 typedef struct svn_client_auth_baton_t
 {
   /* auth info that the app -may- already have, e.g. from argv[] */
-  char *username;
-  char *password;
-
+  char *username;    
+  char *password; 
+  
   /* a callback provided by the app layer, for prompting the user */
   svn_client_prompt_t prompt_callback;
   void *prompt_baton;
@@ -106,7 +106,7 @@ typedef struct svn_client_auth_baton_t
 typedef struct svn_client_proplist_item_s
 {
   /* The name of the node on which these properties are set. */
-  svn_stringbuf_t *node_name;
+  svn_stringbuf_t *node_name;  
 
   /* A hash of (const char *) property names, and (svn_stringbuf_t *) property
      values. */
@@ -223,7 +223,7 @@ svn_client_mkdir (svn_stringbuf_t *path,
                   svn_client_auth_baton_t *auth_baton,
                   svn_stringbuf_t *message,
                   apr_pool_t *pool);
-
+                  
 
 /* If PATH is a URL, use the AUTH_BATON and MESSAGE to immediately
    attempt to commit a deletion of the URL from the repository.
@@ -256,7 +256,7 @@ svn_client_delete (svn_stringbuf_t *path,
  * to SVN_INVALID_REVNUM, NULL, and/or NULL respectively.
  *
  * Store LOG_MSG as the log of the commit.
- *
+ * 
  * PATH is the path to local tree being imported.  PATH can be a file
  * or directory.
  *
@@ -276,12 +276,12 @@ svn_client_delete (svn_stringbuf_t *path,
  * by URL.  NEW_ENTRY may not be the empty string.
  *
  * If NEW_ENTRY already exists in the youngest revision, return error.
- *
+ * 
  * If XML_DST is non-NULL, it is a file in which to store the xml
  * result of the commit, and REVISION is used as the revision.
- *
+ * 
  * Use POOL for all allocation.
- *
+ * 
  * ### kff todo: This import is similar to cvs import, in that it does
  * not change the source tree into a working copy.  However, this
  * behavior confuses most people, and I think eventually svn _should_
@@ -294,8 +294,8 @@ svn_error_t *svn_client_import (svn_revnum_t *committed_rev,
                                 const svn_delta_edit_fns_t *before_editor,
                                 void *before_edit_baton,
                                 const svn_delta_edit_fns_t *after_editor,
-                                void *after_edit_baton,
-                                svn_client_auth_baton_t *auth_baton,
+                                void *after_edit_baton, 
+                                svn_client_auth_baton_t *auth_baton,   
                                 svn_stringbuf_t *path,
                                 svn_stringbuf_t *url,
                                 svn_stringbuf_t *new_entry,
@@ -390,7 +390,7 @@ svn_client_status (apr_hash_t **statushash,
 
 
 /* Invoke RECEIVER with RECEIVER_BATON on each log message from START
- * to END in turn.
+ * to END in turn.  
  *
  * PATHS contains all the working copy paths (as svn_stringbuf_t *'s)
  * for which log messages are desired; the common prefix of PATHS
@@ -500,12 +500,12 @@ svn_client_copy (svn_stringbuf_t *src_path,
 /* Move SRC_PATH to DST_PATH.
 
    SRC_PATH must be a file or directory under version control, or the
-   URL of a versioned item in the repository.
+   URL of a versioned item in the repository.  
 
    If SRC_PATH is a repository URL:
    - DST_PATH must also be a repository URL (existent or not).
    - SRC_REV is used to choose the revision from which to copy the
-     SRC_PATH.
+     SRC_PATH.  
    - AUTH_BATON and MESSAGE are used to commit the move
 
    If SRC_PATH is a working copy path
@@ -527,7 +527,7 @@ svn_client_move (svn_stringbuf_t *src_path,
 /* Set PROPNAME to PROPVAL on TARGET.  If RECURSE is true, then PROPNAME
    will be set on recursively on TARGET and all children.  If RECURSE is false,
    and TARGET is a directory, PROPNAME will be set on _only_ TARGET.
-
+ 
    Use POOL for all memory allocation. */
 svn_error_t *
 svn_client_propset (svn_stringbuf_t *propname,
@@ -537,11 +537,11 @@ svn_client_propset (svn_stringbuf_t *propname,
                     apr_pool_t *pool);
 
 /* Set *PROPS to a hash table whose keys are `char *' paths,
-   prefixed by TARGET, of items in the working copy on which
+   prefixed by TARGET, of items in the working copy on which 
    property PROPNAME is set, and whose values are `svn_string_t *'
    representing the property value for PROPNAME at that path.
    Allocate *PROPS, its keys, and its values in POOL.
-
+             
    Don't store any path, not even TARGET, if it does not have a
    property named PROPNAME.
 
@@ -559,7 +559,7 @@ svn_client_propget (apr_hash_t **props,
 
 /* Returns an apr_array_header_t of svn_client_proplist_item_t's in *PROPS,
    allocated from POOL. Each item will contain the node_name relative to the
-   same base as target in item->node_name, and a property hash of
+   same base as target in item->node_name, and a property hash of 
    (const char *) property names, and (svn_stringbuf_t *) property values.
 
    If recurse is false, or TARGET is a file, *PROPS will contain only a single
@@ -567,7 +567,7 @@ svn_client_propget (apr_hash_t **props,
    (and including) TARGET. */
 svn_error_t *
 svn_client_proplist (apr_array_header_t **props,
-                     svn_stringbuf_t *target,
+                     svn_stringbuf_t *target, 
                      svn_boolean_t recurse,
                      apr_pool_t *pool);
 
@@ -581,5 +581,5 @@ svn_client_proplist (apr_array_header_t **props,
 /* --------------------------------------------------------------
  * local variables:
  * eval: (load-file "../svn-dev.el")
- * end:
+ * end: 
  */
