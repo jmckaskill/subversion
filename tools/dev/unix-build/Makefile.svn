@@ -155,7 +155,7 @@ dirs-create: $(PWD)/.dirs-created
 dirs-reset:
 	rm -f $(PWD)/.dirs-created
 
-$(PWD)/.dirs-created:
+$(PWD)/.dirs-created: 
 	$(foreach d, $(PREFIX) $(DISTDIR) $(SRCDIR) $(OBJDIR), \
 		[ -d $(d) ] || mkdir -p $(d);)
 		touch $@
@@ -355,7 +355,7 @@ httpd-install:	$(HTTPD_OBJDIR)/.installed $(HTTPD_CONF)
 httpd-reset:
 	$(foreach f, .retrieved .configured .compiled .installed, \
 		rm -f $(HTTPD_OBJDIR)/$(f);)
-	rm -f
+	rm -f 
 
 httpd-clean:
 	-(cd $(HTTPD_OBJDIR) && make clean)
@@ -476,7 +476,7 @@ serf-clean:
 
 
 # retrieve serf if not present yet
-# r1221 fixes apr/apr-util detection in serfmake
+# r1221 fixes apr/apr-util detection in serfmake 
 $(SERF_OBJDIR)/.retrieved:
 	[ -d $(SERF_OBJDIR) ] || mkdir -p $(SERF_OBJDIR)
 	if [ ! -d $(SERF_SRCDIR) ]; then \
@@ -717,7 +717,7 @@ svn-check-local:
 svn-check-svn:
 	$(svn_builddir)/subversion/svnserve/svnserve --listen-host 127.0.0.1 \
 		--pid-file $(PWD)/svnserve-$(WC).pid \
-		-d -r $(svn_builddir)/subversion/tests/cmdline
+		-d -r $(svn_builddir)/subversion/tests/cmdline 
 	cd $(svn_builddir) && make check FS_TYPE=fsfs BASE_URL=svn://127.0.0.1
 	cd $(svn_builddir) && make check FS_TYPE=bdb BASE_URL=svn://127.0.0.1
 	kill `cat $(PWD)/svnserve-$(WC).pid`
