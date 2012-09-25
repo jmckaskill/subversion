@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # $0 --- list the fingerprints of SSL certificates that svn has seen before.
-#
+# 
 # SYNOPSIS:
 #     $0
 #     $0 /path/to/.subversion

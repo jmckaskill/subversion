@@ -5378,7 +5378,7 @@ cache_props_recursive(void *cb_baton,
 
   if (baton->cancel_func)
     SVN_ERR(baton->cancel_func(baton->cancel_baton));
-
+ 
   if (baton->immediates_only)
     {
       SVN_ERR(svn_sqlite__get_statement(&stmt, db,
