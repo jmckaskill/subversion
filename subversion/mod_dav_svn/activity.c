@@ -88,7 +88,7 @@ dav_error *dav_svn_store_activity(const dav_svn_repos *repos,
                         APR_OS_DEFAULT, repos->pool);
   if (status != APR_SUCCESS)
     {
-      svn_error_t *serr =
+      svn_error_t *serr = 
         svn_error_create(status, 0, NULL, repos->pool,
                          "failed to open activity db;  check repos perms.");
 
@@ -104,7 +104,7 @@ dav_error *dav_svn_store_activity(const dav_svn_repos *repos,
   apr_dbm_close(dbm);
   if (status != APR_SUCCESS)
     {
-      svn_error_t *serr =
+      svn_error_t *serr = 
         svn_error_create(status, 0, NULL, repos->pool,
                          "failed to close activity db; check repos perms.");
 
@@ -149,7 +149,7 @@ dav_error *dav_svn_create_activity(const dav_svn_repos *repos,
 }
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end:

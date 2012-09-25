@@ -25,11 +25,11 @@ Summary:  u-g-o model (user, group, other).
 
 Note: Some OSes (Solaris) have more complicated and expressive ACL
       mechanisms.
-
+  
 Win32 permissions:
 Summary:  Access Control Lists (ACL) containing multiple Access Control
           Entries (ACE)
-
+  
   1. Search all ACLs that deny requested access
   2. Search all ACLs for apporval of requested access
   3. If none found, reject.
@@ -53,7 +53,7 @@ Types of permissions consisting in a ACE:
 See:
   http://www.netapp.com/tech_library/3079.html
   http://world.std.com/~jimf/papers/nt-security/nt-security.html
-
+          
 Proposal:
 
 Mimic ACEs in Subversion by defining a combination of the following values
@@ -95,13 +95,13 @@ Server modifications:
     Can read file and properties
   tadams:
     Can read file and properties
-
+ 
 Unix-side working copy resolution:
 
   jsmith's view:
     rwxr--r-- foo
   jdoe's view:
-    r-x---r-- foo
+    r-x---r-- foo 
     (note: r bit propogates to user!  everyone's props must be in user.)
   tadams's view:
     r-----r--
@@ -114,7 +114,7 @@ Win32 working copy resolution:
     Read, Execute, Read Attr, Read EA
   tadams's view:
     Read, Read Attr, Read EA
-
+ 
 Question: How do we define groups since they are server-side?
           (Must define the group somewhere - perhaps walk up tree at each
            directory looking for a group definition mechanism.)

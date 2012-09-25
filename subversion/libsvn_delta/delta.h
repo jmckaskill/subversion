@@ -111,7 +111,7 @@ svn_txdelta__apply_instructions (svn_txdelta_window_t *window,
 
 /* These are the in-memory tree-delta stackframes; they are used to
  * keep track of a delta's state while the XML stream is being parsed.
- *
+ * 
  * The XML representation has certain space optimizations.  For
  * example, if an ancestor is omitted, it means the same path at the
  * same revision (taken from the surrounding delta context).  We may
@@ -184,8 +184,8 @@ typedef struct svn_xml__stackframe_t
   svn_delta__XML_t tag;  /* this stackframe represents an open <tag> */
 
   svn_stringbuf_t *name;    /* if the tag had a "name" attribute attached */
-  svn_stringbuf_t *ancestor_path;     /* Explicit, else inherited from parent */
-  svn_revnum_t ancestor_revision;   /* Explicit, else inherited from parent */
+  svn_stringbuf_t *ancestor_path;     /* Explicit, else inherited from parent */ 
+  svn_revnum_t ancestor_revision;   /* Explicit, else inherited from parent */ 
 
   void *baton;           /* holds caller data for the _current_ subdirectory */
   void *file_baton;      /* holds caller data for the _current_ file */
@@ -202,10 +202,10 @@ typedef struct svn_xml__stackframe_t
   svn_boolean_t hashed;  /* TRUE iff this is a <file> tag whose
                             file_baton has been stored in a postfix
                             hashtable. */
-
+  
   struct svn_xml__stackframe_t *next;
   struct svn_xml__stackframe_t *previous;
-
+  
 } svn_xml__stackframe_t;
 
 
@@ -222,7 +222,7 @@ typedef struct svn_delta__propdelta_t
 
   svn_stringbuf_t *entity_name; /* The name of the file, dir, or dirent
                                 which is being patched. */
-
+  
   svn_stringbuf_t *name;        /* name of property to change */
   svn_stringbuf_t *value;       /* new value of property; if NULL, then
                                 this property should be deleted. */
@@ -251,8 +251,8 @@ typedef struct svn_xml__digger_t
   apr_pool_t *pool;
 
   /* A mirror of the stack we're getting from the XML structure, used
-     for storing XML attributes and for XML validation.
-
+     for storing XML attributes and for XML validation. 
+     
      NOTE that this is the *YOUNGEST* frame on the stack, not the oldest! */
   svn_xml__stackframe_t *stack;
 
@@ -281,7 +281,7 @@ typedef struct svn_xml__digger_t
   /* The expat parser (wrapped), so that our expat callbacks have the
      power to set themselves to NULL in the case of an error.  (Again,
      this is done by svn_xml_signal_bailout(). */
-  svn_xml_parser_t *svn_parser;
+  svn_xml_parser_t *svn_parser;  
 
   /* An writable generic stream to parse svndiff data, called whenever
      we receive binary data from expat.  Specifically, this is the
@@ -289,10 +289,10 @@ typedef struct svn_xml__digger_t
      _current_ file being added or opened. */
   svn_stream_t *svndiff_parser;
 
-  /* A hashtable: text-delta-ref-IDs ==> file_batons.
+  /* A hashtable: text-delta-ref-IDs ==> file_batons.  
      Used for "postfix" text-deltas. */
   apr_hash_t *postfix_hash;
-
+  
   /* An in-memory prop-delta, possibly in the process of being
      buffered up */
   struct svn_delta__propdelta_t *current_propdelta;
@@ -306,7 +306,7 @@ typedef struct svn_xml__digger_t
 
 
 /* A object representing a delta-specific XML parser; opaque to
-   outside callers, this object is passed to svn_delta_xml_parsebytes().
+   outside callers, this object is passed to svn_delta_xml_parsebytes(). 
 
    This is typedef'ed in public "svn_delta.h".
 */
@@ -327,7 +327,7 @@ struct svn_delta_xml_parser_t
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end:
