@@ -3542,7 +3542,7 @@ def patch_deletes_prop(sbox):
   # *adds* the property.
   svntest.main.run_svn(None, 'revert', iota_path)
 
-  # Apply patch
+  # Apply patch 
   unidiff_patch = [
     "Index: iota\n",
     "===================================================================\n",
@@ -3565,7 +3565,7 @@ def patch_deletes_prop(sbox):
                                        None, # expected err
                                        1, # check-props
                                        0, # dry-run
-                                       '--reverse-diff')
+                                       '--reverse-diff') 
 
 @Issue(4004)
 def patch_reversed_add_with_props(sbox):
@@ -3614,7 +3614,7 @@ def patch_reversed_add_with_props(sbox):
                                        None, # expected err
                                        1, # check-props
                                        0, # dry-run
-                                       '--reverse-diff')
+                                       '--reverse-diff') 
 
 @Issue(4004)
 def patch_reversed_add_with_props2(sbox):
@@ -3669,7 +3669,7 @@ def patch_reversed_add_with_props2(sbox):
                                        None, # expected err
                                        1, # check-props
                                        0, # dry-run
-                                       '--reverse-diff')
+                                       '--reverse-diff') 
 
 def patch_dev_null(sbox):
   "patch with /dev/null filenames"
