@@ -136,7 +136,7 @@ svn_cmdline_init (const char *progname, FILE *error_stream)
     apr_pool_t* pool;
     apr_status_t apr_err;
     int inwords, outbytes, outlength;
-
+    
     apr_pool_create (&pool, 0);
     /* get exe name - our locale info will be in '../share/locale' */
     inwords = sizeof (ucs2_path) / sizeof(ucs2_path[0]);
@@ -160,7 +160,7 @@ svn_cmdline_init (const char *progname, FILE *error_stream)
     internal_path = svn_path_dirname (internal_path, pool);
     internal_path = svn_path_join (internal_path, SVN_LOCALE_RELATIVE_PATH,
                                    pool);
-    bindtextdomain (PACKAGE_NAME, internal_path);
+    bindtextdomain (PACKAGE_NAME, internal_path);    
     apr_pool_destroy (pool);
   }
 #else

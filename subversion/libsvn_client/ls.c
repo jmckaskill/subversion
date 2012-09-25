@@ -41,7 +41,7 @@ get_dir_contents (apr_hash_t *dirents,
 
   /* Get the directory's entries, but not its props. */
   if (ra_lib->get_dir)
-    SVN_ERR (ra_lib->get_dir (session, dir, rev, &tmpdirents,
+    SVN_ERR (ra_lib->get_dir (session, dir, rev, &tmpdirents, 
                               NULL, NULL, pool));
   else
     return svn_error_create (SVN_ERR_RA_NOT_IMPLEMENTED, NULL,
@@ -75,11 +75,11 @@ svn_error_t *
 svn_client_ls (apr_hash_t **dirents,
                const char *path_or_url,
                svn_opt_revision_t *revision,
-               svn_boolean_t recurse,
+               svn_boolean_t recurse,               
                svn_client_ctx_t *ctx,
                apr_pool_t *pool)
 {
-  svn_ra_plugin_t *ra_lib;
+  svn_ra_plugin_t *ra_lib;  
   void *session;
   svn_revnum_t rev;
   svn_node_kind_t url_kind;
@@ -110,12 +110,12 @@ svn_client_ls (apr_hash_t **dirents,
       svn_path_split (url, &parent_url, &base_name, pool);
       SVN_ERR (svn_client__open_ra_session (&session, ra_lib, parent_url,
                                             NULL,
-                                            NULL, NULL, FALSE, TRUE,
+                                            NULL, NULL, FALSE, TRUE, 
                                             ctx, pool));
 
       /* Get all parent's entries, no props. */
       if (ra_lib->get_dir)
-        SVN_ERR (ra_lib->get_dir (session, "", rev, &parent_ents,
+        SVN_ERR (ra_lib->get_dir (session, "", rev, &parent_ents, 
                                   NULL, NULL, pool));
       else
         return svn_error_create (SVN_ERR_RA_NOT_IMPLEMENTED, NULL,
