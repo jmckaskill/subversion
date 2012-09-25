@@ -65,10 +65,10 @@ send_file_contents (svn_stringbuf_t *path,
   if (! APR_STATUS_IS_SUCCESS (apr_err))
     {
       return svn_error_createf
-        (apr_err, 0, NULL, subpool,
+        (apr_err, 0, NULL, subpool, 
          "error opening `%s' for reading", path->data);
     }
-
+  
   /* Get a readable stream of the file's contents. */
   contents = svn_stream_from_aprfile (f, subpool);
 
@@ -80,7 +80,7 @@ send_file_contents (svn_stringbuf_t *path,
   SVN_ERR (editor->apply_textdelta (file_baton, &handler, &handler_baton));
 
   /* Pull windows from the delta stream and feed to the consumer. */
-  do
+  do 
     {
       SVN_ERR (svn_txdelta_next_window (&window, delta_stream));
       SVN_ERR ((*handler) (window, handler_baton));
@@ -95,7 +95,7 @@ send_file_contents (svn_stringbuf_t *path,
       return svn_error_createf
         (apr_err, 0, NULL, subpool, "error closing `%s'", path->data);
     }
-
+  
   /* Destroy our subpool. */
   svn_pool_destroy (subpool);
   return SVN_NO_ERROR;
@@ -117,17 +117,17 @@ import_file (const svn_delta_edit_fns_t *editor,
   void *file_baton;
 
   SVN_ERR (editor->add_file (name, dir_baton,
-                             NULL, SVN_INVALID_REVNUM,
-                             &file_baton));
+                             NULL, SVN_INVALID_REVNUM, 
+                             &file_baton));          
   SVN_ERR (send_file_contents (path, file_baton, editor, pool));
-
+  
   /* Try to detect the mime-type of this new addition. */
   {
     const char *mimetype;
 
     SVN_ERR (svn_io_detect_mimetype (&mimetype, path->data, pool));
     if (mimetype)
-      SVN_ERR (editor->change_file_prop
+      SVN_ERR (editor->change_file_prop 
                (file_baton,
                 svn_stringbuf_create (SVN_PROP_MIME_TYPE, pool),
                 svn_stringbuf_create (mimetype, pool)));
@@ -137,7 +137,7 @@ import_file (const svn_delta_edit_fns_t *editor,
 
   return SVN_NO_ERROR;
 }
-
+             
 
 /* Import directory PATH into the repository directory indicated by
  * DIR_BATON in EDITOR.  Don't call EDITOR->close_directory(DIR_BATON),
@@ -146,7 +146,7 @@ import_file (const svn_delta_edit_fns_t *editor,
  * Use POOL for any temporary allocation.
  */
 static svn_error_t *
-import_dir (const svn_delta_edit_fns_t *editor,
+import_dir (const svn_delta_edit_fns_t *editor, 
             void *dir_baton,
             svn_stringbuf_t *path,
             apr_pool_t *pool)
@@ -171,7 +171,7 @@ import_dir (const svn_delta_edit_fns_t *editor,
           svn_stringbuf_t *name = svn_stringbuf_create (this_entry.name, subpool);
           void *this_dir_baton;
 
-          /* Skip entries for this dir and its parent.
+          /* Skip entries for this dir and its parent.  
              ### kff todo: APR actually promises that they'll come
              first, so this guard could be moved outside the loop. */
           if ((strcmp (this_entry.name, ".") == 0)
@@ -192,7 +192,7 @@ import_dir (const svn_delta_edit_fns_t *editor,
           SVN_ERR (editor->add_directory (name,
                                           dir_baton,
                                           NULL,
-                                          SVN_INVALID_REVNUM,
+                                          SVN_INVALID_REVNUM, 
                                           &this_dir_baton));
 
           /* Recurse. */
@@ -226,7 +226,7 @@ import_dir (const svn_delta_edit_fns_t *editor,
         return svn_error_createf
           (apr_err, 0, NULL, subpool, "error closing dir `%s'", path->data);
     }
-
+      
   svn_pool_destroy (subpool);
   return SVN_NO_ERROR;
 }
@@ -237,16 +237,16 @@ import_dir (const svn_delta_edit_fns_t *editor,
 
 /* Recursively import PATH to a repository using EDITOR and
  * EDIT_BATON.  PATH can be a file or directory.
- *
+ * 
  * NEW_ENTRY is the name to use in the repository.  If PATH is a
  * directory, NEW_ENTRY may be null, which creates as many new entries
  * in the top repository target directory as there are entries in the
  * top of PATH; but if NEW_ENTRY is non-null, it is the name of a new
  * subdirectory in the repository to hold the import.  If PATH is a
  * file, NEW_ENTRY may not be null.
- *
+ * 
  * NEW_ENTRY can never be the empty string.
- *
+ * 
  * Use POOL for any temporary allocation.
  *
  * Note: the repository directory receiving the import was specified
@@ -326,9 +326,9 @@ import (svn_stringbuf_t *path,
     {
       return svn_error_createf
         (SVN_ERR_UNKNOWN_NODE_KIND, 0, NULL, pool,
-         "'%s' does not exist.", path->data);
+         "'%s' does not exist.", path->data);  
     }
-
+  
   SVN_ERR (editor->close_edit (edit_baton));
 
   return SVN_NO_ERROR;
@@ -343,9 +343,9 @@ import (svn_stringbuf_t *path,
  *
  * Record USER as the author of the new revision, and LOG_MSG as its
  * log message.
- *
+ * 
  * BASE_PATH is the common prefix of all the targets.
- *
+ * 
  * If committing, CONDENSED_TARGETS is all the targets under BASE_PATH
  * but with the BASE_PATH prefix removed; else if importing,
  * CONDENSED_TARGETS is required to be null (you can only import one
@@ -355,11 +355,11 @@ import (svn_stringbuf_t *path,
  * and URL is the repository directory where the imported data is
  * placed, and NEW_ENTRY is the new entry created in the repository
  * directory identified by URL.
- *
+ * 
  * If XML_DST is non-null, it is a file in which to store the xml
  * result of the commit, and REVISION is used as the revision.  If
  * XML_DST is null, REVISION is ignored.
- *
+ * 
  * Use POOL for all allocation.
  *
  * When importing:
@@ -377,7 +377,7 @@ import (svn_stringbuf_t *path,
  *
  *   If NEW_ENTRY already exists in the youngest revision, return
  *   error.
- *
+ * 
  *   ### kff todo: This import is similar to cvs import, in that it
  *   does not change the source tree into a working copy.  However,
  *   this behavior confuses most people, and I think eventually svn
@@ -389,7 +389,7 @@ static svn_error_t *
 send_to_repos (const svn_delta_edit_fns_t *before_editor,
                void *before_edit_baton,
                const svn_delta_edit_fns_t *after_editor,
-               void *after_edit_baton,
+               void *after_edit_baton,                   
                svn_stringbuf_t *base_dir,
                apr_array_header_t *condensed_targets,
                svn_stringbuf_t *url,        /* null unless importing */
@@ -418,14 +418,14 @@ send_to_repos (const svn_delta_edit_fns_t *before_editor,
   svn_boolean_t is_import;
   struct svn_wc_close_commit_baton ccb = {base_dir, pool};
   apr_hash_t *committed_targets = apr_hash_make (pool);
-
-  if (url)
+  
+  if (url) 
     is_import = TRUE;
   else
     is_import = FALSE;
 
   /* Sanity check: if this is an import, then NEW_ENTRY can be null or
-     non-empty, but it can't be empty. */
+     non-empty, but it can't be empty. */ 
   if (is_import && (new_entry && (strcmp (new_entry->data, "") == 0)))
     {
       return svn_error_create (SVN_ERR_FS_PATH_SYNTAX, 0, NULL, pool,
@@ -446,7 +446,7 @@ send_to_repos (const svn_delta_edit_fns_t *before_editor,
       if (apr_err)
         return svn_error_createf (apr_err, 0, NULL, pool,
                                   "error opening %s", xml_dst->data);
-
+      
 
       /* Fetch the xml commit editor. */
       SVN_ERR (svn_delta_get_xml_editor (svn_stream_from_aprfile (dst, pool),
@@ -471,11 +471,11 @@ send_to_repos (const svn_delta_edit_fns_t *before_editor,
                                                       revision,
                                                       svn_wc_set_revision,
                                                       &ccb));
-
+                                                      
           svn_delta_compose_editors (&editor, &edit_baton,
                                      commit_editor, commit_edit_baton,
                                      track_editor, track_edit_baton, pool);
-        }
+        }        
     }
   else   /* Else we're committing to an RA layer. */
     {
@@ -491,27 +491,27 @@ send_to_repos (const svn_delta_edit_fns_t *before_editor,
                "entry '%s' has already been deleted", base_dir->data);
           url = entry->ancestor;
         }
-
+      
       /* Make sure our log message at least exists, even if empty. */
       if (! log_msg)
         log_msg = svn_stringbuf_create ("", pool);
-
+      
       /* Get the RA vtable that matches URL. */
       SVN_ERR (svn_ra_init_ra_libs (&ra_baton, pool));
       SVN_ERR (svn_ra_get_ra_library (&ra_lib, ra_baton, url->data, pool));
-
+      
       /* Open an RA session to URL. */
       /* (Notice that in the case of import, we do NOT want the RA
          layer to attempt to store auth info in the wc.) */
       SVN_ERR (svn_client__get_ra_callbacks (&ra_callbacks, &cb_baton,
-                                             auth_baton, base_dir,
+                                             auth_baton, base_dir, 
                                              is_import ? FALSE : TRUE,
                                              is_import ? FALSE : TRUE,
                                              pool));
       SVN_ERR (ra_lib->open (&session, url,
                              ra_callbacks, cb_baton, pool));
 
-
+      
       /* Fetch RA commit editor, giving it svn_wc_set_revision(). */
       SVN_ERR (ra_lib->get_commit_editor
                (session,
@@ -536,7 +536,7 @@ send_to_repos (const svn_delta_edit_fns_t *before_editor,
                                 0,
                                 base_dir,
                                 pool));
-
+  
   svn_delta_compose_editors (&editor, &edit_baton,
                              editor, edit_baton,
                              test_editor, test_edit_baton, pool);
@@ -546,9 +546,9 @@ send_to_repos (const svn_delta_edit_fns_t *before_editor,
   /* Wrap the resulting editor with BEFORE and AFTER editors. */
   svn_delta_wrap_editor (&editor, &edit_baton,
                          before_editor, before_edit_baton,
-                         editor, edit_baton,
+                         editor, edit_baton, 
                          after_editor, after_edit_baton, pool);
-
+  
   /* Do the commit. */
   if (is_import)
     {
@@ -575,7 +575,7 @@ send_to_repos (const svn_delta_edit_fns_t *before_editor,
                                        editor, edit_baton,
                                        NULL, NULL,
                                        pool);
-      else
+      else 
         /* committing to RA layer */
         err = svn_wc_crawl_local_mods (base_dir,
                                        condensed_targets,
@@ -596,13 +596,13 @@ send_to_repos (const svn_delta_edit_fns_t *before_editor,
 
   if (xml_dst && xml_dst->data)
     {
-      /* If we were committing into XML, close the xml file. */
+      /* If we were committing into XML, close the xml file. */      
       apr_err = apr_file_close (dst);
       if (apr_err)
         return svn_error_createf (apr_err, 0, NULL, pool,
-                                  "error closing %s", xml_dst->data);
+                                  "error closing %s", xml_dst->data);      
     }
-  else
+  else  
     /* We were committing to RA, so close the session. */
     SVN_ERR (ra_lib->close (session));
 
@@ -630,7 +630,7 @@ svn_client_import (const svn_delta_edit_fns_t *before_editor,
                    apr_pool_t *pool)
 {
   SVN_ERR (send_to_repos (before_editor, before_edit_baton,
-                          after_editor, after_edit_baton,
+                          after_editor, after_edit_baton,                   
                           path, NULL,
                           url, new_entry,
                           auth_baton,
@@ -646,7 +646,7 @@ svn_error_t *
 svn_client_commit (const svn_delta_edit_fns_t *before_editor,
                    void *before_edit_baton,
                    const svn_delta_edit_fns_t *after_editor,
-                   void *after_edit_baton,
+                   void *after_edit_baton, 
                    svn_client_auth_baton_t *auth_baton,
                    const apr_array_header_t *targets,
                    svn_stringbuf_t *log_msg,
@@ -673,7 +673,7 @@ svn_client_commit (const svn_delta_edit_fns_t *before_editor,
     {
       svn_stringbuf_t *parent_dir, *basename;
 
-      SVN_ERR (svn_wc_get_actual_target (base_dir, &parent_dir,
+      SVN_ERR (svn_wc_get_actual_target (base_dir, &parent_dir, 
                                          &basename, pool));
       if (basename)
         {
@@ -683,18 +683,18 @@ svn_client_commit (const svn_delta_edit_fns_t *before_editor,
 
           /* Make the array if it wasn't already created. */
           if (! condensed_targets)
-            condensed_targets = apr_array_make
+            condensed_targets = apr_array_make 
               (pool, targets->nelts, sizeof (svn_stringbuf_t *));
 
           /* Now, push this basename as a relative path to our new
              base directory. */
-          (*((svn_stringbuf_t **)apr_array_push
+          (*((svn_stringbuf_t **)apr_array_push 
              (condensed_targets))) = basename;
         }
     }
 
   err = send_to_repos (before_editor, before_edit_baton,
-                       after_editor, after_edit_baton,
+                       after_editor, after_edit_baton,                   
                        base_dir,
                        condensed_targets,
                        NULL, NULL,  /* NULLs because not importing */
@@ -702,7 +702,7 @@ svn_client_commit (const svn_delta_edit_fns_t *before_editor,
                        log_msg,
                        xml_dst, revision,
                        pool);
-
+  
   /* Sleep for one second to ensure timestamp integrity. */
   apr_sleep (APR_USEC_PER_SEC * 1);
 
@@ -711,7 +711,7 @@ svn_client_commit (const svn_delta_edit_fns_t *before_editor,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../svn-dev.el")
  * end: */
