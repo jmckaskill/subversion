@@ -622,11 +622,11 @@ sync_file_handle_cache_and_close(svn_fs_t *fs,
 {
   const char *file_name = "";
   fs_fs_data_t *ffd = fs->fsap_data;
-
+  
   apr_status_t apr_err = apr_file_name_get(&file_name, file);
   if (apr_err)
     return svn_error_wrap_apr(apr_err, _("Can't get file name"));
-
+  
   SVN_ERR(svn_io_file_close(file, pool));
   return svn_file_handle_cache__flush(ffd->file_handle_cache, file_name);
 }
@@ -806,7 +806,7 @@ get_writable_proto_rev_body(svn_fs_t *fs, const void *baton, apr_pool_t *pool)
       err = svn_error_compose_create(
               err,
               unlock_proto_rev_list_locked(fs, txn_id, *lockcookie, pool));
-
+      
       *lockcookie = NULL;
     }
 
@@ -1744,7 +1744,7 @@ open_and_seek_representation(svn_file_handle_cache__handle_t **file_p,
                              apr_pool_t *pool)
 {
   /* representation headers tend to cluster. Therefore, use separate
-   * file handles for them (controlled by the cookie) to maximize APR
+   * file handles for them (controlled by the cookie) to maximize APR 
    * buffer effectiveness. */
   if (! rep->txn_id)
     return open_and_seek_revision(file_p, fs, rep->revision, rep->offset,
@@ -2419,11 +2419,11 @@ get_fs_id_at_offset(svn_fs_id_t **id_p,
   apr_hash_t *headers;
   const char *node_id_str;
 
-  SVN_ERR(svn_io_file_seek(svn_file_handle_cache__get_apr_handle(rev_file),
+  SVN_ERR(svn_io_file_seek(svn_file_handle_cache__get_apr_handle(rev_file), 
                            APR_SET, &offset, pool));
 
   SVN_ERR(read_header_block(&headers,
-                            svn_stream__from_cached_file_handle(rev_file,
+                            svn_stream__from_cached_file_handle(rev_file, 
                                                                 TRUE, pool),
                             pool));
 
@@ -2685,7 +2685,7 @@ svn_fs_fs__rev_get_root(svn_fs_id_t **root_id_p,
   SVN_ERR(get_root_changes_offset(&root_offset, NULL, revision_file, fs, rev,
                                   pool));
 
-  SVN_ERR(get_fs_id_at_offset(&root_id, revision_file, fs, rev, root_offset,
+  SVN_ERR(get_fs_id_at_offset(&root_id, revision_file, fs, rev, root_offset, 
                               pool));
 
   SVN_ERR(svn_file_handle_cache__close(revision_file));
@@ -2900,7 +2900,7 @@ create_rep_state(struct rep_state **rep_state,
          ### going to jump straight to this comment anyway! */
       return svn_error_createf(SVN_ERR_FS_CORRUPT, err,
                                "Corrupt representation '%s'",
-                               rep
+                               rep 
                                ? representation_string(rep, ffd->format, TRUE,
                                                        TRUE, pool)
                                : "(null)");
@@ -4428,7 +4428,7 @@ svn_fs_fs__paths_changed(apr_hash_t **changed_paths_p,
   apr_revision_file = svn_file_handle_cache__get_apr_handle(revision_file);
 
   /* here, it will get moved anyways */
-  SVN_ERR(get_root_changes_offset(NULL, &changes_offset, revision_file,
+  SVN_ERR(get_root_changes_offset(NULL, &changes_offset, revision_file, 
                                   fs, rev, pool));
 
   SVN_ERR(svn_io_file_seek(apr_revision_file, APR_SET, &changes_offset, pool));
@@ -6512,7 +6512,7 @@ recover_get_largest_revision(svn_fs_t *fs, svn_revnum_t *rev, apr_pool_t *pool)
       svn_error_t *err;
       svn_file_handle_cache__handle_t *file;
 
-      /* We don't care about the file pointer position as long as the file
+      /* We don't care about the file pointer position as long as the file 
          itself exists. */
       err = open_pack_or_rev_file(&file, fs, right, -1, iterpool);
       svn_pool_clear(iterpool);
@@ -6606,7 +6606,7 @@ read_handler_recover(void *baton, char *buffer, apr_size_t *len)
    Perform temporary allocation in POOL. */
 static svn_error_t *
 recover_find_max_ids(svn_fs_t *fs, svn_revnum_t rev,
-                     svn_file_handle_cache__handle_t *rev_file,
+                     svn_file_handle_cache__handle_t *rev_file, 
                      apr_off_t offset,
                      char *max_node_id, char *max_copy_id,
                      apr_pool_t *pool)
@@ -6623,8 +6623,8 @@ recover_find_max_ids(svn_fs_t *fs, svn_revnum_t rev,
   apr_file_t *apr_rev_file = svn_file_handle_cache__get_apr_handle(rev_file);
 
   SVN_ERR(svn_io_file_seek(apr_rev_file, APR_SET, &offset, pool));
-  SVN_ERR(read_header_block(&headers,
-                            svn_stream__from_cached_file_handle(rev_file,
+  SVN_ERR(read_header_block(&headers, 
+                            svn_stream__from_cached_file_handle(rev_file, 
                                                                 TRUE,
                                                                 pool),
                             pool));
@@ -6835,7 +6835,7 @@ recover_body(void *baton, apr_pool_t *pool)
           SVN_ERR(open_pack_or_rev_file(&rev_file, fs, rev, -1, iterpool));
 
           /* ... because it gets set here explicitly */
-          SVN_ERR(get_root_changes_offset(&root_offset, NULL,
+          SVN_ERR(get_root_changes_offset(&root_offset, NULL, 
                                           rev_file, fs, rev,
                                           iterpool));
           SVN_ERR(recover_find_max_ids(fs, rev, rev_file, root_offset,
@@ -7829,7 +7829,7 @@ hotcopy_io_copy_dir_recursively(const char *src,
           else if (this_entry.filetype == APR_DIR) /* recurse */
             {
               const char *src_target;
-
+              
               /* Prevent infinite recursion by filtering off our
                  newly created destination path. */
               if (strcmp(src, dst_parent) == 0
@@ -8035,7 +8035,7 @@ hotcopy_remove_rev_files(svn_fs_t *dst_fs,
   for (rev = start_rev; rev < end_rev; rev++)
     {
       const char *rev_path;
-
+      
       svn_pool_clear(iterpool);
 
       /* If necessary, update paths for shard. */

@@ -2544,10 +2544,10 @@ def include_immediate_dir_externals(sbox):
   #     svn ps svn:externals "^/A/B/E X/XE" wc_dir
   #     svn ci
   #     svn up
-  #
+  # 
   #     svn ps some change X/XE
   #     echo mod >> X/XE/alpha
-  #
+  # 
   #     svn st X/XE
   #     # Expect only the propset on X/XE to be committed.
   #     # Should be like 'svn commit --include-externals --depth=empty X/XE'.
