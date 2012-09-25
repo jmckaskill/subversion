@@ -330,7 +330,7 @@ typedef struct svn_delta_edit_fns_t
      Most of the callbacks work in the obvious way:
 
          delete_entry
-         add_file           add_directory
+         add_file           add_directory    
          open_file          open_directory
 
      Each of these takes a directory baton, indicating the directory
@@ -361,7 +361,7 @@ typedef struct svn_delta_edit_fns_t
         open_directory (ROOT, "foo") --- yielding a baton F for `foo'
         open_directory (F, "bar") --- yielding a baton B for `foo/bar'
         add_file (B, "baz.c")
-
+     
      When the producer is finished making changes to a directory, it
      should call `close_directory'.  This lets the consumer do any
      necessary cleanup, and free the baton's storage.
@@ -444,7 +444,7 @@ typedef struct svn_delta_edit_fns_t
 
 
   /* Deleting things.  */
-
+       
   /* Remove the directory entry named NAME, a child of the directory
      represented by PARENT_BATON.  REVISION is used as a sanity check
      to ensure that you are removing the revision of NAME that you
@@ -455,10 +455,10 @@ typedef struct svn_delta_edit_fns_t
 
 
   /* Creating and modifying directories.  */
-
+  
   /* We are going to add a new subdirectory named NAME.  We will use
      the value this callback stores in *CHILD_BATON as the
-     PARENT_BATON for further changes in the new subdirectory.
+     PARENT_BATON for further changes in the new subdirectory.  
 
      If COPYFROM_PATH is non-NULL, this add has history (i.e., is a
      copy), and the origin of the copy may be recorded as
@@ -483,7 +483,7 @@ typedef struct svn_delta_edit_fns_t
      - DIR_BATON specifies the directory whose property should change.
      - NAME is the name of the property to change.
      - VALUE is the new value of the property, or zero if the property
-     should be removed altogether.
+     should be removed altogether.  
 
      ### todo (issue #406): name could be const char *, value
      svn_string_t instead of svn_stringbuf_t.  */
@@ -535,7 +535,7 @@ typedef struct svn_delta_edit_fns_t
      delta windows as we receive them.  The callback should set
      *HANDLER_BATON to the value we should pass as the BATON
      argument to *HANDLER.  */
-  svn_error_t *(*apply_textdelta) (void *file_baton,
+  svn_error_t *(*apply_textdelta) (void *file_baton, 
                                    svn_txdelta_window_handler_t *handler,
                                    void **handler_baton);
 
@@ -588,7 +588,7 @@ svn_delta_edit_fns_t *svn_delta_default_editor (apr_pool_t *pool);
  *
  * Returns a new editor in E which each function FUN calls
  * EDITOR_1->FUN and then EDITOR_2->FUN, with the corresponding batons.
- *
+ * 
  * If EDITOR_1->FUN returns error, that error is returned from E->FUN
  * and EDITOR_2->FUN is never called; otherwise E->FUN's return value
  * is the same as EDITOR_2->FUN's.
@@ -635,7 +635,7 @@ void svn_delta_wrap_editor (const svn_delta_edit_fns_t **new_editor,
     see svn_delta_pipe_editor() below. */
 
 struct svn_pipe_edit_baton
-{
+{  
   /* This is the "real" editor/baton, the one which we are wrapping. */
   const svn_delta_edit_fns_t *real_editor;
   void *real_edit_baton;
@@ -682,7 +682,7 @@ struct svn_pipe_handler_wrapper
 {
   /* Wrapped file baton. */
   struct svn_pipe_file_baton *file_baton;
-
+  
   /* The "real" handler for the real_file_baton */
   svn_txdelta_window_handler_t real_handler;
   void *real_handler_baton;
@@ -697,7 +697,7 @@ struct svn_pipe_handler_wrapper
 /* Wrap EDITOR_TO_WRAP/EDIT_BATON_TO_WRAP in a new editor whose only
  * purpose is to call the wrapped editor.  Return this new editor in
  * *NEW_EDITOR / *NEW_EDIT_BATON.  POOL will be used for all allocation.
- *
+ * 
  * The editor returned acts as a 'pipe' to the real editor.  It comes
  * back in template form; it is expected that the caller of this
  * function will customize the individual routines and make use of the
@@ -706,7 +706,7 @@ struct svn_pipe_handler_wrapper
  * possibly intercept and modify any commands the editor-driver is
  * sending to the wrapped editor.
  */
-void
+void 
 svn_delta_default_pipe_editor (svn_delta_edit_fns_t **new_editor,
                                struct svn_pipe_edit_baton **new_edit_baton,
                                const svn_delta_edit_fns_t *editor_to_wrap,
@@ -768,7 +768,7 @@ typedef struct svn_delta_xml_parser_t svn_delta_xml_parser_t;
 svn_error_t  *svn_delta_make_xml_parser (svn_delta_xml_parser_t **parser,
                                          const svn_delta_edit_fns_t *editor,
                                          void *edit_baton,
-                                         const char *base_path,
+                                         const char *base_path, 
                                          svn_revnum_t base_revision,
                                          apr_pool_t *pool);
 
@@ -783,15 +783,15 @@ void svn_delta_free_xml_parser (svn_delta_xml_parser_t *parser);
    final parser "push", ISFINAL must be set to true (so that both
    expat and local cleanup can occur). */
 svn_error_t *
-svn_delta_xml_parsebytes (const char *buffer, apr_size_t len, int isFinal,
+svn_delta_xml_parsebytes (const char *buffer, apr_size_t len, int isFinal, 
                           svn_delta_xml_parser_t *svn_xml_parser);
 
 
 /* Reads an XML stream from SOURCE using expat internally, validating
    the XML as it goes (according to Subversion's own tree-delta DTD).
    Whenever an interesting event happens, it calls a caller-specified
-   callback routine from EDITOR.
-
+   callback routine from EDITOR.  
+   
    Once called, it retains control and "pulls" data from SOURCE
    until either the stream runs out or an error occurs. */
 svn_error_t *svn_delta_xml_auto_parse (svn_stream_t *source,
