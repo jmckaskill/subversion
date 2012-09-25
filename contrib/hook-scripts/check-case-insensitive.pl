@@ -25,7 +25,7 @@ require 5.004; # This is when locale support was added.
 #   svn: General svn error from server
 #
 # It should list the file names which are in conflict.  But it does stop the
-# commit.
+# commit. 
 use encoding "utf8";
 $ENV{'LANG'} = 'en_GB.UTF-8';
 

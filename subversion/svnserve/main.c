@@ -154,7 +154,7 @@ static svn_error_t * version(apr_getopt_t *os, apr_pool_t *pool)
   return svn_opt_print_help(os, "svnserve", TRUE, FALSE, NULL, NULL,
                             NULL, NULL, NULL, pool);
 }
-
+  
 
 #if APR_HAS_FORK
 static void sigchld_handler(int signo)
@@ -284,7 +284,7 @@ int main(int argc, const char *const *argv)
           SVN_INT_ERR(version(os, pool));
           exit(0);
           break;
-
+          
         case 'd':
           run_mode = run_mode_daemon;
           break;

@@ -69,7 +69,7 @@ public:
                       bool recurse);
     jlong doSwitch(const char *path, const char *url, Revision &revision,
                        bool recurse);
-    jlong doExport(const char *srcPath, const char *destPath,
+    jlong doExport(const char *srcPath, const char *destPath, 
                        Revision &revision, bool force);
     void resolved(const char *path, bool recurse);
     void cleanup(const char *path);
