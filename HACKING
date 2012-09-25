@@ -270,7 +270,7 @@ paranoid programmers make occasional mistakes.
 
 Input validation is the act of defining legal input and rejecting
 everything else. The code must perform input validation on all untrusted
-input.
+input. 
 
 
 Security boundaries
@@ -285,7 +285,7 @@ code that does access control or an application with the SUID bit set.
 Functions which make calls to a security boundary must include
 validation checks of the arguments passed. Functions which themselves
 are security boundaries should audit the input received and alarm when
-invoked with improper values.
+invoked with improper values. 
 
 [### todo: need some examples from Subversion here...]
 

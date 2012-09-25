@@ -12,7 +12,7 @@ directory tree. The revision history includes file changes and log messages as
 well as move and copy operations that were applied at some time in the past to
 the tree.  \fBsvnadmin\fP operations are typically carried out by an
 administrator. The
-.BR svn (1)
+.BR svn (1) 
 tool handles operations for normal users of the source controlled resource.
 .SH COMMANDS
 .TP
@@ -32,7 +32,7 @@ $ svnadmin create /var/svn
 .SP
 
 Importing a source tree into the repository created above is possible
-with the
+with the 
 .BR svn (1)
 command :
 
@@ -54,12 +54,12 @@ Create a new transaction based on
 Dump the contents of filesystem to stdout in a 'dumpfile'
 portable format, sending feedback to stderr.  Dump revisions
 .IR lower-rev
-through
-.IR upper-rev .
-If no revisions are given, all revision trees are dumped.
+through 
+.IR upper-rev . 
+If no revisions are given, all revision trees are dumped.  
 If just
-.IR lower-rev
-is given, that one revision tree is dumped.  A 'dumpfile' is used to
+.IR lower-rev 
+is given, that one revision tree is dumped.  A 'dumpfile' is used to 
 convert between incompatible repository formats.
 .TP
 .BI load " repos-path"
@@ -68,33 +68,33 @@ new revisions into the repository's filesystem.
 Send progress feedback to stdout.
 .TP
 .BI lscr " repos-path path"
-Print, one-per-line and youngest-to-eldest, the revisions in which
-.IR path
+Print, one-per-line and youngest-to-eldest, the revisions in which 
+.IR path 
 was modified.  (For directories, this is, for now, almost guaranteed to be
 uninteresting.  Also, path must exist in the HEAD of the repository.
 .TP
 .BI lsrevs " repos-path"  " \fR[\fI lower-rev \fR[\fI upper-rev \fR]]"
-If no revision is given, all revision trees are printed.  If just
+If no revision is given, all revision trees are printed.  If just 
 .IR lower-rev
 is given, that revision tree is printed.
 If two revisions are given, that range is printed, inclusive.
 .TP
 .BI lstxns " \fR[ \fB--long\fP ]\fI repos-path"
-Print all txn names and, if
+Print all txn names and, if 
 .BI --long
 is specified, their metadata and trees.
 .TP
 .BI rmtxns " repos-path txn-name \fR[\fI ... \fR]\fI"
- Delete the transaction(s) named
+ Delete the transaction(s) named 
 .BI txn-name.
 .TP
 .BI setlog " repos-path rev file"
-Set the log-message on revision
-.IR rev
-to the contents of
+Set the log-message on revision 
+.IR rev 
+to the contents of 
 .IR file .
-Be careful with this option.  Log messages are stored as revision properties.
-The history of revision properties is not saved.  This command will
+Be careful with this option.  Log messages are stored as revision properties.  
+The history of revision properties is not saved.  This command will 
 .B permanently
 overwrite the previous log message.
 .TP
@@ -115,8 +115,8 @@ Leave the shell.
 .RE
 .TP
 .BI undeltify " repos-path rev path"
-Undeltify (ensure full text storage for)
-.IR path
+Undeltify (ensure full text storage for) 
+.IR path 
 in
 .IR rev .
 If path represents a directory, perform a recursive undeltification of the tree
@@ -144,7 +144,7 @@ Base 36 node identifier.  Each node in the filesystem has a unique node
 identifier.  Copies of files share a node identifier and have a unique
 copy identifier.
 .IP COPY
-The copy identifier indicates that the file is the a copy.
+The copy identifier indicates that the file is the a copy.  
 .IP TXN
 The transaction identifier that created the file.
 .IP PROPS

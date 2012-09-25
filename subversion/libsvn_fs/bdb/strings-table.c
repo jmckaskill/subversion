@@ -56,7 +56,7 @@ svn_fs__open_strings_table (DB **strings_p,
              svn_fs__str_to_dbt (&value, (char *) "0"),
              0));
   }
-
+  
   *strings_p = strings;
   return 0;
 }
@@ -163,7 +163,7 @@ get_next_length (apr_size_t *length, DBC *cursor, DBT *query)
 
 /* Read *LEN bytes into BUF from OFFSET in string KEY in FS, as part
  * of TRAIL.
- *
+ * 
  * On return, *LEN is set to the number of bytes read. This value may
  * be less than the number requested.
  *
@@ -171,7 +171,7 @@ get_next_length (apr_size_t *length, DBC *cursor, DBT *query)
  * zero. Callers which are advancing OFFSET as they read portions of
  * the string can terminate their loop when *LEN is returned as zero
  * (which will occur when OFFSET == length(the string)).
- *
+ * 
  * If string KEY does not exist, the error SVN_ERR_FS_NO_SUCH_STRING
  * is returned.
  */
@@ -258,13 +258,13 @@ svn_fs__string_read (svn_fs_t *fs,
   while (1)
     {
       apr_size_t size = *len - amt_read;
-      SVN_ERR (string_read (fs, key, buf + amt_read, offset + amt_read,
+      SVN_ERR (string_read (fs, key, buf + amt_read, offset + amt_read, 
                             &size, trail));
       amt_read += size;
       if ((size == 0) || (amt_read == *len))
         break;
     }
-
+  
   *len = amt_read;
   return SVN_NO_ERROR;
 }
@@ -466,7 +466,7 @@ svn_fs__string_copy (svn_fs_t *fs,
   /* Copy off the old key in case the caller is sharing storage
      between the old and new keys. */
   const char *old_key = apr_pstrdup (trail->pool, key);
-
+  
   SVN_ERR (get_key_and_bump (fs, new_key, trail));
 
   SVN_ERR (DB_WRAP (fs, "creating cursor for reading a string",
@@ -516,13 +516,13 @@ svn_fs__string_copy (svn_fs_t *fs,
         }
     }
 
-  return DB_WRAP (fs, "closing string-reading cursor",
+  return DB_WRAP (fs, "closing string-reading cursor", 
                   cursor->c_close (cursor));
 }
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../tools/dev/svn-dev.el")
  * end:

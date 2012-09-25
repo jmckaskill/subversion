@@ -135,7 +135,7 @@ prints all files that have local modifications; the network is not
 accessed by default.
 @itemize @bullet
 @item -u switch
-add out-of-dateness information from repository
+add out-of-dateness information from repository 
 @item -v switch
 show @emph{all} entries under version control
 @item -n switch
@@ -195,7 +195,7 @@ A new feature of Subversion is that you can attach arbitrary metadata to
 files and directories.  We refer to this data as @dfn{properties}, and
 they can be thought of as collections of name/value pairs (hashtables)
 attached to each item in your working copy.
-
+  
 To set or get a property name, use the 'svn propset' and 'svn propget'
 subcommands.  To list all properties on an object, use 'svn proplist'.
 
@@ -354,8 +354,8 @@ repository.  There is no need for an anonymous user or a separate
 repository.  If the SVN server requests authorization when committing,
 the client should prompt you for your authorization (password).
 
-Also, the command-line client does not currently bring up an editor.
-Therefore, you must write the log entry @b{before} committing and
+Also, the command-line client does not currently bring up an editor.  
+Therefore, you must write the log entry @b{before} committing and 
 pass the log file path when committing:
 
 @example
@@ -428,7 +428,7 @@ labels.  For example, here's a good way to lay out your repository:
 Each time /projectA/trunk reaches a taggable state, make a copy of the
 directory somewhere in /projectA/tags/, and set the copy to
 read-only.  Use the same procedure to create a branch in
-/projectA/branches/.
+/projectA/branches/.  
 
 
 @node Real docs

@@ -1,6 +1,6 @@
-/*
+/* 
  * default_editor.c -- provide a basic svn_delta_edit_fns_t
- *
+ * 
  * ====================================================================
  * Copyright (c) 2000-2002 CollabNet.  All rights reserved.
  *
@@ -330,7 +330,7 @@ wrap_add_directory (svn_stringbuf_t *name,
 
   return (*db->eb->real_editor->add_directory) (db->path,
                                                 db_parent->real_dir_baton,
-                                                copyfrom_path ?
+                                                copyfrom_path ? 
                                                 copyfrom_path->data : NULL,
                                                 copyfrom_revision,
                                                 db->dir_pool,
@@ -418,7 +418,7 @@ wrap_add_file (svn_stringbuf_t *name,
 
   return (*fb->eb->real_editor->add_file) (path,
                                            db->real_dir_baton,
-                                           copyfrom_path ?
+                                           copyfrom_path ? 
                                            copyfrom_path->data : NULL,
                                            copyfrom_revision,
                                            fb->file_pool,
@@ -550,7 +550,7 @@ void svn_delta_compat_wrap (const svn_delta_edit_fns_t **wrap_editor,
 }
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end:

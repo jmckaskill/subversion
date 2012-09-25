@@ -19,7 +19,7 @@ How to get started with Subversion.
 @node A Revision Control System
 @subsection A Revision Control System
 
-Subversion is a free/open-source @dfn{revision control system}.
+Subversion is a free/open-source @dfn{revision control system}.  
 
 That is, Subversion manages files over time.  The files are placed into
 a central @dfn{repository}.  The repository is much like an ordinary
@@ -69,18 +69,18 @@ list to whet your appetite:
 
 @itemize @bullet
 
-@item
+@item 
 @b{Directory versioning} The Subversion repository doesn't use RCS
 files like CVS; instead, it implements a 'virtual' versioned
 filesystem that tracks tree-structures over time.  Files @emph{and}
 directories are versioned.  At last, there are real client-side `mv'
 and `cp' commands.
 
-@item
+@item 
 @b{Atomic commits} A commit either goes into the repository
 completely, or not all.
 
-@item
+@item 
 @b{Advanced network layer} The Subversion network server is Apache,
 and client and server speak WebDAV protocol to one another.  (see
 @ref{Design})
@@ -512,7 +512,7 @@ automatically, Subversion leaves it to the user to resolve the conflict.
 @end itemize
 
 The subversion "status" command will show you the state of any item in
-your working copy.
+your working copy.  
 @c ### @xref{status in chapter 2}
 
 
@@ -568,7 +568,7 @@ Patch is not appropriate for files with rigid formats, like images or
 executables.  Subversion attempts to notice when a file is in a binary
 format, or is of any mime-type other than text/*.  For these
 rigid-format files, Subversion simply presents you with the two
-original texts to choose from.
+original texts to choose from.  
 @c ### @xref conflict merging
 
 
@@ -636,7 +636,7 @@ After the repository exists, you can initially import your data into it,
 using the ra_local access method (invoked by using a 'file' URL):
 
 @example
-$ svn import file:///absolute/path/to/myrepos someproject myproj
+$ svn import file:///absolute/path/to/myrepos someproject myproj    
 [...]
 Committed revision 1.
 @end example
@@ -701,7 +701,7 @@ D   ./baz/bloo
 According to this output, three items are scheduled to be (D)eleted from
 the repository, one item is scheduled to be (A)dded to the repository,
 and two items have had their contents (M)odified in some way.  For more
-details, be sure to see the @command{svn status} section in Chapter 2.
+details, be sure to see the @command{svn status} section in Chapter 2. 
 @c ### @xref{?}
 
 Now we decide to commit our changes, creating Revision 2 in the

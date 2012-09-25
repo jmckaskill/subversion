@@ -166,7 +166,7 @@ txn_body_revision_proplist (void *baton, trail_t *trail)
   svn_fs__revision_t *revision;
 
   SVN_ERR (svn_fs__get_rev (&revision, args->fs, args->rev, trail));
-  *(args->table_p) = revision->proplist
+  *(args->table_p) = revision->proplist 
                      ? revision->proplist : apr_hash_make (trail->pool);
   return SVN_NO_ERROR;
 }
@@ -265,7 +265,7 @@ svn_fs_change_rev_prop (svn_fs_t *fs,
 
 /*** Transactions ***/
 
-static int
+static int 
 is_committed (svn_fs__transaction_t *txn)
 {
   return SVN_IS_VALID_REVNUM (txn->revision);
@@ -302,7 +302,7 @@ svn_fs__get_txn_ids (const svn_fs_id_t **root_id_p,
                      trail_t *trail)
 {
   svn_fs__transaction_t *txn;
-
+  
   SVN_ERR (svn_fs__get_txn (&txn, fs, txn_name, trail));
   if (is_committed (txn))
     return svn_fs__err_txn_not_mutable (fs, txn_name);
@@ -398,14 +398,14 @@ txn_body_txn_prop (void *baton,
 {
   struct txn_prop_args *args = baton;
   svn_fs__transaction_t *txn;
-
-  SVN_ERR (svn_fs__get_txn (&txn, args->fs, args->id, trail));
+  
+  SVN_ERR (svn_fs__get_txn (&txn, args->fs, args->id, trail)); 
   if (is_committed (txn))
     return svn_fs__err_txn_not_mutable (args->fs, args->id);
 
   *(args->value_p) = NULL;
   if (txn->proplist)
-    *(args->value_p) = apr_hash_get (txn->proplist,
+    *(args->value_p) = apr_hash_get (txn->proplist, 
                                      args->propname, APR_HASH_KEY_STRING);
   return SVN_NO_ERROR;
 }
@@ -452,7 +452,7 @@ txn_body_txn_proplist (void *baton, trail_t *trail)
   if (is_committed (txn))
     return svn_fs__err_txn_not_mutable (args->fs, args->id);
 
-  *(args->table_p) = txn->proplist
+  *(args->table_p) = txn->proplist 
                      ? txn->proplist : apr_hash_make (trail->pool);
   return SVN_NO_ERROR;
 }
@@ -520,7 +520,7 @@ static svn_error_t *
 txn_body_change_txn_prop (void *baton, trail_t *trail)
 {
   struct change_txn_prop_args *args = baton;
-  return svn_fs__set_txn_prop (args->fs, args->id, args->name,
+  return svn_fs__set_txn_prop (args->fs, args->id, args->name, 
                                args->value, trail);
 }
 
@@ -547,7 +547,7 @@ svn_fs_change_txn_prop (svn_fs_txn_t *txn,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end:

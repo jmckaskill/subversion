@@ -292,7 +292,7 @@ static dav_error *dav_svn_checkout(dav_resource *resource,
          mutable in the txn... which means it has already passed this
          out-of-dateness check.  (Usually, this happens when looking
          at a parent directory of an already checked-out
-         resource.)
+         resource.)  
 
          Now, we come down to it.  If the created revision of the node
          in the transaction is different from the revision parsed from
@@ -316,7 +316,7 @@ static dav_error *dav_svn_checkout(dav_resource *resource,
            use that new revision as the transaction root, thus
            incorporating the new resource, which they will then
            modify).
-
+             
          - The path/revision that client is wishing to edit and the
            path/revision in the current transaction are actually the
            same node, and thus this created-rev comparison didn't
@@ -341,7 +341,7 @@ static dav_error *dav_svn_checkout(dav_resource *resource,
                  not, return an error. */
               const svn_fs_id_t *url_noderev_id, *txn_noderev_id;
 
-              if ((serr = svn_fs_node_id(&txn_noderev_id, txn_root,
+              if ((serr = svn_fs_node_id(&txn_noderev_id, txn_root, 
                                          resource->info->repos_path,
                                          resource->pool)))
                 {
@@ -385,13 +385,13 @@ static dav_error *dav_svn_checkout(dav_resource *resource,
 #else
               /* ### some debugging code */
               const char *msg;
-
-              msg = apr_psprintf(resource->pool,
-                                 "created-rev mismatch: r=%" SVN_REVNUM_T_FMT
+              
+              msg = apr_psprintf(resource->pool, 
+                                 "created-rev mismatch: r=%" SVN_REVNUM_T_FMT 
                                  ", t=%" SVN_REVNUM_T_FMT,
                                  resource->info->root.rev, txn_created_rev);
-
-              return dav_new_error_tag(resource->pool, HTTP_CONFLICT,
+              
+              return dav_new_error_tag(resource->pool, HTTP_CONFLICT, 
                                        SVN_ERR_FS_CONFLICT, msg,
                                        SVN_DAV_ERROR_NAMESPACE,
                                        SVN_DAV_ERROR_TAG);
@@ -591,7 +591,7 @@ const dav_hooks_vsn dav_svn_hooks_vsn = {
 };
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../tools/dev/svn-dev.el")
  * end:

@@ -115,7 +115,7 @@ svn_fs__compare_dbt (const DBT *a, const DBT *b)
 /* Building DBT's from interesting things.  */
 
 
-/* Set DBT to the unparsed form of ID; allocate memory from POOL.
+/* Set DBT to the unparsed form of ID; allocate memory from POOL. 
    Return DBT.  */
 DBT *
 svn_fs__id_to_dbt (DBT *dbt,
@@ -151,7 +151,7 @@ svn_fs__str_to_dbt (DBT *dbt, char *str)
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../tools/dev/svn-dev.el")
  * end:
