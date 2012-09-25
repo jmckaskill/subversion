@@ -65,7 +65,7 @@ get_creds (const char **username,
 {
   apr_hash_t *creds_hash = NULL;
   svn_string_t *susername = NULL;
-  const char *def_username = apr_hash_get (parameters,
+  const char *def_username = apr_hash_get (parameters, 
                                            SVN_AUTH_PARAM_DEFAULT_USERNAME,
                                            APR_HASH_KEY_STRING);
   const char *config_dir;
@@ -96,7 +96,7 @@ get_creds (const char **username,
        correctness point, just about efficiency). */
   if (susername && susername->data)
     pb->username = susername->data;
-
+      
   *username = def_username ? def_username : susername ? susername->data : NULL;
 
   return !!*username;
@@ -120,7 +120,7 @@ save_creds (provider_baton_t *pb,
 
   creds_hash = apr_hash_make (pool);
   apr_hash_set (creds_hash, SVN_CLIENT__AUTHFILE_USERNAME_KEY,
-                APR_HASH_KEY_STRING,
+                APR_HASH_KEY_STRING,                        
                 svn_string_create (username, pool));
 
   /* ...and write to disk. */
@@ -177,7 +177,7 @@ username_save_creds (svn_boolean_t *saved,
   config_dir = apr_hash_get (parameters,
                              SVN_AUTH_PARAM_CONFIG_DIR,
                              APR_HASH_KEY_STRING);
-
+  
   *saved = save_creds (pb, creds->username, config_dir, pool);
   return SVN_NO_ERROR;
 }
@@ -251,7 +251,7 @@ prompt_for_username_creds (svn_auth_cred_username_t **cred_p,
   /* If we're allowed to check for default usernames, do so. */
   if (first_time)
     {
-      def_username = apr_hash_get (parameters,
+      def_username = apr_hash_get (parameters, 
                                    SVN_AUTH_PARAM_DEFAULT_USERNAME,
                                    APR_HASH_KEY_STRING);
 
@@ -261,12 +261,12 @@ prompt_for_username_creds (svn_auth_cred_username_t **cred_p,
           char *un;
           apr_uid_t uid;
           apr_gid_t gid;
-
+         
           if (! apr_uid_current (&uid, &gid, pool)
               && ! apr_uid_name_get (&un, uid, pool))
             SVN_ERR (svn_utf_cstring_to_utf8 (&def_username, un, pool));
         }
-    }
+    }    
 
   /* If we have defaults, just build the cred here and return it.
    *

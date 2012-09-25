@@ -23,7 +23,7 @@
 #include "bdb/uuids-table.h"
 
 
-struct get_uuid_args
+struct get_uuid_args 
 {
   int idx;
   const char **uuid;
@@ -67,7 +67,7 @@ svn_fs_get_uuid (svn_fs_t *fs,
 }
 
 
-struct set_uuid_args
+struct set_uuid_args 
 {
   int idx;
   const char *uuid;
