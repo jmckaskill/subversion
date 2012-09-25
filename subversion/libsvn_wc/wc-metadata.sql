@@ -150,7 +150,7 @@ CREATE TABLE ACTUAL_NODE (
 
   /* if not NULL, this node is part of a changelist. */
   changelist  TEXT,
-
+  
   /* ### need to determine values. "unknown" (no info), "admin" (they
      ### used something like 'svn edit'), "noticed" (saw a mod while
      ### scanning the filesystem). */
@@ -197,7 +197,7 @@ CREATE TABLE LOCK (
   lock_owner  TEXT,
   lock_comment  TEXT,
   lock_date  INTEGER,   /* an APR date/time (usec since 1970) */
-
+  
   PRIMARY KEY (repos_id, repos_relpath)
   );
 
@@ -551,7 +551,7 @@ CREATE TABLE EXTERNALS (
   /* the kind of the external. */
   kind  TEXT NOT NULL,
 
-  /* The local relpath of the directory NODE defining this external
+  /* The local relpath of the directory NODE defining this external 
      (Defaults to the parent directory of the file external after upgrade) */
   def_local_relpath         TEXT NOT NULL,
 
@@ -698,7 +698,7 @@ PRAGMA user_version = 27;
 
 /* ------------------------------------------------------------------------- */
 
-/* Format 28 involves no schema changes, it only converts MD5 pristine
+/* Format 28 involves no schema changes, it only converts MD5 pristine 
    references to SHA1. */
 
 -- STMT_UPGRADE_TO_28
