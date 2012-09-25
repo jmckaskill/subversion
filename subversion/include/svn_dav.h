@@ -59,7 +59,7 @@ extern "C" {
 /** These headers are for client and server to verify that the base
  * and the result of a change transmission are the same on both
  * sides, regardless of what transformations (svndiff deltification,
- * gzipping, etc) the data may have gone through in between.
+ * gzipping, etc) the data may have gone through in between.  
  *
  * The result md5 is always used whenever file contents are
  * transferred, because every transmission has a resulting text.
@@ -136,10 +136,10 @@ extern "C" {
 
 
 /** A temporary #define to enable continual sending of result
- * checksums as XML attributes instead of as a liveprop.
+ * checksums as XML attributes instead of as a liveprop.  
  *
- * See issue #1101 at
- * http://subversion.tigris.org/issues/show_bug.cgi?id=1101.
+ * See issue #1101 at 
+ * http://subversion.tigris.org/issues/show_bug.cgi?id=1101. 
  */
 #define SVN_DAV_OLD_UPDATE_CHECKSUMS
 
