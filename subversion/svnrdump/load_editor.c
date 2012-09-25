@@ -150,7 +150,7 @@ get_lock(const svn_string_t **lock_string_p,
             /* Someone else has the lock.  Let's loop. */
             svn_error_clear(err);
           else if (be_atomic && err == SVN_NO_ERROR)
-            /* We have the lock.
+            /* We have the lock. 
 
                However, for compatibility with concurrent svnsync's that don't
                support atomicity, loop anyway to double-check that they haven't
@@ -353,7 +353,7 @@ new_node_record(void **node_baton,
           SVN_ERR(commit_editor->close_directory(rb->db->baton, rb->pool));
           rb->db = rb->db->parent;
         }
-
+        
       for (i = 0; i < residual_open_path->nelts; i ++)
         {
           relpath_compose =

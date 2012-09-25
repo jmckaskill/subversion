@@ -86,7 +86,7 @@ def run_dump_test(sbox, dumpfile_name, expected_dumpfile_name = None,
                            'rb').readlines()
 
   svntest.actions.run_and_verify_load(sbox.repo_dir, svnadmin_dumpfile)
-
+  
   repo_url = sbox.repo_url
   if subdir:
     repo_url = repo_url + subdir
@@ -199,7 +199,7 @@ def copy_and_modify_dump(sbox):
 def copy_and_modify_load(sbox):
   "load: copy and modify"
   run_load_test(sbox, "copy-and-modify.dump")
-
+  
 def no_author_dump(sbox):
   "dump: copy revs with no svn:author revprops"
   run_dump_test(sbox, "no-author.dump")
@@ -211,7 +211,7 @@ def no_author_load(sbox):
 def copy_from_previous_version_and_modify_dump(sbox):
   "dump: copy from previous version and modify"
   run_dump_test(sbox, "copy-from-previous-version-and-modify.dump")
-
+  
 def copy_from_previous_version_and_modify_load(sbox):
   "load: copy from previous version and modify"
   run_load_test(sbox, "copy-from-previous-version-and-modify.dump")
@@ -259,7 +259,7 @@ def tag_trunk_with_file2_load(sbox):
 def dir_prop_change_dump(sbox):
   "dump: directory property changes"
   run_dump_test(sbox, "dir-prop-change.dump")
-
+  
 def dir_prop_change_load(sbox):
   "load: directory property changes"
   run_load_test(sbox, "dir-prop-change.dump")

@@ -592,7 +592,7 @@ def missing_dirs(sbox):
   if svntest.main.wc_is_singledb(sbox.wc_dir):
     expected_status.tweak('A/D', 'A/B_new/F', status='! ')
   run_and_verify_status_no_server(sbox.wc_dir, expected_status)
-
+  
 def missing_dirs2(sbox):
   "missing directories and obstructing dirs"
 
@@ -655,7 +655,7 @@ def delete_and_keep_local(sbox):
 
 
 def dirs_only_upgrade(sbox):
-  "upgrade a wc without files"
+  "upgrade a wc without files" 
 
   sbox.build(create_wc = False)
   replace_sbox_with_tarfile(sbox, 'dirs-only.tar.bz2')

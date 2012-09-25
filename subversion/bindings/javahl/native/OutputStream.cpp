@@ -65,7 +65,7 @@ OutputStreamBuf::overflow(int ch)
       char cbuf[1];
       cbuf[0] = ch;
       apr_size_t len = 1;
-
+      
       svn_error_t *err = OutputStream::write(&m_target, cbuf, &len);
       if (err)
         {

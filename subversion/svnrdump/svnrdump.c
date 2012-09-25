@@ -84,7 +84,7 @@ static const apr_getopt_option_t svnrdump__options[] =
                                                    " prompting")},
     {"no-auth-cache", opt_auth_nocache, 0, N_("do not cache authentication"
                                               " tokens")},
-
+  
     {"help",          'h', 0, N_("display this help")},
     {"version",       opt_version, 0, N_("show program version information")},
     {"config-option", opt_config_option, 1,
@@ -326,7 +326,7 @@ ensure_appname(const char *progname, apr_pool_t *pool)
 {
   if (!progname)
     return "svnrdump";
-
+  
   progname = svn_dirent_internal_style(progname, pool);
   return svn_dirent_basename(progname, NULL);
 }
@@ -394,7 +394,7 @@ load_cmd(apr_getopt_t *os, void *baton, apr_pool_t *pool)
 {
   opt_baton_t *opt_baton = baton;
   SVN_ERR(load_revisions(opt_baton->session, opt_baton->url,
-                         opt_baton->quiet, pool));
+                         opt_baton->quiet, pool));  
   return SVN_NO_ERROR;
 }
 

@@ -48,7 +48,7 @@ class Notifier : public SVN::Callback::ClientNotifier
       : m_ctx(ctx)
     {
     }
-
+    
     void notify(const SVN::ClientNotifyInfo &info)
     {
       m_ctx.notify(info);
@@ -367,7 +367,7 @@ ClientContext::progress(apr_off_t progressVal, apr_off_t total,
     POP_AND_RETURN_NOTHING();
 
   env->CallVoidMethod(jctx, mid, jevent);
-
+  
   POP_AND_RETURN_NOTHING();
 }
 

@@ -334,7 +334,7 @@ svn_io_open_uniquely_named(apr_file_t **file,
   unsigned int i;
   struct temp_file_cleanup_s *baton = NULL;
 
-  /* At the beginning, we don't know whether unique_path will need
+  /* At the beginning, we don't know whether unique_path will need 
      UTF8 conversion */
   svn_boolean_t needs_utf8_conversion = TRUE;
 
@@ -393,9 +393,9 @@ svn_io_open_uniquely_named(apr_file_t **file,
          This is good, since "1" would misleadingly imply that
          the second attempt was actually the first... and if someone's
          got conflicts on their conflicts, we probably don't want to
-         add to their confusion :-).
+         add to their confusion :-). 
 
-         Also, the randomization used to minimize the number of re-try
+         Also, the randomization used to minimize the number of re-try 
          cycles will interfere with certain tests that compare working
          copies etc.
        */
@@ -2123,7 +2123,7 @@ svn_io_stat_dirent(const svn_io_dirent2_t **dirent_p,
                     | APR_FINFO_SIZE | APR_FINFO_MTIME,
                     scratch_pool);
 
-  if (err && ignore_enoent &&
+  if (err && ignore_enoent && 
       (APR_STATUS_IS_ENOENT(err->apr_err)
        || SVN__APR_STATUS_IS_ENOTDIR(err->apr_err)))
     {
@@ -3222,7 +3222,7 @@ svn_io_dir_remove_nonrecursive(const char *dirname, apr_pool_t *pool)
         if (APR_STATUS_IS_ENOTEMPTY(empty_status))
           retry = FALSE;
       }
-
+    
     if (retry)
       {
         WIN32_RETRY_LOOP(status, apr_dir_remove(dirname_apr, pool));
@@ -3671,7 +3671,7 @@ temp_file_create(apr_file_t **new_file,
   if (status)
     return svn_error_wrap_apr(status, _("Can't create temporary file from "
                               "template '%s'"), templ);
-
+  
   /* Translate the returned path back to utf-8 before returning it */
   return svn_error_return(svn_path_cstring_to_utf8(new_file_name,
                                                    templ_apr,
@@ -3687,7 +3687,7 @@ temp_file_create(apr_file_t **new_file,
 
   /* Offset by some time value and a unique request nr to make the number
      +- unique for both this process and on the computer */
-  int baseNr = (GetTickCount() << 11) + 7 * svn_atomic_inc(&tempname_counter)
+  int baseNr = (GetTickCount() << 11) + 7 * svn_atomic_inc(&tempname_counter) 
                + GetCurrentProcessId();
   int i;
 

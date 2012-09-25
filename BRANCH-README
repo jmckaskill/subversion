@@ -1,4 +1,4 @@
-This branch exists to experiment with a common bindings object model,
+This branch exists to experiment with a common bindings object model, 
 starting with implementing a C++ binding layer, and as described in
 notes/object-model.txt.  It is hoped that this layer will serve as a base
 for creating object-oriented bindings for other languages.

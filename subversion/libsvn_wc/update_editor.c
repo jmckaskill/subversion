@@ -956,7 +956,7 @@ struct file_baton
 
   /* The last-changed-date of the file.  This is actually a property
      that comes through as an 'entry prop', and will be used to set
-     the working file's timestamp if it's added.
+     the working file's timestamp if it's added. 
 
      Will be NULL unless eb->use_commit_times is TRUE. */
   const char *last_changed_date;
@@ -2063,7 +2063,7 @@ do_entry_deletion(struct edit_baton *eb,
           /* The item was locally replaced with something else. We should
            * remove the BASE node below the new working node, which turns
            * the replacement in an addition. */
-
+           
            /* Fall through to the normal "delete" code path. */
         }
       else

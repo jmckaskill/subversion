@@ -943,7 +943,7 @@ public interface ISVNClient
      */
     void upgrade(String path)
             throws ClientException;
-
+    
     /**
      * Apply a unidiff patch.
      * @param patchPath        the path of the patch

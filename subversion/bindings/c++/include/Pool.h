@@ -36,7 +36,7 @@ namespace SVN
 
   /**
    * This class manages one APR pool.  Objects of this class may be allocated
-   * on the stack, ensuring the pool is destroyed when the function
+   * on the stack, ensuring the pool is destroyed when the function 
    * completes.
    *
    * Several methods here are one-liners, and so are defined here as well to

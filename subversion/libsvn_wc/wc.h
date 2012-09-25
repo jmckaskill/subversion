@@ -122,7 +122,7 @@ extern "C" {
  * the working copy.
  *
  * The change from 19 to 20 introduces NODES and drops BASE_NODE and
- * WORKING_NODE, op_depth is always 0 or 2.
+ * WORKING_NODE, op_depth is always 0 or 2. 
  *
  * == 1.7.x shipped with format ???
  *

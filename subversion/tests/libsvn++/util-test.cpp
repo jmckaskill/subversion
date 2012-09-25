@@ -151,7 +151,7 @@ test_map_wrapping(apr_pool_t *p)
   for (apr_hash_index_t *hi = apr_hash_first(pool.pool(), hash); hi;
         hi = apr_hash_next(hi), ++it)
     {
-      const char *key =
+      const char *key = 
                 reinterpret_cast<const char *>(svn__apr_hash_index_key(hi));
       const std::string &map_val = it->second;
       svn_string_t *str1 =
