@@ -677,7 +677,7 @@ def pass4(ctx):
 
       # ### ISSUE: the has_file() check below is not optimal.
       # It does fix the dataloss bug where revisions would get lost
-      # if checked in too quickly, but it can also break apart the
+      # if checked in too quickly, but it can also break apart the 
       # commits. The correct fix would require tracking the dependencies
       # between change sets and committing them in proper order.
       if scan_c.t_max + COMMIT_THRESHOLD < timestamp or \
