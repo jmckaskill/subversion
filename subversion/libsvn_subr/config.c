@@ -391,7 +391,7 @@ make_string_from_option (const char **valuep,
 
   /* For legacy reasons, the cfg is still using counted-length strings
      internally.  But the public interfaces just use null-terminated
-     C strings now, so below we ignore length and use only data. */
+     C strings now, so below we ignore length and use only data. */ 
 
   if (opt->x_value)
     *valuep = opt->x_value;
