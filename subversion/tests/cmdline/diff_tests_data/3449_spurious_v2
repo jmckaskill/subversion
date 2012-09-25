@@ -12,7 +12,7 @@ IF(Subversion_FOUND)
 	ENDIF()
 ELSE()
 	STRING(COMPARE EQUAL "${MANUAL_REVISION}" "" MANUAL_REVISION_UNSET)
-
+	
 	IF(MANUAL_REVISION_UNSET)
 		MESSAGE("Subversion not found. No revision number will be used")
 	ELSE()

@@ -52,15 +52,15 @@ read_config(svn_memcache_t **memcache_p,
 
   SVN_ERR(svn_cache__make_memcache_from_config(memcache_p, ffd->config,
                                               fs->pool));
-
+    
   /* don't cache text deltas by default.
    * Once we reconstructed the fulltexts from the deltas,
    * these deltas are rarely re-used. Therefore, only tools
    * like svnadmin will activate this to speed up operations
    * dump and verify.
    */
-  *cache_txdeltas
-    = svn_hash_get_bool(fs->config,
+  *cache_txdeltas 
+    = svn_hash_get_bool(fs->config, 
                         SVN_FS_CONFIG_FSFS_CACHE_DELTAS,
                         FALSE);
   /* by default, cache fulltexts.
@@ -70,7 +70,7 @@ read_config(svn_memcache_t **memcache_p,
    * won't be re-used rendering the cache less effective
    * by squeezing wanted data out.
    */
-  *cache_fulltexts
+  *cache_fulltexts 
     = svn_hash_get_bool(fs->config,
                         SVN_FS_CONFIG_FSFS_CACHE_FULLTEXTS,
                         TRUE);
@@ -126,7 +126,7 @@ dump_cache_statistics(void *baton_void)
     {
       text_stats = svn_cache__format_info(&info, baton->pool);
       lines = svn_cstring_split(text_stats->data, "\n", FALSE, baton->pool);
-
+      
       for (i = 0; i < lines->nelts; ++i)
         {
           const char *line = APR_ARRAY_IDX(lines, i, const char *);
@@ -149,7 +149,7 @@ dump_cache_statistics(void *baton_void)
 
 /* This function sets / registers the required callbacks for a given
  * not transaction-specific CACHE object in FS, if CACHE is not NULL.
- *
+ * 
  * All these svn_cache__t instances shall be handled uniformly. Unless
  * NO_HANDLER is true, register an error handler that reports errors
  * as warnings for the given CACHE.
@@ -203,13 +203,13 @@ svn_fs_fs__initialize_caches(svn_fs_t *fs,
   svn_boolean_t no_handler;
   svn_boolean_t cache_txdeltas;
   svn_boolean_t cache_fulltexts;
-
+  
   /* Evaluating the cache configuration. */
-  SVN_ERR(read_config(&memcache,
-                      &no_handler,
+  SVN_ERR(read_config(&memcache, 
+                      &no_handler, 
                       &cache_txdeltas,
                       &cache_fulltexts,
-                      fs,
+                      fs, 
                       pool));
 
   /* Make the cache for revision roots.  For the vast majority of

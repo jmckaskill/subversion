@@ -271,7 +271,7 @@ svn_client_args_to_target_array(apr_array_header_t **targets_p,
                   svn_node_kind_t kind;
                   svn_error_t *err2;
 
-                  SVN_ERR(svn_dirent_get_absolute(&target_abspath,
+                  SVN_ERR(svn_dirent_get_absolute(&target_abspath, 
                                                   original_target, pool));
                   err2 = svn_wc_read_kind(&kind, ctx->wc_ctx, target_abspath,
                                           FALSE, pool);
@@ -288,7 +288,7 @@ svn_client_args_to_target_array(apr_array_header_t **targets_p,
                         true_target = original_target;
                     }
                 }
-
+              
               /* If the target has the same name as a Subversion
                  working copy administrative dir, skip it. */
               base_name = svn_dirent_basename(true_target, pool);
