@@ -657,9 +657,9 @@ check_format (int format)
 {
   if (format != SVN_FS_BASE__FORMAT_NUMBER)
     {
-      return svn_error_createf
+      return svn_error_createf 
         (SVN_ERR_FS_UNSUPPORTED_FORMAT, NULL,
-         _("Expected FS format '%d'; found format '%d'"),
+         _("Expected FS format '%d'; found format '%d'"), 
          SVN_FS_BASE__FORMAT_NUMBER, format);
     }
 
@@ -922,7 +922,7 @@ copy_db_file_safely (const char *src_dir,
 {
   apr_file_t *s = NULL, *d = NULL;  /* init to null important for APR */
   const char *file_src_path = svn_path_join (src_dir, filename, pool);
-  const char *file_dst_path = svn_path_join (dst_dir, filename, pool);
+  const char *file_dst_path = svn_path_join (dst_dir, filename, pool);  
   char *buf;
 
   /* Open source file. */
@@ -939,11 +939,11 @@ copy_db_file_safely (const char *src_dir,
   buf = apr_palloc (pool, chunksize);
 
   /* Copy bytes till the cows come home. */
-  while (1)
+  while (1) 
     {
       apr_size_t bytes_this_time = chunksize;
       svn_error_t *read_err, *write_err;
-
+      
       /* Read 'em. */
       if ((read_err = svn_io_file_read (s, buf, &bytes_this_time, pool)))
         {
@@ -956,7 +956,7 @@ copy_db_file_safely (const char *src_dir,
               return read_err;
             }
         }
-
+    
       /* Write 'em. */
       if ((write_err = svn_io_file_write_full (d, buf, bytes_this_time, NULL,
                                                pool)));
@@ -1031,7 +1031,7 @@ base_hotcopy (const char *src_path,
 #else
   /* default to 128K chunks, which should be safe.
      BDB almost certainly uses a power-of-2 pagesize. */
-  pagesize = (4096 * 32);
+  pagesize = (4096 * 32); 
 #endif
 
   /* Copy the databases.  */
@@ -1079,7 +1079,7 @@ base_hotcopy (const char *src_path,
           {
             if (log_autoremove)
               return
-                svn_error_quick_wrap
+                svn_error_quick_wrap 
                 (err,
                  _("Error copying logfile;  the DB_LOG_AUTOREMOVE feature \n"
                    "may be interfering with the hotcopy algorithm.  If \n"
@@ -1098,7 +1098,7 @@ base_hotcopy (const char *src_path,
     {
       if (log_autoremove)
         return
-          svn_error_quick_wrap
+          svn_error_quick_wrap 
           (err,
            _("Error running catastrophic recovery on hotcopy;  the \n"
              "DB_LOG_AUTOREMOVE feature may be interfering with the \n"
@@ -1153,7 +1153,7 @@ svn_fs_base__canonicalize_abspath (const char *path, apr_pool_t *pool)
   /* No PATH?  No problem. */
   if (! path)
     return NULL;
-
+  
   /* Empty PATH?  That's just "/". */
   if (! *path)
     return apr_pstrdup (pool, "/");
@@ -1168,7 +1168,7 @@ svn_fs_base__canonicalize_abspath (const char *path, apr_pool_t *pool)
     {
       newpath[newpath_i++] = '/';
     }
-
+  
   for (path_i = 0; path_i < path_len; path_i++)
     {
       if (path[path_i] == '/')
@@ -1191,7 +1191,7 @@ svn_fs_base__canonicalize_abspath (const char *path, apr_pool_t *pool)
       /* Copy the current character into our new buffer. */
       newpath[newpath_i++] = path[path_i];
     }
-
+  
   /* Did we leave a '/' attached to the end of NEWPATH (other than in
      the root directory case)? */
   if ((newpath[newpath_i - 1] == '/') && (newpath_i > 1))

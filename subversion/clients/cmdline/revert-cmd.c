@@ -42,7 +42,7 @@ svn_cl__revert (apr_getopt_t *os,
   apr_array_header_t *targets;
   svn_error_t *err;
 
-  SVN_ERR (svn_opt_args_to_target_array2 (&targets, os,
+  SVN_ERR (svn_opt_args_to_target_array2 (&targets, os, 
                                           opt_state->targets, pool));
 
   /* Revert has no implicit dot-target `.', so don't you put that code here! */
