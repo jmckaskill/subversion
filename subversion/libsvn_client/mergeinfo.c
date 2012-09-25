@@ -1689,7 +1689,7 @@ svn_client_mergeinfo_log(svn_boolean_t finding_merged,
 
       /* TARGET_REPOS_REL should be non-NULL, else get_mergeinfo
          should have failed.  */
-      SVN_ERR_ASSERT(target_repos_rel != NULL);
+      SVN_ERR_ASSERT(target_repos_rel != NULL); 
     }
 
   if (!target_mergeinfo_cat)

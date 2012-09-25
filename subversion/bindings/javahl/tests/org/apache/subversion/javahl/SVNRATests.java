@@ -113,7 +113,7 @@ public class SVNRATests extends SVNTests
         kind = session.checkPath("A", Revision.getInstance(1));
         assertEquals(NodeKind.dir, kind);
     }
-
+    
     public static ISVNRa getSession(String url, String configDirectory)
     {
         SVNRaConfigDefault config = new SVNRaConfigDefault();
@@ -121,24 +121,24 @@ public class SVNRATests extends SVNTests
         config.setPassword(PASSWORD);
         config.setPrompt(new DefaultPromptUserPassword());
         config.setConfigDirectory(configDirectory);
-
+        
         ISVNRa raSession = SVNRaFactory.createRaSession(url, null, config);
 
         assertNotNull("Null session was returned by factory", raSession);
 
         return raSession;
     }
-
+    
     private ISVNRa getSession()
     {
         return getSession(getTestRepoUrl(), super.conf.getAbsolutePath());
     }
-
+    
     private String getTestRepoUrl()
     {
         return thisTest.getUrl().toASCIIString();
     }
-
+    
     public void testGetLatestRevision() throws Exception
     {
         ISVNRa session = getSession();
