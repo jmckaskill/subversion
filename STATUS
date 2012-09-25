@@ -39,7 +39,7 @@ Candidate changes:
       +1: arfrever, steveking (already using neon 0.28.4 in TSVN)
       +1: gstein, rhuijben (for 1.6.1; this can wait)
 
-
+     
 Candidate if a new tarball is constructed (otherwise for 1.6.1):
 
  * r36049-r36051, r36131
@@ -82,7 +82,7 @@ Candidate if a new tarball is constructed (otherwise for 1.6.1):
     Votes:
       +1: philip, rhuijben, stsp, arfrever
       +1: gstein (for a new CODE tarball, not a doc tarball)
-
+      
   * r36302
     Fix a small problem in the loggy upgrade process. Some v10 working copies
     have .svn/format, and some don't. The *intent* is to remove the file if
@@ -167,7 +167,7 @@ Candidate changes:
      http://svn.haxx.se/dev/archive-2009-03/0198.shtml.
    Votes:
      +1: pburba, rhuijben, arfrever
-
+     
  * r36149-r36151, r36156
    Fix starting apache httpd in daemon mode from python versions with
    win32process support. (Found after upgrading my python to 2.6.1)
