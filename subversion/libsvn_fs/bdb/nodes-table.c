@@ -55,7 +55,7 @@ svn_fs__open_nodes_table (DB **nodes_p,
     DBT key, value;
 
     DB_ERR (nodes->put (nodes, 0,
-                        svn_fs__str_to_dbt (&key,
+                        svn_fs__str_to_dbt (&key, 
                                             (char *) svn_fs__next_key_key),
                         svn_fs__str_to_dbt (&value, (char *) "1"),
                         0));
@@ -88,8 +88,8 @@ svn_fs__new_node_id (svn_fs_id_t **id_p,
   svn_fs__str_to_dbt (&query, (char *) svn_fs__next_key_key);
   SVN_ERR (DB_WRAP (fs, "allocating new node ID (getting `next-key')",
                     fs->nodes->get (fs->nodes, trail->db_txn,
-                                    &query,
-                                    svn_fs__result_dbt (&result),
+                                    &query, 
+                                    svn_fs__result_dbt (&result), 
                                     0)));
   svn_fs__track_dbt (&result, trail->pool);
 
@@ -100,9 +100,9 @@ svn_fs__new_node_id (svn_fs_id_t **id_p,
   len = result.size;
   svn_fs__next_key (result.data, &len, next_key);
   db_err = fs->copies->put (fs->nodes, trail->db_txn,
-                            svn_fs__str_to_dbt (&query,
+                            svn_fs__str_to_dbt (&query, 
                                                 (char *) svn_fs__next_key_key),
-                            svn_fs__str_to_dbt (&result, (char *) next_key),
+                            svn_fs__str_to_dbt (&result, (char *) next_key), 
                             0);
   SVN_ERR (DB_WRAP (fs, "bumping next node ID key", db_err));
 
@@ -129,7 +129,7 @@ svn_fs__new_successor_id (svn_fs_id_t **successor_p,
   /* Create and return the new successor ID.  */
   new_id = svn_fs__create_id (svn_fs__id_node_id (id),
                               copy_id ? copy_id : svn_fs__id_copy_id (id),
-                              txn_id,
+                              txn_id, 
                               trail->pool);
 
   /* Now, make sure this NEW_ID doesn't already exist in FS. */
@@ -138,9 +138,9 @@ svn_fs__new_successor_id (svn_fs_id_t **successor_p,
     {
       svn_string_t *id_str = svn_fs_unparse_id (id, trail->pool);
       svn_string_t *new_id_str = svn_fs_unparse_id (new_id, trail->pool);
-      return svn_error_createf
+      return svn_error_createf 
         (SVN_ERR_FS_ALREADY_EXISTS, 0, err, trail->pool,
-         "successor id `%s' (for `%s') already exists in filesystem %s",
+         "successor id `%s' (for `%s') already exists in filesystem %s",  
          new_id_str->data, id_str->data, fs->path);
     }
 
@@ -158,13 +158,13 @@ svn_fs__delete_nodes_entry (svn_fs_t *fs,
                             trail_t *trail)
 {
   DBT key;
-
+  
   SVN_ERR (DB_WRAP (fs, "deleting entry from `nodes' table",
                     fs->nodes->del (fs->nodes,
                                     trail->db_txn,
                                     svn_fs__id_to_dbt (&key, id, trail->pool),
                                     0)));
-
+  
   return SVN_NO_ERROR;
 }
 
@@ -235,7 +235,7 @@ svn_fs__put_node_revision (svn_fs_t *fs,
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../tools/dev/svn-dev.el")
  * end:

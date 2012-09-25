@@ -82,7 +82,7 @@ txn_body_delete_rep (void *baton, trail_t *trail)
 /* Representation Table Test functions. */
 
 static svn_error_t *
-write_new_rep (const char **msg,
+write_new_rep (const char **msg, 
                svn_boolean_t msg_only,
                apr_pool_t *pool)
 {
@@ -119,7 +119,7 @@ write_new_rep (const char **msg,
 
 
 static svn_error_t *
-write_rep (const char **msg,
+write_rep (const char **msg, 
            svn_boolean_t msg_only,
            apr_pool_t *pool)
 {
@@ -144,7 +144,7 @@ write_rep (const char **msg,
   new_args.key = NULL;
 
   /* Write new rep to reps table. */
-  SVN_ERR (svn_fs__retry_txn (new_args.fs,
+  SVN_ERR (svn_fs__retry_txn (new_args.fs, 
                               txn_body_write_new_rep, &new_args, pool));
 
   /* Make sure we got a valid key. */
@@ -158,7 +158,7 @@ write_rep (const char **msg,
   args.key = new_args.key;
 
   /* Overwrite first rep in reps table. */
-  SVN_ERR (svn_fs__retry_txn (new_args.fs,
+  SVN_ERR (svn_fs__retry_txn (new_args.fs, 
                               txn_body_write_rep, &args, pool));
 
   /* Close the filesystem. */
@@ -169,7 +169,7 @@ write_rep (const char **msg,
 
 
 static svn_error_t *
-read_rep (const char **msg,
+read_rep (const char **msg, 
           svn_boolean_t msg_only,
           apr_pool_t *pool)
 {
@@ -196,7 +196,7 @@ read_rep (const char **msg,
   new_args.key = NULL;
 
   /* Write new rep to reps table. */
-  SVN_ERR (svn_fs__retry_txn (new_args.fs,
+  SVN_ERR (svn_fs__retry_txn (new_args.fs, 
                               txn_body_write_new_rep, &new_args, pool));
 
   /* Make sure we got a valid key. */
@@ -208,47 +208,47 @@ read_rep (const char **msg,
   read_args.fs = new_args.fs;
   read_args.skel = NULL;
   read_args.key = new_args.key;
-  SVN_ERR (svn_fs__retry_txn (new_args.fs,
+  SVN_ERR (svn_fs__retry_txn (new_args.fs, 
                               txn_body_read_rep, &read_args, pool));
 
   /* Make sure the skel matches. */
   if (! read_args.skel)
     return svn_error_create (SVN_ERR_FS_GENERAL, 0, NULL, pool,
                              "error reading new representation");
-
+  
   skel_data = svn_fs__unparse_skel (read_args.skel, pool);
   if (strcmp (skel_data->data, new_rep))
     return svn_error_createf (SVN_ERR_FS_GENERAL, 0, NULL, pool,
                               "representation corrupted (\"%s\" != \"%s\")",
                               skel_data->data, new_rep);
-
+  
   /* Set up transaction baton for re-writing reps. */
   args.fs = new_args.fs;
   args.skel = svn_fs__parse_skel ((char *)rep, strlen (rep), pool);
   args.key = new_args.key;
 
   /* Overwrite first rep in reps table. */
-  SVN_ERR (svn_fs__retry_txn (new_args.fs,
+  SVN_ERR (svn_fs__retry_txn (new_args.fs, 
                               txn_body_write_rep, &args, pool));
 
   /* Read the new rep back from the reps table (using the same FS and
      key as the first read...let's make sure this thing didn't get
      written to the wrong place). */
   read_args.skel = NULL;
-  SVN_ERR (svn_fs__retry_txn (new_args.fs,
+  SVN_ERR (svn_fs__retry_txn (new_args.fs, 
                               txn_body_read_rep, &read_args, pool));
 
   /* Make sure the skel matches. */
   if (! read_args.skel)
     return svn_error_create (SVN_ERR_FS_GENERAL, 0, NULL, pool,
                              "error reading new representation");
-
+  
   skel_data = svn_fs__unparse_skel (read_args.skel, pool);
   if (strcmp (skel_data->data, rep))
     return svn_error_createf (SVN_ERR_FS_GENERAL, 0, NULL, pool,
                               "representation corrupted (\"%s\" != \"%s\")",
                               skel_data->data, rep);
-
+  
   /* Close the filesystem. */
   SVN_ERR (svn_fs_close_fs (fs));
 
@@ -257,7 +257,7 @@ read_rep (const char **msg,
 
 
 static svn_error_t *
-delete_rep (const char **msg,
+delete_rep (const char **msg, 
             svn_boolean_t msg_only,
             apr_pool_t *pool)
 {
@@ -283,7 +283,7 @@ delete_rep (const char **msg,
   new_args.key = NULL;
 
   /* Write new rep to reps table. */
-  SVN_ERR (svn_fs__retry_txn (new_args.fs,
+  SVN_ERR (svn_fs__retry_txn (new_args.fs, 
                               txn_body_write_new_rep, &new_args, pool));
 
   /* Make sure we got a valid key. */
@@ -294,21 +294,21 @@ delete_rep (const char **msg,
   /* Delete the rep we just wrote. */
   delete_args.fs = new_args.fs;
   delete_args.key = new_args.key;
-  SVN_ERR (svn_fs__retry_txn (new_args.fs,
+  SVN_ERR (svn_fs__retry_txn (new_args.fs, 
                               txn_body_delete_rep, &delete_args, pool));
 
   /* Try to read the new rep back from the reps table. */
   read_args.fs = new_args.fs;
   read_args.skel = NULL;
   read_args.key = new_args.key;
-  err = svn_fs__retry_txn (new_args.fs,
+  err = svn_fs__retry_txn (new_args.fs, 
                            txn_body_read_rep, &read_args, pool);
 
   /* We better have an error... */
   if ((! err) && (read_args.skel))
     return svn_error_create (SVN_ERR_FS_GENERAL, 0, NULL, pool,
                              "error deleting representation");
-
+  
   /* Close the filesystem. */
   SVN_ERR (svn_fs_close_fs (fs));
 
@@ -320,8 +320,8 @@ delete_rep (const char **msg,
 /* Helper functions and batons for strings-table testing. */
 
 static svn_error_t *
-verify_expected_record (svn_fs_t *fs,
-                        const char *key,
+verify_expected_record (svn_fs_t *fs, 
+                        const char *key, 
                         const char *expected_text,
                         apr_size_t expected_len,
                         trail_t *trail)
@@ -388,7 +388,7 @@ static svn_error_t *
 txn_body_string_append (void *baton, trail_t *trail)
 {
   struct string_args *b = (struct string_args *) baton;
-  return svn_fs__string_append (b->fs, &(b->key), b->len,
+  return svn_fs__string_append (b->fs, &(b->key), b->len, 
                                 b->text, trail);
 }
 
@@ -421,7 +421,7 @@ static svn_error_t *
 txn_body_string_append_fail (void *baton, trail_t *trail)
 {
   struct string_args *b = (struct string_args *) baton;
-  SVN_ERR (svn_fs__string_append (b->fs, &(b->key), b->len,
+  SVN_ERR (svn_fs__string_append (b->fs, &(b->key), b->len, 
                                   b->text, trail));
   return svn_error_create (SVN_ERR_TEST_FAILED, 0, NULL, trail->pool,
                            "la dee dah, la dee day...");
@@ -474,7 +474,7 @@ static const char *bigstring3 =
 
 
 static svn_error_t *
-test_strings (const char **msg,
+test_strings (const char **msg, 
               svn_boolean_t msg_only,
               apr_pool_t *pool)
 {
@@ -499,7 +499,7 @@ test_strings (const char **msg,
      3.  Clear string.
      4.  Append string3 to string.
      5.  Delete string (verify by size requested failure).
-     6.  Write a new string (string1), appending string2, string3, and
+     6.  Write a new string (string1), appending string2, string3, and 
          string4.
   */
 
@@ -508,7 +508,7 @@ test_strings (const char **msg,
   args.key = NULL;
   args.text = bigstring1;
   args.len = strlen (bigstring1);
-  SVN_ERR (svn_fs__retry_txn (args.fs,
+  SVN_ERR (svn_fs__retry_txn (args.fs, 
                               txn_body_string_append, &args, pool));
 
   /* Make sure a key was returned. */
@@ -517,45 +517,45 @@ test_strings (const char **msg,
                              "write of new string failed to return new key");
 
   /* Verify record's size and contents. */
-  SVN_ERR (svn_fs__retry_txn (args.fs,
+  SVN_ERR (svn_fs__retry_txn (args.fs, 
                               txn_body_verify_string, &args, pool));
 
   /* Append a second string to our first one. */
   args.text = bigstring2;
   args.len = strlen (bigstring2);
-  SVN_ERR (svn_fs__retry_txn (args.fs,
+  SVN_ERR (svn_fs__retry_txn (args.fs, 
                               txn_body_string_append, &args, pool));
-
+  
   /* Verify record's size and contents. */
   string = svn_stringbuf_create (bigstring1, pool);
   svn_stringbuf_appendcstr (string, bigstring2);
   args.text = string->data;
   args.len = string->len;
-  SVN_ERR (svn_fs__retry_txn (args.fs,
+  SVN_ERR (svn_fs__retry_txn (args.fs, 
                               txn_body_verify_string, &args, pool));
 
   /* Clear the record */
-  SVN_ERR (svn_fs__retry_txn (args.fs,
+  SVN_ERR (svn_fs__retry_txn (args.fs, 
                               txn_body_string_clear, &args, pool));
 
   /* Verify record's size and contents. */
   args.text = "";
   args.len = 0;
-  SVN_ERR (svn_fs__retry_txn (args.fs,
+  SVN_ERR (svn_fs__retry_txn (args.fs, 
                               txn_body_verify_string, &args, pool));
 
   /* Append a third string to our first one. */
   args.text = bigstring3;
   args.len = strlen (bigstring3);
-  SVN_ERR (svn_fs__retry_txn (args.fs,
+  SVN_ERR (svn_fs__retry_txn (args.fs, 
                               txn_body_string_append, &args, pool));
 
   /* Verify record's size and contents. */
-  SVN_ERR (svn_fs__retry_txn (args.fs,
+  SVN_ERR (svn_fs__retry_txn (args.fs, 
                               txn_body_verify_string, &args, pool));
 
   /* Delete our record...she's served us well. */
-  SVN_ERR (svn_fs__retry_txn (args.fs,
+  SVN_ERR (svn_fs__retry_txn (args.fs, 
                               txn_body_string_delete, &args, pool));
 
   /* Now, we expect a size request on this record to fail with
@@ -581,7 +581,7 @@ test_strings (const char **msg,
 
 
 static svn_error_t *
-write_null_string (const char **msg,
+write_null_string (const char **msg, 
                    svn_boolean_t msg_only,
                    apr_pool_t *pool)
 {
@@ -608,7 +608,7 @@ write_null_string (const char **msg,
 
 
 static svn_error_t *
-abort_string (const char **msg,
+abort_string (const char **msg, 
               svn_boolean_t msg_only,
               apr_pool_t *pool)
 {
@@ -636,7 +636,7 @@ abort_string (const char **msg,
   args.key = NULL;
   args.text = bigstring1;
   args.len = strlen (bigstring1);
-  SVN_ERR (svn_fs__retry_txn (args.fs,
+  SVN_ERR (svn_fs__retry_txn (args.fs, 
                               txn_body_string_append, &args, pool));
 
   /* Make sure a key was returned. */
@@ -645,7 +645,7 @@ abort_string (const char **msg,
                              "write of new string failed to return new key");
 
   /* Verify record's size and contents. */
-  SVN_ERR (svn_fs__retry_txn (args.fs,
+  SVN_ERR (svn_fs__retry_txn (args.fs, 
                               txn_body_verify_string, &args, pool));
 
   /* Append a second string to our first one. */
@@ -657,15 +657,15 @@ abort_string (const char **msg,
     svn_error_t *err;
 
     /* This function is *supposed* to fail with SVN_ERR_TEST_FAILED */
-    err = svn_fs__retry_txn (args.fs, txn_body_string_append_fail,
+    err = svn_fs__retry_txn (args.fs, txn_body_string_append_fail, 
                              &args2, pool);
     if ((! err) || (err->apr_err != SVN_ERR_TEST_FAILED))
       return svn_error_create (SVN_ERR_TEST_FAILED, 0, NULL, pool,
                                "failed to intentionally abort a trail.");
   }
-
+  
   /* Verify that record's size and contents are still that of string1 */
-  SVN_ERR (svn_fs__retry_txn (args.fs,
+  SVN_ERR (svn_fs__retry_txn (args.fs, 
                               txn_body_verify_string, &args, pool));
 
   /* Close the filesystem. */
@@ -676,7 +676,7 @@ abort_string (const char **msg,
 }
 
 static svn_error_t *
-copy_string (const char **msg,
+copy_string (const char **msg, 
              svn_boolean_t msg_only,
              apr_pool_t *pool)
 {
@@ -698,7 +698,7 @@ copy_string (const char **msg,
   args.key = NULL;
   args.text = bigstring1;
   args.len = strlen (bigstring1);
-  SVN_ERR (svn_fs__retry_txn (args.fs,
+  SVN_ERR (svn_fs__retry_txn (args.fs, 
                               txn_body_string_append, &args, pool));
 
   /* Make sure a key was returned. */
@@ -707,7 +707,7 @@ copy_string (const char **msg,
                              "write of new string failed to return new key");
 
   /* Now copy that string into a new location. */
-  SVN_ERR (svn_fs__retry_txn (args.fs,
+  SVN_ERR (svn_fs__retry_txn (args.fs, 
                               txn_body_string_copy, &args, pool));
 
   /* Make sure a different key was returned. */
@@ -716,7 +716,7 @@ copy_string (const char **msg,
                              "copy of string failed to return new key");
 
   /* Verify record's size and contents. */
-  SVN_ERR (svn_fs__retry_txn (args.fs,
+  SVN_ERR (svn_fs__retry_txn (args.fs, 
                               txn_body_verify_string, &args, pool));
 
   /* Close the filesystem. */
@@ -746,7 +746,7 @@ struct svn_test_descriptor_t test_funcs[] =
 
 
 
-/*
+/* 
  * local variables:
  * eval: (load-file "../../../tools/dev/svn-dev.el")
  * end:
