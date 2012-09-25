@@ -69,7 +69,7 @@ blame_create (struct diff_baton *baton, struct rev *rev, apr_off_t start)
   else
     blame = apr_palloc (baton->pool, sizeof (*blame));
   blame->rev = rev;
-  blame->start = start;
+  blame->start = start;       
   blame->next = NULL;
   return blame;
 }
@@ -210,11 +210,11 @@ output_diff_modified (void *baton,
 struct log_message_baton {
   const char *path;        /* The path to be processed */
   struct rev *eldest;      /* The eldest revision processed */
-  char action;             /* The action associated with the eldest */
+  char action;             /* The action associated with the eldest */ 
   svn_revnum_t copyrev;    /* The revision the eldest was copied from */
-  svn_cancel_func_t cancel_func; /* cancellation callback */
+  svn_cancel_func_t cancel_func; /* cancellation callback */ 
   void *cancel_baton;            /* cancellation baton */
-  apr_pool_t *pool;
+  apr_pool_t *pool; 
 };
 
 const svn_diff_output_fns_t output_fns = {
@@ -255,7 +255,7 @@ log_message_receiver (void *baton,
   change = apr_hash_get (changed_paths, lmb->path, APR_HASH_KEY_STRING);
   if (change)
     {
-      lmb->action = change->action;
+      lmb->action = change->action; 
       lmb->copyrev = change->copyfrom_rev;
       if (change->copyfrom_path)
         lmb->path = apr_pstrdup (lmb->pool, change->copyfrom_path);
@@ -299,12 +299,12 @@ log_message_receiver (void *baton,
                      this change's path, to the change's copyfrom path.  */
                   lmb->action = change->action;
                   lmb->copyrev = change->copyfrom_rev;
-                  lmb->path = svn_path_join (change->copyfrom_path,
+                  lmb->path = svn_path_join (change->copyfrom_path, 
                                              lmb->path + len + 1,
                                              lmb->pool);
                   return SVN_NO_ERROR;
                 }
-
+              
               /* Nope.  No copyfrom data.  That's okay, we'll keep
                  looking. */
             }
@@ -347,7 +347,7 @@ svn_client_blame (const char *target,
   const char *reposURL;
   struct log_message_baton lmb;
   apr_array_header_t *condensed_targets;
-  svn_ra_plugin_t *ra_lib;
+  svn_ra_plugin_t *ra_lib; 
   void *ra_baton, *session;
   const char *url;
   svn_revnum_t start_revnum, end_revnum;
@@ -490,7 +490,7 @@ svn_client_blame (const char *target,
       const char *temp_dir;
       apr_hash_t *props;
       svn_string_t *mimetype;
-
+      
       apr_pool_clear (currpool);
       SVN_ERR (svn_io_temp_dir (&temp_dir, currpool));
       SVN_ERR (svn_io_open_unique_file (&file, &tmp,
@@ -507,12 +507,12 @@ svn_client_blame (const char *target,
       SVN_ERR (svn_io_file_close (file, currpool));
 
       /* If this file has a non-textual mime-type, bail out. */
-      if (props &&
-          ((mimetype = apr_hash_get (props, SVN_PROP_MIME_TYPE,
+      if (props && 
+          ((mimetype = apr_hash_get (props, SVN_PROP_MIME_TYPE, 
                                      sizeof (SVN_PROP_MIME_TYPE) - 1))))
         {
           if (svn_mime_type_is_binary (mimetype->data))
-            return svn_error_createf
+            return svn_error_createf 
               (SVN_ERR_UNSUPPORTED_FEATURE, 0,
                "Cannot calculate blame information for binary file '%s'",
                target);
