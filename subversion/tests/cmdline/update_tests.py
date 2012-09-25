@@ -3477,7 +3477,7 @@ def update_copied_from_replaced_and_changed(sbox):
   # Modify fn2.
   fn2_final_contents = "I have new contents for the middle file."
   svntest.main.file_write(fn2_path, fn2_final_contents)
-
+  
   # Commit the changes, creating r3.
   expected_output = svntest.wc.State(wc_dir, {
     fn2_relpath : Item(verb='Sending'),

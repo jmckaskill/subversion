@@ -616,14 +616,14 @@ svn_opt_parse_revision2(apr_array_header_t **ranges_to_merge,
                         apr_pool_t *pool)
 {
   svn_opt_revision_range_t *range = apr_palloc(pool, sizeof(*range));
-
+  
   range->start.kind = svn_opt_revision_unspecified;
   range->end.kind = svn_opt_revision_unspecified;
 
   if (svn_opt_parse_revision(&(range->start), &(range->end),
                              arg, pool) == -1)
     return -1;
-
+  
   APR_ARRAY_PUSH(*ranges_to_merge, svn_opt_revision_range_t *) = range;
   return 0;
 }
