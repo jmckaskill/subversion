@@ -162,7 +162,7 @@ svn_txdelta_apply_wrapper(svn_stream_t *source,
   svn_txdelta_apply(source, target, result_digest, error_info,
                     pool, handler, handler_baton);
 }
-
+ 
 static void
 svn_txdelta_to_svndiff_wrapper(svn_stream_t *output,
                                svn_txdelta_window_handler_t *handler,
@@ -171,7 +171,7 @@ svn_txdelta_to_svndiff_wrapper(svn_stream_t *output,
 {
   svn_txdelta_to_svndiff(output, pool, handler, handler_baton);
 }
-
+ 
 static svn_error_t *
 svn_txdelta_invoke_window_handler(VALUE window_handler,
                                   svn_txdelta_window_t *window,
@@ -180,7 +180,7 @@ svn_txdelta_invoke_window_handler(VALUE window_handler,
   return svn_swig_rb_invoke_txdelta_window_handler(window_handler,
                                                    window, pool);
 }
-
+ 
 static svn_error_t *
 svn_txdelta_invoke_window_handler_wrapper(VALUE obj,
                                           svn_txdelta_window_t *window,
@@ -188,7 +188,7 @@ svn_txdelta_invoke_window_handler_wrapper(VALUE obj,
 {
   return svn_swig_rb_invoke_txdelta_window_handler_wrapper(obj, window, pool);
 }
-
+ 
 static const char *
 svn_txdelta_md5_digest_as_cstring(svn_txdelta_stream_t *stream,
                                   apr_pool_t *pool)
@@ -203,7 +203,7 @@ svn_txdelta_md5_digest_as_cstring(svn_txdelta_stream_t *stream,
     return NULL;
   }
 }
-
+ 
 %}
 #endif
 
