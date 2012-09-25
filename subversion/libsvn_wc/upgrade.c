@@ -1381,7 +1381,7 @@ svn_wc__upgrade_conflict_skel_from_raw(svn_skel_t **conflicts,
 {
   svn_skel_t *conflict_data = NULL;
   const char *wcroot_abspath;
-
+  
   SVN_ERR(svn_wc__db_get_wcroot(&wcroot_abspath, db, wri_abspath,
                                 scratch_pool, scratch_pool));
 
