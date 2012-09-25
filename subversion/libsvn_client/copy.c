@@ -641,9 +641,9 @@ find_absent_parents1(svn_ra_session_t *ra_session,
    found. Push each nonexistent URL onto the array NEW_DIRS,
    allocating in POOL.  Raise an error if the existing node is not a
    directory.
-
+ 
    Set *TOP_DST_URL and the RA session's root to the existing node's URL.
-
+  
    ### Multiple requests for HEAD (SVN_INVALID_REVNUM) make this
    ### implementation susceptible to race conditions.  */
 static svn_error_t *
