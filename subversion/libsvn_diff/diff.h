@@ -75,7 +75,7 @@ svn_diff__lcs(svn_diff__position_t *position_list1, /* pointer to tail (ring) */
               svn_diff__position_t *position_list2, /* pointer to tail (ring) */
 	      apr_pool_t *pool);
 
-
+			    
 
 /*
  * Support functions to build a tree of token positions
