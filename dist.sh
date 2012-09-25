@@ -118,7 +118,7 @@ for name in doc/programmer/design/svn-design.info   \
             doc/programmer/design/svn-design.html   \
             doc/programmer/design/svn-design.txt    \
             doc/book/book/*.html                    \
-            doc/book/book/*.pdf
+            doc/book/book/*.pdf                     
 do
    cp "$name" "$DISTPATH/$name"
 done
@@ -127,12 +127,12 @@ echo "Copying images into sandbox..."
 cp -r "doc/book/book/images/" "$DISTPATH/doc/book/book/images/"
 
 cat > "$DISTPATH/ChangeLog.CVS" <<EOF
-The old CVS ChangeLog is kept at
+The old CVS ChangeLog is kept at 
 
      http://subversion.tigris.org/
 
 If you want to see changes since Subversion went self-hosting,
-you probably want to use the "svn log" command -- and if it
+you probably want to use the "svn log" command -- and if it 
 does not do what you need, please send in a patch!
 EOF
 

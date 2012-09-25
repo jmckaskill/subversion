@@ -41,11 +41,11 @@ svn_ra_local__split_URL (svn_repos_t **repos,
 
   /* First, check for the "file://" prefix. */
   if (strncmp (URL, "file://", 7) != 0)
-    return svn_error_createf
-      (SVN_ERR_RA_ILLEGAL_URL, NULL,
+    return svn_error_createf 
+      (SVN_ERR_RA_ILLEGAL_URL, NULL, 
        "svn_ra_local__split_URL: URL does not contain `file://' prefix\n"
        "   (%s)", URL);
-
+  
   /* Then, skip what's between the "file://" prefix and the next
      occurance of '/' -- this is the hostname, and we are considering
      everything from that '/' until the end of the URL to be the
@@ -53,8 +53,8 @@ svn_ra_local__split_URL (svn_repos_t **repos,
   hostname = URL + 7;
   path = strchr (hostname, '/');
   if (! path)
-    return svn_error_createf
-      (SVN_ERR_RA_ILLEGAL_URL, NULL,
+    return svn_error_createf 
+      (SVN_ERR_RA_ILLEGAL_URL, NULL, 
        "svn_ra_local__split_URL: URL contains only a hostname, no path\n"
        "   (%s)", URL);
 
@@ -62,7 +62,7 @@ svn_ra_local__split_URL (svn_repos_t **repos,
      string and 'localhost' */
   if ((hostname != path) && (strncmp (hostname, "localhost/", 10) != 0))
     return svn_error_createf
-      (SVN_ERR_RA_ILLEGAL_URL, NULL,
+      (SVN_ERR_RA_ILLEGAL_URL, NULL, 
        "svn_ra_local__split_URL: URL contains unsupported hostname\n"
        "   (%s)", URL);
 
@@ -102,14 +102,14 @@ svn_ra_local__split_URL (svn_repos_t **repos,
   /* Search for a repository in the full path. */
   repos_root = svn_repos_find_root_path(repos_root, pool);
   if (!repos_root)
-    return svn_error_createf
+    return svn_error_createf 
       (SVN_ERR_RA_LOCAL_REPOS_OPEN_FAILED, NULL,
        "Unable to open repository '%s'", URL);
 
   /* Attempt to open a repository at URL. */
   err = svn_repos_open (repos, repos_root, pool);
   if (err)
-    return svn_error_createf
+    return svn_error_createf 
       (SVN_ERR_RA_LOCAL_REPOS_OPEN_FAILED, err,
        "Unable to open repository '%s'", URL);
 

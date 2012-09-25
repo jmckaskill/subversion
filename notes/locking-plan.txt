@@ -16,7 +16,7 @@ Accomplishing two goals:
         as MS Office and OpenOffice.
 
    2. Exclusive and advisory locking for regular svn clients.
-
+ 
         Many, many people want this feature.
 
 ------------------------
@@ -34,13 +34,13 @@ DAV Lock-Object:
 
 * locks are not secret!  none of the fields, not even the 'token' field.
 
-* create a new 'lock' table in our db schema.
+* create a new 'lock' table in our db schema.  
    fields:  [path, owner, scope, type, depth, lock-id, txn-name]
    'path' always implicitly refers to path in HEAD.  locks always imply HEAD.
 
 * define new fs lock-object as an opaque baton.
 
-* svn_fs_lock(path, scope, owner, depth, type)
+* svn_fs_lock(path, scope, owner, depth, type) 
     ==> returns a lock-object.
   Creates a txn if necessary (i.e. in the case of an exclusive lock)
   [Possible lazy optimization:  don't create txn till first write happens]
@@ -52,7 +52,7 @@ DAV Lock-Object:
    - do the infinity check ???
    - do the write to the txn.
 
-  else:
+  else: 
   -  do the write to the txn, but make sure no exclusive locks
      already exist on the path, else throw error.
 
@@ -128,7 +128,7 @@ so we punted for now.]
 * 'svn lockrecover' re-fetches the lock-id back into the working copy,
   in case you've checked out (or are using) a new working copy.
 
-* breaking of locks:
+* breaking of locks:  
 
     1.  implement 'svnadmin rmlock'
     2.  server-side config decides whether users can break locks.
