@@ -803,7 +803,7 @@ main(int argc, const char **argv)
             }
 
           else
-            {
+            { 
               SVNRDUMP_ERR(help_cmd(NULL, NULL, pool));
               svn_pool_destroy(pool);
               exit(EXIT_FAILURE);
@@ -893,7 +893,7 @@ main(int argc, const char **argv)
       if (! svn_path_is_url(repos_url))
         {
           err = svn_error_createf(SVN_ERR_CL_ARG_PARSING_ERROR, 0,
-                                  "Target '%s' is not a URL",
+                                  "Target '%s' is not a URL", 
                                   repos_url);
           SVNRDUMP_ERR(err);
           svn_pool_destroy(pool);
