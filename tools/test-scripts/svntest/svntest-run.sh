@@ -78,7 +78,7 @@ then
         PASS
     }
 fi
-
+        
 # Prepare the server
 case $CHECK_TARGET in
     check)
@@ -133,7 +133,7 @@ kill_svnserve() {
             PASS
             ;;
     esac
-
+    
     umount_ramdisk "$TEST_ROOT/$OBJ/subversion/tests"
 }
 
@@ -147,7 +147,7 @@ if test $CHECK_TARGET == davcheck ;
 then
     # At the moment we can't give repository url with
     # make davcheck, so use check & BASE_URL here for the present
-    $MAKE check "$CHECK_ARGS" > $CHECK_LOG_FILE 2>&1
+    $MAKE check "$CHECK_ARGS" > $CHECK_LOG_FILE 2>&1    
 else
     $MAKE $CHECK_TARGET > $CHECK_LOG_FILE 2>&1
 fi

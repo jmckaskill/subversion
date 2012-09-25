@@ -107,7 +107,7 @@ Tools for Subversion.
 %changelog
 * Wed Jul 07 2004 David Summers <david@summersoft.fay.ar.us> 1.0.6-10174
 - Require neon-0.24.7 to fix invalid XML (compression) bug.
-
+                                                                                
 * Thu May 20 2004 Ben Reser <ben@reser.org> 1.0.4-9807
 - Require neon 0.24.6 to fix a security bug.  (CAN-2004-0398).
 
@@ -288,7 +288,7 @@ Tools for Subversion.
 - Updated to apache-2.0.32-0.2. (Requires apache-libapr and apache-libapr-util).
 - Took out a (now non-existant) documentation file.
 - Moved SPEC file changelog to after all package definitions.
-
+  
 * Sun Feb 03 2002 David Summers <david@summersoft.fay.ar.us> 0.8.0-1153
 - Updated to neon-0.18.5.
 - Broke up apache and apache-devel into apache-apr, apache-apr-devel,
